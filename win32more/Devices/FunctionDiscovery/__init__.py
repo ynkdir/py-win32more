@@ -1,16 +1,15 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Devices.FunctionDiscovery
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -24,272 +23,632 @@ FD_EVENTID_ASYNCTHREADEXIT = 1001
 FD_EVENTID_SEARCHSTART = 1002
 FD_EVENTID_IPADDRESSCHANGE = 1003
 FD_EVENTID_QUERYREFRESH = 1004
-SID_PnpProvider = '8101368e-cabb-4426-acff-96c410812000'
-SID_UPnPActivator = '0d0d66eb-cf74-4164-b52f-08344672dd46'
-SID_EnumInterface = '40eab0b9-4d7f-4b53-a334-1581dd9041f4'
-SID_PNPXPropertyStore = 'a86530b1-542f-439f-b71c-b0756b13677a'
-SID_PNPXAssociation = 'cee8ccc9-4f6b-4469-a235-5a22869eef03'
-SID_PNPXServiceCollection = '439e80ee-a217-4712-9fa6-deabd9c2a727'
-SID_FDPairingHandler = '383b69fa-5486-49da-91f5-d63c24c8e9d0'
-SID_EnumDeviceFunction = '13e0e9e2-c3fa-4e3c-906e-64502fa4dc95'
-SID_UnpairProvider = '89a502fc-857b-4698-a0b7-027192002f9e'
-SID_DeviceDisplayStatusManager = 'f59aa553-8309-46ca-9736-1ac3c62d6031'
-SID_FunctionDiscoveryProviderRefresh = '2b4cbdc9-31c4-40d4-a62d-772aa174ed52'
-SID_UninstallDeviceFunction = 'c920566e-5671-4496-8025-bf0b89bd44cd'
-PKEY_FunctionInstance = PROPERTYKEY(Fmtid='08c0c253-a154-4746-9005-82de5317148b', Pid=1)
-FMTID_FD = '904b03a2-471d-423c-a584-f3483238a146'
+def _define_SID_PnpProvider():
+    return Guid('8101368e-cabb-4426-ac-ff-96-c4-10-81-20-00')
+def _define_SID_UPnPActivator():
+    return Guid('0d0d66eb-cf74-4164-b5-2f-08-34-46-72-dd-46')
+def _define_SID_EnumInterface():
+    return Guid('40eab0b9-4d7f-4b53-a3-34-15-81-dd-90-41-f4')
+def _define_SID_PNPXPropertyStore():
+    return Guid('a86530b1-542f-439f-b7-1c-b0-75-6b-13-67-7a')
+def _define_SID_PNPXAssociation():
+    return Guid('cee8ccc9-4f6b-4469-a2-35-5a-22-86-9e-ef-03')
+def _define_SID_PNPXServiceCollection():
+    return Guid('439e80ee-a217-4712-9f-a6-de-ab-d9-c2-a7-27')
+def _define_SID_FDPairingHandler():
+    return Guid('383b69fa-5486-49da-91-f5-d6-3c-24-c8-e9-d0')
+def _define_SID_EnumDeviceFunction():
+    return Guid('13e0e9e2-c3fa-4e3c-90-6e-64-50-2f-a4-dc-95')
+def _define_SID_UnpairProvider():
+    return Guid('89a502fc-857b-4698-a0-b7-02-71-92-00-2f-9e')
+def _define_SID_DeviceDisplayStatusManager():
+    return Guid('f59aa553-8309-46ca-97-36-1a-c3-c6-2d-60-31')
+def _define_SID_FunctionDiscoveryProviderRefresh():
+    return Guid('2b4cbdc9-31c4-40d4-a6-2d-77-2a-a1-74-ed-52')
+def _define_SID_UninstallDeviceFunction():
+    return Guid('c920566e-5671-4496-80-25-bf-0b-89-bd-44-cd')
+def _define_PKEY_FunctionInstance():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('08c0c253-a154-4746-90-05-82-de-53-17-14-8b'), pid=1)
+def _define_FMTID_FD():
+    return Guid('904b03a2-471d-423c-a5-84-f3-48-32-38-a1-46')
 FD_Visibility_Default = 0
 FD_Visibility_Hidden = 1
-FMTID_Device = '78c34fc8-104a-4aca-9ea4-524d52996e57'
-FMTID_DeviceInterface = '53808008-07bb-4661-bc3c-b5953e708560'
-PKEY_DeviceDisplay_Address = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=51)
-PKEY_DeviceDisplay_DiscoveryMethod = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=52)
-PKEY_DeviceDisplay_IsEncrypted = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=53)
-PKEY_DeviceDisplay_IsAuthenticated = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=54)
-PKEY_DeviceDisplay_IsConnected = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=55)
-PKEY_DeviceDisplay_IsPaired = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=56)
-PKEY_DeviceDisplay_Icon = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=57)
-PKEY_DeviceDisplay_Version = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=65)
-PKEY_DeviceDisplay_Last_Seen = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=66)
-PKEY_DeviceDisplay_Last_Connected = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=67)
-PKEY_DeviceDisplay_IsShowInDisconnectedState = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=68)
-PKEY_DeviceDisplay_IsLocalMachine = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=70)
-PKEY_DeviceDisplay_MetadataPath = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=71)
-PKEY_DeviceDisplay_IsMetadataSearchInProgress = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=72)
-PKEY_DeviceDisplay_MetadataChecksum = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=73)
-PKEY_DeviceDisplay_IsNotInterestingForDisplay = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=74)
-PKEY_DeviceDisplay_LaunchDeviceStageOnDeviceConnect = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=76)
-PKEY_DeviceDisplay_LaunchDeviceStageFromExplorer = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=77)
-PKEY_DeviceDisplay_BaselineExperienceId = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=78)
-PKEY_DeviceDisplay_IsDeviceUniquelyIdentifiable = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=79)
-PKEY_DeviceDisplay_AssociationArray = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=80)
-PKEY_DeviceDisplay_DeviceDescription1 = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=81)
-PKEY_DeviceDisplay_DeviceDescription2 = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=82)
-PKEY_DeviceDisplay_IsNotWorkingProperly = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=83)
-PKEY_DeviceDisplay_IsSharedDevice = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=84)
-PKEY_DeviceDisplay_IsNetworkDevice = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=85)
-PKEY_DeviceDisplay_IsDefaultDevice = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=86)
-PKEY_DeviceDisplay_MetadataCabinet = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=87)
-PKEY_DeviceDisplay_RequiresPairingElevation = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=88)
-PKEY_DeviceDisplay_ExperienceId = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=89)
-PKEY_DeviceDisplay_Category = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=90)
-PKEY_DeviceDisplay_Category_Desc_Singular = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=91)
-PKEY_DeviceDisplay_Category_Desc_Plural = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=92)
-PKEY_DeviceDisplay_Category_Icon = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=93)
-PKEY_DeviceDisplay_CategoryGroup_Desc = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=94)
-PKEY_DeviceDisplay_CategoryGroup_Icon = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=95)
-PKEY_DeviceDisplay_PrimaryCategory = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=97)
-PKEY_DeviceDisplay_UnpairUninstall = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=98)
-PKEY_DeviceDisplay_RequiresUninstallElevation = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=99)
-PKEY_DeviceDisplay_DeviceFunctionSubRank = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=100)
-PKEY_DeviceDisplay_AlwaysShowDeviceAsConnected = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=101)
-PKEY_DeviceDisplay_FriendlyName = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12288)
-PKEY_DeviceDisplay_Manufacturer = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8192)
-PKEY_DeviceDisplay_ModelName = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8194)
-PKEY_DeviceDisplay_ModelNumber = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8195)
-PKEY_DeviceDisplay_InstallInProgress = PROPERTYKEY(Fmtid='83da6326-97a6-4088-9453-a1923f573b29', Pid=9)
-FMTID_Pairing = '8807cae6-7db6-4f10-8ee4-435eaa1392bc'
-PKEY_Pairing_ListItemText = PROPERTYKEY(Fmtid='8807cae6-7db6-4f10-8ee4-435eaa1392bc', Pid=1)
-PKEY_Pairing_ListItemDescription = PROPERTYKEY(Fmtid='8807cae6-7db6-4f10-8ee4-435eaa1392bc', Pid=2)
-PKEY_Pairing_ListItemIcon = PROPERTYKEY(Fmtid='8807cae6-7db6-4f10-8ee4-435eaa1392bc', Pid=3)
-PKEY_Pairing_ListItemDefault = PROPERTYKEY(Fmtid='8807cae6-7db6-4f10-8ee4-435eaa1392bc', Pid=4)
-PKEY_Pairing_IsWifiOnlyDevice = PROPERTYKEY(Fmtid='8807cae6-7db6-4f10-8ee4-435eaa1392bc', Pid=16)
-PKEY_Device_BIOSVersion = PROPERTYKEY(Fmtid='eaee7f1d-6a33-44d1-9441-5f46def23198', Pid=9)
-FMTID_WSD = '92506491-ff95-4724-a05a-5b81885a7c92'
-FMTID_PNPX = '656a3bb3-ecc0-43fd-8477-4ae0404a96cd'
-PKEY_PNPX_GlobalIdentity = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4096)
-PKEY_PNPX_Types = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4097)
-PKEY_PNPX_Scopes = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4098)
-PKEY_PNPX_XAddrs = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4099)
-PKEY_PNPX_MetadataVersion = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4100)
-PKEY_PNPX_ID = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4101)
-PKEY_PNPX_RemoteAddress = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4102)
-PKEY_PNPX_RootProxy = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=4103)
-PKEY_PNPX_ManufacturerUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8193)
-PKEY_PNPX_ModelUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8196)
-PKEY_PNPX_Upc = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8197)
-PKEY_PNPX_PresentationUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8198)
-PKEY_PNPX_FirmwareVersion = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12289)
-PKEY_PNPX_SerialNumber = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12290)
-PKEY_PNPX_DeviceCategory = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12292)
-PKEY_PNPX_SecureChannel = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=28673)
-PKEY_PNPX_CompactSignature = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=28674)
-PKEY_PNPX_DeviceCertHash = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=28675)
-PKEY_PNPX_DeviceCategory_Desc = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12293)
-PKEY_PNPX_Category_Desc_NonPlural = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12304)
-PKEY_PNPX_PhysicalAddress = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12294)
-PKEY_PNPX_NetworkInterfaceLuid = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12295)
-PKEY_PNPX_NetworkInterfaceGuid = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12296)
-PKEY_PNPX_IpAddress = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12297)
-PKEY_PNPX_ServiceAddress = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16384)
-PKEY_PNPX_ServiceId = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16385)
-PKEY_PNPX_ServiceTypes = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16386)
-PKEY_PNPX_ServiceControlUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16388)
-PKEY_PNPX_ServiceDescUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16389)
-PKEY_PNPX_ServiceEventSubUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16390)
-PKEY_PNPX_DomainName = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=20480)
-PKEY_PNPX_ShareName = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=20482)
-PKEY_SSDP_AltLocationInfo = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=24576)
-PKEY_SSDP_DevLifeTime = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=24577)
-PKEY_SSDP_NetworkInterface = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=24578)
-FMTID_PNPXDynamicProperty = '4fc5077e-b686-44be-93e3-86cafe368ccd'
-PKEY_PNPX_Installable = PROPERTYKEY(Fmtid='4fc5077e-b686-44be-93e3-86cafe368ccd', Pid=1)
-PKEY_PNPX_Associated = PROPERTYKEY(Fmtid='4fc5077e-b686-44be-93e3-86cafe368ccd', Pid=2)
-PKEY_PNPX_CompatibleTypes = PROPERTYKEY(Fmtid='4fc5077e-b686-44be-93e3-86cafe368ccd', Pid=3)
-PKEY_PNPX_InstallState = PROPERTYKEY(Fmtid='4fc5077e-b686-44be-93e3-86cafe368ccd', Pid=4)
+def _define_FMTID_Device():
+    return Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57')
+def _define_FMTID_DeviceInterface():
+    return Guid('53808008-07bb-4661-bc-3c-b5-95-3e-70-85-60')
+def _define_PKEY_DeviceDisplay_Address():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=51)
+def _define_PKEY_DeviceDisplay_DiscoveryMethod():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=52)
+def _define_PKEY_DeviceDisplay_IsEncrypted():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=53)
+def _define_PKEY_DeviceDisplay_IsAuthenticated():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=54)
+def _define_PKEY_DeviceDisplay_IsConnected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=55)
+def _define_PKEY_DeviceDisplay_IsPaired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=56)
+def _define_PKEY_DeviceDisplay_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=57)
+def _define_PKEY_DeviceDisplay_Version():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=65)
+def _define_PKEY_DeviceDisplay_Last_Seen():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=66)
+def _define_PKEY_DeviceDisplay_Last_Connected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=67)
+def _define_PKEY_DeviceDisplay_IsShowInDisconnectedState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=68)
+def _define_PKEY_DeviceDisplay_IsLocalMachine():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=70)
+def _define_PKEY_DeviceDisplay_MetadataPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=71)
+def _define_PKEY_DeviceDisplay_IsMetadataSearchInProgress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=72)
+def _define_PKEY_DeviceDisplay_MetadataChecksum():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=73)
+def _define_PKEY_DeviceDisplay_IsNotInterestingForDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=74)
+def _define_PKEY_DeviceDisplay_LaunchDeviceStageOnDeviceConnect():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=76)
+def _define_PKEY_DeviceDisplay_LaunchDeviceStageFromExplorer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=77)
+def _define_PKEY_DeviceDisplay_BaselineExperienceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=78)
+def _define_PKEY_DeviceDisplay_IsDeviceUniquelyIdentifiable():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=79)
+def _define_PKEY_DeviceDisplay_AssociationArray():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=80)
+def _define_PKEY_DeviceDisplay_DeviceDescription1():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=81)
+def _define_PKEY_DeviceDisplay_DeviceDescription2():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=82)
+def _define_PKEY_DeviceDisplay_IsNotWorkingProperly():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=83)
+def _define_PKEY_DeviceDisplay_IsSharedDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=84)
+def _define_PKEY_DeviceDisplay_IsNetworkDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=85)
+def _define_PKEY_DeviceDisplay_IsDefaultDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=86)
+def _define_PKEY_DeviceDisplay_MetadataCabinet():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=87)
+def _define_PKEY_DeviceDisplay_RequiresPairingElevation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=88)
+def _define_PKEY_DeviceDisplay_ExperienceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=89)
+def _define_PKEY_DeviceDisplay_Category():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=90)
+def _define_PKEY_DeviceDisplay_Category_Desc_Singular():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=91)
+def _define_PKEY_DeviceDisplay_Category_Desc_Plural():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=92)
+def _define_PKEY_DeviceDisplay_Category_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=93)
+def _define_PKEY_DeviceDisplay_CategoryGroup_Desc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=94)
+def _define_PKEY_DeviceDisplay_CategoryGroup_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=95)
+def _define_PKEY_DeviceDisplay_PrimaryCategory():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=97)
+def _define_PKEY_DeviceDisplay_UnpairUninstall():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=98)
+def _define_PKEY_DeviceDisplay_RequiresUninstallElevation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=99)
+def _define_PKEY_DeviceDisplay_DeviceFunctionSubRank():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=100)
+def _define_PKEY_DeviceDisplay_AlwaysShowDeviceAsConnected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=101)
+def _define_PKEY_DeviceDisplay_FriendlyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12288)
+def _define_PKEY_DeviceDisplay_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8192)
+def _define_PKEY_DeviceDisplay_ModelName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8194)
+def _define_PKEY_DeviceDisplay_ModelNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8195)
+def _define_PKEY_DeviceDisplay_InstallInProgress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('83da6326-97a6-4088-94-53-a1-92-3f-57-3b-29'), pid=9)
+def _define_FMTID_Pairing():
+    return Guid('8807cae6-7db6-4f10-8e-e4-43-5e-aa-13-92-bc')
+def _define_PKEY_Pairing_ListItemText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8807cae6-7db6-4f10-8e-e4-43-5e-aa-13-92-bc'), pid=1)
+def _define_PKEY_Pairing_ListItemDescription():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8807cae6-7db6-4f10-8e-e4-43-5e-aa-13-92-bc'), pid=2)
+def _define_PKEY_Pairing_ListItemIcon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8807cae6-7db6-4f10-8e-e4-43-5e-aa-13-92-bc'), pid=3)
+def _define_PKEY_Pairing_ListItemDefault():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8807cae6-7db6-4f10-8e-e4-43-5e-aa-13-92-bc'), pid=4)
+def _define_PKEY_Pairing_IsWifiOnlyDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8807cae6-7db6-4f10-8e-e4-43-5e-aa-13-92-bc'), pid=16)
+DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH = 'Bluetooth'
+DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH_LE = 'Bluetooth Low Energy'
+DEVICEDISPLAY_DISCOVERYMETHOD_NETBIOS = 'NetBIOS'
+DEVICEDISPLAY_DISCOVERYMETHOD_AD_PRINTER = 'Published Printer'
+DEVICEDISPLAY_DISCOVERYMETHOD_PNP = 'PnP'
+DEVICEDISPLAY_DISCOVERYMETHOD_UPNP = 'UPnP'
+DEVICEDISPLAY_DISCOVERYMETHOD_WSD = 'WSD'
+DEVICEDISPLAY_DISCOVERYMETHOD_WUSB = 'WUSB'
+DEVICEDISPLAY_DISCOVERYMETHOD_WFD = 'WiFiDirect'
+DEVICEDISPLAY_DISCOVERYMETHOD_ASP_INFRA = 'AspInfra'
+def _define_PKEY_Device_BIOSVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('eaee7f1d-6a33-44d1-94-41-5f-46-de-f2-31-98'), pid=9)
+def _define_FMTID_WSD():
+    return Guid('92506491-ff95-4724-a0-5a-5b-81-88-5a-7c-92')
+def _define_FMTID_PNPX():
+    return Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd')
+def _define_PKEY_PNPX_GlobalIdentity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4096)
+def _define_PKEY_PNPX_Types():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4097)
+def _define_PKEY_PNPX_Scopes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4098)
+def _define_PKEY_PNPX_XAddrs():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4099)
+def _define_PKEY_PNPX_MetadataVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4100)
+def _define_PKEY_PNPX_ID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4101)
+def _define_PKEY_PNPX_RemoteAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4102)
+def _define_PKEY_PNPX_RootProxy():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=4103)
+def _define_PKEY_PNPX_ManufacturerUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8193)
+def _define_PKEY_PNPX_ModelUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8196)
+def _define_PKEY_PNPX_Upc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8197)
+def _define_PKEY_PNPX_PresentationUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8198)
+def _define_PKEY_PNPX_FirmwareVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12289)
+def _define_PKEY_PNPX_SerialNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12290)
+def _define_PKEY_PNPX_DeviceCategory():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12292)
+def _define_PKEY_PNPX_SecureChannel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=28673)
+def _define_PKEY_PNPX_CompactSignature():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=28674)
+def _define_PKEY_PNPX_DeviceCertHash():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=28675)
+PNPX_DEVICECATEGORY_COMPUTER = 'Computers'
+PNPX_DEVICECATEGORY_INPUTDEVICE = 'Input'
+PNPX_DEVICECATEGORY_PRINTER = 'Printers'
+PNPX_DEVICECATEGORY_SCANNER = 'Scanners'
+PNPX_DEVICECATEGORY_FAX = 'FAX'
+PNPX_DEVICECATEGORY_MFP = 'MFP'
+PNPX_DEVICECATEGORY_CAMERA = 'Cameras'
+PNPX_DEVICECATEGORY_STORAGE = 'Storage'
+PNPX_DEVICECATEGORY_NETWORK_INFRASTRUCTURE = 'NetworkInfrastructure'
+PNPX_DEVICECATEGORY_DISPLAYS = 'Displays'
+PNPX_DEVICECATEGORY_MULTIMEDIA_DEVICE = 'MediaDevices'
+PNPX_DEVICECATEGORY_GAMING_DEVICE = 'Gaming'
+PNPX_DEVICECATEGORY_TELEPHONE = 'Phones'
+PNPX_DEVICECATEGORY_HOME_AUTOMATION_SYSTEM = 'HomeAutomation'
+PNPX_DEVICECATEGORY_HOME_SECURITY_SYSTEM = 'HomeSecurity'
+PNPX_DEVICECATEGORY_OTHER = 'Other'
+def _define_PKEY_PNPX_DeviceCategory_Desc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12293)
+def _define_PKEY_PNPX_Category_Desc_NonPlural():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12304)
+def _define_PKEY_PNPX_PhysicalAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12294)
+def _define_PKEY_PNPX_NetworkInterfaceLuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12295)
+def _define_PKEY_PNPX_NetworkInterfaceGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12296)
+def _define_PKEY_PNPX_IpAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12297)
+def _define_PKEY_PNPX_ServiceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16384)
+def _define_PKEY_PNPX_ServiceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16385)
+def _define_PKEY_PNPX_ServiceTypes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16386)
+def _define_PKEY_PNPX_ServiceControlUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16388)
+def _define_PKEY_PNPX_ServiceDescUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16389)
+def _define_PKEY_PNPX_ServiceEventSubUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16390)
+def _define_PKEY_PNPX_DomainName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=20480)
+def _define_PKEY_PNPX_ShareName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=20482)
+def _define_PKEY_SSDP_AltLocationInfo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=24576)
+def _define_PKEY_SSDP_DevLifeTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=24577)
+def _define_PKEY_SSDP_NetworkInterface():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=24578)
+def _define_FMTID_PNPXDynamicProperty():
+    return Guid('4fc5077e-b686-44be-93-e3-86-ca-fe-36-8c-cd')
+def _define_PKEY_PNPX_Installable():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4fc5077e-b686-44be-93-e3-86-ca-fe-36-8c-cd'), pid=1)
+def _define_PKEY_PNPX_Associated():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4fc5077e-b686-44be-93-e3-86-ca-fe-36-8c-cd'), pid=2)
+def _define_PKEY_PNPX_CompatibleTypes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4fc5077e-b686-44be-93-e3-86-ca-fe-36-8c-cd'), pid=3)
+def _define_PKEY_PNPX_InstallState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4fc5077e-b686-44be-93-e3-86-ca-fe-36-8c-cd'), pid=4)
 PNPX_INSTALLSTATE_NOTINSTALLED = 0
 PNPX_INSTALLSTATE_INSTALLED = 1
 PNPX_INSTALLSTATE_INSTALLING = 2
 PNPX_INSTALLSTATE_FAILED = 3
-PKEY_PNPX_Removable = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=28672)
-PKEY_PNPX_IPBusEnumerated = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=28688)
-PKEY_WNET_Scope = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=1)
-PKEY_WNET_Type = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=2)
-PKEY_WNET_DisplayType = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=3)
-PKEY_WNET_Usage = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=4)
-PKEY_WNET_LocalName = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=5)
-PKEY_WNET_RemoteName = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=6)
-PKEY_WNET_Comment = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=7)
-PKEY_WNET_Provider = PROPERTYKEY(Fmtid='debda43a-37b3-4383-91e7-4498da2995ab', Pid=8)
-PKEY_WCN_Version = PROPERTYKEY(Fmtid='88190b80-4684-11da-a26a-0002b3988e81', Pid=1)
-PKEY_WCN_RequestType = PROPERTYKEY(Fmtid='88190b81-4684-11da-a26a-0002b3988e81', Pid=2)
-PKEY_WCN_AuthType = PROPERTYKEY(Fmtid='88190b82-4684-11da-a26a-0002b3988e81', Pid=3)
-PKEY_WCN_EncryptType = PROPERTYKEY(Fmtid='88190b83-4684-11da-a26a-0002b3988e81', Pid=4)
-PKEY_WCN_ConnType = PROPERTYKEY(Fmtid='88190b84-4684-11da-a26a-0002b3988e81', Pid=5)
-PKEY_WCN_ConfigMethods = PROPERTYKEY(Fmtid='88190b85-4684-11da-a26a-0002b3988e81', Pid=6)
-PKEY_WCN_RfBand = PROPERTYKEY(Fmtid='88190b87-4684-11da-a26a-0002b3988e81', Pid=8)
-PKEY_WCN_AssocState = PROPERTYKEY(Fmtid='88190b88-4684-11da-a26a-0002b3988e81', Pid=9)
-PKEY_WCN_ConfigError = PROPERTYKEY(Fmtid='88190b89-4684-11da-a26a-0002b3988e81', Pid=10)
-PKEY_WCN_ConfigState = PROPERTYKEY(Fmtid='88190b89-4684-11da-a26a-0002b3988e81', Pid=11)
-PKEY_WCN_DevicePasswordId = PROPERTYKEY(Fmtid='88190b89-4684-11da-a26a-0002b3988e81', Pid=12)
-PKEY_WCN_OSVersion = PROPERTYKEY(Fmtid='88190b89-4684-11da-a26a-0002b3988e81', Pid=13)
-PKEY_WCN_VendorExtension = PROPERTYKEY(Fmtid='88190b8a-4684-11da-a26a-0002b3988e81', Pid=14)
-PKEY_WCN_RegistrarType = PROPERTYKEY(Fmtid='88190b8b-4684-11da-a26a-0002b3988e81', Pid=15)
-PKEY_Hardware_Devinst = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=4097)
-PKEY_Hardware_DisplayAttribute = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=5)
-PKEY_Hardware_DriverDate = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=11)
-PKEY_Hardware_DriverProvider = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=10)
-PKEY_Hardware_DriverVersion = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=9)
-PKEY_Hardware_Function = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=4099)
-PKEY_Hardware_Icon = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=3)
-PKEY_Hardware_Image = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=4098)
-PKEY_Hardware_Manufacturer = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=6)
-PKEY_Hardware_Model = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=7)
-PKEY_Hardware_Name = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=2)
-PKEY_Hardware_SerialNumber = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=8)
-PKEY_Hardware_ShellAttributes = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=4100)
-PKEY_Hardware_Status = PROPERTYKEY(Fmtid='5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953', Pid=4096)
-PKEY_NAME = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=10)
-PKEY_Device_DeviceDesc = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=2)
-PKEY_Device_HardwareIds = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=3)
-PKEY_Device_CompatibleIds = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=4)
-PKEY_Device_Service = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=6)
-PKEY_Device_Class = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=9)
-PKEY_Device_ClassGuid = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=10)
-PKEY_Device_Driver = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=11)
-PKEY_Device_ConfigFlags = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=12)
-PKEY_Device_Manufacturer = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=13)
-PKEY_Device_FriendlyName = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=14)
-PKEY_Device_LocationInfo = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=15)
-PKEY_Device_PDOName = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=16)
-PKEY_Device_Capabilities = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=17)
-PKEY_Device_UINumber = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=18)
-PKEY_Device_UpperFilters = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=19)
-PKEY_Device_LowerFilters = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=20)
-PKEY_Device_BusTypeGuid = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=21)
-PKEY_Device_LegacyBusType = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=22)
-PKEY_Device_BusNumber = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=23)
-PKEY_Device_EnumeratorName = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=24)
-PKEY_Device_Security = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=25)
-PKEY_Device_SecuritySDS = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=26)
-PKEY_Device_DevType = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=27)
-PKEY_Device_Exclusive = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=28)
-PKEY_Device_Characteristics = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=29)
-PKEY_Device_Address = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=30)
-PKEY_Device_UINumberDescFormat = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=31)
-PKEY_Device_PowerData = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=32)
-PKEY_Device_RemovalPolicy = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=33)
-PKEY_Device_RemovalPolicyDefault = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=34)
-PKEY_Device_RemovalPolicyOverride = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=35)
-PKEY_Device_InstallState = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=36)
-PKEY_Device_LocationPaths = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=37)
-PKEY_Device_BaseContainerId = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=38)
-PKEY_Device_DevNodeStatus = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=2)
-PKEY_Device_ProblemCode = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=3)
-PKEY_Device_EjectionRelations = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=4)
-PKEY_Device_RemovalRelations = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=5)
-PKEY_Device_PowerRelations = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=6)
-PKEY_Device_BusRelations = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=7)
-PKEY_Device_Parent = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=8)
-PKEY_Device_Children = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=9)
-PKEY_Device_Siblings = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=10)
-PKEY_Device_TransportRelations = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=11)
-PKEY_Device_Reported = PROPERTYKEY(Fmtid='80497100-8c73-48b9-aad9-ce387e19c56e', Pid=2)
-PKEY_Device_Legacy = PROPERTYKEY(Fmtid='80497100-8c73-48b9-aad9-ce387e19c56e', Pid=3)
-PKEY_Device_InstanceId = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=256)
-PKEY_Device_ContainerId = PROPERTYKEY(Fmtid='8c7ed206-3f8a-4827-b3ab-ae9e1faefc6c', Pid=2)
-PKEY_Device_ModelId = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=2)
-PKEY_Device_FriendlyNameAttributes = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=3)
-PKEY_Device_ManufacturerAttributes = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=4)
-PKEY_Device_PresenceNotForDevice = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=5)
-PKEY_Device_SignalStrength = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=6)
-PKEY_Device_IsAssociateableByUserAction = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=7)
-PKEY_Numa_Proximity_Domain = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=1)
-PKEY_Device_DHP_Rebalance_Policy = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=2)
-PKEY_Device_Numa_Node = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=3)
-PKEY_Device_BusReportedDeviceDesc = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=4)
-PKEY_Device_InstallInProgress = PROPERTYKEY(Fmtid='83da6326-97a6-4088-9453-a1923f573b29', Pid=9)
-PKEY_Device_DriverDate = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=2)
-PKEY_Device_DriverVersion = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=3)
-PKEY_Device_DriverDesc = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=4)
-PKEY_Device_DriverInfPath = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=5)
-PKEY_Device_DriverInfSection = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=6)
-PKEY_Device_DriverInfSectionExt = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=7)
-PKEY_Device_MatchingDeviceId = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=8)
-PKEY_Device_DriverProvider = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=9)
-PKEY_Device_DriverPropPageProvider = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=10)
-PKEY_Device_DriverCoInstallers = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=11)
-PKEY_Device_ResourcePickerTags = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=12)
-PKEY_Device_ResourcePickerExceptions = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=13)
-PKEY_Device_DriverRank = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=14)
-PKEY_Device_DriverLogoLevel = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=15)
-PKEY_Device_NoConnectSound = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=17)
-PKEY_Device_GenericDriverInstalled = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=18)
-PKEY_Device_AdditionalSoftwareRequested = PROPERTYKEY(Fmtid='a8b865dd-2e3d-4094-ad97-e593a70c75d6', Pid=19)
-PKEY_Device_SafeRemovalRequired = PROPERTYKEY(Fmtid='afd97640-86a3-4210-b67c-289c41aabe55', Pid=2)
-PKEY_Device_SafeRemovalRequiredOverride = PROPERTYKEY(Fmtid='afd97640-86a3-4210-b67c-289c41aabe55', Pid=3)
-PKEY_DrvPkg_Model = PROPERTYKEY(Fmtid='cf73bb51-3abf-44a2-85e0-9a3dc7a12132', Pid=2)
-PKEY_DrvPkg_VendorWebSite = PROPERTYKEY(Fmtid='cf73bb51-3abf-44a2-85e0-9a3dc7a12132', Pid=3)
-PKEY_DrvPkg_DetailedDescription = PROPERTYKEY(Fmtid='cf73bb51-3abf-44a2-85e0-9a3dc7a12132', Pid=4)
-PKEY_DrvPkg_DocumentationLink = PROPERTYKEY(Fmtid='cf73bb51-3abf-44a2-85e0-9a3dc7a12132', Pid=5)
-PKEY_DrvPkg_Icon = PROPERTYKEY(Fmtid='cf73bb51-3abf-44a2-85e0-9a3dc7a12132', Pid=6)
-PKEY_DrvPkg_BrandingIcon = PROPERTYKEY(Fmtid='cf73bb51-3abf-44a2-85e0-9a3dc7a12132', Pid=7)
-PKEY_DeviceClass_UpperFilters = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=19)
-PKEY_DeviceClass_LowerFilters = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=20)
-PKEY_DeviceClass_Security = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=25)
-PKEY_DeviceClass_SecuritySDS = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=26)
-PKEY_DeviceClass_DevType = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=27)
-PKEY_DeviceClass_Exclusive = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=28)
-PKEY_DeviceClass_Characteristics = PROPERTYKEY(Fmtid='4321918b-f69e-470d-a5de-4d88c75ad24b', Pid=29)
-PKEY_DeviceClass_Name = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=2)
-PKEY_DeviceClass_ClassName = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=3)
-PKEY_DeviceClass_Icon = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=4)
-PKEY_DeviceClass_ClassInstaller = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=5)
-PKEY_DeviceClass_PropPageProvider = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=6)
-PKEY_DeviceClass_NoInstallClass = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=7)
-PKEY_DeviceClass_NoDisplayClass = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=8)
-PKEY_DeviceClass_SilentInstall = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=9)
-PKEY_DeviceClass_NoUseClass = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=10)
-PKEY_DeviceClass_DefaultService = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=11)
-PKEY_DeviceClass_IconPath = PROPERTYKEY(Fmtid='259abffc-50a7-47ce-af08-68c9a7d73366', Pid=12)
-PKEY_DeviceClass_ClassCoInstallers = PROPERTYKEY(Fmtid='713d1703-a2e2-49f5-9214-56472ef3da5c', Pid=2)
-PKEY_DeviceInterface_FriendlyName = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=2)
-PKEY_DeviceInterface_Enabled = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=3)
-PKEY_DeviceInterface_ClassGuid = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=4)
-PKEY_DeviceInterfaceClass_DefaultInterface = PROPERTYKEY(Fmtid='14c83a99-0b3f-44b7-be4c-a178d3990564', Pid=2)
+def _define_PKEY_PNPX_Removable():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=28672)
+def _define_PKEY_PNPX_IPBusEnumerated():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=28688)
+def _define_PKEY_WNET_Scope():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=1)
+def _define_PKEY_WNET_Type():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=2)
+def _define_PKEY_WNET_DisplayType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=3)
+def _define_PKEY_WNET_Usage():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=4)
+def _define_PKEY_WNET_LocalName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=5)
+def _define_PKEY_WNET_RemoteName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=6)
+def _define_PKEY_WNET_Comment():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=7)
+def _define_PKEY_WNET_Provider():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('debda43a-37b3-4383-91-e7-44-98-da-29-95-ab'), pid=8)
+def _define_PKEY_WCN_Version():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b80-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=1)
+def _define_PKEY_WCN_RequestType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b81-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=2)
+def _define_PKEY_WCN_AuthType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b82-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=3)
+def _define_PKEY_WCN_EncryptType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b83-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=4)
+def _define_PKEY_WCN_ConnType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b84-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=5)
+def _define_PKEY_WCN_ConfigMethods():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b85-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=6)
+def _define_PKEY_WCN_RfBand():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b87-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=8)
+def _define_PKEY_WCN_AssocState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b88-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=9)
+def _define_PKEY_WCN_ConfigError():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b89-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=10)
+def _define_PKEY_WCN_ConfigState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b89-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=11)
+def _define_PKEY_WCN_DevicePasswordId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b89-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=12)
+def _define_PKEY_WCN_OSVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b89-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=13)
+def _define_PKEY_WCN_VendorExtension():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8a-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=14)
+def _define_PKEY_WCN_RegistrarType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=15)
+def _define_PKEY_Hardware_Devinst():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=4097)
+def _define_PKEY_Hardware_DisplayAttribute():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=5)
+def _define_PKEY_Hardware_DriverDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=11)
+def _define_PKEY_Hardware_DriverProvider():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=10)
+def _define_PKEY_Hardware_DriverVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=9)
+def _define_PKEY_Hardware_Function():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=4099)
+def _define_PKEY_Hardware_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=3)
+def _define_PKEY_Hardware_Image():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=4098)
+def _define_PKEY_Hardware_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=6)
+def _define_PKEY_Hardware_Model():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=7)
+def _define_PKEY_Hardware_Name():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=2)
+def _define_PKEY_Hardware_SerialNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=8)
+def _define_PKEY_Hardware_ShellAttributes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=4100)
+def _define_PKEY_Hardware_Status():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5eaf3ef2-e0ca-4598-bf-06-71-ed-1d-9d-d9-53'), pid=4096)
+def _define_PKEY_NAME():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=10)
+def _define_PKEY_Device_DeviceDesc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=2)
+def _define_PKEY_Device_HardwareIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=3)
+def _define_PKEY_Device_CompatibleIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=4)
+def _define_PKEY_Device_Service():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=6)
+def _define_PKEY_Device_Class():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=9)
+def _define_PKEY_Device_ClassGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=10)
+def _define_PKEY_Device_Driver():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=11)
+def _define_PKEY_Device_ConfigFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=12)
+def _define_PKEY_Device_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=13)
+def _define_PKEY_Device_FriendlyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=14)
+def _define_PKEY_Device_LocationInfo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=15)
+def _define_PKEY_Device_PDOName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=16)
+def _define_PKEY_Device_Capabilities():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=17)
+def _define_PKEY_Device_UINumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=18)
+def _define_PKEY_Device_UpperFilters():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=19)
+def _define_PKEY_Device_LowerFilters():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=20)
+def _define_PKEY_Device_BusTypeGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=21)
+def _define_PKEY_Device_LegacyBusType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=22)
+def _define_PKEY_Device_BusNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=23)
+def _define_PKEY_Device_EnumeratorName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=24)
+def _define_PKEY_Device_Security():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=25)
+def _define_PKEY_Device_SecuritySDS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=26)
+def _define_PKEY_Device_DevType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=27)
+def _define_PKEY_Device_Exclusive():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=28)
+def _define_PKEY_Device_Characteristics():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=29)
+def _define_PKEY_Device_Address():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=30)
+def _define_PKEY_Device_UINumberDescFormat():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=31)
+def _define_PKEY_Device_PowerData():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=32)
+def _define_PKEY_Device_RemovalPolicy():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=33)
+def _define_PKEY_Device_RemovalPolicyDefault():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=34)
+def _define_PKEY_Device_RemovalPolicyOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=35)
+def _define_PKEY_Device_InstallState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=36)
+def _define_PKEY_Device_LocationPaths():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=37)
+def _define_PKEY_Device_BaseContainerId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=38)
+def _define_PKEY_Device_DevNodeStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=2)
+def _define_PKEY_Device_ProblemCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=3)
+def _define_PKEY_Device_EjectionRelations():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=4)
+def _define_PKEY_Device_RemovalRelations():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=5)
+def _define_PKEY_Device_PowerRelations():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=6)
+def _define_PKEY_Device_BusRelations():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=7)
+def _define_PKEY_Device_Parent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=8)
+def _define_PKEY_Device_Children():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=9)
+def _define_PKEY_Device_Siblings():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=10)
+def _define_PKEY_Device_TransportRelations():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=11)
+def _define_PKEY_Device_Reported():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80497100-8c73-48b9-aa-d9-ce-38-7e-19-c5-6e'), pid=2)
+def _define_PKEY_Device_Legacy():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80497100-8c73-48b9-aa-d9-ce-38-7e-19-c5-6e'), pid=3)
+def _define_PKEY_Device_InstanceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=256)
+def _define_PKEY_Device_ContainerId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8c7ed206-3f8a-4827-b3-ab-ae-9e-1f-ae-fc-6c'), pid=2)
+def _define_PKEY_Device_ModelId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=2)
+def _define_PKEY_Device_FriendlyNameAttributes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=3)
+def _define_PKEY_Device_ManufacturerAttributes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=4)
+def _define_PKEY_Device_PresenceNotForDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=5)
+def _define_PKEY_Device_SignalStrength():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=6)
+def _define_PKEY_Device_IsAssociateableByUserAction():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=7)
+def _define_PKEY_Numa_Proximity_Domain():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=1)
+def _define_PKEY_Device_DHP_Rebalance_Policy():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=2)
+def _define_PKEY_Device_Numa_Node():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=3)
+def _define_PKEY_Device_BusReportedDeviceDesc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=4)
+def _define_PKEY_Device_InstallInProgress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('83da6326-97a6-4088-94-53-a1-92-3f-57-3b-29'), pid=9)
+def _define_PKEY_Device_DriverDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=2)
+def _define_PKEY_Device_DriverVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=3)
+def _define_PKEY_Device_DriverDesc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=4)
+def _define_PKEY_Device_DriverInfPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=5)
+def _define_PKEY_Device_DriverInfSection():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=6)
+def _define_PKEY_Device_DriverInfSectionExt():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=7)
+def _define_PKEY_Device_MatchingDeviceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=8)
+def _define_PKEY_Device_DriverProvider():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=9)
+def _define_PKEY_Device_DriverPropPageProvider():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=10)
+def _define_PKEY_Device_DriverCoInstallers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=11)
+def _define_PKEY_Device_ResourcePickerTags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=12)
+def _define_PKEY_Device_ResourcePickerExceptions():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=13)
+def _define_PKEY_Device_DriverRank():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=14)
+def _define_PKEY_Device_DriverLogoLevel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=15)
+def _define_PKEY_Device_NoConnectSound():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=17)
+def _define_PKEY_Device_GenericDriverInstalled():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=18)
+def _define_PKEY_Device_AdditionalSoftwareRequested():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8b865dd-2e3d-4094-ad-97-e5-93-a7-0c-75-d6'), pid=19)
+def _define_PKEY_Device_SafeRemovalRequired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('afd97640-86a3-4210-b6-7c-28-9c-41-aa-be-55'), pid=2)
+def _define_PKEY_Device_SafeRemovalRequiredOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('afd97640-86a3-4210-b6-7c-28-9c-41-aa-be-55'), pid=3)
+def _define_PKEY_DrvPkg_Model():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cf73bb51-3abf-44a2-85-e0-9a-3d-c7-a1-21-32'), pid=2)
+def _define_PKEY_DrvPkg_VendorWebSite():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cf73bb51-3abf-44a2-85-e0-9a-3d-c7-a1-21-32'), pid=3)
+def _define_PKEY_DrvPkg_DetailedDescription():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cf73bb51-3abf-44a2-85-e0-9a-3d-c7-a1-21-32'), pid=4)
+def _define_PKEY_DrvPkg_DocumentationLink():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cf73bb51-3abf-44a2-85-e0-9a-3d-c7-a1-21-32'), pid=5)
+def _define_PKEY_DrvPkg_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cf73bb51-3abf-44a2-85-e0-9a-3d-c7-a1-21-32'), pid=6)
+def _define_PKEY_DrvPkg_BrandingIcon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cf73bb51-3abf-44a2-85-e0-9a-3d-c7-a1-21-32'), pid=7)
+def _define_PKEY_DeviceClass_UpperFilters():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=19)
+def _define_PKEY_DeviceClass_LowerFilters():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=20)
+def _define_PKEY_DeviceClass_Security():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=25)
+def _define_PKEY_DeviceClass_SecuritySDS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=26)
+def _define_PKEY_DeviceClass_DevType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=27)
+def _define_PKEY_DeviceClass_Exclusive():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=28)
+def _define_PKEY_DeviceClass_Characteristics():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4321918b-f69e-470d-a5-de-4d-88-c7-5a-d2-4b'), pid=29)
+def _define_PKEY_DeviceClass_Name():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=2)
+def _define_PKEY_DeviceClass_ClassName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=3)
+def _define_PKEY_DeviceClass_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=4)
+def _define_PKEY_DeviceClass_ClassInstaller():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=5)
+def _define_PKEY_DeviceClass_PropPageProvider():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=6)
+def _define_PKEY_DeviceClass_NoInstallClass():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=7)
+def _define_PKEY_DeviceClass_NoDisplayClass():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=8)
+def _define_PKEY_DeviceClass_SilentInstall():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=9)
+def _define_PKEY_DeviceClass_NoUseClass():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=10)
+def _define_PKEY_DeviceClass_DefaultService():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=11)
+def _define_PKEY_DeviceClass_IconPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('259abffc-50a7-47ce-af-08-68-c9-a7-d7-33-66'), pid=12)
+def _define_PKEY_DeviceClass_ClassCoInstallers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('713d1703-a2e2-49f5-92-14-56-47-2e-f3-da-5c'), pid=2)
+def _define_PKEY_DeviceInterface_FriendlyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=2)
+def _define_PKEY_DeviceInterface_Enabled():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=3)
+def _define_PKEY_DeviceInterface_ClassGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=4)
+def _define_PKEY_DeviceInterfaceClass_DefaultInterface():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14c83a99-0b3f-44b7-be-4c-a1-78-d3-99-05-64'), pid=2)
 FD_LONGHORN = 1
+FD_SUBKEY = 'SOFTWARE\\Microsoft\\Function Discovery\\'
+FCTN_CATEGORY_PNP = 'Provider\\Microsoft.Base.PnP'
+FCTN_CATEGORY_REGISTRY = 'Provider\\Microsoft.Base.Registry'
+FCTN_CATEGORY_SSDP = 'Provider\\Microsoft.Networking.SSDP'
+FCTN_CATEGORY_WSDISCOVERY = 'Provider\\Microsoft.Networking.WSD'
+FCTN_CATEGORY_NETBIOS = 'Provider\\Microsoft.Networking.Netbios'
+FCTN_CATEGORY_WCN = 'Provider\\Microsoft.Networking.WCN'
+FCTN_CATEGORY_PUBLICATION = 'Provider\\Microsoft.Base.Publication'
+FCTN_CATEGORY_PNPXASSOCIATION = 'Provider\\Microsoft.PnPX.Association'
+FCTN_CATEGORY_BT = 'Provider\\Microsoft.Devices.Bluetooth'
+FCTN_CATEGORY_WUSB = 'Provider\\Microsoft.Devices.WirelessUSB'
+FCTN_CATEGORY_DEVICEDISPLAYOBJECTS = 'Provider\\Microsoft.Base.DeviceDisplayObjects'
+FCTN_CATEGORY_DEVQUERYOBJECTS = 'Provider\\Microsoft.Base.DevQueryObjects'
+FCTN_CATEGORY_NETWORKDEVICES = 'Layered\\Microsoft.Networking.Devices'
+FCTN_CATEGORY_DEVICES = 'Layered\\Microsoft.Base.Devices'
+FCTN_CATEGORY_DEVICEFUNCTIONENUMERATORS = 'Layered\\Microsoft.Devices.FunctionEnumerators'
+FCTN_CATEGORY_DEVICEPAIRING = 'Layered\\Microsoft.Base.DevicePairing'
+FCTN_SUBCAT_DEVICES_WSDPRINTERS = 'WSDPrinters'
+FCTN_SUBCAT_NETWORKDEVICES_SSDP = 'SSDP'
+FCTN_SUBCAT_NETWORKDEVICES_WSD = 'WSD'
+FCTN_SUBCAT_REG_PUBLICATION = 'Publication'
+FCTN_SUBCAT_REG_DIRECTED = 'Directed'
 MAX_FDCONSTRAINTNAME_LENGTH = 100
 MAX_FDCONSTRAINTVALUE_LENGTH = 1000
+FD_QUERYCONSTRAINT_PROVIDERINSTANCEID = 'ProviderInstanceID'
+FD_QUERYCONSTRAINT_SUBCATEGORY = 'Subcategory'
+FD_QUERYCONSTRAINT_RECURSESUBCATEGORY = 'RecurseSubcategory'
+FD_QUERYCONSTRAINT_VISIBILITY = 'Visibility'
+FD_QUERYCONSTRAINT_COMCLSCONTEXT = 'COMClsContext'
+FD_QUERYCONSTRAINT_ROUTINGSCOPE = 'RoutingScope'
+FD_CONSTRAINTVALUE_TRUE = 'TRUE'
+FD_CONSTRAINTVALUE_FALSE = 'FALSE'
+FD_CONSTRAINTVALUE_RECURSESUBCATEGORY_TRUE = 'TRUE'
+FD_CONSTRAINTVALUE_VISIBILITY_DEFAULT = '0'
+FD_CONSTRAINTVALUE_VISIBILITY_ALL = '1'
+FD_CONSTRAINTVALUE_COMCLSCONTEXT_INPROC_SERVER = '1'
+FD_CONSTRAINTVALUE_COMCLSCONTEXT_LOCAL_SERVER = '4'
+FD_CONSTRAINTVALUE_PAIRED = 'Paired'
+FD_CONSTRAINTVALUE_UNPAIRED = 'UnPaired'
+FD_CONSTRAINTVALUE_ALL = 'All'
+FD_CONSTRAINTVALUE_ROUTINGSCOPE_ALL = 'All'
+FD_CONSTRAINTVALUE_ROUTINGSCOPE_DIRECT = 'Direct'
+FD_QUERYCONSTRAINT_PAIRING_STATE = 'PairingState'
+FD_QUERYCONSTRAINT_INQUIRY_TIMEOUT = 'InquiryModeTimeout'
+PROVIDERPNP_QUERYCONSTRAINT_INTERFACECLASS = 'InterfaceClass'
+PROVIDERPNP_QUERYCONSTRAINT_NOTPRESENT = 'NotPresent'
+PROVIDERPNP_QUERYCONSTRAINT_NOTIFICATIONSONLY = 'NotifyOnly'
+PNP_CONSTRAINTVALUE_NOTPRESENT = 'TRUE'
+PNP_CONSTRAINTVALUE_NOTIFICATIONSONLY = 'TRUE'
+PROVIDERSSDP_QUERYCONSTRAINT_TYPE = 'Type'
+PROVIDERSSDP_QUERYCONSTRAINT_CUSTOMXMLPROPERTY = 'CustomXmlProperty'
+SSDP_CONSTRAINTVALUE_TYPE_ALL = 'ssdp:all'
+SSDP_CONSTRAINTVALUE_TYPE_ROOT = 'upnp:rootdevice'
+SSDP_CONSTRAINTVALUE_TYPE_DEVICE_PREFIX = 'urn:schemas-upnp-org:device:'
+SSDP_CONSTRAINTVALUE_TYPE_SVC_PREFIX = 'urn:schemas-upnp-org:service:'
+PROVIDERWSD_QUERYCONSTRAINT_DIRECTEDADDRESS = 'RemoteAddress'
+PROVIDERWSD_QUERYCONSTRAINT_TYPE = 'Type'
+PROVIDERWSD_QUERYCONSTRAINT_SCOPE = 'Scope'
+PROVIDERWSD_QUERYCONSTRAINT_SECURITY_REQUIREMENTS = 'SecurityRequirements'
+PROVIDERWSD_QUERYCONSTRAINT_SSL_CERT_FOR_CLIENT_AUTH = 'SSLClientAuthCert'
+PROVIDERWSD_QUERYCONSTRAINT_SSL_CERTHASH_FOR_SERVER_AUTH = 'SSLServerAuthCertHash'
+WSD_CONSTRAINTVALUE_REQUIRE_SECURECHANNEL = '1'
+WSD_CONSTRAINTVALUE_REQUIRE_SECURECHANNEL_AND_COMPACTSIGNATURE = '2'
+WSD_CONSTRAINTVALUE_NO_TRUST_VERIFICATION = '3'
+PROVIDERWNET_QUERYCONSTRAINT_TYPE = 'Type'
+PROVIDERWNET_QUERYCONSTRAINT_PROPERTIES = 'Properties'
+PROVIDERWNET_QUERYCONSTRAINT_RESOURCETYPE = 'ResourceType'
+WNET_CONSTRAINTVALUE_TYPE_ALL = 'All'
+WNET_CONSTRAINTVALUE_TYPE_SERVER = 'Server'
+WNET_CONSTRAINTVALUE_TYPE_DOMAIN = 'Domain'
+WNET_CONSTRAINTVALUE_PROPERTIES_ALL = 'All'
+WNET_CONSTRAINTVALUE_PROPERTIES_LIMITED = 'Limited'
+WNET_CONSTRAINTVALUE_RESOURCETYPE_DISK = 'Disk'
+WNET_CONSTRAINTVALUE_RESOURCETYPE_PRINTER = 'Printer'
+WNET_CONSTRAINTVALUE_RESOURCETYPE_DISKORPRINTER = 'DiskOrPrinter'
+ONLINE_PROVIDER_DEVICES_QUERYCONSTRAINT_OWNERNAME = 'OwnerName'
+PROVIDERDDO_QUERYCONSTRAINT_DEVICEFUNCTIONDISPLAYOBJECTS = 'DeviceFunctionDisplayObjects'
+PROVIDERDDO_QUERYCONSTRAINT_ONLYCONNECTEDDEVICES = 'OnlyConnectedDevices'
+PROVIDERDDO_QUERYCONSTRAINT_DEVICEINTERFACES = 'DeviceInterfaces'
 E_FDPAIRING_NOCONNECTION = -1882193919
 E_FDPAIRING_HWFAILURE = -1882193918
 E_FDPAIRING_AUTHFAILURE = -1882193917
@@ -298,6 +657,217 @@ E_FDPAIRING_TOOMANYCONNECTIONS = -1882193915
 E_FDPAIRING_AUTHNOTALLOWED = -1882193914
 E_FDPAIRING_IPBUSDISABLED = -1882193913
 E_FDPAIRING_NOPROFILES = -1882193912
+FunctionDiscovery = Guid('c72be2ec-8e90-452c-b2-9a-ab-8f-f1-c0-71-fc')
+FunctionInstanceCollection = Guid('ba818ce5-b55f-443f-ad-39-2f-e8-9b-e6-19-1f')
+def _define_IFunctionDiscovery_head():
+    class IFunctionDiscovery(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4df99b70-e148-4432-b0-04-4c-9e-eb-53-5a-5e')
+    return IFunctionDiscovery
+def _define_IFunctionDiscovery():
+    IFunctionDiscovery = win32more.Devices.FunctionDiscovery.IFunctionDiscovery_head
+    IFunctionDiscovery.GetInstanceCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head))(3, 'GetInstanceCollection', ((1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'fIncludeAllSubCategories'),(1, 'ppIFunctionInstanceCollection'),)))
+    IFunctionDiscovery.GetInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(4, 'GetInstance', ((1, 'pszFunctionInstanceIdentity'),(1, 'ppIFunctionInstance'),)))
+    IFunctionDiscovery.CreateInstanceCollectionQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,POINTER(UInt64),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollectionQuery_head))(5, 'CreateInstanceCollectionQuery', ((1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'fIncludeAllSubCategories'),(1, 'pIFunctionDiscoveryNotification'),(1, 'pfdqcQueryContext'),(1, 'ppIFunctionInstanceCollectionQuery'),)))
+    IFunctionDiscovery.CreateInstanceQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,POINTER(UInt64),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceQuery_head))(6, 'CreateInstanceQuery', ((1, 'pszFunctionInstanceIdentity'),(1, 'pIFunctionDiscoveryNotification'),(1, 'pfdqcQueryContext'),(1, 'ppIFunctionInstanceQuery'),)))
+    IFunctionDiscovery.AddInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(7, 'AddInstance', ((1, 'enumSystemVisibility'),(1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'pszCategoryIdentity'),(1, 'ppIFunctionInstance'),)))
+    IFunctionDiscovery.RemoveInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(8, 'RemoveInstance', ((1, 'enumSystemVisibility'),(1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'pszCategoryIdentity'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionDiscovery
+def _define_IFunctionDiscoveryNotification_head():
+    class IFunctionDiscoveryNotification(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5f6c1ba8-5330-422e-a3-68-57-2b-24-4d-3f-87')
+    return IFunctionDiscoveryNotification
+def _define_IFunctionDiscoveryNotification():
+    IFunctionDiscoveryNotification = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head
+    IFunctionDiscoveryNotification.OnUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.QueryUpdateAction,UInt64,win32more.Devices.FunctionDiscovery.IFunctionInstance_head)(3, 'OnUpdate', ((1, 'enumQueryUpdateAction'),(1, 'fdqcQueryContext'),(1, 'pIFunctionInstance'),)))
+    IFunctionDiscoveryNotification.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR)(4, 'OnError', ((1, 'hr'),(1, 'fdqcQueryContext'),(1, 'pszProvider'),)))
+    IFunctionDiscoveryNotification.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.Foundation.PWSTR)(5, 'OnEvent', ((1, 'dwEventID'),(1, 'fdqcQueryContext'),(1, 'pszProvider'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionDiscoveryNotification
+def _define_IFunctionDiscoveryProvider_head():
+    class IFunctionDiscoveryProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('dcde394f-1478-4813-a4-02-f6-fb-10-65-72-22')
+    return IFunctionDiscoveryProvider
+def _define_IFunctionDiscoveryProvider():
+    IFunctionDiscoveryProvider = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProvider_head
+    IFunctionDiscoveryProvider.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderFactory_head,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,UInt32,POINTER(UInt32))(3, 'Initialize', ((1, 'pIFunctionDiscoveryProviderFactory'),(1, 'pIFunctionDiscoveryNotification'),(1, 'lcidUserDefault'),(1, 'pdwStgAccessCapabilities'),)))
+    IFunctionDiscoveryProvider.Query = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderQuery_head,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head))(4, 'Query', ((1, 'pIFunctionDiscoveryProviderQuery'),(1, 'ppIFunctionInstanceCollection'),)))
+    IFunctionDiscoveryProvider.EndQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'EndQuery', ()))
+    IFunctionDiscoveryProvider.InstancePropertyStoreValidateAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32)(6, 'InstancePropertyStoreValidateAccess', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwStgAccess'),)))
+    IFunctionDiscoveryProvider.InstancePropertyStoreOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(7, 'InstancePropertyStoreOpen', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwStgAccess'),(1, 'ppIPropertyStore'),)))
+    IFunctionDiscoveryProvider.InstancePropertyStoreFlush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr)(8, 'InstancePropertyStoreFlush', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),)))
+    IFunctionDiscoveryProvider.InstanceQueryService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(9, 'InstanceQueryService', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'guidService'),(1, 'riid'),(1, 'ppIUnknown'),)))
+    IFunctionDiscoveryProvider.InstanceReleased = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr)(10, 'InstanceReleased', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionDiscoveryProvider
+def _define_IFunctionDiscoveryProviderFactory_head():
+    class IFunctionDiscoveryProviderFactory(win32more.System.Com.IUnknown_head):
+        Guid = Guid('86443ff0-1ad5-4e68-a4-5a-40-c2-c3-29-de-3b')
+    return IFunctionDiscoveryProviderFactory
+def _define_IFunctionDiscoveryProviderFactory():
+    IFunctionDiscoveryProviderFactory = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderFactory_head
+    IFunctionDiscoveryProviderFactory.CreatePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(3, 'CreatePropertyStore', ((1, 'ppIPropertyStore'),)))
+    IFunctionDiscoveryProviderFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,IntPtr,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProvider_head,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(4, 'CreateInstance', ((1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),(1, 'iProviderInstanceContext'),(1, 'pIPropertyStore'),(1, 'pIFunctionDiscoveryProvider'),(1, 'ppIFunctionInstance'),)))
+    IFunctionDiscoveryProviderFactory.CreateFunctionInstanceCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head))(5, 'CreateFunctionInstanceCollection', ((1, 'ppIFunctionInstanceCollection'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionDiscoveryProviderFactory
+def _define_IFunctionDiscoveryProviderQuery_head():
+    class IFunctionDiscoveryProviderQuery(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6876ea98-baec-46db-bc-20-75-a7-6e-26-7a-3a')
+    return IFunctionDiscoveryProviderQuery
+def _define_IFunctionDiscoveryProviderQuery():
+    IFunctionDiscoveryProviderQuery = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderQuery_head
+    IFunctionDiscoveryProviderQuery.IsInstanceQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(POINTER(UInt16)))(3, 'IsInstanceQuery', ((1, 'pisInstanceQuery'),(1, 'ppszConstraintValue'),)))
+    IFunctionDiscoveryProviderQuery.IsSubcategoryQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(POINTER(UInt16)))(4, 'IsSubcategoryQuery', ((1, 'pisSubcategoryQuery'),(1, 'ppszConstraintValue'),)))
+    IFunctionDiscoveryProviderQuery.GetQueryConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IProviderQueryConstraintCollection_head))(5, 'GetQueryConstraints', ((1, 'ppIProviderQueryConstraints'),)))
+    IFunctionDiscoveryProviderQuery.GetPropertyConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IProviderPropertyConstraintCollection_head))(6, 'GetPropertyConstraints', ((1, 'ppIProviderPropertyConstraints'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionDiscoveryProviderQuery
+def _define_IFunctionDiscoveryServiceProvider_head():
+    class IFunctionDiscoveryServiceProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4c81ed02-1b04-43f2-a4-51-69-96-6c-bc-d1-c2')
+    return IFunctionDiscoveryServiceProvider
+def _define_IFunctionDiscoveryServiceProvider():
+    IFunctionDiscoveryServiceProvider = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryServiceProvider_head
+    IFunctionDiscoveryServiceProvider.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,POINTER(Guid),POINTER(c_void_p))(3, 'Initialize', ((1, 'pIFunctionInstance'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionDiscoveryServiceProvider
+def _define_IFunctionInstance_head():
+    class IFunctionInstance(win32more.System.Com.IServiceProvider_head):
+        Guid = Guid('33591c10-0bed-4f02-b0-ab-15-30-d5-53-3e-e9')
+    return IFunctionInstance
+def _define_IFunctionInstance():
+    IFunctionInstance = win32more.Devices.FunctionDiscovery.IFunctionInstance_head
+    IFunctionInstance.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)))(4, 'GetID', ((1, 'ppszCoMemIdentity'),)))
+    IFunctionInstance.GetProviderInstanceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)))(5, 'GetProviderInstanceID', ((1, 'ppszCoMemProviderInstanceIdentity'),)))
+    IFunctionInstance.OpenPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.STGM,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(6, 'OpenPropertyStore', ((1, 'dwStgAccess'),(1, 'ppIPropertyStore'),)))
+    IFunctionInstance.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)))(7, 'GetCategory', ((1, 'ppszCoMemCategory'),(1, 'ppszCoMemSubCategory'),)))
+    win32more.System.Com.IServiceProvider
+    return IFunctionInstance
+def _define_IFunctionInstanceCollection_head():
+    class IFunctionInstanceCollection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f0a3d895-855c-42a2-94-8d-2f-97-d4-50-ec-b1')
+    return IFunctionInstanceCollection
+def _define_IFunctionInstanceCollection():
+    IFunctionInstanceCollection = win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head
+    IFunctionInstanceCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pdwCount'),)))
+    IFunctionInstanceCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(4, 'Get', ((1, 'pszInstanceIdentity'),(1, 'pdwIndex'),(1, 'ppIFunctionInstance'),)))
+    IFunctionInstanceCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(5, 'Item', ((1, 'dwIndex'),(1, 'ppIFunctionInstance'),)))
+    IFunctionInstanceCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head)(6, 'Add', ((1, 'pIFunctionInstance'),)))
+    IFunctionInstanceCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(7, 'Remove', ((1, 'dwIndex'),(1, 'ppIFunctionInstance'),)))
+    IFunctionInstanceCollection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(8, 'Delete', ((1, 'dwIndex'),)))
+    IFunctionInstanceCollection.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'DeleteAll', ()))
+    win32more.System.Com.IUnknown
+    return IFunctionInstanceCollection
+def _define_IFunctionInstanceCollectionQuery_head():
+    class IFunctionInstanceCollectionQuery(win32more.System.Com.IUnknown_head):
+        Guid = Guid('57cc6fd2-c09a-4289-bb-72-25-f0-41-42-05-8e')
+    return IFunctionInstanceCollectionQuery
+def _define_IFunctionInstanceCollectionQuery():
+    IFunctionInstanceCollectionQuery = win32more.Devices.FunctionDiscovery.IFunctionInstanceCollectionQuery_head
+    IFunctionInstanceCollectionQuery.AddQueryConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'AddQueryConstraint', ((1, 'pszConstraintName'),(1, 'pszConstraintValue'),)))
+    IFunctionInstanceCollectionQuery.AddPropertyConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Devices.FunctionDiscovery.PropertyConstraint)(4, 'AddPropertyConstraint', ((1, 'Key'),(1, 'pv'),(1, 'enumPropertyConstraint'),)))
+    IFunctionInstanceCollectionQuery.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head))(5, 'Execute', ((1, 'ppIFunctionInstanceCollection'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionInstanceCollectionQuery
+def _define_IFunctionInstanceQuery_head():
+    class IFunctionInstanceQuery(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6242bc6b-90ec-4b37-bb-46-e2-29-fd-84-ed-95')
+    return IFunctionInstanceQuery
+def _define_IFunctionInstanceQuery():
+    IFunctionInstanceQuery = win32more.Devices.FunctionDiscovery.IFunctionInstanceQuery_head
+    IFunctionInstanceQuery.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(3, 'Execute', ((1, 'ppIFunctionInstance'),)))
+    win32more.System.Com.IUnknown
+    return IFunctionInstanceQuery
+def _define_IPNPXAssociation_head():
+    class IPNPXAssociation(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0bd7e521-4da6-42d5-81-ba-19-81-b6-b9-40-75')
+    return IPNPXAssociation
+def _define_IPNPXAssociation():
+    IPNPXAssociation = win32more.Devices.FunctionDiscovery.IPNPXAssociation_head
+    IPNPXAssociation.Associate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'Associate', ((1, 'pszSubcategory'),)))
+    IPNPXAssociation.Unassociate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'Unassociate', ((1, 'pszSubcategory'),)))
+    IPNPXAssociation.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'Delete', ((1, 'pszSubcategory'),)))
+    win32more.System.Com.IUnknown
+    return IPNPXAssociation
+def _define_IPNPXDeviceAssociation_head():
+    class IPNPXDeviceAssociation(win32more.System.Com.IUnknown_head):
+        Guid = Guid('eed366d0-35b8-4fc5-8d-20-7e-5b-d3-1f-6d-ed')
+    return IPNPXDeviceAssociation
+def _define_IPNPXDeviceAssociation():
+    IPNPXDeviceAssociation = win32more.Devices.FunctionDiscovery.IPNPXDeviceAssociation_head
+    IPNPXDeviceAssociation.Associate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head)(3, 'Associate', ((1, 'pszSubCategory'),(1, 'pIFunctionDiscoveryNotification'),)))
+    IPNPXDeviceAssociation.Unassociate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head)(4, 'Unassociate', ((1, 'pszSubCategory'),(1, 'pIFunctionDiscoveryNotification'),)))
+    IPNPXDeviceAssociation.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head)(5, 'Delete', ((1, 'pszSubcategory'),(1, 'pIFunctionDiscoveryNotification'),)))
+    win32more.System.Com.IUnknown
+    return IPNPXDeviceAssociation
+def _define_IPropertyStoreCollection_head():
+    class IPropertyStoreCollection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('d14d9c30-12d2-42d8-bc-e4-c6-0c-2b-b2-26-fa')
+    return IPropertyStoreCollection
+def _define_IPropertyStoreCollection():
+    IPropertyStoreCollection = win32more.Devices.FunctionDiscovery.IPropertyStoreCollection_head
+    IPropertyStoreCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pdwCount'),)))
+    IPropertyStoreCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(4, 'Get', ((1, 'pszInstanceIdentity'),(1, 'pdwIndex'),(1, 'ppIPropertyStore'),)))
+    IPropertyStoreCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(5, 'Item', ((1, 'dwIndex'),(1, 'ppIPropertyStore'),)))
+    IPropertyStoreCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head)(6, 'Add', ((1, 'pIPropertyStore'),)))
+    IPropertyStoreCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(7, 'Remove', ((1, 'dwIndex'),(1, 'pIPropertyStore'),)))
+    IPropertyStoreCollection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(8, 'Delete', ((1, 'dwIndex'),)))
+    IPropertyStoreCollection.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'DeleteAll', ()))
+    win32more.System.Com.IUnknown
+    return IPropertyStoreCollection
+def _define_IProviderProperties_head():
+    class IProviderProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cf986ea6-3b5f-4c5f-b8-8a-2f-8b-20-ce-ef-17')
+    return IProviderProperties
+def _define_IProviderProperties():
+    IProviderProperties = win32more.Devices.FunctionDiscovery.IProviderProperties_head
+    IProviderProperties.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(UInt32))(3, 'GetCount', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'pdwCount'),)))
+    IProviderProperties.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(4, 'GetAt', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwIndex'),(1, 'pKey'),)))
+    IProviderProperties.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'GetValue', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'Key'),(1, 'ppropVar'),)))
+    IProviderProperties.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(6, 'SetValue', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'Key'),(1, 'ppropVar'),)))
+    win32more.System.Com.IUnknown
+    return IProviderProperties
+def _define_IProviderPropertyConstraintCollection_head():
+    class IProviderPropertyConstraintCollection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f4fae42f-5778-4a13-85-40-b5-fd-8c-13-98-dd')
+    return IProviderPropertyConstraintCollection
+def _define_IProviderPropertyConstraintCollection():
+    IProviderPropertyConstraintCollection = win32more.Devices.FunctionDiscovery.IProviderPropertyConstraintCollection_head
+    IProviderPropertyConstraintCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pdwCount'),)))
+    IProviderPropertyConstraintCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32))(4, 'Get', ((1, 'Key'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
+    IProviderPropertyConstraintCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32))(5, 'Item', ((1, 'dwIndex'),(1, 'pKey'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
+    IProviderPropertyConstraintCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32))(6, 'Next', ((1, 'pKey'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
+    IProviderPropertyConstraintCollection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Skip', ()))
+    IProviderPropertyConstraintCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
+    return IProviderPropertyConstraintCollection
+def _define_IProviderPublishing_head():
+    class IProviderPublishing(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cd1b9a04-206c-4a05-a0-c8-16-35-a2-1a-2b-7c')
+    return IProviderPublishing
+def _define_IProviderPublishing():
+    IProviderPublishing = win32more.Devices.FunctionDiscovery.IProviderPublishing_head
+    IProviderPublishing.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head))(3, 'CreateInstance', ((1, 'enumVisibilityFlags'),(1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),(1, 'ppIFunctionInstance'),)))
+    IProviderPublishing.RemoveInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(4, 'RemoveInstance', ((1, 'enumVisibilityFlags'),(1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),)))
+    win32more.System.Com.IUnknown
+    return IProviderPublishing
+def _define_IProviderQueryConstraintCollection_head():
+    class IProviderQueryConstraintCollection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('9c243e11-3261-4bcd-b9-22-84-a8-73-d4-60-ae')
+    return IProviderQueryConstraintCollection
+def _define_IProviderQueryConstraintCollection():
+    IProviderQueryConstraintCollection = win32more.Devices.FunctionDiscovery.IProviderQueryConstraintCollection_head
+    IProviderQueryConstraintCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pdwCount'),)))
+    IProviderQueryConstraintCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(UInt16)))(4, 'Get', ((1, 'pszConstraintName'),(1, 'ppszConstraintValue'),)))
+    IProviderQueryConstraintCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)))(5, 'Item', ((1, 'dwIndex'),(1, 'ppszConstraintName'),(1, 'ppszConstraintValue'),)))
+    IProviderQueryConstraintCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)))(6, 'Next', ((1, 'ppszConstraintName'),(1, 'ppszConstraintValue'),)))
+    IProviderQueryConstraintCollection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Skip', ()))
+    IProviderQueryConstraintCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
+    return IProviderQueryConstraintCollection
+PNPXAssociation = Guid('cee8ccc9-4f6b-4469-a2-35-5a-22-86-9e-ef-03')
+PNPXPairingHandler = Guid('b8a27942-ade7-4085-aa-6e-4f-ad-c7-ad-a1-ef')
 PropertyConstraint = Int32
 QC_EQUALS = 0
 QC_NOTEQUAL = 1
@@ -309,378 +879,272 @@ QC_STARTSWITH = 6
 QC_EXISTS = 7
 QC_DOESNOTEXIST = 8
 QC_CONTAINS = 9
-SystemVisibilityFlags = Int32
-SVF_SYSTEM = 0
-SVF_USER = 1
+PropertyStore = Guid('e4796550-df61-448b-91-93-13-fc-13-41-b1-63')
+PropertyStoreCollection = Guid('edd36029-d753-4862-aa-5b-5b-cc-ad-2a-4d-29')
+QueryCategoryType = Int32
+QCT_PROVIDER = 0
+QCT_LAYERED = 1
 QueryUpdateAction = Int32
 QUA_ADD = 0
 QUA_REMOVE = 1
 QUA_CHANGE = 2
-QueryCategoryType = Int32
-QCT_PROVIDER = 0
-QCT_LAYERED = 1
-def _define_IFunctionDiscoveryNotification_head():
-    class IFunctionDiscoveryNotification(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5f6c1ba8-5330-422e-a368-572b244d3f87')
-    return IFunctionDiscoveryNotification
-def _define_IFunctionDiscoveryNotification():
-    IFunctionDiscoveryNotification = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head
-    IFunctionDiscoveryNotification.OnUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.QueryUpdateAction,UInt64,win32more.Devices.FunctionDiscovery.IFunctionInstance_head, use_last_error=False)(3, 'OnUpdate', ((1, 'enumQueryUpdateAction'),(1, 'fdqcQueryContext'),(1, 'pIFunctionInstance'),)))
-    IFunctionDiscoveryNotification.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnError', ((1, 'hr'),(1, 'fdqcQueryContext'),(1, 'pszProvider'),)))
-    IFunctionDiscoveryNotification.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnEvent', ((1, 'dwEventID'),(1, 'fdqcQueryContext'),(1, 'pszProvider'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionDiscoveryNotification
-def _define_IFunctionDiscovery_head():
-    class IFunctionDiscovery(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4df99b70-e148-4432-b004-4c9eeb535a5e')
-    return IFunctionDiscovery
-def _define_IFunctionDiscovery():
-    IFunctionDiscovery = win32more.Devices.FunctionDiscovery.IFunctionDiscovery_head
-    IFunctionDiscovery.GetInstanceCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head), use_last_error=False)(3, 'GetInstanceCollection', ((1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'fIncludeAllSubCategories'),(1, 'ppIFunctionInstanceCollection'),)))
-    IFunctionDiscovery.GetInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(4, 'GetInstance', ((1, 'pszFunctionInstanceIdentity'),(1, 'ppIFunctionInstance'),)))
-    IFunctionDiscovery.CreateInstanceCollectionQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,POINTER(UInt64),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollectionQuery_head), use_last_error=False)(5, 'CreateInstanceCollectionQuery', ((1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'fIncludeAllSubCategories'),(1, 'pIFunctionDiscoveryNotification'),(1, 'pfdqcQueryContext'),(1, 'ppIFunctionInstanceCollectionQuery'),)))
-    IFunctionDiscovery.CreateInstanceQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,POINTER(UInt64),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceQuery_head), use_last_error=False)(6, 'CreateInstanceQuery', ((1, 'pszFunctionInstanceIdentity'),(1, 'pIFunctionDiscoveryNotification'),(1, 'pfdqcQueryContext'),(1, 'ppIFunctionInstanceQuery'),)))
-    IFunctionDiscovery.AddInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(7, 'AddInstance', ((1, 'enumSystemVisibility'),(1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'pszCategoryIdentity'),(1, 'ppIFunctionInstance'),)))
-    IFunctionDiscovery.RemoveInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(8, 'RemoveInstance', ((1, 'enumSystemVisibility'),(1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'pszCategoryIdentity'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionDiscovery
-def _define_IFunctionInstance_head():
-    class IFunctionInstance(win32more.System.Com.IServiceProvider_head):
-        Guid = Guid('33591c10-0bed-4f02-b0ab-1530d5533ee9')
-    return IFunctionInstance
-def _define_IFunctionInstance():
-    IFunctionInstance = win32more.Devices.FunctionDiscovery.IFunctionInstance_head
-    IFunctionInstance.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(4, 'GetID', ((1, 'ppszCoMemIdentity'),)))
-    IFunctionInstance.GetProviderInstanceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetProviderInstanceID', ((1, 'ppszCoMemProviderInstanceIdentity'),)))
-    IFunctionInstance.OpenPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(6, 'OpenPropertyStore', ((1, 'dwStgAccess'),(1, 'ppIPropertyStore'),)))
-    IFunctionInstance.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)), use_last_error=False)(7, 'GetCategory', ((1, 'ppszCoMemCategory'),(1, 'ppszCoMemSubCategory'),)))
-    win32more.System.Com.IServiceProvider
-    return IFunctionInstance
-def _define_IFunctionInstanceCollection_head():
-    class IFunctionInstanceCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f0a3d895-855c-42a2-948d-2f97d450ecb1')
-    return IFunctionInstanceCollection
-def _define_IFunctionInstanceCollection():
-    IFunctionInstanceCollection = win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head
-    IFunctionInstanceCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pdwCount'),)))
-    IFunctionInstanceCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(4, 'Get', ((1, 'pszInstanceIdentity'),(1, 'pdwIndex'),(1, 'ppIFunctionInstance'),)))
-    IFunctionInstanceCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(5, 'Item', ((1, 'dwIndex'),(1, 'ppIFunctionInstance'),)))
-    IFunctionInstanceCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head, use_last_error=False)(6, 'Add', ((1, 'pIFunctionInstance'),)))
-    IFunctionInstanceCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(7, 'Remove', ((1, 'dwIndex'),(1, 'ppIFunctionInstance'),)))
-    IFunctionInstanceCollection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'Delete', ((1, 'dwIndex'),)))
-    IFunctionInstanceCollection.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'DeleteAll', ()))
-    win32more.System.Com.IUnknown
-    return IFunctionInstanceCollection
-def _define_IPropertyStoreCollection_head():
-    class IPropertyStoreCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d14d9c30-12d2-42d8-bce4-c60c2bb226fa')
-    return IPropertyStoreCollection
-def _define_IPropertyStoreCollection():
-    IPropertyStoreCollection = win32more.Devices.FunctionDiscovery.IPropertyStoreCollection_head
-    IPropertyStoreCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pdwCount'),)))
-    IPropertyStoreCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(4, 'Get', ((1, 'pszInstanceIdentity'),(1, 'pdwIndex'),(1, 'ppIPropertyStore'),)))
-    IPropertyStoreCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(5, 'Item', ((1, 'dwIndex'),(1, 'ppIPropertyStore'),)))
-    IPropertyStoreCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(6, 'Add', ((1, 'pIPropertyStore'),)))
-    IPropertyStoreCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(7, 'Remove', ((1, 'dwIndex'),(1, 'pIPropertyStore'),)))
-    IPropertyStoreCollection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'Delete', ((1, 'dwIndex'),)))
-    IPropertyStoreCollection.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'DeleteAll', ()))
-    win32more.System.Com.IUnknown
-    return IPropertyStoreCollection
-def _define_IFunctionInstanceQuery_head():
-    class IFunctionInstanceQuery(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6242bc6b-90ec-4b37-bb46-e229fd84ed95')
-    return IFunctionInstanceQuery
-def _define_IFunctionInstanceQuery():
-    IFunctionInstanceQuery = win32more.Devices.FunctionDiscovery.IFunctionInstanceQuery_head
-    IFunctionInstanceQuery.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(3, 'Execute', ((1, 'ppIFunctionInstance'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionInstanceQuery
-def _define_IFunctionInstanceCollectionQuery_head():
-    class IFunctionInstanceCollectionQuery(win32more.System.Com.IUnknown_head):
-        Guid = Guid('57cc6fd2-c09a-4289-bb72-25f04142058e')
-    return IFunctionInstanceCollectionQuery
-def _define_IFunctionInstanceCollectionQuery():
-    IFunctionInstanceCollectionQuery = win32more.Devices.FunctionDiscovery.IFunctionInstanceCollectionQuery_head
-    IFunctionInstanceCollectionQuery.AddQueryConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'AddQueryConstraint', ((1, 'pszConstraintName'),(1, 'pszConstraintValue'),)))
-    IFunctionInstanceCollectionQuery.AddPropertyConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Devices.FunctionDiscovery.PropertyConstraint, use_last_error=False)(4, 'AddPropertyConstraint', ((1, 'Key'),(1, 'pv'),(1, 'enumPropertyConstraint'),)))
-    IFunctionInstanceCollectionQuery.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head), use_last_error=False)(5, 'Execute', ((1, 'ppIFunctionInstanceCollection'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionInstanceCollectionQuery
-def _define_IFunctionDiscoveryProvider_head():
-    class IFunctionDiscoveryProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcde394f-1478-4813-a402-f6fb10657222')
-    return IFunctionDiscoveryProvider
-def _define_IFunctionDiscoveryProvider():
-    IFunctionDiscoveryProvider = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProvider_head
-    IFunctionDiscoveryProvider.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderFactory_head,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,UInt32,POINTER(UInt32), use_last_error=False)(3, 'Initialize', ((1, 'pIFunctionDiscoveryProviderFactory'),(1, 'pIFunctionDiscoveryNotification'),(1, 'lcidUserDefault'),(1, 'pdwStgAccessCapabilities'),)))
-    IFunctionDiscoveryProvider.Query = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderQuery_head,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head), use_last_error=False)(4, 'Query', ((1, 'pIFunctionDiscoveryProviderQuery'),(1, 'ppIFunctionInstanceCollection'),)))
-    IFunctionDiscoveryProvider.EndQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'EndQuery', ()))
-    IFunctionDiscoveryProvider.InstancePropertyStoreValidateAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32, use_last_error=False)(6, 'InstancePropertyStoreValidateAccess', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwStgAccess'),)))
-    IFunctionDiscoveryProvider.InstancePropertyStoreOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(7, 'InstancePropertyStoreOpen', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwStgAccess'),(1, 'ppIPropertyStore'),)))
-    IFunctionDiscoveryProvider.InstancePropertyStoreFlush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr, use_last_error=False)(8, 'InstancePropertyStoreFlush', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),)))
-    IFunctionDiscoveryProvider.InstanceQueryService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'InstanceQueryService', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'guidService'),(1, 'riid'),(1, 'ppIUnknown'),)))
-    IFunctionDiscoveryProvider.InstanceReleased = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr, use_last_error=False)(10, 'InstanceReleased', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionDiscoveryProvider
-def _define_IProviderProperties_head():
-    class IProviderProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cf986ea6-3b5f-4c5f-b88a-2f8b20ceef17')
-    return IProviderProperties
-def _define_IProviderProperties():
-    IProviderProperties = win32more.Devices.FunctionDiscovery.IProviderProperties_head
-    IProviderProperties.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'pdwCount'),)))
-    IProviderProperties.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(4, 'GetAt', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwIndex'),(1, 'pKey'),)))
-    IProviderProperties.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetValue', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'Key'),(1, 'ppropVar'),)))
-    IProviderProperties.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'SetValue', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'Key'),(1, 'ppropVar'),)))
-    win32more.System.Com.IUnknown
-    return IProviderProperties
-def _define_IProviderPublishing_head():
-    class IProviderPublishing(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cd1b9a04-206c-4a05-a0c8-1635a21a2b7c')
-    return IProviderPublishing
-def _define_IProviderPublishing():
-    IProviderPublishing = win32more.Devices.FunctionDiscovery.IProviderPublishing_head
-    IProviderPublishing.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(3, 'CreateInstance', ((1, 'enumVisibilityFlags'),(1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),(1, 'ppIFunctionInstance'),)))
-    IProviderPublishing.RemoveInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'RemoveInstance', ((1, 'enumVisibilityFlags'),(1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),)))
-    win32more.System.Com.IUnknown
-    return IProviderPublishing
-def _define_IFunctionDiscoveryProviderFactory_head():
-    class IFunctionDiscoveryProviderFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('86443ff0-1ad5-4e68-a45a-40c2c329de3b')
-    return IFunctionDiscoveryProviderFactory
-def _define_IFunctionDiscoveryProviderFactory():
-    IFunctionDiscoveryProviderFactory = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderFactory_head
-    IFunctionDiscoveryProviderFactory.CreatePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(3, 'CreatePropertyStore', ((1, 'ppIPropertyStore'),)))
-    IFunctionDiscoveryProviderFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,IntPtr,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProvider_head,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(4, 'CreateInstance', ((1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),(1, 'iProviderInstanceContext'),(1, 'pIPropertyStore'),(1, 'pIFunctionDiscoveryProvider'),(1, 'ppIFunctionInstance'),)))
-    IFunctionDiscoveryProviderFactory.CreateFunctionInstanceCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head), use_last_error=False)(5, 'CreateFunctionInstanceCollection', ((1, 'ppIFunctionInstanceCollection'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionDiscoveryProviderFactory
-def _define_IFunctionDiscoveryProviderQuery_head():
-    class IFunctionDiscoveryProviderQuery(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6876ea98-baec-46db-bc20-75a76e267a3a')
-    return IFunctionDiscoveryProviderQuery
-def _define_IFunctionDiscoveryProviderQuery():
-    IFunctionDiscoveryProviderQuery = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProviderQuery_head
-    IFunctionDiscoveryProviderQuery.IsInstanceQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'IsInstanceQuery', ((1, 'pisInstanceQuery'),(1, 'ppszConstraintValue'),)))
-    IFunctionDiscoveryProviderQuery.IsSubcategoryQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'IsSubcategoryQuery', ((1, 'pisSubcategoryQuery'),(1, 'ppszConstraintValue'),)))
-    IFunctionDiscoveryProviderQuery.GetQueryConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IProviderQueryConstraintCollection_head), use_last_error=False)(5, 'GetQueryConstraints', ((1, 'ppIProviderQueryConstraints'),)))
-    IFunctionDiscoveryProviderQuery.GetPropertyConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IProviderPropertyConstraintCollection_head), use_last_error=False)(6, 'GetPropertyConstraints', ((1, 'ppIProviderPropertyConstraints'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionDiscoveryProviderQuery
-def _define_IProviderQueryConstraintCollection_head():
-    class IProviderQueryConstraintCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9c243e11-3261-4bcd-b922-84a873d460ae')
-    return IProviderQueryConstraintCollection
-def _define_IProviderQueryConstraintCollection():
-    IProviderQueryConstraintCollection = win32more.Devices.FunctionDiscovery.IProviderQueryConstraintCollection_head
-    IProviderQueryConstraintCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pdwCount'),)))
-    IProviderQueryConstraintCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(UInt16)), use_last_error=False)(4, 'Get', ((1, 'pszConstraintName'),(1, 'ppszConstraintValue'),)))
-    IProviderQueryConstraintCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'Item', ((1, 'dwIndex'),(1, 'ppszConstraintName'),(1, 'ppszConstraintValue'),)))
-    IProviderQueryConstraintCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)), use_last_error=False)(6, 'Next', ((1, 'ppszConstraintName'),(1, 'ppszConstraintValue'),)))
-    IProviderQueryConstraintCollection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Skip', ()))
-    IProviderQueryConstraintCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
-    win32more.System.Com.IUnknown
-    return IProviderQueryConstraintCollection
-def _define_IProviderPropertyConstraintCollection_head():
-    class IProviderPropertyConstraintCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f4fae42f-5778-4a13-8540-b5fd8c1398dd')
-    return IProviderPropertyConstraintCollection
-def _define_IProviderPropertyConstraintCollection():
-    IProviderPropertyConstraintCollection = win32more.Devices.FunctionDiscovery.IProviderPropertyConstraintCollection_head
-    IProviderPropertyConstraintCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pdwCount'),)))
-    IProviderPropertyConstraintCollection.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32), use_last_error=False)(4, 'Get', ((1, 'Key'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
-    IProviderPropertyConstraintCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32), use_last_error=False)(5, 'Item', ((1, 'dwIndex'),(1, 'pKey'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
-    IProviderPropertyConstraintCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32), use_last_error=False)(6, 'Next', ((1, 'pKey'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
-    IProviderPropertyConstraintCollection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Skip', ()))
-    IProviderPropertyConstraintCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
-    win32more.System.Com.IUnknown
-    return IProviderPropertyConstraintCollection
-def _define_IFunctionDiscoveryServiceProvider_head():
-    class IFunctionDiscoveryServiceProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4c81ed02-1b04-43f2-a451-69966cbcd1c2')
-    return IFunctionDiscoveryServiceProvider
-def _define_IFunctionDiscoveryServiceProvider():
-    IFunctionDiscoveryServiceProvider = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryServiceProvider_head
-    IFunctionDiscoveryServiceProvider.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Initialize', ((1, 'pIFunctionInstance'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Com.IUnknown
-    return IFunctionDiscoveryServiceProvider
-PNPXAssociation = Guid('cee8ccc9-4f6b-4469-a235-5a22869eef03')
-PNPXPairingHandler = Guid('b8a27942-ade7-4085-aa6e-4fadc7ada1ef')
-def _define_IPNPXAssociation_head():
-    class IPNPXAssociation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0bd7e521-4da6-42d5-81ba-1981b6b94075')
-    return IPNPXAssociation
-def _define_IPNPXAssociation():
-    IPNPXAssociation = win32more.Devices.FunctionDiscovery.IPNPXAssociation_head
-    IPNPXAssociation.Associate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Associate', ((1, 'pszSubcategory'),)))
-    IPNPXAssociation.Unassociate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'Unassociate', ((1, 'pszSubcategory'),)))
-    IPNPXAssociation.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'Delete', ((1, 'pszSubcategory'),)))
-    win32more.System.Com.IUnknown
-    return IPNPXAssociation
-def _define_IPNPXDeviceAssociation_head():
-    class IPNPXDeviceAssociation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('eed366d0-35b8-4fc5-8d20-7e5bd31f6ded')
-    return IPNPXDeviceAssociation
-def _define_IPNPXDeviceAssociation():
-    IPNPXDeviceAssociation = win32more.Devices.FunctionDiscovery.IPNPXDeviceAssociation_head
-    IPNPXDeviceAssociation.Associate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head, use_last_error=False)(3, 'Associate', ((1, 'pszSubCategory'),(1, 'pIFunctionDiscoveryNotification'),)))
-    IPNPXDeviceAssociation.Unassociate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head, use_last_error=False)(4, 'Unassociate', ((1, 'pszSubCategory'),(1, 'pIFunctionDiscoveryNotification'),)))
-    IPNPXDeviceAssociation.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head, use_last_error=False)(5, 'Delete', ((1, 'pszSubcategory'),(1, 'pIFunctionDiscoveryNotification'),)))
-    win32more.System.Com.IUnknown
-    return IPNPXDeviceAssociation
-FunctionDiscovery = Guid('c72be2ec-8e90-452c-b29a-ab8ff1c071fc')
-PropertyStore = Guid('e4796550-df61-448b-9193-13fc1341b163')
-FunctionInstanceCollection = Guid('ba818ce5-b55f-443f-ad39-2fe89be6191f')
-PropertyStoreCollection = Guid('edd36029-d753-4862-aa5b-5bccad2a4d29')
+SystemVisibilityFlags = Int32
+SVF_SYSTEM = 0
+SVF_USER = 1
 __all__ = [
-    "FD_EVENTID_PRIVATE",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_AD_PRINTER",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_ASP_INFRA",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH_LE",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_NETBIOS",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_PNP",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_UPNP",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_WFD",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_WSD",
+    "DEVICEDISPLAY_DISCOVERYMETHOD_WUSB",
+    "E_FDPAIRING_AUTHFAILURE",
+    "E_FDPAIRING_AUTHNOTALLOWED",
+    "E_FDPAIRING_CONNECTTIMEOUT",
+    "E_FDPAIRING_HWFAILURE",
+    "E_FDPAIRING_IPBUSDISABLED",
+    "E_FDPAIRING_NOCONNECTION",
+    "E_FDPAIRING_NOPROFILES",
+    "E_FDPAIRING_TOOMANYCONNECTIONS",
+    "FCTN_CATEGORY_BT",
+    "FCTN_CATEGORY_DEVICEDISPLAYOBJECTS",
+    "FCTN_CATEGORY_DEVICEFUNCTIONENUMERATORS",
+    "FCTN_CATEGORY_DEVICEPAIRING",
+    "FCTN_CATEGORY_DEVICES",
+    "FCTN_CATEGORY_DEVQUERYOBJECTS",
+    "FCTN_CATEGORY_NETBIOS",
+    "FCTN_CATEGORY_NETWORKDEVICES",
+    "FCTN_CATEGORY_PNP",
+    "FCTN_CATEGORY_PNPXASSOCIATION",
+    "FCTN_CATEGORY_PUBLICATION",
+    "FCTN_CATEGORY_REGISTRY",
+    "FCTN_CATEGORY_SSDP",
+    "FCTN_CATEGORY_WCN",
+    "FCTN_CATEGORY_WSDISCOVERY",
+    "FCTN_CATEGORY_WUSB",
+    "FCTN_SUBCAT_DEVICES_WSDPRINTERS",
+    "FCTN_SUBCAT_NETWORKDEVICES_SSDP",
+    "FCTN_SUBCAT_NETWORKDEVICES_WSD",
+    "FCTN_SUBCAT_REG_DIRECTED",
+    "FCTN_SUBCAT_REG_PUBLICATION",
+    "FD_CONSTRAINTVALUE_ALL",
+    "FD_CONSTRAINTVALUE_COMCLSCONTEXT_INPROC_SERVER",
+    "FD_CONSTRAINTVALUE_COMCLSCONTEXT_LOCAL_SERVER",
+    "FD_CONSTRAINTVALUE_FALSE",
+    "FD_CONSTRAINTVALUE_PAIRED",
+    "FD_CONSTRAINTVALUE_RECURSESUBCATEGORY_TRUE",
+    "FD_CONSTRAINTVALUE_ROUTINGSCOPE_ALL",
+    "FD_CONSTRAINTVALUE_ROUTINGSCOPE_DIRECT",
+    "FD_CONSTRAINTVALUE_TRUE",
+    "FD_CONSTRAINTVALUE_UNPAIRED",
+    "FD_CONSTRAINTVALUE_VISIBILITY_ALL",
+    "FD_CONSTRAINTVALUE_VISIBILITY_DEFAULT",
     "FD_EVENTID",
-    "FD_EVENTID_SEARCHCOMPLETE",
     "FD_EVENTID_ASYNCTHREADEXIT",
-    "FD_EVENTID_SEARCHSTART",
     "FD_EVENTID_IPADDRESSCHANGE",
+    "FD_EVENTID_PRIVATE",
     "FD_EVENTID_QUERYREFRESH",
-    "SID_PnpProvider",
-    "SID_UPnPActivator",
-    "SID_EnumInterface",
-    "SID_PNPXPropertyStore",
-    "SID_PNPXAssociation",
-    "SID_PNPXServiceCollection",
-    "SID_FDPairingHandler",
-    "SID_EnumDeviceFunction",
-    "SID_UnpairProvider",
-    "SID_DeviceDisplayStatusManager",
-    "SID_FunctionDiscoveryProviderRefresh",
-    "SID_UninstallDeviceFunction",
-    "PKEY_FunctionInstance",
-    "FMTID_FD",
+    "FD_EVENTID_SEARCHCOMPLETE",
+    "FD_EVENTID_SEARCHSTART",
+    "FD_LONGHORN",
+    "FD_QUERYCONSTRAINT_COMCLSCONTEXT",
+    "FD_QUERYCONSTRAINT_INQUIRY_TIMEOUT",
+    "FD_QUERYCONSTRAINT_PAIRING_STATE",
+    "FD_QUERYCONSTRAINT_PROVIDERINSTANCEID",
+    "FD_QUERYCONSTRAINT_RECURSESUBCATEGORY",
+    "FD_QUERYCONSTRAINT_ROUTINGSCOPE",
+    "FD_QUERYCONSTRAINT_SUBCATEGORY",
+    "FD_QUERYCONSTRAINT_VISIBILITY",
+    "FD_SUBKEY",
     "FD_Visibility_Default",
     "FD_Visibility_Hidden",
     "FMTID_Device",
     "FMTID_DeviceInterface",
+    "FMTID_FD",
+    "FMTID_PNPX",
+    "FMTID_PNPXDynamicProperty",
+    "FMTID_Pairing",
+    "FMTID_WSD",
+    "FunctionDiscovery",
+    "FunctionInstanceCollection",
+    "IFunctionDiscovery",
+    "IFunctionDiscoveryNotification",
+    "IFunctionDiscoveryProvider",
+    "IFunctionDiscoveryProviderFactory",
+    "IFunctionDiscoveryProviderQuery",
+    "IFunctionDiscoveryServiceProvider",
+    "IFunctionInstance",
+    "IFunctionInstanceCollection",
+    "IFunctionInstanceCollectionQuery",
+    "IFunctionInstanceQuery",
+    "IPNPXAssociation",
+    "IPNPXDeviceAssociation",
+    "IPropertyStoreCollection",
+    "IProviderProperties",
+    "IProviderPropertyConstraintCollection",
+    "IProviderPublishing",
+    "IProviderQueryConstraintCollection",
+    "MAX_FDCONSTRAINTNAME_LENGTH",
+    "MAX_FDCONSTRAINTVALUE_LENGTH",
+    "ONLINE_PROVIDER_DEVICES_QUERYCONSTRAINT_OWNERNAME",
+    "PKEY_DeviceClass_Characteristics",
+    "PKEY_DeviceClass_ClassCoInstallers",
+    "PKEY_DeviceClass_ClassInstaller",
+    "PKEY_DeviceClass_ClassName",
+    "PKEY_DeviceClass_DefaultService",
+    "PKEY_DeviceClass_DevType",
+    "PKEY_DeviceClass_Exclusive",
+    "PKEY_DeviceClass_Icon",
+    "PKEY_DeviceClass_IconPath",
+    "PKEY_DeviceClass_LowerFilters",
+    "PKEY_DeviceClass_Name",
+    "PKEY_DeviceClass_NoDisplayClass",
+    "PKEY_DeviceClass_NoInstallClass",
+    "PKEY_DeviceClass_NoUseClass",
+    "PKEY_DeviceClass_PropPageProvider",
+    "PKEY_DeviceClass_Security",
+    "PKEY_DeviceClass_SecuritySDS",
+    "PKEY_DeviceClass_SilentInstall",
+    "PKEY_DeviceClass_UpperFilters",
     "PKEY_DeviceDisplay_Address",
-    "PKEY_DeviceDisplay_DiscoveryMethod",
-    "PKEY_DeviceDisplay_IsEncrypted",
-    "PKEY_DeviceDisplay_IsAuthenticated",
-    "PKEY_DeviceDisplay_IsConnected",
-    "PKEY_DeviceDisplay_IsPaired",
-    "PKEY_DeviceDisplay_Icon",
-    "PKEY_DeviceDisplay_Version",
-    "PKEY_DeviceDisplay_Last_Seen",
-    "PKEY_DeviceDisplay_Last_Connected",
-    "PKEY_DeviceDisplay_IsShowInDisconnectedState",
-    "PKEY_DeviceDisplay_IsLocalMachine",
-    "PKEY_DeviceDisplay_MetadataPath",
-    "PKEY_DeviceDisplay_IsMetadataSearchInProgress",
-    "PKEY_DeviceDisplay_MetadataChecksum",
-    "PKEY_DeviceDisplay_IsNotInterestingForDisplay",
-    "PKEY_DeviceDisplay_LaunchDeviceStageOnDeviceConnect",
-    "PKEY_DeviceDisplay_LaunchDeviceStageFromExplorer",
-    "PKEY_DeviceDisplay_BaselineExperienceId",
-    "PKEY_DeviceDisplay_IsDeviceUniquelyIdentifiable",
+    "PKEY_DeviceDisplay_AlwaysShowDeviceAsConnected",
     "PKEY_DeviceDisplay_AssociationArray",
-    "PKEY_DeviceDisplay_DeviceDescription1",
-    "PKEY_DeviceDisplay_DeviceDescription2",
-    "PKEY_DeviceDisplay_IsNotWorkingProperly",
-    "PKEY_DeviceDisplay_IsSharedDevice",
-    "PKEY_DeviceDisplay_IsNetworkDevice",
-    "PKEY_DeviceDisplay_IsDefaultDevice",
-    "PKEY_DeviceDisplay_MetadataCabinet",
-    "PKEY_DeviceDisplay_RequiresPairingElevation",
-    "PKEY_DeviceDisplay_ExperienceId",
+    "PKEY_DeviceDisplay_BaselineExperienceId",
     "PKEY_DeviceDisplay_Category",
-    "PKEY_DeviceDisplay_Category_Desc_Singular",
-    "PKEY_DeviceDisplay_Category_Desc_Plural",
-    "PKEY_DeviceDisplay_Category_Icon",
     "PKEY_DeviceDisplay_CategoryGroup_Desc",
     "PKEY_DeviceDisplay_CategoryGroup_Icon",
-    "PKEY_DeviceDisplay_PrimaryCategory",
-    "PKEY_DeviceDisplay_UnpairUninstall",
-    "PKEY_DeviceDisplay_RequiresUninstallElevation",
+    "PKEY_DeviceDisplay_Category_Desc_Plural",
+    "PKEY_DeviceDisplay_Category_Desc_Singular",
+    "PKEY_DeviceDisplay_Category_Icon",
+    "PKEY_DeviceDisplay_DeviceDescription1",
+    "PKEY_DeviceDisplay_DeviceDescription2",
     "PKEY_DeviceDisplay_DeviceFunctionSubRank",
-    "PKEY_DeviceDisplay_AlwaysShowDeviceAsConnected",
+    "PKEY_DeviceDisplay_DiscoveryMethod",
+    "PKEY_DeviceDisplay_ExperienceId",
     "PKEY_DeviceDisplay_FriendlyName",
+    "PKEY_DeviceDisplay_Icon",
+    "PKEY_DeviceDisplay_InstallInProgress",
+    "PKEY_DeviceDisplay_IsAuthenticated",
+    "PKEY_DeviceDisplay_IsConnected",
+    "PKEY_DeviceDisplay_IsDefaultDevice",
+    "PKEY_DeviceDisplay_IsDeviceUniquelyIdentifiable",
+    "PKEY_DeviceDisplay_IsEncrypted",
+    "PKEY_DeviceDisplay_IsLocalMachine",
+    "PKEY_DeviceDisplay_IsMetadataSearchInProgress",
+    "PKEY_DeviceDisplay_IsNetworkDevice",
+    "PKEY_DeviceDisplay_IsNotInterestingForDisplay",
+    "PKEY_DeviceDisplay_IsNotWorkingProperly",
+    "PKEY_DeviceDisplay_IsPaired",
+    "PKEY_DeviceDisplay_IsSharedDevice",
+    "PKEY_DeviceDisplay_IsShowInDisconnectedState",
+    "PKEY_DeviceDisplay_Last_Connected",
+    "PKEY_DeviceDisplay_Last_Seen",
+    "PKEY_DeviceDisplay_LaunchDeviceStageFromExplorer",
+    "PKEY_DeviceDisplay_LaunchDeviceStageOnDeviceConnect",
     "PKEY_DeviceDisplay_Manufacturer",
+    "PKEY_DeviceDisplay_MetadataCabinet",
+    "PKEY_DeviceDisplay_MetadataChecksum",
+    "PKEY_DeviceDisplay_MetadataPath",
     "PKEY_DeviceDisplay_ModelName",
     "PKEY_DeviceDisplay_ModelNumber",
-    "PKEY_DeviceDisplay_InstallInProgress",
-    "FMTID_Pairing",
-    "PKEY_Pairing_ListItemText",
-    "PKEY_Pairing_ListItemDescription",
-    "PKEY_Pairing_ListItemIcon",
-    "PKEY_Pairing_ListItemDefault",
-    "PKEY_Pairing_IsWifiOnlyDevice",
+    "PKEY_DeviceDisplay_PrimaryCategory",
+    "PKEY_DeviceDisplay_RequiresPairingElevation",
+    "PKEY_DeviceDisplay_RequiresUninstallElevation",
+    "PKEY_DeviceDisplay_UnpairUninstall",
+    "PKEY_DeviceDisplay_Version",
+    "PKEY_DeviceInterfaceClass_DefaultInterface",
+    "PKEY_DeviceInterface_ClassGuid",
+    "PKEY_DeviceInterface_Enabled",
+    "PKEY_DeviceInterface_FriendlyName",
+    "PKEY_Device_AdditionalSoftwareRequested",
+    "PKEY_Device_Address",
     "PKEY_Device_BIOSVersion",
-    "FMTID_WSD",
-    "FMTID_PNPX",
-    "PKEY_PNPX_GlobalIdentity",
-    "PKEY_PNPX_Types",
-    "PKEY_PNPX_Scopes",
-    "PKEY_PNPX_XAddrs",
-    "PKEY_PNPX_MetadataVersion",
-    "PKEY_PNPX_ID",
-    "PKEY_PNPX_RemoteAddress",
-    "PKEY_PNPX_RootProxy",
-    "PKEY_PNPX_ManufacturerUrl",
-    "PKEY_PNPX_ModelUrl",
-    "PKEY_PNPX_Upc",
-    "PKEY_PNPX_PresentationUrl",
-    "PKEY_PNPX_FirmwareVersion",
-    "PKEY_PNPX_SerialNumber",
-    "PKEY_PNPX_DeviceCategory",
-    "PKEY_PNPX_SecureChannel",
-    "PKEY_PNPX_CompactSignature",
-    "PKEY_PNPX_DeviceCertHash",
-    "PKEY_PNPX_DeviceCategory_Desc",
-    "PKEY_PNPX_Category_Desc_NonPlural",
-    "PKEY_PNPX_PhysicalAddress",
-    "PKEY_PNPX_NetworkInterfaceLuid",
-    "PKEY_PNPX_NetworkInterfaceGuid",
-    "PKEY_PNPX_IpAddress",
-    "PKEY_PNPX_ServiceAddress",
-    "PKEY_PNPX_ServiceId",
-    "PKEY_PNPX_ServiceTypes",
-    "PKEY_PNPX_ServiceControlUrl",
-    "PKEY_PNPX_ServiceDescUrl",
-    "PKEY_PNPX_ServiceEventSubUrl",
-    "PKEY_PNPX_DomainName",
-    "PKEY_PNPX_ShareName",
-    "PKEY_SSDP_AltLocationInfo",
-    "PKEY_SSDP_DevLifeTime",
-    "PKEY_SSDP_NetworkInterface",
-    "FMTID_PNPXDynamicProperty",
-    "PKEY_PNPX_Installable",
-    "PKEY_PNPX_Associated",
-    "PKEY_PNPX_CompatibleTypes",
-    "PKEY_PNPX_InstallState",
-    "PNPX_INSTALLSTATE_NOTINSTALLED",
-    "PNPX_INSTALLSTATE_INSTALLED",
-    "PNPX_INSTALLSTATE_INSTALLING",
-    "PNPX_INSTALLSTATE_FAILED",
-    "PKEY_PNPX_Removable",
-    "PKEY_PNPX_IPBusEnumerated",
-    "PKEY_WNET_Scope",
-    "PKEY_WNET_Type",
-    "PKEY_WNET_DisplayType",
-    "PKEY_WNET_Usage",
-    "PKEY_WNET_LocalName",
-    "PKEY_WNET_RemoteName",
-    "PKEY_WNET_Comment",
-    "PKEY_WNET_Provider",
-    "PKEY_WCN_Version",
-    "PKEY_WCN_RequestType",
-    "PKEY_WCN_AuthType",
-    "PKEY_WCN_EncryptType",
-    "PKEY_WCN_ConnType",
-    "PKEY_WCN_ConfigMethods",
-    "PKEY_WCN_RfBand",
-    "PKEY_WCN_AssocState",
-    "PKEY_WCN_ConfigError",
-    "PKEY_WCN_ConfigState",
-    "PKEY_WCN_DevicePasswordId",
-    "PKEY_WCN_OSVersion",
-    "PKEY_WCN_VendorExtension",
-    "PKEY_WCN_RegistrarType",
+    "PKEY_Device_BaseContainerId",
+    "PKEY_Device_BusNumber",
+    "PKEY_Device_BusRelations",
+    "PKEY_Device_BusReportedDeviceDesc",
+    "PKEY_Device_BusTypeGuid",
+    "PKEY_Device_Capabilities",
+    "PKEY_Device_Characteristics",
+    "PKEY_Device_Children",
+    "PKEY_Device_Class",
+    "PKEY_Device_ClassGuid",
+    "PKEY_Device_CompatibleIds",
+    "PKEY_Device_ConfigFlags",
+    "PKEY_Device_ContainerId",
+    "PKEY_Device_DHP_Rebalance_Policy",
+    "PKEY_Device_DevNodeStatus",
+    "PKEY_Device_DevType",
+    "PKEY_Device_DeviceDesc",
+    "PKEY_Device_Driver",
+    "PKEY_Device_DriverCoInstallers",
+    "PKEY_Device_DriverDate",
+    "PKEY_Device_DriverDesc",
+    "PKEY_Device_DriverInfPath",
+    "PKEY_Device_DriverInfSection",
+    "PKEY_Device_DriverInfSectionExt",
+    "PKEY_Device_DriverLogoLevel",
+    "PKEY_Device_DriverPropPageProvider",
+    "PKEY_Device_DriverProvider",
+    "PKEY_Device_DriverRank",
+    "PKEY_Device_DriverVersion",
+    "PKEY_Device_EjectionRelations",
+    "PKEY_Device_EnumeratorName",
+    "PKEY_Device_Exclusive",
+    "PKEY_Device_FriendlyName",
+    "PKEY_Device_FriendlyNameAttributes",
+    "PKEY_Device_GenericDriverInstalled",
+    "PKEY_Device_HardwareIds",
+    "PKEY_Device_InstallInProgress",
+    "PKEY_Device_InstallState",
+    "PKEY_Device_InstanceId",
+    "PKEY_Device_IsAssociateableByUserAction",
+    "PKEY_Device_Legacy",
+    "PKEY_Device_LegacyBusType",
+    "PKEY_Device_LocationInfo",
+    "PKEY_Device_LocationPaths",
+    "PKEY_Device_LowerFilters",
+    "PKEY_Device_Manufacturer",
+    "PKEY_Device_ManufacturerAttributes",
+    "PKEY_Device_MatchingDeviceId",
+    "PKEY_Device_ModelId",
+    "PKEY_Device_NoConnectSound",
+    "PKEY_Device_Numa_Node",
+    "PKEY_Device_PDOName",
+    "PKEY_Device_Parent",
+    "PKEY_Device_PowerData",
+    "PKEY_Device_PowerRelations",
+    "PKEY_Device_PresenceNotForDevice",
+    "PKEY_Device_ProblemCode",
+    "PKEY_Device_RemovalPolicy",
+    "PKEY_Device_RemovalPolicyDefault",
+    "PKEY_Device_RemovalPolicyOverride",
+    "PKEY_Device_RemovalRelations",
+    "PKEY_Device_Reported",
+    "PKEY_Device_ResourcePickerExceptions",
+    "PKEY_Device_ResourcePickerTags",
+    "PKEY_Device_SafeRemovalRequired",
+    "PKEY_Device_SafeRemovalRequiredOverride",
+    "PKEY_Device_Security",
+    "PKEY_Device_SecuritySDS",
+    "PKEY_Device_Service",
+    "PKEY_Device_Siblings",
+    "PKEY_Device_SignalStrength",
+    "PKEY_Device_TransportRelations",
+    "PKEY_Device_UINumber",
+    "PKEY_Device_UINumberDescFormat",
+    "PKEY_Device_UpperFilters",
+    "PKEY_DrvPkg_BrandingIcon",
+    "PKEY_DrvPkg_DetailedDescription",
+    "PKEY_DrvPkg_DocumentationLink",
+    "PKEY_DrvPkg_Icon",
+    "PKEY_DrvPkg_Model",
+    "PKEY_DrvPkg_VendorWebSite",
+    "PKEY_FunctionInstance",
     "PKEY_Hardware_Devinst",
     "PKEY_Hardware_DisplayAttribute",
     "PKEY_Hardware_DriverDate",
@@ -696,166 +1160,164 @@ __all__ = [
     "PKEY_Hardware_ShellAttributes",
     "PKEY_Hardware_Status",
     "PKEY_NAME",
-    "PKEY_Device_DeviceDesc",
-    "PKEY_Device_HardwareIds",
-    "PKEY_Device_CompatibleIds",
-    "PKEY_Device_Service",
-    "PKEY_Device_Class",
-    "PKEY_Device_ClassGuid",
-    "PKEY_Device_Driver",
-    "PKEY_Device_ConfigFlags",
-    "PKEY_Device_Manufacturer",
-    "PKEY_Device_FriendlyName",
-    "PKEY_Device_LocationInfo",
-    "PKEY_Device_PDOName",
-    "PKEY_Device_Capabilities",
-    "PKEY_Device_UINumber",
-    "PKEY_Device_UpperFilters",
-    "PKEY_Device_LowerFilters",
-    "PKEY_Device_BusTypeGuid",
-    "PKEY_Device_LegacyBusType",
-    "PKEY_Device_BusNumber",
-    "PKEY_Device_EnumeratorName",
-    "PKEY_Device_Security",
-    "PKEY_Device_SecuritySDS",
-    "PKEY_Device_DevType",
-    "PKEY_Device_Exclusive",
-    "PKEY_Device_Characteristics",
-    "PKEY_Device_Address",
-    "PKEY_Device_UINumberDescFormat",
-    "PKEY_Device_PowerData",
-    "PKEY_Device_RemovalPolicy",
-    "PKEY_Device_RemovalPolicyDefault",
-    "PKEY_Device_RemovalPolicyOverride",
-    "PKEY_Device_InstallState",
-    "PKEY_Device_LocationPaths",
-    "PKEY_Device_BaseContainerId",
-    "PKEY_Device_DevNodeStatus",
-    "PKEY_Device_ProblemCode",
-    "PKEY_Device_EjectionRelations",
-    "PKEY_Device_RemovalRelations",
-    "PKEY_Device_PowerRelations",
-    "PKEY_Device_BusRelations",
-    "PKEY_Device_Parent",
-    "PKEY_Device_Children",
-    "PKEY_Device_Siblings",
-    "PKEY_Device_TransportRelations",
-    "PKEY_Device_Reported",
-    "PKEY_Device_Legacy",
-    "PKEY_Device_InstanceId",
-    "PKEY_Device_ContainerId",
-    "PKEY_Device_ModelId",
-    "PKEY_Device_FriendlyNameAttributes",
-    "PKEY_Device_ManufacturerAttributes",
-    "PKEY_Device_PresenceNotForDevice",
-    "PKEY_Device_SignalStrength",
-    "PKEY_Device_IsAssociateableByUserAction",
     "PKEY_Numa_Proximity_Domain",
-    "PKEY_Device_DHP_Rebalance_Policy",
-    "PKEY_Device_Numa_Node",
-    "PKEY_Device_BusReportedDeviceDesc",
-    "PKEY_Device_InstallInProgress",
-    "PKEY_Device_DriverDate",
-    "PKEY_Device_DriverVersion",
-    "PKEY_Device_DriverDesc",
-    "PKEY_Device_DriverInfPath",
-    "PKEY_Device_DriverInfSection",
-    "PKEY_Device_DriverInfSectionExt",
-    "PKEY_Device_MatchingDeviceId",
-    "PKEY_Device_DriverProvider",
-    "PKEY_Device_DriverPropPageProvider",
-    "PKEY_Device_DriverCoInstallers",
-    "PKEY_Device_ResourcePickerTags",
-    "PKEY_Device_ResourcePickerExceptions",
-    "PKEY_Device_DriverRank",
-    "PKEY_Device_DriverLogoLevel",
-    "PKEY_Device_NoConnectSound",
-    "PKEY_Device_GenericDriverInstalled",
-    "PKEY_Device_AdditionalSoftwareRequested",
-    "PKEY_Device_SafeRemovalRequired",
-    "PKEY_Device_SafeRemovalRequiredOverride",
-    "PKEY_DrvPkg_Model",
-    "PKEY_DrvPkg_VendorWebSite",
-    "PKEY_DrvPkg_DetailedDescription",
-    "PKEY_DrvPkg_DocumentationLink",
-    "PKEY_DrvPkg_Icon",
-    "PKEY_DrvPkg_BrandingIcon",
-    "PKEY_DeviceClass_UpperFilters",
-    "PKEY_DeviceClass_LowerFilters",
-    "PKEY_DeviceClass_Security",
-    "PKEY_DeviceClass_SecuritySDS",
-    "PKEY_DeviceClass_DevType",
-    "PKEY_DeviceClass_Exclusive",
-    "PKEY_DeviceClass_Characteristics",
-    "PKEY_DeviceClass_Name",
-    "PKEY_DeviceClass_ClassName",
-    "PKEY_DeviceClass_Icon",
-    "PKEY_DeviceClass_ClassInstaller",
-    "PKEY_DeviceClass_PropPageProvider",
-    "PKEY_DeviceClass_NoInstallClass",
-    "PKEY_DeviceClass_NoDisplayClass",
-    "PKEY_DeviceClass_SilentInstall",
-    "PKEY_DeviceClass_NoUseClass",
-    "PKEY_DeviceClass_DefaultService",
-    "PKEY_DeviceClass_IconPath",
-    "PKEY_DeviceClass_ClassCoInstallers",
-    "PKEY_DeviceInterface_FriendlyName",
-    "PKEY_DeviceInterface_Enabled",
-    "PKEY_DeviceInterface_ClassGuid",
-    "PKEY_DeviceInterfaceClass_DefaultInterface",
-    "FD_LONGHORN",
-    "MAX_FDCONSTRAINTNAME_LENGTH",
-    "MAX_FDCONSTRAINTVALUE_LENGTH",
-    "E_FDPAIRING_NOCONNECTION",
-    "E_FDPAIRING_HWFAILURE",
-    "E_FDPAIRING_AUTHFAILURE",
-    "E_FDPAIRING_CONNECTTIMEOUT",
-    "E_FDPAIRING_TOOMANYCONNECTIONS",
-    "E_FDPAIRING_AUTHNOTALLOWED",
-    "E_FDPAIRING_IPBUSDISABLED",
-    "E_FDPAIRING_NOPROFILES",
-    "PropertyConstraint",
-    "QC_EQUALS",
-    "QC_NOTEQUAL",
-    "QC_LESSTHAN",
-    "QC_LESSTHANOREQUAL",
-    "QC_GREATERTHAN",
-    "QC_GREATERTHANOREQUAL",
-    "QC_STARTSWITH",
-    "QC_EXISTS",
-    "QC_DOESNOTEXIST",
-    "QC_CONTAINS",
-    "SystemVisibilityFlags",
-    "SVF_SYSTEM",
-    "SVF_USER",
-    "QueryUpdateAction",
-    "QUA_ADD",
-    "QUA_REMOVE",
-    "QUA_CHANGE",
-    "QueryCategoryType",
-    "QCT_PROVIDER",
-    "QCT_LAYERED",
-    "IFunctionDiscoveryNotification",
-    "IFunctionDiscovery",
-    "IFunctionInstance",
-    "IFunctionInstanceCollection",
-    "IPropertyStoreCollection",
-    "IFunctionInstanceQuery",
-    "IFunctionInstanceCollectionQuery",
-    "IFunctionDiscoveryProvider",
-    "IProviderProperties",
-    "IProviderPublishing",
-    "IFunctionDiscoveryProviderFactory",
-    "IFunctionDiscoveryProviderQuery",
-    "IProviderQueryConstraintCollection",
-    "IProviderPropertyConstraintCollection",
-    "IFunctionDiscoveryServiceProvider",
+    "PKEY_PNPX_Associated",
+    "PKEY_PNPX_Category_Desc_NonPlural",
+    "PKEY_PNPX_CompactSignature",
+    "PKEY_PNPX_CompatibleTypes",
+    "PKEY_PNPX_DeviceCategory",
+    "PKEY_PNPX_DeviceCategory_Desc",
+    "PKEY_PNPX_DeviceCertHash",
+    "PKEY_PNPX_DomainName",
+    "PKEY_PNPX_FirmwareVersion",
+    "PKEY_PNPX_GlobalIdentity",
+    "PKEY_PNPX_ID",
+    "PKEY_PNPX_IPBusEnumerated",
+    "PKEY_PNPX_InstallState",
+    "PKEY_PNPX_Installable",
+    "PKEY_PNPX_IpAddress",
+    "PKEY_PNPX_ManufacturerUrl",
+    "PKEY_PNPX_MetadataVersion",
+    "PKEY_PNPX_ModelUrl",
+    "PKEY_PNPX_NetworkInterfaceGuid",
+    "PKEY_PNPX_NetworkInterfaceLuid",
+    "PKEY_PNPX_PhysicalAddress",
+    "PKEY_PNPX_PresentationUrl",
+    "PKEY_PNPX_RemoteAddress",
+    "PKEY_PNPX_Removable",
+    "PKEY_PNPX_RootProxy",
+    "PKEY_PNPX_Scopes",
+    "PKEY_PNPX_SecureChannel",
+    "PKEY_PNPX_SerialNumber",
+    "PKEY_PNPX_ServiceAddress",
+    "PKEY_PNPX_ServiceControlUrl",
+    "PKEY_PNPX_ServiceDescUrl",
+    "PKEY_PNPX_ServiceEventSubUrl",
+    "PKEY_PNPX_ServiceId",
+    "PKEY_PNPX_ServiceTypes",
+    "PKEY_PNPX_ShareName",
+    "PKEY_PNPX_Types",
+    "PKEY_PNPX_Upc",
+    "PKEY_PNPX_XAddrs",
+    "PKEY_Pairing_IsWifiOnlyDevice",
+    "PKEY_Pairing_ListItemDefault",
+    "PKEY_Pairing_ListItemDescription",
+    "PKEY_Pairing_ListItemIcon",
+    "PKEY_Pairing_ListItemText",
+    "PKEY_SSDP_AltLocationInfo",
+    "PKEY_SSDP_DevLifeTime",
+    "PKEY_SSDP_NetworkInterface",
+    "PKEY_WCN_AssocState",
+    "PKEY_WCN_AuthType",
+    "PKEY_WCN_ConfigError",
+    "PKEY_WCN_ConfigMethods",
+    "PKEY_WCN_ConfigState",
+    "PKEY_WCN_ConnType",
+    "PKEY_WCN_DevicePasswordId",
+    "PKEY_WCN_EncryptType",
+    "PKEY_WCN_OSVersion",
+    "PKEY_WCN_RegistrarType",
+    "PKEY_WCN_RequestType",
+    "PKEY_WCN_RfBand",
+    "PKEY_WCN_VendorExtension",
+    "PKEY_WCN_Version",
+    "PKEY_WNET_Comment",
+    "PKEY_WNET_DisplayType",
+    "PKEY_WNET_LocalName",
+    "PKEY_WNET_Provider",
+    "PKEY_WNET_RemoteName",
+    "PKEY_WNET_Scope",
+    "PKEY_WNET_Type",
+    "PKEY_WNET_Usage",
     "PNPXAssociation",
     "PNPXPairingHandler",
-    "IPNPXAssociation",
-    "IPNPXDeviceAssociation",
-    "FunctionDiscovery",
+    "PNPX_DEVICECATEGORY_CAMERA",
+    "PNPX_DEVICECATEGORY_COMPUTER",
+    "PNPX_DEVICECATEGORY_DISPLAYS",
+    "PNPX_DEVICECATEGORY_FAX",
+    "PNPX_DEVICECATEGORY_GAMING_DEVICE",
+    "PNPX_DEVICECATEGORY_HOME_AUTOMATION_SYSTEM",
+    "PNPX_DEVICECATEGORY_HOME_SECURITY_SYSTEM",
+    "PNPX_DEVICECATEGORY_INPUTDEVICE",
+    "PNPX_DEVICECATEGORY_MFP",
+    "PNPX_DEVICECATEGORY_MULTIMEDIA_DEVICE",
+    "PNPX_DEVICECATEGORY_NETWORK_INFRASTRUCTURE",
+    "PNPX_DEVICECATEGORY_OTHER",
+    "PNPX_DEVICECATEGORY_PRINTER",
+    "PNPX_DEVICECATEGORY_SCANNER",
+    "PNPX_DEVICECATEGORY_STORAGE",
+    "PNPX_DEVICECATEGORY_TELEPHONE",
+    "PNPX_INSTALLSTATE_FAILED",
+    "PNPX_INSTALLSTATE_INSTALLED",
+    "PNPX_INSTALLSTATE_INSTALLING",
+    "PNPX_INSTALLSTATE_NOTINSTALLED",
+    "PNP_CONSTRAINTVALUE_NOTIFICATIONSONLY",
+    "PNP_CONSTRAINTVALUE_NOTPRESENT",
+    "PROVIDERDDO_QUERYCONSTRAINT_DEVICEFUNCTIONDISPLAYOBJECTS",
+    "PROVIDERDDO_QUERYCONSTRAINT_DEVICEINTERFACES",
+    "PROVIDERDDO_QUERYCONSTRAINT_ONLYCONNECTEDDEVICES",
+    "PROVIDERPNP_QUERYCONSTRAINT_INTERFACECLASS",
+    "PROVIDERPNP_QUERYCONSTRAINT_NOTIFICATIONSONLY",
+    "PROVIDERPNP_QUERYCONSTRAINT_NOTPRESENT",
+    "PROVIDERSSDP_QUERYCONSTRAINT_CUSTOMXMLPROPERTY",
+    "PROVIDERSSDP_QUERYCONSTRAINT_TYPE",
+    "PROVIDERWNET_QUERYCONSTRAINT_PROPERTIES",
+    "PROVIDERWNET_QUERYCONSTRAINT_RESOURCETYPE",
+    "PROVIDERWNET_QUERYCONSTRAINT_TYPE",
+    "PROVIDERWSD_QUERYCONSTRAINT_DIRECTEDADDRESS",
+    "PROVIDERWSD_QUERYCONSTRAINT_SCOPE",
+    "PROVIDERWSD_QUERYCONSTRAINT_SECURITY_REQUIREMENTS",
+    "PROVIDERWSD_QUERYCONSTRAINT_SSL_CERTHASH_FOR_SERVER_AUTH",
+    "PROVIDERWSD_QUERYCONSTRAINT_SSL_CERT_FOR_CLIENT_AUTH",
+    "PROVIDERWSD_QUERYCONSTRAINT_TYPE",
+    "PropertyConstraint",
     "PropertyStore",
-    "FunctionInstanceCollection",
     "PropertyStoreCollection",
+    "QCT_LAYERED",
+    "QCT_PROVIDER",
+    "QC_CONTAINS",
+    "QC_DOESNOTEXIST",
+    "QC_EQUALS",
+    "QC_EXISTS",
+    "QC_GREATERTHAN",
+    "QC_GREATERTHANOREQUAL",
+    "QC_LESSTHAN",
+    "QC_LESSTHANOREQUAL",
+    "QC_NOTEQUAL",
+    "QC_STARTSWITH",
+    "QUA_ADD",
+    "QUA_CHANGE",
+    "QUA_REMOVE",
+    "QueryCategoryType",
+    "QueryUpdateAction",
+    "SID_DeviceDisplayStatusManager",
+    "SID_EnumDeviceFunction",
+    "SID_EnumInterface",
+    "SID_FDPairingHandler",
+    "SID_FunctionDiscoveryProviderRefresh",
+    "SID_PNPXAssociation",
+    "SID_PNPXPropertyStore",
+    "SID_PNPXServiceCollection",
+    "SID_PnpProvider",
+    "SID_UPnPActivator",
+    "SID_UninstallDeviceFunction",
+    "SID_UnpairProvider",
+    "SSDP_CONSTRAINTVALUE_TYPE_ALL",
+    "SSDP_CONSTRAINTVALUE_TYPE_DEVICE_PREFIX",
+    "SSDP_CONSTRAINTVALUE_TYPE_ROOT",
+    "SSDP_CONSTRAINTVALUE_TYPE_SVC_PREFIX",
+    "SVF_SYSTEM",
+    "SVF_USER",
+    "SystemVisibilityFlags",
+    "WNET_CONSTRAINTVALUE_PROPERTIES_ALL",
+    "WNET_CONSTRAINTVALUE_PROPERTIES_LIMITED",
+    "WNET_CONSTRAINTVALUE_RESOURCETYPE_DISK",
+    "WNET_CONSTRAINTVALUE_RESOURCETYPE_DISKORPRINTER",
+    "WNET_CONSTRAINTVALUE_RESOURCETYPE_PRINTER",
+    "WNET_CONSTRAINTVALUE_TYPE_ALL",
+    "WNET_CONSTRAINTVALUE_TYPE_DOMAIN",
+    "WNET_CONSTRAINTVALUE_TYPE_SERVER",
+    "WSD_CONSTRAINTVALUE_NO_TRUST_VERIFICATION",
+    "WSD_CONSTRAINTVALUE_REQUIRE_SECURECHANNEL",
+    "WSD_CONSTRAINTVALUE_REQUIRE_SECURECHANNEL_AND_COMPACTSIGNATURE",
 ]

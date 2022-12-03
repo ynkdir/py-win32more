@@ -1,22 +1,48 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.NetworkManagement.NetworkPolicyServer
 import win32more.System.Com
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+ACCOUNTINGPROPERTIES = Int32
+PROPERTY_ACCOUNTING_LOG_ACCOUNTING = 1026
+PROPERTY_ACCOUNTING_LOG_ACCOUNTING_INTERIM = 1027
+PROPERTY_ACCOUNTING_LOG_AUTHENTICATION = 1028
+PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY = 1029
+PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE = 1030
+PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY = 1031
+PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT = 1032
+PROPERTY_ACCOUNTING_LOG_ENABLE_LOGGING = 1033
+PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL = 1034
+PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS = 1035
+PROPERTY_ACCOUNTING_LOG_AUTHENTICATION_INTERIM = 1036
+PROPERTY_ACCOUNTING_LOG_FILE_IS_BACKUP = 1037
+PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE = 1038
+RADIUS_EXTENSION_INIT = 'RadiusExtensionInit'
+RADIUS_EXTENSION_TERM = 'RadiusExtensionTerm'
+RADIUS_EXTENSION_PROCESS = 'RadiusExtensionProcess'
+RADIUS_EXTENSION_PROCESS_EX = 'RadiusExtensionProcessEx'
+RADIUS_EXTENSION_FREE_ATTRIBUTES = 'RadiusExtensionFreeAttributes'
+AUTHSRV_PARAMETERS_KEY_W = 'System\\CurrentControlSet\\Services\\AuthSrv\\Parameters'
+AUTHSRV_EXTENSIONS_VALUE_W = 'ExtensionDLLs'
+AUTHSRV_AUTHORIZATION_VALUE_W = 'AuthorizationDLLs'
+AUTHSRV_ENFORCE_NP_FOR_PAP_CHALLENGE_RESPONSE_VALUE_W = 'EnforceNetworkPolicyForPAPBasedChallengeResponse'
 RADIUS_EXTENSION_VERSION = 1
-SdoMachine = Guid('e9218ae7-9e91-11d1-bf60-0080c7846bc0')
+RADIUS_EXTENSION_PROCESS2 = 'RadiusExtensionProcess2'
+ATTRIBUTEFILTER = Int32
+ATTRIBUTE_FILTER_NONE = 0
+ATTRIBUTE_FILTER_VPN_DIALUP = 1
+ATTRIBUTE_FILTER_IEEE_802_1x = 2
 ATTRIBUTEID = UInt32
 ATTRIBUTE_UNDEFINED = 0
 ATTRIBUTE_MIN_VALUE = 1
@@ -261,50 +287,6 @@ RAS_ATTRIBUTE_ENCRYPTION_POLICY = 4294967207
 RAS_ATTRIBUTE_BAP_REQUIRED = 4294967208
 RAS_ATTRIBUTE_BAP_LINE_DOWN_TIME = 4294967209
 RAS_ATTRIBUTE_BAP_LINE_DOWN_LIMIT = 4294967210
-NEW_LOG_FILE_FREQUENCY = Int32
-IAS_LOGGING_UNLIMITED_SIZE = 0
-IAS_LOGGING_DAILY = 1
-IAS_LOGGING_WEEKLY = 2
-IAS_LOGGING_MONTHLY = 3
-IAS_LOGGING_WHEN_FILE_SIZE_REACHES = 4
-AUTHENTICATION_TYPE = Int32
-IAS_AUTH_INVALID = 0
-IAS_AUTH_PAP = 1
-IAS_AUTH_MD5CHAP = 2
-IAS_AUTH_MSCHAP = 3
-IAS_AUTH_MSCHAP2 = 4
-IAS_AUTH_EAP = 5
-IAS_AUTH_ARAP = 6
-IAS_AUTH_NONE = 7
-IAS_AUTH_CUSTOM = 8
-IAS_AUTH_MSCHAP_CPW = 9
-IAS_AUTH_MSCHAP2_CPW = 10
-IAS_AUTH_PEAP = 11
-IDENTITY_TYPE = Int32
-IAS_IDENTITY_NO_DEFAULT = 1
-ATTRIBUTESYNTAX = Int32
-IAS_SYNTAX_BOOLEAN = 1
-IAS_SYNTAX_INTEGER = 2
-IAS_SYNTAX_ENUMERATOR = 3
-IAS_SYNTAX_INETADDR = 4
-IAS_SYNTAX_STRING = 5
-IAS_SYNTAX_OCTETSTRING = 6
-IAS_SYNTAX_UTCTIME = 7
-IAS_SYNTAX_PROVIDERSPECIFIC = 8
-IAS_SYNTAX_UNSIGNEDINTEGER = 9
-IAS_SYNTAX_INETADDR6 = 10
-ATTRIBUTERESTRICTIONS = Int32
-MULTIVALUED = 1
-ALLOWEDINPROFILE = 2
-ALLOWEDINCONDITION = 4
-ALLOWEDINPROXYPROFILE = 8
-ALLOWEDINPROXYCONDITION = 16
-ALLOWEDINVPNDIALUP = 32
-ALLOWEDIN8021X = 64
-ATTRIBUTEFILTER = Int32
-ATTRIBUTE_FILTER_NONE = 0
-ATTRIBUTE_FILTER_VPN_DIALUP = 1
-ATTRIBUTE_FILTER_IEEE_802_1x = 2
 ATTRIBUTEINFO = Int32
 NAME = 1
 SYNTAX = 2
@@ -313,36 +295,6 @@ DESCRIPTION = 4
 VENDORID = 5
 LDAPNAME = 6
 VENDORTYPE = 7
-IASCOMMONPROPERTIES = Int32
-PROPERTY_SDO_RESERVED = 0
-PROPERTY_SDO_CLASS = 1
-PROPERTY_SDO_NAME = 2
-PROPERTY_SDO_DESCRIPTION = 3
-PROPERTY_SDO_ID = 4
-PROPERTY_SDO_DATASTORE_NAME = 5
-PROPERTY_SDO_TEMPLATE_GUID = 6
-PROPERTY_SDO_OPAQUE = 7
-PROPERTY_SDO_START = 1024
-USERPROPERTIES = Int32
-PROPERTY_USER_CALLING_STATION_ID = 1024
-PROPERTY_USER_SAVED_CALLING_STATION_ID = 1025
-PROPERTY_USER_RADIUS_CALLBACK_NUMBER = 1026
-PROPERTY_USER_RADIUS_FRAMED_ROUTE = 1027
-PROPERTY_USER_RADIUS_FRAMED_IP_ADDRESS = 1028
-PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER = 1029
-PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE = 1030
-PROPERTY_USER_SAVED_RADIUS_FRAMED_IP_ADDRESS = 1031
-PROPERTY_USER_ALLOW_DIALIN = 1032
-PROPERTY_USER_SERVICE_TYPE = 1033
-PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE = 1034
-PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE = 1035
-PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID = 1036
-PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID = 1037
-PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX = 1038
-PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX = 1039
-DICTIONARYPROPERTIES = Int32
-PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION = 1024
-PROPERTY_DICTIONARY_LOCATION = 1025
 ATTRIBUTEPROPERTIES = Int32
 PROPERTY_ATTRIBUTE_ID = 1024
 PROPERTY_ATTRIBUTE_VENDOR_ID = 1025
@@ -362,30 +314,38 @@ PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_CONDITION = 1038
 PROPERTY_ATTRIBUTE_ALLOW_IN_VPNDIALUP = 1039
 PROPERTY_ATTRIBUTE_ALLOW_IN_8021X = 1040
 PROPERTY_ATTRIBUTE_ENUM_FILTERS = 1041
-IASPROPERTIES = Int32
-PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION = 1024
-PROPERTY_IAS_POLICIES_COLLECTION = 1025
-PROPERTY_IAS_PROFILES_COLLECTION = 1026
-PROPERTY_IAS_PROTOCOLS_COLLECTION = 1027
-PROPERTY_IAS_AUDITORS_COLLECTION = 1028
-PROPERTY_IAS_REQUESTHANDLERS_COLLECTION = 1029
-PROPERTY_IAS_PROXYPOLICIES_COLLECTION = 1030
-PROPERTY_IAS_PROXYPROFILES_COLLECTION = 1031
-PROPERTY_IAS_REMEDIATIONSERVERGROUPS_COLLECTION = 1032
-PROPERTY_IAS_SHVTEMPLATES_COLLECTION = 1033
-TEMPLATESPROPERTIES = Int32
-PROPERTY_TEMPLATES_POLICIES_TEMPLATES = 1024
-PROPERTY_TEMPLATES_PROFILES_TEMPLATES = 1025
-PROPERTY_TEMPLATES_PROFILES_COLLECTION = 1026
-PROPERTY_TEMPLATES_PROXYPOLICIES_TEMPLATES = 1027
-PROPERTY_TEMPLATES_PROXYPROFILES_TEMPLATES = 1028
-PROPERTY_TEMPLATES_PROXYPROFILES_COLLECTION = 1029
-PROPERTY_TEMPLATES_REMEDIATIONSERVERGROUPS_TEMPLATES = 1030
-PROPERTY_TEMPLATES_SHVTEMPLATES_TEMPLATES = 1031
-PROPERTY_TEMPLATES_CLIENTS_TEMPLATES = 1032
-PROPERTY_TEMPLATES_RADIUSSERVERS_TEMPLATES = 1033
-PROPERTY_TEMPLATES_SHAREDSECRETS_TEMPLATES = 1034
-PROPERTY_TEMPLATES_IPFILTERS_TEMPLATES = 1035
+ATTRIBUTERESTRICTIONS = Int32
+MULTIVALUED = 1
+ALLOWEDINPROFILE = 2
+ALLOWEDINCONDITION = 4
+ALLOWEDINPROXYPROFILE = 8
+ALLOWEDINPROXYCONDITION = 16
+ALLOWEDINVPNDIALUP = 32
+ALLOWEDIN8021X = 64
+ATTRIBUTESYNTAX = Int32
+IAS_SYNTAX_BOOLEAN = 1
+IAS_SYNTAX_INTEGER = 2
+IAS_SYNTAX_ENUMERATOR = 3
+IAS_SYNTAX_INETADDR = 4
+IAS_SYNTAX_STRING = 5
+IAS_SYNTAX_OCTETSTRING = 6
+IAS_SYNTAX_UTCTIME = 7
+IAS_SYNTAX_PROVIDERSPECIFIC = 8
+IAS_SYNTAX_UNSIGNEDINTEGER = 9
+IAS_SYNTAX_INETADDR6 = 10
+AUTHENTICATION_TYPE = Int32
+IAS_AUTH_INVALID = 0
+IAS_AUTH_PAP = 1
+IAS_AUTH_MD5CHAP = 2
+IAS_AUTH_MSCHAP = 3
+IAS_AUTH_MSCHAP2 = 4
+IAS_AUTH_EAP = 5
+IAS_AUTH_ARAP = 6
+IAS_AUTH_NONE = 7
+IAS_AUTH_CUSTOM = 8
+IAS_AUTH_MSCHAP_CPW = 9
+IAS_AUTH_MSCHAP2_CPW = 10
+IAS_AUTH_PEAP = 11
 CLIENTPROPERTIES = Int32
 PROPERTY_CLIENT_REQUIRE_SIGNATURE = 1024
 PROPERTY_CLIENT_UNUSED = 1025
@@ -395,108 +355,33 @@ PROPERTY_CLIENT_ADDRESS = 1028
 PROPERTY_CLIENT_QUARANTINE_COMPATIBLE = 1029
 PROPERTY_CLIENT_ENABLED = 1030
 PROPERTY_CLIENT_SECRET_TEMPLATE_GUID = 1031
-VENDORPROPERTIES = Int32
-PROPERTY_NAS_VENDOR_ID = 1024
-PROFILEPROPERTIES = Int32
-PROPERTY_PROFILE_ATTRIBUTES_COLLECTION = 1024
-PROPERTY_PROFILE_IPFILTER_TEMPLATE_GUID = 1025
-POLICYPROPERTIES = Int32
-PROPERTY_POLICY_CONSTRAINT = 1024
-PROPERTY_POLICY_MERIT = 1025
-PROPERTY_POLICY_UNUSED0 = 1026
-PROPERTY_POLICY_UNUSED1 = 1027
-PROPERTY_POLICY_PROFILE_NAME = 1028
-PROPERTY_POLICY_ACTION = 1029
-PROPERTY_POLICY_CONDITIONS_COLLECTION = 1030
-PROPERTY_POLICY_ENABLED = 1031
-PROPERTY_POLICY_SOURCETAG = 1032
 CONDITIONPROPERTIES = Int32
 PROPERTY_CONDITION_TEXT = 1024
-RADIUSSERVERGROUPPROPERTIES = Int32
-PROPERTY_RADIUSSERVERGROUP_SERVERS_COLLECTION = 1024
-RADIUSSERVERPROPERTIES = Int32
-PROPERTY_RADIUSSERVER_AUTH_PORT = 1024
-PROPERTY_RADIUSSERVER_AUTH_SECRET = 1025
-PROPERTY_RADIUSSERVER_ACCT_PORT = 1026
-PROPERTY_RADIUSSERVER_ACCT_SECRET = 1027
-PROPERTY_RADIUSSERVER_ADDRESS = 1028
-PROPERTY_RADIUSSERVER_FORWARD_ACCT_ONOFF = 1029
-PROPERTY_RADIUSSERVER_PRIORITY = 1030
-PROPERTY_RADIUSSERVER_WEIGHT = 1031
-PROPERTY_RADIUSSERVER_TIMEOUT = 1032
-PROPERTY_RADIUSSERVER_MAX_LOST = 1033
-PROPERTY_RADIUSSERVER_BLACKOUT = 1034
-PROPERTY_RADIUSSERVER_SEND_SIGNATURE = 1035
-PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID = 1036
-PROPERTY_RADIUSSERVER_ACCT_SECRET_TEMPLATE_GUID = 1037
-REMEDIATIONSERVERGROUPPROPERTIES = Int32
-PROPERTY_REMEDIATIONSERVERGROUP_SERVERS_COLLECTION = 1024
-REMEDIATIONSERVERPROPERTIES = Int32
-PROPERTY_REMEDIATIONSERVER_ADDRESS = 1024
-PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME = 1025
-SHVTEMPLATEPROPERTIES = Int32
-PROPERTY_SHV_COMBINATION_TYPE = 1024
-PROPERTY_SHV_LIST = 1025
-PROPERTY_SHVCONFIG_LIST = 1026
-IPFILTERPROPERTIES = Int32
-PROPERTY_IPFILTER_ATTRIBUTES_COLLECTION = 1024
-SHAREDSECRETPROPERTIES = Int32
-PROPERTY_SHAREDSECRET_STRING = 1024
+DICTIONARYPROPERTIES = Int32
+PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION = 1024
+PROPERTY_DICTIONARY_LOCATION = 1025
+IASCOMMONPROPERTIES = Int32
+PROPERTY_SDO_RESERVED = 0
+PROPERTY_SDO_CLASS = 1
+PROPERTY_SDO_NAME = 2
+PROPERTY_SDO_DESCRIPTION = 3
+PROPERTY_SDO_ID = 4
+PROPERTY_SDO_DATASTORE_NAME = 5
+PROPERTY_SDO_TEMPLATE_GUID = 6
+PROPERTY_SDO_OPAQUE = 7
+PROPERTY_SDO_START = 1024
 IASCOMPONENTPROPERTIES = Int32
 PROPERTY_COMPONENT_ID = 1024
 PROPERTY_COMPONENT_PROG_ID = 1025
 PROPERTY_COMPONENT_START = 1026
-PROTOCOLPROPERTIES = Int32
-PROPERTY_PROTOCOL_REQUEST_HANDLER = 1026
-PROPERTY_PROTOCOL_START = 1027
-RADIUSPROPERTIES = Int32
-PROPERTY_RADIUS_ACCOUNTING_PORT = 1027
-PROPERTY_RADIUS_AUTHENTICATION_PORT = 1028
-PROPERTY_RADIUS_CLIENTS_COLLECTION = 1029
-PROPERTY_RADIUS_VENDORS_COLLECTION = 1030
-NTEVENTLOGPROPERTIES = Int32
-PROPERTY_EVENTLOG_LOG_APPLICATION_EVENTS = 1026
-PROPERTY_EVENTLOG_LOG_MALFORMED = 1027
-PROPERTY_EVENTLOG_LOG_DEBUG = 1028
-NAMESPROPERTIES = Int32
-PROPERTY_NAMES_REALMS = 1026
-NTSAMPROPERTIES = Int32
-PROPERTY_NTSAM_ALLOW_LM_AUTHENTICATION = 1026
-ACCOUNTINGPROPERTIES = Int32
-PROPERTY_ACCOUNTING_LOG_ACCOUNTING = 1026
-PROPERTY_ACCOUNTING_LOG_ACCOUNTING_INTERIM = 1027
-PROPERTY_ACCOUNTING_LOG_AUTHENTICATION = 1028
-PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY = 1029
-PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE = 1030
-PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY = 1031
-PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT = 1032
-PROPERTY_ACCOUNTING_LOG_ENABLE_LOGGING = 1033
-PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL = 1034
-PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS = 1035
-PROPERTY_ACCOUNTING_LOG_AUTHENTICATION_INTERIM = 1036
-PROPERTY_ACCOUNTING_LOG_FILE_IS_BACKUP = 1037
-PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE = 1038
-NAPPROPERTIES = Int32
-PROPERTY_NAP_POLICIES_COLLECTION = 1026
-PROPERTY_SHV_TEMPLATES_COLLECTION = 1027
-RADIUSPROXYPROPERTIES = Int32
-PROPERTY_RADIUSPROXY_SERVERGROUPS = 1026
-REMEDIATIONSERVERSPROPERTIES = Int32
-PROPERTY_REMEDIATIONSERVERS_SERVERGROUPS = 1026
-SHV_COMBINATION_TYPE = Int32
-SHV_COMBINATION_TYPE_ALL_PASS = 0
-SHV_COMBINATION_TYPE_ALL_FAIL = 1
-SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS = 2
-SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL = 3
-SHV_COMBINATION_TYPE_ONE_OR_MORE_INFECTED = 4
-SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL = 5
-SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN = 6
-SHV_COMBINATION_TYPE_MAX = 7
-SERVICE_TYPE = Int32
-SERVICE_TYPE_IAS = 0
-SERVICE_TYPE_RAS = 1
-SERVICE_TYPE_RAMGMTSVC = 2
-SERVICE_TYPE_MAX = 3
+IASDATASTORE = Int32
+DATA_STORE_LOCAL = 0
+DATA_STORE_DIRECTORY = 1
+IASDOMAINTYPE = Int32
+DOMAIN_TYPE_NONE = 0
+DOMAIN_TYPE_NT4 = 1
+DOMAIN_TYPE_NT5 = 2
+DOMAIN_TYPE_MIXED = 3
 IASOSTYPE = Int32
 SYSTEM_TYPE_NT4_WORKSTATION = 0
 SYSTEM_TYPE_NT5_WORKSTATION = 1
@@ -512,111 +397,205 @@ SYSTEM_TYPE_NT6_1_SERVER = 10
 SYSTEM_TYPE_NT6_2_SERVER = 11
 SYSTEM_TYPE_NT6_3_SERVER = 12
 SYSTEM_TYPE_NT10_0_SERVER = 13
-IASDOMAINTYPE = Int32
-DOMAIN_TYPE_NONE = 0
-DOMAIN_TYPE_NT4 = 1
-DOMAIN_TYPE_NT5 = 2
-DOMAIN_TYPE_MIXED = 3
-IASDATASTORE = Int32
-DATA_STORE_LOCAL = 0
-DATA_STORE_DIRECTORY = 1
-def _define_ISdoMachine_head():
-    class ISdoMachine(win32more.System.Com.IDispatch_head):
-        Guid = Guid('479f6e75-49a2-11d2-8eca-00c04fc2f519')
-    return ISdoMachine
-def _define_ISdoMachine():
-    ISdoMachine = win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine_head
-    ISdoMachine.Attach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'Attach', ((1, 'bstrComputerName'),)))
-    ISdoMachine.GetDictionarySDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'GetDictionarySDO', ((1, 'ppDictionarySDO'),)))
-    ISdoMachine.GetServiceSDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.IASDATASTORE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'GetServiceSDO', ((1, 'eDataStore'),(1, 'bstrServiceName'),(1, 'ppServiceSDO'),)))
-    ISdoMachine.GetUserSDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.IASDATASTORE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(10, 'GetUserSDO', ((1, 'eDataStore'),(1, 'bstrUserName'),(1, 'ppUserSDO'),)))
-    ISdoMachine.GetOSType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetworkPolicyServer.IASOSTYPE), use_last_error=False)(11, 'GetOSType', ((1, 'eOSType'),)))
-    ISdoMachine.GetDomainType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetworkPolicyServer.IASDOMAINTYPE), use_last_error=False)(12, 'GetDomainType', ((1, 'eDomainType'),)))
-    ISdoMachine.IsDirectoryAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'IsDirectoryAvailable', ((1, 'boolDirectoryAvailable'),)))
-    ISdoMachine.GetAttachedComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetAttachedComputer', ((1, 'bstrComputerName'),)))
-    ISdoMachine.GetSDOSchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(15, 'GetSDOSchema', ((1, 'ppSDOSchema'),)))
-    win32more.System.Com.IDispatch
-    return ISdoMachine
-def _define_ISdoMachine2_head():
-    class ISdoMachine2(win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine_head):
-        Guid = Guid('518e5ffe-d8ce-4f7e-a5db-b40a35419d3b')
-    return ISdoMachine2
-def _define_ISdoMachine2():
-    ISdoMachine2 = win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine2_head
-    ISdoMachine2.GetTemplatesSDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(16, 'GetTemplatesSDO', ((1, 'bstrServiceName'),(1, 'ppTemplatesSDO'),)))
-    ISdoMachine2.EnableTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'EnableTemplates', ()))
-    ISdoMachine2.SyncConfigAgainstTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.System.Com.IUnknown_head),Int16, use_last_error=False)(18, 'SyncConfigAgainstTemplates', ((1, 'bstrServiceName'),(1, 'ppConfigRoot'),(1, 'ppTemplatesRoot'),(1, 'bForcedSync'),)))
-    ISdoMachine2.ImportRemoteTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BSTR, use_last_error=False)(19, 'ImportRemoteTemplates', ((1, 'pLocalTemplatesRoot'),(1, 'bstrRemoteMachineName'),)))
-    ISdoMachine2.Reload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Reload', ()))
-    win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine
-    return ISdoMachine2
-def _define_ISdoServiceControl_head():
-    class ISdoServiceControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('479f6e74-49a2-11d2-8eca-00c04fc2f519')
-    return ISdoServiceControl
-def _define_ISdoServiceControl():
-    ISdoServiceControl = win32more.NetworkManagement.NetworkPolicyServer.ISdoServiceControl_head
-    ISdoServiceControl.StartService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'StartService', ()))
-    ISdoServiceControl.StopService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'StopService', ()))
-    ISdoServiceControl.GetServiceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'GetServiceStatus', ((1, 'status'),)))
-    ISdoServiceControl.ResetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ResetService', ()))
-    win32more.System.Com.IDispatch
-    return ISdoServiceControl
+IASPROPERTIES = Int32
+PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION = 1024
+PROPERTY_IAS_POLICIES_COLLECTION = 1025
+PROPERTY_IAS_PROFILES_COLLECTION = 1026
+PROPERTY_IAS_PROTOCOLS_COLLECTION = 1027
+PROPERTY_IAS_AUDITORS_COLLECTION = 1028
+PROPERTY_IAS_REQUESTHANDLERS_COLLECTION = 1029
+PROPERTY_IAS_PROXYPOLICIES_COLLECTION = 1030
+PROPERTY_IAS_PROXYPROFILES_COLLECTION = 1031
+PROPERTY_IAS_REMEDIATIONSERVERGROUPS_COLLECTION = 1032
+PROPERTY_IAS_SHVTEMPLATES_COLLECTION = 1033
+IDENTITY_TYPE = Int32
+IAS_IDENTITY_NO_DEFAULT = 1
+IPFILTERPROPERTIES = Int32
+PROPERTY_IPFILTER_ATTRIBUTES_COLLECTION = 1024
 def _define_ISdo_head():
     class ISdo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('56bc53de-96db-11d1-bf3f-000000000000')
+        Guid = Guid('56bc53de-96db-11d1-bf-3f-00-00-00-00-00-00')
     return ISdo
 def _define_ISdo():
     ISdo = win32more.NetworkManagement.NetworkPolicyServer.ISdo_head
-    ISdo.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'GetPropertyInfo', ((1, 'Id'),(1, 'ppPropertyInfo'),)))
-    ISdo.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'GetProperty', ((1, 'Id'),(1, 'pValue'),)))
-    ISdo.PutProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'PutProperty', ((1, 'Id'),(1, 'pValue'),)))
-    ISdo.ResetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'ResetProperty', ((1, 'Id'),)))
-    ISdo.Apply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Apply', ()))
-    ISdo.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Restore', ()))
-    ISdo.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(13, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
+    ISdo.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IUnknown_head))(7, 'GetPropertyInfo', ((1, 'Id'),(1, 'ppPropertyInfo'),)))
+    ISdo.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'GetProperty', ((1, 'Id'),(1, 'pValue'),)))
+    ISdo.PutProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(9, 'PutProperty', ((1, 'Id'),(1, 'pValue'),)))
+    ISdo.ResetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'ResetProperty', ((1, 'Id'),)))
+    ISdo.Apply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Apply', ()))
+    ISdo.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'Restore', ()))
+    ISdo.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(13, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
     win32more.System.Com.IDispatch
     return ISdo
 def _define_ISdoCollection_head():
     class ISdoCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('56bc53e2-96db-11d1-bf3f-000000000000')
+        Guid = Guid('56bc53e2-96db-11d1-bf-3f-00-00-00-00-00-00')
     return ISdoCollection
 def _define_ISdoCollection():
     ISdoCollection = win32more.NetworkManagement.NetworkPolicyServer.ISdoCollection_head
-    ISdoCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pCount'),)))
-    ISdoCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'Add', ((1, 'bstrName'),(1, 'ppItem'),)))
-    ISdoCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(9, 'Remove', ((1, 'pItem'),)))
-    ISdoCollection.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'RemoveAll', ()))
-    ISdoCollection.Reload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Reload', ()))
-    ISdoCollection.IsNameUnique = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(12, 'IsNameUnique', ((1, 'bstrName'),(1, 'pBool'),)))
-    ISdoCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'Item', ((1, 'Name'),(1, 'pItem'),)))
-    ISdoCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(14, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
+    ISdoCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pCount'),)))
+    ISdoCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(8, 'Add', ((1, 'bstrName'),(1, 'ppItem'),)))
+    ISdoCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head)(9, 'Remove', ((1, 'pItem'),)))
+    ISdoCollection.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'RemoveAll', ()))
+    ISdoCollection.Reload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Reload', ()))
+    ISdoCollection.IsNameUnique = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'IsNameUnique', ((1, 'bstrName'),(1, 'pBool'),)))
+    ISdoCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.IDispatch_head))(13, 'Item', ((1, 'Name'),(1, 'pItem'),)))
+    ISdoCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(14, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
     win32more.System.Com.IDispatch
     return ISdoCollection
-def _define_ITemplateSdo_head():
-    class ITemplateSdo(win32more.NetworkManagement.NetworkPolicyServer.ISdo_head):
-        Guid = Guid('8aa85302-d2e2-4e20-8b1f-a571e437d6c9')
-    return ITemplateSdo
-def _define_ITemplateSdo():
-    ITemplateSdo = win32more.NetworkManagement.NetworkPolicyServer.ITemplateSdo_head
-    ITemplateSdo.AddToCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(14, 'AddToCollection', ((1, 'bstrName'),(1, 'pCollection'),(1, 'ppItem'),)))
-    ITemplateSdo.AddToSdo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'AddToSdo', ((1, 'bstrName'),(1, 'pSdoTarget'),(1, 'ppItem'),)))
-    ITemplateSdo.AddToSdoAsProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,Int32, use_last_error=False)(16, 'AddToSdoAsProperty', ((1, 'pSdoTarget'),(1, 'id'),)))
-    win32more.NetworkManagement.NetworkPolicyServer.ISdo
-    return ITemplateSdo
 def _define_ISdoDictionaryOld_head():
     class ISdoDictionaryOld(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d432e5f4-53d8-11d2-9a3a-00c04fb998ac')
+        Guid = Guid('d432e5f4-53d8-11d2-9a-3a-00-c0-4f-b9-98-ac')
     return ISdoDictionaryOld
 def _define_ISdoDictionaryOld():
     ISdoDictionaryOld = win32more.NetworkManagement.NetworkPolicyServer.ISdoDictionaryOld_head
-    ISdoDictionaryOld.EnumAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'EnumAttributes', ((1, 'Id'),(1, 'pValues'),)))
-    ISdoDictionaryOld.GetAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'GetAttributeInfo', ((1, 'Id'),(1, 'pInfoIDs'),(1, 'pInfoValues'),)))
-    ISdoDictionaryOld.EnumAttributeValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'EnumAttributeValues', ((1, 'Id'),(1, 'pValueIds'),(1, 'pValuesDesc'),)))
-    ISdoDictionaryOld.CreateAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'CreateAttribute', ((1, 'Id'),(1, 'ppAttributeObject'),)))
-    ISdoDictionaryOld.GetAttributeID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID), use_last_error=False)(11, 'GetAttributeID', ((1, 'bstrAttributeName'),(1, 'pId'),)))
+    ISdoDictionaryOld.EnumAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(7, 'EnumAttributes', ((1, 'Id'),(1, 'pValues'),)))
+    ISdoDictionaryOld.GetAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(8, 'GetAttributeInfo', ((1, 'Id'),(1, 'pInfoIDs'),(1, 'pInfoValues'),)))
+    ISdoDictionaryOld.EnumAttributeValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(9, 'EnumAttributeValues', ((1, 'Id'),(1, 'pValueIds'),(1, 'pValuesDesc'),)))
+    ISdoDictionaryOld.CreateAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.IDispatch_head))(10, 'CreateAttribute', ((1, 'Id'),(1, 'ppAttributeObject'),)))
+    ISdoDictionaryOld.GetAttributeID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID))(11, 'GetAttributeID', ((1, 'bstrAttributeName'),(1, 'pId'),)))
     win32more.System.Com.IDispatch
     return ISdoDictionaryOld
+def _define_ISdoMachine_head():
+    class ISdoMachine(win32more.System.Com.IDispatch_head):
+        Guid = Guid('479f6e75-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
+    return ISdoMachine
+def _define_ISdoMachine():
+    ISdoMachine = win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine_head
+    ISdoMachine.Attach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'Attach', ((1, 'bstrComputerName'),)))
+    ISdoMachine.GetDictionarySDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(8, 'GetDictionarySDO', ((1, 'ppDictionarySDO'),)))
+    ISdoMachine.GetServiceSDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.IASDATASTORE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head))(9, 'GetServiceSDO', ((1, 'eDataStore'),(1, 'bstrServiceName'),(1, 'ppServiceSDO'),)))
+    ISdoMachine.GetUserSDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.IASDATASTORE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head))(10, 'GetUserSDO', ((1, 'eDataStore'),(1, 'bstrUserName'),(1, 'ppUserSDO'),)))
+    ISdoMachine.GetOSType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetworkPolicyServer.IASOSTYPE))(11, 'GetOSType', ((1, 'eOSType'),)))
+    ISdoMachine.GetDomainType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetworkPolicyServer.IASDOMAINTYPE))(12, 'GetDomainType', ((1, 'eDomainType'),)))
+    ISdoMachine.IsDirectoryAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'IsDirectoryAvailable', ((1, 'boolDirectoryAvailable'),)))
+    ISdoMachine.GetAttachedComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'GetAttachedComputer', ((1, 'bstrComputerName'),)))
+    ISdoMachine.GetSDOSchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(15, 'GetSDOSchema', ((1, 'ppSDOSchema'),)))
+    win32more.System.Com.IDispatch
+    return ISdoMachine
+def _define_ISdoMachine2_head():
+    class ISdoMachine2(win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine_head):
+        Guid = Guid('518e5ffe-d8ce-4f7e-a5-db-b4-0a-35-41-9d-3b')
+    return ISdoMachine2
+def _define_ISdoMachine2():
+    ISdoMachine2 = win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine2_head
+    ISdoMachine2.GetTemplatesSDO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head))(16, 'GetTemplatesSDO', ((1, 'bstrServiceName'),(1, 'ppTemplatesSDO'),)))
+    ISdoMachine2.EnableTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'EnableTemplates', ()))
+    ISdoMachine2.SyncConfigAgainstTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.System.Com.IUnknown_head),win32more.Foundation.VARIANT_BOOL)(18, 'SyncConfigAgainstTemplates', ((1, 'bstrServiceName'),(1, 'ppConfigRoot'),(1, 'ppTemplatesRoot'),(1, 'bForcedSync'),)))
+    ISdoMachine2.ImportRemoteTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BSTR)(19, 'ImportRemoteTemplates', ((1, 'pLocalTemplatesRoot'),(1, 'bstrRemoteMachineName'),)))
+    ISdoMachine2.Reload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'Reload', ()))
+    win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine
+    return ISdoMachine2
+def _define_ISdoServiceControl_head():
+    class ISdoServiceControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('479f6e74-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
+    return ISdoServiceControl
+def _define_ISdoServiceControl():
+    ISdoServiceControl = win32more.NetworkManagement.NetworkPolicyServer.ISdoServiceControl_head
+    ISdoServiceControl.StartService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'StartService', ()))
+    ISdoServiceControl.StopService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'StopService', ()))
+    ISdoServiceControl.GetServiceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'GetServiceStatus', ((1, 'status'),)))
+    ISdoServiceControl.ResetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'ResetService', ()))
+    win32more.System.Com.IDispatch
+    return ISdoServiceControl
+def _define_ITemplateSdo_head():
+    class ITemplateSdo(win32more.NetworkManagement.NetworkPolicyServer.ISdo_head):
+        Guid = Guid('8aa85302-d2e2-4e20-8b-1f-a5-71-e4-37-d6-c9')
+    return ITemplateSdo
+def _define_ITemplateSdo():
+    ITemplateSdo = win32more.NetworkManagement.NetworkPolicyServer.ITemplateSdo_head
+    ITemplateSdo.AddToCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head))(14, 'AddToCollection', ((1, 'bstrName'),(1, 'pCollection'),(1, 'ppItem'),)))
+    ITemplateSdo.AddToSdo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head))(15, 'AddToSdo', ((1, 'bstrName'),(1, 'pSdoTarget'),(1, 'ppItem'),)))
+    ITemplateSdo.AddToSdoAsProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,Int32)(16, 'AddToSdoAsProperty', ((1, 'pSdoTarget'),(1, 'id'),)))
+    win32more.NetworkManagement.NetworkPolicyServer.ISdo
+    return ITemplateSdo
+NAMESPROPERTIES = Int32
+PROPERTY_NAMES_REALMS = 1026
+NAPPROPERTIES = Int32
+PROPERTY_NAP_POLICIES_COLLECTION = 1026
+PROPERTY_SHV_TEMPLATES_COLLECTION = 1027
+NEW_LOG_FILE_FREQUENCY = Int32
+IAS_LOGGING_UNLIMITED_SIZE = 0
+IAS_LOGGING_DAILY = 1
+IAS_LOGGING_WEEKLY = 2
+IAS_LOGGING_MONTHLY = 3
+IAS_LOGGING_WHEN_FILE_SIZE_REACHES = 4
+NTEVENTLOGPROPERTIES = Int32
+PROPERTY_EVENTLOG_LOG_APPLICATION_EVENTS = 1026
+PROPERTY_EVENTLOG_LOG_MALFORMED = 1027
+PROPERTY_EVENTLOG_LOG_DEBUG = 1028
+NTSAMPROPERTIES = Int32
+PROPERTY_NTSAM_ALLOW_LM_AUTHENTICATION = 1026
+POLICYPROPERTIES = Int32
+PROPERTY_POLICY_CONSTRAINT = 1024
+PROPERTY_POLICY_MERIT = 1025
+PROPERTY_POLICY_UNUSED0 = 1026
+PROPERTY_POLICY_UNUSED1 = 1027
+PROPERTY_POLICY_PROFILE_NAME = 1028
+PROPERTY_POLICY_ACTION = 1029
+PROPERTY_POLICY_CONDITIONS_COLLECTION = 1030
+PROPERTY_POLICY_ENABLED = 1031
+PROPERTY_POLICY_SOURCETAG = 1032
+def _define_PRADIUS_EXTENSION_FREE_ATTRIBUTES():
+    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head))
+def _define_PRADIUS_EXTENSION_INIT():
+    return WINFUNCTYPE(UInt32,)
+def _define_PRADIUS_EXTENSION_PROCESS():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head),POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION))
+def _define_PRADIUS_EXTENSION_PROCESS_2():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_EXTENSION_CONTROL_BLOCK_head))
+def _define_PRADIUS_EXTENSION_PROCESS_EX():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head),POINTER(POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head)),POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION))
+def _define_PRADIUS_EXTENSION_TERM():
+    return WINFUNCTYPE(Void,)
+PROFILEPROPERTIES = Int32
+PROPERTY_PROFILE_ATTRIBUTES_COLLECTION = 1024
+PROPERTY_PROFILE_IPFILTER_TEMPLATE_GUID = 1025
+PROTOCOLPROPERTIES = Int32
+PROPERTY_PROTOCOL_REQUEST_HANDLER = 1026
+PROPERTY_PROTOCOL_START = 1027
+RADIUS_ACTION = Int32
+RADIUS_ACTION_raContinue = 0
+RADIUS_ACTION_raReject = 1
+RADIUS_ACTION_raAccept = 2
+def _define_RADIUS_ATTRIBUTE_head():
+    class RADIUS_ATTRIBUTE(Structure):
+        pass
+    return RADIUS_ATTRIBUTE
+def _define_RADIUS_ATTRIBUTE():
+    RADIUS_ATTRIBUTE = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head
+    class RADIUS_ATTRIBUTE__Anonymous_e__Union(Union):
+        pass
+    RADIUS_ATTRIBUTE__Anonymous_e__Union._fields_ = [
+        ('dwValue', UInt32),
+        ('lpValue', c_char_p_no),
+    ]
+    RADIUS_ATTRIBUTE._anonymous_ = [
+        'Anonymous',
+    ]
+    RADIUS_ATTRIBUTE._fields_ = [
+        ('dwAttrType', UInt32),
+        ('fDataType', win32more.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE),
+        ('cbDataLength', UInt32),
+        ('Anonymous', RADIUS_ATTRIBUTE__Anonymous_e__Union),
+    ]
+    return RADIUS_ATTRIBUTE
+def _define_RADIUS_ATTRIBUTE_ARRAY_head():
+    class RADIUS_ATTRIBUTE_ARRAY(Structure):
+        pass
+    return RADIUS_ATTRIBUTE_ARRAY
+def _define_RADIUS_ATTRIBUTE_ARRAY():
+    RADIUS_ATTRIBUTE_ARRAY = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_ARRAY_head
+    RADIUS_ATTRIBUTE_ARRAY._fields_ = [
+        ('cbSize', UInt32),
+        ('Add', IntPtr),
+        ('AttributeAt', IntPtr),
+        ('GetSize', IntPtr),
+        ('InsertAt', IntPtr),
+        ('RemoveAt', IntPtr),
+        ('SetAt', IntPtr),
+    ]
+    return RADIUS_ATTRIBUTE_ARRAY
 RADIUS_ATTRIBUTE_TYPE = Int32
 RADIUS_ATTRIBUTE_TYPE_ratMinimum = 0
 RADIUS_ATTRIBUTE_TYPE_ratUserName = 1
@@ -697,6 +676,14 @@ RADIUS_ATTRIBUTE_TYPE_ratProviderName = 276
 RADIUS_ATTRIBUTE_TYPE_ratClearTextPassword = 277
 RADIUS_ATTRIBUTE_TYPE_ratSrcIPv6Address = 278
 RADIUS_ATTRIBUTE_TYPE_ratCertificateThumbprint = 279
+RADIUS_AUTHENTICATION_PROVIDER = Int32
+RADIUS_AUTHENTICATION_PROVIDER_rapUnknown = 0
+RADIUS_AUTHENTICATION_PROVIDER_rapUsersFile = 1
+RADIUS_AUTHENTICATION_PROVIDER_rapProxy = 2
+RADIUS_AUTHENTICATION_PROVIDER_rapWindowsNT = 3
+RADIUS_AUTHENTICATION_PROVIDER_rapMCIS = 4
+RADIUS_AUTHENTICATION_PROVIDER_rapODBC = 5
+RADIUS_AUTHENTICATION_PROVIDER_rapNone = 6
 RADIUS_CODE = Int32
 RADIUS_CODE_rcUnknown = 0
 RADIUS_CODE_rcAccessRequest = 1
@@ -706,20 +693,6 @@ RADIUS_CODE_rcAccountingRequest = 4
 RADIUS_CODE_rcAccountingResponse = 5
 RADIUS_CODE_rcAccessChallenge = 11
 RADIUS_CODE_rcDiscard = 256
-RADIUS_AUTHENTICATION_PROVIDER = Int32
-RADIUS_AUTHENTICATION_PROVIDER_rapUnknown = 0
-RADIUS_AUTHENTICATION_PROVIDER_rapUsersFile = 1
-RADIUS_AUTHENTICATION_PROVIDER_rapProxy = 2
-RADIUS_AUTHENTICATION_PROVIDER_rapWindowsNT = 3
-RADIUS_AUTHENTICATION_PROVIDER_rapMCIS = 4
-RADIUS_AUTHENTICATION_PROVIDER_rapODBC = 5
-RADIUS_AUTHENTICATION_PROVIDER_rapNone = 6
-RADIUS_REJECT_REASON_CODE = Int32
-RADIUS_REJECT_REASON_CODE_rrrcUndefined = 0
-RADIUS_REJECT_REASON_CODE_rrrcAccountUnknown = 1
-RADIUS_REJECT_REASON_CODE_rrrcAccountDisabled = 2
-RADIUS_REJECT_REASON_CODE_rrrcAccountExpired = 3
-RADIUS_REJECT_REASON_CODE_rrrcAuthenticationFailure = 4
 RADIUS_DATA_TYPE = Int32
 RADIUS_DATA_TYPE_rdtUnknown = 0
 RADIUS_DATA_TYPE_rdtString = 1
@@ -727,74 +700,6 @@ RADIUS_DATA_TYPE_rdtAddress = 2
 RADIUS_DATA_TYPE_rdtInteger = 3
 RADIUS_DATA_TYPE_rdtTime = 4
 RADIUS_DATA_TYPE_rdtIpv6Address = 5
-def _define_RADIUS_ATTRIBUTE_head():
-    class RADIUS_ATTRIBUTE(Structure):
-        pass
-    return RADIUS_ATTRIBUTE
-def _define_RADIUS_ATTRIBUTE():
-    RADIUS_ATTRIBUTE = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head
-    class RADIUS_ATTRIBUTE__Anonymous_e__Union(Union):
-        pass
-    RADIUS_ATTRIBUTE__Anonymous_e__Union._fields_ = [
-        ("dwValue", UInt32),
-        ("lpValue", c_char_p_no),
-    ]
-    RADIUS_ATTRIBUTE._anonymous_ = [
-        'Anonymous',
-    ]
-    RADIUS_ATTRIBUTE._fields_ = [
-        ("dwAttrType", UInt32),
-        ("fDataType", win32more.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE),
-        ("cbDataLength", UInt32),
-        ("Anonymous", RADIUS_ATTRIBUTE__Anonymous_e__Union),
-    ]
-    return RADIUS_ATTRIBUTE
-def _define_RADIUS_VSA_FORMAT_head():
-    class RADIUS_VSA_FORMAT(Structure):
-        pass
-    return RADIUS_VSA_FORMAT
-def _define_RADIUS_VSA_FORMAT():
-    RADIUS_VSA_FORMAT = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_VSA_FORMAT_head
-    RADIUS_VSA_FORMAT._fields_ = [
-        ("VendorId", Byte * 4),
-        ("VendorType", Byte),
-        ("VendorLength", Byte),
-        ("AttributeSpecific", Byte * 0),
-    ]
-    return RADIUS_VSA_FORMAT
-RADIUS_ACTION = Int32
-RADIUS_ACTION_raContinue = 0
-RADIUS_ACTION_raReject = 1
-RADIUS_ACTION_raAccept = 2
-def _define_PRADIUS_EXTENSION_INIT():
-    return CFUNCTYPE(UInt32, use_last_error=False)
-def _define_PRADIUS_EXTENSION_TERM():
-    return CFUNCTYPE(Void, use_last_error=False)
-def _define_PRADIUS_EXTENSION_PROCESS():
-    return CFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head),POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION), use_last_error=False)
-def _define_PRADIUS_EXTENSION_PROCESS_EX():
-    return CFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head),POINTER(POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head)),POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION), use_last_error=False)
-def _define_PRADIUS_EXTENSION_FREE_ATTRIBUTES():
-    return CFUNCTYPE(Void,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head), use_last_error=False)
-RADIUS_EXTENSION_POINT = Int32
-RADIUS_EXTENSION_POINT_repAuthentication = 0
-RADIUS_EXTENSION_POINT_repAuthorization = 1
-def _define_RADIUS_ATTRIBUTE_ARRAY_head():
-    class RADIUS_ATTRIBUTE_ARRAY(Structure):
-        pass
-    return RADIUS_ATTRIBUTE_ARRAY
-def _define_RADIUS_ATTRIBUTE_ARRAY():
-    RADIUS_ATTRIBUTE_ARRAY = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_ARRAY_head
-    RADIUS_ATTRIBUTE_ARRAY._fields_ = [
-        ("cbSize", UInt32),
-        ("Add", IntPtr),
-        ("AttributeAt", POINTER(POINTER(POINTER(POINTER(POINTER(POINTER(POINTER(POINTER(POINTER(POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_ATTRIBUTE_head))))))))))),
-        ("GetSize", IntPtr),
-        ("InsertAt", IntPtr),
-        ("RemoveAt", IntPtr),
-        ("SetAt", IntPtr),
-    ]
-    return RADIUS_ATTRIBUTE_ARRAY
 def _define_RADIUS_EXTENSION_CONTROL_BLOCK_head():
     class RADIUS_EXTENSION_CONTROL_BLOCK(Structure):
         pass
@@ -802,656 +707,770 @@ def _define_RADIUS_EXTENSION_CONTROL_BLOCK_head():
 def _define_RADIUS_EXTENSION_CONTROL_BLOCK():
     RADIUS_EXTENSION_CONTROL_BLOCK = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_EXTENSION_CONTROL_BLOCK_head
     RADIUS_EXTENSION_CONTROL_BLOCK._fields_ = [
-        ("cbSize", UInt32),
-        ("dwVersion", UInt32),
-        ("repPoint", win32more.NetworkManagement.NetworkPolicyServer.RADIUS_EXTENSION_POINT),
-        ("rcRequestType", win32more.NetworkManagement.NetworkPolicyServer.RADIUS_CODE),
-        ("rcResponseType", win32more.NetworkManagement.NetworkPolicyServer.RADIUS_CODE),
-        ("GetRequest", IntPtr),
-        ("GetResponse", IntPtr),
-        ("SetResponseType", IntPtr),
+        ('cbSize', UInt32),
+        ('dwVersion', UInt32),
+        ('repPoint', win32more.NetworkManagement.NetworkPolicyServer.RADIUS_EXTENSION_POINT),
+        ('rcRequestType', win32more.NetworkManagement.NetworkPolicyServer.RADIUS_CODE),
+        ('rcResponseType', win32more.NetworkManagement.NetworkPolicyServer.RADIUS_CODE),
+        ('GetRequest', IntPtr),
+        ('GetResponse', IntPtr),
+        ('SetResponseType', IntPtr),
     ]
     return RADIUS_EXTENSION_CONTROL_BLOCK
-def _define_PRADIUS_EXTENSION_PROCESS_2():
-    return CFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.NetworkPolicyServer.RADIUS_EXTENSION_CONTROL_BLOCK_head), use_last_error=False)
+RADIUS_EXTENSION_POINT = Int32
+RADIUS_EXTENSION_POINT_repAuthentication = 0
+RADIUS_EXTENSION_POINT_repAuthorization = 1
+RADIUS_REJECT_REASON_CODE = Int32
+RADIUS_REJECT_REASON_CODE_rrrcUndefined = 0
+RADIUS_REJECT_REASON_CODE_rrrcAccountUnknown = 1
+RADIUS_REJECT_REASON_CODE_rrrcAccountDisabled = 2
+RADIUS_REJECT_REASON_CODE_rrrcAccountExpired = 3
+RADIUS_REJECT_REASON_CODE_rrrcAuthenticationFailure = 4
+def _define_RADIUS_VSA_FORMAT_head():
+    class RADIUS_VSA_FORMAT(Structure):
+        pass
+    return RADIUS_VSA_FORMAT
+def _define_RADIUS_VSA_FORMAT():
+    RADIUS_VSA_FORMAT = win32more.NetworkManagement.NetworkPolicyServer.RADIUS_VSA_FORMAT_head
+    RADIUS_VSA_FORMAT._fields_ = [
+        ('VendorId', Byte * 4),
+        ('VendorType', Byte),
+        ('VendorLength', Byte),
+        ('AttributeSpecific', Byte * 1),
+    ]
+    return RADIUS_VSA_FORMAT
+RADIUSPROPERTIES = Int32
+PROPERTY_RADIUS_ACCOUNTING_PORT = 1027
+PROPERTY_RADIUS_AUTHENTICATION_PORT = 1028
+PROPERTY_RADIUS_CLIENTS_COLLECTION = 1029
+PROPERTY_RADIUS_VENDORS_COLLECTION = 1030
+RADIUSPROXYPROPERTIES = Int32
+PROPERTY_RADIUSPROXY_SERVERGROUPS = 1026
+RADIUSSERVERGROUPPROPERTIES = Int32
+PROPERTY_RADIUSSERVERGROUP_SERVERS_COLLECTION = 1024
+RADIUSSERVERPROPERTIES = Int32
+PROPERTY_RADIUSSERVER_AUTH_PORT = 1024
+PROPERTY_RADIUSSERVER_AUTH_SECRET = 1025
+PROPERTY_RADIUSSERVER_ACCT_PORT = 1026
+PROPERTY_RADIUSSERVER_ACCT_SECRET = 1027
+PROPERTY_RADIUSSERVER_ADDRESS = 1028
+PROPERTY_RADIUSSERVER_FORWARD_ACCT_ONOFF = 1029
+PROPERTY_RADIUSSERVER_PRIORITY = 1030
+PROPERTY_RADIUSSERVER_WEIGHT = 1031
+PROPERTY_RADIUSSERVER_TIMEOUT = 1032
+PROPERTY_RADIUSSERVER_MAX_LOST = 1033
+PROPERTY_RADIUSSERVER_BLACKOUT = 1034
+PROPERTY_RADIUSSERVER_SEND_SIGNATURE = 1035
+PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID = 1036
+PROPERTY_RADIUSSERVER_ACCT_SECRET_TEMPLATE_GUID = 1037
+REMEDIATIONSERVERGROUPPROPERTIES = Int32
+PROPERTY_REMEDIATIONSERVERGROUP_SERVERS_COLLECTION = 1024
+REMEDIATIONSERVERPROPERTIES = Int32
+PROPERTY_REMEDIATIONSERVER_ADDRESS = 1024
+PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME = 1025
+REMEDIATIONSERVERSPROPERTIES = Int32
+PROPERTY_REMEDIATIONSERVERS_SERVERGROUPS = 1026
+SdoMachine = Guid('e9218ae7-9e91-11d1-bf-60-00-80-c7-84-6b-c0')
+SERVICE_TYPE = Int32
+SERVICE_TYPE_IAS = 0
+SERVICE_TYPE_RAS = 1
+SERVICE_TYPE_RAMGMTSVC = 2
+SERVICE_TYPE_MAX = 3
+SHAREDSECRETPROPERTIES = Int32
+PROPERTY_SHAREDSECRET_STRING = 1024
+SHV_COMBINATION_TYPE = Int32
+SHV_COMBINATION_TYPE_ALL_PASS = 0
+SHV_COMBINATION_TYPE_ALL_FAIL = 1
+SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS = 2
+SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL = 3
+SHV_COMBINATION_TYPE_ONE_OR_MORE_INFECTED = 4
+SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL = 5
+SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN = 6
+SHV_COMBINATION_TYPE_MAX = 7
+SHVTEMPLATEPROPERTIES = Int32
+PROPERTY_SHV_COMBINATION_TYPE = 1024
+PROPERTY_SHV_LIST = 1025
+PROPERTY_SHVCONFIG_LIST = 1026
+TEMPLATESPROPERTIES = Int32
+PROPERTY_TEMPLATES_POLICIES_TEMPLATES = 1024
+PROPERTY_TEMPLATES_PROFILES_TEMPLATES = 1025
+PROPERTY_TEMPLATES_PROFILES_COLLECTION = 1026
+PROPERTY_TEMPLATES_PROXYPOLICIES_TEMPLATES = 1027
+PROPERTY_TEMPLATES_PROXYPROFILES_TEMPLATES = 1028
+PROPERTY_TEMPLATES_PROXYPROFILES_COLLECTION = 1029
+PROPERTY_TEMPLATES_REMEDIATIONSERVERGROUPS_TEMPLATES = 1030
+PROPERTY_TEMPLATES_SHVTEMPLATES_TEMPLATES = 1031
+PROPERTY_TEMPLATES_CLIENTS_TEMPLATES = 1032
+PROPERTY_TEMPLATES_RADIUSSERVERS_TEMPLATES = 1033
+PROPERTY_TEMPLATES_SHAREDSECRETS_TEMPLATES = 1034
+PROPERTY_TEMPLATES_IPFILTERS_TEMPLATES = 1035
+USERPROPERTIES = Int32
+PROPERTY_USER_CALLING_STATION_ID = 1024
+PROPERTY_USER_SAVED_CALLING_STATION_ID = 1025
+PROPERTY_USER_RADIUS_CALLBACK_NUMBER = 1026
+PROPERTY_USER_RADIUS_FRAMED_ROUTE = 1027
+PROPERTY_USER_RADIUS_FRAMED_IP_ADDRESS = 1028
+PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER = 1029
+PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE = 1030
+PROPERTY_USER_SAVED_RADIUS_FRAMED_IP_ADDRESS = 1031
+PROPERTY_USER_ALLOW_DIALIN = 1032
+PROPERTY_USER_SERVICE_TYPE = 1033
+PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE = 1034
+PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE = 1035
+PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID = 1036
+PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID = 1037
+PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX = 1038
+PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX = 1039
+VENDORPROPERTIES = Int32
+PROPERTY_NAS_VENDOR_ID = 1024
 __all__ = [
-    "RADIUS_EXTENSION_VERSION",
-    "SdoMachine",
+    "ACCOUNTINGPROPERTIES",
+    "ALLOWEDIN8021X",
+    "ALLOWEDINCONDITION",
+    "ALLOWEDINPROFILE",
+    "ALLOWEDINPROXYCONDITION",
+    "ALLOWEDINPROXYPROFILE",
+    "ALLOWEDINVPNDIALUP",
+    "ATTRIBUTEFILTER",
     "ATTRIBUTEID",
-    "ATTRIBUTE_UNDEFINED",
+    "ATTRIBUTEINFO",
+    "ATTRIBUTEPROPERTIES",
+    "ATTRIBUTERESTRICTIONS",
+    "ATTRIBUTESYNTAX",
+    "ATTRIBUTE_FILTER_IEEE_802_1x",
+    "ATTRIBUTE_FILTER_NONE",
+    "ATTRIBUTE_FILTER_VPN_DIALUP",
     "ATTRIBUTE_MIN_VALUE",
-    "RADIUS_ATTRIBUTE_USER_NAME",
-    "RADIUS_ATTRIBUTE_USER_PASSWORD",
-    "RADIUS_ATTRIBUTE_CHAP_PASSWORD",
-    "RADIUS_ATTRIBUTE_NAS_IP_ADDRESS",
-    "RADIUS_ATTRIBUTE_NAS_PORT",
-    "RADIUS_ATTRIBUTE_SERVICE_TYPE",
-    "RADIUS_ATTRIBUTE_FRAMED_PROTOCOL",
-    "RADIUS_ATTRIBUTE_FRAMED_IP_ADDRESS",
-    "RADIUS_ATTRIBUTE_FRAMED_IP_NETMASK",
-    "RADIUS_ATTRIBUTE_FRAMED_ROUTING",
-    "RADIUS_ATTRIBUTE_FILTER_ID",
-    "RADIUS_ATTRIBUTE_FRAMED_MTU",
-    "RADIUS_ATTRIBUTE_FRAMED_COMPRESSION",
-    "RADIUS_ATTRIBUTE_LOGIN_IP_HOST",
-    "RADIUS_ATTRIBUTE_LOGIN_SERVICE",
-    "RADIUS_ATTRIBUTE_LOGIN_TCP_PORT",
-    "RADIUS_ATTRIBUTE_UNASSIGNED1",
-    "RADIUS_ATTRIBUTE_REPLY_MESSAGE",
-    "RADIUS_ATTRIBUTE_CALLBACK_NUMBER",
-    "RADIUS_ATTRIBUTE_CALLBACK_ID",
-    "RADIUS_ATTRIBUTE_UNASSIGNED2",
-    "RADIUS_ATTRIBUTE_FRAMED_ROUTE",
-    "RADIUS_ATTRIBUTE_FRAMED_IPX_NETWORK",
-    "RADIUS_ATTRIBUTE_STATE",
-    "RADIUS_ATTRIBUTE_CLASS",
-    "RADIUS_ATTRIBUTE_VENDOR_SPECIFIC",
-    "RADIUS_ATTRIBUTE_SESSION_TIMEOUT",
-    "RADIUS_ATTRIBUTE_IDLE_TIMEOUT",
-    "RADIUS_ATTRIBUTE_TERMINATION_ACTION",
-    "RADIUS_ATTRIBUTE_CALLED_STATION_ID",
-    "RADIUS_ATTRIBUTE_CALLING_STATION_ID",
-    "RADIUS_ATTRIBUTE_NAS_IDENTIFIER",
-    "RADIUS_ATTRIBUTE_PROXY_STATE",
-    "RADIUS_ATTRIBUTE_LOGIN_LAT_SERVICE",
-    "RADIUS_ATTRIBUTE_LOGIN_LAT_NODE",
-    "RADIUS_ATTRIBUTE_LOGIN_LAT_GROUP",
-    "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_LINK",
-    "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_NET",
-    "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_ZONE",
-    "RADIUS_ATTRIBUTE_ACCT_STATUS_TYPE",
-    "RADIUS_ATTRIBUTE_ACCT_DELAY_TIME",
-    "RADIUS_ATTRIBUTE_ACCT_INPUT_OCTETS",
-    "RADIUS_ATTRIBUTE_ACCT_OUTPUT_OCTETS",
-    "RADIUS_ATTRIBUTE_ACCT_SESSION_ID",
-    "RADIUS_ATTRIBUTE_ACCT_AUTHENTIC",
-    "RADIUS_ATTRIBUTE_ACCT_SESSION_TIME",
-    "RADIUS_ATTRIBUTE_ACCT_INPUT_PACKETS",
-    "RADIUS_ATTRIBUTE_ACCT_OUTPUT_PACKETS",
-    "RADIUS_ATTRIBUTE_ACCT_TERMINATE_CAUSE",
-    "RADIUS_ATTRIBUTE_ACCT_MULTI_SSN_ID",
-    "RADIUS_ATTRIBUTE_ACCT_LINK_COUNT",
-    "RADIUS_ATTRIBUTE_CHAP_CHALLENGE",
-    "RADIUS_ATTRIBUTE_NAS_PORT_TYPE",
-    "RADIUS_ATTRIBUTE_PORT_LIMIT",
-    "RADIUS_ATTRIBUTE_LOGIN_LAT_PORT",
-    "RADIUS_ATTRIBUTE_TUNNEL_TYPE",
-    "RADIUS_ATTRIBUTE_TUNNEL_MEDIUM_TYPE",
-    "RADIUS_ATTRIBUTE_TUNNEL_CLIENT_ENDPT",
-    "RADIUS_ATTRIBUTE_TUNNEL_SERVER_ENDPT",
-    "RADIUS_ATTRIBUTE_ACCT_TUNNEL_CONN",
-    "RADIUS_ATTRIBUTE_TUNNEL_PASSWORD",
-    "RADIUS_ATTRIBUTE_ARAP_PASSWORD",
-    "RADIUS_ATTRIBUTE_ARAP_FEATURES",
-    "RADIUS_ATTRIBUTE_ARAP_ZONE_ACCESS",
-    "RADIUS_ATTRIBUTE_ARAP_SECURITY",
-    "RADIUS_ATTRIBUTE_ARAP_SECURITY_DATA",
-    "RADIUS_ATTRIBUTE_PASSWORD_RETRY",
-    "RADIUS_ATTRIBUTE_PROMPT",
-    "RADIUS_ATTRIBUTE_CONNECT_INFO",
-    "RADIUS_ATTRIBUTE_CONFIGURATION_TOKEN",
-    "RADIUS_ATTRIBUTE_EAP_MESSAGE",
-    "RADIUS_ATTRIBUTE_SIGNATURE",
-    "RADIUS_ATTRIBUTE_TUNNEL_PVT_GROUP_ID",
-    "RADIUS_ATTRIBUTE_TUNNEL_ASSIGNMENT_ID",
-    "RADIUS_ATTRIBUTE_TUNNEL_PREFERENCE",
-    "RADIUS_ATTRIBUTE_ARAP_CHALLENGE_RESPONSE",
-    "RADIUS_ATTRIBUTE_ACCT_INTERIM_INTERVAL",
-    "RADIUS_ATTRIBUTE_NAS_IPv6_ADDRESS",
-    "RADIUS_ATTRIBUTE_FRAMED_INTERFACE_ID",
-    "RADIUS_ATTRIBUTE_FRAMED_IPv6_PREFIX",
-    "RADIUS_ATTRIBUTE_LOGIN_IPv6_HOST",
-    "RADIUS_ATTRIBUTE_FRAMED_IPv6_ROUTE",
-    "RADIUS_ATTRIBUTE_FRAMED_IPv6_POOL",
-    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IP_ADDRESS",
-    "IAS_ATTRIBUTE_SAVED_RADIUS_CALLBACK_NUMBER",
-    "IAS_ATTRIBUTE_NP_CALLING_STATION_ID",
-    "IAS_ATTRIBUTE_SAVED_NP_CALLING_STATION_ID",
-    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_ROUTE",
-    "IAS_ATTRIBUTE_IGNORE_USER_DIALIN_PROPERTIES",
-    "IAS_ATTRIBUTE_NP_TIME_OF_DAY",
-    "IAS_ATTRIBUTE_NP_CALLED_STATION_ID",
-    "IAS_ATTRIBUTE_NP_ALLOWED_PORT_TYPES",
-    "IAS_ATTRIBUTE_NP_AUTHENTICATION_TYPE",
-    "IAS_ATTRIBUTE_NP_ALLOWED_EAP_TYPE",
-    "IAS_ATTRIBUTE_SHARED_SECRET",
-    "IAS_ATTRIBUTE_CLIENT_IP_ADDRESS",
-    "IAS_ATTRIBUTE_CLIENT_PACKET_HEADER",
-    "IAS_ATTRIBUTE_TOKEN_GROUPS",
-    "IAS_ATTRIBUTE_ALLOW_DIALIN",
-    "IAS_ATTRIBUTE_REQUEST_ID",
-    "IAS_ATTRIBUTE_MANIPULATION_TARGET",
-    "IAS_ATTRIBUTE_MANIPULATION_RULE",
-    "IAS_ATTRIBUTE_ORIGINAL_USER_NAME",
-    "IAS_ATTRIBUTE_CLIENT_VENDOR_TYPE",
-    "IAS_ATTRIBUTE_CLIENT_UDP_PORT",
-    "MS_ATTRIBUTE_CHAP_CHALLENGE",
-    "MS_ATTRIBUTE_CHAP_RESPONSE",
-    "MS_ATTRIBUTE_CHAP_DOMAIN",
-    "MS_ATTRIBUTE_CHAP_ERROR",
-    "MS_ATTRIBUTE_CHAP_CPW1",
-    "MS_ATTRIBUTE_CHAP_CPW2",
-    "MS_ATTRIBUTE_CHAP_LM_ENC_PW",
-    "MS_ATTRIBUTE_CHAP_NT_ENC_PW",
-    "MS_ATTRIBUTE_CHAP_MPPE_KEYS",
-    "IAS_ATTRIBUTE_AUTHENTICATION_TYPE",
-    "IAS_ATTRIBUTE_CLIENT_NAME",
-    "IAS_ATTRIBUTE_NT4_ACCOUNT_NAME",
-    "IAS_ATTRIBUTE_FULLY_QUALIFIED_USER_NAME",
-    "IAS_ATTRIBUTE_NTGROUPS",
-    "IAS_ATTRIBUTE_EAP_FRIENDLY_NAME",
-    "IAS_ATTRIBUTE_AUTH_PROVIDER_TYPE",
-    "MS_ATTRIBUTE_ACCT_AUTH_TYPE",
-    "MS_ATTRIBUTE_ACCT_EAP_TYPE",
-    "IAS_ATTRIBUTE_PACKET_TYPE",
-    "IAS_ATTRIBUTE_AUTH_PROVIDER_NAME",
-    "IAS_ATTRIBUTE_ACCT_PROVIDER_TYPE",
-    "IAS_ATTRIBUTE_ACCT_PROVIDER_NAME",
-    "MS_ATTRIBUTE_MPPE_SEND_KEY",
-    "MS_ATTRIBUTE_MPPE_RECV_KEY",
-    "IAS_ATTRIBUTE_REASON_CODE",
-    "MS_ATTRIBUTE_FILTER",
-    "MS_ATTRIBUTE_CHAP2_RESPONSE",
-    "MS_ATTRIBUTE_CHAP2_SUCCESS",
-    "MS_ATTRIBUTE_CHAP2_CPW",
-    "MS_ATTRIBUTE_RAS_VENDOR",
-    "MS_ATTRIBUTE_RAS_VERSION",
-    "IAS_ATTRIBUTE_NP_NAME",
-    "MS_ATTRIBUTE_PRIMARY_DNS_SERVER",
-    "MS_ATTRIBUTE_SECONDARY_DNS_SERVER",
-    "MS_ATTRIBUTE_PRIMARY_NBNS_SERVER",
-    "MS_ATTRIBUTE_SECONDARY_NBNS_SERVER",
-    "IAS_ATTRIBUTE_PROXY_POLICY_NAME",
-    "IAS_ATTRIBUTE_PROVIDER_TYPE",
-    "IAS_ATTRIBUTE_PROVIDER_NAME",
-    "IAS_ATTRIBUTE_REMOTE_SERVER_ADDRESS",
-    "IAS_ATTRIBUTE_GENERATE_CLASS_ATTRIBUTE",
-    "MS_ATTRIBUTE_RAS_CLIENT_NAME",
-    "MS_ATTRIBUTE_RAS_CLIENT_VERSION",
-    "IAS_ATTRIBUTE_ALLOWED_CERTIFICATE_EKU",
-    "IAS_ATTRIBUTE_EXTENSION_STATE",
-    "IAS_ATTRIBUTE_GENERATE_SESSION_TIMEOUT",
-    "IAS_ATTRIBUTE_SESSION_TIMEOUT",
-    "MS_ATTRIBUTE_QUARANTINE_IPFILTER",
-    "MS_ATTRIBUTE_QUARANTINE_SESSION_TIMEOUT",
-    "MS_ATTRIBUTE_USER_SECURITY_IDENTITY",
-    "IAS_ATTRIBUTE_REMOTE_RADIUS_TO_WINDOWS_USER_MAPPING",
-    "IAS_ATTRIBUTE_PASSPORT_USER_MAPPING_UPN_SUFFIX",
-    "IAS_ATTRIBUTE_TUNNEL_TAG",
-    "IAS_ATTRIBUTE_NP_PEAPUPFRONT_ENABLED",
-    "IAS_ATTRIBUTE_CERTIFICATE_EKU",
-    "IAS_ATTRIBUTE_EAP_CONFIG",
-    "IAS_ATTRIBUTE_PEAP_EMBEDDED_EAP_TYPEID",
-    "IAS_ATTRIBUTE_PEAP_FAST_ROAMED_SESSION",
-    "IAS_ATTRIBUTE_EAP_TYPEID",
-    "MS_ATTRIBUTE_EAP_TLV",
-    "IAS_ATTRIBUTE_REJECT_REASON_CODE",
-    "IAS_ATTRIBUTE_PROXY_EAP_CONFIG",
-    "IAS_ATTRIBUTE_EAP_SESSION",
-    "IAS_ATTRIBUTE_IS_REPLAY",
-    "IAS_ATTRIBUTE_CLEAR_TEXT_PASSWORD",
-    "MS_ATTRIBUTE_IDENTITY_TYPE",
-    "MS_ATTRIBUTE_SERVICE_CLASS",
-    "MS_ATTRIBUTE_QUARANTINE_USER_CLASS",
-    "MS_ATTRIBUTE_QUARANTINE_STATE",
-    "IAS_ATTRIBUTE_OVERRIDE_RAP_AUTH",
-    "IAS_ATTRIBUTE_PEAP_CHANNEL_UP",
-    "IAS_ATTRIBUTE_NAME_MAPPED",
-    "IAS_ATTRIBUTE_POLICY_ENFORCED",
-    "IAS_ATTRIBUTE_MACHINE_NTGROUPS",
-    "IAS_ATTRIBUTE_USER_NTGROUPS",
-    "IAS_ATTRIBUTE_MACHINE_TOKEN_GROUPS",
-    "IAS_ATTRIBUTE_USER_TOKEN_GROUPS",
-    "MS_ATTRIBUTE_QUARANTINE_GRACE_TIME",
-    "IAS_ATTRIBUTE_QUARANTINE_URL",
-    "IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS",
-    "MS_ATTRIBUTE_NOT_QUARANTINE_CAPABLE",
-    "IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_RESULT",
-    "IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_VALIDATORS",
-    "IAS_ATTRIBUTE_MACHINE_NAME",
-    "IAS_ATTRIBUTE_NT4_MACHINE_NAME",
-    "IAS_ATTRIBUTE_QUARANTINE_SESSION_HANDLE",
-    "IAS_ATTRIBUTE_FULLY_QUALIFIED_MACHINE_NAME",
-    "IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS_CONFIGURATION",
-    "IAS_ATTRIBUTE_CLIENT_QUARANTINE_COMPATIBLE",
-    "MS_ATTRIBUTE_NETWORK_ACCESS_SERVER_TYPE",
-    "IAS_ATTRIBUTE_QUARANTINE_SESSION_ID",
-    "MS_ATTRIBUTE_AFW_QUARANTINE_ZONE",
-    "MS_ATTRIBUTE_AFW_PROTECTION_LEVEL",
-    "IAS_ATTRIBUTE_QUARANTINE_UPDATE_NON_COMPLIANT",
-    "IAS_ATTRIBUTE_REQUEST_START_TIME",
-    "MS_ATTRIBUTE_MACHINE_NAME",
-    "IAS_ATTRIBUTE_CLIENT_IPv6_ADDRESS",
-    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_INTERFACE_ID",
-    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IPv6_PREFIX",
-    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IPv6_ROUTE",
-    "MS_ATTRIBUTE_QUARANTINE_GRACE_TIME_CONFIGURATION",
-    "MS_ATTRIBUTE_IPv6_FILTER",
-    "MS_ATTRIBUTE_IPV4_REMEDIATION_SERVERS",
-    "MS_ATTRIBUTE_IPV6_REMEDIATION_SERVERS",
-    "IAS_ATTRIBUTE_PROXY_RETRY_COUNT",
-    "IAS_ATTRIBUTE_MACHINE_INVENTORY",
+    "ATTRIBUTE_UNDEFINED",
+    "AUTHENTICATION_TYPE",
+    "AUTHSRV_AUTHORIZATION_VALUE_W",
+    "AUTHSRV_ENFORCE_NP_FOR_PAP_CHALLENGE_RESPONSE_VALUE_W",
+    "AUTHSRV_EXTENSIONS_VALUE_W",
+    "AUTHSRV_PARAMETERS_KEY_W",
+    "CLIENTPROPERTIES",
+    "CONDITIONPROPERTIES",
+    "DATA_STORE_DIRECTORY",
+    "DATA_STORE_LOCAL",
+    "DESCRIPTION",
+    "DICTIONARYPROPERTIES",
+    "DOMAIN_TYPE_MIXED",
+    "DOMAIN_TYPE_NONE",
+    "DOMAIN_TYPE_NT4",
+    "DOMAIN_TYPE_NT5",
+    "IASCOMMONPROPERTIES",
+    "IASCOMPONENTPROPERTIES",
+    "IASDATASTORE",
+    "IASDOMAINTYPE",
+    "IASOSTYPE",
+    "IASPROPERTIES",
     "IAS_ATTRIBUTE_ABSOLUTE_TIME",
-    "MS_ATTRIBUTE_QUARANTINE_SOH",
+    "IAS_ATTRIBUTE_ACCEPT_REASON_CODE",
+    "IAS_ATTRIBUTE_ACCT_PROVIDER_NAME",
+    "IAS_ATTRIBUTE_ACCT_PROVIDER_TYPE",
+    "IAS_ATTRIBUTE_ALLOWED_CERTIFICATE_EKU",
+    "IAS_ATTRIBUTE_ALLOW_DIALIN",
+    "IAS_ATTRIBUTE_AUTHENTICATION_TYPE",
+    "IAS_ATTRIBUTE_AUTH_PROVIDER_NAME",
+    "IAS_ATTRIBUTE_AUTH_PROVIDER_TYPE",
+    "IAS_ATTRIBUTE_CERTIFICATE_EKU",
+    "IAS_ATTRIBUTE_CERTIFICATE_THUMBPRINT",
+    "IAS_ATTRIBUTE_CLEAR_TEXT_PASSWORD",
+    "IAS_ATTRIBUTE_CLIENT_IP_ADDRESS",
+    "IAS_ATTRIBUTE_CLIENT_IPv6_ADDRESS",
+    "IAS_ATTRIBUTE_CLIENT_NAME",
+    "IAS_ATTRIBUTE_CLIENT_PACKET_HEADER",
+    "IAS_ATTRIBUTE_CLIENT_QUARANTINE_COMPATIBLE",
+    "IAS_ATTRIBUTE_CLIENT_UDP_PORT",
+    "IAS_ATTRIBUTE_CLIENT_VENDOR_TYPE",
+    "IAS_ATTRIBUTE_EAP_CONFIG",
+    "IAS_ATTRIBUTE_EAP_FRIENDLY_NAME",
+    "IAS_ATTRIBUTE_EAP_SESSION",
+    "IAS_ATTRIBUTE_EAP_TYPEID",
     "IAS_ATTRIBUTE_EAP_TYPES_CONFIGURED_IN_PROXYPOLICY",
-    "MS_ATTRIBUTE_HCAP_LOCATION_GROUP_NAME",
-    "MS_ATTRIBUTE_EXTENDED_QUARANTINE_STATE",
-    "IAS_ATTRIBUTE_SOH_CARRIER_EAPTLV",
-    "MS_ATTRIBUTE_HCAP_USER_GROUPS",
-    "IAS_ATTRIBUTE_SAVED_MACHINE_HEALTHCHECK_ONLY",
-    "IAS_ATTRIBUTE_POLICY_EVALUATED_SHV",
-    "MS_ATTRIBUTE_RAS_CORRELATION_ID",
-    "MS_ATTRIBUTE_HCAP_USER_NAME",
-    "IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME",
-    "IAS_ATTRIBUTE_USER_TOKEN_SID",
+    "IAS_ATTRIBUTE_EXTENSION_STATE",
+    "IAS_ATTRIBUTE_FULLY_QUALIFIED_MACHINE_NAME",
+    "IAS_ATTRIBUTE_FULLY_QUALIFIED_USER_NAME",
+    "IAS_ATTRIBUTE_GENERATE_CLASS_ATTRIBUTE",
+    "IAS_ATTRIBUTE_GENERATE_SESSION_TIMEOUT",
+    "IAS_ATTRIBUTE_IGNORE_USER_DIALIN_PROPERTIES",
+    "IAS_ATTRIBUTE_IS_REPLAY",
+    "IAS_ATTRIBUTE_LOGGING_RESULT",
+    "IAS_ATTRIBUTE_MACHINE_INVENTORY",
+    "IAS_ATTRIBUTE_MACHINE_NAME",
+    "IAS_ATTRIBUTE_MACHINE_NTGROUPS",
+    "IAS_ATTRIBUTE_MACHINE_TOKEN_GROUPS",
     "IAS_ATTRIBUTE_MACHINE_TOKEN_SID",
     "IAS_ATTRIBUTE_MACHINE_VALIDATED",
-    "MS_ATTRIBUTE_USER_IPv4_ADDRESS",
-    "MS_ATTRIBUTE_USER_IPv6_ADDRESS",
-    "MS_ATTRIBUTE_TSG_DEVICE_REDIRECTION",
-    "IAS_ATTRIBUTE_ACCEPT_REASON_CODE",
-    "IAS_ATTRIBUTE_LOGGING_RESULT",
+    "IAS_ATTRIBUTE_MANIPULATION_RULE",
+    "IAS_ATTRIBUTE_MANIPULATION_TARGET",
+    "IAS_ATTRIBUTE_NAME_MAPPED",
+    "IAS_ATTRIBUTE_NP_ALLOWED_EAP_TYPE",
+    "IAS_ATTRIBUTE_NP_ALLOWED_PORT_TYPES",
+    "IAS_ATTRIBUTE_NP_AUTHENTICATION_TYPE",
+    "IAS_ATTRIBUTE_NP_CALLED_STATION_ID",
+    "IAS_ATTRIBUTE_NP_CALLING_STATION_ID",
+    "IAS_ATTRIBUTE_NP_NAME",
+    "IAS_ATTRIBUTE_NP_PEAPUPFRONT_ENABLED",
+    "IAS_ATTRIBUTE_NP_TIME_OF_DAY",
+    "IAS_ATTRIBUTE_NT4_ACCOUNT_NAME",
+    "IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME",
+    "IAS_ATTRIBUTE_NT4_MACHINE_NAME",
+    "IAS_ATTRIBUTE_NTGROUPS",
+    "IAS_ATTRIBUTE_ORIGINAL_USER_NAME",
+    "IAS_ATTRIBUTE_OVERRIDE_RAP_AUTH",
+    "IAS_ATTRIBUTE_PACKET_TYPE",
+    "IAS_ATTRIBUTE_PASSPORT_USER_MAPPING_UPN_SUFFIX",
+    "IAS_ATTRIBUTE_PEAP_CHANNEL_UP",
+    "IAS_ATTRIBUTE_PEAP_EMBEDDED_EAP_TYPEID",
+    "IAS_ATTRIBUTE_PEAP_FAST_ROAMED_SESSION",
+    "IAS_ATTRIBUTE_POLICY_ENFORCED",
+    "IAS_ATTRIBUTE_POLICY_EVALUATED_SHV",
+    "IAS_ATTRIBUTE_PROVIDER_NAME",
+    "IAS_ATTRIBUTE_PROVIDER_TYPE",
+    "IAS_ATTRIBUTE_PROXY_EAP_CONFIG",
+    "IAS_ATTRIBUTE_PROXY_POLICY_NAME",
+    "IAS_ATTRIBUTE_PROXY_RETRY_COUNT",
+    "IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS",
+    "IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS_CONFIGURATION",
+    "IAS_ATTRIBUTE_QUARANTINE_SESSION_HANDLE",
+    "IAS_ATTRIBUTE_QUARANTINE_SESSION_ID",
+    "IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_RESULT",
+    "IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_VALIDATORS",
+    "IAS_ATTRIBUTE_QUARANTINE_UPDATE_NON_COMPLIANT",
+    "IAS_ATTRIBUTE_QUARANTINE_URL",
+    "IAS_ATTRIBUTE_RADIUS_USERNAME_ENCODING_ASCII",
+    "IAS_ATTRIBUTE_REASON_CODE",
+    "IAS_ATTRIBUTE_REJECT_REASON_CODE",
+    "IAS_ATTRIBUTE_REMOTE_RADIUS_TO_WINDOWS_USER_MAPPING",
+    "IAS_ATTRIBUTE_REMOTE_SERVER_ADDRESS",
+    "IAS_ATTRIBUTE_REQUEST_ID",
+    "IAS_ATTRIBUTE_REQUEST_START_TIME",
+    "IAS_ATTRIBUTE_SAVED_MACHINE_HEALTHCHECK_ONLY",
+    "IAS_ATTRIBUTE_SAVED_NP_CALLING_STATION_ID",
+    "IAS_ATTRIBUTE_SAVED_RADIUS_CALLBACK_NUMBER",
+    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_INTERFACE_ID",
+    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IP_ADDRESS",
+    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IPv6_PREFIX",
+    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IPv6_ROUTE",
+    "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_ROUTE",
     "IAS_ATTRIBUTE_SERVER_IP_ADDRESS",
     "IAS_ATTRIBUTE_SERVER_IPv6_ADDRESS",
-    "IAS_ATTRIBUTE_RADIUS_USERNAME_ENCODING_ASCII",
-    "MS_ATTRIBUTE_RAS_ROUTING_DOMAIN_ID",
-    "IAS_ATTRIBUTE_CERTIFICATE_THUMBPRINT",
-    "RAS_ATTRIBUTE_ENCRYPTION_TYPE",
-    "RAS_ATTRIBUTE_ENCRYPTION_POLICY",
-    "RAS_ATTRIBUTE_BAP_REQUIRED",
-    "RAS_ATTRIBUTE_BAP_LINE_DOWN_TIME",
-    "RAS_ATTRIBUTE_BAP_LINE_DOWN_LIMIT",
-    "NEW_LOG_FILE_FREQUENCY",
-    "IAS_LOGGING_UNLIMITED_SIZE",
-    "IAS_LOGGING_DAILY",
-    "IAS_LOGGING_WEEKLY",
-    "IAS_LOGGING_MONTHLY",
-    "IAS_LOGGING_WHEN_FILE_SIZE_REACHES",
-    "AUTHENTICATION_TYPE",
+    "IAS_ATTRIBUTE_SESSION_TIMEOUT",
+    "IAS_ATTRIBUTE_SHARED_SECRET",
+    "IAS_ATTRIBUTE_SOH_CARRIER_EAPTLV",
+    "IAS_ATTRIBUTE_TOKEN_GROUPS",
+    "IAS_ATTRIBUTE_TUNNEL_TAG",
+    "IAS_ATTRIBUTE_USER_NTGROUPS",
+    "IAS_ATTRIBUTE_USER_TOKEN_GROUPS",
+    "IAS_ATTRIBUTE_USER_TOKEN_SID",
+    "IAS_AUTH_ARAP",
+    "IAS_AUTH_CUSTOM",
+    "IAS_AUTH_EAP",
     "IAS_AUTH_INVALID",
-    "IAS_AUTH_PAP",
     "IAS_AUTH_MD5CHAP",
     "IAS_AUTH_MSCHAP",
     "IAS_AUTH_MSCHAP2",
-    "IAS_AUTH_EAP",
-    "IAS_AUTH_ARAP",
-    "IAS_AUTH_NONE",
-    "IAS_AUTH_CUSTOM",
-    "IAS_AUTH_MSCHAP_CPW",
     "IAS_AUTH_MSCHAP2_CPW",
+    "IAS_AUTH_MSCHAP_CPW",
+    "IAS_AUTH_NONE",
+    "IAS_AUTH_PAP",
     "IAS_AUTH_PEAP",
-    "IDENTITY_TYPE",
     "IAS_IDENTITY_NO_DEFAULT",
-    "ATTRIBUTESYNTAX",
+    "IAS_LOGGING_DAILY",
+    "IAS_LOGGING_MONTHLY",
+    "IAS_LOGGING_UNLIMITED_SIZE",
+    "IAS_LOGGING_WEEKLY",
+    "IAS_LOGGING_WHEN_FILE_SIZE_REACHES",
     "IAS_SYNTAX_BOOLEAN",
-    "IAS_SYNTAX_INTEGER",
     "IAS_SYNTAX_ENUMERATOR",
     "IAS_SYNTAX_INETADDR",
-    "IAS_SYNTAX_STRING",
-    "IAS_SYNTAX_OCTETSTRING",
-    "IAS_SYNTAX_UTCTIME",
-    "IAS_SYNTAX_PROVIDERSPECIFIC",
-    "IAS_SYNTAX_UNSIGNEDINTEGER",
     "IAS_SYNTAX_INETADDR6",
-    "ATTRIBUTERESTRICTIONS",
-    "MULTIVALUED",
-    "ALLOWEDINPROFILE",
-    "ALLOWEDINCONDITION",
-    "ALLOWEDINPROXYPROFILE",
-    "ALLOWEDINPROXYCONDITION",
-    "ALLOWEDINVPNDIALUP",
-    "ALLOWEDIN8021X",
-    "ATTRIBUTEFILTER",
-    "ATTRIBUTE_FILTER_NONE",
-    "ATTRIBUTE_FILTER_VPN_DIALUP",
-    "ATTRIBUTE_FILTER_IEEE_802_1x",
-    "ATTRIBUTEINFO",
-    "NAME",
-    "SYNTAX",
-    "RESTRICTIONS",
-    "DESCRIPTION",
-    "VENDORID",
+    "IAS_SYNTAX_INTEGER",
+    "IAS_SYNTAX_OCTETSTRING",
+    "IAS_SYNTAX_PROVIDERSPECIFIC",
+    "IAS_SYNTAX_STRING",
+    "IAS_SYNTAX_UNSIGNEDINTEGER",
+    "IAS_SYNTAX_UTCTIME",
+    "IDENTITY_TYPE",
+    "IPFILTERPROPERTIES",
+    "ISdo",
+    "ISdoCollection",
+    "ISdoDictionaryOld",
+    "ISdoMachine",
+    "ISdoMachine2",
+    "ISdoServiceControl",
+    "ITemplateSdo",
     "LDAPNAME",
-    "VENDORTYPE",
-    "IASCOMMONPROPERTIES",
-    "PROPERTY_SDO_RESERVED",
-    "PROPERTY_SDO_CLASS",
-    "PROPERTY_SDO_NAME",
-    "PROPERTY_SDO_DESCRIPTION",
-    "PROPERTY_SDO_ID",
-    "PROPERTY_SDO_DATASTORE_NAME",
-    "PROPERTY_SDO_TEMPLATE_GUID",
-    "PROPERTY_SDO_OPAQUE",
-    "PROPERTY_SDO_START",
-    "USERPROPERTIES",
-    "PROPERTY_USER_CALLING_STATION_ID",
-    "PROPERTY_USER_SAVED_CALLING_STATION_ID",
-    "PROPERTY_USER_RADIUS_CALLBACK_NUMBER",
-    "PROPERTY_USER_RADIUS_FRAMED_ROUTE",
-    "PROPERTY_USER_RADIUS_FRAMED_IP_ADDRESS",
-    "PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER",
-    "PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE",
-    "PROPERTY_USER_SAVED_RADIUS_FRAMED_IP_ADDRESS",
-    "PROPERTY_USER_ALLOW_DIALIN",
-    "PROPERTY_USER_SERVICE_TYPE",
-    "PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE",
-    "PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE",
-    "PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID",
-    "PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID",
-    "PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX",
-    "PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX",
-    "DICTIONARYPROPERTIES",
-    "PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION",
-    "PROPERTY_DICTIONARY_LOCATION",
-    "ATTRIBUTEPROPERTIES",
-    "PROPERTY_ATTRIBUTE_ID",
-    "PROPERTY_ATTRIBUTE_VENDOR_ID",
-    "PROPERTY_ATTRIBUTE_VENDOR_TYPE_ID",
-    "PROPERTY_ATTRIBUTE_IS_ENUMERABLE",
+    "MS_ATTRIBUTE_ACCT_AUTH_TYPE",
+    "MS_ATTRIBUTE_ACCT_EAP_TYPE",
+    "MS_ATTRIBUTE_AFW_PROTECTION_LEVEL",
+    "MS_ATTRIBUTE_AFW_QUARANTINE_ZONE",
+    "MS_ATTRIBUTE_CHAP2_CPW",
+    "MS_ATTRIBUTE_CHAP2_RESPONSE",
+    "MS_ATTRIBUTE_CHAP2_SUCCESS",
+    "MS_ATTRIBUTE_CHAP_CHALLENGE",
+    "MS_ATTRIBUTE_CHAP_CPW1",
+    "MS_ATTRIBUTE_CHAP_CPW2",
+    "MS_ATTRIBUTE_CHAP_DOMAIN",
+    "MS_ATTRIBUTE_CHAP_ERROR",
+    "MS_ATTRIBUTE_CHAP_LM_ENC_PW",
+    "MS_ATTRIBUTE_CHAP_MPPE_KEYS",
+    "MS_ATTRIBUTE_CHAP_NT_ENC_PW",
+    "MS_ATTRIBUTE_CHAP_RESPONSE",
+    "MS_ATTRIBUTE_EAP_TLV",
+    "MS_ATTRIBUTE_EXTENDED_QUARANTINE_STATE",
+    "MS_ATTRIBUTE_FILTER",
+    "MS_ATTRIBUTE_HCAP_LOCATION_GROUP_NAME",
+    "MS_ATTRIBUTE_HCAP_USER_GROUPS",
+    "MS_ATTRIBUTE_HCAP_USER_NAME",
+    "MS_ATTRIBUTE_IDENTITY_TYPE",
+    "MS_ATTRIBUTE_IPV4_REMEDIATION_SERVERS",
+    "MS_ATTRIBUTE_IPV6_REMEDIATION_SERVERS",
+    "MS_ATTRIBUTE_IPv6_FILTER",
+    "MS_ATTRIBUTE_MACHINE_NAME",
+    "MS_ATTRIBUTE_MPPE_RECV_KEY",
+    "MS_ATTRIBUTE_MPPE_SEND_KEY",
+    "MS_ATTRIBUTE_NETWORK_ACCESS_SERVER_TYPE",
+    "MS_ATTRIBUTE_NOT_QUARANTINE_CAPABLE",
+    "MS_ATTRIBUTE_PRIMARY_DNS_SERVER",
+    "MS_ATTRIBUTE_PRIMARY_NBNS_SERVER",
+    "MS_ATTRIBUTE_QUARANTINE_GRACE_TIME",
+    "MS_ATTRIBUTE_QUARANTINE_GRACE_TIME_CONFIGURATION",
+    "MS_ATTRIBUTE_QUARANTINE_IPFILTER",
+    "MS_ATTRIBUTE_QUARANTINE_SESSION_TIMEOUT",
+    "MS_ATTRIBUTE_QUARANTINE_SOH",
+    "MS_ATTRIBUTE_QUARANTINE_STATE",
+    "MS_ATTRIBUTE_QUARANTINE_USER_CLASS",
+    "MS_ATTRIBUTE_RAS_CLIENT_NAME",
+    "MS_ATTRIBUTE_RAS_CLIENT_VERSION",
+    "MS_ATTRIBUTE_RAS_CORRELATION_ID",
+    "MS_ATTRIBUTE_RAS_ROUTING_DOMAIN_ID",
+    "MS_ATTRIBUTE_RAS_VENDOR",
+    "MS_ATTRIBUTE_RAS_VERSION",
+    "MS_ATTRIBUTE_SECONDARY_DNS_SERVER",
+    "MS_ATTRIBUTE_SECONDARY_NBNS_SERVER",
+    "MS_ATTRIBUTE_SERVICE_CLASS",
+    "MS_ATTRIBUTE_TSG_DEVICE_REDIRECTION",
+    "MS_ATTRIBUTE_USER_IPv4_ADDRESS",
+    "MS_ATTRIBUTE_USER_IPv6_ADDRESS",
+    "MS_ATTRIBUTE_USER_SECURITY_IDENTITY",
+    "MULTIVALUED",
+    "NAME",
+    "NAMESPROPERTIES",
+    "NAPPROPERTIES",
+    "NEW_LOG_FILE_FREQUENCY",
+    "NTEVENTLOGPROPERTIES",
+    "NTSAMPROPERTIES",
+    "POLICYPROPERTIES",
+    "PRADIUS_EXTENSION_FREE_ATTRIBUTES",
+    "PRADIUS_EXTENSION_INIT",
+    "PRADIUS_EXTENSION_PROCESS",
+    "PRADIUS_EXTENSION_PROCESS_2",
+    "PRADIUS_EXTENSION_PROCESS_EX",
+    "PRADIUS_EXTENSION_TERM",
+    "PROFILEPROPERTIES",
+    "PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE",
+    "PROPERTY_ACCOUNTING_LOG_ACCOUNTING",
+    "PROPERTY_ACCOUNTING_LOG_ACCOUNTING_INTERIM",
+    "PROPERTY_ACCOUNTING_LOG_AUTHENTICATION",
+    "PROPERTY_ACCOUNTING_LOG_AUTHENTICATION_INTERIM",
+    "PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL",
+    "PROPERTY_ACCOUNTING_LOG_ENABLE_LOGGING",
+    "PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY",
+    "PROPERTY_ACCOUNTING_LOG_FILE_IS_BACKUP",
+    "PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT",
+    "PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY",
+    "PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE",
+    "PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS",
+    "PROPERTY_ATTRIBUTE_ALLOW_IN_8021X",
+    "PROPERTY_ATTRIBUTE_ALLOW_IN_CONDITION",
+    "PROPERTY_ATTRIBUTE_ALLOW_IN_PROFILE",
+    "PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_CONDITION",
+    "PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_PROFILE",
+    "PROPERTY_ATTRIBUTE_ALLOW_IN_VPNDIALUP",
+    "PROPERTY_ATTRIBUTE_ALLOW_LOG_ORDINAL",
+    "PROPERTY_ATTRIBUTE_ALLOW_MULTIPLE",
+    "PROPERTY_ATTRIBUTE_DISPLAY_NAME",
+    "PROPERTY_ATTRIBUTE_ENUM_FILTERS",
     "PROPERTY_ATTRIBUTE_ENUM_NAMES",
     "PROPERTY_ATTRIBUTE_ENUM_VALUES",
+    "PROPERTY_ATTRIBUTE_ID",
+    "PROPERTY_ATTRIBUTE_IS_ENUMERABLE",
     "PROPERTY_ATTRIBUTE_SYNTAX",
-    "PROPERTY_ATTRIBUTE_ALLOW_MULTIPLE",
-    "PROPERTY_ATTRIBUTE_ALLOW_LOG_ORDINAL",
-    "PROPERTY_ATTRIBUTE_ALLOW_IN_PROFILE",
-    "PROPERTY_ATTRIBUTE_ALLOW_IN_CONDITION",
-    "PROPERTY_ATTRIBUTE_DISPLAY_NAME",
     "PROPERTY_ATTRIBUTE_VALUE",
-    "PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_PROFILE",
-    "PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_CONDITION",
-    "PROPERTY_ATTRIBUTE_ALLOW_IN_VPNDIALUP",
-    "PROPERTY_ATTRIBUTE_ALLOW_IN_8021X",
-    "PROPERTY_ATTRIBUTE_ENUM_FILTERS",
-    "IASPROPERTIES",
-    "PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION",
-    "PROPERTY_IAS_POLICIES_COLLECTION",
-    "PROPERTY_IAS_PROFILES_COLLECTION",
-    "PROPERTY_IAS_PROTOCOLS_COLLECTION",
-    "PROPERTY_IAS_AUDITORS_COLLECTION",
-    "PROPERTY_IAS_REQUESTHANDLERS_COLLECTION",
-    "PROPERTY_IAS_PROXYPOLICIES_COLLECTION",
-    "PROPERTY_IAS_PROXYPROFILES_COLLECTION",
-    "PROPERTY_IAS_REMEDIATIONSERVERGROUPS_COLLECTION",
-    "PROPERTY_IAS_SHVTEMPLATES_COLLECTION",
-    "TEMPLATESPROPERTIES",
-    "PROPERTY_TEMPLATES_POLICIES_TEMPLATES",
-    "PROPERTY_TEMPLATES_PROFILES_TEMPLATES",
-    "PROPERTY_TEMPLATES_PROFILES_COLLECTION",
-    "PROPERTY_TEMPLATES_PROXYPOLICIES_TEMPLATES",
-    "PROPERTY_TEMPLATES_PROXYPROFILES_TEMPLATES",
-    "PROPERTY_TEMPLATES_PROXYPROFILES_COLLECTION",
-    "PROPERTY_TEMPLATES_REMEDIATIONSERVERGROUPS_TEMPLATES",
-    "PROPERTY_TEMPLATES_SHVTEMPLATES_TEMPLATES",
-    "PROPERTY_TEMPLATES_CLIENTS_TEMPLATES",
-    "PROPERTY_TEMPLATES_RADIUSSERVERS_TEMPLATES",
-    "PROPERTY_TEMPLATES_SHAREDSECRETS_TEMPLATES",
-    "PROPERTY_TEMPLATES_IPFILTERS_TEMPLATES",
-    "CLIENTPROPERTIES",
-    "PROPERTY_CLIENT_REQUIRE_SIGNATURE",
-    "PROPERTY_CLIENT_UNUSED",
-    "PROPERTY_CLIENT_SHARED_SECRET",
-    "PROPERTY_CLIENT_NAS_MANUFACTURER",
+    "PROPERTY_ATTRIBUTE_VENDOR_ID",
+    "PROPERTY_ATTRIBUTE_VENDOR_TYPE_ID",
     "PROPERTY_CLIENT_ADDRESS",
-    "PROPERTY_CLIENT_QUARANTINE_COMPATIBLE",
     "PROPERTY_CLIENT_ENABLED",
+    "PROPERTY_CLIENT_NAS_MANUFACTURER",
+    "PROPERTY_CLIENT_QUARANTINE_COMPATIBLE",
+    "PROPERTY_CLIENT_REQUIRE_SIGNATURE",
     "PROPERTY_CLIENT_SECRET_TEMPLATE_GUID",
-    "VENDORPROPERTIES",
-    "PROPERTY_NAS_VENDOR_ID",
-    "PROFILEPROPERTIES",
-    "PROPERTY_PROFILE_ATTRIBUTES_COLLECTION",
-    "PROPERTY_PROFILE_IPFILTER_TEMPLATE_GUID",
-    "POLICYPROPERTIES",
-    "PROPERTY_POLICY_CONSTRAINT",
-    "PROPERTY_POLICY_MERIT",
-    "PROPERTY_POLICY_UNUSED0",
-    "PROPERTY_POLICY_UNUSED1",
-    "PROPERTY_POLICY_PROFILE_NAME",
-    "PROPERTY_POLICY_ACTION",
-    "PROPERTY_POLICY_CONDITIONS_COLLECTION",
-    "PROPERTY_POLICY_ENABLED",
-    "PROPERTY_POLICY_SOURCETAG",
-    "CONDITIONPROPERTIES",
-    "PROPERTY_CONDITION_TEXT",
-    "RADIUSSERVERGROUPPROPERTIES",
-    "PROPERTY_RADIUSSERVERGROUP_SERVERS_COLLECTION",
-    "RADIUSSERVERPROPERTIES",
-    "PROPERTY_RADIUSSERVER_AUTH_PORT",
-    "PROPERTY_RADIUSSERVER_AUTH_SECRET",
-    "PROPERTY_RADIUSSERVER_ACCT_PORT",
-    "PROPERTY_RADIUSSERVER_ACCT_SECRET",
-    "PROPERTY_RADIUSSERVER_ADDRESS",
-    "PROPERTY_RADIUSSERVER_FORWARD_ACCT_ONOFF",
-    "PROPERTY_RADIUSSERVER_PRIORITY",
-    "PROPERTY_RADIUSSERVER_WEIGHT",
-    "PROPERTY_RADIUSSERVER_TIMEOUT",
-    "PROPERTY_RADIUSSERVER_MAX_LOST",
-    "PROPERTY_RADIUSSERVER_BLACKOUT",
-    "PROPERTY_RADIUSSERVER_SEND_SIGNATURE",
-    "PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID",
-    "PROPERTY_RADIUSSERVER_ACCT_SECRET_TEMPLATE_GUID",
-    "REMEDIATIONSERVERGROUPPROPERTIES",
-    "PROPERTY_REMEDIATIONSERVERGROUP_SERVERS_COLLECTION",
-    "REMEDIATIONSERVERPROPERTIES",
-    "PROPERTY_REMEDIATIONSERVER_ADDRESS",
-    "PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME",
-    "SHVTEMPLATEPROPERTIES",
-    "PROPERTY_SHV_COMBINATION_TYPE",
-    "PROPERTY_SHV_LIST",
-    "PROPERTY_SHVCONFIG_LIST",
-    "IPFILTERPROPERTIES",
-    "PROPERTY_IPFILTER_ATTRIBUTES_COLLECTION",
-    "SHAREDSECRETPROPERTIES",
-    "PROPERTY_SHAREDSECRET_STRING",
-    "IASCOMPONENTPROPERTIES",
+    "PROPERTY_CLIENT_SHARED_SECRET",
+    "PROPERTY_CLIENT_UNUSED",
     "PROPERTY_COMPONENT_ID",
     "PROPERTY_COMPONENT_PROG_ID",
     "PROPERTY_COMPONENT_START",
-    "PROTOCOLPROPERTIES",
+    "PROPERTY_CONDITION_TEXT",
+    "PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION",
+    "PROPERTY_DICTIONARY_LOCATION",
+    "PROPERTY_EVENTLOG_LOG_APPLICATION_EVENTS",
+    "PROPERTY_EVENTLOG_LOG_DEBUG",
+    "PROPERTY_EVENTLOG_LOG_MALFORMED",
+    "PROPERTY_IAS_AUDITORS_COLLECTION",
+    "PROPERTY_IAS_POLICIES_COLLECTION",
+    "PROPERTY_IAS_PROFILES_COLLECTION",
+    "PROPERTY_IAS_PROTOCOLS_COLLECTION",
+    "PROPERTY_IAS_PROXYPOLICIES_COLLECTION",
+    "PROPERTY_IAS_PROXYPROFILES_COLLECTION",
+    "PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION",
+    "PROPERTY_IAS_REMEDIATIONSERVERGROUPS_COLLECTION",
+    "PROPERTY_IAS_REQUESTHANDLERS_COLLECTION",
+    "PROPERTY_IAS_SHVTEMPLATES_COLLECTION",
+    "PROPERTY_IPFILTER_ATTRIBUTES_COLLECTION",
+    "PROPERTY_NAMES_REALMS",
+    "PROPERTY_NAP_POLICIES_COLLECTION",
+    "PROPERTY_NAS_VENDOR_ID",
+    "PROPERTY_NTSAM_ALLOW_LM_AUTHENTICATION",
+    "PROPERTY_POLICY_ACTION",
+    "PROPERTY_POLICY_CONDITIONS_COLLECTION",
+    "PROPERTY_POLICY_CONSTRAINT",
+    "PROPERTY_POLICY_ENABLED",
+    "PROPERTY_POLICY_MERIT",
+    "PROPERTY_POLICY_PROFILE_NAME",
+    "PROPERTY_POLICY_SOURCETAG",
+    "PROPERTY_POLICY_UNUSED0",
+    "PROPERTY_POLICY_UNUSED1",
+    "PROPERTY_PROFILE_ATTRIBUTES_COLLECTION",
+    "PROPERTY_PROFILE_IPFILTER_TEMPLATE_GUID",
     "PROPERTY_PROTOCOL_REQUEST_HANDLER",
     "PROPERTY_PROTOCOL_START",
-    "RADIUSPROPERTIES",
+    "PROPERTY_RADIUSPROXY_SERVERGROUPS",
+    "PROPERTY_RADIUSSERVERGROUP_SERVERS_COLLECTION",
+    "PROPERTY_RADIUSSERVER_ACCT_PORT",
+    "PROPERTY_RADIUSSERVER_ACCT_SECRET",
+    "PROPERTY_RADIUSSERVER_ACCT_SECRET_TEMPLATE_GUID",
+    "PROPERTY_RADIUSSERVER_ADDRESS",
+    "PROPERTY_RADIUSSERVER_AUTH_PORT",
+    "PROPERTY_RADIUSSERVER_AUTH_SECRET",
+    "PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID",
+    "PROPERTY_RADIUSSERVER_BLACKOUT",
+    "PROPERTY_RADIUSSERVER_FORWARD_ACCT_ONOFF",
+    "PROPERTY_RADIUSSERVER_MAX_LOST",
+    "PROPERTY_RADIUSSERVER_PRIORITY",
+    "PROPERTY_RADIUSSERVER_SEND_SIGNATURE",
+    "PROPERTY_RADIUSSERVER_TIMEOUT",
+    "PROPERTY_RADIUSSERVER_WEIGHT",
     "PROPERTY_RADIUS_ACCOUNTING_PORT",
     "PROPERTY_RADIUS_AUTHENTICATION_PORT",
     "PROPERTY_RADIUS_CLIENTS_COLLECTION",
     "PROPERTY_RADIUS_VENDORS_COLLECTION",
-    "NTEVENTLOGPROPERTIES",
-    "PROPERTY_EVENTLOG_LOG_APPLICATION_EVENTS",
-    "PROPERTY_EVENTLOG_LOG_MALFORMED",
-    "PROPERTY_EVENTLOG_LOG_DEBUG",
-    "NAMESPROPERTIES",
-    "PROPERTY_NAMES_REALMS",
-    "NTSAMPROPERTIES",
-    "PROPERTY_NTSAM_ALLOW_LM_AUTHENTICATION",
-    "ACCOUNTINGPROPERTIES",
-    "PROPERTY_ACCOUNTING_LOG_ACCOUNTING",
-    "PROPERTY_ACCOUNTING_LOG_ACCOUNTING_INTERIM",
-    "PROPERTY_ACCOUNTING_LOG_AUTHENTICATION",
-    "PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY",
-    "PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE",
-    "PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY",
-    "PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT",
-    "PROPERTY_ACCOUNTING_LOG_ENABLE_LOGGING",
-    "PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL",
-    "PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS",
-    "PROPERTY_ACCOUNTING_LOG_AUTHENTICATION_INTERIM",
-    "PROPERTY_ACCOUNTING_LOG_FILE_IS_BACKUP",
-    "PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE",
-    "NAPPROPERTIES",
-    "PROPERTY_NAP_POLICIES_COLLECTION",
-    "PROPERTY_SHV_TEMPLATES_COLLECTION",
-    "RADIUSPROXYPROPERTIES",
-    "PROPERTY_RADIUSPROXY_SERVERGROUPS",
-    "REMEDIATIONSERVERSPROPERTIES",
+    "PROPERTY_REMEDIATIONSERVERGROUP_SERVERS_COLLECTION",
     "PROPERTY_REMEDIATIONSERVERS_SERVERGROUPS",
-    "SHV_COMBINATION_TYPE",
-    "SHV_COMBINATION_TYPE_ALL_PASS",
-    "SHV_COMBINATION_TYPE_ALL_FAIL",
-    "SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS",
-    "SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL",
-    "SHV_COMBINATION_TYPE_ONE_OR_MORE_INFECTED",
-    "SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL",
-    "SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN",
-    "SHV_COMBINATION_TYPE_MAX",
-    "SERVICE_TYPE",
-    "SERVICE_TYPE_IAS",
-    "SERVICE_TYPE_RAS",
-    "SERVICE_TYPE_RAMGMTSVC",
-    "SERVICE_TYPE_MAX",
-    "IASOSTYPE",
-    "SYSTEM_TYPE_NT4_WORKSTATION",
-    "SYSTEM_TYPE_NT5_WORKSTATION",
-    "SYSTEM_TYPE_NT6_WORKSTATION",
-    "SYSTEM_TYPE_NT6_1_WORKSTATION",
-    "SYSTEM_TYPE_NT6_2_WORKSTATION",
-    "SYSTEM_TYPE_NT6_3_WORKSTATION",
-    "SYSTEM_TYPE_NT10_0_WORKSTATION",
-    "SYSTEM_TYPE_NT4_SERVER",
-    "SYSTEM_TYPE_NT5_SERVER",
-    "SYSTEM_TYPE_NT6_SERVER",
-    "SYSTEM_TYPE_NT6_1_SERVER",
-    "SYSTEM_TYPE_NT6_2_SERVER",
-    "SYSTEM_TYPE_NT6_3_SERVER",
-    "SYSTEM_TYPE_NT10_0_SERVER",
-    "IASDOMAINTYPE",
-    "DOMAIN_TYPE_NONE",
-    "DOMAIN_TYPE_NT4",
-    "DOMAIN_TYPE_NT5",
-    "DOMAIN_TYPE_MIXED",
-    "IASDATASTORE",
-    "DATA_STORE_LOCAL",
-    "DATA_STORE_DIRECTORY",
-    "ISdoMachine",
-    "ISdoMachine2",
-    "ISdoServiceControl",
-    "ISdo",
-    "ISdoCollection",
-    "ITemplateSdo",
-    "ISdoDictionaryOld",
+    "PROPERTY_REMEDIATIONSERVER_ADDRESS",
+    "PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME",
+    "PROPERTY_SDO_CLASS",
+    "PROPERTY_SDO_DATASTORE_NAME",
+    "PROPERTY_SDO_DESCRIPTION",
+    "PROPERTY_SDO_ID",
+    "PROPERTY_SDO_NAME",
+    "PROPERTY_SDO_OPAQUE",
+    "PROPERTY_SDO_RESERVED",
+    "PROPERTY_SDO_START",
+    "PROPERTY_SDO_TEMPLATE_GUID",
+    "PROPERTY_SHAREDSECRET_STRING",
+    "PROPERTY_SHVCONFIG_LIST",
+    "PROPERTY_SHV_COMBINATION_TYPE",
+    "PROPERTY_SHV_LIST",
+    "PROPERTY_SHV_TEMPLATES_COLLECTION",
+    "PROPERTY_TEMPLATES_CLIENTS_TEMPLATES",
+    "PROPERTY_TEMPLATES_IPFILTERS_TEMPLATES",
+    "PROPERTY_TEMPLATES_POLICIES_TEMPLATES",
+    "PROPERTY_TEMPLATES_PROFILES_COLLECTION",
+    "PROPERTY_TEMPLATES_PROFILES_TEMPLATES",
+    "PROPERTY_TEMPLATES_PROXYPOLICIES_TEMPLATES",
+    "PROPERTY_TEMPLATES_PROXYPROFILES_COLLECTION",
+    "PROPERTY_TEMPLATES_PROXYPROFILES_TEMPLATES",
+    "PROPERTY_TEMPLATES_RADIUSSERVERS_TEMPLATES",
+    "PROPERTY_TEMPLATES_REMEDIATIONSERVERGROUPS_TEMPLATES",
+    "PROPERTY_TEMPLATES_SHAREDSECRETS_TEMPLATES",
+    "PROPERTY_TEMPLATES_SHVTEMPLATES_TEMPLATES",
+    "PROPERTY_USER_ALLOW_DIALIN",
+    "PROPERTY_USER_CALLING_STATION_ID",
+    "PROPERTY_USER_RADIUS_CALLBACK_NUMBER",
+    "PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID",
+    "PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX",
+    "PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE",
+    "PROPERTY_USER_RADIUS_FRAMED_IP_ADDRESS",
+    "PROPERTY_USER_RADIUS_FRAMED_ROUTE",
+    "PROPERTY_USER_SAVED_CALLING_STATION_ID",
+    "PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER",
+    "PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID",
+    "PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX",
+    "PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE",
+    "PROPERTY_USER_SAVED_RADIUS_FRAMED_IP_ADDRESS",
+    "PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE",
+    "PROPERTY_USER_SERVICE_TYPE",
+    "PROTOCOLPROPERTIES",
+    "RADIUSPROPERTIES",
+    "RADIUSPROXYPROPERTIES",
+    "RADIUSSERVERGROUPPROPERTIES",
+    "RADIUSSERVERPROPERTIES",
+    "RADIUS_ACTION",
+    "RADIUS_ACTION_raAccept",
+    "RADIUS_ACTION_raContinue",
+    "RADIUS_ACTION_raReject",
+    "RADIUS_ATTRIBUTE",
+    "RADIUS_ATTRIBUTE_ACCT_AUTHENTIC",
+    "RADIUS_ATTRIBUTE_ACCT_DELAY_TIME",
+    "RADIUS_ATTRIBUTE_ACCT_INPUT_OCTETS",
+    "RADIUS_ATTRIBUTE_ACCT_INPUT_PACKETS",
+    "RADIUS_ATTRIBUTE_ACCT_INTERIM_INTERVAL",
+    "RADIUS_ATTRIBUTE_ACCT_LINK_COUNT",
+    "RADIUS_ATTRIBUTE_ACCT_MULTI_SSN_ID",
+    "RADIUS_ATTRIBUTE_ACCT_OUTPUT_OCTETS",
+    "RADIUS_ATTRIBUTE_ACCT_OUTPUT_PACKETS",
+    "RADIUS_ATTRIBUTE_ACCT_SESSION_ID",
+    "RADIUS_ATTRIBUTE_ACCT_SESSION_TIME",
+    "RADIUS_ATTRIBUTE_ACCT_STATUS_TYPE",
+    "RADIUS_ATTRIBUTE_ACCT_TERMINATE_CAUSE",
+    "RADIUS_ATTRIBUTE_ACCT_TUNNEL_CONN",
+    "RADIUS_ATTRIBUTE_ARAP_CHALLENGE_RESPONSE",
+    "RADIUS_ATTRIBUTE_ARAP_FEATURES",
+    "RADIUS_ATTRIBUTE_ARAP_PASSWORD",
+    "RADIUS_ATTRIBUTE_ARAP_SECURITY",
+    "RADIUS_ATTRIBUTE_ARAP_SECURITY_DATA",
+    "RADIUS_ATTRIBUTE_ARAP_ZONE_ACCESS",
+    "RADIUS_ATTRIBUTE_ARRAY",
+    "RADIUS_ATTRIBUTE_CALLBACK_ID",
+    "RADIUS_ATTRIBUTE_CALLBACK_NUMBER",
+    "RADIUS_ATTRIBUTE_CALLED_STATION_ID",
+    "RADIUS_ATTRIBUTE_CALLING_STATION_ID",
+    "RADIUS_ATTRIBUTE_CHAP_CHALLENGE",
+    "RADIUS_ATTRIBUTE_CHAP_PASSWORD",
+    "RADIUS_ATTRIBUTE_CLASS",
+    "RADIUS_ATTRIBUTE_CONFIGURATION_TOKEN",
+    "RADIUS_ATTRIBUTE_CONNECT_INFO",
+    "RADIUS_ATTRIBUTE_EAP_MESSAGE",
+    "RADIUS_ATTRIBUTE_FILTER_ID",
+    "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_LINK",
+    "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_NET",
+    "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_ZONE",
+    "RADIUS_ATTRIBUTE_FRAMED_COMPRESSION",
+    "RADIUS_ATTRIBUTE_FRAMED_INTERFACE_ID",
+    "RADIUS_ATTRIBUTE_FRAMED_IPX_NETWORK",
+    "RADIUS_ATTRIBUTE_FRAMED_IP_ADDRESS",
+    "RADIUS_ATTRIBUTE_FRAMED_IP_NETMASK",
+    "RADIUS_ATTRIBUTE_FRAMED_IPv6_POOL",
+    "RADIUS_ATTRIBUTE_FRAMED_IPv6_PREFIX",
+    "RADIUS_ATTRIBUTE_FRAMED_IPv6_ROUTE",
+    "RADIUS_ATTRIBUTE_FRAMED_MTU",
+    "RADIUS_ATTRIBUTE_FRAMED_PROTOCOL",
+    "RADIUS_ATTRIBUTE_FRAMED_ROUTE",
+    "RADIUS_ATTRIBUTE_FRAMED_ROUTING",
+    "RADIUS_ATTRIBUTE_IDLE_TIMEOUT",
+    "RADIUS_ATTRIBUTE_LOGIN_IP_HOST",
+    "RADIUS_ATTRIBUTE_LOGIN_IPv6_HOST",
+    "RADIUS_ATTRIBUTE_LOGIN_LAT_GROUP",
+    "RADIUS_ATTRIBUTE_LOGIN_LAT_NODE",
+    "RADIUS_ATTRIBUTE_LOGIN_LAT_PORT",
+    "RADIUS_ATTRIBUTE_LOGIN_LAT_SERVICE",
+    "RADIUS_ATTRIBUTE_LOGIN_SERVICE",
+    "RADIUS_ATTRIBUTE_LOGIN_TCP_PORT",
+    "RADIUS_ATTRIBUTE_NAS_IDENTIFIER",
+    "RADIUS_ATTRIBUTE_NAS_IP_ADDRESS",
+    "RADIUS_ATTRIBUTE_NAS_IPv6_ADDRESS",
+    "RADIUS_ATTRIBUTE_NAS_PORT",
+    "RADIUS_ATTRIBUTE_NAS_PORT_TYPE",
+    "RADIUS_ATTRIBUTE_PASSWORD_RETRY",
+    "RADIUS_ATTRIBUTE_PORT_LIMIT",
+    "RADIUS_ATTRIBUTE_PROMPT",
+    "RADIUS_ATTRIBUTE_PROXY_STATE",
+    "RADIUS_ATTRIBUTE_REPLY_MESSAGE",
+    "RADIUS_ATTRIBUTE_SERVICE_TYPE",
+    "RADIUS_ATTRIBUTE_SESSION_TIMEOUT",
+    "RADIUS_ATTRIBUTE_SIGNATURE",
+    "RADIUS_ATTRIBUTE_STATE",
+    "RADIUS_ATTRIBUTE_TERMINATION_ACTION",
+    "RADIUS_ATTRIBUTE_TUNNEL_ASSIGNMENT_ID",
+    "RADIUS_ATTRIBUTE_TUNNEL_CLIENT_ENDPT",
+    "RADIUS_ATTRIBUTE_TUNNEL_MEDIUM_TYPE",
+    "RADIUS_ATTRIBUTE_TUNNEL_PASSWORD",
+    "RADIUS_ATTRIBUTE_TUNNEL_PREFERENCE",
+    "RADIUS_ATTRIBUTE_TUNNEL_PVT_GROUP_ID",
+    "RADIUS_ATTRIBUTE_TUNNEL_SERVER_ENDPT",
+    "RADIUS_ATTRIBUTE_TUNNEL_TYPE",
     "RADIUS_ATTRIBUTE_TYPE",
-    "RADIUS_ATTRIBUTE_TYPE_ratMinimum",
-    "RADIUS_ATTRIBUTE_TYPE_ratUserName",
-    "RADIUS_ATTRIBUTE_TYPE_ratUserPassword",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctAuthentic",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctDelayTime",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctInputOctets",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctInputPackets",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctOutputOctets",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctOutputPackets",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctSessionId",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctSessionTime",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctStatusType",
+    "RADIUS_ATTRIBUTE_TYPE_ratAcctTerminationCause",
+    "RADIUS_ATTRIBUTE_TYPE_ratAuthenticator",
+    "RADIUS_ATTRIBUTE_TYPE_ratCHAPChallenge",
     "RADIUS_ATTRIBUTE_TYPE_ratCHAPPassword",
-    "RADIUS_ATTRIBUTE_TYPE_ratNASIPAddress",
-    "RADIUS_ATTRIBUTE_TYPE_ratNASPort",
-    "RADIUS_ATTRIBUTE_TYPE_ratServiceType",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedProtocol",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPAddress",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPNetmask",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedRouting",
-    "RADIUS_ATTRIBUTE_TYPE_ratFilterId",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedMTU",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedCompression",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginIPHost",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginService",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginPort",
-    "RADIUS_ATTRIBUTE_TYPE_ratReplyMessage",
-    "RADIUS_ATTRIBUTE_TYPE_ratCallbackNumber",
+    "RADIUS_ATTRIBUTE_TYPE_ratCRPPolicyName",
     "RADIUS_ATTRIBUTE_TYPE_ratCallbackId",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedRoute",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPXNetwork",
-    "RADIUS_ATTRIBUTE_TYPE_ratState",
-    "RADIUS_ATTRIBUTE_TYPE_ratClass",
-    "RADIUS_ATTRIBUTE_TYPE_ratVendorSpecific",
-    "RADIUS_ATTRIBUTE_TYPE_ratSessionTimeout",
-    "RADIUS_ATTRIBUTE_TYPE_ratIdleTimeout",
-    "RADIUS_ATTRIBUTE_TYPE_ratTerminationAction",
+    "RADIUS_ATTRIBUTE_TYPE_ratCallbackNumber",
     "RADIUS_ATTRIBUTE_TYPE_ratCalledStationId",
     "RADIUS_ATTRIBUTE_TYPE_ratCallingStationId",
-    "RADIUS_ATTRIBUTE_TYPE_ratNASIdentifier",
-    "RADIUS_ATTRIBUTE_TYPE_ratProxyState",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginLATService",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginLATNode",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginLATGroup",
+    "RADIUS_ATTRIBUTE_TYPE_ratCertificateThumbprint",
+    "RADIUS_ATTRIBUTE_TYPE_ratClass",
+    "RADIUS_ATTRIBUTE_TYPE_ratClearTextPassword",
+    "RADIUS_ATTRIBUTE_TYPE_ratCode",
+    "RADIUS_ATTRIBUTE_TYPE_ratEAPTLV",
+    "RADIUS_ATTRIBUTE_TYPE_ratExtensionState",
+    "RADIUS_ATTRIBUTE_TYPE_ratFQUserName",
+    "RADIUS_ATTRIBUTE_TYPE_ratFilterId",
     "RADIUS_ATTRIBUTE_TYPE_ratFramedAppleTalkLink",
     "RADIUS_ATTRIBUTE_TYPE_ratFramedAppleTalkNetwork",
     "RADIUS_ATTRIBUTE_TYPE_ratFramedAppleTalkZone",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctStatusType",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctDelayTime",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctInputOctets",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctOutputOctets",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctSessionId",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctAuthentic",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctSessionTime",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctInputPackets",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctOutputPackets",
-    "RADIUS_ATTRIBUTE_TYPE_ratAcctTerminationCause",
-    "RADIUS_ATTRIBUTE_TYPE_ratCHAPChallenge",
-    "RADIUS_ATTRIBUTE_TYPE_ratNASPortType",
-    "RADIUS_ATTRIBUTE_TYPE_ratPortLimit",
-    "RADIUS_ATTRIBUTE_TYPE_ratTunnelType",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedCompression",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPAddress",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPNetmask",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPXNetwork",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPv6Pool",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPv6Prefix",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPv6Route",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedInterfaceId",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedMTU",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedProtocol",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedRoute",
+    "RADIUS_ATTRIBUTE_TYPE_ratFramedRouting",
+    "RADIUS_ATTRIBUTE_TYPE_ratIdentifier",
+    "RADIUS_ATTRIBUTE_TYPE_ratIdleTimeout",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginIPHost",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginIPv6Host",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginLATGroup",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginLATNode",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginLATService",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginPort",
+    "RADIUS_ATTRIBUTE_TYPE_ratLoginService",
     "RADIUS_ATTRIBUTE_TYPE_ratMediumType",
+    "RADIUS_ATTRIBUTE_TYPE_ratMinimum",
+    "RADIUS_ATTRIBUTE_TYPE_ratNASIPAddress",
+    "RADIUS_ATTRIBUTE_TYPE_ratNASIPv6Address",
+    "RADIUS_ATTRIBUTE_TYPE_ratNASIdentifier",
+    "RADIUS_ATTRIBUTE_TYPE_ratNASPort",
+    "RADIUS_ATTRIBUTE_TYPE_ratNASPortType",
+    "RADIUS_ATTRIBUTE_TYPE_ratPolicyName",
+    "RADIUS_ATTRIBUTE_TYPE_ratPortLimit",
+    "RADIUS_ATTRIBUTE_TYPE_ratProvider",
+    "RADIUS_ATTRIBUTE_TYPE_ratProviderName",
+    "RADIUS_ATTRIBUTE_TYPE_ratProxyState",
+    "RADIUS_ATTRIBUTE_TYPE_ratRejectReasonCode",
+    "RADIUS_ATTRIBUTE_TYPE_ratReplyMessage",
+    "RADIUS_ATTRIBUTE_TYPE_ratServiceType",
+    "RADIUS_ATTRIBUTE_TYPE_ratSessionTimeout",
+    "RADIUS_ATTRIBUTE_TYPE_ratSrcIPAddress",
+    "RADIUS_ATTRIBUTE_TYPE_ratSrcIPv6Address",
+    "RADIUS_ATTRIBUTE_TYPE_ratSrcPort",
+    "RADIUS_ATTRIBUTE_TYPE_ratState",
+    "RADIUS_ATTRIBUTE_TYPE_ratStrippedUserName",
+    "RADIUS_ATTRIBUTE_TYPE_ratTerminationAction",
     "RADIUS_ATTRIBUTE_TYPE_ratTunnelPassword",
     "RADIUS_ATTRIBUTE_TYPE_ratTunnelPrivateGroupID",
-    "RADIUS_ATTRIBUTE_TYPE_ratNASIPv6Address",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedInterfaceId",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPv6Prefix",
-    "RADIUS_ATTRIBUTE_TYPE_ratLoginIPv6Host",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPv6Route",
-    "RADIUS_ATTRIBUTE_TYPE_ratFramedIPv6Pool",
-    "RADIUS_ATTRIBUTE_TYPE_ratCode",
-    "RADIUS_ATTRIBUTE_TYPE_ratIdentifier",
-    "RADIUS_ATTRIBUTE_TYPE_ratAuthenticator",
-    "RADIUS_ATTRIBUTE_TYPE_ratSrcIPAddress",
-    "RADIUS_ATTRIBUTE_TYPE_ratSrcPort",
-    "RADIUS_ATTRIBUTE_TYPE_ratProvider",
-    "RADIUS_ATTRIBUTE_TYPE_ratStrippedUserName",
-    "RADIUS_ATTRIBUTE_TYPE_ratFQUserName",
-    "RADIUS_ATTRIBUTE_TYPE_ratPolicyName",
+    "RADIUS_ATTRIBUTE_TYPE_ratTunnelType",
     "RADIUS_ATTRIBUTE_TYPE_ratUniqueId",
-    "RADIUS_ATTRIBUTE_TYPE_ratExtensionState",
-    "RADIUS_ATTRIBUTE_TYPE_ratEAPTLV",
-    "RADIUS_ATTRIBUTE_TYPE_ratRejectReasonCode",
-    "RADIUS_ATTRIBUTE_TYPE_ratCRPPolicyName",
-    "RADIUS_ATTRIBUTE_TYPE_ratProviderName",
-    "RADIUS_ATTRIBUTE_TYPE_ratClearTextPassword",
-    "RADIUS_ATTRIBUTE_TYPE_ratSrcIPv6Address",
-    "RADIUS_ATTRIBUTE_TYPE_ratCertificateThumbprint",
-    "RADIUS_CODE",
-    "RADIUS_CODE_rcUnknown",
-    "RADIUS_CODE_rcAccessRequest",
-    "RADIUS_CODE_rcAccessAccept",
-    "RADIUS_CODE_rcAccessReject",
-    "RADIUS_CODE_rcAccountingRequest",
-    "RADIUS_CODE_rcAccountingResponse",
-    "RADIUS_CODE_rcAccessChallenge",
-    "RADIUS_CODE_rcDiscard",
+    "RADIUS_ATTRIBUTE_TYPE_ratUserName",
+    "RADIUS_ATTRIBUTE_TYPE_ratUserPassword",
+    "RADIUS_ATTRIBUTE_TYPE_ratVendorSpecific",
+    "RADIUS_ATTRIBUTE_UNASSIGNED1",
+    "RADIUS_ATTRIBUTE_UNASSIGNED2",
+    "RADIUS_ATTRIBUTE_USER_NAME",
+    "RADIUS_ATTRIBUTE_USER_PASSWORD",
+    "RADIUS_ATTRIBUTE_VENDOR_SPECIFIC",
     "RADIUS_AUTHENTICATION_PROVIDER",
+    "RADIUS_AUTHENTICATION_PROVIDER_rapMCIS",
+    "RADIUS_AUTHENTICATION_PROVIDER_rapNone",
+    "RADIUS_AUTHENTICATION_PROVIDER_rapODBC",
+    "RADIUS_AUTHENTICATION_PROVIDER_rapProxy",
     "RADIUS_AUTHENTICATION_PROVIDER_rapUnknown",
     "RADIUS_AUTHENTICATION_PROVIDER_rapUsersFile",
-    "RADIUS_AUTHENTICATION_PROVIDER_rapProxy",
     "RADIUS_AUTHENTICATION_PROVIDER_rapWindowsNT",
-    "RADIUS_AUTHENTICATION_PROVIDER_rapMCIS",
-    "RADIUS_AUTHENTICATION_PROVIDER_rapODBC",
-    "RADIUS_AUTHENTICATION_PROVIDER_rapNone",
-    "RADIUS_REJECT_REASON_CODE",
-    "RADIUS_REJECT_REASON_CODE_rrrcUndefined",
-    "RADIUS_REJECT_REASON_CODE_rrrcAccountUnknown",
-    "RADIUS_REJECT_REASON_CODE_rrrcAccountDisabled",
-    "RADIUS_REJECT_REASON_CODE_rrrcAccountExpired",
-    "RADIUS_REJECT_REASON_CODE_rrrcAuthenticationFailure",
+    "RADIUS_CODE",
+    "RADIUS_CODE_rcAccessAccept",
+    "RADIUS_CODE_rcAccessChallenge",
+    "RADIUS_CODE_rcAccessReject",
+    "RADIUS_CODE_rcAccessRequest",
+    "RADIUS_CODE_rcAccountingRequest",
+    "RADIUS_CODE_rcAccountingResponse",
+    "RADIUS_CODE_rcDiscard",
+    "RADIUS_CODE_rcUnknown",
     "RADIUS_DATA_TYPE",
-    "RADIUS_DATA_TYPE_rdtUnknown",
-    "RADIUS_DATA_TYPE_rdtString",
     "RADIUS_DATA_TYPE_rdtAddress",
     "RADIUS_DATA_TYPE_rdtInteger",
-    "RADIUS_DATA_TYPE_rdtTime",
     "RADIUS_DATA_TYPE_rdtIpv6Address",
-    "RADIUS_ATTRIBUTE",
-    "RADIUS_VSA_FORMAT",
-    "RADIUS_ACTION",
-    "RADIUS_ACTION_raContinue",
-    "RADIUS_ACTION_raReject",
-    "RADIUS_ACTION_raAccept",
-    "PRADIUS_EXTENSION_INIT",
-    "PRADIUS_EXTENSION_TERM",
-    "PRADIUS_EXTENSION_PROCESS",
-    "PRADIUS_EXTENSION_PROCESS_EX",
-    "PRADIUS_EXTENSION_FREE_ATTRIBUTES",
+    "RADIUS_DATA_TYPE_rdtString",
+    "RADIUS_DATA_TYPE_rdtTime",
+    "RADIUS_DATA_TYPE_rdtUnknown",
+    "RADIUS_EXTENSION_CONTROL_BLOCK",
+    "RADIUS_EXTENSION_FREE_ATTRIBUTES",
+    "RADIUS_EXTENSION_INIT",
     "RADIUS_EXTENSION_POINT",
     "RADIUS_EXTENSION_POINT_repAuthentication",
     "RADIUS_EXTENSION_POINT_repAuthorization",
-    "RADIUS_ATTRIBUTE_ARRAY",
-    "RADIUS_EXTENSION_CONTROL_BLOCK",
-    "PRADIUS_EXTENSION_PROCESS_2",
+    "RADIUS_EXTENSION_PROCESS",
+    "RADIUS_EXTENSION_PROCESS2",
+    "RADIUS_EXTENSION_PROCESS_EX",
+    "RADIUS_EXTENSION_TERM",
+    "RADIUS_EXTENSION_VERSION",
+    "RADIUS_REJECT_REASON_CODE",
+    "RADIUS_REJECT_REASON_CODE_rrrcAccountDisabled",
+    "RADIUS_REJECT_REASON_CODE_rrrcAccountExpired",
+    "RADIUS_REJECT_REASON_CODE_rrrcAccountUnknown",
+    "RADIUS_REJECT_REASON_CODE_rrrcAuthenticationFailure",
+    "RADIUS_REJECT_REASON_CODE_rrrcUndefined",
+    "RADIUS_VSA_FORMAT",
+    "RAS_ATTRIBUTE_BAP_LINE_DOWN_LIMIT",
+    "RAS_ATTRIBUTE_BAP_LINE_DOWN_TIME",
+    "RAS_ATTRIBUTE_BAP_REQUIRED",
+    "RAS_ATTRIBUTE_ENCRYPTION_POLICY",
+    "RAS_ATTRIBUTE_ENCRYPTION_TYPE",
+    "REMEDIATIONSERVERGROUPPROPERTIES",
+    "REMEDIATIONSERVERPROPERTIES",
+    "REMEDIATIONSERVERSPROPERTIES",
+    "RESTRICTIONS",
+    "SERVICE_TYPE",
+    "SERVICE_TYPE_IAS",
+    "SERVICE_TYPE_MAX",
+    "SERVICE_TYPE_RAMGMTSVC",
+    "SERVICE_TYPE_RAS",
+    "SHAREDSECRETPROPERTIES",
+    "SHVTEMPLATEPROPERTIES",
+    "SHV_COMBINATION_TYPE",
+    "SHV_COMBINATION_TYPE_ALL_FAIL",
+    "SHV_COMBINATION_TYPE_ALL_PASS",
+    "SHV_COMBINATION_TYPE_MAX",
+    "SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL",
+    "SHV_COMBINATION_TYPE_ONE_OR_MORE_INFECTED",
+    "SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS",
+    "SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL",
+    "SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN",
+    "SYNTAX",
+    "SYSTEM_TYPE_NT10_0_SERVER",
+    "SYSTEM_TYPE_NT10_0_WORKSTATION",
+    "SYSTEM_TYPE_NT4_SERVER",
+    "SYSTEM_TYPE_NT4_WORKSTATION",
+    "SYSTEM_TYPE_NT5_SERVER",
+    "SYSTEM_TYPE_NT5_WORKSTATION",
+    "SYSTEM_TYPE_NT6_1_SERVER",
+    "SYSTEM_TYPE_NT6_1_WORKSTATION",
+    "SYSTEM_TYPE_NT6_2_SERVER",
+    "SYSTEM_TYPE_NT6_2_WORKSTATION",
+    "SYSTEM_TYPE_NT6_3_SERVER",
+    "SYSTEM_TYPE_NT6_3_WORKSTATION",
+    "SYSTEM_TYPE_NT6_SERVER",
+    "SYSTEM_TYPE_NT6_WORKSTATION",
+    "SdoMachine",
+    "TEMPLATESPROPERTIES",
+    "USERPROPERTIES",
+    "VENDORID",
+    "VENDORPROPERTIES",
+    "VENDORTYPE",
 ]

@@ -1,34 +1,369 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
-import win32more.NetworkManagement.QoS
-import win32more.NetworkManagement.WindowsFilteringPlatform
 import win32more.Networking.WinSock
 import win32more.System.Com
 import win32more.System.IO
 import win32more.System.Kernel
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
-SOCKET_DEFAULT2_QM_POLICY = 'aec2ef9c-3a4d-4d3e-8842-239942e39a47'
-REAL_TIME_NOTIFICATION_CAPABILITY = '6b59819a-5cae-492d-a901-2a3c2c50164f'
-REAL_TIME_NOTIFICATION_CAPABILITY_EX = '6843da03-154a-4616-a508-44371295f96b'
-ASSOCIATE_NAMERES_CONTEXT = '59a38b67-d4fe-46e1-ba3c-87ea74ca3049'
+def _define_AAL_PARAMETERS_IE_head():
+    class AAL_PARAMETERS_IE(Structure):
+        pass
+    return AAL_PARAMETERS_IE
+def _define_AAL_PARAMETERS_IE():
+    AAL_PARAMETERS_IE = win32more.Networking.WinSock.AAL_PARAMETERS_IE_head
+    class AAL_PARAMETERS_IE__AALSpecificParameters_e__Union(Union):
+        pass
+    AAL_PARAMETERS_IE__AALSpecificParameters_e__Union._fields_ = [
+        ('AAL5Parameters', win32more.Networking.WinSock.AAL5_PARAMETERS),
+        ('AALUserParameters', win32more.Networking.WinSock.AALUSER_PARAMETERS),
+    ]
+    AAL_PARAMETERS_IE._fields_ = [
+        ('AALType', win32more.Networking.WinSock.AAL_TYPE),
+        ('AALSpecificParameters', AAL_PARAMETERS_IE__AALSpecificParameters_e__Union),
+    ]
+    return AAL_PARAMETERS_IE
+AAL_TYPE = Int32
+AALTYPE_5 = 5
+AALTYPE_USER = 16
+def _define_AAL5_PARAMETERS_head():
+    class AAL5_PARAMETERS(Structure):
+        pass
+    return AAL5_PARAMETERS
+def _define_AAL5_PARAMETERS():
+    AAL5_PARAMETERS = win32more.Networking.WinSock.AAL5_PARAMETERS_head
+    AAL5_PARAMETERS._fields_ = [
+        ('ForwardMaxCPCSSDUSize', UInt32),
+        ('BackwardMaxCPCSSDUSize', UInt32),
+        ('Mode', Byte),
+        ('SSCSType', Byte),
+    ]
+    return AAL5_PARAMETERS
+def _define_AALUSER_PARAMETERS_head():
+    class AALUSER_PARAMETERS(Structure):
+        pass
+    return AALUSER_PARAMETERS
+def _define_AALUSER_PARAMETERS():
+    AALUSER_PARAMETERS = win32more.Networking.WinSock.AALUSER_PARAMETERS_head
+    AALUSER_PARAMETERS._fields_ = [
+        ('UserDefined', UInt32),
+    ]
+    return AALUSER_PARAMETERS
+ADDRESS_FAMILY = UInt32
+AF_INET = 2
+AF_INET6 = 23
+AF_UNSPEC = 0
+def _define_ADDRINFO_DNS_SERVER_head():
+    class ADDRINFO_DNS_SERVER(Structure):
+        pass
+    return ADDRINFO_DNS_SERVER
+def _define_ADDRINFO_DNS_SERVER():
+    ADDRINFO_DNS_SERVER = win32more.Networking.WinSock.ADDRINFO_DNS_SERVER_head
+    class ADDRINFO_DNS_SERVER__Anonymous_e__Union(Union):
+        pass
+    ADDRINFO_DNS_SERVER__Anonymous_e__Union._fields_ = [
+        ('ai_template', win32more.Foundation.PWSTR),
+    ]
+    ADDRINFO_DNS_SERVER._anonymous_ = [
+        'Anonymous',
+    ]
+    ADDRINFO_DNS_SERVER._fields_ = [
+        ('ai_servertype', UInt32),
+        ('ai_flags', UInt64),
+        ('ai_addrlen', UInt32),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('Anonymous', ADDRINFO_DNS_SERVER__Anonymous_e__Union),
+    ]
+    return ADDRINFO_DNS_SERVER
+def _define_ADDRINFOA_head():
+    class ADDRINFOA(Structure):
+        pass
+    return ADDRINFOA
+def _define_ADDRINFOA():
+    ADDRINFOA = win32more.Networking.WinSock.ADDRINFOA_head
+    ADDRINFOA._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOA_head)),
+    ]
+    return ADDRINFOA
+def _define_ADDRINFOEX2A_head():
+    class ADDRINFOEX2A(Structure):
+        pass
+    return ADDRINFOEX2A
+def _define_ADDRINFOEX2A():
+    ADDRINFOEX2A = win32more.Networking.WinSock.ADDRINFOEX2A_head
+    ADDRINFOEX2A._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEX2A_head)),
+        ('ai_version', Int32),
+        ('ai_fqdn', win32more.Foundation.PSTR),
+    ]
+    return ADDRINFOEX2A
+def _define_ADDRINFOEX2W_head():
+    class ADDRINFOEX2W(Structure):
+        pass
+    return ADDRINFOEX2W
+def _define_ADDRINFOEX2W():
+    ADDRINFOEX2W = win32more.Networking.WinSock.ADDRINFOEX2W_head
+    ADDRINFOEX2W._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEX2W_head)),
+        ('ai_version', Int32),
+        ('ai_fqdn', win32more.Foundation.PWSTR),
+    ]
+    return ADDRINFOEX2W
+def _define_ADDRINFOEX3_head():
+    class ADDRINFOEX3(Structure):
+        pass
+    return ADDRINFOEX3
+def _define_ADDRINFOEX3():
+    ADDRINFOEX3 = win32more.Networking.WinSock.ADDRINFOEX3_head
+    ADDRINFOEX3._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEX3_head)),
+        ('ai_version', Int32),
+        ('ai_fqdn', win32more.Foundation.PWSTR),
+        ('ai_interfaceindex', Int32),
+    ]
+    return ADDRINFOEX3
+def _define_ADDRINFOEX4_head():
+    class ADDRINFOEX4(Structure):
+        pass
+    return ADDRINFOEX4
+def _define_ADDRINFOEX4():
+    ADDRINFOEX4 = win32more.Networking.WinSock.ADDRINFOEX4_head
+    ADDRINFOEX4._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEX4_head)),
+        ('ai_version', Int32),
+        ('ai_fqdn', win32more.Foundation.PWSTR),
+        ('ai_interfaceindex', Int32),
+        ('ai_resolutionhandle', win32more.Foundation.HANDLE),
+    ]
+    return ADDRINFOEX4
+def _define_ADDRINFOEX5_head():
+    class ADDRINFOEX5(Structure):
+        pass
+    return ADDRINFOEX5
+def _define_ADDRINFOEX5():
+    ADDRINFOEX5 = win32more.Networking.WinSock.ADDRINFOEX5_head
+    ADDRINFOEX5._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEX5_head)),
+        ('ai_version', Int32),
+        ('ai_fqdn', win32more.Foundation.PWSTR),
+        ('ai_interfaceindex', Int32),
+        ('ai_resolutionhandle', win32more.Foundation.HANDLE),
+        ('ai_ttl', UInt32),
+    ]
+    return ADDRINFOEX5
+def _define_ADDRINFOEX6_head():
+    class ADDRINFOEX6(Structure):
+        pass
+    return ADDRINFOEX6
+def _define_ADDRINFOEX6():
+    ADDRINFOEX6 = win32more.Networking.WinSock.ADDRINFOEX6_head
+    ADDRINFOEX6._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEX5_head)),
+        ('ai_version', Int32),
+        ('ai_fqdn', win32more.Foundation.PWSTR),
+        ('ai_interfaceindex', Int32),
+        ('ai_resolutionhandle', win32more.Foundation.HANDLE),
+        ('ai_ttl', UInt32),
+        ('ai_numservers', UInt32),
+        ('ai_servers', POINTER(win32more.Networking.WinSock.ADDRINFO_DNS_SERVER_head)),
+        ('ai_responseflags', UInt64),
+    ]
+    return ADDRINFOEX6
+def _define_ADDRINFOEXA_head():
+    class ADDRINFOEXA(Structure):
+        pass
+    return ADDRINFOEXA
+def _define_ADDRINFOEXA():
+    ADDRINFOEXA = win32more.Networking.WinSock.ADDRINFOEXA_head
+    ADDRINFOEXA._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEXA_head)),
+    ]
+    return ADDRINFOEXA
+def _define_ADDRINFOEXW_head():
+    class ADDRINFOEXW(Structure):
+        pass
+    return ADDRINFOEXW
+def _define_ADDRINFOEXW():
+    ADDRINFOEXW = win32more.Networking.WinSock.ADDRINFOEXW_head
+    ADDRINFOEXW._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_blob', c_void_p),
+        ('ai_bloblen', UIntPtr),
+        ('ai_provider', POINTER(Guid)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOEXW_head)),
+    ]
+    return ADDRINFOEXW
+def _define_ADDRINFOW_head():
+    class ADDRINFOW(Structure):
+        pass
+    return ADDRINFOW
+def _define_ADDRINFOW():
+    ADDRINFOW = win32more.Networking.WinSock.ADDRINFOW_head
+    ADDRINFOW._fields_ = [
+        ('ai_flags', Int32),
+        ('ai_family', Int32),
+        ('ai_socktype', Int32),
+        ('ai_protocol', Int32),
+        ('ai_addrlen', UIntPtr),
+        ('ai_canonname', win32more.Foundation.PWSTR),
+        ('ai_addr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('ai_next', POINTER(win32more.Networking.WinSock.ADDRINFOW_head)),
+    ]
+    return ADDRINFOW
+def _define_AFPROTOCOLS_head():
+    class AFPROTOCOLS(Structure):
+        pass
+    return AFPROTOCOLS
+def _define_AFPROTOCOLS():
+    AFPROTOCOLS = win32more.Networking.WinSock.AFPROTOCOLS_head
+    AFPROTOCOLS._fields_ = [
+        ('iAddressFamily', Int32),
+        ('iProtocol', Int32),
+    ]
+    return AFPROTOCOLS
+def _define_SOCKET_DEFAULT2_QM_POLICY():
+    return Guid('aec2ef9c-3a4d-4d3e-88-42-23-99-42-e3-9a-47')
+def _define_REAL_TIME_NOTIFICATION_CAPABILITY():
+    return Guid('6b59819a-5cae-492d-a9-01-2a-3c-2c-50-16-4f')
+def _define_REAL_TIME_NOTIFICATION_CAPABILITY_EX():
+    return Guid('6843da03-154a-4616-a5-08-44-37-12-95-f9-6b')
+def _define_ASSOCIATE_NAMERES_CONTEXT():
+    return Guid('59a38b67-d4fe-46e1-ba-3c-87-ea-74-ca-30-49')
+SIO_RCVALL = 2550136833
+SIO_RCVALL_MCAST = 2550136834
+SIO_RCVALL_IGMPMCAST = 2550136835
+SIO_KEEPALIVE_VALS = 2550136836
+SIO_ABSORB_RTRALERT = 2550136837
+SIO_UCAST_IF = 2550136838
+SIO_LIMIT_BROADCASTS = 2550136839
+SIO_INDEX_BIND = 2550136840
+SIO_INDEX_MCASTIF = 2550136841
+SIO_INDEX_ADD_MCAST = 2550136842
+SIO_INDEX_DEL_MCAST = 2550136843
+SIO_RCVALL_MCAST_IF = 2550136845
+SIO_RCVALL_IF = 2550136846
+SIO_LOOPBACK_FAST_PATH = 2550136848
+SIO_TCP_INITIAL_RTO = 2550136849
+SIO_APPLY_TRANSPORT_SETTING = 2550136851
+SIO_QUERY_TRANSPORT_SETTING = 2550136852
+SIO_TCP_SET_ICW = 2550136854
+SIO_TCP_SET_ACK_FREQUENCY = 2550136855
+SIO_SET_PRIORITY_HINT = 2550136856
+SIO_PRIORITY_HINT = 2550136856
+SIO_TCP_INFO = 3623878695
+SIO_CPU_AFFINITY = 2550136853
+SIO_TIMESTAMPING = 2550137067
 TIMESTAMPING_FLAG_RX = 1
 TIMESTAMPING_FLAG_TX = 2
 SO_TIMESTAMP = 12298
 SO_TIMESTAMP_ID = 12299
+SIO_GET_TX_TIMESTAMP = 2550137066
 TCP_INITIAL_RTO_DEFAULT_RTT = 0
 TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS = 0
+SIO_ACQUIRE_PORT_RESERVATION = 2550136932
+SIO_RELEASE_PORT_RESERVATION = 2550136933
+SIO_ASSOCIATE_PORT_RESERVATION = 2550136934
+SIO_SET_SECURITY = 2550137032
+SIO_QUERY_SECURITY = 3623878857
+SIO_SET_PEER_TARGET_NAME = 2550137034
+SIO_DELETE_PEER_TARGET_NAME = 2550137035
+SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS = 2550137052
+SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT = 2550137053
+SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS = 2550137054
+SIO_SOCKET_USAGE_NOTIFICATION = 2550137036
 SOCKET_SETTINGS_GUARANTEE_ENCRYPTION = 1
 SOCKET_SETTINGS_ALLOW_INSECURE = 2
 SOCKET_SETTINGS_IPSEC_SKIP_FILTER_INSTANTIATION = 1
@@ -41,10 +376,13 @@ SOCKET_QUERY_IPSEC2_FIELD_MASK_QM_SA_ID = 2
 SOCKET_INFO_CONNECTION_SECURED = 1
 SOCKET_INFO_CONNECTION_ENCRYPTED = 2
 SOCKET_INFO_CONNECTION_IMPERSONATED = 4
+SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE = 1476395213
+SIO_QUERY_RSS_SCALABILITY_INFO = 1476395218
 IN4ADDR_LOOPBACK = 16777343
 IN4ADDR_LOOPBACKPREFIX_LENGTH = 8
 IN4ADDR_LINKLOCALPREFIX_LENGTH = 16
 IN4ADDR_MULTICASTPREFIX_LENGTH = 4
+SIO_SET_COMPATIBILITY_MODE = 2550137132
 RIO_MSG_DONT_NOTIFY = 1
 RIO_MSG_DEFER = 2
 RIO_MSG_WAITALL = 4
@@ -127,6 +465,29 @@ IOC_UNIX = 0
 IOC_WS2 = 134217728
 IOC_PROTOCOL = 268435456
 IOC_VENDOR = 402653184
+SIO_ASSOCIATE_HANDLE = 2281701377
+SIO_ENABLE_CIRCULAR_QUEUEING = 671088642
+SIO_FIND_ROUTE = 1207959555
+SIO_FLUSH = 671088644
+SIO_GET_BROADCAST_ADDRESS = 1207959557
+SIO_GET_EXTENSION_FUNCTION_POINTER = 3355443206
+SIO_GET_QOS = 3355443207
+SIO_GET_GROUP_QOS = 3355443208
+SIO_MULTIPOINT_LOOPBACK = 2281701385
+SIO_MULTICAST_SCOPE = 2281701386
+SIO_SET_QOS = 2281701387
+SIO_SET_GROUP_QOS = 2281701388
+SIO_TRANSLATE_HANDLE = 3355443213
+SIO_ROUTING_INTERFACE_QUERY = 3355443220
+SIO_ROUTING_INTERFACE_CHANGE = 2281701397
+SIO_ADDRESS_LIST_QUERY = 1207959574
+SIO_ADDRESS_LIST_CHANGE = 671088663
+SIO_QUERY_TARGET_PNP_HANDLE = 1207959576
+SIO_QUERY_RSS_PROCESSOR_INFO = 1207959589
+SIO_ADDRESS_LIST_SORT = 3355443225
+SIO_RESERVED_1 = 2281701402
+SIO_RESERVED_2 = 2281701409
+SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER = 3355443236
 IPPROTO_IP = 0
 IPPORT_TCPMUX = 1
 IPPORT_ECHO = 7
@@ -458,6 +819,9 @@ SO_UPDATE_ACCEPT_CONTEXT = 28683
 SO_CONNECT_TIME = 28684
 SO_UPDATE_CONNECT_CONTEXT = 28688
 TCP_BSDURGENT = 28672
+SIO_UDP_CONNRESET = 2550136844
+SIO_SOCKET_CLOSE_NOTIFY = 2550136845
+SIO_UDP_NETRESET = 2550136847
 TF_DISCONNECT = 1
 TF_REUSE_SOCKET = 2
 TF_WRITE_BEHIND = 4
@@ -475,6 +839,13 @@ TP_USE_KERNEL_APC = 32
 DE_REUSE_SOCKET = 2
 NLA_ALLUSERS_NETWORK = 1
 NLA_FRIENDLY_NAME = 2
+SIO_BSP_HANDLE = 1207959579
+SIO_BSP_HANDLE_SELECT = 1207959580
+SIO_BSP_HANDLE_POLL = 1207959581
+SIO_BASE_HANDLE = 1207959586
+SIO_EXT_SELECT = 3355443230
+SIO_EXT_POLL = 3355443231
+SIO_EXT_SENDMSG = 3355443232
 SERVICE_RESOURCE = 1
 SERVICE_SERVICE = 2
 SERVICE_LOCAL = 4
@@ -515,6 +886,18 @@ XP_ENCRYPTS = 8192
 RES_SOFT_SEARCH = 1
 RES_FIND_MULTIPLE = 2
 RES_SERVICE = 4
+SERVICE_TYPE_VALUE_SAPIDA = 'SapId'
+SERVICE_TYPE_VALUE_SAPIDW = 'SapId'
+SERVICE_TYPE_VALUE_CONNA = 'ConnectionOriented'
+SERVICE_TYPE_VALUE_CONNW = 'ConnectionOriented'
+SERVICE_TYPE_VALUE_TCPPORTA = 'TcpPort'
+SERVICE_TYPE_VALUE_TCPPORTW = 'TcpPort'
+SERVICE_TYPE_VALUE_UDPPORTA = 'UdpPort'
+SERVICE_TYPE_VALUE_UDPPORTW = 'UdpPort'
+SERVICE_TYPE_VALUE_SAPID = 'SapId'
+SERVICE_TYPE_VALUE_CONN = 'ConnectionOriented'
+SERVICE_TYPE_VALUE_TCPPORT = 'TcpPort'
+SERVICE_TYPE_VALUE_UDPPORT = 'UdpPort'
 SET_SERVICE_PARTIAL_SUCCESS = 1
 FD_SETSIZE = 64
 IMPLINK_IP = 155
@@ -549,7 +932,6 @@ PF_UNKNOWN1 = 20
 PF_BAN = 21
 PF_MAX = 29
 SOMAXCONN = 5
-MSG_PEEK = 2
 MSG_MAXIOVLEN = 16
 MSG_PARTIAL = 32768
 MAXGETHOSTSTRUCT = 1024
@@ -567,8 +949,6 @@ SO_PROTOCOL_INFOW = 8197
 SO_PROTOCOL_INFO = 8197
 PVD_CONFIG = 12289
 PF_ATM = 22
-MSG_WAITALL = 8
-MSG_PUSH_IMMEDIATE = 32
 MSG_INTERRUPT = 16
 FD_READ_BIT = 0
 FD_WRITE_BIT = 1
@@ -582,8 +962,6 @@ FD_ROUTING_INTERFACE_CHANGE_BIT = 8
 FD_ADDRESS_LIST_CHANGE_BIT = 9
 FD_MAX_EVENTS = 10
 WSA_MAXIMUM_WAIT_EVENTS = 64
-WSA_WAIT_EVENT_0 = 0
-WSA_WAIT_IO_COMPLETION = 192
 WSA_WAIT_FAILED = 4294967295
 CF_ACCEPT = 0
 CF_REJECT = 1
@@ -636,12 +1014,18 @@ WSA_FLAG_MULTIPOINT_D_LEAF = 16
 WSA_FLAG_ACCESS_SYSTEM_SECURITY = 64
 WSA_FLAG_NO_HANDLE_INHERIT = 128
 WSA_FLAG_REGISTERED_IO = 256
+SIO_NSP_NOTIFY_CHANGE = 2281701401
 TH_NETDEV = 1
 TH_TAPI = 2
 SERVICE_MULTIPLE = 1
 NS_LOCALNAME = 19
 RES_UNUSED_1 = 1
 RES_FLUSH_CACHE = 2
+SERVICE_TYPE_VALUE_IPXPORTA = 'IpxSocket'
+SERVICE_TYPE_VALUE_IPXPORTW = 'IpxSocket'
+SERVICE_TYPE_VALUE_OBJECTIDA = 'ObjectId'
+SERVICE_TYPE_VALUE_OBJECTIDW = 'ObjectId'
+SERVICE_TYPE_VALUE_OBJECTID = 'ObjectId'
 LUP_DEEP = 1
 LUP_CONTAINERS = 2
 LUP_NOCONTAINERS = 4
@@ -909,6 +1293,9 @@ SENDER_MAX_LATE_JOINER_PERCENTAGE = 75
 BITS_PER_BYTE = 8
 LOG2_BITS_PER_BYTE = 3
 UNIX_PATH_MAX = 108
+SIO_AF_UNIX_GETPEERPID = 1476395264
+SIO_AF_UNIX_SETBINDPARENTPATH = 2550137089
+SIO_AF_UNIX_SETCONNPARENTPATH = 2550137090
 ISOPROTO_TP0 = 25
 ISOPROTO_TP1 = 26
 ISOPROTO_TP2 = 27
@@ -937,7 +1324,106 @@ NETBIOS_TYPE_QUICK_GROUP = 3
 VNSPROTO_IPC = 1
 VNSPROTO_RELIABLE_IPC = 2
 VNSPROTO_SPP = 3
-INVALID_SOCKET = 4294967295
+_LITTLE_ENDIAN = 1234
+_BIG_ENDIAN = 4321
+_PDP_ENDIAN = 3412
+BYTE_ORDER = 1234
+DL_ADDRESS_LENGTH_MAXIMUM = 32
+DL_HEADER_LENGTH_MAXIMUM = 64
+SNAP_DSAP = 170
+SNAP_SSAP = 170
+SNAP_CONTROL = 3
+SNAP_OUI = 0
+ETH_LENGTH_OF_HEADER = 14
+ETH_LENGTH_OF_VLAN_HEADER = 4
+ETH_LENGTH_OF_SNAP_HEADER = 8
+ETHERNET_TYPE_MINIMUM = 1536
+ETHERNET_TYPE_IPV4 = 2048
+ETHERNET_TYPE_ARP = 2054
+ETHERNET_TYPE_IPV6 = 34525
+ETHERNET_TYPE_802_1Q = 33024
+ETHERNET_TYPE_802_1AD = 34984
+IP_VER_MASK = 240
+IPV4_VERSION = 4
+MAX_IPV4_PACKET = 65535
+MAX_IPV4_HLEN = 60
+IPV4_MINIMUM_MTU = 576
+IPV4_MIN_MINIMUM_MTU = 352
+IPV4_MAX_MINIMUM_MTU = 576
+SIZEOF_IP_OPT_ROUTING_HEADER = 3
+SIZEOF_IP_OPT_TIMESTAMP_HEADER = 4
+SIZEOF_IP_OPT_SECURITY = 11
+SIZEOF_IP_OPT_STREAMIDENTIFIER = 4
+SIZEOF_IP_OPT_ROUTERALERT = 4
+IP4_OFF_MASK = 65311
+ICMPV4_INVALID_PREFERENCE_LEVEL = 2147483648
+IGMP_QUERY_TYPE = 17
+IGMP_VERSION1_REPORT_TYPE = 18
+IGMP_VERSION2_REPORT_TYPE = 22
+IGMP_LEAVE_GROUP_TYPE = 23
+IGMP_VERSION3_REPORT_TYPE = 34
+IPV6_VERSION = 96
+IPV6_TRAFFIC_CLASS_MASK = 49167
+IPV6_FULL_TRAFFIC_CLASS_MASK = 61455
+IPV6_ECN_MASK = 12288
+IPV6_FLOW_LABEL_MASK = 4294905600
+MAX_IPV6_PAYLOAD = 65535
+IPV6_ECN_SHIFT = 12
+IPV6_MINIMUM_MTU = 1280
+IP6F_OFF_MASK = 63743
+IP6F_RESERVED_MASK = 1536
+IP6F_MORE_FRAG = 256
+EXT_LEN_UNIT = 8
+IP6OPT_TYPE_SKIP = 0
+IP6OPT_TYPE_DISCARD = 64
+IP6OPT_TYPE_FORCEICMP = 128
+IP6OPT_TYPE_ICMP = 192
+IP6OPT_MUTABLE = 32
+ICMP6_DST_UNREACH_NOROUTE = 0
+ICMP6_DST_UNREACH_ADMIN = 1
+ICMP6_DST_UNREACH_BEYONDSCOPE = 2
+ICMP6_DST_UNREACH_ADDR = 3
+ICMP6_DST_UNREACH_NOPORT = 4
+ICMP6_TIME_EXCEED_TRANSIT = 0
+ICMP6_TIME_EXCEED_REASSEMBLY = 1
+ICMP6_PARAMPROB_HEADER = 0
+ICMP6_PARAMPROB_NEXTHEADER = 1
+ICMP6_PARAMPROB_OPTION = 2
+ICMPV6_ECHO_REQUEST_FLAG_REVERSE = 1
+ND_RA_FLAG_MANAGED = 128
+ND_RA_FLAG_OTHER = 64
+ND_RA_FLAG_HOME_AGENT = 32
+ND_RA_FLAG_PREFERENCE = 24
+ND_NA_FLAG_ROUTER = 2147483648
+ND_NA_FLAG_SOLICITED = 1073741824
+ND_NA_FLAG_OVERRIDE = 536870912
+ND_OPT_PI_FLAG_ONLINK = 128
+ND_OPT_PI_FLAG_AUTO = 64
+ND_OPT_PI_FLAG_ROUTER_ADDR = 32
+ND_OPT_PI_FLAG_SITE_PREFIX = 16
+ND_OPT_PI_FLAG_ROUTE = 1
+ND_OPT_RI_FLAG_PREFERENCE = 24
+ND_OPT_RDNSS_MIN_LEN = 24
+ND_OPT_DNSSL_MIN_LEN = 16
+IN6_EMBEDDEDV4_UOCTET_POSITION = 8
+IN6_EMBEDDEDV4_BITS_IN_BYTE = 8
+TH_FIN = 1
+TH_SYN = 2
+TH_RST = 4
+TH_PSH = 8
+TH_ACK = 16
+TH_URG = 32
+TH_ECE = 64
+TH_CWR = 128
+TH_OPT_EOL = 0
+TH_OPT_NOP = 1
+TH_OPT_MSS = 2
+TH_OPT_WS = 3
+TH_OPT_SACK_PERMITTED = 4
+TH_OPT_SACK = 5
+TH_OPT_TS = 8
+TH_OPT_FASTOPEN = 34
+INVALID_SOCKET = -1
 WSA_INFINITE = 4294967295
 IOC_INOUT = 3221225472
 FIONREAD = 1074030207
@@ -948,6 +1434,7 @@ SIOCGHIWAT = 1074033409
 SIOCSLOWAT = -2147192062
 SIOCGLOWAT = 1074033411
 SIOCATMARK = 1074033415
+POLLIN = 768
 LM_HB_Extension = 128
 LM_HB1_PnP = 1
 LM_HB1_PDA_Palmtop = 2
@@ -958,6 +1445,4907 @@ LM_HB1_Fax = 32
 LM_HB1_LANAccess = 64
 LM_HB2_Telephony = 1
 LM_HB2_FileServer = 2
+def _define_WSCEnumProtocols32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32),POINTER(Int32))(('WSCEnumProtocols32', windll['WS2_32.dll']), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCDeinstallProvider32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Int32))(('WSCDeinstallProvider32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallProvider64_32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(Int32))(('WSCInstallProvider64_32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCGetProviderPath32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Int32),POINTER(Int32))(('WSCGetProviderPath32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProviderDllPathLen'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCUpdateProvider32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(Int32))(('WSCUpdateProvider32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCSetProviderInfo32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,UIntPtr,UInt32,POINTER(Int32))(('WSCSetProviderInfo32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCGetProviderInfo32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,POINTER(UIntPtr),UInt32,POINTER(Int32))(('WSCGetProviderInfo32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCEnumNameSpaceProviders32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOW_head))(('WSCEnumNameSpaceProviders32', windll['WS2_32.dll']), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCEnumNameSpaceProvidersEx32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head))(('WSCEnumNameSpaceProvidersEx32', windll['WS2_32.dll']), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallNameSpace32():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid))(('WSCInstallNameSpace32', windll['WS2_32.dll']), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallNameSpaceEx32():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid),POINTER(win32more.System.Com.BLOB_head))(('WSCInstallNameSpaceEx32', windll['WS2_32.dll']), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),(1, 'lpProviderSpecific'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCUnInstallNameSpace32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid))(('WSCUnInstallNameSpace32', windll['WS2_32.dll']), ((1, 'lpProviderId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCEnableNSProvider32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.BOOL)(('WSCEnableNSProvider32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'fEnable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallProviderAndChains64_32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(UInt32),POINTER(Int32))(('WSCInstallProviderAndChains64_32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpszProviderDllPath32'),(1, 'lpszLspName'),(1, 'dwServiceFlags'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpdwCatalogEntryId'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCWriteProviderOrder32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),UInt32)(('WSCWriteProviderOrder32', windll['WS2_32.dll']), ((1, 'lpwdCatalogEntryId'),(1, 'dwNumberOfEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCWriteNameSpaceOrder32():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),UInt32)(('WSCWriteNameSpaceOrder32', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'dwNumberOfEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define___WSAFDIsSet():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.FD_SET_head))(('__WSAFDIsSet', windll['WS2_32.dll']), ((1, 'fd'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_accept():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32))(('accept', windll['WS2_32.dll']), ((1, 's'),(1, 'addr'),(1, 'addrlen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bind():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32)(('bind', windll['WS2_32.dll']), ((1, 's'),(1, 'name'),(1, 'namelen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_closesocket():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET)(('closesocket', windll['WS2_32.dll']), ((1, 's'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_connect():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32)(('connect', windll['WS2_32.dll']), ((1, 's'),(1, 'name'),(1, 'namelen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ioctlsocket():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,POINTER(UInt32))(('ioctlsocket', windll['WS2_32.dll']), ((1, 's'),(1, 'cmd'),(1, 'argp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getpeername():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32))(('getpeername', windll['WS2_32.dll']), ((1, 's'),(1, 'name'),(1, 'namelen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getsockname():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32))(('getsockname', windll['WS2_32.dll']), ((1, 's'),(1, 'name'),(1, 'namelen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getsockopt():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,POINTER(Int32))(('getsockopt', windll['WS2_32.dll']), ((1, 's'),(1, 'level'),(1, 'optname'),(1, 'optval'),(1, 'optlen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_htonl():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('htonl', windll['WS2_32.dll']), ((1, 'hostlong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_htons():
+    try:
+        return WINFUNCTYPE(UInt16,UInt16)(('htons', windll['WS2_32.dll']), ((1, 'hostshort'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_inet_addr():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)(('inet_addr', windll['WS2_32.dll']), ((1, 'cp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_inet_ntoa():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Networking.WinSock.IN_ADDR)(('inet_ntoa', windll['WS2_32.dll']), ((1, 'in'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_listen():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32)(('listen', windll['WS2_32.dll']), ((1, 's'),(1, 'backlog'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ntohl():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('ntohl', windll['WS2_32.dll']), ((1, 'netlong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ntohs():
+    try:
+        return WINFUNCTYPE(UInt16,UInt16)(('ntohs', windll['WS2_32.dll']), ((1, 'netshort'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_recv():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,win32more.Networking.WinSock.SEND_RECV_FLAGS)(('recv', windll['WS2_32.dll']), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_recvfrom():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32))(('recvfrom', windll['WS2_32.dll']), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),(1, 'from'),(1, 'fromlen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_select():
+    try:
+        return WINFUNCTYPE(Int32,Int32,POINTER(win32more.Networking.WinSock.FD_SET_head),POINTER(win32more.Networking.WinSock.FD_SET_head),POINTER(win32more.Networking.WinSock.FD_SET_head),POINTER(win32more.Networking.WinSock.TIMEVAL_head))(('select', windll['WS2_32.dll']), ((1, 'nfds'),(1, 'readfds'),(1, 'writefds'),(1, 'exceptfds'),(1, 'timeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_send():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,win32more.Networking.WinSock.SEND_RECV_FLAGS)(('send', windll['WS2_32.dll']), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_sendto():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32)(('sendto', windll['WS2_32.dll']), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),(1, 'to'),(1, 'tolen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_setsockopt():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,Int32)(('setsockopt', windll['WS2_32.dll']), ((1, 's'),(1, 'level'),(1, 'optname'),(1, 'optval'),(1, 'optlen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_shutdown():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32)(('shutdown', windll['WS2_32.dll']), ((1, 's'),(1, 'how'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_socket():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32)(('socket', windll['WS2_32.dll']), ((1, 'af'),(1, 'type'),(1, 'protocol'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_gethostbyaddr():
+    try:
+        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.HOSTENT_head),win32more.Foundation.PSTR,Int32,Int32)(('gethostbyaddr', windll['WS2_32.dll']), ((1, 'addr'),(1, 'len'),(1, 'type'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_gethostbyname():
+    try:
+        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.HOSTENT_head),win32more.Foundation.PSTR)(('gethostbyname', windll['WS2_32.dll']), ((1, 'name'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_gethostname():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,Int32)(('gethostname', windll['WS2_32.dll']), ((1, 'name'),(1, 'namelen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetHostNameW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,Int32)(('GetHostNameW', windll['WS2_32.dll']), ((1, 'name'),(1, 'namelen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getservbyport():
+    try:
+        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.SERVENT_head),Int32,win32more.Foundation.PSTR)(('getservbyport', windll['WS2_32.dll']), ((1, 'port'),(1, 'proto'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getservbyname():
+    try:
+        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.SERVENT_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('getservbyname', windll['WS2_32.dll']), ((1, 'name'),(1, 'proto'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getprotobynumber():
+    try:
+        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.PROTOENT_head),Int32)(('getprotobynumber', windll['WS2_32.dll']), ((1, 'number'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getprotobyname():
+    try:
+        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.PROTOENT_head),win32more.Foundation.PSTR)(('getprotobyname', windll['WS2_32.dll']), ((1, 'name'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAStartup():
+    try:
+        return WINFUNCTYPE(Int32,UInt16,POINTER(win32more.Networking.WinSock.WSADATA_head))(('WSAStartup', windll['WS2_32.dll']), ((1, 'wVersionRequested'),(1, 'lpWSAData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSACleanup():
+    try:
+        return WINFUNCTYPE(Int32,)(('WSACleanup', windll['WS2_32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetLastError():
+    try:
+        return WINFUNCTYPE(Void,Int32)(('WSASetLastError', windll['WS2_32.dll']), ((1, 'iError'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetLastError():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.WSA_ERROR,)(('WSAGetLastError', windll['WS2_32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAIsBlocking():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('WSAIsBlocking', windll['WS2_32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAUnhookBlockingHook():
+    try:
+        return WINFUNCTYPE(Int32,)(('WSAUnhookBlockingHook', windll['WS2_32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetBlockingHook():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.FARPROC,win32more.Foundation.FARPROC)(('WSASetBlockingHook', windll['WS2_32.dll']), ((1, 'lpBlockFunc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSACancelBlockingCall():
+    try:
+        return WINFUNCTYPE(Int32,)(('WSACancelBlockingCall', windll['WS2_32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncGetServByName():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32)(('WSAAsyncGetServByName', windll['WS2_32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'name'),(1, 'proto'),(1, 'buf'),(1, 'buflen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncGetServByPort():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32)(('WSAAsyncGetServByPort', windll['WS2_32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'port'),(1, 'proto'),(1, 'buf'),(1, 'buflen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncGetProtoByName():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32)(('WSAAsyncGetProtoByName', windll['WS2_32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'name'),(1, 'buf'),(1, 'buflen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncGetProtoByNumber():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,Int32,win32more.Foundation.PSTR,Int32)(('WSAAsyncGetProtoByNumber', windll['WS2_32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'number'),(1, 'buf'),(1, 'buflen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncGetHostByName():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32)(('WSAAsyncGetHostByName', windll['WS2_32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'name'),(1, 'buf'),(1, 'buflen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncGetHostByAddr():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,Int32,Int32,win32more.Foundation.PSTR,Int32)(('WSAAsyncGetHostByAddr', windll['WS2_32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'addr'),(1, 'len'),(1, 'type'),(1, 'buf'),(1, 'buflen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSACancelAsyncRequest():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)(('WSACancelAsyncRequest', windll['WS2_32.dll']), ((1, 'hAsyncTaskHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAsyncSelect():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HWND,UInt32,Int32)(('WSAAsyncSelect', windll['WS2_32.dll']), ((1, 's'),(1, 'hWnd'),(1, 'wMsg'),(1, 'lEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAccept():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),win32more.Networking.WinSock.LPCONDITIONPROC,UIntPtr)(('WSAAccept', windll['WS2_32.dll']), ((1, 's'),(1, 'addr'),(1, 'addrlen'),(1, 'lpfnCondition'),(1, 'dwCallbackData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSACloseEvent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('WSACloseEvent', windll['WS2_32.dll']), ((1, 'hEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAConnect():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(win32more.Networking.WinSock.QOS_head))(('WSAConnect', windll['WS2_32.dll']), ((1, 's'),(1, 'name'),(1, 'namelen'),(1, 'lpCallerData'),(1, 'lpCalleeData'),(1, 'lpSQOS'),(1, 'lpGQOS'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAConnectByNameW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head))(('WSAConnectByNameW', windll['WS2_32.dll']), ((1, 's'),(1, 'nodename'),(1, 'servicename'),(1, 'LocalAddressLength'),(1, 'LocalAddress'),(1, 'RemoteAddressLength'),(1, 'RemoteAddress'),(1, 'timeout'),(1, 'Reserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAConnectByNameA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head))(('WSAConnectByNameA', windll['WS2_32.dll']), ((1, 's'),(1, 'nodename'),(1, 'servicename'),(1, 'LocalAddressLength'),(1, 'LocalAddress'),(1, 'RemoteAddressLength'),(1, 'RemoteAddress'),(1, 'timeout'),(1, 'Reserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAConnectByList():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head))(('WSAConnectByList', windll['WS2_32.dll']), ((1, 's'),(1, 'SocketAddress'),(1, 'LocalAddressLength'),(1, 'LocalAddress'),(1, 'RemoteAddressLength'),(1, 'RemoteAddress'),(1, 'timeout'),(1, 'Reserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSACreateEvent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,)(('WSACreateEvent', windll['WS2_32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSADuplicateSocketA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head))(('WSADuplicateSocketA', windll['WS2_32.dll']), ((1, 's'),(1, 'dwProcessId'),(1, 'lpProtocolInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSADuplicateSocketW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head))(('WSADuplicateSocketW', windll['WS2_32.dll']), ((1, 's'),(1, 'dwProcessId'),(1, 'lpProtocolInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumNetworkEvents():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinSock.WSANETWORKEVENTS_head))(('WSAEnumNetworkEvents', windll['WS2_32.dll']), ((1, 's'),(1, 'hEventObject'),(1, 'lpNetworkEvents'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumProtocolsA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),POINTER(UInt32))(('WSAEnumProtocolsA', windll['WS2_32.dll']), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumProtocolsW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32))(('WSAEnumProtocolsW', windll['WS2_32.dll']), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEventSelect():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,Int32)(('WSAEventSelect', windll['WS2_32.dll']), ((1, 's'),(1, 'hEventObject'),(1, 'lNetworkEvents'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetOverlappedResult():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32),win32more.Foundation.BOOL,POINTER(UInt32))(('WSAGetOverlappedResult', windll['WS2_32.dll']), ((1, 's'),(1, 'lpOverlapped'),(1, 'lpcbTransfer'),(1, 'fWait'),(1, 'lpdwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetQOSByName():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head))(('WSAGetQOSByName', windll['WS2_32.dll']), ((1, 's'),(1, 'lpQOSName'),(1, 'lpQOS'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAHtonl():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(UInt32))(('WSAHtonl', windll['WS2_32.dll']), ((1, 's'),(1, 'hostlong'),(1, 'lpnetlong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAHtons():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt16,POINTER(UInt16))(('WSAHtons', windll['WS2_32.dll']), ((1, 's'),(1, 'hostshort'),(1, 'lpnetshort'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAIoctl():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSAIoctl', windll['WS2_32.dll']), ((1, 's'),(1, 'dwIoControlCode'),(1, 'lpvInBuffer'),(1, 'cbInBuffer'),(1, 'lpvOutBuffer'),(1, 'cbOutBuffer'),(1, 'lpcbBytesReturned'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAJoinLeaf():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(win32more.Networking.WinSock.QOS_head),UInt32)(('WSAJoinLeaf', windll['WS2_32.dll']), ((1, 's'),(1, 'name'),(1, 'namelen'),(1, 'lpCallerData'),(1, 'lpCalleeData'),(1, 'lpSQOS'),(1, 'lpGQOS'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSANtohl():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(UInt32))(('WSANtohl', windll['WS2_32.dll']), ((1, 's'),(1, 'netlong'),(1, 'lphostlong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSANtohs():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt16,POINTER(UInt16))(('WSANtohs', windll['WS2_32.dll']), ((1, 's'),(1, 'netshort'),(1, 'lphostshort'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSARecv():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSARecv', windll['WS2_32.dll']), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesRecvd'),(1, 'lpFlags'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSARecvDisconnect():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head))(('WSARecvDisconnect', windll['WS2_32.dll']), ((1, 's'),(1, 'lpInboundDisconnectData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSARecvFrom():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSARecvFrom', windll['WS2_32.dll']), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesRecvd'),(1, 'lpFlags'),(1, 'lpFrom'),(1, 'lpFromlen'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAResetEvent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('WSAResetEvent', windll['WS2_32.dll']), ((1, 'hEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASend():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSASend', windll['WS2_32.dll']), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesSent'),(1, 'dwFlags'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASendMsg():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSAMSG_head),UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSASendMsg', windll['WS2_32.dll']), ((1, 'Handle'),(1, 'lpMsg'),(1, 'dwFlags'),(1, 'lpNumberOfBytesSent'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASendDisconnect():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head))(('WSASendDisconnect', windll['WS2_32.dll']), ((1, 's'),(1, 'lpOutboundDisconnectData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASendTo():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSASendTo', windll['WS2_32.dll']), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesSent'),(1, 'dwFlags'),(1, 'lpTo'),(1, 'iTolen'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetEvent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('WSASetEvent', windll['WS2_32.dll']), ((1, 'hEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASocketA():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),UInt32,UInt32)(('WSASocketA', windll['WS2_32.dll']), ((1, 'af'),(1, 'type'),(1, 'protocol'),(1, 'lpProtocolInfo'),(1, 'g'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASocketW():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,UInt32)(('WSASocketW', windll['WS2_32.dll']), ((1, 'af'),(1, 'type'),(1, 'protocol'),(1, 'lpProtocolInfo'),(1, 'g'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAWaitForMultipleEvents():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL,UInt32,win32more.Foundation.BOOL)(('WSAWaitForMultipleEvents', windll['WS2_32.dll']), ((1, 'cEvents'),(1, 'lphEvents'),(1, 'fWaitAll'),(1, 'dwTimeout'),(1, 'fAlertable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAddressToStringA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),win32more.Foundation.PSTR,POINTER(UInt32))(('WSAAddressToStringA', windll['WS2_32.dll']), ((1, 'lpsaAddress'),(1, 'dwAddressLength'),(1, 'lpProtocolInfo'),(1, 'lpszAddressString'),(1, 'lpdwAddressStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAddressToStringW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),win32more.Foundation.PWSTR,POINTER(UInt32))(('WSAAddressToStringW', windll['WS2_32.dll']), ((1, 'lpsaAddress'),(1, 'dwAddressLength'),(1, 'lpProtocolInfo'),(1, 'lpszAddressString'),(1, 'lpdwAddressStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAStringToAddressA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32))(('WSAStringToAddressA', windll['WS2_32.dll']), ((1, 'AddressString'),(1, 'AddressFamily'),(1, 'lpProtocolInfo'),(1, 'lpAddress'),(1, 'lpAddressLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAStringToAddressW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32))(('WSAStringToAddressW', windll['WS2_32.dll']), ((1, 'AddressString'),(1, 'AddressFamily'),(1, 'lpProtocolInfo'),(1, 'lpAddress'),(1, 'lpAddressLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSALookupServiceBeginA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETA_head),UInt32,POINTER(win32more.Foundation.HANDLE))(('WSALookupServiceBeginA', windll['WS2_32.dll']), ((1, 'lpqsRestrictions'),(1, 'dwControlFlags'),(1, 'lphLookup'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSALookupServiceBeginW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),UInt32,POINTER(win32more.Foundation.HANDLE))(('WSALookupServiceBeginW', windll['WS2_32.dll']), ((1, 'lpqsRestrictions'),(1, 'dwControlFlags'),(1, 'lphLookup'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSALookupServiceNextA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSETA_head))(('WSALookupServiceNextA', windll['WS2_32.dll']), ((1, 'hLookup'),(1, 'dwControlFlags'),(1, 'lpdwBufferLength'),(1, 'lpqsResults'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSALookupServiceNextW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head))(('WSALookupServiceNextW', windll['WS2_32.dll']), ((1, 'hLookup'),(1, 'dwControlFlags'),(1, 'lpdwBufferLength'),(1, 'lpqsResults'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSANSPIoctl():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSACOMPLETION_head))(('WSANSPIoctl', windll['WS2_32.dll']), ((1, 'hLookup'),(1, 'dwControlCode'),(1, 'lpvInBuffer'),(1, 'cbInBuffer'),(1, 'lpvOutBuffer'),(1, 'cbOutBuffer'),(1, 'lpcbBytesReturned'),(1, 'lpCompletion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSALookupServiceEnd():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)(('WSALookupServiceEnd', windll['WS2_32.dll']), ((1, 'hLookup'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAInstallServiceClassA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOA_head))(('WSAInstallServiceClassA', windll['WS2_32.dll']), ((1, 'lpServiceClassInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAInstallServiceClassW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head))(('WSAInstallServiceClassW', windll['WS2_32.dll']), ((1, 'lpServiceClassInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSARemoveServiceClass():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid))(('WSARemoveServiceClass', windll['WS2_32.dll']), ((1, 'lpServiceClassId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetServiceClassInfoA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Guid),POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOA_head))(('WSAGetServiceClassInfoA', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpServiceClassId'),(1, 'lpdwBufSize'),(1, 'lpServiceClassInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetServiceClassInfoW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Guid),POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head))(('WSAGetServiceClassInfoW', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpServiceClassId'),(1, 'lpdwBufSize'),(1, 'lpServiceClassInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumNameSpaceProvidersA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOA_head))(('WSAEnumNameSpaceProvidersA', windll['WS2_32.dll']), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumNameSpaceProvidersW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOW_head))(('WSAEnumNameSpaceProvidersW', windll['WS2_32.dll']), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumNameSpaceProvidersExA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXA_head))(('WSAEnumNameSpaceProvidersExA', windll['WS2_32.dll']), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAEnumNameSpaceProvidersExW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head))(('WSAEnumNameSpaceProvidersExW', windll['WS2_32.dll']), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetServiceClassNameByClassIdA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PSTR,POINTER(UInt32))(('WSAGetServiceClassNameByClassIdA', windll['WS2_32.dll']), ((1, 'lpServiceClassId'),(1, 'lpszServiceClassName'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAGetServiceClassNameByClassIdW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(UInt32))(('WSAGetServiceClassNameByClassIdW', windll['WS2_32.dll']), ((1, 'lpServiceClassId'),(1, 'lpszServiceClassName'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetServiceA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETA_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32)(('WSASetServiceA', windll['WS2_32.dll']), ((1, 'lpqsRegInfo'),(1, 'essoperation'),(1, 'dwControlFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetServiceW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32)(('WSASetServiceW', windll['WS2_32.dll']), ((1, 'lpqsRegInfo'),(1, 'essoperation'),(1, 'dwControlFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAProviderConfigChange():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSAProviderConfigChange', windll['WS2_32.dll']), ((1, 'lpNotificationHandle'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAPoll():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAPOLLFD_head),UInt32,Int32)(('WSAPoll', windll['WS2_32.dll']), ((1, 'fdArray'),(1, 'fds'),(1, 'timeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ProcessSocketNotifications():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Networking.WinSock.SOCK_NOTIFY_REGISTRATION_head),UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_ENTRY_head),POINTER(UInt32))(('ProcessSocketNotifications', windll['WS2_32.dll']), ((1, 'completionPort'),(1, 'registrationCount'),(1, 'registrationInfos'),(1, 'timeoutMs'),(1, 'completionCount'),(1, 'completionPortEntries'),(1, 'receivedEntryCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4AddressToStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.IN_ADDR_head),win32more.Foundation.PSTR)(('RtlIpv4AddressToStringA', windll['ntdll.dll']), ((1, 'Addr'),(1, 'S'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4AddressToStringExA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN_ADDR_head),UInt16,win32more.Foundation.PSTR,POINTER(UInt32))(('RtlIpv4AddressToStringExA', windll['ntdll.dll']), ((1, 'Address'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4AddressToStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN_ADDR_head),win32more.Foundation.PWSTR)(('RtlIpv4AddressToStringW', windll['ntdll.dll']), ((1, 'Addr'),(1, 'S'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4AddressToStringExW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN_ADDR_head),UInt16,win32more.Foundation.PWSTR,POINTER(UInt32))(('RtlIpv4AddressToStringExW', windll['ntdll.dll']), ((1, 'Address'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4StringToAddressA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.PSTR),POINTER(win32more.Networking.WinSock.IN_ADDR_head))(('RtlIpv4StringToAddressA', windll['ntdll.dll']), ((1, 'S'),(1, 'Strict'),(1, 'Terminator'),(1, 'Addr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4StringToAddressExA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Networking.WinSock.IN_ADDR_head),POINTER(UInt16))(('RtlIpv4StringToAddressExA', windll['ntdll.dll']), ((1, 'AddressString'),(1, 'Strict'),(1, 'Address'),(1, 'Port'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4StringToAddressW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Networking.WinSock.IN_ADDR_head))(('RtlIpv4StringToAddressW', windll['ntdll.dll']), ((1, 'S'),(1, 'Strict'),(1, 'Terminator'),(1, 'Addr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv4StringToAddressExW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Networking.WinSock.IN_ADDR_head),POINTER(UInt16))(('RtlIpv4StringToAddressExW', windll['ntdll.dll']), ((1, 'AddressString'),(1, 'Strict'),(1, 'Address'),(1, 'Port'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6AddressToStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),win32more.Foundation.PSTR)(('RtlIpv6AddressToStringA', windll['ntdll.dll']), ((1, 'Addr'),(1, 'S'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6AddressToStringExA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),UInt32,UInt16,win32more.Foundation.PSTR,POINTER(UInt32))(('RtlIpv6AddressToStringExA', windll['ntdll.dll']), ((1, 'Address'),(1, 'ScopeId'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6AddressToStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),win32more.Foundation.PWSTR)(('RtlIpv6AddressToStringW', windll['ntdll.dll']), ((1, 'Addr'),(1, 'S'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6AddressToStringExW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),UInt32,UInt16,win32more.Foundation.PWSTR,POINTER(UInt32))(('RtlIpv6AddressToStringExW', windll['ntdll.dll']), ((1, 'Address'),(1, 'ScopeId'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6StringToAddressA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.PSTR),POINTER(win32more.Networking.WinSock.IN6_ADDR_head))(('RtlIpv6StringToAddressA', windll['ntdll.dll']), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6StringToAddressExA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(UInt32),POINTER(UInt16))(('RtlIpv6StringToAddressExA', windll['ntdll.dll']), ((1, 'AddressString'),(1, 'Address'),(1, 'ScopeId'),(1, 'Port'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6StringToAddressW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Networking.WinSock.IN6_ADDR_head))(('RtlIpv6StringToAddressW', windll['ntdll.dll']), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlIpv6StringToAddressExW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(UInt32),POINTER(UInt16))(('RtlIpv6StringToAddressExW', windll['ntdll.dll']), ((1, 'AddressString'),(1, 'Address'),(1, 'ScopeId'),(1, 'Port'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlEthernetAddressToStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.DL_EUI48_head),win32more.Foundation.PSTR)(('RtlEthernetAddressToStringA', windll['ntdll.dll']), ((1, 'Addr'),(1, 'S'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlEthernetAddressToStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.DL_EUI48_head),win32more.Foundation.PWSTR)(('RtlEthernetAddressToStringW', windll['ntdll.dll']), ((1, 'Addr'),(1, 'S'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlEthernetStringToAddressA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.PSTR),POINTER(win32more.Networking.WinSock.DL_EUI48_head))(('RtlEthernetStringToAddressA', windll['ntdll.dll']), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RtlEthernetStringToAddressW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Networking.WinSock.DL_EUI48_head))(('RtlEthernetStringToAddressW', windll['ntdll.dll']), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSARecvEx():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,POINTER(Int32))(('WSARecvEx', windll['MSWSOCK.dll']), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TransmitFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(win32more.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head),UInt32)(('TransmitFile', windll['MSWSOCK.dll']), ((1, 'hSocket'),(1, 'hFile'),(1, 'nNumberOfBytesToWrite'),(1, 'nNumberOfBytesPerSend'),(1, 'lpOverlapped'),(1, 'lpTransmitBuffers'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AcceptEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,c_void_p,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head))(('AcceptEx', windll['MSWSOCK.dll']), ((1, 'sListenSocket'),(1, 'sAcceptSocket'),(1, 'lpOutputBuffer'),(1, 'dwReceiveDataLength'),(1, 'dwLocalAddressLength'),(1, 'dwRemoteAddressLength'),(1, 'lpdwBytesReceived'),(1, 'lpOverlapped'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAcceptExSockaddrs():
+    try:
+        return WINFUNCTYPE(Void,c_void_p,UInt32,UInt32,UInt32,POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32),POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32))(('GetAcceptExSockaddrs', windll['MSWSOCK.dll']), ((1, 'lpOutputBuffer'),(1, 'dwReceiveDataLength'),(1, 'dwLocalAddressLength'),(1, 'dwRemoteAddressLength'),(1, 'LocalSockaddr'),(1, 'LocalSockaddrLength'),(1, 'RemoteSockaddr'),(1, 'RemoteSockaddrLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCEnumProtocols():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32),POINTER(Int32))(('WSCEnumProtocols', windll['WS2_32.dll']), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCDeinstallProvider():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Int32))(('WSCDeinstallProvider', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallProvider():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(Int32))(('WSCInstallProvider', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCGetProviderPath():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Int32),POINTER(Int32))(('WSCGetProviderPath', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProviderDllPathLen'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCUpdateProvider():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(Int32))(('WSCUpdateProvider', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCSetProviderInfo():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,UIntPtr,UInt32,POINTER(Int32))(('WSCSetProviderInfo', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCGetProviderInfo():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,POINTER(UIntPtr),UInt32,POINTER(Int32))(('WSCGetProviderInfo', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCSetApplicationCategory():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(UInt32),POINTER(Int32))(('WSCSetApplicationCategory', windll['WS2_32.dll']), ((1, 'Path'),(1, 'PathLength'),(1, 'Extra'),(1, 'ExtraLength'),(1, 'PermittedLspCategories'),(1, 'pPrevPermLspCat'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCGetApplicationCategory():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),POINTER(Int32))(('WSCGetApplicationCategory', windll['WS2_32.dll']), ((1, 'Path'),(1, 'PathLength'),(1, 'Extra'),(1, 'ExtraLength'),(1, 'pPermittedLspCategories'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WPUCompleteOverlappedRequest():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32,UInt32,POINTER(Int32))(('WPUCompleteOverlappedRequest', windll['WS2_32.dll']), ((1, 's'),(1, 'lpOverlapped'),(1, 'dwError'),(1, 'cbTransferred'),(1, 'lpErrno'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallNameSpace():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid))(('WSCInstallNameSpace', windll['WS2_32.dll']), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCUnInstallNameSpace():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid))(('WSCUnInstallNameSpace', windll['WS2_32.dll']), ((1, 'lpProviderId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCInstallNameSpaceEx():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid),POINTER(win32more.System.Com.BLOB_head))(('WSCInstallNameSpaceEx', windll['WS2_32.dll']), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),(1, 'lpProviderSpecific'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCEnableNSProvider():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.BOOL)(('WSCEnableNSProvider', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'fEnable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAAdvertiseProvider():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.NSPV2_ROUTINE_head))(('WSAAdvertiseProvider', windll['WS2_32.dll']), ((1, 'puuidProviderId'),(1, 'pNSPv2Routine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAUnadvertiseProvider():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid))(('WSAUnadvertiseProvider', windll['WS2_32.dll']), ((1, 'puuidProviderId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAProviderCompleteAsyncCall():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,Int32)(('WSAProviderCompleteAsyncCall', windll['WS2_32.dll']), ((1, 'hAsyncCall'),(1, 'iRetCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumProtocolsA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Int32),c_void_p,POINTER(UInt32))(('EnumProtocolsA', windll['MSWSOCK.dll']), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumProtocolsW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Int32),c_void_p,POINTER(UInt32))(('EnumProtocolsW', windll['MSWSOCK.dll']), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddressByNameA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Int32),UInt32,POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),c_void_p,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('GetAddressByNameA', windll['MSWSOCK.dll']), ((1, 'dwNameSpace'),(1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'lpiProtocols'),(1, 'dwResolution'),(1, 'lpServiceAsyncInfo'),(1, 'lpCsaddrBuffer'),(1, 'lpdwBufferLength'),(1, 'lpAliasBuffer'),(1, 'lpdwAliasBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddressByNameW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Int32),UInt32,POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),c_void_p,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('GetAddressByNameW', windll['MSWSOCK.dll']), ((1, 'dwNameSpace'),(1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'lpiProtocols'),(1, 'dwResolution'),(1, 'lpServiceAsyncInfo'),(1, 'lpCsaddrBuffer'),(1, 'lpdwBufferLength'),(1, 'lpAliasBuffer'),(1, 'lpdwAliasBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetTypeByNameA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(Guid))(('GetTypeByNameA', windll['MSWSOCK.dll']), ((1, 'lpServiceName'),(1, 'lpServiceType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetTypeByNameW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(Guid))(('GetTypeByNameW', windll['MSWSOCK.dll']), ((1, 'lpServiceName'),(1, 'lpServiceType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetNameByTypeA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PSTR,UInt32)(('GetNameByTypeA', windll['MSWSOCK.dll']), ((1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'dwNameLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetNameByTypeW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,UInt32)(('GetNameByTypeW', windll['MSWSOCK.dll']), ((1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'dwNameLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetServiceA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Networking.WinSock.SET_SERVICE_OPERATION,UInt32,POINTER(win32more.Networking.WinSock.SERVICE_INFOA_head),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),POINTER(UInt32))(('SetServiceA', windll['MSWSOCK.dll']), ((1, 'dwNameSpace'),(1, 'dwOperation'),(1, 'dwFlags'),(1, 'lpServiceInfo'),(1, 'lpServiceAsyncInfo'),(1, 'lpdwStatusFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetServiceW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Networking.WinSock.SET_SERVICE_OPERATION,UInt32,POINTER(win32more.Networking.WinSock.SERVICE_INFOW_head),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),POINTER(UInt32))(('SetServiceW', windll['MSWSOCK.dll']), ((1, 'dwNameSpace'),(1, 'dwOperation'),(1, 'dwFlags'),(1, 'lpServiceInfo'),(1, 'lpServiceAsyncInfo'),(1, 'lpdwStatusFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetServiceA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PSTR,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head))(('GetServiceA', windll['MSWSOCK.dll']), ((1, 'dwNameSpace'),(1, 'lpGuid'),(1, 'lpServiceName'),(1, 'dwProperties'),(1, 'lpBuffer'),(1, 'lpdwBufferSize'),(1, 'lpServiceAsyncInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetServiceW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head))(('GetServiceW', windll['MSWSOCK.dll']), ((1, 'dwNameSpace'),(1, 'lpGuid'),(1, 'lpServiceName'),(1, 'dwProperties'),(1, 'lpBuffer'),(1, 'lpdwBufferSize'),(1, 'lpServiceAsyncInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getaddrinfo():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.ADDRINFOA_head),POINTER(POINTER(win32more.Networking.WinSock.ADDRINFOA_head)))(('getaddrinfo', windll['WS2_32.dll']), ((1, 'pNodeName'),(1, 'pServiceName'),(1, 'pHints'),(1, 'ppResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddrInfoW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.ADDRINFOW_head),POINTER(POINTER(win32more.Networking.WinSock.ADDRINFOW_head)))(('GetAddrInfoW', windll['WS2_32.dll']), ((1, 'pNodeName'),(1, 'pServiceName'),(1, 'pHints'),(1, 'ppResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddrInfoExA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.ADDRINFOEXA_head),POINTER(POINTER(win32more.Networking.WinSock.ADDRINFOEXA_head)),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE))(('GetAddrInfoExA', windll['WS2_32.dll']), ((1, 'pName'),(1, 'pServiceName'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'hints'),(1, 'ppResult'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpNameHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddrInfoExW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.ADDRINFOEXW_head),POINTER(POINTER(win32more.Networking.WinSock.ADDRINFOEXW_head)),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE))(('GetAddrInfoExW', windll['WS2_32.dll']), ((1, 'pName'),(1, 'pServiceName'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'hints'),(1, 'ppResult'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddrInfoExCancel():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Foundation.HANDLE))(('GetAddrInfoExCancel', windll['WS2_32.dll']), ((1, 'lpHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAddrInfoExOverlappedResult():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.System.IO.OVERLAPPED_head))(('GetAddrInfoExOverlappedResult', windll['WS2_32.dll']), ((1, 'lpOverlapped'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetAddrInfoExA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_head),UInt32,POINTER(win32more.System.Com.BLOB_head),UInt32,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE))(('SetAddrInfoExA', windll['WS2_32.dll']), ((1, 'pName'),(1, 'pServiceName'),(1, 'pAddresses'),(1, 'dwAddressCount'),(1, 'lpBlob'),(1, 'dwFlags'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpNameHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetAddrInfoExW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_head),UInt32,POINTER(win32more.System.Com.BLOB_head),UInt32,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE))(('SetAddrInfoExW', windll['WS2_32.dll']), ((1, 'pName'),(1, 'pServiceName'),(1, 'pAddresses'),(1, 'dwAddressCount'),(1, 'lpBlob'),(1, 'dwFlags'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpNameHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_freeaddrinfo():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.ADDRINFOA_head))(('freeaddrinfo', windll['WS2_32.dll']), ((1, 'pAddrInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FreeAddrInfoW():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.ADDRINFOW_head))(('FreeAddrInfoW', windll['WS2_32.dll']), ((1, 'pAddrInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FreeAddrInfoEx():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.ADDRINFOEXA_head))(('FreeAddrInfoEx', windll['WS2_32.dll']), ((1, 'pAddrInfoEx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FreeAddrInfoExW():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.ADDRINFOEXW_head))(('FreeAddrInfoExW', windll['WS2_32.dll']), ((1, 'pAddrInfoEx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_getnameinfo():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32,Int32)(('getnameinfo', windll['WS2_32.dll']), ((1, 'pSockaddr'),(1, 'SockaddrLength'),(1, 'pNodeBuffer'),(1, 'NodeBufferSize'),(1, 'pServiceBuffer'),(1, 'ServiceBufferSize'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetNameInfoW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,Int32)(('GetNameInfoW', windll['WS2_32.dll']), ((1, 'pSockaddr'),(1, 'SockaddrLength'),(1, 'pNodeBuffer'),(1, 'NodeBufferSize'),(1, 'pServiceBuffer'),(1, 'ServiceBufferSize'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_inet_pton():
+    try:
+        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PSTR,c_void_p)(('inet_pton', windll['WS2_32.dll']), ((1, 'Family'),(1, 'pszAddrString'),(1, 'pAddrBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InetPtonW():
+    try:
+        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PWSTR,c_void_p)(('InetPtonW', windll['WS2_32.dll']), ((1, 'Family'),(1, 'pszAddrString'),(1, 'pAddrBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_inet_ntop():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,Int32,c_void_p,win32more.Foundation.PSTR,UIntPtr)(('inet_ntop', windll['WS2_32.dll']), ((1, 'Family'),(1, 'pAddr'),(1, 'pStringBuf'),(1, 'StringBufSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InetNtopW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,Int32,c_void_p,win32more.Foundation.PWSTR,UIntPtr)(('InetNtopW', windll['WS2_32.dll']), ((1, 'Family'),(1, 'pAddr'),(1, 'pStringBuf'),(1, 'StringBufSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetSocketSecurity():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_SECURITY_SETTINGS_head),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSASetSocketSecurity', windll['fwpuclnt.dll']), ((1, 'Socket'),(1, 'SecuritySettings'),(1, 'SecuritySettingsLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAQuerySocketSecurity():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_TEMPLATE_head),UInt32,POINTER(win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO_head),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSAQuerySocketSecurity', windll['fwpuclnt.dll']), ((1, 'Socket'),(1, 'SecurityQueryTemplate'),(1, 'SecurityQueryTemplateLen'),(1, 'SecurityQueryInfo'),(1, 'SecurityQueryInfoLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSASetSocketPeerTargetName():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_PEER_TARGET_NAME_head),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSASetSocketPeerTargetName', windll['fwpuclnt.dll']), ((1, 'Socket'),(1, 'PeerTargetName'),(1, 'PeerTargetNameLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSADeleteSocketPeerTargetName():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)(('WSADeleteSocketPeerTargetName', windll['fwpuclnt.dll']), ((1, 'Socket'),(1, 'PeerAddr'),(1, 'PeerAddrLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSAImpersonateSocketPeer():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32)(('WSAImpersonateSocketPeer', windll['fwpuclnt.dll']), ((1, 'Socket'),(1, 'PeerAddr'),(1, 'PeerAddrLen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSARevertImpersonation():
+    try:
+        return WINFUNCTYPE(Int32,)(('WSARevertImpersonation', windll['fwpuclnt.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetSocketMediaStreamingMode():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(('SetSocketMediaStreamingMode', windll['Windows.Networking.dll']), ((1, 'value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCWriteProviderOrder():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),UInt32)(('WSCWriteProviderOrder', windll['WS2_32.dll']), ((1, 'lpwdCatalogEntryId'),(1, 'dwNumberOfEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSCWriteNameSpaceOrder():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(Guid),UInt32)(('WSCWriteNameSpaceOrder', windll['WS2_32.dll']), ((1, 'lpProviderId'),(1, 'dwNumberOfEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+ARP_HARDWARE_TYPE = Int32
+ARP_HW_ENET = 1
+ARP_HW_802 = 6
+def _define_ARP_HEADER_head():
+    class ARP_HEADER(Structure):
+        pass
+    return ARP_HEADER
+def _define_ARP_HEADER():
+    ARP_HEADER = win32more.Networking.WinSock.ARP_HEADER_head
+    ARP_HEADER._fields_ = [
+        ('HardwareAddressSpace', UInt16),
+        ('ProtocolAddressSpace', UInt16),
+        ('HardwareAddressLength', Byte),
+        ('ProtocolAddressLength', Byte),
+        ('Opcode', UInt16),
+        ('SenderHardwareAddress', Byte * 1),
+    ]
+    return ARP_HEADER
+ARP_OPCODE = Int32
+ARP_REQUEST = 1
+ARP_RESPONSE = 2
+def _define_ASSOCIATE_NAMERES_CONTEXT_INPUT_head():
+    class ASSOCIATE_NAMERES_CONTEXT_INPUT(Structure):
+        pass
+    return ASSOCIATE_NAMERES_CONTEXT_INPUT
+def _define_ASSOCIATE_NAMERES_CONTEXT_INPUT():
+    ASSOCIATE_NAMERES_CONTEXT_INPUT = win32more.Networking.WinSock.ASSOCIATE_NAMERES_CONTEXT_INPUT_head
+    ASSOCIATE_NAMERES_CONTEXT_INPUT._fields_ = [
+        ('TransportSettingId', win32more.Networking.WinSock.TRANSPORT_SETTING_ID),
+        ('Handle', UInt64),
+    ]
+    return ASSOCIATE_NAMERES_CONTEXT_INPUT
+def _define_ATM_ADDRESS_head():
+    class ATM_ADDRESS(Structure):
+        pass
+    return ATM_ADDRESS
+def _define_ATM_ADDRESS():
+    ATM_ADDRESS = win32more.Networking.WinSock.ATM_ADDRESS_head
+    ATM_ADDRESS._fields_ = [
+        ('AddressType', UInt32),
+        ('NumofDigits', UInt32),
+        ('Addr', Byte * 20),
+    ]
+    return ATM_ADDRESS
+def _define_ATM_BHLI_head():
+    class ATM_BHLI(Structure):
+        pass
+    return ATM_BHLI
+def _define_ATM_BHLI():
+    ATM_BHLI = win32more.Networking.WinSock.ATM_BHLI_head
+    ATM_BHLI._fields_ = [
+        ('HighLayerInfoType', UInt32),
+        ('HighLayerInfoLength', UInt32),
+        ('HighLayerInfo', Byte * 8),
+    ]
+    return ATM_BHLI
+def _define_ATM_BLLI_head():
+    class ATM_BLLI(Structure):
+        pass
+    return ATM_BLLI
+def _define_ATM_BLLI():
+    ATM_BLLI = win32more.Networking.WinSock.ATM_BLLI_head
+    ATM_BLLI._fields_ = [
+        ('Layer2Protocol', UInt32),
+        ('Layer2UserSpecifiedProtocol', UInt32),
+        ('Layer3Protocol', UInt32),
+        ('Layer3UserSpecifiedProtocol', UInt32),
+        ('Layer3IPI', UInt32),
+        ('SnapID', Byte * 5),
+    ]
+    return ATM_BLLI
+def _define_ATM_BLLI_IE_head():
+    class ATM_BLLI_IE(Structure):
+        pass
+    return ATM_BLLI_IE
+def _define_ATM_BLLI_IE():
+    ATM_BLLI_IE = win32more.Networking.WinSock.ATM_BLLI_IE_head
+    ATM_BLLI_IE._fields_ = [
+        ('Layer2Protocol', UInt32),
+        ('Layer2Mode', Byte),
+        ('Layer2WindowSize', Byte),
+        ('Layer2UserSpecifiedProtocol', UInt32),
+        ('Layer3Protocol', UInt32),
+        ('Layer3Mode', Byte),
+        ('Layer3DefaultPacketSize', Byte),
+        ('Layer3PacketWindowSize', Byte),
+        ('Layer3UserSpecifiedProtocol', UInt32),
+        ('Layer3IPI', UInt32),
+        ('SnapID', Byte * 5),
+    ]
+    return ATM_BLLI_IE
+def _define_ATM_BROADBAND_BEARER_CAPABILITY_IE_head():
+    class ATM_BROADBAND_BEARER_CAPABILITY_IE(Structure):
+        pass
+    return ATM_BROADBAND_BEARER_CAPABILITY_IE
+def _define_ATM_BROADBAND_BEARER_CAPABILITY_IE():
+    ATM_BROADBAND_BEARER_CAPABILITY_IE = win32more.Networking.WinSock.ATM_BROADBAND_BEARER_CAPABILITY_IE_head
+    ATM_BROADBAND_BEARER_CAPABILITY_IE._fields_ = [
+        ('BearerClass', Byte),
+        ('TrafficType', Byte),
+        ('TimingRequirements', Byte),
+        ('ClippingSusceptability', Byte),
+        ('UserPlaneConnectionConfig', Byte),
+    ]
+    return ATM_BROADBAND_BEARER_CAPABILITY_IE
+def _define_ATM_CALLING_PARTY_NUMBER_IE_head():
+    class ATM_CALLING_PARTY_NUMBER_IE(Structure):
+        pass
+    return ATM_CALLING_PARTY_NUMBER_IE
+def _define_ATM_CALLING_PARTY_NUMBER_IE():
+    ATM_CALLING_PARTY_NUMBER_IE = win32more.Networking.WinSock.ATM_CALLING_PARTY_NUMBER_IE_head
+    ATM_CALLING_PARTY_NUMBER_IE._fields_ = [
+        ('ATM_Number', win32more.Networking.WinSock.ATM_ADDRESS),
+        ('Presentation_Indication', Byte),
+        ('Screening_Indicator', Byte),
+    ]
+    return ATM_CALLING_PARTY_NUMBER_IE
+def _define_ATM_CAUSE_IE_head():
+    class ATM_CAUSE_IE(Structure):
+        pass
+    return ATM_CAUSE_IE
+def _define_ATM_CAUSE_IE():
+    ATM_CAUSE_IE = win32more.Networking.WinSock.ATM_CAUSE_IE_head
+    ATM_CAUSE_IE._fields_ = [
+        ('Location', Byte),
+        ('Cause', Byte),
+        ('DiagnosticsLength', Byte),
+        ('Diagnostics', Byte * 4),
+    ]
+    return ATM_CAUSE_IE
+def _define_ATM_CONNECTION_ID_head():
+    class ATM_CONNECTION_ID(Structure):
+        pass
+    return ATM_CONNECTION_ID
+def _define_ATM_CONNECTION_ID():
+    ATM_CONNECTION_ID = win32more.Networking.WinSock.ATM_CONNECTION_ID_head
+    ATM_CONNECTION_ID._fields_ = [
+        ('DeviceNumber', UInt32),
+        ('VPI', UInt32),
+        ('VCI', UInt32),
+    ]
+    return ATM_CONNECTION_ID
+def _define_ATM_PVC_PARAMS_head():
+    class ATM_PVC_PARAMS(Structure):
+        pass
+    return ATM_PVC_PARAMS
+def _define_ATM_PVC_PARAMS():
+    ATM_PVC_PARAMS = win32more.Networking.WinSock.ATM_PVC_PARAMS_head
+    ATM_PVC_PARAMS._pack_ = 4
+    ATM_PVC_PARAMS._fields_ = [
+        ('PvcConnectionId', win32more.Networking.WinSock.ATM_CONNECTION_ID),
+        ('PvcQos', win32more.Networking.WinSock.QOS),
+    ]
+    return ATM_PVC_PARAMS
+def _define_ATM_QOS_CLASS_IE_head():
+    class ATM_QOS_CLASS_IE(Structure):
+        pass
+    return ATM_QOS_CLASS_IE
+def _define_ATM_QOS_CLASS_IE():
+    ATM_QOS_CLASS_IE = win32more.Networking.WinSock.ATM_QOS_CLASS_IE_head
+    ATM_QOS_CLASS_IE._fields_ = [
+        ('QOSClassForward', Byte),
+        ('QOSClassBackward', Byte),
+    ]
+    return ATM_QOS_CLASS_IE
+def _define_ATM_TD_head():
+    class ATM_TD(Structure):
+        pass
+    return ATM_TD
+def _define_ATM_TD():
+    ATM_TD = win32more.Networking.WinSock.ATM_TD_head
+    ATM_TD._fields_ = [
+        ('PeakCellRate_CLP0', UInt32),
+        ('PeakCellRate_CLP01', UInt32),
+        ('SustainableCellRate_CLP0', UInt32),
+        ('SustainableCellRate_CLP01', UInt32),
+        ('MaxBurstSize_CLP0', UInt32),
+        ('MaxBurstSize_CLP01', UInt32),
+        ('Tagging', win32more.Foundation.BOOL),
+    ]
+    return ATM_TD
+def _define_ATM_TRAFFIC_DESCRIPTOR_IE_head():
+    class ATM_TRAFFIC_DESCRIPTOR_IE(Structure):
+        pass
+    return ATM_TRAFFIC_DESCRIPTOR_IE
+def _define_ATM_TRAFFIC_DESCRIPTOR_IE():
+    ATM_TRAFFIC_DESCRIPTOR_IE = win32more.Networking.WinSock.ATM_TRAFFIC_DESCRIPTOR_IE_head
+    ATM_TRAFFIC_DESCRIPTOR_IE._fields_ = [
+        ('Forward', win32more.Networking.WinSock.ATM_TD),
+        ('Backward', win32more.Networking.WinSock.ATM_TD),
+        ('BestEffort', win32more.Foundation.BOOL),
+    ]
+    return ATM_TRAFFIC_DESCRIPTOR_IE
+def _define_ATM_TRANSIT_NETWORK_SELECTION_IE_head():
+    class ATM_TRANSIT_NETWORK_SELECTION_IE(Structure):
+        pass
+    return ATM_TRANSIT_NETWORK_SELECTION_IE
+def _define_ATM_TRANSIT_NETWORK_SELECTION_IE():
+    ATM_TRANSIT_NETWORK_SELECTION_IE = win32more.Networking.WinSock.ATM_TRANSIT_NETWORK_SELECTION_IE_head
+    ATM_TRANSIT_NETWORK_SELECTION_IE._fields_ = [
+        ('TypeOfNetworkId', Byte),
+        ('NetworkIdPlan', Byte),
+        ('NetworkIdLength', Byte),
+        ('NetworkId', Byte * 1),
+    ]
+    return ATM_TRANSIT_NETWORK_SELECTION_IE
+def _define_CMSGHDR_head():
+    class CMSGHDR(Structure):
+        pass
+    return CMSGHDR
+def _define_CMSGHDR():
+    CMSGHDR = win32more.Networking.WinSock.CMSGHDR_head
+    CMSGHDR._fields_ = [
+        ('cmsg_len', UIntPtr),
+        ('cmsg_level', Int32),
+        ('cmsg_type', Int32),
+    ]
+    return CMSGHDR
+CONTROL_CHANNEL_TRIGGER_STATUS = Int32
+CONTROL_CHANNEL_TRIGGER_STATUS_INVALID = 0
+CONTROL_CHANNEL_TRIGGER_STATUS_SOFTWARE_SLOT_ALLOCATED = 1
+CONTROL_CHANNEL_TRIGGER_STATUS_HARDWARE_SLOT_ALLOCATED = 2
+CONTROL_CHANNEL_TRIGGER_STATUS_POLICY_ERROR = 3
+CONTROL_CHANNEL_TRIGGER_STATUS_SYSTEM_ERROR = 4
+CONTROL_CHANNEL_TRIGGER_STATUS_TRANSPORT_DISCONNECTED = 5
+CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE = 6
+def _define_CSADDR_INFO_head():
+    class CSADDR_INFO(Structure):
+        pass
+    return CSADDR_INFO
+def _define_CSADDR_INFO():
+    CSADDR_INFO = win32more.Networking.WinSock.CSADDR_INFO_head
+    CSADDR_INFO._fields_ = [
+        ('LocalAddr', win32more.Networking.WinSock.SOCKET_ADDRESS),
+        ('RemoteAddr', win32more.Networking.WinSock.SOCKET_ADDRESS),
+        ('iSocketType', Int32),
+        ('iProtocol', Int32),
+    ]
+    return CSADDR_INFO
+def _define_DL_EI48_head():
+    class DL_EI48(Union):
+        pass
+    return DL_EI48
+def _define_DL_EI48():
+    DL_EI48 = win32more.Networking.WinSock.DL_EI48_head
+    DL_EI48._fields_ = [
+        ('Byte', Byte * 3),
+    ]
+    return DL_EI48
+def _define_DL_EI64_head():
+    class DL_EI64(Union):
+        pass
+    return DL_EI64
+def _define_DL_EI64():
+    DL_EI64 = win32more.Networking.WinSock.DL_EI64_head
+    DL_EI64._fields_ = [
+        ('Byte', Byte * 5),
+    ]
+    return DL_EI64
+def _define_DL_EUI48_head():
+    class DL_EUI48(Union):
+        pass
+    return DL_EUI48
+def _define_DL_EUI48():
+    DL_EUI48 = win32more.Networking.WinSock.DL_EUI48_head
+    class DL_EUI48__Anonymous_e__Struct(Structure):
+        pass
+    DL_EUI48__Anonymous_e__Struct._fields_ = [
+        ('Oui', win32more.Networking.WinSock.DL_OUI),
+        ('Ei48', win32more.Networking.WinSock.DL_EI48),
+    ]
+    DL_EUI48._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_EUI48._fields_ = [
+        ('Byte', Byte * 6),
+        ('Anonymous', DL_EUI48__Anonymous_e__Struct),
+    ]
+    return DL_EUI48
+def _define_DL_EUI64_head():
+    class DL_EUI64(Union):
+        pass
+    return DL_EUI64
+def _define_DL_EUI64():
+    DL_EUI64 = win32more.Networking.WinSock.DL_EUI64_head
+    class DL_EUI64__Anonymous_e__Struct(Structure):
+        pass
+    class DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union(Union):
+        pass
+    class DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('Type', Byte),
+        ('Tse', Byte),
+        ('Ei48', win32more.Networking.WinSock.DL_EI48),
+    ]
+    DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union._fields_ = [
+        ('Ei64', win32more.Networking.WinSock.DL_EI64),
+        ('Anonymous', DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    DL_EUI64__Anonymous_e__Struct._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_EUI64__Anonymous_e__Struct._fields_ = [
+        ('Oui', win32more.Networking.WinSock.DL_OUI),
+        ('Anonymous', DL_EUI64__Anonymous_e__Struct__Anonymous_e__Union),
+    ]
+    DL_EUI64._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_EUI64._fields_ = [
+        ('Byte', Byte * 8),
+        ('Value', UInt64),
+        ('Anonymous', DL_EUI64__Anonymous_e__Struct),
+    ]
+    return DL_EUI64
+def _define_DL_OUI_head():
+    class DL_OUI(Union):
+        pass
+    return DL_OUI
+def _define_DL_OUI():
+    DL_OUI = win32more.Networking.WinSock.DL_OUI_head
+    class DL_OUI__Anonymous_e__Struct(Structure):
+        pass
+    DL_OUI__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    DL_OUI._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_OUI._fields_ = [
+        ('Byte', Byte * 3),
+        ('Anonymous', DL_OUI__Anonymous_e__Struct),
+    ]
+    return DL_OUI
+def _define_DL_TEREDO_ADDRESS_head():
+    class DL_TEREDO_ADDRESS(Structure):
+        pass
+    return DL_TEREDO_ADDRESS
+def _define_DL_TEREDO_ADDRESS():
+    DL_TEREDO_ADDRESS = win32more.Networking.WinSock.DL_TEREDO_ADDRESS_head
+    class DL_TEREDO_ADDRESS__Anonymous_e__Union(Union):
+        pass
+    class DL_TEREDO_ADDRESS__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    DL_TEREDO_ADDRESS__Anonymous_e__Union__Anonymous_e__Struct._pack_ = 1
+    DL_TEREDO_ADDRESS__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('Flags', UInt16),
+        ('MappedPort', UInt16),
+        ('MappedAddress', win32more.Networking.WinSock.IN_ADDR),
+    ]
+    DL_TEREDO_ADDRESS__Anonymous_e__Union._pack_ = 1
+    DL_TEREDO_ADDRESS__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_TEREDO_ADDRESS__Anonymous_e__Union._fields_ = [
+        ('Eui64', win32more.Networking.WinSock.DL_EUI64),
+        ('Anonymous', DL_TEREDO_ADDRESS__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    DL_TEREDO_ADDRESS._pack_ = 1
+    DL_TEREDO_ADDRESS._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_TEREDO_ADDRESS._fields_ = [
+        ('Reserved', Byte * 6),
+        ('Anonymous', DL_TEREDO_ADDRESS__Anonymous_e__Union),
+    ]
+    return DL_TEREDO_ADDRESS
+def _define_DL_TEREDO_ADDRESS_PRV_head():
+    class DL_TEREDO_ADDRESS_PRV(Structure):
+        pass
+    return DL_TEREDO_ADDRESS_PRV
+def _define_DL_TEREDO_ADDRESS_PRV():
+    DL_TEREDO_ADDRESS_PRV = win32more.Networking.WinSock.DL_TEREDO_ADDRESS_PRV_head
+    class DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union(Union):
+        pass
+    class DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union__Anonymous_e__Struct._pack_ = 1
+    DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('Flags', UInt16),
+        ('MappedPort', UInt16),
+        ('MappedAddress', win32more.Networking.WinSock.IN_ADDR),
+        ('LocalAddress', win32more.Networking.WinSock.IN_ADDR),
+        ('InterfaceIndex', UInt32),
+        ('LocalPort', UInt16),
+        ('DlDestination', win32more.Networking.WinSock.DL_EUI48),
+    ]
+    DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union._pack_ = 1
+    DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union._fields_ = [
+        ('Eui64', win32more.Networking.WinSock.DL_EUI64),
+        ('Anonymous', DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    DL_TEREDO_ADDRESS_PRV._pack_ = 1
+    DL_TEREDO_ADDRESS_PRV._anonymous_ = [
+        'Anonymous',
+    ]
+    DL_TEREDO_ADDRESS_PRV._fields_ = [
+        ('Reserved', Byte * 6),
+        ('Anonymous', DL_TEREDO_ADDRESS_PRV__Anonymous_e__Union),
+    ]
+    return DL_TEREDO_ADDRESS_PRV
+def _define_DL_TUNNEL_ADDRESS_head():
+    class DL_TUNNEL_ADDRESS(Structure):
+        pass
+    return DL_TUNNEL_ADDRESS
+def _define_DL_TUNNEL_ADDRESS():
+    DL_TUNNEL_ADDRESS = win32more.Networking.WinSock.DL_TUNNEL_ADDRESS_head
+    DL_TUNNEL_ADDRESS._fields_ = [
+        ('CompartmentId', win32more.System.Kernel.COMPARTMENT_ID),
+        ('ScopeId', win32more.Networking.WinSock.SCOPE_ID),
+        ('IpAddress', Byte * 1),
+    ]
+    return DL_TUNNEL_ADDRESS
+def _define_ETHERNET_HEADER_head():
+    class ETHERNET_HEADER(Structure):
+        pass
+    return ETHERNET_HEADER
+def _define_ETHERNET_HEADER():
+    ETHERNET_HEADER = win32more.Networking.WinSock.ETHERNET_HEADER_head
+    class ETHERNET_HEADER__Anonymous_e__Union(Union):
+        pass
+    ETHERNET_HEADER__Anonymous_e__Union._fields_ = [
+        ('Type', UInt16),
+        ('Length', UInt16),
+    ]
+    ETHERNET_HEADER._anonymous_ = [
+        'Anonymous',
+    ]
+    ETHERNET_HEADER._fields_ = [
+        ('Destination', win32more.Networking.WinSock.DL_EUI48),
+        ('Source', win32more.Networking.WinSock.DL_EUI48),
+        ('Anonymous', ETHERNET_HEADER__Anonymous_e__Union),
+    ]
+    return ETHERNET_HEADER
+eWINDOW_ADVANCE_METHOD = Int32
+E_WINDOW_ADVANCE_BY_TIME = 1
+E_WINDOW_USE_AS_DATA_CACHE = 2
+FALLBACK_INDEX = Int32
+FALLBACK_INDEX_FallbackIndexTcpFastopen = 0
+FALLBACK_INDEX_FallbackIndexMax = 1
+def _define_FD_SET_head():
+    class FD_SET(Structure):
+        pass
+    return FD_SET
+def _define_FD_SET():
+    FD_SET = win32more.Networking.WinSock.FD_SET_head
+    FD_SET._fields_ = [
+        ('fd_count', UInt32),
+        ('fd_array', win32more.Networking.WinSock.SOCKET * 64),
+    ]
+    return FD_SET
+def _define_FLOWSPEC_head():
+    class FLOWSPEC(Structure):
+        pass
+    return FLOWSPEC
+def _define_FLOWSPEC():
+    FLOWSPEC = win32more.Networking.WinSock.FLOWSPEC_head
+    FLOWSPEC._fields_ = [
+        ('TokenRate', UInt32),
+        ('TokenBucketSize', UInt32),
+        ('PeakBandwidth', UInt32),
+        ('Latency', UInt32),
+        ('DelayVariation', UInt32),
+        ('ServiceType', UInt32),
+        ('MaxSduSize', UInt32),
+        ('MinimumPolicedSize', UInt32),
+    ]
+    return FLOWSPEC
+def _define_GROUP_FILTER_head():
+    class GROUP_FILTER(Structure):
+        pass
+    return GROUP_FILTER
+def _define_GROUP_FILTER():
+    GROUP_FILTER = win32more.Networking.WinSock.GROUP_FILTER_head
+    GROUP_FILTER._fields_ = [
+        ('gf_interface', UInt32),
+        ('gf_group', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+        ('gf_fmode', win32more.Networking.WinSock.MULTICAST_MODE_TYPE),
+        ('gf_numsrc', UInt32),
+        ('gf_slist', win32more.Networking.WinSock.SOCKADDR_STORAGE * 1),
+    ]
+    return GROUP_FILTER
+def _define_GROUP_REQ_head():
+    class GROUP_REQ(Structure):
+        pass
+    return GROUP_REQ
+def _define_GROUP_REQ():
+    GROUP_REQ = win32more.Networking.WinSock.GROUP_REQ_head
+    GROUP_REQ._fields_ = [
+        ('gr_interface', UInt32),
+        ('gr_group', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+    ]
+    return GROUP_REQ
+def _define_GROUP_SOURCE_REQ_head():
+    class GROUP_SOURCE_REQ(Structure):
+        pass
+    return GROUP_SOURCE_REQ
+def _define_GROUP_SOURCE_REQ():
+    GROUP_SOURCE_REQ = win32more.Networking.WinSock.GROUP_SOURCE_REQ_head
+    GROUP_SOURCE_REQ._fields_ = [
+        ('gsr_interface', UInt32),
+        ('gsr_group', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+        ('gsr_source', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+    ]
+    return GROUP_SOURCE_REQ
+def _define_HOSTENT_head():
+    class HOSTENT(Structure):
+        pass
+    return HOSTENT
+def _define_HOSTENT():
+    HOSTENT = win32more.Networking.WinSock.HOSTENT_head
+    HOSTENT._fields_ = [
+        ('h_name', win32more.Foundation.PSTR),
+        ('h_aliases', POINTER(POINTER(SByte))),
+        ('h_addrtype', Int16),
+        ('h_length', Int16),
+        ('h_addr_list', POINTER(POINTER(SByte))),
+    ]
+    return HOSTENT
+HWSAEVENT = IntPtr
+def _define_ICMP_ERROR_INFO_head():
+    class ICMP_ERROR_INFO(Structure):
+        pass
+    return ICMP_ERROR_INFO
+def _define_ICMP_ERROR_INFO():
+    ICMP_ERROR_INFO = win32more.Networking.WinSock.ICMP_ERROR_INFO_head
+    ICMP_ERROR_INFO._fields_ = [
+        ('srcaddress', win32more.Networking.WinSock.SOCKADDR_INET),
+        ('protocol', win32more.Networking.WinSock.IPPROTO),
+        ('type', Byte),
+        ('code', Byte),
+    ]
+    return ICMP_ERROR_INFO
+def _define_ICMP_HEADER_head():
+    class ICMP_HEADER(Structure):
+        pass
+    return ICMP_HEADER
+def _define_ICMP_HEADER():
+    ICMP_HEADER = win32more.Networking.WinSock.ICMP_HEADER_head
+    ICMP_HEADER._fields_ = [
+        ('Type', Byte),
+        ('Code', Byte),
+        ('Checksum', UInt16),
+    ]
+    return ICMP_HEADER
+def _define_ICMP_MESSAGE_head():
+    class ICMP_MESSAGE(Structure):
+        pass
+    return ICMP_MESSAGE
+def _define_ICMP_MESSAGE():
+    ICMP_MESSAGE = win32more.Networking.WinSock.ICMP_MESSAGE_head
+    class ICMP_MESSAGE__Data_e__Union(Union):
+        pass
+    ICMP_MESSAGE__Data_e__Union._fields_ = [
+        ('Data32', UInt32 * 1),
+        ('Data16', UInt16 * 2),
+        ('Data8', Byte * 4),
+    ]
+    ICMP_MESSAGE._fields_ = [
+        ('Header', win32more.Networking.WinSock.ICMP_HEADER),
+        ('Data', ICMP_MESSAGE__Data_e__Union),
+    ]
+    return ICMP_MESSAGE
+ICMP4_TIME_EXCEED_CODE = Int32
+ICMP4_TIME_EXCEED_TRANSIT = 0
+ICMP4_TIME_EXCEED_REASSEMBLY = 1
+ICMP4_UNREACH_CODE = Int32
+ICMP4_UNREACH_NET = 0
+ICMP4_UNREACH_HOST = 1
+ICMP4_UNREACH_PROTOCOL = 2
+ICMP4_UNREACH_PORT = 3
+ICMP4_UNREACH_FRAG_NEEDED = 4
+ICMP4_UNREACH_SOURCEROUTE_FAILED = 5
+ICMP4_UNREACH_NET_UNKNOWN = 6
+ICMP4_UNREACH_HOST_UNKNOWN = 7
+ICMP4_UNREACH_ISOLATED = 8
+ICMP4_UNREACH_NET_ADMIN = 9
+ICMP4_UNREACH_HOST_ADMIN = 10
+ICMP4_UNREACH_NET_TOS = 11
+ICMP4_UNREACH_HOST_TOS = 12
+ICMP4_UNREACH_ADMIN = 13
+def _define_ICMPV4_ADDRESS_MASK_MESSAGE_head():
+    class ICMPV4_ADDRESS_MASK_MESSAGE(Structure):
+        pass
+    return ICMPV4_ADDRESS_MASK_MESSAGE
+def _define_ICMPV4_ADDRESS_MASK_MESSAGE():
+    ICMPV4_ADDRESS_MASK_MESSAGE = win32more.Networking.WinSock.ICMPV4_ADDRESS_MASK_MESSAGE_head
+    ICMPV4_ADDRESS_MASK_MESSAGE._fields_ = [
+        ('Header', win32more.Networking.WinSock.ICMP_MESSAGE),
+        ('AddressMask', UInt32),
+    ]
+    return ICMPV4_ADDRESS_MASK_MESSAGE
+def _define_ICMPV4_ROUTER_ADVERT_ENTRY_head():
+    class ICMPV4_ROUTER_ADVERT_ENTRY(Structure):
+        pass
+    return ICMPV4_ROUTER_ADVERT_ENTRY
+def _define_ICMPV4_ROUTER_ADVERT_ENTRY():
+    ICMPV4_ROUTER_ADVERT_ENTRY = win32more.Networking.WinSock.ICMPV4_ROUTER_ADVERT_ENTRY_head
+    ICMPV4_ROUTER_ADVERT_ENTRY._fields_ = [
+        ('RouterAdvertAddr', win32more.Networking.WinSock.IN_ADDR),
+        ('PreferenceLevel', Int32),
+    ]
+    return ICMPV4_ROUTER_ADVERT_ENTRY
+def _define_ICMPV4_ROUTER_ADVERT_HEADER_head():
+    class ICMPV4_ROUTER_ADVERT_HEADER(Structure):
+        pass
+    return ICMPV4_ROUTER_ADVERT_HEADER
+def _define_ICMPV4_ROUTER_ADVERT_HEADER():
+    ICMPV4_ROUTER_ADVERT_HEADER = win32more.Networking.WinSock.ICMPV4_ROUTER_ADVERT_HEADER_head
+    ICMPV4_ROUTER_ADVERT_HEADER._fields_ = [
+        ('RaHeader', win32more.Networking.WinSock.ICMP_MESSAGE),
+    ]
+    return ICMPV4_ROUTER_ADVERT_HEADER
+def _define_ICMPV4_ROUTER_SOLICIT_head():
+    class ICMPV4_ROUTER_SOLICIT(Structure):
+        pass
+    return ICMPV4_ROUTER_SOLICIT
+def _define_ICMPV4_ROUTER_SOLICIT():
+    ICMPV4_ROUTER_SOLICIT = win32more.Networking.WinSock.ICMPV4_ROUTER_SOLICIT_head
+    ICMPV4_ROUTER_SOLICIT._fields_ = [
+        ('RsHeader', win32more.Networking.WinSock.ICMP_MESSAGE),
+    ]
+    return ICMPV4_ROUTER_SOLICIT
+def _define_ICMPV4_TIMESTAMP_MESSAGE_head():
+    class ICMPV4_TIMESTAMP_MESSAGE(Structure):
+        pass
+    return ICMPV4_TIMESTAMP_MESSAGE
+def _define_ICMPV4_TIMESTAMP_MESSAGE():
+    ICMPV4_TIMESTAMP_MESSAGE = win32more.Networking.WinSock.ICMPV4_TIMESTAMP_MESSAGE_head
+    ICMPV4_TIMESTAMP_MESSAGE._fields_ = [
+        ('Header', win32more.Networking.WinSock.ICMP_MESSAGE),
+        ('OriginateTimestamp', UInt32),
+        ('ReceiveTimestamp', UInt32),
+        ('TransmitTimestamp', UInt32),
+    ]
+    return ICMPV4_TIMESTAMP_MESSAGE
+def _define_IGMP_HEADER_head():
+    class IGMP_HEADER(Structure):
+        pass
+    return IGMP_HEADER
+def _define_IGMP_HEADER():
+    IGMP_HEADER = win32more.Networking.WinSock.IGMP_HEADER_head
+    class IGMP_HEADER__Anonymous1_e__Union(Union):
+        pass
+    class IGMP_HEADER__Anonymous1_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IGMP_HEADER__Anonymous1_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IGMP_HEADER__Anonymous1_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IGMP_HEADER__Anonymous1_e__Union._fields_ = [
+        ('Anonymous', IGMP_HEADER__Anonymous1_e__Union__Anonymous_e__Struct),
+        ('VersionType', Byte),
+    ]
+    class IGMP_HEADER__Anonymous2_e__Union(Union):
+        pass
+    IGMP_HEADER__Anonymous2_e__Union._fields_ = [
+        ('Reserved', Byte),
+        ('MaxRespTime', Byte),
+        ('Code', Byte),
+    ]
+    IGMP_HEADER._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+    ]
+    IGMP_HEADER._fields_ = [
+        ('Anonymous1', IGMP_HEADER__Anonymous1_e__Union),
+        ('Anonymous2', IGMP_HEADER__Anonymous2_e__Union),
+        ('Checksum', UInt16),
+        ('MulticastAddress', win32more.Networking.WinSock.IN_ADDR),
+    ]
+    return IGMP_HEADER
+IGMP_MAX_RESP_CODE_TYPE = Int32
+IGMP_MAX_RESP_CODE_TYPE_NORMAL = 0
+IGMP_MAX_RESP_CODE_TYPE_FLOAT = 1
+def _define_IGMPV3_QUERY_HEADER_head():
+    class IGMPV3_QUERY_HEADER(Structure):
+        pass
+    return IGMPV3_QUERY_HEADER
+def _define_IGMPV3_QUERY_HEADER():
+    IGMPV3_QUERY_HEADER = win32more.Networking.WinSock.IGMPV3_QUERY_HEADER_head
+    class IGMPV3_QUERY_HEADER__Anonymous1_e__Union(Union):
+        pass
+    class IGMPV3_QUERY_HEADER__Anonymous1_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IGMPV3_QUERY_HEADER__Anonymous1_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IGMPV3_QUERY_HEADER__Anonymous1_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IGMPV3_QUERY_HEADER__Anonymous1_e__Union._fields_ = [
+        ('MaxRespCode', Byte),
+        ('Anonymous', IGMPV3_QUERY_HEADER__Anonymous1_e__Union__Anonymous_e__Struct),
+    ]
+    class IGMPV3_QUERY_HEADER__Anonymous2_e__Union(Union):
+        pass
+    class IGMPV3_QUERY_HEADER__Anonymous2_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IGMPV3_QUERY_HEADER__Anonymous2_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IGMPV3_QUERY_HEADER__Anonymous2_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IGMPV3_QUERY_HEADER__Anonymous2_e__Union._fields_ = [
+        ('QueriersQueryInterfaceCode', Byte),
+        ('Anonymous', IGMPV3_QUERY_HEADER__Anonymous2_e__Union__Anonymous_e__Struct),
+    ]
+    IGMPV3_QUERY_HEADER._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+    ]
+    IGMPV3_QUERY_HEADER._fields_ = [
+        ('Type', Byte),
+        ('Anonymous1', IGMPV3_QUERY_HEADER__Anonymous1_e__Union),
+        ('Checksum', UInt16),
+        ('MulticastAddress', win32more.Networking.WinSock.IN_ADDR),
+        ('_bitfield', Byte),
+        ('Anonymous2', IGMPV3_QUERY_HEADER__Anonymous2_e__Union),
+        ('SourceCount', UInt16),
+    ]
+    return IGMPV3_QUERY_HEADER
+def _define_IGMPV3_REPORT_HEADER_head():
+    class IGMPV3_REPORT_HEADER(Structure):
+        pass
+    return IGMPV3_REPORT_HEADER
+def _define_IGMPV3_REPORT_HEADER():
+    IGMPV3_REPORT_HEADER = win32more.Networking.WinSock.IGMPV3_REPORT_HEADER_head
+    IGMPV3_REPORT_HEADER._fields_ = [
+        ('Type', Byte),
+        ('Reserved', Byte),
+        ('Checksum', UInt16),
+        ('Reserved2', UInt16),
+        ('RecordCount', UInt16),
+    ]
+    return IGMPV3_REPORT_HEADER
+def _define_IGMPV3_REPORT_RECORD_HEADER_head():
+    class IGMPV3_REPORT_RECORD_HEADER(Structure):
+        pass
+    return IGMPV3_REPORT_RECORD_HEADER
+def _define_IGMPV3_REPORT_RECORD_HEADER():
+    IGMPV3_REPORT_RECORD_HEADER = win32more.Networking.WinSock.IGMPV3_REPORT_RECORD_HEADER_head
+    IGMPV3_REPORT_RECORD_HEADER._fields_ = [
+        ('Type', Byte),
+        ('AuxillaryDataLength', Byte),
+        ('SourceCount', UInt16),
+        ('MulticastAddress', win32more.Networking.WinSock.IN_ADDR),
+    ]
+    return IGMPV3_REPORT_RECORD_HEADER
+def _define_IN_ADDR_head():
+    class IN_ADDR(Structure):
+        pass
+    return IN_ADDR
+def _define_IN_ADDR():
+    IN_ADDR = win32more.Networking.WinSock.IN_ADDR_head
+    class IN_ADDR__S_un_e__Union(Union):
+        pass
+    class IN_ADDR__S_un_e__Union__S_un_b_e__Struct(Structure):
+        pass
+    IN_ADDR__S_un_e__Union__S_un_b_e__Struct._fields_ = [
+        ('s_b1', Byte),
+        ('s_b2', Byte),
+        ('s_b3', Byte),
+        ('s_b4', Byte),
+    ]
+    class IN_ADDR__S_un_e__Union__S_un_w_e__Struct(Structure):
+        pass
+    IN_ADDR__S_un_e__Union__S_un_w_e__Struct._fields_ = [
+        ('s_w1', UInt16),
+        ('s_w2', UInt16),
+    ]
+    IN_ADDR__S_un_e__Union._fields_ = [
+        ('S_un_b', IN_ADDR__S_un_e__Union__S_un_b_e__Struct),
+        ('S_un_w', IN_ADDR__S_un_e__Union__S_un_w_e__Struct),
+        ('S_addr', UInt32),
+    ]
+    IN_ADDR._fields_ = [
+        ('S_un', IN_ADDR__S_un_e__Union),
+    ]
+    return IN_ADDR
+def _define_IN_PKTINFO_head():
+    class IN_PKTINFO(Structure):
+        pass
+    return IN_PKTINFO
+def _define_IN_PKTINFO():
+    IN_PKTINFO = win32more.Networking.WinSock.IN_PKTINFO_head
+    IN_PKTINFO._fields_ = [
+        ('ipi_addr', win32more.Networking.WinSock.IN_ADDR),
+        ('ipi_ifindex', UInt32),
+    ]
+    return IN_PKTINFO
+def _define_IN_PKTINFO_EX_head():
+    class IN_PKTINFO_EX(Structure):
+        pass
+    return IN_PKTINFO_EX
+def _define_IN_PKTINFO_EX():
+    IN_PKTINFO_EX = win32more.Networking.WinSock.IN_PKTINFO_EX_head
+    IN_PKTINFO_EX._fields_ = [
+        ('pkt_info', win32more.Networking.WinSock.IN_PKTINFO),
+        ('scope_id', win32more.Networking.WinSock.SCOPE_ID),
+    ]
+    return IN_PKTINFO_EX
+def _define_IN_RECVERR_head():
+    class IN_RECVERR(Structure):
+        pass
+    return IN_RECVERR
+def _define_IN_RECVERR():
+    IN_RECVERR = win32more.Networking.WinSock.IN_RECVERR_head
+    IN_RECVERR._fields_ = [
+        ('protocol', win32more.Networking.WinSock.IPPROTO),
+        ('info', UInt32),
+        ('type', Byte),
+        ('code', Byte),
+    ]
+    return IN_RECVERR
+def _define_IN6_ADDR_head():
+    class IN6_ADDR(Structure):
+        pass
+    return IN6_ADDR
+def _define_IN6_ADDR():
+    IN6_ADDR = win32more.Networking.WinSock.IN6_ADDR_head
+    class IN6_ADDR__u_e__Union(Union):
+        pass
+    IN6_ADDR__u_e__Union._fields_ = [
+        ('Byte', Byte * 16),
+        ('Word', UInt16 * 8),
+    ]
+    IN6_ADDR._fields_ = [
+        ('u', IN6_ADDR__u_e__Union),
+    ]
+    return IN6_ADDR
+def _define_IN6_PKTINFO_head():
+    class IN6_PKTINFO(Structure):
+        pass
+    return IN6_PKTINFO
+def _define_IN6_PKTINFO():
+    IN6_PKTINFO = win32more.Networking.WinSock.IN6_PKTINFO_head
+    IN6_PKTINFO._fields_ = [
+        ('ipi6_addr', win32more.Networking.WinSock.IN6_ADDR),
+        ('ipi6_ifindex', UInt32),
+    ]
+    return IN6_PKTINFO
+def _define_IN6_PKTINFO_EX_head():
+    class IN6_PKTINFO_EX(Structure):
+        pass
+    return IN6_PKTINFO_EX
+def _define_IN6_PKTINFO_EX():
+    IN6_PKTINFO_EX = win32more.Networking.WinSock.IN6_PKTINFO_EX_head
+    IN6_PKTINFO_EX._fields_ = [
+        ('pkt_info', win32more.Networking.WinSock.IN6_PKTINFO),
+        ('scope_id', win32more.Networking.WinSock.SCOPE_ID),
+    ]
+    return IN6_PKTINFO_EX
+def _define_INET_PORT_RANGE_head():
+    class INET_PORT_RANGE(Structure):
+        pass
+    return INET_PORT_RANGE
+def _define_INET_PORT_RANGE():
+    INET_PORT_RANGE = win32more.Networking.WinSock.INET_PORT_RANGE_head
+    INET_PORT_RANGE._fields_ = [
+        ('StartPort', UInt16),
+        ('NumberOfPorts', UInt16),
+    ]
+    return INET_PORT_RANGE
+def _define_INET_PORT_RESERVATION_INFORMATION_head():
+    class INET_PORT_RESERVATION_INFORMATION(Structure):
+        pass
+    return INET_PORT_RESERVATION_INFORMATION
+def _define_INET_PORT_RESERVATION_INFORMATION():
+    INET_PORT_RESERVATION_INFORMATION = win32more.Networking.WinSock.INET_PORT_RESERVATION_INFORMATION_head
+    INET_PORT_RESERVATION_INFORMATION._fields_ = [
+        ('OwningPid', UInt32),
+    ]
+    return INET_PORT_RESERVATION_INFORMATION
+def _define_INET_PORT_RESERVATION_INSTANCE_head():
+    class INET_PORT_RESERVATION_INSTANCE(Structure):
+        pass
+    return INET_PORT_RESERVATION_INSTANCE
+def _define_INET_PORT_RESERVATION_INSTANCE():
+    INET_PORT_RESERVATION_INSTANCE = win32more.Networking.WinSock.INET_PORT_RESERVATION_INSTANCE_head
+    INET_PORT_RESERVATION_INSTANCE._fields_ = [
+        ('Reservation', win32more.Networking.WinSock.INET_PORT_RANGE),
+        ('Token', win32more.Networking.WinSock.INET_PORT_RESERVATION_TOKEN),
+    ]
+    return INET_PORT_RESERVATION_INSTANCE
+def _define_INET_PORT_RESERVATION_TOKEN_head():
+    class INET_PORT_RESERVATION_TOKEN(Structure):
+        pass
+    return INET_PORT_RESERVATION_TOKEN
+def _define_INET_PORT_RESERVATION_TOKEN():
+    INET_PORT_RESERVATION_TOKEN = win32more.Networking.WinSock.INET_PORT_RESERVATION_TOKEN_head
+    INET_PORT_RESERVATION_TOKEN._fields_ = [
+        ('Token', UInt64),
+    ]
+    return INET_PORT_RESERVATION_TOKEN
+def _define_INTERFACE_INFO_head():
+    class INTERFACE_INFO(Structure):
+        pass
+    return INTERFACE_INFO
+def _define_INTERFACE_INFO():
+    INTERFACE_INFO = win32more.Networking.WinSock.INTERFACE_INFO_head
+    INTERFACE_INFO._fields_ = [
+        ('iiFlags', UInt32),
+        ('iiAddress', win32more.Networking.WinSock.sockaddr_gen),
+        ('iiBroadcastAddress', win32more.Networking.WinSock.sockaddr_gen),
+        ('iiNetmask', win32more.Networking.WinSock.sockaddr_gen),
+    ]
+    return INTERFACE_INFO
+def _define_INTERFACE_INFO_EX_head():
+    class INTERFACE_INFO_EX(Structure):
+        pass
+    return INTERFACE_INFO_EX
+def _define_INTERFACE_INFO_EX():
+    INTERFACE_INFO_EX = win32more.Networking.WinSock.INTERFACE_INFO_EX_head
+    INTERFACE_INFO_EX._fields_ = [
+        ('iiFlags', UInt32),
+        ('iiAddress', win32more.Networking.WinSock.SOCKET_ADDRESS),
+        ('iiBroadcastAddress', win32more.Networking.WinSock.SOCKET_ADDRESS),
+        ('iiNetmask', win32more.Networking.WinSock.SOCKET_ADDRESS),
+    ]
+    return INTERFACE_INFO_EX
+def _define_IP_MREQ_head():
+    class IP_MREQ(Structure):
+        pass
+    return IP_MREQ
+def _define_IP_MREQ():
+    IP_MREQ = win32more.Networking.WinSock.IP_MREQ_head
+    IP_MREQ._fields_ = [
+        ('imr_multiaddr', win32more.Networking.WinSock.IN_ADDR),
+        ('imr_interface', win32more.Networking.WinSock.IN_ADDR),
+    ]
+    return IP_MREQ
+def _define_IP_MREQ_SOURCE_head():
+    class IP_MREQ_SOURCE(Structure):
+        pass
+    return IP_MREQ_SOURCE
+def _define_IP_MREQ_SOURCE():
+    IP_MREQ_SOURCE = win32more.Networking.WinSock.IP_MREQ_SOURCE_head
+    IP_MREQ_SOURCE._fields_ = [
+        ('imr_multiaddr', win32more.Networking.WinSock.IN_ADDR),
+        ('imr_sourceaddr', win32more.Networking.WinSock.IN_ADDR),
+        ('imr_interface', win32more.Networking.WinSock.IN_ADDR),
+    ]
+    return IP_MREQ_SOURCE
+def _define_IP_MSFILTER_head():
+    class IP_MSFILTER(Structure):
+        pass
+    return IP_MSFILTER
+def _define_IP_MSFILTER():
+    IP_MSFILTER = win32more.Networking.WinSock.IP_MSFILTER_head
+    IP_MSFILTER._fields_ = [
+        ('imsf_multiaddr', win32more.Networking.WinSock.IN_ADDR),
+        ('imsf_interface', win32more.Networking.WinSock.IN_ADDR),
+        ('imsf_fmode', win32more.Networking.WinSock.MULTICAST_MODE_TYPE),
+        ('imsf_numsrc', UInt32),
+        ('imsf_slist', win32more.Networking.WinSock.IN_ADDR * 1),
+    ]
+    return IP_MSFILTER
+IP_OPTION_TIMESTAMP_FLAGS = Int32
+IP_OPTION_TIMESTAMP_ONLY = 0
+IP_OPTION_TIMESTAMP_ADDRESS = 1
+IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS = 3
+IPPROTO = Int32
+IPPROTO_HOPOPTS = 0
+IPPROTO_ICMP = 1
+IPPROTO_IGMP = 2
+IPPROTO_GGP = 3
+IPPROTO_IPV4 = 4
+IPPROTO_ST = 5
+IPPROTO_TCP = 6
+IPPROTO_CBT = 7
+IPPROTO_EGP = 8
+IPPROTO_IGP = 9
+IPPROTO_PUP = 12
+IPPROTO_UDP = 17
+IPPROTO_IDP = 22
+IPPROTO_RDP = 27
+IPPROTO_IPV6 = 41
+IPPROTO_ROUTING = 43
+IPPROTO_FRAGMENT = 44
+IPPROTO_ESP = 50
+IPPROTO_AH = 51
+IPPROTO_ICMPV6 = 58
+IPPROTO_NONE = 59
+IPPROTO_DSTOPTS = 60
+IPPROTO_ND = 77
+IPPROTO_ICLFXBM = 78
+IPPROTO_PIM = 103
+IPPROTO_PGM = 113
+IPPROTO_L2TP = 115
+IPPROTO_SCTP = 132
+IPPROTO_RAW = 255
+IPPROTO_MAX = 256
+IPPROTO_RESERVED_RAW = 257
+IPPROTO_RESERVED_IPSEC = 258
+IPPROTO_RESERVED_IPSECOFFLOAD = 259
+IPPROTO_RESERVED_WNV = 260
+IPPROTO_RESERVED_MAX = 261
+def _define_IPTLS_METADATA_head():
+    class IPTLS_METADATA(Structure):
+        pass
+    return IPTLS_METADATA
+def _define_IPTLS_METADATA():
+    IPTLS_METADATA = win32more.Networking.WinSock.IPTLS_METADATA_head
+    IPTLS_METADATA._pack_ = 1
+    IPTLS_METADATA._fields_ = [
+        ('SequenceNumber', UInt64),
+    ]
+    return IPTLS_METADATA
+def _define_IPV4_HEADER_head():
+    class IPV4_HEADER(Structure):
+        pass
+    return IPV4_HEADER
+def _define_IPV4_HEADER():
+    IPV4_HEADER = win32more.Networking.WinSock.IPV4_HEADER_head
+    class IPV4_HEADER__Anonymous1_e__Union(Union):
+        pass
+    class IPV4_HEADER__Anonymous1_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV4_HEADER__Anonymous1_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IPV4_HEADER__Anonymous1_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_HEADER__Anonymous1_e__Union._fields_ = [
+        ('VersionAndHeaderLength', Byte),
+        ('Anonymous', IPV4_HEADER__Anonymous1_e__Union__Anonymous_e__Struct),
+    ]
+    class IPV4_HEADER__Anonymous2_e__Union(Union):
+        pass
+    class IPV4_HEADER__Anonymous2_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV4_HEADER__Anonymous2_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IPV4_HEADER__Anonymous2_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_HEADER__Anonymous2_e__Union._fields_ = [
+        ('TypeOfServiceAndEcnField', Byte),
+        ('Anonymous', IPV4_HEADER__Anonymous2_e__Union__Anonymous_e__Struct),
+    ]
+    class IPV4_HEADER__Anonymous3_e__Union(Union):
+        pass
+    class IPV4_HEADER__Anonymous3_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV4_HEADER__Anonymous3_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt16),
+    ]
+    IPV4_HEADER__Anonymous3_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_HEADER__Anonymous3_e__Union._fields_ = [
+        ('FlagsAndOffset', UInt16),
+        ('Anonymous', IPV4_HEADER__Anonymous3_e__Union__Anonymous_e__Struct),
+    ]
+    IPV4_HEADER._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+        'Anonymous3',
+    ]
+    IPV4_HEADER._fields_ = [
+        ('Anonymous1', IPV4_HEADER__Anonymous1_e__Union),
+        ('Anonymous2', IPV4_HEADER__Anonymous2_e__Union),
+        ('TotalLength', UInt16),
+        ('Identification', UInt16),
+        ('Anonymous3', IPV4_HEADER__Anonymous3_e__Union),
+        ('TimeToLive', Byte),
+        ('Protocol', Byte),
+        ('HeaderChecksum', UInt16),
+        ('SourceAddress', win32more.Networking.WinSock.IN_ADDR),
+        ('DestinationAddress', win32more.Networking.WinSock.IN_ADDR),
+    ]
+    return IPV4_HEADER
+def _define_IPV4_OPTION_HEADER_head():
+    class IPV4_OPTION_HEADER(Structure):
+        pass
+    return IPV4_OPTION_HEADER
+def _define_IPV4_OPTION_HEADER():
+    IPV4_OPTION_HEADER = win32more.Networking.WinSock.IPV4_OPTION_HEADER_head
+    class IPV4_OPTION_HEADER__Anonymous_e__Union(Union):
+        pass
+    class IPV4_OPTION_HEADER__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV4_OPTION_HEADER__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IPV4_OPTION_HEADER__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_OPTION_HEADER__Anonymous_e__Union._fields_ = [
+        ('OptionType', Byte),
+        ('Anonymous', IPV4_OPTION_HEADER__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    IPV4_OPTION_HEADER._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_OPTION_HEADER._fields_ = [
+        ('Anonymous', IPV4_OPTION_HEADER__Anonymous_e__Union),
+        ('OptionLength', Byte),
+    ]
+    return IPV4_OPTION_HEADER
+IPV4_OPTION_TYPE = Int32
+IP_OPT_EOL = 0
+IP_OPT_NOP = 1
+IP_OPT_SECURITY = 130
+IP_OPT_LSRR = 131
+IP_OPT_TS = 68
+IP_OPT_RR = 7
+IP_OPT_SSRR = 137
+IP_OPT_SID = 136
+IP_OPT_ROUTER_ALERT = 148
+IP_OPT_MULTIDEST = 149
+def _define_IPV4_ROUTING_HEADER_head():
+    class IPV4_ROUTING_HEADER(Structure):
+        pass
+    return IPV4_ROUTING_HEADER
+def _define_IPV4_ROUTING_HEADER():
+    IPV4_ROUTING_HEADER = win32more.Networking.WinSock.IPV4_ROUTING_HEADER_head
+    IPV4_ROUTING_HEADER._fields_ = [
+        ('OptionHeader', win32more.Networking.WinSock.IPV4_OPTION_HEADER),
+        ('Pointer', Byte),
+    ]
+    return IPV4_ROUTING_HEADER
+def _define_IPV4_TIMESTAMP_OPTION_head():
+    class IPV4_TIMESTAMP_OPTION(Structure):
+        pass
+    return IPV4_TIMESTAMP_OPTION
+def _define_IPV4_TIMESTAMP_OPTION():
+    IPV4_TIMESTAMP_OPTION = win32more.Networking.WinSock.IPV4_TIMESTAMP_OPTION_head
+    class IPV4_TIMESTAMP_OPTION__Anonymous_e__Union(Union):
+        pass
+    class IPV4_TIMESTAMP_OPTION__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV4_TIMESTAMP_OPTION__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IPV4_TIMESTAMP_OPTION__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_TIMESTAMP_OPTION__Anonymous_e__Union._fields_ = [
+        ('FlagsOverflow', Byte),
+        ('Anonymous', IPV4_TIMESTAMP_OPTION__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    IPV4_TIMESTAMP_OPTION._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV4_TIMESTAMP_OPTION._fields_ = [
+        ('OptionHeader', win32more.Networking.WinSock.IPV4_OPTION_HEADER),
+        ('Pointer', Byte),
+        ('Anonymous', IPV4_TIMESTAMP_OPTION__Anonymous_e__Union),
+    ]
+    return IPV4_TIMESTAMP_OPTION
+def _define_IPV6_EXTENSION_HEADER_head():
+    class IPV6_EXTENSION_HEADER(Structure):
+        pass
+    return IPV6_EXTENSION_HEADER
+def _define_IPV6_EXTENSION_HEADER():
+    IPV6_EXTENSION_HEADER = win32more.Networking.WinSock.IPV6_EXTENSION_HEADER_head
+    IPV6_EXTENSION_HEADER._fields_ = [
+        ('NextHeader', Byte),
+        ('Length', Byte),
+    ]
+    return IPV6_EXTENSION_HEADER
+def _define_IPV6_FRAGMENT_HEADER_head():
+    class IPV6_FRAGMENT_HEADER(Structure):
+        pass
+    return IPV6_FRAGMENT_HEADER
+def _define_IPV6_FRAGMENT_HEADER():
+    IPV6_FRAGMENT_HEADER = win32more.Networking.WinSock.IPV6_FRAGMENT_HEADER_head
+    class IPV6_FRAGMENT_HEADER__Anonymous_e__Union(Union):
+        pass
+    class IPV6_FRAGMENT_HEADER__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV6_FRAGMENT_HEADER__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt16),
+    ]
+    IPV6_FRAGMENT_HEADER__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV6_FRAGMENT_HEADER__Anonymous_e__Union._fields_ = [
+        ('Anonymous', IPV6_FRAGMENT_HEADER__Anonymous_e__Union__Anonymous_e__Struct),
+        ('OffsetAndFlags', UInt16),
+    ]
+    IPV6_FRAGMENT_HEADER._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV6_FRAGMENT_HEADER._fields_ = [
+        ('NextHeader', Byte),
+        ('Reserved', Byte),
+        ('Anonymous', IPV6_FRAGMENT_HEADER__Anonymous_e__Union),
+        ('Id', UInt32),
+    ]
+    return IPV6_FRAGMENT_HEADER
+def _define_IPV6_HEADER_head():
+    class IPV6_HEADER(Structure):
+        pass
+    return IPV6_HEADER
+def _define_IPV6_HEADER():
+    IPV6_HEADER = win32more.Networking.WinSock.IPV6_HEADER_head
+    class IPV6_HEADER__Anonymous_e__Union(Union):
+        pass
+    class IPV6_HEADER__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    IPV6_HEADER__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    IPV6_HEADER__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV6_HEADER__Anonymous_e__Union._fields_ = [
+        ('VersionClassFlow', UInt32),
+        ('Anonymous', IPV6_HEADER__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    IPV6_HEADER._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV6_HEADER._fields_ = [
+        ('Anonymous', IPV6_HEADER__Anonymous_e__Union),
+        ('PayloadLength', UInt16),
+        ('NextHeader', Byte),
+        ('HopLimit', Byte),
+        ('SourceAddress', win32more.Networking.WinSock.IN6_ADDR),
+        ('DestinationAddress', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return IPV6_HEADER
+def _define_IPV6_MREQ_head():
+    class IPV6_MREQ(Structure):
+        pass
+    return IPV6_MREQ
+def _define_IPV6_MREQ():
+    IPV6_MREQ = win32more.Networking.WinSock.IPV6_MREQ_head
+    IPV6_MREQ._fields_ = [
+        ('ipv6mr_multiaddr', win32more.Networking.WinSock.IN6_ADDR),
+        ('ipv6mr_interface', UInt32),
+    ]
+    return IPV6_MREQ
+def _define_IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS_head():
+    class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS(Union):
+        pass
+    return IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS
+def _define_IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS():
+    IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS = win32more.Networking.WinSock.IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS_head
+    class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS__Anonymous_e__Struct(Structure):
+        pass
+    IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+        ('Reserved2', Byte * 3),
+    ]
+    IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS._fields_ = [
+        ('Anonymous', IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS__Anonymous_e__Struct),
+        ('Value', UInt32),
+    ]
+    return IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS
+def _define_IPV6_OPTION_HEADER_head():
+    class IPV6_OPTION_HEADER(Structure):
+        pass
+    return IPV6_OPTION_HEADER
+def _define_IPV6_OPTION_HEADER():
+    IPV6_OPTION_HEADER = win32more.Networking.WinSock.IPV6_OPTION_HEADER_head
+    IPV6_OPTION_HEADER._fields_ = [
+        ('Type', Byte),
+        ('DataLength', Byte),
+    ]
+    return IPV6_OPTION_HEADER
+def _define_IPV6_OPTION_JUMBOGRAM_head():
+    class IPV6_OPTION_JUMBOGRAM(Structure):
+        pass
+    return IPV6_OPTION_JUMBOGRAM
+def _define_IPV6_OPTION_JUMBOGRAM():
+    IPV6_OPTION_JUMBOGRAM = win32more.Networking.WinSock.IPV6_OPTION_JUMBOGRAM_head
+    IPV6_OPTION_JUMBOGRAM._fields_ = [
+        ('Header', win32more.Networking.WinSock.IPV6_OPTION_HEADER),
+        ('JumbogramLength', Byte * 4),
+    ]
+    return IPV6_OPTION_JUMBOGRAM
+def _define_IPV6_OPTION_ROUTER_ALERT_head():
+    class IPV6_OPTION_ROUTER_ALERT(Structure):
+        pass
+    return IPV6_OPTION_ROUTER_ALERT
+def _define_IPV6_OPTION_ROUTER_ALERT():
+    IPV6_OPTION_ROUTER_ALERT = win32more.Networking.WinSock.IPV6_OPTION_ROUTER_ALERT_head
+    IPV6_OPTION_ROUTER_ALERT._fields_ = [
+        ('Header', win32more.Networking.WinSock.IPV6_OPTION_HEADER),
+        ('Value', Byte * 2),
+    ]
+    return IPV6_OPTION_ROUTER_ALERT
+IPV6_OPTION_TYPE = Int32
+IP6OPT_PAD1 = 0
+IP6OPT_PADN = 1
+IP6OPT_TUNNEL_LIMIT = 4
+IP6OPT_ROUTER_ALERT = 5
+IP6OPT_JUMBO = 194
+IP6OPT_NSAP_ADDR = 195
+def _define_IPV6_ROUTER_ADVERTISEMENT_FLAGS_head():
+    class IPV6_ROUTER_ADVERTISEMENT_FLAGS(Union):
+        pass
+    return IPV6_ROUTER_ADVERTISEMENT_FLAGS
+def _define_IPV6_ROUTER_ADVERTISEMENT_FLAGS():
+    IPV6_ROUTER_ADVERTISEMENT_FLAGS = win32more.Networking.WinSock.IPV6_ROUTER_ADVERTISEMENT_FLAGS_head
+    class IPV6_ROUTER_ADVERTISEMENT_FLAGS__Anonymous_e__Struct(Structure):
+        pass
+    IPV6_ROUTER_ADVERTISEMENT_FLAGS__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    IPV6_ROUTER_ADVERTISEMENT_FLAGS._anonymous_ = [
+        'Anonymous',
+    ]
+    IPV6_ROUTER_ADVERTISEMENT_FLAGS._fields_ = [
+        ('Anonymous', IPV6_ROUTER_ADVERTISEMENT_FLAGS__Anonymous_e__Struct),
+        ('Value', Byte),
+    ]
+    return IPV6_ROUTER_ADVERTISEMENT_FLAGS
+def _define_IPV6_ROUTING_HEADER_head():
+    class IPV6_ROUTING_HEADER(Structure):
+        pass
+    return IPV6_ROUTING_HEADER
+def _define_IPV6_ROUTING_HEADER():
+    IPV6_ROUTING_HEADER = win32more.Networking.WinSock.IPV6_ROUTING_HEADER_head
+    IPV6_ROUTING_HEADER._fields_ = [
+        ('NextHeader', Byte),
+        ('Length', Byte),
+        ('RoutingType', Byte),
+        ('SegmentsLeft', Byte),
+        ('Reserved', Byte * 4),
+    ]
+    return IPV6_ROUTING_HEADER
+def _define_IPX_ADDRESS_DATA_head():
+    class IPX_ADDRESS_DATA(Structure):
+        pass
+    return IPX_ADDRESS_DATA
+def _define_IPX_ADDRESS_DATA():
+    IPX_ADDRESS_DATA = win32more.Networking.WinSock.IPX_ADDRESS_DATA_head
+    IPX_ADDRESS_DATA._fields_ = [
+        ('adapternum', Int32),
+        ('netnum', Byte * 4),
+        ('nodenum', Byte * 6),
+        ('wan', win32more.Foundation.BOOLEAN),
+        ('status', win32more.Foundation.BOOLEAN),
+        ('maxpkt', Int32),
+        ('linkspeed', UInt32),
+    ]
+    return IPX_ADDRESS_DATA
+def _define_IPX_NETNUM_DATA_head():
+    class IPX_NETNUM_DATA(Structure):
+        pass
+    return IPX_NETNUM_DATA
+def _define_IPX_NETNUM_DATA():
+    IPX_NETNUM_DATA = win32more.Networking.WinSock.IPX_NETNUM_DATA_head
+    IPX_NETNUM_DATA._fields_ = [
+        ('netnum', Byte * 4),
+        ('hopcount', UInt16),
+        ('netdelay', UInt16),
+        ('cardnum', Int32),
+        ('router', Byte * 6),
+    ]
+    return IPX_NETNUM_DATA
+def _define_IPX_SPXCONNSTATUS_DATA_head():
+    class IPX_SPXCONNSTATUS_DATA(Structure):
+        pass
+    return IPX_SPXCONNSTATUS_DATA
+def _define_IPX_SPXCONNSTATUS_DATA():
+    IPX_SPXCONNSTATUS_DATA = win32more.Networking.WinSock.IPX_SPXCONNSTATUS_DATA_head
+    IPX_SPXCONNSTATUS_DATA._fields_ = [
+        ('ConnectionState', Byte),
+        ('WatchDogActive', Byte),
+        ('LocalConnectionId', UInt16),
+        ('RemoteConnectionId', UInt16),
+        ('LocalSequenceNumber', UInt16),
+        ('LocalAckNumber', UInt16),
+        ('LocalAllocNumber', UInt16),
+        ('RemoteAckNumber', UInt16),
+        ('RemoteAllocNumber', UInt16),
+        ('LocalSocket', UInt16),
+        ('ImmediateAddress', Byte * 6),
+        ('RemoteNetwork', Byte * 4),
+        ('RemoteNode', Byte * 6),
+        ('RemoteSocket', UInt16),
+        ('RetransmissionCount', UInt16),
+        ('EstimatedRoundTripDelay', UInt16),
+        ('RetransmittedPackets', UInt16),
+        ('SuppressedPacket', UInt16),
+    ]
+    return IPX_SPXCONNSTATUS_DATA
+def _define_LINGER_head():
+    class LINGER(Structure):
+        pass
+    return LINGER
+def _define_LINGER():
+    LINGER = win32more.Networking.WinSock.LINGER_head
+    LINGER._fields_ = [
+        ('l_onoff', UInt16),
+        ('l_linger', UInt16),
+    ]
+    return LINGER
+def _define_LM_IRPARMS_head():
+    class LM_IRPARMS(Structure):
+        pass
+    return LM_IRPARMS
+def _define_LM_IRPARMS():
+    LM_IRPARMS = win32more.Networking.WinSock.LM_IRPARMS_head
+    LM_IRPARMS._fields_ = [
+        ('nTXDataBytes', UInt32),
+        ('nRXDataBytes', UInt32),
+        ('nBaudRate', UInt32),
+        ('thresholdTime', UInt32),
+        ('discTime', UInt32),
+        ('nMSLinkTurn', UInt16),
+        ('nTXPackets', Byte),
+        ('nRXPackets', Byte),
+    ]
+    return LM_IRPARMS
+def _define_LPBLOCKINGCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,UIntPtr)
+def _define_LPCONDITIONPROC():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(UInt32),UIntPtr)
+def _define_LPFN_ACCEPTEX():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,c_void_p,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head))
+def _define_LPFN_CONNECTEX():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head))
+def _define_LPFN_DISCONNECTEX():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32,UInt32)
+def _define_LPFN_GETACCEPTEXSOCKADDRS():
+    return WINFUNCTYPE(Void,c_void_p,UInt32,UInt32,UInt32,POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32),POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32))
+def _define_LPFN_NSPAPI():
+    return WINFUNCTYPE(UInt32,)
+def _define_LPFN_RIOCLOSECOMPLETIONQUEUE():
+    return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head))
+def _define_LPFN_RIOCREATECOMPLETIONQUEUE():
+    return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),UInt32,POINTER(win32more.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head))
+def _define_LPFN_RIOCREATEREQUESTQUEUE():
+    return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),win32more.Networking.WinSock.SOCKET,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),c_void_p)
+def _define_LPFN_RIODEQUEUECOMPLETION():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),POINTER(win32more.Networking.WinSock.RIORESULT_head),UInt32)
+def _define_LPFN_RIODEREGISTERBUFFER():
+    return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head))
+def _define_LPFN_RIONOTIFY():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head))
+def _define_LPFN_RIORECEIVE():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,UInt32,c_void_p)
+def _define_LPFN_RIORECEIVEEX():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,c_void_p)
+def _define_LPFN_RIOREGISTERBUFFER():
+    return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head),win32more.Foundation.PSTR,UInt32)
+def _define_LPFN_RIORESIZECOMPLETIONQUEUE():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),UInt32)
+def _define_LPFN_RIORESIZEREQUESTQUEUE():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),UInt32,UInt32)
+def _define_LPFN_RIOSEND():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,UInt32,c_void_p)
+def _define_LPFN_RIOSENDEX():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,c_void_p)
+def _define_LPFN_TRANSMITFILE():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(win32more.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head),UInt32)
+def _define_LPFN_TRANSMITPACKETS():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.TRANSMIT_PACKETS_ELEMENT_head),UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32)
+def _define_LPFN_WSAPOLL():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAPOLLFD_head),UInt32,Int32)
+def _define_LPFN_WSARECVMSG():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSAMSG_head),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)
+def _define_LPFN_WSASENDMSG():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSAMSG_head),UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE)
+def _define_LPLOOKUPSERVICE_COMPLETION_ROUTINE():
+    return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head))
+def _define_LPNSPCLEANUP():
+    return WINFUNCTYPE(Int32,POINTER(Guid))
+def _define_LPNSPGETSERVICECLASSINFO():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head))
+def _define_LPNSPINSTALLSERVICECLASS():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head))
+def _define_LPNSPIOCTL():
+    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSACOMPLETION_head),POINTER(win32more.Networking.WinSock.WSATHREADID_head))
+def _define_LPNSPLOOKUPSERVICEBEGIN():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head),UInt32,POINTER(win32more.Foundation.HANDLE))
+def _define_LPNSPLOOKUPSERVICEEND():
+    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)
+def _define_LPNSPLOOKUPSERVICENEXT():
+    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head))
+def _define_LPNSPREMOVESERVICECLASS():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Guid))
+def _define_LPNSPSETSERVICE():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32)
+def _define_LPNSPSTARTUP():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.NSP_ROUTINE_head))
+def _define_LPNSPV2CLEANUP():
+    return WINFUNCTYPE(Int32,POINTER(Guid),c_void_p)
+def _define_LPNSPV2CLIENTSESSIONRUNDOWN():
+    return WINFUNCTYPE(Void,POINTER(Guid),c_void_p)
+def _define_LPNSPV2LOOKUPSERVICEBEGIN():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSAQUERYSET2W_head),UInt32,c_void_p,POINTER(win32more.Foundation.HANDLE))
+def _define_LPNSPV2LOOKUPSERVICEEND():
+    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)
+def _define_LPNSPV2LOOKUPSERVICENEXTEX():
+    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSET2W_head))
+def _define_LPNSPV2SETSERVICEEX():
+    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSAQUERYSET2W_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32,c_void_p)
+def _define_LPNSPV2STARTUP():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(c_void_p))
+def _define_LPSERVICE_CALLBACK_PROC():
+    return WINFUNCTYPE(Void,win32more.Foundation.LPARAM,win32more.Foundation.HANDLE)
+def _define_LPWPUCLOSEEVENT():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int32))
+def _define_LPWPUCLOSESOCKETHANDLE():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(Int32))
+def _define_LPWPUCLOSETHREAD():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWPUCOMPLETEOVERLAPPEDREQUEST():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32,UInt32,POINTER(Int32))
+def _define_LPWPUCREATEEVENT():
+    return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(Int32))
+def _define_LPWPUCREATESOCKETHANDLE():
+    return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,UInt32,UIntPtr,POINTER(Int32))
+def _define_LPWPUFDISSET():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.FD_SET_head))
+def _define_LPWPUGETPROVIDERPATH():
+    return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Int32),POINTER(Int32))
+def _define_LPWPUMODIFYIFSHANDLE():
+    return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,UInt32,win32more.Networking.WinSock.SOCKET,POINTER(Int32))
+def _define_LPWPUOPENCURRENTTHREAD():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWPUPOSTMESSAGE():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
+def _define_LPWPUQUERYBLOCKINGCALLBACK():
+    return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Networking.WinSock.LPBLOCKINGCALLBACK),POINTER(UIntPtr),POINTER(Int32))
+def _define_LPWPUQUERYSOCKETHANDLECONTEXT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(UIntPtr),POINTER(Int32))
+def _define_LPWPUQUEUEAPC():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSATHREADID_head),win32more.Networking.WinSock.LPWSAUSERAPC,UIntPtr,POINTER(Int32))
+def _define_LPWPURESETEVENT():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int32))
+def _define_LPWPUSETEVENT():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int32))
+def _define_LPWSAOVERLAPPED_COMPLETION_ROUTINE():
+    return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32)
+def _define_LPWSAUSERAPC():
+    return WINFUNCTYPE(Void,UIntPtr)
+def _define_LPWSCDEINSTALLPROVIDER():
+    return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Int32))
+def _define_LPWSCENABLENSPROVIDER():
+    return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.BOOL)
+def _define_LPWSCENUMPROTOCOLS():
+    return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32),POINTER(Int32))
+def _define_LPWSCGETPROVIDERPATH():
+    return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Int32),POINTER(Int32))
+def _define_LPWSCINSTALLNAMESPACE():
+    return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid))
+def _define_LPWSCINSTALLPROVIDER():
+    return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(Int32))
+def _define_LPWSCUNINSTALLNAMESPACE():
+    return WINFUNCTYPE(Int32,POINTER(Guid))
+def _define_LPWSCUPDATEPROVIDER():
+    return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,POINTER(Int32))
+def _define_LPWSCWRITENAMESPACEORDER():
+    return WINFUNCTYPE(Int32,POINTER(Guid),UInt32)
+def _define_LPWSCWRITEPROVIDERORDER():
+    return WINFUNCTYPE(Int32,POINTER(UInt32),UInt32)
+def _define_LPWSPACCEPT():
+    return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),win32more.Networking.WinSock.LPCONDITIONPROC,UIntPtr,POINTER(Int32))
+def _define_LPWSPADDRESSTOSTRING():
+    return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(Int32))
+def _define_LPWSPASYNCSELECT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HWND,UInt32,Int32,POINTER(Int32))
+def _define_LPWSPBIND():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(Int32))
+def _define_LPWSPCANCELBLOCKINGCALL():
+    return WINFUNCTYPE(Int32,POINTER(Int32))
+def _define_LPWSPCLEANUP():
+    return WINFUNCTYPE(Int32,POINTER(Int32))
+def _define_LPWSPCLOSESOCKET():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(Int32))
+def _define_LPWSPCONNECT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(Int32))
+def _define_LPWSPDUPLICATESOCKET():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(Int32))
+def _define_LPWSPENUMNETWORKEVENTS():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinSock.WSANETWORKEVENTS_head),POINTER(Int32))
+def _define_LPWSPEVENTSELECT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,Int32,POINTER(Int32))
+def _define_LPWSPGETOVERLAPPEDRESULT():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Int32))
+def _define_LPWSPGETPEERNAME():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(Int32))
+def _define_LPWSPGETQOSBYNAME():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(Int32))
+def _define_LPWSPGETSOCKNAME():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(Int32))
+def _define_LPWSPGETSOCKOPT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,POINTER(Int32),POINTER(Int32))
+def _define_LPWSPIOCTL():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWSPJOINLEAF():
+    return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.QOS_head),POINTER(win32more.Networking.WinSock.QOS_head),UInt32,POINTER(Int32))
+def _define_LPWSPLISTEN():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,POINTER(Int32))
+def _define_LPWSPRECV():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWSPRECVDISCONNECT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(Int32))
+def _define_LPWSPRECVFROM():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWSPSELECT():
+    return WINFUNCTYPE(Int32,Int32,POINTER(win32more.Networking.WinSock.FD_SET_head),POINTER(win32more.Networking.WinSock.FD_SET_head),POINTER(win32more.Networking.WinSock.FD_SET_head),POINTER(win32more.Networking.WinSock.TIMEVAL_head),POINTER(Int32))
+def _define_LPWSPSEND():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWSPSENDDISCONNECT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(Int32))
+def _define_LPWSPSENDTO():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32))
+def _define_LPWSPSETSOCKOPT():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,Int32,POINTER(Int32))
+def _define_LPWSPSHUTDOWN():
+    return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,POINTER(Int32))
+def _define_LPWSPSOCKET():
+    return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,UInt32,POINTER(Int32))
+def _define_LPWSPSTARTUP():
+    return WINFUNCTYPE(Int32,UInt16,POINTER(win32more.Networking.WinSock.WSPDATA_head),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),win32more.Networking.WinSock.WSPUPCALLTABLE,POINTER(win32more.Networking.WinSock.WSPPROC_TABLE_head))
+def _define_LPWSPSTRINGTOADDRESS():
+    return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(Int32))
+def _define_MLD_HEADER_head():
+    class MLD_HEADER(Structure):
+        pass
+    return MLD_HEADER
+def _define_MLD_HEADER():
+    MLD_HEADER = win32more.Networking.WinSock.MLD_HEADER_head
+    MLD_HEADER._fields_ = [
+        ('IcmpHeader', win32more.Networking.WinSock.ICMP_HEADER),
+        ('MaxRespTime', UInt16),
+        ('Reserved', UInt16),
+        ('MulticastAddress', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return MLD_HEADER
+MLD_MAX_RESP_CODE_TYPE = Int32
+MLD_MAX_RESP_CODE_TYPE_NORMAL = 0
+MLD_MAX_RESP_CODE_TYPE_FLOAT = 1
+def _define_MLDV2_QUERY_HEADER_head():
+    class MLDV2_QUERY_HEADER(Structure):
+        pass
+    return MLDV2_QUERY_HEADER
+def _define_MLDV2_QUERY_HEADER():
+    MLDV2_QUERY_HEADER = win32more.Networking.WinSock.MLDV2_QUERY_HEADER_head
+    class MLDV2_QUERY_HEADER__Anonymous1_e__Union(Union):
+        pass
+    class MLDV2_QUERY_HEADER__Anonymous1_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    MLDV2_QUERY_HEADER__Anonymous1_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt16),
+    ]
+    MLDV2_QUERY_HEADER__Anonymous1_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    MLDV2_QUERY_HEADER__Anonymous1_e__Union._fields_ = [
+        ('MaxRespCode', UInt16),
+        ('Anonymous', MLDV2_QUERY_HEADER__Anonymous1_e__Union__Anonymous_e__Struct),
+    ]
+    class MLDV2_QUERY_HEADER__Anonymous2_e__Union(Union):
+        pass
+    class MLDV2_QUERY_HEADER__Anonymous2_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    MLDV2_QUERY_HEADER__Anonymous2_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    MLDV2_QUERY_HEADER__Anonymous2_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    MLDV2_QUERY_HEADER__Anonymous2_e__Union._fields_ = [
+        ('QueriersQueryInterfaceCode', Byte),
+        ('Anonymous', MLDV2_QUERY_HEADER__Anonymous2_e__Union__Anonymous_e__Struct),
+    ]
+    MLDV2_QUERY_HEADER._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+    ]
+    MLDV2_QUERY_HEADER._fields_ = [
+        ('IcmpHeader', win32more.Networking.WinSock.ICMP_HEADER),
+        ('Anonymous1', MLDV2_QUERY_HEADER__Anonymous1_e__Union),
+        ('Reserved', UInt16),
+        ('MulticastAddress', win32more.Networking.WinSock.IN6_ADDR),
+        ('_bitfield', Byte),
+        ('Anonymous2', MLDV2_QUERY_HEADER__Anonymous2_e__Union),
+        ('SourceCount', UInt16),
+    ]
+    return MLDV2_QUERY_HEADER
+def _define_MLDV2_REPORT_HEADER_head():
+    class MLDV2_REPORT_HEADER(Structure):
+        pass
+    return MLDV2_REPORT_HEADER
+def _define_MLDV2_REPORT_HEADER():
+    MLDV2_REPORT_HEADER = win32more.Networking.WinSock.MLDV2_REPORT_HEADER_head
+    MLDV2_REPORT_HEADER._fields_ = [
+        ('IcmpHeader', win32more.Networking.WinSock.ICMP_HEADER),
+        ('Reserved', UInt16),
+        ('RecordCount', UInt16),
+    ]
+    return MLDV2_REPORT_HEADER
+def _define_MLDV2_REPORT_RECORD_HEADER_head():
+    class MLDV2_REPORT_RECORD_HEADER(Structure):
+        pass
+    return MLDV2_REPORT_RECORD_HEADER
+def _define_MLDV2_REPORT_RECORD_HEADER():
+    MLDV2_REPORT_RECORD_HEADER = win32more.Networking.WinSock.MLDV2_REPORT_RECORD_HEADER_head
+    MLDV2_REPORT_RECORD_HEADER._fields_ = [
+        ('Type', Byte),
+        ('AuxillaryDataLength', Byte),
+        ('SourceCount', UInt16),
+        ('MulticastAddress', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return MLDV2_REPORT_RECORD_HEADER
+MULTICAST_MODE_TYPE = Int32
+MCAST_INCLUDE = 0
+MCAST_EXCLUDE = 1
+def _define_NAPI_DOMAIN_DESCRIPTION_BLOB_head():
+    class NAPI_DOMAIN_DESCRIPTION_BLOB(Structure):
+        pass
+    return NAPI_DOMAIN_DESCRIPTION_BLOB
+def _define_NAPI_DOMAIN_DESCRIPTION_BLOB():
+    NAPI_DOMAIN_DESCRIPTION_BLOB = win32more.Networking.WinSock.NAPI_DOMAIN_DESCRIPTION_BLOB_head
+    NAPI_DOMAIN_DESCRIPTION_BLOB._fields_ = [
+        ('AuthLevel', UInt32),
+        ('cchDomainName', UInt32),
+        ('OffsetNextDomainDescription', UInt32),
+        ('OffsetThisDomainName', UInt32),
+    ]
+    return NAPI_DOMAIN_DESCRIPTION_BLOB
+def _define_NAPI_PROVIDER_INSTALLATION_BLOB_head():
+    class NAPI_PROVIDER_INSTALLATION_BLOB(Structure):
+        pass
+    return NAPI_PROVIDER_INSTALLATION_BLOB
+def _define_NAPI_PROVIDER_INSTALLATION_BLOB():
+    NAPI_PROVIDER_INSTALLATION_BLOB = win32more.Networking.WinSock.NAPI_PROVIDER_INSTALLATION_BLOB_head
+    NAPI_PROVIDER_INSTALLATION_BLOB._fields_ = [
+        ('dwVersion', UInt32),
+        ('dwProviderType', UInt32),
+        ('fSupportsWildCard', UInt32),
+        ('cDomains', UInt32),
+        ('OffsetFirstDomain', UInt32),
+    ]
+    return NAPI_PROVIDER_INSTALLATION_BLOB
+NAPI_PROVIDER_LEVEL = Int32
+ProviderLevel_None = 0
+ProviderLevel_Secondary = 1
+ProviderLevel_Primary = 2
+NAPI_PROVIDER_TYPE = Int32
+ProviderType_Application = 1
+ProviderType_Service = 2
+def _define_ND_NEIGHBOR_ADVERT_HEADER_head():
+    class ND_NEIGHBOR_ADVERT_HEADER(Structure):
+        pass
+    return ND_NEIGHBOR_ADVERT_HEADER
+def _define_ND_NEIGHBOR_ADVERT_HEADER():
+    ND_NEIGHBOR_ADVERT_HEADER = win32more.Networking.WinSock.ND_NEIGHBOR_ADVERT_HEADER_head
+    ND_NEIGHBOR_ADVERT_HEADER._fields_ = [
+        ('nd_na_hdr', win32more.Networking.WinSock.ICMP_MESSAGE),
+        ('nd_na_target', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return ND_NEIGHBOR_ADVERT_HEADER
+def _define_ND_NEIGHBOR_SOLICIT_HEADER_head():
+    class ND_NEIGHBOR_SOLICIT_HEADER(Structure):
+        pass
+    return ND_NEIGHBOR_SOLICIT_HEADER
+def _define_ND_NEIGHBOR_SOLICIT_HEADER():
+    ND_NEIGHBOR_SOLICIT_HEADER = win32more.Networking.WinSock.ND_NEIGHBOR_SOLICIT_HEADER_head
+    ND_NEIGHBOR_SOLICIT_HEADER._fields_ = [
+        ('nd_ns_hdr', win32more.Networking.WinSock.ICMP_MESSAGE),
+        ('nd_ns_target', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return ND_NEIGHBOR_SOLICIT_HEADER
+def _define_ND_OPTION_DNSSL_head():
+    class ND_OPTION_DNSSL(Structure):
+        pass
+    return ND_OPTION_DNSSL
+def _define_ND_OPTION_DNSSL():
+    ND_OPTION_DNSSL = win32more.Networking.WinSock.ND_OPTION_DNSSL_head
+    ND_OPTION_DNSSL._fields_ = [
+        ('nd_opt_dnssl_type', Byte),
+        ('nd_opt_dnssl_len', Byte),
+        ('nd_opt_dnssl_reserved', UInt16),
+        ('nd_opt_dnssl_lifetime', UInt32),
+    ]
+    return ND_OPTION_DNSSL
+def _define_ND_OPTION_HDR_head():
+    class ND_OPTION_HDR(Structure):
+        pass
+    return ND_OPTION_HDR
+def _define_ND_OPTION_HDR():
+    ND_OPTION_HDR = win32more.Networking.WinSock.ND_OPTION_HDR_head
+    ND_OPTION_HDR._fields_ = [
+        ('nd_opt_type', Byte),
+        ('nd_opt_len', Byte),
+    ]
+    return ND_OPTION_HDR
+def _define_ND_OPTION_MTU_head():
+    class ND_OPTION_MTU(Structure):
+        pass
+    return ND_OPTION_MTU
+def _define_ND_OPTION_MTU():
+    ND_OPTION_MTU = win32more.Networking.WinSock.ND_OPTION_MTU_head
+    ND_OPTION_MTU._fields_ = [
+        ('nd_opt_mtu_type', Byte),
+        ('nd_opt_mtu_len', Byte),
+        ('nd_opt_mtu_reserved', UInt16),
+        ('nd_opt_mtu_mtu', UInt32),
+    ]
+    return ND_OPTION_MTU
+def _define_ND_OPTION_PREFIX_INFO_head():
+    class ND_OPTION_PREFIX_INFO(Structure):
+        pass
+    return ND_OPTION_PREFIX_INFO
+def _define_ND_OPTION_PREFIX_INFO():
+    ND_OPTION_PREFIX_INFO = win32more.Networking.WinSock.ND_OPTION_PREFIX_INFO_head
+    class ND_OPTION_PREFIX_INFO__Anonymous1_e__Union(Union):
+        pass
+    class ND_OPTION_PREFIX_INFO__Anonymous1_e__Union__Flags_e__Struct(Structure):
+        pass
+    ND_OPTION_PREFIX_INFO__Anonymous1_e__Union__Flags_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    ND_OPTION_PREFIX_INFO__Anonymous1_e__Union._fields_ = [
+        ('nd_opt_pi_flags_reserved', Byte),
+        ('Flags', ND_OPTION_PREFIX_INFO__Anonymous1_e__Union__Flags_e__Struct),
+    ]
+    class ND_OPTION_PREFIX_INFO__Anonymous2_e__Union(Union):
+        pass
+    class ND_OPTION_PREFIX_INFO__Anonymous2_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    ND_OPTION_PREFIX_INFO__Anonymous2_e__Union__Anonymous_e__Struct._fields_ = [
+        ('nd_opt_pi_reserved3', Byte * 3),
+        ('nd_opt_pi_site_prefix_len', Byte),
+    ]
+    ND_OPTION_PREFIX_INFO__Anonymous2_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    ND_OPTION_PREFIX_INFO__Anonymous2_e__Union._fields_ = [
+        ('nd_opt_pi_reserved2', UInt32),
+        ('Anonymous', ND_OPTION_PREFIX_INFO__Anonymous2_e__Union__Anonymous_e__Struct),
+    ]
+    ND_OPTION_PREFIX_INFO._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+    ]
+    ND_OPTION_PREFIX_INFO._fields_ = [
+        ('nd_opt_pi_type', Byte),
+        ('nd_opt_pi_len', Byte),
+        ('nd_opt_pi_prefix_len', Byte),
+        ('Anonymous1', ND_OPTION_PREFIX_INFO__Anonymous1_e__Union),
+        ('nd_opt_pi_valid_time', UInt32),
+        ('nd_opt_pi_preferred_time', UInt32),
+        ('Anonymous2', ND_OPTION_PREFIX_INFO__Anonymous2_e__Union),
+        ('nd_opt_pi_prefix', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return ND_OPTION_PREFIX_INFO
+def _define_ND_OPTION_RD_HDR_head():
+    class ND_OPTION_RD_HDR(Structure):
+        pass
+    return ND_OPTION_RD_HDR
+def _define_ND_OPTION_RD_HDR():
+    ND_OPTION_RD_HDR = win32more.Networking.WinSock.ND_OPTION_RD_HDR_head
+    ND_OPTION_RD_HDR._fields_ = [
+        ('nd_opt_rh_type', Byte),
+        ('nd_opt_rh_len', Byte),
+        ('nd_opt_rh_reserved1', UInt16),
+        ('nd_opt_rh_reserved2', UInt32),
+    ]
+    return ND_OPTION_RD_HDR
+def _define_ND_OPTION_RDNSS_head():
+    class ND_OPTION_RDNSS(Structure):
+        pass
+    return ND_OPTION_RDNSS
+def _define_ND_OPTION_RDNSS():
+    ND_OPTION_RDNSS = win32more.Networking.WinSock.ND_OPTION_RDNSS_head
+    ND_OPTION_RDNSS._fields_ = [
+        ('nd_opt_rdnss_type', Byte),
+        ('nd_opt_rdnss_len', Byte),
+        ('nd_opt_rdnss_reserved', UInt16),
+        ('nd_opt_rdnss_lifetime', UInt32),
+    ]
+    return ND_OPTION_RDNSS
+def _define_ND_OPTION_ROUTE_INFO_head():
+    class ND_OPTION_ROUTE_INFO(Structure):
+        pass
+    return ND_OPTION_ROUTE_INFO
+def _define_ND_OPTION_ROUTE_INFO():
+    ND_OPTION_ROUTE_INFO = win32more.Networking.WinSock.ND_OPTION_ROUTE_INFO_head
+    class ND_OPTION_ROUTE_INFO__Anonymous_e__Union(Union):
+        pass
+    class ND_OPTION_ROUTE_INFO__Anonymous_e__Union__Flags_e__Struct(Structure):
+        pass
+    ND_OPTION_ROUTE_INFO__Anonymous_e__Union__Flags_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    ND_OPTION_ROUTE_INFO__Anonymous_e__Union._fields_ = [
+        ('nd_opt_ri_flags_reserved', Byte),
+        ('Flags', ND_OPTION_ROUTE_INFO__Anonymous_e__Union__Flags_e__Struct),
+    ]
+    ND_OPTION_ROUTE_INFO._anonymous_ = [
+        'Anonymous',
+    ]
+    ND_OPTION_ROUTE_INFO._fields_ = [
+        ('nd_opt_ri_type', Byte),
+        ('nd_opt_ri_len', Byte),
+        ('nd_opt_ri_prefix_len', Byte),
+        ('Anonymous', ND_OPTION_ROUTE_INFO__Anonymous_e__Union),
+        ('nd_opt_ri_route_lifetime', UInt32),
+        ('nd_opt_ri_prefix', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return ND_OPTION_ROUTE_INFO
+ND_OPTION_TYPE = Int32
+ND_OPT_SOURCE_LINKADDR = 1
+ND_OPT_TARGET_LINKADDR = 2
+ND_OPT_PREFIX_INFORMATION = 3
+ND_OPT_REDIRECTED_HEADER = 4
+ND_OPT_MTU = 5
+ND_OPT_NBMA_SHORTCUT_LIMIT = 6
+ND_OPT_ADVERTISEMENT_INTERVAL = 7
+ND_OPT_HOME_AGENT_INFORMATION = 8
+ND_OPT_SOURCE_ADDR_LIST = 9
+ND_OPT_TARGET_ADDR_LIST = 10
+ND_OPT_ROUTE_INFO = 24
+ND_OPT_RDNSS = 25
+ND_OPT_DNSSL = 31
+def _define_ND_REDIRECT_HEADER_head():
+    class ND_REDIRECT_HEADER(Structure):
+        pass
+    return ND_REDIRECT_HEADER
+def _define_ND_REDIRECT_HEADER():
+    ND_REDIRECT_HEADER = win32more.Networking.WinSock.ND_REDIRECT_HEADER_head
+    ND_REDIRECT_HEADER._fields_ = [
+        ('nd_rd_hdr', win32more.Networking.WinSock.ICMP_MESSAGE),
+        ('nd_rd_target', win32more.Networking.WinSock.IN6_ADDR),
+        ('nd_rd_dst', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return ND_REDIRECT_HEADER
+def _define_ND_ROUTER_ADVERT_HEADER_head():
+    class ND_ROUTER_ADVERT_HEADER(Structure):
+        pass
+    return ND_ROUTER_ADVERT_HEADER
+def _define_ND_ROUTER_ADVERT_HEADER():
+    ND_ROUTER_ADVERT_HEADER = win32more.Networking.WinSock.ND_ROUTER_ADVERT_HEADER_head
+    ND_ROUTER_ADVERT_HEADER._fields_ = [
+        ('nd_ra_hdr', win32more.Networking.WinSock.ICMP_MESSAGE),
+        ('nd_ra_reachable', UInt32),
+        ('nd_ra_retransmit', UInt32),
+    ]
+    return ND_ROUTER_ADVERT_HEADER
+def _define_ND_ROUTER_SOLICIT_HEADER_head():
+    class ND_ROUTER_SOLICIT_HEADER(Structure):
+        pass
+    return ND_ROUTER_SOLICIT_HEADER
+def _define_ND_ROUTER_SOLICIT_HEADER():
+    ND_ROUTER_SOLICIT_HEADER = win32more.Networking.WinSock.ND_ROUTER_SOLICIT_HEADER_head
+    ND_ROUTER_SOLICIT_HEADER._fields_ = [
+        ('nd_rs_hdr', win32more.Networking.WinSock.ICMP_MESSAGE),
+    ]
+    return ND_ROUTER_SOLICIT_HEADER
+def _define_netent_head():
+    class netent(Structure):
+        pass
+    return netent
+def _define_netent():
+    netent = win32more.Networking.WinSock.netent_head
+    netent._fields_ = [
+        ('n_name', win32more.Foundation.PSTR),
+        ('n_aliases', POINTER(POINTER(SByte))),
+        ('n_addrtype', Int16),
+        ('n_net', UInt32),
+    ]
+    return netent
+def _define_NETRESOURCE2A_head():
+    class NETRESOURCE2A(Structure):
+        pass
+    return NETRESOURCE2A
+def _define_NETRESOURCE2A():
+    NETRESOURCE2A = win32more.Networking.WinSock.NETRESOURCE2A_head
+    NETRESOURCE2A._fields_ = [
+        ('dwScope', UInt32),
+        ('dwType', UInt32),
+        ('dwUsage', UInt32),
+        ('dwDisplayType', UInt32),
+        ('lpLocalName', win32more.Foundation.PSTR),
+        ('lpRemoteName', win32more.Foundation.PSTR),
+        ('lpComment', win32more.Foundation.PSTR),
+        ('ns_info', win32more.Networking.WinSock.NS_INFOA),
+        ('ServiceType', Guid),
+        ('dwProtocols', UInt32),
+        ('lpiProtocols', POINTER(Int32)),
+    ]
+    return NETRESOURCE2A
+def _define_NETRESOURCE2W_head():
+    class NETRESOURCE2W(Structure):
+        pass
+    return NETRESOURCE2W
+def _define_NETRESOURCE2W():
+    NETRESOURCE2W = win32more.Networking.WinSock.NETRESOURCE2W_head
+    NETRESOURCE2W._fields_ = [
+        ('dwScope', UInt32),
+        ('dwType', UInt32),
+        ('dwUsage', UInt32),
+        ('dwDisplayType', UInt32),
+        ('lpLocalName', win32more.Foundation.PWSTR),
+        ('lpRemoteName', win32more.Foundation.PWSTR),
+        ('lpComment', win32more.Foundation.PWSTR),
+        ('ns_info', win32more.Networking.WinSock.NS_INFOA),
+        ('ServiceType', Guid),
+        ('dwProtocols', UInt32),
+        ('lpiProtocols', POINTER(Int32)),
+    ]
+    return NETRESOURCE2W
+NL_ADDRESS_TYPE = Int32
+NL_ADDRESS_TYPE_NlatUnspecified = 0
+NL_ADDRESS_TYPE_NlatUnicast = 1
+NL_ADDRESS_TYPE_NlatAnycast = 2
+NL_ADDRESS_TYPE_NlatMulticast = 3
+NL_ADDRESS_TYPE_NlatBroadcast = 4
+NL_ADDRESS_TYPE_NlatInvalid = 5
+NL_BANDWIDTH_FLAG = Int32
+NL_BANDWIDTH_FLAG_NlbwDisabled = 0
+NL_BANDWIDTH_FLAG_NlbwEnabled = 1
+NL_BANDWIDTH_FLAG_NlbwUnchanged = -1
+def _define_NL_BANDWIDTH_INFORMATION_head():
+    class NL_BANDWIDTH_INFORMATION(Structure):
+        pass
+    return NL_BANDWIDTH_INFORMATION
+def _define_NL_BANDWIDTH_INFORMATION():
+    NL_BANDWIDTH_INFORMATION = win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION_head
+    NL_BANDWIDTH_INFORMATION._fields_ = [
+        ('Bandwidth', UInt64),
+        ('Instability', UInt64),
+        ('BandwidthPeaked', win32more.Foundation.BOOLEAN),
+    ]
+    return NL_BANDWIDTH_INFORMATION
+NL_DAD_STATE = Int32
+NL_DAD_STATE_NldsInvalid = 0
+NL_DAD_STATE_NldsTentative = 1
+NL_DAD_STATE_NldsDuplicate = 2
+NL_DAD_STATE_NldsDeprecated = 3
+NL_DAD_STATE_NldsPreferred = 4
+NL_DAD_STATE_IpDadStateInvalid = 0
+NL_DAD_STATE_IpDadStateTentative = 1
+NL_DAD_STATE_IpDadStateDuplicate = 2
+NL_DAD_STATE_IpDadStateDeprecated = 3
+NL_DAD_STATE_IpDadStatePreferred = 4
+NL_INTERFACE_NETWORK_CATEGORY_STATE = Int32
+NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryUnknown = 0
+NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPublic = 1
+NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPrivate = 2
+NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincDomainAuthenticated = 3
+NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryStateMax = 4
+def _define_NL_INTERFACE_OFFLOAD_ROD_head():
+    class NL_INTERFACE_OFFLOAD_ROD(Structure):
+        pass
+    return NL_INTERFACE_OFFLOAD_ROD
+def _define_NL_INTERFACE_OFFLOAD_ROD():
+    NL_INTERFACE_OFFLOAD_ROD = win32more.Networking.WinSock.NL_INTERFACE_OFFLOAD_ROD_head
+    NL_INTERFACE_OFFLOAD_ROD._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    return NL_INTERFACE_OFFLOAD_ROD
+NL_LINK_LOCAL_ADDRESS_BEHAVIOR = Int32
+NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOff = 0
+NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalDelayed = 1
+NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOn = 2
+NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalUnchanged = -1
+NL_NEIGHBOR_STATE = Int32
+NL_NEIGHBOR_STATE_NlnsUnreachable = 0
+NL_NEIGHBOR_STATE_NlnsIncomplete = 1
+NL_NEIGHBOR_STATE_NlnsProbe = 2
+NL_NEIGHBOR_STATE_NlnsDelay = 3
+NL_NEIGHBOR_STATE_NlnsStale = 4
+NL_NEIGHBOR_STATE_NlnsReachable = 5
+NL_NEIGHBOR_STATE_NlnsPermanent = 6
+NL_NEIGHBOR_STATE_NlnsMaximum = 7
+NL_NETWORK_CATEGORY = Int32
+NL_NETWORK_CATEGORY_NetworkCategoryPublic = 0
+NL_NETWORK_CATEGORY_NetworkCategoryPrivate = 1
+NL_NETWORK_CATEGORY_NetworkCategoryDomainAuthenticated = 2
+NL_NETWORK_CATEGORY_NetworkCategoryUnchanged = -1
+NL_NETWORK_CATEGORY_NetworkCategoryUnknown = -1
+NL_NETWORK_CONNECTIVITY_COST_HINT = Int32
+NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnknown = 0
+NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnrestricted = 1
+NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintFixed = 2
+NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintVariable = 3
+def _define_NL_NETWORK_CONNECTIVITY_HINT_head():
+    class NL_NETWORK_CONNECTIVITY_HINT(Structure):
+        pass
+    return NL_NETWORK_CONNECTIVITY_HINT
+def _define_NL_NETWORK_CONNECTIVITY_HINT():
+    NL_NETWORK_CONNECTIVITY_HINT = win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT_head
+    NL_NETWORK_CONNECTIVITY_HINT._fields_ = [
+        ('ConnectivityLevel', win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT),
+        ('ConnectivityCost', win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT),
+        ('ApproachingDataLimit', win32more.Foundation.BOOLEAN),
+        ('OverDataLimit', win32more.Foundation.BOOLEAN),
+        ('Roaming', win32more.Foundation.BOOLEAN),
+    ]
+    return NL_NETWORK_CONNECTIVITY_HINT
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT = Int32
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintUnknown = 0
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintNone = 1
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintLocalAccess = 2
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintInternetAccess = 3
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintConstrainedInternetAccess = 4
+NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintHidden = 5
+def _define_NL_PATH_BANDWIDTH_ROD_head():
+    class NL_PATH_BANDWIDTH_ROD(Structure):
+        pass
+    return NL_PATH_BANDWIDTH_ROD
+def _define_NL_PATH_BANDWIDTH_ROD():
+    NL_PATH_BANDWIDTH_ROD = win32more.Networking.WinSock.NL_PATH_BANDWIDTH_ROD_head
+    NL_PATH_BANDWIDTH_ROD._fields_ = [
+        ('Bandwidth', UInt64),
+        ('Instability', UInt64),
+        ('BandwidthPeaked', win32more.Foundation.BOOLEAN),
+    ]
+    return NL_PATH_BANDWIDTH_ROD
+NL_PREFIX_ORIGIN = Int32
+NL_PREFIX_ORIGIN_IpPrefixOriginOther = 0
+NL_PREFIX_ORIGIN_IpPrefixOriginManual = 1
+NL_PREFIX_ORIGIN_IpPrefixOriginWellKnown = 2
+NL_PREFIX_ORIGIN_IpPrefixOriginDhcp = 3
+NL_PREFIX_ORIGIN_IpPrefixOriginRouterAdvertisement = 4
+NL_PREFIX_ORIGIN_IpPrefixOriginUnchanged = 16
+NL_ROUTE_ORIGIN = Int32
+NL_ROUTE_ORIGIN_NlroManual = 0
+NL_ROUTE_ORIGIN_NlroWellKnown = 1
+NL_ROUTE_ORIGIN_NlroDHCP = 2
+NL_ROUTE_ORIGIN_NlroRouterAdvertisement = 3
+NL_ROUTE_ORIGIN_Nlro6to4 = 4
+NL_ROUTE_PROTOCOL = Int32
+NL_ROUTE_PROTOCOL_RouteProtocolOther = 1
+NL_ROUTE_PROTOCOL_RouteProtocolLocal = 2
+NL_ROUTE_PROTOCOL_RouteProtocolNetMgmt = 3
+NL_ROUTE_PROTOCOL_RouteProtocolIcmp = 4
+NL_ROUTE_PROTOCOL_RouteProtocolEgp = 5
+NL_ROUTE_PROTOCOL_RouteProtocolGgp = 6
+NL_ROUTE_PROTOCOL_RouteProtocolHello = 7
+NL_ROUTE_PROTOCOL_RouteProtocolRip = 8
+NL_ROUTE_PROTOCOL_RouteProtocolIsIs = 9
+NL_ROUTE_PROTOCOL_RouteProtocolEsIs = 10
+NL_ROUTE_PROTOCOL_RouteProtocolCisco = 11
+NL_ROUTE_PROTOCOL_RouteProtocolBbn = 12
+NL_ROUTE_PROTOCOL_RouteProtocolOspf = 13
+NL_ROUTE_PROTOCOL_RouteProtocolBgp = 14
+NL_ROUTE_PROTOCOL_RouteProtocolIdpr = 15
+NL_ROUTE_PROTOCOL_RouteProtocolEigrp = 16
+NL_ROUTE_PROTOCOL_RouteProtocolDvmrp = 17
+NL_ROUTE_PROTOCOL_RouteProtocolRpl = 18
+NL_ROUTE_PROTOCOL_RouteProtocolDhcp = 19
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_OTHER = 1
+NL_ROUTE_PROTOCOL_PROTO_IP_OTHER = 1
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_LOCAL = 2
+NL_ROUTE_PROTOCOL_PROTO_IP_LOCAL = 2
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_NETMGMT = 3
+NL_ROUTE_PROTOCOL_PROTO_IP_NETMGMT = 3
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_ICMP = 4
+NL_ROUTE_PROTOCOL_PROTO_IP_ICMP = 4
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_EGP = 5
+NL_ROUTE_PROTOCOL_PROTO_IP_EGP = 5
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_GGP = 6
+NL_ROUTE_PROTOCOL_PROTO_IP_GGP = 6
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_HELLO = 7
+NL_ROUTE_PROTOCOL_PROTO_IP_HELLO = 7
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_RIP = 8
+NL_ROUTE_PROTOCOL_PROTO_IP_RIP = 8
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_IS_IS = 9
+NL_ROUTE_PROTOCOL_PROTO_IP_IS_IS = 9
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_ES_IS = 10
+NL_ROUTE_PROTOCOL_PROTO_IP_ES_IS = 10
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_CISCO = 11
+NL_ROUTE_PROTOCOL_PROTO_IP_CISCO = 11
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_BBN = 12
+NL_ROUTE_PROTOCOL_PROTO_IP_BBN = 12
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_OSPF = 13
+NL_ROUTE_PROTOCOL_PROTO_IP_OSPF = 13
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_BGP = 14
+NL_ROUTE_PROTOCOL_PROTO_IP_BGP = 14
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_IDPR = 15
+NL_ROUTE_PROTOCOL_PROTO_IP_IDPR = 15
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_EIGRP = 16
+NL_ROUTE_PROTOCOL_PROTO_IP_EIGRP = 16
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_DVMRP = 17
+NL_ROUTE_PROTOCOL_PROTO_IP_DVMRP = 17
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_RPL = 18
+NL_ROUTE_PROTOCOL_PROTO_IP_RPL = 18
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_DHCP = 19
+NL_ROUTE_PROTOCOL_PROTO_IP_DHCP = 19
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_AUTOSTATIC = 10002
+NL_ROUTE_PROTOCOL_PROTO_IP_NT_AUTOSTATIC = 10002
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC = 10006
+NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC = 10006
+NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC_NON_DOD = 10007
+NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC_NON_DOD = 10007
+NL_ROUTER_DISCOVERY_BEHAVIOR = Int32
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled = 0
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled = 1
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp = 2
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged = -1
+NL_SUFFIX_ORIGIN = Int32
+NL_SUFFIX_ORIGIN_NlsoOther = 0
+NL_SUFFIX_ORIGIN_NlsoManual = 1
+NL_SUFFIX_ORIGIN_NlsoWellKnown = 2
+NL_SUFFIX_ORIGIN_NlsoDhcp = 3
+NL_SUFFIX_ORIGIN_NlsoLinkLayerAddress = 4
+NL_SUFFIX_ORIGIN_NlsoRandom = 5
+NL_SUFFIX_ORIGIN_IpSuffixOriginOther = 0
+NL_SUFFIX_ORIGIN_IpSuffixOriginManual = 1
+NL_SUFFIX_ORIGIN_IpSuffixOriginWellKnown = 2
+NL_SUFFIX_ORIGIN_IpSuffixOriginDhcp = 3
+NL_SUFFIX_ORIGIN_IpSuffixOriginLinkLayerAddress = 4
+NL_SUFFIX_ORIGIN_IpSuffixOriginRandom = 5
+NL_SUFFIX_ORIGIN_IpSuffixOriginUnchanged = 16
+def _define_NLA_BLOB_head():
+    class NLA_BLOB(Structure):
+        pass
+    return NLA_BLOB
+def _define_NLA_BLOB():
+    NLA_BLOB = win32more.Networking.WinSock.NLA_BLOB_head
+    class NLA_BLOB__header_e__Struct(Structure):
+        pass
+    NLA_BLOB__header_e__Struct._fields_ = [
+        ('type', win32more.Networking.WinSock.NLA_BLOB_DATA_TYPE),
+        ('dwSize', UInt32),
+        ('nextOffset', UInt32),
+    ]
+    class NLA_BLOB__data_e__Union(Union):
+        pass
+    class NLA_BLOB__data_e__Union__interfaceData_e__Struct(Structure):
+        pass
+    NLA_BLOB__data_e__Union__interfaceData_e__Struct._fields_ = [
+        ('dwType', UInt32),
+        ('dwSpeed', UInt32),
+        ('adapterName', win32more.Foundation.CHAR * 1),
+    ]
+    class NLA_BLOB__data_e__Union__locationData_e__Struct(Structure):
+        pass
+    NLA_BLOB__data_e__Union__locationData_e__Struct._fields_ = [
+        ('information', win32more.Foundation.CHAR * 1),
+    ]
+    class NLA_BLOB__data_e__Union__connectivity_e__Struct(Structure):
+        pass
+    NLA_BLOB__data_e__Union__connectivity_e__Struct._fields_ = [
+        ('type', win32more.Networking.WinSock.NLA_CONNECTIVITY_TYPE),
+        ('internet', win32more.Networking.WinSock.NLA_INTERNET),
+    ]
+    class NLA_BLOB__data_e__Union__ICS_e__Struct(Structure):
+        pass
+    class NLA_BLOB__data_e__Union__ICS_e__Struct__remote_e__Struct(Structure):
+        pass
+    NLA_BLOB__data_e__Union__ICS_e__Struct__remote_e__Struct._fields_ = [
+        ('speed', UInt32),
+        ('type', UInt32),
+        ('state', UInt32),
+        ('machineName', Char * 256),
+        ('sharedAdapterName', Char * 256),
+    ]
+    NLA_BLOB__data_e__Union__ICS_e__Struct._fields_ = [
+        ('remote', NLA_BLOB__data_e__Union__ICS_e__Struct__remote_e__Struct),
+    ]
+    NLA_BLOB__data_e__Union._fields_ = [
+        ('rawData', win32more.Foundation.CHAR * 1),
+        ('interfaceData', NLA_BLOB__data_e__Union__interfaceData_e__Struct),
+        ('locationData', NLA_BLOB__data_e__Union__locationData_e__Struct),
+        ('connectivity', NLA_BLOB__data_e__Union__connectivity_e__Struct),
+        ('ICS', NLA_BLOB__data_e__Union__ICS_e__Struct),
+    ]
+    NLA_BLOB._fields_ = [
+        ('header', NLA_BLOB__header_e__Struct),
+        ('data', NLA_BLOB__data_e__Union),
+    ]
+    return NLA_BLOB
+NLA_BLOB_DATA_TYPE = Int32
+NLA_RAW_DATA = 0
+NLA_INTERFACE = 1
+NLA_802_1X_LOCATION = 2
+NLA_CONNECTIVITY = 3
+NLA_ICS = 4
+NLA_CONNECTIVITY_TYPE = Int32
+NLA_NETWORK_AD_HOC = 0
+NLA_NETWORK_MANAGED = 1
+NLA_NETWORK_UNMANAGED = 2
+NLA_NETWORK_UNKNOWN = 3
+NLA_INTERNET = Int32
+NLA_INTERNET_UNKNOWN = 0
+NLA_INTERNET_NO = 1
+NLA_INTERNET_YES = 2
+def _define_NPI_MODULEID_head():
+    class NPI_MODULEID(Structure):
+        pass
+    return NPI_MODULEID
+def _define_NPI_MODULEID():
+    NPI_MODULEID = win32more.Networking.WinSock.NPI_MODULEID_head
+    class NPI_MODULEID__Anonymous_e__Union(Union):
+        pass
+    NPI_MODULEID__Anonymous_e__Union._fields_ = [
+        ('Guid', Guid),
+        ('IfLuid', win32more.Foundation.LUID),
+    ]
+    NPI_MODULEID._anonymous_ = [
+        'Anonymous',
+    ]
+    NPI_MODULEID._fields_ = [
+        ('Length', UInt16),
+        ('Type', win32more.Networking.WinSock.NPI_MODULEID_TYPE),
+        ('Anonymous', NPI_MODULEID__Anonymous_e__Union),
+    ]
+    return NPI_MODULEID
+NPI_MODULEID_TYPE = Int32
+MIT_GUID = 1
+MIT_IF_LUID = 2
+def _define_NS_INFOA_head():
+    class NS_INFOA(Structure):
+        pass
+    return NS_INFOA
+def _define_NS_INFOA():
+    NS_INFOA = win32more.Networking.WinSock.NS_INFOA_head
+    NS_INFOA._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('dwNameSpaceFlags', UInt32),
+        ('lpNameSpace', win32more.Foundation.PSTR),
+    ]
+    return NS_INFOA
+def _define_NS_INFOW_head():
+    class NS_INFOW(Structure):
+        pass
+    return NS_INFOW
+def _define_NS_INFOW():
+    NS_INFOW = win32more.Networking.WinSock.NS_INFOW_head
+    NS_INFOW._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('dwNameSpaceFlags', UInt32),
+        ('lpNameSpace', win32more.Foundation.PWSTR),
+    ]
+    return NS_INFOW
+def _define_NS_SERVICE_INFOA_head():
+    class NS_SERVICE_INFOA(Structure):
+        pass
+    return NS_SERVICE_INFOA
+def _define_NS_SERVICE_INFOA():
+    NS_SERVICE_INFOA = win32more.Networking.WinSock.NS_SERVICE_INFOA_head
+    NS_SERVICE_INFOA._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('ServiceInfo', win32more.Networking.WinSock.SERVICE_INFOA),
+    ]
+    return NS_SERVICE_INFOA
+def _define_NS_SERVICE_INFOW_head():
+    class NS_SERVICE_INFOW(Structure):
+        pass
+    return NS_SERVICE_INFOW
+def _define_NS_SERVICE_INFOW():
+    NS_SERVICE_INFOW = win32more.Networking.WinSock.NS_SERVICE_INFOW_head
+    NS_SERVICE_INFOW._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('ServiceInfo', win32more.Networking.WinSock.SERVICE_INFOW),
+    ]
+    return NS_SERVICE_INFOW
+def _define_NSP_ROUTINE_head():
+    class NSP_ROUTINE(Structure):
+        pass
+    return NSP_ROUTINE
+def _define_NSP_ROUTINE():
+    NSP_ROUTINE = win32more.Networking.WinSock.NSP_ROUTINE_head
+    NSP_ROUTINE._fields_ = [
+        ('cbSize', UInt32),
+        ('dwMajorVersion', UInt32),
+        ('dwMinorVersion', UInt32),
+        ('NSPCleanup', win32more.Networking.WinSock.LPNSPCLEANUP),
+        ('NSPLookupServiceBegin', win32more.Networking.WinSock.LPNSPLOOKUPSERVICEBEGIN),
+        ('NSPLookupServiceNext', win32more.Networking.WinSock.LPNSPLOOKUPSERVICENEXT),
+        ('NSPLookupServiceEnd', win32more.Networking.WinSock.LPNSPLOOKUPSERVICEEND),
+        ('NSPSetService', win32more.Networking.WinSock.LPNSPSETSERVICE),
+        ('NSPInstallServiceClass', win32more.Networking.WinSock.LPNSPINSTALLSERVICECLASS),
+        ('NSPRemoveServiceClass', win32more.Networking.WinSock.LPNSPREMOVESERVICECLASS),
+        ('NSPGetServiceClassInfo', win32more.Networking.WinSock.LPNSPGETSERVICECLASSINFO),
+        ('NSPIoctl', win32more.Networking.WinSock.LPNSPIOCTL),
+    ]
+    return NSP_ROUTINE
+def _define_NSPV2_ROUTINE_head():
+    class NSPV2_ROUTINE(Structure):
+        pass
+    return NSPV2_ROUTINE
+def _define_NSPV2_ROUTINE():
+    NSPV2_ROUTINE = win32more.Networking.WinSock.NSPV2_ROUTINE_head
+    NSPV2_ROUTINE._fields_ = [
+        ('cbSize', UInt32),
+        ('dwMajorVersion', UInt32),
+        ('dwMinorVersion', UInt32),
+        ('NSPv2Startup', win32more.Networking.WinSock.LPNSPV2STARTUP),
+        ('NSPv2Cleanup', win32more.Networking.WinSock.LPNSPV2CLEANUP),
+        ('NSPv2LookupServiceBegin', win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEBEGIN),
+        ('NSPv2LookupServiceNextEx', win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICENEXTEX),
+        ('NSPv2LookupServiceEnd', win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEEND),
+        ('NSPv2SetServiceEx', win32more.Networking.WinSock.LPNSPV2SETSERVICEEX),
+        ('NSPv2ClientSessionRundown', win32more.Networking.WinSock.LPNSPV2CLIENTSESSIONRUNDOWN),
+    ]
+    return NSPV2_ROUTINE
+PMTUD_STATE = Int32
+IP_PMTUDISC_NOT_SET = 0
+IP_PMTUDISC_DO = 1
+IP_PMTUDISC_DONT = 2
+IP_PMTUDISC_PROBE = 3
+IP_PMTUDISC_MAX = 4
+def _define_PRIORITY_STATUS_head():
+    class PRIORITY_STATUS(Structure):
+        pass
+    return PRIORITY_STATUS
+def _define_PRIORITY_STATUS():
+    PRIORITY_STATUS = win32more.Networking.WinSock.PRIORITY_STATUS_head
+    PRIORITY_STATUS._fields_ = [
+        ('Sender', win32more.Networking.WinSock.SOCKET_PRIORITY_HINT),
+        ('Receiver', win32more.Networking.WinSock.SOCKET_PRIORITY_HINT),
+    ]
+    return PRIORITY_STATUS
+def _define_PROTOCOL_INFOA_head():
+    class PROTOCOL_INFOA(Structure):
+        pass
+    return PROTOCOL_INFOA
+def _define_PROTOCOL_INFOA():
+    PROTOCOL_INFOA = win32more.Networking.WinSock.PROTOCOL_INFOA_head
+    PROTOCOL_INFOA._fields_ = [
+        ('dwServiceFlags', UInt32),
+        ('iAddressFamily', Int32),
+        ('iMaxSockAddr', Int32),
+        ('iMinSockAddr', Int32),
+        ('iSocketType', Int32),
+        ('iProtocol', Int32),
+        ('dwMessageSize', UInt32),
+        ('lpProtocol', win32more.Foundation.PSTR),
+    ]
+    return PROTOCOL_INFOA
+def _define_PROTOCOL_INFOW_head():
+    class PROTOCOL_INFOW(Structure):
+        pass
+    return PROTOCOL_INFOW
+def _define_PROTOCOL_INFOW():
+    PROTOCOL_INFOW = win32more.Networking.WinSock.PROTOCOL_INFOW_head
+    PROTOCOL_INFOW._fields_ = [
+        ('dwServiceFlags', UInt32),
+        ('iAddressFamily', Int32),
+        ('iMaxSockAddr', Int32),
+        ('iMinSockAddr', Int32),
+        ('iSocketType', Int32),
+        ('iProtocol', Int32),
+        ('dwMessageSize', UInt32),
+        ('lpProtocol', win32more.Foundation.PWSTR),
+    ]
+    return PROTOCOL_INFOW
+def _define_PROTOENT_head():
+    class PROTOENT(Structure):
+        pass
+    return PROTOENT
+def _define_PROTOENT():
+    PROTOENT = win32more.Networking.WinSock.PROTOENT_head
+    PROTOENT._fields_ = [
+        ('p_name', win32more.Foundation.PSTR),
+        ('p_aliases', POINTER(POINTER(SByte))),
+        ('p_proto', Int16),
+    ]
+    return PROTOENT
+def _define_Q2931_IE_head():
+    class Q2931_IE(Structure):
+        pass
+    return Q2931_IE
+def _define_Q2931_IE():
+    Q2931_IE = win32more.Networking.WinSock.Q2931_IE_head
+    Q2931_IE._fields_ = [
+        ('IEType', win32more.Networking.WinSock.Q2931_IE_TYPE),
+        ('IELength', UInt32),
+        ('IE', Byte * 1),
+    ]
+    return Q2931_IE
+Q2931_IE_TYPE = Int32
+IE_AALParameters = 0
+IE_TrafficDescriptor = 1
+IE_BroadbandBearerCapability = 2
+IE_BHLI = 3
+IE_BLLI = 4
+IE_CalledPartyNumber = 5
+IE_CalledPartySubaddress = 6
+IE_CallingPartyNumber = 7
+IE_CallingPartySubaddress = 8
+IE_Cause = 9
+IE_QOSClass = 10
+IE_TransitNetworkSelection = 11
+def _define_QOS_head():
+    class QOS(Structure):
+        pass
+    return QOS
+def _define_QOS():
+    QOS = win32more.Networking.WinSock.QOS_head
+    QOS._fields_ = [
+        ('SendingFlowspec', win32more.Networking.WinSock.FLOWSPEC),
+        ('ReceivingFlowspec', win32more.Networking.WinSock.FLOWSPEC),
+        ('ProviderSpecific', win32more.Networking.WinSock.WSABUF),
+    ]
+    return QOS
+def _define_RCVALL_IF_head():
+    class RCVALL_IF(Structure):
+        pass
+    return RCVALL_IF
+def _define_RCVALL_IF():
+    RCVALL_IF = win32more.Networking.WinSock.RCVALL_IF_head
+    RCVALL_IF._fields_ = [
+        ('Mode', win32more.Networking.WinSock.RCVALL_VALUE),
+        ('Interface', UInt32),
+    ]
+    return RCVALL_IF
+RCVALL_VALUE = Int32
+RCVALL_OFF = 0
+RCVALL_ON = 1
+RCVALL_SOCKETLEVELONLY = 2
+RCVALL_IPLEVEL = 3
+def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT_head():
+    class REAL_TIME_NOTIFICATION_SETTING_INPUT(Structure):
+        pass
+    return REAL_TIME_NOTIFICATION_SETTING_INPUT
+def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT():
+    REAL_TIME_NOTIFICATION_SETTING_INPUT = win32more.Networking.WinSock.REAL_TIME_NOTIFICATION_SETTING_INPUT_head
+    REAL_TIME_NOTIFICATION_SETTING_INPUT._fields_ = [
+        ('TransportSettingId', win32more.Networking.WinSock.TRANSPORT_SETTING_ID),
+        ('BrokerEventGuid', Guid),
+    ]
+    return REAL_TIME_NOTIFICATION_SETTING_INPUT
+def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT_EX_head():
+    class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX(Structure):
+        pass
+    return REAL_TIME_NOTIFICATION_SETTING_INPUT_EX
+def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT_EX():
+    REAL_TIME_NOTIFICATION_SETTING_INPUT_EX = win32more.Networking.WinSock.REAL_TIME_NOTIFICATION_SETTING_INPUT_EX_head
+    REAL_TIME_NOTIFICATION_SETTING_INPUT_EX._fields_ = [
+        ('TransportSettingId', win32more.Networking.WinSock.TRANSPORT_SETTING_ID),
+        ('BrokerEventGuid', Guid),
+        ('Unmark', win32more.Foundation.BOOLEAN),
+    ]
+    return REAL_TIME_NOTIFICATION_SETTING_INPUT_EX
+def _define_REAL_TIME_NOTIFICATION_SETTING_OUTPUT_head():
+    class REAL_TIME_NOTIFICATION_SETTING_OUTPUT(Structure):
+        pass
+    return REAL_TIME_NOTIFICATION_SETTING_OUTPUT
+def _define_REAL_TIME_NOTIFICATION_SETTING_OUTPUT():
+    REAL_TIME_NOTIFICATION_SETTING_OUTPUT = win32more.Networking.WinSock.REAL_TIME_NOTIFICATION_SETTING_OUTPUT_head
+    REAL_TIME_NOTIFICATION_SETTING_OUTPUT._fields_ = [
+        ('ChannelStatus', win32more.Networking.WinSock.CONTROL_CHANNEL_TRIGGER_STATUS),
+    ]
+    return REAL_TIME_NOTIFICATION_SETTING_OUTPUT
+RESOURCE_DISPLAY_TYPE = UInt32
+RESOURCEDISPLAYTYPE_DOMAIN = 1
+RESOURCEDISPLAYTYPE_FILE = 4
+RESOURCEDISPLAYTYPE_GENERIC = 0
+RESOURCEDISPLAYTYPE_GROUP = 5
+RESOURCEDISPLAYTYPE_SERVER = 2
+RESOURCEDISPLAYTYPE_SHARE = 3
+RESOURCEDISPLAYTYPE_TREE = 10
+def _define_RIO_BUF_head():
+    class RIO_BUF(Structure):
+        pass
+    return RIO_BUF
+def _define_RIO_BUF():
+    RIO_BUF = win32more.Networking.WinSock.RIO_BUF_head
+    RIO_BUF._fields_ = [
+        ('BufferId', POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head)),
+        ('Offset', UInt32),
+        ('Length', UInt32),
+    ]
+    return RIO_BUF
+def _define_RIO_BUFFERID_t_head():
+    class RIO_BUFFERID_t(Structure):
+        pass
+    return RIO_BUFFERID_t
+def _define_RIO_BUFFERID_t():
+    RIO_BUFFERID_t = win32more.Networking.WinSock.RIO_BUFFERID_t_head
+    return RIO_BUFFERID_t
+def _define_RIO_CMSG_BUFFER_head():
+    class RIO_CMSG_BUFFER(Structure):
+        pass
+    return RIO_CMSG_BUFFER
+def _define_RIO_CMSG_BUFFER():
+    RIO_CMSG_BUFFER = win32more.Networking.WinSock.RIO_CMSG_BUFFER_head
+    RIO_CMSG_BUFFER._fields_ = [
+        ('TotalLength', UInt32),
+    ]
+    return RIO_CMSG_BUFFER
+def _define_RIO_CQ_t_head():
+    class RIO_CQ_t(Structure):
+        pass
+    return RIO_CQ_t
+def _define_RIO_CQ_t():
+    RIO_CQ_t = win32more.Networking.WinSock.RIO_CQ_t_head
+    return RIO_CQ_t
+def _define_RIO_EXTENSION_FUNCTION_TABLE_head():
+    class RIO_EXTENSION_FUNCTION_TABLE(Structure):
+        pass
+    return RIO_EXTENSION_FUNCTION_TABLE
+def _define_RIO_EXTENSION_FUNCTION_TABLE():
+    RIO_EXTENSION_FUNCTION_TABLE = win32more.Networking.WinSock.RIO_EXTENSION_FUNCTION_TABLE_head
+    RIO_EXTENSION_FUNCTION_TABLE._fields_ = [
+        ('cbSize', UInt32),
+        ('RIOReceive', win32more.Networking.WinSock.LPFN_RIORECEIVE),
+        ('RIOReceiveEx', win32more.Networking.WinSock.LPFN_RIORECEIVEEX),
+        ('RIOSend', win32more.Networking.WinSock.LPFN_RIOSEND),
+        ('RIOSendEx', win32more.Networking.WinSock.LPFN_RIOSENDEX),
+        ('RIOCloseCompletionQueue', win32more.Networking.WinSock.LPFN_RIOCLOSECOMPLETIONQUEUE),
+        ('RIOCreateCompletionQueue', win32more.Networking.WinSock.LPFN_RIOCREATECOMPLETIONQUEUE),
+        ('RIOCreateRequestQueue', win32more.Networking.WinSock.LPFN_RIOCREATEREQUESTQUEUE),
+        ('RIODequeueCompletion', win32more.Networking.WinSock.LPFN_RIODEQUEUECOMPLETION),
+        ('RIODeregisterBuffer', win32more.Networking.WinSock.LPFN_RIODEREGISTERBUFFER),
+        ('RIONotify', win32more.Networking.WinSock.LPFN_RIONOTIFY),
+        ('RIORegisterBuffer', win32more.Networking.WinSock.LPFN_RIOREGISTERBUFFER),
+        ('RIOResizeCompletionQueue', win32more.Networking.WinSock.LPFN_RIORESIZECOMPLETIONQUEUE),
+        ('RIOResizeRequestQueue', win32more.Networking.WinSock.LPFN_RIORESIZEREQUESTQUEUE),
+    ]
+    return RIO_EXTENSION_FUNCTION_TABLE
+def _define_RIO_NOTIFICATION_COMPLETION_head():
+    class RIO_NOTIFICATION_COMPLETION(Structure):
+        pass
+    return RIO_NOTIFICATION_COMPLETION
+def _define_RIO_NOTIFICATION_COMPLETION():
+    RIO_NOTIFICATION_COMPLETION = win32more.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head
+    class RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union(Union):
+        pass
+    class RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Event_e__Struct(Structure):
+        pass
+    RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Event_e__Struct._fields_ = [
+        ('EventHandle', win32more.Foundation.HANDLE),
+        ('NotifyReset', win32more.Foundation.BOOL),
+    ]
+    class RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Iocp_e__Struct(Structure):
+        pass
+    RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Iocp_e__Struct._fields_ = [
+        ('IocpHandle', win32more.Foundation.HANDLE),
+        ('CompletionKey', c_void_p),
+        ('Overlapped', c_void_p),
+    ]
+    RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union._fields_ = [
+        ('Event', RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Event_e__Struct),
+        ('Iocp', RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Iocp_e__Struct),
+    ]
+    RIO_NOTIFICATION_COMPLETION._anonymous_ = [
+        'Anonymous',
+    ]
+    RIO_NOTIFICATION_COMPLETION._fields_ = [
+        ('Type', win32more.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_TYPE),
+        ('Anonymous', RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union),
+    ]
+    return RIO_NOTIFICATION_COMPLETION
+RIO_NOTIFICATION_COMPLETION_TYPE = Int32
+RIO_EVENT_COMPLETION = 1
+RIO_IOCP_COMPLETION = 2
+def _define_RIO_RQ_t_head():
+    class RIO_RQ_t(Structure):
+        pass
+    return RIO_RQ_t
+def _define_RIO_RQ_t():
+    RIO_RQ_t = win32more.Networking.WinSock.RIO_RQ_t_head
+    return RIO_RQ_t
+def _define_RIORESULT_head():
+    class RIORESULT(Structure):
+        pass
+    return RIORESULT
+def _define_RIORESULT():
+    RIORESULT = win32more.Networking.WinSock.RIORESULT_head
+    RIORESULT._fields_ = [
+        ('Status', Int32),
+        ('BytesTransferred', UInt32),
+        ('SocketContext', UInt64),
+        ('RequestContext', UInt64),
+    ]
+    return RIORESULT
+def _define_RM_FEC_INFO_head():
+    class RM_FEC_INFO(Structure):
+        pass
+    return RM_FEC_INFO
+def _define_RM_FEC_INFO():
+    RM_FEC_INFO = win32more.Networking.WinSock.RM_FEC_INFO_head
+    RM_FEC_INFO._fields_ = [
+        ('FECBlockSize', UInt16),
+        ('FECProActivePackets', UInt16),
+        ('FECGroupSize', Byte),
+        ('fFECOnDemandParityEnabled', win32more.Foundation.BOOLEAN),
+    ]
+    return RM_FEC_INFO
+def _define_RM_RECEIVER_STATS_head():
+    class RM_RECEIVER_STATS(Structure):
+        pass
+    return RM_RECEIVER_STATS
+def _define_RM_RECEIVER_STATS():
+    RM_RECEIVER_STATS = win32more.Networking.WinSock.RM_RECEIVER_STATS_head
+    RM_RECEIVER_STATS._fields_ = [
+        ('NumODataPacketsReceived', UInt64),
+        ('NumRDataPacketsReceived', UInt64),
+        ('NumDuplicateDataPackets', UInt64),
+        ('DataBytesReceived', UInt64),
+        ('TotalBytesReceived', UInt64),
+        ('RateKBitsPerSecOverall', UInt64),
+        ('RateKBitsPerSecLast', UInt64),
+        ('TrailingEdgeSeqId', UInt64),
+        ('LeadingEdgeSeqId', UInt64),
+        ('AverageSequencesInWindow', UInt64),
+        ('MinSequencesInWindow', UInt64),
+        ('MaxSequencesInWindow', UInt64),
+        ('FirstNakSequenceNumber', UInt64),
+        ('NumPendingNaks', UInt64),
+        ('NumOutstandingNaks', UInt64),
+        ('NumDataPacketsBuffered', UInt64),
+        ('TotalSelectiveNaksSent', UInt64),
+        ('TotalParityNaksSent', UInt64),
+    ]
+    return RM_RECEIVER_STATS
+def _define_RM_SEND_WINDOW_head():
+    class RM_SEND_WINDOW(Structure):
+        pass
+    return RM_SEND_WINDOW
+def _define_RM_SEND_WINDOW():
+    RM_SEND_WINDOW = win32more.Networking.WinSock.RM_SEND_WINDOW_head
+    RM_SEND_WINDOW._fields_ = [
+        ('RateKbitsPerSec', UInt32),
+        ('WindowSizeInMSecs', UInt32),
+        ('WindowSizeInBytes', UInt32),
+    ]
+    return RM_SEND_WINDOW
+def _define_RM_SENDER_STATS_head():
+    class RM_SENDER_STATS(Structure):
+        pass
+    return RM_SENDER_STATS
+def _define_RM_SENDER_STATS():
+    RM_SENDER_STATS = win32more.Networking.WinSock.RM_SENDER_STATS_head
+    RM_SENDER_STATS._fields_ = [
+        ('DataBytesSent', UInt64),
+        ('TotalBytesSent', UInt64),
+        ('NaksReceived', UInt64),
+        ('NaksReceivedTooLate', UInt64),
+        ('NumOutstandingNaks', UInt64),
+        ('NumNaksAfterRData', UInt64),
+        ('RepairPacketsSent', UInt64),
+        ('BufferSpaceAvailable', UInt64),
+        ('TrailingEdgeSeqId', UInt64),
+        ('LeadingEdgeSeqId', UInt64),
+        ('RateKBitsPerSecOverall', UInt64),
+        ('RateKBitsPerSecLast', UInt64),
+        ('TotalODataPacketsSent', UInt64),
+    ]
+    return RM_SENDER_STATS
+def _define_RSS_SCALABILITY_INFO_head():
+    class RSS_SCALABILITY_INFO(Structure):
+        pass
+    return RSS_SCALABILITY_INFO
+def _define_RSS_SCALABILITY_INFO():
+    RSS_SCALABILITY_INFO = win32more.Networking.WinSock.RSS_SCALABILITY_INFO_head
+    RSS_SCALABILITY_INFO._fields_ = [
+        ('RssEnabled', win32more.Foundation.BOOLEAN),
+    ]
+    return RSS_SCALABILITY_INFO
+def _define_SCOPE_ID_head():
+    class SCOPE_ID(Structure):
+        pass
+    return SCOPE_ID
+def _define_SCOPE_ID():
+    SCOPE_ID = win32more.Networking.WinSock.SCOPE_ID_head
+    class SCOPE_ID__Anonymous_e__Union(Union):
+        pass
+    class SCOPE_ID__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    SCOPE_ID__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    SCOPE_ID__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    SCOPE_ID__Anonymous_e__Union._fields_ = [
+        ('Anonymous', SCOPE_ID__Anonymous_e__Union__Anonymous_e__Struct),
+        ('Value', UInt32),
+    ]
+    SCOPE_ID._anonymous_ = [
+        'Anonymous',
+    ]
+    SCOPE_ID._fields_ = [
+        ('Anonymous', SCOPE_ID__Anonymous_e__Union),
+    ]
+    return SCOPE_ID
+SCOPE_LEVEL = Int32
+SCOPE_LEVEL_ScopeLevelInterface = 1
+SCOPE_LEVEL_ScopeLevelLink = 2
+SCOPE_LEVEL_ScopeLevelSubnet = 3
+SCOPE_LEVEL_ScopeLevelAdmin = 4
+SCOPE_LEVEL_ScopeLevelSite = 5
+SCOPE_LEVEL_ScopeLevelOrganization = 8
+SCOPE_LEVEL_ScopeLevelGlobal = 14
+SCOPE_LEVEL_ScopeLevelCount = 16
+SEND_RECV_FLAGS = Int32
+MSG_OOB = 1
+MSG_PEEK = 2
+MSG_DONTROUTE = 4
+MSG_WAITALL = 8
+MSG_PUSH_IMMEDIATE = 32
+def _define_SERVENT_head():
+    class SERVENT(Structure):
+        pass
+    return SERVENT
+def _define_SERVENT():
+    SERVENT = win32more.Networking.WinSock.SERVENT_head
+    SERVENT._fields_ = [
+        ('s_name', win32more.Foundation.PSTR),
+        ('s_aliases', POINTER(POINTER(SByte))),
+        ('s_proto', win32more.Foundation.PSTR),
+        ('s_port', Int16),
+    ]
+    return SERVENT
+def _define_SERVICE_ADDRESS_head():
+    class SERVICE_ADDRESS(Structure):
+        pass
+    return SERVICE_ADDRESS
+def _define_SERVICE_ADDRESS():
+    SERVICE_ADDRESS = win32more.Networking.WinSock.SERVICE_ADDRESS_head
+    SERVICE_ADDRESS._fields_ = [
+        ('dwAddressType', UInt32),
+        ('dwAddressFlags', UInt32),
+        ('dwAddressLength', UInt32),
+        ('dwPrincipalLength', UInt32),
+        ('lpAddress', c_char_p_no),
+        ('lpPrincipal', c_char_p_no),
+    ]
+    return SERVICE_ADDRESS
+def _define_SERVICE_ADDRESSES_head():
+    class SERVICE_ADDRESSES(Structure):
+        pass
+    return SERVICE_ADDRESSES
+def _define_SERVICE_ADDRESSES():
+    SERVICE_ADDRESSES = win32more.Networking.WinSock.SERVICE_ADDRESSES_head
+    SERVICE_ADDRESSES._fields_ = [
+        ('dwAddressCount', UInt32),
+        ('Addresses', win32more.Networking.WinSock.SERVICE_ADDRESS * 1),
+    ]
+    return SERVICE_ADDRESSES
+def _define_SERVICE_ASYNC_INFO_head():
+    class SERVICE_ASYNC_INFO(Structure):
+        pass
+    return SERVICE_ASYNC_INFO
+def _define_SERVICE_ASYNC_INFO():
+    SERVICE_ASYNC_INFO = win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head
+    SERVICE_ASYNC_INFO._fields_ = [
+        ('lpServiceCallbackProc', win32more.Networking.WinSock.LPSERVICE_CALLBACK_PROC),
+        ('lParam', win32more.Foundation.LPARAM),
+        ('hAsyncTaskHandle', win32more.Foundation.HANDLE),
+    ]
+    return SERVICE_ASYNC_INFO
+def _define_SERVICE_INFOA_head():
+    class SERVICE_INFOA(Structure):
+        pass
+    return SERVICE_INFOA
+def _define_SERVICE_INFOA():
+    SERVICE_INFOA = win32more.Networking.WinSock.SERVICE_INFOA_head
+    SERVICE_INFOA._fields_ = [
+        ('lpServiceType', POINTER(Guid)),
+        ('lpServiceName', win32more.Foundation.PSTR),
+        ('lpComment', win32more.Foundation.PSTR),
+        ('lpLocale', win32more.Foundation.PSTR),
+        ('dwDisplayHint', win32more.Networking.WinSock.RESOURCE_DISPLAY_TYPE),
+        ('dwVersion', UInt32),
+        ('dwTime', UInt32),
+        ('lpMachineName', win32more.Foundation.PSTR),
+        ('lpServiceAddress', POINTER(win32more.Networking.WinSock.SERVICE_ADDRESSES_head)),
+        ('ServiceSpecificInfo', win32more.System.Com.BLOB),
+    ]
+    return SERVICE_INFOA
+def _define_SERVICE_INFOW_head():
+    class SERVICE_INFOW(Structure):
+        pass
+    return SERVICE_INFOW
+def _define_SERVICE_INFOW():
+    SERVICE_INFOW = win32more.Networking.WinSock.SERVICE_INFOW_head
+    SERVICE_INFOW._fields_ = [
+        ('lpServiceType', POINTER(Guid)),
+        ('lpServiceName', win32more.Foundation.PWSTR),
+        ('lpComment', win32more.Foundation.PWSTR),
+        ('lpLocale', win32more.Foundation.PWSTR),
+        ('dwDisplayHint', win32more.Networking.WinSock.RESOURCE_DISPLAY_TYPE),
+        ('dwVersion', UInt32),
+        ('dwTime', UInt32),
+        ('lpMachineName', win32more.Foundation.PWSTR),
+        ('lpServiceAddress', POINTER(win32more.Networking.WinSock.SERVICE_ADDRESSES_head)),
+        ('ServiceSpecificInfo', win32more.System.Com.BLOB),
+    ]
+    return SERVICE_INFOW
+def _define_SERVICE_TYPE_INFO_head():
+    class SERVICE_TYPE_INFO(Structure):
+        pass
+    return SERVICE_TYPE_INFO
+def _define_SERVICE_TYPE_INFO():
+    SERVICE_TYPE_INFO = win32more.Networking.WinSock.SERVICE_TYPE_INFO_head
+    SERVICE_TYPE_INFO._fields_ = [
+        ('dwTypeNameOffset', UInt32),
+        ('dwValueCount', UInt32),
+        ('Values', win32more.Networking.WinSock.SERVICE_TYPE_VALUE * 1),
+    ]
+    return SERVICE_TYPE_INFO
+def _define_SERVICE_TYPE_INFO_ABSA_head():
+    class SERVICE_TYPE_INFO_ABSA(Structure):
+        pass
+    return SERVICE_TYPE_INFO_ABSA
+def _define_SERVICE_TYPE_INFO_ABSA():
+    SERVICE_TYPE_INFO_ABSA = win32more.Networking.WinSock.SERVICE_TYPE_INFO_ABSA_head
+    SERVICE_TYPE_INFO_ABSA._fields_ = [
+        ('lpTypeName', win32more.Foundation.PSTR),
+        ('dwValueCount', UInt32),
+        ('Values', win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA * 1),
+    ]
+    return SERVICE_TYPE_INFO_ABSA
+def _define_SERVICE_TYPE_INFO_ABSW_head():
+    class SERVICE_TYPE_INFO_ABSW(Structure):
+        pass
+    return SERVICE_TYPE_INFO_ABSW
+def _define_SERVICE_TYPE_INFO_ABSW():
+    SERVICE_TYPE_INFO_ABSW = win32more.Networking.WinSock.SERVICE_TYPE_INFO_ABSW_head
+    SERVICE_TYPE_INFO_ABSW._fields_ = [
+        ('lpTypeName', win32more.Foundation.PWSTR),
+        ('dwValueCount', UInt32),
+        ('Values', win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW * 1),
+    ]
+    return SERVICE_TYPE_INFO_ABSW
+def _define_SERVICE_TYPE_VALUE_head():
+    class SERVICE_TYPE_VALUE(Structure):
+        pass
+    return SERVICE_TYPE_VALUE
+def _define_SERVICE_TYPE_VALUE():
+    SERVICE_TYPE_VALUE = win32more.Networking.WinSock.SERVICE_TYPE_VALUE_head
+    SERVICE_TYPE_VALUE._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('dwValueType', UInt32),
+        ('dwValueSize', UInt32),
+        ('dwValueNameOffset', UInt32),
+        ('dwValueOffset', UInt32),
+    ]
+    return SERVICE_TYPE_VALUE
+def _define_SERVICE_TYPE_VALUE_ABSA_head():
+    class SERVICE_TYPE_VALUE_ABSA(Structure):
+        pass
+    return SERVICE_TYPE_VALUE_ABSA
+def _define_SERVICE_TYPE_VALUE_ABSA():
+    SERVICE_TYPE_VALUE_ABSA = win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA_head
+    SERVICE_TYPE_VALUE_ABSA._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('dwValueType', UInt32),
+        ('dwValueSize', UInt32),
+        ('lpValueName', win32more.Foundation.PSTR),
+        ('lpValue', c_void_p),
+    ]
+    return SERVICE_TYPE_VALUE_ABSA
+def _define_SERVICE_TYPE_VALUE_ABSW_head():
+    class SERVICE_TYPE_VALUE_ABSW(Structure):
+        pass
+    return SERVICE_TYPE_VALUE_ABSW
+def _define_SERVICE_TYPE_VALUE_ABSW():
+    SERVICE_TYPE_VALUE_ABSW = win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW_head
+    SERVICE_TYPE_VALUE_ABSW._fields_ = [
+        ('dwNameSpace', UInt32),
+        ('dwValueType', UInt32),
+        ('dwValueSize', UInt32),
+        ('lpValueName', win32more.Foundation.PWSTR),
+        ('lpValue', c_void_p),
+    ]
+    return SERVICE_TYPE_VALUE_ABSW
+SET_SERVICE_OPERATION = UInt32
+SERVICE_REGISTER = 1
+SERVICE_DEREGISTER = 2
+SERVICE_FLUSH = 3
+SERVICE_ADD_TYPE = 4
+SERVICE_DELETE_TYPE = 5
+def _define_SNAP_HEADER_head():
+    class SNAP_HEADER(Structure):
+        pass
+    return SNAP_HEADER
+def _define_SNAP_HEADER():
+    SNAP_HEADER = win32more.Networking.WinSock.SNAP_HEADER_head
+    SNAP_HEADER._fields_ = [
+        ('Dsap', Byte),
+        ('Ssap', Byte),
+        ('Control', Byte),
+        ('Oui', Byte * 3),
+        ('Type', UInt16),
+    ]
+    return SNAP_HEADER
+def _define_SOCK_NOTIFY_REGISTRATION_head():
+    class SOCK_NOTIFY_REGISTRATION(Structure):
+        pass
+    return SOCK_NOTIFY_REGISTRATION
+def _define_SOCK_NOTIFY_REGISTRATION():
+    SOCK_NOTIFY_REGISTRATION = win32more.Networking.WinSock.SOCK_NOTIFY_REGISTRATION_head
+    SOCK_NOTIFY_REGISTRATION._fields_ = [
+        ('socket', win32more.Networking.WinSock.SOCKET),
+        ('completionKey', c_void_p),
+        ('eventFilter', UInt16),
+        ('operation', Byte),
+        ('triggerFlags', Byte),
+        ('registrationResult', UInt32),
+    ]
+    return SOCK_NOTIFY_REGISTRATION
+def _define_SOCKADDR_head():
+    class SOCKADDR(Structure):
+        pass
+    return SOCKADDR
+def _define_SOCKADDR():
+    SOCKADDR = win32more.Networking.WinSock.SOCKADDR_head
+    SOCKADDR._fields_ = [
+        ('sa_family', UInt16),
+        ('sa_data', win32more.Foundation.CHAR * 14),
+    ]
+    return SOCKADDR
+def _define_SOCKADDR_ATM_head():
+    class SOCKADDR_ATM(Structure):
+        pass
+    return SOCKADDR_ATM
+def _define_SOCKADDR_ATM():
+    SOCKADDR_ATM = win32more.Networking.WinSock.SOCKADDR_ATM_head
+    SOCKADDR_ATM._fields_ = [
+        ('satm_family', UInt16),
+        ('satm_number', win32more.Networking.WinSock.ATM_ADDRESS),
+        ('satm_blli', win32more.Networking.WinSock.ATM_BLLI),
+        ('satm_bhli', win32more.Networking.WinSock.ATM_BHLI),
+    ]
+    return SOCKADDR_ATM
+def _define_SOCKADDR_DL_head():
+    class SOCKADDR_DL(Structure):
+        pass
+    return SOCKADDR_DL
+def _define_SOCKADDR_DL():
+    SOCKADDR_DL = win32more.Networking.WinSock.SOCKADDR_DL_head
+    SOCKADDR_DL._fields_ = [
+        ('sdl_family', UInt16),
+        ('sdl_data', Byte * 8),
+        ('sdl_zero', Byte * 4),
+    ]
+    return SOCKADDR_DL
+def _define_sockaddr_gen_head():
+    class sockaddr_gen(Union):
+        pass
+    return sockaddr_gen
+def _define_sockaddr_gen():
+    sockaddr_gen = win32more.Networking.WinSock.sockaddr_gen_head
+    sockaddr_gen._fields_ = [
+        ('Address', win32more.Networking.WinSock.SOCKADDR),
+        ('AddressIn', win32more.Networking.WinSock.SOCKADDR_IN),
+        ('AddressIn6', win32more.Networking.WinSock.sockaddr_in6_old),
+    ]
+    return sockaddr_gen
+def _define_SOCKADDR_IN_head():
+    class SOCKADDR_IN(Structure):
+        pass
+    return SOCKADDR_IN
+def _define_SOCKADDR_IN():
+    SOCKADDR_IN = win32more.Networking.WinSock.SOCKADDR_IN_head
+    SOCKADDR_IN._fields_ = [
+        ('sin_family', UInt16),
+        ('sin_port', UInt16),
+        ('sin_addr', win32more.Networking.WinSock.IN_ADDR),
+        ('sin_zero', win32more.Foundation.CHAR * 8),
+    ]
+    return SOCKADDR_IN
+def _define_SOCKADDR_IN6_head():
+    class SOCKADDR_IN6(Structure):
+        pass
+    return SOCKADDR_IN6
+def _define_SOCKADDR_IN6():
+    SOCKADDR_IN6 = win32more.Networking.WinSock.SOCKADDR_IN6_head
+    class SOCKADDR_IN6__Anonymous_e__Union(Union):
+        pass
+    SOCKADDR_IN6__Anonymous_e__Union._fields_ = [
+        ('sin6_scope_id', UInt32),
+        ('sin6_scope_struct', win32more.Networking.WinSock.SCOPE_ID),
+    ]
+    SOCKADDR_IN6._anonymous_ = [
+        'Anonymous',
+    ]
+    SOCKADDR_IN6._fields_ = [
+        ('sin6_family', UInt16),
+        ('sin6_port', UInt16),
+        ('sin6_flowinfo', UInt32),
+        ('sin6_addr', win32more.Networking.WinSock.IN6_ADDR),
+        ('Anonymous', SOCKADDR_IN6__Anonymous_e__Union),
+    ]
+    return SOCKADDR_IN6
+def _define_sockaddr_in6_old_head():
+    class sockaddr_in6_old(Structure):
+        pass
+    return sockaddr_in6_old
+def _define_sockaddr_in6_old():
+    sockaddr_in6_old = win32more.Networking.WinSock.sockaddr_in6_old_head
+    sockaddr_in6_old._fields_ = [
+        ('sin6_family', Int16),
+        ('sin6_port', UInt16),
+        ('sin6_flowinfo', UInt32),
+        ('sin6_addr', win32more.Networking.WinSock.IN6_ADDR),
+    ]
+    return sockaddr_in6_old
+def _define_SOCKADDR_IN6_PAIR_head():
+    class SOCKADDR_IN6_PAIR(Structure):
+        pass
+    return SOCKADDR_IN6_PAIR
+def _define_SOCKADDR_IN6_PAIR():
+    SOCKADDR_IN6_PAIR = win32more.Networking.WinSock.SOCKADDR_IN6_PAIR_head
+    SOCKADDR_IN6_PAIR._fields_ = [
+        ('SourceAddress', POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head)),
+        ('DestinationAddress', POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head)),
+    ]
+    return SOCKADDR_IN6_PAIR
+def _define_SOCKADDR_IN6_W2KSP1_head():
+    class SOCKADDR_IN6_W2KSP1(Structure):
+        pass
+    return SOCKADDR_IN6_W2KSP1
+def _define_SOCKADDR_IN6_W2KSP1():
+    SOCKADDR_IN6_W2KSP1 = win32more.Networking.WinSock.SOCKADDR_IN6_W2KSP1_head
+    SOCKADDR_IN6_W2KSP1._fields_ = [
+        ('sin6_family', Int16),
+        ('sin6_port', UInt16),
+        ('sin6_flowinfo', UInt32),
+        ('sin6_addr', win32more.Networking.WinSock.IN6_ADDR),
+        ('sin6_scope_id', UInt32),
+    ]
+    return SOCKADDR_IN6_W2KSP1
+def _define_SOCKADDR_INET_head():
+    class SOCKADDR_INET(Union):
+        pass
+    return SOCKADDR_INET
+def _define_SOCKADDR_INET():
+    SOCKADDR_INET = win32more.Networking.WinSock.SOCKADDR_INET_head
+    SOCKADDR_INET._fields_ = [
+        ('Ipv4', win32more.Networking.WinSock.SOCKADDR_IN),
+        ('Ipv6', win32more.Networking.WinSock.SOCKADDR_IN6),
+        ('si_family', UInt16),
+    ]
+    return SOCKADDR_INET
+def _define_SOCKADDR_IPX_head():
+    class SOCKADDR_IPX(Structure):
+        pass
+    return SOCKADDR_IPX
+def _define_SOCKADDR_IPX():
+    SOCKADDR_IPX = win32more.Networking.WinSock.SOCKADDR_IPX_head
+    SOCKADDR_IPX._fields_ = [
+        ('sa_family', Int16),
+        ('sa_netnum', win32more.Foundation.CHAR * 4),
+        ('sa_nodenum', win32more.Foundation.CHAR * 6),
+        ('sa_socket', UInt16),
+    ]
+    return SOCKADDR_IPX
+def _define_SOCKADDR_IRDA_head():
+    class SOCKADDR_IRDA(Structure):
+        pass
+    return SOCKADDR_IRDA
+def _define_SOCKADDR_IRDA():
+    SOCKADDR_IRDA = win32more.Networking.WinSock.SOCKADDR_IRDA_head
+    SOCKADDR_IRDA._fields_ = [
+        ('irdaAddressFamily', UInt16),
+        ('irdaDeviceID', Byte * 4),
+        ('irdaServiceName', win32more.Foundation.CHAR * 25),
+    ]
+    return SOCKADDR_IRDA
+def _define_SOCKADDR_NB_head():
+    class SOCKADDR_NB(Structure):
+        pass
+    return SOCKADDR_NB
+def _define_SOCKADDR_NB():
+    SOCKADDR_NB = win32more.Networking.WinSock.SOCKADDR_NB_head
+    SOCKADDR_NB._fields_ = [
+        ('snb_family', Int16),
+        ('snb_type', UInt16),
+        ('snb_name', win32more.Foundation.CHAR * 16),
+    ]
+    return SOCKADDR_NB
+def _define_SOCKADDR_STORAGE_head():
+    class SOCKADDR_STORAGE(Structure):
+        pass
+    return SOCKADDR_STORAGE
+def _define_SOCKADDR_STORAGE():
+    SOCKADDR_STORAGE = win32more.Networking.WinSock.SOCKADDR_STORAGE_head
+    SOCKADDR_STORAGE._fields_ = [
+        ('ss_family', UInt16),
+        ('__ss_pad1', win32more.Foundation.CHAR * 6),
+        ('__ss_align', Int64),
+        ('__ss_pad2', win32more.Foundation.CHAR * 112),
+    ]
+    return SOCKADDR_STORAGE
+def _define_SOCKADDR_STORAGE_XP_head():
+    class SOCKADDR_STORAGE_XP(Structure):
+        pass
+    return SOCKADDR_STORAGE_XP
+def _define_SOCKADDR_STORAGE_XP():
+    SOCKADDR_STORAGE_XP = win32more.Networking.WinSock.SOCKADDR_STORAGE_XP_head
+    SOCKADDR_STORAGE_XP._fields_ = [
+        ('ss_family', Int16),
+        ('__ss_pad1', win32more.Foundation.CHAR * 6),
+        ('__ss_align', Int64),
+        ('__ss_pad2', win32more.Foundation.CHAR * 112),
+    ]
+    return SOCKADDR_STORAGE_XP
+def _define_SOCKADDR_TP_head():
+    class SOCKADDR_TP(Structure):
+        pass
+    return SOCKADDR_TP
+def _define_SOCKADDR_TP():
+    SOCKADDR_TP = win32more.Networking.WinSock.SOCKADDR_TP_head
+    SOCKADDR_TP._fields_ = [
+        ('tp_family', UInt16),
+        ('tp_addr_type', UInt16),
+        ('tp_taddr_len', UInt16),
+        ('tp_tsel_len', UInt16),
+        ('tp_addr', Byte * 64),
+    ]
+    return SOCKADDR_TP
+def _define_SOCKADDR_UN_head():
+    class SOCKADDR_UN(Structure):
+        pass
+    return SOCKADDR_UN
+def _define_SOCKADDR_UN():
+    SOCKADDR_UN = win32more.Networking.WinSock.SOCKADDR_UN_head
+    SOCKADDR_UN._fields_ = [
+        ('sun_family', UInt16),
+        ('sun_path', win32more.Foundation.CHAR * 108),
+    ]
+    return SOCKADDR_UN
+def _define_SOCKADDR_VNS_head():
+    class SOCKADDR_VNS(Structure):
+        pass
+    return SOCKADDR_VNS
+def _define_SOCKADDR_VNS():
+    SOCKADDR_VNS = win32more.Networking.WinSock.SOCKADDR_VNS_head
+    SOCKADDR_VNS._fields_ = [
+        ('sin_family', UInt16),
+        ('net_address', Byte * 4),
+        ('subnet_addr', Byte * 2),
+        ('port', Byte * 2),
+        ('hops', Byte),
+        ('filler', Byte * 5),
+    ]
+    return SOCKADDR_VNS
+SOCKET = UIntPtr
+def _define_SOCKET_ADDRESS_head():
+    class SOCKET_ADDRESS(Structure):
+        pass
+    return SOCKET_ADDRESS
+def _define_SOCKET_ADDRESS():
+    SOCKET_ADDRESS = win32more.Networking.WinSock.SOCKET_ADDRESS_head
+    SOCKET_ADDRESS._fields_ = [
+        ('lpSockaddr', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('iSockaddrLength', Int32),
+    ]
+    return SOCKET_ADDRESS
+def _define_SOCKET_ADDRESS_LIST_head():
+    class SOCKET_ADDRESS_LIST(Structure):
+        pass
+    return SOCKET_ADDRESS_LIST
+def _define_SOCKET_ADDRESS_LIST():
+    SOCKET_ADDRESS_LIST = win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head
+    SOCKET_ADDRESS_LIST._fields_ = [
+        ('iAddressCount', Int32),
+        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS * 1),
+    ]
+    return SOCKET_ADDRESS_LIST
+def _define_SOCKET_PEER_TARGET_NAME_head():
+    class SOCKET_PEER_TARGET_NAME(Structure):
+        pass
+    return SOCKET_PEER_TARGET_NAME
+def _define_SOCKET_PEER_TARGET_NAME():
+    SOCKET_PEER_TARGET_NAME = win32more.Networking.WinSock.SOCKET_PEER_TARGET_NAME_head
+    SOCKET_PEER_TARGET_NAME._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('PeerAddress', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+        ('PeerTargetNameStringLen', UInt32),
+        ('AllStrings', Char * 1),
+    ]
+    return SOCKET_PEER_TARGET_NAME
+SOCKET_PRIORITY_HINT = Int32
+SOCKET_PRIORITY_HINT_SocketPriorityHintVeryLow = 0
+SOCKET_PRIORITY_HINT_SocketPriorityHintLow = 1
+SOCKET_PRIORITY_HINT_SocketPriorityHintNormal = 2
+SOCKET_PRIORITY_HINT_SocketMaximumPriorityHintType = 3
+def _define_SOCKET_PROCESSOR_AFFINITY_head():
+    class SOCKET_PROCESSOR_AFFINITY(Structure):
+        pass
+    return SOCKET_PROCESSOR_AFFINITY
+def _define_SOCKET_PROCESSOR_AFFINITY():
+    SOCKET_PROCESSOR_AFFINITY = win32more.Networking.WinSock.SOCKET_PROCESSOR_AFFINITY_head
+    SOCKET_PROCESSOR_AFFINITY._fields_ = [
+        ('Processor', win32more.System.Kernel.PROCESSOR_NUMBER),
+        ('NumaNodeId', UInt16),
+        ('Reserved', UInt16),
+    ]
+    return SOCKET_PROCESSOR_AFFINITY
+SOCKET_SECURITY_PROTOCOL = Int32
+SOCKET_SECURITY_PROTOCOL_DEFAULT = 0
+SOCKET_SECURITY_PROTOCOL_IPSEC = 1
+SOCKET_SECURITY_PROTOCOL_IPSEC2 = 2
+SOCKET_SECURITY_PROTOCOL_INVALID = 3
+def _define_SOCKET_SECURITY_QUERY_INFO_head():
+    class SOCKET_SECURITY_QUERY_INFO(Structure):
+        pass
+    return SOCKET_SECURITY_QUERY_INFO
+def _define_SOCKET_SECURITY_QUERY_INFO():
+    SOCKET_SECURITY_QUERY_INFO = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO_head
+    SOCKET_SECURITY_QUERY_INFO._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('Flags', UInt32),
+        ('PeerApplicationAccessTokenHandle', UInt64),
+        ('PeerMachineAccessTokenHandle', UInt64),
+    ]
+    return SOCKET_SECURITY_QUERY_INFO
+def _define_SOCKET_SECURITY_QUERY_INFO_IPSEC2_head():
+    class SOCKET_SECURITY_QUERY_INFO_IPSEC2(Structure):
+        pass
+    return SOCKET_SECURITY_QUERY_INFO_IPSEC2
+def _define_SOCKET_SECURITY_QUERY_INFO_IPSEC2():
+    SOCKET_SECURITY_QUERY_INFO_IPSEC2 = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO_IPSEC2_head
+    SOCKET_SECURITY_QUERY_INFO_IPSEC2._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('Flags', UInt32),
+        ('PeerApplicationAccessTokenHandle', UInt64),
+        ('PeerMachineAccessTokenHandle', UInt64),
+        ('MmSaId', UInt64),
+        ('QmSaId', UInt64),
+        ('NegotiationWinerr', UInt32),
+        ('SaLookupContext', Guid),
+    ]
+    return SOCKET_SECURITY_QUERY_INFO_IPSEC2
+def _define_SOCKET_SECURITY_QUERY_TEMPLATE_head():
+    class SOCKET_SECURITY_QUERY_TEMPLATE(Structure):
+        pass
+    return SOCKET_SECURITY_QUERY_TEMPLATE
+def _define_SOCKET_SECURITY_QUERY_TEMPLATE():
+    SOCKET_SECURITY_QUERY_TEMPLATE = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_TEMPLATE_head
+    SOCKET_SECURITY_QUERY_TEMPLATE._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('PeerAddress', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+        ('PeerTokenAccessMask', UInt32),
+    ]
+    return SOCKET_SECURITY_QUERY_TEMPLATE
+def _define_SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2_head():
+    class SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2(Structure):
+        pass
+    return SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2
+def _define_SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2():
+    SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2 = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2_head
+    SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('PeerAddress', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+        ('PeerTokenAccessMask', UInt32),
+        ('Flags', UInt32),
+        ('FieldMask', UInt32),
+    ]
+    return SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2
+def _define_SOCKET_SECURITY_SETTINGS_head():
+    class SOCKET_SECURITY_SETTINGS(Structure):
+        pass
+    return SOCKET_SECURITY_SETTINGS
+def _define_SOCKET_SECURITY_SETTINGS():
+    SOCKET_SECURITY_SETTINGS = win32more.Networking.WinSock.SOCKET_SECURITY_SETTINGS_head
+    SOCKET_SECURITY_SETTINGS._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('SecurityFlags', UInt32),
+    ]
+    return SOCKET_SECURITY_SETTINGS
+def _define_SOCKET_SECURITY_SETTINGS_IPSEC_head():
+    class SOCKET_SECURITY_SETTINGS_IPSEC(Structure):
+        pass
+    return SOCKET_SECURITY_SETTINGS_IPSEC
+def _define_SOCKET_SECURITY_SETTINGS_IPSEC():
+    SOCKET_SECURITY_SETTINGS_IPSEC = win32more.Networking.WinSock.SOCKET_SECURITY_SETTINGS_IPSEC_head
+    SOCKET_SECURITY_SETTINGS_IPSEC._fields_ = [
+        ('SecurityProtocol', win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
+        ('SecurityFlags', UInt32),
+        ('IpsecFlags', UInt32),
+        ('AuthipMMPolicyKey', Guid),
+        ('AuthipQMPolicyKey', Guid),
+        ('Reserved', Guid),
+        ('Reserved2', UInt64),
+        ('UserNameStringLen', UInt32),
+        ('DomainNameStringLen', UInt32),
+        ('PasswordStringLen', UInt32),
+        ('AllStrings', Char * 1),
+    ]
+    return SOCKET_SECURITY_SETTINGS_IPSEC
+SOCKET_USAGE_TYPE = Int32
+SYSTEM_CRITICAL_SOCKET = 1
+def _define_sockproto_head():
+    class sockproto(Structure):
+        pass
+    return sockproto
+def _define_sockproto():
+    sockproto = win32more.Networking.WinSock.sockproto_head
+    sockproto._fields_ = [
+        ('sp_family', UInt16),
+        ('sp_protocol', UInt16),
+    ]
+    return sockproto
+def _define_TCP_ACK_FREQUENCY_PARAMETERS_head():
+    class TCP_ACK_FREQUENCY_PARAMETERS(Structure):
+        pass
+    return TCP_ACK_FREQUENCY_PARAMETERS
+def _define_TCP_ACK_FREQUENCY_PARAMETERS():
+    TCP_ACK_FREQUENCY_PARAMETERS = win32more.Networking.WinSock.TCP_ACK_FREQUENCY_PARAMETERS_head
+    TCP_ACK_FREQUENCY_PARAMETERS._fields_ = [
+        ('TcpDelayedAckFrequency', Byte),
+    ]
+    return TCP_ACK_FREQUENCY_PARAMETERS
+def _define_TCP_HDR_head():
+    class TCP_HDR(Structure):
+        pass
+    return TCP_HDR
+def _define_TCP_HDR():
+    TCP_HDR = win32more.Networking.WinSock.TCP_HDR_head
+    TCP_HDR._pack_ = 1
+    TCP_HDR._fields_ = [
+        ('th_sport', UInt16),
+        ('th_dport', UInt16),
+        ('th_seq', UInt32),
+        ('th_ack', UInt32),
+        ('_bitfield', Byte),
+        ('th_flags', Byte),
+        ('th_win', UInt16),
+        ('th_sum', UInt16),
+        ('th_urp', UInt16),
+    ]
+    return TCP_HDR
+TCP_ICW_LEVEL = Int32
+TCP_ICW_LEVEL_DEFAULT = 0
+TCP_ICW_LEVEL_HIGH = 1
+TCP_ICW_LEVEL_VERY_HIGH = 2
+TCP_ICW_LEVEL_AGGRESSIVE = 3
+TCP_ICW_LEVEL_EXPERIMENTAL = 4
+TCP_ICW_LEVEL_COMPAT = 254
+TCP_ICW_LEVEL_MAX = 255
+def _define_TCP_ICW_PARAMETERS_head():
+    class TCP_ICW_PARAMETERS(Structure):
+        pass
+    return TCP_ICW_PARAMETERS
+def _define_TCP_ICW_PARAMETERS():
+    TCP_ICW_PARAMETERS = win32more.Networking.WinSock.TCP_ICW_PARAMETERS_head
+    TCP_ICW_PARAMETERS._fields_ = [
+        ('Level', win32more.Networking.WinSock.TCP_ICW_LEVEL),
+    ]
+    return TCP_ICW_PARAMETERS
+def _define_TCP_INFO_v0_head():
+    class TCP_INFO_v0(Structure):
+        pass
+    return TCP_INFO_v0
+def _define_TCP_INFO_v0():
+    TCP_INFO_v0 = win32more.Networking.WinSock.TCP_INFO_v0_head
+    TCP_INFO_v0._fields_ = [
+        ('State', win32more.Networking.WinSock.TCPSTATE),
+        ('Mss', UInt32),
+        ('ConnectionTimeMs', UInt64),
+        ('TimestampsEnabled', win32more.Foundation.BOOLEAN),
+        ('RttUs', UInt32),
+        ('MinRttUs', UInt32),
+        ('BytesInFlight', UInt32),
+        ('Cwnd', UInt32),
+        ('SndWnd', UInt32),
+        ('RcvWnd', UInt32),
+        ('RcvBuf', UInt32),
+        ('BytesOut', UInt64),
+        ('BytesIn', UInt64),
+        ('BytesReordered', UInt32),
+        ('BytesRetrans', UInt32),
+        ('FastRetrans', UInt32),
+        ('DupAcksIn', UInt32),
+        ('TimeoutEpisodes', UInt32),
+        ('SynRetrans', Byte),
+    ]
+    return TCP_INFO_v0
+def _define_TCP_INFO_v1_head():
+    class TCP_INFO_v1(Structure):
+        pass
+    return TCP_INFO_v1
+def _define_TCP_INFO_v1():
+    TCP_INFO_v1 = win32more.Networking.WinSock.TCP_INFO_v1_head
+    TCP_INFO_v1._fields_ = [
+        ('State', win32more.Networking.WinSock.TCPSTATE),
+        ('Mss', UInt32),
+        ('ConnectionTimeMs', UInt64),
+        ('TimestampsEnabled', win32more.Foundation.BOOLEAN),
+        ('RttUs', UInt32),
+        ('MinRttUs', UInt32),
+        ('BytesInFlight', UInt32),
+        ('Cwnd', UInt32),
+        ('SndWnd', UInt32),
+        ('RcvWnd', UInt32),
+        ('RcvBuf', UInt32),
+        ('BytesOut', UInt64),
+        ('BytesIn', UInt64),
+        ('BytesReordered', UInt32),
+        ('BytesRetrans', UInt32),
+        ('FastRetrans', UInt32),
+        ('DupAcksIn', UInt32),
+        ('TimeoutEpisodes', UInt32),
+        ('SynRetrans', Byte),
+        ('SndLimTransRwin', UInt32),
+        ('SndLimTimeRwin', UInt32),
+        ('SndLimBytesRwin', UInt64),
+        ('SndLimTransCwnd', UInt32),
+        ('SndLimTimeCwnd', UInt32),
+        ('SndLimBytesCwnd', UInt64),
+        ('SndLimTransSnd', UInt32),
+        ('SndLimTimeSnd', UInt32),
+        ('SndLimBytesSnd', UInt64),
+    ]
+    return TCP_INFO_v1
+def _define_TCP_INITIAL_RTO_PARAMETERS_head():
+    class TCP_INITIAL_RTO_PARAMETERS(Structure):
+        pass
+    return TCP_INITIAL_RTO_PARAMETERS
+def _define_TCP_INITIAL_RTO_PARAMETERS():
+    TCP_INITIAL_RTO_PARAMETERS = win32more.Networking.WinSock.TCP_INITIAL_RTO_PARAMETERS_head
+    TCP_INITIAL_RTO_PARAMETERS._fields_ = [
+        ('Rtt', UInt16),
+        ('MaxSynRetransmissions', Byte),
+    ]
+    return TCP_INITIAL_RTO_PARAMETERS
+def _define_tcp_keepalive_head():
+    class tcp_keepalive(Structure):
+        pass
+    return tcp_keepalive
+def _define_tcp_keepalive():
+    tcp_keepalive = win32more.Networking.WinSock.tcp_keepalive_head
+    tcp_keepalive._fields_ = [
+        ('onoff', UInt32),
+        ('keepalivetime', UInt32),
+        ('keepaliveinterval', UInt32),
+    ]
+    return tcp_keepalive
+def _define_TCP_OPT_FASTOPEN_head():
+    class TCP_OPT_FASTOPEN(Structure):
+        pass
+    return TCP_OPT_FASTOPEN
+def _define_TCP_OPT_FASTOPEN():
+    TCP_OPT_FASTOPEN = win32more.Networking.WinSock.TCP_OPT_FASTOPEN_head
+    TCP_OPT_FASTOPEN._pack_ = 1
+    TCP_OPT_FASTOPEN._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+        ('Cookie', Byte * 1),
+    ]
+    return TCP_OPT_FASTOPEN
+def _define_TCP_OPT_MSS_head():
+    class TCP_OPT_MSS(Structure):
+        pass
+    return TCP_OPT_MSS
+def _define_TCP_OPT_MSS():
+    TCP_OPT_MSS = win32more.Networking.WinSock.TCP_OPT_MSS_head
+    TCP_OPT_MSS._pack_ = 1
+    TCP_OPT_MSS._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+        ('Mss', UInt16),
+    ]
+    return TCP_OPT_MSS
+def _define_TCP_OPT_SACK_head():
+    class TCP_OPT_SACK(Structure):
+        pass
+    return TCP_OPT_SACK
+def _define_TCP_OPT_SACK():
+    TCP_OPT_SACK = win32more.Networking.WinSock.TCP_OPT_SACK_head
+    class TCP_OPT_SACK_tcp_opt_sack_block(Structure):
+        pass
+    TCP_OPT_SACK_tcp_opt_sack_block._pack_ = 1
+    TCP_OPT_SACK_tcp_opt_sack_block._fields_ = [
+        ('Left', UInt32),
+        ('Right', UInt32),
+    ]
+    TCP_OPT_SACK._pack_ = 1
+    TCP_OPT_SACK._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+        ('Block', TCP_OPT_SACK_tcp_opt_sack_block * 1),
+    ]
+    return TCP_OPT_SACK
+def _define_TCP_OPT_SACK_PERMITTED_head():
+    class TCP_OPT_SACK_PERMITTED(Structure):
+        pass
+    return TCP_OPT_SACK_PERMITTED
+def _define_TCP_OPT_SACK_PERMITTED():
+    TCP_OPT_SACK_PERMITTED = win32more.Networking.WinSock.TCP_OPT_SACK_PERMITTED_head
+    TCP_OPT_SACK_PERMITTED._pack_ = 1
+    TCP_OPT_SACK_PERMITTED._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+    ]
+    return TCP_OPT_SACK_PERMITTED
+def _define_TCP_OPT_TS_head():
+    class TCP_OPT_TS(Structure):
+        pass
+    return TCP_OPT_TS
+def _define_TCP_OPT_TS():
+    TCP_OPT_TS = win32more.Networking.WinSock.TCP_OPT_TS_head
+    TCP_OPT_TS._pack_ = 1
+    TCP_OPT_TS._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+        ('Val', UInt32),
+        ('EcR', UInt32),
+    ]
+    return TCP_OPT_TS
+def _define_TCP_OPT_UNKNOWN_head():
+    class TCP_OPT_UNKNOWN(Structure):
+        pass
+    return TCP_OPT_UNKNOWN
+def _define_TCP_OPT_UNKNOWN():
+    TCP_OPT_UNKNOWN = win32more.Networking.WinSock.TCP_OPT_UNKNOWN_head
+    TCP_OPT_UNKNOWN._pack_ = 1
+    TCP_OPT_UNKNOWN._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+    ]
+    return TCP_OPT_UNKNOWN
+def _define_TCP_OPT_WS_head():
+    class TCP_OPT_WS(Structure):
+        pass
+    return TCP_OPT_WS
+def _define_TCP_OPT_WS():
+    TCP_OPT_WS = win32more.Networking.WinSock.TCP_OPT_WS_head
+    TCP_OPT_WS._pack_ = 1
+    TCP_OPT_WS._fields_ = [
+        ('Kind', Byte),
+        ('Length', Byte),
+        ('ShiftCnt', Byte),
+    ]
+    return TCP_OPT_WS
+TCPSTATE = Int32
+TCPSTATE_CLOSED = 0
+TCPSTATE_LISTEN = 1
+TCPSTATE_SYN_SENT = 2
+TCPSTATE_SYN_RCVD = 3
+TCPSTATE_ESTABLISHED = 4
+TCPSTATE_FIN_WAIT_1 = 5
+TCPSTATE_FIN_WAIT_2 = 6
+TCPSTATE_CLOSE_WAIT = 7
+TCPSTATE_CLOSING = 8
+TCPSTATE_LAST_ACK = 9
+TCPSTATE_TIME_WAIT = 10
+TCPSTATE_MAX = 11
+def _define_TIMESTAMPING_CONFIG_head():
+    class TIMESTAMPING_CONFIG(Structure):
+        pass
+    return TIMESTAMPING_CONFIG
+def _define_TIMESTAMPING_CONFIG():
+    TIMESTAMPING_CONFIG = win32more.Networking.WinSock.TIMESTAMPING_CONFIG_head
+    TIMESTAMPING_CONFIG._fields_ = [
+        ('Flags', UInt32),
+        ('TxTimestampsBuffered', UInt16),
+    ]
+    return TIMESTAMPING_CONFIG
+def _define_TIMEVAL_head():
+    class TIMEVAL(Structure):
+        pass
+    return TIMEVAL
+def _define_TIMEVAL():
+    TIMEVAL = win32more.Networking.WinSock.TIMEVAL_head
+    TIMEVAL._fields_ = [
+        ('tv_sec', Int32),
+        ('tv_usec', Int32),
+    ]
+    return TIMEVAL
+def _define_TRANSMIT_FILE_BUFFERS_head():
+    class TRANSMIT_FILE_BUFFERS(Structure):
+        pass
+    return TRANSMIT_FILE_BUFFERS
+def _define_TRANSMIT_FILE_BUFFERS():
+    TRANSMIT_FILE_BUFFERS = win32more.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head
+    TRANSMIT_FILE_BUFFERS._fields_ = [
+        ('Head', c_void_p),
+        ('HeadLength', UInt32),
+        ('Tail', c_void_p),
+        ('TailLength', UInt32),
+    ]
+    return TRANSMIT_FILE_BUFFERS
+def _define_TRANSMIT_PACKETS_ELEMENT_head():
+    class TRANSMIT_PACKETS_ELEMENT(Structure):
+        pass
+    return TRANSMIT_PACKETS_ELEMENT
+def _define_TRANSMIT_PACKETS_ELEMENT():
+    TRANSMIT_PACKETS_ELEMENT = win32more.Networking.WinSock.TRANSMIT_PACKETS_ELEMENT_head
+    class TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union(Union):
+        pass
+    class TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('nFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('hFile', win32more.Foundation.HANDLE),
+    ]
+    TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union._fields_ = [
+        ('Anonymous', TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union__Anonymous_e__Struct),
+        ('pBuffer', c_void_p),
+    ]
+    TRANSMIT_PACKETS_ELEMENT._anonymous_ = [
+        'Anonymous',
+    ]
+    TRANSMIT_PACKETS_ELEMENT._fields_ = [
+        ('dwElFlags', UInt32),
+        ('cLength', UInt32),
+        ('Anonymous', TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union),
+    ]
+    return TRANSMIT_PACKETS_ELEMENT
+def _define_TRANSPORT_SETTING_ID_head():
+    class TRANSPORT_SETTING_ID(Structure):
+        pass
+    return TRANSPORT_SETTING_ID
+def _define_TRANSPORT_SETTING_ID():
+    TRANSPORT_SETTING_ID = win32more.Networking.WinSock.TRANSPORT_SETTING_ID_head
+    TRANSPORT_SETTING_ID._fields_ = [
+        ('Guid', Guid),
+    ]
+    return TRANSPORT_SETTING_ID
+TUNNEL_SUB_TYPE = Int32
+TUNNEL_SUB_TYPE_NONE = 0
+TUNNEL_SUB_TYPE_CP = 1
+TUNNEL_SUB_TYPE_IPTLS = 2
+TUNNEL_SUB_TYPE_HA = 3
+def _define_VLAN_TAG_head():
+    class VLAN_TAG(Structure):
+        pass
+    return VLAN_TAG
+def _define_VLAN_TAG():
+    VLAN_TAG = win32more.Networking.WinSock.VLAN_TAG_head
+    class VLAN_TAG__Anonymous_e__Union(Union):
+        pass
+    class VLAN_TAG__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    VLAN_TAG__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt16),
+    ]
+    VLAN_TAG__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    VLAN_TAG__Anonymous_e__Union._fields_ = [
+        ('Tag', UInt16),
+        ('Anonymous', VLAN_TAG__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    VLAN_TAG._anonymous_ = [
+        'Anonymous',
+    ]
+    VLAN_TAG._fields_ = [
+        ('Anonymous', VLAN_TAG__Anonymous_e__Union),
+        ('Type', UInt16),
+    ]
+    return VLAN_TAG
+def _define_WCE_DEVICELIST_head():
+    class WCE_DEVICELIST(Structure):
+        pass
+    return WCE_DEVICELIST
+def _define_WCE_DEVICELIST():
+    WCE_DEVICELIST = win32more.Networking.WinSock.WCE_DEVICELIST_head
+    WCE_DEVICELIST._fields_ = [
+        ('numDevice', UInt32),
+        ('Device', win32more.Networking.WinSock.WCE_IRDA_DEVICE_INFO * 1),
+    ]
+    return WCE_DEVICELIST
+def _define_WCE_IRDA_DEVICE_INFO_head():
+    class WCE_IRDA_DEVICE_INFO(Structure):
+        pass
+    return WCE_IRDA_DEVICE_INFO
+def _define_WCE_IRDA_DEVICE_INFO():
+    WCE_IRDA_DEVICE_INFO = win32more.Networking.WinSock.WCE_IRDA_DEVICE_INFO_head
+    WCE_IRDA_DEVICE_INFO._fields_ = [
+        ('irdaDeviceID', Byte * 4),
+        ('irdaDeviceName', win32more.Foundation.CHAR * 22),
+        ('Reserved', Byte * 2),
+    ]
+    return WCE_IRDA_DEVICE_INFO
+def _define_WINDOWS_DEVICELIST_head():
+    class WINDOWS_DEVICELIST(Structure):
+        pass
+    return WINDOWS_DEVICELIST
+def _define_WINDOWS_DEVICELIST():
+    WINDOWS_DEVICELIST = win32more.Networking.WinSock.WINDOWS_DEVICELIST_head
+    WINDOWS_DEVICELIST._fields_ = [
+        ('numDevice', UInt32),
+        ('Device', win32more.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO * 1),
+    ]
+    return WINDOWS_DEVICELIST
+def _define_WINDOWS_IAS_QUERY_head():
+    class WINDOWS_IAS_QUERY(Structure):
+        pass
+    return WINDOWS_IAS_QUERY
+def _define_WINDOWS_IAS_QUERY():
+    WINDOWS_IAS_QUERY = win32more.Networking.WinSock.WINDOWS_IAS_QUERY_head
+    class WINDOWS_IAS_QUERY__irdaAttribute_e__Union(Union):
+        pass
+    class WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct(Structure):
+        pass
+    WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct._fields_ = [
+        ('Len', UInt32),
+        ('OctetSeq', Byte * 1024),
+    ]
+    class WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct(Structure):
+        pass
+    WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct._fields_ = [
+        ('Len', UInt32),
+        ('CharSet', UInt32),
+        ('UsrStr', Byte * 256),
+    ]
+    WINDOWS_IAS_QUERY__irdaAttribute_e__Union._fields_ = [
+        ('irdaAttribInt', Int32),
+        ('irdaAttribOctetSeq', WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct),
+        ('irdaAttribUsrStr', WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct),
+    ]
+    WINDOWS_IAS_QUERY._fields_ = [
+        ('irdaDeviceID', Byte * 4),
+        ('irdaClassName', win32more.Foundation.CHAR * 64),
+        ('irdaAttribName', win32more.Foundation.CHAR * 256),
+        ('irdaAttribType', UInt32),
+        ('irdaAttribute', WINDOWS_IAS_QUERY__irdaAttribute_e__Union),
+    ]
+    return WINDOWS_IAS_QUERY
+def _define_WINDOWS_IAS_SET_head():
+    class WINDOWS_IAS_SET(Structure):
+        pass
+    return WINDOWS_IAS_SET
+def _define_WINDOWS_IAS_SET():
+    WINDOWS_IAS_SET = win32more.Networking.WinSock.WINDOWS_IAS_SET_head
+    class WINDOWS_IAS_SET__irdaAttribute_e__Union(Union):
+        pass
+    class WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct(Structure):
+        pass
+    WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct._fields_ = [
+        ('Len', UInt16),
+        ('OctetSeq', Byte * 1024),
+    ]
+    class WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct(Structure):
+        pass
+    WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct._fields_ = [
+        ('Len', Byte),
+        ('CharSet', Byte),
+        ('UsrStr', Byte * 256),
+    ]
+    WINDOWS_IAS_SET__irdaAttribute_e__Union._fields_ = [
+        ('irdaAttribInt', Int32),
+        ('irdaAttribOctetSeq', WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct),
+        ('irdaAttribUsrStr', WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct),
+    ]
+    WINDOWS_IAS_SET._fields_ = [
+        ('irdaClassName', win32more.Foundation.CHAR * 64),
+        ('irdaAttribName', win32more.Foundation.CHAR * 256),
+        ('irdaAttribType', UInt32),
+        ('irdaAttribute', WINDOWS_IAS_SET__irdaAttribute_e__Union),
+    ]
+    return WINDOWS_IAS_SET
+def _define_WINDOWS_IRDA_DEVICE_INFO_head():
+    class WINDOWS_IRDA_DEVICE_INFO(Structure):
+        pass
+    return WINDOWS_IRDA_DEVICE_INFO
+def _define_WINDOWS_IRDA_DEVICE_INFO():
+    WINDOWS_IRDA_DEVICE_INFO = win32more.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO_head
+    WINDOWS_IRDA_DEVICE_INFO._fields_ = [
+        ('irdaDeviceID', Byte * 4),
+        ('irdaDeviceName', win32more.Foundation.CHAR * 22),
+        ('irdaDeviceHints1', Byte),
+        ('irdaDeviceHints2', Byte),
+        ('irdaCharSet', Byte),
+    ]
+    return WINDOWS_IRDA_DEVICE_INFO
+WSA_COMPATIBILITY_BEHAVIOR_ID = Int32
+WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll = 0
+WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering = 1
+WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning = 2
+def _define_WSA_COMPATIBILITY_MODE_head():
+    class WSA_COMPATIBILITY_MODE(Structure):
+        pass
+    return WSA_COMPATIBILITY_MODE
+def _define_WSA_COMPATIBILITY_MODE():
+    WSA_COMPATIBILITY_MODE = win32more.Networking.WinSock.WSA_COMPATIBILITY_MODE_head
+    WSA_COMPATIBILITY_MODE._fields_ = [
+        ('BehaviorId', win32more.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID),
+        ('TargetOsVersion', UInt32),
+    ]
+    return WSA_COMPATIBILITY_MODE
 WSA_ERROR = Int32
 WSA_IO_PENDING = 997
 WSA_IO_INCOMPLETE = 996
@@ -965,6 +6353,8 @@ WSA_INVALID_HANDLE = 6
 WSA_INVALID_PARAMETER = 87
 WSA_NOT_ENOUGH_MEMORY = 8
 WSA_OPERATION_ABORTED = 995
+WSA_WAIT_EVENT_0 = 0
+WSA_WAIT_IO_COMPLETION = 192
 WSABASEERR = 10000
 WSAEINTR = 10004
 WSAEBADF = 10009
@@ -1057,258 +6447,6 @@ WSA_QOS_ESHAPERATEOBJ = 11030
 WSA_QOS_RESERVED_PETYPE = 11031
 WSA_SECURE_HOST_NOT_FOUND = 11032
 WSA_IPSEC_NAME_POLICY_ERROR = 11033
-SET_SERVICE_OPERATION = UInt32
-SERVICE_REGISTER = 1
-SERVICE_DEREGISTER = 2
-SERVICE_FLUSH = 3
-SERVICE_ADD_TYPE = 4
-SERVICE_DELETE_TYPE = 5
-SEND_FLAGS = UInt32
-MSG_DONTROUTE = 4
-MSG_OOB = 1
-RESOURCE_DISPLAY_TYPE = UInt32
-RESOURCEDISPLAYTYPE_DOMAIN = 1
-RESOURCEDISPLAYTYPE_FILE = 4
-RESOURCEDISPLAYTYPE_GENERIC = 0
-RESOURCEDISPLAYTYPE_GROUP = 5
-RESOURCEDISPLAYTYPE_SERVER = 2
-RESOURCEDISPLAYTYPE_SHARE = 3
-RESOURCEDISPLAYTYPE_TREE = 10
-def _define_RIO_BUFFERID_t_head():
-    class RIO_BUFFERID_t(Structure):
-        pass
-    return RIO_BUFFERID_t
-def _define_RIO_BUFFERID_t():
-    RIO_BUFFERID_t = win32more.Networking.WinSock.RIO_BUFFERID_t_head
-    return RIO_BUFFERID_t
-def _define_RIO_CQ_t_head():
-    class RIO_CQ_t(Structure):
-        pass
-    return RIO_CQ_t
-def _define_RIO_CQ_t():
-    RIO_CQ_t = win32more.Networking.WinSock.RIO_CQ_t_head
-    return RIO_CQ_t
-def _define_RIO_RQ_t_head():
-    class RIO_RQ_t(Structure):
-        pass
-    return RIO_RQ_t
-def _define_RIO_RQ_t():
-    RIO_RQ_t = win32more.Networking.WinSock.RIO_RQ_t_head
-    return RIO_RQ_t
-HWSAEVENT = IntPtr
-SOCKET = UIntPtr
-def _define_IN_ADDR_head():
-    class IN_ADDR(Structure):
-        pass
-    return IN_ADDR
-def _define_IN_ADDR():
-    IN_ADDR = win32more.Networking.WinSock.IN_ADDR_head
-    class IN_ADDR__S_un_e__Union(Union):
-        pass
-    class IN_ADDR__S_un_e__Union__S_un_w_e__Struct(Structure):
-        pass
-    IN_ADDR__S_un_e__Union__S_un_w_e__Struct._fields_ = [
-        ("s_w1", UInt16),
-        ("s_w2", UInt16),
-    ]
-    class IN_ADDR__S_un_e__Union__S_un_b_e__Struct(Structure):
-        pass
-    IN_ADDR__S_un_e__Union__S_un_b_e__Struct._fields_ = [
-        ("s_b1", Byte),
-        ("s_b2", Byte),
-        ("s_b3", Byte),
-        ("s_b4", Byte),
-    ]
-    IN_ADDR__S_un_e__Union._fields_ = [
-        ("S_un_b", IN_ADDR__S_un_e__Union__S_un_b_e__Struct),
-        ("S_un_w", IN_ADDR__S_un_e__Union__S_un_w_e__Struct),
-        ("S_addr", UInt32),
-    ]
-    IN_ADDR._fields_ = [
-        ("S_un", IN_ADDR__S_un_e__Union),
-    ]
-    return IN_ADDR
-def _define_SOCKADDR_head():
-    class SOCKADDR(Structure):
-        pass
-    return SOCKADDR
-def _define_SOCKADDR():
-    SOCKADDR = win32more.Networking.WinSock.SOCKADDR_head
-    SOCKADDR._fields_ = [
-        ("sa_family", UInt16),
-        ("sa_data", win32more.Foundation.CHAR * 14),
-    ]
-    return SOCKADDR
-def _define_SOCKET_ADDRESS_head():
-    class SOCKET_ADDRESS(Structure):
-        pass
-    return SOCKET_ADDRESS
-def _define_SOCKET_ADDRESS():
-    SOCKET_ADDRESS = win32more.Networking.WinSock.SOCKET_ADDRESS_head
-    SOCKET_ADDRESS._fields_ = [
-        ("lpSockaddr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("iSockaddrLength", Int32),
-    ]
-    return SOCKET_ADDRESS
-def _define_SOCKET_ADDRESS_LIST_head():
-    class SOCKET_ADDRESS_LIST(Structure):
-        pass
-    return SOCKET_ADDRESS_LIST
-def _define_SOCKET_ADDRESS_LIST():
-    SOCKET_ADDRESS_LIST = win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head
-    SOCKET_ADDRESS_LIST._fields_ = [
-        ("iAddressCount", Int32),
-        ("Address", win32more.Networking.WinSock.SOCKET_ADDRESS * 0),
-    ]
-    return SOCKET_ADDRESS_LIST
-def _define_CSADDR_INFO_head():
-    class CSADDR_INFO(Structure):
-        pass
-    return CSADDR_INFO
-def _define_CSADDR_INFO():
-    CSADDR_INFO = win32more.Networking.WinSock.CSADDR_INFO_head
-    CSADDR_INFO._fields_ = [
-        ("LocalAddr", win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ("RemoteAddr", win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ("iSocketType", Int32),
-        ("iProtocol", Int32),
-    ]
-    return CSADDR_INFO
-def _define_SOCKADDR_STORAGE_head():
-    class SOCKADDR_STORAGE(Structure):
-        pass
-    return SOCKADDR_STORAGE
-def _define_SOCKADDR_STORAGE():
-    SOCKADDR_STORAGE = win32more.Networking.WinSock.SOCKADDR_STORAGE_head
-    SOCKADDR_STORAGE._fields_ = [
-        ("ss_family", UInt16),
-        ("__ss_pad1", win32more.Foundation.CHAR * 6),
-        ("__ss_align", Int64),
-        ("__ss_pad2", win32more.Foundation.CHAR * 112),
-    ]
-    return SOCKADDR_STORAGE
-def _define_SOCKADDR_STORAGE_XP_head():
-    class SOCKADDR_STORAGE_XP(Structure):
-        pass
-    return SOCKADDR_STORAGE_XP
-def _define_SOCKADDR_STORAGE_XP():
-    SOCKADDR_STORAGE_XP = win32more.Networking.WinSock.SOCKADDR_STORAGE_XP_head
-    SOCKADDR_STORAGE_XP._fields_ = [
-        ("ss_family", Int16),
-        ("__ss_pad1", win32more.Foundation.CHAR * 6),
-        ("__ss_align", Int64),
-        ("__ss_pad2", win32more.Foundation.CHAR * 112),
-    ]
-    return SOCKADDR_STORAGE_XP
-def _define_SOCKET_PROCESSOR_AFFINITY_head():
-    class SOCKET_PROCESSOR_AFFINITY(Structure):
-        pass
-    return SOCKET_PROCESSOR_AFFINITY
-def _define_SOCKET_PROCESSOR_AFFINITY():
-    SOCKET_PROCESSOR_AFFINITY = win32more.Networking.WinSock.SOCKET_PROCESSOR_AFFINITY_head
-    SOCKET_PROCESSOR_AFFINITY._fields_ = [
-        ("Processor", win32more.System.Kernel.PROCESSOR_NUMBER),
-        ("NumaNodeId", UInt16),
-        ("Reserved", UInt16),
-    ]
-    return SOCKET_PROCESSOR_AFFINITY
-IPPROTO = Int32
-IPPROTO_HOPOPTS = 0
-IPPROTO_ICMP = 1
-IPPROTO_IGMP = 2
-IPPROTO_GGP = 3
-IPPROTO_IPV4 = 4
-IPPROTO_ST = 5
-IPPROTO_TCP = 6
-IPPROTO_CBT = 7
-IPPROTO_EGP = 8
-IPPROTO_IGP = 9
-IPPROTO_PUP = 12
-IPPROTO_UDP = 17
-IPPROTO_IDP = 22
-IPPROTO_RDP = 27
-IPPROTO_IPV6 = 41
-IPPROTO_ROUTING = 43
-IPPROTO_FRAGMENT = 44
-IPPROTO_ESP = 50
-IPPROTO_AH = 51
-IPPROTO_ICMPV6 = 58
-IPPROTO_NONE = 59
-IPPROTO_DSTOPTS = 60
-IPPROTO_ND = 77
-IPPROTO_ICLFXBM = 78
-IPPROTO_PIM = 103
-IPPROTO_PGM = 113
-IPPROTO_L2TP = 115
-IPPROTO_SCTP = 132
-IPPROTO_RAW = 255
-IPPROTO_MAX = 256
-IPPROTO_RESERVED_RAW = 257
-IPPROTO_RESERVED_IPSEC = 258
-IPPROTO_RESERVED_IPSECOFFLOAD = 259
-IPPROTO_RESERVED_WNV = 260
-IPPROTO_RESERVED_MAX = 261
-SCOPE_LEVEL = Int32
-SCOPE_LEVEL_ScopeLevelInterface = 1
-SCOPE_LEVEL_ScopeLevelLink = 2
-SCOPE_LEVEL_ScopeLevelSubnet = 3
-SCOPE_LEVEL_ScopeLevelAdmin = 4
-SCOPE_LEVEL_ScopeLevelSite = 5
-SCOPE_LEVEL_ScopeLevelOrganization = 8
-SCOPE_LEVEL_ScopeLevelGlobal = 14
-SCOPE_LEVEL_ScopeLevelCount = 16
-def _define_SCOPE_ID_head():
-    class SCOPE_ID(Structure):
-        pass
-    return SCOPE_ID
-def _define_SCOPE_ID():
-    SCOPE_ID = win32more.Networking.WinSock.SCOPE_ID_head
-    class SCOPE_ID__Anonymous_e__Union(Union):
-        pass
-    class SCOPE_ID__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    SCOPE_ID__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    SCOPE_ID__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    SCOPE_ID__Anonymous_e__Union._fields_ = [
-        ("Anonymous", SCOPE_ID__Anonymous_e__Union__Anonymous_e__Struct),
-        ("Value", UInt32),
-    ]
-    SCOPE_ID._anonymous_ = [
-        'Anonymous',
-    ]
-    SCOPE_ID._fields_ = [
-        ("Anonymous", SCOPE_ID__Anonymous_e__Union),
-    ]
-    return SCOPE_ID
-def _define_SOCKADDR_IN_head():
-    class SOCKADDR_IN(Structure):
-        pass
-    return SOCKADDR_IN
-def _define_SOCKADDR_IN():
-    SOCKADDR_IN = win32more.Networking.WinSock.SOCKADDR_IN_head
-    SOCKADDR_IN._fields_ = [
-        ("sin_family", UInt16),
-        ("sin_port", UInt16),
-        ("sin_addr", win32more.Networking.WinSock.IN_ADDR),
-        ("sin_zero", win32more.Foundation.CHAR * 8),
-    ]
-    return SOCKADDR_IN
-def _define_SOCKADDR_DL_head():
-    class SOCKADDR_DL(Structure):
-        pass
-    return SOCKADDR_DL
-def _define_SOCKADDR_DL():
-    SOCKADDR_DL = win32more.Networking.WinSock.SOCKADDR_DL_head
-    SOCKADDR_DL._fields_ = [
-        ("sdl_family", UInt16),
-        ("sdl_data", Byte * 8),
-        ("sdl_zero", Byte * 4),
-    ]
-    return SOCKADDR_DL
 def _define_WSABUF_head():
     class WSABUF(Structure):
         pass
@@ -1316,479 +6454,10 @@ def _define_WSABUF_head():
 def _define_WSABUF():
     WSABUF = win32more.Networking.WinSock.WSABUF_head
     WSABUF._fields_ = [
-        ("len", UInt32),
-        ("buf", win32more.Foundation.PSTR),
+        ('len', UInt32),
+        ('buf', win32more.Foundation.PSTR),
     ]
     return WSABUF
-def _define_WSAMSG_head():
-    class WSAMSG(Structure):
-        pass
-    return WSAMSG
-def _define_WSAMSG():
-    WSAMSG = win32more.Networking.WinSock.WSAMSG_head
-    WSAMSG._fields_ = [
-        ("name", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("namelen", Int32),
-        ("lpBuffers", POINTER(win32more.Networking.WinSock.WSABUF_head)),
-        ("dwBufferCount", UInt32),
-        ("Control", win32more.Networking.WinSock.WSABUF),
-        ("dwFlags", UInt32),
-    ]
-    return WSAMSG
-def _define_cmsghdr_head():
-    class cmsghdr(Structure):
-        pass
-    return cmsghdr
-def _define_cmsghdr():
-    cmsghdr = win32more.Networking.WinSock.cmsghdr_head
-    cmsghdr._fields_ = [
-        ("cmsg_len", UIntPtr),
-        ("cmsg_level", Int32),
-        ("cmsg_type", Int32),
-    ]
-    return cmsghdr
-def _define_ADDRINFOA_head():
-    class ADDRINFOA(Structure):
-        pass
-    return ADDRINFOA
-def _define_ADDRINFOA():
-    ADDRINFOA = win32more.Networking.WinSock.ADDRINFOA_head
-    ADDRINFOA._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.ADDRINFOA_head)),
-    ]
-    return ADDRINFOA
-def _define_addrinfoW_head():
-    class addrinfoW(Structure):
-        pass
-    return addrinfoW
-def _define_addrinfoW():
-    addrinfoW = win32more.Networking.WinSock.addrinfoW_head
-    addrinfoW._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoW_head)),
-    ]
-    return addrinfoW
-def _define_addrinfoexA_head():
-    class addrinfoexA(Structure):
-        pass
-    return addrinfoexA
-def _define_addrinfoexA():
-    addrinfoexA = win32more.Networking.WinSock.addrinfoexA_head
-    addrinfoexA._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoexA_head)),
-    ]
-    return addrinfoexA
-def _define_addrinfoexW_head():
-    class addrinfoexW(Structure):
-        pass
-    return addrinfoexW
-def _define_addrinfoexW():
-    addrinfoexW = win32more.Networking.WinSock.addrinfoexW_head
-    addrinfoexW._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoexW_head)),
-    ]
-    return addrinfoexW
-def _define_addrinfoex2A_head():
-    class addrinfoex2A(Structure):
-        pass
-    return addrinfoex2A
-def _define_addrinfoex2A():
-    addrinfoex2A = win32more.Networking.WinSock.addrinfoex2A_head
-    addrinfoex2A._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoex2A_head)),
-        ("ai_version", Int32),
-        ("ai_fqdn", win32more.Foundation.PSTR),
-    ]
-    return addrinfoex2A
-def _define_addrinfoex2W_head():
-    class addrinfoex2W(Structure):
-        pass
-    return addrinfoex2W
-def _define_addrinfoex2W():
-    addrinfoex2W = win32more.Networking.WinSock.addrinfoex2W_head
-    addrinfoex2W._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoex2W_head)),
-        ("ai_version", Int32),
-        ("ai_fqdn", win32more.Foundation.PWSTR),
-    ]
-    return addrinfoex2W
-def _define_addrinfoex3_head():
-    class addrinfoex3(Structure):
-        pass
-    return addrinfoex3
-def _define_addrinfoex3():
-    addrinfoex3 = win32more.Networking.WinSock.addrinfoex3_head
-    addrinfoex3._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoex3_head)),
-        ("ai_version", Int32),
-        ("ai_fqdn", win32more.Foundation.PWSTR),
-        ("ai_interfaceindex", Int32),
-    ]
-    return addrinfoex3
-def _define_addrinfoex4_head():
-    class addrinfoex4(Structure):
-        pass
-    return addrinfoex4
-def _define_addrinfoex4():
-    addrinfoex4 = win32more.Networking.WinSock.addrinfoex4_head
-    addrinfoex4._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoex4_head)),
-        ("ai_version", Int32),
-        ("ai_fqdn", win32more.Foundation.PWSTR),
-        ("ai_interfaceindex", Int32),
-        ("ai_resolutionhandle", win32more.Foundation.HANDLE),
-    ]
-    return addrinfoex4
-def _define_addrinfoex5_head():
-    class addrinfoex5(Structure):
-        pass
-    return addrinfoex5
-def _define_addrinfoex5():
-    addrinfoex5 = win32more.Networking.WinSock.addrinfoex5_head
-    addrinfoex5._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoex5_head)),
-        ("ai_version", Int32),
-        ("ai_fqdn", win32more.Foundation.PWSTR),
-        ("ai_interfaceindex", Int32),
-        ("ai_resolutionhandle", win32more.Foundation.HANDLE),
-        ("ai_ttl", UInt32),
-    ]
-    return addrinfoex5
-def _define_addrinfo_dns_server_head():
-    class addrinfo_dns_server(Structure):
-        pass
-    return addrinfo_dns_server
-def _define_addrinfo_dns_server():
-    addrinfo_dns_server = win32more.Networking.WinSock.addrinfo_dns_server_head
-    class addrinfo_dns_server__Anonymous_e__Union(Union):
-        pass
-    addrinfo_dns_server__Anonymous_e__Union._fields_ = [
-        ("ai_template", win32more.Foundation.PWSTR),
-    ]
-    addrinfo_dns_server._anonymous_ = [
-        'Anonymous',
-    ]
-    addrinfo_dns_server._fields_ = [
-        ("ai_servertype", UInt32),
-        ("ai_flags", UInt64),
-        ("ai_addrlen", UInt32),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("Anonymous", addrinfo_dns_server__Anonymous_e__Union),
-    ]
-    return addrinfo_dns_server
-def _define_addrinfoex6_head():
-    class addrinfoex6(Structure):
-        pass
-    return addrinfoex6
-def _define_addrinfoex6():
-    addrinfoex6 = win32more.Networking.WinSock.addrinfoex6_head
-    addrinfoex6._fields_ = [
-        ("ai_flags", Int32),
-        ("ai_family", Int32),
-        ("ai_socktype", Int32),
-        ("ai_protocol", Int32),
-        ("ai_addrlen", UIntPtr),
-        ("ai_canonname", win32more.Foundation.PWSTR),
-        ("ai_addr", POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
-        ("ai_blob", c_void_p),
-        ("ai_bloblen", UIntPtr),
-        ("ai_provider", POINTER(Guid)),
-        ("ai_next", POINTER(win32more.Networking.WinSock.addrinfoex5_head)),
-        ("ai_version", Int32),
-        ("ai_fqdn", win32more.Foundation.PWSTR),
-        ("ai_interfaceindex", Int32),
-        ("ai_resolutionhandle", win32more.Foundation.HANDLE),
-        ("ai_ttl", UInt32),
-        ("ai_numservers", UInt32),
-        ("ai_servers", POINTER(win32more.Networking.WinSock.addrinfo_dns_server_head)),
-        ("ai_responseflags", UInt64),
-    ]
-    return addrinfoex6
-def _define_fd_set_head():
-    class fd_set(Structure):
-        pass
-    return fd_set
-def _define_fd_set():
-    fd_set = win32more.Networking.WinSock.fd_set_head
-    fd_set._fields_ = [
-        ("fd_count", UInt32),
-        ("fd_array", win32more.Networking.WinSock.SOCKET * 64),
-    ]
-    return fd_set
-def _define_timeval_head():
-    class timeval(Structure):
-        pass
-    return timeval
-def _define_timeval():
-    timeval = win32more.Networking.WinSock.timeval_head
-    timeval._fields_ = [
-        ("tv_sec", Int32),
-        ("tv_usec", Int32),
-    ]
-    return timeval
-def _define_hostent_head():
-    class hostent(Structure):
-        pass
-    return hostent
-def _define_hostent():
-    hostent = win32more.Networking.WinSock.hostent_head
-    hostent._fields_ = [
-        ("h_name", win32more.Foundation.PSTR),
-        ("h_aliases", POINTER(POINTER(SByte))),
-        ("h_addrtype", Int16),
-        ("h_length", Int16),
-        ("h_addr_list", POINTER(POINTER(SByte))),
-    ]
-    return hostent
-def _define_netent_head():
-    class netent(Structure):
-        pass
-    return netent
-def _define_netent():
-    netent = win32more.Networking.WinSock.netent_head
-    netent._fields_ = [
-        ("n_name", win32more.Foundation.PSTR),
-        ("n_aliases", POINTER(POINTER(SByte))),
-        ("n_addrtype", Int16),
-        ("n_net", UInt32),
-    ]
-    return netent
-def _define_servent_head():
-    class servent(Structure):
-        pass
-    return servent
-def _define_servent():
-    servent = win32more.Networking.WinSock.servent_head
-    servent._fields_ = [
-        ("s_name", win32more.Foundation.PSTR),
-        ("s_aliases", POINTER(POINTER(SByte))),
-        ("s_proto", win32more.Foundation.PSTR),
-        ("s_port", Int16),
-    ]
-    return servent
-def _define_protoent_head():
-    class protoent(Structure):
-        pass
-    return protoent
-def _define_protoent():
-    protoent = win32more.Networking.WinSock.protoent_head
-    protoent._fields_ = [
-        ("p_name", win32more.Foundation.PSTR),
-        ("p_aliases", POINTER(POINTER(SByte))),
-        ("p_proto", Int16),
-    ]
-    return protoent
-def _define_WSAData_head():
-    class WSAData(Structure):
-        pass
-    return WSAData
-def _define_WSAData():
-    WSAData = win32more.Networking.WinSock.WSAData_head
-    WSAData._fields_ = [
-        ("wVersion", UInt16),
-        ("wHighVersion", UInt16),
-        ("iMaxSockets", UInt16),
-        ("iMaxUdpDg", UInt16),
-        ("lpVendorInfo", win32more.Foundation.PSTR),
-        ("szDescription", win32more.Foundation.CHAR * 257),
-        ("szSystemStatus", win32more.Foundation.CHAR * 129),
-    ]
-    return WSAData
-def _define_sockproto_head():
-    class sockproto(Structure):
-        pass
-    return sockproto
-def _define_sockproto():
-    sockproto = win32more.Networking.WinSock.sockproto_head
-    sockproto._fields_ = [
-        ("sp_family", UInt16),
-        ("sp_protocol", UInt16),
-    ]
-    return sockproto
-def _define_linger_head():
-    class linger(Structure):
-        pass
-    return linger
-def _define_linger():
-    linger = win32more.Networking.WinSock.linger_head
-    linger._fields_ = [
-        ("l_onoff", UInt16),
-        ("l_linger", UInt16),
-    ]
-    return linger
-def _define_WSANETWORKEVENTS_head():
-    class WSANETWORKEVENTS(Structure):
-        pass
-    return WSANETWORKEVENTS
-def _define_WSANETWORKEVENTS():
-    WSANETWORKEVENTS = win32more.Networking.WinSock.WSANETWORKEVENTS_head
-    WSANETWORKEVENTS._fields_ = [
-        ("lNetworkEvents", Int32),
-        ("iErrorCode", Int32 * 10),
-    ]
-    return WSANETWORKEVENTS
-def _define_WSAPROTOCOLCHAIN_head():
-    class WSAPROTOCOLCHAIN(Structure):
-        pass
-    return WSAPROTOCOLCHAIN
-def _define_WSAPROTOCOLCHAIN():
-    WSAPROTOCOLCHAIN = win32more.Networking.WinSock.WSAPROTOCOLCHAIN_head
-    WSAPROTOCOLCHAIN._fields_ = [
-        ("ChainLen", Int32),
-        ("ChainEntries", UInt32 * 7),
-    ]
-    return WSAPROTOCOLCHAIN
-def _define_WSAPROTOCOL_INFOA_head():
-    class WSAPROTOCOL_INFOA(Structure):
-        pass
-    return WSAPROTOCOL_INFOA
-def _define_WSAPROTOCOL_INFOA():
-    WSAPROTOCOL_INFOA = win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head
-    WSAPROTOCOL_INFOA._fields_ = [
-        ("dwServiceFlags1", UInt32),
-        ("dwServiceFlags2", UInt32),
-        ("dwServiceFlags3", UInt32),
-        ("dwServiceFlags4", UInt32),
-        ("dwProviderFlags", UInt32),
-        ("ProviderId", Guid),
-        ("dwCatalogEntryId", UInt32),
-        ("ProtocolChain", win32more.Networking.WinSock.WSAPROTOCOLCHAIN),
-        ("iVersion", Int32),
-        ("iAddressFamily", Int32),
-        ("iMaxSockAddr", Int32),
-        ("iMinSockAddr", Int32),
-        ("iSocketType", Int32),
-        ("iProtocol", Int32),
-        ("iProtocolMaxOffset", Int32),
-        ("iNetworkByteOrder", Int32),
-        ("iSecurityScheme", Int32),
-        ("dwMessageSize", UInt32),
-        ("dwProviderReserved", UInt32),
-        ("szProtocol", win32more.Foundation.CHAR * 256),
-    ]
-    return WSAPROTOCOL_INFOA
-def _define_WSAPROTOCOL_INFOW_head():
-    class WSAPROTOCOL_INFOW(Structure):
-        pass
-    return WSAPROTOCOL_INFOW
-def _define_WSAPROTOCOL_INFOW():
-    WSAPROTOCOL_INFOW = win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head
-    WSAPROTOCOL_INFOW._fields_ = [
-        ("dwServiceFlags1", UInt32),
-        ("dwServiceFlags2", UInt32),
-        ("dwServiceFlags3", UInt32),
-        ("dwServiceFlags4", UInt32),
-        ("dwProviderFlags", UInt32),
-        ("ProviderId", Guid),
-        ("dwCatalogEntryId", UInt32),
-        ("ProtocolChain", win32more.Networking.WinSock.WSAPROTOCOLCHAIN),
-        ("iVersion", Int32),
-        ("iAddressFamily", Int32),
-        ("iMaxSockAddr", Int32),
-        ("iMinSockAddr", Int32),
-        ("iSocketType", Int32),
-        ("iProtocol", Int32),
-        ("iProtocolMaxOffset", Int32),
-        ("iNetworkByteOrder", Int32),
-        ("iSecurityScheme", Int32),
-        ("dwMessageSize", UInt32),
-        ("dwProviderReserved", UInt32),
-        ("szProtocol", Char * 256),
-    ]
-    return WSAPROTOCOL_INFOW
-def _define_LPCONDITIONPROC():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(UInt32),UIntPtr, use_last_error=False)
-def _define_LPWSAOVERLAPPED_COMPLETION_ROUTINE():
-    return CFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32, use_last_error=False)
-WSACOMPLETIONTYPE = Int32
-NSP_NOTIFY_IMMEDIATELY = 0
-NSP_NOTIFY_HWND = 1
-NSP_NOTIFY_EVENT = 2
-NSP_NOTIFY_PORT = 3
-NSP_NOTIFY_APC = 4
 def _define_WSACOMPLETION_head():
     class WSACOMPLETION(Structure):
         pass
@@ -1797,219 +6466,86 @@ def _define_WSACOMPLETION():
     WSACOMPLETION = win32more.Networking.WinSock.WSACOMPLETION_head
     class WSACOMPLETION__Parameters_e__Union(Union):
         pass
-    class WSACOMPLETION__Parameters_e__Union__Port_e__Struct(Structure):
+    class WSACOMPLETION__Parameters_e__Union__WindowMessage_e__Struct(Structure):
         pass
-    WSACOMPLETION__Parameters_e__Union__Port_e__Struct._fields_ = [
-        ("lpOverlapped", POINTER(win32more.System.IO.OVERLAPPED_head)),
-        ("hPort", win32more.Foundation.HANDLE),
-        ("Key", UIntPtr),
+    WSACOMPLETION__Parameters_e__Union__WindowMessage_e__Struct._fields_ = [
+        ('hWnd', win32more.Foundation.HWND),
+        ('uMsg', UInt32),
+        ('context', win32more.Foundation.WPARAM),
     ]
     class WSACOMPLETION__Parameters_e__Union__Event_e__Struct(Structure):
         pass
     WSACOMPLETION__Parameters_e__Union__Event_e__Struct._fields_ = [
-        ("lpOverlapped", POINTER(win32more.System.IO.OVERLAPPED_head)),
-    ]
-    class WSACOMPLETION__Parameters_e__Union__WindowMessage_e__Struct(Structure):
-        pass
-    WSACOMPLETION__Parameters_e__Union__WindowMessage_e__Struct._fields_ = [
-        ("hWnd", win32more.Foundation.HWND),
-        ("uMsg", UInt32),
-        ("context", win32more.Foundation.WPARAM),
+        ('lpOverlapped', POINTER(win32more.System.IO.OVERLAPPED_head)),
     ]
     class WSACOMPLETION__Parameters_e__Union__Apc_e__Struct(Structure):
         pass
     WSACOMPLETION__Parameters_e__Union__Apc_e__Struct._fields_ = [
-        ("lpOverlapped", POINTER(win32more.System.IO.OVERLAPPED_head)),
-        ("lpfnCompletionProc", win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE),
+        ('lpOverlapped', POINTER(win32more.System.IO.OVERLAPPED_head)),
+        ('lpfnCompletionProc', win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE),
+    ]
+    class WSACOMPLETION__Parameters_e__Union__Port_e__Struct(Structure):
+        pass
+    WSACOMPLETION__Parameters_e__Union__Port_e__Struct._fields_ = [
+        ('lpOverlapped', POINTER(win32more.System.IO.OVERLAPPED_head)),
+        ('hPort', win32more.Foundation.HANDLE),
+        ('Key', UIntPtr),
     ]
     WSACOMPLETION__Parameters_e__Union._fields_ = [
-        ("WindowMessage", WSACOMPLETION__Parameters_e__Union__WindowMessage_e__Struct),
-        ("Event", WSACOMPLETION__Parameters_e__Union__Event_e__Struct),
-        ("Apc", WSACOMPLETION__Parameters_e__Union__Apc_e__Struct),
-        ("Port", WSACOMPLETION__Parameters_e__Union__Port_e__Struct),
+        ('WindowMessage', WSACOMPLETION__Parameters_e__Union__WindowMessage_e__Struct),
+        ('Event', WSACOMPLETION__Parameters_e__Union__Event_e__Struct),
+        ('Apc', WSACOMPLETION__Parameters_e__Union__Apc_e__Struct),
+        ('Port', WSACOMPLETION__Parameters_e__Union__Port_e__Struct),
     ]
     WSACOMPLETION._fields_ = [
-        ("Type", win32more.Networking.WinSock.WSACOMPLETIONTYPE),
-        ("Parameters", WSACOMPLETION__Parameters_e__Union),
+        ('Type', win32more.Networking.WinSock.WSACOMPLETIONTYPE),
+        ('Parameters', WSACOMPLETION__Parameters_e__Union),
     ]
     return WSACOMPLETION
-def _define_AFPROTOCOLS_head():
-    class AFPROTOCOLS(Structure):
+WSACOMPLETIONTYPE = Int32
+NSP_NOTIFY_IMMEDIATELY = 0
+NSP_NOTIFY_HWND = 1
+NSP_NOTIFY_EVENT = 2
+NSP_NOTIFY_PORT = 3
+NSP_NOTIFY_APC = 4
+def _define_WSADATA_head():
+    class WSADATA(Structure):
         pass
-    return AFPROTOCOLS
-def _define_AFPROTOCOLS():
-    AFPROTOCOLS = win32more.Networking.WinSock.AFPROTOCOLS_head
-    AFPROTOCOLS._fields_ = [
-        ("iAddressFamily", Int32),
-        ("iProtocol", Int32),
+    return WSADATA
+def _define_WSADATA():
+    WSADATA = win32more.Networking.WinSock.WSADATA_head
+    WSADATA._fields_ = [
+        ('wVersion', UInt16),
+        ('wHighVersion', UInt16),
+        ('iMaxSockets', UInt16),
+        ('iMaxUdpDg', UInt16),
+        ('lpVendorInfo', win32more.Foundation.PSTR),
+        ('szDescription', win32more.Foundation.CHAR * 257),
+        ('szSystemStatus', win32more.Foundation.CHAR * 129),
     ]
-    return AFPROTOCOLS
+    return WSADATA
 WSAECOMPARATOR = Int32
 COMP_EQUAL = 0
 COMP_NOTLESS = 1
-def _define_WSAVERSION_head():
-    class WSAVERSION(Structure):
-        pass
-    return WSAVERSION
-def _define_WSAVERSION():
-    WSAVERSION = win32more.Networking.WinSock.WSAVERSION_head
-    WSAVERSION._fields_ = [
-        ("dwVersion", UInt32),
-        ("ecHow", win32more.Networking.WinSock.WSAECOMPARATOR),
-    ]
-    return WSAVERSION
-def _define_WSAQUERYSETA_head():
-    class WSAQUERYSETA(Structure):
-        pass
-    return WSAQUERYSETA
-def _define_WSAQUERYSETA():
-    WSAQUERYSETA = win32more.Networking.WinSock.WSAQUERYSETA_head
-    WSAQUERYSETA._fields_ = [
-        ("dwSize", UInt32),
-        ("lpszServiceInstanceName", win32more.Foundation.PSTR),
-        ("lpServiceClassId", POINTER(Guid)),
-        ("lpVersion", POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
-        ("lpszComment", win32more.Foundation.PSTR),
-        ("dwNameSpace", UInt32),
-        ("lpNSProviderId", POINTER(Guid)),
-        ("lpszContext", win32more.Foundation.PSTR),
-        ("dwNumberOfProtocols", UInt32),
-        ("lpafpProtocols", POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
-        ("lpszQueryString", win32more.Foundation.PSTR),
-        ("dwNumberOfCsAddrs", UInt32),
-        ("lpcsaBuffer", POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
-        ("dwOutputFlags", UInt32),
-        ("lpBlob", POINTER(win32more.System.Com.BLOB_head)),
-    ]
-    return WSAQUERYSETA
-def _define_WSAQUERYSETW_head():
-    class WSAQUERYSETW(Structure):
-        pass
-    return WSAQUERYSETW
-def _define_WSAQUERYSETW():
-    WSAQUERYSETW = win32more.Networking.WinSock.WSAQUERYSETW_head
-    WSAQUERYSETW._fields_ = [
-        ("dwSize", UInt32),
-        ("lpszServiceInstanceName", win32more.Foundation.PWSTR),
-        ("lpServiceClassId", POINTER(Guid)),
-        ("lpVersion", POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
-        ("lpszComment", win32more.Foundation.PWSTR),
-        ("dwNameSpace", UInt32),
-        ("lpNSProviderId", POINTER(Guid)),
-        ("lpszContext", win32more.Foundation.PWSTR),
-        ("dwNumberOfProtocols", UInt32),
-        ("lpafpProtocols", POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
-        ("lpszQueryString", win32more.Foundation.PWSTR),
-        ("dwNumberOfCsAddrs", UInt32),
-        ("lpcsaBuffer", POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
-        ("dwOutputFlags", UInt32),
-        ("lpBlob", POINTER(win32more.System.Com.BLOB_head)),
-    ]
-    return WSAQUERYSETW
-def _define_WSAQUERYSET2A_head():
-    class WSAQUERYSET2A(Structure):
-        pass
-    return WSAQUERYSET2A
-def _define_WSAQUERYSET2A():
-    WSAQUERYSET2A = win32more.Networking.WinSock.WSAQUERYSET2A_head
-    WSAQUERYSET2A._fields_ = [
-        ("dwSize", UInt32),
-        ("lpszServiceInstanceName", win32more.Foundation.PSTR),
-        ("lpVersion", POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
-        ("lpszComment", win32more.Foundation.PSTR),
-        ("dwNameSpace", UInt32),
-        ("lpNSProviderId", POINTER(Guid)),
-        ("lpszContext", win32more.Foundation.PSTR),
-        ("dwNumberOfProtocols", UInt32),
-        ("lpafpProtocols", POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
-        ("lpszQueryString", win32more.Foundation.PSTR),
-        ("dwNumberOfCsAddrs", UInt32),
-        ("lpcsaBuffer", POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
-        ("dwOutputFlags", UInt32),
-        ("lpBlob", POINTER(win32more.System.Com.BLOB_head)),
-    ]
-    return WSAQUERYSET2A
-def _define_WSAQUERYSET2W_head():
-    class WSAQUERYSET2W(Structure):
-        pass
-    return WSAQUERYSET2W
-def _define_WSAQUERYSET2W():
-    WSAQUERYSET2W = win32more.Networking.WinSock.WSAQUERYSET2W_head
-    WSAQUERYSET2W._fields_ = [
-        ("dwSize", UInt32),
-        ("lpszServiceInstanceName", win32more.Foundation.PWSTR),
-        ("lpVersion", POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
-        ("lpszComment", win32more.Foundation.PWSTR),
-        ("dwNameSpace", UInt32),
-        ("lpNSProviderId", POINTER(Guid)),
-        ("lpszContext", win32more.Foundation.PWSTR),
-        ("dwNumberOfProtocols", UInt32),
-        ("lpafpProtocols", POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
-        ("lpszQueryString", win32more.Foundation.PWSTR),
-        ("dwNumberOfCsAddrs", UInt32),
-        ("lpcsaBuffer", POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
-        ("dwOutputFlags", UInt32),
-        ("lpBlob", POINTER(win32more.System.Com.BLOB_head)),
-    ]
-    return WSAQUERYSET2W
 WSAESETSERVICEOP = Int32
 RNRSERVICE_REGISTER = 0
 RNRSERVICE_DEREGISTER = 1
 RNRSERVICE_DELETE = 2
-def _define_WSANSCLASSINFOA_head():
-    class WSANSCLASSINFOA(Structure):
+def _define_WSAMSG_head():
+    class WSAMSG(Structure):
         pass
-    return WSANSCLASSINFOA
-def _define_WSANSCLASSINFOA():
-    WSANSCLASSINFOA = win32more.Networking.WinSock.WSANSCLASSINFOA_head
-    WSANSCLASSINFOA._fields_ = [
-        ("lpszName", win32more.Foundation.PSTR),
-        ("dwNameSpace", UInt32),
-        ("dwValueType", UInt32),
-        ("dwValueSize", UInt32),
-        ("lpValue", c_void_p),
+    return WSAMSG
+def _define_WSAMSG():
+    WSAMSG = win32more.Networking.WinSock.WSAMSG_head
+    WSAMSG._fields_ = [
+        ('name', POINTER(win32more.Networking.WinSock.SOCKADDR_head)),
+        ('namelen', Int32),
+        ('lpBuffers', POINTER(win32more.Networking.WinSock.WSABUF_head)),
+        ('dwBufferCount', UInt32),
+        ('Control', win32more.Networking.WinSock.WSABUF),
+        ('dwFlags', UInt32),
     ]
-    return WSANSCLASSINFOA
-def _define_WSANSCLASSINFOW_head():
-    class WSANSCLASSINFOW(Structure):
-        pass
-    return WSANSCLASSINFOW
-def _define_WSANSCLASSINFOW():
-    WSANSCLASSINFOW = win32more.Networking.WinSock.WSANSCLASSINFOW_head
-    WSANSCLASSINFOW._fields_ = [
-        ("lpszName", win32more.Foundation.PWSTR),
-        ("dwNameSpace", UInt32),
-        ("dwValueType", UInt32),
-        ("dwValueSize", UInt32),
-        ("lpValue", c_void_p),
-    ]
-    return WSANSCLASSINFOW
-def _define_WSASERVICECLASSINFOA_head():
-    class WSASERVICECLASSINFOA(Structure):
-        pass
-    return WSASERVICECLASSINFOA
-def _define_WSASERVICECLASSINFOA():
-    WSASERVICECLASSINFOA = win32more.Networking.WinSock.WSASERVICECLASSINFOA_head
-    WSASERVICECLASSINFOA._fields_ = [
-        ("lpServiceClassId", POINTER(Guid)),
-        ("lpszServiceClassName", win32more.Foundation.PSTR),
-        ("dwCount", UInt32),
-        ("lpClassInfos", POINTER(win32more.Networking.WinSock.WSANSCLASSINFOA_head)),
-    ]
-    return WSASERVICECLASSINFOA
-def _define_WSASERVICECLASSINFOW_head():
-    class WSASERVICECLASSINFOW(Structure):
-        pass
-    return WSASERVICECLASSINFOW
-def _define_WSASERVICECLASSINFOW():
-    WSASERVICECLASSINFOW = win32more.Networking.WinSock.WSASERVICECLASSINFOW_head
-    WSASERVICECLASSINFOW._fields_ = [
-        ("lpServiceClassId", POINTER(Guid)),
-        ("lpszServiceClassName", win32more.Foundation.PWSTR),
-        ("dwCount", UInt32),
-        ("lpClassInfos", POINTER(win32more.Networking.WinSock.WSANSCLASSINFOW_head)),
-    ]
-    return WSASERVICECLASSINFOW
+    return WSAMSG
 def _define_WSANAMESPACE_INFOA_head():
     class WSANAMESPACE_INFOA(Structure):
         pass
@@ -2017,27 +6553,13 @@ def _define_WSANAMESPACE_INFOA_head():
 def _define_WSANAMESPACE_INFOA():
     WSANAMESPACE_INFOA = win32more.Networking.WinSock.WSANAMESPACE_INFOA_head
     WSANAMESPACE_INFOA._fields_ = [
-        ("NSProviderId", Guid),
-        ("dwNameSpace", UInt32),
-        ("fActive", win32more.Foundation.BOOL),
-        ("dwVersion", UInt32),
-        ("lpszIdentifier", win32more.Foundation.PSTR),
+        ('NSProviderId', Guid),
+        ('dwNameSpace', UInt32),
+        ('fActive', win32more.Foundation.BOOL),
+        ('dwVersion', UInt32),
+        ('lpszIdentifier', win32more.Foundation.PSTR),
     ]
     return WSANAMESPACE_INFOA
-def _define_WSANAMESPACE_INFOW_head():
-    class WSANAMESPACE_INFOW(Structure):
-        pass
-    return WSANAMESPACE_INFOW
-def _define_WSANAMESPACE_INFOW():
-    WSANAMESPACE_INFOW = win32more.Networking.WinSock.WSANAMESPACE_INFOW_head
-    WSANAMESPACE_INFOW._fields_ = [
-        ("NSProviderId", Guid),
-        ("dwNameSpace", UInt32),
-        ("fActive", win32more.Foundation.BOOL),
-        ("dwVersion", UInt32),
-        ("lpszIdentifier", win32more.Foundation.PWSTR),
-    ]
-    return WSANAMESPACE_INFOW
 def _define_WSANAMESPACE_INFOEXA_head():
     class WSANAMESPACE_INFOEXA(Structure):
         pass
@@ -2045,12 +6567,12 @@ def _define_WSANAMESPACE_INFOEXA_head():
 def _define_WSANAMESPACE_INFOEXA():
     WSANAMESPACE_INFOEXA = win32more.Networking.WinSock.WSANAMESPACE_INFOEXA_head
     WSANAMESPACE_INFOEXA._fields_ = [
-        ("NSProviderId", Guid),
-        ("dwNameSpace", UInt32),
-        ("fActive", win32more.Foundation.BOOL),
-        ("dwVersion", UInt32),
-        ("lpszIdentifier", win32more.Foundation.PSTR),
-        ("ProviderSpecific", win32more.System.Com.BLOB),
+        ('NSProviderId', Guid),
+        ('dwNameSpace', UInt32),
+        ('fActive', win32more.Foundation.BOOL),
+        ('dwVersion', UInt32),
+        ('lpszIdentifier', win32more.Foundation.PSTR),
+        ('ProviderSpecific', win32more.System.Com.BLOB),
     ]
     return WSANAMESPACE_INFOEXA
 def _define_WSANAMESPACE_INFOEXW_head():
@@ -2060,1677 +6582,67 @@ def _define_WSANAMESPACE_INFOEXW_head():
 def _define_WSANAMESPACE_INFOEXW():
     WSANAMESPACE_INFOEXW = win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head
     WSANAMESPACE_INFOEXW._fields_ = [
-        ("NSProviderId", Guid),
-        ("dwNameSpace", UInt32),
-        ("fActive", win32more.Foundation.BOOL),
-        ("dwVersion", UInt32),
-        ("lpszIdentifier", win32more.Foundation.PWSTR),
-        ("ProviderSpecific", win32more.System.Com.BLOB),
+        ('NSProviderId', Guid),
+        ('dwNameSpace', UInt32),
+        ('fActive', win32more.Foundation.BOOL),
+        ('dwVersion', UInt32),
+        ('lpszIdentifier', win32more.Foundation.PWSTR),
+        ('ProviderSpecific', win32more.System.Com.BLOB),
     ]
     return WSANAMESPACE_INFOEXW
-def _define_WSAPOLLFD_head():
-    class WSAPOLLFD(Structure):
-        pass
-    return WSAPOLLFD
-def _define_WSAPOLLFD():
-    WSAPOLLFD = win32more.Networking.WinSock.WSAPOLLFD_head
-    WSAPOLLFD._fields_ = [
-        ("fd", win32more.Networking.WinSock.SOCKET),
-        ("events", Int16),
-        ("revents", Int16),
-    ]
-    return WSAPOLLFD
-def _define_SOCK_NOTIFY_REGISTRATION_head():
-    class SOCK_NOTIFY_REGISTRATION(Structure):
-        pass
-    return SOCK_NOTIFY_REGISTRATION
-def _define_SOCK_NOTIFY_REGISTRATION():
-    SOCK_NOTIFY_REGISTRATION = win32more.Networking.WinSock.SOCK_NOTIFY_REGISTRATION_head
-    SOCK_NOTIFY_REGISTRATION._fields_ = [
-        ("socket", win32more.Networking.WinSock.SOCKET),
-        ("completionKey", c_void_p),
-        ("eventFilter", UInt16),
-        ("operation", Byte),
-        ("triggerFlags", Byte),
-        ("registrationResult", UInt32),
-    ]
-    return SOCK_NOTIFY_REGISTRATION
-def _define_IN6_ADDR_head():
-    class IN6_ADDR(Structure):
-        pass
-    return IN6_ADDR
-def _define_IN6_ADDR():
-    IN6_ADDR = win32more.Networking.WinSock.IN6_ADDR_head
-    class IN6_ADDR__u_e__Union(Union):
-        pass
-    IN6_ADDR__u_e__Union._fields_ = [
-        ("Byte", Byte * 16),
-        ("Word", UInt16 * 8),
-    ]
-    IN6_ADDR._fields_ = [
-        ("u", IN6_ADDR__u_e__Union),
-    ]
-    return IN6_ADDR
-def _define_sockaddr_in6_old_head():
-    class sockaddr_in6_old(Structure):
-        pass
-    return sockaddr_in6_old
-def _define_sockaddr_in6_old():
-    sockaddr_in6_old = win32more.Networking.WinSock.sockaddr_in6_old_head
-    sockaddr_in6_old._fields_ = [
-        ("sin6_family", Int16),
-        ("sin6_port", UInt16),
-        ("sin6_flowinfo", UInt32),
-        ("sin6_addr", win32more.Networking.WinSock.IN6_ADDR),
-    ]
-    return sockaddr_in6_old
-def _define_sockaddr_gen_head():
-    class sockaddr_gen(Union):
-        pass
-    return sockaddr_gen
-def _define_sockaddr_gen():
-    sockaddr_gen = win32more.Networking.WinSock.sockaddr_gen_head
-    sockaddr_gen._fields_ = [
-        ("Address", win32more.Networking.WinSock.SOCKADDR),
-        ("AddressIn", win32more.Networking.WinSock.SOCKADDR_IN),
-        ("AddressIn6", win32more.Networking.WinSock.sockaddr_in6_old),
-    ]
-    return sockaddr_gen
-def _define_INTERFACE_INFO_head():
-    class INTERFACE_INFO(Structure):
-        pass
-    return INTERFACE_INFO
-def _define_INTERFACE_INFO():
-    INTERFACE_INFO = win32more.Networking.WinSock.INTERFACE_INFO_head
-    INTERFACE_INFO._fields_ = [
-        ("iiFlags", UInt32),
-        ("iiAddress", win32more.Networking.WinSock.sockaddr_gen),
-        ("iiBroadcastAddress", win32more.Networking.WinSock.sockaddr_gen),
-        ("iiNetmask", win32more.Networking.WinSock.sockaddr_gen),
-    ]
-    return INTERFACE_INFO
-def _define_INTERFACE_INFO_EX_head():
-    class INTERFACE_INFO_EX(Structure):
-        pass
-    return INTERFACE_INFO_EX
-def _define_INTERFACE_INFO_EX():
-    INTERFACE_INFO_EX = win32more.Networking.WinSock.INTERFACE_INFO_EX_head
-    INTERFACE_INFO_EX._fields_ = [
-        ("iiFlags", UInt32),
-        ("iiAddress", win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ("iiBroadcastAddress", win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ("iiNetmask", win32more.Networking.WinSock.SOCKET_ADDRESS),
-    ]
-    return INTERFACE_INFO_EX
-PMTUD_STATE = Int32
-IP_PMTUDISC_NOT_SET = 0
-IP_PMTUDISC_DO = 1
-IP_PMTUDISC_DONT = 2
-IP_PMTUDISC_PROBE = 3
-IP_PMTUDISC_MAX = 4
-def _define_SOCKADDR_IN6_head():
-    class SOCKADDR_IN6(Structure):
-        pass
-    return SOCKADDR_IN6
-def _define_SOCKADDR_IN6():
-    SOCKADDR_IN6 = win32more.Networking.WinSock.SOCKADDR_IN6_head
-    class SOCKADDR_IN6__Anonymous_e__Union(Union):
-        pass
-    SOCKADDR_IN6__Anonymous_e__Union._fields_ = [
-        ("sin6_scope_id", UInt32),
-        ("sin6_scope_struct", win32more.Networking.WinSock.SCOPE_ID),
-    ]
-    SOCKADDR_IN6._anonymous_ = [
-        'Anonymous',
-    ]
-    SOCKADDR_IN6._fields_ = [
-        ("sin6_family", UInt16),
-        ("sin6_port", UInt16),
-        ("sin6_flowinfo", UInt32),
-        ("sin6_addr", win32more.Networking.WinSock.IN6_ADDR),
-        ("Anonymous", SOCKADDR_IN6__Anonymous_e__Union),
-    ]
-    return SOCKADDR_IN6
-def _define_SOCKADDR_IN6_W2KSP1_head():
-    class SOCKADDR_IN6_W2KSP1(Structure):
-        pass
-    return SOCKADDR_IN6_W2KSP1
-def _define_SOCKADDR_IN6_W2KSP1():
-    SOCKADDR_IN6_W2KSP1 = win32more.Networking.WinSock.SOCKADDR_IN6_W2KSP1_head
-    SOCKADDR_IN6_W2KSP1._fields_ = [
-        ("sin6_family", Int16),
-        ("sin6_port", UInt16),
-        ("sin6_flowinfo", UInt32),
-        ("sin6_addr", win32more.Networking.WinSock.IN6_ADDR),
-        ("sin6_scope_id", UInt32),
-    ]
-    return SOCKADDR_IN6_W2KSP1
-def _define_SOCKADDR_INET_head():
-    class SOCKADDR_INET(Union):
-        pass
-    return SOCKADDR_INET
-def _define_SOCKADDR_INET():
-    SOCKADDR_INET = win32more.Networking.WinSock.SOCKADDR_INET_head
-    SOCKADDR_INET._fields_ = [
-        ("Ipv4", win32more.Networking.WinSock.SOCKADDR_IN),
-        ("Ipv6", win32more.Networking.WinSock.SOCKADDR_IN6),
-        ("si_family", UInt16),
-    ]
-    return SOCKADDR_INET
-def _define_SOCKADDR_IN6_PAIR_head():
-    class SOCKADDR_IN6_PAIR(Structure):
-        pass
-    return SOCKADDR_IN6_PAIR
-def _define_SOCKADDR_IN6_PAIR():
-    SOCKADDR_IN6_PAIR = win32more.Networking.WinSock.SOCKADDR_IN6_PAIR_head
-    SOCKADDR_IN6_PAIR._fields_ = [
-        ("SourceAddress", POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head)),
-        ("DestinationAddress", POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head)),
-    ]
-    return SOCKADDR_IN6_PAIR
-MULTICAST_MODE_TYPE = Int32
-MCAST_INCLUDE = 0
-MCAST_EXCLUDE = 1
-def _define_IP_MREQ_head():
-    class IP_MREQ(Structure):
-        pass
-    return IP_MREQ
-def _define_IP_MREQ():
-    IP_MREQ = win32more.Networking.WinSock.IP_MREQ_head
-    IP_MREQ._fields_ = [
-        ("imr_multiaddr", win32more.Networking.WinSock.IN_ADDR),
-        ("imr_interface", win32more.Networking.WinSock.IN_ADDR),
-    ]
-    return IP_MREQ
-def _define_IP_MREQ_SOURCE_head():
-    class IP_MREQ_SOURCE(Structure):
-        pass
-    return IP_MREQ_SOURCE
-def _define_IP_MREQ_SOURCE():
-    IP_MREQ_SOURCE = win32more.Networking.WinSock.IP_MREQ_SOURCE_head
-    IP_MREQ_SOURCE._fields_ = [
-        ("imr_multiaddr", win32more.Networking.WinSock.IN_ADDR),
-        ("imr_sourceaddr", win32more.Networking.WinSock.IN_ADDR),
-        ("imr_interface", win32more.Networking.WinSock.IN_ADDR),
-    ]
-    return IP_MREQ_SOURCE
-def _define_IP_MSFILTER_head():
-    class IP_MSFILTER(Structure):
-        pass
-    return IP_MSFILTER
-def _define_IP_MSFILTER():
-    IP_MSFILTER = win32more.Networking.WinSock.IP_MSFILTER_head
-    IP_MSFILTER._fields_ = [
-        ("imsf_multiaddr", win32more.Networking.WinSock.IN_ADDR),
-        ("imsf_interface", win32more.Networking.WinSock.IN_ADDR),
-        ("imsf_fmode", win32more.Networking.WinSock.MULTICAST_MODE_TYPE),
-        ("imsf_numsrc", UInt32),
-        ("imsf_slist", win32more.Networking.WinSock.IN_ADDR * 0),
-    ]
-    return IP_MSFILTER
-def _define_IPV6_MREQ_head():
-    class IPV6_MREQ(Structure):
-        pass
-    return IPV6_MREQ
-def _define_IPV6_MREQ():
-    IPV6_MREQ = win32more.Networking.WinSock.IPV6_MREQ_head
-    IPV6_MREQ._fields_ = [
-        ("ipv6mr_multiaddr", win32more.Networking.WinSock.IN6_ADDR),
-        ("ipv6mr_interface", UInt32),
-    ]
-    return IPV6_MREQ
-def _define_GROUP_REQ_head():
-    class GROUP_REQ(Structure):
-        pass
-    return GROUP_REQ
-def _define_GROUP_REQ():
-    GROUP_REQ = win32more.Networking.WinSock.GROUP_REQ_head
-    GROUP_REQ._fields_ = [
-        ("gr_interface", UInt32),
-        ("gr_group", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-    ]
-    return GROUP_REQ
-def _define_GROUP_SOURCE_REQ_head():
-    class GROUP_SOURCE_REQ(Structure):
-        pass
-    return GROUP_SOURCE_REQ
-def _define_GROUP_SOURCE_REQ():
-    GROUP_SOURCE_REQ = win32more.Networking.WinSock.GROUP_SOURCE_REQ_head
-    GROUP_SOURCE_REQ._fields_ = [
-        ("gsr_interface", UInt32),
-        ("gsr_group", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ("gsr_source", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-    ]
-    return GROUP_SOURCE_REQ
-def _define_GROUP_FILTER_head():
-    class GROUP_FILTER(Structure):
-        pass
-    return GROUP_FILTER
-def _define_GROUP_FILTER():
-    GROUP_FILTER = win32more.Networking.WinSock.GROUP_FILTER_head
-    GROUP_FILTER._fields_ = [
-        ("gf_interface", UInt32),
-        ("gf_group", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ("gf_fmode", win32more.Networking.WinSock.MULTICAST_MODE_TYPE),
-        ("gf_numsrc", UInt32),
-        ("gf_slist", win32more.Networking.WinSock.SOCKADDR_STORAGE * 0),
-    ]
-    return GROUP_FILTER
-def _define_IN_PKTINFO_head():
-    class IN_PKTINFO(Structure):
-        pass
-    return IN_PKTINFO
-def _define_IN_PKTINFO():
-    IN_PKTINFO = win32more.Networking.WinSock.IN_PKTINFO_head
-    IN_PKTINFO._fields_ = [
-        ("ipi_addr", win32more.Networking.WinSock.IN_ADDR),
-        ("ipi_ifindex", UInt32),
-    ]
-    return IN_PKTINFO
-def _define_IN6_PKTINFO_head():
-    class IN6_PKTINFO(Structure):
-        pass
-    return IN6_PKTINFO
-def _define_IN6_PKTINFO():
-    IN6_PKTINFO = win32more.Networking.WinSock.IN6_PKTINFO_head
-    IN6_PKTINFO._fields_ = [
-        ("ipi6_addr", win32more.Networking.WinSock.IN6_ADDR),
-        ("ipi6_ifindex", UInt32),
-    ]
-    return IN6_PKTINFO
-def _define_IN_PKTINFO_EX_head():
-    class IN_PKTINFO_EX(Structure):
-        pass
-    return IN_PKTINFO_EX
-def _define_IN_PKTINFO_EX():
-    IN_PKTINFO_EX = win32more.Networking.WinSock.IN_PKTINFO_EX_head
-    IN_PKTINFO_EX._fields_ = [
-        ("pkt_info", win32more.Networking.WinSock.IN_PKTINFO),
-        ("scope_id", win32more.Networking.WinSock.SCOPE_ID),
-    ]
-    return IN_PKTINFO_EX
-def _define_in6_pktinfo_ex_head():
-    class in6_pktinfo_ex(Structure):
-        pass
-    return in6_pktinfo_ex
-def _define_in6_pktinfo_ex():
-    in6_pktinfo_ex = win32more.Networking.WinSock.in6_pktinfo_ex_head
-    in6_pktinfo_ex._fields_ = [
-        ("pkt_info", win32more.Networking.WinSock.IN6_PKTINFO),
-        ("scope_id", win32more.Networking.WinSock.SCOPE_ID),
-    ]
-    return in6_pktinfo_ex
-def _define_IN_RECVERR_head():
-    class IN_RECVERR(Structure):
-        pass
-    return IN_RECVERR
-def _define_IN_RECVERR():
-    IN_RECVERR = win32more.Networking.WinSock.IN_RECVERR_head
-    IN_RECVERR._fields_ = [
-        ("protocol", win32more.Networking.WinSock.IPPROTO),
-        ("info", UInt32),
-        ("type", Byte),
-        ("code", Byte),
-    ]
-    return IN_RECVERR
-def _define_ICMP_ERROR_INFO_head():
-    class ICMP_ERROR_INFO(Structure):
-        pass
-    return ICMP_ERROR_INFO
-def _define_ICMP_ERROR_INFO():
-    ICMP_ERROR_INFO = win32more.Networking.WinSock.ICMP_ERROR_INFO_head
-    ICMP_ERROR_INFO._fields_ = [
-        ("srcaddress", win32more.Networking.WinSock.SOCKADDR_INET),
-        ("protocol", win32more.Networking.WinSock.IPPROTO),
-        ("type", Byte),
-        ("code", Byte),
-    ]
-    return ICMP_ERROR_INFO
-eWINDOW_ADVANCE_METHOD = Int32
-E_WINDOW_ADVANCE_BY_TIME = 1
-E_WINDOW_USE_AS_DATA_CACHE = 2
-def _define_RM_SEND_WINDOW_head():
-    class RM_SEND_WINDOW(Structure):
-        pass
-    return RM_SEND_WINDOW
-def _define_RM_SEND_WINDOW():
-    RM_SEND_WINDOW = win32more.Networking.WinSock.RM_SEND_WINDOW_head
-    RM_SEND_WINDOW._fields_ = [
-        ("RateKbitsPerSec", UInt32),
-        ("WindowSizeInMSecs", UInt32),
-        ("WindowSizeInBytes", UInt32),
-    ]
-    return RM_SEND_WINDOW
-def _define_RM_SENDER_STATS_head():
-    class RM_SENDER_STATS(Structure):
-        pass
-    return RM_SENDER_STATS
-def _define_RM_SENDER_STATS():
-    RM_SENDER_STATS = win32more.Networking.WinSock.RM_SENDER_STATS_head
-    RM_SENDER_STATS._fields_ = [
-        ("DataBytesSent", UInt64),
-        ("TotalBytesSent", UInt64),
-        ("NaksReceived", UInt64),
-        ("NaksReceivedTooLate", UInt64),
-        ("NumOutstandingNaks", UInt64),
-        ("NumNaksAfterRData", UInt64),
-        ("RepairPacketsSent", UInt64),
-        ("BufferSpaceAvailable", UInt64),
-        ("TrailingEdgeSeqId", UInt64),
-        ("LeadingEdgeSeqId", UInt64),
-        ("RateKBitsPerSecOverall", UInt64),
-        ("RateKBitsPerSecLast", UInt64),
-        ("TotalODataPacketsSent", UInt64),
-    ]
-    return RM_SENDER_STATS
-def _define_RM_RECEIVER_STATS_head():
-    class RM_RECEIVER_STATS(Structure):
-        pass
-    return RM_RECEIVER_STATS
-def _define_RM_RECEIVER_STATS():
-    RM_RECEIVER_STATS = win32more.Networking.WinSock.RM_RECEIVER_STATS_head
-    RM_RECEIVER_STATS._fields_ = [
-        ("NumODataPacketsReceived", UInt64),
-        ("NumRDataPacketsReceived", UInt64),
-        ("NumDuplicateDataPackets", UInt64),
-        ("DataBytesReceived", UInt64),
-        ("TotalBytesReceived", UInt64),
-        ("RateKBitsPerSecOverall", UInt64),
-        ("RateKBitsPerSecLast", UInt64),
-        ("TrailingEdgeSeqId", UInt64),
-        ("LeadingEdgeSeqId", UInt64),
-        ("AverageSequencesInWindow", UInt64),
-        ("MinSequencesInWindow", UInt64),
-        ("MaxSequencesInWindow", UInt64),
-        ("FirstNakSequenceNumber", UInt64),
-        ("NumPendingNaks", UInt64),
-        ("NumOutstandingNaks", UInt64),
-        ("NumDataPacketsBuffered", UInt64),
-        ("TotalSelectiveNaksSent", UInt64),
-        ("TotalParityNaksSent", UInt64),
-    ]
-    return RM_RECEIVER_STATS
-def _define_RM_FEC_INFO_head():
-    class RM_FEC_INFO(Structure):
-        pass
-    return RM_FEC_INFO
-def _define_RM_FEC_INFO():
-    RM_FEC_INFO = win32more.Networking.WinSock.RM_FEC_INFO_head
-    RM_FEC_INFO._fields_ = [
-        ("FECBlockSize", UInt16),
-        ("FECProActivePackets", UInt16),
-        ("FECGroupSize", Byte),
-        ("fFECOnDemandParityEnabled", win32more.Foundation.BOOLEAN),
-    ]
-    return RM_FEC_INFO
-def _define_IPX_ADDRESS_DATA_head():
-    class IPX_ADDRESS_DATA(Structure):
-        pass
-    return IPX_ADDRESS_DATA
-def _define_IPX_ADDRESS_DATA():
-    IPX_ADDRESS_DATA = win32more.Networking.WinSock.IPX_ADDRESS_DATA_head
-    IPX_ADDRESS_DATA._fields_ = [
-        ("adapternum", Int32),
-        ("netnum", Byte * 4),
-        ("nodenum", Byte * 6),
-        ("wan", win32more.Foundation.BOOLEAN),
-        ("status", win32more.Foundation.BOOLEAN),
-        ("maxpkt", Int32),
-        ("linkspeed", UInt32),
-    ]
-    return IPX_ADDRESS_DATA
-def _define_IPX_NETNUM_DATA_head():
-    class IPX_NETNUM_DATA(Structure):
-        pass
-    return IPX_NETNUM_DATA
-def _define_IPX_NETNUM_DATA():
-    IPX_NETNUM_DATA = win32more.Networking.WinSock.IPX_NETNUM_DATA_head
-    IPX_NETNUM_DATA._fields_ = [
-        ("netnum", Byte * 4),
-        ("hopcount", UInt16),
-        ("netdelay", UInt16),
-        ("cardnum", Int32),
-        ("router", Byte * 6),
-    ]
-    return IPX_NETNUM_DATA
-def _define_IPX_SPXCONNSTATUS_DATA_head():
-    class IPX_SPXCONNSTATUS_DATA(Structure):
-        pass
-    return IPX_SPXCONNSTATUS_DATA
-def _define_IPX_SPXCONNSTATUS_DATA():
-    IPX_SPXCONNSTATUS_DATA = win32more.Networking.WinSock.IPX_SPXCONNSTATUS_DATA_head
-    IPX_SPXCONNSTATUS_DATA._fields_ = [
-        ("ConnectionState", Byte),
-        ("WatchDogActive", Byte),
-        ("LocalConnectionId", UInt16),
-        ("RemoteConnectionId", UInt16),
-        ("LocalSequenceNumber", UInt16),
-        ("LocalAckNumber", UInt16),
-        ("LocalAllocNumber", UInt16),
-        ("RemoteAckNumber", UInt16),
-        ("RemoteAllocNumber", UInt16),
-        ("LocalSocket", UInt16),
-        ("ImmediateAddress", Byte * 6),
-        ("RemoteNetwork", Byte * 4),
-        ("RemoteNode", Byte * 6),
-        ("RemoteSocket", UInt16),
-        ("RetransmissionCount", UInt16),
-        ("EstimatedRoundTripDelay", UInt16),
-        ("RetransmittedPackets", UInt16),
-        ("SuppressedPacket", UInt16),
-    ]
-    return IPX_SPXCONNSTATUS_DATA
-def _define_LM_IRPARMS_head():
-    class LM_IRPARMS(Structure):
-        pass
-    return LM_IRPARMS
-def _define_LM_IRPARMS():
-    LM_IRPARMS = win32more.Networking.WinSock.LM_IRPARMS_head
-    LM_IRPARMS._fields_ = [
-        ("nTXDataBytes", UInt32),
-        ("nRXDataBytes", UInt32),
-        ("nBaudRate", UInt32),
-        ("thresholdTime", UInt32),
-        ("discTime", UInt32),
-        ("nMSLinkTurn", UInt16),
-        ("nTXPackets", Byte),
-        ("nRXPackets", Byte),
-    ]
-    return LM_IRPARMS
-def _define_SOCKADDR_IRDA_head():
-    class SOCKADDR_IRDA(Structure):
-        pass
-    return SOCKADDR_IRDA
-def _define_SOCKADDR_IRDA():
-    SOCKADDR_IRDA = win32more.Networking.WinSock.SOCKADDR_IRDA_head
-    SOCKADDR_IRDA._fields_ = [
-        ("irdaAddressFamily", UInt16),
-        ("irdaDeviceID", Byte * 4),
-        ("irdaServiceName", win32more.Foundation.CHAR * 25),
-    ]
-    return SOCKADDR_IRDA
-def _define_WINDOWS_IRDA_DEVICE_INFO_head():
-    class WINDOWS_IRDA_DEVICE_INFO(Structure):
-        pass
-    return WINDOWS_IRDA_DEVICE_INFO
-def _define_WINDOWS_IRDA_DEVICE_INFO():
-    WINDOWS_IRDA_DEVICE_INFO = win32more.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO_head
-    WINDOWS_IRDA_DEVICE_INFO._fields_ = [
-        ("irdaDeviceID", Byte * 4),
-        ("irdaDeviceName", win32more.Foundation.CHAR * 22),
-        ("irdaDeviceHints1", Byte),
-        ("irdaDeviceHints2", Byte),
-        ("irdaCharSet", Byte),
-    ]
-    return WINDOWS_IRDA_DEVICE_INFO
-def _define_WCE_IRDA_DEVICE_INFO_head():
-    class WCE_IRDA_DEVICE_INFO(Structure):
-        pass
-    return WCE_IRDA_DEVICE_INFO
-def _define_WCE_IRDA_DEVICE_INFO():
-    WCE_IRDA_DEVICE_INFO = win32more.Networking.WinSock.WCE_IRDA_DEVICE_INFO_head
-    WCE_IRDA_DEVICE_INFO._fields_ = [
-        ("irdaDeviceID", Byte * 4),
-        ("irdaDeviceName", win32more.Foundation.CHAR * 22),
-        ("Reserved", Byte * 2),
-    ]
-    return WCE_IRDA_DEVICE_INFO
-def _define_WINDOWS_DEVICELIST_head():
-    class WINDOWS_DEVICELIST(Structure):
-        pass
-    return WINDOWS_DEVICELIST
-def _define_WINDOWS_DEVICELIST():
-    WINDOWS_DEVICELIST = win32more.Networking.WinSock.WINDOWS_DEVICELIST_head
-    WINDOWS_DEVICELIST._fields_ = [
-        ("numDevice", UInt32),
-        ("Device", win32more.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO * 0),
-    ]
-    return WINDOWS_DEVICELIST
-def _define_WCE_DEVICELIST_head():
-    class WCE_DEVICELIST(Structure):
-        pass
-    return WCE_DEVICELIST
-def _define_WCE_DEVICELIST():
-    WCE_DEVICELIST = win32more.Networking.WinSock.WCE_DEVICELIST_head
-    WCE_DEVICELIST._fields_ = [
-        ("numDevice", UInt32),
-        ("Device", win32more.Networking.WinSock.WCE_IRDA_DEVICE_INFO * 0),
-    ]
-    return WCE_DEVICELIST
-def _define_WINDOWS_IAS_SET_head():
-    class WINDOWS_IAS_SET(Structure):
-        pass
-    return WINDOWS_IAS_SET
-def _define_WINDOWS_IAS_SET():
-    WINDOWS_IAS_SET = win32more.Networking.WinSock.WINDOWS_IAS_SET_head
-    class WINDOWS_IAS_SET__irdaAttribute_e__Union(Union):
-        pass
-    class WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct(Structure):
-        pass
-    WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct._fields_ = [
-        ("Len", UInt16),
-        ("OctetSeq", Byte * 1024),
-    ]
-    class WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct(Structure):
-        pass
-    WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct._fields_ = [
-        ("Len", Byte),
-        ("CharSet", Byte),
-        ("UsrStr", Byte * 256),
-    ]
-    WINDOWS_IAS_SET__irdaAttribute_e__Union._fields_ = [
-        ("irdaAttribInt", Int32),
-        ("irdaAttribOctetSeq", WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct),
-        ("irdaAttribUsrStr", WINDOWS_IAS_SET__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct),
-    ]
-    WINDOWS_IAS_SET._fields_ = [
-        ("irdaClassName", win32more.Foundation.CHAR * 64),
-        ("irdaAttribName", win32more.Foundation.CHAR * 256),
-        ("irdaAttribType", UInt32),
-        ("irdaAttribute", WINDOWS_IAS_SET__irdaAttribute_e__Union),
-    ]
-    return WINDOWS_IAS_SET
-def _define_WINDOWS_IAS_QUERY_head():
-    class WINDOWS_IAS_QUERY(Structure):
-        pass
-    return WINDOWS_IAS_QUERY
-def _define_WINDOWS_IAS_QUERY():
-    WINDOWS_IAS_QUERY = win32more.Networking.WinSock.WINDOWS_IAS_QUERY_head
-    class WINDOWS_IAS_QUERY__irdaAttribute_e__Union(Union):
-        pass
-    class WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct(Structure):
-        pass
-    WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct._fields_ = [
-        ("Len", UInt32),
-        ("OctetSeq", Byte * 1024),
-    ]
-    class WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct(Structure):
-        pass
-    WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct._fields_ = [
-        ("Len", UInt32),
-        ("CharSet", UInt32),
-        ("UsrStr", Byte * 256),
-    ]
-    WINDOWS_IAS_QUERY__irdaAttribute_e__Union._fields_ = [
-        ("irdaAttribInt", Int32),
-        ("irdaAttribOctetSeq", WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribOctetSeq_e__Struct),
-        ("irdaAttribUsrStr", WINDOWS_IAS_QUERY__irdaAttribute_e__Union__irdaAttribUsrStr_e__Struct),
-    ]
-    WINDOWS_IAS_QUERY._fields_ = [
-        ("irdaDeviceID", Byte * 4),
-        ("irdaClassName", win32more.Foundation.CHAR * 64),
-        ("irdaAttribName", win32more.Foundation.CHAR * 256),
-        ("irdaAttribType", UInt32),
-        ("irdaAttribute", WINDOWS_IAS_QUERY__irdaAttribute_e__Union),
-    ]
-    return WINDOWS_IAS_QUERY
-NL_PREFIX_ORIGIN = Int32
-NL_PREFIX_ORIGIN_IpPrefixOriginOther = 0
-NL_PREFIX_ORIGIN_IpPrefixOriginManual = 1
-NL_PREFIX_ORIGIN_IpPrefixOriginWellKnown = 2
-NL_PREFIX_ORIGIN_IpPrefixOriginDhcp = 3
-NL_PREFIX_ORIGIN_IpPrefixOriginRouterAdvertisement = 4
-NL_PREFIX_ORIGIN_IpPrefixOriginUnchanged = 16
-NL_SUFFIX_ORIGIN = Int32
-NL_SUFFIX_ORIGIN_NlsoOther = 0
-NL_SUFFIX_ORIGIN_NlsoManual = 1
-NL_SUFFIX_ORIGIN_NlsoWellKnown = 2
-NL_SUFFIX_ORIGIN_NlsoDhcp = 3
-NL_SUFFIX_ORIGIN_NlsoLinkLayerAddress = 4
-NL_SUFFIX_ORIGIN_NlsoRandom = 5
-NL_SUFFIX_ORIGIN_IpSuffixOriginOther = 0
-NL_SUFFIX_ORIGIN_IpSuffixOriginManual = 1
-NL_SUFFIX_ORIGIN_IpSuffixOriginWellKnown = 2
-NL_SUFFIX_ORIGIN_IpSuffixOriginDhcp = 3
-NL_SUFFIX_ORIGIN_IpSuffixOriginLinkLayerAddress = 4
-NL_SUFFIX_ORIGIN_IpSuffixOriginRandom = 5
-NL_SUFFIX_ORIGIN_IpSuffixOriginUnchanged = 16
-NL_DAD_STATE = Int32
-NL_DAD_STATE_NldsInvalid = 0
-NL_DAD_STATE_NldsTentative = 1
-NL_DAD_STATE_NldsDuplicate = 2
-NL_DAD_STATE_NldsDeprecated = 3
-NL_DAD_STATE_NldsPreferred = 4
-NL_DAD_STATE_IpDadStateInvalid = 0
-NL_DAD_STATE_IpDadStateTentative = 1
-NL_DAD_STATE_IpDadStateDuplicate = 2
-NL_DAD_STATE_IpDadStateDeprecated = 3
-NL_DAD_STATE_IpDadStatePreferred = 4
-NL_ROUTE_PROTOCOL = Int32
-NL_ROUTE_PROTOCOL_RouteProtocolOther = 1
-NL_ROUTE_PROTOCOL_RouteProtocolLocal = 2
-NL_ROUTE_PROTOCOL_RouteProtocolNetMgmt = 3
-NL_ROUTE_PROTOCOL_RouteProtocolIcmp = 4
-NL_ROUTE_PROTOCOL_RouteProtocolEgp = 5
-NL_ROUTE_PROTOCOL_RouteProtocolGgp = 6
-NL_ROUTE_PROTOCOL_RouteProtocolHello = 7
-NL_ROUTE_PROTOCOL_RouteProtocolRip = 8
-NL_ROUTE_PROTOCOL_RouteProtocolIsIs = 9
-NL_ROUTE_PROTOCOL_RouteProtocolEsIs = 10
-NL_ROUTE_PROTOCOL_RouteProtocolCisco = 11
-NL_ROUTE_PROTOCOL_RouteProtocolBbn = 12
-NL_ROUTE_PROTOCOL_RouteProtocolOspf = 13
-NL_ROUTE_PROTOCOL_RouteProtocolBgp = 14
-NL_ROUTE_PROTOCOL_RouteProtocolIdpr = 15
-NL_ROUTE_PROTOCOL_RouteProtocolEigrp = 16
-NL_ROUTE_PROTOCOL_RouteProtocolDvmrp = 17
-NL_ROUTE_PROTOCOL_RouteProtocolRpl = 18
-NL_ROUTE_PROTOCOL_RouteProtocolDhcp = 19
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_OTHER = 1
-NL_ROUTE_PROTOCOL_PROTO_IP_OTHER = 1
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_LOCAL = 2
-NL_ROUTE_PROTOCOL_PROTO_IP_LOCAL = 2
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NETMGMT = 3
-NL_ROUTE_PROTOCOL_PROTO_IP_NETMGMT = 3
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_ICMP = 4
-NL_ROUTE_PROTOCOL_PROTO_IP_ICMP = 4
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_EGP = 5
-NL_ROUTE_PROTOCOL_PROTO_IP_EGP = 5
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_GGP = 6
-NL_ROUTE_PROTOCOL_PROTO_IP_GGP = 6
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_HELLO = 7
-NL_ROUTE_PROTOCOL_PROTO_IP_HELLO = 7
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_RIP = 8
-NL_ROUTE_PROTOCOL_PROTO_IP_RIP = 8
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_IS_IS = 9
-NL_ROUTE_PROTOCOL_PROTO_IP_IS_IS = 9
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_ES_IS = 10
-NL_ROUTE_PROTOCOL_PROTO_IP_ES_IS = 10
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_CISCO = 11
-NL_ROUTE_PROTOCOL_PROTO_IP_CISCO = 11
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_BBN = 12
-NL_ROUTE_PROTOCOL_PROTO_IP_BBN = 12
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_OSPF = 13
-NL_ROUTE_PROTOCOL_PROTO_IP_OSPF = 13
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_BGP = 14
-NL_ROUTE_PROTOCOL_PROTO_IP_BGP = 14
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_IDPR = 15
-NL_ROUTE_PROTOCOL_PROTO_IP_IDPR = 15
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_EIGRP = 16
-NL_ROUTE_PROTOCOL_PROTO_IP_EIGRP = 16
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_DVMRP = 17
-NL_ROUTE_PROTOCOL_PROTO_IP_DVMRP = 17
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_RPL = 18
-NL_ROUTE_PROTOCOL_PROTO_IP_RPL = 18
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_DHCP = 19
-NL_ROUTE_PROTOCOL_PROTO_IP_DHCP = 19
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_AUTOSTATIC = 10002
-NL_ROUTE_PROTOCOL_PROTO_IP_NT_AUTOSTATIC = 10002
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC = 10006
-NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC = 10006
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC_NON_DOD = 10007
-NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC_NON_DOD = 10007
-NL_ADDRESS_TYPE = Int32
-NL_ADDRESS_TYPE_NlatUnspecified = 0
-NL_ADDRESS_TYPE_NlatUnicast = 1
-NL_ADDRESS_TYPE_NlatAnycast = 2
-NL_ADDRESS_TYPE_NlatMulticast = 3
-NL_ADDRESS_TYPE_NlatBroadcast = 4
-NL_ADDRESS_TYPE_NlatInvalid = 5
-NL_ROUTE_ORIGIN = Int32
-NL_ROUTE_ORIGIN_NlroManual = 0
-NL_ROUTE_ORIGIN_NlroWellKnown = 1
-NL_ROUTE_ORIGIN_NlroDHCP = 2
-NL_ROUTE_ORIGIN_NlroRouterAdvertisement = 3
-NL_ROUTE_ORIGIN_Nlro6to4 = 4
-NL_NEIGHBOR_STATE = Int32
-NL_NEIGHBOR_STATE_NlnsUnreachable = 0
-NL_NEIGHBOR_STATE_NlnsIncomplete = 1
-NL_NEIGHBOR_STATE_NlnsProbe = 2
-NL_NEIGHBOR_STATE_NlnsDelay = 3
-NL_NEIGHBOR_STATE_NlnsStale = 4
-NL_NEIGHBOR_STATE_NlnsReachable = 5
-NL_NEIGHBOR_STATE_NlnsPermanent = 6
-NL_NEIGHBOR_STATE_NlnsMaximum = 7
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR = Int32
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOff = 0
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalDelayed = 1
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOn = 2
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalUnchanged = -1
-def _define_NL_INTERFACE_OFFLOAD_ROD_head():
-    class NL_INTERFACE_OFFLOAD_ROD(Structure):
-        pass
-    return NL_INTERFACE_OFFLOAD_ROD
-def _define_NL_INTERFACE_OFFLOAD_ROD():
-    NL_INTERFACE_OFFLOAD_ROD = win32more.Networking.WinSock.NL_INTERFACE_OFFLOAD_ROD_head
-    NL_INTERFACE_OFFLOAD_ROD._fields_ = [
-        ("_bitfield", Byte),
-    ]
-    return NL_INTERFACE_OFFLOAD_ROD
-NL_ROUTER_DISCOVERY_BEHAVIOR = Int32
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled = 0
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled = 1
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp = 2
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged = -1
-NL_BANDWIDTH_FLAG = Int32
-NL_BANDWIDTH_FLAG_NlbwDisabled = 0
-NL_BANDWIDTH_FLAG_NlbwEnabled = 1
-NL_BANDWIDTH_FLAG_NlbwUnchanged = -1
-def _define_NL_PATH_BANDWIDTH_ROD_head():
-    class NL_PATH_BANDWIDTH_ROD(Structure):
-        pass
-    return NL_PATH_BANDWIDTH_ROD
-def _define_NL_PATH_BANDWIDTH_ROD():
-    NL_PATH_BANDWIDTH_ROD = win32more.Networking.WinSock.NL_PATH_BANDWIDTH_ROD_head
-    NL_PATH_BANDWIDTH_ROD._fields_ = [
-        ("Bandwidth", UInt64),
-        ("Instability", UInt64),
-        ("BandwidthPeaked", win32more.Foundation.BOOLEAN),
-    ]
-    return NL_PATH_BANDWIDTH_ROD
-NL_NETWORK_CATEGORY = Int32
-NL_NETWORK_CATEGORY_NetworkCategoryPublic = 0
-NL_NETWORK_CATEGORY_NetworkCategoryPrivate = 1
-NL_NETWORK_CATEGORY_NetworkCategoryDomainAuthenticated = 2
-NL_NETWORK_CATEGORY_NetworkCategoryUnchanged = -1
-NL_NETWORK_CATEGORY_NetworkCategoryUnknown = -1
-NL_INTERFACE_NETWORK_CATEGORY_STATE = Int32
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryUnknown = 0
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPublic = 1
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPrivate = 2
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincDomainAuthenticated = 3
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryStateMax = 4
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT = Int32
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintUnknown = 0
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintNone = 1
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintLocalAccess = 2
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintInternetAccess = 3
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintConstrainedInternetAccess = 4
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintHidden = 5
-NL_NETWORK_CONNECTIVITY_COST_HINT = Int32
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnknown = 0
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnrestricted = 1
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintFixed = 2
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintVariable = 3
-def _define_NL_NETWORK_CONNECTIVITY_HINT_head():
-    class NL_NETWORK_CONNECTIVITY_HINT(Structure):
-        pass
-    return NL_NETWORK_CONNECTIVITY_HINT
-def _define_NL_NETWORK_CONNECTIVITY_HINT():
-    NL_NETWORK_CONNECTIVITY_HINT = win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT_head
-    NL_NETWORK_CONNECTIVITY_HINT._fields_ = [
-        ("ConnectivityLevel", win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT),
-        ("ConnectivityCost", win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT),
-        ("ApproachingDataLimit", win32more.Foundation.BOOLEAN),
-        ("OverDataLimit", win32more.Foundation.BOOLEAN),
-        ("Roaming", win32more.Foundation.BOOLEAN),
-    ]
-    return NL_NETWORK_CONNECTIVITY_HINT
-def _define_NL_BANDWIDTH_INFORMATION_head():
-    class NL_BANDWIDTH_INFORMATION(Structure):
-        pass
-    return NL_BANDWIDTH_INFORMATION
-def _define_NL_BANDWIDTH_INFORMATION():
-    NL_BANDWIDTH_INFORMATION = win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION_head
-    NL_BANDWIDTH_INFORMATION._fields_ = [
-        ("Bandwidth", UInt64),
-        ("Instability", UInt64),
-        ("BandwidthPeaked", win32more.Foundation.BOOLEAN),
-    ]
-    return NL_BANDWIDTH_INFORMATION
-TCPSTATE = Int32
-TCPSTATE_CLOSED = 0
-TCPSTATE_LISTEN = 1
-TCPSTATE_SYN_SENT = 2
-TCPSTATE_SYN_RCVD = 3
-TCPSTATE_ESTABLISHED = 4
-TCPSTATE_FIN_WAIT_1 = 5
-TCPSTATE_FIN_WAIT_2 = 6
-TCPSTATE_CLOSE_WAIT = 7
-TCPSTATE_CLOSING = 8
-TCPSTATE_LAST_ACK = 9
-TCPSTATE_TIME_WAIT = 10
-TCPSTATE_MAX = 11
-def _define_TRANSPORT_SETTING_ID_head():
-    class TRANSPORT_SETTING_ID(Structure):
-        pass
-    return TRANSPORT_SETTING_ID
-def _define_TRANSPORT_SETTING_ID():
-    TRANSPORT_SETTING_ID = win32more.Networking.WinSock.TRANSPORT_SETTING_ID_head
-    TRANSPORT_SETTING_ID._fields_ = [
-        ("Guid", Guid),
-    ]
-    return TRANSPORT_SETTING_ID
-def _define_tcp_keepalive_head():
-    class tcp_keepalive(Structure):
-        pass
-    return tcp_keepalive
-def _define_tcp_keepalive():
-    tcp_keepalive = win32more.Networking.WinSock.tcp_keepalive_head
-    tcp_keepalive._fields_ = [
-        ("onoff", UInt32),
-        ("keepalivetime", UInt32),
-        ("keepaliveinterval", UInt32),
-    ]
-    return tcp_keepalive
-CONTROL_CHANNEL_TRIGGER_STATUS = Int32
-CONTROL_CHANNEL_TRIGGER_STATUS_INVALID = 0
-CONTROL_CHANNEL_TRIGGER_STATUS_SOFTWARE_SLOT_ALLOCATED = 1
-CONTROL_CHANNEL_TRIGGER_STATUS_HARDWARE_SLOT_ALLOCATED = 2
-CONTROL_CHANNEL_TRIGGER_STATUS_POLICY_ERROR = 3
-CONTROL_CHANNEL_TRIGGER_STATUS_SYSTEM_ERROR = 4
-CONTROL_CHANNEL_TRIGGER_STATUS_TRANSPORT_DISCONNECTED = 5
-CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE = 6
-def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT_head():
-    class REAL_TIME_NOTIFICATION_SETTING_INPUT(Structure):
-        pass
-    return REAL_TIME_NOTIFICATION_SETTING_INPUT
-def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT():
-    REAL_TIME_NOTIFICATION_SETTING_INPUT = win32more.Networking.WinSock.REAL_TIME_NOTIFICATION_SETTING_INPUT_head
-    REAL_TIME_NOTIFICATION_SETTING_INPUT._fields_ = [
-        ("TransportSettingId", win32more.Networking.WinSock.TRANSPORT_SETTING_ID),
-        ("BrokerEventGuid", Guid),
-    ]
-    return REAL_TIME_NOTIFICATION_SETTING_INPUT
-def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT_EX_head():
-    class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX(Structure):
-        pass
-    return REAL_TIME_NOTIFICATION_SETTING_INPUT_EX
-def _define_REAL_TIME_NOTIFICATION_SETTING_INPUT_EX():
-    REAL_TIME_NOTIFICATION_SETTING_INPUT_EX = win32more.Networking.WinSock.REAL_TIME_NOTIFICATION_SETTING_INPUT_EX_head
-    REAL_TIME_NOTIFICATION_SETTING_INPUT_EX._fields_ = [
-        ("TransportSettingId", win32more.Networking.WinSock.TRANSPORT_SETTING_ID),
-        ("BrokerEventGuid", Guid),
-        ("Unmark", win32more.Foundation.BOOLEAN),
-    ]
-    return REAL_TIME_NOTIFICATION_SETTING_INPUT_EX
-def _define_REAL_TIME_NOTIFICATION_SETTING_OUTPUT_head():
-    class REAL_TIME_NOTIFICATION_SETTING_OUTPUT(Structure):
-        pass
-    return REAL_TIME_NOTIFICATION_SETTING_OUTPUT
-def _define_REAL_TIME_NOTIFICATION_SETTING_OUTPUT():
-    REAL_TIME_NOTIFICATION_SETTING_OUTPUT = win32more.Networking.WinSock.REAL_TIME_NOTIFICATION_SETTING_OUTPUT_head
-    REAL_TIME_NOTIFICATION_SETTING_OUTPUT._fields_ = [
-        ("ChannelStatus", win32more.Networking.WinSock.CONTROL_CHANNEL_TRIGGER_STATUS),
-    ]
-    return REAL_TIME_NOTIFICATION_SETTING_OUTPUT
-def _define_ASSOCIATE_NAMERES_CONTEXT_INPUT_head():
-    class ASSOCIATE_NAMERES_CONTEXT_INPUT(Structure):
-        pass
-    return ASSOCIATE_NAMERES_CONTEXT_INPUT
-def _define_ASSOCIATE_NAMERES_CONTEXT_INPUT():
-    ASSOCIATE_NAMERES_CONTEXT_INPUT = win32more.Networking.WinSock.ASSOCIATE_NAMERES_CONTEXT_INPUT_head
-    ASSOCIATE_NAMERES_CONTEXT_INPUT._fields_ = [
-        ("TransportSettingId", win32more.Networking.WinSock.TRANSPORT_SETTING_ID),
-        ("Handle", UInt64),
-    ]
-    return ASSOCIATE_NAMERES_CONTEXT_INPUT
-def _define_TIMESTAMPING_CONFIG_head():
-    class TIMESTAMPING_CONFIG(Structure):
-        pass
-    return TIMESTAMPING_CONFIG
-def _define_TIMESTAMPING_CONFIG():
-    TIMESTAMPING_CONFIG = win32more.Networking.WinSock.TIMESTAMPING_CONFIG_head
-    TIMESTAMPING_CONFIG._fields_ = [
-        ("Flags", UInt32),
-        ("TxTimestampsBuffered", UInt16),
-    ]
-    return TIMESTAMPING_CONFIG
-SOCKET_PRIORITY_HINT = Int32
-SOCKET_PRIORITY_HINT_SocketPriorityHintVeryLow = 0
-SOCKET_PRIORITY_HINT_SocketPriorityHintLow = 1
-SOCKET_PRIORITY_HINT_SocketPriorityHintNormal = 2
-SOCKET_PRIORITY_HINT_SocketMaximumPriorityHintType = 3
-def _define_PRIORITY_STATUS_head():
-    class PRIORITY_STATUS(Structure):
-        pass
-    return PRIORITY_STATUS
-def _define_PRIORITY_STATUS():
-    PRIORITY_STATUS = win32more.Networking.WinSock.PRIORITY_STATUS_head
-    PRIORITY_STATUS._fields_ = [
-        ("Sender", win32more.Networking.WinSock.SOCKET_PRIORITY_HINT),
-        ("Receiver", win32more.Networking.WinSock.SOCKET_PRIORITY_HINT),
-    ]
-    return PRIORITY_STATUS
-RCVALL_VALUE = Int32
-RCVALL_OFF = 0
-RCVALL_ON = 1
-RCVALL_SOCKETLEVELONLY = 2
-RCVALL_IPLEVEL = 3
-def _define_RCVALL_IF_head():
-    class RCVALL_IF(Structure):
-        pass
-    return RCVALL_IF
-def _define_RCVALL_IF():
-    RCVALL_IF = win32more.Networking.WinSock.RCVALL_IF_head
-    RCVALL_IF._fields_ = [
-        ("Mode", win32more.Networking.WinSock.RCVALL_VALUE),
-        ("Interface", UInt32),
-    ]
-    return RCVALL_IF
-def _define_TCP_INITIAL_RTO_PARAMETERS_head():
-    class TCP_INITIAL_RTO_PARAMETERS(Structure):
-        pass
-    return TCP_INITIAL_RTO_PARAMETERS
-def _define_TCP_INITIAL_RTO_PARAMETERS():
-    TCP_INITIAL_RTO_PARAMETERS = win32more.Networking.WinSock.TCP_INITIAL_RTO_PARAMETERS_head
-    TCP_INITIAL_RTO_PARAMETERS._fields_ = [
-        ("Rtt", UInt16),
-        ("MaxSynRetransmissions", Byte),
-    ]
-    return TCP_INITIAL_RTO_PARAMETERS
-TCP_ICW_LEVEL = Int32
-TCP_ICW_LEVEL_DEFAULT = 0
-TCP_ICW_LEVEL_HIGH = 1
-TCP_ICW_LEVEL_VERY_HIGH = 2
-TCP_ICW_LEVEL_AGGRESSIVE = 3
-TCP_ICW_LEVEL_EXPERIMENTAL = 4
-TCP_ICW_LEVEL_COMPAT = 254
-TCP_ICW_LEVEL_MAX = 255
-def _define_TCP_ICW_PARAMETERS_head():
-    class TCP_ICW_PARAMETERS(Structure):
-        pass
-    return TCP_ICW_PARAMETERS
-def _define_TCP_ICW_PARAMETERS():
-    TCP_ICW_PARAMETERS = win32more.Networking.WinSock.TCP_ICW_PARAMETERS_head
-    TCP_ICW_PARAMETERS._fields_ = [
-        ("Level", win32more.Networking.WinSock.TCP_ICW_LEVEL),
-    ]
-    return TCP_ICW_PARAMETERS
-def _define_TCP_ACK_FREQUENCY_PARAMETERS_head():
-    class TCP_ACK_FREQUENCY_PARAMETERS(Structure):
-        pass
-    return TCP_ACK_FREQUENCY_PARAMETERS
-def _define_TCP_ACK_FREQUENCY_PARAMETERS():
-    TCP_ACK_FREQUENCY_PARAMETERS = win32more.Networking.WinSock.TCP_ACK_FREQUENCY_PARAMETERS_head
-    TCP_ACK_FREQUENCY_PARAMETERS._fields_ = [
-        ("TcpDelayedAckFrequency", Byte),
-    ]
-    return TCP_ACK_FREQUENCY_PARAMETERS
-def _define_TCP_INFO_v0_head():
-    class TCP_INFO_v0(Structure):
-        pass
-    return TCP_INFO_v0
-def _define_TCP_INFO_v0():
-    TCP_INFO_v0 = win32more.Networking.WinSock.TCP_INFO_v0_head
-    TCP_INFO_v0._fields_ = [
-        ("State", win32more.Networking.WinSock.TCPSTATE),
-        ("Mss", UInt32),
-        ("ConnectionTimeMs", UInt64),
-        ("TimestampsEnabled", win32more.Foundation.BOOLEAN),
-        ("RttUs", UInt32),
-        ("MinRttUs", UInt32),
-        ("BytesInFlight", UInt32),
-        ("Cwnd", UInt32),
-        ("SndWnd", UInt32),
-        ("RcvWnd", UInt32),
-        ("RcvBuf", UInt32),
-        ("BytesOut", UInt64),
-        ("BytesIn", UInt64),
-        ("BytesReordered", UInt32),
-        ("BytesRetrans", UInt32),
-        ("FastRetrans", UInt32),
-        ("DupAcksIn", UInt32),
-        ("TimeoutEpisodes", UInt32),
-        ("SynRetrans", Byte),
-    ]
-    return TCP_INFO_v0
-def _define_TCP_INFO_v1_head():
-    class TCP_INFO_v1(Structure):
-        pass
-    return TCP_INFO_v1
-def _define_TCP_INFO_v1():
-    TCP_INFO_v1 = win32more.Networking.WinSock.TCP_INFO_v1_head
-    TCP_INFO_v1._fields_ = [
-        ("State", win32more.Networking.WinSock.TCPSTATE),
-        ("Mss", UInt32),
-        ("ConnectionTimeMs", UInt64),
-        ("TimestampsEnabled", win32more.Foundation.BOOLEAN),
-        ("RttUs", UInt32),
-        ("MinRttUs", UInt32),
-        ("BytesInFlight", UInt32),
-        ("Cwnd", UInt32),
-        ("SndWnd", UInt32),
-        ("RcvWnd", UInt32),
-        ("RcvBuf", UInt32),
-        ("BytesOut", UInt64),
-        ("BytesIn", UInt64),
-        ("BytesReordered", UInt32),
-        ("BytesRetrans", UInt32),
-        ("FastRetrans", UInt32),
-        ("DupAcksIn", UInt32),
-        ("TimeoutEpisodes", UInt32),
-        ("SynRetrans", Byte),
-        ("SndLimTransRwin", UInt32),
-        ("SndLimTimeRwin", UInt32),
-        ("SndLimBytesRwin", UInt64),
-        ("SndLimTransCwnd", UInt32),
-        ("SndLimTimeCwnd", UInt32),
-        ("SndLimBytesCwnd", UInt64),
-        ("SndLimTransSnd", UInt32),
-        ("SndLimTimeSnd", UInt32),
-        ("SndLimBytesSnd", UInt64),
-    ]
-    return TCP_INFO_v1
-def _define_INET_PORT_RANGE_head():
-    class INET_PORT_RANGE(Structure):
-        pass
-    return INET_PORT_RANGE
-def _define_INET_PORT_RANGE():
-    INET_PORT_RANGE = win32more.Networking.WinSock.INET_PORT_RANGE_head
-    INET_PORT_RANGE._fields_ = [
-        ("StartPort", UInt16),
-        ("NumberOfPorts", UInt16),
-    ]
-    return INET_PORT_RANGE
-def _define_INET_PORT_RESERVATION_TOKEN_head():
-    class INET_PORT_RESERVATION_TOKEN(Structure):
-        pass
-    return INET_PORT_RESERVATION_TOKEN
-def _define_INET_PORT_RESERVATION_TOKEN():
-    INET_PORT_RESERVATION_TOKEN = win32more.Networking.WinSock.INET_PORT_RESERVATION_TOKEN_head
-    INET_PORT_RESERVATION_TOKEN._fields_ = [
-        ("Token", UInt64),
-    ]
-    return INET_PORT_RESERVATION_TOKEN
-def _define_INET_PORT_RESERVATION_INSTANCE_head():
-    class INET_PORT_RESERVATION_INSTANCE(Structure):
-        pass
-    return INET_PORT_RESERVATION_INSTANCE
-def _define_INET_PORT_RESERVATION_INSTANCE():
-    INET_PORT_RESERVATION_INSTANCE = win32more.Networking.WinSock.INET_PORT_RESERVATION_INSTANCE_head
-    INET_PORT_RESERVATION_INSTANCE._fields_ = [
-        ("Reservation", win32more.Networking.WinSock.INET_PORT_RANGE),
-        ("Token", win32more.Networking.WinSock.INET_PORT_RESERVATION_TOKEN),
-    ]
-    return INET_PORT_RESERVATION_INSTANCE
-def _define_INET_PORT_RESERVATION_INFORMATION_head():
-    class INET_PORT_RESERVATION_INFORMATION(Structure):
-        pass
-    return INET_PORT_RESERVATION_INFORMATION
-def _define_INET_PORT_RESERVATION_INFORMATION():
-    INET_PORT_RESERVATION_INFORMATION = win32more.Networking.WinSock.INET_PORT_RESERVATION_INFORMATION_head
-    INET_PORT_RESERVATION_INFORMATION._fields_ = [
-        ("OwningPid", UInt32),
-    ]
-    return INET_PORT_RESERVATION_INFORMATION
-SOCKET_USAGE_TYPE = Int32
-SYSTEM_CRITICAL_SOCKET = 1
-SOCKET_SECURITY_PROTOCOL = Int32
-SOCKET_SECURITY_PROTOCOL_DEFAULT = 0
-SOCKET_SECURITY_PROTOCOL_IPSEC = 1
-SOCKET_SECURITY_PROTOCOL_IPSEC2 = 2
-SOCKET_SECURITY_PROTOCOL_INVALID = 3
-def _define_SOCKET_SECURITY_SETTINGS_head():
-    class SOCKET_SECURITY_SETTINGS(Structure):
-        pass
-    return SOCKET_SECURITY_SETTINGS
-def _define_SOCKET_SECURITY_SETTINGS():
-    SOCKET_SECURITY_SETTINGS = win32more.Networking.WinSock.SOCKET_SECURITY_SETTINGS_head
-    SOCKET_SECURITY_SETTINGS._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("SecurityFlags", UInt32),
-    ]
-    return SOCKET_SECURITY_SETTINGS
-def _define_SOCKET_SECURITY_SETTINGS_IPSEC_head():
-    class SOCKET_SECURITY_SETTINGS_IPSEC(Structure):
-        pass
-    return SOCKET_SECURITY_SETTINGS_IPSEC
-def _define_SOCKET_SECURITY_SETTINGS_IPSEC():
-    SOCKET_SECURITY_SETTINGS_IPSEC = win32more.Networking.WinSock.SOCKET_SECURITY_SETTINGS_IPSEC_head
-    SOCKET_SECURITY_SETTINGS_IPSEC._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("SecurityFlags", UInt32),
-        ("IpsecFlags", UInt32),
-        ("AuthipMMPolicyKey", Guid),
-        ("AuthipQMPolicyKey", Guid),
-        ("Reserved", Guid),
-        ("Reserved2", UInt64),
-        ("UserNameStringLen", UInt32),
-        ("DomainNameStringLen", UInt32),
-        ("PasswordStringLen", UInt32),
-        ("AllStrings", Char * 0),
-    ]
-    return SOCKET_SECURITY_SETTINGS_IPSEC
-def _define_SOCKET_PEER_TARGET_NAME_head():
-    class SOCKET_PEER_TARGET_NAME(Structure):
-        pass
-    return SOCKET_PEER_TARGET_NAME
-def _define_SOCKET_PEER_TARGET_NAME():
-    SOCKET_PEER_TARGET_NAME = win32more.Networking.WinSock.SOCKET_PEER_TARGET_NAME_head
-    SOCKET_PEER_TARGET_NAME._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("PeerAddress", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ("PeerTargetNameStringLen", UInt32),
-        ("AllStrings", Char * 0),
-    ]
-    return SOCKET_PEER_TARGET_NAME
-def _define_SOCKET_SECURITY_QUERY_TEMPLATE_head():
-    class SOCKET_SECURITY_QUERY_TEMPLATE(Structure):
-        pass
-    return SOCKET_SECURITY_QUERY_TEMPLATE
-def _define_SOCKET_SECURITY_QUERY_TEMPLATE():
-    SOCKET_SECURITY_QUERY_TEMPLATE = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_TEMPLATE_head
-    SOCKET_SECURITY_QUERY_TEMPLATE._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("PeerAddress", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ("PeerTokenAccessMask", UInt32),
-    ]
-    return SOCKET_SECURITY_QUERY_TEMPLATE
-def _define_SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2_head():
-    class SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2(Structure):
-        pass
-    return SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2
-def _define_SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2():
-    SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2 = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2_head
-    SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("PeerAddress", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ("PeerTokenAccessMask", UInt32),
-        ("Flags", UInt32),
-        ("FieldMask", UInt32),
-    ]
-    return SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2
-def _define_SOCKET_SECURITY_QUERY_INFO_head():
-    class SOCKET_SECURITY_QUERY_INFO(Structure):
-        pass
-    return SOCKET_SECURITY_QUERY_INFO
-def _define_SOCKET_SECURITY_QUERY_INFO():
-    SOCKET_SECURITY_QUERY_INFO = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO_head
-    SOCKET_SECURITY_QUERY_INFO._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("Flags", UInt32),
-        ("PeerApplicationAccessTokenHandle", UInt64),
-        ("PeerMachineAccessTokenHandle", UInt64),
-    ]
-    return SOCKET_SECURITY_QUERY_INFO
-def _define_SOCKET_SECURITY_QUERY_INFO_IPSEC2_head():
-    class SOCKET_SECURITY_QUERY_INFO_IPSEC2(Structure):
-        pass
-    return SOCKET_SECURITY_QUERY_INFO_IPSEC2
-def _define_SOCKET_SECURITY_QUERY_INFO_IPSEC2():
-    SOCKET_SECURITY_QUERY_INFO_IPSEC2 = win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO_IPSEC2_head
-    SOCKET_SECURITY_QUERY_INFO_IPSEC2._fields_ = [
-        ("SecurityProtocol", win32more.Networking.WinSock.SOCKET_SECURITY_PROTOCOL),
-        ("Flags", UInt32),
-        ("PeerApplicationAccessTokenHandle", UInt64),
-        ("PeerMachineAccessTokenHandle", UInt64),
-        ("MmSaId", UInt64),
-        ("QmSaId", UInt64),
-        ("NegotiationWinerr", UInt32),
-        ("SaLookupContext", Guid),
-    ]
-    return SOCKET_SECURITY_QUERY_INFO_IPSEC2
-def _define_RSS_SCALABILITY_INFO_head():
-    class RSS_SCALABILITY_INFO(Structure):
-        pass
-    return RSS_SCALABILITY_INFO
-def _define_RSS_SCALABILITY_INFO():
-    RSS_SCALABILITY_INFO = win32more.Networking.WinSock.RSS_SCALABILITY_INFO_head
-    RSS_SCALABILITY_INFO._fields_ = [
-        ("RssEnabled", win32more.Foundation.BOOLEAN),
-    ]
-    return RSS_SCALABILITY_INFO
-WSA_COMPATIBILITY_BEHAVIOR_ID = Int32
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll = 0
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering = 1
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning = 2
-def _define_WSA_COMPATIBILITY_MODE_head():
-    class WSA_COMPATIBILITY_MODE(Structure):
-        pass
-    return WSA_COMPATIBILITY_MODE
-def _define_WSA_COMPATIBILITY_MODE():
-    WSA_COMPATIBILITY_MODE = win32more.Networking.WinSock.WSA_COMPATIBILITY_MODE_head
-    WSA_COMPATIBILITY_MODE._fields_ = [
-        ("BehaviorId", win32more.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID),
-        ("TargetOsVersion", UInt32),
-    ]
-    return WSA_COMPATIBILITY_MODE
-def _define_RIORESULT_head():
-    class RIORESULT(Structure):
-        pass
-    return RIORESULT
-def _define_RIORESULT():
-    RIORESULT = win32more.Networking.WinSock.RIORESULT_head
-    RIORESULT._fields_ = [
-        ("Status", Int32),
-        ("BytesTransferred", UInt32),
-        ("SocketContext", UInt64),
-        ("RequestContext", UInt64),
-    ]
-    return RIORESULT
-def _define_RIO_BUF_head():
-    class RIO_BUF(Structure):
-        pass
-    return RIO_BUF
-def _define_RIO_BUF():
-    RIO_BUF = win32more.Networking.WinSock.RIO_BUF_head
-    RIO_BUF._fields_ = [
-        ("BufferId", POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head)),
-        ("Offset", UInt32),
-        ("Length", UInt32),
-    ]
-    return RIO_BUF
-def _define_RIO_CMSG_BUFFER_head():
-    class RIO_CMSG_BUFFER(Structure):
-        pass
-    return RIO_CMSG_BUFFER
-def _define_RIO_CMSG_BUFFER():
-    RIO_CMSG_BUFFER = win32more.Networking.WinSock.RIO_CMSG_BUFFER_head
-    RIO_CMSG_BUFFER._fields_ = [
-        ("TotalLength", UInt32),
-    ]
-    return RIO_CMSG_BUFFER
-def _define_ATM_ADDRESS_head():
-    class ATM_ADDRESS(Structure):
-        pass
-    return ATM_ADDRESS
-def _define_ATM_ADDRESS():
-    ATM_ADDRESS = win32more.Networking.WinSock.ATM_ADDRESS_head
-    ATM_ADDRESS._fields_ = [
-        ("AddressType", UInt32),
-        ("NumofDigits", UInt32),
-        ("Addr", Byte * 20),
-    ]
-    return ATM_ADDRESS
-def _define_ATM_BLLI_head():
-    class ATM_BLLI(Structure):
-        pass
-    return ATM_BLLI
-def _define_ATM_BLLI():
-    ATM_BLLI = win32more.Networking.WinSock.ATM_BLLI_head
-    ATM_BLLI._fields_ = [
-        ("Layer2Protocol", UInt32),
-        ("Layer2UserSpecifiedProtocol", UInt32),
-        ("Layer3Protocol", UInt32),
-        ("Layer3UserSpecifiedProtocol", UInt32),
-        ("Layer3IPI", UInt32),
-        ("SnapID", Byte * 5),
-    ]
-    return ATM_BLLI
-def _define_ATM_BHLI_head():
-    class ATM_BHLI(Structure):
-        pass
-    return ATM_BHLI
-def _define_ATM_BHLI():
-    ATM_BHLI = win32more.Networking.WinSock.ATM_BHLI_head
-    ATM_BHLI._fields_ = [
-        ("HighLayerInfoType", UInt32),
-        ("HighLayerInfoLength", UInt32),
-        ("HighLayerInfo", Byte * 8),
-    ]
-    return ATM_BHLI
-def _define_sockaddr_atm_head():
-    class sockaddr_atm(Structure):
-        pass
-    return sockaddr_atm
-def _define_sockaddr_atm():
-    sockaddr_atm = win32more.Networking.WinSock.sockaddr_atm_head
-    sockaddr_atm._fields_ = [
-        ("satm_family", UInt16),
-        ("satm_number", win32more.Networking.WinSock.ATM_ADDRESS),
-        ("satm_blli", win32more.Networking.WinSock.ATM_BLLI),
-        ("satm_bhli", win32more.Networking.WinSock.ATM_BHLI),
-    ]
-    return sockaddr_atm
-Q2931_IE_TYPE = Int32
-IE_AALParameters = 0
-IE_TrafficDescriptor = 1
-IE_BroadbandBearerCapability = 2
-IE_BHLI = 3
-IE_BLLI = 4
-IE_CalledPartyNumber = 5
-IE_CalledPartySubaddress = 6
-IE_CallingPartyNumber = 7
-IE_CallingPartySubaddress = 8
-IE_Cause = 9
-IE_QOSClass = 10
-IE_TransitNetworkSelection = 11
-def _define_Q2931_IE_head():
-    class Q2931_IE(Structure):
-        pass
-    return Q2931_IE
-def _define_Q2931_IE():
-    Q2931_IE = win32more.Networking.WinSock.Q2931_IE_head
-    Q2931_IE._fields_ = [
-        ("IEType", win32more.Networking.WinSock.Q2931_IE_TYPE),
-        ("IELength", UInt32),
-        ("IE", Byte * 0),
-    ]
-    return Q2931_IE
-AAL_TYPE = Int32
-AALTYPE_5 = 5
-AALTYPE_USER = 16
-def _define_AAL5_PARAMETERS_head():
-    class AAL5_PARAMETERS(Structure):
-        pass
-    return AAL5_PARAMETERS
-def _define_AAL5_PARAMETERS():
-    AAL5_PARAMETERS = win32more.Networking.WinSock.AAL5_PARAMETERS_head
-    AAL5_PARAMETERS._fields_ = [
-        ("ForwardMaxCPCSSDUSize", UInt32),
-        ("BackwardMaxCPCSSDUSize", UInt32),
-        ("Mode", Byte),
-        ("SSCSType", Byte),
-    ]
-    return AAL5_PARAMETERS
-def _define_AALUSER_PARAMETERS_head():
-    class AALUSER_PARAMETERS(Structure):
-        pass
-    return AALUSER_PARAMETERS
-def _define_AALUSER_PARAMETERS():
-    AALUSER_PARAMETERS = win32more.Networking.WinSock.AALUSER_PARAMETERS_head
-    AALUSER_PARAMETERS._fields_ = [
-        ("UserDefined", UInt32),
-    ]
-    return AALUSER_PARAMETERS
-def _define_AAL_PARAMETERS_IE_head():
-    class AAL_PARAMETERS_IE(Structure):
-        pass
-    return AAL_PARAMETERS_IE
-def _define_AAL_PARAMETERS_IE():
-    AAL_PARAMETERS_IE = win32more.Networking.WinSock.AAL_PARAMETERS_IE_head
-    class AAL_PARAMETERS_IE__AALSpecificParameters_e__Union(Union):
-        pass
-    AAL_PARAMETERS_IE__AALSpecificParameters_e__Union._fields_ = [
-        ("AAL5Parameters", win32more.Networking.WinSock.AAL5_PARAMETERS),
-        ("AALUserParameters", win32more.Networking.WinSock.AALUSER_PARAMETERS),
-    ]
-    AAL_PARAMETERS_IE._fields_ = [
-        ("AALType", win32more.Networking.WinSock.AAL_TYPE),
-        ("AALSpecificParameters", AAL_PARAMETERS_IE__AALSpecificParameters_e__Union),
-    ]
-    return AAL_PARAMETERS_IE
-def _define_ATM_TD_head():
-    class ATM_TD(Structure):
-        pass
-    return ATM_TD
-def _define_ATM_TD():
-    ATM_TD = win32more.Networking.WinSock.ATM_TD_head
-    ATM_TD._fields_ = [
-        ("PeakCellRate_CLP0", UInt32),
-        ("PeakCellRate_CLP01", UInt32),
-        ("SustainableCellRate_CLP0", UInt32),
-        ("SustainableCellRate_CLP01", UInt32),
-        ("MaxBurstSize_CLP0", UInt32),
-        ("MaxBurstSize_CLP01", UInt32),
-        ("Tagging", win32more.Foundation.BOOL),
-    ]
-    return ATM_TD
-def _define_ATM_TRAFFIC_DESCRIPTOR_IE_head():
-    class ATM_TRAFFIC_DESCRIPTOR_IE(Structure):
-        pass
-    return ATM_TRAFFIC_DESCRIPTOR_IE
-def _define_ATM_TRAFFIC_DESCRIPTOR_IE():
-    ATM_TRAFFIC_DESCRIPTOR_IE = win32more.Networking.WinSock.ATM_TRAFFIC_DESCRIPTOR_IE_head
-    ATM_TRAFFIC_DESCRIPTOR_IE._fields_ = [
-        ("Forward", win32more.Networking.WinSock.ATM_TD),
-        ("Backward", win32more.Networking.WinSock.ATM_TD),
-        ("BestEffort", win32more.Foundation.BOOL),
-    ]
-    return ATM_TRAFFIC_DESCRIPTOR_IE
-def _define_ATM_BROADBAND_BEARER_CAPABILITY_IE_head():
-    class ATM_BROADBAND_BEARER_CAPABILITY_IE(Structure):
-        pass
-    return ATM_BROADBAND_BEARER_CAPABILITY_IE
-def _define_ATM_BROADBAND_BEARER_CAPABILITY_IE():
-    ATM_BROADBAND_BEARER_CAPABILITY_IE = win32more.Networking.WinSock.ATM_BROADBAND_BEARER_CAPABILITY_IE_head
-    ATM_BROADBAND_BEARER_CAPABILITY_IE._fields_ = [
-        ("BearerClass", Byte),
-        ("TrafficType", Byte),
-        ("TimingRequirements", Byte),
-        ("ClippingSusceptability", Byte),
-        ("UserPlaneConnectionConfig", Byte),
-    ]
-    return ATM_BROADBAND_BEARER_CAPABILITY_IE
-def _define_ATM_BLLI_IE_head():
-    class ATM_BLLI_IE(Structure):
-        pass
-    return ATM_BLLI_IE
-def _define_ATM_BLLI_IE():
-    ATM_BLLI_IE = win32more.Networking.WinSock.ATM_BLLI_IE_head
-    ATM_BLLI_IE._fields_ = [
-        ("Layer2Protocol", UInt32),
-        ("Layer2Mode", Byte),
-        ("Layer2WindowSize", Byte),
-        ("Layer2UserSpecifiedProtocol", UInt32),
-        ("Layer3Protocol", UInt32),
-        ("Layer3Mode", Byte),
-        ("Layer3DefaultPacketSize", Byte),
-        ("Layer3PacketWindowSize", Byte),
-        ("Layer3UserSpecifiedProtocol", UInt32),
-        ("Layer3IPI", UInt32),
-        ("SnapID", Byte * 5),
-    ]
-    return ATM_BLLI_IE
-def _define_ATM_CALLING_PARTY_NUMBER_IE_head():
-    class ATM_CALLING_PARTY_NUMBER_IE(Structure):
-        pass
-    return ATM_CALLING_PARTY_NUMBER_IE
-def _define_ATM_CALLING_PARTY_NUMBER_IE():
-    ATM_CALLING_PARTY_NUMBER_IE = win32more.Networking.WinSock.ATM_CALLING_PARTY_NUMBER_IE_head
-    ATM_CALLING_PARTY_NUMBER_IE._fields_ = [
-        ("ATM_Number", win32more.Networking.WinSock.ATM_ADDRESS),
-        ("Presentation_Indication", Byte),
-        ("Screening_Indicator", Byte),
-    ]
-    return ATM_CALLING_PARTY_NUMBER_IE
-def _define_ATM_CAUSE_IE_head():
-    class ATM_CAUSE_IE(Structure):
-        pass
-    return ATM_CAUSE_IE
-def _define_ATM_CAUSE_IE():
-    ATM_CAUSE_IE = win32more.Networking.WinSock.ATM_CAUSE_IE_head
-    ATM_CAUSE_IE._fields_ = [
-        ("Location", Byte),
-        ("Cause", Byte),
-        ("DiagnosticsLength", Byte),
-        ("Diagnostics", Byte * 4),
-    ]
-    return ATM_CAUSE_IE
-def _define_ATM_QOS_CLASS_IE_head():
-    class ATM_QOS_CLASS_IE(Structure):
-        pass
-    return ATM_QOS_CLASS_IE
-def _define_ATM_QOS_CLASS_IE():
-    ATM_QOS_CLASS_IE = win32more.Networking.WinSock.ATM_QOS_CLASS_IE_head
-    ATM_QOS_CLASS_IE._fields_ = [
-        ("QOSClassForward", Byte),
-        ("QOSClassBackward", Byte),
-    ]
-    return ATM_QOS_CLASS_IE
-def _define_ATM_TRANSIT_NETWORK_SELECTION_IE_head():
-    class ATM_TRANSIT_NETWORK_SELECTION_IE(Structure):
-        pass
-    return ATM_TRANSIT_NETWORK_SELECTION_IE
-def _define_ATM_TRANSIT_NETWORK_SELECTION_IE():
-    ATM_TRANSIT_NETWORK_SELECTION_IE = win32more.Networking.WinSock.ATM_TRANSIT_NETWORK_SELECTION_IE_head
-    ATM_TRANSIT_NETWORK_SELECTION_IE._fields_ = [
-        ("TypeOfNetworkId", Byte),
-        ("NetworkIdPlan", Byte),
-        ("NetworkIdLength", Byte),
-        ("NetworkId", Byte * 0),
-    ]
-    return ATM_TRANSIT_NETWORK_SELECTION_IE
-def _define_ATM_CONNECTION_ID_head():
-    class ATM_CONNECTION_ID(Structure):
-        pass
-    return ATM_CONNECTION_ID
-def _define_ATM_CONNECTION_ID():
-    ATM_CONNECTION_ID = win32more.Networking.WinSock.ATM_CONNECTION_ID_head
-    ATM_CONNECTION_ID._fields_ = [
-        ("DeviceNumber", UInt32),
-        ("VPI", UInt32),
-        ("VCI", UInt32),
-    ]
-    return ATM_CONNECTION_ID
-def _define_ATM_PVC_PARAMS_head():
-    class ATM_PVC_PARAMS(Structure):
-        pass
-    return ATM_PVC_PARAMS
-def _define_ATM_PVC_PARAMS():
-    ATM_PVC_PARAMS = win32more.Networking.WinSock.ATM_PVC_PARAMS_head
-    ATM_PVC_PARAMS._pack_ = 4
-    ATM_PVC_PARAMS._fields_ = [
-        ("PvcConnectionId", win32more.Networking.WinSock.ATM_CONNECTION_ID),
-        ("PvcQos", win32more.NetworkManagement.QoS.QOS),
-    ]
-    return ATM_PVC_PARAMS
-NAPI_PROVIDER_TYPE = Int32
-ProviderType_Application = 1
-ProviderType_Service = 2
-NAPI_PROVIDER_LEVEL = Int32
-ProviderLevel_None = 0
-ProviderLevel_Secondary = 1
-ProviderLevel_Primary = 2
-def _define_NAPI_DOMAIN_DESCRIPTION_BLOB_head():
-    class NAPI_DOMAIN_DESCRIPTION_BLOB(Structure):
-        pass
-    return NAPI_DOMAIN_DESCRIPTION_BLOB
-def _define_NAPI_DOMAIN_DESCRIPTION_BLOB():
-    NAPI_DOMAIN_DESCRIPTION_BLOB = win32more.Networking.WinSock.NAPI_DOMAIN_DESCRIPTION_BLOB_head
-    NAPI_DOMAIN_DESCRIPTION_BLOB._fields_ = [
-        ("AuthLevel", UInt32),
-        ("cchDomainName", UInt32),
-        ("OffsetNextDomainDescription", UInt32),
-        ("OffsetThisDomainName", UInt32),
-    ]
-    return NAPI_DOMAIN_DESCRIPTION_BLOB
-def _define_NAPI_PROVIDER_INSTALLATION_BLOB_head():
-    class NAPI_PROVIDER_INSTALLATION_BLOB(Structure):
-        pass
-    return NAPI_PROVIDER_INSTALLATION_BLOB
-def _define_NAPI_PROVIDER_INSTALLATION_BLOB():
-    NAPI_PROVIDER_INSTALLATION_BLOB = win32more.Networking.WinSock.NAPI_PROVIDER_INSTALLATION_BLOB_head
-    NAPI_PROVIDER_INSTALLATION_BLOB._fields_ = [
-        ("dwVersion", UInt32),
-        ("dwProviderType", UInt32),
-        ("fSupportsWildCard", UInt32),
-        ("cDomains", UInt32),
-        ("OffsetFirstDomain", UInt32),
-    ]
-    return NAPI_PROVIDER_INSTALLATION_BLOB
-def _define_TRANSMIT_FILE_BUFFERS_head():
-    class TRANSMIT_FILE_BUFFERS(Structure):
-        pass
-    return TRANSMIT_FILE_BUFFERS
-def _define_TRANSMIT_FILE_BUFFERS():
-    TRANSMIT_FILE_BUFFERS = win32more.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head
-    TRANSMIT_FILE_BUFFERS._fields_ = [
-        ("Head", c_void_p),
-        ("HeadLength", UInt32),
-        ("Tail", c_void_p),
-        ("TailLength", UInt32),
-    ]
-    return TRANSMIT_FILE_BUFFERS
-def _define_LPFN_TRANSMITFILE():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(win32more.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head),UInt32, use_last_error=False)
-def _define_LPFN_ACCEPTEX():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,c_void_p,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)
-def _define_LPFN_GETACCEPTEXSOCKADDRS():
-    return CFUNCTYPE(Void,c_void_p,UInt32,UInt32,UInt32,POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32),POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32), use_last_error=False)
-def _define_TRANSMIT_PACKETS_ELEMENT_head():
-    class TRANSMIT_PACKETS_ELEMENT(Structure):
-        pass
-    return TRANSMIT_PACKETS_ELEMENT
-def _define_TRANSMIT_PACKETS_ELEMENT():
-    TRANSMIT_PACKETS_ELEMENT = win32more.Networking.WinSock.TRANSMIT_PACKETS_ELEMENT_head
-    class TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union(Union):
-        pass
-    class TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("nFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("hFile", win32more.Foundation.HANDLE),
-    ]
-    TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union._fields_ = [
-        ("Anonymous", TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union__Anonymous_e__Struct),
-        ("pBuffer", c_void_p),
-    ]
-    TRANSMIT_PACKETS_ELEMENT._anonymous_ = [
-        'Anonymous',
-    ]
-    TRANSMIT_PACKETS_ELEMENT._fields_ = [
-        ("dwElFlags", UInt32),
-        ("cLength", UInt32),
-        ("Anonymous", TRANSMIT_PACKETS_ELEMENT__Anonymous_e__Union),
-    ]
-    return TRANSMIT_PACKETS_ELEMENT
-def _define_LPFN_TRANSMITPACKETS():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.TRANSMIT_PACKETS_ELEMENT_head),UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32, use_last_error=False)
-def _define_LPFN_CONNECTEX():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)
-def _define_LPFN_DISCONNECTEX():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32,UInt32, use_last_error=False)
-NLA_BLOB_DATA_TYPE = Int32
-NLA_RAW_DATA = 0
-NLA_INTERFACE = 1
-NLA_802_1X_LOCATION = 2
-NLA_CONNECTIVITY = 3
-NLA_ICS = 4
-NLA_CONNECTIVITY_TYPE = Int32
-NLA_NETWORK_AD_HOC = 0
-NLA_NETWORK_MANAGED = 1
-NLA_NETWORK_UNMANAGED = 2
-NLA_NETWORK_UNKNOWN = 3
-NLA_INTERNET = Int32
-NLA_INTERNET_UNKNOWN = 0
-NLA_INTERNET_NO = 1
-NLA_INTERNET_YES = 2
-def _define_NLA_BLOB_head():
-    class NLA_BLOB(Structure):
-        pass
-    return NLA_BLOB
-def _define_NLA_BLOB():
-    NLA_BLOB = win32more.Networking.WinSock.NLA_BLOB_head
-    class NLA_BLOB__data_e__Union(Union):
-        pass
-    class NLA_BLOB__data_e__Union__ICS_e__Struct(Structure):
-        pass
-    class NLA_BLOB__data_e__Union__ICS_e__Struct__remote_e__Struct(Structure):
-        pass
-    NLA_BLOB__data_e__Union__ICS_e__Struct__remote_e__Struct._fields_ = [
-        ("speed", UInt32),
-        ("type", UInt32),
-        ("state", UInt32),
-        ("machineName", Char * 256),
-        ("sharedAdapterName", Char * 256),
-    ]
-    NLA_BLOB__data_e__Union__ICS_e__Struct._fields_ = [
-        ("remote", NLA_BLOB__data_e__Union__ICS_e__Struct__remote_e__Struct),
-    ]
-    class NLA_BLOB__data_e__Union__locationData_e__Struct(Structure):
-        pass
-    NLA_BLOB__data_e__Union__locationData_e__Struct._fields_ = [
-        ("information", win32more.Foundation.CHAR * 0),
-    ]
-    class NLA_BLOB__data_e__Union__interfaceData_e__Struct(Structure):
-        pass
-    NLA_BLOB__data_e__Union__interfaceData_e__Struct._fields_ = [
-        ("dwType", UInt32),
-        ("dwSpeed", UInt32),
-        ("adapterName", win32more.Foundation.CHAR * 0),
-    ]
-    class NLA_BLOB__data_e__Union__connectivity_e__Struct(Structure):
-        pass
-    NLA_BLOB__data_e__Union__connectivity_e__Struct._fields_ = [
-        ("type", win32more.Networking.WinSock.NLA_CONNECTIVITY_TYPE),
-        ("internet", win32more.Networking.WinSock.NLA_INTERNET),
-    ]
-    NLA_BLOB__data_e__Union._fields_ = [
-        ("rawData", win32more.Foundation.CHAR * 0),
-        ("interfaceData", NLA_BLOB__data_e__Union__interfaceData_e__Struct),
-        ("locationData", NLA_BLOB__data_e__Union__locationData_e__Struct),
-        ("connectivity", NLA_BLOB__data_e__Union__connectivity_e__Struct),
-        ("ICS", NLA_BLOB__data_e__Union__ICS_e__Struct),
-    ]
-    class NLA_BLOB__header_e__Struct(Structure):
-        pass
-    NLA_BLOB__header_e__Struct._fields_ = [
-        ("type", win32more.Networking.WinSock.NLA_BLOB_DATA_TYPE),
-        ("dwSize", UInt32),
-        ("nextOffset", UInt32),
-    ]
-    NLA_BLOB._fields_ = [
-        ("header", NLA_BLOB__header_e__Struct),
-        ("data", NLA_BLOB__data_e__Union),
-    ]
-    return NLA_BLOB
-def _define_LPFN_WSARECVMSG():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSAMSG_head),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)
+def _define_WSANAMESPACE_INFOW_head():
+    class WSANAMESPACE_INFOW(Structure):
+        pass
+    return WSANAMESPACE_INFOW
+def _define_WSANAMESPACE_INFOW():
+    WSANAMESPACE_INFOW = win32more.Networking.WinSock.WSANAMESPACE_INFOW_head
+    WSANAMESPACE_INFOW._fields_ = [
+        ('NSProviderId', Guid),
+        ('dwNameSpace', UInt32),
+        ('fActive', win32more.Foundation.BOOL),
+        ('dwVersion', UInt32),
+        ('lpszIdentifier', win32more.Foundation.PWSTR),
+    ]
+    return WSANAMESPACE_INFOW
+def _define_WSANETWORKEVENTS_head():
+    class WSANETWORKEVENTS(Structure):
+        pass
+    return WSANETWORKEVENTS
+def _define_WSANETWORKEVENTS():
+    WSANETWORKEVENTS = win32more.Networking.WinSock.WSANETWORKEVENTS_head
+    WSANETWORKEVENTS._fields_ = [
+        ('lNetworkEvents', Int32),
+        ('iErrorCode', Int32 * 10),
+    ]
+    return WSANETWORKEVENTS
+def _define_WSANSCLASSINFOA_head():
+    class WSANSCLASSINFOA(Structure):
+        pass
+    return WSANSCLASSINFOA
+def _define_WSANSCLASSINFOA():
+    WSANSCLASSINFOA = win32more.Networking.WinSock.WSANSCLASSINFOA_head
+    WSANSCLASSINFOA._fields_ = [
+        ('lpszName', win32more.Foundation.PSTR),
+        ('dwNameSpace', UInt32),
+        ('dwValueType', UInt32),
+        ('dwValueSize', UInt32),
+        ('lpValue', c_void_p),
+    ]
+    return WSANSCLASSINFOA
+def _define_WSANSCLASSINFOW_head():
+    class WSANSCLASSINFOW(Structure):
+        pass
+    return WSANSCLASSINFOW
+def _define_WSANSCLASSINFOW():
+    WSANSCLASSINFOW = win32more.Networking.WinSock.WSANSCLASSINFOW_head
+    WSANSCLASSINFOW._fields_ = [
+        ('lpszName', win32more.Foundation.PWSTR),
+        ('dwNameSpace', UInt32),
+        ('dwValueType', UInt32),
+        ('dwValueSize', UInt32),
+        ('lpValue', c_void_p),
+    ]
+    return WSANSCLASSINFOW
 def _define_WSAPOLLDATA_head():
     class WSAPOLLDATA(Structure):
         pass
@@ -3738,12 +6650,187 @@ def _define_WSAPOLLDATA_head():
 def _define_WSAPOLLDATA():
     WSAPOLLDATA = win32more.Networking.WinSock.WSAPOLLDATA_head
     WSAPOLLDATA._fields_ = [
-        ("result", Int32),
-        ("fds", UInt32),
-        ("timeout", Int32),
-        ("fdArray", win32more.Networking.WinSock.WSAPOLLFD * 0),
+        ('result', Int32),
+        ('fds', UInt32),
+        ('timeout', Int32),
+        ('fdArray', win32more.Networking.WinSock.WSAPOLLFD * 1),
     ]
     return WSAPOLLDATA
+def _define_WSAPOLLFD_head():
+    class WSAPOLLFD(Structure):
+        pass
+    return WSAPOLLFD
+def _define_WSAPOLLFD():
+    WSAPOLLFD = win32more.Networking.WinSock.WSAPOLLFD_head
+    WSAPOLLFD._fields_ = [
+        ('fd', win32more.Networking.WinSock.SOCKET),
+        ('events', Int16),
+        ('revents', Int16),
+    ]
+    return WSAPOLLFD
+def _define_WSAPROTOCOL_INFOA_head():
+    class WSAPROTOCOL_INFOA(Structure):
+        pass
+    return WSAPROTOCOL_INFOA
+def _define_WSAPROTOCOL_INFOA():
+    WSAPROTOCOL_INFOA = win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head
+    WSAPROTOCOL_INFOA._fields_ = [
+        ('dwServiceFlags1', UInt32),
+        ('dwServiceFlags2', UInt32),
+        ('dwServiceFlags3', UInt32),
+        ('dwServiceFlags4', UInt32),
+        ('dwProviderFlags', UInt32),
+        ('ProviderId', Guid),
+        ('dwCatalogEntryId', UInt32),
+        ('ProtocolChain', win32more.Networking.WinSock.WSAPROTOCOLCHAIN),
+        ('iVersion', Int32),
+        ('iAddressFamily', Int32),
+        ('iMaxSockAddr', Int32),
+        ('iMinSockAddr', Int32),
+        ('iSocketType', Int32),
+        ('iProtocol', Int32),
+        ('iProtocolMaxOffset', Int32),
+        ('iNetworkByteOrder', Int32),
+        ('iSecurityScheme', Int32),
+        ('dwMessageSize', UInt32),
+        ('dwProviderReserved', UInt32),
+        ('szProtocol', win32more.Foundation.CHAR * 256),
+    ]
+    return WSAPROTOCOL_INFOA
+def _define_WSAPROTOCOL_INFOW_head():
+    class WSAPROTOCOL_INFOW(Structure):
+        pass
+    return WSAPROTOCOL_INFOW
+def _define_WSAPROTOCOL_INFOW():
+    WSAPROTOCOL_INFOW = win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head
+    WSAPROTOCOL_INFOW._fields_ = [
+        ('dwServiceFlags1', UInt32),
+        ('dwServiceFlags2', UInt32),
+        ('dwServiceFlags3', UInt32),
+        ('dwServiceFlags4', UInt32),
+        ('dwProviderFlags', UInt32),
+        ('ProviderId', Guid),
+        ('dwCatalogEntryId', UInt32),
+        ('ProtocolChain', win32more.Networking.WinSock.WSAPROTOCOLCHAIN),
+        ('iVersion', Int32),
+        ('iAddressFamily', Int32),
+        ('iMaxSockAddr', Int32),
+        ('iMinSockAddr', Int32),
+        ('iSocketType', Int32),
+        ('iProtocol', Int32),
+        ('iProtocolMaxOffset', Int32),
+        ('iNetworkByteOrder', Int32),
+        ('iSecurityScheme', Int32),
+        ('dwMessageSize', UInt32),
+        ('dwProviderReserved', UInt32),
+        ('szProtocol', Char * 256),
+    ]
+    return WSAPROTOCOL_INFOW
+def _define_WSAPROTOCOLCHAIN_head():
+    class WSAPROTOCOLCHAIN(Structure):
+        pass
+    return WSAPROTOCOLCHAIN
+def _define_WSAPROTOCOLCHAIN():
+    WSAPROTOCOLCHAIN = win32more.Networking.WinSock.WSAPROTOCOLCHAIN_head
+    WSAPROTOCOLCHAIN._fields_ = [
+        ('ChainLen', Int32),
+        ('ChainEntries', UInt32 * 7),
+    ]
+    return WSAPROTOCOLCHAIN
+def _define_WSAQUERYSET2A_head():
+    class WSAQUERYSET2A(Structure):
+        pass
+    return WSAQUERYSET2A
+def _define_WSAQUERYSET2A():
+    WSAQUERYSET2A = win32more.Networking.WinSock.WSAQUERYSET2A_head
+    WSAQUERYSET2A._fields_ = [
+        ('dwSize', UInt32),
+        ('lpszServiceInstanceName', win32more.Foundation.PSTR),
+        ('lpVersion', POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
+        ('lpszComment', win32more.Foundation.PSTR),
+        ('dwNameSpace', UInt32),
+        ('lpNSProviderId', POINTER(Guid)),
+        ('lpszContext', win32more.Foundation.PSTR),
+        ('dwNumberOfProtocols', UInt32),
+        ('lpafpProtocols', POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
+        ('lpszQueryString', win32more.Foundation.PSTR),
+        ('dwNumberOfCsAddrs', UInt32),
+        ('lpcsaBuffer', POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
+        ('dwOutputFlags', UInt32),
+        ('lpBlob', POINTER(win32more.System.Com.BLOB_head)),
+    ]
+    return WSAQUERYSET2A
+def _define_WSAQUERYSET2W_head():
+    class WSAQUERYSET2W(Structure):
+        pass
+    return WSAQUERYSET2W
+def _define_WSAQUERYSET2W():
+    WSAQUERYSET2W = win32more.Networking.WinSock.WSAQUERYSET2W_head
+    WSAQUERYSET2W._fields_ = [
+        ('dwSize', UInt32),
+        ('lpszServiceInstanceName', win32more.Foundation.PWSTR),
+        ('lpVersion', POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
+        ('lpszComment', win32more.Foundation.PWSTR),
+        ('dwNameSpace', UInt32),
+        ('lpNSProviderId', POINTER(Guid)),
+        ('lpszContext', win32more.Foundation.PWSTR),
+        ('dwNumberOfProtocols', UInt32),
+        ('lpafpProtocols', POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
+        ('lpszQueryString', win32more.Foundation.PWSTR),
+        ('dwNumberOfCsAddrs', UInt32),
+        ('lpcsaBuffer', POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
+        ('dwOutputFlags', UInt32),
+        ('lpBlob', POINTER(win32more.System.Com.BLOB_head)),
+    ]
+    return WSAQUERYSET2W
+def _define_WSAQUERYSETA_head():
+    class WSAQUERYSETA(Structure):
+        pass
+    return WSAQUERYSETA
+def _define_WSAQUERYSETA():
+    WSAQUERYSETA = win32more.Networking.WinSock.WSAQUERYSETA_head
+    WSAQUERYSETA._fields_ = [
+        ('dwSize', UInt32),
+        ('lpszServiceInstanceName', win32more.Foundation.PSTR),
+        ('lpServiceClassId', POINTER(Guid)),
+        ('lpVersion', POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
+        ('lpszComment', win32more.Foundation.PSTR),
+        ('dwNameSpace', UInt32),
+        ('lpNSProviderId', POINTER(Guid)),
+        ('lpszContext', win32more.Foundation.PSTR),
+        ('dwNumberOfProtocols', UInt32),
+        ('lpafpProtocols', POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
+        ('lpszQueryString', win32more.Foundation.PSTR),
+        ('dwNumberOfCsAddrs', UInt32),
+        ('lpcsaBuffer', POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
+        ('dwOutputFlags', UInt32),
+        ('lpBlob', POINTER(win32more.System.Com.BLOB_head)),
+    ]
+    return WSAQUERYSETA
+def _define_WSAQUERYSETW_head():
+    class WSAQUERYSETW(Structure):
+        pass
+    return WSAQUERYSETW
+def _define_WSAQUERYSETW():
+    WSAQUERYSETW = win32more.Networking.WinSock.WSAQUERYSETW_head
+    WSAQUERYSETW._fields_ = [
+        ('dwSize', UInt32),
+        ('lpszServiceInstanceName', win32more.Foundation.PWSTR),
+        ('lpServiceClassId', POINTER(Guid)),
+        ('lpVersion', POINTER(win32more.Networking.WinSock.WSAVERSION_head)),
+        ('lpszComment', win32more.Foundation.PWSTR),
+        ('dwNameSpace', UInt32),
+        ('lpNSProviderId', POINTER(Guid)),
+        ('lpszContext', win32more.Foundation.PWSTR),
+        ('dwNumberOfProtocols', UInt32),
+        ('lpafpProtocols', POINTER(win32more.Networking.WinSock.AFPROTOCOLS_head)),
+        ('lpszQueryString', win32more.Foundation.PWSTR),
+        ('dwNumberOfCsAddrs', UInt32),
+        ('lpcsaBuffer', POINTER(win32more.Networking.WinSock.CSADDR_INFO_head)),
+        ('dwOutputFlags', UInt32),
+        ('lpBlob', POINTER(win32more.System.Com.BLOB_head)),
+    ]
+    return WSAQUERYSETW
 def _define_WSASENDMSG_head():
     class WSASENDMSG(Structure):
         pass
@@ -3751,114 +6838,39 @@ def _define_WSASENDMSG_head():
 def _define_WSASENDMSG():
     WSASENDMSG = win32more.Networking.WinSock.WSASENDMSG_head
     WSASENDMSG._fields_ = [
-        ("lpMsg", POINTER(win32more.Networking.WinSock.WSAMSG_head)),
-        ("dwFlags", UInt32),
-        ("lpNumberOfBytesSent", POINTER(UInt32)),
-        ("lpOverlapped", POINTER(win32more.System.IO.OVERLAPPED_head)),
-        ("lpCompletionRoutine", win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE),
+        ('lpMsg', POINTER(win32more.Networking.WinSock.WSAMSG_head)),
+        ('dwFlags', UInt32),
+        ('lpNumberOfBytesSent', POINTER(UInt32)),
+        ('lpOverlapped', POINTER(win32more.System.IO.OVERLAPPED_head)),
+        ('lpCompletionRoutine', win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE),
     ]
     return WSASENDMSG
-def _define_LPFN_WSASENDMSG():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSAMSG_head),UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)
-def _define_LPFN_WSAPOLL():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAPOLLFD_head),UInt32,Int32, use_last_error=False)
-def _define_LPFN_RIORECEIVE():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF),UInt32,UInt32,c_void_p, use_last_error=False)
-def _define_LPFN_RIORECEIVEEX():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF),UInt32,POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,c_void_p, use_last_error=False)
-def _define_LPFN_RIOSEND():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF),UInt32,UInt32,c_void_p, use_last_error=False)
-def _define_LPFN_RIOSENDEX():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),POINTER(win32more.Networking.WinSock.RIO_BUF),UInt32,POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),POINTER(win32more.Networking.WinSock.RIO_BUF_head),UInt32,c_void_p, use_last_error=False)
-def _define_LPFN_RIOCLOSECOMPLETIONQUEUE():
-    return CFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head), use_last_error=False)
-RIO_NOTIFICATION_COMPLETION_TYPE = Int32
-RIO_EVENT_COMPLETION = 1
-RIO_IOCP_COMPLETION = 2
-def _define_RIO_NOTIFICATION_COMPLETION_head():
-    class RIO_NOTIFICATION_COMPLETION(Structure):
+def _define_WSASERVICECLASSINFOA_head():
+    class WSASERVICECLASSINFOA(Structure):
         pass
-    return RIO_NOTIFICATION_COMPLETION
-def _define_RIO_NOTIFICATION_COMPLETION():
-    RIO_NOTIFICATION_COMPLETION = win32more.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head
-    class RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union(Union):
+    return WSASERVICECLASSINFOA
+def _define_WSASERVICECLASSINFOA():
+    WSASERVICECLASSINFOA = win32more.Networking.WinSock.WSASERVICECLASSINFOA_head
+    WSASERVICECLASSINFOA._fields_ = [
+        ('lpServiceClassId', POINTER(Guid)),
+        ('lpszServiceClassName', win32more.Foundation.PSTR),
+        ('dwCount', UInt32),
+        ('lpClassInfos', POINTER(win32more.Networking.WinSock.WSANSCLASSINFOA_head)),
+    ]
+    return WSASERVICECLASSINFOA
+def _define_WSASERVICECLASSINFOW_head():
+    class WSASERVICECLASSINFOW(Structure):
         pass
-    class RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Iocp_e__Struct(Structure):
-        pass
-    RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Iocp_e__Struct._fields_ = [
-        ("IocpHandle", win32more.Foundation.HANDLE),
-        ("CompletionKey", c_void_p),
-        ("Overlapped", c_void_p),
+    return WSASERVICECLASSINFOW
+def _define_WSASERVICECLASSINFOW():
+    WSASERVICECLASSINFOW = win32more.Networking.WinSock.WSASERVICECLASSINFOW_head
+    WSASERVICECLASSINFOW._fields_ = [
+        ('lpServiceClassId', POINTER(Guid)),
+        ('lpszServiceClassName', win32more.Foundation.PWSTR),
+        ('dwCount', UInt32),
+        ('lpClassInfos', POINTER(win32more.Networking.WinSock.WSANSCLASSINFOW_head)),
     ]
-    class RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Event_e__Struct(Structure):
-        pass
-    RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Event_e__Struct._fields_ = [
-        ("EventHandle", win32more.Foundation.HANDLE),
-        ("NotifyReset", win32more.Foundation.BOOL),
-    ]
-    RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union._fields_ = [
-        ("Event", RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Event_e__Struct),
-        ("Iocp", RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union__Iocp_e__Struct),
-    ]
-    RIO_NOTIFICATION_COMPLETION._anonymous_ = [
-        'Anonymous',
-    ]
-    RIO_NOTIFICATION_COMPLETION._fields_ = [
-        ("Type", win32more.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_TYPE),
-        ("Anonymous", RIO_NOTIFICATION_COMPLETION__Anonymous_e__Union),
-    ]
-    return RIO_NOTIFICATION_COMPLETION
-def _define_LPFN_RIOCREATECOMPLETIONQUEUE():
-    return CFUNCTYPE(POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),UInt32,POINTER(win32more.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head), use_last_error=False)
-def _define_LPFN_RIOCREATEREQUESTQUEUE():
-    return CFUNCTYPE(POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),win32more.Networking.WinSock.SOCKET,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),c_void_p, use_last_error=False)
-def _define_LPFN_RIODEQUEUECOMPLETION():
-    return CFUNCTYPE(UInt32,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),POINTER(win32more.Networking.WinSock.RIORESULT),UInt32, use_last_error=False)
-def _define_LPFN_RIODEREGISTERBUFFER():
-    return CFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head), use_last_error=False)
-def _define_LPFN_RIONOTIFY():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head), use_last_error=False)
-def _define_LPFN_RIOREGISTERBUFFER():
-    return CFUNCTYPE(POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head),win32more.Foundation.PSTR,UInt32, use_last_error=False)
-def _define_LPFN_RIORESIZECOMPLETIONQUEUE():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_CQ_t_head),UInt32, use_last_error=False)
-def _define_LPFN_RIORESIZEREQUESTQUEUE():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinSock.RIO_RQ_t_head),UInt32,UInt32, use_last_error=False)
-def _define_RIO_EXTENSION_FUNCTION_TABLE_head():
-    class RIO_EXTENSION_FUNCTION_TABLE(Structure):
-        pass
-    return RIO_EXTENSION_FUNCTION_TABLE
-def _define_RIO_EXTENSION_FUNCTION_TABLE():
-    RIO_EXTENSION_FUNCTION_TABLE = win32more.Networking.WinSock.RIO_EXTENSION_FUNCTION_TABLE_head
-    RIO_EXTENSION_FUNCTION_TABLE._fields_ = [
-        ("cbSize", UInt32),
-        ("RIOReceive", win32more.Networking.WinSock.LPFN_RIORECEIVE),
-        ("RIOReceiveEx", win32more.Networking.WinSock.LPFN_RIORECEIVEEX),
-        ("RIOSend", win32more.Networking.WinSock.LPFN_RIOSEND),
-        ("RIOSendEx", win32more.Networking.WinSock.LPFN_RIOSENDEX),
-        ("RIOCloseCompletionQueue", win32more.Networking.WinSock.LPFN_RIOCLOSECOMPLETIONQUEUE),
-        ("RIOCreateCompletionQueue", win32more.Networking.WinSock.LPFN_RIOCREATECOMPLETIONQUEUE),
-        ("RIOCreateRequestQueue", win32more.Networking.WinSock.LPFN_RIOCREATEREQUESTQUEUE),
-        ("RIODequeueCompletion", win32more.Networking.WinSock.LPFN_RIODEQUEUECOMPLETION),
-        ("RIODeregisterBuffer", win32more.Networking.WinSock.LPFN_RIODEREGISTERBUFFER),
-        ("RIONotify", win32more.Networking.WinSock.LPFN_RIONOTIFY),
-        ("RIORegisterBuffer", win32more.Networking.WinSock.LPFN_RIOREGISTERBUFFER),
-        ("RIOResizeCompletionQueue", win32more.Networking.WinSock.LPFN_RIORESIZECOMPLETIONQUEUE),
-        ("RIOResizeRequestQueue", win32more.Networking.WinSock.LPFN_RIORESIZEREQUESTQUEUE),
-    ]
-    return RIO_EXTENSION_FUNCTION_TABLE
-def _define_WSPData_head():
-    class WSPData(Structure):
-        pass
-    return WSPData
-def _define_WSPData():
-    WSPData = win32more.Networking.WinSock.WSPData_head
-    WSPData._fields_ = [
-        ("wVersion", UInt16),
-        ("wHighVersion", UInt16),
-        ("szDescription", Char * 256),
-    ]
-    return WSPData
+    return WSASERVICECLASSINFOW
 def _define_WSATHREADID_head():
     class WSATHREADID(Structure):
         pass
@@ -3866,184 +6878,21 @@ def _define_WSATHREADID_head():
 def _define_WSATHREADID():
     WSATHREADID = win32more.Networking.WinSock.WSATHREADID_head
     WSATHREADID._fields_ = [
-        ("ThreadHandle", win32more.Foundation.HANDLE),
-        ("Reserved", UIntPtr),
+        ('ThreadHandle', win32more.Foundation.HANDLE),
+        ('Reserved', UIntPtr),
     ]
     return WSATHREADID
-def _define_LPBLOCKINGCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,UIntPtr, use_last_error=False)
-def _define_LPWSAUSERAPC():
-    return CFUNCTYPE(Void,UIntPtr, use_last_error=False)
-def _define_LPWSPACCEPT():
-    return CFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),win32more.Networking.WinSock.LPCONDITIONPROC,UIntPtr,POINTER(Int32), use_last_error=False)
-def _define_LPWSPADDRESSTOSTRING():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(Char),POINTER(UInt32),POINTER(Int32), use_last_error=False)
-def _define_LPWSPASYNCSELECT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HWND,UInt32,Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPBIND():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPCANCELBLOCKINGCALL():
-    return CFUNCTYPE(Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPCLEANUP():
-    return CFUNCTYPE(Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPCLOSESOCKET():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(Int32), use_last_error=False)
-def _define_LPWSPCONNECT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPDUPLICATESOCKET():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPENUMNETWORKEVENTS():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinSock.WSANETWORKEVENTS_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPEVENTSELECT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPGETOVERLAPPEDRESULT():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Int32), use_last_error=False)
-def _define_LPWSPGETPEERNAME():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(Int32), use_last_error=False)
-def _define_LPWSPGETSOCKNAME():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(Int32), use_last_error=False)
-def _define_LPWSPGETSOCKOPT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,POINTER(Int32),POINTER(Int32), use_last_error=False)
-def _define_LPWSPGETQOSBYNAME():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPIOCTL():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPJOINLEAF():
-    return CFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),UInt32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPLISTEN():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPRECV():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPRECVDISCONNECT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPRECVFROM():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPSELECT():
-    return CFUNCTYPE(Int32,Int32,POINTER(win32more.Networking.WinSock.fd_set_head),POINTER(win32more.Networking.WinSock.fd_set_head),POINTER(win32more.Networking.WinSock.fd_set_head),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPSEND():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPSENDDISCONNECT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPSENDTO():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWSPSETSOCKOPT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPSHUTDOWN():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPSOCKET():
-    return CFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,UInt32,POINTER(Int32), use_last_error=False)
-def _define_LPWSPSTRINGTOADDRESS():
-    return CFUNCTYPE(Int32,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(Int32), use_last_error=False)
-def _define_WSPPROC_TABLE_head():
-    class WSPPROC_TABLE(Structure):
+def _define_WSAVERSION_head():
+    class WSAVERSION(Structure):
         pass
-    return WSPPROC_TABLE
-def _define_WSPPROC_TABLE():
-    WSPPROC_TABLE = win32more.Networking.WinSock.WSPPROC_TABLE_head
-    WSPPROC_TABLE._fields_ = [
-        ("lpWSPAccept", win32more.Networking.WinSock.LPWSPACCEPT),
-        ("lpWSPAddressToString", win32more.Networking.WinSock.LPWSPADDRESSTOSTRING),
-        ("lpWSPAsyncSelect", win32more.Networking.WinSock.LPWSPASYNCSELECT),
-        ("lpWSPBind", win32more.Networking.WinSock.LPWSPBIND),
-        ("lpWSPCancelBlockingCall", win32more.Networking.WinSock.LPWSPCANCELBLOCKINGCALL),
-        ("lpWSPCleanup", win32more.Networking.WinSock.LPWSPCLEANUP),
-        ("lpWSPCloseSocket", win32more.Networking.WinSock.LPWSPCLOSESOCKET),
-        ("lpWSPConnect", win32more.Networking.WinSock.LPWSPCONNECT),
-        ("lpWSPDuplicateSocket", win32more.Networking.WinSock.LPWSPDUPLICATESOCKET),
-        ("lpWSPEnumNetworkEvents", win32more.Networking.WinSock.LPWSPENUMNETWORKEVENTS),
-        ("lpWSPEventSelect", win32more.Networking.WinSock.LPWSPEVENTSELECT),
-        ("lpWSPGetOverlappedResult", win32more.Networking.WinSock.LPWSPGETOVERLAPPEDRESULT),
-        ("lpWSPGetPeerName", win32more.Networking.WinSock.LPWSPGETPEERNAME),
-        ("lpWSPGetSockName", win32more.Networking.WinSock.LPWSPGETSOCKNAME),
-        ("lpWSPGetSockOpt", win32more.Networking.WinSock.LPWSPGETSOCKOPT),
-        ("lpWSPGetQOSByName", win32more.Networking.WinSock.LPWSPGETQOSBYNAME),
-        ("lpWSPIoctl", win32more.Networking.WinSock.LPWSPIOCTL),
-        ("lpWSPJoinLeaf", win32more.Networking.WinSock.LPWSPJOINLEAF),
-        ("lpWSPListen", win32more.Networking.WinSock.LPWSPLISTEN),
-        ("lpWSPRecv", win32more.Networking.WinSock.LPWSPRECV),
-        ("lpWSPRecvDisconnect", win32more.Networking.WinSock.LPWSPRECVDISCONNECT),
-        ("lpWSPRecvFrom", win32more.Networking.WinSock.LPWSPRECVFROM),
-        ("lpWSPSelect", win32more.Networking.WinSock.LPWSPSELECT),
-        ("lpWSPSend", win32more.Networking.WinSock.LPWSPSEND),
-        ("lpWSPSendDisconnect", win32more.Networking.WinSock.LPWSPSENDDISCONNECT),
-        ("lpWSPSendTo", win32more.Networking.WinSock.LPWSPSENDTO),
-        ("lpWSPSetSockOpt", win32more.Networking.WinSock.LPWSPSETSOCKOPT),
-        ("lpWSPShutdown", win32more.Networking.WinSock.LPWSPSHUTDOWN),
-        ("lpWSPSocket", win32more.Networking.WinSock.LPWSPSOCKET),
-        ("lpWSPStringToAddress", win32more.Networking.WinSock.LPWSPSTRINGTOADDRESS),
+    return WSAVERSION
+def _define_WSAVERSION():
+    WSAVERSION = win32more.Networking.WinSock.WSAVERSION_head
+    WSAVERSION._fields_ = [
+        ('dwVersion', UInt32),
+        ('ecHow', win32more.Networking.WinSock.WSAECOMPARATOR),
     ]
-    return WSPPROC_TABLE
-def _define_LPWPUCLOSEEVENT():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int32), use_last_error=False)
-def _define_LPWPUCLOSESOCKETHANDLE():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(Int32), use_last_error=False)
-def _define_LPWPUCREATEEVENT():
-    return CFUNCTYPE(win32more.Foundation.HANDLE,POINTER(Int32), use_last_error=False)
-def _define_LPWPUCREATESOCKETHANDLE():
-    return CFUNCTYPE(win32more.Networking.WinSock.SOCKET,UInt32,UIntPtr,POINTER(Int32), use_last_error=False)
-def _define_LPWPUFDISSET():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.fd_set_head), use_last_error=False)
-def _define_LPWPUGETPROVIDERPATH():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(Char),POINTER(Int32),POINTER(Int32), use_last_error=False)
-def _define_LPWPUMODIFYIFSHANDLE():
-    return CFUNCTYPE(win32more.Networking.WinSock.SOCKET,UInt32,win32more.Networking.WinSock.SOCKET,POINTER(Int32), use_last_error=False)
-def _define_LPWPUPOSTMESSAGE():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_LPWPUQUERYBLOCKINGCALLBACK():
-    return CFUNCTYPE(Int32,UInt32,POINTER(win32more.Networking.WinSock.LPBLOCKINGCALLBACK),POINTER(UIntPtr),POINTER(Int32), use_last_error=False)
-def _define_LPWPUQUERYSOCKETHANDLECONTEXT():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(UIntPtr),POINTER(Int32), use_last_error=False)
-def _define_LPWPUQUEUEAPC():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSATHREADID_head),win32more.Networking.WinSock.LPWSAUSERAPC,UIntPtr,POINTER(Int32), use_last_error=False)
-def _define_LPWPURESETEVENT():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int32), use_last_error=False)
-def _define_LPWPUSETEVENT():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int32), use_last_error=False)
-def _define_LPWPUOPENCURRENTTHREAD():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWPUCLOSETHREAD():
-    return CFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSATHREADID_head),POINTER(Int32), use_last_error=False)
-def _define_LPWPUCOMPLETEOVERLAPPEDREQUEST():
-    return CFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32,UInt32,POINTER(Int32), use_last_error=False)
-def _define_WSPUPCALLTABLE_head():
-    class WSPUPCALLTABLE(Structure):
-        pass
-    return WSPUPCALLTABLE
-def _define_WSPUPCALLTABLE():
-    WSPUPCALLTABLE = win32more.Networking.WinSock.WSPUPCALLTABLE_head
-    WSPUPCALLTABLE._fields_ = [
-        ("lpWPUCloseEvent", win32more.Networking.WinSock.LPWPUCLOSEEVENT),
-        ("lpWPUCloseSocketHandle", win32more.Networking.WinSock.LPWPUCLOSESOCKETHANDLE),
-        ("lpWPUCreateEvent", win32more.Networking.WinSock.LPWPUCREATEEVENT),
-        ("lpWPUCreateSocketHandle", win32more.Networking.WinSock.LPWPUCREATESOCKETHANDLE),
-        ("lpWPUFDIsSet", win32more.Networking.WinSock.LPWPUFDISSET),
-        ("lpWPUGetProviderPath", win32more.Networking.WinSock.LPWPUGETPROVIDERPATH),
-        ("lpWPUModifyIFSHandle", win32more.Networking.WinSock.LPWPUMODIFYIFSHANDLE),
-        ("lpWPUPostMessage", win32more.Networking.WinSock.LPWPUPOSTMESSAGE),
-        ("lpWPUQueryBlockingCallback", win32more.Networking.WinSock.LPWPUQUERYBLOCKINGCALLBACK),
-        ("lpWPUQuerySocketHandleContext", win32more.Networking.WinSock.LPWPUQUERYSOCKETHANDLECONTEXT),
-        ("lpWPUQueueApc", win32more.Networking.WinSock.LPWPUQUEUEAPC),
-        ("lpWPUResetEvent", win32more.Networking.WinSock.LPWPURESETEVENT),
-        ("lpWPUSetEvent", win32more.Networking.WinSock.LPWPUSETEVENT),
-        ("lpWPUOpenCurrentThread", win32more.Networking.WinSock.LPWPUOPENCURRENTTHREAD),
-        ("lpWPUCloseThread", win32more.Networking.WinSock.LPWPUCLOSETHREAD),
-    ]
-    return WSPUPCALLTABLE
-def _define_LPWSPSTARTUP():
-    return CFUNCTYPE(Int32,UInt16,POINTER(win32more.Networking.WinSock.WSPData_head),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),win32more.Networking.WinSock.WSPUPCALLTABLE,POINTER(win32more.Networking.WinSock.WSPPROC_TABLE_head), use_last_error=False)
-def _define_LPWSCENUMPROTOCOLS():
-    return CFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32),POINTER(Int32), use_last_error=False)
-def _define_LPWSCDEINSTALLPROVIDER():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(Int32), use_last_error=False)
-def _define_LPWSCINSTALLPROVIDER():
-    return CFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(Int32), use_last_error=False)
-def _define_LPWSCGETPROVIDERPATH():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(Char),POINTER(Int32),POINTER(Int32), use_last_error=False)
-def _define_LPWSCUPDATEPROVIDER():
-    return CFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(Int32), use_last_error=False)
-WSC_PROVIDER_INFO_TYPE = Int32
-WSC_PROVIDER_INFO_TYPE_ProviderInfoLspCategories = 0
-WSC_PROVIDER_INFO_TYPE_ProviderInfoAudit = 1
+    return WSAVERSION
 def _define_WSC_PROVIDER_AUDIT_INFO_head():
     class WSC_PROVIDER_AUDIT_INFO(Structure):
         pass
@@ -4051,3077 +6900,938 @@ def _define_WSC_PROVIDER_AUDIT_INFO_head():
 def _define_WSC_PROVIDER_AUDIT_INFO():
     WSC_PROVIDER_AUDIT_INFO = win32more.Networking.WinSock.WSC_PROVIDER_AUDIT_INFO_head
     WSC_PROVIDER_AUDIT_INFO._fields_ = [
-        ("RecordSize", UInt32),
-        ("Reserved", c_void_p),
+        ('RecordSize', UInt32),
+        ('Reserved', c_void_p),
     ]
     return WSC_PROVIDER_AUDIT_INFO
-def _define_LPWSCINSTALLNAMESPACE():
-    return CFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid), use_last_error=False)
-def _define_LPWSCUNINSTALLNAMESPACE():
-    return CFUNCTYPE(Int32,POINTER(Guid), use_last_error=False)
-def _define_LPWSCENABLENSPROVIDER():
-    return CFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)
-def _define_LPNSPCLEANUP():
-    return CFUNCTYPE(Int32,POINTER(Guid), use_last_error=False)
-def _define_LPNSPLOOKUPSERVICEBEGIN():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head),UInt32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)
-def _define_LPNSPLOOKUPSERVICENEXT():
-    return CFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head), use_last_error=False)
-def _define_LPNSPIOCTL():
-    return CFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSACOMPLETION_head),POINTER(win32more.Networking.WinSock.WSATHREADID_head), use_last_error=False)
-def _define_LPNSPLOOKUPSERVICEEND():
-    return CFUNCTYPE(Int32,win32more.Foundation.HANDLE, use_last_error=False)
-def _define_LPNSPSETSERVICE():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32, use_last_error=False)
-def _define_LPNSPINSTALLSERVICECLASS():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head), use_last_error=False)
-def _define_LPNSPREMOVESERVICECLASS():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(Guid), use_last_error=False)
-def _define_LPNSPGETSERVICECLASSINFO():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head), use_last_error=False)
-def _define_NSP_ROUTINE_head():
-    class NSP_ROUTINE(Structure):
+WSC_PROVIDER_INFO_TYPE = Int32
+WSC_PROVIDER_INFO_TYPE_ProviderInfoLspCategories = 0
+WSC_PROVIDER_INFO_TYPE_ProviderInfoAudit = 1
+def _define_WSPDATA_head():
+    class WSPDATA(Structure):
         pass
-    return NSP_ROUTINE
-def _define_NSP_ROUTINE():
-    NSP_ROUTINE = win32more.Networking.WinSock.NSP_ROUTINE_head
-    NSP_ROUTINE._fields_ = [
-        ("cbSize", UInt32),
-        ("dwMajorVersion", UInt32),
-        ("dwMinorVersion", UInt32),
-        ("NSPCleanup", win32more.Networking.WinSock.LPNSPCLEANUP),
-        ("NSPLookupServiceBegin", win32more.Networking.WinSock.LPNSPLOOKUPSERVICEBEGIN),
-        ("NSPLookupServiceNext", win32more.Networking.WinSock.LPNSPLOOKUPSERVICENEXT),
-        ("NSPLookupServiceEnd", win32more.Networking.WinSock.LPNSPLOOKUPSERVICEEND),
-        ("NSPSetService", win32more.Networking.WinSock.LPNSPSETSERVICE),
-        ("NSPInstallServiceClass", win32more.Networking.WinSock.LPNSPINSTALLSERVICECLASS),
-        ("NSPRemoveServiceClass", win32more.Networking.WinSock.LPNSPREMOVESERVICECLASS),
-        ("NSPGetServiceClassInfo", win32more.Networking.WinSock.LPNSPGETSERVICECLASSINFO),
-        ("NSPIoctl", win32more.Networking.WinSock.LPNSPIOCTL),
+    return WSPDATA
+def _define_WSPDATA():
+    WSPDATA = win32more.Networking.WinSock.WSPDATA_head
+    WSPDATA._fields_ = [
+        ('wVersion', UInt16),
+        ('wHighVersion', UInt16),
+        ('szDescription', Char * 256),
     ]
-    return NSP_ROUTINE
-def _define_LPNSPSTARTUP():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.NSP_ROUTINE_head), use_last_error=False)
-def _define_LPNSPV2STARTUP():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
-def _define_LPNSPV2CLEANUP():
-    return CFUNCTYPE(Int32,POINTER(Guid),c_void_p, use_last_error=False)
-def _define_LPNSPV2LOOKUPSERVICEBEGIN():
-    return CFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSAQUERYSET2W_head),UInt32,c_void_p,POINTER(win32more.Foundation.HANDLE), use_last_error=False)
-def _define_LPNSPV2LOOKUPSERVICENEXTEX():
-    return CFUNCTYPE(Void,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSET2W_head), use_last_error=False)
-def _define_LPNSPV2LOOKUPSERVICEEND():
-    return CFUNCTYPE(Int32,win32more.Foundation.HANDLE, use_last_error=False)
-def _define_LPNSPV2SETSERVICEEX():
-    return CFUNCTYPE(Void,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.Networking.WinSock.WSAQUERYSET2W_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32,c_void_p, use_last_error=False)
-def _define_LPNSPV2CLIENTSESSIONRUNDOWN():
-    return CFUNCTYPE(Void,POINTER(Guid),c_void_p, use_last_error=False)
-def _define_NSPV2_ROUTINE_head():
-    class NSPV2_ROUTINE(Structure):
+    return WSPDATA
+def _define_WSPPROC_TABLE_head():
+    class WSPPROC_TABLE(Structure):
         pass
-    return NSPV2_ROUTINE
-def _define_NSPV2_ROUTINE():
-    NSPV2_ROUTINE = win32more.Networking.WinSock.NSPV2_ROUTINE_head
-    NSPV2_ROUTINE._fields_ = [
-        ("cbSize", UInt32),
-        ("dwMajorVersion", UInt32),
-        ("dwMinorVersion", UInt32),
-        ("NSPv2Startup", win32more.Networking.WinSock.LPNSPV2STARTUP),
-        ("NSPv2Cleanup", win32more.Networking.WinSock.LPNSPV2CLEANUP),
-        ("NSPv2LookupServiceBegin", win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEBEGIN),
-        ("NSPv2LookupServiceNextEx", win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICENEXTEX),
-        ("NSPv2LookupServiceEnd", win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEEND),
-        ("NSPv2SetServiceEx", win32more.Networking.WinSock.LPNSPV2SETSERVICEEX),
-        ("NSPv2ClientSessionRundown", win32more.Networking.WinSock.LPNSPV2CLIENTSESSIONRUNDOWN),
+    return WSPPROC_TABLE
+def _define_WSPPROC_TABLE():
+    WSPPROC_TABLE = win32more.Networking.WinSock.WSPPROC_TABLE_head
+    WSPPROC_TABLE._fields_ = [
+        ('lpWSPAccept', win32more.Networking.WinSock.LPWSPACCEPT),
+        ('lpWSPAddressToString', win32more.Networking.WinSock.LPWSPADDRESSTOSTRING),
+        ('lpWSPAsyncSelect', win32more.Networking.WinSock.LPWSPASYNCSELECT),
+        ('lpWSPBind', win32more.Networking.WinSock.LPWSPBIND),
+        ('lpWSPCancelBlockingCall', win32more.Networking.WinSock.LPWSPCANCELBLOCKINGCALL),
+        ('lpWSPCleanup', win32more.Networking.WinSock.LPWSPCLEANUP),
+        ('lpWSPCloseSocket', win32more.Networking.WinSock.LPWSPCLOSESOCKET),
+        ('lpWSPConnect', win32more.Networking.WinSock.LPWSPCONNECT),
+        ('lpWSPDuplicateSocket', win32more.Networking.WinSock.LPWSPDUPLICATESOCKET),
+        ('lpWSPEnumNetworkEvents', win32more.Networking.WinSock.LPWSPENUMNETWORKEVENTS),
+        ('lpWSPEventSelect', win32more.Networking.WinSock.LPWSPEVENTSELECT),
+        ('lpWSPGetOverlappedResult', win32more.Networking.WinSock.LPWSPGETOVERLAPPEDRESULT),
+        ('lpWSPGetPeerName', win32more.Networking.WinSock.LPWSPGETPEERNAME),
+        ('lpWSPGetSockName', win32more.Networking.WinSock.LPWSPGETSOCKNAME),
+        ('lpWSPGetSockOpt', win32more.Networking.WinSock.LPWSPGETSOCKOPT),
+        ('lpWSPGetQOSByName', win32more.Networking.WinSock.LPWSPGETQOSBYNAME),
+        ('lpWSPIoctl', win32more.Networking.WinSock.LPWSPIOCTL),
+        ('lpWSPJoinLeaf', win32more.Networking.WinSock.LPWSPJOINLEAF),
+        ('lpWSPListen', win32more.Networking.WinSock.LPWSPLISTEN),
+        ('lpWSPRecv', win32more.Networking.WinSock.LPWSPRECV),
+        ('lpWSPRecvDisconnect', win32more.Networking.WinSock.LPWSPRECVDISCONNECT),
+        ('lpWSPRecvFrom', win32more.Networking.WinSock.LPWSPRECVFROM),
+        ('lpWSPSelect', win32more.Networking.WinSock.LPWSPSELECT),
+        ('lpWSPSend', win32more.Networking.WinSock.LPWSPSEND),
+        ('lpWSPSendDisconnect', win32more.Networking.WinSock.LPWSPSENDDISCONNECT),
+        ('lpWSPSendTo', win32more.Networking.WinSock.LPWSPSENDTO),
+        ('lpWSPSetSockOpt', win32more.Networking.WinSock.LPWSPSETSOCKOPT),
+        ('lpWSPShutdown', win32more.Networking.WinSock.LPWSPSHUTDOWN),
+        ('lpWSPSocket', win32more.Networking.WinSock.LPWSPSOCKET),
+        ('lpWSPStringToAddress', win32more.Networking.WinSock.LPWSPSTRINGTOADDRESS),
     ]
-    return NSPV2_ROUTINE
-def _define_NS_INFOA_head():
-    class NS_INFOA(Structure):
+    return WSPPROC_TABLE
+def _define_WSPUPCALLTABLE_head():
+    class WSPUPCALLTABLE(Structure):
         pass
-    return NS_INFOA
-def _define_NS_INFOA():
-    NS_INFOA = win32more.Networking.WinSock.NS_INFOA_head
-    NS_INFOA._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("dwNameSpaceFlags", UInt32),
-        ("lpNameSpace", win32more.Foundation.PSTR),
+    return WSPUPCALLTABLE
+def _define_WSPUPCALLTABLE():
+    WSPUPCALLTABLE = win32more.Networking.WinSock.WSPUPCALLTABLE_head
+    WSPUPCALLTABLE._fields_ = [
+        ('lpWPUCloseEvent', win32more.Networking.WinSock.LPWPUCLOSEEVENT),
+        ('lpWPUCloseSocketHandle', win32more.Networking.WinSock.LPWPUCLOSESOCKETHANDLE),
+        ('lpWPUCreateEvent', win32more.Networking.WinSock.LPWPUCREATEEVENT),
+        ('lpWPUCreateSocketHandle', win32more.Networking.WinSock.LPWPUCREATESOCKETHANDLE),
+        ('lpWPUFDIsSet', win32more.Networking.WinSock.LPWPUFDISSET),
+        ('lpWPUGetProviderPath', win32more.Networking.WinSock.LPWPUGETPROVIDERPATH),
+        ('lpWPUModifyIFSHandle', win32more.Networking.WinSock.LPWPUMODIFYIFSHANDLE),
+        ('lpWPUPostMessage', win32more.Networking.WinSock.LPWPUPOSTMESSAGE),
+        ('lpWPUQueryBlockingCallback', win32more.Networking.WinSock.LPWPUQUERYBLOCKINGCALLBACK),
+        ('lpWPUQuerySocketHandleContext', win32more.Networking.WinSock.LPWPUQUERYSOCKETHANDLECONTEXT),
+        ('lpWPUQueueApc', win32more.Networking.WinSock.LPWPUQUEUEAPC),
+        ('lpWPUResetEvent', win32more.Networking.WinSock.LPWPURESETEVENT),
+        ('lpWPUSetEvent', win32more.Networking.WinSock.LPWPUSETEVENT),
+        ('lpWPUOpenCurrentThread', win32more.Networking.WinSock.LPWPUOPENCURRENTTHREAD),
+        ('lpWPUCloseThread', win32more.Networking.WinSock.LPWPUCLOSETHREAD),
     ]
-    return NS_INFOA
-def _define_NS_INFOW_head():
-    class NS_INFOW(Structure):
-        pass
-    return NS_INFOW
-def _define_NS_INFOW():
-    NS_INFOW = win32more.Networking.WinSock.NS_INFOW_head
-    NS_INFOW._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("dwNameSpaceFlags", UInt32),
-        ("lpNameSpace", win32more.Foundation.PWSTR),
-    ]
-    return NS_INFOW
-def _define_SERVICE_TYPE_VALUE_head():
-    class SERVICE_TYPE_VALUE(Structure):
-        pass
-    return SERVICE_TYPE_VALUE
-def _define_SERVICE_TYPE_VALUE():
-    SERVICE_TYPE_VALUE = win32more.Networking.WinSock.SERVICE_TYPE_VALUE_head
-    SERVICE_TYPE_VALUE._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("dwValueType", UInt32),
-        ("dwValueSize", UInt32),
-        ("dwValueNameOffset", UInt32),
-        ("dwValueOffset", UInt32),
-    ]
-    return SERVICE_TYPE_VALUE
-def _define_SERVICE_TYPE_VALUE_ABSA_head():
-    class SERVICE_TYPE_VALUE_ABSA(Structure):
-        pass
-    return SERVICE_TYPE_VALUE_ABSA
-def _define_SERVICE_TYPE_VALUE_ABSA():
-    SERVICE_TYPE_VALUE_ABSA = win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA_head
-    SERVICE_TYPE_VALUE_ABSA._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("dwValueType", UInt32),
-        ("dwValueSize", UInt32),
-        ("lpValueName", win32more.Foundation.PSTR),
-        ("lpValue", c_void_p),
-    ]
-    return SERVICE_TYPE_VALUE_ABSA
-def _define_SERVICE_TYPE_VALUE_ABSW_head():
-    class SERVICE_TYPE_VALUE_ABSW(Structure):
-        pass
-    return SERVICE_TYPE_VALUE_ABSW
-def _define_SERVICE_TYPE_VALUE_ABSW():
-    SERVICE_TYPE_VALUE_ABSW = win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW_head
-    SERVICE_TYPE_VALUE_ABSW._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("dwValueType", UInt32),
-        ("dwValueSize", UInt32),
-        ("lpValueName", win32more.Foundation.PWSTR),
-        ("lpValue", c_void_p),
-    ]
-    return SERVICE_TYPE_VALUE_ABSW
-def _define_SERVICE_TYPE_INFO_head():
-    class SERVICE_TYPE_INFO(Structure):
-        pass
-    return SERVICE_TYPE_INFO
-def _define_SERVICE_TYPE_INFO():
-    SERVICE_TYPE_INFO = win32more.Networking.WinSock.SERVICE_TYPE_INFO_head
-    SERVICE_TYPE_INFO._fields_ = [
-        ("dwTypeNameOffset", UInt32),
-        ("dwValueCount", UInt32),
-        ("Values", win32more.Networking.WinSock.SERVICE_TYPE_VALUE * 0),
-    ]
-    return SERVICE_TYPE_INFO
-def _define_SERVICE_TYPE_INFO_ABSA_head():
-    class SERVICE_TYPE_INFO_ABSA(Structure):
-        pass
-    return SERVICE_TYPE_INFO_ABSA
-def _define_SERVICE_TYPE_INFO_ABSA():
-    SERVICE_TYPE_INFO_ABSA = win32more.Networking.WinSock.SERVICE_TYPE_INFO_ABSA_head
-    SERVICE_TYPE_INFO_ABSA._fields_ = [
-        ("lpTypeName", win32more.Foundation.PSTR),
-        ("dwValueCount", UInt32),
-        ("Values", win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA * 0),
-    ]
-    return SERVICE_TYPE_INFO_ABSA
-def _define_SERVICE_TYPE_INFO_ABSW_head():
-    class SERVICE_TYPE_INFO_ABSW(Structure):
-        pass
-    return SERVICE_TYPE_INFO_ABSW
-def _define_SERVICE_TYPE_INFO_ABSW():
-    SERVICE_TYPE_INFO_ABSW = win32more.Networking.WinSock.SERVICE_TYPE_INFO_ABSW_head
-    SERVICE_TYPE_INFO_ABSW._fields_ = [
-        ("lpTypeName", win32more.Foundation.PWSTR),
-        ("dwValueCount", UInt32),
-        ("Values", win32more.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW * 0),
-    ]
-    return SERVICE_TYPE_INFO_ABSW
-def _define_SERVICE_ADDRESS_head():
-    class SERVICE_ADDRESS(Structure):
-        pass
-    return SERVICE_ADDRESS
-def _define_SERVICE_ADDRESS():
-    SERVICE_ADDRESS = win32more.Networking.WinSock.SERVICE_ADDRESS_head
-    SERVICE_ADDRESS._fields_ = [
-        ("dwAddressType", UInt32),
-        ("dwAddressFlags", UInt32),
-        ("dwAddressLength", UInt32),
-        ("dwPrincipalLength", UInt32),
-        ("lpAddress", c_char_p_no),
-        ("lpPrincipal", c_char_p_no),
-    ]
-    return SERVICE_ADDRESS
-def _define_SERVICE_ADDRESSES_head():
-    class SERVICE_ADDRESSES(Structure):
-        pass
-    return SERVICE_ADDRESSES
-def _define_SERVICE_ADDRESSES():
-    SERVICE_ADDRESSES = win32more.Networking.WinSock.SERVICE_ADDRESSES_head
-    SERVICE_ADDRESSES._fields_ = [
-        ("dwAddressCount", UInt32),
-        ("Addresses", win32more.Networking.WinSock.SERVICE_ADDRESS * 0),
-    ]
-    return SERVICE_ADDRESSES
-def _define_SERVICE_INFOA_head():
-    class SERVICE_INFOA(Structure):
-        pass
-    return SERVICE_INFOA
-def _define_SERVICE_INFOA():
-    SERVICE_INFOA = win32more.Networking.WinSock.SERVICE_INFOA_head
-    SERVICE_INFOA._fields_ = [
-        ("lpServiceType", POINTER(Guid)),
-        ("lpServiceName", win32more.Foundation.PSTR),
-        ("lpComment", win32more.Foundation.PSTR),
-        ("lpLocale", win32more.Foundation.PSTR),
-        ("dwDisplayHint", win32more.Networking.WinSock.RESOURCE_DISPLAY_TYPE),
-        ("dwVersion", UInt32),
-        ("dwTime", UInt32),
-        ("lpMachineName", win32more.Foundation.PSTR),
-        ("lpServiceAddress", POINTER(win32more.Networking.WinSock.SERVICE_ADDRESSES_head)),
-        ("ServiceSpecificInfo", win32more.System.Com.BLOB),
-    ]
-    return SERVICE_INFOA
-def _define_SERVICE_INFOW_head():
-    class SERVICE_INFOW(Structure):
-        pass
-    return SERVICE_INFOW
-def _define_SERVICE_INFOW():
-    SERVICE_INFOW = win32more.Networking.WinSock.SERVICE_INFOW_head
-    SERVICE_INFOW._fields_ = [
-        ("lpServiceType", POINTER(Guid)),
-        ("lpServiceName", win32more.Foundation.PWSTR),
-        ("lpComment", win32more.Foundation.PWSTR),
-        ("lpLocale", win32more.Foundation.PWSTR),
-        ("dwDisplayHint", win32more.Networking.WinSock.RESOURCE_DISPLAY_TYPE),
-        ("dwVersion", UInt32),
-        ("dwTime", UInt32),
-        ("lpMachineName", win32more.Foundation.PWSTR),
-        ("lpServiceAddress", POINTER(win32more.Networking.WinSock.SERVICE_ADDRESSES_head)),
-        ("ServiceSpecificInfo", win32more.System.Com.BLOB),
-    ]
-    return SERVICE_INFOW
-def _define_NS_SERVICE_INFOA_head():
-    class NS_SERVICE_INFOA(Structure):
-        pass
-    return NS_SERVICE_INFOA
-def _define_NS_SERVICE_INFOA():
-    NS_SERVICE_INFOA = win32more.Networking.WinSock.NS_SERVICE_INFOA_head
-    NS_SERVICE_INFOA._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("ServiceInfo", win32more.Networking.WinSock.SERVICE_INFOA),
-    ]
-    return NS_SERVICE_INFOA
-def _define_NS_SERVICE_INFOW_head():
-    class NS_SERVICE_INFOW(Structure):
-        pass
-    return NS_SERVICE_INFOW
-def _define_NS_SERVICE_INFOW():
-    NS_SERVICE_INFOW = win32more.Networking.WinSock.NS_SERVICE_INFOW_head
-    NS_SERVICE_INFOW._fields_ = [
-        ("dwNameSpace", UInt32),
-        ("ServiceInfo", win32more.Networking.WinSock.SERVICE_INFOW),
-    ]
-    return NS_SERVICE_INFOW
-def _define_PROTOCOL_INFOA_head():
-    class PROTOCOL_INFOA(Structure):
-        pass
-    return PROTOCOL_INFOA
-def _define_PROTOCOL_INFOA():
-    PROTOCOL_INFOA = win32more.Networking.WinSock.PROTOCOL_INFOA_head
-    PROTOCOL_INFOA._fields_ = [
-        ("dwServiceFlags", UInt32),
-        ("iAddressFamily", Int32),
-        ("iMaxSockAddr", Int32),
-        ("iMinSockAddr", Int32),
-        ("iSocketType", Int32),
-        ("iProtocol", Int32),
-        ("dwMessageSize", UInt32),
-        ("lpProtocol", win32more.Foundation.PSTR),
-    ]
-    return PROTOCOL_INFOA
-def _define_PROTOCOL_INFOW_head():
-    class PROTOCOL_INFOW(Structure):
-        pass
-    return PROTOCOL_INFOW
-def _define_PROTOCOL_INFOW():
-    PROTOCOL_INFOW = win32more.Networking.WinSock.PROTOCOL_INFOW_head
-    PROTOCOL_INFOW._fields_ = [
-        ("dwServiceFlags", UInt32),
-        ("iAddressFamily", Int32),
-        ("iMaxSockAddr", Int32),
-        ("iMinSockAddr", Int32),
-        ("iSocketType", Int32),
-        ("iProtocol", Int32),
-        ("dwMessageSize", UInt32),
-        ("lpProtocol", win32more.Foundation.PWSTR),
-    ]
-    return PROTOCOL_INFOW
-def _define_NETRESOURCE2A_head():
-    class NETRESOURCE2A(Structure):
-        pass
-    return NETRESOURCE2A
-def _define_NETRESOURCE2A():
-    NETRESOURCE2A = win32more.Networking.WinSock.NETRESOURCE2A_head
-    NETRESOURCE2A._fields_ = [
-        ("dwScope", UInt32),
-        ("dwType", UInt32),
-        ("dwUsage", UInt32),
-        ("dwDisplayType", UInt32),
-        ("lpLocalName", win32more.Foundation.PSTR),
-        ("lpRemoteName", win32more.Foundation.PSTR),
-        ("lpComment", win32more.Foundation.PSTR),
-        ("ns_info", win32more.Networking.WinSock.NS_INFOA),
-        ("ServiceType", Guid),
-        ("dwProtocols", UInt32),
-        ("lpiProtocols", POINTER(Int32)),
-    ]
-    return NETRESOURCE2A
-def _define_NETRESOURCE2W_head():
-    class NETRESOURCE2W(Structure):
-        pass
-    return NETRESOURCE2W
-def _define_NETRESOURCE2W():
-    NETRESOURCE2W = win32more.Networking.WinSock.NETRESOURCE2W_head
-    NETRESOURCE2W._fields_ = [
-        ("dwScope", UInt32),
-        ("dwType", UInt32),
-        ("dwUsage", UInt32),
-        ("dwDisplayType", UInt32),
-        ("lpLocalName", win32more.Foundation.PWSTR),
-        ("lpRemoteName", win32more.Foundation.PWSTR),
-        ("lpComment", win32more.Foundation.PWSTR),
-        ("ns_info", win32more.Networking.WinSock.NS_INFOA),
-        ("ServiceType", Guid),
-        ("dwProtocols", UInt32),
-        ("lpiProtocols", POINTER(Int32)),
-    ]
-    return NETRESOURCE2W
-def _define_LPFN_NSPAPI():
-    return CFUNCTYPE(UInt32, use_last_error=False)
-def _define_LPSERVICE_CALLBACK_PROC():
-    return CFUNCTYPE(Void,win32more.Foundation.LPARAM,win32more.Foundation.HANDLE, use_last_error=False)
-def _define_SERVICE_ASYNC_INFO_head():
-    class SERVICE_ASYNC_INFO(Structure):
-        pass
-    return SERVICE_ASYNC_INFO
-def _define_SERVICE_ASYNC_INFO():
-    SERVICE_ASYNC_INFO = win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head
-    SERVICE_ASYNC_INFO._fields_ = [
-        ("lpServiceCallbackProc", win32more.Networking.WinSock.LPSERVICE_CALLBACK_PROC),
-        ("lParam", win32more.Foundation.LPARAM),
-        ("hAsyncTaskHandle", win32more.Foundation.HANDLE),
-    ]
-    return SERVICE_ASYNC_INFO
-def _define_LPLOOKUPSERVICE_COMPLETION_ROUTINE():
-    return CFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)
-def _define_LPWSCWRITEPROVIDERORDER():
-    return CFUNCTYPE(Int32,POINTER(UInt32),UInt32, use_last_error=False)
-def _define_LPWSCWRITENAMESPACEORDER():
-    return CFUNCTYPE(Int32,POINTER(Guid),UInt32, use_last_error=False)
-def _define_sockaddr_un_head():
-    class sockaddr_un(Structure):
-        pass
-    return sockaddr_un
-def _define_sockaddr_un():
-    sockaddr_un = win32more.Networking.WinSock.sockaddr_un_head
-    sockaddr_un._fields_ = [
-        ("sun_family", UInt16),
-        ("sun_path", win32more.Foundation.CHAR * 108),
-    ]
-    return sockaddr_un
-def _define_sockaddr_ipx_head():
-    class sockaddr_ipx(Structure):
-        pass
-    return sockaddr_ipx
-def _define_sockaddr_ipx():
-    sockaddr_ipx = win32more.Networking.WinSock.sockaddr_ipx_head
-    sockaddr_ipx._fields_ = [
-        ("sa_family", Int16),
-        ("sa_netnum", win32more.Foundation.CHAR * 4),
-        ("sa_nodenum", win32more.Foundation.CHAR * 6),
-        ("sa_socket", UInt16),
-    ]
-    return sockaddr_ipx
-def _define_sockaddr_tp_head():
-    class sockaddr_tp(Structure):
-        pass
-    return sockaddr_tp
-def _define_sockaddr_tp():
-    sockaddr_tp = win32more.Networking.WinSock.sockaddr_tp_head
-    sockaddr_tp._fields_ = [
-        ("tp_family", UInt16),
-        ("tp_addr_type", UInt16),
-        ("tp_taddr_len", UInt16),
-        ("tp_tsel_len", UInt16),
-        ("tp_addr", Byte * 64),
-    ]
-    return sockaddr_tp
-def _define_sockaddr_nb_head():
-    class sockaddr_nb(Structure):
-        pass
-    return sockaddr_nb
-def _define_sockaddr_nb():
-    sockaddr_nb = win32more.Networking.WinSock.sockaddr_nb_head
-    sockaddr_nb._fields_ = [
-        ("snb_family", Int16),
-        ("snb_type", UInt16),
-        ("snb_name", win32more.Foundation.CHAR * 16),
-    ]
-    return sockaddr_nb
-def _define_sockaddr_vns_head():
-    class sockaddr_vns(Structure):
-        pass
-    return sockaddr_vns
-def _define_sockaddr_vns():
-    sockaddr_vns = win32more.Networking.WinSock.sockaddr_vns_head
-    sockaddr_vns._fields_ = [
-        ("sin_family", UInt16),
-        ("net_address", Byte * 4),
-        ("subnet_addr", Byte * 2),
-        ("port", Byte * 2),
-        ("hops", Byte),
-        ("filler", Byte * 5),
-    ]
-    return sockaddr_vns
-def _define___WSAFDIsSet():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.fd_set_head), use_last_error=False)(("__WSAFDIsSet", windll["WS2_32"]), ((1, 'fd'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_accept():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32), use_last_error=False)(("accept", windll["WS2_32"]), ((1, 's'),(1, 'addr'),(1, 'addrlen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bind():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32, use_last_error=False)(("bind", windll["WS2_32"]), ((1, 's'),(1, 'name'),(1, 'namelen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_closesocket():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET, use_last_error=False)(("closesocket", windll["WS2_32"]), ((1, 's'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_connect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32, use_last_error=False)(("connect", windll["WS2_32"]), ((1, 's'),(1, 'name'),(1, 'namelen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ioctlsocket():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,POINTER(UInt32), use_last_error=False)(("ioctlsocket", windll["WS2_32"]), ((1, 's'),(1, 'cmd'),(1, 'argp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getpeername():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32), use_last_error=False)(("getpeername", windll["WS2_32"]), ((1, 's'),(1, 'name'),(1, 'namelen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getsockname():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32), use_last_error=False)(("getsockname", windll["WS2_32"]), ((1, 's'),(1, 'name'),(1, 'namelen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getsockopt():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,POINTER(Int32), use_last_error=False)(("getsockopt", windll["WS2_32"]), ((1, 's'),(1, 'level'),(1, 'optname'),(1, 'optval'),(1, 'optlen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_htonl():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("htonl", windll["WS2_32"]), ((1, 'hostlong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_htons():
-    try:
-        return WINFUNCTYPE(UInt16,UInt16, use_last_error=False)(("htons", windll["WS2_32"]), ((1, 'hostshort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_inet_addr():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR, use_last_error=False)(("inet_addr", windll["WS2_32"]), ((1, 'cp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_inet_ntoa():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Networking.WinSock.IN_ADDR, use_last_error=False)(("inet_ntoa", windll["WS2_32"]), ((1, 'in'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_listen():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32, use_last_error=False)(("listen", windll["WS2_32"]), ((1, 's'),(1, 'backlog'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ntohl():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("ntohl", windll["WS2_32"]), ((1, 'netlong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ntohs():
-    try:
-        return WINFUNCTYPE(UInt16,UInt16, use_last_error=False)(("ntohs", windll["WS2_32"]), ((1, 'netshort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_recv():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,Int32, use_last_error=False)(("recv", windll["WS2_32"]), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_recvfrom():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32), use_last_error=False)(("recvfrom", windll["WS2_32"]), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),(1, 'from'),(1, 'fromlen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_select():
-    try:
-        return WINFUNCTYPE(Int32,Int32,POINTER(win32more.Networking.WinSock.fd_set_head),POINTER(win32more.Networking.WinSock.fd_set_head),POINTER(win32more.Networking.WinSock.fd_set_head),POINTER(win32more.Networking.WinSock.timeval_head), use_last_error=False)(("select", windll["WS2_32"]), ((1, 'nfds'),(1, 'readfds'),(1, 'writefds'),(1, 'exceptfds'),(1, 'timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_send():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,win32more.Networking.WinSock.SEND_FLAGS, use_last_error=False)(("send", windll["WS2_32"]), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_sendto():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32, use_last_error=False)(("sendto", windll["WS2_32"]), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),(1, 'to'),(1, 'tolen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_setsockopt():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32,Int32,win32more.Foundation.PSTR,Int32, use_last_error=False)(("setsockopt", windll["WS2_32"]), ((1, 's'),(1, 'level'),(1, 'optname'),(1, 'optval'),(1, 'optlen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_shutdown():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,Int32, use_last_error=False)(("shutdown", windll["WS2_32"]), ((1, 's'),(1, 'how'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_socket():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32, use_last_error=False)(("socket", windll["WS2_32"]), ((1, 'af'),(1, 'type'),(1, 'protocol'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gethostbyaddr():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.hostent_head),win32more.Foundation.PSTR,Int32,Int32, use_last_error=False)(("gethostbyaddr", windll["WS2_32"]), ((1, 'addr'),(1, 'len'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gethostbyname():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.hostent_head),win32more.Foundation.PSTR, use_last_error=False)(("gethostbyname", windll["WS2_32"]), ((1, 'name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gethostname():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,Int32, use_last_error=False)(("gethostname", windll["WS2_32"]), ((1, 'name'),(1, 'namelen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetHostNameW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Char),Int32, use_last_error=False)(("GetHostNameW", windll["WS2_32"]), ((1, 'name'),(1, 'namelen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getservbyport():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.servent_head),Int32,win32more.Foundation.PSTR, use_last_error=False)(("getservbyport", windll["WS2_32"]), ((1, 'port'),(1, 'proto'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getservbyname():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.servent_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("getservbyname", windll["WS2_32"]), ((1, 'name'),(1, 'proto'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getprotobynumber():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.protoent_head),Int32, use_last_error=False)(("getprotobynumber", windll["WS2_32"]), ((1, 'number'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getprotobyname():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Networking.WinSock.protoent_head),win32more.Foundation.PSTR, use_last_error=False)(("getprotobyname", windll["WS2_32"]), ((1, 'name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAStartup():
-    try:
-        return WINFUNCTYPE(Int32,UInt16,POINTER(win32more.Networking.WinSock.WSAData_head), use_last_error=False)(("WSAStartup", windll["WS2_32"]), ((1, 'wVersionRequested'),(1, 'lpWSAData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSACleanup():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("WSACleanup", windll["WS2_32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetLastError():
-    try:
-        return WINFUNCTYPE(Void,Int32, use_last_error=False)(("WSASetLastError", windll["WS2_32"]), ((1, 'iError'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetLastError():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.WSA_ERROR, use_last_error=False)(("WSAGetLastError", windll["WS2_32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAIsBlocking():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("WSAIsBlocking", windll["WS2_32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAUnhookBlockingHook():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("WSAUnhookBlockingHook", windll["WS2_32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetBlockingHook():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.FARPROC,win32more.Foundation.FARPROC, use_last_error=False)(("WSASetBlockingHook", windll["WS2_32"]), ((1, 'lpBlockFunc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSACancelBlockingCall():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("WSACancelBlockingCall", windll["WS2_32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncGetServByName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32, use_last_error=False)(("WSAAsyncGetServByName", windll["WS2_32"]), ((1, 'hWnd'),(1, 'wMsg'),(1, 'name'),(1, 'proto'),(1, 'buf'),(1, 'buflen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncGetServByPort():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32, use_last_error=False)(("WSAAsyncGetServByPort", windll["WS2_32"]), ((1, 'hWnd'),(1, 'wMsg'),(1, 'port'),(1, 'proto'),(1, 'buf'),(1, 'buflen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncGetProtoByName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32, use_last_error=False)(("WSAAsyncGetProtoByName", windll["WS2_32"]), ((1, 'hWnd'),(1, 'wMsg'),(1, 'name'),(1, 'buf'),(1, 'buflen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncGetProtoByNumber():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,Int32,win32more.Foundation.PSTR,Int32, use_last_error=False)(("WSAAsyncGetProtoByNumber", windll["WS2_32"]), ((1, 'hWnd'),(1, 'wMsg'),(1, 'number'),(1, 'buf'),(1, 'buflen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncGetHostByName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32, use_last_error=False)(("WSAAsyncGetHostByName", windll["WS2_32"]), ((1, 'hWnd'),(1, 'wMsg'),(1, 'name'),(1, 'buf'),(1, 'buflen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncGetHostByAddr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32,win32more.Foundation.PSTR,Int32,Int32,win32more.Foundation.PSTR,Int32, use_last_error=False)(("WSAAsyncGetHostByAddr", windll["WS2_32"]), ((1, 'hWnd'),(1, 'wMsg'),(1, 'addr'),(1, 'len'),(1, 'type'),(1, 'buf'),(1, 'buflen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSACancelAsyncRequest():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE, use_last_error=False)(("WSACancelAsyncRequest", windll["WS2_32"]), ((1, 'hAsyncTaskHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAsyncSelect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HWND,UInt32,Int32, use_last_error=False)(("WSAAsyncSelect", windll["WS2_32"]), ((1, 's'),(1, 'hWnd'),(1, 'wMsg'),(1, 'lEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAccept():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),win32more.Networking.WinSock.LPCONDITIONPROC,UIntPtr, use_last_error=False)(("WSAAccept", windll["WS2_32"]), ((1, 's'),(1, 'addr'),(1, 'addrlen'),(1, 'lpfnCondition'),(1, 'dwCallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSACloseEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=False)(("WSACloseEvent", windll["WS2_32"]), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAConnect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(win32more.NetworkManagement.QoS.QOS_head), use_last_error=False)(("WSAConnect", windll["WS2_32"]), ((1, 's'),(1, 'name'),(1, 'namelen'),(1, 'lpCallerData'),(1, 'lpCalleeData'),(1, 'lpSQOS'),(1, 'lpGQOS'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAConnectByNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)(("WSAConnectByNameW", windll["WS2_32"]), ((1, 's'),(1, 'nodename'),(1, 'servicename'),(1, 'LocalAddressLength'),(1, 'LocalAddress'),(1, 'RemoteAddressLength'),(1, 'RemoteAddress'),(1, 'timeout'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAConnectByName():
-    return win32more.Networking.WinSock.WSAConnectByNameW
-def _define_WSAConnectByNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)(("WSAConnectByNameA", windll["WS2_32"]), ((1, 's'),(1, 'nodename'),(1, 'servicename'),(1, 'LocalAddressLength'),(1, 'LocalAddress'),(1, 'RemoteAddressLength'),(1, 'RemoteAddress'),(1, 'timeout'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAConnectByList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)(("WSAConnectByList", windll["WS2_32"]), ((1, 's'),(1, 'SocketAddress'),(1, 'LocalAddressLength'),(1, 'LocalAddress'),(1, 'RemoteAddressLength'),(1, 'RemoteAddress'),(1, 'timeout'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSACreateEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(("WSACreateEvent", windll["WS2_32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSADuplicateSocketA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head), use_last_error=False)(("WSADuplicateSocketA", windll["WS2_32"]), ((1, 's'),(1, 'dwProcessId'),(1, 'lpProtocolInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSADuplicateSocketW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), use_last_error=False)(("WSADuplicateSocketW", windll["WS2_32"]), ((1, 's'),(1, 'dwProcessId'),(1, 'lpProtocolInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSADuplicateSocket():
-    return win32more.Networking.WinSock.WSADuplicateSocketW
-def _define_WSAEnumNetworkEvents():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinSock.WSANETWORKEVENTS_head), use_last_error=False)(("WSAEnumNetworkEvents", windll["WS2_32"]), ((1, 's'),(1, 'hEventObject'),(1, 'lpNetworkEvents'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumProtocolsA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),POINTER(UInt32), use_last_error=False)(("WSAEnumProtocolsA", windll["WS2_32"]), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumProtocolsW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32), use_last_error=False)(("WSAEnumProtocolsW", windll["WS2_32"]), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumProtocols():
-    return win32more.Networking.WinSock.WSAEnumProtocolsW
-def _define_WSAEventSelect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,Int32, use_last_error=False)(("WSAEventSelect", windll["WS2_32"]), ((1, 's'),(1, 'hEventObject'),(1, 'lNetworkEvents'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetOverlappedResult():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32),win32more.Foundation.BOOL,POINTER(UInt32), use_last_error=False)(("WSAGetOverlappedResult", windll["WS2_32"]), ((1, 's'),(1, 'lpOverlapped'),(1, 'lpcbTransfer'),(1, 'fWait'),(1, 'lpdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetQOSByName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head), use_last_error=False)(("WSAGetQOSByName", windll["WS2_32"]), ((1, 's'),(1, 'lpQOSName'),(1, 'lpQOS'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAHtonl():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(UInt32), use_last_error=False)(("WSAHtonl", windll["WS2_32"]), ((1, 's'),(1, 'hostlong'),(1, 'lpnetlong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAHtons():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt16,POINTER(UInt16), use_last_error=False)(("WSAHtons", windll["WS2_32"]), ((1, 's'),(1, 'hostshort'),(1, 'lpnetshort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAIoctl():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSAIoctl", windll["WS2_32"]), ((1, 's'),(1, 'dwIoControlCode'),(1, 'lpvInBuffer'),(1, 'cbInBuffer'),(1, 'lpvOutBuffer'),(1, 'cbOutBuffer'),(1, 'lpcbBytesReturned'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAJoinLeaf():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.Networking.WinSock.WSABUF_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),POINTER(win32more.NetworkManagement.QoS.QOS_head),UInt32, use_last_error=False)(("WSAJoinLeaf", windll["WS2_32"]), ((1, 's'),(1, 'name'),(1, 'namelen'),(1, 'lpCallerData'),(1, 'lpCalleeData'),(1, 'lpSQOS'),(1, 'lpGQOS'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSANtohl():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt32,POINTER(UInt32), use_last_error=False)(("WSANtohl", windll["WS2_32"]), ((1, 's'),(1, 'netlong'),(1, 'lphostlong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSANtohs():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,UInt16,POINTER(UInt16), use_last_error=False)(("WSANtohs", windll["WS2_32"]), ((1, 's'),(1, 'netshort'),(1, 'lphostshort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSARecv():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSARecv", windll["WS2_32"]), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesRecvd'),(1, 'lpFlags'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSARecvDisconnect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head), use_last_error=False)(("WSARecvDisconnect", windll["WS2_32"]), ((1, 's'),(1, 'lpInboundDisconnectData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSARecvFrom():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSARecvFrom", windll["WS2_32"]), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesRecvd'),(1, 'lpFlags'),(1, 'lpFrom'),(1, 'lpFromlen'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAResetEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=False)(("WSAResetEvent", windll["WS2_32"]), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASend():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSASend", windll["WS2_32"]), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesSent'),(1, 'dwFlags'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASendMsg():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSAMSG_head),UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSASendMsg", windll["WS2_32"]), ((1, 'Handle'),(1, 'lpMsg'),(1, 'dwFlags'),(1, 'lpNumberOfBytesSent'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASendDisconnect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF_head), use_last_error=False)(("WSASendDisconnect", windll["WS2_32"]), ((1, 's'),(1, 'lpOutboundDisconnectData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASendTo():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.WSABUF),UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSASendTo", windll["WS2_32"]), ((1, 's'),(1, 'lpBuffers'),(1, 'dwBufferCount'),(1, 'lpNumberOfBytesSent'),(1, 'dwFlags'),(1, 'lpTo'),(1, 'iTolen'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=False)(("WSASetEvent", windll["WS2_32"]), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASocketA():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),UInt32,UInt32, use_last_error=False)(("WSASocketA", windll["WS2_32"]), ((1, 'af'),(1, 'type'),(1, 'protocol'),(1, 'lpProtocolInfo'),(1, 'g'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASocketW():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinSock.SOCKET,Int32,Int32,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),UInt32,UInt32, use_last_error=False)(("WSASocketW", windll["WS2_32"]), ((1, 'af'),(1, 'type'),(1, 'protocol'),(1, 'lpProtocolInfo'),(1, 'g'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASocket():
-    return win32more.Networking.WinSock.WSASocketW
-def _define_WSAWaitForMultipleEvents():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL,UInt32,win32more.Foundation.BOOL, use_last_error=False)(("WSAWaitForMultipleEvents", windll["WS2_32"]), ((1, 'cEvents'),(1, 'lphEvents'),(1, 'fWaitAll'),(1, 'dwTimeout'),(1, 'fAlertable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAddressToStringA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("WSAAddressToStringA", windll["WS2_32"]), ((1, 'lpsaAddress'),(1, 'dwAddressLength'),(1, 'lpProtocolInfo'),(1, 'lpszAddressString'),(1, 'lpdwAddressStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAddressToStringW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(Char),POINTER(UInt32), use_last_error=False)(("WSAAddressToStringW", windll["WS2_32"]), ((1, 'lpsaAddress'),(1, 'dwAddressLength'),(1, 'lpProtocolInfo'),(1, 'lpszAddressString'),(1, 'lpdwAddressStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAddressToString():
-    return win32more.Networking.WinSock.WSAAddressToStringW
-def _define_WSAStringToAddressA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOA_head),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32), use_last_error=False)(("WSAStringToAddressA", windll["WS2_32"]), ((1, 'AddressString'),(1, 'AddressFamily'),(1, 'lpProtocolInfo'),(1, 'lpAddress'),(1, 'lpAddressLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAStringToAddressW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(Int32), use_last_error=False)(("WSAStringToAddressW", windll["WS2_32"]), ((1, 'AddressString'),(1, 'AddressFamily'),(1, 'lpProtocolInfo'),(1, 'lpAddress'),(1, 'lpAddressLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAStringToAddress():
-    return win32more.Networking.WinSock.WSAStringToAddressW
-def _define_WSALookupServiceBeginA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETA_head),UInt32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("WSALookupServiceBeginA", windll["WS2_32"]), ((1, 'lpqsRestrictions'),(1, 'dwControlFlags'),(1, 'lphLookup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSALookupServiceBeginW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),UInt32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("WSALookupServiceBeginW", windll["WS2_32"]), ((1, 'lpqsRestrictions'),(1, 'dwControlFlags'),(1, 'lphLookup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSALookupServiceBegin():
-    return win32more.Networking.WinSock.WSALookupServiceBeginW
-def _define_WSALookupServiceNextA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSETA_head), use_last_error=False)(("WSALookupServiceNextA", windll["WS2_32"]), ((1, 'hLookup'),(1, 'dwControlFlags'),(1, 'lpdwBufferLength'),(1, 'lpqsResults'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSALookupServiceNextW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head), use_last_error=False)(("WSALookupServiceNextW", windll["WS2_32"]), ((1, 'hLookup'),(1, 'dwControlFlags'),(1, 'lpdwBufferLength'),(1, 'lpqsResults'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSALookupServiceNext():
-    return win32more.Networking.WinSock.WSALookupServiceNextW
-def _define_WSANSPIoctl():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSACOMPLETION_head), use_last_error=False)(("WSANSPIoctl", windll["WS2_32"]), ((1, 'hLookup'),(1, 'dwControlCode'),(1, 'lpvInBuffer'),(1, 'cbInBuffer'),(1, 'lpvOutBuffer'),(1, 'cbOutBuffer'),(1, 'lpcbBytesReturned'),(1, 'lpCompletion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSALookupServiceEnd():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE, use_last_error=False)(("WSALookupServiceEnd", windll["WS2_32"]), ((1, 'hLookup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAInstallServiceClassA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOA_head), use_last_error=False)(("WSAInstallServiceClassA", windll["WS2_32"]), ((1, 'lpServiceClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAInstallServiceClassW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head), use_last_error=False)(("WSAInstallServiceClassW", windll["WS2_32"]), ((1, 'lpServiceClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAInstallServiceClass():
-    return win32more.Networking.WinSock.WSAInstallServiceClassW
-def _define_WSARemoveServiceClass():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid), use_last_error=False)(("WSARemoveServiceClass", windll["WS2_32"]), ((1, 'lpServiceClassId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetServiceClassInfoA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Guid),POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOA_head), use_last_error=False)(("WSAGetServiceClassInfoA", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpServiceClassId'),(1, 'lpdwBufSize'),(1, 'lpServiceClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetServiceClassInfoW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Guid),POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSASERVICECLASSINFOW_head), use_last_error=False)(("WSAGetServiceClassInfoW", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpServiceClassId'),(1, 'lpdwBufSize'),(1, 'lpServiceClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetServiceClassInfo():
-    return win32more.Networking.WinSock.WSAGetServiceClassInfoW
-def _define_WSAEnumNameSpaceProvidersA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOA_head), use_last_error=False)(("WSAEnumNameSpaceProvidersA", windll["WS2_32"]), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumNameSpaceProvidersW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOW_head), use_last_error=False)(("WSAEnumNameSpaceProvidersW", windll["WS2_32"]), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumNameSpaceProviders():
-    return win32more.Networking.WinSock.WSAEnumNameSpaceProvidersW
-def _define_WSAEnumNameSpaceProvidersExA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXA_head), use_last_error=False)(("WSAEnumNameSpaceProvidersExA", windll["WS2_32"]), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumNameSpaceProvidersExW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head), use_last_error=False)(("WSAEnumNameSpaceProvidersExW", windll["WS2_32"]), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAEnumNameSpaceProvidersEx():
-    return win32more.Networking.WinSock.WSAEnumNameSpaceProvidersExW
-def _define_WSAGetServiceClassNameByClassIdA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("WSAGetServiceClassNameByClassIdA", windll["WS2_32"]), ((1, 'lpServiceClassId'),(1, 'lpszServiceClassName'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetServiceClassNameByClassIdW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(("WSAGetServiceClassNameByClassIdW", windll["WS2_32"]), ((1, 'lpServiceClassId'),(1, 'lpszServiceClassName'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAGetServiceClassNameByClassId():
-    return win32more.Networking.WinSock.WSAGetServiceClassNameByClassIdW
-def _define_WSASetServiceA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETA_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32, use_last_error=False)(("WSASetServiceA", windll["WS2_32"]), ((1, 'lpqsRegInfo'),(1, 'essoperation'),(1, 'dwControlFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetServiceW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAQUERYSETW_head),win32more.Networking.WinSock.WSAESETSERVICEOP,UInt32, use_last_error=False)(("WSASetServiceW", windll["WS2_32"]), ((1, 'lpqsRegInfo'),(1, 'essoperation'),(1, 'dwControlFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetService():
-    return win32more.Networking.WinSock.WSASetServiceW
-def _define_WSAProviderConfigChange():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSAProviderConfigChange", windll["WS2_32"]), ((1, 'lpNotificationHandle'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAPoll():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.WSAPOLLFD_head),UInt32,Int32, use_last_error=False)(("WSAPoll", windll["WS2_32"]), ((1, 'fdArray'),(1, 'fds'),(1, 'timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ProcessSocketNotifications():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Networking.WinSock.SOCK_NOTIFY_REGISTRATION),UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_ENTRY),POINTER(UInt32), use_last_error=False)(("ProcessSocketNotifications", windll["WS2_32"]), ((1, 'completionPort'),(1, 'registrationCount'),(1, 'registrationInfos'),(1, 'timeoutMs'),(1, 'completionCount'),(1, 'completionPortEntries'),(1, 'receivedEntryCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4AddressToStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.IN_ADDR_head),POINTER(Byte), use_last_error=False)(("RtlIpv4AddressToStringA", windll["ntdll"]), ((1, 'Addr'),(1, 'S'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4AddressToStringExA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN_ADDR_head),UInt16,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("RtlIpv4AddressToStringExA", windll["ntdll"]), ((1, 'Address'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4AddressToStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN_ADDR_head),POINTER(Char), use_last_error=False)(("RtlIpv4AddressToStringW", windll["ntdll"]), ((1, 'Addr'),(1, 'S'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4AddressToString():
-    return win32more.Networking.WinSock.RtlIpv4AddressToStringW
-def _define_RtlIpv4AddressToStringExW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN_ADDR_head),UInt16,POINTER(Char),POINTER(UInt32), use_last_error=False)(("RtlIpv4AddressToStringExW", windll["ntdll"]), ((1, 'Address'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4AddressToStringEx():
-    return win32more.Networking.WinSock.RtlIpv4AddressToStringExW
-def _define_RtlIpv4StringToAddressA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.PSTR),POINTER(win32more.Networking.WinSock.IN_ADDR_head), use_last_error=False)(("RtlIpv4StringToAddressA", windll["ntdll"]), ((1, 'S'),(1, 'Strict'),(1, 'Terminator'),(1, 'Addr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4StringToAddressExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Networking.WinSock.IN_ADDR_head),POINTER(UInt16), use_last_error=False)(("RtlIpv4StringToAddressExA", windll["ntdll"]), ((1, 'AddressString'),(1, 'Strict'),(1, 'Address'),(1, 'Port'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4StringToAddressW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Networking.WinSock.IN_ADDR_head), use_last_error=False)(("RtlIpv4StringToAddressW", windll["ntdll"]), ((1, 'S'),(1, 'Strict'),(1, 'Terminator'),(1, 'Addr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4StringToAddress():
-    return win32more.Networking.WinSock.RtlIpv4StringToAddressW
-def _define_RtlIpv4StringToAddressExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.BOOLEAN,POINTER(win32more.Networking.WinSock.IN_ADDR_head),POINTER(UInt16), use_last_error=False)(("RtlIpv4StringToAddressExW", windll["ntdll"]), ((1, 'AddressString'),(1, 'Strict'),(1, 'Address'),(1, 'Port'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv4StringToAddressEx():
-    return win32more.Networking.WinSock.RtlIpv4StringToAddressExW
-def _define_RtlIpv6AddressToStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(Byte), use_last_error=False)(("RtlIpv6AddressToStringA", windll["ntdll"]), ((1, 'Addr'),(1, 'S'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6AddressToStringExA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),UInt32,UInt16,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("RtlIpv6AddressToStringExA", windll["ntdll"]), ((1, 'Address'),(1, 'ScopeId'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6AddressToStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(Char), use_last_error=False)(("RtlIpv6AddressToStringW", windll["ntdll"]), ((1, 'Addr'),(1, 'S'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6AddressToString():
-    return win32more.Networking.WinSock.RtlIpv6AddressToStringW
-def _define_RtlIpv6AddressToStringExW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),UInt32,UInt16,POINTER(Char),POINTER(UInt32), use_last_error=False)(("RtlIpv6AddressToStringExW", windll["ntdll"]), ((1, 'Address'),(1, 'ScopeId'),(1, 'Port'),(1, 'AddressString'),(1, 'AddressStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6AddressToStringEx():
-    return win32more.Networking.WinSock.RtlIpv6AddressToStringExW
-def _define_RtlIpv6StringToAddressA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.PSTR),POINTER(win32more.Networking.WinSock.IN6_ADDR_head), use_last_error=False)(("RtlIpv6StringToAddressA", windll["ntdll"]), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6StringToAddressExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(UInt32),POINTER(UInt16), use_last_error=False)(("RtlIpv6StringToAddressExA", windll["ntdll"]), ((1, 'AddressString'),(1, 'Address'),(1, 'ScopeId'),(1, 'Port'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6StringToAddressW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Networking.WinSock.IN6_ADDR_head), use_last_error=False)(("RtlIpv6StringToAddressW", windll["ntdll"]), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6StringToAddress():
-    return win32more.Networking.WinSock.RtlIpv6StringToAddressW
-def _define_RtlIpv6StringToAddressExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(UInt32),POINTER(UInt16), use_last_error=False)(("RtlIpv6StringToAddressExW", windll["ntdll"]), ((1, 'AddressString'),(1, 'Address'),(1, 'ScopeId'),(1, 'Port'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIpv6StringToAddressEx():
-    return win32more.Networking.WinSock.RtlIpv6StringToAddressExW
-def _define_RtlEthernetAddressToStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.WindowsFilteringPlatform.DL_EUI48_head),POINTER(Byte), use_last_error=False)(("RtlEthernetAddressToStringA", windll["ntdll"]), ((1, 'Addr'),(1, 'S'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlEthernetAddressToStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WindowsFilteringPlatform.DL_EUI48_head),POINTER(Char), use_last_error=False)(("RtlEthernetAddressToStringW", windll["ntdll"]), ((1, 'Addr'),(1, 'S'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlEthernetAddressToString():
-    return win32more.Networking.WinSock.RtlEthernetAddressToStringW
-def _define_RtlEthernetStringToAddressA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.PSTR),POINTER(win32more.NetworkManagement.WindowsFilteringPlatform.DL_EUI48_head), use_last_error=False)(("RtlEthernetStringToAddressA", windll["ntdll"]), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlEthernetStringToAddressW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.NetworkManagement.WindowsFilteringPlatform.DL_EUI48_head), use_last_error=False)(("RtlEthernetStringToAddressW", windll["ntdll"]), ((1, 'S'),(1, 'Terminator'),(1, 'Addr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlEthernetStringToAddress():
-    return win32more.Networking.WinSock.RtlEthernetStringToAddressW
-def _define_WSARecvEx():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PSTR,Int32,POINTER(Int32), use_last_error=False)(("WSARecvEx", windll["MSWSOCK"]), ((1, 's'),(1, 'buf'),(1, 'len'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TransmitFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(win32more.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head),UInt32, use_last_error=False)(("TransmitFile", windll["MSWSOCK"]), ((1, 'hSocket'),(1, 'hFile'),(1, 'nNumberOfBytesToWrite'),(1, 'nNumberOfBytesPerSend'),(1, 'lpOverlapped'),(1, 'lpTransmitBuffers'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AcceptEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinSock.SOCKET,win32more.Networking.WinSock.SOCKET,c_void_p,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)(("AcceptEx", windll["MSWSOCK"]), ((1, 'sListenSocket'),(1, 'sAcceptSocket'),(1, 'lpOutputBuffer'),(1, 'dwReceiveDataLength'),(1, 'dwLocalAddressLength'),(1, 'dwRemoteAddressLength'),(1, 'lpdwBytesReceived'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAcceptExSockaddrs():
-    try:
-        return WINFUNCTYPE(Void,c_void_p,UInt32,UInt32,UInt32,POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32),POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head)),POINTER(Int32), use_last_error=False)(("GetAcceptExSockaddrs", windll["MSWSOCK"]), ((1, 'lpOutputBuffer'),(1, 'dwReceiveDataLength'),(1, 'dwLocalAddressLength'),(1, 'dwRemoteAddressLength'),(1, 'LocalSockaddr'),(1, 'LocalSockaddrLength'),(1, 'RemoteSockaddr'),(1, 'RemoteSockaddrLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCEnumProtocols():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32),POINTER(Int32), use_last_error=False)(("WSCEnumProtocols", windll["WS2_32"]), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCEnumProtocols32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Int32),POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head),POINTER(UInt32),POINTER(Int32), use_last_error=False)(("WSCEnumProtocols32", windll["WS2_32"]), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCDeinstallProvider():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Int32), use_last_error=False)(("WSCDeinstallProvider", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCDeinstallProvider32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Int32), use_last_error=False)(("WSCDeinstallProvider32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallProvider():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(Int32), use_last_error=False)(("WSCInstallProvider", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallProvider64_32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(Int32), use_last_error=False)(("WSCInstallProvider64_32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCGetProviderPath():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Char),POINTER(Int32),POINTER(Int32), use_last_error=False)(("WSCGetProviderPath", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProviderDllPathLen'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCGetProviderPath32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(Char),POINTER(Int32),POINTER(Int32), use_last_error=False)(("WSCGetProviderPath32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProviderDllPathLen'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCUpdateProvider():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(Int32), use_last_error=False)(("WSCUpdateProvider", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCUpdateProvider32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(Int32), use_last_error=False)(("WSCUpdateProvider32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCSetProviderInfo():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,UIntPtr,UInt32,POINTER(Int32), use_last_error=False)(("WSCSetProviderInfo", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCGetProviderInfo():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,POINTER(UIntPtr),UInt32,POINTER(Int32), use_last_error=False)(("WSCGetProviderInfo", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCSetProviderInfo32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,UIntPtr,UInt32,POINTER(Int32), use_last_error=False)(("WSCSetProviderInfo32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCGetProviderInfo32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE,c_char_p_no,POINTER(UIntPtr),UInt32,POINTER(Int32), use_last_error=False)(("WSCGetProviderInfo32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'InfoType'),(1, 'Info'),(1, 'InfoSize'),(1, 'Flags'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCSetApplicationCategory():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Char),UInt32,POINTER(Char),UInt32,UInt32,POINTER(UInt32),POINTER(Int32), use_last_error=False)(("WSCSetApplicationCategory", windll["WS2_32"]), ((1, 'Path'),(1, 'PathLength'),(1, 'Extra'),(1, 'ExtraLength'),(1, 'PermittedLspCategories'),(1, 'pPrevPermLspCat'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCGetApplicationCategory():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Char),UInt32,POINTER(Char),UInt32,POINTER(UInt32),POINTER(Int32), use_last_error=False)(("WSCGetApplicationCategory", windll["WS2_32"]), ((1, 'Path'),(1, 'PathLength'),(1, 'Extra'),(1, 'ExtraLength'),(1, 'pPermittedLspCategories'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WPUCompleteOverlappedRequest():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.System.IO.OVERLAPPED_head),UInt32,UInt32,POINTER(Int32), use_last_error=False)(("WPUCompleteOverlappedRequest", windll["WS2_32"]), ((1, 's'),(1, 'lpOverlapped'),(1, 'dwError'),(1, 'cbTransferred'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCEnumNameSpaceProviders32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOW_head), use_last_error=False)(("WSCEnumNameSpaceProviders32", windll["WS2_32"]), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCEnumNameSpaceProvidersEx32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head), use_last_error=False)(("WSCEnumNameSpaceProvidersEx32", windll["WS2_32"]), ((1, 'lpdwBufferLength'),(1, 'lpnspBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallNameSpace():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid), use_last_error=False)(("WSCInstallNameSpace", windll["WS2_32"]), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallNameSpace32():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid), use_last_error=False)(("WSCInstallNameSpace32", windll["WS2_32"]), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCUnInstallNameSpace():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid), use_last_error=False)(("WSCUnInstallNameSpace", windll["WS2_32"]), ((1, 'lpProviderId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallNameSpaceEx():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid),POINTER(win32more.System.Com.BLOB_head), use_last_error=False)(("WSCInstallNameSpaceEx", windll["WS2_32"]), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),(1, 'lpProviderSpecific'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallNameSpaceEx32():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid),POINTER(win32more.System.Com.BLOB_head), use_last_error=False)(("WSCInstallNameSpaceEx32", windll["WS2_32"]), ((1, 'lpszIdentifier'),(1, 'lpszPathName'),(1, 'dwNameSpace'),(1, 'dwVersion'),(1, 'lpProviderId'),(1, 'lpProviderSpecific'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCUnInstallNameSpace32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid), use_last_error=False)(("WSCUnInstallNameSpace32", windll["WS2_32"]), ((1, 'lpProviderId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCEnableNSProvider():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)(("WSCEnableNSProvider", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'fEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCEnableNSProvider32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)(("WSCEnableNSProvider32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'fEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCInstallProviderAndChains64_32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW),UInt32,POINTER(UInt32),POINTER(Int32), use_last_error=False)(("WSCInstallProviderAndChains64_32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'lpszProviderDllPath'),(1, 'lpszProviderDllPath32'),(1, 'lpszLspName'),(1, 'dwServiceFlags'),(1, 'lpProtocolInfoList'),(1, 'dwNumberOfEntries'),(1, 'lpdwCatalogEntryId'),(1, 'lpErrno'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAAdvertiseProvider():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),POINTER(win32more.Networking.WinSock.NSPV2_ROUTINE_head), use_last_error=False)(("WSAAdvertiseProvider", windll["WS2_32"]), ((1, 'puuidProviderId'),(1, 'pNSPv2Routine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAUnadvertiseProvider():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid), use_last_error=False)(("WSAUnadvertiseProvider", windll["WS2_32"]), ((1, 'puuidProviderId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAProviderCompleteAsyncCall():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,Int32, use_last_error=False)(("WSAProviderCompleteAsyncCall", windll["WS2_32"]), ((1, 'hAsyncCall'),(1, 'iRetCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumProtocolsA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Int32),c_void_p,POINTER(UInt32), use_last_error=True)(("EnumProtocolsA", windll["MSWSOCK"]), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumProtocolsW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Int32),c_void_p,POINTER(UInt32), use_last_error=True)(("EnumProtocolsW", windll["MSWSOCK"]), ((1, 'lpiProtocols'),(1, 'lpProtocolBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumProtocols():
-    return win32more.Networking.WinSock.EnumProtocolsW
-def _define_GetAddressByNameA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Int32),UInt32,POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),c_void_p,POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=True)(("GetAddressByNameA", windll["MSWSOCK"]), ((1, 'dwNameSpace'),(1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'lpiProtocols'),(1, 'dwResolution'),(1, 'lpServiceAsyncInfo'),(1, 'lpCsaddrBuffer'),(1, 'lpdwBufferLength'),(1, 'lpAliasBuffer'),(1, 'lpdwAliasBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddressByNameW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Int32),UInt32,POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),c_void_p,POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=True)(("GetAddressByNameW", windll["MSWSOCK"]), ((1, 'dwNameSpace'),(1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'lpiProtocols'),(1, 'dwResolution'),(1, 'lpServiceAsyncInfo'),(1, 'lpCsaddrBuffer'),(1, 'lpdwBufferLength'),(1, 'lpAliasBuffer'),(1, 'lpdwAliasBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddressByName():
-    return win32more.Networking.WinSock.GetAddressByNameW
-def _define_GetTypeByNameA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(Guid), use_last_error=True)(("GetTypeByNameA", windll["MSWSOCK"]), ((1, 'lpServiceName'),(1, 'lpServiceType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTypeByNameW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=True)(("GetTypeByNameW", windll["MSWSOCK"]), ((1, 'lpServiceName'),(1, 'lpServiceType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTypeByName():
-    return win32more.Networking.WinSock.GetTypeByNameW
-def _define_GetNameByTypeA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PSTR,UInt32, use_last_error=True)(("GetNameByTypeA", windll["MSWSOCK"]), ((1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'dwNameLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNameByTypeW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),win32more.Foundation.PWSTR,UInt32, use_last_error=True)(("GetNameByTypeW", windll["MSWSOCK"]), ((1, 'lpServiceType'),(1, 'lpServiceName'),(1, 'dwNameLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNameByType():
-    return win32more.Networking.WinSock.GetNameByTypeW
-def _define_SetServiceA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Networking.WinSock.SET_SERVICE_OPERATION,UInt32,POINTER(win32more.Networking.WinSock.SERVICE_INFOA_head),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),POINTER(UInt32), use_last_error=True)(("SetServiceA", windll["MSWSOCK"]), ((1, 'dwNameSpace'),(1, 'dwOperation'),(1, 'dwFlags'),(1, 'lpServiceInfo'),(1, 'lpServiceAsyncInfo'),(1, 'lpdwStatusFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetServiceW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Networking.WinSock.SET_SERVICE_OPERATION,UInt32,POINTER(win32more.Networking.WinSock.SERVICE_INFOW_head),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head),POINTER(UInt32), use_last_error=True)(("SetServiceW", windll["MSWSOCK"]), ((1, 'dwNameSpace'),(1, 'dwOperation'),(1, 'dwFlags'),(1, 'lpServiceInfo'),(1, 'lpServiceAsyncInfo'),(1, 'lpdwStatusFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetService():
-    return win32more.Networking.WinSock.SetServiceW
-def _define_GetServiceA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PSTR,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head), use_last_error=True)(("GetServiceA", windll["MSWSOCK"]), ((1, 'dwNameSpace'),(1, 'lpGuid'),(1, 'lpServiceName'),(1, 'dwProperties'),(1, 'lpBuffer'),(1, 'lpdwBufferSize'),(1, 'lpServiceAsyncInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetServiceW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Networking.WinSock.SERVICE_ASYNC_INFO_head), use_last_error=True)(("GetServiceW", windll["MSWSOCK"]), ((1, 'dwNameSpace'),(1, 'lpGuid'),(1, 'lpServiceName'),(1, 'dwProperties'),(1, 'lpBuffer'),(1, 'lpdwBufferSize'),(1, 'lpServiceAsyncInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetService():
-    return win32more.Networking.WinSock.GetServiceW
-def _define_getaddrinfo():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.ADDRINFOA_head),POINTER(POINTER(win32more.Networking.WinSock.ADDRINFOA_head)), use_last_error=False)(("getaddrinfo", windll["WS2_32"]), ((1, 'pNodeName'),(1, 'pServiceName'),(1, 'pHints'),(1, 'ppResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddrInfoW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.addrinfoW_head),POINTER(POINTER(win32more.Networking.WinSock.addrinfoW_head)), use_last_error=False)(("GetAddrInfoW", windll["WS2_32"]), ((1, 'pNodeName'),(1, 'pServiceName'),(1, 'pHints'),(1, 'ppResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddrInfoExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.addrinfoexA_head),POINTER(POINTER(win32more.Networking.WinSock.addrinfoexA_head)),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("GetAddrInfoExA", windll["WS2_32"]), ((1, 'pName'),(1, 'pServiceName'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'hints'),(1, 'ppResult'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpNameHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddrInfoExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.addrinfoexW_head),POINTER(POINTER(win32more.Networking.WinSock.addrinfoexW_head)),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("GetAddrInfoExW", windll["WS2_32"]), ((1, 'pName'),(1, 'pServiceName'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'hints'),(1, 'ppResult'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddrInfoEx():
-    return win32more.Networking.WinSock.GetAddrInfoExW
-def _define_GetAddrInfoExCancel():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("GetAddrInfoExCancel", windll["WS2_32"]), ((1, 'lpHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAddrInfoExOverlappedResult():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)(("GetAddrInfoExOverlappedResult", windll["WS2_32"]), ((1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetAddrInfoExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_head),UInt32,POINTER(win32more.System.Com.BLOB_head),UInt32,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("SetAddrInfoExA", windll["WS2_32"]), ((1, 'pName'),(1, 'pServiceName'),(1, 'pAddresses'),(1, 'dwAddressCount'),(1, 'lpBlob'),(1, 'dwFlags'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpNameHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetAddrInfoExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_head),UInt32,POINTER(win32more.System.Com.BLOB_head),UInt32,UInt32,POINTER(Guid),POINTER(win32more.Networking.WinSock.timeval_head),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("SetAddrInfoExW", windll["WS2_32"]), ((1, 'pName'),(1, 'pServiceName'),(1, 'pAddresses'),(1, 'dwAddressCount'),(1, 'lpBlob'),(1, 'dwFlags'),(1, 'dwNameSpace'),(1, 'lpNspId'),(1, 'timeout'),(1, 'lpOverlapped'),(1, 'lpCompletionRoutine'),(1, 'lpNameHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetAddrInfoEx():
-    return win32more.Networking.WinSock.SetAddrInfoExW
-def _define_freeaddrinfo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.ADDRINFOA_head), use_last_error=False)(("freeaddrinfo", windll["WS2_32"]), ((1, 'pAddrInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeAddrInfoW():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.addrinfoW_head), use_last_error=False)(("FreeAddrInfoW", windll["WS2_32"]), ((1, 'pAddrInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeAddrInfoEx():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.addrinfoexA_head), use_last_error=False)(("FreeAddrInfoEx", windll["WS2_32"]), ((1, 'pAddrInfoEx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeAddrInfoExW():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinSock.addrinfoexW_head), use_last_error=False)(("FreeAddrInfoExW", windll["WS2_32"]), ((1, 'pAddrInfoEx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_getnameinfo():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,Int32, use_last_error=False)(("getnameinfo", windll["WS2_32"]), ((1, 'pSockaddr'),(1, 'SockaddrLength'),(1, 'pNodeBuffer'),(1, 'NodeBufferSize'),(1, 'pServiceBuffer'),(1, 'ServiceBufferSize'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNameInfoW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),Int32,POINTER(Char),UInt32,POINTER(Char),UInt32,Int32, use_last_error=False)(("GetNameInfoW", windll["WS2_32"]), ((1, 'pSockaddr'),(1, 'SockaddrLength'),(1, 'pNodeBuffer'),(1, 'NodeBufferSize'),(1, 'pServiceBuffer'),(1, 'ServiceBufferSize'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_inet_pton():
-    try:
-        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PSTR,c_void_p, use_last_error=False)(("inet_pton", windll["WS2_32"]), ((1, 'Family'),(1, 'pszAddrString'),(1, 'pAddrBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InetPtonW():
-    try:
-        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PWSTR,c_void_p, use_last_error=False)(("InetPtonW", windll["WS2_32"]), ((1, 'Family'),(1, 'pszAddrString'),(1, 'pAddrBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_inet_ntop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,Int32,c_void_p,POINTER(Byte),UIntPtr, use_last_error=False)(("inet_ntop", windll["WS2_32"]), ((1, 'Family'),(1, 'pAddr'),(1, 'pStringBuf'),(1, 'StringBufSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InetNtopW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,Int32,c_void_p,POINTER(Char),UIntPtr, use_last_error=False)(("InetNtopW", windll["WS2_32"]), ((1, 'Family'),(1, 'pAddr'),(1, 'pStringBuf'),(1, 'StringBufSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetSocketSecurity():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_SECURITY_SETTINGS_head),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSASetSocketSecurity", windll["fwpuclnt"]), ((1, 'Socket'),(1, 'SecuritySettings'),(1, 'SecuritySettingsLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAQuerySocketSecurity():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_TEMPLATE_head),UInt32,POINTER(win32more.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO_head),POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSAQuerySocketSecurity", windll["fwpuclnt"]), ((1, 'Socket'),(1, 'SecurityQueryTemplate'),(1, 'SecurityQueryTemplateLen'),(1, 'SecurityQueryInfo'),(1, 'SecurityQueryInfoLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSASetSocketPeerTargetName():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKET_PEER_TARGET_NAME_head),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSASetSocketPeerTargetName", windll["fwpuclnt"]), ((1, 'Socket'),(1, 'PeerTargetName'),(1, 'PeerTargetNameLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSADeleteSocketPeerTargetName():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),win32more.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, use_last_error=False)(("WSADeleteSocketPeerTargetName", windll["fwpuclnt"]), ((1, 'Socket'),(1, 'PeerAddr'),(1, 'PeerAddrLen'),(1, 'Overlapped'),(1, 'CompletionRoutine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSAImpersonateSocketPeer():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Networking.WinSock.SOCKET,POINTER(win32more.Networking.WinSock.SOCKADDR_head),UInt32, use_last_error=False)(("WSAImpersonateSocketPeer", windll["fwpuclnt"]), ((1, 'Socket'),(1, 'PeerAddr'),(1, 'PeerAddrLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSARevertImpersonation():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("WSARevertImpersonation", windll["fwpuclnt"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSocketMediaStreamingMode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(("SetSocketMediaStreamingMode", windll["Windows.Networking"]), ((1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCWriteProviderOrder():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),UInt32, use_last_error=False)(("WSCWriteProviderOrder", windll["WS2_32"]), ((1, 'lpwdCatalogEntryId'),(1, 'dwNumberOfEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCWriteProviderOrder32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),UInt32, use_last_error=False)(("WSCWriteProviderOrder32", windll["WS2_32"]), ((1, 'lpwdCatalogEntryId'),(1, 'dwNumberOfEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCWriteNameSpaceOrder():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),UInt32, use_last_error=False)(("WSCWriteNameSpaceOrder", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'dwNumberOfEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSCWriteNameSpaceOrder32():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Guid),UInt32, use_last_error=False)(("WSCWriteNameSpaceOrder32", windll["WS2_32"]), ((1, 'lpProviderId'),(1, 'dwNumberOfEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+    return WSPUPCALLTABLE
 __all__ = [
-    "SOCKET_DEFAULT2_QM_POLICY",
-    "REAL_TIME_NOTIFICATION_CAPABILITY",
-    "REAL_TIME_NOTIFICATION_CAPABILITY_EX",
-    "ASSOCIATE_NAMERES_CONTEXT",
-    "TIMESTAMPING_FLAG_RX",
-    "TIMESTAMPING_FLAG_TX",
-    "SO_TIMESTAMP",
-    "SO_TIMESTAMP_ID",
-    "TCP_INITIAL_RTO_DEFAULT_RTT",
-    "TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS",
-    "SOCKET_SETTINGS_GUARANTEE_ENCRYPTION",
-    "SOCKET_SETTINGS_ALLOW_INSECURE",
-    "SOCKET_SETTINGS_IPSEC_SKIP_FILTER_INSTANTIATION",
-    "SOCKET_SETTINGS_IPSEC_OPTIONAL_PEER_NAME_VERIFICATION",
-    "SOCKET_SETTINGS_IPSEC_ALLOW_FIRST_INBOUND_PKT_UNENCRYPTED",
-    "SOCKET_SETTINGS_IPSEC_PEER_NAME_IS_RAW_FORMAT",
-    "SOCKET_QUERY_IPSEC2_ABORT_CONNECTION_ON_FIELD_CHANGE",
-    "SOCKET_QUERY_IPSEC2_FIELD_MASK_MM_SA_ID",
-    "SOCKET_QUERY_IPSEC2_FIELD_MASK_QM_SA_ID",
-    "SOCKET_INFO_CONNECTION_SECURED",
-    "SOCKET_INFO_CONNECTION_ENCRYPTED",
-    "SOCKET_INFO_CONNECTION_IMPERSONATED",
-    "IN4ADDR_LOOPBACK",
-    "IN4ADDR_LOOPBACKPREFIX_LENGTH",
-    "IN4ADDR_LINKLOCALPREFIX_LENGTH",
-    "IN4ADDR_MULTICASTPREFIX_LENGTH",
-    "RIO_MSG_DONT_NOTIFY",
-    "RIO_MSG_DEFER",
-    "RIO_MSG_WAITALL",
-    "RIO_MSG_COMMIT_ONLY",
-    "RIO_MAX_CQ_SIZE",
-    "RIO_CORRUPT_CQ",
-    "AF_UNIX",
-    "AF_IMPLINK",
-    "AF_PUP",
-    "AF_CHAOS",
-    "AF_NS",
-    "AF_IPX",
-    "AF_ISO",
-    "AF_OSI",
-    "AF_ECMA",
-    "AF_DATAKIT",
-    "AF_CCITT",
-    "AF_SNA",
-    "AF_DECnet",
-    "AF_DLI",
-    "AF_LAT",
-    "AF_HYLINK",
-    "AF_APPLETALK",
-    "AF_NETBIOS",
-    "AF_VOICEVIEW",
-    "AF_FIREFOX",
-    "AF_UNKNOWN1",
-    "AF_BAN",
-    "AF_ATM",
-    "AF_CLUSTER",
-    "AF_12844",
-    "AF_IRDA",
-    "AF_NETDES",
-    "AF_MAX",
-    "AF_TCNPROCESS",
-    "AF_TCNMESSAGE",
-    "AF_ICLFXBM",
-    "AF_LINK",
-    "AF_HYPERV",
-    "SOCK_STREAM",
-    "SOCK_DGRAM",
-    "SOCK_RAW",
-    "SOCK_RDM",
-    "SOCK_SEQPACKET",
-    "SOL_SOCKET",
-    "SO_DEBUG",
-    "SO_ACCEPTCONN",
-    "SO_REUSEADDR",
-    "SO_KEEPALIVE",
-    "SO_DONTROUTE",
-    "SO_BROADCAST",
-    "SO_USELOOPBACK",
-    "SO_LINGER",
-    "SO_OOBINLINE",
-    "SO_SNDBUF",
-    "SO_RCVBUF",
-    "SO_SNDLOWAT",
-    "SO_RCVLOWAT",
-    "SO_SNDTIMEO",
-    "SO_RCVTIMEO",
-    "SO_ERROR",
-    "SO_TYPE",
-    "SO_BSP_STATE",
-    "SO_GROUP_ID",
-    "SO_GROUP_PRIORITY",
-    "SO_MAX_MSG_SIZE",
-    "SO_CONDITIONAL_ACCEPT",
-    "SO_PAUSE_ACCEPT",
-    "SO_COMPARTMENT_ID",
-    "SO_RANDOMIZE_PORT",
-    "SO_PORT_SCALABILITY",
-    "SO_REUSE_UNICASTPORT",
-    "SO_REUSE_MULTICASTPORT",
-    "SO_ORIGINAL_DST",
-    "IP6T_SO_ORIGINAL_DST",
-    "WSK_SO_BASE",
-    "TCP_NODELAY",
-    "_SS_MAXSIZE",
-    "IOC_UNIX",
-    "IOC_WS2",
-    "IOC_PROTOCOL",
-    "IOC_VENDOR",
-    "IPPROTO_IP",
-    "IPPORT_TCPMUX",
-    "IPPORT_ECHO",
-    "IPPORT_DISCARD",
-    "IPPORT_SYSTAT",
-    "IPPORT_DAYTIME",
-    "IPPORT_NETSTAT",
-    "IPPORT_QOTD",
-    "IPPORT_MSP",
-    "IPPORT_CHARGEN",
-    "IPPORT_FTP_DATA",
-    "IPPORT_FTP",
-    "IPPORT_TELNET",
-    "IPPORT_SMTP",
-    "IPPORT_TIMESERVER",
-    "IPPORT_NAMESERVER",
-    "IPPORT_WHOIS",
-    "IPPORT_MTP",
-    "IPPORT_TFTP",
-    "IPPORT_RJE",
-    "IPPORT_FINGER",
-    "IPPORT_TTYLINK",
-    "IPPORT_SUPDUP",
-    "IPPORT_POP3",
-    "IPPORT_NTP",
-    "IPPORT_EPMAP",
-    "IPPORT_NETBIOS_NS",
-    "IPPORT_NETBIOS_DGM",
-    "IPPORT_NETBIOS_SSN",
-    "IPPORT_IMAP",
-    "IPPORT_SNMP",
-    "IPPORT_SNMP_TRAP",
-    "IPPORT_IMAP3",
-    "IPPORT_LDAP",
-    "IPPORT_HTTPS",
-    "IPPORT_MICROSOFT_DS",
-    "IPPORT_EXECSERVER",
-    "IPPORT_LOGINSERVER",
-    "IPPORT_CMDSERVER",
-    "IPPORT_EFSSERVER",
-    "IPPORT_BIFFUDP",
-    "IPPORT_WHOSERVER",
-    "IPPORT_ROUTESERVER",
-    "IPPORT_RESERVED",
-    "IPPORT_REGISTERED_MIN",
-    "IPPORT_REGISTERED_MAX",
-    "IPPORT_DYNAMIC_MIN",
-    "IPPORT_DYNAMIC_MAX",
-    "IN_CLASSA_NET",
-    "IN_CLASSA_NSHIFT",
-    "IN_CLASSA_HOST",
-    "IN_CLASSA_MAX",
-    "IN_CLASSB_NET",
-    "IN_CLASSB_NSHIFT",
-    "IN_CLASSB_HOST",
-    "IN_CLASSB_MAX",
-    "IN_CLASSC_NET",
-    "IN_CLASSC_NSHIFT",
-    "IN_CLASSC_HOST",
-    "IN_CLASSD_NET",
-    "IN_CLASSD_NSHIFT",
-    "IN_CLASSD_HOST",
-    "INADDR_LOOPBACK",
-    "INADDR_NONE",
-    "IOCPARM_MASK",
-    "IOC_VOID",
-    "IOC_OUT",
-    "IOC_IN",
-    "MSG_TRUNC",
-    "MSG_CTRUNC",
-    "MSG_BCAST",
-    "MSG_MCAST",
-    "MSG_ERRQUEUE",
-    "AI_PASSIVE",
-    "AI_CANONNAME",
-    "AI_NUMERICHOST",
-    "AI_NUMERICSERV",
-    "AI_DNS_ONLY",
-    "AI_FORCE_CLEAR_TEXT",
-    "AI_BYPASS_DNS_CACHE",
-    "AI_RETURN_TTL",
-    "AI_ALL",
-    "AI_ADDRCONFIG",
-    "AI_V4MAPPED",
-    "AI_NON_AUTHORITATIVE",
-    "AI_SECURE",
-    "AI_RETURN_PREFERRED_NAMES",
-    "AI_FQDN",
-    "AI_FILESERVER",
-    "AI_DISABLE_IDN_ENCODING",
-    "AI_SECURE_WITH_FALLBACK",
-    "AI_EXCLUSIVE_CUSTOM_SERVERS",
-    "AI_RETURN_RESPONSE_FLAGS",
-    "AI_REQUIRE_SECURE",
-    "AI_RESOLUTION_HANDLE",
-    "AI_EXTENDED",
+    "AAL5_MODE_MESSAGE",
+    "AAL5_MODE_STREAMING",
+    "AAL5_PARAMETERS",
+    "AAL5_SSCS_FRAME_RELAY",
+    "AAL5_SSCS_NULL",
+    "AAL5_SSCS_SSCOP_ASSURED",
+    "AAL5_SSCS_SSCOP_NON_ASSURED",
+    "AALTYPE_5",
+    "AALTYPE_USER",
+    "AALUSER_PARAMETERS",
+    "AAL_PARAMETERS_IE",
+    "AAL_TYPE",
+    "ADDRESS_FAMILY",
+    "ADDRINFOA",
+    "ADDRINFOEX2A",
+    "ADDRINFOEX2W",
+    "ADDRINFOEX3",
+    "ADDRINFOEX4",
+    "ADDRINFOEX5",
+    "ADDRINFOEX6",
+    "ADDRINFOEXA",
+    "ADDRINFOEXW",
     "ADDRINFOEX_VERSION_2",
     "ADDRINFOEX_VERSION_3",
     "ADDRINFOEX_VERSION_4",
     "ADDRINFOEX_VERSION_5",
     "ADDRINFOEX_VERSION_6",
-    "AI_DNS_SERVER_TYPE_UDP",
-    "AI_DNS_SERVER_TYPE_DOH",
-    "AI_DNS_SERVER_UDP_FALLBACK",
-    "AI_DNS_RESPONSE_SECURE",
+    "ADDRINFOW",
+    "ADDRINFO_DNS_SERVER",
+    "AFPROTOCOLS",
+    "AF_12844",
+    "AF_APPLETALK",
+    "AF_ATM",
+    "AF_BAN",
+    "AF_CCITT",
+    "AF_CHAOS",
+    "AF_CLUSTER",
+    "AF_DATAKIT",
+    "AF_DECnet",
+    "AF_DLI",
+    "AF_ECMA",
+    "AF_FIREFOX",
+    "AF_HYLINK",
+    "AF_HYPERV",
+    "AF_ICLFXBM",
+    "AF_IMPLINK",
+    "AF_INET",
+    "AF_INET6",
+    "AF_IPX",
+    "AF_IRDA",
+    "AF_ISO",
+    "AF_LAT",
+    "AF_LINK",
+    "AF_MAX",
+    "AF_NETBIOS",
+    "AF_NETDES",
+    "AF_NS",
+    "AF_OSI",
+    "AF_PUP",
+    "AF_SNA",
+    "AF_TCNMESSAGE",
+    "AF_TCNPROCESS",
+    "AF_UNIX",
+    "AF_UNKNOWN1",
+    "AF_UNSPEC",
+    "AF_VOICEVIEW",
+    "AI_ADDRCONFIG",
+    "AI_ALL",
+    "AI_BYPASS_DNS_CACHE",
+    "AI_CANONNAME",
+    "AI_DISABLE_IDN_ENCODING",
+    "AI_DNS_ONLY",
     "AI_DNS_RESPONSE_HOSTFILE",
-    "NS_ALL",
-    "NS_SAP",
-    "NS_NDS",
-    "NS_PEER_BROWSE",
-    "NS_SLP",
-    "NS_DHCP",
-    "NS_TCPIP_LOCAL",
-    "NS_TCPIP_HOSTS",
-    "NS_DNS",
-    "NS_NETBT",
-    "NS_WINS",
-    "NS_NLA",
-    "NS_NBP",
-    "NS_MS",
-    "NS_STDA",
-    "NS_NTDS",
-    "NS_EMAIL",
-    "NS_X500",
-    "NS_NIS",
-    "NS_NISPLUS",
-    "NS_WRQ",
-    "NS_NETDES",
-    "NI_NOFQDN",
-    "NI_NUMERICHOST",
-    "NI_NAMEREQD",
-    "NI_NUMERICSERV",
-    "NI_DGRAM",
-    "NI_MAXHOST",
-    "NI_MAXSERV",
-    "IFF_UP",
-    "IFF_BROADCAST",
-    "IFF_LOOPBACK",
-    "IFF_POINTTOPOINT",
-    "IFF_MULTICAST",
-    "IP_OPTIONS",
-    "IP_HDRINCL",
-    "IP_TOS",
-    "IP_TTL",
-    "IP_MULTICAST_IF",
-    "IP_MULTICAST_TTL",
-    "IP_MULTICAST_LOOP",
-    "IP_ADD_MEMBERSHIP",
-    "IP_DROP_MEMBERSHIP",
-    "IP_DONTFRAGMENT",
-    "IP_ADD_SOURCE_MEMBERSHIP",
-    "IP_DROP_SOURCE_MEMBERSHIP",
-    "IP_BLOCK_SOURCE",
-    "IP_UNBLOCK_SOURCE",
-    "IP_PKTINFO",
-    "IP_HOPLIMIT",
-    "IP_RECVTTL",
-    "IP_RECEIVE_BROADCAST",
-    "IP_RECVIF",
-    "IP_RECVDSTADDR",
-    "IP_IFLIST",
-    "IP_ADD_IFLIST",
-    "IP_DEL_IFLIST",
-    "IP_UNICAST_IF",
-    "IP_RTHDR",
-    "IP_GET_IFLIST",
-    "IP_RECVRTHDR",
-    "IP_TCLASS",
-    "IP_RECVTCLASS",
-    "IP_RECVTOS",
-    "IP_ORIGINAL_ARRIVAL_IF",
-    "IP_ECN",
-    "IP_RECVECN",
-    "IP_PKTINFO_EX",
-    "IP_WFP_REDIRECT_RECORDS",
-    "IP_WFP_REDIRECT_CONTEXT",
-    "IP_MTU_DISCOVER",
-    "IP_MTU",
-    "IP_NRT_INTERFACE",
-    "IP_RECVERR",
-    "IP_USER_MTU",
-    "IP_UNSPECIFIED_TYPE_OF_SERVICE",
-    "IP_UNSPECIFIED_USER_MTU",
-    "IN6ADDR_LINKLOCALPREFIX_LENGTH",
-    "IN6ADDR_MULTICASTPREFIX_LENGTH",
-    "IN6ADDR_SOLICITEDNODEMULTICASTPREFIX_LENGTH",
-    "IN6ADDR_V4MAPPEDPREFIX_LENGTH",
-    "IN6ADDR_6TO4PREFIX_LENGTH",
-    "IN6ADDR_TEREDOPREFIX_LENGTH",
-    "MCAST_JOIN_GROUP",
-    "MCAST_LEAVE_GROUP",
-    "MCAST_BLOCK_SOURCE",
-    "MCAST_UNBLOCK_SOURCE",
-    "MCAST_JOIN_SOURCE_GROUP",
-    "MCAST_LEAVE_SOURCE_GROUP",
-    "IPV6_HOPOPTS",
-    "IPV6_HDRINCL",
-    "IPV6_UNICAST_HOPS",
-    "IPV6_MULTICAST_IF",
-    "IPV6_MULTICAST_HOPS",
-    "IPV6_MULTICAST_LOOP",
-    "IPV6_ADD_MEMBERSHIP",
-    "IPV6_JOIN_GROUP",
-    "IPV6_DROP_MEMBERSHIP",
-    "IPV6_LEAVE_GROUP",
-    "IPV6_DONTFRAG",
-    "IPV6_PKTINFO",
-    "IPV6_HOPLIMIT",
-    "IPV6_PROTECTION_LEVEL",
-    "IPV6_RECVIF",
-    "IPV6_RECVDSTADDR",
-    "IPV6_CHECKSUM",
-    "IPV6_V6ONLY",
-    "IPV6_IFLIST",
-    "IPV6_ADD_IFLIST",
-    "IPV6_DEL_IFLIST",
-    "IPV6_UNICAST_IF",
-    "IPV6_RTHDR",
-    "IPV6_GET_IFLIST",
-    "IPV6_RECVRTHDR",
-    "IPV6_TCLASS",
-    "IPV6_RECVTCLASS",
-    "IPV6_ECN",
-    "IPV6_RECVECN",
-    "IPV6_PKTINFO_EX",
-    "IPV6_WFP_REDIRECT_RECORDS",
-    "IPV6_WFP_REDIRECT_CONTEXT",
-    "IPV6_MTU_DISCOVER",
-    "IPV6_MTU",
-    "IPV6_NRT_INTERFACE",
-    "IPV6_RECVERR",
-    "IPV6_USER_MTU",
-    "IP_UNSPECIFIED_HOP_LIMIT",
-    "IP_PROTECTION_LEVEL",
-    "PROTECTION_LEVEL_UNRESTRICTED",
-    "PROTECTION_LEVEL_EDGERESTRICTED",
-    "PROTECTION_LEVEL_RESTRICTED",
-    "PROTECTION_LEVEL_DEFAULT",
-    "INET_ADDRSTRLEN",
-    "INET6_ADDRSTRLEN",
-    "TCP_OFFLOAD_NO_PREFERENCE",
-    "TCP_OFFLOAD_NOT_PREFERRED",
-    "TCP_OFFLOAD_PREFERRED",
-    "TCP_EXPEDITED_1122",
-    "TCP_KEEPALIVE",
-    "TCP_MAXSEG",
-    "TCP_MAXRT",
-    "TCP_STDURG",
-    "TCP_NOURG",
-    "TCP_ATMARK",
-    "TCP_NOSYNRETRIES",
-    "TCP_TIMESTAMPS",
-    "TCP_OFFLOAD_PREFERENCE",
-    "TCP_CONGESTION_ALGORITHM",
-    "TCP_DELAY_FIN_ACK",
-    "TCP_MAXRTMS",
-    "TCP_FASTOPEN",
-    "TCP_KEEPCNT",
-    "TCP_KEEPIDLE",
-    "TCP_KEEPINTVL",
-    "TCP_FAIL_CONNECT_ON_ICMP_ERROR",
-    "TCP_ICMP_ERROR_INFO",
-    "UDP_SEND_MSG_SIZE",
-    "UDP_RECV_MAX_COALESCED_SIZE",
-    "UDP_COALESCED_INFO",
-    "WINDOWS_AF_IRDA",
-    "WINDOWS_PF_IRDA",
-    "WCE_AF_IRDA",
-    "WCE_PF_IRDA",
-    "IRDA_PROTO_SOCK_STREAM",
-    "PF_IRDA",
-    "SOL_IRLMP",
-    "IRLMP_ENUMDEVICES",
-    "IRLMP_IAS_SET",
-    "IRLMP_IAS_QUERY",
-    "IRLMP_SEND_PDU_LEN",
-    "IRLMP_EXCLUSIVE_MODE",
-    "IRLMP_IRLPT_MODE",
-    "IRLMP_9WIRE_MODE",
-    "IRLMP_TINYTP_MODE",
-    "IRLMP_PARAMETERS",
-    "IRLMP_DISCOVERY_MODE",
-    "IRLMP_SHARP_MODE",
-    "IAS_ATTRIB_NO_CLASS",
-    "IAS_ATTRIB_NO_ATTRIB",
-    "IAS_ATTRIB_INT",
-    "IAS_ATTRIB_OCTETSEQ",
-    "IAS_ATTRIB_STR",
-    "IAS_MAX_USER_STRING",
-    "IAS_MAX_OCTET_STRING",
-    "IAS_MAX_CLASSNAME",
-    "IAS_MAX_ATTRIBNAME",
-    "LmCharSetASCII",
-    "LmCharSetISO_8859_1",
-    "LmCharSetISO_8859_2",
-    "LmCharSetISO_8859_3",
-    "LmCharSetISO_8859_4",
-    "LmCharSetISO_8859_5",
-    "LmCharSetISO_8859_6",
-    "LmCharSetISO_8859_7",
-    "LmCharSetISO_8859_8",
-    "LmCharSetISO_8859_9",
-    "LmCharSetUNICODE",
-    "LM_BAUD_1200",
-    "LM_BAUD_2400",
-    "LM_BAUD_9600",
-    "LM_BAUD_19200",
-    "LM_BAUD_38400",
-    "LM_BAUD_57600",
-    "LM_BAUD_115200",
-    "LM_BAUD_576K",
-    "LM_BAUD_1152K",
-    "LM_BAUD_4M",
-    "LM_BAUD_16M",
-    "SO_CONNDATA",
-    "SO_CONNOPT",
-    "SO_DISCDATA",
-    "SO_DISCOPT",
-    "SO_CONNDATALEN",
-    "SO_CONNOPTLEN",
-    "SO_DISCDATALEN",
-    "SO_DISCOPTLEN",
-    "SO_OPENTYPE",
-    "SO_SYNCHRONOUS_ALERT",
-    "SO_SYNCHRONOUS_NONALERT",
-    "SO_MAXDG",
-    "SO_MAXPATHDG",
-    "SO_UPDATE_ACCEPT_CONTEXT",
-    "SO_CONNECT_TIME",
-    "SO_UPDATE_CONNECT_CONTEXT",
-    "TCP_BSDURGENT",
-    "TF_DISCONNECT",
-    "TF_REUSE_SOCKET",
-    "TF_WRITE_BEHIND",
-    "TF_USE_DEFAULT_WORKER",
-    "TF_USE_SYSTEM_THREAD",
-    "TF_USE_KERNEL_APC",
-    "TP_ELEMENT_MEMORY",
-    "TP_ELEMENT_FILE",
-    "TP_ELEMENT_EOP",
-    "TP_DISCONNECT",
-    "TP_REUSE_SOCKET",
-    "TP_USE_DEFAULT_WORKER",
-    "TP_USE_SYSTEM_THREAD",
-    "TP_USE_KERNEL_APC",
-    "DE_REUSE_SOCKET",
-    "NLA_ALLUSERS_NETWORK",
-    "NLA_FRIENDLY_NAME",
-    "SERVICE_RESOURCE",
-    "SERVICE_SERVICE",
-    "SERVICE_LOCAL",
-    "SERVICE_FLAG_DEFER",
-    "SERVICE_FLAG_HARD",
-    "PROP_COMMENT",
-    "PROP_LOCALE",
-    "PROP_DISPLAY_HINT",
-    "PROP_VERSION",
-    "PROP_START_TIME",
-    "PROP_MACHINE",
-    "PROP_ADDRESSES",
-    "PROP_SD",
-    "PROP_ALL",
-    "SERVICE_ADDRESS_FLAG_RPC_CN",
-    "SERVICE_ADDRESS_FLAG_RPC_DG",
-    "SERVICE_ADDRESS_FLAG_RPC_NB",
-    "NS_DEFAULT",
-    "NS_VNS",
-    "NSTYPE_HIERARCHICAL",
-    "NSTYPE_DYNAMIC",
-    "NSTYPE_ENUMERABLE",
-    "NSTYPE_WORKGROUP",
-    "XP_CONNECTIONLESS",
-    "XP_GUARANTEED_DELIVERY",
-    "XP_GUARANTEED_ORDER",
-    "XP_MESSAGE_ORIENTED",
-    "XP_PSEUDO_STREAM",
-    "XP_GRACEFUL_CLOSE",
-    "XP_EXPEDITED_DATA",
-    "XP_CONNECT_DATA",
-    "XP_DISCONNECT_DATA",
-    "XP_SUPPORTS_BROADCAST",
-    "XP_SUPPORTS_MULTICAST",
-    "XP_BANDWIDTH_ALLOCATION",
-    "XP_FRAGMENTATION",
-    "XP_ENCRYPTS",
-    "RES_SOFT_SEARCH",
-    "RES_FIND_MULTIPLE",
-    "RES_SERVICE",
-    "SET_SERVICE_PARTIAL_SUCCESS",
-    "FD_SETSIZE",
-    "IMPLINK_IP",
-    "IMPLINK_LOWEXPER",
-    "IMPLINK_HIGHEXPER",
-    "WSADESCRIPTION_LEN",
-    "WSASYS_STATUS_LEN",
-    "IP_DEFAULT_MULTICAST_TTL",
-    "IP_DEFAULT_MULTICAST_LOOP",
-    "IP_MAX_MEMBERSHIPS",
-    "SOCKET_ERROR",
-    "PF_UNIX",
-    "PF_IMPLINK",
-    "PF_PUP",
-    "PF_CHAOS",
-    "PF_NS",
-    "PF_IPX",
-    "PF_ISO",
-    "PF_OSI",
-    "PF_ECMA",
-    "PF_DATAKIT",
-    "PF_CCITT",
-    "PF_SNA",
-    "PF_DECnet",
-    "PF_DLI",
-    "PF_LAT",
-    "PF_HYLINK",
-    "PF_APPLETALK",
-    "PF_VOICEVIEW",
-    "PF_FIREFOX",
-    "PF_UNKNOWN1",
-    "PF_BAN",
-    "PF_MAX",
-    "SOMAXCONN",
-    "MSG_PEEK",
-    "MSG_MAXIOVLEN",
-    "MSG_PARTIAL",
-    "MAXGETHOSTSTRUCT",
-    "FD_READ",
-    "FD_WRITE",
-    "FD_OOB",
-    "FD_ACCEPT",
-    "FD_CONNECT",
-    "FD_CLOSE",
-    "INCL_WINSOCK_API_PROTOTYPES",
-    "INCL_WINSOCK_API_TYPEDEFS",
-    "FROM_PROTOCOL_INFO",
-    "SO_PROTOCOL_INFOA",
-    "SO_PROTOCOL_INFOW",
-    "SO_PROTOCOL_INFO",
-    "PVD_CONFIG",
-    "PF_ATM",
-    "MSG_WAITALL",
-    "MSG_PUSH_IMMEDIATE",
-    "MSG_INTERRUPT",
-    "FD_READ_BIT",
-    "FD_WRITE_BIT",
-    "FD_OOB_BIT",
-    "FD_ACCEPT_BIT",
-    "FD_CONNECT_BIT",
-    "FD_CLOSE_BIT",
-    "FD_QOS_BIT",
-    "FD_GROUP_QOS_BIT",
-    "FD_ROUTING_INTERFACE_CHANGE_BIT",
-    "FD_ADDRESS_LIST_CHANGE_BIT",
-    "FD_MAX_EVENTS",
-    "WSA_MAXIMUM_WAIT_EVENTS",
-    "WSA_WAIT_EVENT_0",
-    "WSA_WAIT_IO_COMPLETION",
-    "WSA_WAIT_FAILED",
-    "CF_ACCEPT",
-    "CF_REJECT",
-    "CF_DEFER",
-    "SD_RECEIVE",
-    "SD_SEND",
-    "SD_BOTH",
-    "SG_UNCONSTRAINED_GROUP",
-    "SG_CONSTRAINED_GROUP",
-    "MAX_PROTOCOL_CHAIN",
-    "BASE_PROTOCOL",
-    "LAYERED_PROTOCOL",
-    "WSAPROTOCOL_LEN",
-    "PFL_MULTIPLE_PROTO_ENTRIES",
-    "PFL_RECOMMENDED_PROTO_ENTRY",
-    "PFL_HIDDEN",
-    "PFL_MATCHES_PROTOCOL_ZERO",
-    "PFL_NETWORKDIRECT_PROVIDER",
-    "XP1_CONNECTIONLESS",
-    "XP1_GUARANTEED_DELIVERY",
-    "XP1_GUARANTEED_ORDER",
-    "XP1_MESSAGE_ORIENTED",
-    "XP1_PSEUDO_STREAM",
-    "XP1_GRACEFUL_CLOSE",
-    "XP1_EXPEDITED_DATA",
-    "XP1_CONNECT_DATA",
-    "XP1_DISCONNECT_DATA",
-    "XP1_SUPPORT_BROADCAST",
-    "XP1_SUPPORT_MULTIPOINT",
-    "XP1_MULTIPOINT_CONTROL_PLANE",
-    "XP1_MULTIPOINT_DATA_PLANE",
-    "XP1_QOS_SUPPORTED",
-    "XP1_INTERRUPT",
-    "XP1_UNI_SEND",
-    "XP1_UNI_RECV",
-    "XP1_IFS_HANDLES",
-    "XP1_PARTIAL_MESSAGE",
-    "XP1_SAN_SUPPORT_SDP",
-    "BIGENDIAN",
-    "LITTLEENDIAN",
-    "SECURITY_PROTOCOL_NONE",
-    "JL_SENDER_ONLY",
-    "JL_RECEIVER_ONLY",
-    "JL_BOTH",
-    "WSA_FLAG_OVERLAPPED",
-    "WSA_FLAG_MULTIPOINT_C_ROOT",
-    "WSA_FLAG_MULTIPOINT_C_LEAF",
-    "WSA_FLAG_MULTIPOINT_D_ROOT",
-    "WSA_FLAG_MULTIPOINT_D_LEAF",
-    "WSA_FLAG_ACCESS_SYSTEM_SECURITY",
-    "WSA_FLAG_NO_HANDLE_INHERIT",
-    "WSA_FLAG_REGISTERED_IO",
-    "TH_NETDEV",
-    "TH_TAPI",
-    "SERVICE_MULTIPLE",
-    "NS_LOCALNAME",
-    "RES_UNUSED_1",
-    "RES_FLUSH_CACHE",
-    "LUP_DEEP",
-    "LUP_CONTAINERS",
-    "LUP_NOCONTAINERS",
-    "LUP_NEAREST",
-    "LUP_RETURN_NAME",
-    "LUP_RETURN_TYPE",
-    "LUP_RETURN_VERSION",
-    "LUP_RETURN_COMMENT",
-    "LUP_RETURN_ADDR",
-    "LUP_RETURN_BLOB",
-    "LUP_RETURN_ALIASES",
-    "LUP_RETURN_QUERY_STRING",
-    "LUP_RETURN_ALL",
-    "LUP_RES_SERVICE",
-    "LUP_FLUSHCACHE",
-    "LUP_FLUSHPREVIOUS",
-    "LUP_NON_AUTHORITATIVE",
-    "LUP_SECURE",
-    "LUP_RETURN_PREFERRED_NAMES",
-    "LUP_DNS_ONLY",
-    "LUP_RETURN_RESPONSE_FLAGS",
-    "LUP_ADDRCONFIG",
-    "LUP_DUAL_ADDR",
-    "LUP_FILESERVER",
-    "LUP_DISABLE_IDN_ENCODING",
-    "LUP_API_ANSI",
-    "LUP_EXTENDED_QUERYSET",
-    "LUP_SECURE_WITH_FALLBACK",
-    "LUP_EXCLUSIVE_CUSTOM_SERVERS",
-    "LUP_REQUIRE_SECURE",
-    "LUP_RETURN_TTL",
-    "LUP_FORCE_CLEAR_TEXT",
-    "LUP_RESOLUTION_HANDLE",
-    "RESULT_IS_ALIAS",
-    "RESULT_IS_ADDED",
-    "RESULT_IS_CHANGED",
-    "RESULT_IS_DELETED",
-    "POLLRDNORM",
-    "POLLRDBAND",
-    "POLLPRI",
-    "POLLWRNORM",
-    "POLLOUT",
-    "POLLWRBAND",
-    "POLLERR",
-    "POLLHUP",
-    "POLLNVAL",
-    "SOCK_NOTIFY_REGISTER_EVENT_NONE",
-    "SOCK_NOTIFY_REGISTER_EVENT_IN",
-    "SOCK_NOTIFY_REGISTER_EVENT_OUT",
-    "SOCK_NOTIFY_REGISTER_EVENT_HANGUP",
-    "SOCK_NOTIFY_EVENT_IN",
-    "SOCK_NOTIFY_EVENT_OUT",
-    "SOCK_NOTIFY_EVENT_HANGUP",
-    "SOCK_NOTIFY_EVENT_ERR",
-    "SOCK_NOTIFY_EVENT_REMOVE",
-    "SOCK_NOTIFY_OP_NONE",
-    "SOCK_NOTIFY_OP_ENABLE",
-    "SOCK_NOTIFY_OP_DISABLE",
-    "SOCK_NOTIFY_OP_REMOVE",
-    "SOCK_NOTIFY_TRIGGER_ONESHOT",
-    "SOCK_NOTIFY_TRIGGER_PERSISTENT",
-    "SOCK_NOTIFY_TRIGGER_LEVEL",
-    "SOCK_NOTIFY_TRIGGER_EDGE",
-    "ATMPROTO_AALUSER",
+    "AI_DNS_RESPONSE_SECURE",
+    "AI_DNS_SERVER_TYPE_DOH",
+    "AI_DNS_SERVER_TYPE_UDP",
+    "AI_DNS_SERVER_UDP_FALLBACK",
+    "AI_EXCLUSIVE_CUSTOM_SERVERS",
+    "AI_EXTENDED",
+    "AI_FILESERVER",
+    "AI_FORCE_CLEAR_TEXT",
+    "AI_FQDN",
+    "AI_NON_AUTHORITATIVE",
+    "AI_NUMERICHOST",
+    "AI_NUMERICSERV",
+    "AI_PASSIVE",
+    "AI_REQUIRE_SECURE",
+    "AI_RESOLUTION_HANDLE",
+    "AI_RETURN_PREFERRED_NAMES",
+    "AI_RETURN_RESPONSE_FLAGS",
+    "AI_RETURN_TTL",
+    "AI_SECURE",
+    "AI_SECURE_WITH_FALLBACK",
+    "AI_V4MAPPED",
+    "ARP_HARDWARE_TYPE",
+    "ARP_HEADER",
+    "ARP_HW_802",
+    "ARP_HW_ENET",
+    "ARP_OPCODE",
+    "ARP_REQUEST",
+    "ARP_RESPONSE",
+    "ASSOCIATE_NAMERES_CONTEXT",
+    "ASSOCIATE_NAMERES_CONTEXT_INPUT",
     "ATMPROTO_AAL1",
     "ATMPROTO_AAL2",
     "ATMPROTO_AAL34",
     "ATMPROTO_AAL5",
-    "SAP_FIELD_ABSENT",
-    "SAP_FIELD_ANY",
-    "SAP_FIELD_ANY_AESA_SEL",
-    "SAP_FIELD_ANY_AESA_REST",
+    "ATMPROTO_AALUSER",
+    "ATM_ADDRESS",
+    "ATM_ADDR_SIZE",
+    "ATM_AESA",
+    "ATM_BHLI",
+    "ATM_BLLI",
+    "ATM_BLLI_IE",
+    "ATM_BROADBAND_BEARER_CAPABILITY_IE",
+    "ATM_CALLING_PARTY_NUMBER_IE",
+    "ATM_CAUSE_IE",
+    "ATM_CONNECTION_ID",
     "ATM_E164",
     "ATM_NSAP",
-    "ATM_AESA",
-    "ATM_ADDR_SIZE",
-    "BLLI_L2_ISO_1745",
-    "BLLI_L2_Q921",
-    "BLLI_L2_X25L",
-    "BLLI_L2_X25M",
-    "BLLI_L2_ELAPB",
-    "BLLI_L2_HDLC_ARM",
-    "BLLI_L2_HDLC_NRM",
-    "BLLI_L2_HDLC_ABM",
-    "BLLI_L2_LLC",
-    "BLLI_L2_X75",
-    "BLLI_L2_Q922",
-    "BLLI_L2_USER_SPECIFIED",
-    "BLLI_L2_ISO_7776",
-    "BLLI_L3_X25",
-    "BLLI_L3_ISO_8208",
-    "BLLI_L3_X223",
-    "BLLI_L3_SIO_8473",
-    "BLLI_L3_T70",
-    "BLLI_L3_ISO_TR9577",
-    "BLLI_L3_USER_SPECIFIED",
-    "BLLI_L3_IPI_SNAP",
-    "BLLI_L3_IPI_IP",
-    "BHLI_ISO",
-    "BHLI_UserSpecific",
-    "BHLI_HighLayerProfile",
-    "BHLI_VendorSpecificAppId",
-    "AAL5_MODE_MESSAGE",
-    "AAL5_MODE_STREAMING",
-    "AAL5_SSCS_NULL",
-    "AAL5_SSCS_SSCOP_ASSURED",
-    "AAL5_SSCS_SSCOP_NON_ASSURED",
-    "AAL5_SSCS_FRAME_RELAY",
+    "ATM_PVC_PARAMS",
+    "ATM_QOS_CLASS_IE",
+    "ATM_TD",
+    "ATM_TRAFFIC_DESCRIPTOR_IE",
+    "ATM_TRANSIT_NETWORK_SELECTION_IE",
+    "AcceptEx",
+    "BASE_PROTOCOL",
     "BCOB_A",
     "BCOB_C",
     "BCOB_X",
-    "TT_NOIND",
-    "TT_CBR",
-    "TT_VBR",
-    "TR_NOIND",
-    "TR_END_TO_END",
-    "TR_NO_END_TO_END",
-    "CLIP_NOT",
-    "CLIP_SUS",
-    "UP_P2P",
-    "UP_P2MP",
-    "BLLI_L2_MODE_NORMAL",
+    "BHLI_HighLayerProfile",
+    "BHLI_ISO",
+    "BHLI_UserSpecific",
+    "BHLI_VendorSpecificAppId",
+    "BIGENDIAN",
+    "BITS_PER_BYTE",
+    "BLLI_L2_ELAPB",
+    "BLLI_L2_HDLC_ABM",
+    "BLLI_L2_HDLC_ARM",
+    "BLLI_L2_HDLC_NRM",
+    "BLLI_L2_ISO_1745",
+    "BLLI_L2_ISO_7776",
+    "BLLI_L2_LLC",
     "BLLI_L2_MODE_EXT",
-    "BLLI_L3_MODE_NORMAL",
+    "BLLI_L2_MODE_NORMAL",
+    "BLLI_L2_Q921",
+    "BLLI_L2_Q922",
+    "BLLI_L2_USER_SPECIFIED",
+    "BLLI_L2_X25L",
+    "BLLI_L2_X25M",
+    "BLLI_L2_X75",
+    "BLLI_L3_IPI_IP",
+    "BLLI_L3_IPI_SNAP",
+    "BLLI_L3_ISO_8208",
+    "BLLI_L3_ISO_TR9577",
     "BLLI_L3_MODE_EXT",
-    "BLLI_L3_PACKET_16",
-    "BLLI_L3_PACKET_32",
-    "BLLI_L3_PACKET_64",
-    "BLLI_L3_PACKET_128",
-    "BLLI_L3_PACKET_256",
-    "BLLI_L3_PACKET_512",
+    "BLLI_L3_MODE_NORMAL",
     "BLLI_L3_PACKET_1024",
+    "BLLI_L3_PACKET_128",
+    "BLLI_L3_PACKET_16",
     "BLLI_L3_PACKET_2048",
+    "BLLI_L3_PACKET_256",
+    "BLLI_L3_PACKET_32",
     "BLLI_L3_PACKET_4096",
-    "PI_ALLOWED",
-    "PI_RESTRICTED",
-    "PI_NUMBER_NOT_AVAILABLE",
-    "SI_USER_NOT_SCREENED",
-    "SI_USER_PASSED",
-    "SI_USER_FAILED",
-    "SI_NETWORK",
-    "CAUSE_LOC_USER",
-    "CAUSE_LOC_PRIVATE_LOCAL",
-    "CAUSE_LOC_PUBLIC_LOCAL",
-    "CAUSE_LOC_TRANSIT_NETWORK",
-    "CAUSE_LOC_PUBLIC_REMOTE",
-    "CAUSE_LOC_PRIVATE_REMOTE",
-    "CAUSE_LOC_INTERNATIONAL_NETWORK",
-    "CAUSE_LOC_BEYOND_INTERWORKING",
-    "CAUSE_UNALLOCATED_NUMBER",
-    "CAUSE_NO_ROUTE_TO_TRANSIT_NETWORK",
-    "CAUSE_NO_ROUTE_TO_DESTINATION",
-    "CAUSE_VPI_VCI_UNACCEPTABLE",
-    "CAUSE_NORMAL_CALL_CLEARING",
-    "CAUSE_USER_BUSY",
-    "CAUSE_NO_USER_RESPONDING",
-    "CAUSE_CALL_REJECTED",
-    "CAUSE_NUMBER_CHANGED",
-    "CAUSE_USER_REJECTS_CLIR",
-    "CAUSE_DESTINATION_OUT_OF_ORDER",
-    "CAUSE_INVALID_NUMBER_FORMAT",
-    "CAUSE_STATUS_ENQUIRY_RESPONSE",
-    "CAUSE_NORMAL_UNSPECIFIED",
-    "CAUSE_VPI_VCI_UNAVAILABLE",
-    "CAUSE_NETWORK_OUT_OF_ORDER",
-    "CAUSE_TEMPORARY_FAILURE",
+    "BLLI_L3_PACKET_512",
+    "BLLI_L3_PACKET_64",
+    "BLLI_L3_SIO_8473",
+    "BLLI_L3_T70",
+    "BLLI_L3_USER_SPECIFIED",
+    "BLLI_L3_X223",
+    "BLLI_L3_X25",
+    "BYTE_ORDER",
+    "CAUSE_AAL_PARAMETERS_UNSUPPORTED",
     "CAUSE_ACCESS_INFORMAION_DISCARDED",
-    "CAUSE_NO_VPI_VCI_AVAILABLE",
-    "CAUSE_RESOURCE_UNAVAILABLE",
-    "CAUSE_QOS_UNAVAILABLE",
-    "CAUSE_USER_CELL_RATE_UNAVAILABLE",
     "CAUSE_BEARER_CAPABILITY_UNAUTHORIZED",
     "CAUSE_BEARER_CAPABILITY_UNAVAILABLE",
-    "CAUSE_OPTION_UNAVAILABLE",
     "CAUSE_BEARER_CAPABILITY_UNIMPLEMENTED",
-    "CAUSE_UNSUPPORTED_TRAFFIC_PARAMETERS",
-    "CAUSE_INVALID_CALL_REFERENCE",
+    "CAUSE_CALL_REJECTED",
     "CAUSE_CHANNEL_NONEXISTENT",
-    "CAUSE_INCOMPATIBLE_DESTINATION",
-    "CAUSE_INVALID_ENDPOINT_REFERENCE",
-    "CAUSE_INVALID_TRANSIT_NETWORK_SELECTION",
-    "CAUSE_TOO_MANY_PENDING_ADD_PARTY",
-    "CAUSE_AAL_PARAMETERS_UNSUPPORTED",
-    "CAUSE_MANDATORY_IE_MISSING",
-    "CAUSE_UNIMPLEMENTED_MESSAGE_TYPE",
-    "CAUSE_UNIMPLEMENTED_IE",
-    "CAUSE_INVALID_IE_CONTENTS",
-    "CAUSE_INVALID_STATE_FOR_MESSAGE",
-    "CAUSE_RECOVERY_ON_TIMEOUT",
-    "CAUSE_INCORRECT_MESSAGE_LENGTH",
-    "CAUSE_PROTOCOL_ERROR",
-    "CAUSE_COND_UNKNOWN",
     "CAUSE_COND_PERMANENT",
     "CAUSE_COND_TRANSIENT",
-    "CAUSE_REASON_USER",
-    "CAUSE_REASON_IE_MISSING",
-    "CAUSE_REASON_IE_INSUFFICIENT",
+    "CAUSE_COND_UNKNOWN",
+    "CAUSE_DESTINATION_OUT_OF_ORDER",
+    "CAUSE_INCOMPATIBLE_DESTINATION",
+    "CAUSE_INCORRECT_MESSAGE_LENGTH",
+    "CAUSE_INVALID_CALL_REFERENCE",
+    "CAUSE_INVALID_ENDPOINT_REFERENCE",
+    "CAUSE_INVALID_IE_CONTENTS",
+    "CAUSE_INVALID_NUMBER_FORMAT",
+    "CAUSE_INVALID_STATE_FOR_MESSAGE",
+    "CAUSE_INVALID_TRANSIT_NETWORK_SELECTION",
+    "CAUSE_LOC_BEYOND_INTERWORKING",
+    "CAUSE_LOC_INTERNATIONAL_NETWORK",
+    "CAUSE_LOC_PRIVATE_LOCAL",
+    "CAUSE_LOC_PRIVATE_REMOTE",
+    "CAUSE_LOC_PUBLIC_LOCAL",
+    "CAUSE_LOC_PUBLIC_REMOTE",
+    "CAUSE_LOC_TRANSIT_NETWORK",
+    "CAUSE_LOC_USER",
+    "CAUSE_MANDATORY_IE_MISSING",
+    "CAUSE_NA_ABNORMAL",
+    "CAUSE_NA_NORMAL",
+    "CAUSE_NETWORK_OUT_OF_ORDER",
+    "CAUSE_NORMAL_CALL_CLEARING",
+    "CAUSE_NORMAL_UNSPECIFIED",
+    "CAUSE_NO_ROUTE_TO_DESTINATION",
+    "CAUSE_NO_ROUTE_TO_TRANSIT_NETWORK",
+    "CAUSE_NO_USER_RESPONDING",
+    "CAUSE_NO_VPI_VCI_AVAILABLE",
+    "CAUSE_NUMBER_CHANGED",
+    "CAUSE_OPTION_UNAVAILABLE",
+    "CAUSE_PROTOCOL_ERROR",
     "CAUSE_PU_PROVIDER",
     "CAUSE_PU_USER",
-    "CAUSE_NA_NORMAL",
-    "CAUSE_NA_ABNORMAL",
-    "QOS_CLASS0",
-    "QOS_CLASS1",
-    "QOS_CLASS2",
-    "QOS_CLASS3",
-    "QOS_CLASS4",
-    "TNS_TYPE_NATIONAL",
-    "TNS_PLAN_CARRIER_ID_CODE",
-    "SIO_GET_NUMBER_OF_ATM_DEVICES",
-    "SIO_GET_ATM_ADDRESS",
-    "SIO_ASSOCIATE_PVC",
-    "SIO_GET_ATM_CONNECTION_ID",
-    "WSPDESCRIPTION_LEN",
-    "WSS_OPERATION_IN_PROGRESS",
-    "LSP_SYSTEM",
-    "LSP_INSPECTOR",
-    "LSP_REDIRECTOR",
-    "LSP_PROXY",
-    "LSP_FIREWALL",
-    "LSP_INBOUND_MODIFY",
-    "LSP_OUTBOUND_MODIFY",
-    "LSP_CRYPTO_COMPRESS",
-    "LSP_LOCAL_CACHE",
-    "UDP_NOCHECKSUM",
-    "UDP_CHECKSUM_COVERAGE",
-    "GAI_STRERROR_BUFFER_SIZE",
-    "IPX_PTYPE",
-    "IPX_FILTERPTYPE",
-    "IPX_STOPFILTERPTYPE",
-    "IPX_DSTYPE",
-    "IPX_EXTENDED_ADDRESS",
-    "IPX_RECVHDR",
-    "IPX_MAXSIZE",
-    "IPX_ADDRESS",
-    "IPX_GETNETINFO",
-    "IPX_GETNETINFO_NORIP",
-    "IPX_SPXGETCONNECTIONSTATUS",
-    "IPX_ADDRESS_NOTIFY",
-    "IPX_MAX_ADAPTER_NUM",
-    "IPX_RERIPNETNUMBER",
-    "IPX_RECEIVE_BROADCAST",
-    "IPX_IMMEDIATESPXACK",
-    "IPPROTO_RM",
-    "MAX_MCAST_TTL",
-    "RM_OPTIONSBASE",
-    "RM_RATE_WINDOW_SIZE",
-    "RM_SET_MESSAGE_BOUNDARY",
-    "RM_FLUSHCACHE",
-    "RM_SENDER_WINDOW_ADVANCE_METHOD",
-    "RM_SENDER_STATISTICS",
-    "RM_LATEJOIN",
-    "RM_SET_SEND_IF",
-    "RM_ADD_RECEIVE_IF",
-    "RM_DEL_RECEIVE_IF",
-    "RM_SEND_WINDOW_ADV_RATE",
-    "RM_USE_FEC",
-    "RM_SET_MCAST_TTL",
-    "RM_RECEIVER_STATISTICS",
-    "RM_HIGH_SPEED_INTRANET_OPT",
-    "SENDER_DEFAULT_RATE_KBITS_PER_SEC",
-    "SENDER_DEFAULT_WINDOW_ADV_PERCENTAGE",
-    "MAX_WINDOW_INCREMENT_PERCENTAGE",
-    "SENDER_DEFAULT_LATE_JOINER_PERCENTAGE",
-    "SENDER_MAX_LATE_JOINER_PERCENTAGE",
-    "BITS_PER_BYTE",
-    "LOG2_BITS_PER_BYTE",
-    "UNIX_PATH_MAX",
-    "ISOPROTO_TP0",
-    "ISOPROTO_TP1",
-    "ISOPROTO_TP2",
-    "ISOPROTO_TP3",
-    "ISOPROTO_TP4",
-    "ISOPROTO_TP",
-    "ISOPROTO_CLTP",
-    "ISOPROTO_CLNP",
-    "ISOPROTO_X25",
-    "ISOPROTO_INACT_NL",
-    "ISOPROTO_ESIS",
-    "ISOPROTO_INTRAISIS",
-    "ISO_MAX_ADDR_LENGTH",
-    "ISO_HIERARCHICAL",
-    "ISO_NON_HIERARCHICAL",
-    "ISO_EXP_DATA_USE",
-    "ISO_EXP_DATA_NUSE",
-    "NSPROTO_IPX",
-    "NSPROTO_SPX",
-    "NSPROTO_SPXII",
-    "NETBIOS_NAME_LENGTH",
-    "NETBIOS_UNIQUE_NAME",
-    "NETBIOS_GROUP_NAME",
-    "NETBIOS_TYPE_QUICK_UNIQUE",
-    "NETBIOS_TYPE_QUICK_GROUP",
-    "VNSPROTO_IPC",
-    "VNSPROTO_RELIABLE_IPC",
-    "VNSPROTO_SPP",
-    "INVALID_SOCKET",
-    "WSA_INFINITE",
-    "IOC_INOUT",
-    "FIONREAD",
-    "FIONBIO",
-    "FIOASYNC",
-    "SIOCSHIWAT",
-    "SIOCGHIWAT",
-    "SIOCSLOWAT",
-    "SIOCGLOWAT",
-    "SIOCATMARK",
-    "LM_HB_Extension",
-    "LM_HB1_PnP",
-    "LM_HB1_PDA_Palmtop",
-    "LM_HB1_Computer",
-    "LM_HB1_Printer",
-    "LM_HB1_Modem",
-    "LM_HB1_Fax",
-    "LM_HB1_LANAccess",
-    "LM_HB2_Telephony",
-    "LM_HB2_FileServer",
-    "WSA_ERROR",
-    "WSA_IO_PENDING",
-    "WSA_IO_INCOMPLETE",
-    "WSA_INVALID_HANDLE",
-    "WSA_INVALID_PARAMETER",
-    "WSA_NOT_ENOUGH_MEMORY",
-    "WSA_OPERATION_ABORTED",
-    "WSABASEERR",
-    "WSAEINTR",
-    "WSAEBADF",
-    "WSAEACCES",
-    "WSAEFAULT",
-    "WSAEINVAL",
-    "WSAEMFILE",
-    "WSAEWOULDBLOCK",
-    "WSAEINPROGRESS",
-    "WSAEALREADY",
-    "WSAENOTSOCK",
-    "WSAEDESTADDRREQ",
-    "WSAEMSGSIZE",
-    "WSAEPROTOTYPE",
-    "WSAENOPROTOOPT",
-    "WSAEPROTONOSUPPORT",
-    "WSAESOCKTNOSUPPORT",
-    "WSAEOPNOTSUPP",
-    "WSAEPFNOSUPPORT",
-    "WSAEAFNOSUPPORT",
-    "WSAEADDRINUSE",
-    "WSAEADDRNOTAVAIL",
-    "WSAENETDOWN",
-    "WSAENETUNREACH",
-    "WSAENETRESET",
-    "WSAECONNABORTED",
-    "WSAECONNRESET",
-    "WSAENOBUFS",
-    "WSAEISCONN",
-    "WSAENOTCONN",
-    "WSAESHUTDOWN",
-    "WSAETOOMANYREFS",
-    "WSAETIMEDOUT",
-    "WSAECONNREFUSED",
-    "WSAELOOP",
-    "WSAENAMETOOLONG",
-    "WSAEHOSTDOWN",
-    "WSAEHOSTUNREACH",
-    "WSAENOTEMPTY",
-    "WSAEPROCLIM",
-    "WSAEUSERS",
-    "WSAEDQUOT",
-    "WSAESTALE",
-    "WSAEREMOTE",
-    "WSASYSNOTREADY",
-    "WSAVERNOTSUPPORTED",
-    "WSANOTINITIALISED",
-    "WSAEDISCON",
-    "WSAENOMORE",
-    "WSAECANCELLED",
-    "WSAEINVALIDPROCTABLE",
-    "WSAEINVALIDPROVIDER",
-    "WSAEPROVIDERFAILEDINIT",
-    "WSASYSCALLFAILURE",
-    "WSASERVICE_NOT_FOUND",
-    "WSATYPE_NOT_FOUND",
-    "WSA_E_NO_MORE",
-    "WSA_E_CANCELLED",
-    "WSAEREFUSED",
-    "WSAHOST_NOT_FOUND",
-    "WSATRY_AGAIN",
-    "WSANO_RECOVERY",
-    "WSANO_DATA",
-    "WSA_QOS_RECEIVERS",
-    "WSA_QOS_SENDERS",
-    "WSA_QOS_NO_SENDERS",
-    "WSA_QOS_NO_RECEIVERS",
-    "WSA_QOS_REQUEST_CONFIRMED",
-    "WSA_QOS_ADMISSION_FAILURE",
-    "WSA_QOS_POLICY_FAILURE",
-    "WSA_QOS_BAD_STYLE",
-    "WSA_QOS_BAD_OBJECT",
-    "WSA_QOS_TRAFFIC_CTRL_ERROR",
-    "WSA_QOS_GENERIC_ERROR",
-    "WSA_QOS_ESERVICETYPE",
-    "WSA_QOS_EFLOWSPEC",
-    "WSA_QOS_EPROVSPECBUF",
-    "WSA_QOS_EFILTERSTYLE",
-    "WSA_QOS_EFILTERTYPE",
-    "WSA_QOS_EFILTERCOUNT",
-    "WSA_QOS_EOBJLENGTH",
-    "WSA_QOS_EFLOWCOUNT",
-    "WSA_QOS_EUNKOWNPSOBJ",
-    "WSA_QOS_EPOLICYOBJ",
-    "WSA_QOS_EFLOWDESC",
-    "WSA_QOS_EPSFLOWSPEC",
-    "WSA_QOS_EPSFILTERSPEC",
-    "WSA_QOS_ESDMODEOBJ",
-    "WSA_QOS_ESHAPERATEOBJ",
-    "WSA_QOS_RESERVED_PETYPE",
-    "WSA_SECURE_HOST_NOT_FOUND",
-    "WSA_IPSEC_NAME_POLICY_ERROR",
-    "SET_SERVICE_OPERATION",
-    "SERVICE_REGISTER",
-    "SERVICE_DEREGISTER",
-    "SERVICE_FLUSH",
-    "SERVICE_ADD_TYPE",
-    "SERVICE_DELETE_TYPE",
-    "SEND_FLAGS",
-    "MSG_DONTROUTE",
-    "MSG_OOB",
-    "RESOURCE_DISPLAY_TYPE",
-    "RESOURCEDISPLAYTYPE_DOMAIN",
-    "RESOURCEDISPLAYTYPE_FILE",
-    "RESOURCEDISPLAYTYPE_GENERIC",
-    "RESOURCEDISPLAYTYPE_GROUP",
-    "RESOURCEDISPLAYTYPE_SERVER",
-    "RESOURCEDISPLAYTYPE_SHARE",
-    "RESOURCEDISPLAYTYPE_TREE",
-    "RIO_BUFFERID_t",
-    "RIO_CQ_t",
-    "RIO_RQ_t",
-    "HWSAEVENT",
-    "SOCKET",
-    "IN_ADDR",
-    "SOCKADDR",
-    "SOCKET_ADDRESS",
-    "SOCKET_ADDRESS_LIST",
-    "CSADDR_INFO",
-    "SOCKADDR_STORAGE",
-    "SOCKADDR_STORAGE_XP",
-    "SOCKET_PROCESSOR_AFFINITY",
-    "IPPROTO",
-    "IPPROTO_HOPOPTS",
-    "IPPROTO_ICMP",
-    "IPPROTO_IGMP",
-    "IPPROTO_GGP",
-    "IPPROTO_IPV4",
-    "IPPROTO_ST",
-    "IPPROTO_TCP",
-    "IPPROTO_CBT",
-    "IPPROTO_EGP",
-    "IPPROTO_IGP",
-    "IPPROTO_PUP",
-    "IPPROTO_UDP",
-    "IPPROTO_IDP",
-    "IPPROTO_RDP",
-    "IPPROTO_IPV6",
-    "IPPROTO_ROUTING",
-    "IPPROTO_FRAGMENT",
-    "IPPROTO_ESP",
-    "IPPROTO_AH",
-    "IPPROTO_ICMPV6",
-    "IPPROTO_NONE",
-    "IPPROTO_DSTOPTS",
-    "IPPROTO_ND",
-    "IPPROTO_ICLFXBM",
-    "IPPROTO_PIM",
-    "IPPROTO_PGM",
-    "IPPROTO_L2TP",
-    "IPPROTO_SCTP",
-    "IPPROTO_RAW",
-    "IPPROTO_MAX",
-    "IPPROTO_RESERVED_RAW",
-    "IPPROTO_RESERVED_IPSEC",
-    "IPPROTO_RESERVED_IPSECOFFLOAD",
-    "IPPROTO_RESERVED_WNV",
-    "IPPROTO_RESERVED_MAX",
-    "SCOPE_LEVEL",
-    "SCOPE_LEVEL_ScopeLevelInterface",
-    "SCOPE_LEVEL_ScopeLevelLink",
-    "SCOPE_LEVEL_ScopeLevelSubnet",
-    "SCOPE_LEVEL_ScopeLevelAdmin",
-    "SCOPE_LEVEL_ScopeLevelSite",
-    "SCOPE_LEVEL_ScopeLevelOrganization",
-    "SCOPE_LEVEL_ScopeLevelGlobal",
-    "SCOPE_LEVEL_ScopeLevelCount",
-    "SCOPE_ID",
-    "SOCKADDR_IN",
-    "SOCKADDR_DL",
-    "WSABUF",
-    "WSAMSG",
-    "cmsghdr",
-    "ADDRINFOA",
-    "addrinfoW",
-    "addrinfoexA",
-    "addrinfoexW",
-    "addrinfoex2A",
-    "addrinfoex2W",
-    "addrinfoex3",
-    "addrinfoex4",
-    "addrinfoex5",
-    "addrinfo_dns_server",
-    "addrinfoex6",
-    "fd_set",
-    "timeval",
-    "hostent",
-    "netent",
-    "servent",
-    "protoent",
-    "WSAData",
-    "sockproto",
-    "linger",
-    "WSANETWORKEVENTS",
-    "WSAPROTOCOLCHAIN",
-    "WSAPROTOCOL_INFOA",
-    "WSAPROTOCOL_INFOW",
-    "LPCONDITIONPROC",
-    "LPWSAOVERLAPPED_COMPLETION_ROUTINE",
-    "WSACOMPLETIONTYPE",
-    "NSP_NOTIFY_IMMEDIATELY",
-    "NSP_NOTIFY_HWND",
-    "NSP_NOTIFY_EVENT",
-    "NSP_NOTIFY_PORT",
-    "NSP_NOTIFY_APC",
-    "WSACOMPLETION",
-    "AFPROTOCOLS",
-    "WSAECOMPARATOR",
+    "CAUSE_QOS_UNAVAILABLE",
+    "CAUSE_REASON_IE_INSUFFICIENT",
+    "CAUSE_REASON_IE_MISSING",
+    "CAUSE_REASON_USER",
+    "CAUSE_RECOVERY_ON_TIMEOUT",
+    "CAUSE_RESOURCE_UNAVAILABLE",
+    "CAUSE_STATUS_ENQUIRY_RESPONSE",
+    "CAUSE_TEMPORARY_FAILURE",
+    "CAUSE_TOO_MANY_PENDING_ADD_PARTY",
+    "CAUSE_UNALLOCATED_NUMBER",
+    "CAUSE_UNIMPLEMENTED_IE",
+    "CAUSE_UNIMPLEMENTED_MESSAGE_TYPE",
+    "CAUSE_UNSUPPORTED_TRAFFIC_PARAMETERS",
+    "CAUSE_USER_BUSY",
+    "CAUSE_USER_CELL_RATE_UNAVAILABLE",
+    "CAUSE_USER_REJECTS_CLIR",
+    "CAUSE_VPI_VCI_UNACCEPTABLE",
+    "CAUSE_VPI_VCI_UNAVAILABLE",
+    "CF_ACCEPT",
+    "CF_DEFER",
+    "CF_REJECT",
+    "CLIP_NOT",
+    "CLIP_SUS",
+    "CMSGHDR",
     "COMP_EQUAL",
     "COMP_NOTLESS",
-    "WSAVERSION",
-    "WSAQUERYSETA",
-    "WSAQUERYSETW",
-    "WSAQUERYSET2A",
-    "WSAQUERYSET2W",
-    "WSAESETSERVICEOP",
-    "RNRSERVICE_REGISTER",
-    "RNRSERVICE_DEREGISTER",
-    "RNRSERVICE_DELETE",
-    "WSANSCLASSINFOA",
-    "WSANSCLASSINFOW",
-    "WSASERVICECLASSINFOA",
-    "WSASERVICECLASSINFOW",
-    "WSANAMESPACE_INFOA",
-    "WSANAMESPACE_INFOW",
-    "WSANAMESPACE_INFOEXA",
-    "WSANAMESPACE_INFOEXW",
-    "WSAPOLLFD",
-    "SOCK_NOTIFY_REGISTRATION",
-    "IN6_ADDR",
-    "sockaddr_in6_old",
-    "sockaddr_gen",
-    "INTERFACE_INFO",
-    "INTERFACE_INFO_EX",
-    "PMTUD_STATE",
-    "IP_PMTUDISC_NOT_SET",
-    "IP_PMTUDISC_DO",
-    "IP_PMTUDISC_DONT",
-    "IP_PMTUDISC_PROBE",
-    "IP_PMTUDISC_MAX",
-    "SOCKADDR_IN6",
-    "SOCKADDR_IN6_W2KSP1",
-    "SOCKADDR_INET",
-    "SOCKADDR_IN6_PAIR",
-    "MULTICAST_MODE_TYPE",
-    "MCAST_INCLUDE",
-    "MCAST_EXCLUDE",
-    "IP_MREQ",
-    "IP_MREQ_SOURCE",
-    "IP_MSFILTER",
-    "IPV6_MREQ",
-    "GROUP_REQ",
-    "GROUP_SOURCE_REQ",
-    "GROUP_FILTER",
-    "IN_PKTINFO",
-    "IN6_PKTINFO",
-    "IN_PKTINFO_EX",
-    "in6_pktinfo_ex",
-    "IN_RECVERR",
-    "ICMP_ERROR_INFO",
-    "eWINDOW_ADVANCE_METHOD",
-    "E_WINDOW_ADVANCE_BY_TIME",
-    "E_WINDOW_USE_AS_DATA_CACHE",
-    "RM_SEND_WINDOW",
-    "RM_SENDER_STATS",
-    "RM_RECEIVER_STATS",
-    "RM_FEC_INFO",
-    "IPX_ADDRESS_DATA",
-    "IPX_NETNUM_DATA",
-    "IPX_SPXCONNSTATUS_DATA",
-    "LM_IRPARMS",
-    "SOCKADDR_IRDA",
-    "WINDOWS_IRDA_DEVICE_INFO",
-    "WCE_IRDA_DEVICE_INFO",
-    "WINDOWS_DEVICELIST",
-    "WCE_DEVICELIST",
-    "WINDOWS_IAS_SET",
-    "WINDOWS_IAS_QUERY",
-    "NL_PREFIX_ORIGIN",
-    "NL_PREFIX_ORIGIN_IpPrefixOriginOther",
-    "NL_PREFIX_ORIGIN_IpPrefixOriginManual",
-    "NL_PREFIX_ORIGIN_IpPrefixOriginWellKnown",
-    "NL_PREFIX_ORIGIN_IpPrefixOriginDhcp",
-    "NL_PREFIX_ORIGIN_IpPrefixOriginRouterAdvertisement",
-    "NL_PREFIX_ORIGIN_IpPrefixOriginUnchanged",
-    "NL_SUFFIX_ORIGIN",
-    "NL_SUFFIX_ORIGIN_NlsoOther",
-    "NL_SUFFIX_ORIGIN_NlsoManual",
-    "NL_SUFFIX_ORIGIN_NlsoWellKnown",
-    "NL_SUFFIX_ORIGIN_NlsoDhcp",
-    "NL_SUFFIX_ORIGIN_NlsoLinkLayerAddress",
-    "NL_SUFFIX_ORIGIN_NlsoRandom",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginOther",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginManual",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginWellKnown",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginDhcp",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginLinkLayerAddress",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginRandom",
-    "NL_SUFFIX_ORIGIN_IpSuffixOriginUnchanged",
-    "NL_DAD_STATE",
-    "NL_DAD_STATE_NldsInvalid",
-    "NL_DAD_STATE_NldsTentative",
-    "NL_DAD_STATE_NldsDuplicate",
-    "NL_DAD_STATE_NldsDeprecated",
-    "NL_DAD_STATE_NldsPreferred",
-    "NL_DAD_STATE_IpDadStateInvalid",
-    "NL_DAD_STATE_IpDadStateTentative",
-    "NL_DAD_STATE_IpDadStateDuplicate",
-    "NL_DAD_STATE_IpDadStateDeprecated",
-    "NL_DAD_STATE_IpDadStatePreferred",
-    "NL_ROUTE_PROTOCOL",
-    "NL_ROUTE_PROTOCOL_RouteProtocolOther",
-    "NL_ROUTE_PROTOCOL_RouteProtocolLocal",
-    "NL_ROUTE_PROTOCOL_RouteProtocolNetMgmt",
-    "NL_ROUTE_PROTOCOL_RouteProtocolIcmp",
-    "NL_ROUTE_PROTOCOL_RouteProtocolEgp",
-    "NL_ROUTE_PROTOCOL_RouteProtocolGgp",
-    "NL_ROUTE_PROTOCOL_RouteProtocolHello",
-    "NL_ROUTE_PROTOCOL_RouteProtocolRip",
-    "NL_ROUTE_PROTOCOL_RouteProtocolIsIs",
-    "NL_ROUTE_PROTOCOL_RouteProtocolEsIs",
-    "NL_ROUTE_PROTOCOL_RouteProtocolCisco",
-    "NL_ROUTE_PROTOCOL_RouteProtocolBbn",
-    "NL_ROUTE_PROTOCOL_RouteProtocolOspf",
-    "NL_ROUTE_PROTOCOL_RouteProtocolBgp",
-    "NL_ROUTE_PROTOCOL_RouteProtocolIdpr",
-    "NL_ROUTE_PROTOCOL_RouteProtocolEigrp",
-    "NL_ROUTE_PROTOCOL_RouteProtocolDvmrp",
-    "NL_ROUTE_PROTOCOL_RouteProtocolRpl",
-    "NL_ROUTE_PROTOCOL_RouteProtocolDhcp",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_OTHER",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_OTHER",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_LOCAL",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_LOCAL",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NETMGMT",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_NETMGMT",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_ICMP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_ICMP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_EGP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_EGP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_GGP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_GGP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_HELLO",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_HELLO",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_RIP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_RIP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_IS_IS",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_IS_IS",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_ES_IS",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_ES_IS",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_CISCO",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_CISCO",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_BBN",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_BBN",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_OSPF",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_OSPF",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_BGP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_BGP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_IDPR",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_IDPR",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_EIGRP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_EIGRP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_DVMRP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_DVMRP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_RPL",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_RPL",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_DHCP",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_DHCP",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_AUTOSTATIC",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_NT_AUTOSTATIC",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC",
-    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC_NON_DOD",
-    "NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC_NON_DOD",
-    "NL_ADDRESS_TYPE",
-    "NL_ADDRESS_TYPE_NlatUnspecified",
-    "NL_ADDRESS_TYPE_NlatUnicast",
-    "NL_ADDRESS_TYPE_NlatAnycast",
-    "NL_ADDRESS_TYPE_NlatMulticast",
-    "NL_ADDRESS_TYPE_NlatBroadcast",
-    "NL_ADDRESS_TYPE_NlatInvalid",
-    "NL_ROUTE_ORIGIN",
-    "NL_ROUTE_ORIGIN_NlroManual",
-    "NL_ROUTE_ORIGIN_NlroWellKnown",
-    "NL_ROUTE_ORIGIN_NlroDHCP",
-    "NL_ROUTE_ORIGIN_NlroRouterAdvertisement",
-    "NL_ROUTE_ORIGIN_Nlro6to4",
-    "NL_NEIGHBOR_STATE",
-    "NL_NEIGHBOR_STATE_NlnsUnreachable",
-    "NL_NEIGHBOR_STATE_NlnsIncomplete",
-    "NL_NEIGHBOR_STATE_NlnsProbe",
-    "NL_NEIGHBOR_STATE_NlnsDelay",
-    "NL_NEIGHBOR_STATE_NlnsStale",
-    "NL_NEIGHBOR_STATE_NlnsReachable",
-    "NL_NEIGHBOR_STATE_NlnsPermanent",
-    "NL_NEIGHBOR_STATE_NlnsMaximum",
-    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR",
-    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOff",
-    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalDelayed",
-    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOn",
-    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalUnchanged",
-    "NL_INTERFACE_OFFLOAD_ROD",
-    "NL_ROUTER_DISCOVERY_BEHAVIOR",
-    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled",
-    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled",
-    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp",
-    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged",
-    "NL_BANDWIDTH_FLAG",
-    "NL_BANDWIDTH_FLAG_NlbwDisabled",
-    "NL_BANDWIDTH_FLAG_NlbwEnabled",
-    "NL_BANDWIDTH_FLAG_NlbwUnchanged",
-    "NL_PATH_BANDWIDTH_ROD",
-    "NL_NETWORK_CATEGORY",
-    "NL_NETWORK_CATEGORY_NetworkCategoryPublic",
-    "NL_NETWORK_CATEGORY_NetworkCategoryPrivate",
-    "NL_NETWORK_CATEGORY_NetworkCategoryDomainAuthenticated",
-    "NL_NETWORK_CATEGORY_NetworkCategoryUnchanged",
-    "NL_NETWORK_CATEGORY_NetworkCategoryUnknown",
-    "NL_INTERFACE_NETWORK_CATEGORY_STATE",
-    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryUnknown",
-    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPublic",
-    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPrivate",
-    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincDomainAuthenticated",
-    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryStateMax",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintUnknown",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintNone",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintLocalAccess",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintInternetAccess",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintConstrainedInternetAccess",
-    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintHidden",
-    "NL_NETWORK_CONNECTIVITY_COST_HINT",
-    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnknown",
-    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnrestricted",
-    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintFixed",
-    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintVariable",
-    "NL_NETWORK_CONNECTIVITY_HINT",
-    "NL_BANDWIDTH_INFORMATION",
-    "TCPSTATE",
-    "TCPSTATE_CLOSED",
-    "TCPSTATE_LISTEN",
-    "TCPSTATE_SYN_SENT",
-    "TCPSTATE_SYN_RCVD",
-    "TCPSTATE_ESTABLISHED",
-    "TCPSTATE_FIN_WAIT_1",
-    "TCPSTATE_FIN_WAIT_2",
-    "TCPSTATE_CLOSE_WAIT",
-    "TCPSTATE_CLOSING",
-    "TCPSTATE_LAST_ACK",
-    "TCPSTATE_TIME_WAIT",
-    "TCPSTATE_MAX",
-    "TRANSPORT_SETTING_ID",
-    "tcp_keepalive",
     "CONTROL_CHANNEL_TRIGGER_STATUS",
-    "CONTROL_CHANNEL_TRIGGER_STATUS_INVALID",
-    "CONTROL_CHANNEL_TRIGGER_STATUS_SOFTWARE_SLOT_ALLOCATED",
     "CONTROL_CHANNEL_TRIGGER_STATUS_HARDWARE_SLOT_ALLOCATED",
+    "CONTROL_CHANNEL_TRIGGER_STATUS_INVALID",
     "CONTROL_CHANNEL_TRIGGER_STATUS_POLICY_ERROR",
+    "CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE",
+    "CONTROL_CHANNEL_TRIGGER_STATUS_SOFTWARE_SLOT_ALLOCATED",
     "CONTROL_CHANNEL_TRIGGER_STATUS_SYSTEM_ERROR",
     "CONTROL_CHANNEL_TRIGGER_STATUS_TRANSPORT_DISCONNECTED",
-    "CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE",
-    "REAL_TIME_NOTIFICATION_SETTING_INPUT",
-    "REAL_TIME_NOTIFICATION_SETTING_INPUT_EX",
-    "REAL_TIME_NOTIFICATION_SETTING_OUTPUT",
-    "ASSOCIATE_NAMERES_CONTEXT_INPUT",
-    "TIMESTAMPING_CONFIG",
-    "SOCKET_PRIORITY_HINT",
-    "SOCKET_PRIORITY_HINT_SocketPriorityHintVeryLow",
-    "SOCKET_PRIORITY_HINT_SocketPriorityHintLow",
-    "SOCKET_PRIORITY_HINT_SocketPriorityHintNormal",
-    "SOCKET_PRIORITY_HINT_SocketMaximumPriorityHintType",
-    "PRIORITY_STATUS",
-    "RCVALL_VALUE",
-    "RCVALL_OFF",
-    "RCVALL_ON",
-    "RCVALL_SOCKETLEVELONLY",
-    "RCVALL_IPLEVEL",
-    "RCVALL_IF",
-    "TCP_INITIAL_RTO_PARAMETERS",
-    "TCP_ICW_LEVEL",
-    "TCP_ICW_LEVEL_DEFAULT",
-    "TCP_ICW_LEVEL_HIGH",
-    "TCP_ICW_LEVEL_VERY_HIGH",
-    "TCP_ICW_LEVEL_AGGRESSIVE",
-    "TCP_ICW_LEVEL_EXPERIMENTAL",
-    "TCP_ICW_LEVEL_COMPAT",
-    "TCP_ICW_LEVEL_MAX",
-    "TCP_ICW_PARAMETERS",
-    "TCP_ACK_FREQUENCY_PARAMETERS",
-    "TCP_INFO_v0",
-    "TCP_INFO_v1",
-    "INET_PORT_RANGE",
-    "INET_PORT_RESERVATION_TOKEN",
-    "INET_PORT_RESERVATION_INSTANCE",
-    "INET_PORT_RESERVATION_INFORMATION",
-    "SOCKET_USAGE_TYPE",
-    "SYSTEM_CRITICAL_SOCKET",
-    "SOCKET_SECURITY_PROTOCOL",
-    "SOCKET_SECURITY_PROTOCOL_DEFAULT",
-    "SOCKET_SECURITY_PROTOCOL_IPSEC",
-    "SOCKET_SECURITY_PROTOCOL_IPSEC2",
-    "SOCKET_SECURITY_PROTOCOL_INVALID",
-    "SOCKET_SECURITY_SETTINGS",
-    "SOCKET_SECURITY_SETTINGS_IPSEC",
-    "SOCKET_PEER_TARGET_NAME",
-    "SOCKET_SECURITY_QUERY_TEMPLATE",
-    "SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2",
-    "SOCKET_SECURITY_QUERY_INFO",
-    "SOCKET_SECURITY_QUERY_INFO_IPSEC2",
-    "RSS_SCALABILITY_INFO",
-    "WSA_COMPATIBILITY_BEHAVIOR_ID",
-    "WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll",
-    "WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering",
-    "WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning",
-    "WSA_COMPATIBILITY_MODE",
-    "RIORESULT",
-    "RIO_BUF",
-    "RIO_CMSG_BUFFER",
-    "ATM_ADDRESS",
-    "ATM_BLLI",
-    "ATM_BHLI",
-    "sockaddr_atm",
-    "Q2931_IE_TYPE",
+    "CSADDR_INFO",
+    "DE_REUSE_SOCKET",
+    "DL_ADDRESS_LENGTH_MAXIMUM",
+    "DL_EI48",
+    "DL_EI64",
+    "DL_EUI48",
+    "DL_EUI64",
+    "DL_HEADER_LENGTH_MAXIMUM",
+    "DL_OUI",
+    "DL_TEREDO_ADDRESS",
+    "DL_TEREDO_ADDRESS_PRV",
+    "DL_TUNNEL_ADDRESS",
+    "ETHERNET_HEADER",
+    "ETHERNET_TYPE_802_1AD",
+    "ETHERNET_TYPE_802_1Q",
+    "ETHERNET_TYPE_ARP",
+    "ETHERNET_TYPE_IPV4",
+    "ETHERNET_TYPE_IPV6",
+    "ETHERNET_TYPE_MINIMUM",
+    "ETH_LENGTH_OF_HEADER",
+    "ETH_LENGTH_OF_SNAP_HEADER",
+    "ETH_LENGTH_OF_VLAN_HEADER",
+    "EXT_LEN_UNIT",
+    "E_WINDOW_ADVANCE_BY_TIME",
+    "E_WINDOW_USE_AS_DATA_CACHE",
+    "EnumProtocolsA",
+    "EnumProtocolsW",
+    "FALLBACK_INDEX",
+    "FALLBACK_INDEX_FallbackIndexMax",
+    "FALLBACK_INDEX_FallbackIndexTcpFastopen",
+    "FD_ACCEPT",
+    "FD_ACCEPT_BIT",
+    "FD_ADDRESS_LIST_CHANGE_BIT",
+    "FD_CLOSE",
+    "FD_CLOSE_BIT",
+    "FD_CONNECT",
+    "FD_CONNECT_BIT",
+    "FD_GROUP_QOS_BIT",
+    "FD_MAX_EVENTS",
+    "FD_OOB",
+    "FD_OOB_BIT",
+    "FD_QOS_BIT",
+    "FD_READ",
+    "FD_READ_BIT",
+    "FD_ROUTING_INTERFACE_CHANGE_BIT",
+    "FD_SET",
+    "FD_SETSIZE",
+    "FD_WRITE",
+    "FD_WRITE_BIT",
+    "FIOASYNC",
+    "FIONBIO",
+    "FIONREAD",
+    "FLOWSPEC",
+    "FROM_PROTOCOL_INFO",
+    "FreeAddrInfoEx",
+    "FreeAddrInfoExW",
+    "FreeAddrInfoW",
+    "GAI_STRERROR_BUFFER_SIZE",
+    "GROUP_FILTER",
+    "GROUP_REQ",
+    "GROUP_SOURCE_REQ",
+    "GetAcceptExSockaddrs",
+    "GetAddrInfoExA",
+    "GetAddrInfoExCancel",
+    "GetAddrInfoExOverlappedResult",
+    "GetAddrInfoExW",
+    "GetAddrInfoW",
+    "GetAddressByNameA",
+    "GetAddressByNameW",
+    "GetHostNameW",
+    "GetNameByTypeA",
+    "GetNameByTypeW",
+    "GetNameInfoW",
+    "GetServiceA",
+    "GetServiceW",
+    "GetTypeByNameA",
+    "GetTypeByNameW",
+    "HOSTENT",
+    "HWSAEVENT",
+    "IAS_ATTRIB_INT",
+    "IAS_ATTRIB_NO_ATTRIB",
+    "IAS_ATTRIB_NO_CLASS",
+    "IAS_ATTRIB_OCTETSEQ",
+    "IAS_ATTRIB_STR",
+    "IAS_MAX_ATTRIBNAME",
+    "IAS_MAX_CLASSNAME",
+    "IAS_MAX_OCTET_STRING",
+    "IAS_MAX_USER_STRING",
+    "ICMP4_TIME_EXCEED_CODE",
+    "ICMP4_TIME_EXCEED_REASSEMBLY",
+    "ICMP4_TIME_EXCEED_TRANSIT",
+    "ICMP4_UNREACH_ADMIN",
+    "ICMP4_UNREACH_CODE",
+    "ICMP4_UNREACH_FRAG_NEEDED",
+    "ICMP4_UNREACH_HOST",
+    "ICMP4_UNREACH_HOST_ADMIN",
+    "ICMP4_UNREACH_HOST_TOS",
+    "ICMP4_UNREACH_HOST_UNKNOWN",
+    "ICMP4_UNREACH_ISOLATED",
+    "ICMP4_UNREACH_NET",
+    "ICMP4_UNREACH_NET_ADMIN",
+    "ICMP4_UNREACH_NET_TOS",
+    "ICMP4_UNREACH_NET_UNKNOWN",
+    "ICMP4_UNREACH_PORT",
+    "ICMP4_UNREACH_PROTOCOL",
+    "ICMP4_UNREACH_SOURCEROUTE_FAILED",
+    "ICMP6_DST_UNREACH_ADDR",
+    "ICMP6_DST_UNREACH_ADMIN",
+    "ICMP6_DST_UNREACH_BEYONDSCOPE",
+    "ICMP6_DST_UNREACH_NOPORT",
+    "ICMP6_DST_UNREACH_NOROUTE",
+    "ICMP6_PARAMPROB_HEADER",
+    "ICMP6_PARAMPROB_NEXTHEADER",
+    "ICMP6_PARAMPROB_OPTION",
+    "ICMP6_TIME_EXCEED_REASSEMBLY",
+    "ICMP6_TIME_EXCEED_TRANSIT",
+    "ICMPV4_ADDRESS_MASK_MESSAGE",
+    "ICMPV4_INVALID_PREFERENCE_LEVEL",
+    "ICMPV4_ROUTER_ADVERT_ENTRY",
+    "ICMPV4_ROUTER_ADVERT_HEADER",
+    "ICMPV4_ROUTER_SOLICIT",
+    "ICMPV4_TIMESTAMP_MESSAGE",
+    "ICMPV6_ECHO_REQUEST_FLAG_REVERSE",
+    "ICMP_ERROR_INFO",
+    "ICMP_HEADER",
+    "ICMP_MESSAGE",
     "IE_AALParameters",
-    "IE_TrafficDescriptor",
-    "IE_BroadbandBearerCapability",
     "IE_BHLI",
     "IE_BLLI",
+    "IE_BroadbandBearerCapability",
     "IE_CalledPartyNumber",
     "IE_CalledPartySubaddress",
     "IE_CallingPartyNumber",
     "IE_CallingPartySubaddress",
     "IE_Cause",
     "IE_QOSClass",
+    "IE_TrafficDescriptor",
     "IE_TransitNetworkSelection",
-    "Q2931_IE",
-    "AAL_TYPE",
-    "AALTYPE_5",
-    "AALTYPE_USER",
-    "AAL5_PARAMETERS",
-    "AALUSER_PARAMETERS",
-    "AAL_PARAMETERS_IE",
-    "ATM_TD",
-    "ATM_TRAFFIC_DESCRIPTOR_IE",
-    "ATM_BROADBAND_BEARER_CAPABILITY_IE",
-    "ATM_BLLI_IE",
-    "ATM_CALLING_PARTY_NUMBER_IE",
-    "ATM_CAUSE_IE",
-    "ATM_QOS_CLASS_IE",
-    "ATM_TRANSIT_NETWORK_SELECTION_IE",
-    "ATM_CONNECTION_ID",
-    "ATM_PVC_PARAMS",
-    "NAPI_PROVIDER_TYPE",
-    "ProviderType_Application",
-    "ProviderType_Service",
-    "NAPI_PROVIDER_LEVEL",
-    "ProviderLevel_None",
-    "ProviderLevel_Secondary",
-    "ProviderLevel_Primary",
-    "NAPI_DOMAIN_DESCRIPTION_BLOB",
-    "NAPI_PROVIDER_INSTALLATION_BLOB",
-    "TRANSMIT_FILE_BUFFERS",
-    "LPFN_TRANSMITFILE",
+    "IFF_BROADCAST",
+    "IFF_LOOPBACK",
+    "IFF_MULTICAST",
+    "IFF_POINTTOPOINT",
+    "IFF_UP",
+    "IGMPV3_QUERY_HEADER",
+    "IGMPV3_REPORT_HEADER",
+    "IGMPV3_REPORT_RECORD_HEADER",
+    "IGMP_HEADER",
+    "IGMP_LEAVE_GROUP_TYPE",
+    "IGMP_MAX_RESP_CODE_TYPE",
+    "IGMP_MAX_RESP_CODE_TYPE_FLOAT",
+    "IGMP_MAX_RESP_CODE_TYPE_NORMAL",
+    "IGMP_QUERY_TYPE",
+    "IGMP_VERSION1_REPORT_TYPE",
+    "IGMP_VERSION2_REPORT_TYPE",
+    "IGMP_VERSION3_REPORT_TYPE",
+    "IMPLINK_HIGHEXPER",
+    "IMPLINK_IP",
+    "IMPLINK_LOWEXPER",
+    "IN4ADDR_LINKLOCALPREFIX_LENGTH",
+    "IN4ADDR_LOOPBACK",
+    "IN4ADDR_LOOPBACKPREFIX_LENGTH",
+    "IN4ADDR_MULTICASTPREFIX_LENGTH",
+    "IN6ADDR_6TO4PREFIX_LENGTH",
+    "IN6ADDR_LINKLOCALPREFIX_LENGTH",
+    "IN6ADDR_MULTICASTPREFIX_LENGTH",
+    "IN6ADDR_SOLICITEDNODEMULTICASTPREFIX_LENGTH",
+    "IN6ADDR_TEREDOPREFIX_LENGTH",
+    "IN6ADDR_V4MAPPEDPREFIX_LENGTH",
+    "IN6_ADDR",
+    "IN6_EMBEDDEDV4_BITS_IN_BYTE",
+    "IN6_EMBEDDEDV4_UOCTET_POSITION",
+    "IN6_PKTINFO",
+    "IN6_PKTINFO_EX",
+    "INADDR_LOOPBACK",
+    "INADDR_NONE",
+    "INCL_WINSOCK_API_PROTOTYPES",
+    "INCL_WINSOCK_API_TYPEDEFS",
+    "INET6_ADDRSTRLEN",
+    "INET_ADDRSTRLEN",
+    "INET_PORT_RANGE",
+    "INET_PORT_RESERVATION_INFORMATION",
+    "INET_PORT_RESERVATION_INSTANCE",
+    "INET_PORT_RESERVATION_TOKEN",
+    "INTERFACE_INFO",
+    "INTERFACE_INFO_EX",
+    "INVALID_SOCKET",
+    "IN_ADDR",
+    "IN_CLASSA_HOST",
+    "IN_CLASSA_MAX",
+    "IN_CLASSA_NET",
+    "IN_CLASSA_NSHIFT",
+    "IN_CLASSB_HOST",
+    "IN_CLASSB_MAX",
+    "IN_CLASSB_NET",
+    "IN_CLASSB_NSHIFT",
+    "IN_CLASSC_HOST",
+    "IN_CLASSC_NET",
+    "IN_CLASSC_NSHIFT",
+    "IN_CLASSD_HOST",
+    "IN_CLASSD_NET",
+    "IN_CLASSD_NSHIFT",
+    "IN_PKTINFO",
+    "IN_PKTINFO_EX",
+    "IN_RECVERR",
+    "IOCPARM_MASK",
+    "IOC_IN",
+    "IOC_INOUT",
+    "IOC_OUT",
+    "IOC_PROTOCOL",
+    "IOC_UNIX",
+    "IOC_VENDOR",
+    "IOC_VOID",
+    "IOC_WS2",
+    "IP4_OFF_MASK",
+    "IP6F_MORE_FRAG",
+    "IP6F_OFF_MASK",
+    "IP6F_RESERVED_MASK",
+    "IP6OPT_JUMBO",
+    "IP6OPT_MUTABLE",
+    "IP6OPT_NSAP_ADDR",
+    "IP6OPT_PAD1",
+    "IP6OPT_PADN",
+    "IP6OPT_ROUTER_ALERT",
+    "IP6OPT_TUNNEL_LIMIT",
+    "IP6OPT_TYPE_DISCARD",
+    "IP6OPT_TYPE_FORCEICMP",
+    "IP6OPT_TYPE_ICMP",
+    "IP6OPT_TYPE_SKIP",
+    "IP6T_SO_ORIGINAL_DST",
+    "IPPORT_BIFFUDP",
+    "IPPORT_CHARGEN",
+    "IPPORT_CMDSERVER",
+    "IPPORT_DAYTIME",
+    "IPPORT_DISCARD",
+    "IPPORT_DYNAMIC_MAX",
+    "IPPORT_DYNAMIC_MIN",
+    "IPPORT_ECHO",
+    "IPPORT_EFSSERVER",
+    "IPPORT_EPMAP",
+    "IPPORT_EXECSERVER",
+    "IPPORT_FINGER",
+    "IPPORT_FTP",
+    "IPPORT_FTP_DATA",
+    "IPPORT_HTTPS",
+    "IPPORT_IMAP",
+    "IPPORT_IMAP3",
+    "IPPORT_LDAP",
+    "IPPORT_LOGINSERVER",
+    "IPPORT_MICROSOFT_DS",
+    "IPPORT_MSP",
+    "IPPORT_MTP",
+    "IPPORT_NAMESERVER",
+    "IPPORT_NETBIOS_DGM",
+    "IPPORT_NETBIOS_NS",
+    "IPPORT_NETBIOS_SSN",
+    "IPPORT_NETSTAT",
+    "IPPORT_NTP",
+    "IPPORT_POP3",
+    "IPPORT_QOTD",
+    "IPPORT_REGISTERED_MAX",
+    "IPPORT_REGISTERED_MIN",
+    "IPPORT_RESERVED",
+    "IPPORT_RJE",
+    "IPPORT_ROUTESERVER",
+    "IPPORT_SMTP",
+    "IPPORT_SNMP",
+    "IPPORT_SNMP_TRAP",
+    "IPPORT_SUPDUP",
+    "IPPORT_SYSTAT",
+    "IPPORT_TCPMUX",
+    "IPPORT_TELNET",
+    "IPPORT_TFTP",
+    "IPPORT_TIMESERVER",
+    "IPPORT_TTYLINK",
+    "IPPORT_WHOIS",
+    "IPPORT_WHOSERVER",
+    "IPPROTO",
+    "IPPROTO_AH",
+    "IPPROTO_CBT",
+    "IPPROTO_DSTOPTS",
+    "IPPROTO_EGP",
+    "IPPROTO_ESP",
+    "IPPROTO_FRAGMENT",
+    "IPPROTO_GGP",
+    "IPPROTO_HOPOPTS",
+    "IPPROTO_ICLFXBM",
+    "IPPROTO_ICMP",
+    "IPPROTO_ICMPV6",
+    "IPPROTO_IDP",
+    "IPPROTO_IGMP",
+    "IPPROTO_IGP",
+    "IPPROTO_IP",
+    "IPPROTO_IPV4",
+    "IPPROTO_IPV6",
+    "IPPROTO_L2TP",
+    "IPPROTO_MAX",
+    "IPPROTO_ND",
+    "IPPROTO_NONE",
+    "IPPROTO_PGM",
+    "IPPROTO_PIM",
+    "IPPROTO_PUP",
+    "IPPROTO_RAW",
+    "IPPROTO_RDP",
+    "IPPROTO_RESERVED_IPSEC",
+    "IPPROTO_RESERVED_IPSECOFFLOAD",
+    "IPPROTO_RESERVED_MAX",
+    "IPPROTO_RESERVED_RAW",
+    "IPPROTO_RESERVED_WNV",
+    "IPPROTO_RM",
+    "IPPROTO_ROUTING",
+    "IPPROTO_SCTP",
+    "IPPROTO_ST",
+    "IPPROTO_TCP",
+    "IPPROTO_UDP",
+    "IPTLS_METADATA",
+    "IPV4_HEADER",
+    "IPV4_MAX_MINIMUM_MTU",
+    "IPV4_MINIMUM_MTU",
+    "IPV4_MIN_MINIMUM_MTU",
+    "IPV4_OPTION_HEADER",
+    "IPV4_OPTION_TYPE",
+    "IPV4_ROUTING_HEADER",
+    "IPV4_TIMESTAMP_OPTION",
+    "IPV4_VERSION",
+    "IPV6_ADD_IFLIST",
+    "IPV6_ADD_MEMBERSHIP",
+    "IPV6_CHECKSUM",
+    "IPV6_DEL_IFLIST",
+    "IPV6_DONTFRAG",
+    "IPV6_DROP_MEMBERSHIP",
+    "IPV6_ECN",
+    "IPV6_ECN_MASK",
+    "IPV6_ECN_SHIFT",
+    "IPV6_EXTENSION_HEADER",
+    "IPV6_FLOW_LABEL_MASK",
+    "IPV6_FRAGMENT_HEADER",
+    "IPV6_FULL_TRAFFIC_CLASS_MASK",
+    "IPV6_GET_IFLIST",
+    "IPV6_HDRINCL",
+    "IPV6_HEADER",
+    "IPV6_HOPLIMIT",
+    "IPV6_HOPOPTS",
+    "IPV6_IFLIST",
+    "IPV6_JOIN_GROUP",
+    "IPV6_LEAVE_GROUP",
+    "IPV6_MINIMUM_MTU",
+    "IPV6_MREQ",
+    "IPV6_MTU",
+    "IPV6_MTU_DISCOVER",
+    "IPV6_MULTICAST_HOPS",
+    "IPV6_MULTICAST_IF",
+    "IPV6_MULTICAST_LOOP",
+    "IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS",
+    "IPV6_NRT_INTERFACE",
+    "IPV6_OPTION_HEADER",
+    "IPV6_OPTION_JUMBOGRAM",
+    "IPV6_OPTION_ROUTER_ALERT",
+    "IPV6_OPTION_TYPE",
+    "IPV6_PKTINFO",
+    "IPV6_PKTINFO_EX",
+    "IPV6_PROTECTION_LEVEL",
+    "IPV6_RECVDSTADDR",
+    "IPV6_RECVECN",
+    "IPV6_RECVERR",
+    "IPV6_RECVIF",
+    "IPV6_RECVRTHDR",
+    "IPV6_RECVTCLASS",
+    "IPV6_ROUTER_ADVERTISEMENT_FLAGS",
+    "IPV6_ROUTING_HEADER",
+    "IPV6_RTHDR",
+    "IPV6_TCLASS",
+    "IPV6_TRAFFIC_CLASS_MASK",
+    "IPV6_UNICAST_HOPS",
+    "IPV6_UNICAST_IF",
+    "IPV6_USER_MTU",
+    "IPV6_V6ONLY",
+    "IPV6_VERSION",
+    "IPV6_WFP_REDIRECT_CONTEXT",
+    "IPV6_WFP_REDIRECT_RECORDS",
+    "IPX_ADDRESS",
+    "IPX_ADDRESS_DATA",
+    "IPX_ADDRESS_NOTIFY",
+    "IPX_DSTYPE",
+    "IPX_EXTENDED_ADDRESS",
+    "IPX_FILTERPTYPE",
+    "IPX_GETNETINFO",
+    "IPX_GETNETINFO_NORIP",
+    "IPX_IMMEDIATESPXACK",
+    "IPX_MAXSIZE",
+    "IPX_MAX_ADAPTER_NUM",
+    "IPX_NETNUM_DATA",
+    "IPX_PTYPE",
+    "IPX_RECEIVE_BROADCAST",
+    "IPX_RECVHDR",
+    "IPX_RERIPNETNUMBER",
+    "IPX_SPXCONNSTATUS_DATA",
+    "IPX_SPXGETCONNECTIONSTATUS",
+    "IPX_STOPFILTERPTYPE",
+    "IP_ADD_IFLIST",
+    "IP_ADD_MEMBERSHIP",
+    "IP_ADD_SOURCE_MEMBERSHIP",
+    "IP_BLOCK_SOURCE",
+    "IP_DEFAULT_MULTICAST_LOOP",
+    "IP_DEFAULT_MULTICAST_TTL",
+    "IP_DEL_IFLIST",
+    "IP_DONTFRAGMENT",
+    "IP_DROP_MEMBERSHIP",
+    "IP_DROP_SOURCE_MEMBERSHIP",
+    "IP_ECN",
+    "IP_GET_IFLIST",
+    "IP_HDRINCL",
+    "IP_HOPLIMIT",
+    "IP_IFLIST",
+    "IP_MAX_MEMBERSHIPS",
+    "IP_MREQ",
+    "IP_MREQ_SOURCE",
+    "IP_MSFILTER",
+    "IP_MTU",
+    "IP_MTU_DISCOVER",
+    "IP_MULTICAST_IF",
+    "IP_MULTICAST_LOOP",
+    "IP_MULTICAST_TTL",
+    "IP_NRT_INTERFACE",
+    "IP_OPTIONS",
+    "IP_OPTION_TIMESTAMP_ADDRESS",
+    "IP_OPTION_TIMESTAMP_FLAGS",
+    "IP_OPTION_TIMESTAMP_ONLY",
+    "IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS",
+    "IP_OPT_EOL",
+    "IP_OPT_LSRR",
+    "IP_OPT_MULTIDEST",
+    "IP_OPT_NOP",
+    "IP_OPT_ROUTER_ALERT",
+    "IP_OPT_RR",
+    "IP_OPT_SECURITY",
+    "IP_OPT_SID",
+    "IP_OPT_SSRR",
+    "IP_OPT_TS",
+    "IP_ORIGINAL_ARRIVAL_IF",
+    "IP_PKTINFO",
+    "IP_PKTINFO_EX",
+    "IP_PMTUDISC_DO",
+    "IP_PMTUDISC_DONT",
+    "IP_PMTUDISC_MAX",
+    "IP_PMTUDISC_NOT_SET",
+    "IP_PMTUDISC_PROBE",
+    "IP_PROTECTION_LEVEL",
+    "IP_RECEIVE_BROADCAST",
+    "IP_RECVDSTADDR",
+    "IP_RECVECN",
+    "IP_RECVERR",
+    "IP_RECVIF",
+    "IP_RECVRTHDR",
+    "IP_RECVTCLASS",
+    "IP_RECVTOS",
+    "IP_RECVTTL",
+    "IP_RTHDR",
+    "IP_TCLASS",
+    "IP_TOS",
+    "IP_TTL",
+    "IP_UNBLOCK_SOURCE",
+    "IP_UNICAST_IF",
+    "IP_UNSPECIFIED_HOP_LIMIT",
+    "IP_UNSPECIFIED_TYPE_OF_SERVICE",
+    "IP_UNSPECIFIED_USER_MTU",
+    "IP_USER_MTU",
+    "IP_VER_MASK",
+    "IP_WFP_REDIRECT_CONTEXT",
+    "IP_WFP_REDIRECT_RECORDS",
+    "IRDA_PROTO_SOCK_STREAM",
+    "IRLMP_9WIRE_MODE",
+    "IRLMP_DISCOVERY_MODE",
+    "IRLMP_ENUMDEVICES",
+    "IRLMP_EXCLUSIVE_MODE",
+    "IRLMP_IAS_QUERY",
+    "IRLMP_IAS_SET",
+    "IRLMP_IRLPT_MODE",
+    "IRLMP_PARAMETERS",
+    "IRLMP_SEND_PDU_LEN",
+    "IRLMP_SHARP_MODE",
+    "IRLMP_TINYTP_MODE",
+    "ISOPROTO_CLNP",
+    "ISOPROTO_CLTP",
+    "ISOPROTO_ESIS",
+    "ISOPROTO_INACT_NL",
+    "ISOPROTO_INTRAISIS",
+    "ISOPROTO_TP",
+    "ISOPROTO_TP0",
+    "ISOPROTO_TP1",
+    "ISOPROTO_TP2",
+    "ISOPROTO_TP3",
+    "ISOPROTO_TP4",
+    "ISOPROTO_X25",
+    "ISO_EXP_DATA_NUSE",
+    "ISO_EXP_DATA_USE",
+    "ISO_HIERARCHICAL",
+    "ISO_MAX_ADDR_LENGTH",
+    "ISO_NON_HIERARCHICAL",
+    "InetNtopW",
+    "InetPtonW",
+    "JL_BOTH",
+    "JL_RECEIVER_ONLY",
+    "JL_SENDER_ONLY",
+    "LAYERED_PROTOCOL",
+    "LINGER",
+    "LITTLEENDIAN",
+    "LM_BAUD_115200",
+    "LM_BAUD_1152K",
+    "LM_BAUD_1200",
+    "LM_BAUD_16M",
+    "LM_BAUD_19200",
+    "LM_BAUD_2400",
+    "LM_BAUD_38400",
+    "LM_BAUD_4M",
+    "LM_BAUD_57600",
+    "LM_BAUD_576K",
+    "LM_BAUD_9600",
+    "LM_HB1_Computer",
+    "LM_HB1_Fax",
+    "LM_HB1_LANAccess",
+    "LM_HB1_Modem",
+    "LM_HB1_PDA_Palmtop",
+    "LM_HB1_PnP",
+    "LM_HB1_Printer",
+    "LM_HB2_FileServer",
+    "LM_HB2_Telephony",
+    "LM_HB_Extension",
+    "LM_IRPARMS",
+    "LOG2_BITS_PER_BYTE",
+    "LPBLOCKINGCALLBACK",
+    "LPCONDITIONPROC",
     "LPFN_ACCEPTEX",
-    "LPFN_GETACCEPTEXSOCKADDRS",
-    "TRANSMIT_PACKETS_ELEMENT",
-    "LPFN_TRANSMITPACKETS",
     "LPFN_CONNECTEX",
     "LPFN_DISCONNECTEX",
-    "NLA_BLOB_DATA_TYPE",
-    "NLA_RAW_DATA",
-    "NLA_INTERFACE",
-    "NLA_802_1X_LOCATION",
-    "NLA_CONNECTIVITY",
-    "NLA_ICS",
-    "NLA_CONNECTIVITY_TYPE",
-    "NLA_NETWORK_AD_HOC",
-    "NLA_NETWORK_MANAGED",
-    "NLA_NETWORK_UNMANAGED",
-    "NLA_NETWORK_UNKNOWN",
-    "NLA_INTERNET",
-    "NLA_INTERNET_UNKNOWN",
-    "NLA_INTERNET_NO",
-    "NLA_INTERNET_YES",
-    "NLA_BLOB",
-    "LPFN_WSARECVMSG",
-    "WSAPOLLDATA",
-    "WSASENDMSG",
-    "LPFN_WSASENDMSG",
-    "LPFN_WSAPOLL",
-    "LPFN_RIORECEIVE",
-    "LPFN_RIORECEIVEEX",
-    "LPFN_RIOSEND",
-    "LPFN_RIOSENDEX",
+    "LPFN_GETACCEPTEXSOCKADDRS",
+    "LPFN_NSPAPI",
     "LPFN_RIOCLOSECOMPLETIONQUEUE",
-    "RIO_NOTIFICATION_COMPLETION_TYPE",
-    "RIO_EVENT_COMPLETION",
-    "RIO_IOCP_COMPLETION",
-    "RIO_NOTIFICATION_COMPLETION",
     "LPFN_RIOCREATECOMPLETIONQUEUE",
     "LPFN_RIOCREATEREQUESTQUEUE",
     "LPFN_RIODEQUEUECOMPLETION",
     "LPFN_RIODEREGISTERBUFFER",
     "LPFN_RIONOTIFY",
+    "LPFN_RIORECEIVE",
+    "LPFN_RIORECEIVEEX",
     "LPFN_RIOREGISTERBUFFER",
     "LPFN_RIORESIZECOMPLETIONQUEUE",
     "LPFN_RIORESIZEREQUESTQUEUE",
-    "RIO_EXTENSION_FUNCTION_TABLE",
-    "WSPData",
-    "WSATHREADID",
-    "LPBLOCKINGCALLBACK",
+    "LPFN_RIOSEND",
+    "LPFN_RIOSENDEX",
+    "LPFN_TRANSMITFILE",
+    "LPFN_TRANSMITPACKETS",
+    "LPFN_WSAPOLL",
+    "LPFN_WSARECVMSG",
+    "LPFN_WSASENDMSG",
+    "LPLOOKUPSERVICE_COMPLETION_ROUTINE",
+    "LPNSPCLEANUP",
+    "LPNSPGETSERVICECLASSINFO",
+    "LPNSPINSTALLSERVICECLASS",
+    "LPNSPIOCTL",
+    "LPNSPLOOKUPSERVICEBEGIN",
+    "LPNSPLOOKUPSERVICEEND",
+    "LPNSPLOOKUPSERVICENEXT",
+    "LPNSPREMOVESERVICECLASS",
+    "LPNSPSETSERVICE",
+    "LPNSPSTARTUP",
+    "LPNSPV2CLEANUP",
+    "LPNSPV2CLIENTSESSIONRUNDOWN",
+    "LPNSPV2LOOKUPSERVICEBEGIN",
+    "LPNSPV2LOOKUPSERVICEEND",
+    "LPNSPV2LOOKUPSERVICENEXTEX",
+    "LPNSPV2SETSERVICEEX",
+    "LPNSPV2STARTUP",
+    "LPSERVICE_CALLBACK_PROC",
+    "LPWPUCLOSEEVENT",
+    "LPWPUCLOSESOCKETHANDLE",
+    "LPWPUCLOSETHREAD",
+    "LPWPUCOMPLETEOVERLAPPEDREQUEST",
+    "LPWPUCREATEEVENT",
+    "LPWPUCREATESOCKETHANDLE",
+    "LPWPUFDISSET",
+    "LPWPUGETPROVIDERPATH",
+    "LPWPUMODIFYIFSHANDLE",
+    "LPWPUOPENCURRENTTHREAD",
+    "LPWPUPOSTMESSAGE",
+    "LPWPUQUERYBLOCKINGCALLBACK",
+    "LPWPUQUERYSOCKETHANDLECONTEXT",
+    "LPWPUQUEUEAPC",
+    "LPWPURESETEVENT",
+    "LPWPUSETEVENT",
+    "LPWSAOVERLAPPED_COMPLETION_ROUTINE",
     "LPWSAUSERAPC",
+    "LPWSCDEINSTALLPROVIDER",
+    "LPWSCENABLENSPROVIDER",
+    "LPWSCENUMPROTOCOLS",
+    "LPWSCGETPROVIDERPATH",
+    "LPWSCINSTALLNAMESPACE",
+    "LPWSCINSTALLPROVIDER",
+    "LPWSCUNINSTALLNAMESPACE",
+    "LPWSCUPDATEPROVIDER",
+    "LPWSCWRITENAMESPACEORDER",
+    "LPWSCWRITEPROVIDERORDER",
     "LPWSPACCEPT",
     "LPWSPADDRESSTOSTRING",
     "LPWSPASYNCSELECT",
@@ -7135,9 +7845,9 @@ __all__ = [
     "LPWSPEVENTSELECT",
     "LPWSPGETOVERLAPPEDRESULT",
     "LPWSPGETPEERNAME",
+    "LPWSPGETQOSBYNAME",
     "LPWSPGETSOCKNAME",
     "LPWSPGETSOCKOPT",
-    "LPWSPGETQOSBYNAME",
     "LPWSPIOCTL",
     "LPWSPJOINLEAF",
     "LPWSPLISTEN",
@@ -7151,100 +7861,1322 @@ __all__ = [
     "LPWSPSETSOCKOPT",
     "LPWSPSHUTDOWN",
     "LPWSPSOCKET",
-    "LPWSPSTRINGTOADDRESS",
-    "WSPPROC_TABLE",
-    "LPWPUCLOSEEVENT",
-    "LPWPUCLOSESOCKETHANDLE",
-    "LPWPUCREATEEVENT",
-    "LPWPUCREATESOCKETHANDLE",
-    "LPWPUFDISSET",
-    "LPWPUGETPROVIDERPATH",
-    "LPWPUMODIFYIFSHANDLE",
-    "LPWPUPOSTMESSAGE",
-    "LPWPUQUERYBLOCKINGCALLBACK",
-    "LPWPUQUERYSOCKETHANDLECONTEXT",
-    "LPWPUQUEUEAPC",
-    "LPWPURESETEVENT",
-    "LPWPUSETEVENT",
-    "LPWPUOPENCURRENTTHREAD",
-    "LPWPUCLOSETHREAD",
-    "LPWPUCOMPLETEOVERLAPPEDREQUEST",
-    "WSPUPCALLTABLE",
     "LPWSPSTARTUP",
-    "LPWSCENUMPROTOCOLS",
-    "LPWSCDEINSTALLPROVIDER",
-    "LPWSCINSTALLPROVIDER",
-    "LPWSCGETPROVIDERPATH",
-    "LPWSCUPDATEPROVIDER",
-    "WSC_PROVIDER_INFO_TYPE",
-    "WSC_PROVIDER_INFO_TYPE_ProviderInfoLspCategories",
-    "WSC_PROVIDER_INFO_TYPE_ProviderInfoAudit",
-    "WSC_PROVIDER_AUDIT_INFO",
-    "LPWSCINSTALLNAMESPACE",
-    "LPWSCUNINSTALLNAMESPACE",
-    "LPWSCENABLENSPROVIDER",
-    "LPNSPCLEANUP",
-    "LPNSPLOOKUPSERVICEBEGIN",
-    "LPNSPLOOKUPSERVICENEXT",
-    "LPNSPIOCTL",
-    "LPNSPLOOKUPSERVICEEND",
-    "LPNSPSETSERVICE",
-    "LPNSPINSTALLSERVICECLASS",
-    "LPNSPREMOVESERVICECLASS",
-    "LPNSPGETSERVICECLASSINFO",
-    "NSP_ROUTINE",
-    "LPNSPSTARTUP",
-    "LPNSPV2STARTUP",
-    "LPNSPV2CLEANUP",
-    "LPNSPV2LOOKUPSERVICEBEGIN",
-    "LPNSPV2LOOKUPSERVICENEXTEX",
-    "LPNSPV2LOOKUPSERVICEEND",
-    "LPNSPV2SETSERVICEEX",
-    "LPNSPV2CLIENTSESSIONRUNDOWN",
+    "LPWSPSTRINGTOADDRESS",
+    "LSP_CRYPTO_COMPRESS",
+    "LSP_FIREWALL",
+    "LSP_INBOUND_MODIFY",
+    "LSP_INSPECTOR",
+    "LSP_LOCAL_CACHE",
+    "LSP_OUTBOUND_MODIFY",
+    "LSP_PROXY",
+    "LSP_REDIRECTOR",
+    "LSP_SYSTEM",
+    "LUP_ADDRCONFIG",
+    "LUP_API_ANSI",
+    "LUP_CONTAINERS",
+    "LUP_DEEP",
+    "LUP_DISABLE_IDN_ENCODING",
+    "LUP_DNS_ONLY",
+    "LUP_DUAL_ADDR",
+    "LUP_EXCLUSIVE_CUSTOM_SERVERS",
+    "LUP_EXTENDED_QUERYSET",
+    "LUP_FILESERVER",
+    "LUP_FLUSHCACHE",
+    "LUP_FLUSHPREVIOUS",
+    "LUP_FORCE_CLEAR_TEXT",
+    "LUP_NEAREST",
+    "LUP_NOCONTAINERS",
+    "LUP_NON_AUTHORITATIVE",
+    "LUP_REQUIRE_SECURE",
+    "LUP_RESOLUTION_HANDLE",
+    "LUP_RES_SERVICE",
+    "LUP_RETURN_ADDR",
+    "LUP_RETURN_ALIASES",
+    "LUP_RETURN_ALL",
+    "LUP_RETURN_BLOB",
+    "LUP_RETURN_COMMENT",
+    "LUP_RETURN_NAME",
+    "LUP_RETURN_PREFERRED_NAMES",
+    "LUP_RETURN_QUERY_STRING",
+    "LUP_RETURN_RESPONSE_FLAGS",
+    "LUP_RETURN_TTL",
+    "LUP_RETURN_TYPE",
+    "LUP_RETURN_VERSION",
+    "LUP_SECURE",
+    "LUP_SECURE_WITH_FALLBACK",
+    "LmCharSetASCII",
+    "LmCharSetISO_8859_1",
+    "LmCharSetISO_8859_2",
+    "LmCharSetISO_8859_3",
+    "LmCharSetISO_8859_4",
+    "LmCharSetISO_8859_5",
+    "LmCharSetISO_8859_6",
+    "LmCharSetISO_8859_7",
+    "LmCharSetISO_8859_8",
+    "LmCharSetISO_8859_9",
+    "LmCharSetUNICODE",
+    "MAXGETHOSTSTRUCT",
+    "MAX_IPV4_HLEN",
+    "MAX_IPV4_PACKET",
+    "MAX_IPV6_PAYLOAD",
+    "MAX_MCAST_TTL",
+    "MAX_PROTOCOL_CHAIN",
+    "MAX_WINDOW_INCREMENT_PERCENTAGE",
+    "MCAST_BLOCK_SOURCE",
+    "MCAST_EXCLUDE",
+    "MCAST_INCLUDE",
+    "MCAST_JOIN_GROUP",
+    "MCAST_JOIN_SOURCE_GROUP",
+    "MCAST_LEAVE_GROUP",
+    "MCAST_LEAVE_SOURCE_GROUP",
+    "MCAST_UNBLOCK_SOURCE",
+    "MIT_GUID",
+    "MIT_IF_LUID",
+    "MLDV2_QUERY_HEADER",
+    "MLDV2_REPORT_HEADER",
+    "MLDV2_REPORT_RECORD_HEADER",
+    "MLD_HEADER",
+    "MLD_MAX_RESP_CODE_TYPE",
+    "MLD_MAX_RESP_CODE_TYPE_FLOAT",
+    "MLD_MAX_RESP_CODE_TYPE_NORMAL",
+    "MSG_BCAST",
+    "MSG_CTRUNC",
+    "MSG_DONTROUTE",
+    "MSG_ERRQUEUE",
+    "MSG_INTERRUPT",
+    "MSG_MAXIOVLEN",
+    "MSG_MCAST",
+    "MSG_OOB",
+    "MSG_PARTIAL",
+    "MSG_PEEK",
+    "MSG_PUSH_IMMEDIATE",
+    "MSG_TRUNC",
+    "MSG_WAITALL",
+    "MULTICAST_MODE_TYPE",
+    "NAPI_DOMAIN_DESCRIPTION_BLOB",
+    "NAPI_PROVIDER_INSTALLATION_BLOB",
+    "NAPI_PROVIDER_LEVEL",
+    "NAPI_PROVIDER_TYPE",
+    "ND_NA_FLAG_OVERRIDE",
+    "ND_NA_FLAG_ROUTER",
+    "ND_NA_FLAG_SOLICITED",
+    "ND_NEIGHBOR_ADVERT_HEADER",
+    "ND_NEIGHBOR_SOLICIT_HEADER",
+    "ND_OPTION_DNSSL",
+    "ND_OPTION_HDR",
+    "ND_OPTION_MTU",
+    "ND_OPTION_PREFIX_INFO",
+    "ND_OPTION_RDNSS",
+    "ND_OPTION_RD_HDR",
+    "ND_OPTION_ROUTE_INFO",
+    "ND_OPTION_TYPE",
+    "ND_OPT_ADVERTISEMENT_INTERVAL",
+    "ND_OPT_DNSSL",
+    "ND_OPT_DNSSL_MIN_LEN",
+    "ND_OPT_HOME_AGENT_INFORMATION",
+    "ND_OPT_MTU",
+    "ND_OPT_NBMA_SHORTCUT_LIMIT",
+    "ND_OPT_PI_FLAG_AUTO",
+    "ND_OPT_PI_FLAG_ONLINK",
+    "ND_OPT_PI_FLAG_ROUTE",
+    "ND_OPT_PI_FLAG_ROUTER_ADDR",
+    "ND_OPT_PI_FLAG_SITE_PREFIX",
+    "ND_OPT_PREFIX_INFORMATION",
+    "ND_OPT_RDNSS",
+    "ND_OPT_RDNSS_MIN_LEN",
+    "ND_OPT_REDIRECTED_HEADER",
+    "ND_OPT_RI_FLAG_PREFERENCE",
+    "ND_OPT_ROUTE_INFO",
+    "ND_OPT_SOURCE_ADDR_LIST",
+    "ND_OPT_SOURCE_LINKADDR",
+    "ND_OPT_TARGET_ADDR_LIST",
+    "ND_OPT_TARGET_LINKADDR",
+    "ND_RA_FLAG_HOME_AGENT",
+    "ND_RA_FLAG_MANAGED",
+    "ND_RA_FLAG_OTHER",
+    "ND_RA_FLAG_PREFERENCE",
+    "ND_REDIRECT_HEADER",
+    "ND_ROUTER_ADVERT_HEADER",
+    "ND_ROUTER_SOLICIT_HEADER",
+    "NETBIOS_GROUP_NAME",
+    "NETBIOS_NAME_LENGTH",
+    "NETBIOS_TYPE_QUICK_GROUP",
+    "NETBIOS_TYPE_QUICK_UNIQUE",
+    "NETBIOS_UNIQUE_NAME",
+    "NETRESOURCE2A",
+    "NETRESOURCE2W",
+    "NI_DGRAM",
+    "NI_MAXHOST",
+    "NI_MAXSERV",
+    "NI_NAMEREQD",
+    "NI_NOFQDN",
+    "NI_NUMERICHOST",
+    "NI_NUMERICSERV",
+    "NLA_802_1X_LOCATION",
+    "NLA_ALLUSERS_NETWORK",
+    "NLA_BLOB",
+    "NLA_BLOB_DATA_TYPE",
+    "NLA_CONNECTIVITY",
+    "NLA_CONNECTIVITY_TYPE",
+    "NLA_FRIENDLY_NAME",
+    "NLA_ICS",
+    "NLA_INTERFACE",
+    "NLA_INTERNET",
+    "NLA_INTERNET_NO",
+    "NLA_INTERNET_UNKNOWN",
+    "NLA_INTERNET_YES",
+    "NLA_NETWORK_AD_HOC",
+    "NLA_NETWORK_MANAGED",
+    "NLA_NETWORK_UNKNOWN",
+    "NLA_NETWORK_UNMANAGED",
+    "NLA_RAW_DATA",
+    "NL_ADDRESS_TYPE",
+    "NL_ADDRESS_TYPE_NlatAnycast",
+    "NL_ADDRESS_TYPE_NlatBroadcast",
+    "NL_ADDRESS_TYPE_NlatInvalid",
+    "NL_ADDRESS_TYPE_NlatMulticast",
+    "NL_ADDRESS_TYPE_NlatUnicast",
+    "NL_ADDRESS_TYPE_NlatUnspecified",
+    "NL_BANDWIDTH_FLAG",
+    "NL_BANDWIDTH_FLAG_NlbwDisabled",
+    "NL_BANDWIDTH_FLAG_NlbwEnabled",
+    "NL_BANDWIDTH_FLAG_NlbwUnchanged",
+    "NL_BANDWIDTH_INFORMATION",
+    "NL_DAD_STATE",
+    "NL_DAD_STATE_IpDadStateDeprecated",
+    "NL_DAD_STATE_IpDadStateDuplicate",
+    "NL_DAD_STATE_IpDadStateInvalid",
+    "NL_DAD_STATE_IpDadStatePreferred",
+    "NL_DAD_STATE_IpDadStateTentative",
+    "NL_DAD_STATE_NldsDeprecated",
+    "NL_DAD_STATE_NldsDuplicate",
+    "NL_DAD_STATE_NldsInvalid",
+    "NL_DAD_STATE_NldsPreferred",
+    "NL_DAD_STATE_NldsTentative",
+    "NL_INTERFACE_NETWORK_CATEGORY_STATE",
+    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryStateMax",
+    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryUnknown",
+    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincDomainAuthenticated",
+    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPrivate",
+    "NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPublic",
+    "NL_INTERFACE_OFFLOAD_ROD",
+    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR",
+    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOff",
+    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOn",
+    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalDelayed",
+    "NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalUnchanged",
+    "NL_NEIGHBOR_STATE",
+    "NL_NEIGHBOR_STATE_NlnsDelay",
+    "NL_NEIGHBOR_STATE_NlnsIncomplete",
+    "NL_NEIGHBOR_STATE_NlnsMaximum",
+    "NL_NEIGHBOR_STATE_NlnsPermanent",
+    "NL_NEIGHBOR_STATE_NlnsProbe",
+    "NL_NEIGHBOR_STATE_NlnsReachable",
+    "NL_NEIGHBOR_STATE_NlnsStale",
+    "NL_NEIGHBOR_STATE_NlnsUnreachable",
+    "NL_NETWORK_CATEGORY",
+    "NL_NETWORK_CATEGORY_NetworkCategoryDomainAuthenticated",
+    "NL_NETWORK_CATEGORY_NetworkCategoryPrivate",
+    "NL_NETWORK_CATEGORY_NetworkCategoryPublic",
+    "NL_NETWORK_CATEGORY_NetworkCategoryUnchanged",
+    "NL_NETWORK_CATEGORY_NetworkCategoryUnknown",
+    "NL_NETWORK_CONNECTIVITY_COST_HINT",
+    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintFixed",
+    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnknown",
+    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnrestricted",
+    "NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintVariable",
+    "NL_NETWORK_CONNECTIVITY_HINT",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintConstrainedInternetAccess",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintHidden",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintInternetAccess",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintLocalAccess",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintNone",
+    "NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintUnknown",
+    "NL_PATH_BANDWIDTH_ROD",
+    "NL_PREFIX_ORIGIN",
+    "NL_PREFIX_ORIGIN_IpPrefixOriginDhcp",
+    "NL_PREFIX_ORIGIN_IpPrefixOriginManual",
+    "NL_PREFIX_ORIGIN_IpPrefixOriginOther",
+    "NL_PREFIX_ORIGIN_IpPrefixOriginRouterAdvertisement",
+    "NL_PREFIX_ORIGIN_IpPrefixOriginUnchanged",
+    "NL_PREFIX_ORIGIN_IpPrefixOriginWellKnown",
+    "NL_ROUTER_DISCOVERY_BEHAVIOR",
+    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp",
+    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled",
+    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled",
+    "NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged",
+    "NL_ROUTE_ORIGIN",
+    "NL_ROUTE_ORIGIN_Nlro6to4",
+    "NL_ROUTE_ORIGIN_NlroDHCP",
+    "NL_ROUTE_ORIGIN_NlroManual",
+    "NL_ROUTE_ORIGIN_NlroRouterAdvertisement",
+    "NL_ROUTE_ORIGIN_NlroWellKnown",
+    "NL_ROUTE_PROTOCOL",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_BBN",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_BGP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_CISCO",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_DHCP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_DVMRP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_EGP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_EIGRP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_ES_IS",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_GGP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_HELLO",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_ICMP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_IDPR",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_IS_IS",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_LOCAL",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NETMGMT",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_AUTOSTATIC",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC_NON_DOD",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_OSPF",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_OTHER",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_RIP",
+    "NL_ROUTE_PROTOCOL_MIB_IPPROTO_RPL",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_BBN",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_BGP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_CISCO",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_DHCP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_DVMRP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_EGP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_EIGRP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_ES_IS",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_GGP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_HELLO",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_ICMP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_IDPR",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_IS_IS",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_LOCAL",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_NETMGMT",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_NT_AUTOSTATIC",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC_NON_DOD",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_OSPF",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_OTHER",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_RIP",
+    "NL_ROUTE_PROTOCOL_PROTO_IP_RPL",
+    "NL_ROUTE_PROTOCOL_RouteProtocolBbn",
+    "NL_ROUTE_PROTOCOL_RouteProtocolBgp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolCisco",
+    "NL_ROUTE_PROTOCOL_RouteProtocolDhcp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolDvmrp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolEgp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolEigrp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolEsIs",
+    "NL_ROUTE_PROTOCOL_RouteProtocolGgp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolHello",
+    "NL_ROUTE_PROTOCOL_RouteProtocolIcmp",
+    "NL_ROUTE_PROTOCOL_RouteProtocolIdpr",
+    "NL_ROUTE_PROTOCOL_RouteProtocolIsIs",
+    "NL_ROUTE_PROTOCOL_RouteProtocolLocal",
+    "NL_ROUTE_PROTOCOL_RouteProtocolNetMgmt",
+    "NL_ROUTE_PROTOCOL_RouteProtocolOspf",
+    "NL_ROUTE_PROTOCOL_RouteProtocolOther",
+    "NL_ROUTE_PROTOCOL_RouteProtocolRip",
+    "NL_ROUTE_PROTOCOL_RouteProtocolRpl",
+    "NL_SUFFIX_ORIGIN",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginDhcp",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginLinkLayerAddress",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginManual",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginOther",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginRandom",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginUnchanged",
+    "NL_SUFFIX_ORIGIN_IpSuffixOriginWellKnown",
+    "NL_SUFFIX_ORIGIN_NlsoDhcp",
+    "NL_SUFFIX_ORIGIN_NlsoLinkLayerAddress",
+    "NL_SUFFIX_ORIGIN_NlsoManual",
+    "NL_SUFFIX_ORIGIN_NlsoOther",
+    "NL_SUFFIX_ORIGIN_NlsoRandom",
+    "NL_SUFFIX_ORIGIN_NlsoWellKnown",
+    "NPI_MODULEID",
+    "NPI_MODULEID_TYPE",
+    "NSPROTO_IPX",
+    "NSPROTO_SPX",
+    "NSPROTO_SPXII",
     "NSPV2_ROUTINE",
+    "NSP_NOTIFY_APC",
+    "NSP_NOTIFY_EVENT",
+    "NSP_NOTIFY_HWND",
+    "NSP_NOTIFY_IMMEDIATELY",
+    "NSP_NOTIFY_PORT",
+    "NSP_ROUTINE",
+    "NSTYPE_DYNAMIC",
+    "NSTYPE_ENUMERABLE",
+    "NSTYPE_HIERARCHICAL",
+    "NSTYPE_WORKGROUP",
+    "NS_ALL",
+    "NS_DEFAULT",
+    "NS_DHCP",
+    "NS_DNS",
+    "NS_EMAIL",
     "NS_INFOA",
     "NS_INFOW",
-    "SERVICE_TYPE_VALUE",
-    "SERVICE_TYPE_VALUE_ABSA",
-    "SERVICE_TYPE_VALUE_ABSW",
+    "NS_LOCALNAME",
+    "NS_MS",
+    "NS_NBP",
+    "NS_NDS",
+    "NS_NETBT",
+    "NS_NETDES",
+    "NS_NIS",
+    "NS_NISPLUS",
+    "NS_NLA",
+    "NS_NTDS",
+    "NS_PEER_BROWSE",
+    "NS_SAP",
+    "NS_SERVICE_INFOA",
+    "NS_SERVICE_INFOW",
+    "NS_SLP",
+    "NS_STDA",
+    "NS_TCPIP_HOSTS",
+    "NS_TCPIP_LOCAL",
+    "NS_VNS",
+    "NS_WINS",
+    "NS_WRQ",
+    "NS_X500",
+    "PFL_HIDDEN",
+    "PFL_MATCHES_PROTOCOL_ZERO",
+    "PFL_MULTIPLE_PROTO_ENTRIES",
+    "PFL_NETWORKDIRECT_PROVIDER",
+    "PFL_RECOMMENDED_PROTO_ENTRY",
+    "PF_APPLETALK",
+    "PF_ATM",
+    "PF_BAN",
+    "PF_CCITT",
+    "PF_CHAOS",
+    "PF_DATAKIT",
+    "PF_DECnet",
+    "PF_DLI",
+    "PF_ECMA",
+    "PF_FIREFOX",
+    "PF_HYLINK",
+    "PF_IMPLINK",
+    "PF_IPX",
+    "PF_IRDA",
+    "PF_ISO",
+    "PF_LAT",
+    "PF_MAX",
+    "PF_NS",
+    "PF_OSI",
+    "PF_PUP",
+    "PF_SNA",
+    "PF_UNIX",
+    "PF_UNKNOWN1",
+    "PF_VOICEVIEW",
+    "PI_ALLOWED",
+    "PI_NUMBER_NOT_AVAILABLE",
+    "PI_RESTRICTED",
+    "PMTUD_STATE",
+    "POLLERR",
+    "POLLHUP",
+    "POLLIN",
+    "POLLNVAL",
+    "POLLOUT",
+    "POLLPRI",
+    "POLLRDBAND",
+    "POLLRDNORM",
+    "POLLWRBAND",
+    "POLLWRNORM",
+    "PRIORITY_STATUS",
+    "PROP_ADDRESSES",
+    "PROP_ALL",
+    "PROP_COMMENT",
+    "PROP_DISPLAY_HINT",
+    "PROP_LOCALE",
+    "PROP_MACHINE",
+    "PROP_SD",
+    "PROP_START_TIME",
+    "PROP_VERSION",
+    "PROTECTION_LEVEL_DEFAULT",
+    "PROTECTION_LEVEL_EDGERESTRICTED",
+    "PROTECTION_LEVEL_RESTRICTED",
+    "PROTECTION_LEVEL_UNRESTRICTED",
+    "PROTOCOL_INFOA",
+    "PROTOCOL_INFOW",
+    "PROTOENT",
+    "PVD_CONFIG",
+    "ProcessSocketNotifications",
+    "ProviderLevel_None",
+    "ProviderLevel_Primary",
+    "ProviderLevel_Secondary",
+    "ProviderType_Application",
+    "ProviderType_Service",
+    "Q2931_IE",
+    "Q2931_IE_TYPE",
+    "QOS",
+    "QOS_CLASS0",
+    "QOS_CLASS1",
+    "QOS_CLASS2",
+    "QOS_CLASS3",
+    "QOS_CLASS4",
+    "RCVALL_IF",
+    "RCVALL_IPLEVEL",
+    "RCVALL_OFF",
+    "RCVALL_ON",
+    "RCVALL_SOCKETLEVELONLY",
+    "RCVALL_VALUE",
+    "REAL_TIME_NOTIFICATION_CAPABILITY",
+    "REAL_TIME_NOTIFICATION_CAPABILITY_EX",
+    "REAL_TIME_NOTIFICATION_SETTING_INPUT",
+    "REAL_TIME_NOTIFICATION_SETTING_INPUT_EX",
+    "REAL_TIME_NOTIFICATION_SETTING_OUTPUT",
+    "RESOURCEDISPLAYTYPE_DOMAIN",
+    "RESOURCEDISPLAYTYPE_FILE",
+    "RESOURCEDISPLAYTYPE_GENERIC",
+    "RESOURCEDISPLAYTYPE_GROUP",
+    "RESOURCEDISPLAYTYPE_SERVER",
+    "RESOURCEDISPLAYTYPE_SHARE",
+    "RESOURCEDISPLAYTYPE_TREE",
+    "RESOURCE_DISPLAY_TYPE",
+    "RESULT_IS_ADDED",
+    "RESULT_IS_ALIAS",
+    "RESULT_IS_CHANGED",
+    "RESULT_IS_DELETED",
+    "RES_FIND_MULTIPLE",
+    "RES_FLUSH_CACHE",
+    "RES_SERVICE",
+    "RES_SOFT_SEARCH",
+    "RES_UNUSED_1",
+    "RIORESULT",
+    "RIO_BUF",
+    "RIO_BUFFERID_t",
+    "RIO_CMSG_BUFFER",
+    "RIO_CORRUPT_CQ",
+    "RIO_CQ_t",
+    "RIO_EVENT_COMPLETION",
+    "RIO_EXTENSION_FUNCTION_TABLE",
+    "RIO_IOCP_COMPLETION",
+    "RIO_MAX_CQ_SIZE",
+    "RIO_MSG_COMMIT_ONLY",
+    "RIO_MSG_DEFER",
+    "RIO_MSG_DONT_NOTIFY",
+    "RIO_MSG_WAITALL",
+    "RIO_NOTIFICATION_COMPLETION",
+    "RIO_NOTIFICATION_COMPLETION_TYPE",
+    "RIO_RQ_t",
+    "RM_ADD_RECEIVE_IF",
+    "RM_DEL_RECEIVE_IF",
+    "RM_FEC_INFO",
+    "RM_FLUSHCACHE",
+    "RM_HIGH_SPEED_INTRANET_OPT",
+    "RM_LATEJOIN",
+    "RM_OPTIONSBASE",
+    "RM_RATE_WINDOW_SIZE",
+    "RM_RECEIVER_STATISTICS",
+    "RM_RECEIVER_STATS",
+    "RM_SENDER_STATISTICS",
+    "RM_SENDER_STATS",
+    "RM_SENDER_WINDOW_ADVANCE_METHOD",
+    "RM_SEND_WINDOW",
+    "RM_SEND_WINDOW_ADV_RATE",
+    "RM_SET_MCAST_TTL",
+    "RM_SET_MESSAGE_BOUNDARY",
+    "RM_SET_SEND_IF",
+    "RM_USE_FEC",
+    "RNRSERVICE_DELETE",
+    "RNRSERVICE_DEREGISTER",
+    "RNRSERVICE_REGISTER",
+    "RSS_SCALABILITY_INFO",
+    "RtlEthernetAddressToStringA",
+    "RtlEthernetAddressToStringW",
+    "RtlEthernetStringToAddressA",
+    "RtlEthernetStringToAddressW",
+    "RtlIpv4AddressToStringA",
+    "RtlIpv4AddressToStringExA",
+    "RtlIpv4AddressToStringExW",
+    "RtlIpv4AddressToStringW",
+    "RtlIpv4StringToAddressA",
+    "RtlIpv4StringToAddressExA",
+    "RtlIpv4StringToAddressExW",
+    "RtlIpv4StringToAddressW",
+    "RtlIpv6AddressToStringA",
+    "RtlIpv6AddressToStringExA",
+    "RtlIpv6AddressToStringExW",
+    "RtlIpv6AddressToStringW",
+    "RtlIpv6StringToAddressA",
+    "RtlIpv6StringToAddressExA",
+    "RtlIpv6StringToAddressExW",
+    "RtlIpv6StringToAddressW",
+    "SAP_FIELD_ABSENT",
+    "SAP_FIELD_ANY",
+    "SAP_FIELD_ANY_AESA_REST",
+    "SAP_FIELD_ANY_AESA_SEL",
+    "SCOPE_ID",
+    "SCOPE_LEVEL",
+    "SCOPE_LEVEL_ScopeLevelAdmin",
+    "SCOPE_LEVEL_ScopeLevelCount",
+    "SCOPE_LEVEL_ScopeLevelGlobal",
+    "SCOPE_LEVEL_ScopeLevelInterface",
+    "SCOPE_LEVEL_ScopeLevelLink",
+    "SCOPE_LEVEL_ScopeLevelOrganization",
+    "SCOPE_LEVEL_ScopeLevelSite",
+    "SCOPE_LEVEL_ScopeLevelSubnet",
+    "SD_BOTH",
+    "SD_RECEIVE",
+    "SD_SEND",
+    "SECURITY_PROTOCOL_NONE",
+    "SENDER_DEFAULT_LATE_JOINER_PERCENTAGE",
+    "SENDER_DEFAULT_RATE_KBITS_PER_SEC",
+    "SENDER_DEFAULT_WINDOW_ADV_PERCENTAGE",
+    "SENDER_MAX_LATE_JOINER_PERCENTAGE",
+    "SEND_RECV_FLAGS",
+    "SERVENT",
+    "SERVICE_ADDRESS",
+    "SERVICE_ADDRESSES",
+    "SERVICE_ADDRESS_FLAG_RPC_CN",
+    "SERVICE_ADDRESS_FLAG_RPC_DG",
+    "SERVICE_ADDRESS_FLAG_RPC_NB",
+    "SERVICE_ADD_TYPE",
+    "SERVICE_ASYNC_INFO",
+    "SERVICE_DELETE_TYPE",
+    "SERVICE_DEREGISTER",
+    "SERVICE_FLAG_DEFER",
+    "SERVICE_FLAG_HARD",
+    "SERVICE_FLUSH",
+    "SERVICE_INFOA",
+    "SERVICE_INFOW",
+    "SERVICE_LOCAL",
+    "SERVICE_MULTIPLE",
+    "SERVICE_REGISTER",
+    "SERVICE_RESOURCE",
+    "SERVICE_SERVICE",
     "SERVICE_TYPE_INFO",
     "SERVICE_TYPE_INFO_ABSA",
     "SERVICE_TYPE_INFO_ABSW",
-    "SERVICE_ADDRESS",
-    "SERVICE_ADDRESSES",
-    "SERVICE_INFOA",
-    "SERVICE_INFOW",
-    "NS_SERVICE_INFOA",
-    "NS_SERVICE_INFOW",
-    "PROTOCOL_INFOA",
-    "PROTOCOL_INFOW",
-    "NETRESOURCE2A",
-    "NETRESOURCE2W",
-    "LPFN_NSPAPI",
-    "LPSERVICE_CALLBACK_PROC",
-    "SERVICE_ASYNC_INFO",
-    "LPLOOKUPSERVICE_COMPLETION_ROUTINE",
-    "LPWSCWRITEPROVIDERORDER",
-    "LPWSCWRITENAMESPACEORDER",
-    "sockaddr_un",
-    "sockaddr_ipx",
-    "sockaddr_tp",
-    "sockaddr_nb",
-    "sockaddr_vns",
+    "SERVICE_TYPE_VALUE",
+    "SERVICE_TYPE_VALUE_ABSA",
+    "SERVICE_TYPE_VALUE_ABSW",
+    "SERVICE_TYPE_VALUE_CONN",
+    "SERVICE_TYPE_VALUE_CONNA",
+    "SERVICE_TYPE_VALUE_CONNW",
+    "SERVICE_TYPE_VALUE_IPXPORTA",
+    "SERVICE_TYPE_VALUE_IPXPORTW",
+    "SERVICE_TYPE_VALUE_OBJECTID",
+    "SERVICE_TYPE_VALUE_OBJECTIDA",
+    "SERVICE_TYPE_VALUE_OBJECTIDW",
+    "SERVICE_TYPE_VALUE_SAPID",
+    "SERVICE_TYPE_VALUE_SAPIDA",
+    "SERVICE_TYPE_VALUE_SAPIDW",
+    "SERVICE_TYPE_VALUE_TCPPORT",
+    "SERVICE_TYPE_VALUE_TCPPORTA",
+    "SERVICE_TYPE_VALUE_TCPPORTW",
+    "SERVICE_TYPE_VALUE_UDPPORT",
+    "SERVICE_TYPE_VALUE_UDPPORTA",
+    "SERVICE_TYPE_VALUE_UDPPORTW",
+    "SET_SERVICE_OPERATION",
+    "SET_SERVICE_PARTIAL_SUCCESS",
+    "SG_CONSTRAINED_GROUP",
+    "SG_UNCONSTRAINED_GROUP",
+    "SIOCATMARK",
+    "SIOCGHIWAT",
+    "SIOCGLOWAT",
+    "SIOCSHIWAT",
+    "SIOCSLOWAT",
+    "SIO_ABSORB_RTRALERT",
+    "SIO_ACQUIRE_PORT_RESERVATION",
+    "SIO_ADDRESS_LIST_CHANGE",
+    "SIO_ADDRESS_LIST_QUERY",
+    "SIO_ADDRESS_LIST_SORT",
+    "SIO_AF_UNIX_GETPEERPID",
+    "SIO_AF_UNIX_SETBINDPARENTPATH",
+    "SIO_AF_UNIX_SETCONNPARENTPATH",
+    "SIO_APPLY_TRANSPORT_SETTING",
+    "SIO_ASSOCIATE_HANDLE",
+    "SIO_ASSOCIATE_PORT_RESERVATION",
+    "SIO_ASSOCIATE_PVC",
+    "SIO_BASE_HANDLE",
+    "SIO_BSP_HANDLE",
+    "SIO_BSP_HANDLE_POLL",
+    "SIO_BSP_HANDLE_SELECT",
+    "SIO_CPU_AFFINITY",
+    "SIO_DELETE_PEER_TARGET_NAME",
+    "SIO_ENABLE_CIRCULAR_QUEUEING",
+    "SIO_EXT_POLL",
+    "SIO_EXT_SELECT",
+    "SIO_EXT_SENDMSG",
+    "SIO_FIND_ROUTE",
+    "SIO_FLUSH",
+    "SIO_GET_ATM_ADDRESS",
+    "SIO_GET_ATM_CONNECTION_ID",
+    "SIO_GET_BROADCAST_ADDRESS",
+    "SIO_GET_EXTENSION_FUNCTION_POINTER",
+    "SIO_GET_GROUP_QOS",
+    "SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER",
+    "SIO_GET_NUMBER_OF_ATM_DEVICES",
+    "SIO_GET_QOS",
+    "SIO_GET_TX_TIMESTAMP",
+    "SIO_INDEX_ADD_MCAST",
+    "SIO_INDEX_BIND",
+    "SIO_INDEX_DEL_MCAST",
+    "SIO_INDEX_MCASTIF",
+    "SIO_KEEPALIVE_VALS",
+    "SIO_LIMIT_BROADCASTS",
+    "SIO_LOOPBACK_FAST_PATH",
+    "SIO_MULTICAST_SCOPE",
+    "SIO_MULTIPOINT_LOOPBACK",
+    "SIO_NSP_NOTIFY_CHANGE",
+    "SIO_PRIORITY_HINT",
+    "SIO_QUERY_RSS_PROCESSOR_INFO",
+    "SIO_QUERY_RSS_SCALABILITY_INFO",
+    "SIO_QUERY_SECURITY",
+    "SIO_QUERY_TARGET_PNP_HANDLE",
+    "SIO_QUERY_TRANSPORT_SETTING",
+    "SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE",
+    "SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT",
+    "SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS",
+    "SIO_RCVALL",
+    "SIO_RCVALL_IF",
+    "SIO_RCVALL_IGMPMCAST",
+    "SIO_RCVALL_MCAST",
+    "SIO_RCVALL_MCAST_IF",
+    "SIO_RELEASE_PORT_RESERVATION",
+    "SIO_RESERVED_1",
+    "SIO_RESERVED_2",
+    "SIO_ROUTING_INTERFACE_CHANGE",
+    "SIO_ROUTING_INTERFACE_QUERY",
+    "SIO_SET_COMPATIBILITY_MODE",
+    "SIO_SET_GROUP_QOS",
+    "SIO_SET_PEER_TARGET_NAME",
+    "SIO_SET_PRIORITY_HINT",
+    "SIO_SET_QOS",
+    "SIO_SET_SECURITY",
+    "SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS",
+    "SIO_SOCKET_CLOSE_NOTIFY",
+    "SIO_SOCKET_USAGE_NOTIFICATION",
+    "SIO_TCP_INFO",
+    "SIO_TCP_INITIAL_RTO",
+    "SIO_TCP_SET_ACK_FREQUENCY",
+    "SIO_TCP_SET_ICW",
+    "SIO_TIMESTAMPING",
+    "SIO_TRANSLATE_HANDLE",
+    "SIO_UCAST_IF",
+    "SIO_UDP_CONNRESET",
+    "SIO_UDP_NETRESET",
+    "SIZEOF_IP_OPT_ROUTERALERT",
+    "SIZEOF_IP_OPT_ROUTING_HEADER",
+    "SIZEOF_IP_OPT_SECURITY",
+    "SIZEOF_IP_OPT_STREAMIDENTIFIER",
+    "SIZEOF_IP_OPT_TIMESTAMP_HEADER",
+    "SI_NETWORK",
+    "SI_USER_FAILED",
+    "SI_USER_NOT_SCREENED",
+    "SI_USER_PASSED",
+    "SNAP_CONTROL",
+    "SNAP_DSAP",
+    "SNAP_HEADER",
+    "SNAP_OUI",
+    "SNAP_SSAP",
+    "SOCKADDR",
+    "SOCKADDR_ATM",
+    "SOCKADDR_DL",
+    "SOCKADDR_IN",
+    "SOCKADDR_IN6",
+    "SOCKADDR_IN6_PAIR",
+    "SOCKADDR_IN6_W2KSP1",
+    "SOCKADDR_INET",
+    "SOCKADDR_IPX",
+    "SOCKADDR_IRDA",
+    "SOCKADDR_NB",
+    "SOCKADDR_STORAGE",
+    "SOCKADDR_STORAGE_XP",
+    "SOCKADDR_TP",
+    "SOCKADDR_UN",
+    "SOCKADDR_VNS",
+    "SOCKET",
+    "SOCKET_ADDRESS",
+    "SOCKET_ADDRESS_LIST",
+    "SOCKET_DEFAULT2_QM_POLICY",
+    "SOCKET_ERROR",
+    "SOCKET_INFO_CONNECTION_ENCRYPTED",
+    "SOCKET_INFO_CONNECTION_IMPERSONATED",
+    "SOCKET_INFO_CONNECTION_SECURED",
+    "SOCKET_PEER_TARGET_NAME",
+    "SOCKET_PRIORITY_HINT",
+    "SOCKET_PRIORITY_HINT_SocketMaximumPriorityHintType",
+    "SOCKET_PRIORITY_HINT_SocketPriorityHintLow",
+    "SOCKET_PRIORITY_HINT_SocketPriorityHintNormal",
+    "SOCKET_PRIORITY_HINT_SocketPriorityHintVeryLow",
+    "SOCKET_PROCESSOR_AFFINITY",
+    "SOCKET_QUERY_IPSEC2_ABORT_CONNECTION_ON_FIELD_CHANGE",
+    "SOCKET_QUERY_IPSEC2_FIELD_MASK_MM_SA_ID",
+    "SOCKET_QUERY_IPSEC2_FIELD_MASK_QM_SA_ID",
+    "SOCKET_SECURITY_PROTOCOL",
+    "SOCKET_SECURITY_PROTOCOL_DEFAULT",
+    "SOCKET_SECURITY_PROTOCOL_INVALID",
+    "SOCKET_SECURITY_PROTOCOL_IPSEC",
+    "SOCKET_SECURITY_PROTOCOL_IPSEC2",
+    "SOCKET_SECURITY_QUERY_INFO",
+    "SOCKET_SECURITY_QUERY_INFO_IPSEC2",
+    "SOCKET_SECURITY_QUERY_TEMPLATE",
+    "SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2",
+    "SOCKET_SECURITY_SETTINGS",
+    "SOCKET_SECURITY_SETTINGS_IPSEC",
+    "SOCKET_SETTINGS_ALLOW_INSECURE",
+    "SOCKET_SETTINGS_GUARANTEE_ENCRYPTION",
+    "SOCKET_SETTINGS_IPSEC_ALLOW_FIRST_INBOUND_PKT_UNENCRYPTED",
+    "SOCKET_SETTINGS_IPSEC_OPTIONAL_PEER_NAME_VERIFICATION",
+    "SOCKET_SETTINGS_IPSEC_PEER_NAME_IS_RAW_FORMAT",
+    "SOCKET_SETTINGS_IPSEC_SKIP_FILTER_INSTANTIATION",
+    "SOCKET_USAGE_TYPE",
+    "SOCK_DGRAM",
+    "SOCK_NOTIFY_EVENT_ERR",
+    "SOCK_NOTIFY_EVENT_HANGUP",
+    "SOCK_NOTIFY_EVENT_IN",
+    "SOCK_NOTIFY_EVENT_OUT",
+    "SOCK_NOTIFY_EVENT_REMOVE",
+    "SOCK_NOTIFY_OP_DISABLE",
+    "SOCK_NOTIFY_OP_ENABLE",
+    "SOCK_NOTIFY_OP_NONE",
+    "SOCK_NOTIFY_OP_REMOVE",
+    "SOCK_NOTIFY_REGISTER_EVENT_HANGUP",
+    "SOCK_NOTIFY_REGISTER_EVENT_IN",
+    "SOCK_NOTIFY_REGISTER_EVENT_NONE",
+    "SOCK_NOTIFY_REGISTER_EVENT_OUT",
+    "SOCK_NOTIFY_REGISTRATION",
+    "SOCK_NOTIFY_TRIGGER_EDGE",
+    "SOCK_NOTIFY_TRIGGER_LEVEL",
+    "SOCK_NOTIFY_TRIGGER_ONESHOT",
+    "SOCK_NOTIFY_TRIGGER_PERSISTENT",
+    "SOCK_RAW",
+    "SOCK_RDM",
+    "SOCK_SEQPACKET",
+    "SOCK_STREAM",
+    "SOL_IRLMP",
+    "SOL_SOCKET",
+    "SOMAXCONN",
+    "SO_ACCEPTCONN",
+    "SO_BROADCAST",
+    "SO_BSP_STATE",
+    "SO_COMPARTMENT_ID",
+    "SO_CONDITIONAL_ACCEPT",
+    "SO_CONNDATA",
+    "SO_CONNDATALEN",
+    "SO_CONNECT_TIME",
+    "SO_CONNOPT",
+    "SO_CONNOPTLEN",
+    "SO_DEBUG",
+    "SO_DISCDATA",
+    "SO_DISCDATALEN",
+    "SO_DISCOPT",
+    "SO_DISCOPTLEN",
+    "SO_DONTROUTE",
+    "SO_ERROR",
+    "SO_GROUP_ID",
+    "SO_GROUP_PRIORITY",
+    "SO_KEEPALIVE",
+    "SO_LINGER",
+    "SO_MAXDG",
+    "SO_MAXPATHDG",
+    "SO_MAX_MSG_SIZE",
+    "SO_OOBINLINE",
+    "SO_OPENTYPE",
+    "SO_ORIGINAL_DST",
+    "SO_PAUSE_ACCEPT",
+    "SO_PORT_SCALABILITY",
+    "SO_PROTOCOL_INFO",
+    "SO_PROTOCOL_INFOA",
+    "SO_PROTOCOL_INFOW",
+    "SO_RANDOMIZE_PORT",
+    "SO_RCVBUF",
+    "SO_RCVLOWAT",
+    "SO_RCVTIMEO",
+    "SO_REUSEADDR",
+    "SO_REUSE_MULTICASTPORT",
+    "SO_REUSE_UNICASTPORT",
+    "SO_SNDBUF",
+    "SO_SNDLOWAT",
+    "SO_SNDTIMEO",
+    "SO_SYNCHRONOUS_ALERT",
+    "SO_SYNCHRONOUS_NONALERT",
+    "SO_TIMESTAMP",
+    "SO_TIMESTAMP_ID",
+    "SO_TYPE",
+    "SO_UPDATE_ACCEPT_CONTEXT",
+    "SO_UPDATE_CONNECT_CONTEXT",
+    "SO_USELOOPBACK",
+    "SYSTEM_CRITICAL_SOCKET",
+    "SetAddrInfoExA",
+    "SetAddrInfoExW",
+    "SetServiceA",
+    "SetServiceW",
+    "SetSocketMediaStreamingMode",
+    "TCPSTATE",
+    "TCPSTATE_CLOSED",
+    "TCPSTATE_CLOSE_WAIT",
+    "TCPSTATE_CLOSING",
+    "TCPSTATE_ESTABLISHED",
+    "TCPSTATE_FIN_WAIT_1",
+    "TCPSTATE_FIN_WAIT_2",
+    "TCPSTATE_LAST_ACK",
+    "TCPSTATE_LISTEN",
+    "TCPSTATE_MAX",
+    "TCPSTATE_SYN_RCVD",
+    "TCPSTATE_SYN_SENT",
+    "TCPSTATE_TIME_WAIT",
+    "TCP_ACK_FREQUENCY_PARAMETERS",
+    "TCP_ATMARK",
+    "TCP_BSDURGENT",
+    "TCP_CONGESTION_ALGORITHM",
+    "TCP_DELAY_FIN_ACK",
+    "TCP_EXPEDITED_1122",
+    "TCP_FAIL_CONNECT_ON_ICMP_ERROR",
+    "TCP_FASTOPEN",
+    "TCP_HDR",
+    "TCP_ICMP_ERROR_INFO",
+    "TCP_ICW_LEVEL",
+    "TCP_ICW_LEVEL_AGGRESSIVE",
+    "TCP_ICW_LEVEL_COMPAT",
+    "TCP_ICW_LEVEL_DEFAULT",
+    "TCP_ICW_LEVEL_EXPERIMENTAL",
+    "TCP_ICW_LEVEL_HIGH",
+    "TCP_ICW_LEVEL_MAX",
+    "TCP_ICW_LEVEL_VERY_HIGH",
+    "TCP_ICW_PARAMETERS",
+    "TCP_INFO_v0",
+    "TCP_INFO_v1",
+    "TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS",
+    "TCP_INITIAL_RTO_DEFAULT_RTT",
+    "TCP_INITIAL_RTO_PARAMETERS",
+    "TCP_KEEPALIVE",
+    "TCP_KEEPCNT",
+    "TCP_KEEPIDLE",
+    "TCP_KEEPINTVL",
+    "TCP_MAXRT",
+    "TCP_MAXRTMS",
+    "TCP_MAXSEG",
+    "TCP_NODELAY",
+    "TCP_NOSYNRETRIES",
+    "TCP_NOURG",
+    "TCP_OFFLOAD_NOT_PREFERRED",
+    "TCP_OFFLOAD_NO_PREFERENCE",
+    "TCP_OFFLOAD_PREFERENCE",
+    "TCP_OFFLOAD_PREFERRED",
+    "TCP_OPT_FASTOPEN",
+    "TCP_OPT_MSS",
+    "TCP_OPT_SACK",
+    "TCP_OPT_SACK_PERMITTED",
+    "TCP_OPT_TS",
+    "TCP_OPT_UNKNOWN",
+    "TCP_OPT_WS",
+    "TCP_STDURG",
+    "TCP_TIMESTAMPS",
+    "TF_DISCONNECT",
+    "TF_REUSE_SOCKET",
+    "TF_USE_DEFAULT_WORKER",
+    "TF_USE_KERNEL_APC",
+    "TF_USE_SYSTEM_THREAD",
+    "TF_WRITE_BEHIND",
+    "TH_ACK",
+    "TH_CWR",
+    "TH_ECE",
+    "TH_FIN",
+    "TH_NETDEV",
+    "TH_OPT_EOL",
+    "TH_OPT_FASTOPEN",
+    "TH_OPT_MSS",
+    "TH_OPT_NOP",
+    "TH_OPT_SACK",
+    "TH_OPT_SACK_PERMITTED",
+    "TH_OPT_TS",
+    "TH_OPT_WS",
+    "TH_PSH",
+    "TH_RST",
+    "TH_SYN",
+    "TH_TAPI",
+    "TH_URG",
+    "TIMESTAMPING_CONFIG",
+    "TIMESTAMPING_FLAG_RX",
+    "TIMESTAMPING_FLAG_TX",
+    "TIMEVAL",
+    "TNS_PLAN_CARRIER_ID_CODE",
+    "TNS_TYPE_NATIONAL",
+    "TP_DISCONNECT",
+    "TP_ELEMENT_EOP",
+    "TP_ELEMENT_FILE",
+    "TP_ELEMENT_MEMORY",
+    "TP_REUSE_SOCKET",
+    "TP_USE_DEFAULT_WORKER",
+    "TP_USE_KERNEL_APC",
+    "TP_USE_SYSTEM_THREAD",
+    "TRANSMIT_FILE_BUFFERS",
+    "TRANSMIT_PACKETS_ELEMENT",
+    "TRANSPORT_SETTING_ID",
+    "TR_END_TO_END",
+    "TR_NOIND",
+    "TR_NO_END_TO_END",
+    "TT_CBR",
+    "TT_NOIND",
+    "TT_VBR",
+    "TUNNEL_SUB_TYPE",
+    "TUNNEL_SUB_TYPE_CP",
+    "TUNNEL_SUB_TYPE_HA",
+    "TUNNEL_SUB_TYPE_IPTLS",
+    "TUNNEL_SUB_TYPE_NONE",
+    "TransmitFile",
+    "UDP_CHECKSUM_COVERAGE",
+    "UDP_COALESCED_INFO",
+    "UDP_NOCHECKSUM",
+    "UDP_RECV_MAX_COALESCED_SIZE",
+    "UDP_SEND_MSG_SIZE",
+    "UNIX_PATH_MAX",
+    "UP_P2MP",
+    "UP_P2P",
+    "VLAN_TAG",
+    "VNSPROTO_IPC",
+    "VNSPROTO_RELIABLE_IPC",
+    "VNSPROTO_SPP",
+    "WCE_AF_IRDA",
+    "WCE_DEVICELIST",
+    "WCE_IRDA_DEVICE_INFO",
+    "WCE_PF_IRDA",
+    "WINDOWS_AF_IRDA",
+    "WINDOWS_DEVICELIST",
+    "WINDOWS_IAS_QUERY",
+    "WINDOWS_IAS_SET",
+    "WINDOWS_IRDA_DEVICE_INFO",
+    "WINDOWS_PF_IRDA",
+    "WPUCompleteOverlappedRequest",
+    "WSAAccept",
+    "WSAAddressToStringA",
+    "WSAAddressToStringW",
+    "WSAAdvertiseProvider",
+    "WSAAsyncGetHostByAddr",
+    "WSAAsyncGetHostByName",
+    "WSAAsyncGetProtoByName",
+    "WSAAsyncGetProtoByNumber",
+    "WSAAsyncGetServByName",
+    "WSAAsyncGetServByPort",
+    "WSAAsyncSelect",
+    "WSABASEERR",
+    "WSABUF",
+    "WSACOMPLETION",
+    "WSACOMPLETIONTYPE",
+    "WSACancelAsyncRequest",
+    "WSACancelBlockingCall",
+    "WSACleanup",
+    "WSACloseEvent",
+    "WSAConnect",
+    "WSAConnectByList",
+    "WSAConnectByNameA",
+    "WSAConnectByNameW",
+    "WSACreateEvent",
+    "WSADATA",
+    "WSADESCRIPTION_LEN",
+    "WSADeleteSocketPeerTargetName",
+    "WSADuplicateSocketA",
+    "WSADuplicateSocketW",
+    "WSAEACCES",
+    "WSAEADDRINUSE",
+    "WSAEADDRNOTAVAIL",
+    "WSAEAFNOSUPPORT",
+    "WSAEALREADY",
+    "WSAEBADF",
+    "WSAECANCELLED",
+    "WSAECOMPARATOR",
+    "WSAECONNABORTED",
+    "WSAECONNREFUSED",
+    "WSAECONNRESET",
+    "WSAEDESTADDRREQ",
+    "WSAEDISCON",
+    "WSAEDQUOT",
+    "WSAEFAULT",
+    "WSAEHOSTDOWN",
+    "WSAEHOSTUNREACH",
+    "WSAEINPROGRESS",
+    "WSAEINTR",
+    "WSAEINVAL",
+    "WSAEINVALIDPROCTABLE",
+    "WSAEINVALIDPROVIDER",
+    "WSAEISCONN",
+    "WSAELOOP",
+    "WSAEMFILE",
+    "WSAEMSGSIZE",
+    "WSAENAMETOOLONG",
+    "WSAENETDOWN",
+    "WSAENETRESET",
+    "WSAENETUNREACH",
+    "WSAENOBUFS",
+    "WSAENOMORE",
+    "WSAENOPROTOOPT",
+    "WSAENOTCONN",
+    "WSAENOTEMPTY",
+    "WSAENOTSOCK",
+    "WSAEOPNOTSUPP",
+    "WSAEPFNOSUPPORT",
+    "WSAEPROCLIM",
+    "WSAEPROTONOSUPPORT",
+    "WSAEPROTOTYPE",
+    "WSAEPROVIDERFAILEDINIT",
+    "WSAEREFUSED",
+    "WSAEREMOTE",
+    "WSAESETSERVICEOP",
+    "WSAESHUTDOWN",
+    "WSAESOCKTNOSUPPORT",
+    "WSAESTALE",
+    "WSAETIMEDOUT",
+    "WSAETOOMANYREFS",
+    "WSAEUSERS",
+    "WSAEWOULDBLOCK",
+    "WSAEnumNameSpaceProvidersA",
+    "WSAEnumNameSpaceProvidersExA",
+    "WSAEnumNameSpaceProvidersExW",
+    "WSAEnumNameSpaceProvidersW",
+    "WSAEnumNetworkEvents",
+    "WSAEnumProtocolsA",
+    "WSAEnumProtocolsW",
+    "WSAEventSelect",
+    "WSAGetLastError",
+    "WSAGetOverlappedResult",
+    "WSAGetQOSByName",
+    "WSAGetServiceClassInfoA",
+    "WSAGetServiceClassInfoW",
+    "WSAGetServiceClassNameByClassIdA",
+    "WSAGetServiceClassNameByClassIdW",
+    "WSAHOST_NOT_FOUND",
+    "WSAHtonl",
+    "WSAHtons",
+    "WSAImpersonateSocketPeer",
+    "WSAInstallServiceClassA",
+    "WSAInstallServiceClassW",
+    "WSAIoctl",
+    "WSAIsBlocking",
+    "WSAJoinLeaf",
+    "WSALookupServiceBeginA",
+    "WSALookupServiceBeginW",
+    "WSALookupServiceEnd",
+    "WSALookupServiceNextA",
+    "WSALookupServiceNextW",
+    "WSAMSG",
+    "WSANAMESPACE_INFOA",
+    "WSANAMESPACE_INFOEXA",
+    "WSANAMESPACE_INFOEXW",
+    "WSANAMESPACE_INFOW",
+    "WSANETWORKEVENTS",
+    "WSANOTINITIALISED",
+    "WSANO_DATA",
+    "WSANO_RECOVERY",
+    "WSANSCLASSINFOA",
+    "WSANSCLASSINFOW",
+    "WSANSPIoctl",
+    "WSANtohl",
+    "WSANtohs",
+    "WSAPOLLDATA",
+    "WSAPOLLFD",
+    "WSAPROTOCOLCHAIN",
+    "WSAPROTOCOL_INFOA",
+    "WSAPROTOCOL_INFOW",
+    "WSAPROTOCOL_LEN",
+    "WSAPoll",
+    "WSAProviderCompleteAsyncCall",
+    "WSAProviderConfigChange",
+    "WSAQUERYSET2A",
+    "WSAQUERYSET2W",
+    "WSAQUERYSETA",
+    "WSAQUERYSETW",
+    "WSAQuerySocketSecurity",
+    "WSARecv",
+    "WSARecvDisconnect",
+    "WSARecvEx",
+    "WSARecvFrom",
+    "WSARemoveServiceClass",
+    "WSAResetEvent",
+    "WSARevertImpersonation",
+    "WSASENDMSG",
+    "WSASERVICECLASSINFOA",
+    "WSASERVICECLASSINFOW",
+    "WSASERVICE_NOT_FOUND",
+    "WSASYSCALLFAILURE",
+    "WSASYSNOTREADY",
+    "WSASYS_STATUS_LEN",
+    "WSASend",
+    "WSASendDisconnect",
+    "WSASendMsg",
+    "WSASendTo",
+    "WSASetBlockingHook",
+    "WSASetEvent",
+    "WSASetLastError",
+    "WSASetServiceA",
+    "WSASetServiceW",
+    "WSASetSocketPeerTargetName",
+    "WSASetSocketSecurity",
+    "WSASocketA",
+    "WSASocketW",
+    "WSAStartup",
+    "WSAStringToAddressA",
+    "WSAStringToAddressW",
+    "WSATHREADID",
+    "WSATRY_AGAIN",
+    "WSATYPE_NOT_FOUND",
+    "WSAUnadvertiseProvider",
+    "WSAUnhookBlockingHook",
+    "WSAVERNOTSUPPORTED",
+    "WSAVERSION",
+    "WSAWaitForMultipleEvents",
+    "WSA_COMPATIBILITY_BEHAVIOR_ID",
+    "WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll",
+    "WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning",
+    "WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering",
+    "WSA_COMPATIBILITY_MODE",
+    "WSA_ERROR",
+    "WSA_E_CANCELLED",
+    "WSA_E_NO_MORE",
+    "WSA_FLAG_ACCESS_SYSTEM_SECURITY",
+    "WSA_FLAG_MULTIPOINT_C_LEAF",
+    "WSA_FLAG_MULTIPOINT_C_ROOT",
+    "WSA_FLAG_MULTIPOINT_D_LEAF",
+    "WSA_FLAG_MULTIPOINT_D_ROOT",
+    "WSA_FLAG_NO_HANDLE_INHERIT",
+    "WSA_FLAG_OVERLAPPED",
+    "WSA_FLAG_REGISTERED_IO",
+    "WSA_INFINITE",
+    "WSA_INVALID_HANDLE",
+    "WSA_INVALID_PARAMETER",
+    "WSA_IO_INCOMPLETE",
+    "WSA_IO_PENDING",
+    "WSA_IPSEC_NAME_POLICY_ERROR",
+    "WSA_MAXIMUM_WAIT_EVENTS",
+    "WSA_NOT_ENOUGH_MEMORY",
+    "WSA_OPERATION_ABORTED",
+    "WSA_QOS_ADMISSION_FAILURE",
+    "WSA_QOS_BAD_OBJECT",
+    "WSA_QOS_BAD_STYLE",
+    "WSA_QOS_EFILTERCOUNT",
+    "WSA_QOS_EFILTERSTYLE",
+    "WSA_QOS_EFILTERTYPE",
+    "WSA_QOS_EFLOWCOUNT",
+    "WSA_QOS_EFLOWDESC",
+    "WSA_QOS_EFLOWSPEC",
+    "WSA_QOS_EOBJLENGTH",
+    "WSA_QOS_EPOLICYOBJ",
+    "WSA_QOS_EPROVSPECBUF",
+    "WSA_QOS_EPSFILTERSPEC",
+    "WSA_QOS_EPSFLOWSPEC",
+    "WSA_QOS_ESDMODEOBJ",
+    "WSA_QOS_ESERVICETYPE",
+    "WSA_QOS_ESHAPERATEOBJ",
+    "WSA_QOS_EUNKOWNPSOBJ",
+    "WSA_QOS_GENERIC_ERROR",
+    "WSA_QOS_NO_RECEIVERS",
+    "WSA_QOS_NO_SENDERS",
+    "WSA_QOS_POLICY_FAILURE",
+    "WSA_QOS_RECEIVERS",
+    "WSA_QOS_REQUEST_CONFIRMED",
+    "WSA_QOS_RESERVED_PETYPE",
+    "WSA_QOS_SENDERS",
+    "WSA_QOS_TRAFFIC_CTRL_ERROR",
+    "WSA_SECURE_HOST_NOT_FOUND",
+    "WSA_WAIT_EVENT_0",
+    "WSA_WAIT_FAILED",
+    "WSA_WAIT_IO_COMPLETION",
+    "WSCDeinstallProvider",
+    "WSCDeinstallProvider32",
+    "WSCEnableNSProvider",
+    "WSCEnableNSProvider32",
+    "WSCEnumNameSpaceProviders32",
+    "WSCEnumNameSpaceProvidersEx32",
+    "WSCEnumProtocols",
+    "WSCEnumProtocols32",
+    "WSCGetApplicationCategory",
+    "WSCGetProviderInfo",
+    "WSCGetProviderInfo32",
+    "WSCGetProviderPath",
+    "WSCGetProviderPath32",
+    "WSCInstallNameSpace",
+    "WSCInstallNameSpace32",
+    "WSCInstallNameSpaceEx",
+    "WSCInstallNameSpaceEx32",
+    "WSCInstallProvider",
+    "WSCInstallProvider64_32",
+    "WSCInstallProviderAndChains64_32",
+    "WSCSetApplicationCategory",
+    "WSCSetProviderInfo",
+    "WSCSetProviderInfo32",
+    "WSCUnInstallNameSpace",
+    "WSCUnInstallNameSpace32",
+    "WSCUpdateProvider",
+    "WSCUpdateProvider32",
+    "WSCWriteNameSpaceOrder",
+    "WSCWriteNameSpaceOrder32",
+    "WSCWriteProviderOrder",
+    "WSCWriteProviderOrder32",
+    "WSC_PROVIDER_AUDIT_INFO",
+    "WSC_PROVIDER_INFO_TYPE",
+    "WSC_PROVIDER_INFO_TYPE_ProviderInfoAudit",
+    "WSC_PROVIDER_INFO_TYPE_ProviderInfoLspCategories",
+    "WSK_SO_BASE",
+    "WSPDATA",
+    "WSPDESCRIPTION_LEN",
+    "WSPPROC_TABLE",
+    "WSPUPCALLTABLE",
+    "WSS_OPERATION_IN_PROGRESS",
+    "XP1_CONNECTIONLESS",
+    "XP1_CONNECT_DATA",
+    "XP1_DISCONNECT_DATA",
+    "XP1_EXPEDITED_DATA",
+    "XP1_GRACEFUL_CLOSE",
+    "XP1_GUARANTEED_DELIVERY",
+    "XP1_GUARANTEED_ORDER",
+    "XP1_IFS_HANDLES",
+    "XP1_INTERRUPT",
+    "XP1_MESSAGE_ORIENTED",
+    "XP1_MULTIPOINT_CONTROL_PLANE",
+    "XP1_MULTIPOINT_DATA_PLANE",
+    "XP1_PARTIAL_MESSAGE",
+    "XP1_PSEUDO_STREAM",
+    "XP1_QOS_SUPPORTED",
+    "XP1_SAN_SUPPORT_SDP",
+    "XP1_SUPPORT_BROADCAST",
+    "XP1_SUPPORT_MULTIPOINT",
+    "XP1_UNI_RECV",
+    "XP1_UNI_SEND",
+    "XP_BANDWIDTH_ALLOCATION",
+    "XP_CONNECTIONLESS",
+    "XP_CONNECT_DATA",
+    "XP_DISCONNECT_DATA",
+    "XP_ENCRYPTS",
+    "XP_EXPEDITED_DATA",
+    "XP_FRAGMENTATION",
+    "XP_GRACEFUL_CLOSE",
+    "XP_GUARANTEED_DELIVERY",
+    "XP_GUARANTEED_ORDER",
+    "XP_MESSAGE_ORIENTED",
+    "XP_PSEUDO_STREAM",
+    "XP_SUPPORTS_BROADCAST",
+    "XP_SUPPORTS_MULTICAST",
+    "_BIG_ENDIAN",
+    "_LITTLE_ENDIAN",
+    "_PDP_ENDIAN",
+    "_SS_MAXSIZE",
     "__WSAFDIsSet",
     "accept",
     "bind",
     "closesocket",
     "connect",
-    "ioctlsocket",
+    "eWINDOW_ADVANCE_METHOD",
+    "freeaddrinfo",
+    "getaddrinfo",
+    "gethostbyaddr",
+    "gethostbyname",
+    "gethostname",
+    "getnameinfo",
     "getpeername",
+    "getprotobyname",
+    "getprotobynumber",
+    "getservbyname",
+    "getservbyport",
     "getsockname",
     "getsockopt",
     "htonl",
     "htons",
     "inet_addr",
     "inet_ntoa",
+    "inet_ntop",
+    "inet_pton",
+    "ioctlsocket",
     "listen",
+    "netent",
     "ntohl",
     "ntohs",
     "recv",
@@ -7254,216 +9186,9 @@ __all__ = [
     "sendto",
     "setsockopt",
     "shutdown",
+    "sockaddr_gen",
+    "sockaddr_in6_old",
     "socket",
-    "gethostbyaddr",
-    "gethostbyname",
-    "gethostname",
-    "GetHostNameW",
-    "getservbyport",
-    "getservbyname",
-    "getprotobynumber",
-    "getprotobyname",
-    "WSAStartup",
-    "WSACleanup",
-    "WSASetLastError",
-    "WSAGetLastError",
-    "WSAIsBlocking",
-    "WSAUnhookBlockingHook",
-    "WSASetBlockingHook",
-    "WSACancelBlockingCall",
-    "WSAAsyncGetServByName",
-    "WSAAsyncGetServByPort",
-    "WSAAsyncGetProtoByName",
-    "WSAAsyncGetProtoByNumber",
-    "WSAAsyncGetHostByName",
-    "WSAAsyncGetHostByAddr",
-    "WSACancelAsyncRequest",
-    "WSAAsyncSelect",
-    "WSAAccept",
-    "WSACloseEvent",
-    "WSAConnect",
-    "WSAConnectByNameW",
-    "WSAConnectByName",
-    "WSAConnectByNameA",
-    "WSAConnectByList",
-    "WSACreateEvent",
-    "WSADuplicateSocketA",
-    "WSADuplicateSocketW",
-    "WSADuplicateSocket",
-    "WSAEnumNetworkEvents",
-    "WSAEnumProtocolsA",
-    "WSAEnumProtocolsW",
-    "WSAEnumProtocols",
-    "WSAEventSelect",
-    "WSAGetOverlappedResult",
-    "WSAGetQOSByName",
-    "WSAHtonl",
-    "WSAHtons",
-    "WSAIoctl",
-    "WSAJoinLeaf",
-    "WSANtohl",
-    "WSANtohs",
-    "WSARecv",
-    "WSARecvDisconnect",
-    "WSARecvFrom",
-    "WSAResetEvent",
-    "WSASend",
-    "WSASendMsg",
-    "WSASendDisconnect",
-    "WSASendTo",
-    "WSASetEvent",
-    "WSASocketA",
-    "WSASocketW",
-    "WSASocket",
-    "WSAWaitForMultipleEvents",
-    "WSAAddressToStringA",
-    "WSAAddressToStringW",
-    "WSAAddressToString",
-    "WSAStringToAddressA",
-    "WSAStringToAddressW",
-    "WSAStringToAddress",
-    "WSALookupServiceBeginA",
-    "WSALookupServiceBeginW",
-    "WSALookupServiceBegin",
-    "WSALookupServiceNextA",
-    "WSALookupServiceNextW",
-    "WSALookupServiceNext",
-    "WSANSPIoctl",
-    "WSALookupServiceEnd",
-    "WSAInstallServiceClassA",
-    "WSAInstallServiceClassW",
-    "WSAInstallServiceClass",
-    "WSARemoveServiceClass",
-    "WSAGetServiceClassInfoA",
-    "WSAGetServiceClassInfoW",
-    "WSAGetServiceClassInfo",
-    "WSAEnumNameSpaceProvidersA",
-    "WSAEnumNameSpaceProvidersW",
-    "WSAEnumNameSpaceProviders",
-    "WSAEnumNameSpaceProvidersExA",
-    "WSAEnumNameSpaceProvidersExW",
-    "WSAEnumNameSpaceProvidersEx",
-    "WSAGetServiceClassNameByClassIdA",
-    "WSAGetServiceClassNameByClassIdW",
-    "WSAGetServiceClassNameByClassId",
-    "WSASetServiceA",
-    "WSASetServiceW",
-    "WSASetService",
-    "WSAProviderConfigChange",
-    "WSAPoll",
-    "ProcessSocketNotifications",
-    "RtlIpv4AddressToStringA",
-    "RtlIpv4AddressToStringExA",
-    "RtlIpv4AddressToStringW",
-    "RtlIpv4AddressToString",
-    "RtlIpv4AddressToStringExW",
-    "RtlIpv4AddressToStringEx",
-    "RtlIpv4StringToAddressA",
-    "RtlIpv4StringToAddressExA",
-    "RtlIpv4StringToAddressW",
-    "RtlIpv4StringToAddress",
-    "RtlIpv4StringToAddressExW",
-    "RtlIpv4StringToAddressEx",
-    "RtlIpv6AddressToStringA",
-    "RtlIpv6AddressToStringExA",
-    "RtlIpv6AddressToStringW",
-    "RtlIpv6AddressToString",
-    "RtlIpv6AddressToStringExW",
-    "RtlIpv6AddressToStringEx",
-    "RtlIpv6StringToAddressA",
-    "RtlIpv6StringToAddressExA",
-    "RtlIpv6StringToAddressW",
-    "RtlIpv6StringToAddress",
-    "RtlIpv6StringToAddressExW",
-    "RtlIpv6StringToAddressEx",
-    "RtlEthernetAddressToStringA",
-    "RtlEthernetAddressToStringW",
-    "RtlEthernetAddressToString",
-    "RtlEthernetStringToAddressA",
-    "RtlEthernetStringToAddressW",
-    "RtlEthernetStringToAddress",
-    "WSARecvEx",
-    "TransmitFile",
-    "AcceptEx",
-    "GetAcceptExSockaddrs",
-    "WSCEnumProtocols",
-    "WSCEnumProtocols32",
-    "WSCDeinstallProvider",
-    "WSCDeinstallProvider32",
-    "WSCInstallProvider",
-    "WSCInstallProvider64_32",
-    "WSCGetProviderPath",
-    "WSCGetProviderPath32",
-    "WSCUpdateProvider",
-    "WSCUpdateProvider32",
-    "WSCSetProviderInfo",
-    "WSCGetProviderInfo",
-    "WSCSetProviderInfo32",
-    "WSCGetProviderInfo32",
-    "WSCSetApplicationCategory",
-    "WSCGetApplicationCategory",
-    "WPUCompleteOverlappedRequest",
-    "WSCEnumNameSpaceProviders32",
-    "WSCEnumNameSpaceProvidersEx32",
-    "WSCInstallNameSpace",
-    "WSCInstallNameSpace32",
-    "WSCUnInstallNameSpace",
-    "WSCInstallNameSpaceEx",
-    "WSCInstallNameSpaceEx32",
-    "WSCUnInstallNameSpace32",
-    "WSCEnableNSProvider",
-    "WSCEnableNSProvider32",
-    "WSCInstallProviderAndChains64_32",
-    "WSAAdvertiseProvider",
-    "WSAUnadvertiseProvider",
-    "WSAProviderCompleteAsyncCall",
-    "EnumProtocolsA",
-    "EnumProtocolsW",
-    "EnumProtocols",
-    "GetAddressByNameA",
-    "GetAddressByNameW",
-    "GetAddressByName",
-    "GetTypeByNameA",
-    "GetTypeByNameW",
-    "GetTypeByName",
-    "GetNameByTypeA",
-    "GetNameByTypeW",
-    "GetNameByType",
-    "SetServiceA",
-    "SetServiceW",
-    "SetService",
-    "GetServiceA",
-    "GetServiceW",
-    "GetService",
-    "getaddrinfo",
-    "GetAddrInfoW",
-    "GetAddrInfoExA",
-    "GetAddrInfoExW",
-    "GetAddrInfoEx",
-    "GetAddrInfoExCancel",
-    "GetAddrInfoExOverlappedResult",
-    "SetAddrInfoExA",
-    "SetAddrInfoExW",
-    "SetAddrInfoEx",
-    "freeaddrinfo",
-    "FreeAddrInfoW",
-    "FreeAddrInfoEx",
-    "FreeAddrInfoExW",
-    "getnameinfo",
-    "GetNameInfoW",
-    "inet_pton",
-    "InetPtonW",
-    "inet_ntop",
-    "InetNtopW",
-    "WSASetSocketSecurity",
-    "WSAQuerySocketSecurity",
-    "WSASetSocketPeerTargetName",
-    "WSADeleteSocketPeerTargetName",
-    "WSAImpersonateSocketPeer",
-    "WSARevertImpersonation",
-    "SetSocketMediaStreamingMode",
-    "WSCWriteProviderOrder",
-    "WSCWriteProviderOrder32",
-    "WSCWriteNameSpaceOrder",
-    "WSCWriteNameSpaceOrder32",
+    "sockproto",
+    "tcp_keepalive",
 ]

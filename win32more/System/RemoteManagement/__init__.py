@@ -1,14 +1,13 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.RemoteManagement
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -20,6 +19,14 @@ WSMAN_FLAG_REQUESTED_API_VERSION_1_1 = 1
 WSMAN_OPERATION_INFOV1 = 0
 WSMAN_OPERATION_INFOV2 = 2864434397
 WSMAN_DEFAULT_TIMEOUT_MS = 60000
+WSMAN_STREAM_ID_STDIN = 'stdin'
+WSMAN_STREAM_ID_STDOUT = 'stdout'
+WSMAN_STREAM_ID_STDERR = 'stderr'
+WSMAN_SHELL_NS = 'http://schemas.microsoft.com/wbem/wsman/1/windows/shell'
+WSMAN_CMDSHELL_OPTION_CODEPAGE = 'WINRS_CODEPAGE'
+WSMAN_SHELL_OPTION_NOPROFILE = 'WINRS_NOPROFILE'
+WSMAN_CMDSHELL_OPTION_CONSOLEMODE_STDIN = 'WINRS_CONSOLEMODE_STDIN'
+WSMAN_CMDSHELL_OPTION_SKIP_CMD_SHELL = 'WINRS_SKIP_CMD_SHELL'
 WSMAN_FLAG_RECEIVE_RESULT_NO_MORE_DATA = 1
 WSMAN_FLAG_RECEIVE_FLUSH = 2
 WSMAN_FLAG_RECEIVE_RESULT_DATA_BOUNDARY = 4
@@ -553,33 +560,433 @@ ERROR_WSMAN_VIRTUALACCOUNT_NOTSUPPORTED = 2150859259
 ERROR_WSMAN_VIRTUALACCOUNT_NOTSUPPORTED_DOWNLEVEL = 2150859260
 ERROR_WSMAN_RUNASUSER_MANAGEDACCOUNT_LOGON_FAILED = 2150859261
 ERROR_WSMAN_CERTMAPPING_CREDENTIAL_MANAGEMENT_FAILIED = 2150859262
-def _define_WSMAN_DATA_TEXT_head():
-    class WSMAN_DATA_TEXT(Structure):
+def _define_WSManInitialize():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_API_head)))(('WSManInitialize', windll['WsmSvc.dll']), ((1, 'flags'),(1, 'apiHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManDeinitialize():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_API_head),UInt32)(('WSManDeinitialize', windll['WsmSvc.dll']), ((1, 'apiHandle'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManGetErrorMessage():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_API_head),UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('WSManGetErrorMessage', windll['WsmSvc.dll']), ((1, 'apiHandle'),(1, 'flags'),(1, 'languageCode'),(1, 'errorCode'),(1, 'messageLength'),(1, 'message'),(1, 'messageLengthUsed'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCreateSession():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_API_head),win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS_head),POINTER(win32more.System.RemoteManagement.WSMAN_PROXY_INFO_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head)))(('WSManCreateSession', windll['WsmSvc.dll']), ((1, 'apiHandle'),(1, 'connection'),(1, 'flags'),(1, 'serverAuthenticationCredentials'),(1, 'proxyInfo'),(1, 'session'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCloseSession():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32)(('WSManCloseSession', windll['WsmSvc.dll']), ((1, 'session'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManSetSessionOption():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),win32more.System.RemoteManagement.WSManSessionOption,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head))(('WSManSetSessionOption', windll['WsmSvc.dll']), ((1, 'session'),(1, 'option'),(1, 'data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManGetSessionOptionAsDword():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),win32more.System.RemoteManagement.WSManSessionOption,POINTER(UInt32))(('WSManGetSessionOptionAsDword', windll['WsmSvc.dll']), ((1, 'session'),(1, 'option'),(1, 'value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManGetSessionOptionAsString():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),win32more.System.RemoteManagement.WSManSessionOption,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('WSManGetSessionOptionAsString', windll['WsmSvc.dll']), ((1, 'session'),(1, 'option'),(1, 'stringLength'),(1, 'string'),(1, 'stringLengthUsed'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCloseOperation():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head),UInt32)(('WSManCloseOperation', windll['WsmSvc.dll']), ((1, 'operationHandle'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCreateShell():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head)))(('WSManCreateShell', windll['WsmSvc.dll']), ((1, 'session'),(1, 'flags'),(1, 'resourceUri'),(1, 'startupInfo'),(1, 'options'),(1, 'createXml'),(1, 'async'),(1, 'shell'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManRunShellCommand():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head)))(('WSManRunShellCommand', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'flags'),(1, 'commandLine'),(1, 'args'),(1, 'options'),(1, 'async'),(1, 'command'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManSignalShell():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head)))(('WSManSignalShell', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'command'),(1, 'flags'),(1, 'code'),(1, 'async'),(1, 'signalOperation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManReceiveShellOutput():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head)))(('WSManReceiveShellOutput', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'command'),(1, 'flags'),(1, 'desiredStreamSet'),(1, 'async'),(1, 'receiveOperation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManSendShellInput():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),win32more.Foundation.BOOL,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head)))(('WSManSendShellInput', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'command'),(1, 'flags'),(1, 'streamId'),(1, 'streamData'),(1, 'endOfStream'),(1, 'async'),(1, 'sendOperation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCloseCommand():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head))(('WSManCloseCommand', windll['WsmSvc.dll']), ((1, 'commandHandle'),(1, 'flags'),(1, 'async'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCloseShell():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head))(('WSManCloseShell', windll['WsmSvc.dll']), ((1, 'shellHandle'),(1, 'flags'),(1, 'async'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManCreateShellEx():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head)))(('WSManCreateShellEx', windll['WsmSvc.dll']), ((1, 'session'),(1, 'flags'),(1, 'resourceUri'),(1, 'shellId'),(1, 'startupInfo'),(1, 'options'),(1, 'createXml'),(1, 'async'),(1, 'shell'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManRunShellCommandEx():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head)))(('WSManRunShellCommandEx', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'flags'),(1, 'commandId'),(1, 'commandLine'),(1, 'args'),(1, 'options'),(1, 'async'),(1, 'command'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManDisconnectShell():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_DISCONNECT_INFO_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head))(('WSManDisconnectShell', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'flags'),(1, 'disconnectInfo'),(1, 'async'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManReconnectShell():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head))(('WSManReconnectShell', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'flags'),(1, 'async'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManReconnectShellCommand():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head))(('WSManReconnectShellCommand', windll['WsmSvc.dll']), ((1, 'commandHandle'),(1, 'flags'),(1, 'async'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManConnectShell():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head)))(('WSManConnectShell', windll['WsmSvc.dll']), ((1, 'session'),(1, 'flags'),(1, 'resourceUri'),(1, 'shellID'),(1, 'options'),(1, 'connectXml'),(1, 'async'),(1, 'shell'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManConnectShellCommand():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head)))(('WSManConnectShellCommand', windll['WsmSvc.dll']), ((1, 'shell'),(1, 'flags'),(1, 'commandID'),(1, 'options'),(1, 'connectXml'),(1, 'async'),(1, 'command'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginReportContext():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p)(('WSManPluginReportContext', windll['WsmSvc.dll']), ((1, 'requestDetails'),(1, 'flags'),(1, 'context'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginReceiveResult():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),win32more.Foundation.PWSTR,UInt32)(('WSManPluginReceiveResult', windll['WsmSvc.dll']), ((1, 'requestDetails'),(1, 'flags'),(1, 'stream'),(1, 'streamResult'),(1, 'commandState'),(1, 'exitCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginOperationComplete():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,UInt32,win32more.Foundation.PWSTR)(('WSManPluginOperationComplete', windll['WsmSvc.dll']), ((1, 'requestDetails'),(1, 'flags'),(1, 'errorCode'),(1, 'extendedInformation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginGetOperationParameters():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head))(('WSManPluginGetOperationParameters', windll['WsmSvc.dll']), ((1, 'requestDetails'),(1, 'flags'),(1, 'data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginGetConfiguration():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head))(('WSManPluginGetConfiguration', windll['WsmSvc.dll']), ((1, 'pluginContext'),(1, 'flags'),(1, 'data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginReportCompletion():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,UInt32)(('WSManPluginReportCompletion', windll['WsmSvc.dll']), ((1, 'pluginContext'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginFreeRequestDetails():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head))(('WSManPluginFreeRequestDetails', windll['WsmSvc.dll']), ((1, 'requestDetails'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginAuthzUserComplete():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR)(('WSManPluginAuthzUserComplete', windll['WsmSvc.dll']), ((1, 'senderDetails'),(1, 'flags'),(1, 'userAuthorizationContext'),(1, 'impersonationToken'),(1, 'userIsAdministrator'),(1, 'errorCode'),(1, 'extendedErrorInformation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginAuthzOperationComplete():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,c_void_p,UInt32,win32more.Foundation.PWSTR)(('WSManPluginAuthzOperationComplete', windll['WsmSvc.dll']), ((1, 'senderDetails'),(1, 'flags'),(1, 'userAuthorizationContext'),(1, 'errorCode'),(1, 'extendedErrorInformation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WSManPluginAuthzQueryQuotaComplete():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head),UInt32,win32more.Foundation.PWSTR)(('WSManPluginAuthzQueryQuotaComplete', windll['WsmSvc.dll']), ((1, 'senderDetails'),(1, 'flags'),(1, 'quota'),(1, 'errorCode'),(1, 'extendedErrorInformation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IWSMan_head():
+    class IWSMan(win32more.System.Com.IDispatch_head):
+        Guid = Guid('190d8637-5cd3-496d-ad-24-69-63-6b-b5-a3-b5')
+    return IWSMan
+def _define_IWSMan():
+    IWSMan = win32more.System.RemoteManagement.IWSMan_head
+    IWSMan.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head))(7, 'CreateSession', ((1, 'connection'),(1, 'flags'),(1, 'connectionOptions'),(1, 'session'),)))
+    IWSMan.CreateConnectionOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(8, 'CreateConnectionOptions', ((1, 'connectionOptions'),)))
+    IWSMan.get_CommandLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_CommandLine', ((1, 'value'),)))
+    IWSMan.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Error', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
+    return IWSMan
+def _define_IWSManConnectionOptions_head():
+    class IWSManConnectionOptions(win32more.System.Com.IDispatch_head):
+        Guid = Guid('f704e861-9e52-464f-b7-86-da-5e-b2-32-0f-dd')
+    return IWSManConnectionOptions
+def _define_IWSManConnectionOptions():
+    IWSManConnectionOptions = win32more.System.RemoteManagement.IWSManConnectionOptions_head
+    IWSManConnectionOptions.get_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_UserName', ((1, 'name'),)))
+    IWSManConnectionOptions.put_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_UserName', ((1, 'name'),)))
+    IWSManConnectionOptions.put_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_Password', ((1, 'password'),)))
+    win32more.System.Com.IDispatch
+    return IWSManConnectionOptions
+def _define_IWSManConnectionOptionsEx_head():
+    class IWSManConnectionOptionsEx(win32more.System.RemoteManagement.IWSManConnectionOptions_head):
+        Guid = Guid('ef43edf7-2a48-4d93-95-26-8b-d6-ab-6d-4a-6b')
+    return IWSManConnectionOptionsEx
+def _define_IWSManConnectionOptionsEx():
+    IWSManConnectionOptionsEx = win32more.System.RemoteManagement.IWSManConnectionOptionsEx_head
+    IWSManConnectionOptionsEx.get_CertificateThumbprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_CertificateThumbprint', ((1, 'thumbprint'),)))
+    IWSManConnectionOptionsEx.put_CertificateThumbprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'put_CertificateThumbprint', ((1, 'thumbprint'),)))
+    win32more.System.RemoteManagement.IWSManConnectionOptions
+    return IWSManConnectionOptionsEx
+def _define_IWSManConnectionOptionsEx2_head():
+    class IWSManConnectionOptionsEx2(win32more.System.RemoteManagement.IWSManConnectionOptionsEx_head):
+        Guid = Guid('f500c9ec-24ee-48ab-b3-8d-fc-9a-16-4c-65-8e')
+    return IWSManConnectionOptionsEx2
+def _define_IWSManConnectionOptionsEx2():
+    IWSManConnectionOptionsEx2 = win32more.System.RemoteManagement.IWSManConnectionOptionsEx2_head
+    IWSManConnectionOptionsEx2.SetProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(12, 'SetProxy', ((1, 'accessType'),(1, 'authenticationMechanism'),(1, 'userName'),(1, 'password'),)))
+    IWSManConnectionOptionsEx2.ProxyIEConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'ProxyIEConfig', ((1, 'value'),)))
+    IWSManConnectionOptionsEx2.ProxyWinHttpConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'ProxyWinHttpConfig', ((1, 'value'),)))
+    IWSManConnectionOptionsEx2.ProxyAutoDetect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'ProxyAutoDetect', ((1, 'value'),)))
+    IWSManConnectionOptionsEx2.ProxyNoProxyServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'ProxyNoProxyServer', ((1, 'value'),)))
+    IWSManConnectionOptionsEx2.ProxyAuthenticationUseNegotiate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'ProxyAuthenticationUseNegotiate', ((1, 'value'),)))
+    IWSManConnectionOptionsEx2.ProxyAuthenticationUseBasic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'ProxyAuthenticationUseBasic', ((1, 'value'),)))
+    IWSManConnectionOptionsEx2.ProxyAuthenticationUseDigest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'ProxyAuthenticationUseDigest', ((1, 'value'),)))
+    win32more.System.RemoteManagement.IWSManConnectionOptionsEx
+    return IWSManConnectionOptionsEx2
+def _define_IWSManEnumerator_head():
+    class IWSManEnumerator(win32more.System.Com.IDispatch_head):
+        Guid = Guid('f3457ca9-abb9-4fa5-b8-50-90-e8-ca-30-0e-7f')
+    return IWSManEnumerator
+def _define_IWSManEnumerator():
+    IWSManEnumerator = win32more.System.RemoteManagement.IWSManEnumerator_head
+    IWSManEnumerator.ReadItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'ReadItem', ((1, 'resource'),)))
+    IWSManEnumerator.get_AtEndOfStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_AtEndOfStream', ((1, 'eos'),)))
+    IWSManEnumerator.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Error', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
+    return IWSManEnumerator
+def _define_IWSManEx_head():
+    class IWSManEx(win32more.System.RemoteManagement.IWSMan_head):
+        Guid = Guid('2d53bdaa-798e-49e6-a1-aa-74-d0-12-56-f4-11')
+    return IWSManEx
+def _define_IWSManEx():
+    IWSManEx = win32more.System.RemoteManagement.IWSManEx_head
+    IWSManEx.CreateResourceLocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(11, 'CreateResourceLocator', ((1, 'strResourceLocator'),(1, 'newResourceLocator'),)))
+    IWSManEx.SessionFlagUTF8 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'SessionFlagUTF8', ((1, 'flags'),)))
+    IWSManEx.SessionFlagCredUsernamePassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'SessionFlagCredUsernamePassword', ((1, 'flags'),)))
+    IWSManEx.SessionFlagSkipCACheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'SessionFlagSkipCACheck', ((1, 'flags'),)))
+    IWSManEx.SessionFlagSkipCNCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'SessionFlagSkipCNCheck', ((1, 'flags'),)))
+    IWSManEx.SessionFlagUseDigest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'SessionFlagUseDigest', ((1, 'flags'),)))
+    IWSManEx.SessionFlagUseNegotiate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'SessionFlagUseNegotiate', ((1, 'flags'),)))
+    IWSManEx.SessionFlagUseBasic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'SessionFlagUseBasic', ((1, 'flags'),)))
+    IWSManEx.SessionFlagUseKerberos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'SessionFlagUseKerberos', ((1, 'flags'),)))
+    IWSManEx.SessionFlagNoEncryption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(20, 'SessionFlagNoEncryption', ((1, 'flags'),)))
+    IWSManEx.SessionFlagEnableSPNServerPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(21, 'SessionFlagEnableSPNServerPort', ((1, 'flags'),)))
+    IWSManEx.SessionFlagUseNoAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'SessionFlagUseNoAuthentication', ((1, 'flags'),)))
+    IWSManEx.EnumerationFlagNonXmlText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(23, 'EnumerationFlagNonXmlText', ((1, 'flags'),)))
+    IWSManEx.EnumerationFlagReturnEPR = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(24, 'EnumerationFlagReturnEPR', ((1, 'flags'),)))
+    IWSManEx.EnumerationFlagReturnObjectAndEPR = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(25, 'EnumerationFlagReturnObjectAndEPR', ((1, 'flags'),)))
+    IWSManEx.GetErrorMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR))(26, 'GetErrorMessage', ((1, 'errorNumber'),(1, 'errorMessage'),)))
+    IWSManEx.EnumerationFlagHierarchyDeep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(27, 'EnumerationFlagHierarchyDeep', ((1, 'flags'),)))
+    IWSManEx.EnumerationFlagHierarchyShallow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(28, 'EnumerationFlagHierarchyShallow', ((1, 'flags'),)))
+    IWSManEx.EnumerationFlagHierarchyDeepBasePropsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(29, 'EnumerationFlagHierarchyDeepBasePropsOnly', ((1, 'flags'),)))
+    IWSManEx.EnumerationFlagReturnObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(30, 'EnumerationFlagReturnObject', ((1, 'flags'),)))
+    win32more.System.RemoteManagement.IWSMan
+    return IWSManEx
+def _define_IWSManEx2_head():
+    class IWSManEx2(win32more.System.RemoteManagement.IWSManEx_head):
+        Guid = Guid('1d1b5ae0-42d9-4021-82-61-39-87-61-95-12-e9')
+    return IWSManEx2
+def _define_IWSManEx2():
+    IWSManEx2 = win32more.System.RemoteManagement.IWSManEx2_head
+    IWSManEx2.SessionFlagUseClientCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(31, 'SessionFlagUseClientCertificate', ((1, 'flags'),)))
+    win32more.System.RemoteManagement.IWSManEx
+    return IWSManEx2
+def _define_IWSManEx3_head():
+    class IWSManEx3(win32more.System.RemoteManagement.IWSManEx2_head):
+        Guid = Guid('6400e966-011d-4eac-84-74-04-9e-08-48-af-ad')
+    return IWSManEx3
+def _define_IWSManEx3():
+    IWSManEx3 = win32more.System.RemoteManagement.IWSManEx3_head
+    IWSManEx3.SessionFlagUTF16 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(32, 'SessionFlagUTF16', ((1, 'flags'),)))
+    IWSManEx3.SessionFlagUseCredSsp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(33, 'SessionFlagUseCredSsp', ((1, 'flags'),)))
+    IWSManEx3.EnumerationFlagAssociationInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(34, 'EnumerationFlagAssociationInstance', ((1, 'flags'),)))
+    IWSManEx3.EnumerationFlagAssociatedInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(35, 'EnumerationFlagAssociatedInstance', ((1, 'flags'),)))
+    IWSManEx3.SessionFlagSkipRevocationCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(36, 'SessionFlagSkipRevocationCheck', ((1, 'flags'),)))
+    IWSManEx3.SessionFlagAllowNegotiateImplicitCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(37, 'SessionFlagAllowNegotiateImplicitCredentials', ((1, 'flags'),)))
+    IWSManEx3.SessionFlagUseSsl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(38, 'SessionFlagUseSsl', ((1, 'flags'),)))
+    win32more.System.RemoteManagement.IWSManEx2
+    return IWSManEx3
+def _define_IWSManInternal_head():
+    class IWSManInternal(win32more.System.Com.IDispatch_head):
+        Guid = Guid('04ae2b1d-9954-4d99-94-a9-a9-61-e7-2c-3a-13')
+    return IWSManInternal
+def _define_IWSManInternal():
+    IWSManInternal = win32more.System.RemoteManagement.IWSManInternal_head
+    IWSManInternal.ConfigSDDL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.VARIANT,Int32,POINTER(win32more.Foundation.BSTR))(7, 'ConfigSDDL', ((1, 'session'),(1, 'resourceUri'),(1, 'flags'),(1, 'resource'),)))
+    win32more.System.Com.IDispatch
+    return IWSManInternal
+def _define_IWSManResourceLocator_head():
+    class IWSManResourceLocator(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a7a1ba28-de41-466a-ad-0a-c4-05-9e-ad-74-28')
+    return IWSManResourceLocator
+def _define_IWSManResourceLocator():
+    IWSManResourceLocator = win32more.System.RemoteManagement.IWSManResourceLocator_head
+    IWSManResourceLocator.put_ResourceURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'put_ResourceURI', ((1, 'uri'),)))
+    IWSManResourceLocator.get_ResourceURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_ResourceURI', ((1, 'uri'),)))
+    IWSManResourceLocator.AddSelector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT)(9, 'AddSelector', ((1, 'resourceSelName'),(1, 'selValue'),)))
+    IWSManResourceLocator.ClearSelectors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'ClearSelectors', ()))
+    IWSManResourceLocator.get_FragmentPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_FragmentPath', ((1, 'text'),)))
+    IWSManResourceLocator.put_FragmentPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_FragmentPath', ((1, 'text'),)))
+    IWSManResourceLocator.get_FragmentDialect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_FragmentDialect', ((1, 'text'),)))
+    IWSManResourceLocator.put_FragmentDialect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'put_FragmentDialect', ((1, 'text'),)))
+    IWSManResourceLocator.AddOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.Foundation.BOOL)(15, 'AddOption', ((1, 'OptionName'),(1, 'OptionValue'),(1, 'mustComply'),)))
+    IWSManResourceLocator.put_MustUnderstandOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(16, 'put_MustUnderstandOptions', ((1, 'mustUnderstand'),)))
+    IWSManResourceLocator.get_MustUnderstandOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(17, 'get_MustUnderstandOptions', ((1, 'mustUnderstand'),)))
+    IWSManResourceLocator.ClearOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'ClearOptions', ()))
+    IWSManResourceLocator.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_Error', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
+    return IWSManResourceLocator
+def _define_IWSManResourceLocatorInternal_head():
+    class IWSManResourceLocatorInternal(win32more.System.Com.IUnknown_head):
+        Guid = Guid('effaead7-7ec8-4716-b9-be-f2-e7-e9-fb-4a-db')
+    return IWSManResourceLocatorInternal
+def _define_IWSManResourceLocatorInternal():
+    IWSManResourceLocatorInternal = win32more.System.RemoteManagement.IWSManResourceLocatorInternal_head
+    win32more.System.Com.IUnknown
+    return IWSManResourceLocatorInternal
+def _define_IWSManSession_head():
+    class IWSManSession(win32more.System.Com.IDispatch_head):
+        Guid = Guid('fc84fc58-1286-40c4-9d-a0-c8-ef-6e-c2-41-e0')
+    return IWSManSession
+def _define_IWSManSession():
+    IWSManSession = win32more.System.RemoteManagement.IWSManSession_head
+    IWSManSession.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32,POINTER(win32more.Foundation.BSTR))(7, 'Get', ((1, 'resourceUri'),(1, 'flags'),(1, 'resource'),)))
+    IWSManSession.Put = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR))(8, 'Put', ((1, 'resourceUri'),(1, 'resource'),(1, 'flags'),(1, 'resultResource'),)))
+    IWSManSession.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR))(9, 'Create', ((1, 'resourceUri'),(1, 'resource'),(1, 'flags'),(1, 'newUri'),)))
+    IWSManSession.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32)(10, 'Delete', ((1, 'resourceUri'),(1, 'flags'),)))
+    IWSManSession.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR))(11, 'Invoke', ((1, 'actionUri'),(1, 'resourceUri'),(1, 'parameters'),(1, 'flags'),(1, 'result'),)))
+    IWSManSession.Enumerate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.IDispatch_head))(12, 'Enumerate', ((1, 'resourceUri'),(1, 'filter'),(1, 'dialect'),(1, 'flags'),(1, 'resultSet'),)))
+    IWSManSession.Identify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(13, 'Identify', ((1, 'flags'),(1, 'result'),)))
+    IWSManSession.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Error', ((1, 'value'),)))
+    IWSManSession.get_BatchItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_BatchItems', ((1, 'value'),)))
+    IWSManSession.put_BatchItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(16, 'put_BatchItems', ((1, 'value'),)))
+    IWSManSession.get_Timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_Timeout', ((1, 'value'),)))
+    IWSManSession.put_Timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(18, 'put_Timeout', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
+    return IWSManSession
+WSMan = Guid('bced617b-ec03-420b-85-08-97-7d-c7-a6-86-bd')
+def _define_WSMAN_API_head():
+    class WSMAN_API(Structure):
         pass
-    return WSMAN_DATA_TEXT
-def _define_WSMAN_DATA_TEXT():
-    WSMAN_DATA_TEXT = win32more.System.RemoteManagement.WSMAN_DATA_TEXT_head
-    WSMAN_DATA_TEXT._fields_ = [
-        ("bufferLength", UInt32),
-        ("buffer", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_DATA_TEXT
-def _define_WSMAN_DATA_BINARY_head():
-    class WSMAN_DATA_BINARY(Structure):
+    return WSMAN_API
+def _define_WSMAN_API():
+    WSMAN_API = win32more.System.RemoteManagement.WSMAN_API_head
+    return WSMAN_API
+def _define_WSMAN_AUTHENTICATION_CREDENTIALS_head():
+    class WSMAN_AUTHENTICATION_CREDENTIALS(Structure):
         pass
-    return WSMAN_DATA_BINARY
-def _define_WSMAN_DATA_BINARY():
-    WSMAN_DATA_BINARY = win32more.System.RemoteManagement.WSMAN_DATA_BINARY_head
-    WSMAN_DATA_BINARY._fields_ = [
-        ("dataLength", UInt32),
-        ("data", c_char_p_no),
+    return WSMAN_AUTHENTICATION_CREDENTIALS
+def _define_WSMAN_AUTHENTICATION_CREDENTIALS():
+    WSMAN_AUTHENTICATION_CREDENTIALS = win32more.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS_head
+    class WSMAN_AUTHENTICATION_CREDENTIALS__Anonymous_e__Union(Union):
+        pass
+    WSMAN_AUTHENTICATION_CREDENTIALS__Anonymous_e__Union._fields_ = [
+        ('userAccount', win32more.System.RemoteManagement.WSMAN_USERNAME_PASSWORD_CREDS),
+        ('certificateThumbprint', win32more.Foundation.PWSTR),
     ]
-    return WSMAN_DATA_BINARY
-WSManDataType = Int32
-WSMAN_DATA_NONE = 0
-WSMAN_DATA_TYPE_TEXT = 1
-WSMAN_DATA_TYPE_BINARY = 2
-WSMAN_DATA_TYPE_DWORD = 4
+    WSMAN_AUTHENTICATION_CREDENTIALS._anonymous_ = [
+        'Anonymous',
+    ]
+    WSMAN_AUTHENTICATION_CREDENTIALS._fields_ = [
+        ('authenticationMechanism', UInt32),
+        ('Anonymous', WSMAN_AUTHENTICATION_CREDENTIALS__Anonymous_e__Union),
+    ]
+    return WSMAN_AUTHENTICATION_CREDENTIALS
+def _define_WSMAN_AUTHZ_QUOTA_head():
+    class WSMAN_AUTHZ_QUOTA(Structure):
+        pass
+    return WSMAN_AUTHZ_QUOTA
+def _define_WSMAN_AUTHZ_QUOTA():
+    WSMAN_AUTHZ_QUOTA = win32more.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head
+    WSMAN_AUTHZ_QUOTA._fields_ = [
+        ('maxAllowedConcurrentShells', UInt32),
+        ('maxAllowedConcurrentOperations', UInt32),
+        ('timeslotSize', UInt32),
+        ('maxAllowedOperationsPerTimeslot', UInt32),
+    ]
+    return WSMAN_AUTHZ_QUOTA
+def _define_WSMAN_CERTIFICATE_DETAILS_head():
+    class WSMAN_CERTIFICATE_DETAILS(Structure):
+        pass
+    return WSMAN_CERTIFICATE_DETAILS
+def _define_WSMAN_CERTIFICATE_DETAILS():
+    WSMAN_CERTIFICATE_DETAILS = win32more.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS_head
+    WSMAN_CERTIFICATE_DETAILS._fields_ = [
+        ('subject', win32more.Foundation.PWSTR),
+        ('issuerName', win32more.Foundation.PWSTR),
+        ('issuerThumbprint', win32more.Foundation.PWSTR),
+        ('subjectName', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_CERTIFICATE_DETAILS
+def _define_WSMAN_COMMAND_head():
+    class WSMAN_COMMAND(Structure):
+        pass
+    return WSMAN_COMMAND
+def _define_WSMAN_COMMAND():
+    WSMAN_COMMAND = win32more.System.RemoteManagement.WSMAN_COMMAND_head
+    return WSMAN_COMMAND
+def _define_WSMAN_COMMAND_ARG_SET_head():
+    class WSMAN_COMMAND_ARG_SET(Structure):
+        pass
+    return WSMAN_COMMAND_ARG_SET
+def _define_WSMAN_COMMAND_ARG_SET():
+    WSMAN_COMMAND_ARG_SET = win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head
+    WSMAN_COMMAND_ARG_SET._fields_ = [
+        ('argsCount', UInt32),
+        ('args', POINTER(win32more.Foundation.PWSTR)),
+    ]
+    return WSMAN_COMMAND_ARG_SET
+def _define_WSMAN_CONNECT_DATA_head():
+    class WSMAN_CONNECT_DATA(Structure):
+        pass
+    return WSMAN_CONNECT_DATA
+def _define_WSMAN_CONNECT_DATA():
+    WSMAN_CONNECT_DATA = win32more.System.RemoteManagement.WSMAN_CONNECT_DATA_head
+    WSMAN_CONNECT_DATA._fields_ = [
+        ('data', win32more.System.RemoteManagement.WSMAN_DATA),
+    ]
+    return WSMAN_CONNECT_DATA
+def _define_WSMAN_CREATE_SHELL_DATA_head():
+    class WSMAN_CREATE_SHELL_DATA(Structure):
+        pass
+    return WSMAN_CREATE_SHELL_DATA
+def _define_WSMAN_CREATE_SHELL_DATA():
+    WSMAN_CREATE_SHELL_DATA = win32more.System.RemoteManagement.WSMAN_CREATE_SHELL_DATA_head
+    WSMAN_CREATE_SHELL_DATA._fields_ = [
+        ('data', win32more.System.RemoteManagement.WSMAN_DATA),
+    ]
+    return WSMAN_CREATE_SHELL_DATA
 def _define_WSMAN_DATA_head():
     class WSMAN_DATA(Structure):
         pass
@@ -589,18 +996,62 @@ def _define_WSMAN_DATA():
     class WSMAN_DATA__Anonymous_e__Union(Union):
         pass
     WSMAN_DATA__Anonymous_e__Union._fields_ = [
-        ("text", win32more.System.RemoteManagement.WSMAN_DATA_TEXT),
-        ("binaryData", win32more.System.RemoteManagement.WSMAN_DATA_BINARY),
-        ("number", UInt32),
+        ('text', win32more.System.RemoteManagement.WSMAN_DATA_TEXT),
+        ('binaryData', win32more.System.RemoteManagement.WSMAN_DATA_BINARY),
+        ('number', UInt32),
     ]
     WSMAN_DATA._anonymous_ = [
         'Anonymous',
     ]
     WSMAN_DATA._fields_ = [
-        ("type", win32more.System.RemoteManagement.WSManDataType),
-        ("Anonymous", WSMAN_DATA__Anonymous_e__Union),
+        ('type', win32more.System.RemoteManagement.WSManDataType),
+        ('Anonymous', WSMAN_DATA__Anonymous_e__Union),
     ]
     return WSMAN_DATA
+def _define_WSMAN_DATA_BINARY_head():
+    class WSMAN_DATA_BINARY(Structure):
+        pass
+    return WSMAN_DATA_BINARY
+def _define_WSMAN_DATA_BINARY():
+    WSMAN_DATA_BINARY = win32more.System.RemoteManagement.WSMAN_DATA_BINARY_head
+    WSMAN_DATA_BINARY._fields_ = [
+        ('dataLength', UInt32),
+        ('data', c_char_p_no),
+    ]
+    return WSMAN_DATA_BINARY
+def _define_WSMAN_DATA_TEXT_head():
+    class WSMAN_DATA_TEXT(Structure):
+        pass
+    return WSMAN_DATA_TEXT
+def _define_WSMAN_DATA_TEXT():
+    WSMAN_DATA_TEXT = win32more.System.RemoteManagement.WSMAN_DATA_TEXT_head
+    WSMAN_DATA_TEXT._fields_ = [
+        ('bufferLength', UInt32),
+        ('buffer', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_DATA_TEXT
+def _define_WSMAN_ENVIRONMENT_VARIABLE_head():
+    class WSMAN_ENVIRONMENT_VARIABLE(Structure):
+        pass
+    return WSMAN_ENVIRONMENT_VARIABLE
+def _define_WSMAN_ENVIRONMENT_VARIABLE():
+    WSMAN_ENVIRONMENT_VARIABLE = win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_head
+    WSMAN_ENVIRONMENT_VARIABLE._fields_ = [
+        ('name', win32more.Foundation.PWSTR),
+        ('value', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_ENVIRONMENT_VARIABLE
+def _define_WSMAN_ENVIRONMENT_VARIABLE_SET_head():
+    class WSMAN_ENVIRONMENT_VARIABLE_SET(Structure):
+        pass
+    return WSMAN_ENVIRONMENT_VARIABLE_SET
+def _define_WSMAN_ENVIRONMENT_VARIABLE_SET():
+    WSMAN_ENVIRONMENT_VARIABLE_SET = win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET_head
+    WSMAN_ENVIRONMENT_VARIABLE_SET._fields_ = [
+        ('varsCount', UInt32),
+        ('vars', POINTER(win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_head)),
+    ]
+    return WSMAN_ENVIRONMENT_VARIABLE_SET
 def _define_WSMAN_ERROR_head():
     class WSMAN_ERROR(Structure):
         pass
@@ -608,13 +1059,299 @@ def _define_WSMAN_ERROR_head():
 def _define_WSMAN_ERROR():
     WSMAN_ERROR = win32more.System.RemoteManagement.WSMAN_ERROR_head
     WSMAN_ERROR._fields_ = [
-        ("code", UInt32),
-        ("errorDetail", win32more.Foundation.PWSTR),
-        ("language", win32more.Foundation.PWSTR),
-        ("machineName", win32more.Foundation.PWSTR),
-        ("pluginName", win32more.Foundation.PWSTR),
+        ('code', UInt32),
+        ('errorDetail', win32more.Foundation.PWSTR),
+        ('language', win32more.Foundation.PWSTR),
+        ('machineName', win32more.Foundation.PWSTR),
+        ('pluginName', win32more.Foundation.PWSTR),
     ]
     return WSMAN_ERROR
+def _define_WSMAN_FILTER_head():
+    class WSMAN_FILTER(Structure):
+        pass
+    return WSMAN_FILTER
+def _define_WSMAN_FILTER():
+    WSMAN_FILTER = win32more.System.RemoteManagement.WSMAN_FILTER_head
+    WSMAN_FILTER._fields_ = [
+        ('filter', win32more.Foundation.PWSTR),
+        ('dialect', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_FILTER
+def _define_WSMAN_FRAGMENT_head():
+    class WSMAN_FRAGMENT(Structure):
+        pass
+    return WSMAN_FRAGMENT
+def _define_WSMAN_FRAGMENT():
+    WSMAN_FRAGMENT = win32more.System.RemoteManagement.WSMAN_FRAGMENT_head
+    WSMAN_FRAGMENT._fields_ = [
+        ('path', win32more.Foundation.PWSTR),
+        ('dialect', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_FRAGMENT
+def _define_WSMAN_KEY_head():
+    class WSMAN_KEY(Structure):
+        pass
+    return WSMAN_KEY
+def _define_WSMAN_KEY():
+    WSMAN_KEY = win32more.System.RemoteManagement.WSMAN_KEY_head
+    WSMAN_KEY._fields_ = [
+        ('key', win32more.Foundation.PWSTR),
+        ('value', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_KEY
+def _define_WSMAN_OPERATION_head():
+    class WSMAN_OPERATION(Structure):
+        pass
+    return WSMAN_OPERATION
+def _define_WSMAN_OPERATION():
+    WSMAN_OPERATION = win32more.System.RemoteManagement.WSMAN_OPERATION_head
+    return WSMAN_OPERATION
+def _define_WSMAN_OPERATION_INFO_head():
+    class WSMAN_OPERATION_INFO(Structure):
+        pass
+    return WSMAN_OPERATION_INFO
+def _define_WSMAN_OPERATION_INFO():
+    WSMAN_OPERATION_INFO = win32more.System.RemoteManagement.WSMAN_OPERATION_INFO_head
+    WSMAN_OPERATION_INFO._fields_ = [
+        ('fragment', win32more.System.RemoteManagement.WSMAN_FRAGMENT),
+        ('filter', win32more.System.RemoteManagement.WSMAN_FILTER),
+        ('selectorSet', win32more.System.RemoteManagement.WSMAN_SELECTOR_SET),
+        ('optionSet', win32more.System.RemoteManagement.WSMAN_OPTION_SET),
+        ('reserved', c_void_p),
+        ('version', UInt32),
+    ]
+    return WSMAN_OPERATION_INFO
+def _define_WSMAN_OPERATION_INFOEX_head():
+    class WSMAN_OPERATION_INFOEX(Structure):
+        pass
+    return WSMAN_OPERATION_INFOEX
+def _define_WSMAN_OPERATION_INFOEX():
+    WSMAN_OPERATION_INFOEX = win32more.System.RemoteManagement.WSMAN_OPERATION_INFOEX_head
+    WSMAN_OPERATION_INFOEX._fields_ = [
+        ('fragment', win32more.System.RemoteManagement.WSMAN_FRAGMENT),
+        ('filter', win32more.System.RemoteManagement.WSMAN_FILTER),
+        ('selectorSet', win32more.System.RemoteManagement.WSMAN_SELECTOR_SET),
+        ('optionSet', win32more.System.RemoteManagement.WSMAN_OPTION_SETEX),
+        ('version', UInt32),
+        ('uiLocale', win32more.Foundation.PWSTR),
+        ('dataLocale', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_OPERATION_INFOEX
+def _define_WSMAN_OPTION_head():
+    class WSMAN_OPTION(Structure):
+        pass
+    return WSMAN_OPTION
+def _define_WSMAN_OPTION():
+    WSMAN_OPTION = win32more.System.RemoteManagement.WSMAN_OPTION_head
+    WSMAN_OPTION._fields_ = [
+        ('name', win32more.Foundation.PWSTR),
+        ('value', win32more.Foundation.PWSTR),
+        ('mustComply', win32more.Foundation.BOOL),
+    ]
+    return WSMAN_OPTION
+def _define_WSMAN_OPTION_SET_head():
+    class WSMAN_OPTION_SET(Structure):
+        pass
+    return WSMAN_OPTION_SET
+def _define_WSMAN_OPTION_SET():
+    WSMAN_OPTION_SET = win32more.System.RemoteManagement.WSMAN_OPTION_SET_head
+    WSMAN_OPTION_SET._fields_ = [
+        ('optionsCount', UInt32),
+        ('options', POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_head)),
+        ('optionsMustUnderstand', win32more.Foundation.BOOL),
+    ]
+    return WSMAN_OPTION_SET
+def _define_WSMAN_OPTION_SETEX_head():
+    class WSMAN_OPTION_SETEX(Structure):
+        pass
+    return WSMAN_OPTION_SETEX
+def _define_WSMAN_OPTION_SETEX():
+    WSMAN_OPTION_SETEX = win32more.System.RemoteManagement.WSMAN_OPTION_SETEX_head
+    WSMAN_OPTION_SETEX._fields_ = [
+        ('optionsCount', UInt32),
+        ('options', POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_head)),
+        ('optionsMustUnderstand', win32more.Foundation.BOOL),
+        ('optionTypes', POINTER(win32more.Foundation.PWSTR)),
+    ]
+    return WSMAN_OPTION_SETEX
+def _define_WSMAN_PLUGIN_AUTHORIZE_OPERATION():
+    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
+def _define_WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA():
+    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32)
+def _define_WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT():
+    return WINFUNCTYPE(Void,c_void_p)
+def _define_WSMAN_PLUGIN_AUTHORIZE_USER():
+    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32)
+def _define_WSMAN_PLUGIN_COMMAND():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head))
+def _define_WSMAN_PLUGIN_CONNECT():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head))
+def _define_WSMAN_PLUGIN_RECEIVE():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head))
+def _define_WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT():
+    return WINFUNCTYPE(Void,c_void_p,c_void_p)
+def _define_WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT():
+    return WINFUNCTYPE(Void,c_void_p)
+def _define_WSMAN_PLUGIN_REQUEST_head():
+    class WSMAN_PLUGIN_REQUEST(Structure):
+        pass
+    return WSMAN_PLUGIN_REQUEST
+def _define_WSMAN_PLUGIN_REQUEST():
+    WSMAN_PLUGIN_REQUEST = win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head
+    WSMAN_PLUGIN_REQUEST._fields_ = [
+        ('senderDetails', POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head)),
+        ('locale', win32more.Foundation.PWSTR),
+        ('resourceUri', win32more.Foundation.PWSTR),
+        ('operationInfo', POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_INFO_head)),
+        ('shutdownNotification', Int32),
+        ('shutdownNotificationHandle', win32more.Foundation.HANDLE),
+        ('dataLocale', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_PLUGIN_REQUEST
+def _define_WSMAN_PLUGIN_SEND():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head))
+def _define_WSMAN_PLUGIN_SHELL():
+    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head))
+def _define_WSMAN_PLUGIN_SHUTDOWN():
+    return WINFUNCTYPE(UInt32,c_void_p,UInt32,UInt32)
+def _define_WSMAN_PLUGIN_SIGNAL():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,win32more.Foundation.PWSTR)
+def _define_WSMAN_PLUGIN_STARTUP():
+    return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p))
+def _define_WSMAN_PROXY_INFO_head():
+    class WSMAN_PROXY_INFO(Structure):
+        pass
+    return WSMAN_PROXY_INFO
+def _define_WSMAN_PROXY_INFO():
+    WSMAN_PROXY_INFO = win32more.System.RemoteManagement.WSMAN_PROXY_INFO_head
+    WSMAN_PROXY_INFO._fields_ = [
+        ('accessType', UInt32),
+        ('authenticationCredentials', win32more.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS),
+    ]
+    return WSMAN_PROXY_INFO
+def _define_WSMAN_RECEIVE_DATA_RESULT_head():
+    class WSMAN_RECEIVE_DATA_RESULT(Structure):
+        pass
+    return WSMAN_RECEIVE_DATA_RESULT
+def _define_WSMAN_RECEIVE_DATA_RESULT():
+    WSMAN_RECEIVE_DATA_RESULT = win32more.System.RemoteManagement.WSMAN_RECEIVE_DATA_RESULT_head
+    WSMAN_RECEIVE_DATA_RESULT._fields_ = [
+        ('streamId', win32more.Foundation.PWSTR),
+        ('streamData', win32more.System.RemoteManagement.WSMAN_DATA),
+        ('commandState', win32more.Foundation.PWSTR),
+        ('exitCode', UInt32),
+    ]
+    return WSMAN_RECEIVE_DATA_RESULT
+def _define_WSMAN_RESPONSE_DATA_head():
+    class WSMAN_RESPONSE_DATA(Union):
+        pass
+    return WSMAN_RESPONSE_DATA
+def _define_WSMAN_RESPONSE_DATA():
+    WSMAN_RESPONSE_DATA = win32more.System.RemoteManagement.WSMAN_RESPONSE_DATA_head
+    WSMAN_RESPONSE_DATA._fields_ = [
+        ('receiveData', win32more.System.RemoteManagement.WSMAN_RECEIVE_DATA_RESULT),
+        ('connectData', win32more.System.RemoteManagement.WSMAN_CONNECT_DATA),
+        ('createData', win32more.System.RemoteManagement.WSMAN_CREATE_SHELL_DATA),
+    ]
+    return WSMAN_RESPONSE_DATA
+def _define_WSMAN_SELECTOR_SET_head():
+    class WSMAN_SELECTOR_SET(Structure):
+        pass
+    return WSMAN_SELECTOR_SET
+def _define_WSMAN_SELECTOR_SET():
+    WSMAN_SELECTOR_SET = win32more.System.RemoteManagement.WSMAN_SELECTOR_SET_head
+    WSMAN_SELECTOR_SET._fields_ = [
+        ('numberKeys', UInt32),
+        ('keys', POINTER(win32more.System.RemoteManagement.WSMAN_KEY_head)),
+    ]
+    return WSMAN_SELECTOR_SET
+def _define_WSMAN_SENDER_DETAILS_head():
+    class WSMAN_SENDER_DETAILS(Structure):
+        pass
+    return WSMAN_SENDER_DETAILS
+def _define_WSMAN_SENDER_DETAILS():
+    WSMAN_SENDER_DETAILS = win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head
+    WSMAN_SENDER_DETAILS._fields_ = [
+        ('senderName', win32more.Foundation.PWSTR),
+        ('authenticationMechanism', win32more.Foundation.PWSTR),
+        ('certificateDetails', POINTER(win32more.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS_head)),
+        ('clientToken', win32more.Foundation.HANDLE),
+        ('httpURL', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_SENDER_DETAILS
+def _define_WSMAN_SESSION_head():
+    class WSMAN_SESSION(Structure):
+        pass
+    return WSMAN_SESSION
+def _define_WSMAN_SESSION():
+    WSMAN_SESSION = win32more.System.RemoteManagement.WSMAN_SESSION_head
+    return WSMAN_SESSION
+def _define_WSMAN_SHELL_head():
+    class WSMAN_SHELL(Structure):
+        pass
+    return WSMAN_SHELL
+def _define_WSMAN_SHELL():
+    WSMAN_SHELL = win32more.System.RemoteManagement.WSMAN_SHELL_head
+    return WSMAN_SHELL
+def _define_WSMAN_SHELL_ASYNC_head():
+    class WSMAN_SHELL_ASYNC(Structure):
+        pass
+    return WSMAN_SHELL_ASYNC
+def _define_WSMAN_SHELL_ASYNC():
+    WSMAN_SHELL_ASYNC = win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head
+    WSMAN_SHELL_ASYNC._fields_ = [
+        ('operationContext', c_void_p),
+        ('completionFunction', win32more.System.RemoteManagement.WSMAN_SHELL_COMPLETION_FUNCTION),
+    ]
+    return WSMAN_SHELL_ASYNC
+def _define_WSMAN_SHELL_COMPLETION_FUNCTION():
+    return WINFUNCTYPE(Void,c_void_p,UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_ERROR_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head),POINTER(win32more.System.RemoteManagement.WSMAN_RESPONSE_DATA_head))
+def _define_WSMAN_SHELL_DISCONNECT_INFO_head():
+    class WSMAN_SHELL_DISCONNECT_INFO(Structure):
+        pass
+    return WSMAN_SHELL_DISCONNECT_INFO
+def _define_WSMAN_SHELL_DISCONNECT_INFO():
+    WSMAN_SHELL_DISCONNECT_INFO = win32more.System.RemoteManagement.WSMAN_SHELL_DISCONNECT_INFO_head
+    WSMAN_SHELL_DISCONNECT_INFO._fields_ = [
+        ('idleTimeoutMs', UInt32),
+    ]
+    return WSMAN_SHELL_DISCONNECT_INFO
+def _define_WSMAN_SHELL_STARTUP_INFO_V10_head():
+    class WSMAN_SHELL_STARTUP_INFO_V10(Structure):
+        pass
+    return WSMAN_SHELL_STARTUP_INFO_V10
+def _define_WSMAN_SHELL_STARTUP_INFO_V10():
+    WSMAN_SHELL_STARTUP_INFO_V10 = win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V10_head
+    WSMAN_SHELL_STARTUP_INFO_V10._fields_ = [
+        ('inputStreamSet', POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)),
+        ('outputStreamSet', POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)),
+        ('idleTimeoutMs', UInt32),
+        ('workingDirectory', win32more.Foundation.PWSTR),
+        ('variableSet', POINTER(win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET_head)),
+    ]
+    return WSMAN_SHELL_STARTUP_INFO_V10
+def _define_WSMAN_SHELL_STARTUP_INFO_V11_head():
+    class WSMAN_SHELL_STARTUP_INFO_V11(Structure):
+        pass
+    return WSMAN_SHELL_STARTUP_INFO_V11
+def _define_WSMAN_SHELL_STARTUP_INFO_V11():
+    WSMAN_SHELL_STARTUP_INFO_V11 = win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head
+    WSMAN_SHELL_STARTUP_INFO_V11._fields_ = [
+        ('Base', win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V10),
+        ('name', win32more.Foundation.PWSTR),
+    ]
+    return WSMAN_SHELL_STARTUP_INFO_V11
+def _define_WSMAN_STREAM_ID_SET_head():
+    class WSMAN_STREAM_ID_SET(Structure):
+        pass
+    return WSMAN_STREAM_ID_SET
+def _define_WSMAN_STREAM_ID_SET():
+    WSMAN_STREAM_ID_SET = win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head
+    WSMAN_STREAM_ID_SET._fields_ = [
+        ('streamIDsCount', UInt32),
+        ('streamIDs', POINTER(win32more.Foundation.PWSTR)),
+    ]
+    return WSMAN_STREAM_ID_SET
 def _define_WSMAN_USERNAME_PASSWORD_CREDS_head():
     class WSMAN_USERNAME_PASSWORD_CREDS(Structure):
         pass
@@ -622,8 +1359,8 @@ def _define_WSMAN_USERNAME_PASSWORD_CREDS_head():
 def _define_WSMAN_USERNAME_PASSWORD_CREDS():
     WSMAN_USERNAME_PASSWORD_CREDS = win32more.System.RemoteManagement.WSMAN_USERNAME_PASSWORD_CREDS_head
     WSMAN_USERNAME_PASSWORD_CREDS._fields_ = [
-        ("username", win32more.Foundation.PWSTR),
-        ("password", win32more.Foundation.PWSTR),
+        ('username', win32more.Foundation.PWSTR),
+        ('password', win32more.Foundation.PWSTR),
     ]
     return WSMAN_USERNAME_PASSWORD_CREDS
 WSManAuthenticationFlags = Int32
@@ -635,168 +1372,65 @@ WSMAN_FLAG_AUTH_BASIC = 8
 WSMAN_FLAG_AUTH_KERBEROS = 16
 WSMAN_FLAG_AUTH_CREDSSP = 128
 WSMAN_FLAG_AUTH_CLIENT_CERTIFICATE = 32
-def _define_WSMAN_AUTHENTICATION_CREDENTIALS_head():
-    class WSMAN_AUTHENTICATION_CREDENTIALS(Structure):
-        pass
-    return WSMAN_AUTHENTICATION_CREDENTIALS
-def _define_WSMAN_AUTHENTICATION_CREDENTIALS():
-    WSMAN_AUTHENTICATION_CREDENTIALS = win32more.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS_head
-    class WSMAN_AUTHENTICATION_CREDENTIALS__Anonymous_e__Union(Union):
-        pass
-    WSMAN_AUTHENTICATION_CREDENTIALS__Anonymous_e__Union._fields_ = [
-        ("userAccount", win32more.System.RemoteManagement.WSMAN_USERNAME_PASSWORD_CREDS),
-        ("certificateThumbprint", win32more.Foundation.PWSTR),
-    ]
-    WSMAN_AUTHENTICATION_CREDENTIALS._anonymous_ = [
-        'Anonymous',
-    ]
-    WSMAN_AUTHENTICATION_CREDENTIALS._fields_ = [
-        ("authenticationMechanism", UInt32),
-        ("Anonymous", WSMAN_AUTHENTICATION_CREDENTIALS__Anonymous_e__Union),
-    ]
-    return WSMAN_AUTHENTICATION_CREDENTIALS
-def _define_WSMAN_OPTION_head():
-    class WSMAN_OPTION(Structure):
-        pass
-    return WSMAN_OPTION
-def _define_WSMAN_OPTION():
-    WSMAN_OPTION = win32more.System.RemoteManagement.WSMAN_OPTION_head
-    WSMAN_OPTION._fields_ = [
-        ("name", win32more.Foundation.PWSTR),
-        ("value", win32more.Foundation.PWSTR),
-        ("mustComply", win32more.Foundation.BOOL),
-    ]
-    return WSMAN_OPTION
-def _define_WSMAN_OPTION_SET_head():
-    class WSMAN_OPTION_SET(Structure):
-        pass
-    return WSMAN_OPTION_SET
-def _define_WSMAN_OPTION_SET():
-    WSMAN_OPTION_SET = win32more.System.RemoteManagement.WSMAN_OPTION_SET_head
-    WSMAN_OPTION_SET._fields_ = [
-        ("optionsCount", UInt32),
-        ("options", POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_head)),
-        ("optionsMustUnderstand", win32more.Foundation.BOOL),
-    ]
-    return WSMAN_OPTION_SET
-def _define_WSMAN_OPTION_SETEX_head():
-    class WSMAN_OPTION_SETEX(Structure):
-        pass
-    return WSMAN_OPTION_SETEX
-def _define_WSMAN_OPTION_SETEX():
-    WSMAN_OPTION_SETEX = win32more.System.RemoteManagement.WSMAN_OPTION_SETEX_head
-    WSMAN_OPTION_SETEX._fields_ = [
-        ("optionsCount", UInt32),
-        ("options", POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_head)),
-        ("optionsMustUnderstand", win32more.Foundation.BOOL),
-        ("optionTypes", POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return WSMAN_OPTION_SETEX
-def _define_WSMAN_KEY_head():
-    class WSMAN_KEY(Structure):
-        pass
-    return WSMAN_KEY
-def _define_WSMAN_KEY():
-    WSMAN_KEY = win32more.System.RemoteManagement.WSMAN_KEY_head
-    WSMAN_KEY._fields_ = [
-        ("key", win32more.Foundation.PWSTR),
-        ("value", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_KEY
-def _define_WSMAN_SELECTOR_SET_head():
-    class WSMAN_SELECTOR_SET(Structure):
-        pass
-    return WSMAN_SELECTOR_SET
-def _define_WSMAN_SELECTOR_SET():
-    WSMAN_SELECTOR_SET = win32more.System.RemoteManagement.WSMAN_SELECTOR_SET_head
-    WSMAN_SELECTOR_SET._fields_ = [
-        ("numberKeys", UInt32),
-        ("keys", POINTER(win32more.System.RemoteManagement.WSMAN_KEY_head)),
-    ]
-    return WSMAN_SELECTOR_SET
-def _define_WSMAN_FRAGMENT_head():
-    class WSMAN_FRAGMENT(Structure):
-        pass
-    return WSMAN_FRAGMENT
-def _define_WSMAN_FRAGMENT():
-    WSMAN_FRAGMENT = win32more.System.RemoteManagement.WSMAN_FRAGMENT_head
-    WSMAN_FRAGMENT._fields_ = [
-        ("path", win32more.Foundation.PWSTR),
-        ("dialect", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_FRAGMENT
-def _define_WSMAN_FILTER_head():
-    class WSMAN_FILTER(Structure):
-        pass
-    return WSMAN_FILTER
-def _define_WSMAN_FILTER():
-    WSMAN_FILTER = win32more.System.RemoteManagement.WSMAN_FILTER_head
-    WSMAN_FILTER._fields_ = [
-        ("filter", win32more.Foundation.PWSTR),
-        ("dialect", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_FILTER
-def _define_WSMAN_OPERATION_INFO_head():
-    class WSMAN_OPERATION_INFO(Structure):
-        pass
-    return WSMAN_OPERATION_INFO
-def _define_WSMAN_OPERATION_INFO():
-    WSMAN_OPERATION_INFO = win32more.System.RemoteManagement.WSMAN_OPERATION_INFO_head
-    WSMAN_OPERATION_INFO._fields_ = [
-        ("fragment", win32more.System.RemoteManagement.WSMAN_FRAGMENT),
-        ("filter", win32more.System.RemoteManagement.WSMAN_FILTER),
-        ("selectorSet", win32more.System.RemoteManagement.WSMAN_SELECTOR_SET),
-        ("optionSet", win32more.System.RemoteManagement.WSMAN_OPTION_SET),
-        ("reserved", c_void_p),
-        ("version", UInt32),
-    ]
-    return WSMAN_OPERATION_INFO
-def _define_WSMAN_OPERATION_INFOEX_head():
-    class WSMAN_OPERATION_INFOEX(Structure):
-        pass
-    return WSMAN_OPERATION_INFOEX
-def _define_WSMAN_OPERATION_INFOEX():
-    WSMAN_OPERATION_INFOEX = win32more.System.RemoteManagement.WSMAN_OPERATION_INFOEX_head
-    WSMAN_OPERATION_INFOEX._fields_ = [
-        ("fragment", win32more.System.RemoteManagement.WSMAN_FRAGMENT),
-        ("filter", win32more.System.RemoteManagement.WSMAN_FILTER),
-        ("selectorSet", win32more.System.RemoteManagement.WSMAN_SELECTOR_SET),
-        ("optionSet", win32more.System.RemoteManagement.WSMAN_OPTION_SETEX),
-        ("version", UInt32),
-        ("uiLocale", win32more.Foundation.PWSTR),
-        ("dataLocale", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_OPERATION_INFOEX
-def _define_WSMAN_API_head():
-    class WSMAN_API(Structure):
-        pass
-    return WSMAN_API
-def _define_WSMAN_API():
-    WSMAN_API = win32more.System.RemoteManagement.WSMAN_API_head
-    return WSMAN_API
+WSManCallbackFlags = Int32
+WSMAN_FLAG_CALLBACK_END_OF_OPERATION = 1
+WSMAN_FLAG_CALLBACK_END_OF_STREAM = 8
+WSMAN_FLAG_CALLBACK_SHELL_SUPPORTS_DISCONNECT = 32
+WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTED = 64
+WSMAN_FLAG_CALLBACK_NETWORK_FAILURE_DETECTED = 256
+WSMAN_FLAG_CALLBACK_RETRYING_AFTER_NETWORK_FAILURE = 512
+WSMAN_FLAG_CALLBACK_RECONNECTED_AFTER_NETWORK_FAILURE = 1024
+WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTING = 2048
+WSMAN_FLAG_CALLBACK_RETRY_ABORTED_DUE_TO_INTERNAL_ERROR = 4096
+WSMAN_FLAG_CALLBACK_RECEIVE_DELAY_STREAM_REQUEST_PROCESSED = 8192
+WSManDataType = Int32
+WSMAN_DATA_NONE = 0
+WSMAN_DATA_TYPE_TEXT = 1
+WSMAN_DATA_TYPE_BINARY = 2
+WSMAN_DATA_TYPE_DWORD = 4
+WSManEnumFlags = Int32
+WSManEnumFlags_WSManFlagNonXmlText = 1
+WSManEnumFlags_WSManFlagReturnObject = 0
+WSManEnumFlags_WSManFlagReturnEPR = 2
+WSManEnumFlags_WSManFlagReturnObjectAndEPR = 4
+WSManEnumFlags_WSManFlagHierarchyDeep = 0
+WSManEnumFlags_WSManFlagHierarchyShallow = 32
+WSManEnumFlags_WSManFlagHierarchyDeepBasePropsOnly = 64
+WSManEnumFlags_WSManFlagAssociatedInstance = 0
+WSManEnumFlags_WSManFlagAssociationInstance = 128
+WSManInternal = Guid('7de087a5-5dcb-4df7-bb-12-09-24-ad-8f-bd-9a')
 WSManProxyAccessType = Int32
 WSMAN_OPTION_PROXY_IE_PROXY_CONFIG = 1
 WSMAN_OPTION_PROXY_WINHTTP_PROXY_CONFIG = 2
 WSMAN_OPTION_PROXY_AUTO_DETECT = 4
 WSMAN_OPTION_PROXY_NO_PROXY_SERVER = 8
-def _define_WSMAN_PROXY_INFO_head():
-    class WSMAN_PROXY_INFO(Structure):
-        pass
-    return WSMAN_PROXY_INFO
-def _define_WSMAN_PROXY_INFO():
-    WSMAN_PROXY_INFO = win32more.System.RemoteManagement.WSMAN_PROXY_INFO_head
-    WSMAN_PROXY_INFO._fields_ = [
-        ("accessType", UInt32),
-        ("authenticationCredentials", win32more.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS),
-    ]
-    return WSMAN_PROXY_INFO
-def _define_WSMAN_SESSION_head():
-    class WSMAN_SESSION(Structure):
-        pass
-    return WSMAN_SESSION
-def _define_WSMAN_SESSION():
-    WSMAN_SESSION = win32more.System.RemoteManagement.WSMAN_SESSION_head
-    return WSMAN_SESSION
+WSManProxyAccessTypeFlags = Int32
+WSManProxyAccessTypeFlags_WSManProxyIEConfig = 1
+WSManProxyAccessTypeFlags_WSManProxyWinHttpConfig = 2
+WSManProxyAccessTypeFlags_WSManProxyAutoDetect = 4
+WSManProxyAccessTypeFlags_WSManProxyNoProxyServer = 8
+WSManProxyAuthenticationFlags = Int32
+WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseNegotiate = 1
+WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseBasic = 2
+WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseDigest = 4
+WSManSessionFlags = Int32
+WSManSessionFlags_WSManFlagUTF8 = 1
+WSManSessionFlags_WSManFlagCredUsernamePassword = 4096
+WSManSessionFlags_WSManFlagSkipCACheck = 8192
+WSManSessionFlags_WSManFlagSkipCNCheck = 16384
+WSManSessionFlags_WSManFlagUseNoAuthentication = 32768
+WSManSessionFlags_WSManFlagUseDigest = 65536
+WSManSessionFlags_WSManFlagUseNegotiate = 131072
+WSManSessionFlags_WSManFlagUseBasic = 262144
+WSManSessionFlags_WSManFlagUseKerberos = 524288
+WSManSessionFlags_WSManFlagNoEncryption = 1048576
+WSManSessionFlags_WSManFlagUseClientCertificate = 2097152
+WSManSessionFlags_WSManFlagEnableSPNServerPort = 4194304
+WSManSessionFlags_WSManFlagUTF16 = 8388608
+WSManSessionFlags_WSManFlagUseCredSsp = 16777216
+WSManSessionFlags_WSManFlagSkipRevocationCheck = 33554432
+WSManSessionFlags_WSManFlagAllowNegotiateImplicitCredentials = 67108864
+WSManSessionFlags_WSManFlagUseSsl = 134217728
 WSManSessionOption = Int32
 WSMAN_OPTION_DEFAULT_OPERATION_TIMEOUTMS = 1
 WSMAN_OPTION_MAX_RETRY_TIME = 11
@@ -821,1372 +1455,753 @@ WSMAN_OPTION_SKIP_REVOCATION_CHECK = 31
 WSMAN_OPTION_ALLOW_NEGOTIATE_IMPLICIT_CREDENTIALS = 32
 WSMAN_OPTION_USE_SSL = 33
 WSMAN_OPTION_USE_INTEARACTIVE_TOKEN = 34
-def _define_WSMAN_OPERATION_head():
-    class WSMAN_OPERATION(Structure):
-        pass
-    return WSMAN_OPERATION
-def _define_WSMAN_OPERATION():
-    WSMAN_OPERATION = win32more.System.RemoteManagement.WSMAN_OPERATION_head
-    return WSMAN_OPERATION
-WSManCallbackFlags = Int32
-WSMAN_FLAG_CALLBACK_END_OF_OPERATION = 1
-WSMAN_FLAG_CALLBACK_END_OF_STREAM = 8
-WSMAN_FLAG_CALLBACK_SHELL_SUPPORTS_DISCONNECT = 32
-WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTED = 64
-WSMAN_FLAG_CALLBACK_NETWORK_FAILURE_DETECTED = 256
-WSMAN_FLAG_CALLBACK_RETRYING_AFTER_NETWORK_FAILURE = 512
-WSMAN_FLAG_CALLBACK_RECONNECTED_AFTER_NETWORK_FAILURE = 1024
-WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTING = 2048
-WSMAN_FLAG_CALLBACK_RETRY_ABORTED_DUE_TO_INTERNAL_ERROR = 4096
-WSMAN_FLAG_CALLBACK_RECEIVE_DELAY_STREAM_REQUEST_PROCESSED = 8192
-def _define_WSMAN_SHELL_head():
-    class WSMAN_SHELL(Structure):
-        pass
-    return WSMAN_SHELL
-def _define_WSMAN_SHELL():
-    WSMAN_SHELL = win32more.System.RemoteManagement.WSMAN_SHELL_head
-    return WSMAN_SHELL
-def _define_WSMAN_COMMAND_head():
-    class WSMAN_COMMAND(Structure):
-        pass
-    return WSMAN_COMMAND
-def _define_WSMAN_COMMAND():
-    WSMAN_COMMAND = win32more.System.RemoteManagement.WSMAN_COMMAND_head
-    return WSMAN_COMMAND
-def _define_WSMAN_STREAM_ID_SET_head():
-    class WSMAN_STREAM_ID_SET(Structure):
-        pass
-    return WSMAN_STREAM_ID_SET
-def _define_WSMAN_STREAM_ID_SET():
-    WSMAN_STREAM_ID_SET = win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head
-    WSMAN_STREAM_ID_SET._fields_ = [
-        ("streamIDsCount", UInt32),
-        ("streamIDs", POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return WSMAN_STREAM_ID_SET
-def _define_WSMAN_ENVIRONMENT_VARIABLE_head():
-    class WSMAN_ENVIRONMENT_VARIABLE(Structure):
-        pass
-    return WSMAN_ENVIRONMENT_VARIABLE
-def _define_WSMAN_ENVIRONMENT_VARIABLE():
-    WSMAN_ENVIRONMENT_VARIABLE = win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_head
-    WSMAN_ENVIRONMENT_VARIABLE._fields_ = [
-        ("name", win32more.Foundation.PWSTR),
-        ("value", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_ENVIRONMENT_VARIABLE
-def _define_WSMAN_ENVIRONMENT_VARIABLE_SET_head():
-    class WSMAN_ENVIRONMENT_VARIABLE_SET(Structure):
-        pass
-    return WSMAN_ENVIRONMENT_VARIABLE_SET
-def _define_WSMAN_ENVIRONMENT_VARIABLE_SET():
-    WSMAN_ENVIRONMENT_VARIABLE_SET = win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET_head
-    WSMAN_ENVIRONMENT_VARIABLE_SET._fields_ = [
-        ("varsCount", UInt32),
-        ("vars", POINTER(win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_head)),
-    ]
-    return WSMAN_ENVIRONMENT_VARIABLE_SET
-def _define_WSMAN_SHELL_STARTUP_INFO_V10_head():
-    class WSMAN_SHELL_STARTUP_INFO_V10(Structure):
-        pass
-    return WSMAN_SHELL_STARTUP_INFO_V10
-def _define_WSMAN_SHELL_STARTUP_INFO_V10():
-    WSMAN_SHELL_STARTUP_INFO_V10 = win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V10_head
-    WSMAN_SHELL_STARTUP_INFO_V10._fields_ = [
-        ("inputStreamSet", POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)),
-        ("outputStreamSet", POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)),
-        ("idleTimeoutMs", UInt32),
-        ("workingDirectory", win32more.Foundation.PWSTR),
-        ("variableSet", POINTER(win32more.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET_head)),
-    ]
-    return WSMAN_SHELL_STARTUP_INFO_V10
-def _define_WSMAN_SHELL_STARTUP_INFO_V11_head():
-    class WSMAN_SHELL_STARTUP_INFO_V11(Structure):
-        pass
-    return WSMAN_SHELL_STARTUP_INFO_V11
-def _define_WSMAN_SHELL_STARTUP_INFO_V11():
-    WSMAN_SHELL_STARTUP_INFO_V11 = win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head
-    WSMAN_SHELL_STARTUP_INFO_V11._fields_ = [
-        ("__AnonymousBase_wsman_L665_C48", win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V10),
-        ("name", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_SHELL_STARTUP_INFO_V11
-def _define_WSMAN_SHELL_DISCONNECT_INFO_head():
-    class WSMAN_SHELL_DISCONNECT_INFO(Structure):
-        pass
-    return WSMAN_SHELL_DISCONNECT_INFO
-def _define_WSMAN_SHELL_DISCONNECT_INFO():
-    WSMAN_SHELL_DISCONNECT_INFO = win32more.System.RemoteManagement.WSMAN_SHELL_DISCONNECT_INFO_head
-    WSMAN_SHELL_DISCONNECT_INFO._fields_ = [
-        ("idleTimeoutMs", UInt32),
-    ]
-    return WSMAN_SHELL_DISCONNECT_INFO
 WSManShellFlag = Int32
 WSMAN_FLAG_NO_COMPRESSION = 1
 WSMAN_FLAG_DELETE_SERVER_SESSION = 2
 WSMAN_FLAG_SERVER_BUFFERING_MODE_DROP = 4
 WSMAN_FLAG_SERVER_BUFFERING_MODE_BLOCK = 8
 WSMAN_FLAG_RECEIVE_DELAY_OUTPUT_STREAM = 16
-def _define_WSMAN_RECEIVE_DATA_RESULT_head():
-    class WSMAN_RECEIVE_DATA_RESULT(Structure):
-        pass
-    return WSMAN_RECEIVE_DATA_RESULT
-def _define_WSMAN_RECEIVE_DATA_RESULT():
-    WSMAN_RECEIVE_DATA_RESULT = win32more.System.RemoteManagement.WSMAN_RECEIVE_DATA_RESULT_head
-    WSMAN_RECEIVE_DATA_RESULT._fields_ = [
-        ("streamId", win32more.Foundation.PWSTR),
-        ("streamData", win32more.System.RemoteManagement.WSMAN_DATA),
-        ("commandState", win32more.Foundation.PWSTR),
-        ("exitCode", UInt32),
-    ]
-    return WSMAN_RECEIVE_DATA_RESULT
-def _define_WSMAN_CONNECT_DATA_head():
-    class WSMAN_CONNECT_DATA(Structure):
-        pass
-    return WSMAN_CONNECT_DATA
-def _define_WSMAN_CONNECT_DATA():
-    WSMAN_CONNECT_DATA = win32more.System.RemoteManagement.WSMAN_CONNECT_DATA_head
-    WSMAN_CONNECT_DATA._fields_ = [
-        ("data", win32more.System.RemoteManagement.WSMAN_DATA),
-    ]
-    return WSMAN_CONNECT_DATA
-def _define_WSMAN_CREATE_SHELL_DATA_head():
-    class WSMAN_CREATE_SHELL_DATA(Structure):
-        pass
-    return WSMAN_CREATE_SHELL_DATA
-def _define_WSMAN_CREATE_SHELL_DATA():
-    WSMAN_CREATE_SHELL_DATA = win32more.System.RemoteManagement.WSMAN_CREATE_SHELL_DATA_head
-    WSMAN_CREATE_SHELL_DATA._fields_ = [
-        ("data", win32more.System.RemoteManagement.WSMAN_DATA),
-    ]
-    return WSMAN_CREATE_SHELL_DATA
-def _define_WSMAN_RESPONSE_DATA_head():
-    class WSMAN_RESPONSE_DATA(Union):
-        pass
-    return WSMAN_RESPONSE_DATA
-def _define_WSMAN_RESPONSE_DATA():
-    WSMAN_RESPONSE_DATA = win32more.System.RemoteManagement.WSMAN_RESPONSE_DATA_head
-    WSMAN_RESPONSE_DATA._fields_ = [
-        ("receiveData", win32more.System.RemoteManagement.WSMAN_RECEIVE_DATA_RESULT),
-        ("connectData", win32more.System.RemoteManagement.WSMAN_CONNECT_DATA),
-        ("createData", win32more.System.RemoteManagement.WSMAN_CREATE_SHELL_DATA),
-    ]
-    return WSMAN_RESPONSE_DATA
-def _define_WSMAN_SHELL_COMPLETION_FUNCTION():
-    return CFUNCTYPE(Void,c_void_p,UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_ERROR_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head),POINTER(win32more.System.RemoteManagement.WSMAN_RESPONSE_DATA_head), use_last_error=False)
-def _define_WSMAN_SHELL_ASYNC_head():
-    class WSMAN_SHELL_ASYNC(Structure):
-        pass
-    return WSMAN_SHELL_ASYNC
-def _define_WSMAN_SHELL_ASYNC():
-    WSMAN_SHELL_ASYNC = win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head
-    WSMAN_SHELL_ASYNC._fields_ = [
-        ("operationContext", c_void_p),
-        ("completionFunction", win32more.System.RemoteManagement.WSMAN_SHELL_COMPLETION_FUNCTION),
-    ]
-    return WSMAN_SHELL_ASYNC
-def _define_WSMAN_COMMAND_ARG_SET_head():
-    class WSMAN_COMMAND_ARG_SET(Structure):
-        pass
-    return WSMAN_COMMAND_ARG_SET
-def _define_WSMAN_COMMAND_ARG_SET():
-    WSMAN_COMMAND_ARG_SET = win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head
-    WSMAN_COMMAND_ARG_SET._fields_ = [
-        ("argsCount", UInt32),
-        ("args", POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return WSMAN_COMMAND_ARG_SET
-def _define_WSMAN_CERTIFICATE_DETAILS_head():
-    class WSMAN_CERTIFICATE_DETAILS(Structure):
-        pass
-    return WSMAN_CERTIFICATE_DETAILS
-def _define_WSMAN_CERTIFICATE_DETAILS():
-    WSMAN_CERTIFICATE_DETAILS = win32more.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS_head
-    WSMAN_CERTIFICATE_DETAILS._fields_ = [
-        ("subject", win32more.Foundation.PWSTR),
-        ("issuerName", win32more.Foundation.PWSTR),
-        ("issuerThumbprint", win32more.Foundation.PWSTR),
-        ("subjectName", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_CERTIFICATE_DETAILS
-def _define_WSMAN_SENDER_DETAILS_head():
-    class WSMAN_SENDER_DETAILS(Structure):
-        pass
-    return WSMAN_SENDER_DETAILS
-def _define_WSMAN_SENDER_DETAILS():
-    WSMAN_SENDER_DETAILS = win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head
-    WSMAN_SENDER_DETAILS._fields_ = [
-        ("senderName", win32more.Foundation.PWSTR),
-        ("authenticationMechanism", win32more.Foundation.PWSTR),
-        ("certificateDetails", POINTER(win32more.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS_head)),
-        ("clientToken", win32more.Foundation.HANDLE),
-        ("httpURL", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_SENDER_DETAILS
-def _define_WSMAN_PLUGIN_REQUEST_head():
-    class WSMAN_PLUGIN_REQUEST(Structure):
-        pass
-    return WSMAN_PLUGIN_REQUEST
-def _define_WSMAN_PLUGIN_REQUEST():
-    WSMAN_PLUGIN_REQUEST = win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head
-    WSMAN_PLUGIN_REQUEST._fields_ = [
-        ("senderDetails", POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head)),
-        ("locale", win32more.Foundation.PWSTR),
-        ("resourceUri", win32more.Foundation.PWSTR),
-        ("operationInfo", POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_INFO_head)),
-        ("shutdownNotification", Int32),
-        ("shutdownNotificationHandle", win32more.Foundation.HANDLE),
-        ("dataLocale", win32more.Foundation.PWSTR),
-    ]
-    return WSMAN_PLUGIN_REQUEST
-def _define_WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT():
-    return CFUNCTYPE(Void,c_void_p, use_last_error=False)
-def _define_WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT():
-    return CFUNCTYPE(Void,c_void_p,c_void_p, use_last_error=False)
-def _define_WSMAN_PLUGIN_STARTUP():
-    return CFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p), use_last_error=False)
-def _define_WSMAN_PLUGIN_SHUTDOWN():
-    return CFUNCTYPE(UInt32,c_void_p,UInt32,UInt32, use_last_error=False)
-def _define_WSMAN_PLUGIN_SHELL():
-    return CFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head), use_last_error=False)
-def _define_WSMAN_PLUGIN_COMMAND():
-    return CFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head), use_last_error=False)
-def _define_WSMAN_PLUGIN_SEND():
-    return CFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head), use_last_error=False)
-def _define_WSMAN_PLUGIN_RECEIVE():
-    return CFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head), use_last_error=False)
-def _define_WSMAN_PLUGIN_SIGNAL():
-    return CFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_WSMAN_PLUGIN_CONNECT():
-    return CFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head), use_last_error=False)
-def _define_WSMAN_AUTHZ_QUOTA_head():
-    class WSMAN_AUTHZ_QUOTA(Structure):
-        pass
-    return WSMAN_AUTHZ_QUOTA
-def _define_WSMAN_AUTHZ_QUOTA():
-    WSMAN_AUTHZ_QUOTA = win32more.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head
-    WSMAN_AUTHZ_QUOTA._fields_ = [
-        ("maxAllowedConcurrentShells", UInt32),
-        ("maxAllowedConcurrentOperations", UInt32),
-        ("timeslotSize", UInt32),
-        ("maxAllowedOperationsPerTimeslot", UInt32),
-    ]
-    return WSMAN_AUTHZ_QUOTA
-def _define_WSMAN_PLUGIN_AUTHORIZE_USER():
-    return CFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32, use_last_error=False)
-def _define_WSMAN_PLUGIN_AUTHORIZE_OPERATION():
-    return CFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA():
-    return CFUNCTYPE(Void,c_void_p,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32, use_last_error=False)
-def _define_WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT():
-    return CFUNCTYPE(Void,c_void_p, use_last_error=False)
-WSMan = Guid('bced617b-ec03-420b-8508-977dc7a686bd')
-WSManInternal = Guid('7de087a5-5dcb-4df7-bb12-0924ad8fbd9a')
-WSManSessionFlags = Int32
-WSManSessionFlags_WSManFlagUTF8 = 1
-WSManSessionFlags_WSManFlagCredUsernamePassword = 4096
-WSManSessionFlags_WSManFlagSkipCACheck = 8192
-WSManSessionFlags_WSManFlagSkipCNCheck = 16384
-WSManSessionFlags_WSManFlagUseNoAuthentication = 32768
-WSManSessionFlags_WSManFlagUseDigest = 65536
-WSManSessionFlags_WSManFlagUseNegotiate = 131072
-WSManSessionFlags_WSManFlagUseBasic = 262144
-WSManSessionFlags_WSManFlagUseKerberos = 524288
-WSManSessionFlags_WSManFlagNoEncryption = 1048576
-WSManSessionFlags_WSManFlagUseClientCertificate = 2097152
-WSManSessionFlags_WSManFlagEnableSPNServerPort = 4194304
-WSManSessionFlags_WSManFlagUTF16 = 8388608
-WSManSessionFlags_WSManFlagUseCredSsp = 16777216
-WSManSessionFlags_WSManFlagSkipRevocationCheck = 33554432
-WSManSessionFlags_WSManFlagAllowNegotiateImplicitCredentials = 67108864
-WSManSessionFlags_WSManFlagUseSsl = 134217728
-WSManEnumFlags = Int32
-WSManEnumFlags_WSManFlagNonXmlText = 1
-WSManEnumFlags_WSManFlagReturnObject = 0
-WSManEnumFlags_WSManFlagReturnEPR = 2
-WSManEnumFlags_WSManFlagReturnObjectAndEPR = 4
-WSManEnumFlags_WSManFlagHierarchyDeep = 0
-WSManEnumFlags_WSManFlagHierarchyShallow = 32
-WSManEnumFlags_WSManFlagHierarchyDeepBasePropsOnly = 64
-WSManEnumFlags_WSManFlagAssociatedInstance = 0
-WSManEnumFlags_WSManFlagAssociationInstance = 128
-WSManProxyAccessTypeFlags = Int32
-WSManProxyAccessTypeFlags_WSManProxyIEConfig = 1
-WSManProxyAccessTypeFlags_WSManProxyWinHttpConfig = 2
-WSManProxyAccessTypeFlags_WSManProxyAutoDetect = 4
-WSManProxyAccessTypeFlags_WSManProxyNoProxyServer = 8
-WSManProxyAuthenticationFlags = Int32
-WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseNegotiate = 1
-WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseBasic = 2
-WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseDigest = 4
-def _define_IWSMan_head():
-    class IWSMan(win32more.System.Com.IDispatch_head):
-        Guid = Guid('190d8637-5cd3-496d-ad24-69636bb5a3b5')
-    return IWSMan
-def _define_IWSMan():
-    IWSMan = win32more.System.RemoteManagement.IWSMan_head
-    IWSMan.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'CreateSession', ((1, 'connection'),(1, 'flags'),(1, 'connectionOptions'),(1, 'session'),)))
-    IWSMan.CreateConnectionOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'CreateConnectionOptions', ((1, 'connectionOptions'),)))
-    IWSMan.get_CommandLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_CommandLine', ((1, 'value'),)))
-    IWSMan.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Error', ((1, 'value'),)))
-    win32more.System.Com.IDispatch
-    return IWSMan
-def _define_IWSManEx_head():
-    class IWSManEx(win32more.System.RemoteManagement.IWSMan_head):
-        Guid = Guid('2d53bdaa-798e-49e6-a1aa-74d01256f411')
-    return IWSManEx
-def _define_IWSManEx():
-    IWSManEx = win32more.System.RemoteManagement.IWSManEx_head
-    IWSManEx.CreateResourceLocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'CreateResourceLocator', ((1, 'strResourceLocator'),(1, 'newResourceLocator'),)))
-    IWSManEx.SessionFlagUTF8 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'SessionFlagUTF8', ((1, 'flags'),)))
-    IWSManEx.SessionFlagCredUsernamePassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'SessionFlagCredUsernamePassword', ((1, 'flags'),)))
-    IWSManEx.SessionFlagSkipCACheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'SessionFlagSkipCACheck', ((1, 'flags'),)))
-    IWSManEx.SessionFlagSkipCNCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'SessionFlagSkipCNCheck', ((1, 'flags'),)))
-    IWSManEx.SessionFlagUseDigest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'SessionFlagUseDigest', ((1, 'flags'),)))
-    IWSManEx.SessionFlagUseNegotiate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'SessionFlagUseNegotiate', ((1, 'flags'),)))
-    IWSManEx.SessionFlagUseBasic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'SessionFlagUseBasic', ((1, 'flags'),)))
-    IWSManEx.SessionFlagUseKerberos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'SessionFlagUseKerberos', ((1, 'flags'),)))
-    IWSManEx.SessionFlagNoEncryption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(20, 'SessionFlagNoEncryption', ((1, 'flags'),)))
-    IWSManEx.SessionFlagEnableSPNServerPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(21, 'SessionFlagEnableSPNServerPort', ((1, 'flags'),)))
-    IWSManEx.SessionFlagUseNoAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'SessionFlagUseNoAuthentication', ((1, 'flags'),)))
-    IWSManEx.EnumerationFlagNonXmlText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'EnumerationFlagNonXmlText', ((1, 'flags'),)))
-    IWSManEx.EnumerationFlagReturnEPR = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'EnumerationFlagReturnEPR', ((1, 'flags'),)))
-    IWSManEx.EnumerationFlagReturnObjectAndEPR = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(25, 'EnumerationFlagReturnObjectAndEPR', ((1, 'flags'),)))
-    IWSManEx.GetErrorMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'GetErrorMessage', ((1, 'errorNumber'),(1, 'errorMessage'),)))
-    IWSManEx.EnumerationFlagHierarchyDeep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(27, 'EnumerationFlagHierarchyDeep', ((1, 'flags'),)))
-    IWSManEx.EnumerationFlagHierarchyShallow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(28, 'EnumerationFlagHierarchyShallow', ((1, 'flags'),)))
-    IWSManEx.EnumerationFlagHierarchyDeepBasePropsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(29, 'EnumerationFlagHierarchyDeepBasePropsOnly', ((1, 'flags'),)))
-    IWSManEx.EnumerationFlagReturnObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(30, 'EnumerationFlagReturnObject', ((1, 'flags'),)))
-    win32more.System.RemoteManagement.IWSMan
-    return IWSManEx
-def _define_IWSManEx2_head():
-    class IWSManEx2(win32more.System.RemoteManagement.IWSManEx_head):
-        Guid = Guid('1d1b5ae0-42d9-4021-8261-3987619512e9')
-    return IWSManEx2
-def _define_IWSManEx2():
-    IWSManEx2 = win32more.System.RemoteManagement.IWSManEx2_head
-    IWSManEx2.SessionFlagUseClientCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(31, 'SessionFlagUseClientCertificate', ((1, 'flags'),)))
-    win32more.System.RemoteManagement.IWSManEx
-    return IWSManEx2
-def _define_IWSManEx3_head():
-    class IWSManEx3(win32more.System.RemoteManagement.IWSManEx2_head):
-        Guid = Guid('6400e966-011d-4eac-8474-049e0848afad')
-    return IWSManEx3
-def _define_IWSManEx3():
-    IWSManEx3 = win32more.System.RemoteManagement.IWSManEx3_head
-    IWSManEx3.SessionFlagUTF16 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(32, 'SessionFlagUTF16', ((1, 'flags'),)))
-    IWSManEx3.SessionFlagUseCredSsp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(33, 'SessionFlagUseCredSsp', ((1, 'flags'),)))
-    IWSManEx3.EnumerationFlagAssociationInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(34, 'EnumerationFlagAssociationInstance', ((1, 'flags'),)))
-    IWSManEx3.EnumerationFlagAssociatedInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(35, 'EnumerationFlagAssociatedInstance', ((1, 'flags'),)))
-    IWSManEx3.SessionFlagSkipRevocationCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(36, 'SessionFlagSkipRevocationCheck', ((1, 'flags'),)))
-    IWSManEx3.SessionFlagAllowNegotiateImplicitCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(37, 'SessionFlagAllowNegotiateImplicitCredentials', ((1, 'flags'),)))
-    IWSManEx3.SessionFlagUseSsl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(38, 'SessionFlagUseSsl', ((1, 'flags'),)))
-    win32more.System.RemoteManagement.IWSManEx2
-    return IWSManEx3
-def _define_IWSManConnectionOptions_head():
-    class IWSManConnectionOptions(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f704e861-9e52-464f-b786-da5eb2320fdd')
-    return IWSManConnectionOptions
-def _define_IWSManConnectionOptions():
-    IWSManConnectionOptions = win32more.System.RemoteManagement.IWSManConnectionOptions_head
-    IWSManConnectionOptions.get_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_UserName', ((1, 'name'),)))
-    IWSManConnectionOptions.put_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_UserName', ((1, 'name'),)))
-    IWSManConnectionOptions.put_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_Password', ((1, 'password'),)))
-    win32more.System.Com.IDispatch
-    return IWSManConnectionOptions
-def _define_IWSManConnectionOptionsEx_head():
-    class IWSManConnectionOptionsEx(win32more.System.RemoteManagement.IWSManConnectionOptions_head):
-        Guid = Guid('ef43edf7-2a48-4d93-9526-8bd6ab6d4a6b')
-    return IWSManConnectionOptionsEx
-def _define_IWSManConnectionOptionsEx():
-    IWSManConnectionOptionsEx = win32more.System.RemoteManagement.IWSManConnectionOptionsEx_head
-    IWSManConnectionOptionsEx.get_CertificateThumbprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_CertificateThumbprint', ((1, 'thumbprint'),)))
-    IWSManConnectionOptionsEx.put_CertificateThumbprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_CertificateThumbprint', ((1, 'thumbprint'),)))
-    win32more.System.RemoteManagement.IWSManConnectionOptions
-    return IWSManConnectionOptionsEx
-def _define_IWSManConnectionOptionsEx2_head():
-    class IWSManConnectionOptionsEx2(win32more.System.RemoteManagement.IWSManConnectionOptionsEx_head):
-        Guid = Guid('f500c9ec-24ee-48ab-b38d-fc9a164c658e')
-    return IWSManConnectionOptionsEx2
-def _define_IWSManConnectionOptionsEx2():
-    IWSManConnectionOptionsEx2 = win32more.System.RemoteManagement.IWSManConnectionOptionsEx2_head
-    IWSManConnectionOptionsEx2.SetProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(12, 'SetProxy', ((1, 'accessType'),(1, 'authenticationMechanism'),(1, 'userName'),(1, 'password'),)))
-    IWSManConnectionOptionsEx2.ProxyIEConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'ProxyIEConfig', ((1, 'value'),)))
-    IWSManConnectionOptionsEx2.ProxyWinHttpConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'ProxyWinHttpConfig', ((1, 'value'),)))
-    IWSManConnectionOptionsEx2.ProxyAutoDetect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'ProxyAutoDetect', ((1, 'value'),)))
-    IWSManConnectionOptionsEx2.ProxyNoProxyServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'ProxyNoProxyServer', ((1, 'value'),)))
-    IWSManConnectionOptionsEx2.ProxyAuthenticationUseNegotiate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'ProxyAuthenticationUseNegotiate', ((1, 'value'),)))
-    IWSManConnectionOptionsEx2.ProxyAuthenticationUseBasic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'ProxyAuthenticationUseBasic', ((1, 'value'),)))
-    IWSManConnectionOptionsEx2.ProxyAuthenticationUseDigest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'ProxyAuthenticationUseDigest', ((1, 'value'),)))
-    win32more.System.RemoteManagement.IWSManConnectionOptionsEx
-    return IWSManConnectionOptionsEx2
-def _define_IWSManSession_head():
-    class IWSManSession(win32more.System.Com.IDispatch_head):
-        Guid = Guid('fc84fc58-1286-40c4-9da0-c8ef6ec241e0')
-    return IWSManSession
-def _define_IWSManSession():
-    IWSManSession = win32more.System.RemoteManagement.IWSManSession_head
-    IWSManSession.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'Get', ((1, 'resourceUri'),(1, 'flags'),(1, 'resource'),)))
-    IWSManSession.Put = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'Put', ((1, 'resourceUri'),(1, 'resource'),(1, 'flags'),(1, 'resultResource'),)))
-    IWSManSession.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'Create', ((1, 'resourceUri'),(1, 'resource'),(1, 'flags'),(1, 'newUri'),)))
-    IWSManSession.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32, use_last_error=False)(10, 'Delete', ((1, 'resourceUri'),(1, 'flags'),)))
-    IWSManSession.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'Invoke', ((1, 'actionUri'),(1, 'resourceUri'),(1, 'parameters'),(1, 'flags'),(1, 'result'),)))
-    IWSManSession.Enumerate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(12, 'Enumerate', ((1, 'resourceUri'),(1, 'filter'),(1, 'dialect'),(1, 'flags'),(1, 'resultSet'),)))
-    IWSManSession.Identify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'Identify', ((1, 'flags'),(1, 'result'),)))
-    IWSManSession.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_Error', ((1, 'value'),)))
-    IWSManSession.get_BatchItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_BatchItems', ((1, 'value'),)))
-    IWSManSession.put_BatchItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'put_BatchItems', ((1, 'value'),)))
-    IWSManSession.get_Timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_Timeout', ((1, 'value'),)))
-    IWSManSession.put_Timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'put_Timeout', ((1, 'value'),)))
-    win32more.System.Com.IDispatch
-    return IWSManSession
-def _define_IWSManEnumerator_head():
-    class IWSManEnumerator(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f3457ca9-abb9-4fa5-b850-90e8ca300e7f')
-    return IWSManEnumerator
-def _define_IWSManEnumerator():
-    IWSManEnumerator = win32more.System.RemoteManagement.IWSManEnumerator_head
-    IWSManEnumerator.ReadItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'ReadItem', ((1, 'resource'),)))
-    IWSManEnumerator.get_AtEndOfStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_AtEndOfStream', ((1, 'eos'),)))
-    IWSManEnumerator.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Error', ((1, 'value'),)))
-    win32more.System.Com.IDispatch
-    return IWSManEnumerator
-def _define_IWSManResourceLocator_head():
-    class IWSManResourceLocator(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a7a1ba28-de41-466a-ad0a-c4059ead7428')
-    return IWSManResourceLocator
-def _define_IWSManResourceLocator():
-    IWSManResourceLocator = win32more.System.RemoteManagement.IWSManResourceLocator_head
-    IWSManResourceLocator.put_ResourceURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_ResourceURI', ((1, 'uri'),)))
-    IWSManResourceLocator.get_ResourceURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ResourceURI', ((1, 'uri'),)))
-    IWSManResourceLocator.AddSelector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(9, 'AddSelector', ((1, 'resourceSelName'),(1, 'selValue'),)))
-    IWSManResourceLocator.ClearSelectors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ClearSelectors', ()))
-    IWSManResourceLocator.get_FragmentPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_FragmentPath', ((1, 'text'),)))
-    IWSManResourceLocator.put_FragmentPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_FragmentPath', ((1, 'text'),)))
-    IWSManResourceLocator.get_FragmentDialect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_FragmentDialect', ((1, 'text'),)))
-    IWSManResourceLocator.put_FragmentDialect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'put_FragmentDialect', ((1, 'text'),)))
-    IWSManResourceLocator.AddOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.Foundation.BOOL, use_last_error=False)(15, 'AddOption', ((1, 'OptionName'),(1, 'OptionValue'),(1, 'mustComply'),)))
-    IWSManResourceLocator.put_MustUnderstandOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(16, 'put_MustUnderstandOptions', ((1, 'mustUnderstand'),)))
-    IWSManResourceLocator.get_MustUnderstandOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(17, 'get_MustUnderstandOptions', ((1, 'mustUnderstand'),)))
-    IWSManResourceLocator.ClearOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'ClearOptions', ()))
-    IWSManResourceLocator.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_Error', ((1, 'value'),)))
-    win32more.System.Com.IDispatch
-    return IWSManResourceLocator
-def _define_IWSManResourceLocatorInternal_head():
-    class IWSManResourceLocatorInternal(win32more.System.Com.IUnknown_head):
-        Guid = Guid('effaead7-7ec8-4716-b9be-f2e7e9fb4adb')
-    return IWSManResourceLocatorInternal
-def _define_IWSManResourceLocatorInternal():
-    IWSManResourceLocatorInternal = win32more.System.RemoteManagement.IWSManResourceLocatorInternal_head
-    win32more.System.Com.IUnknown
-    return IWSManResourceLocatorInternal
-def _define_IWSManInternal_head():
-    class IWSManInternal(win32more.System.Com.IDispatch_head):
-        Guid = Guid('04ae2b1d-9954-4d99-94a9-a961e72c3a13')
-    return IWSManInternal
-def _define_IWSManInternal():
-    IWSManInternal = win32more.System.RemoteManagement.IWSManInternal_head
-    IWSManInternal.ConfigSDDL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.VARIANT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'ConfigSDDL', ((1, 'session'),(1, 'resourceUri'),(1, 'flags'),(1, 'resource'),)))
-    win32more.System.Com.IDispatch
-    return IWSManInternal
-def _define_WSManInitialize():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_API_head)), use_last_error=False)(("WSManInitialize", windll["WsmSvc"]), ((1, 'flags'),(1, 'apiHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManDeinitialize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_API_head),UInt32, use_last_error=False)(("WSManDeinitialize", windll["WsmSvc"]), ((1, 'apiHandle'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManGetErrorMessage():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_API_head),UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(("WSManGetErrorMessage", windll["WsmSvc"]), ((1, 'apiHandle'),(1, 'flags'),(1, 'languageCode'),(1, 'errorCode'),(1, 'messageLength'),(1, 'message'),(1, 'messageLengthUsed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCreateSession():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_API_head),win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS_head),POINTER(win32more.System.RemoteManagement.WSMAN_PROXY_INFO_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head)), use_last_error=False)(("WSManCreateSession", windll["WsmSvc"]), ((1, 'apiHandle'),(1, 'connection'),(1, 'flags'),(1, 'serverAuthenticationCredentials'),(1, 'proxyInfo'),(1, 'session'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCloseSession():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32, use_last_error=False)(("WSManCloseSession", windll["WsmSvc"]), ((1, 'session'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManSetSessionOption():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),win32more.System.RemoteManagement.WSManSessionOption,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head), use_last_error=False)(("WSManSetSessionOption", windll["WsmSvc"]), ((1, 'session'),(1, 'option'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManGetSessionOptionAsDword():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),win32more.System.RemoteManagement.WSManSessionOption,POINTER(UInt32), use_last_error=False)(("WSManGetSessionOptionAsDword", windll["WsmSvc"]), ((1, 'session'),(1, 'option'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManGetSessionOptionAsString():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),win32more.System.RemoteManagement.WSManSessionOption,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(("WSManGetSessionOptionAsString", windll["WsmSvc"]), ((1, 'session'),(1, 'option'),(1, 'stringLength'),(1, 'string'),(1, 'stringLengthUsed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCloseOperation():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head),UInt32, use_last_error=False)(("WSManCloseOperation", windll["WsmSvc"]), ((1, 'operationHandle'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCreateShell():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head)), use_last_error=False)(("WSManCreateShell", windll["WsmSvc"]), ((1, 'session'),(1, 'flags'),(1, 'resourceUri'),(1, 'startupInfo'),(1, 'options'),(1, 'createXml'),(1, 'async'),(1, 'shell'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManRunShellCommand():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head)), use_last_error=False)(("WSManRunShellCommand", windll["WsmSvc"]), ((1, 'shell'),(1, 'flags'),(1, 'commandLine'),(1, 'args'),(1, 'options'),(1, 'async'),(1, 'command'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManSignalShell():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head)), use_last_error=False)(("WSManSignalShell", windll["WsmSvc"]), ((1, 'shell'),(1, 'command'),(1, 'flags'),(1, 'code'),(1, 'async'),(1, 'signalOperation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManReceiveShellOutput():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_STREAM_ID_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head)), use_last_error=False)(("WSManReceiveShellOutput", windll["WsmSvc"]), ((1, 'shell'),(1, 'command'),(1, 'flags'),(1, 'desiredStreamSet'),(1, 'async'),(1, 'receiveOperation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManSendShellInput():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),win32more.Foundation.BOOL,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_OPERATION_head)), use_last_error=False)(("WSManSendShellInput", windll["WsmSvc"]), ((1, 'shell'),(1, 'command'),(1, 'flags'),(1, 'streamId'),(1, 'streamData'),(1, 'endOfStream'),(1, 'async'),(1, 'sendOperation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCloseCommand():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), use_last_error=False)(("WSManCloseCommand", windll["WsmSvc"]), ((1, 'commandHandle'),(1, 'flags'),(1, 'async'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCloseShell():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), use_last_error=False)(("WSManCloseShell", windll["WsmSvc"]), ((1, 'shellHandle'),(1, 'flags'),(1, 'async'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManCreateShellEx():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head)), use_last_error=False)(("WSManCreateShellEx", windll["WsmSvc"]), ((1, 'session'),(1, 'flags'),(1, 'resourceUri'),(1, 'shellId'),(1, 'startupInfo'),(1, 'options'),(1, 'createXml'),(1, 'async'),(1, 'shell'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManRunShellCommandEx():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head)), use_last_error=False)(("WSManRunShellCommandEx", windll["WsmSvc"]), ((1, 'shell'),(1, 'flags'),(1, 'commandId'),(1, 'commandLine'),(1, 'args'),(1, 'options'),(1, 'async'),(1, 'command'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManDisconnectShell():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_DISCONNECT_INFO_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), use_last_error=False)(("WSManDisconnectShell", windll["WsmSvc"]), ((1, 'shell'),(1, 'flags'),(1, 'disconnectInfo'),(1, 'async'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManReconnectShell():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), use_last_error=False)(("WSManReconnectShell", windll["WsmSvc"]), ((1, 'shell'),(1, 'flags'),(1, 'async'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManReconnectShellCommand():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), use_last_error=False)(("WSManReconnectShellCommand", windll["WsmSvc"]), ((1, 'commandHandle'),(1, 'flags'),(1, 'async'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManConnectShell():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SESSION_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head)), use_last_error=False)(("WSManConnectShell", windll["WsmSvc"]), ((1, 'session'),(1, 'flags'),(1, 'resourceUri'),(1, 'shellID'),(1, 'options'),(1, 'connectXml'),(1, 'async'),(1, 'shell'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManConnectShellCommand():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_OPTION_SET_head),POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),POINTER(win32more.System.RemoteManagement.WSMAN_SHELL_ASYNC_head),POINTER(POINTER(win32more.System.RemoteManagement.WSMAN_COMMAND_head)), use_last_error=False)(("WSManConnectShellCommand", windll["WsmSvc"]), ((1, 'shell'),(1, 'flags'),(1, 'commandID'),(1, 'options'),(1, 'connectXml'),(1, 'async'),(1, 'command'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginReportContext():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,c_void_p, use_last_error=False)(("WSManPluginReportContext", windll["WsmSvc"]), ((1, 'requestDetails'),(1, 'flags'),(1, 'context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginReceiveResult():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("WSManPluginReceiveResult", windll["WsmSvc"]), ((1, 'requestDetails'),(1, 'flags'),(1, 'stream'),(1, 'streamResult'),(1, 'commandState'),(1, 'exitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginOperationComplete():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("WSManPluginOperationComplete", windll["WsmSvc"]), ((1, 'requestDetails'),(1, 'flags'),(1, 'errorCode'),(1, 'extendedInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginGetOperationParameters():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head), use_last_error=False)(("WSManPluginGetOperationParameters", windll["WsmSvc"]), ((1, 'requestDetails'),(1, 'flags'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginGetConfiguration():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_DATA_head), use_last_error=False)(("WSManPluginGetConfiguration", windll["WsmSvc"]), ((1, 'pluginContext'),(1, 'flags'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginReportCompletion():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32, use_last_error=False)(("WSManPluginReportCompletion", windll["WsmSvc"]), ((1, 'pluginContext'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginFreeRequestDetails():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), use_last_error=False)(("WSManPluginFreeRequestDetails", windll["WsmSvc"]), ((1, 'requestDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginAuthzUserComplete():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("WSManPluginAuthzUserComplete", windll["WsmSvc"]), ((1, 'senderDetails'),(1, 'flags'),(1, 'userAuthorizationContext'),(1, 'impersonationToken'),(1, 'userIsAdministrator'),(1, 'errorCode'),(1, 'extendedErrorInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginAuthzOperationComplete():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,c_void_p,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("WSManPluginAuthzOperationComplete", windll["WsmSvc"]), ((1, 'senderDetails'),(1, 'flags'),(1, 'userAuthorizationContext'),(1, 'errorCode'),(1, 'extendedErrorInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WSManPluginAuthzQueryQuotaComplete():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_SENDER_DETAILS_head),UInt32,POINTER(win32more.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("WSManPluginAuthzQueryQuotaComplete", windll["WsmSvc"]), ((1, 'senderDetails'),(1, 'flags'),(1, 'quota'),(1, 'errorCode'),(1, 'extendedErrorInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
 __all__ = [
-    "WSMAN_FLAG_REQUESTED_API_VERSION_1_0",
-    "WSMAN_FLAG_REQUESTED_API_VERSION_1_1",
-    "WSMAN_OPERATION_INFOV1",
-    "WSMAN_OPERATION_INFOV2",
-    "WSMAN_DEFAULT_TIMEOUT_MS",
-    "WSMAN_FLAG_RECEIVE_RESULT_NO_MORE_DATA",
-    "WSMAN_FLAG_RECEIVE_FLUSH",
-    "WSMAN_FLAG_RECEIVE_RESULT_DATA_BOUNDARY",
-    "WSMAN_PLUGIN_PARAMS_MAX_ENVELOPE_SIZE",
-    "WSMAN_PLUGIN_PARAMS_TIMEOUT",
-    "WSMAN_PLUGIN_PARAMS_REMAINING_RESULT_SIZE",
-    "WSMAN_PLUGIN_PARAMS_LARGEST_RESULT_SIZE",
-    "WSMAN_PLUGIN_PARAMS_GET_REQUESTED_LOCALE",
-    "WSMAN_PLUGIN_PARAMS_GET_REQUESTED_DATA_LOCALE",
-    "WSMAN_PLUGIN_PARAMS_SHAREDHOST",
-    "WSMAN_PLUGIN_PARAMS_RUNAS_USER",
-    "WSMAN_PLUGIN_PARAMS_AUTORESTART",
-    "WSMAN_PLUGIN_PARAMS_HOSTIDLETIMEOUTSECONDS",
-    "WSMAN_PLUGIN_PARAMS_NAME",
-    "WSMAN_PLUGIN_STARTUP_REQUEST_RECEIVED",
-    "WSMAN_PLUGIN_STARTUP_AUTORESTARTED_REBOOT",
-    "WSMAN_PLUGIN_STARTUP_AUTORESTARTED_CRASH",
-    "WSMAN_PLUGIN_SHUTDOWN_SYSTEM",
-    "WSMAN_PLUGIN_SHUTDOWN_SERVICE",
-    "WSMAN_PLUGIN_SHUTDOWN_IISHOST",
-    "WSMAN_PLUGIN_SHUTDOWN_IDLETIMEOUT_ELAPSED",
-    "WSMAN_FLAG_SEND_NO_MORE_DATA",
-    "ERROR_WSMAN_RESOURCE_NOT_FOUND",
-    "ERROR_WSMAN_INVALID_ACTIONURI",
-    "ERROR_WSMAN_INVALID_URI",
-    "ERROR_WSMAN_PROVIDER_FAILURE",
-    "ERROR_WSMAN_BATCH_COMPLETE",
-    "ERROR_WSMAN_CONFIG_CORRUPTED",
-    "ERROR_WSMAN_PULL_IN_PROGRESS",
-    "ERROR_WSMAN_ENUMERATION_CLOSED",
-    "ERROR_WSMAN_SUBSCRIPTION_CLOSED",
-    "ERROR_WSMAN_SUBSCRIPTION_CLOSE_IN_PROGRESS",
-    "ERROR_WSMAN_SUBSCRIPTION_CLIENT_DID_NOT_CALL_WITHIN_HEARTBEAT",
-    "ERROR_WSMAN_SUBSCRIPTION_NO_HEARTBEAT",
-    "ERROR_WSMAN_UNSUPPORTED_TIMEOUT",
-    "ERROR_WSMAN_SOAP_VERSION_MISMATCH",
-    "ERROR_WSMAN_SOAP_DATA_ENCODING_UNKNOWN",
-    "ERROR_WSMAN_INVALID_MESSAGE_INFORMATION_HEADER",
-    "ERROR_WSMAN_SOAP_FAULT_MUST_UNDERSTAND",
-    "ERROR_WSMAN_MESSAGE_INFORMATION_HEADER_REQUIRED",
-    "ERROR_WSMAN_DESTINATION_UNREACHABLE",
-    "ERROR_WSMAN_ACTION_NOT_SUPPORTED",
-    "ERROR_WSMAN_ENDPOINT_UNAVAILABLE",
-    "ERROR_WSMAN_INVALID_REPRESENTATION",
-    "ERROR_WSMAN_ENUMERATE_INVALID_EXPIRATION_TIME",
-    "ERROR_WSMAN_ENUMERATE_UNSUPPORTED_EXPIRATION_TIME",
-    "ERROR_WSMAN_ENUMERATE_FILTERING_NOT_SUPPORTED",
-    "ERROR_WSMAN_ENUMERATE_FILTER_DIALECT_REQUESTED_UNAVAILABLE",
-    "ERROR_WSMAN_ENUMERATE_CANNOT_PROCESS_FILTER",
-    "ERROR_WSMAN_ENUMERATE_INVALID_ENUMERATION_CONTEXT",
-    "ERROR_WSMAN_ENUMERATE_TIMED_OUT",
-    "ERROR_WSMAN_ENUMERATE_UNABLE_TO_RENEW",
-    "ERROR_WSMAN_EVENTING_DELIVERY_MODE_REQUESTED_UNAVAILABLE",
-    "ERROR_WSMAN_EVENTING_INVALID_EXPIRATION_TIME",
-    "ERROR_WSMAN_EVENTING_UNSUPPORTED_EXPIRATION_TYPE",
-    "ERROR_WSMAN_EVENTING_FILTERING_NOT_SUPPORTED",
-    "ERROR_WSMAN_EVENTING_FILTERING_REQUESTED_UNAVAILABLE",
-    "ERROR_WSMAN_EVENTING_SOURCE_UNABLE_TO_PROCESS",
-    "ERROR_WSMAN_EVENTING_UNABLE_TO_RENEW",
-    "ERROR_WSMAN_EVENTING_INVALID_MESSAGE",
-    "ERROR_WSMAN_ENVELOPE_TOO_LARGE",
-    "ERROR_WSMAN_INVALID_SOAP_BODY",
-    "ERROR_WSMAN_INVALID_RESUMPTION_CONTEXT",
-    "ERROR_WSMAN_OPERATION_TIMEDOUT",
-    "ERROR_WSMAN_RESUMPTION_NOT_SUPPORTED",
-    "ERROR_WSMAN_RESUMPTION_TYPE_NOT_SUPPORTED",
-    "ERROR_WSMAN_UNSUPPORTED_ENCODING",
-    "ERROR_WSMAN_URI_LIMIT",
-    "ERROR_WSMAN_INVALID_PROPOSED_ID",
-    "ERROR_WSMAN_INVALID_BATCH_PARAMETER",
-    "ERROR_WSMAN_NO_ACK",
-    "ERROR_WSMAN_ACTION_MISMATCH",
-    "ERROR_WSMAN_CONCURRENCY",
-    "ERROR_WSMAN_ALREADY_EXISTS",
-    "ERROR_WSMAN_DELIVERY_REFUSED",
-    "ERROR_WSMAN_ENCODING_LIMIT",
-    "ERROR_WSMAN_FAILED_AUTHENTICATION",
-    "ERROR_WSMAN_INCOMPATIBLE_EPR",
-    "ERROR_WSMAN_INVALID_BOOKMARK",
-    "ERROR_WSMAN_INVALID_OPTIONS",
-    "ERROR_WSMAN_INVALID_PARAMETER",
-    "ERROR_WSMAN_INVALID_RESOURCE_URI",
-    "ERROR_WSMAN_INVALID_SYSTEM",
-    "ERROR_WSMAN_INVALID_SELECTORS",
-    "ERROR_WSMAN_METADATA_REDIRECT",
-    "ERROR_WSMAN_QUOTA_LIMIT",
-    "ERROR_WSMAN_RENAME_FAILURE",
-    "ERROR_WSMAN_SCHEMA_VALIDATION_ERROR",
-    "ERROR_WSMAN_UNSUPPORTED_FEATURE",
-    "ERROR_WSMAN_INVALID_XML",
-    "ERROR_WSMAN_INVALID_KEY",
-    "ERROR_WSMAN_DELIVER_IN_PROGRESS",
-    "ERROR_WSMAN_SYSTEM_NOT_FOUND",
-    "ERROR_WSMAN_MAX_ENVELOPE_SIZE",
-    "ERROR_WSMAN_MAX_ENVELOPE_SIZE_EXCEEDED",
-    "ERROR_WSMAN_SERVER_ENVELOPE_LIMIT",
-    "ERROR_WSMAN_SELECTOR_LIMIT",
-    "ERROR_WSMAN_OPTION_LIMIT",
-    "ERROR_WSMAN_CHARACTER_SET",
-    "ERROR_WSMAN_UNREPORTABLE_SUCCESS",
-    "ERROR_WSMAN_WHITESPACE",
-    "ERROR_WSMAN_FILTERING_REQUIRED",
-    "ERROR_WSMAN_BOOKMARK_EXPIRED",
-    "ERROR_WSMAN_OPTIONS_NOT_SUPPORTED",
-    "ERROR_WSMAN_OPTIONS_INVALID_NAME",
-    "ERROR_WSMAN_OPTIONS_INVALID_VALUE",
-    "ERROR_WSMAN_PARAMETER_TYPE_MISMATCH",
-    "ERROR_WSMAN_INVALID_PARAMETER_NAME",
-    "ERROR_WSMAN_INVALID_XML_VALUES",
-    "ERROR_WSMAN_INVALID_XML_MISSING_VALUES",
-    "ERROR_WSMAN_INVALID_XML_NAMESPACE",
-    "ERROR_WSMAN_INVALID_XML_FRAGMENT",
-    "ERROR_WSMAN_INSUFFCIENT_SELECTORS",
-    "ERROR_WSMAN_UNEXPECTED_SELECTORS",
-    "ERROR_WSMAN_SELECTOR_TYPEMISMATCH",
-    "ERROR_WSMAN_INVALID_SELECTOR_VALUE",
-    "ERROR_WSMAN_AMBIGUOUS_SELECTORS",
-    "ERROR_WSMAN_DUPLICATE_SELECTORS",
-    "ERROR_WSMAN_INVALID_TARGET_SELECTORS",
-    "ERROR_WSMAN_INVALID_TARGET_RESOURCEURI",
-    "ERROR_WSMAN_INVALID_TARGET_SYSTEM",
-    "ERROR_WSMAN_TARGET_ALREADY_EXISTS",
-    "ERROR_WSMAN_AUTHORIZATION_MODE_NOT_SUPPORTED",
-    "ERROR_WSMAN_ACK_NOT_SUPPORTED",
-    "ERROR_WSMAN_OPERATION_TIMEOUT_NOT_SUPPORTED",
-    "ERROR_WSMAN_LOCALE_NOT_SUPPORTED",
-    "ERROR_WSMAN_EXPIRATION_TIME_NOT_SUPPORTED",
-    "ERROR_WSMAN_DELIVERY_RETRIES_NOT_SUPPORTED",
-    "ERROR_WSMAN_HEARTBEATS_NOT_SUPPORTED",
-    "ERROR_WSMAN_BOOKMARKS_NOT_SUPPORTED",
-    "ERROR_WSMAN_MAXITEMS_NOT_SUPPORTED",
-    "ERROR_WSMAN_MAXTIME_NOT_SUPPORTED",
-    "ERROR_WSMAN_MAXENVELOPE_SIZE_NOT_SUPPORTED",
-    "ERROR_WSMAN_MAXENVELOPE_POLICY_NOT_SUPPORTED",
-    "ERROR_WSMAN_FILTERING_REQUIRED_NOT_SUPPORTED",
-    "ERROR_WSMAN_INSECURE_ADDRESS_NOT_SUPPORTED",
-    "ERROR_WSMAN_FORMAT_MISMATCH_NOT_SUPPORTED",
-    "ERROR_WSMAN_FORMAT_SECURITY_TOKEN_NOT_SUPPORTED",
-    "ERROR_WSMAN_BAD_METHOD",
-    "ERROR_WSMAN_UNSUPPORTED_MEDIA",
-    "ERROR_WSMAN_UNSUPPORTED_ADDRESSING_MODE",
-    "ERROR_WSMAN_FRAGMENT_TRANSFER_NOT_SUPPORTED",
-    "ERROR_WSMAN_ENUMERATION_INITIALIZING",
-    "ERROR_WSMAN_CONNECTOR_GET",
-    "ERROR_WSMAN_URI_QUERY_STRING_SYNTAX_ERROR",
-    "ERROR_WSMAN_INEXISTENT_MAC_ADDRESS",
-    "ERROR_WSMAN_NO_UNICAST_ADDRESSES",
-    "ERROR_WSMAN_NO_DHCP_ADDRESSES",
-    "ERROR_WSMAN_MIN_ENVELOPE_SIZE",
-    "ERROR_WSMAN_EPR_NESTING_EXCEEDED",
-    "ERROR_WSMAN_REQUEST_INIT_ERROR",
-    "ERROR_WSMAN_INVALID_TIMEOUT_HEADER",
-    "ERROR_WSMAN_CERT_NOT_FOUND",
-    "ERROR_WSMAN_PLUGIN_FAILED",
-    "ERROR_WSMAN_ENUMERATION_INVALID",
-    "ERROR_WSMAN_CONFIG_CANNOT_CHANGE_MUTUAL",
-    "ERROR_WSMAN_ENUMERATION_MODE_UNSUPPORTED",
-    "ERROR_WSMAN_MUSTUNDERSTAND_ON_LOCALE_UNSUPPORTED",
-    "ERROR_WSMAN_POLICY_CORRUPTED",
-    "ERROR_WSMAN_LISTENER_ADDRESS_INVALID",
-    "ERROR_WSMAN_CONFIG_CANNOT_CHANGE_GPO_CONTROLLED_SETTING",
-    "ERROR_WSMAN_EVENTING_CONCURRENT_CLIENT_RECEIVE",
-    "ERROR_WSMAN_EVENTING_FAST_SENDER",
-    "ERROR_WSMAN_EVENTING_INSECURE_PUSHSUBSCRIPTION_CONNECTION",
-    "ERROR_WSMAN_EVENTING_INVALID_EVENTSOURCE",
-    "ERROR_WSMAN_EVENTING_NOMATCHING_LISTENER",
-    "ERROR_WSMAN_FRAGMENT_DIALECT_REQUESTED_UNAVAILABLE",
-    "ERROR_WSMAN_MISSING_FRAGMENT_PATH",
-    "ERROR_WSMAN_INVALID_FRAGMENT_DIALECT",
-    "ERROR_WSMAN_INVALID_FRAGMENT_PATH",
-    "ERROR_WSMAN_EVENTING_INCOMPATIBLE_BATCHPARAMS_AND_DELIVERYMODE",
-    "ERROR_WSMAN_EVENTING_LOOPBACK_TESTFAILED",
-    "ERROR_WSMAN_EVENTING_INVALID_ENDTO_ADDRESSS",
-    "ERROR_WSMAN_EVENTING_INVALID_INCOMING_EVENT_PACKET_HEADER",
-    "ERROR_WSMAN_SESSION_ALREADY_CLOSED",
-    "ERROR_WSMAN_SUBSCRIPTION_LISTENER_NOLONGERVALID",
-    "ERROR_WSMAN_PROVIDER_LOAD_FAILED",
-    "ERROR_WSMAN_EVENTING_SUBSCRIPTIONCLOSED_BYREMOTESERVICE",
-    "ERROR_WSMAN_EVENTING_DELIVERYFAILED_FROMSOURCE",
-    "ERROR_WSMAN_SECURITY_UNMAPPED",
-    "ERROR_WSMAN_EVENTING_SUBSCRIPTION_CANCELLED_BYSOURCE",
-    "ERROR_WSMAN_INVALID_HOSTNAME_PATTERN",
-    "ERROR_WSMAN_EVENTING_MISSING_NOTIFYTO",
-    "ERROR_WSMAN_EVENTING_MISSING_NOTIFYTO_ADDRESSS",
-    "ERROR_WSMAN_EVENTING_INVALID_NOTIFYTO_ADDRESSS",
-    "ERROR_WSMAN_EVENTING_INVALID_LOCALE_IN_DELIVERY",
-    "ERROR_WSMAN_EVENTING_INVALID_HEARTBEAT",
-    "ERROR_WSMAN_MACHINE_OPTION_REQUIRED",
-    "ERROR_WSMAN_UNSUPPORTED_FEATURE_OPTIONS",
-    "ERROR_WSMAN_BATCHSIZE_TOO_SMALL",
-    "ERROR_WSMAN_EVENTING_DELIVERY_MODE_REQUESTED_INVALID",
-    "ERROR_WSMAN_PROVSYS_NOT_SUPPORTED",
-    "ERROR_WSMAN_PUSH_SUBSCRIPTION_CONFIG_INVALID",
-    "ERROR_WSMAN_CREDS_PASSED_WITH_NO_AUTH_FLAG",
-    "ERROR_WSMAN_CLIENT_INVALID_FLAG",
-    "ERROR_WSMAN_CLIENT_MULTIPLE_AUTH_FLAGS",
-    "ERROR_WSMAN_CLIENT_SPN_WRONG_AUTH",
-    "ERROR_WSMAN_CLIENT_CERT_UNNEEDED_CREDS",
-    "ERROR_WSMAN_CLIENT_USERNAME_PASSWORD_NEEDED",
-    "ERROR_WSMAN_CLIENT_CERT_UNNEEDED_USERNAME",
-    "ERROR_WSMAN_CLIENT_CREDENTIALS_NEEDED",
-    "ERROR_WSMAN_CLIENT_CREDENTIALS_FLAG_NEEDED",
-    "ERROR_WSMAN_CLIENT_CERT_NEEDED",
-    "ERROR_WSMAN_CLIENT_CERT_UNKNOWN_TYPE",
-    "ERROR_WSMAN_CLIENT_CERT_UNKNOWN_LOCATION",
-    "ERROR_WSMAN_CLIENT_INVALID_CERT",
-    "ERROR_WSMAN_CLIENT_LOCAL_INVALID_CREDS",
-    "ERROR_WSMAN_CLIENT_LOCAL_INVALID_CONNECTION_OPTIONS",
-    "ERROR_WSMAN_CLIENT_CREATESESSION_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_ENUMERATE_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_SUBSCRIBE_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_NULL_RESULT_PARAM",
-    "ERROR_WSMAN_CLIENT_NO_HANDLE",
-    "ERROR_WSMAN_CLIENT_BLANK_URI",
-    "ERROR_WSMAN_CLIENT_INVALID_RESOURCE_LOCATOR",
-    "ERROR_WSMAN_CLIENT_BLANK_INPUT_XML",
-    "ERROR_WSMAN_CLIENT_BATCH_ITEMS_TOO_SMALL",
-    "ERROR_WSMAN_CLIENT_MAX_CHARS_TOO_SMALL",
-    "ERROR_WSMAN_CLIENT_BLANK_ACTION_URI",
-    "ERROR_WSMAN_CLIENT_ZERO_HEARTBEAT",
-    "ERROR_WSMAN_CLIENT_MULTIPLE_DELIVERY_MODES",
-    "ERROR_WSMAN_CLIENT_MULTIPLE_ENVELOPE_POLICIES",
-    "ERROR_WSMAN_CLIENT_UNKNOWN_EXPIRATION_TYPE",
-    "ERROR_WSMAN_CLIENT_MISSING_EXPIRATION",
-    "ERROR_WSMAN_CLIENT_PULL_INVALID_FLAGS",
-    "ERROR_WSMAN_CLIENT_PUSH_UNSUPPORTED_TRANSPORT",
-    "ERROR_WSMAN_CLIENT_PUSH_HOST_TOO_LONG",
-    "ERROR_WSMAN_CLIENT_COMPRESSION_INVALID_OPTION",
-    "ERROR_WSMAN_CLIENT_DELIVERENDSUBSCRIPTION_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_DELIVEREVENTS_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_GETBOOKMARK_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_DECODEOBJECT_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_ENCODEOBJECT_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_ENUMERATORADDOBJECT_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_ENUMERATORNEXTOBJECT_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_CONSTRUCTERROR_NULL_PARAM",
-    "ERROR_WSMAN_SERVER_NONPULLSUBSCRIBE_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_UNENCRYPTED_HTTP_ONLY",
-    "ERROR_WSMAN_CANNOT_USE_CERTIFICATES_FOR_HTTP",
-    "ERROR_WSMAN_CONNECTIONSTR_INVALID",
-    "ERROR_WSMAN_TRANSPORT_NOT_SUPPORTED",
-    "ERROR_WSMAN_PORT_INVALID",
-    "ERROR_WSMAN_CONFIG_PORT_INVALID",
-    "ERROR_WSMAN_SENDHEARBEAT_EMPTY_ENUMERATOR",
-    "ERROR_WSMAN_CLIENT_UNENCRYPTED_DISABLED",
-    "ERROR_WSMAN_CLIENT_BASIC_AUTHENTICATION_DISABLED",
-    "ERROR_WSMAN_CLIENT_DIGEST_AUTHENTICATION_DISABLED",
-    "ERROR_WSMAN_CLIENT_NEGOTIATE_AUTHENTICATION_DISABLED",
-    "ERROR_WSMAN_CLIENT_KERBEROS_AUTHENTICATION_DISABLED",
-    "ERROR_WSMAN_CLIENT_CERTIFICATES_AUTHENTICATION_DISABLED",
-    "ERROR_WSMAN_SERVER_NOT_TRUSTED",
-    "ERROR_WSMAN_EXPLICIT_CREDENTIALS_REQUIRED",
-    "ERROR_WSMAN_CERT_THUMBPRINT_NOT_BLANK",
-    "ERROR_WSMAN_CERT_THUMBPRINT_BLANK",
-    "ERROR_WSMAN_CONFIG_CANNOT_SHARE_SSL_CONFIG",
-    "ERROR_WSMAN_CONFIG_CERT_CN_DOES_NOT_MATCH_HOSTNAME",
-    "ERROR_WSMAN_CONFIG_HOSTNAME_CHANGE_WITHOUT_CERT",
-    "ERROR_WSMAN_CONFIG_THUMBPRINT_SHOULD_BE_EMPTY",
-    "ERROR_WSMAN_INVALID_IPFILTER",
-    "ERROR_WSMAN_CANNOT_CHANGE_KEYS",
-    "ERROR_WSMAN_CERT_INVALID_USAGE",
-    "ERROR_WSMAN_RESPONSE_NO_RESULTS",
-    "ERROR_WSMAN_CREATE_RESPONSE_NO_EPR",
-    "ERROR_WSMAN_RESPONSE_INVALID_ENUMERATION_CONTEXT",
-    "ERROR_WSMAN_RESPONSE_NO_XML_FRAGMENT_WRAPPER",
-    "ERROR_WSMAN_RESPONSE_INVALID_MESSAGE_INFORMATION_HEADER",
-    "ERROR_WSMAN_RESPONSE_NO_SOAP_HEADER_BODY",
-    "ERROR_WSMAN_HTTP_NO_RESPONSE_DATA",
-    "ERROR_WSMAN_RESPONSE_INVALID_SOAP_FAULT",
-    "ERROR_WSMAN_HTTP_INVALID_CONTENT_TYPE_IN_RESPONSE_DATA",
-    "ERROR_WSMAN_HTTP_CONTENT_TYPE_MISSMATCH_RESPONSE_DATA",
-    "ERROR_WSMAN_CANNOT_DECRYPT",
-    "ERROR_WSMAN_INVALID_URI_WMI_SINGLETON",
-    "ERROR_WSMAN_INVALID_URI_WMI_ENUM_WQL",
-    "ERROR_WSMAN_NO_IDENTIFY_FOR_LOCAL_SESSION",
-    "ERROR_WSMAN_NO_PUSH_SUBSCRIPTION_FOR_LOCAL_SESSION",
-    "ERROR_WSMAN_INVALID_SUBSCRIPTION_MANAGER",
-    "ERROR_WSMAN_NON_PULL_SUBSCRIPTION_NOT_SUPPORTED",
-    "ERROR_WSMAN_WMI_MAX_NESTED",
-    "ERROR_WSMAN_REMOTE_CIMPATH_NOT_SUPPORTED",
-    "ERROR_WSMAN_WMI_PROVIDER_NOT_CAPABLE",
-    "ERROR_WSMAN_WMI_INVALID_VALUE",
-    "ERROR_WSMAN_WMI_SVC_ACCESS_DENIED",
-    "ERROR_WSMAN_WMI_PROVIDER_ACCESS_DENIED",
-    "ERROR_WSMAN_WMI_CANNOT_CONNECT_ACCESS_DENIED",
-    "ERROR_WSMAN_INVALID_FILTER_XML",
-    "ERROR_WSMAN_ENUMERATE_WMI_INVALID_KEY",
-    "ERROR_WSMAN_INVALID_FRAGMENT_PATH_BLANK",
-    "ERROR_WSMAN_INVALID_CHARACTERS_IN_RESPONSE",
-    "ERROR_WSMAN_KERBEROS_IPADDRESS",
-    "ERROR_WSMAN_CLIENT_WORKGROUP_NO_KERBEROS",
-    "ERROR_WSMAN_INVALID_BATCH_SETTINGS_PARAMETER",
-    "ERROR_WSMAN_SERVER_DESTINATION_LOCALHOST",
-    "ERROR_WSMAN_UNKNOWN_HTTP_STATUS_RETURNED",
-    "ERROR_WSMAN_UNSUPPORTED_HTTP_STATUS_REDIRECT",
-    "ERROR_WSMAN_HTTP_REQUEST_TOO_LARGE_STATUS",
-    "ERROR_WSMAN_HTTP_SERVICE_UNAVAILABLE_STATUS",
-    "ERROR_WSMAN_HTTP_NOT_FOUND_STATUS",
-    "ERROR_WSMAN_EVENTING_MISSING_LOCALE_IN_DELIVERY",
-    "ERROR_WSMAN_QUICK_CONFIG_FAILED_CERT_REQUIRED",
-    "ERROR_WSMAN_QUICK_CONFIG_FIREWALL_EXCEPTIONS_DISALLOWED",
-    "ERROR_WSMAN_QUICK_CONFIG_LOCAL_POLICY_CHANGE_DISALLOWED",
-    "ERROR_WSMAN_INVALID_SELECTOR_NAME",
-    "ERROR_WSMAN_ENCODING_TYPE",
-    "ERROR_WSMAN_ENDPOINT_UNAVAILABLE_INVALID_VALUE",
-    "ERROR_WSMAN_INVALID_HEADER",
-    "ERROR_WSMAN_ENUMERATE_UNSUPPORTED_EXPIRATION_TYPE",
-    "ERROR_WSMAN_MAX_ELEMENTS_NOT_SUPPORTED",
-    "ERROR_WSMAN_WMI_PROVIDER_INVALID_PARAMETER",
-    "ERROR_WSMAN_CLIENT_MULTIPLE_ENUM_MODE_FLAGS",
+    "ERROR_REDIRECT_LOCATION_INVALID",
+    "ERROR_REDIRECT_LOCATION_TOO_LONG",
+    "ERROR_SERVICE_CBT_HARDENING_INVALID",
+    "ERROR_WINRS_CLIENT_CLOSERECEIVEHANDLE_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_CLOSESENDHANDLE_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_CLOSESHELL_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_CREATESHELL_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_FREECREATESHELLRESULT_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_FREEPULLRESULT_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_FREERUNCOMMANDRESULT_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_GET_NULL_PARAM",
     "ERROR_WINRS_CLIENT_INVALID_FLAG",
     "ERROR_WINRS_CLIENT_NULL_PARAM",
-    "ERROR_WSMAN_CANNOT_PROCESS_FILTER",
-    "ERROR_WSMAN_CLIENT_ENUMERATORADDEVENT_NULL_PARAM",
-    "ERROR_WSMAN_ADDOBJECT_MISSING_OBJECT",
-    "ERROR_WSMAN_ADDOBJECT_MISSING_EPR",
-    "ERROR_WSMAN_NETWORK_TIMEDOUT",
+    "ERROR_WINRS_CLIENT_PULL_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_PUSH_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_RECEIVE_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_RUNCOMMAND_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_SEND_NULL_PARAM",
+    "ERROR_WINRS_CLIENT_SIGNAL_NULL_PARAM",
+    "ERROR_WINRS_CODE_PAGE_NOT_SUPPORTED",
+    "ERROR_WINRS_CONNECT_RESPONSE_BAD_BODY",
+    "ERROR_WINRS_IDLETIMEOUT_OUTOFBOUNDS",
     "ERROR_WINRS_RECEIVE_IN_PROGRESS",
     "ERROR_WINRS_RECEIVE_NO_RESPONSE_DATA",
-    "ERROR_WINRS_CLIENT_CREATESHELL_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_CLOSESHELL_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_FREECREATESHELLRESULT_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_RUNCOMMAND_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_FREERUNCOMMANDRESULT_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_SIGNAL_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_RECEIVE_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_FREEPULLRESULT_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_PULL_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_CLOSERECEIVEHANDLE_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_SEND_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_PUSH_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_CLOSESENDHANDLE_NULL_PARAM",
-    "ERROR_WINRS_CLIENT_GET_NULL_PARAM",
-    "ERROR_WSMAN_POLYMORPHISM_MODE_UNSUPPORTED",
-    "ERROR_WSMAN_REQUEST_NOT_SUPPORTED_AT_SERVICE",
-    "ERROR_WSMAN_URI_NON_DMTF_CLASS",
-    "ERROR_WSMAN_URI_WRONG_DMTF_VERSION",
-    "ERROR_WSMAN_DIFFERENT_CIM_SELECTOR",
-    "ERROR_WSMAN_PUSHSUBSCRIPTION_INVALIDUSERACCOUNT",
-    "ERROR_WSMAN_EVENTING_NONDOMAINJOINED_PUBLISHER",
-    "ERROR_WSMAN_EVENTING_NONDOMAINJOINED_COLLECTOR",
-    "ERROR_WSMAN_CONFIG_READONLY_PROPERTY",
-    "ERROR_WINRS_CODE_PAGE_NOT_SUPPORTED",
-    "ERROR_WSMAN_CLIENT_DISABLE_LOOPBACK_WITH_EXPLICIT_CREDENTIALS",
-    "ERROR_WSMAN_CLIENT_INVALID_DISABLE_LOOPBACK",
-    "ERROR_WSMAN_CLIENT_ENUM_RECEIVED_TOO_MANY_ITEMS",
-    "ERROR_WSMAN_MULTIPLE_CREDENTIALS",
-    "ERROR_WSMAN_AUTHENTICATION_INVALID_FLAG",
-    "ERROR_WSMAN_CLIENT_CREDENTIALS_FOR_DEFAULT_AUTHENTICATION",
-    "ERROR_WSMAN_CLIENT_USERNAME_AND_PASSWORD_NEEDED",
-    "ERROR_WSMAN_CLIENT_INVALID_CERT_DNS_OR_UPN",
-    "ERROR_WSMAN_CREATESHELL_NULL_ENVIRONMENT_VARIABLE_NAME",
-    "ERROR_WSMAN_SHELL_ALREADY_CLOSED",
-    "ERROR_WSMAN_CREATESHELL_NULL_STREAMID",
-    "ERROR_WSMAN_SHELL_INVALID_SHELL_HANDLE",
-    "ERROR_WSMAN_SHELL_INVALID_COMMAND_HANDLE",
-    "ERROR_WSMAN_RUNSHELLCOMMAND_NULL_ARGUMENT",
-    "ERROR_WSMAN_COMMAND_ALREADY_CLOSED",
-    "ERROR_WSMAN_SENDSHELLINPUT_INVALID_STREAMID_INDEX",
-    "ERROR_WSMAN_SHELL_SYNCHRONOUS_NOT_SUPPORTED",
-    "ERROR_WSMAN_NO_CERTMAPPING_OPERATION_FOR_LOCAL_SESSION",
-    "ERROR_WSMAN_CERTMAPPING_CONFIGLIMIT_EXCEEDED",
-    "ERROR_WSMAN_CERTMAPPING_INVALIDUSERCREDENTIALS",
-    "ERROR_WSMAN_CERT_INVALID_USAGE_CLIENT",
-    "ERROR_WSMAN_CERT_MISSING_AUTH_FLAG",
-    "ERROR_WSMAN_CERT_MULTIPLE_CREDENTIALS_FLAG",
-    "ERROR_WSMAN_CONFIG_SHELL_URI_INVALID",
-    "ERROR_WSMAN_CONFIG_SHELL_URI_CMDSHELLURI_NOTPERMITTED",
-    "ERROR_WSMAN_CONFIG_SHELLURI_INVALID_PROCESSPATH",
-    "ERROR_WINRS_SHELL_URI_INVALID",
-    "ERROR_WSMAN_INVALID_SECURITY_DESCRIPTOR",
-    "ERROR_WSMAN_POLICY_TOO_COMPLEX",
-    "ERROR_WSMAN_POLICY_CANNOT_COMPLY",
-    "ERROR_WSMAN_INVALID_CONNECTIONRETRY",
-    "ERROR_WSMAN_URISECURITY_INVALIDURIKEY",
-    "ERROR_WSMAN_CERTMAPPING_INVALIDSUBJECTKEY",
-    "ERROR_WSMAN_CERTMAPPING_INVALIDISSUERKEY",
-    "ERROR_WSMAN_INVALID_PUBLISHERS_TYPE",
-    "ERROR_WSMAN_CLIENT_INVALID_DELIVERY_RETRY",
-    "ERROR_WSMAN_CLIENT_NULL_PUBLISHERS",
-    "ERROR_WSMAN_CLIENT_NULL_ISSUERS",
-    "ERROR_WSMAN_CLIENT_NO_SOURCES",
-    "ERROR_WSMAN_INVALID_SUBSCRIBE_OBJECT",
-    "ERROR_WSMAN_PUBLIC_FIREWALL_PROFILE_ACTIVE",
-    "ERROR_WSMAN_CERTMAPPING_PASSWORDTOOLONG",
-    "ERROR_WSMAN_CERTMAPPING_PASSWORDBLANK",
-    "ERROR_WSMAN_CERTMAPPING_PASSWORDUSERTUPLE",
-    "ERROR_WSMAN_INVALID_PROVIDER_RESPONSE",
-    "ERROR_WSMAN_SHELL_NOT_INITIALIZED",
-    "ERROR_WSMAN_CONFIG_SHELLURI_INVALID_OPERATION_ON_KEY",
-    "ERROR_WSMAN_HTTP_STATUS_SERVER_ERROR",
-    "ERROR_WSMAN_HTTP_STATUS_BAD_REQUEST",
-    "ERROR_WSMAN_CONFIG_CANNOT_CHANGE_CERTMAPPING_KEYS",
-    "ERROR_WSMAN_HTML_ERROR",
-    "ERROR_WSMAN_CLIENT_INITIALIZE_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_INVALID_INIT_APPLICATION_FLAG",
-    "ERROR_WSMAN_CLIENT_INVALID_DEINIT_APPLICATION_FLAG",
-    "ERROR_WSMAN_CLIENT_SETSESSIONOPTION_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_SETSESSIONOPTION_INVALID_PARAM",
-    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_INVALID_PARAM",
-    "ERROR_WSMAN_CLIENT_CREATESHELL_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_INVALID_CREATE_SHELL_FLAG",
-    "ERROR_WSMAN_CLIENT_INVALID_CLOSE_SHELL_FLAG",
-    "ERROR_WSMAN_CLIENT_INVALID_CLOSE_COMMAND_FLAG",
-    "ERROR_WSMAN_CLIENT_CLOSESHELL_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_CLOSECOMMAND_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_RUNCOMMAND_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_INVALID_RUNCOMMAND_FLAG",
-    "ERROR_WSMAN_CLIENT_RUNCOMMAND_NOTCOMPLETED",
-    "ERROR_WSMAN_NO_COMMAND_RESPONSE",
-    "ERROR_WSMAN_INVALID_OPTIONSET",
-    "ERROR_WSMAN_NO_COMMANDID",
-    "ERROR_WSMAN_CLIENT_SIGNAL_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_INVALID_SIGNAL_SHELL_FLAG",
-    "ERROR_WSMAN_CLIENT_SEND_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_INVALID_SEND_SHELL_FLAG",
-    "ERROR_WSMAN_CLIENT_INVALID_SEND_SHELL_PARAMETER",
-    "ERROR_WSMAN_SHELL_INVALID_INPUT_STREAM",
-    "ERROR_WSMAN_CLIENT_RECEIVE_NULL_PARAM",
-    "ERROR_WSMAN_SHELL_INVALID_DESIRED_STREAMS",
-    "ERROR_WSMAN_CLIENT_INVALID_RECEIVE_SHELL_FLAG",
-    "ERROR_WSMAN_NO_RECEIVE_RESPONSE",
-    "ERROR_WSMAN_PLUGIN_CONFIGURATION_CORRUPTED",
-    "ERROR_WSMAN_INVALID_FILEPATH",
-    "ERROR_WSMAN_FILE_NOT_PRESENT",
-    "ERROR_WSMAN_IISCONFIGURATION_READ_FAILED",
-    "ERROR_WSMAN_CLIENT_INVALID_LOCALE",
-    "ERROR_WSMAN_CLIENT_INVALID_UI_LANGUAGE",
-    "ERROR_WSMAN_CLIENT_GETERRORMESSAGE_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_INVALID_LANGUAGE_CODE",
-    "ERROR_WSMAN_CLIENT_INVALID_GETERRORMESSAGE_FLAG",
-    "ERROR_WSMAN_REDIRECT_REQUESTED",
-    "ERROR_WSMAN_PROXY_AUTHENTICATION_INVALID_FLAG",
-    "ERROR_WSMAN_CLIENT_CREDENTIALS_FOR_PROXY_AUTHENTICATION",
-    "ERROR_WSMAN_PROXY_ACCESS_TYPE",
-    "ERROR_WSMAN_INVALID_OPTION_NO_PROXY_SERVER",
-    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_DWORD_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_DWORD_INVALID_PARAM",
-    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_STRING_INVALID_PARAM",
-    "ERROR_WSMAN_CREDSSP_USERNAME_PASSWORD_NEEDED",
-    "ERROR_WSMAN_CLIENT_CREDSSP_AUTHENTICATION_DISABLED",
-    "ERROR_WSMAN_CLIENT_ALLOWFRESHCREDENTIALS",
-    "ERROR_WSMAN_CLIENT_ALLOWFRESHCREDENTIALS_NTLMONLY",
-    "ERROR_WSMAN_QUOTA_MAX_SHELLS",
-    "ERROR_WSMAN_QUOTA_MAX_OPERATIONS",
-    "ERROR_WSMAN_QUOTA_USER",
-    "ERROR_WSMAN_QUOTA_SYSTEM",
-    "ERROR_WSMAN_DIFFERENT_AUTHZ_TOKEN",
-    "ERROR_WSMAN_REDIRECT_LOCATION_NOT_AVAILABLE",
-    "ERROR_WSMAN_QUOTA_MAX_SHELLUSERS",
-    "ERROR_WSMAN_REMOTESHELLS_NOT_ALLOWED",
-    "ERROR_WSMAN_PULL_PARAMS_NOT_SAME_AS_ENUM",
-    "ERROR_WSMAN_DEPRECATED_CONFIG_SETTING",
-    "ERROR_WSMAN_URI_SECURITY_URI",
-    "ERROR_WSMAN_CANNOT_USE_ALLOW_NEGOTIATE_IMPLICIT_CREDENTIALS_FOR_HTTP",
-    "ERROR_WSMAN_CANNOT_USE_PROXY_SETTINGS_FOR_HTTP",
-    "ERROR_WSMAN_CANNOT_USE_PROXY_SETTINGS_FOR_KERBEROS",
-    "ERROR_WSMAN_CANNOT_USE_PROXY_SETTINGS_FOR_CREDSSP",
-    "ERROR_WSMAN_CLIENT_MULTIPLE_PROXY_AUTH_FLAGS",
-    "ERROR_WSMAN_INVALID_REDIRECT_ERROR",
-    "ERROR_REDIRECT_LOCATION_TOO_LONG",
-    "ERROR_REDIRECT_LOCATION_INVALID",
-    "ERROR_SERVICE_CBT_HARDENING_INVALID",
-    "ERROR_WSMAN_NAME_NOT_RESOLVED",
-    "ERROR_WSMAN_SSL_CONNECTION_ABORTED",
-    "ERROR_WSMAN_DEFAULTAUTH_IPADDRESS",
-    "ERROR_WSMAN_CUSTOMREMOTESHELL_DEPRECATED",
-    "ERROR_WSMAN_FEATURE_DEPRECATED",
-    "ERROR_WSMAN_INVALID_USESSL_PARAM",
-    "ERROR_WSMAN_INVALID_CONFIGSDDL_URL",
-    "ERROR_WSMAN_ENUMERATE_SHELLCOMAMNDS_FILTER_EXPECTED",
-    "ERROR_WSMAN_ENUMERATE_SHELLCOMMANDS_EPRS_NOTSUPPORTED",
-    "ERROR_WSMAN_CLIENT_CREATESHELL_NAME_INVALID",
-    "ERROR_WSMAN_RUNAS_INVALIDUSERCREDENTIALS",
+    "ERROR_WINRS_SHELLCOMMAND_CLIENTID_NOT_VALID",
+    "ERROR_WINRS_SHELLCOMMAND_CLIENTID_RESOURCE_CONFLICT",
+    "ERROR_WINRS_SHELLCOMMAND_DISCONNECT_OPERATION_NOT_VALID",
+    "ERROR_WINRS_SHELLCOMMAND_RECONNECT_OPERATION_NOT_VALID",
+    "ERROR_WINRS_SHELL_CLIENTID_NOT_VALID",
+    "ERROR_WINRS_SHELL_CLIENTID_RESOURCE_CONFLICT",
+    "ERROR_WINRS_SHELL_CLIENTSESSIONID_MISMATCH",
+    "ERROR_WINRS_SHELL_CONNECTED_TO_DIFFERENT_CLIENT",
     "ERROR_WINRS_SHELL_DISCONNECTED",
     "ERROR_WINRS_SHELL_DISCONNECT_NOT_SUPPORTED",
-    "ERROR_WINRS_SHELL_CLIENTSESSIONID_MISMATCH",
-    "ERROR_WSMAN_CLIENT_DISCONNECTSHELL_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_RECONNECTSHELL_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_CONNECTSHELL_NULL_PARAM",
-    "ERROR_WSMAN_CLIENT_CONNECTCOMMAND_NULL_PARAM",
-    "ERROR_WINRS_CONNECT_RESPONSE_BAD_BODY",
-    "ERROR_WSMAN_COMMAND_TERMINATED",
-    "ERROR_WINRS_SHELL_CONNECTED_TO_DIFFERENT_CLIENT",
     "ERROR_WINRS_SHELL_DISCONNECT_OPERATION_NOT_GRACEFUL",
     "ERROR_WINRS_SHELL_DISCONNECT_OPERATION_NOT_VALID",
     "ERROR_WINRS_SHELL_RECONNECT_OPERATION_NOT_VALID",
-    "ERROR_WSMAN_CONFIG_GROUP_POLICY_CHANGE_NOTIFICATION_SUBSCRIPTION_FAILED",
-    "ERROR_WSMAN_CLIENT_RECONNECTSHELLCOMMAND_NULL_PARAM",
-    "ERROR_WINRS_SHELLCOMMAND_RECONNECT_OPERATION_NOT_VALID",
-    "ERROR_WINRS_SHELLCOMMAND_CLIENTID_NOT_VALID",
-    "ERROR_WINRS_SHELL_CLIENTID_NOT_VALID",
-    "ERROR_WINRS_SHELLCOMMAND_CLIENTID_RESOURCE_CONFLICT",
-    "ERROR_WINRS_SHELL_CLIENTID_RESOURCE_CONFLICT",
-    "ERROR_WINRS_SHELLCOMMAND_DISCONNECT_OPERATION_NOT_VALID",
-    "ERROR_WSMAN_SUBSCRIBE_WMI_INVALID_KEY",
+    "ERROR_WINRS_SHELL_URI_INVALID",
+    "ERROR_WSMAN_ACK_NOT_SUPPORTED",
+    "ERROR_WSMAN_ACTION_MISMATCH",
+    "ERROR_WSMAN_ACTION_NOT_SUPPORTED",
+    "ERROR_WSMAN_ADDOBJECT_MISSING_EPR",
+    "ERROR_WSMAN_ADDOBJECT_MISSING_OBJECT",
+    "ERROR_WSMAN_ALREADY_EXISTS",
+    "ERROR_WSMAN_AMBIGUOUS_SELECTORS",
+    "ERROR_WSMAN_AUTHENTICATION_INVALID_FLAG",
+    "ERROR_WSMAN_AUTHORIZATION_MODE_NOT_SUPPORTED",
+    "ERROR_WSMAN_BAD_METHOD",
+    "ERROR_WSMAN_BATCHSIZE_TOO_SMALL",
+    "ERROR_WSMAN_BATCH_COMPLETE",
+    "ERROR_WSMAN_BOOKMARKS_NOT_SUPPORTED",
+    "ERROR_WSMAN_BOOKMARK_EXPIRED",
+    "ERROR_WSMAN_CANNOT_CHANGE_KEYS",
+    "ERROR_WSMAN_CANNOT_DECRYPT",
+    "ERROR_WSMAN_CANNOT_PROCESS_FILTER",
+    "ERROR_WSMAN_CANNOT_USE_ALLOW_NEGOTIATE_IMPLICIT_CREDENTIALS_FOR_HTTP",
+    "ERROR_WSMAN_CANNOT_USE_CERTIFICATES_FOR_HTTP",
+    "ERROR_WSMAN_CANNOT_USE_PROXY_SETTINGS_FOR_CREDSSP",
+    "ERROR_WSMAN_CANNOT_USE_PROXY_SETTINGS_FOR_HTTP",
+    "ERROR_WSMAN_CANNOT_USE_PROXY_SETTINGS_FOR_KERBEROS",
+    "ERROR_WSMAN_CERTMAPPING_CONFIGLIMIT_EXCEEDED",
+    "ERROR_WSMAN_CERTMAPPING_CREDENTIAL_MANAGEMENT_FAILIED",
+    "ERROR_WSMAN_CERTMAPPING_INVALIDISSUERKEY",
+    "ERROR_WSMAN_CERTMAPPING_INVALIDSUBJECTKEY",
+    "ERROR_WSMAN_CERTMAPPING_INVALIDUSERCREDENTIALS",
+    "ERROR_WSMAN_CERTMAPPING_PASSWORDBLANK",
+    "ERROR_WSMAN_CERTMAPPING_PASSWORDTOOLONG",
+    "ERROR_WSMAN_CERTMAPPING_PASSWORDUSERTUPLE",
+    "ERROR_WSMAN_CERT_INVALID_USAGE",
+    "ERROR_WSMAN_CERT_INVALID_USAGE_CLIENT",
+    "ERROR_WSMAN_CERT_MISSING_AUTH_FLAG",
+    "ERROR_WSMAN_CERT_MULTIPLE_CREDENTIALS_FLAG",
+    "ERROR_WSMAN_CERT_NOT_FOUND",
+    "ERROR_WSMAN_CERT_THUMBPRINT_BLANK",
+    "ERROR_WSMAN_CERT_THUMBPRINT_NOT_BLANK",
+    "ERROR_WSMAN_CHARACTER_SET",
+    "ERROR_WSMAN_CLIENT_ALLOWFRESHCREDENTIALS",
+    "ERROR_WSMAN_CLIENT_ALLOWFRESHCREDENTIALS_NTLMONLY",
+    "ERROR_WSMAN_CLIENT_BASIC_AUTHENTICATION_DISABLED",
+    "ERROR_WSMAN_CLIENT_BATCH_ITEMS_TOO_SMALL",
+    "ERROR_WSMAN_CLIENT_BLANK_ACTION_URI",
+    "ERROR_WSMAN_CLIENT_BLANK_INPUT_XML",
+    "ERROR_WSMAN_CLIENT_BLANK_URI",
+    "ERROR_WSMAN_CLIENT_CERTIFICATES_AUTHENTICATION_DISABLED",
+    "ERROR_WSMAN_CLIENT_CERT_NEEDED",
+    "ERROR_WSMAN_CLIENT_CERT_UNKNOWN_LOCATION",
+    "ERROR_WSMAN_CLIENT_CERT_UNKNOWN_TYPE",
+    "ERROR_WSMAN_CLIENT_CERT_UNNEEDED_CREDS",
+    "ERROR_WSMAN_CLIENT_CERT_UNNEEDED_USERNAME",
+    "ERROR_WSMAN_CLIENT_CLOSECOMMAND_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_CLOSESHELL_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_COMPRESSION_INVALID_OPTION",
+    "ERROR_WSMAN_CLIENT_CONNECTCOMMAND_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_CONNECTSHELL_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_CONSTRUCTERROR_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_CREATESESSION_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_CREATESHELL_NAME_INVALID",
+    "ERROR_WSMAN_CLIENT_CREATESHELL_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_CREDENTIALS_FLAG_NEEDED",
+    "ERROR_WSMAN_CLIENT_CREDENTIALS_FOR_DEFAULT_AUTHENTICATION",
+    "ERROR_WSMAN_CLIENT_CREDENTIALS_FOR_PROXY_AUTHENTICATION",
+    "ERROR_WSMAN_CLIENT_CREDENTIALS_NEEDED",
+    "ERROR_WSMAN_CLIENT_CREDSSP_AUTHENTICATION_DISABLED",
+    "ERROR_WSMAN_CLIENT_DECODEOBJECT_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_DELIVERENDSUBSCRIPTION_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_DELIVEREVENTS_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_DIGEST_AUTHENTICATION_DISABLED",
+    "ERROR_WSMAN_CLIENT_DISABLE_LOOPBACK_WITH_EXPLICIT_CREDENTIALS",
+    "ERROR_WSMAN_CLIENT_DISCONNECTSHELL_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_ENCODEOBJECT_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_ENUMERATE_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_ENUMERATORADDEVENT_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_ENUMERATORADDOBJECT_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_ENUMERATORNEXTOBJECT_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_ENUM_RECEIVED_TOO_MANY_ITEMS",
+    "ERROR_WSMAN_CLIENT_GETBOOKMARK_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_GETERRORMESSAGE_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_DWORD_INVALID_PARAM",
+    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_DWORD_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_INVALID_PARAM",
+    "ERROR_WSMAN_CLIENT_GETSESSIONOPTION_STRING_INVALID_PARAM",
+    "ERROR_WSMAN_CLIENT_INITIALIZE_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_INVALID_CERT",
+    "ERROR_WSMAN_CLIENT_INVALID_CERT_DNS_OR_UPN",
+    "ERROR_WSMAN_CLIENT_INVALID_CLOSE_COMMAND_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_CLOSE_SHELL_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_CREATE_SHELL_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_DEINIT_APPLICATION_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_DELIVERY_RETRY",
+    "ERROR_WSMAN_CLIENT_INVALID_DISABLE_LOOPBACK",
     "ERROR_WSMAN_CLIENT_INVALID_DISCONNECT_SHELL_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_GETERRORMESSAGE_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_INIT_APPLICATION_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_LANGUAGE_CODE",
+    "ERROR_WSMAN_CLIENT_INVALID_LOCALE",
+    "ERROR_WSMAN_CLIENT_INVALID_RECEIVE_SHELL_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_RESOURCE_LOCATOR",
+    "ERROR_WSMAN_CLIENT_INVALID_RUNCOMMAND_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_SEND_SHELL_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_SEND_SHELL_PARAMETER",
     "ERROR_WSMAN_CLIENT_INVALID_SHELL_COMMAND_PAIR",
+    "ERROR_WSMAN_CLIENT_INVALID_SIGNAL_SHELL_FLAG",
+    "ERROR_WSMAN_CLIENT_INVALID_UI_LANGUAGE",
+    "ERROR_WSMAN_CLIENT_KERBEROS_AUTHENTICATION_DISABLED",
+    "ERROR_WSMAN_CLIENT_LOCAL_INVALID_CONNECTION_OPTIONS",
+    "ERROR_WSMAN_CLIENT_LOCAL_INVALID_CREDS",
+    "ERROR_WSMAN_CLIENT_MAX_CHARS_TOO_SMALL",
+    "ERROR_WSMAN_CLIENT_MISSING_EXPIRATION",
+    "ERROR_WSMAN_CLIENT_MULTIPLE_AUTH_FLAGS",
+    "ERROR_WSMAN_CLIENT_MULTIPLE_DELIVERY_MODES",
+    "ERROR_WSMAN_CLIENT_MULTIPLE_ENUM_MODE_FLAGS",
+    "ERROR_WSMAN_CLIENT_MULTIPLE_ENVELOPE_POLICIES",
+    "ERROR_WSMAN_CLIENT_MULTIPLE_PROXY_AUTH_FLAGS",
+    "ERROR_WSMAN_CLIENT_NEGOTIATE_AUTHENTICATION_DISABLED",
+    "ERROR_WSMAN_CLIENT_NO_HANDLE",
+    "ERROR_WSMAN_CLIENT_NO_SOURCES",
+    "ERROR_WSMAN_CLIENT_NULL_ISSUERS",
+    "ERROR_WSMAN_CLIENT_NULL_PUBLISHERS",
+    "ERROR_WSMAN_CLIENT_NULL_RESULT_PARAM",
+    "ERROR_WSMAN_CLIENT_PULL_INVALID_FLAGS",
+    "ERROR_WSMAN_CLIENT_PUSH_HOST_TOO_LONG",
+    "ERROR_WSMAN_CLIENT_PUSH_UNSUPPORTED_TRANSPORT",
+    "ERROR_WSMAN_CLIENT_RECEIVE_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_RECONNECTSHELLCOMMAND_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_RECONNECTSHELL_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_RUNCOMMAND_NOTCOMPLETED",
+    "ERROR_WSMAN_CLIENT_RUNCOMMAND_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_SEND_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_SESSION_UNUSABLE",
+    "ERROR_WSMAN_CLIENT_SETSESSIONOPTION_INVALID_PARAM",
+    "ERROR_WSMAN_CLIENT_SETSESSIONOPTION_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_SIGNAL_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_SPN_WRONG_AUTH",
+    "ERROR_WSMAN_CLIENT_SUBSCRIBE_NULL_PARAM",
+    "ERROR_WSMAN_CLIENT_UNENCRYPTED_DISABLED",
+    "ERROR_WSMAN_CLIENT_UNENCRYPTED_HTTP_ONLY",
+    "ERROR_WSMAN_CLIENT_UNKNOWN_EXPIRATION_TYPE",
+    "ERROR_WSMAN_CLIENT_USERNAME_AND_PASSWORD_NEEDED",
+    "ERROR_WSMAN_CLIENT_USERNAME_PASSWORD_NEEDED",
+    "ERROR_WSMAN_CLIENT_WORKGROUP_NO_KERBEROS",
+    "ERROR_WSMAN_CLIENT_ZERO_HEARTBEAT",
+    "ERROR_WSMAN_COMMAND_ALREADY_CLOSED",
+    "ERROR_WSMAN_COMMAND_TERMINATED",
+    "ERROR_WSMAN_CONCURRENCY",
+    "ERROR_WSMAN_CONFIG_CANNOT_CHANGE_CERTMAPPING_KEYS",
+    "ERROR_WSMAN_CONFIG_CANNOT_CHANGE_GPO_CONTROLLED_SETTING",
+    "ERROR_WSMAN_CONFIG_CANNOT_CHANGE_MUTUAL",
+    "ERROR_WSMAN_CONFIG_CANNOT_SHARE_SSL_CONFIG",
+    "ERROR_WSMAN_CONFIG_CERT_CN_DOES_NOT_MATCH_HOSTNAME",
+    "ERROR_WSMAN_CONFIG_CORRUPTED",
+    "ERROR_WSMAN_CONFIG_GROUP_POLICY_CHANGE_NOTIFICATION_SUBSCRIPTION_FAILED",
+    "ERROR_WSMAN_CONFIG_HOSTNAME_CHANGE_WITHOUT_CERT",
+    "ERROR_WSMAN_CONFIG_PORT_INVALID",
+    "ERROR_WSMAN_CONFIG_READONLY_PROPERTY",
+    "ERROR_WSMAN_CONFIG_SHELLURI_INVALID_OPERATION_ON_KEY",
+    "ERROR_WSMAN_CONFIG_SHELLURI_INVALID_PROCESSPATH",
+    "ERROR_WSMAN_CONFIG_SHELL_URI_CMDSHELLURI_NOTPERMITTED",
+    "ERROR_WSMAN_CONFIG_SHELL_URI_INVALID",
+    "ERROR_WSMAN_CONFIG_THUMBPRINT_SHOULD_BE_EMPTY",
+    "ERROR_WSMAN_CONNECTIONSTR_INVALID",
+    "ERROR_WSMAN_CONNECTOR_GET",
+    "ERROR_WSMAN_CREATESHELL_NULL_ENVIRONMENT_VARIABLE_NAME",
+    "ERROR_WSMAN_CREATESHELL_NULL_STREAMID",
+    "ERROR_WSMAN_CREATESHELL_RUNAS_FAILED",
+    "ERROR_WSMAN_CREATE_RESPONSE_NO_EPR",
+    "ERROR_WSMAN_CREDSSP_USERNAME_PASSWORD_NEEDED",
+    "ERROR_WSMAN_CREDS_PASSED_WITH_NO_AUTH_FLAG",
+    "ERROR_WSMAN_CUSTOMREMOTESHELL_DEPRECATED",
+    "ERROR_WSMAN_DEFAULTAUTH_IPADDRESS",
+    "ERROR_WSMAN_DELIVERY_REFUSED",
+    "ERROR_WSMAN_DELIVERY_RETRIES_NOT_SUPPORTED",
+    "ERROR_WSMAN_DELIVER_IN_PROGRESS",
+    "ERROR_WSMAN_DEPRECATED_CONFIG_SETTING",
+    "ERROR_WSMAN_DESERIALIZE_CLASS",
+    "ERROR_WSMAN_DESTINATION_INVALID",
+    "ERROR_WSMAN_DESTINATION_UNREACHABLE",
+    "ERROR_WSMAN_DIFFERENT_AUTHZ_TOKEN",
+    "ERROR_WSMAN_DIFFERENT_CIM_SELECTOR",
+    "ERROR_WSMAN_DUPLICATE_SELECTORS",
+    "ERROR_WSMAN_ENCODING_LIMIT",
+    "ERROR_WSMAN_ENCODING_TYPE",
+    "ERROR_WSMAN_ENDPOINT_UNAVAILABLE",
+    "ERROR_WSMAN_ENDPOINT_UNAVAILABLE_INVALID_VALUE",
+    "ERROR_WSMAN_ENUMERATE_CANNOT_PROCESS_FILTER",
+    "ERROR_WSMAN_ENUMERATE_FILTERING_NOT_SUPPORTED",
+    "ERROR_WSMAN_ENUMERATE_FILTER_DIALECT_REQUESTED_UNAVAILABLE",
+    "ERROR_WSMAN_ENUMERATE_INVALID_ENUMERATION_CONTEXT",
+    "ERROR_WSMAN_ENUMERATE_INVALID_EXPIRATION_TIME",
+    "ERROR_WSMAN_ENUMERATE_SHELLCOMAMNDS_FILTER_EXPECTED",
+    "ERROR_WSMAN_ENUMERATE_SHELLCOMMANDS_EPRS_NOTSUPPORTED",
+    "ERROR_WSMAN_ENUMERATE_TIMED_OUT",
+    "ERROR_WSMAN_ENUMERATE_UNABLE_TO_RENEW",
+    "ERROR_WSMAN_ENUMERATE_UNSUPPORTED_EXPIRATION_TIME",
+    "ERROR_WSMAN_ENUMERATE_UNSUPPORTED_EXPIRATION_TYPE",
+    "ERROR_WSMAN_ENUMERATE_WMI_INVALID_KEY",
+    "ERROR_WSMAN_ENUMERATION_CLOSED",
+    "ERROR_WSMAN_ENUMERATION_INITIALIZING",
+    "ERROR_WSMAN_ENUMERATION_INVALID",
+    "ERROR_WSMAN_ENUMERATION_MODE_UNSUPPORTED",
+    "ERROR_WSMAN_ENVELOPE_TOO_LARGE",
+    "ERROR_WSMAN_EPR_NESTING_EXCEEDED",
+    "ERROR_WSMAN_EVENTING_CONCURRENT_CLIENT_RECEIVE",
+    "ERROR_WSMAN_EVENTING_DELIVERYFAILED_FROMSOURCE",
+    "ERROR_WSMAN_EVENTING_DELIVERY_MODE_REQUESTED_INVALID",
+    "ERROR_WSMAN_EVENTING_DELIVERY_MODE_REQUESTED_UNAVAILABLE",
+    "ERROR_WSMAN_EVENTING_FAST_SENDER",
+    "ERROR_WSMAN_EVENTING_FILTERING_NOT_SUPPORTED",
+    "ERROR_WSMAN_EVENTING_FILTERING_REQUESTED_UNAVAILABLE",
+    "ERROR_WSMAN_EVENTING_INCOMPATIBLE_BATCHPARAMS_AND_DELIVERYMODE",
+    "ERROR_WSMAN_EVENTING_INSECURE_PUSHSUBSCRIPTION_CONNECTION",
+    "ERROR_WSMAN_EVENTING_INVALID_ENCODING_IN_DELIVERY",
+    "ERROR_WSMAN_EVENTING_INVALID_ENDTO_ADDRESSS",
+    "ERROR_WSMAN_EVENTING_INVALID_EVENTSOURCE",
+    "ERROR_WSMAN_EVENTING_INVALID_EXPIRATION_TIME",
+    "ERROR_WSMAN_EVENTING_INVALID_HEARTBEAT",
+    "ERROR_WSMAN_EVENTING_INVALID_INCOMING_EVENT_PACKET_HEADER",
+    "ERROR_WSMAN_EVENTING_INVALID_LOCALE_IN_DELIVERY",
+    "ERROR_WSMAN_EVENTING_INVALID_MESSAGE",
+    "ERROR_WSMAN_EVENTING_INVALID_NOTIFYTO_ADDRESSS",
+    "ERROR_WSMAN_EVENTING_LOOPBACK_TESTFAILED",
+    "ERROR_WSMAN_EVENTING_MISSING_LOCALE_IN_DELIVERY",
+    "ERROR_WSMAN_EVENTING_MISSING_NOTIFYTO",
+    "ERROR_WSMAN_EVENTING_MISSING_NOTIFYTO_ADDRESSS",
+    "ERROR_WSMAN_EVENTING_NOMATCHING_LISTENER",
+    "ERROR_WSMAN_EVENTING_NONDOMAINJOINED_COLLECTOR",
+    "ERROR_WSMAN_EVENTING_NONDOMAINJOINED_PUBLISHER",
+    "ERROR_WSMAN_EVENTING_SOURCE_UNABLE_TO_PROCESS",
+    "ERROR_WSMAN_EVENTING_SUBSCRIPTIONCLOSED_BYREMOTESERVICE",
+    "ERROR_WSMAN_EVENTING_SUBSCRIPTION_CANCELLED_BYSOURCE",
+    "ERROR_WSMAN_EVENTING_UNABLE_TO_RENEW",
+    "ERROR_WSMAN_EVENTING_UNSUPPORTED_EXPIRATION_TYPE",
+    "ERROR_WSMAN_EXPIRATION_TIME_NOT_SUPPORTED",
+    "ERROR_WSMAN_EXPLICIT_CREDENTIALS_REQUIRED",
+    "ERROR_WSMAN_FAILED_AUTHENTICATION",
+    "ERROR_WSMAN_FEATURE_DEPRECATED",
+    "ERROR_WSMAN_FILE_NOT_PRESENT",
+    "ERROR_WSMAN_FILTERING_REQUIRED",
+    "ERROR_WSMAN_FILTERING_REQUIRED_NOT_SUPPORTED",
+    "ERROR_WSMAN_FORMAT_MISMATCH_NOT_SUPPORTED",
+    "ERROR_WSMAN_FORMAT_SECURITY_TOKEN_NOT_SUPPORTED",
+    "ERROR_WSMAN_FRAGMENT_DIALECT_REQUESTED_UNAVAILABLE",
+    "ERROR_WSMAN_FRAGMENT_TRANSFER_NOT_SUPPORTED",
+    "ERROR_WSMAN_GETCLASS",
+    "ERROR_WSMAN_HEARTBEATS_NOT_SUPPORTED",
+    "ERROR_WSMAN_HTML_ERROR",
+    "ERROR_WSMAN_HTTP_CONTENT_TYPE_MISSMATCH_RESPONSE_DATA",
+    "ERROR_WSMAN_HTTP_INVALID_CONTENT_TYPE_IN_RESPONSE_DATA",
+    "ERROR_WSMAN_HTTP_NOT_FOUND_STATUS",
+    "ERROR_WSMAN_HTTP_NO_RESPONSE_DATA",
+    "ERROR_WSMAN_HTTP_REQUEST_TOO_LARGE_STATUS",
+    "ERROR_WSMAN_HTTP_SERVICE_UNAVAILABLE_STATUS",
+    "ERROR_WSMAN_HTTP_STATUS_BAD_REQUEST",
+    "ERROR_WSMAN_HTTP_STATUS_SERVER_ERROR",
+    "ERROR_WSMAN_IISCONFIGURATION_READ_FAILED",
+    "ERROR_WSMAN_INCOMPATIBLE_EPR",
+    "ERROR_WSMAN_INEXISTENT_MAC_ADDRESS",
+    "ERROR_WSMAN_INSECURE_ADDRESS_NOT_SUPPORTED",
+    "ERROR_WSMAN_INSUFFCIENT_SELECTORS",
+    "ERROR_WSMAN_INSUFFICIENT_METADATA_FOR_BASIC",
+    "ERROR_WSMAN_INVALID_ACTIONURI",
+    "ERROR_WSMAN_INVALID_BATCH_PARAMETER",
+    "ERROR_WSMAN_INVALID_BATCH_SETTINGS_PARAMETER",
+    "ERROR_WSMAN_INVALID_BOOKMARK",
+    "ERROR_WSMAN_INVALID_CHARACTERS_IN_RESPONSE",
+    "ERROR_WSMAN_INVALID_CONFIGSDDL_URL",
+    "ERROR_WSMAN_INVALID_CONNECTIONRETRY",
+    "ERROR_WSMAN_INVALID_FILEPATH",
+    "ERROR_WSMAN_INVALID_FILTER_XML",
+    "ERROR_WSMAN_INVALID_FRAGMENT_DIALECT",
+    "ERROR_WSMAN_INVALID_FRAGMENT_PATH",
+    "ERROR_WSMAN_INVALID_FRAGMENT_PATH_BLANK",
+    "ERROR_WSMAN_INVALID_HEADER",
+    "ERROR_WSMAN_INVALID_HOSTNAME_PATTERN",
+    "ERROR_WSMAN_INVALID_IPFILTER",
+    "ERROR_WSMAN_INVALID_KEY",
+    "ERROR_WSMAN_INVALID_LITERAL_URI",
+    "ERROR_WSMAN_INVALID_MESSAGE_INFORMATION_HEADER",
+    "ERROR_WSMAN_INVALID_OPTIONS",
+    "ERROR_WSMAN_INVALID_OPTIONSET",
+    "ERROR_WSMAN_INVALID_OPTION_NO_PROXY_SERVER",
+    "ERROR_WSMAN_INVALID_PARAMETER",
+    "ERROR_WSMAN_INVALID_PARAMETER_NAME",
+    "ERROR_WSMAN_INVALID_PROPOSED_ID",
+    "ERROR_WSMAN_INVALID_PROVIDER_RESPONSE",
+    "ERROR_WSMAN_INVALID_PUBLISHERS_TYPE",
+    "ERROR_WSMAN_INVALID_REDIRECT_ERROR",
+    "ERROR_WSMAN_INVALID_REPRESENTATION",
+    "ERROR_WSMAN_INVALID_RESOURCE_URI",
+    "ERROR_WSMAN_INVALID_RESUMPTION_CONTEXT",
+    "ERROR_WSMAN_INVALID_SECURITY_DESCRIPTOR",
+    "ERROR_WSMAN_INVALID_SELECTORS",
+    "ERROR_WSMAN_INVALID_SELECTOR_NAME",
+    "ERROR_WSMAN_INVALID_SELECTOR_VALUE",
+    "ERROR_WSMAN_INVALID_SOAP_BODY",
+    "ERROR_WSMAN_INVALID_SUBSCRIBE_OBJECT",
+    "ERROR_WSMAN_INVALID_SUBSCRIPTION_MANAGER",
+    "ERROR_WSMAN_INVALID_SYSTEM",
+    "ERROR_WSMAN_INVALID_TARGET_RESOURCEURI",
+    "ERROR_WSMAN_INVALID_TARGET_SELECTORS",
+    "ERROR_WSMAN_INVALID_TARGET_SYSTEM",
+    "ERROR_WSMAN_INVALID_TIMEOUT_HEADER",
+    "ERROR_WSMAN_INVALID_URI",
+    "ERROR_WSMAN_INVALID_URI_WMI_ENUM_WQL",
+    "ERROR_WSMAN_INVALID_URI_WMI_SINGLETON",
+    "ERROR_WSMAN_INVALID_USESSL_PARAM",
+    "ERROR_WSMAN_INVALID_XML",
+    "ERROR_WSMAN_INVALID_XML_FRAGMENT",
+    "ERROR_WSMAN_INVALID_XML_MISSING_VALUES",
+    "ERROR_WSMAN_INVALID_XML_NAMESPACE",
+    "ERROR_WSMAN_INVALID_XML_RUNAS_DISABLED",
+    "ERROR_WSMAN_INVALID_XML_VALUES",
+    "ERROR_WSMAN_KERBEROS_IPADDRESS",
+    "ERROR_WSMAN_LISTENER_ADDRESS_INVALID",
+    "ERROR_WSMAN_LOCALE_NOT_SUPPORTED",
+    "ERROR_WSMAN_MACHINE_OPTION_REQUIRED",
+    "ERROR_WSMAN_MAXENVELOPE_POLICY_NOT_SUPPORTED",
+    "ERROR_WSMAN_MAXENVELOPE_SIZE_NOT_SUPPORTED",
+    "ERROR_WSMAN_MAXITEMS_NOT_SUPPORTED",
+    "ERROR_WSMAN_MAXTIME_NOT_SUPPORTED",
+    "ERROR_WSMAN_MAX_ELEMENTS_NOT_SUPPORTED",
+    "ERROR_WSMAN_MAX_ENVELOPE_SIZE",
+    "ERROR_WSMAN_MAX_ENVELOPE_SIZE_EXCEEDED",
+    "ERROR_WSMAN_MESSAGE_INFORMATION_HEADER_REQUIRED",
+    "ERROR_WSMAN_METADATA_REDIRECT",
+    "ERROR_WSMAN_MIN_ENVELOPE_SIZE",
+    "ERROR_WSMAN_MISSING_CLASSNAME",
+    "ERROR_WSMAN_MISSING_FRAGMENT_PATH",
+    "ERROR_WSMAN_MULTIPLE_CREDENTIALS",
+    "ERROR_WSMAN_MUSTUNDERSTAND_ON_LOCALE_UNSUPPORTED",
+    "ERROR_WSMAN_MUTUAL_AUTH_FAILED",
+    "ERROR_WSMAN_NAME_NOT_RESOLVED",
+    "ERROR_WSMAN_NETWORK_TIMEDOUT",
+    "ERROR_WSMAN_NEW_DESERIALIZER",
+    "ERROR_WSMAN_NEW_SESSION",
+    "ERROR_WSMAN_NON_PULL_SUBSCRIPTION_NOT_SUPPORTED",
+    "ERROR_WSMAN_NO_ACK",
+    "ERROR_WSMAN_NO_CERTMAPPING_OPERATION_FOR_LOCAL_SESSION",
+    "ERROR_WSMAN_NO_COMMANDID",
+    "ERROR_WSMAN_NO_COMMAND_RESPONSE",
+    "ERROR_WSMAN_NO_DHCP_ADDRESSES",
+    "ERROR_WSMAN_NO_IDENTIFY_FOR_LOCAL_SESSION",
+    "ERROR_WSMAN_NO_PUSH_SUBSCRIPTION_FOR_LOCAL_SESSION",
+    "ERROR_WSMAN_NO_RECEIVE_RESPONSE",
+    "ERROR_WSMAN_NO_UNICAST_ADDRESSES",
+    "ERROR_WSMAN_NULL_KEY",
+    "ERROR_WSMAN_OBJECTONLY_INVALID",
+    "ERROR_WSMAN_OPERATION_TIMEDOUT",
+    "ERROR_WSMAN_OPERATION_TIMEOUT_NOT_SUPPORTED",
+    "ERROR_WSMAN_OPTIONS_INVALID_NAME",
+    "ERROR_WSMAN_OPTIONS_INVALID_VALUE",
+    "ERROR_WSMAN_OPTIONS_NOT_SUPPORTED",
+    "ERROR_WSMAN_OPTION_LIMIT",
+    "ERROR_WSMAN_PARAMETER_TYPE_MISMATCH",
+    "ERROR_WSMAN_PLUGIN_CONFIGURATION_CORRUPTED",
+    "ERROR_WSMAN_PLUGIN_FAILED",
+    "ERROR_WSMAN_POLICY_CANNOT_COMPLY",
+    "ERROR_WSMAN_POLICY_CORRUPTED",
+    "ERROR_WSMAN_POLICY_TOO_COMPLEX",
+    "ERROR_WSMAN_POLYMORPHISM_MODE_UNSUPPORTED",
+    "ERROR_WSMAN_PORT_INVALID",
+    "ERROR_WSMAN_PROVIDER_FAILURE",
+    "ERROR_WSMAN_PROVIDER_LOAD_FAILED",
+    "ERROR_WSMAN_PROVSYS_NOT_SUPPORTED",
+    "ERROR_WSMAN_PROXY_ACCESS_TYPE",
+    "ERROR_WSMAN_PROXY_AUTHENTICATION_INVALID_FLAG",
+    "ERROR_WSMAN_PUBLIC_FIREWALL_PROFILE_ACTIVE",
+    "ERROR_WSMAN_PULL_IN_PROGRESS",
+    "ERROR_WSMAN_PULL_PARAMS_NOT_SAME_AS_ENUM",
+    "ERROR_WSMAN_PUSHSUBSCRIPTION_INVALIDUSERACCOUNT",
+    "ERROR_WSMAN_PUSH_SUBSCRIPTION_CONFIG_INVALID",
+    "ERROR_WSMAN_QUICK_CONFIG_FAILED_CERT_REQUIRED",
+    "ERROR_WSMAN_QUICK_CONFIG_FIREWALL_EXCEPTIONS_DISALLOWED",
+    "ERROR_WSMAN_QUICK_CONFIG_LOCAL_POLICY_CHANGE_DISALLOWED",
+    "ERROR_WSMAN_QUOTA_LIMIT",
+    "ERROR_WSMAN_QUOTA_MAX_COMMANDS_PER_SHELL_PPQ",
+    "ERROR_WSMAN_QUOTA_MAX_OPERATIONS",
+    "ERROR_WSMAN_QUOTA_MAX_OPERATIONS_USER_PPQ",
+    "ERROR_WSMAN_QUOTA_MAX_PLUGINOPERATIONS_PPQ",
+    "ERROR_WSMAN_QUOTA_MAX_PLUGINSHELLS_PPQ",
+    "ERROR_WSMAN_QUOTA_MAX_SHELLS",
+    "ERROR_WSMAN_QUOTA_MAX_SHELLS_PPQ",
+    "ERROR_WSMAN_QUOTA_MAX_SHELLUSERS",
+    "ERROR_WSMAN_QUOTA_MAX_USERS_PPQ",
+    "ERROR_WSMAN_QUOTA_MIN_REQUIREMENT_NOT_AVAILABLE_PPQ",
+    "ERROR_WSMAN_QUOTA_SYSTEM",
+    "ERROR_WSMAN_QUOTA_USER",
+    "ERROR_WSMAN_REDIRECT_LOCATION_NOT_AVAILABLE",
+    "ERROR_WSMAN_REDIRECT_REQUESTED",
+    "ERROR_WSMAN_REMOTESHELLS_NOT_ALLOWED",
+    "ERROR_WSMAN_REMOTE_CIMPATH_NOT_SUPPORTED",
+    "ERROR_WSMAN_REMOTE_CONNECTION_NOT_ALLOWED",
+    "ERROR_WSMAN_RENAME_FAILURE",
+    "ERROR_WSMAN_REQUEST_INIT_ERROR",
+    "ERROR_WSMAN_REQUEST_NOT_SUPPORTED_AT_SERVICE",
+    "ERROR_WSMAN_RESOURCE_NOT_FOUND",
+    "ERROR_WSMAN_RESPONSE_INVALID_ENUMERATION_CONTEXT",
+    "ERROR_WSMAN_RESPONSE_INVALID_MESSAGE_INFORMATION_HEADER",
+    "ERROR_WSMAN_RESPONSE_INVALID_SOAP_FAULT",
+    "ERROR_WSMAN_RESPONSE_NO_RESULTS",
+    "ERROR_WSMAN_RESPONSE_NO_SOAP_HEADER_BODY",
+    "ERROR_WSMAN_RESPONSE_NO_XML_FRAGMENT_WRAPPER",
+    "ERROR_WSMAN_RESUMPTION_NOT_SUPPORTED",
+    "ERROR_WSMAN_RESUMPTION_TYPE_NOT_SUPPORTED",
+    "ERROR_WSMAN_RUNASUSER_MANAGEDACCOUNT_LOGON_FAILED",
+    "ERROR_WSMAN_RUNAS_INVALIDUSERCREDENTIALS",
+    "ERROR_WSMAN_RUNSHELLCOMMAND_NULL_ARGUMENT",
+    "ERROR_WSMAN_SCHEMA_VALIDATION_ERROR",
+    "ERROR_WSMAN_SECURITY_UNMAPPED",
+    "ERROR_WSMAN_SELECTOR_LIMIT",
+    "ERROR_WSMAN_SELECTOR_TYPEMISMATCH",
     "ERROR_WSMAN_SEMANTICCALLBACK_TIMEDOUT",
+    "ERROR_WSMAN_SENDHEARBEAT_EMPTY_ENUMERATOR",
+    "ERROR_WSMAN_SENDSHELLINPUT_INVALID_STREAMID_INDEX",
+    "ERROR_WSMAN_SERVER_DESTINATION_LOCALHOST",
+    "ERROR_WSMAN_SERVER_ENVELOPE_LIMIT",
+    "ERROR_WSMAN_SERVER_NONPULLSUBSCRIBE_NULL_PARAM",
+    "ERROR_WSMAN_SERVER_NOT_TRUSTED",
     "ERROR_WSMAN_SERVICE_REMOTE_ACCESS_DISABLED",
     "ERROR_WSMAN_SERVICE_STREAM_DISCONNECTED",
-    "ERROR_WSMAN_CREATESHELL_RUNAS_FAILED",
-    "ERROR_WSMAN_INVALID_XML_RUNAS_DISABLED",
-    "ERROR_WSMAN_WRONG_METADATA",
-    "ERROR_WSMAN_UNSUPPORTED_TYPE",
-    "ERROR_WSMAN_REMOTE_CONNECTION_NOT_ALLOWED",
-    "ERROR_WSMAN_QUOTA_MAX_SHELLS_PPQ",
-    "ERROR_WSMAN_QUOTA_MAX_USERS_PPQ",
-    "ERROR_WSMAN_QUOTA_MAX_PLUGINSHELLS_PPQ",
-    "ERROR_WSMAN_QUOTA_MAX_PLUGINOPERATIONS_PPQ",
-    "ERROR_WSMAN_QUOTA_MAX_OPERATIONS_USER_PPQ",
-    "ERROR_WSMAN_QUOTA_MAX_COMMANDS_PER_SHELL_PPQ",
-    "ERROR_WSMAN_QUOTA_MIN_REQUIREMENT_NOT_AVAILABLE_PPQ",
-    "ERROR_WSMAN_NEW_DESERIALIZER",
-    "ERROR_WSMAN_DESERIALIZE_CLASS",
-    "ERROR_WSMAN_GETCLASS",
-    "ERROR_WSMAN_NEW_SESSION",
-    "ERROR_WSMAN_NULL_KEY",
-    "ERROR_WSMAN_MUTUAL_AUTH_FAILED",
-    "ERROR_WSMAN_UNSUPPORTED_OCTETTYPE",
-    "ERROR_WINRS_IDLETIMEOUT_OUTOFBOUNDS",
-    "ERROR_WSMAN_INSUFFICIENT_METADATA_FOR_BASIC",
-    "ERROR_WSMAN_INVALID_LITERAL_URI",
-    "ERROR_WSMAN_OBJECTONLY_INVALID",
-    "ERROR_WSMAN_MISSING_CLASSNAME",
-    "ERROR_WSMAN_EVENTING_INVALID_ENCODING_IN_DELIVERY",
-    "ERROR_WSMAN_DESTINATION_INVALID",
+    "ERROR_WSMAN_SESSION_ALREADY_CLOSED",
+    "ERROR_WSMAN_SHELL_ALREADY_CLOSED",
+    "ERROR_WSMAN_SHELL_INVALID_COMMAND_HANDLE",
+    "ERROR_WSMAN_SHELL_INVALID_DESIRED_STREAMS",
+    "ERROR_WSMAN_SHELL_INVALID_INPUT_STREAM",
+    "ERROR_WSMAN_SHELL_INVALID_SHELL_HANDLE",
+    "ERROR_WSMAN_SHELL_NOT_INITIALIZED",
+    "ERROR_WSMAN_SHELL_SYNCHRONOUS_NOT_SUPPORTED",
+    "ERROR_WSMAN_SOAP_DATA_ENCODING_UNKNOWN",
+    "ERROR_WSMAN_SOAP_FAULT_MUST_UNDERSTAND",
+    "ERROR_WSMAN_SOAP_VERSION_MISMATCH",
+    "ERROR_WSMAN_SSL_CONNECTION_ABORTED",
+    "ERROR_WSMAN_SUBSCRIBE_WMI_INVALID_KEY",
+    "ERROR_WSMAN_SUBSCRIPTION_CLIENT_DID_NOT_CALL_WITHIN_HEARTBEAT",
+    "ERROR_WSMAN_SUBSCRIPTION_CLOSED",
+    "ERROR_WSMAN_SUBSCRIPTION_CLOSE_IN_PROGRESS",
+    "ERROR_WSMAN_SUBSCRIPTION_LISTENER_NOLONGERVALID",
+    "ERROR_WSMAN_SUBSCRIPTION_NO_HEARTBEAT",
+    "ERROR_WSMAN_SYSTEM_NOT_FOUND",
+    "ERROR_WSMAN_TARGET_ALREADY_EXISTS",
+    "ERROR_WSMAN_TRANSPORT_NOT_SUPPORTED",
+    "ERROR_WSMAN_UNEXPECTED_SELECTORS",
+    "ERROR_WSMAN_UNKNOWN_HTTP_STATUS_RETURNED",
+    "ERROR_WSMAN_UNREPORTABLE_SUCCESS",
+    "ERROR_WSMAN_UNSUPPORTED_ADDRESSING_MODE",
+    "ERROR_WSMAN_UNSUPPORTED_ENCODING",
+    "ERROR_WSMAN_UNSUPPORTED_FEATURE",
     "ERROR_WSMAN_UNSUPPORTED_FEATURE_IDENTIFY",
-    "ERROR_WSMAN_CLIENT_SESSION_UNUSABLE",
+    "ERROR_WSMAN_UNSUPPORTED_FEATURE_OPTIONS",
+    "ERROR_WSMAN_UNSUPPORTED_HTTP_STATUS_REDIRECT",
+    "ERROR_WSMAN_UNSUPPORTED_MEDIA",
+    "ERROR_WSMAN_UNSUPPORTED_OCTETTYPE",
+    "ERROR_WSMAN_UNSUPPORTED_TIMEOUT",
+    "ERROR_WSMAN_UNSUPPORTED_TYPE",
+    "ERROR_WSMAN_URISECURITY_INVALIDURIKEY",
+    "ERROR_WSMAN_URI_LIMIT",
+    "ERROR_WSMAN_URI_NON_DMTF_CLASS",
+    "ERROR_WSMAN_URI_QUERY_STRING_SYNTAX_ERROR",
+    "ERROR_WSMAN_URI_SECURITY_URI",
+    "ERROR_WSMAN_URI_WRONG_DMTF_VERSION",
     "ERROR_WSMAN_VIRTUALACCOUNT_NOTSUPPORTED",
     "ERROR_WSMAN_VIRTUALACCOUNT_NOTSUPPORTED_DOWNLEVEL",
-    "ERROR_WSMAN_RUNASUSER_MANAGEDACCOUNT_LOGON_FAILED",
-    "ERROR_WSMAN_CERTMAPPING_CREDENTIAL_MANAGEMENT_FAILIED",
-    "WSMAN_DATA_TEXT",
-    "WSMAN_DATA_BINARY",
-    "WSManDataType",
-    "WSMAN_DATA_NONE",
-    "WSMAN_DATA_TYPE_TEXT",
-    "WSMAN_DATA_TYPE_BINARY",
-    "WSMAN_DATA_TYPE_DWORD",
-    "WSMAN_DATA",
-    "WSMAN_ERROR",
-    "WSMAN_USERNAME_PASSWORD_CREDS",
-    "WSManAuthenticationFlags",
-    "WSMAN_FLAG_DEFAULT_AUTHENTICATION",
-    "WSMAN_FLAG_NO_AUTHENTICATION",
-    "WSMAN_FLAG_AUTH_DIGEST",
-    "WSMAN_FLAG_AUTH_NEGOTIATE",
-    "WSMAN_FLAG_AUTH_BASIC",
-    "WSMAN_FLAG_AUTH_KERBEROS",
-    "WSMAN_FLAG_AUTH_CREDSSP",
-    "WSMAN_FLAG_AUTH_CLIENT_CERTIFICATE",
-    "WSMAN_AUTHENTICATION_CREDENTIALS",
-    "WSMAN_OPTION",
-    "WSMAN_OPTION_SET",
-    "WSMAN_OPTION_SETEX",
-    "WSMAN_KEY",
-    "WSMAN_SELECTOR_SET",
-    "WSMAN_FRAGMENT",
-    "WSMAN_FILTER",
-    "WSMAN_OPERATION_INFO",
-    "WSMAN_OPERATION_INFOEX",
-    "WSMAN_API",
-    "WSManProxyAccessType",
-    "WSMAN_OPTION_PROXY_IE_PROXY_CONFIG",
-    "WSMAN_OPTION_PROXY_WINHTTP_PROXY_CONFIG",
-    "WSMAN_OPTION_PROXY_AUTO_DETECT",
-    "WSMAN_OPTION_PROXY_NO_PROXY_SERVER",
-    "WSMAN_PROXY_INFO",
-    "WSMAN_SESSION",
-    "WSManSessionOption",
-    "WSMAN_OPTION_DEFAULT_OPERATION_TIMEOUTMS",
-    "WSMAN_OPTION_MAX_RETRY_TIME",
-    "WSMAN_OPTION_TIMEOUTMS_CREATE_SHELL",
-    "WSMAN_OPTION_TIMEOUTMS_RUN_SHELL_COMMAND",
-    "WSMAN_OPTION_TIMEOUTMS_RECEIVE_SHELL_OUTPUT",
-    "WSMAN_OPTION_TIMEOUTMS_SEND_SHELL_INPUT",
-    "WSMAN_OPTION_TIMEOUTMS_SIGNAL_SHELL",
-    "WSMAN_OPTION_TIMEOUTMS_CLOSE_SHELL",
-    "WSMAN_OPTION_SKIP_CA_CHECK",
-    "WSMAN_OPTION_SKIP_CN_CHECK",
-    "WSMAN_OPTION_UNENCRYPTED_MESSAGES",
-    "WSMAN_OPTION_UTF16",
-    "WSMAN_OPTION_ENABLE_SPN_SERVER_PORT",
-    "WSMAN_OPTION_MACHINE_ID",
-    "WSMAN_OPTION_LOCALE",
-    "WSMAN_OPTION_UI_LANGUAGE",
-    "WSMAN_OPTION_MAX_ENVELOPE_SIZE_KB",
-    "WSMAN_OPTION_SHELL_MAX_DATA_SIZE_PER_MESSAGE_KB",
-    "WSMAN_OPTION_REDIRECT_LOCATION",
-    "WSMAN_OPTION_SKIP_REVOCATION_CHECK",
-    "WSMAN_OPTION_ALLOW_NEGOTIATE_IMPLICIT_CREDENTIALS",
-    "WSMAN_OPTION_USE_SSL",
-    "WSMAN_OPTION_USE_INTEARACTIVE_TOKEN",
-    "WSMAN_OPERATION",
-    "WSManCallbackFlags",
-    "WSMAN_FLAG_CALLBACK_END_OF_OPERATION",
-    "WSMAN_FLAG_CALLBACK_END_OF_STREAM",
-    "WSMAN_FLAG_CALLBACK_SHELL_SUPPORTS_DISCONNECT",
-    "WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTED",
-    "WSMAN_FLAG_CALLBACK_NETWORK_FAILURE_DETECTED",
-    "WSMAN_FLAG_CALLBACK_RETRYING_AFTER_NETWORK_FAILURE",
-    "WSMAN_FLAG_CALLBACK_RECONNECTED_AFTER_NETWORK_FAILURE",
-    "WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTING",
-    "WSMAN_FLAG_CALLBACK_RETRY_ABORTED_DUE_TO_INTERNAL_ERROR",
-    "WSMAN_FLAG_CALLBACK_RECEIVE_DELAY_STREAM_REQUEST_PROCESSED",
-    "WSMAN_SHELL",
-    "WSMAN_COMMAND",
-    "WSMAN_STREAM_ID_SET",
-    "WSMAN_ENVIRONMENT_VARIABLE",
-    "WSMAN_ENVIRONMENT_VARIABLE_SET",
-    "WSMAN_SHELL_STARTUP_INFO_V10",
-    "WSMAN_SHELL_STARTUP_INFO_V11",
-    "WSMAN_SHELL_DISCONNECT_INFO",
-    "WSManShellFlag",
-    "WSMAN_FLAG_NO_COMPRESSION",
-    "WSMAN_FLAG_DELETE_SERVER_SESSION",
-    "WSMAN_FLAG_SERVER_BUFFERING_MODE_DROP",
-    "WSMAN_FLAG_SERVER_BUFFERING_MODE_BLOCK",
-    "WSMAN_FLAG_RECEIVE_DELAY_OUTPUT_STREAM",
-    "WSMAN_RECEIVE_DATA_RESULT",
-    "WSMAN_CONNECT_DATA",
-    "WSMAN_CREATE_SHELL_DATA",
-    "WSMAN_RESPONSE_DATA",
-    "WSMAN_SHELL_COMPLETION_FUNCTION",
-    "WSMAN_SHELL_ASYNC",
-    "WSMAN_COMMAND_ARG_SET",
-    "WSMAN_CERTIFICATE_DETAILS",
-    "WSMAN_SENDER_DETAILS",
-    "WSMAN_PLUGIN_REQUEST",
-    "WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT",
-    "WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT",
-    "WSMAN_PLUGIN_STARTUP",
-    "WSMAN_PLUGIN_SHUTDOWN",
-    "WSMAN_PLUGIN_SHELL",
-    "WSMAN_PLUGIN_COMMAND",
-    "WSMAN_PLUGIN_SEND",
-    "WSMAN_PLUGIN_RECEIVE",
-    "WSMAN_PLUGIN_SIGNAL",
-    "WSMAN_PLUGIN_CONNECT",
-    "WSMAN_AUTHZ_QUOTA",
-    "WSMAN_PLUGIN_AUTHORIZE_USER",
-    "WSMAN_PLUGIN_AUTHORIZE_OPERATION",
-    "WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA",
-    "WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT",
-    "WSMan",
-    "WSManInternal",
-    "WSManSessionFlags",
-    "WSManSessionFlags_WSManFlagUTF8",
-    "WSManSessionFlags_WSManFlagCredUsernamePassword",
-    "WSManSessionFlags_WSManFlagSkipCACheck",
-    "WSManSessionFlags_WSManFlagSkipCNCheck",
-    "WSManSessionFlags_WSManFlagUseNoAuthentication",
-    "WSManSessionFlags_WSManFlagUseDigest",
-    "WSManSessionFlags_WSManFlagUseNegotiate",
-    "WSManSessionFlags_WSManFlagUseBasic",
-    "WSManSessionFlags_WSManFlagUseKerberos",
-    "WSManSessionFlags_WSManFlagNoEncryption",
-    "WSManSessionFlags_WSManFlagUseClientCertificate",
-    "WSManSessionFlags_WSManFlagEnableSPNServerPort",
-    "WSManSessionFlags_WSManFlagUTF16",
-    "WSManSessionFlags_WSManFlagUseCredSsp",
-    "WSManSessionFlags_WSManFlagSkipRevocationCheck",
-    "WSManSessionFlags_WSManFlagAllowNegotiateImplicitCredentials",
-    "WSManSessionFlags_WSManFlagUseSsl",
-    "WSManEnumFlags",
-    "WSManEnumFlags_WSManFlagNonXmlText",
-    "WSManEnumFlags_WSManFlagReturnObject",
-    "WSManEnumFlags_WSManFlagReturnEPR",
-    "WSManEnumFlags_WSManFlagReturnObjectAndEPR",
-    "WSManEnumFlags_WSManFlagHierarchyDeep",
-    "WSManEnumFlags_WSManFlagHierarchyShallow",
-    "WSManEnumFlags_WSManFlagHierarchyDeepBasePropsOnly",
-    "WSManEnumFlags_WSManFlagAssociatedInstance",
-    "WSManEnumFlags_WSManFlagAssociationInstance",
-    "WSManProxyAccessTypeFlags",
-    "WSManProxyAccessTypeFlags_WSManProxyIEConfig",
-    "WSManProxyAccessTypeFlags_WSManProxyWinHttpConfig",
-    "WSManProxyAccessTypeFlags_WSManProxyAutoDetect",
-    "WSManProxyAccessTypeFlags_WSManProxyNoProxyServer",
-    "WSManProxyAuthenticationFlags",
-    "WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseNegotiate",
-    "WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseBasic",
-    "WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseDigest",
+    "ERROR_WSMAN_WHITESPACE",
+    "ERROR_WSMAN_WMI_CANNOT_CONNECT_ACCESS_DENIED",
+    "ERROR_WSMAN_WMI_INVALID_VALUE",
+    "ERROR_WSMAN_WMI_MAX_NESTED",
+    "ERROR_WSMAN_WMI_PROVIDER_ACCESS_DENIED",
+    "ERROR_WSMAN_WMI_PROVIDER_INVALID_PARAMETER",
+    "ERROR_WSMAN_WMI_PROVIDER_NOT_CAPABLE",
+    "ERROR_WSMAN_WMI_SVC_ACCESS_DENIED",
+    "ERROR_WSMAN_WRONG_METADATA",
     "IWSMan",
-    "IWSManEx",
-    "IWSManEx2",
-    "IWSManEx3",
     "IWSManConnectionOptions",
     "IWSManConnectionOptionsEx",
     "IWSManConnectionOptionsEx2",
-    "IWSManSession",
     "IWSManEnumerator",
+    "IWSManEx",
+    "IWSManEx2",
+    "IWSManEx3",
+    "IWSManInternal",
     "IWSManResourceLocator",
     "IWSManResourceLocatorInternal",
-    "IWSManInternal",
-    "WSManInitialize",
-    "WSManDeinitialize",
-    "WSManGetErrorMessage",
-    "WSManCreateSession",
-    "WSManCloseSession",
-    "WSManSetSessionOption",
-    "WSManGetSessionOptionAsDword",
-    "WSManGetSessionOptionAsString",
-    "WSManCloseOperation",
-    "WSManCreateShell",
-    "WSManRunShellCommand",
-    "WSManSignalShell",
-    "WSManReceiveShellOutput",
-    "WSManSendShellInput",
+    "IWSManSession",
+    "WSMAN_API",
+    "WSMAN_AUTHENTICATION_CREDENTIALS",
+    "WSMAN_AUTHZ_QUOTA",
+    "WSMAN_CERTIFICATE_DETAILS",
+    "WSMAN_CMDSHELL_OPTION_CODEPAGE",
+    "WSMAN_CMDSHELL_OPTION_CONSOLEMODE_STDIN",
+    "WSMAN_CMDSHELL_OPTION_SKIP_CMD_SHELL",
+    "WSMAN_COMMAND",
+    "WSMAN_COMMAND_ARG_SET",
+    "WSMAN_CONNECT_DATA",
+    "WSMAN_CREATE_SHELL_DATA",
+    "WSMAN_DATA",
+    "WSMAN_DATA_BINARY",
+    "WSMAN_DATA_NONE",
+    "WSMAN_DATA_TEXT",
+    "WSMAN_DATA_TYPE_BINARY",
+    "WSMAN_DATA_TYPE_DWORD",
+    "WSMAN_DATA_TYPE_TEXT",
+    "WSMAN_DEFAULT_TIMEOUT_MS",
+    "WSMAN_ENVIRONMENT_VARIABLE",
+    "WSMAN_ENVIRONMENT_VARIABLE_SET",
+    "WSMAN_ERROR",
+    "WSMAN_FILTER",
+    "WSMAN_FLAG_AUTH_BASIC",
+    "WSMAN_FLAG_AUTH_CLIENT_CERTIFICATE",
+    "WSMAN_FLAG_AUTH_CREDSSP",
+    "WSMAN_FLAG_AUTH_DIGEST",
+    "WSMAN_FLAG_AUTH_KERBEROS",
+    "WSMAN_FLAG_AUTH_NEGOTIATE",
+    "WSMAN_FLAG_CALLBACK_END_OF_OPERATION",
+    "WSMAN_FLAG_CALLBACK_END_OF_STREAM",
+    "WSMAN_FLAG_CALLBACK_NETWORK_FAILURE_DETECTED",
+    "WSMAN_FLAG_CALLBACK_RECEIVE_DELAY_STREAM_REQUEST_PROCESSED",
+    "WSMAN_FLAG_CALLBACK_RECONNECTED_AFTER_NETWORK_FAILURE",
+    "WSMAN_FLAG_CALLBACK_RETRYING_AFTER_NETWORK_FAILURE",
+    "WSMAN_FLAG_CALLBACK_RETRY_ABORTED_DUE_TO_INTERNAL_ERROR",
+    "WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTED",
+    "WSMAN_FLAG_CALLBACK_SHELL_AUTODISCONNECTING",
+    "WSMAN_FLAG_CALLBACK_SHELL_SUPPORTS_DISCONNECT",
+    "WSMAN_FLAG_DEFAULT_AUTHENTICATION",
+    "WSMAN_FLAG_DELETE_SERVER_SESSION",
+    "WSMAN_FLAG_NO_AUTHENTICATION",
+    "WSMAN_FLAG_NO_COMPRESSION",
+    "WSMAN_FLAG_RECEIVE_DELAY_OUTPUT_STREAM",
+    "WSMAN_FLAG_RECEIVE_FLUSH",
+    "WSMAN_FLAG_RECEIVE_RESULT_DATA_BOUNDARY",
+    "WSMAN_FLAG_RECEIVE_RESULT_NO_MORE_DATA",
+    "WSMAN_FLAG_REQUESTED_API_VERSION_1_0",
+    "WSMAN_FLAG_REQUESTED_API_VERSION_1_1",
+    "WSMAN_FLAG_SEND_NO_MORE_DATA",
+    "WSMAN_FLAG_SERVER_BUFFERING_MODE_BLOCK",
+    "WSMAN_FLAG_SERVER_BUFFERING_MODE_DROP",
+    "WSMAN_FRAGMENT",
+    "WSMAN_KEY",
+    "WSMAN_OPERATION",
+    "WSMAN_OPERATION_INFO",
+    "WSMAN_OPERATION_INFOEX",
+    "WSMAN_OPERATION_INFOV1",
+    "WSMAN_OPERATION_INFOV2",
+    "WSMAN_OPTION",
+    "WSMAN_OPTION_ALLOW_NEGOTIATE_IMPLICIT_CREDENTIALS",
+    "WSMAN_OPTION_DEFAULT_OPERATION_TIMEOUTMS",
+    "WSMAN_OPTION_ENABLE_SPN_SERVER_PORT",
+    "WSMAN_OPTION_LOCALE",
+    "WSMAN_OPTION_MACHINE_ID",
+    "WSMAN_OPTION_MAX_ENVELOPE_SIZE_KB",
+    "WSMAN_OPTION_MAX_RETRY_TIME",
+    "WSMAN_OPTION_PROXY_AUTO_DETECT",
+    "WSMAN_OPTION_PROXY_IE_PROXY_CONFIG",
+    "WSMAN_OPTION_PROXY_NO_PROXY_SERVER",
+    "WSMAN_OPTION_PROXY_WINHTTP_PROXY_CONFIG",
+    "WSMAN_OPTION_REDIRECT_LOCATION",
+    "WSMAN_OPTION_SET",
+    "WSMAN_OPTION_SETEX",
+    "WSMAN_OPTION_SHELL_MAX_DATA_SIZE_PER_MESSAGE_KB",
+    "WSMAN_OPTION_SKIP_CA_CHECK",
+    "WSMAN_OPTION_SKIP_CN_CHECK",
+    "WSMAN_OPTION_SKIP_REVOCATION_CHECK",
+    "WSMAN_OPTION_TIMEOUTMS_CLOSE_SHELL",
+    "WSMAN_OPTION_TIMEOUTMS_CREATE_SHELL",
+    "WSMAN_OPTION_TIMEOUTMS_RECEIVE_SHELL_OUTPUT",
+    "WSMAN_OPTION_TIMEOUTMS_RUN_SHELL_COMMAND",
+    "WSMAN_OPTION_TIMEOUTMS_SEND_SHELL_INPUT",
+    "WSMAN_OPTION_TIMEOUTMS_SIGNAL_SHELL",
+    "WSMAN_OPTION_UI_LANGUAGE",
+    "WSMAN_OPTION_UNENCRYPTED_MESSAGES",
+    "WSMAN_OPTION_USE_INTEARACTIVE_TOKEN",
+    "WSMAN_OPTION_USE_SSL",
+    "WSMAN_OPTION_UTF16",
+    "WSMAN_PLUGIN_AUTHORIZE_OPERATION",
+    "WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA",
+    "WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT",
+    "WSMAN_PLUGIN_AUTHORIZE_USER",
+    "WSMAN_PLUGIN_COMMAND",
+    "WSMAN_PLUGIN_CONNECT",
+    "WSMAN_PLUGIN_PARAMS_AUTORESTART",
+    "WSMAN_PLUGIN_PARAMS_GET_REQUESTED_DATA_LOCALE",
+    "WSMAN_PLUGIN_PARAMS_GET_REQUESTED_LOCALE",
+    "WSMAN_PLUGIN_PARAMS_HOSTIDLETIMEOUTSECONDS",
+    "WSMAN_PLUGIN_PARAMS_LARGEST_RESULT_SIZE",
+    "WSMAN_PLUGIN_PARAMS_MAX_ENVELOPE_SIZE",
+    "WSMAN_PLUGIN_PARAMS_NAME",
+    "WSMAN_PLUGIN_PARAMS_REMAINING_RESULT_SIZE",
+    "WSMAN_PLUGIN_PARAMS_RUNAS_USER",
+    "WSMAN_PLUGIN_PARAMS_SHAREDHOST",
+    "WSMAN_PLUGIN_PARAMS_TIMEOUT",
+    "WSMAN_PLUGIN_RECEIVE",
+    "WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT",
+    "WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT",
+    "WSMAN_PLUGIN_REQUEST",
+    "WSMAN_PLUGIN_SEND",
+    "WSMAN_PLUGIN_SHELL",
+    "WSMAN_PLUGIN_SHUTDOWN",
+    "WSMAN_PLUGIN_SHUTDOWN_IDLETIMEOUT_ELAPSED",
+    "WSMAN_PLUGIN_SHUTDOWN_IISHOST",
+    "WSMAN_PLUGIN_SHUTDOWN_SERVICE",
+    "WSMAN_PLUGIN_SHUTDOWN_SYSTEM",
+    "WSMAN_PLUGIN_SIGNAL",
+    "WSMAN_PLUGIN_STARTUP",
+    "WSMAN_PLUGIN_STARTUP_AUTORESTARTED_CRASH",
+    "WSMAN_PLUGIN_STARTUP_AUTORESTARTED_REBOOT",
+    "WSMAN_PLUGIN_STARTUP_REQUEST_RECEIVED",
+    "WSMAN_PROXY_INFO",
+    "WSMAN_RECEIVE_DATA_RESULT",
+    "WSMAN_RESPONSE_DATA",
+    "WSMAN_SELECTOR_SET",
+    "WSMAN_SENDER_DETAILS",
+    "WSMAN_SESSION",
+    "WSMAN_SHELL",
+    "WSMAN_SHELL_ASYNC",
+    "WSMAN_SHELL_COMPLETION_FUNCTION",
+    "WSMAN_SHELL_DISCONNECT_INFO",
+    "WSMAN_SHELL_NS",
+    "WSMAN_SHELL_OPTION_NOPROFILE",
+    "WSMAN_SHELL_STARTUP_INFO_V10",
+    "WSMAN_SHELL_STARTUP_INFO_V11",
+    "WSMAN_STREAM_ID_SET",
+    "WSMAN_STREAM_ID_STDERR",
+    "WSMAN_STREAM_ID_STDIN",
+    "WSMAN_STREAM_ID_STDOUT",
+    "WSMAN_USERNAME_PASSWORD_CREDS",
+    "WSMan",
+    "WSManAuthenticationFlags",
+    "WSManCallbackFlags",
     "WSManCloseCommand",
+    "WSManCloseOperation",
+    "WSManCloseSession",
     "WSManCloseShell",
-    "WSManCreateShellEx",
-    "WSManRunShellCommandEx",
-    "WSManDisconnectShell",
-    "WSManReconnectShell",
-    "WSManReconnectShellCommand",
     "WSManConnectShell",
     "WSManConnectShellCommand",
-    "WSManPluginReportContext",
-    "WSManPluginReceiveResult",
-    "WSManPluginOperationComplete",
-    "WSManPluginGetOperationParameters",
-    "WSManPluginGetConfiguration",
-    "WSManPluginReportCompletion",
-    "WSManPluginFreeRequestDetails",
-    "WSManPluginAuthzUserComplete",
+    "WSManCreateSession",
+    "WSManCreateShell",
+    "WSManCreateShellEx",
+    "WSManDataType",
+    "WSManDeinitialize",
+    "WSManDisconnectShell",
+    "WSManEnumFlags",
+    "WSManEnumFlags_WSManFlagAssociatedInstance",
+    "WSManEnumFlags_WSManFlagAssociationInstance",
+    "WSManEnumFlags_WSManFlagHierarchyDeep",
+    "WSManEnumFlags_WSManFlagHierarchyDeepBasePropsOnly",
+    "WSManEnumFlags_WSManFlagHierarchyShallow",
+    "WSManEnumFlags_WSManFlagNonXmlText",
+    "WSManEnumFlags_WSManFlagReturnEPR",
+    "WSManEnumFlags_WSManFlagReturnObject",
+    "WSManEnumFlags_WSManFlagReturnObjectAndEPR",
+    "WSManGetErrorMessage",
+    "WSManGetSessionOptionAsDword",
+    "WSManGetSessionOptionAsString",
+    "WSManInitialize",
+    "WSManInternal",
     "WSManPluginAuthzOperationComplete",
     "WSManPluginAuthzQueryQuotaComplete",
+    "WSManPluginAuthzUserComplete",
+    "WSManPluginFreeRequestDetails",
+    "WSManPluginGetConfiguration",
+    "WSManPluginGetOperationParameters",
+    "WSManPluginOperationComplete",
+    "WSManPluginReceiveResult",
+    "WSManPluginReportCompletion",
+    "WSManPluginReportContext",
+    "WSManProxyAccessType",
+    "WSManProxyAccessTypeFlags",
+    "WSManProxyAccessTypeFlags_WSManProxyAutoDetect",
+    "WSManProxyAccessTypeFlags_WSManProxyIEConfig",
+    "WSManProxyAccessTypeFlags_WSManProxyNoProxyServer",
+    "WSManProxyAccessTypeFlags_WSManProxyWinHttpConfig",
+    "WSManProxyAuthenticationFlags",
+    "WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseBasic",
+    "WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseDigest",
+    "WSManProxyAuthenticationFlags_WSManFlagProxyAuthenticationUseNegotiate",
+    "WSManReceiveShellOutput",
+    "WSManReconnectShell",
+    "WSManReconnectShellCommand",
+    "WSManRunShellCommand",
+    "WSManRunShellCommandEx",
+    "WSManSendShellInput",
+    "WSManSessionFlags",
+    "WSManSessionFlags_WSManFlagAllowNegotiateImplicitCredentials",
+    "WSManSessionFlags_WSManFlagCredUsernamePassword",
+    "WSManSessionFlags_WSManFlagEnableSPNServerPort",
+    "WSManSessionFlags_WSManFlagNoEncryption",
+    "WSManSessionFlags_WSManFlagSkipCACheck",
+    "WSManSessionFlags_WSManFlagSkipCNCheck",
+    "WSManSessionFlags_WSManFlagSkipRevocationCheck",
+    "WSManSessionFlags_WSManFlagUTF16",
+    "WSManSessionFlags_WSManFlagUTF8",
+    "WSManSessionFlags_WSManFlagUseBasic",
+    "WSManSessionFlags_WSManFlagUseClientCertificate",
+    "WSManSessionFlags_WSManFlagUseCredSsp",
+    "WSManSessionFlags_WSManFlagUseDigest",
+    "WSManSessionFlags_WSManFlagUseKerberos",
+    "WSManSessionFlags_WSManFlagUseNegotiate",
+    "WSManSessionFlags_WSManFlagUseNoAuthentication",
+    "WSManSessionFlags_WSManFlagUseSsl",
+    "WSManSessionOption",
+    "WSManSetSessionOption",
+    "WSManShellFlag",
+    "WSManSignalShell",
 ]

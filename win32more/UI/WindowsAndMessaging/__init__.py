@@ -1,26 +1,86 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Power
 import win32more.UI.Shell
 import win32more.UI.WindowsAndMessaging
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+def _define_ACCEL_head():
+    class ACCEL(Structure):
+        pass
+    return ACCEL
+def _define_ACCEL():
+    ACCEL = win32more.UI.WindowsAndMessaging.ACCEL_head
+    ACCEL._fields_ = [
+        ('fVirt', win32more.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS),
+        ('key', UInt16),
+        ('cmd', UInt16),
+    ]
+    return ACCEL
+ACCEL_VIRT_FLAGS = Byte
+FVIRTKEY = 1
+FNOINVERT = 2
+FSHIFT = 4
+FCONTROL = 8
+FALT = 16
+def _define_ALTTABINFO_head():
+    class ALTTABINFO(Structure):
+        pass
+    return ALTTABINFO
+def _define_ALTTABINFO():
+    ALTTABINFO = win32more.UI.WindowsAndMessaging.ALTTABINFO_head
+    ALTTABINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('cItems', Int32),
+        ('cColumns', Int32),
+        ('cRows', Int32),
+        ('iColFocus', Int32),
+        ('iRowFocus', Int32),
+        ('cxItem', Int32),
+        ('cyItem', Int32),
+        ('ptStart', win32more.Foundation.POINT),
+    ]
+    return ALTTABINFO
+ANIMATE_WINDOW_FLAGS = UInt32
+AW_ACTIVATE = 131072
+AW_BLEND = 524288
+AW_CENTER = 16
+AW_HIDE = 65536
+AW_HOR_POSITIVE = 1
+AW_HOR_NEGATIVE = 2
+AW_SLIDE = 262144
+AW_VER_POSITIVE = 4
+AW_VER_NEGATIVE = 8
+def _define_ANIMATIONINFO_head():
+    class ANIMATIONINFO(Structure):
+        pass
+    return ANIMATIONINFO
+def _define_ANIMATIONINFO():
+    ANIMATIONINFO = win32more.UI.WindowsAndMessaging.ANIMATIONINFO_head
+    ANIMATIONINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('iMinAnimate', Int32),
+    ]
+    return ANIMATIONINFO
 WM_DEVICECHANGE = 537
 BSM_VXDS = 1
 BSM_NETDRIVER = 2
 BSM_INSTALLABLEDRIVERS = 4
+WM_CONTEXTMENU = 123
+WM_UNICHAR = 265
+WM_PRINTCLIENT = 792
+WM_NOTIFY = 78
 RT_CURSOR = 1
 RT_BITMAP = 2
 RT_ICON = 3
@@ -46,21 +106,6 @@ ISOLATIONPOLICY_MANIFEST_RESOURCE_ID = 4
 ISOLATIONPOLICY_BROWSER_MANIFEST_RESOURCE_ID = 5
 MINIMUM_RESERVED_MANIFEST_RESOURCE_ID = 1
 MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID = 16
-SB_LINEUP = 0
-SB_LINELEFT = 0
-SB_LINEDOWN = 1
-SB_LINERIGHT = 1
-SB_PAGEUP = 2
-SB_PAGELEFT = 2
-SB_PAGEDOWN = 3
-SB_PAGERIGHT = 3
-SB_THUMBPOSITION = 4
-SB_THUMBTRACK = 5
-SB_TOP = 6
-SB_LEFT = 6
-SB_BOTTOM = 7
-SB_RIGHT = 7
-SB_ENDSCROLL = 8
 HIDE_WINDOW = 0
 SHOW_OPENWINDOW = 1
 SHOW_ICONWINDOW = 2
@@ -140,16 +185,6 @@ INPUTLANGCHANGE_SYSCHARSET = 1
 INPUTLANGCHANGE_FORWARD = 2
 INPUTLANGCHANGE_BACKWARD = 4
 KL_NAMELENGTH = 9
-DESKTOP_READOBJECTS = 1
-DESKTOP_CREATEWINDOW = 2
-DESKTOP_CREATEMENU = 4
-DESKTOP_HOOKCONTROL = 8
-DESKTOP_JOURNALRECORD = 16
-DESKTOP_JOURNALPLAYBACK = 32
-DESKTOP_ENUMERATE = 64
-DESKTOP_WRITEOBJECTS = 128
-DESKTOP_SWITCHDESKTOP = 256
-DF_ALLOWOTHERACCOUNTHOOK = 1
 WINSTA_ENUMDESKTOPS = 1
 WINSTA_READATTRIBUTES = 2
 WINSTA_ACCESSCLIPBOARD = 4
@@ -333,6 +368,8 @@ WM_XBUTTONDBLCLK = 525
 WM_MOUSEHWHEEL = 526
 WM_MOUSELAST = 526
 WHEEL_DELTA = 120
+XBUTTON1 = 1
+XBUTTON2 = 2
 WM_PARENTNOTIFY = 528
 WM_ENTERMENULOOP = 529
 WM_EXITMENULOOP = 530
@@ -509,13 +546,6 @@ WVR_ALIGNRIGHT = 128
 WVR_HREDRAW = 256
 WVR_VREDRAW = 512
 WVR_VALIDRECTS = 1024
-MK_LBUTTON = 1
-MK_RBUTTON = 2
-MK_SHIFT = 4
-MK_CONTROL = 8
-MK_MBUTTON = 16
-MK_XBUTTON1 = 32
-MK_XBUTTON2 = 64
 PRF_CHECKVISIBLE = 1
 PRF_NONCLIENT = 2
 PRF_CLIENT = 4
@@ -524,25 +554,6 @@ PRF_CHILDREN = 16
 PRF_OWNED = 32
 IDANI_OPEN = 1
 IDANI_CAPTION = 3
-FVIRTKEY = 1
-FNOINVERT = 2
-FSHIFT = 4
-FCONTROL = 8
-FALT = 16
-ODA_DRAWENTIRE = 1
-ODA_SELECT = 2
-ODA_FOCUS = 4
-ODS_SELECTED = 1
-ODS_GRAYED = 2
-ODS_DISABLED = 4
-ODS_CHECKED = 8
-ODS_FOCUS = 16
-ODS_DEFAULT = 32
-ODS_COMBOBOXEDIT = 4096
-ODS_HOTLIGHT = 64
-ODS_INACTIVE = 128
-ODS_NOACCEL = 256
-ODS_NOFOCUSRECT = 512
 IDHOT_SNAPWINDOW = -1
 IDHOT_SNAPDESKTOP = -2
 ENDSESSION_CLOSEAPP = 1
@@ -625,7 +636,6 @@ SM_RESERVED3 = 26
 SM_RESERVED4 = 27
 SM_CMETRICS = 76
 SM_CARETBLINKINGENABLED = 8194
-SM_SYSTEMDOCKED = 8196
 PMB_ACTIVE = 1
 MNC_IGNORE = 0
 MNC_CLOSE = 1
@@ -645,8 +655,6 @@ DO_DROPFILE = 1162627398
 DO_PRINTFILE = 1414419024
 ASFW_ANY = 4294967295
 DCX_EXCLUDEUPDATE = 256
-HELPINFO_WINDOW = 1
-HELPINFO_MENUITEM = 2
 CTLCOLOR_MSGBOX = 0
 CTLCOLOR_EDIT = 1
 CTLCOLOR_LISTBOX = 2
@@ -655,8 +663,6 @@ CTLCOLOR_DLG = 4
 CTLCOLOR_SCROLLBAR = 5
 CTLCOLOR_STATIC = 6
 CTLCOLOR_MAX = 7
-COLOR_BTNHIGHLIGHT = 20
-COLOR_BTNHILIGHT = 20
 GW_MAX = 5
 SC_SIZE = 61440
 SC_MOVE = 61456
@@ -845,38 +851,6 @@ BM_SETIMAGE = 247
 BM_SETDONTCLICK = 248
 BST_PUSHED = 4
 BST_FOCUS = 8
-SS_LEFT = 0
-SS_CENTER = 1
-SS_RIGHT = 2
-SS_ICON = 3
-SS_BLACKRECT = 4
-SS_GRAYRECT = 5
-SS_WHITERECT = 6
-SS_BLACKFRAME = 7
-SS_GRAYFRAME = 8
-SS_WHITEFRAME = 9
-SS_USERITEM = 10
-SS_SIMPLE = 11
-SS_LEFTNOWORDWRAP = 12
-SS_OWNERDRAW = 13
-SS_BITMAP = 14
-SS_ENHMETAFILE = 15
-SS_ETCHEDHORZ = 16
-SS_ETCHEDVERT = 17
-SS_ETCHEDFRAME = 18
-SS_TYPEMASK = 31
-SS_REALSIZECONTROL = 64
-SS_NOPREFIX = 128
-SS_NOTIFY = 256
-SS_CENTERIMAGE = 512
-SS_RIGHTJUST = 1024
-SS_REALSIZEIMAGE = 2048
-SS_SUNKEN = 4096
-SS_EDITCONTROL = 8192
-SS_ENDELLIPSIS = 16384
-SS_PATHELLIPSIS = 32768
-SS_WORDELLIPSIS = 49152
-SS_ELLIPSISMASK = 49152
 STM_SETICON = 368
 STM_GETICON = 369
 STM_SETIMAGE = 370
@@ -1419,25 +1393,2850 @@ HBMMENU_POPUP_MAXIMIZE = 10
 HBMMENU_POPUP_MINIMIZE = 11
 CW_USEDEFAULT = -2147483648
 LBS_STANDARD = 10485763
-WNDCLASS_STYLES = UInt32
-CS_VREDRAW = 1
-CS_HREDRAW = 2
-CS_DBLCLKS = 8
-CS_OWNDC = 32
-CS_CLASSDC = 64
-CS_PARENTDC = 128
-CS_NOCLOSE = 512
-CS_SAVEBITS = 2048
-CS_BYTEALIGNCLIENT = 4096
-CS_BYTEALIGNWINDOW = 8192
-CS_GLOBALCLASS = 16384
-CS_IME = 65536
-CS_DROPSHADOW = 131072
+def _define_LoadStringA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PSTR,Int32)(('LoadStringA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'uID'),(1, 'lpBuffer'),(1, 'cchBufferMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadStringW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PWSTR,Int32)(('LoadStringW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'uID'),(1, 'lpBuffer'),(1, 'cchBufferMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowLongPtrA():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX)(('GetWindowLongPtrA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowLongPtrW():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX)(('GetWindowLongPtrW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowLongPtrA():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,IntPtr)(('SetWindowLongPtrA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowLongPtrW():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,IntPtr)(('SetWindowLongPtrW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassLongPtrA():
+    try:
+        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX)(('GetClassLongPtrA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassLongPtrW():
+    try:
+        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX)(('GetClassLongPtrW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetClassLongPtrA():
+    try:
+        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,IntPtr)(('SetClassLongPtrA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetClassLongPtrW():
+    try:
+        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,IntPtr)(('SetClassLongPtrW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_wvsprintfA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(SByte))(('wvsprintfA', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'arglist'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_wvsprintfW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(SByte))(('wvsprintfW', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'arglist'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_wsprintfA():
+    try:
+        return CFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('wsprintfA', cdll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_wsprintfW():
+    try:
+        return CFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('wsprintfW', cdll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsHungAppWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsHungAppWindow', windll['USER32.dll']), ((1, 'hwnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DisableProcessWindowsGhosting():
+    try:
+        return WINFUNCTYPE(Void,)(('DisableProcessWindowsGhosting', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterWindowMessageA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)(('RegisterWindowMessageA', windll['USER32.dll']), ((1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterWindowMessageW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('RegisterWindowMessageW', windll['USER32.dll']), ((1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32)(('GetMessageA', windll['USER32.dll']), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32)(('GetMessageW', windll['USER32.dll']), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TranslateMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('TranslateMessage', windll['USER32.dll']), ((1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DispatchMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('DispatchMessageA', windll['USER32.dll']), ((1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DispatchMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('DispatchMessageW', windll['USER32.dll']), ((1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMessageQueue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32)(('SetMessageQueue', windll['USER32.dll']), ((1, 'cMessagesMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PeekMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,win32more.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE)(('PeekMessageA', windll['USER32.dll']), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'wRemoveMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PeekMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,win32more.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE)(('PeekMessageW', windll['USER32.dll']), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'wRemoveMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMessagePos():
+    try:
+        return WINFUNCTYPE(UInt32,)(('GetMessagePos', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMessageTime():
+    try:
+        return WINFUNCTYPE(Int32,)(('GetMessageTime', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMessageExtraInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LPARAM,)(('GetMessageExtraInfo', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsWow64Message():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('IsWow64Message', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMessageExtraInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('SetMessageExtraInfo', windll['USER32.dll']), ((1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('SendMessageA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('SendMessageW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendMessageTimeoutA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS,UInt32,POINTER(UIntPtr))(('SendMessageTimeoutA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'fuFlags'),(1, 'uTimeout'),(1, 'lpdwResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendMessageTimeoutW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS,UInt32,POINTER(UIntPtr))(('SendMessageTimeoutW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'fuFlags'),(1, 'uTimeout'),(1, 'lpdwResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendNotifyMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('SendNotifyMessageA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendNotifyMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('SendNotifyMessageW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendMessageCallbackA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SENDASYNCPROC,UIntPtr)(('SendMessageCallbackA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'lpResultCallBack'),(1, 'dwData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendMessageCallbackW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SENDASYNCPROC,UIntPtr)(('SendMessageCallbackW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'lpResultCallBack'),(1, 'dwData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterDeviceNotificationA():
+    try:
+        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,win32more.System.Power.POWER_SETTING_REGISTER_NOTIFICATION_FLAGS)(('RegisterDeviceNotificationA', windll['USER32.dll']), ((1, 'hRecipient'),(1, 'NotificationFilter'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterDeviceNotificationW():
+    try:
+        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,win32more.System.Power.POWER_SETTING_REGISTER_NOTIFICATION_FLAGS)(('RegisterDeviceNotificationW', windll['USER32.dll']), ((1, 'hRecipient'),(1, 'NotificationFilter'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PostMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('PostMessageA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PostMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('PostMessageW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PostThreadMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('PostThreadMessageA', windll['USER32.dll']), ((1, 'idThread'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PostThreadMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('PostThreadMessageW', windll['USER32.dll']), ((1, 'idThread'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ReplyMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.LRESULT)(('ReplyMessage', windll['USER32.dll']), ((1, 'lResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WaitMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('WaitMessage', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefWindowProcA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefWindowProcA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefWindowProcW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefWindowProcW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PostQuitMessage():
+    try:
+        return WINFUNCTYPE(Void,Int32)(('PostQuitMessage', windll['USER32.dll']), ((1, 'nExitCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CallWindowProcA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.WindowsAndMessaging.WNDPROC,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('CallWindowProcA', windll['USER32.dll']), ((1, 'lpPrevWndFunc'),(1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CallWindowProcW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.WindowsAndMessaging.WNDPROC,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('CallWindowProcW', windll['USER32.dll']), ((1, 'lpPrevWndFunc'),(1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InSendMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('InSendMessage', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InSendMessageEx():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p)(('InSendMessageEx', windll['USER32.dll']), ((1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterClassA():
+    try:
+        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSA_head))(('RegisterClassA', windll['USER32.dll']), ((1, 'lpWndClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterClassW():
+    try:
+        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSW_head))(('RegisterClassW', windll['USER32.dll']), ((1, 'lpWndClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnregisterClassA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HINSTANCE)(('UnregisterClassA', windll['USER32.dll']), ((1, 'lpClassName'),(1, 'hInstance'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnregisterClassW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HINSTANCE)(('UnregisterClassW', windll['USER32.dll']), ((1, 'lpClassName'),(1, 'hInstance'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSA_head))(('GetClassInfoA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpClassName'),(1, 'lpWndClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSW_head))(('GetClassInfoW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpClassName'),(1, 'lpWndClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterClassExA():
+    try:
+        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXA_head))(('RegisterClassExA', windll['USER32.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterClassExW():
+    try:
+        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXW_head))(('RegisterClassExW', windll['USER32.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassInfoExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXA_head))(('GetClassInfoExA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpszClass'),(1, 'lpwcx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassInfoExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXW_head))(('GetClassInfoExW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpszClass'),(1, 'lpwcx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateWindowExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,c_void_p)(('CreateWindowExA', windll['USER32.dll']), ((1, 'dwExStyle'),(1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hMenu'),(1, 'hInstance'),(1, 'lpParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateWindowExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,c_void_p)(('CreateWindowExW', windll['USER32.dll']), ((1, 'dwExStyle'),(1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hMenu'),(1, 'hInstance'),(1, 'lpParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsWindow', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU)(('IsMenu', windll['USER32.dll']), ((1, 'hMenu'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsChild():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.HWND)(('IsChild', windll['USER32.dll']), ((1, 'hWndParent'),(1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('DestroyWindow', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD)(('ShowWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nCmdShow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AnimateWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS)(('AnimateWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'dwTime'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UpdateLayeredWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.SIZE_head),win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),win32more.Foundation.COLORREF,POINTER(win32more.Graphics.Gdi.BLENDFUNCTION_head),win32more.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS)(('UpdateLayeredWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hdcDst'),(1, 'pptDst'),(1, 'psize'),(1, 'hdcSrc'),(1, 'pptSrc'),(1, 'crKey'),(1, 'pblend'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UpdateLayeredWindowIndirect():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.UPDATELAYEREDWINDOWINFO_head))(('UpdateLayeredWindowIndirect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'pULWInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetLayeredWindowAttributes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.COLORREF),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS))(('GetLayeredWindowAttributes', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pcrKey'),(1, 'pbAlpha'),(1, 'pdwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetLayeredWindowAttributes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.COLORREF,Byte,win32more.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS)(('SetLayeredWindowAttributes', windll['USER32.dll']), ((1, 'hwnd'),(1, 'crKey'),(1, 'bAlpha'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowWindowAsync():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD)(('ShowWindowAsync', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nCmdShow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FlashWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('FlashWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'bInvert'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FlashWindowEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.FLASHWINFO_head))(('FlashWindowEx', windll['USER32.dll']), ((1, 'pfwi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowOwnedPopups():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('ShowOwnedPopups', windll['USER32.dll']), ((1, 'hWnd'),(1, 'fShow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OpenIcon():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('OpenIcon', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CloseWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('CloseWindow', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MoveWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,Int32,Int32,Int32,win32more.Foundation.BOOL)(('MoveWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'bRepaint'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.HWND,Int32,Int32,Int32,Int32,win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS)(('SetWindowPos', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hWndInsertAfter'),(1, 'X'),(1, 'Y'),(1, 'cx'),(1, 'cy'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowPlacement():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_head))(('GetWindowPlacement', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpwndpl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowPlacement():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_head))(('SetWindowPlacement', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpwndpl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowDisplayAffinity():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(UInt32))(('GetWindowDisplayAffinity', windll['USER32.dll']), ((1, 'hWnd'),(1, 'pdwAffinity'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowDisplayAffinity():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_DISPLAY_AFFINITY)(('SetWindowDisplayAffinity', windll['USER32.dll']), ((1, 'hWnd'),(1, 'dwAffinity'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BeginDeferWindowPos():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HDWP,Int32)(('BeginDeferWindowPos', windll['USER32.dll']), ((1, 'nNumWindows'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeferWindowPos():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HDWP,win32more.UI.WindowsAndMessaging.HDWP,win32more.Foundation.HWND,win32more.Foundation.HWND,Int32,Int32,Int32,Int32,win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS)(('DeferWindowPos', windll['USER32.dll']), ((1, 'hWinPosInfo'),(1, 'hWnd'),(1, 'hWndInsertAfter'),(1, 'x'),(1, 'y'),(1, 'cx'),(1, 'cy'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EndDeferWindowPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HDWP)(('EndDeferWindowPos', windll['USER32.dll']), ((1, 'hWinPosInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsWindowVisible():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsWindowVisible', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsIconic():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsIconic', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AnyPopup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('AnyPopup', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BringWindowToTop():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('BringWindowToTop', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsZoomed():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsZoomed', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDialogParamA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('CreateDialogParamA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDialogParamW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('CreateDialogParamW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDialogIndirectParamA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('CreateDialogIndirectParamA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDialogIndirectParamW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('CreateDialogIndirectParamW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DialogBoxParamA():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('DialogBoxParamA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DialogBoxParamW():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('DialogBoxParamW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DialogBoxIndirectParamA():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('DialogBoxIndirectParamA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'hDialogTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DialogBoxIndirectParamW():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)(('DialogBoxIndirectParamW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'hDialogTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EndDialog():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,IntPtr)(('EndDialog', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDlgItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,Int32)(('GetDlgItem', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetDlgItemInt():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,UInt32,win32more.Foundation.BOOL)(('SetDlgItemInt', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'uValue'),(1, 'bSigned'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDlgItemInt():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,Int32,POINTER(win32more.Foundation.BOOL),win32more.Foundation.BOOL)(('GetDlgItemInt', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpTranslated'),(1, 'bSigned'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetDlgItemTextA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR)(('SetDlgItemTextA', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetDlgItemTextW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR)(('SetDlgItemTextW', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDlgItemTextA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR,Int32)(('GetDlgItemTextA', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),(1, 'cchMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDlgItemTextW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR,Int32)(('GetDlgItemTextW', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),(1, 'cchMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendDlgItemMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('SendDlgItemMessageA', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendDlgItemMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('SendDlgItemMessageW', windll['USER32.dll']), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetNextDlgGroupItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('GetNextDlgGroupItem', windll['USER32.dll']), ((1, 'hDlg'),(1, 'hCtl'),(1, 'bPrevious'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetNextDlgTabItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('GetNextDlgTabItem', windll['USER32.dll']), ((1, 'hDlg'),(1, 'hCtl'),(1, 'bPrevious'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDlgCtrlID():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND)(('GetDlgCtrlID', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDialogBaseUnits():
+    try:
+        return WINFUNCTYPE(Int32,)(('GetDialogBaseUnits', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefDlgProcA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefDlgProcA', windll['USER32.dll']), ((1, 'hDlg'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefDlgProcW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefDlgProcW', windll['USER32.dll']), ((1, 'hDlg'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CallMsgFilterA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),Int32)(('CallMsgFilterA', windll['USER32.dll']), ((1, 'lpMsg'),(1, 'nCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CallMsgFilterW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),Int32)(('CallMsgFilterW', windll['USER32.dll']), ((1, 'lpMsg'),(1, 'nCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharToOemA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CharToOemA', windll['USER32.dll']), ((1, 'pSrc'),(1, 'pDst'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharToOemW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PSTR)(('CharToOemW', windll['USER32.dll']), ((1, 'pSrc'),(1, 'pDst'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OemToCharA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('OemToCharA', windll['USER32.dll']), ((1, 'pSrc'),(1, 'pDst'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OemToCharW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PWSTR)(('OemToCharW', windll['USER32.dll']), ((1, 'pSrc'),(1, 'pDst'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharToOemBuffA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('CharToOemBuffA', windll['USER32.dll']), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharToOemBuffW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PSTR,UInt32)(('CharToOemBuffW', windll['USER32.dll']), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OemToCharBuffA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('OemToCharBuffA', windll['USER32.dll']), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OemToCharBuffW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PWSTR,UInt32)(('OemToCharBuffW', windll['USER32.dll']), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharUpperA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CharUpperA', windll['USER32.dll']), ((1, 'lpsz'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharUpperW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('CharUpperW', windll['USER32.dll']), ((1, 'lpsz'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharUpperBuffA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32)(('CharUpperBuffA', windll['USER32.dll']), ((1, 'lpsz'),(1, 'cchLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharUpperBuffW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('CharUpperBuffW', windll['USER32.dll']), ((1, 'lpsz'),(1, 'cchLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharLowerA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CharLowerA', windll['USER32.dll']), ((1, 'lpsz'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharLowerW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('CharLowerW', windll['USER32.dll']), ((1, 'lpsz'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharLowerBuffA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32)(('CharLowerBuffA', windll['USER32.dll']), ((1, 'lpsz'),(1, 'cchLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharLowerBuffW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('CharLowerBuffW', windll['USER32.dll']), ((1, 'lpsz'),(1, 'cchLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharNextA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CharNextA', windll['USER32.dll']), ((1, 'lpsz'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharNextW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('CharNextW', windll['USER32.dll']), ((1, 'lpsz'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharPrevA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CharPrevA', windll['USER32.dll']), ((1, 'lpszStart'),(1, 'lpszCurrent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharPrevW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('CharPrevW', windll['USER32.dll']), ((1, 'lpszStart'),(1, 'lpszCurrent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharNextExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,UInt32)(('CharNextExA', windll['USER32.dll']), ((1, 'CodePage'),(1, 'lpCurrentChar'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CharPrevExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('CharPrevExA', windll['USER32.dll']), ((1, 'CodePage'),(1, 'lpStart'),(1, 'lpCurrentChar'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharAlphaA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR)(('IsCharAlphaA', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharAlphaW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Char)(('IsCharAlphaW', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharAlphaNumericA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR)(('IsCharAlphaNumericA', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharAlphaNumericW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Char)(('IsCharAlphaNumericW', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharUpperA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR)(('IsCharUpperA', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharUpperW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Char)(('IsCharUpperW', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsCharLowerA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR)(('IsCharLowerA', windll['USER32.dll']), ((1, 'ch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetInputState():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('GetInputState', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetQueueStatus():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS)(('GetQueueStatus', windll['USER32.dll']), ((1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsgWaitForMultipleObjects():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL,UInt32,win32more.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS)(('MsgWaitForMultipleObjects', windll['USER32.dll']), ((1, 'nCount'),(1, 'pHandles'),(1, 'fWaitAll'),(1, 'dwMilliseconds'),(1, 'dwWakeMask'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsgWaitForMultipleObjectsEx():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.HANDLE),UInt32,win32more.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS,win32more.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS)(('MsgWaitForMultipleObjectsEx', windll['USER32.dll']), ((1, 'nCount'),(1, 'pHandles'),(1, 'dwMilliseconds'),(1, 'dwWakeMask'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetTimer():
+    try:
+        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,UIntPtr,UInt32,win32more.UI.WindowsAndMessaging.TIMERPROC)(('SetTimer', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIDEvent'),(1, 'uElapse'),(1, 'lpTimerFunc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetCoalescableTimer():
+    try:
+        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,UIntPtr,UInt32,win32more.UI.WindowsAndMessaging.TIMERPROC,UInt32)(('SetCoalescableTimer', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIDEvent'),(1, 'uElapse'),(1, 'lpTimerFunc'),(1, 'uToleranceDelay'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_KillTimer():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UIntPtr)(('KillTimer', windll['USER32.dll']), ((1, 'hWnd'),(1, 'uIDEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsWindowUnicode():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsWindowUnicode', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadAcceleratorsA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('LoadAcceleratorsA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadAcceleratorsW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('LoadAcceleratorsW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateAcceleratorTableA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL_head),Int32)(('CreateAcceleratorTableA', windll['USER32.dll']), ((1, 'paccel'),(1, 'cAccel'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateAcceleratorTableW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL_head),Int32)(('CreateAcceleratorTableW', windll['USER32.dll']), ((1, 'paccel'),(1, 'cAccel'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyAcceleratorTable():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HACCEL)(('DestroyAcceleratorTable', windll['USER32.dll']), ((1, 'hAccel'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CopyAcceleratorTableA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL_head),Int32)(('CopyAcceleratorTableA', windll['USER32.dll']), ((1, 'hAccelSrc'),(1, 'lpAccelDst'),(1, 'cAccelEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CopyAcceleratorTableW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL_head),Int32)(('CopyAcceleratorTableW', windll['USER32.dll']), ((1, 'hAccelSrc'),(1, 'lpAccelDst'),(1, 'cAccelEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TranslateAcceleratorA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('TranslateAcceleratorA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hAccTable'),(1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TranslateAcceleratorW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('TranslateAcceleratorW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hAccTable'),(1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetSystemMetrics():
+    try:
+        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX)(('GetSystemMetrics', windll['USER32.dll']), ((1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadMenuA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('LoadMenuA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpMenuName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadMenuW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('LoadMenuW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpMenuName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadMenuIndirectA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,c_void_p)(('LoadMenuIndirectA', windll['USER32.dll']), ((1, 'lpMenuTemplate'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadMenuIndirectW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,c_void_p)(('LoadMenuIndirectW', windll['USER32.dll']), ((1, 'lpMenuTemplate'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenu():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HWND)(('GetMenu', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU)(('SetMenu', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hMenu'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ChangeMenuA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.PSTR,UInt32,UInt32)(('ChangeMenuA', windll['USER32.dll']), ((1, 'hMenu'),(1, 'cmd'),(1, 'lpszNewItem'),(1, 'cmdInsert'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ChangeMenuW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(('ChangeMenuW', windll['USER32.dll']), ((1, 'hMenu'),(1, 'cmd'),(1, 'lpszNewItem'),(1, 'cmdInsert'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HiliteMenuItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32)(('HiliteMenuItem', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hMenu'),(1, 'uIDHiliteItem'),(1, 'uHilite'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuStringA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.PSTR,Int32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS)(('GetMenuStringA', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uIDItem'),(1, 'lpString'),(1, 'cchMax'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuStringW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.PWSTR,Int32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS)(('GetMenuStringW', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uIDItem'),(1, 'lpString'),(1, 'cchMax'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuState():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS)(('GetMenuState', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uId'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawMenuBar():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('DrawMenuBar', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetSystemMenu():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('GetSystemMenu', windll['USER32.dll']), ((1, 'hWnd'),(1, 'bRevert'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateMenu():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,)(('CreateMenu', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePopupMenu():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,)(('CreatePopupMenu', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU)(('DestroyMenu', windll['USER32.dll']), ((1, 'hMenu'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CheckMenuItem():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32)(('CheckMenuItem', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uIDCheckItem'),(1, 'uCheck'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnableMenuItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS)(('EnableMenuItem', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uIDEnableItem'),(1, 'uEnable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetSubMenu():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.HMENU,Int32)(('GetSubMenu', windll['USER32.dll']), ((1, 'hMenu'),(1, 'nPos'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuItemID():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,Int32)(('GetMenuItemID', windll['USER32.dll']), ((1, 'hMenu'),(1, 'nPos'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuItemCount():
+    try:
+        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HMENU)(('GetMenuItemCount', windll['USER32.dll']), ((1, 'hMenu'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InsertMenuA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PSTR)(('InsertMenuA', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InsertMenuW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PWSTR)(('InsertMenuW', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppendMenuA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PSTR)(('AppendMenuA', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppendMenuW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PWSTR)(('AppendMenuW', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ModifyMenuA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PSTR)(('ModifyMenuA', windll['USER32.dll']), ((1, 'hMnu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ModifyMenuW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PWSTR)(('ModifyMenuW', windll['USER32.dll']), ((1, 'hMnu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RemoveMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS)(('RemoveMenu', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS)(('DeleteMenu', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMenuItemBitmaps():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HBITMAP)(('SetMenuItemBitmaps', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'hBitmapUnchecked'),(1, 'hBitmapChecked'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuCheckMarkDimensions():
+    try:
+        return WINFUNCTYPE(Int32,)(('GetMenuCheckMarkDimensions', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TrackPopupMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS,Int32,Int32,Int32,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head))(('TrackPopupMenu', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uFlags'),(1, 'x'),(1, 'y'),(1, 'nReserved'),(1, 'hWnd'),(1, 'prcRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TrackPopupMenuEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,Int32,Int32,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.TPMPARAMS_head))(('TrackPopupMenuEx', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uFlags'),(1, 'x'),(1, 'y'),(1, 'hwnd'),(1, 'lptpm'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CalculatePopupWindowPosition():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.SIZE_head),UInt32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('CalculatePopupWindowPosition', windll['USER32.dll']), ((1, 'anchorPoint'),(1, 'windowSize'),(1, 'flags'),(1, 'excludeRect'),(1, 'popupWindowPosition'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,POINTER(win32more.UI.WindowsAndMessaging.MENUINFO_head))(('GetMenuInfo', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMenuInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,POINTER(win32more.UI.WindowsAndMessaging.MENUINFO_head))(('SetMenuInfo', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EndMenu():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('EndMenu', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InsertMenuItemA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head))(('InsertMenuItemA', windll['USER32.dll']), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InsertMenuItemW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head))(('InsertMenuItemW', windll['USER32.dll']), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuItemInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head))(('GetMenuItemInfoA', windll['USER32.dll']), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmii'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuItemInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head))(('GetMenuItemInfoW', windll['USER32.dll']), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmii'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMenuItemInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head))(('SetMenuItemInfoA', windll['USER32.dll']), ((1, 'hmenu'),(1, 'item'),(1, 'fByPositon'),(1, 'lpmii'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMenuItemInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head))(('SetMenuItemInfoW', windll['USER32.dll']), ((1, 'hmenu'),(1, 'item'),(1, 'fByPositon'),(1, 'lpmii'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuDefaultItem():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.GET_MENU_DEFAULT_ITEM_FLAGS)(('GetMenuDefaultItem', windll['USER32.dll']), ((1, 'hMenu'),(1, 'fByPos'),(1, 'gmdiFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetMenuDefaultItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32)(('SetMenuDefaultItem', windll['USER32.dll']), ((1, 'hMenu'),(1, 'uItem'),(1, 'fByPos'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuItemRect():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(win32more.Foundation.RECT_head))(('GetMenuItemRect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hMenu'),(1, 'uItem'),(1, 'lprcItem'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MenuItemFromPoint():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.POINT)(('MenuItemFromPoint', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hMenu'),(1, 'ptScreen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DragObject():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,UIntPtr,win32more.UI.WindowsAndMessaging.HCURSOR)(('DragObject', windll['USER32.dll']), ((1, 'hwndParent'),(1, 'hwndFrom'),(1, 'fmt'),(1, 'data'),(1, 'hcur'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawIcon():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.UI.WindowsAndMessaging.HICON)(('DrawIcon', windll['USER32.dll']), ((1, 'hDC'),(1, 'X'),(1, 'Y'),(1, 'hIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetForegroundWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,)(('GetForegroundWindow', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SwitchToThisWindow():
+    try:
+        return WINFUNCTYPE(Void,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('SwitchToThisWindow', windll['USER32.dll']), ((1, 'hwnd'),(1, 'fUnknown'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetForegroundWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('SetForegroundWindow', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AllowSetForegroundWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('AllowSetForegroundWindow', windll['USER32.dll']), ((1, 'dwProcessId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LockSetForegroundWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.FOREGROUND_WINDOW_LOCK_CODE)(('LockSetForegroundWindow', windll['USER32.dll']), ((1, 'uLockCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ScrollWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('ScrollWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'XAmount'),(1, 'YAmount'),(1, 'lpRect'),(1, 'lpClipRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ScrollDC():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head))(('ScrollDC', windll['USER32.dll']), ((1, 'hDC'),(1, 'dx'),(1, 'dy'),(1, 'lprcScroll'),(1, 'lprcClip'),(1, 'hrgnUpdate'),(1, 'lprcUpdate'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ScrollWindowEx():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head),win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD)(('ScrollWindowEx', windll['USER32.dll']), ((1, 'hWnd'),(1, 'dx'),(1, 'dy'),(1, 'prcScroll'),(1, 'prcClip'),(1, 'hrgnUpdate'),(1, 'prcUpdate'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetScrollPos():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS)(('GetScrollPos', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nBar'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetScrollRange():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS,POINTER(Int32),POINTER(Int32))(('GetScrollRange', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nBar'),(1, 'lpMinPos'),(1, 'lpMaxPos'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetPropA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.HANDLE)(('SetPropA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),(1, 'hData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetPropW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE)(('SetPropW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),(1, 'hData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetPropA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('GetPropA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetPropW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('GetPropW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RemovePropA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('RemovePropA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RemovePropW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('RemovePropW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumPropsExA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCEXA,win32more.Foundation.LPARAM)(('EnumPropsExA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpEnumFunc'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumPropsExW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCEXW,win32more.Foundation.LPARAM)(('EnumPropsExW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpEnumFunc'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumPropsA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCA)(('EnumPropsA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpEnumFunc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumPropsW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCW)(('EnumPropsW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpEnumFunc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowTextA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('SetWindowTextA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowTextW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('SetWindowTextW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowTextA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.PSTR,Int32)(('GetWindowTextA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),(1, 'nMaxCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowTextW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,Int32)(('GetWindowTextW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpString'),(1, 'nMaxCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowTextLengthA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND)(('GetWindowTextLengthA', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowTextLengthW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND)(('GetWindowTextLengthW', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClientRect():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head))(('GetClientRect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowRect():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head))(('GetWindowRect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AdjustWindowRect():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),win32more.UI.WindowsAndMessaging.WINDOW_STYLE,win32more.Foundation.BOOL)(('AdjustWindowRect', windll['USER32.dll']), ((1, 'lpRect'),(1, 'dwStyle'),(1, 'bMenu'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AdjustWindowRectEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),win32more.UI.WindowsAndMessaging.WINDOW_STYLE,win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE)(('AdjustWindowRectEx', windll['USER32.dll']), ((1, 'lpRect'),(1, 'dwStyle'),(1, 'bMenu'),(1, 'dwExStyle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MessageBoxA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE)(('MessageBoxA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MessageBoxW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE)(('MessageBoxW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MessageBoxExA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE,UInt16)(('MessageBoxExA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),(1, 'wLanguageId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MessageBoxExW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE,UInt16)(('MessageBoxExW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),(1, 'wLanguageId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MessageBoxIndirectA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,POINTER(win32more.UI.WindowsAndMessaging.MSGBOXPARAMSA_head))(('MessageBoxIndirectA', windll['USER32.dll']), ((1, 'lpmbp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MessageBoxIndirectW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,POINTER(win32more.UI.WindowsAndMessaging.MSGBOXPARAMSW_head))(('MessageBoxIndirectW', windll['USER32.dll']), ((1, 'lpmbp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowCursor():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.BOOL)(('ShowCursor', windll['USER32.dll']), ((1, 'bShow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetCursorPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32)(('SetCursorPos', windll['USER32.dll']), ((1, 'X'),(1, 'Y'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetPhysicalCursorPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32)(('SetPhysicalCursorPos', windll['USER32.dll']), ((1, 'X'),(1, 'Y'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetCursor():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.UI.WindowsAndMessaging.HCURSOR)(('SetCursor', windll['USER32.dll']), ((1, 'hCursor'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetCursorPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head))(('GetCursorPos', windll['USER32.dll']), ((1, 'lpPoint'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetPhysicalCursorPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head))(('GetPhysicalCursorPos', windll['USER32.dll']), ((1, 'lpPoint'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClipCursor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head))(('GetClipCursor', windll['USER32.dll']), ((1, 'lpRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetCursor():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,)(('GetCursor', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateCaret():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HBITMAP,Int32,Int32)(('CreateCaret', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hBitmap'),(1, 'nWidth'),(1, 'nHeight'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetCaretBlinkTime():
+    try:
+        return WINFUNCTYPE(UInt32,)(('GetCaretBlinkTime', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetCaretBlinkTime():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('SetCaretBlinkTime', windll['USER32.dll']), ((1, 'uMSeconds'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyCaret():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('DestroyCaret', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HideCaret():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('HideCaret', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowCaret():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('ShowCaret', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetCaretPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32)(('SetCaretPos', windll['USER32.dll']), ((1, 'X'),(1, 'Y'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetCaretPos():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head))(('GetCaretPos', windll['USER32.dll']), ((1, 'lpPoint'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LogicalToPhysicalPoint():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head))(('LogicalToPhysicalPoint', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpPoint'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PhysicalToLogicalPoint():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head))(('PhysicalToLogicalPoint', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpPoint'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WindowFromPoint():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.POINT)(('WindowFromPoint', windll['USER32.dll']), ((1, 'Point'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WindowFromPhysicalPoint():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.POINT)(('WindowFromPhysicalPoint', windll['USER32.dll']), ((1, 'Point'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ChildWindowFromPoint():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT)(('ChildWindowFromPoint', windll['USER32.dll']), ((1, 'hWndParent'),(1, 'Point'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ClipCursor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head))(('ClipCursor', windll['USER32.dll']), ((1, 'lpRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ChildWindowFromPointEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT,win32more.UI.WindowsAndMessaging.CWP_FLAGS)(('ChildWindowFromPointEx', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pt'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowWord():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32)(('GetWindowWord', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowWord():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32,UInt16)(('SetWindowWord', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'wNewWord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowLongA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX)(('GetWindowLongA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowLongW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX)(('GetWindowLongW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowLongA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,Int32)(('SetWindowLongA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowLongW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,Int32)(('SetWindowLongW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassWord():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32)(('GetClassWord', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetClassWord():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32,UInt16)(('SetClassWord', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'wNewWord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassLongA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX)(('GetClassLongA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassLongW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX)(('GetClassLongW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetClassLongA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,Int32)(('SetClassLongA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetClassLongW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,Int32)(('SetClassLongW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetProcessDefaultLayout():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32))(('GetProcessDefaultLayout', windll['USER32.dll']), ((1, 'pdwDefaultLayout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetProcessDefaultLayout():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('SetProcessDefaultLayout', windll['USER32.dll']), ((1, 'dwDefaultLayout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDesktopWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,)(('GetDesktopWindow', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetParent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('GetParent', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetParent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND)(('SetParent', windll['USER32.dll']), ((1, 'hWndChild'),(1, 'hWndNewParent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumChildWindows():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM)(('EnumChildWindows', windll['USER32.dll']), ((1, 'hWndParent'),(1, 'lpEnumFunc'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindWindowA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('FindWindowA', windll['USER32.dll']), ((1, 'lpClassName'),(1, 'lpWindowName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindWindowW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('FindWindowW', windll['USER32.dll']), ((1, 'lpClassName'),(1, 'lpWindowName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindWindowExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('FindWindowExA', windll['USER32.dll']), ((1, 'hWndParent'),(1, 'hWndChildAfter'),(1, 'lpszClass'),(1, 'lpszWindow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindWindowExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('FindWindowExW', windll['USER32.dll']), ((1, 'hWndParent'),(1, 'hWndChildAfter'),(1, 'lpszClass'),(1, 'lpszWindow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetShellWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,)(('GetShellWindow', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterShellHookWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('RegisterShellHookWindow', windll['USER32.dll']), ((1, 'hwnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeregisterShellHookWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('DeregisterShellHookWindow', windll['USER32.dll']), ((1, 'hwnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumWindows():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM)(('EnumWindows', windll['USER32.dll']), ((1, 'lpEnumFunc'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EnumThreadWindows():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM)(('EnumThreadWindows', windll['USER32.dll']), ((1, 'dwThreadId'),(1, 'lpfn'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassNameA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.PSTR,Int32)(('GetClassNameA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpClassName'),(1, 'nMaxCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetClassNameW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,Int32)(('GetClassNameW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpClassName'),(1, 'nMaxCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetTopWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('GetTopWindow', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowThreadProcessId():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(UInt32))(('GetWindowThreadProcessId', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpdwProcessId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsGUIThread():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('IsGUIThread', windll['USER32.dll']), ((1, 'bConvert'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetLastActivePopup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('GetLastActivePopup', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindow():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_WINDOW_CMD)(('GetWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'uCmd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowsHookA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,Int32,win32more.UI.WindowsAndMessaging.HOOKPROC)(('SetWindowsHookA', windll['USER32.dll']), ((1, 'nFilterType'),(1, 'pfnFilterProc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowsHookW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,Int32,win32more.UI.WindowsAndMessaging.HOOKPROC)(('SetWindowsHookW', windll['USER32.dll']), ((1, 'nFilterType'),(1, 'pfnFilterProc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnhookWindowsHook():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,win32more.UI.WindowsAndMessaging.HOOKPROC)(('UnhookWindowsHook', windll['USER32.dll']), ((1, 'nCode'),(1, 'pfnFilterProc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowsHookExA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,win32more.UI.WindowsAndMessaging.WINDOWS_HOOK_ID,win32more.UI.WindowsAndMessaging.HOOKPROC,win32more.Foundation.HINSTANCE,UInt32)(('SetWindowsHookExA', windll['USER32.dll']), ((1, 'idHook'),(1, 'lpfn'),(1, 'hmod'),(1, 'dwThreadId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetWindowsHookExW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,win32more.UI.WindowsAndMessaging.WINDOWS_HOOK_ID,win32more.UI.WindowsAndMessaging.HOOKPROC,win32more.Foundation.HINSTANCE,UInt32)(('SetWindowsHookExW', windll['USER32.dll']), ((1, 'idHook'),(1, 'lpfn'),(1, 'hmod'),(1, 'dwThreadId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnhookWindowsHookEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HHOOK)(('UnhookWindowsHookEx', windll['USER32.dll']), ((1, 'hhk'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CallNextHookEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.WindowsAndMessaging.HHOOK,Int32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('CallNextHookEx', windll['USER32.dll']), ((1, 'hhk'),(1, 'nCode'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CheckMenuRadioItem():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32,UInt32,UInt32)(('CheckMenuRadioItem', windll['USER32.dll']), ((1, 'hmenu'),(1, 'first'),(1, 'last'),(1, 'check'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadCursorA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('LoadCursorA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpCursorName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadCursorW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('LoadCursorW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpCursorName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadCursorFromFileA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.PSTR)(('LoadCursorFromFileA', windll['USER32.dll']), ((1, 'lpFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadCursorFromFileW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.PWSTR)(('LoadCursorFromFileW', windll['USER32.dll']), ((1, 'lpFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateCursor():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.HINSTANCE,Int32,Int32,Int32,Int32,c_void_p,c_void_p)(('CreateCursor', windll['USER32.dll']), ((1, 'hInst'),(1, 'xHotSpot'),(1, 'yHotSpot'),(1, 'nWidth'),(1, 'nHeight'),(1, 'pvANDPlane'),(1, 'pvXORPlane'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyCursor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HCURSOR)(('DestroyCursor', windll['USER32.dll']), ((1, 'hCursor'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetSystemCursor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HCURSOR,win32more.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID)(('SetSystemCursor', windll['USER32.dll']), ((1, 'hcur'),(1, 'id'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadIconA():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('LoadIconA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpIconName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadIconW():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('LoadIconW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpIconName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PrivateExtractIconsA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,Int32,Int32,Int32,POINTER(win32more.UI.WindowsAndMessaging.HICON),POINTER(UInt32),UInt32,UInt32)(('PrivateExtractIconsA', windll['USER32.dll']), ((1, 'szFileName'),(1, 'nIconIndex'),(1, 'cxIcon'),(1, 'cyIcon'),(1, 'phicon'),(1, 'piconid'),(1, 'nIcons'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PrivateExtractIconsW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,Int32,Int32,Int32,POINTER(win32more.UI.WindowsAndMessaging.HICON),POINTER(UInt32),UInt32,UInt32)(('PrivateExtractIconsW', windll['USER32.dll']), ((1, 'szFileName'),(1, 'nIconIndex'),(1, 'cxIcon'),(1, 'cyIcon'),(1, 'phicon'),(1, 'piconid'),(1, 'nIcons'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateIcon():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.HINSTANCE,Int32,Int32,Byte,Byte,c_char_p_no,c_char_p_no)(('CreateIcon', windll['USER32.dll']), ((1, 'hInstance'),(1, 'nWidth'),(1, 'nHeight'),(1, 'cPlanes'),(1, 'cBitsPixel'),(1, 'lpbANDbits'),(1, 'lpbXORbits'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyIcon():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON)(('DestroyIcon', windll['USER32.dll']), ((1, 'hIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LookupIconIdFromDirectory():
+    try:
+        return WINFUNCTYPE(Int32,c_char_p_no,win32more.Foundation.BOOL)(('LookupIconIdFromDirectory', windll['USER32.dll']), ((1, 'presbits'),(1, 'fIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LookupIconIdFromDirectoryEx():
+    try:
+        return WINFUNCTYPE(Int32,c_char_p_no,win32more.Foundation.BOOL,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS)(('LookupIconIdFromDirectoryEx', windll['USER32.dll']), ((1, 'presbits'),(1, 'fIcon'),(1, 'cxDesired'),(1, 'cyDesired'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateIconFromResource():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,c_char_p_no,UInt32,win32more.Foundation.BOOL,UInt32)(('CreateIconFromResource', windll['USER32.dll']), ((1, 'presbits'),(1, 'dwResSize'),(1, 'fIcon'),(1, 'dwVer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateIconFromResourceEx():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,c_char_p_no,UInt32,win32more.Foundation.BOOL,UInt32,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS)(('CreateIconFromResourceEx', windll['USER32.dll']), ((1, 'presbits'),(1, 'dwResSize'),(1, 'fIcon'),(1, 'dwVer'),(1, 'cxDesired'),(1, 'cyDesired'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadImageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.GDI_IMAGE_TYPE,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS)(('LoadImageA', windll['USER32.dll']), ((1, 'hInst'),(1, 'name'),(1, 'type'),(1, 'cx'),(1, 'cy'),(1, 'fuLoad'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadImageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.GDI_IMAGE_TYPE,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS)(('LoadImageW', windll['USER32.dll']), ((1, 'hInst'),(1, 'name'),(1, 'type'),(1, 'cx'),(1, 'cy'),(1, 'fuLoad'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CopyImage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.UI.WindowsAndMessaging.GDI_IMAGE_TYPE,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS)(('CopyImage', windll['USER32.dll']), ((1, 'h'),(1, 'type'),(1, 'cx'),(1, 'cy'),(1, 'flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawIconEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.UI.WindowsAndMessaging.HICON,Int32,Int32,UInt32,win32more.Graphics.Gdi.HBRUSH,win32more.UI.WindowsAndMessaging.DI_FLAGS)(('DrawIconEx', windll['USER32.dll']), ((1, 'hdc'),(1, 'xLeft'),(1, 'yTop'),(1, 'hIcon'),(1, 'cxWidth'),(1, 'cyWidth'),(1, 'istepIfAniCur'),(1, 'hbrFlickerFreeDraw'),(1, 'diFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateIconIndirect():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFO_head))(('CreateIconIndirect', windll['USER32.dll']), ((1, 'piconinfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CopyIcon():
+    try:
+        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.UI.WindowsAndMessaging.HICON)(('CopyIcon', windll['USER32.dll']), ((1, 'hIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetIconInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFO_head))(('GetIconInfo', windll['USER32.dll']), ((1, 'hIcon'),(1, 'piconinfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetIconInfoExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFOEXA_head))(('GetIconInfoExA', windll['USER32.dll']), ((1, 'hicon'),(1, 'piconinfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetIconInfoExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFOEXW_head))(('GetIconInfoExW', windll['USER32.dll']), ((1, 'hicon'),(1, 'piconinfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsDialogMessageA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('IsDialogMessageA', windll['USER32.dll']), ((1, 'hDlg'),(1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsDialogMessageW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('IsDialogMessageW', windll['USER32.dll']), ((1, 'hDlg'),(1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MapDialogRect():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head))(('MapDialogRect', windll['USER32.dll']), ((1, 'hDlg'),(1, 'lpRect'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetScrollInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS,POINTER(win32more.UI.WindowsAndMessaging.SCROLLINFO_head))(('GetScrollInfo', windll['USER32.dll']), ((1, 'hwnd'),(1, 'nBar'),(1, 'lpsi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefFrameProcA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefFrameProcA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hWndMDIClient'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefFrameProcW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefFrameProcW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hWndMDIClient'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefMDIChildProcA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefMDIChildProcA', windll['USER32.dll']), ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefMDIChildProcW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('DefMDIChildProcW', windll['USER32.dll']), ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TranslateMDISysAccel():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(('TranslateMDISysAccel', windll['USER32.dll']), ((1, 'hWndClient'),(1, 'lpMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ArrangeIconicWindows():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND)(('ArrangeIconicWindows', windll['USER32.dll']), ((1, 'hWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateMDIWindowA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.LPARAM)(('CreateMDIWindowA', windll['USER32.dll']), ((1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hInstance'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateMDIWindowW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.LPARAM)(('CreateMDIWindowW', windll['USER32.dll']), ((1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hInstance'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TileWindows():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.TILE_WINDOWS_HOW,POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Foundation.HWND))(('TileWindows', windll['USER32.dll']), ((1, 'hwndParent'),(1, 'wHow'),(1, 'lpRect'),(1, 'cKids'),(1, 'lpKids'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CascadeWindows():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW,POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Foundation.HWND))(('CascadeWindows', windll['USER32.dll']), ((1, 'hwndParent'),(1, 'wHow'),(1, 'lpRect'),(1, 'cKids'),(1, 'lpKids'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SystemParametersInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION,UInt32,c_void_p,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS)(('SystemParametersInfoA', windll['USER32.dll']), ((1, 'uiAction'),(1, 'uiParam'),(1, 'pvParam'),(1, 'fWinIni'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SystemParametersInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION,UInt32,c_void_p,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS)(('SystemParametersInfoW', windll['USER32.dll']), ((1, 'uiAction'),(1, 'uiParam'),(1, 'pvParam'),(1, 'fWinIni'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SoundSentry():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('SoundSentry', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetDebugErrorLevel():
+    try:
+        return WINFUNCTYPE(Void,UInt32)(('SetDebugErrorLevel', windll['USER32.dll']), ((1, 'dwLevel'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternalGetWindowText():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,Int32)(('InternalGetWindowText', windll['USER32.dll']), ((1, 'hWnd'),(1, 'pString'),(1, 'cchMaxCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CancelShutdown():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('CancelShutdown', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetGUIThreadInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.UI.WindowsAndMessaging.GUITHREADINFO_head))(('GetGUIThreadInfo', windll['USER32.dll']), ((1, 'idThread'),(1, 'pgui'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetProcessDPIAware():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('SetProcessDPIAware', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsProcessDPIAware():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('IsProcessDPIAware', windll['USER32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InheritWindowMonitor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.HWND)(('InheritWindowMonitor', windll['USER32.dll']), ((1, 'hwnd'),(1, 'hwndInherit'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowModuleFileNameA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32)(('GetWindowModuleFileNameA', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pszFileName'),(1, 'cchFileNameMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowModuleFileNameW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32)(('GetWindowModuleFileNameW', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pszFileName'),(1, 'cchFileNameMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetCursorInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.CURSORINFO_head))(('GetCursorInfo', windll['USER32.dll']), ((1, 'pci'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetWindowInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.WINDOWINFO_head))(('GetWindowInfo', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pwi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetTitleBarInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.TITLEBARINFO_head))(('GetTitleBarInfo', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pti'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetMenuBarInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.OBJECT_IDENTIFIER,Int32,POINTER(win32more.UI.WindowsAndMessaging.MENUBARINFO_head))(('GetMenuBarInfo', windll['USER32.dll']), ((1, 'hwnd'),(1, 'idObject'),(1, 'idItem'),(1, 'pmbi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetScrollBarInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.OBJECT_IDENTIFIER,POINTER(win32more.UI.WindowsAndMessaging.SCROLLBARINFO_head))(('GetScrollBarInfo', windll['USER32.dll']), ((1, 'hwnd'),(1, 'idObject'),(1, 'psbi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAncestor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_ANCESTOR_FLAGS)(('GetAncestor', windll['USER32.dll']), ((1, 'hwnd'),(1, 'gaFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RealChildWindowFromPoint():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT)(('RealChildWindowFromPoint', windll['USER32.dll']), ((1, 'hwndParent'),(1, 'ptParentClientCoords'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RealGetWindowClassA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32)(('RealGetWindowClassA', windll['USER32.dll']), ((1, 'hwnd'),(1, 'ptszClassName'),(1, 'cchClassNameMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RealGetWindowClassW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32)(('RealGetWindowClassW', windll['USER32.dll']), ((1, 'hwnd'),(1, 'ptszClassName'),(1, 'cchClassNameMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAltTabInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,POINTER(win32more.UI.WindowsAndMessaging.ALTTABINFO_head),win32more.Foundation.PSTR,UInt32)(('GetAltTabInfoA', windll['USER32.dll']), ((1, 'hwnd'),(1, 'iItem'),(1, 'pati'),(1, 'pszItemText'),(1, 'cchItemText'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetAltTabInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,POINTER(win32more.UI.WindowsAndMessaging.ALTTABINFO_head),win32more.Foundation.PWSTR,UInt32)(('GetAltTabInfoW', windll['USER32.dll']), ((1, 'hwnd'),(1, 'iItem'),(1, 'pati'),(1, 'pszItemText'),(1, 'cchItemText'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ChangeWindowMessageFilter():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.UI.WindowsAndMessaging.CHANGE_WINDOW_MESSAGE_FILTER_FLAGS)(('ChangeWindowMessageFilter', windll['USER32.dll']), ((1, 'message'),(1, 'dwFlag'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ChangeWindowMessageFilterEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.UI.WindowsAndMessaging.WINDOW_MESSAGE_FILTER_ACTION,POINTER(win32more.UI.WindowsAndMessaging.CHANGEFILTERSTRUCT_head))(('ChangeWindowMessageFilterEx', windll['USER32.dll']), ((1, 'hwnd'),(1, 'message'),(1, 'action'),(1, 'pChangeFilterStruct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateResourceIndexer():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p))(('CreateResourceIndexer', windll['MrmSupport.dll']), ((1, 'projectRoot'),(1, 'extensionDllPath'),(1, 'ppResourceIndexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyResourceIndexer():
+    try:
+        return WINFUNCTYPE(Void,c_void_p)(('DestroyResourceIndexer', windll['MrmSupport.dll']), ((1, 'resourceIndexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IndexFilePath():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(POINTER(win32more.UI.WindowsAndMessaging.IndexedResourceQualifier_head)))(('IndexFilePath', windll['MrmSupport.dll']), ((1, 'resourceIndexer'),(1, 'filePath'),(1, 'ppResourceUri'),(1, 'pQualifierCount'),(1, 'ppQualifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DestroyIndexedResults():
+    try:
+        return WINFUNCTYPE(Void,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.UI.WindowsAndMessaging.IndexedResourceQualifier_head))(('DestroyIndexedResults', windll['MrmSupport.dll']), ((1, 'resourceUri'),(1, 'qualifierCount'),(1, 'qualifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceIndexer():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head))(('MrmCreateResourceIndexer', windll['MrmSupport.dll']), ((1, 'packageFamilyName'),(1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceIndexerFromPreviousSchemaFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head))(('MrmCreateResourceIndexerFromPreviousSchemaFile', windll['MrmSupport.dll']), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'schemaFile'),(1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceIndexerFromPreviousPriFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head))(('MrmCreateResourceIndexerFromPreviousPriFile', windll['MrmSupport.dll']), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'priFile'),(1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceIndexerFromPreviousSchemaData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head))(('MrmCreateResourceIndexerFromPreviousSchemaData', windll['MrmSupport.dll']), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'schemaXmlData'),(1, 'schemaXmlSize'),(1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceIndexerFromPreviousPriData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head))(('MrmCreateResourceIndexerFromPreviousPriData', windll['MrmSupport.dll']), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'priData'),(1, 'priSize'),(1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceIndexerWithFlags():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmIndexerFlags,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head))(('MrmCreateResourceIndexerWithFlags', windll['MrmSupport.dll']), ((1, 'packageFamilyName'),(1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'flags'),(1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmIndexString():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MrmIndexString', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'resourceUri'),(1, 'resourceString'),(1, 'qualifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmIndexEmbeddedData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(('MrmIndexEmbeddedData', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'resourceUri'),(1, 'embeddedData'),(1, 'embeddedDataSize'),(1, 'qualifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmIndexFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MrmIndexFile', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'resourceUri'),(1, 'filePath'),(1, 'qualifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmIndexFileAutoQualifiers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR)(('MrmIndexFileAutoQualifiers', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'filePath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmIndexResourceContainerAutoQualifiers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR)(('MrmIndexResourceContainerAutoQualifiers', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'containerPath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.UI.WindowsAndMessaging.MrmPackagingMode,win32more.UI.WindowsAndMessaging.MrmPackagingOptions,win32more.Foundation.PWSTR)(('MrmCreateResourceFile', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'packagingMode'),(1, 'packagingOptions'),(1, 'outputDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceFileWithChecksum():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.UI.WindowsAndMessaging.MrmPackagingMode,win32more.UI.WindowsAndMessaging.MrmPackagingOptions,UInt32,win32more.Foundation.PWSTR)(('MrmCreateResourceFileWithChecksum', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'packagingMode'),(1, 'packagingOptions'),(1, 'checksum'),(1, 'outputDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateResourceFileInMemory():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.UI.WindowsAndMessaging.MrmPackagingMode,win32more.UI.WindowsAndMessaging.MrmPackagingOptions,POINTER(c_char_p_no),POINTER(UInt32))(('MrmCreateResourceFileInMemory', windll['MrmSupport.dll']), ((1, 'indexer'),(1, 'packagingMode'),(1, 'packagingOptions'),(1, 'outputPriData'),(1, 'outputPriSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmPeekResourceIndexerMessages():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,POINTER(POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerMessage_head)),POINTER(UInt32))(('MrmPeekResourceIndexerMessages', windll['MrmSupport.dll']), ((1, 'handle'),(1, 'messages'),(1, 'numMsgs'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmDestroyIndexerAndMessages():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle)(('MrmDestroyIndexerAndMessages', windll['MrmSupport.dll']), ((1, 'indexer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmFreeMemory():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(('MrmFreeMemory', windll['MrmSupport.dll']), ((1, 'data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmDumpPriFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmDumpType,win32more.Foundation.PWSTR)(('MrmDumpPriFile', windll['MrmSupport.dll']), ((1, 'indexFileName'),(1, 'schemaPriFile'),(1, 'dumpType'),(1, 'outputXmlFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmDumpPriFileInMemory():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmDumpType,POINTER(c_char_p_no),POINTER(UInt32))(('MrmDumpPriFileInMemory', windll['MrmSupport.dll']), ((1, 'indexFileName'),(1, 'schemaPriFile'),(1, 'dumpType'),(1, 'outputXmlData'),(1, 'outputXmlSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmDumpPriDataInMemory():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.UI.WindowsAndMessaging.MrmDumpType,POINTER(c_char_p_no),POINTER(UInt32))(('MrmDumpPriDataInMemory', windll['MrmSupport.dll']), ((1, 'inputPriData'),(1, 'inputPriSize'),(1, 'schemaPriData'),(1, 'schemaPriSize'),(1, 'dumpType'),(1, 'outputXmlData'),(1, 'outputXmlSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateConfig():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MrmCreateConfig', windll['MrmSupport.dll']), ((1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'outputXmlFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmCreateConfigInMemory():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,POINTER(c_char_p_no),POINTER(UInt32))(('MrmCreateConfigInMemory', windll['MrmSupport.dll']), ((1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'outputXmlData'),(1, 'outputXmlSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MrmGetPriFileContentChecksum():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32))(('MrmGetPriFileContentChecksum', windll['MrmSupport.dll']), ((1, 'priFile'),(1, 'checksum'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AUDIODESCRIPTION_head():
+    class AUDIODESCRIPTION(Structure):
+        pass
+    return AUDIODESCRIPTION
+def _define_AUDIODESCRIPTION():
+    AUDIODESCRIPTION = win32more.UI.WindowsAndMessaging.AUDIODESCRIPTION_head
+    AUDIODESCRIPTION._fields_ = [
+        ('cbSize', UInt32),
+        ('Enabled', win32more.Foundation.BOOL),
+        ('Locale', UInt32),
+    ]
+    return AUDIODESCRIPTION
+CASCADE_WINDOWS_HOW = UInt32
+MDITILE_SKIPDISABLED = 2
+MDITILE_ZORDER = 4
+def _define_CBT_CREATEWNDA_head():
+    class CBT_CREATEWNDA(Structure):
+        pass
+    return CBT_CREATEWNDA
+def _define_CBT_CREATEWNDA():
+    CBT_CREATEWNDA = win32more.UI.WindowsAndMessaging.CBT_CREATEWNDA_head
+    CBT_CREATEWNDA._fields_ = [
+        ('lpcs', POINTER(win32more.UI.WindowsAndMessaging.CREATESTRUCTA_head)),
+        ('hwndInsertAfter', win32more.Foundation.HWND),
+    ]
+    return CBT_CREATEWNDA
+def _define_CBT_CREATEWNDW_head():
+    class CBT_CREATEWNDW(Structure):
+        pass
+    return CBT_CREATEWNDW
+def _define_CBT_CREATEWNDW():
+    CBT_CREATEWNDW = win32more.UI.WindowsAndMessaging.CBT_CREATEWNDW_head
+    CBT_CREATEWNDW._fields_ = [
+        ('lpcs', POINTER(win32more.UI.WindowsAndMessaging.CREATESTRUCTW_head)),
+        ('hwndInsertAfter', win32more.Foundation.HWND),
+    ]
+    return CBT_CREATEWNDW
+def _define_CBTACTIVATESTRUCT_head():
+    class CBTACTIVATESTRUCT(Structure):
+        pass
+    return CBTACTIVATESTRUCT
+def _define_CBTACTIVATESTRUCT():
+    CBTACTIVATESTRUCT = win32more.UI.WindowsAndMessaging.CBTACTIVATESTRUCT_head
+    CBTACTIVATESTRUCT._fields_ = [
+        ('fMouse', win32more.Foundation.BOOL),
+        ('hWndActive', win32more.Foundation.HWND),
+    ]
+    return CBTACTIVATESTRUCT
+CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = UInt32
+MSGFLT_ADD = 1
+MSGFLT_REMOVE = 2
+def _define_CHANGEFILTERSTRUCT_head():
+    class CHANGEFILTERSTRUCT(Structure):
+        pass
+    return CHANGEFILTERSTRUCT
+def _define_CHANGEFILTERSTRUCT():
+    CHANGEFILTERSTRUCT = win32more.UI.WindowsAndMessaging.CHANGEFILTERSTRUCT_head
+    CHANGEFILTERSTRUCT._fields_ = [
+        ('cbSize', UInt32),
+        ('ExtStatus', win32more.UI.WindowsAndMessaging.MSGFLTINFO_STATUS),
+    ]
+    return CHANGEFILTERSTRUCT
+def _define_CLIENTCREATESTRUCT_head():
+    class CLIENTCREATESTRUCT(Structure):
+        pass
+    return CLIENTCREATESTRUCT
+def _define_CLIENTCREATESTRUCT():
+    CLIENTCREATESTRUCT = win32more.UI.WindowsAndMessaging.CLIENTCREATESTRUCT_head
+    CLIENTCREATESTRUCT._fields_ = [
+        ('hWindowMenu', win32more.Foundation.HANDLE),
+        ('idFirstChild', UInt32),
+    ]
+    return CLIENTCREATESTRUCT
+def _define_CREATESTRUCTA_head():
+    class CREATESTRUCTA(Structure):
+        pass
+    return CREATESTRUCTA
+def _define_CREATESTRUCTA():
+    CREATESTRUCTA = win32more.UI.WindowsAndMessaging.CREATESTRUCTA_head
+    CREATESTRUCTA._fields_ = [
+        ('lpCreateParams', c_void_p),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('hMenu', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hwndParent', win32more.Foundation.HWND),
+        ('cy', Int32),
+        ('cx', Int32),
+        ('y', Int32),
+        ('x', Int32),
+        ('style', Int32),
+        ('lpszName', win32more.Foundation.PSTR),
+        ('lpszClass', win32more.Foundation.PSTR),
+        ('dwExStyle', UInt32),
+    ]
+    return CREATESTRUCTA
+def _define_CREATESTRUCTW_head():
+    class CREATESTRUCTW(Structure):
+        pass
+    return CREATESTRUCTW
+def _define_CREATESTRUCTW():
+    CREATESTRUCTW = win32more.UI.WindowsAndMessaging.CREATESTRUCTW_head
+    CREATESTRUCTW._fields_ = [
+        ('lpCreateParams', c_void_p),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('hMenu', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hwndParent', win32more.Foundation.HWND),
+        ('cy', Int32),
+        ('cx', Int32),
+        ('y', Int32),
+        ('x', Int32),
+        ('style', Int32),
+        ('lpszName', win32more.Foundation.PWSTR),
+        ('lpszClass', win32more.Foundation.PWSTR),
+        ('dwExStyle', UInt32),
+    ]
+    return CREATESTRUCTW
+def _define_CURSORINFO_head():
+    class CURSORINFO(Structure):
+        pass
+    return CURSORINFO
+def _define_CURSORINFO():
+    CURSORINFO = win32more.UI.WindowsAndMessaging.CURSORINFO_head
+    CURSORINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('flags', win32more.UI.WindowsAndMessaging.CURSORINFO_FLAGS),
+        ('hCursor', win32more.UI.WindowsAndMessaging.HCURSOR),
+        ('ptScreenPos', win32more.Foundation.POINT),
+    ]
+    return CURSORINFO
+CURSORINFO_FLAGS = UInt32
+CURSOR_SHOWING = 1
+CURSOR_SUPPRESSED = 2
+def _define_CURSORSHAPE_head():
+    class CURSORSHAPE(Structure):
+        pass
+    return CURSORSHAPE
+def _define_CURSORSHAPE():
+    CURSORSHAPE = win32more.UI.WindowsAndMessaging.CURSORSHAPE_head
+    CURSORSHAPE._fields_ = [
+        ('xHotSpot', Int32),
+        ('yHotSpot', Int32),
+        ('cx', Int32),
+        ('cy', Int32),
+        ('cbWidth', Int32),
+        ('Planes', Byte),
+        ('BitsPixel', Byte),
+    ]
+    return CURSORSHAPE
 CWP_FLAGS = UInt32
 CWP_ALL = 0
 CWP_SKIPINVISIBLE = 1
 CWP_SKIPDISABLED = 2
 CWP_SKIPTRANSPARENT = 4
+def _define_CWPRETSTRUCT_head():
+    class CWPRETSTRUCT(Structure):
+        pass
+    return CWPRETSTRUCT
+def _define_CWPRETSTRUCT():
+    CWPRETSTRUCT = win32more.UI.WindowsAndMessaging.CWPRETSTRUCT_head
+    CWPRETSTRUCT._fields_ = [
+        ('lResult', win32more.Foundation.LRESULT),
+        ('lParam', win32more.Foundation.LPARAM),
+        ('wParam', win32more.Foundation.WPARAM),
+        ('message', UInt32),
+        ('hwnd', win32more.Foundation.HWND),
+    ]
+    return CWPRETSTRUCT
+def _define_CWPSTRUCT_head():
+    class CWPSTRUCT(Structure):
+        pass
+    return CWPSTRUCT
+def _define_CWPSTRUCT():
+    CWPSTRUCT = win32more.UI.WindowsAndMessaging.CWPSTRUCT_head
+    CWPSTRUCT._fields_ = [
+        ('lParam', win32more.Foundation.LPARAM),
+        ('wParam', win32more.Foundation.WPARAM),
+        ('message', UInt32),
+        ('hwnd', win32more.Foundation.HWND),
+    ]
+    return CWPSTRUCT
+def _define_DEBUGHOOKINFO_head():
+    class DEBUGHOOKINFO(Structure):
+        pass
+    return DEBUGHOOKINFO
+def _define_DEBUGHOOKINFO():
+    DEBUGHOOKINFO = win32more.UI.WindowsAndMessaging.DEBUGHOOKINFO_head
+    DEBUGHOOKINFO._fields_ = [
+        ('idThread', UInt32),
+        ('idThreadInstaller', UInt32),
+        ('lParam', win32more.Foundation.LPARAM),
+        ('wParam', win32more.Foundation.WPARAM),
+        ('code', Int32),
+    ]
+    return DEBUGHOOKINFO
+DI_FLAGS = UInt32
+DI_MASK = 1
+DI_IMAGE = 2
+DI_NORMAL = 3
+DI_COMPAT = 4
+DI_DEFAULTSIZE = 8
+DI_NOMIRROR = 16
+def _define_DLGITEMTEMPLATE_head():
+    class DLGITEMTEMPLATE(Structure):
+        pass
+    return DLGITEMTEMPLATE
+def _define_DLGITEMTEMPLATE():
+    DLGITEMTEMPLATE = win32more.UI.WindowsAndMessaging.DLGITEMTEMPLATE_head
+    DLGITEMTEMPLATE._pack_ = 2
+    DLGITEMTEMPLATE._fields_ = [
+        ('style', UInt32),
+        ('dwExtendedStyle', UInt32),
+        ('x', Int16),
+        ('y', Int16),
+        ('cx', Int16),
+        ('cy', Int16),
+        ('id', UInt16),
+    ]
+    return DLGITEMTEMPLATE
+def _define_DLGPROC():
+    return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
+def _define_DLGTEMPLATE_head():
+    class DLGTEMPLATE(Structure):
+        pass
+    return DLGTEMPLATE
+def _define_DLGTEMPLATE():
+    DLGTEMPLATE = win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head
+    DLGTEMPLATE._pack_ = 2
+    DLGTEMPLATE._fields_ = [
+        ('style', UInt32),
+        ('dwExtendedStyle', UInt32),
+        ('cdit', UInt16),
+        ('x', Int16),
+        ('y', Int16),
+        ('cx', Int16),
+        ('cy', Int16),
+    ]
+    return DLGTEMPLATE
+def _define_DROPSTRUCT_head():
+    class DROPSTRUCT(Structure):
+        pass
+    return DROPSTRUCT
+def _define_DROPSTRUCT():
+    DROPSTRUCT = win32more.UI.WindowsAndMessaging.DROPSTRUCT_head
+    DROPSTRUCT._fields_ = [
+        ('hwndSource', win32more.Foundation.HWND),
+        ('hwndSink', win32more.Foundation.HWND),
+        ('wFmt', UInt32),
+        ('dwData', UIntPtr),
+        ('ptDrop', win32more.Foundation.POINT),
+        ('dwControlData', UInt32),
+    ]
+    return DROPSTRUCT
+EDIT_CONTROL_FEATURE = Int32
+EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT = 0
+EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS = 1
+def _define_EVENTMSG_head():
+    class EVENTMSG(Structure):
+        pass
+    return EVENTMSG
+def _define_EVENTMSG():
+    EVENTMSG = win32more.UI.WindowsAndMessaging.EVENTMSG_head
+    EVENTMSG._fields_ = [
+        ('message', UInt32),
+        ('paramL', UInt32),
+        ('paramH', UInt32),
+        ('time', UInt32),
+        ('hwnd', win32more.Foundation.HWND),
+    ]
+    return EVENTMSG
+def _define_FLASHWINFO_head():
+    class FLASHWINFO(Structure):
+        pass
+    return FLASHWINFO
+def _define_FLASHWINFO():
+    FLASHWINFO = win32more.UI.WindowsAndMessaging.FLASHWINFO_head
+    FLASHWINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('hwnd', win32more.Foundation.HWND),
+        ('dwFlags', win32more.UI.WindowsAndMessaging.FLASHWINFO_FLAGS),
+        ('uCount', UInt32),
+        ('dwTimeout', UInt32),
+    ]
+    return FLASHWINFO
+FLASHWINFO_FLAGS = UInt32
+FLASHW_ALL = 3
+FLASHW_CAPTION = 1
+FLASHW_STOP = 0
+FLASHW_TIMER = 4
+FLASHW_TIMERNOFG = 12
+FLASHW_TRAY = 2
+FOREGROUND_WINDOW_LOCK_CODE = UInt32
+LSFW_LOCK = 1
+LSFW_UNLOCK = 2
+GDI_IMAGE_TYPE = UInt32
+IMAGE_BITMAP = 0
+IMAGE_CURSOR = 2
+IMAGE_ICON = 1
+GET_ANCESTOR_FLAGS = UInt32
+GA_PARENT = 1
+GA_ROOT = 2
+GA_ROOTOWNER = 3
+GET_CLASS_LONG_INDEX = Int32
+GCW_ATOM = -32
+GCL_CBCLSEXTRA = -20
+GCL_CBWNDEXTRA = -18
+GCL_HBRBACKGROUND = -10
+GCL_HCURSOR = -12
+GCL_HICON = -14
+GCL_HICONSM = -34
+GCL_HMODULE = -16
+GCL_MENUNAME = -8
+GCL_STYLE = -26
+GCL_WNDPROC = -24
+GCLP_HBRBACKGROUND = -10
+GCLP_HCURSOR = -12
+GCLP_HICON = -14
+GCLP_HICONSM = -34
+GCLP_HMODULE = -16
+GCLP_MENUNAME = -8
+GCLP_WNDPROC = -24
+GET_MENU_DEFAULT_ITEM_FLAGS = UInt32
+GMDI_GOINTOPOPUPS = 2
+GMDI_USEDISABLED = 1
+GET_WINDOW_CMD = UInt32
+GW_CHILD = 5
+GW_ENABLEDPOPUP = 6
+GW_HWNDFIRST = 0
+GW_HWNDLAST = 1
+GW_HWNDNEXT = 2
+GW_HWNDPREV = 3
+GW_OWNER = 4
+def _define_GUITHREADINFO_head():
+    class GUITHREADINFO(Structure):
+        pass
+    return GUITHREADINFO
+def _define_GUITHREADINFO():
+    GUITHREADINFO = win32more.UI.WindowsAndMessaging.GUITHREADINFO_head
+    GUITHREADINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('flags', win32more.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS),
+        ('hwndActive', win32more.Foundation.HWND),
+        ('hwndFocus', win32more.Foundation.HWND),
+        ('hwndCapture', win32more.Foundation.HWND),
+        ('hwndMenuOwner', win32more.Foundation.HWND),
+        ('hwndMoveSize', win32more.Foundation.HWND),
+        ('hwndCaret', win32more.Foundation.HWND),
+        ('rcCaret', win32more.Foundation.RECT),
+    ]
+    return GUITHREADINFO
+GUITHREADINFO_FLAGS = UInt32
+GUI_CARETBLINKING = 1
+GUI_INMENUMODE = 4
+GUI_INMOVESIZE = 2
+GUI_POPUPMENUMODE = 16
+GUI_SYSTEMMENUMODE = 8
+HACCEL = IntPtr
+HANDEDNESS = Int32
+HANDEDNESS_LEFT = 0
+HANDEDNESS_RIGHT = 1
+def _define_HARDWAREHOOKSTRUCT_head():
+    class HARDWAREHOOKSTRUCT(Structure):
+        pass
+    return HARDWAREHOOKSTRUCT
+def _define_HARDWAREHOOKSTRUCT():
+    HARDWAREHOOKSTRUCT = win32more.UI.WindowsAndMessaging.HARDWAREHOOKSTRUCT_head
+    HARDWAREHOOKSTRUCT._fields_ = [
+        ('hwnd', win32more.Foundation.HWND),
+        ('message', UInt32),
+        ('wParam', win32more.Foundation.WPARAM),
+        ('lParam', win32more.Foundation.LPARAM),
+    ]
+    return HARDWAREHOOKSTRUCT
+HCURSOR = IntPtr
+HDWP = IntPtr
+HHOOK = IntPtr
+HICON = IntPtr
+HMENU = IntPtr
+def _define_HOOKPROC():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,Int32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
+def _define_ICONINFO_head():
+    class ICONINFO(Structure):
+        pass
+    return ICONINFO
+def _define_ICONINFO():
+    ICONINFO = win32more.UI.WindowsAndMessaging.ICONINFO_head
+    ICONINFO._fields_ = [
+        ('fIcon', win32more.Foundation.BOOL),
+        ('xHotspot', UInt32),
+        ('yHotspot', UInt32),
+        ('hbmMask', win32more.Graphics.Gdi.HBITMAP),
+        ('hbmColor', win32more.Graphics.Gdi.HBITMAP),
+    ]
+    return ICONINFO
+def _define_ICONINFOEXA_head():
+    class ICONINFOEXA(Structure):
+        pass
+    return ICONINFOEXA
+def _define_ICONINFOEXA():
+    ICONINFOEXA = win32more.UI.WindowsAndMessaging.ICONINFOEXA_head
+    ICONINFOEXA._fields_ = [
+        ('cbSize', UInt32),
+        ('fIcon', win32more.Foundation.BOOL),
+        ('xHotspot', UInt32),
+        ('yHotspot', UInt32),
+        ('hbmMask', win32more.Graphics.Gdi.HBITMAP),
+        ('hbmColor', win32more.Graphics.Gdi.HBITMAP),
+        ('wResID', UInt16),
+        ('szModName', win32more.Foundation.CHAR * 260),
+        ('szResName', win32more.Foundation.CHAR * 260),
+    ]
+    return ICONINFOEXA
+def _define_ICONINFOEXW_head():
+    class ICONINFOEXW(Structure):
+        pass
+    return ICONINFOEXW
+def _define_ICONINFOEXW():
+    ICONINFOEXW = win32more.UI.WindowsAndMessaging.ICONINFOEXW_head
+    ICONINFOEXW._fields_ = [
+        ('cbSize', UInt32),
+        ('fIcon', win32more.Foundation.BOOL),
+        ('xHotspot', UInt32),
+        ('yHotspot', UInt32),
+        ('hbmMask', win32more.Graphics.Gdi.HBITMAP),
+        ('hbmColor', win32more.Graphics.Gdi.HBITMAP),
+        ('wResID', UInt16),
+        ('szModName', Char * 260),
+        ('szResName', Char * 260),
+    ]
+    return ICONINFOEXW
+def _define_ICONMETRICSA_head():
+    class ICONMETRICSA(Structure):
+        pass
+    return ICONMETRICSA
+def _define_ICONMETRICSA():
+    ICONMETRICSA = win32more.UI.WindowsAndMessaging.ICONMETRICSA_head
+    ICONMETRICSA._fields_ = [
+        ('cbSize', UInt32),
+        ('iHorzSpacing', Int32),
+        ('iVertSpacing', Int32),
+        ('iTitleWrap', Int32),
+        ('lfFont', win32more.Graphics.Gdi.LOGFONTA),
+    ]
+    return ICONMETRICSA
+def _define_ICONMETRICSW_head():
+    class ICONMETRICSW(Structure):
+        pass
+    return ICONMETRICSW
+def _define_ICONMETRICSW():
+    ICONMETRICSW = win32more.UI.WindowsAndMessaging.ICONMETRICSW_head
+    ICONMETRICSW._fields_ = [
+        ('cbSize', UInt32),
+        ('iHorzSpacing', Int32),
+        ('iVertSpacing', Int32),
+        ('iTitleWrap', Int32),
+        ('lfFont', win32more.Graphics.Gdi.LOGFONTW),
+    ]
+    return ICONMETRICSW
+IMAGE_FLAGS = UInt32
+LR_CREATEDIBSECTION = 8192
+LR_DEFAULTCOLOR = 0
+LR_DEFAULTSIZE = 64
+LR_LOADFROMFILE = 16
+LR_LOADMAP3DCOLORS = 4096
+LR_LOADTRANSPARENT = 32
+LR_MONOCHROME = 1
+LR_SHARED = 32768
+LR_VGACOLOR = 128
+LR_COPYDELETEORG = 8
+LR_COPYFROMRESOURCE = 16384
+LR_COPYRETURNORG = 4
+def _define_IndexedResourceQualifier_head():
+    class IndexedResourceQualifier(Structure):
+        pass
+    return IndexedResourceQualifier
+def _define_IndexedResourceQualifier():
+    IndexedResourceQualifier = win32more.UI.WindowsAndMessaging.IndexedResourceQualifier_head
+    IndexedResourceQualifier._fields_ = [
+        ('name', win32more.Foundation.PWSTR),
+        ('value', win32more.Foundation.PWSTR),
+    ]
+    return IndexedResourceQualifier
+def _define_KBDLLHOOKSTRUCT_head():
+    class KBDLLHOOKSTRUCT(Structure):
+        pass
+    return KBDLLHOOKSTRUCT
+def _define_KBDLLHOOKSTRUCT():
+    KBDLLHOOKSTRUCT = win32more.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_head
+    KBDLLHOOKSTRUCT._fields_ = [
+        ('vkCode', UInt32),
+        ('scanCode', UInt32),
+        ('flags', win32more.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS),
+        ('time', UInt32),
+        ('dwExtraInfo', UIntPtr),
+    ]
+    return KBDLLHOOKSTRUCT
+KBDLLHOOKSTRUCT_FLAGS = UInt32
+LLKHF_EXTENDED = 1
+LLKHF_ALTDOWN = 32
+LLKHF_UP = 128
+LLKHF_INJECTED = 16
+LLKHF_LOWER_IL_INJECTED = 2
+LAYERED_WINDOW_ATTRIBUTES_FLAGS = UInt32
+LWA_ALPHA = 2
+LWA_COLORKEY = 1
+def _define_MDICREATESTRUCTA_head():
+    class MDICREATESTRUCTA(Structure):
+        pass
+    return MDICREATESTRUCTA
+def _define_MDICREATESTRUCTA():
+    MDICREATESTRUCTA = win32more.UI.WindowsAndMessaging.MDICREATESTRUCTA_head
+    MDICREATESTRUCTA._fields_ = [
+        ('szClass', win32more.Foundation.PSTR),
+        ('szTitle', win32more.Foundation.PSTR),
+        ('hOwner', win32more.Foundation.HANDLE),
+        ('x', Int32),
+        ('y', Int32),
+        ('cx', Int32),
+        ('cy', Int32),
+        ('style', win32more.UI.WindowsAndMessaging.WINDOW_STYLE),
+        ('lParam', win32more.Foundation.LPARAM),
+    ]
+    return MDICREATESTRUCTA
+def _define_MDICREATESTRUCTW_head():
+    class MDICREATESTRUCTW(Structure):
+        pass
+    return MDICREATESTRUCTW
+def _define_MDICREATESTRUCTW():
+    MDICREATESTRUCTW = win32more.UI.WindowsAndMessaging.MDICREATESTRUCTW_head
+    MDICREATESTRUCTW._fields_ = [
+        ('szClass', win32more.Foundation.PWSTR),
+        ('szTitle', win32more.Foundation.PWSTR),
+        ('hOwner', win32more.Foundation.HANDLE),
+        ('x', Int32),
+        ('y', Int32),
+        ('cx', Int32),
+        ('cy', Int32),
+        ('style', win32more.UI.WindowsAndMessaging.WINDOW_STYLE),
+        ('lParam', win32more.Foundation.LPARAM),
+    ]
+    return MDICREATESTRUCTW
+def _define_MDINEXTMENU_head():
+    class MDINEXTMENU(Structure):
+        pass
+    return MDINEXTMENU
+def _define_MDINEXTMENU():
+    MDINEXTMENU = win32more.UI.WindowsAndMessaging.MDINEXTMENU_head
+    MDINEXTMENU._fields_ = [
+        ('hmenuIn', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hmenuNext', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hwndNext', win32more.Foundation.HWND),
+    ]
+    return MDINEXTMENU
+MENU_ITEM_FLAGS = UInt32
+MF_BYCOMMAND = 0
+MF_BYPOSITION = 1024
+MF_BITMAP = 4
+MF_CHECKED = 8
+MF_DISABLED = 2
+MF_ENABLED = 0
+MF_GRAYED = 1
+MF_MENUBARBREAK = 32
+MF_MENUBREAK = 64
+MF_OWNERDRAW = 256
+MF_POPUP = 16
+MF_SEPARATOR = 2048
+MF_STRING = 0
+MF_UNCHECKED = 0
+MF_INSERT = 0
+MF_CHANGE = 128
+MF_APPEND = 256
+MF_DELETE = 512
+MF_REMOVE = 4096
+MF_USECHECKBITMAPS = 512
+MF_UNHILITE = 0
+MF_HILITE = 128
+MF_DEFAULT = 4096
+MF_SYSMENU = 8192
+MF_HELP = 16384
+MF_RIGHTJUSTIFY = 16384
+MF_MOUSESELECT = 32768
+MF_END = 128
+MENU_ITEM_MASK = UInt32
+MIIM_BITMAP = 128
+MIIM_CHECKMARKS = 8
+MIIM_DATA = 32
+MIIM_FTYPE = 256
+MIIM_ID = 2
+MIIM_STATE = 1
+MIIM_STRING = 64
+MIIM_SUBMENU = 4
+MIIM_TYPE = 16
+MENU_ITEM_STATE = UInt32
+MFS_GRAYED = 3
+MFS_DISABLED = 3
+MFS_CHECKED = 8
+MFS_HILITE = 128
+MFS_ENABLED = 0
+MFS_UNCHECKED = 0
+MFS_UNHILITE = 0
+MFS_DEFAULT = 4096
+MENU_ITEM_TYPE = UInt32
+MFT_BITMAP = 4
+MFT_MENUBARBREAK = 32
+MFT_MENUBREAK = 64
+MFT_OWNERDRAW = 256
+MFT_RADIOCHECK = 512
+MFT_RIGHTJUSTIFY = 16384
+MFT_RIGHTORDER = 8192
+MFT_SEPARATOR = 2048
+MFT_STRING = 0
+def _define_MENUBARINFO_head():
+    class MENUBARINFO(Structure):
+        pass
+    return MENUBARINFO
+def _define_MENUBARINFO():
+    MENUBARINFO = win32more.UI.WindowsAndMessaging.MENUBARINFO_head
+    MENUBARINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('rcBar', win32more.Foundation.RECT),
+        ('hMenu', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hwndMenu', win32more.Foundation.HWND),
+        ('_bitfield', Int32),
+    ]
+    return MENUBARINFO
+def _define_MENUGETOBJECTINFO_head():
+    class MENUGETOBJECTINFO(Structure):
+        pass
+    return MENUGETOBJECTINFO
+def _define_MENUGETOBJECTINFO():
+    MENUGETOBJECTINFO = win32more.UI.WindowsAndMessaging.MENUGETOBJECTINFO_head
+    MENUGETOBJECTINFO._fields_ = [
+        ('dwFlags', win32more.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS),
+        ('uPos', UInt32),
+        ('hmenu', win32more.UI.WindowsAndMessaging.HMENU),
+        ('riid', c_void_p),
+        ('pvObj', c_void_p),
+    ]
+    return MENUGETOBJECTINFO
+MENUGETOBJECTINFO_FLAGS = UInt32
+MNGOF_BOTTOMGAP = 2
+MNGOF_TOPGAP = 1
+def _define_MENUINFO_head():
+    class MENUINFO(Structure):
+        pass
+    return MENUINFO
+def _define_MENUINFO():
+    MENUINFO = win32more.UI.WindowsAndMessaging.MENUINFO_head
+    MENUINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('fMask', win32more.UI.WindowsAndMessaging.MENUINFO_MASK),
+        ('dwStyle', win32more.UI.WindowsAndMessaging.MENUINFO_STYLE),
+        ('cyMax', UInt32),
+        ('hbrBack', win32more.Graphics.Gdi.HBRUSH),
+        ('dwContextHelpID', UInt32),
+        ('dwMenuData', UIntPtr),
+    ]
+    return MENUINFO
+MENUINFO_MASK = UInt32
+MIM_APPLYTOSUBMENUS = 2147483648
+MIM_BACKGROUND = 2
+MIM_HELPID = 4
+MIM_MAXHEIGHT = 1
+MIM_MENUDATA = 8
+MIM_STYLE = 16
+MENUINFO_STYLE = UInt32
+MNS_AUTODISMISS = 268435456
+MNS_CHECKORBMP = 67108864
+MNS_DRAGDROP = 536870912
+MNS_MODELESS = 1073741824
+MNS_NOCHECK = 2147483648
+MNS_NOTIFYBYPOS = 134217728
+def _define_MENUITEMINFOA_head():
+    class MENUITEMINFOA(Structure):
+        pass
+    return MENUITEMINFOA
+def _define_MENUITEMINFOA():
+    MENUITEMINFOA = win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head
+    MENUITEMINFOA._fields_ = [
+        ('cbSize', UInt32),
+        ('fMask', win32more.UI.WindowsAndMessaging.MENU_ITEM_MASK),
+        ('fType', win32more.UI.WindowsAndMessaging.MENU_ITEM_TYPE),
+        ('fState', win32more.UI.WindowsAndMessaging.MENU_ITEM_STATE),
+        ('wID', UInt32),
+        ('hSubMenu', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hbmpChecked', win32more.Graphics.Gdi.HBITMAP),
+        ('hbmpUnchecked', win32more.Graphics.Gdi.HBITMAP),
+        ('dwItemData', UIntPtr),
+        ('dwTypeData', win32more.Foundation.PSTR),
+        ('cch', UInt32),
+        ('hbmpItem', win32more.Graphics.Gdi.HBITMAP),
+    ]
+    return MENUITEMINFOA
+def _define_MENUITEMINFOW_head():
+    class MENUITEMINFOW(Structure):
+        pass
+    return MENUITEMINFOW
+def _define_MENUITEMINFOW():
+    MENUITEMINFOW = win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head
+    MENUITEMINFOW._fields_ = [
+        ('cbSize', UInt32),
+        ('fMask', win32more.UI.WindowsAndMessaging.MENU_ITEM_MASK),
+        ('fType', win32more.UI.WindowsAndMessaging.MENU_ITEM_TYPE),
+        ('fState', win32more.UI.WindowsAndMessaging.MENU_ITEM_STATE),
+        ('wID', UInt32),
+        ('hSubMenu', win32more.UI.WindowsAndMessaging.HMENU),
+        ('hbmpChecked', win32more.Graphics.Gdi.HBITMAP),
+        ('hbmpUnchecked', win32more.Graphics.Gdi.HBITMAP),
+        ('dwItemData', UIntPtr),
+        ('dwTypeData', win32more.Foundation.PWSTR),
+        ('cch', UInt32),
+        ('hbmpItem', win32more.Graphics.Gdi.HBITMAP),
+    ]
+    return MENUITEMINFOW
+def _define_MENUITEMTEMPLATE_head():
+    class MENUITEMTEMPLATE(Structure):
+        pass
+    return MENUITEMTEMPLATE
+def _define_MENUITEMTEMPLATE():
+    MENUITEMTEMPLATE = win32more.UI.WindowsAndMessaging.MENUITEMTEMPLATE_head
+    MENUITEMTEMPLATE._fields_ = [
+        ('mtOption', UInt16),
+        ('mtID', UInt16),
+        ('mtString', Char * 1),
+    ]
+    return MENUITEMTEMPLATE
+def _define_MENUITEMTEMPLATEHEADER_head():
+    class MENUITEMTEMPLATEHEADER(Structure):
+        pass
+    return MENUITEMTEMPLATEHEADER
+def _define_MENUITEMTEMPLATEHEADER():
+    MENUITEMTEMPLATEHEADER = win32more.UI.WindowsAndMessaging.MENUITEMTEMPLATEHEADER_head
+    MENUITEMTEMPLATEHEADER._fields_ = [
+        ('versionNumber', UInt16),
+        ('offset', UInt16),
+    ]
+    return MENUITEMTEMPLATEHEADER
+def _define_MESSAGE_RESOURCE_BLOCK_head():
+    class MESSAGE_RESOURCE_BLOCK(Structure):
+        pass
+    return MESSAGE_RESOURCE_BLOCK
+def _define_MESSAGE_RESOURCE_BLOCK():
+    MESSAGE_RESOURCE_BLOCK = win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK_head
+    MESSAGE_RESOURCE_BLOCK._fields_ = [
+        ('LowId', UInt32),
+        ('HighId', UInt32),
+        ('OffsetToEntries', UInt32),
+    ]
+    return MESSAGE_RESOURCE_BLOCK
+def _define_MESSAGE_RESOURCE_DATA_head():
+    class MESSAGE_RESOURCE_DATA(Structure):
+        pass
+    return MESSAGE_RESOURCE_DATA
+def _define_MESSAGE_RESOURCE_DATA():
+    MESSAGE_RESOURCE_DATA = win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_DATA_head
+    MESSAGE_RESOURCE_DATA._fields_ = [
+        ('NumberOfBlocks', UInt32),
+        ('Blocks', win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK * 1),
+    ]
+    return MESSAGE_RESOURCE_DATA
+def _define_MESSAGE_RESOURCE_ENTRY_head():
+    class MESSAGE_RESOURCE_ENTRY(Structure):
+        pass
+    return MESSAGE_RESOURCE_ENTRY
+def _define_MESSAGE_RESOURCE_ENTRY():
+    MESSAGE_RESOURCE_ENTRY = win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_ENTRY_head
+    MESSAGE_RESOURCE_ENTRY._fields_ = [
+        ('Length', UInt16),
+        ('Flags', UInt16),
+        ('Text', Byte * 1),
+    ]
+    return MESSAGE_RESOURCE_ENTRY
+MESSAGEBOX_RESULT = Int32
+IDOK = 1
+IDCANCEL = 2
+IDABORT = 3
+IDRETRY = 4
+IDIGNORE = 5
+IDYES = 6
+IDNO = 7
+IDCLOSE = 8
+IDHELP = 9
+IDTRYAGAIN = 10
+IDCONTINUE = 11
+IDASYNC = 32001
+IDTIMEOUT = 32000
 MESSAGEBOX_STYLE = UInt32
 MB_ABORTRETRYIGNORE = 2
 MB_CANCELTRYCONTINUE = 6
@@ -1476,35 +4275,403 @@ MB_ICONMASK = 240
 MB_DEFMASK = 3840
 MB_MODEMASK = 12288
 MB_MISCMASK = 49152
-MENU_ITEM_FLAGS = UInt32
-MF_BYCOMMAND = 0
-MF_BYPOSITION = 1024
-MF_BITMAP = 4
-MF_CHECKED = 8
-MF_DISABLED = 2
-MF_ENABLED = 0
-MF_GRAYED = 1
-MF_MENUBARBREAK = 32
-MF_MENUBREAK = 64
-MF_OWNERDRAW = 256
-MF_POPUP = 16
-MF_SEPARATOR = 2048
-MF_STRING = 0
-MF_UNCHECKED = 0
-MF_INSERT = 0
-MF_CHANGE = 128
-MF_APPEND = 256
-MF_DELETE = 512
-MF_REMOVE = 4096
-MF_USECHECKBITMAPS = 512
-MF_UNHILITE = 0
-MF_HILITE = 128
-MF_DEFAULT = 4096
-MF_SYSMENU = 8192
-MF_HELP = 16384
-MF_RIGHTJUSTIFY = 16384
-MF_MOUSESELECT = 32768
-MF_END = 128
+def _define_MINIMIZEDMETRICS_head():
+    class MINIMIZEDMETRICS(Structure):
+        pass
+    return MINIMIZEDMETRICS
+def _define_MINIMIZEDMETRICS():
+    MINIMIZEDMETRICS = win32more.UI.WindowsAndMessaging.MINIMIZEDMETRICS_head
+    MINIMIZEDMETRICS._fields_ = [
+        ('cbSize', UInt32),
+        ('iWidth', Int32),
+        ('iHorzGap', Int32),
+        ('iVertGap', Int32),
+        ('iArrange', win32more.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE),
+    ]
+    return MINIMIZEDMETRICS
+MINIMIZEDMETRICS_ARRANGE = Int32
+ARW_BOTTOMLEFT = 0
+ARW_BOTTOMRIGHT = 1
+ARW_TOPLEFT = 2
+ARW_TOPRIGHT = 3
+def _define_MINMAXINFO_head():
+    class MINMAXINFO(Structure):
+        pass
+    return MINMAXINFO
+def _define_MINMAXINFO():
+    MINMAXINFO = win32more.UI.WindowsAndMessaging.MINMAXINFO_head
+    MINMAXINFO._fields_ = [
+        ('ptReserved', win32more.Foundation.POINT),
+        ('ptMaxSize', win32more.Foundation.POINT),
+        ('ptMaxPosition', win32more.Foundation.POINT),
+        ('ptMinTrackSize', win32more.Foundation.POINT),
+        ('ptMaxTrackSize', win32more.Foundation.POINT),
+    ]
+    return MINMAXINFO
+def _define_MOUSEHOOKSTRUCT_head():
+    class MOUSEHOOKSTRUCT(Structure):
+        pass
+    return MOUSEHOOKSTRUCT
+def _define_MOUSEHOOKSTRUCT():
+    MOUSEHOOKSTRUCT = win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCT_head
+    MOUSEHOOKSTRUCT._fields_ = [
+        ('pt', win32more.Foundation.POINT),
+        ('hwnd', win32more.Foundation.HWND),
+        ('wHitTestCode', UInt32),
+        ('dwExtraInfo', UIntPtr),
+    ]
+    return MOUSEHOOKSTRUCT
+def _define_MOUSEHOOKSTRUCTEX_head():
+    class MOUSEHOOKSTRUCTEX(Structure):
+        pass
+    return MOUSEHOOKSTRUCTEX
+def _define_MOUSEHOOKSTRUCTEX():
+    MOUSEHOOKSTRUCTEX = win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCTEX_head
+    MOUSEHOOKSTRUCTEX._fields_ = [
+        ('Base', win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCT),
+        ('mouseData', UInt32),
+    ]
+    return MOUSEHOOKSTRUCTEX
+MrmDumpType = Int32
+MrmDumpType_Basic = 0
+MrmDumpType_Detailed = 1
+MrmDumpType_Schema = 2
+MrmIndexerFlags = Int32
+MrmIndexerFlags_MrmIndexerFlagsNone = 0
+MrmIndexerFlags_MrmIndexerFlagsAutoMerge = 1
+MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum = 2
+MrmPackagingMode = Int32
+MrmPackagingMode_MrmPackagingModeStandaloneFile = 0
+MrmPackagingMode_MrmPackagingModeAutoSplit = 1
+MrmPackagingMode_MrmPackagingModeResourcePack = 2
+MrmPackagingOptions = Int32
+MrmPackagingOptions_MrmPackagingOptionsNone = 0
+MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks = 1
+MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants = 2
+MrmPlatformVersion = Int32
+MrmPlatformVersion_Default = 0
+MrmPlatformVersion_Windows10_0_0_0 = 17432576
+MrmPlatformVersion_Windows10_0_0_5 = 17432581
+def _define_MrmResourceIndexerHandle_head():
+    class MrmResourceIndexerHandle(Structure):
+        pass
+    return MrmResourceIndexerHandle
+def _define_MrmResourceIndexerHandle():
+    MrmResourceIndexerHandle = win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head
+    MrmResourceIndexerHandle._fields_ = [
+        ('handle', c_void_p),
+    ]
+    return MrmResourceIndexerHandle
+def _define_MrmResourceIndexerMessage_head():
+    class MrmResourceIndexerMessage(Structure):
+        pass
+    return MrmResourceIndexerMessage
+def _define_MrmResourceIndexerMessage():
+    MrmResourceIndexerMessage = win32more.UI.WindowsAndMessaging.MrmResourceIndexerMessage_head
+    MrmResourceIndexerMessage._fields_ = [
+        ('severity', win32more.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity),
+        ('id', UInt32),
+        ('text', win32more.Foundation.PWSTR),
+    ]
+    return MrmResourceIndexerMessage
+MrmResourceIndexerMessageSeverity = Int32
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose = 0
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo = 1
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning = 2
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError = 3
+def _define_MSG_head():
+    class MSG(Structure):
+        pass
+    return MSG
+def _define_MSG():
+    MSG = win32more.UI.WindowsAndMessaging.MSG_head
+    MSG._fields_ = [
+        ('hwnd', win32more.Foundation.HWND),
+        ('message', UInt32),
+        ('wParam', win32more.Foundation.WPARAM),
+        ('lParam', win32more.Foundation.LPARAM),
+        ('time', UInt32),
+        ('pt', win32more.Foundation.POINT),
+    ]
+    return MSG
+MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = UInt32
+MWMO_NONE = 0
+MWMO_ALERTABLE = 2
+MWMO_INPUTAVAILABLE = 4
+MWMO_WAITALL = 1
+def _define_MSGBOXCALLBACK():
+    return WINFUNCTYPE(Void,POINTER(win32more.UI.Shell.HELPINFO_head))
+def _define_MSGBOXPARAMSA_head():
+    class MSGBOXPARAMSA(Structure):
+        pass
+    return MSGBOXPARAMSA
+def _define_MSGBOXPARAMSA():
+    MSGBOXPARAMSA = win32more.UI.WindowsAndMessaging.MSGBOXPARAMSA_head
+    MSGBOXPARAMSA._fields_ = [
+        ('cbSize', UInt32),
+        ('hwndOwner', win32more.Foundation.HWND),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('lpszText', win32more.Foundation.PSTR),
+        ('lpszCaption', win32more.Foundation.PSTR),
+        ('dwStyle', win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE),
+        ('lpszIcon', win32more.Foundation.PSTR),
+        ('dwContextHelpId', UIntPtr),
+        ('lpfnMsgBoxCallback', win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK),
+        ('dwLanguageId', UInt32),
+    ]
+    return MSGBOXPARAMSA
+def _define_MSGBOXPARAMSW_head():
+    class MSGBOXPARAMSW(Structure):
+        pass
+    return MSGBOXPARAMSW
+def _define_MSGBOXPARAMSW():
+    MSGBOXPARAMSW = win32more.UI.WindowsAndMessaging.MSGBOXPARAMSW_head
+    MSGBOXPARAMSW._fields_ = [
+        ('cbSize', UInt32),
+        ('hwndOwner', win32more.Foundation.HWND),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('lpszText', win32more.Foundation.PWSTR),
+        ('lpszCaption', win32more.Foundation.PWSTR),
+        ('dwStyle', win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE),
+        ('lpszIcon', win32more.Foundation.PWSTR),
+        ('dwContextHelpId', UIntPtr),
+        ('lpfnMsgBoxCallback', win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK),
+        ('dwLanguageId', UInt32),
+    ]
+    return MSGBOXPARAMSW
+MSGFLTINFO_STATUS = UInt32
+MSGFLTINFO_NONE = 0
+MSGFLTINFO_ALLOWED_HIGHER = 3
+MSGFLTINFO_ALREADYALLOWED_FORWND = 1
+MSGFLTINFO_ALREADYDISALLOWED_FORWND = 2
+def _define_MSLLHOOKSTRUCT_head():
+    class MSLLHOOKSTRUCT(Structure):
+        pass
+    return MSLLHOOKSTRUCT
+def _define_MSLLHOOKSTRUCT():
+    MSLLHOOKSTRUCT = win32more.UI.WindowsAndMessaging.MSLLHOOKSTRUCT_head
+    MSLLHOOKSTRUCT._fields_ = [
+        ('pt', win32more.Foundation.POINT),
+        ('mouseData', UInt32),
+        ('flags', UInt32),
+        ('time', UInt32),
+        ('dwExtraInfo', UIntPtr),
+    ]
+    return MSLLHOOKSTRUCT
+def _define_NAMEENUMPROCA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.LPARAM)
+def _define_NAMEENUMPROCW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM)
+def _define_NCCALCSIZE_PARAMS_head():
+    class NCCALCSIZE_PARAMS(Structure):
+        pass
+    return NCCALCSIZE_PARAMS
+def _define_NCCALCSIZE_PARAMS():
+    NCCALCSIZE_PARAMS = win32more.UI.WindowsAndMessaging.NCCALCSIZE_PARAMS_head
+    NCCALCSIZE_PARAMS._fields_ = [
+        ('rgrc', win32more.Foundation.RECT * 3),
+        ('lppos', POINTER(win32more.UI.WindowsAndMessaging.WINDOWPOS_head)),
+    ]
+    return NCCALCSIZE_PARAMS
+def _define_NONCLIENTMETRICSA_head():
+    class NONCLIENTMETRICSA(Structure):
+        pass
+    return NONCLIENTMETRICSA
+def _define_NONCLIENTMETRICSA():
+    NONCLIENTMETRICSA = win32more.UI.WindowsAndMessaging.NONCLIENTMETRICSA_head
+    NONCLIENTMETRICSA._fields_ = [
+        ('cbSize', UInt32),
+        ('iBorderWidth', Int32),
+        ('iScrollWidth', Int32),
+        ('iScrollHeight', Int32),
+        ('iCaptionWidth', Int32),
+        ('iCaptionHeight', Int32),
+        ('lfCaptionFont', win32more.Graphics.Gdi.LOGFONTA),
+        ('iSmCaptionWidth', Int32),
+        ('iSmCaptionHeight', Int32),
+        ('lfSmCaptionFont', win32more.Graphics.Gdi.LOGFONTA),
+        ('iMenuWidth', Int32),
+        ('iMenuHeight', Int32),
+        ('lfMenuFont', win32more.Graphics.Gdi.LOGFONTA),
+        ('lfStatusFont', win32more.Graphics.Gdi.LOGFONTA),
+        ('lfMessageFont', win32more.Graphics.Gdi.LOGFONTA),
+        ('iPaddedBorderWidth', Int32),
+    ]
+    return NONCLIENTMETRICSA
+def _define_NONCLIENTMETRICSW_head():
+    class NONCLIENTMETRICSW(Structure):
+        pass
+    return NONCLIENTMETRICSW
+def _define_NONCLIENTMETRICSW():
+    NONCLIENTMETRICSW = win32more.UI.WindowsAndMessaging.NONCLIENTMETRICSW_head
+    NONCLIENTMETRICSW._fields_ = [
+        ('cbSize', UInt32),
+        ('iBorderWidth', Int32),
+        ('iScrollWidth', Int32),
+        ('iScrollHeight', Int32),
+        ('iCaptionWidth', Int32),
+        ('iCaptionHeight', Int32),
+        ('lfCaptionFont', win32more.Graphics.Gdi.LOGFONTW),
+        ('iSmCaptionWidth', Int32),
+        ('iSmCaptionHeight', Int32),
+        ('lfSmCaptionFont', win32more.Graphics.Gdi.LOGFONTW),
+        ('iMenuWidth', Int32),
+        ('iMenuHeight', Int32),
+        ('lfMenuFont', win32more.Graphics.Gdi.LOGFONTW),
+        ('lfStatusFont', win32more.Graphics.Gdi.LOGFONTW),
+        ('lfMessageFont', win32more.Graphics.Gdi.LOGFONTW),
+        ('iPaddedBorderWidth', Int32),
+    ]
+    return NONCLIENTMETRICSW
+OBJECT_IDENTIFIER = Int32
+OBJID_WINDOW = 0
+OBJID_SYSMENU = -1
+OBJID_TITLEBAR = -2
+OBJID_MENU = -3
+OBJID_CLIENT = -4
+OBJID_VSCROLL = -5
+OBJID_HSCROLL = -6
+OBJID_SIZEGRIP = -7
+OBJID_CARET = -8
+OBJID_CURSOR = -9
+OBJID_ALERT = -10
+OBJID_SOUND = -11
+OBJID_QUERYCLASSNAMEIDX = -12
+OBJID_NATIVEOM = -16
+PEEK_MESSAGE_REMOVE_TYPE = UInt32
+PM_NOREMOVE = 0
+PM_REMOVE = 1
+PM_NOYIELD = 2
+PM_QS_INPUT = 67567616
+PM_QS_POSTMESSAGE = 9961472
+PM_QS_PAINT = 2097152
+PM_QS_SENDMESSAGE = 4194304
+POINTER_INPUT_TYPE = Int32
+PT_POINTER = 1
+PT_TOUCH = 2
+PT_PEN = 3
+PT_MOUSE = 4
+PT_TOUCHPAD = 5
+def _define_PREGISTERCLASSNAMEW():
+    return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.PWSTR)
+def _define_PROPENUMPROCA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.HANDLE)
+def _define_PROPENUMPROCEXA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.HANDLE,UIntPtr)
+def _define_PROPENUMPROCEXW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE,UIntPtr)
+def _define_PROPENUMPROCW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE)
+QUEUE_STATUS_FLAGS = UInt32
+QS_ALLEVENTS = 1215
+QS_ALLINPUT = 1279
+QS_ALLPOSTMESSAGE = 256
+QS_HOTKEY = 128
+QS_INPUT = 1031
+QS_KEY = 1
+QS_MOUSE = 6
+QS_MOUSEBUTTON = 4
+QS_MOUSEMOVE = 2
+QS_PAINT = 32
+QS_POSTMESSAGE = 8
+QS_RAWINPUT = 1024
+QS_SENDMESSAGE = 64
+QS_TIMER = 16
+SCROLLBAR_COMMAND = Int32
+SB_LINEUP = 0
+SB_LINELEFT = 0
+SB_LINEDOWN = 1
+SB_LINERIGHT = 1
+SB_PAGEUP = 2
+SB_PAGELEFT = 2
+SB_PAGEDOWN = 3
+SB_PAGERIGHT = 3
+SB_THUMBPOSITION = 4
+SB_THUMBTRACK = 5
+SB_TOP = 6
+SB_LEFT = 6
+SB_RIGHT = 7
+SB_BOTTOM = 7
+SB_ENDSCROLL = 8
+SCROLLBAR_CONSTANTS = UInt32
+SB_CTL = 2
+SB_HORZ = 0
+SB_VERT = 1
+SB_BOTH = 3
+def _define_SCROLLBARINFO_head():
+    class SCROLLBARINFO(Structure):
+        pass
+    return SCROLLBARINFO
+def _define_SCROLLBARINFO():
+    SCROLLBARINFO = win32more.UI.WindowsAndMessaging.SCROLLBARINFO_head
+    SCROLLBARINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('rcScrollBar', win32more.Foundation.RECT),
+        ('dxyLineButton', Int32),
+        ('xyThumbTop', Int32),
+        ('xyThumbBottom', Int32),
+        ('reserved', Int32),
+        ('rgstate', UInt32 * 6),
+    ]
+    return SCROLLBARINFO
+def _define_SCROLLINFO_head():
+    class SCROLLINFO(Structure):
+        pass
+    return SCROLLINFO
+def _define_SCROLLINFO():
+    SCROLLINFO = win32more.UI.WindowsAndMessaging.SCROLLINFO_head
+    SCROLLINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('fMask', win32more.UI.WindowsAndMessaging.SCROLLINFO_MASK),
+        ('nMin', Int32),
+        ('nMax', Int32),
+        ('nPage', UInt32),
+        ('nPos', Int32),
+        ('nTrackPos', Int32),
+    ]
+    return SCROLLINFO
+SCROLLINFO_MASK = UInt32
+SIF_ALL = 23
+SIF_DISABLENOSCROLL = 8
+SIF_PAGE = 2
+SIF_POS = 4
+SIF_RANGE = 1
+SIF_TRACKPOS = 16
+SEND_MESSAGE_TIMEOUT_FLAGS = UInt32
+SMTO_ABORTIFHUNG = 2
+SMTO_BLOCK = 1
+SMTO_NORMAL = 0
+SMTO_NOTIMEOUTIFNOTHUNG = 8
+SMTO_ERRORONEXIT = 32
+def _define_SENDASYNCPROC():
+    return WINFUNCTYPE(Void,win32more.Foundation.HWND,UInt32,UIntPtr,win32more.Foundation.LRESULT)
+SET_WINDOW_POS_FLAGS = UInt32
+SWP_ASYNCWINDOWPOS = 16384
+SWP_DEFERERASE = 8192
+SWP_DRAWFRAME = 32
+SWP_FRAMECHANGED = 32
+SWP_HIDEWINDOW = 128
+SWP_NOACTIVATE = 16
+SWP_NOCOPYBITS = 256
+SWP_NOMOVE = 2
+SWP_NOOWNERZORDER = 512
+SWP_NOREDRAW = 8
+SWP_NOREPOSITION = 512
+SWP_NOSENDCHANGING = 1024
+SWP_NOSIZE = 1
+SWP_NOZORDER = 4
+SWP_SHOWWINDOW = 64
+def _define_SHELLHOOKINFO_head():
+    class SHELLHOOKINFO(Structure):
+        pass
+    return SHELLHOOKINFO
+def _define_SHELLHOOKINFO():
+    SHELLHOOKINFO = win32more.UI.WindowsAndMessaging.SHELLHOOKINFO_head
+    SHELLHOOKINFO._fields_ = [
+        ('hwnd', win32more.Foundation.HWND),
+        ('rc', win32more.Foundation.RECT),
+    ]
+    return SHELLHOOKINFO
 SHOW_WINDOW_CMD = UInt32
 SW_FORCEMINIMIZE = 11
 SW_HIDE = 0
@@ -1529,6 +4696,128 @@ SW_SCROLLCHILDREN = 1
 SW_INVALIDATE = 2
 SW_ERASE = 4
 SW_SMOOTHSCROLL = 16
+def _define_STYLESTRUCT_head():
+    class STYLESTRUCT(Structure):
+        pass
+    return STYLESTRUCT
+def _define_STYLESTRUCT():
+    STYLESTRUCT = win32more.UI.WindowsAndMessaging.STYLESTRUCT_head
+    STYLESTRUCT._fields_ = [
+        ('styleOld', UInt32),
+        ('styleNew', UInt32),
+    ]
+    return STYLESTRUCT
+SYSTEM_CURSOR_ID = UInt32
+OCR_APPSTARTING = 32650
+OCR_NORMAL = 32512
+OCR_CROSS = 32515
+OCR_HAND = 32649
+OCR_HELP = 32651
+OCR_IBEAM = 32513
+OCR_NO = 32648
+OCR_SIZEALL = 32646
+OCR_SIZENESW = 32643
+OCR_SIZENS = 32645
+OCR_SIZENWSE = 32642
+OCR_SIZEWE = 32644
+OCR_UP = 32516
+OCR_WAIT = 32514
+SYSTEM_METRICS_INDEX = UInt32
+SM_ARRANGE = 56
+SM_CLEANBOOT = 67
+SM_CMONITORS = 80
+SM_CMOUSEBUTTONS = 43
+SM_CONVERTIBLESLATEMODE = 8195
+SM_CXBORDER = 5
+SM_CXCURSOR = 13
+SM_CXDLGFRAME = 7
+SM_CXDOUBLECLK = 36
+SM_CXDRAG = 68
+SM_CXEDGE = 45
+SM_CXFIXEDFRAME = 7
+SM_CXFOCUSBORDER = 83
+SM_CXFRAME = 32
+SM_CXFULLSCREEN = 16
+SM_CXHSCROLL = 21
+SM_CXHTHUMB = 10
+SM_CXICON = 11
+SM_CXICONSPACING = 38
+SM_CXMAXIMIZED = 61
+SM_CXMAXTRACK = 59
+SM_CXMENUCHECK = 71
+SM_CXMENUSIZE = 54
+SM_CXMIN = 28
+SM_CXMINIMIZED = 57
+SM_CXMINSPACING = 47
+SM_CXMINTRACK = 34
+SM_CXPADDEDBORDER = 92
+SM_CXSCREEN = 0
+SM_CXSIZE = 30
+SM_CXSIZEFRAME = 32
+SM_CXSMICON = 49
+SM_CXSMSIZE = 52
+SM_CXVIRTUALSCREEN = 78
+SM_CXVSCROLL = 2
+SM_CYBORDER = 6
+SM_CYCAPTION = 4
+SM_CYCURSOR = 14
+SM_CYDLGFRAME = 8
+SM_CYDOUBLECLK = 37
+SM_CYDRAG = 69
+SM_CYEDGE = 46
+SM_CYFIXEDFRAME = 8
+SM_CYFOCUSBORDER = 84
+SM_CYFRAME = 33
+SM_CYFULLSCREEN = 17
+SM_CYHSCROLL = 3
+SM_CYICON = 12
+SM_CYICONSPACING = 39
+SM_CYKANJIWINDOW = 18
+SM_CYMAXIMIZED = 62
+SM_CYMAXTRACK = 60
+SM_CYMENU = 15
+SM_CYMENUCHECK = 72
+SM_CYMENUSIZE = 55
+SM_CYMIN = 29
+SM_CYMINIMIZED = 58
+SM_CYMINSPACING = 48
+SM_CYMINTRACK = 35
+SM_CYSCREEN = 1
+SM_CYSIZE = 31
+SM_CYSIZEFRAME = 33
+SM_CYSMCAPTION = 51
+SM_CYSMICON = 50
+SM_CYSMSIZE = 53
+SM_CYVIRTUALSCREEN = 79
+SM_CYVSCROLL = 20
+SM_CYVTHUMB = 9
+SM_DBCSENABLED = 42
+SM_DEBUG = 22
+SM_DIGITIZER = 94
+SM_IMMENABLED = 82
+SM_MAXIMUMTOUCHES = 95
+SM_MEDIACENTER = 87
+SM_MENUDROPALIGNMENT = 40
+SM_MIDEASTENABLED = 74
+SM_MOUSEPRESENT = 19
+SM_MOUSEHORIZONTALWHEELPRESENT = 91
+SM_MOUSEWHEELPRESENT = 75
+SM_NETWORK = 63
+SM_PENWINDOWS = 41
+SM_REMOTECONTROL = 8193
+SM_REMOTESESSION = 4096
+SM_SAMEDISPLAYFORMAT = 81
+SM_SECURE = 44
+SM_SERVERR2 = 89
+SM_SHOWSOUNDS = 70
+SM_SHUTTINGDOWN = 8192
+SM_SLOWMACHINE = 73
+SM_STARTER = 88
+SM_SWAPBUTTON = 23
+SM_SYSTEMDOCKED = 8196
+SM_TABLETPC = 86
+SM_XVIRTUALSCREEN = 76
+SM_YVIRTUALSCREEN = 77
 SYSTEM_PARAMETERS_INFO_ACTION = UInt32
 SPI_GETBEEP = 1
 SPI_SETBEEP = 2
@@ -1771,6 +5060,64 @@ SPI_GETCARETTIMEOUT = 8226
 SPI_SETCARETTIMEOUT = 8227
 SPI_GETHANDEDNESS = 8228
 SPI_SETHANDEDNESS = 8229
+SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = UInt32
+SPIF_UPDATEINIFILE = 1
+SPIF_SENDCHANGE = 2
+SPIF_SENDWININICHANGE = 2
+TILE_WINDOWS_HOW = UInt32
+MDITILE_HORIZONTAL = 1
+MDITILE_VERTICAL = 0
+def _define_TIMERPROC():
+    return WINFUNCTYPE(Void,win32more.Foundation.HWND,UInt32,UIntPtr,UInt32)
+def _define_TITLEBARINFO_head():
+    class TITLEBARINFO(Structure):
+        pass
+    return TITLEBARINFO
+def _define_TITLEBARINFO():
+    TITLEBARINFO = win32more.UI.WindowsAndMessaging.TITLEBARINFO_head
+    TITLEBARINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('rcTitleBar', win32more.Foundation.RECT),
+        ('rgstate', UInt32 * 6),
+    ]
+    return TITLEBARINFO
+def _define_TITLEBARINFOEX_head():
+    class TITLEBARINFOEX(Structure):
+        pass
+    return TITLEBARINFOEX
+def _define_TITLEBARINFOEX():
+    TITLEBARINFOEX = win32more.UI.WindowsAndMessaging.TITLEBARINFOEX_head
+    TITLEBARINFOEX._fields_ = [
+        ('cbSize', UInt32),
+        ('rcTitleBar', win32more.Foundation.RECT),
+        ('rgstate', UInt32 * 6),
+        ('rgrect', win32more.Foundation.RECT * 6),
+    ]
+    return TITLEBARINFOEX
+def _define_TOUCHPREDICTIONPARAMETERS_head():
+    class TOUCHPREDICTIONPARAMETERS(Structure):
+        pass
+    return TOUCHPREDICTIONPARAMETERS
+def _define_TOUCHPREDICTIONPARAMETERS():
+    TOUCHPREDICTIONPARAMETERS = win32more.UI.WindowsAndMessaging.TOUCHPREDICTIONPARAMETERS_head
+    TOUCHPREDICTIONPARAMETERS._fields_ = [
+        ('cbSize', UInt32),
+        ('dwLatency', UInt32),
+        ('dwSampleTime', UInt32),
+        ('bUseHWTimeStamp', UInt32),
+    ]
+    return TOUCHPREDICTIONPARAMETERS
+def _define_TPMPARAMS_head():
+    class TPMPARAMS(Structure):
+        pass
+    return TPMPARAMS
+def _define_TPMPARAMS():
+    TPMPARAMS = win32more.UI.WindowsAndMessaging.TPMPARAMS_head
+    TPMPARAMS._fields_ = [
+        ('cbSize', UInt32),
+        ('rcExclude', win32more.Foundation.RECT),
+    ]
+    return TPMPARAMS
 TRACK_POPUP_MENU_FLAGS = UInt32
 TPM_LEFTBUTTON = 0
 TPM_RIGHTBUTTON = 2
@@ -1792,6 +5139,34 @@ TPM_VERNEGANIMATION = 8192
 TPM_NOANIMATION = 16384
 TPM_LAYOUTRTL = 32768
 TPM_WORKAREA = 65536
+UPDATE_LAYERED_WINDOW_FLAGS = UInt32
+ULW_ALPHA = 2
+ULW_COLORKEY = 1
+ULW_OPAQUE = 4
+ULW_EX_NORESIZE = 8
+def _define_UPDATELAYEREDWINDOWINFO_head():
+    class UPDATELAYEREDWINDOWINFO(Structure):
+        pass
+    return UPDATELAYEREDWINDOWINFO
+def _define_UPDATELAYEREDWINDOWINFO():
+    UPDATELAYEREDWINDOWINFO = win32more.UI.WindowsAndMessaging.UPDATELAYEREDWINDOWINFO_head
+    UPDATELAYEREDWINDOWINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('hdcDst', win32more.Graphics.Gdi.HDC),
+        ('pptDst', POINTER(win32more.Foundation.POINT_head)),
+        ('psize', POINTER(win32more.Foundation.SIZE_head)),
+        ('hdcSrc', win32more.Graphics.Gdi.HDC),
+        ('pptSrc', POINTER(win32more.Foundation.POINT_head)),
+        ('crKey', win32more.Foundation.COLORREF),
+        ('pblend', POINTER(win32more.Graphics.Gdi.BLENDFUNCTION_head)),
+        ('dwFlags', win32more.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS),
+        ('prcDirty', POINTER(win32more.Foundation.RECT_head)),
+    ]
+    return UPDATELAYEREDWINDOWINFO
+WINDOW_DISPLAY_AFFINITY = UInt32
+WDA_NONE = 0
+WDA_MONITOR = 1
+WDA_EXCLUDEFROMCAPTURE = 17
 WINDOW_EX_STYLE = UInt32
 WS_EX_DLGMODALFRAME = 1
 WS_EX_NOPARENTNOTIFY = 4
@@ -1820,6 +5195,23 @@ WS_EX_NOREDIRECTIONBITMAP = 2097152
 WS_EX_LAYOUTRTL = 4194304
 WS_EX_COMPOSITED = 33554432
 WS_EX_NOACTIVATE = 134217728
+WINDOW_LONG_PTR_INDEX = Int32
+GWL_EXSTYLE = -20
+GWLP_HINSTANCE = -6
+GWLP_HWNDPARENT = -8
+GWLP_ID = -12
+GWL_STYLE = -16
+GWLP_USERDATA = -21
+GWLP_WNDPROC = -4
+GWL_HINSTANCE = -6
+GWL_ID = -12
+GWL_USERDATA = -21
+GWL_WNDPROC = -4
+GWL_HWNDPARENT = -8
+WINDOW_MESSAGE_FILTER_ACTION = UInt32
+MSGFLT_ALLOW = 1
+MSGFLT_DISALLOW = 2
+MSGFLT_RESET = 0
 WINDOW_STYLE = UInt32
 WS_OVERLAPPED = 0
 WS_POPUP = 2147483648
@@ -1849,113 +5241,60 @@ WS_OVERLAPPEDWINDOW = 13565952
 WS_POPUPWINDOW = 2156396544
 WS_CHILDWINDOW = 1073741824
 WS_ACTIVECAPTION = 1
-OBJECT_IDENTIFIER = Int32
-OBJID_WINDOW = 0
-OBJID_SYSMENU = -1
-OBJID_TITLEBAR = -2
-OBJID_MENU = -3
-OBJID_CLIENT = -4
-OBJID_VSCROLL = -5
-OBJID_HSCROLL = -6
-OBJID_SIZEGRIP = -7
-OBJID_CARET = -8
-OBJID_CURSOR = -9
-OBJID_ALERT = -10
-OBJID_SOUND = -11
-OBJID_QUERYCLASSNAMEIDX = -12
-OBJID_NATIVEOM = -16
-MENU_ITEM_TYPE = UInt32
-MFT_BITMAP = 4
-MFT_MENUBARBREAK = 32
-MFT_MENUBREAK = 64
-MFT_OWNERDRAW = 256
-MFT_RADIOCHECK = 512
-MFT_RIGHTJUSTIFY = 16384
-MFT_RIGHTORDER = 8192
-MFT_SEPARATOR = 2048
-MFT_STRING = 0
-MESSAGEBOX_RESULT = Int32
-IDOK = 1
-IDCANCEL = 2
-IDABORT = 3
-IDRETRY = 4
-IDIGNORE = 5
-IDYES = 6
-IDNO = 7
-IDCLOSE = 8
-IDHELP = 9
-IDTRYAGAIN = 10
-IDCONTINUE = 11
-IDASYNC = 32001
-IDTIMEOUT = 32000
-MENU_ITEM_STATE = UInt32
-MFS_GRAYED = 3
-MFS_DISABLED = 3
-MFS_CHECKED = 8
-MFS_HILITE = 128
-MFS_ENABLED = 0
-MFS_UNCHECKED = 0
-MFS_UNHILITE = 0
-MFS_DEFAULT = 4096
-SCROLLBAR_CONSTANTS = UInt32
-SB_CTL = 2
-SB_HORZ = 0
-SB_VERT = 1
-SB_BOTH = 3
-GET_CLASS_LONG_INDEX = Int32
-GCW_ATOM = -32
-GCL_CBCLSEXTRA = -20
-GCL_CBWNDEXTRA = -18
-GCL_HBRBACKGROUND = -10
-GCL_HCURSOR = -12
-GCL_HICON = -14
-GCL_HICONSM = -34
-GCL_HMODULE = -16
-GCL_MENUNAME = -8
-GCL_STYLE = -26
-GCL_WNDPROC = -24
-GCLP_HBRBACKGROUND = -10
-GCLP_HCURSOR = -12
-GCLP_HICON = -14
-GCLP_HICONSM = -34
-GCLP_HMODULE = -16
-GCLP_MENUNAME = -8
-GCLP_WNDPROC = -24
-UPDATE_LAYERED_WINDOW_FLAGS = UInt32
-ULW_ALPHA = 2
-ULW_COLORKEY = 1
-ULW_OPAQUE = 4
-ULW_EX_NORESIZE = 8
-WINDOW_LONG_PTR_INDEX = Int32
-GWL_EXSTYLE = -20
-GWLP_HINSTANCE = -6
-GWLP_HWNDPARENT = -8
-GWLP_ID = -12
-GWL_STYLE = -16
-GWLP_USERDATA = -21
-GWLP_WNDPROC = -4
-GWL_HINSTANCE = -6
-GWL_ID = -12
-GWL_USERDATA = -21
-GWL_WNDPROC = -4
-GWL_HWNDPARENT = -8
-ANIMATE_WINDOW_FLAGS = UInt32
-AW_ACTIVATE = 131072
-AW_BLEND = 524288
-AW_CENTER = 16
-AW_HIDE = 65536
-AW_HOR_POSITIVE = 1
-AW_HOR_NEGATIVE = 2
-AW_SLIDE = 262144
-AW_VER_POSITIVE = 4
-AW_VER_NEGATIVE = 8
-CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = UInt32
-MSGFLT_ADD = 1
-MSGFLT_REMOVE = 2
-GDI_IMAGE_TYPE = UInt32
-IMAGE_BITMAP = 0
-IMAGE_CURSOR = 2
-IMAGE_ICON = 1
+def _define_WINDOWINFO_head():
+    class WINDOWINFO(Structure):
+        pass
+    return WINDOWINFO
+def _define_WINDOWINFO():
+    WINDOWINFO = win32more.UI.WindowsAndMessaging.WINDOWINFO_head
+    WINDOWINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('rcWindow', win32more.Foundation.RECT),
+        ('rcClient', win32more.Foundation.RECT),
+        ('dwStyle', UInt32),
+        ('dwExStyle', UInt32),
+        ('dwWindowStatus', UInt32),
+        ('cxWindowBorders', UInt32),
+        ('cyWindowBorders', UInt32),
+        ('atomWindowType', UInt16),
+        ('wCreatorVersion', UInt16),
+    ]
+    return WINDOWINFO
+def _define_WINDOWPLACEMENT_head():
+    class WINDOWPLACEMENT(Structure):
+        pass
+    return WINDOWPLACEMENT
+def _define_WINDOWPLACEMENT():
+    WINDOWPLACEMENT = win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_head
+    WINDOWPLACEMENT._fields_ = [
+        ('length', UInt32),
+        ('flags', win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS),
+        ('showCmd', win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD),
+        ('ptMinPosition', win32more.Foundation.POINT),
+        ('ptMaxPosition', win32more.Foundation.POINT),
+        ('rcNormalPosition', win32more.Foundation.RECT),
+    ]
+    return WINDOWPLACEMENT
+WINDOWPLACEMENT_FLAGS = UInt32
+WPF_ASYNCWINDOWPLACEMENT = 4
+WPF_RESTORETOMAXIMIZED = 2
+WPF_SETMINPOSITION = 1
+def _define_WINDOWPOS_head():
+    class WINDOWPOS(Structure):
+        pass
+    return WINDOWPOS
+def _define_WINDOWPOS():
+    WINDOWPOS = win32more.UI.WindowsAndMessaging.WINDOWPOS_head
+    WINDOWPOS._fields_ = [
+        ('hwnd', win32more.Foundation.HWND),
+        ('hwndInsertAfter', win32more.Foundation.HWND),
+        ('x', Int32),
+        ('y', Int32),
+        ('cx', Int32),
+        ('cy', Int32),
+        ('flags', win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS),
+    ]
+    return WINDOWPOS
 WINDOWS_HOOK_ID = Int32
 WH_CALLWNDPROC = 4
 WH_CALLWNDPROCRET = 12
@@ -1972,565 +5311,39 @@ WH_MOUSE_LL = 14
 WH_MSGFILTER = -1
 WH_SHELL = 10
 WH_SYSMSGFILTER = 6
-IMAGE_FLAGS = UInt32
-LR_CREATEDIBSECTION = 8192
-LR_DEFAULTCOLOR = 0
-LR_DEFAULTSIZE = 64
-LR_LOADFROMFILE = 16
-LR_LOADMAP3DCOLORS = 4096
-LR_LOADTRANSPARENT = 32
-LR_MONOCHROME = 1
-LR_SHARED = 32768
-LR_VGACOLOR = 128
-LR_COPYDELETEORG = 8
-LR_COPYFROMRESOURCE = 16384
-LR_COPYRETURNORG = 4
-SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = UInt32
-SPIF_UPDATEINIFILE = 1
-SPIF_SENDCHANGE = 2
-SPIF_SENDWININICHANGE = 2
-SET_WINDOW_POS_FLAGS = UInt32
-SWP_ASYNCWINDOWPOS = 16384
-SWP_DEFERERASE = 8192
-SWP_DRAWFRAME = 32
-SWP_FRAMECHANGED = 32
-SWP_HIDEWINDOW = 128
-SWP_NOACTIVATE = 16
-SWP_NOCOPYBITS = 256
-SWP_NOMOVE = 2
-SWP_NOOWNERZORDER = 512
-SWP_NOREDRAW = 8
-SWP_NOREPOSITION = 512
-SWP_NOSENDCHANGING = 1024
-SWP_NOSIZE = 1
-SWP_NOZORDER = 4
-SWP_SHOWWINDOW = 64
-SWP__NOOWNERZORDER = 512
-MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = UInt32
-MWMO_NONE = 0
-MWMO_ALERTABLE = 2
-MWMO_INPUTAVAILABLE = 4
-MWMO_WAITALL = 1
-QUEUE_STATUS_FLAGS = UInt32
-QS_ALLEVENTS = 1215
-QS_ALLINPUT = 1279
-QS_ALLPOSTMESSAGE = 256
-QS_HOTKEY = 128
-QS_INPUT = 1031
-QS_KEY = 1
-QS_MOUSE = 6
-QS_MOUSEBUTTON = 4
-QS_MOUSEMOVE = 2
-QS_PAINT = 32
-QS_POSTMESSAGE = 8
-QS_RAWINPUT = 1024
-QS_SENDMESSAGE = 64
-QS_TIMER = 16
-SYSTEM_CURSOR_ID = UInt32
-OCR_APPSTARTING = 32650
-OCR_NORMAL = 32512
-OCR_CROSS = 32515
-OCR_HAND = 32649
-OCR_HELP = 32651
-OCR_IBEAM = 32513
-OCR_NO = 32648
-OCR_SIZEALL = 32646
-OCR_SIZENESW = 32643
-OCR_SIZENS = 32645
-OCR_SIZENWSE = 32642
-OCR_SIZEWE = 32644
-OCR_UP = 32516
-OCR_WAIT = 32514
-LAYERED_WINDOW_ATTRIBUTES_FLAGS = UInt32
-LWA_ALPHA = 2
-LWA_COLORKEY = 1
-SEND_MESSAGE_TIMEOUT_FLAGS = UInt32
-SMTO_ABORTIFHUNG = 2
-SMTO_BLOCK = 1
-SMTO_NORMAL = 0
-SMTO_NOTIMEOUTIFNOTHUNG = 8
-SMTO_ERRORONEXIT = 32
-PEEK_MESSAGE_REMOVE_TYPE = UInt32
-PM_NOREMOVE = 0
-PM_REMOVE = 1
-PM_NOYIELD = 2
-PM_QS_INPUT = 67567616
-PM_QS_POSTMESSAGE = 9961472
-PM_QS_PAINT = 2097152
-PM_QS_SENDMESSAGE = 4194304
-SYS_COLOR_INDEX = UInt32
-COLOR_3DDKSHADOW = 21
-COLOR_3DFACE = 15
-COLOR_3DHIGHLIGHT = 20
-COLOR_3DHILIGHT = 20
-COLOR_3DLIGHT = 22
-COLOR_3DSHADOW = 16
-COLOR_ACTIVEBORDER = 10
-COLOR_ACTIVECAPTION = 2
-COLOR_APPWORKSPACE = 12
-COLOR_BACKGROUND = 1
-COLOR_BTNFACE = 15
-_COLOR_BTNHIGHLIGHT = 20
-_COLOR_BTNHILIGHT = 20
-COLOR_BTNSHADOW = 16
-COLOR_BTNTEXT = 18
-COLOR_CAPTIONTEXT = 9
-COLOR_DESKTOP = 1
-COLOR_GRADIENTACTIVECAPTION = 27
-COLOR_GRADIENTINACTIVECAPTION = 28
-COLOR_GRAYTEXT = 17
-COLOR_HIGHLIGHT = 13
-COLOR_HIGHLIGHTTEXT = 14
-COLOR_HOTLIGHT = 26
-COLOR_INACTIVEBORDER = 11
-COLOR_INACTIVECAPTION = 3
-COLOR_INACTIVECAPTIONTEXT = 19
-COLOR_INFOBK = 24
-COLOR_INFOTEXT = 23
-COLOR_MENU = 4
-COLOR_MENUHILIGHT = 29
-COLOR_MENUBAR = 30
-COLOR_MENUTEXT = 7
-COLOR_SCROLLBAR = 0
-COLOR_WINDOW = 5
-COLOR_WINDOWFRAME = 6
-COLOR_WINDOWTEXT = 8
-GET_WINDOW_CMD = UInt32
-GW_CHILD = 5
-GW_ENABLEDPOPUP = 6
-GW_HWNDFIRST = 0
-GW_HWNDLAST = 1
-GW_HWNDNEXT = 2
-GW_HWNDPREV = 3
-GW_OWNER = 4
-SYSTEM_METRICS_INDEX = UInt32
-SM_ARRANGE = 56
-SM_CLEANBOOT = 67
-SM_CMONITORS = 80
-SM_CMOUSEBUTTONS = 43
-SM_CONVERTIBLESLATEMODE = 8195
-SM_CXBORDER = 5
-SM_CXCURSOR = 13
-SM_CXDLGFRAME = 7
-SM_CXDOUBLECLK = 36
-SM_CXDRAG = 68
-SM_CXEDGE = 45
-SM_CXFIXEDFRAME = 7
-SM_CXFOCUSBORDER = 83
-SM_CXFRAME = 32
-SM_CXFULLSCREEN = 16
-SM_CXHSCROLL = 21
-SM_CXHTHUMB = 10
-SM_CXICON = 11
-SM_CXICONSPACING = 38
-SM_CXMAXIMIZED = 61
-SM_CXMAXTRACK = 59
-SM_CXMENUCHECK = 71
-SM_CXMENUSIZE = 54
-SM_CXMIN = 28
-SM_CXMINIMIZED = 57
-SM_CXMINSPACING = 47
-SM_CXMINTRACK = 34
-SM_CXPADDEDBORDER = 92
-SM_CXSCREEN = 0
-SM_CXSIZE = 30
-SM_CXSIZEFRAME = 32
-SM_CXSMICON = 49
-SM_CXSMSIZE = 52
-SM_CXVIRTUALSCREEN = 78
-SM_CXVSCROLL = 2
-SM_CYBORDER = 6
-SM_CYCAPTION = 4
-SM_CYCURSOR = 14
-SM_CYDLGFRAME = 8
-SM_CYDOUBLECLK = 37
-SM_CYDRAG = 69
-SM_CYEDGE = 46
-SM_CYFIXEDFRAME = 8
-SM_CYFOCUSBORDER = 84
-SM_CYFRAME = 33
-SM_CYFULLSCREEN = 17
-SM_CYHSCROLL = 3
-SM_CYICON = 12
-SM_CYICONSPACING = 39
-SM_CYKANJIWINDOW = 18
-SM_CYMAXIMIZED = 62
-SM_CYMAXTRACK = 60
-SM_CYMENU = 15
-SM_CYMENUCHECK = 72
-SM_CYMENUSIZE = 55
-SM_CYMIN = 29
-SM_CYMINIMIZED = 58
-SM_CYMINSPACING = 48
-SM_CYMINTRACK = 35
-SM_CYSCREEN = 1
-SM_CYSIZE = 31
-SM_CYSIZEFRAME = 33
-SM_CYSMCAPTION = 51
-SM_CYSMICON = 50
-SM_CYSMSIZE = 53
-SM_CYVIRTUALSCREEN = 79
-SM_CYVSCROLL = 20
-SM_CYVTHUMB = 9
-SM_DBCSENABLED = 42
-SM_DEBUG = 22
-SM_DIGITIZER = 94
-SM_IMMENABLED = 82
-SM_MAXIMUMTOUCHES = 95
-SM_MEDIACENTER = 87
-SM_MENUDROPALIGNMENT = 40
-SM_MIDEASTENABLED = 74
-SM_MOUSEPRESENT = 19
-SM_MOUSEHORIZONTALWHEELPRESENT = 91
-SM_MOUSEWHEELPRESENT = 75
-SM_NETWORK = 63
-SM_PENWINDOWS = 41
-SM_REMOTECONTROL = 8193
-SM_REMOTESESSION = 4096
-SM_SAMEDISPLAYFORMAT = 81
-SM_SECURE = 44
-SM_SERVERR2 = 89
-SM_SHOWSOUNDS = 70
-SM_SHUTTINGDOWN = 8192
-SM_SLOWMACHINE = 73
-SM_STARTER = 88
-SM_SWAPBUTTON = 23
-SM_SYSTEMDOCKED_ = 8196
-SM_TABLETPC = 86
-SM_XVIRTUALSCREEN = 76
-SM_YVIRTUALSCREEN = 77
-GET_ANCESTOR_FLAGS = UInt32
-GA_PARENT = 1
-GA_ROOT = 2
-GA_ROOTOWNER = 3
-TILE_WINDOWS_HOW = UInt32
-MDITILE_HORIZONTAL = 1
-MDITILE_VERTICAL = 0
-WINDOW_DISPLAY_AFFINITY = UInt32
-WDA_NONE = 0
-WDA_MONITOR = 1
-WDA_EXCLUDEFROMCAPTURE = 17
-FOREGROUND_WINDOW_LOCK_CODE = UInt32
-LSFW_LOCK = 1
-LSFW_UNLOCK = 2
-CASCADE_WINDOWS_HOW = UInt32
-MDITILE_SKIPDISABLED = 2
-MDITILE_ZORDER = 4
-WINDOW_MESSAGE_FILTER_ACTION = UInt32
-MSGFLT_ALLOW = 1
-MSGFLT_DISALLOW = 2
-MSGFLT_RESET = 0
-GET_MENU_DEFAULT_ITEM_FLAGS = UInt32
-GMDI_GOINTOPOPUPS = 2
-GMDI_USEDISABLED = 1
-MSGFLTINFO_STATUS = UInt32
-MSGFLTINFO_NONE = 0
-MSGFLTINFO_ALLOWED_HIGHER = 3
-MSGFLTINFO_ALREADYALLOWED_FORWND = 1
-MSGFLTINFO_ALREADYDISALLOWED_FORWND = 2
-MOUSEHOOKSTRUCTEX_MOUSE_DATA = UInt32
-XBUTTON1 = 1
-XBUTTON2 = 2
-MENU_ITEM_MASK = UInt32
-MIIM_BITMAP = 128
-MIIM_CHECKMARKS = 8
-MIIM_DATA = 32
-MIIM_FTYPE = 256
-MIIM_ID = 2
-MIIM_STATE = 1
-MIIM_STRING = 64
-MIIM_SUBMENU = 4
-MIIM_TYPE = 16
-FLASHWINFO_FLAGS = UInt32
-FLASHW_ALL = 3
-FLASHW_CAPTION = 1
-FLASHW_STOP = 0
-FLASHW_TIMER = 4
-FLASHW_TIMERNOFG = 12
-FLASHW_TRAY = 2
-CURSORINFO_FLAGS = UInt32
-CURSOR_SHOWING = 1
-CURSOR_SUPPRESSED = 2
-MENUINFO_STYLE = UInt32
-MNS_AUTODISMISS = 268435456
-MNS_CHECKORBMP = 67108864
-MNS_DRAGDROP = 536870912
-MNS_MODELESS = 1073741824
-MNS_NOCHECK = 2147483648
-MNS_NOTIFYBYPOS = 134217728
-WINDOWPLACEMENT_FLAGS = UInt32
-WPF_ASYNCWINDOWPLACEMENT = 4
-WPF_RESTORETOMAXIMIZED = 2
-WPF_SETMINPOSITION = 1
-MENUINFO_MASK = UInt32
-MIM_APPLYTOSUBMENUS = 2147483648
-MIM_BACKGROUND = 2
-MIM_HELPID = 4
-MIM_MAXHEIGHT = 1
-MIM_MENUDATA = 8
-MIM_STYLE = 16
-MINIMIZEDMETRICS_ARRANGE = Int32
-ARW_BOTTOMLEFT = 0
-ARW_BOTTOMRIGHT = 1
-ARW_TOPLEFT = 2
-ARW_TOPRIGHT = 3
-SCROLLINFO_MASK = UInt32
-SIF_ALL = 23
-SIF_DISABLENOSCROLL = 8
-SIF_PAGE = 2
-SIF_POS = 4
-SIF_RANGE = 1
-SIF_TRACKPOS = 16
-MENUGETOBJECTINFO_FLAGS = UInt32
-MNGOF_BOTTOMGAP = 2
-MNGOF_TOPGAP = 1
-GUITHREADINFO_FLAGS = UInt32
-GUI_CARETBLINKING = 1
-GUI_INMENUMODE = 4
-GUI_INMOVESIZE = 2
-GUI_POPUPMENUMODE = 16
-GUI_SYSTEMMENUMODE = 8
-KBDLLHOOKSTRUCT_FLAGS = UInt32
-LLKHF_EXTENDED = 1
-LLKHF_ALTDOWN = 32
-LLKHF_UP = 128
-LLKHF_INJECTED = 16
-LLKHF_LOWER_IL_INJECTED = 2
-DI_FLAGS = UInt32
-DI_MASK = 1
-DI_IMAGE = 2
-DI_NORMAL = 3
-DI_COMPAT = 4
-DI_DEFAULTSIZE = 8
-DI_NOMIRROR = 16
-HHOOK = IntPtr
-HICON = IntPtr
-HMENU = IntPtr
-HCURSOR = IntPtr
-HACCEL = IntPtr
-def _define_MESSAGE_RESOURCE_ENTRY_head():
-    class MESSAGE_RESOURCE_ENTRY(Structure):
+WNDCLASS_STYLES = UInt32
+CS_VREDRAW = 1
+CS_HREDRAW = 2
+CS_DBLCLKS = 8
+CS_OWNDC = 32
+CS_CLASSDC = 64
+CS_PARENTDC = 128
+CS_NOCLOSE = 512
+CS_SAVEBITS = 2048
+CS_BYTEALIGNCLIENT = 4096
+CS_BYTEALIGNWINDOW = 8192
+CS_GLOBALCLASS = 16384
+CS_IME = 65536
+CS_DROPSHADOW = 131072
+def _define_WNDCLASSA_head():
+    class WNDCLASSA(Structure):
         pass
-    return MESSAGE_RESOURCE_ENTRY
-def _define_MESSAGE_RESOURCE_ENTRY():
-    MESSAGE_RESOURCE_ENTRY = win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_ENTRY_head
-    MESSAGE_RESOURCE_ENTRY._fields_ = [
-        ("Length", UInt16),
-        ("Flags", UInt16),
-        ("Text", Byte * 0),
+    return WNDCLASSA
+def _define_WNDCLASSA():
+    WNDCLASSA = win32more.UI.WindowsAndMessaging.WNDCLASSA_head
+    WNDCLASSA._fields_ = [
+        ('style', win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
+        ('lpfnWndProc', win32more.UI.WindowsAndMessaging.WNDPROC),
+        ('cbClsExtra', Int32),
+        ('cbWndExtra', Int32),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('hIcon', win32more.UI.WindowsAndMessaging.HICON),
+        ('hCursor', win32more.UI.WindowsAndMessaging.HCURSOR),
+        ('hbrBackground', win32more.Graphics.Gdi.HBRUSH),
+        ('lpszMenuName', win32more.Foundation.PSTR),
+        ('lpszClassName', win32more.Foundation.PSTR),
     ]
-    return MESSAGE_RESOURCE_ENTRY
-def _define_MESSAGE_RESOURCE_BLOCK_head():
-    class MESSAGE_RESOURCE_BLOCK(Structure):
-        pass
-    return MESSAGE_RESOURCE_BLOCK
-def _define_MESSAGE_RESOURCE_BLOCK():
-    MESSAGE_RESOURCE_BLOCK = win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK_head
-    MESSAGE_RESOURCE_BLOCK._fields_ = [
-        ("LowId", UInt32),
-        ("HighId", UInt32),
-        ("OffsetToEntries", UInt32),
-    ]
-    return MESSAGE_RESOURCE_BLOCK
-def _define_MESSAGE_RESOURCE_DATA_head():
-    class MESSAGE_RESOURCE_DATA(Structure):
-        pass
-    return MESSAGE_RESOURCE_DATA
-def _define_MESSAGE_RESOURCE_DATA():
-    MESSAGE_RESOURCE_DATA = win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_DATA_head
-    MESSAGE_RESOURCE_DATA._fields_ = [
-        ("NumberOfBlocks", UInt32),
-        ("Blocks", win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK * 0),
-    ]
-    return MESSAGE_RESOURCE_DATA
-def _define_WNDPROC():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_DLGPROC():
-    return CFUNCTYPE(IntPtr,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_TIMERPROC():
-    return CFUNCTYPE(Void,win32more.Foundation.HWND,UInt32,UIntPtr,UInt32, use_last_error=False)
-def _define_WNDENUMPROC():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_HOOKPROC():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,Int32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_SENDASYNCPROC():
-    return CFUNCTYPE(Void,win32more.Foundation.HWND,UInt32,UIntPtr,win32more.Foundation.LRESULT, use_last_error=False)
-def _define_PROPENUMPROCA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.HANDLE, use_last_error=False)
-def _define_PROPENUMPROCW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE, use_last_error=False)
-def _define_PROPENUMPROCEXA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.HANDLE,UIntPtr, use_last_error=False)
-def _define_PROPENUMPROCEXW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE,UIntPtr, use_last_error=False)
-def _define_NAMEENUMPROCA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_NAMEENUMPROCW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_CBT_CREATEWNDA_head():
-    class CBT_CREATEWNDA(Structure):
-        pass
-    return CBT_CREATEWNDA
-def _define_CBT_CREATEWNDA():
-    CBT_CREATEWNDA = win32more.UI.WindowsAndMessaging.CBT_CREATEWNDA_head
-    CBT_CREATEWNDA._fields_ = [
-        ("lpcs", POINTER(win32more.UI.WindowsAndMessaging.CREATESTRUCTA_head)),
-        ("hwndInsertAfter", win32more.Foundation.HWND),
-    ]
-    return CBT_CREATEWNDA
-def _define_CBT_CREATEWNDW_head():
-    class CBT_CREATEWNDW(Structure):
-        pass
-    return CBT_CREATEWNDW
-def _define_CBT_CREATEWNDW():
-    CBT_CREATEWNDW = win32more.UI.WindowsAndMessaging.CBT_CREATEWNDW_head
-    CBT_CREATEWNDW._fields_ = [
-        ("lpcs", POINTER(win32more.UI.WindowsAndMessaging.CREATESTRUCTW_head)),
-        ("hwndInsertAfter", win32more.Foundation.HWND),
-    ]
-    return CBT_CREATEWNDW
-def _define_CBTACTIVATESTRUCT_head():
-    class CBTACTIVATESTRUCT(Structure):
-        pass
-    return CBTACTIVATESTRUCT
-def _define_CBTACTIVATESTRUCT():
-    CBTACTIVATESTRUCT = win32more.UI.WindowsAndMessaging.CBTACTIVATESTRUCT_head
-    CBTACTIVATESTRUCT._fields_ = [
-        ("fMouse", win32more.Foundation.BOOL),
-        ("hWndActive", win32more.Foundation.HWND),
-    ]
-    return CBTACTIVATESTRUCT
-def _define_SHELLHOOKINFO_head():
-    class SHELLHOOKINFO(Structure):
-        pass
-    return SHELLHOOKINFO
-def _define_SHELLHOOKINFO():
-    SHELLHOOKINFO = win32more.UI.WindowsAndMessaging.SHELLHOOKINFO_head
-    SHELLHOOKINFO._fields_ = [
-        ("hwnd", win32more.Foundation.HWND),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return SHELLHOOKINFO
-def _define_EVENTMSG_head():
-    class EVENTMSG(Structure):
-        pass
-    return EVENTMSG
-def _define_EVENTMSG():
-    EVENTMSG = win32more.UI.WindowsAndMessaging.EVENTMSG_head
-    EVENTMSG._fields_ = [
-        ("message", UInt32),
-        ("paramL", UInt32),
-        ("paramH", UInt32),
-        ("time", UInt32),
-        ("hwnd", win32more.Foundation.HWND),
-    ]
-    return EVENTMSG
-def _define_CWPSTRUCT_head():
-    class CWPSTRUCT(Structure):
-        pass
-    return CWPSTRUCT
-def _define_CWPSTRUCT():
-    CWPSTRUCT = win32more.UI.WindowsAndMessaging.CWPSTRUCT_head
-    CWPSTRUCT._fields_ = [
-        ("lParam", win32more.Foundation.LPARAM),
-        ("wParam", win32more.Foundation.WPARAM),
-        ("message", UInt32),
-        ("hwnd", win32more.Foundation.HWND),
-    ]
-    return CWPSTRUCT
-def _define_CWPRETSTRUCT_head():
-    class CWPRETSTRUCT(Structure):
-        pass
-    return CWPRETSTRUCT
-def _define_CWPRETSTRUCT():
-    CWPRETSTRUCT = win32more.UI.WindowsAndMessaging.CWPRETSTRUCT_head
-    CWPRETSTRUCT._fields_ = [
-        ("lResult", win32more.Foundation.LRESULT),
-        ("lParam", win32more.Foundation.LPARAM),
-        ("wParam", win32more.Foundation.WPARAM),
-        ("message", UInt32),
-        ("hwnd", win32more.Foundation.HWND),
-    ]
-    return CWPRETSTRUCT
-def _define_KBDLLHOOKSTRUCT_head():
-    class KBDLLHOOKSTRUCT(Structure):
-        pass
-    return KBDLLHOOKSTRUCT
-def _define_KBDLLHOOKSTRUCT():
-    KBDLLHOOKSTRUCT = win32more.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_head
-    KBDLLHOOKSTRUCT._fields_ = [
-        ("vkCode", UInt32),
-        ("scanCode", UInt32),
-        ("flags", win32more.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS),
-        ("time", UInt32),
-        ("dwExtraInfo", UIntPtr),
-    ]
-    return KBDLLHOOKSTRUCT
-def _define_MSLLHOOKSTRUCT_head():
-    class MSLLHOOKSTRUCT(Structure):
-        pass
-    return MSLLHOOKSTRUCT
-def _define_MSLLHOOKSTRUCT():
-    MSLLHOOKSTRUCT = win32more.UI.WindowsAndMessaging.MSLLHOOKSTRUCT_head
-    MSLLHOOKSTRUCT._fields_ = [
-        ("pt", win32more.Foundation.POINT),
-        ("mouseData", win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCTEX_MOUSE_DATA),
-        ("flags", UInt32),
-        ("time", UInt32),
-        ("dwExtraInfo", UIntPtr),
-    ]
-    return MSLLHOOKSTRUCT
-def _define_DEBUGHOOKINFO_head():
-    class DEBUGHOOKINFO(Structure):
-        pass
-    return DEBUGHOOKINFO
-def _define_DEBUGHOOKINFO():
-    DEBUGHOOKINFO = win32more.UI.WindowsAndMessaging.DEBUGHOOKINFO_head
-    DEBUGHOOKINFO._fields_ = [
-        ("idThread", UInt32),
-        ("idThreadInstaller", UInt32),
-        ("lParam", win32more.Foundation.LPARAM),
-        ("wParam", win32more.Foundation.WPARAM),
-        ("code", Int32),
-    ]
-    return DEBUGHOOKINFO
-def _define_MOUSEHOOKSTRUCT_head():
-    class MOUSEHOOKSTRUCT(Structure):
-        pass
-    return MOUSEHOOKSTRUCT
-def _define_MOUSEHOOKSTRUCT():
-    MOUSEHOOKSTRUCT = win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCT_head
-    MOUSEHOOKSTRUCT._fields_ = [
-        ("pt", win32more.Foundation.POINT),
-        ("hwnd", win32more.Foundation.HWND),
-        ("wHitTestCode", UInt32),
-        ("dwExtraInfo", UIntPtr),
-    ]
-    return MOUSEHOOKSTRUCT
-def _define_MOUSEHOOKSTRUCTEX_head():
-    class MOUSEHOOKSTRUCTEX(Structure):
-        pass
-    return MOUSEHOOKSTRUCTEX
-def _define_MOUSEHOOKSTRUCTEX():
-    MOUSEHOOKSTRUCTEX = win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCTEX_head
-    MOUSEHOOKSTRUCTEX._fields_ = [
-        ("__AnonymousBase_winuser_L1166_C46", win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCT),
-        ("mouseData", win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCTEX_MOUSE_DATA),
-    ]
-    return MOUSEHOOKSTRUCTEX
-def _define_HARDWAREHOOKSTRUCT_head():
-    class HARDWAREHOOKSTRUCT(Structure):
-        pass
-    return HARDWAREHOOKSTRUCT
-def _define_HARDWAREHOOKSTRUCT():
-    HARDWAREHOOKSTRUCT = win32more.UI.WindowsAndMessaging.HARDWAREHOOKSTRUCT_head
-    HARDWAREHOOKSTRUCT._fields_ = [
-        ("hwnd", win32more.Foundation.HWND),
-        ("message", UInt32),
-        ("wParam", win32more.Foundation.WPARAM),
-        ("lParam", win32more.Foundation.LPARAM),
-    ]
-    return HARDWAREHOOKSTRUCT
+    return WNDCLASSA
 def _define_WNDCLASSEXA_head():
     class WNDCLASSEXA(Structure):
         pass
@@ -2538,18 +5351,18 @@ def _define_WNDCLASSEXA_head():
 def _define_WNDCLASSEXA():
     WNDCLASSEXA = win32more.UI.WindowsAndMessaging.WNDCLASSEXA_head
     WNDCLASSEXA._fields_ = [
-        ("cbSize", UInt32),
-        ("style", win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
-        ("lpfnWndProc", win32more.UI.WindowsAndMessaging.WNDPROC),
-        ("cbClsExtra", Int32),
-        ("cbWndExtra", Int32),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("hIcon", win32more.UI.WindowsAndMessaging.HICON),
-        ("hCursor", win32more.UI.WindowsAndMessaging.HCURSOR),
-        ("hbrBackground", win32more.Graphics.Gdi.HBRUSH),
-        ("lpszMenuName", win32more.Foundation.PSTR),
-        ("lpszClassName", win32more.Foundation.PSTR),
-        ("hIconSm", win32more.UI.WindowsAndMessaging.HICON),
+        ('cbSize', UInt32),
+        ('style', win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
+        ('lpfnWndProc', win32more.UI.WindowsAndMessaging.WNDPROC),
+        ('cbClsExtra', Int32),
+        ('cbWndExtra', Int32),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('hIcon', win32more.UI.WindowsAndMessaging.HICON),
+        ('hCursor', win32more.UI.WindowsAndMessaging.HCURSOR),
+        ('hbrBackground', win32more.Graphics.Gdi.HBRUSH),
+        ('lpszMenuName', win32more.Foundation.PSTR),
+        ('lpszClassName', win32more.Foundation.PSTR),
+        ('hIconSm', win32more.UI.WindowsAndMessaging.HICON),
     ]
     return WNDCLASSEXA
 def _define_WNDCLASSEXW_head():
@@ -2559,39 +5372,20 @@ def _define_WNDCLASSEXW_head():
 def _define_WNDCLASSEXW():
     WNDCLASSEXW = win32more.UI.WindowsAndMessaging.WNDCLASSEXW_head
     WNDCLASSEXW._fields_ = [
-        ("cbSize", UInt32),
-        ("style", win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
-        ("lpfnWndProc", win32more.UI.WindowsAndMessaging.WNDPROC),
-        ("cbClsExtra", Int32),
-        ("cbWndExtra", Int32),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("hIcon", win32more.UI.WindowsAndMessaging.HICON),
-        ("hCursor", win32more.UI.WindowsAndMessaging.HCURSOR),
-        ("hbrBackground", win32more.Graphics.Gdi.HBRUSH),
-        ("lpszMenuName", win32more.Foundation.PWSTR),
-        ("lpszClassName", win32more.Foundation.PWSTR),
-        ("hIconSm", win32more.UI.WindowsAndMessaging.HICON),
+        ('cbSize', UInt32),
+        ('style', win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
+        ('lpfnWndProc', win32more.UI.WindowsAndMessaging.WNDPROC),
+        ('cbClsExtra', Int32),
+        ('cbWndExtra', Int32),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('hIcon', win32more.UI.WindowsAndMessaging.HICON),
+        ('hCursor', win32more.UI.WindowsAndMessaging.HCURSOR),
+        ('hbrBackground', win32more.Graphics.Gdi.HBRUSH),
+        ('lpszMenuName', win32more.Foundation.PWSTR),
+        ('lpszClassName', win32more.Foundation.PWSTR),
+        ('hIconSm', win32more.UI.WindowsAndMessaging.HICON),
     ]
     return WNDCLASSEXW
-def _define_WNDCLASSA_head():
-    class WNDCLASSA(Structure):
-        pass
-    return WNDCLASSA
-def _define_WNDCLASSA():
-    WNDCLASSA = win32more.UI.WindowsAndMessaging.WNDCLASSA_head
-    WNDCLASSA._fields_ = [
-        ("style", win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
-        ("lpfnWndProc", win32more.UI.WindowsAndMessaging.WNDPROC),
-        ("cbClsExtra", Int32),
-        ("cbWndExtra", Int32),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("hIcon", win32more.UI.WindowsAndMessaging.HICON),
-        ("hCursor", win32more.UI.WindowsAndMessaging.HCURSOR),
-        ("hbrBackground", win32more.Graphics.Gdi.HBRUSH),
-        ("lpszMenuName", win32more.Foundation.PSTR),
-        ("lpszClassName", win32more.Foundation.PSTR),
-    ]
-    return WNDCLASSA
 def _define_WNDCLASSW_head():
     class WNDCLASSW(Structure):
         pass
@@ -2599,5007 +5393,578 @@ def _define_WNDCLASSW_head():
 def _define_WNDCLASSW():
     WNDCLASSW = win32more.UI.WindowsAndMessaging.WNDCLASSW_head
     WNDCLASSW._fields_ = [
-        ("style", win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
-        ("lpfnWndProc", win32more.UI.WindowsAndMessaging.WNDPROC),
-        ("cbClsExtra", Int32),
-        ("cbWndExtra", Int32),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("hIcon", win32more.UI.WindowsAndMessaging.HICON),
-        ("hCursor", win32more.UI.WindowsAndMessaging.HCURSOR),
-        ("hbrBackground", win32more.Graphics.Gdi.HBRUSH),
-        ("lpszMenuName", win32more.Foundation.PWSTR),
-        ("lpszClassName", win32more.Foundation.PWSTR),
+        ('style', win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES),
+        ('lpfnWndProc', win32more.UI.WindowsAndMessaging.WNDPROC),
+        ('cbClsExtra', Int32),
+        ('cbWndExtra', Int32),
+        ('hInstance', win32more.Foundation.HINSTANCE),
+        ('hIcon', win32more.UI.WindowsAndMessaging.HICON),
+        ('hCursor', win32more.UI.WindowsAndMessaging.HCURSOR),
+        ('hbrBackground', win32more.Graphics.Gdi.HBRUSH),
+        ('lpszMenuName', win32more.Foundation.PWSTR),
+        ('lpszClassName', win32more.Foundation.PWSTR),
     ]
     return WNDCLASSW
-def _define_MSG_head():
-    class MSG(Structure):
-        pass
-    return MSG
-def _define_MSG():
-    MSG = win32more.UI.WindowsAndMessaging.MSG_head
-    MSG._fields_ = [
-        ("hwnd", win32more.Foundation.HWND),
-        ("message", UInt32),
-        ("wParam", win32more.Foundation.WPARAM),
-        ("lParam", win32more.Foundation.LPARAM),
-        ("time", UInt32),
-        ("pt", win32more.Foundation.POINT),
-    ]
-    return MSG
-def _define_MINMAXINFO_head():
-    class MINMAXINFO(Structure):
-        pass
-    return MINMAXINFO
-def _define_MINMAXINFO():
-    MINMAXINFO = win32more.UI.WindowsAndMessaging.MINMAXINFO_head
-    MINMAXINFO._fields_ = [
-        ("ptReserved", win32more.Foundation.POINT),
-        ("ptMaxSize", win32more.Foundation.POINT),
-        ("ptMaxPosition", win32more.Foundation.POINT),
-        ("ptMinTrackSize", win32more.Foundation.POINT),
-        ("ptMaxTrackSize", win32more.Foundation.POINT),
-    ]
-    return MINMAXINFO
-def _define_MDINEXTMENU_head():
-    class MDINEXTMENU(Structure):
-        pass
-    return MDINEXTMENU
-def _define_MDINEXTMENU():
-    MDINEXTMENU = win32more.UI.WindowsAndMessaging.MDINEXTMENU_head
-    MDINEXTMENU._fields_ = [
-        ("hmenuIn", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hmenuNext", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hwndNext", win32more.Foundation.HWND),
-    ]
-    return MDINEXTMENU
-def _define_WINDOWPOS_head():
-    class WINDOWPOS(Structure):
-        pass
-    return WINDOWPOS
-def _define_WINDOWPOS():
-    WINDOWPOS = win32more.UI.WindowsAndMessaging.WINDOWPOS_head
-    WINDOWPOS._fields_ = [
-        ("hwnd", win32more.Foundation.HWND),
-        ("hwndInsertAfter", win32more.Foundation.HWND),
-        ("x", Int32),
-        ("y", Int32),
-        ("cx", Int32),
-        ("cy", Int32),
-        ("flags", win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS),
-    ]
-    return WINDOWPOS
-def _define_NCCALCSIZE_PARAMS_head():
-    class NCCALCSIZE_PARAMS(Structure):
-        pass
-    return NCCALCSIZE_PARAMS
-def _define_NCCALCSIZE_PARAMS():
-    NCCALCSIZE_PARAMS = win32more.UI.WindowsAndMessaging.NCCALCSIZE_PARAMS_head
-    NCCALCSIZE_PARAMS._fields_ = [
-        ("rgrc", win32more.Foundation.RECT * 3),
-        ("lppos", POINTER(win32more.UI.WindowsAndMessaging.WINDOWPOS_head)),
-    ]
-    return NCCALCSIZE_PARAMS
-def _define_ACCEL_head():
-    class ACCEL(Structure):
-        pass
-    return ACCEL
-def _define_ACCEL():
-    ACCEL = win32more.UI.WindowsAndMessaging.ACCEL_head
-    ACCEL._fields_ = [
-        ("fVirt", Byte),
-        ("key", UInt16),
-        ("cmd", UInt16),
-    ]
-    return ACCEL
-def _define_CREATESTRUCTA_head():
-    class CREATESTRUCTA(Structure):
-        pass
-    return CREATESTRUCTA
-def _define_CREATESTRUCTA():
-    CREATESTRUCTA = win32more.UI.WindowsAndMessaging.CREATESTRUCTA_head
-    CREATESTRUCTA._fields_ = [
-        ("lpCreateParams", c_void_p),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("hMenu", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hwndParent", win32more.Foundation.HWND),
-        ("cy", Int32),
-        ("cx", Int32),
-        ("y", Int32),
-        ("x", Int32),
-        ("style", Int32),
-        ("lpszName", win32more.Foundation.PSTR),
-        ("lpszClass", win32more.Foundation.PSTR),
-        ("dwExStyle", UInt32),
-    ]
-    return CREATESTRUCTA
-def _define_CREATESTRUCTW_head():
-    class CREATESTRUCTW(Structure):
-        pass
-    return CREATESTRUCTW
-def _define_CREATESTRUCTW():
-    CREATESTRUCTW = win32more.UI.WindowsAndMessaging.CREATESTRUCTW_head
-    CREATESTRUCTW._fields_ = [
-        ("lpCreateParams", c_void_p),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("hMenu", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hwndParent", win32more.Foundation.HWND),
-        ("cy", Int32),
-        ("cx", Int32),
-        ("y", Int32),
-        ("x", Int32),
-        ("style", Int32),
-        ("lpszName", win32more.Foundation.PWSTR),
-        ("lpszClass", win32more.Foundation.PWSTR),
-        ("dwExStyle", UInt32),
-    ]
-    return CREATESTRUCTW
-def _define_WINDOWPLACEMENT_head():
-    class WINDOWPLACEMENT(Structure):
-        pass
-    return WINDOWPLACEMENT
-def _define_WINDOWPLACEMENT():
-    WINDOWPLACEMENT = win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_head
-    WINDOWPLACEMENT._fields_ = [
-        ("length", UInt32),
-        ("flags", win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS),
-        ("showCmd", win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD),
-        ("ptMinPosition", win32more.Foundation.POINT),
-        ("ptMaxPosition", win32more.Foundation.POINT),
-        ("rcNormalPosition", win32more.Foundation.RECT),
-    ]
-    return WINDOWPLACEMENT
-def _define_STYLESTRUCT_head():
-    class STYLESTRUCT(Structure):
-        pass
-    return STYLESTRUCT
-def _define_STYLESTRUCT():
-    STYLESTRUCT = win32more.UI.WindowsAndMessaging.STYLESTRUCT_head
-    STYLESTRUCT._fields_ = [
-        ("styleOld", UInt32),
-        ("styleNew", UInt32),
-    ]
-    return STYLESTRUCT
-def _define_PREGISTERCLASSNAMEW():
-    return CFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_UPDATELAYEREDWINDOWINFO_head():
-    class UPDATELAYEREDWINDOWINFO(Structure):
-        pass
-    return UPDATELAYEREDWINDOWINFO
-def _define_UPDATELAYEREDWINDOWINFO():
-    UPDATELAYEREDWINDOWINFO = win32more.UI.WindowsAndMessaging.UPDATELAYEREDWINDOWINFO_head
-    UPDATELAYEREDWINDOWINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("hdcDst", win32more.Graphics.Gdi.HDC),
-        ("pptDst", POINTER(win32more.Foundation.POINT_head)),
-        ("psize", POINTER(win32more.Foundation.SIZE_head)),
-        ("hdcSrc", win32more.Graphics.Gdi.HDC),
-        ("pptSrc", POINTER(win32more.Foundation.POINT_head)),
-        ("crKey", UInt32),
-        ("pblend", POINTER(win32more.Graphics.Gdi.BLENDFUNCTION_head)),
-        ("dwFlags", win32more.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS),
-        ("prcDirty", POINTER(win32more.Foundation.RECT_head)),
-    ]
-    return UPDATELAYEREDWINDOWINFO
-def _define_FLASHWINFO_head():
-    class FLASHWINFO(Structure):
-        pass
-    return FLASHWINFO
-def _define_FLASHWINFO():
-    FLASHWINFO = win32more.UI.WindowsAndMessaging.FLASHWINFO_head
-    FLASHWINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("hwnd", win32more.Foundation.HWND),
-        ("dwFlags", win32more.UI.WindowsAndMessaging.FLASHWINFO_FLAGS),
-        ("uCount", UInt32),
-        ("dwTimeout", UInt32),
-    ]
-    return FLASHWINFO
-def _define_DLGTEMPLATE_head():
-    class DLGTEMPLATE(Structure):
-        pass
-    return DLGTEMPLATE
-def _define_DLGTEMPLATE():
-    DLGTEMPLATE = win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head
-    DLGTEMPLATE._pack_ = 2
-    DLGTEMPLATE._fields_ = [
-        ("style", UInt32),
-        ("dwExtendedStyle", UInt32),
-        ("cdit", UInt16),
-        ("x", Int16),
-        ("y", Int16),
-        ("cx", Int16),
-        ("cy", Int16),
-    ]
-    return DLGTEMPLATE
-def _define_DLGITEMTEMPLATE_head():
-    class DLGITEMTEMPLATE(Structure):
-        pass
-    return DLGITEMTEMPLATE
-def _define_DLGITEMTEMPLATE():
-    DLGITEMTEMPLATE = win32more.UI.WindowsAndMessaging.DLGITEMTEMPLATE_head
-    DLGITEMTEMPLATE._pack_ = 2
-    DLGITEMTEMPLATE._fields_ = [
-        ("style", UInt32),
-        ("dwExtendedStyle", UInt32),
-        ("x", Int16),
-        ("y", Int16),
-        ("cx", Int16),
-        ("cy", Int16),
-        ("id", UInt16),
-    ]
-    return DLGITEMTEMPLATE
-POINTER_INPUT_TYPE = Int32
-PT_POINTER = 1
-PT_TOUCH = 2
-PT_PEN = 3
-PT_MOUSE = 4
-PT_TOUCHPAD = 5
-def _define_TPMPARAMS_head():
-    class TPMPARAMS(Structure):
-        pass
-    return TPMPARAMS
-def _define_TPMPARAMS():
-    TPMPARAMS = win32more.UI.WindowsAndMessaging.TPMPARAMS_head
-    TPMPARAMS._fields_ = [
-        ("cbSize", UInt32),
-        ("rcExclude", win32more.Foundation.RECT),
-    ]
-    return TPMPARAMS
-def _define_MENUINFO_head():
-    class MENUINFO(Structure):
-        pass
-    return MENUINFO
-def _define_MENUINFO():
-    MENUINFO = win32more.UI.WindowsAndMessaging.MENUINFO_head
-    MENUINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("fMask", win32more.UI.WindowsAndMessaging.MENUINFO_MASK),
-        ("dwStyle", win32more.UI.WindowsAndMessaging.MENUINFO_STYLE),
-        ("cyMax", UInt32),
-        ("hbrBack", win32more.Graphics.Gdi.HBRUSH),
-        ("dwContextHelpID", UInt32),
-        ("dwMenuData", UIntPtr),
-    ]
-    return MENUINFO
-def _define_MENUGETOBJECTINFO_head():
-    class MENUGETOBJECTINFO(Structure):
-        pass
-    return MENUGETOBJECTINFO
-def _define_MENUGETOBJECTINFO():
-    MENUGETOBJECTINFO = win32more.UI.WindowsAndMessaging.MENUGETOBJECTINFO_head
-    MENUGETOBJECTINFO._fields_ = [
-        ("dwFlags", win32more.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS),
-        ("uPos", UInt32),
-        ("hmenu", win32more.UI.WindowsAndMessaging.HMENU),
-        ("riid", c_void_p),
-        ("pvObj", c_void_p),
-    ]
-    return MENUGETOBJECTINFO
-def _define_MENUITEMINFOA_head():
-    class MENUITEMINFOA(Structure):
-        pass
-    return MENUITEMINFOA
-def _define_MENUITEMINFOA():
-    MENUITEMINFOA = win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head
-    MENUITEMINFOA._fields_ = [
-        ("cbSize", UInt32),
-        ("fMask", win32more.UI.WindowsAndMessaging.MENU_ITEM_MASK),
-        ("fType", win32more.UI.WindowsAndMessaging.MENU_ITEM_TYPE),
-        ("fState", win32more.UI.WindowsAndMessaging.MENU_ITEM_STATE),
-        ("wID", UInt32),
-        ("hSubMenu", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hbmpChecked", win32more.Graphics.Gdi.HBITMAP),
-        ("hbmpUnchecked", win32more.Graphics.Gdi.HBITMAP),
-        ("dwItemData", UIntPtr),
-        ("dwTypeData", win32more.Foundation.PSTR),
-        ("cch", UInt32),
-        ("hbmpItem", win32more.Graphics.Gdi.HBITMAP),
-    ]
-    return MENUITEMINFOA
-def _define_MENUITEMINFOW_head():
-    class MENUITEMINFOW(Structure):
-        pass
-    return MENUITEMINFOW
-def _define_MENUITEMINFOW():
-    MENUITEMINFOW = win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head
-    MENUITEMINFOW._fields_ = [
-        ("cbSize", UInt32),
-        ("fMask", win32more.UI.WindowsAndMessaging.MENU_ITEM_MASK),
-        ("fType", win32more.UI.WindowsAndMessaging.MENU_ITEM_TYPE),
-        ("fState", win32more.UI.WindowsAndMessaging.MENU_ITEM_STATE),
-        ("wID", UInt32),
-        ("hSubMenu", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hbmpChecked", win32more.Graphics.Gdi.HBITMAP),
-        ("hbmpUnchecked", win32more.Graphics.Gdi.HBITMAP),
-        ("dwItemData", UIntPtr),
-        ("dwTypeData", win32more.Foundation.PWSTR),
-        ("cch", UInt32),
-        ("hbmpItem", win32more.Graphics.Gdi.HBITMAP),
-    ]
-    return MENUITEMINFOW
-def _define_DROPSTRUCT_head():
-    class DROPSTRUCT(Structure):
-        pass
-    return DROPSTRUCT
-def _define_DROPSTRUCT():
-    DROPSTRUCT = win32more.UI.WindowsAndMessaging.DROPSTRUCT_head
-    DROPSTRUCT._fields_ = [
-        ("hwndSource", win32more.Foundation.HWND),
-        ("hwndSink", win32more.Foundation.HWND),
-        ("wFmt", UInt32),
-        ("dwData", UIntPtr),
-        ("ptDrop", win32more.Foundation.POINT),
-        ("dwControlData", UInt32),
-    ]
-    return DROPSTRUCT
-def _define_MSGBOXCALLBACK():
-    return CFUNCTYPE(Void,POINTER(win32more.UI.Shell.HELPINFO_head), use_last_error=False)
-def _define_MSGBOXPARAMSA_head():
-    class MSGBOXPARAMSA(Structure):
-        pass
-    return MSGBOXPARAMSA
-def _define_MSGBOXPARAMSA():
-    MSGBOXPARAMSA = win32more.UI.WindowsAndMessaging.MSGBOXPARAMSA_head
-    MSGBOXPARAMSA._fields_ = [
-        ("cbSize", UInt32),
-        ("hwndOwner", win32more.Foundation.HWND),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("lpszText", win32more.Foundation.PSTR),
-        ("lpszCaption", win32more.Foundation.PSTR),
-        ("dwStyle", win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE),
-        ("lpszIcon", win32more.Foundation.PSTR),
-        ("dwContextHelpId", UIntPtr),
-        ("lpfnMsgBoxCallback", win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK),
-        ("dwLanguageId", UInt32),
-    ]
-    return MSGBOXPARAMSA
-def _define_MSGBOXPARAMSW_head():
-    class MSGBOXPARAMSW(Structure):
-        pass
-    return MSGBOXPARAMSW
-def _define_MSGBOXPARAMSW():
-    MSGBOXPARAMSW = win32more.UI.WindowsAndMessaging.MSGBOXPARAMSW_head
-    MSGBOXPARAMSW._fields_ = [
-        ("cbSize", UInt32),
-        ("hwndOwner", win32more.Foundation.HWND),
-        ("hInstance", win32more.Foundation.HINSTANCE),
-        ("lpszText", win32more.Foundation.PWSTR),
-        ("lpszCaption", win32more.Foundation.PWSTR),
-        ("dwStyle", win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE),
-        ("lpszIcon", win32more.Foundation.PWSTR),
-        ("dwContextHelpId", UIntPtr),
-        ("lpfnMsgBoxCallback", win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK),
-        ("dwLanguageId", UInt32),
-    ]
-    return MSGBOXPARAMSW
-def _define_MENUITEMTEMPLATEHEADER_head():
-    class MENUITEMTEMPLATEHEADER(Structure):
-        pass
-    return MENUITEMTEMPLATEHEADER
-def _define_MENUITEMTEMPLATEHEADER():
-    MENUITEMTEMPLATEHEADER = win32more.UI.WindowsAndMessaging.MENUITEMTEMPLATEHEADER_head
-    MENUITEMTEMPLATEHEADER._fields_ = [
-        ("versionNumber", UInt16),
-        ("offset", UInt16),
-    ]
-    return MENUITEMTEMPLATEHEADER
-def _define_MENUITEMTEMPLATE_head():
-    class MENUITEMTEMPLATE(Structure):
-        pass
-    return MENUITEMTEMPLATE
-def _define_MENUITEMTEMPLATE():
-    MENUITEMTEMPLATE = win32more.UI.WindowsAndMessaging.MENUITEMTEMPLATE_head
-    MENUITEMTEMPLATE._fields_ = [
-        ("mtOption", UInt16),
-        ("mtID", UInt16),
-        ("mtString", Char * 0),
-    ]
-    return MENUITEMTEMPLATE
-def _define_ICONINFO_head():
-    class ICONINFO(Structure):
-        pass
-    return ICONINFO
-def _define_ICONINFO():
-    ICONINFO = win32more.UI.WindowsAndMessaging.ICONINFO_head
-    ICONINFO._fields_ = [
-        ("fIcon", win32more.Foundation.BOOL),
-        ("xHotspot", UInt32),
-        ("yHotspot", UInt32),
-        ("hbmMask", win32more.Graphics.Gdi.HBITMAP),
-        ("hbmColor", win32more.Graphics.Gdi.HBITMAP),
-    ]
-    return ICONINFO
-def _define_CURSORSHAPE_head():
-    class CURSORSHAPE(Structure):
-        pass
-    return CURSORSHAPE
-def _define_CURSORSHAPE():
-    CURSORSHAPE = win32more.UI.WindowsAndMessaging.CURSORSHAPE_head
-    CURSORSHAPE._fields_ = [
-        ("xHotSpot", Int32),
-        ("yHotSpot", Int32),
-        ("cx", Int32),
-        ("cy", Int32),
-        ("cbWidth", Int32),
-        ("Planes", Byte),
-        ("BitsPixel", Byte),
-    ]
-    return CURSORSHAPE
-def _define_ICONINFOEXA_head():
-    class ICONINFOEXA(Structure):
-        pass
-    return ICONINFOEXA
-def _define_ICONINFOEXA():
-    ICONINFOEXA = win32more.UI.WindowsAndMessaging.ICONINFOEXA_head
-    ICONINFOEXA._fields_ = [
-        ("cbSize", UInt32),
-        ("fIcon", win32more.Foundation.BOOL),
-        ("xHotspot", UInt32),
-        ("yHotspot", UInt32),
-        ("hbmMask", win32more.Graphics.Gdi.HBITMAP),
-        ("hbmColor", win32more.Graphics.Gdi.HBITMAP),
-        ("wResID", UInt16),
-        ("szModName", win32more.Foundation.CHAR * 260),
-        ("szResName", win32more.Foundation.CHAR * 260),
-    ]
-    return ICONINFOEXA
-def _define_ICONINFOEXW_head():
-    class ICONINFOEXW(Structure):
-        pass
-    return ICONINFOEXW
-def _define_ICONINFOEXW():
-    ICONINFOEXW = win32more.UI.WindowsAndMessaging.ICONINFOEXW_head
-    ICONINFOEXW._fields_ = [
-        ("cbSize", UInt32),
-        ("fIcon", win32more.Foundation.BOOL),
-        ("xHotspot", UInt32),
-        ("yHotspot", UInt32),
-        ("hbmMask", win32more.Graphics.Gdi.HBITMAP),
-        ("hbmColor", win32more.Graphics.Gdi.HBITMAP),
-        ("wResID", UInt16),
-        ("szModName", Char * 260),
-        ("szResName", Char * 260),
-    ]
-    return ICONINFOEXW
-EDIT_CONTROL_FEATURE = Int32
-EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT = 0
-EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS = 1
-def _define_SCROLLINFO_head():
-    class SCROLLINFO(Structure):
-        pass
-    return SCROLLINFO
-def _define_SCROLLINFO():
-    SCROLLINFO = win32more.UI.WindowsAndMessaging.SCROLLINFO_head
-    SCROLLINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("fMask", win32more.UI.WindowsAndMessaging.SCROLLINFO_MASK),
-        ("nMin", Int32),
-        ("nMax", Int32),
-        ("nPage", UInt32),
-        ("nPos", Int32),
-        ("nTrackPos", Int32),
-    ]
-    return SCROLLINFO
-def _define_MDICREATESTRUCTA_head():
-    class MDICREATESTRUCTA(Structure):
-        pass
-    return MDICREATESTRUCTA
-def _define_MDICREATESTRUCTA():
-    MDICREATESTRUCTA = win32more.UI.WindowsAndMessaging.MDICREATESTRUCTA_head
-    MDICREATESTRUCTA._fields_ = [
-        ("szClass", win32more.Foundation.PSTR),
-        ("szTitle", win32more.Foundation.PSTR),
-        ("hOwner", win32more.Foundation.HANDLE),
-        ("x", Int32),
-        ("y", Int32),
-        ("cx", Int32),
-        ("cy", Int32),
-        ("style", win32more.UI.WindowsAndMessaging.WINDOW_STYLE),
-        ("lParam", win32more.Foundation.LPARAM),
-    ]
-    return MDICREATESTRUCTA
-def _define_MDICREATESTRUCTW_head():
-    class MDICREATESTRUCTW(Structure):
-        pass
-    return MDICREATESTRUCTW
-def _define_MDICREATESTRUCTW():
-    MDICREATESTRUCTW = win32more.UI.WindowsAndMessaging.MDICREATESTRUCTW_head
-    MDICREATESTRUCTW._fields_ = [
-        ("szClass", win32more.Foundation.PWSTR),
-        ("szTitle", win32more.Foundation.PWSTR),
-        ("hOwner", win32more.Foundation.HANDLE),
-        ("x", Int32),
-        ("y", Int32),
-        ("cx", Int32),
-        ("cy", Int32),
-        ("style", win32more.UI.WindowsAndMessaging.WINDOW_STYLE),
-        ("lParam", win32more.Foundation.LPARAM),
-    ]
-    return MDICREATESTRUCTW
-def _define_CLIENTCREATESTRUCT_head():
-    class CLIENTCREATESTRUCT(Structure):
-        pass
-    return CLIENTCREATESTRUCT
-def _define_CLIENTCREATESTRUCT():
-    CLIENTCREATESTRUCT = win32more.UI.WindowsAndMessaging.CLIENTCREATESTRUCT_head
-    CLIENTCREATESTRUCT._fields_ = [
-        ("hWindowMenu", win32more.Foundation.HANDLE),
-        ("idFirstChild", UInt32),
-    ]
-    return CLIENTCREATESTRUCT
-def _define_TouchPredictionParameters_head():
-    class TouchPredictionParameters(Structure):
-        pass
-    return TouchPredictionParameters
-def _define_TouchPredictionParameters():
-    TouchPredictionParameters = win32more.UI.WindowsAndMessaging.TouchPredictionParameters_head
-    TouchPredictionParameters._fields_ = [
-        ("cbSize", UInt32),
-        ("dwLatency", UInt32),
-        ("dwSampleTime", UInt32),
-        ("bUseHWTimeStamp", UInt32),
-    ]
-    return TouchPredictionParameters
-HANDEDNESS = Int32
-HANDEDNESS_LEFT = 0
-HANDEDNESS_RIGHT = 1
-def _define_NONCLIENTMETRICSA_head():
-    class NONCLIENTMETRICSA(Structure):
-        pass
-    return NONCLIENTMETRICSA
-def _define_NONCLIENTMETRICSA():
-    NONCLIENTMETRICSA = win32more.UI.WindowsAndMessaging.NONCLIENTMETRICSA_head
-    NONCLIENTMETRICSA._fields_ = [
-        ("cbSize", UInt32),
-        ("iBorderWidth", Int32),
-        ("iScrollWidth", Int32),
-        ("iScrollHeight", Int32),
-        ("iCaptionWidth", Int32),
-        ("iCaptionHeight", Int32),
-        ("lfCaptionFont", win32more.Graphics.Gdi.LOGFONTA),
-        ("iSmCaptionWidth", Int32),
-        ("iSmCaptionHeight", Int32),
-        ("lfSmCaptionFont", win32more.Graphics.Gdi.LOGFONTA),
-        ("iMenuWidth", Int32),
-        ("iMenuHeight", Int32),
-        ("lfMenuFont", win32more.Graphics.Gdi.LOGFONTA),
-        ("lfStatusFont", win32more.Graphics.Gdi.LOGFONTA),
-        ("lfMessageFont", win32more.Graphics.Gdi.LOGFONTA),
-        ("iPaddedBorderWidth", Int32),
-    ]
-    return NONCLIENTMETRICSA
-def _define_NONCLIENTMETRICSW_head():
-    class NONCLIENTMETRICSW(Structure):
-        pass
-    return NONCLIENTMETRICSW
-def _define_NONCLIENTMETRICSW():
-    NONCLIENTMETRICSW = win32more.UI.WindowsAndMessaging.NONCLIENTMETRICSW_head
-    NONCLIENTMETRICSW._fields_ = [
-        ("cbSize", UInt32),
-        ("iBorderWidth", Int32),
-        ("iScrollWidth", Int32),
-        ("iScrollHeight", Int32),
-        ("iCaptionWidth", Int32),
-        ("iCaptionHeight", Int32),
-        ("lfCaptionFont", win32more.Graphics.Gdi.LOGFONTW),
-        ("iSmCaptionWidth", Int32),
-        ("iSmCaptionHeight", Int32),
-        ("lfSmCaptionFont", win32more.Graphics.Gdi.LOGFONTW),
-        ("iMenuWidth", Int32),
-        ("iMenuHeight", Int32),
-        ("lfMenuFont", win32more.Graphics.Gdi.LOGFONTW),
-        ("lfStatusFont", win32more.Graphics.Gdi.LOGFONTW),
-        ("lfMessageFont", win32more.Graphics.Gdi.LOGFONTW),
-        ("iPaddedBorderWidth", Int32),
-    ]
-    return NONCLIENTMETRICSW
-def _define_MINIMIZEDMETRICS_head():
-    class MINIMIZEDMETRICS(Structure):
-        pass
-    return MINIMIZEDMETRICS
-def _define_MINIMIZEDMETRICS():
-    MINIMIZEDMETRICS = win32more.UI.WindowsAndMessaging.MINIMIZEDMETRICS_head
-    MINIMIZEDMETRICS._fields_ = [
-        ("cbSize", UInt32),
-        ("iWidth", Int32),
-        ("iHorzGap", Int32),
-        ("iVertGap", Int32),
-        ("iArrange", win32more.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE),
-    ]
-    return MINIMIZEDMETRICS
-def _define_ICONMETRICSA_head():
-    class ICONMETRICSA(Structure):
-        pass
-    return ICONMETRICSA
-def _define_ICONMETRICSA():
-    ICONMETRICSA = win32more.UI.WindowsAndMessaging.ICONMETRICSA_head
-    ICONMETRICSA._fields_ = [
-        ("cbSize", UInt32),
-        ("iHorzSpacing", Int32),
-        ("iVertSpacing", Int32),
-        ("iTitleWrap", Int32),
-        ("lfFont", win32more.Graphics.Gdi.LOGFONTA),
-    ]
-    return ICONMETRICSA
-def _define_ICONMETRICSW_head():
-    class ICONMETRICSW(Structure):
-        pass
-    return ICONMETRICSW
-def _define_ICONMETRICSW():
-    ICONMETRICSW = win32more.UI.WindowsAndMessaging.ICONMETRICSW_head
-    ICONMETRICSW._fields_ = [
-        ("cbSize", UInt32),
-        ("iHorzSpacing", Int32),
-        ("iVertSpacing", Int32),
-        ("iTitleWrap", Int32),
-        ("lfFont", win32more.Graphics.Gdi.LOGFONTW),
-    ]
-    return ICONMETRICSW
-def _define_ANIMATIONINFO_head():
-    class ANIMATIONINFO(Structure):
-        pass
-    return ANIMATIONINFO
-def _define_ANIMATIONINFO():
-    ANIMATIONINFO = win32more.UI.WindowsAndMessaging.ANIMATIONINFO_head
-    ANIMATIONINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("iMinAnimate", Int32),
-    ]
-    return ANIMATIONINFO
-def _define_AUDIODESCRIPTION_head():
-    class AUDIODESCRIPTION(Structure):
-        pass
-    return AUDIODESCRIPTION
-def _define_AUDIODESCRIPTION():
-    AUDIODESCRIPTION = win32more.UI.WindowsAndMessaging.AUDIODESCRIPTION_head
-    AUDIODESCRIPTION._fields_ = [
-        ("cbSize", UInt32),
-        ("Enabled", win32more.Foundation.BOOL),
-        ("Locale", UInt32),
-    ]
-    return AUDIODESCRIPTION
-def _define_GUITHREADINFO_head():
-    class GUITHREADINFO(Structure):
-        pass
-    return GUITHREADINFO
-def _define_GUITHREADINFO():
-    GUITHREADINFO = win32more.UI.WindowsAndMessaging.GUITHREADINFO_head
-    GUITHREADINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("flags", win32more.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS),
-        ("hwndActive", win32more.Foundation.HWND),
-        ("hwndFocus", win32more.Foundation.HWND),
-        ("hwndCapture", win32more.Foundation.HWND),
-        ("hwndMenuOwner", win32more.Foundation.HWND),
-        ("hwndMoveSize", win32more.Foundation.HWND),
-        ("hwndCaret", win32more.Foundation.HWND),
-        ("rcCaret", win32more.Foundation.RECT),
-    ]
-    return GUITHREADINFO
-def _define_CURSORINFO_head():
-    class CURSORINFO(Structure):
-        pass
-    return CURSORINFO
-def _define_CURSORINFO():
-    CURSORINFO = win32more.UI.WindowsAndMessaging.CURSORINFO_head
-    CURSORINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("flags", win32more.UI.WindowsAndMessaging.CURSORINFO_FLAGS),
-        ("hCursor", win32more.UI.WindowsAndMessaging.HCURSOR),
-        ("ptScreenPos", win32more.Foundation.POINT),
-    ]
-    return CURSORINFO
-def _define_WINDOWINFO_head():
-    class WINDOWINFO(Structure):
-        pass
-    return WINDOWINFO
-def _define_WINDOWINFO():
-    WINDOWINFO = win32more.UI.WindowsAndMessaging.WINDOWINFO_head
-    WINDOWINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("rcWindow", win32more.Foundation.RECT),
-        ("rcClient", win32more.Foundation.RECT),
-        ("dwStyle", UInt32),
-        ("dwExStyle", UInt32),
-        ("dwWindowStatus", UInt32),
-        ("cxWindowBorders", UInt32),
-        ("cyWindowBorders", UInt32),
-        ("atomWindowType", UInt16),
-        ("wCreatorVersion", UInt16),
-    ]
-    return WINDOWINFO
-def _define_TITLEBARINFO_head():
-    class TITLEBARINFO(Structure):
-        pass
-    return TITLEBARINFO
-def _define_TITLEBARINFO():
-    TITLEBARINFO = win32more.UI.WindowsAndMessaging.TITLEBARINFO_head
-    TITLEBARINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("rcTitleBar", win32more.Foundation.RECT),
-        ("rgstate", UInt32 * 6),
-    ]
-    return TITLEBARINFO
-def _define_TITLEBARINFOEX_head():
-    class TITLEBARINFOEX(Structure):
-        pass
-    return TITLEBARINFOEX
-def _define_TITLEBARINFOEX():
-    TITLEBARINFOEX = win32more.UI.WindowsAndMessaging.TITLEBARINFOEX_head
-    TITLEBARINFOEX._fields_ = [
-        ("cbSize", UInt32),
-        ("rcTitleBar", win32more.Foundation.RECT),
-        ("rgstate", UInt32 * 6),
-        ("rgrect", win32more.Foundation.RECT * 6),
-    ]
-    return TITLEBARINFOEX
-def _define_MENUBARINFO_head():
-    class MENUBARINFO(Structure):
-        pass
-    return MENUBARINFO
-def _define_MENUBARINFO():
-    MENUBARINFO = win32more.UI.WindowsAndMessaging.MENUBARINFO_head
-    MENUBARINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("rcBar", win32more.Foundation.RECT),
-        ("hMenu", win32more.UI.WindowsAndMessaging.HMENU),
-        ("hwndMenu", win32more.Foundation.HWND),
-        ("_bitfield", Int32),
-    ]
-    return MENUBARINFO
-def _define_SCROLLBARINFO_head():
-    class SCROLLBARINFO(Structure):
-        pass
-    return SCROLLBARINFO
-def _define_SCROLLBARINFO():
-    SCROLLBARINFO = win32more.UI.WindowsAndMessaging.SCROLLBARINFO_head
-    SCROLLBARINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("rcScrollBar", win32more.Foundation.RECT),
-        ("dxyLineButton", Int32),
-        ("xyThumbTop", Int32),
-        ("xyThumbBottom", Int32),
-        ("reserved", Int32),
-        ("rgstate", UInt32 * 6),
-    ]
-    return SCROLLBARINFO
-def _define_ALTTABINFO_head():
-    class ALTTABINFO(Structure):
-        pass
-    return ALTTABINFO
-def _define_ALTTABINFO():
-    ALTTABINFO = win32more.UI.WindowsAndMessaging.ALTTABINFO_head
-    ALTTABINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("cItems", Int32),
-        ("cColumns", Int32),
-        ("cRows", Int32),
-        ("iColFocus", Int32),
-        ("iRowFocus", Int32),
-        ("cxItem", Int32),
-        ("cyItem", Int32),
-        ("ptStart", win32more.Foundation.POINT),
-    ]
-    return ALTTABINFO
-def _define_CHANGEFILTERSTRUCT_head():
-    class CHANGEFILTERSTRUCT(Structure):
-        pass
-    return CHANGEFILTERSTRUCT
-def _define_CHANGEFILTERSTRUCT():
-    CHANGEFILTERSTRUCT = win32more.UI.WindowsAndMessaging.CHANGEFILTERSTRUCT_head
-    CHANGEFILTERSTRUCT._fields_ = [
-        ("cbSize", UInt32),
-        ("ExtStatus", win32more.UI.WindowsAndMessaging.MSGFLTINFO_STATUS),
-    ]
-    return CHANGEFILTERSTRUCT
-def _define_IndexedResourceQualifier_head():
-    class IndexedResourceQualifier(Structure):
-        pass
-    return IndexedResourceQualifier
-def _define_IndexedResourceQualifier():
-    IndexedResourceQualifier = win32more.UI.WindowsAndMessaging.IndexedResourceQualifier_head
-    IndexedResourceQualifier._fields_ = [
-        ("name", win32more.Foundation.PWSTR),
-        ("value", win32more.Foundation.PWSTR),
-    ]
-    return IndexedResourceQualifier
-MrmPlatformVersion = Int32
-MrmPlatformVersion_Default = 0
-MrmPlatformVersion_Windows10_0_0_0 = 17432576
-MrmPlatformVersion_Windows10_0_0_5 = 17432581
-def _define_MrmResourceIndexerHandle_head():
-    class MrmResourceIndexerHandle(Structure):
-        pass
-    return MrmResourceIndexerHandle
-def _define_MrmResourceIndexerHandle():
-    MrmResourceIndexerHandle = win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head
-    MrmResourceIndexerHandle._fields_ = [
-        ("handle", c_void_p),
-    ]
-    return MrmResourceIndexerHandle
-MrmPackagingMode = Int32
-MrmPackagingMode_MrmPackagingModeStandaloneFile = 0
-MrmPackagingMode_MrmPackagingModeAutoSplit = 1
-MrmPackagingMode_MrmPackagingModeResourcePack = 2
-MrmPackagingOptions = Int32
-MrmPackagingOptions_MrmPackagingOptionsNone = 0
-MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks = 1
-MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants = 2
-MrmDumpType = Int32
-MrmDumpType_Basic = 0
-MrmDumpType_Detailed = 1
-MrmDumpType_Schema = 2
-MrmResourceIndexerMessageSeverity = Int32
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose = 0
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo = 1
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning = 2
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError = 3
-MrmIndexerFlags = Int32
-MrmIndexerFlags_MrmIndexerFlagsNone = 0
-MrmIndexerFlags_MrmIndexerFlagsAutoMerge = 1
-MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum = 2
-def _define_MrmResourceIndexerMessage_head():
-    class MrmResourceIndexerMessage(Structure):
-        pass
-    return MrmResourceIndexerMessage
-def _define_MrmResourceIndexerMessage():
-    MrmResourceIndexerMessage = win32more.UI.WindowsAndMessaging.MrmResourceIndexerMessage_head
-    MrmResourceIndexerMessage._fields_ = [
-        ("severity", win32more.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity),
-        ("id", UInt32),
-        ("text", win32more.Foundation.PWSTR),
-    ]
-    return MrmResourceIndexerMessage
-def _define_LoadStringA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HINSTANCE,UInt32,POINTER(Byte),Int32, use_last_error=True)(("LoadStringA", windll["USER32"]), ((1, 'hInstance'),(1, 'uID'),(1, 'lpBuffer'),(1, 'cchBufferMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadStringW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HINSTANCE,UInt32,POINTER(Char),Int32, use_last_error=True)(("LoadStringW", windll["USER32"]), ((1, 'hInstance'),(1, 'uID'),(1, 'lpBuffer'),(1, 'cchBufferMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadString():
-    return win32more.UI.WindowsAndMessaging.LoadStringW
-def _define_wvsprintfA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(SByte), use_last_error=True)(("wvsprintfA", windll["USER32"]), ((1, 'param0'),(1, 'param1'),(1, 'arglist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wvsprintfW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(SByte), use_last_error=True)(("wvsprintfW", windll["USER32"]), ((1, 'param0'),(1, 'param1'),(1, 'arglist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wvsprintf():
-    return win32more.UI.WindowsAndMessaging.wvsprintfW
-def _define_wsprintfA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("wsprintfA", windll["USER32"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wsprintfW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("wsprintfW", windll["USER32"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wsprintf():
-    return win32more.UI.WindowsAndMessaging.wsprintfW
-def _define_IsHungAppWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("IsHungAppWindow", windll["USER32"]), ((1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DisableProcessWindowsGhosting():
-    try:
-        return WINFUNCTYPE(Void, use_last_error=False)(("DisableProcessWindowsGhosting", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterWindowMessageA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR, use_last_error=True)(("RegisterWindowMessageA", windll["USER32"]), ((1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterWindowMessageW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR, use_last_error=True)(("RegisterWindowMessageW", windll["USER32"]), ((1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterWindowMessage():
-    return win32more.UI.WindowsAndMessaging.RegisterWindowMessageW
-def _define_GetMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32, use_last_error=True)(("GetMessageA", windll["USER32"]), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32, use_last_error=True)(("GetMessageW", windll["USER32"]), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMessage():
-    return win32more.UI.WindowsAndMessaging.GetMessageW
-def _define_TranslateMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(("TranslateMessage", windll["USER32"]), ((1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DispatchMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(("DispatchMessageA", windll["USER32"]), ((1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DispatchMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(("DispatchMessageW", windll["USER32"]), ((1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DispatchMessage():
-    return win32more.UI.WindowsAndMessaging.DispatchMessageW
-def _define_SetMessageQueue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32, use_last_error=False)(("SetMessageQueue", windll["USER32"]), ((1, 'cMessagesMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeekMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,win32more.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE, use_last_error=False)(("PeekMessageA", windll["USER32"]), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'wRemoveMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeekMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,win32more.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE, use_last_error=False)(("PeekMessageW", windll["USER32"]), ((1, 'lpMsg'),(1, 'hWnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'wRemoveMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeekMessage():
-    return win32more.UI.WindowsAndMessaging.PeekMessageW
-def _define_GetMessagePos():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("GetMessagePos", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMessageTime():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("GetMessageTime", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMessageExtraInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LPARAM, use_last_error=False)(("GetMessageExtraInfo", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWow64Message():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("IsWow64Message", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMessageExtraInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("SetMessageExtraInfo", windll["USER32"]), ((1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("SendMessageA", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("SendMessageW", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessage():
-    return win32more.UI.WindowsAndMessaging.SendMessageW
-def _define_SendMessageTimeoutA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS,UInt32,POINTER(UIntPtr), use_last_error=True)(("SendMessageTimeoutA", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'fuFlags'),(1, 'uTimeout'),(1, 'lpdwResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessageTimeoutW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS,UInt32,POINTER(UIntPtr), use_last_error=True)(("SendMessageTimeoutW", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'fuFlags'),(1, 'uTimeout'),(1, 'lpdwResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessageTimeout():
-    return win32more.UI.WindowsAndMessaging.SendMessageTimeoutW
-def _define_SendNotifyMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("SendNotifyMessageA", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendNotifyMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("SendNotifyMessageW", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendNotifyMessage():
-    return win32more.UI.WindowsAndMessaging.SendNotifyMessageW
-def _define_SendMessageCallbackA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SENDASYNCPROC,UIntPtr, use_last_error=True)(("SendMessageCallbackA", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'lpResultCallBack'),(1, 'dwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessageCallbackW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.WindowsAndMessaging.SENDASYNCPROC,UIntPtr, use_last_error=True)(("SendMessageCallbackW", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'lpResultCallBack'),(1, 'dwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendMessageCallback():
-    return win32more.UI.WindowsAndMessaging.SendMessageCallbackW
-def _define_RegisterDeviceNotificationA():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,win32more.System.Power.POWER_SETTING_REGISTER_NOTIFICATION_FLAGS, use_last_error=True)(("RegisterDeviceNotificationA", windll["USER32"]), ((1, 'hRecipient'),(1, 'NotificationFilter'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceNotificationW():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,win32more.System.Power.POWER_SETTING_REGISTER_NOTIFICATION_FLAGS, use_last_error=True)(("RegisterDeviceNotificationW", windll["USER32"]), ((1, 'hRecipient'),(1, 'NotificationFilter'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceNotification():
-    return win32more.UI.WindowsAndMessaging.RegisterDeviceNotificationW
-def _define_PostMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("PostMessageA", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PostMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("PostMessageW", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PostMessage():
-    return win32more.UI.WindowsAndMessaging.PostMessageW
-def _define_PostThreadMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("PostThreadMessageA", windll["USER32"]), ((1, 'idThread'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PostThreadMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=True)(("PostThreadMessageW", windll["USER32"]), ((1, 'idThread'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PostThreadMessage():
-    return win32more.UI.WindowsAndMessaging.PostThreadMessageW
-def _define_ReplyMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.LRESULT, use_last_error=False)(("ReplyMessage", windll["USER32"]), ((1, 'lResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=True)(("WaitMessage", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefWindowProcA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefWindowProcA", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefWindowProcW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefWindowProcW", windll["USER32"]), ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefWindowProc():
-    return win32more.UI.WindowsAndMessaging.DefWindowProcW
-def _define_PostQuitMessage():
-    try:
-        return WINFUNCTYPE(Void,Int32, use_last_error=False)(("PostQuitMessage", windll["USER32"]), ((1, 'nExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallWindowProcA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.WindowsAndMessaging.WNDPROC,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("CallWindowProcA", windll["USER32"]), ((1, 'lpPrevWndFunc'),(1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallWindowProcW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.WindowsAndMessaging.WNDPROC,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("CallWindowProcW", windll["USER32"]), ((1, 'lpPrevWndFunc'),(1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallWindowProc():
-    return win32more.UI.WindowsAndMessaging.CallWindowProcW
-def _define_InSendMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("InSendMessage", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InSendMessageEx():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p, use_last_error=False)(("InSendMessageEx", windll["USER32"]), ((1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterClassA():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSA_head), use_last_error=True)(("RegisterClassA", windll["USER32"]), ((1, 'lpWndClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterClassW():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSW_head), use_last_error=True)(("RegisterClassW", windll["USER32"]), ((1, 'lpWndClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterClass():
-    return win32more.UI.WindowsAndMessaging.RegisterClassW
-def _define_UnregisterClassA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HINSTANCE, use_last_error=True)(("UnregisterClassA", windll["USER32"]), ((1, 'lpClassName'),(1, 'hInstance'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterClassW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HINSTANCE, use_last_error=True)(("UnregisterClassW", windll["USER32"]), ((1, 'lpClassName'),(1, 'hInstance'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterClass():
-    return win32more.UI.WindowsAndMessaging.UnregisterClassW
-def _define_GetClassInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSA_head), use_last_error=True)(("GetClassInfoA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpClassName'),(1, 'lpWndClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSW_head), use_last_error=True)(("GetClassInfoW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpClassName'),(1, 'lpWndClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassInfo():
-    return win32more.UI.WindowsAndMessaging.GetClassInfoW
-def _define_RegisterClassExA():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXA_head), use_last_error=True)(("RegisterClassExA", windll["USER32"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterClassExW():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXW_head), use_last_error=True)(("RegisterClassExW", windll["USER32"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterClassEx():
-    return win32more.UI.WindowsAndMessaging.RegisterClassExW
-def _define_GetClassInfoExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXA_head), use_last_error=True)(("GetClassInfoExA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpszClass'),(1, 'lpwcx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassInfoExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.WNDCLASSEXW_head), use_last_error=True)(("GetClassInfoExW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpszClass'),(1, 'lpwcx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassInfoEx():
-    return win32more.UI.WindowsAndMessaging.GetClassInfoExW
-def _define_CreateWindowExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,c_void_p, use_last_error=True)(("CreateWindowExA", windll["USER32"]), ((1, 'dwExStyle'),(1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hMenu'),(1, 'hInstance'),(1, 'lpParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWindowExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,c_void_p, use_last_error=True)(("CreateWindowExW", windll["USER32"]), ((1, 'dwExStyle'),(1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hMenu'),(1, 'hInstance'),(1, 'lpParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWindowEx():
-    return win32more.UI.WindowsAndMessaging.CreateWindowExW
-def _define_IsWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("IsWindow", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU, use_last_error=False)(("IsMenu", windll["USER32"]), ((1, 'hMenu'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsChild():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.HWND, use_last_error=False)(("IsChild", windll["USER32"]), ((1, 'hWndParent'),(1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("DestroyWindow", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD, use_last_error=False)(("ShowWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'nCmdShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AnimateWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS, use_last_error=True)(("AnimateWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'dwTime'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateLayeredWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.SIZE_head),win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),UInt32,POINTER(win32more.Graphics.Gdi.BLENDFUNCTION_head),win32more.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS, use_last_error=True)(("UpdateLayeredWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'hdcDst'),(1, 'pptDst'),(1, 'psize'),(1, 'hdcSrc'),(1, 'pptSrc'),(1, 'crKey'),(1, 'pblend'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateLayeredWindowIndirect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.UPDATELAYEREDWINDOWINFO_head), use_last_error=False)(("UpdateLayeredWindowIndirect", windll["USER32"]), ((1, 'hWnd'),(1, 'pULWInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLayeredWindowAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS), use_last_error=True)(("GetLayeredWindowAttributes", windll["USER32"]), ((1, 'hwnd'),(1, 'pcrKey'),(1, 'pbAlpha'),(1, 'pdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetLayeredWindowAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,Byte,win32more.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS, use_last_error=True)(("SetLayeredWindowAttributes", windll["USER32"]), ((1, 'hwnd'),(1, 'crKey'),(1, 'bAlpha'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowWindowAsync():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD, use_last_error=False)(("ShowWindowAsync", windll["USER32"]), ((1, 'hWnd'),(1, 'nCmdShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlashWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=False)(("FlashWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'bInvert'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlashWindowEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.FLASHWINFO_head), use_last_error=False)(("FlashWindowEx", windll["USER32"]), ((1, 'pfwi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowOwnedPopups():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=True)(("ShowOwnedPopups", windll["USER32"]), ((1, 'hWnd'),(1, 'fShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenIcon():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("OpenIcon", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("CloseWindow", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MoveWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,Int32,Int32,Int32,win32more.Foundation.BOOL, use_last_error=True)(("MoveWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'bRepaint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.HWND,Int32,Int32,Int32,Int32,win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS, use_last_error=True)(("SetWindowPos", windll["USER32"]), ((1, 'hWnd'),(1, 'hWndInsertAfter'),(1, 'X'),(1, 'Y'),(1, 'cx'),(1, 'cy'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowPlacement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_head), use_last_error=True)(("GetWindowPlacement", windll["USER32"]), ((1, 'hWnd'),(1, 'lpwndpl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowPlacement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_head), use_last_error=True)(("SetWindowPlacement", windll["USER32"]), ((1, 'hWnd'),(1, 'lpwndpl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowDisplayAffinity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(UInt32), use_last_error=True)(("GetWindowDisplayAffinity", windll["USER32"]), ((1, 'hWnd'),(1, 'pdwAffinity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowDisplayAffinity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_DISPLAY_AFFINITY, use_last_error=True)(("SetWindowDisplayAffinity", windll["USER32"]), ((1, 'hWnd'),(1, 'dwAffinity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BeginDeferWindowPos():
-    try:
-        return WINFUNCTYPE(IntPtr,Int32, use_last_error=True)(("BeginDeferWindowPos", windll["USER32"]), ((1, 'nNumWindows'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeferWindowPos():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,win32more.Foundation.HWND,win32more.Foundation.HWND,Int32,Int32,Int32,Int32,win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS, use_last_error=True)(("DeferWindowPos", windll["USER32"]), ((1, 'hWinPosInfo'),(1, 'hWnd'),(1, 'hWndInsertAfter'),(1, 'x'),(1, 'y'),(1, 'cx'),(1, 'cy'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EndDeferWindowPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=True)(("EndDeferWindowPos", windll["USER32"]), ((1, 'hWinPosInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWindowVisible():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("IsWindowVisible", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsIconic():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("IsIconic", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AnyPopup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("AnyPopup", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BringWindowToTop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("BringWindowToTop", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsZoomed():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("IsZoomed", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDialogParamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("CreateDialogParamA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDialogParamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("CreateDialogParamW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDialogParam():
-    return win32more.UI.WindowsAndMessaging.CreateDialogParamW
-def _define_CreateDialogIndirectParamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("CreateDialogIndirectParamA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDialogIndirectParamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("CreateDialogIndirectParamW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDialogIndirectParam():
-    return win32more.UI.WindowsAndMessaging.CreateDialogIndirectParamW
-def _define_DialogBoxParamA():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("DialogBoxParamA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DialogBoxParamW():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("DialogBoxParamW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTemplateName'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DialogBoxParam():
-    return win32more.UI.WindowsAndMessaging.DialogBoxParamW
-def _define_DialogBoxIndirectParamA():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("DialogBoxIndirectParamA", windll["USER32"]), ((1, 'hInstance'),(1, 'hDialogTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DialogBoxIndirectParamW():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM, use_last_error=True)(("DialogBoxIndirectParamW", windll["USER32"]), ((1, 'hInstance'),(1, 'hDialogTemplate'),(1, 'hWndParent'),(1, 'lpDialogFunc'),(1, 'dwInitParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DialogBoxIndirectParam():
-    return win32more.UI.WindowsAndMessaging.DialogBoxIndirectParamW
-def _define_EndDialog():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,IntPtr, use_last_error=True)(("EndDialog", windll["USER32"]), ((1, 'hDlg'),(1, 'nResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDlgItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,Int32, use_last_error=True)(("GetDlgItem", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDlgItemInt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,UInt32,win32more.Foundation.BOOL, use_last_error=True)(("SetDlgItemInt", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'uValue'),(1, 'bSigned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDlgItemInt():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,Int32,POINTER(win32more.Foundation.BOOL),win32more.Foundation.BOOL, use_last_error=True)(("GetDlgItemInt", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpTranslated'),(1, 'bSigned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDlgItemTextA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR, use_last_error=True)(("SetDlgItemTextA", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDlgItemTextW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR, use_last_error=True)(("SetDlgItemTextW", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDlgItemText():
-    return win32more.UI.WindowsAndMessaging.SetDlgItemTextW
-def _define_GetDlgItemTextA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,Int32,POINTER(Byte),Int32, use_last_error=True)(("GetDlgItemTextA", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),(1, 'cchMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDlgItemTextW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,Int32,POINTER(Char),Int32, use_last_error=True)(("GetDlgItemTextW", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'lpString'),(1, 'cchMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDlgItemText():
-    return win32more.UI.WindowsAndMessaging.GetDlgItemTextW
-def _define_SendDlgItemMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("SendDlgItemMessageA", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendDlgItemMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("SendDlgItemMessageW", windll["USER32"]), ((1, 'hDlg'),(1, 'nIDDlgItem'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendDlgItemMessage():
-    return win32more.UI.WindowsAndMessaging.SendDlgItemMessageW
-def _define_GetNextDlgGroupItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=True)(("GetNextDlgGroupItem", windll["USER32"]), ((1, 'hDlg'),(1, 'hCtl'),(1, 'bPrevious'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNextDlgTabItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=True)(("GetNextDlgTabItem", windll["USER32"]), ((1, 'hDlg'),(1, 'hCtl'),(1, 'bPrevious'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDlgCtrlID():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND, use_last_error=True)(("GetDlgCtrlID", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDialogBaseUnits():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("GetDialogBaseUnits", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefDlgProcA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefDlgProcA", windll["USER32"]), ((1, 'hDlg'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefDlgProcW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefDlgProcW", windll["USER32"]), ((1, 'hDlg'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefDlgProc():
-    return win32more.UI.WindowsAndMessaging.DefDlgProcW
-def _define_CallMsgFilterA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),Int32, use_last_error=False)(("CallMsgFilterA", windll["USER32"]), ((1, 'lpMsg'),(1, 'nCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallMsgFilterW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),Int32, use_last_error=False)(("CallMsgFilterW", windll["USER32"]), ((1, 'lpMsg'),(1, 'nCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallMsgFilter():
-    return win32more.UI.WindowsAndMessaging.CallMsgFilterW
-def _define_CharToOemA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("CharToOemA", windll["USER32"]), ((1, 'pSrc'),(1, 'pDst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharToOemW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PSTR, use_last_error=True)(("CharToOemW", windll["USER32"]), ((1, 'pSrc'),(1, 'pDst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharToOem():
-    return win32more.UI.WindowsAndMessaging.CharToOemW
-def _define_OemToCharA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("OemToCharA", windll["USER32"]), ((1, 'pSrc'),(1, 'pDst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OemToCharW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PWSTR, use_last_error=True)(("OemToCharW", windll["USER32"]), ((1, 'pSrc'),(1, 'pDst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OemToChar():
-    return win32more.UI.WindowsAndMessaging.OemToCharW
-def _define_CharToOemBuffA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(Byte),UInt32, use_last_error=True)(("CharToOemBuffA", windll["USER32"]), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharToOemBuffW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(Byte),UInt32, use_last_error=True)(("CharToOemBuffW", windll["USER32"]), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharToOemBuff():
-    return win32more.UI.WindowsAndMessaging.CharToOemBuffW
-def _define_OemToCharBuffA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(Byte),UInt32, use_last_error=True)(("OemToCharBuffA", windll["USER32"]), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OemToCharBuffW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(Char),UInt32, use_last_error=True)(("OemToCharBuffW", windll["USER32"]), ((1, 'lpszSrc'),(1, 'lpszDst'),(1, 'cchDstLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OemToCharBuff():
-    return win32more.UI.WindowsAndMessaging.OemToCharBuffW
-def _define_CharUpperA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("CharUpperA", windll["USER32"]), ((1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharUpperW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("CharUpperW", windll["USER32"]), ((1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharUpper():
-    return win32more.UI.WindowsAndMessaging.CharUpperW
-def _define_CharUpperBuffA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Byte),UInt32, use_last_error=False)(("CharUpperBuffA", windll["USER32"]), ((1, 'lpsz'),(1, 'cchLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharUpperBuffW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Char),UInt32, use_last_error=False)(("CharUpperBuffW", windll["USER32"]), ((1, 'lpsz'),(1, 'cchLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharUpperBuff():
-    return win32more.UI.WindowsAndMessaging.CharUpperBuffW
-def _define_CharLowerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("CharLowerA", windll["USER32"]), ((1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharLowerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("CharLowerW", windll["USER32"]), ((1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharLower():
-    return win32more.UI.WindowsAndMessaging.CharLowerW
-def _define_CharLowerBuffA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Byte),UInt32, use_last_error=False)(("CharLowerBuffA", windll["USER32"]), ((1, 'lpsz'),(1, 'cchLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharLowerBuffW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Char),UInt32, use_last_error=False)(("CharLowerBuffW", windll["USER32"]), ((1, 'lpsz'),(1, 'cchLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharLowerBuff():
-    return win32more.UI.WindowsAndMessaging.CharLowerBuffW
-def _define_CharNextA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("CharNextA", windll["USER32"]), ((1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharNextW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("CharNextW", windll["USER32"]), ((1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharNext():
-    return win32more.UI.WindowsAndMessaging.CharNextW
-def _define_CharPrevA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("CharPrevA", windll["USER32"]), ((1, 'lpszStart'),(1, 'lpszCurrent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharPrevW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("CharPrevW", windll["USER32"]), ((1, 'lpszStart'),(1, 'lpszCurrent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharPrev():
-    return win32more.UI.WindowsAndMessaging.CharPrevW
-def _define_CharNextExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("CharNextExA", windll["USER32"]), ((1, 'CodePage'),(1, 'lpCurrentChar'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CharPrevExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("CharPrevExA", windll["USER32"]), ((1, 'CodePage'),(1, 'lpStart'),(1, 'lpCurrentChar'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharAlphaA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR, use_last_error=True)(("IsCharAlphaA", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharAlphaW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Char, use_last_error=True)(("IsCharAlphaW", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharAlpha():
-    return win32more.UI.WindowsAndMessaging.IsCharAlphaW
-def _define_IsCharAlphaNumericA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR, use_last_error=True)(("IsCharAlphaNumericA", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharAlphaNumericW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Char, use_last_error=True)(("IsCharAlphaNumericW", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharAlphaNumeric():
-    return win32more.UI.WindowsAndMessaging.IsCharAlphaNumericW
-def _define_IsCharUpperA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR, use_last_error=True)(("IsCharUpperA", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharUpperW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Char, use_last_error=True)(("IsCharUpperW", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsCharUpper():
-    return win32more.UI.WindowsAndMessaging.IsCharUpperW
-def _define_IsCharLowerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.CHAR, use_last_error=True)(("IsCharLowerA", windll["USER32"]), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetInputState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("GetInputState", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetQueueStatus():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS, use_last_error=False)(("GetQueueStatus", windll["USER32"]), ((1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsgWaitForMultipleObjects():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL,UInt32,win32more.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS, use_last_error=True)(("MsgWaitForMultipleObjects", windll["USER32"]), ((1, 'nCount'),(1, 'pHandles'),(1, 'fWaitAll'),(1, 'dwMilliseconds'),(1, 'dwWakeMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsgWaitForMultipleObjectsEx():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.HANDLE),UInt32,win32more.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS,win32more.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS, use_last_error=True)(("MsgWaitForMultipleObjectsEx", windll["USER32"]), ((1, 'nCount'),(1, 'pHandles'),(1, 'dwMilliseconds'),(1, 'dwWakeMask'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTimer():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,UIntPtr,UInt32,win32more.UI.WindowsAndMessaging.TIMERPROC, use_last_error=True)(("SetTimer", windll["USER32"]), ((1, 'hWnd'),(1, 'nIDEvent'),(1, 'uElapse'),(1, 'lpTimerFunc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCoalescableTimer():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,UIntPtr,UInt32,win32more.UI.WindowsAndMessaging.TIMERPROC,UInt32, use_last_error=True)(("SetCoalescableTimer", windll["USER32"]), ((1, 'hWnd'),(1, 'nIDEvent'),(1, 'uElapse'),(1, 'lpTimerFunc'),(1, 'uToleranceDelay'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_KillTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UIntPtr, use_last_error=True)(("KillTimer", windll["USER32"]), ((1, 'hWnd'),(1, 'uIDEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWindowUnicode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("IsWindowUnicode", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadAcceleratorsA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR, use_last_error=True)(("LoadAcceleratorsA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadAcceleratorsW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR, use_last_error=True)(("LoadAcceleratorsW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadAccelerators():
-    return win32more.UI.WindowsAndMessaging.LoadAcceleratorsW
-def _define_CreateAcceleratorTableA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL),Int32, use_last_error=True)(("CreateAcceleratorTableA", windll["USER32"]), ((1, 'paccel'),(1, 'cAccel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAcceleratorTableW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL),Int32, use_last_error=True)(("CreateAcceleratorTableW", windll["USER32"]), ((1, 'paccel'),(1, 'cAccel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAcceleratorTable():
-    return win32more.UI.WindowsAndMessaging.CreateAcceleratorTableW
-def _define_DestroyAcceleratorTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HACCEL, use_last_error=False)(("DestroyAcceleratorTable", windll["USER32"]), ((1, 'hAccel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyAcceleratorTableA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL),Int32, use_last_error=False)(("CopyAcceleratorTableA", windll["USER32"]), ((1, 'hAccelSrc'),(1, 'lpAccelDst'),(1, 'cAccelEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyAcceleratorTableW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.ACCEL),Int32, use_last_error=False)(("CopyAcceleratorTableW", windll["USER32"]), ((1, 'hAccelSrc'),(1, 'lpAccelDst'),(1, 'cAccelEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyAcceleratorTable():
-    return win32more.UI.WindowsAndMessaging.CopyAcceleratorTableW
-def _define_TranslateAcceleratorA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=True)(("TranslateAcceleratorA", windll["USER32"]), ((1, 'hWnd'),(1, 'hAccTable'),(1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateAcceleratorW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HACCEL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=True)(("TranslateAcceleratorW", windll["USER32"]), ((1, 'hWnd'),(1, 'hAccTable'),(1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateAccelerator():
-    return win32more.UI.WindowsAndMessaging.TranslateAcceleratorW
-def _define_GetSystemMetrics():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX, use_last_error=True)(("GetSystemMetrics", windll["USER32"]), ((1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadMenuA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR, use_last_error=True)(("LoadMenuA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpMenuName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadMenuW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR, use_last_error=True)(("LoadMenuW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpMenuName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadMenu():
-    return win32more.UI.WindowsAndMessaging.LoadMenuW
-def _define_LoadMenuIndirectA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,c_void_p, use_last_error=True)(("LoadMenuIndirectA", windll["USER32"]), ((1, 'lpMenuTemplate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadMenuIndirectW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,c_void_p, use_last_error=True)(("LoadMenuIndirectW", windll["USER32"]), ((1, 'lpMenuTemplate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadMenuIndirect():
-    return win32more.UI.WindowsAndMessaging.LoadMenuIndirectW
-def _define_GetMenu():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HWND, use_last_error=False)(("GetMenu", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU, use_last_error=True)(("SetMenu", windll["USER32"]), ((1, 'hWnd'),(1, 'hMenu'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeMenuA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(("ChangeMenuA", windll["USER32"]), ((1, 'hMenu'),(1, 'cmd'),(1, 'lpszNewItem'),(1, 'cmdInsert'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeMenuW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(("ChangeMenuW", windll["USER32"]), ((1, 'hMenu'),(1, 'cmd'),(1, 'lpszNewItem'),(1, 'cmdInsert'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeMenu():
-    return win32more.UI.WindowsAndMessaging.ChangeMenuW
-def _define_HiliteMenuItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32, use_last_error=False)(("HiliteMenuItem", windll["USER32"]), ((1, 'hWnd'),(1, 'hMenu'),(1, 'uIDHiliteItem'),(1, 'uHilite'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuStringA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(Byte),Int32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS, use_last_error=False)(("GetMenuStringA", windll["USER32"]), ((1, 'hMenu'),(1, 'uIDItem'),(1, 'lpString'),(1, 'cchMax'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuStringW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(Char),Int32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS, use_last_error=False)(("GetMenuStringW", windll["USER32"]), ((1, 'hMenu'),(1, 'uIDItem'),(1, 'lpString'),(1, 'cchMax'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuString():
-    return win32more.UI.WindowsAndMessaging.GetMenuStringW
-def _define_GetMenuState():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS, use_last_error=False)(("GetMenuState", windll["USER32"]), ((1, 'hMenu'),(1, 'uId'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawMenuBar():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("DrawMenuBar", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSystemMenu():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=False)(("GetSystemMenu", windll["USER32"]), ((1, 'hWnd'),(1, 'bRevert'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMenu():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU, use_last_error=True)(("CreateMenu", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePopupMenu():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU, use_last_error=True)(("CreatePopupMenu", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU, use_last_error=True)(("DestroyMenu", windll["USER32"]), ((1, 'hMenu'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckMenuItem():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32, use_last_error=False)(("CheckMenuItem", windll["USER32"]), ((1, 'hMenu'),(1, 'uIDCheckItem'),(1, 'uCheck'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnableMenuItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS, use_last_error=False)(("EnableMenuItem", windll["USER32"]), ((1, 'hMenu'),(1, 'uIDEnableItem'),(1, 'uEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSubMenu():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.HMENU,Int32, use_last_error=False)(("GetSubMenu", windll["USER32"]), ((1, 'hMenu'),(1, 'nPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuItemID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,Int32, use_last_error=False)(("GetMenuItemID", windll["USER32"]), ((1, 'hMenu'),(1, 'nPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuItemCount():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.WindowsAndMessaging.HMENU, use_last_error=True)(("GetMenuItemCount", windll["USER32"]), ((1, 'hMenu'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InsertMenuA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PSTR, use_last_error=True)(("InsertMenuA", windll["USER32"]), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InsertMenuW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PWSTR, use_last_error=True)(("InsertMenuW", windll["USER32"]), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InsertMenu():
-    return win32more.UI.WindowsAndMessaging.InsertMenuW
-def _define_AppendMenuA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PSTR, use_last_error=True)(("AppendMenuA", windll["USER32"]), ((1, 'hMenu'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppendMenuW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PWSTR, use_last_error=True)(("AppendMenuW", windll["USER32"]), ((1, 'hMenu'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppendMenu():
-    return win32more.UI.WindowsAndMessaging.AppendMenuW
-def _define_ModifyMenuA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PSTR, use_last_error=True)(("ModifyMenuA", windll["USER32"]), ((1, 'hMnu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ModifyMenuW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,UIntPtr,win32more.Foundation.PWSTR, use_last_error=True)(("ModifyMenuW", windll["USER32"]), ((1, 'hMnu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'uIDNewItem'),(1, 'lpNewItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ModifyMenu():
-    return win32more.UI.WindowsAndMessaging.ModifyMenuW
-def _define_RemoveMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS, use_last_error=True)(("RemoveMenu", windll["USER32"]), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS, use_last_error=True)(("DeleteMenu", windll["USER32"]), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMenuItemBitmaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.MENU_ITEM_FLAGS,win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HBITMAP, use_last_error=True)(("SetMenuItemBitmaps", windll["USER32"]), ((1, 'hMenu'),(1, 'uPosition'),(1, 'uFlags'),(1, 'hBitmapUnchecked'),(1, 'hBitmapChecked'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuCheckMarkDimensions():
-    try:
-        return WINFUNCTYPE(Int32, use_last_error=False)(("GetMenuCheckMarkDimensions", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TrackPopupMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,win32more.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS,Int32,Int32,Int32,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("TrackPopupMenu", windll["USER32"]), ((1, 'hMenu'),(1, 'uFlags'),(1, 'x'),(1, 'y'),(1, 'nReserved'),(1, 'hWnd'),(1, 'prcRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TrackPopupMenuEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,Int32,Int32,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.TPMPARAMS_head), use_last_error=True)(("TrackPopupMenuEx", windll["USER32"]), ((1, 'hMenu'),(1, 'uFlags'),(1, 'x'),(1, 'y'),(1, 'hwnd'),(1, 'lptpm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CalculatePopupWindowPosition():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.SIZE_head),UInt32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("CalculatePopupWindowPosition", windll["USER32"]), ((1, 'anchorPoint'),(1, 'windowSize'),(1, 'flags'),(1, 'excludeRect'),(1, 'popupWindowPosition'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,POINTER(win32more.UI.WindowsAndMessaging.MENUINFO_head), use_last_error=True)(("GetMenuInfo", windll["USER32"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMenuInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,POINTER(win32more.UI.WindowsAndMessaging.MENUINFO_head), use_last_error=True)(("SetMenuInfo", windll["USER32"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EndMenu():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=True)(("EndMenu", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InsertMenuItemA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head), use_last_error=True)(("InsertMenuItemA", windll["USER32"]), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InsertMenuItemW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head), use_last_error=True)(("InsertMenuItemW", windll["USER32"]), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InsertMenuItem():
-    return win32more.UI.WindowsAndMessaging.InsertMenuItemW
-def _define_GetMenuItemInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head), use_last_error=True)(("GetMenuItemInfoA", windll["USER32"]), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmii'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuItemInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head), use_last_error=True)(("GetMenuItemInfoW", windll["USER32"]), ((1, 'hmenu'),(1, 'item'),(1, 'fByPosition'),(1, 'lpmii'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuItemInfo():
-    return win32more.UI.WindowsAndMessaging.GetMenuItemInfoW
-def _define_SetMenuItemInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOA_head), use_last_error=True)(("SetMenuItemInfoA", windll["USER32"]), ((1, 'hmenu'),(1, 'item'),(1, 'fByPositon'),(1, 'lpmii'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMenuItemInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MENUITEMINFOW_head), use_last_error=True)(("SetMenuItemInfoW", windll["USER32"]), ((1, 'hmenu'),(1, 'item'),(1, 'fByPositon'),(1, 'lpmii'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMenuItemInfo():
-    return win32more.UI.WindowsAndMessaging.SetMenuItemInfoW
-def _define_GetMenuDefaultItem():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.HMENU,UInt32,win32more.UI.WindowsAndMessaging.GET_MENU_DEFAULT_ITEM_FLAGS, use_last_error=True)(("GetMenuDefaultItem", windll["USER32"]), ((1, 'hMenu'),(1, 'fByPos'),(1, 'gmdiFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMenuDefaultItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32, use_last_error=True)(("SetMenuDefaultItem", windll["USER32"]), ((1, 'hMenu'),(1, 'uItem'),(1, 'fByPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuItemRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("GetMenuItemRect", windll["USER32"]), ((1, 'hWnd'),(1, 'hMenu'),(1, 'uItem'),(1, 'lprcItem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MenuItemFromPoint():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HMENU,win32more.Foundation.POINT, use_last_error=False)(("MenuItemFromPoint", windll["USER32"]), ((1, 'hWnd'),(1, 'hMenu'),(1, 'ptScreen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DragObject():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,UIntPtr,win32more.UI.WindowsAndMessaging.HCURSOR, use_last_error=False)(("DragObject", windll["USER32"]), ((1, 'hwndParent'),(1, 'hwndFrom'),(1, 'fmt'),(1, 'data'),(1, 'hcur'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawIcon():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.UI.WindowsAndMessaging.HICON, use_last_error=True)(("DrawIcon", windll["USER32"]), ((1, 'hDC'),(1, 'X'),(1, 'Y'),(1, 'hIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetForegroundWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND, use_last_error=False)(("GetForegroundWindow", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwitchToThisWindow():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=False)(("SwitchToThisWindow", windll["USER32"]), ((1, 'hwnd'),(1, 'fUnknown'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetForegroundWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("SetForegroundWindow", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AllowSetForegroundWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=True)(("AllowSetForegroundWindow", windll["USER32"]), ((1, 'dwProcessId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LockSetForegroundWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.FOREGROUND_WINDOW_LOCK_CODE, use_last_error=True)(("LockSetForegroundWindow", windll["USER32"]), ((1, 'uLockCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScrollWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("ScrollWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'XAmount'),(1, 'YAmount'),(1, 'lpRect'),(1, 'lpClipRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScrollDC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("ScrollDC", windll["USER32"]), ((1, 'hDC'),(1, 'dx'),(1, 'dy'),(1, 'lprcScroll'),(1, 'lprcClip'),(1, 'hrgnUpdate'),(1, 'lprcUpdate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScrollWindowEx():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head),win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD, use_last_error=True)(("ScrollWindowEx", windll["USER32"]), ((1, 'hWnd'),(1, 'dx'),(1, 'dy'),(1, 'prcScroll'),(1, 'prcClip'),(1, 'hrgnUpdate'),(1, 'prcUpdate'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetScrollPos():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, use_last_error=True)(("GetScrollPos", windll["USER32"]), ((1, 'hWnd'),(1, 'nBar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetScrollRange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS,POINTER(Int32),POINTER(Int32), use_last_error=True)(("GetScrollRange", windll["USER32"]), ((1, 'hWnd'),(1, 'nBar'),(1, 'lpMinPos'),(1, 'lpMaxPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPropA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.HANDLE, use_last_error=True)(("SetPropA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),(1, 'hData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPropW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE, use_last_error=True)(("SetPropW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),(1, 'hData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProp():
-    return win32more.UI.WindowsAndMessaging.SetPropW
-def _define_GetPropA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("GetPropA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPropW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(("GetPropW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProp():
-    return win32more.UI.WindowsAndMessaging.GetPropW
-def _define_RemovePropA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=True)(("RemovePropA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemovePropW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=True)(("RemovePropW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveProp():
-    return win32more.UI.WindowsAndMessaging.RemovePropW
-def _define_EnumPropsExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCEXA,win32more.Foundation.LPARAM, use_last_error=False)(("EnumPropsExA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumPropsExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCEXW,win32more.Foundation.LPARAM, use_last_error=False)(("EnumPropsExW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumPropsEx():
-    return win32more.UI.WindowsAndMessaging.EnumPropsExW
-def _define_EnumPropsA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCA, use_last_error=False)(("EnumPropsA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpEnumFunc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumPropsW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.PROPENUMPROCW, use_last_error=False)(("EnumPropsW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpEnumFunc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumProps():
-    return win32more.UI.WindowsAndMessaging.EnumPropsW
-def _define_SetWindowTextA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=True)(("SetWindowTextA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowTextW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=True)(("SetWindowTextW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowText():
-    return win32more.UI.WindowsAndMessaging.SetWindowTextW
-def _define_GetWindowTextA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,POINTER(Byte),Int32, use_last_error=True)(("GetWindowTextA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),(1, 'nMaxCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowTextW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,POINTER(Char),Int32, use_last_error=True)(("GetWindowTextW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpString'),(1, 'nMaxCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowText():
-    return win32more.UI.WindowsAndMessaging.GetWindowTextW
-def _define_GetWindowTextLengthA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND, use_last_error=True)(("GetWindowTextLengthA", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowTextLengthW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND, use_last_error=True)(("GetWindowTextLengthW", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowTextLength():
-    return win32more.UI.WindowsAndMessaging.GetWindowTextLengthW
-def _define_GetClientRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("GetClientRect", windll["USER32"]), ((1, 'hWnd'),(1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("GetWindowRect", windll["USER32"]), ((1, 'hWnd'),(1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AdjustWindowRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),win32more.UI.WindowsAndMessaging.WINDOW_STYLE,win32more.Foundation.BOOL, use_last_error=True)(("AdjustWindowRect", windll["USER32"]), ((1, 'lpRect'),(1, 'dwStyle'),(1, 'bMenu'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AdjustWindowRectEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),win32more.UI.WindowsAndMessaging.WINDOW_STYLE,win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE, use_last_error=True)(("AdjustWindowRectEx", windll["USER32"]), ((1, 'lpRect'),(1, 'dwStyle'),(1, 'bMenu'),(1, 'dwExStyle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBoxA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE, use_last_error=True)(("MessageBoxA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBoxW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE, use_last_error=True)(("MessageBoxW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBox():
-    return win32more.UI.WindowsAndMessaging.MessageBoxW
-def _define_MessageBoxExA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE,UInt16, use_last_error=True)(("MessageBoxExA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),(1, 'wLanguageId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBoxExW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE,UInt16, use_last_error=True)(("MessageBoxExW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpText'),(1, 'lpCaption'),(1, 'uType'),(1, 'wLanguageId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBoxEx():
-    return win32more.UI.WindowsAndMessaging.MessageBoxExW
-def _define_MessageBoxIndirectA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,POINTER(win32more.UI.WindowsAndMessaging.MSGBOXPARAMSA_head), use_last_error=False)(("MessageBoxIndirectA", windll["USER32"]), ((1, 'lpmbp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBoxIndirectW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT,POINTER(win32more.UI.WindowsAndMessaging.MSGBOXPARAMSW_head), use_last_error=False)(("MessageBoxIndirectW", windll["USER32"]), ((1, 'lpmbp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MessageBoxIndirect():
-    return win32more.UI.WindowsAndMessaging.MessageBoxIndirectW
-def _define_ShowCursor():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.BOOL, use_last_error=False)(("ShowCursor", windll["USER32"]), ((1, 'bShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCursorPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32, use_last_error=True)(("SetCursorPos", windll["USER32"]), ((1, 'X'),(1, 'Y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPhysicalCursorPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32, use_last_error=True)(("SetPhysicalCursorPos", windll["USER32"]), ((1, 'X'),(1, 'Y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCursor():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.UI.WindowsAndMessaging.HCURSOR, use_last_error=False)(("SetCursor", windll["USER32"]), ((1, 'hCursor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCursorPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head), use_last_error=True)(("GetCursorPos", windll["USER32"]), ((1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPhysicalCursorPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head), use_last_error=True)(("GetPhysicalCursorPos", windll["USER32"]), ((1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClipCursor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("GetClipCursor", windll["USER32"]), ((1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCursor():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR, use_last_error=False)(("GetCursor", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCaret():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HBITMAP,Int32,Int32, use_last_error=True)(("CreateCaret", windll["USER32"]), ((1, 'hWnd'),(1, 'hBitmap'),(1, 'nWidth'),(1, 'nHeight'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCaretBlinkTime():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=True)(("GetCaretBlinkTime", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCaretBlinkTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=True)(("SetCaretBlinkTime", windll["USER32"]), ((1, 'uMSeconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyCaret():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=True)(("DestroyCaret", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HideCaret():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("HideCaret", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowCaret():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=True)(("ShowCaret", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCaretPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32, use_last_error=True)(("SetCaretPos", windll["USER32"]), ((1, 'X'),(1, 'Y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCaretPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.POINT_head), use_last_error=True)(("GetCaretPos", windll["USER32"]), ((1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LogicalToPhysicalPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(("LogicalToPhysicalPoint", windll["USER32"]), ((1, 'hWnd'),(1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PhysicalToLogicalPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(("PhysicalToLogicalPoint", windll["USER32"]), ((1, 'hWnd'),(1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.POINT, use_last_error=False)(("WindowFromPoint", windll["USER32"]), ((1, 'Point'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowFromPhysicalPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.POINT, use_last_error=False)(("WindowFromPhysicalPoint", windll["USER32"]), ((1, 'Point'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChildWindowFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT, use_last_error=False)(("ChildWindowFromPoint", windll["USER32"]), ((1, 'hWndParent'),(1, 'Point'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ClipCursor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("ClipCursor", windll["USER32"]), ((1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChildWindowFromPointEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT,win32more.UI.WindowsAndMessaging.CWP_FLAGS, use_last_error=False)(("ChildWindowFromPointEx", windll["USER32"]), ((1, 'hwnd'),(1, 'pt'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSysColor():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.WindowsAndMessaging.SYS_COLOR_INDEX, use_last_error=False)(("GetSysColor", windll["USER32"]), ((1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSysColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,POINTER(Int32),POINTER(UInt32), use_last_error=True)(("SetSysColors", windll["USER32"]), ((1, 'cElements'),(1, 'lpaElements'),(1, 'lpaRgbValues'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowWord():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32, use_last_error=False)(("GetWindowWord", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowWord():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32,UInt16, use_last_error=False)(("SetWindowWord", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'wNewWord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowLongA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, use_last_error=True)(("GetWindowLongA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowLongW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, use_last_error=True)(("GetWindowLongW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowLong():
-    return win32more.UI.WindowsAndMessaging.GetWindowLongW
-def _define_SetWindowLongA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,Int32, use_last_error=True)(("SetWindowLongA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowLongW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,Int32, use_last_error=True)(("SetWindowLongW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowLong():
-    return win32more.UI.WindowsAndMessaging.SetWindowLongW
-def _define_GetWindowLongPtrA():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, use_last_error=True)(("GetWindowLongPtrA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowLongPtrW():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, use_last_error=True)(("GetWindowLongPtrW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowLongPtr():
-    return win32more.UI.WindowsAndMessaging.GetWindowLongPtrW
-def _define_SetWindowLongPtrA():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,IntPtr, use_last_error=True)(("SetWindowLongPtrA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowLongPtrW():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX,IntPtr, use_last_error=True)(("SetWindowLongPtrW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowLongPtr():
-    return win32more.UI.WindowsAndMessaging.SetWindowLongPtrW
-def _define_GetClassWord():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32, use_last_error=True)(("GetClassWord", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetClassWord():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,Int32,UInt16, use_last_error=True)(("SetClassWord", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'wNewWord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassLongA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, use_last_error=True)(("GetClassLongA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassLongW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, use_last_error=True)(("GetClassLongW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassLong():
-    return win32more.UI.WindowsAndMessaging.GetClassLongW
-def _define_SetClassLongA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,Int32, use_last_error=True)(("SetClassLongA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetClassLongW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,Int32, use_last_error=True)(("SetClassLongW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetClassLong():
-    return win32more.UI.WindowsAndMessaging.SetClassLongW
-def _define_GetClassLongPtrA():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, use_last_error=True)(("GetClassLongPtrA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassLongPtrW():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, use_last_error=True)(("GetClassLongPtrW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassLongPtr():
-    return win32more.UI.WindowsAndMessaging.GetClassLongPtrW
-def _define_SetClassLongPtrA():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,IntPtr, use_last_error=True)(("SetClassLongPtrA", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetClassLongPtrW():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX,IntPtr, use_last_error=True)(("SetClassLongPtrW", windll["USER32"]), ((1, 'hWnd'),(1, 'nIndex'),(1, 'dwNewLong'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetClassLongPtr():
-    return win32more.UI.WindowsAndMessaging.SetClassLongPtrW
-def _define_GetProcessDefaultLayout():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32), use_last_error=True)(("GetProcessDefaultLayout", windll["USER32"]), ((1, 'pdwDefaultLayout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDefaultLayout():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=True)(("SetProcessDefaultLayout", windll["USER32"]), ((1, 'dwDefaultLayout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDesktopWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND, use_last_error=False)(("GetDesktopWindow", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetParent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND, use_last_error=True)(("GetParent", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetParent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND, use_last_error=True)(("SetParent", windll["USER32"]), ((1, 'hWndChild'),(1, 'hWndNewParent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumChildWindows():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM, use_last_error=False)(("EnumChildWindows", windll["USER32"]), ((1, 'hWndParent'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindWindowA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("FindWindowA", windll["USER32"]), ((1, 'lpClassName'),(1, 'lpWindowName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindWindowW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("FindWindowW", windll["USER32"]), ((1, 'lpClassName'),(1, 'lpWindowName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindWindow():
-    return win32more.UI.WindowsAndMessaging.FindWindowW
-def _define_FindWindowExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("FindWindowExA", windll["USER32"]), ((1, 'hWndParent'),(1, 'hWndChildAfter'),(1, 'lpszClass'),(1, 'lpszWindow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindWindowExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("FindWindowExW", windll["USER32"]), ((1, 'hWndParent'),(1, 'hWndChildAfter'),(1, 'lpszClass'),(1, 'lpszWindow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindWindowEx():
-    return win32more.UI.WindowsAndMessaging.FindWindowExW
-def _define_GetShellWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND, use_last_error=False)(("GetShellWindow", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterShellHookWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("RegisterShellHookWindow", windll["USER32"]), ((1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeregisterShellHookWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(("DeregisterShellHookWindow", windll["USER32"]), ((1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumWindows():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM, use_last_error=True)(("EnumWindows", windll["USER32"]), ((1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumThreadWindows():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM, use_last_error=False)(("EnumThreadWindows", windll["USER32"]), ((1, 'dwThreadId'),(1, 'lpfn'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassNameA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,POINTER(Byte),Int32, use_last_error=True)(("GetClassNameA", windll["USER32"]), ((1, 'hWnd'),(1, 'lpClassName'),(1, 'nMaxCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassNameW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,POINTER(Char),Int32, use_last_error=True)(("GetClassNameW", windll["USER32"]), ((1, 'hWnd'),(1, 'lpClassName'),(1, 'nMaxCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassName():
-    return win32more.UI.WindowsAndMessaging.GetClassNameW
-def _define_GetTopWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND, use_last_error=True)(("GetTopWindow", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowThreadProcessId():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(UInt32), use_last_error=False)(("GetWindowThreadProcessId", windll["USER32"]), ((1, 'hWnd'),(1, 'lpdwProcessId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsGUIThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(("IsGUIThread", windll["USER32"]), ((1, 'bConvert'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLastActivePopup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND, use_last_error=False)(("GetLastActivePopup", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_WINDOW_CMD, use_last_error=True)(("GetWindow", windll["USER32"]), ((1, 'hWnd'),(1, 'uCmd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowsHookA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,Int32,win32more.UI.WindowsAndMessaging.HOOKPROC, use_last_error=False)(("SetWindowsHookA", windll["USER32"]), ((1, 'nFilterType'),(1, 'pfnFilterProc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowsHookW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,Int32,win32more.UI.WindowsAndMessaging.HOOKPROC, use_last_error=False)(("SetWindowsHookW", windll["USER32"]), ((1, 'nFilterType'),(1, 'pfnFilterProc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowsHook():
-    return win32more.UI.WindowsAndMessaging.SetWindowsHookW
-def _define_UnhookWindowsHook():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,win32more.UI.WindowsAndMessaging.HOOKPROC, use_last_error=False)(("UnhookWindowsHook", windll["USER32"]), ((1, 'nCode'),(1, 'pfnFilterProc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowsHookExA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,win32more.UI.WindowsAndMessaging.WINDOWS_HOOK_ID,win32more.UI.WindowsAndMessaging.HOOKPROC,win32more.Foundation.HINSTANCE,UInt32, use_last_error=True)(("SetWindowsHookExA", windll["USER32"]), ((1, 'idHook'),(1, 'lpfn'),(1, 'hmod'),(1, 'dwThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowsHookExW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HHOOK,win32more.UI.WindowsAndMessaging.WINDOWS_HOOK_ID,win32more.UI.WindowsAndMessaging.HOOKPROC,win32more.Foundation.HINSTANCE,UInt32, use_last_error=True)(("SetWindowsHookExW", windll["USER32"]), ((1, 'idHook'),(1, 'lpfn'),(1, 'hmod'),(1, 'dwThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowsHookEx():
-    return win32more.UI.WindowsAndMessaging.SetWindowsHookExW
-def _define_UnhookWindowsHookEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HHOOK, use_last_error=True)(("UnhookWindowsHookEx", windll["USER32"]), ((1, 'hhk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallNextHookEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.WindowsAndMessaging.HHOOK,Int32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("CallNextHookEx", windll["USER32"]), ((1, 'hhk'),(1, 'nCode'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckMenuRadioItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32,UInt32,UInt32, use_last_error=True)(("CheckMenuRadioItem", windll["USER32"]), ((1, 'hmenu'),(1, 'first'),(1, 'last'),(1, 'check'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadCursorA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR, use_last_error=True)(("LoadCursorA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpCursorName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadCursorW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR, use_last_error=True)(("LoadCursorW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpCursorName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadCursor():
-    return win32more.UI.WindowsAndMessaging.LoadCursorW
-def _define_LoadCursorFromFileA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.PSTR, use_last_error=True)(("LoadCursorFromFileA", windll["USER32"]), ((1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadCursorFromFileW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.PWSTR, use_last_error=True)(("LoadCursorFromFileW", windll["USER32"]), ((1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadCursorFromFile():
-    return win32more.UI.WindowsAndMessaging.LoadCursorFromFileW
-def _define_CreateCursor():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HCURSOR,win32more.Foundation.HINSTANCE,Int32,Int32,Int32,Int32,c_void_p,c_void_p, use_last_error=True)(("CreateCursor", windll["USER32"]), ((1, 'hInst'),(1, 'xHotSpot'),(1, 'yHotSpot'),(1, 'nWidth'),(1, 'nHeight'),(1, 'pvANDPlane'),(1, 'pvXORPlane'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyCursor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HCURSOR, use_last_error=True)(("DestroyCursor", windll["USER32"]), ((1, 'hCursor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSystemCursor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HCURSOR,win32more.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID, use_last_error=True)(("SetSystemCursor", windll["USER32"]), ((1, 'hcur'),(1, 'id'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadIconA():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR, use_last_error=True)(("LoadIconA", windll["USER32"]), ((1, 'hInstance'),(1, 'lpIconName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadIconW():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR, use_last_error=True)(("LoadIconW", windll["USER32"]), ((1, 'hInstance'),(1, 'lpIconName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadIcon():
-    return win32more.UI.WindowsAndMessaging.LoadIconW
-def _define_PrivateExtractIconsA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Byte),Int32,Int32,Int32,POINTER(win32more.UI.WindowsAndMessaging.HICON),POINTER(UInt32),UInt32,UInt32, use_last_error=False)(("PrivateExtractIconsA", windll["USER32"]), ((1, 'szFileName'),(1, 'nIconIndex'),(1, 'cxIcon'),(1, 'cyIcon'),(1, 'phicon'),(1, 'piconid'),(1, 'nIcons'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrivateExtractIconsW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Char),Int32,Int32,Int32,POINTER(win32more.UI.WindowsAndMessaging.HICON),POINTER(UInt32),UInt32,UInt32, use_last_error=False)(("PrivateExtractIconsW", windll["USER32"]), ((1, 'szFileName'),(1, 'nIconIndex'),(1, 'cxIcon'),(1, 'cyIcon'),(1, 'phicon'),(1, 'piconid'),(1, 'nIcons'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrivateExtractIcons():
-    return win32more.UI.WindowsAndMessaging.PrivateExtractIconsW
-def _define_CreateIcon():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.HINSTANCE,Int32,Int32,Byte,Byte,POINTER(Byte),POINTER(Byte), use_last_error=True)(("CreateIcon", windll["USER32"]), ((1, 'hInstance'),(1, 'nWidth'),(1, 'nHeight'),(1, 'cPlanes'),(1, 'cBitsPixel'),(1, 'lpbANDbits'),(1, 'lpbXORbits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyIcon():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON, use_last_error=True)(("DestroyIcon", windll["USER32"]), ((1, 'hIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupIconIdFromDirectory():
-    try:
-        return WINFUNCTYPE(Int32,c_char_p_no,win32more.Foundation.BOOL, use_last_error=True)(("LookupIconIdFromDirectory", windll["USER32"]), ((1, 'presbits'),(1, 'fIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupIconIdFromDirectoryEx():
-    try:
-        return WINFUNCTYPE(Int32,c_char_p_no,win32more.Foundation.BOOL,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS, use_last_error=True)(("LookupIconIdFromDirectoryEx", windll["USER32"]), ((1, 'presbits'),(1, 'fIcon'),(1, 'cxDesired'),(1, 'cyDesired'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIconFromResource():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,c_char_p_no,UInt32,win32more.Foundation.BOOL,UInt32, use_last_error=True)(("CreateIconFromResource", windll["USER32"]), ((1, 'presbits'),(1, 'dwResSize'),(1, 'fIcon'),(1, 'dwVer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIconFromResourceEx():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,c_char_p_no,UInt32,win32more.Foundation.BOOL,UInt32,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS, use_last_error=True)(("CreateIconFromResourceEx", windll["USER32"]), ((1, 'presbits'),(1, 'dwResSize'),(1, 'fIcon'),(1, 'dwVer'),(1, 'cxDesired'),(1, 'cyDesired'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadImageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.GDI_IMAGE_TYPE,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS, use_last_error=True)(("LoadImageA", windll["USER32"]), ((1, 'hInst'),(1, 'name'),(1, 'type'),(1, 'cx'),(1, 'cy'),(1, 'fuLoad'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadImageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.GDI_IMAGE_TYPE,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS, use_last_error=True)(("LoadImageW", windll["USER32"]), ((1, 'hInst'),(1, 'name'),(1, 'type'),(1, 'cx'),(1, 'cy'),(1, 'fuLoad'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadImage():
-    return win32more.UI.WindowsAndMessaging.LoadImageW
-def _define_CopyImage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.UI.WindowsAndMessaging.GDI_IMAGE_TYPE,Int32,Int32,win32more.UI.WindowsAndMessaging.IMAGE_FLAGS, use_last_error=True)(("CopyImage", windll["USER32"]), ((1, 'h'),(1, 'type'),(1, 'cx'),(1, 'cy'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawIconEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.UI.WindowsAndMessaging.HICON,Int32,Int32,UInt32,win32more.Graphics.Gdi.HBRUSH,win32more.UI.WindowsAndMessaging.DI_FLAGS, use_last_error=True)(("DrawIconEx", windll["USER32"]), ((1, 'hdc'),(1, 'xLeft'),(1, 'yTop'),(1, 'hIcon'),(1, 'cxWidth'),(1, 'cyWidth'),(1, 'istepIfAniCur'),(1, 'hbrFlickerFreeDraw'),(1, 'diFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIconIndirect():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFO_head), use_last_error=True)(("CreateIconIndirect", windll["USER32"]), ((1, 'piconinfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyIcon():
-    try:
-        return WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON,win32more.UI.WindowsAndMessaging.HICON, use_last_error=True)(("CopyIcon", windll["USER32"]), ((1, 'hIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIconInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFO_head), use_last_error=True)(("GetIconInfo", windll["USER32"]), ((1, 'hIcon'),(1, 'piconinfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIconInfoExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFOEXA_head), use_last_error=False)(("GetIconInfoExA", windll["USER32"]), ((1, 'hicon'),(1, 'piconinfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIconInfoExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.HICON,POINTER(win32more.UI.WindowsAndMessaging.ICONINFOEXW_head), use_last_error=False)(("GetIconInfoExW", windll["USER32"]), ((1, 'hicon'),(1, 'piconinfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIconInfoEx():
-    return win32more.UI.WindowsAndMessaging.GetIconInfoExW
-def _define_IsDialogMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(("IsDialogMessageA", windll["USER32"]), ((1, 'hDlg'),(1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsDialogMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(("IsDialogMessageW", windll["USER32"]), ((1, 'hDlg'),(1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsDialogMessage():
-    return win32more.UI.WindowsAndMessaging.IsDialogMessageW
-def _define_MapDialogRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head), use_last_error=True)(("MapDialogRect", windll["USER32"]), ((1, 'hDlg'),(1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetScrollInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS,POINTER(win32more.UI.WindowsAndMessaging.SCROLLINFO_head), use_last_error=True)(("GetScrollInfo", windll["USER32"]), ((1, 'hwnd'),(1, 'nBar'),(1, 'lpsi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefFrameProcA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefFrameProcA", windll["USER32"]), ((1, 'hWnd'),(1, 'hWndMDIClient'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefFrameProcW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefFrameProcW", windll["USER32"]), ((1, 'hWnd'),(1, 'hWndMDIClient'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefFrameProc():
-    return win32more.UI.WindowsAndMessaging.DefFrameProcW
-def _define_DefMDIChildProcA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefMDIChildProcA", windll["USER32"]), ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefMDIChildProcW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefMDIChildProcW", windll["USER32"]), ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefMDIChildProc():
-    return win32more.UI.WindowsAndMessaging.DefMDIChildProcW
-def _define_TranslateMDISysAccel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(("TranslateMDISysAccel", windll["USER32"]), ((1, 'hWndClient'),(1, 'lpMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ArrangeIconicWindows():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND, use_last_error=True)(("ArrangeIconicWindows", windll["USER32"]), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMDIWindowA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.LPARAM, use_last_error=True)(("CreateMDIWindowA", windll["USER32"]), ((1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hInstance'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMDIWindowW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.WINDOW_STYLE,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.LPARAM, use_last_error=True)(("CreateMDIWindowW", windll["USER32"]), ((1, 'lpClassName'),(1, 'lpWindowName'),(1, 'dwStyle'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hWndParent'),(1, 'hInstance'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMDIWindow():
-    return win32more.UI.WindowsAndMessaging.CreateMDIWindowW
-def _define_TileWindows():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.TILE_WINDOWS_HOW,POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Foundation.HWND), use_last_error=True)(("TileWindows", windll["USER32"]), ((1, 'hwndParent'),(1, 'wHow'),(1, 'lpRect'),(1, 'cKids'),(1, 'lpKids'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CascadeWindows():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW,POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Foundation.HWND), use_last_error=True)(("CascadeWindows", windll["USER32"]), ((1, 'hwndParent'),(1, 'wHow'),(1, 'lpRect'),(1, 'cKids'),(1, 'lpKids'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SystemParametersInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION,UInt32,c_void_p,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS, use_last_error=True)(("SystemParametersInfoA", windll["USER32"]), ((1, 'uiAction'),(1, 'uiParam'),(1, 'pvParam'),(1, 'fWinIni'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SystemParametersInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION,UInt32,c_void_p,win32more.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS, use_last_error=True)(("SystemParametersInfoW", windll["USER32"]), ((1, 'uiAction'),(1, 'uiParam'),(1, 'pvParam'),(1, 'fWinIni'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SystemParametersInfo():
-    return win32more.UI.WindowsAndMessaging.SystemParametersInfoW
-def _define_SoundSentry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("SoundSentry", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDebugErrorLevel():
-    try:
-        return WINFUNCTYPE(Void,UInt32, use_last_error=False)(("SetDebugErrorLevel", windll["USER32"]), ((1, 'dwLevel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternalGetWindowText():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,POINTER(Char),Int32, use_last_error=True)(("InternalGetWindowText", windll["USER32"]), ((1, 'hWnd'),(1, 'pString'),(1, 'cchMaxCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelShutdown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("CancelShutdown", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGUIThreadInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.UI.WindowsAndMessaging.GUITHREADINFO_head), use_last_error=True)(("GetGUIThreadInfo", windll["USER32"]), ((1, 'idThread'),(1, 'pgui'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDPIAware():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("SetProcessDPIAware", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsProcessDPIAware():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("IsProcessDPIAware", windll["USER32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InheritWindowMonitor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.HWND, use_last_error=False)(("InheritWindowMonitor", windll["USER32"]), ((1, 'hwnd'),(1, 'hwndInherit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowModuleFileNameA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(Byte),UInt32, use_last_error=False)(("GetWindowModuleFileNameA", windll["USER32"]), ((1, 'hwnd'),(1, 'pszFileName'),(1, 'cchFileNameMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowModuleFileNameW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(Char),UInt32, use_last_error=False)(("GetWindowModuleFileNameW", windll["USER32"]), ((1, 'hwnd'),(1, 'pszFileName'),(1, 'cchFileNameMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowModuleFileName():
-    return win32more.UI.WindowsAndMessaging.GetWindowModuleFileNameW
-def _define_GetCursorInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.CURSORINFO_head), use_last_error=True)(("GetCursorInfo", windll["USER32"]), ((1, 'pci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.WINDOWINFO_head), use_last_error=True)(("GetWindowInfo", windll["USER32"]), ((1, 'hwnd'),(1, 'pwi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTitleBarInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.UI.WindowsAndMessaging.TITLEBARINFO_head), use_last_error=True)(("GetTitleBarInfo", windll["USER32"]), ((1, 'hwnd'),(1, 'pti'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMenuBarInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.OBJECT_IDENTIFIER,Int32,POINTER(win32more.UI.WindowsAndMessaging.MENUBARINFO_head), use_last_error=True)(("GetMenuBarInfo", windll["USER32"]), ((1, 'hwnd'),(1, 'idObject'),(1, 'idItem'),(1, 'pmbi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetScrollBarInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.OBJECT_IDENTIFIER,POINTER(win32more.UI.WindowsAndMessaging.SCROLLBARINFO_head), use_last_error=True)(("GetScrollBarInfo", windll["USER32"]), ((1, 'hwnd'),(1, 'idObject'),(1, 'psbi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAncestor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.GET_ANCESTOR_FLAGS, use_last_error=False)(("GetAncestor", windll["USER32"]), ((1, 'hwnd'),(1, 'gaFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RealChildWindowFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT, use_last_error=False)(("RealChildWindowFromPoint", windll["USER32"]), ((1, 'hwndParent'),(1, 'ptParentClientCoords'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RealGetWindowClassA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(Byte),UInt32, use_last_error=False)(("RealGetWindowClassA", windll["USER32"]), ((1, 'hwnd'),(1, 'ptszClassName'),(1, 'cchClassNameMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RealGetWindowClassW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(Char),UInt32, use_last_error=True)(("RealGetWindowClassW", windll["USER32"]), ((1, 'hwnd'),(1, 'ptszClassName'),(1, 'cchClassNameMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RealGetWindowClass():
-    return win32more.UI.WindowsAndMessaging.RealGetWindowClassW
-def _define_GetAltTabInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,POINTER(win32more.UI.WindowsAndMessaging.ALTTABINFO_head),POINTER(Byte),UInt32, use_last_error=True)(("GetAltTabInfoA", windll["USER32"]), ((1, 'hwnd'),(1, 'iItem'),(1, 'pati'),(1, 'pszItemText'),(1, 'cchItemText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAltTabInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,POINTER(win32more.UI.WindowsAndMessaging.ALTTABINFO_head),POINTER(Char),UInt32, use_last_error=True)(("GetAltTabInfoW", windll["USER32"]), ((1, 'hwnd'),(1, 'iItem'),(1, 'pati'),(1, 'pszItemText'),(1, 'cchItemText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAltTabInfo():
-    return win32more.UI.WindowsAndMessaging.GetAltTabInfoW
-def _define_ChangeWindowMessageFilter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.UI.WindowsAndMessaging.CHANGE_WINDOW_MESSAGE_FILTER_FLAGS, use_last_error=True)(("ChangeWindowMessageFilter", windll["USER32"]), ((1, 'message'),(1, 'dwFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeWindowMessageFilterEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.UI.WindowsAndMessaging.WINDOW_MESSAGE_FILTER_ACTION,POINTER(win32more.UI.WindowsAndMessaging.CHANGEFILTERSTRUCT_head), use_last_error=True)(("ChangeWindowMessageFilterEx", windll["USER32"]), ((1, 'hwnd'),(1, 'message'),(1, 'action'),(1, 'pChangeFilterStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateResourceIndexer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p), use_last_error=False)(("CreateResourceIndexer", windll["MrmSupport"]), ((1, 'projectRoot'),(1, 'extensionDllPath'),(1, 'ppResourceIndexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyResourceIndexer():
-    try:
-        return WINFUNCTYPE(Void,c_void_p, use_last_error=False)(("DestroyResourceIndexer", windll["MrmSupport"]), ((1, 'resourceIndexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IndexFilePath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(POINTER(win32more.UI.WindowsAndMessaging.IndexedResourceQualifier_head)), use_last_error=False)(("IndexFilePath", windll["MrmSupport"]), ((1, 'resourceIndexer'),(1, 'filePath'),(1, 'ppResourceUri'),(1, 'pQualifierCount'),(1, 'ppQualifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyIndexedResults():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.UI.WindowsAndMessaging.IndexedResourceQualifier), use_last_error=False)(("DestroyIndexedResults", windll["MrmSupport"]), ((1, 'resourceUri'),(1, 'qualifierCount'),(1, 'qualifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceIndexer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head), use_last_error=False)(("MrmCreateResourceIndexer", windll["MrmSupport"]), ((1, 'packageFamilyName'),(1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceIndexerFromPreviousSchemaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head), use_last_error=False)(("MrmCreateResourceIndexerFromPreviousSchemaFile", windll["MrmSupport"]), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'schemaFile'),(1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceIndexerFromPreviousPriFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head), use_last_error=False)(("MrmCreateResourceIndexerFromPreviousPriFile", windll["MrmSupport"]), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'priFile'),(1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceIndexerFromPreviousSchemaData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head), use_last_error=False)(("MrmCreateResourceIndexerFromPreviousSchemaData", windll["MrmSupport"]), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'schemaXmlData'),(1, 'schemaXmlSize'),(1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceIndexerFromPreviousPriData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head), use_last_error=False)(("MrmCreateResourceIndexerFromPreviousPriData", windll["MrmSupport"]), ((1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'priData'),(1, 'priSize'),(1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceIndexerWithFlags():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmIndexerFlags,POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle_head), use_last_error=False)(("MrmCreateResourceIndexerWithFlags", windll["MrmSupport"]), ((1, 'packageFamilyName'),(1, 'projectRoot'),(1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'flags'),(1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmIndexString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MrmIndexString", windll["MrmSupport"]), ((1, 'indexer'),(1, 'resourceUri'),(1, 'resourceString'),(1, 'qualifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmIndexEmbeddedData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR,c_char_p_no,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MrmIndexEmbeddedData", windll["MrmSupport"]), ((1, 'indexer'),(1, 'resourceUri'),(1, 'embeddedData'),(1, 'embeddedDataSize'),(1, 'qualifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmIndexFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MrmIndexFile", windll["MrmSupport"]), ((1, 'indexer'),(1, 'resourceUri'),(1, 'filePath'),(1, 'qualifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmIndexFileAutoQualifiers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR, use_last_error=False)(("MrmIndexFileAutoQualifiers", windll["MrmSupport"]), ((1, 'indexer'),(1, 'filePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmIndexResourceContainerAutoQualifiers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.Foundation.PWSTR, use_last_error=False)(("MrmIndexResourceContainerAutoQualifiers", windll["MrmSupport"]), ((1, 'indexer'),(1, 'containerPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.UI.WindowsAndMessaging.MrmPackagingMode,win32more.UI.WindowsAndMessaging.MrmPackagingOptions,win32more.Foundation.PWSTR, use_last_error=False)(("MrmCreateResourceFile", windll["MrmSupport"]), ((1, 'indexer'),(1, 'packagingMode'),(1, 'packagingOptions'),(1, 'outputDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceFileWithChecksum():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.UI.WindowsAndMessaging.MrmPackagingMode,win32more.UI.WindowsAndMessaging.MrmPackagingOptions,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MrmCreateResourceFileWithChecksum", windll["MrmSupport"]), ((1, 'indexer'),(1, 'packagingMode'),(1, 'packagingOptions'),(1, 'checksum'),(1, 'outputDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateResourceFileInMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,win32more.UI.WindowsAndMessaging.MrmPackagingMode,win32more.UI.WindowsAndMessaging.MrmPackagingOptions,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(("MrmCreateResourceFileInMemory", windll["MrmSupport"]), ((1, 'indexer'),(1, 'packagingMode'),(1, 'packagingOptions'),(1, 'outputPriData'),(1, 'outputPriSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmPeekResourceIndexerMessages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle,POINTER(POINTER(win32more.UI.WindowsAndMessaging.MrmResourceIndexerMessage_head)),POINTER(UInt32), use_last_error=False)(("MrmPeekResourceIndexerMessages", windll["MrmSupport"]), ((1, 'handle'),(1, 'messages'),(1, 'numMsgs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmDestroyIndexerAndMessages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmResourceIndexerHandle, use_last_error=False)(("MrmDestroyIndexerAndMessages", windll["MrmSupport"]), ((1, 'indexer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmFreeMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(("MrmFreeMemory", windll["MrmSupport"]), ((1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmDumpPriFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmDumpType,win32more.Foundation.PWSTR, use_last_error=False)(("MrmDumpPriFile", windll["MrmSupport"]), ((1, 'indexFileName'),(1, 'schemaPriFile'),(1, 'dumpType'),(1, 'outputXmlFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmDumpPriFileInMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.WindowsAndMessaging.MrmDumpType,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(("MrmDumpPriFileInMemory", windll["MrmSupport"]), ((1, 'indexFileName'),(1, 'schemaPriFile'),(1, 'dumpType'),(1, 'outputXmlData'),(1, 'outputXmlSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmDumpPriDataInMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.UI.WindowsAndMessaging.MrmDumpType,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(("MrmDumpPriDataInMemory", windll["MrmSupport"]), ((1, 'inputPriData'),(1, 'inputPriSize'),(1, 'schemaPriData'),(1, 'schemaPriSize'),(1, 'dumpType'),(1, 'outputXmlData'),(1, 'outputXmlSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateConfig():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MrmCreateConfig", windll["MrmSupport"]), ((1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'outputXmlFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmCreateConfigInMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.MrmPlatformVersion,win32more.Foundation.PWSTR,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(("MrmCreateConfigInMemory", windll["MrmSupport"]), ((1, 'platformVersion'),(1, 'defaultQualifiers'),(1, 'outputXmlData'),(1, 'outputXmlSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MrmGetPriFileContentChecksum():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(("MrmGetPriFileContentChecksum", windll["MrmSupport"]), ((1, 'priFile'),(1, 'checksum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+def _define_WNDENUMPROC():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.LPARAM)
+def _define_WNDPROC():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
 __all__ = [
-    "WM_DEVICECHANGE",
-    "BSM_VXDS",
-    "BSM_NETDRIVER",
-    "BSM_INSTALLABLEDRIVERS",
-    "RT_CURSOR",
-    "RT_BITMAP",
-    "RT_ICON",
-    "RT_MENU",
-    "RT_DIALOG",
-    "RT_FONTDIR",
-    "RT_FONT",
-    "RT_ACCELERATOR",
-    "RT_MESSAGETABLE",
-    "DIFFERENCE",
-    "RT_VERSION",
-    "RT_DLGINCLUDE",
-    "RT_PLUGPLAY",
-    "RT_VXD",
-    "RT_ANICURSOR",
-    "RT_ANIICON",
-    "RT_HTML",
-    "RT_MANIFEST",
-    "CREATEPROCESS_MANIFEST_RESOURCE_ID",
-    "ISOLATIONAWARE_MANIFEST_RESOURCE_ID",
-    "ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID",
-    "ISOLATIONPOLICY_MANIFEST_RESOURCE_ID",
-    "ISOLATIONPOLICY_BROWSER_MANIFEST_RESOURCE_ID",
-    "MINIMUM_RESERVED_MANIFEST_RESOURCE_ID",
-    "MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID",
-    "SB_LINEUP",
-    "SB_LINELEFT",
-    "SB_LINEDOWN",
-    "SB_LINERIGHT",
-    "SB_PAGEUP",
-    "SB_PAGELEFT",
-    "SB_PAGEDOWN",
-    "SB_PAGERIGHT",
-    "SB_THUMBPOSITION",
-    "SB_THUMBTRACK",
-    "SB_TOP",
-    "SB_LEFT",
-    "SB_BOTTOM",
-    "SB_RIGHT",
-    "SB_ENDSCROLL",
-    "HIDE_WINDOW",
-    "SHOW_OPENWINDOW",
-    "SHOW_ICONWINDOW",
-    "SHOW_FULLSCREEN",
-    "SHOW_OPENNOACTIVATE",
-    "KF_EXTENDED",
-    "KF_DLGMODE",
-    "KF_MENUMODE",
-    "KF_ALTDOWN",
-    "KF_REPEAT",
-    "KF_UP",
-    "WH_MIN",
-    "WH_HARDWARE",
-    "WH_MAX",
-    "WH_MINHOOK",
-    "WH_MAXHOOK",
-    "HC_ACTION",
-    "HC_GETNEXT",
-    "HC_SKIP",
-    "HC_NOREMOVE",
-    "HC_NOREM",
-    "HC_SYSMODALON",
-    "HC_SYSMODALOFF",
-    "HCBT_MOVESIZE",
-    "HCBT_MINMAX",
-    "HCBT_QS",
-    "HCBT_CREATEWND",
-    "HCBT_DESTROYWND",
-    "HCBT_ACTIVATE",
-    "HCBT_CLICKSKIPPED",
-    "HCBT_KEYSKIPPED",
-    "HCBT_SYSCOMMAND",
-    "HCBT_SETFOCUS",
-    "WTS_CONSOLE_CONNECT",
-    "WTS_CONSOLE_DISCONNECT",
-    "WTS_REMOTE_CONNECT",
-    "WTS_REMOTE_DISCONNECT",
-    "WTS_SESSION_LOGON",
-    "WTS_SESSION_LOGOFF",
-    "WTS_SESSION_LOCK",
-    "WTS_SESSION_UNLOCK",
-    "WTS_SESSION_REMOTE_CONTROL",
-    "WTS_SESSION_CREATE",
-    "WTS_SESSION_TERMINATE",
-    "MSGF_DIALOGBOX",
-    "MSGF_MESSAGEBOX",
-    "MSGF_MENU",
-    "MSGF_SCROLLBAR",
-    "MSGF_NEXTWINDOW",
-    "MSGF_MAX",
-    "MSGF_USER",
-    "HSHELL_WINDOWCREATED",
-    "HSHELL_WINDOWDESTROYED",
-    "HSHELL_ACTIVATESHELLWINDOW",
-    "HSHELL_WINDOWACTIVATED",
-    "HSHELL_GETMINRECT",
-    "HSHELL_REDRAW",
-    "HSHELL_TASKMAN",
-    "HSHELL_LANGUAGE",
-    "HSHELL_SYSMENU",
-    "HSHELL_ENDTASK",
-    "HSHELL_ACCESSIBILITYSTATE",
-    "HSHELL_APPCOMMAND",
-    "HSHELL_WINDOWREPLACED",
-    "HSHELL_WINDOWREPLACING",
-    "HSHELL_MONITORCHANGED",
-    "HSHELL_HIGHBIT",
-    "FAPPCOMMAND_MOUSE",
-    "FAPPCOMMAND_KEY",
-    "FAPPCOMMAND_OEM",
-    "FAPPCOMMAND_MASK",
-    "LLMHF_INJECTED",
-    "LLMHF_LOWER_IL_INJECTED",
-    "HKL_PREV",
-    "HKL_NEXT",
-    "INPUTLANGCHANGE_SYSCHARSET",
-    "INPUTLANGCHANGE_FORWARD",
-    "INPUTLANGCHANGE_BACKWARD",
-    "KL_NAMELENGTH",
-    "DESKTOP_READOBJECTS",
-    "DESKTOP_CREATEWINDOW",
-    "DESKTOP_CREATEMENU",
-    "DESKTOP_HOOKCONTROL",
-    "DESKTOP_JOURNALRECORD",
-    "DESKTOP_JOURNALPLAYBACK",
-    "DESKTOP_ENUMERATE",
-    "DESKTOP_WRITEOBJECTS",
-    "DESKTOP_SWITCHDESKTOP",
-    "DF_ALLOWOTHERACCOUNTHOOK",
-    "WINSTA_ENUMDESKTOPS",
-    "WINSTA_READATTRIBUTES",
-    "WINSTA_ACCESSCLIPBOARD",
-    "WINSTA_CREATEDESKTOP",
-    "WINSTA_WRITEATTRIBUTES",
-    "WINSTA_ACCESSGLOBALATOMS",
-    "WINSTA_EXITWINDOWS",
-    "WINSTA_ENUMERATE",
-    "WINSTA_READSCREEN",
-    "CWF_CREATE_ONLY",
-    "WSF_VISIBLE",
-    "UOI_TIMERPROC_EXCEPTION_SUPPRESSION",
-    "WM_NULL",
-    "WM_CREATE",
-    "WM_DESTROY",
-    "WM_MOVE",
-    "WM_SIZE",
-    "WM_ACTIVATE",
-    "WA_INACTIVE",
-    "WA_ACTIVE",
-    "WA_CLICKACTIVE",
-    "WM_SETFOCUS",
-    "WM_KILLFOCUS",
-    "WM_ENABLE",
-    "WM_SETREDRAW",
-    "WM_SETTEXT",
-    "WM_GETTEXT",
-    "WM_GETTEXTLENGTH",
-    "WM_PAINT",
-    "WM_CLOSE",
-    "WM_QUERYENDSESSION",
-    "WM_QUERYOPEN",
-    "WM_ENDSESSION",
-    "WM_QUIT",
-    "WM_ERASEBKGND",
-    "WM_SYSCOLORCHANGE",
-    "WM_SHOWWINDOW",
-    "WM_WININICHANGE",
-    "WM_SETTINGCHANGE",
-    "WM_DEVMODECHANGE",
-    "WM_ACTIVATEAPP",
-    "WM_FONTCHANGE",
-    "WM_TIMECHANGE",
-    "WM_CANCELMODE",
-    "WM_SETCURSOR",
-    "WM_MOUSEACTIVATE",
-    "WM_CHILDACTIVATE",
-    "WM_QUEUESYNC",
-    "WM_GETMINMAXINFO",
-    "WM_PAINTICON",
-    "WM_ICONERASEBKGND",
-    "WM_NEXTDLGCTL",
-    "WM_SPOOLERSTATUS",
-    "WM_DRAWITEM",
-    "WM_MEASUREITEM",
-    "WM_DELETEITEM",
-    "WM_VKEYTOITEM",
-    "WM_CHARTOITEM",
-    "WM_SETFONT",
-    "WM_GETFONT",
-    "WM_SETHOTKEY",
-    "WM_GETHOTKEY",
-    "WM_QUERYDRAGICON",
-    "WM_COMPAREITEM",
-    "WM_GETOBJECT",
-    "WM_COMPACTING",
-    "WM_COMMNOTIFY",
-    "WM_WINDOWPOSCHANGING",
-    "WM_WINDOWPOSCHANGED",
-    "WM_POWER",
-    "PWR_OK",
-    "PWR_FAIL",
-    "PWR_SUSPENDREQUEST",
-    "PWR_SUSPENDRESUME",
-    "PWR_CRITICALRESUME",
-    "WM_COPYDATA",
-    "WM_CANCELJOURNAL",
-    "WM_INPUTLANGCHANGEREQUEST",
-    "WM_INPUTLANGCHANGE",
-    "WM_TCARD",
-    "WM_HELP",
-    "WM_USERCHANGED",
-    "WM_NOTIFYFORMAT",
-    "NFR_ANSI",
-    "NFR_UNICODE",
-    "NF_QUERY",
-    "NF_REQUERY",
-    "WM_STYLECHANGING",
-    "WM_STYLECHANGED",
-    "WM_DISPLAYCHANGE",
-    "WM_GETICON",
-    "WM_SETICON",
-    "WM_NCCREATE",
-    "WM_NCDESTROY",
-    "WM_NCCALCSIZE",
-    "WM_NCHITTEST",
-    "WM_NCPAINT",
-    "WM_NCACTIVATE",
-    "WM_GETDLGCODE",
-    "WM_SYNCPAINT",
-    "WM_NCMOUSEMOVE",
-    "WM_NCLBUTTONDOWN",
-    "WM_NCLBUTTONUP",
-    "WM_NCLBUTTONDBLCLK",
-    "WM_NCRBUTTONDOWN",
-    "WM_NCRBUTTONUP",
-    "WM_NCRBUTTONDBLCLK",
-    "WM_NCMBUTTONDOWN",
-    "WM_NCMBUTTONUP",
-    "WM_NCMBUTTONDBLCLK",
-    "WM_NCXBUTTONDOWN",
-    "WM_NCXBUTTONUP",
-    "WM_NCXBUTTONDBLCLK",
-    "WM_INPUT_DEVICE_CHANGE",
-    "WM_INPUT",
-    "WM_KEYFIRST",
-    "WM_KEYDOWN",
-    "WM_KEYUP",
-    "WM_CHAR",
-    "WM_DEADCHAR",
-    "WM_SYSKEYDOWN",
-    "WM_SYSKEYUP",
-    "WM_SYSCHAR",
-    "WM_SYSDEADCHAR",
-    "WM_KEYLAST",
-    "UNICODE_NOCHAR",
-    "WM_IME_STARTCOMPOSITION",
-    "WM_IME_ENDCOMPOSITION",
-    "WM_IME_COMPOSITION",
-    "WM_IME_KEYLAST",
-    "WM_INITDIALOG",
-    "WM_COMMAND",
-    "WM_SYSCOMMAND",
-    "WM_TIMER",
-    "WM_HSCROLL",
-    "WM_VSCROLL",
-    "WM_INITMENU",
-    "WM_INITMENUPOPUP",
-    "WM_GESTURE",
-    "WM_GESTURENOTIFY",
-    "WM_MENUSELECT",
-    "WM_MENUCHAR",
-    "WM_ENTERIDLE",
-    "WM_MENURBUTTONUP",
-    "WM_MENUDRAG",
-    "WM_MENUGETOBJECT",
-    "WM_UNINITMENUPOPUP",
-    "WM_MENUCOMMAND",
-    "WM_CHANGEUISTATE",
-    "WM_UPDATEUISTATE",
-    "WM_QUERYUISTATE",
-    "UIS_SET",
-    "UIS_CLEAR",
-    "UIS_INITIALIZE",
-    "UISF_HIDEFOCUS",
-    "UISF_HIDEACCEL",
-    "UISF_ACTIVE",
-    "WM_CTLCOLORMSGBOX",
-    "WM_CTLCOLOREDIT",
-    "WM_CTLCOLORLISTBOX",
-    "WM_CTLCOLORBTN",
-    "WM_CTLCOLORDLG",
-    "WM_CTLCOLORSCROLLBAR",
-    "WM_CTLCOLORSTATIC",
-    "MN_GETHMENU",
-    "WM_MOUSEFIRST",
-    "WM_MOUSEMOVE",
-    "WM_LBUTTONDOWN",
-    "WM_LBUTTONUP",
-    "WM_LBUTTONDBLCLK",
-    "WM_RBUTTONDOWN",
-    "WM_RBUTTONUP",
-    "WM_RBUTTONDBLCLK",
-    "WM_MBUTTONDOWN",
-    "WM_MBUTTONUP",
-    "WM_MBUTTONDBLCLK",
-    "WM_MOUSEWHEEL",
-    "WM_XBUTTONDOWN",
-    "WM_XBUTTONUP",
-    "WM_XBUTTONDBLCLK",
-    "WM_MOUSEHWHEEL",
-    "WM_MOUSELAST",
-    "WHEEL_DELTA",
-    "WM_PARENTNOTIFY",
-    "WM_ENTERMENULOOP",
-    "WM_EXITMENULOOP",
-    "WM_NEXTMENU",
-    "WM_SIZING",
-    "WM_CAPTURECHANGED",
-    "WM_MOVING",
-    "WM_POWERBROADCAST",
-    "PBT_APMQUERYSUSPEND",
-    "PBT_APMQUERYSTANDBY",
-    "PBT_APMQUERYSUSPENDFAILED",
-    "PBT_APMQUERYSTANDBYFAILED",
-    "PBT_APMSUSPEND",
-    "PBT_APMSTANDBY",
-    "PBT_APMRESUMECRITICAL",
-    "PBT_APMRESUMESUSPEND",
-    "PBT_APMRESUMESTANDBY",
-    "PBTF_APMRESUMEFROMFAILURE",
-    "PBT_APMBATTERYLOW",
-    "PBT_APMPOWERSTATUSCHANGE",
-    "PBT_APMOEMEVENT",
-    "PBT_APMRESUMEAUTOMATIC",
-    "PBT_POWERSETTINGCHANGE",
-    "WM_MDICREATE",
-    "WM_MDIDESTROY",
-    "WM_MDIACTIVATE",
-    "WM_MDIRESTORE",
-    "WM_MDINEXT",
-    "WM_MDIMAXIMIZE",
-    "WM_MDITILE",
-    "WM_MDICASCADE",
-    "WM_MDIICONARRANGE",
-    "WM_MDIGETACTIVE",
-    "WM_MDISETMENU",
-    "WM_ENTERSIZEMOVE",
-    "WM_EXITSIZEMOVE",
-    "WM_DROPFILES",
-    "WM_MDIREFRESHMENU",
-    "WM_POINTERDEVICECHANGE",
-    "WM_POINTERDEVICEINRANGE",
-    "WM_POINTERDEVICEOUTOFRANGE",
-    "WM_TOUCH",
-    "WM_NCPOINTERUPDATE",
-    "WM_NCPOINTERDOWN",
-    "WM_NCPOINTERUP",
-    "WM_POINTERUPDATE",
-    "WM_POINTERDOWN",
-    "WM_POINTERUP",
-    "WM_POINTERENTER",
-    "WM_POINTERLEAVE",
-    "WM_POINTERACTIVATE",
-    "WM_POINTERCAPTURECHANGED",
-    "WM_TOUCHHITTESTING",
-    "WM_POINTERWHEEL",
-    "WM_POINTERHWHEEL",
-    "DM_POINTERHITTEST",
-    "WM_POINTERROUTEDTO",
-    "WM_POINTERROUTEDAWAY",
-    "WM_POINTERROUTEDRELEASED",
-    "WM_IME_SETCONTEXT",
-    "WM_IME_NOTIFY",
-    "WM_IME_CONTROL",
-    "WM_IME_COMPOSITIONFULL",
-    "WM_IME_SELECT",
-    "WM_IME_CHAR",
-    "WM_IME_REQUEST",
-    "WM_IME_KEYDOWN",
-    "WM_IME_KEYUP",
-    "WM_NCMOUSEHOVER",
-    "WM_NCMOUSELEAVE",
-    "WM_WTSSESSION_CHANGE",
-    "WM_TABLET_FIRST",
-    "WM_TABLET_LAST",
-    "WM_DPICHANGED",
-    "WM_DPICHANGED_BEFOREPARENT",
-    "WM_DPICHANGED_AFTERPARENT",
-    "WM_GETDPISCALEDSIZE",
-    "WM_CUT",
-    "WM_COPY",
-    "WM_PASTE",
-    "WM_CLEAR",
-    "WM_UNDO",
-    "WM_RENDERFORMAT",
-    "WM_RENDERALLFORMATS",
-    "WM_DESTROYCLIPBOARD",
-    "WM_DRAWCLIPBOARD",
-    "WM_PAINTCLIPBOARD",
-    "WM_VSCROLLCLIPBOARD",
-    "WM_SIZECLIPBOARD",
-    "WM_ASKCBFORMATNAME",
-    "WM_CHANGECBCHAIN",
-    "WM_HSCROLLCLIPBOARD",
-    "WM_QUERYNEWPALETTE",
-    "WM_PALETTEISCHANGING",
-    "WM_PALETTECHANGED",
-    "WM_HOTKEY",
-    "WM_PRINT",
-    "WM_APPCOMMAND",
-    "WM_THEMECHANGED",
-    "WM_CLIPBOARDUPDATE",
-    "WM_DWMCOMPOSITIONCHANGED",
-    "WM_DWMNCRENDERINGCHANGED",
-    "WM_DWMCOLORIZATIONCOLORCHANGED",
-    "WM_DWMWINDOWMAXIMIZEDCHANGE",
-    "WM_DWMSENDICONICTHUMBNAIL",
-    "WM_DWMSENDICONICLIVEPREVIEWBITMAP",
-    "WM_GETTITLEBARINFOEX",
-    "WM_HANDHELDFIRST",
-    "WM_HANDHELDLAST",
-    "WM_AFXFIRST",
-    "WM_AFXLAST",
-    "WM_PENWINFIRST",
-    "WM_PENWINLAST",
-    "WM_APP",
-    "WM_USER",
-    "WMSZ_LEFT",
-    "WMSZ_RIGHT",
-    "WMSZ_TOP",
-    "WMSZ_TOPLEFT",
-    "WMSZ_TOPRIGHT",
-    "WMSZ_BOTTOM",
-    "WMSZ_BOTTOMLEFT",
-    "WMSZ_BOTTOMRIGHT",
-    "HTERROR",
-    "HTTRANSPARENT",
-    "HTNOWHERE",
-    "HTCLIENT",
-    "HTCAPTION",
-    "HTSYSMENU",
-    "HTGROWBOX",
-    "HTSIZE",
-    "HTMENU",
-    "HTHSCROLL",
-    "HTVSCROLL",
-    "HTMINBUTTON",
-    "HTMAXBUTTON",
-    "HTLEFT",
-    "HTRIGHT",
-    "HTTOP",
-    "HTTOPLEFT",
-    "HTTOPRIGHT",
-    "HTBOTTOM",
-    "HTBOTTOMLEFT",
-    "HTBOTTOMRIGHT",
-    "HTBORDER",
-    "HTREDUCE",
-    "HTZOOM",
-    "HTSIZEFIRST",
-    "HTSIZELAST",
-    "HTOBJECT",
-    "HTCLOSE",
-    "HTHELP",
-    "MA_ACTIVATE",
-    "MA_ACTIVATEANDEAT",
-    "MA_NOACTIVATE",
-    "MA_NOACTIVATEANDEAT",
-    "ICON_SMALL",
-    "ICON_BIG",
-    "ICON_SMALL2",
-    "SIZE_RESTORED",
-    "SIZE_MINIMIZED",
-    "SIZE_MAXIMIZED",
-    "SIZE_MAXSHOW",
-    "SIZE_MAXHIDE",
-    "SIZENORMAL",
-    "SIZEICONIC",
-    "SIZEFULLSCREEN",
-    "SIZEZOOMSHOW",
-    "SIZEZOOMHIDE",
-    "WVR_ALIGNTOP",
-    "WVR_ALIGNLEFT",
-    "WVR_ALIGNBOTTOM",
-    "WVR_ALIGNRIGHT",
-    "WVR_HREDRAW",
-    "WVR_VREDRAW",
-    "WVR_VALIDRECTS",
-    "MK_LBUTTON",
-    "MK_RBUTTON",
-    "MK_SHIFT",
-    "MK_CONTROL",
-    "MK_MBUTTON",
-    "MK_XBUTTON1",
-    "MK_XBUTTON2",
-    "PRF_CHECKVISIBLE",
-    "PRF_NONCLIENT",
-    "PRF_CLIENT",
-    "PRF_ERASEBKGND",
-    "PRF_CHILDREN",
-    "PRF_OWNED",
-    "IDANI_OPEN",
-    "IDANI_CAPTION",
-    "FVIRTKEY",
-    "FNOINVERT",
-    "FSHIFT",
-    "FCONTROL",
-    "FALT",
-    "ODA_DRAWENTIRE",
-    "ODA_SELECT",
-    "ODA_FOCUS",
-    "ODS_SELECTED",
-    "ODS_GRAYED",
-    "ODS_DISABLED",
-    "ODS_CHECKED",
-    "ODS_FOCUS",
-    "ODS_DEFAULT",
-    "ODS_COMBOBOXEDIT",
-    "ODS_HOTLIGHT",
-    "ODS_INACTIVE",
-    "ODS_NOACCEL",
-    "ODS_NOFOCUSRECT",
-    "IDHOT_SNAPWINDOW",
-    "IDHOT_SNAPDESKTOP",
-    "ENDSESSION_CLOSEAPP",
-    "ENDSESSION_CRITICAL",
-    "ENDSESSION_LOGOFF",
-    "EWX_FORCE",
-    "EWX_FORCEIFHUNG",
-    "EWX_QUICKRESOLVE",
-    "EWX_BOOTOPTIONS",
-    "EWX_ARSO",
-    "EWX_CHECK_SAFE_FOR_SERVER",
-    "EWX_SYSTEM_INITIATED",
+    "ACCEL",
+    "ACCEL_VIRT_FLAGS",
+    "ALTTABINFO",
+    "ANIMATE_WINDOW_FLAGS",
+    "ANIMATIONINFO",
+    "ARW_BOTTOMLEFT",
+    "ARW_BOTTOMRIGHT",
+    "ARW_DOWN",
+    "ARW_HIDE",
+    "ARW_LEFT",
+    "ARW_RIGHT",
+    "ARW_STARTMASK",
+    "ARW_STARTRIGHT",
+    "ARW_STARTTOP",
+    "ARW_TOPLEFT",
+    "ARW_TOPRIGHT",
+    "ARW_UP",
+    "ASFW_ANY",
+    "AUDIODESCRIPTION",
+    "AW_ACTIVATE",
+    "AW_BLEND",
+    "AW_CENTER",
+    "AW_HIDE",
+    "AW_HOR_NEGATIVE",
+    "AW_HOR_POSITIVE",
+    "AW_SLIDE",
+    "AW_VER_NEGATIVE",
+    "AW_VER_POSITIVE",
+    "AdjustWindowRect",
+    "AdjustWindowRectEx",
+    "AllowSetForegroundWindow",
+    "AnimateWindow",
+    "AnyPopup",
+    "AppendMenuA",
+    "AppendMenuW",
+    "ArrangeIconicWindows",
+    "BM_CLICK",
+    "BM_GETCHECK",
+    "BM_GETIMAGE",
+    "BM_GETSTATE",
+    "BM_SETCHECK",
+    "BM_SETDONTCLICK",
+    "BM_SETIMAGE",
+    "BM_SETSTATE",
+    "BM_SETSTYLE",
+    "BN_CLICKED",
+    "BN_DBLCLK",
+    "BN_DISABLE",
+    "BN_DOUBLECLICKED",
+    "BN_HILITE",
+    "BN_KILLFOCUS",
+    "BN_PAINT",
+    "BN_PUSHED",
+    "BN_SETFOCUS",
+    "BN_UNHILITE",
+    "BN_UNPUSHED",
     "BROADCAST_QUERY_DENY",
+    "BSM_INSTALLABLEDRIVERS",
+    "BSM_NETDRIVER",
+    "BSM_VXDS",
+    "BST_FOCUS",
+    "BST_PUSHED",
+    "BS_3STATE",
+    "BS_AUTO3STATE",
+    "BS_AUTOCHECKBOX",
+    "BS_AUTORADIOBUTTON",
+    "BS_BITMAP",
+    "BS_BOTTOM",
+    "BS_CENTER",
+    "BS_CHECKBOX",
+    "BS_DEFPUSHBUTTON",
+    "BS_FLAT",
+    "BS_GROUPBOX",
+    "BS_ICON",
+    "BS_LEFT",
+    "BS_LEFTTEXT",
+    "BS_MULTILINE",
+    "BS_NOTIFY",
+    "BS_OWNERDRAW",
+    "BS_PUSHBOX",
+    "BS_PUSHBUTTON",
+    "BS_PUSHLIKE",
+    "BS_RADIOBUTTON",
+    "BS_RIGHT",
+    "BS_RIGHTBUTTON",
+    "BS_TEXT",
+    "BS_TOP",
+    "BS_TYPEMASK",
+    "BS_USERBUTTON",
+    "BS_VCENTER",
+    "BeginDeferWindowPos",
+    "BringWindowToTop",
+    "CALERT_SYSTEM",
+    "CASCADE_WINDOWS_HOW",
+    "CBN_CLOSEUP",
+    "CBN_DBLCLK",
+    "CBN_DROPDOWN",
+    "CBN_EDITCHANGE",
+    "CBN_EDITUPDATE",
+    "CBN_ERRSPACE",
+    "CBN_KILLFOCUS",
+    "CBN_SELCHANGE",
+    "CBN_SELENDCANCEL",
+    "CBN_SELENDOK",
+    "CBN_SETFOCUS",
+    "CBS_AUTOHSCROLL",
+    "CBS_DISABLENOSCROLL",
+    "CBS_DROPDOWN",
+    "CBS_DROPDOWNLIST",
+    "CBS_HASSTRINGS",
+    "CBS_LOWERCASE",
+    "CBS_NOINTEGRALHEIGHT",
+    "CBS_OEMCONVERT",
+    "CBS_OWNERDRAWFIXED",
+    "CBS_OWNERDRAWVARIABLE",
+    "CBS_SIMPLE",
+    "CBS_SORT",
+    "CBS_UPPERCASE",
+    "CBTACTIVATESTRUCT",
+    "CBT_CREATEWNDA",
+    "CBT_CREATEWNDW",
+    "CB_ADDSTRING",
+    "CB_DELETESTRING",
+    "CB_DIR",
+    "CB_ERR",
+    "CB_ERRSPACE",
+    "CB_FINDSTRING",
+    "CB_FINDSTRINGEXACT",
+    "CB_GETCOMBOBOXINFO",
+    "CB_GETCOUNT",
+    "CB_GETCURSEL",
+    "CB_GETDROPPEDCONTROLRECT",
+    "CB_GETDROPPEDSTATE",
+    "CB_GETDROPPEDWIDTH",
+    "CB_GETEDITSEL",
+    "CB_GETEXTENDEDUI",
+    "CB_GETHORIZONTALEXTENT",
+    "CB_GETITEMDATA",
+    "CB_GETITEMHEIGHT",
+    "CB_GETLBTEXT",
+    "CB_GETLBTEXTLEN",
+    "CB_GETLOCALE",
+    "CB_GETTOPINDEX",
+    "CB_INITSTORAGE",
+    "CB_INSERTSTRING",
+    "CB_LIMITTEXT",
+    "CB_MSGMAX",
+    "CB_MULTIPLEADDSTRING",
+    "CB_OKAY",
+    "CB_RESETCONTENT",
+    "CB_SELECTSTRING",
+    "CB_SETCURSEL",
+    "CB_SETDROPPEDWIDTH",
+    "CB_SETEDITSEL",
+    "CB_SETEXTENDEDUI",
+    "CB_SETHORIZONTALEXTENT",
+    "CB_SETITEMDATA",
+    "CB_SETITEMHEIGHT",
+    "CB_SETLOCALE",
+    "CB_SETTOPINDEX",
+    "CB_SHOWDROPDOWN",
+    "CCHILDREN_SCROLLBAR",
+    "CCHILDREN_TITLEBAR",
+    "CHANGEFILTERSTRUCT",
+    "CHANGE_WINDOW_MESSAGE_FILTER_FLAGS",
+    "CHILDID_SELF",
+    "CLIENTCREATESTRUCT",
+    "CONSOLE_APPLICATION_16BIT",
+    "CONSOLE_CARET_SELECTION",
+    "CONSOLE_CARET_VISIBLE",
+    "CONTACTVISUALIZATION_OFF",
+    "CONTACTVISUALIZATION_ON",
+    "CONTACTVISUALIZATION_PRESENTATIONMODE",
+    "CREATEPROCESS_MANIFEST_RESOURCE_ID",
+    "CREATESTRUCTA",
+    "CREATESTRUCTW",
+    "CSOUND_SYSTEM",
+    "CS_BYTEALIGNCLIENT",
+    "CS_BYTEALIGNWINDOW",
+    "CS_CLASSDC",
+    "CS_DBLCLKS",
+    "CS_DROPSHADOW",
+    "CS_GLOBALCLASS",
+    "CS_HREDRAW",
+    "CS_IME",
+    "CS_NOCLOSE",
+    "CS_OWNDC",
+    "CS_PARENTDC",
+    "CS_SAVEBITS",
+    "CS_VREDRAW",
+    "CTLCOLOR_BTN",
+    "CTLCOLOR_DLG",
+    "CTLCOLOR_EDIT",
+    "CTLCOLOR_LISTBOX",
+    "CTLCOLOR_MAX",
+    "CTLCOLOR_MSGBOX",
+    "CTLCOLOR_SCROLLBAR",
+    "CTLCOLOR_STATIC",
+    "CURSORINFO",
+    "CURSORINFO_FLAGS",
+    "CURSORSHAPE",
+    "CURSOR_CREATION_SCALING_DEFAULT",
+    "CURSOR_CREATION_SCALING_NONE",
+    "CURSOR_SHOWING",
+    "CURSOR_SUPPRESSED",
+    "CWF_CREATE_ONLY",
+    "CWPRETSTRUCT",
+    "CWPSTRUCT",
+    "CWP_ALL",
+    "CWP_FLAGS",
+    "CWP_SKIPDISABLED",
+    "CWP_SKIPINVISIBLE",
+    "CWP_SKIPTRANSPARENT",
+    "CW_USEDEFAULT",
+    "CalculatePopupWindowPosition",
+    "CallMsgFilterA",
+    "CallMsgFilterW",
+    "CallNextHookEx",
+    "CallWindowProcA",
+    "CallWindowProcW",
+    "CancelShutdown",
+    "CascadeWindows",
+    "ChangeMenuA",
+    "ChangeMenuW",
+    "ChangeWindowMessageFilter",
+    "ChangeWindowMessageFilterEx",
+    "CharLowerA",
+    "CharLowerBuffA",
+    "CharLowerBuffW",
+    "CharLowerW",
+    "CharNextA",
+    "CharNextExA",
+    "CharNextW",
+    "CharPrevA",
+    "CharPrevExA",
+    "CharPrevW",
+    "CharToOemA",
+    "CharToOemBuffA",
+    "CharToOemBuffW",
+    "CharToOemW",
+    "CharUpperA",
+    "CharUpperBuffA",
+    "CharUpperBuffW",
+    "CharUpperW",
+    "CheckMenuItem",
+    "CheckMenuRadioItem",
+    "ChildWindowFromPoint",
+    "ChildWindowFromPointEx",
+    "ClipCursor",
+    "CloseWindow",
+    "CopyAcceleratorTableA",
+    "CopyAcceleratorTableW",
+    "CopyIcon",
+    "CopyImage",
+    "CreateAcceleratorTableA",
+    "CreateAcceleratorTableW",
+    "CreateCaret",
+    "CreateCursor",
+    "CreateDialogIndirectParamA",
+    "CreateDialogIndirectParamW",
+    "CreateDialogParamA",
+    "CreateDialogParamW",
+    "CreateIcon",
+    "CreateIconFromResource",
+    "CreateIconFromResourceEx",
+    "CreateIconIndirect",
+    "CreateMDIWindowA",
+    "CreateMDIWindowW",
+    "CreateMenu",
+    "CreatePopupMenu",
+    "CreateResourceIndexer",
+    "CreateWindowExA",
+    "CreateWindowExW",
+    "DCX_EXCLUDEUPDATE",
+    "DC_HASDEFID",
+    "DEBUGHOOKINFO",
     "DEVICE_NOTIFY_ALL_INTERFACE_CLASSES",
-    "HWND_MESSAGE",
-    "ISMEX_NOSEND",
-    "ISMEX_SEND",
-    "ISMEX_NOTIFY",
-    "ISMEX_CALLBACK",
-    "ISMEX_REPLIED",
-    "HWND_DESKTOP",
-    "PW_RENDERFULLCONTENT",
-    "HWND_TOP",
-    "HWND_BOTTOM",
-    "HWND_TOPMOST",
-    "HWND_NOTOPMOST",
+    "DIFFERENCE",
+    "DI_COMPAT",
+    "DI_DEFAULTSIZE",
+    "DI_FLAGS",
+    "DI_IMAGE",
+    "DI_MASK",
+    "DI_NOMIRROR",
+    "DI_NORMAL",
+    "DLGC_BUTTON",
+    "DLGC_DEFPUSHBUTTON",
+    "DLGC_HASSETSEL",
+    "DLGC_RADIOBUTTON",
+    "DLGC_STATIC",
+    "DLGC_UNDEFPUSHBUTTON",
+    "DLGC_WANTALLKEYS",
+    "DLGC_WANTARROWS",
+    "DLGC_WANTCHARS",
+    "DLGC_WANTMESSAGE",
+    "DLGC_WANTTAB",
+    "DLGITEMTEMPLATE",
+    "DLGPROC",
+    "DLGTEMPLATE",
     "DLGWINDOWEXTRA",
-    "POINTER_MOD_SHIFT",
-    "POINTER_MOD_CTRL",
-    "TOUCH_FLAG_NONE",
-    "TOUCH_MASK_NONE",
-    "TOUCH_MASK_CONTACTAREA",
-    "TOUCH_MASK_ORIENTATION",
-    "TOUCH_MASK_PRESSURE",
-    "PEN_FLAG_NONE",
-    "PEN_FLAG_BARREL",
-    "PEN_FLAG_INVERTED",
-    "PEN_FLAG_ERASER",
-    "PEN_MASK_NONE",
-    "PEN_MASK_PRESSURE",
-    "PEN_MASK_ROTATION",
-    "PEN_MASK_TILT_X",
-    "PEN_MASK_TILT_Y",
-    "POINTER_MESSAGE_FLAG_NEW",
-    "POINTER_MESSAGE_FLAG_INRANGE",
-    "POINTER_MESSAGE_FLAG_INCONTACT",
-    "POINTER_MESSAGE_FLAG_FIRSTBUTTON",
-    "POINTER_MESSAGE_FLAG_SECONDBUTTON",
-    "POINTER_MESSAGE_FLAG_THIRDBUTTON",
-    "POINTER_MESSAGE_FLAG_FOURTHBUTTON",
-    "POINTER_MESSAGE_FLAG_FIFTHBUTTON",
-    "POINTER_MESSAGE_FLAG_PRIMARY",
-    "POINTER_MESSAGE_FLAG_CONFIDENCE",
-    "POINTER_MESSAGE_FLAG_CANCELED",
-    "PA_ACTIVATE",
-    "PA_NOACTIVATE",
-    "MAX_TOUCH_COUNT",
-    "TOUCH_HIT_TESTING_DEFAULT",
-    "TOUCH_HIT_TESTING_CLIENT",
-    "TOUCH_HIT_TESTING_NONE",
-    "TOUCH_HIT_TESTING_PROXIMITY_CLOSEST",
-    "TOUCH_HIT_TESTING_PROXIMITY_FARTHEST",
-    "GWFS_INCLUDE_ANCESTORS",
-    "MAPVK_VK_TO_VSC",
-    "MAPVK_VSC_TO_VK",
-    "MAPVK_VK_TO_CHAR",
-    "MAPVK_VSC_TO_VK_EX",
-    "MAPVK_VK_TO_VSC_EX",
-    "QS_TOUCH",
-    "QS_POINTER",
-    "USER_TIMER_MAXIMUM",
-    "USER_TIMER_MINIMUM",
-    "TIMERV_DEFAULT_COALESCING",
-    "TIMERV_NO_COALESCING",
-    "TIMERV_COALESCING_MIN",
-    "TIMERV_COALESCING_MAX",
-    "SM_RESERVED1",
-    "SM_RESERVED2",
-    "SM_RESERVED3",
-    "SM_RESERVED4",
-    "SM_CMETRICS",
-    "SM_CARETBLINKINGENABLED",
-    "SM_SYSTEMDOCKED",
-    "PMB_ACTIVE",
-    "MNC_IGNORE",
-    "MNC_CLOSE",
-    "MNC_EXECUTE",
-    "MNC_SELECT",
-    "MND_CONTINUE",
-    "MND_ENDMENU",
-    "MNGO_NOINTERFACE",
-    "MNGO_NOERROR",
-    "DOF_EXECUTABLE",
-    "DOF_DOCUMENT",
+    "DM_GETDEFID",
+    "DM_POINTERHITTEST",
+    "DM_REPOSITION",
+    "DM_SETDEFID",
     "DOF_DIRECTORY",
+    "DOF_DOCUMENT",
+    "DOF_EXECUTABLE",
     "DOF_MULTIPLE",
     "DOF_PROGMAN",
     "DOF_SHELLDATA",
     "DO_DROPFILE",
     "DO_PRINTFILE",
-    "ASFW_ANY",
-    "DCX_EXCLUDEUPDATE",
-    "HELPINFO_WINDOW",
-    "HELPINFO_MENUITEM",
-    "CTLCOLOR_MSGBOX",
-    "CTLCOLOR_EDIT",
-    "CTLCOLOR_LISTBOX",
-    "CTLCOLOR_BTN",
-    "CTLCOLOR_DLG",
-    "CTLCOLOR_SCROLLBAR",
-    "CTLCOLOR_STATIC",
-    "CTLCOLOR_MAX",
-    "COLOR_BTNHIGHLIGHT",
-    "COLOR_BTNHILIGHT",
-    "GW_MAX",
-    "SC_SIZE",
-    "SC_MOVE",
-    "SC_MINIMIZE",
-    "SC_MAXIMIZE",
-    "SC_NEXTWINDOW",
-    "SC_PREVWINDOW",
-    "SC_CLOSE",
-    "SC_VSCROLL",
-    "SC_HSCROLL",
-    "SC_MOUSEMENU",
-    "SC_KEYMENU",
-    "SC_ARRANGE",
-    "SC_RESTORE",
-    "SC_TASKLIST",
-    "SC_HOTKEY",
-    "SC_DEFAULT",
-    "SC_MONITORPOWER",
-    "SC_CONTEXTHELP",
-    "SC_SEPARATOR",
-    "SCF_ISSECURE",
-    "SC_ICON",
-    "SC_ZOOM",
-    "IDC_ARROW",
-    "IDC_IBEAM",
-    "IDC_WAIT",
-    "IDC_CROSS",
-    "IDC_UPARROW",
-    "IDC_SIZE",
-    "IDC_ICON",
-    "IDC_SIZENWSE",
-    "IDC_SIZENESW",
-    "IDC_SIZEWE",
-    "IDC_SIZENS",
-    "IDC_SIZEALL",
-    "IDC_NO",
-    "IDC_HAND",
-    "IDC_APPSTARTING",
-    "IDC_HELP",
-    "IDC_PIN",
-    "IDC_PERSON",
-    "CURSOR_CREATION_SCALING_NONE",
-    "CURSOR_CREATION_SCALING_DEFAULT",
-    "IMAGE_ENHMETAFILE",
-    "LR_COLOR",
-    "RES_ICON",
-    "RES_CURSOR",
-    "OBM_CLOSE",
-    "OBM_UPARROW",
-    "OBM_DNARROW",
-    "OBM_RGARROW",
-    "OBM_LFARROW",
-    "OBM_REDUCE",
-    "OBM_ZOOM",
-    "OBM_RESTORE",
-    "OBM_REDUCED",
-    "OBM_ZOOMD",
-    "OBM_RESTORED",
-    "OBM_UPARROWD",
-    "OBM_DNARROWD",
-    "OBM_RGARROWD",
-    "OBM_LFARROWD",
-    "OBM_MNARROW",
-    "OBM_COMBO",
-    "OBM_UPARROWI",
-    "OBM_DNARROWI",
-    "OBM_RGARROWI",
-    "OBM_LFARROWI",
-    "OBM_OLD_CLOSE",
-    "OBM_SIZE",
-    "OBM_OLD_UPARROW",
-    "OBM_OLD_DNARROW",
-    "OBM_OLD_RGARROW",
-    "OBM_OLD_LFARROW",
-    "OBM_BTSIZE",
-    "OBM_CHECK",
-    "OBM_CHECKBOXES",
-    "OBM_BTNCORNERS",
-    "OBM_OLD_REDUCE",
-    "OBM_OLD_ZOOM",
-    "OBM_OLD_RESTORE",
-    "OCR_SIZE",
-    "OCR_ICON",
-    "OCR_ICOCUR",
-    "OIC_SAMPLE",
-    "OIC_HAND",
-    "OIC_QUES",
-    "OIC_BANG",
-    "OIC_NOTE",
-    "OIC_WINLOGO",
-    "OIC_WARNING",
-    "OIC_ERROR",
-    "OIC_INFORMATION",
-    "OIC_SHIELD",
-    "ORD_LANGDRIVER",
-    "IDI_APPLICATION",
-    "IDI_HAND",
-    "IDI_QUESTION",
-    "IDI_EXCLAMATION",
-    "IDI_ASTERISK",
-    "IDI_WINLOGO",
-    "IDI_SHIELD",
-    "IDI_WARNING",
-    "IDI_ERROR",
-    "IDI_INFORMATION",
-    "ES_LEFT",
-    "ES_CENTER",
-    "ES_RIGHT",
-    "ES_MULTILINE",
-    "ES_UPPERCASE",
-    "ES_LOWERCASE",
-    "ES_PASSWORD",
-    "ES_AUTOVSCROLL",
-    "ES_AUTOHSCROLL",
-    "ES_NOHIDESEL",
-    "ES_OEMCONVERT",
-    "ES_READONLY",
-    "ES_WANTRETURN",
-    "ES_NUMBER",
-    "EN_SETFOCUS",
-    "EN_KILLFOCUS",
-    "EN_CHANGE",
-    "EN_UPDATE",
-    "EN_ERRSPACE",
-    "EN_MAXTEXT",
-    "EN_HSCROLL",
-    "EN_VSCROLL",
-    "EN_ALIGN_LTR_EC",
-    "EN_ALIGN_RTL_EC",
-    "EN_BEFORE_PASTE",
-    "EN_AFTER_PASTE",
-    "EC_LEFTMARGIN",
-    "EC_RIGHTMARGIN",
-    "EC_USEFONTINFO",
-    "EMSIS_COMPOSITIONSTRING",
-    "EIMES_GETCOMPSTRATONCE",
-    "EIMES_CANCELCOMPSTRINFOCUS",
-    "EIMES_COMPLETECOMPSTRKILLFOCUS",
-    "BS_PUSHBUTTON",
-    "BS_DEFPUSHBUTTON",
-    "BS_CHECKBOX",
-    "BS_AUTOCHECKBOX",
-    "BS_RADIOBUTTON",
-    "BS_3STATE",
-    "BS_AUTO3STATE",
-    "BS_GROUPBOX",
-    "BS_USERBUTTON",
-    "BS_AUTORADIOBUTTON",
-    "BS_PUSHBOX",
-    "BS_OWNERDRAW",
-    "BS_TYPEMASK",
-    "BS_LEFTTEXT",
-    "BS_TEXT",
-    "BS_ICON",
-    "BS_BITMAP",
-    "BS_LEFT",
-    "BS_RIGHT",
-    "BS_CENTER",
-    "BS_TOP",
-    "BS_BOTTOM",
-    "BS_VCENTER",
-    "BS_PUSHLIKE",
-    "BS_MULTILINE",
-    "BS_NOTIFY",
-    "BS_FLAT",
-    "BS_RIGHTBUTTON",
-    "BN_CLICKED",
-    "BN_PAINT",
-    "BN_HILITE",
-    "BN_UNHILITE",
-    "BN_DISABLE",
-    "BN_DOUBLECLICKED",
-    "BN_PUSHED",
-    "BN_UNPUSHED",
-    "BN_DBLCLK",
-    "BN_SETFOCUS",
-    "BN_KILLFOCUS",
-    "BM_GETCHECK",
-    "BM_SETCHECK",
-    "BM_GETSTATE",
-    "BM_SETSTATE",
-    "BM_SETSTYLE",
-    "BM_CLICK",
-    "BM_GETIMAGE",
-    "BM_SETIMAGE",
-    "BM_SETDONTCLICK",
-    "BST_PUSHED",
-    "BST_FOCUS",
-    "SS_LEFT",
-    "SS_CENTER",
-    "SS_RIGHT",
-    "SS_ICON",
-    "SS_BLACKRECT",
-    "SS_GRAYRECT",
-    "SS_WHITERECT",
-    "SS_BLACKFRAME",
-    "SS_GRAYFRAME",
-    "SS_WHITEFRAME",
-    "SS_USERITEM",
-    "SS_SIMPLE",
-    "SS_LEFTNOWORDWRAP",
-    "SS_OWNERDRAW",
-    "SS_BITMAP",
-    "SS_ENHMETAFILE",
-    "SS_ETCHEDHORZ",
-    "SS_ETCHEDVERT",
-    "SS_ETCHEDFRAME",
-    "SS_TYPEMASK",
-    "SS_REALSIZECONTROL",
-    "SS_NOPREFIX",
-    "SS_NOTIFY",
-    "SS_CENTERIMAGE",
-    "SS_RIGHTJUST",
-    "SS_REALSIZEIMAGE",
-    "SS_SUNKEN",
-    "SS_EDITCONTROL",
-    "SS_ENDELLIPSIS",
-    "SS_PATHELLIPSIS",
-    "SS_WORDELLIPSIS",
-    "SS_ELLIPSISMASK",
-    "STM_SETICON",
-    "STM_GETICON",
-    "STM_SETIMAGE",
-    "STM_GETIMAGE",
-    "STN_CLICKED",
-    "STN_DBLCLK",
-    "STN_ENABLE",
-    "STN_DISABLE",
-    "STM_MSGMAX",
-    "DWL_MSGRESULT",
-    "DWL_DLGPROC",
-    "DWL_USER",
-    "DWLP_MSGRESULT",
-    "DS_ABSALIGN",
-    "DS_SYSMODAL",
-    "DS_LOCALEDIT",
-    "DS_SETFONT",
-    "DS_MODALFRAME",
-    "DS_NOIDLEMSG",
-    "DS_SETFOREGROUND",
+    "DROPSTRUCT",
     "DS_3DLOOK",
-    "DS_FIXEDSYS",
-    "DS_NOFAILCREATE",
-    "DS_CONTROL",
+    "DS_ABSALIGN",
     "DS_CENTER",
     "DS_CENTERMOUSE",
     "DS_CONTEXTHELP",
+    "DS_CONTROL",
+    "DS_FIXEDSYS",
+    "DS_LOCALEDIT",
+    "DS_MODALFRAME",
+    "DS_NOFAILCREATE",
+    "DS_NOIDLEMSG",
+    "DS_SETFONT",
+    "DS_SETFOREGROUND",
+    "DS_SYSMODAL",
     "DS_USEPIXELS",
-    "DM_GETDEFID",
-    "DM_SETDEFID",
-    "DM_REPOSITION",
-    "DC_HASDEFID",
-    "DLGC_WANTARROWS",
-    "DLGC_WANTTAB",
-    "DLGC_WANTALLKEYS",
-    "DLGC_WANTMESSAGE",
-    "DLGC_HASSETSEL",
-    "DLGC_DEFPUSHBUTTON",
-    "DLGC_UNDEFPUSHBUTTON",
-    "DLGC_RADIOBUTTON",
-    "DLGC_WANTCHARS",
-    "DLGC_STATIC",
-    "DLGC_BUTTON",
-    "LB_CTLCODE",
-    "LB_OKAY",
-    "LB_ERR",
-    "LB_ERRSPACE",
-    "LBN_ERRSPACE",
-    "LBN_SELCHANGE",
-    "LBN_DBLCLK",
-    "LBN_SELCANCEL",
-    "LBN_SETFOCUS",
-    "LBN_KILLFOCUS",
-    "LB_ADDSTRING",
-    "LB_INSERTSTRING",
-    "LB_DELETESTRING",
-    "LB_SELITEMRANGEEX",
-    "LB_RESETCONTENT",
-    "LB_SETSEL",
-    "LB_SETCURSEL",
-    "LB_GETSEL",
-    "LB_GETCURSEL",
-    "LB_GETTEXT",
-    "LB_GETTEXTLEN",
-    "LB_GETCOUNT",
-    "LB_SELECTSTRING",
-    "LB_DIR",
-    "LB_GETTOPINDEX",
-    "LB_FINDSTRING",
-    "LB_GETSELCOUNT",
-    "LB_GETSELITEMS",
-    "LB_SETTABSTOPS",
-    "LB_GETHORIZONTALEXTENT",
-    "LB_SETHORIZONTALEXTENT",
-    "LB_SETCOLUMNWIDTH",
-    "LB_ADDFILE",
-    "LB_SETTOPINDEX",
-    "LB_GETITEMRECT",
-    "LB_GETITEMDATA",
-    "LB_SETITEMDATA",
-    "LB_SELITEMRANGE",
-    "LB_SETANCHORINDEX",
-    "LB_GETANCHORINDEX",
-    "LB_SETCARETINDEX",
-    "LB_GETCARETINDEX",
-    "LB_SETITEMHEIGHT",
-    "LB_GETITEMHEIGHT",
-    "LB_FINDSTRINGEXACT",
-    "LB_SETLOCALE",
-    "LB_GETLOCALE",
-    "LB_SETCOUNT",
-    "LB_INITSTORAGE",
-    "LB_ITEMFROMPOINT",
-    "LB_MULTIPLEADDSTRING",
-    "LB_GETLISTBOXINFO",
-    "LB_MSGMAX",
-    "LBS_NOTIFY",
-    "LBS_SORT",
-    "LBS_NOREDRAW",
-    "LBS_MULTIPLESEL",
-    "LBS_OWNERDRAWFIXED",
-    "LBS_OWNERDRAWVARIABLE",
-    "LBS_HASSTRINGS",
-    "LBS_USETABSTOPS",
-    "LBS_NOINTEGRALHEIGHT",
-    "LBS_MULTICOLUMN",
-    "LBS_WANTKEYBOARDINPUT",
-    "LBS_EXTENDEDSEL",
-    "LBS_DISABLENOSCROLL",
-    "LBS_NODATA",
-    "LBS_NOSEL",
-    "LBS_COMBOBOX",
-    "CB_OKAY",
-    "CB_ERR",
-    "CB_ERRSPACE",
-    "CBN_ERRSPACE",
-    "CBN_SELCHANGE",
-    "CBN_DBLCLK",
-    "CBN_SETFOCUS",
-    "CBN_KILLFOCUS",
-    "CBN_EDITCHANGE",
-    "CBN_EDITUPDATE",
-    "CBN_DROPDOWN",
-    "CBN_CLOSEUP",
-    "CBN_SELENDOK",
-    "CBN_SELENDCANCEL",
-    "CBS_SIMPLE",
-    "CBS_DROPDOWN",
-    "CBS_DROPDOWNLIST",
-    "CBS_OWNERDRAWFIXED",
-    "CBS_OWNERDRAWVARIABLE",
-    "CBS_AUTOHSCROLL",
-    "CBS_OEMCONVERT",
-    "CBS_SORT",
-    "CBS_HASSTRINGS",
-    "CBS_NOINTEGRALHEIGHT",
-    "CBS_DISABLENOSCROLL",
-    "CBS_UPPERCASE",
-    "CBS_LOWERCASE",
-    "CB_GETEDITSEL",
-    "CB_LIMITTEXT",
-    "CB_SETEDITSEL",
-    "CB_ADDSTRING",
-    "CB_DELETESTRING",
-    "CB_DIR",
-    "CB_GETCOUNT",
-    "CB_GETCURSEL",
-    "CB_GETLBTEXT",
-    "CB_GETLBTEXTLEN",
-    "CB_INSERTSTRING",
-    "CB_RESETCONTENT",
-    "CB_FINDSTRING",
-    "CB_SELECTSTRING",
-    "CB_SETCURSEL",
-    "CB_SHOWDROPDOWN",
-    "CB_GETITEMDATA",
-    "CB_SETITEMDATA",
-    "CB_GETDROPPEDCONTROLRECT",
-    "CB_SETITEMHEIGHT",
-    "CB_GETITEMHEIGHT",
-    "CB_SETEXTENDEDUI",
-    "CB_GETEXTENDEDUI",
-    "CB_GETDROPPEDSTATE",
-    "CB_FINDSTRINGEXACT",
-    "CB_SETLOCALE",
-    "CB_GETLOCALE",
-    "CB_GETTOPINDEX",
-    "CB_SETTOPINDEX",
-    "CB_GETHORIZONTALEXTENT",
-    "CB_SETHORIZONTALEXTENT",
-    "CB_GETDROPPEDWIDTH",
-    "CB_SETDROPPEDWIDTH",
-    "CB_INITSTORAGE",
-    "CB_MULTIPLEADDSTRING",
-    "CB_GETCOMBOBOXINFO",
-    "CB_MSGMAX",
-    "SBS_HORZ",
-    "SBS_VERT",
-    "SBS_TOPALIGN",
-    "SBS_LEFTALIGN",
-    "SBS_BOTTOMALIGN",
-    "SBS_RIGHTALIGN",
-    "SBS_SIZEBOXTOPLEFTALIGN",
-    "SBS_SIZEBOXBOTTOMRIGHTALIGN",
-    "SBS_SIZEBOX",
-    "SBS_SIZEGRIP",
-    "SBM_SETPOS",
-    "SBM_GETPOS",
-    "SBM_SETRANGE",
-    "SBM_SETRANGEREDRAW",
-    "SBM_GETRANGE",
-    "SBM_ENABLE_ARROWS",
-    "SBM_SETSCROLLINFO",
-    "SBM_GETSCROLLINFO",
-    "SBM_GETSCROLLBARINFO",
-    "MDIS_ALLCHILDSTYLES",
-    "HELP_CONTEXT",
-    "HELP_QUIT",
-    "HELP_INDEX",
-    "HELP_CONTENTS",
-    "HELP_HELPONHELP",
-    "HELP_SETINDEX",
-    "HELP_SETCONTENTS",
-    "HELP_CONTEXTPOPUP",
-    "HELP_FORCEFILE",
-    "HELP_KEY",
-    "HELP_COMMAND",
-    "HELP_PARTIALKEY",
-    "HELP_MULTIKEY",
-    "HELP_SETWINPOS",
-    "HELP_CONTEXTMENU",
-    "HELP_FINDER",
-    "HELP_WM_HELP",
-    "HELP_SETPOPUP_POS",
-    "HELP_TCARD",
-    "HELP_TCARD_DATA",
-    "HELP_TCARD_OTHER_CALLER",
-    "IDH_NO_HELP",
-    "IDH_MISSING_CONTEXT",
-    "IDH_GENERIC_HELP_BUTTON",
-    "IDH_OK",
-    "IDH_CANCEL",
-    "IDH_HELP",
-    "MAX_TOUCH_PREDICTION_FILTER_TAPS",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_LATENCY",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_SAMPLETIME",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_USE_HW_TIMESTAMP",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_DELTA",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_MIN",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_MAX",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_LEARNING_RATE",
-    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_EXPO_SMOOTH_ALPHA",
-    "MAX_LOGICALDPIOVERRIDE",
-    "MIN_LOGICALDPIOVERRIDE",
-    "FE_FONTSMOOTHINGSTANDARD",
-    "FE_FONTSMOOTHINGCLEARTYPE",
-    "FE_FONTSMOOTHINGORIENTATIONBGR",
-    "FE_FONTSMOOTHINGORIENTATIONRGB",
-    "CONTACTVISUALIZATION_OFF",
-    "CONTACTVISUALIZATION_ON",
-    "CONTACTVISUALIZATION_PRESENTATIONMODE",
-    "GESTUREVISUALIZATION_OFF",
-    "GESTUREVISUALIZATION_ON",
-    "GESTUREVISUALIZATION_TAP",
-    "GESTUREVISUALIZATION_DOUBLETAP",
-    "GESTUREVISUALIZATION_PRESSANDTAP",
-    "GESTUREVISUALIZATION_PRESSANDHOLD",
-    "GESTUREVISUALIZATION_RIGHTTAP",
-    "MOUSEWHEEL_ROUTING_FOCUS",
-    "MOUSEWHEEL_ROUTING_HYBRID",
-    "MOUSEWHEEL_ROUTING_MOUSE_POS",
-    "PENVISUALIZATION_ON",
-    "PENVISUALIZATION_OFF",
-    "PENVISUALIZATION_TAP",
-    "PENVISUALIZATION_DOUBLETAP",
-    "PENVISUALIZATION_CURSOR",
-    "PENARBITRATIONTYPE_NONE",
-    "PENARBITRATIONTYPE_WIN8",
-    "PENARBITRATIONTYPE_FIS",
-    "PENARBITRATIONTYPE_SPT",
-    "PENARBITRATIONTYPE_MAX",
-    "METRICS_USEDEFAULT",
-    "ARW_STARTMASK",
-    "ARW_STARTRIGHT",
-    "ARW_STARTTOP",
-    "ARW_LEFT",
-    "ARW_RIGHT",
-    "ARW_UP",
-    "ARW_DOWN",
-    "ARW_HIDE",
-    "HCF_LOGONDESKTOP",
-    "HCF_DEFAULTDESKTOP",
+    "DWLP_MSGRESULT",
+    "DWL_DLGPROC",
+    "DWL_MSGRESULT",
+    "DWL_USER",
+    "DefDlgProcA",
+    "DefDlgProcW",
+    "DefFrameProcA",
+    "DefFrameProcW",
+    "DefMDIChildProcA",
+    "DefMDIChildProcW",
+    "DefWindowProcA",
+    "DefWindowProcW",
+    "DeferWindowPos",
+    "DeleteMenu",
+    "DeregisterShellHookWindow",
+    "DestroyAcceleratorTable",
+    "DestroyCaret",
+    "DestroyCursor",
+    "DestroyIcon",
+    "DestroyIndexedResults",
+    "DestroyMenu",
+    "DestroyResourceIndexer",
+    "DestroyWindow",
+    "DialogBoxIndirectParamA",
+    "DialogBoxIndirectParamW",
+    "DialogBoxParamA",
+    "DialogBoxParamW",
+    "DisableProcessWindowsGhosting",
+    "DispatchMessageA",
+    "DispatchMessageW",
+    "DragObject",
+    "DrawIcon",
+    "DrawIconEx",
+    "DrawMenuBar",
+    "EC_LEFTMARGIN",
+    "EC_RIGHTMARGIN",
+    "EC_USEFONTINFO",
+    "EDD_GET_DEVICE_INTERFACE_NAME",
+    "EDIT_CONTROL_FEATURE",
+    "EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT",
+    "EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS",
     "EDS_RAWMODE",
     "EDS_ROTATEDMODE",
-    "EDD_GET_DEVICE_INTERFACE_NAME",
-    "FKF_FILTERKEYSON",
-    "FKF_AVAILABLE",
-    "FKF_HOTKEYACTIVE",
-    "FKF_CONFIRMHOTKEY",
-    "FKF_HOTKEYSOUND",
-    "FKF_INDICATOR",
-    "FKF_CLICKON",
-    "MKF_MOUSEKEYSON",
-    "MKF_AVAILABLE",
-    "MKF_HOTKEYACTIVE",
-    "MKF_CONFIRMHOTKEY",
-    "MKF_HOTKEYSOUND",
-    "MKF_INDICATOR",
-    "MKF_MODIFIERS",
-    "MKF_REPLACENUMBERS",
-    "MKF_LEFTBUTTONSEL",
-    "MKF_RIGHTBUTTONSEL",
-    "MKF_LEFTBUTTONDOWN",
-    "MKF_RIGHTBUTTONDOWN",
-    "MKF_MOUSEMODE",
-    "TKF_TOGGLEKEYSON",
-    "TKF_AVAILABLE",
-    "TKF_HOTKEYACTIVE",
-    "TKF_CONFIRMHOTKEY",
-    "TKF_HOTKEYSOUND",
-    "TKF_INDICATOR",
-    "MONITORINFOF_PRIMARY",
-    "WINEVENT_OUTOFCONTEXT",
-    "WINEVENT_SKIPOWNTHREAD",
-    "WINEVENT_SKIPOWNPROCESS",
-    "WINEVENT_INCONTEXT",
-    "CHILDID_SELF",
-    "INDEXID_OBJECT",
-    "INDEXID_CONTAINER",
-    "EVENT_MIN",
-    "EVENT_MAX",
-    "EVENT_SYSTEM_SOUND",
-    "EVENT_SYSTEM_ALERT",
-    "EVENT_SYSTEM_FOREGROUND",
-    "EVENT_SYSTEM_MENUSTART",
-    "EVENT_SYSTEM_MENUEND",
-    "EVENT_SYSTEM_MENUPOPUPSTART",
-    "EVENT_SYSTEM_MENUPOPUPEND",
-    "EVENT_SYSTEM_CAPTURESTART",
-    "EVENT_SYSTEM_CAPTUREEND",
-    "EVENT_SYSTEM_MOVESIZESTART",
-    "EVENT_SYSTEM_MOVESIZEEND",
-    "EVENT_SYSTEM_CONTEXTHELPSTART",
-    "EVENT_SYSTEM_CONTEXTHELPEND",
-    "EVENT_SYSTEM_DRAGDROPSTART",
-    "EVENT_SYSTEM_DRAGDROPEND",
-    "EVENT_SYSTEM_DIALOGSTART",
-    "EVENT_SYSTEM_DIALOGEND",
-    "EVENT_SYSTEM_SCROLLINGSTART",
-    "EVENT_SYSTEM_SCROLLINGEND",
-    "EVENT_SYSTEM_SWITCHSTART",
-    "EVENT_SYSTEM_SWITCHEND",
-    "EVENT_SYSTEM_MINIMIZESTART",
-    "EVENT_SYSTEM_MINIMIZEEND",
-    "EVENT_SYSTEM_DESKTOPSWITCH",
-    "EVENT_SYSTEM_SWITCHER_APPGRABBED",
-    "EVENT_SYSTEM_SWITCHER_APPOVERTARGET",
-    "EVENT_SYSTEM_SWITCHER_APPDROPPED",
-    "EVENT_SYSTEM_SWITCHER_CANCELLED",
-    "EVENT_SYSTEM_IME_KEY_NOTIFICATION",
-    "EVENT_SYSTEM_END",
-    "EVENT_OEM_DEFINED_START",
-    "EVENT_OEM_DEFINED_END",
-    "EVENT_UIA_EVENTID_START",
-    "EVENT_UIA_EVENTID_END",
-    "EVENT_UIA_PROPID_START",
-    "EVENT_UIA_PROPID_END",
+    "EIMES_CANCELCOMPSTRINFOCUS",
+    "EIMES_COMPLETECOMPSTRKILLFOCUS",
+    "EIMES_GETCOMPSTRATONCE",
+    "EMSIS_COMPOSITIONSTRING",
+    "ENDSESSION_CLOSEAPP",
+    "ENDSESSION_CRITICAL",
+    "ENDSESSION_LOGOFF",
+    "EN_AFTER_PASTE",
+    "EN_ALIGN_LTR_EC",
+    "EN_ALIGN_RTL_EC",
+    "EN_BEFORE_PASTE",
+    "EN_CHANGE",
+    "EN_ERRSPACE",
+    "EN_HSCROLL",
+    "EN_KILLFOCUS",
+    "EN_MAXTEXT",
+    "EN_SETFOCUS",
+    "EN_UPDATE",
+    "EN_VSCROLL",
+    "ES_AUTOHSCROLL",
+    "ES_AUTOVSCROLL",
+    "ES_CENTER",
+    "ES_LEFT",
+    "ES_LOWERCASE",
+    "ES_MULTILINE",
+    "ES_NOHIDESEL",
+    "ES_NUMBER",
+    "ES_OEMCONVERT",
+    "ES_PASSWORD",
+    "ES_READONLY",
+    "ES_RIGHT",
+    "ES_UPPERCASE",
+    "ES_WANTRETURN",
+    "EVENTMSG",
+    "EVENT_AIA_END",
+    "EVENT_AIA_START",
     "EVENT_CONSOLE_CARET",
-    "EVENT_CONSOLE_UPDATE_REGION",
-    "EVENT_CONSOLE_UPDATE_SIMPLE",
-    "EVENT_CONSOLE_UPDATE_SCROLL",
+    "EVENT_CONSOLE_END",
+    "EVENT_CONSOLE_END_APPLICATION",
     "EVENT_CONSOLE_LAYOUT",
     "EVENT_CONSOLE_START_APPLICATION",
-    "EVENT_CONSOLE_END_APPLICATION",
-    "CONSOLE_APPLICATION_16BIT",
-    "CONSOLE_CARET_SELECTION",
-    "CONSOLE_CARET_VISIBLE",
-    "EVENT_CONSOLE_END",
+    "EVENT_CONSOLE_UPDATE_REGION",
+    "EVENT_CONSOLE_UPDATE_SCROLL",
+    "EVENT_CONSOLE_UPDATE_SIMPLE",
+    "EVENT_MAX",
+    "EVENT_MIN",
+    "EVENT_OBJECT_ACCELERATORCHANGE",
+    "EVENT_OBJECT_CLOAKED",
+    "EVENT_OBJECT_CONTENTSCROLLED",
     "EVENT_OBJECT_CREATE",
+    "EVENT_OBJECT_DEFACTIONCHANGE",
+    "EVENT_OBJECT_DESCRIPTIONCHANGE",
     "EVENT_OBJECT_DESTROY",
-    "EVENT_OBJECT_SHOW",
-    "EVENT_OBJECT_HIDE",
-    "EVENT_OBJECT_REORDER",
+    "EVENT_OBJECT_DRAGCANCEL",
+    "EVENT_OBJECT_DRAGCOMPLETE",
+    "EVENT_OBJECT_DRAGDROPPED",
+    "EVENT_OBJECT_DRAGENTER",
+    "EVENT_OBJECT_DRAGLEAVE",
+    "EVENT_OBJECT_DRAGSTART",
+    "EVENT_OBJECT_END",
     "EVENT_OBJECT_FOCUS",
+    "EVENT_OBJECT_HELPCHANGE",
+    "EVENT_OBJECT_HIDE",
+    "EVENT_OBJECT_HOSTEDOBJECTSINVALIDATED",
+    "EVENT_OBJECT_IME_CHANGE",
+    "EVENT_OBJECT_IME_HIDE",
+    "EVENT_OBJECT_IME_SHOW",
+    "EVENT_OBJECT_INVOKED",
+    "EVENT_OBJECT_LIVEREGIONCHANGED",
+    "EVENT_OBJECT_LOCATIONCHANGE",
+    "EVENT_OBJECT_NAMECHANGE",
+    "EVENT_OBJECT_PARENTCHANGE",
+    "EVENT_OBJECT_REORDER",
     "EVENT_OBJECT_SELECTION",
     "EVENT_OBJECT_SELECTIONADD",
     "EVENT_OBJECT_SELECTIONREMOVE",
     "EVENT_OBJECT_SELECTIONWITHIN",
+    "EVENT_OBJECT_SHOW",
     "EVENT_OBJECT_STATECHANGE",
-    "EVENT_OBJECT_LOCATIONCHANGE",
-    "EVENT_OBJECT_NAMECHANGE",
-    "EVENT_OBJECT_DESCRIPTIONCHANGE",
-    "EVENT_OBJECT_VALUECHANGE",
-    "EVENT_OBJECT_PARENTCHANGE",
-    "EVENT_OBJECT_HELPCHANGE",
-    "EVENT_OBJECT_DEFACTIONCHANGE",
-    "EVENT_OBJECT_ACCELERATORCHANGE",
-    "EVENT_OBJECT_INVOKED",
-    "EVENT_OBJECT_TEXTSELECTIONCHANGED",
-    "EVENT_OBJECT_CONTENTSCROLLED",
-    "EVENT_SYSTEM_ARRANGMENTPREVIEW",
-    "EVENT_OBJECT_CLOAKED",
-    "EVENT_OBJECT_UNCLOAKED",
-    "EVENT_OBJECT_LIVEREGIONCHANGED",
-    "EVENT_OBJECT_HOSTEDOBJECTSINVALIDATED",
-    "EVENT_OBJECT_DRAGSTART",
-    "EVENT_OBJECT_DRAGCANCEL",
-    "EVENT_OBJECT_DRAGCOMPLETE",
-    "EVENT_OBJECT_DRAGENTER",
-    "EVENT_OBJECT_DRAGLEAVE",
-    "EVENT_OBJECT_DRAGDROPPED",
-    "EVENT_OBJECT_IME_SHOW",
-    "EVENT_OBJECT_IME_HIDE",
-    "EVENT_OBJECT_IME_CHANGE",
     "EVENT_OBJECT_TEXTEDIT_CONVERSIONTARGETCHANGED",
-    "EVENT_OBJECT_END",
-    "EVENT_AIA_START",
-    "EVENT_AIA_END",
-    "SOUND_SYSTEM_STARTUP",
-    "SOUND_SYSTEM_SHUTDOWN",
-    "SOUND_SYSTEM_BEEP",
-    "SOUND_SYSTEM_ERROR",
-    "SOUND_SYSTEM_QUESTION",
-    "SOUND_SYSTEM_WARNING",
-    "SOUND_SYSTEM_INFORMATION",
-    "SOUND_SYSTEM_MAXIMIZE",
-    "SOUND_SYSTEM_MINIMIZE",
-    "SOUND_SYSTEM_RESTOREUP",
-    "SOUND_SYSTEM_RESTOREDOWN",
-    "SOUND_SYSTEM_APPSTART",
-    "SOUND_SYSTEM_FAULT",
-    "SOUND_SYSTEM_APPEND",
-    "SOUND_SYSTEM_MENUCOMMAND",
-    "SOUND_SYSTEM_MENUPOPUP",
-    "CSOUND_SYSTEM",
-    "CALERT_SYSTEM",
-    "GUI_16BITTASK",
-    "USER_DEFAULT_SCREEN_DPI",
-    "STATE_SYSTEM_SELECTED",
-    "STATE_SYSTEM_FOCUSED",
-    "STATE_SYSTEM_CHECKED",
-    "STATE_SYSTEM_MIXED",
-    "STATE_SYSTEM_INDETERMINATE",
-    "STATE_SYSTEM_READONLY",
-    "STATE_SYSTEM_HOTTRACKED",
-    "STATE_SYSTEM_DEFAULT",
-    "STATE_SYSTEM_EXPANDED",
-    "STATE_SYSTEM_COLLAPSED",
-    "STATE_SYSTEM_BUSY",
-    "STATE_SYSTEM_FLOATING",
-    "STATE_SYSTEM_MARQUEED",
-    "STATE_SYSTEM_ANIMATED",
-    "STATE_SYSTEM_SIZEABLE",
-    "STATE_SYSTEM_MOVEABLE",
-    "STATE_SYSTEM_SELFVOICING",
-    "STATE_SYSTEM_SELECTABLE",
-    "STATE_SYSTEM_LINKED",
-    "STATE_SYSTEM_TRAVERSED",
-    "STATE_SYSTEM_MULTISELECTABLE",
-    "STATE_SYSTEM_EXTSELECTABLE",
-    "STATE_SYSTEM_ALERT_LOW",
-    "STATE_SYSTEM_ALERT_MEDIUM",
-    "STATE_SYSTEM_ALERT_HIGH",
-    "STATE_SYSTEM_PROTECTED",
-    "STATE_SYSTEM_VALID",
-    "CCHILDREN_TITLEBAR",
-    "CCHILDREN_SCROLLBAR",
-    "RIM_INPUT",
-    "RIM_INPUTSINK",
-    "RIM_TYPEMAX",
-    "RI_MOUSE_LEFT_BUTTON_DOWN",
-    "RI_MOUSE_LEFT_BUTTON_UP",
-    "RI_MOUSE_RIGHT_BUTTON_DOWN",
-    "RI_MOUSE_RIGHT_BUTTON_UP",
-    "RI_MOUSE_MIDDLE_BUTTON_DOWN",
-    "RI_MOUSE_MIDDLE_BUTTON_UP",
-    "RI_MOUSE_BUTTON_1_DOWN",
-    "RI_MOUSE_BUTTON_1_UP",
-    "RI_MOUSE_BUTTON_2_DOWN",
-    "RI_MOUSE_BUTTON_2_UP",
-    "RI_MOUSE_BUTTON_3_DOWN",
-    "RI_MOUSE_BUTTON_3_UP",
-    "RI_MOUSE_BUTTON_4_DOWN",
-    "RI_MOUSE_BUTTON_4_UP",
-    "RI_MOUSE_BUTTON_5_DOWN",
-    "RI_MOUSE_BUTTON_5_UP",
-    "RI_MOUSE_WHEEL",
-    "RI_MOUSE_HWHEEL",
-    "RI_KEY_MAKE",
-    "RI_KEY_BREAK",
-    "RI_KEY_E0",
-    "RI_KEY_E1",
-    "RI_KEY_TERMSRV_SET_LED",
-    "RI_KEY_TERMSRV_SHADOW",
-    "RIDEV_EXMODEMASK",
-    "GIDC_ARRIVAL",
-    "GIDC_REMOVAL",
-    "POINTER_DEVICE_PRODUCT_STRING_MAX",
-    "PDC_ARRIVAL",
-    "PDC_REMOVAL",
-    "PDC_ORIENTATION_0",
-    "PDC_ORIENTATION_90",
-    "PDC_ORIENTATION_180",
-    "PDC_ORIENTATION_270",
-    "PDC_MODE_DEFAULT",
-    "PDC_MODE_CENTERED",
-    "PDC_MAPPING_CHANGE",
-    "PDC_RESOLUTION",
-    "PDC_ORIGIN",
-    "PDC_MODE_ASPECTRATIOPRESERVED",
-    "GF_BEGIN",
-    "GF_INERTIA",
-    "GF_END",
-    "GESTURECONFIGMAXCOUNT",
+    "EVENT_OBJECT_TEXTSELECTIONCHANGED",
+    "EVENT_OBJECT_UNCLOAKED",
+    "EVENT_OBJECT_VALUECHANGE",
+    "EVENT_OEM_DEFINED_END",
+    "EVENT_OEM_DEFINED_START",
+    "EVENT_SYSTEM_ALERT",
+    "EVENT_SYSTEM_ARRANGMENTPREVIEW",
+    "EVENT_SYSTEM_CAPTUREEND",
+    "EVENT_SYSTEM_CAPTURESTART",
+    "EVENT_SYSTEM_CONTEXTHELPEND",
+    "EVENT_SYSTEM_CONTEXTHELPSTART",
+    "EVENT_SYSTEM_DESKTOPSWITCH",
+    "EVENT_SYSTEM_DIALOGEND",
+    "EVENT_SYSTEM_DIALOGSTART",
+    "EVENT_SYSTEM_DRAGDROPEND",
+    "EVENT_SYSTEM_DRAGDROPSTART",
+    "EVENT_SYSTEM_END",
+    "EVENT_SYSTEM_FOREGROUND",
+    "EVENT_SYSTEM_IME_KEY_NOTIFICATION",
+    "EVENT_SYSTEM_MENUEND",
+    "EVENT_SYSTEM_MENUPOPUPEND",
+    "EVENT_SYSTEM_MENUPOPUPSTART",
+    "EVENT_SYSTEM_MENUSTART",
+    "EVENT_SYSTEM_MINIMIZEEND",
+    "EVENT_SYSTEM_MINIMIZESTART",
+    "EVENT_SYSTEM_MOVESIZEEND",
+    "EVENT_SYSTEM_MOVESIZESTART",
+    "EVENT_SYSTEM_SCROLLINGEND",
+    "EVENT_SYSTEM_SCROLLINGSTART",
+    "EVENT_SYSTEM_SOUND",
+    "EVENT_SYSTEM_SWITCHEND",
+    "EVENT_SYSTEM_SWITCHER_APPDROPPED",
+    "EVENT_SYSTEM_SWITCHER_APPGRABBED",
+    "EVENT_SYSTEM_SWITCHER_APPOVERTARGET",
+    "EVENT_SYSTEM_SWITCHER_CANCELLED",
+    "EVENT_SYSTEM_SWITCHSTART",
+    "EVENT_UIA_EVENTID_END",
+    "EVENT_UIA_EVENTID_START",
+    "EVENT_UIA_PROPID_END",
+    "EVENT_UIA_PROPID_START",
+    "EWX_ARSO",
+    "EWX_BOOTOPTIONS",
+    "EWX_CHECK_SAFE_FOR_SERVER",
+    "EWX_FORCE",
+    "EWX_FORCEIFHUNG",
+    "EWX_QUICKRESOLVE",
+    "EWX_SYSTEM_INITIATED",
+    "EnableMenuItem",
+    "EndDeferWindowPos",
+    "EndDialog",
+    "EndMenu",
+    "EnumChildWindows",
+    "EnumPropsA",
+    "EnumPropsExA",
+    "EnumPropsExW",
+    "EnumPropsW",
+    "EnumThreadWindows",
+    "EnumWindows",
+    "FALT",
+    "FAPPCOMMAND_KEY",
+    "FAPPCOMMAND_MASK",
+    "FAPPCOMMAND_MOUSE",
+    "FAPPCOMMAND_OEM",
+    "FCONTROL",
+    "FE_FONTSMOOTHINGCLEARTYPE",
+    "FE_FONTSMOOTHINGORIENTATIONBGR",
+    "FE_FONTSMOOTHINGORIENTATIONRGB",
+    "FE_FONTSMOOTHINGSTANDARD",
+    "FKF_AVAILABLE",
+    "FKF_CLICKON",
+    "FKF_CONFIRMHOTKEY",
+    "FKF_FILTERKEYSON",
+    "FKF_HOTKEYACTIVE",
+    "FKF_HOTKEYSOUND",
+    "FKF_INDICATOR",
+    "FLASHWINFO",
+    "FLASHWINFO_FLAGS",
+    "FLASHW_ALL",
+    "FLASHW_CAPTION",
+    "FLASHW_STOP",
+    "FLASHW_TIMER",
+    "FLASHW_TIMERNOFG",
+    "FLASHW_TRAY",
+    "FNOINVERT",
+    "FOREGROUND_WINDOW_LOCK_CODE",
+    "FSHIFT",
+    "FVIRTKEY",
+    "FindWindowA",
+    "FindWindowExA",
+    "FindWindowExW",
+    "FindWindowW",
+    "FlashWindow",
+    "FlashWindowEx",
+    "GA_PARENT",
+    "GA_ROOT",
+    "GA_ROOTOWNER",
     "GCF_INCLUDE_ANCESTORS",
-    "NID_INTEGRATED_TOUCH",
-    "NID_EXTERNAL_TOUCH",
-    "NID_INTEGRATED_PEN",
-    "NID_EXTERNAL_PEN",
-    "NID_MULTI_INPUT",
-    "NID_READY",
-    "MAX_STR_BLOCKREASON",
-    "STRSAFE_USE_SECURE_CRT",
-    "STRSAFE_MAX_CCH",
-    "STRSAFE_IGNORE_NULLS",
-    "STRSAFE_FILL_BEHIND_NULL",
-    "STRSAFE_FILL_ON_FAILURE",
-    "STRSAFE_NULL_ON_FAILURE",
-    "STRSAFE_NO_TRUNCATION",
-    "STRSAFE_E_INSUFFICIENT_BUFFER",
-    "STRSAFE_E_INVALID_PARAMETER",
-    "STRSAFE_E_END_OF_FILE",
-    "__WARNING_CYCLOMATIC_COMPLEXITY",
-    "__WARNING_USING_UNINIT_VAR",
-    "__WARNING_RETURN_UNINIT_VAR",
-    "__WARNING_DEREF_NULL_PTR",
-    "__WARNING_MISSING_ZERO_TERMINATION2",
-    "__WARNING_INVALID_PARAM_VALUE_1",
-    "__WARNING_INCORRECT_ANNOTATION",
-    "__WARNING_POTENTIAL_BUFFER_OVERFLOW_HIGH_PRIORITY",
-    "__WARNING_PRECONDITION_NULLTERMINATION_VIOLATION",
-    "__WARNING_POSTCONDITION_NULLTERMINATION_VIOLATION",
-    "__WARNING_HIGH_PRIORITY_OVERFLOW_POSTCONDITION",
-    "__WARNING_RANGE_POSTCONDITION_VIOLATION",
-    "__WARNING_POTENTIAL_RANGE_POSTCONDITION_VIOLATION",
-    "__WARNING_INVALID_PARAM_VALUE_3",
-    "__WARNING_RETURNING_BAD_RESULT",
-    "__WARNING_BANNED_API_USAGE",
-    "__WARNING_POST_EXPECTED",
-    "HBMMENU_CALLBACK",
-    "HBMMENU_SYSTEM",
-    "HBMMENU_MBAR_RESTORE",
-    "HBMMENU_MBAR_MINIMIZE",
-    "HBMMENU_MBAR_CLOSE",
-    "HBMMENU_MBAR_CLOSE_D",
-    "HBMMENU_MBAR_MINIMIZE_D",
-    "HBMMENU_POPUP_CLOSE",
-    "HBMMENU_POPUP_RESTORE",
-    "HBMMENU_POPUP_MAXIMIZE",
-    "HBMMENU_POPUP_MINIMIZE",
-    "CW_USEDEFAULT",
-    "LBS_STANDARD",
-    "WNDCLASS_STYLES",
-    "CS_VREDRAW",
-    "CS_HREDRAW",
-    "CS_DBLCLKS",
-    "CS_OWNDC",
-    "CS_CLASSDC",
-    "CS_PARENTDC",
-    "CS_NOCLOSE",
-    "CS_SAVEBITS",
-    "CS_BYTEALIGNCLIENT",
-    "CS_BYTEALIGNWINDOW",
-    "CS_GLOBALCLASS",
-    "CS_IME",
-    "CS_DROPSHADOW",
-    "CWP_FLAGS",
-    "CWP_ALL",
-    "CWP_SKIPINVISIBLE",
-    "CWP_SKIPDISABLED",
-    "CWP_SKIPTRANSPARENT",
-    "MESSAGEBOX_STYLE",
-    "MB_ABORTRETRYIGNORE",
-    "MB_CANCELTRYCONTINUE",
-    "MB_HELP",
-    "MB_OK",
-    "MB_OKCANCEL",
-    "MB_RETRYCANCEL",
-    "MB_YESNO",
-    "MB_YESNOCANCEL",
-    "MB_ICONHAND",
-    "MB_ICONQUESTION",
-    "MB_ICONEXCLAMATION",
-    "MB_ICONASTERISK",
-    "MB_USERICON",
-    "MB_ICONWARNING",
-    "MB_ICONERROR",
-    "MB_ICONINFORMATION",
-    "MB_ICONSTOP",
-    "MB_DEFBUTTON1",
-    "MB_DEFBUTTON2",
-    "MB_DEFBUTTON3",
-    "MB_DEFBUTTON4",
-    "MB_APPLMODAL",
-    "MB_SYSTEMMODAL",
-    "MB_TASKMODAL",
-    "MB_NOFOCUS",
-    "MB_SETFOREGROUND",
-    "MB_DEFAULT_DESKTOP_ONLY",
-    "MB_TOPMOST",
-    "MB_RIGHT",
-    "MB_RTLREADING",
-    "MB_SERVICE_NOTIFICATION",
-    "MB_SERVICE_NOTIFICATION_NT3X",
-    "MB_TYPEMASK",
-    "MB_ICONMASK",
-    "MB_DEFMASK",
-    "MB_MODEMASK",
-    "MB_MISCMASK",
-    "MENU_ITEM_FLAGS",
-    "MF_BYCOMMAND",
-    "MF_BYPOSITION",
-    "MF_BITMAP",
-    "MF_CHECKED",
-    "MF_DISABLED",
-    "MF_ENABLED",
-    "MF_GRAYED",
-    "MF_MENUBARBREAK",
-    "MF_MENUBREAK",
-    "MF_OWNERDRAW",
-    "MF_POPUP",
-    "MF_SEPARATOR",
-    "MF_STRING",
-    "MF_UNCHECKED",
-    "MF_INSERT",
-    "MF_CHANGE",
-    "MF_APPEND",
-    "MF_DELETE",
-    "MF_REMOVE",
-    "MF_USECHECKBITMAPS",
-    "MF_UNHILITE",
-    "MF_HILITE",
-    "MF_DEFAULT",
-    "MF_SYSMENU",
-    "MF_HELP",
-    "MF_RIGHTJUSTIFY",
-    "MF_MOUSESELECT",
-    "MF_END",
-    "SHOW_WINDOW_CMD",
-    "SW_FORCEMINIMIZE",
-    "SW_HIDE",
-    "SW_MAXIMIZE",
-    "SW_MINIMIZE",
-    "SW_RESTORE",
-    "SW_SHOW",
-    "SW_SHOWDEFAULT",
-    "SW_SHOWMAXIMIZED",
-    "SW_SHOWMINIMIZED",
-    "SW_SHOWMINNOACTIVE",
-    "SW_SHOWNA",
-    "SW_SHOWNOACTIVATE",
-    "SW_SHOWNORMAL",
-    "SW_NORMAL",
-    "SW_MAX",
-    "SW_PARENTCLOSING",
-    "SW_OTHERZOOM",
-    "SW_PARENTOPENING",
-    "SW_OTHERUNZOOM",
-    "SW_SCROLLCHILDREN",
-    "SW_INVALIDATE",
-    "SW_ERASE",
-    "SW_SMOOTHSCROLL",
-    "SYSTEM_PARAMETERS_INFO_ACTION",
-    "SPI_GETBEEP",
-    "SPI_SETBEEP",
-    "SPI_GETMOUSE",
-    "SPI_SETMOUSE",
-    "SPI_GETBORDER",
-    "SPI_SETBORDER",
-    "SPI_GETKEYBOARDSPEED",
-    "SPI_SETKEYBOARDSPEED",
-    "SPI_LANGDRIVER",
-    "SPI_ICONHORIZONTALSPACING",
-    "SPI_GETSCREENSAVETIMEOUT",
-    "SPI_SETSCREENSAVETIMEOUT",
-    "SPI_GETSCREENSAVEACTIVE",
-    "SPI_SETSCREENSAVEACTIVE",
-    "SPI_GETGRIDGRANULARITY",
-    "SPI_SETGRIDGRANULARITY",
-    "SPI_SETDESKWALLPAPER",
-    "SPI_SETDESKPATTERN",
-    "SPI_GETKEYBOARDDELAY",
-    "SPI_SETKEYBOARDDELAY",
-    "SPI_ICONVERTICALSPACING",
-    "SPI_GETICONTITLEWRAP",
-    "SPI_SETICONTITLEWRAP",
-    "SPI_GETMENUDROPALIGNMENT",
-    "SPI_SETMENUDROPALIGNMENT",
-    "SPI_SETDOUBLECLKWIDTH",
-    "SPI_SETDOUBLECLKHEIGHT",
-    "SPI_GETICONTITLELOGFONT",
-    "SPI_SETDOUBLECLICKTIME",
-    "SPI_SETMOUSEBUTTONSWAP",
-    "SPI_SETICONTITLELOGFONT",
-    "SPI_GETFASTTASKSWITCH",
-    "SPI_SETFASTTASKSWITCH",
-    "SPI_SETDRAGFULLWINDOWS",
-    "SPI_GETDRAGFULLWINDOWS",
-    "SPI_GETNONCLIENTMETRICS",
-    "SPI_SETNONCLIENTMETRICS",
-    "SPI_GETMINIMIZEDMETRICS",
-    "SPI_SETMINIMIZEDMETRICS",
-    "SPI_GETICONMETRICS",
-    "SPI_SETICONMETRICS",
-    "SPI_SETWORKAREA",
-    "SPI_GETWORKAREA",
-    "SPI_SETPENWINDOWS",
-    "SPI_GETHIGHCONTRAST",
-    "SPI_SETHIGHCONTRAST",
-    "SPI_GETKEYBOARDPREF",
-    "SPI_SETKEYBOARDPREF",
-    "SPI_GETSCREENREADER",
-    "SPI_SETSCREENREADER",
-    "SPI_GETANIMATION",
-    "SPI_SETANIMATION",
-    "SPI_GETFONTSMOOTHING",
-    "SPI_SETFONTSMOOTHING",
-    "SPI_SETDRAGWIDTH",
-    "SPI_SETDRAGHEIGHT",
-    "SPI_SETHANDHELD",
-    "SPI_GETLOWPOWERTIMEOUT",
-    "SPI_GETPOWEROFFTIMEOUT",
-    "SPI_SETLOWPOWERTIMEOUT",
-    "SPI_SETPOWEROFFTIMEOUT",
-    "SPI_GETLOWPOWERACTIVE",
-    "SPI_GETPOWEROFFACTIVE",
-    "SPI_SETLOWPOWERACTIVE",
-    "SPI_SETPOWEROFFACTIVE",
-    "SPI_SETCURSORS",
-    "SPI_SETICONS",
-    "SPI_GETDEFAULTINPUTLANG",
-    "SPI_SETDEFAULTINPUTLANG",
-    "SPI_SETLANGTOGGLE",
-    "SPI_GETWINDOWSEXTENSION",
-    "SPI_SETMOUSETRAILS",
-    "SPI_GETMOUSETRAILS",
-    "SPI_SETSCREENSAVERRUNNING",
-    "SPI_SCREENSAVERRUNNING",
-    "SPI_GETFILTERKEYS",
-    "SPI_SETFILTERKEYS",
-    "SPI_GETTOGGLEKEYS",
-    "SPI_SETTOGGLEKEYS",
-    "SPI_GETMOUSEKEYS",
-    "SPI_SETMOUSEKEYS",
-    "SPI_GETSHOWSOUNDS",
-    "SPI_SETSHOWSOUNDS",
-    "SPI_GETSTICKYKEYS",
-    "SPI_SETSTICKYKEYS",
-    "SPI_GETACCESSTIMEOUT",
-    "SPI_SETACCESSTIMEOUT",
-    "SPI_GETSERIALKEYS",
-    "SPI_SETSERIALKEYS",
-    "SPI_GETSOUNDSENTRY",
-    "SPI_SETSOUNDSENTRY",
-    "SPI_GETSNAPTODEFBUTTON",
-    "SPI_SETSNAPTODEFBUTTON",
-    "SPI_GETMOUSEHOVERWIDTH",
-    "SPI_SETMOUSEHOVERWIDTH",
-    "SPI_GETMOUSEHOVERHEIGHT",
-    "SPI_SETMOUSEHOVERHEIGHT",
-    "SPI_GETMOUSEHOVERTIME",
-    "SPI_SETMOUSEHOVERTIME",
-    "SPI_GETWHEELSCROLLLINES",
-    "SPI_SETWHEELSCROLLLINES",
-    "SPI_GETMENUSHOWDELAY",
-    "SPI_SETMENUSHOWDELAY",
-    "SPI_GETWHEELSCROLLCHARS",
-    "SPI_SETWHEELSCROLLCHARS",
-    "SPI_GETSHOWIMEUI",
-    "SPI_SETSHOWIMEUI",
-    "SPI_GETMOUSESPEED",
-    "SPI_SETMOUSESPEED",
-    "SPI_GETSCREENSAVERRUNNING",
-    "SPI_GETDESKWALLPAPER",
-    "SPI_GETAUDIODESCRIPTION",
-    "SPI_SETAUDIODESCRIPTION",
-    "SPI_GETSCREENSAVESECURE",
-    "SPI_SETSCREENSAVESECURE",
-    "SPI_GETHUNGAPPTIMEOUT",
-    "SPI_SETHUNGAPPTIMEOUT",
-    "SPI_GETWAITTOKILLTIMEOUT",
-    "SPI_SETWAITTOKILLTIMEOUT",
-    "SPI_GETWAITTOKILLSERVICETIMEOUT",
-    "SPI_SETWAITTOKILLSERVICETIMEOUT",
-    "SPI_GETMOUSEDOCKTHRESHOLD",
-    "SPI_SETMOUSEDOCKTHRESHOLD",
-    "SPI_GETPENDOCKTHRESHOLD",
-    "SPI_SETPENDOCKTHRESHOLD",
-    "SPI_GETWINARRANGING",
-    "SPI_SETWINARRANGING",
-    "SPI_GETMOUSEDRAGOUTTHRESHOLD",
-    "SPI_SETMOUSEDRAGOUTTHRESHOLD",
-    "SPI_GETPENDRAGOUTTHRESHOLD",
-    "SPI_SETPENDRAGOUTTHRESHOLD",
-    "SPI_GETMOUSESIDEMOVETHRESHOLD",
-    "SPI_SETMOUSESIDEMOVETHRESHOLD",
-    "SPI_GETPENSIDEMOVETHRESHOLD",
-    "SPI_SETPENSIDEMOVETHRESHOLD",
-    "SPI_GETDRAGFROMMAXIMIZE",
-    "SPI_SETDRAGFROMMAXIMIZE",
-    "SPI_GETSNAPSIZING",
-    "SPI_SETSNAPSIZING",
-    "SPI_GETDOCKMOVING",
-    "SPI_SETDOCKMOVING",
-    "SPI_GETTOUCHPREDICTIONPARAMETERS",
-    "SPI_SETTOUCHPREDICTIONPARAMETERS",
-    "SPI_GETLOGICALDPIOVERRIDE",
-    "SPI_SETLOGICALDPIOVERRIDE",
-    "SPI_GETMENURECT",
-    "SPI_SETMENURECT",
-    "SPI_GETACTIVEWINDOWTRACKING",
-    "SPI_SETACTIVEWINDOWTRACKING",
-    "SPI_GETMENUANIMATION",
-    "SPI_SETMENUANIMATION",
-    "SPI_GETCOMBOBOXANIMATION",
-    "SPI_SETCOMBOBOXANIMATION",
-    "SPI_GETLISTBOXSMOOTHSCROLLING",
-    "SPI_SETLISTBOXSMOOTHSCROLLING",
-    "SPI_GETGRADIENTCAPTIONS",
-    "SPI_SETGRADIENTCAPTIONS",
-    "SPI_GETKEYBOARDCUES",
-    "SPI_SETKEYBOARDCUES",
-    "SPI_GETMENUUNDERLINES",
-    "SPI_SETMENUUNDERLINES",
-    "SPI_GETACTIVEWNDTRKZORDER",
-    "SPI_SETACTIVEWNDTRKZORDER",
-    "SPI_GETHOTTRACKING",
-    "SPI_SETHOTTRACKING",
-    "SPI_GETMENUFADE",
-    "SPI_SETMENUFADE",
-    "SPI_GETSELECTIONFADE",
-    "SPI_SETSELECTIONFADE",
-    "SPI_GETTOOLTIPANIMATION",
-    "SPI_SETTOOLTIPANIMATION",
-    "SPI_GETTOOLTIPFADE",
-    "SPI_SETTOOLTIPFADE",
-    "SPI_GETCURSORSHADOW",
-    "SPI_SETCURSORSHADOW",
-    "SPI_GETMOUSESONAR",
-    "SPI_SETMOUSESONAR",
-    "SPI_GETMOUSECLICKLOCK",
-    "SPI_SETMOUSECLICKLOCK",
-    "SPI_GETMOUSEVANISH",
-    "SPI_SETMOUSEVANISH",
-    "SPI_GETFLATMENU",
-    "SPI_SETFLATMENU",
-    "SPI_GETDROPSHADOW",
-    "SPI_SETDROPSHADOW",
-    "SPI_GETBLOCKSENDINPUTRESETS",
-    "SPI_SETBLOCKSENDINPUTRESETS",
-    "SPI_GETUIEFFECTS",
-    "SPI_SETUIEFFECTS",
-    "SPI_GETDISABLEOVERLAPPEDCONTENT",
-    "SPI_SETDISABLEOVERLAPPEDCONTENT",
-    "SPI_GETCLIENTAREAANIMATION",
-    "SPI_SETCLIENTAREAANIMATION",
-    "SPI_GETCLEARTYPE",
-    "SPI_SETCLEARTYPE",
-    "SPI_GETSPEECHRECOGNITION",
-    "SPI_SETSPEECHRECOGNITION",
-    "SPI_GETCARETBROWSING",
-    "SPI_SETCARETBROWSING",
-    "SPI_GETTHREADLOCALINPUTSETTINGS",
-    "SPI_SETTHREADLOCALINPUTSETTINGS",
-    "SPI_GETSYSTEMLANGUAGEBAR",
-    "SPI_SETSYSTEMLANGUAGEBAR",
-    "SPI_GETFOREGROUNDLOCKTIMEOUT",
-    "SPI_SETFOREGROUNDLOCKTIMEOUT",
-    "SPI_GETACTIVEWNDTRKTIMEOUT",
-    "SPI_SETACTIVEWNDTRKTIMEOUT",
-    "SPI_GETFOREGROUNDFLASHCOUNT",
-    "SPI_SETFOREGROUNDFLASHCOUNT",
-    "SPI_GETCARETWIDTH",
-    "SPI_SETCARETWIDTH",
-    "SPI_GETMOUSECLICKLOCKTIME",
-    "SPI_SETMOUSECLICKLOCKTIME",
-    "SPI_GETFONTSMOOTHINGTYPE",
-    "SPI_SETFONTSMOOTHINGTYPE",
-    "SPI_GETFONTSMOOTHINGCONTRAST",
-    "SPI_SETFONTSMOOTHINGCONTRAST",
-    "SPI_GETFOCUSBORDERWIDTH",
-    "SPI_SETFOCUSBORDERWIDTH",
-    "SPI_GETFOCUSBORDERHEIGHT",
-    "SPI_SETFOCUSBORDERHEIGHT",
-    "SPI_GETFONTSMOOTHINGORIENTATION",
-    "SPI_SETFONTSMOOTHINGORIENTATION",
-    "SPI_GETMINIMUMHITRADIUS",
-    "SPI_SETMINIMUMHITRADIUS",
-    "SPI_GETMESSAGEDURATION",
-    "SPI_SETMESSAGEDURATION",
-    "SPI_GETCONTACTVISUALIZATION",
-    "SPI_SETCONTACTVISUALIZATION",
-    "SPI_GETGESTUREVISUALIZATION",
-    "SPI_SETGESTUREVISUALIZATION",
-    "SPI_GETMOUSEWHEELROUTING",
-    "SPI_SETMOUSEWHEELROUTING",
-    "SPI_GETPENVISUALIZATION",
-    "SPI_SETPENVISUALIZATION",
-    "SPI_GETPENARBITRATIONTYPE",
-    "SPI_SETPENARBITRATIONTYPE",
-    "SPI_GETCARETTIMEOUT",
-    "SPI_SETCARETTIMEOUT",
-    "SPI_GETHANDEDNESS",
-    "SPI_SETHANDEDNESS",
-    "TRACK_POPUP_MENU_FLAGS",
-    "TPM_LEFTBUTTON",
-    "TPM_RIGHTBUTTON",
-    "TPM_LEFTALIGN",
-    "TPM_CENTERALIGN",
-    "TPM_RIGHTALIGN",
-    "TPM_TOPALIGN",
-    "TPM_VCENTERALIGN",
-    "TPM_BOTTOMALIGN",
-    "TPM_HORIZONTAL",
-    "TPM_VERTICAL",
-    "TPM_NONOTIFY",
-    "TPM_RETURNCMD",
-    "TPM_RECURSE",
-    "TPM_HORPOSANIMATION",
-    "TPM_HORNEGANIMATION",
-    "TPM_VERPOSANIMATION",
-    "TPM_VERNEGANIMATION",
-    "TPM_NOANIMATION",
-    "TPM_LAYOUTRTL",
-    "TPM_WORKAREA",
-    "WINDOW_EX_STYLE",
-    "WS_EX_DLGMODALFRAME",
-    "WS_EX_NOPARENTNOTIFY",
-    "WS_EX_TOPMOST",
-    "WS_EX_ACCEPTFILES",
-    "WS_EX_TRANSPARENT",
-    "WS_EX_MDICHILD",
-    "WS_EX_TOOLWINDOW",
-    "WS_EX_WINDOWEDGE",
-    "WS_EX_CLIENTEDGE",
-    "WS_EX_CONTEXTHELP",
-    "WS_EX_RIGHT",
-    "WS_EX_LEFT",
-    "WS_EX_RTLREADING",
-    "WS_EX_LTRREADING",
-    "WS_EX_LEFTSCROLLBAR",
-    "WS_EX_RIGHTSCROLLBAR",
-    "WS_EX_CONTROLPARENT",
-    "WS_EX_STATICEDGE",
-    "WS_EX_APPWINDOW",
-    "WS_EX_OVERLAPPEDWINDOW",
-    "WS_EX_PALETTEWINDOW",
-    "WS_EX_LAYERED",
-    "WS_EX_NOINHERITLAYOUT",
-    "WS_EX_NOREDIRECTIONBITMAP",
-    "WS_EX_LAYOUTRTL",
-    "WS_EX_COMPOSITED",
-    "WS_EX_NOACTIVATE",
-    "WINDOW_STYLE",
-    "WS_OVERLAPPED",
-    "WS_POPUP",
-    "WS_CHILD",
-    "WS_MINIMIZE",
-    "WS_VISIBLE",
-    "WS_DISABLED",
-    "WS_CLIPSIBLINGS",
-    "WS_CLIPCHILDREN",
-    "WS_MAXIMIZE",
-    "WS_CAPTION",
-    "WS_BORDER",
-    "WS_DLGFRAME",
-    "WS_VSCROLL",
-    "WS_HSCROLL",
-    "WS_SYSMENU",
-    "WS_THICKFRAME",
-    "WS_GROUP",
-    "WS_TABSTOP",
-    "WS_MINIMIZEBOX",
-    "WS_MAXIMIZEBOX",
-    "WS_TILED",
-    "WS_ICONIC",
-    "WS_SIZEBOX",
-    "WS_TILEDWINDOW",
-    "WS_OVERLAPPEDWINDOW",
-    "WS_POPUPWINDOW",
-    "WS_CHILDWINDOW",
-    "WS_ACTIVECAPTION",
-    "OBJECT_IDENTIFIER",
-    "OBJID_WINDOW",
-    "OBJID_SYSMENU",
-    "OBJID_TITLEBAR",
-    "OBJID_MENU",
-    "OBJID_CLIENT",
-    "OBJID_VSCROLL",
-    "OBJID_HSCROLL",
-    "OBJID_SIZEGRIP",
-    "OBJID_CARET",
-    "OBJID_CURSOR",
-    "OBJID_ALERT",
-    "OBJID_SOUND",
-    "OBJID_QUERYCLASSNAMEIDX",
-    "OBJID_NATIVEOM",
-    "MENU_ITEM_TYPE",
-    "MFT_BITMAP",
-    "MFT_MENUBARBREAK",
-    "MFT_MENUBREAK",
-    "MFT_OWNERDRAW",
-    "MFT_RADIOCHECK",
-    "MFT_RIGHTJUSTIFY",
-    "MFT_RIGHTORDER",
-    "MFT_SEPARATOR",
-    "MFT_STRING",
-    "MESSAGEBOX_RESULT",
-    "IDOK",
-    "IDCANCEL",
-    "IDABORT",
-    "IDRETRY",
-    "IDIGNORE",
-    "IDYES",
-    "IDNO",
-    "IDCLOSE",
-    "IDHELP",
-    "IDTRYAGAIN",
-    "IDCONTINUE",
-    "IDASYNC",
-    "IDTIMEOUT",
-    "MENU_ITEM_STATE",
-    "MFS_GRAYED",
-    "MFS_DISABLED",
-    "MFS_CHECKED",
-    "MFS_HILITE",
-    "MFS_ENABLED",
-    "MFS_UNCHECKED",
-    "MFS_UNHILITE",
-    "MFS_DEFAULT",
-    "SCROLLBAR_CONSTANTS",
-    "SB_CTL",
-    "SB_HORZ",
-    "SB_VERT",
-    "SB_BOTH",
-    "GET_CLASS_LONG_INDEX",
-    "GCW_ATOM",
+    "GCLP_HBRBACKGROUND",
+    "GCLP_HCURSOR",
+    "GCLP_HICON",
+    "GCLP_HICONSM",
+    "GCLP_HMODULE",
+    "GCLP_MENUNAME",
+    "GCLP_WNDPROC",
     "GCL_CBCLSEXTRA",
     "GCL_CBWNDEXTRA",
     "GCL_HBRBACKGROUND",
@@ -7610,65 +5975,463 @@ __all__ = [
     "GCL_MENUNAME",
     "GCL_STYLE",
     "GCL_WNDPROC",
-    "GCLP_HBRBACKGROUND",
-    "GCLP_HCURSOR",
-    "GCLP_HICON",
-    "GCLP_HICONSM",
-    "GCLP_HMODULE",
-    "GCLP_MENUNAME",
-    "GCLP_WNDPROC",
-    "UPDATE_LAYERED_WINDOW_FLAGS",
-    "ULW_ALPHA",
-    "ULW_COLORKEY",
-    "ULW_OPAQUE",
-    "ULW_EX_NORESIZE",
-    "WINDOW_LONG_PTR_INDEX",
-    "GWL_EXSTYLE",
+    "GCW_ATOM",
+    "GDI_IMAGE_TYPE",
+    "GESTURECONFIGMAXCOUNT",
+    "GESTUREVISUALIZATION_DOUBLETAP",
+    "GESTUREVISUALIZATION_OFF",
+    "GESTUREVISUALIZATION_ON",
+    "GESTUREVISUALIZATION_PRESSANDHOLD",
+    "GESTUREVISUALIZATION_PRESSANDTAP",
+    "GESTUREVISUALIZATION_RIGHTTAP",
+    "GESTUREVISUALIZATION_TAP",
+    "GET_ANCESTOR_FLAGS",
+    "GET_CLASS_LONG_INDEX",
+    "GET_MENU_DEFAULT_ITEM_FLAGS",
+    "GET_WINDOW_CMD",
+    "GF_BEGIN",
+    "GF_END",
+    "GF_INERTIA",
+    "GIDC_ARRIVAL",
+    "GIDC_REMOVAL",
+    "GMDI_GOINTOPOPUPS",
+    "GMDI_USEDISABLED",
+    "GUITHREADINFO",
+    "GUITHREADINFO_FLAGS",
+    "GUI_16BITTASK",
+    "GUI_CARETBLINKING",
+    "GUI_INMENUMODE",
+    "GUI_INMOVESIZE",
+    "GUI_POPUPMENUMODE",
+    "GUI_SYSTEMMENUMODE",
+    "GWFS_INCLUDE_ANCESTORS",
     "GWLP_HINSTANCE",
     "GWLP_HWNDPARENT",
     "GWLP_ID",
-    "GWL_STYLE",
     "GWLP_USERDATA",
     "GWLP_WNDPROC",
+    "GWL_EXSTYLE",
     "GWL_HINSTANCE",
+    "GWL_HWNDPARENT",
     "GWL_ID",
+    "GWL_STYLE",
     "GWL_USERDATA",
     "GWL_WNDPROC",
-    "GWL_HWNDPARENT",
-    "ANIMATE_WINDOW_FLAGS",
-    "AW_ACTIVATE",
-    "AW_BLEND",
-    "AW_CENTER",
-    "AW_HIDE",
-    "AW_HOR_POSITIVE",
-    "AW_HOR_NEGATIVE",
-    "AW_SLIDE",
-    "AW_VER_POSITIVE",
-    "AW_VER_NEGATIVE",
-    "CHANGE_WINDOW_MESSAGE_FILTER_FLAGS",
-    "MSGFLT_ADD",
-    "MSGFLT_REMOVE",
-    "GDI_IMAGE_TYPE",
+    "GW_CHILD",
+    "GW_ENABLEDPOPUP",
+    "GW_HWNDFIRST",
+    "GW_HWNDLAST",
+    "GW_HWNDNEXT",
+    "GW_HWNDPREV",
+    "GW_MAX",
+    "GW_OWNER",
+    "GetAltTabInfoA",
+    "GetAltTabInfoW",
+    "GetAncestor",
+    "GetCaretBlinkTime",
+    "GetCaretPos",
+    "GetClassInfoA",
+    "GetClassInfoExA",
+    "GetClassInfoExW",
+    "GetClassInfoW",
+    "GetClassLongA",
+    "GetClassLongPtrA",
+    "GetClassLongPtrW",
+    "GetClassLongW",
+    "GetClassNameA",
+    "GetClassNameW",
+    "GetClassWord",
+    "GetClientRect",
+    "GetClipCursor",
+    "GetCursor",
+    "GetCursorInfo",
+    "GetCursorPos",
+    "GetDesktopWindow",
+    "GetDialogBaseUnits",
+    "GetDlgCtrlID",
+    "GetDlgItem",
+    "GetDlgItemInt",
+    "GetDlgItemTextA",
+    "GetDlgItemTextW",
+    "GetForegroundWindow",
+    "GetGUIThreadInfo",
+    "GetIconInfo",
+    "GetIconInfoExA",
+    "GetIconInfoExW",
+    "GetInputState",
+    "GetLastActivePopup",
+    "GetLayeredWindowAttributes",
+    "GetMenu",
+    "GetMenuBarInfo",
+    "GetMenuCheckMarkDimensions",
+    "GetMenuDefaultItem",
+    "GetMenuInfo",
+    "GetMenuItemCount",
+    "GetMenuItemID",
+    "GetMenuItemInfoA",
+    "GetMenuItemInfoW",
+    "GetMenuItemRect",
+    "GetMenuState",
+    "GetMenuStringA",
+    "GetMenuStringW",
+    "GetMessageA",
+    "GetMessageExtraInfo",
+    "GetMessagePos",
+    "GetMessageTime",
+    "GetMessageW",
+    "GetNextDlgGroupItem",
+    "GetNextDlgTabItem",
+    "GetParent",
+    "GetPhysicalCursorPos",
+    "GetProcessDefaultLayout",
+    "GetPropA",
+    "GetPropW",
+    "GetQueueStatus",
+    "GetScrollBarInfo",
+    "GetScrollInfo",
+    "GetScrollPos",
+    "GetScrollRange",
+    "GetShellWindow",
+    "GetSubMenu",
+    "GetSystemMenu",
+    "GetSystemMetrics",
+    "GetTitleBarInfo",
+    "GetTopWindow",
+    "GetWindow",
+    "GetWindowDisplayAffinity",
+    "GetWindowInfo",
+    "GetWindowLongA",
+    "GetWindowLongPtrA",
+    "GetWindowLongPtrW",
+    "GetWindowLongW",
+    "GetWindowModuleFileNameA",
+    "GetWindowModuleFileNameW",
+    "GetWindowPlacement",
+    "GetWindowRect",
+    "GetWindowTextA",
+    "GetWindowTextLengthA",
+    "GetWindowTextLengthW",
+    "GetWindowTextW",
+    "GetWindowThreadProcessId",
+    "GetWindowWord",
+    "HACCEL",
+    "HANDEDNESS",
+    "HANDEDNESS_LEFT",
+    "HANDEDNESS_RIGHT",
+    "HARDWAREHOOKSTRUCT",
+    "HBMMENU_CALLBACK",
+    "HBMMENU_MBAR_CLOSE",
+    "HBMMENU_MBAR_CLOSE_D",
+    "HBMMENU_MBAR_MINIMIZE",
+    "HBMMENU_MBAR_MINIMIZE_D",
+    "HBMMENU_MBAR_RESTORE",
+    "HBMMENU_POPUP_CLOSE",
+    "HBMMENU_POPUP_MAXIMIZE",
+    "HBMMENU_POPUP_MINIMIZE",
+    "HBMMENU_POPUP_RESTORE",
+    "HBMMENU_SYSTEM",
+    "HCBT_ACTIVATE",
+    "HCBT_CLICKSKIPPED",
+    "HCBT_CREATEWND",
+    "HCBT_DESTROYWND",
+    "HCBT_KEYSKIPPED",
+    "HCBT_MINMAX",
+    "HCBT_MOVESIZE",
+    "HCBT_QS",
+    "HCBT_SETFOCUS",
+    "HCBT_SYSCOMMAND",
+    "HCF_DEFAULTDESKTOP",
+    "HCF_LOGONDESKTOP",
+    "HCURSOR",
+    "HC_ACTION",
+    "HC_GETNEXT",
+    "HC_NOREM",
+    "HC_NOREMOVE",
+    "HC_SKIP",
+    "HC_SYSMODALOFF",
+    "HC_SYSMODALON",
+    "HDWP",
+    "HELP_COMMAND",
+    "HELP_CONTENTS",
+    "HELP_CONTEXT",
+    "HELP_CONTEXTMENU",
+    "HELP_CONTEXTPOPUP",
+    "HELP_FINDER",
+    "HELP_FORCEFILE",
+    "HELP_HELPONHELP",
+    "HELP_INDEX",
+    "HELP_KEY",
+    "HELP_MULTIKEY",
+    "HELP_PARTIALKEY",
+    "HELP_QUIT",
+    "HELP_SETCONTENTS",
+    "HELP_SETINDEX",
+    "HELP_SETPOPUP_POS",
+    "HELP_SETWINPOS",
+    "HELP_TCARD",
+    "HELP_TCARD_DATA",
+    "HELP_TCARD_OTHER_CALLER",
+    "HELP_WM_HELP",
+    "HHOOK",
+    "HICON",
+    "HIDE_WINDOW",
+    "HKL_NEXT",
+    "HKL_PREV",
+    "HMENU",
+    "HOOKPROC",
+    "HSHELL_ACCESSIBILITYSTATE",
+    "HSHELL_ACTIVATESHELLWINDOW",
+    "HSHELL_APPCOMMAND",
+    "HSHELL_ENDTASK",
+    "HSHELL_GETMINRECT",
+    "HSHELL_HIGHBIT",
+    "HSHELL_LANGUAGE",
+    "HSHELL_MONITORCHANGED",
+    "HSHELL_REDRAW",
+    "HSHELL_SYSMENU",
+    "HSHELL_TASKMAN",
+    "HSHELL_WINDOWACTIVATED",
+    "HSHELL_WINDOWCREATED",
+    "HSHELL_WINDOWDESTROYED",
+    "HSHELL_WINDOWREPLACED",
+    "HSHELL_WINDOWREPLACING",
+    "HTBORDER",
+    "HTBOTTOM",
+    "HTBOTTOMLEFT",
+    "HTBOTTOMRIGHT",
+    "HTCAPTION",
+    "HTCLIENT",
+    "HTCLOSE",
+    "HTERROR",
+    "HTGROWBOX",
+    "HTHELP",
+    "HTHSCROLL",
+    "HTLEFT",
+    "HTMAXBUTTON",
+    "HTMENU",
+    "HTMINBUTTON",
+    "HTNOWHERE",
+    "HTOBJECT",
+    "HTREDUCE",
+    "HTRIGHT",
+    "HTSIZE",
+    "HTSIZEFIRST",
+    "HTSIZELAST",
+    "HTSYSMENU",
+    "HTTOP",
+    "HTTOPLEFT",
+    "HTTOPRIGHT",
+    "HTTRANSPARENT",
+    "HTVSCROLL",
+    "HTZOOM",
+    "HWND_BOTTOM",
+    "HWND_DESKTOP",
+    "HWND_MESSAGE",
+    "HWND_NOTOPMOST",
+    "HWND_TOP",
+    "HWND_TOPMOST",
+    "HideCaret",
+    "HiliteMenuItem",
+    "ICONINFO",
+    "ICONINFOEXA",
+    "ICONINFOEXW",
+    "ICONMETRICSA",
+    "ICONMETRICSW",
+    "ICON_BIG",
+    "ICON_SMALL",
+    "ICON_SMALL2",
+    "IDABORT",
+    "IDANI_CAPTION",
+    "IDANI_OPEN",
+    "IDASYNC",
+    "IDCANCEL",
+    "IDCLOSE",
+    "IDCONTINUE",
+    "IDC_APPSTARTING",
+    "IDC_ARROW",
+    "IDC_CROSS",
+    "IDC_HAND",
+    "IDC_HELP",
+    "IDC_IBEAM",
+    "IDC_ICON",
+    "IDC_NO",
+    "IDC_PERSON",
+    "IDC_PIN",
+    "IDC_SIZE",
+    "IDC_SIZEALL",
+    "IDC_SIZENESW",
+    "IDC_SIZENS",
+    "IDC_SIZENWSE",
+    "IDC_SIZEWE",
+    "IDC_UPARROW",
+    "IDC_WAIT",
+    "IDHELP",
+    "IDHOT_SNAPDESKTOP",
+    "IDHOT_SNAPWINDOW",
+    "IDH_CANCEL",
+    "IDH_GENERIC_HELP_BUTTON",
+    "IDH_HELP",
+    "IDH_MISSING_CONTEXT",
+    "IDH_NO_HELP",
+    "IDH_OK",
+    "IDIGNORE",
+    "IDI_APPLICATION",
+    "IDI_ASTERISK",
+    "IDI_ERROR",
+    "IDI_EXCLAMATION",
+    "IDI_HAND",
+    "IDI_INFORMATION",
+    "IDI_QUESTION",
+    "IDI_SHIELD",
+    "IDI_WARNING",
+    "IDI_WINLOGO",
+    "IDNO",
+    "IDOK",
+    "IDRETRY",
+    "IDTIMEOUT",
+    "IDTRYAGAIN",
+    "IDYES",
     "IMAGE_BITMAP",
     "IMAGE_CURSOR",
-    "IMAGE_ICON",
-    "WINDOWS_HOOK_ID",
-    "WH_CALLWNDPROC",
-    "WH_CALLWNDPROCRET",
-    "WH_CBT",
-    "WH_DEBUG",
-    "WH_FOREGROUNDIDLE",
-    "WH_GETMESSAGE",
-    "WH_JOURNALPLAYBACK",
-    "WH_JOURNALRECORD",
-    "WH_KEYBOARD",
-    "WH_KEYBOARD_LL",
-    "WH_MOUSE",
-    "WH_MOUSE_LL",
-    "WH_MSGFILTER",
-    "WH_SHELL",
-    "WH_SYSMSGFILTER",
+    "IMAGE_ENHMETAFILE",
     "IMAGE_FLAGS",
+    "IMAGE_ICON",
+    "INDEXID_CONTAINER",
+    "INDEXID_OBJECT",
+    "INPUTLANGCHANGE_BACKWARD",
+    "INPUTLANGCHANGE_FORWARD",
+    "INPUTLANGCHANGE_SYSCHARSET",
+    "ISMEX_CALLBACK",
+    "ISMEX_NOSEND",
+    "ISMEX_NOTIFY",
+    "ISMEX_REPLIED",
+    "ISMEX_SEND",
+    "ISOLATIONAWARE_MANIFEST_RESOURCE_ID",
+    "ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID",
+    "ISOLATIONPOLICY_BROWSER_MANIFEST_RESOURCE_ID",
+    "ISOLATIONPOLICY_MANIFEST_RESOURCE_ID",
+    "InSendMessage",
+    "InSendMessageEx",
+    "IndexFilePath",
+    "IndexedResourceQualifier",
+    "InheritWindowMonitor",
+    "InsertMenuA",
+    "InsertMenuItemA",
+    "InsertMenuItemW",
+    "InsertMenuW",
+    "InternalGetWindowText",
+    "IsCharAlphaA",
+    "IsCharAlphaNumericA",
+    "IsCharAlphaNumericW",
+    "IsCharAlphaW",
+    "IsCharLowerA",
+    "IsCharUpperA",
+    "IsCharUpperW",
+    "IsChild",
+    "IsDialogMessageA",
+    "IsDialogMessageW",
+    "IsGUIThread",
+    "IsHungAppWindow",
+    "IsIconic",
+    "IsMenu",
+    "IsProcessDPIAware",
+    "IsWindow",
+    "IsWindowUnicode",
+    "IsWindowVisible",
+    "IsWow64Message",
+    "IsZoomed",
+    "KBDLLHOOKSTRUCT",
+    "KBDLLHOOKSTRUCT_FLAGS",
+    "KF_ALTDOWN",
+    "KF_DLGMODE",
+    "KF_EXTENDED",
+    "KF_MENUMODE",
+    "KF_REPEAT",
+    "KF_UP",
+    "KL_NAMELENGTH",
+    "KillTimer",
+    "LAYERED_WINDOW_ATTRIBUTES_FLAGS",
+    "LBN_DBLCLK",
+    "LBN_ERRSPACE",
+    "LBN_KILLFOCUS",
+    "LBN_SELCANCEL",
+    "LBN_SELCHANGE",
+    "LBN_SETFOCUS",
+    "LBS_COMBOBOX",
+    "LBS_DISABLENOSCROLL",
+    "LBS_EXTENDEDSEL",
+    "LBS_HASSTRINGS",
+    "LBS_MULTICOLUMN",
+    "LBS_MULTIPLESEL",
+    "LBS_NODATA",
+    "LBS_NOINTEGRALHEIGHT",
+    "LBS_NOREDRAW",
+    "LBS_NOSEL",
+    "LBS_NOTIFY",
+    "LBS_OWNERDRAWFIXED",
+    "LBS_OWNERDRAWVARIABLE",
+    "LBS_SORT",
+    "LBS_STANDARD",
+    "LBS_USETABSTOPS",
+    "LBS_WANTKEYBOARDINPUT",
+    "LB_ADDFILE",
+    "LB_ADDSTRING",
+    "LB_CTLCODE",
+    "LB_DELETESTRING",
+    "LB_DIR",
+    "LB_ERR",
+    "LB_ERRSPACE",
+    "LB_FINDSTRING",
+    "LB_FINDSTRINGEXACT",
+    "LB_GETANCHORINDEX",
+    "LB_GETCARETINDEX",
+    "LB_GETCOUNT",
+    "LB_GETCURSEL",
+    "LB_GETHORIZONTALEXTENT",
+    "LB_GETITEMDATA",
+    "LB_GETITEMHEIGHT",
+    "LB_GETITEMRECT",
+    "LB_GETLISTBOXINFO",
+    "LB_GETLOCALE",
+    "LB_GETSEL",
+    "LB_GETSELCOUNT",
+    "LB_GETSELITEMS",
+    "LB_GETTEXT",
+    "LB_GETTEXTLEN",
+    "LB_GETTOPINDEX",
+    "LB_INITSTORAGE",
+    "LB_INSERTSTRING",
+    "LB_ITEMFROMPOINT",
+    "LB_MSGMAX",
+    "LB_MULTIPLEADDSTRING",
+    "LB_OKAY",
+    "LB_RESETCONTENT",
+    "LB_SELECTSTRING",
+    "LB_SELITEMRANGE",
+    "LB_SELITEMRANGEEX",
+    "LB_SETANCHORINDEX",
+    "LB_SETCARETINDEX",
+    "LB_SETCOLUMNWIDTH",
+    "LB_SETCOUNT",
+    "LB_SETCURSEL",
+    "LB_SETHORIZONTALEXTENT",
+    "LB_SETITEMDATA",
+    "LB_SETITEMHEIGHT",
+    "LB_SETLOCALE",
+    "LB_SETSEL",
+    "LB_SETTABSTOPS",
+    "LB_SETTOPINDEX",
+    "LLKHF_ALTDOWN",
+    "LLKHF_EXTENDED",
+    "LLKHF_INJECTED",
+    "LLKHF_LOWER_IL_INJECTED",
+    "LLKHF_UP",
+    "LLMHF_INJECTED",
+    "LLMHF_LOWER_IL_INJECTED",
+    "LR_COLOR",
+    "LR_COPYDELETEORG",
+    "LR_COPYFROMRESOURCE",
+    "LR_COPYRETURNORG",
     "LR_CREATEDIBSECTION",
     "LR_DEFAULTCOLOR",
     "LR_DEFAULTSIZE",
@@ -7678,36 +6441,501 @@ __all__ = [
     "LR_MONOCHROME",
     "LR_SHARED",
     "LR_VGACOLOR",
-    "LR_COPYDELETEORG",
-    "LR_COPYFROMRESOURCE",
-    "LR_COPYRETURNORG",
-    "SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS",
-    "SPIF_UPDATEINIFILE",
-    "SPIF_SENDCHANGE",
-    "SPIF_SENDWININICHANGE",
-    "SET_WINDOW_POS_FLAGS",
-    "SWP_ASYNCWINDOWPOS",
-    "SWP_DEFERERASE",
-    "SWP_DRAWFRAME",
-    "SWP_FRAMECHANGED",
-    "SWP_HIDEWINDOW",
-    "SWP_NOACTIVATE",
-    "SWP_NOCOPYBITS",
-    "SWP_NOMOVE",
-    "SWP_NOOWNERZORDER",
-    "SWP_NOREDRAW",
-    "SWP_NOREPOSITION",
-    "SWP_NOSENDCHANGING",
-    "SWP_NOSIZE",
-    "SWP_NOZORDER",
-    "SWP_SHOWWINDOW",
-    "SWP__NOOWNERZORDER",
+    "LSFW_LOCK",
+    "LSFW_UNLOCK",
+    "LWA_ALPHA",
+    "LWA_COLORKEY",
+    "LoadAcceleratorsA",
+    "LoadAcceleratorsW",
+    "LoadCursorA",
+    "LoadCursorFromFileA",
+    "LoadCursorFromFileW",
+    "LoadCursorW",
+    "LoadIconA",
+    "LoadIconW",
+    "LoadImageA",
+    "LoadImageW",
+    "LoadMenuA",
+    "LoadMenuIndirectA",
+    "LoadMenuIndirectW",
+    "LoadMenuW",
+    "LoadStringA",
+    "LoadStringW",
+    "LockSetForegroundWindow",
+    "LogicalToPhysicalPoint",
+    "LookupIconIdFromDirectory",
+    "LookupIconIdFromDirectoryEx",
+    "MAPVK_VK_TO_CHAR",
+    "MAPVK_VK_TO_VSC",
+    "MAPVK_VK_TO_VSC_EX",
+    "MAPVK_VSC_TO_VK",
+    "MAPVK_VSC_TO_VK_EX",
+    "MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID",
+    "MAX_LOGICALDPIOVERRIDE",
+    "MAX_STR_BLOCKREASON",
+    "MAX_TOUCH_COUNT",
+    "MAX_TOUCH_PREDICTION_FILTER_TAPS",
+    "MA_ACTIVATE",
+    "MA_ACTIVATEANDEAT",
+    "MA_NOACTIVATE",
+    "MA_NOACTIVATEANDEAT",
+    "MB_ABORTRETRYIGNORE",
+    "MB_APPLMODAL",
+    "MB_CANCELTRYCONTINUE",
+    "MB_DEFAULT_DESKTOP_ONLY",
+    "MB_DEFBUTTON1",
+    "MB_DEFBUTTON2",
+    "MB_DEFBUTTON3",
+    "MB_DEFBUTTON4",
+    "MB_DEFMASK",
+    "MB_HELP",
+    "MB_ICONASTERISK",
+    "MB_ICONERROR",
+    "MB_ICONEXCLAMATION",
+    "MB_ICONHAND",
+    "MB_ICONINFORMATION",
+    "MB_ICONMASK",
+    "MB_ICONQUESTION",
+    "MB_ICONSTOP",
+    "MB_ICONWARNING",
+    "MB_MISCMASK",
+    "MB_MODEMASK",
+    "MB_NOFOCUS",
+    "MB_OK",
+    "MB_OKCANCEL",
+    "MB_RETRYCANCEL",
+    "MB_RIGHT",
+    "MB_RTLREADING",
+    "MB_SERVICE_NOTIFICATION",
+    "MB_SERVICE_NOTIFICATION_NT3X",
+    "MB_SETFOREGROUND",
+    "MB_SYSTEMMODAL",
+    "MB_TASKMODAL",
+    "MB_TOPMOST",
+    "MB_TYPEMASK",
+    "MB_USERICON",
+    "MB_YESNO",
+    "MB_YESNOCANCEL",
+    "MDICREATESTRUCTA",
+    "MDICREATESTRUCTW",
+    "MDINEXTMENU",
+    "MDIS_ALLCHILDSTYLES",
+    "MDITILE_HORIZONTAL",
+    "MDITILE_SKIPDISABLED",
+    "MDITILE_VERTICAL",
+    "MDITILE_ZORDER",
+    "MENUBARINFO",
+    "MENUGETOBJECTINFO",
+    "MENUGETOBJECTINFO_FLAGS",
+    "MENUINFO",
+    "MENUINFO_MASK",
+    "MENUINFO_STYLE",
+    "MENUITEMINFOA",
+    "MENUITEMINFOW",
+    "MENUITEMTEMPLATE",
+    "MENUITEMTEMPLATEHEADER",
+    "MENU_ITEM_FLAGS",
+    "MENU_ITEM_MASK",
+    "MENU_ITEM_STATE",
+    "MENU_ITEM_TYPE",
+    "MESSAGEBOX_RESULT",
+    "MESSAGEBOX_STYLE",
+    "MESSAGE_RESOURCE_BLOCK",
+    "MESSAGE_RESOURCE_DATA",
+    "MESSAGE_RESOURCE_ENTRY",
+    "METRICS_USEDEFAULT",
+    "MFS_CHECKED",
+    "MFS_DEFAULT",
+    "MFS_DISABLED",
+    "MFS_ENABLED",
+    "MFS_GRAYED",
+    "MFS_HILITE",
+    "MFS_UNCHECKED",
+    "MFS_UNHILITE",
+    "MFT_BITMAP",
+    "MFT_MENUBARBREAK",
+    "MFT_MENUBREAK",
+    "MFT_OWNERDRAW",
+    "MFT_RADIOCHECK",
+    "MFT_RIGHTJUSTIFY",
+    "MFT_RIGHTORDER",
+    "MFT_SEPARATOR",
+    "MFT_STRING",
+    "MF_APPEND",
+    "MF_BITMAP",
+    "MF_BYCOMMAND",
+    "MF_BYPOSITION",
+    "MF_CHANGE",
+    "MF_CHECKED",
+    "MF_DEFAULT",
+    "MF_DELETE",
+    "MF_DISABLED",
+    "MF_ENABLED",
+    "MF_END",
+    "MF_GRAYED",
+    "MF_HELP",
+    "MF_HILITE",
+    "MF_INSERT",
+    "MF_MENUBARBREAK",
+    "MF_MENUBREAK",
+    "MF_MOUSESELECT",
+    "MF_OWNERDRAW",
+    "MF_POPUP",
+    "MF_REMOVE",
+    "MF_RIGHTJUSTIFY",
+    "MF_SEPARATOR",
+    "MF_STRING",
+    "MF_SYSMENU",
+    "MF_UNCHECKED",
+    "MF_UNHILITE",
+    "MF_USECHECKBITMAPS",
+    "MIIM_BITMAP",
+    "MIIM_CHECKMARKS",
+    "MIIM_DATA",
+    "MIIM_FTYPE",
+    "MIIM_ID",
+    "MIIM_STATE",
+    "MIIM_STRING",
+    "MIIM_SUBMENU",
+    "MIIM_TYPE",
+    "MIM_APPLYTOSUBMENUS",
+    "MIM_BACKGROUND",
+    "MIM_HELPID",
+    "MIM_MAXHEIGHT",
+    "MIM_MENUDATA",
+    "MIM_STYLE",
+    "MINIMIZEDMETRICS",
+    "MINIMIZEDMETRICS_ARRANGE",
+    "MINIMUM_RESERVED_MANIFEST_RESOURCE_ID",
+    "MINMAXINFO",
+    "MIN_LOGICALDPIOVERRIDE",
+    "MKF_AVAILABLE",
+    "MKF_CONFIRMHOTKEY",
+    "MKF_HOTKEYACTIVE",
+    "MKF_HOTKEYSOUND",
+    "MKF_INDICATOR",
+    "MKF_LEFTBUTTONDOWN",
+    "MKF_LEFTBUTTONSEL",
+    "MKF_MODIFIERS",
+    "MKF_MOUSEKEYSON",
+    "MKF_MOUSEMODE",
+    "MKF_REPLACENUMBERS",
+    "MKF_RIGHTBUTTONDOWN",
+    "MKF_RIGHTBUTTONSEL",
+    "MNC_CLOSE",
+    "MNC_EXECUTE",
+    "MNC_IGNORE",
+    "MNC_SELECT",
+    "MND_CONTINUE",
+    "MND_ENDMENU",
+    "MNGOF_BOTTOMGAP",
+    "MNGOF_TOPGAP",
+    "MNGO_NOERROR",
+    "MNGO_NOINTERFACE",
+    "MNS_AUTODISMISS",
+    "MNS_CHECKORBMP",
+    "MNS_DRAGDROP",
+    "MNS_MODELESS",
+    "MNS_NOCHECK",
+    "MNS_NOTIFYBYPOS",
+    "MN_GETHMENU",
+    "MONITORINFOF_PRIMARY",
+    "MOUSEHOOKSTRUCT",
+    "MOUSEHOOKSTRUCTEX",
+    "MOUSEWHEEL_ROUTING_FOCUS",
+    "MOUSEWHEEL_ROUTING_HYBRID",
+    "MOUSEWHEEL_ROUTING_MOUSE_POS",
+    "MSG",
+    "MSGBOXCALLBACK",
+    "MSGBOXPARAMSA",
+    "MSGBOXPARAMSW",
+    "MSGFLTINFO_ALLOWED_HIGHER",
+    "MSGFLTINFO_ALREADYALLOWED_FORWND",
+    "MSGFLTINFO_ALREADYDISALLOWED_FORWND",
+    "MSGFLTINFO_NONE",
+    "MSGFLTINFO_STATUS",
+    "MSGFLT_ADD",
+    "MSGFLT_ALLOW",
+    "MSGFLT_DISALLOW",
+    "MSGFLT_REMOVE",
+    "MSGFLT_RESET",
+    "MSGF_DIALOGBOX",
+    "MSGF_MAX",
+    "MSGF_MENU",
+    "MSGF_MESSAGEBOX",
+    "MSGF_NEXTWINDOW",
+    "MSGF_SCROLLBAR",
+    "MSGF_USER",
     "MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS",
-    "MWMO_NONE",
+    "MSLLHOOKSTRUCT",
     "MWMO_ALERTABLE",
     "MWMO_INPUTAVAILABLE",
+    "MWMO_NONE",
     "MWMO_WAITALL",
-    "QUEUE_STATUS_FLAGS",
+    "MapDialogRect",
+    "MenuItemFromPoint",
+    "MessageBoxA",
+    "MessageBoxExA",
+    "MessageBoxExW",
+    "MessageBoxIndirectA",
+    "MessageBoxIndirectW",
+    "MessageBoxW",
+    "ModifyMenuA",
+    "ModifyMenuW",
+    "MoveWindow",
+    "MrmCreateConfig",
+    "MrmCreateConfigInMemory",
+    "MrmCreateResourceFile",
+    "MrmCreateResourceFileInMemory",
+    "MrmCreateResourceFileWithChecksum",
+    "MrmCreateResourceIndexer",
+    "MrmCreateResourceIndexerFromPreviousPriData",
+    "MrmCreateResourceIndexerFromPreviousPriFile",
+    "MrmCreateResourceIndexerFromPreviousSchemaData",
+    "MrmCreateResourceIndexerFromPreviousSchemaFile",
+    "MrmCreateResourceIndexerWithFlags",
+    "MrmDestroyIndexerAndMessages",
+    "MrmDumpPriDataInMemory",
+    "MrmDumpPriFile",
+    "MrmDumpPriFileInMemory",
+    "MrmDumpType",
+    "MrmDumpType_Basic",
+    "MrmDumpType_Detailed",
+    "MrmDumpType_Schema",
+    "MrmFreeMemory",
+    "MrmGetPriFileContentChecksum",
+    "MrmIndexEmbeddedData",
+    "MrmIndexFile",
+    "MrmIndexFileAutoQualifiers",
+    "MrmIndexResourceContainerAutoQualifiers",
+    "MrmIndexString",
+    "MrmIndexerFlags",
+    "MrmIndexerFlags_MrmIndexerFlagsAutoMerge",
+    "MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum",
+    "MrmIndexerFlags_MrmIndexerFlagsNone",
+    "MrmPackagingMode",
+    "MrmPackagingMode_MrmPackagingModeAutoSplit",
+    "MrmPackagingMode_MrmPackagingModeResourcePack",
+    "MrmPackagingMode_MrmPackagingModeStandaloneFile",
+    "MrmPackagingOptions",
+    "MrmPackagingOptions_MrmPackagingOptionsNone",
+    "MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks",
+    "MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants",
+    "MrmPeekResourceIndexerMessages",
+    "MrmPlatformVersion",
+    "MrmPlatformVersion_Default",
+    "MrmPlatformVersion_Windows10_0_0_0",
+    "MrmPlatformVersion_Windows10_0_0_5",
+    "MrmResourceIndexerHandle",
+    "MrmResourceIndexerMessage",
+    "MrmResourceIndexerMessageSeverity",
+    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError",
+    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo",
+    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose",
+    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning",
+    "MsgWaitForMultipleObjects",
+    "MsgWaitForMultipleObjectsEx",
+    "NAMEENUMPROCA",
+    "NAMEENUMPROCW",
+    "NCCALCSIZE_PARAMS",
+    "NFR_ANSI",
+    "NFR_UNICODE",
+    "NF_QUERY",
+    "NF_REQUERY",
+    "NID_EXTERNAL_PEN",
+    "NID_EXTERNAL_TOUCH",
+    "NID_INTEGRATED_PEN",
+    "NID_INTEGRATED_TOUCH",
+    "NID_MULTI_INPUT",
+    "NID_READY",
+    "NONCLIENTMETRICSA",
+    "NONCLIENTMETRICSW",
+    "OBJECT_IDENTIFIER",
+    "OBJID_ALERT",
+    "OBJID_CARET",
+    "OBJID_CLIENT",
+    "OBJID_CURSOR",
+    "OBJID_HSCROLL",
+    "OBJID_MENU",
+    "OBJID_NATIVEOM",
+    "OBJID_QUERYCLASSNAMEIDX",
+    "OBJID_SIZEGRIP",
+    "OBJID_SOUND",
+    "OBJID_SYSMENU",
+    "OBJID_TITLEBAR",
+    "OBJID_VSCROLL",
+    "OBJID_WINDOW",
+    "OBM_BTNCORNERS",
+    "OBM_BTSIZE",
+    "OBM_CHECK",
+    "OBM_CHECKBOXES",
+    "OBM_CLOSE",
+    "OBM_COMBO",
+    "OBM_DNARROW",
+    "OBM_DNARROWD",
+    "OBM_DNARROWI",
+    "OBM_LFARROW",
+    "OBM_LFARROWD",
+    "OBM_LFARROWI",
+    "OBM_MNARROW",
+    "OBM_OLD_CLOSE",
+    "OBM_OLD_DNARROW",
+    "OBM_OLD_LFARROW",
+    "OBM_OLD_REDUCE",
+    "OBM_OLD_RESTORE",
+    "OBM_OLD_RGARROW",
+    "OBM_OLD_UPARROW",
+    "OBM_OLD_ZOOM",
+    "OBM_REDUCE",
+    "OBM_REDUCED",
+    "OBM_RESTORE",
+    "OBM_RESTORED",
+    "OBM_RGARROW",
+    "OBM_RGARROWD",
+    "OBM_RGARROWI",
+    "OBM_SIZE",
+    "OBM_UPARROW",
+    "OBM_UPARROWD",
+    "OBM_UPARROWI",
+    "OBM_ZOOM",
+    "OBM_ZOOMD",
+    "OCR_APPSTARTING",
+    "OCR_CROSS",
+    "OCR_HAND",
+    "OCR_HELP",
+    "OCR_IBEAM",
+    "OCR_ICOCUR",
+    "OCR_ICON",
+    "OCR_NO",
+    "OCR_NORMAL",
+    "OCR_SIZE",
+    "OCR_SIZEALL",
+    "OCR_SIZENESW",
+    "OCR_SIZENS",
+    "OCR_SIZENWSE",
+    "OCR_SIZEWE",
+    "OCR_UP",
+    "OCR_WAIT",
+    "OIC_BANG",
+    "OIC_ERROR",
+    "OIC_HAND",
+    "OIC_INFORMATION",
+    "OIC_NOTE",
+    "OIC_QUES",
+    "OIC_SAMPLE",
+    "OIC_SHIELD",
+    "OIC_WARNING",
+    "OIC_WINLOGO",
+    "ORD_LANGDRIVER",
+    "OemToCharA",
+    "OemToCharBuffA",
+    "OemToCharBuffW",
+    "OemToCharW",
+    "OpenIcon",
+    "PA_ACTIVATE",
+    "PA_NOACTIVATE",
+    "PBTF_APMRESUMEFROMFAILURE",
+    "PBT_APMBATTERYLOW",
+    "PBT_APMOEMEVENT",
+    "PBT_APMPOWERSTATUSCHANGE",
+    "PBT_APMQUERYSTANDBY",
+    "PBT_APMQUERYSTANDBYFAILED",
+    "PBT_APMQUERYSUSPEND",
+    "PBT_APMQUERYSUSPENDFAILED",
+    "PBT_APMRESUMEAUTOMATIC",
+    "PBT_APMRESUMECRITICAL",
+    "PBT_APMRESUMESTANDBY",
+    "PBT_APMRESUMESUSPEND",
+    "PBT_APMSTANDBY",
+    "PBT_APMSUSPEND",
+    "PBT_POWERSETTINGCHANGE",
+    "PDC_ARRIVAL",
+    "PDC_MAPPING_CHANGE",
+    "PDC_MODE_ASPECTRATIOPRESERVED",
+    "PDC_MODE_CENTERED",
+    "PDC_MODE_DEFAULT",
+    "PDC_ORIENTATION_0",
+    "PDC_ORIENTATION_180",
+    "PDC_ORIENTATION_270",
+    "PDC_ORIENTATION_90",
+    "PDC_ORIGIN",
+    "PDC_REMOVAL",
+    "PDC_RESOLUTION",
+    "PEEK_MESSAGE_REMOVE_TYPE",
+    "PENARBITRATIONTYPE_FIS",
+    "PENARBITRATIONTYPE_MAX",
+    "PENARBITRATIONTYPE_NONE",
+    "PENARBITRATIONTYPE_SPT",
+    "PENARBITRATIONTYPE_WIN8",
+    "PENVISUALIZATION_CURSOR",
+    "PENVISUALIZATION_DOUBLETAP",
+    "PENVISUALIZATION_OFF",
+    "PENVISUALIZATION_ON",
+    "PENVISUALIZATION_TAP",
+    "PEN_FLAG_BARREL",
+    "PEN_FLAG_ERASER",
+    "PEN_FLAG_INVERTED",
+    "PEN_FLAG_NONE",
+    "PEN_MASK_NONE",
+    "PEN_MASK_PRESSURE",
+    "PEN_MASK_ROTATION",
+    "PEN_MASK_TILT_X",
+    "PEN_MASK_TILT_Y",
+    "PMB_ACTIVE",
+    "PM_NOREMOVE",
+    "PM_NOYIELD",
+    "PM_QS_INPUT",
+    "PM_QS_PAINT",
+    "PM_QS_POSTMESSAGE",
+    "PM_QS_SENDMESSAGE",
+    "PM_REMOVE",
+    "POINTER_DEVICE_PRODUCT_STRING_MAX",
+    "POINTER_INPUT_TYPE",
+    "POINTER_MESSAGE_FLAG_CANCELED",
+    "POINTER_MESSAGE_FLAG_CONFIDENCE",
+    "POINTER_MESSAGE_FLAG_FIFTHBUTTON",
+    "POINTER_MESSAGE_FLAG_FIRSTBUTTON",
+    "POINTER_MESSAGE_FLAG_FOURTHBUTTON",
+    "POINTER_MESSAGE_FLAG_INCONTACT",
+    "POINTER_MESSAGE_FLAG_INRANGE",
+    "POINTER_MESSAGE_FLAG_NEW",
+    "POINTER_MESSAGE_FLAG_PRIMARY",
+    "POINTER_MESSAGE_FLAG_SECONDBUTTON",
+    "POINTER_MESSAGE_FLAG_THIRDBUTTON",
+    "POINTER_MOD_CTRL",
+    "POINTER_MOD_SHIFT",
+    "PREGISTERCLASSNAMEW",
+    "PRF_CHECKVISIBLE",
+    "PRF_CHILDREN",
+    "PRF_CLIENT",
+    "PRF_ERASEBKGND",
+    "PRF_NONCLIENT",
+    "PRF_OWNED",
+    "PROPENUMPROCA",
+    "PROPENUMPROCEXA",
+    "PROPENUMPROCEXW",
+    "PROPENUMPROCW",
+    "PT_MOUSE",
+    "PT_PEN",
+    "PT_POINTER",
+    "PT_TOUCH",
+    "PT_TOUCHPAD",
+    "PWR_CRITICALRESUME",
+    "PWR_FAIL",
+    "PWR_OK",
+    "PWR_SUSPENDREQUEST",
+    "PWR_SUSPENDRESUME",
+    "PW_RENDERFULLCONTENT",
+    "PeekMessageA",
+    "PeekMessageW",
+    "PhysicalToLogicalPoint",
+    "PostMessageA",
+    "PostMessageW",
+    "PostQuitMessage",
+    "PostThreadMessageA",
+    "PostThreadMessageW",
+    "PrivateExtractIconsA",
+    "PrivateExtractIconsW",
     "QS_ALLEVENTS",
     "QS_ALLINPUT",
     "QS_ALLPOSTMESSAGE",
@@ -7718,90 +6946,175 @@ __all__ = [
     "QS_MOUSEBUTTON",
     "QS_MOUSEMOVE",
     "QS_PAINT",
+    "QS_POINTER",
     "QS_POSTMESSAGE",
     "QS_RAWINPUT",
     "QS_SENDMESSAGE",
     "QS_TIMER",
-    "SYSTEM_CURSOR_ID",
-    "OCR_APPSTARTING",
-    "OCR_NORMAL",
-    "OCR_CROSS",
-    "OCR_HAND",
-    "OCR_HELP",
-    "OCR_IBEAM",
-    "OCR_NO",
-    "OCR_SIZEALL",
-    "OCR_SIZENESW",
-    "OCR_SIZENS",
-    "OCR_SIZENWSE",
-    "OCR_SIZEWE",
-    "OCR_UP",
-    "OCR_WAIT",
-    "LAYERED_WINDOW_ATTRIBUTES_FLAGS",
-    "LWA_ALPHA",
-    "LWA_COLORKEY",
+    "QS_TOUCH",
+    "QUEUE_STATUS_FLAGS",
+    "RES_CURSOR",
+    "RES_ICON",
+    "RIDEV_EXMODEMASK",
+    "RIM_INPUT",
+    "RIM_INPUTSINK",
+    "RIM_TYPEMAX",
+    "RI_KEY_BREAK",
+    "RI_KEY_E0",
+    "RI_KEY_E1",
+    "RI_KEY_MAKE",
+    "RI_KEY_TERMSRV_SET_LED",
+    "RI_KEY_TERMSRV_SHADOW",
+    "RI_MOUSE_BUTTON_1_DOWN",
+    "RI_MOUSE_BUTTON_1_UP",
+    "RI_MOUSE_BUTTON_2_DOWN",
+    "RI_MOUSE_BUTTON_2_UP",
+    "RI_MOUSE_BUTTON_3_DOWN",
+    "RI_MOUSE_BUTTON_3_UP",
+    "RI_MOUSE_BUTTON_4_DOWN",
+    "RI_MOUSE_BUTTON_4_UP",
+    "RI_MOUSE_BUTTON_5_DOWN",
+    "RI_MOUSE_BUTTON_5_UP",
+    "RI_MOUSE_HWHEEL",
+    "RI_MOUSE_LEFT_BUTTON_DOWN",
+    "RI_MOUSE_LEFT_BUTTON_UP",
+    "RI_MOUSE_MIDDLE_BUTTON_DOWN",
+    "RI_MOUSE_MIDDLE_BUTTON_UP",
+    "RI_MOUSE_RIGHT_BUTTON_DOWN",
+    "RI_MOUSE_RIGHT_BUTTON_UP",
+    "RI_MOUSE_WHEEL",
+    "RT_ACCELERATOR",
+    "RT_ANICURSOR",
+    "RT_ANIICON",
+    "RT_BITMAP",
+    "RT_CURSOR",
+    "RT_DIALOG",
+    "RT_DLGINCLUDE",
+    "RT_FONT",
+    "RT_FONTDIR",
+    "RT_HTML",
+    "RT_ICON",
+    "RT_MANIFEST",
+    "RT_MENU",
+    "RT_MESSAGETABLE",
+    "RT_PLUGPLAY",
+    "RT_VERSION",
+    "RT_VXD",
+    "RealChildWindowFromPoint",
+    "RealGetWindowClassA",
+    "RealGetWindowClassW",
+    "RegisterClassA",
+    "RegisterClassExA",
+    "RegisterClassExW",
+    "RegisterClassW",
+    "RegisterDeviceNotificationA",
+    "RegisterDeviceNotificationW",
+    "RegisterShellHookWindow",
+    "RegisterWindowMessageA",
+    "RegisterWindowMessageW",
+    "RemoveMenu",
+    "RemovePropA",
+    "RemovePropW",
+    "ReplyMessage",
+    "SBM_ENABLE_ARROWS",
+    "SBM_GETPOS",
+    "SBM_GETRANGE",
+    "SBM_GETSCROLLBARINFO",
+    "SBM_GETSCROLLINFO",
+    "SBM_SETPOS",
+    "SBM_SETRANGE",
+    "SBM_SETRANGEREDRAW",
+    "SBM_SETSCROLLINFO",
+    "SBS_BOTTOMALIGN",
+    "SBS_HORZ",
+    "SBS_LEFTALIGN",
+    "SBS_RIGHTALIGN",
+    "SBS_SIZEBOX",
+    "SBS_SIZEBOXBOTTOMRIGHTALIGN",
+    "SBS_SIZEBOXTOPLEFTALIGN",
+    "SBS_SIZEGRIP",
+    "SBS_TOPALIGN",
+    "SBS_VERT",
+    "SB_BOTH",
+    "SB_BOTTOM",
+    "SB_CTL",
+    "SB_ENDSCROLL",
+    "SB_HORZ",
+    "SB_LEFT",
+    "SB_LINEDOWN",
+    "SB_LINELEFT",
+    "SB_LINERIGHT",
+    "SB_LINEUP",
+    "SB_PAGEDOWN",
+    "SB_PAGELEFT",
+    "SB_PAGERIGHT",
+    "SB_PAGEUP",
+    "SB_RIGHT",
+    "SB_THUMBPOSITION",
+    "SB_THUMBTRACK",
+    "SB_TOP",
+    "SB_VERT",
+    "SCF_ISSECURE",
+    "SCROLLBARINFO",
+    "SCROLLBAR_COMMAND",
+    "SCROLLBAR_CONSTANTS",
+    "SCROLLINFO",
+    "SCROLLINFO_MASK",
+    "SC_ARRANGE",
+    "SC_CLOSE",
+    "SC_CONTEXTHELP",
+    "SC_DEFAULT",
+    "SC_HOTKEY",
+    "SC_HSCROLL",
+    "SC_ICON",
+    "SC_KEYMENU",
+    "SC_MAXIMIZE",
+    "SC_MINIMIZE",
+    "SC_MONITORPOWER",
+    "SC_MOUSEMENU",
+    "SC_MOVE",
+    "SC_NEXTWINDOW",
+    "SC_PREVWINDOW",
+    "SC_RESTORE",
+    "SC_SEPARATOR",
+    "SC_SIZE",
+    "SC_TASKLIST",
+    "SC_VSCROLL",
+    "SC_ZOOM",
+    "SENDASYNCPROC",
     "SEND_MESSAGE_TIMEOUT_FLAGS",
+    "SET_WINDOW_POS_FLAGS",
+    "SHELLHOOKINFO",
+    "SHOW_FULLSCREEN",
+    "SHOW_ICONWINDOW",
+    "SHOW_OPENNOACTIVATE",
+    "SHOW_OPENWINDOW",
+    "SHOW_WINDOW_CMD",
+    "SIF_ALL",
+    "SIF_DISABLENOSCROLL",
+    "SIF_PAGE",
+    "SIF_POS",
+    "SIF_RANGE",
+    "SIF_TRACKPOS",
+    "SIZEFULLSCREEN",
+    "SIZEICONIC",
+    "SIZENORMAL",
+    "SIZEZOOMHIDE",
+    "SIZEZOOMSHOW",
+    "SIZE_MAXHIDE",
+    "SIZE_MAXIMIZED",
+    "SIZE_MAXSHOW",
+    "SIZE_MINIMIZED",
+    "SIZE_RESTORED",
     "SMTO_ABORTIFHUNG",
     "SMTO_BLOCK",
+    "SMTO_ERRORONEXIT",
     "SMTO_NORMAL",
     "SMTO_NOTIMEOUTIFNOTHUNG",
-    "SMTO_ERRORONEXIT",
-    "PEEK_MESSAGE_REMOVE_TYPE",
-    "PM_NOREMOVE",
-    "PM_REMOVE",
-    "PM_NOYIELD",
-    "PM_QS_INPUT",
-    "PM_QS_POSTMESSAGE",
-    "PM_QS_PAINT",
-    "PM_QS_SENDMESSAGE",
-    "SYS_COLOR_INDEX",
-    "COLOR_3DDKSHADOW",
-    "COLOR_3DFACE",
-    "COLOR_3DHIGHLIGHT",
-    "COLOR_3DHILIGHT",
-    "COLOR_3DLIGHT",
-    "COLOR_3DSHADOW",
-    "COLOR_ACTIVEBORDER",
-    "COLOR_ACTIVECAPTION",
-    "COLOR_APPWORKSPACE",
-    "COLOR_BACKGROUND",
-    "COLOR_BTNFACE",
-    "_COLOR_BTNHIGHLIGHT",
-    "_COLOR_BTNHILIGHT",
-    "COLOR_BTNSHADOW",
-    "COLOR_BTNTEXT",
-    "COLOR_CAPTIONTEXT",
-    "COLOR_DESKTOP",
-    "COLOR_GRADIENTACTIVECAPTION",
-    "COLOR_GRADIENTINACTIVECAPTION",
-    "COLOR_GRAYTEXT",
-    "COLOR_HIGHLIGHT",
-    "COLOR_HIGHLIGHTTEXT",
-    "COLOR_HOTLIGHT",
-    "COLOR_INACTIVEBORDER",
-    "COLOR_INACTIVECAPTION",
-    "COLOR_INACTIVECAPTIONTEXT",
-    "COLOR_INFOBK",
-    "COLOR_INFOTEXT",
-    "COLOR_MENU",
-    "COLOR_MENUHILIGHT",
-    "COLOR_MENUBAR",
-    "COLOR_MENUTEXT",
-    "COLOR_SCROLLBAR",
-    "COLOR_WINDOW",
-    "COLOR_WINDOWFRAME",
-    "COLOR_WINDOWTEXT",
-    "GET_WINDOW_CMD",
-    "GW_CHILD",
-    "GW_ENABLEDPOPUP",
-    "GW_HWNDFIRST",
-    "GW_HWNDLAST",
-    "GW_HWNDNEXT",
-    "GW_HWNDPREV",
-    "GW_OWNER",
-    "SYSTEM_METRICS_INDEX",
     "SM_ARRANGE",
+    "SM_CARETBLINKINGENABLED",
     "SM_CLEANBOOT",
+    "SM_CMETRICS",
     "SM_CMONITORS",
     "SM_CMOUSEBUTTONS",
     "SM_CONVERTIBLESLATEMODE",
@@ -7876,13 +7189,17 @@ __all__ = [
     "SM_MEDIACENTER",
     "SM_MENUDROPALIGNMENT",
     "SM_MIDEASTENABLED",
-    "SM_MOUSEPRESENT",
     "SM_MOUSEHORIZONTALWHEELPRESENT",
+    "SM_MOUSEPRESENT",
     "SM_MOUSEWHEELPRESENT",
     "SM_NETWORK",
     "SM_PENWINDOWS",
     "SM_REMOTECONTROL",
     "SM_REMOTESESSION",
+    "SM_RESERVED1",
+    "SM_RESERVED2",
+    "SM_RESERVED3",
+    "SM_RESERVED4",
     "SM_SAMEDISPLAYFORMAT",
     "SM_SECURE",
     "SM_SERVERR2",
@@ -7891,750 +7208,932 @@ __all__ = [
     "SM_SLOWMACHINE",
     "SM_STARTER",
     "SM_SWAPBUTTON",
-    "SM_SYSTEMDOCKED_",
+    "SM_SYSTEMDOCKED",
     "SM_TABLETPC",
     "SM_XVIRTUALSCREEN",
     "SM_YVIRTUALSCREEN",
-    "GET_ANCESTOR_FLAGS",
-    "GA_PARENT",
-    "GA_ROOT",
-    "GA_ROOTOWNER",
+    "SOUND_SYSTEM_APPEND",
+    "SOUND_SYSTEM_APPSTART",
+    "SOUND_SYSTEM_BEEP",
+    "SOUND_SYSTEM_ERROR",
+    "SOUND_SYSTEM_FAULT",
+    "SOUND_SYSTEM_INFORMATION",
+    "SOUND_SYSTEM_MAXIMIZE",
+    "SOUND_SYSTEM_MENUCOMMAND",
+    "SOUND_SYSTEM_MENUPOPUP",
+    "SOUND_SYSTEM_MINIMIZE",
+    "SOUND_SYSTEM_QUESTION",
+    "SOUND_SYSTEM_RESTOREDOWN",
+    "SOUND_SYSTEM_RESTOREUP",
+    "SOUND_SYSTEM_SHUTDOWN",
+    "SOUND_SYSTEM_STARTUP",
+    "SOUND_SYSTEM_WARNING",
+    "SPIF_SENDCHANGE",
+    "SPIF_SENDWININICHANGE",
+    "SPIF_UPDATEINIFILE",
+    "SPI_GETACCESSTIMEOUT",
+    "SPI_GETACTIVEWINDOWTRACKING",
+    "SPI_GETACTIVEWNDTRKTIMEOUT",
+    "SPI_GETACTIVEWNDTRKZORDER",
+    "SPI_GETANIMATION",
+    "SPI_GETAUDIODESCRIPTION",
+    "SPI_GETBEEP",
+    "SPI_GETBLOCKSENDINPUTRESETS",
+    "SPI_GETBORDER",
+    "SPI_GETCARETBROWSING",
+    "SPI_GETCARETTIMEOUT",
+    "SPI_GETCARETWIDTH",
+    "SPI_GETCLEARTYPE",
+    "SPI_GETCLIENTAREAANIMATION",
+    "SPI_GETCOMBOBOXANIMATION",
+    "SPI_GETCONTACTVISUALIZATION",
+    "SPI_GETCURSORSHADOW",
+    "SPI_GETDEFAULTINPUTLANG",
+    "SPI_GETDESKWALLPAPER",
+    "SPI_GETDISABLEOVERLAPPEDCONTENT",
+    "SPI_GETDOCKMOVING",
+    "SPI_GETDRAGFROMMAXIMIZE",
+    "SPI_GETDRAGFULLWINDOWS",
+    "SPI_GETDROPSHADOW",
+    "SPI_GETFASTTASKSWITCH",
+    "SPI_GETFILTERKEYS",
+    "SPI_GETFLATMENU",
+    "SPI_GETFOCUSBORDERHEIGHT",
+    "SPI_GETFOCUSBORDERWIDTH",
+    "SPI_GETFONTSMOOTHING",
+    "SPI_GETFONTSMOOTHINGCONTRAST",
+    "SPI_GETFONTSMOOTHINGORIENTATION",
+    "SPI_GETFONTSMOOTHINGTYPE",
+    "SPI_GETFOREGROUNDFLASHCOUNT",
+    "SPI_GETFOREGROUNDLOCKTIMEOUT",
+    "SPI_GETGESTUREVISUALIZATION",
+    "SPI_GETGRADIENTCAPTIONS",
+    "SPI_GETGRIDGRANULARITY",
+    "SPI_GETHANDEDNESS",
+    "SPI_GETHIGHCONTRAST",
+    "SPI_GETHOTTRACKING",
+    "SPI_GETHUNGAPPTIMEOUT",
+    "SPI_GETICONMETRICS",
+    "SPI_GETICONTITLELOGFONT",
+    "SPI_GETICONTITLEWRAP",
+    "SPI_GETKEYBOARDCUES",
+    "SPI_GETKEYBOARDDELAY",
+    "SPI_GETKEYBOARDPREF",
+    "SPI_GETKEYBOARDSPEED",
+    "SPI_GETLISTBOXSMOOTHSCROLLING",
+    "SPI_GETLOGICALDPIOVERRIDE",
+    "SPI_GETLOWPOWERACTIVE",
+    "SPI_GETLOWPOWERTIMEOUT",
+    "SPI_GETMENUANIMATION",
+    "SPI_GETMENUDROPALIGNMENT",
+    "SPI_GETMENUFADE",
+    "SPI_GETMENURECT",
+    "SPI_GETMENUSHOWDELAY",
+    "SPI_GETMENUUNDERLINES",
+    "SPI_GETMESSAGEDURATION",
+    "SPI_GETMINIMIZEDMETRICS",
+    "SPI_GETMINIMUMHITRADIUS",
+    "SPI_GETMOUSE",
+    "SPI_GETMOUSECLICKLOCK",
+    "SPI_GETMOUSECLICKLOCKTIME",
+    "SPI_GETMOUSEDOCKTHRESHOLD",
+    "SPI_GETMOUSEDRAGOUTTHRESHOLD",
+    "SPI_GETMOUSEHOVERHEIGHT",
+    "SPI_GETMOUSEHOVERTIME",
+    "SPI_GETMOUSEHOVERWIDTH",
+    "SPI_GETMOUSEKEYS",
+    "SPI_GETMOUSESIDEMOVETHRESHOLD",
+    "SPI_GETMOUSESONAR",
+    "SPI_GETMOUSESPEED",
+    "SPI_GETMOUSETRAILS",
+    "SPI_GETMOUSEVANISH",
+    "SPI_GETMOUSEWHEELROUTING",
+    "SPI_GETNONCLIENTMETRICS",
+    "SPI_GETPENARBITRATIONTYPE",
+    "SPI_GETPENDOCKTHRESHOLD",
+    "SPI_GETPENDRAGOUTTHRESHOLD",
+    "SPI_GETPENSIDEMOVETHRESHOLD",
+    "SPI_GETPENVISUALIZATION",
+    "SPI_GETPOWEROFFACTIVE",
+    "SPI_GETPOWEROFFTIMEOUT",
+    "SPI_GETSCREENREADER",
+    "SPI_GETSCREENSAVEACTIVE",
+    "SPI_GETSCREENSAVERRUNNING",
+    "SPI_GETSCREENSAVESECURE",
+    "SPI_GETSCREENSAVETIMEOUT",
+    "SPI_GETSELECTIONFADE",
+    "SPI_GETSERIALKEYS",
+    "SPI_GETSHOWIMEUI",
+    "SPI_GETSHOWSOUNDS",
+    "SPI_GETSNAPSIZING",
+    "SPI_GETSNAPTODEFBUTTON",
+    "SPI_GETSOUNDSENTRY",
+    "SPI_GETSPEECHRECOGNITION",
+    "SPI_GETSTICKYKEYS",
+    "SPI_GETSYSTEMLANGUAGEBAR",
+    "SPI_GETTHREADLOCALINPUTSETTINGS",
+    "SPI_GETTOGGLEKEYS",
+    "SPI_GETTOOLTIPANIMATION",
+    "SPI_GETTOOLTIPFADE",
+    "SPI_GETTOUCHPREDICTIONPARAMETERS",
+    "SPI_GETUIEFFECTS",
+    "SPI_GETWAITTOKILLSERVICETIMEOUT",
+    "SPI_GETWAITTOKILLTIMEOUT",
+    "SPI_GETWHEELSCROLLCHARS",
+    "SPI_GETWHEELSCROLLLINES",
+    "SPI_GETWINARRANGING",
+    "SPI_GETWINDOWSEXTENSION",
+    "SPI_GETWORKAREA",
+    "SPI_ICONHORIZONTALSPACING",
+    "SPI_ICONVERTICALSPACING",
+    "SPI_LANGDRIVER",
+    "SPI_SCREENSAVERRUNNING",
+    "SPI_SETACCESSTIMEOUT",
+    "SPI_SETACTIVEWINDOWTRACKING",
+    "SPI_SETACTIVEWNDTRKTIMEOUT",
+    "SPI_SETACTIVEWNDTRKZORDER",
+    "SPI_SETANIMATION",
+    "SPI_SETAUDIODESCRIPTION",
+    "SPI_SETBEEP",
+    "SPI_SETBLOCKSENDINPUTRESETS",
+    "SPI_SETBORDER",
+    "SPI_SETCARETBROWSING",
+    "SPI_SETCARETTIMEOUT",
+    "SPI_SETCARETWIDTH",
+    "SPI_SETCLEARTYPE",
+    "SPI_SETCLIENTAREAANIMATION",
+    "SPI_SETCOMBOBOXANIMATION",
+    "SPI_SETCONTACTVISUALIZATION",
+    "SPI_SETCURSORS",
+    "SPI_SETCURSORSHADOW",
+    "SPI_SETDEFAULTINPUTLANG",
+    "SPI_SETDESKPATTERN",
+    "SPI_SETDESKWALLPAPER",
+    "SPI_SETDISABLEOVERLAPPEDCONTENT",
+    "SPI_SETDOCKMOVING",
+    "SPI_SETDOUBLECLICKTIME",
+    "SPI_SETDOUBLECLKHEIGHT",
+    "SPI_SETDOUBLECLKWIDTH",
+    "SPI_SETDRAGFROMMAXIMIZE",
+    "SPI_SETDRAGFULLWINDOWS",
+    "SPI_SETDRAGHEIGHT",
+    "SPI_SETDRAGWIDTH",
+    "SPI_SETDROPSHADOW",
+    "SPI_SETFASTTASKSWITCH",
+    "SPI_SETFILTERKEYS",
+    "SPI_SETFLATMENU",
+    "SPI_SETFOCUSBORDERHEIGHT",
+    "SPI_SETFOCUSBORDERWIDTH",
+    "SPI_SETFONTSMOOTHING",
+    "SPI_SETFONTSMOOTHINGCONTRAST",
+    "SPI_SETFONTSMOOTHINGORIENTATION",
+    "SPI_SETFONTSMOOTHINGTYPE",
+    "SPI_SETFOREGROUNDFLASHCOUNT",
+    "SPI_SETFOREGROUNDLOCKTIMEOUT",
+    "SPI_SETGESTUREVISUALIZATION",
+    "SPI_SETGRADIENTCAPTIONS",
+    "SPI_SETGRIDGRANULARITY",
+    "SPI_SETHANDEDNESS",
+    "SPI_SETHANDHELD",
+    "SPI_SETHIGHCONTRAST",
+    "SPI_SETHOTTRACKING",
+    "SPI_SETHUNGAPPTIMEOUT",
+    "SPI_SETICONMETRICS",
+    "SPI_SETICONS",
+    "SPI_SETICONTITLELOGFONT",
+    "SPI_SETICONTITLEWRAP",
+    "SPI_SETKEYBOARDCUES",
+    "SPI_SETKEYBOARDDELAY",
+    "SPI_SETKEYBOARDPREF",
+    "SPI_SETKEYBOARDSPEED",
+    "SPI_SETLANGTOGGLE",
+    "SPI_SETLISTBOXSMOOTHSCROLLING",
+    "SPI_SETLOGICALDPIOVERRIDE",
+    "SPI_SETLOWPOWERACTIVE",
+    "SPI_SETLOWPOWERTIMEOUT",
+    "SPI_SETMENUANIMATION",
+    "SPI_SETMENUDROPALIGNMENT",
+    "SPI_SETMENUFADE",
+    "SPI_SETMENURECT",
+    "SPI_SETMENUSHOWDELAY",
+    "SPI_SETMENUUNDERLINES",
+    "SPI_SETMESSAGEDURATION",
+    "SPI_SETMINIMIZEDMETRICS",
+    "SPI_SETMINIMUMHITRADIUS",
+    "SPI_SETMOUSE",
+    "SPI_SETMOUSEBUTTONSWAP",
+    "SPI_SETMOUSECLICKLOCK",
+    "SPI_SETMOUSECLICKLOCKTIME",
+    "SPI_SETMOUSEDOCKTHRESHOLD",
+    "SPI_SETMOUSEDRAGOUTTHRESHOLD",
+    "SPI_SETMOUSEHOVERHEIGHT",
+    "SPI_SETMOUSEHOVERTIME",
+    "SPI_SETMOUSEHOVERWIDTH",
+    "SPI_SETMOUSEKEYS",
+    "SPI_SETMOUSESIDEMOVETHRESHOLD",
+    "SPI_SETMOUSESONAR",
+    "SPI_SETMOUSESPEED",
+    "SPI_SETMOUSETRAILS",
+    "SPI_SETMOUSEVANISH",
+    "SPI_SETMOUSEWHEELROUTING",
+    "SPI_SETNONCLIENTMETRICS",
+    "SPI_SETPENARBITRATIONTYPE",
+    "SPI_SETPENDOCKTHRESHOLD",
+    "SPI_SETPENDRAGOUTTHRESHOLD",
+    "SPI_SETPENSIDEMOVETHRESHOLD",
+    "SPI_SETPENVISUALIZATION",
+    "SPI_SETPENWINDOWS",
+    "SPI_SETPOWEROFFACTIVE",
+    "SPI_SETPOWEROFFTIMEOUT",
+    "SPI_SETSCREENREADER",
+    "SPI_SETSCREENSAVEACTIVE",
+    "SPI_SETSCREENSAVERRUNNING",
+    "SPI_SETSCREENSAVESECURE",
+    "SPI_SETSCREENSAVETIMEOUT",
+    "SPI_SETSELECTIONFADE",
+    "SPI_SETSERIALKEYS",
+    "SPI_SETSHOWIMEUI",
+    "SPI_SETSHOWSOUNDS",
+    "SPI_SETSNAPSIZING",
+    "SPI_SETSNAPTODEFBUTTON",
+    "SPI_SETSOUNDSENTRY",
+    "SPI_SETSPEECHRECOGNITION",
+    "SPI_SETSTICKYKEYS",
+    "SPI_SETSYSTEMLANGUAGEBAR",
+    "SPI_SETTHREADLOCALINPUTSETTINGS",
+    "SPI_SETTOGGLEKEYS",
+    "SPI_SETTOOLTIPANIMATION",
+    "SPI_SETTOOLTIPFADE",
+    "SPI_SETTOUCHPREDICTIONPARAMETERS",
+    "SPI_SETUIEFFECTS",
+    "SPI_SETWAITTOKILLSERVICETIMEOUT",
+    "SPI_SETWAITTOKILLTIMEOUT",
+    "SPI_SETWHEELSCROLLCHARS",
+    "SPI_SETWHEELSCROLLLINES",
+    "SPI_SETWINARRANGING",
+    "SPI_SETWORKAREA",
+    "STATE_SYSTEM_ALERT_HIGH",
+    "STATE_SYSTEM_ALERT_LOW",
+    "STATE_SYSTEM_ALERT_MEDIUM",
+    "STATE_SYSTEM_ANIMATED",
+    "STATE_SYSTEM_BUSY",
+    "STATE_SYSTEM_CHECKED",
+    "STATE_SYSTEM_COLLAPSED",
+    "STATE_SYSTEM_DEFAULT",
+    "STATE_SYSTEM_EXPANDED",
+    "STATE_SYSTEM_EXTSELECTABLE",
+    "STATE_SYSTEM_FLOATING",
+    "STATE_SYSTEM_FOCUSED",
+    "STATE_SYSTEM_HOTTRACKED",
+    "STATE_SYSTEM_INDETERMINATE",
+    "STATE_SYSTEM_LINKED",
+    "STATE_SYSTEM_MARQUEED",
+    "STATE_SYSTEM_MIXED",
+    "STATE_SYSTEM_MOVEABLE",
+    "STATE_SYSTEM_MULTISELECTABLE",
+    "STATE_SYSTEM_PROTECTED",
+    "STATE_SYSTEM_READONLY",
+    "STATE_SYSTEM_SELECTABLE",
+    "STATE_SYSTEM_SELECTED",
+    "STATE_SYSTEM_SELFVOICING",
+    "STATE_SYSTEM_SIZEABLE",
+    "STATE_SYSTEM_TRAVERSED",
+    "STATE_SYSTEM_VALID",
+    "STM_GETICON",
+    "STM_GETIMAGE",
+    "STM_MSGMAX",
+    "STM_SETICON",
+    "STM_SETIMAGE",
+    "STN_CLICKED",
+    "STN_DBLCLK",
+    "STN_DISABLE",
+    "STN_ENABLE",
+    "STRSAFE_E_END_OF_FILE",
+    "STRSAFE_E_INSUFFICIENT_BUFFER",
+    "STRSAFE_E_INVALID_PARAMETER",
+    "STRSAFE_FILL_BEHIND_NULL",
+    "STRSAFE_FILL_ON_FAILURE",
+    "STRSAFE_IGNORE_NULLS",
+    "STRSAFE_MAX_CCH",
+    "STRSAFE_NO_TRUNCATION",
+    "STRSAFE_NULL_ON_FAILURE",
+    "STRSAFE_USE_SECURE_CRT",
+    "STYLESTRUCT",
+    "SWP_ASYNCWINDOWPOS",
+    "SWP_DEFERERASE",
+    "SWP_DRAWFRAME",
+    "SWP_FRAMECHANGED",
+    "SWP_HIDEWINDOW",
+    "SWP_NOACTIVATE",
+    "SWP_NOCOPYBITS",
+    "SWP_NOMOVE",
+    "SWP_NOOWNERZORDER",
+    "SWP_NOREDRAW",
+    "SWP_NOREPOSITION",
+    "SWP_NOSENDCHANGING",
+    "SWP_NOSIZE",
+    "SWP_NOZORDER",
+    "SWP_SHOWWINDOW",
+    "SW_ERASE",
+    "SW_FORCEMINIMIZE",
+    "SW_HIDE",
+    "SW_INVALIDATE",
+    "SW_MAX",
+    "SW_MAXIMIZE",
+    "SW_MINIMIZE",
+    "SW_NORMAL",
+    "SW_OTHERUNZOOM",
+    "SW_OTHERZOOM",
+    "SW_PARENTCLOSING",
+    "SW_PARENTOPENING",
+    "SW_RESTORE",
+    "SW_SCROLLCHILDREN",
+    "SW_SHOW",
+    "SW_SHOWDEFAULT",
+    "SW_SHOWMAXIMIZED",
+    "SW_SHOWMINIMIZED",
+    "SW_SHOWMINNOACTIVE",
+    "SW_SHOWNA",
+    "SW_SHOWNOACTIVATE",
+    "SW_SHOWNORMAL",
+    "SW_SMOOTHSCROLL",
+    "SYSTEM_CURSOR_ID",
+    "SYSTEM_METRICS_INDEX",
+    "SYSTEM_PARAMETERS_INFO_ACTION",
+    "SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS",
+    "ScrollDC",
+    "ScrollWindow",
+    "ScrollWindowEx",
+    "SendDlgItemMessageA",
+    "SendDlgItemMessageW",
+    "SendMessageA",
+    "SendMessageCallbackA",
+    "SendMessageCallbackW",
+    "SendMessageTimeoutA",
+    "SendMessageTimeoutW",
+    "SendMessageW",
+    "SendNotifyMessageA",
+    "SendNotifyMessageW",
+    "SetCaretBlinkTime",
+    "SetCaretPos",
+    "SetClassLongA",
+    "SetClassLongPtrA",
+    "SetClassLongPtrW",
+    "SetClassLongW",
+    "SetClassWord",
+    "SetCoalescableTimer",
+    "SetCursor",
+    "SetCursorPos",
+    "SetDebugErrorLevel",
+    "SetDlgItemInt",
+    "SetDlgItemTextA",
+    "SetDlgItemTextW",
+    "SetForegroundWindow",
+    "SetLayeredWindowAttributes",
+    "SetMenu",
+    "SetMenuDefaultItem",
+    "SetMenuInfo",
+    "SetMenuItemBitmaps",
+    "SetMenuItemInfoA",
+    "SetMenuItemInfoW",
+    "SetMessageExtraInfo",
+    "SetMessageQueue",
+    "SetParent",
+    "SetPhysicalCursorPos",
+    "SetProcessDPIAware",
+    "SetProcessDefaultLayout",
+    "SetPropA",
+    "SetPropW",
+    "SetSystemCursor",
+    "SetTimer",
+    "SetWindowDisplayAffinity",
+    "SetWindowLongA",
+    "SetWindowLongPtrA",
+    "SetWindowLongPtrW",
+    "SetWindowLongW",
+    "SetWindowPlacement",
+    "SetWindowPos",
+    "SetWindowTextA",
+    "SetWindowTextW",
+    "SetWindowWord",
+    "SetWindowsHookA",
+    "SetWindowsHookExA",
+    "SetWindowsHookExW",
+    "SetWindowsHookW",
+    "ShowCaret",
+    "ShowCursor",
+    "ShowOwnedPopups",
+    "ShowWindow",
+    "ShowWindowAsync",
+    "SoundSentry",
+    "SwitchToThisWindow",
+    "SystemParametersInfoA",
+    "SystemParametersInfoW",
     "TILE_WINDOWS_HOW",
-    "MDITILE_HORIZONTAL",
-    "MDITILE_VERTICAL",
-    "WINDOW_DISPLAY_AFFINITY",
-    "WDA_NONE",
-    "WDA_MONITOR",
+    "TIMERPROC",
+    "TIMERV_COALESCING_MAX",
+    "TIMERV_COALESCING_MIN",
+    "TIMERV_DEFAULT_COALESCING",
+    "TIMERV_NO_COALESCING",
+    "TITLEBARINFO",
+    "TITLEBARINFOEX",
+    "TKF_AVAILABLE",
+    "TKF_CONFIRMHOTKEY",
+    "TKF_HOTKEYACTIVE",
+    "TKF_HOTKEYSOUND",
+    "TKF_INDICATOR",
+    "TKF_TOGGLEKEYSON",
+    "TOUCHPREDICTIONPARAMETERS",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_LATENCY",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_DELTA",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_EXPO_SMOOTH_ALPHA",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_LEARNING_RATE",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_MAX",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_MIN",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_SAMPLETIME",
+    "TOUCHPREDICTIONPARAMETERS_DEFAULT_USE_HW_TIMESTAMP",
+    "TOUCH_FLAG_NONE",
+    "TOUCH_HIT_TESTING_CLIENT",
+    "TOUCH_HIT_TESTING_DEFAULT",
+    "TOUCH_HIT_TESTING_NONE",
+    "TOUCH_HIT_TESTING_PROXIMITY_CLOSEST",
+    "TOUCH_HIT_TESTING_PROXIMITY_FARTHEST",
+    "TOUCH_MASK_CONTACTAREA",
+    "TOUCH_MASK_NONE",
+    "TOUCH_MASK_ORIENTATION",
+    "TOUCH_MASK_PRESSURE",
+    "TPMPARAMS",
+    "TPM_BOTTOMALIGN",
+    "TPM_CENTERALIGN",
+    "TPM_HORIZONTAL",
+    "TPM_HORNEGANIMATION",
+    "TPM_HORPOSANIMATION",
+    "TPM_LAYOUTRTL",
+    "TPM_LEFTALIGN",
+    "TPM_LEFTBUTTON",
+    "TPM_NOANIMATION",
+    "TPM_NONOTIFY",
+    "TPM_RECURSE",
+    "TPM_RETURNCMD",
+    "TPM_RIGHTALIGN",
+    "TPM_RIGHTBUTTON",
+    "TPM_TOPALIGN",
+    "TPM_VCENTERALIGN",
+    "TPM_VERNEGANIMATION",
+    "TPM_VERPOSANIMATION",
+    "TPM_VERTICAL",
+    "TPM_WORKAREA",
+    "TRACK_POPUP_MENU_FLAGS",
+    "TileWindows",
+    "TrackPopupMenu",
+    "TrackPopupMenuEx",
+    "TranslateAcceleratorA",
+    "TranslateAcceleratorW",
+    "TranslateMDISysAccel",
+    "TranslateMessage",
+    "UISF_ACTIVE",
+    "UISF_HIDEACCEL",
+    "UISF_HIDEFOCUS",
+    "UIS_CLEAR",
+    "UIS_INITIALIZE",
+    "UIS_SET",
+    "ULW_ALPHA",
+    "ULW_COLORKEY",
+    "ULW_EX_NORESIZE",
+    "ULW_OPAQUE",
+    "UNICODE_NOCHAR",
+    "UOI_TIMERPROC_EXCEPTION_SUPPRESSION",
+    "UPDATELAYEREDWINDOWINFO",
+    "UPDATE_LAYERED_WINDOW_FLAGS",
+    "USER_DEFAULT_SCREEN_DPI",
+    "USER_TIMER_MAXIMUM",
+    "USER_TIMER_MINIMUM",
+    "UnhookWindowsHook",
+    "UnhookWindowsHookEx",
+    "UnregisterClassA",
+    "UnregisterClassW",
+    "UpdateLayeredWindow",
+    "UpdateLayeredWindowIndirect",
+    "WA_ACTIVE",
+    "WA_CLICKACTIVE",
+    "WA_INACTIVE",
     "WDA_EXCLUDEFROMCAPTURE",
-    "FOREGROUND_WINDOW_LOCK_CODE",
-    "LSFW_LOCK",
-    "LSFW_UNLOCK",
-    "CASCADE_WINDOWS_HOW",
-    "MDITILE_SKIPDISABLED",
-    "MDITILE_ZORDER",
-    "WINDOW_MESSAGE_FILTER_ACTION",
-    "MSGFLT_ALLOW",
-    "MSGFLT_DISALLOW",
-    "MSGFLT_RESET",
-    "GET_MENU_DEFAULT_ITEM_FLAGS",
-    "GMDI_GOINTOPOPUPS",
-    "GMDI_USEDISABLED",
-    "MSGFLTINFO_STATUS",
-    "MSGFLTINFO_NONE",
-    "MSGFLTINFO_ALLOWED_HIGHER",
-    "MSGFLTINFO_ALREADYALLOWED_FORWND",
-    "MSGFLTINFO_ALREADYDISALLOWED_FORWND",
-    "MOUSEHOOKSTRUCTEX_MOUSE_DATA",
-    "XBUTTON1",
-    "XBUTTON2",
-    "MENU_ITEM_MASK",
-    "MIIM_BITMAP",
-    "MIIM_CHECKMARKS",
-    "MIIM_DATA",
-    "MIIM_FTYPE",
-    "MIIM_ID",
-    "MIIM_STATE",
-    "MIIM_STRING",
-    "MIIM_SUBMENU",
-    "MIIM_TYPE",
-    "FLASHWINFO_FLAGS",
-    "FLASHW_ALL",
-    "FLASHW_CAPTION",
-    "FLASHW_STOP",
-    "FLASHW_TIMER",
-    "FLASHW_TIMERNOFG",
-    "FLASHW_TRAY",
-    "CURSORINFO_FLAGS",
-    "CURSOR_SHOWING",
-    "CURSOR_SUPPRESSED",
-    "MENUINFO_STYLE",
-    "MNS_AUTODISMISS",
-    "MNS_CHECKORBMP",
-    "MNS_DRAGDROP",
-    "MNS_MODELESS",
-    "MNS_NOCHECK",
-    "MNS_NOTIFYBYPOS",
+    "WDA_MONITOR",
+    "WDA_NONE",
+    "WHEEL_DELTA",
+    "WH_CALLWNDPROC",
+    "WH_CALLWNDPROCRET",
+    "WH_CBT",
+    "WH_DEBUG",
+    "WH_FOREGROUNDIDLE",
+    "WH_GETMESSAGE",
+    "WH_HARDWARE",
+    "WH_JOURNALPLAYBACK",
+    "WH_JOURNALRECORD",
+    "WH_KEYBOARD",
+    "WH_KEYBOARD_LL",
+    "WH_MAX",
+    "WH_MAXHOOK",
+    "WH_MIN",
+    "WH_MINHOOK",
+    "WH_MOUSE",
+    "WH_MOUSE_LL",
+    "WH_MSGFILTER",
+    "WH_SHELL",
+    "WH_SYSMSGFILTER",
+    "WINDOWINFO",
+    "WINDOWPLACEMENT",
     "WINDOWPLACEMENT_FLAGS",
+    "WINDOWPOS",
+    "WINDOWS_HOOK_ID",
+    "WINDOW_DISPLAY_AFFINITY",
+    "WINDOW_EX_STYLE",
+    "WINDOW_LONG_PTR_INDEX",
+    "WINDOW_MESSAGE_FILTER_ACTION",
+    "WINDOW_STYLE",
+    "WINEVENT_INCONTEXT",
+    "WINEVENT_OUTOFCONTEXT",
+    "WINEVENT_SKIPOWNPROCESS",
+    "WINEVENT_SKIPOWNTHREAD",
+    "WINSTA_ACCESSCLIPBOARD",
+    "WINSTA_ACCESSGLOBALATOMS",
+    "WINSTA_CREATEDESKTOP",
+    "WINSTA_ENUMDESKTOPS",
+    "WINSTA_ENUMERATE",
+    "WINSTA_EXITWINDOWS",
+    "WINSTA_READATTRIBUTES",
+    "WINSTA_READSCREEN",
+    "WINSTA_WRITEATTRIBUTES",
+    "WMSZ_BOTTOM",
+    "WMSZ_BOTTOMLEFT",
+    "WMSZ_BOTTOMRIGHT",
+    "WMSZ_LEFT",
+    "WMSZ_RIGHT",
+    "WMSZ_TOP",
+    "WMSZ_TOPLEFT",
+    "WMSZ_TOPRIGHT",
+    "WM_ACTIVATE",
+    "WM_ACTIVATEAPP",
+    "WM_AFXFIRST",
+    "WM_AFXLAST",
+    "WM_APP",
+    "WM_APPCOMMAND",
+    "WM_ASKCBFORMATNAME",
+    "WM_CANCELJOURNAL",
+    "WM_CANCELMODE",
+    "WM_CAPTURECHANGED",
+    "WM_CHANGECBCHAIN",
+    "WM_CHANGEUISTATE",
+    "WM_CHAR",
+    "WM_CHARTOITEM",
+    "WM_CHILDACTIVATE",
+    "WM_CLEAR",
+    "WM_CLIPBOARDUPDATE",
+    "WM_CLOSE",
+    "WM_COMMAND",
+    "WM_COMMNOTIFY",
+    "WM_COMPACTING",
+    "WM_COMPAREITEM",
+    "WM_CONTEXTMENU",
+    "WM_COPY",
+    "WM_COPYDATA",
+    "WM_CREATE",
+    "WM_CTLCOLORBTN",
+    "WM_CTLCOLORDLG",
+    "WM_CTLCOLOREDIT",
+    "WM_CTLCOLORLISTBOX",
+    "WM_CTLCOLORMSGBOX",
+    "WM_CTLCOLORSCROLLBAR",
+    "WM_CTLCOLORSTATIC",
+    "WM_CUT",
+    "WM_DEADCHAR",
+    "WM_DELETEITEM",
+    "WM_DESTROY",
+    "WM_DESTROYCLIPBOARD",
+    "WM_DEVICECHANGE",
+    "WM_DEVMODECHANGE",
+    "WM_DISPLAYCHANGE",
+    "WM_DPICHANGED",
+    "WM_DPICHANGED_AFTERPARENT",
+    "WM_DPICHANGED_BEFOREPARENT",
+    "WM_DRAWCLIPBOARD",
+    "WM_DRAWITEM",
+    "WM_DROPFILES",
+    "WM_DWMCOLORIZATIONCOLORCHANGED",
+    "WM_DWMCOMPOSITIONCHANGED",
+    "WM_DWMNCRENDERINGCHANGED",
+    "WM_DWMSENDICONICLIVEPREVIEWBITMAP",
+    "WM_DWMSENDICONICTHUMBNAIL",
+    "WM_DWMWINDOWMAXIMIZEDCHANGE",
+    "WM_ENABLE",
+    "WM_ENDSESSION",
+    "WM_ENTERIDLE",
+    "WM_ENTERMENULOOP",
+    "WM_ENTERSIZEMOVE",
+    "WM_ERASEBKGND",
+    "WM_EXITMENULOOP",
+    "WM_EXITSIZEMOVE",
+    "WM_FONTCHANGE",
+    "WM_GESTURE",
+    "WM_GESTURENOTIFY",
+    "WM_GETDLGCODE",
+    "WM_GETDPISCALEDSIZE",
+    "WM_GETFONT",
+    "WM_GETHOTKEY",
+    "WM_GETICON",
+    "WM_GETMINMAXINFO",
+    "WM_GETOBJECT",
+    "WM_GETTEXT",
+    "WM_GETTEXTLENGTH",
+    "WM_GETTITLEBARINFOEX",
+    "WM_HANDHELDFIRST",
+    "WM_HANDHELDLAST",
+    "WM_HELP",
+    "WM_HOTKEY",
+    "WM_HSCROLL",
+    "WM_HSCROLLCLIPBOARD",
+    "WM_ICONERASEBKGND",
+    "WM_IME_CHAR",
+    "WM_IME_COMPOSITION",
+    "WM_IME_COMPOSITIONFULL",
+    "WM_IME_CONTROL",
+    "WM_IME_ENDCOMPOSITION",
+    "WM_IME_KEYDOWN",
+    "WM_IME_KEYLAST",
+    "WM_IME_KEYUP",
+    "WM_IME_NOTIFY",
+    "WM_IME_REQUEST",
+    "WM_IME_SELECT",
+    "WM_IME_SETCONTEXT",
+    "WM_IME_STARTCOMPOSITION",
+    "WM_INITDIALOG",
+    "WM_INITMENU",
+    "WM_INITMENUPOPUP",
+    "WM_INPUT",
+    "WM_INPUTLANGCHANGE",
+    "WM_INPUTLANGCHANGEREQUEST",
+    "WM_INPUT_DEVICE_CHANGE",
+    "WM_KEYDOWN",
+    "WM_KEYFIRST",
+    "WM_KEYLAST",
+    "WM_KEYUP",
+    "WM_KILLFOCUS",
+    "WM_LBUTTONDBLCLK",
+    "WM_LBUTTONDOWN",
+    "WM_LBUTTONUP",
+    "WM_MBUTTONDBLCLK",
+    "WM_MBUTTONDOWN",
+    "WM_MBUTTONUP",
+    "WM_MDIACTIVATE",
+    "WM_MDICASCADE",
+    "WM_MDICREATE",
+    "WM_MDIDESTROY",
+    "WM_MDIGETACTIVE",
+    "WM_MDIICONARRANGE",
+    "WM_MDIMAXIMIZE",
+    "WM_MDINEXT",
+    "WM_MDIREFRESHMENU",
+    "WM_MDIRESTORE",
+    "WM_MDISETMENU",
+    "WM_MDITILE",
+    "WM_MEASUREITEM",
+    "WM_MENUCHAR",
+    "WM_MENUCOMMAND",
+    "WM_MENUDRAG",
+    "WM_MENUGETOBJECT",
+    "WM_MENURBUTTONUP",
+    "WM_MENUSELECT",
+    "WM_MOUSEACTIVATE",
+    "WM_MOUSEFIRST",
+    "WM_MOUSEHWHEEL",
+    "WM_MOUSELAST",
+    "WM_MOUSEMOVE",
+    "WM_MOUSEWHEEL",
+    "WM_MOVE",
+    "WM_MOVING",
+    "WM_NCACTIVATE",
+    "WM_NCCALCSIZE",
+    "WM_NCCREATE",
+    "WM_NCDESTROY",
+    "WM_NCHITTEST",
+    "WM_NCLBUTTONDBLCLK",
+    "WM_NCLBUTTONDOWN",
+    "WM_NCLBUTTONUP",
+    "WM_NCMBUTTONDBLCLK",
+    "WM_NCMBUTTONDOWN",
+    "WM_NCMBUTTONUP",
+    "WM_NCMOUSEHOVER",
+    "WM_NCMOUSELEAVE",
+    "WM_NCMOUSEMOVE",
+    "WM_NCPAINT",
+    "WM_NCPOINTERDOWN",
+    "WM_NCPOINTERUP",
+    "WM_NCPOINTERUPDATE",
+    "WM_NCRBUTTONDBLCLK",
+    "WM_NCRBUTTONDOWN",
+    "WM_NCRBUTTONUP",
+    "WM_NCXBUTTONDBLCLK",
+    "WM_NCXBUTTONDOWN",
+    "WM_NCXBUTTONUP",
+    "WM_NEXTDLGCTL",
+    "WM_NEXTMENU",
+    "WM_NOTIFY",
+    "WM_NOTIFYFORMAT",
+    "WM_NULL",
+    "WM_PAINT",
+    "WM_PAINTCLIPBOARD",
+    "WM_PAINTICON",
+    "WM_PALETTECHANGED",
+    "WM_PALETTEISCHANGING",
+    "WM_PARENTNOTIFY",
+    "WM_PASTE",
+    "WM_PENWINFIRST",
+    "WM_PENWINLAST",
+    "WM_POINTERACTIVATE",
+    "WM_POINTERCAPTURECHANGED",
+    "WM_POINTERDEVICECHANGE",
+    "WM_POINTERDEVICEINRANGE",
+    "WM_POINTERDEVICEOUTOFRANGE",
+    "WM_POINTERDOWN",
+    "WM_POINTERENTER",
+    "WM_POINTERHWHEEL",
+    "WM_POINTERLEAVE",
+    "WM_POINTERROUTEDAWAY",
+    "WM_POINTERROUTEDRELEASED",
+    "WM_POINTERROUTEDTO",
+    "WM_POINTERUP",
+    "WM_POINTERUPDATE",
+    "WM_POINTERWHEEL",
+    "WM_POWER",
+    "WM_POWERBROADCAST",
+    "WM_PRINT",
+    "WM_PRINTCLIENT",
+    "WM_QUERYDRAGICON",
+    "WM_QUERYENDSESSION",
+    "WM_QUERYNEWPALETTE",
+    "WM_QUERYOPEN",
+    "WM_QUERYUISTATE",
+    "WM_QUEUESYNC",
+    "WM_QUIT",
+    "WM_RBUTTONDBLCLK",
+    "WM_RBUTTONDOWN",
+    "WM_RBUTTONUP",
+    "WM_RENDERALLFORMATS",
+    "WM_RENDERFORMAT",
+    "WM_SETCURSOR",
+    "WM_SETFOCUS",
+    "WM_SETFONT",
+    "WM_SETHOTKEY",
+    "WM_SETICON",
+    "WM_SETREDRAW",
+    "WM_SETTEXT",
+    "WM_SETTINGCHANGE",
+    "WM_SHOWWINDOW",
+    "WM_SIZE",
+    "WM_SIZECLIPBOARD",
+    "WM_SIZING",
+    "WM_SPOOLERSTATUS",
+    "WM_STYLECHANGED",
+    "WM_STYLECHANGING",
+    "WM_SYNCPAINT",
+    "WM_SYSCHAR",
+    "WM_SYSCOLORCHANGE",
+    "WM_SYSCOMMAND",
+    "WM_SYSDEADCHAR",
+    "WM_SYSKEYDOWN",
+    "WM_SYSKEYUP",
+    "WM_TABLET_FIRST",
+    "WM_TABLET_LAST",
+    "WM_TCARD",
+    "WM_THEMECHANGED",
+    "WM_TIMECHANGE",
+    "WM_TIMER",
+    "WM_TOUCH",
+    "WM_TOUCHHITTESTING",
+    "WM_UNDO",
+    "WM_UNICHAR",
+    "WM_UNINITMENUPOPUP",
+    "WM_UPDATEUISTATE",
+    "WM_USER",
+    "WM_USERCHANGED",
+    "WM_VKEYTOITEM",
+    "WM_VSCROLL",
+    "WM_VSCROLLCLIPBOARD",
+    "WM_WINDOWPOSCHANGED",
+    "WM_WINDOWPOSCHANGING",
+    "WM_WININICHANGE",
+    "WM_WTSSESSION_CHANGE",
+    "WM_XBUTTONDBLCLK",
+    "WM_XBUTTONDOWN",
+    "WM_XBUTTONUP",
+    "WNDCLASSA",
+    "WNDCLASSEXA",
+    "WNDCLASSEXW",
+    "WNDCLASSW",
+    "WNDCLASS_STYLES",
+    "WNDENUMPROC",
+    "WNDPROC",
     "WPF_ASYNCWINDOWPLACEMENT",
     "WPF_RESTORETOMAXIMIZED",
     "WPF_SETMINPOSITION",
-    "MENUINFO_MASK",
-    "MIM_APPLYTOSUBMENUS",
-    "MIM_BACKGROUND",
-    "MIM_HELPID",
-    "MIM_MAXHEIGHT",
-    "MIM_MENUDATA",
-    "MIM_STYLE",
-    "MINIMIZEDMETRICS_ARRANGE",
-    "ARW_BOTTOMLEFT",
-    "ARW_BOTTOMRIGHT",
-    "ARW_TOPLEFT",
-    "ARW_TOPRIGHT",
-    "SCROLLINFO_MASK",
-    "SIF_ALL",
-    "SIF_DISABLENOSCROLL",
-    "SIF_PAGE",
-    "SIF_POS",
-    "SIF_RANGE",
-    "SIF_TRACKPOS",
-    "MENUGETOBJECTINFO_FLAGS",
-    "MNGOF_BOTTOMGAP",
-    "MNGOF_TOPGAP",
-    "GUITHREADINFO_FLAGS",
-    "GUI_CARETBLINKING",
-    "GUI_INMENUMODE",
-    "GUI_INMOVESIZE",
-    "GUI_POPUPMENUMODE",
-    "GUI_SYSTEMMENUMODE",
-    "KBDLLHOOKSTRUCT_FLAGS",
-    "LLKHF_EXTENDED",
-    "LLKHF_ALTDOWN",
-    "LLKHF_UP",
-    "LLKHF_INJECTED",
-    "LLKHF_LOWER_IL_INJECTED",
-    "DI_FLAGS",
-    "DI_MASK",
-    "DI_IMAGE",
-    "DI_NORMAL",
-    "DI_COMPAT",
-    "DI_DEFAULTSIZE",
-    "DI_NOMIRROR",
-    "HHOOK",
-    "HICON",
-    "HMENU",
-    "HCURSOR",
-    "HACCEL",
-    "MESSAGE_RESOURCE_ENTRY",
-    "MESSAGE_RESOURCE_BLOCK",
-    "MESSAGE_RESOURCE_DATA",
-    "WNDPROC",
-    "DLGPROC",
-    "TIMERPROC",
-    "WNDENUMPROC",
-    "HOOKPROC",
-    "SENDASYNCPROC",
-    "PROPENUMPROCA",
-    "PROPENUMPROCW",
-    "PROPENUMPROCEXA",
-    "PROPENUMPROCEXW",
-    "NAMEENUMPROCA",
-    "NAMEENUMPROCW",
-    "CBT_CREATEWNDA",
-    "CBT_CREATEWNDW",
-    "CBTACTIVATESTRUCT",
-    "SHELLHOOKINFO",
-    "EVENTMSG",
-    "CWPSTRUCT",
-    "CWPRETSTRUCT",
-    "KBDLLHOOKSTRUCT",
-    "MSLLHOOKSTRUCT",
-    "DEBUGHOOKINFO",
-    "MOUSEHOOKSTRUCT",
-    "MOUSEHOOKSTRUCTEX",
-    "HARDWAREHOOKSTRUCT",
-    "WNDCLASSEXA",
-    "WNDCLASSEXW",
-    "WNDCLASSA",
-    "WNDCLASSW",
-    "MSG",
-    "MINMAXINFO",
-    "MDINEXTMENU",
-    "WINDOWPOS",
-    "NCCALCSIZE_PARAMS",
-    "ACCEL",
-    "CREATESTRUCTA",
-    "CREATESTRUCTW",
-    "WINDOWPLACEMENT",
-    "STYLESTRUCT",
-    "PREGISTERCLASSNAMEW",
-    "UPDATELAYEREDWINDOWINFO",
-    "FLASHWINFO",
-    "DLGTEMPLATE",
-    "DLGITEMTEMPLATE",
-    "POINTER_INPUT_TYPE",
-    "PT_POINTER",
-    "PT_TOUCH",
-    "PT_PEN",
-    "PT_MOUSE",
-    "PT_TOUCHPAD",
-    "TPMPARAMS",
-    "MENUINFO",
-    "MENUGETOBJECTINFO",
-    "MENUITEMINFOA",
-    "MENUITEMINFOW",
-    "DROPSTRUCT",
-    "MSGBOXCALLBACK",
-    "MSGBOXPARAMSA",
-    "MSGBOXPARAMSW",
-    "MENUITEMTEMPLATEHEADER",
-    "MENUITEMTEMPLATE",
-    "ICONINFO",
-    "CURSORSHAPE",
-    "ICONINFOEXA",
-    "ICONINFOEXW",
-    "EDIT_CONTROL_FEATURE",
-    "EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT",
-    "EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS",
-    "SCROLLINFO",
-    "MDICREATESTRUCTA",
-    "MDICREATESTRUCTW",
-    "CLIENTCREATESTRUCT",
-    "TouchPredictionParameters",
-    "HANDEDNESS",
-    "HANDEDNESS_LEFT",
-    "HANDEDNESS_RIGHT",
-    "NONCLIENTMETRICSA",
-    "NONCLIENTMETRICSW",
-    "MINIMIZEDMETRICS",
-    "ICONMETRICSA",
-    "ICONMETRICSW",
-    "ANIMATIONINFO",
-    "AUDIODESCRIPTION",
-    "GUITHREADINFO",
-    "CURSORINFO",
-    "WINDOWINFO",
-    "TITLEBARINFO",
-    "TITLEBARINFOEX",
-    "MENUBARINFO",
-    "SCROLLBARINFO",
-    "ALTTABINFO",
-    "CHANGEFILTERSTRUCT",
-    "IndexedResourceQualifier",
-    "MrmPlatformVersion",
-    "MrmPlatformVersion_Default",
-    "MrmPlatformVersion_Windows10_0_0_0",
-    "MrmPlatformVersion_Windows10_0_0_5",
-    "MrmResourceIndexerHandle",
-    "MrmPackagingMode",
-    "MrmPackagingMode_MrmPackagingModeStandaloneFile",
-    "MrmPackagingMode_MrmPackagingModeAutoSplit",
-    "MrmPackagingMode_MrmPackagingModeResourcePack",
-    "MrmPackagingOptions",
-    "MrmPackagingOptions_MrmPackagingOptionsNone",
-    "MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks",
-    "MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants",
-    "MrmDumpType",
-    "MrmDumpType_Basic",
-    "MrmDumpType_Detailed",
-    "MrmDumpType_Schema",
-    "MrmResourceIndexerMessageSeverity",
-    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose",
-    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo",
-    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning",
-    "MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError",
-    "MrmIndexerFlags",
-    "MrmIndexerFlags_MrmIndexerFlagsNone",
-    "MrmIndexerFlags_MrmIndexerFlagsAutoMerge",
-    "MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum",
-    "MrmResourceIndexerMessage",
-    "LoadStringA",
-    "LoadStringW",
-    "LoadString",
-    "wvsprintfA",
-    "wvsprintfW",
-    "wvsprintf",
+    "WSF_VISIBLE",
+    "WS_ACTIVECAPTION",
+    "WS_BORDER",
+    "WS_CAPTION",
+    "WS_CHILD",
+    "WS_CHILDWINDOW",
+    "WS_CLIPCHILDREN",
+    "WS_CLIPSIBLINGS",
+    "WS_DISABLED",
+    "WS_DLGFRAME",
+    "WS_EX_ACCEPTFILES",
+    "WS_EX_APPWINDOW",
+    "WS_EX_CLIENTEDGE",
+    "WS_EX_COMPOSITED",
+    "WS_EX_CONTEXTHELP",
+    "WS_EX_CONTROLPARENT",
+    "WS_EX_DLGMODALFRAME",
+    "WS_EX_LAYERED",
+    "WS_EX_LAYOUTRTL",
+    "WS_EX_LEFT",
+    "WS_EX_LEFTSCROLLBAR",
+    "WS_EX_LTRREADING",
+    "WS_EX_MDICHILD",
+    "WS_EX_NOACTIVATE",
+    "WS_EX_NOINHERITLAYOUT",
+    "WS_EX_NOPARENTNOTIFY",
+    "WS_EX_NOREDIRECTIONBITMAP",
+    "WS_EX_OVERLAPPEDWINDOW",
+    "WS_EX_PALETTEWINDOW",
+    "WS_EX_RIGHT",
+    "WS_EX_RIGHTSCROLLBAR",
+    "WS_EX_RTLREADING",
+    "WS_EX_STATICEDGE",
+    "WS_EX_TOOLWINDOW",
+    "WS_EX_TOPMOST",
+    "WS_EX_TRANSPARENT",
+    "WS_EX_WINDOWEDGE",
+    "WS_GROUP",
+    "WS_HSCROLL",
+    "WS_ICONIC",
+    "WS_MAXIMIZE",
+    "WS_MAXIMIZEBOX",
+    "WS_MINIMIZE",
+    "WS_MINIMIZEBOX",
+    "WS_OVERLAPPED",
+    "WS_OVERLAPPEDWINDOW",
+    "WS_POPUP",
+    "WS_POPUPWINDOW",
+    "WS_SIZEBOX",
+    "WS_SYSMENU",
+    "WS_TABSTOP",
+    "WS_THICKFRAME",
+    "WS_TILED",
+    "WS_TILEDWINDOW",
+    "WS_VISIBLE",
+    "WS_VSCROLL",
+    "WTS_CONSOLE_CONNECT",
+    "WTS_CONSOLE_DISCONNECT",
+    "WTS_REMOTE_CONNECT",
+    "WTS_REMOTE_DISCONNECT",
+    "WTS_SESSION_CREATE",
+    "WTS_SESSION_LOCK",
+    "WTS_SESSION_LOGOFF",
+    "WTS_SESSION_LOGON",
+    "WTS_SESSION_REMOTE_CONTROL",
+    "WTS_SESSION_TERMINATE",
+    "WTS_SESSION_UNLOCK",
+    "WVR_ALIGNBOTTOM",
+    "WVR_ALIGNLEFT",
+    "WVR_ALIGNRIGHT",
+    "WVR_ALIGNTOP",
+    "WVR_HREDRAW",
+    "WVR_VALIDRECTS",
+    "WVR_VREDRAW",
+    "WaitMessage",
+    "WindowFromPhysicalPoint",
+    "WindowFromPoint",
+    "XBUTTON1",
+    "XBUTTON2",
+    "__WARNING_BANNED_API_USAGE",
+    "__WARNING_CYCLOMATIC_COMPLEXITY",
+    "__WARNING_DEREF_NULL_PTR",
+    "__WARNING_HIGH_PRIORITY_OVERFLOW_POSTCONDITION",
+    "__WARNING_INCORRECT_ANNOTATION",
+    "__WARNING_INVALID_PARAM_VALUE_1",
+    "__WARNING_INVALID_PARAM_VALUE_3",
+    "__WARNING_MISSING_ZERO_TERMINATION2",
+    "__WARNING_POSTCONDITION_NULLTERMINATION_VIOLATION",
+    "__WARNING_POST_EXPECTED",
+    "__WARNING_POTENTIAL_BUFFER_OVERFLOW_HIGH_PRIORITY",
+    "__WARNING_POTENTIAL_RANGE_POSTCONDITION_VIOLATION",
+    "__WARNING_PRECONDITION_NULLTERMINATION_VIOLATION",
+    "__WARNING_RANGE_POSTCONDITION_VIOLATION",
+    "__WARNING_RETURNING_BAD_RESULT",
+    "__WARNING_RETURN_UNINIT_VAR",
+    "__WARNING_USING_UNINIT_VAR",
     "wsprintfA",
     "wsprintfW",
-    "wsprintf",
-    "IsHungAppWindow",
-    "DisableProcessWindowsGhosting",
-    "RegisterWindowMessageA",
-    "RegisterWindowMessageW",
-    "RegisterWindowMessage",
-    "GetMessageA",
-    "GetMessageW",
-    "GetMessage",
-    "TranslateMessage",
-    "DispatchMessageA",
-    "DispatchMessageW",
-    "DispatchMessage",
-    "SetMessageQueue",
-    "PeekMessageA",
-    "PeekMessageW",
-    "PeekMessage",
-    "GetMessagePos",
-    "GetMessageTime",
-    "GetMessageExtraInfo",
-    "IsWow64Message",
-    "SetMessageExtraInfo",
-    "SendMessageA",
-    "SendMessageW",
-    "SendMessage",
-    "SendMessageTimeoutA",
-    "SendMessageTimeoutW",
-    "SendMessageTimeout",
-    "SendNotifyMessageA",
-    "SendNotifyMessageW",
-    "SendNotifyMessage",
-    "SendMessageCallbackA",
-    "SendMessageCallbackW",
-    "SendMessageCallback",
-    "RegisterDeviceNotificationA",
-    "RegisterDeviceNotificationW",
-    "RegisterDeviceNotification",
-    "PostMessageA",
-    "PostMessageW",
-    "PostMessage",
-    "PostThreadMessageA",
-    "PostThreadMessageW",
-    "PostThreadMessage",
-    "ReplyMessage",
-    "WaitMessage",
-    "DefWindowProcA",
-    "DefWindowProcW",
-    "DefWindowProc",
-    "PostQuitMessage",
-    "CallWindowProcA",
-    "CallWindowProcW",
-    "CallWindowProc",
-    "InSendMessage",
-    "InSendMessageEx",
-    "RegisterClassA",
-    "RegisterClassW",
-    "RegisterClass",
-    "UnregisterClassA",
-    "UnregisterClassW",
-    "UnregisterClass",
-    "GetClassInfoA",
-    "GetClassInfoW",
-    "GetClassInfo",
-    "RegisterClassExA",
-    "RegisterClassExW",
-    "RegisterClassEx",
-    "GetClassInfoExA",
-    "GetClassInfoExW",
-    "GetClassInfoEx",
-    "CreateWindowExA",
-    "CreateWindowExW",
-    "CreateWindowEx",
-    "IsWindow",
-    "IsMenu",
-    "IsChild",
-    "DestroyWindow",
-    "ShowWindow",
-    "AnimateWindow",
-    "UpdateLayeredWindow",
-    "UpdateLayeredWindowIndirect",
-    "GetLayeredWindowAttributes",
-    "SetLayeredWindowAttributes",
-    "ShowWindowAsync",
-    "FlashWindow",
-    "FlashWindowEx",
-    "ShowOwnedPopups",
-    "OpenIcon",
-    "CloseWindow",
-    "MoveWindow",
-    "SetWindowPos",
-    "GetWindowPlacement",
-    "SetWindowPlacement",
-    "GetWindowDisplayAffinity",
-    "SetWindowDisplayAffinity",
-    "BeginDeferWindowPos",
-    "DeferWindowPos",
-    "EndDeferWindowPos",
-    "IsWindowVisible",
-    "IsIconic",
-    "AnyPopup",
-    "BringWindowToTop",
-    "IsZoomed",
-    "CreateDialogParamA",
-    "CreateDialogParamW",
-    "CreateDialogParam",
-    "CreateDialogIndirectParamA",
-    "CreateDialogIndirectParamW",
-    "CreateDialogIndirectParam",
-    "DialogBoxParamA",
-    "DialogBoxParamW",
-    "DialogBoxParam",
-    "DialogBoxIndirectParamA",
-    "DialogBoxIndirectParamW",
-    "DialogBoxIndirectParam",
-    "EndDialog",
-    "GetDlgItem",
-    "SetDlgItemInt",
-    "GetDlgItemInt",
-    "SetDlgItemTextA",
-    "SetDlgItemTextW",
-    "SetDlgItemText",
-    "GetDlgItemTextA",
-    "GetDlgItemTextW",
-    "GetDlgItemText",
-    "SendDlgItemMessageA",
-    "SendDlgItemMessageW",
-    "SendDlgItemMessage",
-    "GetNextDlgGroupItem",
-    "GetNextDlgTabItem",
-    "GetDlgCtrlID",
-    "GetDialogBaseUnits",
-    "DefDlgProcA",
-    "DefDlgProcW",
-    "DefDlgProc",
-    "CallMsgFilterA",
-    "CallMsgFilterW",
-    "CallMsgFilter",
-    "CharToOemA",
-    "CharToOemW",
-    "CharToOem",
-    "OemToCharA",
-    "OemToCharW",
-    "OemToChar",
-    "CharToOemBuffA",
-    "CharToOemBuffW",
-    "CharToOemBuff",
-    "OemToCharBuffA",
-    "OemToCharBuffW",
-    "OemToCharBuff",
-    "CharUpperA",
-    "CharUpperW",
-    "CharUpper",
-    "CharUpperBuffA",
-    "CharUpperBuffW",
-    "CharUpperBuff",
-    "CharLowerA",
-    "CharLowerW",
-    "CharLower",
-    "CharLowerBuffA",
-    "CharLowerBuffW",
-    "CharLowerBuff",
-    "CharNextA",
-    "CharNextW",
-    "CharNext",
-    "CharPrevA",
-    "CharPrevW",
-    "CharPrev",
-    "CharNextExA",
-    "CharPrevExA",
-    "IsCharAlphaA",
-    "IsCharAlphaW",
-    "IsCharAlpha",
-    "IsCharAlphaNumericA",
-    "IsCharAlphaNumericW",
-    "IsCharAlphaNumeric",
-    "IsCharUpperA",
-    "IsCharUpperW",
-    "IsCharUpper",
-    "IsCharLowerA",
-    "GetInputState",
-    "GetQueueStatus",
-    "MsgWaitForMultipleObjects",
-    "MsgWaitForMultipleObjectsEx",
-    "SetTimer",
-    "SetCoalescableTimer",
-    "KillTimer",
-    "IsWindowUnicode",
-    "LoadAcceleratorsA",
-    "LoadAcceleratorsW",
-    "LoadAccelerators",
-    "CreateAcceleratorTableA",
-    "CreateAcceleratorTableW",
-    "CreateAcceleratorTable",
-    "DestroyAcceleratorTable",
-    "CopyAcceleratorTableA",
-    "CopyAcceleratorTableW",
-    "CopyAcceleratorTable",
-    "TranslateAcceleratorA",
-    "TranslateAcceleratorW",
-    "TranslateAccelerator",
-    "GetSystemMetrics",
-    "LoadMenuA",
-    "LoadMenuW",
-    "LoadMenu",
-    "LoadMenuIndirectA",
-    "LoadMenuIndirectW",
-    "LoadMenuIndirect",
-    "GetMenu",
-    "SetMenu",
-    "ChangeMenuA",
-    "ChangeMenuW",
-    "ChangeMenu",
-    "HiliteMenuItem",
-    "GetMenuStringA",
-    "GetMenuStringW",
-    "GetMenuString",
-    "GetMenuState",
-    "DrawMenuBar",
-    "GetSystemMenu",
-    "CreateMenu",
-    "CreatePopupMenu",
-    "DestroyMenu",
-    "CheckMenuItem",
-    "EnableMenuItem",
-    "GetSubMenu",
-    "GetMenuItemID",
-    "GetMenuItemCount",
-    "InsertMenuA",
-    "InsertMenuW",
-    "InsertMenu",
-    "AppendMenuA",
-    "AppendMenuW",
-    "AppendMenu",
-    "ModifyMenuA",
-    "ModifyMenuW",
-    "ModifyMenu",
-    "RemoveMenu",
-    "DeleteMenu",
-    "SetMenuItemBitmaps",
-    "GetMenuCheckMarkDimensions",
-    "TrackPopupMenu",
-    "TrackPopupMenuEx",
-    "CalculatePopupWindowPosition",
-    "GetMenuInfo",
-    "SetMenuInfo",
-    "EndMenu",
-    "InsertMenuItemA",
-    "InsertMenuItemW",
-    "InsertMenuItem",
-    "GetMenuItemInfoA",
-    "GetMenuItemInfoW",
-    "GetMenuItemInfo",
-    "SetMenuItemInfoA",
-    "SetMenuItemInfoW",
-    "SetMenuItemInfo",
-    "GetMenuDefaultItem",
-    "SetMenuDefaultItem",
-    "GetMenuItemRect",
-    "MenuItemFromPoint",
-    "DragObject",
-    "DrawIcon",
-    "GetForegroundWindow",
-    "SwitchToThisWindow",
-    "SetForegroundWindow",
-    "AllowSetForegroundWindow",
-    "LockSetForegroundWindow",
-    "ScrollWindow",
-    "ScrollDC",
-    "ScrollWindowEx",
-    "GetScrollPos",
-    "GetScrollRange",
-    "SetPropA",
-    "SetPropW",
-    "SetProp",
-    "GetPropA",
-    "GetPropW",
-    "GetProp",
-    "RemovePropA",
-    "RemovePropW",
-    "RemoveProp",
-    "EnumPropsExA",
-    "EnumPropsExW",
-    "EnumPropsEx",
-    "EnumPropsA",
-    "EnumPropsW",
-    "EnumProps",
-    "SetWindowTextA",
-    "SetWindowTextW",
-    "SetWindowText",
-    "GetWindowTextA",
-    "GetWindowTextW",
-    "GetWindowText",
-    "GetWindowTextLengthA",
-    "GetWindowTextLengthW",
-    "GetWindowTextLength",
-    "GetClientRect",
-    "GetWindowRect",
-    "AdjustWindowRect",
-    "AdjustWindowRectEx",
-    "MessageBoxA",
-    "MessageBoxW",
-    "MessageBox",
-    "MessageBoxExA",
-    "MessageBoxExW",
-    "MessageBoxEx",
-    "MessageBoxIndirectA",
-    "MessageBoxIndirectW",
-    "MessageBoxIndirect",
-    "ShowCursor",
-    "SetCursorPos",
-    "SetPhysicalCursorPos",
-    "SetCursor",
-    "GetCursorPos",
-    "GetPhysicalCursorPos",
-    "GetClipCursor",
-    "GetCursor",
-    "CreateCaret",
-    "GetCaretBlinkTime",
-    "SetCaretBlinkTime",
-    "DestroyCaret",
-    "HideCaret",
-    "ShowCaret",
-    "SetCaretPos",
-    "GetCaretPos",
-    "LogicalToPhysicalPoint",
-    "PhysicalToLogicalPoint",
-    "WindowFromPoint",
-    "WindowFromPhysicalPoint",
-    "ChildWindowFromPoint",
-    "ClipCursor",
-    "ChildWindowFromPointEx",
-    "GetSysColor",
-    "SetSysColors",
-    "GetWindowWord",
-    "SetWindowWord",
-    "GetWindowLongA",
-    "GetWindowLongW",
-    "GetWindowLong",
-    "SetWindowLongA",
-    "SetWindowLongW",
-    "SetWindowLong",
-    "GetWindowLongPtrA",
-    "GetWindowLongPtrW",
-    "GetWindowLongPtr",
-    "SetWindowLongPtrA",
-    "SetWindowLongPtrW",
-    "SetWindowLongPtr",
-    "GetClassWord",
-    "SetClassWord",
-    "GetClassLongA",
-    "GetClassLongW",
-    "GetClassLong",
-    "SetClassLongA",
-    "SetClassLongW",
-    "SetClassLong",
-    "GetClassLongPtrA",
-    "GetClassLongPtrW",
-    "GetClassLongPtr",
-    "SetClassLongPtrA",
-    "SetClassLongPtrW",
-    "SetClassLongPtr",
-    "GetProcessDefaultLayout",
-    "SetProcessDefaultLayout",
-    "GetDesktopWindow",
-    "GetParent",
-    "SetParent",
-    "EnumChildWindows",
-    "FindWindowA",
-    "FindWindowW",
-    "FindWindow",
-    "FindWindowExA",
-    "FindWindowExW",
-    "FindWindowEx",
-    "GetShellWindow",
-    "RegisterShellHookWindow",
-    "DeregisterShellHookWindow",
-    "EnumWindows",
-    "EnumThreadWindows",
-    "GetClassNameA",
-    "GetClassNameW",
-    "GetClassName",
-    "GetTopWindow",
-    "GetWindowThreadProcessId",
-    "IsGUIThread",
-    "GetLastActivePopup",
-    "GetWindow",
-    "SetWindowsHookA",
-    "SetWindowsHookW",
-    "SetWindowsHook",
-    "UnhookWindowsHook",
-    "SetWindowsHookExA",
-    "SetWindowsHookExW",
-    "SetWindowsHookEx",
-    "UnhookWindowsHookEx",
-    "CallNextHookEx",
-    "CheckMenuRadioItem",
-    "LoadCursorA",
-    "LoadCursorW",
-    "LoadCursor",
-    "LoadCursorFromFileA",
-    "LoadCursorFromFileW",
-    "LoadCursorFromFile",
-    "CreateCursor",
-    "DestroyCursor",
-    "SetSystemCursor",
-    "LoadIconA",
-    "LoadIconW",
-    "LoadIcon",
-    "PrivateExtractIconsA",
-    "PrivateExtractIconsW",
-    "PrivateExtractIcons",
-    "CreateIcon",
-    "DestroyIcon",
-    "LookupIconIdFromDirectory",
-    "LookupIconIdFromDirectoryEx",
-    "CreateIconFromResource",
-    "CreateIconFromResourceEx",
-    "LoadImageA",
-    "LoadImageW",
-    "LoadImage",
-    "CopyImage",
-    "DrawIconEx",
-    "CreateIconIndirect",
-    "CopyIcon",
-    "GetIconInfo",
-    "GetIconInfoExA",
-    "GetIconInfoExW",
-    "GetIconInfoEx",
-    "IsDialogMessageA",
-    "IsDialogMessageW",
-    "IsDialogMessage",
-    "MapDialogRect",
-    "GetScrollInfo",
-    "DefFrameProcA",
-    "DefFrameProcW",
-    "DefFrameProc",
-    "DefMDIChildProcA",
-    "DefMDIChildProcW",
-    "DefMDIChildProc",
-    "TranslateMDISysAccel",
-    "ArrangeIconicWindows",
-    "CreateMDIWindowA",
-    "CreateMDIWindowW",
-    "CreateMDIWindow",
-    "TileWindows",
-    "CascadeWindows",
-    "SystemParametersInfoA",
-    "SystemParametersInfoW",
-    "SystemParametersInfo",
-    "SoundSentry",
-    "SetDebugErrorLevel",
-    "InternalGetWindowText",
-    "CancelShutdown",
-    "GetGUIThreadInfo",
-    "SetProcessDPIAware",
-    "IsProcessDPIAware",
-    "InheritWindowMonitor",
-    "GetWindowModuleFileNameA",
-    "GetWindowModuleFileNameW",
-    "GetWindowModuleFileName",
-    "GetCursorInfo",
-    "GetWindowInfo",
-    "GetTitleBarInfo",
-    "GetMenuBarInfo",
-    "GetScrollBarInfo",
-    "GetAncestor",
-    "RealChildWindowFromPoint",
-    "RealGetWindowClassA",
-    "RealGetWindowClassW",
-    "RealGetWindowClass",
-    "GetAltTabInfoA",
-    "GetAltTabInfoW",
-    "GetAltTabInfo",
-    "ChangeWindowMessageFilter",
-    "ChangeWindowMessageFilterEx",
-    "CreateResourceIndexer",
-    "DestroyResourceIndexer",
-    "IndexFilePath",
-    "DestroyIndexedResults",
-    "MrmCreateResourceIndexer",
-    "MrmCreateResourceIndexerFromPreviousSchemaFile",
-    "MrmCreateResourceIndexerFromPreviousPriFile",
-    "MrmCreateResourceIndexerFromPreviousSchemaData",
-    "MrmCreateResourceIndexerFromPreviousPriData",
-    "MrmCreateResourceIndexerWithFlags",
-    "MrmIndexString",
-    "MrmIndexEmbeddedData",
-    "MrmIndexFile",
-    "MrmIndexFileAutoQualifiers",
-    "MrmIndexResourceContainerAutoQualifiers",
-    "MrmCreateResourceFile",
-    "MrmCreateResourceFileWithChecksum",
-    "MrmCreateResourceFileInMemory",
-    "MrmPeekResourceIndexerMessages",
-    "MrmDestroyIndexerAndMessages",
-    "MrmFreeMemory",
-    "MrmDumpPriFile",
-    "MrmDumpPriFileInMemory",
-    "MrmDumpPriDataInMemory",
-    "MrmCreateConfig",
-    "MrmCreateConfigInMemory",
-    "MrmGetPriFileContentChecksum",
+    "wvsprintfA",
+    "wvsprintfW",
 ]

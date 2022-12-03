@@ -1,15 +1,14 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Media
 import win32more.Media.Multimedia
 import win32more.System.Com
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -117,11 +116,76 @@ TIME_CALLBACK_FUNCTION = 0
 TIME_CALLBACK_EVENT_SET = 16
 TIME_CALLBACK_EVENT_PULSE = 32
 TIME_KILL_SYNCHRONOUS = 256
-TIMECODE_SAMPLE_FLAGS = UInt32
-ED_DEVCAP_TIMECODE_READ = 4121
-ED_DEVCAP_ATN_READ = 5047
-ED_DEVCAP_RTC_READ = 5050
+def _define_timeGetSystemTime():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.MMTIME_head),UInt32)(('timeGetSystemTime', windll['WINMM.dll']), ((1, 'pmmt'),(1, 'cbmmt'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_timeGetTime():
+    try:
+        return WINFUNCTYPE(UInt32,)(('timeGetTime', windll['WINMM.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_timeGetDevCaps():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.TIMECAPS_head),UInt32)(('timeGetDevCaps', windll['WINMM.dll']), ((1, 'ptc'),(1, 'cbtc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_timeBeginPeriod():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('timeBeginPeriod', windll['WINMM.dll']), ((1, 'uPeriod'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_timeEndPeriod():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('timeEndPeriod', windll['WINMM.dll']), ((1, 'uPeriod'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_timeSetEvent():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32,win32more.Media.LPTIMECALLBACK,UIntPtr,UInt32)(('timeSetEvent', windll['WINMM.dll']), ((1, 'uDelay'),(1, 'uResolution'),(1, 'fptc'),(1, 'dwUser'),(1, 'fuEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_timeKillEvent():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('timeKillEvent', windll['WINMM.dll']), ((1, 'uTimerID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
 HTASK = IntPtr
+def _define_IReferenceClock_head():
+    class IReferenceClock(win32more.System.Com.IUnknown_head):
+        Guid = Guid('56a86897-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
+    return IReferenceClock
+def _define_IReferenceClock():
+    IReferenceClock = win32more.Media.IReferenceClock_head
+    IReferenceClock.GetTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(3, 'GetTime', ((1, 'pTime'),)))
+    IReferenceClock.AdviseTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Int64,win32more.Foundation.HANDLE,POINTER(UIntPtr))(4, 'AdviseTime', ((1, 'baseTime'),(1, 'streamTime'),(1, 'hEvent'),(1, 'pdwAdviseCookie'),)))
+    IReferenceClock.AdvisePeriodic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Int64,win32more.Foundation.HANDLE,POINTER(UIntPtr))(5, 'AdvisePeriodic', ((1, 'startTime'),(1, 'periodTime'),(1, 'hSemaphore'),(1, 'pdwAdviseCookie'),)))
+    IReferenceClock.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(6, 'Unadvise', ((1, 'dwAdviseCookie'),)))
+    win32more.System.Com.IUnknown
+    return IReferenceClock
+def _define_IReferenceClock2_head():
+    class IReferenceClock2(win32more.Media.IReferenceClock_head):
+        Guid = Guid('36b73885-c2c8-11cf-8b-46-00-80-5f-6c-ef-60')
+    return IReferenceClock2
+def _define_IReferenceClock2():
+    IReferenceClock2 = win32more.Media.IReferenceClock2_head
+    win32more.Media.IReferenceClock
+    return IReferenceClock2
+def _define_IReferenceClockTimerControl_head():
+    class IReferenceClockTimerControl(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ebec459c-2eca-4d42-a8-af-30-df-55-76-14-b8')
+    return IReferenceClockTimerControl
+def _define_IReferenceClockTimerControl():
+    IReferenceClockTimerControl = win32more.Media.IReferenceClockTimerControl_head
+    IReferenceClockTimerControl.SetDefaultTimerResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64)(3, 'SetDefaultTimerResolution', ((1, 'timerResolution'),)))
+    IReferenceClockTimerControl.GetDefaultTimerResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(4, 'GetDefaultTimerResolution', ((1, 'pTimerResolution'),)))
+    win32more.System.Com.IUnknown
+    return IReferenceClockTimerControl
+def _define_LPDRVCALLBACK():
+    return WINFUNCTYPE(Void,win32more.Media.Multimedia.HDRVR,UInt32,UIntPtr,UIntPtr,UIntPtr)
+def _define_LPTIMECALLBACK():
+    return WINFUNCTYPE(Void,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr)
 def _define_MMTIME_head():
     class MMTIME(Structure):
         pass
@@ -133,37 +197,35 @@ def _define_MMTIME():
     class MMTIME__u_e__Union__smpte_e__Struct(Structure):
         pass
     MMTIME__u_e__Union__smpte_e__Struct._fields_ = [
-        ("hour", Byte),
-        ("min", Byte),
-        ("sec", Byte),
-        ("frame", Byte),
-        ("fps", Byte),
-        ("dummy", Byte),
-        ("pad", Byte * 2),
+        ('hour', Byte),
+        ('min', Byte),
+        ('sec', Byte),
+        ('frame', Byte),
+        ('fps', Byte),
+        ('dummy', Byte),
+        ('pad', Byte * 2),
     ]
     class MMTIME__u_e__Union__midi_e__Struct(Structure):
         pass
     MMTIME__u_e__Union__midi_e__Struct._pack_ = 1
     MMTIME__u_e__Union__midi_e__Struct._fields_ = [
-        ("songptrpos", UInt32),
+        ('songptrpos', UInt32),
     ]
     MMTIME__u_e__Union._pack_ = 1
     MMTIME__u_e__Union._fields_ = [
-        ("ms", UInt32),
-        ("sample", UInt32),
-        ("cb", UInt32),
-        ("ticks", UInt32),
-        ("smpte", MMTIME__u_e__Union__smpte_e__Struct),
-        ("midi", MMTIME__u_e__Union__midi_e__Struct),
+        ('ms', UInt32),
+        ('sample', UInt32),
+        ('cb', UInt32),
+        ('ticks', UInt32),
+        ('smpte', MMTIME__u_e__Union__smpte_e__Struct),
+        ('midi', MMTIME__u_e__Union__midi_e__Struct),
     ]
     MMTIME._pack_ = 1
     MMTIME._fields_ = [
-        ("wType", UInt32),
-        ("u", MMTIME__u_e__Union),
+        ('wType', UInt32),
+        ('u', MMTIME__u_e__Union),
     ]
     return MMTIME
-def _define_LPDRVCALLBACK():
-    return CFUNCTYPE(Void,win32more.Media.Multimedia.HDRVR,UInt32,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
 def _define_TIMECAPS_head():
     class TIMECAPS(Structure):
         pass
@@ -171,42 +233,10 @@ def _define_TIMECAPS_head():
 def _define_TIMECAPS():
     TIMECAPS = win32more.Media.TIMECAPS_head
     TIMECAPS._fields_ = [
-        ("wPeriodMin", UInt32),
-        ("wPeriodMax", UInt32),
+        ('wPeriodMin', UInt32),
+        ('wPeriodMax', UInt32),
     ]
     return TIMECAPS
-def _define_LPTIMECALLBACK():
-    return CFUNCTYPE(Void,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
-def _define_IReferenceClock_head():
-    class IReferenceClock(win32more.System.Com.IUnknown_head):
-        Guid = Guid('56a86897-0ad4-11ce-b03a-0020af0ba770')
-    return IReferenceClock
-def _define_IReferenceClock():
-    IReferenceClock = win32more.Media.IReferenceClock_head
-    IReferenceClock.GetTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(3, 'GetTime', ((1, 'pTime'),)))
-    IReferenceClock.AdviseTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Int64,win32more.Foundation.HANDLE,POINTER(UIntPtr), use_last_error=False)(4, 'AdviseTime', ((1, 'baseTime'),(1, 'streamTime'),(1, 'hEvent'),(1, 'pdwAdviseCookie'),)))
-    IReferenceClock.AdvisePeriodic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Int64,win32more.Foundation.HANDLE,POINTER(UIntPtr), use_last_error=False)(5, 'AdvisePeriodic', ((1, 'startTime'),(1, 'periodTime'),(1, 'hSemaphore'),(1, 'pdwAdviseCookie'),)))
-    IReferenceClock.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(6, 'Unadvise', ((1, 'dwAdviseCookie'),)))
-    win32more.System.Com.IUnknown
-    return IReferenceClock
-def _define_IReferenceClockTimerControl_head():
-    class IReferenceClockTimerControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ebec459c-2eca-4d42-a8af-30df557614b8')
-    return IReferenceClockTimerControl
-def _define_IReferenceClockTimerControl():
-    IReferenceClockTimerControl = win32more.Media.IReferenceClockTimerControl_head
-    IReferenceClockTimerControl.SetDefaultTimerResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(3, 'SetDefaultTimerResolution', ((1, 'timerResolution'),)))
-    IReferenceClockTimerControl.GetDefaultTimerResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(4, 'GetDefaultTimerResolution', ((1, 'pTimerResolution'),)))
-    win32more.System.Com.IUnknown
-    return IReferenceClockTimerControl
-def _define_IReferenceClock2_head():
-    class IReferenceClock2(win32more.Media.IReferenceClock_head):
-        Guid = Guid('36b73885-c2c8-11cf-8b46-00805f6cef60')
-    return IReferenceClock2
-def _define_IReferenceClock2():
-    IReferenceClock2 = win32more.Media.IReferenceClock2_head
-    win32more.Media.IReferenceClock
-    return IReferenceClock2
 def _define_TIMECODE_head():
     class TIMECODE(Union):
         pass
@@ -216,16 +246,16 @@ def _define_TIMECODE():
     class TIMECODE__Anonymous_e__Struct(Structure):
         pass
     TIMECODE__Anonymous_e__Struct._fields_ = [
-        ("wFrameRate", UInt16),
-        ("wFrameFract", UInt16),
-        ("dwFrames", UInt32),
+        ('wFrameRate', UInt16),
+        ('wFrameFract', UInt16),
+        ('dwFrames', UInt32),
     ]
     TIMECODE._anonymous_ = [
         'Anonymous',
     ]
     TIMECODE._fields_ = [
-        ("Anonymous", TIMECODE__Anonymous_e__Struct),
-        ("qw", UInt64),
+        ('Anonymous', TIMECODE__Anonymous_e__Struct),
+        ('qw', UInt64),
     ]
     return TIMECODE
 def _define_TIMECODE_SAMPLE_head():
@@ -235,168 +265,137 @@ def _define_TIMECODE_SAMPLE_head():
 def _define_TIMECODE_SAMPLE():
     TIMECODE_SAMPLE = win32more.Media.TIMECODE_SAMPLE_head
     TIMECODE_SAMPLE._fields_ = [
-        ("qwTick", Int64),
-        ("timecode", win32more.Media.TIMECODE),
-        ("dwUser", UInt32),
-        ("dwFlags", win32more.Media.TIMECODE_SAMPLE_FLAGS),
+        ('qwTick', Int64),
+        ('timecode', win32more.Media.TIMECODE),
+        ('dwUser', UInt32),
+        ('dwFlags', win32more.Media.TIMECODE_SAMPLE_FLAGS),
     ]
     return TIMECODE_SAMPLE
-def _define_timeGetSystemTime():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.MMTIME_head),UInt32, use_last_error=False)(("timeGetSystemTime", windll["WINMM"]), ((1, 'pmmt'),(1, 'cbmmt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_timeGetTime():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("timeGetTime", windll["WINMM"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_timeGetDevCaps():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.TIMECAPS_head),UInt32, use_last_error=False)(("timeGetDevCaps", windll["WINMM"]), ((1, 'ptc'),(1, 'cbtc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_timeBeginPeriod():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("timeBeginPeriod", windll["WINMM"]), ((1, 'uPeriod'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_timeEndPeriod():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("timeEndPeriod", windll["WINMM"]), ((1, 'uPeriod'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_timeSetEvent():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,win32more.Media.LPTIMECALLBACK,UIntPtr,UInt32, use_last_error=False)(("timeSetEvent", windll["WINMM"]), ((1, 'uDelay'),(1, 'uResolution'),(1, 'fptc'),(1, 'dwUser'),(1, 'fuEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_timeKillEvent():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("timeKillEvent", windll["WINMM"]), ((1, 'uTimerID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+TIMECODE_SAMPLE_FLAGS = UInt32
+ED_DEVCAP_TIMECODE_READ = 4121
+ED_DEVCAP_ATN_READ = 5047
+ED_DEVCAP_RTC_READ = 5050
 __all__ = [
-    "TIMERR_NOERROR",
-    "TIMERR_NOCANDO",
-    "TIMERR_STRUCT",
-    "MAXPNAMELEN",
+    "ED_DEVCAP_ATN_READ",
+    "ED_DEVCAP_RTC_READ",
+    "ED_DEVCAP_TIMECODE_READ",
+    "HTASK",
+    "IReferenceClock",
+    "IReferenceClock2",
+    "IReferenceClockTimerControl",
+    "JOYERR_BASE",
+    "LPDRVCALLBACK",
+    "LPTIMECALLBACK",
     "MAXERRORLENGTH",
-    "MM_MICROSOFT",
-    "MM_MIDI_MAPPER",
-    "MM_WAVE_MAPPER",
-    "MM_SNDBLST_MIDIOUT",
-    "MM_SNDBLST_MIDIIN",
-    "MM_SNDBLST_SYNTH",
-    "MM_SNDBLST_WAVEOUT",
-    "MM_SNDBLST_WAVEIN",
+    "MAXPNAMELEN",
+    "MCIERR_BASE",
+    "MCI_CD_OFFSET",
+    "MCI_SEQ_OFFSET",
+    "MCI_STRING_OFFSET",
+    "MCI_VD_OFFSET",
+    "MCI_WAVE_OFFSET",
+    "MIDIERR_BASE",
+    "MIXERR_BASE",
+    "MMSYSERR_ALLOCATED",
+    "MMSYSERR_BADDB",
+    "MMSYSERR_BADDEVICEID",
+    "MMSYSERR_BADERRNUM",
+    "MMSYSERR_BASE",
+    "MMSYSERR_DELETEERROR",
+    "MMSYSERR_ERROR",
+    "MMSYSERR_HANDLEBUSY",
+    "MMSYSERR_INVALFLAG",
+    "MMSYSERR_INVALHANDLE",
+    "MMSYSERR_INVALIDALIAS",
+    "MMSYSERR_INVALPARAM",
+    "MMSYSERR_KEYNOTFOUND",
+    "MMSYSERR_LASTERROR",
+    "MMSYSERR_MOREDATA",
+    "MMSYSERR_NODRIVER",
+    "MMSYSERR_NODRIVERCB",
+    "MMSYSERR_NOERROR",
+    "MMSYSERR_NOMEM",
+    "MMSYSERR_NOTENABLED",
+    "MMSYSERR_NOTSUPPORTED",
+    "MMSYSERR_READERROR",
+    "MMSYSERR_VALNOTFOUND",
+    "MMSYSERR_WRITEERROR",
+    "MMTIME",
     "MM_ADLIB",
-    "MM_MPU401_MIDIOUT",
-    "MM_MPU401_MIDIIN",
-    "MM_PC_JOYSTICK",
-    "TIME_MS",
-    "TIME_SAMPLES",
-    "TIME_BYTES",
-    "TIME_SMPTE",
-    "TIME_MIDI",
-    "TIME_TICKS",
-    "MM_JOY1MOVE",
-    "MM_JOY2MOVE",
-    "MM_JOY1ZMOVE",
-    "MM_JOY2ZMOVE",
-    "MM_JOY1BUTTONDOWN",
-    "MM_JOY2BUTTONDOWN",
-    "MM_JOY1BUTTONUP",
-    "MM_JOY2BUTTONUP",
-    "MM_MCINOTIFY",
-    "MM_WOM_OPEN",
-    "MM_WOM_CLOSE",
-    "MM_WOM_DONE",
-    "MM_WIM_OPEN",
-    "MM_WIM_CLOSE",
-    "MM_WIM_DATA",
-    "MM_MIM_OPEN",
-    "MM_MIM_CLOSE",
-    "MM_MIM_DATA",
-    "MM_MIM_LONGDATA",
-    "MM_MIM_ERROR",
-    "MM_MIM_LONGERROR",
-    "MM_MOM_OPEN",
-    "MM_MOM_CLOSE",
-    "MM_MOM_DONE",
-    "MM_DRVM_OPEN",
     "MM_DRVM_CLOSE",
     "MM_DRVM_DATA",
     "MM_DRVM_ERROR",
-    "MM_STREAM_OPEN",
+    "MM_DRVM_OPEN",
+    "MM_JOY1BUTTONDOWN",
+    "MM_JOY1BUTTONUP",
+    "MM_JOY1MOVE",
+    "MM_JOY1ZMOVE",
+    "MM_JOY2BUTTONDOWN",
+    "MM_JOY2BUTTONUP",
+    "MM_JOY2MOVE",
+    "MM_JOY2ZMOVE",
+    "MM_MCINOTIFY",
+    "MM_MCISIGNAL",
+    "MM_MICROSOFT",
+    "MM_MIDI_MAPPER",
+    "MM_MIM_CLOSE",
+    "MM_MIM_DATA",
+    "MM_MIM_ERROR",
+    "MM_MIM_LONGDATA",
+    "MM_MIM_LONGERROR",
+    "MM_MIM_MOREDATA",
+    "MM_MIM_OPEN",
+    "MM_MIXM_CONTROL_CHANGE",
+    "MM_MIXM_LINE_CHANGE",
+    "MM_MOM_CLOSE",
+    "MM_MOM_DONE",
+    "MM_MOM_OPEN",
+    "MM_MOM_POSITIONCB",
+    "MM_MPU401_MIDIIN",
+    "MM_MPU401_MIDIOUT",
+    "MM_PC_JOYSTICK",
+    "MM_SNDBLST_MIDIIN",
+    "MM_SNDBLST_MIDIOUT",
+    "MM_SNDBLST_SYNTH",
+    "MM_SNDBLST_WAVEIN",
+    "MM_SNDBLST_WAVEOUT",
     "MM_STREAM_CLOSE",
     "MM_STREAM_DONE",
     "MM_STREAM_ERROR",
-    "MM_MOM_POSITIONCB",
-    "MM_MCISIGNAL",
-    "MM_MIM_MOREDATA",
-    "MM_MIXM_LINE_CHANGE",
-    "MM_MIXM_CONTROL_CHANGE",
-    "MMSYSERR_BASE",
-    "WAVERR_BASE",
-    "MIDIERR_BASE",
-    "TIMERR_BASE",
-    "JOYERR_BASE",
-    "MCIERR_BASE",
-    "MIXERR_BASE",
-    "MCI_STRING_OFFSET",
-    "MCI_VD_OFFSET",
-    "MCI_CD_OFFSET",
-    "MCI_WAVE_OFFSET",
-    "MCI_SEQ_OFFSET",
-    "MMSYSERR_NOERROR",
-    "MMSYSERR_ERROR",
-    "MMSYSERR_BADDEVICEID",
-    "MMSYSERR_NOTENABLED",
-    "MMSYSERR_ALLOCATED",
-    "MMSYSERR_INVALHANDLE",
-    "MMSYSERR_NODRIVER",
-    "MMSYSERR_NOMEM",
-    "MMSYSERR_NOTSUPPORTED",
-    "MMSYSERR_BADERRNUM",
-    "MMSYSERR_INVALFLAG",
-    "MMSYSERR_INVALPARAM",
-    "MMSYSERR_HANDLEBUSY",
-    "MMSYSERR_INVALIDALIAS",
-    "MMSYSERR_BADDB",
-    "MMSYSERR_KEYNOTFOUND",
-    "MMSYSERR_READERROR",
-    "MMSYSERR_WRITEERROR",
-    "MMSYSERR_DELETEERROR",
-    "MMSYSERR_VALNOTFOUND",
-    "MMSYSERR_NODRIVERCB",
-    "MMSYSERR_MOREDATA",
-    "MMSYSERR_LASTERROR",
-    "TIME_ONESHOT",
-    "TIME_PERIODIC",
-    "TIME_CALLBACK_FUNCTION",
-    "TIME_CALLBACK_EVENT_SET",
-    "TIME_CALLBACK_EVENT_PULSE",
-    "TIME_KILL_SYNCHRONOUS",
-    "TIMECODE_SAMPLE_FLAGS",
-    "ED_DEVCAP_TIMECODE_READ",
-    "ED_DEVCAP_ATN_READ",
-    "ED_DEVCAP_RTC_READ",
-    "HTASK",
-    "MMTIME",
-    "LPDRVCALLBACK",
+    "MM_STREAM_OPEN",
+    "MM_WAVE_MAPPER",
+    "MM_WIM_CLOSE",
+    "MM_WIM_DATA",
+    "MM_WIM_OPEN",
+    "MM_WOM_CLOSE",
+    "MM_WOM_DONE",
+    "MM_WOM_OPEN",
     "TIMECAPS",
-    "LPTIMECALLBACK",
-    "IReferenceClock",
-    "IReferenceClockTimerControl",
-    "IReferenceClock2",
     "TIMECODE",
     "TIMECODE_SAMPLE",
-    "timeGetSystemTime",
-    "timeGetTime",
-    "timeGetDevCaps",
+    "TIMECODE_SAMPLE_FLAGS",
+    "TIMERR_BASE",
+    "TIMERR_NOCANDO",
+    "TIMERR_NOERROR",
+    "TIMERR_STRUCT",
+    "TIME_BYTES",
+    "TIME_CALLBACK_EVENT_PULSE",
+    "TIME_CALLBACK_EVENT_SET",
+    "TIME_CALLBACK_FUNCTION",
+    "TIME_KILL_SYNCHRONOUS",
+    "TIME_MIDI",
+    "TIME_MS",
+    "TIME_ONESHOT",
+    "TIME_PERIODIC",
+    "TIME_SAMPLES",
+    "TIME_SMPTE",
+    "TIME_TICKS",
+    "WAVERR_BASE",
     "timeBeginPeriod",
     "timeEndPeriod",
-    "timeSetEvent",
+    "timeGetDevCaps",
+    "timeGetSystemTime",
+    "timeGetTime",
     "timeKillEvent",
+    "timeSetEvent",
 ]

@@ -1,22 +1,142 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Devices.Tapi
 import win32more.Foundation
 import win32more.Media.DirectShow
+import win32more.Media.MediaFoundation
 import win32more.System.AddressBook
 import win32more.System.Com
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+ACDGROUP_EVENT = Int32
+ACDGE_NEW_GROUP = 0
+ACDGE_GROUP_REMOVED = 1
+ACDQUEUE_EVENT = Int32
+ACDQE_NEW_QUEUE = 0
+ACDQE_QUEUE_REMOVED = 1
+def _define_ADDRALIAS_head():
+    class ADDRALIAS(Structure):
+        pass
+    return ADDRALIAS
+def _define_ADDRALIAS():
+    ADDRALIAS = win32more.Devices.Tapi.ADDRALIAS_head
+    ADDRALIAS._fields_ = [
+        ('rgchName', win32more.Foundation.CHAR * 41),
+        ('rgchEName', win32more.Foundation.CHAR * 11),
+        ('rgchSrvr', win32more.Foundation.CHAR * 12),
+        ('dibDetail', UInt32),
+        ('type', UInt16),
+    ]
+    return ADDRALIAS
+ADDRESS_CAPABILITY = Int32
+AC_ADDRESSTYPES = 0
+AC_BEARERMODES = 1
+AC_MAXACTIVECALLS = 2
+AC_MAXONHOLDCALLS = 3
+AC_MAXONHOLDPENDINGCALLS = 4
+AC_MAXNUMCONFERENCE = 5
+AC_MAXNUMTRANSCONF = 6
+AC_MONITORDIGITSUPPORT = 7
+AC_GENERATEDIGITSUPPORT = 8
+AC_GENERATETONEMODES = 9
+AC_GENERATETONEMAXNUMFREQ = 10
+AC_MONITORTONEMAXNUMFREQ = 11
+AC_MONITORTONEMAXNUMENTRIES = 12
+AC_DEVCAPFLAGS = 13
+AC_ANSWERMODES = 14
+AC_LINEFEATURES = 15
+AC_SETTABLEDEVSTATUS = 16
+AC_PARKSUPPORT = 17
+AC_CALLERIDSUPPORT = 18
+AC_CALLEDIDSUPPORT = 19
+AC_CONNECTEDIDSUPPORT = 20
+AC_REDIRECTIONIDSUPPORT = 21
+AC_REDIRECTINGIDSUPPORT = 22
+AC_ADDRESSCAPFLAGS = 23
+AC_CALLFEATURES1 = 24
+AC_CALLFEATURES2 = 25
+AC_REMOVEFROMCONFCAPS = 26
+AC_REMOVEFROMCONFSTATE = 27
+AC_TRANSFERMODES = 28
+AC_ADDRESSFEATURES = 29
+AC_PREDICTIVEAUTOTRANSFERSTATES = 30
+AC_MAXCALLDATASIZE = 31
+AC_LINEID = 32
+AC_ADDRESSID = 33
+AC_FORWARDMODES = 34
+AC_MAXFORWARDENTRIES = 35
+AC_MAXSPECIFICENTRIES = 36
+AC_MINFWDNUMRINGS = 37
+AC_MAXFWDNUMRINGS = 38
+AC_MAXCALLCOMPLETIONS = 39
+AC_CALLCOMPLETIONCONDITIONS = 40
+AC_CALLCOMPLETIONMODES = 41
+AC_PERMANENTDEVICEID = 42
+AC_GATHERDIGITSMINTIMEOUT = 43
+AC_GATHERDIGITSMAXTIMEOUT = 44
+AC_GENERATEDIGITMINDURATION = 45
+AC_GENERATEDIGITMAXDURATION = 46
+AC_GENERATEDIGITDEFAULTDURATION = 47
+ADDRESS_CAPABILITY_STRING = Int32
+ACS_PROTOCOL = 0
+ACS_ADDRESSDEVICESPECIFIC = 1
+ACS_LINEDEVICESPECIFIC = 2
+ACS_PROVIDERSPECIFIC = 3
+ACS_SWITCHSPECIFIC = 4
+ACS_PERMANENTDEVICEGUID = 5
+ADDRESS_EVENT = Int32
+AE_STATE = 0
+AE_CAPSCHANGE = 1
+AE_RINGING = 2
+AE_CONFIGCHANGE = 3
+AE_FORWARD = 4
+AE_NEWTERMINAL = 5
+AE_REMOVETERMINAL = 6
+AE_MSGWAITON = 7
+AE_MSGWAITOFF = 8
+AE_LASTITEM = 8
+ADDRESS_STATE = Int32
+AS_INSERVICE = 0
+AS_OUTOFSERVICE = 1
+AGENT_EVENT = Int32
+AE_NOT_READY = 0
+AE_READY = 1
+AE_BUSY_ACD = 2
+AE_BUSY_INCOMING = 3
+AE_BUSY_OUTGOING = 4
+AE_UNKNOWN = 5
+AGENT_SESSION_EVENT = Int32
+ASE_NEW_SESSION = 0
+ASE_NOT_READY = 1
+ASE_READY = 2
+ASE_BUSY = 3
+ASE_WRAPUP = 4
+ASE_END = 5
+AGENT_SESSION_STATE = Int32
+ASST_NOT_READY = 0
+ASST_READY = 1
+ASST_BUSY_ON_CALL = 2
+ASST_BUSY_WRAPUP = 3
+ASST_SESSION_ENDED = 4
+AGENT_STATE = Int32
+AS_NOT_READY = 0
+AS_READY = 1
+AS_BUSY_ACD = 2
+AS_BUSY_INCOMING = 3
+AS_BUSY_OUTGOING = 4
+AS_UNKNOWN = 5
+AGENTHANDLER_EVENT = Int32
+AHE_NEW_AGENTHANDLER = 0
+AHE_AGENTHANDLER_REMOVED = 1
 TAPI_CURRENT_VERSION = 131074
 LINE_ADDRESSSTATE = 0
 LINE_CALLINFO = 1
@@ -1129,1669 +1249,1308 @@ TAPI_E_INVALIDSTREAMSTATE = -2147221417
 TAPI_E_WRONG_STATE = -2147221416
 TAPI_E_NOT_INITIALIZED = -2147221415
 TAPI_E_SERVICE_NOT_RUNNING = -2147221414
+OPENTNEFSTREAM = 'OpenTnefStream'
+OPENTNEFSTREAMEX = 'OpenTnefStreamEx'
+GETTNEFSTREAMCODEPAGE = 'GetTnefStreamCodePage'
+cbDisplayName = 41
+cbEmailName = 11
+cbSeverName = 12
+cbTYPE = 16
+cbMaxIdData = 200
+prioLow = 3
+prioNorm = 2
+prioHigh = 1
 atypNull = 0
 atypFile = 1
 atypOle = 2
 atypPicture = 3
 atypMax = 4
-def _define_LINECALLBACK():
-    return CFUNCTYPE(Void,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
-def _define_PHONECALLBACK():
-    return CFUNCTYPE(Void,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
-def _define_LINEADDRESSCAPS_head():
-    class LINEADDRESSCAPS(Structure):
-        pass
-    return LINEADDRESSCAPS
-def _define_LINEADDRESSCAPS():
-    LINEADDRESSCAPS = win32more.Devices.Tapi.LINEADDRESSCAPS_head
-    LINEADDRESSCAPS._pack_ = 1
-    LINEADDRESSCAPS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwLineDeviceID", UInt32),
-        ("dwAddressSize", UInt32),
-        ("dwAddressOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwAddressSharing", UInt32),
-        ("dwAddressStates", UInt32),
-        ("dwCallInfoStates", UInt32),
-        ("dwCallerIDFlags", UInt32),
-        ("dwCalledIDFlags", UInt32),
-        ("dwConnectedIDFlags", UInt32),
-        ("dwRedirectionIDFlags", UInt32),
-        ("dwRedirectingIDFlags", UInt32),
-        ("dwCallStates", UInt32),
-        ("dwDialToneModes", UInt32),
-        ("dwBusyModes", UInt32),
-        ("dwSpecialInfo", UInt32),
-        ("dwDisconnectModes", UInt32),
-        ("dwMaxNumActiveCalls", UInt32),
-        ("dwMaxNumOnHoldCalls", UInt32),
-        ("dwMaxNumOnHoldPendingCalls", UInt32),
-        ("dwMaxNumConference", UInt32),
-        ("dwMaxNumTransConf", UInt32),
-        ("dwAddrCapFlags", UInt32),
-        ("dwCallFeatures", UInt32),
-        ("dwRemoveFromConfCaps", UInt32),
-        ("dwRemoveFromConfState", UInt32),
-        ("dwTransferModes", UInt32),
-        ("dwParkModes", UInt32),
-        ("dwForwardModes", UInt32),
-        ("dwMaxForwardEntries", UInt32),
-        ("dwMaxSpecificEntries", UInt32),
-        ("dwMinFwdNumRings", UInt32),
-        ("dwMaxFwdNumRings", UInt32),
-        ("dwMaxCallCompletions", UInt32),
-        ("dwCallCompletionConds", UInt32),
-        ("dwCallCompletionModes", UInt32),
-        ("dwNumCompletionMessages", UInt32),
-        ("dwCompletionMsgTextEntrySize", UInt32),
-        ("dwCompletionMsgTextSize", UInt32),
-        ("dwCompletionMsgTextOffset", UInt32),
-        ("dwAddressFeatures", UInt32),
-        ("dwPredictiveAutoTransferStates", UInt32),
-        ("dwNumCallTreatments", UInt32),
-        ("dwCallTreatmentListSize", UInt32),
-        ("dwCallTreatmentListOffset", UInt32),
-        ("dwDeviceClassesSize", UInt32),
-        ("dwDeviceClassesOffset", UInt32),
-        ("dwMaxCallDataSize", UInt32),
-        ("dwCallFeatures2", UInt32),
-        ("dwMaxNoAnswerTimeout", UInt32),
-        ("dwConnectedModes", UInt32),
-        ("dwOfferingModes", UInt32),
-        ("dwAvailableMediaModes", UInt32),
-    ]
-    return LINEADDRESSCAPS
-def _define_LINEADDRESSSTATUS_head():
-    class LINEADDRESSSTATUS(Structure):
-        pass
-    return LINEADDRESSSTATUS
-def _define_LINEADDRESSSTATUS():
-    LINEADDRESSSTATUS = win32more.Devices.Tapi.LINEADDRESSSTATUS_head
-    LINEADDRESSSTATUS._pack_ = 1
-    LINEADDRESSSTATUS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumInUse", UInt32),
-        ("dwNumActiveCalls", UInt32),
-        ("dwNumOnHoldCalls", UInt32),
-        ("dwNumOnHoldPendCalls", UInt32),
-        ("dwAddressFeatures", UInt32),
-        ("dwNumRingsNoAnswer", UInt32),
-        ("dwForwardNumEntries", UInt32),
-        ("dwForwardSize", UInt32),
-        ("dwForwardOffset", UInt32),
-        ("dwTerminalModesSize", UInt32),
-        ("dwTerminalModesOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-    ]
-    return LINEADDRESSSTATUS
-def _define_LINEAGENTACTIVITYENTRY_head():
-    class LINEAGENTACTIVITYENTRY(Structure):
-        pass
-    return LINEAGENTACTIVITYENTRY
-def _define_LINEAGENTACTIVITYENTRY():
-    LINEAGENTACTIVITYENTRY = win32more.Devices.Tapi.LINEAGENTACTIVITYENTRY_head
-    LINEAGENTACTIVITYENTRY._pack_ = 1
-    LINEAGENTACTIVITYENTRY._fields_ = [
-        ("dwID", UInt32),
-        ("dwNameSize", UInt32),
-        ("dwNameOffset", UInt32),
-    ]
-    return LINEAGENTACTIVITYENTRY
-def _define_LINEAGENTACTIVITYLIST_head():
-    class LINEAGENTACTIVITYLIST(Structure):
-        pass
-    return LINEAGENTACTIVITYLIST
-def _define_LINEAGENTACTIVITYLIST():
-    LINEAGENTACTIVITYLIST = win32more.Devices.Tapi.LINEAGENTACTIVITYLIST_head
-    LINEAGENTACTIVITYLIST._pack_ = 1
-    LINEAGENTACTIVITYLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwListSize", UInt32),
-        ("dwListOffset", UInt32),
-    ]
-    return LINEAGENTACTIVITYLIST
-def _define_LINEAGENTCAPS_head():
-    class LINEAGENTCAPS(Structure):
-        pass
-    return LINEAGENTCAPS
-def _define_LINEAGENTCAPS():
-    LINEAGENTCAPS = win32more.Devices.Tapi.LINEAGENTCAPS_head
-    LINEAGENTCAPS._pack_ = 1
-    LINEAGENTCAPS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwAgentHandlerInfoSize", UInt32),
-        ("dwAgentHandlerInfoOffset", UInt32),
-        ("dwCapsVersion", UInt32),
-        ("dwFeatures", UInt32),
-        ("dwStates", UInt32),
-        ("dwNextStates", UInt32),
-        ("dwMaxNumGroupEntries", UInt32),
-        ("dwAgentStatusMessages", UInt32),
-        ("dwNumAgentExtensionIDs", UInt32),
-        ("dwAgentExtensionIDListSize", UInt32),
-        ("dwAgentExtensionIDListOffset", UInt32),
-        ("ProxyGUID", Guid),
-    ]
-    return LINEAGENTCAPS
-def _define_LINEAGENTGROUPENTRY_head():
-    class LINEAGENTGROUPENTRY(Structure):
-        pass
-    return LINEAGENTGROUPENTRY
-def _define_LINEAGENTGROUPENTRY():
-    LINEAGENTGROUPENTRY = win32more.Devices.Tapi.LINEAGENTGROUPENTRY_head
-    class LINEAGENTGROUPENTRY__GroupID_e__Struct(Structure):
-        pass
-    LINEAGENTGROUPENTRY__GroupID_e__Struct._pack_ = 1
-    LINEAGENTGROUPENTRY__GroupID_e__Struct._fields_ = [
-        ("dwGroupID1", UInt32),
-        ("dwGroupID2", UInt32),
-        ("dwGroupID3", UInt32),
-        ("dwGroupID4", UInt32),
-    ]
-    LINEAGENTGROUPENTRY._pack_ = 1
-    LINEAGENTGROUPENTRY._fields_ = [
-        ("GroupID", LINEAGENTGROUPENTRY__GroupID_e__Struct),
-        ("dwNameSize", UInt32),
-        ("dwNameOffset", UInt32),
-    ]
-    return LINEAGENTGROUPENTRY
-def _define_LINEAGENTGROUPLIST_head():
-    class LINEAGENTGROUPLIST(Structure):
-        pass
-    return LINEAGENTGROUPLIST
-def _define_LINEAGENTGROUPLIST():
-    LINEAGENTGROUPLIST = win32more.Devices.Tapi.LINEAGENTGROUPLIST_head
-    LINEAGENTGROUPLIST._pack_ = 1
-    LINEAGENTGROUPLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwListSize", UInt32),
-        ("dwListOffset", UInt32),
-    ]
-    return LINEAGENTGROUPLIST
-def _define_LINEAGENTSTATUS_head():
-    class LINEAGENTSTATUS(Structure):
-        pass
-    return LINEAGENTSTATUS
-def _define_LINEAGENTSTATUS():
-    LINEAGENTSTATUS = win32more.Devices.Tapi.LINEAGENTSTATUS_head
-    LINEAGENTSTATUS._pack_ = 1
-    LINEAGENTSTATUS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwGroupListSize", UInt32),
-        ("dwGroupListOffset", UInt32),
-        ("dwState", UInt32),
-        ("dwNextState", UInt32),
-        ("dwActivityID", UInt32),
-        ("dwActivitySize", UInt32),
-        ("dwActivityOffset", UInt32),
-        ("dwAgentFeatures", UInt32),
-        ("dwValidStates", UInt32),
-        ("dwValidNextStates", UInt32),
-    ]
-    return LINEAGENTSTATUS
-def _define_LINEAPPINFO_head():
-    class LINEAPPINFO(Structure):
-        pass
-    return LINEAPPINFO
-def _define_LINEAPPINFO():
-    LINEAPPINFO = win32more.Devices.Tapi.LINEAPPINFO_head
-    LINEAPPINFO._pack_ = 1
-    LINEAPPINFO._fields_ = [
-        ("dwMachineNameSize", UInt32),
-        ("dwMachineNameOffset", UInt32),
-        ("dwUserNameSize", UInt32),
-        ("dwUserNameOffset", UInt32),
-        ("dwModuleFilenameSize", UInt32),
-        ("dwModuleFilenameOffset", UInt32),
-        ("dwFriendlyNameSize", UInt32),
-        ("dwFriendlyNameOffset", UInt32),
-        ("dwMediaModes", UInt32),
-        ("dwAddressID", UInt32),
-    ]
-    return LINEAPPINFO
-def _define_LINEAGENTENTRY_head():
-    class LINEAGENTENTRY(Structure):
-        pass
-    return LINEAGENTENTRY
-def _define_LINEAGENTENTRY():
-    LINEAGENTENTRY = win32more.Devices.Tapi.LINEAGENTENTRY_head
-    LINEAGENTENTRY._pack_ = 1
-    LINEAGENTENTRY._fields_ = [
-        ("hAgent", UInt32),
-        ("dwNameSize", UInt32),
-        ("dwNameOffset", UInt32),
-        ("dwIDSize", UInt32),
-        ("dwIDOffset", UInt32),
-        ("dwPINSize", UInt32),
-        ("dwPINOffset", UInt32),
-    ]
-    return LINEAGENTENTRY
-def _define_LINEAGENTLIST_head():
-    class LINEAGENTLIST(Structure):
-        pass
-    return LINEAGENTLIST
-def _define_LINEAGENTLIST():
-    LINEAGENTLIST = win32more.Devices.Tapi.LINEAGENTLIST_head
-    LINEAGENTLIST._pack_ = 1
-    LINEAGENTLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwListSize", UInt32),
-        ("dwListOffset", UInt32),
-    ]
-    return LINEAGENTLIST
-def _define_LINEAGENTINFO_head():
-    class LINEAGENTINFO(Structure):
-        pass
-    return LINEAGENTINFO
-def _define_LINEAGENTINFO():
-    LINEAGENTINFO = win32more.Devices.Tapi.LINEAGENTINFO_head
-    LINEAGENTINFO._pack_ = 1
-    LINEAGENTINFO._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwAgentState", UInt32),
-        ("dwNextAgentState", UInt32),
-        ("dwMeasurementPeriod", UInt32),
-        ("cyOverallCallRate", win32more.System.Com.CY),
-        ("dwNumberOfACDCalls", UInt32),
-        ("dwNumberOfIncomingCalls", UInt32),
-        ("dwNumberOfOutgoingCalls", UInt32),
-        ("dwTotalACDTalkTime", UInt32),
-        ("dwTotalACDCallTime", UInt32),
-        ("dwTotalACDWrapUpTime", UInt32),
-    ]
-    return LINEAGENTINFO
-def _define_LINEAGENTSESSIONENTRY_head():
-    class LINEAGENTSESSIONENTRY(Structure):
-        pass
-    return LINEAGENTSESSIONENTRY
-def _define_LINEAGENTSESSIONENTRY():
-    LINEAGENTSESSIONENTRY = win32more.Devices.Tapi.LINEAGENTSESSIONENTRY_head
-    LINEAGENTSESSIONENTRY._pack_ = 1
-    LINEAGENTSESSIONENTRY._fields_ = [
-        ("hAgentSession", UInt32),
-        ("hAgent", UInt32),
-        ("GroupID", Guid),
-        ("dwWorkingAddressID", UInt32),
-    ]
-    return LINEAGENTSESSIONENTRY
-def _define_LINEAGENTSESSIONLIST_head():
-    class LINEAGENTSESSIONLIST(Structure):
-        pass
-    return LINEAGENTSESSIONLIST
-def _define_LINEAGENTSESSIONLIST():
-    LINEAGENTSESSIONLIST = win32more.Devices.Tapi.LINEAGENTSESSIONLIST_head
-    LINEAGENTSESSIONLIST._pack_ = 1
-    LINEAGENTSESSIONLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwListSize", UInt32),
-        ("dwListOffset", UInt32),
-    ]
-    return LINEAGENTSESSIONLIST
-def _define_LINEAGENTSESSIONINFO_head():
-    class LINEAGENTSESSIONINFO(Structure):
-        pass
-    return LINEAGENTSESSIONINFO
-def _define_LINEAGENTSESSIONINFO():
-    LINEAGENTSESSIONINFO = win32more.Devices.Tapi.LINEAGENTSESSIONINFO_head
-    LINEAGENTSESSIONINFO._pack_ = 1
-    LINEAGENTSESSIONINFO._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwAgentSessionState", UInt32),
-        ("dwNextAgentSessionState", UInt32),
-        ("dateSessionStartTime", Double),
-        ("dwSessionDuration", UInt32),
-        ("dwNumberOfCalls", UInt32),
-        ("dwTotalTalkTime", UInt32),
-        ("dwAverageTalkTime", UInt32),
-        ("dwTotalCallTime", UInt32),
-        ("dwAverageCallTime", UInt32),
-        ("dwTotalWrapUpTime", UInt32),
-        ("dwAverageWrapUpTime", UInt32),
-        ("cyACDCallRate", win32more.System.Com.CY),
-        ("dwLongestTimeToAnswer", UInt32),
-        ("dwAverageTimeToAnswer", UInt32),
-    ]
-    return LINEAGENTSESSIONINFO
-def _define_LINEQUEUEENTRY_head():
-    class LINEQUEUEENTRY(Structure):
-        pass
-    return LINEQUEUEENTRY
-def _define_LINEQUEUEENTRY():
-    LINEQUEUEENTRY = win32more.Devices.Tapi.LINEQUEUEENTRY_head
-    LINEQUEUEENTRY._pack_ = 1
-    LINEQUEUEENTRY._fields_ = [
-        ("dwQueueID", UInt32),
-        ("dwNameSize", UInt32),
-        ("dwNameOffset", UInt32),
-    ]
-    return LINEQUEUEENTRY
-def _define_LINEQUEUELIST_head():
-    class LINEQUEUELIST(Structure):
-        pass
-    return LINEQUEUELIST
-def _define_LINEQUEUELIST():
-    LINEQUEUELIST = win32more.Devices.Tapi.LINEQUEUELIST_head
-    LINEQUEUELIST._pack_ = 1
-    LINEQUEUELIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwListSize", UInt32),
-        ("dwListOffset", UInt32),
-    ]
-    return LINEQUEUELIST
-def _define_LINEQUEUEINFO_head():
-    class LINEQUEUEINFO(Structure):
-        pass
-    return LINEQUEUEINFO
-def _define_LINEQUEUEINFO():
-    LINEQUEUEINFO = win32more.Devices.Tapi.LINEQUEUEINFO_head
-    LINEQUEUEINFO._pack_ = 1
-    LINEQUEUEINFO._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwMeasurementPeriod", UInt32),
-        ("dwTotalCallsQueued", UInt32),
-        ("dwCurrentCallsQueued", UInt32),
-        ("dwTotalCallsAbandoned", UInt32),
-        ("dwTotalCallsFlowedIn", UInt32),
-        ("dwTotalCallsFlowedOut", UInt32),
-        ("dwLongestEverWaitTime", UInt32),
-        ("dwCurrentLongestWaitTime", UInt32),
-        ("dwAverageWaitTime", UInt32),
-        ("dwFinalDisposition", UInt32),
-    ]
-    return LINEQUEUEINFO
-def _define_LINEPROXYREQUESTLIST_head():
-    class LINEPROXYREQUESTLIST(Structure):
-        pass
-    return LINEPROXYREQUESTLIST
-def _define_LINEPROXYREQUESTLIST():
-    LINEPROXYREQUESTLIST = win32more.Devices.Tapi.LINEPROXYREQUESTLIST_head
-    LINEPROXYREQUESTLIST._pack_ = 1
-    LINEPROXYREQUESTLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("dwListSize", UInt32),
-        ("dwListOffset", UInt32),
-    ]
-    return LINEPROXYREQUESTLIST
-def _define_LINEDIALPARAMS_head():
-    class LINEDIALPARAMS(Structure):
-        pass
-    return LINEDIALPARAMS
-def _define_LINEDIALPARAMS():
-    LINEDIALPARAMS = win32more.Devices.Tapi.LINEDIALPARAMS_head
-    LINEDIALPARAMS._pack_ = 1
-    LINEDIALPARAMS._fields_ = [
-        ("dwDialPause", UInt32),
-        ("dwDialSpeed", UInt32),
-        ("dwDigitDuration", UInt32),
-        ("dwWaitForDialtone", UInt32),
-    ]
-    return LINEDIALPARAMS
-def _define_LINECALLINFO_head():
-    class LINECALLINFO(Structure):
-        pass
-    return LINECALLINFO
-def _define_LINECALLINFO():
-    LINECALLINFO = win32more.Devices.Tapi.LINECALLINFO_head
-    LINECALLINFO._pack_ = 1
-    LINECALLINFO._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("hLine", UInt32),
-        ("dwLineDeviceID", UInt32),
-        ("dwAddressID", UInt32),
-        ("dwBearerMode", UInt32),
-        ("dwRate", UInt32),
-        ("dwMediaMode", UInt32),
-        ("dwAppSpecific", UInt32),
-        ("dwCallID", UInt32),
-        ("dwRelatedCallID", UInt32),
-        ("dwCallParamFlags", UInt32),
-        ("dwCallStates", UInt32),
-        ("dwMonitorDigitModes", UInt32),
-        ("dwMonitorMediaModes", UInt32),
-        ("DialParams", win32more.Devices.Tapi.LINEDIALPARAMS),
-        ("dwOrigin", UInt32),
-        ("dwReason", UInt32),
-        ("dwCompletionID", UInt32),
-        ("dwNumOwners", UInt32),
-        ("dwNumMonitors", UInt32),
-        ("dwCountryCode", UInt32),
-        ("dwTrunk", UInt32),
-        ("dwCallerIDFlags", UInt32),
-        ("dwCallerIDSize", UInt32),
-        ("dwCallerIDOffset", UInt32),
-        ("dwCallerIDNameSize", UInt32),
-        ("dwCallerIDNameOffset", UInt32),
-        ("dwCalledIDFlags", UInt32),
-        ("dwCalledIDSize", UInt32),
-        ("dwCalledIDOffset", UInt32),
-        ("dwCalledIDNameSize", UInt32),
-        ("dwCalledIDNameOffset", UInt32),
-        ("dwConnectedIDFlags", UInt32),
-        ("dwConnectedIDSize", UInt32),
-        ("dwConnectedIDOffset", UInt32),
-        ("dwConnectedIDNameSize", UInt32),
-        ("dwConnectedIDNameOffset", UInt32),
-        ("dwRedirectionIDFlags", UInt32),
-        ("dwRedirectionIDSize", UInt32),
-        ("dwRedirectionIDOffset", UInt32),
-        ("dwRedirectionIDNameSize", UInt32),
-        ("dwRedirectionIDNameOffset", UInt32),
-        ("dwRedirectingIDFlags", UInt32),
-        ("dwRedirectingIDSize", UInt32),
-        ("dwRedirectingIDOffset", UInt32),
-        ("dwRedirectingIDNameSize", UInt32),
-        ("dwRedirectingIDNameOffset", UInt32),
-        ("dwAppNameSize", UInt32),
-        ("dwAppNameOffset", UInt32),
-        ("dwDisplayableAddressSize", UInt32),
-        ("dwDisplayableAddressOffset", UInt32),
-        ("dwCalledPartySize", UInt32),
-        ("dwCalledPartyOffset", UInt32),
-        ("dwCommentSize", UInt32),
-        ("dwCommentOffset", UInt32),
-        ("dwDisplaySize", UInt32),
-        ("dwDisplayOffset", UInt32),
-        ("dwUserUserInfoSize", UInt32),
-        ("dwUserUserInfoOffset", UInt32),
-        ("dwHighLevelCompSize", UInt32),
-        ("dwHighLevelCompOffset", UInt32),
-        ("dwLowLevelCompSize", UInt32),
-        ("dwLowLevelCompOffset", UInt32),
-        ("dwChargingInfoSize", UInt32),
-        ("dwChargingInfoOffset", UInt32),
-        ("dwTerminalModesSize", UInt32),
-        ("dwTerminalModesOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwCallTreatment", UInt32),
-        ("dwCallDataSize", UInt32),
-        ("dwCallDataOffset", UInt32),
-        ("dwSendingFlowspecSize", UInt32),
-        ("dwSendingFlowspecOffset", UInt32),
-        ("dwReceivingFlowspecSize", UInt32),
-        ("dwReceivingFlowspecOffset", UInt32),
-    ]
-    return LINECALLINFO
-def _define_LINECALLLIST_head():
-    class LINECALLLIST(Structure):
-        pass
-    return LINECALLLIST
-def _define_LINECALLLIST():
-    LINECALLLIST = win32more.Devices.Tapi.LINECALLLIST_head
-    LINECALLLIST._pack_ = 1
-    LINECALLLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwCallsNumEntries", UInt32),
-        ("dwCallsSize", UInt32),
-        ("dwCallsOffset", UInt32),
-    ]
-    return LINECALLLIST
-def _define_LINECALLPARAMS_head():
-    class LINECALLPARAMS(Structure):
-        pass
-    return LINECALLPARAMS
-def _define_LINECALLPARAMS():
-    LINECALLPARAMS = win32more.Devices.Tapi.LINECALLPARAMS_head
-    LINECALLPARAMS._pack_ = 1
-    LINECALLPARAMS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwBearerMode", UInt32),
-        ("dwMinRate", UInt32),
-        ("dwMaxRate", UInt32),
-        ("dwMediaMode", UInt32),
-        ("dwCallParamFlags", UInt32),
-        ("dwAddressMode", UInt32),
-        ("dwAddressID", UInt32),
-        ("DialParams", win32more.Devices.Tapi.LINEDIALPARAMS),
-        ("dwOrigAddressSize", UInt32),
-        ("dwOrigAddressOffset", UInt32),
-        ("dwDisplayableAddressSize", UInt32),
-        ("dwDisplayableAddressOffset", UInt32),
-        ("dwCalledPartySize", UInt32),
-        ("dwCalledPartyOffset", UInt32),
-        ("dwCommentSize", UInt32),
-        ("dwCommentOffset", UInt32),
-        ("dwUserUserInfoSize", UInt32),
-        ("dwUserUserInfoOffset", UInt32),
-        ("dwHighLevelCompSize", UInt32),
-        ("dwHighLevelCompOffset", UInt32),
-        ("dwLowLevelCompSize", UInt32),
-        ("dwLowLevelCompOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwPredictiveAutoTransferStates", UInt32),
-        ("dwTargetAddressSize", UInt32),
-        ("dwTargetAddressOffset", UInt32),
-        ("dwSendingFlowspecSize", UInt32),
-        ("dwSendingFlowspecOffset", UInt32),
-        ("dwReceivingFlowspecSize", UInt32),
-        ("dwReceivingFlowspecOffset", UInt32),
-        ("dwDeviceClassSize", UInt32),
-        ("dwDeviceClassOffset", UInt32),
-        ("dwDeviceConfigSize", UInt32),
-        ("dwDeviceConfigOffset", UInt32),
-        ("dwCallDataSize", UInt32),
-        ("dwCallDataOffset", UInt32),
-        ("dwNoAnswerTimeout", UInt32),
-        ("dwCallingPartyIDSize", UInt32),
-        ("dwCallingPartyIDOffset", UInt32),
-    ]
-    return LINECALLPARAMS
-def _define_LINECALLSTATUS_head():
-    class LINECALLSTATUS(Structure):
-        pass
-    return LINECALLSTATUS
-def _define_LINECALLSTATUS():
-    LINECALLSTATUS = win32more.Devices.Tapi.LINECALLSTATUS_head
-    LINECALLSTATUS._pack_ = 1
-    LINECALLSTATUS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwCallState", UInt32),
-        ("dwCallStateMode", UInt32),
-        ("dwCallPrivilege", UInt32),
-        ("dwCallFeatures", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwCallFeatures2", UInt32),
-        ("tStateEntryTime", win32more.Foundation.SYSTEMTIME),
-    ]
-    return LINECALLSTATUS
-def _define_LINECALLTREATMENTENTRY_head():
-    class LINECALLTREATMENTENTRY(Structure):
-        pass
-    return LINECALLTREATMENTENTRY
-def _define_LINECALLTREATMENTENTRY():
-    LINECALLTREATMENTENTRY = win32more.Devices.Tapi.LINECALLTREATMENTENTRY_head
-    LINECALLTREATMENTENTRY._pack_ = 1
-    LINECALLTREATMENTENTRY._fields_ = [
-        ("dwCallTreatmentID", UInt32),
-        ("dwCallTreatmentNameSize", UInt32),
-        ("dwCallTreatmentNameOffset", UInt32),
-    ]
-    return LINECALLTREATMENTENTRY
-def _define_LINECARDENTRY_head():
-    class LINECARDENTRY(Structure):
-        pass
-    return LINECARDENTRY
-def _define_LINECARDENTRY():
-    LINECARDENTRY = win32more.Devices.Tapi.LINECARDENTRY_head
-    LINECARDENTRY._pack_ = 1
-    LINECARDENTRY._fields_ = [
-        ("dwPermanentCardID", UInt32),
-        ("dwCardNameSize", UInt32),
-        ("dwCardNameOffset", UInt32),
-        ("dwCardNumberDigits", UInt32),
-        ("dwSameAreaRuleSize", UInt32),
-        ("dwSameAreaRuleOffset", UInt32),
-        ("dwLongDistanceRuleSize", UInt32),
-        ("dwLongDistanceRuleOffset", UInt32),
-        ("dwInternationalRuleSize", UInt32),
-        ("dwInternationalRuleOffset", UInt32),
-        ("dwOptions", UInt32),
-    ]
-    return LINECARDENTRY
-def _define_LINECOUNTRYENTRY_head():
-    class LINECOUNTRYENTRY(Structure):
-        pass
-    return LINECOUNTRYENTRY
-def _define_LINECOUNTRYENTRY():
-    LINECOUNTRYENTRY = win32more.Devices.Tapi.LINECOUNTRYENTRY_head
-    LINECOUNTRYENTRY._pack_ = 1
-    LINECOUNTRYENTRY._fields_ = [
-        ("dwCountryID", UInt32),
-        ("dwCountryCode", UInt32),
-        ("dwNextCountryID", UInt32),
-        ("dwCountryNameSize", UInt32),
-        ("dwCountryNameOffset", UInt32),
-        ("dwSameAreaRuleSize", UInt32),
-        ("dwSameAreaRuleOffset", UInt32),
-        ("dwLongDistanceRuleSize", UInt32),
-        ("dwLongDistanceRuleOffset", UInt32),
-        ("dwInternationalRuleSize", UInt32),
-        ("dwInternationalRuleOffset", UInt32),
-    ]
-    return LINECOUNTRYENTRY
-def _define_LINECOUNTRYLIST_head():
-    class LINECOUNTRYLIST(Structure):
-        pass
-    return LINECOUNTRYLIST
-def _define_LINECOUNTRYLIST():
-    LINECOUNTRYLIST = win32more.Devices.Tapi.LINECOUNTRYLIST_head
-    LINECOUNTRYLIST._pack_ = 1
-    LINECOUNTRYLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumCountries", UInt32),
-        ("dwCountryListSize", UInt32),
-        ("dwCountryListOffset", UInt32),
-    ]
-    return LINECOUNTRYLIST
-def _define_LINEDEVCAPS_head():
-    class LINEDEVCAPS(Structure):
-        pass
-    return LINEDEVCAPS
-def _define_LINEDEVCAPS():
-    LINEDEVCAPS = win32more.Devices.Tapi.LINEDEVCAPS_head
-    LINEDEVCAPS._pack_ = 1
-    LINEDEVCAPS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwProviderInfoSize", UInt32),
-        ("dwProviderInfoOffset", UInt32),
-        ("dwSwitchInfoSize", UInt32),
-        ("dwSwitchInfoOffset", UInt32),
-        ("dwPermanentLineID", UInt32),
-        ("dwLineNameSize", UInt32),
-        ("dwLineNameOffset", UInt32),
-        ("dwStringFormat", UInt32),
-        ("dwAddressModes", UInt32),
-        ("dwNumAddresses", UInt32),
-        ("dwBearerModes", UInt32),
-        ("dwMaxRate", UInt32),
-        ("dwMediaModes", UInt32),
-        ("dwGenerateToneModes", UInt32),
-        ("dwGenerateToneMaxNumFreq", UInt32),
-        ("dwGenerateDigitModes", UInt32),
-        ("dwMonitorToneMaxNumFreq", UInt32),
-        ("dwMonitorToneMaxNumEntries", UInt32),
-        ("dwMonitorDigitModes", UInt32),
-        ("dwGatherDigitsMinTimeout", UInt32),
-        ("dwGatherDigitsMaxTimeout", UInt32),
-        ("dwMedCtlDigitMaxListSize", UInt32),
-        ("dwMedCtlMediaMaxListSize", UInt32),
-        ("dwMedCtlToneMaxListSize", UInt32),
-        ("dwMedCtlCallStateMaxListSize", UInt32),
-        ("dwDevCapFlags", UInt32),
-        ("dwMaxNumActiveCalls", UInt32),
-        ("dwAnswerMode", UInt32),
-        ("dwRingModes", UInt32),
-        ("dwLineStates", UInt32),
-        ("dwUUIAcceptSize", UInt32),
-        ("dwUUIAnswerSize", UInt32),
-        ("dwUUIMakeCallSize", UInt32),
-        ("dwUUIDropSize", UInt32),
-        ("dwUUISendUserUserInfoSize", UInt32),
-        ("dwUUICallInfoSize", UInt32),
-        ("MinDialParams", win32more.Devices.Tapi.LINEDIALPARAMS),
-        ("MaxDialParams", win32more.Devices.Tapi.LINEDIALPARAMS),
-        ("DefaultDialParams", win32more.Devices.Tapi.LINEDIALPARAMS),
-        ("dwNumTerminals", UInt32),
-        ("dwTerminalCapsSize", UInt32),
-        ("dwTerminalCapsOffset", UInt32),
-        ("dwTerminalTextEntrySize", UInt32),
-        ("dwTerminalTextSize", UInt32),
-        ("dwTerminalTextOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwLineFeatures", UInt32),
-        ("dwSettableDevStatus", UInt32),
-        ("dwDeviceClassesSize", UInt32),
-        ("dwDeviceClassesOffset", UInt32),
-        ("PermanentLineGuid", Guid),
-    ]
-    return LINEDEVCAPS
-def _define_LINEDEVSTATUS_head():
-    class LINEDEVSTATUS(Structure):
-        pass
-    return LINEDEVSTATUS
-def _define_LINEDEVSTATUS():
-    LINEDEVSTATUS = win32more.Devices.Tapi.LINEDEVSTATUS_head
-    LINEDEVSTATUS._pack_ = 1
-    LINEDEVSTATUS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumOpens", UInt32),
-        ("dwOpenMediaModes", UInt32),
-        ("dwNumActiveCalls", UInt32),
-        ("dwNumOnHoldCalls", UInt32),
-        ("dwNumOnHoldPendCalls", UInt32),
-        ("dwLineFeatures", UInt32),
-        ("dwNumCallCompletions", UInt32),
-        ("dwRingMode", UInt32),
-        ("dwSignalLevel", UInt32),
-        ("dwBatteryLevel", UInt32),
-        ("dwRoamMode", UInt32),
-        ("dwDevStatusFlags", UInt32),
-        ("dwTerminalModesSize", UInt32),
-        ("dwTerminalModesOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwAvailableMediaModes", UInt32),
-        ("dwAppInfoSize", UInt32),
-        ("dwAppInfoOffset", UInt32),
-    ]
-    return LINEDEVSTATUS
-def _define_LINEEXTENSIONID_head():
-    class LINEEXTENSIONID(Structure):
-        pass
-    return LINEEXTENSIONID
-def _define_LINEEXTENSIONID():
-    LINEEXTENSIONID = win32more.Devices.Tapi.LINEEXTENSIONID_head
-    LINEEXTENSIONID._pack_ = 1
-    LINEEXTENSIONID._fields_ = [
-        ("dwExtensionID0", UInt32),
-        ("dwExtensionID1", UInt32),
-        ("dwExtensionID2", UInt32),
-        ("dwExtensionID3", UInt32),
-    ]
-    return LINEEXTENSIONID
-def _define_LINEFORWARD_head():
-    class LINEFORWARD(Structure):
-        pass
-    return LINEFORWARD
-def _define_LINEFORWARD():
-    LINEFORWARD = win32more.Devices.Tapi.LINEFORWARD_head
-    LINEFORWARD._pack_ = 1
-    LINEFORWARD._fields_ = [
-        ("dwForwardMode", UInt32),
-        ("dwCallerAddressSize", UInt32),
-        ("dwCallerAddressOffset", UInt32),
-        ("dwDestCountryCode", UInt32),
-        ("dwDestAddressSize", UInt32),
-        ("dwDestAddressOffset", UInt32),
-    ]
-    return LINEFORWARD
-def _define_LINEFORWARDLIST_head():
-    class LINEFORWARDLIST(Structure):
-        pass
-    return LINEFORWARDLIST
-def _define_LINEFORWARDLIST():
-    LINEFORWARDLIST = win32more.Devices.Tapi.LINEFORWARDLIST_head
-    LINEFORWARDLIST._pack_ = 1
-    LINEFORWARDLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNumEntries", UInt32),
-        ("ForwardList", win32more.Devices.Tapi.LINEFORWARD * 0),
-    ]
-    return LINEFORWARDLIST
-def _define_LINEGENERATETONE_head():
-    class LINEGENERATETONE(Structure):
-        pass
-    return LINEGENERATETONE
-def _define_LINEGENERATETONE():
-    LINEGENERATETONE = win32more.Devices.Tapi.LINEGENERATETONE_head
-    LINEGENERATETONE._pack_ = 1
-    LINEGENERATETONE._fields_ = [
-        ("dwFrequency", UInt32),
-        ("dwCadenceOn", UInt32),
-        ("dwCadenceOff", UInt32),
-        ("dwVolume", UInt32),
-    ]
-    return LINEGENERATETONE
-def _define_LINEINITIALIZEEXPARAMS_head():
-    class LINEINITIALIZEEXPARAMS(Structure):
-        pass
-    return LINEINITIALIZEEXPARAMS
-def _define_LINEINITIALIZEEXPARAMS():
-    LINEINITIALIZEEXPARAMS = win32more.Devices.Tapi.LINEINITIALIZEEXPARAMS_head
-    class LINEINITIALIZEEXPARAMS__Handles_e__Union(Union):
-        pass
-    LINEINITIALIZEEXPARAMS__Handles_e__Union._pack_ = 1
-    LINEINITIALIZEEXPARAMS__Handles_e__Union._fields_ = [
-        ("hEvent", win32more.Foundation.HANDLE),
-        ("hCompletionPort", win32more.Foundation.HANDLE),
-    ]
-    LINEINITIALIZEEXPARAMS._pack_ = 1
-    LINEINITIALIZEEXPARAMS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwOptions", UInt32),
-        ("Handles", LINEINITIALIZEEXPARAMS__Handles_e__Union),
-        ("dwCompletionKey", UInt32),
-    ]
-    return LINEINITIALIZEEXPARAMS
-def _define_LINELOCATIONENTRY_head():
-    class LINELOCATIONENTRY(Structure):
-        pass
-    return LINELOCATIONENTRY
-def _define_LINELOCATIONENTRY():
-    LINELOCATIONENTRY = win32more.Devices.Tapi.LINELOCATIONENTRY_head
-    LINELOCATIONENTRY._pack_ = 1
-    LINELOCATIONENTRY._fields_ = [
-        ("dwPermanentLocationID", UInt32),
-        ("dwLocationNameSize", UInt32),
-        ("dwLocationNameOffset", UInt32),
-        ("dwCountryCode", UInt32),
-        ("dwCityCodeSize", UInt32),
-        ("dwCityCodeOffset", UInt32),
-        ("dwPreferredCardID", UInt32),
-        ("dwLocalAccessCodeSize", UInt32),
-        ("dwLocalAccessCodeOffset", UInt32),
-        ("dwLongDistanceAccessCodeSize", UInt32),
-        ("dwLongDistanceAccessCodeOffset", UInt32),
-        ("dwTollPrefixListSize", UInt32),
-        ("dwTollPrefixListOffset", UInt32),
-        ("dwCountryID", UInt32),
-        ("dwOptions", UInt32),
-        ("dwCancelCallWaitingSize", UInt32),
-        ("dwCancelCallWaitingOffset", UInt32),
-    ]
-    return LINELOCATIONENTRY
-def _define_LINEMEDIACONTROLCALLSTATE_head():
-    class LINEMEDIACONTROLCALLSTATE(Structure):
-        pass
-    return LINEMEDIACONTROLCALLSTATE
-def _define_LINEMEDIACONTROLCALLSTATE():
-    LINEMEDIACONTROLCALLSTATE = win32more.Devices.Tapi.LINEMEDIACONTROLCALLSTATE_head
-    LINEMEDIACONTROLCALLSTATE._pack_ = 1
-    LINEMEDIACONTROLCALLSTATE._fields_ = [
-        ("dwCallStates", UInt32),
-        ("dwMediaControl", UInt32),
-    ]
-    return LINEMEDIACONTROLCALLSTATE
-def _define_LINEMEDIACONTROLDIGIT_head():
-    class LINEMEDIACONTROLDIGIT(Structure):
-        pass
-    return LINEMEDIACONTROLDIGIT
-def _define_LINEMEDIACONTROLDIGIT():
-    LINEMEDIACONTROLDIGIT = win32more.Devices.Tapi.LINEMEDIACONTROLDIGIT_head
-    LINEMEDIACONTROLDIGIT._pack_ = 1
-    LINEMEDIACONTROLDIGIT._fields_ = [
-        ("dwDigit", UInt32),
-        ("dwDigitModes", UInt32),
-        ("dwMediaControl", UInt32),
-    ]
-    return LINEMEDIACONTROLDIGIT
-def _define_LINEMEDIACONTROLMEDIA_head():
-    class LINEMEDIACONTROLMEDIA(Structure):
-        pass
-    return LINEMEDIACONTROLMEDIA
-def _define_LINEMEDIACONTROLMEDIA():
-    LINEMEDIACONTROLMEDIA = win32more.Devices.Tapi.LINEMEDIACONTROLMEDIA_head
-    LINEMEDIACONTROLMEDIA._pack_ = 1
-    LINEMEDIACONTROLMEDIA._fields_ = [
-        ("dwMediaModes", UInt32),
-        ("dwDuration", UInt32),
-        ("dwMediaControl", UInt32),
-    ]
-    return LINEMEDIACONTROLMEDIA
-def _define_LINEMEDIACONTROLTONE_head():
-    class LINEMEDIACONTROLTONE(Structure):
-        pass
-    return LINEMEDIACONTROLTONE
-def _define_LINEMEDIACONTROLTONE():
-    LINEMEDIACONTROLTONE = win32more.Devices.Tapi.LINEMEDIACONTROLTONE_head
-    LINEMEDIACONTROLTONE._pack_ = 1
-    LINEMEDIACONTROLTONE._fields_ = [
-        ("dwAppSpecific", UInt32),
-        ("dwDuration", UInt32),
-        ("dwFrequency1", UInt32),
-        ("dwFrequency2", UInt32),
-        ("dwFrequency3", UInt32),
-        ("dwMediaControl", UInt32),
-    ]
-    return LINEMEDIACONTROLTONE
-def _define_LINEMESSAGE_head():
-    class LINEMESSAGE(Structure):
-        pass
-    return LINEMESSAGE
-def _define_LINEMESSAGE():
-    LINEMESSAGE = win32more.Devices.Tapi.LINEMESSAGE_head
-    LINEMESSAGE._pack_ = 1
-    LINEMESSAGE._fields_ = [
-        ("hDevice", UInt32),
-        ("dwMessageID", UInt32),
-        ("dwCallbackInstance", UIntPtr),
-        ("dwParam1", UIntPtr),
-        ("dwParam2", UIntPtr),
-        ("dwParam3", UIntPtr),
-    ]
-    return LINEMESSAGE
-def _define_LINEMONITORTONE_head():
-    class LINEMONITORTONE(Structure):
-        pass
-    return LINEMONITORTONE
-def _define_LINEMONITORTONE():
-    LINEMONITORTONE = win32more.Devices.Tapi.LINEMONITORTONE_head
-    LINEMONITORTONE._pack_ = 1
-    LINEMONITORTONE._fields_ = [
-        ("dwAppSpecific", UInt32),
-        ("dwDuration", UInt32),
-        ("dwFrequency1", UInt32),
-        ("dwFrequency2", UInt32),
-        ("dwFrequency3", UInt32),
-    ]
-    return LINEMONITORTONE
-def _define_LINEPROVIDERENTRY_head():
-    class LINEPROVIDERENTRY(Structure):
-        pass
-    return LINEPROVIDERENTRY
-def _define_LINEPROVIDERENTRY():
-    LINEPROVIDERENTRY = win32more.Devices.Tapi.LINEPROVIDERENTRY_head
-    LINEPROVIDERENTRY._pack_ = 1
-    LINEPROVIDERENTRY._fields_ = [
-        ("dwPermanentProviderID", UInt32),
-        ("dwProviderFilenameSize", UInt32),
-        ("dwProviderFilenameOffset", UInt32),
-    ]
-    return LINEPROVIDERENTRY
-def _define_LINEPROVIDERLIST_head():
-    class LINEPROVIDERLIST(Structure):
-        pass
-    return LINEPROVIDERLIST
-def _define_LINEPROVIDERLIST():
-    LINEPROVIDERLIST = win32more.Devices.Tapi.LINEPROVIDERLIST_head
-    LINEPROVIDERLIST._pack_ = 1
-    LINEPROVIDERLIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumProviders", UInt32),
-        ("dwProviderListSize", UInt32),
-        ("dwProviderListOffset", UInt32),
-    ]
-    return LINEPROVIDERLIST
-def _define_LINEPROXYREQUEST_head():
-    class LINEPROXYREQUEST(Structure):
-        pass
-    return LINEPROXYREQUEST
-def _define_LINEPROXYREQUEST():
-    LINEPROXYREQUEST = win32more.Devices.Tapi.LINEPROXYREQUEST_head
-    class LINEPROXYREQUEST__Anonymous_e__Union(Union):
-        pass
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct._fields_ = [
-        ("dwQueueID", UInt32),
-        ("QueueInfo", win32more.Devices.Tapi.LINEQUEUEINFO),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct._fields_ = [
-        ("GroupID", Guid),
-        ("QueueList", win32more.Devices.Tapi.LINEQUEUELIST),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct._fields_ = [
-        ("hAgentSession", UInt32),
-        ("SessionInfo", win32more.Devices.Tapi.LINEAGENTSESSIONINFO),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct._fields_ = [
-        ("hAgentSession", UInt32),
-        ("dwAgentPINSize", UInt32),
-        ("dwAgentPINOffset", UInt32),
-        ("hAgent", UInt32),
-        ("GroupID", Guid),
-        ("dwWorkingAddressID", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct._fields_ = [
-        ("hAgent", UInt32),
-        ("dwMeasurementPeriod", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct._fields_ = [
-        ("hAgent", UInt32),
-        ("dwAgentIDSize", UInt32),
-        ("dwAgentIDOffset", UInt32),
-        ("dwAgentPINSize", UInt32),
-        ("dwAgentPINOffset", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("ActivityList", win32more.Devices.Tapi.LINEAGENTACTIVITYLIST),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("AgentStatus", win32more.Devices.Tapi.LINEAGENTSTATUS),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("dwActivityID", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("GroupList", win32more.Devices.Tapi.LINEAGENTGROUPLIST),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct._fields_ = [
-        ("dwQueueID", UInt32),
-        ("dwMeasurementPeriod", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct._fields_ = [
-        ("hAgent", UInt32),
-        ("SessionList", win32more.Devices.Tapi.LINEAGENTSESSIONLIST),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct._fields_ = [
-        ("hAgent", UInt32),
-        ("dwAgentState", UInt32),
-        ("dwNextAgentState", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("dwAgentExtensionIDIndex", UInt32),
-        ("dwSize", UInt32),
-        ("Params", Byte * 0),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("dwAgentState", UInt32),
-        ("dwNextAgentState", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct._fields_ = [
-        ("hAgentSession", UInt32),
-        ("dwAgentSessionState", UInt32),
-        ("dwNextAgentSessionState", UInt32),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("GroupList", win32more.Devices.Tapi.LINEAGENTGROUPLIST),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetGroupList_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetGroupList_e__Struct._fields_ = [
-        ("GroupList", win32more.Devices.Tapi.LINEAGENTGROUPLIST),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct._fields_ = [
-        ("dwAddressID", UInt32),
-        ("AgentCaps", win32more.Devices.Tapi.LINEAGENTCAPS),
-    ]
-    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct(Structure):
-        pass
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct._pack_ = 1
-    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct._fields_ = [
-        ("hAgent", UInt32),
-        ("AgentInfo", win32more.Devices.Tapi.LINEAGENTINFO),
-    ]
-    LINEPROXYREQUEST__Anonymous_e__Union._fields_ = [
-        ("SetAgentGroup", LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct),
-        ("SetAgentState", LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct),
-        ("SetAgentActivity", LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct),
-        ("GetAgentCaps", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct),
-        ("GetAgentStatus", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct),
-        ("AgentSpecific", LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct),
-        ("GetAgentActivityList", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct),
-        ("GetAgentGroupList", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct),
-        ("CreateAgent", LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct),
-        ("SetAgentStateEx", LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct),
-        ("SetAgentMeasurementPeriod", LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct),
-        ("GetAgentInfo", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct),
-        ("CreateAgentSession", LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct),
-        ("GetAgentSessionList", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct),
-        ("GetAgentSessionInfo", LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct),
-        ("SetAgentSessionState", LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct),
-        ("GetQueueList", LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct),
-        ("SetQueueMeasurementPeriod", LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct),
-        ("GetQueueInfo", LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct),
-        ("GetGroupList", LINEPROXYREQUEST__Anonymous_e__Union__GetGroupList_e__Struct),
-    ]
-    LINEPROXYREQUEST._pack_ = 1
-    LINEPROXYREQUEST._anonymous_ = [
-        'Anonymous',
-    ]
-    LINEPROXYREQUEST._fields_ = [
-        ("dwSize", UInt32),
-        ("dwClientMachineNameSize", UInt32),
-        ("dwClientMachineNameOffset", UInt32),
-        ("dwClientUserNameSize", UInt32),
-        ("dwClientUserNameOffset", UInt32),
-        ("dwClientAppAPIVersion", UInt32),
-        ("dwRequestType", UInt32),
-        ("Anonymous", LINEPROXYREQUEST__Anonymous_e__Union),
-    ]
-    return LINEPROXYREQUEST
-def _define_LINEREQMAKECALL_head():
-    class LINEREQMAKECALL(Structure):
-        pass
-    return LINEREQMAKECALL
-def _define_LINEREQMAKECALL():
-    LINEREQMAKECALL = win32more.Devices.Tapi.LINEREQMAKECALL_head
-    LINEREQMAKECALL._fields_ = [
-        ("szDestAddress", win32more.Foundation.CHAR * 80),
-        ("szAppName", win32more.Foundation.CHAR * 40),
-        ("szCalledParty", win32more.Foundation.CHAR * 40),
-        ("szComment", win32more.Foundation.CHAR * 80),
-    ]
-    return LINEREQMAKECALL
-def _define_linereqmakecallW_tag_head():
-    class linereqmakecallW_tag(Structure):
-        pass
-    return linereqmakecallW_tag
-def _define_linereqmakecallW_tag():
-    linereqmakecallW_tag = win32more.Devices.Tapi.linereqmakecallW_tag_head
-    linereqmakecallW_tag._pack_ = 1
-    linereqmakecallW_tag._fields_ = [
-        ("szDestAddress", Char * 80),
-        ("szAppName", Char * 40),
-        ("szCalledParty", Char * 40),
-        ("szComment", Char * 80),
-    ]
-    return linereqmakecallW_tag
-def _define_LINEREQMEDIACALL_head():
-    class LINEREQMEDIACALL(Structure):
-        pass
-    return LINEREQMEDIACALL
-def _define_LINEREQMEDIACALL():
-    LINEREQMEDIACALL = win32more.Devices.Tapi.LINEREQMEDIACALL_head
-    LINEREQMEDIACALL._pack_ = 1
-    LINEREQMEDIACALL._fields_ = [
-        ("hWnd", win32more.Foundation.HWND),
-        ("wRequestID", win32more.Foundation.WPARAM),
-        ("szDeviceClass", win32more.Foundation.CHAR * 40),
-        ("ucDeviceID", Byte * 40),
-        ("dwSize", UInt32),
-        ("dwSecure", UInt32),
-        ("szDestAddress", win32more.Foundation.CHAR * 80),
-        ("szAppName", win32more.Foundation.CHAR * 40),
-        ("szCalledParty", win32more.Foundation.CHAR * 40),
-        ("szComment", win32more.Foundation.CHAR * 80),
-    ]
-    return LINEREQMEDIACALL
-def _define_linereqmediacallW_tag_head():
-    class linereqmediacallW_tag(Structure):
-        pass
-    return linereqmediacallW_tag
-def _define_linereqmediacallW_tag():
-    linereqmediacallW_tag = win32more.Devices.Tapi.linereqmediacallW_tag_head
-    linereqmediacallW_tag._pack_ = 1
-    linereqmediacallW_tag._fields_ = [
-        ("hWnd", win32more.Foundation.HWND),
-        ("wRequestID", win32more.Foundation.WPARAM),
-        ("szDeviceClass", Char * 40),
-        ("ucDeviceID", Byte * 40),
-        ("dwSize", UInt32),
-        ("dwSecure", UInt32),
-        ("szDestAddress", Char * 80),
-        ("szAppName", Char * 40),
-        ("szCalledParty", Char * 40),
-        ("szComment", Char * 80),
-    ]
-    return linereqmediacallW_tag
-def _define_LINETERMCAPS_head():
-    class LINETERMCAPS(Structure):
-        pass
-    return LINETERMCAPS
-def _define_LINETERMCAPS():
-    LINETERMCAPS = win32more.Devices.Tapi.LINETERMCAPS_head
-    LINETERMCAPS._pack_ = 1
-    LINETERMCAPS._fields_ = [
-        ("dwTermDev", UInt32),
-        ("dwTermModes", UInt32),
-        ("dwTermSharing", UInt32),
-    ]
-    return LINETERMCAPS
-def _define_LINETRANSLATECAPS_head():
-    class LINETRANSLATECAPS(Structure):
-        pass
-    return LINETRANSLATECAPS
-def _define_LINETRANSLATECAPS():
-    LINETRANSLATECAPS = win32more.Devices.Tapi.LINETRANSLATECAPS_head
-    LINETRANSLATECAPS._pack_ = 1
-    LINETRANSLATECAPS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwNumLocations", UInt32),
-        ("dwLocationListSize", UInt32),
-        ("dwLocationListOffset", UInt32),
-        ("dwCurrentLocationID", UInt32),
-        ("dwNumCards", UInt32),
-        ("dwCardListSize", UInt32),
-        ("dwCardListOffset", UInt32),
-        ("dwCurrentPreferredCardID", UInt32),
-    ]
-    return LINETRANSLATECAPS
-def _define_LINETRANSLATEOUTPUT_head():
-    class LINETRANSLATEOUTPUT(Structure):
-        pass
-    return LINETRANSLATEOUTPUT
-def _define_LINETRANSLATEOUTPUT():
-    LINETRANSLATEOUTPUT = win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head
-    LINETRANSLATEOUTPUT._pack_ = 1
-    LINETRANSLATEOUTPUT._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwDialableStringSize", UInt32),
-        ("dwDialableStringOffset", UInt32),
-        ("dwDisplayableStringSize", UInt32),
-        ("dwDisplayableStringOffset", UInt32),
-        ("dwCurrentCountry", UInt32),
-        ("dwDestCountry", UInt32),
-        ("dwTranslateResults", UInt32),
-    ]
-    return LINETRANSLATEOUTPUT
-def _define_PHONEBUTTONINFO_head():
-    class PHONEBUTTONINFO(Structure):
-        pass
-    return PHONEBUTTONINFO
-def _define_PHONEBUTTONINFO():
-    PHONEBUTTONINFO = win32more.Devices.Tapi.PHONEBUTTONINFO_head
-    PHONEBUTTONINFO._pack_ = 1
-    PHONEBUTTONINFO._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwButtonMode", UInt32),
-        ("dwButtonFunction", UInt32),
-        ("dwButtonTextSize", UInt32),
-        ("dwButtonTextOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwButtonState", UInt32),
-    ]
-    return PHONEBUTTONINFO
-def _define_PHONECAPS_head():
-    class PHONECAPS(Structure):
-        pass
-    return PHONECAPS
-def _define_PHONECAPS():
-    PHONECAPS = win32more.Devices.Tapi.PHONECAPS_head
-    PHONECAPS._pack_ = 1
-    PHONECAPS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwProviderInfoSize", UInt32),
-        ("dwProviderInfoOffset", UInt32),
-        ("dwPhoneInfoSize", UInt32),
-        ("dwPhoneInfoOffset", UInt32),
-        ("dwPermanentPhoneID", UInt32),
-        ("dwPhoneNameSize", UInt32),
-        ("dwPhoneNameOffset", UInt32),
-        ("dwStringFormat", UInt32),
-        ("dwPhoneStates", UInt32),
-        ("dwHookSwitchDevs", UInt32),
-        ("dwHandsetHookSwitchModes", UInt32),
-        ("dwSpeakerHookSwitchModes", UInt32),
-        ("dwHeadsetHookSwitchModes", UInt32),
-        ("dwVolumeFlags", UInt32),
-        ("dwGainFlags", UInt32),
-        ("dwDisplayNumRows", UInt32),
-        ("dwDisplayNumColumns", UInt32),
-        ("dwNumRingModes", UInt32),
-        ("dwNumButtonLamps", UInt32),
-        ("dwButtonModesSize", UInt32),
-        ("dwButtonModesOffset", UInt32),
-        ("dwButtonFunctionsSize", UInt32),
-        ("dwButtonFunctionsOffset", UInt32),
-        ("dwLampModesSize", UInt32),
-        ("dwLampModesOffset", UInt32),
-        ("dwNumSetData", UInt32),
-        ("dwSetDataSize", UInt32),
-        ("dwSetDataOffset", UInt32),
-        ("dwNumGetData", UInt32),
-        ("dwGetDataSize", UInt32),
-        ("dwGetDataOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwDeviceClassesSize", UInt32),
-        ("dwDeviceClassesOffset", UInt32),
-        ("dwPhoneFeatures", UInt32),
-        ("dwSettableHandsetHookSwitchModes", UInt32),
-        ("dwSettableSpeakerHookSwitchModes", UInt32),
-        ("dwSettableHeadsetHookSwitchModes", UInt32),
-        ("dwMonitoredHandsetHookSwitchModes", UInt32),
-        ("dwMonitoredSpeakerHookSwitchModes", UInt32),
-        ("dwMonitoredHeadsetHookSwitchModes", UInt32),
-        ("PermanentPhoneGuid", Guid),
-    ]
-    return PHONECAPS
-def _define_PHONEEXTENSIONID_head():
-    class PHONEEXTENSIONID(Structure):
-        pass
-    return PHONEEXTENSIONID
-def _define_PHONEEXTENSIONID():
-    PHONEEXTENSIONID = win32more.Devices.Tapi.PHONEEXTENSIONID_head
-    PHONEEXTENSIONID._pack_ = 1
-    PHONEEXTENSIONID._fields_ = [
-        ("dwExtensionID0", UInt32),
-        ("dwExtensionID1", UInt32),
-        ("dwExtensionID2", UInt32),
-        ("dwExtensionID3", UInt32),
-    ]
-    return PHONEEXTENSIONID
-def _define_PHONEINITIALIZEEXPARAMS_head():
-    class PHONEINITIALIZEEXPARAMS(Structure):
-        pass
-    return PHONEINITIALIZEEXPARAMS
-def _define_PHONEINITIALIZEEXPARAMS():
-    PHONEINITIALIZEEXPARAMS = win32more.Devices.Tapi.PHONEINITIALIZEEXPARAMS_head
-    class PHONEINITIALIZEEXPARAMS__Handles_e__Union(Union):
-        pass
-    PHONEINITIALIZEEXPARAMS__Handles_e__Union._pack_ = 1
-    PHONEINITIALIZEEXPARAMS__Handles_e__Union._fields_ = [
-        ("hEvent", win32more.Foundation.HANDLE),
-        ("hCompletionPort", win32more.Foundation.HANDLE),
-    ]
-    PHONEINITIALIZEEXPARAMS._pack_ = 1
-    PHONEINITIALIZEEXPARAMS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwOptions", UInt32),
-        ("Handles", PHONEINITIALIZEEXPARAMS__Handles_e__Union),
-        ("dwCompletionKey", UInt32),
-    ]
-    return PHONEINITIALIZEEXPARAMS
-def _define_PHONEMESSAGE_head():
-    class PHONEMESSAGE(Structure):
-        pass
-    return PHONEMESSAGE
-def _define_PHONEMESSAGE():
-    PHONEMESSAGE = win32more.Devices.Tapi.PHONEMESSAGE_head
-    PHONEMESSAGE._pack_ = 1
-    PHONEMESSAGE._fields_ = [
-        ("hDevice", UInt32),
-        ("dwMessageID", UInt32),
-        ("dwCallbackInstance", UIntPtr),
-        ("dwParam1", UIntPtr),
-        ("dwParam2", UIntPtr),
-        ("dwParam3", UIntPtr),
-    ]
-    return PHONEMESSAGE
-def _define_PHONESTATUS_head():
-    class PHONESTATUS(Structure):
-        pass
-    return PHONESTATUS
-def _define_PHONESTATUS():
-    PHONESTATUS = win32more.Devices.Tapi.PHONESTATUS_head
-    PHONESTATUS._pack_ = 1
-    PHONESTATUS._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwStatusFlags", UInt32),
-        ("dwNumOwners", UInt32),
-        ("dwNumMonitors", UInt32),
-        ("dwRingMode", UInt32),
-        ("dwRingVolume", UInt32),
-        ("dwHandsetHookSwitchMode", UInt32),
-        ("dwHandsetVolume", UInt32),
-        ("dwHandsetGain", UInt32),
-        ("dwSpeakerHookSwitchMode", UInt32),
-        ("dwSpeakerVolume", UInt32),
-        ("dwSpeakerGain", UInt32),
-        ("dwHeadsetHookSwitchMode", UInt32),
-        ("dwHeadsetVolume", UInt32),
-        ("dwHeadsetGain", UInt32),
-        ("dwDisplaySize", UInt32),
-        ("dwDisplayOffset", UInt32),
-        ("dwLampModesSize", UInt32),
-        ("dwLampModesOffset", UInt32),
-        ("dwOwnerNameSize", UInt32),
-        ("dwOwnerNameOffset", UInt32),
-        ("dwDevSpecificSize", UInt32),
-        ("dwDevSpecificOffset", UInt32),
-        ("dwPhoneFeatures", UInt32),
-    ]
-    return PHONESTATUS
-def _define_VARSTRING_head():
-    class VARSTRING(Structure):
-        pass
-    return VARSTRING
-def _define_VARSTRING():
-    VARSTRING = win32more.Devices.Tapi.VARSTRING_head
-    VARSTRING._pack_ = 1
-    VARSTRING._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNeededSize", UInt32),
-        ("dwUsedSize", UInt32),
-        ("dwStringFormat", UInt32),
-        ("dwStringSize", UInt32),
-        ("dwStringOffset", UInt32),
-    ]
-    return VARSTRING
-def _define_HDRVCALL___head():
-    class HDRVCALL__(Structure):
-        pass
-    return HDRVCALL__
-def _define_HDRVCALL__():
-    HDRVCALL__ = win32more.Devices.Tapi.HDRVCALL___head
-    HDRVCALL__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HDRVCALL__
-def _define_HDRVLINE___head():
-    class HDRVLINE__(Structure):
-        pass
-    return HDRVLINE__
-def _define_HDRVLINE__():
-    HDRVLINE__ = win32more.Devices.Tapi.HDRVLINE___head
-    HDRVLINE__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HDRVLINE__
-def _define_HDRVPHONE___head():
-    class HDRVPHONE__(Structure):
-        pass
-    return HDRVPHONE__
-def _define_HDRVPHONE__():
-    HDRVPHONE__ = win32more.Devices.Tapi.HDRVPHONE___head
-    HDRVPHONE__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HDRVPHONE__
-def _define_HDRVMSPLINE___head():
-    class HDRVMSPLINE__(Structure):
-        pass
-    return HDRVMSPLINE__
-def _define_HDRVMSPLINE__():
-    HDRVMSPLINE__ = win32more.Devices.Tapi.HDRVMSPLINE___head
-    HDRVMSPLINE__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HDRVMSPLINE__
-def _define_HDRVDIALOGINSTANCE___head():
-    class HDRVDIALOGINSTANCE__(Structure):
-        pass
-    return HDRVDIALOGINSTANCE__
-def _define_HDRVDIALOGINSTANCE__():
-    HDRVDIALOGINSTANCE__ = win32more.Devices.Tapi.HDRVDIALOGINSTANCE___head
-    HDRVDIALOGINSTANCE__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HDRVDIALOGINSTANCE__
-def _define_HTAPICALL___head():
-    class HTAPICALL__(Structure):
-        pass
-    return HTAPICALL__
-def _define_HTAPICALL__():
-    HTAPICALL__ = win32more.Devices.Tapi.HTAPICALL___head
-    HTAPICALL__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HTAPICALL__
-def _define_HTAPILINE___head():
-    class HTAPILINE__(Structure):
-        pass
-    return HTAPILINE__
-def _define_HTAPILINE__():
-    HTAPILINE__ = win32more.Devices.Tapi.HTAPILINE___head
-    HTAPILINE__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HTAPILINE__
-def _define_HTAPIPHONE___head():
-    class HTAPIPHONE__(Structure):
-        pass
-    return HTAPIPHONE__
-def _define_HTAPIPHONE__():
-    HTAPIPHONE__ = win32more.Devices.Tapi.HTAPIPHONE___head
-    HTAPIPHONE__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HTAPIPHONE__
-def _define_HPROVIDER___head():
-    class HPROVIDER__(Structure):
-        pass
-    return HPROVIDER__
-def _define_HPROVIDER__():
-    HPROVIDER__ = win32more.Devices.Tapi.HPROVIDER___head
-    HPROVIDER__._fields_ = [
-        ("unused", Int32),
-    ]
-    return HPROVIDER__
+def _define_lineAccept():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineAccept', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineAddProvider():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.HWND,POINTER(UInt32))(('lineAddProvider', windll['TAPI32.dll']), ((1, 'lpszProviderFilename'),(1, 'hwndOwner'),(1, 'lpdwPermanentProviderID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineAddProviderA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.HWND,POINTER(UInt32))(('lineAddProviderA', windll['TAPI32.dll']), ((1, 'lpszProviderFilename'),(1, 'hwndOwner'),(1, 'lpdwPermanentProviderID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineAddProviderW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.HWND,POINTER(UInt32))(('lineAddProviderW', windll['TAPI32.dll']), ((1, 'lpszProviderFilename'),(1, 'hwndOwner'),(1, 'lpdwPermanentProviderID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineAddToConference():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineAddToConference', windll['TAPI32.dll']), ((1, 'hConfCall'),(1, 'hConsultCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineAgentSpecific():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,c_void_p,UInt32)(('lineAgentSpecific', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwAgentExtensionIDIndex'),(1, 'lpParams'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineAnswer():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineAnswer', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineBlindTransfer():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineBlindTransfer', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineBlindTransferA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineBlindTransferA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineBlindTransferW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32)(('lineBlindTransferW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddressW'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineClose():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineClose', windll['TAPI32.dll']), ((1, 'hLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineCompleteCall():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,UInt32)(('lineCompleteCall', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpdwCompletionID'),(1, 'dwCompletionMode'),(1, 'dwMessageID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineCompleteTransfer():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32)(('lineCompleteTransfer', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'hConsultCall'),(1, 'lphConfCall'),(1, 'dwTransferMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigDialog():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('lineConfigDialog', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigDialogA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('lineConfigDialogA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigDialogW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('lineConfigDialogW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigDialogEdit():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,c_void_p,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('lineConfigDialogEdit', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),(1, 'lpDeviceConfigIn'),(1, 'dwSize'),(1, 'lpDeviceConfigOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigDialogEditA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,c_void_p,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('lineConfigDialogEditA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),(1, 'lpDeviceConfigIn'),(1, 'dwSize'),(1, 'lpDeviceConfigOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigDialogEditW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,c_void_p,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('lineConfigDialogEditW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),(1, 'lpDeviceConfigIn'),(1, 'dwSize'),(1, 'lpDeviceConfigOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineConfigProvider():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,UInt32)(('lineConfigProvider', windll['TAPI32.dll']), ((1, 'hwndOwner'),(1, 'dwPermanentProviderID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineCreateAgentW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('lineCreateAgentW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpszAgentID'),(1, 'lpszAgentPIN'),(1, 'lphAgent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineCreateAgentA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('lineCreateAgentA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpszAgentID'),(1, 'lpszAgentPIN'),(1, 'lphAgent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineCreateAgentSessionW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(UInt32))(('lineCreateAgentSessionW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpszAgentPIN'),(1, 'dwWorkingAddressID'),(1, 'lpGroupID'),(1, 'lphAgentSession'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineCreateAgentSessionA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(Guid),POINTER(UInt32))(('lineCreateAgentSessionA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpszAgentPIN'),(1, 'dwWorkingAddressID'),(1, 'lpGroupID'),(1, 'lphAgentSession'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDeallocateCall():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineDeallocateCall', windll['TAPI32.dll']), ((1, 'hCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDevSpecific():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,c_void_p,UInt32)(('lineDevSpecific', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'lpParams'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDevSpecificFeature():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p,UInt32)(('lineDevSpecificFeature', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwFeature'),(1, 'lpParams'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDial():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineDial', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDialA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineDialA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDialW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32)(('lineDialW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineDrop():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineDrop', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineForward():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEFORWARDLIST_head),UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineForward', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'bAllAddresses'),(1, 'dwAddressID'),(1, 'lpForwardList'),(1, 'dwNumRingsNoAnswer'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineForwardA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEFORWARDLIST_head),UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineForwardA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'bAllAddresses'),(1, 'dwAddressID'),(1, 'lpForwardList'),(1, 'dwNumRingsNoAnswer'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineForwardW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEFORWARDLIST_head),UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineForwardW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'bAllAddresses'),(1, 'dwAddressID'),(1, 'lpForwardList'),(1, 'dwNumRingsNoAnswer'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGatherDigits():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32,UInt32)(('lineGatherDigits', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitModes'),(1, 'lpsDigits'),(1, 'dwNumDigits'),(1, 'lpszTerminationDigits'),(1, 'dwFirstDigitTimeout'),(1, 'dwInterDigitTimeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGatherDigitsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32,UInt32)(('lineGatherDigitsA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitModes'),(1, 'lpsDigits'),(1, 'dwNumDigits'),(1, 'lpszTerminationDigits'),(1, 'dwFirstDigitTimeout'),(1, 'dwInterDigitTimeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGatherDigitsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(('lineGatherDigitsW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitModes'),(1, 'lpsDigits'),(1, 'dwNumDigits'),(1, 'lpszTerminationDigits'),(1, 'dwFirstDigitTimeout'),(1, 'dwInterDigitTimeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGenerateDigits():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineGenerateDigits', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitMode'),(1, 'lpszDigits'),(1, 'dwDuration'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGenerateDigitsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineGenerateDigitsA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitMode'),(1, 'lpszDigits'),(1, 'dwDuration'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGenerateDigitsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('lineGenerateDigitsW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitMode'),(1, 'lpszDigits'),(1, 'dwDuration'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGenerateTone():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEGENERATETONE_head))(('lineGenerateTone', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwToneMode'),(1, 'dwDuration'),(1, 'dwNumTones'),(1, 'lpTones'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressCaps():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSCAPS_head))(('lineGetAddressCaps', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpAddressCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressCapsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSCAPS_head))(('lineGetAddressCapsA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpAddressCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressCapsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSCAPS_head))(('lineGetAddressCapsW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpAddressCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressID():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.PSTR,UInt32)(('lineGetAddressID', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpdwAddressID'),(1, 'dwAddressMode'),(1, 'lpsAddress'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressIDA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.PSTR,UInt32)(('lineGetAddressIDA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpdwAddressID'),(1, 'dwAddressMode'),(1, 'lpsAddress'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressIDW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.PWSTR,UInt32)(('lineGetAddressIDW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpdwAddressID'),(1, 'dwAddressMode'),(1, 'lpsAddress'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressStatus():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSSTATUS_head))(('lineGetAddressStatus', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAddressStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressStatusA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSSTATUS_head))(('lineGetAddressStatusA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAddressStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAddressStatusW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSSTATUS_head))(('lineGetAddressStatusW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAddressStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentActivityListA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTACTIVITYLIST_head))(('lineGetAgentActivityListA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentActivityList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentActivityListW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTACTIVITYLIST_head))(('lineGetAgentActivityListW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentActivityList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentCapsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTCAPS_head))(('lineGetAgentCapsA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAppAPIVersion'),(1, 'lpAgentCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentCapsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTCAPS_head))(('lineGetAgentCapsW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAppAPIVersion'),(1, 'lpAgentCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentGroupListA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head))(('lineGetAgentGroupListA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentGroupListW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head))(('lineGetAgentGroupListW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTINFO_head))(('lineGetAgentInfo', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpAgentInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentSessionInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSESSIONINFO_head))(('lineGetAgentSessionInfo', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgentSession'),(1, 'lpAgentSessionInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentSessionList():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSESSIONLIST_head))(('lineGetAgentSessionList', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpAgentSessionList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentStatusA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSTATUS_head))(('lineGetAgentStatusA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAgentStatusW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSTATUS_head))(('lineGetAgentStatusW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAppPriority():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),POINTER(UInt32))(('lineGetAppPriority', windll['TAPI32.dll']), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpExtensionName'),(1, 'lpdwPriority'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAppPriorityA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),POINTER(UInt32))(('lineGetAppPriorityA', windll['TAPI32.dll']), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpExtensionName'),(1, 'lpdwPriority'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetAppPriorityW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),POINTER(UInt32))(('lineGetAppPriorityW', windll['TAPI32.dll']), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpExtensionName'),(1, 'lpdwPriority'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCallInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLINFO_head))(('lineGetCallInfo', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpCallInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCallInfoA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLINFO_head))(('lineGetCallInfoA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpCallInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCallInfoW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLINFO_head))(('lineGetCallInfoW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpCallInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCallStatus():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLSTATUS_head))(('lineGetCallStatus', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpCallStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetConfRelatedCalls():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLLIST_head))(('lineGetConfRelatedCalls', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpCallList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCountry():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECOUNTRYLIST_head))(('lineGetCountry', windll['TAPI32.dll']), ((1, 'dwCountryID'),(1, 'dwAPIVersion'),(1, 'lpLineCountryList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCountryA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECOUNTRYLIST_head))(('lineGetCountryA', windll['TAPI32.dll']), ((1, 'dwCountryID'),(1, 'dwAPIVersion'),(1, 'lpLineCountryList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetCountryW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECOUNTRYLIST_head))(('lineGetCountryW', windll['TAPI32.dll']), ((1, 'dwCountryID'),(1, 'dwAPIVersion'),(1, 'lpLineCountryList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetDevCaps():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVCAPS_head))(('lineGetDevCaps', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpLineDevCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetDevCapsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVCAPS_head))(('lineGetDevCapsA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpLineDevCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetDevCapsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVCAPS_head))(('lineGetDevCapsW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpLineDevCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetDevConfig():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR)(('lineGetDevConfig', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetDevConfigA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR)(('lineGetDevConfigA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetDevConfigW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PWSTR)(('lineGetDevConfigW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetGroupListA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head))(('lineGetGroupListA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetGroupListW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head))(('lineGetGroupListW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetIcon():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr))(('lineGetIcon', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetIconA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr))(('lineGetIconA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetIconW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,POINTER(IntPtr))(('lineGetIconW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetID():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR)(('lineGetID', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetIDA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR)(('lineGetIDA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetIDW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PWSTR)(('lineGetIDW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetLineDevStatus():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVSTATUS_head))(('lineGetLineDevStatus', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpLineDevStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetLineDevStatusA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVSTATUS_head))(('lineGetLineDevStatusA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpLineDevStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetLineDevStatusW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVSTATUS_head))(('lineGetLineDevStatusW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpLineDevStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetMessage():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEMESSAGE_head),UInt32)(('lineGetMessage', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'lpMessage'),(1, 'dwTimeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetNewCalls():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLLIST_head))(('lineGetNewCalls', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwSelect'),(1, 'lpCallList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetNumRings():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32))(('lineGetNumRings', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpdwNumRings'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetProviderList():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROVIDERLIST_head))(('lineGetProviderList', windll['TAPI32.dll']), ((1, 'dwAPIVersion'),(1, 'lpProviderList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetProviderListA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROVIDERLIST_head))(('lineGetProviderListA', windll['TAPI32.dll']), ((1, 'dwAPIVersion'),(1, 'lpProviderList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetProviderListW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROVIDERLIST_head))(('lineGetProviderListW', windll['TAPI32.dll']), ((1, 'dwAPIVersion'),(1, 'lpProviderList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetProxyStatus():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROXYREQUESTLIST_head))(('lineGetProxyStatus', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAppAPIVersion'),(1, 'lpLineProxyReqestList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetQueueInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEQUEUEINFO_head))(('lineGetQueueInfo', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwQueueID'),(1, 'lpLineQueueInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetQueueListA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),POINTER(win32more.Devices.Tapi.LINEQUEUELIST_head))(('lineGetQueueListA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpGroupID'),(1, 'lpQueueList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetQueueListW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),POINTER(win32more.Devices.Tapi.LINEQUEUELIST_head))(('lineGetQueueListW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpGroupID'),(1, 'lpQueueList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetRequest():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p)(('lineGetRequest', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwRequestMode'),(1, 'lpRequestBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetRequestA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p)(('lineGetRequestA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwRequestMode'),(1, 'lpRequestBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetRequestW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p)(('lineGetRequestW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwRequestMode'),(1, 'lpRequestBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetStatusMessages():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(UInt32))(('lineGetStatusMessages', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpdwLineStates'),(1, 'lpdwAddressStates'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetTranslateCaps():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATECAPS_head))(('lineGetTranslateCaps', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwAPIVersion'),(1, 'lpTranslateCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetTranslateCapsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATECAPS_head))(('lineGetTranslateCapsA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwAPIVersion'),(1, 'lpTranslateCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineGetTranslateCapsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATECAPS_head))(('lineGetTranslateCapsW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwAPIVersion'),(1, 'lpTranslateCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineHandoff():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineHandoff', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszFileName'),(1, 'dwMediaMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineHandoffA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineHandoffA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszFileName'),(1, 'dwMediaMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineHandoffW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32)(('lineHandoffW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszFileName'),(1, 'dwMediaMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineHold():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineHold', windll['TAPI32.dll']), ((1, 'hCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineInitialize():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.LINECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32))(('lineInitialize', windll['TAPI32.dll']), ((1, 'lphLineApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszAppName'),(1, 'lpdwNumDevs'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineInitializeExA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.LINECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINEINITIALIZEEXPARAMS_head))(('lineInitializeExA', windll['TAPI32.dll']), ((1, 'lphLineApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpLineInitializeExParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineInitializeExW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.LINECALLBACK,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINEINITIALIZEEXPARAMS_head))(('lineInitializeExW', windll['TAPI32.dll']), ((1, 'lphLineApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpLineInitializeExParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineMakeCall():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineMakeCall', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineMakeCallA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineMakeCallA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineMakeCallW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineMakeCallW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineMonitorDigits():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineMonitorDigits', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwDigitModes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineMonitorMedia():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineMonitorMedia', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwMediaModes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineMonitorTones():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEMONITORTONE_head),UInt32)(('lineMonitorTones', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpToneList'),(1, 'dwNumEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineNegotiateAPIVersion():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head))(('lineNegotiateAPIVersion', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPILowVersion'),(1, 'dwAPIHighVersion'),(1, 'lpdwAPIVersion'),(1, 'lpExtensionID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineNegotiateExtVersion():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32))(('lineNegotiateExtVersion', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtLowVersion'),(1, 'dwExtHighVersion'),(1, 'lpdwExtVersion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineOpen():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineOpen', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lphLine'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivileges'),(1, 'dwMediaModes'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineOpenA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineOpenA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lphLine'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivileges'),(1, 'dwMediaModes'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineOpenW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineOpenW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lphLine'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivileges'),(1, 'dwMediaModes'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePark():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('linePark', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwParkMode'),(1, 'lpszDirAddress'),(1, 'lpNonDirAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineParkA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('lineParkA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwParkMode'),(1, 'lpszDirAddress'),(1, 'lpNonDirAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineParkW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('lineParkW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwParkMode'),(1, 'lpszDirAddress'),(1, 'lpNonDirAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePickup():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('linePickup', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'lpszGroupID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePickupA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('linePickupA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'lpszGroupID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePickupW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('linePickupW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'lpszGroupID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePrepareAddToConference():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('linePrepareAddToConference', windll['TAPI32.dll']), ((1, 'hConfCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePrepareAddToConferenceA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('linePrepareAddToConferenceA', windll['TAPI32.dll']), ((1, 'hConfCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_linePrepareAddToConferenceW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('linePrepareAddToConferenceW', windll['TAPI32.dll']), ((1, 'hConfCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineProxyMessage():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32)(('lineProxyMessage', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hCall'),(1, 'dwMsg'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineProxyResponse():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROXYREQUEST_head),UInt32)(('lineProxyResponse', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'lpProxyRequest'),(1, 'dwResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineRedirect():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineRedirect', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineRedirectA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineRedirectA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineRedirectW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32)(('lineRedirectW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineRegisterRequestRecipient():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32)(('lineRegisterRequestRecipient', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwRegistrationInstance'),(1, 'dwRequestMode'),(1, 'bEnable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineReleaseUserUserInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineReleaseUserUserInfo', windll['TAPI32.dll']), ((1, 'hCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineRemoveFromConference():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineRemoveFromConference', windll['TAPI32.dll']), ((1, 'hCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineRemoveProvider():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND)(('lineRemoveProvider', windll['TAPI32.dll']), ((1, 'dwPermanentProviderID'),(1, 'hwndOwner'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSecureCall():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineSecureCall', windll['TAPI32.dll']), ((1, 'hCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSendUserUserInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineSendUserUserInfo', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAgentActivity():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('lineSetAgentActivity', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwActivityID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAgentGroup():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head))(('lineSetAgentGroup', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAgentMeasurementPeriod():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('lineSetAgentMeasurementPeriod', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgent'),(1, 'dwMeasurementPeriod'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAgentSessionState():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32)(('lineSetAgentSessionState', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgentSession'),(1, 'dwAgentSessionState'),(1, 'dwNextAgentSessionState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAgentStateEx():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32)(('lineSetAgentStateEx', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'hAgent'),(1, 'dwAgentState'),(1, 'dwNextAgentState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAgentState():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32)(('lineSetAgentState', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwAgentState'),(1, 'dwNextAgentState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAppPriority():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,win32more.Foundation.PSTR,UInt32)(('lineSetAppPriority', windll['TAPI32.dll']), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpszExtensionName'),(1, 'dwPriority'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAppPriorityA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,win32more.Foundation.PSTR,UInt32)(('lineSetAppPriorityA', windll['TAPI32.dll']), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpszExtensionName'),(1, 'dwPriority'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAppPriorityW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,win32more.Foundation.PWSTR,UInt32)(('lineSetAppPriorityW', windll['TAPI32.dll']), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpszExtensionName'),(1, 'dwPriority'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetAppSpecific():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineSetAppSpecific', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwAppSpecific'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetCallData():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32)(('lineSetCallData', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpCallData'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetCallParams():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDIALPARAMS_head))(('lineSetCallParams', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwBearerMode'),(1, 'dwMinRate'),(1, 'dwMaxRate'),(1, 'lpDialParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetCallPrivilege():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineSetCallPrivilege', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwCallPrivilege'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetCallQualityOfService():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,c_void_p,UInt32)(('lineSetCallQualityOfService', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lpSendingFlowspec'),(1, 'dwSendingFlowspecSize'),(1, 'lpReceivingFlowspec'),(1, 'dwReceivingFlowspecSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetCallTreatment():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineSetCallTreatment', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwTreatment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetCurrentLocation():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineSetCurrentLocation', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwLocation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetDevConfig():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,win32more.Foundation.PSTR)(('lineSetDevConfig', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'dwSize'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetDevConfigA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,win32more.Foundation.PSTR)(('lineSetDevConfigA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'dwSize'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetDevConfigW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,win32more.Foundation.PWSTR)(('lineSetDevConfigW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'dwSize'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetLineDevStatus():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('lineSetLineDevStatus', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwStatusToChange'),(1, 'fStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetMediaControl():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLDIGIT_head),UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLMEDIA_head),UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLTONE_head),UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLCALLSTATE_head),UInt32)(('lineSetMediaControl', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDigitList'),(1, 'dwDigitNumEntries'),(1, 'lpMediaList'),(1, 'dwMediaNumEntries'),(1, 'lpToneList'),(1, 'dwToneNumEntries'),(1, 'lpCallStateList'),(1, 'dwCallStateNumEntries'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetMediaMode():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineSetMediaMode', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'dwMediaModes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetQueueMeasurementPeriod():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('lineSetQueueMeasurementPeriod', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwQueueID'),(1, 'dwMeasurementPeriod'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetNumRings():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('lineSetNumRings', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwNumRings'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetStatusMessages():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('lineSetStatusMessages', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwLineStates'),(1, 'dwAddressStates'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetTerminal():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32)(('lineSetTerminal', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'dwTerminalModes'),(1, 'dwTerminalID'),(1, 'bEnable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetTollList():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineSetTollList', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lpszAddressIn'),(1, 'dwTollListOption'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetTollListA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('lineSetTollListA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lpszAddressIn'),(1, 'dwTollListOption'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetTollListW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('lineSetTollListW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lpszAddressInW'),(1, 'dwTollListOption'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetupConference():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineSetupConference', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'hLine'),(1, 'lphConfCall'),(1, 'lphConsultCall'),(1, 'dwNumParties'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetupConferenceA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineSetupConferenceA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'hLine'),(1, 'lphConfCall'),(1, 'lphConsultCall'),(1, 'dwNumParties'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetupConferenceW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineSetupConferenceW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'hLine'),(1, 'lphConfCall'),(1, 'lphConsultCall'),(1, 'dwNumParties'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetupTransfer():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineSetupTransfer', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetupTransferA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineSetupTransferA', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSetupTransferW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head))(('lineSetupTransferW', windll['TAPI32.dll']), ((1, 'hCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineShutdown():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineShutdown', windll['TAPI32.dll']), ((1, 'hLineApp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineSwapHold():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineSwapHold', windll['TAPI32.dll']), ((1, 'hActiveCall'),(1, 'hHeldCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineTranslateAddress():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head))(('lineTranslateAddress', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'lpszAddressIn'),(1, 'dwCard'),(1, 'dwTranslateOptions'),(1, 'lpTranslateOutput'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineTranslateAddressA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head))(('lineTranslateAddressA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'lpszAddressIn'),(1, 'dwCard'),(1, 'dwTranslateOptions'),(1, 'lpTranslateOutput'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineTranslateAddressW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head))(('lineTranslateAddressW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'lpszAddressIn'),(1, 'dwCard'),(1, 'dwTranslateOptions'),(1, 'lpTranslateOutput'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineTranslateDialog():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('lineTranslateDialog', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'hwndOwner'),(1, 'lpszAddressIn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineTranslateDialogA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('lineTranslateDialogA', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'hwndOwner'),(1, 'lpszAddressIn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineTranslateDialogW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('lineTranslateDialogW', windll['TAPI32.dll']), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'hwndOwner'),(1, 'lpszAddressIn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineUncompleteCall():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32)(('lineUncompleteCall', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwCompletionID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineUnhold():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('lineUnhold', windll['TAPI32.dll']), ((1, 'hCall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineUnpark():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR)(('lineUnpark', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineUnparkA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR)(('lineUnparkA', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_lineUnparkW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR)(('lineUnparkW', windll['TAPI32.dll']), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneClose():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('phoneClose', windll['TAPI32.dll']), ((1, 'hPhone'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneConfigDialog():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('phoneConfigDialog', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneConfigDialogA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('phoneConfigDialogA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneConfigDialogW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('phoneConfigDialogW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneDevSpecific():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32)(('phoneDevSpecific', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpParams'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetButtonInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head))(('phoneGetButtonInfo', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetButtonInfoA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head))(('phoneGetButtonInfoA', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetButtonInfoW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head))(('phoneGetButtonInfoW', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetData():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p,UInt32)(('phoneGetData', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwDataID'),(1, 'lpData'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetDevCaps():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONECAPS_head))(('phoneGetDevCaps', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpPhoneCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetDevCapsA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONECAPS_head))(('phoneGetDevCapsA', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpPhoneCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetDevCapsW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONECAPS_head))(('phoneGetDevCapsW', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpPhoneCaps'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetDisplay():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head))(('phoneGetDisplay', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpDisplay'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetGain():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32))(('phoneGetGain', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'lpdwGain'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetHookSwitch():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32))(('phoneGetHookSwitch', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpdwHookSwitchDevs'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetIcon():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr))(('phoneGetIcon', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetIconA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr))(('phoneGetIconA', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetIconW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,POINTER(IntPtr))(('phoneGetIconW', windll['TAPI32.dll']), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetID():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR)(('phoneGetID', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetIDA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR)(('phoneGetIDA', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetIDW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PWSTR)(('phoneGetIDW', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetLamp():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32))(('phoneGetLamp', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpdwLampMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetMessage():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONEMESSAGE_head),UInt32)(('phoneGetMessage', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'lpMessage'),(1, 'dwTimeout'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetRing():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(UInt32))(('phoneGetRing', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpdwRingMode'),(1, 'lpdwVolume'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetStatus():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONESTATUS_head))(('phoneGetStatus', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpPhoneStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetStatusA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONESTATUS_head))(('phoneGetStatusA', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpPhoneStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetStatusW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONESTATUS_head))(('phoneGetStatusW', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpPhoneStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetStatusMessages():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('phoneGetStatusMessages', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'lpdwPhoneStates'),(1, 'lpdwButtonModes'),(1, 'lpdwButtonStates'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneGetVolume():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32))(('phoneGetVolume', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'lpdwVolume'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneInitialize():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.PHONECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32))(('phoneInitialize', windll['TAPI32.dll']), ((1, 'lphPhoneApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszAppName'),(1, 'lpdwNumDevs'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneInitializeExA():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.PHONECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.PHONEINITIALIZEEXPARAMS_head))(('phoneInitializeExA', windll['TAPI32.dll']), ((1, 'lphPhoneApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpPhoneInitializeExParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneInitializeExW():
+    try:
+        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.PHONECALLBACK,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.PHONEINITIALIZEEXPARAMS_head))(('phoneInitializeExW', windll['TAPI32.dll']), ((1, 'lphPhoneApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpPhoneInitializeExParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneNegotiateAPIVersion():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.PHONEEXTENSIONID_head))(('phoneNegotiateAPIVersion', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPILowVersion'),(1, 'dwAPIHighVersion'),(1, 'lpdwAPIVersion'),(1, 'lpExtensionID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneNegotiateExtVersion():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32))(('phoneNegotiateExtVersion', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtLowVersion'),(1, 'dwExtHighVersion'),(1, 'lpdwExtVersion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneOpen():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32)(('phoneOpen', windll['TAPI32.dll']), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'lphPhone'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivilege'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetButtonInfo():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head))(('phoneSetButtonInfo', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetButtonInfoA():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head))(('phoneSetButtonInfoA', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetButtonInfoW():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head))(('phoneSetButtonInfoW', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetData():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p,UInt32)(('phoneSetData', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwDataID'),(1, 'lpData'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetDisplay():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('phoneSetDisplay', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwRow'),(1, 'dwColumn'),(1, 'lpsDisplay'),(1, 'dwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetGain():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('phoneSetGain', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'dwGain'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetHookSwitch():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('phoneSetHookSwitch', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwHookSwitchDevs'),(1, 'dwHookSwitchMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetLamp():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('phoneSetLamp', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'dwLampMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetRing():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('phoneSetRing', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwRingMode'),(1, 'dwVolume'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetStatusMessages():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32)(('phoneSetStatusMessages', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwPhoneStates'),(1, 'dwButtonModes'),(1, 'dwButtonStates'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneSetVolume():
+    try:
+        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32)(('phoneSetVolume', windll['TAPI32.dll']), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'dwVolume'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_phoneShutdown():
+    try:
+        return WINFUNCTYPE(Int32,UInt32)(('phoneShutdown', windll['TAPI32.dll']), ((1, 'hPhoneApp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiGetLocationInfo():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('tapiGetLocationInfo', windll['TAPI32.dll']), ((1, 'lpszCountryCode'),(1, 'lpszCityCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiGetLocationInfoA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('tapiGetLocationInfoA', windll['TAPI32.dll']), ((1, 'lpszCountryCode'),(1, 'lpszCityCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiGetLocationInfoW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('tapiGetLocationInfoW', windll['TAPI32.dll']), ((1, 'lpszCountryCodeW'),(1, 'lpszCityCodeW'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestDrop():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM)(('tapiRequestDrop', windll['TAPI32.dll']), ((1, 'hwnd'),(1, 'wRequestID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestMakeCall():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('tapiRequestMakeCall', windll['TAPI32.dll']), ((1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestMakeCallA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('tapiRequestMakeCallA', windll['TAPI32.dll']), ((1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestMakeCallW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('tapiRequestMakeCallW', windll['TAPI32.dll']), ((1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestMediaCall():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('tapiRequestMediaCall', windll['TAPI32.dll']), ((1, 'hwnd'),(1, 'wRequestID'),(1, 'lpszDeviceClass'),(1, 'lpDeviceID'),(1, 'dwSize'),(1, 'dwSecure'),(1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestMediaCallA():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('tapiRequestMediaCallA', windll['TAPI32.dll']), ((1, 'hwnd'),(1, 'wRequestID'),(1, 'lpszDeviceClass'),(1, 'lpDeviceID'),(1, 'dwSize'),(1, 'dwSecure'),(1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_tapiRequestMediaCallW():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('tapiRequestMediaCallW', windll['TAPI32.dll']), ((1, 'hwnd'),(1, 'wRequestID'),(1, 'lpszDeviceClass'),(1, 'lpDeviceID'),(1, 'dwSize'),(1, 'dwSecure'),(1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OpenTnefStream():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,POINTER(win32more.Devices.Tapi.ITnef_head))(('OpenTnefStream', windll['MAPI32.dll']), ((1, 'lpvSupport'),(1, 'lpStream'),(1, 'lpszStreamName'),(1, 'ulFlags'),(1, 'lpMessage'),(1, 'wKeyVal'),(1, 'lppTNEF'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OpenTnefStreamEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,win32more.System.AddressBook.IAddrBook_head,POINTER(win32more.Devices.Tapi.ITnef_head))(('OpenTnefStreamEx', windll['MAPI32.dll']), ((1, 'lpvSupport'),(1, 'lpStream'),(1, 'lpszStreamName'),(1, 'ulFlags'),(1, 'lpMessage'),(1, 'wKeyVal'),(1, 'lpAdressBook'),(1, 'lppTNEF'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetTnefStreamCodepage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(UInt32),POINTER(UInt32))(('GetTnefStreamCodepage', windll['MAPI32.dll']), ((1, 'lpStream'),(1, 'lpulCodepage'),(1, 'lpulSubCodepage'),))
+    except (FileNotFoundError, AttributeError):
+        return None
 def _define_ASYNC_COMPLETION():
-    return CFUNCTYPE(Void,UInt32,Int32, use_last_error=False)
-def _define_LINEEVENT():
-    return CFUNCTYPE(Void,POINTER(win32more.Devices.Tapi.HTAPILINE___head),POINTER(win32more.Devices.Tapi.HTAPICALL___head),UInt32,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
-def _define_PHONEEVENT():
-    return CFUNCTYPE(Void,POINTER(win32more.Devices.Tapi.HTAPIPHONE___head),UInt32,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
-def _define_TUISPIDLLCALLBACK():
-    return CFUNCTYPE(Int32,UIntPtr,UInt32,c_void_p,UInt32, use_last_error=False)
-def _define_TUISPICREATEDIALOGINSTANCEPARAMS_head():
-    class TUISPICREATEDIALOGINSTANCEPARAMS(Structure):
-        pass
-    return TUISPICREATEDIALOGINSTANCEPARAMS
-def _define_TUISPICREATEDIALOGINSTANCEPARAMS():
-    TUISPICREATEDIALOGINSTANCEPARAMS = win32more.Devices.Tapi.TUISPICREATEDIALOGINSTANCEPARAMS_head
-    TUISPICREATEDIALOGINSTANCEPARAMS._fields_ = [
-        ("dwRequestID", UInt32),
-        ("hdDlgInst", POINTER(win32more.Devices.Tapi.HDRVDIALOGINSTANCE___head)),
-        ("htDlgInst", UInt32),
-        ("lpszUIDLLName", win32more.Foundation.PWSTR),
-        ("lpParams", c_void_p),
-        ("dwSize", UInt32),
-    ]
-    return TUISPICREATEDIALOGINSTANCEPARAMS
-TAPI = Guid('21d6d48e-a88b-11d0-83dd-00aa003ccabd')
-DispatchMapper = Guid('e9225296-c759-11d1-a02b-00c04fb6809f')
-RequestMakeCall = Guid('ac48ffe0-f8c4-11d1-a030-00c04fb6809f')
-TAPI_TONEMODE = Int32
-TTM_RINGBACK = 2
-TTM_BUSY = 4
-TTM_BEEP = 8
-TTM_BILLING = 16
-TAPI_GATHERTERM = Int32
-TGT_BUFFERFULL = 1
-TGT_TERMDIGIT = 2
-TGT_FIRSTTIMEOUT = 4
-TGT_INTERTIMEOUT = 8
-TGT_CANCEL = 16
-def _define_TAPI_CUSTOMTONE_head():
-    class TAPI_CUSTOMTONE(Structure):
-        pass
-    return TAPI_CUSTOMTONE
-def _define_TAPI_CUSTOMTONE():
-    TAPI_CUSTOMTONE = win32more.Devices.Tapi.TAPI_CUSTOMTONE_head
-    TAPI_CUSTOMTONE._fields_ = [
-        ("dwFrequency", UInt32),
-        ("dwCadenceOn", UInt32),
-        ("dwCadenceOff", UInt32),
-        ("dwVolume", UInt32),
-    ]
-    return TAPI_CUSTOMTONE
-def _define_TAPI_DETECTTONE_head():
-    class TAPI_DETECTTONE(Structure):
-        pass
-    return TAPI_DETECTTONE
-def _define_TAPI_DETECTTONE():
-    TAPI_DETECTTONE = win32more.Devices.Tapi.TAPI_DETECTTONE_head
-    TAPI_DETECTTONE._fields_ = [
-        ("dwAppSpecific", UInt32),
-        ("dwDuration", UInt32),
-        ("dwFrequency1", UInt32),
-        ("dwFrequency2", UInt32),
-        ("dwFrequency3", UInt32),
-    ]
-    return TAPI_DETECTTONE
-ADDRESS_EVENT = Int32
-AE_STATE = 0
-AE_CAPSCHANGE = 1
-AE_RINGING = 2
-AE_CONFIGCHANGE = 3
-AE_FORWARD = 4
-AE_NEWTERMINAL = 5
-AE_REMOVETERMINAL = 6
-AE_MSGWAITON = 7
-AE_MSGWAITOFF = 8
-AE_LASTITEM = 8
-ADDRESS_STATE = Int32
-AS_INSERVICE = 0
-AS_OUTOFSERVICE = 1
+    return WINFUNCTYPE(Void,UInt32,Int32)
+CALL_MEDIA_EVENT = Int32
+CME_NEW_STREAM = 0
+CME_STREAM_FAIL = 1
+CME_TERMINAL_FAIL = 2
+CME_STREAM_NOT_USED = 3
+CME_STREAM_ACTIVE = 4
+CME_STREAM_INACTIVE = 5
+CME_LASTITEM = 5
+CALL_MEDIA_EVENT_CAUSE = Int32
+CMC_UNKNOWN = 0
+CMC_BAD_DEVICE = 1
+CMC_CONNECT_FAIL = 2
+CMC_LOCAL_REQUEST = 3
+CMC_REMOTE_REQUEST = 4
+CMC_MEDIA_TIMEOUT = 5
+CMC_MEDIA_RECOVERED = 6
+CMC_QUALITY_OF_SERVICE = 7
+CALL_NOTIFICATION_EVENT = Int32
+CNE_OWNER = 0
+CNE_MONITOR = 1
+CNE_LASTITEM = 1
+CALL_PRIVILEGE = Int32
+CP_OWNER = 0
+CP_MONITOR = 1
 CALL_STATE = Int32
 CS_IDLE = 0
 CS_INPROGRESS = 1
@@ -2811,73 +2570,6 @@ CEC_DISCONNECT_CANCELLED = 5
 CEC_DISCONNECT_REJECTED = 6
 CEC_DISCONNECT_FAILED = 7
 CEC_DISCONNECT_BLOCKED = 8
-CALL_MEDIA_EVENT = Int32
-CME_NEW_STREAM = 0
-CME_STREAM_FAIL = 1
-CME_TERMINAL_FAIL = 2
-CME_STREAM_NOT_USED = 3
-CME_STREAM_ACTIVE = 4
-CME_STREAM_INACTIVE = 5
-CME_LASTITEM = 5
-CALL_MEDIA_EVENT_CAUSE = Int32
-CMC_UNKNOWN = 0
-CMC_BAD_DEVICE = 1
-CMC_CONNECT_FAIL = 2
-CMC_LOCAL_REQUEST = 3
-CMC_REMOTE_REQUEST = 4
-CMC_MEDIA_TIMEOUT = 5
-CMC_MEDIA_RECOVERED = 6
-CMC_QUALITY_OF_SERVICE = 7
-DISCONNECT_CODE = Int32
-DC_NORMAL = 0
-DC_NOANSWER = 1
-DC_REJECTED = 2
-TERMINAL_STATE = Int32
-TS_INUSE = 0
-TS_NOTINUSE = 1
-TERMINAL_DIRECTION = Int32
-TD_CAPTURE = 0
-TD_RENDER = 1
-TD_BIDIRECTIONAL = 2
-TD_MULTITRACK_MIXED = 3
-TD_NONE = 4
-TERMINAL_TYPE = Int32
-TT_STATIC = 0
-TT_DYNAMIC = 1
-CALL_PRIVILEGE = Int32
-CP_OWNER = 0
-CP_MONITOR = 1
-TAPI_EVENT = Int32
-TE_TAPIOBJECT = 1
-TE_ADDRESS = 2
-TE_CALLNOTIFICATION = 4
-TE_CALLSTATE = 8
-TE_CALLMEDIA = 16
-TE_CALLHUB = 32
-TE_CALLINFOCHANGE = 64
-TE_PRIVATE = 128
-TE_REQUEST = 256
-TE_AGENT = 512
-TE_AGENTSESSION = 1024
-TE_QOSEVENT = 2048
-TE_AGENTHANDLER = 4096
-TE_ACDGROUP = 8192
-TE_QUEUE = 16384
-TE_DIGITEVENT = 32768
-TE_GENERATEEVENT = 65536
-TE_ASRTERMINAL = 131072
-TE_TTSTERMINAL = 262144
-TE_FILETERMINAL = 524288
-TE_TONETERMINAL = 1048576
-TE_PHONEEVENT = 2097152
-TE_TONEEVENT = 4194304
-TE_GATHERDIGITS = 8388608
-TE_ADDRESSDEVSPECIFIC = 16777216
-TE_PHONEDEVSPECIFIC = 33554432
-CALL_NOTIFICATION_EVENT = Int32
-CNE_OWNER = 0
-CNE_MONITOR = 1
-CNE_LASTITEM = 1
 CALLHUB_EVENT = Int32
 CHE_CALLJOIN = 0
 CHE_CALLLEAVE = 1
@@ -2887,61 +2579,13 @@ CHE_LASTITEM = 3
 CALLHUB_STATE = Int32
 CHS_ACTIVE = 0
 CHS_IDLE = 1
-TAPIOBJECT_EVENT = Int32
-TE_ADDRESSCREATE = 0
-TE_ADDRESSREMOVE = 1
-TE_REINIT = 2
-TE_TRANSLATECHANGE = 3
-TE_ADDRESSCLOSE = 4
-TE_PHONECREATE = 5
-TE_PHONEREMOVE = 6
-TAPI_OBJECT_TYPE = Int32
-TOT_NONE = 0
-TOT_TAPI = 1
-TOT_ADDRESS = 2
-TOT_TERMINAL = 3
-TOT_CALL = 4
-TOT_CALLHUB = 5
-TOT_PHONE = 6
-QOS_SERVICE_LEVEL = Int32
-QSL_NEEDED = 1
-QSL_IF_AVAILABLE = 2
-QSL_BEST_EFFORT = 3
-QOS_EVENT = Int32
-QE_NOQOS = 1
-QE_ADMISSIONFAILURE = 2
-QE_POLICYFAILURE = 3
-QE_GENERICERROR = 4
-QE_LASTITEM = 4
-CALLINFOCHANGE_CAUSE = Int32
-CIC_OTHER = 0
-CIC_DEVSPECIFIC = 1
-CIC_BEARERMODE = 2
-CIC_RATE = 3
-CIC_APPSPECIFIC = 4
-CIC_CALLID = 5
-CIC_RELATEDCALLID = 6
-CIC_ORIGIN = 7
-CIC_REASON = 8
-CIC_COMPLETIONID = 9
-CIC_NUMOWNERINCR = 10
-CIC_NUMOWNERDECR = 11
-CIC_NUMMONITORS = 12
-CIC_TRUNK = 13
-CIC_CALLERID = 14
-CIC_CALLEDID = 15
-CIC_CONNECTEDID = 16
-CIC_REDIRECTIONID = 17
-CIC_REDIRECTINGID = 18
-CIC_USERUSERINFO = 19
-CIC_HIGHLEVELCOMP = 20
-CIC_LOWLEVELCOMP = 21
-CIC_CHARGINGINFO = 22
-CIC_TREATMENT = 23
-CIC_CALLDATA = 24
-CIC_PRIVILEGE = 25
-CIC_MEDIATYPE = 26
-CIC_LASTITEM = 26
+CALLINFO_BUFFER = Int32
+CIB_USERUSERINFO = 0
+CIB_DEVSPECIFICBUFFER = 1
+CIB_CALLDATABUFFER = 2
+CIB_CHARGINGINFOBUFFER = 3
+CIB_HIGHLEVELCOMPATIBILITYBUFFER = 4
+CIB_LOWLEVELCOMPATIBILITYBUFFER = 5
 CALLINFO_LONG = Int32
 CIL_MEDIATYPESAVAILABLE = 0
 CIL_BEARERMODE = 1
@@ -2983,125 +2627,3232 @@ CIS_CALLEDPARTYFRIENDLYNAME = 10
 CIS_COMMENT = 11
 CIS_DISPLAYABLEADDRESS = 12
 CIS_CALLINGPARTYID = 13
-CALLINFO_BUFFER = Int32
-CIB_USERUSERINFO = 0
-CIB_DEVSPECIFICBUFFER = 1
-CIB_CALLDATABUFFER = 2
-CIB_CHARGINGINFOBUFFER = 3
-CIB_HIGHLEVELCOMPATIBILITYBUFFER = 4
-CIB_LOWLEVELCOMPATIBILITYBUFFER = 5
-ADDRESS_CAPABILITY = Int32
-AC_ADDRESSTYPES = 0
-AC_BEARERMODES = 1
-AC_MAXACTIVECALLS = 2
-AC_MAXONHOLDCALLS = 3
-AC_MAXONHOLDPENDINGCALLS = 4
-AC_MAXNUMCONFERENCE = 5
-AC_MAXNUMTRANSCONF = 6
-AC_MONITORDIGITSUPPORT = 7
-AC_GENERATEDIGITSUPPORT = 8
-AC_GENERATETONEMODES = 9
-AC_GENERATETONEMAXNUMFREQ = 10
-AC_MONITORTONEMAXNUMFREQ = 11
-AC_MONITORTONEMAXNUMENTRIES = 12
-AC_DEVCAPFLAGS = 13
-AC_ANSWERMODES = 14
-AC_LINEFEATURES = 15
-AC_SETTABLEDEVSTATUS = 16
-AC_PARKSUPPORT = 17
-AC_CALLERIDSUPPORT = 18
-AC_CALLEDIDSUPPORT = 19
-AC_CONNECTEDIDSUPPORT = 20
-AC_REDIRECTIONIDSUPPORT = 21
-AC_REDIRECTINGIDSUPPORT = 22
-AC_ADDRESSCAPFLAGS = 23
-AC_CALLFEATURES1 = 24
-AC_CALLFEATURES2 = 25
-AC_REMOVEFROMCONFCAPS = 26
-AC_REMOVEFROMCONFSTATE = 27
-AC_TRANSFERMODES = 28
-AC_ADDRESSFEATURES = 29
-AC_PREDICTIVEAUTOTRANSFERSTATES = 30
-AC_MAXCALLDATASIZE = 31
-AC_LINEID = 32
-AC_ADDRESSID = 33
-AC_FORWARDMODES = 34
-AC_MAXFORWARDENTRIES = 35
-AC_MAXSPECIFICENTRIES = 36
-AC_MINFWDNUMRINGS = 37
-AC_MAXFWDNUMRINGS = 38
-AC_MAXCALLCOMPLETIONS = 39
-AC_CALLCOMPLETIONCONDITIONS = 40
-AC_CALLCOMPLETIONMODES = 41
-AC_PERMANENTDEVICEID = 42
-AC_GATHERDIGITSMINTIMEOUT = 43
-AC_GATHERDIGITSMAXTIMEOUT = 44
-AC_GENERATEDIGITMINDURATION = 45
-AC_GENERATEDIGITMAXDURATION = 46
-AC_GENERATEDIGITDEFAULTDURATION = 47
-ADDRESS_CAPABILITY_STRING = Int32
-ACS_PROTOCOL = 0
-ACS_ADDRESSDEVICESPECIFIC = 1
-ACS_LINEDEVICESPECIFIC = 2
-ACS_PROVIDERSPECIFIC = 3
-ACS_SWITCHSPECIFIC = 4
-ACS_PERMANENTDEVICEGUID = 5
+CALLINFOCHANGE_CAUSE = Int32
+CIC_OTHER = 0
+CIC_DEVSPECIFIC = 1
+CIC_BEARERMODE = 2
+CIC_RATE = 3
+CIC_APPSPECIFIC = 4
+CIC_CALLID = 5
+CIC_RELATEDCALLID = 6
+CIC_ORIGIN = 7
+CIC_REASON = 8
+CIC_COMPLETIONID = 9
+CIC_NUMOWNERINCR = 10
+CIC_NUMOWNERDECR = 11
+CIC_NUMMONITORS = 12
+CIC_TRUNK = 13
+CIC_CALLERID = 14
+CIC_CALLEDID = 15
+CIC_CONNECTEDID = 16
+CIC_REDIRECTIONID = 17
+CIC_REDIRECTINGID = 18
+CIC_USERUSERINFO = 19
+CIC_HIGHLEVELCOMP = 20
+CIC_LOWLEVELCOMP = 21
+CIC_CHARGINGINFO = 22
+CIC_TREATMENT = 23
+CIC_CALLDATA = 24
+CIC_PRIVILEGE = 25
+CIC_MEDIATYPE = 26
+CIC_LASTITEM = 26
+DIRECTORY_OBJECT_TYPE = Int32
+OT_CONFERENCE = 1
+OT_USER = 2
+DIRECTORY_TYPE = Int32
+DT_NTDS = 1
+DT_ILS = 2
+DISCONNECT_CODE = Int32
+DC_NORMAL = 0
+DC_NOANSWER = 1
+DC_REJECTED = 2
+DispatchMapper = Guid('e9225296-c759-11d1-a0-2b-00-c0-4f-b6-80-9f')
+def _define_DTR_head():
+    class DTR(Structure):
+        pass
+    return DTR
+def _define_DTR():
+    DTR = win32more.Devices.Tapi.DTR_head
+    DTR._pack_ = 1
+    DTR._fields_ = [
+        ('wYear', UInt16),
+        ('wMonth', UInt16),
+        ('wDay', UInt16),
+        ('wHour', UInt16),
+        ('wMinute', UInt16),
+        ('wSecond', UInt16),
+        ('wDayOfWeek', UInt16),
+    ]
+    return DTR
+FINISH_MODE = Int32
+FM_ASTRANSFER = 0
+FM_ASCONFERENCE = 1
+FT_STATE_EVENT_CAUSE = Int32
+FTEC_NORMAL = 0
+FTEC_END_OF_FILE = 1
+FTEC_READ_ERROR = 2
+FTEC_WRITE_ERROR = 3
 FULLDUPLEX_SUPPORT = Int32
 FDS_SUPPORTED = 0
 FDS_NOTSUPPORTED = 1
 FDS_UNKNOWN = 2
-FINISH_MODE = Int32
-FM_ASTRANSFER = 0
-FM_ASCONFERENCE = 1
-PHONE_PRIVILEGE = Int32
-PP_OWNER = 0
-PP_MONITOR = 1
-PHONE_HOOK_SWITCH_DEVICE = Int32
-PHSD_HANDSET = 1
-PHSD_SPEAKERPHONE = 2
-PHSD_HEADSET = 4
-PHONE_HOOK_SWITCH_STATE = Int32
-PHSS_ONHOOK = 1
-PHSS_OFFHOOK_MIC_ONLY = 2
-PHSS_OFFHOOK_SPEAKER_ONLY = 4
-PHSS_OFFHOOK = 8
-PHONE_LAMP_MODE = Int32
-LM_DUMMY = 1
-LM_OFF = 2
-LM_STEADY = 4
-LM_WINK = 8
-LM_FLASH = 16
-LM_FLUTTER = 32
-LM_BROKENFLUTTER = 64
-LM_UNKNOWN = 128
-PHONECAPS_LONG = Int32
-PCL_HOOKSWITCHES = 0
-PCL_HANDSETHOOKSWITCHMODES = 1
-PCL_HEADSETHOOKSWITCHMODES = 2
-PCL_SPEAKERPHONEHOOKSWITCHMODES = 3
-PCL_DISPLAYNUMROWS = 4
-PCL_DISPLAYNUMCOLUMNS = 5
-PCL_NUMRINGMODES = 6
-PCL_NUMBUTTONLAMPS = 7
-PCL_GENERICPHONE = 8
-PHONECAPS_STRING = Int32
-PCS_PHONENAME = 0
-PCS_PHONEINFO = 1
-PCS_PROVIDERINFO = 2
-PHONECAPS_BUFFER = Int32
-PCB_DEVSPECIFICBUFFER = 0
-PHONE_BUTTON_STATE = Int32
-PBS_UP = 1
-PBS_DOWN = 2
-PBS_UNKNOWN = 4
-PBS_UNAVAIL = 8
-PHONE_BUTTON_MODE = Int32
-PBM_DUMMY = 0
-PBM_CALL = 1
-PBM_FEATURE = 2
-PBM_KEYPAD = 3
-PBM_LOCAL = 4
-PBM_DISPLAY = 5
+def _define_HDRVCALL___head():
+    class HDRVCALL__(Structure):
+        pass
+    return HDRVCALL__
+def _define_HDRVCALL__():
+    HDRVCALL__ = win32more.Devices.Tapi.HDRVCALL___head
+    HDRVCALL__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HDRVCALL__
+def _define_HDRVDIALOGINSTANCE___head():
+    class HDRVDIALOGINSTANCE__(Structure):
+        pass
+    return HDRVDIALOGINSTANCE__
+def _define_HDRVDIALOGINSTANCE__():
+    HDRVDIALOGINSTANCE__ = win32more.Devices.Tapi.HDRVDIALOGINSTANCE___head
+    HDRVDIALOGINSTANCE__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HDRVDIALOGINSTANCE__
+def _define_HDRVLINE___head():
+    class HDRVLINE__(Structure):
+        pass
+    return HDRVLINE__
+def _define_HDRVLINE__():
+    HDRVLINE__ = win32more.Devices.Tapi.HDRVLINE___head
+    HDRVLINE__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HDRVLINE__
+def _define_HDRVMSPLINE___head():
+    class HDRVMSPLINE__(Structure):
+        pass
+    return HDRVMSPLINE__
+def _define_HDRVMSPLINE__():
+    HDRVMSPLINE__ = win32more.Devices.Tapi.HDRVMSPLINE___head
+    HDRVMSPLINE__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HDRVMSPLINE__
+def _define_HDRVPHONE___head():
+    class HDRVPHONE__(Structure):
+        pass
+    return HDRVPHONE__
+def _define_HDRVPHONE__():
+    HDRVPHONE__ = win32more.Devices.Tapi.HDRVPHONE___head
+    HDRVPHONE__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HDRVPHONE__
+def _define_HPROVIDER___head():
+    class HPROVIDER__(Structure):
+        pass
+    return HPROVIDER__
+def _define_HPROVIDER__():
+    HPROVIDER__ = win32more.Devices.Tapi.HPROVIDER___head
+    HPROVIDER__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HPROVIDER__
+def _define_HTAPICALL___head():
+    class HTAPICALL__(Structure):
+        pass
+    return HTAPICALL__
+def _define_HTAPICALL__():
+    HTAPICALL__ = win32more.Devices.Tapi.HTAPICALL___head
+    HTAPICALL__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HTAPICALL__
+def _define_HTAPILINE___head():
+    class HTAPILINE__(Structure):
+        pass
+    return HTAPILINE__
+def _define_HTAPILINE__():
+    HTAPILINE__ = win32more.Devices.Tapi.HTAPILINE___head
+    HTAPILINE__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HTAPILINE__
+def _define_HTAPIPHONE___head():
+    class HTAPIPHONE__(Structure):
+        pass
+    return HTAPIPHONE__
+def _define_HTAPIPHONE__():
+    HTAPIPHONE__ = win32more.Devices.Tapi.HTAPIPHONE___head
+    HTAPIPHONE__._fields_ = [
+        ('unused', Int32),
+    ]
+    return HTAPIPHONE__
+def _define_IEnumACDGroup_head():
+    class IEnumACDGroup(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5afc3157-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return IEnumACDGroup
+def _define_IEnumACDGroup():
+    IEnumACDGroup = win32more.Devices.Tapi.IEnumACDGroup_head
+    IEnumACDGroup.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITACDGroup_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumACDGroup.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumACDGroup.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumACDGroup.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumACDGroup_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumACDGroup
+def _define_IEnumAddress_head():
+    class IEnumAddress(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1666fca1-9363-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return IEnumAddress
+def _define_IEnumAddress():
+    IEnumAddress = win32more.Devices.Tapi.IEnumAddress_head
+    IEnumAddress.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAddress_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumAddress.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumAddress.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumAddress.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumAddress
+def _define_IEnumAgent_head():
+    class IEnumAgent(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5afc314d-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return IEnumAgent
+def _define_IEnumAgent():
+    IEnumAgent = win32more.Devices.Tapi.IEnumAgent_head
+    IEnumAgent.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAgent_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumAgent.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumAgent.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumAgent.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgent_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumAgent
+def _define_IEnumAgentHandler_head():
+    class IEnumAgentHandler(win32more.System.Com.IUnknown_head):
+        Guid = Guid('587e8c28-9802-11d1-a0-a4-00-80-5f-c1-47-d3')
+    return IEnumAgentHandler
+def _define_IEnumAgentHandler():
+    IEnumAgentHandler = win32more.Devices.Tapi.IEnumAgentHandler_head
+    IEnumAgentHandler.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAgentHandler_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumAgentHandler.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumAgentHandler.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumAgentHandler.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentHandler_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumAgentHandler
+def _define_IEnumAgentSession_head():
+    class IEnumAgentSession(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5afc314e-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return IEnumAgentSession
+def _define_IEnumAgentSession():
+    IEnumAgentSession = win32more.Devices.Tapi.IEnumAgentSession_head
+    IEnumAgentSession.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAgentSession_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumAgentSession.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumAgentSession.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumAgentSession.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentSession_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumAgentSession
+def _define_IEnumBstr_head():
+    class IEnumBstr(win32more.System.Com.IUnknown_head):
+        Guid = Guid('35372049-0bc6-11d2-a0-33-00-c0-4f-b6-80-9f')
+    return IEnumBstr
+def _define_IEnumBstr():
+    IEnumBstr = win32more.Devices.Tapi.IEnumBstr_head
+    IEnumBstr.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppStrings'),(1, 'pceltFetched'),)))
+    IEnumBstr.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumBstr.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumBstr.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumBstr
+def _define_IEnumCall_head():
+    class IEnumCall(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ae269cf6-935e-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return IEnumCall
+def _define_IEnumCall():
+    IEnumCall = win32more.Devices.Tapi.IEnumCall_head
+    IEnumCall.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITCallInfo_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumCall.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumCall.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumCall.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumCall
+def _define_IEnumCallHub_head():
+    class IEnumCallHub(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a3c15450-5b92-11d1-8f-4e-00-c0-4f-b6-80-9f')
+    return IEnumCallHub
+def _define_IEnumCallHub():
+    IEnumCallHub = win32more.Devices.Tapi.IEnumCallHub_head
+    IEnumCallHub.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITCallHub_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumCallHub.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumCallHub.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumCallHub.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallHub_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumCallHub
+def _define_IEnumCallingCard_head():
+    class IEnumCallingCard(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c4d8f02-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
+    return IEnumCallingCard
+def _define_IEnumCallingCard():
+    IEnumCallingCard = win32more.Devices.Tapi.IEnumCallingCard_head
+    IEnumCallingCard.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITCallingCard_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumCallingCard.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumCallingCard.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumCallingCard.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallingCard_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumCallingCard
+def _define_IEnumDialableAddrs_head():
+    class IEnumDialableAddrs(win32more.System.Com.IUnknown_head):
+        Guid = Guid('34621d70-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return IEnumDialableAddrs
+def _define_IEnumDialableAddrs():
+    IEnumDialableAddrs = win32more.Devices.Tapi.IEnumDialableAddrs_head
+    IEnumDialableAddrs.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pcFetched'),)))
+    IEnumDialableAddrs.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumDialableAddrs.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumDialableAddrs.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDialableAddrs_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumDialableAddrs
+def _define_IEnumDirectory_head():
+    class IEnumDirectory(win32more.System.Com.IUnknown_head):
+        Guid = Guid('34621d6d-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return IEnumDirectory
+def _define_IEnumDirectory():
+    IEnumDirectory = win32more.Devices.Tapi.IEnumDirectory_head
+    IEnumDirectory.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITDirectory_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pcFetched'),)))
+    IEnumDirectory.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumDirectory.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumDirectory.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectory_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumDirectory
+def _define_IEnumDirectoryObject_head():
+    class IEnumDirectoryObject(win32more.System.Com.IUnknown_head):
+        Guid = Guid('06c9b64a-306d-11d1-97-74-00-c0-4f-d9-1a-c0')
+    return IEnumDirectoryObject
+def _define_IEnumDirectoryObject():
+    IEnumDirectoryObject = win32more.Devices.Tapi.IEnumDirectoryObject_head
+    IEnumDirectoryObject.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITDirectoryObject_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'pVal'),(1, 'pcFetched'),)))
+    IEnumDirectoryObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumDirectoryObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumDirectoryObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectoryObject_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumDirectoryObject
+def _define_IEnumLocation_head():
+    class IEnumLocation(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c4d8f01-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
+    return IEnumLocation
+def _define_IEnumLocation():
+    IEnumLocation = win32more.Devices.Tapi.IEnumLocation_head
+    IEnumLocation.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITLocationInfo_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumLocation.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumLocation.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumLocation.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumLocation_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumLocation
+def _define_IEnumMcastScope_head():
+    class IEnumMcastScope(win32more.System.Com.IUnknown_head):
+        Guid = Guid('df0daf09-a289-11d1-86-97-00-60-08-b0-e5-d2')
+    return IEnumMcastScope
+def _define_IEnumMcastScope():
+    IEnumMcastScope = win32more.Devices.Tapi.IEnumMcastScope_head
+    IEnumMcastScope.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.IMcastScope_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppScopes'),(1, 'pceltFetched'),)))
+    IEnumMcastScope.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumMcastScope.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumMcastScope.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumMcastScope_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumMcastScope
+def _define_IEnumPhone_head():
+    class IEnumPhone(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f15b7669-4780-4595-8c-89-fb-36-9c-8c-f7-aa')
+    return IEnumPhone
+def _define_IEnumPhone():
+    IEnumPhone = win32more.Devices.Tapi.IEnumPhone_head
+    IEnumPhone.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITPhone_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumPhone.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumPhone.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumPhone.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumPhone
+def _define_IEnumPluggableSuperclassInfo_head():
+    class IEnumPluggableSuperclassInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e9586a80-89e6-4cff-93-1d-47-8d-57-51-f4-c0')
+    return IEnumPluggableSuperclassInfo
+def _define_IEnumPluggableSuperclassInfo():
+    IEnumPluggableSuperclassInfo = win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head
+    IEnumPluggableSuperclassInfo.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITPluggableTerminalSuperclassInfo_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumPluggableSuperclassInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumPluggableSuperclassInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumPluggableSuperclassInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumPluggableSuperclassInfo
+def _define_IEnumPluggableTerminalClassInfo_head():
+    class IEnumPluggableTerminalClassInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4567450c-dbee-4e3f-aa-f5-37-bf-9e-bf-5e-29')
+    return IEnumPluggableTerminalClassInfo
+def _define_IEnumPluggableTerminalClassInfo():
+    IEnumPluggableTerminalClassInfo = win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head
+    IEnumPluggableTerminalClassInfo.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITPluggableTerminalClassInfo_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumPluggableTerminalClassInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumPluggableTerminalClassInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumPluggableTerminalClassInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumPluggableTerminalClassInfo
+def _define_IEnumQueue_head():
+    class IEnumQueue(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5afc3158-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return IEnumQueue
+def _define_IEnumQueue():
+    IEnumQueue = win32more.Devices.Tapi.IEnumQueue_head
+    IEnumQueue.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITQueue_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumQueue.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumQueue.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumQueue.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumQueue_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumQueue
+def _define_IEnumStream_head():
+    class IEnumStream(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ee3bd606-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return IEnumStream
+def _define_IEnumStream():
+    IEnumStream = win32more.Devices.Tapi.IEnumStream_head
+    IEnumStream.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITStream_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumStream.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumStream.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumStream_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumStream
+def _define_IEnumSubStream_head():
+    class IEnumSubStream(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ee3bd609-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return IEnumSubStream
+def _define_IEnumSubStream():
+    IEnumSubStream = win32more.Devices.Tapi.IEnumSubStream_head
+    IEnumSubStream.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITSubStream_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumSubStream.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumSubStream.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumSubStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumSubStream_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumSubStream
+def _define_IEnumTerminal_head():
+    class IEnumTerminal(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ae269cf4-935e-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return IEnumTerminal
+def _define_IEnumTerminal():
+    IEnumTerminal = win32more.Devices.Tapi.IEnumTerminal_head
+    IEnumTerminal.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITTerminal_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
+    IEnumTerminal.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumTerminal.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumTerminal.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumTerminal
+def _define_IEnumTerminalClass_head():
+    class IEnumTerminalClass(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ae269cf5-935e-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return IEnumTerminalClass
+def _define_IEnumTerminalClass():
+    IEnumTerminalClass = win32more.Devices.Tapi.IEnumTerminalClass_head
+    IEnumTerminalClass.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'pElements'),(1, 'pceltFetched'),)))
+    IEnumTerminalClass.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
+    IEnumTerminalClass.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Skip', ((1, 'celt'),)))
+    IEnumTerminalClass.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminalClass_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumTerminalClass
+def _define_IMcastAddressAllocation_head():
+    class IMcastAddressAllocation(win32more.System.Com.IDispatch_head):
+        Guid = Guid('df0daef1-a289-11d1-86-97-00-60-08-b0-e5-d2')
+    return IMcastAddressAllocation
+def _define_IMcastAddressAllocation():
+    IMcastAddressAllocation = win32more.Devices.Tapi.IMcastAddressAllocation_head
+    IMcastAddressAllocation.get_Scopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(7, 'get_Scopes', ((1, 'pVariant'),)))
+    IMcastAddressAllocation.EnumerateScopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumMcastScope_head))(8, 'EnumerateScopes', ((1, 'ppEnumMcastScope'),)))
+    IMcastAddressAllocation.RequestAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.IMcastScope_head,Double,Double,Int32,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head))(9, 'RequestAddress', ((1, 'pScope'),(1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'NumAddresses'),(1, 'ppLeaseResponse'),)))
+    IMcastAddressAllocation.RenewAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.IMcastLeaseInfo_head,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head))(10, 'RenewAddress', ((1, 'lReserved'),(1, 'pRenewRequest'),(1, 'ppRenewResponse'),)))
+    IMcastAddressAllocation.ReleaseAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.IMcastLeaseInfo_head)(11, 'ReleaseAddress', ((1, 'pReleaseRequest'),)))
+    IMcastAddressAllocation.CreateLeaseInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,UInt32,POINTER(win32more.Foundation.PWSTR),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head))(12, 'CreateLeaseInfo', ((1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'dwNumAddresses'),(1, 'ppAddresses'),(1, 'pRequestID'),(1, 'pServerAddress'),(1, 'ppReleaseRequest'),)))
+    IMcastAddressAllocation.CreateLeaseInfoFromVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head))(13, 'CreateLeaseInfoFromVariant', ((1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'vAddresses'),(1, 'pRequestID'),(1, 'pServerAddress'),(1, 'ppReleaseRequest'),)))
+    win32more.System.Com.IDispatch
+    return IMcastAddressAllocation
+def _define_IMcastLeaseInfo_head():
+    class IMcastLeaseInfo(win32more.System.Com.IDispatch_head):
+        Guid = Guid('df0daefd-a289-11d1-86-97-00-60-08-b0-e5-d2')
+    return IMcastLeaseInfo
+def _define_IMcastLeaseInfo():
+    IMcastLeaseInfo = win32more.Devices.Tapi.IMcastLeaseInfo_head
+    IMcastLeaseInfo.get_RequestID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_RequestID', ((1, 'ppRequestID'),)))
+    IMcastLeaseInfo.get_LeaseStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'get_LeaseStartTime', ((1, 'pTime'),)))
+    IMcastLeaseInfo.put_LeaseStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(9, 'put_LeaseStartTime', ((1, 'time'),)))
+    IMcastLeaseInfo.get_LeaseStopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(10, 'get_LeaseStopTime', ((1, 'pTime'),)))
+    IMcastLeaseInfo.put_LeaseStopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(11, 'put_LeaseStopTime', ((1, 'time'),)))
+    IMcastLeaseInfo.get_AddressCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_AddressCount', ((1, 'pCount'),)))
+    IMcastLeaseInfo.get_ServerAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_ServerAddress', ((1, 'ppAddress'),)))
+    IMcastLeaseInfo.get_TTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_TTL', ((1, 'pTTL'),)))
+    IMcastLeaseInfo.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(15, 'get_Addresses', ((1, 'pVariant'),)))
+    IMcastLeaseInfo.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head))(16, 'EnumerateAddresses', ((1, 'ppEnumAddresses'),)))
+    win32more.System.Com.IDispatch
+    return IMcastLeaseInfo
+def _define_IMcastScope_head():
+    class IMcastScope(win32more.System.Com.IDispatch_head):
+        Guid = Guid('df0daef4-a289-11d1-86-97-00-60-08-b0-e5-d2')
+    return IMcastScope
+def _define_IMcastScope():
+    IMcastScope = win32more.Devices.Tapi.IMcastScope_head
+    IMcastScope.get_ScopeID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_ScopeID', ((1, 'pID'),)))
+    IMcastScope.get_ServerID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_ServerID', ((1, 'pID'),)))
+    IMcastScope.get_InterfaceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_InterfaceID', ((1, 'pID'),)))
+    IMcastScope.get_ScopeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_ScopeDescription', ((1, 'ppDescription'),)))
+    IMcastScope.get_TTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_TTL', ((1, 'pTTL'),)))
+    win32more.System.Com.IDispatch
+    return IMcastScope
+def _define_ITACDGroup_head():
+    class ITACDGroup(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5afc3148-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITACDGroup
+def _define_ITACDGroup():
+    ITACDGroup = win32more.Devices.Tapi.ITACDGroup_head
+    ITACDGroup.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'ppName'),)))
+    ITACDGroup.EnumerateQueues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumQueue_head))(8, 'EnumerateQueues', ((1, 'ppEnumQueue'),)))
+    ITACDGroup.get_Queues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_Queues', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITACDGroup
+def _define_ITACDGroupEvent_head():
+    class ITACDGroupEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('297f3032-bd11-11d1-a0-a7-00-80-5f-c1-47-d3')
+    return ITACDGroupEvent
+def _define_ITACDGroupEvent():
+    ITACDGroupEvent = win32more.Devices.Tapi.ITACDGroupEvent_head
+    ITACDGroupEvent.get_Group = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITACDGroup_head))(7, 'get_Group', ((1, 'ppGroup'),)))
+    ITACDGroupEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ACDGROUP_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
+    return ITACDGroupEvent
+def _define_ITAddress_head():
+    class ITAddress(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc386-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITAddress
+def _define_ITAddress():
+    ITAddress = win32more.Devices.Tapi.ITAddress_head
+    ITAddress.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ADDRESS_STATE))(7, 'get_State', ((1, 'pAddressState'),)))
+    ITAddress.get_AddressName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_AddressName', ((1, 'ppName'),)))
+    ITAddress.get_ServiceProviderName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_ServiceProviderName', ((1, 'ppName'),)))
+    ITAddress.get_TAPIObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTAPI_head))(10, 'get_TAPIObject', ((1, 'ppTapiObject'),)))
+    ITAddress.CreateCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Devices.Tapi.ITBasicCallControl_head))(11, 'CreateCall', ((1, 'pDestAddress'),(1, 'lAddressType'),(1, 'lMediaTypes'),(1, 'ppCall'),)))
+    ITAddress.get_Calls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(12, 'get_Calls', ((1, 'pVariant'),)))
+    ITAddress.EnumerateCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head))(13, 'EnumerateCalls', ((1, 'ppCallEnum'),)))
+    ITAddress.get_DialableAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_DialableAddress', ((1, 'pDialableAddress'),)))
+    ITAddress.CreateForwardInfoObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITForwardInformation_head))(15, 'CreateForwardInfoObject', ((1, 'ppForwardInfo'),)))
+    ITAddress.Forward = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITForwardInformation_head,win32more.Devices.Tapi.ITBasicCallControl_head)(16, 'Forward', ((1, 'pForwardInfo'),(1, 'pCall'),)))
+    ITAddress.get_CurrentForwardInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITForwardInformation_head))(17, 'get_CurrentForwardInfo', ((1, 'ppForwardInfo'),)))
+    ITAddress.put_MessageWaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(18, 'put_MessageWaiting', ((1, 'fMessageWaiting'),)))
+    ITAddress.get_MessageWaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(19, 'get_MessageWaiting', ((1, 'pfMessageWaiting'),)))
+    ITAddress.put_DoNotDisturb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(20, 'put_DoNotDisturb', ((1, 'fDoNotDisturb'),)))
+    ITAddress.get_DoNotDisturb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(21, 'get_DoNotDisturb', ((1, 'pfDoNotDisturb'),)))
+    win32more.System.Com.IDispatch
+    return ITAddress
+def _define_ITAddress2_head():
+    class ITAddress2(win32more.Devices.Tapi.ITAddress_head):
+        Guid = Guid('b0ae5d9b-be51-46c9-b0-f7-df-a8-a2-2a-8b-c4')
+    return ITAddress2
+def _define_ITAddress2():
+    ITAddress2 = win32more.Devices.Tapi.ITAddress2_head
+    ITAddress2.get_Phones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(22, 'get_Phones', ((1, 'pPhones'),)))
+    ITAddress2.EnumeratePhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head))(23, 'EnumeratePhones', ((1, 'ppEnumPhone'),)))
+    ITAddress2.GetPhoneFromTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head,POINTER(win32more.Devices.Tapi.ITPhone_head))(24, 'GetPhoneFromTerminal', ((1, 'pTerminal'),(1, 'ppPhone'),)))
+    ITAddress2.get_PreferredPhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(25, 'get_PreferredPhones', ((1, 'pPhones'),)))
+    ITAddress2.EnumeratePreferredPhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head))(26, 'EnumeratePreferredPhones', ((1, 'ppEnumPhone'),)))
+    ITAddress2.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(27, 'get_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'pEnable'),)))
+    ITAddress2.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,win32more.Foundation.VARIANT_BOOL)(28, 'put_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'bEnable'),)))
+    ITAddress2.DeviceSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,c_char_p_no,UInt32)(29, 'DeviceSpecific', ((1, 'pCall'),(1, 'pParams'),(1, 'dwSize'),)))
+    ITAddress2.DeviceSpecificVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,win32more.System.Com.VARIANT)(30, 'DeviceSpecificVariant', ((1, 'pCall'),(1, 'varDevSpecificByteArray'),)))
+    ITAddress2.NegotiateExtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32))(31, 'NegotiateExtVersion', ((1, 'lLowVersion'),(1, 'lHighVersion'),(1, 'plExtVersion'),)))
+    win32more.Devices.Tapi.ITAddress
+    return ITAddress2
+def _define_ITAddressCapabilities_head():
+    class ITAddressCapabilities(win32more.System.Com.IDispatch_head):
+        Guid = Guid('8df232f5-821b-11d1-bb-5c-00-c0-4f-b6-80-9f')
+    return ITAddressCapabilities
+def _define_ITAddressCapabilities():
+    ITAddressCapabilities = win32more.Devices.Tapi.ITAddressCapabilities_head
+    ITAddressCapabilities.get_AddressCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ADDRESS_CAPABILITY,POINTER(Int32))(7, 'get_AddressCapability', ((1, 'AddressCap'),(1, 'plCapability'),)))
+    ITAddressCapabilities.get_AddressCapabilityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ADDRESS_CAPABILITY_STRING,POINTER(win32more.Foundation.BSTR))(8, 'get_AddressCapabilityString', ((1, 'AddressCapString'),(1, 'ppCapabilityString'),)))
+    ITAddressCapabilities.get_CallTreatments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_CallTreatments', ((1, 'pVariant'),)))
+    ITAddressCapabilities.EnumerateCallTreatments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head))(10, 'EnumerateCallTreatments', ((1, 'ppEnumCallTreatment'),)))
+    ITAddressCapabilities.get_CompletionMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(11, 'get_CompletionMessages', ((1, 'pVariant'),)))
+    ITAddressCapabilities.EnumerateCompletionMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head))(12, 'EnumerateCompletionMessages', ((1, 'ppEnumCompletionMessage'),)))
+    ITAddressCapabilities.get_DeviceClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_DeviceClasses', ((1, 'pVariant'),)))
+    ITAddressCapabilities.EnumerateDeviceClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head))(14, 'EnumerateDeviceClasses', ((1, 'ppEnumDeviceClass'),)))
+    win32more.System.Com.IDispatch
+    return ITAddressCapabilities
+def _define_ITAddressDeviceSpecificEvent_head():
+    class ITAddressDeviceSpecificEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('3acb216b-40bd-487a-86-72-5c-e7-7b-d7-e3-a3')
+    return ITAddressDeviceSpecificEvent
+def _define_ITAddressDeviceSpecificEvent():
+    ITAddressDeviceSpecificEvent = win32more.Devices.Tapi.ITAddressDeviceSpecificEvent_head
+    ITAddressDeviceSpecificEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head))(7, 'get_Address', ((1, 'ppAddress'),)))
+    ITAddressDeviceSpecificEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(8, 'get_Call', ((1, 'ppCall'),)))
+    ITAddressDeviceSpecificEvent.get_lParam1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_lParam1', ((1, 'pParam1'),)))
+    ITAddressDeviceSpecificEvent.get_lParam2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_lParam2', ((1, 'pParam2'),)))
+    ITAddressDeviceSpecificEvent.get_lParam3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_lParam3', ((1, 'pParam3'),)))
+    win32more.System.Com.IDispatch
+    return ITAddressDeviceSpecificEvent
+def _define_ITAddressEvent_head():
+    class ITAddressEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('831ce2d1-83b5-11d1-bb-5c-00-c0-4f-b6-80-9f')
+    return ITAddressEvent
+def _define_ITAddressEvent():
+    ITAddressEvent = win32more.Devices.Tapi.ITAddressEvent_head
+    ITAddressEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head))(7, 'get_Address', ((1, 'ppAddress'),)))
+    ITAddressEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ADDRESS_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    ITAddressEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(9, 'get_Terminal', ((1, 'ppTerminal'),)))
+    win32more.System.Com.IDispatch
+    return ITAddressEvent
+def _define_ITAddressTranslation_head():
+    class ITAddressTranslation(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0c4d8f03-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
+    return ITAddressTranslation
+def _define_ITAddressTranslation():
+    ITAddressTranslation = win32more.Devices.Tapi.ITAddressTranslation_head
+    ITAddressTranslation.TranslateAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Devices.Tapi.ITAddressTranslationInfo_head))(7, 'TranslateAddress', ((1, 'pAddressToTranslate'),(1, 'lCard'),(1, 'lTranslateOptions'),(1, 'ppTranslated'),)))
+    ITAddressTranslation.TranslateDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.Foundation.BSTR)(8, 'TranslateDialog', ((1, 'hwndOwner'),(1, 'pAddressIn'),)))
+    ITAddressTranslation.EnumerateLocations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumLocation_head))(9, 'EnumerateLocations', ((1, 'ppEnumLocation'),)))
+    ITAddressTranslation.get_Locations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(10, 'get_Locations', ((1, 'pVariant'),)))
+    ITAddressTranslation.EnumerateCallingCards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallingCard_head))(11, 'EnumerateCallingCards', ((1, 'ppEnumCallingCard'),)))
+    ITAddressTranslation.get_CallingCards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(12, 'get_CallingCards', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITAddressTranslation
+def _define_ITAddressTranslationInfo_head():
+    class ITAddressTranslationInfo(win32more.System.Com.IDispatch_head):
+        Guid = Guid('afc15945-8d40-11d1-a0-9e-00-80-5f-c1-47-d3')
+    return ITAddressTranslationInfo
+def _define_ITAddressTranslationInfo():
+    ITAddressTranslationInfo = win32more.Devices.Tapi.ITAddressTranslationInfo_head
+    ITAddressTranslationInfo.get_DialableString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_DialableString', ((1, 'ppDialableString'),)))
+    ITAddressTranslationInfo.get_DisplayableString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_DisplayableString', ((1, 'ppDisplayableString'),)))
+    ITAddressTranslationInfo.get_CurrentCountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_CurrentCountryCode', ((1, 'CountryCode'),)))
+    ITAddressTranslationInfo.get_DestinationCountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_DestinationCountryCode', ((1, 'CountryCode'),)))
+    ITAddressTranslationInfo.get_TranslationResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_TranslationResults', ((1, 'plResults'),)))
+    win32more.System.Com.IDispatch
+    return ITAddressTranslationInfo
+def _define_ITAgent_head():
+    class ITAgent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5770ece5-4b27-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITAgent
+def _define_ITAgent():
+    ITAgent = win32more.Devices.Tapi.ITAgent_head
+    ITAgent.EnumerateAgentSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentSession_head))(7, 'EnumerateAgentSessions', ((1, 'ppEnumAgentSession'),)))
+    ITAgent.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITACDGroup_head,win32more.Devices.Tapi.ITAddress_head,POINTER(win32more.Devices.Tapi.ITAgentSession_head))(8, 'CreateSession', ((1, 'pACDGroup'),(1, 'pAddress'),(1, 'ppAgentSession'),)))
+    ITAgent.CreateSessionWithPIN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITACDGroup_head,win32more.Devices.Tapi.ITAddress_head,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITAgentSession_head))(9, 'CreateSessionWithPIN', ((1, 'pACDGroup'),(1, 'pAddress'),(1, 'pPIN'),(1, 'ppAgentSession'),)))
+    ITAgent.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_ID', ((1, 'ppID'),)))
+    ITAgent.get_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_User', ((1, 'ppUser'),)))
+    ITAgent.put_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.AGENT_STATE)(12, 'put_State', ((1, 'AgentState'),)))
+    ITAgent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_STATE))(13, 'get_State', ((1, 'pAgentState'),)))
+    ITAgent.put_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(14, 'put_MeasurementPeriod', ((1, 'lPeriod'),)))
+    ITAgent.get_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_MeasurementPeriod', ((1, 'plPeriod'),)))
+    ITAgent.get_OverallCallRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.CY_head))(16, 'get_OverallCallRate', ((1, 'pcyCallrate'),)))
+    ITAgent.get_NumberOfACDCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_NumberOfACDCalls', ((1, 'plCalls'),)))
+    ITAgent.get_NumberOfIncomingCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_NumberOfIncomingCalls', ((1, 'plCalls'),)))
+    ITAgent.get_NumberOfOutgoingCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'get_NumberOfOutgoingCalls', ((1, 'plCalls'),)))
+    ITAgent.get_TotalACDTalkTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(20, 'get_TotalACDTalkTime', ((1, 'plTalkTime'),)))
+    ITAgent.get_TotalACDCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(21, 'get_TotalACDCallTime', ((1, 'plCallTime'),)))
+    ITAgent.get_TotalWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_TotalWrapUpTime', ((1, 'plWrapUpTime'),)))
+    ITAgent.get_AgentSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(23, 'get_AgentSessions', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITAgent
+def _define_ITAgentEvent_head():
+    class ITAgentEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5afc314a-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITAgentEvent
+def _define_ITAgentEvent():
+    ITAgentEvent = win32more.Devices.Tapi.ITAgentEvent_head
+    ITAgentEvent.get_Agent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head))(7, 'get_Agent', ((1, 'ppAgent'),)))
+    ITAgentEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
+    return ITAgentEvent
+def _define_ITAgentHandler_head():
+    class ITAgentHandler(win32more.System.Com.IDispatch_head):
+        Guid = Guid('587e8c22-9802-11d1-a0-a4-00-80-5f-c1-47-d3')
+    return ITAgentHandler
+def _define_ITAgentHandler():
+    ITAgentHandler = win32more.Devices.Tapi.ITAgentHandler_head
+    ITAgentHandler.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'ppName'),)))
+    ITAgentHandler.CreateAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head))(8, 'CreateAgent', ((1, 'ppAgent'),)))
+    ITAgentHandler.CreateAgentWithID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITAgent_head))(9, 'CreateAgentWithID', ((1, 'pID'),(1, 'pPIN'),(1, 'ppAgent'),)))
+    ITAgentHandler.EnumerateACDGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumACDGroup_head))(10, 'EnumerateACDGroups', ((1, 'ppEnumACDGroup'),)))
+    ITAgentHandler.EnumerateUsableAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head))(11, 'EnumerateUsableAddresses', ((1, 'ppEnumAddress'),)))
+    ITAgentHandler.get_ACDGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(12, 'get_ACDGroups', ((1, 'pVariant'),)))
+    ITAgentHandler.get_UsableAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_UsableAddresses', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITAgentHandler
+def _define_ITAgentHandlerEvent_head():
+    class ITAgentHandlerEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('297f3034-bd11-11d1-a0-a7-00-80-5f-c1-47-d3')
+    return ITAgentHandlerEvent
+def _define_ITAgentHandlerEvent():
+    ITAgentHandlerEvent = win32more.Devices.Tapi.ITAgentHandlerEvent_head
+    ITAgentHandlerEvent.get_AgentHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgentHandler_head))(7, 'get_AgentHandler', ((1, 'ppAgentHandler'),)))
+    ITAgentHandlerEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENTHANDLER_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
+    return ITAgentHandlerEvent
+def _define_ITAgentSession_head():
+    class ITAgentSession(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5afc3147-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITAgentSession
+def _define_ITAgentSession():
+    ITAgentSession = win32more.Devices.Tapi.ITAgentSession_head
+    ITAgentSession.get_Agent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head))(7, 'get_Agent', ((1, 'ppAgent'),)))
+    ITAgentSession.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head))(8, 'get_Address', ((1, 'ppAddress'),)))
+    ITAgentSession.get_ACDGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITACDGroup_head))(9, 'get_ACDGroup', ((1, 'ppACDGroup'),)))
+    ITAgentSession.put_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.AGENT_SESSION_STATE)(10, 'put_State', ((1, 'SessionState'),)))
+    ITAgentSession.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_SESSION_STATE))(11, 'get_State', ((1, 'pSessionState'),)))
+    ITAgentSession.get_SessionStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'get_SessionStartTime', ((1, 'pdateSessionStart'),)))
+    ITAgentSession.get_SessionDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_SessionDuration', ((1, 'plDuration'),)))
+    ITAgentSession.get_NumberOfCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_NumberOfCalls', ((1, 'plCalls'),)))
+    ITAgentSession.get_TotalTalkTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_TotalTalkTime', ((1, 'plTalkTime'),)))
+    ITAgentSession.get_AverageTalkTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_AverageTalkTime', ((1, 'plTalkTime'),)))
+    ITAgentSession.get_TotalCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_TotalCallTime', ((1, 'plCallTime'),)))
+    ITAgentSession.get_AverageCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_AverageCallTime', ((1, 'plCallTime'),)))
+    ITAgentSession.get_TotalWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'get_TotalWrapUpTime', ((1, 'plWrapUpTime'),)))
+    ITAgentSession.get_AverageWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(20, 'get_AverageWrapUpTime', ((1, 'plWrapUpTime'),)))
+    ITAgentSession.get_ACDCallRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.CY_head))(21, 'get_ACDCallRate', ((1, 'pcyCallrate'),)))
+    ITAgentSession.get_LongestTimeToAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_LongestTimeToAnswer', ((1, 'plAnswerTime'),)))
+    ITAgentSession.get_AverageTimeToAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(23, 'get_AverageTimeToAnswer', ((1, 'plAnswerTime'),)))
+    win32more.System.Com.IDispatch
+    return ITAgentSession
+def _define_ITAgentSessionEvent_head():
+    class ITAgentSessionEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5afc314b-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITAgentSessionEvent
+def _define_ITAgentSessionEvent():
+    ITAgentSessionEvent = win32more.Devices.Tapi.ITAgentSessionEvent_head
+    ITAgentSessionEvent.get_Session = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgentSession_head))(7, 'get_Session', ((1, 'ppSession'),)))
+    ITAgentSessionEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_SESSION_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
+    return ITAgentSessionEvent
+def _define_ITAllocatorProperties_head():
+    class ITAllocatorProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('c1bc3c90-bcfe-11d1-97-45-00-c0-4f-d9-1a-c0')
+    return ITAllocatorProperties
+def _define_ITAllocatorProperties():
+    ITAllocatorProperties = win32more.Devices.Tapi.ITAllocatorProperties_head
+    ITAllocatorProperties.SetAllocatorProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.ALLOCATOR_PROPERTIES_head))(3, 'SetAllocatorProperties', ((1, 'pAllocProperties'),)))
+    ITAllocatorProperties.GetAllocatorProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.ALLOCATOR_PROPERTIES_head))(4, 'GetAllocatorProperties', ((1, 'pAllocProperties'),)))
+    ITAllocatorProperties.SetAllocateBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(5, 'SetAllocateBuffers', ((1, 'bAllocBuffers'),)))
+    ITAllocatorProperties.GetAllocateBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'GetAllocateBuffers', ((1, 'pbAllocBuffers'),)))
+    ITAllocatorProperties.SetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(7, 'SetBufferSize', ((1, 'BufferSize'),)))
+    ITAllocatorProperties.GetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(8, 'GetBufferSize', ((1, 'pBufferSize'),)))
+    win32more.System.Com.IUnknown
+    return ITAllocatorProperties
+def _define_ITAMMediaFormat_head():
+    class ITAMMediaFormat(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0364eb00-4a77-11d1-a6-71-00-60-97-c9-a2-e8')
+    return ITAMMediaFormat
+def _define_ITAMMediaFormat():
+    ITAMMediaFormat = win32more.Devices.Tapi.ITAMMediaFormat_head
+    ITAMMediaFormat.get_MediaFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head)))(3, 'get_MediaFormat', ((1, 'ppmt'),)))
+    ITAMMediaFormat.put_MediaFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head))(4, 'put_MediaFormat', ((1, 'pmt'),)))
+    win32more.System.Com.IUnknown
+    return ITAMMediaFormat
+def _define_ITASRTerminalEvent_head():
+    class ITASRTerminalEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ee016a02-4fa9-467c-93-3f-5a-15-b1-23-77-d7')
+    return ITASRTerminalEvent
+def _define_ITASRTerminalEvent():
+    ITASRTerminalEvent = win32more.Devices.Tapi.ITASRTerminalEvent_head
+    ITASRTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(7, 'get_Terminal', ((1, 'ppTerminal'),)))
+    ITASRTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(8, 'get_Call', ((1, 'ppCall'),)))
+    ITASRTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT))(9, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
+    return ITASRTerminalEvent
+def _define_ITAutomatedPhoneControl_head():
+    class ITAutomatedPhoneControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('1ee1af0e-6159-4a61-b7-9b-6a-4b-a3-fc-9d-fc')
+    return ITAutomatedPhoneControl
+def _define_ITAutomatedPhoneControl():
+    ITAutomatedPhoneControl = win32more.Devices.Tapi.ITAutomatedPhoneControl_head
+    ITAutomatedPhoneControl.StartTone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_TONE,Int32)(7, 'StartTone', ((1, 'Tone'),(1, 'lDuration'),)))
+    ITAutomatedPhoneControl.StopTone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'StopTone', ()))
+    ITAutomatedPhoneControl.get_Tone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_TONE))(9, 'get_Tone', ((1, 'pTone'),)))
+    ITAutomatedPhoneControl.StartRinger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32)(10, 'StartRinger', ((1, 'lRingMode'),(1, 'lDuration'),)))
+    ITAutomatedPhoneControl.StopRinger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'StopRinger', ()))
+    ITAutomatedPhoneControl.get_Ringer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'get_Ringer', ((1, 'pfRinging'),)))
+    ITAutomatedPhoneControl.put_PhoneHandlingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(13, 'put_PhoneHandlingEnabled', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.get_PhoneHandlingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(14, 'get_PhoneHandlingEnabled', ((1, 'pfEnabled'),)))
+    ITAutomatedPhoneControl.put_AutoEndOfNumberTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(15, 'put_AutoEndOfNumberTimeout', ((1, 'lTimeout'),)))
+    ITAutomatedPhoneControl.get_AutoEndOfNumberTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_AutoEndOfNumberTimeout', ((1, 'plTimeout'),)))
+    ITAutomatedPhoneControl.put_AutoDialtone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(17, 'put_AutoDialtone', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.get_AutoDialtone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(18, 'get_AutoDialtone', ((1, 'pfEnabled'),)))
+    ITAutomatedPhoneControl.put_AutoStopTonesOnOnHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(19, 'put_AutoStopTonesOnOnHook', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.get_AutoStopTonesOnOnHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(20, 'get_AutoStopTonesOnOnHook', ((1, 'pfEnabled'),)))
+    ITAutomatedPhoneControl.put_AutoStopRingOnOffHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(21, 'put_AutoStopRingOnOffHook', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.get_AutoStopRingOnOffHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(22, 'get_AutoStopRingOnOffHook', ((1, 'pfEnabled'),)))
+    ITAutomatedPhoneControl.put_AutoKeypadTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(23, 'put_AutoKeypadTones', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.get_AutoKeypadTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(24, 'get_AutoKeypadTones', ((1, 'pfEnabled'),)))
+    ITAutomatedPhoneControl.put_AutoKeypadTonesMinimumDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(25, 'put_AutoKeypadTonesMinimumDuration', ((1, 'lDuration'),)))
+    ITAutomatedPhoneControl.get_AutoKeypadTonesMinimumDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(26, 'get_AutoKeypadTonesMinimumDuration', ((1, 'plDuration'),)))
+    ITAutomatedPhoneControl.put_AutoVolumeControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(27, 'put_AutoVolumeControl', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.get_AutoVolumeControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(28, 'get_AutoVolumeControl', ((1, 'fEnabled'),)))
+    ITAutomatedPhoneControl.put_AutoVolumeControlStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(29, 'put_AutoVolumeControlStep', ((1, 'lStepSize'),)))
+    ITAutomatedPhoneControl.get_AutoVolumeControlStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(30, 'get_AutoVolumeControlStep', ((1, 'plStepSize'),)))
+    ITAutomatedPhoneControl.put_AutoVolumeControlRepeatDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(31, 'put_AutoVolumeControlRepeatDelay', ((1, 'lDelay'),)))
+    ITAutomatedPhoneControl.get_AutoVolumeControlRepeatDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(32, 'get_AutoVolumeControlRepeatDelay', ((1, 'plDelay'),)))
+    ITAutomatedPhoneControl.put_AutoVolumeControlRepeatPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(33, 'put_AutoVolumeControlRepeatPeriod', ((1, 'lPeriod'),)))
+    ITAutomatedPhoneControl.get_AutoVolumeControlRepeatPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(34, 'get_AutoVolumeControlRepeatPeriod', ((1, 'plPeriod'),)))
+    ITAutomatedPhoneControl.SelectCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,win32more.Foundation.VARIANT_BOOL)(35, 'SelectCall', ((1, 'pCall'),(1, 'fSelectDefaultTerminals'),)))
+    ITAutomatedPhoneControl.UnselectCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head)(36, 'UnselectCall', ((1, 'pCall'),)))
+    ITAutomatedPhoneControl.EnumerateSelectedCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head))(37, 'EnumerateSelectedCalls', ((1, 'ppCallEnum'),)))
+    ITAutomatedPhoneControl.get_SelectedCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(38, 'get_SelectedCalls', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITAutomatedPhoneControl
+def _define_ITBasicAudioTerminal_head():
+    class ITBasicAudioTerminal(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc38d-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITBasicAudioTerminal
+def _define_ITBasicAudioTerminal():
+    ITBasicAudioTerminal = win32more.Devices.Tapi.ITBasicAudioTerminal_head
+    ITBasicAudioTerminal.put_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(7, 'put_Volume', ((1, 'lVolume'),)))
+    ITBasicAudioTerminal.get_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Volume', ((1, 'plVolume'),)))
+    ITBasicAudioTerminal.put_Balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(9, 'put_Balance', ((1, 'lBalance'),)))
+    ITBasicAudioTerminal.get_Balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_Balance', ((1, 'plBalance'),)))
+    win32more.System.Com.IDispatch
+    return ITBasicAudioTerminal
+def _define_ITBasicCallControl_head():
+    class ITBasicCallControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc389-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITBasicCallControl
+def _define_ITBasicCallControl():
+    ITBasicCallControl = win32more.Devices.Tapi.ITBasicCallControl_head
+    ITBasicCallControl.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(7, 'Connect', ((1, 'fSync'),)))
+    ITBasicCallControl.Answer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Answer', ()))
+    ITBasicCallControl.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DISCONNECT_CODE)(9, 'Disconnect', ((1, 'code'),)))
+    ITBasicCallControl.Hold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(10, 'Hold', ((1, 'fHold'),)))
+    ITBasicCallControl.HandoffDirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'HandoffDirect', ((1, 'pApplicationName'),)))
+    ITBasicCallControl.HandoffIndirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(12, 'HandoffIndirect', ((1, 'lMediaType'),)))
+    ITBasicCallControl.Conference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITBasicCallControl_head,win32more.Foundation.VARIANT_BOOL)(13, 'Conference', ((1, 'pCall'),(1, 'fSync'),)))
+    ITBasicCallControl.Transfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITBasicCallControl_head,win32more.Foundation.VARIANT_BOOL)(14, 'Transfer', ((1, 'pCall'),(1, 'fSync'),)))
+    ITBasicCallControl.BlindTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'BlindTransfer', ((1, 'pDestAddress'),)))
+    ITBasicCallControl.SwapHold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITBasicCallControl_head)(16, 'SwapHold', ((1, 'pCall'),)))
+    ITBasicCallControl.ParkDirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'ParkDirect', ((1, 'pParkAddress'),)))
+    ITBasicCallControl.ParkIndirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'ParkIndirect', ((1, 'ppNonDirAddress'),)))
+    ITBasicCallControl.Unpark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(19, 'Unpark', ()))
+    ITBasicCallControl.SetQOS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.QOS_SERVICE_LEVEL)(20, 'SetQOS', ((1, 'lMediaType'),(1, 'ServiceLevel'),)))
+    ITBasicCallControl.Pickup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(21, 'Pickup', ((1, 'pGroupID'),)))
+    ITBasicCallControl.Dial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(22, 'Dial', ((1, 'pDestAddress'),)))
+    ITBasicCallControl.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.FINISH_MODE)(23, 'Finish', ((1, 'finishMode'),)))
+    ITBasicCallControl.RemoveFromConference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(24, 'RemoveFromConference', ()))
+    win32more.System.Com.IDispatch
+    return ITBasicCallControl
+def _define_ITBasicCallControl2_head():
+    class ITBasicCallControl2(win32more.Devices.Tapi.ITBasicCallControl_head):
+        Guid = Guid('161a4a56-1e99-4b3f-a4-6a-16-8f-38-a5-ee-4c')
+    return ITBasicCallControl2
+def _define_ITBasicCallControl2():
+    ITBasicCallControl2 = win32more.Devices.Tapi.ITBasicCallControl2_head
+    ITBasicCallControl2.RequestTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head))(25, 'RequestTerminal', ((1, 'bstrTerminalClassGUID'),(1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
+    ITBasicCallControl2.SelectTerminalOnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(26, 'SelectTerminalOnCall', ((1, 'pTerminal'),)))
+    ITBasicCallControl2.UnselectTerminalOnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(27, 'UnselectTerminalOnCall', ((1, 'pTerminal'),)))
+    win32more.Devices.Tapi.ITBasicCallControl
+    return ITBasicCallControl2
+def _define_ITCallHub_head():
+    class ITCallHub(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a3c1544e-5b92-11d1-8f-4e-00-c0-4f-b6-80-9f')
+    return ITCallHub
+def _define_ITCallHub():
+    ITCallHub = win32more.Devices.Tapi.ITCallHub_head
+    ITCallHub.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Clear', ()))
+    ITCallHub.EnumerateCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head))(8, 'EnumerateCalls', ((1, 'ppEnumCall'),)))
+    ITCallHub.get_Calls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_Calls', ((1, 'pCalls'),)))
+    ITCallHub.get_NumCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_NumCalls', ((1, 'plCalls'),)))
+    ITCallHub.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLHUB_STATE))(11, 'get_State', ((1, 'pState'),)))
+    win32more.System.Com.IDispatch
+    return ITCallHub
+def _define_ITCallHubEvent_head():
+    class ITCallHubEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a3c15451-5b92-11d1-8f-4e-00-c0-4f-b6-80-9f')
+    return ITCallHubEvent
+def _define_ITCallHubEvent():
+    ITCallHubEvent = win32more.Devices.Tapi.ITCallHubEvent_head
+    ITCallHubEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLHUB_EVENT))(7, 'get_Event', ((1, 'pEvent'),)))
+    ITCallHubEvent.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head))(8, 'get_CallHub', ((1, 'ppCallHub'),)))
+    ITCallHubEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(9, 'get_Call', ((1, 'ppCall'),)))
+    win32more.System.Com.IDispatch
+    return ITCallHubEvent
+def _define_ITCallInfo_head():
+    class ITCallInfo(win32more.System.Com.IDispatch_head):
+        Guid = Guid('350f85d1-1227-11d3-83-d4-00-c0-4f-b6-80-9f')
+    return ITCallInfo
+def _define_ITCallInfo():
+    ITCallInfo = win32more.Devices.Tapi.ITCallInfo_head
+    ITCallInfo.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head))(7, 'get_Address', ((1, 'ppAddress'),)))
+    ITCallInfo.get_CallState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE))(8, 'get_CallState', ((1, 'pCallState'),)))
+    ITCallInfo.get_Privilege = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_PRIVILEGE))(9, 'get_Privilege', ((1, 'pPrivilege'),)))
+    ITCallInfo.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head))(10, 'get_CallHub', ((1, 'ppCallHub'),)))
+    ITCallInfo.get_CallInfoLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_LONG,POINTER(Int32))(11, 'get_CallInfoLong', ((1, 'CallInfoLong'),(1, 'plCallInfoLongVal'),)))
+    ITCallInfo.put_CallInfoLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_LONG,Int32)(12, 'put_CallInfoLong', ((1, 'CallInfoLong'),(1, 'lCallInfoLongVal'),)))
+    ITCallInfo.get_CallInfoString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_STRING,POINTER(win32more.Foundation.BSTR))(13, 'get_CallInfoString', ((1, 'CallInfoString'),(1, 'ppCallInfoString'),)))
+    ITCallInfo.put_CallInfoString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_STRING,win32more.Foundation.BSTR)(14, 'put_CallInfoString', ((1, 'CallInfoString'),(1, 'pCallInfoString'),)))
+    ITCallInfo.get_CallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,POINTER(win32more.System.Com.VARIANT_head))(15, 'get_CallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'ppCallInfoBuffer'),)))
+    ITCallInfo.put_CallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,win32more.System.Com.VARIANT)(16, 'put_CallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'pCallInfoBuffer'),)))
+    ITCallInfo.GetCallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,POINTER(UInt32),POINTER(c_char_p_no))(17, 'GetCallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'pdwSize'),(1, 'ppCallInfoBuffer'),)))
+    ITCallInfo.SetCallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,UInt32,c_char_p_no)(18, 'SetCallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'dwSize'),(1, 'pCallInfoBuffer'),)))
+    ITCallInfo.ReleaseUserUserInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(19, 'ReleaseUserUserInfo', ()))
+    win32more.System.Com.IDispatch
+    return ITCallInfo
+def _define_ITCallInfo2_head():
+    class ITCallInfo2(win32more.Devices.Tapi.ITCallInfo_head):
+        Guid = Guid('94d70ca6-7ab0-4daa-81-ca-b8-f8-64-3f-ae-c1')
+    return ITCallInfo2
+def _define_ITCallInfo2():
+    ITCallInfo2 = win32more.Devices.Tapi.ITCallInfo2_head
+    ITCallInfo2.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(20, 'get_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'pEnable'),)))
+    ITCallInfo2.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,win32more.Foundation.VARIANT_BOOL)(21, 'put_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'bEnable'),)))
+    win32more.Devices.Tapi.ITCallInfo
+    return ITCallInfo2
+def _define_ITCallInfoChangeEvent_head():
+    class ITCallInfoChangeEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5d4b65f9-e51c-11d1-a0-2f-00-c0-4f-b6-80-9f')
+    return ITCallInfoChangeEvent
+def _define_ITCallInfoChangeEvent():
+    ITCallInfoChangeEvent = win32more.Devices.Tapi.ITCallInfoChangeEvent_head
+    ITCallInfoChangeEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCall'),)))
+    ITCallInfoChangeEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLINFOCHANGE_CAUSE))(8, 'get_Cause', ((1, 'pCIC'),)))
+    ITCallInfoChangeEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITCallInfoChangeEvent
+def _define_ITCallingCard_head():
+    class ITCallingCard(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0c4d8f00-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
+    return ITCallingCard
+def _define_ITCallingCard():
+    ITCallingCard = win32more.Devices.Tapi.ITCallingCard_head
+    ITCallingCard.get_PermanentCardID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_PermanentCardID', ((1, 'plCardID'),)))
+    ITCallingCard.get_NumberOfDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_NumberOfDigits', ((1, 'plDigits'),)))
+    ITCallingCard.get_Options = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Options', ((1, 'plOptions'),)))
+    ITCallingCard.get_CardName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_CardName', ((1, 'ppCardName'),)))
+    ITCallingCard.get_SameAreaDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_SameAreaDialingRule', ((1, 'ppRule'),)))
+    ITCallingCard.get_LongDistanceDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_LongDistanceDialingRule', ((1, 'ppRule'),)))
+    ITCallingCard.get_InternationalDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_InternationalDialingRule', ((1, 'ppRule'),)))
+    win32more.System.Com.IDispatch
+    return ITCallingCard
+def _define_ITCallMediaEvent_head():
+    class ITCallMediaEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ff36b87f-ec3a-11d0-8e-e4-00-c0-4f-b6-80-9f')
+    return ITCallMediaEvent
+def _define_ITCallMediaEvent():
+    ITCallMediaEvent = win32more.Devices.Tapi.ITCallMediaEvent_head
+    ITCallMediaEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITCallMediaEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_MEDIA_EVENT))(8, 'get_Event', ((1, 'pCallMediaEvent'),)))
+    ITCallMediaEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT))(9, 'get_Error', ((1, 'phrError'),)))
+    ITCallMediaEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(10, 'get_Terminal', ((1, 'ppTerminal'),)))
+    ITCallMediaEvent.get_Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITStream_head))(11, 'get_Stream', ((1, 'ppStream'),)))
+    ITCallMediaEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_MEDIA_EVENT_CAUSE))(12, 'get_Cause', ((1, 'pCause'),)))
+    win32more.System.Com.IDispatch
+    return ITCallMediaEvent
+def _define_ITCallNotificationEvent_head():
+    class ITCallNotificationEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('895801df-3dd6-11d1-8f-30-00-c0-4f-b6-80-9f')
+    return ITCallNotificationEvent
+def _define_ITCallNotificationEvent():
+    ITCallNotificationEvent = win32more.Devices.Tapi.ITCallNotificationEvent_head
+    ITCallNotificationEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCall'),)))
+    ITCallNotificationEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_NOTIFICATION_EVENT))(8, 'get_Event', ((1, 'pCallNotificationEvent'),)))
+    ITCallNotificationEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITCallNotificationEvent
+def _define_ITCallStateEvent_head():
+    class ITCallStateEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('62f47097-95c9-11d0-83-5d-00-aa-00-3c-ca-bd')
+    return ITCallStateEvent
+def _define_ITCallStateEvent():
+    ITCallStateEvent = win32more.Devices.Tapi.ITCallStateEvent_head
+    ITCallStateEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITCallStateEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE))(8, 'get_State', ((1, 'pCallState'),)))
+    ITCallStateEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE_EVENT_CAUSE))(9, 'get_Cause', ((1, 'pCEC'),)))
+    ITCallStateEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITCallStateEvent
+def _define_ITCollection_head():
+    class ITCollection(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5ec5acf2-9c02-11d0-83-62-00-aa-00-3c-ca-bd')
+    return ITCollection
+def _define_ITCollection():
+    ITCollection = win32more.Devices.Tapi.ITCollection_head
+    ITCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'lCount'),)))
+    ITCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'Index'),(1, 'pVariant'),)))
+    ITCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(9, 'get__NewEnum', ((1, 'ppNewEnum'),)))
+    win32more.System.Com.IDispatch
+    return ITCollection
+def _define_ITCollection2_head():
+    class ITCollection2(win32more.Devices.Tapi.ITCollection_head):
+        Guid = Guid('e6dddda5-a6d3-48ff-87-37-d3-2f-c4-d9-54-77')
+    return ITCollection2
+def _define_ITCollection2():
+    ITCollection2 = win32more.Devices.Tapi.ITCollection2_head
+    ITCollection2.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(10, 'Add', ((1, 'Index'),(1, 'pVariant'),)))
+    ITCollection2.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(11, 'Remove', ((1, 'Index'),)))
+    win32more.Devices.Tapi.ITCollection
+    return ITCollection2
+def _define_ITCustomTone_head():
+    class ITCustomTone(win32more.System.Com.IDispatch_head):
+        Guid = Guid('357ad764-b3c6-4b2a-8f-a5-07-22-82-7a-92-54')
+    return ITCustomTone
+def _define_ITCustomTone():
+    ITCustomTone = win32more.Devices.Tapi.ITCustomTone_head
+    ITCustomTone.get_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Frequency', ((1, 'plFrequency'),)))
+    ITCustomTone.put_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(8, 'put_Frequency', ((1, 'lFrequency'),)))
+    ITCustomTone.get_CadenceOn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_CadenceOn', ((1, 'plCadenceOn'),)))
+    ITCustomTone.put_CadenceOn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'put_CadenceOn', ((1, 'CadenceOn'),)))
+    ITCustomTone.get_CadenceOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_CadenceOff', ((1, 'plCadenceOff'),)))
+    ITCustomTone.put_CadenceOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(12, 'put_CadenceOff', ((1, 'lCadenceOff'),)))
+    ITCustomTone.get_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_Volume', ((1, 'plVolume'),)))
+    ITCustomTone.put_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(14, 'put_Volume', ((1, 'lVolume'),)))
+    win32more.System.Com.IDispatch
+    return ITCustomTone
+def _define_ITDetectTone_head():
+    class ITDetectTone(win32more.System.Com.IDispatch_head):
+        Guid = Guid('961f79bd-3097-49df-a1-d6-90-9b-77-e8-9c-a0')
+    return ITDetectTone
+def _define_ITDetectTone():
+    ITDetectTone = win32more.Devices.Tapi.ITDetectTone_head
+    ITDetectTone.get_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_AppSpecific', ((1, 'plAppSpecific'),)))
+    ITDetectTone.put_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(8, 'put_AppSpecific', ((1, 'lAppSpecific'),)))
+    ITDetectTone.get_Duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Duration', ((1, 'plDuration'),)))
+    ITDetectTone.put_Duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'put_Duration', ((1, 'lDuration'),)))
+    ITDetectTone.get_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32))(11, 'get_Frequency', ((1, 'Index'),(1, 'plFrequency'),)))
+    ITDetectTone.put_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32)(12, 'put_Frequency', ((1, 'Index'),(1, 'lFrequency'),)))
+    win32more.System.Com.IDispatch
+    return ITDetectTone
+def _define_ITDigitDetectionEvent_head():
+    class ITDigitDetectionEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('80d3bfac-57d9-11d2-a0-4a-00-c0-4f-b6-80-9f')
+    return ITDigitDetectionEvent
+def _define_ITDigitDetectionEvent():
+    ITDigitDetectionEvent = win32more.Devices.Tapi.ITDigitDetectionEvent_head
+    ITDigitDetectionEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITDigitDetectionEvent.get_Digit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(8, 'get_Digit', ((1, 'pucDigit'),)))
+    ITDigitDetectionEvent.get_DigitMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_DigitMode', ((1, 'pDigitMode'),)))
+    ITDigitDetectionEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_TickCount', ((1, 'plTickCount'),)))
+    ITDigitDetectionEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITDigitDetectionEvent
+def _define_ITDigitGenerationEvent_head():
+    class ITDigitGenerationEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('80d3bfad-57d9-11d2-a0-4a-00-c0-4f-b6-80-9f')
+    return ITDigitGenerationEvent
+def _define_ITDigitGenerationEvent():
+    ITDigitGenerationEvent = win32more.Devices.Tapi.ITDigitGenerationEvent_head
+    ITDigitGenerationEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITDigitGenerationEvent.get_GenerationTermination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_GenerationTermination', ((1, 'plGenerationTermination'),)))
+    ITDigitGenerationEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_TickCount', ((1, 'plTickCount'),)))
+    ITDigitGenerationEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITDigitGenerationEvent
+def _define_ITDigitsGatheredEvent_head():
+    class ITDigitsGatheredEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('e52ec4c1-cba3-441a-9e-6a-93-cb-90-9e-97-24')
+    return ITDigitsGatheredEvent
+def _define_ITDigitsGatheredEvent():
+    ITDigitsGatheredEvent = win32more.Devices.Tapi.ITDigitsGatheredEvent_head
+    ITDigitsGatheredEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITDigitsGatheredEvent.get_Digits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Digits', ((1, 'ppDigits'),)))
+    ITDigitsGatheredEvent.get_GatherTermination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_GATHERTERM))(9, 'get_GatherTermination', ((1, 'pGatherTermination'),)))
+    ITDigitsGatheredEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_TickCount', ((1, 'plTickCount'),)))
+    ITDigitsGatheredEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITDigitsGatheredEvent
+def _define_ITDirectory_head():
+    class ITDirectory(win32more.System.Com.IDispatch_head):
+        Guid = Guid('34621d6c-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return ITDirectory
+def _define_ITDirectory():
+    ITDirectory = win32more.Devices.Tapi.ITDirectory_head
+    ITDirectory.get_DirectoryType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.DIRECTORY_TYPE))(7, 'get_DirectoryType', ((1, 'pDirectoryType'),)))
+    ITDirectory.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_DisplayName', ((1, 'pName'),)))
+    ITDirectory.get_IsDynamic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_IsDynamic', ((1, 'pfDynamic'),)))
+    ITDirectory.get_DefaultObjectTTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_DefaultObjectTTL', ((1, 'pTTL'),)))
+    ITDirectory.put_DefaultObjectTTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(11, 'put_DefaultObjectTTL', ((1, 'TTL'),)))
+    ITDirectory.EnableAutoRefresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(12, 'EnableAutoRefresh', ((1, 'fEnable'),)))
+    ITDirectory.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(13, 'Connect', ((1, 'fSecure'),)))
+    ITDirectory.Bind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32)(14, 'Bind', ((1, 'pDomainName'),(1, 'pUserName'),(1, 'pPassword'),(1, 'lFlags'),)))
+    ITDirectory.AddDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head)(15, 'AddDirectoryObject', ((1, 'pDirectoryObject'),)))
+    ITDirectory.ModifyDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head)(16, 'ModifyDirectoryObject', ((1, 'pDirectoryObject'),)))
+    ITDirectory.RefreshDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head)(17, 'RefreshDirectoryObject', ((1, 'pDirectoryObject'),)))
+    ITDirectory.DeleteDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head)(18, 'DeleteDirectoryObject', ((1, 'pDirectoryObject'),)))
+    ITDirectory.get_DirectoryObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(19, 'get_DirectoryObjects', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'pVariant'),)))
+    ITDirectory.EnumerateDirectoryObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.IEnumDirectoryObject_head))(20, 'EnumerateDirectoryObjects', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'ppEnumObject'),)))
+    win32more.System.Com.IDispatch
+    return ITDirectory
+def _define_ITDirectoryObject_head():
+    class ITDirectoryObject(win32more.System.Com.IDispatch_head):
+        Guid = Guid('34621d6e-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return ITDirectoryObject
+def _define_ITDirectoryObject():
+    ITDirectoryObject = win32more.Devices.Tapi.ITDirectoryObject_head
+    ITDirectoryObject.get_ObjectType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE))(7, 'get_ObjectType', ((1, 'pObjectType'),)))
+    ITDirectoryObject.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Name', ((1, 'ppName'),)))
+    ITDirectoryObject.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_Name', ((1, 'pName'),)))
+    ITDirectoryObject.get_DialableAddrs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(10, 'get_DialableAddrs', ((1, 'dwAddressType'),(1, 'pVariant'),)))
+    ITDirectoryObject.EnumerateDialableAddrs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.IEnumDialableAddrs_head))(11, 'EnumerateDialableAddrs', ((1, 'dwAddressType'),(1, 'ppEnumDialableAddrs'),)))
+    ITDirectoryObject.get_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(12, 'get_SecurityDescriptor', ((1, 'ppSecDes'),)))
+    ITDirectoryObject.put_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head)(13, 'put_SecurityDescriptor', ((1, 'pSecDes'),)))
+    win32more.System.Com.IDispatch
+    return ITDirectoryObject
+def _define_ITDirectoryObjectConference_head():
+    class ITDirectoryObjectConference(win32more.System.Com.IDispatch_head):
+        Guid = Guid('f1029e5d-cb5b-11d0-8d-59-00-c0-4f-d9-1a-c0')
+    return ITDirectoryObjectConference
+def _define_ITDirectoryObjectConference():
+    ITDirectoryObjectConference = win32more.Devices.Tapi.ITDirectoryObjectConference_head
+    ITDirectoryObjectConference.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Protocol', ((1, 'ppProtocol'),)))
+    ITDirectoryObjectConference.get_Originator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Originator', ((1, 'ppOriginator'),)))
+    ITDirectoryObjectConference.put_Originator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_Originator', ((1, 'pOriginator'),)))
+    ITDirectoryObjectConference.get_AdvertisingScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.RND_ADVERTISING_SCOPE))(10, 'get_AdvertisingScope', ((1, 'pAdvertisingScope'),)))
+    ITDirectoryObjectConference.put_AdvertisingScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.RND_ADVERTISING_SCOPE)(11, 'put_AdvertisingScope', ((1, 'AdvertisingScope'),)))
+    ITDirectoryObjectConference.get_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Url', ((1, 'ppUrl'),)))
+    ITDirectoryObjectConference.put_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_Url', ((1, 'pUrl'),)))
+    ITDirectoryObjectConference.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Description', ((1, 'ppDescription'),)))
+    ITDirectoryObjectConference.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_Description', ((1, 'pDescription'),)))
+    ITDirectoryObjectConference.get_IsEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_IsEncrypted', ((1, 'pfEncrypted'),)))
+    ITDirectoryObjectConference.put_IsEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(17, 'put_IsEncrypted', ((1, 'fEncrypted'),)))
+    ITDirectoryObjectConference.get_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(18, 'get_StartTime', ((1, 'pDate'),)))
+    ITDirectoryObjectConference.put_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(19, 'put_StartTime', ((1, 'Date'),)))
+    ITDirectoryObjectConference.get_StopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(20, 'get_StopTime', ((1, 'pDate'),)))
+    ITDirectoryObjectConference.put_StopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(21, 'put_StopTime', ((1, 'Date'),)))
+    win32more.System.Com.IDispatch
+    return ITDirectoryObjectConference
+def _define_ITDirectoryObjectUser_head():
+    class ITDirectoryObjectUser(win32more.System.Com.IDispatch_head):
+        Guid = Guid('34621d6f-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return ITDirectoryObjectUser
+def _define_ITDirectoryObjectUser():
+    ITDirectoryObjectUser = win32more.Devices.Tapi.ITDirectoryObjectUser_head
+    ITDirectoryObjectUser.get_IPPhonePrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_IPPhonePrimary', ((1, 'ppName'),)))
+    ITDirectoryObjectUser.put_IPPhonePrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_IPPhonePrimary', ((1, 'pName'),)))
+    win32more.System.Com.IDispatch
+    return ITDirectoryObjectUser
+def _define_ITDispatchMapper_head():
+    class ITDispatchMapper(win32more.System.Com.IDispatch_head):
+        Guid = Guid('e9225295-c759-11d1-a0-2b-00-c0-4f-b6-80-9f')
+    return ITDispatchMapper
+def _define_ITDispatchMapper():
+    ITDispatchMapper = win32more.Devices.Tapi.ITDispatchMapper_head
+    ITDispatchMapper.QueryDispatchInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head))(7, 'QueryDispatchInterface', ((1, 'pIID'),(1, 'pInterfaceToMap'),(1, 'ppReturnedInterface'),)))
+    win32more.System.Com.IDispatch
+    return ITDispatchMapper
+def _define_ITFileTerminalEvent_head():
+    class ITFileTerminalEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('e4a7fbac-8c17-4427-9f-55-9f-58-9a-c8-af-00')
+    return ITFileTerminalEvent
+def _define_ITFileTerminalEvent():
+    ITFileTerminalEvent = win32more.Devices.Tapi.ITFileTerminalEvent_head
+    ITFileTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(7, 'get_Terminal', ((1, 'ppTerminal'),)))
+    ITFileTerminalEvent.get_Track = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITFileTrack_head))(8, 'get_Track', ((1, 'ppTrackTerminal'),)))
+    ITFileTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(9, 'get_Call', ((1, 'ppCall'),)))
+    ITFileTerminalEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_MEDIA_STATE))(10, 'get_State', ((1, 'pState'),)))
+    ITFileTerminalEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.FT_STATE_EVENT_CAUSE))(11, 'get_Cause', ((1, 'pCause'),)))
+    ITFileTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT))(12, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
+    return ITFileTerminalEvent
+def _define_ITFileTrack_head():
+    class ITFileTrack(win32more.System.Com.IDispatch_head):
+        Guid = Guid('31ca6ea9-c08a-4bea-88-11-8e-9c-1b-a3-ea-3a')
+    return ITFileTrack
+def _define_ITFileTrack():
+    ITFileTrack = win32more.Devices.Tapi.ITFileTrack_head
+    ITFileTrack.get_Format = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head)))(7, 'get_Format', ((1, 'ppmt'),)))
+    ITFileTrack.put_Format = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head))(8, 'put_Format', ((1, 'pmt'),)))
+    ITFileTrack.get_ControllingTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(9, 'get_ControllingTerminal', ((1, 'ppControllingTerminal'),)))
+    ITFileTrack.get_AudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITScriptableAudioFormat_head))(10, 'get_AudioFormatForScripting', ((1, 'ppAudioFormat'),)))
+    ITFileTrack.put_AudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITScriptableAudioFormat_head)(11, 'put_AudioFormatForScripting', ((1, 'pAudioFormat'),)))
+    ITFileTrack.get_EmptyAudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITScriptableAudioFormat_head))(12, 'get_EmptyAudioFormatForScripting', ((1, 'ppAudioFormat'),)))
+    win32more.System.Com.IDispatch
+    return ITFileTrack
+def _define_ITForwardInformation_head():
+    class ITForwardInformation(win32more.System.Com.IDispatch_head):
+        Guid = Guid('449f659e-88a3-11d1-bb-5d-00-c0-4f-b6-80-9f')
+    return ITForwardInformation
+def _define_ITForwardInformation():
+    ITForwardInformation = win32more.Devices.Tapi.ITForwardInformation_head
+    ITForwardInformation.put_NumRingsNoAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(7, 'put_NumRingsNoAnswer', ((1, 'lNumRings'),)))
+    ITForwardInformation.get_NumRingsNoAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_NumRingsNoAnswer', ((1, 'plNumRings'),)))
+    ITForwardInformation.SetForwardType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(9, 'SetForwardType', ((1, 'ForwardType'),(1, 'pDestAddress'),(1, 'pCallerAddress'),)))
+    ITForwardInformation.get_ForwardTypeDestination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(10, 'get_ForwardTypeDestination', ((1, 'ForwardType'),(1, 'ppDestAddress'),)))
+    ITForwardInformation.get_ForwardTypeCaller = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(11, 'get_ForwardTypeCaller', ((1, 'Forwardtype'),(1, 'ppCallerAddress'),)))
+    ITForwardInformation.GetForwardType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(12, 'GetForwardType', ((1, 'ForwardType'),(1, 'ppDestinationAddress'),(1, 'ppCallerAddress'),)))
+    ITForwardInformation.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'Clear', ()))
+    win32more.System.Com.IDispatch
+    return ITForwardInformation
+def _define_ITForwardInformation2_head():
+    class ITForwardInformation2(win32more.Devices.Tapi.ITForwardInformation_head):
+        Guid = Guid('5229b4ed-b260-4382-8e-1a-5d-f3-a8-a4-cc-c0')
+    return ITForwardInformation2
+def _define_ITForwardInformation2():
+    ITForwardInformation2 = win32more.Devices.Tapi.ITForwardInformation2_head
+    ITForwardInformation2.SetForwardType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int32)(14, 'SetForwardType2', ((1, 'ForwardType'),(1, 'pDestAddress'),(1, 'DestAddressType'),(1, 'pCallerAddress'),(1, 'CallerAddressType'),)))
+    ITForwardInformation2.GetForwardType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(Int32))(15, 'GetForwardType2', ((1, 'ForwardType'),(1, 'ppDestinationAddress'),(1, 'pDestAddressType'),(1, 'ppCallerAddress'),(1, 'pCallerAddressType'),)))
+    ITForwardInformation2.get_ForwardTypeDestinationAddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32))(16, 'get_ForwardTypeDestinationAddressType', ((1, 'ForwardType'),(1, 'pDestAddressType'),)))
+    ITForwardInformation2.get_ForwardTypeCallerAddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32))(17, 'get_ForwardTypeCallerAddressType', ((1, 'Forwardtype'),(1, 'pCallerAddressType'),)))
+    win32more.Devices.Tapi.ITForwardInformation
+    return ITForwardInformation2
+def _define_ITILSConfig_head():
+    class ITILSConfig(win32more.System.Com.IDispatch_head):
+        Guid = Guid('34621d72-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return ITILSConfig
+def _define_ITILSConfig():
+    ITILSConfig = win32more.Devices.Tapi.ITILSConfig_head
+    ITILSConfig.get_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Port', ((1, 'pPort'),)))
+    ITILSConfig.put_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(8, 'put_Port', ((1, 'Port'),)))
+    win32more.System.Com.IDispatch
+    return ITILSConfig
+def _define_ITLegacyAddressMediaControl_head():
+    class ITLegacyAddressMediaControl(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab493640-4c0b-11d2-a0-46-00-c0-4f-b6-80-9f')
+    return ITLegacyAddressMediaControl
+def _define_ITLegacyAddressMediaControl():
+    ITLegacyAddressMediaControl = win32more.Devices.Tapi.ITLegacyAddressMediaControl_head
+    ITLegacyAddressMediaControl.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no))(3, 'GetID', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceID'),)))
+    ITLegacyAddressMediaControl.GetDevConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no))(4, 'GetDevConfig', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceConfig'),)))
+    ITLegacyAddressMediaControl.SetDevConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,c_char_p_no)(5, 'SetDevConfig', ((1, 'pDeviceClass'),(1, 'dwSize'),(1, 'pDeviceConfig'),)))
+    win32more.System.Com.IUnknown
+    return ITLegacyAddressMediaControl
+def _define_ITLegacyAddressMediaControl2_head():
+    class ITLegacyAddressMediaControl2(win32more.Devices.Tapi.ITLegacyAddressMediaControl_head):
+        Guid = Guid('b0ee512b-a531-409e-9d-d9-40-99-fe-86-c7-38')
+    return ITLegacyAddressMediaControl2
+def _define_ITLegacyAddressMediaControl2():
+    ITLegacyAddressMediaControl2 = win32more.Devices.Tapi.ITLegacyAddressMediaControl2_head
+    ITLegacyAddressMediaControl2.ConfigDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR)(6, 'ConfigDialog', ((1, 'hwndOwner'),(1, 'pDeviceClass'),)))
+    ITLegacyAddressMediaControl2.ConfigDialogEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR,UInt32,c_char_p_no,POINTER(UInt32),POINTER(c_char_p_no))(7, 'ConfigDialogEdit', ((1, 'hwndOwner'),(1, 'pDeviceClass'),(1, 'dwSizeIn'),(1, 'pDeviceConfigIn'),(1, 'pdwSizeOut'),(1, 'ppDeviceConfigOut'),)))
+    win32more.Devices.Tapi.ITLegacyAddressMediaControl
+    return ITLegacyAddressMediaControl2
+def _define_ITLegacyCallMediaControl_head():
+    class ITLegacyCallMediaControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('d624582f-cc23-4436-b8-a5-47-c6-25-c8-04-5d')
+    return ITLegacyCallMediaControl
+def _define_ITLegacyCallMediaControl():
+    ITLegacyCallMediaControl = win32more.Devices.Tapi.ITLegacyCallMediaControl_head
+    ITLegacyCallMediaControl.DetectDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(7, 'DetectDigits', ((1, 'DigitMode'),)))
+    ITLegacyCallMediaControl.GenerateDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(8, 'GenerateDigits', ((1, 'pDigits'),(1, 'DigitMode'),)))
+    ITLegacyCallMediaControl.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no))(9, 'GetID', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceID'),)))
+    ITLegacyCallMediaControl.SetMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'SetMediaType', ((1, 'lMediaType'),)))
+    ITLegacyCallMediaControl.MonitorMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(11, 'MonitorMedia', ((1, 'lMediaType'),)))
+    win32more.System.Com.IDispatch
+    return ITLegacyCallMediaControl
+def _define_ITLegacyCallMediaControl2_head():
+    class ITLegacyCallMediaControl2(win32more.Devices.Tapi.ITLegacyCallMediaControl_head):
+        Guid = Guid('57ca332d-7bc2-44f1-a6-0c-93-6f-e8-d7-ce-73')
+    return ITLegacyCallMediaControl2
+def _define_ITLegacyCallMediaControl2():
+    ITLegacyCallMediaControl2 = win32more.Devices.Tapi.ITLegacyCallMediaControl2_head
+    ITLegacyCallMediaControl2.GenerateDigits2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32)(12, 'GenerateDigits2', ((1, 'pDigits'),(1, 'DigitMode'),(1, 'lDuration'),)))
+    ITLegacyCallMediaControl2.GatherDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR,Int32,Int32)(13, 'GatherDigits', ((1, 'DigitMode'),(1, 'lNumDigits'),(1, 'pTerminationDigits'),(1, 'lFirstDigitTimeout'),(1, 'lInterDigitTimeout'),)))
+    ITLegacyCallMediaControl2.DetectTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_DETECTTONE_head),Int32)(14, 'DetectTones', ((1, 'pToneList'),(1, 'lNumTones'),)))
+    ITLegacyCallMediaControl2.DetectTonesByCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCollection2_head)(15, 'DetectTonesByCollection', ((1, 'pDetectToneCollection'),)))
+    ITLegacyCallMediaControl2.GenerateTone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_TONEMODE,Int32)(16, 'GenerateTone', ((1, 'ToneMode'),(1, 'lDuration'),)))
+    ITLegacyCallMediaControl2.GenerateCustomTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_CUSTOMTONE_head),Int32,Int32)(17, 'GenerateCustomTones', ((1, 'pToneList'),(1, 'lNumTones'),(1, 'lDuration'),)))
+    ITLegacyCallMediaControl2.GenerateCustomTonesByCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCollection2_head,Int32)(18, 'GenerateCustomTonesByCollection', ((1, 'pCustomToneCollection'),(1, 'lDuration'),)))
+    ITLegacyCallMediaControl2.CreateDetectToneObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITDetectTone_head))(19, 'CreateDetectToneObject', ((1, 'ppDetectTone'),)))
+    ITLegacyCallMediaControl2.CreateCustomToneObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCustomTone_head))(20, 'CreateCustomToneObject', ((1, 'ppCustomTone'),)))
+    ITLegacyCallMediaControl2.GetIDAsVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(21, 'GetIDAsVariant', ((1, 'bstrDeviceClass'),(1, 'pVarDeviceID'),)))
+    win32more.Devices.Tapi.ITLegacyCallMediaControl
+    return ITLegacyCallMediaControl2
+def _define_ITLegacyWaveSupport_head():
+    class ITLegacyWaveSupport(win32more.System.Com.IDispatch_head):
+        Guid = Guid('207823ea-e252-11d2-b7-7e-00-80-c7-13-53-81')
+    return ITLegacyWaveSupport
+def _define_ITLegacyWaveSupport():
+    ITLegacyWaveSupport = win32more.Devices.Tapi.ITLegacyWaveSupport_head
+    ITLegacyWaveSupport.IsFullDuplex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.FULLDUPLEX_SUPPORT))(7, 'IsFullDuplex', ((1, 'pSupport'),)))
+    win32more.System.Com.IDispatch
+    return ITLegacyWaveSupport
+def _define_ITLocationInfo_head():
+    class ITLocationInfo(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0c4d8eff-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
+    return ITLocationInfo
+def _define_ITLocationInfo():
+    ITLocationInfo = win32more.Devices.Tapi.ITLocationInfo_head
+    ITLocationInfo.get_PermanentLocationID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_PermanentLocationID', ((1, 'plLocationID'),)))
+    ITLocationInfo.get_CountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_CountryCode', ((1, 'plCountryCode'),)))
+    ITLocationInfo.get_CountryID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_CountryID', ((1, 'plCountryID'),)))
+    ITLocationInfo.get_Options = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_Options', ((1, 'plOptions'),)))
+    ITLocationInfo.get_PreferredCardID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_PreferredCardID', ((1, 'plCardID'),)))
+    ITLocationInfo.get_LocationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_LocationName', ((1, 'ppLocationName'),)))
+    ITLocationInfo.get_CityCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_CityCode', ((1, 'ppCode'),)))
+    ITLocationInfo.get_LocalAccessCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_LocalAccessCode', ((1, 'ppCode'),)))
+    ITLocationInfo.get_LongDistanceAccessCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_LongDistanceAccessCode', ((1, 'ppCode'),)))
+    ITLocationInfo.get_TollPrefixList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_TollPrefixList', ((1, 'ppTollList'),)))
+    ITLocationInfo.get_CancelCallWaitingCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_CancelCallWaitingCode', ((1, 'ppCode'),)))
+    win32more.System.Com.IDispatch
+    return ITLocationInfo
+def _define_ITMediaControl_head():
+    class ITMediaControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('c445dde8-5199-4bc7-98-07-5f-fb-92-e4-2e-09')
+    return ITMediaControl
+def _define_ITMediaControl():
+    ITMediaControl = win32more.Devices.Tapi.ITMediaControl_head
+    ITMediaControl.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Start', ()))
+    ITMediaControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Stop', ()))
+    ITMediaControl.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'Pause', ()))
+    ITMediaControl.get_MediaState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_MEDIA_STATE))(10, 'get_MediaState', ((1, 'pTerminalMediaState'),)))
+    win32more.System.Com.IDispatch
+    return ITMediaControl
+def _define_ITMediaPlayback_head():
+    class ITMediaPlayback(win32more.System.Com.IDispatch_head):
+        Guid = Guid('627e8ae6-ae4c-4a69-bb-63-2a-d6-25-40-4b-77')
+    return ITMediaPlayback
+def _define_ITMediaPlayback():
+    ITMediaPlayback = win32more.Devices.Tapi.ITMediaPlayback_head
+    ITMediaPlayback.put_PlayList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(7, 'put_PlayList', ((1, 'PlayListVariant'),)))
+    ITMediaPlayback.get_PlayList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_PlayList', ((1, 'pPlayListVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITMediaPlayback
+def _define_ITMediaRecord_head():
+    class ITMediaRecord(win32more.System.Com.IDispatch_head):
+        Guid = Guid('f5dd4592-5476-4cc1-9d-4d-fa-d3-ee-fe-7d-b2')
+    return ITMediaRecord
+def _define_ITMediaRecord():
+    ITMediaRecord = win32more.Devices.Tapi.ITMediaRecord_head
+    ITMediaRecord.put_FileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'put_FileName', ((1, 'bstrFileName'),)))
+    ITMediaRecord.get_FileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_FileName', ((1, 'pbstrFileName'),)))
+    win32more.System.Com.IDispatch
+    return ITMediaRecord
+def _define_ITMediaSupport_head():
+    class ITMediaSupport(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc384-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITMediaSupport
+def _define_ITMediaSupport():
+    ITMediaSupport = win32more.Devices.Tapi.ITMediaSupport_head
+    ITMediaSupport.get_MediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_MediaTypes', ((1, 'plMediaTypes'),)))
+    ITMediaSupport.QueryMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'QueryMediaType', ((1, 'lMediaType'),(1, 'pfSupport'),)))
+    win32more.System.Com.IDispatch
+    return ITMediaSupport
+def _define_ITMSPAddress_head():
+    class ITMSPAddress(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ee3bd600-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return ITMSPAddress
+def _define_ITMSPAddress():
+    ITMSPAddress = win32more.Devices.Tapi.ITMSPAddress_head
+    ITMSPAddress.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'Initialize', ((1, 'hEvent'),)))
+    ITMSPAddress.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Shutdown', ()))
+    ITMSPAddress.CreateMSPCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,UInt32,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head))(5, 'CreateMSPCall', ((1, 'hCall'),(1, 'dwReserved'),(1, 'dwMediaType'),(1, 'pOuterUnknown'),(1, 'ppStreamControl'),)))
+    ITMSPAddress.ShutdownMSPCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(6, 'ShutdownMSPCall', ((1, 'pStreamControl'),)))
+    ITMSPAddress.ReceiveTSPData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,c_char_p_no,UInt32)(7, 'ReceiveTSPData', ((1, 'pMSPCall'),(1, 'pBuffer'),(1, 'dwSize'),)))
+    ITMSPAddress.GetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),c_char_p_no)(8, 'GetEvent', ((1, 'pdwSize'),(1, 'pEventBuffer'),)))
+    win32more.System.Com.IUnknown
+    return ITMSPAddress
+def _define_ITMultiTrackTerminal_head():
+    class ITMultiTrackTerminal(win32more.System.Com.IDispatch_head):
+        Guid = Guid('fe040091-ade8-4072-95-c9-bf-7d-e8-c5-4b-44')
+    return ITMultiTrackTerminal
+def _define_ITMultiTrackTerminal():
+    ITMultiTrackTerminal = win32more.Devices.Tapi.ITMultiTrackTerminal_head
+    ITMultiTrackTerminal.get_TrackTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(7, 'get_TrackTerminals', ((1, 'pVariant'),)))
+    ITMultiTrackTerminal.EnumerateTrackTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head))(8, 'EnumerateTrackTerminals', ((1, 'ppEnumTerminal'),)))
+    ITMultiTrackTerminal.CreateTrackTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head))(9, 'CreateTrackTerminal', ((1, 'MediaType'),(1, 'TerminalDirection'),(1, 'ppTerminal'),)))
+    ITMultiTrackTerminal.get_MediaTypesInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_MediaTypesInUse', ((1, 'plMediaTypesInUse'),)))
+    ITMultiTrackTerminal.get_DirectionsInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION))(11, 'get_DirectionsInUse', ((1, 'plDirectionsInUsed'),)))
+    ITMultiTrackTerminal.RemoveTrackTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(12, 'RemoveTrackTerminal', ((1, 'pTrackTerminalToRemove'),)))
+    win32more.System.Com.IDispatch
+    return ITMultiTrackTerminal
+def _define_ITnef_head():
+    class ITnef(win32more.System.Com.IUnknown_head):
+        pass
+    return ITnef
+def _define_ITnef():
+    ITnef = win32more.Devices.Tapi.ITnef_head
+    ITnef.AddProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_void_p,POINTER(win32more.System.AddressBook.SPropTagArray_head))(3, 'AddProps', ((1, 'ulFlags'),(1, 'ulElemID'),(1, 'lpvData'),(1, 'lpPropList'),)))
+    ITnef.ExtractProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)))(4, 'ExtractProps', ((1, 'ulFlags'),(1, 'lpPropList'),(1, 'lpProblems'),)))
+    ITnef.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt16),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)))(5, 'Finish', ((1, 'ulFlags'),(1, 'lpKey'),(1, 'lpProblems'),)))
+    ITnef.OpenTaggedBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AddressBook.IMessage_head,UInt32,POINTER(win32more.System.Com.IStream_head))(6, 'OpenTaggedBody', ((1, 'lpMessage'),(1, 'ulFlags'),(1, 'lppStream'),)))
+    ITnef.SetProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.System.AddressBook.SPropValue_head))(7, 'SetProps', ((1, 'ulFlags'),(1, 'ulElemID'),(1, 'cValues'),(1, 'lpProps'),)))
+    ITnef.EncodeRecips = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.AddressBook.IMAPITable_head)(8, 'EncodeRecips', ((1, 'ulFlags'),(1, 'lpRecipientTable'),)))
+    ITnef.FinishComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(win32more.System.AddressBook.SPropValue_head),POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)))(9, 'FinishComponent', ((1, 'ulFlags'),(1, 'ulComponentID'),(1, 'lpCustomPropList'),(1, 'lpCustomProps'),(1, 'lpPropList'),(1, 'lpProblems'),)))
+    win32more.System.Com.IUnknown
+    return ITnef
+def _define_ITPhone_head():
+    class ITPhone(win32more.System.Com.IDispatch_head):
+        Guid = Guid('09d48db4-10cc-4388-9d-e7-a8-46-56-18-97-5a')
+    return ITPhone
+def _define_ITPhone():
+    ITPhone = win32more.Devices.Tapi.ITPhone_head
+    ITPhone.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_PRIVILEGE)(7, 'Open', ((1, 'Privilege'),)))
+    ITPhone.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Close', ()))
+    ITPhone.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_Addresses', ((1, 'pAddresses'),)))
+    ITPhone.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head))(10, 'EnumerateAddresses', ((1, 'ppEnumAddress'),)))
+    ITPhone.get_PhoneCapsLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_LONG,POINTER(Int32))(11, 'get_PhoneCapsLong', ((1, 'pclCap'),(1, 'plCapability'),)))
+    ITPhone.get_PhoneCapsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_STRING,POINTER(win32more.Foundation.BSTR))(12, 'get_PhoneCapsString', ((1, 'pcsCap'),(1, 'ppCapability'),)))
+    ITPhone.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITAddress_head,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_Terminals', ((1, 'pAddress'),(1, 'pTerminals'),)))
+    ITPhone.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITAddress_head,POINTER(win32more.Devices.Tapi.IEnumTerminal_head))(14, 'EnumerateTerminals', ((1, 'pAddress'),(1, 'ppEnumTerminal'),)))
+    ITPhone.get_ButtonMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_MODE))(15, 'get_ButtonMode', ((1, 'lButtonID'),(1, 'pButtonMode'),)))
+    ITPhone.put_ButtonMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.PHONE_BUTTON_MODE)(16, 'put_ButtonMode', ((1, 'lButtonID'),(1, 'ButtonMode'),)))
+    ITPhone.get_ButtonFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_FUNCTION))(17, 'get_ButtonFunction', ((1, 'lButtonID'),(1, 'pButtonFunction'),)))
+    ITPhone.put_ButtonFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.PHONE_BUTTON_FUNCTION)(18, 'put_ButtonFunction', ((1, 'lButtonID'),(1, 'ButtonFunction'),)))
+    ITPhone.get_ButtonText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(19, 'get_ButtonText', ((1, 'lButtonID'),(1, 'ppButtonText'),)))
+    ITPhone.put_ButtonText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR)(20, 'put_ButtonText', ((1, 'lButtonID'),(1, 'bstrButtonText'),)))
+    ITPhone.get_ButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_STATE))(21, 'get_ButtonState', ((1, 'lButtonID'),(1, 'pButtonState'),)))
+    ITPhone.get_HookSwitchState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_HOOK_SWITCH_DEVICE,POINTER(win32more.Devices.Tapi.PHONE_HOOK_SWITCH_STATE))(22, 'get_HookSwitchState', ((1, 'HookSwitchDevice'),(1, 'pHookSwitchState'),)))
+    ITPhone.put_HookSwitchState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_HOOK_SWITCH_DEVICE,win32more.Devices.Tapi.PHONE_HOOK_SWITCH_STATE)(23, 'put_HookSwitchState', ((1, 'HookSwitchDevice'),(1, 'HookSwitchState'),)))
+    ITPhone.put_RingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(24, 'put_RingMode', ((1, 'lRingMode'),)))
+    ITPhone.get_RingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(25, 'get_RingMode', ((1, 'plRingMode'),)))
+    ITPhone.put_RingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(26, 'put_RingVolume', ((1, 'lRingVolume'),)))
+    ITPhone.get_RingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(27, 'get_RingVolume', ((1, 'plRingVolume'),)))
+    ITPhone.get_Privilege = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_PRIVILEGE))(28, 'get_Privilege', ((1, 'pPrivilege'),)))
+    ITPhone.GetPhoneCapsBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_BUFFER,POINTER(UInt32),POINTER(c_char_p_no))(29, 'GetPhoneCapsBuffer', ((1, 'pcbCaps'),(1, 'pdwSize'),(1, 'ppPhoneCapsBuffer'),)))
+    ITPhone.get_PhoneCapsBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_BUFFER,POINTER(win32more.System.Com.VARIANT_head))(30, 'get_PhoneCapsBuffer', ((1, 'pcbCaps'),(1, 'pVarBuffer'),)))
+    ITPhone.get_LampMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_LAMP_MODE))(31, 'get_LampMode', ((1, 'lLampID'),(1, 'pLampMode'),)))
+    ITPhone.put_LampMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.PHONE_LAMP_MODE)(32, 'put_LampMode', ((1, 'lLampID'),(1, 'LampMode'),)))
+    ITPhone.get_Display = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(33, 'get_Display', ((1, 'pbstrDisplay'),)))
+    ITPhone.SetDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR)(34, 'SetDisplay', ((1, 'lRow'),(1, 'lColumn'),(1, 'bstrDisplay'),)))
+    ITPhone.get_PreferredAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(35, 'get_PreferredAddresses', ((1, 'pAddresses'),)))
+    ITPhone.EnumeratePreferredAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head))(36, 'EnumeratePreferredAddresses', ((1, 'ppEnumAddress'),)))
+    ITPhone.DeviceSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(37, 'DeviceSpecific', ((1, 'pParams'),(1, 'dwSize'),)))
+    ITPhone.DeviceSpecificVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(38, 'DeviceSpecificVariant', ((1, 'varDevSpecificByteArray'),)))
+    ITPhone.NegotiateExtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32))(39, 'NegotiateExtVersion', ((1, 'lLowVersion'),(1, 'lHighVersion'),(1, 'plExtVersion'),)))
+    win32more.System.Com.IDispatch
+    return ITPhone
+def _define_ITPhoneDeviceSpecificEvent_head():
+    class ITPhoneDeviceSpecificEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('63ffb2a6-872b-4cd3-a5-01-32-6e-8f-b4-0a-f7')
+    return ITPhoneDeviceSpecificEvent
+def _define_ITPhoneDeviceSpecificEvent():
+    ITPhoneDeviceSpecificEvent = win32more.Devices.Tapi.ITPhoneDeviceSpecificEvent_head
+    ITPhoneDeviceSpecificEvent.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head))(7, 'get_Phone', ((1, 'ppPhone'),)))
+    ITPhoneDeviceSpecificEvent.get_lParam1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_lParam1', ((1, 'pParam1'),)))
+    ITPhoneDeviceSpecificEvent.get_lParam2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_lParam2', ((1, 'pParam2'),)))
+    ITPhoneDeviceSpecificEvent.get_lParam3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_lParam3', ((1, 'pParam3'),)))
+    win32more.System.Com.IDispatch
+    return ITPhoneDeviceSpecificEvent
+def _define_ITPhoneEvent_head():
+    class ITPhoneEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('8f942dd8-64ed-4aaf-a7-7d-b2-3d-b0-83-7e-ad')
+    return ITPhoneEvent
+def _define_ITPhoneEvent():
+    ITPhoneEvent = win32more.Devices.Tapi.ITPhoneEvent_head
+    ITPhoneEvent.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head))(7, 'get_Phone', ((1, 'ppPhone'),)))
+    ITPhoneEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    ITPhoneEvent.get_ButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_STATE))(9, 'get_ButtonState', ((1, 'pState'),)))
+    ITPhoneEvent.get_HookSwitchState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_HOOK_SWITCH_STATE))(10, 'get_HookSwitchState', ((1, 'pState'),)))
+    ITPhoneEvent.get_HookSwitchDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_HOOK_SWITCH_DEVICE))(11, 'get_HookSwitchDevice', ((1, 'pDevice'),)))
+    ITPhoneEvent.get_RingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_RingMode', ((1, 'plRingMode'),)))
+    ITPhoneEvent.get_ButtonLampId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_ButtonLampId', ((1, 'plButtonLampId'),)))
+    ITPhoneEvent.get_NumberGathered = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_NumberGathered', ((1, 'ppNumber'),)))
+    ITPhoneEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(15, 'get_Call', ((1, 'ppCallInfo'),)))
+    win32more.System.Com.IDispatch
+    return ITPhoneEvent
+def _define_ITPluggableTerminalClassInfo_head():
+    class ITPluggableTerminalClassInfo(win32more.System.Com.IDispatch_head):
+        Guid = Guid('41757f4a-cf09-4b34-bc-96-0a-79-d2-39-00-76')
+    return ITPluggableTerminalClassInfo
+def _define_ITPluggableTerminalClassInfo():
+    ITPluggableTerminalClassInfo = win32more.Devices.Tapi.ITPluggableTerminalClassInfo_head
+    ITPluggableTerminalClassInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'pName'),)))
+    ITPluggableTerminalClassInfo.get_Company = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Company', ((1, 'pCompany'),)))
+    ITPluggableTerminalClassInfo.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Version', ((1, 'pVersion'),)))
+    ITPluggableTerminalClassInfo.get_TerminalClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_TerminalClass', ((1, 'pTerminalClass'),)))
+    ITPluggableTerminalClassInfo.get_CLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_CLSID', ((1, 'pCLSID'),)))
+    ITPluggableTerminalClassInfo.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION))(12, 'get_Direction', ((1, 'pDirection'),)))
+    ITPluggableTerminalClassInfo.get_MediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_MediaTypes', ((1, 'pMediaTypes'),)))
+    win32more.System.Com.IDispatch
+    return ITPluggableTerminalClassInfo
+def _define_ITPluggableTerminalEventSink_head():
+    class ITPluggableTerminalEventSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6e0887be-ba1a-492e-bd-10-40-20-ec-5e-33-e0')
+    return ITPluggableTerminalEventSink
+def _define_ITPluggableTerminalEventSink():
+    ITPluggableTerminalEventSink = win32more.Devices.Tapi.ITPluggableTerminalEventSink_head
+    ITPluggableTerminalEventSink.FireEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.MSP_EVENT_INFO_head))(3, 'FireEvent', ((1, 'pMspEventInfo'),)))
+    win32more.System.Com.IUnknown
+    return ITPluggableTerminalEventSink
+def _define_ITPluggableTerminalEventSinkRegistration_head():
+    class ITPluggableTerminalEventSinkRegistration(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f7115709-a216-4957-a7-59-06-0a-b3-2a-90-d1')
+    return ITPluggableTerminalEventSinkRegistration
+def _define_ITPluggableTerminalEventSinkRegistration():
+    ITPluggableTerminalEventSinkRegistration = win32more.Devices.Tapi.ITPluggableTerminalEventSinkRegistration_head
+    ITPluggableTerminalEventSinkRegistration.RegisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITPluggableTerminalEventSink_head)(3, 'RegisterSink', ((1, 'pEventSink'),)))
+    ITPluggableTerminalEventSinkRegistration.UnregisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'UnregisterSink', ()))
+    win32more.System.Com.IUnknown
+    return ITPluggableTerminalEventSinkRegistration
+def _define_ITPluggableTerminalSuperclassInfo_head():
+    class ITPluggableTerminalSuperclassInfo(win32more.System.Com.IDispatch_head):
+        Guid = Guid('6d54e42c-4625-4359-a6-f7-63-19-99-10-7e-05')
+    return ITPluggableTerminalSuperclassInfo
+def _define_ITPluggableTerminalSuperclassInfo():
+    ITPluggableTerminalSuperclassInfo = win32more.Devices.Tapi.ITPluggableTerminalSuperclassInfo_head
+    ITPluggableTerminalSuperclassInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'pName'),)))
+    ITPluggableTerminalSuperclassInfo.get_CLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_CLSID', ((1, 'pCLSID'),)))
+    win32more.System.Com.IDispatch
+    return ITPluggableTerminalSuperclassInfo
+def _define_ITPrivateEvent_head():
+    class ITPrivateEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0e269cd0-10d4-4121-9c-22-9c-85-d6-25-65-0d')
+    return ITPrivateEvent
+def _define_ITPrivateEvent():
+    ITPrivateEvent = win32more.Devices.Tapi.ITPrivateEvent_head
+    ITPrivateEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head))(7, 'get_Address', ((1, 'ppAddress'),)))
+    ITPrivateEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(8, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITPrivateEvent.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head))(9, 'get_CallHub', ((1, 'ppCallHub'),)))
+    ITPrivateEvent.get_EventCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_EventCode', ((1, 'plEventCode'),)))
+    ITPrivateEvent.get_EventInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(11, 'get_EventInterface', ((1, 'pEventInterface'),)))
+    win32more.System.Com.IDispatch
+    return ITPrivateEvent
+def _define_ITQOSEvent_head():
+    class ITQOSEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('cfa3357c-ad77-11d1-bb-68-00-c0-4f-b6-80-9f')
+    return ITQOSEvent
+def _define_ITQOSEvent():
+    ITQOSEvent = win32more.Devices.Tapi.ITQOSEvent_head
+    ITQOSEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCall'),)))
+    ITQOSEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.QOS_EVENT))(8, 'get_Event', ((1, 'pQosEvent'),)))
+    ITQOSEvent.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_MediaType', ((1, 'plMediaType'),)))
+    win32more.System.Com.IDispatch
+    return ITQOSEvent
+def _define_ITQueue_head():
+    class ITQueue(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5afc3149-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITQueue
+def _define_ITQueue():
+    ITQueue = win32more.Devices.Tapi.ITQueue_head
+    ITQueue.put_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(7, 'put_MeasurementPeriod', ((1, 'lPeriod'),)))
+    ITQueue.get_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_MeasurementPeriod', ((1, 'plPeriod'),)))
+    ITQueue.get_TotalCallsQueued = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_TotalCallsQueued', ((1, 'plCalls'),)))
+    ITQueue.get_CurrentCallsQueued = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_CurrentCallsQueued', ((1, 'plCalls'),)))
+    ITQueue.get_TotalCallsAbandoned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_TotalCallsAbandoned', ((1, 'plCalls'),)))
+    ITQueue.get_TotalCallsFlowedIn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_TotalCallsFlowedIn', ((1, 'plCalls'),)))
+    ITQueue.get_TotalCallsFlowedOut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_TotalCallsFlowedOut', ((1, 'plCalls'),)))
+    ITQueue.get_LongestEverWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_LongestEverWaitTime', ((1, 'plWaitTime'),)))
+    ITQueue.get_CurrentLongestWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_CurrentLongestWaitTime', ((1, 'plWaitTime'),)))
+    ITQueue.get_AverageWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_AverageWaitTime', ((1, 'plWaitTime'),)))
+    ITQueue.get_FinalDisposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_FinalDisposition', ((1, 'plCalls'),)))
+    ITQueue.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_Name', ((1, 'ppName'),)))
+    win32more.System.Com.IDispatch
+    return ITQueue
+def _define_ITQueueEvent_head():
+    class ITQueueEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('297f3033-bd11-11d1-a0-a7-00-80-5f-c1-47-d3')
+    return ITQueueEvent
+def _define_ITQueueEvent():
+    ITQueueEvent = win32more.Devices.Tapi.ITQueueEvent_head
+    ITQueueEvent.get_Queue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITQueue_head))(7, 'get_Queue', ((1, 'ppQueue'),)))
+    ITQueueEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ACDQUEUE_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
+    return ITQueueEvent
+def _define_ITRendezvous_head():
+    class ITRendezvous(win32more.System.Com.IDispatch_head):
+        Guid = Guid('34621d6b-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
+    return ITRendezvous
+def _define_ITRendezvous():
+    ITRendezvous = win32more.Devices.Tapi.ITRendezvous_head
+    ITRendezvous.get_DefaultDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(7, 'get_DefaultDirectories', ((1, 'pVariant'),)))
+    ITRendezvous.EnumerateDefaultDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectory_head))(8, 'EnumerateDefaultDirectories', ((1, 'ppEnumDirectory'),)))
+    ITRendezvous.CreateDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITDirectory_head))(9, 'CreateDirectory', ((1, 'DirectoryType'),(1, 'pName'),(1, 'ppDir'),)))
+    ITRendezvous.CreateDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITDirectoryObject_head))(10, 'CreateDirectoryObject', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'ppDirectoryObject'),)))
+    win32more.System.Com.IDispatch
+    return ITRendezvous
+def _define_ITRequest_head():
+    class ITRequest(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ac48ffdf-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
+    return ITRequest
+def _define_ITRequest():
+    ITRequest = win32more.Devices.Tapi.ITRequest_head
+    ITRequest.MakeCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(7, 'MakeCall', ((1, 'pDestAddress'),(1, 'pAppName'),(1, 'pCalledParty'),(1, 'pComment'),)))
+    win32more.System.Com.IDispatch
+    return ITRequest
+def _define_ITRequestEvent_head():
+    class ITRequestEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ac48ffde-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
+    return ITRequestEvent
+def _define_ITRequestEvent():
+    ITRequestEvent = win32more.Devices.Tapi.ITRequestEvent_head
+    ITRequestEvent.get_RegistrationInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_RegistrationInstance', ((1, 'plRegistrationInstance'),)))
+    ITRequestEvent.get_RequestMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_RequestMode', ((1, 'plRequestMode'),)))
+    ITRequestEvent.get_DestAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_DestAddress', ((1, 'ppDestAddress'),)))
+    ITRequestEvent.get_AppName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_AppName', ((1, 'ppAppName'),)))
+    ITRequestEvent.get_CalledParty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_CalledParty', ((1, 'ppCalledParty'),)))
+    ITRequestEvent.get_Comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Comment', ((1, 'ppComment'),)))
+    win32more.System.Com.IDispatch
+    return ITRequestEvent
+def _define_ITScriptableAudioFormat_head():
+    class ITScriptableAudioFormat(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b87658bd-3c59-4f64-be-74-ae-de-3e-86-a8-1e')
+    return ITScriptableAudioFormat
+def _define_ITScriptableAudioFormat():
+    ITScriptableAudioFormat = win32more.Devices.Tapi.ITScriptableAudioFormat_head
+    ITScriptableAudioFormat.get_Channels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Channels', ((1, 'pVal'),)))
+    ITScriptableAudioFormat.put_Channels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(8, 'put_Channels', ((1, 'nNewVal'),)))
+    ITScriptableAudioFormat.get_SamplesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_SamplesPerSec', ((1, 'pVal'),)))
+    ITScriptableAudioFormat.put_SamplesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'put_SamplesPerSec', ((1, 'nNewVal'),)))
+    ITScriptableAudioFormat.get_AvgBytesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_AvgBytesPerSec', ((1, 'pVal'),)))
+    ITScriptableAudioFormat.put_AvgBytesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(12, 'put_AvgBytesPerSec', ((1, 'nNewVal'),)))
+    ITScriptableAudioFormat.get_BlockAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_BlockAlign', ((1, 'pVal'),)))
+    ITScriptableAudioFormat.put_BlockAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(14, 'put_BlockAlign', ((1, 'nNewVal'),)))
+    ITScriptableAudioFormat.get_BitsPerSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_BitsPerSample', ((1, 'pVal'),)))
+    ITScriptableAudioFormat.put_BitsPerSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(16, 'put_BitsPerSample', ((1, 'nNewVal'),)))
+    ITScriptableAudioFormat.get_FormatTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_FormatTag', ((1, 'pVal'),)))
+    ITScriptableAudioFormat.put_FormatTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(18, 'put_FormatTag', ((1, 'nNewVal'),)))
+    win32more.System.Com.IDispatch
+    return ITScriptableAudioFormat
+def _define_ITStaticAudioTerminal_head():
+    class ITStaticAudioTerminal(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a86b7871-d14c-48e6-92-2e-a8-d1-5f-98-48-00')
+    return ITStaticAudioTerminal
+def _define_ITStaticAudioTerminal():
+    ITStaticAudioTerminal = win32more.Devices.Tapi.ITStaticAudioTerminal_head
+    ITStaticAudioTerminal.get_WaveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_WaveId', ((1, 'plWaveId'),)))
+    win32more.System.Com.IDispatch
+    return ITStaticAudioTerminal
+def _define_ITStream_head():
+    class ITStream(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ee3bd605-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return ITStream
+def _define_ITStream():
+    ITStream = win32more.Devices.Tapi.ITStream_head
+    ITStream.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_MediaType', ((1, 'plMediaType'),)))
+    ITStream.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION))(8, 'get_Direction', ((1, 'pTD'),)))
+    ITStream.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Name', ((1, 'ppName'),)))
+    ITStream.StartStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'StartStream', ()))
+    ITStream.PauseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'PauseStream', ()))
+    ITStream.StopStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'StopStream', ()))
+    ITStream.SelectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(13, 'SelectTerminal', ((1, 'pTerminal'),)))
+    ITStream.UnselectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(14, 'UnselectTerminal', ((1, 'pTerminal'),)))
+    ITStream.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head))(15, 'EnumerateTerminals', ((1, 'ppEnumTerminal'),)))
+    ITStream.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(16, 'get_Terminals', ((1, 'pTerminals'),)))
+    win32more.System.Com.IDispatch
+    return ITStream
+def _define_ITStreamControl_head():
+    class ITStreamControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ee3bd604-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return ITStreamControl
+def _define_ITStreamControl():
+    ITStreamControl = win32more.Devices.Tapi.ITStreamControl_head
+    ITStreamControl.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITStream_head))(7, 'CreateStream', ((1, 'lMediaType'),(1, 'td'),(1, 'ppStream'),)))
+    ITStreamControl.RemoveStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITStream_head)(8, 'RemoveStream', ((1, 'pStream'),)))
+    ITStreamControl.EnumerateStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumStream_head))(9, 'EnumerateStreams', ((1, 'ppEnumStream'),)))
+    ITStreamControl.get_Streams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(10, 'get_Streams', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITStreamControl
+def _define_ITSubStream_head():
+    class ITSubStream(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ee3bd608-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return ITSubStream
+def _define_ITSubStream():
+    ITSubStream = win32more.Devices.Tapi.ITSubStream_head
+    ITSubStream.StartSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'StartSubStream', ()))
+    ITSubStream.PauseSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'PauseSubStream', ()))
+    ITSubStream.StopSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'StopSubStream', ()))
+    ITSubStream.SelectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(10, 'SelectTerminal', ((1, 'pTerminal'),)))
+    ITSubStream.UnselectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head)(11, 'UnselectTerminal', ((1, 'pTerminal'),)))
+    ITSubStream.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head))(12, 'EnumerateTerminals', ((1, 'ppEnumTerminal'),)))
+    ITSubStream.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_Terminals', ((1, 'pTerminals'),)))
+    ITSubStream.get_Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITStream_head))(14, 'get_Stream', ((1, 'ppITStream'),)))
+    win32more.System.Com.IDispatch
+    return ITSubStream
+def _define_ITSubStreamControl_head():
+    class ITSubStreamControl(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ee3bd607-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    return ITSubStreamControl
+def _define_ITSubStreamControl():
+    ITSubStreamControl = win32more.Devices.Tapi.ITSubStreamControl_head
+    ITSubStreamControl.CreateSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITSubStream_head))(7, 'CreateSubStream', ((1, 'ppSubStream'),)))
+    ITSubStreamControl.RemoveSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITSubStream_head)(8, 'RemoveSubStream', ((1, 'pSubStream'),)))
+    ITSubStreamControl.EnumerateSubStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumSubStream_head))(9, 'EnumerateSubStreams', ((1, 'ppEnumSubStream'),)))
+    ITSubStreamControl.get_SubStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(10, 'get_SubStreams', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITSubStreamControl
+def _define_ITTAPI_head():
+    class ITTAPI(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc382-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITTAPI
+def _define_ITTAPI():
+    ITTAPI = win32more.Devices.Tapi.ITTAPI_head
+    ITTAPI.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Initialize', ()))
+    ITTAPI.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Shutdown', ()))
+    ITTAPI.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_Addresses', ((1, 'pVariant'),)))
+    ITTAPI.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head))(10, 'EnumerateAddresses', ((1, 'ppEnumAddress'),)))
+    ITTAPI.RegisterCallNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITAddress_head,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL,Int32,Int32,POINTER(Int32))(11, 'RegisterCallNotifications', ((1, 'pAddress'),(1, 'fMonitor'),(1, 'fOwner'),(1, 'lMediaTypes'),(1, 'lCallbackInstance'),(1, 'plRegister'),)))
+    ITTAPI.UnregisterNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(12, 'UnregisterNotifications', ((1, 'lRegister'),)))
+    ITTAPI.get_CallHubs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_CallHubs', ((1, 'pVariant'),)))
+    ITTAPI.EnumerateCallHubs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallHub_head))(14, 'EnumerateCallHubs', ((1, 'ppEnumCallHub'),)))
+    ITTAPI.SetCallHubTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.VARIANT_BOOL)(15, 'SetCallHubTracking', ((1, 'pAddresses'),(1, 'bTracking'),)))
+    ITTAPI.EnumeratePrivateTAPIObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumUnknown_head))(16, 'EnumeratePrivateTAPIObjects', ((1, 'ppEnumUnknown'),)))
+    ITTAPI.get_PrivateTAPIObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(17, 'get_PrivateTAPIObjects', ((1, 'pVariant'),)))
+    ITTAPI.RegisterRequestRecipient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.VARIANT_BOOL)(18, 'RegisterRequestRecipient', ((1, 'lRegistrationInstance'),(1, 'lRequestMode'),(1, 'fEnable'),)))
+    ITTAPI.SetAssistedTelephonyPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL)(19, 'SetAssistedTelephonyPriority', ((1, 'pAppFilename'),(1, 'fPriority'),)))
+    ITTAPI.SetApplicationPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.VARIANT_BOOL)(20, 'SetApplicationPriority', ((1, 'pAppFilename'),(1, 'lMediaType'),(1, 'fPriority'),)))
+    ITTAPI.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(21, 'put_EventFilter', ((1, 'lFilterMask'),)))
+    ITTAPI.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_EventFilter', ((1, 'plFilterMask'),)))
+    win32more.System.Com.IDispatch
+    return ITTAPI
+def _define_ITTAPI2_head():
+    class ITTAPI2(win32more.Devices.Tapi.ITTAPI_head):
+        Guid = Guid('54fbdc8c-d90f-4dad-96-95-b3-73-09-7f-09-4b')
+    return ITTAPI2
+def _define_ITTAPI2():
+    ITTAPI2 = win32more.Devices.Tapi.ITTAPI2_head
+    ITTAPI2.get_Phones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(23, 'get_Phones', ((1, 'pPhones'),)))
+    ITTAPI2.EnumeratePhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head))(24, 'EnumeratePhones', ((1, 'ppEnumPhone'),)))
+    ITTAPI2.CreateEmptyCollectionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCollection2_head))(25, 'CreateEmptyCollectionObject', ((1, 'ppCollection'),)))
+    win32more.Devices.Tapi.ITTAPI
+    return ITTAPI2
+def _define_ITTAPICallCenter_head():
+    class ITTAPICallCenter(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5afc3154-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
+    return ITTAPICallCenter
+def _define_ITTAPICallCenter():
+    ITTAPICallCenter = win32more.Devices.Tapi.ITTAPICallCenter_head
+    ITTAPICallCenter.EnumerateAgentHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentHandler_head))(7, 'EnumerateAgentHandlers', ((1, 'ppEnumHandler'),)))
+    ITTAPICallCenter.get_AgentHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_AgentHandlers', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
+    return ITTAPICallCenter
+def _define_ITTAPIDispatchEventNotification_head():
+    class ITTAPIDispatchEventNotification(win32more.System.Com.IDispatch_head):
+        Guid = Guid('9f34325b-7e62-11d2-94-57-00-c0-4f-8e-c8-88')
+    return ITTAPIDispatchEventNotification
+def _define_ITTAPIDispatchEventNotification():
+    ITTAPIDispatchEventNotification = win32more.Devices.Tapi.ITTAPIDispatchEventNotification_head
+    win32more.System.Com.IDispatch
+    return ITTAPIDispatchEventNotification
+def _define_ITTAPIEventNotification_head():
+    class ITTAPIEventNotification(win32more.System.Com.IUnknown_head):
+        Guid = Guid('eddb9426-3b91-11d1-8f-30-00-c0-4f-b6-80-9f')
+    return ITTAPIEventNotification
+def _define_ITTAPIEventNotification():
+    ITTAPIEventNotification = win32more.Devices.Tapi.ITTAPIEventNotification_head
+    ITTAPIEventNotification.Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,win32more.System.Com.IDispatch_head)(3, 'Event', ((1, 'TapiEvent'),(1, 'pEvent'),)))
+    win32more.System.Com.IUnknown
+    return ITTAPIEventNotification
+def _define_ITTAPIObjectEvent_head():
+    class ITTAPIObjectEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('f4854d48-937a-11d1-bb-58-00-c0-4f-b6-80-9f')
+    return ITTAPIObjectEvent
+def _define_ITTAPIObjectEvent():
+    ITTAPIObjectEvent = win32more.Devices.Tapi.ITTAPIObjectEvent_head
+    ITTAPIObjectEvent.get_TAPIObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTAPI_head))(7, 'get_TAPIObject', ((1, 'ppTAPIObject'),)))
+    ITTAPIObjectEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPIOBJECT_EVENT))(8, 'get_Event', ((1, 'pEvent'),)))
+    ITTAPIObjectEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head))(9, 'get_Address', ((1, 'ppAddress'),)))
+    ITTAPIObjectEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITTAPIObjectEvent
+def _define_ITTAPIObjectEvent2_head():
+    class ITTAPIObjectEvent2(win32more.Devices.Tapi.ITTAPIObjectEvent_head):
+        Guid = Guid('359dda6e-68ce-4383-bf-0b-16-91-33-c4-1b-46')
+    return ITTAPIObjectEvent2
+def _define_ITTAPIObjectEvent2():
+    ITTAPIObjectEvent2 = win32more.Devices.Tapi.ITTAPIObjectEvent2_head
+    ITTAPIObjectEvent2.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head))(11, 'get_Phone', ((1, 'ppPhone'),)))
+    win32more.Devices.Tapi.ITTAPIObjectEvent
+    return ITTAPIObjectEvent2
+def _define_ITTerminal_head():
+    class ITTerminal(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc38a-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITTerminal
+def _define_ITTerminal():
+    ITTerminal = win32more.Devices.Tapi.ITTerminal_head
+    ITTerminal.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'ppName'),)))
+    ITTerminal.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_STATE))(8, 'get_State', ((1, 'pTerminalState'),)))
+    ITTerminal.get_TerminalType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_TYPE))(9, 'get_TerminalType', ((1, 'pType'),)))
+    ITTerminal.get_TerminalClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_TerminalClass', ((1, 'ppTerminalClass'),)))
+    ITTerminal.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_MediaType', ((1, 'plMediaType'),)))
+    ITTerminal.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION))(12, 'get_Direction', ((1, 'pDirection'),)))
+    win32more.System.Com.IDispatch
+    return ITTerminal
+def _define_ITTerminalSupport_head():
+    class ITTerminalSupport(win32more.System.Com.IDispatch_head):
+        Guid = Guid('b1efc385-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
+    return ITTerminalSupport
+def _define_ITTerminalSupport():
+    ITTerminalSupport = win32more.Devices.Tapi.ITTerminalSupport_head
+    ITTerminalSupport.get_StaticTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(7, 'get_StaticTerminals', ((1, 'pVariant'),)))
+    ITTerminalSupport.EnumerateStaticTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head))(8, 'EnumerateStaticTerminals', ((1, 'ppTerminalEnumerator'),)))
+    ITTerminalSupport.get_DynamicTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_DynamicTerminalClasses', ((1, 'pVariant'),)))
+    ITTerminalSupport.EnumerateDynamicTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminalClass_head))(10, 'EnumerateDynamicTerminalClasses', ((1, 'ppTerminalClassEnumerator'),)))
+    ITTerminalSupport.CreateTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head))(11, 'CreateTerminal', ((1, 'pTerminalClass'),(1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
+    ITTerminalSupport.GetDefaultStaticTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head))(12, 'GetDefaultStaticTerminal', ((1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
+    win32more.System.Com.IDispatch
+    return ITTerminalSupport
+def _define_ITTerminalSupport2_head():
+    class ITTerminalSupport2(win32more.Devices.Tapi.ITTerminalSupport_head):
+        Guid = Guid('f3eb39bc-1b1f-4e99-a0-c0-56-30-5c-4d-d5-91')
+    return ITTerminalSupport2
+def _define_ITTerminalSupport2():
+    ITTerminalSupport2 = win32more.Devices.Tapi.ITTerminalSupport2_head
+    ITTerminalSupport2.get_PluggableSuperclasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_PluggableSuperclasses', ((1, 'pVariant'),)))
+    ITTerminalSupport2.EnumeratePluggableSuperclasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head))(14, 'EnumeratePluggableSuperclasses', ((1, 'ppSuperclassEnumerator'),)))
+    ITTerminalSupport2.get_PluggableTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head))(15, 'get_PluggableTerminalClasses', ((1, 'bstrTerminalSuperclass'),(1, 'lMediaType'),(1, 'pVariant'),)))
+    ITTerminalSupport2.EnumeratePluggableTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,POINTER(win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head))(16, 'EnumeratePluggableTerminalClasses', ((1, 'iidTerminalSuperclass'),(1, 'lMediaType'),(1, 'ppClassEnumerator'),)))
+    win32more.Devices.Tapi.ITTerminalSupport
+    return ITTerminalSupport2
+def _define_ITToneDetectionEvent_head():
+    class ITToneDetectionEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('407e0faf-d047-4753-b0-c6-8e-06-03-73-fe-cd')
+    return ITToneDetectionEvent
+def _define_ITToneDetectionEvent():
+    ITToneDetectionEvent = win32more.Devices.Tapi.ITToneDetectionEvent_head
+    ITToneDetectionEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(7, 'get_Call', ((1, 'ppCallInfo'),)))
+    ITToneDetectionEvent.get_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_AppSpecific', ((1, 'plAppSpecific'),)))
+    ITToneDetectionEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_TickCount', ((1, 'plTickCount'),)))
+    ITToneDetectionEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
+    return ITToneDetectionEvent
+def _define_ITToneTerminalEvent_head():
+    class ITToneTerminalEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('e6f56009-611f-4945-bb-d2-2d-0c-e5-61-20-56')
+    return ITToneTerminalEvent
+def _define_ITToneTerminalEvent():
+    ITToneTerminalEvent = win32more.Devices.Tapi.ITToneTerminalEvent_head
+    ITToneTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(7, 'get_Terminal', ((1, 'ppTerminal'),)))
+    ITToneTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(8, 'get_Call', ((1, 'ppCall'),)))
+    ITToneTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT))(9, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
+    return ITToneTerminalEvent
+def _define_ITTTSTerminalEvent_head():
+    class ITTTSTerminalEvent(win32more.System.Com.IDispatch_head):
+        Guid = Guid('d964788f-95a5-461d-ab-0c-b9-90-0a-6c-27-13')
+    return ITTTSTerminalEvent
+def _define_ITTTSTerminalEvent():
+    ITTTSTerminalEvent = win32more.Devices.Tapi.ITTTSTerminalEvent_head
+    ITTTSTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head))(7, 'get_Terminal', ((1, 'ppTerminal'),)))
+    ITTTSTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head))(8, 'get_Call', ((1, 'ppCall'),)))
+    ITTTSTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT))(9, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
+    return ITTTSTerminalEvent
+def _define_LINEADDRESSCAPS_head():
+    class LINEADDRESSCAPS(Structure):
+        pass
+    return LINEADDRESSCAPS
+def _define_LINEADDRESSCAPS():
+    LINEADDRESSCAPS = win32more.Devices.Tapi.LINEADDRESSCAPS_head
+    LINEADDRESSCAPS._pack_ = 1
+    LINEADDRESSCAPS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwLineDeviceID', UInt32),
+        ('dwAddressSize', UInt32),
+        ('dwAddressOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwAddressSharing', UInt32),
+        ('dwAddressStates', UInt32),
+        ('dwCallInfoStates', UInt32),
+        ('dwCallerIDFlags', UInt32),
+        ('dwCalledIDFlags', UInt32),
+        ('dwConnectedIDFlags', UInt32),
+        ('dwRedirectionIDFlags', UInt32),
+        ('dwRedirectingIDFlags', UInt32),
+        ('dwCallStates', UInt32),
+        ('dwDialToneModes', UInt32),
+        ('dwBusyModes', UInt32),
+        ('dwSpecialInfo', UInt32),
+        ('dwDisconnectModes', UInt32),
+        ('dwMaxNumActiveCalls', UInt32),
+        ('dwMaxNumOnHoldCalls', UInt32),
+        ('dwMaxNumOnHoldPendingCalls', UInt32),
+        ('dwMaxNumConference', UInt32),
+        ('dwMaxNumTransConf', UInt32),
+        ('dwAddrCapFlags', UInt32),
+        ('dwCallFeatures', UInt32),
+        ('dwRemoveFromConfCaps', UInt32),
+        ('dwRemoveFromConfState', UInt32),
+        ('dwTransferModes', UInt32),
+        ('dwParkModes', UInt32),
+        ('dwForwardModes', UInt32),
+        ('dwMaxForwardEntries', UInt32),
+        ('dwMaxSpecificEntries', UInt32),
+        ('dwMinFwdNumRings', UInt32),
+        ('dwMaxFwdNumRings', UInt32),
+        ('dwMaxCallCompletions', UInt32),
+        ('dwCallCompletionConds', UInt32),
+        ('dwCallCompletionModes', UInt32),
+        ('dwNumCompletionMessages', UInt32),
+        ('dwCompletionMsgTextEntrySize', UInt32),
+        ('dwCompletionMsgTextSize', UInt32),
+        ('dwCompletionMsgTextOffset', UInt32),
+        ('dwAddressFeatures', UInt32),
+        ('dwPredictiveAutoTransferStates', UInt32),
+        ('dwNumCallTreatments', UInt32),
+        ('dwCallTreatmentListSize', UInt32),
+        ('dwCallTreatmentListOffset', UInt32),
+        ('dwDeviceClassesSize', UInt32),
+        ('dwDeviceClassesOffset', UInt32),
+        ('dwMaxCallDataSize', UInt32),
+        ('dwCallFeatures2', UInt32),
+        ('dwMaxNoAnswerTimeout', UInt32),
+        ('dwConnectedModes', UInt32),
+        ('dwOfferingModes', UInt32),
+        ('dwAvailableMediaModes', UInt32),
+    ]
+    return LINEADDRESSCAPS
+def _define_LINEADDRESSSTATUS_head():
+    class LINEADDRESSSTATUS(Structure):
+        pass
+    return LINEADDRESSSTATUS
+def _define_LINEADDRESSSTATUS():
+    LINEADDRESSSTATUS = win32more.Devices.Tapi.LINEADDRESSSTATUS_head
+    LINEADDRESSSTATUS._pack_ = 1
+    LINEADDRESSSTATUS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumInUse', UInt32),
+        ('dwNumActiveCalls', UInt32),
+        ('dwNumOnHoldCalls', UInt32),
+        ('dwNumOnHoldPendCalls', UInt32),
+        ('dwAddressFeatures', UInt32),
+        ('dwNumRingsNoAnswer', UInt32),
+        ('dwForwardNumEntries', UInt32),
+        ('dwForwardSize', UInt32),
+        ('dwForwardOffset', UInt32),
+        ('dwTerminalModesSize', UInt32),
+        ('dwTerminalModesOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+    ]
+    return LINEADDRESSSTATUS
+def _define_LINEAGENTACTIVITYENTRY_head():
+    class LINEAGENTACTIVITYENTRY(Structure):
+        pass
+    return LINEAGENTACTIVITYENTRY
+def _define_LINEAGENTACTIVITYENTRY():
+    LINEAGENTACTIVITYENTRY = win32more.Devices.Tapi.LINEAGENTACTIVITYENTRY_head
+    LINEAGENTACTIVITYENTRY._pack_ = 1
+    LINEAGENTACTIVITYENTRY._fields_ = [
+        ('dwID', UInt32),
+        ('dwNameSize', UInt32),
+        ('dwNameOffset', UInt32),
+    ]
+    return LINEAGENTACTIVITYENTRY
+def _define_LINEAGENTACTIVITYLIST_head():
+    class LINEAGENTACTIVITYLIST(Structure):
+        pass
+    return LINEAGENTACTIVITYLIST
+def _define_LINEAGENTACTIVITYLIST():
+    LINEAGENTACTIVITYLIST = win32more.Devices.Tapi.LINEAGENTACTIVITYLIST_head
+    LINEAGENTACTIVITYLIST._pack_ = 1
+    LINEAGENTACTIVITYLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwListSize', UInt32),
+        ('dwListOffset', UInt32),
+    ]
+    return LINEAGENTACTIVITYLIST
+def _define_LINEAGENTCAPS_head():
+    class LINEAGENTCAPS(Structure):
+        pass
+    return LINEAGENTCAPS
+def _define_LINEAGENTCAPS():
+    LINEAGENTCAPS = win32more.Devices.Tapi.LINEAGENTCAPS_head
+    LINEAGENTCAPS._pack_ = 1
+    LINEAGENTCAPS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwAgentHandlerInfoSize', UInt32),
+        ('dwAgentHandlerInfoOffset', UInt32),
+        ('dwCapsVersion', UInt32),
+        ('dwFeatures', UInt32),
+        ('dwStates', UInt32),
+        ('dwNextStates', UInt32),
+        ('dwMaxNumGroupEntries', UInt32),
+        ('dwAgentStatusMessages', UInt32),
+        ('dwNumAgentExtensionIDs', UInt32),
+        ('dwAgentExtensionIDListSize', UInt32),
+        ('dwAgentExtensionIDListOffset', UInt32),
+        ('ProxyGUID', Guid),
+    ]
+    return LINEAGENTCAPS
+def _define_LINEAGENTENTRY_head():
+    class LINEAGENTENTRY(Structure):
+        pass
+    return LINEAGENTENTRY
+def _define_LINEAGENTENTRY():
+    LINEAGENTENTRY = win32more.Devices.Tapi.LINEAGENTENTRY_head
+    LINEAGENTENTRY._pack_ = 1
+    LINEAGENTENTRY._fields_ = [
+        ('hAgent', UInt32),
+        ('dwNameSize', UInt32),
+        ('dwNameOffset', UInt32),
+        ('dwIDSize', UInt32),
+        ('dwIDOffset', UInt32),
+        ('dwPINSize', UInt32),
+        ('dwPINOffset', UInt32),
+    ]
+    return LINEAGENTENTRY
+def _define_LINEAGENTGROUPENTRY_head():
+    class LINEAGENTGROUPENTRY(Structure):
+        pass
+    return LINEAGENTGROUPENTRY
+def _define_LINEAGENTGROUPENTRY():
+    LINEAGENTGROUPENTRY = win32more.Devices.Tapi.LINEAGENTGROUPENTRY_head
+    class LINEAGENTGROUPENTRY__GroupID_e__Struct(Structure):
+        pass
+    LINEAGENTGROUPENTRY__GroupID_e__Struct._pack_ = 1
+    LINEAGENTGROUPENTRY__GroupID_e__Struct._fields_ = [
+        ('dwGroupID1', UInt32),
+        ('dwGroupID2', UInt32),
+        ('dwGroupID3', UInt32),
+        ('dwGroupID4', UInt32),
+    ]
+    LINEAGENTGROUPENTRY._pack_ = 1
+    LINEAGENTGROUPENTRY._fields_ = [
+        ('GroupID', LINEAGENTGROUPENTRY__GroupID_e__Struct),
+        ('dwNameSize', UInt32),
+        ('dwNameOffset', UInt32),
+    ]
+    return LINEAGENTGROUPENTRY
+def _define_LINEAGENTGROUPLIST_head():
+    class LINEAGENTGROUPLIST(Structure):
+        pass
+    return LINEAGENTGROUPLIST
+def _define_LINEAGENTGROUPLIST():
+    LINEAGENTGROUPLIST = win32more.Devices.Tapi.LINEAGENTGROUPLIST_head
+    LINEAGENTGROUPLIST._pack_ = 1
+    LINEAGENTGROUPLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwListSize', UInt32),
+        ('dwListOffset', UInt32),
+    ]
+    return LINEAGENTGROUPLIST
+def _define_LINEAGENTINFO_head():
+    class LINEAGENTINFO(Structure):
+        pass
+    return LINEAGENTINFO
+def _define_LINEAGENTINFO():
+    LINEAGENTINFO = win32more.Devices.Tapi.LINEAGENTINFO_head
+    LINEAGENTINFO._pack_ = 1
+    LINEAGENTINFO._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwAgentState', UInt32),
+        ('dwNextAgentState', UInt32),
+        ('dwMeasurementPeriod', UInt32),
+        ('cyOverallCallRate', win32more.System.Com.CY),
+        ('dwNumberOfACDCalls', UInt32),
+        ('dwNumberOfIncomingCalls', UInt32),
+        ('dwNumberOfOutgoingCalls', UInt32),
+        ('dwTotalACDTalkTime', UInt32),
+        ('dwTotalACDCallTime', UInt32),
+        ('dwTotalACDWrapUpTime', UInt32),
+    ]
+    return LINEAGENTINFO
+def _define_LINEAGENTLIST_head():
+    class LINEAGENTLIST(Structure):
+        pass
+    return LINEAGENTLIST
+def _define_LINEAGENTLIST():
+    LINEAGENTLIST = win32more.Devices.Tapi.LINEAGENTLIST_head
+    LINEAGENTLIST._pack_ = 1
+    LINEAGENTLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwListSize', UInt32),
+        ('dwListOffset', UInt32),
+    ]
+    return LINEAGENTLIST
+def _define_LINEAGENTSESSIONENTRY_head():
+    class LINEAGENTSESSIONENTRY(Structure):
+        pass
+    return LINEAGENTSESSIONENTRY
+def _define_LINEAGENTSESSIONENTRY():
+    LINEAGENTSESSIONENTRY = win32more.Devices.Tapi.LINEAGENTSESSIONENTRY_head
+    LINEAGENTSESSIONENTRY._pack_ = 1
+    LINEAGENTSESSIONENTRY._fields_ = [
+        ('hAgentSession', UInt32),
+        ('hAgent', UInt32),
+        ('GroupID', Guid),
+        ('dwWorkingAddressID', UInt32),
+    ]
+    return LINEAGENTSESSIONENTRY
+def _define_LINEAGENTSESSIONINFO_head():
+    class LINEAGENTSESSIONINFO(Structure):
+        pass
+    return LINEAGENTSESSIONINFO
+def _define_LINEAGENTSESSIONINFO():
+    LINEAGENTSESSIONINFO = win32more.Devices.Tapi.LINEAGENTSESSIONINFO_head
+    LINEAGENTSESSIONINFO._pack_ = 1
+    LINEAGENTSESSIONINFO._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwAgentSessionState', UInt32),
+        ('dwNextAgentSessionState', UInt32),
+        ('dateSessionStartTime', Double),
+        ('dwSessionDuration', UInt32),
+        ('dwNumberOfCalls', UInt32),
+        ('dwTotalTalkTime', UInt32),
+        ('dwAverageTalkTime', UInt32),
+        ('dwTotalCallTime', UInt32),
+        ('dwAverageCallTime', UInt32),
+        ('dwTotalWrapUpTime', UInt32),
+        ('dwAverageWrapUpTime', UInt32),
+        ('cyACDCallRate', win32more.System.Com.CY),
+        ('dwLongestTimeToAnswer', UInt32),
+        ('dwAverageTimeToAnswer', UInt32),
+    ]
+    return LINEAGENTSESSIONINFO
+def _define_LINEAGENTSESSIONLIST_head():
+    class LINEAGENTSESSIONLIST(Structure):
+        pass
+    return LINEAGENTSESSIONLIST
+def _define_LINEAGENTSESSIONLIST():
+    LINEAGENTSESSIONLIST = win32more.Devices.Tapi.LINEAGENTSESSIONLIST_head
+    LINEAGENTSESSIONLIST._pack_ = 1
+    LINEAGENTSESSIONLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwListSize', UInt32),
+        ('dwListOffset', UInt32),
+    ]
+    return LINEAGENTSESSIONLIST
+def _define_LINEAGENTSTATUS_head():
+    class LINEAGENTSTATUS(Structure):
+        pass
+    return LINEAGENTSTATUS
+def _define_LINEAGENTSTATUS():
+    LINEAGENTSTATUS = win32more.Devices.Tapi.LINEAGENTSTATUS_head
+    LINEAGENTSTATUS._pack_ = 1
+    LINEAGENTSTATUS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwGroupListSize', UInt32),
+        ('dwGroupListOffset', UInt32),
+        ('dwState', UInt32),
+        ('dwNextState', UInt32),
+        ('dwActivityID', UInt32),
+        ('dwActivitySize', UInt32),
+        ('dwActivityOffset', UInt32),
+        ('dwAgentFeatures', UInt32),
+        ('dwValidStates', UInt32),
+        ('dwValidNextStates', UInt32),
+    ]
+    return LINEAGENTSTATUS
+def _define_LINEAPPINFO_head():
+    class LINEAPPINFO(Structure):
+        pass
+    return LINEAPPINFO
+def _define_LINEAPPINFO():
+    LINEAPPINFO = win32more.Devices.Tapi.LINEAPPINFO_head
+    LINEAPPINFO._pack_ = 1
+    LINEAPPINFO._fields_ = [
+        ('dwMachineNameSize', UInt32),
+        ('dwMachineNameOffset', UInt32),
+        ('dwUserNameSize', UInt32),
+        ('dwUserNameOffset', UInt32),
+        ('dwModuleFilenameSize', UInt32),
+        ('dwModuleFilenameOffset', UInt32),
+        ('dwFriendlyNameSize', UInt32),
+        ('dwFriendlyNameOffset', UInt32),
+        ('dwMediaModes', UInt32),
+        ('dwAddressID', UInt32),
+    ]
+    return LINEAPPINFO
+def _define_LINECALLBACK():
+    return WINFUNCTYPE(Void,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr,UIntPtr)
+def _define_LINECALLINFO_head():
+    class LINECALLINFO(Structure):
+        pass
+    return LINECALLINFO
+def _define_LINECALLINFO():
+    LINECALLINFO = win32more.Devices.Tapi.LINECALLINFO_head
+    LINECALLINFO._pack_ = 1
+    LINECALLINFO._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('hLine', UInt32),
+        ('dwLineDeviceID', UInt32),
+        ('dwAddressID', UInt32),
+        ('dwBearerMode', UInt32),
+        ('dwRate', UInt32),
+        ('dwMediaMode', UInt32),
+        ('dwAppSpecific', UInt32),
+        ('dwCallID', UInt32),
+        ('dwRelatedCallID', UInt32),
+        ('dwCallParamFlags', UInt32),
+        ('dwCallStates', UInt32),
+        ('dwMonitorDigitModes', UInt32),
+        ('dwMonitorMediaModes', UInt32),
+        ('DialParams', win32more.Devices.Tapi.LINEDIALPARAMS),
+        ('dwOrigin', UInt32),
+        ('dwReason', UInt32),
+        ('dwCompletionID', UInt32),
+        ('dwNumOwners', UInt32),
+        ('dwNumMonitors', UInt32),
+        ('dwCountryCode', UInt32),
+        ('dwTrunk', UInt32),
+        ('dwCallerIDFlags', UInt32),
+        ('dwCallerIDSize', UInt32),
+        ('dwCallerIDOffset', UInt32),
+        ('dwCallerIDNameSize', UInt32),
+        ('dwCallerIDNameOffset', UInt32),
+        ('dwCalledIDFlags', UInt32),
+        ('dwCalledIDSize', UInt32),
+        ('dwCalledIDOffset', UInt32),
+        ('dwCalledIDNameSize', UInt32),
+        ('dwCalledIDNameOffset', UInt32),
+        ('dwConnectedIDFlags', UInt32),
+        ('dwConnectedIDSize', UInt32),
+        ('dwConnectedIDOffset', UInt32),
+        ('dwConnectedIDNameSize', UInt32),
+        ('dwConnectedIDNameOffset', UInt32),
+        ('dwRedirectionIDFlags', UInt32),
+        ('dwRedirectionIDSize', UInt32),
+        ('dwRedirectionIDOffset', UInt32),
+        ('dwRedirectionIDNameSize', UInt32),
+        ('dwRedirectionIDNameOffset', UInt32),
+        ('dwRedirectingIDFlags', UInt32),
+        ('dwRedirectingIDSize', UInt32),
+        ('dwRedirectingIDOffset', UInt32),
+        ('dwRedirectingIDNameSize', UInt32),
+        ('dwRedirectingIDNameOffset', UInt32),
+        ('dwAppNameSize', UInt32),
+        ('dwAppNameOffset', UInt32),
+        ('dwDisplayableAddressSize', UInt32),
+        ('dwDisplayableAddressOffset', UInt32),
+        ('dwCalledPartySize', UInt32),
+        ('dwCalledPartyOffset', UInt32),
+        ('dwCommentSize', UInt32),
+        ('dwCommentOffset', UInt32),
+        ('dwDisplaySize', UInt32),
+        ('dwDisplayOffset', UInt32),
+        ('dwUserUserInfoSize', UInt32),
+        ('dwUserUserInfoOffset', UInt32),
+        ('dwHighLevelCompSize', UInt32),
+        ('dwHighLevelCompOffset', UInt32),
+        ('dwLowLevelCompSize', UInt32),
+        ('dwLowLevelCompOffset', UInt32),
+        ('dwChargingInfoSize', UInt32),
+        ('dwChargingInfoOffset', UInt32),
+        ('dwTerminalModesSize', UInt32),
+        ('dwTerminalModesOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwCallTreatment', UInt32),
+        ('dwCallDataSize', UInt32),
+        ('dwCallDataOffset', UInt32),
+        ('dwSendingFlowspecSize', UInt32),
+        ('dwSendingFlowspecOffset', UInt32),
+        ('dwReceivingFlowspecSize', UInt32),
+        ('dwReceivingFlowspecOffset', UInt32),
+    ]
+    return LINECALLINFO
+def _define_LINECALLLIST_head():
+    class LINECALLLIST(Structure):
+        pass
+    return LINECALLLIST
+def _define_LINECALLLIST():
+    LINECALLLIST = win32more.Devices.Tapi.LINECALLLIST_head
+    LINECALLLIST._pack_ = 1
+    LINECALLLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwCallsNumEntries', UInt32),
+        ('dwCallsSize', UInt32),
+        ('dwCallsOffset', UInt32),
+    ]
+    return LINECALLLIST
+def _define_LINECALLPARAMS_head():
+    class LINECALLPARAMS(Structure):
+        pass
+    return LINECALLPARAMS
+def _define_LINECALLPARAMS():
+    LINECALLPARAMS = win32more.Devices.Tapi.LINECALLPARAMS_head
+    LINECALLPARAMS._pack_ = 1
+    LINECALLPARAMS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwBearerMode', UInt32),
+        ('dwMinRate', UInt32),
+        ('dwMaxRate', UInt32),
+        ('dwMediaMode', UInt32),
+        ('dwCallParamFlags', UInt32),
+        ('dwAddressMode', UInt32),
+        ('dwAddressID', UInt32),
+        ('DialParams', win32more.Devices.Tapi.LINEDIALPARAMS),
+        ('dwOrigAddressSize', UInt32),
+        ('dwOrigAddressOffset', UInt32),
+        ('dwDisplayableAddressSize', UInt32),
+        ('dwDisplayableAddressOffset', UInt32),
+        ('dwCalledPartySize', UInt32),
+        ('dwCalledPartyOffset', UInt32),
+        ('dwCommentSize', UInt32),
+        ('dwCommentOffset', UInt32),
+        ('dwUserUserInfoSize', UInt32),
+        ('dwUserUserInfoOffset', UInt32),
+        ('dwHighLevelCompSize', UInt32),
+        ('dwHighLevelCompOffset', UInt32),
+        ('dwLowLevelCompSize', UInt32),
+        ('dwLowLevelCompOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwPredictiveAutoTransferStates', UInt32),
+        ('dwTargetAddressSize', UInt32),
+        ('dwTargetAddressOffset', UInt32),
+        ('dwSendingFlowspecSize', UInt32),
+        ('dwSendingFlowspecOffset', UInt32),
+        ('dwReceivingFlowspecSize', UInt32),
+        ('dwReceivingFlowspecOffset', UInt32),
+        ('dwDeviceClassSize', UInt32),
+        ('dwDeviceClassOffset', UInt32),
+        ('dwDeviceConfigSize', UInt32),
+        ('dwDeviceConfigOffset', UInt32),
+        ('dwCallDataSize', UInt32),
+        ('dwCallDataOffset', UInt32),
+        ('dwNoAnswerTimeout', UInt32),
+        ('dwCallingPartyIDSize', UInt32),
+        ('dwCallingPartyIDOffset', UInt32),
+    ]
+    return LINECALLPARAMS
+def _define_LINECALLSTATUS_head():
+    class LINECALLSTATUS(Structure):
+        pass
+    return LINECALLSTATUS
+def _define_LINECALLSTATUS():
+    LINECALLSTATUS = win32more.Devices.Tapi.LINECALLSTATUS_head
+    LINECALLSTATUS._pack_ = 1
+    LINECALLSTATUS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwCallState', UInt32),
+        ('dwCallStateMode', UInt32),
+        ('dwCallPrivilege', UInt32),
+        ('dwCallFeatures', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwCallFeatures2', UInt32),
+        ('tStateEntryTime', win32more.Foundation.SYSTEMTIME),
+    ]
+    return LINECALLSTATUS
+def _define_LINECALLTREATMENTENTRY_head():
+    class LINECALLTREATMENTENTRY(Structure):
+        pass
+    return LINECALLTREATMENTENTRY
+def _define_LINECALLTREATMENTENTRY():
+    LINECALLTREATMENTENTRY = win32more.Devices.Tapi.LINECALLTREATMENTENTRY_head
+    LINECALLTREATMENTENTRY._pack_ = 1
+    LINECALLTREATMENTENTRY._fields_ = [
+        ('dwCallTreatmentID', UInt32),
+        ('dwCallTreatmentNameSize', UInt32),
+        ('dwCallTreatmentNameOffset', UInt32),
+    ]
+    return LINECALLTREATMENTENTRY
+def _define_LINECARDENTRY_head():
+    class LINECARDENTRY(Structure):
+        pass
+    return LINECARDENTRY
+def _define_LINECARDENTRY():
+    LINECARDENTRY = win32more.Devices.Tapi.LINECARDENTRY_head
+    LINECARDENTRY._pack_ = 1
+    LINECARDENTRY._fields_ = [
+        ('dwPermanentCardID', UInt32),
+        ('dwCardNameSize', UInt32),
+        ('dwCardNameOffset', UInt32),
+        ('dwCardNumberDigits', UInt32),
+        ('dwSameAreaRuleSize', UInt32),
+        ('dwSameAreaRuleOffset', UInt32),
+        ('dwLongDistanceRuleSize', UInt32),
+        ('dwLongDistanceRuleOffset', UInt32),
+        ('dwInternationalRuleSize', UInt32),
+        ('dwInternationalRuleOffset', UInt32),
+        ('dwOptions', UInt32),
+    ]
+    return LINECARDENTRY
+def _define_LINECOUNTRYENTRY_head():
+    class LINECOUNTRYENTRY(Structure):
+        pass
+    return LINECOUNTRYENTRY
+def _define_LINECOUNTRYENTRY():
+    LINECOUNTRYENTRY = win32more.Devices.Tapi.LINECOUNTRYENTRY_head
+    LINECOUNTRYENTRY._pack_ = 1
+    LINECOUNTRYENTRY._fields_ = [
+        ('dwCountryID', UInt32),
+        ('dwCountryCode', UInt32),
+        ('dwNextCountryID', UInt32),
+        ('dwCountryNameSize', UInt32),
+        ('dwCountryNameOffset', UInt32),
+        ('dwSameAreaRuleSize', UInt32),
+        ('dwSameAreaRuleOffset', UInt32),
+        ('dwLongDistanceRuleSize', UInt32),
+        ('dwLongDistanceRuleOffset', UInt32),
+        ('dwInternationalRuleSize', UInt32),
+        ('dwInternationalRuleOffset', UInt32),
+    ]
+    return LINECOUNTRYENTRY
+def _define_LINECOUNTRYLIST_head():
+    class LINECOUNTRYLIST(Structure):
+        pass
+    return LINECOUNTRYLIST
+def _define_LINECOUNTRYLIST():
+    LINECOUNTRYLIST = win32more.Devices.Tapi.LINECOUNTRYLIST_head
+    LINECOUNTRYLIST._pack_ = 1
+    LINECOUNTRYLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumCountries', UInt32),
+        ('dwCountryListSize', UInt32),
+        ('dwCountryListOffset', UInt32),
+    ]
+    return LINECOUNTRYLIST
+def _define_LINEDEVCAPS_head():
+    class LINEDEVCAPS(Structure):
+        pass
+    return LINEDEVCAPS
+def _define_LINEDEVCAPS():
+    LINEDEVCAPS = win32more.Devices.Tapi.LINEDEVCAPS_head
+    LINEDEVCAPS._pack_ = 1
+    LINEDEVCAPS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwProviderInfoSize', UInt32),
+        ('dwProviderInfoOffset', UInt32),
+        ('dwSwitchInfoSize', UInt32),
+        ('dwSwitchInfoOffset', UInt32),
+        ('dwPermanentLineID', UInt32),
+        ('dwLineNameSize', UInt32),
+        ('dwLineNameOffset', UInt32),
+        ('dwStringFormat', UInt32),
+        ('dwAddressModes', UInt32),
+        ('dwNumAddresses', UInt32),
+        ('dwBearerModes', UInt32),
+        ('dwMaxRate', UInt32),
+        ('dwMediaModes', UInt32),
+        ('dwGenerateToneModes', UInt32),
+        ('dwGenerateToneMaxNumFreq', UInt32),
+        ('dwGenerateDigitModes', UInt32),
+        ('dwMonitorToneMaxNumFreq', UInt32),
+        ('dwMonitorToneMaxNumEntries', UInt32),
+        ('dwMonitorDigitModes', UInt32),
+        ('dwGatherDigitsMinTimeout', UInt32),
+        ('dwGatherDigitsMaxTimeout', UInt32),
+        ('dwMedCtlDigitMaxListSize', UInt32),
+        ('dwMedCtlMediaMaxListSize', UInt32),
+        ('dwMedCtlToneMaxListSize', UInt32),
+        ('dwMedCtlCallStateMaxListSize', UInt32),
+        ('dwDevCapFlags', UInt32),
+        ('dwMaxNumActiveCalls', UInt32),
+        ('dwAnswerMode', UInt32),
+        ('dwRingModes', UInt32),
+        ('dwLineStates', UInt32),
+        ('dwUUIAcceptSize', UInt32),
+        ('dwUUIAnswerSize', UInt32),
+        ('dwUUIMakeCallSize', UInt32),
+        ('dwUUIDropSize', UInt32),
+        ('dwUUISendUserUserInfoSize', UInt32),
+        ('dwUUICallInfoSize', UInt32),
+        ('MinDialParams', win32more.Devices.Tapi.LINEDIALPARAMS),
+        ('MaxDialParams', win32more.Devices.Tapi.LINEDIALPARAMS),
+        ('DefaultDialParams', win32more.Devices.Tapi.LINEDIALPARAMS),
+        ('dwNumTerminals', UInt32),
+        ('dwTerminalCapsSize', UInt32),
+        ('dwTerminalCapsOffset', UInt32),
+        ('dwTerminalTextEntrySize', UInt32),
+        ('dwTerminalTextSize', UInt32),
+        ('dwTerminalTextOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwLineFeatures', UInt32),
+        ('dwSettableDevStatus', UInt32),
+        ('dwDeviceClassesSize', UInt32),
+        ('dwDeviceClassesOffset', UInt32),
+        ('PermanentLineGuid', Guid),
+    ]
+    return LINEDEVCAPS
+def _define_LINEDEVSTATUS_head():
+    class LINEDEVSTATUS(Structure):
+        pass
+    return LINEDEVSTATUS
+def _define_LINEDEVSTATUS():
+    LINEDEVSTATUS = win32more.Devices.Tapi.LINEDEVSTATUS_head
+    LINEDEVSTATUS._pack_ = 1
+    LINEDEVSTATUS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumOpens', UInt32),
+        ('dwOpenMediaModes', UInt32),
+        ('dwNumActiveCalls', UInt32),
+        ('dwNumOnHoldCalls', UInt32),
+        ('dwNumOnHoldPendCalls', UInt32),
+        ('dwLineFeatures', UInt32),
+        ('dwNumCallCompletions', UInt32),
+        ('dwRingMode', UInt32),
+        ('dwSignalLevel', UInt32),
+        ('dwBatteryLevel', UInt32),
+        ('dwRoamMode', UInt32),
+        ('dwDevStatusFlags', UInt32),
+        ('dwTerminalModesSize', UInt32),
+        ('dwTerminalModesOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwAvailableMediaModes', UInt32),
+        ('dwAppInfoSize', UInt32),
+        ('dwAppInfoOffset', UInt32),
+    ]
+    return LINEDEVSTATUS
+def _define_LINEDIALPARAMS_head():
+    class LINEDIALPARAMS(Structure):
+        pass
+    return LINEDIALPARAMS
+def _define_LINEDIALPARAMS():
+    LINEDIALPARAMS = win32more.Devices.Tapi.LINEDIALPARAMS_head
+    LINEDIALPARAMS._pack_ = 1
+    LINEDIALPARAMS._fields_ = [
+        ('dwDialPause', UInt32),
+        ('dwDialSpeed', UInt32),
+        ('dwDigitDuration', UInt32),
+        ('dwWaitForDialtone', UInt32),
+    ]
+    return LINEDIALPARAMS
+def _define_LINEEVENT():
+    return WINFUNCTYPE(Void,POINTER(win32more.Devices.Tapi.HTAPILINE___head),POINTER(win32more.Devices.Tapi.HTAPICALL___head),UInt32,UIntPtr,UIntPtr,UIntPtr)
+def _define_LINEEXTENSIONID_head():
+    class LINEEXTENSIONID(Structure):
+        pass
+    return LINEEXTENSIONID
+def _define_LINEEXTENSIONID():
+    LINEEXTENSIONID = win32more.Devices.Tapi.LINEEXTENSIONID_head
+    LINEEXTENSIONID._pack_ = 1
+    LINEEXTENSIONID._fields_ = [
+        ('dwExtensionID0', UInt32),
+        ('dwExtensionID1', UInt32),
+        ('dwExtensionID2', UInt32),
+        ('dwExtensionID3', UInt32),
+    ]
+    return LINEEXTENSIONID
+def _define_LINEFORWARD_head():
+    class LINEFORWARD(Structure):
+        pass
+    return LINEFORWARD
+def _define_LINEFORWARD():
+    LINEFORWARD = win32more.Devices.Tapi.LINEFORWARD_head
+    LINEFORWARD._pack_ = 1
+    LINEFORWARD._fields_ = [
+        ('dwForwardMode', UInt32),
+        ('dwCallerAddressSize', UInt32),
+        ('dwCallerAddressOffset', UInt32),
+        ('dwDestCountryCode', UInt32),
+        ('dwDestAddressSize', UInt32),
+        ('dwDestAddressOffset', UInt32),
+    ]
+    return LINEFORWARD
+def _define_LINEFORWARDLIST_head():
+    class LINEFORWARDLIST(Structure):
+        pass
+    return LINEFORWARDLIST
+def _define_LINEFORWARDLIST():
+    LINEFORWARDLIST = win32more.Devices.Tapi.LINEFORWARDLIST_head
+    LINEFORWARDLIST._pack_ = 1
+    LINEFORWARDLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('ForwardList', win32more.Devices.Tapi.LINEFORWARD * 1),
+    ]
+    return LINEFORWARDLIST
+def _define_LINEGENERATETONE_head():
+    class LINEGENERATETONE(Structure):
+        pass
+    return LINEGENERATETONE
+def _define_LINEGENERATETONE():
+    LINEGENERATETONE = win32more.Devices.Tapi.LINEGENERATETONE_head
+    LINEGENERATETONE._pack_ = 1
+    LINEGENERATETONE._fields_ = [
+        ('dwFrequency', UInt32),
+        ('dwCadenceOn', UInt32),
+        ('dwCadenceOff', UInt32),
+        ('dwVolume', UInt32),
+    ]
+    return LINEGENERATETONE
+def _define_LINEINITIALIZEEXPARAMS_head():
+    class LINEINITIALIZEEXPARAMS(Structure):
+        pass
+    return LINEINITIALIZEEXPARAMS
+def _define_LINEINITIALIZEEXPARAMS():
+    LINEINITIALIZEEXPARAMS = win32more.Devices.Tapi.LINEINITIALIZEEXPARAMS_head
+    class LINEINITIALIZEEXPARAMS__Handles_e__Union(Union):
+        pass
+    LINEINITIALIZEEXPARAMS__Handles_e__Union._pack_ = 1
+    LINEINITIALIZEEXPARAMS__Handles_e__Union._fields_ = [
+        ('hEvent', win32more.Foundation.HANDLE),
+        ('hCompletionPort', win32more.Foundation.HANDLE),
+    ]
+    LINEINITIALIZEEXPARAMS._pack_ = 1
+    LINEINITIALIZEEXPARAMS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwOptions', UInt32),
+        ('Handles', LINEINITIALIZEEXPARAMS__Handles_e__Union),
+        ('dwCompletionKey', UInt32),
+    ]
+    return LINEINITIALIZEEXPARAMS
+def _define_LINELOCATIONENTRY_head():
+    class LINELOCATIONENTRY(Structure):
+        pass
+    return LINELOCATIONENTRY
+def _define_LINELOCATIONENTRY():
+    LINELOCATIONENTRY = win32more.Devices.Tapi.LINELOCATIONENTRY_head
+    LINELOCATIONENTRY._pack_ = 1
+    LINELOCATIONENTRY._fields_ = [
+        ('dwPermanentLocationID', UInt32),
+        ('dwLocationNameSize', UInt32),
+        ('dwLocationNameOffset', UInt32),
+        ('dwCountryCode', UInt32),
+        ('dwCityCodeSize', UInt32),
+        ('dwCityCodeOffset', UInt32),
+        ('dwPreferredCardID', UInt32),
+        ('dwLocalAccessCodeSize', UInt32),
+        ('dwLocalAccessCodeOffset', UInt32),
+        ('dwLongDistanceAccessCodeSize', UInt32),
+        ('dwLongDistanceAccessCodeOffset', UInt32),
+        ('dwTollPrefixListSize', UInt32),
+        ('dwTollPrefixListOffset', UInt32),
+        ('dwCountryID', UInt32),
+        ('dwOptions', UInt32),
+        ('dwCancelCallWaitingSize', UInt32),
+        ('dwCancelCallWaitingOffset', UInt32),
+    ]
+    return LINELOCATIONENTRY
+def _define_LINEMEDIACONTROLCALLSTATE_head():
+    class LINEMEDIACONTROLCALLSTATE(Structure):
+        pass
+    return LINEMEDIACONTROLCALLSTATE
+def _define_LINEMEDIACONTROLCALLSTATE():
+    LINEMEDIACONTROLCALLSTATE = win32more.Devices.Tapi.LINEMEDIACONTROLCALLSTATE_head
+    LINEMEDIACONTROLCALLSTATE._pack_ = 1
+    LINEMEDIACONTROLCALLSTATE._fields_ = [
+        ('dwCallStates', UInt32),
+        ('dwMediaControl', UInt32),
+    ]
+    return LINEMEDIACONTROLCALLSTATE
+def _define_LINEMEDIACONTROLDIGIT_head():
+    class LINEMEDIACONTROLDIGIT(Structure):
+        pass
+    return LINEMEDIACONTROLDIGIT
+def _define_LINEMEDIACONTROLDIGIT():
+    LINEMEDIACONTROLDIGIT = win32more.Devices.Tapi.LINEMEDIACONTROLDIGIT_head
+    LINEMEDIACONTROLDIGIT._pack_ = 1
+    LINEMEDIACONTROLDIGIT._fields_ = [
+        ('dwDigit', UInt32),
+        ('dwDigitModes', UInt32),
+        ('dwMediaControl', UInt32),
+    ]
+    return LINEMEDIACONTROLDIGIT
+def _define_LINEMEDIACONTROLMEDIA_head():
+    class LINEMEDIACONTROLMEDIA(Structure):
+        pass
+    return LINEMEDIACONTROLMEDIA
+def _define_LINEMEDIACONTROLMEDIA():
+    LINEMEDIACONTROLMEDIA = win32more.Devices.Tapi.LINEMEDIACONTROLMEDIA_head
+    LINEMEDIACONTROLMEDIA._pack_ = 1
+    LINEMEDIACONTROLMEDIA._fields_ = [
+        ('dwMediaModes', UInt32),
+        ('dwDuration', UInt32),
+        ('dwMediaControl', UInt32),
+    ]
+    return LINEMEDIACONTROLMEDIA
+def _define_LINEMEDIACONTROLTONE_head():
+    class LINEMEDIACONTROLTONE(Structure):
+        pass
+    return LINEMEDIACONTROLTONE
+def _define_LINEMEDIACONTROLTONE():
+    LINEMEDIACONTROLTONE = win32more.Devices.Tapi.LINEMEDIACONTROLTONE_head
+    LINEMEDIACONTROLTONE._pack_ = 1
+    LINEMEDIACONTROLTONE._fields_ = [
+        ('dwAppSpecific', UInt32),
+        ('dwDuration', UInt32),
+        ('dwFrequency1', UInt32),
+        ('dwFrequency2', UInt32),
+        ('dwFrequency3', UInt32),
+        ('dwMediaControl', UInt32),
+    ]
+    return LINEMEDIACONTROLTONE
+def _define_LINEMESSAGE_head():
+    class LINEMESSAGE(Structure):
+        pass
+    return LINEMESSAGE
+def _define_LINEMESSAGE():
+    LINEMESSAGE = win32more.Devices.Tapi.LINEMESSAGE_head
+    LINEMESSAGE._pack_ = 1
+    LINEMESSAGE._fields_ = [
+        ('hDevice', UInt32),
+        ('dwMessageID', UInt32),
+        ('dwCallbackInstance', UIntPtr),
+        ('dwParam1', UIntPtr),
+        ('dwParam2', UIntPtr),
+        ('dwParam3', UIntPtr),
+    ]
+    return LINEMESSAGE
+def _define_LINEMONITORTONE_head():
+    class LINEMONITORTONE(Structure):
+        pass
+    return LINEMONITORTONE
+def _define_LINEMONITORTONE():
+    LINEMONITORTONE = win32more.Devices.Tapi.LINEMONITORTONE_head
+    LINEMONITORTONE._pack_ = 1
+    LINEMONITORTONE._fields_ = [
+        ('dwAppSpecific', UInt32),
+        ('dwDuration', UInt32),
+        ('dwFrequency1', UInt32),
+        ('dwFrequency2', UInt32),
+        ('dwFrequency3', UInt32),
+    ]
+    return LINEMONITORTONE
+def _define_LINEPROVIDERENTRY_head():
+    class LINEPROVIDERENTRY(Structure):
+        pass
+    return LINEPROVIDERENTRY
+def _define_LINEPROVIDERENTRY():
+    LINEPROVIDERENTRY = win32more.Devices.Tapi.LINEPROVIDERENTRY_head
+    LINEPROVIDERENTRY._pack_ = 1
+    LINEPROVIDERENTRY._fields_ = [
+        ('dwPermanentProviderID', UInt32),
+        ('dwProviderFilenameSize', UInt32),
+        ('dwProviderFilenameOffset', UInt32),
+    ]
+    return LINEPROVIDERENTRY
+def _define_LINEPROVIDERLIST_head():
+    class LINEPROVIDERLIST(Structure):
+        pass
+    return LINEPROVIDERLIST
+def _define_LINEPROVIDERLIST():
+    LINEPROVIDERLIST = win32more.Devices.Tapi.LINEPROVIDERLIST_head
+    LINEPROVIDERLIST._pack_ = 1
+    LINEPROVIDERLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumProviders', UInt32),
+        ('dwProviderListSize', UInt32),
+        ('dwProviderListOffset', UInt32),
+    ]
+    return LINEPROVIDERLIST
+def _define_LINEPROXYREQUEST_head():
+    class LINEPROXYREQUEST(Structure):
+        pass
+    return LINEPROXYREQUEST
+def _define_LINEPROXYREQUEST():
+    LINEPROXYREQUEST = win32more.Devices.Tapi.LINEPROXYREQUEST_head
+    class LINEPROXYREQUEST__Anonymous_e__Union(Union):
+        pass
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('GroupList', win32more.Devices.Tapi.LINEAGENTGROUPLIST),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('dwAgentState', UInt32),
+        ('dwNextAgentState', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('dwActivityID', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('AgentCaps', win32more.Devices.Tapi.LINEAGENTCAPS),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('AgentStatus', win32more.Devices.Tapi.LINEAGENTSTATUS),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('dwAgentExtensionIDIndex', UInt32),
+        ('dwSize', UInt32),
+        ('Params', Byte * 1),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('ActivityList', win32more.Devices.Tapi.LINEAGENTACTIVITYLIST),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct._fields_ = [
+        ('dwAddressID', UInt32),
+        ('GroupList', win32more.Devices.Tapi.LINEAGENTGROUPLIST),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct._fields_ = [
+        ('hAgent', UInt32),
+        ('dwAgentIDSize', UInt32),
+        ('dwAgentIDOffset', UInt32),
+        ('dwAgentPINSize', UInt32),
+        ('dwAgentPINOffset', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct._fields_ = [
+        ('hAgent', UInt32),
+        ('dwAgentState', UInt32),
+        ('dwNextAgentState', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct._fields_ = [
+        ('hAgent', UInt32),
+        ('dwMeasurementPeriod', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct._fields_ = [
+        ('hAgent', UInt32),
+        ('AgentInfo', win32more.Devices.Tapi.LINEAGENTINFO),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct._fields_ = [
+        ('hAgentSession', UInt32),
+        ('dwAgentPINSize', UInt32),
+        ('dwAgentPINOffset', UInt32),
+        ('hAgent', UInt32),
+        ('GroupID', Guid),
+        ('dwWorkingAddressID', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct._fields_ = [
+        ('hAgent', UInt32),
+        ('SessionList', win32more.Devices.Tapi.LINEAGENTSESSIONLIST),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct._fields_ = [
+        ('hAgentSession', UInt32),
+        ('SessionInfo', win32more.Devices.Tapi.LINEAGENTSESSIONINFO),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct._fields_ = [
+        ('hAgentSession', UInt32),
+        ('dwAgentSessionState', UInt32),
+        ('dwNextAgentSessionState', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct._fields_ = [
+        ('GroupID', Guid),
+        ('QueueList', win32more.Devices.Tapi.LINEQUEUELIST),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct._fields_ = [
+        ('dwQueueID', UInt32),
+        ('dwMeasurementPeriod', UInt32),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct._pack_ = 1
+    LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct._fields_ = [
+        ('dwQueueID', UInt32),
+        ('QueueInfo', win32more.Devices.Tapi.LINEQUEUEINFO),
+    ]
+    class LINEPROXYREQUEST__Anonymous_e__Union__GetGroupList_e__Struct(Structure):
+        pass
+    LINEPROXYREQUEST__Anonymous_e__Union__GetGroupList_e__Struct._fields_ = [
+        ('GroupList', win32more.Devices.Tapi.LINEAGENTGROUPLIST),
+    ]
+    LINEPROXYREQUEST__Anonymous_e__Union._fields_ = [
+        ('SetAgentGroup', LINEPROXYREQUEST__Anonymous_e__Union__SetAgentGroup_e__Struct),
+        ('SetAgentState', LINEPROXYREQUEST__Anonymous_e__Union__SetAgentState_e__Struct),
+        ('SetAgentActivity', LINEPROXYREQUEST__Anonymous_e__Union__SetAgentActivity_e__Struct),
+        ('GetAgentCaps', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentCaps_e__Struct),
+        ('GetAgentStatus', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentStatus_e__Struct),
+        ('AgentSpecific', LINEPROXYREQUEST__Anonymous_e__Union__AgentSpecific_e__Struct),
+        ('GetAgentActivityList', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentActivityList_e__Struct),
+        ('GetAgentGroupList', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentGroupList_e__Struct),
+        ('CreateAgent', LINEPROXYREQUEST__Anonymous_e__Union__CreateAgent_e__Struct),
+        ('SetAgentStateEx', LINEPROXYREQUEST__Anonymous_e__Union__SetAgentStateEx_e__Struct),
+        ('SetAgentMeasurementPeriod', LINEPROXYREQUEST__Anonymous_e__Union__SetAgentMeasurementPeriod_e__Struct),
+        ('GetAgentInfo', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentInfo_e__Struct),
+        ('CreateAgentSession', LINEPROXYREQUEST__Anonymous_e__Union__CreateAgentSession_e__Struct),
+        ('GetAgentSessionList', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionList_e__Struct),
+        ('GetAgentSessionInfo', LINEPROXYREQUEST__Anonymous_e__Union__GetAgentSessionInfo_e__Struct),
+        ('SetAgentSessionState', LINEPROXYREQUEST__Anonymous_e__Union__SetAgentSessionState_e__Struct),
+        ('GetQueueList', LINEPROXYREQUEST__Anonymous_e__Union__GetQueueList_e__Struct),
+        ('SetQueueMeasurementPeriod', LINEPROXYREQUEST__Anonymous_e__Union__SetQueueMeasurementPeriod_e__Struct),
+        ('GetQueueInfo', LINEPROXYREQUEST__Anonymous_e__Union__GetQueueInfo_e__Struct),
+        ('GetGroupList', LINEPROXYREQUEST__Anonymous_e__Union__GetGroupList_e__Struct),
+    ]
+    LINEPROXYREQUEST._pack_ = 1
+    LINEPROXYREQUEST._anonymous_ = [
+        'Anonymous',
+    ]
+    LINEPROXYREQUEST._fields_ = [
+        ('dwSize', UInt32),
+        ('dwClientMachineNameSize', UInt32),
+        ('dwClientMachineNameOffset', UInt32),
+        ('dwClientUserNameSize', UInt32),
+        ('dwClientUserNameOffset', UInt32),
+        ('dwClientAppAPIVersion', UInt32),
+        ('dwRequestType', UInt32),
+        ('Anonymous', LINEPROXYREQUEST__Anonymous_e__Union),
+    ]
+    return LINEPROXYREQUEST
+def _define_LINEPROXYREQUESTLIST_head():
+    class LINEPROXYREQUESTLIST(Structure):
+        pass
+    return LINEPROXYREQUESTLIST
+def _define_LINEPROXYREQUESTLIST():
+    LINEPROXYREQUESTLIST = win32more.Devices.Tapi.LINEPROXYREQUESTLIST_head
+    LINEPROXYREQUESTLIST._pack_ = 1
+    LINEPROXYREQUESTLIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwListSize', UInt32),
+        ('dwListOffset', UInt32),
+    ]
+    return LINEPROXYREQUESTLIST
+def _define_LINEQUEUEENTRY_head():
+    class LINEQUEUEENTRY(Structure):
+        pass
+    return LINEQUEUEENTRY
+def _define_LINEQUEUEENTRY():
+    LINEQUEUEENTRY = win32more.Devices.Tapi.LINEQUEUEENTRY_head
+    LINEQUEUEENTRY._pack_ = 1
+    LINEQUEUEENTRY._fields_ = [
+        ('dwQueueID', UInt32),
+        ('dwNameSize', UInt32),
+        ('dwNameOffset', UInt32),
+    ]
+    return LINEQUEUEENTRY
+def _define_LINEQUEUEINFO_head():
+    class LINEQUEUEINFO(Structure):
+        pass
+    return LINEQUEUEINFO
+def _define_LINEQUEUEINFO():
+    LINEQUEUEINFO = win32more.Devices.Tapi.LINEQUEUEINFO_head
+    LINEQUEUEINFO._pack_ = 1
+    LINEQUEUEINFO._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwMeasurementPeriod', UInt32),
+        ('dwTotalCallsQueued', UInt32),
+        ('dwCurrentCallsQueued', UInt32),
+        ('dwTotalCallsAbandoned', UInt32),
+        ('dwTotalCallsFlowedIn', UInt32),
+        ('dwTotalCallsFlowedOut', UInt32),
+        ('dwLongestEverWaitTime', UInt32),
+        ('dwCurrentLongestWaitTime', UInt32),
+        ('dwAverageWaitTime', UInt32),
+        ('dwFinalDisposition', UInt32),
+    ]
+    return LINEQUEUEINFO
+def _define_LINEQUEUELIST_head():
+    class LINEQUEUELIST(Structure):
+        pass
+    return LINEQUEUELIST
+def _define_LINEQUEUELIST():
+    LINEQUEUELIST = win32more.Devices.Tapi.LINEQUEUELIST_head
+    LINEQUEUELIST._pack_ = 1
+    LINEQUEUELIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumEntries', UInt32),
+        ('dwListSize', UInt32),
+        ('dwListOffset', UInt32),
+    ]
+    return LINEQUEUELIST
+def _define_LINEREQMAKECALL_head():
+    class LINEREQMAKECALL(Structure):
+        pass
+    return LINEREQMAKECALL
+def _define_LINEREQMAKECALL():
+    LINEREQMAKECALL = win32more.Devices.Tapi.LINEREQMAKECALL_head
+    LINEREQMAKECALL._fields_ = [
+        ('szDestAddress', win32more.Foundation.CHAR * 80),
+        ('szAppName', win32more.Foundation.CHAR * 40),
+        ('szCalledParty', win32more.Foundation.CHAR * 40),
+        ('szComment', win32more.Foundation.CHAR * 80),
+    ]
+    return LINEREQMAKECALL
+def _define_LINEREQMAKECALLW_head():
+    class LINEREQMAKECALLW(Structure):
+        pass
+    return LINEREQMAKECALLW
+def _define_LINEREQMAKECALLW():
+    LINEREQMAKECALLW = win32more.Devices.Tapi.LINEREQMAKECALLW_head
+    LINEREQMAKECALLW._pack_ = 1
+    LINEREQMAKECALLW._fields_ = [
+        ('szDestAddress', Char * 80),
+        ('szAppName', Char * 40),
+        ('szCalledParty', Char * 40),
+        ('szComment', Char * 80),
+    ]
+    return LINEREQMAKECALLW
+def _define_LINEREQMEDIACALL_head():
+    class LINEREQMEDIACALL(Structure):
+        pass
+    return LINEREQMEDIACALL
+def _define_LINEREQMEDIACALL():
+    LINEREQMEDIACALL = win32more.Devices.Tapi.LINEREQMEDIACALL_head
+    LINEREQMEDIACALL._pack_ = 1
+    LINEREQMEDIACALL._fields_ = [
+        ('hWnd', win32more.Foundation.HWND),
+        ('wRequestID', win32more.Foundation.WPARAM),
+        ('szDeviceClass', win32more.Foundation.CHAR * 40),
+        ('ucDeviceID', Byte * 40),
+        ('dwSize', UInt32),
+        ('dwSecure', UInt32),
+        ('szDestAddress', win32more.Foundation.CHAR * 80),
+        ('szAppName', win32more.Foundation.CHAR * 40),
+        ('szCalledParty', win32more.Foundation.CHAR * 40),
+        ('szComment', win32more.Foundation.CHAR * 80),
+    ]
+    return LINEREQMEDIACALL
+def _define_LINEREQMEDIACALLW_head():
+    class LINEREQMEDIACALLW(Structure):
+        pass
+    return LINEREQMEDIACALLW
+def _define_LINEREQMEDIACALLW():
+    LINEREQMEDIACALLW = win32more.Devices.Tapi.LINEREQMEDIACALLW_head
+    LINEREQMEDIACALLW._pack_ = 1
+    LINEREQMEDIACALLW._fields_ = [
+        ('hWnd', win32more.Foundation.HWND),
+        ('wRequestID', win32more.Foundation.WPARAM),
+        ('szDeviceClass', Char * 40),
+        ('ucDeviceID', Byte * 40),
+        ('dwSize', UInt32),
+        ('dwSecure', UInt32),
+        ('szDestAddress', Char * 80),
+        ('szAppName', Char * 40),
+        ('szCalledParty', Char * 40),
+        ('szComment', Char * 80),
+    ]
+    return LINEREQMEDIACALLW
+def _define_LINETERMCAPS_head():
+    class LINETERMCAPS(Structure):
+        pass
+    return LINETERMCAPS
+def _define_LINETERMCAPS():
+    LINETERMCAPS = win32more.Devices.Tapi.LINETERMCAPS_head
+    LINETERMCAPS._pack_ = 1
+    LINETERMCAPS._fields_ = [
+        ('dwTermDev', UInt32),
+        ('dwTermModes', UInt32),
+        ('dwTermSharing', UInt32),
+    ]
+    return LINETERMCAPS
+def _define_LINETRANSLATECAPS_head():
+    class LINETRANSLATECAPS(Structure):
+        pass
+    return LINETRANSLATECAPS
+def _define_LINETRANSLATECAPS():
+    LINETRANSLATECAPS = win32more.Devices.Tapi.LINETRANSLATECAPS_head
+    LINETRANSLATECAPS._pack_ = 1
+    LINETRANSLATECAPS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwNumLocations', UInt32),
+        ('dwLocationListSize', UInt32),
+        ('dwLocationListOffset', UInt32),
+        ('dwCurrentLocationID', UInt32),
+        ('dwNumCards', UInt32),
+        ('dwCardListSize', UInt32),
+        ('dwCardListOffset', UInt32),
+        ('dwCurrentPreferredCardID', UInt32),
+    ]
+    return LINETRANSLATECAPS
+def _define_LINETRANSLATEOUTPUT_head():
+    class LINETRANSLATEOUTPUT(Structure):
+        pass
+    return LINETRANSLATEOUTPUT
+def _define_LINETRANSLATEOUTPUT():
+    LINETRANSLATEOUTPUT = win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head
+    LINETRANSLATEOUTPUT._pack_ = 1
+    LINETRANSLATEOUTPUT._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwDialableStringSize', UInt32),
+        ('dwDialableStringOffset', UInt32),
+        ('dwDisplayableStringSize', UInt32),
+        ('dwDisplayableStringOffset', UInt32),
+        ('dwCurrentCountry', UInt32),
+        ('dwDestCountry', UInt32),
+        ('dwTranslateResults', UInt32),
+    ]
+    return LINETRANSLATEOUTPUT
+def _define_LPGETTNEFSTREAMCODEPAGE():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(UInt32),POINTER(UInt32))
+def _define_LPOPENTNEFSTREAM():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,POINTER(win32more.Devices.Tapi.ITnef_head))
+def _define_LPOPENTNEFSTREAMEX():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,win32more.System.AddressBook.IAddrBook_head,POINTER(win32more.Devices.Tapi.ITnef_head))
+McastAddressAllocation = Guid('df0daef2-a289-11d1-86-97-00-60-08-b0-e5-d2')
+MSP_ADDRESS_EVENT = Int32
+ADDRESS_TERMINAL_AVAILABLE = 0
+ADDRESS_TERMINAL_UNAVAILABLE = 1
+MSP_CALL_EVENT = Int32
+CALL_NEW_STREAM = 0
+CALL_STREAM_FAIL = 1
+CALL_TERMINAL_FAIL = 2
+CALL_STREAM_NOT_USED = 3
+CALL_STREAM_ACTIVE = 4
+CALL_STREAM_INACTIVE = 5
+MSP_CALL_EVENT_CAUSE = Int32
+CALL_CAUSE_UNKNOWN = 0
+CALL_CAUSE_BAD_DEVICE = 1
+CALL_CAUSE_CONNECT_FAIL = 2
+CALL_CAUSE_LOCAL_REQUEST = 3
+CALL_CAUSE_REMOTE_REQUEST = 4
+CALL_CAUSE_MEDIA_TIMEOUT = 5
+CALL_CAUSE_MEDIA_RECOVERED = 6
+CALL_CAUSE_QUALITY_OF_SERVICE = 7
+MSP_EVENT = Int32
+ME_ADDRESS_EVENT = 0
+ME_CALL_EVENT = 1
+ME_TSP_DATA = 2
+ME_PRIVATE_EVENT = 3
+ME_ASR_TERMINAL_EVENT = 4
+ME_TTS_TERMINAL_EVENT = 5
+ME_FILE_TERMINAL_EVENT = 6
+ME_TONE_TERMINAL_EVENT = 7
+def _define_MSP_EVENT_INFO_head():
+    class MSP_EVENT_INFO(Structure):
+        pass
+    return MSP_EVENT_INFO
+def _define_MSP_EVENT_INFO():
+    MSP_EVENT_INFO = win32more.Devices.Tapi.MSP_EVENT_INFO_head
+    class MSP_EVENT_INFO__Anonymous_e__Union(Union):
+        pass
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_ADDRESS_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_ADDRESS_EVENT_INFO_e__Struct._fields_ = [
+        ('Type', win32more.Devices.Tapi.MSP_ADDRESS_EVENT),
+        ('pTerminal', win32more.Devices.Tapi.ITTerminal_head),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_CALL_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_CALL_EVENT_INFO_e__Struct._fields_ = [
+        ('Type', win32more.Devices.Tapi.MSP_CALL_EVENT),
+        ('Cause', win32more.Devices.Tapi.MSP_CALL_EVENT_CAUSE),
+        ('pStream', win32more.Devices.Tapi.ITStream_head),
+        ('pTerminal', win32more.Devices.Tapi.ITTerminal_head),
+        ('hrError', win32more.Foundation.HRESULT),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_TSP_DATA_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_TSP_DATA_e__Struct._fields_ = [
+        ('dwBufferSize', UInt32),
+        ('pBuffer', Byte * 1),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_PRIVATE_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_PRIVATE_EVENT_INFO_e__Struct._fields_ = [
+        ('pEvent', win32more.System.Com.IDispatch_head),
+        ('lEventCode', Int32),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_FILE_TERMINAL_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_FILE_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
+        ('pParentFileTerminal', win32more.Devices.Tapi.ITTerminal_head),
+        ('pFileTrack', win32more.Devices.Tapi.ITFileTrack_head),
+        ('TerminalMediaState', win32more.Devices.Tapi.TERMINAL_MEDIA_STATE),
+        ('ftecEventCause', win32more.Devices.Tapi.FT_STATE_EVENT_CAUSE),
+        ('hrErrorCode', win32more.Foundation.HRESULT),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_ASR_TERMINAL_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_ASR_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
+        ('pASRTerminal', win32more.Devices.Tapi.ITTerminal_head),
+        ('hrErrorCode', win32more.Foundation.HRESULT),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_TTS_TERMINAL_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_TTS_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
+        ('pTTSTerminal', win32more.Devices.Tapi.ITTerminal_head),
+        ('hrErrorCode', win32more.Foundation.HRESULT),
+    ]
+    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_TONE_TERMINAL_EVENT_INFO_e__Struct(Structure):
+        pass
+    MSP_EVENT_INFO__Anonymous_e__Union__MSP_TONE_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
+        ('pToneTerminal', win32more.Devices.Tapi.ITTerminal_head),
+        ('hrErrorCode', win32more.Foundation.HRESULT),
+    ]
+    MSP_EVENT_INFO__Anonymous_e__Union._fields_ = [
+        ('MSP_ADDRESS_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_ADDRESS_EVENT_INFO_e__Struct),
+        ('MSP_CALL_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_CALL_EVENT_INFO_e__Struct),
+        ('MSP_TSP_DATA', MSP_EVENT_INFO__Anonymous_e__Union__MSP_TSP_DATA_e__Struct),
+        ('MSP_PRIVATE_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_PRIVATE_EVENT_INFO_e__Struct),
+        ('MSP_FILE_TERMINAL_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_FILE_TERMINAL_EVENT_INFO_e__Struct),
+        ('MSP_ASR_TERMINAL_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_ASR_TERMINAL_EVENT_INFO_e__Struct),
+        ('MSP_TTS_TERMINAL_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_TTS_TERMINAL_EVENT_INFO_e__Struct),
+        ('MSP_TONE_TERMINAL_EVENT_INFO', MSP_EVENT_INFO__Anonymous_e__Union__MSP_TONE_TERMINAL_EVENT_INFO_e__Struct),
+    ]
+    MSP_EVENT_INFO._anonymous_ = [
+        'Anonymous',
+    ]
+    MSP_EVENT_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('Event', win32more.Devices.Tapi.MSP_EVENT),
+        ('hCall', POINTER(Int32)),
+        ('Anonymous', MSP_EVENT_INFO__Anonymous_e__Union),
+    ]
+    return MSP_EVENT_INFO
+def _define_NSID_head():
+    class NSID(Structure):
+        pass
+    return NSID
+def _define_NSID():
+    NSID = win32more.Devices.Tapi.NSID_head
+    class NSID__address_e__Union(Union):
+        pass
+    NSID__address_e__Union._fields_ = [
+        ('alias', win32more.Devices.Tapi.ADDRALIAS),
+        ('rgchInterNet', win32more.Foundation.CHAR * 1),
+    ]
+    NSID._fields_ = [
+        ('dwSize', UInt32),
+        ('uchType', Byte * 16),
+        ('xtype', UInt32),
+        ('lTime', Int32),
+        ('address', NSID__address_e__Union),
+    ]
+    return NSID
 PHONE_BUTTON_FUNCTION = Int32
 PBF_UNKNOWN = 0
 PBF_CONFERENCE = 1
@@ -3151,6 +5902,53 @@ PBF_SAVEREPEAT = 44
 PBF_QUEUECALL = 45
 PBF_NONE = 46
 PBF_SEND = 47
+PHONE_BUTTON_MODE = Int32
+PBM_DUMMY = 0
+PBM_CALL = 1
+PBM_FEATURE = 2
+PBM_KEYPAD = 3
+PBM_LOCAL = 4
+PBM_DISPLAY = 5
+PHONE_BUTTON_STATE = Int32
+PBS_UP = 1
+PBS_DOWN = 2
+PBS_UNKNOWN = 4
+PBS_UNAVAIL = 8
+PHONE_EVENT = Int32
+PE_DISPLAY = 0
+PE_LAMPMODE = 1
+PE_RINGMODE = 2
+PE_RINGVOLUME = 3
+PE_HOOKSWITCH = 4
+PE_CAPSCHANGE = 5
+PE_BUTTON = 6
+PE_CLOSE = 7
+PE_NUMBERGATHERED = 8
+PE_DIALING = 9
+PE_ANSWER = 10
+PE_DISCONNECT = 11
+PE_LASTITEM = 11
+PHONE_HOOK_SWITCH_DEVICE = Int32
+PHSD_HANDSET = 1
+PHSD_SPEAKERPHONE = 2
+PHSD_HEADSET = 4
+PHONE_HOOK_SWITCH_STATE = Int32
+PHSS_ONHOOK = 1
+PHSS_OFFHOOK_MIC_ONLY = 2
+PHSS_OFFHOOK_SPEAKER_ONLY = 4
+PHSS_OFFHOOK = 8
+PHONE_LAMP_MODE = Int32
+LM_DUMMY = 1
+LM_OFF = 2
+LM_STEADY = 4
+LM_WINK = 8
+LM_FLASH = 16
+LM_FLUTTER = 32
+LM_BROKENFLUTTER = 64
+LM_UNKNOWN = 128
+PHONE_PRIVILEGE = Int32
+PP_OWNER = 0
+PP_MONITOR = 1
 PHONE_TONE = Int32
 PT_KEYPADZERO = 0
 PT_KEYPADONE = 1
@@ -3174,1795 +5972,223 @@ PT_BUSY = 18
 PT_RINGBACK = 19
 PT_ERRORTONE = 20
 PT_SILENCE = 21
-PHONE_EVENT = Int32
-PE_DISPLAY = 0
-PE_LAMPMODE = 1
-PE_RINGMODE = 2
-PE_RINGVOLUME = 3
-PE_HOOKSWITCH = 4
-PE_CAPSCHANGE = 5
-PE_BUTTON = 6
-PE_CLOSE = 7
-PE_NUMBERGATHERED = 8
-PE_DIALING = 9
-PE_ANSWER = 10
-PE_DISCONNECT = 11
-PE_LASTITEM = 11
-def _define_ITTAPI_head():
-    class ITTAPI(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc382-9355-11d0-835c-00aa003ccabd')
-    return ITTAPI
-def _define_ITTAPI():
-    ITTAPI = win32more.Devices.Tapi.ITTAPI_head
-    ITTAPI.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Initialize', ()))
-    ITTAPI.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Shutdown', ()))
-    ITTAPI.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Addresses', ((1, 'pVariant'),)))
-    ITTAPI.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(10, 'EnumerateAddresses', ((1, 'ppEnumAddress'),)))
-    ITTAPI.RegisterCallNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITAddress_head,Int16,Int16,Int32,Int32,POINTER(Int32), use_last_error=False)(11, 'RegisterCallNotifications', ((1, 'pAddress'),(1, 'fMonitor'),(1, 'fOwner'),(1, 'lMediaTypes'),(1, 'lCallbackInstance'),(1, 'plRegister'),)))
-    ITTAPI.UnregisterNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'UnregisterNotifications', ((1, 'lRegister'),)))
-    ITTAPI.get_CallHubs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_CallHubs', ((1, 'pVariant'),)))
-    ITTAPI.EnumerateCallHubs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallHub_head), use_last_error=False)(14, 'EnumerateCallHubs', ((1, 'ppEnumCallHub'),)))
-    ITTAPI.SetCallHubTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int16, use_last_error=False)(15, 'SetCallHubTracking', ((1, 'pAddresses'),(1, 'bTracking'),)))
-    ITTAPI.EnumeratePrivateTAPIObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumUnknown_head), use_last_error=False)(16, 'EnumeratePrivateTAPIObjects', ((1, 'ppEnumUnknown'),)))
-    ITTAPI.get_PrivateTAPIObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_PrivateTAPIObjects', ((1, 'pVariant'),)))
-    ITTAPI.RegisterRequestRecipient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int16, use_last_error=False)(18, 'RegisterRequestRecipient', ((1, 'lRegistrationInstance'),(1, 'lRequestMode'),(1, 'fEnable'),)))
-    ITTAPI.SetAssistedTelephonyPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(19, 'SetAssistedTelephonyPriority', ((1, 'pAppFilename'),(1, 'fPriority'),)))
-    ITTAPI.SetApplicationPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int16, use_last_error=False)(20, 'SetApplicationPriority', ((1, 'pAppFilename'),(1, 'lMediaType'),(1, 'fPriority'),)))
-    ITTAPI.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(21, 'put_EventFilter', ((1, 'lFilterMask'),)))
-    ITTAPI.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_EventFilter', ((1, 'plFilterMask'),)))
-    win32more.System.Com.IDispatch
-    return ITTAPI
-def _define_ITTAPI2_head():
-    class ITTAPI2(win32more.Devices.Tapi.ITTAPI_head):
-        Guid = Guid('54fbdc8c-d90f-4dad-9695-b373097f094b')
-    return ITTAPI2
-def _define_ITTAPI2():
-    ITTAPI2 = win32more.Devices.Tapi.ITTAPI2_head
-    ITTAPI2.get_Phones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'get_Phones', ((1, 'pPhones'),)))
-    ITTAPI2.EnumeratePhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head), use_last_error=False)(24, 'EnumeratePhones', ((1, 'ppEnumPhone'),)))
-    ITTAPI2.CreateEmptyCollectionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCollection2_head), use_last_error=False)(25, 'CreateEmptyCollectionObject', ((1, 'ppCollection'),)))
-    win32more.Devices.Tapi.ITTAPI
-    return ITTAPI2
-def _define_ITMediaSupport_head():
-    class ITMediaSupport(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc384-9355-11d0-835c-00aa003ccabd')
-    return ITMediaSupport
-def _define_ITMediaSupport():
-    ITMediaSupport = win32more.Devices.Tapi.ITMediaSupport_head
-    ITMediaSupport.get_MediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_MediaTypes', ((1, 'plMediaTypes'),)))
-    ITMediaSupport.QueryMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int16), use_last_error=False)(8, 'QueryMediaType', ((1, 'lMediaType'),(1, 'pfSupport'),)))
-    win32more.System.Com.IDispatch
-    return ITMediaSupport
-def _define_ITPluggableTerminalClassInfo_head():
-    class ITPluggableTerminalClassInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('41757f4a-cf09-4b34-bc96-0a79d2390076')
-    return ITPluggableTerminalClassInfo
-def _define_ITPluggableTerminalClassInfo():
-    ITPluggableTerminalClassInfo = win32more.Devices.Tapi.ITPluggableTerminalClassInfo_head
-    ITPluggableTerminalClassInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'pName'),)))
-    ITPluggableTerminalClassInfo.get_Company = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Company', ((1, 'pCompany'),)))
-    ITPluggableTerminalClassInfo.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Version', ((1, 'pVersion'),)))
-    ITPluggableTerminalClassInfo.get_TerminalClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_TerminalClass', ((1, 'pTerminalClass'),)))
-    ITPluggableTerminalClassInfo.get_CLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_CLSID', ((1, 'pCLSID'),)))
-    ITPluggableTerminalClassInfo.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(12, 'get_Direction', ((1, 'pDirection'),)))
-    ITPluggableTerminalClassInfo.get_MediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_MediaTypes', ((1, 'pMediaTypes'),)))
-    win32more.System.Com.IDispatch
-    return ITPluggableTerminalClassInfo
-def _define_ITPluggableTerminalSuperclassInfo_head():
-    class ITPluggableTerminalSuperclassInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6d54e42c-4625-4359-a6f7-631999107e05')
-    return ITPluggableTerminalSuperclassInfo
-def _define_ITPluggableTerminalSuperclassInfo():
-    ITPluggableTerminalSuperclassInfo = win32more.Devices.Tapi.ITPluggableTerminalSuperclassInfo_head
-    ITPluggableTerminalSuperclassInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'pName'),)))
-    ITPluggableTerminalSuperclassInfo.get_CLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_CLSID', ((1, 'pCLSID'),)))
-    win32more.System.Com.IDispatch
-    return ITPluggableTerminalSuperclassInfo
-def _define_ITTerminalSupport_head():
-    class ITTerminalSupport(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc385-9355-11d0-835c-00aa003ccabd')
-    return ITTerminalSupport
-def _define_ITTerminalSupport():
-    ITTerminalSupport = win32more.Devices.Tapi.ITTerminalSupport_head
-    ITTerminalSupport.get_StaticTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_StaticTerminals', ((1, 'pVariant'),)))
-    ITTerminalSupport.EnumerateStaticTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(8, 'EnumerateStaticTerminals', ((1, 'ppTerminalEnumerator'),)))
-    ITTerminalSupport.get_DynamicTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_DynamicTerminalClasses', ((1, 'pVariant'),)))
-    ITTerminalSupport.EnumerateDynamicTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminalClass_head), use_last_error=False)(10, 'EnumerateDynamicTerminalClasses', ((1, 'ppTerminalClassEnumerator'),)))
-    ITTerminalSupport.CreateTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(11, 'CreateTerminal', ((1, 'pTerminalClass'),(1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
-    ITTerminalSupport.GetDefaultStaticTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(12, 'GetDefaultStaticTerminal', ((1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
-    win32more.System.Com.IDispatch
-    return ITTerminalSupport
-def _define_ITTerminalSupport2_head():
-    class ITTerminalSupport2(win32more.Devices.Tapi.ITTerminalSupport_head):
-        Guid = Guid('f3eb39bc-1b1f-4e99-a0c0-56305c4dd591')
-    return ITTerminalSupport2
-def _define_ITTerminalSupport2():
-    ITTerminalSupport2 = win32more.Devices.Tapi.ITTerminalSupport2_head
-    ITTerminalSupport2.get_PluggableSuperclasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_PluggableSuperclasses', ((1, 'pVariant'),)))
-    ITTerminalSupport2.EnumeratePluggableSuperclasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head), use_last_error=False)(14, 'EnumeratePluggableSuperclasses', ((1, 'ppSuperclassEnumerator'),)))
-    ITTerminalSupport2.get_PluggableTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_PluggableTerminalClasses', ((1, 'bstrTerminalSuperclass'),(1, 'lMediaType'),(1, 'pVariant'),)))
-    ITTerminalSupport2.EnumeratePluggableTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,POINTER(win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head), use_last_error=False)(16, 'EnumeratePluggableTerminalClasses', ((1, 'iidTerminalSuperclass'),(1, 'lMediaType'),(1, 'ppClassEnumerator'),)))
-    win32more.Devices.Tapi.ITTerminalSupport
-    return ITTerminalSupport2
-def _define_ITAddress_head():
-    class ITAddress(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc386-9355-11d0-835c-00aa003ccabd')
-    return ITAddress
-def _define_ITAddress():
-    ITAddress = win32more.Devices.Tapi.ITAddress_head
-    ITAddress.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ADDRESS_STATE), use_last_error=False)(7, 'get_State', ((1, 'pAddressState'),)))
-    ITAddress.get_AddressName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_AddressName', ((1, 'ppName'),)))
-    ITAddress.get_ServiceProviderName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_ServiceProviderName', ((1, 'ppName'),)))
-    ITAddress.get_TAPIObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTAPI_head), use_last_error=False)(10, 'get_TAPIObject', ((1, 'ppTapiObject'),)))
-    ITAddress.CreateCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Devices.Tapi.ITBasicCallControl_head), use_last_error=False)(11, 'CreateCall', ((1, 'pDestAddress'),(1, 'lAddressType'),(1, 'lMediaTypes'),(1, 'ppCall'),)))
-    ITAddress.get_Calls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_Calls', ((1, 'pVariant'),)))
-    ITAddress.EnumerateCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head), use_last_error=False)(13, 'EnumerateCalls', ((1, 'ppCallEnum'),)))
-    ITAddress.get_DialableAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_DialableAddress', ((1, 'pDialableAddress'),)))
-    ITAddress.CreateForwardInfoObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITForwardInformation_head), use_last_error=False)(15, 'CreateForwardInfoObject', ((1, 'ppForwardInfo'),)))
-    ITAddress.Forward = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITForwardInformation_head,win32more.Devices.Tapi.ITBasicCallControl_head, use_last_error=False)(16, 'Forward', ((1, 'pForwardInfo'),(1, 'pCall'),)))
-    ITAddress.get_CurrentForwardInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITForwardInformation_head), use_last_error=False)(17, 'get_CurrentForwardInfo', ((1, 'ppForwardInfo'),)))
-    ITAddress.put_MessageWaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(18, 'put_MessageWaiting', ((1, 'fMessageWaiting'),)))
-    ITAddress.get_MessageWaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_MessageWaiting', ((1, 'pfMessageWaiting'),)))
-    ITAddress.put_DoNotDisturb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(20, 'put_DoNotDisturb', ((1, 'fDoNotDisturb'),)))
-    ITAddress.get_DoNotDisturb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(21, 'get_DoNotDisturb', ((1, 'pfDoNotDisturb'),)))
-    win32more.System.Com.IDispatch
-    return ITAddress
-def _define_ITAddress2_head():
-    class ITAddress2(win32more.Devices.Tapi.ITAddress_head):
-        Guid = Guid('b0ae5d9b-be51-46c9-b0f7-dfa8a22a8bc4')
-    return ITAddress2
-def _define_ITAddress2():
-    ITAddress2 = win32more.Devices.Tapi.ITAddress2_head
-    ITAddress2.get_Phones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(22, 'get_Phones', ((1, 'pPhones'),)))
-    ITAddress2.EnumeratePhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head), use_last_error=False)(23, 'EnumeratePhones', ((1, 'ppEnumPhone'),)))
-    ITAddress2.GetPhoneFromTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head,POINTER(win32more.Devices.Tapi.ITPhone_head), use_last_error=False)(24, 'GetPhoneFromTerminal', ((1, 'pTerminal'),(1, 'ppPhone'),)))
-    ITAddress2.get_PreferredPhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(25, 'get_PreferredPhones', ((1, 'pPhones'),)))
-    ITAddress2.EnumeratePreferredPhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head), use_last_error=False)(26, 'EnumeratePreferredPhones', ((1, 'ppEnumPhone'),)))
-    ITAddress2.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,POINTER(Int16), use_last_error=False)(27, 'get_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'pEnable'),)))
-    ITAddress2.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,Int16, use_last_error=False)(28, 'put_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'bEnable'),)))
-    ITAddress2.DeviceSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,c_char_p_no,UInt32, use_last_error=False)(29, 'DeviceSpecific', ((1, 'pCall'),(1, 'pParams'),(1, 'dwSize'),)))
-    ITAddress2.DeviceSpecificVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,win32more.System.Com.VARIANT, use_last_error=False)(30, 'DeviceSpecificVariant', ((1, 'pCall'),(1, 'varDevSpecificByteArray'),)))
-    ITAddress2.NegotiateExtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(31, 'NegotiateExtVersion', ((1, 'lLowVersion'),(1, 'lHighVersion'),(1, 'plExtVersion'),)))
-    win32more.Devices.Tapi.ITAddress
-    return ITAddress2
-def _define_ITAddressCapabilities_head():
-    class ITAddressCapabilities(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8df232f5-821b-11d1-bb5c-00c04fb6809f')
-    return ITAddressCapabilities
-def _define_ITAddressCapabilities():
-    ITAddressCapabilities = win32more.Devices.Tapi.ITAddressCapabilities_head
-    ITAddressCapabilities.get_AddressCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ADDRESS_CAPABILITY,POINTER(Int32), use_last_error=False)(7, 'get_AddressCapability', ((1, 'AddressCap'),(1, 'plCapability'),)))
-    ITAddressCapabilities.get_AddressCapabilityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ADDRESS_CAPABILITY_STRING,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_AddressCapabilityString', ((1, 'AddressCapString'),(1, 'ppCapabilityString'),)))
-    ITAddressCapabilities.get_CallTreatments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_CallTreatments', ((1, 'pVariant'),)))
-    ITAddressCapabilities.EnumerateCallTreatments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(10, 'EnumerateCallTreatments', ((1, 'ppEnumCallTreatment'),)))
-    ITAddressCapabilities.get_CompletionMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'get_CompletionMessages', ((1, 'pVariant'),)))
-    ITAddressCapabilities.EnumerateCompletionMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(12, 'EnumerateCompletionMessages', ((1, 'ppEnumCompletionMessage'),)))
-    ITAddressCapabilities.get_DeviceClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_DeviceClasses', ((1, 'pVariant'),)))
-    ITAddressCapabilities.EnumerateDeviceClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(14, 'EnumerateDeviceClasses', ((1, 'ppEnumDeviceClass'),)))
-    win32more.System.Com.IDispatch
-    return ITAddressCapabilities
-def _define_ITPhone_head():
-    class ITPhone(win32more.System.Com.IDispatch_head):
-        Guid = Guid('09d48db4-10cc-4388-9de7-a8465618975a')
-    return ITPhone
-def _define_ITPhone():
-    ITPhone = win32more.Devices.Tapi.ITPhone_head
-    ITPhone.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_PRIVILEGE, use_last_error=False)(7, 'Open', ((1, 'Privilege'),)))
-    ITPhone.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Close', ()))
-    ITPhone.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Addresses', ((1, 'pAddresses'),)))
-    ITPhone.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(10, 'EnumerateAddresses', ((1, 'ppEnumAddress'),)))
-    ITPhone.get_PhoneCapsLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_LONG,POINTER(Int32), use_last_error=False)(11, 'get_PhoneCapsLong', ((1, 'pclCap'),(1, 'plCapability'),)))
-    ITPhone.get_PhoneCapsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_STRING,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_PhoneCapsString', ((1, 'pcsCap'),(1, 'ppCapability'),)))
-    ITPhone.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITAddress_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_Terminals', ((1, 'pAddress'),(1, 'pTerminals'),)))
-    ITPhone.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITAddress_head,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(14, 'EnumerateTerminals', ((1, 'pAddress'),(1, 'ppEnumTerminal'),)))
-    ITPhone.get_ButtonMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_MODE), use_last_error=False)(15, 'get_ButtonMode', ((1, 'lButtonID'),(1, 'pButtonMode'),)))
-    ITPhone.put_ButtonMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.PHONE_BUTTON_MODE, use_last_error=False)(16, 'put_ButtonMode', ((1, 'lButtonID'),(1, 'ButtonMode'),)))
-    ITPhone.get_ButtonFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_FUNCTION), use_last_error=False)(17, 'get_ButtonFunction', ((1, 'lButtonID'),(1, 'pButtonFunction'),)))
-    ITPhone.put_ButtonFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.PHONE_BUTTON_FUNCTION, use_last_error=False)(18, 'put_ButtonFunction', ((1, 'lButtonID'),(1, 'ButtonFunction'),)))
-    ITPhone.get_ButtonText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_ButtonText', ((1, 'lButtonID'),(1, 'ppButtonText'),)))
-    ITPhone.put_ButtonText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(20, 'put_ButtonText', ((1, 'lButtonID'),(1, 'bstrButtonText'),)))
-    ITPhone.get_ButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_STATE), use_last_error=False)(21, 'get_ButtonState', ((1, 'lButtonID'),(1, 'pButtonState'),)))
-    ITPhone.get_HookSwitchState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_HOOK_SWITCH_DEVICE,POINTER(win32more.Devices.Tapi.PHONE_HOOK_SWITCH_STATE), use_last_error=False)(22, 'get_HookSwitchState', ((1, 'HookSwitchDevice'),(1, 'pHookSwitchState'),)))
-    ITPhone.put_HookSwitchState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_HOOK_SWITCH_DEVICE,win32more.Devices.Tapi.PHONE_HOOK_SWITCH_STATE, use_last_error=False)(23, 'put_HookSwitchState', ((1, 'HookSwitchDevice'),(1, 'HookSwitchState'),)))
-    ITPhone.put_RingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(24, 'put_RingMode', ((1, 'lRingMode'),)))
-    ITPhone.get_RingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(25, 'get_RingMode', ((1, 'plRingMode'),)))
-    ITPhone.put_RingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(26, 'put_RingVolume', ((1, 'lRingVolume'),)))
-    ITPhone.get_RingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(27, 'get_RingVolume', ((1, 'plRingVolume'),)))
-    ITPhone.get_Privilege = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_PRIVILEGE), use_last_error=False)(28, 'get_Privilege', ((1, 'pPrivilege'),)))
-    ITPhone.GetPhoneCapsBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_BUFFER,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(29, 'GetPhoneCapsBuffer', ((1, 'pcbCaps'),(1, 'pdwSize'),(1, 'ppPhoneCapsBuffer'),)))
-    ITPhone.get_PhoneCapsBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONECAPS_BUFFER,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(30, 'get_PhoneCapsBuffer', ((1, 'pcbCaps'),(1, 'pVarBuffer'),)))
-    ITPhone.get_LampMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Tapi.PHONE_LAMP_MODE), use_last_error=False)(31, 'get_LampMode', ((1, 'lLampID'),(1, 'pLampMode'),)))
-    ITPhone.put_LampMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.PHONE_LAMP_MODE, use_last_error=False)(32, 'put_LampMode', ((1, 'lLampID'),(1, 'LampMode'),)))
-    ITPhone.get_Display = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(33, 'get_Display', ((1, 'pbstrDisplay'),)))
-    ITPhone.SetDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(34, 'SetDisplay', ((1, 'lRow'),(1, 'lColumn'),(1, 'bstrDisplay'),)))
-    ITPhone.get_PreferredAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(35, 'get_PreferredAddresses', ((1, 'pAddresses'),)))
-    ITPhone.EnumeratePreferredAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(36, 'EnumeratePreferredAddresses', ((1, 'ppEnumAddress'),)))
-    ITPhone.DeviceSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(37, 'DeviceSpecific', ((1, 'pParams'),(1, 'dwSize'),)))
-    ITPhone.DeviceSpecificVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(38, 'DeviceSpecificVariant', ((1, 'varDevSpecificByteArray'),)))
-    ITPhone.NegotiateExtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(39, 'NegotiateExtVersion', ((1, 'lLowVersion'),(1, 'lHighVersion'),(1, 'plExtVersion'),)))
-    win32more.System.Com.IDispatch
-    return ITPhone
-def _define_ITAutomatedPhoneControl_head():
-    class ITAutomatedPhoneControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('1ee1af0e-6159-4a61-b79b-6a4ba3fc9dfc')
-    return ITAutomatedPhoneControl
-def _define_ITAutomatedPhoneControl():
-    ITAutomatedPhoneControl = win32more.Devices.Tapi.ITAutomatedPhoneControl_head
-    ITAutomatedPhoneControl.StartTone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.PHONE_TONE,Int32, use_last_error=False)(7, 'StartTone', ((1, 'Tone'),(1, 'lDuration'),)))
-    ITAutomatedPhoneControl.StopTone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'StopTone', ()))
-    ITAutomatedPhoneControl.get_Tone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_TONE), use_last_error=False)(9, 'get_Tone', ((1, 'pTone'),)))
-    ITAutomatedPhoneControl.StartRinger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(10, 'StartRinger', ((1, 'lRingMode'),(1, 'lDuration'),)))
-    ITAutomatedPhoneControl.StopRinger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'StopRinger', ()))
-    ITAutomatedPhoneControl.get_Ringer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(12, 'get_Ringer', ((1, 'pfRinging'),)))
-    ITAutomatedPhoneControl.put_PhoneHandlingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(13, 'put_PhoneHandlingEnabled', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.get_PhoneHandlingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_PhoneHandlingEnabled', ((1, 'pfEnabled'),)))
-    ITAutomatedPhoneControl.put_AutoEndOfNumberTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(15, 'put_AutoEndOfNumberTimeout', ((1, 'lTimeout'),)))
-    ITAutomatedPhoneControl.get_AutoEndOfNumberTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_AutoEndOfNumberTimeout', ((1, 'plTimeout'),)))
-    ITAutomatedPhoneControl.put_AutoDialtone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_AutoDialtone', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.get_AutoDialtone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_AutoDialtone', ((1, 'pfEnabled'),)))
-    ITAutomatedPhoneControl.put_AutoStopTonesOnOnHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(19, 'put_AutoStopTonesOnOnHook', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.get_AutoStopTonesOnOnHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(20, 'get_AutoStopTonesOnOnHook', ((1, 'pfEnabled'),)))
-    ITAutomatedPhoneControl.put_AutoStopRingOnOffHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(21, 'put_AutoStopRingOnOffHook', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.get_AutoStopRingOnOffHook = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(22, 'get_AutoStopRingOnOffHook', ((1, 'pfEnabled'),)))
-    ITAutomatedPhoneControl.put_AutoKeypadTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(23, 'put_AutoKeypadTones', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.get_AutoKeypadTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(24, 'get_AutoKeypadTones', ((1, 'pfEnabled'),)))
-    ITAutomatedPhoneControl.put_AutoKeypadTonesMinimumDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(25, 'put_AutoKeypadTonesMinimumDuration', ((1, 'lDuration'),)))
-    ITAutomatedPhoneControl.get_AutoKeypadTonesMinimumDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(26, 'get_AutoKeypadTonesMinimumDuration', ((1, 'plDuration'),)))
-    ITAutomatedPhoneControl.put_AutoVolumeControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(27, 'put_AutoVolumeControl', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.get_AutoVolumeControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_AutoVolumeControl', ((1, 'fEnabled'),)))
-    ITAutomatedPhoneControl.put_AutoVolumeControlStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(29, 'put_AutoVolumeControlStep', ((1, 'lStepSize'),)))
-    ITAutomatedPhoneControl.get_AutoVolumeControlStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(30, 'get_AutoVolumeControlStep', ((1, 'plStepSize'),)))
-    ITAutomatedPhoneControl.put_AutoVolumeControlRepeatDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(31, 'put_AutoVolumeControlRepeatDelay', ((1, 'lDelay'),)))
-    ITAutomatedPhoneControl.get_AutoVolumeControlRepeatDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(32, 'get_AutoVolumeControlRepeatDelay', ((1, 'plDelay'),)))
-    ITAutomatedPhoneControl.put_AutoVolumeControlRepeatPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(33, 'put_AutoVolumeControlRepeatPeriod', ((1, 'lPeriod'),)))
-    ITAutomatedPhoneControl.get_AutoVolumeControlRepeatPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(34, 'get_AutoVolumeControlRepeatPeriod', ((1, 'plPeriod'),)))
-    ITAutomatedPhoneControl.SelectCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,Int16, use_last_error=False)(35, 'SelectCall', ((1, 'pCall'),(1, 'fSelectDefaultTerminals'),)))
-    ITAutomatedPhoneControl.UnselectCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head, use_last_error=False)(36, 'UnselectCall', ((1, 'pCall'),)))
-    ITAutomatedPhoneControl.EnumerateSelectedCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head), use_last_error=False)(37, 'EnumerateSelectedCalls', ((1, 'ppCallEnum'),)))
-    ITAutomatedPhoneControl.get_SelectedCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(38, 'get_SelectedCalls', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITAutomatedPhoneControl
-def _define_ITBasicCallControl_head():
-    class ITBasicCallControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc389-9355-11d0-835c-00aa003ccabd')
-    return ITBasicCallControl
-def _define_ITBasicCallControl():
-    ITBasicCallControl = win32more.Devices.Tapi.ITBasicCallControl_head
-    ITBasicCallControl.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(7, 'Connect', ((1, 'fSync'),)))
-    ITBasicCallControl.Answer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Answer', ()))
-    ITBasicCallControl.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DISCONNECT_CODE, use_last_error=False)(9, 'Disconnect', ((1, 'code'),)))
-    ITBasicCallControl.Hold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(10, 'Hold', ((1, 'fHold'),)))
-    ITBasicCallControl.HandoffDirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'HandoffDirect', ((1, 'pApplicationName'),)))
-    ITBasicCallControl.HandoffIndirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'HandoffIndirect', ((1, 'lMediaType'),)))
-    ITBasicCallControl.Conference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITBasicCallControl_head,Int16, use_last_error=False)(13, 'Conference', ((1, 'pCall'),(1, 'fSync'),)))
-    ITBasicCallControl.Transfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITBasicCallControl_head,Int16, use_last_error=False)(14, 'Transfer', ((1, 'pCall'),(1, 'fSync'),)))
-    ITBasicCallControl.BlindTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'BlindTransfer', ((1, 'pDestAddress'),)))
-    ITBasicCallControl.SwapHold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITBasicCallControl_head, use_last_error=False)(16, 'SwapHold', ((1, 'pCall'),)))
-    ITBasicCallControl.ParkDirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'ParkDirect', ((1, 'pParkAddress'),)))
-    ITBasicCallControl.ParkIndirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'ParkIndirect', ((1, 'ppNonDirAddress'),)))
-    ITBasicCallControl.Unpark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'Unpark', ()))
-    ITBasicCallControl.SetQOS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.QOS_SERVICE_LEVEL, use_last_error=False)(20, 'SetQOS', ((1, 'lMediaType'),(1, 'ServiceLevel'),)))
-    ITBasicCallControl.Pickup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'Pickup', ((1, 'pGroupID'),)))
-    ITBasicCallControl.Dial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(22, 'Dial', ((1, 'pDestAddress'),)))
-    ITBasicCallControl.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.FINISH_MODE, use_last_error=False)(23, 'Finish', ((1, 'finishMode'),)))
-    ITBasicCallControl.RemoveFromConference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'RemoveFromConference', ()))
-    win32more.System.Com.IDispatch
-    return ITBasicCallControl
-def _define_ITCallInfo_head():
-    class ITCallInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('350f85d1-1227-11d3-83d4-00c04fb6809f')
-    return ITCallInfo
-def _define_ITCallInfo():
-    ITCallInfo = win32more.Devices.Tapi.ITCallInfo_head
-    ITCallInfo.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(7, 'get_Address', ((1, 'ppAddress'),)))
-    ITCallInfo.get_CallState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE), use_last_error=False)(8, 'get_CallState', ((1, 'pCallState'),)))
-    ITCallInfo.get_Privilege = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_PRIVILEGE), use_last_error=False)(9, 'get_Privilege', ((1, 'pPrivilege'),)))
-    ITCallInfo.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head), use_last_error=False)(10, 'get_CallHub', ((1, 'ppCallHub'),)))
-    ITCallInfo.get_CallInfoLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_LONG,POINTER(Int32), use_last_error=False)(11, 'get_CallInfoLong', ((1, 'CallInfoLong'),(1, 'plCallInfoLongVal'),)))
-    ITCallInfo.put_CallInfoLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_LONG,Int32, use_last_error=False)(12, 'put_CallInfoLong', ((1, 'CallInfoLong'),(1, 'lCallInfoLongVal'),)))
-    ITCallInfo.get_CallInfoString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_STRING,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_CallInfoString', ((1, 'CallInfoString'),(1, 'ppCallInfoString'),)))
-    ITCallInfo.put_CallInfoString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_STRING,win32more.Foundation.BSTR, use_last_error=False)(14, 'put_CallInfoString', ((1, 'CallInfoString'),(1, 'pCallInfoString'),)))
-    ITCallInfo.get_CallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_CallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'ppCallInfoBuffer'),)))
-    ITCallInfo.put_CallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,win32more.System.Com.VARIANT, use_last_error=False)(16, 'put_CallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'pCallInfoBuffer'),)))
-    ITCallInfo.GetCallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(17, 'GetCallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'pdwSize'),(1, 'ppCallInfoBuffer'),)))
-    ITCallInfo.SetCallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,UInt32,POINTER(Byte), use_last_error=False)(18, 'SetCallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'dwSize'),(1, 'pCallInfoBuffer'),)))
-    ITCallInfo.ReleaseUserUserInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'ReleaseUserUserInfo', ()))
-    win32more.System.Com.IDispatch
-    return ITCallInfo
-def _define_ITCallInfo2_head():
-    class ITCallInfo2(win32more.Devices.Tapi.ITCallInfo_head):
-        Guid = Guid('94d70ca6-7ab0-4daa-81ca-b8f8643faec1')
-    return ITCallInfo2
-def _define_ITCallInfo2():
-    ITCallInfo2 = win32more.Devices.Tapi.ITCallInfo2_head
-    ITCallInfo2.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,POINTER(Int16), use_last_error=False)(20, 'get_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'pEnable'),)))
-    ITCallInfo2.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,Int16, use_last_error=False)(21, 'put_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'bEnable'),)))
-    win32more.Devices.Tapi.ITCallInfo
-    return ITCallInfo2
-def _define_ITTerminal_head():
-    class ITTerminal(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc38a-9355-11d0-835c-00aa003ccabd')
-    return ITTerminal
-def _define_ITTerminal():
-    ITTerminal = win32more.Devices.Tapi.ITTerminal_head
-    ITTerminal.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'ppName'),)))
-    ITTerminal.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_STATE), use_last_error=False)(8, 'get_State', ((1, 'pTerminalState'),)))
-    ITTerminal.get_TerminalType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_TYPE), use_last_error=False)(9, 'get_TerminalType', ((1, 'pType'),)))
-    ITTerminal.get_TerminalClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_TerminalClass', ((1, 'ppTerminalClass'),)))
-    ITTerminal.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_MediaType', ((1, 'plMediaType'),)))
-    ITTerminal.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(12, 'get_Direction', ((1, 'pDirection'),)))
-    win32more.System.Com.IDispatch
-    return ITTerminal
-def _define_ITMultiTrackTerminal_head():
-    class ITMultiTrackTerminal(win32more.System.Com.IDispatch_head):
-        Guid = Guid('fe040091-ade8-4072-95c9-bf7de8c54b44')
-    return ITMultiTrackTerminal
-def _define_ITMultiTrackTerminal():
-    ITMultiTrackTerminal = win32more.Devices.Tapi.ITMultiTrackTerminal_head
-    ITMultiTrackTerminal.get_TrackTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_TrackTerminals', ((1, 'pVariant'),)))
-    ITMultiTrackTerminal.EnumerateTrackTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(8, 'EnumerateTrackTerminals', ((1, 'ppEnumTerminal'),)))
-    ITMultiTrackTerminal.CreateTrackTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(9, 'CreateTrackTerminal', ((1, 'MediaType'),(1, 'TerminalDirection'),(1, 'ppTerminal'),)))
-    ITMultiTrackTerminal.get_MediaTypesInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_MediaTypesInUse', ((1, 'plMediaTypesInUse'),)))
-    ITMultiTrackTerminal.get_DirectionsInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(11, 'get_DirectionsInUse', ((1, 'plDirectionsInUsed'),)))
-    ITMultiTrackTerminal.RemoveTrackTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(12, 'RemoveTrackTerminal', ((1, 'pTrackTerminalToRemove'),)))
-    win32more.System.Com.IDispatch
-    return ITMultiTrackTerminal
-TERMINAL_MEDIA_STATE = Int32
-TMS_IDLE = 0
-TMS_ACTIVE = 1
-TMS_PAUSED = 2
-TMS_LASTITEM = 2
-FT_STATE_EVENT_CAUSE = Int32
-FTEC_NORMAL = 0
-FTEC_END_OF_FILE = 1
-FTEC_READ_ERROR = 2
-FTEC_WRITE_ERROR = 3
-def _define_ITFileTrack_head():
-    class ITFileTrack(win32more.System.Com.IDispatch_head):
-        Guid = Guid('31ca6ea9-c08a-4bea-8811-8e9c1ba3ea3a')
-    return ITFileTrack
-def _define_ITFileTrack():
-    ITFileTrack = win32more.Devices.Tapi.ITFileTrack_head
-    ITFileTrack.get_Format = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.DirectShow.AM_MEDIA_TYPE_head)), use_last_error=False)(7, 'get_Format', ((1, 'ppmt'),)))
-    ITFileTrack.put_Format = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.AM_MEDIA_TYPE_head), use_last_error=False)(8, 'put_Format', ((1, 'pmt'),)))
-    ITFileTrack.get_ControllingTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(9, 'get_ControllingTerminal', ((1, 'ppControllingTerminal'),)))
-    ITFileTrack.get_AudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITScriptableAudioFormat_head), use_last_error=False)(10, 'get_AudioFormatForScripting', ((1, 'ppAudioFormat'),)))
-    ITFileTrack.put_AudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITScriptableAudioFormat_head, use_last_error=False)(11, 'put_AudioFormatForScripting', ((1, 'pAudioFormat'),)))
-    ITFileTrack.get_EmptyAudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITScriptableAudioFormat_head), use_last_error=False)(12, 'get_EmptyAudioFormatForScripting', ((1, 'ppAudioFormat'),)))
-    win32more.System.Com.IDispatch
-    return ITFileTrack
-def _define_ITMediaPlayback_head():
-    class ITMediaPlayback(win32more.System.Com.IDispatch_head):
-        Guid = Guid('627e8ae6-ae4c-4a69-bb63-2ad625404b77')
-    return ITMediaPlayback
-def _define_ITMediaPlayback():
-    ITMediaPlayback = win32more.Devices.Tapi.ITMediaPlayback_head
-    ITMediaPlayback.put_PlayList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_PlayList', ((1, 'PlayListVariant'),)))
-    ITMediaPlayback.get_PlayList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_PlayList', ((1, 'pPlayListVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITMediaPlayback
-def _define_ITMediaRecord_head():
-    class ITMediaRecord(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f5dd4592-5476-4cc1-9d4d-fad3eefe7db2')
-    return ITMediaRecord
-def _define_ITMediaRecord():
-    ITMediaRecord = win32more.Devices.Tapi.ITMediaRecord_head
-    ITMediaRecord.put_FileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_FileName', ((1, 'bstrFileName'),)))
-    ITMediaRecord.get_FileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_FileName', ((1, 'pbstrFileName'),)))
-    win32more.System.Com.IDispatch
-    return ITMediaRecord
-def _define_ITMediaControl_head():
-    class ITMediaControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c445dde8-5199-4bc7-9807-5ffb92e42e09')
-    return ITMediaControl
-def _define_ITMediaControl():
-    ITMediaControl = win32more.Devices.Tapi.ITMediaControl_head
-    ITMediaControl.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Start', ()))
-    ITMediaControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Stop', ()))
-    ITMediaControl.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Pause', ()))
-    ITMediaControl.get_MediaState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_MEDIA_STATE), use_last_error=False)(10, 'get_MediaState', ((1, 'pTerminalMediaState'),)))
-    win32more.System.Com.IDispatch
-    return ITMediaControl
-def _define_ITBasicAudioTerminal_head():
-    class ITBasicAudioTerminal(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1efc38d-9355-11d0-835c-00aa003ccabd')
-    return ITBasicAudioTerminal
-def _define_ITBasicAudioTerminal():
-    ITBasicAudioTerminal = win32more.Devices.Tapi.ITBasicAudioTerminal_head
-    ITBasicAudioTerminal.put_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_Volume', ((1, 'lVolume'),)))
-    ITBasicAudioTerminal.get_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Volume', ((1, 'plVolume'),)))
-    ITBasicAudioTerminal.put_Balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_Balance', ((1, 'lBalance'),)))
-    ITBasicAudioTerminal.get_Balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_Balance', ((1, 'plBalance'),)))
-    win32more.System.Com.IDispatch
-    return ITBasicAudioTerminal
-def _define_ITStaticAudioTerminal_head():
-    class ITStaticAudioTerminal(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a86b7871-d14c-48e6-922e-a8d15f984800')
-    return ITStaticAudioTerminal
-def _define_ITStaticAudioTerminal():
-    ITStaticAudioTerminal = win32more.Devices.Tapi.ITStaticAudioTerminal_head
-    ITStaticAudioTerminal.get_WaveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_WaveId', ((1, 'plWaveId'),)))
-    win32more.System.Com.IDispatch
-    return ITStaticAudioTerminal
-def _define_ITCallHub_head():
-    class ITCallHub(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a3c1544e-5b92-11d1-8f4e-00c04fb6809f')
-    return ITCallHub
-def _define_ITCallHub():
-    ITCallHub = win32more.Devices.Tapi.ITCallHub_head
-    ITCallHub.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Clear', ()))
-    ITCallHub.EnumerateCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head), use_last_error=False)(8, 'EnumerateCalls', ((1, 'ppEnumCall'),)))
-    ITCallHub.get_Calls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Calls', ((1, 'pCalls'),)))
-    ITCallHub.get_NumCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_NumCalls', ((1, 'plCalls'),)))
-    ITCallHub.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLHUB_STATE), use_last_error=False)(11, 'get_State', ((1, 'pState'),)))
-    win32more.System.Com.IDispatch
-    return ITCallHub
-def _define_ITLegacyAddressMediaControl_head():
-    class ITLegacyAddressMediaControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab493640-4c0b-11d2-a046-00c04fb6809f')
-    return ITLegacyAddressMediaControl
-def _define_ITLegacyAddressMediaControl():
-    ITLegacyAddressMediaControl = win32more.Devices.Tapi.ITLegacyAddressMediaControl_head
-    ITLegacyAddressMediaControl.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'GetID', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceID'),)))
-    ITLegacyAddressMediaControl.GetDevConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(4, 'GetDevConfig', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceConfig'),)))
-    ITLegacyAddressMediaControl.SetDevConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(Byte), use_last_error=False)(5, 'SetDevConfig', ((1, 'pDeviceClass'),(1, 'dwSize'),(1, 'pDeviceConfig'),)))
-    win32more.System.Com.IUnknown
-    return ITLegacyAddressMediaControl
-def _define_ITPrivateEvent_head():
-    class ITPrivateEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0e269cd0-10d4-4121-9c22-9c85d625650d')
-    return ITPrivateEvent
-def _define_ITPrivateEvent():
-    ITPrivateEvent = win32more.Devices.Tapi.ITPrivateEvent_head
-    ITPrivateEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(7, 'get_Address', ((1, 'ppAddress'),)))
-    ITPrivateEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITPrivateEvent.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head), use_last_error=False)(9, 'get_CallHub', ((1, 'ppCallHub'),)))
-    ITPrivateEvent.get_EventCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_EventCode', ((1, 'plEventCode'),)))
-    ITPrivateEvent.get_EventInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'get_EventInterface', ((1, 'pEventInterface'),)))
-    win32more.System.Com.IDispatch
-    return ITPrivateEvent
-def _define_ITLegacyAddressMediaControl2_head():
-    class ITLegacyAddressMediaControl2(win32more.Devices.Tapi.ITLegacyAddressMediaControl_head):
-        Guid = Guid('b0ee512b-a531-409e-9dd9-4099fe86c738')
-    return ITLegacyAddressMediaControl2
-def _define_ITLegacyAddressMediaControl2():
-    ITLegacyAddressMediaControl2 = win32more.Devices.Tapi.ITLegacyAddressMediaControl2_head
-    ITLegacyAddressMediaControl2.ConfigDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR, use_last_error=False)(6, 'ConfigDialog', ((1, 'hwndOwner'),(1, 'pDeviceClass'),)))
-    ITLegacyAddressMediaControl2.ConfigDialogEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR,UInt32,POINTER(Byte),POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(7, 'ConfigDialogEdit', ((1, 'hwndOwner'),(1, 'pDeviceClass'),(1, 'dwSizeIn'),(1, 'pDeviceConfigIn'),(1, 'pdwSizeOut'),(1, 'ppDeviceConfigOut'),)))
-    win32more.Devices.Tapi.ITLegacyAddressMediaControl
-    return ITLegacyAddressMediaControl2
-def _define_ITLegacyCallMediaControl_head():
-    class ITLegacyCallMediaControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d624582f-cc23-4436-b8a5-47c625c8045d')
-    return ITLegacyCallMediaControl
-def _define_ITLegacyCallMediaControl():
-    ITLegacyCallMediaControl = win32more.Devices.Tapi.ITLegacyCallMediaControl_head
-    ITLegacyCallMediaControl.DetectDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'DetectDigits', ((1, 'DigitMode'),)))
-    ITLegacyCallMediaControl.GenerateDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(8, 'GenerateDigits', ((1, 'pDigits'),(1, 'DigitMode'),)))
-    ITLegacyCallMediaControl.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(9, 'GetID', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceID'),)))
-    ITLegacyCallMediaControl.SetMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'SetMediaType', ((1, 'lMediaType'),)))
-    ITLegacyCallMediaControl.MonitorMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'MonitorMedia', ((1, 'lMediaType'),)))
-    win32more.System.Com.IDispatch
-    return ITLegacyCallMediaControl
-def _define_ITLegacyCallMediaControl2_head():
-    class ITLegacyCallMediaControl2(win32more.Devices.Tapi.ITLegacyCallMediaControl_head):
-        Guid = Guid('57ca332d-7bc2-44f1-a60c-936fe8d7ce73')
-    return ITLegacyCallMediaControl2
-def _define_ITLegacyCallMediaControl2():
-    ITLegacyCallMediaControl2 = win32more.Devices.Tapi.ITLegacyCallMediaControl2_head
-    ITLegacyCallMediaControl2.GenerateDigits2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32, use_last_error=False)(12, 'GenerateDigits2', ((1, 'pDigits'),(1, 'DigitMode'),(1, 'lDuration'),)))
-    ITLegacyCallMediaControl2.GatherDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR,Int32,Int32, use_last_error=False)(13, 'GatherDigits', ((1, 'DigitMode'),(1, 'lNumDigits'),(1, 'pTerminationDigits'),(1, 'lFirstDigitTimeout'),(1, 'lInterDigitTimeout'),)))
-    ITLegacyCallMediaControl2.DetectTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_DETECTTONE_head),Int32, use_last_error=False)(14, 'DetectTones', ((1, 'pToneList'),(1, 'lNumTones'),)))
-    ITLegacyCallMediaControl2.DetectTonesByCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCollection2_head, use_last_error=False)(15, 'DetectTonesByCollection', ((1, 'pDetectToneCollection'),)))
-    ITLegacyCallMediaControl2.GenerateTone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_TONEMODE,Int32, use_last_error=False)(16, 'GenerateTone', ((1, 'ToneMode'),(1, 'lDuration'),)))
-    ITLegacyCallMediaControl2.GenerateCustomTones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_CUSTOMTONE_head),Int32,Int32, use_last_error=False)(17, 'GenerateCustomTones', ((1, 'pToneList'),(1, 'lNumTones'),(1, 'lDuration'),)))
-    ITLegacyCallMediaControl2.GenerateCustomTonesByCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCollection2_head,Int32, use_last_error=False)(18, 'GenerateCustomTonesByCollection', ((1, 'pCustomToneCollection'),(1, 'lDuration'),)))
-    ITLegacyCallMediaControl2.CreateDetectToneObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITDetectTone_head), use_last_error=False)(19, 'CreateDetectToneObject', ((1, 'ppDetectTone'),)))
-    ITLegacyCallMediaControl2.CreateCustomToneObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCustomTone_head), use_last_error=False)(20, 'CreateCustomToneObject', ((1, 'ppCustomTone'),)))
-    ITLegacyCallMediaControl2.GetIDAsVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(21, 'GetIDAsVariant', ((1, 'bstrDeviceClass'),(1, 'pVarDeviceID'),)))
-    win32more.Devices.Tapi.ITLegacyCallMediaControl
-    return ITLegacyCallMediaControl2
-def _define_ITDetectTone_head():
-    class ITDetectTone(win32more.System.Com.IDispatch_head):
-        Guid = Guid('961f79bd-3097-49df-a1d6-909b77e89ca0')
-    return ITDetectTone
-def _define_ITDetectTone():
-    ITDetectTone = win32more.Devices.Tapi.ITDetectTone_head
-    ITDetectTone.get_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_AppSpecific', ((1, 'plAppSpecific'),)))
-    ITDetectTone.put_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_AppSpecific', ((1, 'lAppSpecific'),)))
-    ITDetectTone.get_Duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Duration', ((1, 'plDuration'),)))
-    ITDetectTone.put_Duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_Duration', ((1, 'lDuration'),)))
-    ITDetectTone.get_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(11, 'get_Frequency', ((1, 'Index'),(1, 'plFrequency'),)))
-    ITDetectTone.put_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(12, 'put_Frequency', ((1, 'Index'),(1, 'lFrequency'),)))
-    win32more.System.Com.IDispatch
-    return ITDetectTone
-def _define_ITCustomTone_head():
-    class ITCustomTone(win32more.System.Com.IDispatch_head):
-        Guid = Guid('357ad764-b3c6-4b2a-8fa5-0722827a9254')
-    return ITCustomTone
-def _define_ITCustomTone():
-    ITCustomTone = win32more.Devices.Tapi.ITCustomTone_head
-    ITCustomTone.get_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Frequency', ((1, 'plFrequency'),)))
-    ITCustomTone.put_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_Frequency', ((1, 'lFrequency'),)))
-    ITCustomTone.get_CadenceOn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CadenceOn', ((1, 'plCadenceOn'),)))
-    ITCustomTone.put_CadenceOn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_CadenceOn', ((1, 'CadenceOn'),)))
-    ITCustomTone.get_CadenceOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_CadenceOff', ((1, 'plCadenceOff'),)))
-    ITCustomTone.put_CadenceOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_CadenceOff', ((1, 'lCadenceOff'),)))
-    ITCustomTone.get_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_Volume', ((1, 'plVolume'),)))
-    ITCustomTone.put_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'put_Volume', ((1, 'lVolume'),)))
-    win32more.System.Com.IDispatch
-    return ITCustomTone
-def _define_IEnumPhone_head():
-    class IEnumPhone(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f15b7669-4780-4595-8c89-fb369c8cf7aa')
-    return IEnumPhone
-def _define_IEnumPhone():
-    IEnumPhone = win32more.Devices.Tapi.IEnumPhone_head
-    IEnumPhone.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITPhone_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumPhone.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumPhone.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumPhone.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumPhone
-def _define_IEnumTerminal_head():
-    class IEnumTerminal(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ae269cf4-935e-11d0-835c-00aa003ccabd')
-    return IEnumTerminal
-def _define_IEnumTerminal():
-    IEnumTerminal = win32more.Devices.Tapi.IEnumTerminal_head
-    IEnumTerminal.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITTerminal_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumTerminal.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumTerminal.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumTerminal.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumTerminal
-def _define_IEnumTerminalClass_head():
-    class IEnumTerminalClass(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ae269cf5-935e-11d0-835c-00aa003ccabd')
-    return IEnumTerminalClass
-def _define_IEnumTerminalClass():
-    IEnumTerminalClass = win32more.Devices.Tapi.IEnumTerminalClass_head
-    IEnumTerminalClass.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'pElements'),(1, 'pceltFetched'),)))
-    IEnumTerminalClass.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumTerminalClass.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumTerminalClass.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminalClass_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumTerminalClass
-def _define_IEnumCall_head():
-    class IEnumCall(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ae269cf6-935e-11d0-835c-00aa003ccabd')
-    return IEnumCall
-def _define_IEnumCall():
-    IEnumCall = win32more.Devices.Tapi.IEnumCall_head
-    IEnumCall.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITCallInfo_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumCall.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumCall.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumCall.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumCall
-def _define_IEnumAddress_head():
-    class IEnumAddress(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1666fca1-9363-11d0-835c-00aa003ccabd')
-    return IEnumAddress
-def _define_IEnumAddress():
-    IEnumAddress = win32more.Devices.Tapi.IEnumAddress_head
-    IEnumAddress.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAddress_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumAddress.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumAddress.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumAddress.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumAddress
-def _define_IEnumCallHub_head():
-    class IEnumCallHub(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a3c15450-5b92-11d1-8f4e-00c04fb6809f')
-    return IEnumCallHub
-def _define_IEnumCallHub():
-    IEnumCallHub = win32more.Devices.Tapi.IEnumCallHub_head
-    IEnumCallHub.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITCallHub_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumCallHub.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumCallHub.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumCallHub.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallHub_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumCallHub
-def _define_IEnumBstr_head():
-    class IEnumBstr(win32more.System.Com.IUnknown_head):
-        Guid = Guid('35372049-0bc6-11d2-a033-00c04fb6809f')
-    return IEnumBstr
-def _define_IEnumBstr():
-    IEnumBstr = win32more.Devices.Tapi.IEnumBstr_head
-    IEnumBstr.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppStrings'),(1, 'pceltFetched'),)))
-    IEnumBstr.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumBstr.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumBstr.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumBstr
-def _define_IEnumPluggableTerminalClassInfo_head():
-    class IEnumPluggableTerminalClassInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4567450c-dbee-4e3f-aaf5-37bf9ebf5e29')
-    return IEnumPluggableTerminalClassInfo
-def _define_IEnumPluggableTerminalClassInfo():
-    IEnumPluggableTerminalClassInfo = win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head
-    IEnumPluggableTerminalClassInfo.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITPluggableTerminalClassInfo_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumPluggableTerminalClassInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumPluggableTerminalClassInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumPluggableTerminalClassInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumPluggableTerminalClassInfo
-def _define_IEnumPluggableSuperclassInfo_head():
-    class IEnumPluggableSuperclassInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e9586a80-89e6-4cff-931d-478d5751f4c0')
-    return IEnumPluggableSuperclassInfo
-def _define_IEnumPluggableSuperclassInfo():
-    IEnumPluggableSuperclassInfo = win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head
-    IEnumPluggableSuperclassInfo.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITPluggableTerminalSuperclassInfo_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumPluggableSuperclassInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumPluggableSuperclassInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumPluggableSuperclassInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumPluggableSuperclassInfo
-def _define_ITPhoneEvent_head():
-    class ITPhoneEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8f942dd8-64ed-4aaf-a77d-b23db0837ead')
-    return ITPhoneEvent
-def _define_ITPhoneEvent():
-    ITPhoneEvent = win32more.Devices.Tapi.ITPhoneEvent_head
-    ITPhoneEvent.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head), use_last_error=False)(7, 'get_Phone', ((1, 'ppPhone'),)))
-    ITPhoneEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    ITPhoneEvent.get_ButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_BUTTON_STATE), use_last_error=False)(9, 'get_ButtonState', ((1, 'pState'),)))
-    ITPhoneEvent.get_HookSwitchState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_HOOK_SWITCH_STATE), use_last_error=False)(10, 'get_HookSwitchState', ((1, 'pState'),)))
-    ITPhoneEvent.get_HookSwitchDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.PHONE_HOOK_SWITCH_DEVICE), use_last_error=False)(11, 'get_HookSwitchDevice', ((1, 'pDevice'),)))
-    ITPhoneEvent.get_RingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_RingMode', ((1, 'plRingMode'),)))
-    ITPhoneEvent.get_ButtonLampId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_ButtonLampId', ((1, 'plButtonLampId'),)))
-    ITPhoneEvent.get_NumberGathered = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_NumberGathered', ((1, 'ppNumber'),)))
-    ITPhoneEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(15, 'get_Call', ((1, 'ppCallInfo'),)))
-    win32more.System.Com.IDispatch
-    return ITPhoneEvent
-def _define_ITCallStateEvent_head():
-    class ITCallStateEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('62f47097-95c9-11d0-835d-00aa003ccabd')
-    return ITCallStateEvent
-def _define_ITCallStateEvent():
-    ITCallStateEvent = win32more.Devices.Tapi.ITCallStateEvent_head
-    ITCallStateEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITCallStateEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE), use_last_error=False)(8, 'get_State', ((1, 'pCallState'),)))
-    ITCallStateEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE_EVENT_CAUSE), use_last_error=False)(9, 'get_Cause', ((1, 'pCEC'),)))
-    ITCallStateEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITCallStateEvent
-def _define_ITPhoneDeviceSpecificEvent_head():
-    class ITPhoneDeviceSpecificEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('63ffb2a6-872b-4cd3-a501-326e8fb40af7')
-    return ITPhoneDeviceSpecificEvent
-def _define_ITPhoneDeviceSpecificEvent():
-    ITPhoneDeviceSpecificEvent = win32more.Devices.Tapi.ITPhoneDeviceSpecificEvent_head
-    ITPhoneDeviceSpecificEvent.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head), use_last_error=False)(7, 'get_Phone', ((1, 'ppPhone'),)))
-    ITPhoneDeviceSpecificEvent.get_lParam1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_lParam1', ((1, 'pParam1'),)))
-    ITPhoneDeviceSpecificEvent.get_lParam2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_lParam2', ((1, 'pParam2'),)))
-    ITPhoneDeviceSpecificEvent.get_lParam3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_lParam3', ((1, 'pParam3'),)))
-    win32more.System.Com.IDispatch
-    return ITPhoneDeviceSpecificEvent
-def _define_ITCallMediaEvent_head():
-    class ITCallMediaEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ff36b87f-ec3a-11d0-8ee4-00c04fb6809f')
-    return ITCallMediaEvent
-def _define_ITCallMediaEvent():
-    ITCallMediaEvent = win32more.Devices.Tapi.ITCallMediaEvent_head
-    ITCallMediaEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITCallMediaEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_MEDIA_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pCallMediaEvent'),)))
-    ITCallMediaEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrError'),)))
-    ITCallMediaEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(10, 'get_Terminal', ((1, 'ppTerminal'),)))
-    ITCallMediaEvent.get_Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITStream_head), use_last_error=False)(11, 'get_Stream', ((1, 'ppStream'),)))
-    ITCallMediaEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_MEDIA_EVENT_CAUSE), use_last_error=False)(12, 'get_Cause', ((1, 'pCause'),)))
-    win32more.System.Com.IDispatch
-    return ITCallMediaEvent
-def _define_ITDigitDetectionEvent_head():
-    class ITDigitDetectionEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('80d3bfac-57d9-11d2-a04a-00c04fb6809f')
-    return ITDigitDetectionEvent
-def _define_ITDigitDetectionEvent():
-    ITDigitDetectionEvent = win32more.Devices.Tapi.ITDigitDetectionEvent_head
-    ITDigitDetectionEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITDigitDetectionEvent.get_Digit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(8, 'get_Digit', ((1, 'pucDigit'),)))
-    ITDigitDetectionEvent.get_DigitMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_DigitMode', ((1, 'pDigitMode'),)))
-    ITDigitDetectionEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_TickCount', ((1, 'plTickCount'),)))
-    ITDigitDetectionEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITDigitDetectionEvent
-def _define_ITDigitGenerationEvent_head():
-    class ITDigitGenerationEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('80d3bfad-57d9-11d2-a04a-00c04fb6809f')
-    return ITDigitGenerationEvent
-def _define_ITDigitGenerationEvent():
-    ITDigitGenerationEvent = win32more.Devices.Tapi.ITDigitGenerationEvent_head
-    ITDigitGenerationEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITDigitGenerationEvent.get_GenerationTermination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_GenerationTermination', ((1, 'plGenerationTermination'),)))
-    ITDigitGenerationEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TickCount', ((1, 'plTickCount'),)))
-    ITDigitGenerationEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITDigitGenerationEvent
-def _define_ITDigitsGatheredEvent_head():
-    class ITDigitsGatheredEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e52ec4c1-cba3-441a-9e6a-93cb909e9724')
-    return ITDigitsGatheredEvent
-def _define_ITDigitsGatheredEvent():
-    ITDigitsGatheredEvent = win32more.Devices.Tapi.ITDigitsGatheredEvent_head
-    ITDigitsGatheredEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITDigitsGatheredEvent.get_Digits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Digits', ((1, 'ppDigits'),)))
-    ITDigitsGatheredEvent.get_GatherTermination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_GATHERTERM), use_last_error=False)(9, 'get_GatherTermination', ((1, 'pGatherTermination'),)))
-    ITDigitsGatheredEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_TickCount', ((1, 'plTickCount'),)))
-    ITDigitsGatheredEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITDigitsGatheredEvent
-def _define_ITToneDetectionEvent_head():
-    class ITToneDetectionEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('407e0faf-d047-4753-b0c6-8e060373fecd')
-    return ITToneDetectionEvent
-def _define_ITToneDetectionEvent():
-    ITToneDetectionEvent = win32more.Devices.Tapi.ITToneDetectionEvent_head
-    ITToneDetectionEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCallInfo'),)))
-    ITToneDetectionEvent.get_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_AppSpecific', ((1, 'plAppSpecific'),)))
-    ITToneDetectionEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TickCount', ((1, 'plTickCount'),)))
-    ITToneDetectionEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITToneDetectionEvent
-def _define_ITTAPIObjectEvent_head():
-    class ITTAPIObjectEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f4854d48-937a-11d1-bb58-00c04fb6809f')
-    return ITTAPIObjectEvent
-def _define_ITTAPIObjectEvent():
-    ITTAPIObjectEvent = win32more.Devices.Tapi.ITTAPIObjectEvent_head
-    ITTAPIObjectEvent.get_TAPIObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTAPI_head), use_last_error=False)(7, 'get_TAPIObject', ((1, 'ppTAPIObject'),)))
-    ITTAPIObjectEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPIOBJECT_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    ITTAPIObjectEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(9, 'get_Address', ((1, 'ppAddress'),)))
-    ITTAPIObjectEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITTAPIObjectEvent
-def _define_ITTAPIObjectEvent2_head():
-    class ITTAPIObjectEvent2(win32more.Devices.Tapi.ITTAPIObjectEvent_head):
-        Guid = Guid('359dda6e-68ce-4383-bf0b-169133c41b46')
-    return ITTAPIObjectEvent2
-def _define_ITTAPIObjectEvent2():
-    ITTAPIObjectEvent2 = win32more.Devices.Tapi.ITTAPIObjectEvent2_head
-    ITTAPIObjectEvent2.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head), use_last_error=False)(11, 'get_Phone', ((1, 'ppPhone'),)))
-    win32more.Devices.Tapi.ITTAPIObjectEvent
-    return ITTAPIObjectEvent2
-def _define_ITTAPIEventNotification_head():
-    class ITTAPIEventNotification(win32more.System.Com.IUnknown_head):
-        Guid = Guid('eddb9426-3b91-11d1-8f30-00c04fb6809f')
-    return ITTAPIEventNotification
-def _define_ITTAPIEventNotification():
-    ITTAPIEventNotification = win32more.Devices.Tapi.ITTAPIEventNotification_head
-    ITTAPIEventNotification.Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,win32more.System.Com.IDispatch_head, use_last_error=False)(3, 'Event', ((1, 'TapiEvent'),(1, 'pEvent'),)))
-    win32more.System.Com.IUnknown
-    return ITTAPIEventNotification
-def _define_ITCallHubEvent_head():
-    class ITCallHubEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a3c15451-5b92-11d1-8f4e-00c04fb6809f')
-    return ITCallHubEvent
-def _define_ITCallHubEvent():
-    ITCallHubEvent = win32more.Devices.Tapi.ITCallHubEvent_head
-    ITCallHubEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLHUB_EVENT), use_last_error=False)(7, 'get_Event', ((1, 'pEvent'),)))
-    ITCallHubEvent.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head), use_last_error=False)(8, 'get_CallHub', ((1, 'ppCallHub'),)))
-    ITCallHubEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(9, 'get_Call', ((1, 'ppCall'),)))
-    win32more.System.Com.IDispatch
-    return ITCallHubEvent
-def _define_ITAddressEvent_head():
-    class ITAddressEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('831ce2d1-83b5-11d1-bb5c-00c04fb6809f')
-    return ITAddressEvent
-def _define_ITAddressEvent():
-    ITAddressEvent = win32more.Devices.Tapi.ITAddressEvent_head
-    ITAddressEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(7, 'get_Address', ((1, 'ppAddress'),)))
-    ITAddressEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ADDRESS_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    ITAddressEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(9, 'get_Terminal', ((1, 'ppTerminal'),)))
-    win32more.System.Com.IDispatch
-    return ITAddressEvent
-def _define_ITAddressDeviceSpecificEvent_head():
-    class ITAddressDeviceSpecificEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('3acb216b-40bd-487a-8672-5ce77bd7e3a3')
-    return ITAddressDeviceSpecificEvent
-def _define_ITAddressDeviceSpecificEvent():
-    ITAddressDeviceSpecificEvent = win32more.Devices.Tapi.ITAddressDeviceSpecificEvent_head
-    ITAddressDeviceSpecificEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(7, 'get_Address', ((1, 'ppAddress'),)))
-    ITAddressDeviceSpecificEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
-    ITAddressDeviceSpecificEvent.get_lParam1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_lParam1', ((1, 'pParam1'),)))
-    ITAddressDeviceSpecificEvent.get_lParam2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_lParam2', ((1, 'pParam2'),)))
-    ITAddressDeviceSpecificEvent.get_lParam3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_lParam3', ((1, 'pParam3'),)))
-    win32more.System.Com.IDispatch
-    return ITAddressDeviceSpecificEvent
-def _define_ITFileTerminalEvent_head():
-    class ITFileTerminalEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e4a7fbac-8c17-4427-9f55-9f589ac8af00')
-    return ITFileTerminalEvent
-def _define_ITFileTerminalEvent():
-    ITFileTerminalEvent = win32more.Devices.Tapi.ITFileTerminalEvent_head
-    ITFileTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
-    ITFileTerminalEvent.get_Track = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITFileTrack_head), use_last_error=False)(8, 'get_Track', ((1, 'ppTrackTerminal'),)))
-    ITFileTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(9, 'get_Call', ((1, 'ppCall'),)))
-    ITFileTerminalEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_MEDIA_STATE), use_last_error=False)(10, 'get_State', ((1, 'pState'),)))
-    ITFileTerminalEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.FT_STATE_EVENT_CAUSE), use_last_error=False)(11, 'get_Cause', ((1, 'pCause'),)))
-    ITFileTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(12, 'get_Error', ((1, 'phrErrorCode'),)))
-    win32more.System.Com.IDispatch
-    return ITFileTerminalEvent
-def _define_ITTTSTerminalEvent_head():
-    class ITTTSTerminalEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d964788f-95a5-461d-ab0c-b9900a6c2713')
-    return ITTTSTerminalEvent
-def _define_ITTTSTerminalEvent():
-    ITTTSTerminalEvent = win32more.Devices.Tapi.ITTTSTerminalEvent_head
-    ITTTSTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
-    ITTTSTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
-    ITTTSTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrErrorCode'),)))
-    win32more.System.Com.IDispatch
-    return ITTTSTerminalEvent
-def _define_ITASRTerminalEvent_head():
-    class ITASRTerminalEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee016a02-4fa9-467c-933f-5a15b12377d7')
-    return ITASRTerminalEvent
-def _define_ITASRTerminalEvent():
-    ITASRTerminalEvent = win32more.Devices.Tapi.ITASRTerminalEvent_head
-    ITASRTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
-    ITASRTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
-    ITASRTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrErrorCode'),)))
-    win32more.System.Com.IDispatch
-    return ITASRTerminalEvent
-def _define_ITToneTerminalEvent_head():
-    class ITToneTerminalEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e6f56009-611f-4945-bbd2-2d0ce5612056')
-    return ITToneTerminalEvent
-def _define_ITToneTerminalEvent():
-    ITToneTerminalEvent = win32more.Devices.Tapi.ITToneTerminalEvent_head
-    ITToneTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
-    ITToneTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
-    ITToneTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrErrorCode'),)))
-    win32more.System.Com.IDispatch
-    return ITToneTerminalEvent
-def _define_ITQOSEvent_head():
-    class ITQOSEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('cfa3357c-ad77-11d1-bb68-00c04fb6809f')
-    return ITQOSEvent
-def _define_ITQOSEvent():
-    ITQOSEvent = win32more.Devices.Tapi.ITQOSEvent_head
-    ITQOSEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCall'),)))
-    ITQOSEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.QOS_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pQosEvent'),)))
-    ITQOSEvent.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_MediaType', ((1, 'plMediaType'),)))
-    win32more.System.Com.IDispatch
-    return ITQOSEvent
-def _define_ITCallInfoChangeEvent_head():
-    class ITCallInfoChangeEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5d4b65f9-e51c-11d1-a02f-00c04fb6809f')
-    return ITCallInfoChangeEvent
-def _define_ITCallInfoChangeEvent():
-    ITCallInfoChangeEvent = win32more.Devices.Tapi.ITCallInfoChangeEvent_head
-    ITCallInfoChangeEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCall'),)))
-    ITCallInfoChangeEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLINFOCHANGE_CAUSE), use_last_error=False)(8, 'get_Cause', ((1, 'pCIC'),)))
-    ITCallInfoChangeEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITCallInfoChangeEvent
-def _define_ITRequest_head():
-    class ITRequest(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ac48ffdf-f8c4-11d1-a030-00c04fb6809f')
-    return ITRequest
-def _define_ITRequest():
-    ITRequest = win32more.Devices.Tapi.ITRequest_head
-    ITRequest.MakeCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'MakeCall', ((1, 'pDestAddress'),(1, 'pAppName'),(1, 'pCalledParty'),(1, 'pComment'),)))
-    win32more.System.Com.IDispatch
-    return ITRequest
-def _define_ITRequestEvent_head():
-    class ITRequestEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ac48ffde-f8c4-11d1-a030-00c04fb6809f')
-    return ITRequestEvent
-def _define_ITRequestEvent():
-    ITRequestEvent = win32more.Devices.Tapi.ITRequestEvent_head
-    ITRequestEvent.get_RegistrationInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_RegistrationInstance', ((1, 'plRegistrationInstance'),)))
-    ITRequestEvent.get_RequestMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_RequestMode', ((1, 'plRequestMode'),)))
-    ITRequestEvent.get_DestAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_DestAddress', ((1, 'ppDestAddress'),)))
-    ITRequestEvent.get_AppName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_AppName', ((1, 'ppAppName'),)))
-    ITRequestEvent.get_CalledParty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_CalledParty', ((1, 'ppCalledParty'),)))
-    ITRequestEvent.get_Comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Comment', ((1, 'ppComment'),)))
-    win32more.System.Com.IDispatch
-    return ITRequestEvent
-def _define_ITCollection_head():
-    class ITCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5ec5acf2-9c02-11d0-8362-00aa003ccabd')
-    return ITCollection
-def _define_ITCollection():
-    ITCollection = win32more.Devices.Tapi.ITCollection_head
-    ITCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'lCount'),)))
-    ITCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'Index'),(1, 'pVariant'),)))
-    ITCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppNewEnum'),)))
-    win32more.System.Com.IDispatch
-    return ITCollection
-def _define_ITCollection2_head():
-    class ITCollection2(win32more.Devices.Tapi.ITCollection_head):
-        Guid = Guid('e6dddda5-a6d3-48ff-8737-d32fc4d95477')
-    return ITCollection2
-def _define_ITCollection2():
-    ITCollection2 = win32more.Devices.Tapi.ITCollection2_head
-    ITCollection2.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'Add', ((1, 'Index'),(1, 'pVariant'),)))
-    ITCollection2.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
-    win32more.Devices.Tapi.ITCollection
-    return ITCollection2
-def _define_ITForwardInformation_head():
-    class ITForwardInformation(win32more.System.Com.IDispatch_head):
-        Guid = Guid('449f659e-88a3-11d1-bb5d-00c04fb6809f')
-    return ITForwardInformation
-def _define_ITForwardInformation():
-    ITForwardInformation = win32more.Devices.Tapi.ITForwardInformation_head
-    ITForwardInformation.put_NumRingsNoAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_NumRingsNoAnswer', ((1, 'lNumRings'),)))
-    ITForwardInformation.get_NumRingsNoAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_NumRingsNoAnswer', ((1, 'plNumRings'),)))
-    ITForwardInformation.SetForwardType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(9, 'SetForwardType', ((1, 'ForwardType'),(1, 'pDestAddress'),(1, 'pCallerAddress'),)))
-    ITForwardInformation.get_ForwardTypeDestination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_ForwardTypeDestination', ((1, 'ForwardType'),(1, 'ppDestAddress'),)))
-    ITForwardInformation.get_ForwardTypeCaller = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_ForwardTypeCaller', ((1, 'Forwardtype'),(1, 'ppCallerAddress'),)))
-    ITForwardInformation.GetForwardType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'GetForwardType', ((1, 'ForwardType'),(1, 'ppDestinationAddress'),(1, 'ppCallerAddress'),)))
-    ITForwardInformation.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Clear', ()))
-    win32more.System.Com.IDispatch
-    return ITForwardInformation
-def _define_ITForwardInformation2_head():
-    class ITForwardInformation2(win32more.Devices.Tapi.ITForwardInformation_head):
-        Guid = Guid('5229b4ed-b260-4382-8e1a-5df3a8a4ccc0')
-    return ITForwardInformation2
-def _define_ITForwardInformation2():
-    ITForwardInformation2 = win32more.Devices.Tapi.ITForwardInformation2_head
-    ITForwardInformation2.SetForwardType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int32, use_last_error=False)(14, 'SetForwardType2', ((1, 'ForwardType'),(1, 'pDestAddress'),(1, 'DestAddressType'),(1, 'pCallerAddress'),(1, 'CallerAddressType'),)))
-    ITForwardInformation2.GetForwardType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(15, 'GetForwardType2', ((1, 'ForwardType'),(1, 'ppDestinationAddress'),(1, 'pDestAddressType'),(1, 'ppCallerAddress'),(1, 'pCallerAddressType'),)))
-    ITForwardInformation2.get_ForwardTypeDestinationAddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(16, 'get_ForwardTypeDestinationAddressType', ((1, 'ForwardType'),(1, 'pDestAddressType'),)))
-    ITForwardInformation2.get_ForwardTypeCallerAddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(17, 'get_ForwardTypeCallerAddressType', ((1, 'Forwardtype'),(1, 'pCallerAddressType'),)))
-    win32more.Devices.Tapi.ITForwardInformation
-    return ITForwardInformation2
-def _define_ITAddressTranslation_head():
-    class ITAddressTranslation(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0c4d8f03-8ddb-11d1-a09e-00805fc147d3')
-    return ITAddressTranslation
-def _define_ITAddressTranslation():
-    ITAddressTranslation = win32more.Devices.Tapi.ITAddressTranslation_head
-    ITAddressTranslation.TranslateAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Devices.Tapi.ITAddressTranslationInfo_head), use_last_error=False)(7, 'TranslateAddress', ((1, 'pAddressToTranslate'),(1, 'lCard'),(1, 'lTranslateOptions'),(1, 'ppTranslated'),)))
-    ITAddressTranslation.TranslateDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.Foundation.BSTR, use_last_error=False)(8, 'TranslateDialog', ((1, 'hwndOwner'),(1, 'pAddressIn'),)))
-    ITAddressTranslation.EnumerateLocations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumLocation_head), use_last_error=False)(9, 'EnumerateLocations', ((1, 'ppEnumLocation'),)))
-    ITAddressTranslation.get_Locations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Locations', ((1, 'pVariant'),)))
-    ITAddressTranslation.EnumerateCallingCards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallingCard_head), use_last_error=False)(11, 'EnumerateCallingCards', ((1, 'ppEnumCallingCard'),)))
-    ITAddressTranslation.get_CallingCards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_CallingCards', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITAddressTranslation
-def _define_ITAddressTranslationInfo_head():
-    class ITAddressTranslationInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('afc15945-8d40-11d1-a09e-00805fc147d3')
-    return ITAddressTranslationInfo
-def _define_ITAddressTranslationInfo():
-    ITAddressTranslationInfo = win32more.Devices.Tapi.ITAddressTranslationInfo_head
-    ITAddressTranslationInfo.get_DialableString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_DialableString', ((1, 'ppDialableString'),)))
-    ITAddressTranslationInfo.get_DisplayableString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_DisplayableString', ((1, 'ppDisplayableString'),)))
-    ITAddressTranslationInfo.get_CurrentCountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CurrentCountryCode', ((1, 'CountryCode'),)))
-    ITAddressTranslationInfo.get_DestinationCountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_DestinationCountryCode', ((1, 'CountryCode'),)))
-    ITAddressTranslationInfo.get_TranslationResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TranslationResults', ((1, 'plResults'),)))
-    win32more.System.Com.IDispatch
-    return ITAddressTranslationInfo
-def _define_ITLocationInfo_head():
-    class ITLocationInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0c4d8eff-8ddb-11d1-a09e-00805fc147d3')
-    return ITLocationInfo
-def _define_ITLocationInfo():
-    ITLocationInfo = win32more.Devices.Tapi.ITLocationInfo_head
-    ITLocationInfo.get_PermanentLocationID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_PermanentLocationID', ((1, 'plLocationID'),)))
-    ITLocationInfo.get_CountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_CountryCode', ((1, 'plCountryCode'),)))
-    ITLocationInfo.get_CountryID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CountryID', ((1, 'plCountryID'),)))
-    ITLocationInfo.get_Options = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_Options', ((1, 'plOptions'),)))
-    ITLocationInfo.get_PreferredCardID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_PreferredCardID', ((1, 'plCardID'),)))
-    ITLocationInfo.get_LocationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_LocationName', ((1, 'ppLocationName'),)))
-    ITLocationInfo.get_CityCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_CityCode', ((1, 'ppCode'),)))
-    ITLocationInfo.get_LocalAccessCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_LocalAccessCode', ((1, 'ppCode'),)))
-    ITLocationInfo.get_LongDistanceAccessCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_LongDistanceAccessCode', ((1, 'ppCode'),)))
-    ITLocationInfo.get_TollPrefixList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_TollPrefixList', ((1, 'ppTollList'),)))
-    ITLocationInfo.get_CancelCallWaitingCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_CancelCallWaitingCode', ((1, 'ppCode'),)))
-    win32more.System.Com.IDispatch
-    return ITLocationInfo
-def _define_IEnumLocation_head():
-    class IEnumLocation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c4d8f01-8ddb-11d1-a09e-00805fc147d3')
-    return IEnumLocation
-def _define_IEnumLocation():
-    IEnumLocation = win32more.Devices.Tapi.IEnumLocation_head
-    IEnumLocation.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITLocationInfo_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumLocation.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumLocation.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumLocation.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumLocation_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumLocation
-def _define_ITCallingCard_head():
-    class ITCallingCard(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0c4d8f00-8ddb-11d1-a09e-00805fc147d3')
-    return ITCallingCard
-def _define_ITCallingCard():
-    ITCallingCard = win32more.Devices.Tapi.ITCallingCard_head
-    ITCallingCard.get_PermanentCardID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_PermanentCardID', ((1, 'plCardID'),)))
-    ITCallingCard.get_NumberOfDigits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_NumberOfDigits', ((1, 'plDigits'),)))
-    ITCallingCard.get_Options = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Options', ((1, 'plOptions'),)))
-    ITCallingCard.get_CardName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_CardName', ((1, 'ppCardName'),)))
-    ITCallingCard.get_SameAreaDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_SameAreaDialingRule', ((1, 'ppRule'),)))
-    ITCallingCard.get_LongDistanceDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_LongDistanceDialingRule', ((1, 'ppRule'),)))
-    ITCallingCard.get_InternationalDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_InternationalDialingRule', ((1, 'ppRule'),)))
-    win32more.System.Com.IDispatch
-    return ITCallingCard
-def _define_IEnumCallingCard_head():
-    class IEnumCallingCard(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c4d8f02-8ddb-11d1-a09e-00805fc147d3')
-    return IEnumCallingCard
-def _define_IEnumCallingCard():
-    IEnumCallingCard = win32more.Devices.Tapi.IEnumCallingCard_head
-    IEnumCallingCard.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITCallingCard_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumCallingCard.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumCallingCard.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumCallingCard.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallingCard_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumCallingCard
-def _define_ITCallNotificationEvent_head():
-    class ITCallNotificationEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('895801df-3dd6-11d1-8f30-00c04fb6809f')
-    return ITCallNotificationEvent
-def _define_ITCallNotificationEvent():
-    ITCallNotificationEvent = win32more.Devices.Tapi.ITCallNotificationEvent_head
-    ITCallNotificationEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCall'),)))
-    ITCallNotificationEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_NOTIFICATION_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pCallNotificationEvent'),)))
-    ITCallNotificationEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
-    win32more.System.Com.IDispatch
-    return ITCallNotificationEvent
-def _define_ITDispatchMapper_head():
-    class ITDispatchMapper(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e9225295-c759-11d1-a02b-00c04fb6809f')
-    return ITDispatchMapper
-def _define_ITDispatchMapper():
-    ITDispatchMapper = win32more.Devices.Tapi.ITDispatchMapper_head
-    ITDispatchMapper.QueryDispatchInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'QueryDispatchInterface', ((1, 'pIID'),(1, 'pInterfaceToMap'),(1, 'ppReturnedInterface'),)))
-    win32more.System.Com.IDispatch
-    return ITDispatchMapper
-def _define_ITStreamControl_head():
-    class ITStreamControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee3bd604-3868-11d2-a045-00c04fb6809f')
-    return ITStreamControl
-def _define_ITStreamControl():
-    ITStreamControl = win32more.Devices.Tapi.ITStreamControl_head
-    ITStreamControl.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITStream_head), use_last_error=False)(7, 'CreateStream', ((1, 'lMediaType'),(1, 'td'),(1, 'ppStream'),)))
-    ITStreamControl.RemoveStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITStream_head, use_last_error=False)(8, 'RemoveStream', ((1, 'pStream'),)))
-    ITStreamControl.EnumerateStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumStream_head), use_last_error=False)(9, 'EnumerateStreams', ((1, 'ppEnumStream'),)))
-    ITStreamControl.get_Streams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Streams', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITStreamControl
-def _define_ITStream_head():
-    class ITStream(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee3bd605-3868-11d2-a045-00c04fb6809f')
-    return ITStream
-def _define_ITStream():
-    ITStream = win32more.Devices.Tapi.ITStream_head
-    ITStream.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_MediaType', ((1, 'plMediaType'),)))
-    ITStream.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(8, 'get_Direction', ((1, 'pTD'),)))
-    ITStream.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'ppName'),)))
-    ITStream.StartStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'StartStream', ()))
-    ITStream.PauseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'PauseStream', ()))
-    ITStream.StopStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'StopStream', ()))
-    ITStream.SelectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(13, 'SelectTerminal', ((1, 'pTerminal'),)))
-    ITStream.UnselectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(14, 'UnselectTerminal', ((1, 'pTerminal'),)))
-    ITStream.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(15, 'EnumerateTerminals', ((1, 'ppEnumTerminal'),)))
-    ITStream.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_Terminals', ((1, 'pTerminals'),)))
-    win32more.System.Com.IDispatch
-    return ITStream
-def _define_IEnumStream_head():
-    class IEnumStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ee3bd606-3868-11d2-a045-00c04fb6809f')
-    return IEnumStream
-def _define_IEnumStream():
-    IEnumStream = win32more.Devices.Tapi.IEnumStream_head
-    IEnumStream.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITStream_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumStream.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumStream.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumStream_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumStream
-def _define_ITSubStreamControl_head():
-    class ITSubStreamControl(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee3bd607-3868-11d2-a045-00c04fb6809f')
-    return ITSubStreamControl
-def _define_ITSubStreamControl():
-    ITSubStreamControl = win32more.Devices.Tapi.ITSubStreamControl_head
-    ITSubStreamControl.CreateSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITSubStream_head), use_last_error=False)(7, 'CreateSubStream', ((1, 'ppSubStream'),)))
-    ITSubStreamControl.RemoveSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITSubStream_head, use_last_error=False)(8, 'RemoveSubStream', ((1, 'pSubStream'),)))
-    ITSubStreamControl.EnumerateSubStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumSubStream_head), use_last_error=False)(9, 'EnumerateSubStreams', ((1, 'ppEnumSubStream'),)))
-    ITSubStreamControl.get_SubStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_SubStreams', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITSubStreamControl
-def _define_ITSubStream_head():
-    class ITSubStream(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee3bd608-3868-11d2-a045-00c04fb6809f')
-    return ITSubStream
-def _define_ITSubStream():
-    ITSubStream = win32more.Devices.Tapi.ITSubStream_head
-    ITSubStream.StartSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'StartSubStream', ()))
-    ITSubStream.PauseSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'PauseSubStream', ()))
-    ITSubStream.StopSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'StopSubStream', ()))
-    ITSubStream.SelectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(10, 'SelectTerminal', ((1, 'pTerminal'),)))
-    ITSubStream.UnselectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(11, 'UnselectTerminal', ((1, 'pTerminal'),)))
-    ITSubStream.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(12, 'EnumerateTerminals', ((1, 'ppEnumTerminal'),)))
-    ITSubStream.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_Terminals', ((1, 'pTerminals'),)))
-    ITSubStream.get_Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITStream_head), use_last_error=False)(14, 'get_Stream', ((1, 'ppITStream'),)))
-    win32more.System.Com.IDispatch
-    return ITSubStream
-def _define_IEnumSubStream_head():
-    class IEnumSubStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ee3bd609-3868-11d2-a045-00c04fb6809f')
-    return IEnumSubStream
-def _define_IEnumSubStream():
-    IEnumSubStream = win32more.Devices.Tapi.IEnumSubStream_head
-    IEnumSubStream.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITSubStream_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumSubStream.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumSubStream.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumSubStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumSubStream_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSubStream
-def _define_ITLegacyWaveSupport_head():
-    class ITLegacyWaveSupport(win32more.System.Com.IDispatch_head):
-        Guid = Guid('207823ea-e252-11d2-b77e-0080c7135381')
-    return ITLegacyWaveSupport
-def _define_ITLegacyWaveSupport():
-    ITLegacyWaveSupport = win32more.Devices.Tapi.ITLegacyWaveSupport_head
-    ITLegacyWaveSupport.IsFullDuplex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.FULLDUPLEX_SUPPORT), use_last_error=False)(7, 'IsFullDuplex', ((1, 'pSupport'),)))
-    win32more.System.Com.IDispatch
-    return ITLegacyWaveSupport
-def _define_ITBasicCallControl2_head():
-    class ITBasicCallControl2(win32more.Devices.Tapi.ITBasicCallControl_head):
-        Guid = Guid('161a4a56-1e99-4b3f-a46a-168f38a5ee4c')
-    return ITBasicCallControl2
-def _define_ITBasicCallControl2():
-    ITBasicCallControl2 = win32more.Devices.Tapi.ITBasicCallControl2_head
-    ITBasicCallControl2.RequestTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(25, 'RequestTerminal', ((1, 'bstrTerminalClassGUID'),(1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
-    ITBasicCallControl2.SelectTerminalOnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(26, 'SelectTerminalOnCall', ((1, 'pTerminal'),)))
-    ITBasicCallControl2.UnselectTerminalOnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(27, 'UnselectTerminalOnCall', ((1, 'pTerminal'),)))
-    win32more.Devices.Tapi.ITBasicCallControl
-    return ITBasicCallControl2
-def _define_ITScriptableAudioFormat_head():
-    class ITScriptableAudioFormat(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b87658bd-3c59-4f64-be74-aede3e86a81e')
-    return ITScriptableAudioFormat
-def _define_ITScriptableAudioFormat():
-    ITScriptableAudioFormat = win32more.Devices.Tapi.ITScriptableAudioFormat_head
-    ITScriptableAudioFormat.get_Channels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Channels', ((1, 'pVal'),)))
-    ITScriptableAudioFormat.put_Channels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_Channels', ((1, 'nNewVal'),)))
-    ITScriptableAudioFormat.get_SamplesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_SamplesPerSec', ((1, 'pVal'),)))
-    ITScriptableAudioFormat.put_SamplesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_SamplesPerSec', ((1, 'nNewVal'),)))
-    ITScriptableAudioFormat.get_AvgBytesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_AvgBytesPerSec', ((1, 'pVal'),)))
-    ITScriptableAudioFormat.put_AvgBytesPerSec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_AvgBytesPerSec', ((1, 'nNewVal'),)))
-    ITScriptableAudioFormat.get_BlockAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_BlockAlign', ((1, 'pVal'),)))
-    ITScriptableAudioFormat.put_BlockAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'put_BlockAlign', ((1, 'nNewVal'),)))
-    ITScriptableAudioFormat.get_BitsPerSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_BitsPerSample', ((1, 'pVal'),)))
-    ITScriptableAudioFormat.put_BitsPerSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'put_BitsPerSample', ((1, 'nNewVal'),)))
-    ITScriptableAudioFormat.get_FormatTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_FormatTag', ((1, 'pVal'),)))
-    ITScriptableAudioFormat.put_FormatTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'put_FormatTag', ((1, 'nNewVal'),)))
-    win32more.System.Com.IDispatch
-    return ITScriptableAudioFormat
-AGENT_EVENT = Int32
-AE_NOT_READY = 0
-AE_READY = 1
-AE_BUSY_ACD = 2
-AE_BUSY_INCOMING = 3
-AE_BUSY_OUTGOING = 4
-AE_UNKNOWN = 5
-AGENT_STATE = Int32
-AS_NOT_READY = 0
-AS_READY = 1
-AS_BUSY_ACD = 2
-AS_BUSY_INCOMING = 3
-AS_BUSY_OUTGOING = 4
-AS_UNKNOWN = 5
-AGENT_SESSION_EVENT = Int32
-ASE_NEW_SESSION = 0
-ASE_NOT_READY = 1
-ASE_READY = 2
-ASE_BUSY = 3
-ASE_WRAPUP = 4
-ASE_END = 5
-AGENT_SESSION_STATE = Int32
-ASST_NOT_READY = 0
-ASST_READY = 1
-ASST_BUSY_ON_CALL = 2
-ASST_BUSY_WRAPUP = 3
-ASST_SESSION_ENDED = 4
-AGENTHANDLER_EVENT = Int32
-AHE_NEW_AGENTHANDLER = 0
-AHE_AGENTHANDLER_REMOVED = 1
-ACDGROUP_EVENT = Int32
-ACDGE_NEW_GROUP = 0
-ACDGE_GROUP_REMOVED = 1
-ACDQUEUE_EVENT = Int32
-ACDQE_NEW_QUEUE = 0
-ACDQE_QUEUE_REMOVED = 1
-def _define_ITAgent_head():
-    class ITAgent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5770ece5-4b27-11d1-bf80-00805fc147d3')
-    return ITAgent
-def _define_ITAgent():
-    ITAgent = win32more.Devices.Tapi.ITAgent_head
-    ITAgent.EnumerateAgentSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentSession_head), use_last_error=False)(7, 'EnumerateAgentSessions', ((1, 'ppEnumAgentSession'),)))
-    ITAgent.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITACDGroup_head,win32more.Devices.Tapi.ITAddress_head,POINTER(win32more.Devices.Tapi.ITAgentSession_head), use_last_error=False)(8, 'CreateSession', ((1, 'pACDGroup'),(1, 'pAddress'),(1, 'ppAgentSession'),)))
-    ITAgent.CreateSessionWithPIN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITACDGroup_head,win32more.Devices.Tapi.ITAddress_head,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITAgentSession_head), use_last_error=False)(9, 'CreateSessionWithPIN', ((1, 'pACDGroup'),(1, 'pAddress'),(1, 'pPIN'),(1, 'ppAgentSession'),)))
-    ITAgent.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_ID', ((1, 'ppID'),)))
-    ITAgent.get_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_User', ((1, 'ppUser'),)))
-    ITAgent.put_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.AGENT_STATE, use_last_error=False)(12, 'put_State', ((1, 'AgentState'),)))
-    ITAgent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_STATE), use_last_error=False)(13, 'get_State', ((1, 'pAgentState'),)))
-    ITAgent.put_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'put_MeasurementPeriod', ((1, 'lPeriod'),)))
-    ITAgent.get_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_MeasurementPeriod', ((1, 'plPeriod'),)))
-    ITAgent.get_OverallCallRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.CY_head), use_last_error=False)(16, 'get_OverallCallRate', ((1, 'pcyCallrate'),)))
-    ITAgent.get_NumberOfACDCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_NumberOfACDCalls', ((1, 'plCalls'),)))
-    ITAgent.get_NumberOfIncomingCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_NumberOfIncomingCalls', ((1, 'plCalls'),)))
-    ITAgent.get_NumberOfOutgoingCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_NumberOfOutgoingCalls', ((1, 'plCalls'),)))
-    ITAgent.get_TotalACDTalkTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(20, 'get_TotalACDTalkTime', ((1, 'plTalkTime'),)))
-    ITAgent.get_TotalACDCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(21, 'get_TotalACDCallTime', ((1, 'plCallTime'),)))
-    ITAgent.get_TotalWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_TotalWrapUpTime', ((1, 'plWrapUpTime'),)))
-    ITAgent.get_AgentSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'get_AgentSessions', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITAgent
-def _define_ITAgentSession_head():
-    class ITAgentSession(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5afc3147-4bcc-11d1-bf80-00805fc147d3')
-    return ITAgentSession
-def _define_ITAgentSession():
-    ITAgentSession = win32more.Devices.Tapi.ITAgentSession_head
-    ITAgentSession.get_Agent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head), use_last_error=False)(7, 'get_Agent', ((1, 'ppAgent'),)))
-    ITAgentSession.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(8, 'get_Address', ((1, 'ppAddress'),)))
-    ITAgentSession.get_ACDGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITACDGroup_head), use_last_error=False)(9, 'get_ACDGroup', ((1, 'ppACDGroup'),)))
-    ITAgentSession.put_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.AGENT_SESSION_STATE, use_last_error=False)(10, 'put_State', ((1, 'SessionState'),)))
-    ITAgentSession.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_SESSION_STATE), use_last_error=False)(11, 'get_State', ((1, 'pSessionState'),)))
-    ITAgentSession.get_SessionStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(12, 'get_SessionStartTime', ((1, 'pdateSessionStart'),)))
-    ITAgentSession.get_SessionDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_SessionDuration', ((1, 'plDuration'),)))
-    ITAgentSession.get_NumberOfCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_NumberOfCalls', ((1, 'plCalls'),)))
-    ITAgentSession.get_TotalTalkTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_TotalTalkTime', ((1, 'plTalkTime'),)))
-    ITAgentSession.get_AverageTalkTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_AverageTalkTime', ((1, 'plTalkTime'),)))
-    ITAgentSession.get_TotalCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_TotalCallTime', ((1, 'plCallTime'),)))
-    ITAgentSession.get_AverageCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_AverageCallTime', ((1, 'plCallTime'),)))
-    ITAgentSession.get_TotalWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_TotalWrapUpTime', ((1, 'plWrapUpTime'),)))
-    ITAgentSession.get_AverageWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(20, 'get_AverageWrapUpTime', ((1, 'plWrapUpTime'),)))
-    ITAgentSession.get_ACDCallRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.CY_head), use_last_error=False)(21, 'get_ACDCallRate', ((1, 'pcyCallrate'),)))
-    ITAgentSession.get_LongestTimeToAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_LongestTimeToAnswer', ((1, 'plAnswerTime'),)))
-    ITAgentSession.get_AverageTimeToAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_AverageTimeToAnswer', ((1, 'plAnswerTime'),)))
-    win32more.System.Com.IDispatch
-    return ITAgentSession
-def _define_ITACDGroup_head():
-    class ITACDGroup(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5afc3148-4bcc-11d1-bf80-00805fc147d3')
-    return ITACDGroup
-def _define_ITACDGroup():
-    ITACDGroup = win32more.Devices.Tapi.ITACDGroup_head
-    ITACDGroup.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'ppName'),)))
-    ITACDGroup.EnumerateQueues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumQueue_head), use_last_error=False)(8, 'EnumerateQueues', ((1, 'ppEnumQueue'),)))
-    ITACDGroup.get_Queues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Queues', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITACDGroup
-def _define_ITQueue_head():
-    class ITQueue(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5afc3149-4bcc-11d1-bf80-00805fc147d3')
-    return ITQueue
-def _define_ITQueue():
-    ITQueue = win32more.Devices.Tapi.ITQueue_head
-    ITQueue.put_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_MeasurementPeriod', ((1, 'lPeriod'),)))
-    ITQueue.get_MeasurementPeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_MeasurementPeriod', ((1, 'plPeriod'),)))
-    ITQueue.get_TotalCallsQueued = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TotalCallsQueued', ((1, 'plCalls'),)))
-    ITQueue.get_CurrentCallsQueued = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CurrentCallsQueued', ((1, 'plCalls'),)))
-    ITQueue.get_TotalCallsAbandoned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TotalCallsAbandoned', ((1, 'plCalls'),)))
-    ITQueue.get_TotalCallsFlowedIn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_TotalCallsFlowedIn', ((1, 'plCalls'),)))
-    ITQueue.get_TotalCallsFlowedOut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_TotalCallsFlowedOut', ((1, 'plCalls'),)))
-    ITQueue.get_LongestEverWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_LongestEverWaitTime', ((1, 'plWaitTime'),)))
-    ITQueue.get_CurrentLongestWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_CurrentLongestWaitTime', ((1, 'plWaitTime'),)))
-    ITQueue.get_AverageWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_AverageWaitTime', ((1, 'plWaitTime'),)))
-    ITQueue.get_FinalDisposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_FinalDisposition', ((1, 'plCalls'),)))
-    ITQueue.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_Name', ((1, 'ppName'),)))
-    win32more.System.Com.IDispatch
-    return ITQueue
-def _define_ITAgentEvent_head():
-    class ITAgentEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5afc314a-4bcc-11d1-bf80-00805fc147d3')
-    return ITAgentEvent
-def _define_ITAgentEvent():
-    ITAgentEvent = win32more.Devices.Tapi.ITAgentEvent_head
-    ITAgentEvent.get_Agent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head), use_last_error=False)(7, 'get_Agent', ((1, 'ppAgent'),)))
-    ITAgentEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    win32more.System.Com.IDispatch
-    return ITAgentEvent
-def _define_ITAgentSessionEvent_head():
-    class ITAgentSessionEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5afc314b-4bcc-11d1-bf80-00805fc147d3')
-    return ITAgentSessionEvent
-def _define_ITAgentSessionEvent():
-    ITAgentSessionEvent = win32more.Devices.Tapi.ITAgentSessionEvent_head
-    ITAgentSessionEvent.get_Session = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgentSession_head), use_last_error=False)(7, 'get_Session', ((1, 'ppSession'),)))
-    ITAgentSessionEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_SESSION_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    win32more.System.Com.IDispatch
-    return ITAgentSessionEvent
-def _define_ITACDGroupEvent_head():
-    class ITACDGroupEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('297f3032-bd11-11d1-a0a7-00805fc147d3')
-    return ITACDGroupEvent
-def _define_ITACDGroupEvent():
-    ITACDGroupEvent = win32more.Devices.Tapi.ITACDGroupEvent_head
-    ITACDGroupEvent.get_Group = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITACDGroup_head), use_last_error=False)(7, 'get_Group', ((1, 'ppGroup'),)))
-    ITACDGroupEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ACDGROUP_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    win32more.System.Com.IDispatch
-    return ITACDGroupEvent
-def _define_ITQueueEvent_head():
-    class ITQueueEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('297f3033-bd11-11d1-a0a7-00805fc147d3')
-    return ITQueueEvent
-def _define_ITQueueEvent():
-    ITQueueEvent = win32more.Devices.Tapi.ITQueueEvent_head
-    ITQueueEvent.get_Queue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITQueue_head), use_last_error=False)(7, 'get_Queue', ((1, 'ppQueue'),)))
-    ITQueueEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ACDQUEUE_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    win32more.System.Com.IDispatch
-    return ITQueueEvent
-def _define_ITAgentHandlerEvent_head():
-    class ITAgentHandlerEvent(win32more.System.Com.IDispatch_head):
-        Guid = Guid('297f3034-bd11-11d1-a0a7-00805fc147d3')
-    return ITAgentHandlerEvent
-def _define_ITAgentHandlerEvent():
-    ITAgentHandlerEvent = win32more.Devices.Tapi.ITAgentHandlerEvent_head
-    ITAgentHandlerEvent.get_AgentHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgentHandler_head), use_last_error=False)(7, 'get_AgentHandler', ((1, 'ppAgentHandler'),)))
-    ITAgentHandlerEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENTHANDLER_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
-    win32more.System.Com.IDispatch
-    return ITAgentHandlerEvent
-def _define_ITTAPICallCenter_head():
-    class ITTAPICallCenter(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5afc3154-4bcc-11d1-bf80-00805fc147d3')
-    return ITTAPICallCenter
-def _define_ITTAPICallCenter():
-    ITTAPICallCenter = win32more.Devices.Tapi.ITTAPICallCenter_head
-    ITTAPICallCenter.EnumerateAgentHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentHandler_head), use_last_error=False)(7, 'EnumerateAgentHandlers', ((1, 'ppEnumHandler'),)))
-    ITTAPICallCenter.get_AgentHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_AgentHandlers', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITTAPICallCenter
-def _define_ITAgentHandler_head():
-    class ITAgentHandler(win32more.System.Com.IDispatch_head):
-        Guid = Guid('587e8c22-9802-11d1-a0a4-00805fc147d3')
-    return ITAgentHandler
-def _define_ITAgentHandler():
-    ITAgentHandler = win32more.Devices.Tapi.ITAgentHandler_head
-    ITAgentHandler.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'ppName'),)))
-    ITAgentHandler.CreateAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head), use_last_error=False)(8, 'CreateAgent', ((1, 'ppAgent'),)))
-    ITAgentHandler.CreateAgentWithID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITAgent_head), use_last_error=False)(9, 'CreateAgentWithID', ((1, 'pID'),(1, 'pPIN'),(1, 'ppAgent'),)))
-    ITAgentHandler.EnumerateACDGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumACDGroup_head), use_last_error=False)(10, 'EnumerateACDGroups', ((1, 'ppEnumACDGroup'),)))
-    ITAgentHandler.EnumerateUsableAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(11, 'EnumerateUsableAddresses', ((1, 'ppEnumAddress'),)))
-    ITAgentHandler.get_ACDGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_ACDGroups', ((1, 'pVariant'),)))
-    ITAgentHandler.get_UsableAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_UsableAddresses', ((1, 'pVariant'),)))
-    win32more.System.Com.IDispatch
-    return ITAgentHandler
-def _define_IEnumAgent_head():
-    class IEnumAgent(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5afc314d-4bcc-11d1-bf80-00805fc147d3')
-    return IEnumAgent
-def _define_IEnumAgent():
-    IEnumAgent = win32more.Devices.Tapi.IEnumAgent_head
-    IEnumAgent.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAgent_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumAgent.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumAgent.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumAgent.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgent_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumAgent
-def _define_IEnumAgentSession_head():
-    class IEnumAgentSession(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5afc314e-4bcc-11d1-bf80-00805fc147d3')
-    return IEnumAgentSession
-def _define_IEnumAgentSession():
-    IEnumAgentSession = win32more.Devices.Tapi.IEnumAgentSession_head
-    IEnumAgentSession.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAgentSession_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumAgentSession.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumAgentSession.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumAgentSession.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentSession_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumAgentSession
-def _define_IEnumQueue_head():
-    class IEnumQueue(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5afc3158-4bcc-11d1-bf80-00805fc147d3')
-    return IEnumQueue
-def _define_IEnumQueue():
-    IEnumQueue = win32more.Devices.Tapi.IEnumQueue_head
-    IEnumQueue.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITQueue_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumQueue.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumQueue.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumQueue.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumQueue_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumQueue
-def _define_IEnumACDGroup_head():
-    class IEnumACDGroup(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5afc3157-4bcc-11d1-bf80-00805fc147d3')
-    return IEnumACDGroup
-def _define_IEnumACDGroup():
-    IEnumACDGroup = win32more.Devices.Tapi.IEnumACDGroup_head
-    IEnumACDGroup.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITACDGroup_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumACDGroup.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumACDGroup.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumACDGroup.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumACDGroup_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumACDGroup
-def _define_IEnumAgentHandler_head():
-    class IEnumAgentHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('587e8c28-9802-11d1-a0a4-00805fc147d3')
-    return IEnumAgentHandler
-def _define_IEnumAgentHandler():
-    IEnumAgentHandler = win32more.Devices.Tapi.IEnumAgentHandler_head
-    IEnumAgentHandler.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITAgentHandler_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pceltFetched'),)))
-    IEnumAgentHandler.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumAgentHandler.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumAgentHandler.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentHandler_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumAgentHandler
-def _define_ITAMMediaFormat_head():
-    class ITAMMediaFormat(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0364eb00-4a77-11d1-a671-006097c9a2e8')
-    return ITAMMediaFormat
-def _define_ITAMMediaFormat():
-    ITAMMediaFormat = win32more.Devices.Tapi.ITAMMediaFormat_head
-    ITAMMediaFormat.get_MediaFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.DirectShow.AM_MEDIA_TYPE_head)), use_last_error=False)(3, 'get_MediaFormat', ((1, 'ppmt'),)))
-    ITAMMediaFormat.put_MediaFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.AM_MEDIA_TYPE_head), use_last_error=False)(4, 'put_MediaFormat', ((1, 'pmt'),)))
-    win32more.System.Com.IUnknown
-    return ITAMMediaFormat
-def _define_ITAllocatorProperties_head():
-    class ITAllocatorProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c1bc3c90-bcfe-11d1-9745-00c04fd91ac0')
-    return ITAllocatorProperties
-def _define_ITAllocatorProperties():
-    ITAllocatorProperties = win32more.Devices.Tapi.ITAllocatorProperties_head
-    ITAllocatorProperties.SetAllocatorProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.ALLOCATOR_PROPERTIES_head), use_last_error=False)(3, 'SetAllocatorProperties', ((1, 'pAllocProperties'),)))
-    ITAllocatorProperties.GetAllocatorProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.ALLOCATOR_PROPERTIES_head), use_last_error=False)(4, 'GetAllocatorProperties', ((1, 'pAllocProperties'),)))
-    ITAllocatorProperties.SetAllocateBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetAllocateBuffers', ((1, 'bAllocBuffers'),)))
-    ITAllocatorProperties.GetAllocateBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetAllocateBuffers', ((1, 'pbAllocBuffers'),)))
-    ITAllocatorProperties.SetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'SetBufferSize', ((1, 'BufferSize'),)))
-    ITAllocatorProperties.GetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetBufferSize', ((1, 'pBufferSize'),)))
-    win32more.System.Com.IUnknown
-    return ITAllocatorProperties
-MSP_ADDRESS_EVENT = Int32
-ADDRESS_TERMINAL_AVAILABLE = 0
-ADDRESS_TERMINAL_UNAVAILABLE = 1
-MSP_CALL_EVENT = Int32
-CALL_NEW_STREAM = 0
-CALL_STREAM_FAIL = 1
-CALL_TERMINAL_FAIL = 2
-CALL_STREAM_NOT_USED = 3
-CALL_STREAM_ACTIVE = 4
-CALL_STREAM_INACTIVE = 5
-MSP_CALL_EVENT_CAUSE = Int32
-CALL_CAUSE_UNKNOWN = 0
-CALL_CAUSE_BAD_DEVICE = 1
-CALL_CAUSE_CONNECT_FAIL = 2
-CALL_CAUSE_LOCAL_REQUEST = 3
-CALL_CAUSE_REMOTE_REQUEST = 4
-CALL_CAUSE_MEDIA_TIMEOUT = 5
-CALL_CAUSE_MEDIA_RECOVERED = 6
-CALL_CAUSE_QUALITY_OF_SERVICE = 7
-MSP_EVENT = Int32
-ME_ADDRESS_EVENT = 0
-ME_CALL_EVENT = 1
-ME_TSP_DATA = 2
-ME_PRIVATE_EVENT = 3
-ME_ASR_TERMINAL_EVENT = 4
-ME_TTS_TERMINAL_EVENT = 5
-ME_FILE_TERMINAL_EVENT = 6
-ME_TONE_TERMINAL_EVENT = 7
-def _define_MSP_EVENT_INFO_head():
-    class MSP_EVENT_INFO(Structure):
+def _define_PHONEBUTTONINFO_head():
+    class PHONEBUTTONINFO(Structure):
         pass
-    return MSP_EVENT_INFO
-def _define_MSP_EVENT_INFO():
-    MSP_EVENT_INFO = win32more.Devices.Tapi.MSP_EVENT_INFO_head
-    class MSP_EVENT_INFO__Anonymous_e__Union(Union):
+    return PHONEBUTTONINFO
+def _define_PHONEBUTTONINFO():
+    PHONEBUTTONINFO = win32more.Devices.Tapi.PHONEBUTTONINFO_head
+    PHONEBUTTONINFO._pack_ = 1
+    PHONEBUTTONINFO._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwButtonMode', UInt32),
+        ('dwButtonFunction', UInt32),
+        ('dwButtonTextSize', UInt32),
+        ('dwButtonTextOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwButtonState', UInt32),
+    ]
+    return PHONEBUTTONINFO
+def _define_PHONECALLBACK():
+    return WINFUNCTYPE(Void,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr,UIntPtr)
+def _define_PHONECAPS_head():
+    class PHONECAPS(Structure):
         pass
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_TONE_TERMINAL_EVENT_INFO_e__Struct(Structure):
+    return PHONECAPS
+def _define_PHONECAPS():
+    PHONECAPS = win32more.Devices.Tapi.PHONECAPS_head
+    PHONECAPS._pack_ = 1
+    PHONECAPS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwProviderInfoSize', UInt32),
+        ('dwProviderInfoOffset', UInt32),
+        ('dwPhoneInfoSize', UInt32),
+        ('dwPhoneInfoOffset', UInt32),
+        ('dwPermanentPhoneID', UInt32),
+        ('dwPhoneNameSize', UInt32),
+        ('dwPhoneNameOffset', UInt32),
+        ('dwStringFormat', UInt32),
+        ('dwPhoneStates', UInt32),
+        ('dwHookSwitchDevs', UInt32),
+        ('dwHandsetHookSwitchModes', UInt32),
+        ('dwSpeakerHookSwitchModes', UInt32),
+        ('dwHeadsetHookSwitchModes', UInt32),
+        ('dwVolumeFlags', UInt32),
+        ('dwGainFlags', UInt32),
+        ('dwDisplayNumRows', UInt32),
+        ('dwDisplayNumColumns', UInt32),
+        ('dwNumRingModes', UInt32),
+        ('dwNumButtonLamps', UInt32),
+        ('dwButtonModesSize', UInt32),
+        ('dwButtonModesOffset', UInt32),
+        ('dwButtonFunctionsSize', UInt32),
+        ('dwButtonFunctionsOffset', UInt32),
+        ('dwLampModesSize', UInt32),
+        ('dwLampModesOffset', UInt32),
+        ('dwNumSetData', UInt32),
+        ('dwSetDataSize', UInt32),
+        ('dwSetDataOffset', UInt32),
+        ('dwNumGetData', UInt32),
+        ('dwGetDataSize', UInt32),
+        ('dwGetDataOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwDeviceClassesSize', UInt32),
+        ('dwDeviceClassesOffset', UInt32),
+        ('dwPhoneFeatures', UInt32),
+        ('dwSettableHandsetHookSwitchModes', UInt32),
+        ('dwSettableSpeakerHookSwitchModes', UInt32),
+        ('dwSettableHeadsetHookSwitchModes', UInt32),
+        ('dwMonitoredHandsetHookSwitchModes', UInt32),
+        ('dwMonitoredSpeakerHookSwitchModes', UInt32),
+        ('dwMonitoredHeadsetHookSwitchModes', UInt32),
+        ('PermanentPhoneGuid', Guid),
+    ]
+    return PHONECAPS
+PHONECAPS_BUFFER = Int32
+PCB_DEVSPECIFICBUFFER = 0
+PHONECAPS_LONG = Int32
+PCL_HOOKSWITCHES = 0
+PCL_HANDSETHOOKSWITCHMODES = 1
+PCL_HEADSETHOOKSWITCHMODES = 2
+PCL_SPEAKERPHONEHOOKSWITCHMODES = 3
+PCL_DISPLAYNUMROWS = 4
+PCL_DISPLAYNUMCOLUMNS = 5
+PCL_NUMRINGMODES = 6
+PCL_NUMBUTTONLAMPS = 7
+PCL_GENERICPHONE = 8
+PHONECAPS_STRING = Int32
+PCS_PHONENAME = 0
+PCS_PHONEINFO = 1
+PCS_PROVIDERINFO = 2
+def _define_PHONEEVENT():
+    return WINFUNCTYPE(Void,POINTER(win32more.Devices.Tapi.HTAPIPHONE___head),UInt32,UIntPtr,UIntPtr,UIntPtr)
+def _define_PHONEEXTENSIONID_head():
+    class PHONEEXTENSIONID(Structure):
         pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_TONE_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
-        ("pToneTerminal", win32more.Devices.Tapi.ITTerminal_head),
-        ("hrErrorCode", win32more.Foundation.HRESULT),
+    return PHONEEXTENSIONID
+def _define_PHONEEXTENSIONID():
+    PHONEEXTENSIONID = win32more.Devices.Tapi.PHONEEXTENSIONID_head
+    PHONEEXTENSIONID._pack_ = 1
+    PHONEEXTENSIONID._fields_ = [
+        ('dwExtensionID0', UInt32),
+        ('dwExtensionID1', UInt32),
+        ('dwExtensionID2', UInt32),
+        ('dwExtensionID3', UInt32),
     ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_ASR_TERMINAL_EVENT_INFO_e__Struct(Structure):
+    return PHONEEXTENSIONID
+def _define_PHONEINITIALIZEEXPARAMS_head():
+    class PHONEINITIALIZEEXPARAMS(Structure):
         pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_ASR_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
-        ("pASRTerminal", win32more.Devices.Tapi.ITTerminal_head),
-        ("hrErrorCode", win32more.Foundation.HRESULT),
-    ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_PRIVATE_EVENT_INFO_e__Struct(Structure):
+    return PHONEINITIALIZEEXPARAMS
+def _define_PHONEINITIALIZEEXPARAMS():
+    PHONEINITIALIZEEXPARAMS = win32more.Devices.Tapi.PHONEINITIALIZEEXPARAMS_head
+    class PHONEINITIALIZEEXPARAMS__Handles_e__Union(Union):
         pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_PRIVATE_EVENT_INFO_e__Struct._fields_ = [
-        ("pEvent", win32more.System.Com.IDispatch_head),
-        ("lEventCode", Int32),
+    PHONEINITIALIZEEXPARAMS__Handles_e__Union._pack_ = 1
+    PHONEINITIALIZEEXPARAMS__Handles_e__Union._fields_ = [
+        ('hEvent', win32more.Foundation.HANDLE),
+        ('hCompletionPort', win32more.Foundation.HANDLE),
     ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_CALL_EVENT_INFO_e__Struct(Structure):
+    PHONEINITIALIZEEXPARAMS._pack_ = 1
+    PHONEINITIALIZEEXPARAMS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwOptions', UInt32),
+        ('Handles', PHONEINITIALIZEEXPARAMS__Handles_e__Union),
+        ('dwCompletionKey', UInt32),
+    ]
+    return PHONEINITIALIZEEXPARAMS
+def _define_PHONEMESSAGE_head():
+    class PHONEMESSAGE(Structure):
         pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_CALL_EVENT_INFO_e__Struct._fields_ = [
-        ("Type", win32more.Devices.Tapi.MSP_CALL_EVENT),
-        ("Cause", win32more.Devices.Tapi.MSP_CALL_EVENT_CAUSE),
-        ("pStream", win32more.Devices.Tapi.ITStream_head),
-        ("pTerminal", win32more.Devices.Tapi.ITTerminal_head),
-        ("hrError", win32more.Foundation.HRESULT),
+    return PHONEMESSAGE
+def _define_PHONEMESSAGE():
+    PHONEMESSAGE = win32more.Devices.Tapi.PHONEMESSAGE_head
+    PHONEMESSAGE._pack_ = 1
+    PHONEMESSAGE._fields_ = [
+        ('hDevice', UInt32),
+        ('dwMessageID', UInt32),
+        ('dwCallbackInstance', UIntPtr),
+        ('dwParam1', UIntPtr),
+        ('dwParam2', UIntPtr),
+        ('dwParam3', UIntPtr),
     ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_FILE_TERMINAL_EVENT_INFO_e__Struct(Structure):
+    return PHONEMESSAGE
+def _define_PHONESTATUS_head():
+    class PHONESTATUS(Structure):
         pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_FILE_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
-        ("pParentFileTerminal", win32more.Devices.Tapi.ITTerminal_head),
-        ("pFileTrack", win32more.Devices.Tapi.ITFileTrack_head),
-        ("TerminalMediaState", win32more.Devices.Tapi.TERMINAL_MEDIA_STATE),
-        ("ftecEventCause", win32more.Devices.Tapi.FT_STATE_EVENT_CAUSE),
-        ("hrErrorCode", win32more.Foundation.HRESULT),
+    return PHONESTATUS
+def _define_PHONESTATUS():
+    PHONESTATUS = win32more.Devices.Tapi.PHONESTATUS_head
+    PHONESTATUS._pack_ = 1
+    PHONESTATUS._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwStatusFlags', UInt32),
+        ('dwNumOwners', UInt32),
+        ('dwNumMonitors', UInt32),
+        ('dwRingMode', UInt32),
+        ('dwRingVolume', UInt32),
+        ('dwHandsetHookSwitchMode', UInt32),
+        ('dwHandsetVolume', UInt32),
+        ('dwHandsetGain', UInt32),
+        ('dwSpeakerHookSwitchMode', UInt32),
+        ('dwSpeakerVolume', UInt32),
+        ('dwSpeakerGain', UInt32),
+        ('dwHeadsetHookSwitchMode', UInt32),
+        ('dwHeadsetVolume', UInt32),
+        ('dwHeadsetGain', UInt32),
+        ('dwDisplaySize', UInt32),
+        ('dwDisplayOffset', UInt32),
+        ('dwLampModesSize', UInt32),
+        ('dwLampModesOffset', UInt32),
+        ('dwOwnerNameSize', UInt32),
+        ('dwOwnerNameOffset', UInt32),
+        ('dwDevSpecificSize', UInt32),
+        ('dwDevSpecificOffset', UInt32),
+        ('dwPhoneFeatures', UInt32),
     ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_ADDRESS_EVENT_INFO_e__Struct(Structure):
+    return PHONESTATUS
+QOS_EVENT = Int32
+QE_NOQOS = 1
+QE_ADMISSIONFAILURE = 2
+QE_POLICYFAILURE = 3
+QE_GENERICERROR = 4
+QE_LASTITEM = 4
+QOS_SERVICE_LEVEL = Int32
+QSL_NEEDED = 1
+QSL_IF_AVAILABLE = 2
+QSL_BEST_EFFORT = 3
+def _define_RENDDATA_head():
+    class RENDDATA(Structure):
         pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_ADDRESS_EVENT_INFO_e__Struct._fields_ = [
-        ("Type", win32more.Devices.Tapi.MSP_ADDRESS_EVENT),
-        ("pTerminal", win32more.Devices.Tapi.ITTerminal_head),
+    return RENDDATA
+def _define_RENDDATA():
+    RENDDATA = win32more.Devices.Tapi.RENDDATA_head
+    RENDDATA._pack_ = 1
+    RENDDATA._fields_ = [
+        ('atyp', UInt16),
+        ('ulPosition', UInt32),
+        ('dxWidth', UInt16),
+        ('dyHeight', UInt16),
+        ('dwFlags', UInt32),
     ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_TSP_DATA_e__Struct(Structure):
-        pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_TSP_DATA_e__Struct._fields_ = [
-        ("dwBufferSize", UInt32),
-        ("pBuffer", Byte * 0),
-    ]
-    class MSP_EVENT_INFO__Anonymous_e__Union__MSP_TTS_TERMINAL_EVENT_INFO_e__Struct(Structure):
-        pass
-    MSP_EVENT_INFO__Anonymous_e__Union__MSP_TTS_TERMINAL_EVENT_INFO_e__Struct._fields_ = [
-        ("pTTSTerminal", win32more.Devices.Tapi.ITTerminal_head),
-        ("hrErrorCode", win32more.Foundation.HRESULT),
-    ]
-    MSP_EVENT_INFO__Anonymous_e__Union._fields_ = [
-        ("MSP_ADDRESS_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_ADDRESS_EVENT_INFO_e__Struct),
-        ("MSP_CALL_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_CALL_EVENT_INFO_e__Struct),
-        ("MSP_TSP_DATA", MSP_EVENT_INFO__Anonymous_e__Union__MSP_TSP_DATA_e__Struct),
-        ("MSP_PRIVATE_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_PRIVATE_EVENT_INFO_e__Struct),
-        ("MSP_FILE_TERMINAL_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_FILE_TERMINAL_EVENT_INFO_e__Struct),
-        ("MSP_ASR_TERMINAL_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_ASR_TERMINAL_EVENT_INFO_e__Struct),
-        ("MSP_TTS_TERMINAL_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_TTS_TERMINAL_EVENT_INFO_e__Struct),
-        ("MSP_TONE_TERMINAL_EVENT_INFO", MSP_EVENT_INFO__Anonymous_e__Union__MSP_TONE_TERMINAL_EVENT_INFO_e__Struct),
-    ]
-    MSP_EVENT_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    MSP_EVENT_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("Event", win32more.Devices.Tapi.MSP_EVENT),
-        ("hCall", POINTER(Int32)),
-        ("Anonymous", MSP_EVENT_INFO__Anonymous_e__Union),
-    ]
-    return MSP_EVENT_INFO
-def _define_ITPluggableTerminalEventSink_head():
-    class ITPluggableTerminalEventSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6e0887be-ba1a-492e-bd10-4020ec5e33e0')
-    return ITPluggableTerminalEventSink
-def _define_ITPluggableTerminalEventSink():
-    ITPluggableTerminalEventSink = win32more.Devices.Tapi.ITPluggableTerminalEventSink_head
-    ITPluggableTerminalEventSink.FireEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.MSP_EVENT_INFO_head), use_last_error=False)(3, 'FireEvent', ((1, 'pMspEventInfo'),)))
-    win32more.System.Com.IUnknown
-    return ITPluggableTerminalEventSink
-def _define_ITPluggableTerminalEventSinkRegistration_head():
-    class ITPluggableTerminalEventSinkRegistration(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f7115709-a216-4957-a759-060ab32a90d1')
-    return ITPluggableTerminalEventSinkRegistration
-def _define_ITPluggableTerminalEventSinkRegistration():
-    ITPluggableTerminalEventSinkRegistration = win32more.Devices.Tapi.ITPluggableTerminalEventSinkRegistration_head
-    ITPluggableTerminalEventSinkRegistration.RegisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITPluggableTerminalEventSink_head, use_last_error=False)(3, 'RegisterSink', ((1, 'pEventSink'),)))
-    ITPluggableTerminalEventSinkRegistration.UnregisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnregisterSink', ()))
-    win32more.System.Com.IUnknown
-    return ITPluggableTerminalEventSinkRegistration
-def _define_ITMSPAddress_head():
-    class ITMSPAddress(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ee3bd600-3868-11d2-a045-00c04fb6809f')
-    return ITMSPAddress
-def _define_ITMSPAddress():
-    ITMSPAddress = win32more.Devices.Tapi.ITMSPAddress_head
-    ITMSPAddress.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'Initialize', ((1, 'hEvent'),)))
-    ITMSPAddress.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Shutdown', ()))
-    ITMSPAddress.CreateMSPCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,UInt32,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'CreateMSPCall', ((1, 'hCall'),(1, 'dwReserved'),(1, 'dwMediaType'),(1, 'pOuterUnknown'),(1, 'ppStreamControl'),)))
-    ITMSPAddress.ShutdownMSPCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'ShutdownMSPCall', ((1, 'pStreamControl'),)))
-    ITMSPAddress.ReceiveTSPData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Byte),UInt32, use_last_error=False)(7, 'ReceiveTSPData', ((1, 'pMSPCall'),(1, 'pBuffer'),(1, 'dwSize'),)))
-    ITMSPAddress.GetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(Byte), use_last_error=False)(8, 'GetEvent', ((1, 'pdwSize'),(1, 'pEventBuffer'),)))
-    win32more.System.Com.IUnknown
-    return ITMSPAddress
-def _define_ITTAPIDispatchEventNotification_head():
-    class ITTAPIDispatchEventNotification(win32more.System.Com.IDispatch_head):
-        Guid = Guid('9f34325b-7e62-11d2-9457-00c04f8ec888')
-    return ITTAPIDispatchEventNotification
-def _define_ITTAPIDispatchEventNotification():
-    ITTAPIDispatchEventNotification = win32more.Devices.Tapi.ITTAPIDispatchEventNotification_head
-    win32more.System.Com.IDispatch
-    return ITTAPIDispatchEventNotification
-Rendezvous = Guid('f1029e5b-cb5b-11d0-8d59-00c04fd91ac0')
-DIRECTORY_TYPE = Int32
-DT_NTDS = 1
-DT_ILS = 2
-DIRECTORY_OBJECT_TYPE = Int32
-OT_CONFERENCE = 1
-OT_USER = 2
+    return RENDDATA
+Rendezvous = Guid('f1029e5b-cb5b-11d0-8d-59-00-c0-4f-d9-1a-c0')
+RequestMakeCall = Guid('ac48ffe0-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
 RND_ADVERTISING_SCOPE = Int32
 RAS_LOCAL = 1
 RAS_SITE = 2
 RAS_REGION = 3
 RAS_WORLD = 4
-def _define_ITDirectoryObjectConference_head():
-    class ITDirectoryObjectConference(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f1029e5d-cb5b-11d0-8d59-00c04fd91ac0')
-    return ITDirectoryObjectConference
-def _define_ITDirectoryObjectConference():
-    ITDirectoryObjectConference = win32more.Devices.Tapi.ITDirectoryObjectConference_head
-    ITDirectoryObjectConference.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Protocol', ((1, 'ppProtocol'),)))
-    ITDirectoryObjectConference.get_Originator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Originator', ((1, 'ppOriginator'),)))
-    ITDirectoryObjectConference.put_Originator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_Originator', ((1, 'pOriginator'),)))
-    ITDirectoryObjectConference.get_AdvertisingScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.RND_ADVERTISING_SCOPE), use_last_error=False)(10, 'get_AdvertisingScope', ((1, 'pAdvertisingScope'),)))
-    ITDirectoryObjectConference.put_AdvertisingScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.RND_ADVERTISING_SCOPE, use_last_error=False)(11, 'put_AdvertisingScope', ((1, 'AdvertisingScope'),)))
-    ITDirectoryObjectConference.get_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Url', ((1, 'ppUrl'),)))
-    ITDirectoryObjectConference.put_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_Url', ((1, 'pUrl'),)))
-    ITDirectoryObjectConference.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_Description', ((1, 'ppDescription'),)))
-    ITDirectoryObjectConference.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_Description', ((1, 'pDescription'),)))
-    ITDirectoryObjectConference.get_IsEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_IsEncrypted', ((1, 'pfEncrypted'),)))
-    ITDirectoryObjectConference.put_IsEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_IsEncrypted', ((1, 'fEncrypted'),)))
-    ITDirectoryObjectConference.get_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(18, 'get_StartTime', ((1, 'pDate'),)))
-    ITDirectoryObjectConference.put_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(19, 'put_StartTime', ((1, 'Date'),)))
-    ITDirectoryObjectConference.get_StopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(20, 'get_StopTime', ((1, 'pDate'),)))
-    ITDirectoryObjectConference.put_StopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(21, 'put_StopTime', ((1, 'Date'),)))
-    win32more.System.Com.IDispatch
-    return ITDirectoryObjectConference
-def _define_ITDirectoryObjectUser_head():
-    class ITDirectoryObjectUser(win32more.System.Com.IDispatch_head):
-        Guid = Guid('34621d6f-6cff-11d1-aff7-00c04fc31fee')
-    return ITDirectoryObjectUser
-def _define_ITDirectoryObjectUser():
-    ITDirectoryObjectUser = win32more.Devices.Tapi.ITDirectoryObjectUser_head
-    ITDirectoryObjectUser.get_IPPhonePrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_IPPhonePrimary', ((1, 'ppName'),)))
-    ITDirectoryObjectUser.put_IPPhonePrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_IPPhonePrimary', ((1, 'pName'),)))
-    win32more.System.Com.IDispatch
-    return ITDirectoryObjectUser
-def _define_IEnumDialableAddrs_head():
-    class IEnumDialableAddrs(win32more.System.Com.IUnknown_head):
-        Guid = Guid('34621d70-6cff-11d1-aff7-00c04fc31fee')
-    return IEnumDialableAddrs
-def _define_IEnumDialableAddrs():
-    IEnumDialableAddrs = win32more.Devices.Tapi.IEnumDialableAddrs_head
-    IEnumDialableAddrs.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pcFetched'),)))
-    IEnumDialableAddrs.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumDialableAddrs.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumDialableAddrs.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDialableAddrs_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumDialableAddrs
-def _define_ITDirectoryObject_head():
-    class ITDirectoryObject(win32more.System.Com.IDispatch_head):
-        Guid = Guid('34621d6e-6cff-11d1-aff7-00c04fc31fee')
-    return ITDirectoryObject
-def _define_ITDirectoryObject():
-    ITDirectoryObject = win32more.Devices.Tapi.ITDirectoryObject_head
-    ITDirectoryObject.get_ObjectType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE), use_last_error=False)(7, 'get_ObjectType', ((1, 'pObjectType'),)))
-    ITDirectoryObject.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Name', ((1, 'ppName'),)))
-    ITDirectoryObject.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_Name', ((1, 'pName'),)))
-    ITDirectoryObject.get_DialableAddrs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_DialableAddrs', ((1, 'dwAddressType'),(1, 'pVariant'),)))
-    ITDirectoryObject.EnumerateDialableAddrs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.IEnumDialableAddrs_head), use_last_error=False)(11, 'EnumerateDialableAddrs', ((1, 'dwAddressType'),(1, 'ppEnumDialableAddrs'),)))
-    ITDirectoryObject.get_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(12, 'get_SecurityDescriptor', ((1, 'ppSecDes'),)))
-    ITDirectoryObject.put_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(13, 'put_SecurityDescriptor', ((1, 'pSecDes'),)))
-    win32more.System.Com.IDispatch
-    return ITDirectoryObject
-def _define_IEnumDirectoryObject_head():
-    class IEnumDirectoryObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('06c9b64a-306d-11d1-9774-00c04fd91ac0')
-    return IEnumDirectoryObject
-def _define_IEnumDirectoryObject():
-    IEnumDirectoryObject = win32more.Devices.Tapi.IEnumDirectoryObject_head
-    IEnumDirectoryObject.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITDirectoryObject_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'pVal'),(1, 'pcFetched'),)))
-    IEnumDirectoryObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumDirectoryObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumDirectoryObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectoryObject_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumDirectoryObject
-def _define_ITILSConfig_head():
-    class ITILSConfig(win32more.System.Com.IDispatch_head):
-        Guid = Guid('34621d72-6cff-11d1-aff7-00c04fc31fee')
-    return ITILSConfig
-def _define_ITILSConfig():
-    ITILSConfig = win32more.Devices.Tapi.ITILSConfig_head
-    ITILSConfig.get_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Port', ((1, 'pPort'),)))
-    ITILSConfig.put_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_Port', ((1, 'Port'),)))
-    win32more.System.Com.IDispatch
-    return ITILSConfig
-def _define_ITDirectory_head():
-    class ITDirectory(win32more.System.Com.IDispatch_head):
-        Guid = Guid('34621d6c-6cff-11d1-aff7-00c04fc31fee')
-    return ITDirectory
-def _define_ITDirectory():
-    ITDirectory = win32more.Devices.Tapi.ITDirectory_head
-    ITDirectory.get_DirectoryType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.DIRECTORY_TYPE), use_last_error=False)(7, 'get_DirectoryType', ((1, 'pDirectoryType'),)))
-    ITDirectory.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_DisplayName', ((1, 'pName'),)))
-    ITDirectory.get_IsDynamic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_IsDynamic', ((1, 'pfDynamic'),)))
-    ITDirectory.get_DefaultObjectTTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_DefaultObjectTTL', ((1, 'pTTL'),)))
-    ITDirectory.put_DefaultObjectTTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'put_DefaultObjectTTL', ((1, 'TTL'),)))
-    ITDirectory.EnableAutoRefresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(12, 'EnableAutoRefresh', ((1, 'fEnable'),)))
-    ITDirectory.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(13, 'Connect', ((1, 'fSecure'),)))
-    ITDirectory.Bind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(14, 'Bind', ((1, 'pDomainName'),(1, 'pUserName'),(1, 'pPassword'),(1, 'lFlags'),)))
-    ITDirectory.AddDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head, use_last_error=False)(15, 'AddDirectoryObject', ((1, 'pDirectoryObject'),)))
-    ITDirectory.ModifyDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head, use_last_error=False)(16, 'ModifyDirectoryObject', ((1, 'pDirectoryObject'),)))
-    ITDirectory.RefreshDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head, use_last_error=False)(17, 'RefreshDirectoryObject', ((1, 'pDirectoryObject'),)))
-    ITDirectory.DeleteDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head, use_last_error=False)(18, 'DeleteDirectoryObject', ((1, 'pDirectoryObject'),)))
-    ITDirectory.get_DirectoryObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_DirectoryObjects', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'pVariant'),)))
-    ITDirectory.EnumerateDirectoryObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.IEnumDirectoryObject_head), use_last_error=False)(20, 'EnumerateDirectoryObjects', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'ppEnumObject'),)))
-    win32more.System.Com.IDispatch
-    return ITDirectory
-def _define_IEnumDirectory_head():
-    class IEnumDirectory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('34621d6d-6cff-11d1-aff7-00c04fc31fee')
-    return IEnumDirectory
-def _define_IEnumDirectory():
-    IEnumDirectory = win32more.Devices.Tapi.IEnumDirectory_head
-    IEnumDirectory.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.ITDirectory_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppElements'),(1, 'pcFetched'),)))
-    IEnumDirectory.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumDirectory.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumDirectory.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectory_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumDirectory
-def _define_ITRendezvous_head():
-    class ITRendezvous(win32more.System.Com.IDispatch_head):
-        Guid = Guid('34621d6b-6cff-11d1-aff7-00c04fc31fee')
-    return ITRendezvous
-def _define_ITRendezvous():
-    ITRendezvous = win32more.Devices.Tapi.ITRendezvous_head
-    ITRendezvous.get_DefaultDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_DefaultDirectories', ((1, 'pVariant'),)))
-    ITRendezvous.EnumerateDefaultDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectory_head), use_last_error=False)(8, 'EnumerateDefaultDirectories', ((1, 'ppEnumDirectory'),)))
-    ITRendezvous.CreateDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITDirectory_head), use_last_error=False)(9, 'CreateDirectory', ((1, 'DirectoryType'),(1, 'pName'),(1, 'ppDir'),)))
-    ITRendezvous.CreateDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITDirectoryObject_head), use_last_error=False)(10, 'CreateDirectoryObject', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'ppDirectoryObject'),)))
-    win32more.System.Com.IDispatch
-    return ITRendezvous
-McastAddressAllocation = Guid('df0daef2-a289-11d1-8697-006008b0e5d2')
-def _define_IMcastScope_head():
-    class IMcastScope(win32more.System.Com.IDispatch_head):
-        Guid = Guid('df0daef4-a289-11d1-8697-006008b0e5d2')
-    return IMcastScope
-def _define_IMcastScope():
-    IMcastScope = win32more.Devices.Tapi.IMcastScope_head
-    IMcastScope.get_ScopeID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_ScopeID', ((1, 'pID'),)))
-    IMcastScope.get_ServerID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_ServerID', ((1, 'pID'),)))
-    IMcastScope.get_InterfaceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_InterfaceID', ((1, 'pID'),)))
-    IMcastScope.get_ScopeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_ScopeDescription', ((1, 'ppDescription'),)))
-    IMcastScope.get_TTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TTL', ((1, 'pTTL'),)))
-    win32more.System.Com.IDispatch
-    return IMcastScope
-def _define_IMcastLeaseInfo_head():
-    class IMcastLeaseInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('df0daefd-a289-11d1-8697-006008b0e5d2')
-    return IMcastLeaseInfo
-def _define_IMcastLeaseInfo():
-    IMcastLeaseInfo = win32more.Devices.Tapi.IMcastLeaseInfo_head
-    IMcastLeaseInfo.get_RequestID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_RequestID', ((1, 'ppRequestID'),)))
-    IMcastLeaseInfo.get_LeaseStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(8, 'get_LeaseStartTime', ((1, 'pTime'),)))
-    IMcastLeaseInfo.put_LeaseStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(9, 'put_LeaseStartTime', ((1, 'time'),)))
-    IMcastLeaseInfo.get_LeaseStopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(10, 'get_LeaseStopTime', ((1, 'pTime'),)))
-    IMcastLeaseInfo.put_LeaseStopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(11, 'put_LeaseStopTime', ((1, 'time'),)))
-    IMcastLeaseInfo.get_AddressCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_AddressCount', ((1, 'pCount'),)))
-    IMcastLeaseInfo.get_ServerAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_ServerAddress', ((1, 'ppAddress'),)))
-    IMcastLeaseInfo.get_TTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_TTL', ((1, 'pTTL'),)))
-    IMcastLeaseInfo.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_Addresses', ((1, 'pVariant'),)))
-    IMcastLeaseInfo.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(16, 'EnumerateAddresses', ((1, 'ppEnumAddresses'),)))
-    win32more.System.Com.IDispatch
-    return IMcastLeaseInfo
-def _define_IEnumMcastScope_head():
-    class IEnumMcastScope(win32more.System.Com.IUnknown_head):
-        Guid = Guid('df0daf09-a289-11d1-8697-006008b0e5d2')
-    return IEnumMcastScope
-def _define_IEnumMcastScope():
-    IEnumMcastScope = win32more.Devices.Tapi.IEnumMcastScope_head
-    IEnumMcastScope.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.IMcastScope_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'ppScopes'),(1, 'pceltFetched'),)))
-    IEnumMcastScope.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
-    IEnumMcastScope.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
-    IEnumMcastScope.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumMcastScope_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumMcastScope
-def _define_IMcastAddressAllocation_head():
-    class IMcastAddressAllocation(win32more.System.Com.IDispatch_head):
-        Guid = Guid('df0daef1-a289-11d1-8697-006008b0e5d2')
-    return IMcastAddressAllocation
-def _define_IMcastAddressAllocation():
-    IMcastAddressAllocation = win32more.Devices.Tapi.IMcastAddressAllocation_head
-    IMcastAddressAllocation.get_Scopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Scopes', ((1, 'pVariant'),)))
-    IMcastAddressAllocation.EnumerateScopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumMcastScope_head), use_last_error=False)(8, 'EnumerateScopes', ((1, 'ppEnumMcastScope'),)))
-    IMcastAddressAllocation.RequestAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.IMcastScope_head,Double,Double,Int32,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head), use_last_error=False)(9, 'RequestAddress', ((1, 'pScope'),(1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'NumAddresses'),(1, 'ppLeaseResponse'),)))
-    IMcastAddressAllocation.RenewAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.IMcastLeaseInfo_head,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head), use_last_error=False)(10, 'RenewAddress', ((1, 'lReserved'),(1, 'pRenewRequest'),(1, 'ppRenewResponse'),)))
-    IMcastAddressAllocation.ReleaseAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.IMcastLeaseInfo_head, use_last_error=False)(11, 'ReleaseAddress', ((1, 'pReleaseRequest'),)))
-    IMcastAddressAllocation.CreateLeaseInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,UInt32,POINTER(win32more.Foundation.PWSTR),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head), use_last_error=False)(12, 'CreateLeaseInfo', ((1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'dwNumAddresses'),(1, 'ppAddresses'),(1, 'pRequestID'),(1, 'pServerAddress'),(1, 'ppReleaseRequest'),)))
-    IMcastAddressAllocation.CreateLeaseInfoFromVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head), use_last_error=False)(13, 'CreateLeaseInfoFromVariant', ((1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'vAddresses'),(1, 'pRequestID'),(1, 'pServerAddress'),(1, 'ppReleaseRequest'),)))
-    win32more.System.Com.IDispatch
-    return IMcastAddressAllocation
 def _define_STnefProblem_head():
     class STnefProblem(Structure):
         pass
@@ -4970,10 +6196,10 @@ def _define_STnefProblem_head():
 def _define_STnefProblem():
     STnefProblem = win32more.Devices.Tapi.STnefProblem_head
     STnefProblem._fields_ = [
-        ("ulComponent", UInt32),
-        ("ulAttribute", UInt32),
-        ("ulPropTag", UInt32),
-        ("scode", Int32),
+        ('ulComponent', UInt32),
+        ('ulAttribute', UInt32),
+        ('ulPropTag', UInt32),
+        ('scode', Int32),
     ]
     return STnefProblem
 def _define_STnefProblemArray_head():
@@ -4983,1568 +6209,748 @@ def _define_STnefProblemArray_head():
 def _define_STnefProblemArray():
     STnefProblemArray = win32more.Devices.Tapi.STnefProblemArray_head
     STnefProblemArray._fields_ = [
-        ("cProblem", UInt32),
-        ("aProblem", win32more.Devices.Tapi.STnefProblem * 0),
+        ('cProblem', UInt32),
+        ('aProblem', win32more.Devices.Tapi.STnefProblem * 1),
     ]
     return STnefProblemArray
-def _define_ITnef_head():
-    class ITnef(win32more.System.Com.IUnknown_head):
-        Guid = Guid(None)
-    return ITnef
-def _define_ITnef():
-    ITnef = win32more.Devices.Tapi.ITnef_head
-    ITnef.AddProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_void_p,POINTER(win32more.System.AddressBook.SPropTagArray_head), use_last_error=False)(3, 'AddProps', ((1, 'ulFlags'),(1, 'ulElemID'),(1, 'lpvData'),(1, 'lpPropList'),)))
-    ITnef.ExtractProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)), use_last_error=False)(4, 'ExtractProps', ((1, 'ulFlags'),(1, 'lpPropList'),(1, 'lpProblems'),)))
-    ITnef.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt16),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)), use_last_error=False)(5, 'Finish', ((1, 'ulFlags'),(1, 'lpKey'),(1, 'lpProblems'),)))
-    ITnef.OpenTaggedBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AddressBook.IMessage_head,UInt32,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(6, 'OpenTaggedBody', ((1, 'lpMessage'),(1, 'ulFlags'),(1, 'lppStream'),)))
-    ITnef.SetProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.System.AddressBook.SPropValue_head), use_last_error=False)(7, 'SetProps', ((1, 'ulFlags'),(1, 'ulElemID'),(1, 'cValues'),(1, 'lpProps'),)))
-    ITnef.EncodeRecips = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.AddressBook.IMAPITable_head, use_last_error=False)(8, 'EncodeRecips', ((1, 'ulFlags'),(1, 'lpRecipientTable'),)))
-    ITnef.FinishComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(win32more.System.AddressBook.SPropValue_head),POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)), use_last_error=False)(9, 'FinishComponent', ((1, 'ulFlags'),(1, 'ulComponentID'),(1, 'lpCustomPropList'),(1, 'lpCustomProps'),(1, 'lpPropList'),(1, 'lpProblems'),)))
-    win32more.System.Com.IUnknown
-    return ITnef
-def _define_LPOPENTNEFSTREAM():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,POINTER(win32more.Devices.Tapi.ITnef_head), use_last_error=False)
-def _define_LPOPENTNEFSTREAMEX():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,win32more.System.AddressBook.IAddrBook_head,POINTER(win32more.Devices.Tapi.ITnef_head), use_last_error=False)
-def _define_LPGETTNEFSTREAMCODEPAGE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(UInt32),POINTER(UInt32), use_last_error=False)
-def _define__renddata_head():
-    class _renddata(Structure):
+TAPI = Guid('21d6d48e-a88b-11d0-83-dd-00-aa-00-3c-ca-bd')
+def _define_TAPI_CUSTOMTONE_head():
+    class TAPI_CUSTOMTONE(Structure):
         pass
-    return _renddata
-def _define__renddata():
-    _renddata = win32more.Devices.Tapi._renddata_head
-    _renddata._pack_ = 1
-    _renddata._fields_ = [
-        ("atyp", UInt16),
-        ("ulPosition", UInt32),
-        ("dxWidth", UInt16),
-        ("dyHeight", UInt16),
-        ("dwFlags", UInt32),
+    return TAPI_CUSTOMTONE
+def _define_TAPI_CUSTOMTONE():
+    TAPI_CUSTOMTONE = win32more.Devices.Tapi.TAPI_CUSTOMTONE_head
+    TAPI_CUSTOMTONE._fields_ = [
+        ('dwFrequency', UInt32),
+        ('dwCadenceOn', UInt32),
+        ('dwCadenceOff', UInt32),
+        ('dwVolume', UInt32),
     ]
-    return _renddata
-def _define__dtr_head():
-    class _dtr(Structure):
+    return TAPI_CUSTOMTONE
+def _define_TAPI_DETECTTONE_head():
+    class TAPI_DETECTTONE(Structure):
         pass
-    return _dtr
-def _define__dtr():
-    _dtr = win32more.Devices.Tapi._dtr_head
-    _dtr._pack_ = 1
-    _dtr._fields_ = [
-        ("wYear", UInt16),
-        ("wMonth", UInt16),
-        ("wDay", UInt16),
-        ("wHour", UInt16),
-        ("wMinute", UInt16),
-        ("wSecond", UInt16),
-        ("wDayOfWeek", UInt16),
+    return TAPI_DETECTTONE
+def _define_TAPI_DETECTTONE():
+    TAPI_DETECTTONE = win32more.Devices.Tapi.TAPI_DETECTTONE_head
+    TAPI_DETECTTONE._fields_ = [
+        ('dwAppSpecific', UInt32),
+        ('dwDuration', UInt32),
+        ('dwFrequency1', UInt32),
+        ('dwFrequency2', UInt32),
+        ('dwFrequency3', UInt32),
     ]
-    return _dtr
-def _define__trp_head():
-    class _trp(Structure):
+    return TAPI_DETECTTONE
+TAPI_EVENT = Int32
+TE_TAPIOBJECT = 1
+TE_ADDRESS = 2
+TE_CALLNOTIFICATION = 4
+TE_CALLSTATE = 8
+TE_CALLMEDIA = 16
+TE_CALLHUB = 32
+TE_CALLINFOCHANGE = 64
+TE_PRIVATE = 128
+TE_REQUEST = 256
+TE_AGENT = 512
+TE_AGENTSESSION = 1024
+TE_QOSEVENT = 2048
+TE_AGENTHANDLER = 4096
+TE_ACDGROUP = 8192
+TE_QUEUE = 16384
+TE_DIGITEVENT = 32768
+TE_GENERATEEVENT = 65536
+TE_ASRTERMINAL = 131072
+TE_TTSTERMINAL = 262144
+TE_FILETERMINAL = 524288
+TE_TONETERMINAL = 1048576
+TE_PHONEEVENT = 2097152
+TE_TONEEVENT = 4194304
+TE_GATHERDIGITS = 8388608
+TE_ADDRESSDEVSPECIFIC = 16777216
+TE_PHONEDEVSPECIFIC = 33554432
+TAPI_GATHERTERM = Int32
+TGT_BUFFERFULL = 1
+TGT_TERMDIGIT = 2
+TGT_FIRSTTIMEOUT = 4
+TGT_INTERTIMEOUT = 8
+TGT_CANCEL = 16
+TAPI_OBJECT_TYPE = Int32
+TOT_NONE = 0
+TOT_TAPI = 1
+TOT_ADDRESS = 2
+TOT_TERMINAL = 3
+TOT_CALL = 4
+TOT_CALLHUB = 5
+TOT_PHONE = 6
+TAPI_TONEMODE = Int32
+TTM_RINGBACK = 2
+TTM_BUSY = 4
+TTM_BEEP = 8
+TTM_BILLING = 16
+TAPIOBJECT_EVENT = Int32
+TE_ADDRESSCREATE = 0
+TE_ADDRESSREMOVE = 1
+TE_REINIT = 2
+TE_TRANSLATECHANGE = 3
+TE_ADDRESSCLOSE = 4
+TE_PHONECREATE = 5
+TE_PHONEREMOVE = 6
+TERMINAL_DIRECTION = Int32
+TD_CAPTURE = 0
+TD_RENDER = 1
+TD_BIDIRECTIONAL = 2
+TD_MULTITRACK_MIXED = 3
+TD_NONE = 4
+TERMINAL_MEDIA_STATE = Int32
+TMS_IDLE = 0
+TMS_ACTIVE = 1
+TMS_PAUSED = 2
+TMS_LASTITEM = 2
+TERMINAL_STATE = Int32
+TS_INUSE = 0
+TS_NOTINUSE = 1
+TERMINAL_TYPE = Int32
+TT_STATIC = 0
+TT_DYNAMIC = 1
+def _define_TRP_head():
+    class TRP(Structure):
         pass
-    return _trp
-def _define__trp():
-    _trp = win32more.Devices.Tapi._trp_head
-    _trp._fields_ = [
-        ("trpid", UInt16),
-        ("cbgrtrp", UInt16),
-        ("cch", UInt16),
-        ("cbRgb", UInt16),
+    return TRP
+def _define_TRP():
+    TRP = win32more.Devices.Tapi.TRP_head
+    TRP._fields_ = [
+        ('trpid', UInt16),
+        ('cbgrtrp', UInt16),
+        ('cch', UInt16),
+        ('cbRgb', UInt16),
     ]
-    return _trp
-def _define__ADDR_ALIAS_head():
-    class _ADDR_ALIAS(Structure):
+    return TRP
+def _define_TUISPICREATEDIALOGINSTANCEPARAMS_head():
+    class TUISPICREATEDIALOGINSTANCEPARAMS(Structure):
         pass
-    return _ADDR_ALIAS
-def _define__ADDR_ALIAS():
-    _ADDR_ALIAS = win32more.Devices.Tapi._ADDR_ALIAS_head
-    _ADDR_ALIAS._fields_ = [
-        ("rgchName", win32more.Foundation.CHAR * 41),
-        ("rgchEName", win32more.Foundation.CHAR * 11),
-        ("rgchSrvr", win32more.Foundation.CHAR * 12),
-        ("dibDetail", UInt32),
-        ("type", UInt16),
+    return TUISPICREATEDIALOGINSTANCEPARAMS
+def _define_TUISPICREATEDIALOGINSTANCEPARAMS():
+    TUISPICREATEDIALOGINSTANCEPARAMS = win32more.Devices.Tapi.TUISPICREATEDIALOGINSTANCEPARAMS_head
+    TUISPICREATEDIALOGINSTANCEPARAMS._fields_ = [
+        ('dwRequestID', UInt32),
+        ('hdDlgInst', POINTER(win32more.Devices.Tapi.HDRVDIALOGINSTANCE___head)),
+        ('htDlgInst', UInt32),
+        ('lpszUIDLLName', win32more.Foundation.PWSTR),
+        ('lpParams', c_void_p),
+        ('dwSize', UInt32),
     ]
-    return _ADDR_ALIAS
-def _define_NSID_head():
-    class NSID(Structure):
+    return TUISPICREATEDIALOGINSTANCEPARAMS
+def _define_TUISPIDLLCALLBACK():
+    return WINFUNCTYPE(Int32,UIntPtr,UInt32,c_void_p,UInt32)
+def _define_VARSTRING_head():
+    class VARSTRING(Structure):
         pass
-    return NSID
-def _define_NSID():
-    NSID = win32more.Devices.Tapi.NSID_head
-    class NSID__address_e__Union(Union):
-        pass
-    NSID__address_e__Union._fields_ = [
-        ("alias", win32more.Devices.Tapi._ADDR_ALIAS),
-        ("rgchInterNet", win32more.Foundation.CHAR * 0),
+    return VARSTRING
+def _define_VARSTRING():
+    VARSTRING = win32more.Devices.Tapi.VARSTRING_head
+    VARSTRING._pack_ = 1
+    VARSTRING._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNeededSize', UInt32),
+        ('dwUsedSize', UInt32),
+        ('dwStringFormat', UInt32),
+        ('dwStringSize', UInt32),
+        ('dwStringOffset', UInt32),
     ]
-    NSID._fields_ = [
-        ("dwSize", UInt32),
-        ("uchType", Byte * 16),
-        ("xtype", UInt32),
-        ("lTime", Int32),
-        ("address", NSID__address_e__Union),
-    ]
-    return NSID
-def _define_lineAccept():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineAccept", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineAddProvider():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.HWND,POINTER(UInt32), use_last_error=False)(("lineAddProvider", windll["TAPI32"]), ((1, 'lpszProviderFilename'),(1, 'hwndOwner'),(1, 'lpdwPermanentProviderID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineAddProviderA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.HWND,POINTER(UInt32), use_last_error=False)(("lineAddProviderA", windll["TAPI32"]), ((1, 'lpszProviderFilename'),(1, 'hwndOwner'),(1, 'lpdwPermanentProviderID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineAddProviderW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.HWND,POINTER(UInt32), use_last_error=False)(("lineAddProviderW", windll["TAPI32"]), ((1, 'lpszProviderFilename'),(1, 'hwndOwner'),(1, 'lpdwPermanentProviderID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineAddToConference():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineAddToConference", windll["TAPI32"]), ((1, 'hConfCall'),(1, 'hConsultCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineAgentSpecific():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(("lineAgentSpecific", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwAgentExtensionIDIndex'),(1, 'lpParams'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineAnswer():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineAnswer", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineBlindTransfer():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineBlindTransfer", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineBlindTransferA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineBlindTransferA", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineBlindTransferW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineBlindTransferW", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddressW'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineClose():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineClose", windll["TAPI32"]), ((1, 'hLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineCompleteCall():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,UInt32, use_last_error=False)(("lineCompleteCall", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpdwCompletionID'),(1, 'dwCompletionMode'),(1, 'dwMessageID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineCompleteTransfer():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32, use_last_error=False)(("lineCompleteTransfer", windll["TAPI32"]), ((1, 'hCall'),(1, 'hConsultCall'),(1, 'lphConfCall'),(1, 'dwTransferMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigDialog():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("lineConfigDialog", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigDialogA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("lineConfigDialogA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigDialogW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(("lineConfigDialogW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigDialogEdit():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,c_void_p,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("lineConfigDialogEdit", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),(1, 'lpDeviceConfigIn'),(1, 'dwSize'),(1, 'lpDeviceConfigOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigDialogEditA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,c_void_p,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("lineConfigDialogEditA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),(1, 'lpDeviceConfigIn'),(1, 'dwSize'),(1, 'lpDeviceConfigOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigDialogEditW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,c_void_p,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("lineConfigDialogEditW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),(1, 'lpDeviceConfigIn'),(1, 'dwSize'),(1, 'lpDeviceConfigOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineConfigProvider():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,UInt32, use_last_error=False)(("lineConfigProvider", windll["TAPI32"]), ((1, 'hwndOwner'),(1, 'dwPermanentProviderID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineCreateAgentW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(("lineCreateAgentW", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpszAgentID'),(1, 'lpszAgentPIN'),(1, 'lphAgent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineCreateAgent():
-    return win32more.Devices.Tapi.lineCreateAgentW
-def _define_lineCreateAgentA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("lineCreateAgentA", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpszAgentID'),(1, 'lpszAgentPIN'),(1, 'lphAgent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineCreateAgentSessionW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(("lineCreateAgentSessionW", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpszAgentPIN'),(1, 'dwWorkingAddressID'),(1, 'lpGroupID'),(1, 'lphAgentSession'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineCreateAgentSession():
-    return win32more.Devices.Tapi.lineCreateAgentSessionW
-def _define_lineCreateAgentSessionA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(("lineCreateAgentSessionA", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpszAgentPIN'),(1, 'dwWorkingAddressID'),(1, 'lpGroupID'),(1, 'lphAgentSession'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDeallocateCall():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineDeallocateCall", windll["TAPI32"]), ((1, 'hCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDevSpecific():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(("lineDevSpecific", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'lpParams'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDevSpecificFeature():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(("lineDevSpecificFeature", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwFeature'),(1, 'lpParams'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDial():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineDial", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDialA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineDialA", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDialW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineDialW", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineDrop():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineDrop", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineForward():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEFORWARDLIST_head),UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineForward", windll["TAPI32"]), ((1, 'hLine'),(1, 'bAllAddresses'),(1, 'dwAddressID'),(1, 'lpForwardList'),(1, 'dwNumRingsNoAnswer'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineForwardA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEFORWARDLIST_head),UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineForwardA", windll["TAPI32"]), ((1, 'hLine'),(1, 'bAllAddresses'),(1, 'dwAddressID'),(1, 'lpForwardList'),(1, 'dwNumRingsNoAnswer'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineForwardW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEFORWARDLIST_head),UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineForwardW", windll["TAPI32"]), ((1, 'hLine'),(1, 'bAllAddresses'),(1, 'dwAddressID'),(1, 'lpForwardList'),(1, 'dwNumRingsNoAnswer'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGatherDigits():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(Byte),UInt32,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(("lineGatherDigits", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitModes'),(1, 'lpsDigits'),(1, 'dwNumDigits'),(1, 'lpszTerminationDigits'),(1, 'dwFirstDigitTimeout'),(1, 'dwInterDigitTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGatherDigitsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(Byte),UInt32,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(("lineGatherDigitsA", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitModes'),(1, 'lpsDigits'),(1, 'dwNumDigits'),(1, 'lpszTerminationDigits'),(1, 'dwFirstDigitTimeout'),(1, 'dwInterDigitTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGatherDigitsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(Char),UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(("lineGatherDigitsW", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitModes'),(1, 'lpsDigits'),(1, 'dwNumDigits'),(1, 'lpszTerminationDigits'),(1, 'dwFirstDigitTimeout'),(1, 'dwInterDigitTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGenerateDigits():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineGenerateDigits", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitMode'),(1, 'lpszDigits'),(1, 'dwDuration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGenerateDigitsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineGenerateDigitsA", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitMode'),(1, 'lpszDigits'),(1, 'dwDuration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGenerateDigitsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineGenerateDigitsW", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitMode'),(1, 'lpszDigits'),(1, 'dwDuration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGenerateTone():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEGENERATETONE_head), use_last_error=False)(("lineGenerateTone", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwToneMode'),(1, 'dwDuration'),(1, 'dwNumTones'),(1, 'lpTones'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressCaps():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSCAPS_head), use_last_error=False)(("lineGetAddressCaps", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpAddressCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressCapsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSCAPS_head), use_last_error=False)(("lineGetAddressCapsA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpAddressCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressCapsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSCAPS_head), use_last_error=False)(("lineGetAddressCapsW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpAddressCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressID():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineGetAddressID", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpdwAddressID'),(1, 'dwAddressMode'),(1, 'lpsAddress'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressIDA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineGetAddressIDA", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpdwAddressID'),(1, 'dwAddressMode'),(1, 'lpsAddress'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressIDW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineGetAddressIDW", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpdwAddressID'),(1, 'dwAddressMode'),(1, 'lpsAddress'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressStatus():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSSTATUS_head), use_last_error=False)(("lineGetAddressStatus", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAddressStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressStatusA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSSTATUS_head), use_last_error=False)(("lineGetAddressStatusA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAddressStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAddressStatusW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEADDRESSSTATUS_head), use_last_error=False)(("lineGetAddressStatusW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAddressStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentActivityListA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTACTIVITYLIST_head), use_last_error=False)(("lineGetAgentActivityListA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentActivityList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentActivityListW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTACTIVITYLIST_head), use_last_error=False)(("lineGetAgentActivityListW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentActivityList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentActivityList():
-    return win32more.Devices.Tapi.lineGetAgentActivityListW
-def _define_lineGetAgentCapsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTCAPS_head), use_last_error=False)(("lineGetAgentCapsA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAppAPIVersion'),(1, 'lpAgentCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentCapsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTCAPS_head), use_last_error=False)(("lineGetAgentCapsW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAddressID'),(1, 'dwAppAPIVersion'),(1, 'lpAgentCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentCaps():
-    return win32more.Devices.Tapi.lineGetAgentCapsW
-def _define_lineGetAgentGroupListA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head), use_last_error=False)(("lineGetAgentGroupListA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentGroupListW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head), use_last_error=False)(("lineGetAgentGroupListW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentGroupList():
-    return win32more.Devices.Tapi.lineGetAgentGroupListW
-def _define_lineGetAgentInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTINFO_head), use_last_error=False)(("lineGetAgentInfo", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpAgentInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentSessionInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSESSIONINFO_head), use_last_error=False)(("lineGetAgentSessionInfo", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgentSession'),(1, 'lpAgentSessionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentSessionList():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSESSIONLIST_head), use_last_error=False)(("lineGetAgentSessionList", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgent'),(1, 'lpAgentSessionList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentStatusA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSTATUS_head), use_last_error=False)(("lineGetAgentStatusA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentStatusW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTSTATUS_head), use_last_error=False)(("lineGetAgentStatusW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAgentStatus():
-    return win32more.Devices.Tapi.lineGetAgentStatusW
-def _define_lineGetAppPriority():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),POINTER(UInt32), use_last_error=False)(("lineGetAppPriority", windll["TAPI32"]), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpExtensionName'),(1, 'lpdwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAppPriorityA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),POINTER(UInt32), use_last_error=False)(("lineGetAppPriorityA", windll["TAPI32"]), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpExtensionName'),(1, 'lpdwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetAppPriorityW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),POINTER(UInt32), use_last_error=False)(("lineGetAppPriorityW", windll["TAPI32"]), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpExtensionName'),(1, 'lpdwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCallInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLINFO_head), use_last_error=False)(("lineGetCallInfo", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpCallInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCallInfoA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLINFO_head), use_last_error=False)(("lineGetCallInfoA", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpCallInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCallInfoW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLINFO_head), use_last_error=False)(("lineGetCallInfoW", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpCallInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCallStatus():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLSTATUS_head), use_last_error=False)(("lineGetCallStatus", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpCallStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetConfRelatedCalls():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLLIST_head), use_last_error=False)(("lineGetConfRelatedCalls", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpCallList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCountry():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECOUNTRYLIST_head), use_last_error=False)(("lineGetCountry", windll["TAPI32"]), ((1, 'dwCountryID'),(1, 'dwAPIVersion'),(1, 'lpLineCountryList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCountryA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECOUNTRYLIST_head), use_last_error=False)(("lineGetCountryA", windll["TAPI32"]), ((1, 'dwCountryID'),(1, 'dwAPIVersion'),(1, 'lpLineCountryList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetCountryW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECOUNTRYLIST_head), use_last_error=False)(("lineGetCountryW", windll["TAPI32"]), ((1, 'dwCountryID'),(1, 'dwAPIVersion'),(1, 'lpLineCountryList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetDevCaps():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVCAPS_head), use_last_error=False)(("lineGetDevCaps", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpLineDevCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetDevCapsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVCAPS_head), use_last_error=False)(("lineGetDevCapsA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpLineDevCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetDevCapsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVCAPS_head), use_last_error=False)(("lineGetDevCapsW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpLineDevCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetDevConfig():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR, use_last_error=False)(("lineGetDevConfig", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetDevConfigA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR, use_last_error=False)(("lineGetDevConfigA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetDevConfigW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PWSTR, use_last_error=False)(("lineGetDevConfigW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetGroupListA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head), use_last_error=False)(("lineGetGroupListA", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetGroupListW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head), use_last_error=False)(("lineGetGroupListW", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetGroupList():
-    return win32more.Devices.Tapi.lineGetGroupListW
-def _define_lineGetIcon():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr), use_last_error=False)(("lineGetIcon", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetIconA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr), use_last_error=False)(("lineGetIconA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetIconW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,POINTER(IntPtr), use_last_error=False)(("lineGetIconW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetID():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR, use_last_error=False)(("lineGetID", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetIDA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR, use_last_error=False)(("lineGetIDA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetIDW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PWSTR, use_last_error=False)(("lineGetIDW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetLineDevStatus():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVSTATUS_head), use_last_error=False)(("lineGetLineDevStatus", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpLineDevStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetLineDevStatusA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVSTATUS_head), use_last_error=False)(("lineGetLineDevStatusA", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpLineDevStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetLineDevStatusW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEDEVSTATUS_head), use_last_error=False)(("lineGetLineDevStatusW", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpLineDevStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetMessage():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEMESSAGE_head),UInt32, use_last_error=False)(("lineGetMessage", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'lpMessage'),(1, 'dwTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetNewCalls():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLLIST_head), use_last_error=False)(("lineGetNewCalls", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwSelect'),(1, 'lpCallList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetNumRings():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("lineGetNumRings", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpdwNumRings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetProviderList():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROVIDERLIST_head), use_last_error=False)(("lineGetProviderList", windll["TAPI32"]), ((1, 'dwAPIVersion'),(1, 'lpProviderList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetProviderListA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROVIDERLIST_head), use_last_error=False)(("lineGetProviderListA", windll["TAPI32"]), ((1, 'dwAPIVersion'),(1, 'lpProviderList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetProviderListW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROVIDERLIST_head), use_last_error=False)(("lineGetProviderListW", windll["TAPI32"]), ((1, 'dwAPIVersion'),(1, 'lpProviderList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetProxyStatus():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROXYREQUESTLIST_head), use_last_error=False)(("lineGetProxyStatus", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAppAPIVersion'),(1, 'lpLineProxyReqestList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetQueueInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEQUEUEINFO_head), use_last_error=False)(("lineGetQueueInfo", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwQueueID'),(1, 'lpLineQueueInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetQueueListA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),POINTER(win32more.Devices.Tapi.LINEQUEUELIST_head), use_last_error=False)(("lineGetQueueListA", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpGroupID'),(1, 'lpQueueList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetQueueListW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(Guid),POINTER(win32more.Devices.Tapi.LINEQUEUELIST_head), use_last_error=False)(("lineGetQueueListW", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpGroupID'),(1, 'lpQueueList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetQueueList():
-    return win32more.Devices.Tapi.lineGetQueueListW
-def _define_lineGetRequest():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p, use_last_error=False)(("lineGetRequest", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwRequestMode'),(1, 'lpRequestBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetRequestA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p, use_last_error=False)(("lineGetRequestA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwRequestMode'),(1, 'lpRequestBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetRequestW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p, use_last_error=False)(("lineGetRequestW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwRequestMode'),(1, 'lpRequestBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetStatusMessages():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(("lineGetStatusMessages", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpdwLineStates'),(1, 'lpdwAddressStates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetTranslateCaps():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATECAPS_head), use_last_error=False)(("lineGetTranslateCaps", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwAPIVersion'),(1, 'lpTranslateCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetTranslateCapsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATECAPS_head), use_last_error=False)(("lineGetTranslateCapsA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwAPIVersion'),(1, 'lpTranslateCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineGetTranslateCapsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATECAPS_head), use_last_error=False)(("lineGetTranslateCapsW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwAPIVersion'),(1, 'lpTranslateCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineHandoff():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineHandoff", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszFileName'),(1, 'dwMediaMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineHandoffA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineHandoffA", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszFileName'),(1, 'dwMediaMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineHandoffW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineHandoffW", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszFileName'),(1, 'dwMediaMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineHold():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineHold", windll["TAPI32"]), ((1, 'hCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineInitialize():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.LINECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("lineInitialize", windll["TAPI32"]), ((1, 'lphLineApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszAppName'),(1, 'lpdwNumDevs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineInitializeExA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.LINECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINEINITIALIZEEXPARAMS_head), use_last_error=False)(("lineInitializeExA", windll["TAPI32"]), ((1, 'lphLineApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpLineInitializeExParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineInitializeExW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.LINECALLBACK,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINEINITIALIZEEXPARAMS_head), use_last_error=False)(("lineInitializeExW", windll["TAPI32"]), ((1, 'lphLineApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpLineInitializeExParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineInitializeEx():
-    return win32more.Devices.Tapi.lineInitializeExW
-def _define_lineMakeCall():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineMakeCall", windll["TAPI32"]), ((1, 'hLine'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineMakeCallA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineMakeCallA", windll["TAPI32"]), ((1, 'hLine'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineMakeCallW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineMakeCallW", windll["TAPI32"]), ((1, 'hLine'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineMonitorDigits():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineMonitorDigits", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwDigitModes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineMonitorMedia():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineMonitorMedia", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwMediaModes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineMonitorTones():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEMONITORTONE_head),UInt32, use_last_error=False)(("lineMonitorTones", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpToneList'),(1, 'dwNumEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineNegotiateAPIVersion():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head), use_last_error=False)(("lineNegotiateAPIVersion", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPILowVersion'),(1, 'dwAPIHighVersion'),(1, 'lpdwAPIVersion'),(1, 'lpExtensionID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineNegotiateExtVersion():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("lineNegotiateExtVersion", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtLowVersion'),(1, 'dwExtHighVersion'),(1, 'lpdwExtVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineOpen():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineOpen", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lphLine'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivileges'),(1, 'dwMediaModes'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineOpenA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineOpenA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lphLine'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivileges'),(1, 'dwMediaModes'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineOpenW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineOpenW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lphLine'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivileges'),(1, 'dwMediaModes'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePark():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("linePark", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwParkMode'),(1, 'lpszDirAddress'),(1, 'lpNonDirAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineParkA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("lineParkA", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwParkMode'),(1, 'lpszDirAddress'),(1, 'lpNonDirAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineParkW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("lineParkW", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwParkMode'),(1, 'lpszDirAddress'),(1, 'lpNonDirAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePickup():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("linePickup", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'lpszGroupID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePickupA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("linePickupA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'lpszGroupID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePickupW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("linePickupW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),(1, 'lpszGroupID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePrepareAddToConference():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("linePrepareAddToConference", windll["TAPI32"]), ((1, 'hConfCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePrepareAddToConferenceA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("linePrepareAddToConferenceA", windll["TAPI32"]), ((1, 'hConfCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_linePrepareAddToConferenceW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("linePrepareAddToConferenceW", windll["TAPI32"]), ((1, 'hConfCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineProxyMessage():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("lineProxyMessage", windll["TAPI32"]), ((1, 'hLine'),(1, 'hCall'),(1, 'dwMsg'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineProxyResponse():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.LINEPROXYREQUEST_head),UInt32, use_last_error=False)(("lineProxyResponse", windll["TAPI32"]), ((1, 'hLine'),(1, 'lpProxyRequest'),(1, 'dwResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineRedirect():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineRedirect", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineRedirectA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineRedirectA", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineRedirectW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineRedirectW", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpszDestAddress'),(1, 'dwCountryCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineRegisterRequestRecipient():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("lineRegisterRequestRecipient", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwRegistrationInstance'),(1, 'dwRequestMode'),(1, 'bEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineReleaseUserUserInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineReleaseUserUserInfo", windll["TAPI32"]), ((1, 'hCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineRemoveFromConference():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineRemoveFromConference", windll["TAPI32"]), ((1, 'hCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineRemoveProvider():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND, use_last_error=False)(("lineRemoveProvider", windll["TAPI32"]), ((1, 'dwPermanentProviderID'),(1, 'hwndOwner'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSecureCall():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineSecureCall", windll["TAPI32"]), ((1, 'hCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSendUserUserInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineSendUserUserInfo", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpsUserUserInfo'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAgentActivity():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetAgentActivity", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwActivityID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAgentGroup():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEAGENTGROUPLIST_head), use_last_error=False)(("lineSetAgentGroup", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lpAgentGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAgentMeasurementPeriod():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetAgentMeasurementPeriod", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgent'),(1, 'dwMeasurementPeriod'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAgentSessionState():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetAgentSessionState", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgentSession'),(1, 'dwAgentSessionState'),(1, 'dwNextAgentSessionState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAgentStateEx():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetAgentStateEx", windll["TAPI32"]), ((1, 'hLine'),(1, 'hAgent'),(1, 'dwAgentState'),(1, 'dwNextAgentState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAgentState():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetAgentState", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwAgentState'),(1, 'dwNextAgentState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAppPriority():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineSetAppPriority", windll["TAPI32"]), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpszExtensionName'),(1, 'dwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAppPriorityA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineSetAppPriorityA", windll["TAPI32"]), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpszExtensionName'),(1, 'dwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAppPriorityW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Tapi.LINEEXTENSIONID_head),UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineSetAppPriorityW", windll["TAPI32"]), ((1, 'lpszAppFilename'),(1, 'dwMediaMode'),(1, 'lpExtensionID'),(1, 'dwRequestMode'),(1, 'lpszExtensionName'),(1, 'dwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetAppSpecific():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineSetAppSpecific", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwAppSpecific'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetCallData():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32, use_last_error=False)(("lineSetCallData", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpCallData'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetCallParams():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEDIALPARAMS_head), use_last_error=False)(("lineSetCallParams", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwBearerMode'),(1, 'dwMinRate'),(1, 'dwMaxRate'),(1, 'lpDialParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetCallPrivilege():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineSetCallPrivilege", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwCallPrivilege'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetCallQualityOfService():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,c_void_p,UInt32, use_last_error=False)(("lineSetCallQualityOfService", windll["TAPI32"]), ((1, 'hCall'),(1, 'lpSendingFlowspec'),(1, 'dwSendingFlowspecSize'),(1, 'lpReceivingFlowspec'),(1, 'dwReceivingFlowspecSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetCallTreatment():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineSetCallTreatment", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwTreatment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetCurrentLocation():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineSetCurrentLocation", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwLocation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetDevConfig():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("lineSetDevConfig", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'dwSize'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetDevConfigA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("lineSetDevConfigA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'dwSize'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetDevConfigW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("lineSetDevConfigW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpDeviceConfig'),(1, 'dwSize'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetLineDevStatus():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetLineDevStatus", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwStatusToChange'),(1, 'fStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetMediaControl():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLDIGIT_head),UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLMEDIA_head),UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLTONE_head),UInt32,POINTER(win32more.Devices.Tapi.LINEMEDIACONTROLCALLSTATE_head),UInt32, use_last_error=False)(("lineSetMediaControl", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'lpDigitList'),(1, 'dwDigitNumEntries'),(1, 'lpMediaList'),(1, 'dwMediaNumEntries'),(1, 'lpToneList'),(1, 'dwToneNumEntries'),(1, 'lpCallStateList'),(1, 'dwCallStateNumEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetMediaMode():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineSetMediaMode", windll["TAPI32"]), ((1, 'hCall'),(1, 'dwMediaModes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetQueueMeasurementPeriod():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetQueueMeasurementPeriod", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwQueueID'),(1, 'dwMeasurementPeriod'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetNumRings():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetNumRings", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'dwNumRings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetStatusMessages():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetStatusMessages", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwLineStates'),(1, 'dwAddressStates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetTerminal():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("lineSetTerminal", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'hCall'),(1, 'dwSelect'),(1, 'dwTerminalModes'),(1, 'dwTerminalID'),(1, 'bEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetTollList():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineSetTollList", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lpszAddressIn'),(1, 'dwTollListOption'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetTollListA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("lineSetTollListA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lpszAddressIn'),(1, 'dwTollListOption'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetTollListW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("lineSetTollListW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'lpszAddressInW'),(1, 'dwTollListOption'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetupConference():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineSetupConference", windll["TAPI32"]), ((1, 'hCall'),(1, 'hLine'),(1, 'lphConfCall'),(1, 'lphConsultCall'),(1, 'dwNumParties'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetupConferenceA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineSetupConferenceA", windll["TAPI32"]), ((1, 'hCall'),(1, 'hLine'),(1, 'lphConfCall'),(1, 'lphConsultCall'),(1, 'dwNumParties'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetupConferenceW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineSetupConferenceW", windll["TAPI32"]), ((1, 'hCall'),(1, 'hLine'),(1, 'lphConfCall'),(1, 'lphConsultCall'),(1, 'dwNumParties'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetupTransfer():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineSetupTransfer", windll["TAPI32"]), ((1, 'hCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetupTransferA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineSetupTransferA", windll["TAPI32"]), ((1, 'hCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSetupTransferW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.LINECALLPARAMS_head), use_last_error=False)(("lineSetupTransferW", windll["TAPI32"]), ((1, 'hCall'),(1, 'lphConsultCall'),(1, 'lpCallParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineShutdown():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineShutdown", windll["TAPI32"]), ((1, 'hLineApp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineSwapHold():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineSwapHold", windll["TAPI32"]), ((1, 'hActiveCall'),(1, 'hHeldCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineTranslateAddress():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head), use_last_error=False)(("lineTranslateAddress", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'lpszAddressIn'),(1, 'dwCard'),(1, 'dwTranslateOptions'),(1, 'lpTranslateOutput'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineTranslateAddressA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head), use_last_error=False)(("lineTranslateAddressA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'lpszAddressIn'),(1, 'dwCard'),(1, 'dwTranslateOptions'),(1, 'lpTranslateOutput'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineTranslateAddressW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.Devices.Tapi.LINETRANSLATEOUTPUT_head), use_last_error=False)(("lineTranslateAddressW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'lpszAddressIn'),(1, 'dwCard'),(1, 'dwTranslateOptions'),(1, 'lpTranslateOutput'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineTranslateDialog():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("lineTranslateDialog", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'hwndOwner'),(1, 'lpszAddressIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineTranslateDialogA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("lineTranslateDialogA", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'hwndOwner'),(1, 'lpszAddressIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineTranslateDialogW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(("lineTranslateDialogW", windll["TAPI32"]), ((1, 'hLineApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'hwndOwner'),(1, 'lpszAddressIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineUncompleteCall():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32, use_last_error=False)(("lineUncompleteCall", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwCompletionID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineUnhold():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("lineUnhold", windll["TAPI32"]), ((1, 'hCall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineUnpark():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR, use_last_error=False)(("lineUnpark", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineUnparkA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR, use_last_error=False)(("lineUnparkA", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_lineUnparkW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR, use_last_error=False)(("lineUnparkW", windll["TAPI32"]), ((1, 'hLine'),(1, 'dwAddressID'),(1, 'lphCall'),(1, 'lpszDestAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneClose():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("phoneClose", windll["TAPI32"]), ((1, 'hPhone'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneConfigDialog():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("phoneConfigDialog", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneConfigDialogA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR, use_last_error=False)(("phoneConfigDialogA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneConfigDialogW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(("phoneConfigDialogW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'hwndOwner'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneDevSpecific():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,c_void_p,UInt32, use_last_error=False)(("phoneDevSpecific", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpParams'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetButtonInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head), use_last_error=False)(("phoneGetButtonInfo", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetButtonInfoA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head), use_last_error=False)(("phoneGetButtonInfoA", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetButtonInfoW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head), use_last_error=False)(("phoneGetButtonInfoW", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetData():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(("phoneGetData", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwDataID'),(1, 'lpData'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetDevCaps():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONECAPS_head), use_last_error=False)(("phoneGetDevCaps", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpPhoneCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetDevCapsA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONECAPS_head), use_last_error=False)(("phoneGetDevCapsA", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpPhoneCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetDevCapsW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONECAPS_head), use_last_error=False)(("phoneGetDevCapsW", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'lpPhoneCaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetDisplay():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head), use_last_error=False)(("phoneGetDisplay", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpDisplay'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetGain():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("phoneGetGain", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'lpdwGain'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetHookSwitch():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32), use_last_error=False)(("phoneGetHookSwitch", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpdwHookSwitchDevs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetIcon():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr), use_last_error=False)(("phoneGetIcon", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetIconA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PSTR,POINTER(IntPtr), use_last_error=False)(("phoneGetIconA", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetIconW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,POINTER(IntPtr), use_last_error=False)(("phoneGetIconW", windll["TAPI32"]), ((1, 'dwDeviceID'),(1, 'lpszDeviceClass'),(1, 'lphIcon'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetID():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR, use_last_error=False)(("phoneGetID", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetIDA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PSTR, use_last_error=False)(("phoneGetIDA", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetIDW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.VARSTRING_head),win32more.Foundation.PWSTR, use_last_error=False)(("phoneGetIDW", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpDeviceID'),(1, 'lpszDeviceClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetLamp():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("phoneGetLamp", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpdwLampMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetMessage():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONEMESSAGE_head),UInt32, use_last_error=False)(("phoneGetMessage", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'lpMessage'),(1, 'dwTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetRing():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(("phoneGetRing", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpdwRingMode'),(1, 'lpdwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetStatus():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONESTATUS_head), use_last_error=False)(("phoneGetStatus", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpPhoneStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetStatusA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONESTATUS_head), use_last_error=False)(("phoneGetStatusA", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpPhoneStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetStatusW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.Devices.Tapi.PHONESTATUS_head), use_last_error=False)(("phoneGetStatusW", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpPhoneStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetStatusMessages():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(("phoneGetStatusMessages", windll["TAPI32"]), ((1, 'hPhone'),(1, 'lpdwPhoneStates'),(1, 'lpdwButtonModes'),(1, 'lpdwButtonStates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneGetVolume():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("phoneGetVolume", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'lpdwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneInitialize():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.PHONECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("phoneInitialize", windll["TAPI32"]), ((1, 'lphPhoneApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszAppName'),(1, 'lpdwNumDevs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneInitializeExA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.PHONECALLBACK,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.PHONEINITIALIZEEXPARAMS_head), use_last_error=False)(("phoneInitializeExA", windll["TAPI32"]), ((1, 'lphPhoneApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpPhoneInitializeExParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneInitializeExW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.HINSTANCE,win32more.Devices.Tapi.PHONECALLBACK,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Devices.Tapi.PHONEINITIALIZEEXPARAMS_head), use_last_error=False)(("phoneInitializeExW", windll["TAPI32"]), ((1, 'lphPhoneApp'),(1, 'hInstance'),(1, 'lpfnCallback'),(1, 'lpszFriendlyAppName'),(1, 'lpdwNumDevs'),(1, 'lpdwAPIVersion'),(1, 'lpPhoneInitializeExParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneInitializeEx():
-    return win32more.Devices.Tapi.phoneInitializeExW
-def _define_phoneNegotiateAPIVersion():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.Tapi.PHONEEXTENSIONID_head), use_last_error=False)(("phoneNegotiateAPIVersion", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPILowVersion'),(1, 'dwAPIHighVersion'),(1, 'lpdwAPIVersion'),(1, 'lpExtensionID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneNegotiateExtVersion():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("phoneNegotiateExtVersion", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'dwAPIVersion'),(1, 'dwExtLowVersion'),(1, 'dwExtHighVersion'),(1, 'lpdwExtVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneOpen():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(UInt32),UInt32,UInt32,UIntPtr,UInt32, use_last_error=False)(("phoneOpen", windll["TAPI32"]), ((1, 'hPhoneApp'),(1, 'dwDeviceID'),(1, 'lphPhone'),(1, 'dwAPIVersion'),(1, 'dwExtVersion'),(1, 'dwCallbackInstance'),(1, 'dwPrivilege'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetButtonInfo():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head), use_last_error=False)(("phoneSetButtonInfo", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetButtonInfoA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head), use_last_error=False)(("phoneSetButtonInfoA", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetButtonInfoW():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Devices.Tapi.PHONEBUTTONINFO_head), use_last_error=False)(("phoneSetButtonInfoW", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'lpButtonInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetData():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(("phoneSetData", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwDataID'),(1, 'lpData'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetDisplay():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("phoneSetDisplay", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwRow'),(1, 'dwColumn'),(1, 'lpsDisplay'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetGain():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("phoneSetGain", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'dwGain'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetHookSwitch():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("phoneSetHookSwitch", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwHookSwitchDevs'),(1, 'dwHookSwitchMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetLamp():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("phoneSetLamp", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwButtonLampID'),(1, 'dwLampMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetRing():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("phoneSetRing", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwRingMode'),(1, 'dwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetStatusMessages():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(("phoneSetStatusMessages", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwPhoneStates'),(1, 'dwButtonModes'),(1, 'dwButtonStates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneSetVolume():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,UInt32, use_last_error=False)(("phoneSetVolume", windll["TAPI32"]), ((1, 'hPhone'),(1, 'dwHookSwitchDev'),(1, 'dwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_phoneShutdown():
-    try:
-        return WINFUNCTYPE(Int32,UInt32, use_last_error=False)(("phoneShutdown", windll["TAPI32"]), ((1, 'hPhoneApp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiGetLocationInfo():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Byte),POINTER(Byte), use_last_error=False)(("tapiGetLocationInfo", windll["TAPI32"]), ((1, 'lpszCountryCode'),(1, 'lpszCityCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiGetLocationInfoA():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Byte),POINTER(Byte), use_last_error=False)(("tapiGetLocationInfoA", windll["TAPI32"]), ((1, 'lpszCountryCode'),(1, 'lpszCityCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiGetLocationInfoW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(Char),POINTER(Char), use_last_error=False)(("tapiGetLocationInfoW", windll["TAPI32"]), ((1, 'lpszCountryCodeW'),(1, 'lpszCityCodeW'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestDrop():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM, use_last_error=False)(("tapiRequestDrop", windll["TAPI32"]), ((1, 'hwnd'),(1, 'wRequestID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestMakeCall():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("tapiRequestMakeCall", windll["TAPI32"]), ((1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestMakeCallA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("tapiRequestMakeCallA", windll["TAPI32"]), ((1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestMakeCallW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("tapiRequestMakeCallW", windll["TAPI32"]), ((1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestMediaCall():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("tapiRequestMediaCall", windll["TAPI32"]), ((1, 'hwnd'),(1, 'wRequestID'),(1, 'lpszDeviceClass'),(1, 'lpDeviceID'),(1, 'dwSize'),(1, 'dwSecure'),(1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestMediaCallA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("tapiRequestMediaCallA", windll["TAPI32"]), ((1, 'hwnd'),(1, 'wRequestID'),(1, 'lpszDeviceClass'),(1, 'lpDeviceID'),(1, 'dwSize'),(1, 'dwSecure'),(1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_tapiRequestMediaCallW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("tapiRequestMediaCallW", windll["TAPI32"]), ((1, 'hwnd'),(1, 'wRequestID'),(1, 'lpszDeviceClass'),(1, 'lpDeviceID'),(1, 'dwSize'),(1, 'dwSecure'),(1, 'lpszDestAddress'),(1, 'lpszAppName'),(1, 'lpszCalledParty'),(1, 'lpszComment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenTnefStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,POINTER(win32more.Devices.Tapi.ITnef_head), use_last_error=False)(("OpenTnefStream", windll["MAPI32"]), ((1, 'lpvSupport'),(1, 'lpStream'),(1, 'lpszStreamName'),(1, 'ulFlags'),(1, 'lpMessage'),(1, 'wKeyVal'),(1, 'lppTNEF'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenTnefStreamEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,win32more.System.AddressBook.IAddrBook_head,POINTER(win32more.Devices.Tapi.ITnef_head), use_last_error=False)(("OpenTnefStreamEx", windll["MAPI32"]), ((1, 'lpvSupport'),(1, 'lpStream'),(1, 'lpszStreamName'),(1, 'ulFlags'),(1, 'lpMessage'),(1, 'wKeyVal'),(1, 'lpAdressBook'),(1, 'lppTNEF'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTnefStreamCodepage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(("GetTnefStreamCodepage", windll["MAPI32"]), ((1, 'lpStream'),(1, 'lpulCodepage'),(1, 'lpulSubCodepage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+    return VARSTRING
 __all__ = [
-    "TAPI_CURRENT_VERSION",
-    "LINE_ADDRESSSTATE",
-    "LINE_CALLINFO",
-    "LINE_CALLSTATE",
-    "LINE_CLOSE",
-    "LINE_DEVSPECIFIC",
-    "LINE_DEVSPECIFICFEATURE",
-    "LINE_GATHERDIGITS",
-    "LINE_GENERATE",
-    "LINE_LINEDEVSTATE",
-    "LINE_MONITORDIGITS",
-    "LINE_MONITORMEDIA",
-    "LINE_MONITORTONE",
-    "LINE_REPLY",
-    "LINE_REQUEST",
-    "PHONE_BUTTON",
-    "PHONE_CLOSE",
-    "PHONE_DEVSPECIFIC",
-    "PHONE_REPLY",
-    "PHONE_STATE",
-    "LINE_CREATE",
-    "PHONE_CREATE",
-    "LINE_AGENTSPECIFIC",
-    "LINE_AGENTSTATUS",
-    "LINE_APPNEWCALL",
-    "LINE_PROXYREQUEST",
-    "LINE_REMOVE",
-    "PHONE_REMOVE",
-    "LINE_AGENTSESSIONSTATUS",
-    "LINE_QUEUESTATUS",
-    "LINE_AGENTSTATUSEX",
-    "LINE_GROUPSTATUS",
-    "LINE_PROXYSTATUS",
-    "LINE_APPNEWCALLHUB",
-    "LINE_CALLHUBCLOSE",
-    "LINE_DEVSPECIFICEX",
+    "ACDGE_GROUP_REMOVED",
+    "ACDGE_NEW_GROUP",
+    "ACDGROUP_EVENT",
+    "ACDQE_NEW_QUEUE",
+    "ACDQE_QUEUE_REMOVED",
+    "ACDQUEUE_EVENT",
+    "ACS_ADDRESSDEVICESPECIFIC",
+    "ACS_LINEDEVICESPECIFIC",
+    "ACS_PERMANENTDEVICEGUID",
+    "ACS_PROTOCOL",
+    "ACS_PROVIDERSPECIFIC",
+    "ACS_SWITCHSPECIFIC",
+    "AC_ADDRESSCAPFLAGS",
+    "AC_ADDRESSFEATURES",
+    "AC_ADDRESSID",
+    "AC_ADDRESSTYPES",
+    "AC_ANSWERMODES",
+    "AC_BEARERMODES",
+    "AC_CALLCOMPLETIONCONDITIONS",
+    "AC_CALLCOMPLETIONMODES",
+    "AC_CALLEDIDSUPPORT",
+    "AC_CALLERIDSUPPORT",
+    "AC_CALLFEATURES1",
+    "AC_CALLFEATURES2",
+    "AC_CONNECTEDIDSUPPORT",
+    "AC_DEVCAPFLAGS",
+    "AC_FORWARDMODES",
+    "AC_GATHERDIGITSMAXTIMEOUT",
+    "AC_GATHERDIGITSMINTIMEOUT",
+    "AC_GENERATEDIGITDEFAULTDURATION",
+    "AC_GENERATEDIGITMAXDURATION",
+    "AC_GENERATEDIGITMINDURATION",
+    "AC_GENERATEDIGITSUPPORT",
+    "AC_GENERATETONEMAXNUMFREQ",
+    "AC_GENERATETONEMODES",
+    "AC_LINEFEATURES",
+    "AC_LINEID",
+    "AC_MAXACTIVECALLS",
+    "AC_MAXCALLCOMPLETIONS",
+    "AC_MAXCALLDATASIZE",
+    "AC_MAXFORWARDENTRIES",
+    "AC_MAXFWDNUMRINGS",
+    "AC_MAXNUMCONFERENCE",
+    "AC_MAXNUMTRANSCONF",
+    "AC_MAXONHOLDCALLS",
+    "AC_MAXONHOLDPENDINGCALLS",
+    "AC_MAXSPECIFICENTRIES",
+    "AC_MINFWDNUMRINGS",
+    "AC_MONITORDIGITSUPPORT",
+    "AC_MONITORTONEMAXNUMENTRIES",
+    "AC_MONITORTONEMAXNUMFREQ",
+    "AC_PARKSUPPORT",
+    "AC_PERMANENTDEVICEID",
+    "AC_PREDICTIVEAUTOTRANSFERSTATES",
+    "AC_REDIRECTINGIDSUPPORT",
+    "AC_REDIRECTIONIDSUPPORT",
+    "AC_REMOVEFROMCONFCAPS",
+    "AC_REMOVEFROMCONFSTATE",
+    "AC_SETTABLEDEVSTATUS",
+    "AC_TRANSFERMODES",
+    "ADDRALIAS",
+    "ADDRESS_CAPABILITY",
+    "ADDRESS_CAPABILITY_STRING",
+    "ADDRESS_EVENT",
+    "ADDRESS_STATE",
+    "ADDRESS_TERMINAL_AVAILABLE",
+    "ADDRESS_TERMINAL_UNAVAILABLE",
+    "AE_BUSY_ACD",
+    "AE_BUSY_INCOMING",
+    "AE_BUSY_OUTGOING",
+    "AE_CAPSCHANGE",
+    "AE_CONFIGCHANGE",
+    "AE_FORWARD",
+    "AE_LASTITEM",
+    "AE_MSGWAITOFF",
+    "AE_MSGWAITON",
+    "AE_NEWTERMINAL",
+    "AE_NOT_READY",
+    "AE_READY",
+    "AE_REMOVETERMINAL",
+    "AE_RINGING",
+    "AE_STATE",
+    "AE_UNKNOWN",
+    "AGENTHANDLER_EVENT",
+    "AGENT_EVENT",
+    "AGENT_SESSION_EVENT",
+    "AGENT_SESSION_STATE",
+    "AGENT_STATE",
+    "AHE_AGENTHANDLER_REMOVED",
+    "AHE_NEW_AGENTHANDLER",
+    "ASE_BUSY",
+    "ASE_END",
+    "ASE_NEW_SESSION",
+    "ASE_NOT_READY",
+    "ASE_READY",
+    "ASE_WRAPUP",
+    "ASST_BUSY_ON_CALL",
+    "ASST_BUSY_WRAPUP",
+    "ASST_NOT_READY",
+    "ASST_READY",
+    "ASST_SESSION_ENDED",
+    "ASYNC_COMPLETION",
+    "AS_BUSY_ACD",
+    "AS_BUSY_INCOMING",
+    "AS_BUSY_OUTGOING",
+    "AS_INSERVICE",
+    "AS_NOT_READY",
+    "AS_OUTOFSERVICE",
+    "AS_READY",
+    "AS_UNKNOWN",
+    "CALLHUB_EVENT",
+    "CALLHUB_STATE",
+    "CALLINFOCHANGE_CAUSE",
+    "CALLINFO_BUFFER",
+    "CALLINFO_LONG",
+    "CALLINFO_STRING",
+    "CALL_CAUSE_BAD_DEVICE",
+    "CALL_CAUSE_CONNECT_FAIL",
+    "CALL_CAUSE_LOCAL_REQUEST",
+    "CALL_CAUSE_MEDIA_RECOVERED",
+    "CALL_CAUSE_MEDIA_TIMEOUT",
+    "CALL_CAUSE_QUALITY_OF_SERVICE",
+    "CALL_CAUSE_REMOTE_REQUEST",
+    "CALL_CAUSE_UNKNOWN",
+    "CALL_MEDIA_EVENT",
+    "CALL_MEDIA_EVENT_CAUSE",
+    "CALL_NEW_STREAM",
+    "CALL_NOTIFICATION_EVENT",
+    "CALL_PRIVILEGE",
+    "CALL_STATE",
+    "CALL_STATE_EVENT_CAUSE",
+    "CALL_STREAM_ACTIVE",
+    "CALL_STREAM_FAIL",
+    "CALL_STREAM_INACTIVE",
+    "CALL_STREAM_NOT_USED",
+    "CALL_TERMINAL_FAIL",
+    "CEC_DISCONNECT_BADADDRESS",
+    "CEC_DISCONNECT_BLOCKED",
+    "CEC_DISCONNECT_BUSY",
+    "CEC_DISCONNECT_CANCELLED",
+    "CEC_DISCONNECT_FAILED",
+    "CEC_DISCONNECT_NOANSWER",
+    "CEC_DISCONNECT_NORMAL",
+    "CEC_DISCONNECT_REJECTED",
+    "CEC_NONE",
+    "CHE_CALLHUBIDLE",
+    "CHE_CALLHUBNEW",
+    "CHE_CALLJOIN",
+    "CHE_CALLLEAVE",
+    "CHE_LASTITEM",
+    "CHS_ACTIVE",
+    "CHS_IDLE",
+    "CIB_CALLDATABUFFER",
+    "CIB_CHARGINGINFOBUFFER",
+    "CIB_DEVSPECIFICBUFFER",
+    "CIB_HIGHLEVELCOMPATIBILITYBUFFER",
+    "CIB_LOWLEVELCOMPATIBILITYBUFFER",
+    "CIB_USERUSERINFO",
+    "CIC_APPSPECIFIC",
+    "CIC_BEARERMODE",
+    "CIC_CALLDATA",
+    "CIC_CALLEDID",
+    "CIC_CALLERID",
+    "CIC_CALLID",
+    "CIC_CHARGINGINFO",
+    "CIC_COMPLETIONID",
+    "CIC_CONNECTEDID",
+    "CIC_DEVSPECIFIC",
+    "CIC_HIGHLEVELCOMP",
+    "CIC_LASTITEM",
+    "CIC_LOWLEVELCOMP",
+    "CIC_MEDIATYPE",
+    "CIC_NUMMONITORS",
+    "CIC_NUMOWNERDECR",
+    "CIC_NUMOWNERINCR",
+    "CIC_ORIGIN",
+    "CIC_OTHER",
+    "CIC_PRIVILEGE",
+    "CIC_RATE",
+    "CIC_REASON",
+    "CIC_REDIRECTINGID",
+    "CIC_REDIRECTIONID",
+    "CIC_RELATEDCALLID",
+    "CIC_TREATMENT",
+    "CIC_TRUNK",
+    "CIC_USERUSERINFO",
+    "CIL_APPSPECIFIC",
+    "CIL_BEARERMODE",
+    "CIL_CALLEDIDADDRESSTYPE",
+    "CIL_CALLERIDADDRESSTYPE",
+    "CIL_CALLID",
+    "CIL_CALLPARAMSFLAGS",
+    "CIL_CALLTREATMENT",
+    "CIL_COMPLETIONID",
+    "CIL_CONNECTEDIDADDRESSTYPE",
+    "CIL_COUNTRYCODE",
+    "CIL_GENERATEDIGITDURATION",
+    "CIL_MAXRATE",
+    "CIL_MEDIATYPESAVAILABLE",
+    "CIL_MINRATE",
+    "CIL_MONITORDIGITMODES",
+    "CIL_MONITORMEDIAMODES",
+    "CIL_NUMBEROFMONITORS",
+    "CIL_NUMBEROFOWNERS",
+    "CIL_ORIGIN",
+    "CIL_RATE",
+    "CIL_REASON",
+    "CIL_REDIRECTINGIDADDRESSTYPE",
+    "CIL_REDIRECTIONIDADDRESSTYPE",
+    "CIL_RELATEDCALLID",
+    "CIL_TRUNK",
+    "CIS_CALLEDIDNAME",
+    "CIS_CALLEDIDNUMBER",
+    "CIS_CALLEDPARTYFRIENDLYNAME",
+    "CIS_CALLERIDNAME",
+    "CIS_CALLERIDNUMBER",
+    "CIS_CALLINGPARTYID",
+    "CIS_COMMENT",
+    "CIS_CONNECTEDIDNAME",
+    "CIS_CONNECTEDIDNUMBER",
+    "CIS_DISPLAYABLEADDRESS",
+    "CIS_REDIRECTINGIDNAME",
+    "CIS_REDIRECTINGIDNUMBER",
+    "CIS_REDIRECTIONIDNAME",
+    "CIS_REDIRECTIONIDNUMBER",
+    "CMC_BAD_DEVICE",
+    "CMC_CONNECT_FAIL",
+    "CMC_LOCAL_REQUEST",
+    "CMC_MEDIA_RECOVERED",
+    "CMC_MEDIA_TIMEOUT",
+    "CMC_QUALITY_OF_SERVICE",
+    "CMC_REMOTE_REQUEST",
+    "CMC_UNKNOWN",
+    "CME_LASTITEM",
+    "CME_NEW_STREAM",
+    "CME_STREAM_ACTIVE",
+    "CME_STREAM_FAIL",
+    "CME_STREAM_INACTIVE",
+    "CME_STREAM_NOT_USED",
+    "CME_TERMINAL_FAIL",
+    "CNE_LASTITEM",
+    "CNE_MONITOR",
+    "CNE_OWNER",
+    "CP_MONITOR",
+    "CP_OWNER",
+    "CS_CONNECTED",
+    "CS_DISCONNECTED",
+    "CS_HOLD",
+    "CS_IDLE",
+    "CS_INPROGRESS",
+    "CS_LASTITEM",
+    "CS_OFFERING",
+    "CS_QUEUED",
+    "DC_NOANSWER",
+    "DC_NORMAL",
+    "DC_REJECTED",
+    "DIRECTORY_OBJECT_TYPE",
+    "DIRECTORY_TYPE",
+    "DISCONNECT_CODE",
+    "DISPIDMASK",
+    "DTR",
+    "DT_ILS",
+    "DT_NTDS",
+    "DispatchMapper",
+    "FDS_NOTSUPPORTED",
+    "FDS_SUPPORTED",
+    "FDS_UNKNOWN",
+    "FINISH_MODE",
+    "FM_ASCONFERENCE",
+    "FM_ASTRANSFER",
+    "FTEC_END_OF_FILE",
+    "FTEC_NORMAL",
+    "FTEC_READ_ERROR",
+    "FTEC_WRITE_ERROR",
+    "FT_STATE_EVENT_CAUSE",
+    "FULLDUPLEX_SUPPORT",
+    "GETTNEFSTREAMCODEPAGE",
+    "GetTnefStreamCodepage",
+    "HDRVCALL__",
+    "HDRVDIALOGINSTANCE__",
+    "HDRVLINE__",
+    "HDRVMSPLINE__",
+    "HDRVPHONE__",
+    "HPROVIDER__",
+    "HTAPICALL__",
+    "HTAPILINE__",
+    "HTAPIPHONE__",
+    "IDISPADDRESS",
+    "IDISPADDRESSCAPABILITIES",
+    "IDISPADDRESSTRANSLATION",
+    "IDISPAGGREGATEDMSPADDRESSOBJ",
+    "IDISPAGGREGATEDMSPCALLOBJ",
+    "IDISPAPC",
+    "IDISPBASICCALLCONTROL",
+    "IDISPCALLINFO",
+    "IDISPDIRECTORY",
+    "IDISPDIROBJCONFERENCE",
+    "IDISPDIROBJECT",
+    "IDISPDIROBJUSER",
+    "IDISPFILETRACK",
+    "IDISPILSCONFIG",
+    "IDISPLEGACYADDRESSMEDIACONTROL",
+    "IDISPLEGACYCALLMEDIACONTROL",
+    "IDISPMEDIACONTROL",
+    "IDISPMEDIAPLAYBACK",
+    "IDISPMEDIARECORD",
+    "IDISPMEDIASUPPORT",
+    "IDISPMULTITRACK",
+    "IDISPPHONE",
+    "IDISPTAPI",
+    "IDISPTAPICALLCENTER",
+    "IEnumACDGroup",
+    "IEnumAddress",
+    "IEnumAgent",
+    "IEnumAgentHandler",
+    "IEnumAgentSession",
+    "IEnumBstr",
+    "IEnumCall",
+    "IEnumCallHub",
+    "IEnumCallingCard",
+    "IEnumDialableAddrs",
+    "IEnumDirectory",
+    "IEnumDirectoryObject",
+    "IEnumLocation",
+    "IEnumMcastScope",
+    "IEnumPhone",
+    "IEnumPluggableSuperclassInfo",
+    "IEnumPluggableTerminalClassInfo",
+    "IEnumQueue",
+    "IEnumStream",
+    "IEnumSubStream",
+    "IEnumTerminal",
+    "IEnumTerminalClass",
+    "IMcastAddressAllocation",
+    "IMcastLeaseInfo",
+    "IMcastScope",
     "INITIALIZE_NEGOTIATION",
-    "LINEADDRCAPFLAGS_FWDNUMRINGS",
-    "LINEADDRCAPFLAGS_PICKUPGROUPID",
-    "LINEADDRCAPFLAGS_SECURE",
+    "INTERFACEMASK",
+    "ITACDGroup",
+    "ITACDGroupEvent",
+    "ITAMMediaFormat",
+    "ITASRTerminalEvent",
+    "ITAddress",
+    "ITAddress2",
+    "ITAddressCapabilities",
+    "ITAddressDeviceSpecificEvent",
+    "ITAddressEvent",
+    "ITAddressTranslation",
+    "ITAddressTranslationInfo",
+    "ITAgent",
+    "ITAgentEvent",
+    "ITAgentHandler",
+    "ITAgentHandlerEvent",
+    "ITAgentSession",
+    "ITAgentSessionEvent",
+    "ITAllocatorProperties",
+    "ITAutomatedPhoneControl",
+    "ITBasicAudioTerminal",
+    "ITBasicCallControl",
+    "ITBasicCallControl2",
+    "ITCallHub",
+    "ITCallHubEvent",
+    "ITCallInfo",
+    "ITCallInfo2",
+    "ITCallInfoChangeEvent",
+    "ITCallMediaEvent",
+    "ITCallNotificationEvent",
+    "ITCallStateEvent",
+    "ITCallingCard",
+    "ITCollection",
+    "ITCollection2",
+    "ITCustomTone",
+    "ITDetectTone",
+    "ITDigitDetectionEvent",
+    "ITDigitGenerationEvent",
+    "ITDigitsGatheredEvent",
+    "ITDirectory",
+    "ITDirectoryObject",
+    "ITDirectoryObjectConference",
+    "ITDirectoryObjectUser",
+    "ITDispatchMapper",
+    "ITFileTerminalEvent",
+    "ITFileTrack",
+    "ITForwardInformation",
+    "ITForwardInformation2",
+    "ITILSConfig",
+    "ITLegacyAddressMediaControl",
+    "ITLegacyAddressMediaControl2",
+    "ITLegacyCallMediaControl",
+    "ITLegacyCallMediaControl2",
+    "ITLegacyWaveSupport",
+    "ITLocationInfo",
+    "ITMSPAddress",
+    "ITMediaControl",
+    "ITMediaPlayback",
+    "ITMediaRecord",
+    "ITMediaSupport",
+    "ITMultiTrackTerminal",
+    "ITPhone",
+    "ITPhoneDeviceSpecificEvent",
+    "ITPhoneEvent",
+    "ITPluggableTerminalClassInfo",
+    "ITPluggableTerminalEventSink",
+    "ITPluggableTerminalEventSinkRegistration",
+    "ITPluggableTerminalSuperclassInfo",
+    "ITPrivateEvent",
+    "ITQOSEvent",
+    "ITQueue",
+    "ITQueueEvent",
+    "ITRendezvous",
+    "ITRequest",
+    "ITRequestEvent",
+    "ITScriptableAudioFormat",
+    "ITStaticAudioTerminal",
+    "ITStream",
+    "ITStreamControl",
+    "ITSubStream",
+    "ITSubStreamControl",
+    "ITTAPI",
+    "ITTAPI2",
+    "ITTAPICallCenter",
+    "ITTAPIDispatchEventNotification",
+    "ITTAPIEventNotification",
+    "ITTAPIObjectEvent",
+    "ITTAPIObjectEvent2",
+    "ITTTSTerminalEvent",
+    "ITTerminal",
+    "ITTerminalSupport",
+    "ITTerminalSupport2",
+    "ITToneDetectionEvent",
+    "ITToneTerminalEvent",
+    "ITnef",
+    "LAST_LINEMEDIAMODE",
+    "LAST_LINEREQUESTMODE",
+    "LINEADDRCAPFLAGS_ACCEPTTOALERT",
+    "LINEADDRCAPFLAGS_ACDGROUP",
+    "LINEADDRCAPFLAGS_AUTORECONNECT",
     "LINEADDRCAPFLAGS_BLOCKIDDEFAULT",
     "LINEADDRCAPFLAGS_BLOCKIDOVERRIDE",
-    "LINEADDRCAPFLAGS_DIALED",
-    "LINEADDRCAPFLAGS_ORIGOFFHOOK",
-    "LINEADDRCAPFLAGS_DESTOFFHOOK",
-    "LINEADDRCAPFLAGS_FWDCONSULT",
-    "LINEADDRCAPFLAGS_SETUPCONFNULL",
-    "LINEADDRCAPFLAGS_AUTORECONNECT",
     "LINEADDRCAPFLAGS_COMPLETIONID",
-    "LINEADDRCAPFLAGS_TRANSFERHELD",
-    "LINEADDRCAPFLAGS_TRANSFERMAKE",
+    "LINEADDRCAPFLAGS_CONFDROP",
     "LINEADDRCAPFLAGS_CONFERENCEHELD",
     "LINEADDRCAPFLAGS_CONFERENCEMAKE",
-    "LINEADDRCAPFLAGS_PARTIALDIAL",
-    "LINEADDRCAPFLAGS_FWDSTATUSVALID",
-    "LINEADDRCAPFLAGS_FWDINTEXTADDR",
+    "LINEADDRCAPFLAGS_DESTOFFHOOK",
+    "LINEADDRCAPFLAGS_DIALED",
     "LINEADDRCAPFLAGS_FWDBUSYNAADDR",
-    "LINEADDRCAPFLAGS_ACCEPTTOALERT",
-    "LINEADDRCAPFLAGS_CONFDROP",
+    "LINEADDRCAPFLAGS_FWDCONSULT",
+    "LINEADDRCAPFLAGS_FWDINTEXTADDR",
+    "LINEADDRCAPFLAGS_FWDNUMRINGS",
+    "LINEADDRCAPFLAGS_FWDSTATUSVALID",
+    "LINEADDRCAPFLAGS_HOLDMAKESNEW",
+    "LINEADDRCAPFLAGS_NOEXTERNALCALLS",
+    "LINEADDRCAPFLAGS_NOINTERNALCALLS",
+    "LINEADDRCAPFLAGS_NOPSTNADDRESSTRANSLATION",
+    "LINEADDRCAPFLAGS_ORIGOFFHOOK",
+    "LINEADDRCAPFLAGS_PARTIALDIAL",
     "LINEADDRCAPFLAGS_PICKUPCALLWAIT",
+    "LINEADDRCAPFLAGS_PICKUPGROUPID",
     "LINEADDRCAPFLAGS_PREDICTIVEDIALER",
     "LINEADDRCAPFLAGS_QUEUE",
     "LINEADDRCAPFLAGS_ROUTEPOINT",
-    "LINEADDRCAPFLAGS_HOLDMAKESNEW",
-    "LINEADDRCAPFLAGS_NOINTERNALCALLS",
-    "LINEADDRCAPFLAGS_NOEXTERNALCALLS",
+    "LINEADDRCAPFLAGS_SECURE",
     "LINEADDRCAPFLAGS_SETCALLINGID",
-    "LINEADDRCAPFLAGS_ACDGROUP",
-    "LINEADDRCAPFLAGS_NOPSTNADDRESSTRANSLATION",
+    "LINEADDRCAPFLAGS_SETUPCONFNULL",
+    "LINEADDRCAPFLAGS_TRANSFERHELD",
+    "LINEADDRCAPFLAGS_TRANSFERMAKE",
+    "LINEADDRESSCAPS",
     "LINEADDRESSMODE_ADDRESSID",
     "LINEADDRESSMODE_DIALABLEADDR",
-    "LINEADDRESSSHARING_PRIVATE",
     "LINEADDRESSSHARING_BRIDGEDEXCL",
     "LINEADDRESSSHARING_BRIDGEDNEW",
     "LINEADDRESSSHARING_BRIDGEDSHARED",
     "LINEADDRESSSHARING_MONITORED",
-    "LINEADDRESSSTATE_OTHER",
-    "LINEADDRESSSTATE_DEVSPECIFIC",
-    "LINEADDRESSSTATE_INUSEZERO",
-    "LINEADDRESSSTATE_INUSEONE",
-    "LINEADDRESSSTATE_INUSEMANY",
-    "LINEADDRESSSTATE_NUMCALLS",
-    "LINEADDRESSSTATE_FORWARD",
-    "LINEADDRESSSTATE_TERMINALS",
+    "LINEADDRESSSHARING_PRIVATE",
     "LINEADDRESSSTATE_CAPSCHANGE",
+    "LINEADDRESSSTATE_DEVSPECIFIC",
+    "LINEADDRESSSTATE_FORWARD",
+    "LINEADDRESSSTATE_INUSEMANY",
+    "LINEADDRESSSTATE_INUSEONE",
+    "LINEADDRESSSTATE_INUSEZERO",
+    "LINEADDRESSSTATE_NUMCALLS",
+    "LINEADDRESSSTATE_OTHER",
+    "LINEADDRESSSTATE_TERMINALS",
+    "LINEADDRESSSTATUS",
+    "LINEADDRESSTYPE_DOMAINNAME",
+    "LINEADDRESSTYPE_EMAILNAME",
+    "LINEADDRESSTYPE_IPADDRESS",
     "LINEADDRESSTYPE_PHONENUMBER",
     "LINEADDRESSTYPE_SDP",
-    "LINEADDRESSTYPE_EMAILNAME",
-    "LINEADDRESSTYPE_DOMAINNAME",
-    "LINEADDRESSTYPE_IPADDRESS",
     "LINEADDRFEATURE_FORWARD",
+    "LINEADDRFEATURE_FORWARDDND",
+    "LINEADDRFEATURE_FORWARDFWD",
     "LINEADDRFEATURE_MAKECALL",
     "LINEADDRFEATURE_PICKUP",
+    "LINEADDRFEATURE_PICKUPDIRECT",
+    "LINEADDRFEATURE_PICKUPGROUP",
+    "LINEADDRFEATURE_PICKUPHELD",
+    "LINEADDRFEATURE_PICKUPWAITING",
     "LINEADDRFEATURE_SETMEDIACONTROL",
     "LINEADDRFEATURE_SETTERMINAL",
     "LINEADDRFEATURE_SETUPCONF",
     "LINEADDRFEATURE_UNCOMPLETECALL",
     "LINEADDRFEATURE_UNPARK",
-    "LINEADDRFEATURE_PICKUPHELD",
-    "LINEADDRFEATURE_PICKUPGROUP",
-    "LINEADDRFEATURE_PICKUPDIRECT",
-    "LINEADDRFEATURE_PICKUPWAITING",
-    "LINEADDRFEATURE_FORWARDFWD",
-    "LINEADDRFEATURE_FORWARDDND",
-    "LINEAGENTFEATURE_SETAGENTGROUP",
-    "LINEAGENTFEATURE_SETAGENTSTATE",
-    "LINEAGENTFEATURE_SETAGENTACTIVITY",
+    "LINEAGENTACTIVITYENTRY",
+    "LINEAGENTACTIVITYLIST",
+    "LINEAGENTCAPS",
+    "LINEAGENTENTRY",
     "LINEAGENTFEATURE_AGENTSPECIFIC",
     "LINEAGENTFEATURE_GETAGENTACTIVITYLIST",
     "LINEAGENTFEATURE_GETAGENTGROUP",
-    "LINEAGENTSTATE_LOGGEDOFF",
-    "LINEAGENTSTATE_NOTREADY",
-    "LINEAGENTSTATE_READY",
-    "LINEAGENTSTATE_BUSYACD",
-    "LINEAGENTSTATE_BUSYINCOMING",
-    "LINEAGENTSTATE_BUSYOUTBOUND",
-    "LINEAGENTSTATE_BUSYOTHER",
-    "LINEAGENTSTATE_WORKINGAFTERCALL",
-    "LINEAGENTSTATE_UNKNOWN",
-    "LINEAGENTSTATE_UNAVAIL",
-    "LINEAGENTSTATUS_GROUP",
-    "LINEAGENTSTATUS_STATE",
-    "LINEAGENTSTATUS_NEXTSTATE",
-    "LINEAGENTSTATUS_ACTIVITY",
-    "LINEAGENTSTATUS_ACTIVITYLIST",
-    "LINEAGENTSTATUS_GROUPLIST",
-    "LINEAGENTSTATUS_CAPSCHANGE",
-    "LINEAGENTSTATUS_VALIDSTATES",
-    "LINEAGENTSTATUS_VALIDNEXTSTATES",
-    "LINEAGENTSTATEEX_NOTREADY",
-    "LINEAGENTSTATEEX_READY",
-    "LINEAGENTSTATEEX_BUSYACD",
-    "LINEAGENTSTATEEX_BUSYINCOMING",
-    "LINEAGENTSTATEEX_BUSYOUTGOING",
-    "LINEAGENTSTATEEX_UNKNOWN",
-    "LINEAGENTSTATEEX_RELEASED",
-    "LINEAGENTSTATUSEX_NEWAGENT",
-    "LINEAGENTSTATUSEX_STATE",
-    "LINEAGENTSTATUSEX_UPDATEINFO",
-    "LINEAGENTSESSIONSTATE_NOTREADY",
-    "LINEAGENTSESSIONSTATE_READY",
+    "LINEAGENTFEATURE_SETAGENTACTIVITY",
+    "LINEAGENTFEATURE_SETAGENTGROUP",
+    "LINEAGENTFEATURE_SETAGENTSTATE",
+    "LINEAGENTGROUPENTRY",
+    "LINEAGENTGROUPLIST",
+    "LINEAGENTINFO",
+    "LINEAGENTLIST",
+    "LINEAGENTSESSIONENTRY",
+    "LINEAGENTSESSIONINFO",
+    "LINEAGENTSESSIONLIST",
     "LINEAGENTSESSIONSTATE_BUSYONCALL",
     "LINEAGENTSESSIONSTATE_BUSYWRAPUP",
     "LINEAGENTSESSIONSTATE_ENDED",
+    "LINEAGENTSESSIONSTATE_NOTREADY",
+    "LINEAGENTSESSIONSTATE_READY",
     "LINEAGENTSESSIONSTATE_RELEASED",
     "LINEAGENTSESSIONSTATUS_NEWSESSION",
     "LINEAGENTSESSIONSTATUS_STATE",
     "LINEAGENTSESSIONSTATUS_UPDATEINFO",
-    "LINEQUEUESTATUS_UPDATEINFO",
-    "LINEQUEUESTATUS_NEWQUEUE",
-    "LINEQUEUESTATUS_QUEUEREMOVED",
-    "LINEGROUPSTATUS_NEWGROUP",
-    "LINEGROUPSTATUS_GROUPREMOVED",
-    "LINEPROXYSTATUS_OPEN",
-    "LINEPROXYSTATUS_CLOSE",
-    "LINEPROXYSTATUS_ALLOPENFORACD",
-    "LINEANSWERMODE_NONE",
+    "LINEAGENTSTATEEX_BUSYACD",
+    "LINEAGENTSTATEEX_BUSYINCOMING",
+    "LINEAGENTSTATEEX_BUSYOUTGOING",
+    "LINEAGENTSTATEEX_NOTREADY",
+    "LINEAGENTSTATEEX_READY",
+    "LINEAGENTSTATEEX_RELEASED",
+    "LINEAGENTSTATEEX_UNKNOWN",
+    "LINEAGENTSTATE_BUSYACD",
+    "LINEAGENTSTATE_BUSYINCOMING",
+    "LINEAGENTSTATE_BUSYOTHER",
+    "LINEAGENTSTATE_BUSYOUTBOUND",
+    "LINEAGENTSTATE_LOGGEDOFF",
+    "LINEAGENTSTATE_NOTREADY",
+    "LINEAGENTSTATE_READY",
+    "LINEAGENTSTATE_UNAVAIL",
+    "LINEAGENTSTATE_UNKNOWN",
+    "LINEAGENTSTATE_WORKINGAFTERCALL",
+    "LINEAGENTSTATUS",
+    "LINEAGENTSTATUSEX_NEWAGENT",
+    "LINEAGENTSTATUSEX_STATE",
+    "LINEAGENTSTATUSEX_UPDATEINFO",
+    "LINEAGENTSTATUS_ACTIVITY",
+    "LINEAGENTSTATUS_ACTIVITYLIST",
+    "LINEAGENTSTATUS_CAPSCHANGE",
+    "LINEAGENTSTATUS_GROUP",
+    "LINEAGENTSTATUS_GROUPLIST",
+    "LINEAGENTSTATUS_NEXTSTATE",
+    "LINEAGENTSTATUS_STATE",
+    "LINEAGENTSTATUS_VALIDNEXTSTATES",
+    "LINEAGENTSTATUS_VALIDSTATES",
     "LINEANSWERMODE_DROP",
     "LINEANSWERMODE_HOLD",
-    "LINEBEARERMODE_VOICE",
-    "LINEBEARERMODE_SPEECH",
-    "LINEBEARERMODE_MULTIUSE",
-    "LINEBEARERMODE_DATA",
+    "LINEANSWERMODE_NONE",
+    "LINEAPPINFO",
     "LINEBEARERMODE_ALTSPEECHDATA",
+    "LINEBEARERMODE_DATA",
+    "LINEBEARERMODE_MULTIUSE",
     "LINEBEARERMODE_NONCALLSIGNALING",
     "LINEBEARERMODE_PASSTHROUGH",
     "LINEBEARERMODE_RESTRICTEDDATA",
+    "LINEBEARERMODE_SPEECH",
+    "LINEBEARERMODE_VOICE",
     "LINEBUSYMODE_STATION",
     "LINEBUSYMODE_TRUNK",
-    "LINEBUSYMODE_UNKNOWN",
     "LINEBUSYMODE_UNAVAIL",
+    "LINEBUSYMODE_UNKNOWN",
+    "LINECALLBACK",
     "LINECALLCOMPLCOND_BUSY",
     "LINECALLCOMPLCOND_NOANSWER",
-    "LINECALLCOMPLMODE_CAMPON",
     "LINECALLCOMPLMODE_CALLBACK",
+    "LINECALLCOMPLMODE_CAMPON",
     "LINECALLCOMPLMODE_INTRUDE",
     "LINECALLCOMPLMODE_MESSAGE",
+    "LINECALLFEATURE2_COMPLCALLBACK",
+    "LINECALLFEATURE2_COMPLCAMPON",
+    "LINECALLFEATURE2_COMPLINTRUDE",
+    "LINECALLFEATURE2_COMPLMESSAGE",
+    "LINECALLFEATURE2_NOHOLDCONFERENCE",
+    "LINECALLFEATURE2_ONESTEPTRANSFER",
+    "LINECALLFEATURE2_PARKDIRECT",
+    "LINECALLFEATURE2_PARKNONDIRECT",
+    "LINECALLFEATURE2_TRANSFERCONF",
+    "LINECALLFEATURE2_TRANSFERNORM",
     "LINECALLFEATURE_ACCEPT",
     "LINECALLFEATURE_ADDTOCONF",
     "LINECALLFEATURE_ANSWER",
@@ -6563,214 +6969,221 @@ __all__ = [
     "LINECALLFEATURE_PARK",
     "LINECALLFEATURE_PREPAREADDCONF",
     "LINECALLFEATURE_REDIRECT",
+    "LINECALLFEATURE_RELEASEUSERUSERINFO",
     "LINECALLFEATURE_REMOVEFROMCONF",
     "LINECALLFEATURE_SECURECALL",
     "LINECALLFEATURE_SENDUSERUSER",
+    "LINECALLFEATURE_SETCALLDATA",
     "LINECALLFEATURE_SETCALLPARAMS",
     "LINECALLFEATURE_SETMEDIACONTROL",
+    "LINECALLFEATURE_SETQOS",
     "LINECALLFEATURE_SETTERMINAL",
+    "LINECALLFEATURE_SETTREATMENT",
     "LINECALLFEATURE_SETUPCONF",
     "LINECALLFEATURE_SETUPTRANSFER",
     "LINECALLFEATURE_SWAPHOLD",
     "LINECALLFEATURE_UNHOLD",
-    "LINECALLFEATURE_RELEASEUSERUSERINFO",
-    "LINECALLFEATURE_SETTREATMENT",
-    "LINECALLFEATURE_SETQOS",
-    "LINECALLFEATURE_SETCALLDATA",
-    "LINECALLFEATURE2_NOHOLDCONFERENCE",
-    "LINECALLFEATURE2_ONESTEPTRANSFER",
-    "LINECALLFEATURE2_COMPLCAMPON",
-    "LINECALLFEATURE2_COMPLCALLBACK",
-    "LINECALLFEATURE2_COMPLINTRUDE",
-    "LINECALLFEATURE2_COMPLMESSAGE",
-    "LINECALLFEATURE2_TRANSFERNORM",
-    "LINECALLFEATURE2_TRANSFERCONF",
-    "LINECALLFEATURE2_PARKDIRECT",
-    "LINECALLFEATURE2_PARKNONDIRECT",
+    "LINECALLHUBTRACKING_ALLCALLS",
     "LINECALLHUBTRACKING_NONE",
     "LINECALLHUBTRACKING_PROVIDERLEVEL",
-    "LINECALLHUBTRACKING_ALLCALLS",
-    "LINECALLINFOSTATE_OTHER",
-    "LINECALLINFOSTATE_DEVSPECIFIC",
-    "LINECALLINFOSTATE_BEARERMODE",
-    "LINECALLINFOSTATE_RATE",
-    "LINECALLINFOSTATE_MEDIAMODE",
+    "LINECALLINFO",
     "LINECALLINFOSTATE_APPSPECIFIC",
-    "LINECALLINFOSTATE_CALLID",
-    "LINECALLINFOSTATE_RELATEDCALLID",
-    "LINECALLINFOSTATE_ORIGIN",
-    "LINECALLINFOSTATE_REASON",
-    "LINECALLINFOSTATE_COMPLETIONID",
-    "LINECALLINFOSTATE_NUMOWNERINCR",
-    "LINECALLINFOSTATE_NUMOWNERDECR",
-    "LINECALLINFOSTATE_NUMMONITORS",
-    "LINECALLINFOSTATE_TRUNK",
-    "LINECALLINFOSTATE_CALLERID",
+    "LINECALLINFOSTATE_BEARERMODE",
+    "LINECALLINFOSTATE_CALLDATA",
     "LINECALLINFOSTATE_CALLEDID",
+    "LINECALLINFOSTATE_CALLERID",
+    "LINECALLINFOSTATE_CALLID",
+    "LINECALLINFOSTATE_CHARGINGINFO",
+    "LINECALLINFOSTATE_COMPLETIONID",
     "LINECALLINFOSTATE_CONNECTEDID",
-    "LINECALLINFOSTATE_REDIRECTIONID",
-    "LINECALLINFOSTATE_REDIRECTINGID",
+    "LINECALLINFOSTATE_DEVSPECIFIC",
+    "LINECALLINFOSTATE_DIALPARAMS",
     "LINECALLINFOSTATE_DISPLAY",
-    "LINECALLINFOSTATE_USERUSERINFO",
     "LINECALLINFOSTATE_HIGHLEVELCOMP",
     "LINECALLINFOSTATE_LOWLEVELCOMP",
-    "LINECALLINFOSTATE_CHARGINGINFO",
-    "LINECALLINFOSTATE_TERMINAL",
-    "LINECALLINFOSTATE_DIALPARAMS",
+    "LINECALLINFOSTATE_MEDIAMODE",
     "LINECALLINFOSTATE_MONITORMODES",
-    "LINECALLINFOSTATE_TREATMENT",
+    "LINECALLINFOSTATE_NUMMONITORS",
+    "LINECALLINFOSTATE_NUMOWNERDECR",
+    "LINECALLINFOSTATE_NUMOWNERINCR",
+    "LINECALLINFOSTATE_ORIGIN",
+    "LINECALLINFOSTATE_OTHER",
     "LINECALLINFOSTATE_QOS",
-    "LINECALLINFOSTATE_CALLDATA",
-    "LINECALLORIGIN_OUTBOUND",
-    "LINECALLORIGIN_INTERNAL",
-    "LINECALLORIGIN_EXTERNAL",
-    "LINECALLORIGIN_UNKNOWN",
-    "LINECALLORIGIN_UNAVAIL",
+    "LINECALLINFOSTATE_RATE",
+    "LINECALLINFOSTATE_REASON",
+    "LINECALLINFOSTATE_REDIRECTINGID",
+    "LINECALLINFOSTATE_REDIRECTIONID",
+    "LINECALLINFOSTATE_RELATEDCALLID",
+    "LINECALLINFOSTATE_TERMINAL",
+    "LINECALLINFOSTATE_TREATMENT",
+    "LINECALLINFOSTATE_TRUNK",
+    "LINECALLINFOSTATE_USERUSERINFO",
+    "LINECALLLIST",
     "LINECALLORIGIN_CONFERENCE",
+    "LINECALLORIGIN_EXTERNAL",
     "LINECALLORIGIN_INBOUND",
-    "LINECALLPARAMFLAGS_SECURE",
-    "LINECALLPARAMFLAGS_IDLE",
+    "LINECALLORIGIN_INTERNAL",
+    "LINECALLORIGIN_OUTBOUND",
+    "LINECALLORIGIN_UNAVAIL",
+    "LINECALLORIGIN_UNKNOWN",
     "LINECALLPARAMFLAGS_BLOCKID",
-    "LINECALLPARAMFLAGS_ORIGOFFHOOK",
     "LINECALLPARAMFLAGS_DESTOFFHOOK",
+    "LINECALLPARAMFLAGS_IDLE",
     "LINECALLPARAMFLAGS_NOHOLDCONFERENCE",
-    "LINECALLPARAMFLAGS_PREDICTIVEDIAL",
     "LINECALLPARAMFLAGS_ONESTEPTRANSFER",
-    "LINECALLPARTYID_BLOCKED",
-    "LINECALLPARTYID_OUTOFAREA",
-    "LINECALLPARTYID_NAME",
+    "LINECALLPARAMFLAGS_ORIGOFFHOOK",
+    "LINECALLPARAMFLAGS_PREDICTIVEDIAL",
+    "LINECALLPARAMFLAGS_SECURE",
+    "LINECALLPARAMS",
     "LINECALLPARTYID_ADDRESS",
+    "LINECALLPARTYID_BLOCKED",
+    "LINECALLPARTYID_NAME",
+    "LINECALLPARTYID_OUTOFAREA",
     "LINECALLPARTYID_PARTIAL",
-    "LINECALLPARTYID_UNKNOWN",
     "LINECALLPARTYID_UNAVAIL",
-    "LINECALLPRIVILEGE_NONE",
+    "LINECALLPARTYID_UNKNOWN",
     "LINECALLPRIVILEGE_MONITOR",
+    "LINECALLPRIVILEGE_NONE",
     "LINECALLPRIVILEGE_OWNER",
+    "LINECALLREASON_CALLCOMPLETION",
+    "LINECALLREASON_CAMPEDON",
     "LINECALLREASON_DIRECT",
     "LINECALLREASON_FWDBUSY",
     "LINECALLREASON_FWDNOANSWER",
     "LINECALLREASON_FWDUNCOND",
-    "LINECALLREASON_PICKUP",
-    "LINECALLREASON_UNPARK",
-    "LINECALLREASON_REDIRECT",
-    "LINECALLREASON_CALLCOMPLETION",
-    "LINECALLREASON_TRANSFER",
-    "LINECALLREASON_REMINDER",
-    "LINECALLREASON_UNKNOWN",
-    "LINECALLREASON_UNAVAIL",
     "LINECALLREASON_INTRUDE",
     "LINECALLREASON_PARKED",
-    "LINECALLREASON_CAMPEDON",
+    "LINECALLREASON_PICKUP",
+    "LINECALLREASON_REDIRECT",
+    "LINECALLREASON_REMINDER",
     "LINECALLREASON_ROUTEREQUEST",
-    "LINECALLSELECT_LINE",
+    "LINECALLREASON_TRANSFER",
+    "LINECALLREASON_UNAVAIL",
+    "LINECALLREASON_UNKNOWN",
+    "LINECALLREASON_UNPARK",
     "LINECALLSELECT_ADDRESS",
     "LINECALLSELECT_CALL",
-    "LINECALLSELECT_DEVICEID",
     "LINECALLSELECT_CALLID",
+    "LINECALLSELECT_DEVICEID",
+    "LINECALLSELECT_LINE",
+    "LINECALLSTATE_ACCEPTED",
+    "LINECALLSTATE_BUSY",
+    "LINECALLSTATE_CONFERENCED",
+    "LINECALLSTATE_CONNECTED",
+    "LINECALLSTATE_DIALING",
+    "LINECALLSTATE_DIALTONE",
+    "LINECALLSTATE_DISCONNECTED",
     "LINECALLSTATE_IDLE",
     "LINECALLSTATE_OFFERING",
-    "LINECALLSTATE_ACCEPTED",
-    "LINECALLSTATE_DIALTONE",
-    "LINECALLSTATE_DIALING",
-    "LINECALLSTATE_RINGBACK",
-    "LINECALLSTATE_BUSY",
-    "LINECALLSTATE_SPECIALINFO",
-    "LINECALLSTATE_CONNECTED",
-    "LINECALLSTATE_PROCEEDING",
     "LINECALLSTATE_ONHOLD",
-    "LINECALLSTATE_CONFERENCED",
     "LINECALLSTATE_ONHOLDPENDCONF",
     "LINECALLSTATE_ONHOLDPENDTRANSFER",
-    "LINECALLSTATE_DISCONNECTED",
+    "LINECALLSTATE_PROCEEDING",
+    "LINECALLSTATE_RINGBACK",
+    "LINECALLSTATE_SPECIALINFO",
     "LINECALLSTATE_UNKNOWN",
-    "LINECALLTREATMENT_SILENCE",
-    "LINECALLTREATMENT_RINGBACK",
+    "LINECALLSTATUS",
+    "LINECALLTREATMENTENTRY",
     "LINECALLTREATMENT_BUSY",
     "LINECALLTREATMENT_MUSIC",
-    "LINECARDOPTION_PREDEFINED",
+    "LINECALLTREATMENT_RINGBACK",
+    "LINECALLTREATMENT_SILENCE",
+    "LINECARDENTRY",
     "LINECARDOPTION_HIDDEN",
+    "LINECARDOPTION_PREDEFINED",
     "LINECONNECTEDMODE_ACTIVE",
-    "LINECONNECTEDMODE_INACTIVE",
     "LINECONNECTEDMODE_ACTIVEHELD",
-    "LINECONNECTEDMODE_INACTIVEHELD",
     "LINECONNECTEDMODE_CONFIRMED",
-    "LINEDEVCAPFLAGS_CROSSADDRCONF",
-    "LINEDEVCAPFLAGS_HIGHLEVCOMP",
-    "LINEDEVCAPFLAGS_LOWLEVCOMP",
-    "LINEDEVCAPFLAGS_MEDIACONTROL",
-    "LINEDEVCAPFLAGS_MULTIPLEADDR",
-    "LINEDEVCAPFLAGS_CLOSEDROP",
-    "LINEDEVCAPFLAGS_DIALBILLING",
-    "LINEDEVCAPFLAGS_DIALQUIET",
-    "LINEDEVCAPFLAGS_DIALDIALTONE",
-    "LINEDEVCAPFLAGS_MSP",
+    "LINECONNECTEDMODE_INACTIVE",
+    "LINECONNECTEDMODE_INACTIVEHELD",
+    "LINECOUNTRYENTRY",
+    "LINECOUNTRYLIST",
     "LINEDEVCAPFLAGS_CALLHUB",
     "LINEDEVCAPFLAGS_CALLHUBTRACKING",
-    "LINEDEVCAPFLAGS_PRIVATEOBJECTS",
+    "LINEDEVCAPFLAGS_CLOSEDROP",
+    "LINEDEVCAPFLAGS_CROSSADDRCONF",
+    "LINEDEVCAPFLAGS_DIALBILLING",
+    "LINEDEVCAPFLAGS_DIALDIALTONE",
+    "LINEDEVCAPFLAGS_DIALQUIET",
+    "LINEDEVCAPFLAGS_HIGHLEVCOMP",
     "LINEDEVCAPFLAGS_LOCAL",
-    "LINEDEVSTATE_OTHER",
-    "LINEDEVSTATE_RINGING",
-    "LINEDEVSTATE_CONNECTED",
-    "LINEDEVSTATE_DISCONNECTED",
-    "LINEDEVSTATE_MSGWAITON",
-    "LINEDEVSTATE_MSGWAITOFF",
-    "LINEDEVSTATE_INSERVICE",
-    "LINEDEVSTATE_OUTOFSERVICE",
-    "LINEDEVSTATE_MAINTENANCE",
-    "LINEDEVSTATE_OPEN",
+    "LINEDEVCAPFLAGS_LOWLEVCOMP",
+    "LINEDEVCAPFLAGS_MEDIACONTROL",
+    "LINEDEVCAPFLAGS_MSP",
+    "LINEDEVCAPFLAGS_MULTIPLEADDR",
+    "LINEDEVCAPFLAGS_PRIVATEOBJECTS",
+    "LINEDEVCAPS",
+    "LINEDEVSTATE_BATTERY",
+    "LINEDEVSTATE_CAPSCHANGE",
     "LINEDEVSTATE_CLOSE",
+    "LINEDEVSTATE_COMPLCANCEL",
+    "LINEDEVSTATE_CONFIGCHANGE",
+    "LINEDEVSTATE_CONNECTED",
+    "LINEDEVSTATE_DEVSPECIFIC",
+    "LINEDEVSTATE_DISCONNECTED",
+    "LINEDEVSTATE_INSERVICE",
+    "LINEDEVSTATE_LOCK",
+    "LINEDEVSTATE_MAINTENANCE",
+    "LINEDEVSTATE_MSGWAITOFF",
+    "LINEDEVSTATE_MSGWAITON",
     "LINEDEVSTATE_NUMCALLS",
     "LINEDEVSTATE_NUMCOMPLETIONS",
-    "LINEDEVSTATE_TERMINALS",
-    "LINEDEVSTATE_ROAMMODE",
-    "LINEDEVSTATE_BATTERY",
-    "LINEDEVSTATE_SIGNAL",
-    "LINEDEVSTATE_DEVSPECIFIC",
+    "LINEDEVSTATE_OPEN",
+    "LINEDEVSTATE_OTHER",
+    "LINEDEVSTATE_OUTOFSERVICE",
     "LINEDEVSTATE_REINIT",
-    "LINEDEVSTATE_LOCK",
-    "LINEDEVSTATE_CAPSCHANGE",
-    "LINEDEVSTATE_CONFIGCHANGE",
-    "LINEDEVSTATE_TRANSLATECHANGE",
-    "LINEDEVSTATE_COMPLCANCEL",
     "LINEDEVSTATE_REMOVED",
+    "LINEDEVSTATE_RINGING",
+    "LINEDEVSTATE_ROAMMODE",
+    "LINEDEVSTATE_SIGNAL",
+    "LINEDEVSTATE_TERMINALS",
+    "LINEDEVSTATE_TRANSLATECHANGE",
+    "LINEDEVSTATUS",
     "LINEDEVSTATUSFLAGS_CONNECTED",
-    "LINEDEVSTATUSFLAGS_MSGWAIT",
     "LINEDEVSTATUSFLAGS_INSERVICE",
     "LINEDEVSTATUSFLAGS_LOCKED",
+    "LINEDEVSTATUSFLAGS_MSGWAIT",
+    "LINEDIALPARAMS",
+    "LINEDIALTONEMODE_EXTERNAL",
+    "LINEDIALTONEMODE_INTERNAL",
     "LINEDIALTONEMODE_NORMAL",
     "LINEDIALTONEMODE_SPECIAL",
-    "LINEDIALTONEMODE_INTERNAL",
-    "LINEDIALTONEMODE_EXTERNAL",
-    "LINEDIALTONEMODE_UNKNOWN",
     "LINEDIALTONEMODE_UNAVAIL",
-    "LINEDIGITMODE_PULSE",
+    "LINEDIALTONEMODE_UNKNOWN",
     "LINEDIGITMODE_DTMF",
     "LINEDIGITMODE_DTMFEND",
-    "LINEDISCONNECTMODE_NORMAL",
-    "LINEDISCONNECTMODE_UNKNOWN",
-    "LINEDISCONNECTMODE_REJECT",
-    "LINEDISCONNECTMODE_PICKUP",
-    "LINEDISCONNECTMODE_FORWARDED",
-    "LINEDISCONNECTMODE_BUSY",
-    "LINEDISCONNECTMODE_NOANSWER",
+    "LINEDIGITMODE_PULSE",
     "LINEDISCONNECTMODE_BADADDRESS",
-    "LINEDISCONNECTMODE_UNREACHABLE",
+    "LINEDISCONNECTMODE_BLOCKED",
+    "LINEDISCONNECTMODE_BUSY",
+    "LINEDISCONNECTMODE_CANCELLED",
     "LINEDISCONNECTMODE_CONGESTION",
+    "LINEDISCONNECTMODE_DESTINATIONBARRED",
+    "LINEDISCONNECTMODE_DONOTDISTURB",
+    "LINEDISCONNECTMODE_FDNRESTRICT",
+    "LINEDISCONNECTMODE_FORWARDED",
     "LINEDISCONNECTMODE_INCOMPATIBLE",
-    "LINEDISCONNECTMODE_UNAVAIL",
+    "LINEDISCONNECTMODE_NOANSWER",
     "LINEDISCONNECTMODE_NODIALTONE",
+    "LINEDISCONNECTMODE_NORMAL",
     "LINEDISCONNECTMODE_NUMBERCHANGED",
     "LINEDISCONNECTMODE_OUTOFORDER",
-    "LINEDISCONNECTMODE_TEMPFAILURE",
+    "LINEDISCONNECTMODE_PICKUP",
     "LINEDISCONNECTMODE_QOSUNAVAIL",
-    "LINEDISCONNECTMODE_BLOCKED",
-    "LINEDISCONNECTMODE_DONOTDISTURB",
-    "LINEDISCONNECTMODE_CANCELLED",
-    "LINEDISCONNECTMODE_DESTINATIONBARRED",
-    "LINEDISCONNECTMODE_FDNRESTRICT",
+    "LINEDISCONNECTMODE_REJECT",
+    "LINEDISCONNECTMODE_TEMPFAILURE",
+    "LINEDISCONNECTMODE_UNAVAIL",
+    "LINEDISCONNECTMODE_UNKNOWN",
+    "LINEDISCONNECTMODE_UNREACHABLE",
+    "LINEEQOSINFO_ADMISSIONFAILURE",
+    "LINEEQOSINFO_GENERICERROR",
+    "LINEEQOSINFO_NOQOS",
+    "LINEEQOSINFO_POLICYFAILURE",
+    "LINEERR_ADDRESSBLOCKED",
     "LINEERR_ALLOCATED",
     "LINEERR_BADDEVICEID",
     "LINEERR_BEARERMODEUNAVAIL",
+    "LINEERR_BILLINGREJECTED",
     "LINEERR_CALLUNAVAIL",
     "LINEERR_COMPLETIONOVERRUN",
     "LINEERR_CONFERENCEFULL",
@@ -6778,6 +7191,8 @@ __all__ = [
     "LINEERR_DIALDIALTONE",
     "LINEERR_DIALPROMPT",
     "LINEERR_DIALQUIET",
+    "LINEERR_DIALVOICEDETECT",
+    "LINEERR_DISCONNECTED",
     "LINEERR_INCOMPATIBLEAPIVERSION",
     "LINEERR_INCOMPATIBLEEXTVERSION",
     "LINEERR_INIFILECORRUPT",
@@ -6786,6 +7201,12 @@ __all__ = [
     "LINEERR_INVALADDRESSID",
     "LINEERR_INVALADDRESSMODE",
     "LINEERR_INVALADDRESSSTATE",
+    "LINEERR_INVALADDRESSTYPE",
+    "LINEERR_INVALAGENTACTIVITY",
+    "LINEERR_INVALAGENTGROUP",
+    "LINEERR_INVALAGENTID",
+    "LINEERR_INVALAGENTSESSIONSTATE",
+    "LINEERR_INVALAGENTSTATE",
     "LINEERR_INVALAPPHANDLE",
     "LINEERR_INVALAPPNAME",
     "LINEERR_INVALBEARERMODE",
@@ -6808,6 +7229,7 @@ __all__ = [
     "LINEERR_INVALDIGITMODE",
     "LINEERR_INVALDIGITS",
     "LINEERR_INVALEXTVERSION",
+    "LINEERR_INVALFEATURE",
     "LINEERR_INVALGROUPID",
     "LINEERR_INVALLINEHANDLE",
     "LINEERR_INVALLINESTATE",
@@ -6818,6 +7240,7 @@ __all__ = [
     "LINEERR_INVALPARAM",
     "LINEERR_INVALPARKID",
     "LINEERR_INVALPARKMODE",
+    "LINEERR_INVALPASSWORD",
     "LINEERR_INVALPOINTER",
     "LINEERR_INVALPRIVSELECT",
     "LINEERR_INVALRATE",
@@ -6834,244 +7257,421 @@ __all__ = [
     "LINEERR_NODEVICE",
     "LINEERR_NODRIVER",
     "LINEERR_NOMEM",
+    "LINEERR_NOMULTIPLEINSTANCE",
     "LINEERR_NOREQUEST",
     "LINEERR_NOTOWNER",
     "LINEERR_NOTREGISTERED",
     "LINEERR_OPERATIONFAILED",
     "LINEERR_OPERATIONUNAVAIL",
     "LINEERR_RATEUNAVAIL",
-    "LINEERR_RESOURCEUNAVAIL",
+    "LINEERR_REINIT",
     "LINEERR_REQUESTOVERRUN",
+    "LINEERR_RESOURCEUNAVAIL",
+    "LINEERR_SERVICE_NOT_RUNNING",
     "LINEERR_STRUCTURETOOSMALL",
     "LINEERR_TARGETNOTFOUND",
     "LINEERR_TARGETSELF",
     "LINEERR_UNINITIALIZED",
-    "LINEERR_USERUSERINFOTOOBIG",
-    "LINEERR_REINIT",
-    "LINEERR_ADDRESSBLOCKED",
-    "LINEERR_BILLINGREJECTED",
-    "LINEERR_INVALFEATURE",
-    "LINEERR_NOMULTIPLEINSTANCE",
-    "LINEERR_INVALAGENTID",
-    "LINEERR_INVALAGENTGROUP",
-    "LINEERR_INVALPASSWORD",
-    "LINEERR_INVALAGENTSTATE",
-    "LINEERR_INVALAGENTACTIVITY",
-    "LINEERR_DIALVOICEDETECT",
     "LINEERR_USERCANCELLED",
-    "LINEERR_INVALADDRESSTYPE",
-    "LINEERR_INVALAGENTSESSIONSTATE",
-    "LINEERR_DISCONNECTED",
-    "LINEERR_SERVICE_NOT_RUNNING",
+    "LINEERR_USERUSERINFOTOOBIG",
+    "LINEEVENT",
+    "LINEEXTENSIONID",
     "LINEFEATURE_DEVSPECIFIC",
     "LINEFEATURE_DEVSPECIFICFEAT",
     "LINEFEATURE_FORWARD",
+    "LINEFEATURE_FORWARDDND",
+    "LINEFEATURE_FORWARDFWD",
     "LINEFEATURE_MAKECALL",
+    "LINEFEATURE_SETDEVSTATUS",
     "LINEFEATURE_SETMEDIACONTROL",
     "LINEFEATURE_SETTERMINAL",
-    "LINEFEATURE_SETDEVSTATUS",
-    "LINEFEATURE_FORWARDFWD",
-    "LINEFEATURE_FORWARDDND",
-    "LINEFORWARDMODE_UNCOND",
-    "LINEFORWARDMODE_UNCONDINTERNAL",
-    "LINEFORWARDMODE_UNCONDEXTERNAL",
-    "LINEFORWARDMODE_UNCONDSPECIFIC",
+    "LINEFORWARD",
+    "LINEFORWARDLIST",
     "LINEFORWARDMODE_BUSY",
-    "LINEFORWARDMODE_BUSYINTERNAL",
     "LINEFORWARDMODE_BUSYEXTERNAL",
+    "LINEFORWARDMODE_BUSYINTERNAL",
+    "LINEFORWARDMODE_BUSYNA",
+    "LINEFORWARDMODE_BUSYNAEXTERNAL",
+    "LINEFORWARDMODE_BUSYNAINTERNAL",
+    "LINEFORWARDMODE_BUSYNASPECIFIC",
     "LINEFORWARDMODE_BUSYSPECIFIC",
     "LINEFORWARDMODE_NOANSW",
-    "LINEFORWARDMODE_NOANSWINTERNAL",
     "LINEFORWARDMODE_NOANSWEXTERNAL",
+    "LINEFORWARDMODE_NOANSWINTERNAL",
     "LINEFORWARDMODE_NOANSWSPECIFIC",
-    "LINEFORWARDMODE_BUSYNA",
-    "LINEFORWARDMODE_BUSYNAINTERNAL",
-    "LINEFORWARDMODE_BUSYNAEXTERNAL",
-    "LINEFORWARDMODE_BUSYNASPECIFIC",
-    "LINEFORWARDMODE_UNKNOWN",
     "LINEFORWARDMODE_UNAVAIL",
+    "LINEFORWARDMODE_UNCOND",
+    "LINEFORWARDMODE_UNCONDEXTERNAL",
+    "LINEFORWARDMODE_UNCONDINTERNAL",
+    "LINEFORWARDMODE_UNCONDSPECIFIC",
+    "LINEFORWARDMODE_UNKNOWN",
     "LINEGATHERTERM_BUFFERFULL",
-    "LINEGATHERTERM_TERMDIGIT",
+    "LINEGATHERTERM_CANCEL",
     "LINEGATHERTERM_FIRSTTIMEOUT",
     "LINEGATHERTERM_INTERTIMEOUT",
-    "LINEGATHERTERM_CANCEL",
-    "LINEGENERATETERM_DONE",
+    "LINEGATHERTERM_TERMDIGIT",
     "LINEGENERATETERM_CANCEL",
-    "LINEINITIALIZEEXOPTION_USEHIDDENWINDOW",
-    "LINEINITIALIZEEXOPTION_USEEVENT",
-    "LINEINITIALIZEEXOPTION_USECOMPLETIONPORT",
+    "LINEGENERATETERM_DONE",
+    "LINEGENERATETONE",
+    "LINEGROUPSTATUS_GROUPREMOVED",
+    "LINEGROUPSTATUS_NEWGROUP",
     "LINEINITIALIZEEXOPTION_CALLHUBTRACKING",
+    "LINEINITIALIZEEXOPTION_USECOMPLETIONPORT",
+    "LINEINITIALIZEEXOPTION_USEEVENT",
+    "LINEINITIALIZEEXOPTION_USEHIDDENWINDOW",
+    "LINEINITIALIZEEXPARAMS",
+    "LINELOCATIONENTRY",
     "LINELOCATIONOPTION_PULSEDIAL",
     "LINEMAPPER",
+    "LINEMEDIACONTROLCALLSTATE",
+    "LINEMEDIACONTROLDIGIT",
+    "LINEMEDIACONTROLMEDIA",
+    "LINEMEDIACONTROLTONE",
     "LINEMEDIACONTROL_NONE",
-    "LINEMEDIACONTROL_START",
-    "LINEMEDIACONTROL_RESET",
     "LINEMEDIACONTROL_PAUSE",
-    "LINEMEDIACONTROL_RESUME",
-    "LINEMEDIACONTROL_RATEUP",
     "LINEMEDIACONTROL_RATEDOWN",
     "LINEMEDIACONTROL_RATENORMAL",
-    "LINEMEDIACONTROL_VOLUMEUP",
+    "LINEMEDIACONTROL_RATEUP",
+    "LINEMEDIACONTROL_RESET",
+    "LINEMEDIACONTROL_RESUME",
+    "LINEMEDIACONTROL_START",
     "LINEMEDIACONTROL_VOLUMEDOWN",
     "LINEMEDIACONTROL_VOLUMENORMAL",
-    "LINEMEDIAMODE_UNKNOWN",
-    "LINEMEDIAMODE_INTERACTIVEVOICE",
+    "LINEMEDIACONTROL_VOLUMEUP",
+    "LINEMEDIAMODE_ADSI",
     "LINEMEDIAMODE_AUTOMATEDVOICE",
     "LINEMEDIAMODE_DATAMODEM",
-    "LINEMEDIAMODE_G3FAX",
-    "LINEMEDIAMODE_TDD",
-    "LINEMEDIAMODE_G4FAX",
     "LINEMEDIAMODE_DIGITALDATA",
-    "LINEMEDIAMODE_TELETEX",
-    "LINEMEDIAMODE_VIDEOTEX",
-    "LINEMEDIAMODE_TELEX",
+    "LINEMEDIAMODE_G3FAX",
+    "LINEMEDIAMODE_G4FAX",
+    "LINEMEDIAMODE_INTERACTIVEVOICE",
     "LINEMEDIAMODE_MIXED",
-    "LINEMEDIAMODE_ADSI",
-    "LINEMEDIAMODE_VOICEVIEW",
+    "LINEMEDIAMODE_TDD",
+    "LINEMEDIAMODE_TELETEX",
+    "LINEMEDIAMODE_TELEX",
+    "LINEMEDIAMODE_UNKNOWN",
     "LINEMEDIAMODE_VIDEO",
-    "LAST_LINEMEDIAMODE",
+    "LINEMEDIAMODE_VIDEOTEX",
+    "LINEMEDIAMODE_VOICEVIEW",
+    "LINEMESSAGE",
+    "LINEMONITORTONE",
     "LINEOFFERINGMODE_ACTIVE",
     "LINEOFFERINGMODE_INACTIVE",
-    "LINEOPENOPTION_SINGLEADDRESS",
     "LINEOPENOPTION_PROXY",
+    "LINEOPENOPTION_SINGLEADDRESS",
     "LINEPARKMODE_DIRECTED",
     "LINEPARKMODE_NONDIRECTED",
-    "LINEPROXYREQUEST_SETAGENTGROUP",
-    "LINEPROXYREQUEST_SETAGENTSTATE",
-    "LINEPROXYREQUEST_SETAGENTACTIVITY",
-    "LINEPROXYREQUEST_GETAGENTCAPS",
-    "LINEPROXYREQUEST_GETAGENTSTATUS",
+    "LINEPROVIDERENTRY",
+    "LINEPROVIDERLIST",
+    "LINEPROXYREQUEST",
+    "LINEPROXYREQUESTLIST",
     "LINEPROXYREQUEST_AGENTSPECIFIC",
-    "LINEPROXYREQUEST_GETAGENTACTIVITYLIST",
-    "LINEPROXYREQUEST_GETAGENTGROUPLIST",
     "LINEPROXYREQUEST_CREATEAGENT",
-    "LINEPROXYREQUEST_SETAGENTMEASUREMENTPERIOD",
-    "LINEPROXYREQUEST_GETAGENTINFO",
     "LINEPROXYREQUEST_CREATEAGENTSESSION",
-    "LINEPROXYREQUEST_GETAGENTSESSIONLIST",
-    "LINEPROXYREQUEST_SETAGENTSESSIONSTATE",
+    "LINEPROXYREQUEST_GETAGENTACTIVITYLIST",
+    "LINEPROXYREQUEST_GETAGENTCAPS",
+    "LINEPROXYREQUEST_GETAGENTGROUPLIST",
+    "LINEPROXYREQUEST_GETAGENTINFO",
     "LINEPROXYREQUEST_GETAGENTSESSIONINFO",
-    "LINEPROXYREQUEST_GETQUEUELIST",
-    "LINEPROXYREQUEST_SETQUEUEMEASUREMENTPERIOD",
-    "LINEPROXYREQUEST_GETQUEUEINFO",
+    "LINEPROXYREQUEST_GETAGENTSESSIONLIST",
+    "LINEPROXYREQUEST_GETAGENTSTATUS",
     "LINEPROXYREQUEST_GETGROUPLIST",
+    "LINEPROXYREQUEST_GETQUEUEINFO",
+    "LINEPROXYREQUEST_GETQUEUELIST",
+    "LINEPROXYREQUEST_SETAGENTACTIVITY",
+    "LINEPROXYREQUEST_SETAGENTGROUP",
+    "LINEPROXYREQUEST_SETAGENTMEASUREMENTPERIOD",
+    "LINEPROXYREQUEST_SETAGENTSESSIONSTATE",
+    "LINEPROXYREQUEST_SETAGENTSTATE",
     "LINEPROXYREQUEST_SETAGENTSTATEEX",
-    "LINEREMOVEFROMCONF_NONE",
-    "LINEREMOVEFROMCONF_LAST",
+    "LINEPROXYREQUEST_SETQUEUEMEASUREMENTPERIOD",
+    "LINEPROXYSTATUS_ALLOPENFORACD",
+    "LINEPROXYSTATUS_CLOSE",
+    "LINEPROXYSTATUS_OPEN",
+    "LINEQOSREQUESTTYPE_SERVICELEVEL",
+    "LINEQOSSERVICELEVEL_BESTEFFORT",
+    "LINEQOSSERVICELEVEL_IFAVAILABLE",
+    "LINEQOSSERVICELEVEL_NEEDED",
+    "LINEQUEUEENTRY",
+    "LINEQUEUEINFO",
+    "LINEQUEUELIST",
+    "LINEQUEUESTATUS_NEWQUEUE",
+    "LINEQUEUESTATUS_QUEUEREMOVED",
+    "LINEQUEUESTATUS_UPDATEINFO",
     "LINEREMOVEFROMCONF_ANY",
+    "LINEREMOVEFROMCONF_LAST",
+    "LINEREMOVEFROMCONF_NONE",
+    "LINEREQMAKECALL",
+    "LINEREQMAKECALLW",
+    "LINEREQMEDIACALL",
+    "LINEREQMEDIACALLW",
+    "LINEREQUESTMODE_DROP",
     "LINEREQUESTMODE_MAKECALL",
     "LINEREQUESTMODE_MEDIACALL",
-    "LINEREQUESTMODE_DROP",
-    "LAST_LINEREQUESTMODE",
-    "LINEROAMMODE_UNKNOWN",
-    "LINEROAMMODE_UNAVAIL",
     "LINEROAMMODE_HOME",
     "LINEROAMMODE_ROAMA",
     "LINEROAMMODE_ROAMB",
-    "LINESPECIALINFO_NOCIRCUIT",
+    "LINEROAMMODE_UNAVAIL",
+    "LINEROAMMODE_UNKNOWN",
     "LINESPECIALINFO_CUSTIRREG",
+    "LINESPECIALINFO_NOCIRCUIT",
     "LINESPECIALINFO_REORDER",
-    "LINESPECIALINFO_UNKNOWN",
     "LINESPECIALINFO_UNAVAIL",
-    "LINETERMDEV_PHONE",
+    "LINESPECIALINFO_UNKNOWN",
+    "LINETERMCAPS",
     "LINETERMDEV_HEADSET",
+    "LINETERMDEV_PHONE",
     "LINETERMDEV_SPEAKER",
     "LINETERMMODE_BUTTONS",
-    "LINETERMMODE_LAMPS",
     "LINETERMMODE_DISPLAY",
-    "LINETERMMODE_RINGER",
     "LINETERMMODE_HOOKSWITCH",
-    "LINETERMMODE_MEDIATOLINE",
-    "LINETERMMODE_MEDIAFROMLINE",
+    "LINETERMMODE_LAMPS",
     "LINETERMMODE_MEDIABIDIRECT",
+    "LINETERMMODE_MEDIAFROMLINE",
+    "LINETERMMODE_MEDIATOLINE",
+    "LINETERMMODE_RINGER",
     "LINETERMSHARING_PRIVATE",
-    "LINETERMSHARING_SHAREDEXCL",
     "LINETERMSHARING_SHAREDCONF",
+    "LINETERMSHARING_SHAREDEXCL",
     "LINETOLLLISTOPTION_ADD",
     "LINETOLLLISTOPTION_REMOVE",
-    "LINETONEMODE_CUSTOM",
-    "LINETONEMODE_RINGBACK",
-    "LINETONEMODE_BUSY",
     "LINETONEMODE_BEEP",
     "LINETONEMODE_BILLING",
-    "LINETRANSFERMODE_TRANSFER",
+    "LINETONEMODE_BUSY",
+    "LINETONEMODE_CUSTOM",
+    "LINETONEMODE_RINGBACK",
     "LINETRANSFERMODE_CONFERENCE",
-    "LINETRANSLATEOPTION_CARDOVERRIDE",
+    "LINETRANSFERMODE_TRANSFER",
+    "LINETRANSLATECAPS",
     "LINETRANSLATEOPTION_CANCELCALLWAITING",
-    "LINETRANSLATEOPTION_FORCELOCAL",
+    "LINETRANSLATEOPTION_CARDOVERRIDE",
     "LINETRANSLATEOPTION_FORCELD",
+    "LINETRANSLATEOPTION_FORCELOCAL",
+    "LINETRANSLATEOUTPUT",
     "LINETRANSLATERESULT_CANONICAL",
-    "LINETRANSLATERESULT_INTERNATIONAL",
-    "LINETRANSLATERESULT_LONGDISTANCE",
-    "LINETRANSLATERESULT_LOCAL",
-    "LINETRANSLATERESULT_INTOLLLIST",
-    "LINETRANSLATERESULT_NOTINTOLLLIST",
     "LINETRANSLATERESULT_DIALBILLING",
-    "LINETRANSLATERESULT_DIALQUIET",
     "LINETRANSLATERESULT_DIALDIALTONE",
     "LINETRANSLATERESULT_DIALPROMPT",
-    "LINETRANSLATERESULT_VOICEDETECT",
+    "LINETRANSLATERESULT_DIALQUIET",
+    "LINETRANSLATERESULT_INTERNATIONAL",
+    "LINETRANSLATERESULT_INTOLLLIST",
+    "LINETRANSLATERESULT_LOCAL",
+    "LINETRANSLATERESULT_LONGDISTANCE",
+    "LINETRANSLATERESULT_NOTINTOLLLIST",
     "LINETRANSLATERESULT_NOTRANSLATION",
-    "PHONEBUTTONFUNCTION_UNKNOWN",
-    "PHONEBUTTONFUNCTION_CONFERENCE",
-    "PHONEBUTTONFUNCTION_TRANSFER",
-    "PHONEBUTTONFUNCTION_DROP",
-    "PHONEBUTTONFUNCTION_HOLD",
-    "PHONEBUTTONFUNCTION_RECALL",
-    "PHONEBUTTONFUNCTION_DISCONNECT",
-    "PHONEBUTTONFUNCTION_CONNECT",
-    "PHONEBUTTONFUNCTION_MSGWAITON",
-    "PHONEBUTTONFUNCTION_MSGWAITOFF",
-    "PHONEBUTTONFUNCTION_SELECTRING",
+    "LINETRANSLATERESULT_VOICEDETECT",
+    "LINETSPIOPTION_NONREENTRANT",
+    "LINE_ADDRESSSTATE",
+    "LINE_AGENTSESSIONSTATUS",
+    "LINE_AGENTSPECIFIC",
+    "LINE_AGENTSTATUS",
+    "LINE_AGENTSTATUSEX",
+    "LINE_APPNEWCALL",
+    "LINE_APPNEWCALLHUB",
+    "LINE_CALLHUBCLOSE",
+    "LINE_CALLINFO",
+    "LINE_CALLSTATE",
+    "LINE_CLOSE",
+    "LINE_CREATE",
+    "LINE_DEVSPECIFIC",
+    "LINE_DEVSPECIFICEX",
+    "LINE_DEVSPECIFICFEATURE",
+    "LINE_GATHERDIGITS",
+    "LINE_GENERATE",
+    "LINE_GROUPSTATUS",
+    "LINE_LINEDEVSTATE",
+    "LINE_MONITORDIGITS",
+    "LINE_MONITORMEDIA",
+    "LINE_MONITORTONE",
+    "LINE_PROXYREQUEST",
+    "LINE_PROXYSTATUS",
+    "LINE_QUEUESTATUS",
+    "LINE_REMOVE",
+    "LINE_REPLY",
+    "LINE_REQUEST",
+    "LM_BROKENFLUTTER",
+    "LM_DUMMY",
+    "LM_FLASH",
+    "LM_FLUTTER",
+    "LM_OFF",
+    "LM_STEADY",
+    "LM_UNKNOWN",
+    "LM_WINK",
+    "LPGETTNEFSTREAMCODEPAGE",
+    "LPOPENTNEFSTREAM",
+    "LPOPENTNEFSTREAMEX",
+    "ME_ADDRESS_EVENT",
+    "ME_ASR_TERMINAL_EVENT",
+    "ME_CALL_EVENT",
+    "ME_FILE_TERMINAL_EVENT",
+    "ME_PRIVATE_EVENT",
+    "ME_TONE_TERMINAL_EVENT",
+    "ME_TSP_DATA",
+    "ME_TTS_TERMINAL_EVENT",
+    "MSP_ADDRESS_EVENT",
+    "MSP_CALL_EVENT",
+    "MSP_CALL_EVENT_CAUSE",
+    "MSP_EVENT",
+    "MSP_EVENT_INFO",
+    "McastAddressAllocation",
+    "NSID",
+    "OPENTNEFSTREAM",
+    "OPENTNEFSTREAMEX",
+    "OT_CONFERENCE",
+    "OT_USER",
+    "OpenTnefStream",
+    "OpenTnefStreamEx",
+    "PBF_ABBREVDIAL",
+    "PBF_BRIDGEDAPP",
+    "PBF_BUSY",
+    "PBF_CALLAPP",
+    "PBF_CALLID",
+    "PBF_CAMPON",
+    "PBF_CONFERENCE",
+    "PBF_CONNECT",
+    "PBF_COVER",
+    "PBF_DATAOFF",
+    "PBF_DATAON",
+    "PBF_DATETIME",
+    "PBF_DIRECTORY",
+    "PBF_DISCONNECT",
+    "PBF_DONOTDISTURB",
+    "PBF_DROP",
+    "PBF_FLASH",
+    "PBF_FORWARD",
+    "PBF_HOLD",
+    "PBF_INTERCOM",
+    "PBF_LASTNUM",
+    "PBF_MSGINDICATOR",
+    "PBF_MSGWAITOFF",
+    "PBF_MSGWAITON",
+    "PBF_MUTE",
+    "PBF_NIGHTSRV",
+    "PBF_NONE",
+    "PBF_PARK",
+    "PBF_PICKUP",
+    "PBF_QUEUECALL",
+    "PBF_RECALL",
+    "PBF_REDIRECT",
+    "PBF_REJECT",
+    "PBF_REPDIAL",
+    "PBF_RINGAGAIN",
+    "PBF_SAVEREPEAT",
+    "PBF_SELECTRING",
+    "PBF_SEND",
+    "PBF_SENDCALLS",
+    "PBF_SETREPDIAL",
+    "PBF_SPEAKEROFF",
+    "PBF_SPEAKERON",
+    "PBF_STATIONSPEED",
+    "PBF_SYSTEMSPEED",
+    "PBF_TRANSFER",
+    "PBF_UNKNOWN",
+    "PBF_VOLUMEDOWN",
+    "PBF_VOLUMEUP",
+    "PBM_CALL",
+    "PBM_DISPLAY",
+    "PBM_DUMMY",
+    "PBM_FEATURE",
+    "PBM_KEYPAD",
+    "PBM_LOCAL",
+    "PBS_DOWN",
+    "PBS_UNAVAIL",
+    "PBS_UNKNOWN",
+    "PBS_UP",
+    "PCB_DEVSPECIFICBUFFER",
+    "PCL_DISPLAYNUMCOLUMNS",
+    "PCL_DISPLAYNUMROWS",
+    "PCL_GENERICPHONE",
+    "PCL_HANDSETHOOKSWITCHMODES",
+    "PCL_HEADSETHOOKSWITCHMODES",
+    "PCL_HOOKSWITCHES",
+    "PCL_NUMBUTTONLAMPS",
+    "PCL_NUMRINGMODES",
+    "PCL_SPEAKERPHONEHOOKSWITCHMODES",
+    "PCS_PHONEINFO",
+    "PCS_PHONENAME",
+    "PCS_PROVIDERINFO",
+    "PE_ANSWER",
+    "PE_BUTTON",
+    "PE_CAPSCHANGE",
+    "PE_CLOSE",
+    "PE_DIALING",
+    "PE_DISCONNECT",
+    "PE_DISPLAY",
+    "PE_HOOKSWITCH",
+    "PE_LAMPMODE",
+    "PE_LASTITEM",
+    "PE_NUMBERGATHERED",
+    "PE_RINGMODE",
+    "PE_RINGVOLUME",
     "PHONEBUTTONFUNCTION_ABBREVDIAL",
-    "PHONEBUTTONFUNCTION_FORWARD",
-    "PHONEBUTTONFUNCTION_PICKUP",
-    "PHONEBUTTONFUNCTION_RINGAGAIN",
-    "PHONEBUTTONFUNCTION_PARK",
-    "PHONEBUTTONFUNCTION_REJECT",
-    "PHONEBUTTONFUNCTION_REDIRECT",
-    "PHONEBUTTONFUNCTION_MUTE",
-    "PHONEBUTTONFUNCTION_VOLUMEUP",
-    "PHONEBUTTONFUNCTION_VOLUMEDOWN",
-    "PHONEBUTTONFUNCTION_SPEAKERON",
-    "PHONEBUTTONFUNCTION_SPEAKEROFF",
-    "PHONEBUTTONFUNCTION_FLASH",
-    "PHONEBUTTONFUNCTION_DATAON",
-    "PHONEBUTTONFUNCTION_DATAOFF",
-    "PHONEBUTTONFUNCTION_DONOTDISTURB",
-    "PHONEBUTTONFUNCTION_INTERCOM",
     "PHONEBUTTONFUNCTION_BRIDGEDAPP",
     "PHONEBUTTONFUNCTION_BUSY",
     "PHONEBUTTONFUNCTION_CALLAPP",
+    "PHONEBUTTONFUNCTION_CALLID",
+    "PHONEBUTTONFUNCTION_CAMPON",
+    "PHONEBUTTONFUNCTION_CONFERENCE",
+    "PHONEBUTTONFUNCTION_CONNECT",
+    "PHONEBUTTONFUNCTION_COVER",
+    "PHONEBUTTONFUNCTION_DATAOFF",
+    "PHONEBUTTONFUNCTION_DATAON",
     "PHONEBUTTONFUNCTION_DATETIME",
     "PHONEBUTTONFUNCTION_DIRECTORY",
-    "PHONEBUTTONFUNCTION_COVER",
-    "PHONEBUTTONFUNCTION_CALLID",
+    "PHONEBUTTONFUNCTION_DISCONNECT",
+    "PHONEBUTTONFUNCTION_DONOTDISTURB",
+    "PHONEBUTTONFUNCTION_DROP",
+    "PHONEBUTTONFUNCTION_FLASH",
+    "PHONEBUTTONFUNCTION_FORWARD",
+    "PHONEBUTTONFUNCTION_HOLD",
+    "PHONEBUTTONFUNCTION_INTERCOM",
     "PHONEBUTTONFUNCTION_LASTNUM",
-    "PHONEBUTTONFUNCTION_NIGHTSRV",
-    "PHONEBUTTONFUNCTION_SENDCALLS",
     "PHONEBUTTONFUNCTION_MSGINDICATOR",
-    "PHONEBUTTONFUNCTION_REPDIAL",
-    "PHONEBUTTONFUNCTION_SETREPDIAL",
-    "PHONEBUTTONFUNCTION_SYSTEMSPEED",
-    "PHONEBUTTONFUNCTION_STATIONSPEED",
-    "PHONEBUTTONFUNCTION_CAMPON",
-    "PHONEBUTTONFUNCTION_SAVEREPEAT",
-    "PHONEBUTTONFUNCTION_QUEUECALL",
+    "PHONEBUTTONFUNCTION_MSGWAITOFF",
+    "PHONEBUTTONFUNCTION_MSGWAITON",
+    "PHONEBUTTONFUNCTION_MUTE",
+    "PHONEBUTTONFUNCTION_NIGHTSRV",
     "PHONEBUTTONFUNCTION_NONE",
+    "PHONEBUTTONFUNCTION_PARK",
+    "PHONEBUTTONFUNCTION_PICKUP",
+    "PHONEBUTTONFUNCTION_QUEUECALL",
+    "PHONEBUTTONFUNCTION_RECALL",
+    "PHONEBUTTONFUNCTION_REDIRECT",
+    "PHONEBUTTONFUNCTION_REJECT",
+    "PHONEBUTTONFUNCTION_REPDIAL",
+    "PHONEBUTTONFUNCTION_RINGAGAIN",
+    "PHONEBUTTONFUNCTION_SAVEREPEAT",
+    "PHONEBUTTONFUNCTION_SELECTRING",
     "PHONEBUTTONFUNCTION_SEND",
-    "PHONEBUTTONMODE_DUMMY",
+    "PHONEBUTTONFUNCTION_SENDCALLS",
+    "PHONEBUTTONFUNCTION_SETREPDIAL",
+    "PHONEBUTTONFUNCTION_SPEAKEROFF",
+    "PHONEBUTTONFUNCTION_SPEAKERON",
+    "PHONEBUTTONFUNCTION_STATIONSPEED",
+    "PHONEBUTTONFUNCTION_SYSTEMSPEED",
+    "PHONEBUTTONFUNCTION_TRANSFER",
+    "PHONEBUTTONFUNCTION_UNKNOWN",
+    "PHONEBUTTONFUNCTION_VOLUMEDOWN",
+    "PHONEBUTTONFUNCTION_VOLUMEUP",
+    "PHONEBUTTONINFO",
     "PHONEBUTTONMODE_CALL",
+    "PHONEBUTTONMODE_DISPLAY",
+    "PHONEBUTTONMODE_DUMMY",
     "PHONEBUTTONMODE_FEATURE",
     "PHONEBUTTONMODE_KEYPAD",
     "PHONEBUTTONMODE_LOCAL",
-    "PHONEBUTTONMODE_DISPLAY",
-    "PHONEBUTTONSTATE_UP",
     "PHONEBUTTONSTATE_DOWN",
-    "PHONEBUTTONSTATE_UNKNOWN",
     "PHONEBUTTONSTATE_UNAVAIL",
+    "PHONEBUTTONSTATE_UNKNOWN",
+    "PHONEBUTTONSTATE_UP",
+    "PHONECALLBACK",
+    "PHONECAPS",
+    "PHONECAPS_BUFFER",
+    "PHONECAPS_LONG",
+    "PHONECAPS_STRING",
     "PHONEERR_ALLOCATED",
     "PHONEERR_BADDEVICEID",
+    "PHONEERR_DISCONNECTED",
     "PHONEERR_INCOMPATIBLEAPIVERSION",
     "PHONEERR_INCOMPATIBLEEXTVERSION",
     "PHONEERR_INIFILECORRUPT",
@@ -7099,185 +7699,394 @@ __all__ = [
     "PHONEERR_NOTOWNER",
     "PHONEERR_OPERATIONFAILED",
     "PHONEERR_OPERATIONUNAVAIL",
-    "PHONEERR_RESOURCEUNAVAIL",
+    "PHONEERR_REINIT",
     "PHONEERR_REQUESTOVERRUN",
+    "PHONEERR_RESOURCEUNAVAIL",
+    "PHONEERR_SERVICE_NOT_RUNNING",
     "PHONEERR_STRUCTURETOOSMALL",
     "PHONEERR_UNINITIALIZED",
-    "PHONEERR_REINIT",
-    "PHONEERR_DISCONNECTED",
-    "PHONEERR_SERVICE_NOT_RUNNING",
+    "PHONEEVENT",
+    "PHONEEXTENSIONID",
+    "PHONEFEATURE_GENERICPHONE",
     "PHONEFEATURE_GETBUTTONINFO",
     "PHONEFEATURE_GETDATA",
     "PHONEFEATURE_GETDISPLAY",
     "PHONEFEATURE_GETGAINHANDSET",
-    "PHONEFEATURE_GETGAINSPEAKER",
     "PHONEFEATURE_GETGAINHEADSET",
+    "PHONEFEATURE_GETGAINSPEAKER",
     "PHONEFEATURE_GETHOOKSWITCHHANDSET",
-    "PHONEFEATURE_GETHOOKSWITCHSPEAKER",
     "PHONEFEATURE_GETHOOKSWITCHHEADSET",
+    "PHONEFEATURE_GETHOOKSWITCHSPEAKER",
     "PHONEFEATURE_GETLAMP",
     "PHONEFEATURE_GETRING",
     "PHONEFEATURE_GETVOLUMEHANDSET",
-    "PHONEFEATURE_GETVOLUMESPEAKER",
     "PHONEFEATURE_GETVOLUMEHEADSET",
+    "PHONEFEATURE_GETVOLUMESPEAKER",
     "PHONEFEATURE_SETBUTTONINFO",
     "PHONEFEATURE_SETDATA",
     "PHONEFEATURE_SETDISPLAY",
     "PHONEFEATURE_SETGAINHANDSET",
-    "PHONEFEATURE_SETGAINSPEAKER",
     "PHONEFEATURE_SETGAINHEADSET",
+    "PHONEFEATURE_SETGAINSPEAKER",
     "PHONEFEATURE_SETHOOKSWITCHHANDSET",
-    "PHONEFEATURE_SETHOOKSWITCHSPEAKER",
     "PHONEFEATURE_SETHOOKSWITCHHEADSET",
+    "PHONEFEATURE_SETHOOKSWITCHSPEAKER",
     "PHONEFEATURE_SETLAMP",
     "PHONEFEATURE_SETRING",
     "PHONEFEATURE_SETVOLUMEHANDSET",
-    "PHONEFEATURE_SETVOLUMESPEAKER",
     "PHONEFEATURE_SETVOLUMEHEADSET",
-    "PHONEFEATURE_GENERICPHONE",
+    "PHONEFEATURE_SETVOLUMESPEAKER",
     "PHONEHOOKSWITCHDEV_HANDSET",
-    "PHONEHOOKSWITCHDEV_SPEAKER",
     "PHONEHOOKSWITCHDEV_HEADSET",
-    "PHONEHOOKSWITCHMODE_ONHOOK",
+    "PHONEHOOKSWITCHDEV_SPEAKER",
     "PHONEHOOKSWITCHMODE_MIC",
-    "PHONEHOOKSWITCHMODE_SPEAKER",
     "PHONEHOOKSWITCHMODE_MICSPEAKER",
+    "PHONEHOOKSWITCHMODE_ONHOOK",
+    "PHONEHOOKSWITCHMODE_SPEAKER",
     "PHONEHOOKSWITCHMODE_UNKNOWN",
-    "PHONEINITIALIZEEXOPTION_USEHIDDENWINDOW",
-    "PHONEINITIALIZEEXOPTION_USEEVENT",
     "PHONEINITIALIZEEXOPTION_USECOMPLETIONPORT",
+    "PHONEINITIALIZEEXOPTION_USEEVENT",
+    "PHONEINITIALIZEEXOPTION_USEHIDDENWINDOW",
+    "PHONEINITIALIZEEXPARAMS",
+    "PHONELAMPMODE_BROKENFLUTTER",
     "PHONELAMPMODE_DUMMY",
-    "PHONELAMPMODE_OFF",
-    "PHONELAMPMODE_STEADY",
-    "PHONELAMPMODE_WINK",
     "PHONELAMPMODE_FLASH",
     "PHONELAMPMODE_FLUTTER",
-    "PHONELAMPMODE_BROKENFLUTTER",
+    "PHONELAMPMODE_OFF",
+    "PHONELAMPMODE_STEADY",
     "PHONELAMPMODE_UNKNOWN",
+    "PHONELAMPMODE_WINK",
+    "PHONEMESSAGE",
     "PHONEPRIVILEGE_MONITOR",
     "PHONEPRIVILEGE_OWNER",
-    "PHONESTATE_OTHER",
+    "PHONESTATE_CAPSCHANGE",
     "PHONESTATE_CONNECTED",
+    "PHONESTATE_DEVSPECIFIC",
     "PHONESTATE_DISCONNECTED",
-    "PHONESTATE_OWNER",
-    "PHONESTATE_MONITORS",
     "PHONESTATE_DISPLAY",
-    "PHONESTATE_LAMP",
-    "PHONESTATE_RINGMODE",
-    "PHONESTATE_RINGVOLUME",
+    "PHONESTATE_HANDSETGAIN",
     "PHONESTATE_HANDSETHOOKSWITCH",
     "PHONESTATE_HANDSETVOLUME",
-    "PHONESTATE_HANDSETGAIN",
-    "PHONESTATE_SPEAKERHOOKSWITCH",
-    "PHONESTATE_SPEAKERVOLUME",
-    "PHONESTATE_SPEAKERGAIN",
+    "PHONESTATE_HEADSETGAIN",
     "PHONESTATE_HEADSETHOOKSWITCH",
     "PHONESTATE_HEADSETVOLUME",
-    "PHONESTATE_HEADSETGAIN",
-    "PHONESTATE_SUSPEND",
-    "PHONESTATE_RESUME",
-    "PHONESTATE_DEVSPECIFIC",
+    "PHONESTATE_LAMP",
+    "PHONESTATE_MONITORS",
+    "PHONESTATE_OTHER",
+    "PHONESTATE_OWNER",
     "PHONESTATE_REINIT",
-    "PHONESTATE_CAPSCHANGE",
     "PHONESTATE_REMOVED",
+    "PHONESTATE_RESUME",
+    "PHONESTATE_RINGMODE",
+    "PHONESTATE_RINGVOLUME",
+    "PHONESTATE_SPEAKERGAIN",
+    "PHONESTATE_SPEAKERHOOKSWITCH",
+    "PHONESTATE_SPEAKERVOLUME",
+    "PHONESTATE_SUSPEND",
+    "PHONESTATUS",
     "PHONESTATUSFLAGS_CONNECTED",
     "PHONESTATUSFLAGS_SUSPENDED",
+    "PHONE_BUTTON",
+    "PHONE_BUTTON_FUNCTION",
+    "PHONE_BUTTON_MODE",
+    "PHONE_BUTTON_STATE",
+    "PHONE_CLOSE",
+    "PHONE_CREATE",
+    "PHONE_DEVSPECIFIC",
+    "PHONE_EVENT",
+    "PHONE_HOOK_SWITCH_DEVICE",
+    "PHONE_HOOK_SWITCH_STATE",
+    "PHONE_LAMP_MODE",
+    "PHONE_PRIVILEGE",
+    "PHONE_REMOVE",
+    "PHONE_REPLY",
+    "PHONE_STATE",
+    "PHONE_TONE",
+    "PHSD_HANDSET",
+    "PHSD_HEADSET",
+    "PHSD_SPEAKERPHONE",
+    "PHSS_OFFHOOK",
+    "PHSS_OFFHOOK_MIC_ONLY",
+    "PHSS_OFFHOOK_SPEAKER_ONLY",
+    "PHSS_ONHOOK",
+    "PP_MONITOR",
+    "PP_OWNER",
+    "PRIVATEOBJECT_ADDRESS",
+    "PRIVATEOBJECT_CALL",
+    "PRIVATEOBJECT_CALLID",
+    "PRIVATEOBJECT_LINE",
+    "PRIVATEOBJECT_NONE",
+    "PRIVATEOBJECT_PHONE",
+    "PT_BUSY",
+    "PT_ERRORTONE",
+    "PT_EXTERNALDIALTONE",
+    "PT_KEYPADA",
+    "PT_KEYPADB",
+    "PT_KEYPADC",
+    "PT_KEYPADD",
+    "PT_KEYPADEIGHT",
+    "PT_KEYPADFIVE",
+    "PT_KEYPADFOUR",
+    "PT_KEYPADNINE",
+    "PT_KEYPADONE",
+    "PT_KEYPADPOUND",
+    "PT_KEYPADSEVEN",
+    "PT_KEYPADSIX",
+    "PT_KEYPADSTAR",
+    "PT_KEYPADTHREE",
+    "PT_KEYPADTWO",
+    "PT_KEYPADZERO",
+    "PT_NORMALDIALTONE",
+    "PT_RINGBACK",
+    "PT_SILENCE",
+    "QE_ADMISSIONFAILURE",
+    "QE_GENERICERROR",
+    "QE_LASTITEM",
+    "QE_NOQOS",
+    "QE_POLICYFAILURE",
+    "QOS_EVENT",
+    "QOS_SERVICE_LEVEL",
+    "QSL_BEST_EFFORT",
+    "QSL_IF_AVAILABLE",
+    "QSL_NEEDED",
+    "RAS_LOCAL",
+    "RAS_REGION",
+    "RAS_SITE",
+    "RAS_WORLD",
+    "RENDBIND_AUTHENTICATE",
+    "RENDBIND_DEFAULTCREDENTIALS",
+    "RENDBIND_DEFAULTDOMAINNAME",
+    "RENDBIND_DEFAULTPASSWORD",
+    "RENDBIND_DEFAULTUSERNAME",
+    "RENDDATA",
+    "RND_ADVERTISING_SCOPE",
+    "Rendezvous",
+    "RequestMakeCall",
     "STRINGFORMAT_ASCII",
+    "STRINGFORMAT_BINARY",
     "STRINGFORMAT_DBCS",
     "STRINGFORMAT_UNICODE",
-    "STRINGFORMAT_BINARY",
-    "TAPI_REPLY",
+    "STRM_CONFIGURED",
+    "STRM_INITIAL",
+    "STRM_PAUSED",
+    "STRM_RUNNING",
+    "STRM_STOPPED",
+    "STRM_TERMINALSELECTED",
+    "STnefProblem",
+    "STnefProblemArray",
+    "TAPI",
     "TAPIERR_CONNECTED",
-    "TAPIERR_DROPPED",
-    "TAPIERR_NOREQUESTRECIPIENT",
-    "TAPIERR_REQUESTQUEUEFULL",
-    "TAPIERR_INVALDESTADDRESS",
-    "TAPIERR_INVALWINDOWHANDLE",
-    "TAPIERR_INVALDEVICECLASS",
-    "TAPIERR_INVALDEVICEID",
-    "TAPIERR_DEVICECLASSUNAVAIL",
-    "TAPIERR_DEVICEIDUNAVAIL",
-    "TAPIERR_DEVICEINUSE",
     "TAPIERR_DESTBUSY",
     "TAPIERR_DESTNOANSWER",
     "TAPIERR_DESTUNAVAIL",
-    "TAPIERR_UNKNOWNWINHANDLE",
-    "TAPIERR_UNKNOWNREQUESTID",
-    "TAPIERR_REQUESTFAILED",
-    "TAPIERR_REQUESTCANCELLED",
+    "TAPIERR_DEVICECLASSUNAVAIL",
+    "TAPIERR_DEVICEIDUNAVAIL",
+    "TAPIERR_DEVICEINUSE",
+    "TAPIERR_DROPPED",
+    "TAPIERR_INVALDESTADDRESS",
+    "TAPIERR_INVALDEVICECLASS",
+    "TAPIERR_INVALDEVICEID",
     "TAPIERR_INVALPOINTER",
-    "TAPIERR_NOTADMIN",
+    "TAPIERR_INVALWINDOWHANDLE",
     "TAPIERR_MMCWRITELOCKED",
+    "TAPIERR_NOREQUESTRECIPIENT",
+    "TAPIERR_NOTADMIN",
     "TAPIERR_PROVIDERALREADYINSTALLED",
+    "TAPIERR_REQUESTCANCELLED",
+    "TAPIERR_REQUESTFAILED",
+    "TAPIERR_REQUESTQUEUEFULL",
     "TAPIERR_SCP_ALREADY_EXISTS",
     "TAPIERR_SCP_DOES_NOT_EXIST",
-    "TAPIMAXDESTADDRESSSIZE",
+    "TAPIERR_UNKNOWNREQUESTID",
+    "TAPIERR_UNKNOWNWINHANDLE",
     "TAPIMAXAPPNAMESIZE",
     "TAPIMAXCALLEDPARTYSIZE",
     "TAPIMAXCOMMENTSIZE",
+    "TAPIMAXDESTADDRESSSIZE",
     "TAPIMAXDEVICECLASSSIZE",
     "TAPIMAXDEVICEIDSIZE",
-    "INTERFACEMASK",
-    "DISPIDMASK",
-    "IDISPTAPI",
-    "IDISPTAPICALLCENTER",
-    "IDISPCALLINFO",
-    "IDISPBASICCALLCONTROL",
-    "IDISPLEGACYCALLMEDIACONTROL",
-    "IDISPAGGREGATEDMSPCALLOBJ",
-    "IDISPADDRESS",
-    "IDISPADDRESSCAPABILITIES",
-    "IDISPMEDIASUPPORT",
-    "IDISPADDRESSTRANSLATION",
-    "IDISPLEGACYADDRESSMEDIACONTROL",
-    "IDISPAGGREGATEDMSPADDRESSOBJ",
-    "IDISPPHONE",
-    "IDISPAPC",
-    "IDISPMULTITRACK",
-    "IDISPMEDIACONTROL",
-    "IDISPMEDIARECORD",
-    "IDISPMEDIAPLAYBACK",
-    "IDISPFILETRACK",
     "TAPIMEDIATYPE_AUDIO",
-    "TAPIMEDIATYPE_VIDEO",
     "TAPIMEDIATYPE_DATAMODEM",
     "TAPIMEDIATYPE_G3FAX",
     "TAPIMEDIATYPE_MULTITRACK",
-    "TSPI_MESSAGE_BASE",
-    "LINETSPIOPTION_NONREENTRANT",
-    "TUISPIDLL_OBJECT_LINEID",
-    "TUISPIDLL_OBJECT_PHONEID",
-    "TUISPIDLL_OBJECT_PROVIDERID",
-    "TUISPIDLL_OBJECT_DIALOGINSTANCE",
-    "PRIVATEOBJECT_NONE",
-    "PRIVATEOBJECT_CALLID",
-    "PRIVATEOBJECT_LINE",
-    "PRIVATEOBJECT_CALL",
-    "PRIVATEOBJECT_PHONE",
-    "PRIVATEOBJECT_ADDRESS",
-    "LINEQOSREQUESTTYPE_SERVICELEVEL",
-    "LINEQOSSERVICELEVEL_NEEDED",
-    "LINEQOSSERVICELEVEL_IFAVAILABLE",
-    "LINEQOSSERVICELEVEL_BESTEFFORT",
-    "LINEEQOSINFO_NOQOS",
-    "LINEEQOSINFO_ADMISSIONFAILURE",
-    "LINEEQOSINFO_POLICYFAILURE",
-    "LINEEQOSINFO_GENERICERROR",
-    "TSPI_PROC_BASE",
+    "TAPIMEDIATYPE_VIDEO",
+    "TAPIOBJECT_EVENT",
+    "TAPI_CURRENT_VERSION",
+    "TAPI_CUSTOMTONE",
+    "TAPI_DETECTTONE",
+    "TAPI_EVENT",
+    "TAPI_E_ADDRESSBLOCKED",
+    "TAPI_E_ALLOCATED",
+    "TAPI_E_BILLINGREJECTED",
+    "TAPI_E_CALLCENTER_GROUP_REMOVED",
+    "TAPI_E_CALLCENTER_INVALAGENTACTIVITY",
+    "TAPI_E_CALLCENTER_INVALAGENTGROUP",
+    "TAPI_E_CALLCENTER_INVALAGENTID",
+    "TAPI_E_CALLCENTER_INVALAGENTSTATE",
+    "TAPI_E_CALLCENTER_INVALPASSWORD",
+    "TAPI_E_CALLCENTER_NO_AGENT_ID",
+    "TAPI_E_CALLCENTER_QUEUE_REMOVED",
+    "TAPI_E_CALLNOTSELECTED",
+    "TAPI_E_CALLUNAVAIL",
+    "TAPI_E_COMPLETIONOVERRUN",
+    "TAPI_E_CONFERENCEFULL",
+    "TAPI_E_DESTBUSY",
+    "TAPI_E_DESTNOANSWER",
+    "TAPI_E_DESTUNAVAIL",
+    "TAPI_E_DIALMODIFIERNOTSUPPORTED",
+    "TAPI_E_DROPPED",
+    "TAPI_E_INUSE",
+    "TAPI_E_INVALADDRESS",
+    "TAPI_E_INVALADDRESSSTATE",
+    "TAPI_E_INVALADDRESSTYPE",
+    "TAPI_E_INVALBUTTONLAMPID",
+    "TAPI_E_INVALBUTTONSTATE",
+    "TAPI_E_INVALCALLPARAMS",
+    "TAPI_E_INVALCALLPRIVILEGE",
+    "TAPI_E_INVALCALLSTATE",
+    "TAPI_E_INVALCARD",
+    "TAPI_E_INVALCOMPLETIONID",
+    "TAPI_E_INVALCOUNTRYCODE",
+    "TAPI_E_INVALDATAID",
+    "TAPI_E_INVALDEVICECLASS",
+    "TAPI_E_INVALDIALPARAMS",
+    "TAPI_E_INVALDIGITS",
+    "TAPI_E_INVALFEATURE",
+    "TAPI_E_INVALGROUPID",
+    "TAPI_E_INVALHOOKSWITCHDEV",
+    "TAPI_E_INVALIDDIRECTION",
+    "TAPI_E_INVALIDMEDIATYPE",
+    "TAPI_E_INVALIDSTREAM",
+    "TAPI_E_INVALIDSTREAMSTATE",
+    "TAPI_E_INVALIDTERMINAL",
+    "TAPI_E_INVALIDTERMINALCLASS",
+    "TAPI_E_INVALLIST",
+    "TAPI_E_INVALLOCATION",
+    "TAPI_E_INVALMESSAGEID",
+    "TAPI_E_INVALMODE",
+    "TAPI_E_INVALPARKID",
+    "TAPI_E_INVALPRIVILEGE",
+    "TAPI_E_INVALRATE",
+    "TAPI_E_INVALTIMEOUT",
+    "TAPI_E_INVALTONE",
+    "TAPI_E_MAXSTREAMS",
+    "TAPI_E_MAXTERMINALS",
+    "TAPI_E_NOCONFERENCE",
+    "TAPI_E_NODEVICE",
+    "TAPI_E_NODRIVER",
+    "TAPI_E_NOEVENT",
+    "TAPI_E_NOFORMAT",
+    "TAPI_E_NOITEMS",
+    "TAPI_E_NOREQUEST",
+    "TAPI_E_NOREQUESTRECIPIENT",
+    "TAPI_E_NOTENOUGHMEMORY",
+    "TAPI_E_NOTERMINALSELECTED",
+    "TAPI_E_NOTOWNER",
+    "TAPI_E_NOTREGISTERED",
+    "TAPI_E_NOTSTOPPED",
+    "TAPI_E_NOTSUPPORTED",
+    "TAPI_E_NOT_INITIALIZED",
+    "TAPI_E_OPERATIONFAILED",
+    "TAPI_E_PEER_NOT_SET",
+    "TAPI_E_PHONENOTOPEN",
+    "TAPI_E_REGISTRY_SETTING_CORRUPT",
+    "TAPI_E_REINIT",
+    "TAPI_E_REQUESTCANCELLED",
+    "TAPI_E_REQUESTFAILED",
+    "TAPI_E_REQUESTOVERRUN",
+    "TAPI_E_REQUESTQUEUEFULL",
+    "TAPI_E_RESOURCEUNAVAIL",
+    "TAPI_E_SERVICE_NOT_RUNNING",
+    "TAPI_E_TARGETNOTFOUND",
+    "TAPI_E_TARGETSELF",
+    "TAPI_E_TERMINALINUSE",
+    "TAPI_E_TERMINAL_PEER",
+    "TAPI_E_TIMEOUT",
+    "TAPI_E_USERUSERINFOTOOBIG",
+    "TAPI_E_WRONGEVENT",
+    "TAPI_E_WRONG_STATE",
+    "TAPI_GATHERTERM",
+    "TAPI_OBJECT_TYPE",
+    "TAPI_REPLY",
+    "TAPI_TONEMODE",
+    "TD_BIDIRECTIONAL",
+    "TD_CAPTURE",
+    "TD_MULTITRACK_MIXED",
+    "TD_NONE",
+    "TD_RENDER",
+    "TERMINAL_DIRECTION",
+    "TERMINAL_MEDIA_STATE",
+    "TERMINAL_STATE",
+    "TERMINAL_TYPE",
+    "TE_ACDGROUP",
+    "TE_ADDRESS",
+    "TE_ADDRESSCLOSE",
+    "TE_ADDRESSCREATE",
+    "TE_ADDRESSDEVSPECIFIC",
+    "TE_ADDRESSREMOVE",
+    "TE_AGENT",
+    "TE_AGENTHANDLER",
+    "TE_AGENTSESSION",
+    "TE_ASRTERMINAL",
+    "TE_CALLHUB",
+    "TE_CALLINFOCHANGE",
+    "TE_CALLMEDIA",
+    "TE_CALLNOTIFICATION",
+    "TE_CALLSTATE",
+    "TE_DIGITEVENT",
+    "TE_FILETERMINAL",
+    "TE_GATHERDIGITS",
+    "TE_GENERATEEVENT",
+    "TE_PHONECREATE",
+    "TE_PHONEDEVSPECIFIC",
+    "TE_PHONEEVENT",
+    "TE_PHONEREMOVE",
+    "TE_PRIVATE",
+    "TE_QOSEVENT",
+    "TE_QUEUE",
+    "TE_REINIT",
+    "TE_REQUEST",
+    "TE_TAPIOBJECT",
+    "TE_TONEEVENT",
+    "TE_TONETERMINAL",
+    "TE_TRANSLATECHANGE",
+    "TE_TTSTERMINAL",
+    "TGT_BUFFERFULL",
+    "TGT_CANCEL",
+    "TGT_FIRSTTIMEOUT",
+    "TGT_INTERTIMEOUT",
+    "TGT_TERMDIGIT",
+    "TMS_ACTIVE",
+    "TMS_IDLE",
+    "TMS_LASTITEM",
+    "TMS_PAUSED",
+    "TOT_ADDRESS",
+    "TOT_CALL",
+    "TOT_CALLHUB",
+    "TOT_NONE",
+    "TOT_PHONE",
+    "TOT_TAPI",
+    "TOT_TERMINAL",
+    "TRP",
     "TSPI_LINEACCEPT",
     "TSPI_LINEADDTOCONFERENCE",
     "TSPI_LINEANSWER",
     "TSPI_LINEBLINDTRANSFER",
     "TSPI_LINECLOSE",
     "TSPI_LINECLOSECALL",
+    "TSPI_LINECLOSEMSPINSTANCE",
     "TSPI_LINECOMPLETECALL",
     "TSPI_LINECOMPLETETRANSFER",
     "TSPI_LINECONDITIONALMEDIADETECTION",
     "TSPI_LINECONFIGDIALOG",
+    "TSPI_LINECONFIGDIALOGEDIT",
+    "TSPI_LINECREATEMSPINSTANCE",
     "TSPI_LINEDEVSPECIFIC",
     "TSPI_LINEDEVSPECIFICFEATURE",
     "TSPI_LINEDIAL",
     "TSPI_LINEDROP",
+    "TSPI_LINEDROPNOOWNER",
+    "TSPI_LINEDROPONCLOSE",
     "TSPI_LINEFORWARD",
     "TSPI_LINEGATHERDIGITS",
     "TSPI_LINEGENERATEDIGITS",
@@ -7286,6 +8095,8 @@ __all__ = [
     "TSPI_LINEGETADDRESSID",
     "TSPI_LINEGETADDRESSSTATUS",
     "TSPI_LINEGETCALLADDRESSID",
+    "TSPI_LINEGETCALLHUBTRACKING",
+    "TSPI_LINEGETCALLID",
     "TSPI_LINEGETCALLINFO",
     "TSPI_LINEGETCALLSTATUS",
     "TSPI_LINEGETDEVCAPS",
@@ -7300,19 +8111,24 @@ __all__ = [
     "TSPI_LINEMONITORDIGITS",
     "TSPI_LINEMONITORMEDIA",
     "TSPI_LINEMONITORTONES",
+    "TSPI_LINEMSPIDENTIFY",
     "TSPI_LINENEGOTIATEEXTVERSION",
     "TSPI_LINENEGOTIATETSPIVERSION",
     "TSPI_LINEOPEN",
     "TSPI_LINEPARK",
     "TSPI_LINEPICKUP",
     "TSPI_LINEPREPAREADDTOCONFERENCE",
+    "TSPI_LINERECEIVEMSPDATA",
     "TSPI_LINEREDIRECT",
+    "TSPI_LINERELEASEUSERUSERINFO",
     "TSPI_LINEREMOVEFROMCONFERENCE",
     "TSPI_LINESECURECALL",
     "TSPI_LINESELECTEXTVERSION",
     "TSPI_LINESENDUSERUSERINFO",
     "TSPI_LINESETAPPSPECIFIC",
+    "TSPI_LINESETCALLHUBTRACKING",
     "TSPI_LINESETCALLPARAMS",
+    "TSPI_LINESETCURRENTLOCATION",
     "TSPI_LINESETDEFAULTMEDIADETECTION",
     "TSPI_LINESETDEVCONFIG",
     "TSPI_LINESETMEDIACONTROL",
@@ -7325,6 +8141,7 @@ __all__ = [
     "TSPI_LINEUNCOMPLETECALL",
     "TSPI_LINEUNHOLD",
     "TSPI_LINEUNPARK",
+    "TSPI_MESSAGE_BASE",
     "TSPI_PHONECLOSE",
     "TSPI_PHONECONFIGDIALOG",
     "TSPI_PHONEDEVSPECIFIC",
@@ -7354,855 +8171,40 @@ __all__ = [
     "TSPI_PHONESETRING",
     "TSPI_PHONESETSTATUSMESSAGES",
     "TSPI_PHONESETVOLUME",
+    "TSPI_PROC_BASE",
     "TSPI_PROVIDERCONFIG",
+    "TSPI_PROVIDERCREATELINEDEVICE",
+    "TSPI_PROVIDERCREATEPHONEDEVICE",
+    "TSPI_PROVIDERENUMDEVICES",
     "TSPI_PROVIDERINIT",
     "TSPI_PROVIDERINSTALL",
     "TSPI_PROVIDERREMOVE",
     "TSPI_PROVIDERSHUTDOWN",
-    "TSPI_PROVIDERENUMDEVICES",
-    "TSPI_LINEDROPONCLOSE",
-    "TSPI_LINEDROPNOOWNER",
-    "TSPI_PROVIDERCREATELINEDEVICE",
-    "TSPI_PROVIDERCREATEPHONEDEVICE",
-    "TSPI_LINESETCURRENTLOCATION",
-    "TSPI_LINECONFIGDIALOGEDIT",
-    "TSPI_LINERELEASEUSERUSERINFO",
-    "TSPI_LINEGETCALLID",
-    "TSPI_LINEGETCALLHUBTRACKING",
-    "TSPI_LINESETCALLHUBTRACKING",
-    "TSPI_LINERECEIVEMSPDATA",
-    "TSPI_LINEMSPIDENTIFY",
-    "TSPI_LINECREATEMSPINSTANCE",
-    "TSPI_LINECLOSEMSPINSTANCE",
-    "IDISPDIROBJECT",
-    "IDISPDIROBJCONFERENCE",
-    "IDISPDIROBJUSER",
-    "IDISPDIRECTORY",
-    "IDISPILSCONFIG",
-    "RENDBIND_AUTHENTICATE",
-    "RENDBIND_DEFAULTDOMAINNAME",
-    "RENDBIND_DEFAULTUSERNAME",
-    "RENDBIND_DEFAULTPASSWORD",
-    "RENDBIND_DEFAULTCREDENTIALS",
-    "STRM_INITIAL",
-    "STRM_TERMINALSELECTED",
-    "STRM_CONFIGURED",
-    "STRM_RUNNING",
-    "STRM_PAUSED",
-    "STRM_STOPPED",
-    "TAPI_E_NOTENOUGHMEMORY",
-    "TAPI_E_NOITEMS",
-    "TAPI_E_NOTSUPPORTED",
-    "TAPI_E_INVALIDMEDIATYPE",
-    "TAPI_E_OPERATIONFAILED",
-    "TAPI_E_ALLOCATED",
-    "TAPI_E_CALLUNAVAIL",
-    "TAPI_E_COMPLETIONOVERRUN",
-    "TAPI_E_CONFERENCEFULL",
-    "TAPI_E_DIALMODIFIERNOTSUPPORTED",
-    "TAPI_E_INUSE",
-    "TAPI_E_INVALADDRESS",
-    "TAPI_E_INVALADDRESSSTATE",
-    "TAPI_E_INVALCALLPARAMS",
-    "TAPI_E_INVALCALLPRIVILEGE",
-    "TAPI_E_INVALCALLSTATE",
-    "TAPI_E_INVALCARD",
-    "TAPI_E_INVALCOMPLETIONID",
-    "TAPI_E_INVALCOUNTRYCODE",
-    "TAPI_E_INVALDEVICECLASS",
-    "TAPI_E_INVALDIALPARAMS",
-    "TAPI_E_INVALDIGITS",
-    "TAPI_E_INVALGROUPID",
-    "TAPI_E_INVALLOCATION",
-    "TAPI_E_INVALMESSAGEID",
-    "TAPI_E_INVALPARKID",
-    "TAPI_E_INVALRATE",
-    "TAPI_E_INVALTIMEOUT",
-    "TAPI_E_INVALTONE",
-    "TAPI_E_INVALLIST",
-    "TAPI_E_INVALMODE",
-    "TAPI_E_NOCONFERENCE",
-    "TAPI_E_NODEVICE",
-    "TAPI_E_NOREQUEST",
-    "TAPI_E_NOTOWNER",
-    "TAPI_E_NOTREGISTERED",
-    "TAPI_E_REQUESTOVERRUN",
-    "TAPI_E_TARGETNOTFOUND",
-    "TAPI_E_TARGETSELF",
-    "TAPI_E_USERUSERINFOTOOBIG",
-    "TAPI_E_REINIT",
-    "TAPI_E_ADDRESSBLOCKED",
-    "TAPI_E_BILLINGREJECTED",
-    "TAPI_E_INVALFEATURE",
-    "TAPI_E_INVALBUTTONLAMPID",
-    "TAPI_E_INVALBUTTONSTATE",
-    "TAPI_E_INVALDATAID",
-    "TAPI_E_INVALHOOKSWITCHDEV",
-    "TAPI_E_DROPPED",
-    "TAPI_E_NOREQUESTRECIPIENT",
-    "TAPI_E_REQUESTQUEUEFULL",
-    "TAPI_E_DESTBUSY",
-    "TAPI_E_DESTNOANSWER",
-    "TAPI_E_DESTUNAVAIL",
-    "TAPI_E_REQUESTFAILED",
-    "TAPI_E_REQUESTCANCELLED",
-    "TAPI_E_INVALPRIVILEGE",
-    "TAPI_E_INVALIDDIRECTION",
-    "TAPI_E_INVALIDTERMINAL",
-    "TAPI_E_INVALIDTERMINALCLASS",
-    "TAPI_E_NODRIVER",
-    "TAPI_E_MAXSTREAMS",
-    "TAPI_E_NOTERMINALSELECTED",
-    "TAPI_E_TERMINALINUSE",
-    "TAPI_E_NOTSTOPPED",
-    "TAPI_E_MAXTERMINALS",
-    "TAPI_E_INVALIDSTREAM",
-    "TAPI_E_TIMEOUT",
-    "TAPI_E_CALLCENTER_GROUP_REMOVED",
-    "TAPI_E_CALLCENTER_QUEUE_REMOVED",
-    "TAPI_E_CALLCENTER_NO_AGENT_ID",
-    "TAPI_E_CALLCENTER_INVALAGENTID",
-    "TAPI_E_CALLCENTER_INVALAGENTGROUP",
-    "TAPI_E_CALLCENTER_INVALPASSWORD",
-    "TAPI_E_CALLCENTER_INVALAGENTSTATE",
-    "TAPI_E_CALLCENTER_INVALAGENTACTIVITY",
-    "TAPI_E_REGISTRY_SETTING_CORRUPT",
-    "TAPI_E_TERMINAL_PEER",
-    "TAPI_E_PEER_NOT_SET",
-    "TAPI_E_NOEVENT",
-    "TAPI_E_INVALADDRESSTYPE",
-    "TAPI_E_RESOURCEUNAVAIL",
-    "TAPI_E_PHONENOTOPEN",
-    "TAPI_E_CALLNOTSELECTED",
-    "TAPI_E_WRONGEVENT",
-    "TAPI_E_NOFORMAT",
-    "TAPI_E_INVALIDSTREAMSTATE",
-    "TAPI_E_WRONG_STATE",
-    "TAPI_E_NOT_INITIALIZED",
-    "TAPI_E_SERVICE_NOT_RUNNING",
-    "atypNull",
-    "atypFile",
-    "atypOle",
-    "atypPicture",
-    "atypMax",
-    "LINECALLBACK",
-    "PHONECALLBACK",
-    "LINEADDRESSCAPS",
-    "LINEADDRESSSTATUS",
-    "LINEAGENTACTIVITYENTRY",
-    "LINEAGENTACTIVITYLIST",
-    "LINEAGENTCAPS",
-    "LINEAGENTGROUPENTRY",
-    "LINEAGENTGROUPLIST",
-    "LINEAGENTSTATUS",
-    "LINEAPPINFO",
-    "LINEAGENTENTRY",
-    "LINEAGENTLIST",
-    "LINEAGENTINFO",
-    "LINEAGENTSESSIONENTRY",
-    "LINEAGENTSESSIONLIST",
-    "LINEAGENTSESSIONINFO",
-    "LINEQUEUEENTRY",
-    "LINEQUEUELIST",
-    "LINEQUEUEINFO",
-    "LINEPROXYREQUESTLIST",
-    "LINEDIALPARAMS",
-    "LINECALLINFO",
-    "LINECALLLIST",
-    "LINECALLPARAMS",
-    "LINECALLSTATUS",
-    "LINECALLTREATMENTENTRY",
-    "LINECARDENTRY",
-    "LINECOUNTRYENTRY",
-    "LINECOUNTRYLIST",
-    "LINEDEVCAPS",
-    "LINEDEVSTATUS",
-    "LINEEXTENSIONID",
-    "LINEFORWARD",
-    "LINEFORWARDLIST",
-    "LINEGENERATETONE",
-    "LINEINITIALIZEEXPARAMS",
-    "LINELOCATIONENTRY",
-    "LINEMEDIACONTROLCALLSTATE",
-    "LINEMEDIACONTROLDIGIT",
-    "LINEMEDIACONTROLMEDIA",
-    "LINEMEDIACONTROLTONE",
-    "LINEMESSAGE",
-    "LINEMONITORTONE",
-    "LINEPROVIDERENTRY",
-    "LINEPROVIDERLIST",
-    "LINEPROXYREQUEST",
-    "LINEREQMAKECALL",
-    "linereqmakecallW_tag",
-    "LINEREQMEDIACALL",
-    "linereqmediacallW_tag",
-    "LINETERMCAPS",
-    "LINETRANSLATECAPS",
-    "LINETRANSLATEOUTPUT",
-    "PHONEBUTTONINFO",
-    "PHONECAPS",
-    "PHONEEXTENSIONID",
-    "PHONEINITIALIZEEXPARAMS",
-    "PHONEMESSAGE",
-    "PHONESTATUS",
-    "VARSTRING",
-    "HDRVCALL__",
-    "HDRVLINE__",
-    "HDRVPHONE__",
-    "HDRVMSPLINE__",
-    "HDRVDIALOGINSTANCE__",
-    "HTAPICALL__",
-    "HTAPILINE__",
-    "HTAPIPHONE__",
-    "HPROVIDER__",
-    "ASYNC_COMPLETION",
-    "LINEEVENT",
-    "PHONEEVENT",
-    "TUISPIDLLCALLBACK",
-    "TUISPICREATEDIALOGINSTANCEPARAMS",
-    "TAPI",
-    "DispatchMapper",
-    "RequestMakeCall",
-    "TAPI_TONEMODE",
-    "TTM_RINGBACK",
-    "TTM_BUSY",
-    "TTM_BEEP",
-    "TTM_BILLING",
-    "TAPI_GATHERTERM",
-    "TGT_BUFFERFULL",
-    "TGT_TERMDIGIT",
-    "TGT_FIRSTTIMEOUT",
-    "TGT_INTERTIMEOUT",
-    "TGT_CANCEL",
-    "TAPI_CUSTOMTONE",
-    "TAPI_DETECTTONE",
-    "ADDRESS_EVENT",
-    "AE_STATE",
-    "AE_CAPSCHANGE",
-    "AE_RINGING",
-    "AE_CONFIGCHANGE",
-    "AE_FORWARD",
-    "AE_NEWTERMINAL",
-    "AE_REMOVETERMINAL",
-    "AE_MSGWAITON",
-    "AE_MSGWAITOFF",
-    "AE_LASTITEM",
-    "ADDRESS_STATE",
-    "AS_INSERVICE",
-    "AS_OUTOFSERVICE",
-    "CALL_STATE",
-    "CS_IDLE",
-    "CS_INPROGRESS",
-    "CS_CONNECTED",
-    "CS_DISCONNECTED",
-    "CS_OFFERING",
-    "CS_HOLD",
-    "CS_QUEUED",
-    "CS_LASTITEM",
-    "CALL_STATE_EVENT_CAUSE",
-    "CEC_NONE",
-    "CEC_DISCONNECT_NORMAL",
-    "CEC_DISCONNECT_BUSY",
-    "CEC_DISCONNECT_BADADDRESS",
-    "CEC_DISCONNECT_NOANSWER",
-    "CEC_DISCONNECT_CANCELLED",
-    "CEC_DISCONNECT_REJECTED",
-    "CEC_DISCONNECT_FAILED",
-    "CEC_DISCONNECT_BLOCKED",
-    "CALL_MEDIA_EVENT",
-    "CME_NEW_STREAM",
-    "CME_STREAM_FAIL",
-    "CME_TERMINAL_FAIL",
-    "CME_STREAM_NOT_USED",
-    "CME_STREAM_ACTIVE",
-    "CME_STREAM_INACTIVE",
-    "CME_LASTITEM",
-    "CALL_MEDIA_EVENT_CAUSE",
-    "CMC_UNKNOWN",
-    "CMC_BAD_DEVICE",
-    "CMC_CONNECT_FAIL",
-    "CMC_LOCAL_REQUEST",
-    "CMC_REMOTE_REQUEST",
-    "CMC_MEDIA_TIMEOUT",
-    "CMC_MEDIA_RECOVERED",
-    "CMC_QUALITY_OF_SERVICE",
-    "DISCONNECT_CODE",
-    "DC_NORMAL",
-    "DC_NOANSWER",
-    "DC_REJECTED",
-    "TERMINAL_STATE",
     "TS_INUSE",
     "TS_NOTINUSE",
-    "TERMINAL_DIRECTION",
-    "TD_CAPTURE",
-    "TD_RENDER",
-    "TD_BIDIRECTIONAL",
-    "TD_MULTITRACK_MIXED",
-    "TD_NONE",
-    "TERMINAL_TYPE",
-    "TT_STATIC",
+    "TTM_BEEP",
+    "TTM_BILLING",
+    "TTM_BUSY",
+    "TTM_RINGBACK",
     "TT_DYNAMIC",
-    "CALL_PRIVILEGE",
-    "CP_OWNER",
-    "CP_MONITOR",
-    "TAPI_EVENT",
-    "TE_TAPIOBJECT",
-    "TE_ADDRESS",
-    "TE_CALLNOTIFICATION",
-    "TE_CALLSTATE",
-    "TE_CALLMEDIA",
-    "TE_CALLHUB",
-    "TE_CALLINFOCHANGE",
-    "TE_PRIVATE",
-    "TE_REQUEST",
-    "TE_AGENT",
-    "TE_AGENTSESSION",
-    "TE_QOSEVENT",
-    "TE_AGENTHANDLER",
-    "TE_ACDGROUP",
-    "TE_QUEUE",
-    "TE_DIGITEVENT",
-    "TE_GENERATEEVENT",
-    "TE_ASRTERMINAL",
-    "TE_TTSTERMINAL",
-    "TE_FILETERMINAL",
-    "TE_TONETERMINAL",
-    "TE_PHONEEVENT",
-    "TE_TONEEVENT",
-    "TE_GATHERDIGITS",
-    "TE_ADDRESSDEVSPECIFIC",
-    "TE_PHONEDEVSPECIFIC",
-    "CALL_NOTIFICATION_EVENT",
-    "CNE_OWNER",
-    "CNE_MONITOR",
-    "CNE_LASTITEM",
-    "CALLHUB_EVENT",
-    "CHE_CALLJOIN",
-    "CHE_CALLLEAVE",
-    "CHE_CALLHUBNEW",
-    "CHE_CALLHUBIDLE",
-    "CHE_LASTITEM",
-    "CALLHUB_STATE",
-    "CHS_ACTIVE",
-    "CHS_IDLE",
-    "TAPIOBJECT_EVENT",
-    "TE_ADDRESSCREATE",
-    "TE_ADDRESSREMOVE",
-    "TE_REINIT",
-    "TE_TRANSLATECHANGE",
-    "TE_ADDRESSCLOSE",
-    "TE_PHONECREATE",
-    "TE_PHONEREMOVE",
-    "TAPI_OBJECT_TYPE",
-    "TOT_NONE",
-    "TOT_TAPI",
-    "TOT_ADDRESS",
-    "TOT_TERMINAL",
-    "TOT_CALL",
-    "TOT_CALLHUB",
-    "TOT_PHONE",
-    "QOS_SERVICE_LEVEL",
-    "QSL_NEEDED",
-    "QSL_IF_AVAILABLE",
-    "QSL_BEST_EFFORT",
-    "QOS_EVENT",
-    "QE_NOQOS",
-    "QE_ADMISSIONFAILURE",
-    "QE_POLICYFAILURE",
-    "QE_GENERICERROR",
-    "QE_LASTITEM",
-    "CALLINFOCHANGE_CAUSE",
-    "CIC_OTHER",
-    "CIC_DEVSPECIFIC",
-    "CIC_BEARERMODE",
-    "CIC_RATE",
-    "CIC_APPSPECIFIC",
-    "CIC_CALLID",
-    "CIC_RELATEDCALLID",
-    "CIC_ORIGIN",
-    "CIC_REASON",
-    "CIC_COMPLETIONID",
-    "CIC_NUMOWNERINCR",
-    "CIC_NUMOWNERDECR",
-    "CIC_NUMMONITORS",
-    "CIC_TRUNK",
-    "CIC_CALLERID",
-    "CIC_CALLEDID",
-    "CIC_CONNECTEDID",
-    "CIC_REDIRECTIONID",
-    "CIC_REDIRECTINGID",
-    "CIC_USERUSERINFO",
-    "CIC_HIGHLEVELCOMP",
-    "CIC_LOWLEVELCOMP",
-    "CIC_CHARGINGINFO",
-    "CIC_TREATMENT",
-    "CIC_CALLDATA",
-    "CIC_PRIVILEGE",
-    "CIC_MEDIATYPE",
-    "CIC_LASTITEM",
-    "CALLINFO_LONG",
-    "CIL_MEDIATYPESAVAILABLE",
-    "CIL_BEARERMODE",
-    "CIL_CALLERIDADDRESSTYPE",
-    "CIL_CALLEDIDADDRESSTYPE",
-    "CIL_CONNECTEDIDADDRESSTYPE",
-    "CIL_REDIRECTIONIDADDRESSTYPE",
-    "CIL_REDIRECTINGIDADDRESSTYPE",
-    "CIL_ORIGIN",
-    "CIL_REASON",
-    "CIL_APPSPECIFIC",
-    "CIL_CALLPARAMSFLAGS",
-    "CIL_CALLTREATMENT",
-    "CIL_MINRATE",
-    "CIL_MAXRATE",
-    "CIL_COUNTRYCODE",
-    "CIL_CALLID",
-    "CIL_RELATEDCALLID",
-    "CIL_COMPLETIONID",
-    "CIL_NUMBEROFOWNERS",
-    "CIL_NUMBEROFMONITORS",
-    "CIL_TRUNK",
-    "CIL_RATE",
-    "CIL_GENERATEDIGITDURATION",
-    "CIL_MONITORDIGITMODES",
-    "CIL_MONITORMEDIAMODES",
-    "CALLINFO_STRING",
-    "CIS_CALLERIDNAME",
-    "CIS_CALLERIDNUMBER",
-    "CIS_CALLEDIDNAME",
-    "CIS_CALLEDIDNUMBER",
-    "CIS_CONNECTEDIDNAME",
-    "CIS_CONNECTEDIDNUMBER",
-    "CIS_REDIRECTIONIDNAME",
-    "CIS_REDIRECTIONIDNUMBER",
-    "CIS_REDIRECTINGIDNAME",
-    "CIS_REDIRECTINGIDNUMBER",
-    "CIS_CALLEDPARTYFRIENDLYNAME",
-    "CIS_COMMENT",
-    "CIS_DISPLAYABLEADDRESS",
-    "CIS_CALLINGPARTYID",
-    "CALLINFO_BUFFER",
-    "CIB_USERUSERINFO",
-    "CIB_DEVSPECIFICBUFFER",
-    "CIB_CALLDATABUFFER",
-    "CIB_CHARGINGINFOBUFFER",
-    "CIB_HIGHLEVELCOMPATIBILITYBUFFER",
-    "CIB_LOWLEVELCOMPATIBILITYBUFFER",
-    "ADDRESS_CAPABILITY",
-    "AC_ADDRESSTYPES",
-    "AC_BEARERMODES",
-    "AC_MAXACTIVECALLS",
-    "AC_MAXONHOLDCALLS",
-    "AC_MAXONHOLDPENDINGCALLS",
-    "AC_MAXNUMCONFERENCE",
-    "AC_MAXNUMTRANSCONF",
-    "AC_MONITORDIGITSUPPORT",
-    "AC_GENERATEDIGITSUPPORT",
-    "AC_GENERATETONEMODES",
-    "AC_GENERATETONEMAXNUMFREQ",
-    "AC_MONITORTONEMAXNUMFREQ",
-    "AC_MONITORTONEMAXNUMENTRIES",
-    "AC_DEVCAPFLAGS",
-    "AC_ANSWERMODES",
-    "AC_LINEFEATURES",
-    "AC_SETTABLEDEVSTATUS",
-    "AC_PARKSUPPORT",
-    "AC_CALLERIDSUPPORT",
-    "AC_CALLEDIDSUPPORT",
-    "AC_CONNECTEDIDSUPPORT",
-    "AC_REDIRECTIONIDSUPPORT",
-    "AC_REDIRECTINGIDSUPPORT",
-    "AC_ADDRESSCAPFLAGS",
-    "AC_CALLFEATURES1",
-    "AC_CALLFEATURES2",
-    "AC_REMOVEFROMCONFCAPS",
-    "AC_REMOVEFROMCONFSTATE",
-    "AC_TRANSFERMODES",
-    "AC_ADDRESSFEATURES",
-    "AC_PREDICTIVEAUTOTRANSFERSTATES",
-    "AC_MAXCALLDATASIZE",
-    "AC_LINEID",
-    "AC_ADDRESSID",
-    "AC_FORWARDMODES",
-    "AC_MAXFORWARDENTRIES",
-    "AC_MAXSPECIFICENTRIES",
-    "AC_MINFWDNUMRINGS",
-    "AC_MAXFWDNUMRINGS",
-    "AC_MAXCALLCOMPLETIONS",
-    "AC_CALLCOMPLETIONCONDITIONS",
-    "AC_CALLCOMPLETIONMODES",
-    "AC_PERMANENTDEVICEID",
-    "AC_GATHERDIGITSMINTIMEOUT",
-    "AC_GATHERDIGITSMAXTIMEOUT",
-    "AC_GENERATEDIGITMINDURATION",
-    "AC_GENERATEDIGITMAXDURATION",
-    "AC_GENERATEDIGITDEFAULTDURATION",
-    "ADDRESS_CAPABILITY_STRING",
-    "ACS_PROTOCOL",
-    "ACS_ADDRESSDEVICESPECIFIC",
-    "ACS_LINEDEVICESPECIFIC",
-    "ACS_PROVIDERSPECIFIC",
-    "ACS_SWITCHSPECIFIC",
-    "ACS_PERMANENTDEVICEGUID",
-    "FULLDUPLEX_SUPPORT",
-    "FDS_SUPPORTED",
-    "FDS_NOTSUPPORTED",
-    "FDS_UNKNOWN",
-    "FINISH_MODE",
-    "FM_ASTRANSFER",
-    "FM_ASCONFERENCE",
-    "PHONE_PRIVILEGE",
-    "PP_OWNER",
-    "PP_MONITOR",
-    "PHONE_HOOK_SWITCH_DEVICE",
-    "PHSD_HANDSET",
-    "PHSD_SPEAKERPHONE",
-    "PHSD_HEADSET",
-    "PHONE_HOOK_SWITCH_STATE",
-    "PHSS_ONHOOK",
-    "PHSS_OFFHOOK_MIC_ONLY",
-    "PHSS_OFFHOOK_SPEAKER_ONLY",
-    "PHSS_OFFHOOK",
-    "PHONE_LAMP_MODE",
-    "LM_DUMMY",
-    "LM_OFF",
-    "LM_STEADY",
-    "LM_WINK",
-    "LM_FLASH",
-    "LM_FLUTTER",
-    "LM_BROKENFLUTTER",
-    "LM_UNKNOWN",
-    "PHONECAPS_LONG",
-    "PCL_HOOKSWITCHES",
-    "PCL_HANDSETHOOKSWITCHMODES",
-    "PCL_HEADSETHOOKSWITCHMODES",
-    "PCL_SPEAKERPHONEHOOKSWITCHMODES",
-    "PCL_DISPLAYNUMROWS",
-    "PCL_DISPLAYNUMCOLUMNS",
-    "PCL_NUMRINGMODES",
-    "PCL_NUMBUTTONLAMPS",
-    "PCL_GENERICPHONE",
-    "PHONECAPS_STRING",
-    "PCS_PHONENAME",
-    "PCS_PHONEINFO",
-    "PCS_PROVIDERINFO",
-    "PHONECAPS_BUFFER",
-    "PCB_DEVSPECIFICBUFFER",
-    "PHONE_BUTTON_STATE",
-    "PBS_UP",
-    "PBS_DOWN",
-    "PBS_UNKNOWN",
-    "PBS_UNAVAIL",
-    "PHONE_BUTTON_MODE",
-    "PBM_DUMMY",
-    "PBM_CALL",
-    "PBM_FEATURE",
-    "PBM_KEYPAD",
-    "PBM_LOCAL",
-    "PBM_DISPLAY",
-    "PHONE_BUTTON_FUNCTION",
-    "PBF_UNKNOWN",
-    "PBF_CONFERENCE",
-    "PBF_TRANSFER",
-    "PBF_DROP",
-    "PBF_HOLD",
-    "PBF_RECALL",
-    "PBF_DISCONNECT",
-    "PBF_CONNECT",
-    "PBF_MSGWAITON",
-    "PBF_MSGWAITOFF",
-    "PBF_SELECTRING",
-    "PBF_ABBREVDIAL",
-    "PBF_FORWARD",
-    "PBF_PICKUP",
-    "PBF_RINGAGAIN",
-    "PBF_PARK",
-    "PBF_REJECT",
-    "PBF_REDIRECT",
-    "PBF_MUTE",
-    "PBF_VOLUMEUP",
-    "PBF_VOLUMEDOWN",
-    "PBF_SPEAKERON",
-    "PBF_SPEAKEROFF",
-    "PBF_FLASH",
-    "PBF_DATAON",
-    "PBF_DATAOFF",
-    "PBF_DONOTDISTURB",
-    "PBF_INTERCOM",
-    "PBF_BRIDGEDAPP",
-    "PBF_BUSY",
-    "PBF_CALLAPP",
-    "PBF_DATETIME",
-    "PBF_DIRECTORY",
-    "PBF_COVER",
-    "PBF_CALLID",
-    "PBF_LASTNUM",
-    "PBF_NIGHTSRV",
-    "PBF_SENDCALLS",
-    "PBF_MSGINDICATOR",
-    "PBF_REPDIAL",
-    "PBF_SETREPDIAL",
-    "PBF_SYSTEMSPEED",
-    "PBF_STATIONSPEED",
-    "PBF_CAMPON",
-    "PBF_SAVEREPEAT",
-    "PBF_QUEUECALL",
-    "PBF_NONE",
-    "PBF_SEND",
-    "PHONE_TONE",
-    "PT_KEYPADZERO",
-    "PT_KEYPADONE",
-    "PT_KEYPADTWO",
-    "PT_KEYPADTHREE",
-    "PT_KEYPADFOUR",
-    "PT_KEYPADFIVE",
-    "PT_KEYPADSIX",
-    "PT_KEYPADSEVEN",
-    "PT_KEYPADEIGHT",
-    "PT_KEYPADNINE",
-    "PT_KEYPADSTAR",
-    "PT_KEYPADPOUND",
-    "PT_KEYPADA",
-    "PT_KEYPADB",
-    "PT_KEYPADC",
-    "PT_KEYPADD",
-    "PT_NORMALDIALTONE",
-    "PT_EXTERNALDIALTONE",
-    "PT_BUSY",
-    "PT_RINGBACK",
-    "PT_ERRORTONE",
-    "PT_SILENCE",
-    "PHONE_EVENT",
-    "PE_DISPLAY",
-    "PE_LAMPMODE",
-    "PE_RINGMODE",
-    "PE_RINGVOLUME",
-    "PE_HOOKSWITCH",
-    "PE_CAPSCHANGE",
-    "PE_BUTTON",
-    "PE_CLOSE",
-    "PE_NUMBERGATHERED",
-    "PE_DIALING",
-    "PE_ANSWER",
-    "PE_DISCONNECT",
-    "PE_LASTITEM",
-    "ITTAPI",
-    "ITTAPI2",
-    "ITMediaSupport",
-    "ITPluggableTerminalClassInfo",
-    "ITPluggableTerminalSuperclassInfo",
-    "ITTerminalSupport",
-    "ITTerminalSupport2",
-    "ITAddress",
-    "ITAddress2",
-    "ITAddressCapabilities",
-    "ITPhone",
-    "ITAutomatedPhoneControl",
-    "ITBasicCallControl",
-    "ITCallInfo",
-    "ITCallInfo2",
-    "ITTerminal",
-    "ITMultiTrackTerminal",
-    "TERMINAL_MEDIA_STATE",
-    "TMS_IDLE",
-    "TMS_ACTIVE",
-    "TMS_PAUSED",
-    "TMS_LASTITEM",
-    "FT_STATE_EVENT_CAUSE",
-    "FTEC_NORMAL",
-    "FTEC_END_OF_FILE",
-    "FTEC_READ_ERROR",
-    "FTEC_WRITE_ERROR",
-    "ITFileTrack",
-    "ITMediaPlayback",
-    "ITMediaRecord",
-    "ITMediaControl",
-    "ITBasicAudioTerminal",
-    "ITStaticAudioTerminal",
-    "ITCallHub",
-    "ITLegacyAddressMediaControl",
-    "ITPrivateEvent",
-    "ITLegacyAddressMediaControl2",
-    "ITLegacyCallMediaControl",
-    "ITLegacyCallMediaControl2",
-    "ITDetectTone",
-    "ITCustomTone",
-    "IEnumPhone",
-    "IEnumTerminal",
-    "IEnumTerminalClass",
-    "IEnumCall",
-    "IEnumAddress",
-    "IEnumCallHub",
-    "IEnumBstr",
-    "IEnumPluggableTerminalClassInfo",
-    "IEnumPluggableSuperclassInfo",
-    "ITPhoneEvent",
-    "ITCallStateEvent",
-    "ITPhoneDeviceSpecificEvent",
-    "ITCallMediaEvent",
-    "ITDigitDetectionEvent",
-    "ITDigitGenerationEvent",
-    "ITDigitsGatheredEvent",
-    "ITToneDetectionEvent",
-    "ITTAPIObjectEvent",
-    "ITTAPIObjectEvent2",
-    "ITTAPIEventNotification",
-    "ITCallHubEvent",
-    "ITAddressEvent",
-    "ITAddressDeviceSpecificEvent",
-    "ITFileTerminalEvent",
-    "ITTTSTerminalEvent",
-    "ITASRTerminalEvent",
-    "ITToneTerminalEvent",
-    "ITQOSEvent",
-    "ITCallInfoChangeEvent",
-    "ITRequest",
-    "ITRequestEvent",
-    "ITCollection",
-    "ITCollection2",
-    "ITForwardInformation",
-    "ITForwardInformation2",
-    "ITAddressTranslation",
-    "ITAddressTranslationInfo",
-    "ITLocationInfo",
-    "IEnumLocation",
-    "ITCallingCard",
-    "IEnumCallingCard",
-    "ITCallNotificationEvent",
-    "ITDispatchMapper",
-    "ITStreamControl",
-    "ITStream",
-    "IEnumStream",
-    "ITSubStreamControl",
-    "ITSubStream",
-    "IEnumSubStream",
-    "ITLegacyWaveSupport",
-    "ITBasicCallControl2",
-    "ITScriptableAudioFormat",
-    "AGENT_EVENT",
-    "AE_NOT_READY",
-    "AE_READY",
-    "AE_BUSY_ACD",
-    "AE_BUSY_INCOMING",
-    "AE_BUSY_OUTGOING",
-    "AE_UNKNOWN",
-    "AGENT_STATE",
-    "AS_NOT_READY",
-    "AS_READY",
-    "AS_BUSY_ACD",
-    "AS_BUSY_INCOMING",
-    "AS_BUSY_OUTGOING",
-    "AS_UNKNOWN",
-    "AGENT_SESSION_EVENT",
-    "ASE_NEW_SESSION",
-    "ASE_NOT_READY",
-    "ASE_READY",
-    "ASE_BUSY",
-    "ASE_WRAPUP",
-    "ASE_END",
-    "AGENT_SESSION_STATE",
-    "ASST_NOT_READY",
-    "ASST_READY",
-    "ASST_BUSY_ON_CALL",
-    "ASST_BUSY_WRAPUP",
-    "ASST_SESSION_ENDED",
-    "AGENTHANDLER_EVENT",
-    "AHE_NEW_AGENTHANDLER",
-    "AHE_AGENTHANDLER_REMOVED",
-    "ACDGROUP_EVENT",
-    "ACDGE_NEW_GROUP",
-    "ACDGE_GROUP_REMOVED",
-    "ACDQUEUE_EVENT",
-    "ACDQE_NEW_QUEUE",
-    "ACDQE_QUEUE_REMOVED",
-    "ITAgent",
-    "ITAgentSession",
-    "ITACDGroup",
-    "ITQueue",
-    "ITAgentEvent",
-    "ITAgentSessionEvent",
-    "ITACDGroupEvent",
-    "ITQueueEvent",
-    "ITAgentHandlerEvent",
-    "ITTAPICallCenter",
-    "ITAgentHandler",
-    "IEnumAgent",
-    "IEnumAgentSession",
-    "IEnumQueue",
-    "IEnumACDGroup",
-    "IEnumAgentHandler",
-    "ITAMMediaFormat",
-    "ITAllocatorProperties",
-    "MSP_ADDRESS_EVENT",
-    "ADDRESS_TERMINAL_AVAILABLE",
-    "ADDRESS_TERMINAL_UNAVAILABLE",
-    "MSP_CALL_EVENT",
-    "CALL_NEW_STREAM",
-    "CALL_STREAM_FAIL",
-    "CALL_TERMINAL_FAIL",
-    "CALL_STREAM_NOT_USED",
-    "CALL_STREAM_ACTIVE",
-    "CALL_STREAM_INACTIVE",
-    "MSP_CALL_EVENT_CAUSE",
-    "CALL_CAUSE_UNKNOWN",
-    "CALL_CAUSE_BAD_DEVICE",
-    "CALL_CAUSE_CONNECT_FAIL",
-    "CALL_CAUSE_LOCAL_REQUEST",
-    "CALL_CAUSE_REMOTE_REQUEST",
-    "CALL_CAUSE_MEDIA_TIMEOUT",
-    "CALL_CAUSE_MEDIA_RECOVERED",
-    "CALL_CAUSE_QUALITY_OF_SERVICE",
-    "MSP_EVENT",
-    "ME_ADDRESS_EVENT",
-    "ME_CALL_EVENT",
-    "ME_TSP_DATA",
-    "ME_PRIVATE_EVENT",
-    "ME_ASR_TERMINAL_EVENT",
-    "ME_TTS_TERMINAL_EVENT",
-    "ME_FILE_TERMINAL_EVENT",
-    "ME_TONE_TERMINAL_EVENT",
-    "MSP_EVENT_INFO",
-    "ITPluggableTerminalEventSink",
-    "ITPluggableTerminalEventSinkRegistration",
-    "ITMSPAddress",
-    "ITTAPIDispatchEventNotification",
-    "Rendezvous",
-    "DIRECTORY_TYPE",
-    "DT_NTDS",
-    "DT_ILS",
-    "DIRECTORY_OBJECT_TYPE",
-    "OT_CONFERENCE",
-    "OT_USER",
-    "RND_ADVERTISING_SCOPE",
-    "RAS_LOCAL",
-    "RAS_SITE",
-    "RAS_REGION",
-    "RAS_WORLD",
-    "ITDirectoryObjectConference",
-    "ITDirectoryObjectUser",
-    "IEnumDialableAddrs",
-    "ITDirectoryObject",
-    "IEnumDirectoryObject",
-    "ITILSConfig",
-    "ITDirectory",
-    "IEnumDirectory",
-    "ITRendezvous",
-    "McastAddressAllocation",
-    "IMcastScope",
-    "IMcastLeaseInfo",
-    "IEnumMcastScope",
-    "IMcastAddressAllocation",
-    "STnefProblem",
-    "STnefProblemArray",
-    "ITnef",
-    "LPOPENTNEFSTREAM",
-    "LPOPENTNEFSTREAMEX",
-    "LPGETTNEFSTREAMCODEPAGE",
-    "_renddata",
-    "_dtr",
-    "_trp",
-    "_ADDR_ALIAS",
-    "NSID",
+    "TT_STATIC",
+    "TUISPICREATEDIALOGINSTANCEPARAMS",
+    "TUISPIDLLCALLBACK",
+    "TUISPIDLL_OBJECT_DIALOGINSTANCE",
+    "TUISPIDLL_OBJECT_LINEID",
+    "TUISPIDLL_OBJECT_PHONEID",
+    "TUISPIDLL_OBJECT_PROVIDERID",
+    "VARSTRING",
+    "atypFile",
+    "atypMax",
+    "atypNull",
+    "atypOle",
+    "atypPicture",
+    "cbDisplayName",
+    "cbEmailName",
+    "cbMaxIdData",
+    "cbSeverName",
+    "cbTYPE",
     "lineAccept",
     "lineAddProvider",
     "lineAddProviderA",
@@ -8218,17 +8220,15 @@ __all__ = [
     "lineCompleteTransfer",
     "lineConfigDialog",
     "lineConfigDialogA",
-    "lineConfigDialogW",
     "lineConfigDialogEdit",
     "lineConfigDialogEditA",
     "lineConfigDialogEditW",
+    "lineConfigDialogW",
     "lineConfigProvider",
-    "lineCreateAgentW",
-    "lineCreateAgent",
     "lineCreateAgentA",
-    "lineCreateAgentSessionW",
-    "lineCreateAgentSession",
     "lineCreateAgentSessionA",
+    "lineCreateAgentSessionW",
+    "lineCreateAgentW",
     "lineDeallocateCall",
     "lineDevSpecific",
     "lineDevSpecificFeature",
@@ -8257,19 +8257,15 @@ __all__ = [
     "lineGetAddressStatusW",
     "lineGetAgentActivityListA",
     "lineGetAgentActivityListW",
-    "lineGetAgentActivityList",
     "lineGetAgentCapsA",
     "lineGetAgentCapsW",
-    "lineGetAgentCaps",
     "lineGetAgentGroupListA",
     "lineGetAgentGroupListW",
-    "lineGetAgentGroupList",
     "lineGetAgentInfo",
     "lineGetAgentSessionInfo",
     "lineGetAgentSessionList",
     "lineGetAgentStatusA",
     "lineGetAgentStatusW",
-    "lineGetAgentStatus",
     "lineGetAppPriority",
     "lineGetAppPriorityA",
     "lineGetAppPriorityW",
@@ -8289,13 +8285,12 @@ __all__ = [
     "lineGetDevConfigW",
     "lineGetGroupListA",
     "lineGetGroupListW",
-    "lineGetGroupList",
-    "lineGetIcon",
-    "lineGetIconA",
-    "lineGetIconW",
     "lineGetID",
     "lineGetIDA",
     "lineGetIDW",
+    "lineGetIcon",
+    "lineGetIconA",
+    "lineGetIconW",
     "lineGetLineDevStatus",
     "lineGetLineDevStatusA",
     "lineGetLineDevStatusW",
@@ -8309,7 +8304,6 @@ __all__ = [
     "lineGetQueueInfo",
     "lineGetQueueListA",
     "lineGetQueueListW",
-    "lineGetQueueList",
     "lineGetRequest",
     "lineGetRequestA",
     "lineGetRequestW",
@@ -8324,7 +8318,6 @@ __all__ = [
     "lineInitialize",
     "lineInitializeExA",
     "lineInitializeExW",
-    "lineInitializeEx",
     "lineMakeCall",
     "lineMakeCallA",
     "lineMakeCallW",
@@ -8360,8 +8353,8 @@ __all__ = [
     "lineSetAgentGroup",
     "lineSetAgentMeasurementPeriod",
     "lineSetAgentSessionState",
-    "lineSetAgentStateEx",
     "lineSetAgentState",
+    "lineSetAgentStateEx",
     "lineSetAppPriority",
     "lineSetAppPriorityA",
     "lineSetAppPriorityW",
@@ -8378,8 +8371,8 @@ __all__ = [
     "lineSetLineDevStatus",
     "lineSetMediaControl",
     "lineSetMediaMode",
-    "lineSetQueueMeasurementPeriod",
     "lineSetNumRings",
+    "lineSetQueueMeasurementPeriod",
     "lineSetStatusMessages",
     "lineSetTerminal",
     "lineSetTollList",
@@ -8419,24 +8412,23 @@ __all__ = [
     "phoneGetDisplay",
     "phoneGetGain",
     "phoneGetHookSwitch",
-    "phoneGetIcon",
-    "phoneGetIconA",
-    "phoneGetIconW",
     "phoneGetID",
     "phoneGetIDA",
     "phoneGetIDW",
+    "phoneGetIcon",
+    "phoneGetIconA",
+    "phoneGetIconW",
     "phoneGetLamp",
     "phoneGetMessage",
     "phoneGetRing",
     "phoneGetStatus",
     "phoneGetStatusA",
-    "phoneGetStatusW",
     "phoneGetStatusMessages",
+    "phoneGetStatusW",
     "phoneGetVolume",
     "phoneInitialize",
     "phoneInitializeExA",
     "phoneInitializeExW",
-    "phoneInitializeEx",
     "phoneNegotiateAPIVersion",
     "phoneNegotiateExtVersion",
     "phoneOpen",
@@ -8452,6 +8444,9 @@ __all__ = [
     "phoneSetStatusMessages",
     "phoneSetVolume",
     "phoneShutdown",
+    "prioHigh",
+    "prioLow",
+    "prioNorm",
     "tapiGetLocationInfo",
     "tapiGetLocationInfoA",
     "tapiGetLocationInfoW",
@@ -8462,7 +8457,4 @@ __all__ = [
     "tapiRequestMediaCall",
     "tapiRequestMediaCallA",
     "tapiRequestMediaCallW",
-    "OpenTnefStream",
-    "OpenTnefStreamEx",
-    "GetTnefStreamCodepage",
 ]

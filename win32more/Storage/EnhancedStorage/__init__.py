@@ -1,400 +1,758 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Devices.PortableDevices
 import win32more.Foundation
 import win32more.Storage.EnhancedStorage
 import win32more.System.Com
 import win32more.UI.Shell.PropertiesSystem
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
-GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO = '3897f6a4-fd35-4bc8-a0b7-5dbba36adafa'
-WPD_CATEGORY_ENHANCED_STORAGE = '91248166-b832-4ad4-baa4-7ca0b6b2798c'
-ENHANCED_STORAGE_COMMAND_SILO_IS_AUTHENTICATION_SILO = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=6)
-ENHANCED_STORAGE_COMMAND_SILO_GET_AUTHENTICATION_STATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=7)
-ENHANCED_STORAGE_COMMAND_SILO_ENUMERATE_SILOS = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=11)
-ENHANCED_STORAGE_COMMAND_CERT_HOST_CERTIFICATE_AUTHENTICATION = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=101)
-ENHANCED_STORAGE_COMMAND_CERT_DEVICE_CERTIFICATE_AUTHENTICATION = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=102)
-ENHANCED_STORAGE_COMMAND_CERT_ADMIN_CERTIFICATE_AUTHENTICATION = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=103)
-ENHANCED_STORAGE_COMMAND_CERT_INITIALIZE_TO_MANUFACTURER_STATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=104)
-ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE_COUNT = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=105)
-ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=106)
-ENHANCED_STORAGE_COMMAND_CERT_SET_CERTIFICATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=107)
-ENHANCED_STORAGE_COMMAND_CERT_CREATE_CERTIFICATE_REQUEST = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=108)
-ENHANCED_STORAGE_COMMAND_CERT_UNAUTHENTICATION = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=110)
-ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITY = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=111)
-ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITIES = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=112)
-ENHANCED_STORAGE_COMMAND_CERT_GET_ACT_FRIENDLY_NAME = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=113)
-ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_GUID = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=114)
-ENHANCED_STORAGE_COMMAND_PASSWORD_AUTHORIZE_ACT_ACCESS = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=203)
-ENHANCED_STORAGE_COMMAND_PASSWORD_UNAUTHORIZE_ACT_ACCESS = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=204)
-ENHANCED_STORAGE_COMMAND_PASSWORD_QUERY_INFORMATION = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=205)
-ENHANCED_STORAGE_COMMAND_PASSWORD_CONFIG_ADMINISTRATOR = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=206)
-ENHANCED_STORAGE_COMMAND_PASSWORD_CREATE_USER = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=207)
-ENHANCED_STORAGE_COMMAND_PASSWORD_DELETE_USER = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=208)
-ENHANCED_STORAGE_COMMAND_PASSWORD_CHANGE_PASSWORD = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=209)
-ENHANCED_STORAGE_COMMAND_PASSWORD_INITIALIZE_USER_PASSWORD = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=210)
-ENHANCED_STORAGE_COMMAND_PASSWORD_START_INITIALIZE_TO_MANUFACTURER_STATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=211)
-ENHANCED_STORAGE_PROPERTY_AUTHENTICATION_STATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=1006)
+def _define_ACT_AUTHORIZATION_STATE_head():
+    class ACT_AUTHORIZATION_STATE(Structure):
+        pass
+    return ACT_AUTHORIZATION_STATE
+def _define_ACT_AUTHORIZATION_STATE():
+    ACT_AUTHORIZATION_STATE = win32more.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_head
+    ACT_AUTHORIZATION_STATE._fields_ = [
+        ('ulState', UInt32),
+    ]
+    return ACT_AUTHORIZATION_STATE
+ACT_AUTHORIZATION_STATE_VALUE = Int32
+ACT_UNAUTHORIZED = 0
+ACT_AUTHORIZED = 1
+def _define_GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO():
+    return Guid('3897f6a4-fd35-4bc8-a0-b7-5d-bb-a3-6a-da-fa')
+def _define_WPD_CATEGORY_ENHANCED_STORAGE():
+    return Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c')
+def _define_ENHANCED_STORAGE_COMMAND_SILO_IS_AUTHENTICATION_SILO():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=6)
+def _define_ENHANCED_STORAGE_COMMAND_SILO_GET_AUTHENTICATION_STATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=7)
+def _define_ENHANCED_STORAGE_COMMAND_SILO_ENUMERATE_SILOS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=11)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_HOST_CERTIFICATE_AUTHENTICATION():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=101)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_DEVICE_CERTIFICATE_AUTHENTICATION():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=102)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_ADMIN_CERTIFICATE_AUTHENTICATION():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=103)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_INITIALIZE_TO_MANUFACTURER_STATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=104)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE_COUNT():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=105)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=106)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_SET_CERTIFICATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=107)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_CREATE_CERTIFICATE_REQUEST():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=108)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_UNAUTHENTICATION():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=110)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITY():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=111)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITIES():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=112)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_GET_ACT_FRIENDLY_NAME():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=113)
+def _define_ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_GUID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=114)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_AUTHORIZE_ACT_ACCESS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=203)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_UNAUTHORIZE_ACT_ACCESS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=204)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_QUERY_INFORMATION():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=205)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_CONFIG_ADMINISTRATOR():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=206)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_CREATE_USER():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=207)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_DELETE_USER():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=208)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_CHANGE_PASSWORD():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=209)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_INITIALIZE_USER_PASSWORD():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=210)
+def _define_ENHANCED_STORAGE_COMMAND_PASSWORD_START_INITIALIZE_TO_MANUFACTURER_STATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=211)
+def _define_ENHANCED_STORAGE_PROPERTY_AUTHENTICATION_STATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=1006)
 ENHANCED_STORAGE_AUTHN_STATE_UNKNOWN = 0
 ENHANCED_STORAGE_AUTHN_STATE_NO_AUTHENTICATION_REQUIRED = 1
 ENHANCED_STORAGE_AUTHN_STATE_NOT_AUTHENTICATED = 2
 ENHANCED_STORAGE_AUTHN_STATE_AUTHENTICATED = 3
 ENHANCED_STORAGE_AUTHN_STATE_AUTHENTICATION_DENIED = 2147483649
 ENHANCED_STORAGE_AUTHN_STATE_DEVICE_ERROR = 2147483650
-ENHANCED_STORAGE_PROPERTY_IS_AUTHENTICATION_SILO = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=1009)
-ENHANCED_STORAGE_PROPERTY_TEMPORARY_UNAUTHENTICATION = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=1010)
-ENHANCED_STORAGE_PROPERTY_MAX_AUTH_FAILURES = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2001)
-ENHANCED_STORAGE_PROPERTY_PASSWORD = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2004)
-ENHANCED_STORAGE_PROPERTY_OLD_PASSWORD = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2005)
-ENHANCED_STORAGE_PROPERTY_PASSWORD_INDICATOR = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2006)
-ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD_INDICATOR = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2007)
-ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2008)
-ENHANCED_STORAGE_PROPERTY_USER_HINT = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2009)
-ENHANCED_STORAGE_PROPERTY_USER_NAME = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2010)
-ENHANCED_STORAGE_PROPERTY_ADMIN_HINT = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2011)
-ENHANCED_STORAGE_PROPERTY_SILO_NAME = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2012)
-ENHANCED_STORAGE_PROPERTY_SILO_FRIENDLYNAME_SPECIFIED = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2013)
-ENHANCED_STORAGE_PROPERTY_PASSWORD_SILO_INFO = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2014)
-ENHANCED_STORAGE_PROPERTY_SECURITY_IDENTIFIER = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2015)
-ENHANCED_STORAGE_PROPERTY_QUERY_SILO_TYPE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2016)
-ENHANCED_STORAGE_PROPERTY_QUERY_SILO_RESULTS = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=2017)
-ENHANCED_STORAGE_PROPERTY_MAX_CERTIFICATE_COUNT = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3001)
-ENHANCED_STORAGE_PROPERTY_STORED_CERTIFICATE_COUNT = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3002)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_INDEX = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3003)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_TYPE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3004)
+def _define_ENHANCED_STORAGE_PROPERTY_IS_AUTHENTICATION_SILO():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=1009)
+def _define_ENHANCED_STORAGE_PROPERTY_TEMPORARY_UNAUTHENTICATION():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=1010)
+def _define_ENHANCED_STORAGE_PROPERTY_MAX_AUTH_FAILURES():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2001)
+def _define_ENHANCED_STORAGE_PROPERTY_PASSWORD():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2004)
+def _define_ENHANCED_STORAGE_PROPERTY_OLD_PASSWORD():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2005)
+def _define_ENHANCED_STORAGE_PROPERTY_PASSWORD_INDICATOR():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2006)
+def _define_ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD_INDICATOR():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2007)
+def _define_ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2008)
+def _define_ENHANCED_STORAGE_PROPERTY_USER_HINT():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2009)
+def _define_ENHANCED_STORAGE_PROPERTY_USER_NAME():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2010)
+def _define_ENHANCED_STORAGE_PROPERTY_ADMIN_HINT():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2011)
+def _define_ENHANCED_STORAGE_PROPERTY_SILO_NAME():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2012)
+def _define_ENHANCED_STORAGE_PROPERTY_SILO_FRIENDLYNAME_SPECIFIED():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2013)
+def _define_ENHANCED_STORAGE_PROPERTY_PASSWORD_SILO_INFO():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2014)
+def _define_ENHANCED_STORAGE_PROPERTY_SECURITY_IDENTIFIER():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2015)
+def _define_ENHANCED_STORAGE_PROPERTY_QUERY_SILO_TYPE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2016)
+def _define_ENHANCED_STORAGE_PROPERTY_QUERY_SILO_RESULTS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=2017)
+def _define_ENHANCED_STORAGE_PROPERTY_MAX_CERTIFICATE_COUNT():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3001)
+def _define_ENHANCED_STORAGE_PROPERTY_STORED_CERTIFICATE_COUNT():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3002)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_INDEX():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3003)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_TYPE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3004)
 CERT_TYPE_EMPTY = 0
 CERT_TYPE_ASCm = 1
 CERT_TYPE_PCp = 2
 CERT_TYPE_ASCh = 3
 CERT_TYPE_HCh = 4
 CERT_TYPE_SIGNER = 6
-ENHANCED_STORAGE_PROPERTY_VALIDATION_POLICY = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3005)
+def _define_ENHANCED_STORAGE_PROPERTY_VALIDATION_POLICY():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3005)
 CERT_VALIDATION_POLICY_RESERVED = 0
 CERT_VALIDATION_POLICY_NONE = 1
 CERT_VALIDATION_POLICY_BASIC = 2
 CERT_VALIDATION_POLICY_EXTENDED = 3
-ENHANCED_STORAGE_PROPERTY_NEXT_CERTIFICATE_INDEX = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3006)
-ENHANCED_STORAGE_PROPERTY_NEXT_CERTIFICATE_OF_TYPE_INDEX = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3007)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_LENGTH = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3008)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3009)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_REQUEST = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3010)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_CAPABILITY_TYPE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3011)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITY = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3012)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITIES = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3013)
+def _define_ENHANCED_STORAGE_PROPERTY_NEXT_CERTIFICATE_INDEX():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3006)
+def _define_ENHANCED_STORAGE_PROPERTY_NEXT_CERTIFICATE_OF_TYPE_INDEX():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3007)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_LENGTH():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3008)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3009)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_REQUEST():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3010)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_CAPABILITY_TYPE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3011)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITY():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3012)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITIES():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3013)
 CERT_CAPABILITY_HASH_ALG = 1
 CERT_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY = 2
 CERT_CAPABILITY_SIGNATURE_ALG = 3
 CERT_CAPABILITY_CERTIFICATE_SUPPORT = 4
 CERT_CAPABILITY_OPTIONAL_FEATURES = 5
 CERT_MAX_CAPABILITY = 255
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_ACT_FRIENDLY_NAME = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3014)
-ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_GUID = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3015)
-ENHANCED_STORAGE_PROPERTY_SIGNER_CERTIFICATE_INDEX = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=3016)
-ENHANCED_STORAGE_CAPABILITY_HASH_ALGS = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=4001)
-ENHANCED_STORAGE_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=4002)
-ENHANCED_STORAGE_CAPABILITY_SIGNING_ALGS = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=4003)
-ENHANCED_STORAGE_CAPABILITY_RENDER_USER_DATA_UNUSABLE = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=4004)
-ENHANCED_STORAGE_CAPABILITY_CERTIFICATE_EXTENSION_PARSING = PROPERTYKEY(Fmtid='91248166-b832-4ad4-baa4-7ca0b6b2798c', Pid=4005)
-PKEY_Address_Country = PROPERTYKEY(Fmtid='c07b4199-e1df-4493-b1e1-de5946fb58f8', Pid=100)
-PKEY_Address_CountryCode = PROPERTYKEY(Fmtid='c07b4199-e1df-4493-b1e1-de5946fb58f8', Pid=101)
-PKEY_Address_Region = PROPERTYKEY(Fmtid='c07b4199-e1df-4493-b1e1-de5946fb58f8', Pid=102)
-PKEY_Address_RegionCode = PROPERTYKEY(Fmtid='c07b4199-e1df-4493-b1e1-de5946fb58f8', Pid=103)
-PKEY_Address_Town = PROPERTYKEY(Fmtid='c07b4199-e1df-4493-b1e1-de5946fb58f8', Pid=104)
-PKEY_Audio_ChannelCount = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=7)
+CERT_RSA_1024_OID = '1.2.840.113549.1.1.1,1024'
+CERT_RSA_2048_OID = '1.2.840.113549.1.1.1,2048'
+CERT_RSA_3072_OID = '1.2.840.113549.1.1.1,3072'
+CERT_RSASSA_PSS_SHA1_OID = '1.2.840.113549.1.1.10,1.3.14.3.2.26'
+CERT_RSASSA_PSS_SHA256_OID = '1.2.840.113549.1.1.10,2.16.840.1.101.3.4.2.1'
+CERT_RSASSA_PSS_SHA384_OID = '1.2.840.113549.1.1.10,2.16.840.1.101.3.4.2.2'
+CERT_RSASSA_PSS_SHA512_OID = '1.2.840.113549.1.1.10,2.16.840.1.101.3.4.2.3'
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_ACT_FRIENDLY_NAME():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3014)
+def _define_ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_GUID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3015)
+def _define_ENHANCED_STORAGE_PROPERTY_SIGNER_CERTIFICATE_INDEX():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=3016)
+def _define_ENHANCED_STORAGE_CAPABILITY_HASH_ALGS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=4001)
+def _define_ENHANCED_STORAGE_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=4002)
+def _define_ENHANCED_STORAGE_CAPABILITY_SIGNING_ALGS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=4003)
+def _define_ENHANCED_STORAGE_CAPABILITY_RENDER_USER_DATA_UNUSABLE():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=4004)
+def _define_ENHANCED_STORAGE_CAPABILITY_CERTIFICATE_EXTENSION_PARSING():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91248166-b832-4ad4-ba-a4-7c-a0-b6-b2-79-8c'), pid=4005)
+def _define_PKEY_Address_Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c07b4199-e1df-4493-b1-e1-de-59-46-fb-58-f8'), pid=100)
+def _define_PKEY_Address_CountryCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c07b4199-e1df-4493-b1-e1-de-59-46-fb-58-f8'), pid=101)
+def _define_PKEY_Address_Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c07b4199-e1df-4493-b1-e1-de-59-46-fb-58-f8'), pid=102)
+def _define_PKEY_Address_RegionCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c07b4199-e1df-4493-b1-e1-de-59-46-fb-58-f8'), pid=103)
+def _define_PKEY_Address_Town():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c07b4199-e1df-4493-b1-e1-de-59-46-fb-58-f8'), pid=104)
+def _define_PKEY_Audio_ChannelCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=7)
 AUDIO_CHANNELCOUNT_MONO = 1
 AUDIO_CHANNELCOUNT_STEREO = 2
-PKEY_Audio_Compression = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=10)
-PKEY_Audio_EncodingBitrate = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=4)
-PKEY_Audio_Format = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=2)
-PKEY_Audio_IsVariableBitRate = PROPERTYKEY(Fmtid='e6822fee-8c17-4d62-823c-8e9cfcbd1d5c', Pid=100)
-PKEY_Audio_PeakValue = PROPERTYKEY(Fmtid='2579e5d0-1116-4084-bd9a-9b4f7cb4df5e', Pid=100)
-PKEY_Audio_SampleRate = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=5)
-PKEY_Audio_SampleSize = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=6)
-PKEY_Audio_StreamName = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=9)
-PKEY_Audio_StreamNumber = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=8)
-PKEY_Calendar_Duration = PROPERTYKEY(Fmtid='293ca35a-09aa-4dd2-b180-1fe245728a52', Pid=100)
-PKEY_Calendar_IsOnline = PROPERTYKEY(Fmtid='bfee9149-e3e2-49a7-a862-c05988145cec', Pid=100)
-PKEY_Calendar_IsRecurring = PROPERTYKEY(Fmtid='315b9c8d-80a9-4ef9-ae16-8e746da51d70', Pid=100)
-PKEY_Calendar_Location = PROPERTYKEY(Fmtid='f6272d18-cecc-40b1-b26a-3911717aa7bd', Pid=100)
-PKEY_Calendar_OptionalAttendeeAddresses = PROPERTYKEY(Fmtid='d55bae5a-3892-417a-a649-c6ac5aaaeab3', Pid=100)
-PKEY_Calendar_OptionalAttendeeNames = PROPERTYKEY(Fmtid='09429607-582d-437f-84c3-de93a2b24c3c', Pid=100)
-PKEY_Calendar_OrganizerAddress = PROPERTYKEY(Fmtid='744c8242-4df5-456c-ab9e-014efb9021e3', Pid=100)
-PKEY_Calendar_OrganizerName = PROPERTYKEY(Fmtid='aaa660f9-9865-458e-b484-01bc7fe3973e', Pid=100)
-PKEY_Calendar_ReminderTime = PROPERTYKEY(Fmtid='72fc5ba4-24f9-4011-9f3f-add27afad818', Pid=100)
-PKEY_Calendar_RequiredAttendeeAddresses = PROPERTYKEY(Fmtid='0ba7d6c3-568d-4159-ab91-781a91fb71e5', Pid=100)
-PKEY_Calendar_RequiredAttendeeNames = PROPERTYKEY(Fmtid='b33af30b-f552-4584-936c-cb93e5cda29f', Pid=100)
-PKEY_Calendar_Resources = PROPERTYKEY(Fmtid='00f58a38-c54b-4c40-8696-97235980eae1', Pid=100)
-PKEY_Calendar_ResponseStatus = PROPERTYKEY(Fmtid='188c1f91-3c40-4132-9ec5-d8b03b72a8a2', Pid=100)
-PKEY_Calendar_ShowTimeAs = PROPERTYKEY(Fmtid='5bf396d4-5eb2-466f-bde9-2fb3f2361d6e', Pid=100)
-PKEY_Calendar_ShowTimeAsText = PROPERTYKEY(Fmtid='53da57cf-62c0-45c4-81de-7610bcefd7f5', Pid=100)
-PKEY_Communication_AccountName = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=9)
-PKEY_Communication_DateItemExpires = PROPERTYKEY(Fmtid='428040ac-a177-4c8a-9760-f6f761227f9a', Pid=100)
-PKEY_Communication_Direction = PROPERTYKEY(Fmtid='8e531030-b960-4346-ae0d-66bc9a86fb94', Pid=100)
-PKEY_Communication_FollowupIconIndex = PROPERTYKEY(Fmtid='83a6347e-6fe4-4f40-ba9c-c4865240d1f4', Pid=100)
-PKEY_Communication_HeaderItem = PROPERTYKEY(Fmtid='c9c34f84-2241-4401-b607-bd20ed75ae7f', Pid=100)
-PKEY_Communication_PolicyTag = PROPERTYKEY(Fmtid='ec0b4191-ab0b-4c66-90b6-c6637cdebbab', Pid=100)
-PKEY_Communication_SecurityFlags = PROPERTYKEY(Fmtid='8619a4b6-9f4d-4429-8c0f-b996ca59e335', Pid=100)
-PKEY_Communication_Suffix = PROPERTYKEY(Fmtid='807b653a-9e91-43ef-8f97-11ce04ee20c5', Pid=100)
-PKEY_Communication_TaskStatus = PROPERTYKEY(Fmtid='be1a72c6-9a1d-46b7-afe7-afaf8cef4999', Pid=100)
-PKEY_Communication_TaskStatusText = PROPERTYKEY(Fmtid='a6744477-c237-475b-a075-54f34498292a', Pid=100)
-PKEY_Computer_DecoratedFreeSpace = PROPERTYKEY(Fmtid='9b174b35-40ff-11d2-a27e-00c04fc30871', Pid=7)
-PKEY_Contact_AccountPictureDynamicVideo = PROPERTYKEY(Fmtid='0b8bb018-2725-4b44-92ba-7933aeb2dde7', Pid=2)
-PKEY_Contact_AccountPictureLarge = PROPERTYKEY(Fmtid='0b8bb018-2725-4b44-92ba-7933aeb2dde7', Pid=3)
-PKEY_Contact_AccountPictureSmall = PROPERTYKEY(Fmtid='0b8bb018-2725-4b44-92ba-7933aeb2dde7', Pid=4)
-PKEY_Contact_Anniversary = PROPERTYKEY(Fmtid='9ad5badb-cea7-4470-a03d-b84e51b9949e', Pid=100)
-PKEY_Contact_AssistantName = PROPERTYKEY(Fmtid='cd102c9c-5540-4a88-a6f6-64e4981c8cd1', Pid=100)
-PKEY_Contact_AssistantTelephone = PROPERTYKEY(Fmtid='9a93244d-a7ad-4ff8-9b99-45ee4cc09af6', Pid=100)
-PKEY_Contact_Birthday = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=47)
-PKEY_Contact_BusinessAddress = PROPERTYKEY(Fmtid='730fb6dd-cf7c-426b-a03f-bd166cc9ee24', Pid=100)
-PKEY_Contact_BusinessAddress1Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=119)
-PKEY_Contact_BusinessAddress1Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=117)
-PKEY_Contact_BusinessAddress1PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=120)
-PKEY_Contact_BusinessAddress1Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=118)
-PKEY_Contact_BusinessAddress1Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=116)
-PKEY_Contact_BusinessAddress2Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=124)
-PKEY_Contact_BusinessAddress2Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=122)
-PKEY_Contact_BusinessAddress2PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=125)
-PKEY_Contact_BusinessAddress2Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=123)
-PKEY_Contact_BusinessAddress2Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=121)
-PKEY_Contact_BusinessAddress3Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=129)
-PKEY_Contact_BusinessAddress3Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=127)
-PKEY_Contact_BusinessAddress3PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=130)
-PKEY_Contact_BusinessAddress3Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=128)
-PKEY_Contact_BusinessAddress3Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=126)
-PKEY_Contact_BusinessAddressCity = PROPERTYKEY(Fmtid='402b5934-ec5a-48c3-93e6-85e86a2d934e', Pid=100)
-PKEY_Contact_BusinessAddressCountry = PROPERTYKEY(Fmtid='b0b87314-fcf6-4feb-8dff-a50da6af561c', Pid=100)
-PKEY_Contact_BusinessAddressPostalCode = PROPERTYKEY(Fmtid='e1d4a09e-d758-4cd1-b6ec-34a8b5a73f80', Pid=100)
-PKEY_Contact_BusinessAddressPostOfficeBox = PROPERTYKEY(Fmtid='bc4e71ce-17f9-48d5-bee9-021df0ea5409', Pid=100)
-PKEY_Contact_BusinessAddressState = PROPERTYKEY(Fmtid='446f787f-10c4-41cb-a6c4-4d0343551597', Pid=100)
-PKEY_Contact_BusinessAddressStreet = PROPERTYKEY(Fmtid='ddd1460f-c0bf-4553-8ce4-10433c908fb0', Pid=100)
-PKEY_Contact_BusinessEmailAddresses = PROPERTYKEY(Fmtid='f271c659-7e5e-471f-ba25-7f77b286f836', Pid=100)
-PKEY_Contact_BusinessFaxNumber = PROPERTYKEY(Fmtid='91eff6f3-2e27-42ca-933e-7c999fbe310b', Pid=100)
-PKEY_Contact_BusinessHomePage = PROPERTYKEY(Fmtid='56310920-2491-4919-99ce-eadb06fafdb2', Pid=100)
-PKEY_Contact_BusinessTelephone = PROPERTYKEY(Fmtid='6a15e5a0-0a1e-4cd7-bb8c-d2f1b0c929bc', Pid=100)
-PKEY_Contact_CallbackTelephone = PROPERTYKEY(Fmtid='bf53d1c3-49e0-4f7f-8567-5a821d8ac542', Pid=100)
-PKEY_Contact_CarTelephone = PROPERTYKEY(Fmtid='8fdc6dea-b929-412b-ba90-397a257465fe', Pid=100)
-PKEY_Contact_Children = PROPERTYKEY(Fmtid='d4729704-8ef1-43ef-9024-2bd381187fd5', Pid=100)
-PKEY_Contact_CompanyMainTelephone = PROPERTYKEY(Fmtid='8589e481-6040-473d-b171-7fa89c2708ed', Pid=100)
-PKEY_Contact_ConnectedServiceDisplayName = PROPERTYKEY(Fmtid='39b77f4f-a104-4863-b395-2db2ad8f7bc1', Pid=100)
-PKEY_Contact_ConnectedServiceIdentities = PROPERTYKEY(Fmtid='80f41eb8-afc4-4208-aa5f-cce21a627281', Pid=100)
-PKEY_Contact_ConnectedServiceName = PROPERTYKEY(Fmtid='b5c84c9e-5927-46b5-a3cc-933c21b78469', Pid=100)
-PKEY_Contact_ConnectedServiceSupportedActions = PROPERTYKEY(Fmtid='a19fb7a9-024b-4371-a8bf-4d29c3e4e9c9', Pid=100)
-PKEY_Contact_DataSuppliers = PROPERTYKEY(Fmtid='9660c283-fc3a-4a08-a096-eed3aac46da2', Pid=100)
-PKEY_Contact_Department = PROPERTYKEY(Fmtid='fc9f7306-ff8f-4d49-9fb6-3ffe5c0951ec', Pid=100)
-PKEY_Contact_DisplayBusinessPhoneNumbers = PROPERTYKEY(Fmtid='364028da-d895-41fe-a584-302b1bb70a76', Pid=100)
-PKEY_Contact_DisplayHomePhoneNumbers = PROPERTYKEY(Fmtid='5068bcdf-d697-4d85-8c53-1f1cdab01763', Pid=100)
-PKEY_Contact_DisplayMobilePhoneNumbers = PROPERTYKEY(Fmtid='9cb0c358-9d7a-46b1-b466-dcc6f1a3d93d', Pid=100)
-PKEY_Contact_DisplayOtherPhoneNumbers = PROPERTYKEY(Fmtid='03089873-8ee8-4191-bd60-d31f72b7900b', Pid=100)
-PKEY_Contact_EmailAddress = PROPERTYKEY(Fmtid='f8fa7fa3-d12b-4785-8a4e-691a94f7a3e7', Pid=100)
-PKEY_Contact_EmailAddress2 = PROPERTYKEY(Fmtid='38965063-edc8-4268-8491-b7723172cf29', Pid=100)
-PKEY_Contact_EmailAddress3 = PROPERTYKEY(Fmtid='644d37b4-e1b3-4bad-b099-7e7c04966aca', Pid=100)
-PKEY_Contact_EmailAddresses = PROPERTYKEY(Fmtid='84d8f337-981d-44b3-9615-c7596dba17e3', Pid=100)
-PKEY_Contact_EmailName = PROPERTYKEY(Fmtid='cc6f4f24-6083-4bd4-8754-674d0de87ab8', Pid=100)
-PKEY_Contact_FileAsName = PROPERTYKEY(Fmtid='f1a24aa7-9ca7-40f6-89ec-97def9ffe8db', Pid=100)
-PKEY_Contact_FirstName = PROPERTYKEY(Fmtid='14977844-6b49-4aad-a714-a4513bf60460', Pid=100)
-PKEY_Contact_FullName = PROPERTYKEY(Fmtid='635e9051-50a5-4ba2-b9db-4ed056c77296', Pid=100)
-PKEY_Contact_Gender = PROPERTYKEY(Fmtid='3c8cee58-d4f0-4cf9-b756-4e5d24447bcd', Pid=100)
-PKEY_Contact_GenderValue = PROPERTYKEY(Fmtid='3c8cee58-d4f0-4cf9-b756-4e5d24447bcd', Pid=101)
-PKEY_Contact_Hobbies = PROPERTYKEY(Fmtid='5dc2253f-5e11-4adf-9cfe-910dd01e3e70', Pid=100)
-PKEY_Contact_HomeAddress = PROPERTYKEY(Fmtid='98f98354-617a-46b8-8560-5b1b64bf1f89', Pid=100)
-PKEY_Contact_HomeAddress1Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=104)
-PKEY_Contact_HomeAddress1Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=102)
-PKEY_Contact_HomeAddress1PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=105)
-PKEY_Contact_HomeAddress1Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=103)
-PKEY_Contact_HomeAddress1Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=101)
-PKEY_Contact_HomeAddress2Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=109)
-PKEY_Contact_HomeAddress2Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=107)
-PKEY_Contact_HomeAddress2PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=110)
-PKEY_Contact_HomeAddress2Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=108)
-PKEY_Contact_HomeAddress2Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=106)
-PKEY_Contact_HomeAddress3Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=114)
-PKEY_Contact_HomeAddress3Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=112)
-PKEY_Contact_HomeAddress3PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=115)
-PKEY_Contact_HomeAddress3Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=113)
-PKEY_Contact_HomeAddress3Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=111)
-PKEY_Contact_HomeAddressCity = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=65)
-PKEY_Contact_HomeAddressCountry = PROPERTYKEY(Fmtid='08a65aa1-f4c9-43dd-9ddf-a33d8e7ead85', Pid=100)
-PKEY_Contact_HomeAddressPostalCode = PROPERTYKEY(Fmtid='8afcc170-8a46-4b53-9eee-90bae7151e62', Pid=100)
-PKEY_Contact_HomeAddressPostOfficeBox = PROPERTYKEY(Fmtid='7b9f6399-0a3f-4b12-89bd-4adc51c918af', Pid=100)
-PKEY_Contact_HomeAddressState = PROPERTYKEY(Fmtid='c89a23d0-7d6d-4eb8-87d4-776a82d493e5', Pid=100)
-PKEY_Contact_HomeAddressStreet = PROPERTYKEY(Fmtid='0adef160-db3f-4308-9a21-06237b16fa2a', Pid=100)
-PKEY_Contact_HomeEmailAddresses = PROPERTYKEY(Fmtid='56c90e9d-9d46-4963-886f-2e1cd9a694ef', Pid=100)
-PKEY_Contact_HomeFaxNumber = PROPERTYKEY(Fmtid='660e04d6-81ab-4977-a09f-82313113ab26', Pid=100)
-PKEY_Contact_HomeTelephone = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=20)
-PKEY_Contact_IMAddress = PROPERTYKEY(Fmtid='d68dbd8a-3374-4b81-9972-3ec30682db3d', Pid=100)
-PKEY_Contact_Initials = PROPERTYKEY(Fmtid='f3d8f40d-50cb-44a2-9718-40cb9119495d', Pid=100)
-PKEY_Contact_JA_CompanyNamePhonetic = PROPERTYKEY(Fmtid='897b3694-fe9e-43e6-8066-260f590c0100', Pid=2)
-PKEY_Contact_JA_FirstNamePhonetic = PROPERTYKEY(Fmtid='897b3694-fe9e-43e6-8066-260f590c0100', Pid=3)
-PKEY_Contact_JA_LastNamePhonetic = PROPERTYKEY(Fmtid='897b3694-fe9e-43e6-8066-260f590c0100', Pid=4)
-PKEY_Contact_JobInfo1CompanyAddress = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=120)
-PKEY_Contact_JobInfo1CompanyName = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=102)
-PKEY_Contact_JobInfo1Department = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=106)
-PKEY_Contact_JobInfo1Manager = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=105)
-PKEY_Contact_JobInfo1OfficeLocation = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=104)
-PKEY_Contact_JobInfo1Title = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=103)
-PKEY_Contact_JobInfo1YomiCompanyName = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=101)
-PKEY_Contact_JobInfo2CompanyAddress = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=121)
-PKEY_Contact_JobInfo2CompanyName = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=108)
-PKEY_Contact_JobInfo2Department = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=113)
-PKEY_Contact_JobInfo2Manager = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=112)
-PKEY_Contact_JobInfo2OfficeLocation = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=110)
-PKEY_Contact_JobInfo2Title = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=109)
-PKEY_Contact_JobInfo2YomiCompanyName = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=107)
-PKEY_Contact_JobInfo3CompanyAddress = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=123)
-PKEY_Contact_JobInfo3CompanyName = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=115)
-PKEY_Contact_JobInfo3Department = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=119)
-PKEY_Contact_JobInfo3Manager = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=118)
-PKEY_Contact_JobInfo3OfficeLocation = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=117)
-PKEY_Contact_JobInfo3Title = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=116)
-PKEY_Contact_JobInfo3YomiCompanyName = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=114)
-PKEY_Contact_JobTitle = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=6)
-PKEY_Contact_Label = PROPERTYKEY(Fmtid='97b0ad89-df49-49cc-834e-660974fd755b', Pid=100)
-PKEY_Contact_LastName = PROPERTYKEY(Fmtid='8f367200-c270-457c-b1d4-e07c5bcd90c7', Pid=100)
-PKEY_Contact_MailingAddress = PROPERTYKEY(Fmtid='c0ac206a-827e-4650-95ae-77e2bb74fcc9', Pid=100)
-PKEY_Contact_MiddleName = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=71)
-PKEY_Contact_MobileTelephone = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=35)
-PKEY_Contact_NickName = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=74)
-PKEY_Contact_OfficeLocation = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=7)
-PKEY_Contact_OtherAddress = PROPERTYKEY(Fmtid='508161fa-313b-43d5-83a1-c1accf68622c', Pid=100)
-PKEY_Contact_OtherAddress1Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=134)
-PKEY_Contact_OtherAddress1Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=132)
-PKEY_Contact_OtherAddress1PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=135)
-PKEY_Contact_OtherAddress1Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=133)
-PKEY_Contact_OtherAddress1Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=131)
-PKEY_Contact_OtherAddress2Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=139)
-PKEY_Contact_OtherAddress2Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=137)
-PKEY_Contact_OtherAddress2PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=140)
-PKEY_Contact_OtherAddress2Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=138)
-PKEY_Contact_OtherAddress2Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=136)
-PKEY_Contact_OtherAddress3Country = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=144)
-PKEY_Contact_OtherAddress3Locality = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=142)
-PKEY_Contact_OtherAddress3PostalCode = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=145)
-PKEY_Contact_OtherAddress3Region = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=143)
-PKEY_Contact_OtherAddress3Street = PROPERTYKEY(Fmtid='a7b6f596-d678-4bc1-b05f-0203d27e8aa1', Pid=141)
-PKEY_Contact_OtherAddressCity = PROPERTYKEY(Fmtid='6e682923-7f7b-4f0c-a337-cfca296687bf', Pid=100)
-PKEY_Contact_OtherAddressCountry = PROPERTYKEY(Fmtid='8f167568-0aae-4322-8ed9-6055b7b0e398', Pid=100)
-PKEY_Contact_OtherAddressPostalCode = PROPERTYKEY(Fmtid='95c656c1-2abf-4148-9ed3-9ec602e3b7cd', Pid=100)
-PKEY_Contact_OtherAddressPostOfficeBox = PROPERTYKEY(Fmtid='8b26ea41-058f-43f6-aecc-4035681ce977', Pid=100)
-PKEY_Contact_OtherAddressState = PROPERTYKEY(Fmtid='71b377d6-e570-425f-a170-809fae73e54e', Pid=100)
-PKEY_Contact_OtherAddressStreet = PROPERTYKEY(Fmtid='ff962609-b7d6-4999-862d-95180d529aea', Pid=100)
-PKEY_Contact_OtherEmailAddresses = PROPERTYKEY(Fmtid='11d6336b-38c4-4ec9-84d6-eb38d0b150af', Pid=100)
-PKEY_Contact_PagerTelephone = PROPERTYKEY(Fmtid='d6304e01-f8f5-4f45-8b15-d024a6296789', Pid=100)
-PKEY_Contact_PersonalTitle = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=69)
-PKEY_Contact_PhoneNumbersCanonical = PROPERTYKEY(Fmtid='d042d2a1-927e-40b5-a503-6edbd42a517e', Pid=100)
-PKEY_Contact_Prefix = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=75)
-PKEY_Contact_PrimaryAddressCity = PROPERTYKEY(Fmtid='c8ea94f0-a9e3-4969-a94b-9c62a95324e0', Pid=100)
-PKEY_Contact_PrimaryAddressCountry = PROPERTYKEY(Fmtid='e53d799d-0f3f-466e-b2ff-74634a3cb7a4', Pid=100)
-PKEY_Contact_PrimaryAddressPostalCode = PROPERTYKEY(Fmtid='18bbd425-ecfd-46ef-b612-7b4a6034eda0', Pid=100)
-PKEY_Contact_PrimaryAddressPostOfficeBox = PROPERTYKEY(Fmtid='de5ef3c7-46e1-484e-9999-62c5308394c1', Pid=100)
-PKEY_Contact_PrimaryAddressState = PROPERTYKEY(Fmtid='f1176dfe-7138-4640-8b4c-ae375dc70a6d', Pid=100)
-PKEY_Contact_PrimaryAddressStreet = PROPERTYKEY(Fmtid='63c25b20-96be-488f-8788-c09c407ad812', Pid=100)
-PKEY_Contact_PrimaryEmailAddress = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=48)
-PKEY_Contact_PrimaryTelephone = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=25)
-PKEY_Contact_Profession = PROPERTYKEY(Fmtid='7268af55-1ce4-4f6e-a41f-b6e4ef10e4a9', Pid=100)
-PKEY_Contact_SpouseName = PROPERTYKEY(Fmtid='9d2408b6-3167-422b-82b0-f583b7a7cfe3', Pid=100)
-PKEY_Contact_Suffix = PROPERTYKEY(Fmtid='176dc63c-2688-4e89-8143-a347800f25e9', Pid=73)
-PKEY_Contact_TelexNumber = PROPERTYKEY(Fmtid='c554493c-c1f7-40c1-a76c-ef8c0614003e', Pid=100)
-PKEY_Contact_TTYTDDTelephone = PROPERTYKEY(Fmtid='aaf16bac-2b55-45e6-9f6d-415eb94910df', Pid=100)
-PKEY_Contact_WebPage = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=18)
-PKEY_Contact_Webpage2 = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=124)
-PKEY_Contact_Webpage3 = PROPERTYKEY(Fmtid='00f63dd8-22bd-4a5d-ba34-5cb0b9bdcb03', Pid=125)
-PKEY_AcquisitionID = PROPERTYKEY(Fmtid='65a98875-3c80-40ab-abbc-efdaf77dbee2', Pid=100)
-PKEY_ApplicationDefinedProperties = PROPERTYKEY(Fmtid='cdbfc167-337e-41d8-af7c-8c09205429c7', Pid=100)
-PKEY_ApplicationName = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=18)
-PKEY_AppZoneIdentifier = PROPERTYKEY(Fmtid='502cfeab-47eb-459c-b960-e6d8728f7701', Pid=102)
-PKEY_Author = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=4)
-PKEY_CachedFileUpdaterContentIdForConflictResolution = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=114)
-PKEY_CachedFileUpdaterContentIdForStream = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=113)
-PKEY_Capacity = PROPERTYKEY(Fmtid='9b174b35-40ff-11d2-a27e-00c04fc30871', Pid=3)
-PKEY_Category = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=2)
-PKEY_Comment = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=6)
-PKEY_Company = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=15)
-PKEY_ComputerName = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=5)
-PKEY_ContainedItems = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=29)
-PKEY_ContentId = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=132)
-PKEY_ContentStatus = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=27)
-PKEY_ContentType = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=26)
-PKEY_ContentUri = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=131)
-PKEY_Copyright = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=11)
-PKEY_CreatorAppId = PROPERTYKEY(Fmtid='c2ea046e-033c-4e91-bd5b-d4942f6bbe49', Pid=2)
-PKEY_CreatorOpenWithUIOptions = PROPERTYKEY(Fmtid='c2ea046e-033c-4e91-bd5b-d4942f6bbe49', Pid=3)
+def _define_PKEY_Audio_Compression():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=10)
+def _define_PKEY_Audio_EncodingBitrate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=4)
+def _define_PKEY_Audio_Format():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=2)
+def _define_PKEY_Audio_IsVariableBitRate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e6822fee-8c17-4d62-82-3c-8e-9c-fc-bd-1d-5c'), pid=100)
+def _define_PKEY_Audio_PeakValue():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2579e5d0-1116-4084-bd-9a-9b-4f-7c-b4-df-5e'), pid=100)
+def _define_PKEY_Audio_SampleRate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=5)
+def _define_PKEY_Audio_SampleSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=6)
+def _define_PKEY_Audio_StreamName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=9)
+def _define_PKEY_Audio_StreamNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=8)
+def _define_PKEY_Calendar_Duration():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('293ca35a-09aa-4dd2-b1-80-1f-e2-45-72-8a-52'), pid=100)
+def _define_PKEY_Calendar_IsOnline():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bfee9149-e3e2-49a7-a8-62-c0-59-88-14-5c-ec'), pid=100)
+def _define_PKEY_Calendar_IsRecurring():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('315b9c8d-80a9-4ef9-ae-16-8e-74-6d-a5-1d-70'), pid=100)
+def _define_PKEY_Calendar_Location():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f6272d18-cecc-40b1-b2-6a-39-11-71-7a-a7-bd'), pid=100)
+def _define_PKEY_Calendar_OptionalAttendeeAddresses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d55bae5a-3892-417a-a6-49-c6-ac-5a-aa-ea-b3'), pid=100)
+def _define_PKEY_Calendar_OptionalAttendeeNames():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('09429607-582d-437f-84-c3-de-93-a2-b2-4c-3c'), pid=100)
+def _define_PKEY_Calendar_OrganizerAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('744c8242-4df5-456c-ab-9e-01-4e-fb-90-21-e3'), pid=100)
+def _define_PKEY_Calendar_OrganizerName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aaa660f9-9865-458e-b4-84-01-bc-7f-e3-97-3e'), pid=100)
+def _define_PKEY_Calendar_ReminderTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('72fc5ba4-24f9-4011-9f-3f-ad-d2-7a-fa-d8-18'), pid=100)
+def _define_PKEY_Calendar_RequiredAttendeeAddresses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0ba7d6c3-568d-4159-ab-91-78-1a-91-fb-71-e5'), pid=100)
+def _define_PKEY_Calendar_RequiredAttendeeNames():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b33af30b-f552-4584-93-6c-cb-93-e5-cd-a2-9f'), pid=100)
+def _define_PKEY_Calendar_Resources():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f58a38-c54b-4c40-86-96-97-23-59-80-ea-e1'), pid=100)
+def _define_PKEY_Calendar_ResponseStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('188c1f91-3c40-4132-9e-c5-d8-b0-3b-72-a8-a2'), pid=100)
+def _define_PKEY_Calendar_ShowTimeAs():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5bf396d4-5eb2-466f-bd-e9-2f-b3-f2-36-1d-6e'), pid=100)
+def _define_PKEY_Calendar_ShowTimeAsText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('53da57cf-62c0-45c4-81-de-76-10-bc-ef-d7-f5'), pid=100)
+def _define_PKEY_Communication_AccountName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=9)
+def _define_PKEY_Communication_DateItemExpires():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('428040ac-a177-4c8a-97-60-f6-f7-61-22-7f-9a'), pid=100)
+def _define_PKEY_Communication_Direction():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8e531030-b960-4346-ae-0d-66-bc-9a-86-fb-94'), pid=100)
+def _define_PKEY_Communication_FollowupIconIndex():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('83a6347e-6fe4-4f40-ba-9c-c4-86-52-40-d1-f4'), pid=100)
+def _define_PKEY_Communication_HeaderItem():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9c34f84-2241-4401-b6-07-bd-20-ed-75-ae-7f'), pid=100)
+def _define_PKEY_Communication_PolicyTag():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ec0b4191-ab0b-4c66-90-b6-c6-63-7c-de-bb-ab'), pid=100)
+def _define_PKEY_Communication_SecurityFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8619a4b6-9f4d-4429-8c-0f-b9-96-ca-59-e3-35'), pid=100)
+def _define_PKEY_Communication_Suffix():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('807b653a-9e91-43ef-8f-97-11-ce-04-ee-20-c5'), pid=100)
+def _define_PKEY_Communication_TaskStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('be1a72c6-9a1d-46b7-af-e7-af-af-8c-ef-49-99'), pid=100)
+def _define_PKEY_Communication_TaskStatusText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a6744477-c237-475b-a0-75-54-f3-44-98-29-2a'), pid=100)
+def _define_PKEY_Computer_DecoratedFreeSpace():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b35-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=7)
+def _define_PKEY_Contact_AccountPictureDynamicVideo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b8bb018-2725-4b44-92-ba-79-33-ae-b2-dd-e7'), pid=2)
+def _define_PKEY_Contact_AccountPictureLarge():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b8bb018-2725-4b44-92-ba-79-33-ae-b2-dd-e7'), pid=3)
+def _define_PKEY_Contact_AccountPictureSmall():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b8bb018-2725-4b44-92-ba-79-33-ae-b2-dd-e7'), pid=4)
+def _define_PKEY_Contact_Anniversary():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9ad5badb-cea7-4470-a0-3d-b8-4e-51-b9-94-9e'), pid=100)
+def _define_PKEY_Contact_AssistantName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cd102c9c-5540-4a88-a6-f6-64-e4-98-1c-8c-d1'), pid=100)
+def _define_PKEY_Contact_AssistantTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9a93244d-a7ad-4ff8-9b-99-45-ee-4c-c0-9a-f6'), pid=100)
+def _define_PKEY_Contact_Birthday():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=47)
+def _define_PKEY_Contact_BusinessAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('730fb6dd-cf7c-426b-a0-3f-bd-16-6c-c9-ee-24'), pid=100)
+def _define_PKEY_Contact_BusinessAddress1Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=119)
+def _define_PKEY_Contact_BusinessAddress1Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=117)
+def _define_PKEY_Contact_BusinessAddress1PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=120)
+def _define_PKEY_Contact_BusinessAddress1Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=118)
+def _define_PKEY_Contact_BusinessAddress1Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=116)
+def _define_PKEY_Contact_BusinessAddress2Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=124)
+def _define_PKEY_Contact_BusinessAddress2Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=122)
+def _define_PKEY_Contact_BusinessAddress2PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=125)
+def _define_PKEY_Contact_BusinessAddress2Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=123)
+def _define_PKEY_Contact_BusinessAddress2Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=121)
+def _define_PKEY_Contact_BusinessAddress3Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=129)
+def _define_PKEY_Contact_BusinessAddress3Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=127)
+def _define_PKEY_Contact_BusinessAddress3PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=130)
+def _define_PKEY_Contact_BusinessAddress3Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=128)
+def _define_PKEY_Contact_BusinessAddress3Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=126)
+def _define_PKEY_Contact_BusinessAddressCity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('402b5934-ec5a-48c3-93-e6-85-e8-6a-2d-93-4e'), pid=100)
+def _define_PKEY_Contact_BusinessAddressCountry():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b0b87314-fcf6-4feb-8d-ff-a5-0d-a6-af-56-1c'), pid=100)
+def _define_PKEY_Contact_BusinessAddressPostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e1d4a09e-d758-4cd1-b6-ec-34-a8-b5-a7-3f-80'), pid=100)
+def _define_PKEY_Contact_BusinessAddressPostOfficeBox():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bc4e71ce-17f9-48d5-be-e9-02-1d-f0-ea-54-09'), pid=100)
+def _define_PKEY_Contact_BusinessAddressState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('446f787f-10c4-41cb-a6-c4-4d-03-43-55-15-97'), pid=100)
+def _define_PKEY_Contact_BusinessAddressStreet():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ddd1460f-c0bf-4553-8c-e4-10-43-3c-90-8f-b0'), pid=100)
+def _define_PKEY_Contact_BusinessEmailAddresses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f271c659-7e5e-471f-ba-25-7f-77-b2-86-f8-36'), pid=100)
+def _define_PKEY_Contact_BusinessFaxNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('91eff6f3-2e27-42ca-93-3e-7c-99-9f-be-31-0b'), pid=100)
+def _define_PKEY_Contact_BusinessHomePage():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56310920-2491-4919-99-ce-ea-db-06-fa-fd-b2'), pid=100)
+def _define_PKEY_Contact_BusinessTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6a15e5a0-0a1e-4cd7-bb-8c-d2-f1-b0-c9-29-bc'), pid=100)
+def _define_PKEY_Contact_CallbackTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf53d1c3-49e0-4f7f-85-67-5a-82-1d-8a-c5-42'), pid=100)
+def _define_PKEY_Contact_CarTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8fdc6dea-b929-412b-ba-90-39-7a-25-74-65-fe'), pid=100)
+def _define_PKEY_Contact_Children():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d4729704-8ef1-43ef-90-24-2b-d3-81-18-7f-d5'), pid=100)
+def _define_PKEY_Contact_CompanyMainTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8589e481-6040-473d-b1-71-7f-a8-9c-27-08-ed'), pid=100)
+def _define_PKEY_Contact_ConnectedServiceDisplayName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('39b77f4f-a104-4863-b3-95-2d-b2-ad-8f-7b-c1'), pid=100)
+def _define_PKEY_Contact_ConnectedServiceIdentities():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80f41eb8-afc4-4208-aa-5f-cc-e2-1a-62-72-81'), pid=100)
+def _define_PKEY_Contact_ConnectedServiceName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b5c84c9e-5927-46b5-a3-cc-93-3c-21-b7-84-69'), pid=100)
+def _define_PKEY_Contact_ConnectedServiceSupportedActions():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a19fb7a9-024b-4371-a8-bf-4d-29-c3-e4-e9-c9'), pid=100)
+def _define_PKEY_Contact_DataSuppliers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9660c283-fc3a-4a08-a0-96-ee-d3-aa-c4-6d-a2'), pid=100)
+def _define_PKEY_Contact_Department():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fc9f7306-ff8f-4d49-9f-b6-3f-fe-5c-09-51-ec'), pid=100)
+def _define_PKEY_Contact_DisplayBusinessPhoneNumbers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('364028da-d895-41fe-a5-84-30-2b-1b-b7-0a-76'), pid=100)
+def _define_PKEY_Contact_DisplayHomePhoneNumbers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5068bcdf-d697-4d85-8c-53-1f-1c-da-b0-17-63'), pid=100)
+def _define_PKEY_Contact_DisplayMobilePhoneNumbers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9cb0c358-9d7a-46b1-b4-66-dc-c6-f1-a3-d9-3d'), pid=100)
+def _define_PKEY_Contact_DisplayOtherPhoneNumbers():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('03089873-8ee8-4191-bd-60-d3-1f-72-b7-90-0b'), pid=100)
+def _define_PKEY_Contact_EmailAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f8fa7fa3-d12b-4785-8a-4e-69-1a-94-f7-a3-e7'), pid=100)
+def _define_PKEY_Contact_EmailAddress2():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38965063-edc8-4268-84-91-b7-72-31-72-cf-29'), pid=100)
+def _define_PKEY_Contact_EmailAddress3():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('644d37b4-e1b3-4bad-b0-99-7e-7c-04-96-6a-ca'), pid=100)
+def _define_PKEY_Contact_EmailAddresses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('84d8f337-981d-44b3-96-15-c7-59-6d-ba-17-e3'), pid=100)
+def _define_PKEY_Contact_EmailName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cc6f4f24-6083-4bd4-87-54-67-4d-0d-e8-7a-b8'), pid=100)
+def _define_PKEY_Contact_FileAsName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f1a24aa7-9ca7-40f6-89-ec-97-de-f9-ff-e8-db'), pid=100)
+def _define_PKEY_Contact_FirstName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14977844-6b49-4aad-a7-14-a4-51-3b-f6-04-60'), pid=100)
+def _define_PKEY_Contact_FullName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('635e9051-50a5-4ba2-b9-db-4e-d0-56-c7-72-96'), pid=100)
+def _define_PKEY_Contact_Gender():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3c8cee58-d4f0-4cf9-b7-56-4e-5d-24-44-7b-cd'), pid=100)
+def _define_PKEY_Contact_GenderValue():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3c8cee58-d4f0-4cf9-b7-56-4e-5d-24-44-7b-cd'), pid=101)
+def _define_PKEY_Contact_Hobbies():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5dc2253f-5e11-4adf-9c-fe-91-0d-d0-1e-3e-70'), pid=100)
+def _define_PKEY_Contact_HomeAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('98f98354-617a-46b8-85-60-5b-1b-64-bf-1f-89'), pid=100)
+def _define_PKEY_Contact_HomeAddress1Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=104)
+def _define_PKEY_Contact_HomeAddress1Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=102)
+def _define_PKEY_Contact_HomeAddress1PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=105)
+def _define_PKEY_Contact_HomeAddress1Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=103)
+def _define_PKEY_Contact_HomeAddress1Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=101)
+def _define_PKEY_Contact_HomeAddress2Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=109)
+def _define_PKEY_Contact_HomeAddress2Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=107)
+def _define_PKEY_Contact_HomeAddress2PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=110)
+def _define_PKEY_Contact_HomeAddress2Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=108)
+def _define_PKEY_Contact_HomeAddress2Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=106)
+def _define_PKEY_Contact_HomeAddress3Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=114)
+def _define_PKEY_Contact_HomeAddress3Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=112)
+def _define_PKEY_Contact_HomeAddress3PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=115)
+def _define_PKEY_Contact_HomeAddress3Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=113)
+def _define_PKEY_Contact_HomeAddress3Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=111)
+def _define_PKEY_Contact_HomeAddressCity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=65)
+def _define_PKEY_Contact_HomeAddressCountry():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('08a65aa1-f4c9-43dd-9d-df-a3-3d-8e-7e-ad-85'), pid=100)
+def _define_PKEY_Contact_HomeAddressPostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8afcc170-8a46-4b53-9e-ee-90-ba-e7-15-1e-62'), pid=100)
+def _define_PKEY_Contact_HomeAddressPostOfficeBox():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7b9f6399-0a3f-4b12-89-bd-4a-dc-51-c9-18-af'), pid=100)
+def _define_PKEY_Contact_HomeAddressState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c89a23d0-7d6d-4eb8-87-d4-77-6a-82-d4-93-e5'), pid=100)
+def _define_PKEY_Contact_HomeAddressStreet():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0adef160-db3f-4308-9a-21-06-23-7b-16-fa-2a'), pid=100)
+def _define_PKEY_Contact_HomeEmailAddresses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56c90e9d-9d46-4963-88-6f-2e-1c-d9-a6-94-ef'), pid=100)
+def _define_PKEY_Contact_HomeFaxNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('660e04d6-81ab-4977-a0-9f-82-31-31-13-ab-26'), pid=100)
+def _define_PKEY_Contact_HomeTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=20)
+def _define_PKEY_Contact_IMAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d68dbd8a-3374-4b81-99-72-3e-c3-06-82-db-3d'), pid=100)
+def _define_PKEY_Contact_Initials():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f3d8f40d-50cb-44a2-97-18-40-cb-91-19-49-5d'), pid=100)
+def _define_PKEY_Contact_JA_CompanyNamePhonetic():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('897b3694-fe9e-43e6-80-66-26-0f-59-0c-01-00'), pid=2)
+def _define_PKEY_Contact_JA_FirstNamePhonetic():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('897b3694-fe9e-43e6-80-66-26-0f-59-0c-01-00'), pid=3)
+def _define_PKEY_Contact_JA_LastNamePhonetic():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('897b3694-fe9e-43e6-80-66-26-0f-59-0c-01-00'), pid=4)
+def _define_PKEY_Contact_JobInfo1CompanyAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=120)
+def _define_PKEY_Contact_JobInfo1CompanyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=102)
+def _define_PKEY_Contact_JobInfo1Department():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=106)
+def _define_PKEY_Contact_JobInfo1Manager():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=105)
+def _define_PKEY_Contact_JobInfo1OfficeLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=104)
+def _define_PKEY_Contact_JobInfo1Title():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=103)
+def _define_PKEY_Contact_JobInfo1YomiCompanyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=101)
+def _define_PKEY_Contact_JobInfo2CompanyAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=121)
+def _define_PKEY_Contact_JobInfo2CompanyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=108)
+def _define_PKEY_Contact_JobInfo2Department():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=113)
+def _define_PKEY_Contact_JobInfo2Manager():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=112)
+def _define_PKEY_Contact_JobInfo2OfficeLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=110)
+def _define_PKEY_Contact_JobInfo2Title():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=109)
+def _define_PKEY_Contact_JobInfo2YomiCompanyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=107)
+def _define_PKEY_Contact_JobInfo3CompanyAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=123)
+def _define_PKEY_Contact_JobInfo3CompanyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=115)
+def _define_PKEY_Contact_JobInfo3Department():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=119)
+def _define_PKEY_Contact_JobInfo3Manager():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=118)
+def _define_PKEY_Contact_JobInfo3OfficeLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=117)
+def _define_PKEY_Contact_JobInfo3Title():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=116)
+def _define_PKEY_Contact_JobInfo3YomiCompanyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=114)
+def _define_PKEY_Contact_JobTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=6)
+def _define_PKEY_Contact_Label():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('97b0ad89-df49-49cc-83-4e-66-09-74-fd-75-5b'), pid=100)
+def _define_PKEY_Contact_LastName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8f367200-c270-457c-b1-d4-e0-7c-5b-cd-90-c7'), pid=100)
+def _define_PKEY_Contact_MailingAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c0ac206a-827e-4650-95-ae-77-e2-bb-74-fc-c9'), pid=100)
+def _define_PKEY_Contact_MiddleName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=71)
+def _define_PKEY_Contact_MobileTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=35)
+def _define_PKEY_Contact_NickName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=74)
+def _define_PKEY_Contact_OfficeLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=7)
+def _define_PKEY_Contact_OtherAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('508161fa-313b-43d5-83-a1-c1-ac-cf-68-62-2c'), pid=100)
+def _define_PKEY_Contact_OtherAddress1Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=134)
+def _define_PKEY_Contact_OtherAddress1Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=132)
+def _define_PKEY_Contact_OtherAddress1PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=135)
+def _define_PKEY_Contact_OtherAddress1Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=133)
+def _define_PKEY_Contact_OtherAddress1Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=131)
+def _define_PKEY_Contact_OtherAddress2Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=139)
+def _define_PKEY_Contact_OtherAddress2Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=137)
+def _define_PKEY_Contact_OtherAddress2PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=140)
+def _define_PKEY_Contact_OtherAddress2Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=138)
+def _define_PKEY_Contact_OtherAddress2Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=136)
+def _define_PKEY_Contact_OtherAddress3Country():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=144)
+def _define_PKEY_Contact_OtherAddress3Locality():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=142)
+def _define_PKEY_Contact_OtherAddress3PostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=145)
+def _define_PKEY_Contact_OtherAddress3Region():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=143)
+def _define_PKEY_Contact_OtherAddress3Street():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7b6f596-d678-4bc1-b0-5f-02-03-d2-7e-8a-a1'), pid=141)
+def _define_PKEY_Contact_OtherAddressCity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6e682923-7f7b-4f0c-a3-37-cf-ca-29-66-87-bf'), pid=100)
+def _define_PKEY_Contact_OtherAddressCountry():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8f167568-0aae-4322-8e-d9-60-55-b7-b0-e3-98'), pid=100)
+def _define_PKEY_Contact_OtherAddressPostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95c656c1-2abf-4148-9e-d3-9e-c6-02-e3-b7-cd'), pid=100)
+def _define_PKEY_Contact_OtherAddressPostOfficeBox():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8b26ea41-058f-43f6-ae-cc-40-35-68-1c-e9-77'), pid=100)
+def _define_PKEY_Contact_OtherAddressState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('71b377d6-e570-425f-a1-70-80-9f-ae-73-e5-4e'), pid=100)
+def _define_PKEY_Contact_OtherAddressStreet():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ff962609-b7d6-4999-86-2d-95-18-0d-52-9a-ea'), pid=100)
+def _define_PKEY_Contact_OtherEmailAddresses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('11d6336b-38c4-4ec9-84-d6-eb-38-d0-b1-50-af'), pid=100)
+def _define_PKEY_Contact_PagerTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d6304e01-f8f5-4f45-8b-15-d0-24-a6-29-67-89'), pid=100)
+def _define_PKEY_Contact_PersonalTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=69)
+def _define_PKEY_Contact_PhoneNumbersCanonical():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d042d2a1-927e-40b5-a5-03-6e-db-d4-2a-51-7e'), pid=100)
+def _define_PKEY_Contact_Prefix():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=75)
+def _define_PKEY_Contact_PrimaryAddressCity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c8ea94f0-a9e3-4969-a9-4b-9c-62-a9-53-24-e0'), pid=100)
+def _define_PKEY_Contact_PrimaryAddressCountry():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e53d799d-0f3f-466e-b2-ff-74-63-4a-3c-b7-a4'), pid=100)
+def _define_PKEY_Contact_PrimaryAddressPostalCode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('18bbd425-ecfd-46ef-b6-12-7b-4a-60-34-ed-a0'), pid=100)
+def _define_PKEY_Contact_PrimaryAddressPostOfficeBox():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('de5ef3c7-46e1-484e-99-99-62-c5-30-83-94-c1'), pid=100)
+def _define_PKEY_Contact_PrimaryAddressState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f1176dfe-7138-4640-8b-4c-ae-37-5d-c7-0a-6d'), pid=100)
+def _define_PKEY_Contact_PrimaryAddressStreet():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('63c25b20-96be-488f-87-88-c0-9c-40-7a-d8-12'), pid=100)
+def _define_PKEY_Contact_PrimaryEmailAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=48)
+def _define_PKEY_Contact_PrimaryTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=25)
+def _define_PKEY_Contact_Profession():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7268af55-1ce4-4f6e-a4-1f-b6-e4-ef-10-e4-a9'), pid=100)
+def _define_PKEY_Contact_SpouseName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9d2408b6-3167-422b-82-b0-f5-83-b7-a7-cf-e3'), pid=100)
+def _define_PKEY_Contact_Suffix():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('176dc63c-2688-4e89-81-43-a3-47-80-0f-25-e9'), pid=73)
+def _define_PKEY_Contact_TelexNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c554493c-c1f7-40c1-a7-6c-ef-8c-06-14-00-3e'), pid=100)
+def _define_PKEY_Contact_TTYTDDTelephone():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aaf16bac-2b55-45e6-9f-6d-41-5e-b9-49-10-df'), pid=100)
+def _define_PKEY_Contact_WebPage():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=18)
+def _define_PKEY_Contact_Webpage2():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=124)
+def _define_PKEY_Contact_Webpage3():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f63dd8-22bd-4a5d-ba-34-5c-b0-b9-bd-cb-03'), pid=125)
+def _define_PKEY_AcquisitionID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('65a98875-3c80-40ab-ab-bc-ef-da-f7-7d-be-e2'), pid=100)
+def _define_PKEY_ApplicationDefinedProperties():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cdbfc167-337e-41d8-af-7c-8c-09-20-54-29-c7'), pid=100)
+def _define_PKEY_ApplicationName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=18)
+def _define_PKEY_AppZoneIdentifier():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('502cfeab-47eb-459c-b9-60-e6-d8-72-8f-77-01'), pid=102)
+def _define_PKEY_Author():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=4)
+def _define_PKEY_CachedFileUpdaterContentIdForConflictResolution():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=114)
+def _define_PKEY_CachedFileUpdaterContentIdForStream():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=113)
+def _define_PKEY_Capacity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b35-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=3)
+def _define_PKEY_Category():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=2)
+def _define_PKEY_Comment():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=6)
+def _define_PKEY_Company():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=15)
+def _define_PKEY_ComputerName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=5)
+def _define_PKEY_ContainedItems():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=29)
+def _define_PKEY_ContentId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=132)
+def _define_PKEY_ContentStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=27)
+def _define_PKEY_ContentType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=26)
+def _define_PKEY_ContentUri():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=131)
+def _define_PKEY_Copyright():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=11)
+def _define_PKEY_CreatorAppId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c2ea046e-033c-4e91-bd-5b-d4-94-2f-6b-be-49'), pid=2)
+def _define_PKEY_CreatorOpenWithUIOptions():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c2ea046e-033c-4e91-bd-5b-d4-94-2f-6b-be-49'), pid=3)
 CREATOROPENWITHUIOPTION_HIDDEN = 0
 CREATOROPENWITHUIOPTION_VISIBLE = 1
-PKEY_DataObjectFormat = PROPERTYKEY(Fmtid='1e81a3f8-a30f-4247-b9ee-1d0368a9425c', Pid=2)
-PKEY_DateAccessed = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=16)
-PKEY_DateAcquired = PROPERTYKEY(Fmtid='2cbaa8f5-d81f-47ca-b17a-f8d822300131', Pid=100)
-PKEY_DateArchived = PROPERTYKEY(Fmtid='43f8d7b7-a444-4f87-9383-52271c9b915c', Pid=100)
-PKEY_DateCompleted = PROPERTYKEY(Fmtid='72fab781-acda-43e5-b155-b2434f85e678', Pid=100)
-PKEY_DateCreated = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=15)
-PKEY_DateImported = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=18258)
-PKEY_DateModified = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=14)
-PKEY_DefaultSaveLocationDisplay = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=10)
+def _define_PKEY_DataObjectFormat():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1e81a3f8-a30f-4247-b9-ee-1d-03-68-a9-42-5c'), pid=2)
+def _define_PKEY_DateAccessed():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=16)
+def _define_PKEY_DateAcquired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2cbaa8f5-d81f-47ca-b1-7a-f8-d8-22-30-01-31'), pid=100)
+def _define_PKEY_DateArchived():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('43f8d7b7-a444-4f87-93-83-52-27-1c-9b-91-5c'), pid=100)
+def _define_PKEY_DateCompleted():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('72fab781-acda-43e5-b1-55-b2-43-4f-85-e6-78'), pid=100)
+def _define_PKEY_DateCreated():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=15)
+def _define_PKEY_DateImported():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=18258)
+def _define_PKEY_DateModified():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=14)
+def _define_PKEY_DefaultSaveLocationDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=10)
 ISDEFAULTSAVE_NONE = 0
 ISDEFAULTSAVE_OWNER = 1
 ISDEFAULTSAVE_NONOWNER = 2
 ISDEFAULTSAVE_BOTH = 3
-PKEY_DueDate = PROPERTYKEY(Fmtid='3f8472b5-e0af-4db2-8071-c53fe76ae7ce', Pid=100)
-PKEY_EndDate = PROPERTYKEY(Fmtid='c75faa05-96fd-49e7-9cb4-9f601082d553', Pid=100)
-PKEY_ExpandoProperties = PROPERTYKEY(Fmtid='6fa20de6-d11c-4d9d-a154-64317628c12d', Pid=100)
-PKEY_FileAllocationSize = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=18)
-PKEY_FileAttributes = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=13)
-PKEY_FileCount = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=12)
-PKEY_FileDescription = PROPERTYKEY(Fmtid='0cef7d53-fa64-11d1-a203-0000f81fedee', Pid=3)
-PKEY_FileExtension = PROPERTYKEY(Fmtid='e4f10a3c-49e6-405d-8288-a23bd4eeaa6c', Pid=100)
-PKEY_FileFRN = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=21)
-PKEY_FileName = PROPERTYKEY(Fmtid='41cf5ae0-f75a-4806-bd87-59c7d9248eb9', Pid=100)
-PKEY_FileOfflineAvailabilityStatus = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=100)
+def _define_PKEY_DueDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8472b5-e0af-4db2-80-71-c5-3f-e7-6a-e7-ce'), pid=100)
+def _define_PKEY_EndDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c75faa05-96fd-49e7-9c-b4-9f-60-10-82-d5-53'), pid=100)
+def _define_PKEY_ExpandoProperties():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6fa20de6-d11c-4d9d-a1-54-64-31-76-28-c1-2d'), pid=100)
+def _define_PKEY_FileAllocationSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=18)
+def _define_PKEY_FileAttributes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=13)
+def _define_PKEY_FileCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=12)
+def _define_PKEY_FileDescription():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cef7d53-fa64-11d1-a2-03-00-00-f8-1f-ed-ee'), pid=3)
+def _define_PKEY_FileExtension():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e4f10a3c-49e6-405d-82-88-a2-3b-d4-ee-aa-6c'), pid=100)
+def _define_PKEY_FileFRN():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=21)
+def _define_PKEY_FileName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('41cf5ae0-f75a-4806-bd-87-59-c7-d9-24-8e-b9'), pid=100)
+def _define_PKEY_FileOfflineAvailabilityStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=100)
 FILEOFFLINEAVAILABILITYSTATUS_NOTAVAILABLEOFFLINE = 0
 FILEOFFLINEAVAILABILITYSTATUS_PARTIAL = 1
 FILEOFFLINEAVAILABILITYSTATUS_COMPLETE = 2
 FILEOFFLINEAVAILABILITYSTATUS_COMPLETE_PINNED = 3
 FILEOFFLINEAVAILABILITYSTATUS_EXCLUDED = 4
 FILEOFFLINEAVAILABILITYSTATUS_FOLDER_EMPTY = 5
-PKEY_FileOwner = PROPERTYKEY(Fmtid='9b174b34-40ff-11d2-a27e-00c04fc30871', Pid=4)
-PKEY_FilePlaceholderStatus = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=2)
-PKEY_FileVersion = PROPERTYKEY(Fmtid='0cef7d53-fa64-11d1-a203-0000f81fedee', Pid=4)
-PKEY_FindData = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=0)
-PKEY_FlagColor = PROPERTYKEY(Fmtid='67df94de-0ca7-4d6f-b792-053a3e4f03cf', Pid=100)
-PKEY_FlagColorText = PROPERTYKEY(Fmtid='45eae747-8e2a-40ae-8cbf-ca52aba6152a', Pid=100)
-PKEY_FlagStatus = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=12)
+def _define_PKEY_FileOwner():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b34-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=4)
+def _define_PKEY_FilePlaceholderStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=2)
+def _define_PKEY_FileVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cef7d53-fa64-11d1-a2-03-00-00-f8-1f-ed-ee'), pid=4)
+def _define_PKEY_FindData():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=0)
+def _define_PKEY_FlagColor():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('67df94de-0ca7-4d6f-b7-92-05-3a-3e-4f-03-cf'), pid=100)
+def _define_PKEY_FlagColorText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('45eae747-8e2a-40ae-8c-bf-ca-52-ab-a6-15-2a'), pid=100)
+def _define_PKEY_FlagStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=12)
 FLAGSTATUS_NOTFLAGGED = 0
 FLAGSTATUS_COMPLETED = 1
 FLAGSTATUS_FOLLOWUP = 2
-PKEY_FlagStatusText = PROPERTYKEY(Fmtid='dc54fd2e-189d-4871-aa01-08c2f57a4abc', Pid=100)
-PKEY_FolderKind = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=101)
-PKEY_FolderNameDisplay = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=25)
-PKEY_FreeSpace = PROPERTYKEY(Fmtid='9b174b35-40ff-11d2-a27e-00c04fc30871', Pid=2)
-PKEY_FullText = PROPERTYKEY(Fmtid='1e3ee840-bc2b-476c-8237-2acd1a839b22', Pid=6)
-PKEY_HighKeywords = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=24)
-PKEY_Identity = PROPERTYKEY(Fmtid='a26f4afc-7346-4299-be47-eb1ae613139f', Pid=100)
-PKEY_Identity_Blob = PROPERTYKEY(Fmtid='8c3b93a4-baed-1a83-9a32-102ee313f6eb', Pid=100)
-PKEY_Identity_DisplayName = PROPERTYKEY(Fmtid='7d683fc9-d155-45a8-bb1f-89d19bcb792f', Pid=100)
-PKEY_Identity_InternetSid = PROPERTYKEY(Fmtid='6d6d5d49-265d-4688-9f4e-1fdd33e7cc83', Pid=100)
-PKEY_Identity_IsMeIdentity = PROPERTYKEY(Fmtid='a4108708-09df-4377-9dfc-6d99986d5a67', Pid=100)
-PKEY_Identity_KeyProviderContext = PROPERTYKEY(Fmtid='a26f4afc-7346-4299-be47-eb1ae613139f', Pid=17)
-PKEY_Identity_KeyProviderName = PROPERTYKEY(Fmtid='a26f4afc-7346-4299-be47-eb1ae613139f', Pid=16)
-PKEY_Identity_LogonStatusString = PROPERTYKEY(Fmtid='f18dedf3-337f-42c0-9e03-cee08708a8c3', Pid=100)
-PKEY_Identity_PrimaryEmailAddress = PROPERTYKEY(Fmtid='fcc16823-baed-4f24-9b32-a0982117f7fa', Pid=100)
-PKEY_Identity_PrimarySid = PROPERTYKEY(Fmtid='2b1b801e-c0c1-4987-9ec5-72fa89814787', Pid=100)
-PKEY_Identity_ProviderData = PROPERTYKEY(Fmtid='a8a74b92-361b-4e9a-b722-7c4a7330a312', Pid=100)
-PKEY_Identity_ProviderID = PROPERTYKEY(Fmtid='74a7de49-fa11-4d3d-a006-db7e08675916', Pid=100)
-PKEY_Identity_QualifiedUserName = PROPERTYKEY(Fmtid='da520e51-f4e9-4739-ac82-02e0a95c9030', Pid=100)
-PKEY_Identity_UniqueID = PROPERTYKEY(Fmtid='e55fc3b0-2b60-4220-918e-b21e8bf16016', Pid=100)
-PKEY_Identity_UserName = PROPERTYKEY(Fmtid='c4322503-78ca-49c6-9acc-a68e2afd7b6b', Pid=100)
-PKEY_IdentityProvider_Name = PROPERTYKEY(Fmtid='b96eff7b-35ca-4a35-8607-29e3a54c46ea', Pid=100)
-PKEY_IdentityProvider_Picture = PROPERTYKEY(Fmtid='2425166f-5642-4864-992f-98fd98f294c3', Pid=100)
-PKEY_ImageParsingName = PROPERTYKEY(Fmtid='d7750ee0-c6a4-48ec-b53e-b87b52e6d073', Pid=100)
-PKEY_Importance = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=11)
+def _define_PKEY_FlagStatusText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dc54fd2e-189d-4871-aa-01-08-c2-f5-7a-4a-bc'), pid=100)
+def _define_PKEY_FolderKind():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=101)
+def _define_PKEY_FolderNameDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=25)
+def _define_PKEY_FreeSpace():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b35-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=2)
+def _define_PKEY_FullText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1e3ee840-bc2b-476c-82-37-2a-cd-1a-83-9b-22'), pid=6)
+def _define_PKEY_HighKeywords():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=24)
+def _define_PKEY_Identity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a26f4afc-7346-4299-be-47-eb-1a-e6-13-13-9f'), pid=100)
+def _define_PKEY_Identity_Blob():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8c3b93a4-baed-1a83-9a-32-10-2e-e3-13-f6-eb'), pid=100)
+def _define_PKEY_Identity_DisplayName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7d683fc9-d155-45a8-bb-1f-89-d1-9b-cb-79-2f'), pid=100)
+def _define_PKEY_Identity_InternetSid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d6d5d49-265d-4688-9f-4e-1f-dd-33-e7-cc-83'), pid=100)
+def _define_PKEY_Identity_IsMeIdentity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a4108708-09df-4377-9d-fc-6d-99-98-6d-5a-67'), pid=100)
+def _define_PKEY_Identity_KeyProviderContext():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a26f4afc-7346-4299-be-47-eb-1a-e6-13-13-9f'), pid=17)
+def _define_PKEY_Identity_KeyProviderName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a26f4afc-7346-4299-be-47-eb-1a-e6-13-13-9f'), pid=16)
+def _define_PKEY_Identity_LogonStatusString():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f18dedf3-337f-42c0-9e-03-ce-e0-87-08-a8-c3'), pid=100)
+def _define_PKEY_Identity_PrimaryEmailAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fcc16823-baed-4f24-9b-32-a0-98-21-17-f7-fa'), pid=100)
+def _define_PKEY_Identity_PrimarySid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2b1b801e-c0c1-4987-9e-c5-72-fa-89-81-47-87'), pid=100)
+def _define_PKEY_Identity_ProviderData():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a8a74b92-361b-4e9a-b7-22-7c-4a-73-30-a3-12'), pid=100)
+def _define_PKEY_Identity_ProviderID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('74a7de49-fa11-4d3d-a0-06-db-7e-08-67-59-16'), pid=100)
+def _define_PKEY_Identity_QualifiedUserName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('da520e51-f4e9-4739-ac-82-02-e0-a9-5c-90-30'), pid=100)
+def _define_PKEY_Identity_UniqueID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e55fc3b0-2b60-4220-91-8e-b2-1e-8b-f1-60-16'), pid=100)
+def _define_PKEY_Identity_UserName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c4322503-78ca-49c6-9a-cc-a6-8e-2a-fd-7b-6b'), pid=100)
+def _define_PKEY_IdentityProvider_Name():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b96eff7b-35ca-4a35-86-07-29-e3-a5-4c-46-ea'), pid=100)
+def _define_PKEY_IdentityProvider_Picture():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2425166f-5642-4864-99-2f-98-fd-98-f2-94-c3'), pid=100)
+def _define_PKEY_ImageParsingName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d7750ee0-c6a4-48ec-b5-3e-b8-7b-52-e6-d0-73'), pid=100)
+def _define_PKEY_Importance():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=11)
 IMPORTANCE_LOW_MIN = 0
 IMPORTANCE_LOW_SET = 1
 IMPORTANCE_LOW_MAX = 1
@@ -404,56 +762,126 @@ IMPORTANCE_NORMAL_MAX = 4
 IMPORTANCE_HIGH_MIN = 5
 IMPORTANCE_HIGH_SET = 5
 IMPORTANCE_HIGH_MAX = 5
-PKEY_ImportanceText = PROPERTYKEY(Fmtid='a3b29791-7713-4e1d-bb40-17db85f01831', Pid=100)
-PKEY_IsAttachment = PROPERTYKEY(Fmtid='f23f425c-71a1-4fa8-922f-678ea4a60408', Pid=100)
-PKEY_IsDefaultNonOwnerSaveLocation = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=5)
-PKEY_IsDefaultSaveLocation = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=3)
-PKEY_IsDeleted = PROPERTYKEY(Fmtid='5cda5fc8-33ee-4ff3-9094-ae7bd8868c4d', Pid=100)
-PKEY_IsEncrypted = PROPERTYKEY(Fmtid='90e5e14e-648b-4826-b2aa-acaf790e3513', Pid=10)
-PKEY_IsFlagged = PROPERTYKEY(Fmtid='5da84765-e3ff-4278-86b0-a27967fbdd03', Pid=100)
-PKEY_IsFlaggedComplete = PROPERTYKEY(Fmtid='a6f360d2-55f9-48de-b909-620e090a647c', Pid=100)
-PKEY_IsIncomplete = PROPERTYKEY(Fmtid='346c8bd1-2e6a-4c45-89a4-61b78e8e700f', Pid=100)
-PKEY_IsLocationSupported = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=8)
-PKEY_IsPinnedToNameSpaceTree = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=2)
-PKEY_IsRead = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=10)
-PKEY_IsSearchOnlyItem = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=4)
-PKEY_IsSendToTarget = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=33)
-PKEY_IsShared = PROPERTYKEY(Fmtid='ef884c5b-2bfe-41bb-aae5-76eedf4f9902', Pid=100)
-PKEY_ItemAuthors = PROPERTYKEY(Fmtid='d0a04f0a-462a-48a4-bb2f-3706e88dbd7d', Pid=100)
-PKEY_ItemClassType = PROPERTYKEY(Fmtid='048658ad-2db8-41a4-bbb6-ac1ef1207eb1', Pid=100)
-PKEY_ItemDate = PROPERTYKEY(Fmtid='f7db74b4-4287-4103-afba-f1b13dcd75cf', Pid=100)
-PKEY_ItemFolderNameDisplay = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=2)
-PKEY_ItemFolderPathDisplay = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=6)
-PKEY_ItemFolderPathDisplayNarrow = PROPERTYKEY(Fmtid='dabd30ed-0043-4789-a7f8-d013a4736622', Pid=100)
-PKEY_ItemName = PROPERTYKEY(Fmtid='6b8da074-3b5c-43bc-886f-0a2cdce00b6f', Pid=100)
-PKEY_ItemNameDisplay = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=10)
-PKEY_ItemNameDisplayWithoutExtension = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=24)
-PKEY_ItemNamePrefix = PROPERTYKEY(Fmtid='d7313ff1-a77a-401c-8c99-3dbdd68add36', Pid=100)
-PKEY_ItemNameSortOverride = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=23)
-PKEY_ItemParticipants = PROPERTYKEY(Fmtid='d4d0aa16-9948-41a4-aa85-d97ff9646993', Pid=100)
-PKEY_ItemPathDisplay = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=7)
-PKEY_ItemPathDisplayNarrow = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=8)
-PKEY_ItemSubType = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=37)
-PKEY_ItemType = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=11)
-PKEY_ItemTypeText = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=4)
-PKEY_ItemUrl = PROPERTYKEY(Fmtid='49691c90-7e17-101a-a91c-08002b2ecda9', Pid=9)
-PKEY_Keywords = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=5)
-PKEY_Kind = PROPERTYKEY(Fmtid='1e3ee840-bc2b-476c-8237-2acd1a839b22', Pid=3)
-PKEY_KindText = PROPERTYKEY(Fmtid='f04bef95-c585-4197-a2b7-df46fdc9ee6d', Pid=100)
-PKEY_Language = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=28)
-PKEY_LastSyncError = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=107)
-PKEY_LastSyncWarning = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=128)
-PKEY_LastWriterPackageFamilyName = PROPERTYKEY(Fmtid='502cfeab-47eb-459c-b960-e6d8728f7701', Pid=101)
-PKEY_LowKeywords = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=25)
-PKEY_MediumKeywords = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=26)
-PKEY_MileageInformation = PROPERTYKEY(Fmtid='fdf84370-031a-4add-9e91-0d775f1c6605', Pid=100)
-PKEY_MIMEType = PROPERTYKEY(Fmtid='0b63e350-9ccc-11d0-bcdb-00805fccce04', Pid=5)
-PKEY_Null = PROPERTYKEY(Fmtid='00000000-0000-0000-0000-000000000000', Pid=0)
-PKEY_OfflineAvailability = PROPERTYKEY(Fmtid='a94688b6-7d9f-4570-a648-e3dfc0ab2b3f', Pid=100)
+def _define_PKEY_ImportanceText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a3b29791-7713-4e1d-bb-40-17-db-85-f0-18-31'), pid=100)
+def _define_PKEY_IsAttachment():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f23f425c-71a1-4fa8-92-2f-67-8e-a4-a6-04-08'), pid=100)
+def _define_PKEY_IsDefaultNonOwnerSaveLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=5)
+def _define_PKEY_IsDefaultSaveLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=3)
+def _define_PKEY_IsDeleted():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5cda5fc8-33ee-4ff3-90-94-ae-7b-d8-86-8c-4d'), pid=100)
+def _define_PKEY_IsEncrypted():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('90e5e14e-648b-4826-b2-aa-ac-af-79-0e-35-13'), pid=10)
+def _define_PKEY_IsFlagged():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5da84765-e3ff-4278-86-b0-a2-79-67-fb-dd-03'), pid=100)
+def _define_PKEY_IsFlaggedComplete():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a6f360d2-55f9-48de-b9-09-62-0e-09-0a-64-7c'), pid=100)
+def _define_PKEY_IsIncomplete():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('346c8bd1-2e6a-4c45-89-a4-61-b7-8e-8e-70-0f'), pid=100)
+def _define_PKEY_IsLocationSupported():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=8)
+def _define_PKEY_IsPinnedToNameSpaceTree():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=2)
+def _define_PKEY_IsRead():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=10)
+def _define_PKEY_IsSearchOnlyItem():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=4)
+def _define_PKEY_IsSendToTarget():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=33)
+def _define_PKEY_IsShared():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ef884c5b-2bfe-41bb-aa-e5-76-ee-df-4f-99-02'), pid=100)
+def _define_PKEY_ItemAuthors():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d0a04f0a-462a-48a4-bb-2f-37-06-e8-8d-bd-7d'), pid=100)
+def _define_PKEY_ItemClassType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('048658ad-2db8-41a4-bb-b6-ac-1e-f1-20-7e-b1'), pid=100)
+def _define_PKEY_ItemDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f7db74b4-4287-4103-af-ba-f1-b1-3d-cd-75-cf'), pid=100)
+def _define_PKEY_ItemFolderNameDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=2)
+def _define_PKEY_ItemFolderPathDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=6)
+def _define_PKEY_ItemFolderPathDisplayNarrow():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dabd30ed-0043-4789-a7-f8-d0-13-a4-73-66-22'), pid=100)
+def _define_PKEY_ItemName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6b8da074-3b5c-43bc-88-6f-0a-2c-dc-e0-0b-6f'), pid=100)
+def _define_PKEY_ItemNameDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=10)
+def _define_PKEY_ItemNameDisplayWithoutExtension():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=24)
+def _define_PKEY_ItemNamePrefix():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d7313ff1-a77a-401c-8c-99-3d-bd-d6-8a-dd-36'), pid=100)
+def _define_PKEY_ItemNameSortOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=23)
+def _define_PKEY_ItemParticipants():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d4d0aa16-9948-41a4-aa-85-d9-7f-f9-64-69-93'), pid=100)
+def _define_PKEY_ItemPathDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=7)
+def _define_PKEY_ItemPathDisplayNarrow():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=8)
+def _define_PKEY_ItemSubType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=37)
+def _define_PKEY_ItemType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=11)
+def _define_PKEY_ItemTypeText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=4)
+def _define_PKEY_ItemUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49691c90-7e17-101a-a9-1c-08-00-2b-2e-cd-a9'), pid=9)
+def _define_PKEY_Keywords():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=5)
+def _define_PKEY_Kind():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1e3ee840-bc2b-476c-82-37-2a-cd-1a-83-9b-22'), pid=3)
+KIND_CALENDAR = 'calendar'
+KIND_COMMUNICATION = 'communication'
+KIND_CONTACT = 'contact'
+KIND_DOCUMENT = 'document'
+KIND_EMAIL = 'email'
+KIND_FEED = 'feed'
+KIND_FOLDER = 'folder'
+KIND_GAME = 'game'
+KIND_INSTANTMESSAGE = 'instantmessage'
+KIND_JOURNAL = 'journal'
+KIND_LINK = 'link'
+KIND_MOVIE = 'movie'
+KIND_MUSIC = 'music'
+KIND_NOTE = 'note'
+KIND_PICTURE = 'picture'
+KIND_PLAYLIST = 'playlist'
+KIND_PROGRAM = 'program'
+KIND_RECORDEDTV = 'recordedtv'
+KIND_SEARCHFOLDER = 'searchfolder'
+KIND_TASK = 'task'
+KIND_VIDEO = 'video'
+KIND_WEBHISTORY = 'webhistory'
+KIND_UNKNOWN = 'unknown'
+def _define_PKEY_KindText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f04bef95-c585-4197-a2-b7-df-46-fd-c9-ee-6d'), pid=100)
+def _define_PKEY_Language():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=28)
+def _define_PKEY_LastSyncError():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=107)
+def _define_PKEY_LastSyncWarning():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=128)
+def _define_PKEY_LastWriterPackageFamilyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('502cfeab-47eb-459c-b9-60-e6-d8-72-8f-77-01'), pid=101)
+def _define_PKEY_LowKeywords():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=25)
+def _define_PKEY_MediumKeywords():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=26)
+def _define_PKEY_MileageInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fdf84370-031a-4add-9e-91-0d-77-5f-1c-66-05'), pid=100)
+def _define_PKEY_MIMEType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b63e350-9ccc-11d0-bc-db-00-80-5f-cc-ce-04'), pid=5)
+def _define_PKEY_Null():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00000000-0000-0000-00-00-00-00-00-00-00-00'), pid=0)
+def _define_PKEY_OfflineAvailability():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a94688b6-7d9f-4570-a6-48-e3-df-c0-ab-2b-3f'), pid=100)
 OFFLINEAVAILABILITY_NOT_AVAILABLE = 0
 OFFLINEAVAILABILITY_AVAILABLE = 1
 OFFLINEAVAILABILITY_ALWAYS_AVAILABLE = 2
-PKEY_OfflineStatus = PROPERTYKEY(Fmtid='6d24888f-4718-4bda-afed-ea0fb4386cd8', Pid=100)
+def _define_PKEY_OfflineStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d24888f-4718-4bda-af-ed-ea-0f-b4-38-6c-d8'), pid=100)
 OFFLINESTATUS_ONLINE = 0
 OFFLINESTATUS_OFFLINE = 1
 OFFLINESTATUS_OFFLINE_FORCED = 2
@@ -461,21 +889,36 @@ OFFLINESTATUS_OFFLINE_SLOW = 3
 OFFLINESTATUS_OFFLINE_ERROR = 4
 OFFLINESTATUS_OFFLINE_ITEM_VERSION_CONFLICT = 5
 OFFLINESTATUS_OFFLINE_SUSPENDED = 6
-PKEY_OriginalFileName = PROPERTYKEY(Fmtid='0cef7d53-fa64-11d1-a203-0000f81fedee', Pid=6)
-PKEY_OwnerSID = PROPERTYKEY(Fmtid='5d76b67f-9b3d-44bb-b6ae-25da4f638a67', Pid=6)
-PKEY_ParentalRating = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=21)
-PKEY_ParentalRatingReason = PROPERTYKEY(Fmtid='10984e0a-f9f2-4321-b7ef-baf195af4319', Pid=100)
-PKEY_ParentalRatingsOrganization = PROPERTYKEY(Fmtid='a7fe0840-1344-46f0-8d37-52ed712a4bf9', Pid=100)
-PKEY_ParsingBindContext = PROPERTYKEY(Fmtid='dfb9a04d-362f-4ca3-b30b-0254b17b5b84', Pid=100)
-PKEY_ParsingName = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=24)
-PKEY_ParsingPath = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=30)
-PKEY_PerceivedType = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=9)
-PKEY_PercentFull = PROPERTYKEY(Fmtid='9b174b35-40ff-11d2-a27e-00c04fc30871', Pid=5)
-PKEY_Priority = PROPERTYKEY(Fmtid='9c1fcf74-2d97-41ba-b4ae-cb2e3661a6e4', Pid=5)
-PKEY_PriorityText = PROPERTYKEY(Fmtid='d98be98b-b86b-4095-bf52-9d23b2e0a752', Pid=100)
-PKEY_Project = PROPERTYKEY(Fmtid='39a7f922-477c-48de-8bc8-b28441e342e3', Pid=100)
-PKEY_ProviderItemID = PROPERTYKEY(Fmtid='f21d9941-81f0-471a-adee-4e74b49217ed', Pid=100)
-PKEY_Rating = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=9)
+def _define_PKEY_OriginalFileName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cef7d53-fa64-11d1-a2-03-00-00-f8-1f-ed-ee'), pid=6)
+def _define_PKEY_OwnerSID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5d76b67f-9b3d-44bb-b6-ae-25-da-4f-63-8a-67'), pid=6)
+def _define_PKEY_ParentalRating():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=21)
+def _define_PKEY_ParentalRatingReason():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('10984e0a-f9f2-4321-b7-ef-ba-f1-95-af-43-19'), pid=100)
+def _define_PKEY_ParentalRatingsOrganization():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a7fe0840-1344-46f0-8d-37-52-ed-71-2a-4b-f9'), pid=100)
+def _define_PKEY_ParsingBindContext():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dfb9a04d-362f-4ca3-b3-0b-02-54-b1-7b-5b-84'), pid=100)
+def _define_PKEY_ParsingName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=24)
+def _define_PKEY_ParsingPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=30)
+def _define_PKEY_PerceivedType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=9)
+def _define_PKEY_PercentFull():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b35-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=5)
+def _define_PKEY_Priority():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9c1fcf74-2d97-41ba-b4-ae-cb-2e-36-61-a6-e4'), pid=5)
+def _define_PKEY_PriorityText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d98be98b-b86b-4095-bf-52-9d-23-b2-e0-a7-52'), pid=100)
+def _define_PKEY_Project():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('39a7f922-477c-48de-8b-c8-b2-84-41-e3-42-e3'), pid=100)
+def _define_PKEY_ProviderItemID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f21d9941-81f0-471a-ad-ee-4e-74-b4-92-17-ed'), pid=100)
+def _define_PKEY_Rating():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=9)
 RATING_ONE_STAR_MIN = 1
 RATING_ONE_STAR_SET = 1
 RATING_ONE_STAR_MAX = 12
@@ -491,40 +934,76 @@ RATING_FOUR_STARS_MAX = 87
 RATING_FIVE_STARS_MIN = 88
 RATING_FIVE_STARS_SET = 99
 RATING_FIVE_STARS_MAX = 99
-PKEY_RatingText = PROPERTYKEY(Fmtid='90197ca7-fd8f-4e8c-9da3-b57e1e609295', Pid=100)
-PKEY_RemoteConflictingFile = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=115)
-PKEY_Security_AllowedEnterpriseDataProtectionIdentities = PROPERTYKEY(Fmtid='38d43380-d418-4830-84d5-46935a81c5c6', Pid=32)
-PKEY_Security_EncryptionOwners = PROPERTYKEY(Fmtid='5f5aff6a-37e5-4780-97ea-80c7565cf535', Pid=34)
-PKEY_Security_EncryptionOwnersDisplay = PROPERTYKEY(Fmtid='de621b8f-e125-43a3-a32d-5665446d632a', Pid=25)
-PKEY_Sensitivity = PROPERTYKEY(Fmtid='f8d3f6ac-4874-42cb-be59-ab454b30716a', Pid=100)
-PKEY_SensitivityText = PROPERTYKEY(Fmtid='d0c7f054-3f72-4725-8527-129a577cb269', Pid=100)
-PKEY_SFGAOFlags = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=25)
-PKEY_SharedWith = PROPERTYKEY(Fmtid='ef884c5b-2bfe-41bb-aae5-76eedf4f9902', Pid=200)
-PKEY_ShareUserRating = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=12)
-PKEY_SharingStatus = PROPERTYKEY(Fmtid='ef884c5b-2bfe-41bb-aae5-76eedf4f9902', Pid=300)
+def _define_PKEY_RatingText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('90197ca7-fd8f-4e8c-9d-a3-b5-7e-1e-60-92-95'), pid=100)
+def _define_PKEY_RemoteConflictingFile():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=115)
+def _define_PKEY_Security_AllowedEnterpriseDataProtectionIdentities():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38d43380-d418-4830-84-d5-46-93-5a-81-c5-c6'), pid=32)
+def _define_PKEY_Security_EncryptionOwners():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5f5aff6a-37e5-4780-97-ea-80-c7-56-5c-f5-35'), pid=34)
+def _define_PKEY_Security_EncryptionOwnersDisplay():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('de621b8f-e125-43a3-a3-2d-56-65-44-6d-63-2a'), pid=25)
+def _define_PKEY_Sensitivity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f8d3f6ac-4874-42cb-be-59-ab-45-4b-30-71-6a'), pid=100)
+def _define_PKEY_SensitivityText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d0c7f054-3f72-4725-85-27-12-9a-57-7c-b2-69'), pid=100)
+def _define_PKEY_SFGAOFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=25)
+def _define_PKEY_SharedWith():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ef884c5b-2bfe-41bb-aa-e5-76-ee-df-4f-99-02'), pid=200)
+def _define_PKEY_ShareUserRating():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=12)
+def _define_PKEY_SharingStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ef884c5b-2bfe-41bb-aa-e5-76-ee-df-4f-99-02'), pid=300)
 SHARINGSTATUS_NOTSHARED = 0
 SHARINGSTATUS_SHARED = 1
 SHARINGSTATUS_PRIVATE = 2
-PKEY_Shell_OmitFromView = PROPERTYKEY(Fmtid='de35258c-c695-4cbc-b982-38b0ad24ced0', Pid=2)
-PKEY_SimpleRating = PROPERTYKEY(Fmtid='a09f084e-ad41-489f-8076-aa5be3082bca', Pid=100)
-PKEY_Size = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=12)
-PKEY_SoftwareUsed = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=305)
-PKEY_SourceItem = PROPERTYKEY(Fmtid='668cdfa5-7a1b-4323-ae4b-e527393a1d81', Pid=100)
-PKEY_SourcePackageFamilyName = PROPERTYKEY(Fmtid='ffae9db7-1c8d-43ff-818c-84403aa3732d', Pid=100)
-PKEY_StartDate = PROPERTYKEY(Fmtid='48fd6ec8-8a12-4cdf-a03e-4ec5a511edde', Pid=100)
-PKEY_Status = PROPERTYKEY(Fmtid='000214a1-0000-0000-c000-000000000046', Pid=9)
-PKEY_StorageProviderCallerVersionInformation = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=7)
-PKEY_StorageProviderError = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=109)
-PKEY_StorageProviderFileChecksum = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=5)
-PKEY_StorageProviderFileFlags = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=8)
-PKEY_StorageProviderFileHasConflict = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=9)
-PKEY_StorageProviderFileIdentifier = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=3)
-PKEY_StorageProviderFileRemoteUri = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=112)
-PKEY_StorageProviderFileVersion = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=4)
-PKEY_StorageProviderFileVersionWaterline = PROPERTYKEY(Fmtid='b2f9b9d6-fec4-4dd5-94d7-8957488c807b', Pid=6)
-PKEY_StorageProviderId = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=108)
-PKEY_StorageProviderShareStatuses = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=111)
-PKEY_StorageProviderSharingStatus = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=117)
+def _define_PKEY_Shell_OmitFromView():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('de35258c-c695-4cbc-b9-82-38-b0-ad-24-ce-d0'), pid=2)
+def _define_PKEY_SimpleRating():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a09f084e-ad41-489f-80-76-aa-5b-e3-08-2b-ca'), pid=100)
+def _define_PKEY_Size():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=12)
+def _define_PKEY_SoftwareUsed():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=305)
+def _define_PKEY_SourceItem():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('668cdfa5-7a1b-4323-ae-4b-e5-27-39-3a-1d-81'), pid=100)
+def _define_PKEY_SourcePackageFamilyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ffae9db7-1c8d-43ff-81-8c-84-40-3a-a3-73-2d'), pid=100)
+def _define_PKEY_StartDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('48fd6ec8-8a12-4cdf-a0-3e-4e-c5-a5-11-ed-de'), pid=100)
+def _define_PKEY_Status():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('000214a1-0000-0000-c0-00-00-00-00-00-00-46'), pid=9)
+def _define_PKEY_StorageProviderCallerVersionInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=7)
+def _define_PKEY_StorageProviderError():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=109)
+def _define_PKEY_StorageProviderFileChecksum():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=5)
+def _define_PKEY_StorageProviderFileFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=8)
+def _define_PKEY_StorageProviderFileHasConflict():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=9)
+def _define_PKEY_StorageProviderFileIdentifier():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=3)
+def _define_PKEY_StorageProviderFileRemoteUri():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=112)
+def _define_PKEY_StorageProviderFileVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=4)
+def _define_PKEY_StorageProviderFileVersionWaterline():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b2f9b9d6-fec4-4dd5-94-d7-89-57-48-8c-80-7b'), pid=6)
+def _define_PKEY_StorageProviderId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=108)
+def _define_PKEY_StorageProviderShareStatuses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=111)
+STORAGE_PROVIDER_SHARE_STATUS_PRIVATE = 'Private'
+STORAGE_PROVIDER_SHARE_STATUS_SHARED = 'Shared'
+STORAGE_PROVIDER_SHARE_STATUS_PUBLIC = 'Public'
+STORAGE_PROVIDER_SHARE_STATUS_GROUP = 'Group'
+STORAGE_PROVIDER_SHARE_STATUS_OWNER = 'Owner'
+def _define_PKEY_StorageProviderSharingStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=117)
 STORAGE_PROVIDER_SHARINGSTATUS_NOTSHARED = 0
 STORAGE_PROVIDER_SHARINGSTATUS_SHARED = 1
 STORAGE_PROVIDER_SHARINGSTATUS_PRIVATE = 2
@@ -533,210 +1012,410 @@ STORAGE_PROVIDER_SHARINGSTATUS_SHARED_OWNED = 4
 STORAGE_PROVIDER_SHARINGSTATUS_SHARED_COOWNED = 5
 STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC_OWNED = 6
 STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC_COOWNED = 7
-PKEY_StorageProviderStatus = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=110)
-PKEY_Subject = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=3)
-PKEY_SyncTransferStatus = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=103)
-PKEY_Thumbnail = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=17)
-PKEY_ThumbnailCacheId = PROPERTYKEY(Fmtid='446d16b1-8dad-4870-a748-402ea43d788c', Pid=100)
-PKEY_ThumbnailStream = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=27)
-PKEY_Title = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=2)
-PKEY_TitleSortOverride = PROPERTYKEY(Fmtid='f0f7984d-222e-4ad2-82ab-1dd8ea40e57e', Pid=300)
-PKEY_TotalFileSize = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=14)
-PKEY_Trademarks = PROPERTYKEY(Fmtid='0cef7d53-fa64-11d1-a203-0000f81fedee', Pid=9)
-PKEY_TransferOrder = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=106)
-PKEY_TransferPosition = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=104)
-PKEY_TransferSize = PROPERTYKEY(Fmtid='fceff153-e839-4cf3-a9e7-ea22832094b8', Pid=105)
-PKEY_VolumeId = PROPERTYKEY(Fmtid='446d16b1-8dad-4870-a748-402ea43d788c', Pid=104)
-PKEY_ZoneIdentifier = PROPERTYKEY(Fmtid='502cfeab-47eb-459c-b960-e6d8728f7701', Pid=100)
-PKEY_Device_PrinterURL = PROPERTYKEY(Fmtid='0b48f35a-be6e-4f17-b108-3c4073d1669a', Pid=15)
-PKEY_DeviceInterface_Bluetooth_DeviceAddress = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=1)
-PKEY_DeviceInterface_Bluetooth_Flags = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=3)
-PKEY_DeviceInterface_Bluetooth_LastConnectedTime = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=11)
-PKEY_DeviceInterface_Bluetooth_Manufacturer = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=4)
-PKEY_DeviceInterface_Bluetooth_ModelNumber = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=5)
-PKEY_DeviceInterface_Bluetooth_ProductId = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=8)
-PKEY_DeviceInterface_Bluetooth_ProductVersion = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=9)
-PKEY_DeviceInterface_Bluetooth_ServiceGuid = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=2)
-PKEY_DeviceInterface_Bluetooth_VendorId = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=7)
-PKEY_DeviceInterface_Bluetooth_VendorIdSource = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=6)
-PKEY_DeviceInterface_Hid_IsReadOnly = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=4)
-PKEY_DeviceInterface_Hid_ProductId = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=6)
-PKEY_DeviceInterface_Hid_UsageId = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=3)
-PKEY_DeviceInterface_Hid_UsagePage = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=2)
-PKEY_DeviceInterface_Hid_VendorId = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=5)
-PKEY_DeviceInterface_Hid_VersionNumber = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=7)
-PKEY_DeviceInterface_PrinterDriverDirectory = PROPERTYKEY(Fmtid='847c66de-b8d6-4af9-abc3-6f4f926bc039', Pid=14)
-PKEY_DeviceInterface_PrinterDriverName = PROPERTYKEY(Fmtid='afc47170-14f5-498c-8f30-b0d19be449c6', Pid=11)
-PKEY_DeviceInterface_PrinterEnumerationFlag = PROPERTYKEY(Fmtid='a00742a1-cd8c-4b37-95ab-70755587767a', Pid=3)
-PKEY_DeviceInterface_PrinterName = PROPERTYKEY(Fmtid='0a7b84ef-0c27-463f-84ef-06c5070001be', Pid=10)
-PKEY_DeviceInterface_PrinterPortName = PROPERTYKEY(Fmtid='eec7b761-6f94-41b1-949f-c729720dd13c', Pid=12)
-PKEY_DeviceInterface_Proximity_SupportsNfc = PROPERTYKEY(Fmtid='fb3842cd-9e2a-4f83-8fcc-4b0761139ae9', Pid=2)
-PKEY_DeviceInterface_Serial_PortName = PROPERTYKEY(Fmtid='4c6bf15c-4c03-4aac-91f5-64c0f852bcf4', Pid=4)
-PKEY_DeviceInterface_Serial_UsbProductId = PROPERTYKEY(Fmtid='4c6bf15c-4c03-4aac-91f5-64c0f852bcf4', Pid=3)
-PKEY_DeviceInterface_Serial_UsbVendorId = PROPERTYKEY(Fmtid='4c6bf15c-4c03-4aac-91f5-64c0f852bcf4', Pid=2)
-PKEY_DeviceInterface_WinUsb_DeviceInterfaceClasses = PROPERTYKEY(Fmtid='95e127b5-79cc-4e83-9c9e-8422187b3e0e', Pid=7)
-PKEY_DeviceInterface_WinUsb_UsbClass = PROPERTYKEY(Fmtid='95e127b5-79cc-4e83-9c9e-8422187b3e0e', Pid=4)
-PKEY_DeviceInterface_WinUsb_UsbProductId = PROPERTYKEY(Fmtid='95e127b5-79cc-4e83-9c9e-8422187b3e0e', Pid=3)
-PKEY_DeviceInterface_WinUsb_UsbProtocol = PROPERTYKEY(Fmtid='95e127b5-79cc-4e83-9c9e-8422187b3e0e', Pid=6)
-PKEY_DeviceInterface_WinUsb_UsbSubClass = PROPERTYKEY(Fmtid='95e127b5-79cc-4e83-9c9e-8422187b3e0e', Pid=5)
-PKEY_DeviceInterface_WinUsb_UsbVendorId = PROPERTYKEY(Fmtid='95e127b5-79cc-4e83-9c9e-8422187b3e0e', Pid=2)
-PKEY_Devices_Aep_AepId = PROPERTYKEY(Fmtid='3b2ce006-5e61-4fde-bab8-9b8aac9b26df', Pid=8)
-PKEY_Devices_Aep_Bluetooth_Cod_Major = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=2)
-PKEY_Devices_Aep_Bluetooth_Cod_Minor = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=3)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Audio = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=10)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Capturing = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=8)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Information = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=12)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_LimitedDiscovery = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=4)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Networking = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=6)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_ObjectXfer = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=9)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Positioning = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=5)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Rendering = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=7)
-PKEY_Devices_Aep_Bluetooth_Cod_Services_Telephony = PROPERTYKEY(Fmtid='5fbd34cd-561a-412e-ba98-478a6b0fef1d', Pid=11)
-PKEY_Devices_Aep_Bluetooth_LastSeenTime = PROPERTYKEY(Fmtid='2bd67d8b-8beb-48d5-87e0-6cda3428040a', Pid=12)
-PKEY_Devices_Aep_Bluetooth_Le_AddressType = PROPERTYKEY(Fmtid='995ef0b0-7eb3-4a8b-b9ce-068bb3f4af69', Pid=4)
+def _define_PKEY_StorageProviderStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=110)
+def _define_PKEY_Subject():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=3)
+def _define_PKEY_SyncTransferStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=103)
+def _define_PKEY_Thumbnail():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=17)
+def _define_PKEY_ThumbnailCacheId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('446d16b1-8dad-4870-a7-48-40-2e-a4-3d-78-8c'), pid=100)
+def _define_PKEY_ThumbnailStream():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=27)
+def _define_PKEY_Title():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=2)
+def _define_PKEY_TitleSortOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f0f7984d-222e-4ad2-82-ab-1d-d8-ea-40-e5-7e'), pid=300)
+def _define_PKEY_TotalFileSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=14)
+def _define_PKEY_Trademarks():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cef7d53-fa64-11d1-a2-03-00-00-f8-1f-ed-ee'), pid=9)
+def _define_PKEY_TransferOrder():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=106)
+def _define_PKEY_TransferPosition():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=104)
+def _define_PKEY_TransferSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fceff153-e839-4cf3-a9-e7-ea-22-83-20-94-b8'), pid=105)
+def _define_PKEY_VolumeId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('446d16b1-8dad-4870-a7-48-40-2e-a4-3d-78-8c'), pid=104)
+def _define_PKEY_ZoneIdentifier():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('502cfeab-47eb-459c-b9-60-e6-d8-72-8f-77-01'), pid=100)
+def _define_PKEY_Device_PrinterURL():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b48f35a-be6e-4f17-b1-08-3c-40-73-d1-66-9a'), pid=15)
+def _define_PKEY_DeviceInterface_Bluetooth_DeviceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=1)
+def _define_PKEY_DeviceInterface_Bluetooth_Flags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=3)
+def _define_PKEY_DeviceInterface_Bluetooth_LastConnectedTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=11)
+def _define_PKEY_DeviceInterface_Bluetooth_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=4)
+def _define_PKEY_DeviceInterface_Bluetooth_ModelNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=5)
+def _define_PKEY_DeviceInterface_Bluetooth_ProductId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=8)
+def _define_PKEY_DeviceInterface_Bluetooth_ProductVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=9)
+def _define_PKEY_DeviceInterface_Bluetooth_ServiceGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=2)
+def _define_PKEY_DeviceInterface_Bluetooth_VendorId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=7)
+def _define_PKEY_DeviceInterface_Bluetooth_VendorIdSource():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=6)
+def _define_PKEY_DeviceInterface_Hid_IsReadOnly():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=4)
+def _define_PKEY_DeviceInterface_Hid_ProductId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=6)
+def _define_PKEY_DeviceInterface_Hid_UsageId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=3)
+def _define_PKEY_DeviceInterface_Hid_UsagePage():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=2)
+def _define_PKEY_DeviceInterface_Hid_VendorId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=5)
+def _define_PKEY_DeviceInterface_Hid_VersionNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=7)
+def _define_PKEY_DeviceInterface_PrinterDriverDirectory():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('847c66de-b8d6-4af9-ab-c3-6f-4f-92-6b-c0-39'), pid=14)
+def _define_PKEY_DeviceInterface_PrinterDriverName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('afc47170-14f5-498c-8f-30-b0-d1-9b-e4-49-c6'), pid=11)
+def _define_PKEY_DeviceInterface_PrinterEnumerationFlag():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a00742a1-cd8c-4b37-95-ab-70-75-55-87-76-7a'), pid=3)
+def _define_PKEY_DeviceInterface_PrinterName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0a7b84ef-0c27-463f-84-ef-06-c5-07-00-01-be'), pid=10)
+def _define_PKEY_DeviceInterface_PrinterPortName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('eec7b761-6f94-41b1-94-9f-c7-29-72-0d-d1-3c'), pid=12)
+def _define_PKEY_DeviceInterface_Proximity_SupportsNfc():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fb3842cd-9e2a-4f83-8f-cc-4b-07-61-13-9a-e9'), pid=2)
+def _define_PKEY_DeviceInterface_Serial_PortName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4c6bf15c-4c03-4aac-91-f5-64-c0-f8-52-bc-f4'), pid=4)
+def _define_PKEY_DeviceInterface_Serial_UsbProductId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4c6bf15c-4c03-4aac-91-f5-64-c0-f8-52-bc-f4'), pid=3)
+def _define_PKEY_DeviceInterface_Serial_UsbVendorId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4c6bf15c-4c03-4aac-91-f5-64-c0-f8-52-bc-f4'), pid=2)
+def _define_PKEY_DeviceInterface_WinUsb_DeviceInterfaceClasses():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95e127b5-79cc-4e83-9c-9e-84-22-18-7b-3e-0e'), pid=7)
+def _define_PKEY_DeviceInterface_WinUsb_UsbClass():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95e127b5-79cc-4e83-9c-9e-84-22-18-7b-3e-0e'), pid=4)
+def _define_PKEY_DeviceInterface_WinUsb_UsbProductId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95e127b5-79cc-4e83-9c-9e-84-22-18-7b-3e-0e'), pid=3)
+def _define_PKEY_DeviceInterface_WinUsb_UsbProtocol():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95e127b5-79cc-4e83-9c-9e-84-22-18-7b-3e-0e'), pid=6)
+def _define_PKEY_DeviceInterface_WinUsb_UsbSubClass():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95e127b5-79cc-4e83-9c-9e-84-22-18-7b-3e-0e'), pid=5)
+def _define_PKEY_DeviceInterface_WinUsb_UsbVendorId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95e127b5-79cc-4e83-9c-9e-84-22-18-7b-3e-0e'), pid=2)
+def _define_PKEY_Devices_Aep_AepId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3b2ce006-5e61-4fde-ba-b8-9b-8a-ac-9b-26-df'), pid=8)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Major():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=2)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Minor():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=3)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Audio():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=10)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Capturing():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=8)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Information():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=12)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_LimitedDiscovery():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=4)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Networking():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=6)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_ObjectXfer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=9)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Positioning():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=5)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Rendering():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=7)
+def _define_PKEY_Devices_Aep_Bluetooth_Cod_Services_Telephony():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5fbd34cd-561a-412e-ba-98-47-8a-6b-0f-ef-1d'), pid=11)
+def _define_PKEY_Devices_Aep_Bluetooth_LastSeenTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bd67d8b-8beb-48d5-87-e0-6c-da-34-28-04-0a'), pid=12)
+def _define_PKEY_Devices_Aep_Bluetooth_Le_AddressType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('995ef0b0-7eb3-4a8b-b9-ce-06-8b-b3-f4-af-69'), pid=4)
 BLUETOOTH_ADDRESS_TYPE_PUBLIC = 0
 BLUETOOTH_ADDRESS_TYPE_RANDOM = 1
-PKEY_Devices_Aep_Bluetooth_Le_Appearance = PROPERTYKEY(Fmtid='995ef0b0-7eb3-4a8b-b9ce-068bb3f4af69', Pid=1)
-PKEY_Devices_Aep_Bluetooth_Le_Appearance_Category = PROPERTYKEY(Fmtid='995ef0b0-7eb3-4a8b-b9ce-068bb3f4af69', Pid=5)
-PKEY_Devices_Aep_Bluetooth_Le_Appearance_Subcategory = PROPERTYKEY(Fmtid='995ef0b0-7eb3-4a8b-b9ce-068bb3f4af69', Pid=6)
-PKEY_Devices_Aep_Bluetooth_Le_IsConnectable = PROPERTYKEY(Fmtid='995ef0b0-7eb3-4a8b-b9ce-068bb3f4af69', Pid=8)
-PKEY_Devices_Aep_CanPair = PROPERTYKEY(Fmtid='e7c3fb29-caa7-4f47-8c8b-be59b330d4c5', Pid=3)
-PKEY_Devices_Aep_Category = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=17)
-PKEY_Devices_Aep_ContainerId = PROPERTYKEY(Fmtid='e7c3fb29-caa7-4f47-8c8b-be59b330d4c5', Pid=2)
-PKEY_Devices_Aep_DeviceAddress = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=12)
-PKEY_Devices_Aep_IsConnected = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=7)
-PKEY_Devices_Aep_IsPaired = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=16)
-PKEY_Devices_Aep_IsPresent = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=9)
-PKEY_Devices_Aep_Manufacturer = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=5)
-PKEY_Devices_Aep_ModelId = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=4)
-PKEY_Devices_Aep_ModelName = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=3)
-PKEY_Devices_Aep_PointOfService_ConnectionTypes = PROPERTYKEY(Fmtid='d4bf61b3-442e-4ada-882d-fa7b70c832d9', Pid=6)
-PKEY_Devices_Aep_ProtocolId = PROPERTYKEY(Fmtid='3b2ce006-5e61-4fde-bab8-9b8aac9b26df', Pid=5)
-PKEY_Devices_Aep_SignalStrength = PROPERTYKEY(Fmtid='a35996ab-11cf-4935-8b61-a6761081ecdf', Pid=6)
-PKEY_Devices_AepContainer_CanPair = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=3)
-PKEY_Devices_AepContainer_Categories = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=9)
-PKEY_Devices_AepContainer_Children = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=2)
-PKEY_Devices_AepContainer_ContainerId = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=12)
-PKEY_Devices_AepContainer_DialProtocol_InstalledApplications = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=6)
-PKEY_Devices_AepContainer_IsPaired = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=4)
-PKEY_Devices_AepContainer_IsPresent = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=11)
-PKEY_Devices_AepContainer_Manufacturer = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=6)
-PKEY_Devices_AepContainer_ModelIds = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=8)
-PKEY_Devices_AepContainer_ModelName = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=7)
-PKEY_Devices_AepContainer_ProtocolIds = PROPERTYKEY(Fmtid='0bba1ede-7566-4f47-90ec-25fc567ced2a', Pid=13)
-PKEY_Devices_AepContainer_SupportedUriSchemes = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=5)
-PKEY_Devices_AepContainer_SupportsAudio = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=2)
-PKEY_Devices_AepContainer_SupportsCapturing = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=11)
-PKEY_Devices_AepContainer_SupportsImages = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=4)
-PKEY_Devices_AepContainer_SupportsInformation = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=14)
-PKEY_Devices_AepContainer_SupportsLimitedDiscovery = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=7)
-PKEY_Devices_AepContainer_SupportsNetworking = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=9)
-PKEY_Devices_AepContainer_SupportsObjectTransfer = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=12)
-PKEY_Devices_AepContainer_SupportsPositioning = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=8)
-PKEY_Devices_AepContainer_SupportsRendering = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=10)
-PKEY_Devices_AepContainer_SupportsTelephony = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=13)
-PKEY_Devices_AepContainer_SupportsVideo = PROPERTYKEY(Fmtid='6af55d45-38db-4495-acb0-d4728a3b8314', Pid=3)
-PKEY_Devices_AepService_AepId = PROPERTYKEY(Fmtid='c9c141a9-1b4c-4f17-a9d1-f298538cadb8', Pid=6)
-PKEY_Devices_AepService_Bluetooth_CacheMode = PROPERTYKEY(Fmtid='9744311e-7951-4b2e-b6f0-ecb293cac119', Pid=5)
+def _define_PKEY_Devices_Aep_Bluetooth_Le_Appearance():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('995ef0b0-7eb3-4a8b-b9-ce-06-8b-b3-f4-af-69'), pid=1)
+def _define_PKEY_Devices_Aep_Bluetooth_Le_Appearance_Category():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('995ef0b0-7eb3-4a8b-b9-ce-06-8b-b3-f4-af-69'), pid=5)
+def _define_PKEY_Devices_Aep_Bluetooth_Le_Appearance_Subcategory():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('995ef0b0-7eb3-4a8b-b9-ce-06-8b-b3-f4-af-69'), pid=6)
+def _define_PKEY_Devices_Aep_Bluetooth_Le_IsConnectable():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('995ef0b0-7eb3-4a8b-b9-ce-06-8b-b3-f4-af-69'), pid=8)
+def _define_PKEY_Devices_Aep_CanPair():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e7c3fb29-caa7-4f47-8c-8b-be-59-b3-30-d4-c5'), pid=3)
+def _define_PKEY_Devices_Aep_Category():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=17)
+def _define_PKEY_Devices_Aep_ContainerId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e7c3fb29-caa7-4f47-8c-8b-be-59-b3-30-d4-c5'), pid=2)
+def _define_PKEY_Devices_Aep_DeviceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=12)
+def _define_PKEY_Devices_Aep_IsConnected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=7)
+def _define_PKEY_Devices_Aep_IsPaired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=16)
+def _define_PKEY_Devices_Aep_IsPresent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=9)
+def _define_PKEY_Devices_Aep_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=5)
+def _define_PKEY_Devices_Aep_ModelId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=4)
+def _define_PKEY_Devices_Aep_ModelName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=3)
+def _define_PKEY_Devices_Aep_PointOfService_ConnectionTypes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d4bf61b3-442e-4ada-88-2d-fa-7b-70-c8-32-d9'), pid=6)
+def _define_PKEY_Devices_Aep_ProtocolId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3b2ce006-5e61-4fde-ba-b8-9b-8a-ac-9b-26-df'), pid=5)
+def _define_PKEY_Devices_Aep_SignalStrength():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a35996ab-11cf-4935-8b-61-a6-76-10-81-ec-df'), pid=6)
+def _define_PKEY_Devices_AepContainer_CanPair():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=3)
+def _define_PKEY_Devices_AepContainer_Categories():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=9)
+def _define_PKEY_Devices_AepContainer_Children():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=2)
+def _define_PKEY_Devices_AepContainer_ContainerId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=12)
+def _define_PKEY_Devices_AepContainer_DialProtocol_InstalledApplications():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=6)
+def _define_PKEY_Devices_AepContainer_IsPaired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=4)
+def _define_PKEY_Devices_AepContainer_IsPresent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=11)
+def _define_PKEY_Devices_AepContainer_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=6)
+def _define_PKEY_Devices_AepContainer_ModelIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=8)
+def _define_PKEY_Devices_AepContainer_ModelName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=7)
+def _define_PKEY_Devices_AepContainer_ProtocolIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0bba1ede-7566-4f47-90-ec-25-fc-56-7c-ed-2a'), pid=13)
+def _define_PKEY_Devices_AepContainer_SupportedUriSchemes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=5)
+def _define_PKEY_Devices_AepContainer_SupportsAudio():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=2)
+def _define_PKEY_Devices_AepContainer_SupportsCapturing():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=11)
+def _define_PKEY_Devices_AepContainer_SupportsImages():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=4)
+def _define_PKEY_Devices_AepContainer_SupportsInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=14)
+def _define_PKEY_Devices_AepContainer_SupportsLimitedDiscovery():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=7)
+def _define_PKEY_Devices_AepContainer_SupportsNetworking():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=9)
+def _define_PKEY_Devices_AepContainer_SupportsObjectTransfer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=12)
+def _define_PKEY_Devices_AepContainer_SupportsPositioning():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=8)
+def _define_PKEY_Devices_AepContainer_SupportsRendering():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=10)
+def _define_PKEY_Devices_AepContainer_SupportsTelephony():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=13)
+def _define_PKEY_Devices_AepContainer_SupportsVideo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6af55d45-38db-4495-ac-b0-d4-72-8a-3b-83-14'), pid=3)
+def _define_PKEY_Devices_AepService_AepId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9c141a9-1b4c-4f17-a9-d1-f2-98-53-8c-ad-b8'), pid=6)
+def _define_PKEY_Devices_AepService_Bluetooth_CacheMode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9744311e-7951-4b2e-b6-f0-ec-b2-93-ca-c1-19'), pid=5)
 BLUETOOTH_CACHE_MODE_CACHED = 0
 BLUETOOTH_CACHED_MODE_UNCACHED = 1
-PKEY_Devices_AepService_Bluetooth_ServiceGuid = PROPERTYKEY(Fmtid='a399aac7-c265-474e-b073-ffce57721716', Pid=2)
-PKEY_Devices_AepService_Bluetooth_TargetDevice = PROPERTYKEY(Fmtid='9744311e-7951-4b2e-b6f0-ecb293cac119', Pid=6)
-PKEY_Devices_AepService_ContainerId = PROPERTYKEY(Fmtid='71724756-3e74-4432-9b59-e7b2f668a593', Pid=4)
-PKEY_Devices_AepService_FriendlyName = PROPERTYKEY(Fmtid='71724756-3e74-4432-9b59-e7b2f668a593', Pid=2)
-PKEY_Devices_AepService_IoT_ServiceInterfaces = PROPERTYKEY(Fmtid='79d94e82-4d79-45aa-821a-74858b4e4ca6', Pid=2)
-PKEY_Devices_AepService_ParentAepIsPaired = PROPERTYKEY(Fmtid='c9c141a9-1b4c-4f17-a9d1-f298538cadb8', Pid=7)
-PKEY_Devices_AepService_ProtocolId = PROPERTYKEY(Fmtid='c9c141a9-1b4c-4f17-a9d1-f298538cadb8', Pid=5)
-PKEY_Devices_AepService_ServiceClassId = PROPERTYKEY(Fmtid='71724756-3e74-4432-9b59-e7b2f668a593', Pid=3)
-PKEY_Devices_AepService_ServiceId = PROPERTYKEY(Fmtid='c9c141a9-1b4c-4f17-a9d1-f298538cadb8', Pid=2)
-PKEY_Devices_AppPackageFamilyName = PROPERTYKEY(Fmtid='51236583-0c4a-4fe8-b81f-166aec13f510', Pid=100)
-PKEY_Devices_AudioDevice_Microphone_IsFarField = PROPERTYKEY(Fmtid='8943b373-388c-4395-b557-bc6dbaffafdb', Pid=6)
-PKEY_Devices_AudioDevice_Microphone_SensitivityInDbfs = PROPERTYKEY(Fmtid='8943b373-388c-4395-b557-bc6dbaffafdb', Pid=3)
-PKEY_Devices_AudioDevice_Microphone_SensitivityInDbfs2 = PROPERTYKEY(Fmtid='8943b373-388c-4395-b557-bc6dbaffafdb', Pid=5)
-PKEY_Devices_AudioDevice_Microphone_SignalToNoiseRatioInDb = PROPERTYKEY(Fmtid='8943b373-388c-4395-b557-bc6dbaffafdb', Pid=4)
-PKEY_Devices_AudioDevice_RawProcessingSupported = PROPERTYKEY(Fmtid='8943b373-388c-4395-b557-bc6dbaffafdb', Pid=2)
-PKEY_Devices_AudioDevice_SpeechProcessingSupported = PROPERTYKEY(Fmtid='fb1de864-e06d-47f4-82a6-8a0aef44493c', Pid=2)
-PKEY_Devices_BatteryLife = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=10)
-PKEY_Devices_BatteryPlusCharging = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=22)
-PKEY_Devices_BatteryPlusChargingText = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=23)
-PKEY_Devices_Category = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=91)
-PKEY_Devices_CategoryGroup = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=94)
-PKEY_Devices_CategoryIds = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=90)
-PKEY_Devices_CategoryPlural = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=92)
-PKEY_Devices_ChallengeAep = PROPERTYKEY(Fmtid='0774315e-b714-48ec-8de8-8125c077ac11', Pid=2)
-PKEY_Devices_ChargingState = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=11)
-PKEY_Devices_Children = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=9)
-PKEY_Devices_ClassGuid = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=10)
-PKEY_Devices_CompatibleIds = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=4)
-PKEY_Devices_Connected = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=55)
-PKEY_Devices_ContainerId = PROPERTYKEY(Fmtid='8c7ed206-3f8a-4827-b3ab-ae9e1faefc6c', Pid=2)
-PKEY_Devices_DefaultTooltip = PROPERTYKEY(Fmtid='880f70a2-6082-47ac-8aab-a739d1a300c3', Pid=153)
-PKEY_Devices_DeviceCapabilities = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=17)
-PKEY_Devices_DeviceCharacteristics = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=29)
-PKEY_Devices_DeviceDescription1 = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=81)
-PKEY_Devices_DeviceDescription2 = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=82)
-PKEY_Devices_DeviceHasProblem = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=6)
-PKEY_Devices_DeviceInstanceId = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=256)
-PKEY_Devices_DeviceManufacturer = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=13)
-PKEY_Devices_DevObjectType = PROPERTYKEY(Fmtid='13673f42-a3d6-49f6-b4da-ae46e0c5237c', Pid=2)
-PKEY_Devices_DialProtocol_InstalledApplications = PROPERTYKEY(Fmtid='6845cc72-1b71-48c3-af86-b09171a19b14', Pid=3)
-PKEY_Devices_DiscoveryMethod = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=52)
-PKEY_Devices_Dnssd_Domain = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=3)
-PKEY_Devices_Dnssd_FullName = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=5)
-PKEY_Devices_Dnssd_HostName = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=7)
-PKEY_Devices_Dnssd_InstanceName = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=4)
-PKEY_Devices_Dnssd_NetworkAdapterId = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=11)
-PKEY_Devices_Dnssd_PortNumber = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=12)
-PKEY_Devices_Dnssd_Priority = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=9)
-PKEY_Devices_Dnssd_ServiceName = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=2)
-PKEY_Devices_Dnssd_TextAttributes = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=6)
-PKEY_Devices_Dnssd_Ttl = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=10)
-PKEY_Devices_Dnssd_Weight = PROPERTYKEY(Fmtid='bf79c0ab-bb74-4cee-b070-470b5ae202ea', Pid=8)
-PKEY_Devices_FriendlyName = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12288)
-PKEY_Devices_FunctionPaths = PROPERTYKEY(Fmtid='d08dd4c0-3a9e-462e-8290-7b636b2576b9', Pid=3)
-PKEY_Devices_GlyphIcon = PROPERTYKEY(Fmtid='51236583-0c4a-4fe8-b81f-166aec13f510', Pid=123)
-PKEY_Devices_HardwareIds = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=3)
-PKEY_Devices_Icon = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=57)
-PKEY_Devices_InLocalMachineContainer = PROPERTYKEY(Fmtid='8c7ed206-3f8a-4827-b3ab-ae9e1faefc6c', Pid=4)
-PKEY_Devices_InterfaceClassGuid = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=4)
-PKEY_Devices_InterfaceEnabled = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=3)
-PKEY_Devices_InterfacePaths = PROPERTYKEY(Fmtid='d08dd4c0-3a9e-462e-8290-7b636b2576b9', Pid=2)
-PKEY_Devices_IpAddress = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=12297)
-PKEY_Devices_IsDefault = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=86)
-PKEY_Devices_IsNetworkConnected = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=85)
-PKEY_Devices_IsShared = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=84)
-PKEY_Devices_IsSoftwareInstalling = PROPERTYKEY(Fmtid='83da6326-97a6-4088-9453-a1923f573b29', Pid=9)
-PKEY_Devices_LaunchDeviceStageFromExplorer = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=77)
-PKEY_Devices_LocalMachine = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=70)
-PKEY_Devices_LocationPaths = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=37)
-PKEY_Devices_Manufacturer = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8192)
-PKEY_Devices_MetadataPath = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=71)
-PKEY_Devices_MicrophoneArray_Geometry = PROPERTYKEY(Fmtid='a1829ea2-27eb-459e-935d-b2fad7b07762', Pid=2)
-PKEY_Devices_MissedCalls = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=5)
-PKEY_Devices_ModelId = PROPERTYKEY(Fmtid='80d81ea6-7473-4b0c-8216-efc11a2c4c8b', Pid=2)
-PKEY_Devices_ModelName = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8194)
-PKEY_Devices_ModelNumber = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8195)
-PKEY_Devices_NetworkedTooltip = PROPERTYKEY(Fmtid='880f70a2-6082-47ac-8aab-a739d1a300c3', Pid=152)
-PKEY_Devices_NetworkName = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=7)
-PKEY_Devices_NetworkType = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=8)
-PKEY_Devices_NewPictures = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=4)
-PKEY_Devices_Notification = PROPERTYKEY(Fmtid='06704b0c-e830-4c81-9178-91e4e95a80a0', Pid=3)
-PKEY_Devices_Notifications_LowBattery = PROPERTYKEY(Fmtid='c4c07f2b-8524-4e66-ae3a-a6235f103beb', Pid=2)
-PKEY_Devices_Notifications_MissedCall = PROPERTYKEY(Fmtid='6614ef48-4efe-4424-9eda-c79f404edf3e', Pid=2)
-PKEY_Devices_Notifications_NewMessage = PROPERTYKEY(Fmtid='2be9260a-2012-4742-a555-f41b638b7dcb', Pid=2)
-PKEY_Devices_Notifications_NewVoicemail = PROPERTYKEY(Fmtid='59569556-0a08-4212-95b9-fae2ad6413db', Pid=2)
-PKEY_Devices_Notifications_StorageFull = PROPERTYKEY(Fmtid='a0e00ee1-f0c7-4d41-b8e7-26a7bd8d38b0', Pid=2)
-PKEY_Devices_Notifications_StorageFullLinkText = PROPERTYKEY(Fmtid='a0e00ee1-f0c7-4d41-b8e7-26a7bd8d38b0', Pid=3)
-PKEY_Devices_NotificationStore = PROPERTYKEY(Fmtid='06704b0c-e830-4c81-9178-91e4e95a80a0', Pid=2)
-PKEY_Devices_NotWorkingProperly = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=83)
-PKEY_Devices_Paired = PROPERTYKEY(Fmtid='78c34fc8-104a-4aca-9ea4-524d52996e57', Pid=56)
-PKEY_Devices_Panel_PanelGroup = PROPERTYKEY(Fmtid='8dbc9c86-97a9-4bff-9bc6-bfe95d3e6dad', Pid=3)
-PKEY_Devices_Panel_PanelId = PROPERTYKEY(Fmtid='8dbc9c86-97a9-4bff-9bc6-bfe95d3e6dad', Pid=2)
-PKEY_Devices_Parent = PROPERTYKEY(Fmtid='4340a6c5-93fa-4706-972c-7b648008a5a7', Pid=8)
-PKEY_Devices_PhoneLineTransportDevice_Connected = PROPERTYKEY(Fmtid='aecf2fe8-1d00-4fee-8a6d-a70d719b772b', Pid=2)
-PKEY_Devices_PhysicalDeviceLocation = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=9)
-PKEY_Devices_PlaybackPositionPercent = PROPERTYKEY(Fmtid='3633de59-6825-4381-a49b-9f6ba13a1471', Pid=5)
-PKEY_Devices_PlaybackState = PROPERTYKEY(Fmtid='3633de59-6825-4381-a49b-9f6ba13a1471', Pid=2)
+def _define_PKEY_Devices_AepService_Bluetooth_ServiceGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a399aac7-c265-474e-b0-73-ff-ce-57-72-17-16'), pid=2)
+def _define_PKEY_Devices_AepService_Bluetooth_TargetDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9744311e-7951-4b2e-b6-f0-ec-b2-93-ca-c1-19'), pid=6)
+def _define_PKEY_Devices_AepService_ContainerId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('71724756-3e74-4432-9b-59-e7-b2-f6-68-a5-93'), pid=4)
+def _define_PKEY_Devices_AepService_FriendlyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('71724756-3e74-4432-9b-59-e7-b2-f6-68-a5-93'), pid=2)
+def _define_PKEY_Devices_AepService_IoT_ServiceInterfaces():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('79d94e82-4d79-45aa-82-1a-74-85-8b-4e-4c-a6'), pid=2)
+def _define_PKEY_Devices_AepService_ParentAepIsPaired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9c141a9-1b4c-4f17-a9-d1-f2-98-53-8c-ad-b8'), pid=7)
+def _define_PKEY_Devices_AepService_ProtocolId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9c141a9-1b4c-4f17-a9-d1-f2-98-53-8c-ad-b8'), pid=5)
+def _define_PKEY_Devices_AepService_ServiceClassId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('71724756-3e74-4432-9b-59-e7-b2-f6-68-a5-93'), pid=3)
+def _define_PKEY_Devices_AepService_ServiceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9c141a9-1b4c-4f17-a9-d1-f2-98-53-8c-ad-b8'), pid=2)
+def _define_PKEY_Devices_AppPackageFamilyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('51236583-0c4a-4fe8-b8-1f-16-6a-ec-13-f5-10'), pid=100)
+def _define_PKEY_Devices_AudioDevice_Microphone_IsFarField():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8943b373-388c-4395-b5-57-bc-6d-ba-ff-af-db'), pid=6)
+def _define_PKEY_Devices_AudioDevice_Microphone_SensitivityInDbfs():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8943b373-388c-4395-b5-57-bc-6d-ba-ff-af-db'), pid=3)
+def _define_PKEY_Devices_AudioDevice_Microphone_SensitivityInDbfs2():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8943b373-388c-4395-b5-57-bc-6d-ba-ff-af-db'), pid=5)
+def _define_PKEY_Devices_AudioDevice_Microphone_SignalToNoiseRatioInDb():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8943b373-388c-4395-b5-57-bc-6d-ba-ff-af-db'), pid=4)
+def _define_PKEY_Devices_AudioDevice_RawProcessingSupported():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8943b373-388c-4395-b5-57-bc-6d-ba-ff-af-db'), pid=2)
+def _define_PKEY_Devices_AudioDevice_SpeechProcessingSupported():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fb1de864-e06d-47f4-82-a6-8a-0a-ef-44-49-3c'), pid=2)
+def _define_PKEY_Devices_BatteryLife():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=10)
+def _define_PKEY_Devices_BatteryPlusCharging():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=22)
+def _define_PKEY_Devices_BatteryPlusChargingText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=23)
+def _define_PKEY_Devices_Category():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=91)
+def _define_PKEY_Devices_CategoryGroup():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=94)
+def _define_PKEY_Devices_CategoryIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=90)
+def _define_PKEY_Devices_CategoryPlural():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=92)
+def _define_PKEY_Devices_ChallengeAep():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0774315e-b714-48ec-8d-e8-81-25-c0-77-ac-11'), pid=2)
+def _define_PKEY_Devices_ChargingState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=11)
+def _define_PKEY_Devices_Children():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=9)
+def _define_PKEY_Devices_ClassGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=10)
+def _define_PKEY_Devices_CompatibleIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=4)
+def _define_PKEY_Devices_Connected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=55)
+def _define_PKEY_Devices_ContainerId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8c7ed206-3f8a-4827-b3-ab-ae-9e-1f-ae-fc-6c'), pid=2)
+def _define_PKEY_Devices_DefaultTooltip():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('880f70a2-6082-47ac-8a-ab-a7-39-d1-a3-00-c3'), pid=153)
+def _define_PKEY_Devices_DeviceCapabilities():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=17)
+def _define_PKEY_Devices_DeviceCharacteristics():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=29)
+def _define_PKEY_Devices_DeviceDescription1():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=81)
+def _define_PKEY_Devices_DeviceDescription2():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=82)
+def _define_PKEY_Devices_DeviceHasProblem():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=6)
+def _define_PKEY_Devices_DeviceInstanceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=256)
+def _define_PKEY_Devices_DeviceManufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=13)
+def _define_PKEY_Devices_DevObjectType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('13673f42-a3d6-49f6-b4-da-ae-46-e0-c5-23-7c'), pid=2)
+def _define_PKEY_Devices_DialProtocol_InstalledApplications():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6845cc72-1b71-48c3-af-86-b0-91-71-a1-9b-14'), pid=3)
+def _define_PKEY_Devices_DiscoveryMethod():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=52)
+def _define_PKEY_Devices_Dnssd_Domain():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=3)
+def _define_PKEY_Devices_Dnssd_FullName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=5)
+def _define_PKEY_Devices_Dnssd_HostName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=7)
+def _define_PKEY_Devices_Dnssd_InstanceName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=4)
+def _define_PKEY_Devices_Dnssd_NetworkAdapterId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=11)
+def _define_PKEY_Devices_Dnssd_PortNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=12)
+def _define_PKEY_Devices_Dnssd_Priority():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=9)
+def _define_PKEY_Devices_Dnssd_ServiceName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=2)
+def _define_PKEY_Devices_Dnssd_TextAttributes():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=6)
+def _define_PKEY_Devices_Dnssd_Ttl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=10)
+def _define_PKEY_Devices_Dnssd_Weight():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bf79c0ab-bb74-4cee-b0-70-47-0b-5a-e2-02-ea'), pid=8)
+def _define_PKEY_Devices_FriendlyName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12288)
+def _define_PKEY_Devices_FunctionPaths():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d08dd4c0-3a9e-462e-82-90-7b-63-6b-25-76-b9'), pid=3)
+def _define_PKEY_Devices_GlyphIcon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('51236583-0c4a-4fe8-b8-1f-16-6a-ec-13-f5-10'), pid=123)
+def _define_PKEY_Devices_HardwareIds():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=3)
+def _define_PKEY_Devices_Icon():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=57)
+def _define_PKEY_Devices_InLocalMachineContainer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8c7ed206-3f8a-4827-b3-ab-ae-9e-1f-ae-fc-6c'), pid=4)
+def _define_PKEY_Devices_InterfaceClassGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=4)
+def _define_PKEY_Devices_InterfaceEnabled():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=3)
+def _define_PKEY_Devices_InterfacePaths():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d08dd4c0-3a9e-462e-82-90-7b-63-6b-25-76-b9'), pid=2)
+def _define_PKEY_Devices_IpAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=12297)
+def _define_PKEY_Devices_IsDefault():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=86)
+def _define_PKEY_Devices_IsNetworkConnected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=85)
+def _define_PKEY_Devices_IsShared():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=84)
+def _define_PKEY_Devices_IsSoftwareInstalling():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('83da6326-97a6-4088-94-53-a1-92-3f-57-3b-29'), pid=9)
+def _define_PKEY_Devices_LaunchDeviceStageFromExplorer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=77)
+def _define_PKEY_Devices_LocalMachine():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=70)
+def _define_PKEY_Devices_LocationPaths():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a45c254e-df1c-4efd-80-20-67-d1-46-a8-50-e0'), pid=37)
+def _define_PKEY_Devices_Manufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8192)
+def _define_PKEY_Devices_MetadataPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=71)
+def _define_PKEY_Devices_MicrophoneArray_Geometry():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a1829ea2-27eb-459e-93-5d-b2-fa-d7-b0-77-62'), pid=2)
+def _define_PKEY_Devices_MissedCalls():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=5)
+def _define_PKEY_Devices_ModelId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('80d81ea6-7473-4b0c-82-16-ef-c1-1a-2c-4c-8b'), pid=2)
+def _define_PKEY_Devices_ModelName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8194)
+def _define_PKEY_Devices_ModelNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8195)
+def _define_PKEY_Devices_NetworkedTooltip():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('880f70a2-6082-47ac-8a-ab-a7-39-d1-a3-00-c3'), pid=152)
+def _define_PKEY_Devices_NetworkName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=7)
+def _define_PKEY_Devices_NetworkType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=8)
+def _define_PKEY_Devices_NewPictures():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=4)
+def _define_PKEY_Devices_Notification():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('06704b0c-e830-4c81-91-78-91-e4-e9-5a-80-a0'), pid=3)
+def _define_PKEY_Devices_Notifications_LowBattery():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c4c07f2b-8524-4e66-ae-3a-a6-23-5f-10-3b-eb'), pid=2)
+def _define_PKEY_Devices_Notifications_MissedCall():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6614ef48-4efe-4424-9e-da-c7-9f-40-4e-df-3e'), pid=2)
+def _define_PKEY_Devices_Notifications_NewMessage():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2be9260a-2012-4742-a5-55-f4-1b-63-8b-7d-cb'), pid=2)
+def _define_PKEY_Devices_Notifications_NewVoicemail():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('59569556-0a08-4212-95-b9-fa-e2-ad-64-13-db'), pid=2)
+def _define_PKEY_Devices_Notifications_StorageFull():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a0e00ee1-f0c7-4d41-b8-e7-26-a7-bd-8d-38-b0'), pid=2)
+def _define_PKEY_Devices_Notifications_StorageFullLinkText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a0e00ee1-f0c7-4d41-b8-e7-26-a7-bd-8d-38-b0'), pid=3)
+def _define_PKEY_Devices_NotificationStore():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('06704b0c-e830-4c81-91-78-91-e4-e9-5a-80-a0'), pid=2)
+def _define_PKEY_Devices_NotWorkingProperly():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=83)
+def _define_PKEY_Devices_Paired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78c34fc8-104a-4aca-9e-a4-52-4d-52-99-6e-57'), pid=56)
+def _define_PKEY_Devices_Panel_PanelGroup():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8dbc9c86-97a9-4bff-9b-c6-bf-e9-5d-3e-6d-ad'), pid=3)
+def _define_PKEY_Devices_Panel_PanelId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8dbc9c86-97a9-4bff-9b-c6-bf-e9-5d-3e-6d-ad'), pid=2)
+def _define_PKEY_Devices_Parent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4340a6c5-93fa-4706-97-2c-7b-64-80-08-a5-a7'), pid=8)
+def _define_PKEY_Devices_PhoneLineTransportDevice_Connected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aecf2fe8-1d00-4fee-8a-6d-a7-0d-71-9b-77-2b'), pid=2)
+def _define_PKEY_Devices_PhysicalDeviceLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=9)
+def _define_PKEY_Devices_PlaybackPositionPercent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3633de59-6825-4381-a4-9b-9f-6b-a1-3a-14-71'), pid=5)
+def _define_PKEY_Devices_PlaybackState():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3633de59-6825-4381-a4-9b-9f-6b-a1-3a-14-71'), pid=2)
 PLAYBACKSTATE_UNKNOWN = 0
 PLAYBACKSTATE_STOPPED = 1
 PLAYBACKSTATE_PLAYING = 2
@@ -745,289 +1424,575 @@ PLAYBACKSTATE_PAUSED = 4
 PLAYBACKSTATE_RECORDINGPAUSED = 5
 PLAYBACKSTATE_RECORDING = 6
 PLAYBACKSTATE_NOMEDIA = 7
-PKEY_Devices_PlaybackTitle = PROPERTYKEY(Fmtid='3633de59-6825-4381-a49b-9f6ba13a1471', Pid=3)
-PKEY_Devices_Present = PROPERTYKEY(Fmtid='540b947e-8b40-45bc-a8a2-6a0b894cbda2', Pid=5)
-PKEY_Devices_PresentationUrl = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=8198)
-PKEY_Devices_PrimaryCategory = PROPERTYKEY(Fmtid='d08dd4c0-3a9e-462e-8290-7b636b2576b9', Pid=10)
-PKEY_Devices_RemainingDuration = PROPERTYKEY(Fmtid='3633de59-6825-4381-a49b-9f6ba13a1471', Pid=4)
-PKEY_Devices_RestrictedInterface = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=6)
-PKEY_Devices_Roaming = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=9)
-PKEY_Devices_SafeRemovalRequired = PROPERTYKEY(Fmtid='afd97640-86a3-4210-b67c-289c41aabe55', Pid=2)
-PKEY_Devices_SchematicName = PROPERTYKEY(Fmtid='026e516e-b814-414b-83cd-856d6fef4822', Pid=9)
-PKEY_Devices_ServiceAddress = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16384)
-PKEY_Devices_ServiceId = PROPERTYKEY(Fmtid='656a3bb3-ecc0-43fd-8477-4ae0404a96cd', Pid=16385)
-PKEY_Devices_SharedTooltip = PROPERTYKEY(Fmtid='880f70a2-6082-47ac-8aab-a739d1a300c3', Pid=151)
-PKEY_Devices_SignalStrength = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=2)
-PKEY_Devices_SmartCards_ReaderKind = PROPERTYKEY(Fmtid='d6b5b883-18bd-4b4d-b2ec-9e38affeda82', Pid=2)
-PKEY_Devices_Status = PROPERTYKEY(Fmtid='d08dd4c0-3a9e-462e-8290-7b636b2576b9', Pid=259)
-PKEY_Devices_Status1 = PROPERTYKEY(Fmtid='d08dd4c0-3a9e-462e-8290-7b636b2576b9', Pid=257)
-PKEY_Devices_Status2 = PROPERTYKEY(Fmtid='d08dd4c0-3a9e-462e-8290-7b636b2576b9', Pid=258)
-PKEY_Devices_StorageCapacity = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=12)
-PKEY_Devices_StorageFreeSpace = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=13)
-PKEY_Devices_StorageFreeSpacePercent = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=14)
-PKEY_Devices_TextMessages = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=3)
-PKEY_Devices_Voicemail = PROPERTYKEY(Fmtid='49cd1f76-5626-4b17-a4e8-18b4aa1a2213', Pid=6)
-PKEY_Devices_WiaDeviceType = PROPERTYKEY(Fmtid='6bdd1fc6-810f-11d0-bec7-08002be2092f', Pid=2)
-PKEY_Devices_WiFi_InterfaceGuid = PROPERTYKEY(Fmtid='ef1167eb-cbfc-4341-a568-a7c91a68982c', Pid=2)
-PKEY_Devices_WiFiDirect_DeviceAddress = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=13)
-PKEY_Devices_WiFiDirect_GroupId = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=4)
-PKEY_Devices_WiFiDirect_InformationElements = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=12)
-PKEY_Devices_WiFiDirect_InterfaceAddress = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=2)
-PKEY_Devices_WiFiDirect_InterfaceGuid = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=3)
-PKEY_Devices_WiFiDirect_IsConnected = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=5)
-PKEY_Devices_WiFiDirect_IsLegacyDevice = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=7)
-PKEY_Devices_WiFiDirect_IsMiracastLcpSupported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=9)
-PKEY_Devices_WiFiDirect_IsVisible = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=6)
-PKEY_Devices_WiFiDirect_MiracastVersion = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=8)
-PKEY_Devices_WiFiDirect_Services = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=10)
-PKEY_Devices_WiFiDirect_SupportedChannelList = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=11)
-PKEY_Devices_WiFiDirectServices_AdvertisementId = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=5)
-PKEY_Devices_WiFiDirectServices_RequestServiceInformation = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=7)
-PKEY_Devices_WiFiDirectServices_ServiceAddress = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=2)
-PKEY_Devices_WiFiDirectServices_ServiceConfigMethods = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=6)
-PKEY_Devices_WiFiDirectServices_ServiceInformation = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=4)
-PKEY_Devices_WiFiDirectServices_ServiceName = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=3)
-PKEY_Devices_WinPhone8CameraFlags = PROPERTYKEY(Fmtid='b7b4d61c-5a64-4187-a52e-b1539f359099', Pid=2)
-PKEY_Devices_Wwan_InterfaceGuid = PROPERTYKEY(Fmtid='ff1167eb-cbfc-4341-a568-a7c91a68982c', Pid=2)
-PKEY_Storage_Portable = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=2)
-PKEY_Storage_RemovableMedia = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=3)
-PKEY_Storage_SystemCritical = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=4)
-PKEY_Document_ByteCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=4)
-PKEY_Document_CharacterCount = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=16)
-PKEY_Document_ClientID = PROPERTYKEY(Fmtid='276d7bb0-5b34-4fb0-aa4b-158ed12a1809', Pid=100)
-PKEY_Document_Contributor = PROPERTYKEY(Fmtid='f334115e-da1b-4509-9b3d-119504dc7abb', Pid=100)
-PKEY_Document_DateCreated = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=12)
-PKEY_Document_DatePrinted = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=11)
-PKEY_Document_DateSaved = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=13)
-PKEY_Document_Division = PROPERTYKEY(Fmtid='1e005ee6-bf27-428b-b01c-79676acd2870', Pid=100)
-PKEY_Document_DocumentID = PROPERTYKEY(Fmtid='e08805c8-e395-40df-80d2-54f0d6c43154', Pid=100)
-PKEY_Document_HiddenSlideCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=9)
-PKEY_Document_LastAuthor = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=8)
-PKEY_Document_LineCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=5)
-PKEY_Document_Manager = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=14)
-PKEY_Document_MultimediaClipCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=10)
-PKEY_Document_NoteCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=8)
-PKEY_Document_PageCount = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=14)
-PKEY_Document_ParagraphCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=6)
-PKEY_Document_PresentationFormat = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=3)
-PKEY_Document_RevisionNumber = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=9)
-PKEY_Document_Security = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=19)
-PKEY_Document_SlideCount = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=7)
-PKEY_Document_Template = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=7)
-PKEY_Document_TotalEditingTime = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=10)
-PKEY_Document_Version = PROPERTYKEY(Fmtid='d5cdd502-2e9c-101b-9397-08002b2cf9ae', Pid=29)
-PKEY_Document_WordCount = PROPERTYKEY(Fmtid='f29f85e0-4ff9-1068-ab91-08002b27b3d9', Pid=15)
-PKEY_DRM_DatePlayExpires = PROPERTYKEY(Fmtid='aeac19e4-89ae-4508-b9b7-bb867abee2ed', Pid=6)
-PKEY_DRM_DatePlayStarts = PROPERTYKEY(Fmtid='aeac19e4-89ae-4508-b9b7-bb867abee2ed', Pid=5)
-PKEY_DRM_Description = PROPERTYKEY(Fmtid='aeac19e4-89ae-4508-b9b7-bb867abee2ed', Pid=3)
-PKEY_DRM_IsDisabled = PROPERTYKEY(Fmtid='aeac19e4-89ae-4508-b9b7-bb867abee2ed', Pid=7)
-PKEY_DRM_IsProtected = PROPERTYKEY(Fmtid='aeac19e4-89ae-4508-b9b7-bb867abee2ed', Pid=2)
-PKEY_DRM_PlayCount = PROPERTYKEY(Fmtid='aeac19e4-89ae-4508-b9b7-bb867abee2ed', Pid=4)
-PKEY_GPS_Altitude = PROPERTYKEY(Fmtid='827edb4f-5b73-44a7-891d-fdffabea35ca', Pid=100)
-PKEY_GPS_AltitudeDenominator = PROPERTYKEY(Fmtid='78342dcb-e358-4145-ae9a-6bfe4e0f9f51', Pid=100)
-PKEY_GPS_AltitudeNumerator = PROPERTYKEY(Fmtid='2dad1eb7-816d-40d3-9ec3-c9773be2aade', Pid=100)
-PKEY_GPS_AltitudeRef = PROPERTYKEY(Fmtid='46ac629d-75ea-4515-867f-6dc4321c5844', Pid=100)
-PKEY_GPS_AreaInformation = PROPERTYKEY(Fmtid='972e333e-ac7e-49f1-8adf-a70d07a9bcab', Pid=100)
-PKEY_GPS_Date = PROPERTYKEY(Fmtid='3602c812-0f3b-45f0-85ad-603468d69423', Pid=100)
-PKEY_GPS_DestBearing = PROPERTYKEY(Fmtid='c66d4b3c-e888-47cc-b99f-9dca3ee34dea', Pid=100)
-PKEY_GPS_DestBearingDenominator = PROPERTYKEY(Fmtid='7abcf4f8-7c3f-4988-ac91-8d2c2e97eca5', Pid=100)
-PKEY_GPS_DestBearingNumerator = PROPERTYKEY(Fmtid='ba3b1da9-86ee-4b5d-a2a4-a271a429f0cf', Pid=100)
-PKEY_GPS_DestBearingRef = PROPERTYKEY(Fmtid='9ab84393-2a0f-4b75-bb22-7279786977cb', Pid=100)
-PKEY_GPS_DestDistance = PROPERTYKEY(Fmtid='a93eae04-6804-4f24-ac81-09b266452118', Pid=100)
-PKEY_GPS_DestDistanceDenominator = PROPERTYKEY(Fmtid='9bc2c99b-ac71-4127-9d1c-2596d0d7dcb7', Pid=100)
-PKEY_GPS_DestDistanceNumerator = PROPERTYKEY(Fmtid='2bda47da-08c6-4fe1-80bc-a72fc517c5d0', Pid=100)
-PKEY_GPS_DestDistanceRef = PROPERTYKEY(Fmtid='ed4df2d3-8695-450b-856f-f5c1c53acb66', Pid=100)
-PKEY_GPS_DestLatitude = PROPERTYKEY(Fmtid='9d1d7cc5-5c39-451c-86b3-928e2d18cc47', Pid=100)
-PKEY_GPS_DestLatitudeDenominator = PROPERTYKEY(Fmtid='3a372292-7fca-49a7-99d5-e47bb2d4e7ab', Pid=100)
-PKEY_GPS_DestLatitudeNumerator = PROPERTYKEY(Fmtid='ecf4b6f6-d5a6-433c-bb92-4076650fc890', Pid=100)
-PKEY_GPS_DestLatitudeRef = PROPERTYKEY(Fmtid='cea820b9-ce61-4885-a128-005d9087c192', Pid=100)
-PKEY_GPS_DestLongitude = PROPERTYKEY(Fmtid='47a96261-cb4c-4807-8ad3-40b9d9dbc6bc', Pid=100)
-PKEY_GPS_DestLongitudeDenominator = PROPERTYKEY(Fmtid='425d69e5-48ad-4900-8d80-6eb6b8d0ac86', Pid=100)
-PKEY_GPS_DestLongitudeNumerator = PROPERTYKEY(Fmtid='a3250282-fb6d-48d5-9a89-dbcace75cccf', Pid=100)
-PKEY_GPS_DestLongitudeRef = PROPERTYKEY(Fmtid='182c1ea6-7c1c-4083-ab4b-ac6c9f4ed128', Pid=100)
-PKEY_GPS_Differential = PROPERTYKEY(Fmtid='aaf4ee25-bd3b-4dd7-bfc4-47f77bb00f6d', Pid=100)
-PKEY_GPS_DOP = PROPERTYKEY(Fmtid='0cf8fb02-1837-42f1-a697-a7017aa289b9', Pid=100)
-PKEY_GPS_DOPDenominator = PROPERTYKEY(Fmtid='a0be94c5-50ba-487b-bd35-0654be8881ed', Pid=100)
-PKEY_GPS_DOPNumerator = PROPERTYKEY(Fmtid='47166b16-364f-4aa0-9f31-e2ab3df449c3', Pid=100)
-PKEY_GPS_ImgDirection = PROPERTYKEY(Fmtid='16473c91-d017-4ed9-ba4d-b6baa55dbcf8', Pid=100)
-PKEY_GPS_ImgDirectionDenominator = PROPERTYKEY(Fmtid='10b24595-41a2-4e20-93c2-5761c1395f32', Pid=100)
-PKEY_GPS_ImgDirectionNumerator = PROPERTYKEY(Fmtid='dc5877c7-225f-45f7-bac7-e81334b6130a', Pid=100)
-PKEY_GPS_ImgDirectionRef = PROPERTYKEY(Fmtid='a4aaa5b7-1ad0-445f-811a-0f8f6e67f6b5', Pid=100)
-PKEY_GPS_Latitude = PROPERTYKEY(Fmtid='8727cfff-4868-4ec6-ad5b-81b98521d1ab', Pid=100)
-PKEY_GPS_LatitudeDecimal = PROPERTYKEY(Fmtid='0f55cde2-4f49-450d-92c1-dcd16301b1b7', Pid=100)
-PKEY_GPS_LatitudeDenominator = PROPERTYKEY(Fmtid='16e634ee-2bff-497b-bd8a-4341ad39eeb9', Pid=100)
-PKEY_GPS_LatitudeNumerator = PROPERTYKEY(Fmtid='7ddaaad1-ccc8-41ae-b750-b2cb8031aea2', Pid=100)
-PKEY_GPS_LatitudeRef = PROPERTYKEY(Fmtid='029c0252-5b86-46c7-aca0-2769ffc8e3d4', Pid=100)
-PKEY_GPS_Longitude = PROPERTYKEY(Fmtid='c4c4dbb2-b593-466b-bbda-d03d27d5e43a', Pid=100)
-PKEY_GPS_LongitudeDecimal = PROPERTYKEY(Fmtid='4679c1b5-844d-4590-baf5-f322231f1b81', Pid=100)
-PKEY_GPS_LongitudeDenominator = PROPERTYKEY(Fmtid='be6e176c-4534-4d2c-ace5-31dedac1606b', Pid=100)
-PKEY_GPS_LongitudeNumerator = PROPERTYKEY(Fmtid='02b0f689-a914-4e45-821d-1dda452ed2c4', Pid=100)
-PKEY_GPS_LongitudeRef = PROPERTYKEY(Fmtid='33dcf22b-28d5-464c-8035-1ee9efd25278', Pid=100)
-PKEY_GPS_MapDatum = PROPERTYKEY(Fmtid='2ca2dae6-eddc-407d-bef1-773942abfa95', Pid=100)
-PKEY_GPS_MeasureMode = PROPERTYKEY(Fmtid='a015ed5d-aaea-4d58-8a86-3c586920ea0b', Pid=100)
-PKEY_GPS_ProcessingMethod = PROPERTYKEY(Fmtid='59d49e61-840f-4aa9-a939-e2099b7f6399', Pid=100)
-PKEY_GPS_Satellites = PROPERTYKEY(Fmtid='467ee575-1f25-4557-ad4e-b8b58b0d9c15', Pid=100)
-PKEY_GPS_Speed = PROPERTYKEY(Fmtid='da5d0862-6e76-4e1b-babd-70021bd25494', Pid=100)
-PKEY_GPS_SpeedDenominator = PROPERTYKEY(Fmtid='7d122d5a-ae5e-4335-8841-d71e7ce72f53', Pid=100)
-PKEY_GPS_SpeedNumerator = PROPERTYKEY(Fmtid='acc9ce3d-c213-4942-8b48-6d0820f21c6d', Pid=100)
-PKEY_GPS_SpeedRef = PROPERTYKEY(Fmtid='ecf7f4c9-544f-4d6d-9d98-8ad79adaf453', Pid=100)
-PKEY_GPS_Status = PROPERTYKEY(Fmtid='125491f4-818f-46b2-91b5-d537753617b2', Pid=100)
-PKEY_GPS_Track = PROPERTYKEY(Fmtid='76c09943-7c33-49e3-9e7e-cdba872cfada', Pid=100)
-PKEY_GPS_TrackDenominator = PROPERTYKEY(Fmtid='c8d1920c-01f6-40c0-ac86-2f3a4ad00770', Pid=100)
-PKEY_GPS_TrackNumerator = PROPERTYKEY(Fmtid='702926f4-44a6-43e1-ae71-45627116893b', Pid=100)
-PKEY_GPS_TrackRef = PROPERTYKEY(Fmtid='35dbe6fe-44c3-4400-aaae-d2c799c407e8', Pid=100)
-PKEY_GPS_VersionID = PROPERTYKEY(Fmtid='22704da4-c6b2-4a99-8e56-f16df8c92599', Pid=100)
-PKEY_History_VisitCount = PROPERTYKEY(Fmtid='5cbf2787-48cf-4208-b90e-ee5e5d420294', Pid=7)
-PKEY_Image_BitDepth = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=7)
-PKEY_Image_ColorSpace = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=40961)
-PKEY_Image_CompressedBitsPerPixel = PROPERTYKEY(Fmtid='364b6fa9-37ab-482a-be2b-ae02f60d4318', Pid=100)
-PKEY_Image_CompressedBitsPerPixelDenominator = PROPERTYKEY(Fmtid='1f8844e1-24ad-4508-9dfd-5326a415ce02', Pid=100)
-PKEY_Image_CompressedBitsPerPixelNumerator = PROPERTYKEY(Fmtid='d21a7148-d32c-4624-8900-277210f79c0f', Pid=100)
-PKEY_Image_Compression = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=259)
-PKEY_Image_CompressionText = PROPERTYKEY(Fmtid='3f08e66f-2f44-4bb9-a682-ac35d2562322', Pid=100)
-PKEY_Image_Dimensions = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=13)
-PKEY_Image_HorizontalResolution = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=5)
-PKEY_Image_HorizontalSize = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=3)
-PKEY_Image_ImageID = PROPERTYKEY(Fmtid='10dabe05-32aa-4c29-bf1a-63e2d220587f', Pid=100)
-PKEY_Image_ResolutionUnit = PROPERTYKEY(Fmtid='19b51fa6-1f92-4a5c-ab48-7df0abd67444', Pid=100)
-PKEY_Image_VerticalResolution = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=6)
-PKEY_Image_VerticalSize = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=4)
-PKEY_Journal_Contacts = PROPERTYKEY(Fmtid='dea7c82c-1d89-4a66-9427-a4e3debabcb1', Pid=100)
-PKEY_Journal_EntryType = PROPERTYKEY(Fmtid='95beb1fc-326d-4644-b396-cd3ed90e6ddf', Pid=100)
-PKEY_LayoutPattern_ContentViewModeForBrowse = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=500)
-PKEY_LayoutPattern_ContentViewModeForSearch = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=501)
-PKEY_History_SelectionCount = PROPERTYKEY(Fmtid='1ce0d6bc-536c-4600-b0dd-7e0c66b350d5', Pid=8)
-PKEY_History_TargetUrlHostName = PROPERTYKEY(Fmtid='1ce0d6bc-536c-4600-b0dd-7e0c66b350d5', Pid=9)
-PKEY_Link_Arguments = PROPERTYKEY(Fmtid='436f2667-14e2-4feb-b30a-146c53b5b674', Pid=100)
-PKEY_Link_Comment = PROPERTYKEY(Fmtid='b9b4b3fc-2b51-4a42-b5d8-324146afcf25', Pid=5)
-PKEY_Link_DateVisited = PROPERTYKEY(Fmtid='5cbf2787-48cf-4208-b90e-ee5e5d420294', Pid=23)
-PKEY_Link_Description = PROPERTYKEY(Fmtid='5cbf2787-48cf-4208-b90e-ee5e5d420294', Pid=21)
-PKEY_Link_FeedItemLocalId = PROPERTYKEY(Fmtid='8a2f99f9-3c37-465d-a8d7-69777a246d0c', Pid=2)
-PKEY_Link_Status = PROPERTYKEY(Fmtid='b9b4b3fc-2b51-4a42-b5d8-324146afcf25', Pid=3)
+def _define_PKEY_Devices_PlaybackTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3633de59-6825-4381-a4-9b-9f-6b-a1-3a-14-71'), pid=3)
+def _define_PKEY_Devices_Present():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('540b947e-8b40-45bc-a8-a2-6a-0b-89-4c-bd-a2'), pid=5)
+def _define_PKEY_Devices_PresentationUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=8198)
+def _define_PKEY_Devices_PrimaryCategory():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d08dd4c0-3a9e-462e-82-90-7b-63-6b-25-76-b9'), pid=10)
+def _define_PKEY_Devices_RemainingDuration():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3633de59-6825-4381-a4-9b-9f-6b-a1-3a-14-71'), pid=4)
+def _define_PKEY_Devices_RestrictedInterface():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=6)
+def _define_PKEY_Devices_Roaming():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=9)
+def _define_PKEY_Devices_SafeRemovalRequired():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('afd97640-86a3-4210-b6-7c-28-9c-41-aa-be-55'), pid=2)
+def _define_PKEY_Devices_SchematicName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('026e516e-b814-414b-83-cd-85-6d-6f-ef-48-22'), pid=9)
+def _define_PKEY_Devices_ServiceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16384)
+def _define_PKEY_Devices_ServiceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('656a3bb3-ecc0-43fd-84-77-4a-e0-40-4a-96-cd'), pid=16385)
+def _define_PKEY_Devices_SharedTooltip():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('880f70a2-6082-47ac-8a-ab-a7-39-d1-a3-00-c3'), pid=151)
+def _define_PKEY_Devices_SignalStrength():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=2)
+def _define_PKEY_Devices_SmartCards_ReaderKind():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d6b5b883-18bd-4b4d-b2-ec-9e-38-af-fe-da-82'), pid=2)
+def _define_PKEY_Devices_Status():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d08dd4c0-3a9e-462e-82-90-7b-63-6b-25-76-b9'), pid=259)
+def _define_PKEY_Devices_Status1():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d08dd4c0-3a9e-462e-82-90-7b-63-6b-25-76-b9'), pid=257)
+def _define_PKEY_Devices_Status2():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d08dd4c0-3a9e-462e-82-90-7b-63-6b-25-76-b9'), pid=258)
+def _define_PKEY_Devices_StorageCapacity():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=12)
+def _define_PKEY_Devices_StorageFreeSpace():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=13)
+def _define_PKEY_Devices_StorageFreeSpacePercent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=14)
+def _define_PKEY_Devices_TextMessages():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=3)
+def _define_PKEY_Devices_Voicemail():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49cd1f76-5626-4b17-a4-e8-18-b4-aa-1a-22-13'), pid=6)
+def _define_PKEY_Devices_WiaDeviceType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6bdd1fc6-810f-11d0-be-c7-08-00-2b-e2-09-2f'), pid=2)
+def _define_PKEY_Devices_WiFi_InterfaceGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ef1167eb-cbfc-4341-a5-68-a7-c9-1a-68-98-2c'), pid=2)
+def _define_PKEY_Devices_WiFiDirect_DeviceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=13)
+def _define_PKEY_Devices_WiFiDirect_GroupId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=4)
+def _define_PKEY_Devices_WiFiDirect_InformationElements():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=12)
+def _define_PKEY_Devices_WiFiDirect_InterfaceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=2)
+def _define_PKEY_Devices_WiFiDirect_InterfaceGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=3)
+def _define_PKEY_Devices_WiFiDirect_IsConnected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=5)
+def _define_PKEY_Devices_WiFiDirect_IsLegacyDevice():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=7)
+def _define_PKEY_Devices_WiFiDirect_IsMiracastLcpSupported():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=9)
+def _define_PKEY_Devices_WiFiDirect_IsVisible():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=6)
+def _define_PKEY_Devices_WiFiDirect_MiracastVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=8)
+def _define_PKEY_Devices_WiFiDirect_Services():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=10)
+def _define_PKEY_Devices_WiFiDirect_SupportedChannelList():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=11)
+def _define_PKEY_Devices_WiFiDirectServices_AdvertisementId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=5)
+def _define_PKEY_Devices_WiFiDirectServices_RequestServiceInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=7)
+def _define_PKEY_Devices_WiFiDirectServices_ServiceAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=2)
+def _define_PKEY_Devices_WiFiDirectServices_ServiceConfigMethods():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=6)
+def _define_PKEY_Devices_WiFiDirectServices_ServiceInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=4)
+def _define_PKEY_Devices_WiFiDirectServices_ServiceName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=3)
+def _define_PKEY_Devices_WinPhone8CameraFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b7b4d61c-5a64-4187-a5-2e-b1-53-9f-35-90-99'), pid=2)
+def _define_PKEY_Devices_Wwan_InterfaceGuid():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ff1167eb-cbfc-4341-a5-68-a7-c9-1a-68-98-2c'), pid=2)
+def _define_PKEY_Storage_Portable():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=2)
+def _define_PKEY_Storage_RemovableMedia():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=3)
+def _define_PKEY_Storage_SystemCritical():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=4)
+def _define_PKEY_Document_ByteCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=4)
+def _define_PKEY_Document_CharacterCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=16)
+def _define_PKEY_Document_ClientID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('276d7bb0-5b34-4fb0-aa-4b-15-8e-d1-2a-18-09'), pid=100)
+def _define_PKEY_Document_Contributor():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f334115e-da1b-4509-9b-3d-11-95-04-dc-7a-bb'), pid=100)
+def _define_PKEY_Document_DateCreated():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=12)
+def _define_PKEY_Document_DatePrinted():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=11)
+def _define_PKEY_Document_DateSaved():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=13)
+def _define_PKEY_Document_Division():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1e005ee6-bf27-428b-b0-1c-79-67-6a-cd-28-70'), pid=100)
+def _define_PKEY_Document_DocumentID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e08805c8-e395-40df-80-d2-54-f0-d6-c4-31-54'), pid=100)
+def _define_PKEY_Document_HiddenSlideCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=9)
+def _define_PKEY_Document_LastAuthor():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=8)
+def _define_PKEY_Document_LineCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=5)
+def _define_PKEY_Document_Manager():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=14)
+def _define_PKEY_Document_MultimediaClipCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=10)
+def _define_PKEY_Document_NoteCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=8)
+def _define_PKEY_Document_PageCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=14)
+def _define_PKEY_Document_ParagraphCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=6)
+def _define_PKEY_Document_PresentationFormat():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=3)
+def _define_PKEY_Document_RevisionNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=9)
+def _define_PKEY_Document_Security():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=19)
+def _define_PKEY_Document_SlideCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=7)
+def _define_PKEY_Document_Template():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=7)
+def _define_PKEY_Document_TotalEditingTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=10)
+def _define_PKEY_Document_Version():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d5cdd502-2e9c-101b-93-97-08-00-2b-2c-f9-ae'), pid=29)
+def _define_PKEY_Document_WordCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f29f85e0-4ff9-1068-ab-91-08-00-2b-27-b3-d9'), pid=15)
+def _define_PKEY_DRM_DatePlayExpires():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aeac19e4-89ae-4508-b9-b7-bb-86-7a-be-e2-ed'), pid=6)
+def _define_PKEY_DRM_DatePlayStarts():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aeac19e4-89ae-4508-b9-b7-bb-86-7a-be-e2-ed'), pid=5)
+def _define_PKEY_DRM_Description():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aeac19e4-89ae-4508-b9-b7-bb-86-7a-be-e2-ed'), pid=3)
+def _define_PKEY_DRM_IsDisabled():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aeac19e4-89ae-4508-b9-b7-bb-86-7a-be-e2-ed'), pid=7)
+def _define_PKEY_DRM_IsProtected():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aeac19e4-89ae-4508-b9-b7-bb-86-7a-be-e2-ed'), pid=2)
+def _define_PKEY_DRM_PlayCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aeac19e4-89ae-4508-b9-b7-bb-86-7a-be-e2-ed'), pid=4)
+def _define_PKEY_GPS_Altitude():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('827edb4f-5b73-44a7-89-1d-fd-ff-ab-ea-35-ca'), pid=100)
+def _define_PKEY_GPS_AltitudeDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('78342dcb-e358-4145-ae-9a-6b-fe-4e-0f-9f-51'), pid=100)
+def _define_PKEY_GPS_AltitudeNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2dad1eb7-816d-40d3-9e-c3-c9-77-3b-e2-aa-de'), pid=100)
+def _define_PKEY_GPS_AltitudeRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('46ac629d-75ea-4515-86-7f-6d-c4-32-1c-58-44'), pid=100)
+def _define_PKEY_GPS_AreaInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('972e333e-ac7e-49f1-8a-df-a7-0d-07-a9-bc-ab'), pid=100)
+def _define_PKEY_GPS_Date():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3602c812-0f3b-45f0-85-ad-60-34-68-d6-94-23'), pid=100)
+def _define_PKEY_GPS_DestBearing():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c66d4b3c-e888-47cc-b9-9f-9d-ca-3e-e3-4d-ea'), pid=100)
+def _define_PKEY_GPS_DestBearingDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7abcf4f8-7c3f-4988-ac-91-8d-2c-2e-97-ec-a5'), pid=100)
+def _define_PKEY_GPS_DestBearingNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ba3b1da9-86ee-4b5d-a2-a4-a2-71-a4-29-f0-cf'), pid=100)
+def _define_PKEY_GPS_DestBearingRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9ab84393-2a0f-4b75-bb-22-72-79-78-69-77-cb'), pid=100)
+def _define_PKEY_GPS_DestDistance():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a93eae04-6804-4f24-ac-81-09-b2-66-45-21-18'), pid=100)
+def _define_PKEY_GPS_DestDistanceDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9bc2c99b-ac71-4127-9d-1c-25-96-d0-d7-dc-b7'), pid=100)
+def _define_PKEY_GPS_DestDistanceNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2bda47da-08c6-4fe1-80-bc-a7-2f-c5-17-c5-d0'), pid=100)
+def _define_PKEY_GPS_DestDistanceRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ed4df2d3-8695-450b-85-6f-f5-c1-c5-3a-cb-66'), pid=100)
+def _define_PKEY_GPS_DestLatitude():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9d1d7cc5-5c39-451c-86-b3-92-8e-2d-18-cc-47'), pid=100)
+def _define_PKEY_GPS_DestLatitudeDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3a372292-7fca-49a7-99-d5-e4-7b-b2-d4-e7-ab'), pid=100)
+def _define_PKEY_GPS_DestLatitudeNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ecf4b6f6-d5a6-433c-bb-92-40-76-65-0f-c8-90'), pid=100)
+def _define_PKEY_GPS_DestLatitudeRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cea820b9-ce61-4885-a1-28-00-5d-90-87-c1-92'), pid=100)
+def _define_PKEY_GPS_DestLongitude():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('47a96261-cb4c-4807-8a-d3-40-b9-d9-db-c6-bc'), pid=100)
+def _define_PKEY_GPS_DestLongitudeDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('425d69e5-48ad-4900-8d-80-6e-b6-b8-d0-ac-86'), pid=100)
+def _define_PKEY_GPS_DestLongitudeNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a3250282-fb6d-48d5-9a-89-db-ca-ce-75-cc-cf'), pid=100)
+def _define_PKEY_GPS_DestLongitudeRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('182c1ea6-7c1c-4083-ab-4b-ac-6c-9f-4e-d1-28'), pid=100)
+def _define_PKEY_GPS_Differential():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aaf4ee25-bd3b-4dd7-bf-c4-47-f7-7b-b0-0f-6d'), pid=100)
+def _define_PKEY_GPS_DOP():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cf8fb02-1837-42f1-a6-97-a7-01-7a-a2-89-b9'), pid=100)
+def _define_PKEY_GPS_DOPDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a0be94c5-50ba-487b-bd-35-06-54-be-88-81-ed'), pid=100)
+def _define_PKEY_GPS_DOPNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('47166b16-364f-4aa0-9f-31-e2-ab-3d-f4-49-c3'), pid=100)
+def _define_PKEY_GPS_ImgDirection():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('16473c91-d017-4ed9-ba-4d-b6-ba-a5-5d-bc-f8'), pid=100)
+def _define_PKEY_GPS_ImgDirectionDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('10b24595-41a2-4e20-93-c2-57-61-c1-39-5f-32'), pid=100)
+def _define_PKEY_GPS_ImgDirectionNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dc5877c7-225f-45f7-ba-c7-e8-13-34-b6-13-0a'), pid=100)
+def _define_PKEY_GPS_ImgDirectionRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a4aaa5b7-1ad0-445f-81-1a-0f-8f-6e-67-f6-b5'), pid=100)
+def _define_PKEY_GPS_Latitude():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8727cfff-4868-4ec6-ad-5b-81-b9-85-21-d1-ab'), pid=100)
+def _define_PKEY_GPS_LatitudeDecimal():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0f55cde2-4f49-450d-92-c1-dc-d1-63-01-b1-b7'), pid=100)
+def _define_PKEY_GPS_LatitudeDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('16e634ee-2bff-497b-bd-8a-43-41-ad-39-ee-b9'), pid=100)
+def _define_PKEY_GPS_LatitudeNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7ddaaad1-ccc8-41ae-b7-50-b2-cb-80-31-ae-a2'), pid=100)
+def _define_PKEY_GPS_LatitudeRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('029c0252-5b86-46c7-ac-a0-27-69-ff-c8-e3-d4'), pid=100)
+def _define_PKEY_GPS_Longitude():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c4c4dbb2-b593-466b-bb-da-d0-3d-27-d5-e4-3a'), pid=100)
+def _define_PKEY_GPS_LongitudeDecimal():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4679c1b5-844d-4590-ba-f5-f3-22-23-1f-1b-81'), pid=100)
+def _define_PKEY_GPS_LongitudeDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('be6e176c-4534-4d2c-ac-e5-31-de-da-c1-60-6b'), pid=100)
+def _define_PKEY_GPS_LongitudeNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('02b0f689-a914-4e45-82-1d-1d-da-45-2e-d2-c4'), pid=100)
+def _define_PKEY_GPS_LongitudeRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('33dcf22b-28d5-464c-80-35-1e-e9-ef-d2-52-78'), pid=100)
+def _define_PKEY_GPS_MapDatum():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2ca2dae6-eddc-407d-be-f1-77-39-42-ab-fa-95'), pid=100)
+def _define_PKEY_GPS_MeasureMode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a015ed5d-aaea-4d58-8a-86-3c-58-69-20-ea-0b'), pid=100)
+def _define_PKEY_GPS_ProcessingMethod():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('59d49e61-840f-4aa9-a9-39-e2-09-9b-7f-63-99'), pid=100)
+def _define_PKEY_GPS_Satellites():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('467ee575-1f25-4557-ad-4e-b8-b5-8b-0d-9c-15'), pid=100)
+def _define_PKEY_GPS_Speed():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('da5d0862-6e76-4e1b-ba-bd-70-02-1b-d2-54-94'), pid=100)
+def _define_PKEY_GPS_SpeedDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7d122d5a-ae5e-4335-88-41-d7-1e-7c-e7-2f-53'), pid=100)
+def _define_PKEY_GPS_SpeedNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('acc9ce3d-c213-4942-8b-48-6d-08-20-f2-1c-6d'), pid=100)
+def _define_PKEY_GPS_SpeedRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ecf7f4c9-544f-4d6d-9d-98-8a-d7-9a-da-f4-53'), pid=100)
+def _define_PKEY_GPS_Status():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('125491f4-818f-46b2-91-b5-d5-37-75-36-17-b2'), pid=100)
+def _define_PKEY_GPS_Track():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('76c09943-7c33-49e3-9e-7e-cd-ba-87-2c-fa-da'), pid=100)
+def _define_PKEY_GPS_TrackDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c8d1920c-01f6-40c0-ac-86-2f-3a-4a-d0-07-70'), pid=100)
+def _define_PKEY_GPS_TrackNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('702926f4-44a6-43e1-ae-71-45-62-71-16-89-3b'), pid=100)
+def _define_PKEY_GPS_TrackRef():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('35dbe6fe-44c3-4400-aa-ae-d2-c7-99-c4-07-e8'), pid=100)
+def _define_PKEY_GPS_VersionID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('22704da4-c6b2-4a99-8e-56-f1-6d-f8-c9-25-99'), pid=100)
+def _define_PKEY_History_VisitCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5cbf2787-48cf-4208-b9-0e-ee-5e-5d-42-02-94'), pid=7)
+def _define_PKEY_Image_BitDepth():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=7)
+def _define_PKEY_Image_ColorSpace():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=40961)
+def _define_PKEY_Image_CompressedBitsPerPixel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('364b6fa9-37ab-482a-be-2b-ae-02-f6-0d-43-18'), pid=100)
+def _define_PKEY_Image_CompressedBitsPerPixelDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1f8844e1-24ad-4508-9d-fd-53-26-a4-15-ce-02'), pid=100)
+def _define_PKEY_Image_CompressedBitsPerPixelNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d21a7148-d32c-4624-89-00-27-72-10-f7-9c-0f'), pid=100)
+def _define_PKEY_Image_Compression():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=259)
+def _define_PKEY_Image_CompressionText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f08e66f-2f44-4bb9-a6-82-ac-35-d2-56-23-22'), pid=100)
+def _define_PKEY_Image_Dimensions():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=13)
+def _define_PKEY_Image_HorizontalResolution():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=5)
+def _define_PKEY_Image_HorizontalSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=3)
+def _define_PKEY_Image_ImageID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('10dabe05-32aa-4c29-bf-1a-63-e2-d2-20-58-7f'), pid=100)
+def _define_PKEY_Image_ResolutionUnit():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('19b51fa6-1f92-4a5c-ab-48-7d-f0-ab-d6-74-44'), pid=100)
+def _define_PKEY_Image_VerticalResolution():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=6)
+def _define_PKEY_Image_VerticalSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=4)
+def _define_PKEY_Journal_Contacts():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dea7c82c-1d89-4a66-94-27-a4-e3-de-ba-bc-b1'), pid=100)
+def _define_PKEY_Journal_EntryType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('95beb1fc-326d-4644-b3-96-cd-3e-d9-0e-6d-df'), pid=100)
+def _define_PKEY_LayoutPattern_ContentViewModeForBrowse():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=500)
+LAYOUTPATTERN_CVMFB_ALPHA = 'alpha'
+LAYOUTPATTERN_CVMFB_BETA = 'beta'
+LAYOUTPATTERN_CVMFB_GAMMA = 'gamma'
+LAYOUTPATTERN_CVMFB_DELTA = 'delta'
+def _define_PKEY_LayoutPattern_ContentViewModeForSearch():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=501)
+LAYOUTPATTERN_CVMFS_ALPHA = 'alpha'
+LAYOUTPATTERN_CVMFS_BETA = 'beta'
+LAYOUTPATTERN_CVMFS_GAMMA = 'gamma'
+LAYOUTPATTERN_CVMFS_DELTA = 'delta'
+def _define_PKEY_History_SelectionCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1ce0d6bc-536c-4600-b0-dd-7e-0c-66-b3-50-d5'), pid=8)
+def _define_PKEY_History_TargetUrlHostName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1ce0d6bc-536c-4600-b0-dd-7e-0c-66-b3-50-d5'), pid=9)
+def _define_PKEY_Link_Arguments():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('436f2667-14e2-4feb-b3-0a-14-6c-53-b5-b6-74'), pid=100)
+def _define_PKEY_Link_Comment():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b9b4b3fc-2b51-4a42-b5-d8-32-41-46-af-cf-25'), pid=5)
+def _define_PKEY_Link_DateVisited():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5cbf2787-48cf-4208-b9-0e-ee-5e-5d-42-02-94'), pid=23)
+def _define_PKEY_Link_Description():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5cbf2787-48cf-4208-b9-0e-ee-5e-5d-42-02-94'), pid=21)
+def _define_PKEY_Link_FeedItemLocalId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8a2f99f9-3c37-465d-a8-d7-69-77-7a-24-6d-0c'), pid=2)
+def _define_PKEY_Link_Status():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b9b4b3fc-2b51-4a42-b5-d8-32-41-46-af-cf-25'), pid=3)
 LINK_STATUS_RESOLVED = 1
 LINK_STATUS_BROKEN = 2
-PKEY_Link_TargetExtension = PROPERTYKEY(Fmtid='7a7d76f4-b630-4bd7-95ff-37cc51a975c9', Pid=2)
-PKEY_Link_TargetParsingPath = PROPERTYKEY(Fmtid='b9b4b3fc-2b51-4a42-b5d8-324146afcf25', Pid=2)
-PKEY_Link_TargetSFGAOFlags = PROPERTYKEY(Fmtid='b9b4b3fc-2b51-4a42-b5d8-324146afcf25', Pid=8)
-PKEY_Link_TargetUrlHostName = PROPERTYKEY(Fmtid='8a2f99f9-3c37-465d-a8d7-69777a246d0c', Pid=5)
-PKEY_Link_TargetUrlPath = PROPERTYKEY(Fmtid='8a2f99f9-3c37-465d-a8d7-69777a246d0c', Pid=6)
-PKEY_Media_AuthorUrl = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=32)
-PKEY_Media_AverageLevel = PROPERTYKEY(Fmtid='09edd5b6-b301-43c5-9990-d00302effd46', Pid=100)
-PKEY_Media_ClassPrimaryID = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=13)
-PKEY_Media_ClassSecondaryID = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=14)
-PKEY_Media_CollectionGroupID = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=24)
-PKEY_Media_CollectionID = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=25)
-PKEY_Media_ContentDistributor = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=18)
-PKEY_Media_ContentID = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=26)
-PKEY_Media_CreatorApplication = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=27)
-PKEY_Media_CreatorApplicationVersion = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=28)
-PKEY_Media_DateEncoded = PROPERTYKEY(Fmtid='2e4b640d-5019-46d8-8881-55414cc5caa0', Pid=100)
-PKEY_Media_DateReleased = PROPERTYKEY(Fmtid='de41cc29-6971-4290-b472-f59f2e2f31e2', Pid=100)
-PKEY_Media_DlnaProfileID = PROPERTYKEY(Fmtid='cfa31b45-525d-4998-bb44-3f7d81542fa4', Pid=100)
-PKEY_Media_Duration = PROPERTYKEY(Fmtid='64440490-4c8b-11d1-8b70-080036b11a03', Pid=3)
-PKEY_Media_DVDID = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=15)
-PKEY_Media_EncodedBy = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=36)
-PKEY_Media_EncodingSettings = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=37)
-PKEY_Media_EpisodeNumber = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=100)
-PKEY_Media_FrameCount = PROPERTYKEY(Fmtid='6444048f-4c8b-11d1-8b70-080036b11a03', Pid=12)
-PKEY_Media_MCDI = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=16)
-PKEY_Media_MetadataContentProvider = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=17)
-PKEY_Media_Producer = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=22)
-PKEY_Media_PromotionUrl = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=33)
-PKEY_Media_ProtectionType = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=38)
-PKEY_Media_ProviderRating = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=39)
-PKEY_Media_ProviderStyle = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=40)
-PKEY_Media_Publisher = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=30)
-PKEY_Media_SeasonNumber = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=101)
-PKEY_Media_SeriesName = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=42)
-PKEY_Media_SubscriptionContentId = PROPERTYKEY(Fmtid='9aebae7a-9644-487d-a92c-657585ed751a', Pid=100)
-PKEY_Media_SubTitle = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=38)
-PKEY_Media_ThumbnailLargePath = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=47)
-PKEY_Media_ThumbnailLargeUri = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=48)
-PKEY_Media_ThumbnailSmallPath = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=49)
-PKEY_Media_ThumbnailSmallUri = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=50)
-PKEY_Media_UniqueFileIdentifier = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=35)
-PKEY_Media_UserNoAutoInfo = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=41)
-PKEY_Media_UserWebUrl = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=34)
-PKEY_Media_Writer = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=23)
-PKEY_Media_Year = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=5)
-PKEY_Message_AttachmentContents = PROPERTYKEY(Fmtid='3143bf7c-80a8-4854-8880-e2e40189bdd0', Pid=100)
-PKEY_Message_AttachmentNames = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=21)
-PKEY_Message_BccAddress = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=2)
-PKEY_Message_BccName = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=3)
-PKEY_Message_CcAddress = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=4)
-PKEY_Message_CcName = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=5)
-PKEY_Message_ConversationID = PROPERTYKEY(Fmtid='dc8f80bd-af1e-4289-85b6-3dfc1b493992', Pid=100)
-PKEY_Message_ConversationIndex = PROPERTYKEY(Fmtid='dc8f80bd-af1e-4289-85b6-3dfc1b493992', Pid=101)
-PKEY_Message_DateReceived = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=20)
-PKEY_Message_DateSent = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=19)
-PKEY_Message_Flags = PROPERTYKEY(Fmtid='a82d9ee7-ca67-4312-965e-226bcea85023', Pid=100)
-PKEY_Message_FromAddress = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=13)
-PKEY_Message_FromName = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=14)
-PKEY_Message_HasAttachments = PROPERTYKEY(Fmtid='9c1fcf74-2d97-41ba-b4ae-cb2e3661a6e4', Pid=8)
-PKEY_Message_IsFwdOrReply = PROPERTYKEY(Fmtid='9a9bc088-4f6d-469e-9919-e705412040f9', Pid=100)
-PKEY_Message_MessageClass = PROPERTYKEY(Fmtid='cd9ed458-08ce-418f-a70e-f912c7bb9c5c', Pid=103)
-PKEY_Message_Participants = PROPERTYKEY(Fmtid='1a9ba605-8e7c-4d11-ad7d-a50ada18ba1b', Pid=2)
-PKEY_Message_ProofInProgress = PROPERTYKEY(Fmtid='9098f33c-9a7d-48a8-8de5-2e1227a64e91', Pid=100)
-PKEY_Message_SenderAddress = PROPERTYKEY(Fmtid='0be1c8e7-1981-4676-ae14-fdd78f05a6e7', Pid=100)
-PKEY_Message_SenderName = PROPERTYKEY(Fmtid='0da41cfa-d224-4a18-ae2f-596158db4b3a', Pid=100)
-PKEY_Message_Store = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=15)
-PKEY_Message_ToAddress = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=16)
-PKEY_Message_ToDoFlags = PROPERTYKEY(Fmtid='1f856a9f-6900-4aba-9505-2d5f1b4d66cb', Pid=100)
-PKEY_Message_ToDoTitle = PROPERTYKEY(Fmtid='bccc8a3c-8cef-42e5-9b1c-c69079398bc7', Pid=100)
-PKEY_Message_ToName = PROPERTYKEY(Fmtid='e3e0584c-b788-4a5a-bb20-7f5a44c9acdd', Pid=17)
-PKEY_Music_AlbumArtist = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=13)
-PKEY_Music_AlbumArtistSortOverride = PROPERTYKEY(Fmtid='f1fdb4af-f78c-466c-bb05-56e92db0b8ec', Pid=103)
-PKEY_Music_AlbumID = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=100)
-PKEY_Music_AlbumTitle = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=4)
-PKEY_Music_AlbumTitleSortOverride = PROPERTYKEY(Fmtid='13eb7ffc-ec89-4346-b19d-ccc6f1784223', Pid=101)
-PKEY_Music_Artist = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=2)
-PKEY_Music_ArtistSortOverride = PROPERTYKEY(Fmtid='deeb2db5-0696-4ce0-94fe-a01f77a45fb5', Pid=102)
-PKEY_Music_BeatsPerMinute = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=35)
-PKEY_Music_Composer = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=19)
-PKEY_Music_ComposerSortOverride = PROPERTYKEY(Fmtid='00bc20a3-bd48-4085-872c-a88d77f5097e', Pid=105)
-PKEY_Music_Conductor = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=36)
-PKEY_Music_ContentGroupDescription = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=33)
-PKEY_Music_DiscNumber = PROPERTYKEY(Fmtid='6afe7437-9bcd-49c7-80fe-4a5c65fa5874', Pid=104)
-PKEY_Music_DisplayArtist = PROPERTYKEY(Fmtid='fd122953-fa93-4ef7-92c3-04c946b2f7c8', Pid=100)
-PKEY_Music_Genre = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=11)
-PKEY_Music_InitialKey = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=34)
-PKEY_Music_IsCompilation = PROPERTYKEY(Fmtid='c449d5cb-9ea4-4809-82e8-af9d59ded6d1', Pid=100)
-PKEY_Music_Lyrics = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=12)
-PKEY_Music_Mood = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=39)
-PKEY_Music_PartOfSet = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=37)
-PKEY_Music_Period = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=31)
-PKEY_Music_SynchronizedLyrics = PROPERTYKEY(Fmtid='6b223b6a-162e-4aa9-b39f-05d678fc6d77', Pid=100)
-PKEY_Music_TrackNumber = PROPERTYKEY(Fmtid='56a3372e-ce9c-11d2-9f0e-006097c686f6', Pid=7)
-PKEY_Note_Color = PROPERTYKEY(Fmtid='4776cafa-bce4-4cb1-a23e-265e76d8eb11', Pid=100)
-PKEY_Note_ColorText = PROPERTYKEY(Fmtid='46b4e8de-cdb2-440d-885c-1658eb65b914', Pid=100)
-PKEY_Photo_Aperture = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37378)
-PKEY_Photo_ApertureDenominator = PROPERTYKEY(Fmtid='e1a9a38b-6685-46bd-875e-570dc7ad7320', Pid=100)
-PKEY_Photo_ApertureNumerator = PROPERTYKEY(Fmtid='0337ecec-39fb-4581-a0bd-4c4cc51e9914', Pid=100)
-PKEY_Photo_Brightness = PROPERTYKEY(Fmtid='1a701bf6-478c-4361-83ab-3701bb053c58', Pid=100)
-PKEY_Photo_BrightnessDenominator = PROPERTYKEY(Fmtid='6ebe6946-2321-440a-90f0-c043efd32476', Pid=100)
-PKEY_Photo_BrightnessNumerator = PROPERTYKEY(Fmtid='9e7d118f-b314-45a0-8cfb-d654b917c9e9', Pid=100)
-PKEY_Photo_CameraManufacturer = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=271)
-PKEY_Photo_CameraModel = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=272)
-PKEY_Photo_CameraSerialNumber = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=273)
-PKEY_Photo_Contrast = PROPERTYKEY(Fmtid='2a785ba9-8d23-4ded-82e6-60a350c86a10', Pid=100)
+def _define_PKEY_Link_TargetExtension():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7a7d76f4-b630-4bd7-95-ff-37-cc-51-a9-75-c9'), pid=2)
+def _define_PKEY_Link_TargetParsingPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b9b4b3fc-2b51-4a42-b5-d8-32-41-46-af-cf-25'), pid=2)
+def _define_PKEY_Link_TargetSFGAOFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b9b4b3fc-2b51-4a42-b5-d8-32-41-46-af-cf-25'), pid=8)
+def _define_PKEY_Link_TargetUrlHostName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8a2f99f9-3c37-465d-a8-d7-69-77-7a-24-6d-0c'), pid=5)
+def _define_PKEY_Link_TargetUrlPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8a2f99f9-3c37-465d-a8-d7-69-77-7a-24-6d-0c'), pid=6)
+def _define_PKEY_Media_AuthorUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=32)
+def _define_PKEY_Media_AverageLevel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('09edd5b6-b301-43c5-99-90-d0-03-02-ef-fd-46'), pid=100)
+def _define_PKEY_Media_ClassPrimaryID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=13)
+def _define_PKEY_Media_ClassSecondaryID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=14)
+def _define_PKEY_Media_CollectionGroupID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=24)
+def _define_PKEY_Media_CollectionID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=25)
+def _define_PKEY_Media_ContentDistributor():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=18)
+def _define_PKEY_Media_ContentID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=26)
+def _define_PKEY_Media_CreatorApplication():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=27)
+def _define_PKEY_Media_CreatorApplicationVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=28)
+def _define_PKEY_Media_DateEncoded():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2e4b640d-5019-46d8-88-81-55-41-4c-c5-ca-a0'), pid=100)
+def _define_PKEY_Media_DateReleased():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('de41cc29-6971-4290-b4-72-f5-9f-2e-2f-31-e2'), pid=100)
+def _define_PKEY_Media_DlnaProfileID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cfa31b45-525d-4998-bb-44-3f-7d-81-54-2f-a4'), pid=100)
+def _define_PKEY_Media_Duration():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440490-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=3)
+def _define_PKEY_Media_DVDID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=15)
+def _define_PKEY_Media_EncodedBy():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=36)
+def _define_PKEY_Media_EncodingSettings():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=37)
+def _define_PKEY_Media_EpisodeNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=100)
+def _define_PKEY_Media_FrameCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6444048f-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=12)
+def _define_PKEY_Media_MCDI():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=16)
+def _define_PKEY_Media_MetadataContentProvider():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=17)
+def _define_PKEY_Media_Producer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=22)
+def _define_PKEY_Media_PromotionUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=33)
+def _define_PKEY_Media_ProtectionType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=38)
+def _define_PKEY_Media_ProviderRating():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=39)
+def _define_PKEY_Media_ProviderStyle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=40)
+def _define_PKEY_Media_Publisher():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=30)
+def _define_PKEY_Media_SeasonNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=101)
+def _define_PKEY_Media_SeriesName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=42)
+def _define_PKEY_Media_SubscriptionContentId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9aebae7a-9644-487d-a9-2c-65-75-85-ed-75-1a'), pid=100)
+def _define_PKEY_Media_SubTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=38)
+def _define_PKEY_Media_ThumbnailLargePath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=47)
+def _define_PKEY_Media_ThumbnailLargeUri():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=48)
+def _define_PKEY_Media_ThumbnailSmallPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=49)
+def _define_PKEY_Media_ThumbnailSmallUri():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=50)
+def _define_PKEY_Media_UniqueFileIdentifier():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=35)
+def _define_PKEY_Media_UserNoAutoInfo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=41)
+def _define_PKEY_Media_UserWebUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=34)
+def _define_PKEY_Media_Writer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=23)
+def _define_PKEY_Media_Year():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=5)
+def _define_PKEY_Message_AttachmentContents():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3143bf7c-80a8-4854-88-80-e2-e4-01-89-bd-d0'), pid=100)
+def _define_PKEY_Message_AttachmentNames():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=21)
+def _define_PKEY_Message_BccAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=2)
+def _define_PKEY_Message_BccName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=3)
+def _define_PKEY_Message_CcAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=4)
+def _define_PKEY_Message_CcName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=5)
+def _define_PKEY_Message_ConversationID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dc8f80bd-af1e-4289-85-b6-3d-fc-1b-49-39-92'), pid=100)
+def _define_PKEY_Message_ConversationIndex():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dc8f80bd-af1e-4289-85-b6-3d-fc-1b-49-39-92'), pid=101)
+def _define_PKEY_Message_DateReceived():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=20)
+def _define_PKEY_Message_DateSent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=19)
+def _define_PKEY_Message_Flags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a82d9ee7-ca67-4312-96-5e-22-6b-ce-a8-50-23'), pid=100)
+def _define_PKEY_Message_FromAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=13)
+def _define_PKEY_Message_FromName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=14)
+def _define_PKEY_Message_HasAttachments():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9c1fcf74-2d97-41ba-b4-ae-cb-2e-36-61-a6-e4'), pid=8)
+def _define_PKEY_Message_IsFwdOrReply():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9a9bc088-4f6d-469e-99-19-e7-05-41-20-40-f9'), pid=100)
+def _define_PKEY_Message_MessageClass():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cd9ed458-08ce-418f-a7-0e-f9-12-c7-bb-9c-5c'), pid=103)
+def _define_PKEY_Message_Participants():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1a9ba605-8e7c-4d11-ad-7d-a5-0a-da-18-ba-1b'), pid=2)
+def _define_PKEY_Message_ProofInProgress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9098f33c-9a7d-48a8-8d-e5-2e-12-27-a6-4e-91'), pid=100)
+def _define_PKEY_Message_SenderAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0be1c8e7-1981-4676-ae-14-fd-d7-8f-05-a6-e7'), pid=100)
+def _define_PKEY_Message_SenderName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0da41cfa-d224-4a18-ae-2f-59-61-58-db-4b-3a'), pid=100)
+def _define_PKEY_Message_Store():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=15)
+def _define_PKEY_Message_ToAddress():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=16)
+def _define_PKEY_Message_ToDoFlags():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1f856a9f-6900-4aba-95-05-2d-5f-1b-4d-66-cb'), pid=100)
+def _define_PKEY_Message_ToDoTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bccc8a3c-8cef-42e5-9b-1c-c6-90-79-39-8b-c7'), pid=100)
+def _define_PKEY_Message_ToName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3e0584c-b788-4a5a-bb-20-7f-5a-44-c9-ac-dd'), pid=17)
+def _define_PKEY_Music_AlbumArtist():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=13)
+def _define_PKEY_Music_AlbumArtistSortOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f1fdb4af-f78c-466c-bb-05-56-e9-2d-b0-b8-ec'), pid=103)
+def _define_PKEY_Music_AlbumID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=100)
+def _define_PKEY_Music_AlbumTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=4)
+def _define_PKEY_Music_AlbumTitleSortOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('13eb7ffc-ec89-4346-b1-9d-cc-c6-f1-78-42-23'), pid=101)
+def _define_PKEY_Music_Artist():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=2)
+def _define_PKEY_Music_ArtistSortOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('deeb2db5-0696-4ce0-94-fe-a0-1f-77-a4-5f-b5'), pid=102)
+def _define_PKEY_Music_BeatsPerMinute():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=35)
+def _define_PKEY_Music_Composer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=19)
+def _define_PKEY_Music_ComposerSortOverride():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00bc20a3-bd48-4085-87-2c-a8-8d-77-f5-09-7e'), pid=105)
+def _define_PKEY_Music_Conductor():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=36)
+def _define_PKEY_Music_ContentGroupDescription():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=33)
+def _define_PKEY_Music_DiscNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6afe7437-9bcd-49c7-80-fe-4a-5c-65-fa-58-74'), pid=104)
+def _define_PKEY_Music_DisplayArtist():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fd122953-fa93-4ef7-92-c3-04-c9-46-b2-f7-c8'), pid=100)
+def _define_PKEY_Music_Genre():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=11)
+def _define_PKEY_Music_InitialKey():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=34)
+def _define_PKEY_Music_IsCompilation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c449d5cb-9ea4-4809-82-e8-af-9d-59-de-d6-d1'), pid=100)
+def _define_PKEY_Music_Lyrics():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=12)
+def _define_PKEY_Music_Mood():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=39)
+def _define_PKEY_Music_PartOfSet():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=37)
+def _define_PKEY_Music_Period():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=31)
+def _define_PKEY_Music_SynchronizedLyrics():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6b223b6a-162e-4aa9-b3-9f-05-d6-78-fc-6d-77'), pid=100)
+def _define_PKEY_Music_TrackNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('56a3372e-ce9c-11d2-9f-0e-00-60-97-c6-86-f6'), pid=7)
+def _define_PKEY_Note_Color():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4776cafa-bce4-4cb1-a2-3e-26-5e-76-d8-eb-11'), pid=100)
+def _define_PKEY_Note_ColorText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('46b4e8de-cdb2-440d-88-5c-16-58-eb-65-b9-14'), pid=100)
+def _define_PKEY_Photo_Aperture():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37378)
+def _define_PKEY_Photo_ApertureDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e1a9a38b-6685-46bd-87-5e-57-0d-c7-ad-73-20'), pid=100)
+def _define_PKEY_Photo_ApertureNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0337ecec-39fb-4581-a0-bd-4c-4c-c5-1e-99-14'), pid=100)
+def _define_PKEY_Photo_Brightness():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1a701bf6-478c-4361-83-ab-37-01-bb-05-3c-58'), pid=100)
+def _define_PKEY_Photo_BrightnessDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6ebe6946-2321-440a-90-f0-c0-43-ef-d3-24-76'), pid=100)
+def _define_PKEY_Photo_BrightnessNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9e7d118f-b314-45a0-8c-fb-d6-54-b9-17-c9-e9'), pid=100)
+def _define_PKEY_Photo_CameraManufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=271)
+def _define_PKEY_Photo_CameraModel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=272)
+def _define_PKEY_Photo_CameraSerialNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=273)
+def _define_PKEY_Photo_Contrast():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2a785ba9-8d23-4ded-82-e6-60-a3-50-c8-6a-10'), pid=100)
 PHOTO_CONTRAST_NORMAL = 0
 PHOTO_CONTRAST_SOFT = 1
 PHOTO_CONTRAST_HARD = 2
-PKEY_Photo_ContrastText = PROPERTYKEY(Fmtid='59dde9f2-5253-40ea-9a8b-479e96c6249a', Pid=100)
-PKEY_Photo_DateTaken = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=36867)
-PKEY_Photo_DigitalZoom = PROPERTYKEY(Fmtid='f85bf840-a925-4bc2-b0c4-8e36b598679e', Pid=100)
-PKEY_Photo_DigitalZoomDenominator = PROPERTYKEY(Fmtid='745baf0e-e5c1-4cfb-8a1b-d031a0a52393', Pid=100)
-PKEY_Photo_DigitalZoomNumerator = PROPERTYKEY(Fmtid='16cbb924-6500-473b-a5be-f1599bcbe413', Pid=100)
-PKEY_Photo_Event = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=18248)
-PKEY_Photo_EXIFVersion = PROPERTYKEY(Fmtid='d35f743a-eb2e-47f2-a286-844132cb1427', Pid=100)
-PKEY_Photo_ExposureBias = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37380)
-PKEY_Photo_ExposureBiasDenominator = PROPERTYKEY(Fmtid='ab205e50-04b7-461c-a18c-2f233836e627', Pid=100)
-PKEY_Photo_ExposureBiasNumerator = PROPERTYKEY(Fmtid='738bf284-1d87-420b-92cf-5834bf6ef9ed', Pid=100)
-PKEY_Photo_ExposureIndex = PROPERTYKEY(Fmtid='967b5af8-995a-46ed-9e11-35b3c5b9782d', Pid=100)
-PKEY_Photo_ExposureIndexDenominator = PROPERTYKEY(Fmtid='93112f89-c28b-492f-8a9d-4be2062cee8a', Pid=100)
-PKEY_Photo_ExposureIndexNumerator = PROPERTYKEY(Fmtid='cdedcf30-8919-44df-8f4c-4eb2ffdb8d89', Pid=100)
-PKEY_Photo_ExposureProgram = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=34850)
+def _define_PKEY_Photo_ContrastText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('59dde9f2-5253-40ea-9a-8b-47-9e-96-c6-24-9a'), pid=100)
+def _define_PKEY_Photo_DateTaken():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=36867)
+def _define_PKEY_Photo_DigitalZoom():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f85bf840-a925-4bc2-b0-c4-8e-36-b5-98-67-9e'), pid=100)
+def _define_PKEY_Photo_DigitalZoomDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('745baf0e-e5c1-4cfb-8a-1b-d0-31-a0-a5-23-93'), pid=100)
+def _define_PKEY_Photo_DigitalZoomNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('16cbb924-6500-473b-a5-be-f1-59-9b-cb-e4-13'), pid=100)
+def _define_PKEY_Photo_Event():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=18248)
+def _define_PKEY_Photo_EXIFVersion():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d35f743a-eb2e-47f2-a2-86-84-41-32-cb-14-27'), pid=100)
+def _define_PKEY_Photo_ExposureBias():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37380)
+def _define_PKEY_Photo_ExposureBiasDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ab205e50-04b7-461c-a1-8c-2f-23-38-36-e6-27'), pid=100)
+def _define_PKEY_Photo_ExposureBiasNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('738bf284-1d87-420b-92-cf-58-34-bf-6e-f9-ed'), pid=100)
+def _define_PKEY_Photo_ExposureIndex():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('967b5af8-995a-46ed-9e-11-35-b3-c5-b9-78-2d'), pid=100)
+def _define_PKEY_Photo_ExposureIndexDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('93112f89-c28b-492f-8a-9d-4b-e2-06-2c-ee-8a'), pid=100)
+def _define_PKEY_Photo_ExposureIndexNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cdedcf30-8919-44df-8f-4c-4e-b2-ff-db-8d-89'), pid=100)
+def _define_PKEY_Photo_ExposureProgram():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=34850)
 PHOTO_EXPOSUREPROGRAM_UNKNOWN = 0
 PHOTO_EXPOSUREPROGRAM_MANUAL = 1
 PHOTO_EXPOSUREPROGRAM_NORMAL = 2
@@ -1037,11 +2002,16 @@ PHOTO_EXPOSUREPROGRAM_CREATIVE = 5
 PHOTO_EXPOSUREPROGRAM_ACTION = 6
 PHOTO_EXPOSUREPROGRAM_PORTRAIT = 7
 PHOTO_EXPOSUREPROGRAM_LANDSCAPE = 8
-PKEY_Photo_ExposureProgramText = PROPERTYKEY(Fmtid='fec690b7-5f30-4646-ae47-4caafba884a3', Pid=100)
-PKEY_Photo_ExposureTime = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=33434)
-PKEY_Photo_ExposureTimeDenominator = PROPERTYKEY(Fmtid='55e98597-ad16-42e0-b624-21599a199838', Pid=100)
-PKEY_Photo_ExposureTimeNumerator = PROPERTYKEY(Fmtid='257e44e2-9031-4323-ac38-85c552871b2e', Pid=100)
-PKEY_Photo_Flash = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37385)
+def _define_PKEY_Photo_ExposureProgramText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fec690b7-5f30-4646-ae-47-4c-aa-fb-a8-84-a3'), pid=100)
+def _define_PKEY_Photo_ExposureTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=33434)
+def _define_PKEY_Photo_ExposureTimeDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('55e98597-ad16-42e0-b6-24-21-59-9a-19-98-38'), pid=100)
+def _define_PKEY_Photo_ExposureTimeNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('257e44e2-9031-4323-ac-38-85-c5-52-87-1b-2e'), pid=100)
+def _define_PKEY_Photo_Flash():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37385)
 PHOTO_FLASH_NONE = 0
 PHOTO_FLASH_FLASH = 1
 PHOTO_FLASH_WITHOUTSTROBE = 5
@@ -1064,38 +2034,65 @@ PHOTO_FLASH_FLASH_COMPULSORY_REDEYE_RETURNLIGHT = 79
 PHOTO_FLASH_FLASH_AUTO_REDEYE = 89
 PHOTO_FLASH_FLASH_AUTO_REDEYE_NORETURNLIGHT = 93
 PHOTO_FLASH_FLASH_AUTO_REDEYE_RETURNLIGHT = 95
-PKEY_Photo_FlashEnergy = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=41483)
-PKEY_Photo_FlashEnergyDenominator = PROPERTYKEY(Fmtid='d7b61c70-6323-49cd-a5fc-c84277162c97', Pid=100)
-PKEY_Photo_FlashEnergyNumerator = PROPERTYKEY(Fmtid='fcad3d3d-0858-400f-aaa3-2f66cce2a6bc', Pid=100)
-PKEY_Photo_FlashManufacturer = PROPERTYKEY(Fmtid='aabaf6c9-e0c5-4719-8585-57b103e584fe', Pid=100)
-PKEY_Photo_FlashModel = PROPERTYKEY(Fmtid='fe83bb35-4d1a-42e2-916b-06f3e1af719e', Pid=100)
-PKEY_Photo_FlashText = PROPERTYKEY(Fmtid='6b8b68f6-200b-47ea-8d25-d8050f57339f', Pid=100)
-PKEY_Photo_FNumber = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=33437)
-PKEY_Photo_FNumberDenominator = PROPERTYKEY(Fmtid='e92a2496-223b-4463-a4e3-30eabba79d80', Pid=100)
-PKEY_Photo_FNumberNumerator = PROPERTYKEY(Fmtid='1b97738a-fdfc-462f-9d93-1957e08be90c', Pid=100)
-PKEY_Photo_FocalLength = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37386)
-PKEY_Photo_FocalLengthDenominator = PROPERTYKEY(Fmtid='305bc615-dca1-44a5-9fd4-10c0ba79412e', Pid=100)
-PKEY_Photo_FocalLengthInFilm = PROPERTYKEY(Fmtid='a0e74609-b84d-4f49-b860-462bd9971f98', Pid=100)
-PKEY_Photo_FocalLengthNumerator = PROPERTYKEY(Fmtid='776b6b3b-1e3d-4b0c-9a0e-8fbaf2a8492a', Pid=100)
-PKEY_Photo_FocalPlaneXResolution = PROPERTYKEY(Fmtid='cfc08d97-c6f7-4484-89dd-ebef4356fe76', Pid=100)
-PKEY_Photo_FocalPlaneXResolutionDenominator = PROPERTYKEY(Fmtid='0933f3f5-4786-4f46-a8e8-d64dd37fa521', Pid=100)
-PKEY_Photo_FocalPlaneXResolutionNumerator = PROPERTYKEY(Fmtid='dccb10af-b4e2-4b88-95f9-031b4d5ab490', Pid=100)
-PKEY_Photo_FocalPlaneYResolution = PROPERTYKEY(Fmtid='4fffe4d0-914f-4ac4-8d6f-c9c61de169b1', Pid=100)
-PKEY_Photo_FocalPlaneYResolutionDenominator = PROPERTYKEY(Fmtid='1d6179a6-a876-4031-b013-3347b2b64dc8', Pid=100)
-PKEY_Photo_FocalPlaneYResolutionNumerator = PROPERTYKEY(Fmtid='a2e541c5-4440-4ba8-867e-75cfc06828cd', Pid=100)
-PKEY_Photo_GainControl = PROPERTYKEY(Fmtid='fa304789-00c7-4d80-904a-1e4dcc7265aa', Pid=100)
+def _define_PKEY_Photo_FlashEnergy():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=41483)
+def _define_PKEY_Photo_FlashEnergyDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d7b61c70-6323-49cd-a5-fc-c8-42-77-16-2c-97'), pid=100)
+def _define_PKEY_Photo_FlashEnergyNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fcad3d3d-0858-400f-aa-a3-2f-66-cc-e2-a6-bc'), pid=100)
+def _define_PKEY_Photo_FlashManufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('aabaf6c9-e0c5-4719-85-85-57-b1-03-e5-84-fe'), pid=100)
+def _define_PKEY_Photo_FlashModel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fe83bb35-4d1a-42e2-91-6b-06-f3-e1-af-71-9e'), pid=100)
+def _define_PKEY_Photo_FlashText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6b8b68f6-200b-47ea-8d-25-d8-05-0f-57-33-9f'), pid=100)
+def _define_PKEY_Photo_FNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=33437)
+def _define_PKEY_Photo_FNumberDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e92a2496-223b-4463-a4-e3-30-ea-bb-a7-9d-80'), pid=100)
+def _define_PKEY_Photo_FNumberNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1b97738a-fdfc-462f-9d-93-19-57-e0-8b-e9-0c'), pid=100)
+def _define_PKEY_Photo_FocalLength():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37386)
+def _define_PKEY_Photo_FocalLengthDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('305bc615-dca1-44a5-9f-d4-10-c0-ba-79-41-2e'), pid=100)
+def _define_PKEY_Photo_FocalLengthInFilm():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a0e74609-b84d-4f49-b8-60-46-2b-d9-97-1f-98'), pid=100)
+def _define_PKEY_Photo_FocalLengthNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('776b6b3b-1e3d-4b0c-9a-0e-8f-ba-f2-a8-49-2a'), pid=100)
+def _define_PKEY_Photo_FocalPlaneXResolution():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cfc08d97-c6f7-4484-89-dd-eb-ef-43-56-fe-76'), pid=100)
+def _define_PKEY_Photo_FocalPlaneXResolutionDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0933f3f5-4786-4f46-a8-e8-d6-4d-d3-7f-a5-21'), pid=100)
+def _define_PKEY_Photo_FocalPlaneXResolutionNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('dccb10af-b4e2-4b88-95-f9-03-1b-4d-5a-b4-90'), pid=100)
+def _define_PKEY_Photo_FocalPlaneYResolution():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4fffe4d0-914f-4ac4-8d-6f-c9-c6-1d-e1-69-b1'), pid=100)
+def _define_PKEY_Photo_FocalPlaneYResolutionDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1d6179a6-a876-4031-b0-13-33-47-b2-b6-4d-c8'), pid=100)
+def _define_PKEY_Photo_FocalPlaneYResolutionNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a2e541c5-4440-4ba8-86-7e-75-cf-c0-68-28-cd'), pid=100)
+def _define_PKEY_Photo_GainControl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fa304789-00c7-4d80-90-4a-1e-4d-cc-72-65-aa'), pid=100)
 PHOTO_GAINCONTROL_NONE = 0
 PHOTO_GAINCONTROL_LOWGAINUP = 1
 PHOTO_GAINCONTROL_HIGHGAINUP = 2
 PHOTO_GAINCONTROL_LOWGAINDOWN = 3
 PHOTO_GAINCONTROL_HIGHGAINDOWN = 4
-PKEY_Photo_GainControlDenominator = PROPERTYKEY(Fmtid='42864dfd-9da4-4f77-bded-4aad7b256735', Pid=100)
-PKEY_Photo_GainControlNumerator = PROPERTYKEY(Fmtid='8e8ecf7c-b7b8-4eb8-a63f-0ee715c96f9e', Pid=100)
-PKEY_Photo_GainControlText = PROPERTYKEY(Fmtid='c06238b2-0bf9-4279-a723-25856715cb9d', Pid=100)
-PKEY_Photo_ISOSpeed = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=34855)
-PKEY_Photo_LensManufacturer = PROPERTYKEY(Fmtid='e6ddcaf7-29c5-4f0a-9a68-d19412ec7090', Pid=100)
-PKEY_Photo_LensModel = PROPERTYKEY(Fmtid='e1277516-2b5f-4869-89b1-2e585bd38b7a', Pid=100)
-PKEY_Photo_LightSource = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37384)
+def _define_PKEY_Photo_GainControlDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('42864dfd-9da4-4f77-bd-ed-4a-ad-7b-25-67-35'), pid=100)
+def _define_PKEY_Photo_GainControlNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8e8ecf7c-b7b8-4eb8-a6-3f-0e-e7-15-c9-6f-9e'), pid=100)
+def _define_PKEY_Photo_GainControlText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c06238b2-0bf9-4279-a7-23-25-85-67-15-cb-9d'), pid=100)
+def _define_PKEY_Photo_ISOSpeed():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=34855)
+def _define_PKEY_Photo_LensManufacturer():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e6ddcaf7-29c5-4f0a-9a-68-d1-94-12-ec-70-90'), pid=100)
+def _define_PKEY_Photo_LensModel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e1277516-2b5f-4869-89-b1-2e-58-5b-d3-8b-7a'), pid=100)
+def _define_PKEY_Photo_LightSource():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37384)
 PHOTO_LIGHTSOURCE_UNKNOWN = 0
 PHOTO_LIGHTSOURCE_DAYLIGHT = 1
 PHOTO_LIGHTSOURCE_FLUORESCENT = 2
@@ -1106,19 +2103,32 @@ PHOTO_LIGHTSOURCE_STANDARD_C = 19
 PHOTO_LIGHTSOURCE_D55 = 20
 PHOTO_LIGHTSOURCE_D65 = 21
 PHOTO_LIGHTSOURCE_D75 = 22
-PKEY_Photo_MakerNote = PROPERTYKEY(Fmtid='fa303353-b659-4052-85e9-bcac79549b84', Pid=100)
-PKEY_Photo_MakerNoteOffset = PROPERTYKEY(Fmtid='813f4124-34e6-4d17-ab3e-6b1f3c2247a1', Pid=100)
-PKEY_Photo_MaxAperture = PROPERTYKEY(Fmtid='08f6d7c2-e3f2-44fc-af1e-5aa5c81a2d3e', Pid=100)
-PKEY_Photo_MaxApertureDenominator = PROPERTYKEY(Fmtid='c77724d4-601f-46c5-9b89-c53f93bceb77', Pid=100)
-PKEY_Photo_MaxApertureNumerator = PROPERTYKEY(Fmtid='c107e191-a459-44c5-9ae6-b952ad4b906d', Pid=100)
-PKEY_Photo_MeteringMode = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37383)
-PKEY_Photo_MeteringModeText = PROPERTYKEY(Fmtid='f628fd8c-7ba8-465a-a65b-c5aa79263a9e', Pid=100)
-PKEY_Photo_Orientation = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=274)
-PKEY_Photo_OrientationText = PROPERTYKEY(Fmtid='a9ea193c-c511-498a-a06b-58e2776dcc28', Pid=100)
-PKEY_Photo_PeopleNames = PROPERTYKEY(Fmtid='e8309b6e-084c-49b4-b1fc-90a80331b638', Pid=100)
-PKEY_Photo_PhotometricInterpretation = PROPERTYKEY(Fmtid='341796f1-1df9-4b1c-a564-91bdefa43877', Pid=100)
-PKEY_Photo_PhotometricInterpretationText = PROPERTYKEY(Fmtid='821437d6-9eab-4765-a589-3b1cbbd22a61', Pid=100)
-PKEY_Photo_ProgramMode = PROPERTYKEY(Fmtid='6d217f6d-3f6a-4825-b470-5f03ca2fbe9b', Pid=100)
+def _define_PKEY_Photo_MakerNote():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fa303353-b659-4052-85-e9-bc-ac-79-54-9b-84'), pid=100)
+def _define_PKEY_Photo_MakerNoteOffset():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('813f4124-34e6-4d17-ab-3e-6b-1f-3c-22-47-a1'), pid=100)
+def _define_PKEY_Photo_MaxAperture():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('08f6d7c2-e3f2-44fc-af-1e-5a-a5-c8-1a-2d-3e'), pid=100)
+def _define_PKEY_Photo_MaxApertureDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c77724d4-601f-46c5-9b-89-c5-3f-93-bc-eb-77'), pid=100)
+def _define_PKEY_Photo_MaxApertureNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c107e191-a459-44c5-9a-e6-b9-52-ad-4b-90-6d'), pid=100)
+def _define_PKEY_Photo_MeteringMode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37383)
+def _define_PKEY_Photo_MeteringModeText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f628fd8c-7ba8-465a-a6-5b-c5-aa-79-26-3a-9e'), pid=100)
+def _define_PKEY_Photo_Orientation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=274)
+def _define_PKEY_Photo_OrientationText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a9ea193c-c511-498a-a0-6b-58-e2-77-6d-cc-28'), pid=100)
+def _define_PKEY_Photo_PeopleNames():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e8309b6e-084c-49b4-b1-fc-90-a8-03-31-b6-38'), pid=100)
+def _define_PKEY_Photo_PhotometricInterpretation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('341796f1-1df9-4b1c-a5-64-91-bd-ef-a4-38-77'), pid=100)
+def _define_PKEY_Photo_PhotometricInterpretationText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('821437d6-9eab-4765-a5-89-3b-1c-bb-d2-2a-61'), pid=100)
+def _define_PKEY_Photo_ProgramMode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d217f6d-3f6a-4825-b4-70-5f-03-ca-2f-be-9b'), pid=100)
 PHOTO_PROGRAMMODE_NOTDEFINED = 0
 PHOTO_PROGRAMMODE_MANUAL = 1
 PHOTO_PROGRAMMODE_NORMAL = 2
@@ -1128,178 +2138,339 @@ PHOTO_PROGRAMMODE_CREATIVE = 5
 PHOTO_PROGRAMMODE_ACTION = 6
 PHOTO_PROGRAMMODE_PORTRAIT = 7
 PHOTO_PROGRAMMODE_LANDSCAPE = 8
-PKEY_Photo_ProgramModeText = PROPERTYKEY(Fmtid='7fe3aa27-2648-42f3-89b0-454e5cb150c3', Pid=100)
-PKEY_Photo_RelatedSoundFile = PROPERTYKEY(Fmtid='318a6b45-087f-4dc2-b8cc-05359551fc9e', Pid=100)
-PKEY_Photo_Saturation = PROPERTYKEY(Fmtid='49237325-a95a-4f67-b211-816b2d45d2e0', Pid=100)
+def _define_PKEY_Photo_ProgramModeText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7fe3aa27-2648-42f3-89-b0-45-4e-5c-b1-50-c3'), pid=100)
+def _define_PKEY_Photo_RelatedSoundFile():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('318a6b45-087f-4dc2-b8-cc-05-35-95-51-fc-9e'), pid=100)
+def _define_PKEY_Photo_Saturation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49237325-a95a-4f67-b2-11-81-6b-2d-45-d2-e0'), pid=100)
 PHOTO_SATURATION_NORMAL = 0
 PHOTO_SATURATION_LOW = 1
 PHOTO_SATURATION_HIGH = 2
-PKEY_Photo_SaturationText = PROPERTYKEY(Fmtid='61478c08-b600-4a84-bbe4-e99c45f0a072', Pid=100)
-PKEY_Photo_Sharpness = PROPERTYKEY(Fmtid='fc6976db-8349-4970-ae97-b3c5316a08f0', Pid=100)
+def _define_PKEY_Photo_SaturationText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('61478c08-b600-4a84-bb-e4-e9-9c-45-f0-a0-72'), pid=100)
+def _define_PKEY_Photo_Sharpness():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('fc6976db-8349-4970-ae-97-b3-c5-31-6a-08-f0'), pid=100)
 PHOTO_SHARPNESS_NORMAL = 0
 PHOTO_SHARPNESS_SOFT = 1
 PHOTO_SHARPNESS_HARD = 2
-PKEY_Photo_SharpnessText = PROPERTYKEY(Fmtid='51ec3f47-dd50-421d-8769-334f50424b1e', Pid=100)
-PKEY_Photo_ShutterSpeed = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37377)
-PKEY_Photo_ShutterSpeedDenominator = PROPERTYKEY(Fmtid='e13d8975-81c7-4948-ae3f-37cae11e8ff7', Pid=100)
-PKEY_Photo_ShutterSpeedNumerator = PROPERTYKEY(Fmtid='16ea4042-d6f4-4bca-8349-7c78d30fb333', Pid=100)
-PKEY_Photo_SubjectDistance = PROPERTYKEY(Fmtid='14b81da1-0135-4d31-96d9-6cbfc9671a99', Pid=37382)
-PKEY_Photo_SubjectDistanceDenominator = PROPERTYKEY(Fmtid='0c840a88-b043-466d-9766-d4b26da3fa77', Pid=100)
-PKEY_Photo_SubjectDistanceNumerator = PROPERTYKEY(Fmtid='8af4961c-f526-43e5-aa81-db768219178d', Pid=100)
-PKEY_Photo_TagViewAggregate = PROPERTYKEY(Fmtid='b812f15d-c2d8-4bbf-bacd-79744346113f', Pid=100)
-PKEY_Photo_TranscodedForSync = PROPERTYKEY(Fmtid='9a8ebb75-6458-4e82-bacb-35c0095b03bb', Pid=100)
-PKEY_Photo_WhiteBalance = PROPERTYKEY(Fmtid='ee3d3d8a-5381-4cfa-b13b-aaf66b5f4ec9', Pid=100)
+def _define_PKEY_Photo_SharpnessText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('51ec3f47-dd50-421d-87-69-33-4f-50-42-4b-1e'), pid=100)
+def _define_PKEY_Photo_ShutterSpeed():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37377)
+def _define_PKEY_Photo_ShutterSpeedDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e13d8975-81c7-4948-ae-3f-37-ca-e1-1e-8f-f7'), pid=100)
+def _define_PKEY_Photo_ShutterSpeedNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('16ea4042-d6f4-4bca-83-49-7c-78-d3-0f-b3-33'), pid=100)
+def _define_PKEY_Photo_SubjectDistance():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14b81da1-0135-4d31-96-d9-6c-bf-c9-67-1a-99'), pid=37382)
+def _define_PKEY_Photo_SubjectDistanceDenominator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c840a88-b043-466d-97-66-d4-b2-6d-a3-fa-77'), pid=100)
+def _define_PKEY_Photo_SubjectDistanceNumerator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8af4961c-f526-43e5-aa-81-db-76-82-19-17-8d'), pid=100)
+def _define_PKEY_Photo_TagViewAggregate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b812f15d-c2d8-4bbf-ba-cd-79-74-43-46-11-3f'), pid=100)
+def _define_PKEY_Photo_TranscodedForSync():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9a8ebb75-6458-4e82-ba-cb-35-c0-09-5b-03-bb'), pid=100)
+def _define_PKEY_Photo_WhiteBalance():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ee3d3d8a-5381-4cfa-b1-3b-aa-f6-6b-5f-4e-c9'), pid=100)
 PHOTO_WHITEBALANCE_AUTO = 0
 PHOTO_WHITEBALANCE_MANUAL = 1
-PKEY_Photo_WhiteBalanceText = PROPERTYKEY(Fmtid='6336b95e-c7a7-426d-86fd-7ae3d39c84b4', Pid=100)
-PKEY_PropGroup_Advanced = PROPERTYKEY(Fmtid='900a403b-097b-4b95-8ae2-071fdaeeb118', Pid=100)
-PKEY_PropGroup_Audio = PROPERTYKEY(Fmtid='2804d469-788f-48aa-8570-71b9c187e138', Pid=100)
-PKEY_PropGroup_Calendar = PROPERTYKEY(Fmtid='9973d2b5-bfd8-438a-ba94-5349b293181a', Pid=100)
-PKEY_PropGroup_Camera = PROPERTYKEY(Fmtid='de00de32-547e-4981-ad4b-542f2e9007d8', Pid=100)
-PKEY_PropGroup_Contact = PROPERTYKEY(Fmtid='df975fd3-250a-4004-858f-34e29a3e37aa', Pid=100)
-PKEY_PropGroup_Content = PROPERTYKEY(Fmtid='d0dab0ba-368a-4050-a882-6c010fd19a4f', Pid=100)
-PKEY_PropGroup_Description = PROPERTYKEY(Fmtid='8969b275-9475-4e00-a887-ff93b8b41e44', Pid=100)
-PKEY_PropGroup_FileSystem = PROPERTYKEY(Fmtid='e3a7d2c1-80fc-4b40-8f34-30ea111bdc2e', Pid=100)
-PKEY_PropGroup_General = PROPERTYKEY(Fmtid='cc301630-b192-4c22-b372-9f4c6d338e07', Pid=100)
-PKEY_PropGroup_GPS = PROPERTYKEY(Fmtid='f3713ada-90e3-4e11-aae5-fdc17685b9be', Pid=100)
-PKEY_PropGroup_Image = PROPERTYKEY(Fmtid='e3690a87-0fa8-4a2a-9a9f-fce8827055ac', Pid=100)
-PKEY_PropGroup_Media = PROPERTYKEY(Fmtid='61872cf7-6b5e-4b4b-ac2d-59da84459248', Pid=100)
-PKEY_PropGroup_MediaAdvanced = PROPERTYKEY(Fmtid='8859a284-de7e-4642-99ba-d431d044b1ec', Pid=100)
-PKEY_PropGroup_Message = PROPERTYKEY(Fmtid='7fd7259d-16b4-4135-9f97-7c96ecd2fa9e', Pid=100)
-PKEY_PropGroup_Music = PROPERTYKEY(Fmtid='68dd6094-7216-40f1-a029-43fe7127043f', Pid=100)
-PKEY_PropGroup_Origin = PROPERTYKEY(Fmtid='2598d2fb-5569-4367-95df-5cd3a177e1a5', Pid=100)
-PKEY_PropGroup_PhotoAdvanced = PROPERTYKEY(Fmtid='0cb2bf5a-9ee7-4a86-8222-f01e07fdadaf', Pid=100)
-PKEY_PropGroup_RecordedTV = PROPERTYKEY(Fmtid='e7b33238-6584-4170-a5c0-ac25efd9da56', Pid=100)
-PKEY_PropGroup_Video = PROPERTYKEY(Fmtid='bebe0920-7671-4c54-a3eb-49fddfc191ee', Pid=100)
-PKEY_InfoTipText = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=17)
-PKEY_PropList_ConflictPrompt = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=11)
-PKEY_PropList_ContentViewModeForBrowse = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=13)
-PKEY_PropList_ContentViewModeForSearch = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=14)
-PKEY_PropList_ExtendedTileInfo = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=9)
-PKEY_PropList_FileOperationPrompt = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=10)
-PKEY_PropList_FullDetails = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=2)
-PKEY_PropList_InfoTip = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=4)
-PKEY_PropList_NonPersonal = PROPERTYKEY(Fmtid='49d1091f-082e-493f-b23f-d2308aa9668c', Pid=100)
-PKEY_PropList_PreviewDetails = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=8)
-PKEY_PropList_PreviewTitle = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=6)
-PKEY_PropList_QuickTip = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=5)
-PKEY_PropList_TileInfo = PROPERTYKEY(Fmtid='c9944a21-a406-48fe-8225-aec7e24c211b', Pid=3)
-PKEY_PropList_XPDetailsPanel = PROPERTYKEY(Fmtid='f2275480-f782-4291-bd94-f13693513aec', Pid=0)
-PKEY_RecordedTV_ChannelNumber = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=7)
-PKEY_RecordedTV_Credits = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=4)
-PKEY_RecordedTV_DateContentExpires = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=15)
-PKEY_RecordedTV_EpisodeName = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=2)
-PKEY_RecordedTV_IsATSCContent = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=16)
-PKEY_RecordedTV_IsClosedCaptioningAvailable = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=12)
-PKEY_RecordedTV_IsDTVContent = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=17)
-PKEY_RecordedTV_IsHDContent = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=18)
-PKEY_RecordedTV_IsRepeatBroadcast = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=13)
-PKEY_RecordedTV_IsSAP = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=14)
-PKEY_RecordedTV_NetworkAffiliation = PROPERTYKEY(Fmtid='2c53c813-fb63-4e22-a1ab-0b331ca1e273', Pid=100)
-PKEY_RecordedTV_OriginalBroadcastDate = PROPERTYKEY(Fmtid='4684fe97-8765-4842-9c13-f006447b178c', Pid=100)
-PKEY_RecordedTV_ProgramDescription = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=3)
-PKEY_RecordedTV_RecordingTime = PROPERTYKEY(Fmtid='a5477f61-7a82-4eca-9dde-98b69b2479b3', Pid=100)
-PKEY_RecordedTV_StationCallSign = PROPERTYKEY(Fmtid='6d748de2-8d38-4cc3-ac60-f009b057c557', Pid=5)
-PKEY_RecordedTV_StationName = PROPERTYKEY(Fmtid='1b5439e7-eba1-4af8-bdd7-7af1d4549493', Pid=100)
-PKEY_Search_AutoSummary = PROPERTYKEY(Fmtid='560c36c0-503a-11cf-baa1-00004c752a9a', Pid=2)
-PKEY_Search_ContainerHash = PROPERTYKEY(Fmtid='bceee283-35df-4d53-826a-f36a3eefc6be', Pid=100)
-PKEY_Search_Contents = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=19)
-PKEY_Search_EntryID = PROPERTYKEY(Fmtid='49691c90-7e17-101a-a91c-08002b2ecda9', Pid=5)
-PKEY_Search_ExtendedProperties = PROPERTYKEY(Fmtid='7b03b546-fa4f-4a52-a2fe-03d5311e5865', Pid=100)
-PKEY_Search_GatherTime = PROPERTYKEY(Fmtid='0b63e350-9ccc-11d0-bcdb-00805fccce04', Pid=8)
-PKEY_Search_HitCount = PROPERTYKEY(Fmtid='49691c90-7e17-101a-a91c-08002b2ecda9', Pid=4)
-PKEY_Search_IsClosedDirectory = PROPERTYKEY(Fmtid='0b63e343-9ccc-11d0-bcdb-00805fccce04', Pid=23)
-PKEY_Search_IsFullyContained = PROPERTYKEY(Fmtid='0b63e343-9ccc-11d0-bcdb-00805fccce04', Pid=24)
-PKEY_Search_QueryFocusedSummary = PROPERTYKEY(Fmtid='560c36c0-503a-11cf-baa1-00004c752a9a', Pid=3)
-PKEY_Search_QueryFocusedSummaryWithFallback = PROPERTYKEY(Fmtid='560c36c0-503a-11cf-baa1-00004c752a9a', Pid=4)
-PKEY_Search_QueryPropertyHits = PROPERTYKEY(Fmtid='49691c90-7e17-101a-a91c-08002b2ecda9', Pid=21)
-PKEY_Search_Rank = PROPERTYKEY(Fmtid='49691c90-7e17-101a-a91c-08002b2ecda9', Pid=3)
-PKEY_Search_Store = PROPERTYKEY(Fmtid='a06992b3-8caf-4ed7-a547-b259e32ac9fc', Pid=100)
-PKEY_Search_UrlToIndex = PROPERTYKEY(Fmtid='0b63e343-9ccc-11d0-bcdb-00805fccce04', Pid=2)
-PKEY_Search_UrlToIndexWithModificationTime = PROPERTYKEY(Fmtid='0b63e343-9ccc-11d0-bcdb-00805fccce04', Pid=12)
-PKEY_Supplemental_Album = PROPERTYKEY(Fmtid='0c73b141-39d6-4653-a683-cab291eaf95b', Pid=6)
-PKEY_Supplemental_AlbumID = PROPERTYKEY(Fmtid='0c73b141-39d6-4653-a683-cab291eaf95b', Pid=2)
-PKEY_Supplemental_Location = PROPERTYKEY(Fmtid='0c73b141-39d6-4653-a683-cab291eaf95b', Pid=5)
-PKEY_Supplemental_Person = PROPERTYKEY(Fmtid='0c73b141-39d6-4653-a683-cab291eaf95b', Pid=7)
-PKEY_Supplemental_ResourceId = PROPERTYKEY(Fmtid='0c73b141-39d6-4653-a683-cab291eaf95b', Pid=3)
-PKEY_Supplemental_Tag = PROPERTYKEY(Fmtid='0c73b141-39d6-4653-a683-cab291eaf95b', Pid=4)
-PKEY_DescriptionID = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=2)
-PKEY_InternalName = PROPERTYKEY(Fmtid='0cef7d53-fa64-11d1-a203-0000f81fedee', Pid=5)
-PKEY_LibraryLocationsCount = PROPERTYKEY(Fmtid='908696c7-8f87-44f2-80ed-a8c1c6894575', Pid=2)
-PKEY_Link_TargetSFGAOFlagsStrings = PROPERTYKEY(Fmtid='d6942081-d53b-443d-ad47-5e059d9cd27a', Pid=3)
-PKEY_Link_TargetUrl = PROPERTYKEY(Fmtid='5cbf2787-48cf-4208-b90e-ee5e5d420294', Pid=2)
-PKEY_NamespaceCLSID = PROPERTYKEY(Fmtid='28636aa6-953d-11d2-b5d6-00c04fd918d0', Pid=6)
-PKEY_Shell_SFGAOFlagsStrings = PROPERTYKEY(Fmtid='d6942081-d53b-443d-ad47-5e059d9cd27a', Pid=2)
-PKEY_StatusBarSelectedItemCount = PROPERTYKEY(Fmtid='26dc287c-6e3d-4bd3-b2b0-6a26ba2e346d', Pid=3)
-PKEY_StatusBarViewItemCount = PROPERTYKEY(Fmtid='26dc287c-6e3d-4bd3-b2b0-6a26ba2e346d', Pid=2)
-PKEY_AppUserModel_ExcludeFromShowInNewInstall = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=8)
-PKEY_AppUserModel_ID = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=5)
-PKEY_AppUserModel_IsDestListSeparator = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=6)
-PKEY_AppUserModel_IsDualMode = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=11)
-PKEY_AppUserModel_PreventPinning = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=9)
-PKEY_AppUserModel_RelaunchCommand = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=2)
-PKEY_AppUserModel_RelaunchDisplayNameResource = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=4)
-PKEY_AppUserModel_RelaunchIconResource = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=3)
-PKEY_AppUserModel_SettingsCommand = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=38)
-PKEY_AppUserModel_StartPinOption = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=12)
+def _define_PKEY_Photo_WhiteBalanceText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6336b95e-c7a7-426d-86-fd-7a-e3-d3-9c-84-b4'), pid=100)
+def _define_PKEY_PropGroup_Advanced():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('900a403b-097b-4b95-8a-e2-07-1f-da-ee-b1-18'), pid=100)
+def _define_PKEY_PropGroup_Audio():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2804d469-788f-48aa-85-70-71-b9-c1-87-e1-38'), pid=100)
+def _define_PKEY_PropGroup_Calendar():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9973d2b5-bfd8-438a-ba-94-53-49-b2-93-18-1a'), pid=100)
+def _define_PKEY_PropGroup_Camera():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('de00de32-547e-4981-ad-4b-54-2f-2e-90-07-d8'), pid=100)
+def _define_PKEY_PropGroup_Contact():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('df975fd3-250a-4004-85-8f-34-e2-9a-3e-37-aa'), pid=100)
+def _define_PKEY_PropGroup_Content():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d0dab0ba-368a-4050-a8-82-6c-01-0f-d1-9a-4f'), pid=100)
+def _define_PKEY_PropGroup_Description():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8969b275-9475-4e00-a8-87-ff-93-b8-b4-1e-44'), pid=100)
+def _define_PKEY_PropGroup_FileSystem():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3a7d2c1-80fc-4b40-8f-34-30-ea-11-1b-dc-2e'), pid=100)
+def _define_PKEY_PropGroup_General():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('cc301630-b192-4c22-b3-72-9f-4c-6d-33-8e-07'), pid=100)
+def _define_PKEY_PropGroup_GPS():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f3713ada-90e3-4e11-aa-e5-fd-c1-76-85-b9-be'), pid=100)
+def _define_PKEY_PropGroup_Image():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e3690a87-0fa8-4a2a-9a-9f-fc-e8-82-70-55-ac'), pid=100)
+def _define_PKEY_PropGroup_Media():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('61872cf7-6b5e-4b4b-ac-2d-59-da-84-45-92-48'), pid=100)
+def _define_PKEY_PropGroup_MediaAdvanced():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8859a284-de7e-4642-99-ba-d4-31-d0-44-b1-ec'), pid=100)
+def _define_PKEY_PropGroup_Message():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7fd7259d-16b4-4135-9f-97-7c-96-ec-d2-fa-9e'), pid=100)
+def _define_PKEY_PropGroup_Music():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('68dd6094-7216-40f1-a0-29-43-fe-71-27-04-3f'), pid=100)
+def _define_PKEY_PropGroup_Origin():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2598d2fb-5569-4367-95-df-5c-d3-a1-77-e1-a5'), pid=100)
+def _define_PKEY_PropGroup_PhotoAdvanced():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cb2bf5a-9ee7-4a86-82-22-f0-1e-07-fd-ad-af'), pid=100)
+def _define_PKEY_PropGroup_RecordedTV():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e7b33238-6584-4170-a5-c0-ac-25-ef-d9-da-56'), pid=100)
+def _define_PKEY_PropGroup_Video():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bebe0920-7671-4c54-a3-eb-49-fd-df-c1-91-ee'), pid=100)
+def _define_PKEY_InfoTipText():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=17)
+def _define_PKEY_PropList_ConflictPrompt():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=11)
+def _define_PKEY_PropList_ContentViewModeForBrowse():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=13)
+def _define_PKEY_PropList_ContentViewModeForSearch():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=14)
+def _define_PKEY_PropList_ExtendedTileInfo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=9)
+def _define_PKEY_PropList_FileOperationPrompt():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=10)
+def _define_PKEY_PropList_FullDetails():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=2)
+def _define_PKEY_PropList_InfoTip():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=4)
+def _define_PKEY_PropList_NonPersonal():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49d1091f-082e-493f-b2-3f-d2-30-8a-a9-66-8c'), pid=100)
+def _define_PKEY_PropList_PreviewDetails():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=8)
+def _define_PKEY_PropList_PreviewTitle():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=6)
+def _define_PKEY_PropList_QuickTip():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=5)
+def _define_PKEY_PropList_TileInfo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('c9944a21-a406-48fe-82-25-ae-c7-e2-4c-21-1b'), pid=3)
+def _define_PKEY_PropList_XPDetailsPanel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f2275480-f782-4291-bd-94-f1-36-93-51-3a-ec'), pid=0)
+def _define_PKEY_RecordedTV_ChannelNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=7)
+def _define_PKEY_RecordedTV_Credits():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=4)
+def _define_PKEY_RecordedTV_DateContentExpires():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=15)
+def _define_PKEY_RecordedTV_EpisodeName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=2)
+def _define_PKEY_RecordedTV_IsATSCContent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=16)
+def _define_PKEY_RecordedTV_IsClosedCaptioningAvailable():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=12)
+def _define_PKEY_RecordedTV_IsDTVContent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=17)
+def _define_PKEY_RecordedTV_IsHDContent():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=18)
+def _define_PKEY_RecordedTV_IsRepeatBroadcast():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=13)
+def _define_PKEY_RecordedTV_IsSAP():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=14)
+def _define_PKEY_RecordedTV_NetworkAffiliation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2c53c813-fb63-4e22-a1-ab-0b-33-1c-a1-e2-73'), pid=100)
+def _define_PKEY_RecordedTV_OriginalBroadcastDate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('4684fe97-8765-4842-9c-13-f0-06-44-7b-17-8c'), pid=100)
+def _define_PKEY_RecordedTV_ProgramDescription():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=3)
+def _define_PKEY_RecordedTV_RecordingTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a5477f61-7a82-4eca-9d-de-98-b6-9b-24-79-b3'), pid=100)
+def _define_PKEY_RecordedTV_StationCallSign():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('6d748de2-8d38-4cc3-ac-60-f0-09-b0-57-c5-57'), pid=5)
+def _define_PKEY_RecordedTV_StationName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1b5439e7-eba1-4af8-bd-d7-7a-f1-d4-54-94-93'), pid=100)
+def _define_PKEY_Search_AutoSummary():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('560c36c0-503a-11cf-ba-a1-00-00-4c-75-2a-9a'), pid=2)
+def _define_PKEY_Search_ContainerHash():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bceee283-35df-4d53-82-6a-f3-6a-3e-ef-c6-be'), pid=100)
+def _define_PKEY_Search_Contents():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b725f130-47ef-101a-a5-f1-02-60-8c-9e-eb-ac'), pid=19)
+def _define_PKEY_Search_EntryID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49691c90-7e17-101a-a9-1c-08-00-2b-2e-cd-a9'), pid=5)
+def _define_PKEY_Search_ExtendedProperties():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7b03b546-fa4f-4a52-a2-fe-03-d5-31-1e-58-65'), pid=100)
+def _define_PKEY_Search_GatherTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b63e350-9ccc-11d0-bc-db-00-80-5f-cc-ce-04'), pid=8)
+def _define_PKEY_Search_HitCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49691c90-7e17-101a-a9-1c-08-00-2b-2e-cd-a9'), pid=4)
+def _define_PKEY_Search_IsClosedDirectory():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b63e343-9ccc-11d0-bc-db-00-80-5f-cc-ce-04'), pid=23)
+def _define_PKEY_Search_IsFullyContained():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b63e343-9ccc-11d0-bc-db-00-80-5f-cc-ce-04'), pid=24)
+def _define_PKEY_Search_QueryFocusedSummary():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('560c36c0-503a-11cf-ba-a1-00-00-4c-75-2a-9a'), pid=3)
+def _define_PKEY_Search_QueryFocusedSummaryWithFallback():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('560c36c0-503a-11cf-ba-a1-00-00-4c-75-2a-9a'), pid=4)
+def _define_PKEY_Search_QueryPropertyHits():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49691c90-7e17-101a-a9-1c-08-00-2b-2e-cd-a9'), pid=21)
+def _define_PKEY_Search_Rank():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('49691c90-7e17-101a-a9-1c-08-00-2b-2e-cd-a9'), pid=3)
+def _define_PKEY_Search_Store():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('a06992b3-8caf-4ed7-a5-47-b2-59-e3-2a-c9-fc'), pid=100)
+def _define_PKEY_Search_UrlToIndex():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b63e343-9ccc-11d0-bc-db-00-80-5f-cc-ce-04'), pid=2)
+def _define_PKEY_Search_UrlToIndexWithModificationTime():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0b63e343-9ccc-11d0-bc-db-00-80-5f-cc-ce-04'), pid=12)
+def _define_PKEY_Supplemental_Album():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c73b141-39d6-4653-a6-83-ca-b2-91-ea-f9-5b'), pid=6)
+def _define_PKEY_Supplemental_AlbumID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c73b141-39d6-4653-a6-83-ca-b2-91-ea-f9-5b'), pid=2)
+def _define_PKEY_Supplemental_Location():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c73b141-39d6-4653-a6-83-ca-b2-91-ea-f9-5b'), pid=5)
+def _define_PKEY_Supplemental_Person():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c73b141-39d6-4653-a6-83-ca-b2-91-ea-f9-5b'), pid=7)
+def _define_PKEY_Supplemental_ResourceId():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c73b141-39d6-4653-a6-83-ca-b2-91-ea-f9-5b'), pid=3)
+def _define_PKEY_Supplemental_Tag():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0c73b141-39d6-4653-a6-83-ca-b2-91-ea-f9-5b'), pid=4)
+def _define_PKEY_DescriptionID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=2)
+def _define_PKEY_InternalName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cef7d53-fa64-11d1-a2-03-00-00-f8-1f-ed-ee'), pid=5)
+def _define_PKEY_LibraryLocationsCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('908696c7-8f87-44f2-80-ed-a8-c1-c6-89-45-75'), pid=2)
+def _define_PKEY_Link_TargetSFGAOFlagsStrings():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d6942081-d53b-443d-ad-47-5e-05-9d-9c-d2-7a'), pid=3)
+def _define_PKEY_Link_TargetUrl():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('5cbf2787-48cf-4208-b9-0e-ee-5e-5d-42-02-94'), pid=2)
+def _define_PKEY_NamespaceCLSID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('28636aa6-953d-11d2-b5-d6-00-c0-4f-d9-18-d0'), pid=6)
+def _define_PKEY_Shell_SFGAOFlagsStrings():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d6942081-d53b-443d-ad-47-5e-05-9d-9c-d2-7a'), pid=2)
+SFGAOSTR_FILESYS = 'filesys'
+SFGAOSTR_FILEANC = 'fileanc'
+SFGAOSTR_STORAGEANC = 'storageanc'
+SFGAOSTR_STREAM = 'stream'
+SFGAOSTR_LINK = 'link'
+SFGAOSTR_HIDDEN = 'hidden'
+SFGAOSTR_SUPERHIDDEN = 'superhidden'
+SFGAOSTR_FOLDER = 'folder'
+SFGAOSTR_NONENUM = 'nonenum'
+SFGAOSTR_BROWSABLE = 'browsable'
+SFGAOSTR_SYSTEM = 'system'
+SFGAOSTR_PLACEHOLDER = 'placeholder'
+def _define_PKEY_StatusBarSelectedItemCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('26dc287c-6e3d-4bd3-b2-b0-6a-26-ba-2e-34-6d'), pid=3)
+def _define_PKEY_StatusBarViewItemCount():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('26dc287c-6e3d-4bd3-b2-b0-6a-26-ba-2e-34-6d'), pid=2)
+def _define_PKEY_AppUserModel_ExcludeFromShowInNewInstall():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=8)
+def _define_PKEY_AppUserModel_ID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=5)
+def _define_PKEY_AppUserModel_IsDestListSeparator():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=6)
+def _define_PKEY_AppUserModel_IsDualMode():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=11)
+def _define_PKEY_AppUserModel_PreventPinning():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=9)
+def _define_PKEY_AppUserModel_RelaunchCommand():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=2)
+def _define_PKEY_AppUserModel_RelaunchDisplayNameResource():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=4)
+def _define_PKEY_AppUserModel_RelaunchIconResource():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=3)
+def _define_PKEY_AppUserModel_SettingsCommand():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=38)
+def _define_PKEY_AppUserModel_StartPinOption():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=12)
 APPUSERMODEL_STARTPINOPTION_DEFAULT = 0
 APPUSERMODEL_STARTPINOPTION_NOPINONINSTALL = 1
 APPUSERMODEL_STARTPINOPTION_USERPINNED = 2
-PKEY_AppUserModel_ToastActivatorCLSID = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=26)
-PKEY_AppUserModel_UninstallCommand = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=37)
-PKEY_AppUserModel_VisualElementsManifestHintPath = PROPERTYKEY(Fmtid='9f4c2855-9f79-4b39-a8d0-e1d42de1d5f3', Pid=31)
-PKEY_EdgeGesture_DisableTouchWhenFullscreen = PROPERTYKEY(Fmtid='32ce38b2-2c9a-41b1-9bc5-b3784394aa44', Pid=2)
-PKEY_Software_DateLastUsed = PROPERTYKEY(Fmtid='841e4f90-ff59-4d16-8947-e81bbffab36d', Pid=16)
-PKEY_Software_ProductName = PROPERTYKEY(Fmtid='0cef7d53-fa64-11d1-a203-0000f81fedee', Pid=7)
-PKEY_Sync_Comments = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=13)
-PKEY_Sync_ConflictDescription = PROPERTYKEY(Fmtid='ce50c159-2fb8-41fd-be68-d3e042e274bc', Pid=4)
-PKEY_Sync_ConflictFirstLocation = PROPERTYKEY(Fmtid='ce50c159-2fb8-41fd-be68-d3e042e274bc', Pid=6)
-PKEY_Sync_ConflictSecondLocation = PROPERTYKEY(Fmtid='ce50c159-2fb8-41fd-be68-d3e042e274bc', Pid=7)
-PKEY_Sync_HandlerCollectionID = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=2)
-PKEY_Sync_HandlerID = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=3)
-PKEY_Sync_HandlerName = PROPERTYKEY(Fmtid='ce50c159-2fb8-41fd-be68-d3e042e274bc', Pid=2)
-PKEY_Sync_HandlerType = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=8)
+def _define_PKEY_AppUserModel_ToastActivatorCLSID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=26)
+def _define_PKEY_AppUserModel_UninstallCommand():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=37)
+def _define_PKEY_AppUserModel_VisualElementsManifestHintPath():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9f4c2855-9f79-4b39-a8-d0-e1-d4-2d-e1-d5-f3'), pid=31)
+def _define_PKEY_EdgeGesture_DisableTouchWhenFullscreen():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('32ce38b2-2c9a-41b1-9b-c5-b3-78-43-94-aa-44'), pid=2)
+def _define_PKEY_Software_DateLastUsed():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('841e4f90-ff59-4d16-89-47-e8-1b-bf-fa-b3-6d'), pid=16)
+def _define_PKEY_Software_ProductName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('0cef7d53-fa64-11d1-a2-03-00-00-f8-1f-ed-ee'), pid=7)
+def _define_PKEY_Sync_Comments():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=13)
+def _define_PKEY_Sync_ConflictDescription():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ce50c159-2fb8-41fd-be-68-d3-e0-42-e2-74-bc'), pid=4)
+def _define_PKEY_Sync_ConflictFirstLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ce50c159-2fb8-41fd-be-68-d3-e0-42-e2-74-bc'), pid=6)
+def _define_PKEY_Sync_ConflictSecondLocation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ce50c159-2fb8-41fd-be-68-d3-e0-42-e2-74-bc'), pid=7)
+def _define_PKEY_Sync_HandlerCollectionID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=2)
+def _define_PKEY_Sync_HandlerID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=3)
+def _define_PKEY_Sync_HandlerName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ce50c159-2fb8-41fd-be-68-d3-e0-42-e2-74-bc'), pid=2)
+def _define_PKEY_Sync_HandlerType():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=8)
 SYNC_HANDLERTYPE_OTHER = 0
 SYNC_HANDLERTYPE_PROGRAMS = 1
 SYNC_HANDLERTYPE_DEVICES = 2
 SYNC_HANDLERTYPE_FOLDERS = 3
 SYNC_HANDLERTYPE_WEBSERVICES = 4
 SYNC_HANDLERTYPE_COMPUTERS = 5
-PKEY_Sync_HandlerTypeLabel = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=9)
-PKEY_Sync_ItemID = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=6)
-PKEY_Sync_ItemName = PROPERTYKEY(Fmtid='ce50c159-2fb8-41fd-be68-d3e042e274bc', Pid=3)
-PKEY_Sync_ProgressPercentage = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=23)
-PKEY_Sync_State = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=24)
+def _define_PKEY_Sync_HandlerTypeLabel():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=9)
+def _define_PKEY_Sync_ItemID():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=6)
+def _define_PKEY_Sync_ItemName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('ce50c159-2fb8-41fd-be-68-d3-e0-42-e2-74-bc'), pid=3)
+def _define_PKEY_Sync_ProgressPercentage():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=23)
+def _define_PKEY_Sync_State():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=24)
 SYNC_STATE_NOTSETUP = 0
 SYNC_STATE_SYNCNOTRUN = 1
 SYNC_STATE_IDLE = 2
 SYNC_STATE_ERROR = 3
 SYNC_STATE_PENDING = 4
 SYNC_STATE_SYNCING = 5
-PKEY_Sync_Status = PROPERTYKEY(Fmtid='7bd5533e-af15-44db-b8c8-bd6624e1d032', Pid=10)
-PKEY_Task_BillingInformation = PROPERTYKEY(Fmtid='d37d52c6-261c-4303-82b3-08b926ac6f12', Pid=100)
-PKEY_Task_CompletionStatus = PROPERTYKEY(Fmtid='084d8a0a-e6d5-40de-bf1f-c8820e7c877c', Pid=100)
-PKEY_Task_Owner = PROPERTYKEY(Fmtid='08c7cc5f-60f2-4494-ad75-55e3e0b5add0', Pid=100)
-PKEY_Video_Compression = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=10)
-PKEY_Video_Director = PROPERTYKEY(Fmtid='64440492-4c8b-11d1-8b70-080036b11a03', Pid=20)
-PKEY_Video_EncodingBitrate = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=8)
-PKEY_Video_FourCC = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=44)
-PKEY_Video_FrameHeight = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=4)
-PKEY_Video_FrameRate = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=6)
-PKEY_Video_FrameWidth = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=3)
-PKEY_Video_HorizontalAspectRatio = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=42)
-PKEY_Video_IsSpherical = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=100)
-PKEY_Video_IsStereo = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=98)
-PKEY_Video_Orientation = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=99)
-PKEY_Video_SampleSize = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=9)
-PKEY_Video_StreamName = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=2)
-PKEY_Video_StreamNumber = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=11)
-PKEY_Video_TotalBitrate = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=43)
-PKEY_Video_TranscodedForSync = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=46)
-PKEY_Video_VerticalAspectRatio = PROPERTYKEY(Fmtid='64440491-4c8b-11d1-8b70-080036b11a03', Pid=45)
-PKEY_Volume_FileSystem = PROPERTYKEY(Fmtid='9b174b35-40ff-11d2-a27e-00c04fc30871', Pid=4)
-PKEY_Volume_IsMappedDrive = PROPERTYKEY(Fmtid='149c0b69-2c2d-48fc-808f-d318d78c4636', Pid=2)
-PKEY_Volume_IsRoot = PROPERTYKEY(Fmtid='9b174b35-40ff-11d2-a27e-00c04fc30871', Pid=10)
+def _define_PKEY_Sync_Status():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7bd5533e-af15-44db-b8-c8-bd-66-24-e1-d0-32'), pid=10)
+def _define_PKEY_Task_BillingInformation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d37d52c6-261c-4303-82-b3-08-b9-26-ac-6f-12'), pid=100)
+def _define_PKEY_Task_CompletionStatus():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('084d8a0a-e6d5-40de-bf-1f-c8-82-0e-7c-87-7c'), pid=100)
+def _define_PKEY_Task_Owner():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('08c7cc5f-60f2-4494-ad-75-55-e3-e0-b5-ad-d0'), pid=100)
+def _define_PKEY_Video_Compression():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=10)
+def _define_PKEY_Video_Director():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440492-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=20)
+def _define_PKEY_Video_EncodingBitrate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=8)
+def _define_PKEY_Video_FourCC():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=44)
+def _define_PKEY_Video_FrameHeight():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=4)
+def _define_PKEY_Video_FrameRate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=6)
+def _define_PKEY_Video_FrameWidth():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=3)
+def _define_PKEY_Video_HorizontalAspectRatio():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=42)
+def _define_PKEY_Video_IsSpherical():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=100)
+def _define_PKEY_Video_IsStereo():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=98)
+def _define_PKEY_Video_Orientation():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=99)
+def _define_PKEY_Video_SampleSize():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=9)
+def _define_PKEY_Video_StreamName():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=2)
+def _define_PKEY_Video_StreamNumber():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=11)
+def _define_PKEY_Video_TotalBitrate():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=43)
+def _define_PKEY_Video_TranscodedForSync():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=46)
+def _define_PKEY_Video_VerticalAspectRatio():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64440491-4c8b-11d1-8b-70-08-00-36-b1-1a-03'), pid=45)
+def _define_PKEY_Volume_FileSystem():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b35-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=4)
+def _define_PKEY_Volume_IsMappedDrive():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('149c0b69-2c2d-48fc-80-8f-d3-18-d7-8c-46-36'), pid=2)
+def _define_PKEY_Volume_IsRoot():
+    return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('9b174b35-40ff-11d2-a2-7e-00-c0-4f-c3-08-71'), pid=10)
 ACT_AUTHORIZE_ON_RESUME = 1
 ACT_AUTHORIZE_ON_SESSION_UNLOCK = 2
 ACT_UNAUTHORIZE_ON_SUSPEND = 1
@@ -1326,48 +2497,107 @@ def _define_ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION_head():
 def _define_ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION():
     ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION = win32more.Storage.EnhancedStorage.ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION_head
     ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION._fields_ = [
-        ("CurrentAdminFailures", Byte),
-        ("CurrentUserFailures", Byte),
-        ("TotalUserAuthenticationCount", UInt32),
-        ("TotalAdminAuthenticationCount", UInt32),
-        ("FipsCompliant", win32more.Foundation.BOOL),
-        ("SecurityIDAvailable", win32more.Foundation.BOOL),
-        ("InitializeInProgress", win32more.Foundation.BOOL),
-        ("ITMSArmed", win32more.Foundation.BOOL),
-        ("ITMSArmable", win32more.Foundation.BOOL),
-        ("UserCreated", win32more.Foundation.BOOL),
-        ("ResetOnPORDefault", win32more.Foundation.BOOL),
-        ("ResetOnPORCurrent", win32more.Foundation.BOOL),
-        ("MaxAdminFailures", Byte),
-        ("MaxUserFailures", Byte),
-        ("TimeToCompleteInitialization", UInt32),
-        ("TimeRemainingToCompleteInitialization", UInt32),
-        ("MinTimeToAuthenticate", UInt32),
-        ("MaxAdminPasswordSize", Byte),
-        ("MinAdminPasswordSize", Byte),
-        ("MaxAdminHintSize", Byte),
-        ("MaxUserPasswordSize", Byte),
-        ("MinUserPasswordSize", Byte),
-        ("MaxUserHintSize", Byte),
-        ("MaxUserNameSize", Byte),
-        ("MaxSiloNameSize", Byte),
-        ("MaxChallengeSize", UInt16),
+        ('CurrentAdminFailures', Byte),
+        ('CurrentUserFailures', Byte),
+        ('TotalUserAuthenticationCount', UInt32),
+        ('TotalAdminAuthenticationCount', UInt32),
+        ('FipsCompliant', win32more.Foundation.BOOL),
+        ('SecurityIDAvailable', win32more.Foundation.BOOL),
+        ('InitializeInProgress', win32more.Foundation.BOOL),
+        ('ITMSArmed', win32more.Foundation.BOOL),
+        ('ITMSArmable', win32more.Foundation.BOOL),
+        ('UserCreated', win32more.Foundation.BOOL),
+        ('ResetOnPORDefault', win32more.Foundation.BOOL),
+        ('ResetOnPORCurrent', win32more.Foundation.BOOL),
+        ('MaxAdminFailures', Byte),
+        ('MaxUserFailures', Byte),
+        ('TimeToCompleteInitialization', UInt32),
+        ('TimeRemainingToCompleteInitialization', UInt32),
+        ('MinTimeToAuthenticate', UInt32),
+        ('MaxAdminPasswordSize', Byte),
+        ('MinAdminPasswordSize', Byte),
+        ('MaxAdminHintSize', Byte),
+        ('MaxUserPasswordSize', Byte),
+        ('MinUserPasswordSize', Byte),
+        ('MaxUserHintSize', Byte),
+        ('MaxUserNameSize', Byte),
+        ('MaxSiloNameSize', Byte),
+        ('MaxChallengeSize', UInt16),
     ]
     return ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION
-EnumEnhancedStorageACT = Guid('fe841493-835c-4fa3-b6cc-b4b2d4719848')
-EnhancedStorageACT = Guid('af076a15-2ece-4ad4-bb21-29f040e176d8')
-EnhancedStorageSilo = Guid('cb25220c-76c7-4fee-842b-f3383cd022bc')
-EnhancedStorageSiloAction = Guid('886d29dd-b506-466b-9fbf-b44ff383fb3f')
-def _define_ACT_AUTHORIZATION_STATE_head():
-    class ACT_AUTHORIZATION_STATE(Structure):
-        pass
-    return ACT_AUTHORIZATION_STATE
-def _define_ACT_AUTHORIZATION_STATE():
-    ACT_AUTHORIZATION_STATE = win32more.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_head
-    ACT_AUTHORIZATION_STATE._fields_ = [
-        ("ulState", UInt32),
-    ]
-    return ACT_AUTHORIZATION_STATE
+EnhancedStorageACT = Guid('af076a15-2ece-4ad4-bb-21-29-f0-40-e1-76-d8')
+EnhancedStorageSilo = Guid('cb25220c-76c7-4fee-84-2b-f3-38-3c-d0-22-bc')
+EnhancedStorageSiloAction = Guid('886d29dd-b506-466b-9f-bf-b4-4f-f3-83-fb-3f')
+EnumEnhancedStorageACT = Guid('fe841493-835c-4fa3-b6-cc-b4-b2-d4-71-98-48')
+def _define_IEnhancedStorageACT_head():
+    class IEnhancedStorageACT(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6e7781f4-e0f2-4239-b9-76-a0-1a-ba-b5-29-30')
+    return IEnhancedStorageACT
+def _define_IEnhancedStorageACT():
+    IEnhancedStorageACT = win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head
+    IEnhancedStorageACT.Authorize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(3, 'Authorize', ((1, 'hwndParent'),(1, 'dwFlags'),)))
+    IEnhancedStorageACT.Unauthorize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Unauthorize', ()))
+    IEnhancedStorageACT.GetAuthorizationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_head))(5, 'GetAuthorizationState', ((1, 'pState'),)))
+    IEnhancedStorageACT.GetMatchingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'GetMatchingVolume', ((1, 'ppwszVolume'),)))
+    IEnhancedStorageACT.GetUniqueIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'GetUniqueIdentity', ((1, 'ppwszIdentity'),)))
+    IEnhancedStorageACT.GetSilos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageSilo_head)),POINTER(UInt32))(8, 'GetSilos', ((1, 'pppIEnhancedStorageSilos'),(1, 'pcEnhancedStorageSilos'),)))
+    win32more.System.Com.IUnknown
+    return IEnhancedStorageACT
+def _define_IEnhancedStorageACT2_head():
+    class IEnhancedStorageACT2(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head):
+        Guid = Guid('4da57d2e-8eb3-41f6-a0-7e-98-b5-2b-88-24-2b')
+    return IEnhancedStorageACT2
+def _define_IEnhancedStorageACT2():
+    IEnhancedStorageACT2 = win32more.Storage.EnhancedStorage.IEnhancedStorageACT2_head
+    IEnhancedStorageACT2.GetDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(9, 'GetDeviceName', ((1, 'ppwszDeviceName'),)))
+    IEnhancedStorageACT2.IsDeviceRemovable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'IsDeviceRemovable', ((1, 'pIsDeviceRemovable'),)))
+    win32more.Storage.EnhancedStorage.IEnhancedStorageACT
+    return IEnhancedStorageACT2
+def _define_IEnhancedStorageACT3_head():
+    class IEnhancedStorageACT3(win32more.Storage.EnhancedStorage.IEnhancedStorageACT2_head):
+        Guid = Guid('022150a1-113d-11df-bb-61-00-1a-a0-1b-bc-58')
+    return IEnhancedStorageACT3
+def _define_IEnhancedStorageACT3():
+    IEnhancedStorageACT3 = win32more.Storage.EnhancedStorage.IEnhancedStorageACT3_head
+    IEnhancedStorageACT3.UnauthorizeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(11, 'UnauthorizeEx', ((1, 'dwFlags'),)))
+    IEnhancedStorageACT3.IsQueueFrozen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'IsQueueFrozen', ((1, 'pIsQueueFrozen'),)))
+    IEnhancedStorageACT3.GetShellExtSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(13, 'GetShellExtSupport', ((1, 'pShellExtSupport'),)))
+    win32more.Storage.EnhancedStorage.IEnhancedStorageACT2
+    return IEnhancedStorageACT3
+def _define_IEnhancedStorageSilo_head():
+    class IEnhancedStorageSilo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5aef78c6-2242-4703-bf-49-44-b2-93-57-a3-59')
+    return IEnhancedStorageSilo
+def _define_IEnhancedStorageSilo():
+    IEnhancedStorageSilo = win32more.Storage.EnhancedStorage.IEnhancedStorageSilo_head
+    IEnhancedStorageSilo.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.EnhancedStorage.SILO_INFO_head))(3, 'GetInfo', ((1, 'pSiloInfo'),)))
+    IEnhancedStorageSilo.GetActions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageSiloAction_head)),POINTER(UInt32))(4, 'GetActions', ((1, 'pppIEnhancedStorageSiloActions'),(1, 'pcEnhancedStorageSiloActions'),)))
+    IEnhancedStorageSilo.SendCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,c_char_p_no,UInt32,c_char_p_no,POINTER(UInt32))(5, 'SendCommand', ((1, 'Command'),(1, 'pbCommandBuffer'),(1, 'cbCommandBuffer'),(1, 'pbResponseBuffer'),(1, 'pcbResponseBuffer'),)))
+    IEnhancedStorageSilo.GetPortableDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IPortableDevice_head))(6, 'GetPortableDevice', ((1, 'ppIPortableDevice'),)))
+    IEnhancedStorageSilo.GetDevicePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'GetDevicePath', ((1, 'ppwszSiloDevicePath'),)))
+    win32more.System.Com.IUnknown
+    return IEnhancedStorageSilo
+def _define_IEnhancedStorageSiloAction_head():
+    class IEnhancedStorageSiloAction(win32more.System.Com.IUnknown_head):
+        Guid = Guid('b6f7f311-206f-4ff8-9c-4b-27-ef-ee-77-a8-6f')
+    return IEnhancedStorageSiloAction
+def _define_IEnhancedStorageSiloAction():
+    IEnhancedStorageSiloAction = win32more.Storage.EnhancedStorage.IEnhancedStorageSiloAction_head
+    IEnhancedStorageSiloAction.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'GetName', ((1, 'ppwszActionName'),)))
+    IEnhancedStorageSiloAction.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'GetDescription', ((1, 'ppwszActionDescription'),)))
+    IEnhancedStorageSiloAction.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Invoke', ()))
+    win32more.System.Com.IUnknown
+    return IEnhancedStorageSiloAction
+def _define_IEnumEnhancedStorageACT_head():
+    class IEnumEnhancedStorageACT(win32more.System.Com.IUnknown_head):
+        Guid = Guid('09b224bd-1335-4631-a7-ff-cf-d3-a9-26-46-d7')
+    return IEnumEnhancedStorageACT
+def _define_IEnumEnhancedStorageACT():
+    IEnumEnhancedStorageACT = win32more.Storage.EnhancedStorage.IEnumEnhancedStorageACT_head
+    IEnumEnhancedStorageACT.GetACTs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head)),POINTER(UInt32))(3, 'GetACTs', ((1, 'pppIEnhancedStorageACTs'),(1, 'pcEnhancedStorageACTs'),)))
+    IEnumEnhancedStorageACT.GetMatchingACT = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head))(4, 'GetMatchingACT', ((1, 'szVolume'),(1, 'ppIEnhancedStorageACT'),)))
+    win32more.System.Com.IUnknown
+    return IEnumEnhancedStorageACT
 def _define_SILO_INFO_head():
     class SILO_INFO(Structure):
         pass
@@ -1375,184 +2605,309 @@ def _define_SILO_INFO_head():
 def _define_SILO_INFO():
     SILO_INFO = win32more.Storage.EnhancedStorage.SILO_INFO_head
     SILO_INFO._fields_ = [
-        ("ulSTID", UInt32),
-        ("SpecificationMajor", Byte),
-        ("SpecificationMinor", Byte),
-        ("ImplementationMajor", Byte),
-        ("ImplementationMinor", Byte),
-        ("type", Byte),
-        ("capabilities", Byte),
+        ('ulSTID', UInt32),
+        ('SpecificationMajor', Byte),
+        ('SpecificationMinor', Byte),
+        ('ImplementationMajor', Byte),
+        ('ImplementationMinor', Byte),
+        ('type', Byte),
+        ('capabilities', Byte),
     ]
     return SILO_INFO
-ACT_AUTHORIZATION_STATE_VALUE = Int32
-ACT_UNAUTHORIZED = 0
-ACT_AUTHORIZED = 1
-def _define_IEnumEnhancedStorageACT_head():
-    class IEnumEnhancedStorageACT(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09b224bd-1335-4631-a7ff-cfd3a92646d7')
-    return IEnumEnhancedStorageACT
-def _define_IEnumEnhancedStorageACT():
-    IEnumEnhancedStorageACT = win32more.Storage.EnhancedStorage.IEnumEnhancedStorageACT_head
-    IEnumEnhancedStorageACT.GetACTs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head)),POINTER(UInt32), use_last_error=False)(3, 'GetACTs', ((1, 'pppIEnhancedStorageACTs'),(1, 'pcEnhancedStorageACTs'),)))
-    IEnumEnhancedStorageACT.GetMatchingACT = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head), use_last_error=False)(4, 'GetMatchingACT', ((1, 'szVolume'),(1, 'ppIEnhancedStorageACT'),)))
-    win32more.System.Com.IUnknown
-    return IEnumEnhancedStorageACT
-def _define_IEnhancedStorageACT_head():
-    class IEnhancedStorageACT(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6e7781f4-e0f2-4239-b976-a01abab52930')
-    return IEnhancedStorageACT
-def _define_IEnhancedStorageACT():
-    IEnhancedStorageACT = win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head
-    IEnhancedStorageACT.Authorize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'Authorize', ((1, 'hwndParent'),(1, 'dwFlags'),)))
-    IEnhancedStorageACT.Unauthorize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unauthorize', ()))
-    IEnhancedStorageACT.GetAuthorizationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_head), use_last_error=False)(5, 'GetAuthorizationState', ((1, 'pState'),)))
-    IEnhancedStorageACT.GetMatchingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetMatchingVolume', ((1, 'ppwszVolume'),)))
-    IEnhancedStorageACT.GetUniqueIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetUniqueIdentity', ((1, 'ppwszIdentity'),)))
-    IEnhancedStorageACT.GetSilos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageSilo_head)),POINTER(UInt32), use_last_error=False)(8, 'GetSilos', ((1, 'pppIEnhancedStorageSilos'),(1, 'pcEnhancedStorageSilos'),)))
-    win32more.System.Com.IUnknown
-    return IEnhancedStorageACT
-def _define_IEnhancedStorageACT2_head():
-    class IEnhancedStorageACT2(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head):
-        Guid = Guid('4da57d2e-8eb3-41f6-a07e-98b52b88242b')
-    return IEnhancedStorageACT2
-def _define_IEnhancedStorageACT2():
-    IEnhancedStorageACT2 = win32more.Storage.EnhancedStorage.IEnhancedStorageACT2_head
-    IEnhancedStorageACT2.GetDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'GetDeviceName', ((1, 'ppwszDeviceName'),)))
-    IEnhancedStorageACT2.IsDeviceRemovable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'IsDeviceRemovable', ((1, 'pIsDeviceRemovable'),)))
-    win32more.Storage.EnhancedStorage.IEnhancedStorageACT
-    return IEnhancedStorageACT2
-def _define_IEnhancedStorageACT3_head():
-    class IEnhancedStorageACT3(win32more.Storage.EnhancedStorage.IEnhancedStorageACT2_head):
-        Guid = Guid('022150a1-113d-11df-bb61-001aa01bbc58')
-    return IEnhancedStorageACT3
-def _define_IEnhancedStorageACT3():
-    IEnhancedStorageACT3 = win32more.Storage.EnhancedStorage.IEnhancedStorageACT3_head
-    IEnhancedStorageACT3.UnauthorizeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'UnauthorizeEx', ((1, 'dwFlags'),)))
-    IEnhancedStorageACT3.IsQueueFrozen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'IsQueueFrozen', ((1, 'pIsQueueFrozen'),)))
-    IEnhancedStorageACT3.GetShellExtSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'GetShellExtSupport', ((1, 'pShellExtSupport'),)))
-    win32more.Storage.EnhancedStorage.IEnhancedStorageACT2
-    return IEnhancedStorageACT3
-def _define_IEnhancedStorageSilo_head():
-    class IEnhancedStorageSilo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5aef78c6-2242-4703-bf49-44b29357a359')
-    return IEnhancedStorageSilo
-def _define_IEnhancedStorageSilo():
-    IEnhancedStorageSilo = win32more.Storage.EnhancedStorage.IEnhancedStorageSilo_head
-    IEnhancedStorageSilo.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.EnhancedStorage.SILO_INFO_head), use_last_error=False)(3, 'GetInfo', ((1, 'pSiloInfo'),)))
-    IEnhancedStorageSilo.GetActions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageSiloAction_head)),POINTER(UInt32), use_last_error=False)(4, 'GetActions', ((1, 'pppIEnhancedStorageSiloActions'),(1, 'pcEnhancedStorageSiloActions'),)))
-    IEnhancedStorageSilo.SendCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,POINTER(Byte),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(5, 'SendCommand', ((1, 'Command'),(1, 'pbCommandBuffer'),(1, 'cbCommandBuffer'),(1, 'pbResponseBuffer'),(1, 'pcbResponseBuffer'),)))
-    IEnhancedStorageSilo.GetPortableDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IPortableDevice_head), use_last_error=False)(6, 'GetPortableDevice', ((1, 'ppIPortableDevice'),)))
-    IEnhancedStorageSilo.GetDevicePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetDevicePath', ((1, 'ppwszSiloDevicePath'),)))
-    win32more.System.Com.IUnknown
-    return IEnhancedStorageSilo
-def _define_IEnhancedStorageSiloAction_head():
-    class IEnhancedStorageSiloAction(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b6f7f311-206f-4ff8-9c4b-27efee77a86f')
-    return IEnhancedStorageSiloAction
-def _define_IEnhancedStorageSiloAction():
-    IEnhancedStorageSiloAction = win32more.Storage.EnhancedStorage.IEnhancedStorageSiloAction_head
-    IEnhancedStorageSiloAction.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'ppwszActionName'),)))
-    IEnhancedStorageSiloAction.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetDescription', ((1, 'ppwszActionDescription'),)))
-    IEnhancedStorageSiloAction.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Invoke', ()))
-    win32more.System.Com.IUnknown
-    return IEnhancedStorageSiloAction
 __all__ = [
-    "GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO",
-    "WPD_CATEGORY_ENHANCED_STORAGE",
-    "ENHANCED_STORAGE_COMMAND_SILO_IS_AUTHENTICATION_SILO",
-    "ENHANCED_STORAGE_COMMAND_SILO_GET_AUTHENTICATION_STATE",
-    "ENHANCED_STORAGE_COMMAND_SILO_ENUMERATE_SILOS",
-    "ENHANCED_STORAGE_COMMAND_CERT_HOST_CERTIFICATE_AUTHENTICATION",
-    "ENHANCED_STORAGE_COMMAND_CERT_DEVICE_CERTIFICATE_AUTHENTICATION",
-    "ENHANCED_STORAGE_COMMAND_CERT_ADMIN_CERTIFICATE_AUTHENTICATION",
-    "ENHANCED_STORAGE_COMMAND_CERT_INITIALIZE_TO_MANUFACTURER_STATE",
-    "ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE_COUNT",
-    "ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE",
-    "ENHANCED_STORAGE_COMMAND_CERT_SET_CERTIFICATE",
-    "ENHANCED_STORAGE_COMMAND_CERT_CREATE_CERTIFICATE_REQUEST",
-    "ENHANCED_STORAGE_COMMAND_CERT_UNAUTHENTICATION",
-    "ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITY",
-    "ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITIES",
-    "ENHANCED_STORAGE_COMMAND_CERT_GET_ACT_FRIENDLY_NAME",
-    "ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_GUID",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_AUTHORIZE_ACT_ACCESS",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_UNAUTHORIZE_ACT_ACCESS",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_QUERY_INFORMATION",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_CONFIG_ADMINISTRATOR",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_CREATE_USER",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_DELETE_USER",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_CHANGE_PASSWORD",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_INITIALIZE_USER_PASSWORD",
-    "ENHANCED_STORAGE_COMMAND_PASSWORD_START_INITIALIZE_TO_MANUFACTURER_STATE",
-    "ENHANCED_STORAGE_PROPERTY_AUTHENTICATION_STATE",
-    "ENHANCED_STORAGE_AUTHN_STATE_UNKNOWN",
-    "ENHANCED_STORAGE_AUTHN_STATE_NO_AUTHENTICATION_REQUIRED",
-    "ENHANCED_STORAGE_AUTHN_STATE_NOT_AUTHENTICATED",
+    "ACT_AUTHORIZATION_STATE",
+    "ACT_AUTHORIZATION_STATE_VALUE",
+    "ACT_AUTHORIZED",
+    "ACT_AUTHORIZE_ON_RESUME",
+    "ACT_AUTHORIZE_ON_SESSION_UNLOCK",
+    "ACT_UNAUTHORIZED",
+    "ACT_UNAUTHORIZE_ON_SESSION_LOCK",
+    "ACT_UNAUTHORIZE_ON_SUSPEND",
+    "APPUSERMODEL_STARTPINOPTION_DEFAULT",
+    "APPUSERMODEL_STARTPINOPTION_NOPINONINSTALL",
+    "APPUSERMODEL_STARTPINOPTION_USERPINNED",
+    "AUDIO_CHANNELCOUNT_MONO",
+    "AUDIO_CHANNELCOUNT_STEREO",
+    "BLUETOOTH_ADDRESS_TYPE_PUBLIC",
+    "BLUETOOTH_ADDRESS_TYPE_RANDOM",
+    "BLUETOOTH_CACHED_MODE_UNCACHED",
+    "BLUETOOTH_CACHE_MODE_CACHED",
+    "CERT_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY",
+    "CERT_CAPABILITY_CERTIFICATE_SUPPORT",
+    "CERT_CAPABILITY_HASH_ALG",
+    "CERT_CAPABILITY_OPTIONAL_FEATURES",
+    "CERT_CAPABILITY_SIGNATURE_ALG",
+    "CERT_MAX_CAPABILITY",
+    "CERT_RSASSA_PSS_SHA1_OID",
+    "CERT_RSASSA_PSS_SHA256_OID",
+    "CERT_RSASSA_PSS_SHA384_OID",
+    "CERT_RSASSA_PSS_SHA512_OID",
+    "CERT_RSA_1024_OID",
+    "CERT_RSA_2048_OID",
+    "CERT_RSA_3072_OID",
+    "CERT_TYPE_ASCh",
+    "CERT_TYPE_ASCm",
+    "CERT_TYPE_EMPTY",
+    "CERT_TYPE_HCh",
+    "CERT_TYPE_PCp",
+    "CERT_TYPE_SIGNER",
+    "CERT_VALIDATION_POLICY_BASIC",
+    "CERT_VALIDATION_POLICY_EXTENDED",
+    "CERT_VALIDATION_POLICY_NONE",
+    "CERT_VALIDATION_POLICY_RESERVED",
+    "CREATOROPENWITHUIOPTION_HIDDEN",
+    "CREATOROPENWITHUIOPTION_VISIBLE",
     "ENHANCED_STORAGE_AUTHN_STATE_AUTHENTICATED",
     "ENHANCED_STORAGE_AUTHN_STATE_AUTHENTICATION_DENIED",
     "ENHANCED_STORAGE_AUTHN_STATE_DEVICE_ERROR",
-    "ENHANCED_STORAGE_PROPERTY_IS_AUTHENTICATION_SILO",
-    "ENHANCED_STORAGE_PROPERTY_TEMPORARY_UNAUTHENTICATION",
-    "ENHANCED_STORAGE_PROPERTY_MAX_AUTH_FAILURES",
-    "ENHANCED_STORAGE_PROPERTY_PASSWORD",
-    "ENHANCED_STORAGE_PROPERTY_OLD_PASSWORD",
-    "ENHANCED_STORAGE_PROPERTY_PASSWORD_INDICATOR",
-    "ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD_INDICATOR",
-    "ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD",
-    "ENHANCED_STORAGE_PROPERTY_USER_HINT",
-    "ENHANCED_STORAGE_PROPERTY_USER_NAME",
+    "ENHANCED_STORAGE_AUTHN_STATE_NOT_AUTHENTICATED",
+    "ENHANCED_STORAGE_AUTHN_STATE_NO_AUTHENTICATION_REQUIRED",
+    "ENHANCED_STORAGE_AUTHN_STATE_UNKNOWN",
+    "ENHANCED_STORAGE_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY",
+    "ENHANCED_STORAGE_CAPABILITY_CERTIFICATE_EXTENSION_PARSING",
+    "ENHANCED_STORAGE_CAPABILITY_HASH_ALGS",
+    "ENHANCED_STORAGE_CAPABILITY_RENDER_USER_DATA_UNUSABLE",
+    "ENHANCED_STORAGE_CAPABILITY_SIGNING_ALGS",
+    "ENHANCED_STORAGE_COMMAND_CERT_ADMIN_CERTIFICATE_AUTHENTICATION",
+    "ENHANCED_STORAGE_COMMAND_CERT_CREATE_CERTIFICATE_REQUEST",
+    "ENHANCED_STORAGE_COMMAND_CERT_DEVICE_CERTIFICATE_AUTHENTICATION",
+    "ENHANCED_STORAGE_COMMAND_CERT_GET_ACT_FRIENDLY_NAME",
+    "ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE",
+    "ENHANCED_STORAGE_COMMAND_CERT_GET_CERTIFICATE_COUNT",
+    "ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITIES",
+    "ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_CAPABILITY",
+    "ENHANCED_STORAGE_COMMAND_CERT_GET_SILO_GUID",
+    "ENHANCED_STORAGE_COMMAND_CERT_HOST_CERTIFICATE_AUTHENTICATION",
+    "ENHANCED_STORAGE_COMMAND_CERT_INITIALIZE_TO_MANUFACTURER_STATE",
+    "ENHANCED_STORAGE_COMMAND_CERT_SET_CERTIFICATE",
+    "ENHANCED_STORAGE_COMMAND_CERT_UNAUTHENTICATION",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_AUTHORIZE_ACT_ACCESS",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_CHANGE_PASSWORD",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_CONFIG_ADMINISTRATOR",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_CREATE_USER",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_DELETE_USER",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_INITIALIZE_USER_PASSWORD",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_QUERY_INFORMATION",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_START_INITIALIZE_TO_MANUFACTURER_STATE",
+    "ENHANCED_STORAGE_COMMAND_PASSWORD_UNAUTHORIZE_ACT_ACCESS",
+    "ENHANCED_STORAGE_COMMAND_SILO_ENUMERATE_SILOS",
+    "ENHANCED_STORAGE_COMMAND_SILO_GET_AUTHENTICATION_STATE",
+    "ENHANCED_STORAGE_COMMAND_SILO_IS_AUTHENTICATION_SILO",
+    "ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION",
     "ENHANCED_STORAGE_PROPERTY_ADMIN_HINT",
-    "ENHANCED_STORAGE_PROPERTY_SILO_NAME",
-    "ENHANCED_STORAGE_PROPERTY_SILO_FRIENDLYNAME_SPECIFIED",
-    "ENHANCED_STORAGE_PROPERTY_PASSWORD_SILO_INFO",
-    "ENHANCED_STORAGE_PROPERTY_SECURITY_IDENTIFIER",
-    "ENHANCED_STORAGE_PROPERTY_QUERY_SILO_TYPE",
-    "ENHANCED_STORAGE_PROPERTY_QUERY_SILO_RESULTS",
-    "ENHANCED_STORAGE_PROPERTY_MAX_CERTIFICATE_COUNT",
-    "ENHANCED_STORAGE_PROPERTY_STORED_CERTIFICATE_COUNT",
+    "ENHANCED_STORAGE_PROPERTY_AUTHENTICATION_STATE",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_ACT_FRIENDLY_NAME",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_CAPABILITY_TYPE",
     "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_INDEX",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_LENGTH",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_REQUEST",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITIES",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITY",
+    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_GUID",
     "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_TYPE",
-    "CERT_TYPE_EMPTY",
-    "CERT_TYPE_ASCm",
-    "CERT_TYPE_PCp",
-    "CERT_TYPE_ASCh",
-    "CERT_TYPE_HCh",
-    "CERT_TYPE_SIGNER",
-    "ENHANCED_STORAGE_PROPERTY_VALIDATION_POLICY",
-    "CERT_VALIDATION_POLICY_RESERVED",
-    "CERT_VALIDATION_POLICY_NONE",
-    "CERT_VALIDATION_POLICY_BASIC",
-    "CERT_VALIDATION_POLICY_EXTENDED",
+    "ENHANCED_STORAGE_PROPERTY_IS_AUTHENTICATION_SILO",
+    "ENHANCED_STORAGE_PROPERTY_MAX_AUTH_FAILURES",
+    "ENHANCED_STORAGE_PROPERTY_MAX_CERTIFICATE_COUNT",
+    "ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD",
+    "ENHANCED_STORAGE_PROPERTY_NEW_PASSWORD_INDICATOR",
     "ENHANCED_STORAGE_PROPERTY_NEXT_CERTIFICATE_INDEX",
     "ENHANCED_STORAGE_PROPERTY_NEXT_CERTIFICATE_OF_TYPE_INDEX",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_LENGTH",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_REQUEST",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_CAPABILITY_TYPE",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITY",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_CAPABILITIES",
-    "CERT_CAPABILITY_HASH_ALG",
-    "CERT_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY",
-    "CERT_CAPABILITY_SIGNATURE_ALG",
-    "CERT_CAPABILITY_CERTIFICATE_SUPPORT",
-    "CERT_CAPABILITY_OPTIONAL_FEATURES",
-    "CERT_MAX_CAPABILITY",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_ACT_FRIENDLY_NAME",
-    "ENHANCED_STORAGE_PROPERTY_CERTIFICATE_SILO_GUID",
+    "ENHANCED_STORAGE_PROPERTY_OLD_PASSWORD",
+    "ENHANCED_STORAGE_PROPERTY_PASSWORD",
+    "ENHANCED_STORAGE_PROPERTY_PASSWORD_INDICATOR",
+    "ENHANCED_STORAGE_PROPERTY_PASSWORD_SILO_INFO",
+    "ENHANCED_STORAGE_PROPERTY_QUERY_SILO_RESULTS",
+    "ENHANCED_STORAGE_PROPERTY_QUERY_SILO_TYPE",
+    "ENHANCED_STORAGE_PROPERTY_SECURITY_IDENTIFIER",
     "ENHANCED_STORAGE_PROPERTY_SIGNER_CERTIFICATE_INDEX",
-    "ENHANCED_STORAGE_CAPABILITY_HASH_ALGS",
-    "ENHANCED_STORAGE_CAPABILITY_ASYMMETRIC_KEY_CRYPTOGRAPHY",
-    "ENHANCED_STORAGE_CAPABILITY_SIGNING_ALGS",
-    "ENHANCED_STORAGE_CAPABILITY_RENDER_USER_DATA_UNUSABLE",
-    "ENHANCED_STORAGE_CAPABILITY_CERTIFICATE_EXTENSION_PARSING",
+    "ENHANCED_STORAGE_PROPERTY_SILO_FRIENDLYNAME_SPECIFIED",
+    "ENHANCED_STORAGE_PROPERTY_SILO_NAME",
+    "ENHANCED_STORAGE_PROPERTY_STORED_CERTIFICATE_COUNT",
+    "ENHANCED_STORAGE_PROPERTY_TEMPORARY_UNAUTHENTICATION",
+    "ENHANCED_STORAGE_PROPERTY_USER_HINT",
+    "ENHANCED_STORAGE_PROPERTY_USER_NAME",
+    "ENHANCED_STORAGE_PROPERTY_VALIDATION_POLICY",
+    "ES_AUTHN_ERROR_END",
+    "ES_AUTHN_ERROR_START",
+    "ES_GENERAL_ERROR_END",
+    "ES_GENERAL_ERROR_START",
+    "ES_PW_SILO_ERROR_END",
+    "ES_PW_SILO_ERROR_START",
+    "ES_RESERVED_COM_ERROR_END",
+    "ES_RESERVED_COM_ERROR_START",
+    "ES_RESERVED_SILO_ERROR_END",
+    "ES_RESERVED_SILO_ERROR_START",
+    "ES_RESERVED_SILO_SPECIFIC_ERROR_END",
+    "ES_RESERVED_SILO_SPECIFIC_ERROR_START",
+    "ES_VENDOR_ERROR_END",
+    "ES_VENDOR_ERROR_START",
+    "EnhancedStorageACT",
+    "EnhancedStorageSilo",
+    "EnhancedStorageSiloAction",
+    "EnumEnhancedStorageACT",
+    "FACILITY_ENHANCED_STORAGE",
+    "FILEOFFLINEAVAILABILITYSTATUS_COMPLETE",
+    "FILEOFFLINEAVAILABILITYSTATUS_COMPLETE_PINNED",
+    "FILEOFFLINEAVAILABILITYSTATUS_EXCLUDED",
+    "FILEOFFLINEAVAILABILITYSTATUS_FOLDER_EMPTY",
+    "FILEOFFLINEAVAILABILITYSTATUS_NOTAVAILABLEOFFLINE",
+    "FILEOFFLINEAVAILABILITYSTATUS_PARTIAL",
+    "FLAGSTATUS_COMPLETED",
+    "FLAGSTATUS_FOLLOWUP",
+    "FLAGSTATUS_NOTFLAGGED",
+    "GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO",
+    "IEnhancedStorageACT",
+    "IEnhancedStorageACT2",
+    "IEnhancedStorageACT3",
+    "IEnhancedStorageSilo",
+    "IEnhancedStorageSiloAction",
+    "IEnumEnhancedStorageACT",
+    "IMPORTANCE_HIGH_MAX",
+    "IMPORTANCE_HIGH_MIN",
+    "IMPORTANCE_HIGH_SET",
+    "IMPORTANCE_LOW_MAX",
+    "IMPORTANCE_LOW_MIN",
+    "IMPORTANCE_LOW_SET",
+    "IMPORTANCE_NORMAL_MAX",
+    "IMPORTANCE_NORMAL_MIN",
+    "IMPORTANCE_NORMAL_SET",
+    "ISDEFAULTSAVE_BOTH",
+    "ISDEFAULTSAVE_NONE",
+    "ISDEFAULTSAVE_NONOWNER",
+    "ISDEFAULTSAVE_OWNER",
+    "KIND_CALENDAR",
+    "KIND_COMMUNICATION",
+    "KIND_CONTACT",
+    "KIND_DOCUMENT",
+    "KIND_EMAIL",
+    "KIND_FEED",
+    "KIND_FOLDER",
+    "KIND_GAME",
+    "KIND_INSTANTMESSAGE",
+    "KIND_JOURNAL",
+    "KIND_LINK",
+    "KIND_MOVIE",
+    "KIND_MUSIC",
+    "KIND_NOTE",
+    "KIND_PICTURE",
+    "KIND_PLAYLIST",
+    "KIND_PROGRAM",
+    "KIND_RECORDEDTV",
+    "KIND_SEARCHFOLDER",
+    "KIND_TASK",
+    "KIND_UNKNOWN",
+    "KIND_VIDEO",
+    "KIND_WEBHISTORY",
+    "LAYOUTPATTERN_CVMFB_ALPHA",
+    "LAYOUTPATTERN_CVMFB_BETA",
+    "LAYOUTPATTERN_CVMFB_DELTA",
+    "LAYOUTPATTERN_CVMFB_GAMMA",
+    "LAYOUTPATTERN_CVMFS_ALPHA",
+    "LAYOUTPATTERN_CVMFS_BETA",
+    "LAYOUTPATTERN_CVMFS_DELTA",
+    "LAYOUTPATTERN_CVMFS_GAMMA",
+    "LINK_STATUS_BROKEN",
+    "LINK_STATUS_RESOLVED",
+    "OFFLINEAVAILABILITY_ALWAYS_AVAILABLE",
+    "OFFLINEAVAILABILITY_AVAILABLE",
+    "OFFLINEAVAILABILITY_NOT_AVAILABLE",
+    "OFFLINESTATUS_OFFLINE",
+    "OFFLINESTATUS_OFFLINE_ERROR",
+    "OFFLINESTATUS_OFFLINE_FORCED",
+    "OFFLINESTATUS_OFFLINE_ITEM_VERSION_CONFLICT",
+    "OFFLINESTATUS_OFFLINE_SLOW",
+    "OFFLINESTATUS_OFFLINE_SUSPENDED",
+    "OFFLINESTATUS_ONLINE",
+    "PHOTO_CONTRAST_HARD",
+    "PHOTO_CONTRAST_NORMAL",
+    "PHOTO_CONTRAST_SOFT",
+    "PHOTO_EXPOSUREPROGRAM_ACTION",
+    "PHOTO_EXPOSUREPROGRAM_APERTURE",
+    "PHOTO_EXPOSUREPROGRAM_CREATIVE",
+    "PHOTO_EXPOSUREPROGRAM_LANDSCAPE",
+    "PHOTO_EXPOSUREPROGRAM_MANUAL",
+    "PHOTO_EXPOSUREPROGRAM_NORMAL",
+    "PHOTO_EXPOSUREPROGRAM_PORTRAIT",
+    "PHOTO_EXPOSUREPROGRAM_SHUTTER",
+    "PHOTO_EXPOSUREPROGRAM_UNKNOWN",
+    "PHOTO_FLASH_FLASH",
+    "PHOTO_FLASH_FLASH_AUTO",
+    "PHOTO_FLASH_FLASH_AUTO_NORETURNLIGHT",
+    "PHOTO_FLASH_FLASH_AUTO_REDEYE",
+    "PHOTO_FLASH_FLASH_AUTO_REDEYE_NORETURNLIGHT",
+    "PHOTO_FLASH_FLASH_AUTO_REDEYE_RETURNLIGHT",
+    "PHOTO_FLASH_FLASH_AUTO_RETURNLIGHT",
+    "PHOTO_FLASH_FLASH_COMPULSORY",
+    "PHOTO_FLASH_FLASH_COMPULSORY_NORETURNLIGHT",
+    "PHOTO_FLASH_FLASH_COMPULSORY_REDEYE",
+    "PHOTO_FLASH_FLASH_COMPULSORY_REDEYE_NORETURNLIGHT",
+    "PHOTO_FLASH_FLASH_COMPULSORY_REDEYE_RETURNLIGHT",
+    "PHOTO_FLASH_FLASH_COMPULSORY_RETURNLIGHT",
+    "PHOTO_FLASH_FLASH_REDEYE",
+    "PHOTO_FLASH_FLASH_REDEYE_NORETURNLIGHT",
+    "PHOTO_FLASH_FLASH_REDEYE_RETURNLIGHT",
+    "PHOTO_FLASH_NOFUNCTION",
+    "PHOTO_FLASH_NONE",
+    "PHOTO_FLASH_NONE_AUTO",
+    "PHOTO_FLASH_NONE_COMPULSORY",
+    "PHOTO_FLASH_WITHOUTSTROBE",
+    "PHOTO_FLASH_WITHSTROBE",
+    "PHOTO_GAINCONTROL_HIGHGAINDOWN",
+    "PHOTO_GAINCONTROL_HIGHGAINUP",
+    "PHOTO_GAINCONTROL_LOWGAINDOWN",
+    "PHOTO_GAINCONTROL_LOWGAINUP",
+    "PHOTO_GAINCONTROL_NONE",
+    "PHOTO_LIGHTSOURCE_D55",
+    "PHOTO_LIGHTSOURCE_D65",
+    "PHOTO_LIGHTSOURCE_D75",
+    "PHOTO_LIGHTSOURCE_DAYLIGHT",
+    "PHOTO_LIGHTSOURCE_FLUORESCENT",
+    "PHOTO_LIGHTSOURCE_STANDARD_A",
+    "PHOTO_LIGHTSOURCE_STANDARD_B",
+    "PHOTO_LIGHTSOURCE_STANDARD_C",
+    "PHOTO_LIGHTSOURCE_TUNGSTEN",
+    "PHOTO_LIGHTSOURCE_UNKNOWN",
+    "PHOTO_PROGRAMMODE_ACTION",
+    "PHOTO_PROGRAMMODE_APERTURE",
+    "PHOTO_PROGRAMMODE_CREATIVE",
+    "PHOTO_PROGRAMMODE_LANDSCAPE",
+    "PHOTO_PROGRAMMODE_MANUAL",
+    "PHOTO_PROGRAMMODE_NORMAL",
+    "PHOTO_PROGRAMMODE_NOTDEFINED",
+    "PHOTO_PROGRAMMODE_PORTRAIT",
+    "PHOTO_PROGRAMMODE_SHUTTER",
+    "PHOTO_SATURATION_HIGH",
+    "PHOTO_SATURATION_LOW",
+    "PHOTO_SATURATION_NORMAL",
+    "PHOTO_SHARPNESS_HARD",
+    "PHOTO_SHARPNESS_NORMAL",
+    "PHOTO_SHARPNESS_SOFT",
+    "PHOTO_WHITEBALANCE_AUTO",
+    "PHOTO_WHITEBALANCE_MANUAL",
+    "PKEY_AcquisitionID",
     "PKEY_Address_Country",
     "PKEY_Address_CountryCode",
     "PKEY_Address_Region",
     "PKEY_Address_RegionCode",
     "PKEY_Address_Town",
+    "PKEY_AppUserModel_ExcludeFromShowInNewInstall",
+    "PKEY_AppUserModel_ID",
+    "PKEY_AppUserModel_IsDestListSeparator",
+    "PKEY_AppUserModel_IsDualMode",
+    "PKEY_AppUserModel_PreventPinning",
+    "PKEY_AppUserModel_RelaunchCommand",
+    "PKEY_AppUserModel_RelaunchDisplayNameResource",
+    "PKEY_AppUserModel_RelaunchIconResource",
+    "PKEY_AppUserModel_SettingsCommand",
+    "PKEY_AppUserModel_StartPinOption",
+    "PKEY_AppUserModel_ToastActivatorCLSID",
+    "PKEY_AppUserModel_UninstallCommand",
+    "PKEY_AppUserModel_VisualElementsManifestHintPath",
+    "PKEY_AppZoneIdentifier",
+    "PKEY_ApplicationDefinedProperties",
+    "PKEY_ApplicationName",
     "PKEY_Audio_ChannelCount",
-    "AUDIO_CHANNELCOUNT_MONO",
-    "AUDIO_CHANNELCOUNT_STEREO",
     "PKEY_Audio_Compression",
     "PKEY_Audio_EncodingBitrate",
     "PKEY_Audio_Format",
@@ -1562,6 +2917,9 @@ __all__ = [
     "PKEY_Audio_SampleSize",
     "PKEY_Audio_StreamName",
     "PKEY_Audio_StreamNumber",
+    "PKEY_Author",
+    "PKEY_CachedFileUpdaterContentIdForConflictResolution",
+    "PKEY_CachedFileUpdaterContentIdForStream",
     "PKEY_Calendar_Duration",
     "PKEY_Calendar_IsOnline",
     "PKEY_Calendar_IsRecurring",
@@ -1577,6 +2935,9 @@ __all__ = [
     "PKEY_Calendar_ResponseStatus",
     "PKEY_Calendar_ShowTimeAs",
     "PKEY_Calendar_ShowTimeAsText",
+    "PKEY_Capacity",
+    "PKEY_Category",
+    "PKEY_Comment",
     "PKEY_Communication_AccountName",
     "PKEY_Communication_DateItemExpires",
     "PKEY_Communication_Direction",
@@ -1587,6 +2948,8 @@ __all__ = [
     "PKEY_Communication_Suffix",
     "PKEY_Communication_TaskStatus",
     "PKEY_Communication_TaskStatusText",
+    "PKEY_Company",
+    "PKEY_ComputerName",
     "PKEY_Computer_DecoratedFreeSpace",
     "PKEY_Contact_AccountPictureDynamicVideo",
     "PKEY_Contact_AccountPictureLarge",
@@ -1613,8 +2976,8 @@ __all__ = [
     "PKEY_Contact_BusinessAddress3Street",
     "PKEY_Contact_BusinessAddressCity",
     "PKEY_Contact_BusinessAddressCountry",
-    "PKEY_Contact_BusinessAddressPostalCode",
     "PKEY_Contact_BusinessAddressPostOfficeBox",
+    "PKEY_Contact_BusinessAddressPostalCode",
     "PKEY_Contact_BusinessAddressState",
     "PKEY_Contact_BusinessAddressStreet",
     "PKEY_Contact_BusinessEmailAddresses",
@@ -1664,8 +3027,8 @@ __all__ = [
     "PKEY_Contact_HomeAddress3Street",
     "PKEY_Contact_HomeAddressCity",
     "PKEY_Contact_HomeAddressCountry",
-    "PKEY_Contact_HomeAddressPostalCode",
     "PKEY_Contact_HomeAddressPostOfficeBox",
+    "PKEY_Contact_HomeAddressPostalCode",
     "PKEY_Contact_HomeAddressState",
     "PKEY_Contact_HomeAddressStreet",
     "PKEY_Contact_HomeEmailAddresses",
@@ -1723,8 +3086,8 @@ __all__ = [
     "PKEY_Contact_OtherAddress3Street",
     "PKEY_Contact_OtherAddressCity",
     "PKEY_Contact_OtherAddressCountry",
-    "PKEY_Contact_OtherAddressPostalCode",
     "PKEY_Contact_OtherAddressPostOfficeBox",
+    "PKEY_Contact_OtherAddressPostalCode",
     "PKEY_Contact_OtherAddressState",
     "PKEY_Contact_OtherAddressStreet",
     "PKEY_Contact_OtherEmailAddresses",
@@ -1734,8 +3097,8 @@ __all__ = [
     "PKEY_Contact_Prefix",
     "PKEY_Contact_PrimaryAddressCity",
     "PKEY_Contact_PrimaryAddressCountry",
-    "PKEY_Contact_PrimaryAddressPostalCode",
     "PKEY_Contact_PrimaryAddressPostOfficeBox",
+    "PKEY_Contact_PrimaryAddressPostalCode",
     "PKEY_Contact_PrimaryAddressState",
     "PKEY_Contact_PrimaryAddressStreet",
     "PKEY_Contact_PrimaryEmailAddress",
@@ -1743,23 +3106,11 @@ __all__ = [
     "PKEY_Contact_Profession",
     "PKEY_Contact_SpouseName",
     "PKEY_Contact_Suffix",
-    "PKEY_Contact_TelexNumber",
     "PKEY_Contact_TTYTDDTelephone",
+    "PKEY_Contact_TelexNumber",
     "PKEY_Contact_WebPage",
     "PKEY_Contact_Webpage2",
     "PKEY_Contact_Webpage3",
-    "PKEY_AcquisitionID",
-    "PKEY_ApplicationDefinedProperties",
-    "PKEY_ApplicationName",
-    "PKEY_AppZoneIdentifier",
-    "PKEY_Author",
-    "PKEY_CachedFileUpdaterContentIdForConflictResolution",
-    "PKEY_CachedFileUpdaterContentIdForStream",
-    "PKEY_Capacity",
-    "PKEY_Category",
-    "PKEY_Comment",
-    "PKEY_Company",
-    "PKEY_ComputerName",
     "PKEY_ContainedItems",
     "PKEY_ContentId",
     "PKEY_ContentStatus",
@@ -1768,8 +3119,12 @@ __all__ = [
     "PKEY_Copyright",
     "PKEY_CreatorAppId",
     "PKEY_CreatorOpenWithUIOptions",
-    "CREATOROPENWITHUIOPTION_HIDDEN",
-    "CREATOROPENWITHUIOPTION_VISIBLE",
+    "PKEY_DRM_DatePlayExpires",
+    "PKEY_DRM_DatePlayStarts",
+    "PKEY_DRM_Description",
+    "PKEY_DRM_IsDisabled",
+    "PKEY_DRM_IsProtected",
+    "PKEY_DRM_PlayCount",
     "PKEY_DataObjectFormat",
     "PKEY_DateAccessed",
     "PKEY_DateAcquired",
@@ -1779,216 +3134,7 @@ __all__ = [
     "PKEY_DateImported",
     "PKEY_DateModified",
     "PKEY_DefaultSaveLocationDisplay",
-    "ISDEFAULTSAVE_NONE",
-    "ISDEFAULTSAVE_OWNER",
-    "ISDEFAULTSAVE_NONOWNER",
-    "ISDEFAULTSAVE_BOTH",
-    "PKEY_DueDate",
-    "PKEY_EndDate",
-    "PKEY_ExpandoProperties",
-    "PKEY_FileAllocationSize",
-    "PKEY_FileAttributes",
-    "PKEY_FileCount",
-    "PKEY_FileDescription",
-    "PKEY_FileExtension",
-    "PKEY_FileFRN",
-    "PKEY_FileName",
-    "PKEY_FileOfflineAvailabilityStatus",
-    "FILEOFFLINEAVAILABILITYSTATUS_NOTAVAILABLEOFFLINE",
-    "FILEOFFLINEAVAILABILITYSTATUS_PARTIAL",
-    "FILEOFFLINEAVAILABILITYSTATUS_COMPLETE",
-    "FILEOFFLINEAVAILABILITYSTATUS_COMPLETE_PINNED",
-    "FILEOFFLINEAVAILABILITYSTATUS_EXCLUDED",
-    "FILEOFFLINEAVAILABILITYSTATUS_FOLDER_EMPTY",
-    "PKEY_FileOwner",
-    "PKEY_FilePlaceholderStatus",
-    "PKEY_FileVersion",
-    "PKEY_FindData",
-    "PKEY_FlagColor",
-    "PKEY_FlagColorText",
-    "PKEY_FlagStatus",
-    "FLAGSTATUS_NOTFLAGGED",
-    "FLAGSTATUS_COMPLETED",
-    "FLAGSTATUS_FOLLOWUP",
-    "PKEY_FlagStatusText",
-    "PKEY_FolderKind",
-    "PKEY_FolderNameDisplay",
-    "PKEY_FreeSpace",
-    "PKEY_FullText",
-    "PKEY_HighKeywords",
-    "PKEY_Identity",
-    "PKEY_Identity_Blob",
-    "PKEY_Identity_DisplayName",
-    "PKEY_Identity_InternetSid",
-    "PKEY_Identity_IsMeIdentity",
-    "PKEY_Identity_KeyProviderContext",
-    "PKEY_Identity_KeyProviderName",
-    "PKEY_Identity_LogonStatusString",
-    "PKEY_Identity_PrimaryEmailAddress",
-    "PKEY_Identity_PrimarySid",
-    "PKEY_Identity_ProviderData",
-    "PKEY_Identity_ProviderID",
-    "PKEY_Identity_QualifiedUserName",
-    "PKEY_Identity_UniqueID",
-    "PKEY_Identity_UserName",
-    "PKEY_IdentityProvider_Name",
-    "PKEY_IdentityProvider_Picture",
-    "PKEY_ImageParsingName",
-    "PKEY_Importance",
-    "IMPORTANCE_LOW_MIN",
-    "IMPORTANCE_LOW_SET",
-    "IMPORTANCE_LOW_MAX",
-    "IMPORTANCE_NORMAL_MIN",
-    "IMPORTANCE_NORMAL_SET",
-    "IMPORTANCE_NORMAL_MAX",
-    "IMPORTANCE_HIGH_MIN",
-    "IMPORTANCE_HIGH_SET",
-    "IMPORTANCE_HIGH_MAX",
-    "PKEY_ImportanceText",
-    "PKEY_IsAttachment",
-    "PKEY_IsDefaultNonOwnerSaveLocation",
-    "PKEY_IsDefaultSaveLocation",
-    "PKEY_IsDeleted",
-    "PKEY_IsEncrypted",
-    "PKEY_IsFlagged",
-    "PKEY_IsFlaggedComplete",
-    "PKEY_IsIncomplete",
-    "PKEY_IsLocationSupported",
-    "PKEY_IsPinnedToNameSpaceTree",
-    "PKEY_IsRead",
-    "PKEY_IsSearchOnlyItem",
-    "PKEY_IsSendToTarget",
-    "PKEY_IsShared",
-    "PKEY_ItemAuthors",
-    "PKEY_ItemClassType",
-    "PKEY_ItemDate",
-    "PKEY_ItemFolderNameDisplay",
-    "PKEY_ItemFolderPathDisplay",
-    "PKEY_ItemFolderPathDisplayNarrow",
-    "PKEY_ItemName",
-    "PKEY_ItemNameDisplay",
-    "PKEY_ItemNameDisplayWithoutExtension",
-    "PKEY_ItemNamePrefix",
-    "PKEY_ItemNameSortOverride",
-    "PKEY_ItemParticipants",
-    "PKEY_ItemPathDisplay",
-    "PKEY_ItemPathDisplayNarrow",
-    "PKEY_ItemSubType",
-    "PKEY_ItemType",
-    "PKEY_ItemTypeText",
-    "PKEY_ItemUrl",
-    "PKEY_Keywords",
-    "PKEY_Kind",
-    "PKEY_KindText",
-    "PKEY_Language",
-    "PKEY_LastSyncError",
-    "PKEY_LastSyncWarning",
-    "PKEY_LastWriterPackageFamilyName",
-    "PKEY_LowKeywords",
-    "PKEY_MediumKeywords",
-    "PKEY_MileageInformation",
-    "PKEY_MIMEType",
-    "PKEY_Null",
-    "PKEY_OfflineAvailability",
-    "OFFLINEAVAILABILITY_NOT_AVAILABLE",
-    "OFFLINEAVAILABILITY_AVAILABLE",
-    "OFFLINEAVAILABILITY_ALWAYS_AVAILABLE",
-    "PKEY_OfflineStatus",
-    "OFFLINESTATUS_ONLINE",
-    "OFFLINESTATUS_OFFLINE",
-    "OFFLINESTATUS_OFFLINE_FORCED",
-    "OFFLINESTATUS_OFFLINE_SLOW",
-    "OFFLINESTATUS_OFFLINE_ERROR",
-    "OFFLINESTATUS_OFFLINE_ITEM_VERSION_CONFLICT",
-    "OFFLINESTATUS_OFFLINE_SUSPENDED",
-    "PKEY_OriginalFileName",
-    "PKEY_OwnerSID",
-    "PKEY_ParentalRating",
-    "PKEY_ParentalRatingReason",
-    "PKEY_ParentalRatingsOrganization",
-    "PKEY_ParsingBindContext",
-    "PKEY_ParsingName",
-    "PKEY_ParsingPath",
-    "PKEY_PerceivedType",
-    "PKEY_PercentFull",
-    "PKEY_Priority",
-    "PKEY_PriorityText",
-    "PKEY_Project",
-    "PKEY_ProviderItemID",
-    "PKEY_Rating",
-    "RATING_ONE_STAR_MIN",
-    "RATING_ONE_STAR_SET",
-    "RATING_ONE_STAR_MAX",
-    "RATING_TWO_STARS_MIN",
-    "RATING_TWO_STARS_SET",
-    "RATING_TWO_STARS_MAX",
-    "RATING_THREE_STARS_MIN",
-    "RATING_THREE_STARS_SET",
-    "RATING_THREE_STARS_MAX",
-    "RATING_FOUR_STARS_MIN",
-    "RATING_FOUR_STARS_SET",
-    "RATING_FOUR_STARS_MAX",
-    "RATING_FIVE_STARS_MIN",
-    "RATING_FIVE_STARS_SET",
-    "RATING_FIVE_STARS_MAX",
-    "PKEY_RatingText",
-    "PKEY_RemoteConflictingFile",
-    "PKEY_Security_AllowedEnterpriseDataProtectionIdentities",
-    "PKEY_Security_EncryptionOwners",
-    "PKEY_Security_EncryptionOwnersDisplay",
-    "PKEY_Sensitivity",
-    "PKEY_SensitivityText",
-    "PKEY_SFGAOFlags",
-    "PKEY_SharedWith",
-    "PKEY_ShareUserRating",
-    "PKEY_SharingStatus",
-    "SHARINGSTATUS_NOTSHARED",
-    "SHARINGSTATUS_SHARED",
-    "SHARINGSTATUS_PRIVATE",
-    "PKEY_Shell_OmitFromView",
-    "PKEY_SimpleRating",
-    "PKEY_Size",
-    "PKEY_SoftwareUsed",
-    "PKEY_SourceItem",
-    "PKEY_SourcePackageFamilyName",
-    "PKEY_StartDate",
-    "PKEY_Status",
-    "PKEY_StorageProviderCallerVersionInformation",
-    "PKEY_StorageProviderError",
-    "PKEY_StorageProviderFileChecksum",
-    "PKEY_StorageProviderFileFlags",
-    "PKEY_StorageProviderFileHasConflict",
-    "PKEY_StorageProviderFileIdentifier",
-    "PKEY_StorageProviderFileRemoteUri",
-    "PKEY_StorageProviderFileVersion",
-    "PKEY_StorageProviderFileVersionWaterline",
-    "PKEY_StorageProviderId",
-    "PKEY_StorageProviderShareStatuses",
-    "PKEY_StorageProviderSharingStatus",
-    "STORAGE_PROVIDER_SHARINGSTATUS_NOTSHARED",
-    "STORAGE_PROVIDER_SHARINGSTATUS_SHARED",
-    "STORAGE_PROVIDER_SHARINGSTATUS_PRIVATE",
-    "STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC",
-    "STORAGE_PROVIDER_SHARINGSTATUS_SHARED_OWNED",
-    "STORAGE_PROVIDER_SHARINGSTATUS_SHARED_COOWNED",
-    "STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC_OWNED",
-    "STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC_COOWNED",
-    "PKEY_StorageProviderStatus",
-    "PKEY_Subject",
-    "PKEY_SyncTransferStatus",
-    "PKEY_Thumbnail",
-    "PKEY_ThumbnailCacheId",
-    "PKEY_ThumbnailStream",
-    "PKEY_Title",
-    "PKEY_TitleSortOverride",
-    "PKEY_TotalFileSize",
-    "PKEY_Trademarks",
-    "PKEY_TransferOrder",
-    "PKEY_TransferPosition",
-    "PKEY_TransferSize",
-    "PKEY_VolumeId",
-    "PKEY_ZoneIdentifier",
-    "PKEY_Device_PrinterURL",
+    "PKEY_DescriptionID",
     "PKEY_DeviceInterface_Bluetooth_DeviceAddress",
     "PKEY_DeviceInterface_Bluetooth_Flags",
     "PKEY_DeviceInterface_Bluetooth_LastConnectedTime",
@@ -2020,39 +3166,7 @@ __all__ = [
     "PKEY_DeviceInterface_WinUsb_UsbProtocol",
     "PKEY_DeviceInterface_WinUsb_UsbSubClass",
     "PKEY_DeviceInterface_WinUsb_UsbVendorId",
-    "PKEY_Devices_Aep_AepId",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Major",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Minor",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Audio",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Capturing",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Information",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_LimitedDiscovery",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Networking",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_ObjectXfer",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Positioning",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Rendering",
-    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Telephony",
-    "PKEY_Devices_Aep_Bluetooth_LastSeenTime",
-    "PKEY_Devices_Aep_Bluetooth_Le_AddressType",
-    "BLUETOOTH_ADDRESS_TYPE_PUBLIC",
-    "BLUETOOTH_ADDRESS_TYPE_RANDOM",
-    "PKEY_Devices_Aep_Bluetooth_Le_Appearance",
-    "PKEY_Devices_Aep_Bluetooth_Le_Appearance_Category",
-    "PKEY_Devices_Aep_Bluetooth_Le_Appearance_Subcategory",
-    "PKEY_Devices_Aep_Bluetooth_Le_IsConnectable",
-    "PKEY_Devices_Aep_CanPair",
-    "PKEY_Devices_Aep_Category",
-    "PKEY_Devices_Aep_ContainerId",
-    "PKEY_Devices_Aep_DeviceAddress",
-    "PKEY_Devices_Aep_IsConnected",
-    "PKEY_Devices_Aep_IsPaired",
-    "PKEY_Devices_Aep_IsPresent",
-    "PKEY_Devices_Aep_Manufacturer",
-    "PKEY_Devices_Aep_ModelId",
-    "PKEY_Devices_Aep_ModelName",
-    "PKEY_Devices_Aep_PointOfService_ConnectionTypes",
-    "PKEY_Devices_Aep_ProtocolId",
-    "PKEY_Devices_Aep_SignalStrength",
+    "PKEY_Device_PrinterURL",
     "PKEY_Devices_AepContainer_CanPair",
     "PKEY_Devices_AepContainer_Categories",
     "PKEY_Devices_AepContainer_Children",
@@ -2078,8 +3192,6 @@ __all__ = [
     "PKEY_Devices_AepContainer_SupportsVideo",
     "PKEY_Devices_AepService_AepId",
     "PKEY_Devices_AepService_Bluetooth_CacheMode",
-    "BLUETOOTH_CACHE_MODE_CACHED",
-    "BLUETOOTH_CACHED_MODE_UNCACHED",
     "PKEY_Devices_AepService_Bluetooth_ServiceGuid",
     "PKEY_Devices_AepService_Bluetooth_TargetDevice",
     "PKEY_Devices_AepService_ContainerId",
@@ -2089,6 +3201,37 @@ __all__ = [
     "PKEY_Devices_AepService_ProtocolId",
     "PKEY_Devices_AepService_ServiceClassId",
     "PKEY_Devices_AepService_ServiceId",
+    "PKEY_Devices_Aep_AepId",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Major",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Minor",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Audio",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Capturing",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Information",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_LimitedDiscovery",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Networking",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_ObjectXfer",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Positioning",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Rendering",
+    "PKEY_Devices_Aep_Bluetooth_Cod_Services_Telephony",
+    "PKEY_Devices_Aep_Bluetooth_LastSeenTime",
+    "PKEY_Devices_Aep_Bluetooth_Le_AddressType",
+    "PKEY_Devices_Aep_Bluetooth_Le_Appearance",
+    "PKEY_Devices_Aep_Bluetooth_Le_Appearance_Category",
+    "PKEY_Devices_Aep_Bluetooth_Le_Appearance_Subcategory",
+    "PKEY_Devices_Aep_Bluetooth_Le_IsConnectable",
+    "PKEY_Devices_Aep_CanPair",
+    "PKEY_Devices_Aep_Category",
+    "PKEY_Devices_Aep_ContainerId",
+    "PKEY_Devices_Aep_DeviceAddress",
+    "PKEY_Devices_Aep_IsConnected",
+    "PKEY_Devices_Aep_IsPaired",
+    "PKEY_Devices_Aep_IsPresent",
+    "PKEY_Devices_Aep_Manufacturer",
+    "PKEY_Devices_Aep_ModelId",
+    "PKEY_Devices_Aep_ModelName",
+    "PKEY_Devices_Aep_PointOfService_ConnectionTypes",
+    "PKEY_Devices_Aep_ProtocolId",
+    "PKEY_Devices_Aep_SignalStrength",
     "PKEY_Devices_AppPackageFamilyName",
     "PKEY_Devices_AudioDevice_Microphone_IsFarField",
     "PKEY_Devices_AudioDevice_Microphone_SensitivityInDbfs",
@@ -2111,6 +3254,7 @@ __all__ = [
     "PKEY_Devices_Connected",
     "PKEY_Devices_ContainerId",
     "PKEY_Devices_DefaultTooltip",
+    "PKEY_Devices_DevObjectType",
     "PKEY_Devices_DeviceCapabilities",
     "PKEY_Devices_DeviceCharacteristics",
     "PKEY_Devices_DeviceDescription1",
@@ -2118,7 +3262,6 @@ __all__ = [
     "PKEY_Devices_DeviceHasProblem",
     "PKEY_Devices_DeviceInstanceId",
     "PKEY_Devices_DeviceManufacturer",
-    "PKEY_Devices_DevObjectType",
     "PKEY_Devices_DialProtocol_InstalledApplications",
     "PKEY_Devices_DiscoveryMethod",
     "PKEY_Devices_Dnssd_Domain",
@@ -2156,19 +3299,19 @@ __all__ = [
     "PKEY_Devices_ModelId",
     "PKEY_Devices_ModelName",
     "PKEY_Devices_ModelNumber",
-    "PKEY_Devices_NetworkedTooltip",
     "PKEY_Devices_NetworkName",
     "PKEY_Devices_NetworkType",
+    "PKEY_Devices_NetworkedTooltip",
     "PKEY_Devices_NewPictures",
+    "PKEY_Devices_NotWorkingProperly",
     "PKEY_Devices_Notification",
+    "PKEY_Devices_NotificationStore",
     "PKEY_Devices_Notifications_LowBattery",
     "PKEY_Devices_Notifications_MissedCall",
     "PKEY_Devices_Notifications_NewMessage",
     "PKEY_Devices_Notifications_NewVoicemail",
     "PKEY_Devices_Notifications_StorageFull",
     "PKEY_Devices_Notifications_StorageFullLinkText",
-    "PKEY_Devices_NotificationStore",
-    "PKEY_Devices_NotWorkingProperly",
     "PKEY_Devices_Paired",
     "PKEY_Devices_Panel_PanelGroup",
     "PKEY_Devices_Panel_PanelId",
@@ -2177,14 +3320,6 @@ __all__ = [
     "PKEY_Devices_PhysicalDeviceLocation",
     "PKEY_Devices_PlaybackPositionPercent",
     "PKEY_Devices_PlaybackState",
-    "PLAYBACKSTATE_UNKNOWN",
-    "PLAYBACKSTATE_STOPPED",
-    "PLAYBACKSTATE_PLAYING",
-    "PLAYBACKSTATE_TRANSITIONING",
-    "PLAYBACKSTATE_PAUSED",
-    "PLAYBACKSTATE_RECORDINGPAUSED",
-    "PLAYBACKSTATE_RECORDING",
-    "PLAYBACKSTATE_NOMEDIA",
     "PKEY_Devices_PlaybackTitle",
     "PKEY_Devices_Present",
     "PKEY_Devices_PresentationUrl",
@@ -2207,8 +3342,12 @@ __all__ = [
     "PKEY_Devices_StorageFreeSpacePercent",
     "PKEY_Devices_TextMessages",
     "PKEY_Devices_Voicemail",
-    "PKEY_Devices_WiaDeviceType",
-    "PKEY_Devices_WiFi_InterfaceGuid",
+    "PKEY_Devices_WiFiDirectServices_AdvertisementId",
+    "PKEY_Devices_WiFiDirectServices_RequestServiceInformation",
+    "PKEY_Devices_WiFiDirectServices_ServiceAddress",
+    "PKEY_Devices_WiFiDirectServices_ServiceConfigMethods",
+    "PKEY_Devices_WiFiDirectServices_ServiceInformation",
+    "PKEY_Devices_WiFiDirectServices_ServiceName",
     "PKEY_Devices_WiFiDirect_DeviceAddress",
     "PKEY_Devices_WiFiDirect_GroupId",
     "PKEY_Devices_WiFiDirect_InformationElements",
@@ -2221,17 +3360,10 @@ __all__ = [
     "PKEY_Devices_WiFiDirect_MiracastVersion",
     "PKEY_Devices_WiFiDirect_Services",
     "PKEY_Devices_WiFiDirect_SupportedChannelList",
-    "PKEY_Devices_WiFiDirectServices_AdvertisementId",
-    "PKEY_Devices_WiFiDirectServices_RequestServiceInformation",
-    "PKEY_Devices_WiFiDirectServices_ServiceAddress",
-    "PKEY_Devices_WiFiDirectServices_ServiceConfigMethods",
-    "PKEY_Devices_WiFiDirectServices_ServiceInformation",
-    "PKEY_Devices_WiFiDirectServices_ServiceName",
+    "PKEY_Devices_WiFi_InterfaceGuid",
+    "PKEY_Devices_WiaDeviceType",
     "PKEY_Devices_WinPhone8CameraFlags",
     "PKEY_Devices_Wwan_InterfaceGuid",
-    "PKEY_Storage_Portable",
-    "PKEY_Storage_RemovableMedia",
-    "PKEY_Storage_SystemCritical",
     "PKEY_Document_ByteCount",
     "PKEY_Document_CharacterCount",
     "PKEY_Document_ClientID",
@@ -2257,17 +3389,38 @@ __all__ = [
     "PKEY_Document_TotalEditingTime",
     "PKEY_Document_Version",
     "PKEY_Document_WordCount",
-    "PKEY_DRM_DatePlayExpires",
-    "PKEY_DRM_DatePlayStarts",
-    "PKEY_DRM_Description",
-    "PKEY_DRM_IsDisabled",
-    "PKEY_DRM_IsProtected",
-    "PKEY_DRM_PlayCount",
+    "PKEY_DueDate",
+    "PKEY_EdgeGesture_DisableTouchWhenFullscreen",
+    "PKEY_EndDate",
+    "PKEY_ExpandoProperties",
+    "PKEY_FileAllocationSize",
+    "PKEY_FileAttributes",
+    "PKEY_FileCount",
+    "PKEY_FileDescription",
+    "PKEY_FileExtension",
+    "PKEY_FileFRN",
+    "PKEY_FileName",
+    "PKEY_FileOfflineAvailabilityStatus",
+    "PKEY_FileOwner",
+    "PKEY_FilePlaceholderStatus",
+    "PKEY_FileVersion",
+    "PKEY_FindData",
+    "PKEY_FlagColor",
+    "PKEY_FlagColorText",
+    "PKEY_FlagStatus",
+    "PKEY_FlagStatusText",
+    "PKEY_FolderKind",
+    "PKEY_FolderNameDisplay",
+    "PKEY_FreeSpace",
+    "PKEY_FullText",
     "PKEY_GPS_Altitude",
     "PKEY_GPS_AltitudeDenominator",
     "PKEY_GPS_AltitudeNumerator",
     "PKEY_GPS_AltitudeRef",
     "PKEY_GPS_AreaInformation",
+    "PKEY_GPS_DOP",
+    "PKEY_GPS_DOPDenominator",
+    "PKEY_GPS_DOPNumerator",
     "PKEY_GPS_Date",
     "PKEY_GPS_DestBearing",
     "PKEY_GPS_DestBearingDenominator",
@@ -2286,9 +3439,6 @@ __all__ = [
     "PKEY_GPS_DestLongitudeNumerator",
     "PKEY_GPS_DestLongitudeRef",
     "PKEY_GPS_Differential",
-    "PKEY_GPS_DOP",
-    "PKEY_GPS_DOPDenominator",
-    "PKEY_GPS_DOPNumerator",
     "PKEY_GPS_ImgDirection",
     "PKEY_GPS_ImgDirectionDenominator",
     "PKEY_GPS_ImgDirectionNumerator",
@@ -2317,7 +3467,28 @@ __all__ = [
     "PKEY_GPS_TrackNumerator",
     "PKEY_GPS_TrackRef",
     "PKEY_GPS_VersionID",
+    "PKEY_HighKeywords",
+    "PKEY_History_SelectionCount",
+    "PKEY_History_TargetUrlHostName",
     "PKEY_History_VisitCount",
+    "PKEY_Identity",
+    "PKEY_IdentityProvider_Name",
+    "PKEY_IdentityProvider_Picture",
+    "PKEY_Identity_Blob",
+    "PKEY_Identity_DisplayName",
+    "PKEY_Identity_InternetSid",
+    "PKEY_Identity_IsMeIdentity",
+    "PKEY_Identity_KeyProviderContext",
+    "PKEY_Identity_KeyProviderName",
+    "PKEY_Identity_LogonStatusString",
+    "PKEY_Identity_PrimaryEmailAddress",
+    "PKEY_Identity_PrimarySid",
+    "PKEY_Identity_ProviderData",
+    "PKEY_Identity_ProviderID",
+    "PKEY_Identity_QualifiedUserName",
+    "PKEY_Identity_UniqueID",
+    "PKEY_Identity_UserName",
+    "PKEY_ImageParsingName",
     "PKEY_Image_BitDepth",
     "PKEY_Image_ColorSpace",
     "PKEY_Image_CompressedBitsPerPixel",
@@ -2332,25 +3503,69 @@ __all__ = [
     "PKEY_Image_ResolutionUnit",
     "PKEY_Image_VerticalResolution",
     "PKEY_Image_VerticalSize",
+    "PKEY_Importance",
+    "PKEY_ImportanceText",
+    "PKEY_InfoTipText",
+    "PKEY_InternalName",
+    "PKEY_IsAttachment",
+    "PKEY_IsDefaultNonOwnerSaveLocation",
+    "PKEY_IsDefaultSaveLocation",
+    "PKEY_IsDeleted",
+    "PKEY_IsEncrypted",
+    "PKEY_IsFlagged",
+    "PKEY_IsFlaggedComplete",
+    "PKEY_IsIncomplete",
+    "PKEY_IsLocationSupported",
+    "PKEY_IsPinnedToNameSpaceTree",
+    "PKEY_IsRead",
+    "PKEY_IsSearchOnlyItem",
+    "PKEY_IsSendToTarget",
+    "PKEY_IsShared",
+    "PKEY_ItemAuthors",
+    "PKEY_ItemClassType",
+    "PKEY_ItemDate",
+    "PKEY_ItemFolderNameDisplay",
+    "PKEY_ItemFolderPathDisplay",
+    "PKEY_ItemFolderPathDisplayNarrow",
+    "PKEY_ItemName",
+    "PKEY_ItemNameDisplay",
+    "PKEY_ItemNameDisplayWithoutExtension",
+    "PKEY_ItemNamePrefix",
+    "PKEY_ItemNameSortOverride",
+    "PKEY_ItemParticipants",
+    "PKEY_ItemPathDisplay",
+    "PKEY_ItemPathDisplayNarrow",
+    "PKEY_ItemSubType",
+    "PKEY_ItemType",
+    "PKEY_ItemTypeText",
+    "PKEY_ItemUrl",
     "PKEY_Journal_Contacts",
     "PKEY_Journal_EntryType",
+    "PKEY_Keywords",
+    "PKEY_Kind",
+    "PKEY_KindText",
+    "PKEY_Language",
+    "PKEY_LastSyncError",
+    "PKEY_LastSyncWarning",
+    "PKEY_LastWriterPackageFamilyName",
     "PKEY_LayoutPattern_ContentViewModeForBrowse",
     "PKEY_LayoutPattern_ContentViewModeForSearch",
-    "PKEY_History_SelectionCount",
-    "PKEY_History_TargetUrlHostName",
+    "PKEY_LibraryLocationsCount",
     "PKEY_Link_Arguments",
     "PKEY_Link_Comment",
     "PKEY_Link_DateVisited",
     "PKEY_Link_Description",
     "PKEY_Link_FeedItemLocalId",
     "PKEY_Link_Status",
-    "LINK_STATUS_RESOLVED",
-    "LINK_STATUS_BROKEN",
     "PKEY_Link_TargetExtension",
     "PKEY_Link_TargetParsingPath",
     "PKEY_Link_TargetSFGAOFlags",
+    "PKEY_Link_TargetSFGAOFlagsStrings",
+    "PKEY_Link_TargetUrl",
     "PKEY_Link_TargetUrlHostName",
     "PKEY_Link_TargetUrlPath",
+    "PKEY_LowKeywords",
+    "PKEY_MIMEType",
     "PKEY_Media_AuthorUrl",
     "PKEY_Media_AverageLevel",
     "PKEY_Media_ClassPrimaryID",
@@ -2361,11 +3576,11 @@ __all__ = [
     "PKEY_Media_ContentID",
     "PKEY_Media_CreatorApplication",
     "PKEY_Media_CreatorApplicationVersion",
+    "PKEY_Media_DVDID",
     "PKEY_Media_DateEncoded",
     "PKEY_Media_DateReleased",
     "PKEY_Media_DlnaProfileID",
     "PKEY_Media_Duration",
-    "PKEY_Media_DVDID",
     "PKEY_Media_EncodedBy",
     "PKEY_Media_EncodingSettings",
     "PKEY_Media_EpisodeNumber",
@@ -2380,8 +3595,8 @@ __all__ = [
     "PKEY_Media_Publisher",
     "PKEY_Media_SeasonNumber",
     "PKEY_Media_SeriesName",
-    "PKEY_Media_SubscriptionContentId",
     "PKEY_Media_SubTitle",
+    "PKEY_Media_SubscriptionContentId",
     "PKEY_Media_ThumbnailLargePath",
     "PKEY_Media_ThumbnailLargeUri",
     "PKEY_Media_ThumbnailSmallPath",
@@ -2391,6 +3606,7 @@ __all__ = [
     "PKEY_Media_UserWebUrl",
     "PKEY_Media_Writer",
     "PKEY_Media_Year",
+    "PKEY_MediumKeywords",
     "PKEY_Message_AttachmentContents",
     "PKEY_Message_AttachmentNames",
     "PKEY_Message_BccAddress",
@@ -2416,6 +3632,7 @@ __all__ = [
     "PKEY_Message_ToDoFlags",
     "PKEY_Message_ToDoTitle",
     "PKEY_Message_ToName",
+    "PKEY_MileageInformation",
     "PKEY_Music_AlbumArtist",
     "PKEY_Music_AlbumArtistSortOverride",
     "PKEY_Music_AlbumID",
@@ -2439,8 +3656,22 @@ __all__ = [
     "PKEY_Music_Period",
     "PKEY_Music_SynchronizedLyrics",
     "PKEY_Music_TrackNumber",
+    "PKEY_NamespaceCLSID",
     "PKEY_Note_Color",
     "PKEY_Note_ColorText",
+    "PKEY_Null",
+    "PKEY_OfflineAvailability",
+    "PKEY_OfflineStatus",
+    "PKEY_OriginalFileName",
+    "PKEY_OwnerSID",
+    "PKEY_ParentalRating",
+    "PKEY_ParentalRatingReason",
+    "PKEY_ParentalRatingsOrganization",
+    "PKEY_ParsingBindContext",
+    "PKEY_ParsingName",
+    "PKEY_ParsingPath",
+    "PKEY_PerceivedType",
+    "PKEY_PercentFull",
     "PKEY_Photo_Aperture",
     "PKEY_Photo_ApertureDenominator",
     "PKEY_Photo_ApertureNumerator",
@@ -2451,16 +3682,13 @@ __all__ = [
     "PKEY_Photo_CameraModel",
     "PKEY_Photo_CameraSerialNumber",
     "PKEY_Photo_Contrast",
-    "PHOTO_CONTRAST_NORMAL",
-    "PHOTO_CONTRAST_SOFT",
-    "PHOTO_CONTRAST_HARD",
     "PKEY_Photo_ContrastText",
     "PKEY_Photo_DateTaken",
     "PKEY_Photo_DigitalZoom",
     "PKEY_Photo_DigitalZoomDenominator",
     "PKEY_Photo_DigitalZoomNumerator",
-    "PKEY_Photo_Event",
     "PKEY_Photo_EXIFVersion",
+    "PKEY_Photo_Event",
     "PKEY_Photo_ExposureBias",
     "PKEY_Photo_ExposureBiasDenominator",
     "PKEY_Photo_ExposureBiasNumerator",
@@ -2468,51 +3696,20 @@ __all__ = [
     "PKEY_Photo_ExposureIndexDenominator",
     "PKEY_Photo_ExposureIndexNumerator",
     "PKEY_Photo_ExposureProgram",
-    "PHOTO_EXPOSUREPROGRAM_UNKNOWN",
-    "PHOTO_EXPOSUREPROGRAM_MANUAL",
-    "PHOTO_EXPOSUREPROGRAM_NORMAL",
-    "PHOTO_EXPOSUREPROGRAM_APERTURE",
-    "PHOTO_EXPOSUREPROGRAM_SHUTTER",
-    "PHOTO_EXPOSUREPROGRAM_CREATIVE",
-    "PHOTO_EXPOSUREPROGRAM_ACTION",
-    "PHOTO_EXPOSUREPROGRAM_PORTRAIT",
-    "PHOTO_EXPOSUREPROGRAM_LANDSCAPE",
     "PKEY_Photo_ExposureProgramText",
     "PKEY_Photo_ExposureTime",
     "PKEY_Photo_ExposureTimeDenominator",
     "PKEY_Photo_ExposureTimeNumerator",
+    "PKEY_Photo_FNumber",
+    "PKEY_Photo_FNumberDenominator",
+    "PKEY_Photo_FNumberNumerator",
     "PKEY_Photo_Flash",
-    "PHOTO_FLASH_NONE",
-    "PHOTO_FLASH_FLASH",
-    "PHOTO_FLASH_WITHOUTSTROBE",
-    "PHOTO_FLASH_WITHSTROBE",
-    "PHOTO_FLASH_FLASH_COMPULSORY",
-    "PHOTO_FLASH_FLASH_COMPULSORY_NORETURNLIGHT",
-    "PHOTO_FLASH_FLASH_COMPULSORY_RETURNLIGHT",
-    "PHOTO_FLASH_NONE_COMPULSORY",
-    "PHOTO_FLASH_NONE_AUTO",
-    "PHOTO_FLASH_FLASH_AUTO",
-    "PHOTO_FLASH_FLASH_AUTO_NORETURNLIGHT",
-    "PHOTO_FLASH_FLASH_AUTO_RETURNLIGHT",
-    "PHOTO_FLASH_NOFUNCTION",
-    "PHOTO_FLASH_FLASH_REDEYE",
-    "PHOTO_FLASH_FLASH_REDEYE_NORETURNLIGHT",
-    "PHOTO_FLASH_FLASH_REDEYE_RETURNLIGHT",
-    "PHOTO_FLASH_FLASH_COMPULSORY_REDEYE",
-    "PHOTO_FLASH_FLASH_COMPULSORY_REDEYE_NORETURNLIGHT",
-    "PHOTO_FLASH_FLASH_COMPULSORY_REDEYE_RETURNLIGHT",
-    "PHOTO_FLASH_FLASH_AUTO_REDEYE",
-    "PHOTO_FLASH_FLASH_AUTO_REDEYE_NORETURNLIGHT",
-    "PHOTO_FLASH_FLASH_AUTO_REDEYE_RETURNLIGHT",
     "PKEY_Photo_FlashEnergy",
     "PKEY_Photo_FlashEnergyDenominator",
     "PKEY_Photo_FlashEnergyNumerator",
     "PKEY_Photo_FlashManufacturer",
     "PKEY_Photo_FlashModel",
     "PKEY_Photo_FlashText",
-    "PKEY_Photo_FNumber",
-    "PKEY_Photo_FNumberDenominator",
-    "PKEY_Photo_FNumberNumerator",
     "PKEY_Photo_FocalLength",
     "PKEY_Photo_FocalLengthDenominator",
     "PKEY_Photo_FocalLengthInFilm",
@@ -2524,11 +3721,6 @@ __all__ = [
     "PKEY_Photo_FocalPlaneYResolutionDenominator",
     "PKEY_Photo_FocalPlaneYResolutionNumerator",
     "PKEY_Photo_GainControl",
-    "PHOTO_GAINCONTROL_NONE",
-    "PHOTO_GAINCONTROL_LOWGAINUP",
-    "PHOTO_GAINCONTROL_HIGHGAINUP",
-    "PHOTO_GAINCONTROL_LOWGAINDOWN",
-    "PHOTO_GAINCONTROL_HIGHGAINDOWN",
     "PKEY_Photo_GainControlDenominator",
     "PKEY_Photo_GainControlNumerator",
     "PKEY_Photo_GainControlText",
@@ -2536,16 +3728,6 @@ __all__ = [
     "PKEY_Photo_LensManufacturer",
     "PKEY_Photo_LensModel",
     "PKEY_Photo_LightSource",
-    "PHOTO_LIGHTSOURCE_UNKNOWN",
-    "PHOTO_LIGHTSOURCE_DAYLIGHT",
-    "PHOTO_LIGHTSOURCE_FLUORESCENT",
-    "PHOTO_LIGHTSOURCE_TUNGSTEN",
-    "PHOTO_LIGHTSOURCE_STANDARD_A",
-    "PHOTO_LIGHTSOURCE_STANDARD_B",
-    "PHOTO_LIGHTSOURCE_STANDARD_C",
-    "PHOTO_LIGHTSOURCE_D55",
-    "PHOTO_LIGHTSOURCE_D65",
-    "PHOTO_LIGHTSOURCE_D75",
     "PKEY_Photo_MakerNote",
     "PKEY_Photo_MakerNoteOffset",
     "PKEY_Photo_MaxAperture",
@@ -2559,26 +3741,11 @@ __all__ = [
     "PKEY_Photo_PhotometricInterpretation",
     "PKEY_Photo_PhotometricInterpretationText",
     "PKEY_Photo_ProgramMode",
-    "PHOTO_PROGRAMMODE_NOTDEFINED",
-    "PHOTO_PROGRAMMODE_MANUAL",
-    "PHOTO_PROGRAMMODE_NORMAL",
-    "PHOTO_PROGRAMMODE_APERTURE",
-    "PHOTO_PROGRAMMODE_SHUTTER",
-    "PHOTO_PROGRAMMODE_CREATIVE",
-    "PHOTO_PROGRAMMODE_ACTION",
-    "PHOTO_PROGRAMMODE_PORTRAIT",
-    "PHOTO_PROGRAMMODE_LANDSCAPE",
     "PKEY_Photo_ProgramModeText",
     "PKEY_Photo_RelatedSoundFile",
     "PKEY_Photo_Saturation",
-    "PHOTO_SATURATION_NORMAL",
-    "PHOTO_SATURATION_LOW",
-    "PHOTO_SATURATION_HIGH",
     "PKEY_Photo_SaturationText",
     "PKEY_Photo_Sharpness",
-    "PHOTO_SHARPNESS_NORMAL",
-    "PHOTO_SHARPNESS_SOFT",
-    "PHOTO_SHARPNESS_HARD",
     "PKEY_Photo_SharpnessText",
     "PKEY_Photo_ShutterSpeed",
     "PKEY_Photo_ShutterSpeedDenominator",
@@ -2589,9 +3756,10 @@ __all__ = [
     "PKEY_Photo_TagViewAggregate",
     "PKEY_Photo_TranscodedForSync",
     "PKEY_Photo_WhiteBalance",
-    "PHOTO_WHITEBALANCE_AUTO",
-    "PHOTO_WHITEBALANCE_MANUAL",
     "PKEY_Photo_WhiteBalanceText",
+    "PKEY_Priority",
+    "PKEY_PriorityText",
+    "PKEY_Project",
     "PKEY_PropGroup_Advanced",
     "PKEY_PropGroup_Audio",
     "PKEY_PropGroup_Calendar",
@@ -2600,8 +3768,8 @@ __all__ = [
     "PKEY_PropGroup_Content",
     "PKEY_PropGroup_Description",
     "PKEY_PropGroup_FileSystem",
-    "PKEY_PropGroup_General",
     "PKEY_PropGroup_GPS",
+    "PKEY_PropGroup_General",
     "PKEY_PropGroup_Image",
     "PKEY_PropGroup_Media",
     "PKEY_PropGroup_MediaAdvanced",
@@ -2611,7 +3779,6 @@ __all__ = [
     "PKEY_PropGroup_PhotoAdvanced",
     "PKEY_PropGroup_RecordedTV",
     "PKEY_PropGroup_Video",
-    "PKEY_InfoTipText",
     "PKEY_PropList_ConflictPrompt",
     "PKEY_PropList_ContentViewModeForBrowse",
     "PKEY_PropList_ContentViewModeForSearch",
@@ -2625,6 +3792,9 @@ __all__ = [
     "PKEY_PropList_QuickTip",
     "PKEY_PropList_TileInfo",
     "PKEY_PropList_XPDetailsPanel",
+    "PKEY_ProviderItemID",
+    "PKEY_Rating",
+    "PKEY_RatingText",
     "PKEY_RecordedTV_ChannelNumber",
     "PKEY_RecordedTV_Credits",
     "PKEY_RecordedTV_DateContentExpires",
@@ -2641,6 +3811,8 @@ __all__ = [
     "PKEY_RecordedTV_RecordingTime",
     "PKEY_RecordedTV_StationCallSign",
     "PKEY_RecordedTV_StationName",
+    "PKEY_RemoteConflictingFile",
+    "PKEY_SFGAOFlags",
     "PKEY_Search_AutoSummary",
     "PKEY_Search_ContainerHash",
     "PKEY_Search_Contents",
@@ -2657,40 +3829,51 @@ __all__ = [
     "PKEY_Search_Store",
     "PKEY_Search_UrlToIndex",
     "PKEY_Search_UrlToIndexWithModificationTime",
+    "PKEY_Security_AllowedEnterpriseDataProtectionIdentities",
+    "PKEY_Security_EncryptionOwners",
+    "PKEY_Security_EncryptionOwnersDisplay",
+    "PKEY_Sensitivity",
+    "PKEY_SensitivityText",
+    "PKEY_ShareUserRating",
+    "PKEY_SharedWith",
+    "PKEY_SharingStatus",
+    "PKEY_Shell_OmitFromView",
+    "PKEY_Shell_SFGAOFlagsStrings",
+    "PKEY_SimpleRating",
+    "PKEY_Size",
+    "PKEY_SoftwareUsed",
+    "PKEY_Software_DateLastUsed",
+    "PKEY_Software_ProductName",
+    "PKEY_SourceItem",
+    "PKEY_SourcePackageFamilyName",
+    "PKEY_StartDate",
+    "PKEY_Status",
+    "PKEY_StatusBarSelectedItemCount",
+    "PKEY_StatusBarViewItemCount",
+    "PKEY_StorageProviderCallerVersionInformation",
+    "PKEY_StorageProviderError",
+    "PKEY_StorageProviderFileChecksum",
+    "PKEY_StorageProviderFileFlags",
+    "PKEY_StorageProviderFileHasConflict",
+    "PKEY_StorageProviderFileIdentifier",
+    "PKEY_StorageProviderFileRemoteUri",
+    "PKEY_StorageProviderFileVersion",
+    "PKEY_StorageProviderFileVersionWaterline",
+    "PKEY_StorageProviderId",
+    "PKEY_StorageProviderShareStatuses",
+    "PKEY_StorageProviderSharingStatus",
+    "PKEY_StorageProviderStatus",
+    "PKEY_Storage_Portable",
+    "PKEY_Storage_RemovableMedia",
+    "PKEY_Storage_SystemCritical",
+    "PKEY_Subject",
     "PKEY_Supplemental_Album",
     "PKEY_Supplemental_AlbumID",
     "PKEY_Supplemental_Location",
     "PKEY_Supplemental_Person",
     "PKEY_Supplemental_ResourceId",
     "PKEY_Supplemental_Tag",
-    "PKEY_DescriptionID",
-    "PKEY_InternalName",
-    "PKEY_LibraryLocationsCount",
-    "PKEY_Link_TargetSFGAOFlagsStrings",
-    "PKEY_Link_TargetUrl",
-    "PKEY_NamespaceCLSID",
-    "PKEY_Shell_SFGAOFlagsStrings",
-    "PKEY_StatusBarSelectedItemCount",
-    "PKEY_StatusBarViewItemCount",
-    "PKEY_AppUserModel_ExcludeFromShowInNewInstall",
-    "PKEY_AppUserModel_ID",
-    "PKEY_AppUserModel_IsDestListSeparator",
-    "PKEY_AppUserModel_IsDualMode",
-    "PKEY_AppUserModel_PreventPinning",
-    "PKEY_AppUserModel_RelaunchCommand",
-    "PKEY_AppUserModel_RelaunchDisplayNameResource",
-    "PKEY_AppUserModel_RelaunchIconResource",
-    "PKEY_AppUserModel_SettingsCommand",
-    "PKEY_AppUserModel_StartPinOption",
-    "APPUSERMODEL_STARTPINOPTION_DEFAULT",
-    "APPUSERMODEL_STARTPINOPTION_NOPINONINSTALL",
-    "APPUSERMODEL_STARTPINOPTION_USERPINNED",
-    "PKEY_AppUserModel_ToastActivatorCLSID",
-    "PKEY_AppUserModel_UninstallCommand",
-    "PKEY_AppUserModel_VisualElementsManifestHintPath",
-    "PKEY_EdgeGesture_DisableTouchWhenFullscreen",
-    "PKEY_Software_DateLastUsed",
-    "PKEY_Software_ProductName",
+    "PKEY_SyncTransferStatus",
     "PKEY_Sync_Comments",
     "PKEY_Sync_ConflictDescription",
     "PKEY_Sync_ConflictFirstLocation",
@@ -2699,27 +3882,25 @@ __all__ = [
     "PKEY_Sync_HandlerID",
     "PKEY_Sync_HandlerName",
     "PKEY_Sync_HandlerType",
-    "SYNC_HANDLERTYPE_OTHER",
-    "SYNC_HANDLERTYPE_PROGRAMS",
-    "SYNC_HANDLERTYPE_DEVICES",
-    "SYNC_HANDLERTYPE_FOLDERS",
-    "SYNC_HANDLERTYPE_WEBSERVICES",
-    "SYNC_HANDLERTYPE_COMPUTERS",
     "PKEY_Sync_HandlerTypeLabel",
     "PKEY_Sync_ItemID",
     "PKEY_Sync_ItemName",
     "PKEY_Sync_ProgressPercentage",
     "PKEY_Sync_State",
-    "SYNC_STATE_NOTSETUP",
-    "SYNC_STATE_SYNCNOTRUN",
-    "SYNC_STATE_IDLE",
-    "SYNC_STATE_ERROR",
-    "SYNC_STATE_PENDING",
-    "SYNC_STATE_SYNCING",
     "PKEY_Sync_Status",
     "PKEY_Task_BillingInformation",
     "PKEY_Task_CompletionStatus",
     "PKEY_Task_Owner",
+    "PKEY_Thumbnail",
+    "PKEY_ThumbnailCacheId",
+    "PKEY_ThumbnailStream",
+    "PKEY_Title",
+    "PKEY_TitleSortOverride",
+    "PKEY_TotalFileSize",
+    "PKEY_Trademarks",
+    "PKEY_TransferOrder",
+    "PKEY_TransferPosition",
+    "PKEY_TransferSize",
     "PKEY_Video_Compression",
     "PKEY_Video_Director",
     "PKEY_Video_EncodingBitrate",
@@ -2737,42 +3918,74 @@ __all__ = [
     "PKEY_Video_TotalBitrate",
     "PKEY_Video_TranscodedForSync",
     "PKEY_Video_VerticalAspectRatio",
+    "PKEY_VolumeId",
     "PKEY_Volume_FileSystem",
     "PKEY_Volume_IsMappedDrive",
     "PKEY_Volume_IsRoot",
-    "ACT_AUTHORIZE_ON_RESUME",
-    "ACT_AUTHORIZE_ON_SESSION_UNLOCK",
-    "ACT_UNAUTHORIZE_ON_SUSPEND",
-    "ACT_UNAUTHORIZE_ON_SESSION_LOCK",
-    "ES_RESERVED_COM_ERROR_START",
-    "ES_RESERVED_COM_ERROR_END",
-    "ES_GENERAL_ERROR_START",
-    "ES_GENERAL_ERROR_END",
-    "ES_AUTHN_ERROR_START",
-    "ES_AUTHN_ERROR_END",
-    "ES_RESERVED_SILO_ERROR_START",
-    "ES_RESERVED_SILO_ERROR_END",
-    "ES_PW_SILO_ERROR_START",
-    "ES_PW_SILO_ERROR_END",
-    "ES_RESERVED_SILO_SPECIFIC_ERROR_START",
-    "ES_RESERVED_SILO_SPECIFIC_ERROR_END",
-    "ES_VENDOR_ERROR_START",
-    "ES_VENDOR_ERROR_END",
-    "FACILITY_ENHANCED_STORAGE",
-    "ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION",
-    "EnumEnhancedStorageACT",
-    "EnhancedStorageACT",
-    "EnhancedStorageSilo",
-    "EnhancedStorageSiloAction",
-    "ACT_AUTHORIZATION_STATE",
+    "PKEY_ZoneIdentifier",
+    "PLAYBACKSTATE_NOMEDIA",
+    "PLAYBACKSTATE_PAUSED",
+    "PLAYBACKSTATE_PLAYING",
+    "PLAYBACKSTATE_RECORDING",
+    "PLAYBACKSTATE_RECORDINGPAUSED",
+    "PLAYBACKSTATE_STOPPED",
+    "PLAYBACKSTATE_TRANSITIONING",
+    "PLAYBACKSTATE_UNKNOWN",
+    "RATING_FIVE_STARS_MAX",
+    "RATING_FIVE_STARS_MIN",
+    "RATING_FIVE_STARS_SET",
+    "RATING_FOUR_STARS_MAX",
+    "RATING_FOUR_STARS_MIN",
+    "RATING_FOUR_STARS_SET",
+    "RATING_ONE_STAR_MAX",
+    "RATING_ONE_STAR_MIN",
+    "RATING_ONE_STAR_SET",
+    "RATING_THREE_STARS_MAX",
+    "RATING_THREE_STARS_MIN",
+    "RATING_THREE_STARS_SET",
+    "RATING_TWO_STARS_MAX",
+    "RATING_TWO_STARS_MIN",
+    "RATING_TWO_STARS_SET",
+    "SFGAOSTR_BROWSABLE",
+    "SFGAOSTR_FILEANC",
+    "SFGAOSTR_FILESYS",
+    "SFGAOSTR_FOLDER",
+    "SFGAOSTR_HIDDEN",
+    "SFGAOSTR_LINK",
+    "SFGAOSTR_NONENUM",
+    "SFGAOSTR_PLACEHOLDER",
+    "SFGAOSTR_STORAGEANC",
+    "SFGAOSTR_STREAM",
+    "SFGAOSTR_SUPERHIDDEN",
+    "SFGAOSTR_SYSTEM",
+    "SHARINGSTATUS_NOTSHARED",
+    "SHARINGSTATUS_PRIVATE",
+    "SHARINGSTATUS_SHARED",
     "SILO_INFO",
-    "ACT_AUTHORIZATION_STATE_VALUE",
-    "ACT_UNAUTHORIZED",
-    "ACT_AUTHORIZED",
-    "IEnumEnhancedStorageACT",
-    "IEnhancedStorageACT",
-    "IEnhancedStorageACT2",
-    "IEnhancedStorageACT3",
-    "IEnhancedStorageSilo",
-    "IEnhancedStorageSiloAction",
+    "STORAGE_PROVIDER_SHARE_STATUS_GROUP",
+    "STORAGE_PROVIDER_SHARE_STATUS_OWNER",
+    "STORAGE_PROVIDER_SHARE_STATUS_PRIVATE",
+    "STORAGE_PROVIDER_SHARE_STATUS_PUBLIC",
+    "STORAGE_PROVIDER_SHARE_STATUS_SHARED",
+    "STORAGE_PROVIDER_SHARINGSTATUS_NOTSHARED",
+    "STORAGE_PROVIDER_SHARINGSTATUS_PRIVATE",
+    "STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC",
+    "STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC_COOWNED",
+    "STORAGE_PROVIDER_SHARINGSTATUS_PUBLIC_OWNED",
+    "STORAGE_PROVIDER_SHARINGSTATUS_SHARED",
+    "STORAGE_PROVIDER_SHARINGSTATUS_SHARED_COOWNED",
+    "STORAGE_PROVIDER_SHARINGSTATUS_SHARED_OWNED",
+    "SYNC_HANDLERTYPE_COMPUTERS",
+    "SYNC_HANDLERTYPE_DEVICES",
+    "SYNC_HANDLERTYPE_FOLDERS",
+    "SYNC_HANDLERTYPE_OTHER",
+    "SYNC_HANDLERTYPE_PROGRAMS",
+    "SYNC_HANDLERTYPE_WEBSERVICES",
+    "SYNC_STATE_ERROR",
+    "SYNC_STATE_IDLE",
+    "SYNC_STATE_NOTSETUP",
+    "SYNC_STATE_PENDING",
+    "SYNC_STATE_SYNCING",
+    "SYNC_STATE_SYNCNOTRUN",
+    "WPD_CATEGORY_ENHANCED_STORAGE",
 ]

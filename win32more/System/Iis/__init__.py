@@ -1,23 +1,36 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Security.Cryptography
 import win32more.System.Com
 import win32more.System.Iis
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+def _define__IIS_CRYPTO_BLOB_head():
+    class _IIS_CRYPTO_BLOB(Structure):
+        pass
+    return _IIS_CRYPTO_BLOB
+def _define__IIS_CRYPTO_BLOB():
+    _IIS_CRYPTO_BLOB = win32more.System.Iis._IIS_CRYPTO_BLOB_head
+    return _IIS_CRYPTO_BLOB
+IISADMIN_EXTENSIONS_REG_KEYA = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
+IISADMIN_EXTENSIONS_REG_KEYW = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
+IISADMIN_EXTENSIONS_REG_KEY = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
+IISADMIN_EXTENSIONS_CLSID_MD_KEYA = 'LM/IISADMIN/EXTENSIONS/DCOMCLSIDS'
+IISADMIN_EXTENSIONS_CLSID_MD_KEYW = 'LM/IISADMIN/EXTENSIONS/DCOMCLSIDS'
+IISADMIN_EXTENSIONS_CLSID_MD_KEY = 'LM/IISADMIN/EXTENSIONS/DCOMCLSIDS'
 ADMINDATA_MAX_NAME_LEN = 256
-CLSID_MSAdminBase_W = 'a9e69610-b80d-11d0-b9b9-00a0c922e750'
+def _define_CLSID_MSAdminBase_W():
+    return Guid('a9e69610-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
 IMGCHG_SIZE = 1
 IMGCHG_VIEW = 2
 IMGCHG_COMPLETE = 4
@@ -42,7 +55,14 @@ DWN_DOWNLOADONLY = 64
 DWN_FORCEDITHER = 128
 DWN_RAWIMAGE = 256
 DWN_MIRRORIMAGE = 512
-CLSID_IImgCtx = '3050f3d6-98b5-11cf-bb82-00aa00bdce0b'
+def _define_CLSID_IImgCtx():
+    return Guid('3050f3d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+IIS_MD_LOCAL_MACHINE_PATH = 'LM'
+IIS_MD_INSTANCE_ROOT = 'Root'
+IIS_MD_ISAPI_FILTERS = '/Filters'
+IIS_MD_SVC_INFO_PATH = 'Info'
+IIS_MD_ADSI_SCHEMA_PATH_A = '/Schema'
+IIS_MD_ADSI_SCHEMA_PATH_W = '/Schema'
 IIS_MD_ADSI_METAID_BEGIN = 130000
 IIS_MD_UT_SERVER = 1
 IIS_MD_UT_FILE = 2
@@ -687,10 +707,54 @@ MD_USER_ISOLATION_NONE = 0
 MD_USER_ISOLATION_BASIC = 1
 MD_USER_ISOLATION_AD = 2
 MD_USER_ISOLATION_LAST = 2
-CLSID_IisServiceControl = 'e8fb8621-588f-11d2-9d61-00c04f79c5fe'
-LIBID_IISRSTALib = 'e8fb8614-588f-11d2-9d61-00c04f79c5fe'
-LIBID_WAMREGLib = '29822aa8-f302-11d0-9953-00c04fd919c1'
-CLSID_WamAdmin = '61738644-f196-11d0-9953-00c04fd919c1'
+IIS_CLASS_COMPUTER = 'IIsComputer'
+IIS_CLASS_WEB_SERVICE = 'IIsWebService'
+IIS_CLASS_WEB_SERVER = 'IIsWebServer'
+IIS_CLASS_WEB_INFO = 'IIsWebInfo'
+IIS_CLASS_WEB_DIR = 'IIsWebDirectory'
+IIS_CLASS_WEB_VDIR = 'IIsWebVirtualDir'
+IIS_CLASS_WEB_FILE = 'IIsWebFile'
+IIS_CLASS_FTP_SERVICE = 'IIsFtpService'
+IIS_CLASS_FTP_SERVER = 'IIsFtpServer'
+IIS_CLASS_FTP_INFO = 'IIsFtpInfo'
+IIS_CLASS_FTP_VDIR = 'IIsFtpVirtualDir'
+IIS_CLASS_FILTERS = 'IIsFilters'
+IIS_CLASS_FILTER = 'IIsFilter'
+IIS_CLASS_LOG_MODULES = 'IIsLogModules'
+IIS_CLASS_LOG_MODULE = 'IIsLogModule'
+IIS_CLASS_MIMEMAP = 'IIsMimeMap'
+IIS_CLASS_CERTMAPPER = 'IIsCertMapper'
+IIS_CLASS_COMPRESS_SCHEMES = 'IIsCompressionSchemes'
+IIS_CLASS_COMPRESS_SCHEME = 'IIsCompressionScheme'
+IIS_CLASS_COMPUTER_W = 'IIsComputer'
+IIS_CLASS_WEB_SERVICE_W = 'IIsWebService'
+IIS_CLASS_WEB_SERVER_W = 'IIsWebServer'
+IIS_CLASS_WEB_INFO_W = 'IIsWebInfo'
+IIS_CLASS_WEB_DIR_W = 'IIsWebDirectory'
+IIS_CLASS_WEB_VDIR_W = 'IIsWebVirtualDir'
+IIS_CLASS_WEB_FILE_W = 'IIsWebFile'
+IIS_CLASS_FTP_SERVICE_W = 'IIsFtpService'
+IIS_CLASS_FTP_SERVER_W = 'IIsFtpServer'
+IIS_CLASS_FTP_INFO_W = 'IIsFtpInfo'
+IIS_CLASS_FTP_VDIR_W = 'IIsFtpVirtualDir'
+IIS_CLASS_FILTERS_W = 'IIsFilters'
+IIS_CLASS_FILTER_W = 'IIsFilter'
+IIS_CLASS_LOG_MODULES_W = 'IIsLogModules'
+IIS_CLASS_LOG_MODULE_W = 'IIsLogModule'
+IIS_CLASS_MIMEMAP_W = 'IIsMimeMap'
+IIS_CLASS_CERTMAPPER_W = 'IIsCertMapper'
+IIS_CLASS_COMPRESS_SCHEMES_W = 'IIsCompressionSchemes'
+IIS_CLASS_COMPRESS_SCHEME_W = 'IIsCompressionScheme'
+def _define_CLSID_IisServiceControl():
+    return Guid('e8fb8621-588f-11d2-9d-61-00-c0-4f-79-c5-fe')
+def _define_LIBID_IISRSTALib():
+    return Guid('e8fb8614-588f-11d2-9d-61-00-c0-4f-79-c5-fe')
+IIS_WEBSOCKET = 'websockets'
+IIS_WEBSOCKET_SERVER_VARIABLE = 'IIS_WEBSOCK'
+def _define_LIBID_WAMREGLib():
+    return Guid('29822aa8-f302-11d0-99-53-00-c0-4f-d9-19-c1')
+def _define_CLSID_WamAdmin():
+    return Guid('61738644-f196-11d0-99-53-00-c0-4f-d9-19-c1')
 APPSTATUS_STOPPED = 0
 APPSTATUS_RUNNING = 1
 APPSTATUS_NOTDEFINED = 2
@@ -715,12 +779,15 @@ MD_BACKUP_NEXT_VERSION = 4294967295
 MD_BACKUP_HIGHEST_VERSION = 4294967294
 MD_BACKUP_MAX_VERSION = 9999
 MD_BACKUP_MAX_LEN = 100
+MD_DEFAULT_BACKUP_LOCATION = 'MDBackUp'
 MD_HISTORY_LATEST = 1
 MD_EXPORT_INHERITED = 1
 MD_EXPORT_NODE_ONLY = 2
 MD_IMPORT_INHERITED = 1
 MD_IMPORT_NODE_ONLY = 2
 MD_IMPORT_MERGE = 4
+MD_INSERT_PATH_STRINGA = '<%INSERT_PATH%>'
+MD_INSERT_PATH_STRING = '<%INSERT_PATH%>'
 METADATA_MASTER_ROOT_HANDLE = 0
 MD_CHANGE_TYPE_DELETE_OBJECT = 1
 MD_CHANGE_TYPE_ADD_OBJECT = 2
@@ -742,12 +809,18 @@ MD_WARNING_SAVE_FAILED = 837641
 MD_ERROR_IISAO_INVALID_SCHEMA = -2146646000
 MD_ERROR_READ_METABASE_FILE = -2146645991
 MD_ERROR_NO_SESSION_KEY = -2146645987
-LIBID_ASPTypeLibrary = 'd97a6da0-a85c-11cf-83ae-00a0c90c2bd8'
-CLSID_Request = '920c25d0-25d9-11d0-a55f-00a0c90c2091'
-CLSID_Response = '46e19ba0-25dd-11d0-a55f-00a0c90c2091'
-CLSID_Session = '509f8f20-25de-11d0-a55f-00a0c90c2091'
-CLSID_Server = 'a506d160-25e0-11d0-a55f-00a0c90c2091'
-CLSID_ScriptingContext = 'd97a6da0-a868-11cf-83ae-11b0c90c2bd8'
+def _define_LIBID_ASPTypeLibrary():
+    return Guid('d97a6da0-a85c-11cf-83-ae-00-a0-c9-0c-2b-d8')
+def _define_CLSID_Request():
+    return Guid('920c25d0-25d9-11d0-a5-5f-00-a0-c9-0c-20-91')
+def _define_CLSID_Response():
+    return Guid('46e19ba0-25dd-11d0-a5-5f-00-a0-c9-0c-20-91')
+def _define_CLSID_Session():
+    return Guid('509f8f20-25de-11d0-a5-5f-00-a0-c9-0c-20-91')
+def _define_CLSID_Server():
+    return Guid('a506d160-25e0-11d0-a5-5f-00-a0-c9-0c-20-91')
+def _define_CLSID_ScriptingContext():
+    return Guid('d97a6da0-a868-11cf-83-ae-11-b0-c9-0c-2b-d8')
 HSE_VERSION_MAJOR = 8
 HSE_VERSION_MINOR = 0
 HSE_LOG_BUFFER_LEN = 80
@@ -801,6 +874,14 @@ HSE_REQ_CANCEL_IO = 1049
 HSE_REQ_GET_CHANNEL_BINDING_TOKEN = 1050
 HSE_TERM_ADVISORY_UNLOAD = 1
 HSE_TERM_MUST_UNLOAD = 2
+HSE_IO_SYNC = 1
+HSE_IO_ASYNC = 2
+HSE_IO_DISCONNECT_AFTER_SEND = 4
+HSE_IO_SEND_HEADERS = 8
+HSE_IO_NODELAY = 4096
+HSE_IO_FINAL_SEND = 16
+HSE_IO_CACHE_RESPONSE = 32
+HSE_IO_TRY_SKIP_CUSTOM_ERRORS = 64
 HSE_URL_FLAGS_READ = 1
 HSE_URL_FLAGS_WRITE = 2
 HSE_URL_FLAGS_EXECUTE = 4
@@ -871,674 +952,126 @@ DISPID_HTTPREQUEST_SETAUTOLOGONPOLICY = 18
 HTTP_TRACE_EVENT_FLAG_STATIC_DESCRIPTIVE_FIELDS = 1
 HTTP_TRACE_LEVEL_START = 6
 HTTP_TRACE_LEVEL_END = 7
-GUID_IIS_ALL_TRACE_PROVIDERS = '00000000-0000-0000-0000-000000000000'
-GUID_IIS_WWW_SERVER_TRACE_PROVIDER = '3a2a4e84-4c21-4981-ae10-3fda0d9b0f83'
-GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER = 'de4649c9-15e8-4fea-9d85-1cdda520c334'
-GUID_IIS_ASPNET_TRACE_PROVIDER = 'aff081fe-0247-4275-9c4e-021f3dc1da35'
-GUID_IIS_ASP_TRACE_TRACE_PROVIDER = '06b94d9a-b15e-456e-a4ef-37c984a2cb4b'
-GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER = 'd55d3bc9-cba9-44df-827e-132d3a4596c2'
-GUID_IIS_ISAPI_TRACE_PROVIDER = 'a1c2040e-8840-4c31-ba11-9871031a19ea'
-FtpProvider = Guid('70bdc667-33b2-45f0-ac52-c3ca46f7a656')
-def _define_CONFIGURATION_ENTRY_head():
-    class CONFIGURATION_ENTRY(Structure):
-        pass
-    return CONFIGURATION_ENTRY
-def _define_CONFIGURATION_ENTRY():
-    CONFIGURATION_ENTRY = win32more.System.Iis.CONFIGURATION_ENTRY_head
-    CONFIGURATION_ENTRY._fields_ = [
-        ("bstrKey", win32more.Foundation.BSTR),
-        ("bstrValue", win32more.Foundation.BSTR),
-    ]
-    return CONFIGURATION_ENTRY
-def _define_IFtpProviderConstruct_head():
-    class IFtpProviderConstruct(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4d1a3f7b-412d-447c-b199-64f967e9a2da')
-    return IFtpProviderConstruct
-def _define_IFtpProviderConstruct():
-    IFtpProviderConstruct = win32more.System.Iis.IFtpProviderConstruct_head
-    IFtpProviderConstruct.Construct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(3, 'Construct', ((1, 'configurationEntries'),)))
-    win32more.System.Com.IUnknown
-    return IFtpProviderConstruct
-def _define_IFtpAuthenticationProvider_head():
-    class IFtpAuthenticationProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4659f95c-d5a8-4707-b2fc-6fd5794246cf')
-    return IFtpAuthenticationProvider
-def _define_IFtpAuthenticationProvider():
-    IFtpAuthenticationProvider = win32more.System.Iis.IFtpAuthenticationProvider_head
-    IFtpAuthenticationProvider.AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'AuthenticateUser', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszPassword'),(1, 'ppszCanonicalUserName'),(1, 'pfAuthenticated'),)))
-    win32more.System.Com.IUnknown
-    return IFtpAuthenticationProvider
+def _define_GUID_IIS_ALL_TRACE_PROVIDERS():
+    return Guid('00000000-0000-0000-00-00-00-00-00-00-00-00')
+def _define_GUID_IIS_WWW_SERVER_TRACE_PROVIDER():
+    return Guid('3a2a4e84-4c21-4981-ae-10-3f-da-0d-9b-0f-83')
+def _define_GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER():
+    return Guid('de4649c9-15e8-4fea-9d-85-1c-dd-a5-20-c3-34')
+def _define_GUID_IIS_ASPNET_TRACE_PROVIDER():
+    return Guid('aff081fe-0247-4275-9c-4e-02-1f-3d-c1-da-35')
+def _define_GUID_IIS_ASP_TRACE_TRACE_PROVIDER():
+    return Guid('06b94d9a-b15e-456e-a4-ef-37-c9-84-a2-cb-4b')
+def _define_GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER():
+    return Guid('d55d3bc9-cba9-44df-82-7e-13-2d-3a-45-96-c2')
+def _define_GUID_IIS_ISAPI_TRACE_PROVIDER():
+    return Guid('a1c2040e-8840-4c31-ba-11-98-71-03-1a-19-ea')
+WEB_CORE_DLL_NAME = 'hwebcore.dll'
+WEB_CORE_ACTIVATE_DLL_ENTRY = 'WebCoreActivate'
+WEB_CORE_SHUTDOWN_DLL_ENTRY = 'WebCoreShutdown'
+WEB_CORE_SET_METADATA_DLL_ENTRY = 'WebCoreSetMetadata'
+def _define_GetExtensionVersion():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Iis.HSE_VERSION_INFO_head))(('GetExtensionVersion', windll['RpcProxy.dll']), ((1, 'pVer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpExtensionProc():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head))(('HttpExtensionProc', windll['RpcProxy.dll']), ((1, 'pECB'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpFilterProc():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Iis.HTTP_FILTER_CONTEXT_head),UInt32,c_void_p)(('HttpFilterProc', windll['RpcProxy.dll']), ((1, 'pfc'),(1, 'NotificationType'),(1, 'pvNotification'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetFilterVersion():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Iis.HTTP_FILTER_VERSION_head))(('GetFilterVersion', windll['RpcProxy.dll']), ((1, 'pVer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
 def _define_AsyncIFtpAuthenticationProvider_head():
     class AsyncIFtpAuthenticationProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c24efb65-9f3e-4996-8fb1-ce166916bab5')
+        Guid = Guid('c24efb65-9f3e-4996-8f-b1-ce-16-69-16-ba-b5')
     return AsyncIFtpAuthenticationProvider
 def _define_AsyncIFtpAuthenticationProvider():
     AsyncIFtpAuthenticationProvider = win32more.System.Iis.AsyncIFtpAuthenticationProvider_head
-    AsyncIFtpAuthenticationProvider.Begin_AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_AuthenticateUser', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszPassword'),)))
-    AsyncIFtpAuthenticationProvider.Finish_AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'Finish_AuthenticateUser', ((1, 'ppszCanonicalUserName'),(1, 'pfAuthenticated'),)))
+    AsyncIFtpAuthenticationProvider.Begin_AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'Begin_AuthenticateUser', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszPassword'),)))
+    AsyncIFtpAuthenticationProvider.Finish_AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL))(4, 'Finish_AuthenticateUser', ((1, 'ppszCanonicalUserName'),(1, 'pfAuthenticated'),)))
     win32more.System.Com.IUnknown
     return AsyncIFtpAuthenticationProvider
-def _define_IFtpRoleProvider_head():
-    class IFtpRoleProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('909c850d-8ca0-4674-96b8-cc2941535725')
-    return IFtpRoleProvider
-def _define_IFtpRoleProvider():
-    IFtpRoleProvider = win32more.System.Iis.IFtpRoleProvider_head
-    IFtpRoleProvider.IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsUserInRole', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszRole'),(1, 'pfIsInRole'),)))
-    win32more.System.Com.IUnknown
-    return IFtpRoleProvider
-def _define_AsyncIFtpRoleProvider_head():
-    class AsyncIFtpRoleProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3e83bf99-70ec-41ca-84b6-aca7c7a62caf')
-    return AsyncIFtpRoleProvider
-def _define_AsyncIFtpRoleProvider():
-    AsyncIFtpRoleProvider = win32more.System.Iis.AsyncIFtpRoleProvider_head
-    AsyncIFtpRoleProvider.Begin_IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_IsUserInRole', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszRole'),)))
-    AsyncIFtpRoleProvider.Finish_IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'Finish_IsUserInRole', ((1, 'pfIsInRole'),)))
-    win32more.System.Com.IUnknown
-    return AsyncIFtpRoleProvider
-def _define_IFtpHomeDirectoryProvider_head():
-    class IFtpHomeDirectoryProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0933b392-18dd-4097-8b9c-83325c35d9a6')
-    return IFtpHomeDirectoryProvider
-def _define_IFtpHomeDirectoryProvider():
-    IFtpHomeDirectoryProvider = win32more.System.Iis.IFtpHomeDirectoryProvider_head
-    IFtpHomeDirectoryProvider.GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetUserHomeDirectoryData', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'ppszHomeDirectoryData'),)))
-    win32more.System.Com.IUnknown
-    return IFtpHomeDirectoryProvider
-def _define_AsyncIFtpHomeDirectoryProvider_head():
-    class AsyncIFtpHomeDirectoryProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('73f81638-6295-42bd-a2be-4a657f7c479c')
-    return AsyncIFtpHomeDirectoryProvider
-def _define_AsyncIFtpHomeDirectoryProvider():
-    AsyncIFtpHomeDirectoryProvider = win32more.System.Iis.AsyncIFtpHomeDirectoryProvider_head
-    AsyncIFtpHomeDirectoryProvider.Begin_GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_GetUserHomeDirectoryData', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),)))
-    AsyncIFtpHomeDirectoryProvider.Finish_GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'Finish_GetUserHomeDirectoryData', ((1, 'ppszHomeDirectoryData'),)))
-    win32more.System.Com.IUnknown
-    return AsyncIFtpHomeDirectoryProvider
-def _define_LOGGING_PARAMETERS_head():
-    class LOGGING_PARAMETERS(Structure):
-        pass
-    return LOGGING_PARAMETERS
-def _define_LOGGING_PARAMETERS():
-    LOGGING_PARAMETERS = win32more.System.Iis.LOGGING_PARAMETERS_head
-    LOGGING_PARAMETERS._fields_ = [
-        ("pszSessionId", win32more.Foundation.PWSTR),
-        ("pszSiteName", win32more.Foundation.PWSTR),
-        ("pszUserName", win32more.Foundation.PWSTR),
-        ("pszHostName", win32more.Foundation.PWSTR),
-        ("pszRemoteIpAddress", win32more.Foundation.PWSTR),
-        ("dwRemoteIpPort", UInt32),
-        ("pszLocalIpAddress", win32more.Foundation.PWSTR),
-        ("dwLocalIpPort", UInt32),
-        ("BytesSent", UInt64),
-        ("BytesReceived", UInt64),
-        ("pszCommand", win32more.Foundation.PWSTR),
-        ("pszCommandParameters", win32more.Foundation.PWSTR),
-        ("pszFullPath", win32more.Foundation.PWSTR),
-        ("dwElapsedMilliseconds", UInt32),
-        ("FtpStatus", UInt32),
-        ("FtpSubStatus", UInt32),
-        ("hrStatus", win32more.Foundation.HRESULT),
-        ("pszInformation", win32more.Foundation.PWSTR),
-    ]
-    return LOGGING_PARAMETERS
-def _define_IFtpLogProvider_head():
-    class IFtpLogProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a18a94cc-8299-4408-816c-7c3baca1a40e')
-    return IFtpLogProvider
-def _define_IFtpLogProvider():
-    IFtpLogProvider = win32more.System.Iis.IFtpLogProvider_head
-    IFtpLogProvider.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.LOGGING_PARAMETERS_head), use_last_error=False)(3, 'Log', ((1, 'pLoggingParameters'),)))
-    win32more.System.Com.IUnknown
-    return IFtpLogProvider
-def _define_AsyncIFtpLogProvider_head():
-    class AsyncIFtpLogProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00a0ae46-2498-48b2-95e6-df678ed7d49f')
-    return AsyncIFtpLogProvider
-def _define_AsyncIFtpLogProvider():
-    AsyncIFtpLogProvider = win32more.System.Iis.AsyncIFtpLogProvider_head
-    AsyncIFtpLogProvider.Begin_Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.LOGGING_PARAMETERS_head), use_last_error=False)(3, 'Begin_Log', ((1, 'pLoggingParameters'),)))
-    AsyncIFtpLogProvider.Finish_Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_Log', ()))
-    win32more.System.Com.IUnknown
-    return AsyncIFtpLogProvider
-FTP_ACCESS = Int32
-FTP_ACCESS_NONE = 0
-FTP_ACCESS_READ = 1
-FTP_ACCESS_WRITE = 2
-FTP_ACCESS_READ_WRITE = 3
-def _define_IFtpAuthorizationProvider_head():
-    class IFtpAuthorizationProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a50ae7a1-a35a-42b4-a4f3-f4f7057a05d1')
-    return IFtpAuthorizationProvider
-def _define_IFtpAuthorizationProvider():
-    IFtpAuthorizationProvider = win32more.System.Iis.IFtpAuthorizationProvider_head
-    IFtpAuthorizationProvider.GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.FTP_ACCESS), use_last_error=False)(3, 'GetUserAccessPermission', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszVirtualPath'),(1, 'pszUserName'),(1, 'pFtpAccess'),)))
-    win32more.System.Com.IUnknown
-    return IFtpAuthorizationProvider
 def _define_AsyncIFtpAuthorizationProvider_head():
     class AsyncIFtpAuthorizationProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('860dc339-07e5-4a5c-9c61-8820cea012bc')
+        Guid = Guid('860dc339-07e5-4a5c-9c-61-88-20-ce-a0-12-bc')
     return AsyncIFtpAuthorizationProvider
 def _define_AsyncIFtpAuthorizationProvider():
     AsyncIFtpAuthorizationProvider = win32more.System.Iis.AsyncIFtpAuthorizationProvider_head
-    AsyncIFtpAuthorizationProvider.Begin_GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_GetUserAccessPermission', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszVirtualPath'),(1, 'pszUserName'),)))
-    AsyncIFtpAuthorizationProvider.Finish_GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_ACCESS), use_last_error=False)(4, 'Finish_GetUserAccessPermission', ((1, 'pFtpAccess'),)))
+    AsyncIFtpAuthorizationProvider.Begin_GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'Begin_GetUserAccessPermission', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszVirtualPath'),(1, 'pszUserName'),)))
+    AsyncIFtpAuthorizationProvider.Finish_GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_ACCESS))(4, 'Finish_GetUserAccessPermission', ((1, 'pFtpAccess'),)))
     win32more.System.Com.IUnknown
     return AsyncIFtpAuthorizationProvider
-FTP_PROCESS_STATUS = Int32
-FTP_PROCESS_CONTINUE = 0
-FTP_PROCESS_CLOSE_SESSION = 1
-FTP_PROCESS_TERMINATE_SESSION = 2
-FTP_PROCESS_REJECT_COMMAND = 3
-def _define_PRE_PROCESS_PARAMETERS_head():
-    class PRE_PROCESS_PARAMETERS(Structure):
-        pass
-    return PRE_PROCESS_PARAMETERS
-def _define_PRE_PROCESS_PARAMETERS():
-    PRE_PROCESS_PARAMETERS = win32more.System.Iis.PRE_PROCESS_PARAMETERS_head
-    PRE_PROCESS_PARAMETERS._fields_ = [
-        ("pszSessionId", win32more.Foundation.PWSTR),
-        ("pszSiteName", win32more.Foundation.PWSTR),
-        ("pszUserName", win32more.Foundation.PWSTR),
-        ("pszHostName", win32more.Foundation.PWSTR),
-        ("pszRemoteIpAddress", win32more.Foundation.PWSTR),
-        ("dwRemoteIpPort", UInt32),
-        ("pszLocalIpAddress", win32more.Foundation.PWSTR),
-        ("dwLocalIpPort", UInt32),
-        ("pszCommand", win32more.Foundation.PWSTR),
-        ("pszCommandParameters", win32more.Foundation.PWSTR),
-        ("SessionStartTime", win32more.Foundation.FILETIME),
-        ("BytesSentPerSession", UInt64),
-        ("BytesReceivedPerSession", UInt64),
-    ]
-    return PRE_PROCESS_PARAMETERS
-def _define_IFtpPreprocessProvider_head():
-    class IFtpPreprocessProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a3c19b60-5a28-471a-8f93-ab30411cee82')
-    return IFtpPreprocessProvider
-def _define_IFtpPreprocessProvider():
-    IFtpPreprocessProvider = win32more.System.Iis.IFtpPreprocessProvider_head
-    IFtpPreprocessProvider.HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.PRE_PROCESS_PARAMETERS_head),POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(3, 'HandlePreprocess', ((1, 'pPreProcessParameters'),(1, 'pFtpProcessStatus'),)))
+def _define_AsyncIFtpHomeDirectoryProvider_head():
+    class AsyncIFtpHomeDirectoryProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('73f81638-6295-42bd-a2-be-4a-65-7f-7c-47-9c')
+    return AsyncIFtpHomeDirectoryProvider
+def _define_AsyncIFtpHomeDirectoryProvider():
+    AsyncIFtpHomeDirectoryProvider = win32more.System.Iis.AsyncIFtpHomeDirectoryProvider_head
+    AsyncIFtpHomeDirectoryProvider.Begin_GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'Begin_GetUserHomeDirectoryData', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),)))
+    AsyncIFtpHomeDirectoryProvider.Finish_GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'Finish_GetUserHomeDirectoryData', ((1, 'ppszHomeDirectoryData'),)))
     win32more.System.Com.IUnknown
-    return IFtpPreprocessProvider
-def _define_AsyncIFtpPreprocessProvider_head():
-    class AsyncIFtpPreprocessProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6ff5fd8f-fd8e-48b1-a3e0-bf7073db4db5')
-    return AsyncIFtpPreprocessProvider
-def _define_AsyncIFtpPreprocessProvider():
-    AsyncIFtpPreprocessProvider = win32more.System.Iis.AsyncIFtpPreprocessProvider_head
-    AsyncIFtpPreprocessProvider.Begin_HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.PRE_PROCESS_PARAMETERS_head), use_last_error=False)(3, 'Begin_HandlePreprocess', ((1, 'pPreProcessParameters'),)))
-    AsyncIFtpPreprocessProvider.Finish_HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(4, 'Finish_HandlePreprocess', ((1, 'pFtpProcessStatus'),)))
+    return AsyncIFtpHomeDirectoryProvider
+def _define_AsyncIFtpLogProvider_head():
+    class AsyncIFtpLogProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('00a0ae46-2498-48b2-95-e6-df-67-8e-d7-d4-9f')
+    return AsyncIFtpLogProvider
+def _define_AsyncIFtpLogProvider():
+    AsyncIFtpLogProvider = win32more.System.Iis.AsyncIFtpLogProvider_head
+    AsyncIFtpLogProvider.Begin_Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.LOGGING_PARAMETERS_head))(3, 'Begin_Log', ((1, 'pLoggingParameters'),)))
+    AsyncIFtpLogProvider.Finish_Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Finish_Log', ()))
     win32more.System.Com.IUnknown
-    return AsyncIFtpPreprocessProvider
-def _define_POST_PROCESS_PARAMETERS_head():
-    class POST_PROCESS_PARAMETERS(Structure):
-        pass
-    return POST_PROCESS_PARAMETERS
-def _define_POST_PROCESS_PARAMETERS():
-    POST_PROCESS_PARAMETERS = win32more.System.Iis.POST_PROCESS_PARAMETERS_head
-    POST_PROCESS_PARAMETERS._fields_ = [
-        ("pszSessionId", win32more.Foundation.PWSTR),
-        ("pszSiteName", win32more.Foundation.PWSTR),
-        ("pszUserName", win32more.Foundation.PWSTR),
-        ("pszHostName", win32more.Foundation.PWSTR),
-        ("pszRemoteIpAddress", win32more.Foundation.PWSTR),
-        ("dwRemoteIpPort", UInt32),
-        ("pszLocalIpAddress", win32more.Foundation.PWSTR),
-        ("dwLocalIpPort", UInt32),
-        ("BytesSent", UInt64),
-        ("BytesReceived", UInt64),
-        ("pszCommand", win32more.Foundation.PWSTR),
-        ("pszCommandParameters", win32more.Foundation.PWSTR),
-        ("pszFullPath", win32more.Foundation.PWSTR),
-        ("pszPhysicalPath", win32more.Foundation.PWSTR),
-        ("FtpStatus", UInt32),
-        ("FtpSubStatus", UInt32),
-        ("hrStatus", win32more.Foundation.HRESULT),
-        ("SessionStartTime", win32more.Foundation.FILETIME),
-        ("BytesSentPerSession", UInt64),
-        ("BytesReceivedPerSession", UInt64),
-    ]
-    return POST_PROCESS_PARAMETERS
-def _define_IFtpPostprocessProvider_head():
-    class IFtpPostprocessProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4522cbc6-16cd-49ad-8653-9a2c579e4280')
-    return IFtpPostprocessProvider
-def _define_IFtpPostprocessProvider():
-    IFtpPostprocessProvider = win32more.System.Iis.IFtpPostprocessProvider_head
-    IFtpPostprocessProvider.HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.POST_PROCESS_PARAMETERS_head),POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(3, 'HandlePostprocess', ((1, 'pPostProcessParameters'),(1, 'pFtpProcessStatus'),)))
-    win32more.System.Com.IUnknown
-    return IFtpPostprocessProvider
+    return AsyncIFtpLogProvider
 def _define_AsyncIFtpPostprocessProvider_head():
     class AsyncIFtpPostprocessProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a16b2542-9694-4eb1-a564-6c2e91fdc133')
+        Guid = Guid('a16b2542-9694-4eb1-a5-64-6c-2e-91-fd-c1-33')
     return AsyncIFtpPostprocessProvider
 def _define_AsyncIFtpPostprocessProvider():
     AsyncIFtpPostprocessProvider = win32more.System.Iis.AsyncIFtpPostprocessProvider_head
-    AsyncIFtpPostprocessProvider.Begin_HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.POST_PROCESS_PARAMETERS_head), use_last_error=False)(3, 'Begin_HandlePostprocess', ((1, 'pPostProcessParameters'),)))
-    AsyncIFtpPostprocessProvider.Finish_HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(4, 'Finish_HandlePostprocess', ((1, 'pFtpProcessStatus'),)))
+    AsyncIFtpPostprocessProvider.Begin_HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.POST_PROCESS_PARAMETERS_head))(3, 'Begin_HandlePostprocess', ((1, 'pPostProcessParameters'),)))
+    AsyncIFtpPostprocessProvider.Finish_HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_PROCESS_STATUS))(4, 'Finish_HandlePostprocess', ((1, 'pFtpProcessStatus'),)))
     win32more.System.Com.IUnknown
     return AsyncIFtpPostprocessProvider
-def _define_IADMEXT_head():
-    class IADMEXT(win32more.System.Com.IUnknown_head):
-        Guid = Guid('51dfe970-f6f2-11d0-b9bd-00a0c922e750')
-    return IADMEXT
-def _define_IADMEXT():
-    IADMEXT = win32more.System.Iis.IADMEXT_head
-    IADMEXT.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
-    IADMEXT.EnumDcomCLSIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(4, 'EnumDcomCLSIDs', ((1, 'pclsidDcom'),(1, 'dwEnumIndex'),)))
-    IADMEXT.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Terminate', ()))
+def _define_AsyncIFtpPreprocessProvider_head():
+    class AsyncIFtpPreprocessProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6ff5fd8f-fd8e-48b1-a3-e0-bf-70-73-db-4d-b5')
+    return AsyncIFtpPreprocessProvider
+def _define_AsyncIFtpPreprocessProvider():
+    AsyncIFtpPreprocessProvider = win32more.System.Iis.AsyncIFtpPreprocessProvider_head
+    AsyncIFtpPreprocessProvider.Begin_HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.PRE_PROCESS_PARAMETERS_head))(3, 'Begin_HandlePreprocess', ((1, 'pPreProcessParameters'),)))
+    AsyncIFtpPreprocessProvider.Finish_HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_PROCESS_STATUS))(4, 'Finish_HandlePreprocess', ((1, 'pFtpProcessStatus'),)))
     win32more.System.Com.IUnknown
-    return IADMEXT
-METADATATYPES = Int32
-ALL_METADATA = 0
-DWORD_METADATA = 1
-STRING_METADATA = 2
-BINARY_METADATA = 3
-EXPANDSZ_METADATA = 4
-MULTISZ_METADATA = 5
-INVALID_END_METADATA = 6
-def _define_METADATA_RECORD_head():
-    class METADATA_RECORD(Structure):
-        pass
-    return METADATA_RECORD
-def _define_METADATA_RECORD():
-    METADATA_RECORD = win32more.System.Iis.METADATA_RECORD_head
-    METADATA_RECORD._fields_ = [
-        ("dwMDIdentifier", UInt32),
-        ("dwMDAttributes", UInt32),
-        ("dwMDUserType", UInt32),
-        ("dwMDDataType", UInt32),
-        ("dwMDDataLen", UInt32),
-        ("pbMDData", c_char_p_no),
-        ("dwMDDataTag", UInt32),
-    ]
-    return METADATA_RECORD
-def _define_METADATA_GETALL_RECORD_head():
-    class METADATA_GETALL_RECORD(Structure):
-        pass
-    return METADATA_GETALL_RECORD
-def _define_METADATA_GETALL_RECORD():
-    METADATA_GETALL_RECORD = win32more.System.Iis.METADATA_GETALL_RECORD_head
-    METADATA_GETALL_RECORD._fields_ = [
-        ("dwMDIdentifier", UInt32),
-        ("dwMDAttributes", UInt32),
-        ("dwMDUserType", UInt32),
-        ("dwMDDataType", UInt32),
-        ("dwMDDataLen", UInt32),
-        ("dwMDDataOffset", UInt32),
-        ("dwMDDataTag", UInt32),
-    ]
-    return METADATA_GETALL_RECORD
-def _define_METADATA_GETALL_INTERNAL_RECORD_head():
-    class METADATA_GETALL_INTERNAL_RECORD(Structure):
-        pass
-    return METADATA_GETALL_INTERNAL_RECORD
-def _define_METADATA_GETALL_INTERNAL_RECORD():
-    METADATA_GETALL_INTERNAL_RECORD = win32more.System.Iis.METADATA_GETALL_INTERNAL_RECORD_head
-    class METADATA_GETALL_INTERNAL_RECORD__Anonymous_e__Union(Union):
-        pass
-    METADATA_GETALL_INTERNAL_RECORD__Anonymous_e__Union._fields_ = [
-        ("dwMDDataOffset", UIntPtr),
-        ("pbMDData", c_char_p_no),
-    ]
-    METADATA_GETALL_INTERNAL_RECORD._anonymous_ = [
-        'Anonymous',
-    ]
-    METADATA_GETALL_INTERNAL_RECORD._fields_ = [
-        ("dwMDIdentifier", UInt32),
-        ("dwMDAttributes", UInt32),
-        ("dwMDUserType", UInt32),
-        ("dwMDDataType", UInt32),
-        ("dwMDDataLen", UInt32),
-        ("Anonymous", METADATA_GETALL_INTERNAL_RECORD__Anonymous_e__Union),
-        ("dwMDDataTag", UInt32),
-    ]
-    return METADATA_GETALL_INTERNAL_RECORD
-def _define_METADATA_HANDLE_INFO_head():
-    class METADATA_HANDLE_INFO(Structure):
-        pass
-    return METADATA_HANDLE_INFO
-def _define_METADATA_HANDLE_INFO():
-    METADATA_HANDLE_INFO = win32more.System.Iis.METADATA_HANDLE_INFO_head
-    METADATA_HANDLE_INFO._fields_ = [
-        ("dwMDPermissions", UInt32),
-        ("dwMDSystemChangeNumber", UInt32),
-    ]
-    return METADATA_HANDLE_INFO
-def _define_MD_CHANGE_OBJECT_W_head():
-    class MD_CHANGE_OBJECT_W(Structure):
-        pass
-    return MD_CHANGE_OBJECT_W
-def _define_MD_CHANGE_OBJECT_W():
-    MD_CHANGE_OBJECT_W = win32more.System.Iis.MD_CHANGE_OBJECT_W_head
-    MD_CHANGE_OBJECT_W._fields_ = [
-        ("pszMDPath", win32more.Foundation.PWSTR),
-        ("dwMDChangeType", UInt32),
-        ("dwMDNumDataIDs", UInt32),
-        ("pdwMDDataIDs", POINTER(UInt32)),
-    ]
-    return MD_CHANGE_OBJECT_W
-def _define_IMSAdminBaseW_head():
-    class IMSAdminBaseW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('70b51430-b6ca-11d0-b9b9-00a0c922e750')
-    return IMSAdminBaseW
-def _define_IMSAdminBaseW():
-    IMSAdminBaseW = win32more.System.Iis.IMSAdminBaseW_head
-    IMSAdminBaseW.AddKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'AddKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),)))
-    IMSAdminBaseW.DeleteKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'DeleteKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),)))
-    IMSAdminBaseW.DeleteChildKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(5, 'DeleteChildKeys', ((1, 'hMDHandle'),(1, 'pszMDPath'),)))
-    IMSAdminBaseW.EnumKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(Char),UInt32, use_last_error=False)(6, 'EnumKeys', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pszMDName'),(1, 'dwMDEnumObjectIndex'),)))
-    IMSAdminBaseW.CopyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(7, 'CopyKey', ((1, 'hMDSourceHandle'),(1, 'pszMDSourcePath'),(1, 'hMDDestHandle'),(1, 'pszMDDestPath'),(1, 'bMDOverwriteFlag'),(1, 'bMDCopyFlag'),)))
-    IMSAdminBaseW.RenameKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(8, 'RenameKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pszMDNewName'),)))
-    IMSAdminBaseW.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.METADATA_RECORD_head), use_last_error=False)(9, 'SetData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pmdrMDData'),)))
-    IMSAdminBaseW.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.METADATA_RECORD_head),POINTER(UInt32), use_last_error=False)(10, 'GetData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pmdrMDData'),(1, 'pdwMDRequiredDataLen'),)))
-    IMSAdminBaseW.DeleteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(11, 'DeleteData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDIdentifier'),(1, 'dwMDDataType'),)))
-    IMSAdminBaseW.EnumData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.METADATA_RECORD_head),UInt32,POINTER(UInt32), use_last_error=False)(12, 'EnumData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pmdrMDData'),(1, 'dwMDEnumDataIndex'),(1, 'pdwMDRequiredDataLen'),)))
-    IMSAdminBaseW.GetAllData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,c_char_p_no,POINTER(UInt32), use_last_error=False)(13, 'GetAllData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDAttributes'),(1, 'dwMDUserType'),(1, 'dwMDDataType'),(1, 'pdwMDNumDataEntries'),(1, 'pdwMDDataSetNumber'),(1, 'dwMDBufferSize'),(1, 'pbMDBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
-    IMSAdminBaseW.DeleteAllData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(14, 'DeleteAllData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDUserType'),(1, 'dwMDDataType'),)))
-    IMSAdminBaseW.CopyData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(15, 'CopyData', ((1, 'hMDSourceHandle'),(1, 'pszMDSourcePath'),(1, 'hMDDestHandle'),(1, 'pszMDDestPath'),(1, 'dwMDAttributes'),(1, 'dwMDUserType'),(1, 'dwMDDataType'),(1, 'bMDCopyFlag'),)))
-    IMSAdminBaseW.GetDataPaths = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(16, 'GetDataPaths', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDIdentifier'),(1, 'dwMDDataType'),(1, 'dwMDBufferSize'),(1, 'pszBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
-    IMSAdminBaseW.OpenKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(17, 'OpenKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDAccessRequested'),(1, 'dwMDTimeOut'),(1, 'phMDNewHandle'),)))
-    IMSAdminBaseW.CloseKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(18, 'CloseKey', ((1, 'hMDHandle'),)))
-    IMSAdminBaseW.ChangePermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(19, 'ChangePermissions', ((1, 'hMDHandle'),(1, 'dwMDTimeOut'),(1, 'dwMDAccessRequested'),)))
-    IMSAdminBaseW.SaveData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'SaveData', ()))
-    IMSAdminBaseW.GetHandleInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.METADATA_HANDLE_INFO_head), use_last_error=False)(21, 'GetHandleInfo', ((1, 'hMDHandle'),(1, 'pmdhiInfo'),)))
-    IMSAdminBaseW.GetSystemChangeNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(22, 'GetSystemChangeNumber', ((1, 'pdwSystemChangeNumber'),)))
-    IMSAdminBaseW.GetDataSetNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(23, 'GetDataSetNumber', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pdwMDDataSetNumber'),)))
-    IMSAdminBaseW.SetLastChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.BOOL, use_last_error=False)(24, 'SetLastChangeTime', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pftMDLastChangeTime'),(1, 'bLocalTime'),)))
-    IMSAdminBaseW.GetLastChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.BOOL, use_last_error=False)(25, 'GetLastChangeTime', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pftMDLastChangeTime'),(1, 'bLocalTime'),)))
-    IMSAdminBaseW.KeyExchangePhase1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'KeyExchangePhase1', ()))
-    IMSAdminBaseW.KeyExchangePhase2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(27, 'KeyExchangePhase2', ()))
-    IMSAdminBaseW.Backup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(28, 'Backup', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),)))
-    IMSAdminBaseW.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(29, 'Restore', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),)))
-    IMSAdminBaseW.EnumBackups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32, use_last_error=False)(30, 'EnumBackups', ((1, 'pszMDBackupLocation'),(1, 'pdwMDVersion'),(1, 'pftMDBackupTime'),(1, 'dwMDEnumIndex'),)))
-    IMSAdminBaseW.DeleteBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(31, 'DeleteBackup', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),)))
-    IMSAdminBaseW.UnmarshalInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.IMSAdminBaseW_head), use_last_error=False)(32, 'UnmarshalInterface', ((1, 'piadmbwInterface'),)))
-    IMSAdminBaseW.GetServerGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(33, 'GetServerGuid', ()))
+    return AsyncIFtpPreprocessProvider
+def _define_AsyncIFtpRoleProvider_head():
+    class AsyncIFtpRoleProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('3e83bf99-70ec-41ca-84-b6-ac-a7-c7-a6-2c-af')
+    return AsyncIFtpRoleProvider
+def _define_AsyncIFtpRoleProvider():
+    AsyncIFtpRoleProvider = win32more.System.Iis.AsyncIFtpRoleProvider_head
+    AsyncIFtpRoleProvider.Begin_IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'Begin_IsUserInRole', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszRole'),)))
+    AsyncIFtpRoleProvider.Finish_IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'Finish_IsUserInRole', ((1, 'pfIsInRole'),)))
     win32more.System.Com.IUnknown
-    return IMSAdminBaseW
-def _define__IIS_CRYPTO_BLOB_head():
-    class _IIS_CRYPTO_BLOB(Structure):
-        pass
-    return _IIS_CRYPTO_BLOB
-def _define__IIS_CRYPTO_BLOB():
-    _IIS_CRYPTO_BLOB = win32more.System.Iis._IIS_CRYPTO_BLOB_head
-    return _IIS_CRYPTO_BLOB
-def _define_IMSAdminBase2W_head():
-    class IMSAdminBase2W(win32more.System.Iis.IMSAdminBaseW_head):
-        Guid = Guid('8298d101-f992-43b7-8eca-5052d885b995')
-    return IMSAdminBase2W
-def _define_IMSAdminBase2W():
-    IMSAdminBase2W = win32more.System.Iis.IMSAdminBase2W_head
-    IMSAdminBase2W.BackupWithPasswd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(34, 'BackupWithPasswd', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),(1, 'pszPasswd'),)))
-    IMSAdminBase2W.RestoreWithPasswd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(35, 'RestoreWithPasswd', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),(1, 'pszPasswd'),)))
-    IMSAdminBase2W.Export = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(36, 'Export', ((1, 'pszPasswd'),(1, 'pszFileName'),(1, 'pszSourcePath'),(1, 'dwMDFlags'),)))
-    IMSAdminBase2W.Import = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(37, 'Import', ((1, 'pszPasswd'),(1, 'pszFileName'),(1, 'pszSourcePath'),(1, 'pszDestPath'),(1, 'dwMDFlags'),)))
-    IMSAdminBase2W.RestoreHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32, use_last_error=False)(38, 'RestoreHistory', ((1, 'pszMDHistoryLocation'),(1, 'dwMDMajorVersion'),(1, 'dwMDMinorVersion'),(1, 'dwMDFlags'),)))
-    IMSAdminBase2W.EnumHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32, use_last_error=False)(39, 'EnumHistory', ((1, 'pszMDHistoryLocation'),(1, 'pdwMDMajorVersion'),(1, 'pdwMDMinorVersion'),(1, 'pftMDHistoryTime'),(1, 'dwMDEnumIndex'),)))
-    win32more.System.Iis.IMSAdminBaseW
-    return IMSAdminBase2W
-def _define_IMSAdminBase3W_head():
-    class IMSAdminBase3W(win32more.System.Iis.IMSAdminBase2W_head):
-        Guid = Guid('f612954d-3b0b-4c56-9563-227b7be624b4')
-    return IMSAdminBase3W
-def _define_IMSAdminBase3W():
-    IMSAdminBase3W = win32more.System.Iis.IMSAdminBase3W_head
-    IMSAdminBase3W.GetChildPaths = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(40, 'GetChildPaths', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'cchMDBufferSize'),(1, 'pszBuffer'),(1, 'pcchMDRequiredBufferSize'),)))
-    win32more.System.Iis.IMSAdminBase2W
-    return IMSAdminBase3W
-def _define_IMSImpExpHelpW_head():
-    class IMSImpExpHelpW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('29ff67ff-8050-480f-9f30-cc41635f2f9d')
-    return IMSImpExpHelpW
-def _define_IMSImpExpHelpW():
-    IMSImpExpHelpW = win32more.System.Iis.IMSImpExpHelpW_head
-    IMSImpExpHelpW.EnumeratePathsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(3, 'EnumeratePathsInFile', ((1, 'pszFileName'),(1, 'pszKeyType'),(1, 'dwMDBufferSize'),(1, 'pszBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
-    win32more.System.Com.IUnknown
-    return IMSImpExpHelpW
-def _define_IMSAdminBaseSinkW_head():
-    class IMSAdminBaseSinkW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9e69612-b80d-11d0-b9b9-00a0c922e750')
-    return IMSAdminBaseSinkW
-def _define_IMSAdminBaseSinkW():
-    IMSAdminBaseSinkW = win32more.System.Iis.IMSAdminBaseSinkW_head
-    IMSAdminBaseSinkW.SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.MD_CHANGE_OBJECT_W), use_last_error=False)(3, 'SinkNotify', ((1, 'dwMDNumElements'),(1, 'pcoChangeList'),)))
-    IMSAdminBaseSinkW.ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ShutdownNotify', ()))
-    win32more.System.Com.IUnknown
-    return IMSAdminBaseSinkW
+    return AsyncIFtpRoleProvider
 def _define_AsyncIMSAdminBaseSinkW_head():
     class AsyncIMSAdminBaseSinkW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9e69613-b80d-11d0-b9b9-00a0c922e750')
+        Guid = Guid('a9e69613-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
     return AsyncIMSAdminBaseSinkW
 def _define_AsyncIMSAdminBaseSinkW():
     AsyncIMSAdminBaseSinkW = win32more.System.Iis.AsyncIMSAdminBaseSinkW_head
-    AsyncIMSAdminBaseSinkW.Begin_SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.MD_CHANGE_OBJECT_W), use_last_error=False)(3, 'Begin_SinkNotify', ((1, 'dwMDNumElements'),(1, 'pcoChangeList'),)))
-    AsyncIMSAdminBaseSinkW.Finish_SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_SinkNotify', ()))
-    AsyncIMSAdminBaseSinkW.Begin_ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Begin_ShutdownNotify', ()))
-    AsyncIMSAdminBaseSinkW.Finish_ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Finish_ShutdownNotify', ()))
+    AsyncIMSAdminBaseSinkW.Begin_SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.MD_CHANGE_OBJECT_W_head))(3, 'Begin_SinkNotify', ((1, 'dwMDNumElements'),(1, 'pcoChangeList'),)))
+    AsyncIMSAdminBaseSinkW.Finish_SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Finish_SinkNotify', ()))
+    AsyncIMSAdminBaseSinkW.Begin_ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Begin_ShutdownNotify', ()))
+    AsyncIMSAdminBaseSinkW.Finish_ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Finish_ShutdownNotify', ()))
     win32more.System.Com.IUnknown
     return AsyncIMSAdminBaseSinkW
-def _define_HSE_VERSION_INFO_head():
-    class HSE_VERSION_INFO(Structure):
-        pass
-    return HSE_VERSION_INFO
-def _define_HSE_VERSION_INFO():
-    HSE_VERSION_INFO = win32more.System.Iis.HSE_VERSION_INFO_head
-    HSE_VERSION_INFO._fields_ = [
-        ("dwExtensionVersion", UInt32),
-        ("lpszExtensionDesc", win32more.Foundation.CHAR * 256),
-    ]
-    return HSE_VERSION_INFO
-def _define_EXTENSION_CONTROL_BLOCK_head():
-    class EXTENSION_CONTROL_BLOCK(Structure):
-        pass
-    return EXTENSION_CONTROL_BLOCK
-def _define_EXTENSION_CONTROL_BLOCK():
-    EXTENSION_CONTROL_BLOCK = win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head
-    EXTENSION_CONTROL_BLOCK._fields_ = [
-        ("cbSize", UInt32),
-        ("dwVersion", UInt32),
-        ("ConnID", c_void_p),
-        ("dwHttpStatusCode", UInt32),
-        ("lpszLogData", win32more.Foundation.CHAR * 80),
-        ("lpszMethod", win32more.Foundation.PSTR),
-        ("lpszQueryString", win32more.Foundation.PSTR),
-        ("lpszPathInfo", win32more.Foundation.PSTR),
-        ("lpszPathTranslated", win32more.Foundation.PSTR),
-        ("cbTotalBytes", UInt32),
-        ("cbAvailable", UInt32),
-        ("lpbData", c_char_p_no),
-        ("lpszContentType", win32more.Foundation.PSTR),
-        ("GetServerVariable", IntPtr),
-        ("WriteClient", IntPtr),
-        ("ReadClient", IntPtr),
-        ("ServerSupportFunction", IntPtr),
-    ]
-    return EXTENSION_CONTROL_BLOCK
-def _define_HSE_URL_MAPEX_INFO_head():
-    class HSE_URL_MAPEX_INFO(Structure):
-        pass
-    return HSE_URL_MAPEX_INFO
-def _define_HSE_URL_MAPEX_INFO():
-    HSE_URL_MAPEX_INFO = win32more.System.Iis.HSE_URL_MAPEX_INFO_head
-    HSE_URL_MAPEX_INFO._fields_ = [
-        ("lpszPath", win32more.Foundation.CHAR * 260),
-        ("dwFlags", UInt32),
-        ("cchMatchingPath", UInt32),
-        ("cchMatchingURL", UInt32),
-        ("dwReserved1", UInt32),
-        ("dwReserved2", UInt32),
-    ]
-    return HSE_URL_MAPEX_INFO
-def _define_HSE_UNICODE_URL_MAPEX_INFO_head():
-    class HSE_UNICODE_URL_MAPEX_INFO(Structure):
-        pass
-    return HSE_UNICODE_URL_MAPEX_INFO
-def _define_HSE_UNICODE_URL_MAPEX_INFO():
-    HSE_UNICODE_URL_MAPEX_INFO = win32more.System.Iis.HSE_UNICODE_URL_MAPEX_INFO_head
-    HSE_UNICODE_URL_MAPEX_INFO._fields_ = [
-        ("lpszPath", Char * 260),
-        ("dwFlags", UInt32),
-        ("cchMatchingPath", UInt32),
-        ("cchMatchingURL", UInt32),
-    ]
-    return HSE_UNICODE_URL_MAPEX_INFO
-def _define_PFN_HSE_IO_COMPLETION():
-    return CFUNCTYPE(Void,POINTER(win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head),c_void_p,UInt32,UInt32, use_last_error=False)
-def _define_HSE_TF_INFO_head():
-    class HSE_TF_INFO(Structure):
-        pass
-    return HSE_TF_INFO
-def _define_HSE_TF_INFO():
-    HSE_TF_INFO = win32more.System.Iis.HSE_TF_INFO_head
-    HSE_TF_INFO._fields_ = [
-        ("pfnHseIO", win32more.System.Iis.PFN_HSE_IO_COMPLETION),
-        ("pContext", c_void_p),
-        ("hFile", win32more.Foundation.HANDLE),
-        ("pszStatusCode", win32more.Foundation.PSTR),
-        ("BytesToWrite", UInt32),
-        ("Offset", UInt32),
-        ("pHead", c_void_p),
-        ("HeadLength", UInt32),
-        ("pTail", c_void_p),
-        ("TailLength", UInt32),
-        ("dwFlags", UInt32),
-    ]
-    return HSE_TF_INFO
-def _define_HSE_SEND_HEADER_EX_INFO_head():
-    class HSE_SEND_HEADER_EX_INFO(Structure):
-        pass
-    return HSE_SEND_HEADER_EX_INFO
-def _define_HSE_SEND_HEADER_EX_INFO():
-    HSE_SEND_HEADER_EX_INFO = win32more.System.Iis.HSE_SEND_HEADER_EX_INFO_head
-    HSE_SEND_HEADER_EX_INFO._fields_ = [
-        ("pszStatus", win32more.Foundation.PSTR),
-        ("pszHeader", win32more.Foundation.PSTR),
-        ("cchStatus", UInt32),
-        ("cchHeader", UInt32),
-        ("fKeepConn", win32more.Foundation.BOOL),
-    ]
-    return HSE_SEND_HEADER_EX_INFO
-def _define_HSE_EXEC_URL_USER_INFO_head():
-    class HSE_EXEC_URL_USER_INFO(Structure):
-        pass
-    return HSE_EXEC_URL_USER_INFO
-def _define_HSE_EXEC_URL_USER_INFO():
-    HSE_EXEC_URL_USER_INFO = win32more.System.Iis.HSE_EXEC_URL_USER_INFO_head
-    HSE_EXEC_URL_USER_INFO._fields_ = [
-        ("hImpersonationToken", win32more.Foundation.HANDLE),
-        ("pszCustomUserName", win32more.Foundation.PSTR),
-        ("pszCustomAuthType", win32more.Foundation.PSTR),
-    ]
-    return HSE_EXEC_URL_USER_INFO
-def _define_HSE_EXEC_URL_ENTITY_INFO_head():
-    class HSE_EXEC_URL_ENTITY_INFO(Structure):
-        pass
-    return HSE_EXEC_URL_ENTITY_INFO
-def _define_HSE_EXEC_URL_ENTITY_INFO():
-    HSE_EXEC_URL_ENTITY_INFO = win32more.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head
-    HSE_EXEC_URL_ENTITY_INFO._fields_ = [
-        ("cbAvailable", UInt32),
-        ("lpbData", c_void_p),
-    ]
-    return HSE_EXEC_URL_ENTITY_INFO
-def _define_HSE_EXEC_URL_STATUS_head():
-    class HSE_EXEC_URL_STATUS(Structure):
-        pass
-    return HSE_EXEC_URL_STATUS
-def _define_HSE_EXEC_URL_STATUS():
-    HSE_EXEC_URL_STATUS = win32more.System.Iis.HSE_EXEC_URL_STATUS_head
-    HSE_EXEC_URL_STATUS._fields_ = [
-        ("uHttpStatusCode", UInt16),
-        ("uHttpSubStatus", UInt16),
-        ("dwWin32Error", UInt32),
-    ]
-    return HSE_EXEC_URL_STATUS
-def _define_HSE_EXEC_URL_INFO_head():
-    class HSE_EXEC_URL_INFO(Structure):
-        pass
-    return HSE_EXEC_URL_INFO
-def _define_HSE_EXEC_URL_INFO():
-    HSE_EXEC_URL_INFO = win32more.System.Iis.HSE_EXEC_URL_INFO_head
-    HSE_EXEC_URL_INFO._fields_ = [
-        ("pszUrl", win32more.Foundation.PSTR),
-        ("pszMethod", win32more.Foundation.PSTR),
-        ("pszChildHeaders", win32more.Foundation.PSTR),
-        ("pUserInfo", POINTER(win32more.System.Iis.HSE_EXEC_URL_USER_INFO_head)),
-        ("pEntity", POINTER(win32more.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head)),
-        ("dwExecUrlFlags", UInt32),
-    ]
-    return HSE_EXEC_URL_INFO
-def _define_HSE_EXEC_UNICODE_URL_USER_INFO_head():
-    class HSE_EXEC_UNICODE_URL_USER_INFO(Structure):
-        pass
-    return HSE_EXEC_UNICODE_URL_USER_INFO
-def _define_HSE_EXEC_UNICODE_URL_USER_INFO():
-    HSE_EXEC_UNICODE_URL_USER_INFO = win32more.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO_head
-    HSE_EXEC_UNICODE_URL_USER_INFO._fields_ = [
-        ("hImpersonationToken", win32more.Foundation.HANDLE),
-        ("pszCustomUserName", win32more.Foundation.PWSTR),
-        ("pszCustomAuthType", win32more.Foundation.PSTR),
-    ]
-    return HSE_EXEC_UNICODE_URL_USER_INFO
-def _define_HSE_EXEC_UNICODE_URL_INFO_head():
-    class HSE_EXEC_UNICODE_URL_INFO(Structure):
-        pass
-    return HSE_EXEC_UNICODE_URL_INFO
-def _define_HSE_EXEC_UNICODE_URL_INFO():
-    HSE_EXEC_UNICODE_URL_INFO = win32more.System.Iis.HSE_EXEC_UNICODE_URL_INFO_head
-    HSE_EXEC_UNICODE_URL_INFO._fields_ = [
-        ("pszUrl", win32more.Foundation.PWSTR),
-        ("pszMethod", win32more.Foundation.PSTR),
-        ("pszChildHeaders", win32more.Foundation.PSTR),
-        ("pUserInfo", POINTER(win32more.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO_head)),
-        ("pEntity", POINTER(win32more.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head)),
-        ("dwExecUrlFlags", UInt32),
-    ]
-    return HSE_EXEC_UNICODE_URL_INFO
-def _define_HSE_CUSTOM_ERROR_INFO_head():
-    class HSE_CUSTOM_ERROR_INFO(Structure):
-        pass
-    return HSE_CUSTOM_ERROR_INFO
-def _define_HSE_CUSTOM_ERROR_INFO():
-    HSE_CUSTOM_ERROR_INFO = win32more.System.Iis.HSE_CUSTOM_ERROR_INFO_head
-    HSE_CUSTOM_ERROR_INFO._fields_ = [
-        ("pszStatus", win32more.Foundation.PSTR),
-        ("uHttpSubError", UInt16),
-        ("fAsync", win32more.Foundation.BOOL),
-    ]
-    return HSE_CUSTOM_ERROR_INFO
-def _define_HSE_VECTOR_ELEMENT_head():
-    class HSE_VECTOR_ELEMENT(Structure):
-        pass
-    return HSE_VECTOR_ELEMENT
-def _define_HSE_VECTOR_ELEMENT():
-    HSE_VECTOR_ELEMENT = win32more.System.Iis.HSE_VECTOR_ELEMENT_head
-    HSE_VECTOR_ELEMENT._fields_ = [
-        ("ElementType", UInt32),
-        ("pvContext", c_void_p),
-        ("cbOffset", UInt64),
-        ("cbSize", UInt64),
-    ]
-    return HSE_VECTOR_ELEMENT
-def _define_HSE_RESPONSE_VECTOR_head():
-    class HSE_RESPONSE_VECTOR(Structure):
-        pass
-    return HSE_RESPONSE_VECTOR
-def _define_HSE_RESPONSE_VECTOR():
-    HSE_RESPONSE_VECTOR = win32more.System.Iis.HSE_RESPONSE_VECTOR_head
-    HSE_RESPONSE_VECTOR._fields_ = [
-        ("dwFlags", UInt32),
-        ("pszStatus", win32more.Foundation.PSTR),
-        ("pszHeaders", win32more.Foundation.PSTR),
-        ("nElementCount", UInt32),
-        ("lpElementArray", POINTER(win32more.System.Iis.HSE_VECTOR_ELEMENT_head)),
-    ]
-    return HSE_RESPONSE_VECTOR
-def _define_PFN_HSE_CACHE_INVALIDATION_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)
 def _define_CERT_CONTEXT_EX_head():
     class CERT_CONTEXT_EX(Structure):
         pass
@@ -1546,11 +1079,196 @@ def _define_CERT_CONTEXT_EX_head():
 def _define_CERT_CONTEXT_EX():
     CERT_CONTEXT_EX = win32more.System.Iis.CERT_CONTEXT_EX_head
     CERT_CONTEXT_EX._fields_ = [
-        ("CertContext", win32more.Security.Cryptography.CERT_CONTEXT),
-        ("cbAllocated", UInt32),
-        ("dwCertificateFlags", UInt32),
+        ('CertContext', win32more.Security.Cryptography.CERT_CONTEXT),
+        ('cbAllocated', UInt32),
+        ('dwCertificateFlags', UInt32),
     ]
     return CERT_CONTEXT_EX
+def _define_CONFIGURATION_ENTRY_head():
+    class CONFIGURATION_ENTRY(Structure):
+        pass
+    return CONFIGURATION_ENTRY
+def _define_CONFIGURATION_ENTRY():
+    CONFIGURATION_ENTRY = win32more.System.Iis.CONFIGURATION_ENTRY_head
+    CONFIGURATION_ENTRY._fields_ = [
+        ('bstrKey', win32more.Foundation.BSTR),
+        ('bstrValue', win32more.Foundation.BSTR),
+    ]
+    return CONFIGURATION_ENTRY
+def _define_EXTENSION_CONTROL_BLOCK_head():
+    class EXTENSION_CONTROL_BLOCK(Structure):
+        pass
+    return EXTENSION_CONTROL_BLOCK
+def _define_EXTENSION_CONTROL_BLOCK():
+    EXTENSION_CONTROL_BLOCK = win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head
+    EXTENSION_CONTROL_BLOCK._fields_ = [
+        ('cbSize', UInt32),
+        ('dwVersion', UInt32),
+        ('ConnID', c_void_p),
+        ('dwHttpStatusCode', UInt32),
+        ('lpszLogData', win32more.Foundation.CHAR * 80),
+        ('lpszMethod', win32more.Foundation.PSTR),
+        ('lpszQueryString', win32more.Foundation.PSTR),
+        ('lpszPathInfo', win32more.Foundation.PSTR),
+        ('lpszPathTranslated', win32more.Foundation.PSTR),
+        ('cbTotalBytes', UInt32),
+        ('cbAvailable', UInt32),
+        ('lpbData', c_char_p_no),
+        ('lpszContentType', win32more.Foundation.PSTR),
+        ('GetServerVariable', IntPtr),
+        ('WriteClient', IntPtr),
+        ('ReadClient', IntPtr),
+        ('ServerSupportFunction', IntPtr),
+    ]
+    return EXTENSION_CONTROL_BLOCK
+FTP_ACCESS = Int32
+FTP_ACCESS_NONE = 0
+FTP_ACCESS_READ = 1
+FTP_ACCESS_WRITE = 2
+FTP_ACCESS_READ_WRITE = 3
+FTP_PROCESS_STATUS = Int32
+FTP_PROCESS_CONTINUE = 0
+FTP_PROCESS_CLOSE_SESSION = 1
+FTP_PROCESS_TERMINATE_SESSION = 2
+FTP_PROCESS_REJECT_COMMAND = 3
+FtpProvider = Guid('70bdc667-33b2-45f0-ac-52-c3-ca-46-f7-a6-56')
+def _define_HSE_CUSTOM_ERROR_INFO_head():
+    class HSE_CUSTOM_ERROR_INFO(Structure):
+        pass
+    return HSE_CUSTOM_ERROR_INFO
+def _define_HSE_CUSTOM_ERROR_INFO():
+    HSE_CUSTOM_ERROR_INFO = win32more.System.Iis.HSE_CUSTOM_ERROR_INFO_head
+    HSE_CUSTOM_ERROR_INFO._fields_ = [
+        ('pszStatus', win32more.Foundation.PSTR),
+        ('uHttpSubError', UInt16),
+        ('fAsync', win32more.Foundation.BOOL),
+    ]
+    return HSE_CUSTOM_ERROR_INFO
+def _define_HSE_EXEC_UNICODE_URL_INFO_head():
+    class HSE_EXEC_UNICODE_URL_INFO(Structure):
+        pass
+    return HSE_EXEC_UNICODE_URL_INFO
+def _define_HSE_EXEC_UNICODE_URL_INFO():
+    HSE_EXEC_UNICODE_URL_INFO = win32more.System.Iis.HSE_EXEC_UNICODE_URL_INFO_head
+    HSE_EXEC_UNICODE_URL_INFO._fields_ = [
+        ('pszUrl', win32more.Foundation.PWSTR),
+        ('pszMethod', win32more.Foundation.PSTR),
+        ('pszChildHeaders', win32more.Foundation.PSTR),
+        ('pUserInfo', POINTER(win32more.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO_head)),
+        ('pEntity', POINTER(win32more.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head)),
+        ('dwExecUrlFlags', UInt32),
+    ]
+    return HSE_EXEC_UNICODE_URL_INFO
+def _define_HSE_EXEC_UNICODE_URL_USER_INFO_head():
+    class HSE_EXEC_UNICODE_URL_USER_INFO(Structure):
+        pass
+    return HSE_EXEC_UNICODE_URL_USER_INFO
+def _define_HSE_EXEC_UNICODE_URL_USER_INFO():
+    HSE_EXEC_UNICODE_URL_USER_INFO = win32more.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO_head
+    HSE_EXEC_UNICODE_URL_USER_INFO._fields_ = [
+        ('hImpersonationToken', win32more.Foundation.HANDLE),
+        ('pszCustomUserName', win32more.Foundation.PWSTR),
+        ('pszCustomAuthType', win32more.Foundation.PSTR),
+    ]
+    return HSE_EXEC_UNICODE_URL_USER_INFO
+def _define_HSE_EXEC_URL_ENTITY_INFO_head():
+    class HSE_EXEC_URL_ENTITY_INFO(Structure):
+        pass
+    return HSE_EXEC_URL_ENTITY_INFO
+def _define_HSE_EXEC_URL_ENTITY_INFO():
+    HSE_EXEC_URL_ENTITY_INFO = win32more.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head
+    HSE_EXEC_URL_ENTITY_INFO._fields_ = [
+        ('cbAvailable', UInt32),
+        ('lpbData', c_void_p),
+    ]
+    return HSE_EXEC_URL_ENTITY_INFO
+def _define_HSE_EXEC_URL_INFO_head():
+    class HSE_EXEC_URL_INFO(Structure):
+        pass
+    return HSE_EXEC_URL_INFO
+def _define_HSE_EXEC_URL_INFO():
+    HSE_EXEC_URL_INFO = win32more.System.Iis.HSE_EXEC_URL_INFO_head
+    HSE_EXEC_URL_INFO._fields_ = [
+        ('pszUrl', win32more.Foundation.PSTR),
+        ('pszMethod', win32more.Foundation.PSTR),
+        ('pszChildHeaders', win32more.Foundation.PSTR),
+        ('pUserInfo', POINTER(win32more.System.Iis.HSE_EXEC_URL_USER_INFO_head)),
+        ('pEntity', POINTER(win32more.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head)),
+        ('dwExecUrlFlags', UInt32),
+    ]
+    return HSE_EXEC_URL_INFO
+def _define_HSE_EXEC_URL_STATUS_head():
+    class HSE_EXEC_URL_STATUS(Structure):
+        pass
+    return HSE_EXEC_URL_STATUS
+def _define_HSE_EXEC_URL_STATUS():
+    HSE_EXEC_URL_STATUS = win32more.System.Iis.HSE_EXEC_URL_STATUS_head
+    HSE_EXEC_URL_STATUS._fields_ = [
+        ('uHttpStatusCode', UInt16),
+        ('uHttpSubStatus', UInt16),
+        ('dwWin32Error', UInt32),
+    ]
+    return HSE_EXEC_URL_STATUS
+def _define_HSE_EXEC_URL_USER_INFO_head():
+    class HSE_EXEC_URL_USER_INFO(Structure):
+        pass
+    return HSE_EXEC_URL_USER_INFO
+def _define_HSE_EXEC_URL_USER_INFO():
+    HSE_EXEC_URL_USER_INFO = win32more.System.Iis.HSE_EXEC_URL_USER_INFO_head
+    HSE_EXEC_URL_USER_INFO._fields_ = [
+        ('hImpersonationToken', win32more.Foundation.HANDLE),
+        ('pszCustomUserName', win32more.Foundation.PSTR),
+        ('pszCustomAuthType', win32more.Foundation.PSTR),
+    ]
+    return HSE_EXEC_URL_USER_INFO
+def _define_HSE_RESPONSE_VECTOR_head():
+    class HSE_RESPONSE_VECTOR(Structure):
+        pass
+    return HSE_RESPONSE_VECTOR
+def _define_HSE_RESPONSE_VECTOR():
+    HSE_RESPONSE_VECTOR = win32more.System.Iis.HSE_RESPONSE_VECTOR_head
+    HSE_RESPONSE_VECTOR._fields_ = [
+        ('dwFlags', UInt32),
+        ('pszStatus', win32more.Foundation.PSTR),
+        ('pszHeaders', win32more.Foundation.PSTR),
+        ('nElementCount', UInt32),
+        ('lpElementArray', POINTER(win32more.System.Iis.HSE_VECTOR_ELEMENT_head)),
+    ]
+    return HSE_RESPONSE_VECTOR
+def _define_HSE_SEND_HEADER_EX_INFO_head():
+    class HSE_SEND_HEADER_EX_INFO(Structure):
+        pass
+    return HSE_SEND_HEADER_EX_INFO
+def _define_HSE_SEND_HEADER_EX_INFO():
+    HSE_SEND_HEADER_EX_INFO = win32more.System.Iis.HSE_SEND_HEADER_EX_INFO_head
+    HSE_SEND_HEADER_EX_INFO._fields_ = [
+        ('pszStatus', win32more.Foundation.PSTR),
+        ('pszHeader', win32more.Foundation.PSTR),
+        ('cchStatus', UInt32),
+        ('cchHeader', UInt32),
+        ('fKeepConn', win32more.Foundation.BOOL),
+    ]
+    return HSE_SEND_HEADER_EX_INFO
+def _define_HSE_TF_INFO_head():
+    class HSE_TF_INFO(Structure):
+        pass
+    return HSE_TF_INFO
+def _define_HSE_TF_INFO():
+    HSE_TF_INFO = win32more.System.Iis.HSE_TF_INFO_head
+    HSE_TF_INFO._fields_ = [
+        ('pfnHseIO', win32more.System.Iis.PFN_HSE_IO_COMPLETION),
+        ('pContext', c_void_p),
+        ('hFile', win32more.Foundation.HANDLE),
+        ('pszStatusCode', win32more.Foundation.PSTR),
+        ('BytesToWrite', UInt32),
+        ('Offset', UInt32),
+        ('pHead', c_void_p),
+        ('HeadLength', UInt32),
+        ('pTail', c_void_p),
+        ('TailLength', UInt32),
+        ('dwFlags', UInt32),
+    ]
+    return HSE_TF_INFO
 def _define_HSE_TRACE_INFO_head():
     class HSE_TRACE_INFO(Structure):
         pass
@@ -1558,87 +1276,92 @@ def _define_HSE_TRACE_INFO_head():
 def _define_HSE_TRACE_INFO():
     HSE_TRACE_INFO = win32more.System.Iis.HSE_TRACE_INFO_head
     HSE_TRACE_INFO._fields_ = [
-        ("fTraceRequest", win32more.Foundation.BOOL),
-        ("TraceContextId", Byte * 16),
-        ("dwReserved1", UInt32),
-        ("dwReserved2", UInt32),
+        ('fTraceRequest', win32more.Foundation.BOOL),
+        ('TraceContextId', Byte * 16),
+        ('dwReserved1', UInt32),
+        ('dwReserved2', UInt32),
     ]
     return HSE_TRACE_INFO
-def _define_PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(c_void_p), use_last_error=False)
-def _define_PFN_GETEXTENSIONVERSION():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Iis.HSE_VERSION_INFO_head), use_last_error=False)
-def _define_PFN_HTTPEXTENSIONPROC():
-    return CFUNCTYPE(UInt32,POINTER(win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head), use_last_error=False)
-def _define_PFN_TERMINATEEXTENSION():
-    return CFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=False)
-SF_REQ_TYPE = Int32
-SF_REQ_SEND_RESPONSE_HEADER = 0
-SF_REQ_ADD_HEADERS_ON_DENIAL = 1
-SF_REQ_SET_NEXT_READ_SIZE = 2
-SF_REQ_SET_PROXY_INFO = 3
-SF_REQ_GET_CONNID = 4
-SF_REQ_SET_CERTIFICATE_INFO = 5
-SF_REQ_GET_PROPERTY = 6
-SF_REQ_NORMALIZE_URL = 7
-SF_REQ_DISABLE_NOTIFICATIONS = 8
-SF_PROPERTY_IIS = Int32
-SF_PROPERTY_SSL_CTXT = 0
-SF_PROPERTY_INSTANCE_NUM_ID = 1
-SF_STATUS_TYPE = Int32
-SF_STATUS_REQ_FINISHED = 134217728
-SF_STATUS_REQ_FINISHED_KEEP_CONN = 134217729
-SF_STATUS_REQ_NEXT_NOTIFICATION = 134217730
-SF_STATUS_REQ_HANDLED_NOTIFICATION = 134217731
-SF_STATUS_REQ_ERROR = 134217732
-SF_STATUS_REQ_READ_NEXT = 134217733
-def _define_HTTP_FILTER_CONTEXT_head():
-    class HTTP_FILTER_CONTEXT(Structure):
+def _define_HSE_UNICODE_URL_MAPEX_INFO_head():
+    class HSE_UNICODE_URL_MAPEX_INFO(Structure):
         pass
-    return HTTP_FILTER_CONTEXT
-def _define_HTTP_FILTER_CONTEXT():
-    HTTP_FILTER_CONTEXT = win32more.System.Iis.HTTP_FILTER_CONTEXT_head
-    HTTP_FILTER_CONTEXT._fields_ = [
-        ("cbSize", UInt32),
-        ("Revision", UInt32),
-        ("ServerContext", c_void_p),
-        ("ulReserved", UInt32),
-        ("fIsSecurePort", win32more.Foundation.BOOL),
-        ("pFilterContext", c_void_p),
-        ("GetServerVariable", IntPtr),
-        ("AddResponseHeaders", IntPtr),
-        ("WriteClient", IntPtr),
-        ("AllocMem", IntPtr),
-        ("ServerSupportFunction", IntPtr),
+    return HSE_UNICODE_URL_MAPEX_INFO
+def _define_HSE_UNICODE_URL_MAPEX_INFO():
+    HSE_UNICODE_URL_MAPEX_INFO = win32more.System.Iis.HSE_UNICODE_URL_MAPEX_INFO_head
+    HSE_UNICODE_URL_MAPEX_INFO._fields_ = [
+        ('lpszPath', Char * 260),
+        ('dwFlags', UInt32),
+        ('cchMatchingPath', UInt32),
+        ('cchMatchingURL', UInt32),
     ]
-    return HTTP_FILTER_CONTEXT
-def _define_HTTP_FILTER_RAW_DATA_head():
-    class HTTP_FILTER_RAW_DATA(Structure):
+    return HSE_UNICODE_URL_MAPEX_INFO
+def _define_HSE_URL_MAPEX_INFO_head():
+    class HSE_URL_MAPEX_INFO(Structure):
         pass
-    return HTTP_FILTER_RAW_DATA
-def _define_HTTP_FILTER_RAW_DATA():
-    HTTP_FILTER_RAW_DATA = win32more.System.Iis.HTTP_FILTER_RAW_DATA_head
-    HTTP_FILTER_RAW_DATA._fields_ = [
-        ("pvInData", c_void_p),
-        ("cbInData", UInt32),
-        ("cbInBuffer", UInt32),
-        ("dwReserved", UInt32),
+    return HSE_URL_MAPEX_INFO
+def _define_HSE_URL_MAPEX_INFO():
+    HSE_URL_MAPEX_INFO = win32more.System.Iis.HSE_URL_MAPEX_INFO_head
+    HSE_URL_MAPEX_INFO._fields_ = [
+        ('lpszPath', win32more.Foundation.CHAR * 260),
+        ('dwFlags', UInt32),
+        ('cchMatchingPath', UInt32),
+        ('cchMatchingURL', UInt32),
+        ('dwReserved1', UInt32),
+        ('dwReserved2', UInt32),
     ]
-    return HTTP_FILTER_RAW_DATA
-def _define_HTTP_FILTER_PREPROC_HEADERS_head():
-    class HTTP_FILTER_PREPROC_HEADERS(Structure):
+    return HSE_URL_MAPEX_INFO
+def _define_HSE_VECTOR_ELEMENT_head():
+    class HSE_VECTOR_ELEMENT(Structure):
         pass
-    return HTTP_FILTER_PREPROC_HEADERS
-def _define_HTTP_FILTER_PREPROC_HEADERS():
-    HTTP_FILTER_PREPROC_HEADERS = win32more.System.Iis.HTTP_FILTER_PREPROC_HEADERS_head
-    HTTP_FILTER_PREPROC_HEADERS._fields_ = [
-        ("GetHeader", IntPtr),
-        ("SetHeader", IntPtr),
-        ("AddHeader", IntPtr),
-        ("HttpStatus", UInt32),
-        ("dwReserved", UInt32),
+    return HSE_VECTOR_ELEMENT
+def _define_HSE_VECTOR_ELEMENT():
+    HSE_VECTOR_ELEMENT = win32more.System.Iis.HSE_VECTOR_ELEMENT_head
+    HSE_VECTOR_ELEMENT._fields_ = [
+        ('ElementType', UInt32),
+        ('pvContext', c_void_p),
+        ('cbOffset', UInt64),
+        ('cbSize', UInt64),
     ]
-    return HTTP_FILTER_PREPROC_HEADERS
+    return HSE_VECTOR_ELEMENT
+def _define_HSE_VERSION_INFO_head():
+    class HSE_VERSION_INFO(Structure):
+        pass
+    return HSE_VERSION_INFO
+def _define_HSE_VERSION_INFO():
+    HSE_VERSION_INFO = win32more.System.Iis.HSE_VERSION_INFO_head
+    HSE_VERSION_INFO._fields_ = [
+        ('dwExtensionVersion', UInt32),
+        ('lpszExtensionDesc', win32more.Foundation.CHAR * 256),
+    ]
+    return HSE_VERSION_INFO
+def _define_HTTP_FILTER_ACCESS_DENIED_head():
+    class HTTP_FILTER_ACCESS_DENIED(Structure):
+        pass
+    return HTTP_FILTER_ACCESS_DENIED
+def _define_HTTP_FILTER_ACCESS_DENIED():
+    HTTP_FILTER_ACCESS_DENIED = win32more.System.Iis.HTTP_FILTER_ACCESS_DENIED_head
+    HTTP_FILTER_ACCESS_DENIED._fields_ = [
+        ('pszURL', win32more.Foundation.PSTR),
+        ('pszPhysicalPath', win32more.Foundation.PSTR),
+        ('dwReason', UInt32),
+    ]
+    return HTTP_FILTER_ACCESS_DENIED
+def _define_HTTP_FILTER_AUTH_COMPLETE_INFO_head():
+    class HTTP_FILTER_AUTH_COMPLETE_INFO(Structure):
+        pass
+    return HTTP_FILTER_AUTH_COMPLETE_INFO
+def _define_HTTP_FILTER_AUTH_COMPLETE_INFO():
+    HTTP_FILTER_AUTH_COMPLETE_INFO = win32more.System.Iis.HTTP_FILTER_AUTH_COMPLETE_INFO_head
+    HTTP_FILTER_AUTH_COMPLETE_INFO._fields_ = [
+        ('GetHeader', IntPtr),
+        ('SetHeader', IntPtr),
+        ('AddHeader', IntPtr),
+        ('GetUserToken', IntPtr),
+        ('HttpStatus', UInt32),
+        ('fResetAuth', win32more.Foundation.BOOL),
+        ('dwReserved', UInt32),
+    ]
+    return HTTP_FILTER_AUTH_COMPLETE_INFO
 def _define_HTTP_FILTER_AUTHENT_head():
     class HTTP_FILTER_AUTHENT(Structure):
         pass
@@ -1646,12 +1369,79 @@ def _define_HTTP_FILTER_AUTHENT_head():
 def _define_HTTP_FILTER_AUTHENT():
     HTTP_FILTER_AUTHENT = win32more.System.Iis.HTTP_FILTER_AUTHENT_head
     HTTP_FILTER_AUTHENT._fields_ = [
-        ("pszUser", win32more.Foundation.PSTR),
-        ("cbUserBuff", UInt32),
-        ("pszPassword", win32more.Foundation.PSTR),
-        ("cbPasswordBuff", UInt32),
+        ('pszUser', win32more.Foundation.PSTR),
+        ('cbUserBuff', UInt32),
+        ('pszPassword', win32more.Foundation.PSTR),
+        ('cbPasswordBuff', UInt32),
     ]
     return HTTP_FILTER_AUTHENT
+def _define_HTTP_FILTER_CONTEXT_head():
+    class HTTP_FILTER_CONTEXT(Structure):
+        pass
+    return HTTP_FILTER_CONTEXT
+def _define_HTTP_FILTER_CONTEXT():
+    HTTP_FILTER_CONTEXT = win32more.System.Iis.HTTP_FILTER_CONTEXT_head
+    HTTP_FILTER_CONTEXT._fields_ = [
+        ('cbSize', UInt32),
+        ('Revision', UInt32),
+        ('ServerContext', c_void_p),
+        ('ulReserved', UInt32),
+        ('fIsSecurePort', win32more.Foundation.BOOL),
+        ('pFilterContext', c_void_p),
+        ('GetServerVariable', IntPtr),
+        ('AddResponseHeaders', IntPtr),
+        ('WriteClient', IntPtr),
+        ('AllocMem', IntPtr),
+        ('ServerSupportFunction', IntPtr),
+    ]
+    return HTTP_FILTER_CONTEXT
+def _define_HTTP_FILTER_LOG_head():
+    class HTTP_FILTER_LOG(Structure):
+        pass
+    return HTTP_FILTER_LOG
+def _define_HTTP_FILTER_LOG():
+    HTTP_FILTER_LOG = win32more.System.Iis.HTTP_FILTER_LOG_head
+    HTTP_FILTER_LOG._fields_ = [
+        ('pszClientHostName', win32more.Foundation.PSTR),
+        ('pszClientUserName', win32more.Foundation.PSTR),
+        ('pszServerName', win32more.Foundation.PSTR),
+        ('pszOperation', win32more.Foundation.PSTR),
+        ('pszTarget', win32more.Foundation.PSTR),
+        ('pszParameters', win32more.Foundation.PSTR),
+        ('dwHttpStatus', UInt32),
+        ('dwWin32Status', UInt32),
+        ('dwBytesSent', UInt32),
+        ('dwBytesRecvd', UInt32),
+        ('msTimeForProcessing', UInt32),
+    ]
+    return HTTP_FILTER_LOG
+def _define_HTTP_FILTER_PREPROC_HEADERS_head():
+    class HTTP_FILTER_PREPROC_HEADERS(Structure):
+        pass
+    return HTTP_FILTER_PREPROC_HEADERS
+def _define_HTTP_FILTER_PREPROC_HEADERS():
+    HTTP_FILTER_PREPROC_HEADERS = win32more.System.Iis.HTTP_FILTER_PREPROC_HEADERS_head
+    HTTP_FILTER_PREPROC_HEADERS._fields_ = [
+        ('GetHeader', IntPtr),
+        ('SetHeader', IntPtr),
+        ('AddHeader', IntPtr),
+        ('HttpStatus', UInt32),
+        ('dwReserved', UInt32),
+    ]
+    return HTTP_FILTER_PREPROC_HEADERS
+def _define_HTTP_FILTER_RAW_DATA_head():
+    class HTTP_FILTER_RAW_DATA(Structure):
+        pass
+    return HTTP_FILTER_RAW_DATA
+def _define_HTTP_FILTER_RAW_DATA():
+    HTTP_FILTER_RAW_DATA = win32more.System.Iis.HTTP_FILTER_RAW_DATA_head
+    HTTP_FILTER_RAW_DATA._fields_ = [
+        ('pvInData', c_void_p),
+        ('cbInData', UInt32),
+        ('cbInBuffer', UInt32),
+        ('dwReserved', UInt32),
+    ]
+    return HTTP_FILTER_RAW_DATA
 def _define_HTTP_FILTER_URL_MAP_head():
     class HTTP_FILTER_URL_MAP(Structure):
         pass
@@ -1659,9 +1449,9 @@ def _define_HTTP_FILTER_URL_MAP_head():
 def _define_HTTP_FILTER_URL_MAP():
     HTTP_FILTER_URL_MAP = win32more.System.Iis.HTTP_FILTER_URL_MAP_head
     HTTP_FILTER_URL_MAP._fields_ = [
-        ("pszURL", win32more.Foundation.PSTR),
-        ("pszPhysicalPath", win32more.Foundation.PSTR),
-        ("cbPathBuff", UInt32),
+        ('pszURL', win32more.Foundation.PSTR),
+        ('pszPhysicalPath', win32more.Foundation.PSTR),
+        ('cbPathBuff', UInt32),
     ]
     return HTTP_FILTER_URL_MAP
 def _define_HTTP_FILTER_URL_MAP_EX_head():
@@ -1671,63 +1461,15 @@ def _define_HTTP_FILTER_URL_MAP_EX_head():
 def _define_HTTP_FILTER_URL_MAP_EX():
     HTTP_FILTER_URL_MAP_EX = win32more.System.Iis.HTTP_FILTER_URL_MAP_EX_head
     HTTP_FILTER_URL_MAP_EX._fields_ = [
-        ("pszURL", win32more.Foundation.PSTR),
-        ("pszPhysicalPath", win32more.Foundation.PSTR),
-        ("cbPathBuff", UInt32),
-        ("dwFlags", UInt32),
-        ("cchMatchingPath", UInt32),
-        ("cchMatchingURL", UInt32),
-        ("pszScriptMapEntry", win32more.Foundation.PSTR),
+        ('pszURL', win32more.Foundation.PSTR),
+        ('pszPhysicalPath', win32more.Foundation.PSTR),
+        ('cbPathBuff', UInt32),
+        ('dwFlags', UInt32),
+        ('cchMatchingPath', UInt32),
+        ('cchMatchingURL', UInt32),
+        ('pszScriptMapEntry', win32more.Foundation.PSTR),
     ]
     return HTTP_FILTER_URL_MAP_EX
-def _define_HTTP_FILTER_ACCESS_DENIED_head():
-    class HTTP_FILTER_ACCESS_DENIED(Structure):
-        pass
-    return HTTP_FILTER_ACCESS_DENIED
-def _define_HTTP_FILTER_ACCESS_DENIED():
-    HTTP_FILTER_ACCESS_DENIED = win32more.System.Iis.HTTP_FILTER_ACCESS_DENIED_head
-    HTTP_FILTER_ACCESS_DENIED._fields_ = [
-        ("pszURL", win32more.Foundation.PSTR),
-        ("pszPhysicalPath", win32more.Foundation.PSTR),
-        ("dwReason", UInt32),
-    ]
-    return HTTP_FILTER_ACCESS_DENIED
-def _define_HTTP_FILTER_LOG_head():
-    class HTTP_FILTER_LOG(Structure):
-        pass
-    return HTTP_FILTER_LOG
-def _define_HTTP_FILTER_LOG():
-    HTTP_FILTER_LOG = win32more.System.Iis.HTTP_FILTER_LOG_head
-    HTTP_FILTER_LOG._fields_ = [
-        ("pszClientHostName", win32more.Foundation.PSTR),
-        ("pszClientUserName", win32more.Foundation.PSTR),
-        ("pszServerName", win32more.Foundation.PSTR),
-        ("pszOperation", win32more.Foundation.PSTR),
-        ("pszTarget", win32more.Foundation.PSTR),
-        ("pszParameters", win32more.Foundation.PSTR),
-        ("dwHttpStatus", UInt32),
-        ("dwWin32Status", UInt32),
-        ("dwBytesSent", UInt32),
-        ("dwBytesRecvd", UInt32),
-        ("msTimeForProcessing", UInt32),
-    ]
-    return HTTP_FILTER_LOG
-def _define_HTTP_FILTER_AUTH_COMPLETE_INFO_head():
-    class HTTP_FILTER_AUTH_COMPLETE_INFO(Structure):
-        pass
-    return HTTP_FILTER_AUTH_COMPLETE_INFO
-def _define_HTTP_FILTER_AUTH_COMPLETE_INFO():
-    HTTP_FILTER_AUTH_COMPLETE_INFO = win32more.System.Iis.HTTP_FILTER_AUTH_COMPLETE_INFO_head
-    HTTP_FILTER_AUTH_COMPLETE_INFO._fields_ = [
-        ("GetHeader", IntPtr),
-        ("SetHeader", IntPtr),
-        ("AddHeader", IntPtr),
-        ("GetUserToken", IntPtr),
-        ("HttpStatus", UInt32),
-        ("fResetAuth", win32more.Foundation.BOOL),
-        ("dwReserved", UInt32),
-    ]
-    return HTTP_FILTER_AUTH_COMPLETE_INFO
 def _define_HTTP_FILTER_VERSION_head():
     class HTTP_FILTER_VERSION(Structure):
         pass
@@ -1735,12 +1477,61 @@ def _define_HTTP_FILTER_VERSION_head():
 def _define_HTTP_FILTER_VERSION():
     HTTP_FILTER_VERSION = win32more.System.Iis.HTTP_FILTER_VERSION_head
     HTTP_FILTER_VERSION._fields_ = [
-        ("dwServerFilterVersion", UInt32),
-        ("dwFilterVersion", UInt32),
-        ("lpszFilterDesc", win32more.Foundation.CHAR * 257),
-        ("dwFlags", UInt32),
+        ('dwServerFilterVersion', UInt32),
+        ('dwFilterVersion', UInt32),
+        ('lpszFilterDesc', win32more.Foundation.CHAR * 257),
+        ('dwFlags', UInt32),
     ]
     return HTTP_FILTER_VERSION
+def _define_HTTP_TRACE_CONFIGURATION_head():
+    class HTTP_TRACE_CONFIGURATION(Structure):
+        pass
+    return HTTP_TRACE_CONFIGURATION
+def _define_HTTP_TRACE_CONFIGURATION():
+    HTTP_TRACE_CONFIGURATION = win32more.System.Iis.HTTP_TRACE_CONFIGURATION_head
+    HTTP_TRACE_CONFIGURATION._fields_ = [
+        ('pProviderGuid', POINTER(Guid)),
+        ('dwAreas', UInt32),
+        ('dwVerbosity', UInt32),
+        ('fProviderEnabled', win32more.Foundation.BOOL),
+    ]
+    return HTTP_TRACE_CONFIGURATION
+def _define_HTTP_TRACE_EVENT_head():
+    class HTTP_TRACE_EVENT(Structure):
+        pass
+    return HTTP_TRACE_EVENT
+def _define_HTTP_TRACE_EVENT():
+    HTTP_TRACE_EVENT = win32more.System.Iis.HTTP_TRACE_EVENT_head
+    HTTP_TRACE_EVENT._fields_ = [
+        ('pProviderGuid', POINTER(Guid)),
+        ('dwArea', UInt32),
+        ('pAreaGuid', POINTER(Guid)),
+        ('dwEvent', UInt32),
+        ('pszEventName', win32more.Foundation.PWSTR),
+        ('dwEventVersion', UInt32),
+        ('dwVerbosity', UInt32),
+        ('pActivityGuid', POINTER(Guid)),
+        ('pRelatedActivityGuid', POINTER(Guid)),
+        ('dwTimeStamp', UInt32),
+        ('dwFlags', UInt32),
+        ('cEventItems', UInt32),
+        ('pEventItems', POINTER(win32more.System.Iis.HTTP_TRACE_EVENT_ITEM_head)),
+    ]
+    return HTTP_TRACE_EVENT
+def _define_HTTP_TRACE_EVENT_ITEM_head():
+    class HTTP_TRACE_EVENT_ITEM(Structure):
+        pass
+    return HTTP_TRACE_EVENT_ITEM
+def _define_HTTP_TRACE_EVENT_ITEM():
+    HTTP_TRACE_EVENT_ITEM = win32more.System.Iis.HTTP_TRACE_EVENT_ITEM_head
+    HTTP_TRACE_EVENT_ITEM._fields_ = [
+        ('pszName', win32more.Foundation.PWSTR),
+        ('dwDataType', win32more.System.Iis.HTTP_TRACE_TYPE),
+        ('pbData', c_char_p_no),
+        ('cbData', UInt32),
+        ('pszDataDescription', win32more.Foundation.PWSTR),
+    ]
+    return HTTP_TRACE_EVENT_ITEM
 HTTP_TRACE_TYPE = Int32
 HTTP_TRACE_TYPE_BYTE = 17
 HTTP_TRACE_TYPE_USHORT = 18
@@ -1754,1069 +1545,1430 @@ HTTP_TRACE_TYPE_LPCWSTR = 31
 HTTP_TRACE_TYPE_LPCSTR = 30
 HTTP_TRACE_TYPE_LPCGUID = 72
 HTTP_TRACE_TYPE_BOOL = 11
-def _define_HTTP_TRACE_EVENT_head():
-    class HTTP_TRACE_EVENT(Structure):
+def _define_IADMEXT_head():
+    class IADMEXT(win32more.System.Com.IUnknown_head):
+        Guid = Guid('51dfe970-f6f2-11d0-b9-bd-00-a0-c9-22-e7-50')
+    return IADMEXT
+def _define_IADMEXT():
+    IADMEXT = win32more.System.Iis.IADMEXT_head
+    IADMEXT.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Initialize', ()))
+    IADMEXT.EnumDcomCLSIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32)(4, 'EnumDcomCLSIDs', ((1, 'pclsidDcom'),(1, 'dwEnumIndex'),)))
+    IADMEXT.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Terminate', ()))
+    win32more.System.Com.IUnknown
+    return IADMEXT
+def _define_IFtpAuthenticationProvider_head():
+    class IFtpAuthenticationProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4659f95c-d5a8-4707-b2-fc-6f-d5-79-42-46-cf')
+    return IFtpAuthenticationProvider
+def _define_IFtpAuthenticationProvider():
+    IFtpAuthenticationProvider = win32more.System.Iis.IFtpAuthenticationProvider_head
+    IFtpAuthenticationProvider.AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL))(3, 'AuthenticateUser', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszPassword'),(1, 'ppszCanonicalUserName'),(1, 'pfAuthenticated'),)))
+    win32more.System.Com.IUnknown
+    return IFtpAuthenticationProvider
+def _define_IFtpAuthorizationProvider_head():
+    class IFtpAuthorizationProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a50ae7a1-a35a-42b4-a4-f3-f4-f7-05-7a-05-d1')
+    return IFtpAuthorizationProvider
+def _define_IFtpAuthorizationProvider():
+    IFtpAuthorizationProvider = win32more.System.Iis.IFtpAuthorizationProvider_head
+    IFtpAuthorizationProvider.GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.FTP_ACCESS))(3, 'GetUserAccessPermission', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszVirtualPath'),(1, 'pszUserName'),(1, 'pFtpAccess'),)))
+    win32more.System.Com.IUnknown
+    return IFtpAuthorizationProvider
+def _define_IFtpHomeDirectoryProvider_head():
+    class IFtpHomeDirectoryProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0933b392-18dd-4097-8b-9c-83-32-5c-35-d9-a6')
+    return IFtpHomeDirectoryProvider
+def _define_IFtpHomeDirectoryProvider():
+    IFtpHomeDirectoryProvider = win32more.System.Iis.IFtpHomeDirectoryProvider_head
+    IFtpHomeDirectoryProvider.GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(3, 'GetUserHomeDirectoryData', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'ppszHomeDirectoryData'),)))
+    win32more.System.Com.IUnknown
+    return IFtpHomeDirectoryProvider
+def _define_IFtpLogProvider_head():
+    class IFtpLogProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a18a94cc-8299-4408-81-6c-7c-3b-ac-a1-a4-0e')
+    return IFtpLogProvider
+def _define_IFtpLogProvider():
+    IFtpLogProvider = win32more.System.Iis.IFtpLogProvider_head
+    IFtpLogProvider.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.LOGGING_PARAMETERS_head))(3, 'Log', ((1, 'pLoggingParameters'),)))
+    win32more.System.Com.IUnknown
+    return IFtpLogProvider
+def _define_IFtpPostprocessProvider_head():
+    class IFtpPostprocessProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4522cbc6-16cd-49ad-86-53-9a-2c-57-9e-42-80')
+    return IFtpPostprocessProvider
+def _define_IFtpPostprocessProvider():
+    IFtpPostprocessProvider = win32more.System.Iis.IFtpPostprocessProvider_head
+    IFtpPostprocessProvider.HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.POST_PROCESS_PARAMETERS_head),POINTER(win32more.System.Iis.FTP_PROCESS_STATUS))(3, 'HandlePostprocess', ((1, 'pPostProcessParameters'),(1, 'pFtpProcessStatus'),)))
+    win32more.System.Com.IUnknown
+    return IFtpPostprocessProvider
+def _define_IFtpPreprocessProvider_head():
+    class IFtpPreprocessProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a3c19b60-5a28-471a-8f-93-ab-30-41-1c-ee-82')
+    return IFtpPreprocessProvider
+def _define_IFtpPreprocessProvider():
+    IFtpPreprocessProvider = win32more.System.Iis.IFtpPreprocessProvider_head
+    IFtpPreprocessProvider.HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.PRE_PROCESS_PARAMETERS_head),POINTER(win32more.System.Iis.FTP_PROCESS_STATUS))(3, 'HandlePreprocess', ((1, 'pPreProcessParameters'),(1, 'pFtpProcessStatus'),)))
+    win32more.System.Com.IUnknown
+    return IFtpPreprocessProvider
+def _define_IFtpProviderConstruct_head():
+    class IFtpProviderConstruct(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4d1a3f7b-412d-447c-b1-99-64-f9-67-e9-a2-da')
+    return IFtpProviderConstruct
+def _define_IFtpProviderConstruct():
+    IFtpProviderConstruct = win32more.System.Iis.IFtpProviderConstruct_head
+    IFtpProviderConstruct.Construct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(3, 'Construct', ((1, 'configurationEntries'),)))
+    win32more.System.Com.IUnknown
+    return IFtpProviderConstruct
+def _define_IFtpRoleProvider_head():
+    class IFtpRoleProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('909c850d-8ca0-4674-96-b8-cc-29-41-53-57-25')
+    return IFtpRoleProvider
+def _define_IFtpRoleProvider():
+    IFtpRoleProvider = win32more.System.Iis.IFtpRoleProvider_head
+    IFtpRoleProvider.IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(3, 'IsUserInRole', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszRole'),(1, 'pfIsInRole'),)))
+    win32more.System.Com.IUnknown
+    return IFtpRoleProvider
+def _define_IMSAdminBase2W_head():
+    class IMSAdminBase2W(win32more.System.Iis.IMSAdminBaseW_head):
+        Guid = Guid('8298d101-f992-43b7-8e-ca-50-52-d8-85-b9-95')
+    return IMSAdminBase2W
+def _define_IMSAdminBase2W():
+    IMSAdminBase2W = win32more.System.Iis.IMSAdminBase2W_head
+    IMSAdminBase2W.BackupWithPasswd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR)(34, 'BackupWithPasswd', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),(1, 'pszPasswd'),)))
+    IMSAdminBase2W.RestoreWithPasswd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR)(35, 'RestoreWithPasswd', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),(1, 'pszPasswd'),)))
+    IMSAdminBase2W.Export = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(36, 'Export', ((1, 'pszPasswd'),(1, 'pszFileName'),(1, 'pszSourcePath'),(1, 'dwMDFlags'),)))
+    IMSAdminBase2W.Import = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(37, 'Import', ((1, 'pszPasswd'),(1, 'pszFileName'),(1, 'pszSourcePath'),(1, 'pszDestPath'),(1, 'dwMDFlags'),)))
+    IMSAdminBase2W.RestoreHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32)(38, 'RestoreHistory', ((1, 'pszMDHistoryLocation'),(1, 'dwMDMajorVersion'),(1, 'dwMDMinorVersion'),(1, 'dwMDFlags'),)))
+    IMSAdminBase2W.EnumHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32)(39, 'EnumHistory', ((1, 'pszMDHistoryLocation'),(1, 'pdwMDMajorVersion'),(1, 'pdwMDMinorVersion'),(1, 'pftMDHistoryTime'),(1, 'dwMDEnumIndex'),)))
+    win32more.System.Iis.IMSAdminBaseW
+    return IMSAdminBase2W
+def _define_IMSAdminBase3W_head():
+    class IMSAdminBase3W(win32more.System.Iis.IMSAdminBase2W_head):
+        Guid = Guid('f612954d-3b0b-4c56-95-63-22-7b-7b-e6-24-b4')
+    return IMSAdminBase3W
+def _define_IMSAdminBase3W():
+    IMSAdminBase3W = win32more.System.Iis.IMSAdminBase3W_head
+    IMSAdminBase3W.GetChildPaths = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(40, 'GetChildPaths', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'cchMDBufferSize'),(1, 'pszBuffer'),(1, 'pcchMDRequiredBufferSize'),)))
+    win32more.System.Iis.IMSAdminBase2W
+    return IMSAdminBase3W
+def _define_IMSAdminBaseSinkW_head():
+    class IMSAdminBaseSinkW(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a9e69612-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
+    return IMSAdminBaseSinkW
+def _define_IMSAdminBaseSinkW():
+    IMSAdminBaseSinkW = win32more.System.Iis.IMSAdminBaseSinkW_head
+    IMSAdminBaseSinkW.SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.MD_CHANGE_OBJECT_W_head))(3, 'SinkNotify', ((1, 'dwMDNumElements'),(1, 'pcoChangeList'),)))
+    IMSAdminBaseSinkW.ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'ShutdownNotify', ()))
+    win32more.System.Com.IUnknown
+    return IMSAdminBaseSinkW
+def _define_IMSAdminBaseW_head():
+    class IMSAdminBaseW(win32more.System.Com.IUnknown_head):
+        Guid = Guid('70b51430-b6ca-11d0-b9-b9-00-a0-c9-22-e7-50')
+    return IMSAdminBaseW
+def _define_IMSAdminBaseW():
+    IMSAdminBaseW = win32more.System.Iis.IMSAdminBaseW_head
+    IMSAdminBaseW.AddKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR)(3, 'AddKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),)))
+    IMSAdminBaseW.DeleteKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR)(4, 'DeleteKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),)))
+    IMSAdminBaseW.DeleteChildKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR)(5, 'DeleteChildKeys', ((1, 'hMDHandle'),(1, 'pszMDPath'),)))
+    IMSAdminBaseW.EnumKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(6, 'EnumKeys', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pszMDName'),(1, 'dwMDEnumObjectIndex'),)))
+    IMSAdminBaseW.CopyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(7, 'CopyKey', ((1, 'hMDSourceHandle'),(1, 'pszMDSourcePath'),(1, 'hMDDestHandle'),(1, 'pszMDDestPath'),(1, 'bMDOverwriteFlag'),(1, 'bMDCopyFlag'),)))
+    IMSAdminBaseW.RenameKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(8, 'RenameKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pszMDNewName'),)))
+    IMSAdminBaseW.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.METADATA_RECORD_head))(9, 'SetData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pmdrMDData'),)))
+    IMSAdminBaseW.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.METADATA_RECORD_head),POINTER(UInt32))(10, 'GetData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pmdrMDData'),(1, 'pdwMDRequiredDataLen'),)))
+    IMSAdminBaseW.DeleteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(11, 'DeleteData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDIdentifier'),(1, 'dwMDDataType'),)))
+    IMSAdminBaseW.EnumData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.METADATA_RECORD_head),UInt32,POINTER(UInt32))(12, 'EnumData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pmdrMDData'),(1, 'dwMDEnumDataIndex'),(1, 'pdwMDRequiredDataLen'),)))
+    IMSAdminBaseW.GetAllData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),UInt32,c_char_p_no,POINTER(UInt32))(13, 'GetAllData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDAttributes'),(1, 'dwMDUserType'),(1, 'dwMDDataType'),(1, 'pdwMDNumDataEntries'),(1, 'pdwMDDataSetNumber'),(1, 'dwMDBufferSize'),(1, 'pbMDBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
+    IMSAdminBaseW.DeleteAllData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(14, 'DeleteAllData', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDUserType'),(1, 'dwMDDataType'),)))
+    IMSAdminBaseW.CopyData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,win32more.Foundation.BOOL)(15, 'CopyData', ((1, 'hMDSourceHandle'),(1, 'pszMDSourcePath'),(1, 'hMDDestHandle'),(1, 'pszMDDestPath'),(1, 'dwMDAttributes'),(1, 'dwMDUserType'),(1, 'dwMDDataType'),(1, 'bMDCopyFlag'),)))
+    IMSAdminBaseW.GetDataPaths = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(16, 'GetDataPaths', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDIdentifier'),(1, 'dwMDDataType'),(1, 'dwMDBufferSize'),(1, 'pszBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
+    IMSAdminBaseW.OpenKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(UInt32))(17, 'OpenKey', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'dwMDAccessRequested'),(1, 'dwMDTimeOut'),(1, 'phMDNewHandle'),)))
+    IMSAdminBaseW.CloseKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(18, 'CloseKey', ((1, 'hMDHandle'),)))
+    IMSAdminBaseW.ChangePermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32)(19, 'ChangePermissions', ((1, 'hMDHandle'),(1, 'dwMDTimeOut'),(1, 'dwMDAccessRequested'),)))
+    IMSAdminBaseW.SaveData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'SaveData', ()))
+    IMSAdminBaseW.GetHandleInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.METADATA_HANDLE_INFO_head))(21, 'GetHandleInfo', ((1, 'hMDHandle'),(1, 'pmdhiInfo'),)))
+    IMSAdminBaseW.GetSystemChangeNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(22, 'GetSystemChangeNumber', ((1, 'pdwSystemChangeNumber'),)))
+    IMSAdminBaseW.GetDataSetNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(23, 'GetDataSetNumber', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pdwMDDataSetNumber'),)))
+    IMSAdminBaseW.SetLastChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.BOOL)(24, 'SetLastChangeTime', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pftMDLastChangeTime'),(1, 'bLocalTime'),)))
+    IMSAdminBaseW.GetLastChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.BOOL)(25, 'GetLastChangeTime', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'pftMDLastChangeTime'),(1, 'bLocalTime'),)))
+    IMSAdminBaseW.KeyExchangePhase1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(26, 'KeyExchangePhase1', ()))
+    IMSAdminBaseW.KeyExchangePhase2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(27, 'KeyExchangePhase2', ()))
+    IMSAdminBaseW.Backup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32)(28, 'Backup', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),)))
+    IMSAdminBaseW.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32)(29, 'Restore', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),(1, 'dwMDFlags'),)))
+    IMSAdminBaseW.EnumBackups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32)(30, 'EnumBackups', ((1, 'pszMDBackupLocation'),(1, 'pdwMDVersion'),(1, 'pftMDBackupTime'),(1, 'dwMDEnumIndex'),)))
+    IMSAdminBaseW.DeleteBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(31, 'DeleteBackup', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),)))
+    IMSAdminBaseW.UnmarshalInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.IMSAdminBaseW_head))(32, 'UnmarshalInterface', ((1, 'piadmbwInterface'),)))
+    IMSAdminBaseW.GetServerGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(33, 'GetServerGuid', ()))
+    win32more.System.Com.IUnknown
+    return IMSAdminBaseW
+def _define_IMSImpExpHelpW_head():
+    class IMSImpExpHelpW(win32more.System.Com.IUnknown_head):
+        Guid = Guid('29ff67ff-8050-480f-9f-30-cc-41-63-5f-2f-9d')
+    return IMSImpExpHelpW
+def _define_IMSImpExpHelpW():
+    IMSImpExpHelpW = win32more.System.Iis.IMSImpExpHelpW_head
+    IMSImpExpHelpW.EnumeratePathsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(3, 'EnumeratePathsInFile', ((1, 'pszFileName'),(1, 'pszKeyType'),(1, 'dwMDBufferSize'),(1, 'pszBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
+    win32more.System.Com.IUnknown
+    return IMSImpExpHelpW
+def _define_LOGGING_PARAMETERS_head():
+    class LOGGING_PARAMETERS(Structure):
         pass
-    return HTTP_TRACE_EVENT
-def _define_HTTP_TRACE_EVENT():
-    HTTP_TRACE_EVENT = win32more.System.Iis.HTTP_TRACE_EVENT_head
-    HTTP_TRACE_EVENT._fields_ = [
-        ("pProviderGuid", POINTER(Guid)),
-        ("dwArea", UInt32),
-        ("pAreaGuid", POINTER(Guid)),
-        ("dwEvent", UInt32),
-        ("pszEventName", win32more.Foundation.PWSTR),
-        ("dwEventVersion", UInt32),
-        ("dwVerbosity", UInt32),
-        ("pActivityGuid", POINTER(Guid)),
-        ("pRelatedActivityGuid", POINTER(Guid)),
-        ("dwTimeStamp", UInt32),
-        ("dwFlags", UInt32),
-        ("cEventItems", UInt32),
-        ("pEventItems", POINTER(win32more.System.Iis.HTTP_TRACE_EVENT_ITEM_head)),
+    return LOGGING_PARAMETERS
+def _define_LOGGING_PARAMETERS():
+    LOGGING_PARAMETERS = win32more.System.Iis.LOGGING_PARAMETERS_head
+    LOGGING_PARAMETERS._fields_ = [
+        ('pszSessionId', win32more.Foundation.PWSTR),
+        ('pszSiteName', win32more.Foundation.PWSTR),
+        ('pszUserName', win32more.Foundation.PWSTR),
+        ('pszHostName', win32more.Foundation.PWSTR),
+        ('pszRemoteIpAddress', win32more.Foundation.PWSTR),
+        ('dwRemoteIpPort', UInt32),
+        ('pszLocalIpAddress', win32more.Foundation.PWSTR),
+        ('dwLocalIpPort', UInt32),
+        ('BytesSent', UInt64),
+        ('BytesReceived', UInt64),
+        ('pszCommand', win32more.Foundation.PWSTR),
+        ('pszCommandParameters', win32more.Foundation.PWSTR),
+        ('pszFullPath', win32more.Foundation.PWSTR),
+        ('dwElapsedMilliseconds', UInt32),
+        ('FtpStatus', UInt32),
+        ('FtpSubStatus', UInt32),
+        ('hrStatus', win32more.Foundation.HRESULT),
+        ('pszInformation', win32more.Foundation.PWSTR),
     ]
-    return HTTP_TRACE_EVENT
-def _define_HTTP_TRACE_EVENT_ITEM_head():
-    class HTTP_TRACE_EVENT_ITEM(Structure):
+    return LOGGING_PARAMETERS
+def _define_MD_CHANGE_OBJECT_W_head():
+    class MD_CHANGE_OBJECT_W(Structure):
         pass
-    return HTTP_TRACE_EVENT_ITEM
-def _define_HTTP_TRACE_EVENT_ITEM():
-    HTTP_TRACE_EVENT_ITEM = win32more.System.Iis.HTTP_TRACE_EVENT_ITEM_head
-    HTTP_TRACE_EVENT_ITEM._fields_ = [
-        ("pszName", win32more.Foundation.PWSTR),
-        ("dwDataType", win32more.System.Iis.HTTP_TRACE_TYPE),
-        ("pbData", c_char_p_no),
-        ("cbData", UInt32),
-        ("pszDataDescription", win32more.Foundation.PWSTR),
+    return MD_CHANGE_OBJECT_W
+def _define_MD_CHANGE_OBJECT_W():
+    MD_CHANGE_OBJECT_W = win32more.System.Iis.MD_CHANGE_OBJECT_W_head
+    MD_CHANGE_OBJECT_W._fields_ = [
+        ('pszMDPath', win32more.Foundation.PWSTR),
+        ('dwMDChangeType', UInt32),
+        ('dwMDNumDataIDs', UInt32),
+        ('pdwMDDataIDs', POINTER(UInt32)),
     ]
-    return HTTP_TRACE_EVENT_ITEM
-def _define_HTTP_TRACE_CONFIGURATION_head():
-    class HTTP_TRACE_CONFIGURATION(Structure):
+    return MD_CHANGE_OBJECT_W
+def _define_METADATA_GETALL_INTERNAL_RECORD_head():
+    class METADATA_GETALL_INTERNAL_RECORD(Structure):
         pass
-    return HTTP_TRACE_CONFIGURATION
-def _define_HTTP_TRACE_CONFIGURATION():
-    HTTP_TRACE_CONFIGURATION = win32more.System.Iis.HTTP_TRACE_CONFIGURATION_head
-    HTTP_TRACE_CONFIGURATION._fields_ = [
-        ("pProviderGuid", POINTER(Guid)),
-        ("dwAreas", UInt32),
-        ("dwVerbosity", UInt32),
-        ("fProviderEnabled", win32more.Foundation.BOOL),
+    return METADATA_GETALL_INTERNAL_RECORD
+def _define_METADATA_GETALL_INTERNAL_RECORD():
+    METADATA_GETALL_INTERNAL_RECORD = win32more.System.Iis.METADATA_GETALL_INTERNAL_RECORD_head
+    class METADATA_GETALL_INTERNAL_RECORD__Anonymous_e__Union(Union):
+        pass
+    METADATA_GETALL_INTERNAL_RECORD__Anonymous_e__Union._fields_ = [
+        ('dwMDDataOffset', UIntPtr),
+        ('pbMDData', c_char_p_no),
     ]
-    return HTTP_TRACE_CONFIGURATION
-def _define_PFN_WEB_CORE_SET_METADATA_DLL_ENTRY():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)
+    METADATA_GETALL_INTERNAL_RECORD._anonymous_ = [
+        'Anonymous',
+    ]
+    METADATA_GETALL_INTERNAL_RECORD._fields_ = [
+        ('dwMDIdentifier', UInt32),
+        ('dwMDAttributes', UInt32),
+        ('dwMDUserType', UInt32),
+        ('dwMDDataType', UInt32),
+        ('dwMDDataLen', UInt32),
+        ('Anonymous', METADATA_GETALL_INTERNAL_RECORD__Anonymous_e__Union),
+        ('dwMDDataTag', UInt32),
+    ]
+    return METADATA_GETALL_INTERNAL_RECORD
+def _define_METADATA_GETALL_RECORD_head():
+    class METADATA_GETALL_RECORD(Structure):
+        pass
+    return METADATA_GETALL_RECORD
+def _define_METADATA_GETALL_RECORD():
+    METADATA_GETALL_RECORD = win32more.System.Iis.METADATA_GETALL_RECORD_head
+    METADATA_GETALL_RECORD._fields_ = [
+        ('dwMDIdentifier', UInt32),
+        ('dwMDAttributes', UInt32),
+        ('dwMDUserType', UInt32),
+        ('dwMDDataType', UInt32),
+        ('dwMDDataLen', UInt32),
+        ('dwMDDataOffset', UInt32),
+        ('dwMDDataTag', UInt32),
+    ]
+    return METADATA_GETALL_RECORD
+def _define_METADATA_HANDLE_INFO_head():
+    class METADATA_HANDLE_INFO(Structure):
+        pass
+    return METADATA_HANDLE_INFO
+def _define_METADATA_HANDLE_INFO():
+    METADATA_HANDLE_INFO = win32more.System.Iis.METADATA_HANDLE_INFO_head
+    METADATA_HANDLE_INFO._fields_ = [
+        ('dwMDPermissions', UInt32),
+        ('dwMDSystemChangeNumber', UInt32),
+    ]
+    return METADATA_HANDLE_INFO
+def _define_METADATA_RECORD_head():
+    class METADATA_RECORD(Structure):
+        pass
+    return METADATA_RECORD
+def _define_METADATA_RECORD():
+    METADATA_RECORD = win32more.System.Iis.METADATA_RECORD_head
+    METADATA_RECORD._fields_ = [
+        ('dwMDIdentifier', UInt32),
+        ('dwMDAttributes', UInt32),
+        ('dwMDUserType', UInt32),
+        ('dwMDDataType', UInt32),
+        ('dwMDDataLen', UInt32),
+        ('pbMDData', c_char_p_no),
+        ('dwMDDataTag', UInt32),
+    ]
+    return METADATA_RECORD
+METADATATYPES = Int32
+ALL_METADATA = 0
+DWORD_METADATA = 1
+STRING_METADATA = 2
+BINARY_METADATA = 3
+EXPANDSZ_METADATA = 4
+MULTISZ_METADATA = 5
+INVALID_END_METADATA = 6
+def _define_PFN_GETEXTENSIONVERSION():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Iis.HSE_VERSION_INFO_head))
+def _define_PFN_HSE_CACHE_INVALIDATION_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)
+def _define_PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(c_void_p))
+def _define_PFN_HSE_IO_COMPLETION():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head),c_void_p,UInt32,UInt32)
+def _define_PFN_HTTPEXTENSIONPROC():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head))
+def _define_PFN_TERMINATEEXTENSION():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)
 def _define_PFN_WEB_CORE_ACTIVATE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
+def _define_PFN_WEB_CORE_SET_METADATA_DLL_ENTRY():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
 def _define_PFN_WEB_CORE_SHUTDOWN():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)
-def _define_GetExtensionVersion():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Iis.HSE_VERSION_INFO_head), use_last_error=False)(("GetExtensionVersion", windll["RpcProxy"]), ((1, 'pVer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpExtensionProc():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Iis.EXTENSION_CONTROL_BLOCK_head), use_last_error=False)(("HttpExtensionProc", windll["RpcProxy"]), ((1, 'pECB'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpFilterProc():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Iis.HTTP_FILTER_CONTEXT_head),UInt32,c_void_p, use_last_error=False)(("HttpFilterProc", windll["RpcProxy"]), ((1, 'pfc'),(1, 'NotificationType'),(1, 'pvNotification'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFilterVersion():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Iis.HTTP_FILTER_VERSION_head), use_last_error=False)(("GetFilterVersion", windll["RpcProxy"]), ((1, 'pVer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)
+def _define_POST_PROCESS_PARAMETERS_head():
+    class POST_PROCESS_PARAMETERS(Structure):
+        pass
+    return POST_PROCESS_PARAMETERS
+def _define_POST_PROCESS_PARAMETERS():
+    POST_PROCESS_PARAMETERS = win32more.System.Iis.POST_PROCESS_PARAMETERS_head
+    POST_PROCESS_PARAMETERS._fields_ = [
+        ('pszSessionId', win32more.Foundation.PWSTR),
+        ('pszSiteName', win32more.Foundation.PWSTR),
+        ('pszUserName', win32more.Foundation.PWSTR),
+        ('pszHostName', win32more.Foundation.PWSTR),
+        ('pszRemoteIpAddress', win32more.Foundation.PWSTR),
+        ('dwRemoteIpPort', UInt32),
+        ('pszLocalIpAddress', win32more.Foundation.PWSTR),
+        ('dwLocalIpPort', UInt32),
+        ('BytesSent', UInt64),
+        ('BytesReceived', UInt64),
+        ('pszCommand', win32more.Foundation.PWSTR),
+        ('pszCommandParameters', win32more.Foundation.PWSTR),
+        ('pszFullPath', win32more.Foundation.PWSTR),
+        ('pszPhysicalPath', win32more.Foundation.PWSTR),
+        ('FtpStatus', UInt32),
+        ('FtpSubStatus', UInt32),
+        ('hrStatus', win32more.Foundation.HRESULT),
+        ('SessionStartTime', win32more.Foundation.FILETIME),
+        ('BytesSentPerSession', UInt64),
+        ('BytesReceivedPerSession', UInt64),
+    ]
+    return POST_PROCESS_PARAMETERS
+def _define_PRE_PROCESS_PARAMETERS_head():
+    class PRE_PROCESS_PARAMETERS(Structure):
+        pass
+    return PRE_PROCESS_PARAMETERS
+def _define_PRE_PROCESS_PARAMETERS():
+    PRE_PROCESS_PARAMETERS = win32more.System.Iis.PRE_PROCESS_PARAMETERS_head
+    PRE_PROCESS_PARAMETERS._fields_ = [
+        ('pszSessionId', win32more.Foundation.PWSTR),
+        ('pszSiteName', win32more.Foundation.PWSTR),
+        ('pszUserName', win32more.Foundation.PWSTR),
+        ('pszHostName', win32more.Foundation.PWSTR),
+        ('pszRemoteIpAddress', win32more.Foundation.PWSTR),
+        ('dwRemoteIpPort', UInt32),
+        ('pszLocalIpAddress', win32more.Foundation.PWSTR),
+        ('dwLocalIpPort', UInt32),
+        ('pszCommand', win32more.Foundation.PWSTR),
+        ('pszCommandParameters', win32more.Foundation.PWSTR),
+        ('SessionStartTime', win32more.Foundation.FILETIME),
+        ('BytesSentPerSession', UInt64),
+        ('BytesReceivedPerSession', UInt64),
+    ]
+    return PRE_PROCESS_PARAMETERS
+SF_PROPERTY_IIS = Int32
+SF_PROPERTY_SSL_CTXT = 0
+SF_PROPERTY_INSTANCE_NUM_ID = 1
+SF_REQ_TYPE = Int32
+SF_REQ_SEND_RESPONSE_HEADER = 0
+SF_REQ_ADD_HEADERS_ON_DENIAL = 1
+SF_REQ_SET_NEXT_READ_SIZE = 2
+SF_REQ_SET_PROXY_INFO = 3
+SF_REQ_GET_CONNID = 4
+SF_REQ_SET_CERTIFICATE_INFO = 5
+SF_REQ_GET_PROPERTY = 6
+SF_REQ_NORMALIZE_URL = 7
+SF_REQ_DISABLE_NOTIFICATIONS = 8
+SF_STATUS_TYPE = Int32
+SF_STATUS_REQ_FINISHED = 134217728
+SF_STATUS_REQ_FINISHED_KEEP_CONN = 134217729
+SF_STATUS_REQ_NEXT_NOTIFICATION = 134217730
+SF_STATUS_REQ_HANDLED_NOTIFICATION = 134217731
+SF_STATUS_REQ_ERROR = 134217732
+SF_STATUS_REQ_READ_NEXT = 134217733
 __all__ = [
     "ADMINDATA_MAX_NAME_LEN",
+    "ALL_METADATA",
+    "APPCTR_MD_ID_BEGIN_RESERVED",
+    "APPCTR_MD_ID_END_RESERVED",
+    "APPSTATUS_NOTDEFINED",
+    "APPSTATUS_RUNNING",
+    "APPSTATUS_STOPPED",
+    "ASP_MD_ID_BEGIN_RESERVED",
+    "ASP_MD_ID_END_RESERVED",
+    "ASP_MD_SERVER_BASE",
+    "ASP_MD_UT_APP",
+    "AsyncIFtpAuthenticationProvider",
+    "AsyncIFtpAuthorizationProvider",
+    "AsyncIFtpHomeDirectoryProvider",
+    "AsyncIFtpLogProvider",
+    "AsyncIFtpPostprocessProvider",
+    "AsyncIFtpPreprocessProvider",
+    "AsyncIFtpRoleProvider",
+    "AsyncIMSAdminBaseSinkW",
+    "BINARY_METADATA",
+    "CERT_CONTEXT_EX",
+    "CLSID_IImgCtx",
+    "CLSID_IisServiceControl",
     "CLSID_MSAdminBase_W",
-    "IMGCHG_SIZE",
-    "IMGCHG_VIEW",
-    "IMGCHG_COMPLETE",
-    "IMGCHG_ANIMATE",
-    "IMGCHG_MASK",
-    "IMGLOAD_NOTLOADED",
-    "IMGLOAD_LOADING",
-    "IMGLOAD_STOPPED",
-    "IMGLOAD_ERROR",
-    "IMGLOAD_COMPLETE",
-    "IMGLOAD_MASK",
-    "IMGBITS_NONE",
-    "IMGBITS_PARTIAL",
-    "IMGBITS_TOTAL",
-    "IMGBITS_MASK",
-    "IMGANIM_ANIMATED",
-    "IMGANIM_MASK",
-    "IMGTRANS_OPAQUE",
-    "IMGTRANS_MASK",
+    "CLSID_Request",
+    "CLSID_Response",
+    "CLSID_ScriptingContext",
+    "CLSID_Server",
+    "CLSID_Session",
+    "CLSID_WamAdmin",
+    "CONFIGURATION_ENTRY",
+    "DISPID_HTTPREQUEST_ABORT",
+    "DISPID_HTTPREQUEST_BASE",
+    "DISPID_HTTPREQUEST_GETALLRESPONSEHEADERS",
+    "DISPID_HTTPREQUEST_GETRESPONSEHEADER",
+    "DISPID_HTTPREQUEST_OPEN",
+    "DISPID_HTTPREQUEST_OPTION",
+    "DISPID_HTTPREQUEST_RESPONSEBODY",
+    "DISPID_HTTPREQUEST_RESPONSESTREAM",
+    "DISPID_HTTPREQUEST_RESPONSETEXT",
+    "DISPID_HTTPREQUEST_SEND",
+    "DISPID_HTTPREQUEST_SETAUTOLOGONPOLICY",
+    "DISPID_HTTPREQUEST_SETCLIENTCERTIFICATE",
+    "DISPID_HTTPREQUEST_SETCREDENTIALS",
+    "DISPID_HTTPREQUEST_SETPROXY",
+    "DISPID_HTTPREQUEST_SETREQUESTHEADER",
+    "DISPID_HTTPREQUEST_SETTIMEOUTS",
+    "DISPID_HTTPREQUEST_STATUS",
+    "DISPID_HTTPREQUEST_STATUSTEXT",
+    "DISPID_HTTPREQUEST_WAITFORRESPONSE",
     "DWN_COLORMODE",
     "DWN_DOWNLOADONLY",
     "DWN_FORCEDITHER",
-    "DWN_RAWIMAGE",
     "DWN_MIRRORIMAGE",
-    "CLSID_IImgCtx",
-    "IIS_MD_ADSI_METAID_BEGIN",
-    "IIS_MD_UT_SERVER",
-    "IIS_MD_UT_FILE",
-    "IIS_MD_UT_WAM",
-    "ASP_MD_UT_APP",
-    "IIS_MD_UT_END_RESERVED",
-    "IIS_MD_ID_BEGIN_RESERVED",
-    "IIS_MD_ID_END_RESERVED",
-    "ASP_MD_ID_BEGIN_RESERVED",
-    "ASP_MD_ID_END_RESERVED",
-    "WAM_MD_ID_BEGIN_RESERVED",
-    "WAM_MD_ID_END_RESERVED",
+    "DWN_RAWIMAGE",
+    "DWORD_METADATA",
+    "EXPANDSZ_METADATA",
+    "EXTENSION_CONTROL_BLOCK",
     "FP_MD_ID_BEGIN_RESERVED",
     "FP_MD_ID_END_RESERVED",
-    "SMTP_MD_ID_BEGIN_RESERVED",
-    "SMTP_MD_ID_END_RESERVED",
-    "POP3_MD_ID_BEGIN_RESERVED",
-    "POP3_MD_ID_END_RESERVED",
-    "NNTP_MD_ID_BEGIN_RESERVED",
-    "NNTP_MD_ID_END_RESERVED",
-    "IMAP_MD_ID_BEGIN_RESERVED",
-    "IMAP_MD_ID_END_RESERVED",
-    "MSCS_MD_ID_BEGIN_RESERVED",
-    "MSCS_MD_ID_END_RESERVED",
-    "APPCTR_MD_ID_BEGIN_RESERVED",
-    "APPCTR_MD_ID_END_RESERVED",
-    "USER_MD_ID_BASE_RESERVED",
-    "IIS_MD_SERVER_BASE",
-    "MD_MAX_BANDWIDTH",
-    "MD_KEY_TYPE",
-    "MD_MAX_BANDWIDTH_BLOCKED",
-    "MD_SCHEMA_METAID",
-    "MD_SERVER_COMMAND",
-    "MD_CONNECTION_TIMEOUT",
-    "MD_MAX_CONNECTIONS",
-    "MD_SERVER_COMMENT",
-    "MD_SERVER_STATE",
-    "MD_SERVER_AUTOSTART",
-    "MD_SERVER_SIZE",
-    "MD_SERVER_LISTEN_BACKLOG",
-    "MD_SERVER_LISTEN_TIMEOUT",
-    "MD_DOWNLEVEL_ADMIN_INSTANCE",
-    "MD_LEVELS_TO_SCAN",
-    "MD_SERVER_BINDINGS",
-    "MD_MAX_ENDPOINT_CONNECTIONS",
-    "MD_SERVER_CONFIGURATION_INFO",
-    "MD_IISADMIN_EXTENSIONS",
-    "MD_DISABLE_SOCKET_POOLING",
-    "MD_METADATA_ID_REGISTRATION",
-    "IIS_MD_HTTP_BASE",
-    "MD_SECURE_BINDINGS",
-    "MD_BINDINGS",
-    "MD_ENABLEDPROTOCOLS",
-    "MD_FILTER_LOAD_ORDER",
-    "MD_FILTER_IMAGE_PATH",
-    "MD_FILTER_STATE",
-    "MD_FILTER_ENABLED",
-    "MD_FILTER_FLAGS",
-    "MD_FILTER_DESCRIPTION",
-    "MD_FILTER_ENABLE_CACHE",
-    "MD_ADV_NOTIFY_PWD_EXP_IN_DAYS",
-    "MD_ADV_CACHE_TTL",
-    "MD_NET_LOGON_WKS",
-    "MD_USE_HOST_NAME",
-    "MD_AUTH_CHANGE_FLAGS",
-    "MD_PROCESS_NTCR_IF_LOGGED_ON",
-    "MD_FRONTPAGE_WEB",
-    "MD_IN_PROCESS_ISAPI_APPS",
-    "MD_AUTH_CHANGE_URL",
-    "MD_AUTH_EXPIRED_URL",
-    "MD_AUTH_EXPIRED_UNSECUREURL",
-    "MD_ALLOW_PATH_INFO_FOR_SCRIPT_MAPPINGS",
-    "MD_APP_FRIENDLY_NAME",
-    "MD_APP_ROOT",
-    "MD_APP_ISOLATED",
-    "MD_APP_WAM_CLSID",
-    "MD_APP_PACKAGE_ID",
-    "MD_APP_PACKAGE_NAME",
-    "MD_APP_OOP_RECOVER_LIMIT",
-    "MD_APP_PERIODIC_RESTART_TIME",
-    "MD_APP_PERIODIC_RESTART_REQUESTS",
-    "MD_APP_PERIODIC_RESTART_SCHEDULE",
-    "MD_APP_SHUTDOWN_TIME_LIMIT",
-    "MD_ADMIN_INSTANCE",
-    "MD_NOT_DELETABLE",
-    "MD_APP_TRACE_URL_LIST",
-    "MD_CENTRAL_W3C_LOGGING_ENABLED",
-    "MD_CUSTOM_ERROR_DESC",
-    "MD_CAL_VC_PER_CONNECT",
-    "MD_CAL_AUTH_RESERVE_TIMEOUT",
-    "MD_CAL_SSL_RESERVE_TIMEOUT",
-    "MD_CAL_W3_ERROR",
-    "MD_CPU_CGI_ENABLED",
-    "MD_CPU_APP_ENABLED",
-    "MD_CPU_LIMITS_ENABLED",
-    "MD_CPU_RESET_INTERVAL",
-    "MD_CPU_LOGGING_INTERVAL",
-    "MD_CPU_LOGGING_OPTIONS",
-    "MD_CPU_CGI_LIMIT",
-    "MD_CPU_LIMIT_LOGEVENT",
-    "MD_CPU_LIMIT_PRIORITY",
-    "MD_CPU_LIMIT_PROCSTOP",
-    "MD_CPU_LIMIT_PAUSE",
-    "MD_SET_HOST_NAME",
-    "MD_CPU_DISABLE_ALL_LOGGING",
-    "MD_CPU_ENABLE_ALL_PROC_LOGGING",
-    "MD_CPU_ENABLE_CGI_LOGGING",
-    "MD_CPU_ENABLE_APP_LOGGING",
-    "MD_CPU_ENABLE_EVENT",
-    "MD_CPU_ENABLE_PROC_TYPE",
-    "MD_CPU_ENABLE_USER_TIME",
-    "MD_CPU_ENABLE_KERNEL_TIME",
-    "MD_CPU_ENABLE_PAGE_FAULTS",
-    "MD_CPU_ENABLE_TOTAL_PROCS",
-    "MD_CPU_ENABLE_ACTIVE_PROCS",
-    "MD_CPU_ENABLE_TERMINATED_PROCS",
-    "MD_CPU_ENABLE_LOGGING",
-    "MD_ISAPI_RESTRICTION_LIST",
-    "MD_CGI_RESTRICTION_LIST",
-    "MD_RESTRICTION_LIST_CUSTOM_DESC",
-    "MD_SECURITY_SETUP_REQUIRED",
-    "MD_APP_DEPENDENCIES",
-    "MD_WEB_SVC_EXT_RESTRICTION_LIST",
-    "MD_MD_SERVER_SS_AUTH_MAPPING",
-    "MD_CERT_NO_REVOC_CHECK",
-    "MD_CERT_CACHE_RETRIEVAL_ONLY",
-    "MD_CERT_CHECK_REVOCATION_FRESHNESS_TIME",
-    "MD_CERT_NO_USAGE_CHECK",
-    "MD_HC_COMPRESSION_DIRECTORY",
-    "MD_HC_CACHE_CONTROL_HEADER",
-    "MD_HC_EXPIRES_HEADER",
-    "MD_HC_DO_DYNAMIC_COMPRESSION",
-    "MD_HC_DO_STATIC_COMPRESSION",
-    "MD_HC_DO_ON_DEMAND_COMPRESSION",
-    "MD_HC_DO_DISK_SPACE_LIMITING",
-    "MD_HC_NO_COMPRESSION_FOR_HTTP_10",
-    "MD_HC_NO_COMPRESSION_FOR_PROXIES",
-    "MD_HC_NO_COMPRESSION_FOR_RANGE",
-    "MD_HC_SEND_CACHE_HEADERS",
-    "MD_HC_MAX_DISK_SPACE_USAGE",
-    "MD_HC_IO_BUFFER_SIZE",
-    "MD_HC_COMPRESSION_BUFFER_SIZE",
-    "MD_HC_MAX_QUEUE_LENGTH",
-    "MD_HC_FILES_DELETED_PER_DISK_FREE",
-    "MD_HC_MIN_FILE_SIZE_FOR_COMP",
-    "MD_HC_COMPRESSION_DLL",
-    "MD_HC_FILE_EXTENSIONS",
-    "MD_HC_MIME_TYPE",
-    "MD_HC_PRIORITY",
-    "MD_HC_DYNAMIC_COMPRESSION_LEVEL",
-    "MD_HC_ON_DEMAND_COMP_LEVEL",
-    "MD_HC_CREATE_FLAGS",
-    "MD_HC_SCRIPT_FILE_EXTENSIONS",
-    "MD_HC_DO_NAMESPACE_DYNAMIC_COMPRESSION",
-    "MD_HC_DO_NAMESPACE_STATIC_COMPRESSION",
-    "MD_WIN32_ERROR",
-    "IIS_MD_VR_BASE",
-    "MD_VR_PATH",
-    "MD_VR_USERNAME",
-    "MD_VR_PASSWORD",
-    "MD_VR_PASSTHROUGH",
-    "MD_VR_NO_CACHE",
-    "MD_VR_IGNORE_TRANSLATE",
-    "IIS_MD_LOG_BASE",
-    "MD_LOG_TYPE",
-    "MD_LOGFILE_DIRECTORY",
-    "MD_LOG_UNUSED1",
-    "MD_LOGFILE_PERIOD",
-    "MD_LOGFILE_TRUNCATE_SIZE",
-    "MD_LOG_PLUGIN_MOD_ID",
-    "MD_LOG_PLUGIN_UI_ID",
-    "MD_LOGSQL_DATA_SOURCES",
-    "MD_LOGSQL_TABLE_NAME",
-    "MD_LOGSQL_USER_NAME",
-    "MD_LOGSQL_PASSWORD",
-    "MD_LOG_PLUGIN_ORDER",
-    "MD_LOG_PLUGINS_AVAILABLE",
-    "MD_LOGEXT_FIELD_MASK",
-    "MD_LOGEXT_FIELD_MASK2",
-    "MD_LOGFILE_LOCALTIME_ROLLOVER",
-    "IIS_MD_LOG_LAST",
-    "MD_GLOBAL_BINARY_LOGGING_ENABLED",
-    "MD_LOG_TYPE_DISABLED",
-    "MD_LOG_TYPE_ENABLED",
-    "MD_LOGFILE_PERIOD_NONE",
-    "MD_LOGFILE_PERIOD_MAXSIZE",
-    "MD_LOGFILE_PERIOD_DAILY",
-    "MD_LOGFILE_PERIOD_WEEKLY",
-    "MD_LOGFILE_PERIOD_MONTHLY",
-    "MD_LOGFILE_PERIOD_HOURLY",
-    "MD_EXTLOG_DATE",
-    "MD_EXTLOG_TIME",
-    "MD_EXTLOG_CLIENT_IP",
-    "MD_EXTLOG_USERNAME",
-    "MD_EXTLOG_SITE_NAME",
-    "MD_EXTLOG_COMPUTER_NAME",
-    "MD_EXTLOG_SERVER_IP",
-    "MD_EXTLOG_METHOD",
-    "MD_EXTLOG_URI_STEM",
-    "MD_EXTLOG_URI_QUERY",
-    "MD_EXTLOG_HTTP_STATUS",
-    "MD_EXTLOG_WIN32_STATUS",
-    "MD_EXTLOG_BYTES_SENT",
-    "MD_EXTLOG_BYTES_RECV",
-    "MD_EXTLOG_TIME_TAKEN",
-    "MD_EXTLOG_SERVER_PORT",
-    "MD_EXTLOG_USER_AGENT",
-    "MD_EXTLOG_COOKIE",
-    "MD_EXTLOG_REFERER",
-    "MD_EXTLOG_PROTOCOL_VERSION",
-    "MD_EXTLOG_HOST",
-    "MD_EXTLOG_HTTP_SUB_STATUS",
-    "IIS_MD_LOGCUSTOM_BASE",
-    "MD_LOGCUSTOM_PROPERTY_NAME",
-    "MD_LOGCUSTOM_PROPERTY_HEADER",
-    "MD_LOGCUSTOM_PROPERTY_ID",
-    "MD_LOGCUSTOM_PROPERTY_MASK",
-    "MD_LOGCUSTOM_PROPERTY_DATATYPE",
-    "MD_LOGCUSTOM_SERVICES_STRING",
-    "MD_CPU_LOGGING_MASK",
-    "MD_LOGCUSTOM_PROPERTY_NODE_ID",
-    "IIS_MD_LOGCUSTOM_LAST",
-    "MD_LOGCUSTOM_DATATYPE_INT",
-    "MD_LOGCUSTOM_DATATYPE_UINT",
-    "MD_LOGCUSTOM_DATATYPE_LONG",
-    "MD_LOGCUSTOM_DATATYPE_ULONG",
-    "MD_LOGCUSTOM_DATATYPE_FLOAT",
-    "MD_LOGCUSTOM_DATATYPE_DOUBLE",
-    "MD_LOGCUSTOM_DATATYPE_LPSTR",
-    "MD_LOGCUSTOM_DATATYPE_LPWSTR",
-    "MD_NOTIFY_SECURE_PORT",
-    "MD_NOTIFY_NONSECURE_PORT",
-    "MD_NOTIFY_READ_RAW_DATA",
-    "MD_NOTIFY_PREPROC_HEADERS",
-    "MD_NOTIFY_AUTHENTICATION",
-    "MD_NOTIFY_URL_MAP",
-    "MD_NOTIFY_ACCESS_DENIED",
-    "MD_NOTIFY_SEND_RESPONSE",
-    "MD_NOTIFY_SEND_RAW_DATA",
-    "MD_NOTIFY_LOG",
-    "MD_NOTIFY_END_OF_REQUEST",
-    "MD_NOTIFY_END_OF_NET_SESSION",
-    "MD_NOTIFY_AUTH_COMPLETE",
-    "MD_NOTIFY_ORDER_HIGH",
-    "MD_NOTIFY_ORDER_MEDIUM",
-    "MD_NOTIFY_ORDER_LOW",
-    "MD_NOTIFY_ORDER_DEFAULT",
-    "IIS_MD_FTP_BASE",
-    "MD_EXIT_MESSAGE",
-    "MD_GREETING_MESSAGE",
-    "MD_MAX_CLIENTS_MESSAGE",
-    "MD_MSDOS_DIR_OUTPUT",
-    "MD_ALLOW_ANONYMOUS",
-    "MD_ANONYMOUS_ONLY",
-    "MD_LOG_ANONYMOUS",
-    "MD_LOG_NONANONYMOUS",
-    "MD_ALLOW_REPLACE_ON_RENAME",
-    "MD_SHOW_4_DIGIT_YEAR",
-    "MD_BANNER_MESSAGE",
-    "MD_USER_ISOLATION",
-    "MD_FTP_LOG_IN_UTF_8",
-    "MD_AD_CONNECTIONS_USERNAME",
-    "MD_AD_CONNECTIONS_PASSWORD",
-    "MD_PASSIVE_PORT_RANGE",
-    "MD_SUPPRESS_DEFAULT_BANNER",
-    "MD_FTP_PASV_RESPONSE_IP",
-    "MD_FTP_KEEP_PARTIAL_UPLOADS",
-    "MD_FTP_UTF8_FILE_NAMES",
-    "MD_FTPS_SECURE_CONTROL_CHANNEL",
-    "MD_FTPS_SECURE_DATA_CHANNEL",
-    "MD_FTPS_SECURE_ANONYMOUS",
-    "MD_FTPS_128_BITS",
-    "MD_FTPS_ALLOW_CCC",
-    "IIS_MD_SSL_BASE",
-    "MD_SSL_PUBLIC_KEY",
-    "MD_SSL_PRIVATE_KEY",
-    "MD_SSL_KEY_PASSWORD",
-    "MD_SSL_KEY_REQUEST",
-    "MD_SSL_USE_DS_MAPPER",
-    "MD_SSL_ALWAYS_NEGO_CLIENT_CERT",
-    "IIS_MD_FILE_PROP_BASE",
-    "MD_AUTHORIZATION",
-    "MD_REALM",
-    "MD_HTTP_EXPIRES",
-    "MD_HTTP_PICS",
-    "MD_HTTP_CUSTOM",
-    "MD_DIRECTORY_BROWSING",
-    "MD_DEFAULT_LOAD_FILE",
-    "MD_CUSTOM_ERROR",
-    "MD_FOOTER_DOCUMENT",
-    "MD_FOOTER_ENABLED",
-    "MD_HTTP_REDIRECT",
-    "MD_DEFAULT_LOGON_DOMAIN",
-    "MD_LOGON_METHOD",
-    "MD_SCRIPT_MAPS",
-    "MD_MIME_MAP",
-    "MD_ACCESS_PERM",
-    "MD_IP_SEC",
-    "MD_ANONYMOUS_USER_NAME",
-    "MD_ANONYMOUS_PWD",
-    "MD_ANONYMOUS_USE_SUBAUTH",
-    "MD_DONT_LOG",
-    "MD_ADMIN_ACL",
-    "MD_SSI_EXEC_DISABLED",
-    "MD_DO_REVERSE_DNS",
-    "MD_SSL_ACCESS_PERM",
-    "MD_AUTHORIZATION_PERSISTENCE",
-    "MD_NTAUTHENTICATION_PROVIDERS",
-    "MD_SCRIPT_TIMEOUT",
-    "MD_CACHE_EXTENSIONS",
-    "MD_CREATE_PROCESS_AS_USER",
-    "MD_CREATE_PROC_NEW_CONSOLE",
-    "MD_POOL_IDC_TIMEOUT",
-    "MD_ALLOW_KEEPALIVES",
-    "MD_IS_CONTENT_INDEXED",
-    "MD_CC_NO_CACHE",
-    "MD_CC_MAX_AGE",
-    "MD_CC_OTHER",
-    "MD_REDIRECT_HEADERS",
-    "MD_UPLOAD_READAHEAD_SIZE",
-    "MD_PUT_READ_SIZE",
-    "MD_USE_DIGEST_SSP",
-    "MD_ENABLE_URL_AUTHORIZATION",
-    "MD_URL_AUTHORIZATION_STORE_NAME",
-    "MD_URL_AUTHORIZATION_SCOPE_NAME",
-    "MD_MAX_REQUEST_ENTITY_ALLOWED",
-    "MD_PASSPORT_REQUIRE_AD_MAPPING",
-    "MD_URL_AUTHORIZATION_IMPERSONATION_LEVEL",
-    "MD_HTTP_FORWARDER_CUSTOM",
-    "MD_CUSTOM_DEPLOYMENT_DATA",
-    "MD_HTTPERRORS_EXISTING_RESPONSE",
-    "ASP_MD_SERVER_BASE",
-    "MD_ASP_BUFFERINGON",
-    "MD_ASP_LOGERRORREQUESTS",
-    "MD_ASP_SCRIPTERRORSSENTTOBROWSER",
-    "MD_ASP_SCRIPTERRORMESSAGE",
-    "MD_ASP_SCRIPTFILECACHESIZE",
-    "MD_ASP_SCRIPTENGINECACHEMAX",
-    "MD_ASP_SCRIPTTIMEOUT",
-    "MD_ASP_SESSIONTIMEOUT",
-    "MD_ASP_ENABLEPARENTPATHS",
-    "MD_ASP_MEMFREEFACTOR",
-    "MD_ASP_MINUSEDBLOCKS",
-    "MD_ASP_ALLOWSESSIONSTATE",
-    "MD_ASP_SCRIPTLANGUAGE",
-    "MD_ASP_QUEUETIMEOUT",
-    "MD_ASP_ALLOWOUTOFPROCCOMPONENTS",
-    "MD_ASP_ALLOWOUTOFPROCCMPNTS",
-    "MD_ASP_EXCEPTIONCATCHENABLE",
-    "MD_ASP_CODEPAGE",
-    "MD_ASP_SCRIPTLANGUAGELIST",
-    "MD_ASP_ENABLESERVERDEBUG",
-    "MD_ASP_ENABLECLIENTDEBUG",
-    "MD_ASP_TRACKTHREADINGMODEL",
-    "MD_ASP_ENABLEASPHTMLFALLBACK",
-    "MD_ASP_ENABLECHUNKEDENCODING",
-    "MD_ASP_ENABLETYPELIBCACHE",
-    "MD_ASP_ERRORSTONTLOG",
-    "MD_ASP_PROCESSORTHREADMAX",
-    "MD_ASP_REQEUSTQUEUEMAX",
-    "MD_ASP_ENABLEAPPLICATIONRESTART",
-    "MD_ASP_QUEUECONNECTIONTESTTIME",
-    "MD_ASP_SESSIONMAX",
-    "MD_ASP_THREADGATEENABLED",
-    "MD_ASP_THREADGATETIMESLICE",
-    "MD_ASP_THREADGATESLEEPDELAY",
-    "MD_ASP_THREADGATESLEEPMAX",
-    "MD_ASP_THREADGATELOADLOW",
-    "MD_ASP_THREADGATELOADHIGH",
-    "MD_ASP_DISKTEMPLATECACHEDIRECTORY",
-    "MD_ASP_MAXDISKTEMPLATECACHEFILES",
-    "MD_ASP_EXECUTEINMTA",
-    "MD_ASP_LCID",
-    "MD_ASP_KEEPSESSIONIDSECURE",
-    "MD_ASP_SERVICE_FLAGS",
-    "MD_ASP_SERVICE_FLAG_TRACKER",
-    "MD_ASP_SERVICE_FLAG_FUSION",
-    "MD_ASP_SERVICE_FLAG_PARTITIONS",
-    "MD_ASP_SERVICE_PARTITION_ID",
-    "MD_ASP_SERVICE_SXS_NAME",
-    "MD_ASP_SERVICE_ENABLE_TRACKER",
-    "MD_ASP_SERVICE_ENABLE_SXS",
-    "MD_ASP_SERVICE_USE_PARTITION",
-    "MD_ASP_CALCLINENUMBER",
-    "MD_ASP_RUN_ONEND_ANON",
-    "MD_ASP_BUFFER_LIMIT",
-    "MD_ASP_MAX_REQUEST_ENTITY_ALLOWED",
-    "MD_ASP_MAXREQUESTENTITY",
-    "MD_ASP_ID_LAST",
-    "WAM_MD_SERVER_BASE",
-    "MD_WAM_USER_NAME",
-    "MD_WAM_PWD",
-    "WEBDAV_MD_SERVER_BASE",
-    "MD_WEBDAV_MAX_ATTRIBUTES_PER_ELEMENT",
-    "IIS_MD_APPPOOL_BASE",
-    "MD_APPPOOL_PERIODIC_RESTART_TIME",
-    "MD_APPPOOL_PERIODIC_RESTART_REQUEST_COUNT",
-    "MD_APPPOOL_MAX_PROCESS_COUNT",
-    "MD_APPPOOL_PINGING_ENABLED",
-    "MD_APPPOOL_IDLE_TIMEOUT",
-    "MD_APPPOOL_RAPID_FAIL_PROTECTION_ENABLED",
-    "MD_APPPOOL_SMP_AFFINITIZED",
-    "MD_APPPOOL_SMP_AFFINITIZED_PROCESSOR_MASK",
-    "MD_APPPOOL_ORPHAN_PROCESSES_FOR_DEBUGGING",
-    "MD_APPPOOL_STARTUP_TIMELIMIT",
-    "MD_APPPOOL_SHUTDOWN_TIMELIMIT",
-    "MD_APPPOOL_PING_INTERVAL",
-    "MD_APPPOOL_PING_RESPONSE_TIMELIMIT",
-    "MD_APPPOOL_DISALLOW_OVERLAPPING_ROTATION",
-    "MD_APPPOOL_UL_APPPOOL_QUEUE_LENGTH",
-    "MD_APPPOOL_DISALLOW_ROTATION_ON_CONFIG_CHANGE",
-    "MD_APPPOOL_PERIODIC_RESTART_SCHEDULE",
-    "MD_APPPOOL_IDENTITY_TYPE",
-    "MD_CPU_ACTION",
-    "MD_CPU_LIMIT",
-    "MD_APPPOOL_PERIODIC_RESTART_MEMORY",
-    "MD_APPPOOL_COMMAND",
-    "MD_APPPOOL_STATE",
-    "MD_APPPOOL_AUTO_START",
-    "MD_RAPID_FAIL_PROTECTION_INTERVAL",
-    "MD_RAPID_FAIL_PROTECTION_MAX_CRASHES",
-    "MD_APPPOOL_ORPHAN_ACTION_EXE",
-    "MD_APPPOOL_ORPHAN_ACTION_PARAMS",
-    "MB_DONT_IMPERSONATE",
-    "MD_LOAD_BALANCER_CAPABILITIES",
-    "MD_APPPOOL_AUTO_SHUTDOWN_EXE",
-    "MD_APPPOOL_AUTO_SHUTDOWN_PARAMS",
-    "MD_APP_POOL_LOG_EVENT_ON_RECYCLE",
-    "MD_APPPOOL_PERIODIC_RESTART_PRIVATE_MEMORY",
-    "MD_APPPOOL_MANAGED_RUNTIME_VERSION",
-    "MD_APPPOOL_32_BIT_APP_ON_WIN64",
-    "MD_APPPOOL_MANAGED_PIPELINE_MODE",
-    "MD_APP_POOL_LOG_EVENT_ON_PROCESSMODEL",
-    "MD_APP_POOL_PROCESSMODEL_IDLE_TIMEOUT",
-    "MD_APP_POOL_RECYCLE_TIME",
-    "MD_APP_POOL_RECYCLE_REQUESTS",
-    "MD_APP_POOL_RECYCLE_SCHEDULE",
-    "MD_APP_POOL_RECYCLE_MEMORY",
-    "MD_APP_POOL_RECYCLE_ISAPI_UNHEALTHY",
-    "MD_APP_POOL_RECYCLE_ON_DEMAND",
-    "MD_APP_POOL_RECYCLE_CONFIG_CHANGE",
-    "MD_APP_POOL_RECYCLE_PRIVATE_MEMORY",
-    "MD_CPU_NO_ACTION",
-    "MD_CPU_KILL_W3WP",
-    "MD_CPU_TRACE",
-    "MD_CPU_THROTTLE",
-    "MD_APPPOOL_COMMAND_START",
-    "MD_APPPOOL_COMMAND_STOP",
-    "MD_APPPOOL_STATE_STARTING",
-    "MD_APPPOOL_STATE_STARTED",
-    "MD_APPPOOL_STATE_STOPPING",
-    "MD_APPPOOL_STATE_STOPPED",
-    "MD_APPPOOL_IDENTITY_TYPE_LOCALSYSTEM",
-    "MD_APPPOOL_IDENTITY_TYPE_LOCALSERVICE",
-    "MD_APPPOOL_IDENTITY_TYPE_NETWORKSERVICE",
-    "MD_APPPOOL_IDENTITY_TYPE_SPECIFICUSER",
-    "MD_LOAD_BALANCER_CAPABILITIES_BASIC",
-    "MD_LOAD_BALANCER_CAPABILITIES_SOPHISTICATED",
-    "IIS_MD_APP_BASE",
-    "MD_APP_APPPOOL_ID",
-    "MD_APP_ALLOW_TRANSIENT_REGISTRATION",
-    "MD_APP_AUTO_START",
-    "MD_APPPOOL_PERIODIC_RESTART_CONNECTIONS",
-    "MD_APPPOOL_APPPOOL_ID",
-    "MD_APPPOOL_ALLOW_TRANSIENT_REGISTRATION",
-    "IIS_MD_GLOBAL_BASE",
-    "MD_MAX_GLOBAL_BANDWIDTH",
-    "MD_MAX_GLOBAL_CONNECTIONS",
-    "MD_GLOBAL_STANDARD_APP_MODE_ENABLED",
-    "MD_HEADER_WAIT_TIMEOUT",
-    "MD_MIN_FILE_BYTES_PER_SEC",
-    "MD_GLOBAL_LOG_IN_UTF_8",
-    "MD_DEMAND_START_THRESHOLD",
-    "MD_GLOBAL_SESSIONKEY",
-    "MD_ROOT_ENABLE_EDIT_WHILE_RUNNING",
-    "MD_GLOBAL_CHANGE_NUMBER",
-    "MD_ROOT_ENABLE_HISTORY",
-    "MD_ROOT_MAX_HISTORY_FILES",
-    "MD_GLOBAL_EDIT_WHILE_RUNNING_MAJOR_VERSION_NUMBER",
-    "MD_GLOBAL_EDIT_WHILE_RUNNING_MINOR_VERSION_NUMBER",
-    "MD_GLOBAL_XMLSCHEMATIMESTAMP",
-    "MD_GLOBAL_BINSCHEMATIMESTAMP",
-    "MD_COMMENTS",
-    "MD_LOCATION",
-    "MD_MAX_ERROR_FILES",
-    "MD_STOP_LISTENING",
-    "MD_AUTH_ANONYMOUS",
-    "MD_AUTH_BASIC",
-    "MD_AUTH_NT",
-    "MD_AUTH_MD5",
-    "MD_AUTH_PASSPORT",
-    "MD_AUTH_SINGLEREQUEST",
-    "MD_AUTH_SINGLEREQUESTIFPROXY",
-    "MD_AUTH_SINGLEREQUESTALWAYSIFPROXY",
-    "MD_ACCESS_READ",
-    "MD_ACCESS_WRITE",
-    "MD_ACCESS_EXECUTE",
-    "MD_ACCESS_SOURCE",
-    "MD_ACCESS_SCRIPT",
-    "MD_ACCESS_NO_REMOTE_WRITE",
-    "MD_ACCESS_NO_REMOTE_READ",
-    "MD_ACCESS_NO_REMOTE_EXECUTE",
-    "MD_ACCESS_NO_REMOTE_SCRIPT",
-    "MD_ACCESS_NO_PHYSICAL_DIR",
-    "MD_ACCESS_SSL",
-    "MD_ACCESS_NEGO_CERT",
-    "MD_ACCESS_REQUIRE_CERT",
-    "MD_ACCESS_MAP_CERT",
-    "MD_ACCESS_SSL128",
-    "MD_ACCESS_MASK",
-    "MD_DIRBROW_SHOW_DATE",
-    "MD_DIRBROW_SHOW_TIME",
-    "MD_DIRBROW_SHOW_SIZE",
-    "MD_DIRBROW_SHOW_EXTENSION",
-    "MD_DIRBROW_LONG_DATE",
-    "MD_DIRBROW_ENABLED",
-    "MD_DIRBROW_LOADDEFAULT",
-    "MD_LOGON_INTERACTIVE",
-    "MD_LOGON_BATCH",
-    "MD_LOGON_NETWORK",
-    "MD_LOGON_NETWORK_CLEARTEXT",
-    "MD_PASSPORT_NO_MAPPING",
-    "MD_PASSPORT_TRY_MAPPING",
-    "MD_PASSPORT_NEED_MAPPING",
-    "MD_NOTIFEXAUTH_NTLMSSL",
-    "MD_FILTER_STATE_LOADED",
-    "MD_FILTER_STATE_UNLOADED",
-    "MD_SERVER_STATE_STARTING",
-    "MD_SERVER_STATE_STARTED",
-    "MD_SERVER_STATE_STOPPING",
-    "MD_SERVER_STATE_STOPPED",
-    "MD_SERVER_STATE_PAUSING",
-    "MD_SERVER_STATE_PAUSED",
-    "MD_SERVER_STATE_CONTINUING",
-    "MD_SERVER_COMMAND_START",
-    "MD_SERVER_COMMAND_STOP",
-    "MD_SERVER_COMMAND_PAUSE",
-    "MD_SERVER_COMMAND_CONTINUE",
-    "MD_SERVER_SIZE_SMALL",
-    "MD_SERVER_SIZE_MEDIUM",
-    "MD_SERVER_SIZE_LARGE",
-    "MD_SERVER_CONFIG_SSL_40",
-    "MD_SERVER_CONFIG_SSL_128",
-    "MD_SERVER_CONFIG_ALLOW_ENCRYPT",
-    "MD_SERVER_CONFIG_AUTO_PW_SYNC",
-    "MD_SCRIPTMAPFLAG_SCRIPT",
-    "MD_SCRIPTMAPFLAG_CHECK_PATH_INFO",
-    "MD_SCRIPTMAPFLAG_ALLOWED_ON_READ_DIR",
-    "MD_AUTH_CHANGE_UNSECURE",
-    "MD_AUTH_CHANGE_DISABLE",
-    "MD_AUTH_ADVNOTIFY_DISABLE",
-    "MD_NETLOGON_WKS_NONE",
-    "MD_NETLOGON_WKS_IP",
-    "MD_NETLOGON_WKS_DNS",
-    "MD_ERROR_SUB400_INVALID_DESTINATION",
-    "MD_ERROR_SUB400_INVALID_DEPTH",
-    "MD_ERROR_SUB400_INVALID_IF",
-    "MD_ERROR_SUB400_INVALID_OVERWRITE",
-    "MD_ERROR_SUB400_INVALID_TRANSLATE",
-    "MD_ERROR_SUB400_INVALID_REQUEST_BODY",
-    "MD_ERROR_SUB400_INVALID_CONTENT_LENGTH",
-    "MD_ERROR_SUB400_INVALID_TIMEOUT",
-    "MD_ERROR_SUB400_INVALID_LOCK_TOKEN",
-    "MD_ERROR_SUB400_INVALID_XFF_HEADER",
-    "MD_ERROR_SUB400_INVALID_WEBSOCKET_REQUEST",
-    "MD_ERROR_SUB401_LOGON",
-    "MD_ERROR_SUB401_LOGON_CONFIG",
-    "MD_ERROR_SUB401_LOGON_ACL",
-    "MD_ERROR_SUB401_FILTER",
-    "MD_ERROR_SUB401_APPLICATION",
-    "MD_ERROR_SUB401_URLAUTH_POLICY",
-    "MD_ERROR_SUB403_EXECUTE_ACCESS_DENIED",
-    "MD_ERROR_SUB403_READ_ACCESS_DENIED",
-    "MD_ERROR_SUB403_WRITE_ACCESS_DENIED",
-    "MD_ERROR_SUB403_SSL_REQUIRED",
-    "MD_ERROR_SUB403_SSL128_REQUIRED",
-    "MD_ERROR_SUB403_ADDR_REJECT",
-    "MD_ERROR_SUB403_CERT_REQUIRED",
-    "MD_ERROR_SUB403_SITE_ACCESS_DENIED",
-    "MD_ERROR_SUB403_TOO_MANY_USERS",
-    "MD_ERROR_SUB403_INVALID_CNFG",
-    "MD_ERROR_SUB403_PWD_CHANGE",
-    "MD_ERROR_SUB403_MAPPER_DENY_ACCESS",
-    "MD_ERROR_SUB403_CERT_REVOKED",
-    "MD_ERROR_SUB403_DIR_LIST_DENIED",
-    "MD_ERROR_SUB403_CAL_EXCEEDED",
-    "MD_ERROR_SUB403_CERT_BAD",
-    "MD_ERROR_SUB403_CERT_TIME_INVALID",
-    "MD_ERROR_SUB403_APPPOOL_DENIED",
-    "MD_ERROR_SUB403_INSUFFICIENT_PRIVILEGE_FOR_CGI",
-    "MD_ERROR_SUB403_PASSPORT_LOGIN_FAILURE",
-    "MD_ERROR_SUB403_SOURCE_ACCESS_DENIED",
-    "MD_ERROR_SUB403_INFINITE_DEPTH_DENIED",
-    "MD_ERROR_SUB403_LOCK_TOKEN_REQUIRED",
-    "MD_ERROR_SUB403_VALIDATION_FAILURE",
-    "MD_ERROR_SUB404_SITE_NOT_FOUND",
-    "MD_ERROR_SUB404_DENIED_BY_POLICY",
-    "MD_ERROR_SUB404_DENIED_BY_MIMEMAP",
-    "MD_ERROR_SUB404_NO_HANDLER",
-    "MD_ERROR_SUB404_URL_SEQUENCE_DENIED",
-    "MD_ERROR_SUB404_VERB_DENIED",
-    "MD_ERROR_SUB404_FILE_EXTENSION_DENIED",
-    "MD_ERROR_SUB404_HIDDEN_SEGMENT",
-    "MD_ERROR_SUB404_FILE_ATTRIBUTE_HIDDEN",
-    "MD_ERROR_SUB404_URL_DOUBLE_ESCAPED",
-    "MD_ERROR_SUB404_URL_HAS_HIGH_BIT_CHARS",
-    "MD_ERROR_SUB404_URL_TOO_LONG",
-    "MD_ERROR_SUB404_QUERY_STRING_TOO_LONG",
-    "MD_ERROR_SUB404_STATICFILE_DAV",
-    "MD_ERROR_SUB404_PRECONDITIONED_HANDLER",
-    "MD_ERROR_SUB404_QUERY_STRING_SEQUENCE_DENIED",
-    "MD_ERROR_SUB404_DENIED_BY_FILTERING_RULE",
-    "MD_ERROR_SUB404_TOO_MANY_URL_SEGMENTS",
-    "MD_ERROR_SUB413_CONTENT_LENGTH_TOO_LARGE",
-    "MD_ERROR_SUB423_LOCK_TOKEN_SUBMITTED",
-    "MD_ERROR_SUB423_NO_CONFLICTING_LOCK",
-    "MD_ERROR_SUB500_UNC_ACCESS",
-    "MD_ERROR_SUB500_URLAUTH_NO_STORE",
-    "MD_ERROR_SUB500_URLAUTH_STORE_ERROR",
-    "MD_ERROR_SUB500_BAD_METADATA",
-    "MD_ERROR_SUB500_URLAUTH_NO_SCOPE",
-    "MD_ERROR_SUB500_HANDLERS_MODULE",
-    "MD_ERROR_SUB500_ASPNET_MODULES",
-    "MD_ERROR_SUB500_ASPNET_HANDLERS",
-    "MD_ERROR_SUB500_ASPNET_IMPERSONATION",
-    "MD_ERROR_SUB502_TIMEOUT",
-    "MD_ERROR_SUB502_PREMATURE_EXIT",
-    "MD_ERROR_SUB502_ARR_CONNECTION_ERROR",
-    "MD_ERROR_SUB502_ARR_NO_SERVER",
-    "MD_ERROR_SUB503_CPU_LIMIT",
-    "MD_ERROR_SUB503_APP_CONCURRENT",
-    "MD_ERROR_SUB503_ASPNET_QUEUE_FULL",
-    "MD_ERROR_SUB503_FASTCGI_QUEUE_FULL",
-    "MD_ERROR_SUB503_CONNECTION_LIMIT",
-    "MD_ACR_READ",
-    "MD_ACR_WRITE",
-    "MD_ACR_RESTRICTED_WRITE",
-    "MD_ACR_UNSECURE_PROPS_READ",
-    "MD_ACR_ENUM_KEYS",
-    "MD_ACR_WRITE_DAC",
-    "MD_USER_ISOLATION_NONE",
-    "MD_USER_ISOLATION_BASIC",
-    "MD_USER_ISOLATION_AD",
-    "MD_USER_ISOLATION_LAST",
-    "CLSID_IisServiceControl",
-    "LIBID_IISRSTALib",
-    "LIBID_WAMREGLib",
-    "CLSID_WamAdmin",
-    "APPSTATUS_STOPPED",
-    "APPSTATUS_RUNNING",
-    "APPSTATUS_NOTDEFINED",
-    "METADATA_MAX_NAME_LEN",
-    "METADATA_PERMISSION_READ",
-    "METADATA_PERMISSION_WRITE",
-    "METADATA_NO_ATTRIBUTES",
-    "METADATA_INHERIT",
-    "METADATA_PARTIAL_PATH",
-    "METADATA_SECURE",
-    "METADATA_REFERENCE",
-    "METADATA_VOLATILE",
-    "METADATA_ISINHERITED",
-    "METADATA_INSERT_PATH",
-    "METADATA_LOCAL_MACHINE_ONLY",
-    "METADATA_NON_SECURE_ONLY",
-    "METADATA_DONT_EXPAND",
-    "MD_BACKUP_OVERWRITE",
-    "MD_BACKUP_SAVE_FIRST",
-    "MD_BACKUP_FORCE_BACKUP",
-    "MD_BACKUP_NEXT_VERSION",
-    "MD_BACKUP_HIGHEST_VERSION",
-    "MD_BACKUP_MAX_VERSION",
-    "MD_BACKUP_MAX_LEN",
-    "MD_HISTORY_LATEST",
-    "MD_EXPORT_INHERITED",
-    "MD_EXPORT_NODE_ONLY",
-    "MD_IMPORT_INHERITED",
-    "MD_IMPORT_NODE_ONLY",
-    "MD_IMPORT_MERGE",
-    "METADATA_MASTER_ROOT_HANDLE",
-    "MD_CHANGE_TYPE_DELETE_OBJECT",
-    "MD_CHANGE_TYPE_ADD_OBJECT",
-    "MD_CHANGE_TYPE_SET_DATA",
-    "MD_CHANGE_TYPE_DELETE_DATA",
-    "MD_CHANGE_TYPE_RENAME_OBJECT",
-    "MD_CHANGE_TYPE_RESTORE",
-    "MD_MAX_CHANGE_ENTRIES",
-    "MD_ERROR_NOT_INITIALIZED",
-    "MD_ERROR_DATA_NOT_FOUND",
-    "MD_ERROR_INVALID_VERSION",
-    "MD_WARNING_PATH_NOT_FOUND",
-    "MD_WARNING_DUP_NAME",
-    "MD_WARNING_INVALID_DATA",
-    "MD_ERROR_SECURE_CHANNEL_FAILURE",
-    "MD_WARNING_PATH_NOT_INSERTED",
-    "MD_ERROR_CANNOT_REMOVE_SECURE_ATTRIBUTE",
-    "MD_WARNING_SAVE_FAILED",
-    "MD_ERROR_IISAO_INVALID_SCHEMA",
-    "MD_ERROR_READ_METABASE_FILE",
-    "MD_ERROR_NO_SESSION_KEY",
-    "LIBID_ASPTypeLibrary",
-    "CLSID_Request",
-    "CLSID_Response",
-    "CLSID_Session",
-    "CLSID_Server",
-    "CLSID_ScriptingContext",
-    "HSE_VERSION_MAJOR",
-    "HSE_VERSION_MINOR",
-    "HSE_LOG_BUFFER_LEN",
-    "HSE_MAX_EXT_DLL_NAME_LEN",
-    "HSE_STATUS_SUCCESS",
-    "HSE_STATUS_SUCCESS_AND_KEEP_CONN",
-    "HSE_STATUS_PENDING",
-    "HSE_STATUS_ERROR",
-    "HSE_REQ_BASE",
-    "HSE_REQ_SEND_URL_REDIRECT_RESP",
-    "HSE_REQ_SEND_URL",
-    "HSE_REQ_SEND_RESPONSE_HEADER",
-    "HSE_REQ_DONE_WITH_SESSION",
-    "HSE_REQ_END_RESERVED",
-    "HSE_REQ_MAP_URL_TO_PATH",
-    "HSE_REQ_GET_SSPI_INFO",
-    "HSE_APPEND_LOG_PARAMETER",
-    "HSE_REQ_IO_COMPLETION",
-    "HSE_REQ_TRANSMIT_FILE",
-    "HSE_REQ_REFRESH_ISAPI_ACL",
-    "HSE_REQ_IS_KEEP_CONN",
-    "HSE_REQ_ASYNC_READ_CLIENT",
-    "HSE_REQ_GET_IMPERSONATION_TOKEN",
-    "HSE_REQ_MAP_URL_TO_PATH_EX",
-    "HSE_REQ_ABORTIVE_CLOSE",
-    "HSE_REQ_GET_CERT_INFO_EX",
-    "HSE_REQ_SEND_RESPONSE_HEADER_EX",
-    "HSE_REQ_CLOSE_CONNECTION",
-    "HSE_REQ_IS_CONNECTED",
-    "HSE_REQ_MAP_UNICODE_URL_TO_PATH",
-    "HSE_REQ_MAP_UNICODE_URL_TO_PATH_EX",
-    "HSE_REQ_EXEC_UNICODE_URL",
-    "HSE_REQ_EXEC_URL",
-    "HSE_REQ_GET_EXEC_URL_STATUS",
-    "HSE_REQ_SEND_CUSTOM_ERROR",
-    "HSE_REQ_IS_IN_PROCESS",
-    "HSE_REQ_REPORT_UNHEALTHY",
-    "HSE_REQ_NORMALIZE_URL",
-    "HSE_REQ_VECTOR_SEND",
-    "HSE_REQ_GET_ANONYMOUS_TOKEN",
-    "HSE_REQ_GET_CACHE_INVALIDATION_CALLBACK",
-    "HSE_REQ_GET_UNICODE_ANONYMOUS_TOKEN",
-    "HSE_REQ_GET_TRACE_INFO",
-    "HSE_REQ_SET_FLUSH_FLAG",
-    "HSE_REQ_GET_TRACE_INFO_EX",
-    "HSE_REQ_RAISE_TRACE_EVENT",
-    "HSE_REQ_GET_CONFIG_OBJECT",
-    "HSE_REQ_GET_WORKER_PROCESS_SETTINGS",
-    "HSE_REQ_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK",
-    "HSE_REQ_CANCEL_IO",
-    "HSE_REQ_GET_CHANNEL_BINDING_TOKEN",
-    "HSE_TERM_ADVISORY_UNLOAD",
-    "HSE_TERM_MUST_UNLOAD",
-    "HSE_URL_FLAGS_READ",
-    "HSE_URL_FLAGS_WRITE",
-    "HSE_URL_FLAGS_EXECUTE",
-    "HSE_URL_FLAGS_SSL",
-    "HSE_URL_FLAGS_DONT_CACHE",
-    "HSE_URL_FLAGS_NEGO_CERT",
-    "HSE_URL_FLAGS_REQUIRE_CERT",
-    "HSE_URL_FLAGS_MAP_CERT",
-    "HSE_URL_FLAGS_SSL128",
-    "HSE_URL_FLAGS_SCRIPT",
-    "HSE_URL_FLAGS_MASK",
-    "HSE_EXEC_URL_NO_HEADERS",
-    "HSE_EXEC_URL_IGNORE_CURRENT_INTERCEPTOR",
-    "HSE_EXEC_URL_IGNORE_VALIDATION_AND_RANGE",
-    "HSE_EXEC_URL_DISABLE_CUSTOM_ERROR",
-    "HSE_EXEC_URL_SSI_CMD",
-    "HSE_EXEC_URL_HTTP_CACHE_ELIGIBLE",
-    "HSE_VECTOR_ELEMENT_TYPE_MEMORY_BUFFER",
-    "HSE_VECTOR_ELEMENT_TYPE_FILE_HANDLE",
-    "HSE_APP_FLAG_IN_PROCESS",
-    "HSE_APP_FLAG_ISOLATED_OOP",
-    "HSE_APP_FLAG_POOLED_OOP",
-    "SF_MAX_USERNAME",
-    "SF_MAX_PASSWORD",
-    "SF_MAX_AUTH_TYPE",
-    "SF_MAX_FILTER_DESC_LEN",
-    "SF_DENIED_LOGON",
-    "SF_DENIED_RESOURCE",
-    "SF_DENIED_FILTER",
-    "SF_DENIED_APPLICATION",
-    "SF_DENIED_BY_CONFIG",
-    "SF_NOTIFY_SECURE_PORT",
-    "SF_NOTIFY_NONSECURE_PORT",
-    "SF_NOTIFY_READ_RAW_DATA",
-    "SF_NOTIFY_PREPROC_HEADERS",
-    "SF_NOTIFY_AUTHENTICATION",
-    "SF_NOTIFY_URL_MAP",
-    "SF_NOTIFY_ACCESS_DENIED",
-    "SF_NOTIFY_SEND_RESPONSE",
-    "SF_NOTIFY_SEND_RAW_DATA",
-    "SF_NOTIFY_LOG",
-    "SF_NOTIFY_END_OF_REQUEST",
-    "SF_NOTIFY_END_OF_NET_SESSION",
-    "SF_NOTIFY_AUTH_COMPLETE",
-    "SF_NOTIFY_ORDER_HIGH",
-    "SF_NOTIFY_ORDER_MEDIUM",
-    "SF_NOTIFY_ORDER_LOW",
-    "SF_NOTIFY_ORDER_DEFAULT",
-    "DISPID_HTTPREQUEST_BASE",
-    "DISPID_HTTPREQUEST_OPEN",
-    "DISPID_HTTPREQUEST_SETREQUESTHEADER",
-    "DISPID_HTTPREQUEST_GETRESPONSEHEADER",
-    "DISPID_HTTPREQUEST_GETALLRESPONSEHEADERS",
-    "DISPID_HTTPREQUEST_SEND",
-    "DISPID_HTTPREQUEST_OPTION",
-    "DISPID_HTTPREQUEST_STATUS",
-    "DISPID_HTTPREQUEST_STATUSTEXT",
-    "DISPID_HTTPREQUEST_RESPONSETEXT",
-    "DISPID_HTTPREQUEST_RESPONSEBODY",
-    "DISPID_HTTPREQUEST_RESPONSESTREAM",
-    "DISPID_HTTPREQUEST_ABORT",
-    "DISPID_HTTPREQUEST_SETPROXY",
-    "DISPID_HTTPREQUEST_SETCREDENTIALS",
-    "DISPID_HTTPREQUEST_WAITFORRESPONSE",
-    "DISPID_HTTPREQUEST_SETTIMEOUTS",
-    "DISPID_HTTPREQUEST_SETCLIENTCERTIFICATE",
-    "DISPID_HTTPREQUEST_SETAUTOLOGONPOLICY",
-    "HTTP_TRACE_EVENT_FLAG_STATIC_DESCRIPTIVE_FIELDS",
-    "HTTP_TRACE_LEVEL_START",
-    "HTTP_TRACE_LEVEL_END",
-    "GUID_IIS_ALL_TRACE_PROVIDERS",
-    "GUID_IIS_WWW_SERVER_TRACE_PROVIDER",
-    "GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER",
-    "GUID_IIS_ASPNET_TRACE_PROVIDER",
-    "GUID_IIS_ASP_TRACE_TRACE_PROVIDER",
-    "GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER",
-    "GUID_IIS_ISAPI_TRACE_PROVIDER",
-    "FtpProvider",
-    "CONFIGURATION_ENTRY",
-    "IFtpProviderConstruct",
-    "IFtpAuthenticationProvider",
-    "AsyncIFtpAuthenticationProvider",
-    "IFtpRoleProvider",
-    "AsyncIFtpRoleProvider",
-    "IFtpHomeDirectoryProvider",
-    "AsyncIFtpHomeDirectoryProvider",
-    "LOGGING_PARAMETERS",
-    "IFtpLogProvider",
-    "AsyncIFtpLogProvider",
     "FTP_ACCESS",
     "FTP_ACCESS_NONE",
     "FTP_ACCESS_READ",
-    "FTP_ACCESS_WRITE",
     "FTP_ACCESS_READ_WRITE",
-    "IFtpAuthorizationProvider",
-    "AsyncIFtpAuthorizationProvider",
-    "FTP_PROCESS_STATUS",
-    "FTP_PROCESS_CONTINUE",
+    "FTP_ACCESS_WRITE",
     "FTP_PROCESS_CLOSE_SESSION",
-    "FTP_PROCESS_TERMINATE_SESSION",
+    "FTP_PROCESS_CONTINUE",
     "FTP_PROCESS_REJECT_COMMAND",
-    "PRE_PROCESS_PARAMETERS",
-    "IFtpPreprocessProvider",
-    "AsyncIFtpPreprocessProvider",
-    "POST_PROCESS_PARAMETERS",
-    "IFtpPostprocessProvider",
-    "AsyncIFtpPostprocessProvider",
-    "IADMEXT",
-    "METADATATYPES",
-    "ALL_METADATA",
-    "DWORD_METADATA",
-    "STRING_METADATA",
-    "BINARY_METADATA",
-    "EXPANDSZ_METADATA",
-    "MULTISZ_METADATA",
-    "INVALID_END_METADATA",
-    "METADATA_RECORD",
-    "METADATA_GETALL_RECORD",
-    "METADATA_GETALL_INTERNAL_RECORD",
-    "METADATA_HANDLE_INFO",
-    "MD_CHANGE_OBJECT_W",
-    "IMSAdminBaseW",
-    "_IIS_CRYPTO_BLOB",
-    "IMSAdminBase2W",
-    "IMSAdminBase3W",
-    "IMSImpExpHelpW",
-    "IMSAdminBaseSinkW",
-    "AsyncIMSAdminBaseSinkW",
-    "HSE_VERSION_INFO",
-    "EXTENSION_CONTROL_BLOCK",
-    "HSE_URL_MAPEX_INFO",
-    "HSE_UNICODE_URL_MAPEX_INFO",
-    "PFN_HSE_IO_COMPLETION",
-    "HSE_TF_INFO",
-    "HSE_SEND_HEADER_EX_INFO",
-    "HSE_EXEC_URL_USER_INFO",
-    "HSE_EXEC_URL_ENTITY_INFO",
-    "HSE_EXEC_URL_STATUS",
-    "HSE_EXEC_URL_INFO",
-    "HSE_EXEC_UNICODE_URL_USER_INFO",
-    "HSE_EXEC_UNICODE_URL_INFO",
+    "FTP_PROCESS_STATUS",
+    "FTP_PROCESS_TERMINATE_SESSION",
+    "FtpProvider",
+    "GUID_IIS_ALL_TRACE_PROVIDERS",
+    "GUID_IIS_ASPNET_TRACE_PROVIDER",
+    "GUID_IIS_ASP_TRACE_TRACE_PROVIDER",
+    "GUID_IIS_ISAPI_TRACE_PROVIDER",
+    "GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER",
+    "GUID_IIS_WWW_SERVER_TRACE_PROVIDER",
+    "GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER",
+    "GetExtensionVersion",
+    "GetFilterVersion",
+    "HSE_APPEND_LOG_PARAMETER",
+    "HSE_APP_FLAG_IN_PROCESS",
+    "HSE_APP_FLAG_ISOLATED_OOP",
+    "HSE_APP_FLAG_POOLED_OOP",
     "HSE_CUSTOM_ERROR_INFO",
-    "HSE_VECTOR_ELEMENT",
+    "HSE_EXEC_UNICODE_URL_INFO",
+    "HSE_EXEC_UNICODE_URL_USER_INFO",
+    "HSE_EXEC_URL_DISABLE_CUSTOM_ERROR",
+    "HSE_EXEC_URL_ENTITY_INFO",
+    "HSE_EXEC_URL_HTTP_CACHE_ELIGIBLE",
+    "HSE_EXEC_URL_IGNORE_CURRENT_INTERCEPTOR",
+    "HSE_EXEC_URL_IGNORE_VALIDATION_AND_RANGE",
+    "HSE_EXEC_URL_INFO",
+    "HSE_EXEC_URL_NO_HEADERS",
+    "HSE_EXEC_URL_SSI_CMD",
+    "HSE_EXEC_URL_STATUS",
+    "HSE_EXEC_URL_USER_INFO",
+    "HSE_IO_ASYNC",
+    "HSE_IO_CACHE_RESPONSE",
+    "HSE_IO_DISCONNECT_AFTER_SEND",
+    "HSE_IO_FINAL_SEND",
+    "HSE_IO_NODELAY",
+    "HSE_IO_SEND_HEADERS",
+    "HSE_IO_SYNC",
+    "HSE_IO_TRY_SKIP_CUSTOM_ERRORS",
+    "HSE_LOG_BUFFER_LEN",
+    "HSE_MAX_EXT_DLL_NAME_LEN",
+    "HSE_REQ_ABORTIVE_CLOSE",
+    "HSE_REQ_ASYNC_READ_CLIENT",
+    "HSE_REQ_BASE",
+    "HSE_REQ_CANCEL_IO",
+    "HSE_REQ_CLOSE_CONNECTION",
+    "HSE_REQ_DONE_WITH_SESSION",
+    "HSE_REQ_END_RESERVED",
+    "HSE_REQ_EXEC_UNICODE_URL",
+    "HSE_REQ_EXEC_URL",
+    "HSE_REQ_GET_ANONYMOUS_TOKEN",
+    "HSE_REQ_GET_CACHE_INVALIDATION_CALLBACK",
+    "HSE_REQ_GET_CERT_INFO_EX",
+    "HSE_REQ_GET_CHANNEL_BINDING_TOKEN",
+    "HSE_REQ_GET_CONFIG_OBJECT",
+    "HSE_REQ_GET_EXEC_URL_STATUS",
+    "HSE_REQ_GET_IMPERSONATION_TOKEN",
+    "HSE_REQ_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK",
+    "HSE_REQ_GET_SSPI_INFO",
+    "HSE_REQ_GET_TRACE_INFO",
+    "HSE_REQ_GET_TRACE_INFO_EX",
+    "HSE_REQ_GET_UNICODE_ANONYMOUS_TOKEN",
+    "HSE_REQ_GET_WORKER_PROCESS_SETTINGS",
+    "HSE_REQ_IO_COMPLETION",
+    "HSE_REQ_IS_CONNECTED",
+    "HSE_REQ_IS_IN_PROCESS",
+    "HSE_REQ_IS_KEEP_CONN",
+    "HSE_REQ_MAP_UNICODE_URL_TO_PATH",
+    "HSE_REQ_MAP_UNICODE_URL_TO_PATH_EX",
+    "HSE_REQ_MAP_URL_TO_PATH",
+    "HSE_REQ_MAP_URL_TO_PATH_EX",
+    "HSE_REQ_NORMALIZE_URL",
+    "HSE_REQ_RAISE_TRACE_EVENT",
+    "HSE_REQ_REFRESH_ISAPI_ACL",
+    "HSE_REQ_REPORT_UNHEALTHY",
+    "HSE_REQ_SEND_CUSTOM_ERROR",
+    "HSE_REQ_SEND_RESPONSE_HEADER",
+    "HSE_REQ_SEND_RESPONSE_HEADER_EX",
+    "HSE_REQ_SEND_URL",
+    "HSE_REQ_SEND_URL_REDIRECT_RESP",
+    "HSE_REQ_SET_FLUSH_FLAG",
+    "HSE_REQ_TRANSMIT_FILE",
+    "HSE_REQ_VECTOR_SEND",
     "HSE_RESPONSE_VECTOR",
-    "PFN_HSE_CACHE_INVALIDATION_CALLBACK",
-    "CERT_CONTEXT_EX",
+    "HSE_SEND_HEADER_EX_INFO",
+    "HSE_STATUS_ERROR",
+    "HSE_STATUS_PENDING",
+    "HSE_STATUS_SUCCESS",
+    "HSE_STATUS_SUCCESS_AND_KEEP_CONN",
+    "HSE_TERM_ADVISORY_UNLOAD",
+    "HSE_TERM_MUST_UNLOAD",
+    "HSE_TF_INFO",
     "HSE_TRACE_INFO",
-    "PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK",
-    "PFN_GETEXTENSIONVERSION",
-    "PFN_HTTPEXTENSIONPROC",
-    "PFN_TERMINATEEXTENSION",
-    "SF_REQ_TYPE",
-    "SF_REQ_SEND_RESPONSE_HEADER",
-    "SF_REQ_ADD_HEADERS_ON_DENIAL",
-    "SF_REQ_SET_NEXT_READ_SIZE",
-    "SF_REQ_SET_PROXY_INFO",
-    "SF_REQ_GET_CONNID",
-    "SF_REQ_SET_CERTIFICATE_INFO",
-    "SF_REQ_GET_PROPERTY",
-    "SF_REQ_NORMALIZE_URL",
-    "SF_REQ_DISABLE_NOTIFICATIONS",
-    "SF_PROPERTY_IIS",
-    "SF_PROPERTY_SSL_CTXT",
-    "SF_PROPERTY_INSTANCE_NUM_ID",
-    "SF_STATUS_TYPE",
-    "SF_STATUS_REQ_FINISHED",
-    "SF_STATUS_REQ_FINISHED_KEEP_CONN",
-    "SF_STATUS_REQ_NEXT_NOTIFICATION",
-    "SF_STATUS_REQ_HANDLED_NOTIFICATION",
-    "SF_STATUS_REQ_ERROR",
-    "SF_STATUS_REQ_READ_NEXT",
-    "HTTP_FILTER_CONTEXT",
-    "HTTP_FILTER_RAW_DATA",
-    "HTTP_FILTER_PREPROC_HEADERS",
+    "HSE_UNICODE_URL_MAPEX_INFO",
+    "HSE_URL_FLAGS_DONT_CACHE",
+    "HSE_URL_FLAGS_EXECUTE",
+    "HSE_URL_FLAGS_MAP_CERT",
+    "HSE_URL_FLAGS_MASK",
+    "HSE_URL_FLAGS_NEGO_CERT",
+    "HSE_URL_FLAGS_READ",
+    "HSE_URL_FLAGS_REQUIRE_CERT",
+    "HSE_URL_FLAGS_SCRIPT",
+    "HSE_URL_FLAGS_SSL",
+    "HSE_URL_FLAGS_SSL128",
+    "HSE_URL_FLAGS_WRITE",
+    "HSE_URL_MAPEX_INFO",
+    "HSE_VECTOR_ELEMENT",
+    "HSE_VECTOR_ELEMENT_TYPE_FILE_HANDLE",
+    "HSE_VECTOR_ELEMENT_TYPE_MEMORY_BUFFER",
+    "HSE_VERSION_INFO",
+    "HSE_VERSION_MAJOR",
+    "HSE_VERSION_MINOR",
+    "HTTP_FILTER_ACCESS_DENIED",
     "HTTP_FILTER_AUTHENT",
+    "HTTP_FILTER_AUTH_COMPLETE_INFO",
+    "HTTP_FILTER_CONTEXT",
+    "HTTP_FILTER_LOG",
+    "HTTP_FILTER_PREPROC_HEADERS",
+    "HTTP_FILTER_RAW_DATA",
     "HTTP_FILTER_URL_MAP",
     "HTTP_FILTER_URL_MAP_EX",
-    "HTTP_FILTER_ACCESS_DENIED",
-    "HTTP_FILTER_LOG",
-    "HTTP_FILTER_AUTH_COMPLETE_INFO",
     "HTTP_FILTER_VERSION",
+    "HTTP_TRACE_CONFIGURATION",
+    "HTTP_TRACE_EVENT",
+    "HTTP_TRACE_EVENT_FLAG_STATIC_DESCRIPTIVE_FIELDS",
+    "HTTP_TRACE_EVENT_ITEM",
+    "HTTP_TRACE_LEVEL_END",
+    "HTTP_TRACE_LEVEL_START",
     "HTTP_TRACE_TYPE",
+    "HTTP_TRACE_TYPE_BOOL",
     "HTTP_TRACE_TYPE_BYTE",
-    "HTTP_TRACE_TYPE_USHORT",
-    "HTTP_TRACE_TYPE_ULONG",
-    "HTTP_TRACE_TYPE_ULONGLONG",
     "HTTP_TRACE_TYPE_CHAR",
-    "HTTP_TRACE_TYPE_SHORT",
     "HTTP_TRACE_TYPE_LONG",
     "HTTP_TRACE_TYPE_LONGLONG",
-    "HTTP_TRACE_TYPE_LPCWSTR",
-    "HTTP_TRACE_TYPE_LPCSTR",
     "HTTP_TRACE_TYPE_LPCGUID",
-    "HTTP_TRACE_TYPE_BOOL",
-    "HTTP_TRACE_EVENT",
-    "HTTP_TRACE_EVENT_ITEM",
-    "HTTP_TRACE_CONFIGURATION",
-    "PFN_WEB_CORE_SET_METADATA_DLL_ENTRY",
-    "PFN_WEB_CORE_ACTIVATE",
-    "PFN_WEB_CORE_SHUTDOWN",
-    "GetExtensionVersion",
+    "HTTP_TRACE_TYPE_LPCSTR",
+    "HTTP_TRACE_TYPE_LPCWSTR",
+    "HTTP_TRACE_TYPE_SHORT",
+    "HTTP_TRACE_TYPE_ULONG",
+    "HTTP_TRACE_TYPE_ULONGLONG",
+    "HTTP_TRACE_TYPE_USHORT",
     "HttpExtensionProc",
     "HttpFilterProc",
-    "GetFilterVersion",
+    "IADMEXT",
+    "IFtpAuthenticationProvider",
+    "IFtpAuthorizationProvider",
+    "IFtpHomeDirectoryProvider",
+    "IFtpLogProvider",
+    "IFtpPostprocessProvider",
+    "IFtpPreprocessProvider",
+    "IFtpProviderConstruct",
+    "IFtpRoleProvider",
+    "IISADMIN_EXTENSIONS_CLSID_MD_KEY",
+    "IISADMIN_EXTENSIONS_CLSID_MD_KEYA",
+    "IISADMIN_EXTENSIONS_CLSID_MD_KEYW",
+    "IISADMIN_EXTENSIONS_REG_KEY",
+    "IISADMIN_EXTENSIONS_REG_KEYA",
+    "IISADMIN_EXTENSIONS_REG_KEYW",
+    "IIS_CLASS_CERTMAPPER",
+    "IIS_CLASS_CERTMAPPER_W",
+    "IIS_CLASS_COMPRESS_SCHEME",
+    "IIS_CLASS_COMPRESS_SCHEMES",
+    "IIS_CLASS_COMPRESS_SCHEMES_W",
+    "IIS_CLASS_COMPRESS_SCHEME_W",
+    "IIS_CLASS_COMPUTER",
+    "IIS_CLASS_COMPUTER_W",
+    "IIS_CLASS_FILTER",
+    "IIS_CLASS_FILTERS",
+    "IIS_CLASS_FILTERS_W",
+    "IIS_CLASS_FILTER_W",
+    "IIS_CLASS_FTP_INFO",
+    "IIS_CLASS_FTP_INFO_W",
+    "IIS_CLASS_FTP_SERVER",
+    "IIS_CLASS_FTP_SERVER_W",
+    "IIS_CLASS_FTP_SERVICE",
+    "IIS_CLASS_FTP_SERVICE_W",
+    "IIS_CLASS_FTP_VDIR",
+    "IIS_CLASS_FTP_VDIR_W",
+    "IIS_CLASS_LOG_MODULE",
+    "IIS_CLASS_LOG_MODULES",
+    "IIS_CLASS_LOG_MODULES_W",
+    "IIS_CLASS_LOG_MODULE_W",
+    "IIS_CLASS_MIMEMAP",
+    "IIS_CLASS_MIMEMAP_W",
+    "IIS_CLASS_WEB_DIR",
+    "IIS_CLASS_WEB_DIR_W",
+    "IIS_CLASS_WEB_FILE",
+    "IIS_CLASS_WEB_FILE_W",
+    "IIS_CLASS_WEB_INFO",
+    "IIS_CLASS_WEB_INFO_W",
+    "IIS_CLASS_WEB_SERVER",
+    "IIS_CLASS_WEB_SERVER_W",
+    "IIS_CLASS_WEB_SERVICE",
+    "IIS_CLASS_WEB_SERVICE_W",
+    "IIS_CLASS_WEB_VDIR",
+    "IIS_CLASS_WEB_VDIR_W",
+    "IIS_MD_ADSI_METAID_BEGIN",
+    "IIS_MD_ADSI_SCHEMA_PATH_A",
+    "IIS_MD_ADSI_SCHEMA_PATH_W",
+    "IIS_MD_APPPOOL_BASE",
+    "IIS_MD_APP_BASE",
+    "IIS_MD_FILE_PROP_BASE",
+    "IIS_MD_FTP_BASE",
+    "IIS_MD_GLOBAL_BASE",
+    "IIS_MD_HTTP_BASE",
+    "IIS_MD_ID_BEGIN_RESERVED",
+    "IIS_MD_ID_END_RESERVED",
+    "IIS_MD_INSTANCE_ROOT",
+    "IIS_MD_ISAPI_FILTERS",
+    "IIS_MD_LOCAL_MACHINE_PATH",
+    "IIS_MD_LOGCUSTOM_BASE",
+    "IIS_MD_LOGCUSTOM_LAST",
+    "IIS_MD_LOG_BASE",
+    "IIS_MD_LOG_LAST",
+    "IIS_MD_SERVER_BASE",
+    "IIS_MD_SSL_BASE",
+    "IIS_MD_SVC_INFO_PATH",
+    "IIS_MD_UT_END_RESERVED",
+    "IIS_MD_UT_FILE",
+    "IIS_MD_UT_SERVER",
+    "IIS_MD_UT_WAM",
+    "IIS_MD_VR_BASE",
+    "IIS_WEBSOCKET",
+    "IIS_WEBSOCKET_SERVER_VARIABLE",
+    "IMAP_MD_ID_BEGIN_RESERVED",
+    "IMAP_MD_ID_END_RESERVED",
+    "IMGANIM_ANIMATED",
+    "IMGANIM_MASK",
+    "IMGBITS_MASK",
+    "IMGBITS_NONE",
+    "IMGBITS_PARTIAL",
+    "IMGBITS_TOTAL",
+    "IMGCHG_ANIMATE",
+    "IMGCHG_COMPLETE",
+    "IMGCHG_MASK",
+    "IMGCHG_SIZE",
+    "IMGCHG_VIEW",
+    "IMGLOAD_COMPLETE",
+    "IMGLOAD_ERROR",
+    "IMGLOAD_LOADING",
+    "IMGLOAD_MASK",
+    "IMGLOAD_NOTLOADED",
+    "IMGLOAD_STOPPED",
+    "IMGTRANS_MASK",
+    "IMGTRANS_OPAQUE",
+    "IMSAdminBase2W",
+    "IMSAdminBase3W",
+    "IMSAdminBaseSinkW",
+    "IMSAdminBaseW",
+    "IMSImpExpHelpW",
+    "INVALID_END_METADATA",
+    "LIBID_ASPTypeLibrary",
+    "LIBID_IISRSTALib",
+    "LIBID_WAMREGLib",
+    "LOGGING_PARAMETERS",
+    "MB_DONT_IMPERSONATE",
+    "MD_ACCESS_EXECUTE",
+    "MD_ACCESS_MAP_CERT",
+    "MD_ACCESS_MASK",
+    "MD_ACCESS_NEGO_CERT",
+    "MD_ACCESS_NO_PHYSICAL_DIR",
+    "MD_ACCESS_NO_REMOTE_EXECUTE",
+    "MD_ACCESS_NO_REMOTE_READ",
+    "MD_ACCESS_NO_REMOTE_SCRIPT",
+    "MD_ACCESS_NO_REMOTE_WRITE",
+    "MD_ACCESS_PERM",
+    "MD_ACCESS_READ",
+    "MD_ACCESS_REQUIRE_CERT",
+    "MD_ACCESS_SCRIPT",
+    "MD_ACCESS_SOURCE",
+    "MD_ACCESS_SSL",
+    "MD_ACCESS_SSL128",
+    "MD_ACCESS_WRITE",
+    "MD_ACR_ENUM_KEYS",
+    "MD_ACR_READ",
+    "MD_ACR_RESTRICTED_WRITE",
+    "MD_ACR_UNSECURE_PROPS_READ",
+    "MD_ACR_WRITE",
+    "MD_ACR_WRITE_DAC",
+    "MD_ADMIN_ACL",
+    "MD_ADMIN_INSTANCE",
+    "MD_ADV_CACHE_TTL",
+    "MD_ADV_NOTIFY_PWD_EXP_IN_DAYS",
+    "MD_AD_CONNECTIONS_PASSWORD",
+    "MD_AD_CONNECTIONS_USERNAME",
+    "MD_ALLOW_ANONYMOUS",
+    "MD_ALLOW_KEEPALIVES",
+    "MD_ALLOW_PATH_INFO_FOR_SCRIPT_MAPPINGS",
+    "MD_ALLOW_REPLACE_ON_RENAME",
+    "MD_ANONYMOUS_ONLY",
+    "MD_ANONYMOUS_PWD",
+    "MD_ANONYMOUS_USER_NAME",
+    "MD_ANONYMOUS_USE_SUBAUTH",
+    "MD_APPPOOL_32_BIT_APP_ON_WIN64",
+    "MD_APPPOOL_ALLOW_TRANSIENT_REGISTRATION",
+    "MD_APPPOOL_APPPOOL_ID",
+    "MD_APPPOOL_AUTO_SHUTDOWN_EXE",
+    "MD_APPPOOL_AUTO_SHUTDOWN_PARAMS",
+    "MD_APPPOOL_AUTO_START",
+    "MD_APPPOOL_COMMAND",
+    "MD_APPPOOL_COMMAND_START",
+    "MD_APPPOOL_COMMAND_STOP",
+    "MD_APPPOOL_DISALLOW_OVERLAPPING_ROTATION",
+    "MD_APPPOOL_DISALLOW_ROTATION_ON_CONFIG_CHANGE",
+    "MD_APPPOOL_IDENTITY_TYPE",
+    "MD_APPPOOL_IDENTITY_TYPE_LOCALSERVICE",
+    "MD_APPPOOL_IDENTITY_TYPE_LOCALSYSTEM",
+    "MD_APPPOOL_IDENTITY_TYPE_NETWORKSERVICE",
+    "MD_APPPOOL_IDENTITY_TYPE_SPECIFICUSER",
+    "MD_APPPOOL_IDLE_TIMEOUT",
+    "MD_APPPOOL_MANAGED_PIPELINE_MODE",
+    "MD_APPPOOL_MANAGED_RUNTIME_VERSION",
+    "MD_APPPOOL_MAX_PROCESS_COUNT",
+    "MD_APPPOOL_ORPHAN_ACTION_EXE",
+    "MD_APPPOOL_ORPHAN_ACTION_PARAMS",
+    "MD_APPPOOL_ORPHAN_PROCESSES_FOR_DEBUGGING",
+    "MD_APPPOOL_PERIODIC_RESTART_CONNECTIONS",
+    "MD_APPPOOL_PERIODIC_RESTART_MEMORY",
+    "MD_APPPOOL_PERIODIC_RESTART_PRIVATE_MEMORY",
+    "MD_APPPOOL_PERIODIC_RESTART_REQUEST_COUNT",
+    "MD_APPPOOL_PERIODIC_RESTART_SCHEDULE",
+    "MD_APPPOOL_PERIODIC_RESTART_TIME",
+    "MD_APPPOOL_PINGING_ENABLED",
+    "MD_APPPOOL_PING_INTERVAL",
+    "MD_APPPOOL_PING_RESPONSE_TIMELIMIT",
+    "MD_APPPOOL_RAPID_FAIL_PROTECTION_ENABLED",
+    "MD_APPPOOL_SHUTDOWN_TIMELIMIT",
+    "MD_APPPOOL_SMP_AFFINITIZED",
+    "MD_APPPOOL_SMP_AFFINITIZED_PROCESSOR_MASK",
+    "MD_APPPOOL_STARTUP_TIMELIMIT",
+    "MD_APPPOOL_STATE",
+    "MD_APPPOOL_STATE_STARTED",
+    "MD_APPPOOL_STATE_STARTING",
+    "MD_APPPOOL_STATE_STOPPED",
+    "MD_APPPOOL_STATE_STOPPING",
+    "MD_APPPOOL_UL_APPPOOL_QUEUE_LENGTH",
+    "MD_APP_ALLOW_TRANSIENT_REGISTRATION",
+    "MD_APP_APPPOOL_ID",
+    "MD_APP_AUTO_START",
+    "MD_APP_DEPENDENCIES",
+    "MD_APP_FRIENDLY_NAME",
+    "MD_APP_ISOLATED",
+    "MD_APP_OOP_RECOVER_LIMIT",
+    "MD_APP_PACKAGE_ID",
+    "MD_APP_PACKAGE_NAME",
+    "MD_APP_PERIODIC_RESTART_REQUESTS",
+    "MD_APP_PERIODIC_RESTART_SCHEDULE",
+    "MD_APP_PERIODIC_RESTART_TIME",
+    "MD_APP_POOL_LOG_EVENT_ON_PROCESSMODEL",
+    "MD_APP_POOL_LOG_EVENT_ON_RECYCLE",
+    "MD_APP_POOL_PROCESSMODEL_IDLE_TIMEOUT",
+    "MD_APP_POOL_RECYCLE_CONFIG_CHANGE",
+    "MD_APP_POOL_RECYCLE_ISAPI_UNHEALTHY",
+    "MD_APP_POOL_RECYCLE_MEMORY",
+    "MD_APP_POOL_RECYCLE_ON_DEMAND",
+    "MD_APP_POOL_RECYCLE_PRIVATE_MEMORY",
+    "MD_APP_POOL_RECYCLE_REQUESTS",
+    "MD_APP_POOL_RECYCLE_SCHEDULE",
+    "MD_APP_POOL_RECYCLE_TIME",
+    "MD_APP_ROOT",
+    "MD_APP_SHUTDOWN_TIME_LIMIT",
+    "MD_APP_TRACE_URL_LIST",
+    "MD_APP_WAM_CLSID",
+    "MD_ASP_ALLOWOUTOFPROCCMPNTS",
+    "MD_ASP_ALLOWOUTOFPROCCOMPONENTS",
+    "MD_ASP_ALLOWSESSIONSTATE",
+    "MD_ASP_BUFFERINGON",
+    "MD_ASP_BUFFER_LIMIT",
+    "MD_ASP_CALCLINENUMBER",
+    "MD_ASP_CODEPAGE",
+    "MD_ASP_DISKTEMPLATECACHEDIRECTORY",
+    "MD_ASP_ENABLEAPPLICATIONRESTART",
+    "MD_ASP_ENABLEASPHTMLFALLBACK",
+    "MD_ASP_ENABLECHUNKEDENCODING",
+    "MD_ASP_ENABLECLIENTDEBUG",
+    "MD_ASP_ENABLEPARENTPATHS",
+    "MD_ASP_ENABLESERVERDEBUG",
+    "MD_ASP_ENABLETYPELIBCACHE",
+    "MD_ASP_ERRORSTONTLOG",
+    "MD_ASP_EXCEPTIONCATCHENABLE",
+    "MD_ASP_EXECUTEINMTA",
+    "MD_ASP_ID_LAST",
+    "MD_ASP_KEEPSESSIONIDSECURE",
+    "MD_ASP_LCID",
+    "MD_ASP_LOGERRORREQUESTS",
+    "MD_ASP_MAXDISKTEMPLATECACHEFILES",
+    "MD_ASP_MAXREQUESTENTITY",
+    "MD_ASP_MAX_REQUEST_ENTITY_ALLOWED",
+    "MD_ASP_MEMFREEFACTOR",
+    "MD_ASP_MINUSEDBLOCKS",
+    "MD_ASP_PROCESSORTHREADMAX",
+    "MD_ASP_QUEUECONNECTIONTESTTIME",
+    "MD_ASP_QUEUETIMEOUT",
+    "MD_ASP_REQEUSTQUEUEMAX",
+    "MD_ASP_RUN_ONEND_ANON",
+    "MD_ASP_SCRIPTENGINECACHEMAX",
+    "MD_ASP_SCRIPTERRORMESSAGE",
+    "MD_ASP_SCRIPTERRORSSENTTOBROWSER",
+    "MD_ASP_SCRIPTFILECACHESIZE",
+    "MD_ASP_SCRIPTLANGUAGE",
+    "MD_ASP_SCRIPTLANGUAGELIST",
+    "MD_ASP_SCRIPTTIMEOUT",
+    "MD_ASP_SERVICE_ENABLE_SXS",
+    "MD_ASP_SERVICE_ENABLE_TRACKER",
+    "MD_ASP_SERVICE_FLAGS",
+    "MD_ASP_SERVICE_FLAG_FUSION",
+    "MD_ASP_SERVICE_FLAG_PARTITIONS",
+    "MD_ASP_SERVICE_FLAG_TRACKER",
+    "MD_ASP_SERVICE_PARTITION_ID",
+    "MD_ASP_SERVICE_SXS_NAME",
+    "MD_ASP_SERVICE_USE_PARTITION",
+    "MD_ASP_SESSIONMAX",
+    "MD_ASP_SESSIONTIMEOUT",
+    "MD_ASP_THREADGATEENABLED",
+    "MD_ASP_THREADGATELOADHIGH",
+    "MD_ASP_THREADGATELOADLOW",
+    "MD_ASP_THREADGATESLEEPDELAY",
+    "MD_ASP_THREADGATESLEEPMAX",
+    "MD_ASP_THREADGATETIMESLICE",
+    "MD_ASP_TRACKTHREADINGMODEL",
+    "MD_AUTHORIZATION",
+    "MD_AUTHORIZATION_PERSISTENCE",
+    "MD_AUTH_ADVNOTIFY_DISABLE",
+    "MD_AUTH_ANONYMOUS",
+    "MD_AUTH_BASIC",
+    "MD_AUTH_CHANGE_DISABLE",
+    "MD_AUTH_CHANGE_FLAGS",
+    "MD_AUTH_CHANGE_UNSECURE",
+    "MD_AUTH_CHANGE_URL",
+    "MD_AUTH_EXPIRED_UNSECUREURL",
+    "MD_AUTH_EXPIRED_URL",
+    "MD_AUTH_MD5",
+    "MD_AUTH_NT",
+    "MD_AUTH_PASSPORT",
+    "MD_AUTH_SINGLEREQUEST",
+    "MD_AUTH_SINGLEREQUESTALWAYSIFPROXY",
+    "MD_AUTH_SINGLEREQUESTIFPROXY",
+    "MD_BACKUP_FORCE_BACKUP",
+    "MD_BACKUP_HIGHEST_VERSION",
+    "MD_BACKUP_MAX_LEN",
+    "MD_BACKUP_MAX_VERSION",
+    "MD_BACKUP_NEXT_VERSION",
+    "MD_BACKUP_OVERWRITE",
+    "MD_BACKUP_SAVE_FIRST",
+    "MD_BANNER_MESSAGE",
+    "MD_BINDINGS",
+    "MD_CACHE_EXTENSIONS",
+    "MD_CAL_AUTH_RESERVE_TIMEOUT",
+    "MD_CAL_SSL_RESERVE_TIMEOUT",
+    "MD_CAL_VC_PER_CONNECT",
+    "MD_CAL_W3_ERROR",
+    "MD_CC_MAX_AGE",
+    "MD_CC_NO_CACHE",
+    "MD_CC_OTHER",
+    "MD_CENTRAL_W3C_LOGGING_ENABLED",
+    "MD_CERT_CACHE_RETRIEVAL_ONLY",
+    "MD_CERT_CHECK_REVOCATION_FRESHNESS_TIME",
+    "MD_CERT_NO_REVOC_CHECK",
+    "MD_CERT_NO_USAGE_CHECK",
+    "MD_CGI_RESTRICTION_LIST",
+    "MD_CHANGE_OBJECT_W",
+    "MD_CHANGE_TYPE_ADD_OBJECT",
+    "MD_CHANGE_TYPE_DELETE_DATA",
+    "MD_CHANGE_TYPE_DELETE_OBJECT",
+    "MD_CHANGE_TYPE_RENAME_OBJECT",
+    "MD_CHANGE_TYPE_RESTORE",
+    "MD_CHANGE_TYPE_SET_DATA",
+    "MD_COMMENTS",
+    "MD_CONNECTION_TIMEOUT",
+    "MD_CPU_ACTION",
+    "MD_CPU_APP_ENABLED",
+    "MD_CPU_CGI_ENABLED",
+    "MD_CPU_CGI_LIMIT",
+    "MD_CPU_DISABLE_ALL_LOGGING",
+    "MD_CPU_ENABLE_ACTIVE_PROCS",
+    "MD_CPU_ENABLE_ALL_PROC_LOGGING",
+    "MD_CPU_ENABLE_APP_LOGGING",
+    "MD_CPU_ENABLE_CGI_LOGGING",
+    "MD_CPU_ENABLE_EVENT",
+    "MD_CPU_ENABLE_KERNEL_TIME",
+    "MD_CPU_ENABLE_LOGGING",
+    "MD_CPU_ENABLE_PAGE_FAULTS",
+    "MD_CPU_ENABLE_PROC_TYPE",
+    "MD_CPU_ENABLE_TERMINATED_PROCS",
+    "MD_CPU_ENABLE_TOTAL_PROCS",
+    "MD_CPU_ENABLE_USER_TIME",
+    "MD_CPU_KILL_W3WP",
+    "MD_CPU_LIMIT",
+    "MD_CPU_LIMITS_ENABLED",
+    "MD_CPU_LIMIT_LOGEVENT",
+    "MD_CPU_LIMIT_PAUSE",
+    "MD_CPU_LIMIT_PRIORITY",
+    "MD_CPU_LIMIT_PROCSTOP",
+    "MD_CPU_LOGGING_INTERVAL",
+    "MD_CPU_LOGGING_MASK",
+    "MD_CPU_LOGGING_OPTIONS",
+    "MD_CPU_NO_ACTION",
+    "MD_CPU_RESET_INTERVAL",
+    "MD_CPU_THROTTLE",
+    "MD_CPU_TRACE",
+    "MD_CREATE_PROCESS_AS_USER",
+    "MD_CREATE_PROC_NEW_CONSOLE",
+    "MD_CUSTOM_DEPLOYMENT_DATA",
+    "MD_CUSTOM_ERROR",
+    "MD_CUSTOM_ERROR_DESC",
+    "MD_DEFAULT_BACKUP_LOCATION",
+    "MD_DEFAULT_LOAD_FILE",
+    "MD_DEFAULT_LOGON_DOMAIN",
+    "MD_DEMAND_START_THRESHOLD",
+    "MD_DIRBROW_ENABLED",
+    "MD_DIRBROW_LOADDEFAULT",
+    "MD_DIRBROW_LONG_DATE",
+    "MD_DIRBROW_SHOW_DATE",
+    "MD_DIRBROW_SHOW_EXTENSION",
+    "MD_DIRBROW_SHOW_SIZE",
+    "MD_DIRBROW_SHOW_TIME",
+    "MD_DIRECTORY_BROWSING",
+    "MD_DISABLE_SOCKET_POOLING",
+    "MD_DONT_LOG",
+    "MD_DOWNLEVEL_ADMIN_INSTANCE",
+    "MD_DO_REVERSE_DNS",
+    "MD_ENABLEDPROTOCOLS",
+    "MD_ENABLE_URL_AUTHORIZATION",
+    "MD_ERROR_CANNOT_REMOVE_SECURE_ATTRIBUTE",
+    "MD_ERROR_DATA_NOT_FOUND",
+    "MD_ERROR_IISAO_INVALID_SCHEMA",
+    "MD_ERROR_INVALID_VERSION",
+    "MD_ERROR_NOT_INITIALIZED",
+    "MD_ERROR_NO_SESSION_KEY",
+    "MD_ERROR_READ_METABASE_FILE",
+    "MD_ERROR_SECURE_CHANNEL_FAILURE",
+    "MD_ERROR_SUB400_INVALID_CONTENT_LENGTH",
+    "MD_ERROR_SUB400_INVALID_DEPTH",
+    "MD_ERROR_SUB400_INVALID_DESTINATION",
+    "MD_ERROR_SUB400_INVALID_IF",
+    "MD_ERROR_SUB400_INVALID_LOCK_TOKEN",
+    "MD_ERROR_SUB400_INVALID_OVERWRITE",
+    "MD_ERROR_SUB400_INVALID_REQUEST_BODY",
+    "MD_ERROR_SUB400_INVALID_TIMEOUT",
+    "MD_ERROR_SUB400_INVALID_TRANSLATE",
+    "MD_ERROR_SUB400_INVALID_WEBSOCKET_REQUEST",
+    "MD_ERROR_SUB400_INVALID_XFF_HEADER",
+    "MD_ERROR_SUB401_APPLICATION",
+    "MD_ERROR_SUB401_FILTER",
+    "MD_ERROR_SUB401_LOGON",
+    "MD_ERROR_SUB401_LOGON_ACL",
+    "MD_ERROR_SUB401_LOGON_CONFIG",
+    "MD_ERROR_SUB401_URLAUTH_POLICY",
+    "MD_ERROR_SUB403_ADDR_REJECT",
+    "MD_ERROR_SUB403_APPPOOL_DENIED",
+    "MD_ERROR_SUB403_CAL_EXCEEDED",
+    "MD_ERROR_SUB403_CERT_BAD",
+    "MD_ERROR_SUB403_CERT_REQUIRED",
+    "MD_ERROR_SUB403_CERT_REVOKED",
+    "MD_ERROR_SUB403_CERT_TIME_INVALID",
+    "MD_ERROR_SUB403_DIR_LIST_DENIED",
+    "MD_ERROR_SUB403_EXECUTE_ACCESS_DENIED",
+    "MD_ERROR_SUB403_INFINITE_DEPTH_DENIED",
+    "MD_ERROR_SUB403_INSUFFICIENT_PRIVILEGE_FOR_CGI",
+    "MD_ERROR_SUB403_INVALID_CNFG",
+    "MD_ERROR_SUB403_LOCK_TOKEN_REQUIRED",
+    "MD_ERROR_SUB403_MAPPER_DENY_ACCESS",
+    "MD_ERROR_SUB403_PASSPORT_LOGIN_FAILURE",
+    "MD_ERROR_SUB403_PWD_CHANGE",
+    "MD_ERROR_SUB403_READ_ACCESS_DENIED",
+    "MD_ERROR_SUB403_SITE_ACCESS_DENIED",
+    "MD_ERROR_SUB403_SOURCE_ACCESS_DENIED",
+    "MD_ERROR_SUB403_SSL128_REQUIRED",
+    "MD_ERROR_SUB403_SSL_REQUIRED",
+    "MD_ERROR_SUB403_TOO_MANY_USERS",
+    "MD_ERROR_SUB403_VALIDATION_FAILURE",
+    "MD_ERROR_SUB403_WRITE_ACCESS_DENIED",
+    "MD_ERROR_SUB404_DENIED_BY_FILTERING_RULE",
+    "MD_ERROR_SUB404_DENIED_BY_MIMEMAP",
+    "MD_ERROR_SUB404_DENIED_BY_POLICY",
+    "MD_ERROR_SUB404_FILE_ATTRIBUTE_HIDDEN",
+    "MD_ERROR_SUB404_FILE_EXTENSION_DENIED",
+    "MD_ERROR_SUB404_HIDDEN_SEGMENT",
+    "MD_ERROR_SUB404_NO_HANDLER",
+    "MD_ERROR_SUB404_PRECONDITIONED_HANDLER",
+    "MD_ERROR_SUB404_QUERY_STRING_SEQUENCE_DENIED",
+    "MD_ERROR_SUB404_QUERY_STRING_TOO_LONG",
+    "MD_ERROR_SUB404_SITE_NOT_FOUND",
+    "MD_ERROR_SUB404_STATICFILE_DAV",
+    "MD_ERROR_SUB404_TOO_MANY_URL_SEGMENTS",
+    "MD_ERROR_SUB404_URL_DOUBLE_ESCAPED",
+    "MD_ERROR_SUB404_URL_HAS_HIGH_BIT_CHARS",
+    "MD_ERROR_SUB404_URL_SEQUENCE_DENIED",
+    "MD_ERROR_SUB404_URL_TOO_LONG",
+    "MD_ERROR_SUB404_VERB_DENIED",
+    "MD_ERROR_SUB413_CONTENT_LENGTH_TOO_LARGE",
+    "MD_ERROR_SUB423_LOCK_TOKEN_SUBMITTED",
+    "MD_ERROR_SUB423_NO_CONFLICTING_LOCK",
+    "MD_ERROR_SUB500_ASPNET_HANDLERS",
+    "MD_ERROR_SUB500_ASPNET_IMPERSONATION",
+    "MD_ERROR_SUB500_ASPNET_MODULES",
+    "MD_ERROR_SUB500_BAD_METADATA",
+    "MD_ERROR_SUB500_HANDLERS_MODULE",
+    "MD_ERROR_SUB500_UNC_ACCESS",
+    "MD_ERROR_SUB500_URLAUTH_NO_SCOPE",
+    "MD_ERROR_SUB500_URLAUTH_NO_STORE",
+    "MD_ERROR_SUB500_URLAUTH_STORE_ERROR",
+    "MD_ERROR_SUB502_ARR_CONNECTION_ERROR",
+    "MD_ERROR_SUB502_ARR_NO_SERVER",
+    "MD_ERROR_SUB502_PREMATURE_EXIT",
+    "MD_ERROR_SUB502_TIMEOUT",
+    "MD_ERROR_SUB503_APP_CONCURRENT",
+    "MD_ERROR_SUB503_ASPNET_QUEUE_FULL",
+    "MD_ERROR_SUB503_CONNECTION_LIMIT",
+    "MD_ERROR_SUB503_CPU_LIMIT",
+    "MD_ERROR_SUB503_FASTCGI_QUEUE_FULL",
+    "MD_EXIT_MESSAGE",
+    "MD_EXPORT_INHERITED",
+    "MD_EXPORT_NODE_ONLY",
+    "MD_EXTLOG_BYTES_RECV",
+    "MD_EXTLOG_BYTES_SENT",
+    "MD_EXTLOG_CLIENT_IP",
+    "MD_EXTLOG_COMPUTER_NAME",
+    "MD_EXTLOG_COOKIE",
+    "MD_EXTLOG_DATE",
+    "MD_EXTLOG_HOST",
+    "MD_EXTLOG_HTTP_STATUS",
+    "MD_EXTLOG_HTTP_SUB_STATUS",
+    "MD_EXTLOG_METHOD",
+    "MD_EXTLOG_PROTOCOL_VERSION",
+    "MD_EXTLOG_REFERER",
+    "MD_EXTLOG_SERVER_IP",
+    "MD_EXTLOG_SERVER_PORT",
+    "MD_EXTLOG_SITE_NAME",
+    "MD_EXTLOG_TIME",
+    "MD_EXTLOG_TIME_TAKEN",
+    "MD_EXTLOG_URI_QUERY",
+    "MD_EXTLOG_URI_STEM",
+    "MD_EXTLOG_USERNAME",
+    "MD_EXTLOG_USER_AGENT",
+    "MD_EXTLOG_WIN32_STATUS",
+    "MD_FILTER_DESCRIPTION",
+    "MD_FILTER_ENABLED",
+    "MD_FILTER_ENABLE_CACHE",
+    "MD_FILTER_FLAGS",
+    "MD_FILTER_IMAGE_PATH",
+    "MD_FILTER_LOAD_ORDER",
+    "MD_FILTER_STATE",
+    "MD_FILTER_STATE_LOADED",
+    "MD_FILTER_STATE_UNLOADED",
+    "MD_FOOTER_DOCUMENT",
+    "MD_FOOTER_ENABLED",
+    "MD_FRONTPAGE_WEB",
+    "MD_FTPS_128_BITS",
+    "MD_FTPS_ALLOW_CCC",
+    "MD_FTPS_SECURE_ANONYMOUS",
+    "MD_FTPS_SECURE_CONTROL_CHANNEL",
+    "MD_FTPS_SECURE_DATA_CHANNEL",
+    "MD_FTP_KEEP_PARTIAL_UPLOADS",
+    "MD_FTP_LOG_IN_UTF_8",
+    "MD_FTP_PASV_RESPONSE_IP",
+    "MD_FTP_UTF8_FILE_NAMES",
+    "MD_GLOBAL_BINARY_LOGGING_ENABLED",
+    "MD_GLOBAL_BINSCHEMATIMESTAMP",
+    "MD_GLOBAL_CHANGE_NUMBER",
+    "MD_GLOBAL_EDIT_WHILE_RUNNING_MAJOR_VERSION_NUMBER",
+    "MD_GLOBAL_EDIT_WHILE_RUNNING_MINOR_VERSION_NUMBER",
+    "MD_GLOBAL_LOG_IN_UTF_8",
+    "MD_GLOBAL_SESSIONKEY",
+    "MD_GLOBAL_STANDARD_APP_MODE_ENABLED",
+    "MD_GLOBAL_XMLSCHEMATIMESTAMP",
+    "MD_GREETING_MESSAGE",
+    "MD_HC_CACHE_CONTROL_HEADER",
+    "MD_HC_COMPRESSION_BUFFER_SIZE",
+    "MD_HC_COMPRESSION_DIRECTORY",
+    "MD_HC_COMPRESSION_DLL",
+    "MD_HC_CREATE_FLAGS",
+    "MD_HC_DO_DISK_SPACE_LIMITING",
+    "MD_HC_DO_DYNAMIC_COMPRESSION",
+    "MD_HC_DO_NAMESPACE_DYNAMIC_COMPRESSION",
+    "MD_HC_DO_NAMESPACE_STATIC_COMPRESSION",
+    "MD_HC_DO_ON_DEMAND_COMPRESSION",
+    "MD_HC_DO_STATIC_COMPRESSION",
+    "MD_HC_DYNAMIC_COMPRESSION_LEVEL",
+    "MD_HC_EXPIRES_HEADER",
+    "MD_HC_FILES_DELETED_PER_DISK_FREE",
+    "MD_HC_FILE_EXTENSIONS",
+    "MD_HC_IO_BUFFER_SIZE",
+    "MD_HC_MAX_DISK_SPACE_USAGE",
+    "MD_HC_MAX_QUEUE_LENGTH",
+    "MD_HC_MIME_TYPE",
+    "MD_HC_MIN_FILE_SIZE_FOR_COMP",
+    "MD_HC_NO_COMPRESSION_FOR_HTTP_10",
+    "MD_HC_NO_COMPRESSION_FOR_PROXIES",
+    "MD_HC_NO_COMPRESSION_FOR_RANGE",
+    "MD_HC_ON_DEMAND_COMP_LEVEL",
+    "MD_HC_PRIORITY",
+    "MD_HC_SCRIPT_FILE_EXTENSIONS",
+    "MD_HC_SEND_CACHE_HEADERS",
+    "MD_HEADER_WAIT_TIMEOUT",
+    "MD_HISTORY_LATEST",
+    "MD_HTTPERRORS_EXISTING_RESPONSE",
+    "MD_HTTP_CUSTOM",
+    "MD_HTTP_EXPIRES",
+    "MD_HTTP_FORWARDER_CUSTOM",
+    "MD_HTTP_PICS",
+    "MD_HTTP_REDIRECT",
+    "MD_IISADMIN_EXTENSIONS",
+    "MD_IMPORT_INHERITED",
+    "MD_IMPORT_MERGE",
+    "MD_IMPORT_NODE_ONLY",
+    "MD_INSERT_PATH_STRING",
+    "MD_INSERT_PATH_STRINGA",
+    "MD_IN_PROCESS_ISAPI_APPS",
+    "MD_IP_SEC",
+    "MD_ISAPI_RESTRICTION_LIST",
+    "MD_IS_CONTENT_INDEXED",
+    "MD_KEY_TYPE",
+    "MD_LEVELS_TO_SCAN",
+    "MD_LOAD_BALANCER_CAPABILITIES",
+    "MD_LOAD_BALANCER_CAPABILITIES_BASIC",
+    "MD_LOAD_BALANCER_CAPABILITIES_SOPHISTICATED",
+    "MD_LOCATION",
+    "MD_LOGCUSTOM_DATATYPE_DOUBLE",
+    "MD_LOGCUSTOM_DATATYPE_FLOAT",
+    "MD_LOGCUSTOM_DATATYPE_INT",
+    "MD_LOGCUSTOM_DATATYPE_LONG",
+    "MD_LOGCUSTOM_DATATYPE_LPSTR",
+    "MD_LOGCUSTOM_DATATYPE_LPWSTR",
+    "MD_LOGCUSTOM_DATATYPE_UINT",
+    "MD_LOGCUSTOM_DATATYPE_ULONG",
+    "MD_LOGCUSTOM_PROPERTY_DATATYPE",
+    "MD_LOGCUSTOM_PROPERTY_HEADER",
+    "MD_LOGCUSTOM_PROPERTY_ID",
+    "MD_LOGCUSTOM_PROPERTY_MASK",
+    "MD_LOGCUSTOM_PROPERTY_NAME",
+    "MD_LOGCUSTOM_PROPERTY_NODE_ID",
+    "MD_LOGCUSTOM_SERVICES_STRING",
+    "MD_LOGEXT_FIELD_MASK",
+    "MD_LOGEXT_FIELD_MASK2",
+    "MD_LOGFILE_DIRECTORY",
+    "MD_LOGFILE_LOCALTIME_ROLLOVER",
+    "MD_LOGFILE_PERIOD",
+    "MD_LOGFILE_PERIOD_DAILY",
+    "MD_LOGFILE_PERIOD_HOURLY",
+    "MD_LOGFILE_PERIOD_MAXSIZE",
+    "MD_LOGFILE_PERIOD_MONTHLY",
+    "MD_LOGFILE_PERIOD_NONE",
+    "MD_LOGFILE_PERIOD_WEEKLY",
+    "MD_LOGFILE_TRUNCATE_SIZE",
+    "MD_LOGON_BATCH",
+    "MD_LOGON_INTERACTIVE",
+    "MD_LOGON_METHOD",
+    "MD_LOGON_NETWORK",
+    "MD_LOGON_NETWORK_CLEARTEXT",
+    "MD_LOGSQL_DATA_SOURCES",
+    "MD_LOGSQL_PASSWORD",
+    "MD_LOGSQL_TABLE_NAME",
+    "MD_LOGSQL_USER_NAME",
+    "MD_LOG_ANONYMOUS",
+    "MD_LOG_NONANONYMOUS",
+    "MD_LOG_PLUGINS_AVAILABLE",
+    "MD_LOG_PLUGIN_MOD_ID",
+    "MD_LOG_PLUGIN_ORDER",
+    "MD_LOG_PLUGIN_UI_ID",
+    "MD_LOG_TYPE",
+    "MD_LOG_TYPE_DISABLED",
+    "MD_LOG_TYPE_ENABLED",
+    "MD_LOG_UNUSED1",
+    "MD_MAX_BANDWIDTH",
+    "MD_MAX_BANDWIDTH_BLOCKED",
+    "MD_MAX_CHANGE_ENTRIES",
+    "MD_MAX_CLIENTS_MESSAGE",
+    "MD_MAX_CONNECTIONS",
+    "MD_MAX_ENDPOINT_CONNECTIONS",
+    "MD_MAX_ERROR_FILES",
+    "MD_MAX_GLOBAL_BANDWIDTH",
+    "MD_MAX_GLOBAL_CONNECTIONS",
+    "MD_MAX_REQUEST_ENTITY_ALLOWED",
+    "MD_MD_SERVER_SS_AUTH_MAPPING",
+    "MD_METADATA_ID_REGISTRATION",
+    "MD_MIME_MAP",
+    "MD_MIN_FILE_BYTES_PER_SEC",
+    "MD_MSDOS_DIR_OUTPUT",
+    "MD_NETLOGON_WKS_DNS",
+    "MD_NETLOGON_WKS_IP",
+    "MD_NETLOGON_WKS_NONE",
+    "MD_NET_LOGON_WKS",
+    "MD_NOTIFEXAUTH_NTLMSSL",
+    "MD_NOTIFY_ACCESS_DENIED",
+    "MD_NOTIFY_AUTHENTICATION",
+    "MD_NOTIFY_AUTH_COMPLETE",
+    "MD_NOTIFY_END_OF_NET_SESSION",
+    "MD_NOTIFY_END_OF_REQUEST",
+    "MD_NOTIFY_LOG",
+    "MD_NOTIFY_NONSECURE_PORT",
+    "MD_NOTIFY_ORDER_DEFAULT",
+    "MD_NOTIFY_ORDER_HIGH",
+    "MD_NOTIFY_ORDER_LOW",
+    "MD_NOTIFY_ORDER_MEDIUM",
+    "MD_NOTIFY_PREPROC_HEADERS",
+    "MD_NOTIFY_READ_RAW_DATA",
+    "MD_NOTIFY_SECURE_PORT",
+    "MD_NOTIFY_SEND_RAW_DATA",
+    "MD_NOTIFY_SEND_RESPONSE",
+    "MD_NOTIFY_URL_MAP",
+    "MD_NOT_DELETABLE",
+    "MD_NTAUTHENTICATION_PROVIDERS",
+    "MD_PASSIVE_PORT_RANGE",
+    "MD_PASSPORT_NEED_MAPPING",
+    "MD_PASSPORT_NO_MAPPING",
+    "MD_PASSPORT_REQUIRE_AD_MAPPING",
+    "MD_PASSPORT_TRY_MAPPING",
+    "MD_POOL_IDC_TIMEOUT",
+    "MD_PROCESS_NTCR_IF_LOGGED_ON",
+    "MD_PUT_READ_SIZE",
+    "MD_RAPID_FAIL_PROTECTION_INTERVAL",
+    "MD_RAPID_FAIL_PROTECTION_MAX_CRASHES",
+    "MD_REALM",
+    "MD_REDIRECT_HEADERS",
+    "MD_RESTRICTION_LIST_CUSTOM_DESC",
+    "MD_ROOT_ENABLE_EDIT_WHILE_RUNNING",
+    "MD_ROOT_ENABLE_HISTORY",
+    "MD_ROOT_MAX_HISTORY_FILES",
+    "MD_SCHEMA_METAID",
+    "MD_SCRIPTMAPFLAG_ALLOWED_ON_READ_DIR",
+    "MD_SCRIPTMAPFLAG_CHECK_PATH_INFO",
+    "MD_SCRIPTMAPFLAG_SCRIPT",
+    "MD_SCRIPT_MAPS",
+    "MD_SCRIPT_TIMEOUT",
+    "MD_SECURE_BINDINGS",
+    "MD_SECURITY_SETUP_REQUIRED",
+    "MD_SERVER_AUTOSTART",
+    "MD_SERVER_BINDINGS",
+    "MD_SERVER_COMMAND",
+    "MD_SERVER_COMMAND_CONTINUE",
+    "MD_SERVER_COMMAND_PAUSE",
+    "MD_SERVER_COMMAND_START",
+    "MD_SERVER_COMMAND_STOP",
+    "MD_SERVER_COMMENT",
+    "MD_SERVER_CONFIGURATION_INFO",
+    "MD_SERVER_CONFIG_ALLOW_ENCRYPT",
+    "MD_SERVER_CONFIG_AUTO_PW_SYNC",
+    "MD_SERVER_CONFIG_SSL_128",
+    "MD_SERVER_CONFIG_SSL_40",
+    "MD_SERVER_LISTEN_BACKLOG",
+    "MD_SERVER_LISTEN_TIMEOUT",
+    "MD_SERVER_SIZE",
+    "MD_SERVER_SIZE_LARGE",
+    "MD_SERVER_SIZE_MEDIUM",
+    "MD_SERVER_SIZE_SMALL",
+    "MD_SERVER_STATE",
+    "MD_SERVER_STATE_CONTINUING",
+    "MD_SERVER_STATE_PAUSED",
+    "MD_SERVER_STATE_PAUSING",
+    "MD_SERVER_STATE_STARTED",
+    "MD_SERVER_STATE_STARTING",
+    "MD_SERVER_STATE_STOPPED",
+    "MD_SERVER_STATE_STOPPING",
+    "MD_SET_HOST_NAME",
+    "MD_SHOW_4_DIGIT_YEAR",
+    "MD_SSI_EXEC_DISABLED",
+    "MD_SSL_ACCESS_PERM",
+    "MD_SSL_ALWAYS_NEGO_CLIENT_CERT",
+    "MD_SSL_KEY_PASSWORD",
+    "MD_SSL_KEY_REQUEST",
+    "MD_SSL_PRIVATE_KEY",
+    "MD_SSL_PUBLIC_KEY",
+    "MD_SSL_USE_DS_MAPPER",
+    "MD_STOP_LISTENING",
+    "MD_SUPPRESS_DEFAULT_BANNER",
+    "MD_UPLOAD_READAHEAD_SIZE",
+    "MD_URL_AUTHORIZATION_IMPERSONATION_LEVEL",
+    "MD_URL_AUTHORIZATION_SCOPE_NAME",
+    "MD_URL_AUTHORIZATION_STORE_NAME",
+    "MD_USER_ISOLATION",
+    "MD_USER_ISOLATION_AD",
+    "MD_USER_ISOLATION_BASIC",
+    "MD_USER_ISOLATION_LAST",
+    "MD_USER_ISOLATION_NONE",
+    "MD_USE_DIGEST_SSP",
+    "MD_USE_HOST_NAME",
+    "MD_VR_IGNORE_TRANSLATE",
+    "MD_VR_NO_CACHE",
+    "MD_VR_PASSTHROUGH",
+    "MD_VR_PASSWORD",
+    "MD_VR_PATH",
+    "MD_VR_USERNAME",
+    "MD_WAM_PWD",
+    "MD_WAM_USER_NAME",
+    "MD_WARNING_DUP_NAME",
+    "MD_WARNING_INVALID_DATA",
+    "MD_WARNING_PATH_NOT_FOUND",
+    "MD_WARNING_PATH_NOT_INSERTED",
+    "MD_WARNING_SAVE_FAILED",
+    "MD_WEBDAV_MAX_ATTRIBUTES_PER_ELEMENT",
+    "MD_WEB_SVC_EXT_RESTRICTION_LIST",
+    "MD_WIN32_ERROR",
+    "METADATATYPES",
+    "METADATA_DONT_EXPAND",
+    "METADATA_GETALL_INTERNAL_RECORD",
+    "METADATA_GETALL_RECORD",
+    "METADATA_HANDLE_INFO",
+    "METADATA_INHERIT",
+    "METADATA_INSERT_PATH",
+    "METADATA_ISINHERITED",
+    "METADATA_LOCAL_MACHINE_ONLY",
+    "METADATA_MASTER_ROOT_HANDLE",
+    "METADATA_MAX_NAME_LEN",
+    "METADATA_NON_SECURE_ONLY",
+    "METADATA_NO_ATTRIBUTES",
+    "METADATA_PARTIAL_PATH",
+    "METADATA_PERMISSION_READ",
+    "METADATA_PERMISSION_WRITE",
+    "METADATA_RECORD",
+    "METADATA_REFERENCE",
+    "METADATA_SECURE",
+    "METADATA_VOLATILE",
+    "MSCS_MD_ID_BEGIN_RESERVED",
+    "MSCS_MD_ID_END_RESERVED",
+    "MULTISZ_METADATA",
+    "NNTP_MD_ID_BEGIN_RESERVED",
+    "NNTP_MD_ID_END_RESERVED",
+    "PFN_GETEXTENSIONVERSION",
+    "PFN_HSE_CACHE_INVALIDATION_CALLBACK",
+    "PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK",
+    "PFN_HSE_IO_COMPLETION",
+    "PFN_HTTPEXTENSIONPROC",
+    "PFN_TERMINATEEXTENSION",
+    "PFN_WEB_CORE_ACTIVATE",
+    "PFN_WEB_CORE_SET_METADATA_DLL_ENTRY",
+    "PFN_WEB_CORE_SHUTDOWN",
+    "POP3_MD_ID_BEGIN_RESERVED",
+    "POP3_MD_ID_END_RESERVED",
+    "POST_PROCESS_PARAMETERS",
+    "PRE_PROCESS_PARAMETERS",
+    "SF_DENIED_APPLICATION",
+    "SF_DENIED_BY_CONFIG",
+    "SF_DENIED_FILTER",
+    "SF_DENIED_LOGON",
+    "SF_DENIED_RESOURCE",
+    "SF_MAX_AUTH_TYPE",
+    "SF_MAX_FILTER_DESC_LEN",
+    "SF_MAX_PASSWORD",
+    "SF_MAX_USERNAME",
+    "SF_NOTIFY_ACCESS_DENIED",
+    "SF_NOTIFY_AUTHENTICATION",
+    "SF_NOTIFY_AUTH_COMPLETE",
+    "SF_NOTIFY_END_OF_NET_SESSION",
+    "SF_NOTIFY_END_OF_REQUEST",
+    "SF_NOTIFY_LOG",
+    "SF_NOTIFY_NONSECURE_PORT",
+    "SF_NOTIFY_ORDER_DEFAULT",
+    "SF_NOTIFY_ORDER_HIGH",
+    "SF_NOTIFY_ORDER_LOW",
+    "SF_NOTIFY_ORDER_MEDIUM",
+    "SF_NOTIFY_PREPROC_HEADERS",
+    "SF_NOTIFY_READ_RAW_DATA",
+    "SF_NOTIFY_SECURE_PORT",
+    "SF_NOTIFY_SEND_RAW_DATA",
+    "SF_NOTIFY_SEND_RESPONSE",
+    "SF_NOTIFY_URL_MAP",
+    "SF_PROPERTY_IIS",
+    "SF_PROPERTY_INSTANCE_NUM_ID",
+    "SF_PROPERTY_SSL_CTXT",
+    "SF_REQ_ADD_HEADERS_ON_DENIAL",
+    "SF_REQ_DISABLE_NOTIFICATIONS",
+    "SF_REQ_GET_CONNID",
+    "SF_REQ_GET_PROPERTY",
+    "SF_REQ_NORMALIZE_URL",
+    "SF_REQ_SEND_RESPONSE_HEADER",
+    "SF_REQ_SET_CERTIFICATE_INFO",
+    "SF_REQ_SET_NEXT_READ_SIZE",
+    "SF_REQ_SET_PROXY_INFO",
+    "SF_REQ_TYPE",
+    "SF_STATUS_REQ_ERROR",
+    "SF_STATUS_REQ_FINISHED",
+    "SF_STATUS_REQ_FINISHED_KEEP_CONN",
+    "SF_STATUS_REQ_HANDLED_NOTIFICATION",
+    "SF_STATUS_REQ_NEXT_NOTIFICATION",
+    "SF_STATUS_REQ_READ_NEXT",
+    "SF_STATUS_TYPE",
+    "SMTP_MD_ID_BEGIN_RESERVED",
+    "SMTP_MD_ID_END_RESERVED",
+    "STRING_METADATA",
+    "USER_MD_ID_BASE_RESERVED",
+    "WAM_MD_ID_BEGIN_RESERVED",
+    "WAM_MD_ID_END_RESERVED",
+    "WAM_MD_SERVER_BASE",
+    "WEBDAV_MD_SERVER_BASE",
+    "WEB_CORE_ACTIVATE_DLL_ENTRY",
+    "WEB_CORE_DLL_NAME",
+    "WEB_CORE_SET_METADATA_DLL_ENTRY",
+    "WEB_CORE_SHUTDOWN_DLL_ENTRY",
+    "_IIS_CRYPTO_BLOB",
 ]

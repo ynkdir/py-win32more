@@ -1,13 +1,12 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.System.Restore
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -35,17 +34,27 @@ CRITICAL_UPDATE = 18
 MAX_RPT = 18
 MAX_DESC = 64
 MAX_DESC_W = 256
+def _define_SRSetRestorePointA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Restore.RESTOREPOINTINFOA_head),POINTER(win32more.System.Restore.STATEMGRSTATUS_head))(('SRSetRestorePointA', windll['sfc.dll']), ((1, 'pRestorePtSpec'),(1, 'pSMgrStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SRSetRestorePointW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Restore.RESTOREPOINTINFOW_head),POINTER(win32more.System.Restore.STATEMGRSTATUS_head))(('SRSetRestorePointW', windll['sfc.dll']), ((1, 'pRestorePtSpec'),(1, 'pSMgrStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+RESTOREPOINTINFO_EVENT_TYPE = UInt32
+BEGIN_NESTED_SYSTEM_CHANGE = 102
+BEGIN_SYSTEM_CHANGE = 100
+END_NESTED_SYSTEM_CHANGE = 103
+END_SYSTEM_CHANGE = 101
 RESTOREPOINTINFO_TYPE = UInt32
 APPLICATION_INSTALL = 0
 APPLICATION_UNINSTALL = 1
 DEVICE_DRIVER_INSTALL = 10
 MODIFY_SETTINGS = 12
 CANCELLED_OPERATION = 13
-RESTOREPOINTINFO_EVENT_TYPE = UInt32
-BEGIN_NESTED_SYSTEM_CHANGE = 102
-BEGIN_SYSTEM_CHANGE = 100
-END_NESTED_SYSTEM_CHANGE = 103
-END_SYSTEM_CHANGE = 101
 def _define_RESTOREPOINTINFOA_head():
     class RESTOREPOINTINFOA(Structure):
         pass
@@ -54,12 +63,27 @@ def _define_RESTOREPOINTINFOA():
     RESTOREPOINTINFOA = win32more.System.Restore.RESTOREPOINTINFOA_head
     RESTOREPOINTINFOA._pack_ = 1
     RESTOREPOINTINFOA._fields_ = [
-        ("dwEventType", win32more.System.Restore.RESTOREPOINTINFO_EVENT_TYPE),
-        ("dwRestorePtType", win32more.System.Restore.RESTOREPOINTINFO_TYPE),
-        ("llSequenceNumber", Int64),
-        ("szDescription", win32more.Foundation.CHAR * 64),
+        ('dwEventType', win32more.System.Restore.RESTOREPOINTINFO_EVENT_TYPE),
+        ('dwRestorePtType', win32more.System.Restore.RESTOREPOINTINFO_TYPE),
+        ('llSequenceNumber', Int64),
+        ('szDescription', win32more.Foundation.CHAR * 64),
     ]
     return RESTOREPOINTINFOA
+def _define_RESTOREPOINTINFOEX_head():
+    class RESTOREPOINTINFOEX(Structure):
+        pass
+    return RESTOREPOINTINFOEX
+def _define_RESTOREPOINTINFOEX():
+    RESTOREPOINTINFOEX = win32more.System.Restore.RESTOREPOINTINFOEX_head
+    RESTOREPOINTINFOEX._pack_ = 1
+    RESTOREPOINTINFOEX._fields_ = [
+        ('ftCreation', win32more.Foundation.FILETIME),
+        ('dwEventType', UInt32),
+        ('dwRestorePtType', UInt32),
+        ('dwRPNum', UInt32),
+        ('szDescription', Char * 256),
+    ]
+    return RESTOREPOINTINFOEX
 def _define_RESTOREPOINTINFOW_head():
     class RESTOREPOINTINFOW(Structure):
         pass
@@ -68,27 +92,12 @@ def _define_RESTOREPOINTINFOW():
     RESTOREPOINTINFOW = win32more.System.Restore.RESTOREPOINTINFOW_head
     RESTOREPOINTINFOW._pack_ = 1
     RESTOREPOINTINFOW._fields_ = [
-        ("dwEventType", win32more.System.Restore.RESTOREPOINTINFO_EVENT_TYPE),
-        ("dwRestorePtType", win32more.System.Restore.RESTOREPOINTINFO_TYPE),
-        ("llSequenceNumber", Int64),
-        ("szDescription", Char * 256),
+        ('dwEventType', win32more.System.Restore.RESTOREPOINTINFO_EVENT_TYPE),
+        ('dwRestorePtType', win32more.System.Restore.RESTOREPOINTINFO_TYPE),
+        ('llSequenceNumber', Int64),
+        ('szDescription', Char * 256),
     ]
     return RESTOREPOINTINFOW
-def _define__RESTOREPTINFOEX_head():
-    class _RESTOREPTINFOEX(Structure):
-        pass
-    return _RESTOREPTINFOEX
-def _define__RESTOREPTINFOEX():
-    _RESTOREPTINFOEX = win32more.System.Restore._RESTOREPTINFOEX_head
-    _RESTOREPTINFOEX._pack_ = 1
-    _RESTOREPTINFOEX._fields_ = [
-        ("ftCreation", win32more.Foundation.FILETIME),
-        ("dwEventType", UInt32),
-        ("dwRestorePtType", UInt32),
-        ("dwRPNum", UInt32),
-        ("szDescription", Char * 256),
-    ]
-    return _RESTOREPTINFOEX
 def _define_STATEMGRSTATUS_head():
     class STATEMGRSTATUS(Structure):
         pass
@@ -97,60 +106,47 @@ def _define_STATEMGRSTATUS():
     STATEMGRSTATUS = win32more.System.Restore.STATEMGRSTATUS_head
     STATEMGRSTATUS._pack_ = 1
     STATEMGRSTATUS._fields_ = [
-        ("nStatus", UInt32),
-        ("llSequenceNumber", Int64),
+        ('nStatus', UInt32),
+        ('llSequenceNumber', Int64),
     ]
     return STATEMGRSTATUS
-def _define_SRSetRestorePointA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Restore.RESTOREPOINTINFOA_head),POINTER(win32more.System.Restore.STATEMGRSTATUS_head), use_last_error=False)(("SRSetRestorePointA", windll["sfc"]), ((1, 'pRestorePtSpec'),(1, 'pSMgrStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SRSetRestorePointW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Restore.RESTOREPOINTINFOW_head),POINTER(win32more.System.Restore.STATEMGRSTATUS_head), use_last_error=False)(("SRSetRestorePointW", windll["sfc"]), ((1, 'pRestorePtSpec'),(1, 'pSMgrStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SRSetRestorePoint():
-    return win32more.System.Restore.SRSetRestorePointW
 __all__ = [
-    "MIN_EVENT",
-    "BEGIN_NESTED_SYSTEM_CHANGE_NORP",
-    "MAX_EVENT",
-    "MIN_RPT",
-    "DESKTOP_SETTING",
     "ACCESSIBILITY_SETTING",
-    "OE_SETTING",
-    "APPLICATION_RUN",
-    "RESTORE",
-    "CHECKPOINT",
-    "WINDOWS_SHUTDOWN",
-    "WINDOWS_BOOT",
-    "FIRSTRUN",
-    "BACKUP_RECOVERY",
-    "BACKUP",
-    "MANUAL_CHECKPOINT",
-    "WINDOWS_UPDATE",
-    "CRITICAL_UPDATE",
-    "MAX_RPT",
-    "MAX_DESC",
-    "MAX_DESC_W",
-    "RESTOREPOINTINFO_TYPE",
     "APPLICATION_INSTALL",
+    "APPLICATION_RUN",
     "APPLICATION_UNINSTALL",
-    "DEVICE_DRIVER_INSTALL",
-    "MODIFY_SETTINGS",
-    "CANCELLED_OPERATION",
-    "RESTOREPOINTINFO_EVENT_TYPE",
+    "BACKUP",
+    "BACKUP_RECOVERY",
     "BEGIN_NESTED_SYSTEM_CHANGE",
+    "BEGIN_NESTED_SYSTEM_CHANGE_NORP",
     "BEGIN_SYSTEM_CHANGE",
+    "CANCELLED_OPERATION",
+    "CHECKPOINT",
+    "CRITICAL_UPDATE",
+    "DESKTOP_SETTING",
+    "DEVICE_DRIVER_INSTALL",
     "END_NESTED_SYSTEM_CHANGE",
     "END_SYSTEM_CHANGE",
+    "FIRSTRUN",
+    "MANUAL_CHECKPOINT",
+    "MAX_DESC",
+    "MAX_DESC_W",
+    "MAX_EVENT",
+    "MAX_RPT",
+    "MIN_EVENT",
+    "MIN_RPT",
+    "MODIFY_SETTINGS",
+    "OE_SETTING",
+    "RESTORE",
     "RESTOREPOINTINFOA",
+    "RESTOREPOINTINFOEX",
     "RESTOREPOINTINFOW",
-    "_RESTOREPTINFOEX",
-    "STATEMGRSTATUS",
+    "RESTOREPOINTINFO_EVENT_TYPE",
+    "RESTOREPOINTINFO_TYPE",
     "SRSetRestorePointA",
     "SRSetRestorePointW",
-    "SRSetRestorePoint",
+    "STATEMGRSTATUS",
+    "WINDOWS_BOOT",
+    "WINDOWS_SHUTDOWN",
+    "WINDOWS_UPDATE",
 ]

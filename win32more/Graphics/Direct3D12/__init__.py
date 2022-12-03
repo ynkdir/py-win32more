@@ -1,17 +1,16 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Graphics.Direct3D
 import win32more.Graphics.Direct3D12
 import win32more.Graphics.Dxgi.Common
 import win32more.Security
 import win32more.System.Com
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -450,15 +449,22 @@ D3D12_MAG_FILTER_SHIFT = 2
 D3D12_MIP_FILTER_SHIFT = 0
 D3D12_ANISOTROPIC_FILTERING_BIT = 64
 LUID_DEFINED = 1
-D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED = '62b0084e-c70e-4daa-a109-30ff8d5a0482'
-CLSID_D3D12Debug = 'f2352aeb-dd84-49fe-b97b-a9dcfdcc1b4f'
-CLSID_D3D12Tools = 'e38216b1-3c8c-4833-aa09-0a06b65d96c8'
-CLSID_D3D12DeviceRemovedExtendedData = '4a75bbc4-9ff4-4ad8-9f18-abae84dc5ff2'
-CLSID_D3D12SDKConfiguration = '7cda6aca-a03e-49c8-9458-0334d20e07ce'
+def _define_D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED():
+    return Guid('62b0084e-c70e-4daa-a1-09-30-ff-8d-5a-04-82')
+def _define_CLSID_D3D12Debug():
+    return Guid('f2352aeb-dd84-49fe-b9-7b-a9-dc-fd-cc-1b-4f')
+def _define_CLSID_D3D12Tools():
+    return Guid('e38216b1-3c8c-4833-aa-09-0a-06-b6-5d-96-c8')
+def _define_CLSID_D3D12DeviceRemovedExtendedData():
+    return Guid('4a75bbc4-9ff4-4ad8-9f-18-ab-ae-84-dc-5f-f2')
+def _define_CLSID_D3D12SDKConfiguration():
+    return Guid('7cda6aca-a03e-49c8-94-58-03-34-d2-0e-07-ce')
 D3D12_SHADING_RATE_X_AXIS_SHIFT = 2
 D3D12_SHADING_RATE_VALID_MASK = 3
-WKPDID_D3DAutoDebugObjectNameW = 'd4902e36-757a-4942-9594-b6769afa43cd'
-DXGI_DEBUG_D3D12 = 'cf59a98c-a950-4326-91ef-9bbaa17bfd95'
+def _define_WKPDID_D3DAutoDebugObjectNameW():
+    return Guid('d4902e36-757a-4942-95-94-b6-76-9a-fa-43-cd')
+def _define_DXGI_DEBUG_D3D12():
+    return Guid('cf59a98c-a950-4326-91-ef-9b-ba-a1-7b-fd-95')
 D3D12_INFO_QUEUE_DEFAULT_MESSAGE_COUNT_LIMIT = 1024
 D3D_SHADER_REQUIRES_STENCIL_REF = 512
 D3D_SHADER_REQUIRES_INNER_COVERAGE = 1024
@@ -480,680 +486,56 @@ D3D_SHADER_REQUIRES_RESOURCE_DESCRIPTOR_HEAP_INDEXING = 33554432
 D3D_SHADER_REQUIRES_SAMPLER_DESCRIPTOR_HEAP_INDEXING = 67108864
 D3D_SHADER_REQUIRES_WAVE_MMA = 134217728
 D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_DESCRIPTOR_HEAP_RESOURCE = 268435456
-D3D12ExperimentalShaderModels = '76f5573e-f13a-40f5-b297-81ce9e18933f'
-D3D12TiledResourceTier4 = 'c9c4725f-a81a-4f56-8c5b-c51039d694fb'
-D3D12MetaCommand = 'c734c97e-8077-48c8-9fdc-d9d1dd31dd77'
-D3D12_COMMAND_LIST_TYPE = Int32
-D3D12_COMMAND_LIST_TYPE_DIRECT = 0
-D3D12_COMMAND_LIST_TYPE_BUNDLE = 1
-D3D12_COMMAND_LIST_TYPE_COMPUTE = 2
-D3D12_COMMAND_LIST_TYPE_COPY = 3
-D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE = 4
-D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS = 5
-D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE = 6
-D3D12_COMMAND_QUEUE_FLAGS = UInt32
-D3D12_COMMAND_QUEUE_FLAG_NONE = 0
-D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT = 1
-D3D12_COMMAND_QUEUE_PRIORITY = Int32
-D3D12_COMMAND_QUEUE_PRIORITY_NORMAL = 0
-D3D12_COMMAND_QUEUE_PRIORITY_HIGH = 100
-D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME = 10000
-def _define_D3D12_COMMAND_QUEUE_DESC_head():
-    class D3D12_COMMAND_QUEUE_DESC(Structure):
-        pass
-    return D3D12_COMMAND_QUEUE_DESC
-def _define_D3D12_COMMAND_QUEUE_DESC():
-    D3D12_COMMAND_QUEUE_DESC = win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head
-    D3D12_COMMAND_QUEUE_DESC._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE),
-        ("Priority", Int32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_FLAGS),
-        ("NodeMask", UInt32),
-    ]
-    return D3D12_COMMAND_QUEUE_DESC
-D3D12_PRIMITIVE_TOPOLOGY_TYPE = Int32
-D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED = 0
-D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT = 1
-D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE = 2
-D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE = 3
-D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH = 4
-D3D12_INPUT_CLASSIFICATION = Int32
-D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA = 0
-D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA = 1
-def _define_D3D12_INPUT_ELEMENT_DESC_head():
-    class D3D12_INPUT_ELEMENT_DESC(Structure):
-        pass
-    return D3D12_INPUT_ELEMENT_DESC
-def _define_D3D12_INPUT_ELEMENT_DESC():
-    D3D12_INPUT_ELEMENT_DESC = win32more.Graphics.Direct3D12.D3D12_INPUT_ELEMENT_DESC_head
-    D3D12_INPUT_ELEMENT_DESC._fields_ = [
-        ("SemanticName", win32more.Foundation.PSTR),
-        ("SemanticIndex", UInt32),
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("InputSlot", UInt32),
-        ("AlignedByteOffset", UInt32),
-        ("InputSlotClass", win32more.Graphics.Direct3D12.D3D12_INPUT_CLASSIFICATION),
-        ("InstanceDataStepRate", UInt32),
-    ]
-    return D3D12_INPUT_ELEMENT_DESC
-D3D12_FILL_MODE = Int32
-D3D12_FILL_MODE_WIREFRAME = 2
-D3D12_FILL_MODE_SOLID = 3
-D3D12_CULL_MODE = Int32
-D3D12_CULL_MODE_NONE = 1
-D3D12_CULL_MODE_FRONT = 2
-D3D12_CULL_MODE_BACK = 3
-def _define_D3D12_SO_DECLARATION_ENTRY_head():
-    class D3D12_SO_DECLARATION_ENTRY(Structure):
-        pass
-    return D3D12_SO_DECLARATION_ENTRY
-def _define_D3D12_SO_DECLARATION_ENTRY():
-    D3D12_SO_DECLARATION_ENTRY = win32more.Graphics.Direct3D12.D3D12_SO_DECLARATION_ENTRY_head
-    D3D12_SO_DECLARATION_ENTRY._fields_ = [
-        ("Stream", UInt32),
-        ("SemanticName", win32more.Foundation.PSTR),
-        ("SemanticIndex", UInt32),
-        ("StartComponent", Byte),
-        ("ComponentCount", Byte),
-        ("OutputSlot", Byte),
-    ]
-    return D3D12_SO_DECLARATION_ENTRY
-def _define_D3D12_VIEWPORT_head():
-    class D3D12_VIEWPORT(Structure):
-        pass
-    return D3D12_VIEWPORT
-def _define_D3D12_VIEWPORT():
-    D3D12_VIEWPORT = win32more.Graphics.Direct3D12.D3D12_VIEWPORT_head
-    D3D12_VIEWPORT._fields_ = [
-        ("TopLeftX", Single),
-        ("TopLeftY", Single),
-        ("Width", Single),
-        ("Height", Single),
-        ("MinDepth", Single),
-        ("MaxDepth", Single),
-    ]
-    return D3D12_VIEWPORT
-def _define_D3D12_BOX_head():
-    class D3D12_BOX(Structure):
-        pass
-    return D3D12_BOX
-def _define_D3D12_BOX():
-    D3D12_BOX = win32more.Graphics.Direct3D12.D3D12_BOX_head
-    D3D12_BOX._fields_ = [
-        ("left", UInt32),
-        ("top", UInt32),
-        ("front", UInt32),
-        ("right", UInt32),
-        ("bottom", UInt32),
-        ("back", UInt32),
-    ]
-    return D3D12_BOX
-D3D12_COMPARISON_FUNC = Int32
-D3D12_COMPARISON_FUNC_NEVER = 1
-D3D12_COMPARISON_FUNC_LESS = 2
-D3D12_COMPARISON_FUNC_EQUAL = 3
-D3D12_COMPARISON_FUNC_LESS_EQUAL = 4
-D3D12_COMPARISON_FUNC_GREATER = 5
-D3D12_COMPARISON_FUNC_NOT_EQUAL = 6
-D3D12_COMPARISON_FUNC_GREATER_EQUAL = 7
-D3D12_COMPARISON_FUNC_ALWAYS = 8
-D3D12_DEPTH_WRITE_MASK = Int32
-D3D12_DEPTH_WRITE_MASK_ZERO = 0
-D3D12_DEPTH_WRITE_MASK_ALL = 1
-D3D12_STENCIL_OP = Int32
-D3D12_STENCIL_OP_KEEP = 1
-D3D12_STENCIL_OP_ZERO = 2
-D3D12_STENCIL_OP_REPLACE = 3
-D3D12_STENCIL_OP_INCR_SAT = 4
-D3D12_STENCIL_OP_DECR_SAT = 5
-D3D12_STENCIL_OP_INVERT = 6
-D3D12_STENCIL_OP_INCR = 7
-D3D12_STENCIL_OP_DECR = 8
-def _define_D3D12_DEPTH_STENCILOP_DESC_head():
-    class D3D12_DEPTH_STENCILOP_DESC(Structure):
-        pass
-    return D3D12_DEPTH_STENCILOP_DESC
-def _define_D3D12_DEPTH_STENCILOP_DESC():
-    D3D12_DEPTH_STENCILOP_DESC = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC_head
-    D3D12_DEPTH_STENCILOP_DESC._fields_ = [
-        ("StencilFailOp", win32more.Graphics.Direct3D12.D3D12_STENCIL_OP),
-        ("StencilDepthFailOp", win32more.Graphics.Direct3D12.D3D12_STENCIL_OP),
-        ("StencilPassOp", win32more.Graphics.Direct3D12.D3D12_STENCIL_OP),
-        ("StencilFunc", win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
-    ]
-    return D3D12_DEPTH_STENCILOP_DESC
-def _define_D3D12_DEPTH_STENCIL_DESC_head():
-    class D3D12_DEPTH_STENCIL_DESC(Structure):
-        pass
-    return D3D12_DEPTH_STENCIL_DESC
-def _define_D3D12_DEPTH_STENCIL_DESC():
-    D3D12_DEPTH_STENCIL_DESC = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_DESC_head
-    D3D12_DEPTH_STENCIL_DESC._fields_ = [
-        ("DepthEnable", win32more.Foundation.BOOL),
-        ("DepthWriteMask", win32more.Graphics.Direct3D12.D3D12_DEPTH_WRITE_MASK),
-        ("DepthFunc", win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
-        ("StencilEnable", win32more.Foundation.BOOL),
-        ("StencilReadMask", Byte),
-        ("StencilWriteMask", Byte),
-        ("FrontFace", win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
-        ("BackFace", win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
-    ]
-    return D3D12_DEPTH_STENCIL_DESC
-def _define_D3D12_DEPTH_STENCIL_DESC1_head():
-    class D3D12_DEPTH_STENCIL_DESC1(Structure):
-        pass
-    return D3D12_DEPTH_STENCIL_DESC1
-def _define_D3D12_DEPTH_STENCIL_DESC1():
-    D3D12_DEPTH_STENCIL_DESC1 = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_DESC1_head
-    D3D12_DEPTH_STENCIL_DESC1._fields_ = [
-        ("DepthEnable", win32more.Foundation.BOOL),
-        ("DepthWriteMask", win32more.Graphics.Direct3D12.D3D12_DEPTH_WRITE_MASK),
-        ("DepthFunc", win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
-        ("StencilEnable", win32more.Foundation.BOOL),
-        ("StencilReadMask", Byte),
-        ("StencilWriteMask", Byte),
-        ("FrontFace", win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
-        ("BackFace", win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
-        ("DepthBoundsTestEnable", win32more.Foundation.BOOL),
-    ]
-    return D3D12_DEPTH_STENCIL_DESC1
-D3D12_BLEND = Int32
-D3D12_BLEND_ZERO = 1
-D3D12_BLEND_ONE = 2
-D3D12_BLEND_SRC_COLOR = 3
-D3D12_BLEND_INV_SRC_COLOR = 4
-D3D12_BLEND_SRC_ALPHA = 5
-D3D12_BLEND_INV_SRC_ALPHA = 6
-D3D12_BLEND_DEST_ALPHA = 7
-D3D12_BLEND_INV_DEST_ALPHA = 8
-D3D12_BLEND_DEST_COLOR = 9
-D3D12_BLEND_INV_DEST_COLOR = 10
-D3D12_BLEND_SRC_ALPHA_SAT = 11
-D3D12_BLEND_BLEND_FACTOR = 14
-D3D12_BLEND_INV_BLEND_FACTOR = 15
-D3D12_BLEND_SRC1_COLOR = 16
-D3D12_BLEND_INV_SRC1_COLOR = 17
-D3D12_BLEND_SRC1_ALPHA = 18
-D3D12_BLEND_INV_SRC1_ALPHA = 19
-D3D12_BLEND_OP = Int32
-D3D12_BLEND_OP_ADD = 1
-D3D12_BLEND_OP_SUBTRACT = 2
-D3D12_BLEND_OP_REV_SUBTRACT = 3
-D3D12_BLEND_OP_MIN = 4
-D3D12_BLEND_OP_MAX = 5
-D3D12_COLOR_WRITE_ENABLE = Int32
-D3D12_COLOR_WRITE_ENABLE_RED = 1
-D3D12_COLOR_WRITE_ENABLE_GREEN = 2
-D3D12_COLOR_WRITE_ENABLE_BLUE = 4
-D3D12_COLOR_WRITE_ENABLE_ALPHA = 8
-D3D12_COLOR_WRITE_ENABLE_ALL = 15
-D3D12_LOGIC_OP = Int32
-D3D12_LOGIC_OP_CLEAR = 0
-D3D12_LOGIC_OP_SET = 1
-D3D12_LOGIC_OP_COPY = 2
-D3D12_LOGIC_OP_COPY_INVERTED = 3
-D3D12_LOGIC_OP_NOOP = 4
-D3D12_LOGIC_OP_INVERT = 5
-D3D12_LOGIC_OP_AND = 6
-D3D12_LOGIC_OP_NAND = 7
-D3D12_LOGIC_OP_OR = 8
-D3D12_LOGIC_OP_NOR = 9
-D3D12_LOGIC_OP_XOR = 10
-D3D12_LOGIC_OP_EQUIV = 11
-D3D12_LOGIC_OP_AND_REVERSE = 12
-D3D12_LOGIC_OP_AND_INVERTED = 13
-D3D12_LOGIC_OP_OR_REVERSE = 14
-D3D12_LOGIC_OP_OR_INVERTED = 15
-def _define_D3D12_RENDER_TARGET_BLEND_DESC_head():
-    class D3D12_RENDER_TARGET_BLEND_DESC(Structure):
-        pass
-    return D3D12_RENDER_TARGET_BLEND_DESC
-def _define_D3D12_RENDER_TARGET_BLEND_DESC():
-    D3D12_RENDER_TARGET_BLEND_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_BLEND_DESC_head
-    D3D12_RENDER_TARGET_BLEND_DESC._fields_ = [
-        ("BlendEnable", win32more.Foundation.BOOL),
-        ("LogicOpEnable", win32more.Foundation.BOOL),
-        ("SrcBlend", win32more.Graphics.Direct3D12.D3D12_BLEND),
-        ("DestBlend", win32more.Graphics.Direct3D12.D3D12_BLEND),
-        ("BlendOp", win32more.Graphics.Direct3D12.D3D12_BLEND_OP),
-        ("SrcBlendAlpha", win32more.Graphics.Direct3D12.D3D12_BLEND),
-        ("DestBlendAlpha", win32more.Graphics.Direct3D12.D3D12_BLEND),
-        ("BlendOpAlpha", win32more.Graphics.Direct3D12.D3D12_BLEND_OP),
-        ("LogicOp", win32more.Graphics.Direct3D12.D3D12_LOGIC_OP),
-        ("RenderTargetWriteMask", Byte),
-    ]
-    return D3D12_RENDER_TARGET_BLEND_DESC
-def _define_D3D12_BLEND_DESC_head():
-    class D3D12_BLEND_DESC(Structure):
-        pass
-    return D3D12_BLEND_DESC
-def _define_D3D12_BLEND_DESC():
-    D3D12_BLEND_DESC = win32more.Graphics.Direct3D12.D3D12_BLEND_DESC_head
-    D3D12_BLEND_DESC._fields_ = [
-        ("AlphaToCoverageEnable", win32more.Foundation.BOOL),
-        ("IndependentBlendEnable", win32more.Foundation.BOOL),
-        ("RenderTarget", win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_BLEND_DESC * 8),
-    ]
-    return D3D12_BLEND_DESC
-D3D12_CONSERVATIVE_RASTERIZATION_MODE = Int32
-D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF = 0
-D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON = 1
-def _define_D3D12_RASTERIZER_DESC_head():
-    class D3D12_RASTERIZER_DESC(Structure):
-        pass
-    return D3D12_RASTERIZER_DESC
-def _define_D3D12_RASTERIZER_DESC():
-    D3D12_RASTERIZER_DESC = win32more.Graphics.Direct3D12.D3D12_RASTERIZER_DESC_head
-    D3D12_RASTERIZER_DESC._fields_ = [
-        ("FillMode", win32more.Graphics.Direct3D12.D3D12_FILL_MODE),
-        ("CullMode", win32more.Graphics.Direct3D12.D3D12_CULL_MODE),
-        ("FrontCounterClockwise", win32more.Foundation.BOOL),
-        ("DepthBias", Int32),
-        ("DepthBiasClamp", Single),
-        ("SlopeScaledDepthBias", Single),
-        ("DepthClipEnable", win32more.Foundation.BOOL),
-        ("MultisampleEnable", win32more.Foundation.BOOL),
-        ("AntialiasedLineEnable", win32more.Foundation.BOOL),
-        ("ForcedSampleCount", UInt32),
-        ("ConservativeRaster", win32more.Graphics.Direct3D12.D3D12_CONSERVATIVE_RASTERIZATION_MODE),
-    ]
-    return D3D12_RASTERIZER_DESC
-def _define_ID3D12Object_head():
-    class ID3D12Object(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c4fec28f-7966-4e95-9f94-f431cb56c3b8')
-    return ID3D12Object
-def _define_ID3D12Object():
-    ID3D12Object = win32more.Graphics.Direct3D12.ID3D12Object_head
-    ID3D12Object.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),c_void_p, use_last_error=False)(3, 'GetPrivateData', ((1, 'guid'),(1, 'pDataSize'),(1, 'pData'),)))
-    ID3D12Object.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p, use_last_error=False)(4, 'SetPrivateData', ((1, 'guid'),(1, 'DataSize'),(1, 'pData'),)))
-    ID3D12Object.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'pData'),)))
-    ID3D12Object.SetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'SetName', ((1, 'Name'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12Object
-def _define_ID3D12DeviceChild_head():
-    class ID3D12DeviceChild(win32more.Graphics.Direct3D12.ID3D12Object_head):
-        Guid = Guid('905db94b-a00c-4140-9df5-2b64ca9ea357')
-    return ID3D12DeviceChild
-def _define_ID3D12DeviceChild():
-    ID3D12DeviceChild = win32more.Graphics.Direct3D12.ID3D12DeviceChild_head
-    ID3D12DeviceChild.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetDevice', ((1, 'riid'),(1, 'ppvDevice'),)))
-    win32more.Graphics.Direct3D12.ID3D12Object
-    return ID3D12DeviceChild
-def _define_ID3D12RootSignature_head():
-    class ID3D12RootSignature(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('c54a6b66-72df-4ee8-8be5-a946a1429214')
-    return ID3D12RootSignature
-def _define_ID3D12RootSignature():
-    ID3D12RootSignature = win32more.Graphics.Direct3D12.ID3D12RootSignature_head
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12RootSignature
-def _define_D3D12_SHADER_BYTECODE_head():
-    class D3D12_SHADER_BYTECODE(Structure):
-        pass
-    return D3D12_SHADER_BYTECODE
-def _define_D3D12_SHADER_BYTECODE():
-    D3D12_SHADER_BYTECODE = win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE_head
-    D3D12_SHADER_BYTECODE._fields_ = [
-        ("pShaderBytecode", c_void_p),
-        ("BytecodeLength", UIntPtr),
-    ]
-    return D3D12_SHADER_BYTECODE
-def _define_D3D12_STREAM_OUTPUT_DESC_head():
-    class D3D12_STREAM_OUTPUT_DESC(Structure):
-        pass
-    return D3D12_STREAM_OUTPUT_DESC
-def _define_D3D12_STREAM_OUTPUT_DESC():
-    D3D12_STREAM_OUTPUT_DESC = win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_DESC_head
-    D3D12_STREAM_OUTPUT_DESC._fields_ = [
-        ("pSODeclaration", POINTER(win32more.Graphics.Direct3D12.D3D12_SO_DECLARATION_ENTRY_head)),
-        ("NumEntries", UInt32),
-        ("pBufferStrides", POINTER(UInt32)),
-        ("NumStrides", UInt32),
-        ("RasterizedStream", UInt32),
-    ]
-    return D3D12_STREAM_OUTPUT_DESC
-def _define_D3D12_INPUT_LAYOUT_DESC_head():
-    class D3D12_INPUT_LAYOUT_DESC(Structure):
-        pass
-    return D3D12_INPUT_LAYOUT_DESC
-def _define_D3D12_INPUT_LAYOUT_DESC():
-    D3D12_INPUT_LAYOUT_DESC = win32more.Graphics.Direct3D12.D3D12_INPUT_LAYOUT_DESC_head
-    D3D12_INPUT_LAYOUT_DESC._fields_ = [
-        ("pInputElementDescs", POINTER(win32more.Graphics.Direct3D12.D3D12_INPUT_ELEMENT_DESC_head)),
-        ("NumElements", UInt32),
-    ]
-    return D3D12_INPUT_LAYOUT_DESC
-D3D12_INDEX_BUFFER_STRIP_CUT_VALUE = Int32
-D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED = 0
-D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFF = 1
-D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFFFFFF = 2
-def _define_D3D12_CACHED_PIPELINE_STATE_head():
-    class D3D12_CACHED_PIPELINE_STATE(Structure):
-        pass
-    return D3D12_CACHED_PIPELINE_STATE
-def _define_D3D12_CACHED_PIPELINE_STATE():
-    D3D12_CACHED_PIPELINE_STATE = win32more.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE_head
-    D3D12_CACHED_PIPELINE_STATE._fields_ = [
-        ("pCachedBlob", c_void_p),
-        ("CachedBlobSizeInBytes", UIntPtr),
-    ]
-    return D3D12_CACHED_PIPELINE_STATE
-D3D12_PIPELINE_STATE_FLAGS = UInt32
-D3D12_PIPELINE_STATE_FLAG_NONE = 0
-D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG = 1
-def _define_D3D12_GRAPHICS_PIPELINE_STATE_DESC_head():
-    class D3D12_GRAPHICS_PIPELINE_STATE_DESC(Structure):
-        pass
-    return D3D12_GRAPHICS_PIPELINE_STATE_DESC
-def _define_D3D12_GRAPHICS_PIPELINE_STATE_DESC():
-    D3D12_GRAPHICS_PIPELINE_STATE_DESC = win32more.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head
-    D3D12_GRAPHICS_PIPELINE_STATE_DESC._fields_ = [
-        ("pRootSignature", win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
-        ("VS", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("PS", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("DS", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("HS", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("GS", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("StreamOutput", win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_DESC),
-        ("BlendState", win32more.Graphics.Direct3D12.D3D12_BLEND_DESC),
-        ("SampleMask", UInt32),
-        ("RasterizerState", win32more.Graphics.Direct3D12.D3D12_RASTERIZER_DESC),
-        ("DepthStencilState", win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_DESC),
-        ("InputLayout", win32more.Graphics.Direct3D12.D3D12_INPUT_LAYOUT_DESC),
-        ("IBStripCutValue", win32more.Graphics.Direct3D12.D3D12_INDEX_BUFFER_STRIP_CUT_VALUE),
-        ("PrimitiveTopologyType", win32more.Graphics.Direct3D12.D3D12_PRIMITIVE_TOPOLOGY_TYPE),
-        ("NumRenderTargets", UInt32),
-        ("RTVFormats", win32more.Graphics.Dxgi.Common.DXGI_FORMAT * 8),
-        ("DSVFormat", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("SampleDesc", win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
-        ("NodeMask", UInt32),
-        ("CachedPSO", win32more.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_FLAGS),
-    ]
-    return D3D12_GRAPHICS_PIPELINE_STATE_DESC
-def _define_D3D12_COMPUTE_PIPELINE_STATE_DESC_head():
-    class D3D12_COMPUTE_PIPELINE_STATE_DESC(Structure):
-        pass
-    return D3D12_COMPUTE_PIPELINE_STATE_DESC
-def _define_D3D12_COMPUTE_PIPELINE_STATE_DESC():
-    D3D12_COMPUTE_PIPELINE_STATE_DESC = win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head
-    D3D12_COMPUTE_PIPELINE_STATE_DESC._fields_ = [
-        ("pRootSignature", win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
-        ("CS", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("NodeMask", UInt32),
-        ("CachedPSO", win32more.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_FLAGS),
-    ]
-    return D3D12_COMPUTE_PIPELINE_STATE_DESC
-def _define_D3D12_RT_FORMAT_ARRAY_head():
-    class D3D12_RT_FORMAT_ARRAY(Structure):
-        pass
-    return D3D12_RT_FORMAT_ARRAY
-def _define_D3D12_RT_FORMAT_ARRAY():
-    D3D12_RT_FORMAT_ARRAY = win32more.Graphics.Direct3D12.D3D12_RT_FORMAT_ARRAY_head
-    D3D12_RT_FORMAT_ARRAY._fields_ = [
-        ("RTFormats", win32more.Graphics.Dxgi.Common.DXGI_FORMAT * 8),
-        ("NumRenderTargets", UInt32),
-    ]
-    return D3D12_RT_FORMAT_ARRAY
-def _define_D3D12_PIPELINE_STATE_STREAM_DESC_head():
-    class D3D12_PIPELINE_STATE_STREAM_DESC(Structure):
-        pass
-    return D3D12_PIPELINE_STATE_STREAM_DESC
-def _define_D3D12_PIPELINE_STATE_STREAM_DESC():
-    D3D12_PIPELINE_STATE_STREAM_DESC = win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head
-    D3D12_PIPELINE_STATE_STREAM_DESC._fields_ = [
-        ("SizeInBytes", UIntPtr),
-        ("pPipelineStateSubobjectStream", c_void_p),
-    ]
-    return D3D12_PIPELINE_STATE_STREAM_DESC
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE = Int32
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_ROOT_SIGNATURE = 0
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VS = 1
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PS = 2
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DS = 3
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_HS = 4
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_GS = 5
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CS = 6
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_STREAM_OUTPUT = 7
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_BLEND = 8
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_MASK = 9
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RASTERIZER = 10
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL = 11
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_INPUT_LAYOUT = 12
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_IB_STRIP_CUT_VALUE = 13
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PRIMITIVE_TOPOLOGY = 14
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RENDER_TARGET_FORMATS = 15
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL_FORMAT = 16
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_DESC = 17
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_NODE_MASK = 18
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CACHED_PSO = 19
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_FLAGS = 20
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL1 = 21
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VIEW_INSTANCING = 22
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_AS = 24
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MS = 25
-D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MAX_VALID = 26
-D3D12_FEATURE = Int32
-D3D12_FEATURE_D3D12_OPTIONS = 0
-D3D12_FEATURE_ARCHITECTURE = 1
-D3D12_FEATURE_FEATURE_LEVELS = 2
-D3D12_FEATURE_FORMAT_SUPPORT = 3
-D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS = 4
-D3D12_FEATURE_FORMAT_INFO = 5
-D3D12_FEATURE_GPU_VIRTUAL_ADDRESS_SUPPORT = 6
-D3D12_FEATURE_SHADER_MODEL = 7
-D3D12_FEATURE_D3D12_OPTIONS1 = 8
-D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_SUPPORT = 10
-D3D12_FEATURE_ROOT_SIGNATURE = 12
-D3D12_FEATURE_ARCHITECTURE1 = 16
-D3D12_FEATURE_D3D12_OPTIONS2 = 18
-D3D12_FEATURE_SHADER_CACHE = 19
-D3D12_FEATURE_COMMAND_QUEUE_PRIORITY = 20
-D3D12_FEATURE_D3D12_OPTIONS3 = 21
-D3D12_FEATURE_EXISTING_HEAPS = 22
-D3D12_FEATURE_D3D12_OPTIONS4 = 23
-D3D12_FEATURE_SERIALIZATION = 24
-D3D12_FEATURE_CROSS_NODE = 25
-D3D12_FEATURE_D3D12_OPTIONS5 = 27
-D3D12_FEATURE_DISPLAYABLE = 28
-D3D12_FEATURE_D3D12_OPTIONS6 = 30
-D3D12_FEATURE_QUERY_META_COMMAND = 31
-D3D12_FEATURE_D3D12_OPTIONS7 = 32
-D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPE_COUNT = 33
-D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPES = 34
-D3D12_FEATURE_D3D12_OPTIONS8 = 36
-D3D12_FEATURE_D3D12_OPTIONS9 = 37
-D3D12_FEATURE_D3D12_OPTIONS10 = 39
-D3D12_FEATURE_D3D12_OPTIONS11 = 40
-D3D12_SHADER_MIN_PRECISION_SUPPORT = UInt32
-D3D12_SHADER_MIN_PRECISION_SUPPORT_NONE = 0
-D3D12_SHADER_MIN_PRECISION_SUPPORT_10_BIT = 1
-D3D12_SHADER_MIN_PRECISION_SUPPORT_16_BIT = 2
-D3D12_TILED_RESOURCES_TIER = Int32
-D3D12_TILED_RESOURCES_TIER_NOT_SUPPORTED = 0
-D3D12_TILED_RESOURCES_TIER_1 = 1
-D3D12_TILED_RESOURCES_TIER_2 = 2
-D3D12_TILED_RESOURCES_TIER_3 = 3
-D3D12_TILED_RESOURCES_TIER_4 = 4
-D3D12_RESOURCE_BINDING_TIER = Int32
-D3D12_RESOURCE_BINDING_TIER_1 = 1
-D3D12_RESOURCE_BINDING_TIER_2 = 2
-D3D12_RESOURCE_BINDING_TIER_3 = 3
-D3D12_CONSERVATIVE_RASTERIZATION_TIER = Int32
-D3D12_CONSERVATIVE_RASTERIZATION_TIER_NOT_SUPPORTED = 0
-D3D12_CONSERVATIVE_RASTERIZATION_TIER_1 = 1
-D3D12_CONSERVATIVE_RASTERIZATION_TIER_2 = 2
-D3D12_CONSERVATIVE_RASTERIZATION_TIER_3 = 3
-D3D12_FORMAT_SUPPORT1 = UInt32
-D3D12_FORMAT_SUPPORT1_NONE = 0
-D3D12_FORMAT_SUPPORT1_BUFFER = 1
-D3D12_FORMAT_SUPPORT1_IA_VERTEX_BUFFER = 2
-D3D12_FORMAT_SUPPORT1_IA_INDEX_BUFFER = 4
-D3D12_FORMAT_SUPPORT1_SO_BUFFER = 8
-D3D12_FORMAT_SUPPORT1_TEXTURE1D = 16
-D3D12_FORMAT_SUPPORT1_TEXTURE2D = 32
-D3D12_FORMAT_SUPPORT1_TEXTURE3D = 64
-D3D12_FORMAT_SUPPORT1_TEXTURECUBE = 128
-D3D12_FORMAT_SUPPORT1_SHADER_LOAD = 256
-D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE = 512
-D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_COMPARISON = 1024
-D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_MONO_TEXT = 2048
-D3D12_FORMAT_SUPPORT1_MIP = 4096
-D3D12_FORMAT_SUPPORT1_RENDER_TARGET = 16384
-D3D12_FORMAT_SUPPORT1_BLENDABLE = 32768
-D3D12_FORMAT_SUPPORT1_DEPTH_STENCIL = 65536
-D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RESOLVE = 262144
-D3D12_FORMAT_SUPPORT1_DISPLAY = 524288
-D3D12_FORMAT_SUPPORT1_CAST_WITHIN_BIT_LAYOUT = 1048576
-D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RENDERTARGET = 2097152
-D3D12_FORMAT_SUPPORT1_MULTISAMPLE_LOAD = 4194304
-D3D12_FORMAT_SUPPORT1_SHADER_GATHER = 8388608
-D3D12_FORMAT_SUPPORT1_BACK_BUFFER_CAST = 16777216
-D3D12_FORMAT_SUPPORT1_TYPED_UNORDERED_ACCESS_VIEW = 33554432
-D3D12_FORMAT_SUPPORT1_SHADER_GATHER_COMPARISON = 67108864
-D3D12_FORMAT_SUPPORT1_DECODER_OUTPUT = 134217728
-D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_OUTPUT = 268435456
-D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_INPUT = 536870912
-D3D12_FORMAT_SUPPORT1_VIDEO_ENCODER = 1073741824
-D3D12_FORMAT_SUPPORT2 = UInt32
-D3D12_FORMAT_SUPPORT2_NONE = 0
-D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_ADD = 1
-D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS = 2
-D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE = 4
-D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE = 8
-D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX = 16
-D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX = 32
-D3D12_FORMAT_SUPPORT2_UAV_TYPED_LOAD = 64
-D3D12_FORMAT_SUPPORT2_UAV_TYPED_STORE = 128
-D3D12_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP = 256
-D3D12_FORMAT_SUPPORT2_TILED = 512
-D3D12_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY = 16384
-D3D12_FORMAT_SUPPORT2_SAMPLER_FEEDBACK = 32768
-D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS = UInt32
-D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE = 0
-D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_TILED_RESOURCE = 1
-D3D12_CROSS_NODE_SHARING_TIER = Int32
-D3D12_CROSS_NODE_SHARING_TIER_NOT_SUPPORTED = 0
-D3D12_CROSS_NODE_SHARING_TIER_1_EMULATED = 1
-D3D12_CROSS_NODE_SHARING_TIER_1 = 2
-D3D12_CROSS_NODE_SHARING_TIER_2 = 3
-D3D12_CROSS_NODE_SHARING_TIER_3 = 4
-D3D12_RESOURCE_HEAP_TIER = Int32
-D3D12_RESOURCE_HEAP_TIER_1 = 1
-D3D12_RESOURCE_HEAP_TIER_2 = 2
-D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER = Int32
-D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_NOT_SUPPORTED = 0
-D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_1 = 1
-D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_2 = 2
-D3D12_VIEW_INSTANCING_TIER = Int32
-D3D12_VIEW_INSTANCING_TIER_NOT_SUPPORTED = 0
-D3D12_VIEW_INSTANCING_TIER_1 = 1
-D3D12_VIEW_INSTANCING_TIER_2 = 2
-D3D12_VIEW_INSTANCING_TIER_3 = 3
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS._fields_ = [
-        ("DoublePrecisionFloatShaderOps", win32more.Foundation.BOOL),
-        ("OutputMergerLogicOp", win32more.Foundation.BOOL),
-        ("MinPrecisionSupport", win32more.Graphics.Direct3D12.D3D12_SHADER_MIN_PRECISION_SUPPORT),
-        ("TiledResourcesTier", win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCES_TIER),
-        ("ResourceBindingTier", win32more.Graphics.Direct3D12.D3D12_RESOURCE_BINDING_TIER),
-        ("PSSpecifiedStencilRefSupported", win32more.Foundation.BOOL),
-        ("TypedUAVLoadAdditionalFormats", win32more.Foundation.BOOL),
-        ("ROVsSupported", win32more.Foundation.BOOL),
-        ("ConservativeRasterizationTier", win32more.Graphics.Direct3D12.D3D12_CONSERVATIVE_RASTERIZATION_TIER),
-        ("MaxGPUVirtualAddressBitsPerResource", UInt32),
-        ("StandardSwizzle64KBSupported", win32more.Foundation.BOOL),
-        ("CrossNodeSharingTier", win32more.Graphics.Direct3D12.D3D12_CROSS_NODE_SHARING_TIER),
-        ("CrossAdapterRowMajorTextureSupported", win32more.Foundation.BOOL),
-        ("VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation", win32more.Foundation.BOOL),
-        ("ResourceHeapTier", win32more.Graphics.Direct3D12.D3D12_RESOURCE_HEAP_TIER),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS1_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS1(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS1
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS1():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS1 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS1_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS1._fields_ = [
-        ("WaveOps", win32more.Foundation.BOOL),
-        ("WaveLaneCountMin", UInt32),
-        ("WaveLaneCountMax", UInt32),
-        ("TotalLaneCount", UInt32),
-        ("ExpandedComputeResourceStates", win32more.Foundation.BOOL),
-        ("Int64ShaderOps", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS1
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS2_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS2(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS2
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS2():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS2 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS2_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS2._fields_ = [
-        ("DepthBoundsTestSupported", win32more.Foundation.BOOL),
-        ("ProgrammableSamplePositionsTier", win32more.Graphics.Direct3D12.D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS2
+def _define_D3D12ExperimentalShaderModels():
+    return Guid('76f5573e-f13a-40f5-b2-97-81-ce-9e-18-93-3f')
+def _define_D3D12TiledResourceTier4():
+    return Guid('c9c4725f-a81a-4f56-8c-5b-c5-10-39-d6-94-fb')
+def _define_D3D12MetaCommand():
+    return Guid('c734c97e-8077-48c8-9f-dc-d9-d1-dd-31-dd-77')
+def _define_D3D12SerializeRootSignature():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3D12SerializeRootSignature', windll['d3d12.dll']), ((1, 'pRootSignature'),(1, 'Version'),(1, 'ppBlob'),(1, 'ppErrorBlob'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12CreateRootSignatureDeserializer():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(('D3D12CreateRootSignatureDeserializer', windll['d3d12.dll']), ((1, 'pSrcData'),(1, 'SrcDataSizeInBytes'),(1, 'pRootSignatureDeserializerInterface'),(1, 'ppRootSignatureDeserializer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12SerializeVersionedRootSignature():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3D12SerializeVersionedRootSignature', windll['d3d12.dll']), ((1, 'pRootSignature'),(1, 'ppBlob'),(1, 'ppErrorBlob'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12CreateVersionedRootSignatureDeserializer():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(('D3D12CreateVersionedRootSignatureDeserializer', windll['d3d12.dll']), ((1, 'pSrcData'),(1, 'SrcDataSizeInBytes'),(1, 'pRootSignatureDeserializerInterface'),(1, 'ppRootSignatureDeserializer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12CreateDevice():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL,POINTER(Guid),POINTER(c_void_p))(('D3D12CreateDevice', windll['d3d12.dll']), ((1, 'pAdapter'),(1, 'MinimumFeatureLevel'),(1, 'riid'),(1, 'ppDevice'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12GetDebugInterface():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(('D3D12GetDebugInterface', windll['d3d12.dll']), ((1, 'riid'),(1, 'ppvDebug'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12EnableExperimentalFeatures():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),c_void_p,POINTER(UInt32))(('D3D12EnableExperimentalFeatures', windll['d3d12.dll']), ((1, 'NumFeatures'),(1, 'pIIDs'),(1, 'pConfigurationStructs'),(1, 'pConfigurationStructSizes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_D3D12GetInterface():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p))(('D3D12GetInterface', windll['d3d12.dll']), ((1, 'rclsid'),(1, 'riid'),(1, 'ppvDebug'),))
+    except (FileNotFoundError, AttributeError):
+        return None
 D3D_ROOT_SIGNATURE_VERSION = Int32
 D3D_ROOT_SIGNATURE_VERSION_1 = 1
 D3D_ROOT_SIGNATURE_VERSION_1_0 = 1
 D3D_ROOT_SIGNATURE_VERSION_1_1 = 2
-def _define_D3D12_FEATURE_DATA_ROOT_SIGNATURE_head():
-    class D3D12_FEATURE_DATA_ROOT_SIGNATURE(Structure):
-        pass
-    return D3D12_FEATURE_DATA_ROOT_SIGNATURE
-def _define_D3D12_FEATURE_DATA_ROOT_SIGNATURE():
-    D3D12_FEATURE_DATA_ROOT_SIGNATURE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_ROOT_SIGNATURE_head
-    D3D12_FEATURE_DATA_ROOT_SIGNATURE._fields_ = [
-        ("HighestVersion", win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION),
-    ]
-    return D3D12_FEATURE_DATA_ROOT_SIGNATURE
-def _define_D3D12_FEATURE_DATA_ARCHITECTURE_head():
-    class D3D12_FEATURE_DATA_ARCHITECTURE(Structure):
-        pass
-    return D3D12_FEATURE_DATA_ARCHITECTURE
-def _define_D3D12_FEATURE_DATA_ARCHITECTURE():
-    D3D12_FEATURE_DATA_ARCHITECTURE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_ARCHITECTURE_head
-    D3D12_FEATURE_DATA_ARCHITECTURE._fields_ = [
-        ("NodeIndex", UInt32),
-        ("TileBasedRenderer", win32more.Foundation.BOOL),
-        ("UMA", win32more.Foundation.BOOL),
-        ("CacheCoherentUMA", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_ARCHITECTURE
-def _define_D3D12_FEATURE_DATA_ARCHITECTURE1_head():
-    class D3D12_FEATURE_DATA_ARCHITECTURE1(Structure):
-        pass
-    return D3D12_FEATURE_DATA_ARCHITECTURE1
-def _define_D3D12_FEATURE_DATA_ARCHITECTURE1():
-    D3D12_FEATURE_DATA_ARCHITECTURE1 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_ARCHITECTURE1_head
-    D3D12_FEATURE_DATA_ARCHITECTURE1._fields_ = [
-        ("NodeIndex", UInt32),
-        ("TileBasedRenderer", win32more.Foundation.BOOL),
-        ("UMA", win32more.Foundation.BOOL),
-        ("CacheCoherentUMA", win32more.Foundation.BOOL),
-        ("IsolatedMMU", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_ARCHITECTURE1
-def _define_D3D12_FEATURE_DATA_FEATURE_LEVELS_head():
-    class D3D12_FEATURE_DATA_FEATURE_LEVELS(Structure):
-        pass
-    return D3D12_FEATURE_DATA_FEATURE_LEVELS
-def _define_D3D12_FEATURE_DATA_FEATURE_LEVELS():
-    D3D12_FEATURE_DATA_FEATURE_LEVELS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_FEATURE_LEVELS_head
-    D3D12_FEATURE_DATA_FEATURE_LEVELS._fields_ = [
-        ("NumFeatureLevels", UInt32),
-        ("pFeatureLevelsRequested", POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL)),
-        ("MaxSupportedFeatureLevel", win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),
-    ]
-    return D3D12_FEATURE_DATA_FEATURE_LEVELS
 D3D_SHADER_MODEL = Int32
 D3D_SHADER_MODEL_5_1 = 81
 D3D_SHADER_MODEL_6_0 = 96
@@ -1164,3015 +546,46 @@ D3D_SHADER_MODEL_6_4 = 100
 D3D_SHADER_MODEL_6_5 = 101
 D3D_SHADER_MODEL_6_6 = 102
 D3D_SHADER_MODEL_6_7 = 103
-def _define_D3D12_FEATURE_DATA_SHADER_MODEL_head():
-    class D3D12_FEATURE_DATA_SHADER_MODEL(Structure):
-        pass
-    return D3D12_FEATURE_DATA_SHADER_MODEL
-def _define_D3D12_FEATURE_DATA_SHADER_MODEL():
-    D3D12_FEATURE_DATA_SHADER_MODEL = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_SHADER_MODEL_head
-    D3D12_FEATURE_DATA_SHADER_MODEL._fields_ = [
-        ("HighestShaderModel", win32more.Graphics.Direct3D12.D3D_SHADER_MODEL),
-    ]
-    return D3D12_FEATURE_DATA_SHADER_MODEL
-def _define_D3D12_FEATURE_DATA_FORMAT_SUPPORT_head():
-    class D3D12_FEATURE_DATA_FORMAT_SUPPORT(Structure):
-        pass
-    return D3D12_FEATURE_DATA_FORMAT_SUPPORT
-def _define_D3D12_FEATURE_DATA_FORMAT_SUPPORT():
-    D3D12_FEATURE_DATA_FORMAT_SUPPORT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_FORMAT_SUPPORT_head
-    D3D12_FEATURE_DATA_FORMAT_SUPPORT._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("Support1", win32more.Graphics.Direct3D12.D3D12_FORMAT_SUPPORT1),
-        ("Support2", win32more.Graphics.Direct3D12.D3D12_FORMAT_SUPPORT2),
-    ]
-    return D3D12_FEATURE_DATA_FORMAT_SUPPORT
-def _define_D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS_head():
-    class D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS(Structure):
-        pass
-    return D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS
-def _define_D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS():
-    D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS_head
-    D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("SampleCount", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS),
-        ("NumQualityLevels", UInt32),
-    ]
-    return D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS
-def _define_D3D12_FEATURE_DATA_FORMAT_INFO_head():
-    class D3D12_FEATURE_DATA_FORMAT_INFO(Structure):
-        pass
-    return D3D12_FEATURE_DATA_FORMAT_INFO
-def _define_D3D12_FEATURE_DATA_FORMAT_INFO():
-    D3D12_FEATURE_DATA_FORMAT_INFO = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_FORMAT_INFO_head
-    D3D12_FEATURE_DATA_FORMAT_INFO._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("PlaneCount", Byte),
-    ]
-    return D3D12_FEATURE_DATA_FORMAT_INFO
-def _define_D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT_head():
-    class D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT(Structure):
-        pass
-    return D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT
-def _define_D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT():
-    D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT_head
-    D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT._fields_ = [
-        ("MaxGPUVirtualAddressBitsPerResource", UInt32),
-        ("MaxGPUVirtualAddressBitsPerProcess", UInt32),
-    ]
-    return D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT
-D3D12_SHADER_CACHE_SUPPORT_FLAGS = UInt32
-D3D12_SHADER_CACHE_SUPPORT_NONE = 0
-D3D12_SHADER_CACHE_SUPPORT_SINGLE_PSO = 1
-D3D12_SHADER_CACHE_SUPPORT_LIBRARY = 2
-D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_INPROC_CACHE = 4
-D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_DISK_CACHE = 8
-D3D12_SHADER_CACHE_SUPPORT_DRIVER_MANAGED_CACHE = 16
-D3D12_SHADER_CACHE_SUPPORT_SHADER_CONTROL_CLEAR = 32
-D3D12_SHADER_CACHE_SUPPORT_SHADER_SESSION_DELETE = 64
-def _define_D3D12_FEATURE_DATA_SHADER_CACHE_head():
-    class D3D12_FEATURE_DATA_SHADER_CACHE(Structure):
-        pass
-    return D3D12_FEATURE_DATA_SHADER_CACHE
-def _define_D3D12_FEATURE_DATA_SHADER_CACHE():
-    D3D12_FEATURE_DATA_SHADER_CACHE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_SHADER_CACHE_head
-    D3D12_FEATURE_DATA_SHADER_CACHE._fields_ = [
-        ("SupportFlags", win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SUPPORT_FLAGS),
-    ]
-    return D3D12_FEATURE_DATA_SHADER_CACHE
-def _define_D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY_head():
-    class D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY(Structure):
-        pass
-    return D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY
-def _define_D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY():
-    D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY_head
-    D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY._fields_ = [
-        ("CommandListType", win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE),
-        ("Priority", UInt32),
-        ("PriorityForTypeIsSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY
-D3D12_COMMAND_LIST_SUPPORT_FLAGS = UInt32
-D3D12_COMMAND_LIST_SUPPORT_FLAG_NONE = 0
-D3D12_COMMAND_LIST_SUPPORT_FLAG_DIRECT = 1
-D3D12_COMMAND_LIST_SUPPORT_FLAG_BUNDLE = 2
-D3D12_COMMAND_LIST_SUPPORT_FLAG_COMPUTE = 4
-D3D12_COMMAND_LIST_SUPPORT_FLAG_COPY = 8
-D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE = 16
-D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS = 32
-D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE = 64
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS3_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS3(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS3
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS3():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS3 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS3_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS3._fields_ = [
-        ("CopyQueueTimestampQueriesSupported", win32more.Foundation.BOOL),
-        ("CastingFullyTypedFormatSupported", win32more.Foundation.BOOL),
-        ("WriteBufferImmediateSupportFlags", win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_SUPPORT_FLAGS),
-        ("ViewInstancingTier", win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_TIER),
-        ("BarycentricsSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS3
-def _define_D3D12_FEATURE_DATA_EXISTING_HEAPS_head():
-    class D3D12_FEATURE_DATA_EXISTING_HEAPS(Structure):
-        pass
-    return D3D12_FEATURE_DATA_EXISTING_HEAPS
-def _define_D3D12_FEATURE_DATA_EXISTING_HEAPS():
-    D3D12_FEATURE_DATA_EXISTING_HEAPS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_EXISTING_HEAPS_head
-    D3D12_FEATURE_DATA_EXISTING_HEAPS._fields_ = [
-        ("Supported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_EXISTING_HEAPS
-D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER = Int32
-D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0 = 0
-D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1 = 1
-D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_2 = 2
-def _define_D3D12_FEATURE_DATA_DISPLAYABLE_head():
-    class D3D12_FEATURE_DATA_DISPLAYABLE(Structure):
-        pass
-    return D3D12_FEATURE_DATA_DISPLAYABLE
-def _define_D3D12_FEATURE_DATA_DISPLAYABLE():
-    D3D12_FEATURE_DATA_DISPLAYABLE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_DISPLAYABLE_head
-    D3D12_FEATURE_DATA_DISPLAYABLE._fields_ = [
-        ("DisplayableTexture", win32more.Foundation.BOOL),
-        ("SharedResourceCompatibilityTier", win32more.Graphics.Direct3D12.D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER),
-    ]
-    return D3D12_FEATURE_DATA_DISPLAYABLE
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS4_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS4(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS4
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS4():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS4 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS4_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS4._fields_ = [
-        ("MSAA64KBAlignedTextureSupported", win32more.Foundation.BOOL),
-        ("SharedResourceCompatibilityTier", win32more.Graphics.Direct3D12.D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER),
-        ("Native16BitShaderOpsSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS4
-D3D12_HEAP_SERIALIZATION_TIER = Int32
-D3D12_HEAP_SERIALIZATION_TIER_0 = 0
-D3D12_HEAP_SERIALIZATION_TIER_10 = 10
-def _define_D3D12_FEATURE_DATA_SERIALIZATION_head():
-    class D3D12_FEATURE_DATA_SERIALIZATION(Structure):
-        pass
-    return D3D12_FEATURE_DATA_SERIALIZATION
-def _define_D3D12_FEATURE_DATA_SERIALIZATION():
-    D3D12_FEATURE_DATA_SERIALIZATION = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_SERIALIZATION_head
-    D3D12_FEATURE_DATA_SERIALIZATION._fields_ = [
-        ("NodeIndex", UInt32),
-        ("HeapSerializationTier", win32more.Graphics.Direct3D12.D3D12_HEAP_SERIALIZATION_TIER),
-    ]
-    return D3D12_FEATURE_DATA_SERIALIZATION
-def _define_D3D12_FEATURE_DATA_CROSS_NODE_head():
-    class D3D12_FEATURE_DATA_CROSS_NODE(Structure):
-        pass
-    return D3D12_FEATURE_DATA_CROSS_NODE
-def _define_D3D12_FEATURE_DATA_CROSS_NODE():
-    D3D12_FEATURE_DATA_CROSS_NODE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_CROSS_NODE_head
-    D3D12_FEATURE_DATA_CROSS_NODE._fields_ = [
-        ("SharingTier", win32more.Graphics.Direct3D12.D3D12_CROSS_NODE_SHARING_TIER),
-        ("AtomicShaderInstructions", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_CROSS_NODE
-D3D12_RENDER_PASS_TIER = Int32
-D3D12_RENDER_PASS_TIER_0 = 0
-D3D12_RENDER_PASS_TIER_1 = 1
-D3D12_RENDER_PASS_TIER_2 = 2
-D3D12_RAYTRACING_TIER = Int32
-D3D12_RAYTRACING_TIER_NOT_SUPPORTED = 0
-D3D12_RAYTRACING_TIER_1_0 = 10
-D3D12_RAYTRACING_TIER_1_1 = 11
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS5_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS5(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS5
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS5():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS5 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS5_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS5._fields_ = [
-        ("SRVOnlyTiledResourceTier3", win32more.Foundation.BOOL),
-        ("RenderPassesTier", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_TIER),
-        ("RaytracingTier", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_TIER),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS5
-D3D12_VARIABLE_SHADING_RATE_TIER = Int32
-D3D12_VARIABLE_SHADING_RATE_TIER_NOT_SUPPORTED = 0
-D3D12_VARIABLE_SHADING_RATE_TIER_1 = 1
-D3D12_VARIABLE_SHADING_RATE_TIER_2 = 2
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS6_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS6(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS6
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS6():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS6 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS6_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS6._fields_ = [
-        ("AdditionalShadingRatesSupported", win32more.Foundation.BOOL),
-        ("PerPrimitiveShadingRateSupportedWithViewportIndexing", win32more.Foundation.BOOL),
-        ("VariableShadingRateTier", win32more.Graphics.Direct3D12.D3D12_VARIABLE_SHADING_RATE_TIER),
-        ("ShadingRateImageTileSize", UInt32),
-        ("BackgroundProcessingSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS6
-D3D12_MESH_SHADER_TIER = Int32
-D3D12_MESH_SHADER_TIER_NOT_SUPPORTED = 0
-D3D12_MESH_SHADER_TIER_1 = 10
-D3D12_SAMPLER_FEEDBACK_TIER = Int32
-D3D12_SAMPLER_FEEDBACK_TIER_NOT_SUPPORTED = 0
-D3D12_SAMPLER_FEEDBACK_TIER_0_9 = 90
-D3D12_SAMPLER_FEEDBACK_TIER_1_0 = 100
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS7_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS7(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS7
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS7():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS7 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS7_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS7._fields_ = [
-        ("MeshShaderTier", win32more.Graphics.Direct3D12.D3D12_MESH_SHADER_TIER),
-        ("SamplerFeedbackTier", win32more.Graphics.Direct3D12.D3D12_SAMPLER_FEEDBACK_TIER),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS7
-def _define_D3D12_FEATURE_DATA_QUERY_META_COMMAND_head():
-    class D3D12_FEATURE_DATA_QUERY_META_COMMAND(Structure):
-        pass
-    return D3D12_FEATURE_DATA_QUERY_META_COMMAND
-def _define_D3D12_FEATURE_DATA_QUERY_META_COMMAND():
-    D3D12_FEATURE_DATA_QUERY_META_COMMAND = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_QUERY_META_COMMAND_head
-    D3D12_FEATURE_DATA_QUERY_META_COMMAND._fields_ = [
-        ("CommandId", Guid),
-        ("NodeMask", UInt32),
-        ("pQueryInputData", c_void_p),
-        ("QueryInputDataSizeInBytes", UIntPtr),
-        ("pQueryOutputData", c_void_p),
-        ("QueryOutputDataSizeInBytes", UIntPtr),
-    ]
-    return D3D12_FEATURE_DATA_QUERY_META_COMMAND
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS8_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS8(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS8
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS8():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS8 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS8_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS8._fields_ = [
-        ("UnalignedBlockTexturesSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS8
-D3D12_WAVE_MMA_TIER = Int32
-D3D12_WAVE_MMA_TIER_NOT_SUPPORTED = 0
-D3D12_WAVE_MMA_TIER_1_0 = 10
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS9_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS9(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS9
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS9():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS9 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS9_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS9._fields_ = [
-        ("MeshShaderPipelineStatsSupported", win32more.Foundation.BOOL),
-        ("MeshShaderSupportsFullRangeRenderTargetArrayIndex", win32more.Foundation.BOOL),
-        ("AtomicInt64OnTypedResourceSupported", win32more.Foundation.BOOL),
-        ("AtomicInt64OnGroupSharedSupported", win32more.Foundation.BOOL),
-        ("DerivativesInMeshAndAmplificationShadersSupported", win32more.Foundation.BOOL),
-        ("WaveMMATier", win32more.Graphics.Direct3D12.D3D12_WAVE_MMA_TIER),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS9
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS10_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS10(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS10
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS10():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS10 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS10_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS10._fields_ = [
-        ("VariableRateShadingSumCombinerSupported", win32more.Foundation.BOOL),
-        ("MeshShaderPerPrimitiveShadingRateSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS10
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS11_head():
-    class D3D12_FEATURE_DATA_D3D12_OPTIONS11(Structure):
-        pass
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS11
-def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS11():
-    D3D12_FEATURE_DATA_D3D12_OPTIONS11 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS11_head
-    D3D12_FEATURE_DATA_D3D12_OPTIONS11._fields_ = [
-        ("AtomicInt64OnDescriptorHeapResourceSupported", win32more.Foundation.BOOL),
-    ]
-    return D3D12_FEATURE_DATA_D3D12_OPTIONS11
-def _define_D3D12_RESOURCE_ALLOCATION_INFO_head():
-    class D3D12_RESOURCE_ALLOCATION_INFO(Structure):
-        pass
-    return D3D12_RESOURCE_ALLOCATION_INFO
-def _define_D3D12_RESOURCE_ALLOCATION_INFO():
-    D3D12_RESOURCE_ALLOCATION_INFO = win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO_head
-    D3D12_RESOURCE_ALLOCATION_INFO._fields_ = [
-        ("SizeInBytes", UInt64),
-        ("Alignment", UInt64),
-    ]
-    return D3D12_RESOURCE_ALLOCATION_INFO
-def _define_D3D12_RESOURCE_ALLOCATION_INFO1_head():
-    class D3D12_RESOURCE_ALLOCATION_INFO1(Structure):
-        pass
-    return D3D12_RESOURCE_ALLOCATION_INFO1
-def _define_D3D12_RESOURCE_ALLOCATION_INFO1():
-    D3D12_RESOURCE_ALLOCATION_INFO1 = win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head
-    D3D12_RESOURCE_ALLOCATION_INFO1._fields_ = [
-        ("Offset", UInt64),
-        ("Alignment", UInt64),
-        ("SizeInBytes", UInt64),
-    ]
-    return D3D12_RESOURCE_ALLOCATION_INFO1
-D3D12_HEAP_TYPE = Int32
-D3D12_HEAP_TYPE_DEFAULT = 1
-D3D12_HEAP_TYPE_UPLOAD = 2
-D3D12_HEAP_TYPE_READBACK = 3
-D3D12_HEAP_TYPE_CUSTOM = 4
-D3D12_CPU_PAGE_PROPERTY = Int32
-D3D12_CPU_PAGE_PROPERTY_UNKNOWN = 0
-D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE = 1
-D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE = 2
-D3D12_CPU_PAGE_PROPERTY_WRITE_BACK = 3
-D3D12_MEMORY_POOL = Int32
-D3D12_MEMORY_POOL_UNKNOWN = 0
-D3D12_MEMORY_POOL_L0 = 1
-D3D12_MEMORY_POOL_L1 = 2
-def _define_D3D12_HEAP_PROPERTIES_head():
-    class D3D12_HEAP_PROPERTIES(Structure):
-        pass
-    return D3D12_HEAP_PROPERTIES
-def _define_D3D12_HEAP_PROPERTIES():
-    D3D12_HEAP_PROPERTIES = win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head
-    D3D12_HEAP_PROPERTIES._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_HEAP_TYPE),
-        ("CPUPageProperty", win32more.Graphics.Direct3D12.D3D12_CPU_PAGE_PROPERTY),
-        ("MemoryPoolPreference", win32more.Graphics.Direct3D12.D3D12_MEMORY_POOL),
-        ("CreationNodeMask", UInt32),
-        ("VisibleNodeMask", UInt32),
-    ]
-    return D3D12_HEAP_PROPERTIES
-D3D12_HEAP_FLAGS = UInt32
-D3D12_HEAP_FLAG_NONE = 0
-D3D12_HEAP_FLAG_SHARED = 1
-D3D12_HEAP_FLAG_DENY_BUFFERS = 4
-D3D12_HEAP_FLAG_ALLOW_DISPLAY = 8
-D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER = 32
-D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES = 64
-D3D12_HEAP_FLAG_DENY_NON_RT_DS_TEXTURES = 128
-D3D12_HEAP_FLAG_HARDWARE_PROTECTED = 256
-D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH = 512
-D3D12_HEAP_FLAG_ALLOW_SHADER_ATOMICS = 1024
-D3D12_HEAP_FLAG_CREATE_NOT_RESIDENT = 2048
-D3D12_HEAP_FLAG_CREATE_NOT_ZEROED = 4096
-D3D12_HEAP_FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES = 0
-D3D12_HEAP_FLAG_ALLOW_ONLY_BUFFERS = 192
-D3D12_HEAP_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES = 68
-D3D12_HEAP_FLAG_ALLOW_ONLY_RT_DS_TEXTURES = 132
-def _define_D3D12_HEAP_DESC_head():
-    class D3D12_HEAP_DESC(Structure):
-        pass
-    return D3D12_HEAP_DESC
-def _define_D3D12_HEAP_DESC():
-    D3D12_HEAP_DESC = win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head
-    D3D12_HEAP_DESC._fields_ = [
-        ("SizeInBytes", UInt64),
-        ("Properties", win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES),
-        ("Alignment", UInt64),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS),
-    ]
-    return D3D12_HEAP_DESC
-D3D12_RESOURCE_DIMENSION = Int32
-D3D12_RESOURCE_DIMENSION_UNKNOWN = 0
-D3D12_RESOURCE_DIMENSION_BUFFER = 1
-D3D12_RESOURCE_DIMENSION_TEXTURE1D = 2
-D3D12_RESOURCE_DIMENSION_TEXTURE2D = 3
-D3D12_RESOURCE_DIMENSION_TEXTURE3D = 4
-D3D12_TEXTURE_LAYOUT = Int32
-D3D12_TEXTURE_LAYOUT_UNKNOWN = 0
-D3D12_TEXTURE_LAYOUT_ROW_MAJOR = 1
-D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE = 2
-D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE = 3
-D3D12_RESOURCE_FLAGS = UInt32
-D3D12_RESOURCE_FLAG_NONE = 0
-D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET = 1
-D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL = 2
-D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS = 4
-D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE = 8
-D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER = 16
-D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS = 32
-D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY = 64
-D3D12_RESOURCE_FLAG_VIDEO_ENCODE_REFERENCE_ONLY = 128
-def _define_D3D12_MIP_REGION_head():
-    class D3D12_MIP_REGION(Structure):
-        pass
-    return D3D12_MIP_REGION
-def _define_D3D12_MIP_REGION():
-    D3D12_MIP_REGION = win32more.Graphics.Direct3D12.D3D12_MIP_REGION_head
-    D3D12_MIP_REGION._fields_ = [
-        ("Width", UInt32),
-        ("Height", UInt32),
-        ("Depth", UInt32),
-    ]
-    return D3D12_MIP_REGION
-def _define_D3D12_RESOURCE_DESC_head():
-    class D3D12_RESOURCE_DESC(Structure):
-        pass
-    return D3D12_RESOURCE_DESC
-def _define_D3D12_RESOURCE_DESC():
-    D3D12_RESOURCE_DESC = win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head
-    D3D12_RESOURCE_DESC._fields_ = [
-        ("Dimension", win32more.Graphics.Direct3D12.D3D12_RESOURCE_DIMENSION),
-        ("Alignment", UInt64),
-        ("Width", UInt64),
-        ("Height", UInt32),
-        ("DepthOrArraySize", UInt16),
-        ("MipLevels", UInt16),
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("SampleDesc", win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
-        ("Layout", win32more.Graphics.Direct3D12.D3D12_TEXTURE_LAYOUT),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_RESOURCE_FLAGS),
-    ]
-    return D3D12_RESOURCE_DESC
-def _define_D3D12_RESOURCE_DESC1_head():
-    class D3D12_RESOURCE_DESC1(Structure):
-        pass
-    return D3D12_RESOURCE_DESC1
-def _define_D3D12_RESOURCE_DESC1():
-    D3D12_RESOURCE_DESC1 = win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head
-    D3D12_RESOURCE_DESC1._fields_ = [
-        ("Dimension", win32more.Graphics.Direct3D12.D3D12_RESOURCE_DIMENSION),
-        ("Alignment", UInt64),
-        ("Width", UInt64),
-        ("Height", UInt32),
-        ("DepthOrArraySize", UInt16),
-        ("MipLevels", UInt16),
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("SampleDesc", win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
-        ("Layout", win32more.Graphics.Direct3D12.D3D12_TEXTURE_LAYOUT),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_RESOURCE_FLAGS),
-        ("SamplerFeedbackMipRegion", win32more.Graphics.Direct3D12.D3D12_MIP_REGION),
-    ]
-    return D3D12_RESOURCE_DESC1
-def _define_D3D12_DEPTH_STENCIL_VALUE_head():
-    class D3D12_DEPTH_STENCIL_VALUE(Structure):
-        pass
-    return D3D12_DEPTH_STENCIL_VALUE
-def _define_D3D12_DEPTH_STENCIL_VALUE():
-    D3D12_DEPTH_STENCIL_VALUE = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VALUE_head
-    D3D12_DEPTH_STENCIL_VALUE._fields_ = [
-        ("Depth", Single),
-        ("Stencil", Byte),
-    ]
-    return D3D12_DEPTH_STENCIL_VALUE
-def _define_D3D12_CLEAR_VALUE_head():
-    class D3D12_CLEAR_VALUE(Structure):
-        pass
-    return D3D12_CLEAR_VALUE
-def _define_D3D12_CLEAR_VALUE():
-    D3D12_CLEAR_VALUE = win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head
-    class D3D12_CLEAR_VALUE__Anonymous_e__Union(Union):
-        pass
-    D3D12_CLEAR_VALUE__Anonymous_e__Union._fields_ = [
-        ("Color", Single * 4),
-        ("DepthStencil", win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VALUE),
-    ]
-    D3D12_CLEAR_VALUE._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_CLEAR_VALUE._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("Anonymous", D3D12_CLEAR_VALUE__Anonymous_e__Union),
-    ]
-    return D3D12_CLEAR_VALUE
-def _define_D3D12_RANGE_head():
-    class D3D12_RANGE(Structure):
-        pass
-    return D3D12_RANGE
-def _define_D3D12_RANGE():
-    D3D12_RANGE = win32more.Graphics.Direct3D12.D3D12_RANGE_head
-    D3D12_RANGE._fields_ = [
-        ("Begin", UIntPtr),
-        ("End", UIntPtr),
-    ]
-    return D3D12_RANGE
-def _define_D3D12_RANGE_UINT64_head():
-    class D3D12_RANGE_UINT64(Structure):
-        pass
-    return D3D12_RANGE_UINT64
-def _define_D3D12_RANGE_UINT64():
-    D3D12_RANGE_UINT64 = win32more.Graphics.Direct3D12.D3D12_RANGE_UINT64_head
-    D3D12_RANGE_UINT64._fields_ = [
-        ("Begin", UInt64),
-        ("End", UInt64),
-    ]
-    return D3D12_RANGE_UINT64
-def _define_D3D12_SUBRESOURCE_RANGE_UINT64_head():
-    class D3D12_SUBRESOURCE_RANGE_UINT64(Structure):
-        pass
-    return D3D12_SUBRESOURCE_RANGE_UINT64
-def _define_D3D12_SUBRESOURCE_RANGE_UINT64():
-    D3D12_SUBRESOURCE_RANGE_UINT64 = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64_head
-    D3D12_SUBRESOURCE_RANGE_UINT64._fields_ = [
-        ("Subresource", UInt32),
-        ("Range", win32more.Graphics.Direct3D12.D3D12_RANGE_UINT64),
-    ]
-    return D3D12_SUBRESOURCE_RANGE_UINT64
-def _define_D3D12_SUBRESOURCE_INFO_head():
-    class D3D12_SUBRESOURCE_INFO(Structure):
-        pass
-    return D3D12_SUBRESOURCE_INFO
-def _define_D3D12_SUBRESOURCE_INFO():
-    D3D12_SUBRESOURCE_INFO = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_INFO_head
-    D3D12_SUBRESOURCE_INFO._fields_ = [
-        ("Offset", UInt64),
-        ("RowPitch", UInt32),
-        ("DepthPitch", UInt32),
-    ]
-    return D3D12_SUBRESOURCE_INFO
-def _define_D3D12_TILED_RESOURCE_COORDINATE_head():
-    class D3D12_TILED_RESOURCE_COORDINATE(Structure):
-        pass
-    return D3D12_TILED_RESOURCE_COORDINATE
-def _define_D3D12_TILED_RESOURCE_COORDINATE():
-    D3D12_TILED_RESOURCE_COORDINATE = win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head
-    D3D12_TILED_RESOURCE_COORDINATE._fields_ = [
-        ("X", UInt32),
-        ("Y", UInt32),
-        ("Z", UInt32),
-        ("Subresource", UInt32),
-    ]
-    return D3D12_TILED_RESOURCE_COORDINATE
-def _define_D3D12_TILE_REGION_SIZE_head():
-    class D3D12_TILE_REGION_SIZE(Structure):
-        pass
-    return D3D12_TILE_REGION_SIZE
-def _define_D3D12_TILE_REGION_SIZE():
-    D3D12_TILE_REGION_SIZE = win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head
-    D3D12_TILE_REGION_SIZE._fields_ = [
-        ("NumTiles", UInt32),
-        ("UseBox", win32more.Foundation.BOOL),
-        ("Width", UInt32),
-        ("Height", UInt16),
-        ("Depth", UInt16),
-    ]
-    return D3D12_TILE_REGION_SIZE
-D3D12_TILE_RANGE_FLAGS = Int32
-D3D12_TILE_RANGE_FLAG_NONE = 0
-D3D12_TILE_RANGE_FLAG_NULL = 1
-D3D12_TILE_RANGE_FLAG_SKIP = 2
-D3D12_TILE_RANGE_FLAG_REUSE_SINGLE_TILE = 4
-def _define_D3D12_SUBRESOURCE_TILING_head():
-    class D3D12_SUBRESOURCE_TILING(Structure):
-        pass
-    return D3D12_SUBRESOURCE_TILING
-def _define_D3D12_SUBRESOURCE_TILING():
-    D3D12_SUBRESOURCE_TILING = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING_head
-    D3D12_SUBRESOURCE_TILING._fields_ = [
-        ("WidthInTiles", UInt32),
-        ("HeightInTiles", UInt16),
-        ("DepthInTiles", UInt16),
-        ("StartTileIndexInOverallResource", UInt32),
-    ]
-    return D3D12_SUBRESOURCE_TILING
-def _define_D3D12_TILE_SHAPE_head():
-    class D3D12_TILE_SHAPE(Structure):
-        pass
-    return D3D12_TILE_SHAPE
-def _define_D3D12_TILE_SHAPE():
-    D3D12_TILE_SHAPE = win32more.Graphics.Direct3D12.D3D12_TILE_SHAPE_head
-    D3D12_TILE_SHAPE._fields_ = [
-        ("WidthInTexels", UInt32),
-        ("HeightInTexels", UInt32),
-        ("DepthInTexels", UInt32),
-    ]
-    return D3D12_TILE_SHAPE
-def _define_D3D12_PACKED_MIP_INFO_head():
-    class D3D12_PACKED_MIP_INFO(Structure):
-        pass
-    return D3D12_PACKED_MIP_INFO
-def _define_D3D12_PACKED_MIP_INFO():
-    D3D12_PACKED_MIP_INFO = win32more.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head
-    D3D12_PACKED_MIP_INFO._fields_ = [
-        ("NumStandardMips", Byte),
-        ("NumPackedMips", Byte),
-        ("NumTilesForPackedMips", UInt32),
-        ("StartTileIndexInOverallResource", UInt32),
-    ]
-    return D3D12_PACKED_MIP_INFO
-D3D12_TILE_MAPPING_FLAGS = UInt32
-D3D12_TILE_MAPPING_FLAG_NONE = 0
-D3D12_TILE_MAPPING_FLAG_NO_HAZARD = 1
-D3D12_TILE_COPY_FLAGS = UInt32
-D3D12_TILE_COPY_FLAG_NONE = 0
-D3D12_TILE_COPY_FLAG_NO_HAZARD = 1
-D3D12_TILE_COPY_FLAG_LINEAR_BUFFER_TO_SWIZZLED_TILED_RESOURCE = 2
-D3D12_TILE_COPY_FLAG_SWIZZLED_TILED_RESOURCE_TO_LINEAR_BUFFER = 4
-D3D12_RESOURCE_STATES = UInt32
-D3D12_RESOURCE_STATE_COMMON = 0
-D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER = 1
-D3D12_RESOURCE_STATE_INDEX_BUFFER = 2
-D3D12_RESOURCE_STATE_RENDER_TARGET = 4
-D3D12_RESOURCE_STATE_UNORDERED_ACCESS = 8
-D3D12_RESOURCE_STATE_DEPTH_WRITE = 16
-D3D12_RESOURCE_STATE_DEPTH_READ = 32
-D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE = 64
-D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE = 128
-D3D12_RESOURCE_STATE_STREAM_OUT = 256
-D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT = 512
-D3D12_RESOURCE_STATE_COPY_DEST = 1024
-D3D12_RESOURCE_STATE_COPY_SOURCE = 2048
-D3D12_RESOURCE_STATE_RESOLVE_DEST = 4096
-D3D12_RESOURCE_STATE_RESOLVE_SOURCE = 8192
-D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE = 4194304
-D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE = 16777216
-D3D12_RESOURCE_STATE_GENERIC_READ = 2755
-D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE = 192
-D3D12_RESOURCE_STATE_PRESENT = 0
-D3D12_RESOURCE_STATE_PREDICATION = 512
-D3D12_RESOURCE_STATE_VIDEO_DECODE_READ = 65536
-D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE = 131072
-D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ = 262144
-D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE = 524288
-D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ = 2097152
-D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE = 8388608
-D3D12_RESOURCE_BARRIER_TYPE = Int32
-D3D12_RESOURCE_BARRIER_TYPE_TRANSITION = 0
-D3D12_RESOURCE_BARRIER_TYPE_ALIASING = 1
-D3D12_RESOURCE_BARRIER_TYPE_UAV = 2
-def _define_D3D12_RESOURCE_TRANSITION_BARRIER_head():
-    class D3D12_RESOURCE_TRANSITION_BARRIER(Structure):
-        pass
-    return D3D12_RESOURCE_TRANSITION_BARRIER
-def _define_D3D12_RESOURCE_TRANSITION_BARRIER():
-    D3D12_RESOURCE_TRANSITION_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_TRANSITION_BARRIER_head
-    D3D12_RESOURCE_TRANSITION_BARRIER._fields_ = [
-        ("pResource", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-        ("Subresource", UInt32),
-        ("StateBefore", win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES),
-        ("StateAfter", win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES),
-    ]
-    return D3D12_RESOURCE_TRANSITION_BARRIER
-def _define_D3D12_RESOURCE_ALIASING_BARRIER_head():
-    class D3D12_RESOURCE_ALIASING_BARRIER(Structure):
-        pass
-    return D3D12_RESOURCE_ALIASING_BARRIER
-def _define_D3D12_RESOURCE_ALIASING_BARRIER():
-    D3D12_RESOURCE_ALIASING_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALIASING_BARRIER_head
-    D3D12_RESOURCE_ALIASING_BARRIER._fields_ = [
-        ("pResourceBefore", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-        ("pResourceAfter", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-    ]
-    return D3D12_RESOURCE_ALIASING_BARRIER
-def _define_D3D12_RESOURCE_UAV_BARRIER_head():
-    class D3D12_RESOURCE_UAV_BARRIER(Structure):
-        pass
-    return D3D12_RESOURCE_UAV_BARRIER
-def _define_D3D12_RESOURCE_UAV_BARRIER():
-    D3D12_RESOURCE_UAV_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_UAV_BARRIER_head
-    D3D12_RESOURCE_UAV_BARRIER._fields_ = [
-        ("pResource", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-    ]
-    return D3D12_RESOURCE_UAV_BARRIER
-D3D12_RESOURCE_BARRIER_FLAGS = UInt32
-D3D12_RESOURCE_BARRIER_FLAG_NONE = 0
-D3D12_RESOURCE_BARRIER_FLAG_BEGIN_ONLY = 1
-D3D12_RESOURCE_BARRIER_FLAG_END_ONLY = 2
-def _define_D3D12_RESOURCE_BARRIER_head():
-    class D3D12_RESOURCE_BARRIER(Structure):
-        pass
-    return D3D12_RESOURCE_BARRIER
-def _define_D3D12_RESOURCE_BARRIER():
-    D3D12_RESOURCE_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_head
-    class D3D12_RESOURCE_BARRIER__Anonymous_e__Union(Union):
-        pass
-    D3D12_RESOURCE_BARRIER__Anonymous_e__Union._fields_ = [
-        ("Transition", win32more.Graphics.Direct3D12.D3D12_RESOURCE_TRANSITION_BARRIER),
-        ("Aliasing", win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALIASING_BARRIER),
-        ("UAV", win32more.Graphics.Direct3D12.D3D12_RESOURCE_UAV_BARRIER),
-    ]
-    D3D12_RESOURCE_BARRIER._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_RESOURCE_BARRIER._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_TYPE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_FLAGS),
-        ("Anonymous", D3D12_RESOURCE_BARRIER__Anonymous_e__Union),
-    ]
-    return D3D12_RESOURCE_BARRIER
-def _define_D3D12_SUBRESOURCE_FOOTPRINT_head():
-    class D3D12_SUBRESOURCE_FOOTPRINT(Structure):
-        pass
-    return D3D12_SUBRESOURCE_FOOTPRINT
-def _define_D3D12_SUBRESOURCE_FOOTPRINT():
-    D3D12_SUBRESOURCE_FOOTPRINT = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_FOOTPRINT_head
-    D3D12_SUBRESOURCE_FOOTPRINT._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("Width", UInt32),
-        ("Height", UInt32),
-        ("Depth", UInt32),
-        ("RowPitch", UInt32),
-    ]
-    return D3D12_SUBRESOURCE_FOOTPRINT
-def _define_D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head():
-    class D3D12_PLACED_SUBRESOURCE_FOOTPRINT(Structure):
-        pass
-    return D3D12_PLACED_SUBRESOURCE_FOOTPRINT
-def _define_D3D12_PLACED_SUBRESOURCE_FOOTPRINT():
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT = win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT._fields_ = [
-        ("Offset", UInt64),
-        ("Footprint", win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_FOOTPRINT),
-    ]
-    return D3D12_PLACED_SUBRESOURCE_FOOTPRINT
-D3D12_TEXTURE_COPY_TYPE = Int32
-D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX = 0
-D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT = 1
-def _define_D3D12_TEXTURE_COPY_LOCATION_head():
-    class D3D12_TEXTURE_COPY_LOCATION(Structure):
-        pass
-    return D3D12_TEXTURE_COPY_LOCATION
-def _define_D3D12_TEXTURE_COPY_LOCATION():
-    D3D12_TEXTURE_COPY_LOCATION = win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head
-    class D3D12_TEXTURE_COPY_LOCATION__Anonymous_e__Union(Union):
-        pass
-    D3D12_TEXTURE_COPY_LOCATION__Anonymous_e__Union._fields_ = [
-        ("PlacedFootprint", win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT),
-        ("SubresourceIndex", UInt32),
-    ]
-    D3D12_TEXTURE_COPY_LOCATION._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_TEXTURE_COPY_LOCATION._fields_ = [
-        ("pResource", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-        ("Type", win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_TYPE),
-        ("Anonymous", D3D12_TEXTURE_COPY_LOCATION__Anonymous_e__Union),
-    ]
-    return D3D12_TEXTURE_COPY_LOCATION
-D3D12_RESOLVE_MODE = Int32
-D3D12_RESOLVE_MODE_DECOMPRESS = 0
-D3D12_RESOLVE_MODE_MIN = 1
-D3D12_RESOLVE_MODE_MAX = 2
-D3D12_RESOLVE_MODE_AVERAGE = 3
-D3D12_RESOLVE_MODE_ENCODE_SAMPLER_FEEDBACK = 4
-D3D12_RESOLVE_MODE_DECODE_SAMPLER_FEEDBACK = 5
-def _define_D3D12_SAMPLE_POSITION_head():
-    class D3D12_SAMPLE_POSITION(Structure):
-        pass
-    return D3D12_SAMPLE_POSITION
-def _define_D3D12_SAMPLE_POSITION():
-    D3D12_SAMPLE_POSITION = win32more.Graphics.Direct3D12.D3D12_SAMPLE_POSITION_head
-    D3D12_SAMPLE_POSITION._fields_ = [
-        ("X", SByte),
-        ("Y", SByte),
-    ]
-    return D3D12_SAMPLE_POSITION
-def _define_D3D12_VIEW_INSTANCE_LOCATION_head():
-    class D3D12_VIEW_INSTANCE_LOCATION(Structure):
-        pass
-    return D3D12_VIEW_INSTANCE_LOCATION
-def _define_D3D12_VIEW_INSTANCE_LOCATION():
-    D3D12_VIEW_INSTANCE_LOCATION = win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCE_LOCATION_head
-    D3D12_VIEW_INSTANCE_LOCATION._fields_ = [
-        ("ViewportArrayIndex", UInt32),
-        ("RenderTargetArrayIndex", UInt32),
-    ]
-    return D3D12_VIEW_INSTANCE_LOCATION
-D3D12_VIEW_INSTANCING_FLAGS = UInt32
-D3D12_VIEW_INSTANCING_FLAG_NONE = 0
-D3D12_VIEW_INSTANCING_FLAG_ENABLE_VIEW_INSTANCE_MASKING = 1
-def _define_D3D12_VIEW_INSTANCING_DESC_head():
-    class D3D12_VIEW_INSTANCING_DESC(Structure):
-        pass
-    return D3D12_VIEW_INSTANCING_DESC
-def _define_D3D12_VIEW_INSTANCING_DESC():
-    D3D12_VIEW_INSTANCING_DESC = win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_DESC_head
-    D3D12_VIEW_INSTANCING_DESC._fields_ = [
-        ("ViewInstanceCount", UInt32),
-        ("pViewInstanceLocations", POINTER(win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCE_LOCATION_head)),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_FLAGS),
-    ]
-    return D3D12_VIEW_INSTANCING_DESC
-D3D12_SHADER_COMPONENT_MAPPING = Int32
-D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0 = 0
-D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1 = 1
-D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2 = 2
-D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_3 = 3
-D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_0 = 4
-D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1 = 5
-D3D12_BUFFER_SRV_FLAGS = UInt32
-D3D12_BUFFER_SRV_FLAG_NONE = 0
-D3D12_BUFFER_SRV_FLAG_RAW = 1
-def _define_D3D12_BUFFER_SRV_head():
-    class D3D12_BUFFER_SRV(Structure):
-        pass
-    return D3D12_BUFFER_SRV
-def _define_D3D12_BUFFER_SRV():
-    D3D12_BUFFER_SRV = win32more.Graphics.Direct3D12.D3D12_BUFFER_SRV_head
-    D3D12_BUFFER_SRV._fields_ = [
-        ("FirstElement", UInt64),
-        ("NumElements", UInt32),
-        ("StructureByteStride", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_BUFFER_SRV_FLAGS),
-    ]
-    return D3D12_BUFFER_SRV
-def _define_D3D12_TEX1D_SRV_head():
-    class D3D12_TEX1D_SRV(Structure):
-        pass
-    return D3D12_TEX1D_SRV
-def _define_D3D12_TEX1D_SRV():
-    D3D12_TEX1D_SRV = win32more.Graphics.Direct3D12.D3D12_TEX1D_SRV_head
-    D3D12_TEX1D_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEX1D_SRV
-def _define_D3D12_TEX1D_ARRAY_SRV_head():
-    class D3D12_TEX1D_ARRAY_SRV(Structure):
-        pass
-    return D3D12_TEX1D_ARRAY_SRV
-def _define_D3D12_TEX1D_ARRAY_SRV():
-    D3D12_TEX1D_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_SRV_head
-    D3D12_TEX1D_ARRAY_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEX1D_ARRAY_SRV
-def _define_D3D12_TEX2D_SRV_head():
-    class D3D12_TEX2D_SRV(Structure):
-        pass
-    return D3D12_TEX2D_SRV
-def _define_D3D12_TEX2D_SRV():
-    D3D12_TEX2D_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2D_SRV_head
-    D3D12_TEX2D_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("PlaneSlice", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEX2D_SRV
-def _define_D3D12_TEX2D_ARRAY_SRV_head():
-    class D3D12_TEX2D_ARRAY_SRV(Structure):
-        pass
-    return D3D12_TEX2D_ARRAY_SRV
-def _define_D3D12_TEX2D_ARRAY_SRV():
-    D3D12_TEX2D_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_SRV_head
-    D3D12_TEX2D_ARRAY_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-        ("PlaneSlice", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEX2D_ARRAY_SRV
-def _define_D3D12_TEX3D_SRV_head():
-    class D3D12_TEX3D_SRV(Structure):
-        pass
-    return D3D12_TEX3D_SRV
-def _define_D3D12_TEX3D_SRV():
-    D3D12_TEX3D_SRV = win32more.Graphics.Direct3D12.D3D12_TEX3D_SRV_head
-    D3D12_TEX3D_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEX3D_SRV
-def _define_D3D12_TEXCUBE_SRV_head():
-    class D3D12_TEXCUBE_SRV(Structure):
-        pass
-    return D3D12_TEXCUBE_SRV
-def _define_D3D12_TEXCUBE_SRV():
-    D3D12_TEXCUBE_SRV = win32more.Graphics.Direct3D12.D3D12_TEXCUBE_SRV_head
-    D3D12_TEXCUBE_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEXCUBE_SRV
-def _define_D3D12_TEXCUBE_ARRAY_SRV_head():
-    class D3D12_TEXCUBE_ARRAY_SRV(Structure):
-        pass
-    return D3D12_TEXCUBE_ARRAY_SRV
-def _define_D3D12_TEXCUBE_ARRAY_SRV():
-    D3D12_TEXCUBE_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEXCUBE_ARRAY_SRV_head
-    D3D12_TEXCUBE_ARRAY_SRV._fields_ = [
-        ("MostDetailedMip", UInt32),
-        ("MipLevels", UInt32),
-        ("First2DArrayFace", UInt32),
-        ("NumCubes", UInt32),
-        ("ResourceMinLODClamp", Single),
-    ]
-    return D3D12_TEXCUBE_ARRAY_SRV
-def _define_D3D12_TEX2DMS_SRV_head():
-    class D3D12_TEX2DMS_SRV(Structure):
-        pass
-    return D3D12_TEX2DMS_SRV
-def _define_D3D12_TEX2DMS_SRV():
-    D3D12_TEX2DMS_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_SRV_head
-    D3D12_TEX2DMS_SRV._fields_ = [
-        ("UnusedField_NothingToDefine", UInt32),
-    ]
-    return D3D12_TEX2DMS_SRV
-def _define_D3D12_TEX2DMS_ARRAY_SRV_head():
-    class D3D12_TEX2DMS_ARRAY_SRV(Structure):
-        pass
-    return D3D12_TEX2DMS_ARRAY_SRV
-def _define_D3D12_TEX2DMS_ARRAY_SRV():
-    D3D12_TEX2DMS_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_SRV_head
-    D3D12_TEX2DMS_ARRAY_SRV._fields_ = [
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX2DMS_ARRAY_SRV
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV._fields_ = [
-        ("Location", UInt64),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV
-D3D12_SRV_DIMENSION = Int32
-D3D12_SRV_DIMENSION_UNKNOWN = 0
-D3D12_SRV_DIMENSION_BUFFER = 1
-D3D12_SRV_DIMENSION_TEXTURE1D = 2
-D3D12_SRV_DIMENSION_TEXTURE1DARRAY = 3
-D3D12_SRV_DIMENSION_TEXTURE2D = 4
-D3D12_SRV_DIMENSION_TEXTURE2DARRAY = 5
-D3D12_SRV_DIMENSION_TEXTURE2DMS = 6
-D3D12_SRV_DIMENSION_TEXTURE2DMSARRAY = 7
-D3D12_SRV_DIMENSION_TEXTURE3D = 8
-D3D12_SRV_DIMENSION_TEXTURECUBE = 9
-D3D12_SRV_DIMENSION_TEXTURECUBEARRAY = 10
-D3D12_SRV_DIMENSION_RAYTRACING_ACCELERATION_STRUCTURE = 11
-def _define_D3D12_SHADER_RESOURCE_VIEW_DESC_head():
-    class D3D12_SHADER_RESOURCE_VIEW_DESC(Structure):
-        pass
-    return D3D12_SHADER_RESOURCE_VIEW_DESC
-def _define_D3D12_SHADER_RESOURCE_VIEW_DESC():
-    D3D12_SHADER_RESOURCE_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_RESOURCE_VIEW_DESC_head
-    class D3D12_SHADER_RESOURCE_VIEW_DESC__Anonymous_e__Union(Union):
-        pass
-    D3D12_SHADER_RESOURCE_VIEW_DESC__Anonymous_e__Union._fields_ = [
-        ("Buffer", win32more.Graphics.Direct3D12.D3D12_BUFFER_SRV),
-        ("Texture1D", win32more.Graphics.Direct3D12.D3D12_TEX1D_SRV),
-        ("Texture1DArray", win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_SRV),
-        ("Texture2D", win32more.Graphics.Direct3D12.D3D12_TEX2D_SRV),
-        ("Texture2DArray", win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_SRV),
-        ("Texture2DMS", win32more.Graphics.Direct3D12.D3D12_TEX2DMS_SRV),
-        ("Texture2DMSArray", win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_SRV),
-        ("Texture3D", win32more.Graphics.Direct3D12.D3D12_TEX3D_SRV),
-        ("TextureCube", win32more.Graphics.Direct3D12.D3D12_TEXCUBE_SRV),
-        ("TextureCubeArray", win32more.Graphics.Direct3D12.D3D12_TEXCUBE_ARRAY_SRV),
-        ("RaytracingAccelerationStructure", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV),
-    ]
-    D3D12_SHADER_RESOURCE_VIEW_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_SHADER_RESOURCE_VIEW_DESC._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("ViewDimension", win32more.Graphics.Direct3D12.D3D12_SRV_DIMENSION),
-        ("Shader4ComponentMapping", UInt32),
-        ("Anonymous", D3D12_SHADER_RESOURCE_VIEW_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_SHADER_RESOURCE_VIEW_DESC
-def _define_D3D12_CONSTANT_BUFFER_VIEW_DESC_head():
-    class D3D12_CONSTANT_BUFFER_VIEW_DESC(Structure):
-        pass
-    return D3D12_CONSTANT_BUFFER_VIEW_DESC
-def _define_D3D12_CONSTANT_BUFFER_VIEW_DESC():
-    D3D12_CONSTANT_BUFFER_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_CONSTANT_BUFFER_VIEW_DESC_head
-    D3D12_CONSTANT_BUFFER_VIEW_DESC._fields_ = [
-        ("BufferLocation", UInt64),
-        ("SizeInBytes", UInt32),
-    ]
-    return D3D12_CONSTANT_BUFFER_VIEW_DESC
-D3D12_FILTER = Int32
-D3D12_FILTER_MIN_MAG_MIP_POINT = 0
-D3D12_FILTER_MIN_MAG_POINT_MIP_LINEAR = 1
-D3D12_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT = 4
-D3D12_FILTER_MIN_POINT_MAG_MIP_LINEAR = 5
-D3D12_FILTER_MIN_LINEAR_MAG_MIP_POINT = 16
-D3D12_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 17
-D3D12_FILTER_MIN_MAG_LINEAR_MIP_POINT = 20
-D3D12_FILTER_MIN_MAG_MIP_LINEAR = 21
-D3D12_FILTER_ANISOTROPIC = 85
-D3D12_FILTER_COMPARISON_MIN_MAG_MIP_POINT = 128
-D3D12_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR = 129
-D3D12_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT = 132
-D3D12_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR = 133
-D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT = 144
-D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 145
-D3D12_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT = 148
-D3D12_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR = 149
-D3D12_FILTER_COMPARISON_ANISOTROPIC = 213
-D3D12_FILTER_MINIMUM_MIN_MAG_MIP_POINT = 256
-D3D12_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR = 257
-D3D12_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT = 260
-D3D12_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR = 261
-D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT = 272
-D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 273
-D3D12_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT = 276
-D3D12_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR = 277
-D3D12_FILTER_MINIMUM_ANISOTROPIC = 341
-D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_POINT = 384
-D3D12_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR = 385
-D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT = 388
-D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR = 389
-D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT = 400
-D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 401
-D3D12_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT = 404
-D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR = 405
-D3D12_FILTER_MAXIMUM_ANISOTROPIC = 469
-D3D12_FILTER_TYPE = Int32
-D3D12_FILTER_TYPE_POINT = 0
-D3D12_FILTER_TYPE_LINEAR = 1
-D3D12_FILTER_REDUCTION_TYPE = Int32
-D3D12_FILTER_REDUCTION_TYPE_STANDARD = 0
-D3D12_FILTER_REDUCTION_TYPE_COMPARISON = 1
-D3D12_FILTER_REDUCTION_TYPE_MINIMUM = 2
-D3D12_FILTER_REDUCTION_TYPE_MAXIMUM = 3
-D3D12_TEXTURE_ADDRESS_MODE = Int32
-D3D12_TEXTURE_ADDRESS_MODE_WRAP = 1
-D3D12_TEXTURE_ADDRESS_MODE_MIRROR = 2
-D3D12_TEXTURE_ADDRESS_MODE_CLAMP = 3
-D3D12_TEXTURE_ADDRESS_MODE_BORDER = 4
-D3D12_TEXTURE_ADDRESS_MODE_MIRROR_ONCE = 5
-def _define_D3D12_SAMPLER_DESC_head():
-    class D3D12_SAMPLER_DESC(Structure):
-        pass
-    return D3D12_SAMPLER_DESC
-def _define_D3D12_SAMPLER_DESC():
-    D3D12_SAMPLER_DESC = win32more.Graphics.Direct3D12.D3D12_SAMPLER_DESC_head
-    D3D12_SAMPLER_DESC._fields_ = [
-        ("Filter", win32more.Graphics.Direct3D12.D3D12_FILTER),
-        ("AddressU", win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
-        ("AddressV", win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
-        ("AddressW", win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
-        ("MipLODBias", Single),
-        ("MaxAnisotropy", UInt32),
-        ("ComparisonFunc", win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
-        ("BorderColor", Single * 4),
-        ("MinLOD", Single),
-        ("MaxLOD", Single),
-    ]
-    return D3D12_SAMPLER_DESC
-D3D12_BUFFER_UAV_FLAGS = UInt32
-D3D12_BUFFER_UAV_FLAG_NONE = 0
-D3D12_BUFFER_UAV_FLAG_RAW = 1
-def _define_D3D12_BUFFER_UAV_head():
-    class D3D12_BUFFER_UAV(Structure):
-        pass
-    return D3D12_BUFFER_UAV
-def _define_D3D12_BUFFER_UAV():
-    D3D12_BUFFER_UAV = win32more.Graphics.Direct3D12.D3D12_BUFFER_UAV_head
-    D3D12_BUFFER_UAV._fields_ = [
-        ("FirstElement", UInt64),
-        ("NumElements", UInt32),
-        ("StructureByteStride", UInt32),
-        ("CounterOffsetInBytes", UInt64),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_BUFFER_UAV_FLAGS),
-    ]
-    return D3D12_BUFFER_UAV
-def _define_D3D12_TEX1D_UAV_head():
-    class D3D12_TEX1D_UAV(Structure):
-        pass
-    return D3D12_TEX1D_UAV
-def _define_D3D12_TEX1D_UAV():
-    D3D12_TEX1D_UAV = win32more.Graphics.Direct3D12.D3D12_TEX1D_UAV_head
-    D3D12_TEX1D_UAV._fields_ = [
-        ("MipSlice", UInt32),
-    ]
-    return D3D12_TEX1D_UAV
-def _define_D3D12_TEX1D_ARRAY_UAV_head():
-    class D3D12_TEX1D_ARRAY_UAV(Structure):
-        pass
-    return D3D12_TEX1D_ARRAY_UAV
-def _define_D3D12_TEX1D_ARRAY_UAV():
-    D3D12_TEX1D_ARRAY_UAV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_UAV_head
-    D3D12_TEX1D_ARRAY_UAV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX1D_ARRAY_UAV
-def _define_D3D12_TEX2D_UAV_head():
-    class D3D12_TEX2D_UAV(Structure):
-        pass
-    return D3D12_TEX2D_UAV
-def _define_D3D12_TEX2D_UAV():
-    D3D12_TEX2D_UAV = win32more.Graphics.Direct3D12.D3D12_TEX2D_UAV_head
-    D3D12_TEX2D_UAV._fields_ = [
-        ("MipSlice", UInt32),
-        ("PlaneSlice", UInt32),
-    ]
-    return D3D12_TEX2D_UAV
-def _define_D3D12_TEX2D_ARRAY_UAV_head():
-    class D3D12_TEX2D_ARRAY_UAV(Structure):
-        pass
-    return D3D12_TEX2D_ARRAY_UAV
-def _define_D3D12_TEX2D_ARRAY_UAV():
-    D3D12_TEX2D_ARRAY_UAV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_UAV_head
-    D3D12_TEX2D_ARRAY_UAV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-        ("PlaneSlice", UInt32),
-    ]
-    return D3D12_TEX2D_ARRAY_UAV
-def _define_D3D12_TEX3D_UAV_head():
-    class D3D12_TEX3D_UAV(Structure):
-        pass
-    return D3D12_TEX3D_UAV
-def _define_D3D12_TEX3D_UAV():
-    D3D12_TEX3D_UAV = win32more.Graphics.Direct3D12.D3D12_TEX3D_UAV_head
-    D3D12_TEX3D_UAV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstWSlice", UInt32),
-        ("WSize", UInt32),
-    ]
-    return D3D12_TEX3D_UAV
-D3D12_UAV_DIMENSION = Int32
-D3D12_UAV_DIMENSION_UNKNOWN = 0
-D3D12_UAV_DIMENSION_BUFFER = 1
-D3D12_UAV_DIMENSION_TEXTURE1D = 2
-D3D12_UAV_DIMENSION_TEXTURE1DARRAY = 3
-D3D12_UAV_DIMENSION_TEXTURE2D = 4
-D3D12_UAV_DIMENSION_TEXTURE2DARRAY = 5
-D3D12_UAV_DIMENSION_TEXTURE3D = 8
-def _define_D3D12_UNORDERED_ACCESS_VIEW_DESC_head():
-    class D3D12_UNORDERED_ACCESS_VIEW_DESC(Structure):
-        pass
-    return D3D12_UNORDERED_ACCESS_VIEW_DESC
-def _define_D3D12_UNORDERED_ACCESS_VIEW_DESC():
-    D3D12_UNORDERED_ACCESS_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_UNORDERED_ACCESS_VIEW_DESC_head
-    class D3D12_UNORDERED_ACCESS_VIEW_DESC__Anonymous_e__Union(Union):
-        pass
-    D3D12_UNORDERED_ACCESS_VIEW_DESC__Anonymous_e__Union._fields_ = [
-        ("Buffer", win32more.Graphics.Direct3D12.D3D12_BUFFER_UAV),
-        ("Texture1D", win32more.Graphics.Direct3D12.D3D12_TEX1D_UAV),
-        ("Texture1DArray", win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_UAV),
-        ("Texture2D", win32more.Graphics.Direct3D12.D3D12_TEX2D_UAV),
-        ("Texture2DArray", win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_UAV),
-        ("Texture3D", win32more.Graphics.Direct3D12.D3D12_TEX3D_UAV),
-    ]
-    D3D12_UNORDERED_ACCESS_VIEW_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_UNORDERED_ACCESS_VIEW_DESC._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("ViewDimension", win32more.Graphics.Direct3D12.D3D12_UAV_DIMENSION),
-        ("Anonymous", D3D12_UNORDERED_ACCESS_VIEW_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_UNORDERED_ACCESS_VIEW_DESC
-def _define_D3D12_BUFFER_RTV_head():
-    class D3D12_BUFFER_RTV(Structure):
-        pass
-    return D3D12_BUFFER_RTV
-def _define_D3D12_BUFFER_RTV():
-    D3D12_BUFFER_RTV = win32more.Graphics.Direct3D12.D3D12_BUFFER_RTV_head
-    D3D12_BUFFER_RTV._fields_ = [
-        ("FirstElement", UInt64),
-        ("NumElements", UInt32),
-    ]
-    return D3D12_BUFFER_RTV
-def _define_D3D12_TEX1D_RTV_head():
-    class D3D12_TEX1D_RTV(Structure):
-        pass
-    return D3D12_TEX1D_RTV
-def _define_D3D12_TEX1D_RTV():
-    D3D12_TEX1D_RTV = win32more.Graphics.Direct3D12.D3D12_TEX1D_RTV_head
-    D3D12_TEX1D_RTV._fields_ = [
-        ("MipSlice", UInt32),
-    ]
-    return D3D12_TEX1D_RTV
-def _define_D3D12_TEX1D_ARRAY_RTV_head():
-    class D3D12_TEX1D_ARRAY_RTV(Structure):
-        pass
-    return D3D12_TEX1D_ARRAY_RTV
-def _define_D3D12_TEX1D_ARRAY_RTV():
-    D3D12_TEX1D_ARRAY_RTV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_RTV_head
-    D3D12_TEX1D_ARRAY_RTV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX1D_ARRAY_RTV
-def _define_D3D12_TEX2D_RTV_head():
-    class D3D12_TEX2D_RTV(Structure):
-        pass
-    return D3D12_TEX2D_RTV
-def _define_D3D12_TEX2D_RTV():
-    D3D12_TEX2D_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2D_RTV_head
-    D3D12_TEX2D_RTV._fields_ = [
-        ("MipSlice", UInt32),
-        ("PlaneSlice", UInt32),
-    ]
-    return D3D12_TEX2D_RTV
-def _define_D3D12_TEX2DMS_RTV_head():
-    class D3D12_TEX2DMS_RTV(Structure):
-        pass
-    return D3D12_TEX2DMS_RTV
-def _define_D3D12_TEX2DMS_RTV():
-    D3D12_TEX2DMS_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_RTV_head
-    D3D12_TEX2DMS_RTV._fields_ = [
-        ("UnusedField_NothingToDefine", UInt32),
-    ]
-    return D3D12_TEX2DMS_RTV
-def _define_D3D12_TEX2D_ARRAY_RTV_head():
-    class D3D12_TEX2D_ARRAY_RTV(Structure):
-        pass
-    return D3D12_TEX2D_ARRAY_RTV
-def _define_D3D12_TEX2D_ARRAY_RTV():
-    D3D12_TEX2D_ARRAY_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_RTV_head
-    D3D12_TEX2D_ARRAY_RTV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-        ("PlaneSlice", UInt32),
-    ]
-    return D3D12_TEX2D_ARRAY_RTV
-def _define_D3D12_TEX2DMS_ARRAY_RTV_head():
-    class D3D12_TEX2DMS_ARRAY_RTV(Structure):
-        pass
-    return D3D12_TEX2DMS_ARRAY_RTV
-def _define_D3D12_TEX2DMS_ARRAY_RTV():
-    D3D12_TEX2DMS_ARRAY_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_RTV_head
-    D3D12_TEX2DMS_ARRAY_RTV._fields_ = [
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX2DMS_ARRAY_RTV
-def _define_D3D12_TEX3D_RTV_head():
-    class D3D12_TEX3D_RTV(Structure):
-        pass
-    return D3D12_TEX3D_RTV
-def _define_D3D12_TEX3D_RTV():
-    D3D12_TEX3D_RTV = win32more.Graphics.Direct3D12.D3D12_TEX3D_RTV_head
-    D3D12_TEX3D_RTV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstWSlice", UInt32),
-        ("WSize", UInt32),
-    ]
-    return D3D12_TEX3D_RTV
-D3D12_RTV_DIMENSION = Int32
-D3D12_RTV_DIMENSION_UNKNOWN = 0
-D3D12_RTV_DIMENSION_BUFFER = 1
-D3D12_RTV_DIMENSION_TEXTURE1D = 2
-D3D12_RTV_DIMENSION_TEXTURE1DARRAY = 3
-D3D12_RTV_DIMENSION_TEXTURE2D = 4
-D3D12_RTV_DIMENSION_TEXTURE2DARRAY = 5
-D3D12_RTV_DIMENSION_TEXTURE2DMS = 6
-D3D12_RTV_DIMENSION_TEXTURE2DMSARRAY = 7
-D3D12_RTV_DIMENSION_TEXTURE3D = 8
-def _define_D3D12_RENDER_TARGET_VIEW_DESC_head():
-    class D3D12_RENDER_TARGET_VIEW_DESC(Structure):
-        pass
-    return D3D12_RENDER_TARGET_VIEW_DESC
-def _define_D3D12_RENDER_TARGET_VIEW_DESC():
-    D3D12_RENDER_TARGET_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_VIEW_DESC_head
-    class D3D12_RENDER_TARGET_VIEW_DESC__Anonymous_e__Union(Union):
-        pass
-    D3D12_RENDER_TARGET_VIEW_DESC__Anonymous_e__Union._fields_ = [
-        ("Buffer", win32more.Graphics.Direct3D12.D3D12_BUFFER_RTV),
-        ("Texture1D", win32more.Graphics.Direct3D12.D3D12_TEX1D_RTV),
-        ("Texture1DArray", win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_RTV),
-        ("Texture2D", win32more.Graphics.Direct3D12.D3D12_TEX2D_RTV),
-        ("Texture2DArray", win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_RTV),
-        ("Texture2DMS", win32more.Graphics.Direct3D12.D3D12_TEX2DMS_RTV),
-        ("Texture2DMSArray", win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_RTV),
-        ("Texture3D", win32more.Graphics.Direct3D12.D3D12_TEX3D_RTV),
-    ]
-    D3D12_RENDER_TARGET_VIEW_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_RENDER_TARGET_VIEW_DESC._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("ViewDimension", win32more.Graphics.Direct3D12.D3D12_RTV_DIMENSION),
-        ("Anonymous", D3D12_RENDER_TARGET_VIEW_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_RENDER_TARGET_VIEW_DESC
-def _define_D3D12_TEX1D_DSV_head():
-    class D3D12_TEX1D_DSV(Structure):
-        pass
-    return D3D12_TEX1D_DSV
-def _define_D3D12_TEX1D_DSV():
-    D3D12_TEX1D_DSV = win32more.Graphics.Direct3D12.D3D12_TEX1D_DSV_head
-    D3D12_TEX1D_DSV._fields_ = [
-        ("MipSlice", UInt32),
-    ]
-    return D3D12_TEX1D_DSV
-def _define_D3D12_TEX1D_ARRAY_DSV_head():
-    class D3D12_TEX1D_ARRAY_DSV(Structure):
-        pass
-    return D3D12_TEX1D_ARRAY_DSV
-def _define_D3D12_TEX1D_ARRAY_DSV():
-    D3D12_TEX1D_ARRAY_DSV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_DSV_head
-    D3D12_TEX1D_ARRAY_DSV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX1D_ARRAY_DSV
-def _define_D3D12_TEX2D_DSV_head():
-    class D3D12_TEX2D_DSV(Structure):
-        pass
-    return D3D12_TEX2D_DSV
-def _define_D3D12_TEX2D_DSV():
-    D3D12_TEX2D_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2D_DSV_head
-    D3D12_TEX2D_DSV._fields_ = [
-        ("MipSlice", UInt32),
-    ]
-    return D3D12_TEX2D_DSV
-def _define_D3D12_TEX2D_ARRAY_DSV_head():
-    class D3D12_TEX2D_ARRAY_DSV(Structure):
-        pass
-    return D3D12_TEX2D_ARRAY_DSV
-def _define_D3D12_TEX2D_ARRAY_DSV():
-    D3D12_TEX2D_ARRAY_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_DSV_head
-    D3D12_TEX2D_ARRAY_DSV._fields_ = [
-        ("MipSlice", UInt32),
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX2D_ARRAY_DSV
-def _define_D3D12_TEX2DMS_DSV_head():
-    class D3D12_TEX2DMS_DSV(Structure):
-        pass
-    return D3D12_TEX2DMS_DSV
-def _define_D3D12_TEX2DMS_DSV():
-    D3D12_TEX2DMS_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_DSV_head
-    D3D12_TEX2DMS_DSV._fields_ = [
-        ("UnusedField_NothingToDefine", UInt32),
-    ]
-    return D3D12_TEX2DMS_DSV
-def _define_D3D12_TEX2DMS_ARRAY_DSV_head():
-    class D3D12_TEX2DMS_ARRAY_DSV(Structure):
-        pass
-    return D3D12_TEX2DMS_ARRAY_DSV
-def _define_D3D12_TEX2DMS_ARRAY_DSV():
-    D3D12_TEX2DMS_ARRAY_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_DSV_head
-    D3D12_TEX2DMS_ARRAY_DSV._fields_ = [
-        ("FirstArraySlice", UInt32),
-        ("ArraySize", UInt32),
-    ]
-    return D3D12_TEX2DMS_ARRAY_DSV
-D3D12_DSV_FLAGS = UInt32
-D3D12_DSV_FLAG_NONE = 0
-D3D12_DSV_FLAG_READ_ONLY_DEPTH = 1
-D3D12_DSV_FLAG_READ_ONLY_STENCIL = 2
-D3D12_DSV_DIMENSION = Int32
-D3D12_DSV_DIMENSION_UNKNOWN = 0
-D3D12_DSV_DIMENSION_TEXTURE1D = 1
-D3D12_DSV_DIMENSION_TEXTURE1DARRAY = 2
-D3D12_DSV_DIMENSION_TEXTURE2D = 3
-D3D12_DSV_DIMENSION_TEXTURE2DARRAY = 4
-D3D12_DSV_DIMENSION_TEXTURE2DMS = 5
-D3D12_DSV_DIMENSION_TEXTURE2DMSARRAY = 6
-def _define_D3D12_DEPTH_STENCIL_VIEW_DESC_head():
-    class D3D12_DEPTH_STENCIL_VIEW_DESC(Structure):
-        pass
-    return D3D12_DEPTH_STENCIL_VIEW_DESC
-def _define_D3D12_DEPTH_STENCIL_VIEW_DESC():
-    D3D12_DEPTH_STENCIL_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VIEW_DESC_head
-    class D3D12_DEPTH_STENCIL_VIEW_DESC__Anonymous_e__Union(Union):
-        pass
-    D3D12_DEPTH_STENCIL_VIEW_DESC__Anonymous_e__Union._fields_ = [
-        ("Texture1D", win32more.Graphics.Direct3D12.D3D12_TEX1D_DSV),
-        ("Texture1DArray", win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_DSV),
-        ("Texture2D", win32more.Graphics.Direct3D12.D3D12_TEX2D_DSV),
-        ("Texture2DArray", win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_DSV),
-        ("Texture2DMS", win32more.Graphics.Direct3D12.D3D12_TEX2DMS_DSV),
-        ("Texture2DMSArray", win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_DSV),
-    ]
-    D3D12_DEPTH_STENCIL_VIEW_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_DEPTH_STENCIL_VIEW_DESC._fields_ = [
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("ViewDimension", win32more.Graphics.Direct3D12.D3D12_DSV_DIMENSION),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_DSV_FLAGS),
-        ("Anonymous", D3D12_DEPTH_STENCIL_VIEW_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_DEPTH_STENCIL_VIEW_DESC
-D3D12_CLEAR_FLAGS = UInt32
-D3D12_CLEAR_FLAG_DEPTH = 1
-D3D12_CLEAR_FLAG_STENCIL = 2
-D3D12_FENCE_FLAGS = UInt32
-D3D12_FENCE_FLAG_NONE = 0
-D3D12_FENCE_FLAG_SHARED = 1
-D3D12_FENCE_FLAG_SHARED_CROSS_ADAPTER = 2
-D3D12_FENCE_FLAG_NON_MONITORED = 4
-D3D12_DESCRIPTOR_HEAP_TYPE = Int32
-D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV = 0
-D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER = 1
-D3D12_DESCRIPTOR_HEAP_TYPE_RTV = 2
-D3D12_DESCRIPTOR_HEAP_TYPE_DSV = 3
-D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES = 4
-D3D12_DESCRIPTOR_HEAP_FLAGS = UInt32
-D3D12_DESCRIPTOR_HEAP_FLAG_NONE = 0
-D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE = 1
-def _define_D3D12_DESCRIPTOR_HEAP_DESC_head():
-    class D3D12_DESCRIPTOR_HEAP_DESC(Structure):
-        pass
-    return D3D12_DESCRIPTOR_HEAP_DESC
-def _define_D3D12_DESCRIPTOR_HEAP_DESC():
-    D3D12_DESCRIPTOR_HEAP_DESC = win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC_head
-    D3D12_DESCRIPTOR_HEAP_DESC._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE),
-        ("NumDescriptors", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_FLAGS),
-        ("NodeMask", UInt32),
-    ]
-    return D3D12_DESCRIPTOR_HEAP_DESC
-D3D12_DESCRIPTOR_RANGE_TYPE = Int32
-D3D12_DESCRIPTOR_RANGE_TYPE_SRV = 0
-D3D12_DESCRIPTOR_RANGE_TYPE_UAV = 1
-D3D12_DESCRIPTOR_RANGE_TYPE_CBV = 2
-D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER = 3
-def _define_D3D12_DESCRIPTOR_RANGE_head():
-    class D3D12_DESCRIPTOR_RANGE(Structure):
-        pass
-    return D3D12_DESCRIPTOR_RANGE
-def _define_D3D12_DESCRIPTOR_RANGE():
-    D3D12_DESCRIPTOR_RANGE = win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_head
-    D3D12_DESCRIPTOR_RANGE._fields_ = [
-        ("RangeType", win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_TYPE),
-        ("NumDescriptors", UInt32),
-        ("BaseShaderRegister", UInt32),
-        ("RegisterSpace", UInt32),
-        ("OffsetInDescriptorsFromTableStart", UInt32),
-    ]
-    return D3D12_DESCRIPTOR_RANGE
-def _define_D3D12_ROOT_DESCRIPTOR_TABLE_head():
-    class D3D12_ROOT_DESCRIPTOR_TABLE(Structure):
-        pass
-    return D3D12_ROOT_DESCRIPTOR_TABLE
-def _define_D3D12_ROOT_DESCRIPTOR_TABLE():
-    D3D12_ROOT_DESCRIPTOR_TABLE = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE_head
-    D3D12_ROOT_DESCRIPTOR_TABLE._fields_ = [
-        ("NumDescriptorRanges", UInt32),
-        ("pDescriptorRanges", POINTER(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_head)),
-    ]
-    return D3D12_ROOT_DESCRIPTOR_TABLE
-def _define_D3D12_ROOT_CONSTANTS_head():
-    class D3D12_ROOT_CONSTANTS(Structure):
-        pass
-    return D3D12_ROOT_CONSTANTS
-def _define_D3D12_ROOT_CONSTANTS():
-    D3D12_ROOT_CONSTANTS = win32more.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS_head
-    D3D12_ROOT_CONSTANTS._fields_ = [
-        ("ShaderRegister", UInt32),
-        ("RegisterSpace", UInt32),
-        ("Num32BitValues", UInt32),
-    ]
-    return D3D12_ROOT_CONSTANTS
-def _define_D3D12_ROOT_DESCRIPTOR_head():
-    class D3D12_ROOT_DESCRIPTOR(Structure):
-        pass
-    return D3D12_ROOT_DESCRIPTOR
-def _define_D3D12_ROOT_DESCRIPTOR():
-    D3D12_ROOT_DESCRIPTOR = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_head
-    D3D12_ROOT_DESCRIPTOR._fields_ = [
-        ("ShaderRegister", UInt32),
-        ("RegisterSpace", UInt32),
-    ]
-    return D3D12_ROOT_DESCRIPTOR
-D3D12_SHADER_VISIBILITY = Int32
-D3D12_SHADER_VISIBILITY_ALL = 0
-D3D12_SHADER_VISIBILITY_VERTEX = 1
-D3D12_SHADER_VISIBILITY_HULL = 2
-D3D12_SHADER_VISIBILITY_DOMAIN = 3
-D3D12_SHADER_VISIBILITY_GEOMETRY = 4
-D3D12_SHADER_VISIBILITY_PIXEL = 5
-D3D12_SHADER_VISIBILITY_AMPLIFICATION = 6
-D3D12_SHADER_VISIBILITY_MESH = 7
-D3D12_ROOT_PARAMETER_TYPE = Int32
-D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE = 0
-D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS = 1
-D3D12_ROOT_PARAMETER_TYPE_CBV = 2
-D3D12_ROOT_PARAMETER_TYPE_SRV = 3
-D3D12_ROOT_PARAMETER_TYPE_UAV = 4
-def _define_D3D12_ROOT_PARAMETER_head():
-    class D3D12_ROOT_PARAMETER(Structure):
-        pass
-    return D3D12_ROOT_PARAMETER
-def _define_D3D12_ROOT_PARAMETER():
-    D3D12_ROOT_PARAMETER = win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_head
-    class D3D12_ROOT_PARAMETER__Anonymous_e__Union(Union):
-        pass
-    D3D12_ROOT_PARAMETER__Anonymous_e__Union._fields_ = [
-        ("DescriptorTable", win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE),
-        ("Constants", win32more.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS),
-        ("Descriptor", win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR),
-    ]
-    D3D12_ROOT_PARAMETER._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_ROOT_PARAMETER._fields_ = [
-        ("ParameterType", win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE),
-        ("Anonymous", D3D12_ROOT_PARAMETER__Anonymous_e__Union),
-        ("ShaderVisibility", win32more.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY),
-    ]
-    return D3D12_ROOT_PARAMETER
-D3D12_ROOT_SIGNATURE_FLAGS = UInt32
-D3D12_ROOT_SIGNATURE_FLAG_NONE = 0
-D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT = 1
-D3D12_ROOT_SIGNATURE_FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS = 2
-D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS = 4
-D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS = 8
-D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS = 16
-D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS = 32
-D3D12_ROOT_SIGNATURE_FLAG_ALLOW_STREAM_OUTPUT = 64
-D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE = 128
-D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS = 256
-D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS = 512
-D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED = 1024
-D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED = 2048
-D3D12_STATIC_BORDER_COLOR = Int32
-D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK = 0
-D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK = 1
-D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE = 2
-def _define_D3D12_STATIC_SAMPLER_DESC_head():
-    class D3D12_STATIC_SAMPLER_DESC(Structure):
-        pass
-    return D3D12_STATIC_SAMPLER_DESC
-def _define_D3D12_STATIC_SAMPLER_DESC():
-    D3D12_STATIC_SAMPLER_DESC = win32more.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head
-    D3D12_STATIC_SAMPLER_DESC._fields_ = [
-        ("Filter", win32more.Graphics.Direct3D12.D3D12_FILTER),
-        ("AddressU", win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
-        ("AddressV", win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
-        ("AddressW", win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
-        ("MipLODBias", Single),
-        ("MaxAnisotropy", UInt32),
-        ("ComparisonFunc", win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
-        ("BorderColor", win32more.Graphics.Direct3D12.D3D12_STATIC_BORDER_COLOR),
-        ("MinLOD", Single),
-        ("MaxLOD", Single),
-        ("ShaderRegister", UInt32),
-        ("RegisterSpace", UInt32),
-        ("ShaderVisibility", win32more.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY),
-    ]
-    return D3D12_STATIC_SAMPLER_DESC
-def _define_D3D12_ROOT_SIGNATURE_DESC_head():
-    class D3D12_ROOT_SIGNATURE_DESC(Structure):
-        pass
-    return D3D12_ROOT_SIGNATURE_DESC
-def _define_D3D12_ROOT_SIGNATURE_DESC():
-    D3D12_ROOT_SIGNATURE_DESC = win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head
-    D3D12_ROOT_SIGNATURE_DESC._fields_ = [
-        ("NumParameters", UInt32),
-        ("pParameters", POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_head)),
-        ("NumStaticSamplers", UInt32),
-        ("pStaticSamplers", POINTER(win32more.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head)),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS),
-    ]
-    return D3D12_ROOT_SIGNATURE_DESC
-D3D12_DESCRIPTOR_RANGE_FLAGS = UInt32
-D3D12_DESCRIPTOR_RANGE_FLAG_NONE = 0
-D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE = 1
-D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE = 2
-D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE = 4
-D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC = 8
-D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS = 65536
-def _define_D3D12_DESCRIPTOR_RANGE1_head():
-    class D3D12_DESCRIPTOR_RANGE1(Structure):
-        pass
-    return D3D12_DESCRIPTOR_RANGE1
-def _define_D3D12_DESCRIPTOR_RANGE1():
-    D3D12_DESCRIPTOR_RANGE1 = win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE1_head
-    D3D12_DESCRIPTOR_RANGE1._fields_ = [
-        ("RangeType", win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_TYPE),
-        ("NumDescriptors", UInt32),
-        ("BaseShaderRegister", UInt32),
-        ("RegisterSpace", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_FLAGS),
-        ("OffsetInDescriptorsFromTableStart", UInt32),
-    ]
-    return D3D12_DESCRIPTOR_RANGE1
-def _define_D3D12_ROOT_DESCRIPTOR_TABLE1_head():
-    class D3D12_ROOT_DESCRIPTOR_TABLE1(Structure):
-        pass
-    return D3D12_ROOT_DESCRIPTOR_TABLE1
-def _define_D3D12_ROOT_DESCRIPTOR_TABLE1():
-    D3D12_ROOT_DESCRIPTOR_TABLE1 = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE1_head
-    D3D12_ROOT_DESCRIPTOR_TABLE1._fields_ = [
-        ("NumDescriptorRanges", UInt32),
-        ("pDescriptorRanges", POINTER(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE1_head)),
-    ]
-    return D3D12_ROOT_DESCRIPTOR_TABLE1
-D3D12_ROOT_DESCRIPTOR_FLAGS = UInt32
-D3D12_ROOT_DESCRIPTOR_FLAG_NONE = 0
-D3D12_ROOT_DESCRIPTOR_FLAG_DATA_VOLATILE = 2
-D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE = 4
-D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC = 8
-def _define_D3D12_ROOT_DESCRIPTOR1_head():
-    class D3D12_ROOT_DESCRIPTOR1(Structure):
-        pass
-    return D3D12_ROOT_DESCRIPTOR1
-def _define_D3D12_ROOT_DESCRIPTOR1():
-    D3D12_ROOT_DESCRIPTOR1 = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR1_head
-    D3D12_ROOT_DESCRIPTOR1._fields_ = [
-        ("ShaderRegister", UInt32),
-        ("RegisterSpace", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_FLAGS),
-    ]
-    return D3D12_ROOT_DESCRIPTOR1
-def _define_D3D12_ROOT_PARAMETER1_head():
-    class D3D12_ROOT_PARAMETER1(Structure):
-        pass
-    return D3D12_ROOT_PARAMETER1
-def _define_D3D12_ROOT_PARAMETER1():
-    D3D12_ROOT_PARAMETER1 = win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1_head
-    class D3D12_ROOT_PARAMETER1__Anonymous_e__Union(Union):
-        pass
-    D3D12_ROOT_PARAMETER1__Anonymous_e__Union._fields_ = [
-        ("DescriptorTable", win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE1),
-        ("Constants", win32more.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS),
-        ("Descriptor", win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR1),
-    ]
-    D3D12_ROOT_PARAMETER1._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_ROOT_PARAMETER1._fields_ = [
-        ("ParameterType", win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE),
-        ("Anonymous", D3D12_ROOT_PARAMETER1__Anonymous_e__Union),
-        ("ShaderVisibility", win32more.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY),
-    ]
-    return D3D12_ROOT_PARAMETER1
-def _define_D3D12_ROOT_SIGNATURE_DESC1_head():
-    class D3D12_ROOT_SIGNATURE_DESC1(Structure):
-        pass
-    return D3D12_ROOT_SIGNATURE_DESC1
-def _define_D3D12_ROOT_SIGNATURE_DESC1():
-    D3D12_ROOT_SIGNATURE_DESC1 = win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC1_head
-    D3D12_ROOT_SIGNATURE_DESC1._fields_ = [
-        ("NumParameters", UInt32),
-        ("pParameters", POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1_head)),
-        ("NumStaticSamplers", UInt32),
-        ("pStaticSamplers", POINTER(win32more.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head)),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS),
-    ]
-    return D3D12_ROOT_SIGNATURE_DESC1
-def _define_D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head():
-    class D3D12_VERSIONED_ROOT_SIGNATURE_DESC(Structure):
-        pass
-    return D3D12_VERSIONED_ROOT_SIGNATURE_DESC
-def _define_D3D12_VERSIONED_ROOT_SIGNATURE_DESC():
-    D3D12_VERSIONED_ROOT_SIGNATURE_DESC = win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head
-    class D3D12_VERSIONED_ROOT_SIGNATURE_DESC__Anonymous_e__Union(Union):
-        pass
-    D3D12_VERSIONED_ROOT_SIGNATURE_DESC__Anonymous_e__Union._fields_ = [
-        ("Desc_1_0", win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC),
-        ("Desc_1_1", win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC1),
-    ]
-    D3D12_VERSIONED_ROOT_SIGNATURE_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_VERSIONED_ROOT_SIGNATURE_DESC._fields_ = [
-        ("Version", win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION),
-        ("Anonymous", D3D12_VERSIONED_ROOT_SIGNATURE_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_VERSIONED_ROOT_SIGNATURE_DESC
-def _define_ID3D12RootSignatureDeserializer_head():
-    class ID3D12RootSignatureDeserializer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('34ab647b-3cc8-46ac-841b-c0965645c046')
-    return ID3D12RootSignatureDeserializer
-def _define_ID3D12RootSignatureDeserializer():
-    ID3D12RootSignatureDeserializer = win32more.Graphics.Direct3D12.ID3D12RootSignatureDeserializer_head
-    ID3D12RootSignatureDeserializer.GetRootSignatureDesc = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head), use_last_error=False)(3, 'GetRootSignatureDesc', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12RootSignatureDeserializer
-def _define_ID3D12VersionedRootSignatureDeserializer_head():
-    class ID3D12VersionedRootSignatureDeserializer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7f91ce67-090c-4bb7-b78e-ed8ff2e31da0')
-    return ID3D12VersionedRootSignatureDeserializer
-def _define_ID3D12VersionedRootSignatureDeserializer():
-    ID3D12VersionedRootSignatureDeserializer = win32more.Graphics.Direct3D12.ID3D12VersionedRootSignatureDeserializer_head
-    ID3D12VersionedRootSignatureDeserializer.GetRootSignatureDescAtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head)), use_last_error=False)(3, 'GetRootSignatureDescAtVersion', ((1, 'convertToVersion'),(1, 'ppDesc'),)))
-    ID3D12VersionedRootSignatureDeserializer.GetUnconvertedRootSignatureDesc = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head), use_last_error=False)(4, 'GetUnconvertedRootSignatureDesc', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12VersionedRootSignatureDeserializer
-def _define_PFN_D3D12_SERIALIZE_ROOT_SIGNATURE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)
-def _define_PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
-def _define_PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)
-def _define_PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
-def _define_D3D12_CPU_DESCRIPTOR_HANDLE_head():
-    class D3D12_CPU_DESCRIPTOR_HANDLE(Structure):
-        pass
-    return D3D12_CPU_DESCRIPTOR_HANDLE
-def _define_D3D12_CPU_DESCRIPTOR_HANDLE():
-    D3D12_CPU_DESCRIPTOR_HANDLE = win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head
-    D3D12_CPU_DESCRIPTOR_HANDLE._fields_ = [
-        ("ptr", UIntPtr),
-    ]
-    return D3D12_CPU_DESCRIPTOR_HANDLE
-def _define_D3D12_GPU_DESCRIPTOR_HANDLE_head():
-    class D3D12_GPU_DESCRIPTOR_HANDLE(Structure):
-        pass
-    return D3D12_GPU_DESCRIPTOR_HANDLE
-def _define_D3D12_GPU_DESCRIPTOR_HANDLE():
-    D3D12_GPU_DESCRIPTOR_HANDLE = win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE_head
-    D3D12_GPU_DESCRIPTOR_HANDLE._fields_ = [
-        ("ptr", UInt64),
-    ]
-    return D3D12_GPU_DESCRIPTOR_HANDLE
-def _define_D3D12_DISCARD_REGION_head():
-    class D3D12_DISCARD_REGION(Structure):
-        pass
-    return D3D12_DISCARD_REGION
-def _define_D3D12_DISCARD_REGION():
-    D3D12_DISCARD_REGION = win32more.Graphics.Direct3D12.D3D12_DISCARD_REGION_head
-    D3D12_DISCARD_REGION._fields_ = [
-        ("NumRects", UInt32),
-        ("pRects", POINTER(win32more.Foundation.RECT_head)),
-        ("FirstSubresource", UInt32),
-        ("NumSubresources", UInt32),
-    ]
-    return D3D12_DISCARD_REGION
-D3D12_QUERY_HEAP_TYPE = Int32
-D3D12_QUERY_HEAP_TYPE_OCCLUSION = 0
-D3D12_QUERY_HEAP_TYPE_TIMESTAMP = 1
-D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS = 2
-D3D12_QUERY_HEAP_TYPE_SO_STATISTICS = 3
-D3D12_QUERY_HEAP_TYPE_VIDEO_DECODE_STATISTICS = 4
-D3D12_QUERY_HEAP_TYPE_COPY_QUEUE_TIMESTAMP = 5
-D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS1 = 7
-def _define_D3D12_QUERY_HEAP_DESC_head():
-    class D3D12_QUERY_HEAP_DESC(Structure):
-        pass
-    return D3D12_QUERY_HEAP_DESC
-def _define_D3D12_QUERY_HEAP_DESC():
-    D3D12_QUERY_HEAP_DESC = win32more.Graphics.Direct3D12.D3D12_QUERY_HEAP_DESC_head
-    D3D12_QUERY_HEAP_DESC._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_QUERY_HEAP_TYPE),
-        ("Count", UInt32),
-        ("NodeMask", UInt32),
-    ]
-    return D3D12_QUERY_HEAP_DESC
-D3D12_QUERY_TYPE = Int32
-D3D12_QUERY_TYPE_OCCLUSION = 0
-D3D12_QUERY_TYPE_BINARY_OCCLUSION = 1
-D3D12_QUERY_TYPE_TIMESTAMP = 2
-D3D12_QUERY_TYPE_PIPELINE_STATISTICS = 3
-D3D12_QUERY_TYPE_SO_STATISTICS_STREAM0 = 4
-D3D12_QUERY_TYPE_SO_STATISTICS_STREAM1 = 5
-D3D12_QUERY_TYPE_SO_STATISTICS_STREAM2 = 6
-D3D12_QUERY_TYPE_SO_STATISTICS_STREAM3 = 7
-D3D12_QUERY_TYPE_VIDEO_DECODE_STATISTICS = 8
-D3D12_QUERY_TYPE_PIPELINE_STATISTICS1 = 10
-D3D12_PREDICATION_OP = Int32
-D3D12_PREDICATION_OP_EQUAL_ZERO = 0
-D3D12_PREDICATION_OP_NOT_EQUAL_ZERO = 1
-def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS_head():
-    class D3D12_QUERY_DATA_PIPELINE_STATISTICS(Structure):
-        pass
-    return D3D12_QUERY_DATA_PIPELINE_STATISTICS
-def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS():
-    D3D12_QUERY_DATA_PIPELINE_STATISTICS = win32more.Graphics.Direct3D12.D3D12_QUERY_DATA_PIPELINE_STATISTICS_head
-    D3D12_QUERY_DATA_PIPELINE_STATISTICS._fields_ = [
-        ("IAVertices", UInt64),
-        ("IAPrimitives", UInt64),
-        ("VSInvocations", UInt64),
-        ("GSInvocations", UInt64),
-        ("GSPrimitives", UInt64),
-        ("CInvocations", UInt64),
-        ("CPrimitives", UInt64),
-        ("PSInvocations", UInt64),
-        ("HSInvocations", UInt64),
-        ("DSInvocations", UInt64),
-        ("CSInvocations", UInt64),
-    ]
-    return D3D12_QUERY_DATA_PIPELINE_STATISTICS
-def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS1_head():
-    class D3D12_QUERY_DATA_PIPELINE_STATISTICS1(Structure):
-        pass
-    return D3D12_QUERY_DATA_PIPELINE_STATISTICS1
-def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS1():
-    D3D12_QUERY_DATA_PIPELINE_STATISTICS1 = win32more.Graphics.Direct3D12.D3D12_QUERY_DATA_PIPELINE_STATISTICS1_head
-    D3D12_QUERY_DATA_PIPELINE_STATISTICS1._fields_ = [
-        ("IAVertices", UInt64),
-        ("IAPrimitives", UInt64),
-        ("VSInvocations", UInt64),
-        ("GSInvocations", UInt64),
-        ("GSPrimitives", UInt64),
-        ("CInvocations", UInt64),
-        ("CPrimitives", UInt64),
-        ("PSInvocations", UInt64),
-        ("HSInvocations", UInt64),
-        ("DSInvocations", UInt64),
-        ("CSInvocations", UInt64),
-        ("ASInvocations", UInt64),
-        ("MSInvocations", UInt64),
-        ("MSPrimitives", UInt64),
-    ]
-    return D3D12_QUERY_DATA_PIPELINE_STATISTICS1
-def _define_D3D12_QUERY_DATA_SO_STATISTICS_head():
-    class D3D12_QUERY_DATA_SO_STATISTICS(Structure):
-        pass
-    return D3D12_QUERY_DATA_SO_STATISTICS
-def _define_D3D12_QUERY_DATA_SO_STATISTICS():
-    D3D12_QUERY_DATA_SO_STATISTICS = win32more.Graphics.Direct3D12.D3D12_QUERY_DATA_SO_STATISTICS_head
-    D3D12_QUERY_DATA_SO_STATISTICS._fields_ = [
-        ("NumPrimitivesWritten", UInt64),
-        ("PrimitivesStorageNeeded", UInt64),
-    ]
-    return D3D12_QUERY_DATA_SO_STATISTICS
-def _define_D3D12_STREAM_OUTPUT_BUFFER_VIEW_head():
-    class D3D12_STREAM_OUTPUT_BUFFER_VIEW(Structure):
-        pass
-    return D3D12_STREAM_OUTPUT_BUFFER_VIEW
-def _define_D3D12_STREAM_OUTPUT_BUFFER_VIEW():
-    D3D12_STREAM_OUTPUT_BUFFER_VIEW = win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_BUFFER_VIEW_head
-    D3D12_STREAM_OUTPUT_BUFFER_VIEW._fields_ = [
-        ("BufferLocation", UInt64),
-        ("SizeInBytes", UInt64),
-        ("BufferFilledSizeLocation", UInt64),
-    ]
-    return D3D12_STREAM_OUTPUT_BUFFER_VIEW
-def _define_D3D12_DRAW_ARGUMENTS_head():
-    class D3D12_DRAW_ARGUMENTS(Structure):
-        pass
-    return D3D12_DRAW_ARGUMENTS
-def _define_D3D12_DRAW_ARGUMENTS():
-    D3D12_DRAW_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DRAW_ARGUMENTS_head
-    D3D12_DRAW_ARGUMENTS._fields_ = [
-        ("VertexCountPerInstance", UInt32),
-        ("InstanceCount", UInt32),
-        ("StartVertexLocation", UInt32),
-        ("StartInstanceLocation", UInt32),
-    ]
-    return D3D12_DRAW_ARGUMENTS
-def _define_D3D12_DRAW_INDEXED_ARGUMENTS_head():
-    class D3D12_DRAW_INDEXED_ARGUMENTS(Structure):
-        pass
-    return D3D12_DRAW_INDEXED_ARGUMENTS
-def _define_D3D12_DRAW_INDEXED_ARGUMENTS():
-    D3D12_DRAW_INDEXED_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DRAW_INDEXED_ARGUMENTS_head
-    D3D12_DRAW_INDEXED_ARGUMENTS._fields_ = [
-        ("IndexCountPerInstance", UInt32),
-        ("InstanceCount", UInt32),
-        ("StartIndexLocation", UInt32),
-        ("BaseVertexLocation", Int32),
-        ("StartInstanceLocation", UInt32),
-    ]
-    return D3D12_DRAW_INDEXED_ARGUMENTS
-def _define_D3D12_DISPATCH_ARGUMENTS_head():
-    class D3D12_DISPATCH_ARGUMENTS(Structure):
-        pass
-    return D3D12_DISPATCH_ARGUMENTS
-def _define_D3D12_DISPATCH_ARGUMENTS():
-    D3D12_DISPATCH_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DISPATCH_ARGUMENTS_head
-    D3D12_DISPATCH_ARGUMENTS._fields_ = [
-        ("ThreadGroupCountX", UInt32),
-        ("ThreadGroupCountY", UInt32),
-        ("ThreadGroupCountZ", UInt32),
-    ]
-    return D3D12_DISPATCH_ARGUMENTS
-def _define_D3D12_VERTEX_BUFFER_VIEW_head():
-    class D3D12_VERTEX_BUFFER_VIEW(Structure):
-        pass
-    return D3D12_VERTEX_BUFFER_VIEW
-def _define_D3D12_VERTEX_BUFFER_VIEW():
-    D3D12_VERTEX_BUFFER_VIEW = win32more.Graphics.Direct3D12.D3D12_VERTEX_BUFFER_VIEW_head
-    D3D12_VERTEX_BUFFER_VIEW._fields_ = [
-        ("BufferLocation", UInt64),
-        ("SizeInBytes", UInt32),
-        ("StrideInBytes", UInt32),
-    ]
-    return D3D12_VERTEX_BUFFER_VIEW
-def _define_D3D12_INDEX_BUFFER_VIEW_head():
-    class D3D12_INDEX_BUFFER_VIEW(Structure):
-        pass
-    return D3D12_INDEX_BUFFER_VIEW
-def _define_D3D12_INDEX_BUFFER_VIEW():
-    D3D12_INDEX_BUFFER_VIEW = win32more.Graphics.Direct3D12.D3D12_INDEX_BUFFER_VIEW_head
-    D3D12_INDEX_BUFFER_VIEW._fields_ = [
-        ("BufferLocation", UInt64),
-        ("SizeInBytes", UInt32),
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-    ]
-    return D3D12_INDEX_BUFFER_VIEW
-D3D12_INDIRECT_ARGUMENT_TYPE = Int32
-D3D12_INDIRECT_ARGUMENT_TYPE_DRAW = 0
-D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED = 1
-D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH = 2
-D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW = 3
-D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW = 4
-D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT = 5
-D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW = 6
-D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW = 7
-D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW = 8
-D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS = 9
-D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH = 10
-def _define_D3D12_INDIRECT_ARGUMENT_DESC_head():
-    class D3D12_INDIRECT_ARGUMENT_DESC(Structure):
-        pass
-    return D3D12_INDIRECT_ARGUMENT_DESC
-def _define_D3D12_INDIRECT_ARGUMENT_DESC():
-    D3D12_INDIRECT_ARGUMENT_DESC = win32more.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_DESC_head
-    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union(Union):
-        pass
-    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ShaderResourceView_e__Struct(Structure):
-        pass
-    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ShaderResourceView_e__Struct._fields_ = [
-        ("RootParameterIndex", UInt32),
-    ]
-    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__Constant_e__Struct(Structure):
-        pass
-    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__Constant_e__Struct._fields_ = [
-        ("RootParameterIndex", UInt32),
-        ("DestOffsetIn32BitValues", UInt32),
-        ("Num32BitValuesToSet", UInt32),
-    ]
-    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__UnorderedAccessView_e__Struct(Structure):
-        pass
-    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__UnorderedAccessView_e__Struct._fields_ = [
-        ("RootParameterIndex", UInt32),
-    ]
-    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__VertexBuffer_e__Struct(Structure):
-        pass
-    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__VertexBuffer_e__Struct._fields_ = [
-        ("Slot", UInt32),
-    ]
-    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ConstantBufferView_e__Struct(Structure):
-        pass
-    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ConstantBufferView_e__Struct._fields_ = [
-        ("RootParameterIndex", UInt32),
-    ]
-    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union._fields_ = [
-        ("VertexBuffer", D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__VertexBuffer_e__Struct),
-        ("Constant", D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__Constant_e__Struct),
-        ("ConstantBufferView", D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ConstantBufferView_e__Struct),
-        ("ShaderResourceView", D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ShaderResourceView_e__Struct),
-        ("UnorderedAccessView", D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__UnorderedAccessView_e__Struct),
-    ]
-    D3D12_INDIRECT_ARGUMENT_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_INDIRECT_ARGUMENT_DESC._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_TYPE),
-        ("Anonymous", D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_INDIRECT_ARGUMENT_DESC
-def _define_D3D12_COMMAND_SIGNATURE_DESC_head():
-    class D3D12_COMMAND_SIGNATURE_DESC(Structure):
-        pass
-    return D3D12_COMMAND_SIGNATURE_DESC
-def _define_D3D12_COMMAND_SIGNATURE_DESC():
-    D3D12_COMMAND_SIGNATURE_DESC = win32more.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC_head
-    D3D12_COMMAND_SIGNATURE_DESC._fields_ = [
-        ("ByteStride", UInt32),
-        ("NumArgumentDescs", UInt32),
-        ("pArgumentDescs", POINTER(win32more.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_DESC_head)),
-        ("NodeMask", UInt32),
-    ]
-    return D3D12_COMMAND_SIGNATURE_DESC
-def _define_ID3D12Pageable_head():
-    class ID3D12Pageable(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('63ee58fb-1268-4835-86da-f008ce62f0d6')
-    return ID3D12Pageable
-def _define_ID3D12Pageable():
-    ID3D12Pageable = win32more.Graphics.Direct3D12.ID3D12Pageable_head
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12Pageable
-def _define_ID3D12Heap_head():
-    class ID3D12Heap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('6b3b2502-6e51-45b3-90ee-9884265e8df3')
-    return ID3D12Heap
-def _define_ID3D12Heap():
-    ID3D12Heap = win32more.Graphics.Direct3D12.ID3D12Heap_head
-    ID3D12Heap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC, use_last_error=False)(8, 'GetDesc', ()))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12Heap
-def _define_ID3D12Resource_head():
-    class ID3D12Resource(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('696442be-a72e-4059-bc79-5b5c98040fad')
-    return ID3D12Resource
-def _define_ID3D12Resource():
-    ID3D12Resource = win32more.Graphics.Direct3D12.ID3D12Resource_head
-    ID3D12Resource.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RANGE_head),POINTER(c_void_p), use_last_error=False)(8, 'Map', ((1, 'Subresource'),(1, 'pReadRange'),(1, 'ppData'),)))
-    ID3D12Resource.Unmap = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RANGE_head), use_last_error=False)(9, 'Unmap', ((1, 'Subresource'),(1, 'pWrittenRange'),)))
-    ID3D12Resource.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC, use_last_error=False)(10, 'GetDesc', ()))
-    ID3D12Resource.GetGPUVirtualAddress = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(11, 'GetGPUVirtualAddress', ()))
-    ID3D12Resource.WriteToSubresource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head),c_void_p,UInt32,UInt32, use_last_error=False)(12, 'WriteToSubresource', ((1, 'DstSubresource'),(1, 'pDstBox'),(1, 'pSrcData'),(1, 'SrcRowPitch'),(1, 'SrcDepthPitch'),)))
-    ID3D12Resource.ReadFromSubresource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head), use_last_error=False)(13, 'ReadFromSubresource', ((1, 'pDstData'),(1, 'DstRowPitch'),(1, 'DstDepthPitch'),(1, 'SrcSubresource'),(1, 'pSrcBox'),)))
-    ID3D12Resource.GetHeapProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS), use_last_error=False)(14, 'GetHeapProperties', ((1, 'pHeapProperties'),(1, 'pHeapFlags'),)))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12Resource
-def _define_ID3D12CommandAllocator_head():
-    class ID3D12CommandAllocator(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('6102dee4-af59-4b09-b999-b44d73f09b24')
-    return ID3D12CommandAllocator
-def _define_ID3D12CommandAllocator():
-    ID3D12CommandAllocator = win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head
-    ID3D12CommandAllocator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12CommandAllocator
-def _define_ID3D12Fence_head():
-    class ID3D12Fence(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('0a753dcf-c4d8-4b91-adf6-be5a60d95a76')
-    return ID3D12Fence
-def _define_ID3D12Fence():
-    ID3D12Fence = win32more.Graphics.Direct3D12.ID3D12Fence_head
-    ID3D12Fence.GetCompletedValue = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(8, 'GetCompletedValue', ()))
-    ID3D12Fence.SetEventOnCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.HANDLE, use_last_error=False)(9, 'SetEventOnCompletion', ((1, 'Value'),(1, 'hEvent'),)))
-    ID3D12Fence.Signal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(10, 'Signal', ((1, 'Value'),)))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12Fence
-def _define_ID3D12Fence1_head():
-    class ID3D12Fence1(win32more.Graphics.Direct3D12.ID3D12Fence_head):
-        Guid = Guid('433685fe-e22b-4ca0-a8db-b5b4f4dd0e4a')
-    return ID3D12Fence1
-def _define_ID3D12Fence1():
-    ID3D12Fence1 = win32more.Graphics.Direct3D12.ID3D12Fence1_head
-    ID3D12Fence1.GetCreationFlags = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_FENCE_FLAGS, use_last_error=False)(11, 'GetCreationFlags', ()))
-    win32more.Graphics.Direct3D12.ID3D12Fence
-    return ID3D12Fence1
-def _define_ID3D12PipelineState_head():
-    class ID3D12PipelineState(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('765a30f3-f624-4c6f-a828-ace948622445')
-    return ID3D12PipelineState
-def _define_ID3D12PipelineState():
-    ID3D12PipelineState = win32more.Graphics.Direct3D12.ID3D12PipelineState_head
-    ID3D12PipelineState.GetCachedBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(8, 'GetCachedBlob', ((1, 'ppBlob'),)))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12PipelineState
-def _define_ID3D12DescriptorHeap_head():
-    class ID3D12DescriptorHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('8efb471d-616c-4f49-90f7-127bb763fa51')
-    return ID3D12DescriptorHeap
-def _define_ID3D12DescriptorHeap():
-    ID3D12DescriptorHeap = win32more.Graphics.Direct3D12.ID3D12DescriptorHeap_head
-    ID3D12DescriptorHeap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC, use_last_error=False)(8, 'GetDesc', ()))
-    ID3D12DescriptorHeap.GetCPUDescriptorHandleForHeapStart = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(9, 'GetCPUDescriptorHandleForHeapStart', ()))
-    ID3D12DescriptorHeap.GetGPUDescriptorHandleForHeapStart = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, use_last_error=False)(10, 'GetGPUDescriptorHandleForHeapStart', ()))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12DescriptorHeap
-def _define_ID3D12QueryHeap_head():
-    class ID3D12QueryHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('0d9658ae-ed45-469e-a61d-970ec583cab4')
-    return ID3D12QueryHeap
-def _define_ID3D12QueryHeap():
-    ID3D12QueryHeap = win32more.Graphics.Direct3D12.ID3D12QueryHeap_head
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12QueryHeap
-def _define_ID3D12CommandSignature_head():
-    class ID3D12CommandSignature(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('c36a797c-ec80-4f0a-8985-a7b2475082d1')
-    return ID3D12CommandSignature
-def _define_ID3D12CommandSignature():
-    ID3D12CommandSignature = win32more.Graphics.Direct3D12.ID3D12CommandSignature_head
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12CommandSignature
-def _define_ID3D12CommandList_head():
-    class ID3D12CommandList(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('7116d91c-e7e4-47ce-b8c6-ec8168f437e5')
-    return ID3D12CommandList
-def _define_ID3D12CommandList():
-    ID3D12CommandList = win32more.Graphics.Direct3D12.ID3D12CommandList_head
-    ID3D12CommandList.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE, use_last_error=False)(8, 'GetType', ()))
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12CommandList
-def _define_ID3D12GraphicsCommandList_head():
-    class ID3D12GraphicsCommandList(win32more.Graphics.Direct3D12.ID3D12CommandList_head):
-        Guid = Guid('5b160d0f-ac1b-4185-8ba8-b3ae42a5a455')
-    return ID3D12GraphicsCommandList
-def _define_ID3D12GraphicsCommandList():
-    ID3D12GraphicsCommandList = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head
-    ID3D12GraphicsCommandList.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Close', ()))
-    ID3D12GraphicsCommandList.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head,win32more.Graphics.Direct3D12.ID3D12PipelineState_head, use_last_error=False)(10, 'Reset', ((1, 'pAllocator'),(1, 'pInitialState'),)))
-    ID3D12GraphicsCommandList.ClearState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12PipelineState_head, use_last_error=False)(11, 'ClearState', ((1, 'pPipelineState'),)))
-    ID3D12GraphicsCommandList.DrawInstanced = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(12, 'DrawInstanced', ((1, 'VertexCountPerInstance'),(1, 'InstanceCount'),(1, 'StartVertexLocation'),(1, 'StartInstanceLocation'),)))
-    ID3D12GraphicsCommandList.DrawIndexedInstanced = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32,Int32,UInt32, use_last_error=False)(13, 'DrawIndexedInstanced', ((1, 'IndexCountPerInstance'),(1, 'InstanceCount'),(1, 'StartIndexLocation'),(1, 'BaseVertexLocation'),(1, 'StartInstanceLocation'),)))
-    ID3D12GraphicsCommandList.Dispatch = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32, use_last_error=False)(14, 'Dispatch', ((1, 'ThreadGroupCountX'),(1, 'ThreadGroupCountY'),(1, 'ThreadGroupCountZ'),)))
-    ID3D12GraphicsCommandList.CopyBufferRegion = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,UInt64, use_last_error=False)(15, 'CopyBufferRegion', ((1, 'pDstBuffer'),(1, 'DstOffset'),(1, 'pSrcBuffer'),(1, 'SrcOffset'),(1, 'NumBytes'),)))
-    ID3D12GraphicsCommandList.CopyTextureRegion = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head),UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head),POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head), use_last_error=False)(16, 'CopyTextureRegion', ((1, 'pDst'),(1, 'DstX'),(1, 'DstY'),(1, 'DstZ'),(1, 'pSrc'),(1, 'pSrcBox'),)))
-    ID3D12GraphicsCommandList.CopyResource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head, use_last_error=False)(17, 'CopyResource', ((1, 'pDstResource'),(1, 'pSrcResource'),)))
-    ID3D12GraphicsCommandList.CopyTiles = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head),win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.D3D12_TILE_COPY_FLAGS, use_last_error=False)(18, 'CopyTiles', ((1, 'pTiledResource'),(1, 'pTileRegionStartCoordinate'),(1, 'pTileRegionSize'),(1, 'pBuffer'),(1, 'BufferStartOffsetInBytes'),(1, 'Flags'),)))
-    ID3D12GraphicsCommandList.ResolveSubresource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT, use_last_error=False)(19, 'ResolveSubresource', ((1, 'pDstResource'),(1, 'DstSubresource'),(1, 'pSrcResource'),(1, 'SrcSubresource'),(1, 'Format'),)))
-    ID3D12GraphicsCommandList.IASetPrimitiveTopology = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D.D3D_PRIMITIVE_TOPOLOGY, use_last_error=False)(20, 'IASetPrimitiveTopology', ((1, 'PrimitiveTopology'),)))
-    ID3D12GraphicsCommandList.RSSetViewports = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_VIEWPORT), use_last_error=False)(21, 'RSSetViewports', ((1, 'NumViewports'),(1, 'pViewports'),)))
-    ID3D12GraphicsCommandList.RSSetScissorRects = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Foundation.RECT), use_last_error=False)(22, 'RSSetScissorRects', ((1, 'NumRects'),(1, 'pRects'),)))
-    ID3D12GraphicsCommandList.OMSetBlendFactor = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single), use_last_error=False)(23, 'OMSetBlendFactor', ((1, 'BlendFactor'),)))
-    ID3D12GraphicsCommandList.OMSetStencilRef = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(24, 'OMSetStencilRef', ((1, 'StencilRef'),)))
-    ID3D12GraphicsCommandList.SetPipelineState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12PipelineState_head, use_last_error=False)(25, 'SetPipelineState', ((1, 'pPipelineState'),)))
-    ID3D12GraphicsCommandList.ResourceBarrier = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER), use_last_error=False)(26, 'ResourceBarrier', ((1, 'NumBarriers'),(1, 'pBarriers'),)))
-    ID3D12GraphicsCommandList.ExecuteBundle = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head, use_last_error=False)(27, 'ExecuteBundle', ((1, 'pCommandList'),)))
-    ID3D12GraphicsCommandList.SetDescriptorHeaps = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12DescriptorHeap_head), use_last_error=False)(28, 'SetDescriptorHeaps', ((1, 'NumDescriptorHeaps'),(1, 'ppDescriptorHeaps'),)))
-    ID3D12GraphicsCommandList.SetComputeRootSignature = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12RootSignature_head, use_last_error=False)(29, 'SetComputeRootSignature', ((1, 'pRootSignature'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRootSignature = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12RootSignature_head, use_last_error=False)(30, 'SetGraphicsRootSignature', ((1, 'pRootSignature'),)))
-    ID3D12GraphicsCommandList.SetComputeRootDescriptorTable = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, use_last_error=False)(31, 'SetComputeRootDescriptorTable', ((1, 'RootParameterIndex'),(1, 'BaseDescriptor'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRootDescriptorTable = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, use_last_error=False)(32, 'SetGraphicsRootDescriptorTable', ((1, 'RootParameterIndex'),(1, 'BaseDescriptor'),)))
-    ID3D12GraphicsCommandList.SetComputeRoot32BitConstant = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32, use_last_error=False)(33, 'SetComputeRoot32BitConstant', ((1, 'RootParameterIndex'),(1, 'SrcData'),(1, 'DestOffsetIn32BitValues'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRoot32BitConstant = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32, use_last_error=False)(34, 'SetGraphicsRoot32BitConstant', ((1, 'RootParameterIndex'),(1, 'SrcData'),(1, 'DestOffsetIn32BitValues'),)))
-    ID3D12GraphicsCommandList.SetComputeRoot32BitConstants = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(35, 'SetComputeRoot32BitConstants', ((1, 'RootParameterIndex'),(1, 'Num32BitValuesToSet'),(1, 'pSrcData'),(1, 'DestOffsetIn32BitValues'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRoot32BitConstants = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,c_void_p,UInt32, use_last_error=False)(36, 'SetGraphicsRoot32BitConstants', ((1, 'RootParameterIndex'),(1, 'Num32BitValuesToSet'),(1, 'pSrcData'),(1, 'DestOffsetIn32BitValues'),)))
-    ID3D12GraphicsCommandList.SetComputeRootConstantBufferView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64, use_last_error=False)(37, 'SetComputeRootConstantBufferView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRootConstantBufferView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64, use_last_error=False)(38, 'SetGraphicsRootConstantBufferView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
-    ID3D12GraphicsCommandList.SetComputeRootShaderResourceView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64, use_last_error=False)(39, 'SetComputeRootShaderResourceView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRootShaderResourceView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64, use_last_error=False)(40, 'SetGraphicsRootShaderResourceView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
-    ID3D12GraphicsCommandList.SetComputeRootUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64, use_last_error=False)(41, 'SetComputeRootUnorderedAccessView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
-    ID3D12GraphicsCommandList.SetGraphicsRootUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64, use_last_error=False)(42, 'SetGraphicsRootUnorderedAccessView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
-    ID3D12GraphicsCommandList.IASetIndexBuffer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_INDEX_BUFFER_VIEW_head), use_last_error=False)(43, 'IASetIndexBuffer', ((1, 'pView'),)))
-    ID3D12GraphicsCommandList.IASetVertexBuffers = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_VERTEX_BUFFER_VIEW), use_last_error=False)(44, 'IASetVertexBuffers', ((1, 'StartSlot'),(1, 'NumViews'),(1, 'pViews'),)))
-    ID3D12GraphicsCommandList.SOSetTargets = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_BUFFER_VIEW), use_last_error=False)(45, 'SOSetTargets', ((1, 'StartSlot'),(1, 'NumViews'),(1, 'pViews'),)))
-    ID3D12GraphicsCommandList.OMSetRenderTargets = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head),win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head), use_last_error=False)(46, 'OMSetRenderTargets', ((1, 'NumRenderTargetDescriptors'),(1, 'pRenderTargetDescriptors'),(1, 'RTsSingleHandleToDescriptorRange'),(1, 'pDepthStencilDescriptor'),)))
-    ID3D12GraphicsCommandList.ClearDepthStencilView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CLEAR_FLAGS,Single,Byte,UInt32,POINTER(win32more.Foundation.RECT), use_last_error=False)(47, 'ClearDepthStencilView', ((1, 'DepthStencilView'),(1, 'ClearFlags'),(1, 'Depth'),(1, 'Stencil'),(1, 'NumRects'),(1, 'pRects'),)))
-    ID3D12GraphicsCommandList.ClearRenderTargetView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,POINTER(Single),UInt32,POINTER(win32more.Foundation.RECT), use_last_error=False)(48, 'ClearRenderTargetView', ((1, 'RenderTargetView'),(1, 'ColorRGBA'),(1, 'NumRects'),(1, 'pRects'),)))
-    ID3D12GraphicsCommandList.ClearUnorderedAccessViewUint = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.RECT), use_last_error=False)(49, 'ClearUnorderedAccessViewUint', ((1, 'ViewGPUHandleInCurrentHeap'),(1, 'ViewCPUHandle'),(1, 'pResource'),(1, 'Values'),(1, 'NumRects'),(1, 'pRects'),)))
-    ID3D12GraphicsCommandList.ClearUnorderedAccessViewFloat = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(Single),UInt32,POINTER(win32more.Foundation.RECT), use_last_error=False)(50, 'ClearUnorderedAccessViewFloat', ((1, 'ViewGPUHandleInCurrentHeap'),(1, 'ViewCPUHandle'),(1, 'pResource'),(1, 'Values'),(1, 'NumRects'),(1, 'pRects'),)))
-    ID3D12GraphicsCommandList.DiscardResource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_DISCARD_REGION_head), use_last_error=False)(51, 'DiscardResource', ((1, 'pResource'),(1, 'pRegion'),)))
-    ID3D12GraphicsCommandList.BeginQuery = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12QueryHeap_head,win32more.Graphics.Direct3D12.D3D12_QUERY_TYPE,UInt32, use_last_error=False)(52, 'BeginQuery', ((1, 'pQueryHeap'),(1, 'Type'),(1, 'Index'),)))
-    ID3D12GraphicsCommandList.EndQuery = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12QueryHeap_head,win32more.Graphics.Direct3D12.D3D12_QUERY_TYPE,UInt32, use_last_error=False)(53, 'EndQuery', ((1, 'pQueryHeap'),(1, 'Type'),(1, 'Index'),)))
-    ID3D12GraphicsCommandList.ResolveQueryData = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12QueryHeap_head,win32more.Graphics.Direct3D12.D3D12_QUERY_TYPE,UInt32,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64, use_last_error=False)(54, 'ResolveQueryData', ((1, 'pQueryHeap'),(1, 'Type'),(1, 'StartIndex'),(1, 'NumQueries'),(1, 'pDestinationBuffer'),(1, 'AlignedDestinationBufferOffset'),)))
-    ID3D12GraphicsCommandList.SetPredication = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.D3D12_PREDICATION_OP, use_last_error=False)(55, 'SetPredication', ((1, 'pBuffer'),(1, 'AlignedBufferOffset'),(1, 'Operation'),)))
-    ID3D12GraphicsCommandList.SetMarker = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32, use_last_error=False)(56, 'SetMarker', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
-    ID3D12GraphicsCommandList.BeginEvent = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32, use_last_error=False)(57, 'BeginEvent', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
-    ID3D12GraphicsCommandList.EndEvent = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(58, 'EndEvent', ()))
-    ID3D12GraphicsCommandList.ExecuteIndirect = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12CommandSignature_head,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64, use_last_error=False)(59, 'ExecuteIndirect', ((1, 'pCommandSignature'),(1, 'MaxCommandCount'),(1, 'pArgumentBuffer'),(1, 'ArgumentBufferOffset'),(1, 'pCountBuffer'),(1, 'CountBufferOffset'),)))
-    win32more.Graphics.Direct3D12.ID3D12CommandList
-    return ID3D12GraphicsCommandList
-def _define_ID3D12GraphicsCommandList1_head():
-    class ID3D12GraphicsCommandList1(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head):
-        Guid = Guid('553103fb-1fe7-4557-bb38-946d7d0e7ca7')
-    return ID3D12GraphicsCommandList1
-def _define_ID3D12GraphicsCommandList1():
-    ID3D12GraphicsCommandList1 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1_head
-    ID3D12GraphicsCommandList1.AtomicCopyBufferUINT = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Resource_head),POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64), use_last_error=False)(60, 'AtomicCopyBufferUINT', ((1, 'pDstBuffer'),(1, 'DstOffset'),(1, 'pSrcBuffer'),(1, 'SrcOffset'),(1, 'Dependencies'),(1, 'ppDependentResources'),(1, 'pDependentSubresourceRanges'),)))
-    ID3D12GraphicsCommandList1.AtomicCopyBufferUINT64 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Resource_head),POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64), use_last_error=False)(61, 'AtomicCopyBufferUINT64', ((1, 'pDstBuffer'),(1, 'DstOffset'),(1, 'pSrcBuffer'),(1, 'SrcOffset'),(1, 'Dependencies'),(1, 'ppDependentResources'),(1, 'pDependentSubresourceRanges'),)))
-    ID3D12GraphicsCommandList1.OMSetDepthBounds = COMMETHOD(WINFUNCTYPE(Void,Single,Single, use_last_error=False)(62, 'OMSetDepthBounds', ((1, 'Min'),(1, 'Max'),)))
-    ID3D12GraphicsCommandList1.SetSamplePositions = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SAMPLE_POSITION_head), use_last_error=False)(63, 'SetSamplePositions', ((1, 'NumSamplesPerPixel'),(1, 'NumPixels'),(1, 'pSamplePositions'),)))
-    ID3D12GraphicsCommandList1.ResolveSubresourceRegion = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Direct3D12.D3D12_RESOLVE_MODE, use_last_error=False)(64, 'ResolveSubresourceRegion', ((1, 'pDstResource'),(1, 'DstSubresource'),(1, 'DstX'),(1, 'DstY'),(1, 'pSrcResource'),(1, 'SrcSubresource'),(1, 'pSrcRect'),(1, 'Format'),(1, 'ResolveMode'),)))
-    ID3D12GraphicsCommandList1.SetViewInstanceMask = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(65, 'SetViewInstanceMask', ((1, 'Mask'),)))
-    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList
-    return ID3D12GraphicsCommandList1
-def _define_D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head():
-    class D3D12_WRITEBUFFERIMMEDIATE_PARAMETER(Structure):
-        pass
-    return D3D12_WRITEBUFFERIMMEDIATE_PARAMETER
-def _define_D3D12_WRITEBUFFERIMMEDIATE_PARAMETER():
-    D3D12_WRITEBUFFERIMMEDIATE_PARAMETER = win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head
-    D3D12_WRITEBUFFERIMMEDIATE_PARAMETER._fields_ = [
-        ("Dest", UInt64),
-        ("Value", UInt32),
-    ]
-    return D3D12_WRITEBUFFERIMMEDIATE_PARAMETER
-D3D12_WRITEBUFFERIMMEDIATE_MODE = Int32
-D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT = 0
-D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_IN = 1
-D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_OUT = 2
-def _define_ID3D12GraphicsCommandList2_head():
-    class ID3D12GraphicsCommandList2(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1_head):
-        Guid = Guid('38c3e585-ff17-412c-9150-4fc6f9d72a28')
-    return ID3D12GraphicsCommandList2
-def _define_ID3D12GraphicsCommandList2():
-    ID3D12GraphicsCommandList2 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2_head
-    ID3D12GraphicsCommandList2.WriteBufferImmediate = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER),POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE), use_last_error=False)(66, 'WriteBufferImmediate', ((1, 'Count'),(1, 'pParams'),(1, 'pModes'),)))
-    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1
-    return ID3D12GraphicsCommandList2
-def _define_ID3D12CommandQueue_head():
-    class ID3D12CommandQueue(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('0ec870a6-5d7e-4c22-8cfc-5baae07616ed')
-    return ID3D12CommandQueue
-def _define_ID3D12CommandQueue():
-    ID3D12CommandQueue = win32more.Graphics.Direct3D12.ID3D12CommandQueue_head
-    ID3D12CommandQueue.UpdateTileMappings = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE),win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_RANGE_FLAGS),POINTER(UInt32),POINTER(UInt32),win32more.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS, use_last_error=False)(8, 'UpdateTileMappings', ((1, 'pResource'),(1, 'NumResourceRegions'),(1, 'pResourceRegionStartCoordinates'),(1, 'pResourceRegionSizes'),(1, 'pHeap'),(1, 'NumRanges'),(1, 'pRangeFlags'),(1, 'pHeapRangeStartOffsets'),(1, 'pRangeTileCounts'),(1, 'Flags'),)))
-    ID3D12CommandQueue.CopyTileMappings = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head),win32more.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS, use_last_error=False)(9, 'CopyTileMappings', ((1, 'pDstResource'),(1, 'pDstRegionStartCoordinate'),(1, 'pSrcResource'),(1, 'pSrcRegionStartCoordinate'),(1, 'pRegionSize'),(1, 'Flags'),)))
-    ID3D12CommandQueue.ExecuteCommandLists = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12CommandList_head), use_last_error=False)(10, 'ExecuteCommandLists', ((1, 'NumCommandLists'),(1, 'ppCommandLists'),)))
-    ID3D12CommandQueue.SetMarker = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32, use_last_error=False)(11, 'SetMarker', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
-    ID3D12CommandQueue.BeginEvent = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32, use_last_error=False)(12, 'BeginEvent', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
-    ID3D12CommandQueue.EndEvent = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(13, 'EndEvent', ()))
-    ID3D12CommandQueue.Signal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64, use_last_error=False)(14, 'Signal', ((1, 'pFence'),(1, 'Value'),)))
-    ID3D12CommandQueue.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64, use_last_error=False)(15, 'Wait', ((1, 'pFence'),(1, 'Value'),)))
-    ID3D12CommandQueue.GetTimestampFrequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(16, 'GetTimestampFrequency', ((1, 'pFrequency'),)))
-    ID3D12CommandQueue.GetClockCalibration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(17, 'GetClockCalibration', ((1, 'pGpuTimestamp'),(1, 'pCpuTimestamp'),)))
-    ID3D12CommandQueue.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC, use_last_error=False)(18, 'GetDesc', ()))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12CommandQueue
-def _define_ID3D12Device_head():
-    class ID3D12Device(win32more.Graphics.Direct3D12.ID3D12Object_head):
-        Guid = Guid('189819f1-1db6-4b57-be54-1821339b85f7')
-    return ID3D12Device
-def _define_ID3D12Device():
-    ID3D12Device = win32more.Graphics.Direct3D12.ID3D12Device_head
-    ID3D12Device.GetNodeCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'GetNodeCount', ()))
-    ID3D12Device.CreateCommandQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'CreateCommandQueue', ((1, 'pDesc'),(1, 'riid'),(1, 'ppCommandQueue'),)))
-    ID3D12Device.CreateCommandAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'CreateCommandAllocator', ((1, 'type'),(1, 'riid'),(1, 'ppCommandAllocator'),)))
-    ID3D12Device.CreateGraphicsPipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'CreateGraphicsPipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
-    ID3D12Device.CreateComputePipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'CreateComputePipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
-    ID3D12Device.CreateCommandList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head,win32more.Graphics.Direct3D12.ID3D12PipelineState_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'CreateCommandList', ((1, 'nodeMask'),(1, 'type'),(1, 'pCommandAllocator'),(1, 'pInitialState'),(1, 'riid'),(1, 'ppCommandList'),)))
-    ID3D12Device.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_FEATURE,c_void_p,UInt32, use_last_error=False)(13, 'CheckFeatureSupport', ((1, 'Feature'),(1, 'pFeatureSupportData'),(1, 'FeatureSupportDataSize'),)))
-    ID3D12Device.CreateDescriptorHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(14, 'CreateDescriptorHeap', ((1, 'pDescriptorHeapDesc'),(1, 'riid'),(1, 'ppvHeap'),)))
-    ID3D12Device.GetDescriptorHandleIncrementSize = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE, use_last_error=False)(15, 'GetDescriptorHandleIncrementSize', ((1, 'DescriptorHeapType'),)))
-    ID3D12Device.CreateRootSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Void),UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(16, 'CreateRootSignature', ((1, 'nodeMask'),(1, 'pBlobWithRootSignature'),(1, 'blobLengthInBytes'),(1, 'riid'),(1, 'ppvRootSignature'),)))
-    ID3D12Device.CreateConstantBufferView = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_CONSTANT_BUFFER_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(17, 'CreateConstantBufferView', ((1, 'pDesc'),(1, 'DestDescriptor'),)))
-    ID3D12Device.CreateShaderResourceView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_RESOURCE_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(18, 'CreateShaderResourceView', ((1, 'pResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
-    ID3D12Device.CreateUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_UNORDERED_ACCESS_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(19, 'CreateUnorderedAccessView', ((1, 'pResource'),(1, 'pCounterResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
-    ID3D12Device.CreateRenderTargetView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(20, 'CreateRenderTargetView', ((1, 'pResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
-    ID3D12Device.CreateDepthStencilView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(21, 'CreateDepthStencilView', ((1, 'pResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
-    ID3D12Device.CreateSampler = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_SAMPLER_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(22, 'CreateSampler', ((1, 'pDesc'),(1, 'DestDescriptor'),)))
-    ID3D12Device.CopyDescriptors = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE),POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE),POINTER(UInt32),win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE, use_last_error=False)(23, 'CopyDescriptors', ((1, 'NumDestDescriptorRanges'),(1, 'pDestDescriptorRangeStarts'),(1, 'pDestDescriptorRangeSizes'),(1, 'NumSrcDescriptorRanges'),(1, 'pSrcDescriptorRangeStarts'),(1, 'pSrcDescriptorRangeSizes'),(1, 'DescriptorHeapsType'),)))
-    ID3D12Device.CopyDescriptorsSimple = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE, use_last_error=False)(24, 'CopyDescriptorsSimple', ((1, 'NumDescriptors'),(1, 'DestDescriptorRangeStart'),(1, 'SrcDescriptorRangeStart'),(1, 'DescriptorHeapsType'),)))
-    ID3D12Device.GetResourceAllocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC), use_last_error=False)(25, 'GetResourceAllocationInfo', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),)))
-    ID3D12Device.GetCustomHeapProperties = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES,UInt32,win32more.Graphics.Direct3D12.D3D12_HEAP_TYPE, use_last_error=False)(26, 'GetCustomHeapProperties', ((1, 'nodeMask'),(1, 'heapType'),)))
-    ID3D12Device.CreateCommittedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(27, 'CreateCommittedResource', ((1, 'pHeapProperties'),(1, 'HeapFlags'),(1, 'pDesc'),(1, 'InitialResourceState'),(1, 'pOptimizedClearValue'),(1, 'riidResource'),(1, 'ppvResource'),)))
-    ID3D12Device.CreateHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(28, 'CreateHeap', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvHeap'),)))
-    ID3D12Device.CreatePlacedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(29, 'CreatePlacedResource', ((1, 'pHeap'),(1, 'HeapOffset'),(1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
-    ID3D12Device.CreateReservedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(30, 'CreateReservedResource', ((1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
-    ID3D12Device.CreateSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12DeviceChild_head,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(31, 'CreateSharedHandle', ((1, 'pObject'),(1, 'pAttributes'),(1, 'Access'),(1, 'Name'),(1, 'pHandle'),)))
-    ID3D12Device.OpenSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(32, 'OpenSharedHandle', ((1, 'NTHandle'),(1, 'riid'),(1, 'ppvObj'),)))
-    ID3D12Device.OpenSharedHandleByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(33, 'OpenSharedHandleByName', ((1, 'Name'),(1, 'Access'),(1, 'pNTHandle'),)))
-    ID3D12Device.MakeResident = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head), use_last_error=False)(34, 'MakeResident', ((1, 'NumObjects'),(1, 'ppObjects'),)))
-    ID3D12Device.Evict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head), use_last_error=False)(35, 'Evict', ((1, 'NumObjects'),(1, 'ppObjects'),)))
-    ID3D12Device.CreateFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Graphics.Direct3D12.D3D12_FENCE_FLAGS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(36, 'CreateFence', ((1, 'InitialValue'),(1, 'Flags'),(1, 'riid'),(1, 'ppFence'),)))
-    ID3D12Device.GetDeviceRemovedReason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'GetDeviceRemovedReason', ()))
-    ID3D12Device.GetCopyableFootprints = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),UInt32,UInt32,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(38, 'GetCopyableFootprints', ((1, 'pResourceDesc'),(1, 'FirstSubresource'),(1, 'NumSubresources'),(1, 'BaseOffset'),(1, 'pLayouts'),(1, 'pNumRows'),(1, 'pRowSizeInBytes'),(1, 'pTotalBytes'),)))
-    ID3D12Device.CreateQueryHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_QUERY_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(39, 'CreateQueryHeap', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvHeap'),)))
-    ID3D12Device.SetStablePowerState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(40, 'SetStablePowerState', ((1, 'Enable'),)))
-    ID3D12Device.CreateCommandSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.ID3D12RootSignature_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(41, 'CreateCommandSignature', ((1, 'pDesc'),(1, 'pRootSignature'),(1, 'riid'),(1, 'ppvCommandSignature'),)))
-    ID3D12Device.GetResourceTiling = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_SHAPE_head),POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING), use_last_error=False)(42, 'GetResourceTiling', ((1, 'pTiledResource'),(1, 'pNumTilesForEntireResource'),(1, 'pPackedMipDesc'),(1, 'pStandardTileShapeForNonPackedMips'),(1, 'pNumSubresourceTilings'),(1, 'FirstSubresourceTilingToGet'),(1, 'pSubresourceTilingsForNonPackedMips'),)))
-    ID3D12Device.GetAdapterLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.LUID, use_last_error=False)(43, 'GetAdapterLuid', ()))
-    win32more.Graphics.Direct3D12.ID3D12Object
-    return ID3D12Device
-def _define_ID3D12PipelineLibrary_head():
-    class ID3D12PipelineLibrary(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('c64226a8-9201-46af-b4cc-53fb9ff7414f')
-    return ID3D12PipelineLibrary
-def _define_ID3D12PipelineLibrary():
-    ID3D12PipelineLibrary = win32more.Graphics.Direct3D12.ID3D12PipelineLibrary_head
-    ID3D12PipelineLibrary.StorePipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct3D12.ID3D12PipelineState_head, use_last_error=False)(8, 'StorePipeline', ((1, 'pName'),(1, 'pPipeline'),)))
-    ID3D12PipelineLibrary.LoadGraphicsPipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'LoadGraphicsPipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
-    ID3D12PipelineLibrary.LoadComputePipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'LoadComputePipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
-    ID3D12PipelineLibrary.GetSerializedSize = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(11, 'GetSerializedSize', ()))
-    ID3D12PipelineLibrary.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Void),UIntPtr, use_last_error=False)(12, 'Serialize', ((1, 'pData'),(1, 'DataSizeInBytes'),)))
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12PipelineLibrary
-def _define_ID3D12PipelineLibrary1_head():
-    class ID3D12PipelineLibrary1(win32more.Graphics.Direct3D12.ID3D12PipelineLibrary_head):
-        Guid = Guid('80eabf42-2568-4e5e-bd82-c37f86961dc3')
-    return ID3D12PipelineLibrary1
-def _define_ID3D12PipelineLibrary1():
-    ID3D12PipelineLibrary1 = win32more.Graphics.Direct3D12.ID3D12PipelineLibrary1_head
-    ID3D12PipelineLibrary1.LoadPipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'LoadPipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
-    win32more.Graphics.Direct3D12.ID3D12PipelineLibrary
-    return ID3D12PipelineLibrary1
-D3D12_MULTIPLE_FENCE_WAIT_FLAGS = UInt32
-D3D12_MULTIPLE_FENCE_WAIT_FLAG_NONE = 0
-D3D12_MULTIPLE_FENCE_WAIT_FLAG_ANY = 1
-D3D12_MULTIPLE_FENCE_WAIT_FLAG_ALL = 0
-D3D12_RESIDENCY_PRIORITY = Int32
-D3D12_RESIDENCY_PRIORITY_MINIMUM = 671088640
-D3D12_RESIDENCY_PRIORITY_LOW = 1342177280
-D3D12_RESIDENCY_PRIORITY_NORMAL = 2013265920
-D3D12_RESIDENCY_PRIORITY_HIGH = -1610547200
-D3D12_RESIDENCY_PRIORITY_MAXIMUM = -939524096
-def _define_ID3D12Device1_head():
-    class ID3D12Device1(win32more.Graphics.Direct3D12.ID3D12Device_head):
-        Guid = Guid('77acce80-638e-4e65-8895-c1f23386863e')
-    return ID3D12Device1
-def _define_ID3D12Device1():
-    ID3D12Device1 = win32more.Graphics.Direct3D12.ID3D12Device1_head
-    ID3D12Device1.CreatePipelineLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Void),UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(44, 'CreatePipelineLibrary', ((1, 'pLibraryBlob'),(1, 'BlobLength'),(1, 'riid'),(1, 'ppPipelineLibrary'),)))
-    ID3D12Device1.SetEventOnMultipleFenceCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.ID3D12Fence_head),POINTER(UInt64),UInt32,win32more.Graphics.Direct3D12.D3D12_MULTIPLE_FENCE_WAIT_FLAGS,win32more.Foundation.HANDLE, use_last_error=False)(45, 'SetEventOnMultipleFenceCompletion', ((1, 'ppFences'),(1, 'pFenceValues'),(1, 'NumFences'),(1, 'Flags'),(1, 'hEvent'),)))
-    ID3D12Device1.SetResidencyPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RESIDENCY_PRIORITY), use_last_error=False)(46, 'SetResidencyPriority', ((1, 'NumObjects'),(1, 'ppObjects'),(1, 'pPriorities'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device
-    return ID3D12Device1
-def _define_ID3D12Device2_head():
-    class ID3D12Device2(win32more.Graphics.Direct3D12.ID3D12Device1_head):
-        Guid = Guid('30baa41e-b15b-475c-a0bb-1af5c5b64328')
-    return ID3D12Device2
-def _define_ID3D12Device2():
-    ID3D12Device2 = win32more.Graphics.Direct3D12.ID3D12Device2_head
-    ID3D12Device2.CreatePipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(47, 'CreatePipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device1
-    return ID3D12Device2
-D3D12_RESIDENCY_FLAGS = UInt32
-D3D12_RESIDENCY_FLAG_NONE = 0
-D3D12_RESIDENCY_FLAG_DENY_OVERBUDGET = 1
-def _define_ID3D12Device3_head():
-    class ID3D12Device3(win32more.Graphics.Direct3D12.ID3D12Device2_head):
-        Guid = Guid('81dadc15-2bad-4392-93c5-101345c4aa98')
-    return ID3D12Device3
-def _define_ID3D12Device3():
-    ID3D12Device3 = win32more.Graphics.Direct3D12.ID3D12Device3_head
-    ID3D12Device3.OpenExistingHeapFromAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(48, 'OpenExistingHeapFromAddress', ((1, 'pAddress'),(1, 'riid'),(1, 'ppvHeap'),)))
-    ID3D12Device3.OpenExistingHeapFromFileMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(49, 'OpenExistingHeapFromFileMapping', ((1, 'hFileMapping'),(1, 'riid'),(1, 'ppvHeap'),)))
-    ID3D12Device3.EnqueueMakeResident = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RESIDENCY_FLAGS,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head),win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64, use_last_error=False)(50, 'EnqueueMakeResident', ((1, 'Flags'),(1, 'NumObjects'),(1, 'ppObjects'),(1, 'pFenceToSignal'),(1, 'FenceValueToSignal'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device2
-    return ID3D12Device3
-D3D12_COMMAND_LIST_FLAGS = UInt32
-D3D12_COMMAND_LIST_FLAG_NONE = 0
-D3D12_COMMAND_POOL_FLAGS = UInt32
-D3D12_COMMAND_POOL_FLAG_NONE = 0
-D3D12_COMMAND_RECORDER_FLAGS = UInt32
-D3D12_COMMAND_RECORDER_FLAG_NONE = 0
-D3D12_PROTECTED_SESSION_STATUS = Int32
-D3D12_PROTECTED_SESSION_STATUS_OK = 0
-D3D12_PROTECTED_SESSION_STATUS_INVALID = 1
-def _define_ID3D12ProtectedSession_head():
-    class ID3D12ProtectedSession(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('a1533d18-0ac1-4084-85b9-89a96116806b')
-    return ID3D12ProtectedSession
-def _define_ID3D12ProtectedSession():
-    ID3D12ProtectedSession = win32more.Graphics.Direct3D12.ID3D12ProtectedSession_head
-    ID3D12ProtectedSession.GetStatusFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'GetStatusFence', ((1, 'riid'),(1, 'ppFence'),)))
-    ID3D12ProtectedSession.GetSessionStatus = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_SESSION_STATUS, use_last_error=False)(9, 'GetSessionStatus', ()))
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12ProtectedSession
-D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS = UInt32
-D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE = 0
-D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_SUPPORTED = 1
-def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT_head():
-    class D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT(Structure):
-        pass
-    return D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT
-def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT():
-    D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT_head
-    D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT._fields_ = [
-        ("NodeIndex", UInt32),
-        ("Support", win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS),
-    ]
-    return D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT
-D3D12_PROTECTED_RESOURCE_SESSION_FLAGS = UInt32
-D3D12_PROTECTED_RESOURCE_SESSION_FLAG_NONE = 0
-def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC_head():
-    class D3D12_PROTECTED_RESOURCE_SESSION_DESC(Structure):
-        pass
-    return D3D12_PROTECTED_RESOURCE_SESSION_DESC
-def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC():
-    D3D12_PROTECTED_RESOURCE_SESSION_DESC = win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC_head
-    D3D12_PROTECTED_RESOURCE_SESSION_DESC._fields_ = [
-        ("NodeMask", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_FLAGS),
-    ]
-    return D3D12_PROTECTED_RESOURCE_SESSION_DESC
-def _define_ID3D12ProtectedResourceSession_head():
-    class ID3D12ProtectedResourceSession(win32more.Graphics.Direct3D12.ID3D12ProtectedSession_head):
-        Guid = Guid('6cd696f4-f289-40cc-8091-5a6c0a099c3d')
-    return ID3D12ProtectedResourceSession
-def _define_ID3D12ProtectedResourceSession():
-    ID3D12ProtectedResourceSession = win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head
-    ID3D12ProtectedResourceSession.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC, use_last_error=False)(10, 'GetDesc', ()))
-    win32more.Graphics.Direct3D12.ID3D12ProtectedSession
-    return ID3D12ProtectedResourceSession
-def _define_ID3D12Device4_head():
-    class ID3D12Device4(win32more.Graphics.Direct3D12.ID3D12Device3_head):
-        Guid = Guid('e865df17-a9ee-46f9-a463-3098315aa2e5')
-    return ID3D12Device4
-def _define_ID3D12Device4():
-    ID3D12Device4 = win32more.Graphics.Direct3D12.ID3D12Device4_head
-    ID3D12Device4.CreateCommandList1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_FLAGS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(51, 'CreateCommandList1', ((1, 'nodeMask'),(1, 'type'),(1, 'flags'),(1, 'riid'),(1, 'ppCommandList'),)))
-    ID3D12Device4.CreateProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(52, 'CreateProtectedResourceSession', ((1, 'pDesc'),(1, 'riid'),(1, 'ppSession'),)))
-    ID3D12Device4.CreateCommittedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(53, 'CreateCommittedResource1', ((1, 'pHeapProperties'),(1, 'HeapFlags'),(1, 'pDesc'),(1, 'InitialResourceState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riidResource'),(1, 'ppvResource'),)))
-    ID3D12Device4.CreateHeap1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(54, 'CreateHeap1', ((1, 'pDesc'),(1, 'pProtectedSession'),(1, 'riid'),(1, 'ppvHeap'),)))
-    ID3D12Device4.CreateReservedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(55, 'CreateReservedResource1', ((1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riid'),(1, 'ppvResource'),)))
-    ID3D12Device4.GetResourceAllocationInfo1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC),POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1), use_last_error=False)(56, 'GetResourceAllocationInfo1', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),(1, 'pResourceAllocationInfo1'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device3
-    return ID3D12Device4
-D3D12_LIFETIME_STATE = Int32
-D3D12_LIFETIME_STATE_IN_USE = 0
-D3D12_LIFETIME_STATE_NOT_IN_USE = 1
-def _define_ID3D12LifetimeOwner_head():
-    class ID3D12LifetimeOwner(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e667af9f-cd56-4f46-83ce-032e595d70a8')
-    return ID3D12LifetimeOwner
-def _define_ID3D12LifetimeOwner():
-    ID3D12LifetimeOwner = win32more.Graphics.Direct3D12.ID3D12LifetimeOwner_head
-    ID3D12LifetimeOwner.LifetimeStateUpdated = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_LIFETIME_STATE, use_last_error=False)(3, 'LifetimeStateUpdated', ((1, 'NewState'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12LifetimeOwner
-def _define_ID3D12SwapChainAssistant_head():
-    class ID3D12SwapChainAssistant(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f1df64b6-57fd-49cd-8807-c0eb88b45c8f')
-    return ID3D12SwapChainAssistant
-def _define_ID3D12SwapChainAssistant():
-    ID3D12SwapChainAssistant = win32more.Graphics.Direct3D12.ID3D12SwapChainAssistant_head
-    ID3D12SwapChainAssistant.GetLUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.LUID, use_last_error=False)(3, 'GetLUID', ()))
-    ID3D12SwapChainAssistant.GetSwapChainObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetSwapChainObject', ((1, 'riid'),(1, 'ppv'),)))
-    ID3D12SwapChainAssistant.GetCurrentResourceAndCommandQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetCurrentResourceAndCommandQueue', ((1, 'riidResource'),(1, 'ppvResource'),(1, 'riidQueue'),(1, 'ppvQueue'),)))
-    ID3D12SwapChainAssistant.InsertImplicitSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'InsertImplicitSync', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12SwapChainAssistant
-def _define_ID3D12LifetimeTracker_head():
-    class ID3D12LifetimeTracker(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('3fd03d36-4eb1-424a-a582-494ecb8ba813')
-    return ID3D12LifetimeTracker
-def _define_ID3D12LifetimeTracker():
-    ID3D12LifetimeTracker = win32more.Graphics.Direct3D12.ID3D12LifetimeTracker_head
-    ID3D12LifetimeTracker.DestroyOwnedObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12DeviceChild_head, use_last_error=False)(8, 'DestroyOwnedObject', ((1, 'pObject'),)))
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12LifetimeTracker
-D3D12_META_COMMAND_PARAMETER_TYPE = Int32
-D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT = 0
-D3D12_META_COMMAND_PARAMETER_TYPE_UINT64 = 1
-D3D12_META_COMMAND_PARAMETER_TYPE_GPU_VIRTUAL_ADDRESS = 2
-D3D12_META_COMMAND_PARAMETER_TYPE_CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV = 3
-D3D12_META_COMMAND_PARAMETER_TYPE_GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV = 4
-D3D12_META_COMMAND_PARAMETER_FLAGS = UInt32
-D3D12_META_COMMAND_PARAMETER_FLAG_INPUT = 1
-D3D12_META_COMMAND_PARAMETER_FLAG_OUTPUT = 2
-D3D12_META_COMMAND_PARAMETER_STAGE = Int32
-D3D12_META_COMMAND_PARAMETER_STAGE_CREATION = 0
-D3D12_META_COMMAND_PARAMETER_STAGE_INITIALIZATION = 1
-D3D12_META_COMMAND_PARAMETER_STAGE_EXECUTION = 2
-def _define_D3D12_META_COMMAND_PARAMETER_DESC_head():
-    class D3D12_META_COMMAND_PARAMETER_DESC(Structure):
-        pass
-    return D3D12_META_COMMAND_PARAMETER_DESC
-def _define_D3D12_META_COMMAND_PARAMETER_DESC():
-    D3D12_META_COMMAND_PARAMETER_DESC = win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_DESC_head
-    D3D12_META_COMMAND_PARAMETER_DESC._fields_ = [
-        ("Name", win32more.Foundation.PWSTR),
-        ("Type", win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_TYPE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_FLAGS),
-        ("RequiredResourceState", win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES),
-        ("StructureOffset", UInt32),
-    ]
-    return D3D12_META_COMMAND_PARAMETER_DESC
-D3D12_GRAPHICS_STATES = UInt32
-D3D12_GRAPHICS_STATE_NONE = 0
-D3D12_GRAPHICS_STATE_IA_VERTEX_BUFFERS = 1
-D3D12_GRAPHICS_STATE_IA_INDEX_BUFFER = 2
-D3D12_GRAPHICS_STATE_IA_PRIMITIVE_TOPOLOGY = 4
-D3D12_GRAPHICS_STATE_DESCRIPTOR_HEAP = 8
-D3D12_GRAPHICS_STATE_GRAPHICS_ROOT_SIGNATURE = 16
-D3D12_GRAPHICS_STATE_COMPUTE_ROOT_SIGNATURE = 32
-D3D12_GRAPHICS_STATE_RS_VIEWPORTS = 64
-D3D12_GRAPHICS_STATE_RS_SCISSOR_RECTS = 128
-D3D12_GRAPHICS_STATE_PREDICATION = 256
-D3D12_GRAPHICS_STATE_OM_RENDER_TARGETS = 512
-D3D12_GRAPHICS_STATE_OM_STENCIL_REF = 1024
-D3D12_GRAPHICS_STATE_OM_BLEND_FACTOR = 2048
-D3D12_GRAPHICS_STATE_PIPELINE_STATE = 4096
-D3D12_GRAPHICS_STATE_SO_TARGETS = 8192
-D3D12_GRAPHICS_STATE_OM_DEPTH_BOUNDS = 16384
-D3D12_GRAPHICS_STATE_SAMPLE_POSITIONS = 32768
-D3D12_GRAPHICS_STATE_VIEW_INSTANCE_MASK = 65536
-def _define_D3D12_META_COMMAND_DESC_head():
-    class D3D12_META_COMMAND_DESC(Structure):
-        pass
-    return D3D12_META_COMMAND_DESC
-def _define_D3D12_META_COMMAND_DESC():
-    D3D12_META_COMMAND_DESC = win32more.Graphics.Direct3D12.D3D12_META_COMMAND_DESC_head
-    D3D12_META_COMMAND_DESC._fields_ = [
-        ("Id", Guid),
-        ("Name", win32more.Foundation.PWSTR),
-        ("InitializationDirtyState", win32more.Graphics.Direct3D12.D3D12_GRAPHICS_STATES),
-        ("ExecutionDirtyState", win32more.Graphics.Direct3D12.D3D12_GRAPHICS_STATES),
-    ]
-    return D3D12_META_COMMAND_DESC
-def _define_ID3D12StateObject_head():
-    class ID3D12StateObject(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('47016943-fca8-4594-93ea-af258b55346d')
-    return ID3D12StateObject
-def _define_ID3D12StateObject():
-    ID3D12StateObject = win32more.Graphics.Direct3D12.ID3D12StateObject_head
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12StateObject
-def _define_ID3D12StateObjectProperties_head():
-    class ID3D12StateObjectProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('de5fa827-9bf9-4f26-89ff-d7f56fde3860')
-    return ID3D12StateObjectProperties
-def _define_ID3D12StateObjectProperties():
-    ID3D12StateObjectProperties = win32more.Graphics.Direct3D12.ID3D12StateObjectProperties_head
-    ID3D12StateObjectProperties.GetShaderIdentifier = COMMETHOD(WINFUNCTYPE(c_void_p,win32more.Foundation.PWSTR, use_last_error=False)(3, 'GetShaderIdentifier', ((1, 'pExportName'),)))
-    ID3D12StateObjectProperties.GetShaderStackSize = COMMETHOD(WINFUNCTYPE(UInt64,win32more.Foundation.PWSTR, use_last_error=False)(4, 'GetShaderStackSize', ((1, 'pExportName'),)))
-    ID3D12StateObjectProperties.GetPipelineStackSize = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(5, 'GetPipelineStackSize', ()))
-    ID3D12StateObjectProperties.SetPipelineStackSize = COMMETHOD(WINFUNCTYPE(Void,UInt64, use_last_error=False)(6, 'SetPipelineStackSize', ((1, 'PipelineStackSizeInBytes'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12StateObjectProperties
-D3D12_STATE_SUBOBJECT_TYPE = Int32
-D3D12_STATE_SUBOBJECT_TYPE_STATE_OBJECT_CONFIG = 0
-D3D12_STATE_SUBOBJECT_TYPE_GLOBAL_ROOT_SIGNATURE = 1
-D3D12_STATE_SUBOBJECT_TYPE_LOCAL_ROOT_SIGNATURE = 2
-D3D12_STATE_SUBOBJECT_TYPE_NODE_MASK = 3
-D3D12_STATE_SUBOBJECT_TYPE_DXIL_LIBRARY = 5
-D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION = 6
-D3D12_STATE_SUBOBJECT_TYPE_SUBOBJECT_TO_EXPORTS_ASSOCIATION = 7
-D3D12_STATE_SUBOBJECT_TYPE_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION = 8
-D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_SHADER_CONFIG = 9
-D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG = 10
-D3D12_STATE_SUBOBJECT_TYPE_HIT_GROUP = 11
-D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG1 = 12
-D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID = 13
-def _define_D3D12_STATE_SUBOBJECT_head():
-    class D3D12_STATE_SUBOBJECT(Structure):
-        pass
-    return D3D12_STATE_SUBOBJECT
-def _define_D3D12_STATE_SUBOBJECT():
-    D3D12_STATE_SUBOBJECT = win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head
-    D3D12_STATE_SUBOBJECT._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_TYPE),
-        ("pDesc", c_void_p),
-    ]
-    return D3D12_STATE_SUBOBJECT
-D3D12_STATE_OBJECT_FLAGS = UInt32
-D3D12_STATE_OBJECT_FLAG_NONE = 0
-D3D12_STATE_OBJECT_FLAG_ALLOW_LOCAL_DEPENDENCIES_ON_EXTERNAL_DEFINITIONS = 1
-D3D12_STATE_OBJECT_FLAG_ALLOW_EXTERNAL_DEPENDENCIES_ON_LOCAL_DEFINITIONS = 2
-D3D12_STATE_OBJECT_FLAG_ALLOW_STATE_OBJECT_ADDITIONS = 4
-def _define_D3D12_STATE_OBJECT_CONFIG_head():
-    class D3D12_STATE_OBJECT_CONFIG(Structure):
-        pass
-    return D3D12_STATE_OBJECT_CONFIG
-def _define_D3D12_STATE_OBJECT_CONFIG():
-    D3D12_STATE_OBJECT_CONFIG = win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_CONFIG_head
-    D3D12_STATE_OBJECT_CONFIG._fields_ = [
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_FLAGS),
-    ]
-    return D3D12_STATE_OBJECT_CONFIG
-def _define_D3D12_GLOBAL_ROOT_SIGNATURE_head():
-    class D3D12_GLOBAL_ROOT_SIGNATURE(Structure):
-        pass
-    return D3D12_GLOBAL_ROOT_SIGNATURE
-def _define_D3D12_GLOBAL_ROOT_SIGNATURE():
-    D3D12_GLOBAL_ROOT_SIGNATURE = win32more.Graphics.Direct3D12.D3D12_GLOBAL_ROOT_SIGNATURE_head
-    D3D12_GLOBAL_ROOT_SIGNATURE._fields_ = [
-        ("pGlobalRootSignature", win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
-    ]
-    return D3D12_GLOBAL_ROOT_SIGNATURE
-def _define_D3D12_LOCAL_ROOT_SIGNATURE_head():
-    class D3D12_LOCAL_ROOT_SIGNATURE(Structure):
-        pass
-    return D3D12_LOCAL_ROOT_SIGNATURE
-def _define_D3D12_LOCAL_ROOT_SIGNATURE():
-    D3D12_LOCAL_ROOT_SIGNATURE = win32more.Graphics.Direct3D12.D3D12_LOCAL_ROOT_SIGNATURE_head
-    D3D12_LOCAL_ROOT_SIGNATURE._fields_ = [
-        ("pLocalRootSignature", win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
-    ]
-    return D3D12_LOCAL_ROOT_SIGNATURE
-def _define_D3D12_NODE_MASK_head():
-    class D3D12_NODE_MASK(Structure):
-        pass
-    return D3D12_NODE_MASK
-def _define_D3D12_NODE_MASK():
-    D3D12_NODE_MASK = win32more.Graphics.Direct3D12.D3D12_NODE_MASK_head
-    D3D12_NODE_MASK._fields_ = [
-        ("NodeMask", UInt32),
-    ]
-    return D3D12_NODE_MASK
-D3D12_EXPORT_FLAGS = UInt32
-D3D12_EXPORT_FLAG_NONE = 0
-def _define_D3D12_EXPORT_DESC_head():
-    class D3D12_EXPORT_DESC(Structure):
-        pass
-    return D3D12_EXPORT_DESC
-def _define_D3D12_EXPORT_DESC():
-    D3D12_EXPORT_DESC = win32more.Graphics.Direct3D12.D3D12_EXPORT_DESC_head
-    D3D12_EXPORT_DESC._fields_ = [
-        ("Name", win32more.Foundation.PWSTR),
-        ("ExportToRename", win32more.Foundation.PWSTR),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_EXPORT_FLAGS),
-    ]
-    return D3D12_EXPORT_DESC
-def _define_D3D12_DXIL_LIBRARY_DESC_head():
-    class D3D12_DXIL_LIBRARY_DESC(Structure):
-        pass
-    return D3D12_DXIL_LIBRARY_DESC
-def _define_D3D12_DXIL_LIBRARY_DESC():
-    D3D12_DXIL_LIBRARY_DESC = win32more.Graphics.Direct3D12.D3D12_DXIL_LIBRARY_DESC_head
-    D3D12_DXIL_LIBRARY_DESC._fields_ = [
-        ("DXILLibrary", win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
-        ("NumExports", UInt32),
-        ("pExports", POINTER(win32more.Graphics.Direct3D12.D3D12_EXPORT_DESC_head)),
-    ]
-    return D3D12_DXIL_LIBRARY_DESC
-def _define_D3D12_EXISTING_COLLECTION_DESC_head():
-    class D3D12_EXISTING_COLLECTION_DESC(Structure):
-        pass
-    return D3D12_EXISTING_COLLECTION_DESC
-def _define_D3D12_EXISTING_COLLECTION_DESC():
-    D3D12_EXISTING_COLLECTION_DESC = win32more.Graphics.Direct3D12.D3D12_EXISTING_COLLECTION_DESC_head
-    D3D12_EXISTING_COLLECTION_DESC._fields_ = [
-        ("pExistingCollection", win32more.Graphics.Direct3D12.ID3D12StateObject_head),
-        ("NumExports", UInt32),
-        ("pExports", POINTER(win32more.Graphics.Direct3D12.D3D12_EXPORT_DESC_head)),
-    ]
-    return D3D12_EXISTING_COLLECTION_DESC
-def _define_D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head():
-    class D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION(Structure):
-        pass
-    return D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION
-def _define_D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION():
-    D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION = win32more.Graphics.Direct3D12.D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head
-    D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION._fields_ = [
-        ("pSubobjectToAssociate", POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head)),
-        ("NumExports", UInt32),
-        ("pExports", POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION
-def _define_D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head():
-    class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION(Structure):
-        pass
-    return D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION
-def _define_D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION():
-    D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION = win32more.Graphics.Direct3D12.D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head
-    D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION._fields_ = [
-        ("SubobjectToAssociate", win32more.Foundation.PWSTR),
-        ("NumExports", UInt32),
-        ("pExports", POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION
-D3D12_HIT_GROUP_TYPE = Int32
-D3D12_HIT_GROUP_TYPE_TRIANGLES = 0
-D3D12_HIT_GROUP_TYPE_PROCEDURAL_PRIMITIVE = 1
-def _define_D3D12_HIT_GROUP_DESC_head():
-    class D3D12_HIT_GROUP_DESC(Structure):
-        pass
-    return D3D12_HIT_GROUP_DESC
-def _define_D3D12_HIT_GROUP_DESC():
-    D3D12_HIT_GROUP_DESC = win32more.Graphics.Direct3D12.D3D12_HIT_GROUP_DESC_head
-    D3D12_HIT_GROUP_DESC._fields_ = [
-        ("HitGroupExport", win32more.Foundation.PWSTR),
-        ("Type", win32more.Graphics.Direct3D12.D3D12_HIT_GROUP_TYPE),
-        ("AnyHitShaderImport", win32more.Foundation.PWSTR),
-        ("ClosestHitShaderImport", win32more.Foundation.PWSTR),
-        ("IntersectionShaderImport", win32more.Foundation.PWSTR),
-    ]
-    return D3D12_HIT_GROUP_DESC
-def _define_D3D12_RAYTRACING_SHADER_CONFIG_head():
-    class D3D12_RAYTRACING_SHADER_CONFIG(Structure):
-        pass
-    return D3D12_RAYTRACING_SHADER_CONFIG
-def _define_D3D12_RAYTRACING_SHADER_CONFIG():
-    D3D12_RAYTRACING_SHADER_CONFIG = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_SHADER_CONFIG_head
-    D3D12_RAYTRACING_SHADER_CONFIG._fields_ = [
-        ("MaxPayloadSizeInBytes", UInt32),
-        ("MaxAttributeSizeInBytes", UInt32),
-    ]
-    return D3D12_RAYTRACING_SHADER_CONFIG
-def _define_D3D12_RAYTRACING_PIPELINE_CONFIG_head():
-    class D3D12_RAYTRACING_PIPELINE_CONFIG(Structure):
-        pass
-    return D3D12_RAYTRACING_PIPELINE_CONFIG
-def _define_D3D12_RAYTRACING_PIPELINE_CONFIG():
-    D3D12_RAYTRACING_PIPELINE_CONFIG = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_PIPELINE_CONFIG_head
-    D3D12_RAYTRACING_PIPELINE_CONFIG._fields_ = [
-        ("MaxTraceRecursionDepth", UInt32),
-    ]
-    return D3D12_RAYTRACING_PIPELINE_CONFIG
-D3D12_RAYTRACING_PIPELINE_FLAGS = UInt32
-D3D12_RAYTRACING_PIPELINE_FLAG_NONE = 0
-D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES = 256
-D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES = 512
-def _define_D3D12_RAYTRACING_PIPELINE_CONFIG1_head():
-    class D3D12_RAYTRACING_PIPELINE_CONFIG1(Structure):
-        pass
-    return D3D12_RAYTRACING_PIPELINE_CONFIG1
-def _define_D3D12_RAYTRACING_PIPELINE_CONFIG1():
-    D3D12_RAYTRACING_PIPELINE_CONFIG1 = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_PIPELINE_CONFIG1_head
-    D3D12_RAYTRACING_PIPELINE_CONFIG1._fields_ = [
-        ("MaxTraceRecursionDepth", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_PIPELINE_FLAGS),
-    ]
-    return D3D12_RAYTRACING_PIPELINE_CONFIG1
-D3D12_STATE_OBJECT_TYPE = Int32
-D3D12_STATE_OBJECT_TYPE_COLLECTION = 0
-D3D12_STATE_OBJECT_TYPE_RAYTRACING_PIPELINE = 3
-def _define_D3D12_STATE_OBJECT_DESC_head():
-    class D3D12_STATE_OBJECT_DESC(Structure):
-        pass
-    return D3D12_STATE_OBJECT_DESC
-def _define_D3D12_STATE_OBJECT_DESC():
-    D3D12_STATE_OBJECT_DESC = win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head
-    D3D12_STATE_OBJECT_DESC._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_TYPE),
-        ("NumSubobjects", UInt32),
-        ("pSubobjects", POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head)),
-    ]
-    return D3D12_STATE_OBJECT_DESC
-D3D12_RAYTRACING_GEOMETRY_FLAGS = UInt32
-D3D12_RAYTRACING_GEOMETRY_FLAG_NONE = 0
-D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE = 1
-D3D12_RAYTRACING_GEOMETRY_FLAG_NO_DUPLICATE_ANYHIT_INVOCATION = 2
-D3D12_RAYTRACING_GEOMETRY_TYPE = Int32
-D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES = 0
-D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS = 1
-D3D12_RAYTRACING_INSTANCE_FLAGS = UInt32
-D3D12_RAYTRACING_INSTANCE_FLAG_NONE = 0
-D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_CULL_DISABLE = 1
-D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_FRONT_COUNTERCLOCKWISE = 2
-D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OPAQUE = 4
-D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE = 8
-def _define_D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE_head():
-    class D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(Structure):
-        pass
-    return D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE
-def _define_D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE():
-    D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE = win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE_head
-    D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE._fields_ = [
-        ("StartAddress", UInt64),
-        ("StrideInBytes", UInt64),
-    ]
-    return D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE
-def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE_head():
-    class D3D12_GPU_VIRTUAL_ADDRESS_RANGE(Structure):
-        pass
-    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE
-def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE():
-    D3D12_GPU_VIRTUAL_ADDRESS_RANGE = win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_head
-    D3D12_GPU_VIRTUAL_ADDRESS_RANGE._fields_ = [
-        ("StartAddress", UInt64),
-        ("SizeInBytes", UInt64),
-    ]
-    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE
-def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE_head():
-    class D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(Structure):
-        pass
-    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE
-def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE():
-    D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE = win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE_head
-    D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE._fields_ = [
-        ("StartAddress", UInt64),
-        ("SizeInBytes", UInt64),
-        ("StrideInBytes", UInt64),
-    ]
-    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE
-def _define_D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC_head():
-    class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC
-def _define_D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC():
-    D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC_head
-    D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC._fields_ = [
-        ("Transform3x4", UInt64),
-        ("IndexFormat", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("VertexFormat", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("IndexCount", UInt32),
-        ("VertexCount", UInt32),
-        ("IndexBuffer", UInt64),
-        ("VertexBuffer", win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE),
-    ]
-    return D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC
-def _define_D3D12_RAYTRACING_AABB_head():
-    class D3D12_RAYTRACING_AABB(Structure):
-        pass
-    return D3D12_RAYTRACING_AABB
-def _define_D3D12_RAYTRACING_AABB():
-    D3D12_RAYTRACING_AABB = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_AABB_head
-    D3D12_RAYTRACING_AABB._fields_ = [
-        ("MinX", Single),
-        ("MinY", Single),
-        ("MinZ", Single),
-        ("MaxX", Single),
-        ("MaxY", Single),
-        ("MaxZ", Single),
-    ]
-    return D3D12_RAYTRACING_AABB
-def _define_D3D12_RAYTRACING_GEOMETRY_AABBS_DESC_head():
-    class D3D12_RAYTRACING_GEOMETRY_AABBS_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_GEOMETRY_AABBS_DESC
-def _define_D3D12_RAYTRACING_GEOMETRY_AABBS_DESC():
-    D3D12_RAYTRACING_GEOMETRY_AABBS_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_AABBS_DESC_head
-    D3D12_RAYTRACING_GEOMETRY_AABBS_DESC._fields_ = [
-        ("AABBCount", UInt64),
-        ("AABBs", win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE),
-    ]
-    return D3D12_RAYTRACING_GEOMETRY_AABBS_DESC
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = UInt32
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_NONE = 0
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_UPDATE = 1
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_COMPACTION = 2
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_TRACE = 4
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_BUILD = 8
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_MINIMIZE_MEMORY = 16
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PERFORM_UPDATE = 32
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE = Int32
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_CLONE = 0
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_COMPACT = 1
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_VISUALIZATION_DECODE_FOR_TOOLS = 2
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_SERIALIZE = 3
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_DESERIALIZE = 4
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE = Int32
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL = 0
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL = 1
-D3D12_ELEMENTS_LAYOUT = Int32
-D3D12_ELEMENTS_LAYOUT_ARRAY = 0
-D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS = 1
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE = Int32
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE = 0
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION = 1
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION = 2
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE = 3
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC._fields_ = [
-        ("DestBuffer", UInt64),
-        ("InfoType", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC._fields_ = [
-        ("CompactedSizeInBytes", UInt64),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC._fields_ = [
-        ("DecodedSizeInBytes", UInt64),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC
-def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER_head():
-    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER(Structure):
-        pass
-    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER
-def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER():
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER = win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER_head
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE),
-        ("NumDescs", UInt32),
-    ]
-    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC._fields_ = [
-        ("SerializedSizeInBytes", UInt64),
-        ("NumBottomLevelAccelerationStructurePointers", UInt64),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC
-def _define_D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head():
-    class D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER(Structure):
-        pass
-    return D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER
-def _define_D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER():
-    D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER = win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head
-    D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER._fields_ = [
-        ("DriverOpaqueGUID", Guid),
-        ("DriverOpaqueVersioningData", Byte * 16),
-    ]
-    return D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER
-D3D12_SERIALIZED_DATA_TYPE = Int32
-D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE = 0
-D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS = Int32
-D3D12_DRIVER_MATCHING_IDENTIFIER_COMPATIBLE_WITH_DEVICE = 0
-D3D12_DRIVER_MATCHING_IDENTIFIER_UNSUPPORTED_TYPE = 1
-D3D12_DRIVER_MATCHING_IDENTIFIER_UNRECOGNIZED = 2
-D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_VERSION = 3
-D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_TYPE = 4
-def _define_D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_head():
-    class D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER(Structure):
-        pass
-    return D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER
-def _define_D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER():
-    D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER = win32more.Graphics.Direct3D12.D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_head
-    D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER._fields_ = [
-        ("DriverMatchingIdentifier", win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER),
-        ("SerializedSizeInBytesIncludingHeader", UInt64),
-        ("DeserializedSizeInBytes", UInt64),
-        ("NumBottomLevelAccelerationStructurePointersAfterHeader", UInt64),
-    ]
-    return D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC._fields_ = [
-        ("CurrentSizeInBytes", UInt64),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC
-def _define_D3D12_RAYTRACING_INSTANCE_DESC_head():
-    class D3D12_RAYTRACING_INSTANCE_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_INSTANCE_DESC
-def _define_D3D12_RAYTRACING_INSTANCE_DESC():
-    D3D12_RAYTRACING_INSTANCE_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_INSTANCE_DESC_head
-    D3D12_RAYTRACING_INSTANCE_DESC._fields_ = [
-        ("Transform", Single * 12),
-        ("_bitfield1", UInt32),
-        ("_bitfield2", UInt32),
-        ("AccelerationStructure", UInt64),
-    ]
-    return D3D12_RAYTRACING_INSTANCE_DESC
-def _define_D3D12_RAYTRACING_GEOMETRY_DESC_head():
-    class D3D12_RAYTRACING_GEOMETRY_DESC(Structure):
-        pass
-    return D3D12_RAYTRACING_GEOMETRY_DESC
-def _define_D3D12_RAYTRACING_GEOMETRY_DESC():
-    D3D12_RAYTRACING_GEOMETRY_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head
-    class D3D12_RAYTRACING_GEOMETRY_DESC__Anonymous_e__Union(Union):
-        pass
-    D3D12_RAYTRACING_GEOMETRY_DESC__Anonymous_e__Union._fields_ = [
-        ("Triangles", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC),
-        ("AABBs", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_AABBS_DESC),
-    ]
-    D3D12_RAYTRACING_GEOMETRY_DESC._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_RAYTRACING_GEOMETRY_DESC._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TYPE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_FLAGS),
-        ("Anonymous", D3D12_RAYTRACING_GEOMETRY_DESC__Anonymous_e__Union),
-    ]
-    return D3D12_RAYTRACING_GEOMETRY_DESC
-def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head():
-    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(Structure):
-        pass
-    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS
-def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS():
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS = win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head
-    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS__Anonymous_e__Union(Union):
-        pass
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS__Anonymous_e__Union._fields_ = [
-        ("InstanceDescs", UInt64),
-        ("pGeometryDescs", POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head)),
-        ("ppGeometryDescs", POINTER(POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head))),
-    ]
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS),
-        ("NumDescs", UInt32),
-        ("DescsLayout", win32more.Graphics.Direct3D12.D3D12_ELEMENTS_LAYOUT),
-        ("Anonymous", D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS__Anonymous_e__Union),
-    ]
-    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS
-def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head():
-    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC(Structure):
-        pass
-    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC
-def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC():
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC = win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head
-    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC._fields_ = [
-        ("DestAccelerationStructureData", UInt64),
-        ("Inputs", win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS),
-        ("SourceAccelerationStructureData", UInt64),
-        ("ScratchAccelerationStructureData", UInt64),
-    ]
-    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head():
-    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO(Structure):
-        pass
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO
-def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO():
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head
-    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO._fields_ = [
-        ("ResultDataMaxSizeInBytes", UInt64),
-        ("ScratchDataSizeInBytes", UInt64),
-        ("UpdateScratchDataSizeInBytes", UInt64),
-    ]
-    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO
-D3D12_RAY_FLAGS = UInt32
-D3D12_RAY_FLAG_NONE = 0
-D3D12_RAY_FLAG_FORCE_OPAQUE = 1
-D3D12_RAY_FLAG_FORCE_NON_OPAQUE = 2
-D3D12_RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH = 4
-D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER = 8
-D3D12_RAY_FLAG_CULL_BACK_FACING_TRIANGLES = 16
-D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES = 32
-D3D12_RAY_FLAG_CULL_OPAQUE = 64
-D3D12_RAY_FLAG_CULL_NON_OPAQUE = 128
-D3D12_RAY_FLAG_SKIP_TRIANGLES = 256
-D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES = 512
-D3D12_HIT_KIND = Int32
-D3D12_HIT_KIND_TRIANGLE_FRONT_FACE = 254
-D3D12_HIT_KIND_TRIANGLE_BACK_FACE = 255
-def _define_ID3D12Device5_head():
-    class ID3D12Device5(win32more.Graphics.Direct3D12.ID3D12Device4_head):
-        Guid = Guid('8b4f173b-2fea-4b80-8f58-4307191ab95d')
-    return ID3D12Device5
-def _define_ID3D12Device5():
-    ID3D12Device5 = win32more.Graphics.Direct3D12.ID3D12Device5_head
-    ID3D12Device5.CreateLifetimeTracker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12LifetimeOwner_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(57, 'CreateLifetimeTracker', ((1, 'pOwner'),(1, 'riid'),(1, 'ppvTracker'),)))
-    ID3D12Device5.RemoveDevice = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(58, 'RemoveDevice', ()))
-    ID3D12Device5.EnumerateMetaCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_META_COMMAND_DESC), use_last_error=False)(59, 'EnumerateMetaCommands', ((1, 'pNumMetaCommands'),(1, 'pDescs'),)))
-    ID3D12Device5.EnumerateMetaCommandParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_DESC), use_last_error=False)(60, 'EnumerateMetaCommandParameters', ((1, 'CommandId'),(1, 'Stage'),(1, 'pTotalStructureSizeInBytes'),(1, 'pParameterCount'),(1, 'pParameterDescs'),)))
-    ID3D12Device5.CreateMetaCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(61, 'CreateMetaCommand', ((1, 'CommandId'),(1, 'NodeMask'),(1, 'pCreationParametersData'),(1, 'CreationParametersDataSizeInBytes'),(1, 'riid'),(1, 'ppMetaCommand'),)))
-    ID3D12Device5.CreateStateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(62, 'CreateStateObject', ((1, 'pDesc'),(1, 'riid'),(1, 'ppStateObject'),)))
-    ID3D12Device5.GetRaytracingAccelerationStructurePrebuildInfo = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head), use_last_error=False)(63, 'GetRaytracingAccelerationStructurePrebuildInfo', ((1, 'pDesc'),(1, 'pInfo'),)))
-    ID3D12Device5.CheckDriverMatchingIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS,win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_TYPE,POINTER(win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head), use_last_error=False)(64, 'CheckDriverMatchingIdentifier', ((1, 'SerializedDataType'),(1, 'pIdentifierToCheck'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device4
-    return ID3D12Device5
+def _define_D3D12_AUTO_BREADCRUMB_NODE_head():
+    class D3D12_AUTO_BREADCRUMB_NODE(Structure):
+        pass
+    return D3D12_AUTO_BREADCRUMB_NODE
+def _define_D3D12_AUTO_BREADCRUMB_NODE():
+    D3D12_AUTO_BREADCRUMB_NODE = win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head
+    D3D12_AUTO_BREADCRUMB_NODE._fields_ = [
+        ('pCommandListDebugNameA', c_char_p_no),
+        ('pCommandListDebugNameW', win32more.Foundation.PWSTR),
+        ('pCommandQueueDebugNameA', c_char_p_no),
+        ('pCommandQueueDebugNameW', win32more.Foundation.PWSTR),
+        ('pCommandList', win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head),
+        ('pCommandQueue', win32more.Graphics.Direct3D12.ID3D12CommandQueue_head),
+        ('BreadcrumbCount', UInt32),
+        ('pLastBreadcrumbValue', POINTER(UInt32)),
+        ('pCommandHistory', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)),
+        ('pNext', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)),
+    ]
+    return D3D12_AUTO_BREADCRUMB_NODE
+def _define_D3D12_AUTO_BREADCRUMB_NODE1_head():
+    class D3D12_AUTO_BREADCRUMB_NODE1(Structure):
+        pass
+    return D3D12_AUTO_BREADCRUMB_NODE1
+def _define_D3D12_AUTO_BREADCRUMB_NODE1():
+    D3D12_AUTO_BREADCRUMB_NODE1 = win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head
+    D3D12_AUTO_BREADCRUMB_NODE1._fields_ = [
+        ('pCommandListDebugNameA', c_char_p_no),
+        ('pCommandListDebugNameW', win32more.Foundation.PWSTR),
+        ('pCommandQueueDebugNameA', c_char_p_no),
+        ('pCommandQueueDebugNameW', win32more.Foundation.PWSTR),
+        ('pCommandList', win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head),
+        ('pCommandQueue', win32more.Graphics.Direct3D12.ID3D12CommandQueue_head),
+        ('BreadcrumbCount', UInt32),
+        ('pLastBreadcrumbValue', POINTER(UInt32)),
+        ('pCommandHistory', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)),
+        ('pNext', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head)),
+        ('BreadcrumbContextsCount', UInt32),
+        ('pBreadcrumbContexts', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_BREADCRUMB_CONTEXT_head)),
+    ]
+    return D3D12_AUTO_BREADCRUMB_NODE1
 D3D12_AUTO_BREADCRUMB_OP = Int32
 D3D12_AUTO_BREADCRUMB_OP_SETMARKER = 0
 D3D12_AUTO_BREADCRUMB_OP_BEGINEVENT = 1
@@ -4219,70 +632,516 @@ D3D12_AUTO_BREADCRUMB_OP_EXECUTEEXTENSIONCOMMAND = 41
 D3D12_AUTO_BREADCRUMB_OP_DISPATCHMESH = 42
 D3D12_AUTO_BREADCRUMB_OP_ENCODEFRAME = 43
 D3D12_AUTO_BREADCRUMB_OP_RESOLVEENCODEROUTPUTMETADATA = 44
-def _define_D3D12_AUTO_BREADCRUMB_NODE_head():
-    class D3D12_AUTO_BREADCRUMB_NODE(Structure):
+D3D12_AXIS_SHADING_RATE = Int32
+D3D12_AXIS_SHADING_RATE_1X = 0
+D3D12_AXIS_SHADING_RATE_2X = 1
+D3D12_AXIS_SHADING_RATE_4X = 2
+D3D12_BACKGROUND_PROCESSING_MODE = Int32
+D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED = 0
+D3D12_BACKGROUND_PROCESSING_MODE_ALLOW_INTRUSIVE_MEASUREMENTS = 1
+D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_BACKGROUND_WORK = 2
+D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_PROFILING_BY_SYSTEM = 3
+D3D12_BLEND = Int32
+D3D12_BLEND_ZERO = 1
+D3D12_BLEND_ONE = 2
+D3D12_BLEND_SRC_COLOR = 3
+D3D12_BLEND_INV_SRC_COLOR = 4
+D3D12_BLEND_SRC_ALPHA = 5
+D3D12_BLEND_INV_SRC_ALPHA = 6
+D3D12_BLEND_DEST_ALPHA = 7
+D3D12_BLEND_INV_DEST_ALPHA = 8
+D3D12_BLEND_DEST_COLOR = 9
+D3D12_BLEND_INV_DEST_COLOR = 10
+D3D12_BLEND_SRC_ALPHA_SAT = 11
+D3D12_BLEND_BLEND_FACTOR = 14
+D3D12_BLEND_INV_BLEND_FACTOR = 15
+D3D12_BLEND_SRC1_COLOR = 16
+D3D12_BLEND_INV_SRC1_COLOR = 17
+D3D12_BLEND_SRC1_ALPHA = 18
+D3D12_BLEND_INV_SRC1_ALPHA = 19
+def _define_D3D12_BLEND_DESC_head():
+    class D3D12_BLEND_DESC(Structure):
         pass
-    return D3D12_AUTO_BREADCRUMB_NODE
-def _define_D3D12_AUTO_BREADCRUMB_NODE():
-    D3D12_AUTO_BREADCRUMB_NODE = win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head
-    D3D12_AUTO_BREADCRUMB_NODE._fields_ = [
-        ("pCommandListDebugNameA", c_char_p_no),
-        ("pCommandListDebugNameW", win32more.Foundation.PWSTR),
-        ("pCommandQueueDebugNameA", c_char_p_no),
-        ("pCommandQueueDebugNameW", win32more.Foundation.PWSTR),
-        ("pCommandList", win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head),
-        ("pCommandQueue", win32more.Graphics.Direct3D12.ID3D12CommandQueue_head),
-        ("BreadcrumbCount", UInt32),
-        ("pLastBreadcrumbValue", POINTER(UInt32)),
-        ("pCommandHistory", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)),
-        ("pNext", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)),
+    return D3D12_BLEND_DESC
+def _define_D3D12_BLEND_DESC():
+    D3D12_BLEND_DESC = win32more.Graphics.Direct3D12.D3D12_BLEND_DESC_head
+    D3D12_BLEND_DESC._fields_ = [
+        ('AlphaToCoverageEnable', win32more.Foundation.BOOL),
+        ('IndependentBlendEnable', win32more.Foundation.BOOL),
+        ('RenderTarget', win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_BLEND_DESC * 8),
     ]
-    return D3D12_AUTO_BREADCRUMB_NODE
-def _define_D3D12_DRED_BREADCRUMB_CONTEXT_head():
-    class D3D12_DRED_BREADCRUMB_CONTEXT(Structure):
+    return D3D12_BLEND_DESC
+D3D12_BLEND_OP = Int32
+D3D12_BLEND_OP_ADD = 1
+D3D12_BLEND_OP_SUBTRACT = 2
+D3D12_BLEND_OP_REV_SUBTRACT = 3
+D3D12_BLEND_OP_MIN = 4
+D3D12_BLEND_OP_MAX = 5
+def _define_D3D12_BOX_head():
+    class D3D12_BOX(Structure):
         pass
-    return D3D12_DRED_BREADCRUMB_CONTEXT
-def _define_D3D12_DRED_BREADCRUMB_CONTEXT():
-    D3D12_DRED_BREADCRUMB_CONTEXT = win32more.Graphics.Direct3D12.D3D12_DRED_BREADCRUMB_CONTEXT_head
-    D3D12_DRED_BREADCRUMB_CONTEXT._fields_ = [
-        ("BreadcrumbIndex", UInt32),
-        ("pContextString", win32more.Foundation.PWSTR),
+    return D3D12_BOX
+def _define_D3D12_BOX():
+    D3D12_BOX = win32more.Graphics.Direct3D12.D3D12_BOX_head
+    D3D12_BOX._fields_ = [
+        ('left', UInt32),
+        ('top', UInt32),
+        ('front', UInt32),
+        ('right', UInt32),
+        ('bottom', UInt32),
+        ('back', UInt32),
     ]
-    return D3D12_DRED_BREADCRUMB_CONTEXT
-def _define_D3D12_AUTO_BREADCRUMB_NODE1_head():
-    class D3D12_AUTO_BREADCRUMB_NODE1(Structure):
+    return D3D12_BOX
+def _define_D3D12_BUFFER_RTV_head():
+    class D3D12_BUFFER_RTV(Structure):
         pass
-    return D3D12_AUTO_BREADCRUMB_NODE1
-def _define_D3D12_AUTO_BREADCRUMB_NODE1():
-    D3D12_AUTO_BREADCRUMB_NODE1 = win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head
-    D3D12_AUTO_BREADCRUMB_NODE1._fields_ = [
-        ("pCommandListDebugNameA", c_char_p_no),
-        ("pCommandListDebugNameW", win32more.Foundation.PWSTR),
-        ("pCommandQueueDebugNameA", c_char_p_no),
-        ("pCommandQueueDebugNameW", win32more.Foundation.PWSTR),
-        ("pCommandList", win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head),
-        ("pCommandQueue", win32more.Graphics.Direct3D12.ID3D12CommandQueue_head),
-        ("BreadcrumbCount", UInt32),
-        ("pLastBreadcrumbValue", POINTER(UInt32)),
-        ("pCommandHistory", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)),
-        ("pNext", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head)),
-        ("BreadcrumbContextsCount", UInt32),
-        ("pBreadcrumbContexts", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_BREADCRUMB_CONTEXT_head)),
+    return D3D12_BUFFER_RTV
+def _define_D3D12_BUFFER_RTV():
+    D3D12_BUFFER_RTV = win32more.Graphics.Direct3D12.D3D12_BUFFER_RTV_head
+    D3D12_BUFFER_RTV._fields_ = [
+        ('FirstElement', UInt64),
+        ('NumElements', UInt32),
     ]
-    return D3D12_AUTO_BREADCRUMB_NODE1
-D3D12_DRED_VERSION = Int32
-D3D12_DRED_VERSION_1_0 = 1
-D3D12_DRED_VERSION_1_1 = 2
-D3D12_DRED_VERSION_1_2 = 3
-D3D12_DRED_VERSION_1_3 = 4
-D3D12_DRED_FLAGS = UInt32
-D3D12_DRED_FLAG_NONE = 0
-D3D12_DRED_FLAG_FORCE_ENABLE = 1
-D3D12_DRED_FLAG_DISABLE_AUTOBREADCRUMBS = 2
-D3D12_DRED_ENABLEMENT = Int32
-D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED = 0
-D3D12_DRED_ENABLEMENT_FORCED_OFF = 1
-D3D12_DRED_ENABLEMENT_FORCED_ON = 2
+    return D3D12_BUFFER_RTV
+def _define_D3D12_BUFFER_SRV_head():
+    class D3D12_BUFFER_SRV(Structure):
+        pass
+    return D3D12_BUFFER_SRV
+def _define_D3D12_BUFFER_SRV():
+    D3D12_BUFFER_SRV = win32more.Graphics.Direct3D12.D3D12_BUFFER_SRV_head
+    D3D12_BUFFER_SRV._fields_ = [
+        ('FirstElement', UInt64),
+        ('NumElements', UInt32),
+        ('StructureByteStride', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_BUFFER_SRV_FLAGS),
+    ]
+    return D3D12_BUFFER_SRV
+D3D12_BUFFER_SRV_FLAGS = UInt32
+D3D12_BUFFER_SRV_FLAG_NONE = 0
+D3D12_BUFFER_SRV_FLAG_RAW = 1
+def _define_D3D12_BUFFER_UAV_head():
+    class D3D12_BUFFER_UAV(Structure):
+        pass
+    return D3D12_BUFFER_UAV
+def _define_D3D12_BUFFER_UAV():
+    D3D12_BUFFER_UAV = win32more.Graphics.Direct3D12.D3D12_BUFFER_UAV_head
+    D3D12_BUFFER_UAV._fields_ = [
+        ('FirstElement', UInt64),
+        ('NumElements', UInt32),
+        ('StructureByteStride', UInt32),
+        ('CounterOffsetInBytes', UInt64),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_BUFFER_UAV_FLAGS),
+    ]
+    return D3D12_BUFFER_UAV
+D3D12_BUFFER_UAV_FLAGS = UInt32
+D3D12_BUFFER_UAV_FLAG_NONE = 0
+D3D12_BUFFER_UAV_FLAG_RAW = 1
+def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head():
+    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC(Structure):
+        pass
+    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC
+def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC():
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC = win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC._fields_ = [
+        ('DestAccelerationStructureData', UInt64),
+        ('Inputs', win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS),
+        ('SourceAccelerationStructureData', UInt64),
+        ('ScratchAccelerationStructureData', UInt64),
+    ]
+    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC
+def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head():
+    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(Structure):
+        pass
+    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS
+def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS():
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS = win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head
+    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS__Anonymous_e__Union(Union):
+        pass
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS__Anonymous_e__Union._fields_ = [
+        ('InstanceDescs', UInt64),
+        ('pGeometryDescs', POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head)),
+        ('ppGeometryDescs', POINTER(POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head))),
+    ]
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS),
+        ('NumDescs', UInt32),
+        ('DescsLayout', win32more.Graphics.Direct3D12.D3D12_ELEMENTS_LAYOUT),
+        ('Anonymous', D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS__Anonymous_e__Union),
+    ]
+    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS
+def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER_head():
+    class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER(Structure):
+        pass
+    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER
+def _define_D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER():
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER = win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER_head
+    D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE),
+        ('NumDescs', UInt32),
+    ]
+    return D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER
+def _define_D3D12_CACHED_PIPELINE_STATE_head():
+    class D3D12_CACHED_PIPELINE_STATE(Structure):
+        pass
+    return D3D12_CACHED_PIPELINE_STATE
+def _define_D3D12_CACHED_PIPELINE_STATE():
+    D3D12_CACHED_PIPELINE_STATE = win32more.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE_head
+    D3D12_CACHED_PIPELINE_STATE._fields_ = [
+        ('pCachedBlob', c_void_p),
+        ('CachedBlobSizeInBytes', UIntPtr),
+    ]
+    return D3D12_CACHED_PIPELINE_STATE
+D3D12_CLEAR_FLAGS = UInt32
+D3D12_CLEAR_FLAG_DEPTH = 1
+D3D12_CLEAR_FLAG_STENCIL = 2
+def _define_D3D12_CLEAR_VALUE_head():
+    class D3D12_CLEAR_VALUE(Structure):
+        pass
+    return D3D12_CLEAR_VALUE
+def _define_D3D12_CLEAR_VALUE():
+    D3D12_CLEAR_VALUE = win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head
+    class D3D12_CLEAR_VALUE__Anonymous_e__Union(Union):
+        pass
+    D3D12_CLEAR_VALUE__Anonymous_e__Union._fields_ = [
+        ('Color', Single * 4),
+        ('DepthStencil', win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VALUE),
+    ]
+    D3D12_CLEAR_VALUE._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_CLEAR_VALUE._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('Anonymous', D3D12_CLEAR_VALUE__Anonymous_e__Union),
+    ]
+    return D3D12_CLEAR_VALUE
+D3D12_COLOR_WRITE_ENABLE = Int32
+D3D12_COLOR_WRITE_ENABLE_RED = 1
+D3D12_COLOR_WRITE_ENABLE_GREEN = 2
+D3D12_COLOR_WRITE_ENABLE_BLUE = 4
+D3D12_COLOR_WRITE_ENABLE_ALPHA = 8
+D3D12_COLOR_WRITE_ENABLE_ALL = 15
+D3D12_COMMAND_LIST_FLAGS = UInt32
+D3D12_COMMAND_LIST_FLAG_NONE = 0
+D3D12_COMMAND_LIST_SUPPORT_FLAGS = UInt32
+D3D12_COMMAND_LIST_SUPPORT_FLAG_NONE = 0
+D3D12_COMMAND_LIST_SUPPORT_FLAG_DIRECT = 1
+D3D12_COMMAND_LIST_SUPPORT_FLAG_BUNDLE = 2
+D3D12_COMMAND_LIST_SUPPORT_FLAG_COMPUTE = 4
+D3D12_COMMAND_LIST_SUPPORT_FLAG_COPY = 8
+D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE = 16
+D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS = 32
+D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE = 64
+D3D12_COMMAND_LIST_TYPE = Int32
+D3D12_COMMAND_LIST_TYPE_DIRECT = 0
+D3D12_COMMAND_LIST_TYPE_BUNDLE = 1
+D3D12_COMMAND_LIST_TYPE_COMPUTE = 2
+D3D12_COMMAND_LIST_TYPE_COPY = 3
+D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE = 4
+D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS = 5
+D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE = 6
+D3D12_COMMAND_POOL_FLAGS = UInt32
+D3D12_COMMAND_POOL_FLAG_NONE = 0
+def _define_D3D12_COMMAND_QUEUE_DESC_head():
+    class D3D12_COMMAND_QUEUE_DESC(Structure):
+        pass
+    return D3D12_COMMAND_QUEUE_DESC
+def _define_D3D12_COMMAND_QUEUE_DESC():
+    D3D12_COMMAND_QUEUE_DESC = win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head
+    D3D12_COMMAND_QUEUE_DESC._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE),
+        ('Priority', Int32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_FLAGS),
+        ('NodeMask', UInt32),
+    ]
+    return D3D12_COMMAND_QUEUE_DESC
+D3D12_COMMAND_QUEUE_FLAGS = UInt32
+D3D12_COMMAND_QUEUE_FLAG_NONE = 0
+D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT = 1
+D3D12_COMMAND_QUEUE_PRIORITY = Int32
+D3D12_COMMAND_QUEUE_PRIORITY_NORMAL = 0
+D3D12_COMMAND_QUEUE_PRIORITY_HIGH = 100
+D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME = 10000
+D3D12_COMMAND_RECORDER_FLAGS = UInt32
+D3D12_COMMAND_RECORDER_FLAG_NONE = 0
+def _define_D3D12_COMMAND_SIGNATURE_DESC_head():
+    class D3D12_COMMAND_SIGNATURE_DESC(Structure):
+        pass
+    return D3D12_COMMAND_SIGNATURE_DESC
+def _define_D3D12_COMMAND_SIGNATURE_DESC():
+    D3D12_COMMAND_SIGNATURE_DESC = win32more.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC_head
+    D3D12_COMMAND_SIGNATURE_DESC._fields_ = [
+        ('ByteStride', UInt32),
+        ('NumArgumentDescs', UInt32),
+        ('pArgumentDescs', POINTER(win32more.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_DESC_head)),
+        ('NodeMask', UInt32),
+    ]
+    return D3D12_COMMAND_SIGNATURE_DESC
+D3D12_COMPARISON_FUNC = Int32
+D3D12_COMPARISON_FUNC_NEVER = 1
+D3D12_COMPARISON_FUNC_LESS = 2
+D3D12_COMPARISON_FUNC_EQUAL = 3
+D3D12_COMPARISON_FUNC_LESS_EQUAL = 4
+D3D12_COMPARISON_FUNC_GREATER = 5
+D3D12_COMPARISON_FUNC_NOT_EQUAL = 6
+D3D12_COMPARISON_FUNC_GREATER_EQUAL = 7
+D3D12_COMPARISON_FUNC_ALWAYS = 8
+def _define_D3D12_COMPUTE_PIPELINE_STATE_DESC_head():
+    class D3D12_COMPUTE_PIPELINE_STATE_DESC(Structure):
+        pass
+    return D3D12_COMPUTE_PIPELINE_STATE_DESC
+def _define_D3D12_COMPUTE_PIPELINE_STATE_DESC():
+    D3D12_COMPUTE_PIPELINE_STATE_DESC = win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head
+    D3D12_COMPUTE_PIPELINE_STATE_DESC._fields_ = [
+        ('pRootSignature', win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
+        ('CS', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('NodeMask', UInt32),
+        ('CachedPSO', win32more.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_FLAGS),
+    ]
+    return D3D12_COMPUTE_PIPELINE_STATE_DESC
+D3D12_CONSERVATIVE_RASTERIZATION_MODE = Int32
+D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF = 0
+D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON = 1
+D3D12_CONSERVATIVE_RASTERIZATION_TIER = Int32
+D3D12_CONSERVATIVE_RASTERIZATION_TIER_NOT_SUPPORTED = 0
+D3D12_CONSERVATIVE_RASTERIZATION_TIER_1 = 1
+D3D12_CONSERVATIVE_RASTERIZATION_TIER_2 = 2
+D3D12_CONSERVATIVE_RASTERIZATION_TIER_3 = 3
+def _define_D3D12_CONSTANT_BUFFER_VIEW_DESC_head():
+    class D3D12_CONSTANT_BUFFER_VIEW_DESC(Structure):
+        pass
+    return D3D12_CONSTANT_BUFFER_VIEW_DESC
+def _define_D3D12_CONSTANT_BUFFER_VIEW_DESC():
+    D3D12_CONSTANT_BUFFER_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_CONSTANT_BUFFER_VIEW_DESC_head
+    D3D12_CONSTANT_BUFFER_VIEW_DESC._fields_ = [
+        ('BufferLocation', UInt64),
+        ('SizeInBytes', UInt32),
+    ]
+    return D3D12_CONSTANT_BUFFER_VIEW_DESC
+def _define_D3D12_CPU_DESCRIPTOR_HANDLE_head():
+    class D3D12_CPU_DESCRIPTOR_HANDLE(Structure):
+        pass
+    return D3D12_CPU_DESCRIPTOR_HANDLE
+def _define_D3D12_CPU_DESCRIPTOR_HANDLE():
+    D3D12_CPU_DESCRIPTOR_HANDLE = win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head
+    D3D12_CPU_DESCRIPTOR_HANDLE._fields_ = [
+        ('ptr', UIntPtr),
+    ]
+    return D3D12_CPU_DESCRIPTOR_HANDLE
+D3D12_CPU_PAGE_PROPERTY = Int32
+D3D12_CPU_PAGE_PROPERTY_UNKNOWN = 0
+D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE = 1
+D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE = 2
+D3D12_CPU_PAGE_PROPERTY_WRITE_BACK = 3
+D3D12_CROSS_NODE_SHARING_TIER = Int32
+D3D12_CROSS_NODE_SHARING_TIER_NOT_SUPPORTED = 0
+D3D12_CROSS_NODE_SHARING_TIER_1_EMULATED = 1
+D3D12_CROSS_NODE_SHARING_TIER_1 = 2
+D3D12_CROSS_NODE_SHARING_TIER_2 = 3
+D3D12_CROSS_NODE_SHARING_TIER_3 = 4
+D3D12_CULL_MODE = Int32
+D3D12_CULL_MODE_NONE = 1
+D3D12_CULL_MODE_FRONT = 2
+D3D12_CULL_MODE_BACK = 3
+def _define_D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS_head():
+    class D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS(Structure):
+        pass
+    return D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS
+def _define_D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS():
+    D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS = win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS_head
+    D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS._fields_ = [
+        ('ShaderPatchMode', win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE),
+    ]
+    return D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS
+D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE = Int32
+D3D12_DEBUG_COMMAND_LIST_PARAMETER_GPU_BASED_VALIDATION_SETTINGS = 0
+def _define_D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS_head():
+    class D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS(Structure):
+        pass
+    return D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS
+def _define_D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS():
+    D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS = win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS_head
+    D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS._fields_ = [
+        ('MaxMessagesPerCommandList', UInt32),
+        ('DefaultShaderPatchMode', win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE),
+        ('PipelineStateCreateFlags', win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS),
+    ]
+    return D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS
+def _define_D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR_head():
+    class D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR(Structure):
+        pass
+    return D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR
+def _define_D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR():
+    D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR = win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR_head
+    D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR._fields_ = [
+        ('SlowdownFactor', Single),
+    ]
+    return D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR
+D3D12_DEBUG_DEVICE_PARAMETER_TYPE = Int32
+D3D12_DEBUG_DEVICE_PARAMETER_FEATURE_FLAGS = 0
+D3D12_DEBUG_DEVICE_PARAMETER_GPU_BASED_VALIDATION_SETTINGS = 1
+D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR = 2
+D3D12_DEBUG_FEATURE = Int32
+D3D12_DEBUG_FEATURE_NONE = 0
+D3D12_DEBUG_FEATURE_ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS = 1
+D3D12_DEBUG_FEATURE_CONSERVATIVE_RESOURCE_STATE_TRACKING = 2
+D3D12_DEBUG_FEATURE_DISABLE_VIRTUALIZED_BUNDLES_VALIDATION = 4
+D3D12_DEBUG_FEATURE_EMULATE_WINDOWS7 = 8
+def _define_D3D12_DEPTH_STENCIL_DESC_head():
+    class D3D12_DEPTH_STENCIL_DESC(Structure):
+        pass
+    return D3D12_DEPTH_STENCIL_DESC
+def _define_D3D12_DEPTH_STENCIL_DESC():
+    D3D12_DEPTH_STENCIL_DESC = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_DESC_head
+    D3D12_DEPTH_STENCIL_DESC._fields_ = [
+        ('DepthEnable', win32more.Foundation.BOOL),
+        ('DepthWriteMask', win32more.Graphics.Direct3D12.D3D12_DEPTH_WRITE_MASK),
+        ('DepthFunc', win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
+        ('StencilEnable', win32more.Foundation.BOOL),
+        ('StencilReadMask', Byte),
+        ('StencilWriteMask', Byte),
+        ('FrontFace', win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
+        ('BackFace', win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
+    ]
+    return D3D12_DEPTH_STENCIL_DESC
+def _define_D3D12_DEPTH_STENCIL_DESC1_head():
+    class D3D12_DEPTH_STENCIL_DESC1(Structure):
+        pass
+    return D3D12_DEPTH_STENCIL_DESC1
+def _define_D3D12_DEPTH_STENCIL_DESC1():
+    D3D12_DEPTH_STENCIL_DESC1 = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_DESC1_head
+    D3D12_DEPTH_STENCIL_DESC1._fields_ = [
+        ('DepthEnable', win32more.Foundation.BOOL),
+        ('DepthWriteMask', win32more.Graphics.Direct3D12.D3D12_DEPTH_WRITE_MASK),
+        ('DepthFunc', win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
+        ('StencilEnable', win32more.Foundation.BOOL),
+        ('StencilReadMask', Byte),
+        ('StencilWriteMask', Byte),
+        ('FrontFace', win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
+        ('BackFace', win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC),
+        ('DepthBoundsTestEnable', win32more.Foundation.BOOL),
+    ]
+    return D3D12_DEPTH_STENCIL_DESC1
+def _define_D3D12_DEPTH_STENCIL_VALUE_head():
+    class D3D12_DEPTH_STENCIL_VALUE(Structure):
+        pass
+    return D3D12_DEPTH_STENCIL_VALUE
+def _define_D3D12_DEPTH_STENCIL_VALUE():
+    D3D12_DEPTH_STENCIL_VALUE = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VALUE_head
+    D3D12_DEPTH_STENCIL_VALUE._fields_ = [
+        ('Depth', Single),
+        ('Stencil', Byte),
+    ]
+    return D3D12_DEPTH_STENCIL_VALUE
+def _define_D3D12_DEPTH_STENCIL_VIEW_DESC_head():
+    class D3D12_DEPTH_STENCIL_VIEW_DESC(Structure):
+        pass
+    return D3D12_DEPTH_STENCIL_VIEW_DESC
+def _define_D3D12_DEPTH_STENCIL_VIEW_DESC():
+    D3D12_DEPTH_STENCIL_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VIEW_DESC_head
+    class D3D12_DEPTH_STENCIL_VIEW_DESC__Anonymous_e__Union(Union):
+        pass
+    D3D12_DEPTH_STENCIL_VIEW_DESC__Anonymous_e__Union._fields_ = [
+        ('Texture1D', win32more.Graphics.Direct3D12.D3D12_TEX1D_DSV),
+        ('Texture1DArray', win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_DSV),
+        ('Texture2D', win32more.Graphics.Direct3D12.D3D12_TEX2D_DSV),
+        ('Texture2DArray', win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_DSV),
+        ('Texture2DMS', win32more.Graphics.Direct3D12.D3D12_TEX2DMS_DSV),
+        ('Texture2DMSArray', win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_DSV),
+    ]
+    D3D12_DEPTH_STENCIL_VIEW_DESC._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_DEPTH_STENCIL_VIEW_DESC._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('ViewDimension', win32more.Graphics.Direct3D12.D3D12_DSV_DIMENSION),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_DSV_FLAGS),
+        ('Anonymous', D3D12_DEPTH_STENCIL_VIEW_DESC__Anonymous_e__Union),
+    ]
+    return D3D12_DEPTH_STENCIL_VIEW_DESC
+def _define_D3D12_DEPTH_STENCILOP_DESC_head():
+    class D3D12_DEPTH_STENCILOP_DESC(Structure):
+        pass
+    return D3D12_DEPTH_STENCILOP_DESC
+def _define_D3D12_DEPTH_STENCILOP_DESC():
+    D3D12_DEPTH_STENCILOP_DESC = win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCILOP_DESC_head
+    D3D12_DEPTH_STENCILOP_DESC._fields_ = [
+        ('StencilFailOp', win32more.Graphics.Direct3D12.D3D12_STENCIL_OP),
+        ('StencilDepthFailOp', win32more.Graphics.Direct3D12.D3D12_STENCIL_OP),
+        ('StencilPassOp', win32more.Graphics.Direct3D12.D3D12_STENCIL_OP),
+        ('StencilFunc', win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
+    ]
+    return D3D12_DEPTH_STENCILOP_DESC
+D3D12_DEPTH_WRITE_MASK = Int32
+D3D12_DEPTH_WRITE_MASK_ZERO = 0
+D3D12_DEPTH_WRITE_MASK_ALL = 1
+def _define_D3D12_DESCRIPTOR_HEAP_DESC_head():
+    class D3D12_DESCRIPTOR_HEAP_DESC(Structure):
+        pass
+    return D3D12_DESCRIPTOR_HEAP_DESC
+def _define_D3D12_DESCRIPTOR_HEAP_DESC():
+    D3D12_DESCRIPTOR_HEAP_DESC = win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC_head
+    D3D12_DESCRIPTOR_HEAP_DESC._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE),
+        ('NumDescriptors', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_FLAGS),
+        ('NodeMask', UInt32),
+    ]
+    return D3D12_DESCRIPTOR_HEAP_DESC
+D3D12_DESCRIPTOR_HEAP_FLAGS = UInt32
+D3D12_DESCRIPTOR_HEAP_FLAG_NONE = 0
+D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE = 1
+D3D12_DESCRIPTOR_HEAP_TYPE = Int32
+D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV = 0
+D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER = 1
+D3D12_DESCRIPTOR_HEAP_TYPE_RTV = 2
+D3D12_DESCRIPTOR_HEAP_TYPE_DSV = 3
+D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES = 4
+def _define_D3D12_DESCRIPTOR_RANGE_head():
+    class D3D12_DESCRIPTOR_RANGE(Structure):
+        pass
+    return D3D12_DESCRIPTOR_RANGE
+def _define_D3D12_DESCRIPTOR_RANGE():
+    D3D12_DESCRIPTOR_RANGE = win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_head
+    D3D12_DESCRIPTOR_RANGE._fields_ = [
+        ('RangeType', win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_TYPE),
+        ('NumDescriptors', UInt32),
+        ('BaseShaderRegister', UInt32),
+        ('RegisterSpace', UInt32),
+        ('OffsetInDescriptorsFromTableStart', UInt32),
+    ]
+    return D3D12_DESCRIPTOR_RANGE
+D3D12_DESCRIPTOR_RANGE_FLAGS = UInt32
+D3D12_DESCRIPTOR_RANGE_FLAG_NONE = 0
+D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE = 1
+D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE = 2
+D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE = 4
+D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC = 8
+D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS = 65536
+D3D12_DESCRIPTOR_RANGE_TYPE = Int32
+D3D12_DESCRIPTOR_RANGE_TYPE_SRV = 0
+D3D12_DESCRIPTOR_RANGE_TYPE_UAV = 1
+D3D12_DESCRIPTOR_RANGE_TYPE_CBV = 2
+D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER = 3
+def _define_D3D12_DESCRIPTOR_RANGE1_head():
+    class D3D12_DESCRIPTOR_RANGE1(Structure):
+        pass
+    return D3D12_DESCRIPTOR_RANGE1
+def _define_D3D12_DESCRIPTOR_RANGE1():
+    D3D12_DESCRIPTOR_RANGE1 = win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE1_head
+    D3D12_DESCRIPTOR_RANGE1._fields_ = [
+        ('RangeType', win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_TYPE),
+        ('NumDescriptors', UInt32),
+        ('BaseShaderRegister', UInt32),
+        ('RegisterSpace', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_FLAGS),
+        ('OffsetInDescriptorsFromTableStart', UInt32),
+    ]
+    return D3D12_DESCRIPTOR_RANGE1
 def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA_head():
     class D3D12_DEVICE_REMOVED_EXTENDED_DATA(Structure):
         pass
@@ -4290,10 +1149,154 @@ def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA_head():
 def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA():
     D3D12_DEVICE_REMOVED_EXTENDED_DATA = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA_head
     D3D12_DEVICE_REMOVED_EXTENDED_DATA._fields_ = [
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_DRED_FLAGS),
-        ("pHeadAutoBreadcrumbNode", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_DRED_FLAGS),
+        ('pHeadAutoBreadcrumbNode', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)),
     ]
     return D3D12_DEVICE_REMOVED_EXTENDED_DATA
+def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA1_head():
+    class D3D12_DEVICE_REMOVED_EXTENDED_DATA1(Structure):
+        pass
+    return D3D12_DEVICE_REMOVED_EXTENDED_DATA1
+def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA1():
+    D3D12_DEVICE_REMOVED_EXTENDED_DATA1 = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA1_head
+    D3D12_DEVICE_REMOVED_EXTENDED_DATA1._fields_ = [
+        ('DeviceRemovedReason', win32more.Foundation.HRESULT),
+        ('AutoBreadcrumbsOutput', win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT),
+        ('PageFaultOutput', win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT),
+    ]
+    return D3D12_DEVICE_REMOVED_EXTENDED_DATA1
+def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA2_head():
+    class D3D12_DEVICE_REMOVED_EXTENDED_DATA2(Structure):
+        pass
+    return D3D12_DEVICE_REMOVED_EXTENDED_DATA2
+def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA2():
+    D3D12_DEVICE_REMOVED_EXTENDED_DATA2 = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA2_head
+    D3D12_DEVICE_REMOVED_EXTENDED_DATA2._fields_ = [
+        ('DeviceRemovedReason', win32more.Foundation.HRESULT),
+        ('AutoBreadcrumbsOutput', win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1),
+        ('PageFaultOutput', win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1),
+    ]
+    return D3D12_DEVICE_REMOVED_EXTENDED_DATA2
+def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA3_head():
+    class D3D12_DEVICE_REMOVED_EXTENDED_DATA3(Structure):
+        pass
+    return D3D12_DEVICE_REMOVED_EXTENDED_DATA3
+def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA3():
+    D3D12_DEVICE_REMOVED_EXTENDED_DATA3 = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA3_head
+    D3D12_DEVICE_REMOVED_EXTENDED_DATA3._fields_ = [
+        ('DeviceRemovedReason', win32more.Foundation.HRESULT),
+        ('AutoBreadcrumbsOutput', win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1),
+        ('PageFaultOutput', win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2),
+        ('DeviceState', win32more.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE),
+    ]
+    return D3D12_DEVICE_REMOVED_EXTENDED_DATA3
+def _define_D3D12_DISCARD_REGION_head():
+    class D3D12_DISCARD_REGION(Structure):
+        pass
+    return D3D12_DISCARD_REGION
+def _define_D3D12_DISCARD_REGION():
+    D3D12_DISCARD_REGION = win32more.Graphics.Direct3D12.D3D12_DISCARD_REGION_head
+    D3D12_DISCARD_REGION._fields_ = [
+        ('NumRects', UInt32),
+        ('pRects', POINTER(win32more.Foundation.RECT_head)),
+        ('FirstSubresource', UInt32),
+        ('NumSubresources', UInt32),
+    ]
+    return D3D12_DISCARD_REGION
+def _define_D3D12_DISPATCH_ARGUMENTS_head():
+    class D3D12_DISPATCH_ARGUMENTS(Structure):
+        pass
+    return D3D12_DISPATCH_ARGUMENTS
+def _define_D3D12_DISPATCH_ARGUMENTS():
+    D3D12_DISPATCH_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DISPATCH_ARGUMENTS_head
+    D3D12_DISPATCH_ARGUMENTS._fields_ = [
+        ('ThreadGroupCountX', UInt32),
+        ('ThreadGroupCountY', UInt32),
+        ('ThreadGroupCountZ', UInt32),
+    ]
+    return D3D12_DISPATCH_ARGUMENTS
+def _define_D3D12_DISPATCH_MESH_ARGUMENTS_head():
+    class D3D12_DISPATCH_MESH_ARGUMENTS(Structure):
+        pass
+    return D3D12_DISPATCH_MESH_ARGUMENTS
+def _define_D3D12_DISPATCH_MESH_ARGUMENTS():
+    D3D12_DISPATCH_MESH_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DISPATCH_MESH_ARGUMENTS_head
+    D3D12_DISPATCH_MESH_ARGUMENTS._fields_ = [
+        ('ThreadGroupCountX', UInt32),
+        ('ThreadGroupCountY', UInt32),
+        ('ThreadGroupCountZ', UInt32),
+    ]
+    return D3D12_DISPATCH_MESH_ARGUMENTS
+def _define_D3D12_DISPATCH_RAYS_DESC_head():
+    class D3D12_DISPATCH_RAYS_DESC(Structure):
+        pass
+    return D3D12_DISPATCH_RAYS_DESC
+def _define_D3D12_DISPATCH_RAYS_DESC():
+    D3D12_DISPATCH_RAYS_DESC = win32more.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head
+    D3D12_DISPATCH_RAYS_DESC._fields_ = [
+        ('RayGenerationShaderRecord', win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE),
+        ('MissShaderTable', win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE),
+        ('HitGroupTable', win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE),
+        ('CallableShaderTable', win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE),
+        ('Width', UInt32),
+        ('Height', UInt32),
+        ('Depth', UInt32),
+    ]
+    return D3D12_DISPATCH_RAYS_DESC
+def _define_D3D12_DRAW_ARGUMENTS_head():
+    class D3D12_DRAW_ARGUMENTS(Structure):
+        pass
+    return D3D12_DRAW_ARGUMENTS
+def _define_D3D12_DRAW_ARGUMENTS():
+    D3D12_DRAW_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DRAW_ARGUMENTS_head
+    D3D12_DRAW_ARGUMENTS._fields_ = [
+        ('VertexCountPerInstance', UInt32),
+        ('InstanceCount', UInt32),
+        ('StartVertexLocation', UInt32),
+        ('StartInstanceLocation', UInt32),
+    ]
+    return D3D12_DRAW_ARGUMENTS
+def _define_D3D12_DRAW_INDEXED_ARGUMENTS_head():
+    class D3D12_DRAW_INDEXED_ARGUMENTS(Structure):
+        pass
+    return D3D12_DRAW_INDEXED_ARGUMENTS
+def _define_D3D12_DRAW_INDEXED_ARGUMENTS():
+    D3D12_DRAW_INDEXED_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DRAW_INDEXED_ARGUMENTS_head
+    D3D12_DRAW_INDEXED_ARGUMENTS._fields_ = [
+        ('IndexCountPerInstance', UInt32),
+        ('InstanceCount', UInt32),
+        ('StartIndexLocation', UInt32),
+        ('BaseVertexLocation', Int32),
+        ('StartInstanceLocation', UInt32),
+    ]
+    return D3D12_DRAW_INDEXED_ARGUMENTS
+def _define_D3D12_DRED_ALLOCATION_NODE_head():
+    class D3D12_DRED_ALLOCATION_NODE(Structure):
+        pass
+    return D3D12_DRED_ALLOCATION_NODE
+def _define_D3D12_DRED_ALLOCATION_NODE():
+    D3D12_DRED_ALLOCATION_NODE = win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head
+    D3D12_DRED_ALLOCATION_NODE._fields_ = [
+        ('ObjectNameA', c_char_p_no),
+        ('ObjectNameW', win32more.Foundation.PWSTR),
+        ('AllocationType', win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE),
+        ('pNext', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)),
+    ]
+    return D3D12_DRED_ALLOCATION_NODE
+def _define_D3D12_DRED_ALLOCATION_NODE1_head():
+    class D3D12_DRED_ALLOCATION_NODE1(Structure):
+        pass
+    return D3D12_DRED_ALLOCATION_NODE1
+def _define_D3D12_DRED_ALLOCATION_NODE1():
+    D3D12_DRED_ALLOCATION_NODE1 = win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head
+    D3D12_DRED_ALLOCATION_NODE1._fields_ = [
+        ('ObjectNameA', c_char_p_no),
+        ('ObjectNameW', win32more.Foundation.PWSTR),
+        ('AllocationType', win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE),
+        ('pNext', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
+        ('pObject', win32more.System.Com.IUnknown_head),
+    ]
+    return D3D12_DRED_ALLOCATION_NODE1
 D3D12_DRED_ALLOCATION_TYPE = Int32
 D3D12_DRED_ALLOCATION_TYPE_COMMAND_QUEUE = 19
 D3D12_DRED_ALLOCATION_TYPE_COMMAND_ALLOCATOR = 20
@@ -4324,33 +1327,6 @@ D3D12_DRED_ALLOCATION_TYPE_VIDEO_EXTENSION_COMMAND = 47
 D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER = 48
 D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER_HEAP = 49
 D3D12_DRED_ALLOCATION_TYPE_INVALID = -1
-def _define_D3D12_DRED_ALLOCATION_NODE_head():
-    class D3D12_DRED_ALLOCATION_NODE(Structure):
-        pass
-    return D3D12_DRED_ALLOCATION_NODE
-def _define_D3D12_DRED_ALLOCATION_NODE():
-    D3D12_DRED_ALLOCATION_NODE = win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head
-    D3D12_DRED_ALLOCATION_NODE._fields_ = [
-        ("ObjectNameA", c_char_p_no),
-        ("ObjectNameW", win32more.Foundation.PWSTR),
-        ("AllocationType", win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE),
-        ("pNext", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)),
-    ]
-    return D3D12_DRED_ALLOCATION_NODE
-def _define_D3D12_DRED_ALLOCATION_NODE1_head():
-    class D3D12_DRED_ALLOCATION_NODE1(Structure):
-        pass
-    return D3D12_DRED_ALLOCATION_NODE1
-def _define_D3D12_DRED_ALLOCATION_NODE1():
-    D3D12_DRED_ALLOCATION_NODE1 = win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head
-    D3D12_DRED_ALLOCATION_NODE1._fields_ = [
-        ("ObjectNameA", c_char_p_no),
-        ("ObjectNameW", win32more.Foundation.PWSTR),
-        ("AllocationType", win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE),
-        ("pNext", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
-        ("pObject", win32more.System.Com.IUnknown_head),
-    ]
-    return D3D12_DRED_ALLOCATION_NODE1
 def _define_D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head():
     class D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT(Structure):
         pass
@@ -4358,7 +1334,7 @@ def _define_D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head():
 def _define_D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT():
     D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT = win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head
     D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT._fields_ = [
-        ("pHeadAutoBreadcrumbNode", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)),
+        ('pHeadAutoBreadcrumbNode', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)),
     ]
     return D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT
 def _define_D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head():
@@ -4368,9 +1344,35 @@ def _define_D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head():
 def _define_D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1():
     D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1 = win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head
     D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1._fields_ = [
-        ("pHeadAutoBreadcrumbNode", POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head)),
+        ('pHeadAutoBreadcrumbNode', POINTER(win32more.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head)),
     ]
     return D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1
+def _define_D3D12_DRED_BREADCRUMB_CONTEXT_head():
+    class D3D12_DRED_BREADCRUMB_CONTEXT(Structure):
+        pass
+    return D3D12_DRED_BREADCRUMB_CONTEXT
+def _define_D3D12_DRED_BREADCRUMB_CONTEXT():
+    D3D12_DRED_BREADCRUMB_CONTEXT = win32more.Graphics.Direct3D12.D3D12_DRED_BREADCRUMB_CONTEXT_head
+    D3D12_DRED_BREADCRUMB_CONTEXT._fields_ = [
+        ('BreadcrumbIndex', UInt32),
+        ('pContextString', win32more.Foundation.PWSTR),
+    ]
+    return D3D12_DRED_BREADCRUMB_CONTEXT
+D3D12_DRED_DEVICE_STATE = Int32
+D3D12_DRED_DEVICE_STATE_UNKNOWN = 0
+D3D12_DRED_DEVICE_STATE_HUNG = 3
+D3D12_DRED_DEVICE_STATE_FAULT = 6
+D3D12_DRED_DEVICE_STATE_PAGEFAULT = 7
+D3D12_DRED_ENABLEMENT = Int32
+D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED = 0
+D3D12_DRED_ENABLEMENT_FORCED_OFF = 1
+D3D12_DRED_ENABLEMENT_FORCED_ON = 2
+D3D12_DRED_FLAGS = UInt32
+D3D12_DRED_FLAG_NONE = 0
+D3D12_DRED_FLAG_FORCE_ENABLE = 1
+D3D12_DRED_FLAG_DISABLE_AUTOBREADCRUMBS = 2
+D3D12_DRED_PAGE_FAULT_FLAGS = UInt32
+D3D12_DRED_PAGE_FAULT_FLAGS_NONE = 0
 def _define_D3D12_DRED_PAGE_FAULT_OUTPUT_head():
     class D3D12_DRED_PAGE_FAULT_OUTPUT(Structure):
         pass
@@ -4378,9 +1380,9 @@ def _define_D3D12_DRED_PAGE_FAULT_OUTPUT_head():
 def _define_D3D12_DRED_PAGE_FAULT_OUTPUT():
     D3D12_DRED_PAGE_FAULT_OUTPUT = win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT_head
     D3D12_DRED_PAGE_FAULT_OUTPUT._fields_ = [
-        ("PageFaultVA", UInt64),
-        ("pHeadExistingAllocationNode", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)),
-        ("pHeadRecentFreedAllocationNode", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)),
+        ('PageFaultVA', UInt64),
+        ('pHeadExistingAllocationNode', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)),
+        ('pHeadRecentFreedAllocationNode', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)),
     ]
     return D3D12_DRED_PAGE_FAULT_OUTPUT
 def _define_D3D12_DRED_PAGE_FAULT_OUTPUT1_head():
@@ -4390,18 +1392,11 @@ def _define_D3D12_DRED_PAGE_FAULT_OUTPUT1_head():
 def _define_D3D12_DRED_PAGE_FAULT_OUTPUT1():
     D3D12_DRED_PAGE_FAULT_OUTPUT1 = win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1_head
     D3D12_DRED_PAGE_FAULT_OUTPUT1._fields_ = [
-        ("PageFaultVA", UInt64),
-        ("pHeadExistingAllocationNode", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
-        ("pHeadRecentFreedAllocationNode", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
+        ('PageFaultVA', UInt64),
+        ('pHeadExistingAllocationNode', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
+        ('pHeadRecentFreedAllocationNode', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
     ]
     return D3D12_DRED_PAGE_FAULT_OUTPUT1
-D3D12_DRED_PAGE_FAULT_FLAGS = UInt32
-D3D12_DRED_PAGE_FAULT_FLAGS_NONE = 0
-D3D12_DRED_DEVICE_STATE = Int32
-D3D12_DRED_DEVICE_STATE_UNKNOWN = 0
-D3D12_DRED_DEVICE_STATE_HUNG = 3
-D3D12_DRED_DEVICE_STATE_FAULT = 6
-D3D12_DRED_DEVICE_STATE_PAGEFAULT = 7
 def _define_D3D12_DRED_PAGE_FAULT_OUTPUT2_head():
     class D3D12_DRED_PAGE_FAULT_OUTPUT2(Structure):
         pass
@@ -4409,140 +1404,420 @@ def _define_D3D12_DRED_PAGE_FAULT_OUTPUT2_head():
 def _define_D3D12_DRED_PAGE_FAULT_OUTPUT2():
     D3D12_DRED_PAGE_FAULT_OUTPUT2 = win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2_head
     D3D12_DRED_PAGE_FAULT_OUTPUT2._fields_ = [
-        ("PageFaultVA", UInt64),
-        ("pHeadExistingAllocationNode", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
-        ("pHeadRecentFreedAllocationNode", POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
-        ("PageFaultFlags", win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_FLAGS),
+        ('PageFaultVA', UInt64),
+        ('pHeadExistingAllocationNode', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
+        ('pHeadRecentFreedAllocationNode', POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)),
+        ('PageFaultFlags', win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_FLAGS),
     ]
     return D3D12_DRED_PAGE_FAULT_OUTPUT2
-def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA1_head():
-    class D3D12_DEVICE_REMOVED_EXTENDED_DATA1(Structure):
+D3D12_DRED_VERSION = Int32
+D3D12_DRED_VERSION_1_0 = 1
+D3D12_DRED_VERSION_1_1 = 2
+D3D12_DRED_VERSION_1_2 = 3
+D3D12_DRED_VERSION_1_3 = 4
+D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS = Int32
+D3D12_DRIVER_MATCHING_IDENTIFIER_COMPATIBLE_WITH_DEVICE = 0
+D3D12_DRIVER_MATCHING_IDENTIFIER_UNSUPPORTED_TYPE = 1
+D3D12_DRIVER_MATCHING_IDENTIFIER_UNRECOGNIZED = 2
+D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_VERSION = 3
+D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_TYPE = 4
+D3D12_DSV_DIMENSION = Int32
+D3D12_DSV_DIMENSION_UNKNOWN = 0
+D3D12_DSV_DIMENSION_TEXTURE1D = 1
+D3D12_DSV_DIMENSION_TEXTURE1DARRAY = 2
+D3D12_DSV_DIMENSION_TEXTURE2D = 3
+D3D12_DSV_DIMENSION_TEXTURE2DARRAY = 4
+D3D12_DSV_DIMENSION_TEXTURE2DMS = 5
+D3D12_DSV_DIMENSION_TEXTURE2DMSARRAY = 6
+D3D12_DSV_FLAGS = UInt32
+D3D12_DSV_FLAG_NONE = 0
+D3D12_DSV_FLAG_READ_ONLY_DEPTH = 1
+D3D12_DSV_FLAG_READ_ONLY_STENCIL = 2
+def _define_D3D12_DXIL_LIBRARY_DESC_head():
+    class D3D12_DXIL_LIBRARY_DESC(Structure):
         pass
-    return D3D12_DEVICE_REMOVED_EXTENDED_DATA1
-def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA1():
-    D3D12_DEVICE_REMOVED_EXTENDED_DATA1 = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA1_head
-    D3D12_DEVICE_REMOVED_EXTENDED_DATA1._fields_ = [
-        ("DeviceRemovedReason", win32more.Foundation.HRESULT),
-        ("AutoBreadcrumbsOutput", win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT),
-        ("PageFaultOutput", win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT),
+    return D3D12_DXIL_LIBRARY_DESC
+def _define_D3D12_DXIL_LIBRARY_DESC():
+    D3D12_DXIL_LIBRARY_DESC = win32more.Graphics.Direct3D12.D3D12_DXIL_LIBRARY_DESC_head
+    D3D12_DXIL_LIBRARY_DESC._fields_ = [
+        ('DXILLibrary', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('NumExports', UInt32),
+        ('pExports', POINTER(win32more.Graphics.Direct3D12.D3D12_EXPORT_DESC_head)),
     ]
-    return D3D12_DEVICE_REMOVED_EXTENDED_DATA1
-def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA2_head():
-    class D3D12_DEVICE_REMOVED_EXTENDED_DATA2(Structure):
+    return D3D12_DXIL_LIBRARY_DESC
+def _define_D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head():
+    class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION(Structure):
         pass
-    return D3D12_DEVICE_REMOVED_EXTENDED_DATA2
-def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA2():
-    D3D12_DEVICE_REMOVED_EXTENDED_DATA2 = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA2_head
-    D3D12_DEVICE_REMOVED_EXTENDED_DATA2._fields_ = [
-        ("DeviceRemovedReason", win32more.Foundation.HRESULT),
-        ("AutoBreadcrumbsOutput", win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1),
-        ("PageFaultOutput", win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1),
+    return D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION
+def _define_D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION():
+    D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION = win32more.Graphics.Direct3D12.D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head
+    D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION._fields_ = [
+        ('SubobjectToAssociate', win32more.Foundation.PWSTR),
+        ('NumExports', UInt32),
+        ('pExports', POINTER(win32more.Foundation.PWSTR)),
     ]
-    return D3D12_DEVICE_REMOVED_EXTENDED_DATA2
-def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA3_head():
-    class D3D12_DEVICE_REMOVED_EXTENDED_DATA3(Structure):
+    return D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION
+D3D12_ELEMENTS_LAYOUT = Int32
+D3D12_ELEMENTS_LAYOUT_ARRAY = 0
+D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS = 1
+def _define_D3D12_EXISTING_COLLECTION_DESC_head():
+    class D3D12_EXISTING_COLLECTION_DESC(Structure):
         pass
-    return D3D12_DEVICE_REMOVED_EXTENDED_DATA3
-def _define_D3D12_DEVICE_REMOVED_EXTENDED_DATA3():
-    D3D12_DEVICE_REMOVED_EXTENDED_DATA3 = win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA3_head
-    D3D12_DEVICE_REMOVED_EXTENDED_DATA3._fields_ = [
-        ("DeviceRemovedReason", win32more.Foundation.HRESULT),
-        ("AutoBreadcrumbsOutput", win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1),
-        ("PageFaultOutput", win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2),
-        ("DeviceState", win32more.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE),
+    return D3D12_EXISTING_COLLECTION_DESC
+def _define_D3D12_EXISTING_COLLECTION_DESC():
+    D3D12_EXISTING_COLLECTION_DESC = win32more.Graphics.Direct3D12.D3D12_EXISTING_COLLECTION_DESC_head
+    D3D12_EXISTING_COLLECTION_DESC._fields_ = [
+        ('pExistingCollection', win32more.Graphics.Direct3D12.ID3D12StateObject_head),
+        ('NumExports', UInt32),
+        ('pExports', POINTER(win32more.Graphics.Direct3D12.D3D12_EXPORT_DESC_head)),
     ]
-    return D3D12_DEVICE_REMOVED_EXTENDED_DATA3
-def _define_D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA_head():
-    class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA(Structure):
+    return D3D12_EXISTING_COLLECTION_DESC
+def _define_D3D12_EXPORT_DESC_head():
+    class D3D12_EXPORT_DESC(Structure):
         pass
-    return D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA
-def _define_D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA():
-    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA = win32more.Graphics.Direct3D12.D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA_head
-    class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA__Anonymous_e__Union(Union):
+    return D3D12_EXPORT_DESC
+def _define_D3D12_EXPORT_DESC():
+    D3D12_EXPORT_DESC = win32more.Graphics.Direct3D12.D3D12_EXPORT_DESC_head
+    D3D12_EXPORT_DESC._fields_ = [
+        ('Name', win32more.Foundation.PWSTR),
+        ('ExportToRename', win32more.Foundation.PWSTR),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_EXPORT_FLAGS),
+    ]
+    return D3D12_EXPORT_DESC
+D3D12_EXPORT_FLAGS = UInt32
+D3D12_EXPORT_FLAG_NONE = 0
+D3D12_FEATURE = Int32
+D3D12_FEATURE_D3D12_OPTIONS = 0
+D3D12_FEATURE_ARCHITECTURE = 1
+D3D12_FEATURE_FEATURE_LEVELS = 2
+D3D12_FEATURE_FORMAT_SUPPORT = 3
+D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS = 4
+D3D12_FEATURE_FORMAT_INFO = 5
+D3D12_FEATURE_GPU_VIRTUAL_ADDRESS_SUPPORT = 6
+D3D12_FEATURE_SHADER_MODEL = 7
+D3D12_FEATURE_D3D12_OPTIONS1 = 8
+D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_SUPPORT = 10
+D3D12_FEATURE_ROOT_SIGNATURE = 12
+D3D12_FEATURE_ARCHITECTURE1 = 16
+D3D12_FEATURE_D3D12_OPTIONS2 = 18
+D3D12_FEATURE_SHADER_CACHE = 19
+D3D12_FEATURE_COMMAND_QUEUE_PRIORITY = 20
+D3D12_FEATURE_D3D12_OPTIONS3 = 21
+D3D12_FEATURE_EXISTING_HEAPS = 22
+D3D12_FEATURE_D3D12_OPTIONS4 = 23
+D3D12_FEATURE_SERIALIZATION = 24
+D3D12_FEATURE_CROSS_NODE = 25
+D3D12_FEATURE_D3D12_OPTIONS5 = 27
+D3D12_FEATURE_DISPLAYABLE = 28
+D3D12_FEATURE_D3D12_OPTIONS6 = 30
+D3D12_FEATURE_QUERY_META_COMMAND = 31
+D3D12_FEATURE_D3D12_OPTIONS7 = 32
+D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPE_COUNT = 33
+D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPES = 34
+D3D12_FEATURE_D3D12_OPTIONS8 = 36
+D3D12_FEATURE_D3D12_OPTIONS9 = 37
+D3D12_FEATURE_D3D12_OPTIONS10 = 39
+D3D12_FEATURE_D3D12_OPTIONS11 = 40
+def _define_D3D12_FEATURE_DATA_ARCHITECTURE_head():
+    class D3D12_FEATURE_DATA_ARCHITECTURE(Structure):
         pass
-    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA__Anonymous_e__Union._fields_ = [
-        ("Dred_1_0", win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA),
-        ("Dred_1_1", win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA1),
-        ("Dred_1_2", win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA2),
-        ("Dred_1_3", win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA3),
+    return D3D12_FEATURE_DATA_ARCHITECTURE
+def _define_D3D12_FEATURE_DATA_ARCHITECTURE():
+    D3D12_FEATURE_DATA_ARCHITECTURE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_ARCHITECTURE_head
+    D3D12_FEATURE_DATA_ARCHITECTURE._fields_ = [
+        ('NodeIndex', UInt32),
+        ('TileBasedRenderer', win32more.Foundation.BOOL),
+        ('UMA', win32more.Foundation.BOOL),
+        ('CacheCoherentUMA', win32more.Foundation.BOOL),
     ]
-    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA._anonymous_ = [
-        'Anonymous',
+    return D3D12_FEATURE_DATA_ARCHITECTURE
+def _define_D3D12_FEATURE_DATA_ARCHITECTURE1_head():
+    class D3D12_FEATURE_DATA_ARCHITECTURE1(Structure):
+        pass
+    return D3D12_FEATURE_DATA_ARCHITECTURE1
+def _define_D3D12_FEATURE_DATA_ARCHITECTURE1():
+    D3D12_FEATURE_DATA_ARCHITECTURE1 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_ARCHITECTURE1_head
+    D3D12_FEATURE_DATA_ARCHITECTURE1._fields_ = [
+        ('NodeIndex', UInt32),
+        ('TileBasedRenderer', win32more.Foundation.BOOL),
+        ('UMA', win32more.Foundation.BOOL),
+        ('CacheCoherentUMA', win32more.Foundation.BOOL),
+        ('IsolatedMMU', win32more.Foundation.BOOL),
     ]
-    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA._fields_ = [
-        ("Version", win32more.Graphics.Direct3D12.D3D12_DRED_VERSION),
-        ("Anonymous", D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA__Anonymous_e__Union),
+    return D3D12_FEATURE_DATA_ARCHITECTURE1
+def _define_D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY_head():
+    class D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY(Structure):
+        pass
+    return D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY
+def _define_D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY():
+    D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY_head
+    D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY._fields_ = [
+        ('CommandListType', win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE),
+        ('Priority', UInt32),
+        ('PriorityForTypeIsSupported', win32more.Foundation.BOOL),
     ]
-    return D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA
-def _define_ID3D12DeviceRemovedExtendedDataSettings_head():
-    class ID3D12DeviceRemovedExtendedDataSettings(win32more.System.Com.IUnknown_head):
-        Guid = Guid('82bc481c-6b9b-4030-aedb-7ee3d1df1e63')
-    return ID3D12DeviceRemovedExtendedDataSettings
-def _define_ID3D12DeviceRemovedExtendedDataSettings():
-    ID3D12DeviceRemovedExtendedDataSettings = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings_head
-    ID3D12DeviceRemovedExtendedDataSettings.SetAutoBreadcrumbsEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(3, 'SetAutoBreadcrumbsEnablement', ((1, 'Enablement'),)))
-    ID3D12DeviceRemovedExtendedDataSettings.SetPageFaultEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(4, 'SetPageFaultEnablement', ((1, 'Enablement'),)))
-    ID3D12DeviceRemovedExtendedDataSettings.SetWatsonDumpEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(5, 'SetWatsonDumpEnablement', ((1, 'Enablement'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12DeviceRemovedExtendedDataSettings
-def _define_ID3D12DeviceRemovedExtendedDataSettings1_head():
-    class ID3D12DeviceRemovedExtendedDataSettings1(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings_head):
-        Guid = Guid('dbd5ae51-3317-4f0a-adf9-1d7cedcaae0b')
-    return ID3D12DeviceRemovedExtendedDataSettings1
-def _define_ID3D12DeviceRemovedExtendedDataSettings1():
-    ID3D12DeviceRemovedExtendedDataSettings1 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings1_head
-    ID3D12DeviceRemovedExtendedDataSettings1.SetBreadcrumbContextEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(6, 'SetBreadcrumbContextEnablement', ((1, 'Enablement'),)))
-    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings
-    return ID3D12DeviceRemovedExtendedDataSettings1
-def _define_ID3D12DeviceRemovedExtendedData_head():
-    class ID3D12DeviceRemovedExtendedData(win32more.System.Com.IUnknown_head):
-        Guid = Guid('98931d33-5ae8-4791-aa3c-1a73a2934e71')
-    return ID3D12DeviceRemovedExtendedData
-def _define_ID3D12DeviceRemovedExtendedData():
-    ID3D12DeviceRemovedExtendedData = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData_head
-    ID3D12DeviceRemovedExtendedData.GetAutoBreadcrumbsOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head), use_last_error=False)(3, 'GetAutoBreadcrumbsOutput', ((1, 'pOutput'),)))
-    ID3D12DeviceRemovedExtendedData.GetPageFaultAllocationOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT_head), use_last_error=False)(4, 'GetPageFaultAllocationOutput', ((1, 'pOutput'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12DeviceRemovedExtendedData
-def _define_ID3D12DeviceRemovedExtendedData1_head():
-    class ID3D12DeviceRemovedExtendedData1(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData_head):
-        Guid = Guid('9727a022-cf1d-4dda-9eba-effa653fc506')
-    return ID3D12DeviceRemovedExtendedData1
-def _define_ID3D12DeviceRemovedExtendedData1():
-    ID3D12DeviceRemovedExtendedData1 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1_head
-    ID3D12DeviceRemovedExtendedData1.GetAutoBreadcrumbsOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head), use_last_error=False)(5, 'GetAutoBreadcrumbsOutput1', ((1, 'pOutput'),)))
-    ID3D12DeviceRemovedExtendedData1.GetPageFaultAllocationOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1_head), use_last_error=False)(6, 'GetPageFaultAllocationOutput1', ((1, 'pOutput'),)))
-    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData
-    return ID3D12DeviceRemovedExtendedData1
-def _define_ID3D12DeviceRemovedExtendedData2_head():
-    class ID3D12DeviceRemovedExtendedData2(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1_head):
-        Guid = Guid('67fc5816-e4ca-4915-bf18-42541272da54')
-    return ID3D12DeviceRemovedExtendedData2
-def _define_ID3D12DeviceRemovedExtendedData2():
-    ID3D12DeviceRemovedExtendedData2 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData2_head
-    ID3D12DeviceRemovedExtendedData2.GetPageFaultAllocationOutput2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2_head), use_last_error=False)(7, 'GetPageFaultAllocationOutput2', ((1, 'pOutput'),)))
-    ID3D12DeviceRemovedExtendedData2.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE, use_last_error=False)(8, 'GetDeviceState', ()))
-    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1
-    return ID3D12DeviceRemovedExtendedData2
-D3D12_BACKGROUND_PROCESSING_MODE = Int32
-D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED = 0
-D3D12_BACKGROUND_PROCESSING_MODE_ALLOW_INTRUSIVE_MEASUREMENTS = 1
-D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_BACKGROUND_WORK = 2
-D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_PROFILING_BY_SYSTEM = 3
-D3D12_MEASUREMENTS_ACTION = Int32
-D3D12_MEASUREMENTS_ACTION_KEEP_ALL = 0
-D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS = 1
-D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS_HIGH_PRIORITY = 2
-D3D12_MEASUREMENTS_ACTION_DISCARD_PREVIOUS = 3
-def _define_ID3D12Device6_head():
-    class ID3D12Device6(win32more.Graphics.Direct3D12.ID3D12Device5_head):
-        Guid = Guid('c70b221b-40e4-4a17-89af-025a0727a6dc')
-    return ID3D12Device6
-def _define_ID3D12Device6():
-    ID3D12Device6 = win32more.Graphics.Direct3D12.ID3D12Device6_head
-    ID3D12Device6.SetBackgroundProcessingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_BACKGROUND_PROCESSING_MODE,win32more.Graphics.Direct3D12.D3D12_MEASUREMENTS_ACTION,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL), use_last_error=False)(65, 'SetBackgroundProcessingMode', ((1, 'Mode'),(1, 'MeasurementsAction'),(1, 'hEventToSignalUponCompletion'),(1, 'pbFurtherMeasurementsDesired'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device5
-    return ID3D12Device6
+    return D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY
+def _define_D3D12_FEATURE_DATA_CROSS_NODE_head():
+    class D3D12_FEATURE_DATA_CROSS_NODE(Structure):
+        pass
+    return D3D12_FEATURE_DATA_CROSS_NODE
+def _define_D3D12_FEATURE_DATA_CROSS_NODE():
+    D3D12_FEATURE_DATA_CROSS_NODE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_CROSS_NODE_head
+    D3D12_FEATURE_DATA_CROSS_NODE._fields_ = [
+        ('SharingTier', win32more.Graphics.Direct3D12.D3D12_CROSS_NODE_SHARING_TIER),
+        ('AtomicShaderInstructions', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_CROSS_NODE
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS._fields_ = [
+        ('DoublePrecisionFloatShaderOps', win32more.Foundation.BOOL),
+        ('OutputMergerLogicOp', win32more.Foundation.BOOL),
+        ('MinPrecisionSupport', win32more.Graphics.Direct3D12.D3D12_SHADER_MIN_PRECISION_SUPPORT),
+        ('TiledResourcesTier', win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCES_TIER),
+        ('ResourceBindingTier', win32more.Graphics.Direct3D12.D3D12_RESOURCE_BINDING_TIER),
+        ('PSSpecifiedStencilRefSupported', win32more.Foundation.BOOL),
+        ('TypedUAVLoadAdditionalFormats', win32more.Foundation.BOOL),
+        ('ROVsSupported', win32more.Foundation.BOOL),
+        ('ConservativeRasterizationTier', win32more.Graphics.Direct3D12.D3D12_CONSERVATIVE_RASTERIZATION_TIER),
+        ('MaxGPUVirtualAddressBitsPerResource', UInt32),
+        ('StandardSwizzle64KBSupported', win32more.Foundation.BOOL),
+        ('CrossNodeSharingTier', win32more.Graphics.Direct3D12.D3D12_CROSS_NODE_SHARING_TIER),
+        ('CrossAdapterRowMajorTextureSupported', win32more.Foundation.BOOL),
+        ('VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation', win32more.Foundation.BOOL),
+        ('ResourceHeapTier', win32more.Graphics.Direct3D12.D3D12_RESOURCE_HEAP_TIER),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS1_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS1(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS1
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS1():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS1 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS1_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS1._fields_ = [
+        ('WaveOps', win32more.Foundation.BOOL),
+        ('WaveLaneCountMin', UInt32),
+        ('WaveLaneCountMax', UInt32),
+        ('TotalLaneCount', UInt32),
+        ('ExpandedComputeResourceStates', win32more.Foundation.BOOL),
+        ('Int64ShaderOps', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS1
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS10_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS10(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS10
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS10():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS10 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS10_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS10._fields_ = [
+        ('VariableRateShadingSumCombinerSupported', win32more.Foundation.BOOL),
+        ('MeshShaderPerPrimitiveShadingRateSupported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS10
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS11_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS11(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS11
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS11():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS11 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS11_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS11._fields_ = [
+        ('AtomicInt64OnDescriptorHeapResourceSupported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS11
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS2_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS2(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS2
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS2():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS2 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS2_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS2._fields_ = [
+        ('DepthBoundsTestSupported', win32more.Foundation.BOOL),
+        ('ProgrammableSamplePositionsTier', win32more.Graphics.Direct3D12.D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS2
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS3_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS3(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS3
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS3():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS3 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS3_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS3._fields_ = [
+        ('CopyQueueTimestampQueriesSupported', win32more.Foundation.BOOL),
+        ('CastingFullyTypedFormatSupported', win32more.Foundation.BOOL),
+        ('WriteBufferImmediateSupportFlags', win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_SUPPORT_FLAGS),
+        ('ViewInstancingTier', win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_TIER),
+        ('BarycentricsSupported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS3
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS4_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS4(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS4
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS4():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS4 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS4_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS4._fields_ = [
+        ('MSAA64KBAlignedTextureSupported', win32more.Foundation.BOOL),
+        ('SharedResourceCompatibilityTier', win32more.Graphics.Direct3D12.D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER),
+        ('Native16BitShaderOpsSupported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS4
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS5_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS5(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS5
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS5():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS5 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS5_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS5._fields_ = [
+        ('SRVOnlyTiledResourceTier3', win32more.Foundation.BOOL),
+        ('RenderPassesTier', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_TIER),
+        ('RaytracingTier', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_TIER),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS5
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS6_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS6(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS6
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS6():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS6 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS6_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS6._fields_ = [
+        ('AdditionalShadingRatesSupported', win32more.Foundation.BOOL),
+        ('PerPrimitiveShadingRateSupportedWithViewportIndexing', win32more.Foundation.BOOL),
+        ('VariableShadingRateTier', win32more.Graphics.Direct3D12.D3D12_VARIABLE_SHADING_RATE_TIER),
+        ('ShadingRateImageTileSize', UInt32),
+        ('BackgroundProcessingSupported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS6
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS7_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS7(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS7
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS7():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS7 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS7_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS7._fields_ = [
+        ('MeshShaderTier', win32more.Graphics.Direct3D12.D3D12_MESH_SHADER_TIER),
+        ('SamplerFeedbackTier', win32more.Graphics.Direct3D12.D3D12_SAMPLER_FEEDBACK_TIER),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS7
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS8_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS8(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS8
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS8():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS8 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS8_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS8._fields_ = [
+        ('UnalignedBlockTexturesSupported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS8
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS9_head():
+    class D3D12_FEATURE_DATA_D3D12_OPTIONS9(Structure):
+        pass
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS9
+def _define_D3D12_FEATURE_DATA_D3D12_OPTIONS9():
+    D3D12_FEATURE_DATA_D3D12_OPTIONS9 = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_D3D12_OPTIONS9_head
+    D3D12_FEATURE_DATA_D3D12_OPTIONS9._fields_ = [
+        ('MeshShaderPipelineStatsSupported', win32more.Foundation.BOOL),
+        ('MeshShaderSupportsFullRangeRenderTargetArrayIndex', win32more.Foundation.BOOL),
+        ('AtomicInt64OnTypedResourceSupported', win32more.Foundation.BOOL),
+        ('AtomicInt64OnGroupSharedSupported', win32more.Foundation.BOOL),
+        ('DerivativesInMeshAndAmplificationShadersSupported', win32more.Foundation.BOOL),
+        ('WaveMMATier', win32more.Graphics.Direct3D12.D3D12_WAVE_MMA_TIER),
+    ]
+    return D3D12_FEATURE_DATA_D3D12_OPTIONS9
+def _define_D3D12_FEATURE_DATA_DISPLAYABLE_head():
+    class D3D12_FEATURE_DATA_DISPLAYABLE(Structure):
+        pass
+    return D3D12_FEATURE_DATA_DISPLAYABLE
+def _define_D3D12_FEATURE_DATA_DISPLAYABLE():
+    D3D12_FEATURE_DATA_DISPLAYABLE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_DISPLAYABLE_head
+    D3D12_FEATURE_DATA_DISPLAYABLE._fields_ = [
+        ('DisplayableTexture', win32more.Foundation.BOOL),
+        ('SharedResourceCompatibilityTier', win32more.Graphics.Direct3D12.D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER),
+    ]
+    return D3D12_FEATURE_DATA_DISPLAYABLE
+def _define_D3D12_FEATURE_DATA_EXISTING_HEAPS_head():
+    class D3D12_FEATURE_DATA_EXISTING_HEAPS(Structure):
+        pass
+    return D3D12_FEATURE_DATA_EXISTING_HEAPS
+def _define_D3D12_FEATURE_DATA_EXISTING_HEAPS():
+    D3D12_FEATURE_DATA_EXISTING_HEAPS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_EXISTING_HEAPS_head
+    D3D12_FEATURE_DATA_EXISTING_HEAPS._fields_ = [
+        ('Supported', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FEATURE_DATA_EXISTING_HEAPS
+def _define_D3D12_FEATURE_DATA_FEATURE_LEVELS_head():
+    class D3D12_FEATURE_DATA_FEATURE_LEVELS(Structure):
+        pass
+    return D3D12_FEATURE_DATA_FEATURE_LEVELS
+def _define_D3D12_FEATURE_DATA_FEATURE_LEVELS():
+    D3D12_FEATURE_DATA_FEATURE_LEVELS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_FEATURE_LEVELS_head
+    D3D12_FEATURE_DATA_FEATURE_LEVELS._fields_ = [
+        ('NumFeatureLevels', UInt32),
+        ('pFeatureLevelsRequested', POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL)),
+        ('MaxSupportedFeatureLevel', win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),
+    ]
+    return D3D12_FEATURE_DATA_FEATURE_LEVELS
+def _define_D3D12_FEATURE_DATA_FORMAT_INFO_head():
+    class D3D12_FEATURE_DATA_FORMAT_INFO(Structure):
+        pass
+    return D3D12_FEATURE_DATA_FORMAT_INFO
+def _define_D3D12_FEATURE_DATA_FORMAT_INFO():
+    D3D12_FEATURE_DATA_FORMAT_INFO = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_FORMAT_INFO_head
+    D3D12_FEATURE_DATA_FORMAT_INFO._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('PlaneCount', Byte),
+    ]
+    return D3D12_FEATURE_DATA_FORMAT_INFO
+def _define_D3D12_FEATURE_DATA_FORMAT_SUPPORT_head():
+    class D3D12_FEATURE_DATA_FORMAT_SUPPORT(Structure):
+        pass
+    return D3D12_FEATURE_DATA_FORMAT_SUPPORT
+def _define_D3D12_FEATURE_DATA_FORMAT_SUPPORT():
+    D3D12_FEATURE_DATA_FORMAT_SUPPORT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_FORMAT_SUPPORT_head
+    D3D12_FEATURE_DATA_FORMAT_SUPPORT._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('Support1', win32more.Graphics.Direct3D12.D3D12_FORMAT_SUPPORT1),
+        ('Support2', win32more.Graphics.Direct3D12.D3D12_FORMAT_SUPPORT2),
+    ]
+    return D3D12_FEATURE_DATA_FORMAT_SUPPORT
+def _define_D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT_head():
+    class D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT(Structure):
+        pass
+    return D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT
+def _define_D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT():
+    D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT_head
+    D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT._fields_ = [
+        ('MaxGPUVirtualAddressBitsPerResource', UInt32),
+        ('MaxGPUVirtualAddressBitsPerProcess', UInt32),
+    ]
+    return D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT
+def _define_D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS_head():
+    class D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS(Structure):
+        pass
+    return D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS
+def _define_D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS():
+    D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS_head
+    D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('SampleCount', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS),
+        ('NumQualityLevels', UInt32),
+    ]
+    return D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS
+def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT_head():
+    class D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT(Structure):
+        pass
+    return D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT
+def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT():
+    D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT_head
+    D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT._fields_ = [
+        ('NodeIndex', UInt32),
+        ('Support', win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS),
+    ]
+    return D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT
 def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT_head():
     class D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT(Structure):
         pass
@@ -4550,8 +1825,8 @@ def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT_head():
 def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT():
     D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT_head
     D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT._fields_ = [
-        ("NodeIndex", UInt32),
-        ("Count", UInt32),
+        ('NodeIndex', UInt32),
+        ('Count', UInt32),
     ]
     return D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT
 def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES_head():
@@ -4561,329 +1836,578 @@ def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES_head():
 def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES():
     D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES_head
     D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES._fields_ = [
-        ("NodeIndex", UInt32),
-        ("Count", UInt32),
-        ("pTypes", POINTER(Guid)),
+        ('NodeIndex', UInt32),
+        ('Count', UInt32),
+        ('pTypes', POINTER(Guid)),
     ]
     return D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES
-def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head():
-    class D3D12_PROTECTED_RESOURCE_SESSION_DESC1(Structure):
+def _define_D3D12_FEATURE_DATA_QUERY_META_COMMAND_head():
+    class D3D12_FEATURE_DATA_QUERY_META_COMMAND(Structure):
         pass
-    return D3D12_PROTECTED_RESOURCE_SESSION_DESC1
-def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC1():
-    D3D12_PROTECTED_RESOURCE_SESSION_DESC1 = win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head
-    D3D12_PROTECTED_RESOURCE_SESSION_DESC1._fields_ = [
-        ("NodeMask", UInt32),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_FLAGS),
-        ("ProtectionType", Guid),
+    return D3D12_FEATURE_DATA_QUERY_META_COMMAND
+def _define_D3D12_FEATURE_DATA_QUERY_META_COMMAND():
+    D3D12_FEATURE_DATA_QUERY_META_COMMAND = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_QUERY_META_COMMAND_head
+    D3D12_FEATURE_DATA_QUERY_META_COMMAND._fields_ = [
+        ('CommandId', Guid),
+        ('NodeMask', UInt32),
+        ('pQueryInputData', c_void_p),
+        ('QueryInputDataSizeInBytes', UIntPtr),
+        ('pQueryOutputData', c_void_p),
+        ('QueryOutputDataSizeInBytes', UIntPtr),
     ]
-    return D3D12_PROTECTED_RESOURCE_SESSION_DESC1
-def _define_ID3D12ProtectedResourceSession1_head():
-    class ID3D12ProtectedResourceSession1(win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head):
-        Guid = Guid('d6f12dd6-76fb-406e-8961-4296eefc0409')
-    return ID3D12ProtectedResourceSession1
-def _define_ID3D12ProtectedResourceSession1():
-    ID3D12ProtectedResourceSession1 = win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession1_head
-    ID3D12ProtectedResourceSession1.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1, use_last_error=False)(11, 'GetDesc1', ()))
-    win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession
-    return ID3D12ProtectedResourceSession1
-def _define_ID3D12Device7_head():
-    class ID3D12Device7(win32more.Graphics.Direct3D12.ID3D12Device6_head):
-        Guid = Guid('5c014b53-68a1-4b9b-8bd1-dd6046b9358b')
-    return ID3D12Device7
-def _define_ID3D12Device7():
-    ID3D12Device7 = win32more.Graphics.Direct3D12.ID3D12Device7_head
-    ID3D12Device7.AddToStateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head),win32more.Graphics.Direct3D12.ID3D12StateObject_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(66, 'AddToStateObject', ((1, 'pAddition'),(1, 'pStateObjectToGrowFrom'),(1, 'riid'),(1, 'ppNewStateObject'),)))
-    ID3D12Device7.CreateProtectedResourceSession1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(67, 'CreateProtectedResourceSession1', ((1, 'pDesc'),(1, 'riid'),(1, 'ppSession'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device6
-    return ID3D12Device7
-def _define_ID3D12Device8_head():
-    class ID3D12Device8(win32more.Graphics.Direct3D12.ID3D12Device7_head):
-        Guid = Guid('9218e6bb-f944-4f7e-a75c-b1b2c7b701f3')
-    return ID3D12Device8
-def _define_ID3D12Device8():
-    ID3D12Device8 = win32more.Graphics.Direct3D12.ID3D12Device8_head
-    ID3D12Device8.GetResourceAllocationInfo2 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1),POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1), use_last_error=False)(68, 'GetResourceAllocationInfo2', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),(1, 'pResourceAllocationInfo1'),)))
-    ID3D12Device8.CreateCommittedResource2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(69, 'CreateCommittedResource2', ((1, 'pHeapProperties'),(1, 'HeapFlags'),(1, 'pDesc'),(1, 'InitialResourceState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riidResource'),(1, 'ppvResource'),)))
-    ID3D12Device8.CreatePlacedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(70, 'CreatePlacedResource1', ((1, 'pHeap'),(1, 'HeapOffset'),(1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
-    ID3D12Device8.CreateSamplerFeedbackUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(71, 'CreateSamplerFeedbackUnorderedAccessView', ((1, 'pTargetedResource'),(1, 'pFeedbackResource'),(1, 'DestDescriptor'),)))
-    ID3D12Device8.GetCopyableFootprints1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),UInt32,UInt32,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(72, 'GetCopyableFootprints1', ((1, 'pResourceDesc'),(1, 'FirstSubresource'),(1, 'NumSubresources'),(1, 'BaseOffset'),(1, 'pLayouts'),(1, 'pNumRows'),(1, 'pRowSizeInBytes'),(1, 'pTotalBytes'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device7
-    return ID3D12Device8
-def _define_ID3D12Resource1_head():
-    class ID3D12Resource1(win32more.Graphics.Direct3D12.ID3D12Resource_head):
-        Guid = Guid('9d5e227a-4430-4161-88b3-3eca6bb16e19')
-    return ID3D12Resource1
-def _define_ID3D12Resource1():
-    ID3D12Resource1 = win32more.Graphics.Direct3D12.ID3D12Resource1_head
-    ID3D12Resource1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
-    win32more.Graphics.Direct3D12.ID3D12Resource
-    return ID3D12Resource1
-def _define_ID3D12Resource2_head():
-    class ID3D12Resource2(win32more.Graphics.Direct3D12.ID3D12Resource1_head):
-        Guid = Guid('be36ec3b-ea85-4aeb-a45a-e9d76404a495')
-    return ID3D12Resource2
-def _define_ID3D12Resource2():
-    ID3D12Resource2 = win32more.Graphics.Direct3D12.ID3D12Resource2_head
-    ID3D12Resource2.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1, use_last_error=False)(16, 'GetDesc1', ()))
-    win32more.Graphics.Direct3D12.ID3D12Resource1
-    return ID3D12Resource2
-def _define_ID3D12Heap1_head():
-    class ID3D12Heap1(win32more.Graphics.Direct3D12.ID3D12Heap_head):
-        Guid = Guid('572f7389-2168-49e3-9693-d6df5871bf6d')
-    return ID3D12Heap1
-def _define_ID3D12Heap1():
-    ID3D12Heap1 = win32more.Graphics.Direct3D12.ID3D12Heap1_head
-    ID3D12Heap1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
-    win32more.Graphics.Direct3D12.ID3D12Heap
-    return ID3D12Heap1
-def _define_ID3D12GraphicsCommandList3_head():
-    class ID3D12GraphicsCommandList3(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2_head):
-        Guid = Guid('6fda83a7-b84c-4e38-9ac8-c7bd22016b3d')
-    return ID3D12GraphicsCommandList3
-def _define_ID3D12GraphicsCommandList3():
-    ID3D12GraphicsCommandList3 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3_head
-    ID3D12GraphicsCommandList3.SetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, use_last_error=False)(67, 'SetProtectedResourceSession', ((1, 'pProtectedResourceSession'),)))
-    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2
-    return ID3D12GraphicsCommandList3
-D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE = Int32
-D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_DISCARD = 0
-D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_PRESERVE = 1
-D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_CLEAR = 2
-D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_NO_ACCESS = 3
-def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS_head():
-    class D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS(Structure):
+    return D3D12_FEATURE_DATA_QUERY_META_COMMAND
+def _define_D3D12_FEATURE_DATA_ROOT_SIGNATURE_head():
+    class D3D12_FEATURE_DATA_ROOT_SIGNATURE(Structure):
         pass
-    return D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS
-def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS():
-    D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS_head
-    D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS._fields_ = [
-        ("ClearValue", win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE),
+    return D3D12_FEATURE_DATA_ROOT_SIGNATURE
+def _define_D3D12_FEATURE_DATA_ROOT_SIGNATURE():
+    D3D12_FEATURE_DATA_ROOT_SIGNATURE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_ROOT_SIGNATURE_head
+    D3D12_FEATURE_DATA_ROOT_SIGNATURE._fields_ = [
+        ('HighestVersion', win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION),
     ]
-    return D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS
-def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS_head():
-    class D3D12_RENDER_PASS_BEGINNING_ACCESS(Structure):
+    return D3D12_FEATURE_DATA_ROOT_SIGNATURE
+def _define_D3D12_FEATURE_DATA_SERIALIZATION_head():
+    class D3D12_FEATURE_DATA_SERIALIZATION(Structure):
         pass
-    return D3D12_RENDER_PASS_BEGINNING_ACCESS
-def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS():
-    D3D12_RENDER_PASS_BEGINNING_ACCESS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_head
-    class D3D12_RENDER_PASS_BEGINNING_ACCESS__Anonymous_e__Union(Union):
-        pass
-    D3D12_RENDER_PASS_BEGINNING_ACCESS__Anonymous_e__Union._fields_ = [
-        ("Clear", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS),
+    return D3D12_FEATURE_DATA_SERIALIZATION
+def _define_D3D12_FEATURE_DATA_SERIALIZATION():
+    D3D12_FEATURE_DATA_SERIALIZATION = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_SERIALIZATION_head
+    D3D12_FEATURE_DATA_SERIALIZATION._fields_ = [
+        ('NodeIndex', UInt32),
+        ('HeapSerializationTier', win32more.Graphics.Direct3D12.D3D12_HEAP_SERIALIZATION_TIER),
     ]
-    D3D12_RENDER_PASS_BEGINNING_ACCESS._anonymous_ = [
+    return D3D12_FEATURE_DATA_SERIALIZATION
+def _define_D3D12_FEATURE_DATA_SHADER_CACHE_head():
+    class D3D12_FEATURE_DATA_SHADER_CACHE(Structure):
+        pass
+    return D3D12_FEATURE_DATA_SHADER_CACHE
+def _define_D3D12_FEATURE_DATA_SHADER_CACHE():
+    D3D12_FEATURE_DATA_SHADER_CACHE = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_SHADER_CACHE_head
+    D3D12_FEATURE_DATA_SHADER_CACHE._fields_ = [
+        ('SupportFlags', win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SUPPORT_FLAGS),
+    ]
+    return D3D12_FEATURE_DATA_SHADER_CACHE
+def _define_D3D12_FEATURE_DATA_SHADER_MODEL_head():
+    class D3D12_FEATURE_DATA_SHADER_MODEL(Structure):
+        pass
+    return D3D12_FEATURE_DATA_SHADER_MODEL
+def _define_D3D12_FEATURE_DATA_SHADER_MODEL():
+    D3D12_FEATURE_DATA_SHADER_MODEL = win32more.Graphics.Direct3D12.D3D12_FEATURE_DATA_SHADER_MODEL_head
+    D3D12_FEATURE_DATA_SHADER_MODEL._fields_ = [
+        ('HighestShaderModel', win32more.Graphics.Direct3D12.D3D_SHADER_MODEL),
+    ]
+    return D3D12_FEATURE_DATA_SHADER_MODEL
+D3D12_FENCE_FLAGS = UInt32
+D3D12_FENCE_FLAG_NONE = 0
+D3D12_FENCE_FLAG_SHARED = 1
+D3D12_FENCE_FLAG_SHARED_CROSS_ADAPTER = 2
+D3D12_FENCE_FLAG_NON_MONITORED = 4
+D3D12_FILL_MODE = Int32
+D3D12_FILL_MODE_WIREFRAME = 2
+D3D12_FILL_MODE_SOLID = 3
+D3D12_FILTER = Int32
+D3D12_FILTER_MIN_MAG_MIP_POINT = 0
+D3D12_FILTER_MIN_MAG_POINT_MIP_LINEAR = 1
+D3D12_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT = 4
+D3D12_FILTER_MIN_POINT_MAG_MIP_LINEAR = 5
+D3D12_FILTER_MIN_LINEAR_MAG_MIP_POINT = 16
+D3D12_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 17
+D3D12_FILTER_MIN_MAG_LINEAR_MIP_POINT = 20
+D3D12_FILTER_MIN_MAG_MIP_LINEAR = 21
+D3D12_FILTER_ANISOTROPIC = 85
+D3D12_FILTER_COMPARISON_MIN_MAG_MIP_POINT = 128
+D3D12_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR = 129
+D3D12_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT = 132
+D3D12_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR = 133
+D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT = 144
+D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 145
+D3D12_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT = 148
+D3D12_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR = 149
+D3D12_FILTER_COMPARISON_ANISOTROPIC = 213
+D3D12_FILTER_MINIMUM_MIN_MAG_MIP_POINT = 256
+D3D12_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR = 257
+D3D12_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT = 260
+D3D12_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR = 261
+D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT = 272
+D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 273
+D3D12_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT = 276
+D3D12_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR = 277
+D3D12_FILTER_MINIMUM_ANISOTROPIC = 341
+D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_POINT = 384
+D3D12_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR = 385
+D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT = 388
+D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR = 389
+D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT = 400
+D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 401
+D3D12_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT = 404
+D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR = 405
+D3D12_FILTER_MAXIMUM_ANISOTROPIC = 469
+D3D12_FILTER_REDUCTION_TYPE = Int32
+D3D12_FILTER_REDUCTION_TYPE_STANDARD = 0
+D3D12_FILTER_REDUCTION_TYPE_COMPARISON = 1
+D3D12_FILTER_REDUCTION_TYPE_MINIMUM = 2
+D3D12_FILTER_REDUCTION_TYPE_MAXIMUM = 3
+D3D12_FILTER_TYPE = Int32
+D3D12_FILTER_TYPE_POINT = 0
+D3D12_FILTER_TYPE_LINEAR = 1
+D3D12_FORMAT_SUPPORT1 = UInt32
+D3D12_FORMAT_SUPPORT1_NONE = 0
+D3D12_FORMAT_SUPPORT1_BUFFER = 1
+D3D12_FORMAT_SUPPORT1_IA_VERTEX_BUFFER = 2
+D3D12_FORMAT_SUPPORT1_IA_INDEX_BUFFER = 4
+D3D12_FORMAT_SUPPORT1_SO_BUFFER = 8
+D3D12_FORMAT_SUPPORT1_TEXTURE1D = 16
+D3D12_FORMAT_SUPPORT1_TEXTURE2D = 32
+D3D12_FORMAT_SUPPORT1_TEXTURE3D = 64
+D3D12_FORMAT_SUPPORT1_TEXTURECUBE = 128
+D3D12_FORMAT_SUPPORT1_SHADER_LOAD = 256
+D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE = 512
+D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_COMPARISON = 1024
+D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_MONO_TEXT = 2048
+D3D12_FORMAT_SUPPORT1_MIP = 4096
+D3D12_FORMAT_SUPPORT1_RENDER_TARGET = 16384
+D3D12_FORMAT_SUPPORT1_BLENDABLE = 32768
+D3D12_FORMAT_SUPPORT1_DEPTH_STENCIL = 65536
+D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RESOLVE = 262144
+D3D12_FORMAT_SUPPORT1_DISPLAY = 524288
+D3D12_FORMAT_SUPPORT1_CAST_WITHIN_BIT_LAYOUT = 1048576
+D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RENDERTARGET = 2097152
+D3D12_FORMAT_SUPPORT1_MULTISAMPLE_LOAD = 4194304
+D3D12_FORMAT_SUPPORT1_SHADER_GATHER = 8388608
+D3D12_FORMAT_SUPPORT1_BACK_BUFFER_CAST = 16777216
+D3D12_FORMAT_SUPPORT1_TYPED_UNORDERED_ACCESS_VIEW = 33554432
+D3D12_FORMAT_SUPPORT1_SHADER_GATHER_COMPARISON = 67108864
+D3D12_FORMAT_SUPPORT1_DECODER_OUTPUT = 134217728
+D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_OUTPUT = 268435456
+D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_INPUT = 536870912
+D3D12_FORMAT_SUPPORT1_VIDEO_ENCODER = 1073741824
+D3D12_FORMAT_SUPPORT2 = UInt32
+D3D12_FORMAT_SUPPORT2_NONE = 0
+D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_ADD = 1
+D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS = 2
+D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE = 4
+D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE = 8
+D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX = 16
+D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX = 32
+D3D12_FORMAT_SUPPORT2_UAV_TYPED_LOAD = 64
+D3D12_FORMAT_SUPPORT2_UAV_TYPED_STORE = 128
+D3D12_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP = 256
+D3D12_FORMAT_SUPPORT2_TILED = 512
+D3D12_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY = 16384
+D3D12_FORMAT_SUPPORT2_SAMPLER_FEEDBACK = 32768
+def _define_D3D12_FUNCTION_DESC_head():
+    class D3D12_FUNCTION_DESC(Structure):
+        pass
+    return D3D12_FUNCTION_DESC
+def _define_D3D12_FUNCTION_DESC():
+    D3D12_FUNCTION_DESC = win32more.Graphics.Direct3D12.D3D12_FUNCTION_DESC_head
+    D3D12_FUNCTION_DESC._fields_ = [
+        ('Version', UInt32),
+        ('Creator', win32more.Foundation.PSTR),
+        ('Flags', UInt32),
+        ('ConstantBuffers', UInt32),
+        ('BoundResources', UInt32),
+        ('InstructionCount', UInt32),
+        ('TempRegisterCount', UInt32),
+        ('TempArrayCount', UInt32),
+        ('DefCount', UInt32),
+        ('DclCount', UInt32),
+        ('TextureNormalInstructions', UInt32),
+        ('TextureLoadInstructions', UInt32),
+        ('TextureCompInstructions', UInt32),
+        ('TextureBiasInstructions', UInt32),
+        ('TextureGradientInstructions', UInt32),
+        ('FloatInstructionCount', UInt32),
+        ('IntInstructionCount', UInt32),
+        ('UintInstructionCount', UInt32),
+        ('StaticFlowControlCount', UInt32),
+        ('DynamicFlowControlCount', UInt32),
+        ('MacroInstructionCount', UInt32),
+        ('ArrayInstructionCount', UInt32),
+        ('MovInstructionCount', UInt32),
+        ('MovcInstructionCount', UInt32),
+        ('ConversionInstructionCount', UInt32),
+        ('BitwiseInstructionCount', UInt32),
+        ('MinFeatureLevel', win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),
+        ('RequiredFeatureFlags', UInt64),
+        ('Name', win32more.Foundation.PSTR),
+        ('FunctionParameterCount', Int32),
+        ('HasReturn', win32more.Foundation.BOOL),
+        ('Has10Level9VertexShader', win32more.Foundation.BOOL),
+        ('Has10Level9PixelShader', win32more.Foundation.BOOL),
+    ]
+    return D3D12_FUNCTION_DESC
+def _define_D3D12_GLOBAL_ROOT_SIGNATURE_head():
+    class D3D12_GLOBAL_ROOT_SIGNATURE(Structure):
+        pass
+    return D3D12_GLOBAL_ROOT_SIGNATURE
+def _define_D3D12_GLOBAL_ROOT_SIGNATURE():
+    D3D12_GLOBAL_ROOT_SIGNATURE = win32more.Graphics.Direct3D12.D3D12_GLOBAL_ROOT_SIGNATURE_head
+    D3D12_GLOBAL_ROOT_SIGNATURE._fields_ = [
+        ('pGlobalRootSignature', win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
+    ]
+    return D3D12_GLOBAL_ROOT_SIGNATURE
+D3D12_GPU_BASED_VALIDATION_FLAGS = Int32
+D3D12_GPU_BASED_VALIDATION_FLAGS_NONE = 0
+D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING = 1
+D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS = Int32
+D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_NONE = 0
+D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS = 1
+D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS = 2
+D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS = 4
+D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS_VALID_MASK = 7
+D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE = Int32
+D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_NONE = 0
+D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_STATE_TRACKING_ONLY = 1
+D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_UNGUARDED_VALIDATION = 2
+D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_GUARDED_VALIDATION = 3
+NUM_D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODES = 4
+def _define_D3D12_GPU_DESCRIPTOR_HANDLE_head():
+    class D3D12_GPU_DESCRIPTOR_HANDLE(Structure):
+        pass
+    return D3D12_GPU_DESCRIPTOR_HANDLE
+def _define_D3D12_GPU_DESCRIPTOR_HANDLE():
+    D3D12_GPU_DESCRIPTOR_HANDLE = win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE_head
+    D3D12_GPU_DESCRIPTOR_HANDLE._fields_ = [
+        ('ptr', UInt64),
+    ]
+    return D3D12_GPU_DESCRIPTOR_HANDLE
+def _define_D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE_head():
+    class D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(Structure):
+        pass
+    return D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE
+def _define_D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE():
+    D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE = win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE_head
+    D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE._fields_ = [
+        ('StartAddress', UInt64),
+        ('StrideInBytes', UInt64),
+    ]
+    return D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE
+def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE_head():
+    class D3D12_GPU_VIRTUAL_ADDRESS_RANGE(Structure):
+        pass
+    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE
+def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE():
+    D3D12_GPU_VIRTUAL_ADDRESS_RANGE = win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_head
+    D3D12_GPU_VIRTUAL_ADDRESS_RANGE._fields_ = [
+        ('StartAddress', UInt64),
+        ('SizeInBytes', UInt64),
+    ]
+    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE
+def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE_head():
+    class D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(Structure):
+        pass
+    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE
+def _define_D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE():
+    D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE = win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE_head
+    D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE._fields_ = [
+        ('StartAddress', UInt64),
+        ('SizeInBytes', UInt64),
+        ('StrideInBytes', UInt64),
+    ]
+    return D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE
+def _define_D3D12_GRAPHICS_PIPELINE_STATE_DESC_head():
+    class D3D12_GRAPHICS_PIPELINE_STATE_DESC(Structure):
+        pass
+    return D3D12_GRAPHICS_PIPELINE_STATE_DESC
+def _define_D3D12_GRAPHICS_PIPELINE_STATE_DESC():
+    D3D12_GRAPHICS_PIPELINE_STATE_DESC = win32more.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head
+    D3D12_GRAPHICS_PIPELINE_STATE_DESC._fields_ = [
+        ('pRootSignature', win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
+        ('VS', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('PS', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('DS', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('HS', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('GS', win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE),
+        ('StreamOutput', win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_DESC),
+        ('BlendState', win32more.Graphics.Direct3D12.D3D12_BLEND_DESC),
+        ('SampleMask', UInt32),
+        ('RasterizerState', win32more.Graphics.Direct3D12.D3D12_RASTERIZER_DESC),
+        ('DepthStencilState', win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_DESC),
+        ('InputLayout', win32more.Graphics.Direct3D12.D3D12_INPUT_LAYOUT_DESC),
+        ('IBStripCutValue', win32more.Graphics.Direct3D12.D3D12_INDEX_BUFFER_STRIP_CUT_VALUE),
+        ('PrimitiveTopologyType', win32more.Graphics.Direct3D12.D3D12_PRIMITIVE_TOPOLOGY_TYPE),
+        ('NumRenderTargets', UInt32),
+        ('RTVFormats', win32more.Graphics.Dxgi.Common.DXGI_FORMAT * 8),
+        ('DSVFormat', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('SampleDesc', win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
+        ('NodeMask', UInt32),
+        ('CachedPSO', win32more.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_FLAGS),
+    ]
+    return D3D12_GRAPHICS_PIPELINE_STATE_DESC
+D3D12_GRAPHICS_STATES = UInt32
+D3D12_GRAPHICS_STATE_NONE = 0
+D3D12_GRAPHICS_STATE_IA_VERTEX_BUFFERS = 1
+D3D12_GRAPHICS_STATE_IA_INDEX_BUFFER = 2
+D3D12_GRAPHICS_STATE_IA_PRIMITIVE_TOPOLOGY = 4
+D3D12_GRAPHICS_STATE_DESCRIPTOR_HEAP = 8
+D3D12_GRAPHICS_STATE_GRAPHICS_ROOT_SIGNATURE = 16
+D3D12_GRAPHICS_STATE_COMPUTE_ROOT_SIGNATURE = 32
+D3D12_GRAPHICS_STATE_RS_VIEWPORTS = 64
+D3D12_GRAPHICS_STATE_RS_SCISSOR_RECTS = 128
+D3D12_GRAPHICS_STATE_PREDICATION = 256
+D3D12_GRAPHICS_STATE_OM_RENDER_TARGETS = 512
+D3D12_GRAPHICS_STATE_OM_STENCIL_REF = 1024
+D3D12_GRAPHICS_STATE_OM_BLEND_FACTOR = 2048
+D3D12_GRAPHICS_STATE_PIPELINE_STATE = 4096
+D3D12_GRAPHICS_STATE_SO_TARGETS = 8192
+D3D12_GRAPHICS_STATE_OM_DEPTH_BOUNDS = 16384
+D3D12_GRAPHICS_STATE_SAMPLE_POSITIONS = 32768
+D3D12_GRAPHICS_STATE_VIEW_INSTANCE_MASK = 65536
+def _define_D3D12_HEAP_DESC_head():
+    class D3D12_HEAP_DESC(Structure):
+        pass
+    return D3D12_HEAP_DESC
+def _define_D3D12_HEAP_DESC():
+    D3D12_HEAP_DESC = win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head
+    D3D12_HEAP_DESC._fields_ = [
+        ('SizeInBytes', UInt64),
+        ('Properties', win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES),
+        ('Alignment', UInt64),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS),
+    ]
+    return D3D12_HEAP_DESC
+D3D12_HEAP_FLAGS = UInt32
+D3D12_HEAP_FLAG_NONE = 0
+D3D12_HEAP_FLAG_SHARED = 1
+D3D12_HEAP_FLAG_DENY_BUFFERS = 4
+D3D12_HEAP_FLAG_ALLOW_DISPLAY = 8
+D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER = 32
+D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES = 64
+D3D12_HEAP_FLAG_DENY_NON_RT_DS_TEXTURES = 128
+D3D12_HEAP_FLAG_HARDWARE_PROTECTED = 256
+D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH = 512
+D3D12_HEAP_FLAG_ALLOW_SHADER_ATOMICS = 1024
+D3D12_HEAP_FLAG_CREATE_NOT_RESIDENT = 2048
+D3D12_HEAP_FLAG_CREATE_NOT_ZEROED = 4096
+D3D12_HEAP_FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES = 0
+D3D12_HEAP_FLAG_ALLOW_ONLY_BUFFERS = 192
+D3D12_HEAP_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES = 68
+D3D12_HEAP_FLAG_ALLOW_ONLY_RT_DS_TEXTURES = 132
+def _define_D3D12_HEAP_PROPERTIES_head():
+    class D3D12_HEAP_PROPERTIES(Structure):
+        pass
+    return D3D12_HEAP_PROPERTIES
+def _define_D3D12_HEAP_PROPERTIES():
+    D3D12_HEAP_PROPERTIES = win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head
+    D3D12_HEAP_PROPERTIES._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_HEAP_TYPE),
+        ('CPUPageProperty', win32more.Graphics.Direct3D12.D3D12_CPU_PAGE_PROPERTY),
+        ('MemoryPoolPreference', win32more.Graphics.Direct3D12.D3D12_MEMORY_POOL),
+        ('CreationNodeMask', UInt32),
+        ('VisibleNodeMask', UInt32),
+    ]
+    return D3D12_HEAP_PROPERTIES
+D3D12_HEAP_SERIALIZATION_TIER = Int32
+D3D12_HEAP_SERIALIZATION_TIER_0 = 0
+D3D12_HEAP_SERIALIZATION_TIER_10 = 10
+D3D12_HEAP_TYPE = Int32
+D3D12_HEAP_TYPE_DEFAULT = 1
+D3D12_HEAP_TYPE_UPLOAD = 2
+D3D12_HEAP_TYPE_READBACK = 3
+D3D12_HEAP_TYPE_CUSTOM = 4
+def _define_D3D12_HIT_GROUP_DESC_head():
+    class D3D12_HIT_GROUP_DESC(Structure):
+        pass
+    return D3D12_HIT_GROUP_DESC
+def _define_D3D12_HIT_GROUP_DESC():
+    D3D12_HIT_GROUP_DESC = win32more.Graphics.Direct3D12.D3D12_HIT_GROUP_DESC_head
+    D3D12_HIT_GROUP_DESC._fields_ = [
+        ('HitGroupExport', win32more.Foundation.PWSTR),
+        ('Type', win32more.Graphics.Direct3D12.D3D12_HIT_GROUP_TYPE),
+        ('AnyHitShaderImport', win32more.Foundation.PWSTR),
+        ('ClosestHitShaderImport', win32more.Foundation.PWSTR),
+        ('IntersectionShaderImport', win32more.Foundation.PWSTR),
+    ]
+    return D3D12_HIT_GROUP_DESC
+D3D12_HIT_GROUP_TYPE = Int32
+D3D12_HIT_GROUP_TYPE_TRIANGLES = 0
+D3D12_HIT_GROUP_TYPE_PROCEDURAL_PRIMITIVE = 1
+D3D12_HIT_KIND = Int32
+D3D12_HIT_KIND_TRIANGLE_FRONT_FACE = 254
+D3D12_HIT_KIND_TRIANGLE_BACK_FACE = 255
+D3D12_INDEX_BUFFER_STRIP_CUT_VALUE = Int32
+D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED = 0
+D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFF = 1
+D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFFFFFF = 2
+def _define_D3D12_INDEX_BUFFER_VIEW_head():
+    class D3D12_INDEX_BUFFER_VIEW(Structure):
+        pass
+    return D3D12_INDEX_BUFFER_VIEW
+def _define_D3D12_INDEX_BUFFER_VIEW():
+    D3D12_INDEX_BUFFER_VIEW = win32more.Graphics.Direct3D12.D3D12_INDEX_BUFFER_VIEW_head
+    D3D12_INDEX_BUFFER_VIEW._fields_ = [
+        ('BufferLocation', UInt64),
+        ('SizeInBytes', UInt32),
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+    ]
+    return D3D12_INDEX_BUFFER_VIEW
+def _define_D3D12_INDIRECT_ARGUMENT_DESC_head():
+    class D3D12_INDIRECT_ARGUMENT_DESC(Structure):
+        pass
+    return D3D12_INDIRECT_ARGUMENT_DESC
+def _define_D3D12_INDIRECT_ARGUMENT_DESC():
+    D3D12_INDIRECT_ARGUMENT_DESC = win32more.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_DESC_head
+    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union(Union):
+        pass
+    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__VertexBuffer_e__Struct(Structure):
+        pass
+    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__VertexBuffer_e__Struct._fields_ = [
+        ('Slot', UInt32),
+    ]
+    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__Constant_e__Struct(Structure):
+        pass
+    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__Constant_e__Struct._fields_ = [
+        ('RootParameterIndex', UInt32),
+        ('DestOffsetIn32BitValues', UInt32),
+        ('Num32BitValuesToSet', UInt32),
+    ]
+    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ConstantBufferView_e__Struct(Structure):
+        pass
+    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ConstantBufferView_e__Struct._fields_ = [
+        ('RootParameterIndex', UInt32),
+    ]
+    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ShaderResourceView_e__Struct(Structure):
+        pass
+    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ShaderResourceView_e__Struct._fields_ = [
+        ('RootParameterIndex', UInt32),
+    ]
+    class D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__UnorderedAccessView_e__Struct(Structure):
+        pass
+    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__UnorderedAccessView_e__Struct._fields_ = [
+        ('RootParameterIndex', UInt32),
+    ]
+    D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union._fields_ = [
+        ('VertexBuffer', D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__VertexBuffer_e__Struct),
+        ('Constant', D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__Constant_e__Struct),
+        ('ConstantBufferView', D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ConstantBufferView_e__Struct),
+        ('ShaderResourceView', D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__ShaderResourceView_e__Struct),
+        ('UnorderedAccessView', D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union__UnorderedAccessView_e__Struct),
+    ]
+    D3D12_INDIRECT_ARGUMENT_DESC._anonymous_ = [
         'Anonymous',
     ]
-    D3D12_RENDER_PASS_BEGINNING_ACCESS._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE),
-        ("Anonymous", D3D12_RENDER_PASS_BEGINNING_ACCESS__Anonymous_e__Union),
+    D3D12_INDIRECT_ARGUMENT_DESC._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_TYPE),
+        ('Anonymous', D3D12_INDIRECT_ARGUMENT_DESC__Anonymous_e__Union),
     ]
-    return D3D12_RENDER_PASS_BEGINNING_ACCESS
-D3D12_RENDER_PASS_ENDING_ACCESS_TYPE = Int32
-D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_DISCARD = 0
-D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_PRESERVE = 1
-D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_RESOLVE = 2
-D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_NO_ACCESS = 3
-def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head():
-    class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS(Structure):
+    return D3D12_INDIRECT_ARGUMENT_DESC
+D3D12_INDIRECT_ARGUMENT_TYPE = Int32
+D3D12_INDIRECT_ARGUMENT_TYPE_DRAW = 0
+D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED = 1
+D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH = 2
+D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW = 3
+D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW = 4
+D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT = 5
+D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW = 6
+D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW = 7
+D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW = 8
+D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS = 9
+D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH = 10
+def _define_D3D12_INFO_QUEUE_FILTER_head():
+    class D3D12_INFO_QUEUE_FILTER(Structure):
         pass
-    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS
-def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS():
-    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head
-    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS._fields_ = [
-        ("SrcSubresource", UInt32),
-        ("DstSubresource", UInt32),
-        ("DstX", UInt32),
-        ("DstY", UInt32),
-        ("SrcRect", win32more.Foundation.RECT),
+    return D3D12_INFO_QUEUE_FILTER
+def _define_D3D12_INFO_QUEUE_FILTER():
+    D3D12_INFO_QUEUE_FILTER = win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head
+    D3D12_INFO_QUEUE_FILTER._fields_ = [
+        ('AllowList', win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_DESC),
+        ('DenyList', win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_DESC),
     ]
-    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS
-def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS_head():
-    class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS(Structure):
+    return D3D12_INFO_QUEUE_FILTER
+def _define_D3D12_INFO_QUEUE_FILTER_DESC_head():
+    class D3D12_INFO_QUEUE_FILTER_DESC(Structure):
         pass
-    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS
-def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS():
-    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS_head
-    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS._fields_ = [
-        ("pSrcResource", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-        ("pDstResource", win32more.Graphics.Direct3D12.ID3D12Resource_head),
-        ("SubresourceCount", UInt32),
-        ("pSubresourceParameters", POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head)),
-        ("Format", win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ("ResolveMode", win32more.Graphics.Direct3D12.D3D12_RESOLVE_MODE),
-        ("PreserveResolveSource", win32more.Foundation.BOOL),
+    return D3D12_INFO_QUEUE_FILTER_DESC
+def _define_D3D12_INFO_QUEUE_FILTER_DESC():
+    D3D12_INFO_QUEUE_FILTER_DESC = win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_DESC_head
+    D3D12_INFO_QUEUE_FILTER_DESC._fields_ = [
+        ('NumCategories', UInt32),
+        ('pCategoryList', POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY)),
+        ('NumSeverities', UInt32),
+        ('pSeverityList', POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY)),
+        ('NumIDs', UInt32),
+        ('pIDList', POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID)),
     ]
-    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS
-def _define_D3D12_RENDER_PASS_ENDING_ACCESS_head():
-    class D3D12_RENDER_PASS_ENDING_ACCESS(Structure):
+    return D3D12_INFO_QUEUE_FILTER_DESC
+D3D12_INPUT_CLASSIFICATION = Int32
+D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA = 0
+D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA = 1
+def _define_D3D12_INPUT_ELEMENT_DESC_head():
+    class D3D12_INPUT_ELEMENT_DESC(Structure):
         pass
-    return D3D12_RENDER_PASS_ENDING_ACCESS
-def _define_D3D12_RENDER_PASS_ENDING_ACCESS():
-    D3D12_RENDER_PASS_ENDING_ACCESS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_head
-    class D3D12_RENDER_PASS_ENDING_ACCESS__Anonymous_e__Union(Union):
+    return D3D12_INPUT_ELEMENT_DESC
+def _define_D3D12_INPUT_ELEMENT_DESC():
+    D3D12_INPUT_ELEMENT_DESC = win32more.Graphics.Direct3D12.D3D12_INPUT_ELEMENT_DESC_head
+    D3D12_INPUT_ELEMENT_DESC._fields_ = [
+        ('SemanticName', win32more.Foundation.PSTR),
+        ('SemanticIndex', UInt32),
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('InputSlot', UInt32),
+        ('AlignedByteOffset', UInt32),
+        ('InputSlotClass', win32more.Graphics.Direct3D12.D3D12_INPUT_CLASSIFICATION),
+        ('InstanceDataStepRate', UInt32),
+    ]
+    return D3D12_INPUT_ELEMENT_DESC
+def _define_D3D12_INPUT_LAYOUT_DESC_head():
+    class D3D12_INPUT_LAYOUT_DESC(Structure):
         pass
-    D3D12_RENDER_PASS_ENDING_ACCESS__Anonymous_e__Union._fields_ = [
-        ("Resolve", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS),
+    return D3D12_INPUT_LAYOUT_DESC
+def _define_D3D12_INPUT_LAYOUT_DESC():
+    D3D12_INPUT_LAYOUT_DESC = win32more.Graphics.Direct3D12.D3D12_INPUT_LAYOUT_DESC_head
+    D3D12_INPUT_LAYOUT_DESC._fields_ = [
+        ('pInputElementDescs', POINTER(win32more.Graphics.Direct3D12.D3D12_INPUT_ELEMENT_DESC_head)),
+        ('NumElements', UInt32),
     ]
-    D3D12_RENDER_PASS_ENDING_ACCESS._anonymous_ = [
-        'Anonymous',
-    ]
-    D3D12_RENDER_PASS_ENDING_ACCESS._fields_ = [
-        ("Type", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_TYPE),
-        ("Anonymous", D3D12_RENDER_PASS_ENDING_ACCESS__Anonymous_e__Union),
-    ]
-    return D3D12_RENDER_PASS_ENDING_ACCESS
-def _define_D3D12_RENDER_PASS_RENDER_TARGET_DESC_head():
-    class D3D12_RENDER_PASS_RENDER_TARGET_DESC(Structure):
+    return D3D12_INPUT_LAYOUT_DESC
+def _define_D3D12_LIBRARY_DESC_head():
+    class D3D12_LIBRARY_DESC(Structure):
         pass
-    return D3D12_RENDER_PASS_RENDER_TARGET_DESC
-def _define_D3D12_RENDER_PASS_RENDER_TARGET_DESC():
-    D3D12_RENDER_PASS_RENDER_TARGET_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_RENDER_TARGET_DESC_head
-    D3D12_RENDER_PASS_RENDER_TARGET_DESC._fields_ = [
-        ("cpuDescriptor", win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE),
-        ("BeginningAccess", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS),
-        ("EndingAccess", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS),
+    return D3D12_LIBRARY_DESC
+def _define_D3D12_LIBRARY_DESC():
+    D3D12_LIBRARY_DESC = win32more.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head
+    D3D12_LIBRARY_DESC._fields_ = [
+        ('Creator', win32more.Foundation.PSTR),
+        ('Flags', UInt32),
+        ('FunctionCount', UInt32),
     ]
-    return D3D12_RENDER_PASS_RENDER_TARGET_DESC
-def _define_D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head():
-    class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC(Structure):
+    return D3D12_LIBRARY_DESC
+D3D12_LIFETIME_STATE = Int32
+D3D12_LIFETIME_STATE_IN_USE = 0
+D3D12_LIFETIME_STATE_NOT_IN_USE = 1
+def _define_D3D12_LOCAL_ROOT_SIGNATURE_head():
+    class D3D12_LOCAL_ROOT_SIGNATURE(Structure):
         pass
-    return D3D12_RENDER_PASS_DEPTH_STENCIL_DESC
-def _define_D3D12_RENDER_PASS_DEPTH_STENCIL_DESC():
-    D3D12_RENDER_PASS_DEPTH_STENCIL_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head
-    D3D12_RENDER_PASS_DEPTH_STENCIL_DESC._fields_ = [
-        ("cpuDescriptor", win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE),
-        ("DepthBeginningAccess", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS),
-        ("StencilBeginningAccess", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS),
-        ("DepthEndingAccess", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS),
-        ("StencilEndingAccess", win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS),
+    return D3D12_LOCAL_ROOT_SIGNATURE
+def _define_D3D12_LOCAL_ROOT_SIGNATURE():
+    D3D12_LOCAL_ROOT_SIGNATURE = win32more.Graphics.Direct3D12.D3D12_LOCAL_ROOT_SIGNATURE_head
+    D3D12_LOCAL_ROOT_SIGNATURE._fields_ = [
+        ('pLocalRootSignature', win32more.Graphics.Direct3D12.ID3D12RootSignature_head),
     ]
-    return D3D12_RENDER_PASS_DEPTH_STENCIL_DESC
-D3D12_RENDER_PASS_FLAGS = UInt32
-D3D12_RENDER_PASS_FLAG_NONE = 0
-D3D12_RENDER_PASS_FLAG_ALLOW_UAV_WRITES = 1
-D3D12_RENDER_PASS_FLAG_SUSPENDING_PASS = 2
-D3D12_RENDER_PASS_FLAG_RESUMING_PASS = 4
-def _define_ID3D12MetaCommand_head():
-    class ID3D12MetaCommand(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
-        Guid = Guid('dbb84c27-36ce-4fc9-b801-f048c46ac570')
-    return ID3D12MetaCommand
-def _define_ID3D12MetaCommand():
-    ID3D12MetaCommand = win32more.Graphics.Direct3D12.ID3D12MetaCommand_head
-    ID3D12MetaCommand.GetRequiredParameterResourceSize = COMMETHOD(WINFUNCTYPE(UInt64,win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE,UInt32, use_last_error=False)(8, 'GetRequiredParameterResourceSize', ((1, 'Stage'),(1, 'ParameterIndex'),)))
-    win32more.Graphics.Direct3D12.ID3D12Pageable
-    return ID3D12MetaCommand
-def _define_D3D12_DISPATCH_RAYS_DESC_head():
-    class D3D12_DISPATCH_RAYS_DESC(Structure):
-        pass
-    return D3D12_DISPATCH_RAYS_DESC
-def _define_D3D12_DISPATCH_RAYS_DESC():
-    D3D12_DISPATCH_RAYS_DESC = win32more.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head
-    D3D12_DISPATCH_RAYS_DESC._fields_ = [
-        ("RayGenerationShaderRecord", win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE),
-        ("MissShaderTable", win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE),
-        ("HitGroupTable", win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE),
-        ("CallableShaderTable", win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE),
-        ("Width", UInt32),
-        ("Height", UInt32),
-        ("Depth", UInt32),
-    ]
-    return D3D12_DISPATCH_RAYS_DESC
-def _define_ID3D12GraphicsCommandList4_head():
-    class ID3D12GraphicsCommandList4(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3_head):
-        Guid = Guid('8754318e-d3a9-4541-98cf-645b50dc4874')
-    return ID3D12GraphicsCommandList4
-def _define_ID3D12GraphicsCommandList4():
-    ID3D12GraphicsCommandList4 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4_head
-    ID3D12GraphicsCommandList4.BeginRenderPass = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_RENDER_TARGET_DESC),POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head),win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_FLAGS, use_last_error=False)(68, 'BeginRenderPass', ((1, 'NumRenderTargets'),(1, 'pRenderTargets'),(1, 'pDepthStencil'),(1, 'Flags'),)))
-    ID3D12GraphicsCommandList4.EndRenderPass = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(69, 'EndRenderPass', ()))
-    ID3D12GraphicsCommandList4.InitializeMetaCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12MetaCommand_head,c_void_p,UIntPtr, use_last_error=False)(70, 'InitializeMetaCommand', ((1, 'pMetaCommand'),(1, 'pInitializationParametersData'),(1, 'InitializationParametersDataSizeInBytes'),)))
-    ID3D12GraphicsCommandList4.ExecuteMetaCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12MetaCommand_head,c_void_p,UIntPtr, use_last_error=False)(71, 'ExecuteMetaCommand', ((1, 'pMetaCommand'),(1, 'pExecutionParametersData'),(1, 'ExecutionParametersDataSizeInBytes'),)))
-    ID3D12GraphicsCommandList4.BuildRaytracingAccelerationStructure = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC), use_last_error=False)(72, 'BuildRaytracingAccelerationStructure', ((1, 'pDesc'),(1, 'NumPostbuildInfoDescs'),(1, 'pPostbuildInfoDescs'),)))
-    ID3D12GraphicsCommandList4.EmitRaytracingAccelerationStructurePostbuildInfo = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head),UInt32,POINTER(UInt64), use_last_error=False)(73, 'EmitRaytracingAccelerationStructurePostbuildInfo', ((1, 'pDesc'),(1, 'NumSourceAccelerationStructures'),(1, 'pSourceAccelerationStructureData'),)))
-    ID3D12GraphicsCommandList4.CopyRaytracingAccelerationStructure = COMMETHOD(WINFUNCTYPE(Void,UInt64,UInt64,win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE, use_last_error=False)(74, 'CopyRaytracingAccelerationStructure', ((1, 'DestAccelerationStructureData'),(1, 'SourceAccelerationStructureData'),(1, 'Mode'),)))
-    ID3D12GraphicsCommandList4.SetPipelineState1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12StateObject_head, use_last_error=False)(75, 'SetPipelineState1', ((1, 'pStateObject'),)))
-    ID3D12GraphicsCommandList4.DispatchRays = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head), use_last_error=False)(76, 'DispatchRays', ((1, 'pDesc'),)))
-    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3
-    return ID3D12GraphicsCommandList4
-D3D12_SHADER_CACHE_MODE = Int32
-D3D12_SHADER_CACHE_MODE_MEMORY = 0
-D3D12_SHADER_CACHE_MODE_DISK = 1
-D3D12_SHADER_CACHE_FLAGS = UInt32
-D3D12_SHADER_CACHE_FLAG_NONE = 0
-D3D12_SHADER_CACHE_FLAG_DRIVER_VERSIONED = 1
-D3D12_SHADER_CACHE_FLAG_USE_WORKING_DIR = 2
-def _define_D3D12_SHADER_CACHE_SESSION_DESC_head():
-    class D3D12_SHADER_CACHE_SESSION_DESC(Structure):
-        pass
-    return D3D12_SHADER_CACHE_SESSION_DESC
-def _define_D3D12_SHADER_CACHE_SESSION_DESC():
-    D3D12_SHADER_CACHE_SESSION_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC_head
-    D3D12_SHADER_CACHE_SESSION_DESC._fields_ = [
-        ("Identifier", Guid),
-        ("Mode", win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_MODE),
-        ("Flags", win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_FLAGS),
-        ("MaximumInMemoryCacheSizeBytes", UInt32),
-        ("MaximumInMemoryCacheEntries", UInt32),
-        ("MaximumValueFileSizeBytes", UInt32),
-        ("Version", UInt64),
-    ]
-    return D3D12_SHADER_CACHE_SESSION_DESC
-def _define_ID3D12ShaderCacheSession_head():
-    class ID3D12ShaderCacheSession(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
-        Guid = Guid('28e2495d-0f64-4ae4-a6ec-129255dc49a8')
-    return ID3D12ShaderCacheSession
-def _define_ID3D12ShaderCacheSession():
-    ID3D12ShaderCacheSession = win32more.Graphics.Direct3D12.ID3D12ShaderCacheSession_head
-    ID3D12ShaderCacheSession.FindValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,POINTER(UInt32), use_last_error=False)(8, 'FindValue', ((1, 'pKey'),(1, 'KeySize'),(1, 'pValue'),(1, 'pValueSize'),)))
-    ID3D12ShaderCacheSession.StoreValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,UInt32, use_last_error=False)(9, 'StoreValue', ((1, 'pKey'),(1, 'KeySize'),(1, 'pValue'),(1, 'ValueSize'),)))
-    ID3D12ShaderCacheSession.SetDeleteOnDestroy = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(10, 'SetDeleteOnDestroy', ()))
-    ID3D12ShaderCacheSession.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC, use_last_error=False)(11, 'GetDesc', ()))
-    win32more.Graphics.Direct3D12.ID3D12DeviceChild
-    return ID3D12ShaderCacheSession
-D3D12_SHADER_CACHE_KIND_FLAGS = UInt32
-D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CACHE_FOR_DRIVER = 1
-D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CONVERSIONS = 2
-D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_DRIVER_MANAGED = 4
-D3D12_SHADER_CACHE_KIND_FLAG_APPLICATION_MANAGED = 8
-D3D12_SHADER_CACHE_CONTROL_FLAGS = UInt32
-D3D12_SHADER_CACHE_CONTROL_FLAG_DISABLE = 1
-D3D12_SHADER_CACHE_CONTROL_FLAG_ENABLE = 2
-D3D12_SHADER_CACHE_CONTROL_FLAG_CLEAR = 4
-def _define_ID3D12Device9_head():
-    class ID3D12Device9(win32more.Graphics.Direct3D12.ID3D12Device8_head):
-        Guid = Guid('4c80e962-f032-4f60-bc9e-ebc2cfa1d83c')
-    return ID3D12Device9
-def _define_ID3D12Device9():
-    ID3D12Device9 = win32more.Graphics.Direct3D12.ID3D12Device9_head
-    ID3D12Device9.CreateShaderCacheSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(73, 'CreateShaderCacheSession', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvSession'),)))
-    ID3D12Device9.ShaderCacheControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_KIND_FLAGS,win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_CONTROL_FLAGS, use_last_error=False)(74, 'ShaderCacheControl', ((1, 'Kinds'),(1, 'Control'),)))
-    ID3D12Device9.CreateCommandQueue1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head),POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(75, 'CreateCommandQueue1', ((1, 'pDesc'),(1, 'CreatorID'),(1, 'riid'),(1, 'ppCommandQueue'),)))
-    win32more.Graphics.Direct3D12.ID3D12Device8
-    return ID3D12Device9
-def _define_ID3D12Tools_head():
-    class ID3D12Tools(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7071e1f0-e84b-4b33-974f-12fa49de65c5')
-    return ID3D12Tools
-def _define_ID3D12Tools():
-    ID3D12Tools = win32more.Graphics.Direct3D12.ID3D12Tools_head
-    ID3D12Tools.EnableShaderInstrumentation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(3, 'EnableShaderInstrumentation', ((1, 'bEnable'),)))
-    ID3D12Tools.ShaderInstrumentationEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(4, 'ShaderInstrumentationEnabled', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12Tools
-def _define_D3D12_SUBRESOURCE_DATA_head():
-    class D3D12_SUBRESOURCE_DATA(Structure):
-        pass
-    return D3D12_SUBRESOURCE_DATA
-def _define_D3D12_SUBRESOURCE_DATA():
-    D3D12_SUBRESOURCE_DATA = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_DATA_head
-    D3D12_SUBRESOURCE_DATA._fields_ = [
-        ("pData", c_void_p),
-        ("RowPitch", IntPtr),
-        ("SlicePitch", IntPtr),
-    ]
-    return D3D12_SUBRESOURCE_DATA
+    return D3D12_LOCAL_ROOT_SIGNATURE
+D3D12_LOGIC_OP = Int32
+D3D12_LOGIC_OP_CLEAR = 0
+D3D12_LOGIC_OP_SET = 1
+D3D12_LOGIC_OP_COPY = 2
+D3D12_LOGIC_OP_COPY_INVERTED = 3
+D3D12_LOGIC_OP_NOOP = 4
+D3D12_LOGIC_OP_INVERT = 5
+D3D12_LOGIC_OP_AND = 6
+D3D12_LOGIC_OP_NAND = 7
+D3D12_LOGIC_OP_OR = 8
+D3D12_LOGIC_OP_NOR = 9
+D3D12_LOGIC_OP_XOR = 10
+D3D12_LOGIC_OP_EQUIV = 11
+D3D12_LOGIC_OP_AND_REVERSE = 12
+D3D12_LOGIC_OP_AND_INVERTED = 13
+D3D12_LOGIC_OP_OR_REVERSE = 14
+D3D12_LOGIC_OP_OR_INVERTED = 15
+D3D12_MEASUREMENTS_ACTION = Int32
+D3D12_MEASUREMENTS_ACTION_KEEP_ALL = 0
+D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS = 1
+D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS_HIGH_PRIORITY = 2
+D3D12_MEASUREMENTS_ACTION_DISCARD_PREVIOUS = 3
 def _define_D3D12_MEMCPY_DEST_head():
     class D3D12_MEMCPY_DEST(Structure):
         pass
@@ -4891,218 +2415,35 @@ def _define_D3D12_MEMCPY_DEST_head():
 def _define_D3D12_MEMCPY_DEST():
     D3D12_MEMCPY_DEST = win32more.Graphics.Direct3D12.D3D12_MEMCPY_DEST_head
     D3D12_MEMCPY_DEST._fields_ = [
-        ("pData", c_void_p),
-        ("RowPitch", UIntPtr),
-        ("SlicePitch", UIntPtr),
+        ('pData', c_void_p),
+        ('RowPitch', UIntPtr),
+        ('SlicePitch', UIntPtr),
     ]
     return D3D12_MEMCPY_DEST
-def _define_ID3D12Debug_head():
-    class ID3D12Debug(win32more.System.Com.IUnknown_head):
-        Guid = Guid('344488b7-6846-474b-b989-f027448245e0')
-    return ID3D12Debug
-def _define_ID3D12Debug():
-    ID3D12Debug = win32more.Graphics.Direct3D12.ID3D12Debug_head
-    ID3D12Debug.EnableDebugLayer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'EnableDebugLayer', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12Debug
-D3D12_GPU_BASED_VALIDATION_FLAGS = Int32
-D3D12_GPU_BASED_VALIDATION_FLAGS_NONE = 0
-D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING = 1
-def _define_ID3D12Debug1_head():
-    class ID3D12Debug1(win32more.System.Com.IUnknown_head):
-        Guid = Guid('affaa4ca-63fe-4d8e-b8ad-159000af4304')
-    return ID3D12Debug1
-def _define_ID3D12Debug1():
-    ID3D12Debug1 = win32more.Graphics.Direct3D12.ID3D12Debug1_head
-    ID3D12Debug1.EnableDebugLayer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'EnableDebugLayer', ()))
-    ID3D12Debug1.SetEnableGPUBasedValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetEnableGPUBasedValidation', ((1, 'Enable'),)))
-    ID3D12Debug1.SetEnableSynchronizedCommandQueueValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetEnableSynchronizedCommandQueueValidation', ((1, 'Enable'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12Debug1
-def _define_ID3D12Debug2_head():
-    class ID3D12Debug2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('93a665c4-a3b2-4e5d-b692-a26ae14e3374')
-    return ID3D12Debug2
-def _define_ID3D12Debug2():
-    ID3D12Debug2 = win32more.Graphics.Direct3D12.ID3D12Debug2_head
-    ID3D12Debug2.SetGPUBasedValidationFlags = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS, use_last_error=False)(3, 'SetGPUBasedValidationFlags', ((1, 'Flags'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12Debug2
-def _define_ID3D12Debug3_head():
-    class ID3D12Debug3(win32more.Graphics.Direct3D12.ID3D12Debug_head):
-        Guid = Guid('5cf4e58f-f671-4ff1-a542-3686e3d153d1')
-    return ID3D12Debug3
-def _define_ID3D12Debug3():
-    ID3D12Debug3 = win32more.Graphics.Direct3D12.ID3D12Debug3_head
-    ID3D12Debug3.SetEnableGPUBasedValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetEnableGPUBasedValidation', ((1, 'Enable'),)))
-    ID3D12Debug3.SetEnableSynchronizedCommandQueueValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetEnableSynchronizedCommandQueueValidation', ((1, 'Enable'),)))
-    ID3D12Debug3.SetGPUBasedValidationFlags = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS, use_last_error=False)(6, 'SetGPUBasedValidationFlags', ((1, 'Flags'),)))
-    win32more.Graphics.Direct3D12.ID3D12Debug
-    return ID3D12Debug3
-def _define_ID3D12Debug4_head():
-    class ID3D12Debug4(win32more.Graphics.Direct3D12.ID3D12Debug3_head):
-        Guid = Guid('014b816e-9ec5-4a2f-a845-ffbe441ce13a')
-    return ID3D12Debug4
-def _define_ID3D12Debug4():
-    ID3D12Debug4 = win32more.Graphics.Direct3D12.ID3D12Debug4_head
-    ID3D12Debug4.DisableDebugLayer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(7, 'DisableDebugLayer', ()))
-    win32more.Graphics.Direct3D12.ID3D12Debug3
-    return ID3D12Debug4
-def _define_ID3D12Debug5_head():
-    class ID3D12Debug5(win32more.Graphics.Direct3D12.ID3D12Debug4_head):
-        Guid = Guid('548d6b12-09fa-40e0-9069-5dcd589a52c9')
-    return ID3D12Debug5
-def _define_ID3D12Debug5():
-    ID3D12Debug5 = win32more.Graphics.Direct3D12.ID3D12Debug5_head
-    ID3D12Debug5.SetEnableAutoName = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(8, 'SetEnableAutoName', ((1, 'Enable'),)))
-    win32more.Graphics.Direct3D12.ID3D12Debug4
-    return ID3D12Debug5
-D3D12_RLDO_FLAGS = Int32
-D3D12_RLDO_NONE = 0
-D3D12_RLDO_SUMMARY = 1
-D3D12_RLDO_DETAIL = 2
-D3D12_RLDO_IGNORE_INTERNAL = 4
-D3D12_DEBUG_DEVICE_PARAMETER_TYPE = Int32
-D3D12_DEBUG_DEVICE_PARAMETER_FEATURE_FLAGS = 0
-D3D12_DEBUG_DEVICE_PARAMETER_GPU_BASED_VALIDATION_SETTINGS = 1
-D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR = 2
-D3D12_DEBUG_FEATURE = Int32
-D3D12_DEBUG_FEATURE_NONE = 0
-D3D12_DEBUG_FEATURE_ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS = 1
-D3D12_DEBUG_FEATURE_CONSERVATIVE_RESOURCE_STATE_TRACKING = 2
-D3D12_DEBUG_FEATURE_DISABLE_VIRTUALIZED_BUNDLES_VALIDATION = 4
-D3D12_DEBUG_FEATURE_EMULATE_WINDOWS7 = 8
-D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE = Int32
-D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_NONE = 0
-D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_STATE_TRACKING_ONLY = 1
-D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_UNGUARDED_VALIDATION = 2
-D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_GUARDED_VALIDATION = 3
-NUM_D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODES = 4
-D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS = Int32
-D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_NONE = 0
-D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS = 1
-D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS = 2
-D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS = 4
-D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS_VALID_MASK = 7
-def _define_D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS_head():
-    class D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS(Structure):
+D3D12_MEMORY_POOL = Int32
+D3D12_MEMORY_POOL_UNKNOWN = 0
+D3D12_MEMORY_POOL_L0 = 1
+D3D12_MEMORY_POOL_L1 = 2
+D3D12_MESH_SHADER_TIER = Int32
+D3D12_MESH_SHADER_TIER_NOT_SUPPORTED = 0
+D3D12_MESH_SHADER_TIER_1 = 10
+def _define_D3D12_MESSAGE_head():
+    class D3D12_MESSAGE(Structure):
         pass
-    return D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS
-def _define_D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS():
-    D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS = win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS_head
-    D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS._fields_ = [
-        ("MaxMessagesPerCommandList", UInt32),
-        ("DefaultShaderPatchMode", win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE),
-        ("PipelineStateCreateFlags", win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS),
+    return D3D12_MESSAGE
+def _define_D3D12_MESSAGE():
+    D3D12_MESSAGE = win32more.Graphics.Direct3D12.D3D12_MESSAGE_head
+    D3D12_MESSAGE._fields_ = [
+        ('Category', win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY),
+        ('Severity', win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY),
+        ('ID', win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID),
+        ('pDescription', c_char_p_no),
+        ('DescriptionByteLength', UIntPtr),
     ]
-    return D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS
-def _define_D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR_head():
-    class D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR(Structure):
-        pass
-    return D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR
-def _define_D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR():
-    D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR = win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR_head
-    D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR._fields_ = [
-        ("SlowdownFactor", Single),
-    ]
-    return D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR
-def _define_ID3D12DebugDevice1_head():
-    class ID3D12DebugDevice1(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9b71770-d099-4a65-a698-3dee10020f88')
-    return ID3D12DebugDevice1
-def _define_ID3D12DebugDevice1():
-    ID3D12DebugDevice1 = win32more.Graphics.Direct3D12.ID3D12DebugDevice1_head
-    ID3D12DebugDevice1.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(3, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    ID3D12DebugDevice1.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(4, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    ID3D12DebugDevice1.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RLDO_FLAGS, use_last_error=False)(5, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12DebugDevice1
-def _define_ID3D12DebugDevice_head():
-    class ID3D12DebugDevice(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3febd6dd-4973-4787-8194-e45f9e28923e')
-    return ID3D12DebugDevice
-def _define_ID3D12DebugDevice():
-    ID3D12DebugDevice = win32more.Graphics.Direct3D12.ID3D12DebugDevice_head
-    ID3D12DebugDevice.SetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(3, 'SetFeatureMask', ((1, 'Mask'),)))
-    ID3D12DebugDevice.GetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(4, 'GetFeatureMask', ()))
-    ID3D12DebugDevice.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RLDO_FLAGS, use_last_error=False)(5, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12DebugDevice
-def _define_ID3D12DebugDevice2_head():
-    class ID3D12DebugDevice2(win32more.Graphics.Direct3D12.ID3D12DebugDevice_head):
-        Guid = Guid('60eccbc1-378d-4df1-894c-f8ac5ce4d7dd')
-    return ID3D12DebugDevice2
-def _define_ID3D12DebugDevice2():
-    ID3D12DebugDevice2 = win32more.Graphics.Direct3D12.ID3D12DebugDevice2_head
-    ID3D12DebugDevice2.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(6, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    ID3D12DebugDevice2.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(7, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    win32more.Graphics.Direct3D12.ID3D12DebugDevice
-    return ID3D12DebugDevice2
-def _define_ID3D12DebugCommandQueue_head():
-    class ID3D12DebugCommandQueue(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09e0bf36-54ac-484f-8847-4baeeab6053a')
-    return ID3D12DebugCommandQueue
-def _define_ID3D12DebugCommandQueue():
-    ID3D12DebugCommandQueue = win32more.Graphics.Direct3D12.ID3D12DebugCommandQueue_head
-    ID3D12DebugCommandQueue.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32, use_last_error=False)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12DebugCommandQueue
-D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE = Int32
-D3D12_DEBUG_COMMAND_LIST_PARAMETER_GPU_BASED_VALIDATION_SETTINGS = 0
-def _define_D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS_head():
-    class D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS(Structure):
-        pass
-    return D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS
-def _define_D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS():
-    D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS = win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS_head
-    D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS._fields_ = [
-        ("ShaderPatchMode", win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE),
-    ]
-    return D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS
-def _define_ID3D12DebugCommandList1_head():
-    class ID3D12DebugCommandList1(win32more.System.Com.IUnknown_head):
-        Guid = Guid('102ca951-311b-4b01-b11f-ecb83e061b37')
-    return ID3D12DebugCommandList1
-def _define_ID3D12DebugCommandList1():
-    ID3D12DebugCommandList1 = win32more.Graphics.Direct3D12.ID3D12DebugCommandList1_head
-    ID3D12DebugCommandList1.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32, use_last_error=False)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
-    ID3D12DebugCommandList1.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(4, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    ID3D12DebugCommandList1.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(5, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12DebugCommandList1
-def _define_ID3D12DebugCommandList_head():
-    class ID3D12DebugCommandList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09e0bf36-54ac-484f-8847-4baeeab6053f')
-    return ID3D12DebugCommandList
-def _define_ID3D12DebugCommandList():
-    ID3D12DebugCommandList = win32more.Graphics.Direct3D12.ID3D12DebugCommandList_head
-    ID3D12DebugCommandList.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32, use_last_error=False)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
-    ID3D12DebugCommandList.SetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(4, 'SetFeatureMask', ((1, 'Mask'),)))
-    ID3D12DebugCommandList.GetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(5, 'GetFeatureMask', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12DebugCommandList
-def _define_ID3D12DebugCommandList2_head():
-    class ID3D12DebugCommandList2(win32more.Graphics.Direct3D12.ID3D12DebugCommandList_head):
-        Guid = Guid('aeb575cf-4e06-48be-ba3b-c450fc96652e')
-    return ID3D12DebugCommandList2
-def _define_ID3D12DebugCommandList2():
-    ID3D12DebugCommandList2 = win32more.Graphics.Direct3D12.ID3D12DebugCommandList2_head
-    ID3D12DebugCommandList2.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(6, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    ID3D12DebugCommandList2.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(7, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
-    win32more.Graphics.Direct3D12.ID3D12DebugCommandList
-    return ID3D12DebugCommandList2
-def _define_ID3D12SharingContract_head():
-    class ID3D12SharingContract(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0adf7d52-929c-4e61-addb-ffed30de66ef')
-    return ID3D12SharingContract
-def _define_ID3D12SharingContract():
-    ID3D12SharingContract = win32more.Graphics.Direct3D12.ID3D12SharingContract_head
-    ID3D12SharingContract.Present = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,win32more.Foundation.HWND, use_last_error=False)(3, 'Present', ((1, 'pResource'),(1, 'Subresource'),(1, 'window'),)))
-    ID3D12SharingContract.SharedFenceSignal = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64, use_last_error=False)(4, 'SharedFenceSignal', ((1, 'pFence'),(1, 'FenceValue'),)))
-    ID3D12SharingContract.BeginCapturableWork = COMMETHOD(WINFUNCTYPE(Void,POINTER(Guid), use_last_error=False)(5, 'BeginCapturableWork', ((1, 'guid'),)))
-    ID3D12SharingContract.EndCapturableWork = COMMETHOD(WINFUNCTYPE(Void,POINTER(Guid), use_last_error=False)(6, 'EndCapturableWork', ((1, 'guid'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12SharingContract
+    return D3D12_MESSAGE
+D3D12_MESSAGE_CALLBACK_FLAGS = Int32
+D3D12_MESSAGE_CALLBACK_FLAG_NONE = 0
+D3D12_MESSAGE_CALLBACK_IGNORE_FILTERS = 1
 D3D12_MESSAGE_CATEGORY = Int32
 D3D12_MESSAGE_CATEGORY_APPLICATION_DEFINED = 0
 D3D12_MESSAGE_CATEGORY_MISCELLANEOUS = 1
@@ -5115,12 +2456,6 @@ D3D12_MESSAGE_CATEGORY_STATE_GETTING = 7
 D3D12_MESSAGE_CATEGORY_RESOURCE_MANIPULATION = 8
 D3D12_MESSAGE_CATEGORY_EXECUTION = 9
 D3D12_MESSAGE_CATEGORY_SHADER = 10
-D3D12_MESSAGE_SEVERITY = Int32
-D3D12_MESSAGE_SEVERITY_CORRUPTION = 0
-D3D12_MESSAGE_SEVERITY_ERROR = 1
-D3D12_MESSAGE_SEVERITY_WARNING = 2
-D3D12_MESSAGE_SEVERITY_INFO = 3
-D3D12_MESSAGE_SEVERITY_MESSAGE = 4
 D3D12_MESSAGE_ID = Int32
 D3D12_MESSAGE_ID_UNKNOWN = 0
 D3D12_MESSAGE_ID_STRING_FROM_APPLICATION = 1
@@ -6014,123 +3349,1403 @@ D3D12_MESSAGE_ID_SETTING_SHADING_RATE_FROM_MS_REQUIRES_CAPABILITY = 1325
 D3D12_MESSAGE_ID_SHADERCACHESESSION_SHADERCACHEDELETE_NOTSUPPORTED = 1326
 D3D12_MESSAGE_ID_SHADERCACHECONTROL_SHADERCACHECLEAR_NOTSUPPORTED = 1327
 D3D12_MESSAGE_ID_D3D12_MESSAGES_END = 1328
-def _define_D3D12_MESSAGE_head():
-    class D3D12_MESSAGE(Structure):
+D3D12_MESSAGE_SEVERITY = Int32
+D3D12_MESSAGE_SEVERITY_CORRUPTION = 0
+D3D12_MESSAGE_SEVERITY_ERROR = 1
+D3D12_MESSAGE_SEVERITY_WARNING = 2
+D3D12_MESSAGE_SEVERITY_INFO = 3
+D3D12_MESSAGE_SEVERITY_MESSAGE = 4
+def _define_D3D12_META_COMMAND_DESC_head():
+    class D3D12_META_COMMAND_DESC(Structure):
         pass
-    return D3D12_MESSAGE
-def _define_D3D12_MESSAGE():
-    D3D12_MESSAGE = win32more.Graphics.Direct3D12.D3D12_MESSAGE_head
-    D3D12_MESSAGE._fields_ = [
-        ("Category", win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY),
-        ("Severity", win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY),
-        ("ID", win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID),
-        ("pDescription", c_char_p_no),
-        ("DescriptionByteLength", UIntPtr),
+    return D3D12_META_COMMAND_DESC
+def _define_D3D12_META_COMMAND_DESC():
+    D3D12_META_COMMAND_DESC = win32more.Graphics.Direct3D12.D3D12_META_COMMAND_DESC_head
+    D3D12_META_COMMAND_DESC._fields_ = [
+        ('Id', Guid),
+        ('Name', win32more.Foundation.PWSTR),
+        ('InitializationDirtyState', win32more.Graphics.Direct3D12.D3D12_GRAPHICS_STATES),
+        ('ExecutionDirtyState', win32more.Graphics.Direct3D12.D3D12_GRAPHICS_STATES),
     ]
-    return D3D12_MESSAGE
-def _define_D3D12_INFO_QUEUE_FILTER_DESC_head():
-    class D3D12_INFO_QUEUE_FILTER_DESC(Structure):
+    return D3D12_META_COMMAND_DESC
+def _define_D3D12_META_COMMAND_PARAMETER_DESC_head():
+    class D3D12_META_COMMAND_PARAMETER_DESC(Structure):
         pass
-    return D3D12_INFO_QUEUE_FILTER_DESC
-def _define_D3D12_INFO_QUEUE_FILTER_DESC():
-    D3D12_INFO_QUEUE_FILTER_DESC = win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_DESC_head
-    D3D12_INFO_QUEUE_FILTER_DESC._fields_ = [
-        ("NumCategories", UInt32),
-        ("pCategoryList", POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY)),
-        ("NumSeverities", UInt32),
-        ("pSeverityList", POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY)),
-        ("NumIDs", UInt32),
-        ("pIDList", POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID)),
+    return D3D12_META_COMMAND_PARAMETER_DESC
+def _define_D3D12_META_COMMAND_PARAMETER_DESC():
+    D3D12_META_COMMAND_PARAMETER_DESC = win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_DESC_head
+    D3D12_META_COMMAND_PARAMETER_DESC._fields_ = [
+        ('Name', win32more.Foundation.PWSTR),
+        ('Type', win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_TYPE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_FLAGS),
+        ('RequiredResourceState', win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES),
+        ('StructureOffset', UInt32),
     ]
-    return D3D12_INFO_QUEUE_FILTER_DESC
-def _define_D3D12_INFO_QUEUE_FILTER_head():
-    class D3D12_INFO_QUEUE_FILTER(Structure):
+    return D3D12_META_COMMAND_PARAMETER_DESC
+D3D12_META_COMMAND_PARAMETER_FLAGS = UInt32
+D3D12_META_COMMAND_PARAMETER_FLAG_INPUT = 1
+D3D12_META_COMMAND_PARAMETER_FLAG_OUTPUT = 2
+D3D12_META_COMMAND_PARAMETER_STAGE = Int32
+D3D12_META_COMMAND_PARAMETER_STAGE_CREATION = 0
+D3D12_META_COMMAND_PARAMETER_STAGE_INITIALIZATION = 1
+D3D12_META_COMMAND_PARAMETER_STAGE_EXECUTION = 2
+D3D12_META_COMMAND_PARAMETER_TYPE = Int32
+D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT = 0
+D3D12_META_COMMAND_PARAMETER_TYPE_UINT64 = 1
+D3D12_META_COMMAND_PARAMETER_TYPE_GPU_VIRTUAL_ADDRESS = 2
+D3D12_META_COMMAND_PARAMETER_TYPE_CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV = 3
+D3D12_META_COMMAND_PARAMETER_TYPE_GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV = 4
+def _define_D3D12_MIP_REGION_head():
+    class D3D12_MIP_REGION(Structure):
         pass
-    return D3D12_INFO_QUEUE_FILTER
-def _define_D3D12_INFO_QUEUE_FILTER():
-    D3D12_INFO_QUEUE_FILTER = win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head
-    D3D12_INFO_QUEUE_FILTER._fields_ = [
-        ("AllowList", win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_DESC),
-        ("DenyList", win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_DESC),
+    return D3D12_MIP_REGION
+def _define_D3D12_MIP_REGION():
+    D3D12_MIP_REGION = win32more.Graphics.Direct3D12.D3D12_MIP_REGION_head
+    D3D12_MIP_REGION._fields_ = [
+        ('Width', UInt32),
+        ('Height', UInt32),
+        ('Depth', UInt32),
     ]
-    return D3D12_INFO_QUEUE_FILTER
-def _define_ID3D12InfoQueue_head():
-    class ID3D12InfoQueue(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0742a90b-c387-483f-b946-30a7e4e61458')
-    return ID3D12InfoQueue
-def _define_ID3D12InfoQueue():
-    ID3D12InfoQueue = win32more.Graphics.Direct3D12.ID3D12InfoQueue_head
-    ID3D12InfoQueue.SetMessageCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(3, 'SetMessageCountLimit', ((1, 'MessageCountLimit'),)))
-    ID3D12InfoQueue.ClearStoredMessages = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'ClearStoredMessages', ()))
-    ID3D12InfoQueue.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_head),POINTER(UIntPtr), use_last_error=False)(5, 'GetMessage', ((1, 'MessageIndex'),(1, 'pMessage'),(1, 'pMessageByteLength'),)))
-    ID3D12InfoQueue.GetNumMessagesAllowedByStorageFilter = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(6, 'GetNumMessagesAllowedByStorageFilter', ()))
-    ID3D12InfoQueue.GetNumMessagesDeniedByStorageFilter = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(7, 'GetNumMessagesDeniedByStorageFilter', ()))
-    ID3D12InfoQueue.GetNumStoredMessages = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(8, 'GetNumStoredMessages', ()))
-    ID3D12InfoQueue.GetNumStoredMessagesAllowedByRetrievalFilter = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(9, 'GetNumStoredMessagesAllowedByRetrievalFilter', ()))
-    ID3D12InfoQueue.GetNumMessagesDiscardedByMessageCountLimit = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(10, 'GetNumMessagesDiscardedByMessageCountLimit', ()))
-    ID3D12InfoQueue.GetMessageCountLimit = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(11, 'GetMessageCountLimit', ()))
-    ID3D12InfoQueue.AddStorageFilterEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head), use_last_error=False)(12, 'AddStorageFilterEntries', ((1, 'pFilter'),)))
-    ID3D12InfoQueue.GetStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head),POINTER(UIntPtr), use_last_error=False)(13, 'GetStorageFilter', ((1, 'pFilter'),(1, 'pFilterByteLength'),)))
-    ID3D12InfoQueue.ClearStorageFilter = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(14, 'ClearStorageFilter', ()))
-    ID3D12InfoQueue.PushEmptyStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'PushEmptyStorageFilter', ()))
-    ID3D12InfoQueue.PushCopyOfStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'PushCopyOfStorageFilter', ()))
-    ID3D12InfoQueue.PushStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head), use_last_error=False)(17, 'PushStorageFilter', ((1, 'pFilter'),)))
-    ID3D12InfoQueue.PopStorageFilter = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(18, 'PopStorageFilter', ()))
-    ID3D12InfoQueue.GetStorageFilterStackSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(19, 'GetStorageFilterStackSize', ()))
-    ID3D12InfoQueue.AddRetrievalFilterEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head), use_last_error=False)(20, 'AddRetrievalFilterEntries', ((1, 'pFilter'),)))
-    ID3D12InfoQueue.GetRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head),POINTER(UIntPtr), use_last_error=False)(21, 'GetRetrievalFilter', ((1, 'pFilter'),(1, 'pFilterByteLength'),)))
-    ID3D12InfoQueue.ClearRetrievalFilter = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(22, 'ClearRetrievalFilter', ()))
-    ID3D12InfoQueue.PushEmptyRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'PushEmptyRetrievalFilter', ()))
-    ID3D12InfoQueue.PushCopyOfRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'PushCopyOfRetrievalFilter', ()))
-    ID3D12InfoQueue.PushRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head), use_last_error=False)(25, 'PushRetrievalFilter', ((1, 'pFilter'),)))
-    ID3D12InfoQueue.PopRetrievalFilter = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(26, 'PopRetrievalFilter', ()))
-    ID3D12InfoQueue.GetRetrievalFilterStackSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(27, 'GetRetrievalFilterStackSize', ()))
-    ID3D12InfoQueue.AddMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID,win32more.Foundation.PSTR, use_last_error=False)(28, 'AddMessage', ((1, 'Category'),(1, 'Severity'),(1, 'ID'),(1, 'pDescription'),)))
-    ID3D12InfoQueue.AddApplicationMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Foundation.PSTR, use_last_error=False)(29, 'AddApplicationMessage', ((1, 'Severity'),(1, 'pDescription'),)))
-    ID3D12InfoQueue.SetBreakOnCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY,win32more.Foundation.BOOL, use_last_error=False)(30, 'SetBreakOnCategory', ((1, 'Category'),(1, 'bEnable'),)))
-    ID3D12InfoQueue.SetBreakOnSeverity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Foundation.BOOL, use_last_error=False)(31, 'SetBreakOnSeverity', ((1, 'Severity'),(1, 'bEnable'),)))
-    ID3D12InfoQueue.SetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID,win32more.Foundation.BOOL, use_last_error=False)(32, 'SetBreakOnID', ((1, 'ID'),(1, 'bEnable'),)))
-    ID3D12InfoQueue.GetBreakOnCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY, use_last_error=False)(33, 'GetBreakOnCategory', ((1, 'Category'),)))
-    ID3D12InfoQueue.GetBreakOnSeverity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY, use_last_error=False)(34, 'GetBreakOnSeverity', ((1, 'Severity'),)))
-    ID3D12InfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID, use_last_error=False)(35, 'GetBreakOnID', ((1, 'ID'),)))
-    ID3D12InfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(36, 'SetMuteDebugOutput', ((1, 'bMute'),)))
-    ID3D12InfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(37, 'GetMuteDebugOutput', ()))
-    win32more.System.Com.IUnknown
-    return ID3D12InfoQueue
-D3D12_MESSAGE_CALLBACK_FLAGS = Int32
-D3D12_MESSAGE_CALLBACK_FLAG_NONE = 0
-D3D12_MESSAGE_CALLBACK_IGNORE_FILTERS = 1
-def _define_D3D12MessageFunc():
-    return CFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID,win32more.Foundation.PSTR,c_void_p, use_last_error=False)
-def _define_ID3D12InfoQueue1_head():
-    class ID3D12InfoQueue1(win32more.Graphics.Direct3D12.ID3D12InfoQueue_head):
-        Guid = Guid('2852dd88-b484-4c0c-b6b1-67168500e600')
-    return ID3D12InfoQueue1
-def _define_ID3D12InfoQueue1():
-    ID3D12InfoQueue1 = win32more.Graphics.Direct3D12.ID3D12InfoQueue1_head
-    ID3D12InfoQueue1.RegisterMessageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12MessageFunc,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CALLBACK_FLAGS,c_void_p,POINTER(UInt32), use_last_error=False)(38, 'RegisterMessageCallback', ((1, 'CallbackFunc'),(1, 'CallbackFilterFlags'),(1, 'pContext'),(1, 'pCallbackCookie'),)))
-    ID3D12InfoQueue1.UnregisterMessageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(39, 'UnregisterMessageCallback', ((1, 'CallbackCookie'),)))
-    win32more.Graphics.Direct3D12.ID3D12InfoQueue
-    return ID3D12InfoQueue1
-def _define_PFN_D3D12_CREATE_DEVICE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
-def _define_PFN_D3D12_GET_DEBUG_INTERFACE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
-def _define_PFN_D3D12_GET_INTERFACE():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)
-def _define_ID3D12SDKConfiguration_head():
-    class ID3D12SDKConfiguration(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e9eb5314-33aa-42b2-a718-d77f58b1f1c7')
-    return ID3D12SDKConfiguration
-def _define_ID3D12SDKConfiguration():
-    ID3D12SDKConfiguration = win32more.Graphics.Direct3D12.ID3D12SDKConfiguration_head
-    ID3D12SDKConfiguration.SetSDKVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(3, 'SetSDKVersion', ((1, 'SDKVersion'),(1, 'SDKPath'),)))
-    win32more.System.Com.IUnknown
-    return ID3D12SDKConfiguration
-D3D12_AXIS_SHADING_RATE = Int32
-D3D12_AXIS_SHADING_RATE_1X = 0
-D3D12_AXIS_SHADING_RATE_2X = 1
-D3D12_AXIS_SHADING_RATE_4X = 2
+    return D3D12_MIP_REGION
+D3D12_MULTIPLE_FENCE_WAIT_FLAGS = UInt32
+D3D12_MULTIPLE_FENCE_WAIT_FLAG_NONE = 0
+D3D12_MULTIPLE_FENCE_WAIT_FLAG_ANY = 1
+D3D12_MULTIPLE_FENCE_WAIT_FLAG_ALL = 0
+D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS = UInt32
+D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE = 0
+D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_TILED_RESOURCE = 1
+def _define_D3D12_NODE_MASK_head():
+    class D3D12_NODE_MASK(Structure):
+        pass
+    return D3D12_NODE_MASK
+def _define_D3D12_NODE_MASK():
+    D3D12_NODE_MASK = win32more.Graphics.Direct3D12.D3D12_NODE_MASK_head
+    D3D12_NODE_MASK._fields_ = [
+        ('NodeMask', UInt32),
+    ]
+    return D3D12_NODE_MASK
+def _define_D3D12_PACKED_MIP_INFO_head():
+    class D3D12_PACKED_MIP_INFO(Structure):
+        pass
+    return D3D12_PACKED_MIP_INFO
+def _define_D3D12_PACKED_MIP_INFO():
+    D3D12_PACKED_MIP_INFO = win32more.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head
+    D3D12_PACKED_MIP_INFO._fields_ = [
+        ('NumStandardMips', Byte),
+        ('NumPackedMips', Byte),
+        ('NumTilesForPackedMips', UInt32),
+        ('StartTileIndexInOverallResource', UInt32),
+    ]
+    return D3D12_PACKED_MIP_INFO
+def _define_D3D12_PARAMETER_DESC_head():
+    class D3D12_PARAMETER_DESC(Structure):
+        pass
+    return D3D12_PARAMETER_DESC
+def _define_D3D12_PARAMETER_DESC():
+    D3D12_PARAMETER_DESC = win32more.Graphics.Direct3D12.D3D12_PARAMETER_DESC_head
+    D3D12_PARAMETER_DESC._fields_ = [
+        ('Name', win32more.Foundation.PSTR),
+        ('SemanticName', win32more.Foundation.PSTR),
+        ('Type', win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE),
+        ('Class', win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS),
+        ('Rows', UInt32),
+        ('Columns', UInt32),
+        ('InterpolationMode', win32more.Graphics.Direct3D.D3D_INTERPOLATION_MODE),
+        ('Flags', win32more.Graphics.Direct3D.D3D_PARAMETER_FLAGS),
+        ('FirstInRegister', UInt32),
+        ('FirstInComponent', UInt32),
+        ('FirstOutRegister', UInt32),
+        ('FirstOutComponent', UInt32),
+    ]
+    return D3D12_PARAMETER_DESC
+D3D12_PIPELINE_STATE_FLAGS = UInt32
+D3D12_PIPELINE_STATE_FLAG_NONE = 0
+D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG = 1
+def _define_D3D12_PIPELINE_STATE_STREAM_DESC_head():
+    class D3D12_PIPELINE_STATE_STREAM_DESC(Structure):
+        pass
+    return D3D12_PIPELINE_STATE_STREAM_DESC
+def _define_D3D12_PIPELINE_STATE_STREAM_DESC():
+    D3D12_PIPELINE_STATE_STREAM_DESC = win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head
+    D3D12_PIPELINE_STATE_STREAM_DESC._fields_ = [
+        ('SizeInBytes', UIntPtr),
+        ('pPipelineStateSubobjectStream', c_void_p),
+    ]
+    return D3D12_PIPELINE_STATE_STREAM_DESC
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE = Int32
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_ROOT_SIGNATURE = 0
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VS = 1
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PS = 2
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DS = 3
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_HS = 4
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_GS = 5
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CS = 6
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_STREAM_OUTPUT = 7
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_BLEND = 8
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_MASK = 9
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RASTERIZER = 10
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL = 11
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_INPUT_LAYOUT = 12
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_IB_STRIP_CUT_VALUE = 13
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PRIMITIVE_TOPOLOGY = 14
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RENDER_TARGET_FORMATS = 15
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL_FORMAT = 16
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_DESC = 17
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_NODE_MASK = 18
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CACHED_PSO = 19
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_FLAGS = 20
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL1 = 21
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VIEW_INSTANCING = 22
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_AS = 24
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MS = 25
+D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MAX_VALID = 26
+def _define_D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head():
+    class D3D12_PLACED_SUBRESOURCE_FOOTPRINT(Structure):
+        pass
+    return D3D12_PLACED_SUBRESOURCE_FOOTPRINT
+def _define_D3D12_PLACED_SUBRESOURCE_FOOTPRINT():
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT = win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT._fields_ = [
+        ('Offset', UInt64),
+        ('Footprint', win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_FOOTPRINT),
+    ]
+    return D3D12_PLACED_SUBRESOURCE_FOOTPRINT
+D3D12_PREDICATION_OP = Int32
+D3D12_PREDICATION_OP_EQUAL_ZERO = 0
+D3D12_PREDICATION_OP_NOT_EQUAL_ZERO = 1
+D3D12_PRIMITIVE_TOPOLOGY_TYPE = Int32
+D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED = 0
+D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT = 1
+D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE = 2
+D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE = 3
+D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH = 4
+D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER = Int32
+D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_NOT_SUPPORTED = 0
+D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_1 = 1
+D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_2 = 2
+def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC_head():
+    class D3D12_PROTECTED_RESOURCE_SESSION_DESC(Structure):
+        pass
+    return D3D12_PROTECTED_RESOURCE_SESSION_DESC
+def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC():
+    D3D12_PROTECTED_RESOURCE_SESSION_DESC = win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC_head
+    D3D12_PROTECTED_RESOURCE_SESSION_DESC._fields_ = [
+        ('NodeMask', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_FLAGS),
+    ]
+    return D3D12_PROTECTED_RESOURCE_SESSION_DESC
+def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head():
+    class D3D12_PROTECTED_RESOURCE_SESSION_DESC1(Structure):
+        pass
+    return D3D12_PROTECTED_RESOURCE_SESSION_DESC1
+def _define_D3D12_PROTECTED_RESOURCE_SESSION_DESC1():
+    D3D12_PROTECTED_RESOURCE_SESSION_DESC1 = win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head
+    D3D12_PROTECTED_RESOURCE_SESSION_DESC1._fields_ = [
+        ('NodeMask', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_FLAGS),
+        ('ProtectionType', Guid),
+    ]
+    return D3D12_PROTECTED_RESOURCE_SESSION_DESC1
+D3D12_PROTECTED_RESOURCE_SESSION_FLAGS = UInt32
+D3D12_PROTECTED_RESOURCE_SESSION_FLAG_NONE = 0
+D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS = UInt32
+D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE = 0
+D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_SUPPORTED = 1
+D3D12_PROTECTED_SESSION_STATUS = Int32
+D3D12_PROTECTED_SESSION_STATUS_OK = 0
+D3D12_PROTECTED_SESSION_STATUS_INVALID = 1
+def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS_head():
+    class D3D12_QUERY_DATA_PIPELINE_STATISTICS(Structure):
+        pass
+    return D3D12_QUERY_DATA_PIPELINE_STATISTICS
+def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS():
+    D3D12_QUERY_DATA_PIPELINE_STATISTICS = win32more.Graphics.Direct3D12.D3D12_QUERY_DATA_PIPELINE_STATISTICS_head
+    D3D12_QUERY_DATA_PIPELINE_STATISTICS._fields_ = [
+        ('IAVertices', UInt64),
+        ('IAPrimitives', UInt64),
+        ('VSInvocations', UInt64),
+        ('GSInvocations', UInt64),
+        ('GSPrimitives', UInt64),
+        ('CInvocations', UInt64),
+        ('CPrimitives', UInt64),
+        ('PSInvocations', UInt64),
+        ('HSInvocations', UInt64),
+        ('DSInvocations', UInt64),
+        ('CSInvocations', UInt64),
+    ]
+    return D3D12_QUERY_DATA_PIPELINE_STATISTICS
+def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS1_head():
+    class D3D12_QUERY_DATA_PIPELINE_STATISTICS1(Structure):
+        pass
+    return D3D12_QUERY_DATA_PIPELINE_STATISTICS1
+def _define_D3D12_QUERY_DATA_PIPELINE_STATISTICS1():
+    D3D12_QUERY_DATA_PIPELINE_STATISTICS1 = win32more.Graphics.Direct3D12.D3D12_QUERY_DATA_PIPELINE_STATISTICS1_head
+    D3D12_QUERY_DATA_PIPELINE_STATISTICS1._fields_ = [
+        ('IAVertices', UInt64),
+        ('IAPrimitives', UInt64),
+        ('VSInvocations', UInt64),
+        ('GSInvocations', UInt64),
+        ('GSPrimitives', UInt64),
+        ('CInvocations', UInt64),
+        ('CPrimitives', UInt64),
+        ('PSInvocations', UInt64),
+        ('HSInvocations', UInt64),
+        ('DSInvocations', UInt64),
+        ('CSInvocations', UInt64),
+        ('ASInvocations', UInt64),
+        ('MSInvocations', UInt64),
+        ('MSPrimitives', UInt64),
+    ]
+    return D3D12_QUERY_DATA_PIPELINE_STATISTICS1
+def _define_D3D12_QUERY_DATA_SO_STATISTICS_head():
+    class D3D12_QUERY_DATA_SO_STATISTICS(Structure):
+        pass
+    return D3D12_QUERY_DATA_SO_STATISTICS
+def _define_D3D12_QUERY_DATA_SO_STATISTICS():
+    D3D12_QUERY_DATA_SO_STATISTICS = win32more.Graphics.Direct3D12.D3D12_QUERY_DATA_SO_STATISTICS_head
+    D3D12_QUERY_DATA_SO_STATISTICS._fields_ = [
+        ('NumPrimitivesWritten', UInt64),
+        ('PrimitivesStorageNeeded', UInt64),
+    ]
+    return D3D12_QUERY_DATA_SO_STATISTICS
+def _define_D3D12_QUERY_HEAP_DESC_head():
+    class D3D12_QUERY_HEAP_DESC(Structure):
+        pass
+    return D3D12_QUERY_HEAP_DESC
+def _define_D3D12_QUERY_HEAP_DESC():
+    D3D12_QUERY_HEAP_DESC = win32more.Graphics.Direct3D12.D3D12_QUERY_HEAP_DESC_head
+    D3D12_QUERY_HEAP_DESC._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_QUERY_HEAP_TYPE),
+        ('Count', UInt32),
+        ('NodeMask', UInt32),
+    ]
+    return D3D12_QUERY_HEAP_DESC
+D3D12_QUERY_HEAP_TYPE = Int32
+D3D12_QUERY_HEAP_TYPE_OCCLUSION = 0
+D3D12_QUERY_HEAP_TYPE_TIMESTAMP = 1
+D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS = 2
+D3D12_QUERY_HEAP_TYPE_SO_STATISTICS = 3
+D3D12_QUERY_HEAP_TYPE_VIDEO_DECODE_STATISTICS = 4
+D3D12_QUERY_HEAP_TYPE_COPY_QUEUE_TIMESTAMP = 5
+D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS1 = 7
+D3D12_QUERY_TYPE = Int32
+D3D12_QUERY_TYPE_OCCLUSION = 0
+D3D12_QUERY_TYPE_BINARY_OCCLUSION = 1
+D3D12_QUERY_TYPE_TIMESTAMP = 2
+D3D12_QUERY_TYPE_PIPELINE_STATISTICS = 3
+D3D12_QUERY_TYPE_SO_STATISTICS_STREAM0 = 4
+D3D12_QUERY_TYPE_SO_STATISTICS_STREAM1 = 5
+D3D12_QUERY_TYPE_SO_STATISTICS_STREAM2 = 6
+D3D12_QUERY_TYPE_SO_STATISTICS_STREAM3 = 7
+D3D12_QUERY_TYPE_VIDEO_DECODE_STATISTICS = 8
+D3D12_QUERY_TYPE_PIPELINE_STATISTICS1 = 10
+def _define_D3D12_RANGE_head():
+    class D3D12_RANGE(Structure):
+        pass
+    return D3D12_RANGE
+def _define_D3D12_RANGE():
+    D3D12_RANGE = win32more.Graphics.Direct3D12.D3D12_RANGE_head
+    D3D12_RANGE._fields_ = [
+        ('Begin', UIntPtr),
+        ('End', UIntPtr),
+    ]
+    return D3D12_RANGE
+def _define_D3D12_RANGE_UINT64_head():
+    class D3D12_RANGE_UINT64(Structure):
+        pass
+    return D3D12_RANGE_UINT64
+def _define_D3D12_RANGE_UINT64():
+    D3D12_RANGE_UINT64 = win32more.Graphics.Direct3D12.D3D12_RANGE_UINT64_head
+    D3D12_RANGE_UINT64._fields_ = [
+        ('Begin', UInt64),
+        ('End', UInt64),
+    ]
+    return D3D12_RANGE_UINT64
+def _define_D3D12_RASTERIZER_DESC_head():
+    class D3D12_RASTERIZER_DESC(Structure):
+        pass
+    return D3D12_RASTERIZER_DESC
+def _define_D3D12_RASTERIZER_DESC():
+    D3D12_RASTERIZER_DESC = win32more.Graphics.Direct3D12.D3D12_RASTERIZER_DESC_head
+    D3D12_RASTERIZER_DESC._fields_ = [
+        ('FillMode', win32more.Graphics.Direct3D12.D3D12_FILL_MODE),
+        ('CullMode', win32more.Graphics.Direct3D12.D3D12_CULL_MODE),
+        ('FrontCounterClockwise', win32more.Foundation.BOOL),
+        ('DepthBias', Int32),
+        ('DepthBiasClamp', Single),
+        ('SlopeScaledDepthBias', Single),
+        ('DepthClipEnable', win32more.Foundation.BOOL),
+        ('MultisampleEnable', win32more.Foundation.BOOL),
+        ('AntialiasedLineEnable', win32more.Foundation.BOOL),
+        ('ForcedSampleCount', UInt32),
+        ('ConservativeRaster', win32more.Graphics.Direct3D12.D3D12_CONSERVATIVE_RASTERIZATION_MODE),
+    ]
+    return D3D12_RASTERIZER_DESC
+D3D12_RAY_FLAGS = UInt32
+D3D12_RAY_FLAG_NONE = 0
+D3D12_RAY_FLAG_FORCE_OPAQUE = 1
+D3D12_RAY_FLAG_FORCE_NON_OPAQUE = 2
+D3D12_RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH = 4
+D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER = 8
+D3D12_RAY_FLAG_CULL_BACK_FACING_TRIANGLES = 16
+D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES = 32
+D3D12_RAY_FLAG_CULL_OPAQUE = 64
+D3D12_RAY_FLAG_CULL_NON_OPAQUE = 128
+D3D12_RAY_FLAG_SKIP_TRIANGLES = 256
+D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES = 512
+def _define_D3D12_RAYTRACING_AABB_head():
+    class D3D12_RAYTRACING_AABB(Structure):
+        pass
+    return D3D12_RAYTRACING_AABB
+def _define_D3D12_RAYTRACING_AABB():
+    D3D12_RAYTRACING_AABB = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_AABB_head
+    D3D12_RAYTRACING_AABB._fields_ = [
+        ('MinX', Single),
+        ('MinY', Single),
+        ('MinZ', Single),
+        ('MaxX', Single),
+        ('MaxY', Single),
+        ('MaxZ', Single),
+    ]
+    return D3D12_RAYTRACING_AABB
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = UInt32
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_NONE = 0
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_UPDATE = 1
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_COMPACTION = 2
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_TRACE = 4
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_BUILD = 8
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_MINIMIZE_MEMORY = 16
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PERFORM_UPDATE = 32
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE = Int32
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_CLONE = 0
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_COMPACT = 1
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_VISUALIZATION_DECODE_FOR_TOOLS = 2
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_SERIALIZE = 3
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_DESERIALIZE = 4
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC._fields_ = [
+        ('CompactedSizeInBytes', UInt64),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC._fields_ = [
+        ('CurrentSizeInBytes', UInt64),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC._fields_ = [
+        ('DestBuffer', UInt64),
+        ('InfoType', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC._fields_ = [
+        ('SerializedSizeInBytes', UInt64),
+        ('NumBottomLevelAccelerationStructurePointers', UInt64),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC._fields_ = [
+        ('DecodedSizeInBytes', UInt64),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE = Int32
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE = 0
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION = 1
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION = 2
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE = 3
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO._fields_ = [
+        ('ResultDataMaxSizeInBytes', UInt64),
+        ('ScratchDataSizeInBytes', UInt64),
+        ('UpdateScratchDataSizeInBytes', UInt64),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV_head():
+    class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(Structure):
+        pass
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV
+def _define_D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV():
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV_head
+    D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV._fields_ = [
+        ('Location', UInt64),
+    ]
+    return D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE = Int32
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL = 0
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL = 1
+def _define_D3D12_RAYTRACING_GEOMETRY_AABBS_DESC_head():
+    class D3D12_RAYTRACING_GEOMETRY_AABBS_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_GEOMETRY_AABBS_DESC
+def _define_D3D12_RAYTRACING_GEOMETRY_AABBS_DESC():
+    D3D12_RAYTRACING_GEOMETRY_AABBS_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_AABBS_DESC_head
+    D3D12_RAYTRACING_GEOMETRY_AABBS_DESC._fields_ = [
+        ('AABBCount', UInt64),
+        ('AABBs', win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE),
+    ]
+    return D3D12_RAYTRACING_GEOMETRY_AABBS_DESC
+def _define_D3D12_RAYTRACING_GEOMETRY_DESC_head():
+    class D3D12_RAYTRACING_GEOMETRY_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_GEOMETRY_DESC
+def _define_D3D12_RAYTRACING_GEOMETRY_DESC():
+    D3D12_RAYTRACING_GEOMETRY_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head
+    class D3D12_RAYTRACING_GEOMETRY_DESC__Anonymous_e__Union(Union):
+        pass
+    D3D12_RAYTRACING_GEOMETRY_DESC__Anonymous_e__Union._fields_ = [
+        ('Triangles', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC),
+        ('AABBs', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_AABBS_DESC),
+    ]
+    D3D12_RAYTRACING_GEOMETRY_DESC._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_RAYTRACING_GEOMETRY_DESC._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TYPE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_FLAGS),
+        ('Anonymous', D3D12_RAYTRACING_GEOMETRY_DESC__Anonymous_e__Union),
+    ]
+    return D3D12_RAYTRACING_GEOMETRY_DESC
+D3D12_RAYTRACING_GEOMETRY_FLAGS = UInt32
+D3D12_RAYTRACING_GEOMETRY_FLAG_NONE = 0
+D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE = 1
+D3D12_RAYTRACING_GEOMETRY_FLAG_NO_DUPLICATE_ANYHIT_INVOCATION = 2
+def _define_D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC_head():
+    class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC
+def _define_D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC():
+    D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC_head
+    D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC._fields_ = [
+        ('Transform3x4', UInt64),
+        ('IndexFormat', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('VertexFormat', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('IndexCount', UInt32),
+        ('VertexCount', UInt32),
+        ('IndexBuffer', UInt64),
+        ('VertexBuffer', win32more.Graphics.Direct3D12.D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE),
+    ]
+    return D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC
+D3D12_RAYTRACING_GEOMETRY_TYPE = Int32
+D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES = 0
+D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS = 1
+def _define_D3D12_RAYTRACING_INSTANCE_DESC_head():
+    class D3D12_RAYTRACING_INSTANCE_DESC(Structure):
+        pass
+    return D3D12_RAYTRACING_INSTANCE_DESC
+def _define_D3D12_RAYTRACING_INSTANCE_DESC():
+    D3D12_RAYTRACING_INSTANCE_DESC = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_INSTANCE_DESC_head
+    D3D12_RAYTRACING_INSTANCE_DESC._fields_ = [
+        ('Transform', Single * 12),
+        ('_bitfield1', UInt32),
+        ('_bitfield2', UInt32),
+        ('AccelerationStructure', UInt64),
+    ]
+    return D3D12_RAYTRACING_INSTANCE_DESC
+D3D12_RAYTRACING_INSTANCE_FLAGS = UInt32
+D3D12_RAYTRACING_INSTANCE_FLAG_NONE = 0
+D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_CULL_DISABLE = 1
+D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_FRONT_COUNTERCLOCKWISE = 2
+D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OPAQUE = 4
+D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE = 8
+def _define_D3D12_RAYTRACING_PIPELINE_CONFIG_head():
+    class D3D12_RAYTRACING_PIPELINE_CONFIG(Structure):
+        pass
+    return D3D12_RAYTRACING_PIPELINE_CONFIG
+def _define_D3D12_RAYTRACING_PIPELINE_CONFIG():
+    D3D12_RAYTRACING_PIPELINE_CONFIG = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_PIPELINE_CONFIG_head
+    D3D12_RAYTRACING_PIPELINE_CONFIG._fields_ = [
+        ('MaxTraceRecursionDepth', UInt32),
+    ]
+    return D3D12_RAYTRACING_PIPELINE_CONFIG
+def _define_D3D12_RAYTRACING_PIPELINE_CONFIG1_head():
+    class D3D12_RAYTRACING_PIPELINE_CONFIG1(Structure):
+        pass
+    return D3D12_RAYTRACING_PIPELINE_CONFIG1
+def _define_D3D12_RAYTRACING_PIPELINE_CONFIG1():
+    D3D12_RAYTRACING_PIPELINE_CONFIG1 = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_PIPELINE_CONFIG1_head
+    D3D12_RAYTRACING_PIPELINE_CONFIG1._fields_ = [
+        ('MaxTraceRecursionDepth', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_PIPELINE_FLAGS),
+    ]
+    return D3D12_RAYTRACING_PIPELINE_CONFIG1
+D3D12_RAYTRACING_PIPELINE_FLAGS = UInt32
+D3D12_RAYTRACING_PIPELINE_FLAG_NONE = 0
+D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES = 256
+D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES = 512
+def _define_D3D12_RAYTRACING_SHADER_CONFIG_head():
+    class D3D12_RAYTRACING_SHADER_CONFIG(Structure):
+        pass
+    return D3D12_RAYTRACING_SHADER_CONFIG
+def _define_D3D12_RAYTRACING_SHADER_CONFIG():
+    D3D12_RAYTRACING_SHADER_CONFIG = win32more.Graphics.Direct3D12.D3D12_RAYTRACING_SHADER_CONFIG_head
+    D3D12_RAYTRACING_SHADER_CONFIG._fields_ = [
+        ('MaxPayloadSizeInBytes', UInt32),
+        ('MaxAttributeSizeInBytes', UInt32),
+    ]
+    return D3D12_RAYTRACING_SHADER_CONFIG
+D3D12_RAYTRACING_TIER = Int32
+D3D12_RAYTRACING_TIER_NOT_SUPPORTED = 0
+D3D12_RAYTRACING_TIER_1_0 = 10
+D3D12_RAYTRACING_TIER_1_1 = 11
+def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS_head():
+    class D3D12_RENDER_PASS_BEGINNING_ACCESS(Structure):
+        pass
+    return D3D12_RENDER_PASS_BEGINNING_ACCESS
+def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS():
+    D3D12_RENDER_PASS_BEGINNING_ACCESS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_head
+    class D3D12_RENDER_PASS_BEGINNING_ACCESS__Anonymous_e__Union(Union):
+        pass
+    D3D12_RENDER_PASS_BEGINNING_ACCESS__Anonymous_e__Union._fields_ = [
+        ('Clear', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS),
+    ]
+    D3D12_RENDER_PASS_BEGINNING_ACCESS._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_RENDER_PASS_BEGINNING_ACCESS._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE),
+        ('Anonymous', D3D12_RENDER_PASS_BEGINNING_ACCESS__Anonymous_e__Union),
+    ]
+    return D3D12_RENDER_PASS_BEGINNING_ACCESS
+def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS_head():
+    class D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS(Structure):
+        pass
+    return D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS
+def _define_D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS():
+    D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS_head
+    D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS._fields_ = [
+        ('ClearValue', win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE),
+    ]
+    return D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS
+D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE = Int32
+D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_DISCARD = 0
+D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_PRESERVE = 1
+D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_CLEAR = 2
+D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_NO_ACCESS = 3
+def _define_D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head():
+    class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC(Structure):
+        pass
+    return D3D12_RENDER_PASS_DEPTH_STENCIL_DESC
+def _define_D3D12_RENDER_PASS_DEPTH_STENCIL_DESC():
+    D3D12_RENDER_PASS_DEPTH_STENCIL_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head
+    D3D12_RENDER_PASS_DEPTH_STENCIL_DESC._fields_ = [
+        ('cpuDescriptor', win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE),
+        ('DepthBeginningAccess', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS),
+        ('StencilBeginningAccess', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS),
+        ('DepthEndingAccess', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS),
+        ('StencilEndingAccess', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS),
+    ]
+    return D3D12_RENDER_PASS_DEPTH_STENCIL_DESC
+def _define_D3D12_RENDER_PASS_ENDING_ACCESS_head():
+    class D3D12_RENDER_PASS_ENDING_ACCESS(Structure):
+        pass
+    return D3D12_RENDER_PASS_ENDING_ACCESS
+def _define_D3D12_RENDER_PASS_ENDING_ACCESS():
+    D3D12_RENDER_PASS_ENDING_ACCESS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_head
+    class D3D12_RENDER_PASS_ENDING_ACCESS__Anonymous_e__Union(Union):
+        pass
+    D3D12_RENDER_PASS_ENDING_ACCESS__Anonymous_e__Union._fields_ = [
+        ('Resolve', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS),
+    ]
+    D3D12_RENDER_PASS_ENDING_ACCESS._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_RENDER_PASS_ENDING_ACCESS._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_TYPE),
+        ('Anonymous', D3D12_RENDER_PASS_ENDING_ACCESS__Anonymous_e__Union),
+    ]
+    return D3D12_RENDER_PASS_ENDING_ACCESS
+def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS_head():
+    class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS(Structure):
+        pass
+    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS
+def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS():
+    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS_head
+    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS._fields_ = [
+        ('pSrcResource', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+        ('pDstResource', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+        ('SubresourceCount', UInt32),
+        ('pSubresourceParameters', POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head)),
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('ResolveMode', win32more.Graphics.Direct3D12.D3D12_RESOLVE_MODE),
+        ('PreserveResolveSource', win32more.Foundation.BOOL),
+    ]
+    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS
+def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head():
+    class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS(Structure):
+        pass
+    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS
+def _define_D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS():
+    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head
+    D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS._fields_ = [
+        ('SrcSubresource', UInt32),
+        ('DstSubresource', UInt32),
+        ('DstX', UInt32),
+        ('DstY', UInt32),
+        ('SrcRect', win32more.Foundation.RECT),
+    ]
+    return D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS
+D3D12_RENDER_PASS_ENDING_ACCESS_TYPE = Int32
+D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_DISCARD = 0
+D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_PRESERVE = 1
+D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_RESOLVE = 2
+D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_NO_ACCESS = 3
+D3D12_RENDER_PASS_FLAGS = UInt32
+D3D12_RENDER_PASS_FLAG_NONE = 0
+D3D12_RENDER_PASS_FLAG_ALLOW_UAV_WRITES = 1
+D3D12_RENDER_PASS_FLAG_SUSPENDING_PASS = 2
+D3D12_RENDER_PASS_FLAG_RESUMING_PASS = 4
+def _define_D3D12_RENDER_PASS_RENDER_TARGET_DESC_head():
+    class D3D12_RENDER_PASS_RENDER_TARGET_DESC(Structure):
+        pass
+    return D3D12_RENDER_PASS_RENDER_TARGET_DESC
+def _define_D3D12_RENDER_PASS_RENDER_TARGET_DESC():
+    D3D12_RENDER_PASS_RENDER_TARGET_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_RENDER_TARGET_DESC_head
+    D3D12_RENDER_PASS_RENDER_TARGET_DESC._fields_ = [
+        ('cpuDescriptor', win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE),
+        ('BeginningAccess', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS),
+        ('EndingAccess', win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS),
+    ]
+    return D3D12_RENDER_PASS_RENDER_TARGET_DESC
+D3D12_RENDER_PASS_TIER = Int32
+D3D12_RENDER_PASS_TIER_0 = 0
+D3D12_RENDER_PASS_TIER_1 = 1
+D3D12_RENDER_PASS_TIER_2 = 2
+def _define_D3D12_RENDER_TARGET_BLEND_DESC_head():
+    class D3D12_RENDER_TARGET_BLEND_DESC(Structure):
+        pass
+    return D3D12_RENDER_TARGET_BLEND_DESC
+def _define_D3D12_RENDER_TARGET_BLEND_DESC():
+    D3D12_RENDER_TARGET_BLEND_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_BLEND_DESC_head
+    D3D12_RENDER_TARGET_BLEND_DESC._fields_ = [
+        ('BlendEnable', win32more.Foundation.BOOL),
+        ('LogicOpEnable', win32more.Foundation.BOOL),
+        ('SrcBlend', win32more.Graphics.Direct3D12.D3D12_BLEND),
+        ('DestBlend', win32more.Graphics.Direct3D12.D3D12_BLEND),
+        ('BlendOp', win32more.Graphics.Direct3D12.D3D12_BLEND_OP),
+        ('SrcBlendAlpha', win32more.Graphics.Direct3D12.D3D12_BLEND),
+        ('DestBlendAlpha', win32more.Graphics.Direct3D12.D3D12_BLEND),
+        ('BlendOpAlpha', win32more.Graphics.Direct3D12.D3D12_BLEND_OP),
+        ('LogicOp', win32more.Graphics.Direct3D12.D3D12_LOGIC_OP),
+        ('RenderTargetWriteMask', Byte),
+    ]
+    return D3D12_RENDER_TARGET_BLEND_DESC
+def _define_D3D12_RENDER_TARGET_VIEW_DESC_head():
+    class D3D12_RENDER_TARGET_VIEW_DESC(Structure):
+        pass
+    return D3D12_RENDER_TARGET_VIEW_DESC
+def _define_D3D12_RENDER_TARGET_VIEW_DESC():
+    D3D12_RENDER_TARGET_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_VIEW_DESC_head
+    class D3D12_RENDER_TARGET_VIEW_DESC__Anonymous_e__Union(Union):
+        pass
+    D3D12_RENDER_TARGET_VIEW_DESC__Anonymous_e__Union._fields_ = [
+        ('Buffer', win32more.Graphics.Direct3D12.D3D12_BUFFER_RTV),
+        ('Texture1D', win32more.Graphics.Direct3D12.D3D12_TEX1D_RTV),
+        ('Texture1DArray', win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_RTV),
+        ('Texture2D', win32more.Graphics.Direct3D12.D3D12_TEX2D_RTV),
+        ('Texture2DArray', win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_RTV),
+        ('Texture2DMS', win32more.Graphics.Direct3D12.D3D12_TEX2DMS_RTV),
+        ('Texture2DMSArray', win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_RTV),
+        ('Texture3D', win32more.Graphics.Direct3D12.D3D12_TEX3D_RTV),
+    ]
+    D3D12_RENDER_TARGET_VIEW_DESC._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_RENDER_TARGET_VIEW_DESC._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('ViewDimension', win32more.Graphics.Direct3D12.D3D12_RTV_DIMENSION),
+        ('Anonymous', D3D12_RENDER_TARGET_VIEW_DESC__Anonymous_e__Union),
+    ]
+    return D3D12_RENDER_TARGET_VIEW_DESC
+D3D12_RESIDENCY_FLAGS = UInt32
+D3D12_RESIDENCY_FLAG_NONE = 0
+D3D12_RESIDENCY_FLAG_DENY_OVERBUDGET = 1
+D3D12_RESIDENCY_PRIORITY = Int32
+D3D12_RESIDENCY_PRIORITY_MINIMUM = 671088640
+D3D12_RESIDENCY_PRIORITY_LOW = 1342177280
+D3D12_RESIDENCY_PRIORITY_NORMAL = 2013265920
+D3D12_RESIDENCY_PRIORITY_HIGH = -1610547200
+D3D12_RESIDENCY_PRIORITY_MAXIMUM = -939524096
+D3D12_RESOLVE_MODE = Int32
+D3D12_RESOLVE_MODE_DECOMPRESS = 0
+D3D12_RESOLVE_MODE_MIN = 1
+D3D12_RESOLVE_MODE_MAX = 2
+D3D12_RESOLVE_MODE_AVERAGE = 3
+D3D12_RESOLVE_MODE_ENCODE_SAMPLER_FEEDBACK = 4
+D3D12_RESOLVE_MODE_DECODE_SAMPLER_FEEDBACK = 5
+def _define_D3D12_RESOURCE_ALIASING_BARRIER_head():
+    class D3D12_RESOURCE_ALIASING_BARRIER(Structure):
+        pass
+    return D3D12_RESOURCE_ALIASING_BARRIER
+def _define_D3D12_RESOURCE_ALIASING_BARRIER():
+    D3D12_RESOURCE_ALIASING_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALIASING_BARRIER_head
+    D3D12_RESOURCE_ALIASING_BARRIER._fields_ = [
+        ('pResourceBefore', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+        ('pResourceAfter', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+    ]
+    return D3D12_RESOURCE_ALIASING_BARRIER
+def _define_D3D12_RESOURCE_ALLOCATION_INFO_head():
+    class D3D12_RESOURCE_ALLOCATION_INFO(Structure):
+        pass
+    return D3D12_RESOURCE_ALLOCATION_INFO
+def _define_D3D12_RESOURCE_ALLOCATION_INFO():
+    D3D12_RESOURCE_ALLOCATION_INFO = win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO_head
+    D3D12_RESOURCE_ALLOCATION_INFO._fields_ = [
+        ('SizeInBytes', UInt64),
+        ('Alignment', UInt64),
+    ]
+    return D3D12_RESOURCE_ALLOCATION_INFO
+def _define_D3D12_RESOURCE_ALLOCATION_INFO1_head():
+    class D3D12_RESOURCE_ALLOCATION_INFO1(Structure):
+        pass
+    return D3D12_RESOURCE_ALLOCATION_INFO1
+def _define_D3D12_RESOURCE_ALLOCATION_INFO1():
+    D3D12_RESOURCE_ALLOCATION_INFO1 = win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head
+    D3D12_RESOURCE_ALLOCATION_INFO1._fields_ = [
+        ('Offset', UInt64),
+        ('Alignment', UInt64),
+        ('SizeInBytes', UInt64),
+    ]
+    return D3D12_RESOURCE_ALLOCATION_INFO1
+def _define_D3D12_RESOURCE_BARRIER_head():
+    class D3D12_RESOURCE_BARRIER(Structure):
+        pass
+    return D3D12_RESOURCE_BARRIER
+def _define_D3D12_RESOURCE_BARRIER():
+    D3D12_RESOURCE_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_head
+    class D3D12_RESOURCE_BARRIER__Anonymous_e__Union(Union):
+        pass
+    D3D12_RESOURCE_BARRIER__Anonymous_e__Union._fields_ = [
+        ('Transition', win32more.Graphics.Direct3D12.D3D12_RESOURCE_TRANSITION_BARRIER),
+        ('Aliasing', win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALIASING_BARRIER),
+        ('UAV', win32more.Graphics.Direct3D12.D3D12_RESOURCE_UAV_BARRIER),
+    ]
+    D3D12_RESOURCE_BARRIER._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_RESOURCE_BARRIER._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_TYPE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_FLAGS),
+        ('Anonymous', D3D12_RESOURCE_BARRIER__Anonymous_e__Union),
+    ]
+    return D3D12_RESOURCE_BARRIER
+D3D12_RESOURCE_BARRIER_FLAGS = UInt32
+D3D12_RESOURCE_BARRIER_FLAG_NONE = 0
+D3D12_RESOURCE_BARRIER_FLAG_BEGIN_ONLY = 1
+D3D12_RESOURCE_BARRIER_FLAG_END_ONLY = 2
+D3D12_RESOURCE_BARRIER_TYPE = Int32
+D3D12_RESOURCE_BARRIER_TYPE_TRANSITION = 0
+D3D12_RESOURCE_BARRIER_TYPE_ALIASING = 1
+D3D12_RESOURCE_BARRIER_TYPE_UAV = 2
+D3D12_RESOURCE_BINDING_TIER = Int32
+D3D12_RESOURCE_BINDING_TIER_1 = 1
+D3D12_RESOURCE_BINDING_TIER_2 = 2
+D3D12_RESOURCE_BINDING_TIER_3 = 3
+def _define_D3D12_RESOURCE_DESC_head():
+    class D3D12_RESOURCE_DESC(Structure):
+        pass
+    return D3D12_RESOURCE_DESC
+def _define_D3D12_RESOURCE_DESC():
+    D3D12_RESOURCE_DESC = win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head
+    D3D12_RESOURCE_DESC._fields_ = [
+        ('Dimension', win32more.Graphics.Direct3D12.D3D12_RESOURCE_DIMENSION),
+        ('Alignment', UInt64),
+        ('Width', UInt64),
+        ('Height', UInt32),
+        ('DepthOrArraySize', UInt16),
+        ('MipLevels', UInt16),
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('SampleDesc', win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
+        ('Layout', win32more.Graphics.Direct3D12.D3D12_TEXTURE_LAYOUT),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_RESOURCE_FLAGS),
+    ]
+    return D3D12_RESOURCE_DESC
+def _define_D3D12_RESOURCE_DESC1_head():
+    class D3D12_RESOURCE_DESC1(Structure):
+        pass
+    return D3D12_RESOURCE_DESC1
+def _define_D3D12_RESOURCE_DESC1():
+    D3D12_RESOURCE_DESC1 = win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head
+    D3D12_RESOURCE_DESC1._fields_ = [
+        ('Dimension', win32more.Graphics.Direct3D12.D3D12_RESOURCE_DIMENSION),
+        ('Alignment', UInt64),
+        ('Width', UInt64),
+        ('Height', UInt32),
+        ('DepthOrArraySize', UInt16),
+        ('MipLevels', UInt16),
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('SampleDesc', win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
+        ('Layout', win32more.Graphics.Direct3D12.D3D12_TEXTURE_LAYOUT),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_RESOURCE_FLAGS),
+        ('SamplerFeedbackMipRegion', win32more.Graphics.Direct3D12.D3D12_MIP_REGION),
+    ]
+    return D3D12_RESOURCE_DESC1
+D3D12_RESOURCE_DIMENSION = Int32
+D3D12_RESOURCE_DIMENSION_UNKNOWN = 0
+D3D12_RESOURCE_DIMENSION_BUFFER = 1
+D3D12_RESOURCE_DIMENSION_TEXTURE1D = 2
+D3D12_RESOURCE_DIMENSION_TEXTURE2D = 3
+D3D12_RESOURCE_DIMENSION_TEXTURE3D = 4
+D3D12_RESOURCE_FLAGS = UInt32
+D3D12_RESOURCE_FLAG_NONE = 0
+D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET = 1
+D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL = 2
+D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS = 4
+D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE = 8
+D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER = 16
+D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS = 32
+D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY = 64
+D3D12_RESOURCE_FLAG_VIDEO_ENCODE_REFERENCE_ONLY = 128
+D3D12_RESOURCE_HEAP_TIER = Int32
+D3D12_RESOURCE_HEAP_TIER_1 = 1
+D3D12_RESOURCE_HEAP_TIER_2 = 2
+D3D12_RESOURCE_STATES = UInt32
+D3D12_RESOURCE_STATE_COMMON = 0
+D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER = 1
+D3D12_RESOURCE_STATE_INDEX_BUFFER = 2
+D3D12_RESOURCE_STATE_RENDER_TARGET = 4
+D3D12_RESOURCE_STATE_UNORDERED_ACCESS = 8
+D3D12_RESOURCE_STATE_DEPTH_WRITE = 16
+D3D12_RESOURCE_STATE_DEPTH_READ = 32
+D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE = 64
+D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE = 128
+D3D12_RESOURCE_STATE_STREAM_OUT = 256
+D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT = 512
+D3D12_RESOURCE_STATE_COPY_DEST = 1024
+D3D12_RESOURCE_STATE_COPY_SOURCE = 2048
+D3D12_RESOURCE_STATE_RESOLVE_DEST = 4096
+D3D12_RESOURCE_STATE_RESOLVE_SOURCE = 8192
+D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE = 4194304
+D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE = 16777216
+D3D12_RESOURCE_STATE_GENERIC_READ = 2755
+D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE = 192
+D3D12_RESOURCE_STATE_PRESENT = 0
+D3D12_RESOURCE_STATE_PREDICATION = 512
+D3D12_RESOURCE_STATE_VIDEO_DECODE_READ = 65536
+D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE = 131072
+D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ = 262144
+D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE = 524288
+D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ = 2097152
+D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE = 8388608
+def _define_D3D12_RESOURCE_TRANSITION_BARRIER_head():
+    class D3D12_RESOURCE_TRANSITION_BARRIER(Structure):
+        pass
+    return D3D12_RESOURCE_TRANSITION_BARRIER
+def _define_D3D12_RESOURCE_TRANSITION_BARRIER():
+    D3D12_RESOURCE_TRANSITION_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_TRANSITION_BARRIER_head
+    D3D12_RESOURCE_TRANSITION_BARRIER._fields_ = [
+        ('pResource', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+        ('Subresource', UInt32),
+        ('StateBefore', win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES),
+        ('StateAfter', win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES),
+    ]
+    return D3D12_RESOURCE_TRANSITION_BARRIER
+def _define_D3D12_RESOURCE_UAV_BARRIER_head():
+    class D3D12_RESOURCE_UAV_BARRIER(Structure):
+        pass
+    return D3D12_RESOURCE_UAV_BARRIER
+def _define_D3D12_RESOURCE_UAV_BARRIER():
+    D3D12_RESOURCE_UAV_BARRIER = win32more.Graphics.Direct3D12.D3D12_RESOURCE_UAV_BARRIER_head
+    D3D12_RESOURCE_UAV_BARRIER._fields_ = [
+        ('pResource', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+    ]
+    return D3D12_RESOURCE_UAV_BARRIER
+D3D12_RLDO_FLAGS = Int32
+D3D12_RLDO_NONE = 0
+D3D12_RLDO_SUMMARY = 1
+D3D12_RLDO_DETAIL = 2
+D3D12_RLDO_IGNORE_INTERNAL = 4
+def _define_D3D12_ROOT_CONSTANTS_head():
+    class D3D12_ROOT_CONSTANTS(Structure):
+        pass
+    return D3D12_ROOT_CONSTANTS
+def _define_D3D12_ROOT_CONSTANTS():
+    D3D12_ROOT_CONSTANTS = win32more.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS_head
+    D3D12_ROOT_CONSTANTS._fields_ = [
+        ('ShaderRegister', UInt32),
+        ('RegisterSpace', UInt32),
+        ('Num32BitValues', UInt32),
+    ]
+    return D3D12_ROOT_CONSTANTS
+def _define_D3D12_ROOT_DESCRIPTOR_head():
+    class D3D12_ROOT_DESCRIPTOR(Structure):
+        pass
+    return D3D12_ROOT_DESCRIPTOR
+def _define_D3D12_ROOT_DESCRIPTOR():
+    D3D12_ROOT_DESCRIPTOR = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_head
+    D3D12_ROOT_DESCRIPTOR._fields_ = [
+        ('ShaderRegister', UInt32),
+        ('RegisterSpace', UInt32),
+    ]
+    return D3D12_ROOT_DESCRIPTOR
+D3D12_ROOT_DESCRIPTOR_FLAGS = UInt32
+D3D12_ROOT_DESCRIPTOR_FLAG_NONE = 0
+D3D12_ROOT_DESCRIPTOR_FLAG_DATA_VOLATILE = 2
+D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE = 4
+D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC = 8
+def _define_D3D12_ROOT_DESCRIPTOR_TABLE_head():
+    class D3D12_ROOT_DESCRIPTOR_TABLE(Structure):
+        pass
+    return D3D12_ROOT_DESCRIPTOR_TABLE
+def _define_D3D12_ROOT_DESCRIPTOR_TABLE():
+    D3D12_ROOT_DESCRIPTOR_TABLE = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE_head
+    D3D12_ROOT_DESCRIPTOR_TABLE._fields_ = [
+        ('NumDescriptorRanges', UInt32),
+        ('pDescriptorRanges', POINTER(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_head)),
+    ]
+    return D3D12_ROOT_DESCRIPTOR_TABLE
+def _define_D3D12_ROOT_DESCRIPTOR_TABLE1_head():
+    class D3D12_ROOT_DESCRIPTOR_TABLE1(Structure):
+        pass
+    return D3D12_ROOT_DESCRIPTOR_TABLE1
+def _define_D3D12_ROOT_DESCRIPTOR_TABLE1():
+    D3D12_ROOT_DESCRIPTOR_TABLE1 = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE1_head
+    D3D12_ROOT_DESCRIPTOR_TABLE1._fields_ = [
+        ('NumDescriptorRanges', UInt32),
+        ('pDescriptorRanges', POINTER(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE1_head)),
+    ]
+    return D3D12_ROOT_DESCRIPTOR_TABLE1
+def _define_D3D12_ROOT_DESCRIPTOR1_head():
+    class D3D12_ROOT_DESCRIPTOR1(Structure):
+        pass
+    return D3D12_ROOT_DESCRIPTOR1
+def _define_D3D12_ROOT_DESCRIPTOR1():
+    D3D12_ROOT_DESCRIPTOR1 = win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR1_head
+    D3D12_ROOT_DESCRIPTOR1._fields_ = [
+        ('ShaderRegister', UInt32),
+        ('RegisterSpace', UInt32),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_FLAGS),
+    ]
+    return D3D12_ROOT_DESCRIPTOR1
+def _define_D3D12_ROOT_PARAMETER_head():
+    class D3D12_ROOT_PARAMETER(Structure):
+        pass
+    return D3D12_ROOT_PARAMETER
+def _define_D3D12_ROOT_PARAMETER():
+    D3D12_ROOT_PARAMETER = win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_head
+    class D3D12_ROOT_PARAMETER__Anonymous_e__Union(Union):
+        pass
+    D3D12_ROOT_PARAMETER__Anonymous_e__Union._fields_ = [
+        ('DescriptorTable', win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE),
+        ('Constants', win32more.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS),
+        ('Descriptor', win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR),
+    ]
+    D3D12_ROOT_PARAMETER._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_ROOT_PARAMETER._fields_ = [
+        ('ParameterType', win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE),
+        ('Anonymous', D3D12_ROOT_PARAMETER__Anonymous_e__Union),
+        ('ShaderVisibility', win32more.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY),
+    ]
+    return D3D12_ROOT_PARAMETER
+D3D12_ROOT_PARAMETER_TYPE = Int32
+D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE = 0
+D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS = 1
+D3D12_ROOT_PARAMETER_TYPE_CBV = 2
+D3D12_ROOT_PARAMETER_TYPE_SRV = 3
+D3D12_ROOT_PARAMETER_TYPE_UAV = 4
+def _define_D3D12_ROOT_PARAMETER1_head():
+    class D3D12_ROOT_PARAMETER1(Structure):
+        pass
+    return D3D12_ROOT_PARAMETER1
+def _define_D3D12_ROOT_PARAMETER1():
+    D3D12_ROOT_PARAMETER1 = win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1_head
+    class D3D12_ROOT_PARAMETER1__Anonymous_e__Union(Union):
+        pass
+    D3D12_ROOT_PARAMETER1__Anonymous_e__Union._fields_ = [
+        ('DescriptorTable', win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE1),
+        ('Constants', win32more.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS),
+        ('Descriptor', win32more.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR1),
+    ]
+    D3D12_ROOT_PARAMETER1._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_ROOT_PARAMETER1._fields_ = [
+        ('ParameterType', win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE),
+        ('Anonymous', D3D12_ROOT_PARAMETER1__Anonymous_e__Union),
+        ('ShaderVisibility', win32more.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY),
+    ]
+    return D3D12_ROOT_PARAMETER1
+def _define_D3D12_ROOT_SIGNATURE_DESC_head():
+    class D3D12_ROOT_SIGNATURE_DESC(Structure):
+        pass
+    return D3D12_ROOT_SIGNATURE_DESC
+def _define_D3D12_ROOT_SIGNATURE_DESC():
+    D3D12_ROOT_SIGNATURE_DESC = win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head
+    D3D12_ROOT_SIGNATURE_DESC._fields_ = [
+        ('NumParameters', UInt32),
+        ('pParameters', POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_head)),
+        ('NumStaticSamplers', UInt32),
+        ('pStaticSamplers', POINTER(win32more.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head)),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS),
+    ]
+    return D3D12_ROOT_SIGNATURE_DESC
+def _define_D3D12_ROOT_SIGNATURE_DESC1_head():
+    class D3D12_ROOT_SIGNATURE_DESC1(Structure):
+        pass
+    return D3D12_ROOT_SIGNATURE_DESC1
+def _define_D3D12_ROOT_SIGNATURE_DESC1():
+    D3D12_ROOT_SIGNATURE_DESC1 = win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC1_head
+    D3D12_ROOT_SIGNATURE_DESC1._fields_ = [
+        ('NumParameters', UInt32),
+        ('pParameters', POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1_head)),
+        ('NumStaticSamplers', UInt32),
+        ('pStaticSamplers', POINTER(win32more.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head)),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS),
+    ]
+    return D3D12_ROOT_SIGNATURE_DESC1
+D3D12_ROOT_SIGNATURE_FLAGS = UInt32
+D3D12_ROOT_SIGNATURE_FLAG_NONE = 0
+D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT = 1
+D3D12_ROOT_SIGNATURE_FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS = 2
+D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS = 4
+D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS = 8
+D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS = 16
+D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS = 32
+D3D12_ROOT_SIGNATURE_FLAG_ALLOW_STREAM_OUTPUT = 64
+D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE = 128
+D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS = 256
+D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS = 512
+D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED = 1024
+D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED = 2048
+def _define_D3D12_RT_FORMAT_ARRAY_head():
+    class D3D12_RT_FORMAT_ARRAY(Structure):
+        pass
+    return D3D12_RT_FORMAT_ARRAY
+def _define_D3D12_RT_FORMAT_ARRAY():
+    D3D12_RT_FORMAT_ARRAY = win32more.Graphics.Direct3D12.D3D12_RT_FORMAT_ARRAY_head
+    D3D12_RT_FORMAT_ARRAY._fields_ = [
+        ('RTFormats', win32more.Graphics.Dxgi.Common.DXGI_FORMAT * 8),
+        ('NumRenderTargets', UInt32),
+    ]
+    return D3D12_RT_FORMAT_ARRAY
+D3D12_RTV_DIMENSION = Int32
+D3D12_RTV_DIMENSION_UNKNOWN = 0
+D3D12_RTV_DIMENSION_BUFFER = 1
+D3D12_RTV_DIMENSION_TEXTURE1D = 2
+D3D12_RTV_DIMENSION_TEXTURE1DARRAY = 3
+D3D12_RTV_DIMENSION_TEXTURE2D = 4
+D3D12_RTV_DIMENSION_TEXTURE2DARRAY = 5
+D3D12_RTV_DIMENSION_TEXTURE2DMS = 6
+D3D12_RTV_DIMENSION_TEXTURE2DMSARRAY = 7
+D3D12_RTV_DIMENSION_TEXTURE3D = 8
+def _define_D3D12_SAMPLE_POSITION_head():
+    class D3D12_SAMPLE_POSITION(Structure):
+        pass
+    return D3D12_SAMPLE_POSITION
+def _define_D3D12_SAMPLE_POSITION():
+    D3D12_SAMPLE_POSITION = win32more.Graphics.Direct3D12.D3D12_SAMPLE_POSITION_head
+    D3D12_SAMPLE_POSITION._fields_ = [
+        ('X', SByte),
+        ('Y', SByte),
+    ]
+    return D3D12_SAMPLE_POSITION
+def _define_D3D12_SAMPLER_DESC_head():
+    class D3D12_SAMPLER_DESC(Structure):
+        pass
+    return D3D12_SAMPLER_DESC
+def _define_D3D12_SAMPLER_DESC():
+    D3D12_SAMPLER_DESC = win32more.Graphics.Direct3D12.D3D12_SAMPLER_DESC_head
+    D3D12_SAMPLER_DESC._fields_ = [
+        ('Filter', win32more.Graphics.Direct3D12.D3D12_FILTER),
+        ('AddressU', win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
+        ('AddressV', win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
+        ('AddressW', win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
+        ('MipLODBias', Single),
+        ('MaxAnisotropy', UInt32),
+        ('ComparisonFunc', win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
+        ('BorderColor', Single * 4),
+        ('MinLOD', Single),
+        ('MaxLOD', Single),
+    ]
+    return D3D12_SAMPLER_DESC
+D3D12_SAMPLER_FEEDBACK_TIER = Int32
+D3D12_SAMPLER_FEEDBACK_TIER_NOT_SUPPORTED = 0
+D3D12_SAMPLER_FEEDBACK_TIER_0_9 = 90
+D3D12_SAMPLER_FEEDBACK_TIER_1_0 = 100
+def _define_D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head():
+    class D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER(Structure):
+        pass
+    return D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER
+def _define_D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER():
+    D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER = win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head
+    D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER._fields_ = [
+        ('DriverOpaqueGUID', Guid),
+        ('DriverOpaqueVersioningData', Byte * 16),
+    ]
+    return D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER
+D3D12_SERIALIZED_DATA_TYPE = Int32
+D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE = 0
+def _define_D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_head():
+    class D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER(Structure):
+        pass
+    return D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER
+def _define_D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER():
+    D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER = win32more.Graphics.Direct3D12.D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_head
+    D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER._fields_ = [
+        ('DriverMatchingIdentifier', win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER),
+        ('SerializedSizeInBytesIncludingHeader', UInt64),
+        ('DeserializedSizeInBytes', UInt64),
+        ('NumBottomLevelAccelerationStructurePointersAfterHeader', UInt64),
+    ]
+    return D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER
+def _define_D3D12_SHADER_BUFFER_DESC_head():
+    class D3D12_SHADER_BUFFER_DESC(Structure):
+        pass
+    return D3D12_SHADER_BUFFER_DESC
+def _define_D3D12_SHADER_BUFFER_DESC():
+    D3D12_SHADER_BUFFER_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_BUFFER_DESC_head
+    D3D12_SHADER_BUFFER_DESC._fields_ = [
+        ('Name', win32more.Foundation.PSTR),
+        ('Type', win32more.Graphics.Direct3D.D3D_CBUFFER_TYPE),
+        ('Variables', UInt32),
+        ('Size', UInt32),
+        ('uFlags', UInt32),
+    ]
+    return D3D12_SHADER_BUFFER_DESC
+def _define_D3D12_SHADER_BYTECODE_head():
+    class D3D12_SHADER_BYTECODE(Structure):
+        pass
+    return D3D12_SHADER_BYTECODE
+def _define_D3D12_SHADER_BYTECODE():
+    D3D12_SHADER_BYTECODE = win32more.Graphics.Direct3D12.D3D12_SHADER_BYTECODE_head
+    D3D12_SHADER_BYTECODE._fields_ = [
+        ('pShaderBytecode', c_void_p),
+        ('BytecodeLength', UIntPtr),
+    ]
+    return D3D12_SHADER_BYTECODE
+D3D12_SHADER_CACHE_CONTROL_FLAGS = UInt32
+D3D12_SHADER_CACHE_CONTROL_FLAG_DISABLE = 1
+D3D12_SHADER_CACHE_CONTROL_FLAG_ENABLE = 2
+D3D12_SHADER_CACHE_CONTROL_FLAG_CLEAR = 4
+D3D12_SHADER_CACHE_FLAGS = UInt32
+D3D12_SHADER_CACHE_FLAG_NONE = 0
+D3D12_SHADER_CACHE_FLAG_DRIVER_VERSIONED = 1
+D3D12_SHADER_CACHE_FLAG_USE_WORKING_DIR = 2
+D3D12_SHADER_CACHE_KIND_FLAGS = UInt32
+D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CACHE_FOR_DRIVER = 1
+D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CONVERSIONS = 2
+D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_DRIVER_MANAGED = 4
+D3D12_SHADER_CACHE_KIND_FLAG_APPLICATION_MANAGED = 8
+D3D12_SHADER_CACHE_MODE = Int32
+D3D12_SHADER_CACHE_MODE_MEMORY = 0
+D3D12_SHADER_CACHE_MODE_DISK = 1
+def _define_D3D12_SHADER_CACHE_SESSION_DESC_head():
+    class D3D12_SHADER_CACHE_SESSION_DESC(Structure):
+        pass
+    return D3D12_SHADER_CACHE_SESSION_DESC
+def _define_D3D12_SHADER_CACHE_SESSION_DESC():
+    D3D12_SHADER_CACHE_SESSION_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC_head
+    D3D12_SHADER_CACHE_SESSION_DESC._fields_ = [
+        ('Identifier', Guid),
+        ('Mode', win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_MODE),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_FLAGS),
+        ('MaximumInMemoryCacheSizeBytes', UInt32),
+        ('MaximumInMemoryCacheEntries', UInt32),
+        ('MaximumValueFileSizeBytes', UInt32),
+        ('Version', UInt64),
+    ]
+    return D3D12_SHADER_CACHE_SESSION_DESC
+D3D12_SHADER_CACHE_SUPPORT_FLAGS = UInt32
+D3D12_SHADER_CACHE_SUPPORT_NONE = 0
+D3D12_SHADER_CACHE_SUPPORT_SINGLE_PSO = 1
+D3D12_SHADER_CACHE_SUPPORT_LIBRARY = 2
+D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_INPROC_CACHE = 4
+D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_DISK_CACHE = 8
+D3D12_SHADER_CACHE_SUPPORT_DRIVER_MANAGED_CACHE = 16
+D3D12_SHADER_CACHE_SUPPORT_SHADER_CONTROL_CLEAR = 32
+D3D12_SHADER_CACHE_SUPPORT_SHADER_SESSION_DELETE = 64
+D3D12_SHADER_COMPONENT_MAPPING = Int32
+D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0 = 0
+D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1 = 1
+D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2 = 2
+D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_3 = 3
+D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_0 = 4
+D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1 = 5
+def _define_D3D12_SHADER_DESC_head():
+    class D3D12_SHADER_DESC(Structure):
+        pass
+    return D3D12_SHADER_DESC
+def _define_D3D12_SHADER_DESC():
+    D3D12_SHADER_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_DESC_head
+    D3D12_SHADER_DESC._fields_ = [
+        ('Version', UInt32),
+        ('Creator', win32more.Foundation.PSTR),
+        ('Flags', UInt32),
+        ('ConstantBuffers', UInt32),
+        ('BoundResources', UInt32),
+        ('InputParameters', UInt32),
+        ('OutputParameters', UInt32),
+        ('InstructionCount', UInt32),
+        ('TempRegisterCount', UInt32),
+        ('TempArrayCount', UInt32),
+        ('DefCount', UInt32),
+        ('DclCount', UInt32),
+        ('TextureNormalInstructions', UInt32),
+        ('TextureLoadInstructions', UInt32),
+        ('TextureCompInstructions', UInt32),
+        ('TextureBiasInstructions', UInt32),
+        ('TextureGradientInstructions', UInt32),
+        ('FloatInstructionCount', UInt32),
+        ('IntInstructionCount', UInt32),
+        ('UintInstructionCount', UInt32),
+        ('StaticFlowControlCount', UInt32),
+        ('DynamicFlowControlCount', UInt32),
+        ('MacroInstructionCount', UInt32),
+        ('ArrayInstructionCount', UInt32),
+        ('CutInstructionCount', UInt32),
+        ('EmitInstructionCount', UInt32),
+        ('GSOutputTopology', win32more.Graphics.Direct3D.D3D_PRIMITIVE_TOPOLOGY),
+        ('GSMaxOutputVertexCount', UInt32),
+        ('InputPrimitive', win32more.Graphics.Direct3D.D3D_PRIMITIVE),
+        ('PatchConstantParameters', UInt32),
+        ('cGSInstanceCount', UInt32),
+        ('cControlPoints', UInt32),
+        ('HSOutputPrimitive', win32more.Graphics.Direct3D.D3D_TESSELLATOR_OUTPUT_PRIMITIVE),
+        ('HSPartitioning', win32more.Graphics.Direct3D.D3D_TESSELLATOR_PARTITIONING),
+        ('TessellatorDomain', win32more.Graphics.Direct3D.D3D_TESSELLATOR_DOMAIN),
+        ('cBarrierInstructions', UInt32),
+        ('cInterlockedInstructions', UInt32),
+        ('cTextureStoreInstructions', UInt32),
+    ]
+    return D3D12_SHADER_DESC
+def _define_D3D12_SHADER_INPUT_BIND_DESC_head():
+    class D3D12_SHADER_INPUT_BIND_DESC(Structure):
+        pass
+    return D3D12_SHADER_INPUT_BIND_DESC
+def _define_D3D12_SHADER_INPUT_BIND_DESC():
+    D3D12_SHADER_INPUT_BIND_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head
+    D3D12_SHADER_INPUT_BIND_DESC._fields_ = [
+        ('Name', win32more.Foundation.PSTR),
+        ('Type', win32more.Graphics.Direct3D.D3D_SHADER_INPUT_TYPE),
+        ('BindPoint', UInt32),
+        ('BindCount', UInt32),
+        ('uFlags', UInt32),
+        ('ReturnType', win32more.Graphics.Direct3D.D3D_RESOURCE_RETURN_TYPE),
+        ('Dimension', win32more.Graphics.Direct3D.D3D_SRV_DIMENSION),
+        ('NumSamples', UInt32),
+        ('Space', UInt32),
+        ('uID', UInt32),
+    ]
+    return D3D12_SHADER_INPUT_BIND_DESC
+D3D12_SHADER_MIN_PRECISION_SUPPORT = UInt32
+D3D12_SHADER_MIN_PRECISION_SUPPORT_NONE = 0
+D3D12_SHADER_MIN_PRECISION_SUPPORT_10_BIT = 1
+D3D12_SHADER_MIN_PRECISION_SUPPORT_16_BIT = 2
+def _define_D3D12_SHADER_RESOURCE_VIEW_DESC_head():
+    class D3D12_SHADER_RESOURCE_VIEW_DESC(Structure):
+        pass
+    return D3D12_SHADER_RESOURCE_VIEW_DESC
+def _define_D3D12_SHADER_RESOURCE_VIEW_DESC():
+    D3D12_SHADER_RESOURCE_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_RESOURCE_VIEW_DESC_head
+    class D3D12_SHADER_RESOURCE_VIEW_DESC__Anonymous_e__Union(Union):
+        pass
+    D3D12_SHADER_RESOURCE_VIEW_DESC__Anonymous_e__Union._fields_ = [
+        ('Buffer', win32more.Graphics.Direct3D12.D3D12_BUFFER_SRV),
+        ('Texture1D', win32more.Graphics.Direct3D12.D3D12_TEX1D_SRV),
+        ('Texture1DArray', win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_SRV),
+        ('Texture2D', win32more.Graphics.Direct3D12.D3D12_TEX2D_SRV),
+        ('Texture2DArray', win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_SRV),
+        ('Texture2DMS', win32more.Graphics.Direct3D12.D3D12_TEX2DMS_SRV),
+        ('Texture2DMSArray', win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_SRV),
+        ('Texture3D', win32more.Graphics.Direct3D12.D3D12_TEX3D_SRV),
+        ('TextureCube', win32more.Graphics.Direct3D12.D3D12_TEXCUBE_SRV),
+        ('TextureCubeArray', win32more.Graphics.Direct3D12.D3D12_TEXCUBE_ARRAY_SRV),
+        ('RaytracingAccelerationStructure', win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV),
+    ]
+    D3D12_SHADER_RESOURCE_VIEW_DESC._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_SHADER_RESOURCE_VIEW_DESC._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('ViewDimension', win32more.Graphics.Direct3D12.D3D12_SRV_DIMENSION),
+        ('Shader4ComponentMapping', UInt32),
+        ('Anonymous', D3D12_SHADER_RESOURCE_VIEW_DESC__Anonymous_e__Union),
+    ]
+    return D3D12_SHADER_RESOURCE_VIEW_DESC
+def _define_D3D12_SHADER_TYPE_DESC_head():
+    class D3D12_SHADER_TYPE_DESC(Structure):
+        pass
+    return D3D12_SHADER_TYPE_DESC
+def _define_D3D12_SHADER_TYPE_DESC():
+    D3D12_SHADER_TYPE_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_TYPE_DESC_head
+    D3D12_SHADER_TYPE_DESC._fields_ = [
+        ('Class', win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS),
+        ('Type', win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE),
+        ('Rows', UInt32),
+        ('Columns', UInt32),
+        ('Elements', UInt32),
+        ('Members', UInt32),
+        ('Offset', UInt32),
+        ('Name', win32more.Foundation.PSTR),
+    ]
+    return D3D12_SHADER_TYPE_DESC
+def _define_D3D12_SHADER_VARIABLE_DESC_head():
+    class D3D12_SHADER_VARIABLE_DESC(Structure):
+        pass
+    return D3D12_SHADER_VARIABLE_DESC
+def _define_D3D12_SHADER_VARIABLE_DESC():
+    D3D12_SHADER_VARIABLE_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_VARIABLE_DESC_head
+    D3D12_SHADER_VARIABLE_DESC._fields_ = [
+        ('Name', win32more.Foundation.PSTR),
+        ('StartOffset', UInt32),
+        ('Size', UInt32),
+        ('uFlags', UInt32),
+        ('DefaultValue', c_void_p),
+        ('StartTexture', UInt32),
+        ('TextureSize', UInt32),
+        ('StartSampler', UInt32),
+        ('SamplerSize', UInt32),
+    ]
+    return D3D12_SHADER_VARIABLE_DESC
+D3D12_SHADER_VERSION_TYPE = Int32
+D3D12_SHVER_PIXEL_SHADER = 0
+D3D12_SHVER_VERTEX_SHADER = 1
+D3D12_SHVER_GEOMETRY_SHADER = 2
+D3D12_SHVER_HULL_SHADER = 3
+D3D12_SHVER_DOMAIN_SHADER = 4
+D3D12_SHVER_COMPUTE_SHADER = 5
+D3D12_SHVER_RESERVED0 = 65520
+D3D12_SHADER_VISIBILITY = Int32
+D3D12_SHADER_VISIBILITY_ALL = 0
+D3D12_SHADER_VISIBILITY_VERTEX = 1
+D3D12_SHADER_VISIBILITY_HULL = 2
+D3D12_SHADER_VISIBILITY_DOMAIN = 3
+D3D12_SHADER_VISIBILITY_GEOMETRY = 4
+D3D12_SHADER_VISIBILITY_PIXEL = 5
+D3D12_SHADER_VISIBILITY_AMPLIFICATION = 6
+D3D12_SHADER_VISIBILITY_MESH = 7
 D3D12_SHADING_RATE = Int32
 D3D12_SHADING_RATE_1X1 = 0
 D3D12_SHADING_RATE_1X2 = 1
@@ -6145,45 +4760,10 @@ D3D12_SHADING_RATE_COMBINER_OVERRIDE = 1
 D3D12_SHADING_RATE_COMBINER_MIN = 2
 D3D12_SHADING_RATE_COMBINER_MAX = 3
 D3D12_SHADING_RATE_COMBINER_SUM = 4
-def _define_ID3D12GraphicsCommandList5_head():
-    class ID3D12GraphicsCommandList5(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4_head):
-        Guid = Guid('55050859-4024-474c-87f5-6472eaee44ea')
-    return ID3D12GraphicsCommandList5
-def _define_ID3D12GraphicsCommandList5():
-    ID3D12GraphicsCommandList5 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5_head
-    ID3D12GraphicsCommandList5.RSSetShadingRate = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_SHADING_RATE,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADING_RATE_COMBINER), use_last_error=False)(77, 'RSSetShadingRate', ((1, 'baseShadingRate'),(1, 'combiners'),)))
-    ID3D12GraphicsCommandList5.RSSetShadingRateImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head, use_last_error=False)(78, 'RSSetShadingRateImage', ((1, 'shadingRateImage'),)))
-    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4
-    return ID3D12GraphicsCommandList5
-def _define_D3D12_DISPATCH_MESH_ARGUMENTS_head():
-    class D3D12_DISPATCH_MESH_ARGUMENTS(Structure):
-        pass
-    return D3D12_DISPATCH_MESH_ARGUMENTS
-def _define_D3D12_DISPATCH_MESH_ARGUMENTS():
-    D3D12_DISPATCH_MESH_ARGUMENTS = win32more.Graphics.Direct3D12.D3D12_DISPATCH_MESH_ARGUMENTS_head
-    D3D12_DISPATCH_MESH_ARGUMENTS._fields_ = [
-        ("ThreadGroupCountX", UInt32),
-        ("ThreadGroupCountY", UInt32),
-        ("ThreadGroupCountZ", UInt32),
-    ]
-    return D3D12_DISPATCH_MESH_ARGUMENTS
-def _define_ID3D12GraphicsCommandList6_head():
-    class ID3D12GraphicsCommandList6(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5_head):
-        Guid = Guid('c3827890-e548-4cfa-96cf-5689a9370f80')
-    return ID3D12GraphicsCommandList6
-def _define_ID3D12GraphicsCommandList6():
-    ID3D12GraphicsCommandList6 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList6_head
-    ID3D12GraphicsCommandList6.DispatchMesh = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32, use_last_error=False)(79, 'DispatchMesh', ((1, 'ThreadGroupCountX'),(1, 'ThreadGroupCountY'),(1, 'ThreadGroupCountZ'),)))
-    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5
-    return ID3D12GraphicsCommandList6
-D3D12_SHADER_VERSION_TYPE = Int32
-D3D12_SHVER_PIXEL_SHADER = 0
-D3D12_SHVER_VERTEX_SHADER = 1
-D3D12_SHVER_GEOMETRY_SHADER = 2
-D3D12_SHVER_HULL_SHADER = 3
-D3D12_SHVER_DOMAIN_SHADER = 4
-D3D12_SHVER_COMPUTE_SHADER = 5
-D3D12_SHVER_RESERVED0 = 65520
+D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER = Int32
+D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0 = 0
+D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1 = 1
+D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_2 = 2
 def _define_D3D12_SIGNATURE_PARAMETER_DESC_head():
     class D3D12_SIGNATURE_PARAMETER_DESC(Structure):
         pass
@@ -6191,355 +4771,1937 @@ def _define_D3D12_SIGNATURE_PARAMETER_DESC_head():
 def _define_D3D12_SIGNATURE_PARAMETER_DESC():
     D3D12_SIGNATURE_PARAMETER_DESC = win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head
     D3D12_SIGNATURE_PARAMETER_DESC._fields_ = [
-        ("SemanticName", win32more.Foundation.PSTR),
-        ("SemanticIndex", UInt32),
-        ("Register", UInt32),
-        ("SystemValueType", win32more.Graphics.Direct3D.D3D_NAME),
-        ("ComponentType", win32more.Graphics.Direct3D.D3D_REGISTER_COMPONENT_TYPE),
-        ("Mask", Byte),
-        ("ReadWriteMask", Byte),
-        ("Stream", UInt32),
-        ("MinPrecision", win32more.Graphics.Direct3D.D3D_MIN_PRECISION),
+        ('SemanticName', win32more.Foundation.PSTR),
+        ('SemanticIndex', UInt32),
+        ('Register', UInt32),
+        ('SystemValueType', win32more.Graphics.Direct3D.D3D_NAME),
+        ('ComponentType', win32more.Graphics.Direct3D.D3D_REGISTER_COMPONENT_TYPE),
+        ('Mask', Byte),
+        ('ReadWriteMask', Byte),
+        ('Stream', UInt32),
+        ('MinPrecision', win32more.Graphics.Direct3D.D3D_MIN_PRECISION),
     ]
     return D3D12_SIGNATURE_PARAMETER_DESC
-def _define_D3D12_SHADER_BUFFER_DESC_head():
-    class D3D12_SHADER_BUFFER_DESC(Structure):
+def _define_D3D12_SO_DECLARATION_ENTRY_head():
+    class D3D12_SO_DECLARATION_ENTRY(Structure):
         pass
-    return D3D12_SHADER_BUFFER_DESC
-def _define_D3D12_SHADER_BUFFER_DESC():
-    D3D12_SHADER_BUFFER_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_BUFFER_DESC_head
-    D3D12_SHADER_BUFFER_DESC._fields_ = [
-        ("Name", win32more.Foundation.PSTR),
-        ("Type", win32more.Graphics.Direct3D.D3D_CBUFFER_TYPE),
-        ("Variables", UInt32),
-        ("Size", UInt32),
-        ("uFlags", UInt32),
+    return D3D12_SO_DECLARATION_ENTRY
+def _define_D3D12_SO_DECLARATION_ENTRY():
+    D3D12_SO_DECLARATION_ENTRY = win32more.Graphics.Direct3D12.D3D12_SO_DECLARATION_ENTRY_head
+    D3D12_SO_DECLARATION_ENTRY._fields_ = [
+        ('Stream', UInt32),
+        ('SemanticName', win32more.Foundation.PSTR),
+        ('SemanticIndex', UInt32),
+        ('StartComponent', Byte),
+        ('ComponentCount', Byte),
+        ('OutputSlot', Byte),
     ]
-    return D3D12_SHADER_BUFFER_DESC
-def _define_D3D12_SHADER_VARIABLE_DESC_head():
-    class D3D12_SHADER_VARIABLE_DESC(Structure):
+    return D3D12_SO_DECLARATION_ENTRY
+D3D12_SRV_DIMENSION = Int32
+D3D12_SRV_DIMENSION_UNKNOWN = 0
+D3D12_SRV_DIMENSION_BUFFER = 1
+D3D12_SRV_DIMENSION_TEXTURE1D = 2
+D3D12_SRV_DIMENSION_TEXTURE1DARRAY = 3
+D3D12_SRV_DIMENSION_TEXTURE2D = 4
+D3D12_SRV_DIMENSION_TEXTURE2DARRAY = 5
+D3D12_SRV_DIMENSION_TEXTURE2DMS = 6
+D3D12_SRV_DIMENSION_TEXTURE2DMSARRAY = 7
+D3D12_SRV_DIMENSION_TEXTURE3D = 8
+D3D12_SRV_DIMENSION_TEXTURECUBE = 9
+D3D12_SRV_DIMENSION_TEXTURECUBEARRAY = 10
+D3D12_SRV_DIMENSION_RAYTRACING_ACCELERATION_STRUCTURE = 11
+def _define_D3D12_STATE_OBJECT_CONFIG_head():
+    class D3D12_STATE_OBJECT_CONFIG(Structure):
         pass
-    return D3D12_SHADER_VARIABLE_DESC
-def _define_D3D12_SHADER_VARIABLE_DESC():
-    D3D12_SHADER_VARIABLE_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_VARIABLE_DESC_head
-    D3D12_SHADER_VARIABLE_DESC._fields_ = [
-        ("Name", win32more.Foundation.PSTR),
-        ("StartOffset", UInt32),
-        ("Size", UInt32),
-        ("uFlags", UInt32),
-        ("DefaultValue", c_void_p),
-        ("StartTexture", UInt32),
-        ("TextureSize", UInt32),
-        ("StartSampler", UInt32),
-        ("SamplerSize", UInt32),
+    return D3D12_STATE_OBJECT_CONFIG
+def _define_D3D12_STATE_OBJECT_CONFIG():
+    D3D12_STATE_OBJECT_CONFIG = win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_CONFIG_head
+    D3D12_STATE_OBJECT_CONFIG._fields_ = [
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_FLAGS),
     ]
-    return D3D12_SHADER_VARIABLE_DESC
-def _define_D3D12_SHADER_TYPE_DESC_head():
-    class D3D12_SHADER_TYPE_DESC(Structure):
+    return D3D12_STATE_OBJECT_CONFIG
+def _define_D3D12_STATE_OBJECT_DESC_head():
+    class D3D12_STATE_OBJECT_DESC(Structure):
         pass
-    return D3D12_SHADER_TYPE_DESC
-def _define_D3D12_SHADER_TYPE_DESC():
-    D3D12_SHADER_TYPE_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_TYPE_DESC_head
-    D3D12_SHADER_TYPE_DESC._fields_ = [
-        ("Class", win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS),
-        ("Type", win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE),
-        ("Rows", UInt32),
-        ("Columns", UInt32),
-        ("Elements", UInt32),
-        ("Members", UInt32),
-        ("Offset", UInt32),
-        ("Name", win32more.Foundation.PSTR),
+    return D3D12_STATE_OBJECT_DESC
+def _define_D3D12_STATE_OBJECT_DESC():
+    D3D12_STATE_OBJECT_DESC = win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head
+    D3D12_STATE_OBJECT_DESC._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_TYPE),
+        ('NumSubobjects', UInt32),
+        ('pSubobjects', POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head)),
     ]
-    return D3D12_SHADER_TYPE_DESC
-def _define_D3D12_SHADER_DESC_head():
-    class D3D12_SHADER_DESC(Structure):
+    return D3D12_STATE_OBJECT_DESC
+D3D12_STATE_OBJECT_FLAGS = UInt32
+D3D12_STATE_OBJECT_FLAG_NONE = 0
+D3D12_STATE_OBJECT_FLAG_ALLOW_LOCAL_DEPENDENCIES_ON_EXTERNAL_DEFINITIONS = 1
+D3D12_STATE_OBJECT_FLAG_ALLOW_EXTERNAL_DEPENDENCIES_ON_LOCAL_DEFINITIONS = 2
+D3D12_STATE_OBJECT_FLAG_ALLOW_STATE_OBJECT_ADDITIONS = 4
+D3D12_STATE_OBJECT_TYPE = Int32
+D3D12_STATE_OBJECT_TYPE_COLLECTION = 0
+D3D12_STATE_OBJECT_TYPE_RAYTRACING_PIPELINE = 3
+def _define_D3D12_STATE_SUBOBJECT_head():
+    class D3D12_STATE_SUBOBJECT(Structure):
         pass
-    return D3D12_SHADER_DESC
-def _define_D3D12_SHADER_DESC():
-    D3D12_SHADER_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_DESC_head
-    D3D12_SHADER_DESC._fields_ = [
-        ("Version", UInt32),
-        ("Creator", win32more.Foundation.PSTR),
-        ("Flags", UInt32),
-        ("ConstantBuffers", UInt32),
-        ("BoundResources", UInt32),
-        ("InputParameters", UInt32),
-        ("OutputParameters", UInt32),
-        ("InstructionCount", UInt32),
-        ("TempRegisterCount", UInt32),
-        ("TempArrayCount", UInt32),
-        ("DefCount", UInt32),
-        ("DclCount", UInt32),
-        ("TextureNormalInstructions", UInt32),
-        ("TextureLoadInstructions", UInt32),
-        ("TextureCompInstructions", UInt32),
-        ("TextureBiasInstructions", UInt32),
-        ("TextureGradientInstructions", UInt32),
-        ("FloatInstructionCount", UInt32),
-        ("IntInstructionCount", UInt32),
-        ("UintInstructionCount", UInt32),
-        ("StaticFlowControlCount", UInt32),
-        ("DynamicFlowControlCount", UInt32),
-        ("MacroInstructionCount", UInt32),
-        ("ArrayInstructionCount", UInt32),
-        ("CutInstructionCount", UInt32),
-        ("EmitInstructionCount", UInt32),
-        ("GSOutputTopology", win32more.Graphics.Direct3D.D3D_PRIMITIVE_TOPOLOGY),
-        ("GSMaxOutputVertexCount", UInt32),
-        ("InputPrimitive", win32more.Graphics.Direct3D.D3D_PRIMITIVE),
-        ("PatchConstantParameters", UInt32),
-        ("cGSInstanceCount", UInt32),
-        ("cControlPoints", UInt32),
-        ("HSOutputPrimitive", win32more.Graphics.Direct3D.D3D_TESSELLATOR_OUTPUT_PRIMITIVE),
-        ("HSPartitioning", win32more.Graphics.Direct3D.D3D_TESSELLATOR_PARTITIONING),
-        ("TessellatorDomain", win32more.Graphics.Direct3D.D3D_TESSELLATOR_DOMAIN),
-        ("cBarrierInstructions", UInt32),
-        ("cInterlockedInstructions", UInt32),
-        ("cTextureStoreInstructions", UInt32),
+    return D3D12_STATE_SUBOBJECT
+def _define_D3D12_STATE_SUBOBJECT():
+    D3D12_STATE_SUBOBJECT = win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head
+    D3D12_STATE_SUBOBJECT._fields_ = [
+        ('Type', win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_TYPE),
+        ('pDesc', c_void_p),
     ]
-    return D3D12_SHADER_DESC
-def _define_D3D12_SHADER_INPUT_BIND_DESC_head():
-    class D3D12_SHADER_INPUT_BIND_DESC(Structure):
+    return D3D12_STATE_SUBOBJECT
+D3D12_STATE_SUBOBJECT_TYPE = Int32
+D3D12_STATE_SUBOBJECT_TYPE_STATE_OBJECT_CONFIG = 0
+D3D12_STATE_SUBOBJECT_TYPE_GLOBAL_ROOT_SIGNATURE = 1
+D3D12_STATE_SUBOBJECT_TYPE_LOCAL_ROOT_SIGNATURE = 2
+D3D12_STATE_SUBOBJECT_TYPE_NODE_MASK = 3
+D3D12_STATE_SUBOBJECT_TYPE_DXIL_LIBRARY = 5
+D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION = 6
+D3D12_STATE_SUBOBJECT_TYPE_SUBOBJECT_TO_EXPORTS_ASSOCIATION = 7
+D3D12_STATE_SUBOBJECT_TYPE_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION = 8
+D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_SHADER_CONFIG = 9
+D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG = 10
+D3D12_STATE_SUBOBJECT_TYPE_HIT_GROUP = 11
+D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG1 = 12
+D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID = 13
+D3D12_STATIC_BORDER_COLOR = Int32
+D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK = 0
+D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK = 1
+D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE = 2
+def _define_D3D12_STATIC_SAMPLER_DESC_head():
+    class D3D12_STATIC_SAMPLER_DESC(Structure):
         pass
-    return D3D12_SHADER_INPUT_BIND_DESC
-def _define_D3D12_SHADER_INPUT_BIND_DESC():
-    D3D12_SHADER_INPUT_BIND_DESC = win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head
-    D3D12_SHADER_INPUT_BIND_DESC._fields_ = [
-        ("Name", win32more.Foundation.PSTR),
-        ("Type", win32more.Graphics.Direct3D.D3D_SHADER_INPUT_TYPE),
-        ("BindPoint", UInt32),
-        ("BindCount", UInt32),
-        ("uFlags", UInt32),
-        ("ReturnType", win32more.Graphics.Direct3D.D3D_RESOURCE_RETURN_TYPE),
-        ("Dimension", win32more.Graphics.Direct3D.D3D_SRV_DIMENSION),
-        ("NumSamples", UInt32),
-        ("Space", UInt32),
-        ("uID", UInt32),
+    return D3D12_STATIC_SAMPLER_DESC
+def _define_D3D12_STATIC_SAMPLER_DESC():
+    D3D12_STATIC_SAMPLER_DESC = win32more.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head
+    D3D12_STATIC_SAMPLER_DESC._fields_ = [
+        ('Filter', win32more.Graphics.Direct3D12.D3D12_FILTER),
+        ('AddressU', win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
+        ('AddressV', win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
+        ('AddressW', win32more.Graphics.Direct3D12.D3D12_TEXTURE_ADDRESS_MODE),
+        ('MipLODBias', Single),
+        ('MaxAnisotropy', UInt32),
+        ('ComparisonFunc', win32more.Graphics.Direct3D12.D3D12_COMPARISON_FUNC),
+        ('BorderColor', win32more.Graphics.Direct3D12.D3D12_STATIC_BORDER_COLOR),
+        ('MinLOD', Single),
+        ('MaxLOD', Single),
+        ('ShaderRegister', UInt32),
+        ('RegisterSpace', UInt32),
+        ('ShaderVisibility', win32more.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY),
     ]
-    return D3D12_SHADER_INPUT_BIND_DESC
-def _define_D3D12_LIBRARY_DESC_head():
-    class D3D12_LIBRARY_DESC(Structure):
+    return D3D12_STATIC_SAMPLER_DESC
+D3D12_STENCIL_OP = Int32
+D3D12_STENCIL_OP_KEEP = 1
+D3D12_STENCIL_OP_ZERO = 2
+D3D12_STENCIL_OP_REPLACE = 3
+D3D12_STENCIL_OP_INCR_SAT = 4
+D3D12_STENCIL_OP_DECR_SAT = 5
+D3D12_STENCIL_OP_INVERT = 6
+D3D12_STENCIL_OP_INCR = 7
+D3D12_STENCIL_OP_DECR = 8
+def _define_D3D12_STREAM_OUTPUT_BUFFER_VIEW_head():
+    class D3D12_STREAM_OUTPUT_BUFFER_VIEW(Structure):
         pass
-    return D3D12_LIBRARY_DESC
-def _define_D3D12_LIBRARY_DESC():
-    D3D12_LIBRARY_DESC = win32more.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head
-    D3D12_LIBRARY_DESC._fields_ = [
-        ("Creator", win32more.Foundation.PSTR),
-        ("Flags", UInt32),
-        ("FunctionCount", UInt32),
+    return D3D12_STREAM_OUTPUT_BUFFER_VIEW
+def _define_D3D12_STREAM_OUTPUT_BUFFER_VIEW():
+    D3D12_STREAM_OUTPUT_BUFFER_VIEW = win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_BUFFER_VIEW_head
+    D3D12_STREAM_OUTPUT_BUFFER_VIEW._fields_ = [
+        ('BufferLocation', UInt64),
+        ('SizeInBytes', UInt64),
+        ('BufferFilledSizeLocation', UInt64),
     ]
-    return D3D12_LIBRARY_DESC
-def _define_D3D12_FUNCTION_DESC_head():
-    class D3D12_FUNCTION_DESC(Structure):
+    return D3D12_STREAM_OUTPUT_BUFFER_VIEW
+def _define_D3D12_STREAM_OUTPUT_DESC_head():
+    class D3D12_STREAM_OUTPUT_DESC(Structure):
         pass
-    return D3D12_FUNCTION_DESC
-def _define_D3D12_FUNCTION_DESC():
-    D3D12_FUNCTION_DESC = win32more.Graphics.Direct3D12.D3D12_FUNCTION_DESC_head
-    D3D12_FUNCTION_DESC._fields_ = [
-        ("Version", UInt32),
-        ("Creator", win32more.Foundation.PSTR),
-        ("Flags", UInt32),
-        ("ConstantBuffers", UInt32),
-        ("BoundResources", UInt32),
-        ("InstructionCount", UInt32),
-        ("TempRegisterCount", UInt32),
-        ("TempArrayCount", UInt32),
-        ("DefCount", UInt32),
-        ("DclCount", UInt32),
-        ("TextureNormalInstructions", UInt32),
-        ("TextureLoadInstructions", UInt32),
-        ("TextureCompInstructions", UInt32),
-        ("TextureBiasInstructions", UInt32),
-        ("TextureGradientInstructions", UInt32),
-        ("FloatInstructionCount", UInt32),
-        ("IntInstructionCount", UInt32),
-        ("UintInstructionCount", UInt32),
-        ("StaticFlowControlCount", UInt32),
-        ("DynamicFlowControlCount", UInt32),
-        ("MacroInstructionCount", UInt32),
-        ("ArrayInstructionCount", UInt32),
-        ("MovInstructionCount", UInt32),
-        ("MovcInstructionCount", UInt32),
-        ("ConversionInstructionCount", UInt32),
-        ("BitwiseInstructionCount", UInt32),
-        ("MinFeatureLevel", win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),
-        ("RequiredFeatureFlags", UInt64),
-        ("Name", win32more.Foundation.PSTR),
-        ("FunctionParameterCount", Int32),
-        ("HasReturn", win32more.Foundation.BOOL),
-        ("Has10Level9VertexShader", win32more.Foundation.BOOL),
-        ("Has10Level9PixelShader", win32more.Foundation.BOOL),
+    return D3D12_STREAM_OUTPUT_DESC
+def _define_D3D12_STREAM_OUTPUT_DESC():
+    D3D12_STREAM_OUTPUT_DESC = win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_DESC_head
+    D3D12_STREAM_OUTPUT_DESC._fields_ = [
+        ('pSODeclaration', POINTER(win32more.Graphics.Direct3D12.D3D12_SO_DECLARATION_ENTRY_head)),
+        ('NumEntries', UInt32),
+        ('pBufferStrides', POINTER(UInt32)),
+        ('NumStrides', UInt32),
+        ('RasterizedStream', UInt32),
     ]
-    return D3D12_FUNCTION_DESC
-def _define_D3D12_PARAMETER_DESC_head():
-    class D3D12_PARAMETER_DESC(Structure):
+    return D3D12_STREAM_OUTPUT_DESC
+def _define_D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head():
+    class D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION(Structure):
         pass
-    return D3D12_PARAMETER_DESC
-def _define_D3D12_PARAMETER_DESC():
-    D3D12_PARAMETER_DESC = win32more.Graphics.Direct3D12.D3D12_PARAMETER_DESC_head
-    D3D12_PARAMETER_DESC._fields_ = [
-        ("Name", win32more.Foundation.PSTR),
-        ("SemanticName", win32more.Foundation.PSTR),
-        ("Type", win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE),
-        ("Class", win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS),
-        ("Rows", UInt32),
-        ("Columns", UInt32),
-        ("InterpolationMode", win32more.Graphics.Direct3D.D3D_INTERPOLATION_MODE),
-        ("Flags", win32more.Graphics.Direct3D.D3D_PARAMETER_FLAGS),
-        ("FirstInRegister", UInt32),
-        ("FirstInComponent", UInt32),
-        ("FirstOutRegister", UInt32),
-        ("FirstOutComponent", UInt32),
+    return D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION
+def _define_D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION():
+    D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION = win32more.Graphics.Direct3D12.D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION_head
+    D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION._fields_ = [
+        ('pSubobjectToAssociate', POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head)),
+        ('NumExports', UInt32),
+        ('pExports', POINTER(win32more.Foundation.PWSTR)),
     ]
-    return D3D12_PARAMETER_DESC
-def _define_ID3D12ShaderReflectionType_head():
-    class ID3D12ShaderReflectionType(c_void_p):
-        Guid = Guid('e913c351-783d-48ca-a1d1-4f306284ad56')
-    return ID3D12ShaderReflectionType
-def _define_ID3D12ShaderReflectionType():
-    ID3D12ShaderReflectionType = win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head
-    ID3D12ShaderReflectionType.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_TYPE_DESC_head), use_last_error=False)(0, 'GetDesc', ((1, 'pDesc'),)))
-    ID3D12ShaderReflectionType.GetMemberTypeByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,UInt32, use_last_error=False)(1, 'GetMemberTypeByIndex', ((1, 'Index'),)))
-    ID3D12ShaderReflectionType.GetMemberTypeByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,win32more.Foundation.PSTR, use_last_error=False)(2, 'GetMemberTypeByName', ((1, 'Name'),)))
-    ID3D12ShaderReflectionType.GetMemberTypeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.PSTR,UInt32, use_last_error=False)(3, 'GetMemberTypeName', ((1, 'Index'),)))
-    ID3D12ShaderReflectionType.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head, use_last_error=False)(4, 'IsEqual', ((1, 'pType'),)))
-    ID3D12ShaderReflectionType.GetSubType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head, use_last_error=False)(5, 'GetSubType', ()))
-    ID3D12ShaderReflectionType.GetBaseClass = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head, use_last_error=False)(6, 'GetBaseClass', ()))
-    ID3D12ShaderReflectionType.GetNumInterfaces = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'GetNumInterfaces', ()))
-    ID3D12ShaderReflectionType.GetInterfaceByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,UInt32, use_last_error=False)(8, 'GetInterfaceByIndex', ((1, 'uIndex'),)))
-    ID3D12ShaderReflectionType.IsOfType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head, use_last_error=False)(9, 'IsOfType', ((1, 'pType'),)))
-    ID3D12ShaderReflectionType.ImplementsInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head, use_last_error=False)(10, 'ImplementsInterface', ((1, 'pBase'),)))
-    return ID3D12ShaderReflectionType
-def _define_ID3D12ShaderReflectionVariable_head():
-    class ID3D12ShaderReflectionVariable(c_void_p):
-        Guid = Guid('8337a8a6-a216-444a-b2f4-314733a73aea')
-    return ID3D12ShaderReflectionVariable
-def _define_ID3D12ShaderReflectionVariable():
-    ID3D12ShaderReflectionVariable = win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head
-    ID3D12ShaderReflectionVariable.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_VARIABLE_DESC_head), use_last_error=False)(0, 'GetDesc', ((1, 'pDesc'),)))
-    ID3D12ShaderReflectionVariable.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head, use_last_error=False)(1, 'GetType', ()))
-    ID3D12ShaderReflectionVariable.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head, use_last_error=False)(2, 'GetBuffer', ()))
-    ID3D12ShaderReflectionVariable.GetInterfaceSlot = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(3, 'GetInterfaceSlot', ((1, 'uArrayIndex'),)))
-    return ID3D12ShaderReflectionVariable
-def _define_ID3D12ShaderReflectionConstantBuffer_head():
-    class ID3D12ShaderReflectionConstantBuffer(c_void_p):
-        Guid = Guid('c59598b4-48b3-4869-b9b1-b1618b14a8b7')
-    return ID3D12ShaderReflectionConstantBuffer
-def _define_ID3D12ShaderReflectionConstantBuffer():
-    ID3D12ShaderReflectionConstantBuffer = win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head
-    ID3D12ShaderReflectionConstantBuffer.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_BUFFER_DESC_head), use_last_error=False)(0, 'GetDesc', ((1, 'pDesc'),)))
-    ID3D12ShaderReflectionConstantBuffer.GetVariableByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,UInt32, use_last_error=False)(1, 'GetVariableByIndex', ((1, 'Index'),)))
-    ID3D12ShaderReflectionConstantBuffer.GetVariableByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,win32more.Foundation.PSTR, use_last_error=False)(2, 'GetVariableByName', ((1, 'Name'),)))
-    return ID3D12ShaderReflectionConstantBuffer
-def _define_ID3D12ShaderReflection_head():
-    class ID3D12ShaderReflection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5a58797d-a72c-478d-8ba2-efc6b0efe88e')
-    return ID3D12ShaderReflection
-def _define_ID3D12ShaderReflection():
-    ID3D12ShaderReflection = win32more.Graphics.Direct3D12.ID3D12ShaderReflection_head
-    ID3D12ShaderReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_DESC_head), use_last_error=False)(3, 'GetDesc', ((1, 'pDesc'),)))
-    ID3D12ShaderReflection.GetConstantBufferByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,UInt32, use_last_error=False)(4, 'GetConstantBufferByIndex', ((1, 'Index'),)))
-    ID3D12ShaderReflection.GetConstantBufferByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,win32more.Foundation.PSTR, use_last_error=False)(5, 'GetConstantBufferByName', ((1, 'Name'),)))
-    ID3D12ShaderReflection.GetResourceBindingDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head), use_last_error=False)(6, 'GetResourceBindingDesc', ((1, 'ResourceIndex'),(1, 'pDesc'),)))
-    ID3D12ShaderReflection.GetInputParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(7, 'GetInputParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
-    ID3D12ShaderReflection.GetOutputParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(8, 'GetOutputParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
-    ID3D12ShaderReflection.GetPatchConstantParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(9, 'GetPatchConstantParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
-    ID3D12ShaderReflection.GetVariableByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,win32more.Foundation.PSTR, use_last_error=False)(10, 'GetVariableByName', ((1, 'Name'),)))
-    ID3D12ShaderReflection.GetResourceBindingDescByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head), use_last_error=False)(11, 'GetResourceBindingDescByName', ((1, 'Name'),(1, 'pDesc'),)))
-    ID3D12ShaderReflection.GetMovInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(12, 'GetMovInstructionCount', ()))
-    ID3D12ShaderReflection.GetMovcInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(13, 'GetMovcInstructionCount', ()))
-    ID3D12ShaderReflection.GetConversionInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(14, 'GetConversionInstructionCount', ()))
-    ID3D12ShaderReflection.GetBitwiseInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(15, 'GetBitwiseInstructionCount', ()))
-    ID3D12ShaderReflection.GetGSInputPrimitive = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D.D3D_PRIMITIVE, use_last_error=False)(16, 'GetGSInputPrimitive', ()))
-    ID3D12ShaderReflection.IsSampleFrequencyShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(17, 'IsSampleFrequencyShader', ()))
-    ID3D12ShaderReflection.GetNumInterfaceSlots = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(18, 'GetNumInterfaceSlots', ()))
-    ID3D12ShaderReflection.GetMinFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL), use_last_error=False)(19, 'GetMinFeatureLevel', ((1, 'pLevel'),)))
-    ID3D12ShaderReflection.GetThreadGroupSize = COMMETHOD(WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(20, 'GetThreadGroupSize', ((1, 'pSizeX'),(1, 'pSizeY'),(1, 'pSizeZ'),)))
-    ID3D12ShaderReflection.GetRequiresFlags = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(21, 'GetRequiresFlags', ()))
+    return D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION
+def _define_D3D12_SUBRESOURCE_DATA_head():
+    class D3D12_SUBRESOURCE_DATA(Structure):
+        pass
+    return D3D12_SUBRESOURCE_DATA
+def _define_D3D12_SUBRESOURCE_DATA():
+    D3D12_SUBRESOURCE_DATA = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_DATA_head
+    D3D12_SUBRESOURCE_DATA._fields_ = [
+        ('pData', c_void_p),
+        ('RowPitch', IntPtr),
+        ('SlicePitch', IntPtr),
+    ]
+    return D3D12_SUBRESOURCE_DATA
+def _define_D3D12_SUBRESOURCE_FOOTPRINT_head():
+    class D3D12_SUBRESOURCE_FOOTPRINT(Structure):
+        pass
+    return D3D12_SUBRESOURCE_FOOTPRINT
+def _define_D3D12_SUBRESOURCE_FOOTPRINT():
+    D3D12_SUBRESOURCE_FOOTPRINT = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_FOOTPRINT_head
+    D3D12_SUBRESOURCE_FOOTPRINT._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('Width', UInt32),
+        ('Height', UInt32),
+        ('Depth', UInt32),
+        ('RowPitch', UInt32),
+    ]
+    return D3D12_SUBRESOURCE_FOOTPRINT
+def _define_D3D12_SUBRESOURCE_INFO_head():
+    class D3D12_SUBRESOURCE_INFO(Structure):
+        pass
+    return D3D12_SUBRESOURCE_INFO
+def _define_D3D12_SUBRESOURCE_INFO():
+    D3D12_SUBRESOURCE_INFO = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_INFO_head
+    D3D12_SUBRESOURCE_INFO._fields_ = [
+        ('Offset', UInt64),
+        ('RowPitch', UInt32),
+        ('DepthPitch', UInt32),
+    ]
+    return D3D12_SUBRESOURCE_INFO
+def _define_D3D12_SUBRESOURCE_RANGE_UINT64_head():
+    class D3D12_SUBRESOURCE_RANGE_UINT64(Structure):
+        pass
+    return D3D12_SUBRESOURCE_RANGE_UINT64
+def _define_D3D12_SUBRESOURCE_RANGE_UINT64():
+    D3D12_SUBRESOURCE_RANGE_UINT64 = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64_head
+    D3D12_SUBRESOURCE_RANGE_UINT64._fields_ = [
+        ('Subresource', UInt32),
+        ('Range', win32more.Graphics.Direct3D12.D3D12_RANGE_UINT64),
+    ]
+    return D3D12_SUBRESOURCE_RANGE_UINT64
+def _define_D3D12_SUBRESOURCE_TILING_head():
+    class D3D12_SUBRESOURCE_TILING(Structure):
+        pass
+    return D3D12_SUBRESOURCE_TILING
+def _define_D3D12_SUBRESOURCE_TILING():
+    D3D12_SUBRESOURCE_TILING = win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING_head
+    D3D12_SUBRESOURCE_TILING._fields_ = [
+        ('WidthInTiles', UInt32),
+        ('HeightInTiles', UInt16),
+        ('DepthInTiles', UInt16),
+        ('StartTileIndexInOverallResource', UInt32),
+    ]
+    return D3D12_SUBRESOURCE_TILING
+def _define_D3D12_TEX1D_ARRAY_DSV_head():
+    class D3D12_TEX1D_ARRAY_DSV(Structure):
+        pass
+    return D3D12_TEX1D_ARRAY_DSV
+def _define_D3D12_TEX1D_ARRAY_DSV():
+    D3D12_TEX1D_ARRAY_DSV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_DSV_head
+    D3D12_TEX1D_ARRAY_DSV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX1D_ARRAY_DSV
+def _define_D3D12_TEX1D_ARRAY_RTV_head():
+    class D3D12_TEX1D_ARRAY_RTV(Structure):
+        pass
+    return D3D12_TEX1D_ARRAY_RTV
+def _define_D3D12_TEX1D_ARRAY_RTV():
+    D3D12_TEX1D_ARRAY_RTV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_RTV_head
+    D3D12_TEX1D_ARRAY_RTV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX1D_ARRAY_RTV
+def _define_D3D12_TEX1D_ARRAY_SRV_head():
+    class D3D12_TEX1D_ARRAY_SRV(Structure):
+        pass
+    return D3D12_TEX1D_ARRAY_SRV
+def _define_D3D12_TEX1D_ARRAY_SRV():
+    D3D12_TEX1D_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_SRV_head
+    D3D12_TEX1D_ARRAY_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEX1D_ARRAY_SRV
+def _define_D3D12_TEX1D_ARRAY_UAV_head():
+    class D3D12_TEX1D_ARRAY_UAV(Structure):
+        pass
+    return D3D12_TEX1D_ARRAY_UAV
+def _define_D3D12_TEX1D_ARRAY_UAV():
+    D3D12_TEX1D_ARRAY_UAV = win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_UAV_head
+    D3D12_TEX1D_ARRAY_UAV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX1D_ARRAY_UAV
+def _define_D3D12_TEX1D_DSV_head():
+    class D3D12_TEX1D_DSV(Structure):
+        pass
+    return D3D12_TEX1D_DSV
+def _define_D3D12_TEX1D_DSV():
+    D3D12_TEX1D_DSV = win32more.Graphics.Direct3D12.D3D12_TEX1D_DSV_head
+    D3D12_TEX1D_DSV._fields_ = [
+        ('MipSlice', UInt32),
+    ]
+    return D3D12_TEX1D_DSV
+def _define_D3D12_TEX1D_RTV_head():
+    class D3D12_TEX1D_RTV(Structure):
+        pass
+    return D3D12_TEX1D_RTV
+def _define_D3D12_TEX1D_RTV():
+    D3D12_TEX1D_RTV = win32more.Graphics.Direct3D12.D3D12_TEX1D_RTV_head
+    D3D12_TEX1D_RTV._fields_ = [
+        ('MipSlice', UInt32),
+    ]
+    return D3D12_TEX1D_RTV
+def _define_D3D12_TEX1D_SRV_head():
+    class D3D12_TEX1D_SRV(Structure):
+        pass
+    return D3D12_TEX1D_SRV
+def _define_D3D12_TEX1D_SRV():
+    D3D12_TEX1D_SRV = win32more.Graphics.Direct3D12.D3D12_TEX1D_SRV_head
+    D3D12_TEX1D_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEX1D_SRV
+def _define_D3D12_TEX1D_UAV_head():
+    class D3D12_TEX1D_UAV(Structure):
+        pass
+    return D3D12_TEX1D_UAV
+def _define_D3D12_TEX1D_UAV():
+    D3D12_TEX1D_UAV = win32more.Graphics.Direct3D12.D3D12_TEX1D_UAV_head
+    D3D12_TEX1D_UAV._fields_ = [
+        ('MipSlice', UInt32),
+    ]
+    return D3D12_TEX1D_UAV
+def _define_D3D12_TEX2D_ARRAY_DSV_head():
+    class D3D12_TEX2D_ARRAY_DSV(Structure):
+        pass
+    return D3D12_TEX2D_ARRAY_DSV
+def _define_D3D12_TEX2D_ARRAY_DSV():
+    D3D12_TEX2D_ARRAY_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_DSV_head
+    D3D12_TEX2D_ARRAY_DSV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX2D_ARRAY_DSV
+def _define_D3D12_TEX2D_ARRAY_RTV_head():
+    class D3D12_TEX2D_ARRAY_RTV(Structure):
+        pass
+    return D3D12_TEX2D_ARRAY_RTV
+def _define_D3D12_TEX2D_ARRAY_RTV():
+    D3D12_TEX2D_ARRAY_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_RTV_head
+    D3D12_TEX2D_ARRAY_RTV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+        ('PlaneSlice', UInt32),
+    ]
+    return D3D12_TEX2D_ARRAY_RTV
+def _define_D3D12_TEX2D_ARRAY_SRV_head():
+    class D3D12_TEX2D_ARRAY_SRV(Structure):
+        pass
+    return D3D12_TEX2D_ARRAY_SRV
+def _define_D3D12_TEX2D_ARRAY_SRV():
+    D3D12_TEX2D_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_SRV_head
+    D3D12_TEX2D_ARRAY_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+        ('PlaneSlice', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEX2D_ARRAY_SRV
+def _define_D3D12_TEX2D_ARRAY_UAV_head():
+    class D3D12_TEX2D_ARRAY_UAV(Structure):
+        pass
+    return D3D12_TEX2D_ARRAY_UAV
+def _define_D3D12_TEX2D_ARRAY_UAV():
+    D3D12_TEX2D_ARRAY_UAV = win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_UAV_head
+    D3D12_TEX2D_ARRAY_UAV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+        ('PlaneSlice', UInt32),
+    ]
+    return D3D12_TEX2D_ARRAY_UAV
+def _define_D3D12_TEX2D_DSV_head():
+    class D3D12_TEX2D_DSV(Structure):
+        pass
+    return D3D12_TEX2D_DSV
+def _define_D3D12_TEX2D_DSV():
+    D3D12_TEX2D_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2D_DSV_head
+    D3D12_TEX2D_DSV._fields_ = [
+        ('MipSlice', UInt32),
+    ]
+    return D3D12_TEX2D_DSV
+def _define_D3D12_TEX2D_RTV_head():
+    class D3D12_TEX2D_RTV(Structure):
+        pass
+    return D3D12_TEX2D_RTV
+def _define_D3D12_TEX2D_RTV():
+    D3D12_TEX2D_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2D_RTV_head
+    D3D12_TEX2D_RTV._fields_ = [
+        ('MipSlice', UInt32),
+        ('PlaneSlice', UInt32),
+    ]
+    return D3D12_TEX2D_RTV
+def _define_D3D12_TEX2D_SRV_head():
+    class D3D12_TEX2D_SRV(Structure):
+        pass
+    return D3D12_TEX2D_SRV
+def _define_D3D12_TEX2D_SRV():
+    D3D12_TEX2D_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2D_SRV_head
+    D3D12_TEX2D_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('PlaneSlice', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEX2D_SRV
+def _define_D3D12_TEX2D_UAV_head():
+    class D3D12_TEX2D_UAV(Structure):
+        pass
+    return D3D12_TEX2D_UAV
+def _define_D3D12_TEX2D_UAV():
+    D3D12_TEX2D_UAV = win32more.Graphics.Direct3D12.D3D12_TEX2D_UAV_head
+    D3D12_TEX2D_UAV._fields_ = [
+        ('MipSlice', UInt32),
+        ('PlaneSlice', UInt32),
+    ]
+    return D3D12_TEX2D_UAV
+def _define_D3D12_TEX2DMS_ARRAY_DSV_head():
+    class D3D12_TEX2DMS_ARRAY_DSV(Structure):
+        pass
+    return D3D12_TEX2DMS_ARRAY_DSV
+def _define_D3D12_TEX2DMS_ARRAY_DSV():
+    D3D12_TEX2DMS_ARRAY_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_DSV_head
+    D3D12_TEX2DMS_ARRAY_DSV._fields_ = [
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX2DMS_ARRAY_DSV
+def _define_D3D12_TEX2DMS_ARRAY_RTV_head():
+    class D3D12_TEX2DMS_ARRAY_RTV(Structure):
+        pass
+    return D3D12_TEX2DMS_ARRAY_RTV
+def _define_D3D12_TEX2DMS_ARRAY_RTV():
+    D3D12_TEX2DMS_ARRAY_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_RTV_head
+    D3D12_TEX2DMS_ARRAY_RTV._fields_ = [
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX2DMS_ARRAY_RTV
+def _define_D3D12_TEX2DMS_ARRAY_SRV_head():
+    class D3D12_TEX2DMS_ARRAY_SRV(Structure):
+        pass
+    return D3D12_TEX2DMS_ARRAY_SRV
+def _define_D3D12_TEX2DMS_ARRAY_SRV():
+    D3D12_TEX2DMS_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_ARRAY_SRV_head
+    D3D12_TEX2DMS_ARRAY_SRV._fields_ = [
+        ('FirstArraySlice', UInt32),
+        ('ArraySize', UInt32),
+    ]
+    return D3D12_TEX2DMS_ARRAY_SRV
+def _define_D3D12_TEX2DMS_DSV_head():
+    class D3D12_TEX2DMS_DSV(Structure):
+        pass
+    return D3D12_TEX2DMS_DSV
+def _define_D3D12_TEX2DMS_DSV():
+    D3D12_TEX2DMS_DSV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_DSV_head
+    D3D12_TEX2DMS_DSV._fields_ = [
+        ('UnusedField_NothingToDefine', UInt32),
+    ]
+    return D3D12_TEX2DMS_DSV
+def _define_D3D12_TEX2DMS_RTV_head():
+    class D3D12_TEX2DMS_RTV(Structure):
+        pass
+    return D3D12_TEX2DMS_RTV
+def _define_D3D12_TEX2DMS_RTV():
+    D3D12_TEX2DMS_RTV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_RTV_head
+    D3D12_TEX2DMS_RTV._fields_ = [
+        ('UnusedField_NothingToDefine', UInt32),
+    ]
+    return D3D12_TEX2DMS_RTV
+def _define_D3D12_TEX2DMS_SRV_head():
+    class D3D12_TEX2DMS_SRV(Structure):
+        pass
+    return D3D12_TEX2DMS_SRV
+def _define_D3D12_TEX2DMS_SRV():
+    D3D12_TEX2DMS_SRV = win32more.Graphics.Direct3D12.D3D12_TEX2DMS_SRV_head
+    D3D12_TEX2DMS_SRV._fields_ = [
+        ('UnusedField_NothingToDefine', UInt32),
+    ]
+    return D3D12_TEX2DMS_SRV
+def _define_D3D12_TEX3D_RTV_head():
+    class D3D12_TEX3D_RTV(Structure):
+        pass
+    return D3D12_TEX3D_RTV
+def _define_D3D12_TEX3D_RTV():
+    D3D12_TEX3D_RTV = win32more.Graphics.Direct3D12.D3D12_TEX3D_RTV_head
+    D3D12_TEX3D_RTV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstWSlice', UInt32),
+        ('WSize', UInt32),
+    ]
+    return D3D12_TEX3D_RTV
+def _define_D3D12_TEX3D_SRV_head():
+    class D3D12_TEX3D_SRV(Structure):
+        pass
+    return D3D12_TEX3D_SRV
+def _define_D3D12_TEX3D_SRV():
+    D3D12_TEX3D_SRV = win32more.Graphics.Direct3D12.D3D12_TEX3D_SRV_head
+    D3D12_TEX3D_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEX3D_SRV
+def _define_D3D12_TEX3D_UAV_head():
+    class D3D12_TEX3D_UAV(Structure):
+        pass
+    return D3D12_TEX3D_UAV
+def _define_D3D12_TEX3D_UAV():
+    D3D12_TEX3D_UAV = win32more.Graphics.Direct3D12.D3D12_TEX3D_UAV_head
+    D3D12_TEX3D_UAV._fields_ = [
+        ('MipSlice', UInt32),
+        ('FirstWSlice', UInt32),
+        ('WSize', UInt32),
+    ]
+    return D3D12_TEX3D_UAV
+def _define_D3D12_TEXCUBE_ARRAY_SRV_head():
+    class D3D12_TEXCUBE_ARRAY_SRV(Structure):
+        pass
+    return D3D12_TEXCUBE_ARRAY_SRV
+def _define_D3D12_TEXCUBE_ARRAY_SRV():
+    D3D12_TEXCUBE_ARRAY_SRV = win32more.Graphics.Direct3D12.D3D12_TEXCUBE_ARRAY_SRV_head
+    D3D12_TEXCUBE_ARRAY_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('First2DArrayFace', UInt32),
+        ('NumCubes', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEXCUBE_ARRAY_SRV
+def _define_D3D12_TEXCUBE_SRV_head():
+    class D3D12_TEXCUBE_SRV(Structure):
+        pass
+    return D3D12_TEXCUBE_SRV
+def _define_D3D12_TEXCUBE_SRV():
+    D3D12_TEXCUBE_SRV = win32more.Graphics.Direct3D12.D3D12_TEXCUBE_SRV_head
+    D3D12_TEXCUBE_SRV._fields_ = [
+        ('MostDetailedMip', UInt32),
+        ('MipLevels', UInt32),
+        ('ResourceMinLODClamp', Single),
+    ]
+    return D3D12_TEXCUBE_SRV
+D3D12_TEXTURE_ADDRESS_MODE = Int32
+D3D12_TEXTURE_ADDRESS_MODE_WRAP = 1
+D3D12_TEXTURE_ADDRESS_MODE_MIRROR = 2
+D3D12_TEXTURE_ADDRESS_MODE_CLAMP = 3
+D3D12_TEXTURE_ADDRESS_MODE_BORDER = 4
+D3D12_TEXTURE_ADDRESS_MODE_MIRROR_ONCE = 5
+def _define_D3D12_TEXTURE_COPY_LOCATION_head():
+    class D3D12_TEXTURE_COPY_LOCATION(Structure):
+        pass
+    return D3D12_TEXTURE_COPY_LOCATION
+def _define_D3D12_TEXTURE_COPY_LOCATION():
+    D3D12_TEXTURE_COPY_LOCATION = win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head
+    class D3D12_TEXTURE_COPY_LOCATION__Anonymous_e__Union(Union):
+        pass
+    D3D12_TEXTURE_COPY_LOCATION__Anonymous_e__Union._fields_ = [
+        ('PlacedFootprint', win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT),
+        ('SubresourceIndex', UInt32),
+    ]
+    D3D12_TEXTURE_COPY_LOCATION._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_TEXTURE_COPY_LOCATION._fields_ = [
+        ('pResource', win32more.Graphics.Direct3D12.ID3D12Resource_head),
+        ('Type', win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_TYPE),
+        ('Anonymous', D3D12_TEXTURE_COPY_LOCATION__Anonymous_e__Union),
+    ]
+    return D3D12_TEXTURE_COPY_LOCATION
+D3D12_TEXTURE_COPY_TYPE = Int32
+D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX = 0
+D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT = 1
+D3D12_TEXTURE_LAYOUT = Int32
+D3D12_TEXTURE_LAYOUT_UNKNOWN = 0
+D3D12_TEXTURE_LAYOUT_ROW_MAJOR = 1
+D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE = 2
+D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE = 3
+D3D12_TILE_COPY_FLAGS = UInt32
+D3D12_TILE_COPY_FLAG_NONE = 0
+D3D12_TILE_COPY_FLAG_NO_HAZARD = 1
+D3D12_TILE_COPY_FLAG_LINEAR_BUFFER_TO_SWIZZLED_TILED_RESOURCE = 2
+D3D12_TILE_COPY_FLAG_SWIZZLED_TILED_RESOURCE_TO_LINEAR_BUFFER = 4
+D3D12_TILE_MAPPING_FLAGS = UInt32
+D3D12_TILE_MAPPING_FLAG_NONE = 0
+D3D12_TILE_MAPPING_FLAG_NO_HAZARD = 1
+D3D12_TILE_RANGE_FLAGS = Int32
+D3D12_TILE_RANGE_FLAG_NONE = 0
+D3D12_TILE_RANGE_FLAG_NULL = 1
+D3D12_TILE_RANGE_FLAG_SKIP = 2
+D3D12_TILE_RANGE_FLAG_REUSE_SINGLE_TILE = 4
+def _define_D3D12_TILE_REGION_SIZE_head():
+    class D3D12_TILE_REGION_SIZE(Structure):
+        pass
+    return D3D12_TILE_REGION_SIZE
+def _define_D3D12_TILE_REGION_SIZE():
+    D3D12_TILE_REGION_SIZE = win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head
+    D3D12_TILE_REGION_SIZE._fields_ = [
+        ('NumTiles', UInt32),
+        ('UseBox', win32more.Foundation.BOOL),
+        ('Width', UInt32),
+        ('Height', UInt16),
+        ('Depth', UInt16),
+    ]
+    return D3D12_TILE_REGION_SIZE
+def _define_D3D12_TILE_SHAPE_head():
+    class D3D12_TILE_SHAPE(Structure):
+        pass
+    return D3D12_TILE_SHAPE
+def _define_D3D12_TILE_SHAPE():
+    D3D12_TILE_SHAPE = win32more.Graphics.Direct3D12.D3D12_TILE_SHAPE_head
+    D3D12_TILE_SHAPE._fields_ = [
+        ('WidthInTexels', UInt32),
+        ('HeightInTexels', UInt32),
+        ('DepthInTexels', UInt32),
+    ]
+    return D3D12_TILE_SHAPE
+def _define_D3D12_TILED_RESOURCE_COORDINATE_head():
+    class D3D12_TILED_RESOURCE_COORDINATE(Structure):
+        pass
+    return D3D12_TILED_RESOURCE_COORDINATE
+def _define_D3D12_TILED_RESOURCE_COORDINATE():
+    D3D12_TILED_RESOURCE_COORDINATE = win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head
+    D3D12_TILED_RESOURCE_COORDINATE._fields_ = [
+        ('X', UInt32),
+        ('Y', UInt32),
+        ('Z', UInt32),
+        ('Subresource', UInt32),
+    ]
+    return D3D12_TILED_RESOURCE_COORDINATE
+D3D12_TILED_RESOURCES_TIER = Int32
+D3D12_TILED_RESOURCES_TIER_NOT_SUPPORTED = 0
+D3D12_TILED_RESOURCES_TIER_1 = 1
+D3D12_TILED_RESOURCES_TIER_2 = 2
+D3D12_TILED_RESOURCES_TIER_3 = 3
+D3D12_TILED_RESOURCES_TIER_4 = 4
+D3D12_UAV_DIMENSION = Int32
+D3D12_UAV_DIMENSION_UNKNOWN = 0
+D3D12_UAV_DIMENSION_BUFFER = 1
+D3D12_UAV_DIMENSION_TEXTURE1D = 2
+D3D12_UAV_DIMENSION_TEXTURE1DARRAY = 3
+D3D12_UAV_DIMENSION_TEXTURE2D = 4
+D3D12_UAV_DIMENSION_TEXTURE2DARRAY = 5
+D3D12_UAV_DIMENSION_TEXTURE3D = 8
+def _define_D3D12_UNORDERED_ACCESS_VIEW_DESC_head():
+    class D3D12_UNORDERED_ACCESS_VIEW_DESC(Structure):
+        pass
+    return D3D12_UNORDERED_ACCESS_VIEW_DESC
+def _define_D3D12_UNORDERED_ACCESS_VIEW_DESC():
+    D3D12_UNORDERED_ACCESS_VIEW_DESC = win32more.Graphics.Direct3D12.D3D12_UNORDERED_ACCESS_VIEW_DESC_head
+    class D3D12_UNORDERED_ACCESS_VIEW_DESC__Anonymous_e__Union(Union):
+        pass
+    D3D12_UNORDERED_ACCESS_VIEW_DESC__Anonymous_e__Union._fields_ = [
+        ('Buffer', win32more.Graphics.Direct3D12.D3D12_BUFFER_UAV),
+        ('Texture1D', win32more.Graphics.Direct3D12.D3D12_TEX1D_UAV),
+        ('Texture1DArray', win32more.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_UAV),
+        ('Texture2D', win32more.Graphics.Direct3D12.D3D12_TEX2D_UAV),
+        ('Texture2DArray', win32more.Graphics.Direct3D12.D3D12_TEX2D_ARRAY_UAV),
+        ('Texture3D', win32more.Graphics.Direct3D12.D3D12_TEX3D_UAV),
+    ]
+    D3D12_UNORDERED_ACCESS_VIEW_DESC._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_UNORDERED_ACCESS_VIEW_DESC._fields_ = [
+        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
+        ('ViewDimension', win32more.Graphics.Direct3D12.D3D12_UAV_DIMENSION),
+        ('Anonymous', D3D12_UNORDERED_ACCESS_VIEW_DESC__Anonymous_e__Union),
+    ]
+    return D3D12_UNORDERED_ACCESS_VIEW_DESC
+D3D12_VARIABLE_SHADING_RATE_TIER = Int32
+D3D12_VARIABLE_SHADING_RATE_TIER_NOT_SUPPORTED = 0
+D3D12_VARIABLE_SHADING_RATE_TIER_1 = 1
+D3D12_VARIABLE_SHADING_RATE_TIER_2 = 2
+def _define_D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA_head():
+    class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA(Structure):
+        pass
+    return D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA
+def _define_D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA():
+    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA = win32more.Graphics.Direct3D12.D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA_head
+    class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA__Anonymous_e__Union(Union):
+        pass
+    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA__Anonymous_e__Union._fields_ = [
+        ('Dred_1_0', win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA),
+        ('Dred_1_1', win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA1),
+        ('Dred_1_2', win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA2),
+        ('Dred_1_3', win32more.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA3),
+    ]
+    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA._fields_ = [
+        ('Version', win32more.Graphics.Direct3D12.D3D12_DRED_VERSION),
+        ('Anonymous', D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA__Anonymous_e__Union),
+    ]
+    return D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA
+def _define_D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head():
+    class D3D12_VERSIONED_ROOT_SIGNATURE_DESC(Structure):
+        pass
+    return D3D12_VERSIONED_ROOT_SIGNATURE_DESC
+def _define_D3D12_VERSIONED_ROOT_SIGNATURE_DESC():
+    D3D12_VERSIONED_ROOT_SIGNATURE_DESC = win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head
+    class D3D12_VERSIONED_ROOT_SIGNATURE_DESC__Anonymous_e__Union(Union):
+        pass
+    D3D12_VERSIONED_ROOT_SIGNATURE_DESC__Anonymous_e__Union._fields_ = [
+        ('Desc_1_0', win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC),
+        ('Desc_1_1', win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC1),
+    ]
+    D3D12_VERSIONED_ROOT_SIGNATURE_DESC._anonymous_ = [
+        'Anonymous',
+    ]
+    D3D12_VERSIONED_ROOT_SIGNATURE_DESC._fields_ = [
+        ('Version', win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION),
+        ('Anonymous', D3D12_VERSIONED_ROOT_SIGNATURE_DESC__Anonymous_e__Union),
+    ]
+    return D3D12_VERSIONED_ROOT_SIGNATURE_DESC
+def _define_D3D12_VERTEX_BUFFER_VIEW_head():
+    class D3D12_VERTEX_BUFFER_VIEW(Structure):
+        pass
+    return D3D12_VERTEX_BUFFER_VIEW
+def _define_D3D12_VERTEX_BUFFER_VIEW():
+    D3D12_VERTEX_BUFFER_VIEW = win32more.Graphics.Direct3D12.D3D12_VERTEX_BUFFER_VIEW_head
+    D3D12_VERTEX_BUFFER_VIEW._fields_ = [
+        ('BufferLocation', UInt64),
+        ('SizeInBytes', UInt32),
+        ('StrideInBytes', UInt32),
+    ]
+    return D3D12_VERTEX_BUFFER_VIEW
+def _define_D3D12_VIEW_INSTANCE_LOCATION_head():
+    class D3D12_VIEW_INSTANCE_LOCATION(Structure):
+        pass
+    return D3D12_VIEW_INSTANCE_LOCATION
+def _define_D3D12_VIEW_INSTANCE_LOCATION():
+    D3D12_VIEW_INSTANCE_LOCATION = win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCE_LOCATION_head
+    D3D12_VIEW_INSTANCE_LOCATION._fields_ = [
+        ('ViewportArrayIndex', UInt32),
+        ('RenderTargetArrayIndex', UInt32),
+    ]
+    return D3D12_VIEW_INSTANCE_LOCATION
+def _define_D3D12_VIEW_INSTANCING_DESC_head():
+    class D3D12_VIEW_INSTANCING_DESC(Structure):
+        pass
+    return D3D12_VIEW_INSTANCING_DESC
+def _define_D3D12_VIEW_INSTANCING_DESC():
+    D3D12_VIEW_INSTANCING_DESC = win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_DESC_head
+    D3D12_VIEW_INSTANCING_DESC._fields_ = [
+        ('ViewInstanceCount', UInt32),
+        ('pViewInstanceLocations', POINTER(win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCE_LOCATION_head)),
+        ('Flags', win32more.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_FLAGS),
+    ]
+    return D3D12_VIEW_INSTANCING_DESC
+D3D12_VIEW_INSTANCING_FLAGS = UInt32
+D3D12_VIEW_INSTANCING_FLAG_NONE = 0
+D3D12_VIEW_INSTANCING_FLAG_ENABLE_VIEW_INSTANCE_MASKING = 1
+D3D12_VIEW_INSTANCING_TIER = Int32
+D3D12_VIEW_INSTANCING_TIER_NOT_SUPPORTED = 0
+D3D12_VIEW_INSTANCING_TIER_1 = 1
+D3D12_VIEW_INSTANCING_TIER_2 = 2
+D3D12_VIEW_INSTANCING_TIER_3 = 3
+def _define_D3D12_VIEWPORT_head():
+    class D3D12_VIEWPORT(Structure):
+        pass
+    return D3D12_VIEWPORT
+def _define_D3D12_VIEWPORT():
+    D3D12_VIEWPORT = win32more.Graphics.Direct3D12.D3D12_VIEWPORT_head
+    D3D12_VIEWPORT._fields_ = [
+        ('TopLeftX', Single),
+        ('TopLeftY', Single),
+        ('Width', Single),
+        ('Height', Single),
+        ('MinDepth', Single),
+        ('MaxDepth', Single),
+    ]
+    return D3D12_VIEWPORT
+D3D12_WAVE_MMA_TIER = Int32
+D3D12_WAVE_MMA_TIER_NOT_SUPPORTED = 0
+D3D12_WAVE_MMA_TIER_1_0 = 10
+D3D12_WRITEBUFFERIMMEDIATE_MODE = Int32
+D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT = 0
+D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_IN = 1
+D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_OUT = 2
+def _define_D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head():
+    class D3D12_WRITEBUFFERIMMEDIATE_PARAMETER(Structure):
+        pass
+    return D3D12_WRITEBUFFERIMMEDIATE_PARAMETER
+def _define_D3D12_WRITEBUFFERIMMEDIATE_PARAMETER():
+    D3D12_WRITEBUFFERIMMEDIATE_PARAMETER = win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head
+    D3D12_WRITEBUFFERIMMEDIATE_PARAMETER._fields_ = [
+        ('Dest', UInt64),
+        ('Value', UInt32),
+    ]
+    return D3D12_WRITEBUFFERIMMEDIATE_PARAMETER
+def _define_D3D12MessageFunc():
+    return WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID,win32more.Foundation.PSTR,c_void_p)
+def _define_ID3D12CommandAllocator_head():
+    class ID3D12CommandAllocator(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('6102dee4-af59-4b09-b9-99-b4-4d-73-f0-9b-24')
+    return ID3D12CommandAllocator
+def _define_ID3D12CommandAllocator():
+    ID3D12CommandAllocator = win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head
+    ID3D12CommandAllocator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Reset', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12CommandAllocator
+def _define_ID3D12CommandList_head():
+    class ID3D12CommandList(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('7116d91c-e7e4-47ce-b8-c6-ec-81-68-f4-37-e5')
+    return ID3D12CommandList
+def _define_ID3D12CommandList():
+    ID3D12CommandList = win32more.Graphics.Direct3D12.ID3D12CommandList_head
+    ID3D12CommandList.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,)(8, 'GetType', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12CommandList
+def _define_ID3D12CommandQueue_head():
+    class ID3D12CommandQueue(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('0ec870a6-5d7e-4c22-8c-fc-5b-aa-e0-76-16-ed')
+    return ID3D12CommandQueue
+def _define_ID3D12CommandQueue():
+    ID3D12CommandQueue = win32more.Graphics.Direct3D12.ID3D12CommandQueue_head
+    ID3D12CommandQueue.UpdateTileMappings = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head),win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_RANGE_FLAGS),POINTER(UInt32),POINTER(UInt32),win32more.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS)(8, 'UpdateTileMappings', ((1, 'pResource'),(1, 'NumResourceRegions'),(1, 'pResourceRegionStartCoordinates'),(1, 'pResourceRegionSizes'),(1, 'pHeap'),(1, 'NumRanges'),(1, 'pRangeFlags'),(1, 'pHeapRangeStartOffsets'),(1, 'pRangeTileCounts'),(1, 'Flags'),)))
+    ID3D12CommandQueue.CopyTileMappings = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head),win32more.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS)(9, 'CopyTileMappings', ((1, 'pDstResource'),(1, 'pDstRegionStartCoordinate'),(1, 'pSrcResource'),(1, 'pSrcRegionStartCoordinate'),(1, 'pRegionSize'),(1, 'Flags'),)))
+    ID3D12CommandQueue.ExecuteCommandLists = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12CommandList_head))(10, 'ExecuteCommandLists', ((1, 'NumCommandLists'),(1, 'ppCommandLists'),)))
+    ID3D12CommandQueue.SetMarker = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32)(11, 'SetMarker', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
+    ID3D12CommandQueue.BeginEvent = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32)(12, 'BeginEvent', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
+    ID3D12CommandQueue.EndEvent = COMMETHOD(WINFUNCTYPE(Void,)(13, 'EndEvent', ()))
+    ID3D12CommandQueue.Signal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64)(14, 'Signal', ((1, 'pFence'),(1, 'Value'),)))
+    ID3D12CommandQueue.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64)(15, 'Wait', ((1, 'pFence'),(1, 'Value'),)))
+    ID3D12CommandQueue.GetTimestampFrequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(16, 'GetTimestampFrequency', ((1, 'pFrequency'),)))
+    ID3D12CommandQueue.GetClockCalibration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64))(17, 'GetClockCalibration', ((1, 'pGpuTimestamp'),(1, 'pCpuTimestamp'),)))
+    ID3D12CommandQueue.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC,)(18, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12CommandQueue
+def _define_ID3D12CommandSignature_head():
+    class ID3D12CommandSignature(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('c36a797c-ec80-4f0a-89-85-a7-b2-47-50-82-d1')
+    return ID3D12CommandSignature
+def _define_ID3D12CommandSignature():
+    ID3D12CommandSignature = win32more.Graphics.Direct3D12.ID3D12CommandSignature_head
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12CommandSignature
+def _define_ID3D12Debug_head():
+    class ID3D12Debug(win32more.System.Com.IUnknown_head):
+        Guid = Guid('344488b7-6846-474b-b9-89-f0-27-44-82-45-e0')
+    return ID3D12Debug
+def _define_ID3D12Debug():
+    ID3D12Debug = win32more.Graphics.Direct3D12.ID3D12Debug_head
+    ID3D12Debug.EnableDebugLayer = COMMETHOD(WINFUNCTYPE(Void,)(3, 'EnableDebugLayer', ()))
     win32more.System.Com.IUnknown
-    return ID3D12ShaderReflection
-def _define_ID3D12LibraryReflection_head():
-    class ID3D12LibraryReflection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8e349d19-54db-4a56-9dc9-119d87bdb804')
-    return ID3D12LibraryReflection
-def _define_ID3D12LibraryReflection():
-    ID3D12LibraryReflection = win32more.Graphics.Direct3D12.ID3D12LibraryReflection_head
-    ID3D12LibraryReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head), use_last_error=False)(3, 'GetDesc', ((1, 'pDesc'),)))
-    ID3D12LibraryReflection.GetFunctionByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12FunctionReflection_head,Int32, use_last_error=False)(4, 'GetFunctionByIndex', ((1, 'FunctionIndex'),)))
+    return ID3D12Debug
+def _define_ID3D12Debug1_head():
+    class ID3D12Debug1(win32more.System.Com.IUnknown_head):
+        Guid = Guid('affaa4ca-63fe-4d8e-b8-ad-15-90-00-af-43-04')
+    return ID3D12Debug1
+def _define_ID3D12Debug1():
+    ID3D12Debug1 = win32more.Graphics.Direct3D12.ID3D12Debug1_head
+    ID3D12Debug1.EnableDebugLayer = COMMETHOD(WINFUNCTYPE(Void,)(3, 'EnableDebugLayer', ()))
+    ID3D12Debug1.SetEnableGPUBasedValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(4, 'SetEnableGPUBasedValidation', ((1, 'Enable'),)))
+    ID3D12Debug1.SetEnableSynchronizedCommandQueueValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(5, 'SetEnableSynchronizedCommandQueueValidation', ((1, 'Enable'),)))
     win32more.System.Com.IUnknown
-    return ID3D12LibraryReflection
-def _define_ID3D12FunctionReflection_head():
-    class ID3D12FunctionReflection(c_void_p):
-        Guid = Guid('1108795c-2772-4ba9-b2a8-d464dc7e2799')
-    return ID3D12FunctionReflection
-def _define_ID3D12FunctionReflection():
-    ID3D12FunctionReflection = win32more.Graphics.Direct3D12.ID3D12FunctionReflection_head
-    ID3D12FunctionReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_FUNCTION_DESC_head), use_last_error=False)(0, 'GetDesc', ((1, 'pDesc'),)))
-    ID3D12FunctionReflection.GetConstantBufferByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,UInt32, use_last_error=False)(1, 'GetConstantBufferByIndex', ((1, 'BufferIndex'),)))
-    ID3D12FunctionReflection.GetConstantBufferByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,win32more.Foundation.PSTR, use_last_error=False)(2, 'GetConstantBufferByName', ((1, 'Name'),)))
-    ID3D12FunctionReflection.GetResourceBindingDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head), use_last_error=False)(3, 'GetResourceBindingDesc', ((1, 'ResourceIndex'),(1, 'pDesc'),)))
-    ID3D12FunctionReflection.GetVariableByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,win32more.Foundation.PSTR, use_last_error=False)(4, 'GetVariableByName', ((1, 'Name'),)))
-    ID3D12FunctionReflection.GetResourceBindingDescByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head), use_last_error=False)(5, 'GetResourceBindingDescByName', ((1, 'Name'),(1, 'pDesc'),)))
-    ID3D12FunctionReflection.GetFunctionParameter = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12FunctionParameterReflection_head,Int32, use_last_error=False)(6, 'GetFunctionParameter', ((1, 'ParameterIndex'),)))
-    return ID3D12FunctionReflection
+    return ID3D12Debug1
+def _define_ID3D12Debug2_head():
+    class ID3D12Debug2(win32more.System.Com.IUnknown_head):
+        Guid = Guid('93a665c4-a3b2-4e5d-b6-92-a2-6a-e1-4e-33-74')
+    return ID3D12Debug2
+def _define_ID3D12Debug2():
+    ID3D12Debug2 = win32more.Graphics.Direct3D12.ID3D12Debug2_head
+    ID3D12Debug2.SetGPUBasedValidationFlags = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS)(3, 'SetGPUBasedValidationFlags', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12Debug2
+def _define_ID3D12Debug3_head():
+    class ID3D12Debug3(win32more.Graphics.Direct3D12.ID3D12Debug_head):
+        Guid = Guid('5cf4e58f-f671-4ff1-a5-42-36-86-e3-d1-53-d1')
+    return ID3D12Debug3
+def _define_ID3D12Debug3():
+    ID3D12Debug3 = win32more.Graphics.Direct3D12.ID3D12Debug3_head
+    ID3D12Debug3.SetEnableGPUBasedValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(4, 'SetEnableGPUBasedValidation', ((1, 'Enable'),)))
+    ID3D12Debug3.SetEnableSynchronizedCommandQueueValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(5, 'SetEnableSynchronizedCommandQueueValidation', ((1, 'Enable'),)))
+    ID3D12Debug3.SetGPUBasedValidationFlags = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS)(6, 'SetGPUBasedValidationFlags', ((1, 'Flags'),)))
+    win32more.Graphics.Direct3D12.ID3D12Debug
+    return ID3D12Debug3
+def _define_ID3D12Debug4_head():
+    class ID3D12Debug4(win32more.Graphics.Direct3D12.ID3D12Debug3_head):
+        Guid = Guid('014b816e-9ec5-4a2f-a8-45-ff-be-44-1c-e1-3a')
+    return ID3D12Debug4
+def _define_ID3D12Debug4():
+    ID3D12Debug4 = win32more.Graphics.Direct3D12.ID3D12Debug4_head
+    ID3D12Debug4.DisableDebugLayer = COMMETHOD(WINFUNCTYPE(Void,)(7, 'DisableDebugLayer', ()))
+    win32more.Graphics.Direct3D12.ID3D12Debug3
+    return ID3D12Debug4
+def _define_ID3D12Debug5_head():
+    class ID3D12Debug5(win32more.Graphics.Direct3D12.ID3D12Debug4_head):
+        Guid = Guid('548d6b12-09fa-40e0-90-69-5d-cd-58-9a-52-c9')
+    return ID3D12Debug5
+def _define_ID3D12Debug5():
+    ID3D12Debug5 = win32more.Graphics.Direct3D12.ID3D12Debug5_head
+    ID3D12Debug5.SetEnableAutoName = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(8, 'SetEnableAutoName', ((1, 'Enable'),)))
+    win32more.Graphics.Direct3D12.ID3D12Debug4
+    return ID3D12Debug5
+def _define_ID3D12DebugCommandList_head():
+    class ID3D12DebugCommandList(win32more.System.Com.IUnknown_head):
+        Guid = Guid('09e0bf36-54ac-484f-88-47-4b-ae-ea-b6-05-3f')
+    return ID3D12DebugCommandList
+def _define_ID3D12DebugCommandList():
+    ID3D12DebugCommandList = win32more.Graphics.Direct3D12.ID3D12DebugCommandList_head
+    ID3D12DebugCommandList.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
+    ID3D12DebugCommandList.SetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE)(4, 'SetFeatureMask', ((1, 'Mask'),)))
+    ID3D12DebugCommandList.GetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE,)(5, 'GetFeatureMask', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12DebugCommandList
+def _define_ID3D12DebugCommandList1_head():
+    class ID3D12DebugCommandList1(win32more.System.Com.IUnknown_head):
+        Guid = Guid('102ca951-311b-4b01-b1-1f-ec-b8-3e-06-1b-37')
+    return ID3D12DebugCommandList1
+def _define_ID3D12DebugCommandList1():
+    ID3D12DebugCommandList1 = win32more.Graphics.Direct3D12.ID3D12DebugCommandList1_head
+    ID3D12DebugCommandList1.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
+    ID3D12DebugCommandList1.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32)(4, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    ID3D12DebugCommandList1.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32)(5, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12DebugCommandList1
+def _define_ID3D12DebugCommandList2_head():
+    class ID3D12DebugCommandList2(win32more.Graphics.Direct3D12.ID3D12DebugCommandList_head):
+        Guid = Guid('aeb575cf-4e06-48be-ba-3b-c4-50-fc-96-65-2e')
+    return ID3D12DebugCommandList2
+def _define_ID3D12DebugCommandList2():
+    ID3D12DebugCommandList2 = win32more.Graphics.Direct3D12.ID3D12DebugCommandList2_head
+    ID3D12DebugCommandList2.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32)(6, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    ID3D12DebugCommandList2.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32)(7, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    win32more.Graphics.Direct3D12.ID3D12DebugCommandList
+    return ID3D12DebugCommandList2
+def _define_ID3D12DebugCommandQueue_head():
+    class ID3D12DebugCommandQueue(win32more.System.Com.IUnknown_head):
+        Guid = Guid('09e0bf36-54ac-484f-88-47-4b-ae-ea-b6-05-3a')
+    return ID3D12DebugCommandQueue
+def _define_ID3D12DebugCommandQueue():
+    ID3D12DebugCommandQueue = win32more.Graphics.Direct3D12.ID3D12DebugCommandQueue_head
+    ID3D12DebugCommandQueue.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12DebugCommandQueue
+def _define_ID3D12DebugDevice_head():
+    class ID3D12DebugDevice(win32more.System.Com.IUnknown_head):
+        Guid = Guid('3febd6dd-4973-4787-81-94-e4-5f-9e-28-92-3e')
+    return ID3D12DebugDevice
+def _define_ID3D12DebugDevice():
+    ID3D12DebugDevice = win32more.Graphics.Direct3D12.ID3D12DebugDevice_head
+    ID3D12DebugDevice.SetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE)(3, 'SetFeatureMask', ((1, 'Mask'),)))
+    ID3D12DebugDevice.GetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE,)(4, 'GetFeatureMask', ()))
+    ID3D12DebugDevice.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RLDO_FLAGS)(5, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12DebugDevice
+def _define_ID3D12DebugDevice1_head():
+    class ID3D12DebugDevice1(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a9b71770-d099-4a65-a6-98-3d-ee-10-02-0f-88')
+    return ID3D12DebugDevice1
+def _define_ID3D12DebugDevice1():
+    ID3D12DebugDevice1 = win32more.Graphics.Direct3D12.ID3D12DebugDevice1_head
+    ID3D12DebugDevice1.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32)(3, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    ID3D12DebugDevice1.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32)(4, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    ID3D12DebugDevice1.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RLDO_FLAGS)(5, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12DebugDevice1
+def _define_ID3D12DebugDevice2_head():
+    class ID3D12DebugDevice2(win32more.Graphics.Direct3D12.ID3D12DebugDevice_head):
+        Guid = Guid('60eccbc1-378d-4df1-89-4c-f8-ac-5c-e4-d7-dd')
+    return ID3D12DebugDevice2
+def _define_ID3D12DebugDevice2():
+    ID3D12DebugDevice2 = win32more.Graphics.Direct3D12.ID3D12DebugDevice2_head
+    ID3D12DebugDevice2.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32)(6, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    ID3D12DebugDevice2.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32)(7, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    win32more.Graphics.Direct3D12.ID3D12DebugDevice
+    return ID3D12DebugDevice2
+def _define_ID3D12DescriptorHeap_head():
+    class ID3D12DescriptorHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('8efb471d-616c-4f49-90-f7-12-7b-b7-63-fa-51')
+    return ID3D12DescriptorHeap
+def _define_ID3D12DescriptorHeap():
+    ID3D12DescriptorHeap = win32more.Graphics.Direct3D12.ID3D12DescriptorHeap_head
+    ID3D12DescriptorHeap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC,)(8, 'GetDesc', ()))
+    ID3D12DescriptorHeap.GetCPUDescriptorHandleForHeapStart = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,)(9, 'GetCPUDescriptorHandleForHeapStart', ()))
+    ID3D12DescriptorHeap.GetGPUDescriptorHandleForHeapStart = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE,)(10, 'GetGPUDescriptorHandleForHeapStart', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12DescriptorHeap
+def _define_ID3D12Device_head():
+    class ID3D12Device(win32more.Graphics.Direct3D12.ID3D12Object_head):
+        Guid = Guid('189819f1-1db6-4b57-be-54-18-21-33-9b-85-f7')
+    return ID3D12Device
+def _define_ID3D12Device():
+    ID3D12Device = win32more.Graphics.Direct3D12.ID3D12Device_head
+    ID3D12Device.GetNodeCount = COMMETHOD(WINFUNCTYPE(UInt32,)(7, 'GetNodeCount', ()))
+    ID3D12Device.CreateCommandQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head),POINTER(Guid),POINTER(c_void_p))(8, 'CreateCommandQueue', ((1, 'pDesc'),(1, 'riid'),(1, 'ppCommandQueue'),)))
+    ID3D12Device.CreateCommandAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,POINTER(Guid),POINTER(c_void_p))(9, 'CreateCommandAllocator', ((1, 'type'),(1, 'riid'),(1, 'ppCommandAllocator'),)))
+    ID3D12Device.CreateGraphicsPipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p))(10, 'CreateGraphicsPipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    ID3D12Device.CreateComputePipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p))(11, 'CreateComputePipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    ID3D12Device.CreateCommandList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head,win32more.Graphics.Direct3D12.ID3D12PipelineState_head,POINTER(Guid),POINTER(c_void_p))(12, 'CreateCommandList', ((1, 'nodeMask'),(1, 'type'),(1, 'pCommandAllocator'),(1, 'pInitialState'),(1, 'riid'),(1, 'ppCommandList'),)))
+    ID3D12Device.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_FEATURE,c_void_p,UInt32)(13, 'CheckFeatureSupport', ((1, 'Feature'),(1, 'pFeatureSupportData'),(1, 'FeatureSupportDataSize'),)))
+    ID3D12Device.CreateDescriptorHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p))(14, 'CreateDescriptorHeap', ((1, 'pDescriptorHeapDesc'),(1, 'riid'),(1, 'ppvHeap'),)))
+    ID3D12Device.GetDescriptorHandleIncrementSize = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE)(15, 'GetDescriptorHandleIncrementSize', ((1, 'DescriptorHeapType'),)))
+    ID3D12Device.CreateRootSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(16, 'CreateRootSignature', ((1, 'nodeMask'),(1, 'pBlobWithRootSignature'),(1, 'blobLengthInBytes'),(1, 'riid'),(1, 'ppvRootSignature'),)))
+    ID3D12Device.CreateConstantBufferView = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_CONSTANT_BUFFER_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(17, 'CreateConstantBufferView', ((1, 'pDesc'),(1, 'DestDescriptor'),)))
+    ID3D12Device.CreateShaderResourceView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_RESOURCE_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(18, 'CreateShaderResourceView', ((1, 'pResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
+    ID3D12Device.CreateUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_UNORDERED_ACCESS_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(19, 'CreateUnorderedAccessView', ((1, 'pResource'),(1, 'pCounterResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
+    ID3D12Device.CreateRenderTargetView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_TARGET_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(20, 'CreateRenderTargetView', ((1, 'pResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
+    ID3D12Device.CreateDepthStencilView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VIEW_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(21, 'CreateDepthStencilView', ((1, 'pResource'),(1, 'pDesc'),(1, 'DestDescriptor'),)))
+    ID3D12Device.CreateSampler = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_SAMPLER_DESC_head),win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(22, 'CreateSampler', ((1, 'pDesc'),(1, 'DestDescriptor'),)))
+    ID3D12Device.CopyDescriptors = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head),POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head),POINTER(UInt32),win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE)(23, 'CopyDescriptors', ((1, 'NumDestDescriptorRanges'),(1, 'pDestDescriptorRangeStarts'),(1, 'pDestDescriptorRangeSizes'),(1, 'NumSrcDescriptorRanges'),(1, 'pSrcDescriptorRangeStarts'),(1, 'pSrcDescriptorRangeSizes'),(1, 'DescriptorHeapsType'),)))
+    ID3D12Device.CopyDescriptorsSimple = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE)(24, 'CopyDescriptorsSimple', ((1, 'NumDescriptors'),(1, 'DestDescriptorRangeStart'),(1, 'SrcDescriptorRangeStart'),(1, 'DescriptorHeapsType'),)))
+    ID3D12Device.GetResourceAllocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head))(25, 'GetResourceAllocationInfo', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),)))
+    ID3D12Device.GetCustomHeapProperties = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES,UInt32,win32more.Graphics.Direct3D12.D3D12_HEAP_TYPE)(26, 'GetCustomHeapProperties', ((1, 'nodeMask'),(1, 'heapType'),)))
+    ID3D12Device.CreateCommittedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p))(27, 'CreateCommittedResource', ((1, 'pHeapProperties'),(1, 'HeapFlags'),(1, 'pDesc'),(1, 'InitialResourceState'),(1, 'pOptimizedClearValue'),(1, 'riidResource'),(1, 'ppvResource'),)))
+    ID3D12Device.CreateHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p))(28, 'CreateHeap', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvHeap'),)))
+    ID3D12Device.CreatePlacedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p))(29, 'CreatePlacedResource', ((1, 'pHeap'),(1, 'HeapOffset'),(1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
+    ID3D12Device.CreateReservedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p))(30, 'CreateReservedResource', ((1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
+    ID3D12Device.CreateSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12DeviceChild_head,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE))(31, 'CreateSharedHandle', ((1, 'pObject'),(1, 'pAttributes'),(1, 'Access'),(1, 'Name'),(1, 'pHandle'),)))
+    ID3D12Device.OpenSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p))(32, 'OpenSharedHandle', ((1, 'NTHandle'),(1, 'riid'),(1, 'ppvObj'),)))
+    ID3D12Device.OpenSharedHandleByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.HANDLE))(33, 'OpenSharedHandleByName', ((1, 'Name'),(1, 'Access'),(1, 'pNTHandle'),)))
+    ID3D12Device.MakeResident = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head))(34, 'MakeResident', ((1, 'NumObjects'),(1, 'ppObjects'),)))
+    ID3D12Device.Evict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head))(35, 'Evict', ((1, 'NumObjects'),(1, 'ppObjects'),)))
+    ID3D12Device.CreateFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Graphics.Direct3D12.D3D12_FENCE_FLAGS,POINTER(Guid),POINTER(c_void_p))(36, 'CreateFence', ((1, 'InitialValue'),(1, 'Flags'),(1, 'riid'),(1, 'ppFence'),)))
+    ID3D12Device.GetDeviceRemovedReason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(37, 'GetDeviceRemovedReason', ()))
+    ID3D12Device.GetCopyableFootprints = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),UInt32,UInt32,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64))(38, 'GetCopyableFootprints', ((1, 'pResourceDesc'),(1, 'FirstSubresource'),(1, 'NumSubresources'),(1, 'BaseOffset'),(1, 'pLayouts'),(1, 'pNumRows'),(1, 'pRowSizeInBytes'),(1, 'pTotalBytes'),)))
+    ID3D12Device.CreateQueryHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_QUERY_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p))(39, 'CreateQueryHeap', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvHeap'),)))
+    ID3D12Device.SetStablePowerState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(40, 'SetStablePowerState', ((1, 'Enable'),)))
+    ID3D12Device.CreateCommandSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.ID3D12RootSignature_head,POINTER(Guid),POINTER(c_void_p))(41, 'CreateCommandSignature', ((1, 'pDesc'),(1, 'pRootSignature'),(1, 'riid'),(1, 'ppvCommandSignature'),)))
+    ID3D12Device.GetResourceTiling = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_SHAPE_head),POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING_head))(42, 'GetResourceTiling', ((1, 'pTiledResource'),(1, 'pNumTilesForEntireResource'),(1, 'pPackedMipDesc'),(1, 'pStandardTileShapeForNonPackedMips'),(1, 'pNumSubresourceTilings'),(1, 'FirstSubresourceTilingToGet'),(1, 'pSubresourceTilingsForNonPackedMips'),)))
+    ID3D12Device.GetAdapterLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.LUID,)(43, 'GetAdapterLuid', ()))
+    win32more.Graphics.Direct3D12.ID3D12Object
+    return ID3D12Device
+def _define_ID3D12Device1_head():
+    class ID3D12Device1(win32more.Graphics.Direct3D12.ID3D12Device_head):
+        Guid = Guid('77acce80-638e-4e65-88-95-c1-f2-33-86-86-3e')
+    return ID3D12Device1
+def _define_ID3D12Device1():
+    ID3D12Device1 = win32more.Graphics.Direct3D12.ID3D12Device1_head
+    ID3D12Device1.CreatePipelineLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(44, 'CreatePipelineLibrary', ((1, 'pLibraryBlob'),(1, 'BlobLength'),(1, 'riid'),(1, 'ppPipelineLibrary'),)))
+    ID3D12Device1.SetEventOnMultipleFenceCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.ID3D12Fence_head),POINTER(UInt64),UInt32,win32more.Graphics.Direct3D12.D3D12_MULTIPLE_FENCE_WAIT_FLAGS,win32more.Foundation.HANDLE)(45, 'SetEventOnMultipleFenceCompletion', ((1, 'ppFences'),(1, 'pFenceValues'),(1, 'NumFences'),(1, 'Flags'),(1, 'hEvent'),)))
+    ID3D12Device1.SetResidencyPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RESIDENCY_PRIORITY))(46, 'SetResidencyPriority', ((1, 'NumObjects'),(1, 'ppObjects'),(1, 'pPriorities'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device
+    return ID3D12Device1
+def _define_ID3D12Device2_head():
+    class ID3D12Device2(win32more.Graphics.Direct3D12.ID3D12Device1_head):
+        Guid = Guid('30baa41e-b15b-475c-a0-bb-1a-f5-c5-b6-43-28')
+    return ID3D12Device2
+def _define_ID3D12Device2():
+    ID3D12Device2 = win32more.Graphics.Direct3D12.ID3D12Device2_head
+    ID3D12Device2.CreatePipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head),POINTER(Guid),POINTER(c_void_p))(47, 'CreatePipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device1
+    return ID3D12Device2
+def _define_ID3D12Device3_head():
+    class ID3D12Device3(win32more.Graphics.Direct3D12.ID3D12Device2_head):
+        Guid = Guid('81dadc15-2bad-4392-93-c5-10-13-45-c4-aa-98')
+    return ID3D12Device3
+def _define_ID3D12Device3():
+    ID3D12Device3 = win32more.Graphics.Direct3D12.ID3D12Device3_head
+    ID3D12Device3.OpenExistingHeapFromAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),POINTER(c_void_p))(48, 'OpenExistingHeapFromAddress', ((1, 'pAddress'),(1, 'riid'),(1, 'ppvHeap'),)))
+    ID3D12Device3.OpenExistingHeapFromFileMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p))(49, 'OpenExistingHeapFromFileMapping', ((1, 'hFileMapping'),(1, 'riid'),(1, 'ppvHeap'),)))
+    ID3D12Device3.EnqueueMakeResident = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RESIDENCY_FLAGS,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head),win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64)(50, 'EnqueueMakeResident', ((1, 'Flags'),(1, 'NumObjects'),(1, 'ppObjects'),(1, 'pFenceToSignal'),(1, 'FenceValueToSignal'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device2
+    return ID3D12Device3
+def _define_ID3D12Device4_head():
+    class ID3D12Device4(win32more.Graphics.Direct3D12.ID3D12Device3_head):
+        Guid = Guid('e865df17-a9ee-46f9-a4-63-30-98-31-5a-a2-e5')
+    return ID3D12Device4
+def _define_ID3D12Device4():
+    ID3D12Device4 = win32more.Graphics.Direct3D12.ID3D12Device4_head
+    ID3D12Device4.CreateCommandList1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE,win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_FLAGS,POINTER(Guid),POINTER(c_void_p))(51, 'CreateCommandList1', ((1, 'nodeMask'),(1, 'type'),(1, 'flags'),(1, 'riid'),(1, 'ppCommandList'),)))
+    ID3D12Device4.CreateProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC_head),POINTER(Guid),POINTER(c_void_p))(52, 'CreateProtectedResourceSession', ((1, 'pDesc'),(1, 'riid'),(1, 'ppSession'),)))
+    ID3D12Device4.CreateCommittedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p))(53, 'CreateCommittedResource1', ((1, 'pHeapProperties'),(1, 'HeapFlags'),(1, 'pDesc'),(1, 'InitialResourceState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riidResource'),(1, 'ppvResource'),)))
+    ID3D12Device4.CreateHeap1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p))(54, 'CreateHeap1', ((1, 'pDesc'),(1, 'pProtectedSession'),(1, 'riid'),(1, 'ppvHeap'),)))
+    ID3D12Device4.CreateReservedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p))(55, 'CreateReservedResource1', ((1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riid'),(1, 'ppvResource'),)))
+    ID3D12Device4.GetResourceAllocationInfo1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head))(56, 'GetResourceAllocationInfo1', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),(1, 'pResourceAllocationInfo1'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device3
+    return ID3D12Device4
+def _define_ID3D12Device5_head():
+    class ID3D12Device5(win32more.Graphics.Direct3D12.ID3D12Device4_head):
+        Guid = Guid('8b4f173b-2fea-4b80-8f-58-43-07-19-1a-b9-5d')
+    return ID3D12Device5
+def _define_ID3D12Device5():
+    ID3D12Device5 = win32more.Graphics.Direct3D12.ID3D12Device5_head
+    ID3D12Device5.CreateLifetimeTracker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12LifetimeOwner_head,POINTER(Guid),POINTER(c_void_p))(57, 'CreateLifetimeTracker', ((1, 'pOwner'),(1, 'riid'),(1, 'ppvTracker'),)))
+    ID3D12Device5.RemoveDevice = COMMETHOD(WINFUNCTYPE(Void,)(58, 'RemoveDevice', ()))
+    ID3D12Device5.EnumerateMetaCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_META_COMMAND_DESC_head))(59, 'EnumerateMetaCommands', ((1, 'pNumMetaCommands'),(1, 'pDescs'),)))
+    ID3D12Device5.EnumerateMetaCommandParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_DESC_head))(60, 'EnumerateMetaCommandParameters', ((1, 'CommandId'),(1, 'Stage'),(1, 'pTotalStructureSizeInBytes'),(1, 'pParameterCount'),(1, 'pParameterDescs'),)))
+    ID3D12Device5.CreateMetaCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(61, 'CreateMetaCommand', ((1, 'CommandId'),(1, 'NodeMask'),(1, 'pCreationParametersData'),(1, 'CreationParametersDataSizeInBytes'),(1, 'riid'),(1, 'ppMetaCommand'),)))
+    ID3D12Device5.CreateStateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head),POINTER(Guid),POINTER(c_void_p))(62, 'CreateStateObject', ((1, 'pDesc'),(1, 'riid'),(1, 'ppStateObject'),)))
+    ID3D12Device5.GetRaytracingAccelerationStructurePrebuildInfo = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head))(63, 'GetRaytracingAccelerationStructurePrebuildInfo', ((1, 'pDesc'),(1, 'pInfo'),)))
+    ID3D12Device5.CheckDriverMatchingIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS,win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_TYPE,POINTER(win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head))(64, 'CheckDriverMatchingIdentifier', ((1, 'SerializedDataType'),(1, 'pIdentifierToCheck'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device4
+    return ID3D12Device5
+def _define_ID3D12Device6_head():
+    class ID3D12Device6(win32more.Graphics.Direct3D12.ID3D12Device5_head):
+        Guid = Guid('c70b221b-40e4-4a17-89-af-02-5a-07-27-a6-dc')
+    return ID3D12Device6
+def _define_ID3D12Device6():
+    ID3D12Device6 = win32more.Graphics.Direct3D12.ID3D12Device6_head
+    ID3D12Device6.SetBackgroundProcessingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_BACKGROUND_PROCESSING_MODE,win32more.Graphics.Direct3D12.D3D12_MEASUREMENTS_ACTION,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(65, 'SetBackgroundProcessingMode', ((1, 'Mode'),(1, 'MeasurementsAction'),(1, 'hEventToSignalUponCompletion'),(1, 'pbFurtherMeasurementsDesired'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device5
+    return ID3D12Device6
+def _define_ID3D12Device7_head():
+    class ID3D12Device7(win32more.Graphics.Direct3D12.ID3D12Device6_head):
+        Guid = Guid('5c014b53-68a1-4b9b-8b-d1-dd-60-46-b9-35-8b')
+    return ID3D12Device7
+def _define_ID3D12Device7():
+    ID3D12Device7 = win32more.Graphics.Direct3D12.ID3D12Device7_head
+    ID3D12Device7.AddToStateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head),win32more.Graphics.Direct3D12.ID3D12StateObject_head,POINTER(Guid),POINTER(c_void_p))(66, 'AddToStateObject', ((1, 'pAddition'),(1, 'pStateObjectToGrowFrom'),(1, 'riid'),(1, 'ppNewStateObject'),)))
+    ID3D12Device7.CreateProtectedResourceSession1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head),POINTER(Guid),POINTER(c_void_p))(67, 'CreateProtectedResourceSession1', ((1, 'pDesc'),(1, 'riid'),(1, 'ppSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device6
+    return ID3D12Device7
+def _define_ID3D12Device8_head():
+    class ID3D12Device8(win32more.Graphics.Direct3D12.ID3D12Device7_head):
+        Guid = Guid('9218e6bb-f944-4f7e-a7-5c-b1-b2-c7-b7-01-f3')
+    return ID3D12Device8
+def _define_ID3D12Device8():
+    ID3D12Device8 = win32more.Graphics.Direct3D12.ID3D12Device8_head
+    ID3D12Device8.GetResourceAllocationInfo2 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head))(68, 'GetResourceAllocationInfo2', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),(1, 'pResourceAllocationInfo1'),)))
+    ID3D12Device8.CreateCommittedResource2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p))(69, 'CreateCommittedResource2', ((1, 'pHeapProperties'),(1, 'HeapFlags'),(1, 'pDesc'),(1, 'InitialResourceState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riidResource'),(1, 'ppvResource'),)))
+    ID3D12Device8.CreatePlacedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p))(70, 'CreatePlacedResource1', ((1, 'pHeap'),(1, 'HeapOffset'),(1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
+    ID3D12Device8.CreateSamplerFeedbackUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)(71, 'CreateSamplerFeedbackUnorderedAccessView', ((1, 'pTargetedResource'),(1, 'pFeedbackResource'),(1, 'DestDescriptor'),)))
+    ID3D12Device8.GetCopyableFootprints1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),UInt32,UInt32,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64))(72, 'GetCopyableFootprints1', ((1, 'pResourceDesc'),(1, 'FirstSubresource'),(1, 'NumSubresources'),(1, 'BaseOffset'),(1, 'pLayouts'),(1, 'pNumRows'),(1, 'pRowSizeInBytes'),(1, 'pTotalBytes'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device7
+    return ID3D12Device8
+def _define_ID3D12Device9_head():
+    class ID3D12Device9(win32more.Graphics.Direct3D12.ID3D12Device8_head):
+        Guid = Guid('4c80e962-f032-4f60-bc-9e-eb-c2-cf-a1-d8-3c')
+    return ID3D12Device9
+def _define_ID3D12Device9():
+    ID3D12Device9 = win32more.Graphics.Direct3D12.ID3D12Device9_head
+    ID3D12Device9.CreateShaderCacheSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC_head),POINTER(Guid),POINTER(c_void_p))(73, 'CreateShaderCacheSession', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvSession'),)))
+    ID3D12Device9.ShaderCacheControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_KIND_FLAGS,win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_CONTROL_FLAGS)(74, 'ShaderCacheControl', ((1, 'Kinds'),(1, 'Control'),)))
+    ID3D12Device9.CreateCommandQueue1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head),POINTER(Guid),POINTER(Guid),POINTER(c_void_p))(75, 'CreateCommandQueue1', ((1, 'pDesc'),(1, 'CreatorID'),(1, 'riid'),(1, 'ppCommandQueue'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device8
+    return ID3D12Device9
+def _define_ID3D12DeviceChild_head():
+    class ID3D12DeviceChild(win32more.Graphics.Direct3D12.ID3D12Object_head):
+        Guid = Guid('905db94b-a00c-4140-9d-f5-2b-64-ca-9e-a3-57')
+    return ID3D12DeviceChild
+def _define_ID3D12DeviceChild():
+    ID3D12DeviceChild = win32more.Graphics.Direct3D12.ID3D12DeviceChild_head
+    ID3D12DeviceChild.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(7, 'GetDevice', ((1, 'riid'),(1, 'ppvDevice'),)))
+    win32more.Graphics.Direct3D12.ID3D12Object
+    return ID3D12DeviceChild
+def _define_ID3D12DeviceRemovedExtendedData_head():
+    class ID3D12DeviceRemovedExtendedData(win32more.System.Com.IUnknown_head):
+        Guid = Guid('98931d33-5ae8-4791-aa-3c-1a-73-a2-93-4e-71')
+    return ID3D12DeviceRemovedExtendedData
+def _define_ID3D12DeviceRemovedExtendedData():
+    ID3D12DeviceRemovedExtendedData = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData_head
+    ID3D12DeviceRemovedExtendedData.GetAutoBreadcrumbsOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head))(3, 'GetAutoBreadcrumbsOutput', ((1, 'pOutput'),)))
+    ID3D12DeviceRemovedExtendedData.GetPageFaultAllocationOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT_head))(4, 'GetPageFaultAllocationOutput', ((1, 'pOutput'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12DeviceRemovedExtendedData
+def _define_ID3D12DeviceRemovedExtendedData1_head():
+    class ID3D12DeviceRemovedExtendedData1(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData_head):
+        Guid = Guid('9727a022-cf1d-4dda-9e-ba-ef-fa-65-3f-c5-06')
+    return ID3D12DeviceRemovedExtendedData1
+def _define_ID3D12DeviceRemovedExtendedData1():
+    ID3D12DeviceRemovedExtendedData1 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1_head
+    ID3D12DeviceRemovedExtendedData1.GetAutoBreadcrumbsOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head))(5, 'GetAutoBreadcrumbsOutput1', ((1, 'pOutput'),)))
+    ID3D12DeviceRemovedExtendedData1.GetPageFaultAllocationOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1_head))(6, 'GetPageFaultAllocationOutput1', ((1, 'pOutput'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData
+    return ID3D12DeviceRemovedExtendedData1
+def _define_ID3D12DeviceRemovedExtendedData2_head():
+    class ID3D12DeviceRemovedExtendedData2(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1_head):
+        Guid = Guid('67fc5816-e4ca-4915-bf-18-42-54-12-72-da-54')
+    return ID3D12DeviceRemovedExtendedData2
+def _define_ID3D12DeviceRemovedExtendedData2():
+    ID3D12DeviceRemovedExtendedData2 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData2_head
+    ID3D12DeviceRemovedExtendedData2.GetPageFaultAllocationOutput2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2_head))(7, 'GetPageFaultAllocationOutput2', ((1, 'pOutput'),)))
+    ID3D12DeviceRemovedExtendedData2.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE,)(8, 'GetDeviceState', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1
+    return ID3D12DeviceRemovedExtendedData2
+def _define_ID3D12DeviceRemovedExtendedDataSettings_head():
+    class ID3D12DeviceRemovedExtendedDataSettings(win32more.System.Com.IUnknown_head):
+        Guid = Guid('82bc481c-6b9b-4030-ae-db-7e-e3-d1-df-1e-63')
+    return ID3D12DeviceRemovedExtendedDataSettings
+def _define_ID3D12DeviceRemovedExtendedDataSettings():
+    ID3D12DeviceRemovedExtendedDataSettings = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings_head
+    ID3D12DeviceRemovedExtendedDataSettings.SetAutoBreadcrumbsEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT)(3, 'SetAutoBreadcrumbsEnablement', ((1, 'Enablement'),)))
+    ID3D12DeviceRemovedExtendedDataSettings.SetPageFaultEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT)(4, 'SetPageFaultEnablement', ((1, 'Enablement'),)))
+    ID3D12DeviceRemovedExtendedDataSettings.SetWatsonDumpEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT)(5, 'SetWatsonDumpEnablement', ((1, 'Enablement'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12DeviceRemovedExtendedDataSettings
+def _define_ID3D12DeviceRemovedExtendedDataSettings1_head():
+    class ID3D12DeviceRemovedExtendedDataSettings1(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings_head):
+        Guid = Guid('dbd5ae51-3317-4f0a-ad-f9-1d-7c-ed-ca-ae-0b')
+    return ID3D12DeviceRemovedExtendedDataSettings1
+def _define_ID3D12DeviceRemovedExtendedDataSettings1():
+    ID3D12DeviceRemovedExtendedDataSettings1 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings1_head
+    ID3D12DeviceRemovedExtendedDataSettings1.SetBreadcrumbContextEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT)(6, 'SetBreadcrumbContextEnablement', ((1, 'Enablement'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings
+    return ID3D12DeviceRemovedExtendedDataSettings1
+def _define_ID3D12Fence_head():
+    class ID3D12Fence(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('0a753dcf-c4d8-4b91-ad-f6-be-5a-60-d9-5a-76')
+    return ID3D12Fence
+def _define_ID3D12Fence():
+    ID3D12Fence = win32more.Graphics.Direct3D12.ID3D12Fence_head
+    ID3D12Fence.GetCompletedValue = COMMETHOD(WINFUNCTYPE(UInt64,)(8, 'GetCompletedValue', ()))
+    ID3D12Fence.SetEventOnCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.HANDLE)(9, 'SetEventOnCompletion', ((1, 'Value'),(1, 'hEvent'),)))
+    ID3D12Fence.Signal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64)(10, 'Signal', ((1, 'Value'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12Fence
+def _define_ID3D12Fence1_head():
+    class ID3D12Fence1(win32more.Graphics.Direct3D12.ID3D12Fence_head):
+        Guid = Guid('433685fe-e22b-4ca0-a8-db-b5-b4-f4-dd-0e-4a')
+    return ID3D12Fence1
+def _define_ID3D12Fence1():
+    ID3D12Fence1 = win32more.Graphics.Direct3D12.ID3D12Fence1_head
+    ID3D12Fence1.GetCreationFlags = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_FENCE_FLAGS,)(11, 'GetCreationFlags', ()))
+    win32more.Graphics.Direct3D12.ID3D12Fence
+    return ID3D12Fence1
 def _define_ID3D12FunctionParameterReflection_head():
     class ID3D12FunctionParameterReflection(c_void_p):
-        Guid = Guid('ec25f42d-7006-4f2b-b33e-02cc3375733f')
+        Guid = Guid('ec25f42d-7006-4f2b-b3-3e-02-cc-33-75-73-3f')
     return ID3D12FunctionParameterReflection
 def _define_ID3D12FunctionParameterReflection():
     ID3D12FunctionParameterReflection = win32more.Graphics.Direct3D12.ID3D12FunctionParameterReflection_head
-    ID3D12FunctionParameterReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PARAMETER_DESC_head), use_last_error=False)(0, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12FunctionParameterReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PARAMETER_DESC_head))(0, 'GetDesc', ((1, 'pDesc'),)))
     return ID3D12FunctionParameterReflection
-def _define_D3D12SerializeRootSignature():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(("D3D12SerializeRootSignature", windll["d3d12"]), ((1, 'pRootSignature'),(1, 'Version'),(1, 'ppBlob'),(1, 'ppErrorBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12CreateRootSignatureDeserializer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(("D3D12CreateRootSignatureDeserializer", windll["d3d12"]), ((1, 'pSrcData'),(1, 'SrcDataSizeInBytes'),(1, 'pRootSignatureDeserializerInterface'),(1, 'ppRootSignatureDeserializer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12SerializeVersionedRootSignature():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(("D3D12SerializeVersionedRootSignature", windll["d3d12"]), ((1, 'pRootSignature'),(1, 'ppBlob'),(1, 'ppErrorBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12CreateVersionedRootSignatureDeserializer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(("D3D12CreateVersionedRootSignatureDeserializer", windll["d3d12"]), ((1, 'pSrcData'),(1, 'SrcDataSizeInBytes'),(1, 'pRootSignatureDeserializerInterface'),(1, 'ppRootSignatureDeserializer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12CreateDevice():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(("D3D12CreateDevice", windll["d3d12"]), ((1, 'pAdapter'),(1, 'MinimumFeatureLevel'),(1, 'riid'),(1, 'ppDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12GetDebugInterface():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(("D3D12GetDebugInterface", windll["d3d12"]), ((1, 'riid'),(1, 'ppvDebug'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12EnableExperimentalFeatures():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(Void),POINTER(UInt32), use_last_error=False)(("D3D12EnableExperimentalFeatures", windll["d3d12"]), ((1, 'NumFeatures'),(1, 'pIIDs'),(1, 'pConfigurationStructs'),(1, 'pConfigurationStructSizes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3D12GetInterface():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(("D3D12GetInterface", windll["d3d12"]), ((1, 'rclsid'),(1, 'riid'),(1, 'ppvDebug'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+def _define_ID3D12FunctionReflection_head():
+    class ID3D12FunctionReflection(c_void_p):
+        Guid = Guid('1108795c-2772-4ba9-b2-a8-d4-64-dc-7e-27-99')
+    return ID3D12FunctionReflection
+def _define_ID3D12FunctionReflection():
+    ID3D12FunctionReflection = win32more.Graphics.Direct3D12.ID3D12FunctionReflection_head
+    ID3D12FunctionReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_FUNCTION_DESC_head))(0, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12FunctionReflection.GetConstantBufferByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,UInt32)(1, 'GetConstantBufferByIndex', ((1, 'BufferIndex'),)))
+    ID3D12FunctionReflection.GetConstantBufferByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,win32more.Foundation.PSTR)(2, 'GetConstantBufferByName', ((1, 'Name'),)))
+    ID3D12FunctionReflection.GetResourceBindingDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head))(3, 'GetResourceBindingDesc', ((1, 'ResourceIndex'),(1, 'pDesc'),)))
+    ID3D12FunctionReflection.GetVariableByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,win32more.Foundation.PSTR)(4, 'GetVariableByName', ((1, 'Name'),)))
+    ID3D12FunctionReflection.GetResourceBindingDescByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head))(5, 'GetResourceBindingDescByName', ((1, 'Name'),(1, 'pDesc'),)))
+    ID3D12FunctionReflection.GetFunctionParameter = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12FunctionParameterReflection_head,Int32)(6, 'GetFunctionParameter', ((1, 'ParameterIndex'),)))
+    return ID3D12FunctionReflection
+def _define_ID3D12GraphicsCommandList_head():
+    class ID3D12GraphicsCommandList(win32more.Graphics.Direct3D12.ID3D12CommandList_head):
+        Guid = Guid('5b160d0f-ac1b-4185-8b-a8-b3-ae-42-a5-a4-55')
+    return ID3D12GraphicsCommandList
+def _define_ID3D12GraphicsCommandList():
+    ID3D12GraphicsCommandList = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head
+    ID3D12GraphicsCommandList.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'Close', ()))
+    ID3D12GraphicsCommandList.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head,win32more.Graphics.Direct3D12.ID3D12PipelineState_head)(10, 'Reset', ((1, 'pAllocator'),(1, 'pInitialState'),)))
+    ID3D12GraphicsCommandList.ClearState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12PipelineState_head)(11, 'ClearState', ((1, 'pPipelineState'),)))
+    ID3D12GraphicsCommandList.DrawInstanced = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32,UInt32)(12, 'DrawInstanced', ((1, 'VertexCountPerInstance'),(1, 'InstanceCount'),(1, 'StartVertexLocation'),(1, 'StartInstanceLocation'),)))
+    ID3D12GraphicsCommandList.DrawIndexedInstanced = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32,Int32,UInt32)(13, 'DrawIndexedInstanced', ((1, 'IndexCountPerInstance'),(1, 'InstanceCount'),(1, 'StartIndexLocation'),(1, 'BaseVertexLocation'),(1, 'StartInstanceLocation'),)))
+    ID3D12GraphicsCommandList.Dispatch = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32)(14, 'Dispatch', ((1, 'ThreadGroupCountX'),(1, 'ThreadGroupCountY'),(1, 'ThreadGroupCountZ'),)))
+    ID3D12GraphicsCommandList.CopyBufferRegion = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,UInt64)(15, 'CopyBufferRegion', ((1, 'pDstBuffer'),(1, 'DstOffset'),(1, 'pSrcBuffer'),(1, 'SrcOffset'),(1, 'NumBytes'),)))
+    ID3D12GraphicsCommandList.CopyTextureRegion = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head),UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head),POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head))(16, 'CopyTextureRegion', ((1, 'pDst'),(1, 'DstX'),(1, 'DstY'),(1, 'DstZ'),(1, 'pSrc'),(1, 'pSrcBox'),)))
+    ID3D12GraphicsCommandList.CopyResource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head)(17, 'CopyResource', ((1, 'pDstResource'),(1, 'pSrcResource'),)))
+    ID3D12GraphicsCommandList.CopyTiles = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head),win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.D3D12_TILE_COPY_FLAGS)(18, 'CopyTiles', ((1, 'pTiledResource'),(1, 'pTileRegionStartCoordinate'),(1, 'pTileRegionSize'),(1, 'pBuffer'),(1, 'BufferStartOffsetInBytes'),(1, 'Flags'),)))
+    ID3D12GraphicsCommandList.ResolveSubresource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT)(19, 'ResolveSubresource', ((1, 'pDstResource'),(1, 'DstSubresource'),(1, 'pSrcResource'),(1, 'SrcSubresource'),(1, 'Format'),)))
+    ID3D12GraphicsCommandList.IASetPrimitiveTopology = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D.D3D_PRIMITIVE_TOPOLOGY)(20, 'IASetPrimitiveTopology', ((1, 'PrimitiveTopology'),)))
+    ID3D12GraphicsCommandList.RSSetViewports = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_VIEWPORT_head))(21, 'RSSetViewports', ((1, 'NumViewports'),(1, 'pViewports'),)))
+    ID3D12GraphicsCommandList.RSSetScissorRects = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Foundation.RECT_head))(22, 'RSSetScissorRects', ((1, 'NumRects'),(1, 'pRects'),)))
+    ID3D12GraphicsCommandList.OMSetBlendFactor = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single))(23, 'OMSetBlendFactor', ((1, 'BlendFactor'),)))
+    ID3D12GraphicsCommandList.OMSetStencilRef = COMMETHOD(WINFUNCTYPE(Void,UInt32)(24, 'OMSetStencilRef', ((1, 'StencilRef'),)))
+    ID3D12GraphicsCommandList.SetPipelineState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12PipelineState_head)(25, 'SetPipelineState', ((1, 'pPipelineState'),)))
+    ID3D12GraphicsCommandList.ResourceBarrier = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_head))(26, 'ResourceBarrier', ((1, 'NumBarriers'),(1, 'pBarriers'),)))
+    ID3D12GraphicsCommandList.ExecuteBundle = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head)(27, 'ExecuteBundle', ((1, 'pCommandList'),)))
+    ID3D12GraphicsCommandList.SetDescriptorHeaps = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12DescriptorHeap_head))(28, 'SetDescriptorHeaps', ((1, 'NumDescriptorHeaps'),(1, 'ppDescriptorHeaps'),)))
+    ID3D12GraphicsCommandList.SetComputeRootSignature = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12RootSignature_head)(29, 'SetComputeRootSignature', ((1, 'pRootSignature'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRootSignature = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12RootSignature_head)(30, 'SetGraphicsRootSignature', ((1, 'pRootSignature'),)))
+    ID3D12GraphicsCommandList.SetComputeRootDescriptorTable = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE)(31, 'SetComputeRootDescriptorTable', ((1, 'RootParameterIndex'),(1, 'BaseDescriptor'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRootDescriptorTable = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE)(32, 'SetGraphicsRootDescriptorTable', ((1, 'RootParameterIndex'),(1, 'BaseDescriptor'),)))
+    ID3D12GraphicsCommandList.SetComputeRoot32BitConstant = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32)(33, 'SetComputeRoot32BitConstant', ((1, 'RootParameterIndex'),(1, 'SrcData'),(1, 'DestOffsetIn32BitValues'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRoot32BitConstant = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32)(34, 'SetGraphicsRoot32BitConstant', ((1, 'RootParameterIndex'),(1, 'SrcData'),(1, 'DestOffsetIn32BitValues'),)))
+    ID3D12GraphicsCommandList.SetComputeRoot32BitConstants = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,c_void_p,UInt32)(35, 'SetComputeRoot32BitConstants', ((1, 'RootParameterIndex'),(1, 'Num32BitValuesToSet'),(1, 'pSrcData'),(1, 'DestOffsetIn32BitValues'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRoot32BitConstants = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,c_void_p,UInt32)(36, 'SetGraphicsRoot32BitConstants', ((1, 'RootParameterIndex'),(1, 'Num32BitValuesToSet'),(1, 'pSrcData'),(1, 'DestOffsetIn32BitValues'),)))
+    ID3D12GraphicsCommandList.SetComputeRootConstantBufferView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64)(37, 'SetComputeRootConstantBufferView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRootConstantBufferView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64)(38, 'SetGraphicsRootConstantBufferView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
+    ID3D12GraphicsCommandList.SetComputeRootShaderResourceView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64)(39, 'SetComputeRootShaderResourceView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRootShaderResourceView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64)(40, 'SetGraphicsRootShaderResourceView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
+    ID3D12GraphicsCommandList.SetComputeRootUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64)(41, 'SetComputeRootUnorderedAccessView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
+    ID3D12GraphicsCommandList.SetGraphicsRootUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt64)(42, 'SetGraphicsRootUnorderedAccessView', ((1, 'RootParameterIndex'),(1, 'BufferLocation'),)))
+    ID3D12GraphicsCommandList.IASetIndexBuffer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_INDEX_BUFFER_VIEW_head))(43, 'IASetIndexBuffer', ((1, 'pView'),)))
+    ID3D12GraphicsCommandList.IASetVertexBuffers = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_VERTEX_BUFFER_VIEW_head))(44, 'IASetVertexBuffers', ((1, 'StartSlot'),(1, 'NumViews'),(1, 'pViews'),)))
+    ID3D12GraphicsCommandList.SOSetTargets = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_BUFFER_VIEW_head))(45, 'SOSetTargets', ((1, 'StartSlot'),(1, 'NumViews'),(1, 'pViews'),)))
+    ID3D12GraphicsCommandList.OMSetRenderTargets = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head),win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head))(46, 'OMSetRenderTargets', ((1, 'NumRenderTargetDescriptors'),(1, 'pRenderTargetDescriptors'),(1, 'RTsSingleHandleToDescriptorRange'),(1, 'pDepthStencilDescriptor'),)))
+    ID3D12GraphicsCommandList.ClearDepthStencilView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CLEAR_FLAGS,Single,Byte,UInt32,POINTER(win32more.Foundation.RECT_head))(47, 'ClearDepthStencilView', ((1, 'DepthStencilView'),(1, 'ClearFlags'),(1, 'Depth'),(1, 'Stencil'),(1, 'NumRects'),(1, 'pRects'),)))
+    ID3D12GraphicsCommandList.ClearRenderTargetView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,POINTER(Single),UInt32,POINTER(win32more.Foundation.RECT_head))(48, 'ClearRenderTargetView', ((1, 'RenderTargetView'),(1, 'ColorRGBA'),(1, 'NumRects'),(1, 'pRects'),)))
+    ID3D12GraphicsCommandList.ClearUnorderedAccessViewUint = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.RECT_head))(49, 'ClearUnorderedAccessViewUint', ((1, 'ViewGPUHandleInCurrentHeap'),(1, 'ViewCPUHandle'),(1, 'pResource'),(1, 'Values'),(1, 'NumRects'),(1, 'pRects'),)))
+    ID3D12GraphicsCommandList.ClearUnorderedAccessViewFloat = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(Single),UInt32,POINTER(win32more.Foundation.RECT_head))(50, 'ClearUnorderedAccessViewFloat', ((1, 'ViewGPUHandleInCurrentHeap'),(1, 'ViewCPUHandle'),(1, 'pResource'),(1, 'Values'),(1, 'NumRects'),(1, 'pRects'),)))
+    ID3D12GraphicsCommandList.DiscardResource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(win32more.Graphics.Direct3D12.D3D12_DISCARD_REGION_head))(51, 'DiscardResource', ((1, 'pResource'),(1, 'pRegion'),)))
+    ID3D12GraphicsCommandList.BeginQuery = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12QueryHeap_head,win32more.Graphics.Direct3D12.D3D12_QUERY_TYPE,UInt32)(52, 'BeginQuery', ((1, 'pQueryHeap'),(1, 'Type'),(1, 'Index'),)))
+    ID3D12GraphicsCommandList.EndQuery = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12QueryHeap_head,win32more.Graphics.Direct3D12.D3D12_QUERY_TYPE,UInt32)(53, 'EndQuery', ((1, 'pQueryHeap'),(1, 'Type'),(1, 'Index'),)))
+    ID3D12GraphicsCommandList.ResolveQueryData = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12QueryHeap_head,win32more.Graphics.Direct3D12.D3D12_QUERY_TYPE,UInt32,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64)(54, 'ResolveQueryData', ((1, 'pQueryHeap'),(1, 'Type'),(1, 'StartIndex'),(1, 'NumQueries'),(1, 'pDestinationBuffer'),(1, 'AlignedDestinationBufferOffset'),)))
+    ID3D12GraphicsCommandList.SetPredication = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.D3D12_PREDICATION_OP)(55, 'SetPredication', ((1, 'pBuffer'),(1, 'AlignedBufferOffset'),(1, 'Operation'),)))
+    ID3D12GraphicsCommandList.SetMarker = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32)(56, 'SetMarker', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
+    ID3D12GraphicsCommandList.BeginEvent = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32)(57, 'BeginEvent', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
+    ID3D12GraphicsCommandList.EndEvent = COMMETHOD(WINFUNCTYPE(Void,)(58, 'EndEvent', ()))
+    ID3D12GraphicsCommandList.ExecuteIndirect = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12CommandSignature_head,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64)(59, 'ExecuteIndirect', ((1, 'pCommandSignature'),(1, 'MaxCommandCount'),(1, 'pArgumentBuffer'),(1, 'ArgumentBufferOffset'),(1, 'pCountBuffer'),(1, 'CountBufferOffset'),)))
+    win32more.Graphics.Direct3D12.ID3D12CommandList
+    return ID3D12GraphicsCommandList
+def _define_ID3D12GraphicsCommandList1_head():
+    class ID3D12GraphicsCommandList1(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head):
+        Guid = Guid('553103fb-1fe7-4557-bb-38-94-6d-7d-0e-7c-a7')
+    return ID3D12GraphicsCommandList1
+def _define_ID3D12GraphicsCommandList1():
+    ID3D12GraphicsCommandList1 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1_head
+    ID3D12GraphicsCommandList1.AtomicCopyBufferUINT = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Resource_head),POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64_head))(60, 'AtomicCopyBufferUINT', ((1, 'pDstBuffer'),(1, 'DstOffset'),(1, 'pSrcBuffer'),(1, 'SrcOffset'),(1, 'Dependencies'),(1, 'ppDependentResources'),(1, 'pDependentSubresourceRanges'),)))
+    ID3D12GraphicsCommandList1.AtomicCopyBufferUINT64 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Resource_head),POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64_head))(61, 'AtomicCopyBufferUINT64', ((1, 'pDstBuffer'),(1, 'DstOffset'),(1, 'pSrcBuffer'),(1, 'SrcOffset'),(1, 'Dependencies'),(1, 'ppDependentResources'),(1, 'pDependentSubresourceRanges'),)))
+    ID3D12GraphicsCommandList1.OMSetDepthBounds = COMMETHOD(WINFUNCTYPE(Void,Single,Single)(62, 'OMSetDepthBounds', ((1, 'Min'),(1, 'Max'),)))
+    ID3D12GraphicsCommandList1.SetSamplePositions = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SAMPLE_POSITION_head))(63, 'SetSamplePositions', ((1, 'NumSamplesPerPixel'),(1, 'NumPixels'),(1, 'pSamplePositions'),)))
+    ID3D12GraphicsCommandList1.ResolveSubresourceRegion = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Direct3D12.D3D12_RESOLVE_MODE)(64, 'ResolveSubresourceRegion', ((1, 'pDstResource'),(1, 'DstSubresource'),(1, 'DstX'),(1, 'DstY'),(1, 'pSrcResource'),(1, 'SrcSubresource'),(1, 'pSrcRect'),(1, 'Format'),(1, 'ResolveMode'),)))
+    ID3D12GraphicsCommandList1.SetViewInstanceMask = COMMETHOD(WINFUNCTYPE(Void,UInt32)(65, 'SetViewInstanceMask', ((1, 'Mask'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList
+    return ID3D12GraphicsCommandList1
+def _define_ID3D12GraphicsCommandList2_head():
+    class ID3D12GraphicsCommandList2(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1_head):
+        Guid = Guid('38c3e585-ff17-412c-91-50-4f-c6-f9-d7-2a-28')
+    return ID3D12GraphicsCommandList2
+def _define_ID3D12GraphicsCommandList2():
+    ID3D12GraphicsCommandList2 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2_head
+    ID3D12GraphicsCommandList2.WriteBufferImmediate = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head),POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE))(66, 'WriteBufferImmediate', ((1, 'Count'),(1, 'pParams'),(1, 'pModes'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1
+    return ID3D12GraphicsCommandList2
+def _define_ID3D12GraphicsCommandList3_head():
+    class ID3D12GraphicsCommandList3(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2_head):
+        Guid = Guid('6fda83a7-b84c-4e38-9a-c8-c7-bd-22-01-6b-3d')
+    return ID3D12GraphicsCommandList3
+def _define_ID3D12GraphicsCommandList3():
+    ID3D12GraphicsCommandList3 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3_head
+    ID3D12GraphicsCommandList3.SetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head)(67, 'SetProtectedResourceSession', ((1, 'pProtectedResourceSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2
+    return ID3D12GraphicsCommandList3
+def _define_ID3D12GraphicsCommandList4_head():
+    class ID3D12GraphicsCommandList4(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3_head):
+        Guid = Guid('8754318e-d3a9-4541-98-cf-64-5b-50-dc-48-74')
+    return ID3D12GraphicsCommandList4
+def _define_ID3D12GraphicsCommandList4():
+    ID3D12GraphicsCommandList4 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4_head
+    ID3D12GraphicsCommandList4.BeginRenderPass = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_RENDER_TARGET_DESC_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head),win32more.Graphics.Direct3D12.D3D12_RENDER_PASS_FLAGS)(68, 'BeginRenderPass', ((1, 'NumRenderTargets'),(1, 'pRenderTargets'),(1, 'pDepthStencil'),(1, 'Flags'),)))
+    ID3D12GraphicsCommandList4.EndRenderPass = COMMETHOD(WINFUNCTYPE(Void,)(69, 'EndRenderPass', ()))
+    ID3D12GraphicsCommandList4.InitializeMetaCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12MetaCommand_head,c_void_p,UIntPtr)(70, 'InitializeMetaCommand', ((1, 'pMetaCommand'),(1, 'pInitializationParametersData'),(1, 'InitializationParametersDataSizeInBytes'),)))
+    ID3D12GraphicsCommandList4.ExecuteMetaCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12MetaCommand_head,c_void_p,UIntPtr)(71, 'ExecuteMetaCommand', ((1, 'pMetaCommand'),(1, 'pExecutionParametersData'),(1, 'ExecutionParametersDataSizeInBytes'),)))
+    ID3D12GraphicsCommandList4.BuildRaytracingAccelerationStructure = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head))(72, 'BuildRaytracingAccelerationStructure', ((1, 'pDesc'),(1, 'NumPostbuildInfoDescs'),(1, 'pPostbuildInfoDescs'),)))
+    ID3D12GraphicsCommandList4.EmitRaytracingAccelerationStructurePostbuildInfo = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head),UInt32,POINTER(UInt64))(73, 'EmitRaytracingAccelerationStructurePostbuildInfo', ((1, 'pDesc'),(1, 'NumSourceAccelerationStructures'),(1, 'pSourceAccelerationStructureData'),)))
+    ID3D12GraphicsCommandList4.CopyRaytracingAccelerationStructure = COMMETHOD(WINFUNCTYPE(Void,UInt64,UInt64,win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE)(74, 'CopyRaytracingAccelerationStructure', ((1, 'DestAccelerationStructureData'),(1, 'SourceAccelerationStructureData'),(1, 'Mode'),)))
+    ID3D12GraphicsCommandList4.SetPipelineState1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12StateObject_head)(75, 'SetPipelineState1', ((1, 'pStateObject'),)))
+    ID3D12GraphicsCommandList4.DispatchRays = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head))(76, 'DispatchRays', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3
+    return ID3D12GraphicsCommandList4
+def _define_ID3D12GraphicsCommandList5_head():
+    class ID3D12GraphicsCommandList5(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4_head):
+        Guid = Guid('55050859-4024-474c-87-f5-64-72-ea-ee-44-ea')
+    return ID3D12GraphicsCommandList5
+def _define_ID3D12GraphicsCommandList5():
+    ID3D12GraphicsCommandList5 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5_head
+    ID3D12GraphicsCommandList5.RSSetShadingRate = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_SHADING_RATE,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADING_RATE_COMBINER))(77, 'RSSetShadingRate', ((1, 'baseShadingRate'),(1, 'combiners'),)))
+    ID3D12GraphicsCommandList5.RSSetShadingRateImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head)(78, 'RSSetShadingRateImage', ((1, 'shadingRateImage'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4
+    return ID3D12GraphicsCommandList5
+def _define_ID3D12GraphicsCommandList6_head():
+    class ID3D12GraphicsCommandList6(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5_head):
+        Guid = Guid('c3827890-e548-4cfa-96-cf-56-89-a9-37-0f-80')
+    return ID3D12GraphicsCommandList6
+def _define_ID3D12GraphicsCommandList6():
+    ID3D12GraphicsCommandList6 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList6_head
+    ID3D12GraphicsCommandList6.DispatchMesh = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32)(79, 'DispatchMesh', ((1, 'ThreadGroupCountX'),(1, 'ThreadGroupCountY'),(1, 'ThreadGroupCountZ'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5
+    return ID3D12GraphicsCommandList6
+def _define_ID3D12Heap_head():
+    class ID3D12Heap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('6b3b2502-6e51-45b3-90-ee-98-84-26-5e-8d-f3')
+    return ID3D12Heap
+def _define_ID3D12Heap():
+    ID3D12Heap = win32more.Graphics.Direct3D12.ID3D12Heap_head
+    ID3D12Heap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC,)(8, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12Heap
+def _define_ID3D12Heap1_head():
+    class ID3D12Heap1(win32more.Graphics.Direct3D12.ID3D12Heap_head):
+        Guid = Guid('572f7389-2168-49e3-96-93-d6-df-58-71-bf-6d')
+    return ID3D12Heap1
+def _define_ID3D12Heap1():
+    ID3D12Heap1 = win32more.Graphics.Direct3D12.ID3D12Heap1_head
+    ID3D12Heap1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Heap
+    return ID3D12Heap1
+def _define_ID3D12InfoQueue_head():
+    class ID3D12InfoQueue(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0742a90b-c387-483f-b9-46-30-a7-e4-e6-14-58')
+    return ID3D12InfoQueue
+def _define_ID3D12InfoQueue():
+    ID3D12InfoQueue = win32more.Graphics.Direct3D12.ID3D12InfoQueue_head
+    ID3D12InfoQueue.SetMessageCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64)(3, 'SetMessageCountLimit', ((1, 'MessageCountLimit'),)))
+    ID3D12InfoQueue.ClearStoredMessages = COMMETHOD(WINFUNCTYPE(Void,)(4, 'ClearStoredMessages', ()))
+    ID3D12InfoQueue.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_MESSAGE_head),POINTER(UIntPtr))(5, 'GetMessage', ((1, 'MessageIndex'),(1, 'pMessage'),(1, 'pMessageByteLength'),)))
+    ID3D12InfoQueue.GetNumMessagesAllowedByStorageFilter = COMMETHOD(WINFUNCTYPE(UInt64,)(6, 'GetNumMessagesAllowedByStorageFilter', ()))
+    ID3D12InfoQueue.GetNumMessagesDeniedByStorageFilter = COMMETHOD(WINFUNCTYPE(UInt64,)(7, 'GetNumMessagesDeniedByStorageFilter', ()))
+    ID3D12InfoQueue.GetNumStoredMessages = COMMETHOD(WINFUNCTYPE(UInt64,)(8, 'GetNumStoredMessages', ()))
+    ID3D12InfoQueue.GetNumStoredMessagesAllowedByRetrievalFilter = COMMETHOD(WINFUNCTYPE(UInt64,)(9, 'GetNumStoredMessagesAllowedByRetrievalFilter', ()))
+    ID3D12InfoQueue.GetNumMessagesDiscardedByMessageCountLimit = COMMETHOD(WINFUNCTYPE(UInt64,)(10, 'GetNumMessagesDiscardedByMessageCountLimit', ()))
+    ID3D12InfoQueue.GetMessageCountLimit = COMMETHOD(WINFUNCTYPE(UInt64,)(11, 'GetMessageCountLimit', ()))
+    ID3D12InfoQueue.AddStorageFilterEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head))(12, 'AddStorageFilterEntries', ((1, 'pFilter'),)))
+    ID3D12InfoQueue.GetStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head),POINTER(UIntPtr))(13, 'GetStorageFilter', ((1, 'pFilter'),(1, 'pFilterByteLength'),)))
+    ID3D12InfoQueue.ClearStorageFilter = COMMETHOD(WINFUNCTYPE(Void,)(14, 'ClearStorageFilter', ()))
+    ID3D12InfoQueue.PushEmptyStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'PushEmptyStorageFilter', ()))
+    ID3D12InfoQueue.PushCopyOfStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'PushCopyOfStorageFilter', ()))
+    ID3D12InfoQueue.PushStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head))(17, 'PushStorageFilter', ((1, 'pFilter'),)))
+    ID3D12InfoQueue.PopStorageFilter = COMMETHOD(WINFUNCTYPE(Void,)(18, 'PopStorageFilter', ()))
+    ID3D12InfoQueue.GetStorageFilterStackSize = COMMETHOD(WINFUNCTYPE(UInt32,)(19, 'GetStorageFilterStackSize', ()))
+    ID3D12InfoQueue.AddRetrievalFilterEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head))(20, 'AddRetrievalFilterEntries', ((1, 'pFilter'),)))
+    ID3D12InfoQueue.GetRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head),POINTER(UIntPtr))(21, 'GetRetrievalFilter', ((1, 'pFilter'),(1, 'pFilterByteLength'),)))
+    ID3D12InfoQueue.ClearRetrievalFilter = COMMETHOD(WINFUNCTYPE(Void,)(22, 'ClearRetrievalFilter', ()))
+    ID3D12InfoQueue.PushEmptyRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(23, 'PushEmptyRetrievalFilter', ()))
+    ID3D12InfoQueue.PushCopyOfRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(24, 'PushCopyOfRetrievalFilter', ()))
+    ID3D12InfoQueue.PushRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head))(25, 'PushRetrievalFilter', ((1, 'pFilter'),)))
+    ID3D12InfoQueue.PopRetrievalFilter = COMMETHOD(WINFUNCTYPE(Void,)(26, 'PopRetrievalFilter', ()))
+    ID3D12InfoQueue.GetRetrievalFilterStackSize = COMMETHOD(WINFUNCTYPE(UInt32,)(27, 'GetRetrievalFilterStackSize', ()))
+    ID3D12InfoQueue.AddMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID,win32more.Foundation.PSTR)(28, 'AddMessage', ((1, 'Category'),(1, 'Severity'),(1, 'ID'),(1, 'pDescription'),)))
+    ID3D12InfoQueue.AddApplicationMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Foundation.PSTR)(29, 'AddApplicationMessage', ((1, 'Severity'),(1, 'pDescription'),)))
+    ID3D12InfoQueue.SetBreakOnCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY,win32more.Foundation.BOOL)(30, 'SetBreakOnCategory', ((1, 'Category'),(1, 'bEnable'),)))
+    ID3D12InfoQueue.SetBreakOnSeverity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY,win32more.Foundation.BOOL)(31, 'SetBreakOnSeverity', ((1, 'Severity'),(1, 'bEnable'),)))
+    ID3D12InfoQueue.SetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID,win32more.Foundation.BOOL)(32, 'SetBreakOnID', ((1, 'ID'),(1, 'bEnable'),)))
+    ID3D12InfoQueue.GetBreakOnCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY)(33, 'GetBreakOnCategory', ((1, 'Category'),)))
+    ID3D12InfoQueue.GetBreakOnSeverity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY)(34, 'GetBreakOnSeverity', ((1, 'Severity'),)))
+    ID3D12InfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID)(35, 'GetBreakOnID', ((1, 'ID'),)))
+    ID3D12InfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(36, 'SetMuteDebugOutput', ((1, 'bMute'),)))
+    ID3D12InfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(37, 'GetMuteDebugOutput', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12InfoQueue
+def _define_ID3D12InfoQueue1_head():
+    class ID3D12InfoQueue1(win32more.Graphics.Direct3D12.ID3D12InfoQueue_head):
+        Guid = Guid('2852dd88-b484-4c0c-b6-b1-67-16-85-00-e6-00')
+    return ID3D12InfoQueue1
+def _define_ID3D12InfoQueue1():
+    ID3D12InfoQueue1 = win32more.Graphics.Direct3D12.ID3D12InfoQueue1_head
+    ID3D12InfoQueue1.RegisterMessageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12MessageFunc,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CALLBACK_FLAGS,c_void_p,POINTER(UInt32))(38, 'RegisterMessageCallback', ((1, 'CallbackFunc'),(1, 'CallbackFilterFlags'),(1, 'pContext'),(1, 'pCallbackCookie'),)))
+    ID3D12InfoQueue1.UnregisterMessageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(39, 'UnregisterMessageCallback', ((1, 'CallbackCookie'),)))
+    win32more.Graphics.Direct3D12.ID3D12InfoQueue
+    return ID3D12InfoQueue1
+def _define_ID3D12LibraryReflection_head():
+    class ID3D12LibraryReflection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8e349d19-54db-4a56-9d-c9-11-9d-87-bd-b8-04')
+    return ID3D12LibraryReflection
+def _define_ID3D12LibraryReflection():
+    ID3D12LibraryReflection = win32more.Graphics.Direct3D12.ID3D12LibraryReflection_head
+    ID3D12LibraryReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head))(3, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12LibraryReflection.GetFunctionByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12FunctionReflection_head,Int32)(4, 'GetFunctionByIndex', ((1, 'FunctionIndex'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12LibraryReflection
+def _define_ID3D12LifetimeOwner_head():
+    class ID3D12LifetimeOwner(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e667af9f-cd56-4f46-83-ce-03-2e-59-5d-70-a8')
+    return ID3D12LifetimeOwner
+def _define_ID3D12LifetimeOwner():
+    ID3D12LifetimeOwner = win32more.Graphics.Direct3D12.ID3D12LifetimeOwner_head
+    ID3D12LifetimeOwner.LifetimeStateUpdated = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_LIFETIME_STATE)(3, 'LifetimeStateUpdated', ((1, 'NewState'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12LifetimeOwner
+def _define_ID3D12LifetimeTracker_head():
+    class ID3D12LifetimeTracker(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('3fd03d36-4eb1-424a-a5-82-49-4e-cb-8b-a8-13')
+    return ID3D12LifetimeTracker
+def _define_ID3D12LifetimeTracker():
+    ID3D12LifetimeTracker = win32more.Graphics.Direct3D12.ID3D12LifetimeTracker_head
+    ID3D12LifetimeTracker.DestroyOwnedObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12DeviceChild_head)(8, 'DestroyOwnedObject', ((1, 'pObject'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12LifetimeTracker
+def _define_ID3D12MetaCommand_head():
+    class ID3D12MetaCommand(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('dbb84c27-36ce-4fc9-b8-01-f0-48-c4-6a-c5-70')
+    return ID3D12MetaCommand
+def _define_ID3D12MetaCommand():
+    ID3D12MetaCommand = win32more.Graphics.Direct3D12.ID3D12MetaCommand_head
+    ID3D12MetaCommand.GetRequiredParameterResourceSize = COMMETHOD(WINFUNCTYPE(UInt64,win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE,UInt32)(8, 'GetRequiredParameterResourceSize', ((1, 'Stage'),(1, 'ParameterIndex'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12MetaCommand
+def _define_ID3D12Object_head():
+    class ID3D12Object(win32more.System.Com.IUnknown_head):
+        Guid = Guid('c4fec28f-7966-4e95-9f-94-f4-31-cb-56-c3-b8')
+    return ID3D12Object
+def _define_ID3D12Object():
+    ID3D12Object = win32more.Graphics.Direct3D12.ID3D12Object_head
+    ID3D12Object.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),c_void_p)(3, 'GetPrivateData', ((1, 'guid'),(1, 'pDataSize'),(1, 'pData'),)))
+    ID3D12Object.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p)(4, 'SetPrivateData', ((1, 'guid'),(1, 'DataSize'),(1, 'pData'),)))
+    ID3D12Object.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head)(5, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'pData'),)))
+    ID3D12Object.SetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(6, 'SetName', ((1, 'Name'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12Object
+def _define_ID3D12Pageable_head():
+    class ID3D12Pageable(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('63ee58fb-1268-4835-86-da-f0-08-ce-62-f0-d6')
+    return ID3D12Pageable
+def _define_ID3D12Pageable():
+    ID3D12Pageable = win32more.Graphics.Direct3D12.ID3D12Pageable_head
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12Pageable
+def _define_ID3D12PipelineLibrary_head():
+    class ID3D12PipelineLibrary(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('c64226a8-9201-46af-b4-cc-53-fb-9f-f7-41-4f')
+    return ID3D12PipelineLibrary
+def _define_ID3D12PipelineLibrary():
+    ID3D12PipelineLibrary = win32more.Graphics.Direct3D12.ID3D12PipelineLibrary_head
+    ID3D12PipelineLibrary.StorePipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct3D12.ID3D12PipelineState_head)(8, 'StorePipeline', ((1, 'pName'),(1, 'pPipeline'),)))
+    ID3D12PipelineLibrary.LoadGraphicsPipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p))(9, 'LoadGraphicsPipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    ID3D12PipelineLibrary.LoadComputePipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p))(10, 'LoadComputePipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    ID3D12PipelineLibrary.GetSerializedSize = COMMETHOD(WINFUNCTYPE(UIntPtr,)(11, 'GetSerializedSize', ()))
+    ID3D12PipelineLibrary.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr)(12, 'Serialize', ((1, 'pData'),(1, 'DataSizeInBytes'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12PipelineLibrary
+def _define_ID3D12PipelineLibrary1_head():
+    class ID3D12PipelineLibrary1(win32more.Graphics.Direct3D12.ID3D12PipelineLibrary_head):
+        Guid = Guid('80eabf42-2568-4e5e-bd-82-c3-7f-86-96-1d-c3')
+    return ID3D12PipelineLibrary1
+def _define_ID3D12PipelineLibrary1():
+    ID3D12PipelineLibrary1 = win32more.Graphics.Direct3D12.ID3D12PipelineLibrary1_head
+    ID3D12PipelineLibrary1.LoadPipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head),POINTER(Guid),POINTER(c_void_p))(13, 'LoadPipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    win32more.Graphics.Direct3D12.ID3D12PipelineLibrary
+    return ID3D12PipelineLibrary1
+def _define_ID3D12PipelineState_head():
+    class ID3D12PipelineState(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('765a30f3-f624-4c6f-a8-28-ac-e9-48-62-24-45')
+    return ID3D12PipelineState
+def _define_ID3D12PipelineState():
+    ID3D12PipelineState = win32more.Graphics.Direct3D12.ID3D12PipelineState_head
+    ID3D12PipelineState.GetCachedBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(8, 'GetCachedBlob', ((1, 'ppBlob'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12PipelineState
+def _define_ID3D12ProtectedResourceSession_head():
+    class ID3D12ProtectedResourceSession(win32more.Graphics.Direct3D12.ID3D12ProtectedSession_head):
+        Guid = Guid('6cd696f4-f289-40cc-80-91-5a-6c-0a-09-9c-3d')
+    return ID3D12ProtectedResourceSession
+def _define_ID3D12ProtectedResourceSession():
+    ID3D12ProtectedResourceSession = win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head
+    ID3D12ProtectedResourceSession.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC,)(10, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12ProtectedSession
+    return ID3D12ProtectedResourceSession
+def _define_ID3D12ProtectedResourceSession1_head():
+    class ID3D12ProtectedResourceSession1(win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head):
+        Guid = Guid('d6f12dd6-76fb-406e-89-61-42-96-ee-fc-04-09')
+    return ID3D12ProtectedResourceSession1
+def _define_ID3D12ProtectedResourceSession1():
+    ID3D12ProtectedResourceSession1 = win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession1_head
+    ID3D12ProtectedResourceSession1.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1,)(11, 'GetDesc1', ()))
+    win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession
+    return ID3D12ProtectedResourceSession1
+def _define_ID3D12ProtectedSession_head():
+    class ID3D12ProtectedSession(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('a1533d18-0ac1-4084-85-b9-89-a9-61-16-80-6b')
+    return ID3D12ProtectedSession
+def _define_ID3D12ProtectedSession():
+    ID3D12ProtectedSession = win32more.Graphics.Direct3D12.ID3D12ProtectedSession_head
+    ID3D12ProtectedSession.GetStatusFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(8, 'GetStatusFence', ((1, 'riid'),(1, 'ppFence'),)))
+    ID3D12ProtectedSession.GetSessionStatus = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_SESSION_STATUS,)(9, 'GetSessionStatus', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12ProtectedSession
+def _define_ID3D12QueryHeap_head():
+    class ID3D12QueryHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('0d9658ae-ed45-469e-a6-1d-97-0e-c5-83-ca-b4')
+    return ID3D12QueryHeap
+def _define_ID3D12QueryHeap():
+    ID3D12QueryHeap = win32more.Graphics.Direct3D12.ID3D12QueryHeap_head
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12QueryHeap
+def _define_ID3D12Resource_head():
+    class ID3D12Resource(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('696442be-a72e-4059-bc-79-5b-5c-98-04-0f-ad')
+    return ID3D12Resource
+def _define_ID3D12Resource():
+    ID3D12Resource = win32more.Graphics.Direct3D12.ID3D12Resource_head
+    ID3D12Resource.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RANGE_head),POINTER(c_void_p))(8, 'Map', ((1, 'Subresource'),(1, 'pReadRange'),(1, 'ppData'),)))
+    ID3D12Resource.Unmap = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RANGE_head))(9, 'Unmap', ((1, 'Subresource'),(1, 'pWrittenRange'),)))
+    ID3D12Resource.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC,)(10, 'GetDesc', ()))
+    ID3D12Resource.GetGPUVirtualAddress = COMMETHOD(WINFUNCTYPE(UInt64,)(11, 'GetGPUVirtualAddress', ()))
+    ID3D12Resource.WriteToSubresource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head),c_void_p,UInt32,UInt32)(12, 'WriteToSubresource', ((1, 'DstSubresource'),(1, 'pDstBox'),(1, 'pSrcData'),(1, 'SrcRowPitch'),(1, 'SrcDepthPitch'),)))
+    ID3D12Resource.ReadFromSubresource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head))(13, 'ReadFromSubresource', ((1, 'pDstData'),(1, 'DstRowPitch'),(1, 'DstDepthPitch'),(1, 'SrcSubresource'),(1, 'pSrcBox'),)))
+    ID3D12Resource.GetHeapProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS))(14, 'GetHeapProperties', ((1, 'pHeapProperties'),(1, 'pHeapFlags'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12Resource
+def _define_ID3D12Resource1_head():
+    class ID3D12Resource1(win32more.Graphics.Direct3D12.ID3D12Resource_head):
+        Guid = Guid('9d5e227a-4430-4161-88-b3-3e-ca-6b-b1-6e-19')
+    return ID3D12Resource1
+def _define_ID3D12Resource1():
+    ID3D12Resource1 = win32more.Graphics.Direct3D12.ID3D12Resource1_head
+    ID3D12Resource1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(15, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Resource
+    return ID3D12Resource1
+def _define_ID3D12Resource2_head():
+    class ID3D12Resource2(win32more.Graphics.Direct3D12.ID3D12Resource1_head):
+        Guid = Guid('be36ec3b-ea85-4aeb-a4-5a-e9-d7-64-04-a4-95')
+    return ID3D12Resource2
+def _define_ID3D12Resource2():
+    ID3D12Resource2 = win32more.Graphics.Direct3D12.ID3D12Resource2_head
+    ID3D12Resource2.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1,)(16, 'GetDesc1', ()))
+    win32more.Graphics.Direct3D12.ID3D12Resource1
+    return ID3D12Resource2
+def _define_ID3D12RootSignature_head():
+    class ID3D12RootSignature(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('c54a6b66-72df-4ee8-8b-e5-a9-46-a1-42-92-14')
+    return ID3D12RootSignature
+def _define_ID3D12RootSignature():
+    ID3D12RootSignature = win32more.Graphics.Direct3D12.ID3D12RootSignature_head
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12RootSignature
+def _define_ID3D12RootSignatureDeserializer_head():
+    class ID3D12RootSignatureDeserializer(win32more.System.Com.IUnknown_head):
+        Guid = Guid('34ab647b-3cc8-46ac-84-1b-c0-96-56-45-c0-46')
+    return ID3D12RootSignatureDeserializer
+def _define_ID3D12RootSignatureDeserializer():
+    ID3D12RootSignatureDeserializer = win32more.Graphics.Direct3D12.ID3D12RootSignatureDeserializer_head
+    ID3D12RootSignatureDeserializer.GetRootSignatureDesc = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head),)(3, 'GetRootSignatureDesc', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12RootSignatureDeserializer
+def _define_ID3D12SDKConfiguration_head():
+    class ID3D12SDKConfiguration(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e9eb5314-33aa-42b2-a7-18-d7-7f-58-b1-f1-c7')
+    return ID3D12SDKConfiguration
+def _define_ID3D12SDKConfiguration():
+    ID3D12SDKConfiguration = win32more.Graphics.Direct3D12.ID3D12SDKConfiguration_head
+    ID3D12SDKConfiguration.SetSDKVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR)(3, 'SetSDKVersion', ((1, 'SDKVersion'),(1, 'SDKPath'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12SDKConfiguration
+def _define_ID3D12ShaderCacheSession_head():
+    class ID3D12ShaderCacheSession(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
+        Guid = Guid('28e2495d-0f64-4ae4-a6-ec-12-92-55-dc-49-a8')
+    return ID3D12ShaderCacheSession
+def _define_ID3D12ShaderCacheSession():
+    ID3D12ShaderCacheSession = win32more.Graphics.Direct3D12.ID3D12ShaderCacheSession_head
+    ID3D12ShaderCacheSession.FindValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,POINTER(UInt32))(8, 'FindValue', ((1, 'pKey'),(1, 'KeySize'),(1, 'pValue'),(1, 'pValueSize'),)))
+    ID3D12ShaderCacheSession.StoreValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,UInt32)(9, 'StoreValue', ((1, 'pKey'),(1, 'KeySize'),(1, 'pValue'),(1, 'ValueSize'),)))
+    ID3D12ShaderCacheSession.SetDeleteOnDestroy = COMMETHOD(WINFUNCTYPE(Void,)(10, 'SetDeleteOnDestroy', ()))
+    ID3D12ShaderCacheSession.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC,)(11, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
+    return ID3D12ShaderCacheSession
+def _define_ID3D12ShaderReflection_head():
+    class ID3D12ShaderReflection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5a58797d-a72c-478d-8b-a2-ef-c6-b0-ef-e8-8e')
+    return ID3D12ShaderReflection
+def _define_ID3D12ShaderReflection():
+    ID3D12ShaderReflection = win32more.Graphics.Direct3D12.ID3D12ShaderReflection_head
+    ID3D12ShaderReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_DESC_head))(3, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12ShaderReflection.GetConstantBufferByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,UInt32)(4, 'GetConstantBufferByIndex', ((1, 'Index'),)))
+    ID3D12ShaderReflection.GetConstantBufferByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,win32more.Foundation.PSTR)(5, 'GetConstantBufferByName', ((1, 'Name'),)))
+    ID3D12ShaderReflection.GetResourceBindingDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head))(6, 'GetResourceBindingDesc', ((1, 'ResourceIndex'),(1, 'pDesc'),)))
+    ID3D12ShaderReflection.GetInputParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head))(7, 'GetInputParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
+    ID3D12ShaderReflection.GetOutputParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head))(8, 'GetOutputParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
+    ID3D12ShaderReflection.GetPatchConstantParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head))(9, 'GetPatchConstantParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
+    ID3D12ShaderReflection.GetVariableByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,win32more.Foundation.PSTR)(10, 'GetVariableByName', ((1, 'Name'),)))
+    ID3D12ShaderReflection.GetResourceBindingDescByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head))(11, 'GetResourceBindingDescByName', ((1, 'Name'),(1, 'pDesc'),)))
+    ID3D12ShaderReflection.GetMovInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32,)(12, 'GetMovInstructionCount', ()))
+    ID3D12ShaderReflection.GetMovcInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32,)(13, 'GetMovcInstructionCount', ()))
+    ID3D12ShaderReflection.GetConversionInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32,)(14, 'GetConversionInstructionCount', ()))
+    ID3D12ShaderReflection.GetBitwiseInstructionCount = COMMETHOD(WINFUNCTYPE(UInt32,)(15, 'GetBitwiseInstructionCount', ()))
+    ID3D12ShaderReflection.GetGSInputPrimitive = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D.D3D_PRIMITIVE,)(16, 'GetGSInputPrimitive', ()))
+    ID3D12ShaderReflection.IsSampleFrequencyShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(17, 'IsSampleFrequencyShader', ()))
+    ID3D12ShaderReflection.GetNumInterfaceSlots = COMMETHOD(WINFUNCTYPE(UInt32,)(18, 'GetNumInterfaceSlots', ()))
+    ID3D12ShaderReflection.GetMinFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL))(19, 'GetMinFeatureLevel', ((1, 'pLevel'),)))
+    ID3D12ShaderReflection.GetThreadGroupSize = COMMETHOD(WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(20, 'GetThreadGroupSize', ((1, 'pSizeX'),(1, 'pSizeY'),(1, 'pSizeZ'),)))
+    ID3D12ShaderReflection.GetRequiresFlags = COMMETHOD(WINFUNCTYPE(UInt64,)(21, 'GetRequiresFlags', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12ShaderReflection
+def _define_ID3D12ShaderReflectionConstantBuffer_head():
+    class ID3D12ShaderReflectionConstantBuffer(c_void_p):
+        Guid = Guid('c59598b4-48b3-4869-b9-b1-b1-61-8b-14-a8-b7')
+    return ID3D12ShaderReflectionConstantBuffer
+def _define_ID3D12ShaderReflectionConstantBuffer():
+    ID3D12ShaderReflectionConstantBuffer = win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head
+    ID3D12ShaderReflectionConstantBuffer.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_BUFFER_DESC_head))(0, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12ShaderReflectionConstantBuffer.GetVariableByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,UInt32)(1, 'GetVariableByIndex', ((1, 'Index'),)))
+    ID3D12ShaderReflectionConstantBuffer.GetVariableByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head,win32more.Foundation.PSTR)(2, 'GetVariableByName', ((1, 'Name'),)))
+    return ID3D12ShaderReflectionConstantBuffer
+def _define_ID3D12ShaderReflectionType_head():
+    class ID3D12ShaderReflectionType(c_void_p):
+        Guid = Guid('e913c351-783d-48ca-a1-d1-4f-30-62-84-ad-56')
+    return ID3D12ShaderReflectionType
+def _define_ID3D12ShaderReflectionType():
+    ID3D12ShaderReflectionType = win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head
+    ID3D12ShaderReflectionType.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_TYPE_DESC_head))(0, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12ShaderReflectionType.GetMemberTypeByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,UInt32)(1, 'GetMemberTypeByIndex', ((1, 'Index'),)))
+    ID3D12ShaderReflectionType.GetMemberTypeByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,win32more.Foundation.PSTR)(2, 'GetMemberTypeByName', ((1, 'Name'),)))
+    ID3D12ShaderReflectionType.GetMemberTypeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.PSTR,UInt32)(3, 'GetMemberTypeName', ((1, 'Index'),)))
+    ID3D12ShaderReflectionType.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head)(4, 'IsEqual', ((1, 'pType'),)))
+    ID3D12ShaderReflectionType.GetSubType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,)(5, 'GetSubType', ()))
+    ID3D12ShaderReflectionType.GetBaseClass = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,)(6, 'GetBaseClass', ()))
+    ID3D12ShaderReflectionType.GetNumInterfaces = COMMETHOD(WINFUNCTYPE(UInt32,)(7, 'GetNumInterfaces', ()))
+    ID3D12ShaderReflectionType.GetInterfaceByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,UInt32)(8, 'GetInterfaceByIndex', ((1, 'uIndex'),)))
+    ID3D12ShaderReflectionType.IsOfType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head)(9, 'IsOfType', ((1, 'pType'),)))
+    ID3D12ShaderReflectionType.ImplementsInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head)(10, 'ImplementsInterface', ((1, 'pBase'),)))
+    return ID3D12ShaderReflectionType
+def _define_ID3D12ShaderReflectionVariable_head():
+    class ID3D12ShaderReflectionVariable(c_void_p):
+        Guid = Guid('8337a8a6-a216-444a-b2-f4-31-47-33-a7-3a-ea')
+    return ID3D12ShaderReflectionVariable
+def _define_ID3D12ShaderReflectionVariable():
+    ID3D12ShaderReflectionVariable = win32more.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head
+    ID3D12ShaderReflectionVariable.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_VARIABLE_DESC_head))(0, 'GetDesc', ((1, 'pDesc'),)))
+    ID3D12ShaderReflectionVariable.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionType_head,)(1, 'GetType', ()))
+    ID3D12ShaderReflectionVariable.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head,)(2, 'GetBuffer', ()))
+    ID3D12ShaderReflectionVariable.GetInterfaceSlot = COMMETHOD(WINFUNCTYPE(UInt32,UInt32)(3, 'GetInterfaceSlot', ((1, 'uArrayIndex'),)))
+    return ID3D12ShaderReflectionVariable
+def _define_ID3D12SharingContract_head():
+    class ID3D12SharingContract(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0adf7d52-929c-4e61-ad-db-ff-ed-30-de-66-ef')
+    return ID3D12SharingContract
+def _define_ID3D12SharingContract():
+    ID3D12SharingContract = win32more.Graphics.Direct3D12.ID3D12SharingContract_head
+    ID3D12SharingContract.Present = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,win32more.Foundation.HWND)(3, 'Present', ((1, 'pResource'),(1, 'Subresource'),(1, 'window'),)))
+    ID3D12SharingContract.SharedFenceSignal = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64)(4, 'SharedFenceSignal', ((1, 'pFence'),(1, 'FenceValue'),)))
+    ID3D12SharingContract.BeginCapturableWork = COMMETHOD(WINFUNCTYPE(Void,POINTER(Guid))(5, 'BeginCapturableWork', ((1, 'guid'),)))
+    ID3D12SharingContract.EndCapturableWork = COMMETHOD(WINFUNCTYPE(Void,POINTER(Guid))(6, 'EndCapturableWork', ((1, 'guid'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12SharingContract
+def _define_ID3D12StateObject_head():
+    class ID3D12StateObject(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
+        Guid = Guid('47016943-fca8-4594-93-ea-af-25-8b-55-34-6d')
+    return ID3D12StateObject
+def _define_ID3D12StateObject():
+    ID3D12StateObject = win32more.Graphics.Direct3D12.ID3D12StateObject_head
+    win32more.Graphics.Direct3D12.ID3D12Pageable
+    return ID3D12StateObject
+def _define_ID3D12StateObjectProperties_head():
+    class ID3D12StateObjectProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('de5fa827-9bf9-4f26-89-ff-d7-f5-6f-de-38-60')
+    return ID3D12StateObjectProperties
+def _define_ID3D12StateObjectProperties():
+    ID3D12StateObjectProperties = win32more.Graphics.Direct3D12.ID3D12StateObjectProperties_head
+    ID3D12StateObjectProperties.GetShaderIdentifier = COMMETHOD(WINFUNCTYPE(c_void_p,win32more.Foundation.PWSTR)(3, 'GetShaderIdentifier', ((1, 'pExportName'),)))
+    ID3D12StateObjectProperties.GetShaderStackSize = COMMETHOD(WINFUNCTYPE(UInt64,win32more.Foundation.PWSTR)(4, 'GetShaderStackSize', ((1, 'pExportName'),)))
+    ID3D12StateObjectProperties.GetPipelineStackSize = COMMETHOD(WINFUNCTYPE(UInt64,)(5, 'GetPipelineStackSize', ()))
+    ID3D12StateObjectProperties.SetPipelineStackSize = COMMETHOD(WINFUNCTYPE(Void,UInt64)(6, 'SetPipelineStackSize', ((1, 'PipelineStackSizeInBytes'),)))
+    win32more.System.Com.IUnknown
+    return ID3D12StateObjectProperties
+def _define_ID3D12SwapChainAssistant_head():
+    class ID3D12SwapChainAssistant(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f1df64b6-57fd-49cd-88-07-c0-eb-88-b4-5c-8f')
+    return ID3D12SwapChainAssistant
+def _define_ID3D12SwapChainAssistant():
+    ID3D12SwapChainAssistant = win32more.Graphics.Direct3D12.ID3D12SwapChainAssistant_head
+    ID3D12SwapChainAssistant.GetLUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.LUID,)(3, 'GetLUID', ()))
+    ID3D12SwapChainAssistant.GetSwapChainObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(4, 'GetSwapChainObject', ((1, 'riid'),(1, 'ppv'),)))
+    ID3D12SwapChainAssistant.GetCurrentResourceAndCommandQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p),POINTER(Guid),POINTER(c_void_p))(5, 'GetCurrentResourceAndCommandQueue', ((1, 'riidResource'),(1, 'ppvResource'),(1, 'riidQueue'),(1, 'ppvQueue'),)))
+    ID3D12SwapChainAssistant.InsertImplicitSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'InsertImplicitSync', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12SwapChainAssistant
+def _define_ID3D12Tools_head():
+    class ID3D12Tools(win32more.System.Com.IUnknown_head):
+        Guid = Guid('7071e1f0-e84b-4b33-97-4f-12-fa-49-de-65-c5')
+    return ID3D12Tools
+def _define_ID3D12Tools():
+    ID3D12Tools = win32more.Graphics.Direct3D12.ID3D12Tools_head
+    ID3D12Tools.EnableShaderInstrumentation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(3, 'EnableShaderInstrumentation', ((1, 'bEnable'),)))
+    ID3D12Tools.ShaderInstrumentationEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(4, 'ShaderInstrumentationEnabled', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12Tools
+def _define_ID3D12VersionedRootSignatureDeserializer_head():
+    class ID3D12VersionedRootSignatureDeserializer(win32more.System.Com.IUnknown_head):
+        Guid = Guid('7f91ce67-090c-4bb7-b7-8e-ed-8f-f2-e3-1d-a0')
+    return ID3D12VersionedRootSignatureDeserializer
+def _define_ID3D12VersionedRootSignatureDeserializer():
+    ID3D12VersionedRootSignatureDeserializer = win32more.Graphics.Direct3D12.ID3D12VersionedRootSignatureDeserializer_head
+    ID3D12VersionedRootSignatureDeserializer.GetRootSignatureDescAtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head)))(3, 'GetRootSignatureDescAtVersion', ((1, 'convertToVersion'),(1, 'ppDesc'),)))
+    ID3D12VersionedRootSignatureDeserializer.GetUnconvertedRootSignatureDesc = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head),)(4, 'GetUnconvertedRootSignatureDesc', ()))
+    win32more.System.Com.IUnknown
+    return ID3D12VersionedRootSignatureDeserializer
+def _define_PFN_D3D12_CREATE_DEVICE():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL,POINTER(Guid),POINTER(c_void_p))
+def _define_PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))
+def _define_PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))
+def _define_PFN_D3D12_GET_DEBUG_INTERFACE():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))
+def _define_PFN_D3D12_GET_INTERFACE():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p))
+def _define_PFN_D3D12_SERIALIZE_ROOT_SIGNATURE():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))
+def _define_PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))
 __all__ = [
-    "D3D12_SHADER_COMPONENT_MAPPING_ALWAYS_SET_BIT_AVOIDING_ZEROMEM_MISTAKES",
-    "D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING",
+    "CLSID_D3D12Debug",
+    "CLSID_D3D12DeviceRemovedExtendedData",
+    "CLSID_D3D12SDKConfiguration",
+    "CLSID_D3D12Tools",
+    "D3D12CreateDevice",
+    "D3D12CreateRootSignatureDeserializer",
+    "D3D12CreateVersionedRootSignatureDeserializer",
+    "D3D12EnableExperimentalFeatures",
+    "D3D12ExperimentalShaderModels",
+    "D3D12GetDebugInterface",
+    "D3D12GetInterface",
+    "D3D12MessageFunc",
+    "D3D12MetaCommand",
+    "D3D12SerializeRootSignature",
+    "D3D12SerializeVersionedRootSignature",
+    "D3D12TiledResourceTier4",
     "D3D12_16BIT_INDEX_STRIP_CUT_VALUE",
     "D3D12_32BIT_INDEX_STRIP_CUT_VALUE",
     "D3D12_8BIT_INDEX_STRIP_CUT_VALUE",
+    "D3D12_ANISOTROPIC_FILTERING_BIT",
     "D3D12_APPEND_ALIGNED_ELEMENT",
     "D3D12_ARRAY_AXIS_ADDRESS_RANGE_BIT_COUNT",
+    "D3D12_AUTO_BREADCRUMB_NODE",
+    "D3D12_AUTO_BREADCRUMB_NODE1",
+    "D3D12_AUTO_BREADCRUMB_OP",
+    "D3D12_AUTO_BREADCRUMB_OP_ATOMICCOPYBUFFERUINT",
+    "D3D12_AUTO_BREADCRUMB_OP_ATOMICCOPYBUFFERUINT64",
+    "D3D12_AUTO_BREADCRUMB_OP_BEGINEVENT",
+    "D3D12_AUTO_BREADCRUMB_OP_BEGINSUBMISSION",
+    "D3D12_AUTO_BREADCRUMB_OP_BUILDRAYTRACINGACCELERATIONSTRUCTURE",
+    "D3D12_AUTO_BREADCRUMB_OP_CLEARDEPTHSTENCILVIEW",
+    "D3D12_AUTO_BREADCRUMB_OP_CLEARRENDERTARGETVIEW",
+    "D3D12_AUTO_BREADCRUMB_OP_CLEARUNORDEREDACCESSVIEW",
+    "D3D12_AUTO_BREADCRUMB_OP_COPYBUFFERREGION",
+    "D3D12_AUTO_BREADCRUMB_OP_COPYRAYTRACINGACCELERATIONSTRUCTURE",
+    "D3D12_AUTO_BREADCRUMB_OP_COPYRESOURCE",
+    "D3D12_AUTO_BREADCRUMB_OP_COPYTEXTUREREGION",
+    "D3D12_AUTO_BREADCRUMB_OP_COPYTILES",
+    "D3D12_AUTO_BREADCRUMB_OP_DECODEFRAME",
+    "D3D12_AUTO_BREADCRUMB_OP_DECODEFRAME1",
+    "D3D12_AUTO_BREADCRUMB_OP_DECODEFRAME2",
+    "D3D12_AUTO_BREADCRUMB_OP_DISPATCH",
+    "D3D12_AUTO_BREADCRUMB_OP_DISPATCHMESH",
+    "D3D12_AUTO_BREADCRUMB_OP_DISPATCHRAYS",
+    "D3D12_AUTO_BREADCRUMB_OP_DRAWINDEXEDINSTANCED",
+    "D3D12_AUTO_BREADCRUMB_OP_DRAWINSTANCED",
+    "D3D12_AUTO_BREADCRUMB_OP_EMITRAYTRACINGACCELERATIONSTRUCTUREPOSTBUILDINFO",
+    "D3D12_AUTO_BREADCRUMB_OP_ENCODEFRAME",
+    "D3D12_AUTO_BREADCRUMB_OP_ENDEVENT",
+    "D3D12_AUTO_BREADCRUMB_OP_ENDSUBMISSION",
+    "D3D12_AUTO_BREADCRUMB_OP_ESTIMATEMOTION",
+    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEBUNDLE",
+    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEEXTENSIONCOMMAND",
+    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEINDIRECT",
+    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEMETACOMMAND",
+    "D3D12_AUTO_BREADCRUMB_OP_INITIALIZEEXTENSIONCOMMAND",
+    "D3D12_AUTO_BREADCRUMB_OP_INITIALIZEMETACOMMAND",
+    "D3D12_AUTO_BREADCRUMB_OP_PRESENT",
+    "D3D12_AUTO_BREADCRUMB_OP_PROCESSFRAMES",
+    "D3D12_AUTO_BREADCRUMB_OP_PROCESSFRAMES1",
+    "D3D12_AUTO_BREADCRUMB_OP_RESOLVEENCODEROUTPUTMETADATA",
+    "D3D12_AUTO_BREADCRUMB_OP_RESOLVEMOTIONVECTORHEAP",
+    "D3D12_AUTO_BREADCRUMB_OP_RESOLVEQUERYDATA",
+    "D3D12_AUTO_BREADCRUMB_OP_RESOLVESUBRESOURCE",
+    "D3D12_AUTO_BREADCRUMB_OP_RESOLVESUBRESOURCEREGION",
+    "D3D12_AUTO_BREADCRUMB_OP_RESOURCEBARRIER",
+    "D3D12_AUTO_BREADCRUMB_OP_SETMARKER",
+    "D3D12_AUTO_BREADCRUMB_OP_SETPIPELINESTATE1",
+    "D3D12_AUTO_BREADCRUMB_OP_SETPROTECTEDRESOURCESESSION",
+    "D3D12_AUTO_BREADCRUMB_OP_WRITEBUFFERIMMEDIATE",
+    "D3D12_AXIS_SHADING_RATE",
+    "D3D12_AXIS_SHADING_RATE_1X",
+    "D3D12_AXIS_SHADING_RATE_2X",
+    "D3D12_AXIS_SHADING_RATE_4X",
+    "D3D12_BACKGROUND_PROCESSING_MODE",
+    "D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED",
+    "D3D12_BACKGROUND_PROCESSING_MODE_ALLOW_INTRUSIVE_MEASUREMENTS",
+    "D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_BACKGROUND_WORK",
+    "D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_PROFILING_BY_SYSTEM",
+    "D3D12_BLEND",
+    "D3D12_BLEND_BLEND_FACTOR",
+    "D3D12_BLEND_DESC",
+    "D3D12_BLEND_DEST_ALPHA",
+    "D3D12_BLEND_DEST_COLOR",
+    "D3D12_BLEND_INV_BLEND_FACTOR",
+    "D3D12_BLEND_INV_DEST_ALPHA",
+    "D3D12_BLEND_INV_DEST_COLOR",
+    "D3D12_BLEND_INV_SRC1_ALPHA",
+    "D3D12_BLEND_INV_SRC1_COLOR",
+    "D3D12_BLEND_INV_SRC_ALPHA",
+    "D3D12_BLEND_INV_SRC_COLOR",
+    "D3D12_BLEND_ONE",
+    "D3D12_BLEND_OP",
+    "D3D12_BLEND_OP_ADD",
+    "D3D12_BLEND_OP_MAX",
+    "D3D12_BLEND_OP_MIN",
+    "D3D12_BLEND_OP_REV_SUBTRACT",
+    "D3D12_BLEND_OP_SUBTRACT",
+    "D3D12_BLEND_SRC1_ALPHA",
+    "D3D12_BLEND_SRC1_COLOR",
+    "D3D12_BLEND_SRC_ALPHA",
+    "D3D12_BLEND_SRC_ALPHA_SAT",
+    "D3D12_BLEND_SRC_COLOR",
+    "D3D12_BLEND_ZERO",
+    "D3D12_BOX",
+    "D3D12_BUFFER_RTV",
+    "D3D12_BUFFER_SRV",
+    "D3D12_BUFFER_SRV_FLAGS",
+    "D3D12_BUFFER_SRV_FLAG_NONE",
+    "D3D12_BUFFER_SRV_FLAG_RAW",
+    "D3D12_BUFFER_UAV",
+    "D3D12_BUFFER_UAV_FLAGS",
+    "D3D12_BUFFER_UAV_FLAG_NONE",
+    "D3D12_BUFFER_UAV_FLAG_RAW",
+    "D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC",
+    "D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS",
+    "D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER",
+    "D3D12_CACHED_PIPELINE_STATE",
+    "D3D12_CLEAR_FLAGS",
+    "D3D12_CLEAR_FLAG_DEPTH",
+    "D3D12_CLEAR_FLAG_STENCIL",
+    "D3D12_CLEAR_VALUE",
     "D3D12_CLIP_OR_CULL_DISTANCE_COUNT",
     "D3D12_CLIP_OR_CULL_DISTANCE_ELEMENT_COUNT",
+    "D3D12_COLOR_WRITE_ENABLE",
+    "D3D12_COLOR_WRITE_ENABLE_ALL",
+    "D3D12_COLOR_WRITE_ENABLE_ALPHA",
+    "D3D12_COLOR_WRITE_ENABLE_BLUE",
+    "D3D12_COLOR_WRITE_ENABLE_GREEN",
+    "D3D12_COLOR_WRITE_ENABLE_RED",
+    "D3D12_COMMAND_LIST_FLAGS",
+    "D3D12_COMMAND_LIST_FLAG_NONE",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAGS",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_BUNDLE",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_COMPUTE",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_COPY",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_DIRECT",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_NONE",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE",
+    "D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS",
+    "D3D12_COMMAND_LIST_TYPE",
+    "D3D12_COMMAND_LIST_TYPE_BUNDLE",
+    "D3D12_COMMAND_LIST_TYPE_COMPUTE",
+    "D3D12_COMMAND_LIST_TYPE_COPY",
+    "D3D12_COMMAND_LIST_TYPE_DIRECT",
+    "D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE",
+    "D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE",
+    "D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS",
+    "D3D12_COMMAND_POOL_FLAGS",
+    "D3D12_COMMAND_POOL_FLAG_NONE",
+    "D3D12_COMMAND_QUEUE_DESC",
+    "D3D12_COMMAND_QUEUE_FLAGS",
+    "D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT",
+    "D3D12_COMMAND_QUEUE_FLAG_NONE",
+    "D3D12_COMMAND_QUEUE_PRIORITY",
+    "D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME",
+    "D3D12_COMMAND_QUEUE_PRIORITY_HIGH",
+    "D3D12_COMMAND_QUEUE_PRIORITY_NORMAL",
+    "D3D12_COMMAND_RECORDER_FLAGS",
+    "D3D12_COMMAND_RECORDER_FLAG_NONE",
+    "D3D12_COMMAND_SIGNATURE_DESC",
     "D3D12_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT",
     "D3D12_COMMONSHADER_CONSTANT_BUFFER_COMPONENTS",
     "D3D12_COMMONSHADER_CONSTANT_BUFFER_COMPONENT_BIT_COUNT",
@@ -6575,7 +6737,38 @@ __all__ = [
     "D3D12_COMMONSHADER_TEXCOORD_RANGE_REDUCTION_MIN",
     "D3D12_COMMONSHADER_TEXEL_OFFSET_MAX_NEGATIVE",
     "D3D12_COMMONSHADER_TEXEL_OFFSET_MAX_POSITIVE",
+    "D3D12_COMPARISON_FUNC",
+    "D3D12_COMPARISON_FUNC_ALWAYS",
+    "D3D12_COMPARISON_FUNC_EQUAL",
+    "D3D12_COMPARISON_FUNC_GREATER",
+    "D3D12_COMPARISON_FUNC_GREATER_EQUAL",
+    "D3D12_COMPARISON_FUNC_LESS",
+    "D3D12_COMPARISON_FUNC_LESS_EQUAL",
+    "D3D12_COMPARISON_FUNC_NEVER",
+    "D3D12_COMPARISON_FUNC_NOT_EQUAL",
+    "D3D12_COMPUTE_PIPELINE_STATE_DESC",
+    "D3D12_CONSERVATIVE_RASTERIZATION_MODE",
+    "D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF",
+    "D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON",
+    "D3D12_CONSERVATIVE_RASTERIZATION_TIER",
+    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_1",
+    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_2",
+    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_3",
+    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_NOT_SUPPORTED",
     "D3D12_CONSTANT_BUFFER_DATA_PLACEMENT_ALIGNMENT",
+    "D3D12_CONSTANT_BUFFER_VIEW_DESC",
+    "D3D12_CPU_DESCRIPTOR_HANDLE",
+    "D3D12_CPU_PAGE_PROPERTY",
+    "D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE",
+    "D3D12_CPU_PAGE_PROPERTY_UNKNOWN",
+    "D3D12_CPU_PAGE_PROPERTY_WRITE_BACK",
+    "D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE",
+    "D3D12_CROSS_NODE_SHARING_TIER",
+    "D3D12_CROSS_NODE_SHARING_TIER_1",
+    "D3D12_CROSS_NODE_SHARING_TIER_1_EMULATED",
+    "D3D12_CROSS_NODE_SHARING_TIER_2",
+    "D3D12_CROSS_NODE_SHARING_TIER_3",
+    "D3D12_CROSS_NODE_SHARING_TIER_NOT_SUPPORTED",
     "D3D12_CS_4_X_BUCKET00_MAX_BYTES_TGSM_WRITABLE_PER_THREAD",
     "D3D12_CS_4_X_BUCKET00_MAX_NUM_THREADS_PER_GROUP",
     "D3D12_CS_4_X_BUCKET01_MAX_BYTES_TGSM_WRITABLE_PER_THREAD",
@@ -6635,6 +6828,25 @@ __all__ = [
     "D3D12_CS_THREAD_GROUP_MIN_Y",
     "D3D12_CS_THREAD_GROUP_MIN_Z",
     "D3D12_CS_THREAD_LOCAL_TEMP_REGISTER_POOL",
+    "D3D12_CULL_MODE",
+    "D3D12_CULL_MODE_BACK",
+    "D3D12_CULL_MODE_FRONT",
+    "D3D12_CULL_MODE_NONE",
+    "D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS",
+    "D3D12_DEBUG_COMMAND_LIST_PARAMETER_GPU_BASED_VALIDATION_SETTINGS",
+    "D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE",
+    "D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS",
+    "D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR",
+    "D3D12_DEBUG_DEVICE_PARAMETER_FEATURE_FLAGS",
+    "D3D12_DEBUG_DEVICE_PARAMETER_GPU_BASED_VALIDATION_SETTINGS",
+    "D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR",
+    "D3D12_DEBUG_DEVICE_PARAMETER_TYPE",
+    "D3D12_DEBUG_FEATURE",
+    "D3D12_DEBUG_FEATURE_ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS",
+    "D3D12_DEBUG_FEATURE_CONSERVATIVE_RESOURCE_STATE_TRACKING",
+    "D3D12_DEBUG_FEATURE_DISABLE_VIRTUALIZED_BUNDLES_VALIDATION",
+    "D3D12_DEBUG_FEATURE_EMULATE_WINDOWS7",
+    "D3D12_DEBUG_FEATURE_NONE",
     "D3D12_DEFAULT_BLEND_FACTOR_ALPHA",
     "D3D12_DEFAULT_BLEND_FACTOR_BLUE",
     "D3D12_DEFAULT_BLEND_FACTOR_GREEN",
@@ -6652,6 +6864,7 @@ __all__ = [
     "D3D12_DEFAULT_SCISSOR_ENDY",
     "D3D12_DEFAULT_SCISSOR_STARTX",
     "D3D12_DEFAULT_SCISSOR_STARTY",
+    "D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING",
     "D3D12_DEFAULT_SLOPE_SCALED_DEPTH_BIAS",
     "D3D12_DEFAULT_STENCIL_READ_MASK",
     "D3D12_DEFAULT_STENCIL_REFERENCE",
@@ -6663,9 +6876,127 @@ __all__ = [
     "D3D12_DEFAULT_VIEWPORT_TOPLEFTX",
     "D3D12_DEFAULT_VIEWPORT_TOPLEFTY",
     "D3D12_DEFAULT_VIEWPORT_WIDTH",
+    "D3D12_DEPTH_STENCILOP_DESC",
+    "D3D12_DEPTH_STENCIL_DESC",
+    "D3D12_DEPTH_STENCIL_DESC1",
+    "D3D12_DEPTH_STENCIL_VALUE",
+    "D3D12_DEPTH_STENCIL_VIEW_DESC",
+    "D3D12_DEPTH_WRITE_MASK",
+    "D3D12_DEPTH_WRITE_MASK_ALL",
+    "D3D12_DEPTH_WRITE_MASK_ZERO",
+    "D3D12_DESCRIPTOR_HEAP_DESC",
+    "D3D12_DESCRIPTOR_HEAP_FLAGS",
+    "D3D12_DESCRIPTOR_HEAP_FLAG_NONE",
+    "D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE",
+    "D3D12_DESCRIPTOR_HEAP_TYPE",
+    "D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV",
+    "D3D12_DESCRIPTOR_HEAP_TYPE_DSV",
+    "D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES",
+    "D3D12_DESCRIPTOR_HEAP_TYPE_RTV",
+    "D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER",
+    "D3D12_DESCRIPTOR_RANGE",
+    "D3D12_DESCRIPTOR_RANGE1",
+    "D3D12_DESCRIPTOR_RANGE_FLAGS",
+    "D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC",
+    "D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE",
+    "D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE",
+    "D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS",
+    "D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE",
+    "D3D12_DESCRIPTOR_RANGE_FLAG_NONE",
     "D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND",
+    "D3D12_DESCRIPTOR_RANGE_TYPE",
+    "D3D12_DESCRIPTOR_RANGE_TYPE_CBV",
+    "D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER",
+    "D3D12_DESCRIPTOR_RANGE_TYPE_SRV",
+    "D3D12_DESCRIPTOR_RANGE_TYPE_UAV",
+    "D3D12_DEVICE_REMOVED_EXTENDED_DATA",
+    "D3D12_DEVICE_REMOVED_EXTENDED_DATA1",
+    "D3D12_DEVICE_REMOVED_EXTENDED_DATA2",
+    "D3D12_DEVICE_REMOVED_EXTENDED_DATA3",
+    "D3D12_DISCARD_REGION",
+    "D3D12_DISPATCH_ARGUMENTS",
+    "D3D12_DISPATCH_MESH_ARGUMENTS",
+    "D3D12_DISPATCH_RAYS_DESC",
+    "D3D12_DRAW_ARGUMENTS",
+    "D3D12_DRAW_INDEXED_ARGUMENTS",
+    "D3D12_DRED_ALLOCATION_NODE",
+    "D3D12_DRED_ALLOCATION_NODE1",
+    "D3D12_DRED_ALLOCATION_TYPE",
+    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_ALLOCATOR",
+    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_LIST",
+    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_POOL",
+    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_QUEUE",
+    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_RECORDER",
+    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_SIGNATURE",
+    "D3D12_DRED_ALLOCATION_TYPE_CRYPTOSESSION",
+    "D3D12_DRED_ALLOCATION_TYPE_CRYPTOSESSIONPOLICY",
+    "D3D12_DRED_ALLOCATION_TYPE_DESCRIPTOR_HEAP",
+    "D3D12_DRED_ALLOCATION_TYPE_FENCE",
+    "D3D12_DRED_ALLOCATION_TYPE_HEAP",
+    "D3D12_DRED_ALLOCATION_TYPE_INVALID",
+    "D3D12_DRED_ALLOCATION_TYPE_METACOMMAND",
+    "D3D12_DRED_ALLOCATION_TYPE_PASS",
+    "D3D12_DRED_ALLOCATION_TYPE_PIPELINE_LIBRARY",
+    "D3D12_DRED_ALLOCATION_TYPE_PIPELINE_STATE",
+    "D3D12_DRED_ALLOCATION_TYPE_PROTECTEDRESOURCESESSION",
+    "D3D12_DRED_ALLOCATION_TYPE_QUERY_HEAP",
+    "D3D12_DRED_ALLOCATION_TYPE_RESOURCE",
+    "D3D12_DRED_ALLOCATION_TYPE_SCHEDULINGGROUP",
+    "D3D12_DRED_ALLOCATION_TYPE_STATE_OBJECT",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_DECODER",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_DECODER_HEAP",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER_HEAP",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_EXTENSION_COMMAND",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_MOTION_ESTIMATOR",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_MOTION_VECTOR_HEAP",
+    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_PROCESSOR",
+    "D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT",
+    "D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1",
+    "D3D12_DRED_BREADCRUMB_CONTEXT",
+    "D3D12_DRED_DEVICE_STATE",
+    "D3D12_DRED_DEVICE_STATE_FAULT",
+    "D3D12_DRED_DEVICE_STATE_HUNG",
+    "D3D12_DRED_DEVICE_STATE_PAGEFAULT",
+    "D3D12_DRED_DEVICE_STATE_UNKNOWN",
+    "D3D12_DRED_ENABLEMENT",
+    "D3D12_DRED_ENABLEMENT_FORCED_OFF",
+    "D3D12_DRED_ENABLEMENT_FORCED_ON",
+    "D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED",
+    "D3D12_DRED_FLAGS",
+    "D3D12_DRED_FLAG_DISABLE_AUTOBREADCRUMBS",
+    "D3D12_DRED_FLAG_FORCE_ENABLE",
+    "D3D12_DRED_FLAG_NONE",
+    "D3D12_DRED_PAGE_FAULT_FLAGS",
+    "D3D12_DRED_PAGE_FAULT_FLAGS_NONE",
+    "D3D12_DRED_PAGE_FAULT_OUTPUT",
+    "D3D12_DRED_PAGE_FAULT_OUTPUT1",
+    "D3D12_DRED_PAGE_FAULT_OUTPUT2",
+    "D3D12_DRED_VERSION",
+    "D3D12_DRED_VERSION_1_0",
+    "D3D12_DRED_VERSION_1_1",
+    "D3D12_DRED_VERSION_1_2",
+    "D3D12_DRED_VERSION_1_3",
+    "D3D12_DRIVER_MATCHING_IDENTIFIER_COMPATIBLE_WITH_DEVICE",
+    "D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_TYPE",
+    "D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_VERSION",
+    "D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS",
+    "D3D12_DRIVER_MATCHING_IDENTIFIER_UNRECOGNIZED",
+    "D3D12_DRIVER_MATCHING_IDENTIFIER_UNSUPPORTED_TYPE",
     "D3D12_DRIVER_RESERVED_REGISTER_SPACE_VALUES_END",
     "D3D12_DRIVER_RESERVED_REGISTER_SPACE_VALUES_START",
+    "D3D12_DSV_DIMENSION",
+    "D3D12_DSV_DIMENSION_TEXTURE1D",
+    "D3D12_DSV_DIMENSION_TEXTURE1DARRAY",
+    "D3D12_DSV_DIMENSION_TEXTURE2D",
+    "D3D12_DSV_DIMENSION_TEXTURE2DARRAY",
+    "D3D12_DSV_DIMENSION_TEXTURE2DMS",
+    "D3D12_DSV_DIMENSION_TEXTURE2DMSARRAY",
+    "D3D12_DSV_DIMENSION_UNKNOWN",
+    "D3D12_DSV_FLAGS",
+    "D3D12_DSV_FLAG_NONE",
+    "D3D12_DSV_FLAG_READ_ONLY_DEPTH",
+    "D3D12_DSV_FLAG_READ_ONLY_STENCIL",
     "D3D12_DS_INPUT_CONTROL_POINTS_MAX_TOTAL_SCALARS",
     "D3D12_DS_INPUT_CONTROL_POINT_REGISTER_COMPONENTS",
     "D3D12_DS_INPUT_CONTROL_POINT_REGISTER_COMPONENT_BIT_COUNT",
@@ -6690,6 +7021,134 @@ __all__ = [
     "D3D12_DS_OUTPUT_REGISTER_COMPONENTS",
     "D3D12_DS_OUTPUT_REGISTER_COMPONENT_BIT_COUNT",
     "D3D12_DS_OUTPUT_REGISTER_COUNT",
+    "D3D12_DXIL_LIBRARY_DESC",
+    "D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
+    "D3D12_ELEMENTS_LAYOUT",
+    "D3D12_ELEMENTS_LAYOUT_ARRAY",
+    "D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS",
+    "D3D12_EXISTING_COLLECTION_DESC",
+    "D3D12_EXPORT_DESC",
+    "D3D12_EXPORT_FLAGS",
+    "D3D12_EXPORT_FLAG_NONE",
+    "D3D12_FEATURE",
+    "D3D12_FEATURE_ARCHITECTURE",
+    "D3D12_FEATURE_ARCHITECTURE1",
+    "D3D12_FEATURE_COMMAND_QUEUE_PRIORITY",
+    "D3D12_FEATURE_CROSS_NODE",
+    "D3D12_FEATURE_D3D12_OPTIONS",
+    "D3D12_FEATURE_D3D12_OPTIONS1",
+    "D3D12_FEATURE_D3D12_OPTIONS10",
+    "D3D12_FEATURE_D3D12_OPTIONS11",
+    "D3D12_FEATURE_D3D12_OPTIONS2",
+    "D3D12_FEATURE_D3D12_OPTIONS3",
+    "D3D12_FEATURE_D3D12_OPTIONS4",
+    "D3D12_FEATURE_D3D12_OPTIONS5",
+    "D3D12_FEATURE_D3D12_OPTIONS6",
+    "D3D12_FEATURE_D3D12_OPTIONS7",
+    "D3D12_FEATURE_D3D12_OPTIONS8",
+    "D3D12_FEATURE_D3D12_OPTIONS9",
+    "D3D12_FEATURE_DATA_ARCHITECTURE",
+    "D3D12_FEATURE_DATA_ARCHITECTURE1",
+    "D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY",
+    "D3D12_FEATURE_DATA_CROSS_NODE",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS1",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS10",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS11",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS2",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS3",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS4",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS5",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS6",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS7",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS8",
+    "D3D12_FEATURE_DATA_D3D12_OPTIONS9",
+    "D3D12_FEATURE_DATA_DISPLAYABLE",
+    "D3D12_FEATURE_DATA_EXISTING_HEAPS",
+    "D3D12_FEATURE_DATA_FEATURE_LEVELS",
+    "D3D12_FEATURE_DATA_FORMAT_INFO",
+    "D3D12_FEATURE_DATA_FORMAT_SUPPORT",
+    "D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT",
+    "D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS",
+    "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT",
+    "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES",
+    "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT",
+    "D3D12_FEATURE_DATA_QUERY_META_COMMAND",
+    "D3D12_FEATURE_DATA_ROOT_SIGNATURE",
+    "D3D12_FEATURE_DATA_SERIALIZATION",
+    "D3D12_FEATURE_DATA_SHADER_CACHE",
+    "D3D12_FEATURE_DATA_SHADER_MODEL",
+    "D3D12_FEATURE_DISPLAYABLE",
+    "D3D12_FEATURE_EXISTING_HEAPS",
+    "D3D12_FEATURE_FEATURE_LEVELS",
+    "D3D12_FEATURE_FORMAT_INFO",
+    "D3D12_FEATURE_FORMAT_SUPPORT",
+    "D3D12_FEATURE_GPU_VIRTUAL_ADDRESS_SUPPORT",
+    "D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS",
+    "D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_SUPPORT",
+    "D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPES",
+    "D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPE_COUNT",
+    "D3D12_FEATURE_QUERY_META_COMMAND",
+    "D3D12_FEATURE_ROOT_SIGNATURE",
+    "D3D12_FEATURE_SERIALIZATION",
+    "D3D12_FEATURE_SHADER_CACHE",
+    "D3D12_FEATURE_SHADER_MODEL",
+    "D3D12_FENCE_FLAGS",
+    "D3D12_FENCE_FLAG_NONE",
+    "D3D12_FENCE_FLAG_NON_MONITORED",
+    "D3D12_FENCE_FLAG_SHARED",
+    "D3D12_FENCE_FLAG_SHARED_CROSS_ADAPTER",
+    "D3D12_FILL_MODE",
+    "D3D12_FILL_MODE_SOLID",
+    "D3D12_FILL_MODE_WIREFRAME",
+    "D3D12_FILTER",
+    "D3D12_FILTER_ANISOTROPIC",
+    "D3D12_FILTER_COMPARISON_ANISOTROPIC",
+    "D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT",
+    "D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR",
+    "D3D12_FILTER_COMPARISON_MIN_MAG_MIP_POINT",
+    "D3D12_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR",
+    "D3D12_FILTER_MAXIMUM_ANISOTROPIC",
+    "D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT",
+    "D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR",
+    "D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_POINT",
+    "D3D12_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR",
+    "D3D12_FILTER_MINIMUM_ANISOTROPIC",
+    "D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT",
+    "D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR",
+    "D3D12_FILTER_MINIMUM_MIN_MAG_MIP_POINT",
+    "D3D12_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR",
+    "D3D12_FILTER_MIN_LINEAR_MAG_MIP_POINT",
+    "D3D12_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_MIN_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_MIN_MAG_MIP_LINEAR",
+    "D3D12_FILTER_MIN_MAG_MIP_POINT",
+    "D3D12_FILTER_MIN_MAG_POINT_MIP_LINEAR",
+    "D3D12_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT",
+    "D3D12_FILTER_MIN_POINT_MAG_MIP_LINEAR",
+    "D3D12_FILTER_REDUCTION_TYPE",
+    "D3D12_FILTER_REDUCTION_TYPE_COMPARISON",
+    "D3D12_FILTER_REDUCTION_TYPE_MASK",
+    "D3D12_FILTER_REDUCTION_TYPE_MAXIMUM",
+    "D3D12_FILTER_REDUCTION_TYPE_MINIMUM",
+    "D3D12_FILTER_REDUCTION_TYPE_SHIFT",
+    "D3D12_FILTER_REDUCTION_TYPE_STANDARD",
+    "D3D12_FILTER_TYPE",
+    "D3D12_FILTER_TYPE_LINEAR",
+    "D3D12_FILTER_TYPE_MASK",
+    "D3D12_FILTER_TYPE_POINT",
     "D3D12_FLOAT16_FUSED_TOLERANCE_IN_ULP",
     "D3D12_FLOAT32_MAX",
     "D3D12_FLOAT32_TO_INTEGER_TOLERANCE_IN_ULP",
@@ -6699,10 +7158,95 @@ __all__ = [
     "D3D12_FLOAT_TO_SRGB_SCALE_1",
     "D3D12_FLOAT_TO_SRGB_SCALE_2",
     "D3D12_FLOAT_TO_SRGB_THRESHOLD",
+    "D3D12_FORMAT_SUPPORT1",
+    "D3D12_FORMAT_SUPPORT1_BACK_BUFFER_CAST",
+    "D3D12_FORMAT_SUPPORT1_BLENDABLE",
+    "D3D12_FORMAT_SUPPORT1_BUFFER",
+    "D3D12_FORMAT_SUPPORT1_CAST_WITHIN_BIT_LAYOUT",
+    "D3D12_FORMAT_SUPPORT1_DECODER_OUTPUT",
+    "D3D12_FORMAT_SUPPORT1_DEPTH_STENCIL",
+    "D3D12_FORMAT_SUPPORT1_DISPLAY",
+    "D3D12_FORMAT_SUPPORT1_IA_INDEX_BUFFER",
+    "D3D12_FORMAT_SUPPORT1_IA_VERTEX_BUFFER",
+    "D3D12_FORMAT_SUPPORT1_MIP",
+    "D3D12_FORMAT_SUPPORT1_MULTISAMPLE_LOAD",
+    "D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RENDERTARGET",
+    "D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RESOLVE",
+    "D3D12_FORMAT_SUPPORT1_NONE",
+    "D3D12_FORMAT_SUPPORT1_RENDER_TARGET",
+    "D3D12_FORMAT_SUPPORT1_SHADER_GATHER",
+    "D3D12_FORMAT_SUPPORT1_SHADER_GATHER_COMPARISON",
+    "D3D12_FORMAT_SUPPORT1_SHADER_LOAD",
+    "D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE",
+    "D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_COMPARISON",
+    "D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_MONO_TEXT",
+    "D3D12_FORMAT_SUPPORT1_SO_BUFFER",
+    "D3D12_FORMAT_SUPPORT1_TEXTURE1D",
+    "D3D12_FORMAT_SUPPORT1_TEXTURE2D",
+    "D3D12_FORMAT_SUPPORT1_TEXTURE3D",
+    "D3D12_FORMAT_SUPPORT1_TEXTURECUBE",
+    "D3D12_FORMAT_SUPPORT1_TYPED_UNORDERED_ACCESS_VIEW",
+    "D3D12_FORMAT_SUPPORT1_VIDEO_ENCODER",
+    "D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_INPUT",
+    "D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_OUTPUT",
+    "D3D12_FORMAT_SUPPORT2",
+    "D3D12_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY",
+    "D3D12_FORMAT_SUPPORT2_NONE",
+    "D3D12_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP",
+    "D3D12_FORMAT_SUPPORT2_SAMPLER_FEEDBACK",
+    "D3D12_FORMAT_SUPPORT2_TILED",
+    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_ADD",
+    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS",
+    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE",
+    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE",
+    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX",
+    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX",
+    "D3D12_FORMAT_SUPPORT2_UAV_TYPED_LOAD",
+    "D3D12_FORMAT_SUPPORT2_UAV_TYPED_STORE",
     "D3D12_FTOI_INSTRUCTION_MAX_INPUT",
     "D3D12_FTOI_INSTRUCTION_MIN_INPUT",
     "D3D12_FTOU_INSTRUCTION_MAX_INPUT",
     "D3D12_FTOU_INSTRUCTION_MIN_INPUT",
+    "D3D12_FUNCTION_DESC",
+    "D3D12_GLOBAL_ROOT_SIGNATURE",
+    "D3D12_GPU_BASED_VALIDATION_FLAGS",
+    "D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING",
+    "D3D12_GPU_BASED_VALIDATION_FLAGS_NONE",
+    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS",
+    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS_VALID_MASK",
+    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS",
+    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS",
+    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS",
+    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_NONE",
+    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE",
+    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_GUARDED_VALIDATION",
+    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_NONE",
+    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_STATE_TRACKING_ONLY",
+    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_UNGUARDED_VALIDATION",
+    "D3D12_GPU_DESCRIPTOR_HANDLE",
+    "D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE",
+    "D3D12_GPU_VIRTUAL_ADDRESS_RANGE",
+    "D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE",
+    "D3D12_GRAPHICS_PIPELINE_STATE_DESC",
+    "D3D12_GRAPHICS_STATES",
+    "D3D12_GRAPHICS_STATE_COMPUTE_ROOT_SIGNATURE",
+    "D3D12_GRAPHICS_STATE_DESCRIPTOR_HEAP",
+    "D3D12_GRAPHICS_STATE_GRAPHICS_ROOT_SIGNATURE",
+    "D3D12_GRAPHICS_STATE_IA_INDEX_BUFFER",
+    "D3D12_GRAPHICS_STATE_IA_PRIMITIVE_TOPOLOGY",
+    "D3D12_GRAPHICS_STATE_IA_VERTEX_BUFFERS",
+    "D3D12_GRAPHICS_STATE_NONE",
+    "D3D12_GRAPHICS_STATE_OM_BLEND_FACTOR",
+    "D3D12_GRAPHICS_STATE_OM_DEPTH_BOUNDS",
+    "D3D12_GRAPHICS_STATE_OM_RENDER_TARGETS",
+    "D3D12_GRAPHICS_STATE_OM_STENCIL_REF",
+    "D3D12_GRAPHICS_STATE_PIPELINE_STATE",
+    "D3D12_GRAPHICS_STATE_PREDICATION",
+    "D3D12_GRAPHICS_STATE_RS_SCISSOR_RECTS",
+    "D3D12_GRAPHICS_STATE_RS_VIEWPORTS",
+    "D3D12_GRAPHICS_STATE_SAMPLE_POSITIONS",
+    "D3D12_GRAPHICS_STATE_SO_TARGETS",
+    "D3D12_GRAPHICS_STATE_VIEW_INSTANCE_MASK",
     "D3D12_GS_INPUT_INSTANCE_ID_READS_PER_INST",
     "D3D12_GS_INPUT_INSTANCE_ID_READ_PORTS",
     "D3D12_GS_INPUT_INSTANCE_ID_REGISTER_COMPONENTS",
@@ -6725,6 +7269,40 @@ __all__ = [
     "D3D12_GS_OUTPUT_REGISTER_COMPONENTS",
     "D3D12_GS_OUTPUT_REGISTER_COMPONENT_BIT_COUNT",
     "D3D12_GS_OUTPUT_REGISTER_COUNT",
+    "D3D12_HEAP_DESC",
+    "D3D12_HEAP_FLAGS",
+    "D3D12_HEAP_FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES",
+    "D3D12_HEAP_FLAG_ALLOW_DISPLAY",
+    "D3D12_HEAP_FLAG_ALLOW_ONLY_BUFFERS",
+    "D3D12_HEAP_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES",
+    "D3D12_HEAP_FLAG_ALLOW_ONLY_RT_DS_TEXTURES",
+    "D3D12_HEAP_FLAG_ALLOW_SHADER_ATOMICS",
+    "D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH",
+    "D3D12_HEAP_FLAG_CREATE_NOT_RESIDENT",
+    "D3D12_HEAP_FLAG_CREATE_NOT_ZEROED",
+    "D3D12_HEAP_FLAG_DENY_BUFFERS",
+    "D3D12_HEAP_FLAG_DENY_NON_RT_DS_TEXTURES",
+    "D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES",
+    "D3D12_HEAP_FLAG_HARDWARE_PROTECTED",
+    "D3D12_HEAP_FLAG_NONE",
+    "D3D12_HEAP_FLAG_SHARED",
+    "D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER",
+    "D3D12_HEAP_PROPERTIES",
+    "D3D12_HEAP_SERIALIZATION_TIER",
+    "D3D12_HEAP_SERIALIZATION_TIER_0",
+    "D3D12_HEAP_SERIALIZATION_TIER_10",
+    "D3D12_HEAP_TYPE",
+    "D3D12_HEAP_TYPE_CUSTOM",
+    "D3D12_HEAP_TYPE_DEFAULT",
+    "D3D12_HEAP_TYPE_READBACK",
+    "D3D12_HEAP_TYPE_UPLOAD",
+    "D3D12_HIT_GROUP_DESC",
+    "D3D12_HIT_GROUP_TYPE",
+    "D3D12_HIT_GROUP_TYPE_PROCEDURAL_PRIMITIVE",
+    "D3D12_HIT_GROUP_TYPE_TRIANGLES",
+    "D3D12_HIT_KIND",
+    "D3D12_HIT_KIND_TRIANGLE_BACK_FACE",
+    "D3D12_HIT_KIND_TRIANGLE_FRONT_FACE",
     "D3D12_HS_CONTROL_POINT_PHASE_INPUT_REGISTER_COUNT",
     "D3D12_HS_CONTROL_POINT_PHASE_OUTPUT_REGISTER_COUNT",
     "D3D12_HS_CONTROL_POINT_REGISTER_COMPONENTS",
@@ -6774,11 +7352,60 @@ __all__ = [
     "D3D12_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT",
     "D3D12_IA_VERTEX_INPUT_STRUCTURE_ELEMENTS_COMPONENTS",
     "D3D12_IA_VERTEX_INPUT_STRUCTURE_ELEMENT_COUNT",
+    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE",
+    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFF",
+    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFFFFFF",
+    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED",
+    "D3D12_INDEX_BUFFER_VIEW",
+    "D3D12_INDIRECT_ARGUMENT_DESC",
+    "D3D12_INDIRECT_ARGUMENT_TYPE",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_DRAW",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW",
+    "D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW",
+    "D3D12_INFO_QUEUE_DEFAULT_MESSAGE_COUNT_LIMIT",
+    "D3D12_INFO_QUEUE_FILTER",
+    "D3D12_INFO_QUEUE_FILTER_DESC",
+    "D3D12_INPUT_CLASSIFICATION",
+    "D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA",
+    "D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA",
+    "D3D12_INPUT_ELEMENT_DESC",
+    "D3D12_INPUT_LAYOUT_DESC",
     "D3D12_INTEGER_DIVIDE_BY_ZERO_QUOTIENT",
     "D3D12_INTEGER_DIVIDE_BY_ZERO_REMAINDER",
     "D3D12_KEEP_RENDER_TARGETS_AND_DEPTH_STENCIL",
     "D3D12_KEEP_UNORDERED_ACCESS_VIEWS",
+    "D3D12_LIBRARY_DESC",
+    "D3D12_LIFETIME_STATE",
+    "D3D12_LIFETIME_STATE_IN_USE",
+    "D3D12_LIFETIME_STATE_NOT_IN_USE",
     "D3D12_LINEAR_GAMMA",
+    "D3D12_LOCAL_ROOT_SIGNATURE",
+    "D3D12_LOGIC_OP",
+    "D3D12_LOGIC_OP_AND",
+    "D3D12_LOGIC_OP_AND_INVERTED",
+    "D3D12_LOGIC_OP_AND_REVERSE",
+    "D3D12_LOGIC_OP_CLEAR",
+    "D3D12_LOGIC_OP_COPY",
+    "D3D12_LOGIC_OP_COPY_INVERTED",
+    "D3D12_LOGIC_OP_EQUIV",
+    "D3D12_LOGIC_OP_INVERT",
+    "D3D12_LOGIC_OP_NAND",
+    "D3D12_LOGIC_OP_NOOP",
+    "D3D12_LOGIC_OP_NOR",
+    "D3D12_LOGIC_OP_OR",
+    "D3D12_LOGIC_OP_OR_INVERTED",
+    "D3D12_LOGIC_OP_OR_REVERSE",
+    "D3D12_LOGIC_OP_SET",
+    "D3D12_LOGIC_OP_XOR",
+    "D3D12_MAG_FILTER_SHIFT",
     "D3D12_MAJOR_VERSION",
     "D3D12_MAX_BORDER_COLOR_COMPONENT",
     "D3D12_MAX_DEPTH",
@@ -6792,21 +7419,1033 @@ __all__ = [
     "D3D12_MAX_SHADER_VISIBLE_SAMPLER_HEAP_SIZE",
     "D3D12_MAX_TEXTURE_DIMENSION_2_TO_EXP",
     "D3D12_MAX_VIEW_INSTANCE_COUNT",
+    "D3D12_MEASUREMENTS_ACTION",
+    "D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS",
+    "D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS_HIGH_PRIORITY",
+    "D3D12_MEASUREMENTS_ACTION_DISCARD_PREVIOUS",
+    "D3D12_MEASUREMENTS_ACTION_KEEP_ALL",
+    "D3D12_MEMCPY_DEST",
+    "D3D12_MEMORY_POOL",
+    "D3D12_MEMORY_POOL_L0",
+    "D3D12_MEMORY_POOL_L1",
+    "D3D12_MEMORY_POOL_UNKNOWN",
+    "D3D12_MESH_SHADER_TIER",
+    "D3D12_MESH_SHADER_TIER_1",
+    "D3D12_MESH_SHADER_TIER_NOT_SUPPORTED",
+    "D3D12_MESSAGE",
+    "D3D12_MESSAGE_CALLBACK_FLAGS",
+    "D3D12_MESSAGE_CALLBACK_FLAG_NONE",
+    "D3D12_MESSAGE_CALLBACK_IGNORE_FILTERS",
+    "D3D12_MESSAGE_CATEGORY",
+    "D3D12_MESSAGE_CATEGORY_APPLICATION_DEFINED",
+    "D3D12_MESSAGE_CATEGORY_CLEANUP",
+    "D3D12_MESSAGE_CATEGORY_COMPILATION",
+    "D3D12_MESSAGE_CATEGORY_EXECUTION",
+    "D3D12_MESSAGE_CATEGORY_INITIALIZATION",
+    "D3D12_MESSAGE_CATEGORY_MISCELLANEOUS",
+    "D3D12_MESSAGE_CATEGORY_RESOURCE_MANIPULATION",
+    "D3D12_MESSAGE_CATEGORY_SHADER",
+    "D3D12_MESSAGE_CATEGORY_STATE_CREATION",
+    "D3D12_MESSAGE_CATEGORY_STATE_GETTING",
+    "D3D12_MESSAGE_CATEGORY_STATE_SETTING",
+    "D3D12_MESSAGE_ID",
+    "D3D12_MESSAGE_ID_ADD_TO_STATE_OBJECT_ERROR",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_DEPENDENT_RANGE_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_DEPENDENT_SUBRESOURCE_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_DST_RANGE_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_ARCHITECTURE",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DEPENDENT_RESOURCE",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DEPENDENT_SUBRESOURCE_RANGE",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DST_RESOURCE",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DST_RESOURCE_DIMENSION",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_OFFSET_ALIGNMENT",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_SRC_RESOURCE",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_SRC_RESOURCE_DIMENSION",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_DEPENDENT_RESOURCES",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_DEPENDENT_SUBRESOURCE_RANGES",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_DST",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_SRC",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_SRC_RANGE_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_ZERO_DEPENDENCIES",
+    "D3D12_MESSAGE_ID_BEGIN_END_EVENT_MISMATCH",
+    "D3D12_MESSAGE_ID_BEGIN_END_QUERY_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_BEGIN_EVENT",
+    "D3D12_MESSAGE_ID_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INVALID",
+    "D3D12_MESSAGE_ID_BUNDLE_PIPELINE_STATE_MISMATCH",
+    "D3D12_MESSAGE_ID_CANNOT_ADD_TRACKED_WORKLOAD",
+    "D3D12_MESSAGE_ID_CANNOT_CHANGE_COMMAND_RECORDER_TARGET_WHILE_RECORDING",
+    "D3D12_MESSAGE_ID_CANNOT_CREATE_GRAPHICS_AND_VIDEO_COMMAND_RECORDER",
+    "D3D12_MESSAGE_ID_CANNOT_EXECUTE_EMPTY_COMMAND_LIST",
+    "D3D12_MESSAGE_ID_CANNOT_RESET_COMMAND_POOL_WITH_OPEN_COMMAND_LISTS",
+    "D3D12_MESSAGE_ID_CANNOT_USE_COMMAND_RECORDER_WITHOUT_CURRENT_TARGET",
+    "D3D12_MESSAGE_ID_CHECK_DRIVER_MATCHING_IDENTIFIER_DRIVER_REPORTED_ISSUE",
+    "D3D12_MESSAGE_ID_CHECK_DRIVER_MATCHING_IDENTIFIER_INVALID",
+    "D3D12_MESSAGE_ID_CLEARDEPTHSTENCILVIEW_INVALID",
+    "D3D12_MESSAGE_ID_CLEARDEPTHSTENCILVIEW_MISMATCHINGCLEARVALUE",
+    "D3D12_MESSAGE_ID_CLEARRENDERTARGETVIEW_MISMATCHINGCLEARVALUE",
+    "D3D12_MESSAGE_ID_CLEARUNORDEREDACCESSVIEW_INCOMPATIBLE_WITH_STRUCTURED_BUFFERS",
+    "D3D12_MESSAGE_ID_CLEARUNORDEREDACCESSVIEW_INVALID_RESOURCE_PTR",
+    "D3D12_MESSAGE_ID_CLEAR_UNORDERED_ACCESS_VIEW_INVALID_DESCRIPTOR_HANDLE",
+    "D3D12_MESSAGE_ID_CLOSE_COMMAND_LIST_OPEN_QUERY",
+    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_CANNOT_RESET",
+    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_CONTENTION",
+    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_RESET",
+    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_RESET_BUNDLE",
+    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_SYNC",
+    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_USAGE_WITH_CREATECOMMANDLIST1_COMMAND_LIST",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_CLOSED",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DESCRIPTOR_TABLE_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DISPATCH_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DISPATCH_ROOT_SIGNATURE_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_BUFFER_FORMAT_INVALID",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_BUFFER_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_BUFFER_TOO_SMALL",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_OFFSET_UNALIGNED",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INVALID_PRIMITIVETOPOLOGY",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_RENDER_TARGET_DELETED",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_ROOT_SIGNATURE_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_BUFFER_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_BUFFER_STRIDE_TOO_SMALL",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_BUFFER_TOO_SMALL",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_STRIDE_UNALIGNED",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_MULTIPLE_SWAPCHAIN_BUFFER_REFERENCES",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_OPEN",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_PIPELINE_STATE_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_ROOT_CONSTANT_BUFFER_VIEW_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_ROOT_SHADER_RESOURCE_VIEW_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_ROOT_UNORDERED_ACCESS_VIEW_NOT_SET",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_SETRENDERTARGETS_INVALIDNUMRENDERTARGETS",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_STATIC_DESCRIPTOR_RESOURCE_DIMENSION_MISMATCH",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_STATIC_DESCRIPTOR_SAMPLER_MODE_MISMATCH",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_SYNC",
+    "D3D12_MESSAGE_ID_COMMAND_LIST_TOO_MANY_SWAPCHAIN_REFERENCES",
+    "D3D12_MESSAGE_ID_COMMAND_POOL_SYNC",
+    "D3D12_MESSAGE_ID_COMMAND_QUEUE_TOO_MANY_SWAPCHAIN_REFERENCES",
+    "D3D12_MESSAGE_ID_COMMAND_RECORDER_CONTENTION",
+    "D3D12_MESSAGE_ID_COMMAND_RECORDER_SUPPORT_FLAGS_MISMATCH",
+    "D3D12_MESSAGE_ID_COMMAND_RECORDER_USAGE_WITH_CREATECOMMANDLIST_COMMAND_LIST",
+    "D3D12_MESSAGE_ID_COMPUTE_ONLY_DEVICE_OPERATION_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_DSTRANGEOUTOFBOUNDS",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALIDCOPYFLAGS",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALIDDSTRESOURCEDIMENSION",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALIDSRCRESOURCEDIMENSION",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALID_DST_RESOURCE",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALID_SRC_RESOURCE",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_NULLDST",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_NULLSRC",
+    "D3D12_MESSAGE_ID_COPYBUFFERREGION_SRCRANGEOUTOFBOUNDS",
+    "D3D12_MESSAGE_ID_COPYRESOURCE_INVALIDDSTRESOURCE",
+    "D3D12_MESSAGE_ID_COPYRESOURCE_INVALIDSRCRESOURCE",
+    "D3D12_MESSAGE_ID_COPYRESOURCE_MISMATCH_DECODE_REFERENCE_ONLY_FLAG",
+    "D3D12_MESSAGE_ID_COPYRESOURCE_MISMATCH_ENCODE_REFERENCE_ONLY_FLAG",
+    "D3D12_MESSAGE_ID_COPYRESOURCE_NULLDST",
+    "D3D12_MESSAGE_ID_COPYRESOURCE_NULLSRC",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_DSTREGIONOUTOFBOUNDS",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_EMPTYBOX",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_FORMATMISMATCH",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDCOPYFLAGS",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTCOORDINATES",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTDIMENSIONS",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTDSPLACEDFOOTPRINTFORMAT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTFORMAT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTOFFSET",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTPLACEMENT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTRESOURCE",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTRESOURCEDIMENSION",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTROWPITCH",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTSUBRESOURCE",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCBOX",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCDIMENSIONS",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCDSPLACEDFOOTPRINTFORMAT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCFORMAT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCOFFSET",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCPLACEMENT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCRESOURCE",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCRESOURCEDIMENSION",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCROWPITCH",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCSUBRESOURCE",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_MISMATCH_DECODE_REFERENCE_ONLY_FLAG",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_MISMATCH_ENCODE_REFERENCE_ONLY_FLAG",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_NULLDST",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_NULLSRC",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_SRCREGIONOUTOFBOUNDS",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDDSTFORMAT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDDSTTYPE",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDSRCFORMAT",
+    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDSRCTYPE",
+    "D3D12_MESSAGE_ID_COPYTILEMAPPINGS_INVALID_PARAMETER",
+    "D3D12_MESSAGE_ID_COPY_DESCRIPTORS_INVALID_RANGES",
+    "D3D12_MESSAGE_ID_COPY_DESCRIPTORS_WRITE_ONLY_DESCRIPTOR",
+    "D3D12_MESSAGE_ID_COPY_INVALIDLAYOUT",
+    "D3D12_MESSAGE_ID_COPY_ON_SAME_SUBRESOURCE",
+    "D3D12_MESSAGE_ID_COPY_RAYTRACING_ACCELERATION_STRUCTURE_INVALID",
+    "D3D12_MESSAGE_ID_CORRUPTED_MULTITHREADING",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER1",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER10",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER11",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER12",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER13",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER14",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER15",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER2",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER3",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER4",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER5",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER6",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER7",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER8",
+    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER9",
+    "D3D12_MESSAGE_ID_CORRUPTED_THIS",
+    "D3D12_MESSAGE_ID_CREATEAMPLIFICATIONSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEAMPLIFICATIONSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_BLENDOPALPHA_WARNING",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_BLENDOP_WARNING",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDBLENDOP",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDBLENDOPALPHA",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDDESTBLEND",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDDESTBLENDALPHA",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDLOGICOPS",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDRENDERTARGETWRITEMASK",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDSRCBLEND",
+    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDSRCBLENDALPHA",
+    "D3D12_MESSAGE_ID_CREATECOMMANDLIST_NULL_COMMANDALLOCATOR",
+    "D3D12_MESSAGE_ID_CREATECOMMANDSIGNATURE_INVALID",
+    "D3D12_MESSAGE_ID_CREATECOMPUTEPIPELINESTATE_CS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATECOMPUTEPIPELINESTATE_INVALID_SHADER",
+    "D3D12_MESSAGE_ID_CREATECOMPUTEPIPELINESTATE_MISSING_ROOT_SIGNATURE",
+    "D3D12_MESSAGE_ID_CREATECOMPUTESHADER_INVALIDCLASSLINKAGE",
+    "D3D12_MESSAGE_ID_CREATECOMPUTESHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATECOMPUTESHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_DEPTHBOUNDSTEST_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILFAILOP",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILFUNC",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILPASSOP",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILZFAILOP",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDDEPTHFUNC",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDDEPTHWRITEMASK",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILFAILOP",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILFUNC",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILPASSOP",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILZFAILOP",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDDESC",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDDIMENSIONS",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDFLAGS",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_UNRECOGNIZEDFORMAT",
+    "D3D12_MESSAGE_ID_CREATEDEVICE_DEBUG_LAYER_STARTUP_OPTIONS",
+    "D3D12_MESSAGE_ID_CREATEDEVICE_INVALIDARGS",
+    "D3D12_MESSAGE_ID_CREATEDEVICE_WARNING",
+    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_INVALIDCLASSLINKAGE",
+    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_CANTHAVEONLYGAPS",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_DECLTOOCOMPLEX",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDCOMPONENTCOUNT",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDGAPDEFINITION",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDNUMENTRIES",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDNUMSTRIDES",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDOUTPUTSLOT",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDOUTPUTSTREAMSTRIDE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSTARTCOMPONENTANDCOMPONENTCOUNT",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSTREAM",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSTREAMTORASTERIZER",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_MASKMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_MISSINGOUTPUTSIGNATURE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_MISSINGSEMANTIC",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_ONLYONEELEMENTPERSLOT",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_OUTPUTSLOT0EXPECTED",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_OUTPUTSTREAMSTRIDEUNUSED",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_REPEATEDOUTPUT",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_TRAILING_DIGIT_IN_SEMANTIC",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_UNEXPECTEDENTRIES",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_UNEXPECTEDSTRIDES",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_INVALIDCLASSLINKAGE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_ALL_RENDER_TARGETS_HAVE_UNKNOWN_FORMAT",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_AS_NOT_MS_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_AS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_DEPTHSTENCILVIEW_NOT_SET",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_DS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_GS_INPUT_PRIMITIVE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_GS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_DS_CONTROL_POINT_COUNT_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_DS_TESSELLATOR_DOMAIN_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_XOR_DS_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HULL_SHADER_INPUT_TOPOLOGY_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INPUTLAYOUT_NOT_SET",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INPUTLAYOUT_SHADER_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_INDEX_BUFFER_PROPERTIES",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_PRIMITIVETOPOLOGY",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_RENDER_TARGET_COUNT",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_SAMPLE_DESC",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_SYSTEMVALUE",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_USE_OF_CENTER_MULTISAMPLE_PATTERN",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_USE_OF_FORCED_SAMPLE_COUNT",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_METADATA_ERROR",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MISSING_ROOT_SIGNATURE",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MISSING_ROOT_SIGNATURE_FLAGS",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MS_NOT_PS_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MS_PSO_DESC_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_OM_DUAL_SOURCE_BLENDING_CAN_ONLY_HAVE_RENDER_TARGET_0",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_OM_RENDER_TARGET_DOES_NOT_SUPPORT_BLENDING",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_OM_RENDER_TARGET_DOES_NOT_SUPPORT_LOGIC_OPS",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_POSITION_NOT_PRESENT",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_PS_OUTPUT_RT_OUTPUT_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_PS_OUTPUT_TYPE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_PS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_RENDERTARGETVIEW_NOT_SET",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_RTV_FORMAT_NOT_UNKNOWN",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_RUNTIME_INTERNAL_ERROR",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_COMPONENTTYPE",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_HS_DS_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_MINPRECISION",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_NEVERWRITTEN_ALWAYSREADS",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_REGISTERINDEX",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_REGISTERMASK",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_SEMANTICNAME_NOT_FOUND",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_SYSTEMVALUE",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_MODEL_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_VERTEX_SHADER_NOT_SET",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_VIEW_INSTANCING_VERTEX_SIZE_EXCEEDED",
+    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_VS_ROOT_SIGNATURE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDALIGNMENT",
+    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDARG_RETURN",
+    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDMISCFLAGS",
+    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDPROPERTIES",
+    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDSIZE",
+    "D3D12_MESSAGE_ID_CREATEHEAP_NULLDESC",
+    "D3D12_MESSAGE_ID_CREATEHEAP_OUTOFMEMORY_RETURN",
+    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDCPUPAGEPROPERTIES",
+    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDHEAPTYPE",
+    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDMEMORYPOOL",
+    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDMISCFLAGS",
+    "D3D12_MESSAGE_ID_CREATEHULLSHADER_INVALIDCLASSLINKAGE",
+    "D3D12_MESSAGE_ID_CREATEHULLSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEHULLSHADER_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEHULLSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_DUPLICATESEMANTIC",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_EMPTY_LAYOUT",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INCOMPATIBLEFORMAT",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDALIGNMENT",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDINPUTSLOTCLASS",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDSLOT",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDSLOTCLASSCHANGE",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDSTEPRATECHANGE",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_MISSINGELEMENT",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_NULLSEMANTIC",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_STEPRATESLOTCLASSMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_TOOMANYELEMENTS",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_TRAILING_DIGIT_IN_SEMANTIC",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_TYPE_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_UNPARSEABLEINPUTSIGNATURE",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADERWITHSTREAMOUTPUT_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADER_GROUPSHAREDEXCEEDSMAXSIZE",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADER_MISMATCHEDASMSPAYLOADSIZE",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADER_OUTPUTEXCEEDSMAXSIZE",
+    "D3D12_MESSAGE_ID_CREATEMESHSHADER_TOPOLOGY_MISMATCH",
+    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_ADAPTERVERSIONMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_DRIVERVERSIONMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_INVALIDLIBRARYBLOB",
+    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBADAPTERMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBDESCMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBDRIVERVERSIONMISMATCH",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBIGNORED",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CANNOT_DEDUCE_TYPE",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_DUPLICATE_SUBOBJECT",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_INVALIDCACHEDBLOB",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_INVALID_STREAM",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_MS_INCOMPLETE_TYPE",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_UNKNOWN_SUBOBJECT",
+    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_ZERO_SIZE_STREAM",
+    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_INVALIDCLASSLINKAGE",
+    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_BUFFER_DIMENSION",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_BUFFER_FLAGS",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_BUFFER_OFFSET",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_RESOURCE_DIMENSION",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_RESOURCE_FLAGS",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_NULL_BUFFER",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_NULL_RESOURCE_DESC",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_OUTOFMEMORY_RETURN",
+    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_CREATEQUERY_HEAP_COPY_QUEUE_TIMESTAMPS_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_CREATEQUERY_HEAP_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_CREATEQUERY_HEAP_VIDEO_DECODE_STATISTICS_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDCULLMODE",
+    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDDEPTHBIASCLAMP",
+    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDFILLMODE",
+    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDFORCEDSAMPLECOUNT",
+    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDSLOPESCALEDDEPTHBIAS",
+    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALID_CONSERVATIVERASTERMODE",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDDESC",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDDIMENSIONS",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDPLANESLICE",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDVIDEOPLANESLICE",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_UNRECOGNIZEDFORMAT",
+    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_UNSUPPORTEDFORMAT",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDARG_RETURN",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDHEAPMISCFLAGS",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDHEAPPROPERTIES",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_NULLHEAP",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_NULLHEAPPROPERTIES",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_NULLRESOURCEPROPERTIES",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_OUTOFMEMORY_RETURN",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDCPUPAGEPROPERTIES",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDHEAPMISCFLAGS",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDHEAPTYPE",
+    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDMEMORYPOOL",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_CLEARVALUEDENORMFLUSH",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDALIGNMENT",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDARG_RETURN",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDCLEARVALUE",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDCLEARVALUEFORMAT",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDDESC",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDDIMENSIONALITY",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDDIMENSIONS",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDLAYOUT",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDMIPLEVELS",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDMISCFLAGS",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDSAMPLEDESC",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_OUTOFMEMORY_RETURN",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDCLEARVALUEFORMAT",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDDIMENSIONALITY",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDFORMAT",
+    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDLAYOUT",
+    "D3D12_MESSAGE_ID_CREATESHADERCACHESESSION_ALREADYOPEN",
+    "D3D12_MESSAGE_ID_CREATESHADERCACHESESSION_DISABLED",
+    "D3D12_MESSAGE_ID_CREATESHADERCACHESESSION_INVALIDARGS",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDDESC",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDDIMENSIONS",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDPLANESLICE",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDVIDEOPLANESLICE",
+    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_UNRECOGNIZEDFORMAT",
+    "D3D12_MESSAGE_ID_CREATESHADER_INVALIDBYTECODE",
+    "D3D12_MESSAGE_ID_CREATESHAREDHEAP_INVALIDFLAGS",
+    "D3D12_MESSAGE_ID_CREATESHAREDRESOURCE_INVALIDFLAGS",
+    "D3D12_MESSAGE_ID_CREATESHAREDRESOURCE_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDDESC",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDDIMENSIONS",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDFLAGS",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDFORMAT",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDPLANESLICE",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDVIDEOPLANESLICE",
+    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_UNRECOGNIZEDFORMAT",
+    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_INVALIDCLASSLINKAGE",
+    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_INVALIDSHADERBYTECODE",
+    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_INVALIDSHADERTYPE",
+    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_CREATE_COMMANDALLOCATOR",
+    "D3D12_MESSAGE_ID_CREATE_COMMANDLIST12",
+    "D3D12_MESSAGE_ID_CREATE_COMMANDPOOL",
+    "D3D12_MESSAGE_ID_CREATE_COMMANDQUEUE",
+    "D3D12_MESSAGE_ID_CREATE_COMMANDRECORDER",
+    "D3D12_MESSAGE_ID_CREATE_COMMANDSIGNATURE",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_ALLOCATOR_VIDEO_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_LIST_INVALID_COMMAND_LIST_TYPE",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_LIST_INVALID_COMMAND_LIST_TYPE_FOR_FEATURE_LEVEL",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_LIST_VIDEO_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_POOL_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_QUEUE_INSUFFICIENT_HARDWARE_SUPPORT_FOR_GLOBAL_REALTIME",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_QUEUE_INSUFFICIENT_PRIVILEGE_FOR_GLOBAL_REALTIME",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_INVALID_SUPPORT_FLAGS",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_MORE_RECORDERS_THAN_LOGICAL_PROCESSORS",
+    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_VIDEO_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_CREATE_CONSTANT_BUFFER_VIEW_INVALID_DESC",
+    "D3D12_MESSAGE_ID_CREATE_CONSTANT_BUFFER_VIEW_INVALID_RESOURCE",
+    "D3D12_MESSAGE_ID_CREATE_CRYPTO_SESSION",
+    "D3D12_MESSAGE_ID_CREATE_CRYPTO_SESSION_POLICY",
+    "D3D12_MESSAGE_ID_CREATE_DESCRIPTORHEAP",
+    "D3D12_MESSAGE_ID_CREATE_DESCRIPTOR_HEAP_INVALID_DESC",
+    "D3D12_MESSAGE_ID_CREATE_DESCRIPTOR_HEAP_LARGE_NUM_DESCRIPTORS",
+    "D3D12_MESSAGE_ID_CREATE_FENCE_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_CREATE_HEAP",
+    "D3D12_MESSAGE_ID_CREATE_LIBRARY",
+    "D3D12_MESSAGE_ID_CREATE_LIFETIMETRACKER",
+    "D3D12_MESSAGE_ID_CREATE_META_COMMAND",
+    "D3D12_MESSAGE_ID_CREATE_MONITOREDFENCE",
+    "D3D12_MESSAGE_ID_CREATE_PIPELINELIBRARY",
+    "D3D12_MESSAGE_ID_CREATE_PIPELINESTATE",
+    "D3D12_MESSAGE_ID_CREATE_PROTECTED_RESOURCE_SESSION",
+    "D3D12_MESSAGE_ID_CREATE_PROTECTED_RESOURCE_SESSION_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_CREATE_QUERYHEAP",
+    "D3D12_MESSAGE_ID_CREATE_QUEUE_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_CREATE_QUEUE_INVALID_PRIORITY",
+    "D3D12_MESSAGE_ID_CREATE_QUEUE_INVALID_TYPE",
+    "D3D12_MESSAGE_ID_CREATE_QUEUE_VIDEO_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_CREATE_RESOURCE",
+    "D3D12_MESSAGE_ID_CREATE_ROOTSIGNATURE",
+    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_BLOB_NOT_FOUND",
+    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_DESERIALIZE_FAILED",
+    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_INVALID_CONFIGURATION",
+    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_NOT_SUPPORTED_ON_DEVICE",
+    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_NOT_UNIQUE_IN_DXIL_LIBRARY",
+    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_UNBOUNDED_STATIC_DESCRIPTORS",
+    "D3D12_MESSAGE_ID_CREATE_SAMPLER_INVALID",
+    "D3D12_MESSAGE_ID_CREATE_SHADERCACHESESSION",
+    "D3D12_MESSAGE_ID_CREATE_STATE_OBJECT_ERROR",
+    "D3D12_MESSAGE_ID_CREATE_TRACKEDWORKLOAD",
+    "D3D12_MESSAGE_ID_CREATE_UNORDEREDACCESS_VIEW_INVALID_COUNTER_USAGE",
+    "D3D12_MESSAGE_ID_CREATE_VIDEODECODECOMMANDLIST",
+    "D3D12_MESSAGE_ID_CREATE_VIDEODECODECOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_CREATE_VIDEODECODER",
+    "D3D12_MESSAGE_ID_CREATE_VIDEODECODERHEAP",
+    "D3D12_MESSAGE_ID_CREATE_VIDEODECODESTREAM",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODECOMMANDLIST",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODECOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODER",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODERHEAP",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOEXTENSIONCOMMAND",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOMOTIONESTIMATOR",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOMOTIONVECTORHEAP",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSCOMMANDLIST",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSCOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSOR",
+    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSSTREAM",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_DECODER_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_DECODE_HEAP_CAPS_FAILURE",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_DECODE_HEAP_CAPS_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_HEAP_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_HEAP_UNSUPPORTED_PARAMETERS",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_UNSUPPORTED_PARAMETERS",
+    "D3D12_MESSAGE_ID_CREATE_VIDEO_PROCESSOR_CAPS_FAILURE",
+    "D3D12_MESSAGE_ID_D3D12_MESSAGES_END",
+    "D3D12_MESSAGE_ID_DATA_STATIC_DESCRIPTOR_INVALID_DATA_CHANGE",
+    "D3D12_MESSAGE_ID_DATA_STATIC_WHILE_SET_AT_EXECUTE_DESCRIPTOR_INVALID_DATA_CHANGE",
+    "D3D12_MESSAGE_ID_DECODE_FRAME_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_DEPRECATED_API",
+    "D3D12_MESSAGE_ID_DEPTH_STENCIL_FORMAT_MISMATCH_PIPELINE_STATE",
+    "D3D12_MESSAGE_ID_DEPTH_STENCIL_SAMPLE_DESC_MISMATCH_PIPELINE_STATE",
+    "D3D12_MESSAGE_ID_DESCRIPTOR_HANDLE_WITH_INVALID_RESOURCE",
+    "D3D12_MESSAGE_ID_DESCRIPTOR_HEAP_NOT_SHADER_VISIBLE",
+    "D3D12_MESSAGE_ID_DESTROYOWNEDOBJECT_OBJECTNOTOWNED",
+    "D3D12_MESSAGE_ID_DESTROY_COMMANDALLOCATOR",
+    "D3D12_MESSAGE_ID_DESTROY_COMMANDLIST12",
+    "D3D12_MESSAGE_ID_DESTROY_COMMANDPOOL",
+    "D3D12_MESSAGE_ID_DESTROY_COMMANDQUEUE",
+    "D3D12_MESSAGE_ID_DESTROY_COMMANDRECORDER",
+    "D3D12_MESSAGE_ID_DESTROY_COMMANDSIGNATURE",
+    "D3D12_MESSAGE_ID_DESTROY_CRYPTO_SESSION",
+    "D3D12_MESSAGE_ID_DESTROY_CRYPTO_SESSION_POLICY",
+    "D3D12_MESSAGE_ID_DESTROY_DESCRIPTORHEAP",
+    "D3D12_MESSAGE_ID_DESTROY_HEAP",
+    "D3D12_MESSAGE_ID_DESTROY_LIBRARY",
+    "D3D12_MESSAGE_ID_DESTROY_LIFETIMETRACKER",
+    "D3D12_MESSAGE_ID_DESTROY_META_COMMAND",
+    "D3D12_MESSAGE_ID_DESTROY_MONITOREDFENCE",
+    "D3D12_MESSAGE_ID_DESTROY_PIPELINELIBRARY",
+    "D3D12_MESSAGE_ID_DESTROY_PIPELINESTATE",
+    "D3D12_MESSAGE_ID_DESTROY_PROTECTED_RESOURCE_SESSION",
+    "D3D12_MESSAGE_ID_DESTROY_QUERYHEAP",
+    "D3D12_MESSAGE_ID_DESTROY_RESOURCE",
+    "D3D12_MESSAGE_ID_DESTROY_ROOTSIGNATURE",
+    "D3D12_MESSAGE_ID_DESTROY_SHADERCACHESESSION",
+    "D3D12_MESSAGE_ID_DESTROY_TRACKEDWORKLOAD",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODECOMMANDLIST",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODECOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODER",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODERHEAP",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODESTREAM",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODECOMMANDLIST",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODECOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODER",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODERHEAP",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOEXTENSIONCOMMAND",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOMOTIONESTIMATOR",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOMOTIONVECTORHEAP",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSCOMMANDLIST",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSCOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSOR",
+    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSSTREAM",
+    "D3D12_MESSAGE_ID_DEVICE_CHECKFEATURESUPPORT_MISMATCHED_DATA_SIZE",
+    "D3D12_MESSAGE_ID_DEVICE_CLEARVIEW_EMPTYRECT",
+    "D3D12_MESSAGE_ID_DEVICE_CLEARVIEW_INVALIDSOURCERECT",
+    "D3D12_MESSAGE_ID_DEVICE_CREATECOMPUTESHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATECOMPUTESHADER_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATECOMPUTESHADER_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEDOMAINSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEDOMAINSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEDOMAINSHADER_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADER_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEHULLSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEHULLSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEHULLSHADER_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEPIXELSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEPIXELSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEPIXELSHADER_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEVERTEXSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEVERTEXSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATEVERTEXSHADER_UAVSNOTSUPPORTED",
+    "D3D12_MESSAGE_ID_DEVICE_CREATE_SHARED_HANDLE_INVALIDARG",
+    "D3D12_MESSAGE_ID_DEVICE_REMOVAL_PROCESS_AT_FAULT",
+    "D3D12_MESSAGE_ID_DEVICE_REMOVAL_PROCESS_NOT_AT_FAULT",
+    "D3D12_MESSAGE_ID_DEVICE_REMOVAL_PROCESS_POSSIBLY_AT_FAULT",
+    "D3D12_MESSAGE_ID_DISCARD_INVALID_SUBRESOURCE_RANGE",
+    "D3D12_MESSAGE_ID_DISCARD_NO_RECTS_FOR_NON_TEXTURE2D",
+    "D3D12_MESSAGE_ID_DISCARD_ONE_SUBRESOURCE_FOR_MIPS_WITH_RECTS",
+    "D3D12_MESSAGE_ID_DISPATCH_RAYS_INVALID",
+    "D3D12_MESSAGE_ID_DRAW_EMPTY_SCISSOR_RECTANGLE",
+    "D3D12_MESSAGE_ID_EMIT_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_INVALID",
+    "D3D12_MESSAGE_ID_EMPTY_DISPATCH",
+    "D3D12_MESSAGE_ID_ENCODE_FRAME_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_ENCODE_FRAME_UNSUPPORTED_PARAMETERS",
+    "D3D12_MESSAGE_ID_END_EVENT",
+    "D3D12_MESSAGE_ID_ENQUEUE_MAKE_RESIDENT_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_ESTIMATE_MOTION_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_EVICT_NULLOBJECTARRAY",
+    "D3D12_MESSAGE_ID_EVICT_UNDERFLOW",
+    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_BUNDLENOTSUPPORTED",
+    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_COMMANDLISTMISMATCH",
+    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_FAILEDCOMMANDLIST",
+    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_GPU_WRITTEN_READBACK_RESOURCE_MAPPED",
+    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_OPENCOMMANDLIST",
+    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_WRONGSWAPCHAINBUFFERREFERENCE",
+    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_DESCRIPTOR_HEAP_MISMATCH",
+    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_OPEN_BUNDLE",
+    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_STATIC_DESCRIPTOR_DATA_STATIC_NOT_SET",
+    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_TYPE",
+    "D3D12_MESSAGE_ID_EXECUTE_INDIRECT_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_FENCE_INVALIDOPERATION",
+    "D3D12_MESSAGE_ID_GEOMETRY_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE",
+    "D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_INVALIDBASEOFFSET",
+    "D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_INVALIDSUBRESOURCERANGE",
+    "D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_UNSUPPORTED_BUFFER_WIDTH",
+    "D3D12_MESSAGE_ID_GETCOPYABLELAYOUT_INVALIDBASEOFFSET",
+    "D3D12_MESSAGE_ID_GETCOPYABLELAYOUT_INVALIDSUBRESOURCERANGE",
+    "D3D12_MESSAGE_ID_GETCUSTOMHEAPPROPERTIES_INVALIDHEAPTYPE",
+    "D3D12_MESSAGE_ID_GETCUSTOMHEAPPROPERTIES_UNRECOGNIZEDHEAPTYPE",
+    "D3D12_MESSAGE_ID_GETGPUVIRTUALADDRESS_INVALID_HEAP_TYPE",
+    "D3D12_MESSAGE_ID_GETGPUVIRTUALADDRESS_INVALID_RESOURCE_DIMENSION",
+    "D3D12_MESSAGE_ID_GETHEAPPROPERTIES_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_GETPRIVATEDATA_MOREDATA",
+    "D3D12_MESSAGE_ID_GETRESOURCEALLOCATIONINFO_INVALIDRDESCS",
+    "D3D12_MESSAGE_ID_GET_PIPELINE_STACK_SIZE_ERROR",
+    "D3D12_MESSAGE_ID_GET_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_INVALID",
+    "D3D12_MESSAGE_ID_GET_SHADER_IDENTIFIER_ERROR",
+    "D3D12_MESSAGE_ID_GET_SHADER_IDENTIFIER_SIZE_INVALID",
+    "D3D12_MESSAGE_ID_GET_SHADER_STACK_SIZE_ERROR",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_HEAP_INDEX_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_TABLE_REGISTER_INDEX_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_TYPE_MISMATCH",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_UNINITIALIZED",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_INCOMPATIBLE_RESOURCE_STATE",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_INVALID_RESOURCE",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_RESOURCE_ACCESS_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_RESOURCE_STATE_IMPRECISE",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_ROOT_ARGUMENT_UNINITIALIZED",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_ROOT_DESCRIPTOR_ACCESS_OUT_OF_BOUNDS",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_SAMPLER_MODE_MISMATCH",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_SRV_RESOURCE_DIMENSION_MISMATCH",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_UAV_RESOURCE_DIMENSION_MISMATCH",
+    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_HEAP_ADDRESS_RANGE_HAS_NO_RESOURCE",
+    "D3D12_MESSAGE_ID_HEAP_ADDRESS_RANGE_INTERSECTS_MULTIPLE_BUFFERS",
+    "D3D12_MESSAGE_ID_INCOMPLETE_TRACKED_WORKLOAD_PAIR",
+    "D3D12_MESSAGE_ID_INVALID_BUNDLE_API",
+    "D3D12_MESSAGE_ID_INVALID_DESCRIPTOR_HANDLE",
+    "D3D12_MESSAGE_ID_INVALID_NODE_INDEX",
+    "D3D12_MESSAGE_ID_INVALID_SUBRESOURCE_STATE",
+    "D3D12_MESSAGE_ID_INVALID_USE_OF_NON_RESIDENT_RESOURCE",
+    "D3D12_MESSAGE_ID_INVALID_VIDEO_EXTENSION_COMMAND_ID",
+    "D3D12_MESSAGE_ID_KEYEDMUTEX_INVALIDKEY",
+    "D3D12_MESSAGE_ID_KEYEDMUTEX_INVALIDOBJECT",
+    "D3D12_MESSAGE_ID_KEYEDMUTEX_WRONGSTATE",
+    "D3D12_MESSAGE_ID_LIVE_COMMANDALLOCATOR",
+    "D3D12_MESSAGE_ID_LIVE_COMMANDLIST12",
+    "D3D12_MESSAGE_ID_LIVE_COMMANDPOOL",
+    "D3D12_MESSAGE_ID_LIVE_COMMANDQUEUE",
+    "D3D12_MESSAGE_ID_LIVE_COMMANDRECORDER",
+    "D3D12_MESSAGE_ID_LIVE_COMMANDSIGNATURE",
+    "D3D12_MESSAGE_ID_LIVE_CRYPTO_SESSION",
+    "D3D12_MESSAGE_ID_LIVE_CRYPTO_SESSION_POLICY",
+    "D3D12_MESSAGE_ID_LIVE_DESCRIPTORHEAP",
+    "D3D12_MESSAGE_ID_LIVE_DEVICE",
+    "D3D12_MESSAGE_ID_LIVE_HEAP",
+    "D3D12_MESSAGE_ID_LIVE_LIBRARY",
+    "D3D12_MESSAGE_ID_LIVE_LIFETIMETRACKER",
+    "D3D12_MESSAGE_ID_LIVE_META_COMMAND",
+    "D3D12_MESSAGE_ID_LIVE_MONITOREDFENCE",
+    "D3D12_MESSAGE_ID_LIVE_OBJECT_SUMMARY",
+    "D3D12_MESSAGE_ID_LIVE_PIPELINELIBRARY",
+    "D3D12_MESSAGE_ID_LIVE_PIPELINESTATE",
+    "D3D12_MESSAGE_ID_LIVE_PROTECTED_RESOURCE_SESSION",
+    "D3D12_MESSAGE_ID_LIVE_QUERYHEAP",
+    "D3D12_MESSAGE_ID_LIVE_RESOURCE",
+    "D3D12_MESSAGE_ID_LIVE_ROOTSIGNATURE",
+    "D3D12_MESSAGE_ID_LIVE_SHADERCACHESESSION",
+    "D3D12_MESSAGE_ID_LIVE_SWAPCHAIN",
+    "D3D12_MESSAGE_ID_LIVE_TRACKEDWORKLOAD",
+    "D3D12_MESSAGE_ID_LIVE_VIDEODECODECOMMANDLIST",
+    "D3D12_MESSAGE_ID_LIVE_VIDEODECODECOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_LIVE_VIDEODECODER",
+    "D3D12_MESSAGE_ID_LIVE_VIDEODECODERHEAP",
+    "D3D12_MESSAGE_ID_LIVE_VIDEODECODESTREAM",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODECOMMANDLIST",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODECOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODER",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODERHEAP",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOEXTENSIONCOMMAND",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOMOTIONESTIMATOR",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOMOTIONVECTORHEAP",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSCOMMANDLIST",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSCOMMANDQUEUE",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSOR",
+    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSSTREAM",
+    "D3D12_MESSAGE_ID_LOADPIPELINE_INVALIDDESC",
+    "D3D12_MESSAGE_ID_LOADPIPELINE_NAMENOTFOUND",
+    "D3D12_MESSAGE_ID_MAKERESIDENT_NULLOBJECTARRAY",
+    "D3D12_MESSAGE_ID_MAP_INVALIDARG_RETURN",
+    "D3D12_MESSAGE_ID_MAP_INVALIDDATAPOINTER",
+    "D3D12_MESSAGE_ID_MAP_INVALIDHEAP",
+    "D3D12_MESSAGE_ID_MAP_INVALIDRANGE",
+    "D3D12_MESSAGE_ID_MAP_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_MAP_INVALIDSUBRESOURCE",
+    "D3D12_MESSAGE_ID_MAP_INVALID_NULLRANGE",
+    "D3D12_MESSAGE_ID_MAP_OUTOFMEMORY_RETURN",
+    "D3D12_MESSAGE_ID_MESH_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE",
+    "D3D12_MESSAGE_ID_MESSAGE_REPORTING_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_META_COMMAND_FAILED_ENUMERATION",
+    "D3D12_MESSAGE_ID_META_COMMAND_ID_INVALID",
+    "D3D12_MESSAGE_ID_META_COMMAND_INVALID_GPU_VIRTUAL_ADDRESS",
+    "D3D12_MESSAGE_ID_META_COMMAND_PARAMETER_SIZE_MISMATCH",
+    "D3D12_MESSAGE_ID_META_COMMAND_UNSUPPORTED_PARAMS",
+    "D3D12_MESSAGE_ID_MULTIPLE_TRACKED_WORKLOADS",
+    "D3D12_MESSAGE_ID_MULTIPLE_TRACKED_WORKLOAD_PAIRS",
+    "D3D12_MESSAGE_ID_NODE_MASK_MISMATCH",
+    "D3D12_MESSAGE_ID_NONZERO_SAMPLER_FEEDBACK_MIP_REGION_WITH_INCOMPATIBLE_FORMAT",
+    "D3D12_MESSAGE_ID_NON_RETAIL_SHADER_MODEL_WONT_VALIDATE",
+    "D3D12_MESSAGE_ID_NO_COMPUTE_API_SUPPORT",
+    "D3D12_MESSAGE_ID_NO_GRAPHICS_API_SUPPORT",
+    "D3D12_MESSAGE_ID_NO_VIDEO_API_SUPPORT",
+    "D3D12_MESSAGE_ID_OBJECT_ACCESSED_WHILE_STILL_IN_USE",
+    "D3D12_MESSAGE_ID_OBJECT_DELETED_WHILE_STILL_IN_USE",
+    "D3D12_MESSAGE_ID_OBJECT_EVICTED_WHILE_STILL_IN_USE",
+    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_INVALIDADDRESS",
+    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_INVALIDARG_RETURN",
+    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_INVALIDHANDLE",
+    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_OUTOFMEMORY_RETURN",
+    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_OUT_OF_ORDER_TRACKED_WORKLOAD_PAIR",
+    "D3D12_MESSAGE_ID_OVERSIZED_DISPATCH",
+    "D3D12_MESSAGE_ID_PIPELINELIBRARY_SERIALIZE_NOTENOUGHMEMORY",
+    "D3D12_MESSAGE_ID_PIPELINE_STATE_TYPE_MISMATCH",
+    "D3D12_MESSAGE_ID_POSSIBLE_INVALID_USE_OF_NON_RESIDENT_RESOURCE",
+    "D3D12_MESSAGE_ID_POSSIBLY_INVALID_SUBRESOURCE_STATE",
+    "D3D12_MESSAGE_ID_PRIMITIVE_TOPOLOGY_MISMATCH_PIPELINE_STATE",
+    "D3D12_MESSAGE_ID_PROCESS_FRAME_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_PROGRAMMABLE_MSAA_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_PROTECTED_RESOURCE_SESSION_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_EMPTYBOX",
+    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDBOX",
+    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDHEAP",
+    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDSUBRESOURCE",
+    "D3D12_MESSAGE_ID_REFLECTSHAREDPROPERTIES_INVALIDOBJECT",
+    "D3D12_MESSAGE_ID_REFLECTSHAREDPROPERTIES_INVALIDSIZE",
+    "D3D12_MESSAGE_ID_REFLECTSHAREDPROPERTIES_UNRECOGNIZEDPROPERTIES",
+    "D3D12_MESSAGE_ID_RENDER_PASS_CANNOT_CLOSE_COMMAND_LIST",
+    "D3D12_MESSAGE_ID_RENDER_PASS_CANNOT_END_WITHOUT_BEGIN",
+    "D3D12_MESSAGE_ID_RENDER_PASS_CANNOT_NEST_RENDER_PASSES",
+    "D3D12_MESSAGE_ID_RENDER_PASS_DISALLOWED_API_CALLED",
+    "D3D12_MESSAGE_ID_RENDER_PASS_ERROR",
+    "D3D12_MESSAGE_ID_RENDER_PASS_GPU_WORK_WHILE_SUSPENDED",
+    "D3D12_MESSAGE_ID_RENDER_PASS_INVALID_RESOURCE_BARRIER",
+    "D3D12_MESSAGE_ID_RENDER_PASS_MISMATCHING_NO_ACCESS",
+    "D3D12_MESSAGE_ID_RENDER_PASS_MISMATCHING_SUSPEND_RESUME",
+    "D3D12_MESSAGE_ID_RENDER_PASS_NO_PRIOR_SUSPEND_WITHIN_EXECUTECOMMANDLISTS",
+    "D3D12_MESSAGE_ID_RENDER_PASS_NO_SUBSEQUENT_RESUME_WITHIN_EXECUTECOMMANDLISTS",
+    "D3D12_MESSAGE_ID_RENDER_PASS_UNSUPPORTED_RESOLVE",
+    "D3D12_MESSAGE_ID_RENDER_TARGET_FORMAT_MISMATCH_PIPELINE_STATE",
+    "D3D12_MESSAGE_ID_RENDER_TARGET_SAMPLE_DESC_MISMATCH_PIPELINE_STATE",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCEREGION_INVALID_RECT",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALIDDSTRESOURCE",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALIDSRCRESOURCE",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALID_FORMAT",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALID_SAMPLE_COUNT",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALID_SUBRESOURCE_INDEX",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_NULLDST",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_NULLSRC",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_RESOURCE_FLAGS_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_RESOURCE_MISMATCH",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_SAMPLER_FEEDBACK_INVALID_MIP_LEVEL_COUNT",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_SAMPLER_FEEDBACK_TRANSCODE_ARRAY_SIZE_MISMATCH",
+    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_SAMPLER_FEEDBACK_TRANSCODE_INVALID_FORMAT",
+    "D3D12_MESSAGE_ID_RESOLVE_ENCODER_OUTPUT_METADATA_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_RESOLVE_ENCODER_OUTPUT_METADATA_UNSUPPORTED_PARAMETERS",
+    "D3D12_MESSAGE_ID_RESOLVE_MOTION_VECTOR_HEAP_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_RESOLVE_QUERY_DATA_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_RESOLVE_QUERY_INVALID_QUERY_STATE",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_BEFORE_AFTER_MISMATCH",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_DUPLICATE_SUBRESOURCE_TRANSITIONS",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_COMBINATION",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_COMBINED_FLAGS",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_COMMAND_LIST_TYPE",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_FLAG",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_FLAGS",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_FLAGS_FOR_FORMAT",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_HEAP",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_RESOURCE",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_SPLIT_BARRIER",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_SUBRESOURCE",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_TYPE",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MATCHING_STATES",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_BEGIN_END",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_COMMAND_LIST_TYPE",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_MISC_FLAGS",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISSING_BIND_FLAGS",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_NULL_POINTER",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_POSSIBLE_BEFORE_AFTER_MISMATCH",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_RESERVED_BITS",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_SAMPLE_COUNT",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_UNMATCHED_BEGIN",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_UNMATCHED_END",
+    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_ZERO_BARRIERS",
+    "D3D12_MESSAGE_ID_RESOURCE_FORMAT_REQUIRES_SAMPLER_FEEDBACK_CAPABILITY",
+    "D3D12_MESSAGE_ID_RESOURCE_UNMAP_NOTMAPPED",
+    "D3D12_MESSAGE_ID_RSSETSHADINGRATEIMAGE_REQUIRES_TIER_2",
+    "D3D12_MESSAGE_ID_RSSETSHADINGRATE_REQUIRES_TIER_1",
+    "D3D12_MESSAGE_ID_RSSETSHADING_RATE_INVALID_COMBINER",
+    "D3D12_MESSAGE_ID_RSSETSHADING_RATE_INVALID_SHADING_RATE",
+    "D3D12_MESSAGE_ID_RSSETSHADING_RATE_SHADING_RATE_NOT_PERMITTED_BY_CAP",
+    "D3D12_MESSAGE_ID_SAMPLEPOSITIONS_MISMATCH_DEFERRED",
+    "D3D12_MESSAGE_ID_SAMPLEPOSITIONS_MISMATCH_RECORDTIME_ASSUMEDFROMCLEAR",
+    "D3D12_MESSAGE_ID_SAMPLEPOSITIONS_MISMATCH_RECORDTIME_ASSUMEDFROMFIRSTUSE",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_CREATE_UAV_MISMATCHING_TARGETED_RESOURCE",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_CREATE_UAV_NULL_ARGUMENTS",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_CREATE_UAV_REQUIRES_FEEDBACK_MAP_FORMAT",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_DIMENSION",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_LAYOUT",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_MIP_REGION",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_SAMPLE_COUNT",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_SAMPLE_QUALITY",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_REQUIRES_UNORDERED_ACCESS_FLAG",
+    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_UAV_REQUIRES_SAMPLER_FEEDBACK_CAPABILITY",
+    "D3D12_MESSAGE_ID_SETDEPTHBOUNDS_INVALIDARGS",
+    "D3D12_MESSAGE_ID_SETEVENTONMULTIPLEFENCECOMPLETION_INVALIDFLAGS",
+    "D3D12_MESSAGE_ID_SETPRIVATEDATA_CHANGINGPARAMS",
+    "D3D12_MESSAGE_ID_SETPRIVATEDATA_INVALIDFREEDATA",
+    "D3D12_MESSAGE_ID_SETPRIVATEDATA_NO_ACCESS",
+    "D3D12_MESSAGE_ID_SETPRIVATEDATA_OUTOFMEMORY",
+    "D3D12_MESSAGE_ID_SETRESIDENCYPRIORITY_INVALID_PAGEABLE",
+    "D3D12_MESSAGE_ID_SETRESIDENCYPRIORITY_INVALID_PRIORITY",
+    "D3D12_MESSAGE_ID_SETSAMPLEPOSITIONS_INVALIDARGS",
+    "D3D12_MESSAGE_ID_SETTING_SHADING_RATE_FROM_MS_REQUIRES_CAPABILITY",
+    "D3D12_MESSAGE_ID_SETVIEWINSTANCEMASK_INVALIDARGS",
+    "D3D12_MESSAGE_ID_SET_BACKGROUND_PROCESSING_MODE_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_SET_DESCRIPTOR_HEAP_INVALID",
+    "D3D12_MESSAGE_ID_SET_DESCRIPTOR_TABLE_INVALID",
+    "D3D12_MESSAGE_ID_SET_INDEX_BUFFER_INVALID",
+    "D3D12_MESSAGE_ID_SET_INDEX_BUFFER_INVALID_DESC",
+    "D3D12_MESSAGE_ID_SET_PIPELINE_STACK_SIZE_ERROR",
+    "D3D12_MESSAGE_ID_SET_PREDICATION_INVALID_PARAMETERS",
+    "D3D12_MESSAGE_ID_SET_RENDER_TARGETS_INVALID",
+    "D3D12_MESSAGE_ID_SET_ROOT_CONSTANT_BUFFER_VIEW_INVALID",
+    "D3D12_MESSAGE_ID_SET_ROOT_CONSTANT_INVALID",
+    "D3D12_MESSAGE_ID_SET_ROOT_SHADER_RESOURCE_VIEW_INVALID",
+    "D3D12_MESSAGE_ID_SET_ROOT_UNORDERED_ACCESS_VIEW_INVALID",
+    "D3D12_MESSAGE_ID_SET_STREAM_OUTPUT_BUFFERS_INVALID",
+    "D3D12_MESSAGE_ID_SET_STREAM_OUTPUT_BUFFERS_INVALID_DESC",
+    "D3D12_MESSAGE_ID_SET_VERTEX_BUFFERS_INVALID",
+    "D3D12_MESSAGE_ID_SET_VERTEX_BUFFERS_INVALID_DESC",
+    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_DEVELOPERMODE",
+    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_IGNOREDFLAG",
+    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_INVALIDFLAGS",
+    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_SHADERCACHECLEAR_NOTSUPPORTED",
+    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_STATEALREADYSET",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_CORRUPT",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_DISABLED",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_FINDVALUE_NOTFOUND",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_SHADERCACHEDELETE_NOTSUPPORTED",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_STOREVALUE_ALREADYPRESENT",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_STOREVALUE_CACHEFULL",
+    "D3D12_MESSAGE_ID_SHADERCACHESESSION_STOREVALUE_HASHCOLLISION",
+    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_ARRAY_SIZE",
+    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_FORMAT",
+    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_MIP_LEVEL",
+    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_SAMPLE_COUNT",
+    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_SAMPLE_QUALITY",
+    "D3D12_MESSAGE_ID_STATIC_DESCRIPTOR_INVALID_DESCRIPTOR_CHANGE",
+    "D3D12_MESSAGE_ID_STOREPIPELINE_DUPLICATENAME",
+    "D3D12_MESSAGE_ID_STOREPIPELINE_NONAME",
+    "D3D12_MESSAGE_ID_STRING_FROM_APPLICATION",
+    "D3D12_MESSAGE_ID_TIMESTAMPS_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_TOO_MANY_NODES_SPECIFIED",
+    "D3D12_MESSAGE_ID_TRACKED_WORKLOAD_COMMAND_QUEUE_MISMATCH",
+    "D3D12_MESSAGE_ID_TRACKED_WORKLOAD_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_UNINITIALIZED_META_COMMAND",
+    "D3D12_MESSAGE_ID_UNKNOWN",
+    "D3D12_MESSAGE_ID_UNMAP_INVALIDHEAP",
+    "D3D12_MESSAGE_ID_UNMAP_INVALIDRANGE",
+    "D3D12_MESSAGE_ID_UNMAP_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_UNMAP_INVALIDSUBRESOURCE",
+    "D3D12_MESSAGE_ID_UNMAP_INVALID_NULLRANGE",
+    "D3D12_MESSAGE_ID_UNMAP_RANGE_NOT_EMPTY",
+    "D3D12_MESSAGE_ID_UPDATETILEMAPPINGS_INVALID_PARAMETER",
+    "D3D12_MESSAGE_ID_UPDATETILEMAPPINGS_POSSIBLY_MISMATCHING_PROPERTIES",
+    "D3D12_MESSAGE_ID_USE_OF_ZERO_REFCOUNT_OBJECT",
+    "D3D12_MESSAGE_ID_VARIABLE_SHADING_RATE_NOT_ALLOWED_WITH_TIR",
+    "D3D12_MESSAGE_ID_VERTEX_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE",
+    "D3D12_MESSAGE_ID_VIDEO_CREATE_MOTION_ESTIMATOR_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_VIDEO_CREATE_MOTION_VECTOR_HEAP_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_VIDEO_DECODE_FRAME_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_VIDEO_DECODE_SUPPORT_INVALID_INPUT",
+    "D3D12_MESSAGE_ID_VIDEO_DECODE_SUPPORT_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_VIDEO_EXTENSION_COMMAND_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_VIDEO_PROCESS_FRAMES_INVALID_ARGUMENT",
+    "D3D12_MESSAGE_ID_VIDEO_PROCESS_SUPPORT_INVALID_INPUT",
+    "D3D12_MESSAGE_ID_VIDEO_PROCESS_SUPPORT_UNSUPPORTED_FORMAT",
+    "D3D12_MESSAGE_ID_VIEW_INSTANCING_INVALIDARGS",
+    "D3D12_MESSAGE_ID_VIEW_INSTANCING_UNSUPPORTED",
+    "D3D12_MESSAGE_ID_VRS_SUM_COMBINER_REQUIRES_CAPABILITY",
+    "D3D12_MESSAGE_ID_WINDOWS7_FENCE_OUTOFORDER_SIGNAL",
+    "D3D12_MESSAGE_ID_WINDOWS7_FENCE_OUTOFORDER_WAIT",
+    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_INVALID_ALIGNMENT",
+    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_INVALID_DEST",
+    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_INVALID_MODE",
+    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_NOT_SUPPORTED",
+    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_EMPTYBOX",
+    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDBOX",
+    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDHEAP",
+    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDRESOURCE",
+    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDSUBRESOURCE",
+    "D3D12_MESSAGE_ID_WRITE_COMBINE_PERFORMANCE_WARNING",
+    "D3D12_MESSAGE_ID_WRONG_COMMAND_ALLOCATOR_TYPE",
+    "D3D12_MESSAGE_SEVERITY",
+    "D3D12_MESSAGE_SEVERITY_CORRUPTION",
+    "D3D12_MESSAGE_SEVERITY_ERROR",
+    "D3D12_MESSAGE_SEVERITY_INFO",
+    "D3D12_MESSAGE_SEVERITY_MESSAGE",
+    "D3D12_MESSAGE_SEVERITY_WARNING",
+    "D3D12_META_COMMAND_DESC",
+    "D3D12_META_COMMAND_PARAMETER_DESC",
+    "D3D12_META_COMMAND_PARAMETER_FLAGS",
+    "D3D12_META_COMMAND_PARAMETER_FLAG_INPUT",
+    "D3D12_META_COMMAND_PARAMETER_FLAG_OUTPUT",
+    "D3D12_META_COMMAND_PARAMETER_STAGE",
+    "D3D12_META_COMMAND_PARAMETER_STAGE_CREATION",
+    "D3D12_META_COMMAND_PARAMETER_STAGE_EXECUTION",
+    "D3D12_META_COMMAND_PARAMETER_STAGE_INITIALIZATION",
+    "D3D12_META_COMMAND_PARAMETER_TYPE",
+    "D3D12_META_COMMAND_PARAMETER_TYPE_CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV",
+    "D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT",
+    "D3D12_META_COMMAND_PARAMETER_TYPE_GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV",
+    "D3D12_META_COMMAND_PARAMETER_TYPE_GPU_VIRTUAL_ADDRESS",
+    "D3D12_META_COMMAND_PARAMETER_TYPE_UINT64",
     "D3D12_MINOR_VERSION",
     "D3D12_MIN_BORDER_COLOR_COMPONENT",
     "D3D12_MIN_DEPTH",
+    "D3D12_MIN_FILTER_SHIFT",
     "D3D12_MIN_MAXANISOTROPY",
+    "D3D12_MIP_FILTER_SHIFT",
     "D3D12_MIP_LOD_BIAS_MAX",
     "D3D12_MIP_LOD_BIAS_MIN",
     "D3D12_MIP_LOD_FRACTIONAL_BIT_COUNT",
     "D3D12_MIP_LOD_RANGE_BIT_COUNT",
+    "D3D12_MIP_REGION",
+    "D3D12_MULTIPLE_FENCE_WAIT_FLAGS",
+    "D3D12_MULTIPLE_FENCE_WAIT_FLAG_ALL",
+    "D3D12_MULTIPLE_FENCE_WAIT_FLAG_ANY",
+    "D3D12_MULTIPLE_FENCE_WAIT_FLAG_NONE",
     "D3D12_MULTISAMPLE_ANTIALIAS_LINE_WIDTH",
+    "D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE",
+    "D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_TILED_RESOURCE",
+    "D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS",
+    "D3D12_NODE_MASK",
     "D3D12_NONSAMPLE_FETCH_OUT_OF_RANGE_ACCESS_RESULT",
     "D3D12_OS_RESERVED_REGISTER_SPACE_VALUES_END",
     "D3D12_OS_RESERVED_REGISTER_SPACE_VALUES_START",
+    "D3D12_PACKED_MIP_INFO",
     "D3D12_PACKED_TILE",
+    "D3D12_PARAMETER_DESC",
+    "D3D12_PIPELINE_STATE_FLAGS",
+    "D3D12_PIPELINE_STATE_FLAG_NONE",
+    "D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG",
+    "D3D12_PIPELINE_STATE_STREAM_DESC",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_AS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_BLEND",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CACHED_PSO",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL1",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL_FORMAT",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_FLAGS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_GS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_HS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_IB_STRIP_CUT_VALUE",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_INPUT_LAYOUT",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MAX_VALID",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_NODE_MASK",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PRIMITIVE_TOPOLOGY",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RASTERIZER",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RENDER_TARGET_FORMATS",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_ROOT_SIGNATURE",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_DESC",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_MASK",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_STREAM_OUTPUT",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VIEW_INSTANCING",
+    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VS",
     "D3D12_PIXEL_ADDRESS_RANGE_BIT_COUNT",
+    "D3D12_PLACED_SUBRESOURCE_FOOTPRINT",
+    "D3D12_PREDICATION_OP",
+    "D3D12_PREDICATION_OP_EQUAL_ZERO",
+    "D3D12_PREDICATION_OP_NOT_EQUAL_ZERO",
     "D3D12_PRE_SCISSOR_PIXEL_ADDRESS_RANGE_BIT_COUNT",
+    "D3D12_PRIMITIVE_TOPOLOGY_TYPE",
+    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE",
+    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH",
+    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT",
+    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE",
+    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED",
+    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER",
+    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_1",
+    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_2",
+    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_NOT_SUPPORTED",
+    "D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED",
+    "D3D12_PROTECTED_RESOURCE_SESSION_DESC",
+    "D3D12_PROTECTED_RESOURCE_SESSION_DESC1",
+    "D3D12_PROTECTED_RESOURCE_SESSION_FLAGS",
+    "D3D12_PROTECTED_RESOURCE_SESSION_FLAG_NONE",
+    "D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS",
+    "D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE",
+    "D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_SUPPORTED",
+    "D3D12_PROTECTED_SESSION_STATUS",
+    "D3D12_PROTECTED_SESSION_STATUS_INVALID",
+    "D3D12_PROTECTED_SESSION_STATUS_OK",
     "D3D12_PS_CS_UAV_REGISTER_COMPONENTS",
     "D3D12_PS_CS_UAV_REGISTER_COUNT",
     "D3D12_PS_CS_UAV_REGISTER_READS_PER_INST",
@@ -6830,10 +8469,83 @@ __all__ = [
     "D3D12_PS_OUTPUT_REGISTER_COMPONENT_BIT_COUNT",
     "D3D12_PS_OUTPUT_REGISTER_COUNT",
     "D3D12_PS_PIXEL_CENTER_FRACTIONAL_COMPONENT",
+    "D3D12_QUERY_DATA_PIPELINE_STATISTICS",
+    "D3D12_QUERY_DATA_PIPELINE_STATISTICS1",
+    "D3D12_QUERY_DATA_SO_STATISTICS",
+    "D3D12_QUERY_HEAP_DESC",
+    "D3D12_QUERY_HEAP_TYPE",
+    "D3D12_QUERY_HEAP_TYPE_COPY_QUEUE_TIMESTAMP",
+    "D3D12_QUERY_HEAP_TYPE_OCCLUSION",
+    "D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS",
+    "D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS1",
+    "D3D12_QUERY_HEAP_TYPE_SO_STATISTICS",
+    "D3D12_QUERY_HEAP_TYPE_TIMESTAMP",
+    "D3D12_QUERY_HEAP_TYPE_VIDEO_DECODE_STATISTICS",
+    "D3D12_QUERY_TYPE",
+    "D3D12_QUERY_TYPE_BINARY_OCCLUSION",
+    "D3D12_QUERY_TYPE_OCCLUSION",
+    "D3D12_QUERY_TYPE_PIPELINE_STATISTICS",
+    "D3D12_QUERY_TYPE_PIPELINE_STATISTICS1",
+    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM0",
+    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM1",
+    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM2",
+    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM3",
+    "D3D12_QUERY_TYPE_TIMESTAMP",
+    "D3D12_QUERY_TYPE_VIDEO_DECODE_STATISTICS",
+    "D3D12_RANGE",
+    "D3D12_RANGE_UINT64",
+    "D3D12_RASTERIZER_DESC",
     "D3D12_RAW_UAV_SRV_BYTE_ALIGNMENT",
+    "D3D12_RAYTRACING_AABB",
     "D3D12_RAYTRACING_AABB_BYTE_ALIGNMENT",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_COMPACTION",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_UPDATE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_MINIMIZE_MEMORY",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_NONE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PERFORM_UPDATE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_BUILD",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_TRACE",
     "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BYTE_ALIGNMENT",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_CLONE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_COMPACT",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_DESERIALIZE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_SERIALIZE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_VISUALIZATION_DECODE_FOR_TOOLS",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL",
+    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL",
+    "D3D12_RAYTRACING_GEOMETRY_AABBS_DESC",
+    "D3D12_RAYTRACING_GEOMETRY_DESC",
+    "D3D12_RAYTRACING_GEOMETRY_FLAGS",
+    "D3D12_RAYTRACING_GEOMETRY_FLAG_NONE",
+    "D3D12_RAYTRACING_GEOMETRY_FLAG_NO_DUPLICATE_ANYHIT_INVOCATION",
+    "D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE",
+    "D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC",
+    "D3D12_RAYTRACING_GEOMETRY_TYPE",
+    "D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS",
+    "D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES",
+    "D3D12_RAYTRACING_INSTANCE_DESC",
     "D3D12_RAYTRACING_INSTANCE_DESCS_BYTE_ALIGNMENT",
+    "D3D12_RAYTRACING_INSTANCE_FLAGS",
+    "D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE",
+    "D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OPAQUE",
+    "D3D12_RAYTRACING_INSTANCE_FLAG_NONE",
+    "D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_CULL_DISABLE",
+    "D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_FRONT_COUNTERCLOCKWISE",
     "D3D12_RAYTRACING_MAX_ATTRIBUTE_SIZE_IN_BYTES",
     "D3D12_RAYTRACING_MAX_DECLARABLE_TRACE_RECURSION_DEPTH",
     "D3D12_RAYTRACING_MAX_GEOMETRIES_PER_BOTTOM_LEVEL_ACCELERATION_STRUCTURE",
@@ -6841,9 +8553,60 @@ __all__ = [
     "D3D12_RAYTRACING_MAX_PRIMITIVES_PER_BOTTOM_LEVEL_ACCELERATION_STRUCTURE",
     "D3D12_RAYTRACING_MAX_RAY_GENERATION_SHADER_THREADS",
     "D3D12_RAYTRACING_MAX_SHADER_RECORD_STRIDE",
+    "D3D12_RAYTRACING_PIPELINE_CONFIG",
+    "D3D12_RAYTRACING_PIPELINE_CONFIG1",
+    "D3D12_RAYTRACING_PIPELINE_FLAGS",
+    "D3D12_RAYTRACING_PIPELINE_FLAG_NONE",
+    "D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES",
+    "D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES",
+    "D3D12_RAYTRACING_SHADER_CONFIG",
     "D3D12_RAYTRACING_SHADER_RECORD_BYTE_ALIGNMENT",
     "D3D12_RAYTRACING_SHADER_TABLE_BYTE_ALIGNMENT",
+    "D3D12_RAYTRACING_TIER",
+    "D3D12_RAYTRACING_TIER_1_0",
+    "D3D12_RAYTRACING_TIER_1_1",
+    "D3D12_RAYTRACING_TIER_NOT_SUPPORTED",
     "D3D12_RAYTRACING_TRANSFORM3X4_BYTE_ALIGNMENT",
+    "D3D12_RAY_FLAGS",
+    "D3D12_RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH",
+    "D3D12_RAY_FLAG_CULL_BACK_FACING_TRIANGLES",
+    "D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES",
+    "D3D12_RAY_FLAG_CULL_NON_OPAQUE",
+    "D3D12_RAY_FLAG_CULL_OPAQUE",
+    "D3D12_RAY_FLAG_FORCE_NON_OPAQUE",
+    "D3D12_RAY_FLAG_FORCE_OPAQUE",
+    "D3D12_RAY_FLAG_NONE",
+    "D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER",
+    "D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES",
+    "D3D12_RAY_FLAG_SKIP_TRIANGLES",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_CLEAR",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_DISCARD",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_NO_ACCESS",
+    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_PRESERVE",
+    "D3D12_RENDER_PASS_DEPTH_STENCIL_DESC",
+    "D3D12_RENDER_PASS_ENDING_ACCESS",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_DISCARD",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_NO_ACCESS",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_PRESERVE",
+    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_RESOLVE",
+    "D3D12_RENDER_PASS_FLAGS",
+    "D3D12_RENDER_PASS_FLAG_ALLOW_UAV_WRITES",
+    "D3D12_RENDER_PASS_FLAG_NONE",
+    "D3D12_RENDER_PASS_FLAG_RESUMING_PASS",
+    "D3D12_RENDER_PASS_FLAG_SUSPENDING_PASS",
+    "D3D12_RENDER_PASS_RENDER_TARGET_DESC",
+    "D3D12_RENDER_PASS_TIER",
+    "D3D12_RENDER_PASS_TIER_0",
+    "D3D12_RENDER_PASS_TIER_1",
+    "D3D12_RENDER_PASS_TIER_2",
+    "D3D12_RENDER_TARGET_BLEND_DESC",
+    "D3D12_RENDER_TARGET_VIEW_DESC",
     "D3D12_REQ_BLEND_OBJECT_COUNT_PER_DEVICE",
     "D3D12_REQ_BUFFER_RESOURCE_TEXEL_COUNT_2_TO_EXP",
     "D3D12_REQ_CONSTANT_BUFFER_ELEMENT_COUNT",
@@ -6870,19 +8633,247 @@ __all__ = [
     "D3D12_REQ_TEXTURE2D_U_OR_V_DIMENSION",
     "D3D12_REQ_TEXTURE3D_U_V_OR_W_DIMENSION",
     "D3D12_REQ_TEXTURECUBE_DIMENSION",
+    "D3D12_RESIDENCY_FLAGS",
+    "D3D12_RESIDENCY_FLAG_DENY_OVERBUDGET",
+    "D3D12_RESIDENCY_FLAG_NONE",
+    "D3D12_RESIDENCY_PRIORITY",
+    "D3D12_RESIDENCY_PRIORITY_HIGH",
+    "D3D12_RESIDENCY_PRIORITY_LOW",
+    "D3D12_RESIDENCY_PRIORITY_MAXIMUM",
+    "D3D12_RESIDENCY_PRIORITY_MINIMUM",
+    "D3D12_RESIDENCY_PRIORITY_NORMAL",
     "D3D12_RESINFO_INSTRUCTION_MISSING_COMPONENT_RETVAL",
+    "D3D12_RESOLVE_MODE",
+    "D3D12_RESOLVE_MODE_AVERAGE",
+    "D3D12_RESOLVE_MODE_DECODE_SAMPLER_FEEDBACK",
+    "D3D12_RESOLVE_MODE_DECOMPRESS",
+    "D3D12_RESOLVE_MODE_ENCODE_SAMPLER_FEEDBACK",
+    "D3D12_RESOLVE_MODE_MAX",
+    "D3D12_RESOLVE_MODE_MIN",
+    "D3D12_RESOURCE_ALIASING_BARRIER",
+    "D3D12_RESOURCE_ALLOCATION_INFO",
+    "D3D12_RESOURCE_ALLOCATION_INFO1",
+    "D3D12_RESOURCE_BARRIER",
     "D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES",
+    "D3D12_RESOURCE_BARRIER_FLAGS",
+    "D3D12_RESOURCE_BARRIER_FLAG_BEGIN_ONLY",
+    "D3D12_RESOURCE_BARRIER_FLAG_END_ONLY",
+    "D3D12_RESOURCE_BARRIER_FLAG_NONE",
+    "D3D12_RESOURCE_BARRIER_TYPE",
+    "D3D12_RESOURCE_BARRIER_TYPE_ALIASING",
+    "D3D12_RESOURCE_BARRIER_TYPE_TRANSITION",
+    "D3D12_RESOURCE_BARRIER_TYPE_UAV",
+    "D3D12_RESOURCE_BINDING_TIER",
+    "D3D12_RESOURCE_BINDING_TIER_1",
+    "D3D12_RESOURCE_BINDING_TIER_2",
+    "D3D12_RESOURCE_BINDING_TIER_3",
+    "D3D12_RESOURCE_DESC",
+    "D3D12_RESOURCE_DESC1",
+    "D3D12_RESOURCE_DIMENSION",
+    "D3D12_RESOURCE_DIMENSION_BUFFER",
+    "D3D12_RESOURCE_DIMENSION_TEXTURE1D",
+    "D3D12_RESOURCE_DIMENSION_TEXTURE2D",
+    "D3D12_RESOURCE_DIMENSION_TEXTURE3D",
+    "D3D12_RESOURCE_DIMENSION_UNKNOWN",
+    "D3D12_RESOURCE_FLAGS",
+    "D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER",
+    "D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL",
+    "D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET",
+    "D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS",
+    "D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS",
+    "D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE",
+    "D3D12_RESOURCE_FLAG_NONE",
+    "D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY",
+    "D3D12_RESOURCE_FLAG_VIDEO_ENCODE_REFERENCE_ONLY",
+    "D3D12_RESOURCE_HEAP_TIER",
+    "D3D12_RESOURCE_HEAP_TIER_1",
+    "D3D12_RESOURCE_HEAP_TIER_2",
+    "D3D12_RESOURCE_STATES",
+    "D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE",
+    "D3D12_RESOURCE_STATE_COMMON",
+    "D3D12_RESOURCE_STATE_COPY_DEST",
+    "D3D12_RESOURCE_STATE_COPY_SOURCE",
+    "D3D12_RESOURCE_STATE_DEPTH_READ",
+    "D3D12_RESOURCE_STATE_DEPTH_WRITE",
+    "D3D12_RESOURCE_STATE_GENERIC_READ",
+    "D3D12_RESOURCE_STATE_INDEX_BUFFER",
+    "D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT",
+    "D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE",
+    "D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE",
+    "D3D12_RESOURCE_STATE_PREDICATION",
+    "D3D12_RESOURCE_STATE_PRESENT",
+    "D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE",
+    "D3D12_RESOURCE_STATE_RENDER_TARGET",
+    "D3D12_RESOURCE_STATE_RESOLVE_DEST",
+    "D3D12_RESOURCE_STATE_RESOLVE_SOURCE",
+    "D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE",
+    "D3D12_RESOURCE_STATE_STREAM_OUT",
+    "D3D12_RESOURCE_STATE_UNORDERED_ACCESS",
+    "D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER",
+    "D3D12_RESOURCE_STATE_VIDEO_DECODE_READ",
+    "D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE",
+    "D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ",
+    "D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE",
+    "D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ",
+    "D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE",
+    "D3D12_RESOURCE_TRANSITION_BARRIER",
+    "D3D12_RESOURCE_UAV_BARRIER",
+    "D3D12_RLDO_DETAIL",
+    "D3D12_RLDO_FLAGS",
+    "D3D12_RLDO_IGNORE_INTERNAL",
+    "D3D12_RLDO_NONE",
+    "D3D12_RLDO_SUMMARY",
+    "D3D12_ROOT_CONSTANTS",
+    "D3D12_ROOT_DESCRIPTOR",
+    "D3D12_ROOT_DESCRIPTOR1",
+    "D3D12_ROOT_DESCRIPTOR_FLAGS",
+    "D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC",
+    "D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE",
+    "D3D12_ROOT_DESCRIPTOR_FLAG_DATA_VOLATILE",
+    "D3D12_ROOT_DESCRIPTOR_FLAG_NONE",
+    "D3D12_ROOT_DESCRIPTOR_TABLE",
+    "D3D12_ROOT_DESCRIPTOR_TABLE1",
+    "D3D12_ROOT_PARAMETER",
+    "D3D12_ROOT_PARAMETER1",
+    "D3D12_ROOT_PARAMETER_TYPE",
+    "D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS",
+    "D3D12_ROOT_PARAMETER_TYPE_CBV",
+    "D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE",
+    "D3D12_ROOT_PARAMETER_TYPE_SRV",
+    "D3D12_ROOT_PARAMETER_TYPE_UAV",
+    "D3D12_ROOT_SIGNATURE_DESC",
+    "D3D12_ROOT_SIGNATURE_DESC1",
+    "D3D12_ROOT_SIGNATURE_FLAGS",
+    "D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT",
+    "D3D12_ROOT_SIGNATURE_FLAG_ALLOW_STREAM_OUTPUT",
+    "D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS",
+    "D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE",
+    "D3D12_ROOT_SIGNATURE_FLAG_NONE",
+    "D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED",
     "D3D12_RS_SET_SHADING_RATE_COMBINER_COUNT",
+    "D3D12_RTV_DIMENSION",
+    "D3D12_RTV_DIMENSION_BUFFER",
+    "D3D12_RTV_DIMENSION_TEXTURE1D",
+    "D3D12_RTV_DIMENSION_TEXTURE1DARRAY",
+    "D3D12_RTV_DIMENSION_TEXTURE2D",
+    "D3D12_RTV_DIMENSION_TEXTURE2DARRAY",
+    "D3D12_RTV_DIMENSION_TEXTURE2DMS",
+    "D3D12_RTV_DIMENSION_TEXTURE2DMSARRAY",
+    "D3D12_RTV_DIMENSION_TEXTURE3D",
+    "D3D12_RTV_DIMENSION_UNKNOWN",
+    "D3D12_RT_FORMAT_ARRAY",
+    "D3D12_SAMPLER_DESC",
+    "D3D12_SAMPLER_FEEDBACK_TIER",
+    "D3D12_SAMPLER_FEEDBACK_TIER_0_9",
+    "D3D12_SAMPLER_FEEDBACK_TIER_1_0",
+    "D3D12_SAMPLER_FEEDBACK_TIER_NOT_SUPPORTED",
+    "D3D12_SAMPLE_POSITION",
     "D3D12_SDK_VERSION",
+    "D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER",
+    "D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE",
+    "D3D12_SERIALIZED_DATA_TYPE",
+    "D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER",
+    "D3D12_SHADER_BUFFER_DESC",
+    "D3D12_SHADER_BYTECODE",
+    "D3D12_SHADER_CACHE_CONTROL_FLAGS",
+    "D3D12_SHADER_CACHE_CONTROL_FLAG_CLEAR",
+    "D3D12_SHADER_CACHE_CONTROL_FLAG_DISABLE",
+    "D3D12_SHADER_CACHE_CONTROL_FLAG_ENABLE",
+    "D3D12_SHADER_CACHE_FLAGS",
+    "D3D12_SHADER_CACHE_FLAG_DRIVER_VERSIONED",
+    "D3D12_SHADER_CACHE_FLAG_NONE",
+    "D3D12_SHADER_CACHE_FLAG_USE_WORKING_DIR",
+    "D3D12_SHADER_CACHE_KIND_FLAGS",
+    "D3D12_SHADER_CACHE_KIND_FLAG_APPLICATION_MANAGED",
+    "D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CACHE_FOR_DRIVER",
+    "D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CONVERSIONS",
+    "D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_DRIVER_MANAGED",
+    "D3D12_SHADER_CACHE_MODE",
+    "D3D12_SHADER_CACHE_MODE_DISK",
+    "D3D12_SHADER_CACHE_MODE_MEMORY",
+    "D3D12_SHADER_CACHE_SESSION_DESC",
+    "D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_DISK_CACHE",
+    "D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_INPROC_CACHE",
+    "D3D12_SHADER_CACHE_SUPPORT_DRIVER_MANAGED_CACHE",
+    "D3D12_SHADER_CACHE_SUPPORT_FLAGS",
+    "D3D12_SHADER_CACHE_SUPPORT_LIBRARY",
+    "D3D12_SHADER_CACHE_SUPPORT_NONE",
+    "D3D12_SHADER_CACHE_SUPPORT_SHADER_CONTROL_CLEAR",
+    "D3D12_SHADER_CACHE_SUPPORT_SHADER_SESSION_DELETE",
+    "D3D12_SHADER_CACHE_SUPPORT_SINGLE_PSO",
+    "D3D12_SHADER_COMPONENT_MAPPING",
+    "D3D12_SHADER_COMPONENT_MAPPING_ALWAYS_SET_BIT_AVOIDING_ZEROMEM_MISTAKES",
+    "D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_0",
+    "D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1",
+    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0",
+    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1",
+    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2",
+    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_3",
+    "D3D12_SHADER_COMPONENT_MAPPING_MASK",
+    "D3D12_SHADER_COMPONENT_MAPPING_SHIFT",
+    "D3D12_SHADER_DESC",
     "D3D12_SHADER_IDENTIFIER_SIZE_IN_BYTES",
+    "D3D12_SHADER_INPUT_BIND_DESC",
     "D3D12_SHADER_MAJOR_VERSION",
     "D3D12_SHADER_MAX_INSTANCES",
     "D3D12_SHADER_MAX_INTERFACES",
     "D3D12_SHADER_MAX_INTERFACE_CALL_SITES",
     "D3D12_SHADER_MAX_TYPES",
     "D3D12_SHADER_MINOR_VERSION",
+    "D3D12_SHADER_MIN_PRECISION_SUPPORT",
+    "D3D12_SHADER_MIN_PRECISION_SUPPORT_10_BIT",
+    "D3D12_SHADER_MIN_PRECISION_SUPPORT_16_BIT",
+    "D3D12_SHADER_MIN_PRECISION_SUPPORT_NONE",
+    "D3D12_SHADER_RESOURCE_VIEW_DESC",
+    "D3D12_SHADER_TYPE_DESC",
+    "D3D12_SHADER_VARIABLE_DESC",
+    "D3D12_SHADER_VERSION_TYPE",
+    "D3D12_SHADER_VISIBILITY",
+    "D3D12_SHADER_VISIBILITY_ALL",
+    "D3D12_SHADER_VISIBILITY_AMPLIFICATION",
+    "D3D12_SHADER_VISIBILITY_DOMAIN",
+    "D3D12_SHADER_VISIBILITY_GEOMETRY",
+    "D3D12_SHADER_VISIBILITY_HULL",
+    "D3D12_SHADER_VISIBILITY_MESH",
+    "D3D12_SHADER_VISIBILITY_PIXEL",
+    "D3D12_SHADER_VISIBILITY_VERTEX",
+    "D3D12_SHADING_RATE",
+    "D3D12_SHADING_RATE_1X1",
+    "D3D12_SHADING_RATE_1X2",
+    "D3D12_SHADING_RATE_2X1",
+    "D3D12_SHADING_RATE_2X2",
+    "D3D12_SHADING_RATE_2X4",
+    "D3D12_SHADING_RATE_4X2",
+    "D3D12_SHADING_RATE_4X4",
+    "D3D12_SHADING_RATE_COMBINER",
+    "D3D12_SHADING_RATE_COMBINER_MAX",
+    "D3D12_SHADING_RATE_COMBINER_MIN",
+    "D3D12_SHADING_RATE_COMBINER_OVERRIDE",
+    "D3D12_SHADING_RATE_COMBINER_PASSTHROUGH",
+    "D3D12_SHADING_RATE_COMBINER_SUM",
+    "D3D12_SHADING_RATE_VALID_MASK",
+    "D3D12_SHADING_RATE_X_AXIS_SHIFT",
+    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER",
+    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0",
+    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1",
+    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_2",
     "D3D12_SHIFT_INSTRUCTION_PAD_VALUE",
     "D3D12_SHIFT_INSTRUCTION_SHIFT_VALUE_BIT_COUNT",
+    "D3D12_SHVER_COMPUTE_SHADER",
+    "D3D12_SHVER_DOMAIN_SHADER",
+    "D3D12_SHVER_GEOMETRY_SHADER",
+    "D3D12_SHVER_HULL_SHADER",
+    "D3D12_SHVER_PIXEL_SHADER",
+    "D3D12_SHVER_RESERVED0",
+    "D3D12_SHVER_VERTEX_SHADER",
+    "D3D12_SIGNATURE_PARAMETER_DESC",
     "D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT",
     "D3D12_SMALL_MSAA_RESOURCE_PLACEMENT_ALIGNMENT",
     "D3D12_SMALL_RESOURCE_PLACEMENT_ALIGNMENT",
@@ -6890,6 +8881,7 @@ __all__ = [
     "D3D12_SO_BUFFER_MAX_WRITE_WINDOW_IN_BYTES",
     "D3D12_SO_BUFFER_SLOT_COUNT",
     "D3D12_SO_DDI_REGISTER_INDEX_DENOTING_GAP",
+    "D3D12_SO_DECLARATION_ENTRY",
     "D3D12_SO_NO_RASTERIZED_STREAM",
     "D3D12_SO_OUTPUT_COMPONENT_COUNT",
     "D3D12_SO_STREAM_COUNT",
@@ -6904,6 +8896,19 @@ __all__ = [
     "D3D12_SRGB_TO_FLOAT_OFFSET",
     "D3D12_SRGB_TO_FLOAT_THRESHOLD",
     "D3D12_SRGB_TO_FLOAT_TOLERANCE_IN_ULP",
+    "D3D12_SRV_DIMENSION",
+    "D3D12_SRV_DIMENSION_BUFFER",
+    "D3D12_SRV_DIMENSION_RAYTRACING_ACCELERATION_STRUCTURE",
+    "D3D12_SRV_DIMENSION_TEXTURE1D",
+    "D3D12_SRV_DIMENSION_TEXTURE1DARRAY",
+    "D3D12_SRV_DIMENSION_TEXTURE2D",
+    "D3D12_SRV_DIMENSION_TEXTURE2DARRAY",
+    "D3D12_SRV_DIMENSION_TEXTURE2DMS",
+    "D3D12_SRV_DIMENSION_TEXTURE2DMSARRAY",
+    "D3D12_SRV_DIMENSION_TEXTURE3D",
+    "D3D12_SRV_DIMENSION_TEXTURECUBE",
+    "D3D12_SRV_DIMENSION_TEXTURECUBEARRAY",
+    "D3D12_SRV_DIMENSION_UNKNOWN",
     "D3D12_STANDARD_COMPONENT_BIT_COUNT",
     "D3D12_STANDARD_COMPONENT_BIT_COUNT_DOUBLED",
     "D3D12_STANDARD_MAXIMUM_ELEMENT_ALIGNMENT_BYTE_MULTIPLE",
@@ -6912,7 +8917,54 @@ __all__ = [
     "D3D12_STANDARD_VECTOR_SIZE",
     "D3D12_STANDARD_VERTEX_ELEMENT_COUNT",
     "D3D12_STANDARD_VERTEX_TOTAL_COMPONENT_COUNT",
+    "D3D12_STATE_OBJECT_CONFIG",
+    "D3D12_STATE_OBJECT_DESC",
+    "D3D12_STATE_OBJECT_FLAGS",
+    "D3D12_STATE_OBJECT_FLAG_ALLOW_EXTERNAL_DEPENDENCIES_ON_LOCAL_DEFINITIONS",
+    "D3D12_STATE_OBJECT_FLAG_ALLOW_LOCAL_DEPENDENCIES_ON_EXTERNAL_DEFINITIONS",
+    "D3D12_STATE_OBJECT_FLAG_ALLOW_STATE_OBJECT_ADDITIONS",
+    "D3D12_STATE_OBJECT_FLAG_NONE",
+    "D3D12_STATE_OBJECT_TYPE",
+    "D3D12_STATE_OBJECT_TYPE_COLLECTION",
+    "D3D12_STATE_OBJECT_TYPE_RAYTRACING_PIPELINE",
+    "D3D12_STATE_SUBOBJECT",
+    "D3D12_STATE_SUBOBJECT_TYPE",
+    "D3D12_STATE_SUBOBJECT_TYPE_DXIL_LIBRARY",
+    "D3D12_STATE_SUBOBJECT_TYPE_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
+    "D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION",
+    "D3D12_STATE_SUBOBJECT_TYPE_GLOBAL_ROOT_SIGNATURE",
+    "D3D12_STATE_SUBOBJECT_TYPE_HIT_GROUP",
+    "D3D12_STATE_SUBOBJECT_TYPE_LOCAL_ROOT_SIGNATURE",
+    "D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID",
+    "D3D12_STATE_SUBOBJECT_TYPE_NODE_MASK",
+    "D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG",
+    "D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG1",
+    "D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_SHADER_CONFIG",
+    "D3D12_STATE_SUBOBJECT_TYPE_STATE_OBJECT_CONFIG",
+    "D3D12_STATE_SUBOBJECT_TYPE_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
+    "D3D12_STATIC_BORDER_COLOR",
+    "D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK",
+    "D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE",
+    "D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK",
+    "D3D12_STATIC_SAMPLER_DESC",
+    "D3D12_STENCIL_OP",
+    "D3D12_STENCIL_OP_DECR",
+    "D3D12_STENCIL_OP_DECR_SAT",
+    "D3D12_STENCIL_OP_INCR",
+    "D3D12_STENCIL_OP_INCR_SAT",
+    "D3D12_STENCIL_OP_INVERT",
+    "D3D12_STENCIL_OP_KEEP",
+    "D3D12_STENCIL_OP_REPLACE",
+    "D3D12_STENCIL_OP_ZERO",
+    "D3D12_STREAM_OUTPUT_BUFFER_VIEW",
+    "D3D12_STREAM_OUTPUT_DESC",
+    "D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
     "D3D12_SUBPIXEL_FRACTIONAL_BIT_COUNT",
+    "D3D12_SUBRESOURCE_DATA",
+    "D3D12_SUBRESOURCE_FOOTPRINT",
+    "D3D12_SUBRESOURCE_INFO",
+    "D3D12_SUBRESOURCE_RANGE_UINT64",
+    "D3D12_SUBRESOURCE_TILING",
     "D3D12_SUBTEXEL_FRACTIONAL_BIT_COUNT",
     "D3D12_SYSTEM_RESERVED_REGISTER_SPACE_VALUES_END",
     "D3D12_SYSTEM_RESERVED_REGISTER_SPACE_VALUES_START",
@@ -6923,14 +8975,94 @@ __all__ = [
     "D3D12_TESSELLATOR_MIN_EVEN_TESSELLATION_FACTOR",
     "D3D12_TESSELLATOR_MIN_ISOLINE_DENSITY_TESSELLATION_FACTOR",
     "D3D12_TESSELLATOR_MIN_ODD_TESSELLATION_FACTOR",
+    "D3D12_TEX1D_ARRAY_DSV",
+    "D3D12_TEX1D_ARRAY_RTV",
+    "D3D12_TEX1D_ARRAY_SRV",
+    "D3D12_TEX1D_ARRAY_UAV",
+    "D3D12_TEX1D_DSV",
+    "D3D12_TEX1D_RTV",
+    "D3D12_TEX1D_SRV",
+    "D3D12_TEX1D_UAV",
+    "D3D12_TEX2DMS_ARRAY_DSV",
+    "D3D12_TEX2DMS_ARRAY_RTV",
+    "D3D12_TEX2DMS_ARRAY_SRV",
+    "D3D12_TEX2DMS_DSV",
+    "D3D12_TEX2DMS_RTV",
+    "D3D12_TEX2DMS_SRV",
+    "D3D12_TEX2D_ARRAY_DSV",
+    "D3D12_TEX2D_ARRAY_RTV",
+    "D3D12_TEX2D_ARRAY_SRV",
+    "D3D12_TEX2D_ARRAY_UAV",
+    "D3D12_TEX2D_DSV",
+    "D3D12_TEX2D_RTV",
+    "D3D12_TEX2D_SRV",
+    "D3D12_TEX2D_UAV",
+    "D3D12_TEX3D_RTV",
+    "D3D12_TEX3D_SRV",
+    "D3D12_TEX3D_UAV",
+    "D3D12_TEXCUBE_ARRAY_SRV",
+    "D3D12_TEXCUBE_SRV",
     "D3D12_TEXEL_ADDRESS_RANGE_BIT_COUNT",
+    "D3D12_TEXTURE_ADDRESS_MODE",
+    "D3D12_TEXTURE_ADDRESS_MODE_BORDER",
+    "D3D12_TEXTURE_ADDRESS_MODE_CLAMP",
+    "D3D12_TEXTURE_ADDRESS_MODE_MIRROR",
+    "D3D12_TEXTURE_ADDRESS_MODE_MIRROR_ONCE",
+    "D3D12_TEXTURE_ADDRESS_MODE_WRAP",
+    "D3D12_TEXTURE_COPY_LOCATION",
+    "D3D12_TEXTURE_COPY_TYPE",
+    "D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT",
+    "D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX",
     "D3D12_TEXTURE_DATA_PITCH_ALIGNMENT",
     "D3D12_TEXTURE_DATA_PLACEMENT_ALIGNMENT",
+    "D3D12_TEXTURE_LAYOUT",
+    "D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE",
+    "D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE",
+    "D3D12_TEXTURE_LAYOUT_ROW_MAJOR",
+    "D3D12_TEXTURE_LAYOUT_UNKNOWN",
+    "D3D12_TILED_RESOURCES_TIER",
+    "D3D12_TILED_RESOURCES_TIER_1",
+    "D3D12_TILED_RESOURCES_TIER_2",
+    "D3D12_TILED_RESOURCES_TIER_3",
+    "D3D12_TILED_RESOURCES_TIER_4",
+    "D3D12_TILED_RESOURCES_TIER_NOT_SUPPORTED",
+    "D3D12_TILED_RESOURCE_COORDINATE",
     "D3D12_TILED_RESOURCE_TILE_SIZE_IN_BYTES",
+    "D3D12_TILE_COPY_FLAGS",
+    "D3D12_TILE_COPY_FLAG_LINEAR_BUFFER_TO_SWIZZLED_TILED_RESOURCE",
+    "D3D12_TILE_COPY_FLAG_NONE",
+    "D3D12_TILE_COPY_FLAG_NO_HAZARD",
+    "D3D12_TILE_COPY_FLAG_SWIZZLED_TILED_RESOURCE_TO_LINEAR_BUFFER",
+    "D3D12_TILE_MAPPING_FLAGS",
+    "D3D12_TILE_MAPPING_FLAG_NONE",
+    "D3D12_TILE_MAPPING_FLAG_NO_HAZARD",
+    "D3D12_TILE_RANGE_FLAGS",
+    "D3D12_TILE_RANGE_FLAG_NONE",
+    "D3D12_TILE_RANGE_FLAG_NULL",
+    "D3D12_TILE_RANGE_FLAG_REUSE_SINGLE_TILE",
+    "D3D12_TILE_RANGE_FLAG_SKIP",
+    "D3D12_TILE_REGION_SIZE",
+    "D3D12_TILE_SHAPE",
     "D3D12_TRACKED_WORKLOAD_MAX_INSTANCES",
     "D3D12_UAV_COUNTER_PLACEMENT_ALIGNMENT",
+    "D3D12_UAV_DIMENSION",
+    "D3D12_UAV_DIMENSION_BUFFER",
+    "D3D12_UAV_DIMENSION_TEXTURE1D",
+    "D3D12_UAV_DIMENSION_TEXTURE1DARRAY",
+    "D3D12_UAV_DIMENSION_TEXTURE2D",
+    "D3D12_UAV_DIMENSION_TEXTURE2DARRAY",
+    "D3D12_UAV_DIMENSION_TEXTURE3D",
+    "D3D12_UAV_DIMENSION_UNKNOWN",
     "D3D12_UAV_SLOT_COUNT",
     "D3D12_UNBOUND_MEMORY_ACCESS_RESULT",
+    "D3D12_UNORDERED_ACCESS_VIEW_DESC",
+    "D3D12_VARIABLE_SHADING_RATE_TIER",
+    "D3D12_VARIABLE_SHADING_RATE_TIER_1",
+    "D3D12_VARIABLE_SHADING_RATE_TIER_2",
+    "D3D12_VARIABLE_SHADING_RATE_TIER_NOT_SUPPORTED",
+    "D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA",
+    "D3D12_VERSIONED_ROOT_SIGNATURE_DESC",
+    "D3D12_VERTEX_BUFFER_VIEW",
     "D3D12_VIDEO_DECODE_MAX_ARGUMENTS",
     "D3D12_VIDEO_DECODE_MAX_HISTOGRAM_COMPONENTS",
     "D3D12_VIDEO_DECODE_MIN_BITSTREAM_OFFSET_ALIGNMENT",
@@ -6938,10 +9070,21 @@ __all__ = [
     "D3D12_VIDEO_DECODE_STATUS_MACROBLOCKS_AFFECTED_UNKNOWN",
     "D3D12_VIDEO_PROCESS_MAX_FILTERS",
     "D3D12_VIDEO_PROCESS_STEREO_VIEWS",
+    "D3D12_VIEWPORT",
     "D3D12_VIEWPORT_AND_SCISSORRECT_MAX_INDEX",
     "D3D12_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE",
     "D3D12_VIEWPORT_BOUNDS_MAX",
     "D3D12_VIEWPORT_BOUNDS_MIN",
+    "D3D12_VIEW_INSTANCE_LOCATION",
+    "D3D12_VIEW_INSTANCING_DESC",
+    "D3D12_VIEW_INSTANCING_FLAGS",
+    "D3D12_VIEW_INSTANCING_FLAG_ENABLE_VIEW_INSTANCE_MASKING",
+    "D3D12_VIEW_INSTANCING_FLAG_NONE",
+    "D3D12_VIEW_INSTANCING_TIER",
+    "D3D12_VIEW_INSTANCING_TIER_1",
+    "D3D12_VIEW_INSTANCING_TIER_2",
+    "D3D12_VIEW_INSTANCING_TIER_3",
+    "D3D12_VIEW_INSTANCING_TIER_NOT_SUPPORTED",
     "D3D12_VS_INPUT_REGISTER_COMPONENTS",
     "D3D12_VS_INPUT_REGISTER_COMPONENT_BIT_COUNT",
     "D3D12_VS_INPUT_REGISTER_COUNT",
@@ -6950,338 +9093,21 @@ __all__ = [
     "D3D12_VS_OUTPUT_REGISTER_COMPONENTS",
     "D3D12_VS_OUTPUT_REGISTER_COMPONENT_BIT_COUNT",
     "D3D12_VS_OUTPUT_REGISTER_COUNT",
+    "D3D12_WAVE_MMA_TIER",
+    "D3D12_WAVE_MMA_TIER_1_0",
+    "D3D12_WAVE_MMA_TIER_NOT_SUPPORTED",
     "D3D12_WHQL_CONTEXT_COUNT_FOR_RESOURCE_LIMIT",
     "D3D12_WHQL_DRAWINDEXED_INDEX_COUNT_2_TO_EXP",
     "D3D12_WHQL_DRAW_VERTEX_COUNT_2_TO_EXP",
-    "D3D12_SHADER_COMPONENT_MAPPING_MASK",
-    "D3D12_SHADER_COMPONENT_MAPPING_SHIFT",
-    "D3D12_FILTER_REDUCTION_TYPE_MASK",
-    "D3D12_FILTER_REDUCTION_TYPE_SHIFT",
-    "D3D12_FILTER_TYPE_MASK",
-    "D3D12_MIN_FILTER_SHIFT",
-    "D3D12_MAG_FILTER_SHIFT",
-    "D3D12_MIP_FILTER_SHIFT",
-    "D3D12_ANISOTROPIC_FILTERING_BIT",
-    "LUID_DEFINED",
-    "D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED",
-    "CLSID_D3D12Debug",
-    "CLSID_D3D12Tools",
-    "CLSID_D3D12DeviceRemovedExtendedData",
-    "CLSID_D3D12SDKConfiguration",
-    "D3D12_SHADING_RATE_X_AXIS_SHIFT",
-    "D3D12_SHADING_RATE_VALID_MASK",
-    "WKPDID_D3DAutoDebugObjectNameW",
-    "DXGI_DEBUG_D3D12",
-    "D3D12_INFO_QUEUE_DEFAULT_MESSAGE_COUNT_LIMIT",
-    "D3D_SHADER_REQUIRES_STENCIL_REF",
-    "D3D_SHADER_REQUIRES_INNER_COVERAGE",
-    "D3D_SHADER_REQUIRES_TYPED_UAV_LOAD_ADDITIONAL_FORMATS",
-    "D3D_SHADER_REQUIRES_ROVS",
-    "D3D_SHADER_REQUIRES_VIEWPORT_AND_RT_ARRAY_INDEX_FROM_ANY_SHADER_FEEDING_RASTERIZER",
-    "D3D_SHADER_REQUIRES_WAVE_OPS",
-    "D3D_SHADER_REQUIRES_INT64_OPS",
-    "D3D_SHADER_REQUIRES_VIEW_ID",
-    "D3D_SHADER_REQUIRES_BARYCENTRICS",
-    "D3D_SHADER_REQUIRES_NATIVE_16BIT_OPS",
-    "D3D_SHADER_REQUIRES_SHADING_RATE",
-    "D3D_SHADER_REQUIRES_RAYTRACING_TIER_1_1",
-    "D3D_SHADER_REQUIRES_SAMPLER_FEEDBACK",
-    "D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_TYPED_RESOURCE",
-    "D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_GROUP_SHARED",
-    "D3D_SHADER_REQUIRES_DERIVATIVES_IN_MESH_AND_AMPLIFICATION_SHADERS",
-    "D3D_SHADER_REQUIRES_RESOURCE_DESCRIPTOR_HEAP_INDEXING",
-    "D3D_SHADER_REQUIRES_SAMPLER_DESCRIPTOR_HEAP_INDEXING",
-    "D3D_SHADER_REQUIRES_WAVE_MMA",
-    "D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_DESCRIPTOR_HEAP_RESOURCE",
-    "D3D12ExperimentalShaderModels",
-    "D3D12TiledResourceTier4",
-    "D3D12MetaCommand",
-    "D3D12_COMMAND_LIST_TYPE",
-    "D3D12_COMMAND_LIST_TYPE_DIRECT",
-    "D3D12_COMMAND_LIST_TYPE_BUNDLE",
-    "D3D12_COMMAND_LIST_TYPE_COMPUTE",
-    "D3D12_COMMAND_LIST_TYPE_COPY",
-    "D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE",
-    "D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS",
-    "D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE",
-    "D3D12_COMMAND_QUEUE_FLAGS",
-    "D3D12_COMMAND_QUEUE_FLAG_NONE",
-    "D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT",
-    "D3D12_COMMAND_QUEUE_PRIORITY",
-    "D3D12_COMMAND_QUEUE_PRIORITY_NORMAL",
-    "D3D12_COMMAND_QUEUE_PRIORITY_HIGH",
-    "D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME",
-    "D3D12_COMMAND_QUEUE_DESC",
-    "D3D12_PRIMITIVE_TOPOLOGY_TYPE",
-    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED",
-    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT",
-    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE",
-    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE",
-    "D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH",
-    "D3D12_INPUT_CLASSIFICATION",
-    "D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA",
-    "D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA",
-    "D3D12_INPUT_ELEMENT_DESC",
-    "D3D12_FILL_MODE",
-    "D3D12_FILL_MODE_WIREFRAME",
-    "D3D12_FILL_MODE_SOLID",
-    "D3D12_CULL_MODE",
-    "D3D12_CULL_MODE_NONE",
-    "D3D12_CULL_MODE_FRONT",
-    "D3D12_CULL_MODE_BACK",
-    "D3D12_SO_DECLARATION_ENTRY",
-    "D3D12_VIEWPORT",
-    "D3D12_BOX",
-    "D3D12_COMPARISON_FUNC",
-    "D3D12_COMPARISON_FUNC_NEVER",
-    "D3D12_COMPARISON_FUNC_LESS",
-    "D3D12_COMPARISON_FUNC_EQUAL",
-    "D3D12_COMPARISON_FUNC_LESS_EQUAL",
-    "D3D12_COMPARISON_FUNC_GREATER",
-    "D3D12_COMPARISON_FUNC_NOT_EQUAL",
-    "D3D12_COMPARISON_FUNC_GREATER_EQUAL",
-    "D3D12_COMPARISON_FUNC_ALWAYS",
-    "D3D12_DEPTH_WRITE_MASK",
-    "D3D12_DEPTH_WRITE_MASK_ZERO",
-    "D3D12_DEPTH_WRITE_MASK_ALL",
-    "D3D12_STENCIL_OP",
-    "D3D12_STENCIL_OP_KEEP",
-    "D3D12_STENCIL_OP_ZERO",
-    "D3D12_STENCIL_OP_REPLACE",
-    "D3D12_STENCIL_OP_INCR_SAT",
-    "D3D12_STENCIL_OP_DECR_SAT",
-    "D3D12_STENCIL_OP_INVERT",
-    "D3D12_STENCIL_OP_INCR",
-    "D3D12_STENCIL_OP_DECR",
-    "D3D12_DEPTH_STENCILOP_DESC",
-    "D3D12_DEPTH_STENCIL_DESC",
-    "D3D12_DEPTH_STENCIL_DESC1",
-    "D3D12_BLEND",
-    "D3D12_BLEND_ZERO",
-    "D3D12_BLEND_ONE",
-    "D3D12_BLEND_SRC_COLOR",
-    "D3D12_BLEND_INV_SRC_COLOR",
-    "D3D12_BLEND_SRC_ALPHA",
-    "D3D12_BLEND_INV_SRC_ALPHA",
-    "D3D12_BLEND_DEST_ALPHA",
-    "D3D12_BLEND_INV_DEST_ALPHA",
-    "D3D12_BLEND_DEST_COLOR",
-    "D3D12_BLEND_INV_DEST_COLOR",
-    "D3D12_BLEND_SRC_ALPHA_SAT",
-    "D3D12_BLEND_BLEND_FACTOR",
-    "D3D12_BLEND_INV_BLEND_FACTOR",
-    "D3D12_BLEND_SRC1_COLOR",
-    "D3D12_BLEND_INV_SRC1_COLOR",
-    "D3D12_BLEND_SRC1_ALPHA",
-    "D3D12_BLEND_INV_SRC1_ALPHA",
-    "D3D12_BLEND_OP",
-    "D3D12_BLEND_OP_ADD",
-    "D3D12_BLEND_OP_SUBTRACT",
-    "D3D12_BLEND_OP_REV_SUBTRACT",
-    "D3D12_BLEND_OP_MIN",
-    "D3D12_BLEND_OP_MAX",
-    "D3D12_COLOR_WRITE_ENABLE",
-    "D3D12_COLOR_WRITE_ENABLE_RED",
-    "D3D12_COLOR_WRITE_ENABLE_GREEN",
-    "D3D12_COLOR_WRITE_ENABLE_BLUE",
-    "D3D12_COLOR_WRITE_ENABLE_ALPHA",
-    "D3D12_COLOR_WRITE_ENABLE_ALL",
-    "D3D12_LOGIC_OP",
-    "D3D12_LOGIC_OP_CLEAR",
-    "D3D12_LOGIC_OP_SET",
-    "D3D12_LOGIC_OP_COPY",
-    "D3D12_LOGIC_OP_COPY_INVERTED",
-    "D3D12_LOGIC_OP_NOOP",
-    "D3D12_LOGIC_OP_INVERT",
-    "D3D12_LOGIC_OP_AND",
-    "D3D12_LOGIC_OP_NAND",
-    "D3D12_LOGIC_OP_OR",
-    "D3D12_LOGIC_OP_NOR",
-    "D3D12_LOGIC_OP_XOR",
-    "D3D12_LOGIC_OP_EQUIV",
-    "D3D12_LOGIC_OP_AND_REVERSE",
-    "D3D12_LOGIC_OP_AND_INVERTED",
-    "D3D12_LOGIC_OP_OR_REVERSE",
-    "D3D12_LOGIC_OP_OR_INVERTED",
-    "D3D12_RENDER_TARGET_BLEND_DESC",
-    "D3D12_BLEND_DESC",
-    "D3D12_CONSERVATIVE_RASTERIZATION_MODE",
-    "D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF",
-    "D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON",
-    "D3D12_RASTERIZER_DESC",
-    "ID3D12Object",
-    "ID3D12DeviceChild",
-    "ID3D12RootSignature",
-    "D3D12_SHADER_BYTECODE",
-    "D3D12_STREAM_OUTPUT_DESC",
-    "D3D12_INPUT_LAYOUT_DESC",
-    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE",
-    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED",
-    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFF",
-    "D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFFFFFF",
-    "D3D12_CACHED_PIPELINE_STATE",
-    "D3D12_PIPELINE_STATE_FLAGS",
-    "D3D12_PIPELINE_STATE_FLAG_NONE",
-    "D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG",
-    "D3D12_GRAPHICS_PIPELINE_STATE_DESC",
-    "D3D12_COMPUTE_PIPELINE_STATE_DESC",
-    "D3D12_RT_FORMAT_ARRAY",
-    "D3D12_PIPELINE_STATE_STREAM_DESC",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_ROOT_SIGNATURE",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_HS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_GS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_STREAM_OUTPUT",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_BLEND",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_MASK",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RASTERIZER",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_INPUT_LAYOUT",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_IB_STRIP_CUT_VALUE",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PRIMITIVE_TOPOLOGY",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RENDER_TARGET_FORMATS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL_FORMAT",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_SAMPLE_DESC",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_NODE_MASK",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_CACHED_PSO",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_FLAGS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL1",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VIEW_INSTANCING",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_AS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MS",
-    "D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MAX_VALID",
-    "D3D12_FEATURE",
-    "D3D12_FEATURE_D3D12_OPTIONS",
-    "D3D12_FEATURE_ARCHITECTURE",
-    "D3D12_FEATURE_FEATURE_LEVELS",
-    "D3D12_FEATURE_FORMAT_SUPPORT",
-    "D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS",
-    "D3D12_FEATURE_FORMAT_INFO",
-    "D3D12_FEATURE_GPU_VIRTUAL_ADDRESS_SUPPORT",
-    "D3D12_FEATURE_SHADER_MODEL",
-    "D3D12_FEATURE_D3D12_OPTIONS1",
-    "D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_SUPPORT",
-    "D3D12_FEATURE_ROOT_SIGNATURE",
-    "D3D12_FEATURE_ARCHITECTURE1",
-    "D3D12_FEATURE_D3D12_OPTIONS2",
-    "D3D12_FEATURE_SHADER_CACHE",
-    "D3D12_FEATURE_COMMAND_QUEUE_PRIORITY",
-    "D3D12_FEATURE_D3D12_OPTIONS3",
-    "D3D12_FEATURE_EXISTING_HEAPS",
-    "D3D12_FEATURE_D3D12_OPTIONS4",
-    "D3D12_FEATURE_SERIALIZATION",
-    "D3D12_FEATURE_CROSS_NODE",
-    "D3D12_FEATURE_D3D12_OPTIONS5",
-    "D3D12_FEATURE_DISPLAYABLE",
-    "D3D12_FEATURE_D3D12_OPTIONS6",
-    "D3D12_FEATURE_QUERY_META_COMMAND",
-    "D3D12_FEATURE_D3D12_OPTIONS7",
-    "D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPE_COUNT",
-    "D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPES",
-    "D3D12_FEATURE_D3D12_OPTIONS8",
-    "D3D12_FEATURE_D3D12_OPTIONS9",
-    "D3D12_FEATURE_D3D12_OPTIONS10",
-    "D3D12_FEATURE_D3D12_OPTIONS11",
-    "D3D12_SHADER_MIN_PRECISION_SUPPORT",
-    "D3D12_SHADER_MIN_PRECISION_SUPPORT_NONE",
-    "D3D12_SHADER_MIN_PRECISION_SUPPORT_10_BIT",
-    "D3D12_SHADER_MIN_PRECISION_SUPPORT_16_BIT",
-    "D3D12_TILED_RESOURCES_TIER",
-    "D3D12_TILED_RESOURCES_TIER_NOT_SUPPORTED",
-    "D3D12_TILED_RESOURCES_TIER_1",
-    "D3D12_TILED_RESOURCES_TIER_2",
-    "D3D12_TILED_RESOURCES_TIER_3",
-    "D3D12_TILED_RESOURCES_TIER_4",
-    "D3D12_RESOURCE_BINDING_TIER",
-    "D3D12_RESOURCE_BINDING_TIER_1",
-    "D3D12_RESOURCE_BINDING_TIER_2",
-    "D3D12_RESOURCE_BINDING_TIER_3",
-    "D3D12_CONSERVATIVE_RASTERIZATION_TIER",
-    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_NOT_SUPPORTED",
-    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_1",
-    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_2",
-    "D3D12_CONSERVATIVE_RASTERIZATION_TIER_3",
-    "D3D12_FORMAT_SUPPORT1",
-    "D3D12_FORMAT_SUPPORT1_NONE",
-    "D3D12_FORMAT_SUPPORT1_BUFFER",
-    "D3D12_FORMAT_SUPPORT1_IA_VERTEX_BUFFER",
-    "D3D12_FORMAT_SUPPORT1_IA_INDEX_BUFFER",
-    "D3D12_FORMAT_SUPPORT1_SO_BUFFER",
-    "D3D12_FORMAT_SUPPORT1_TEXTURE1D",
-    "D3D12_FORMAT_SUPPORT1_TEXTURE2D",
-    "D3D12_FORMAT_SUPPORT1_TEXTURE3D",
-    "D3D12_FORMAT_SUPPORT1_TEXTURECUBE",
-    "D3D12_FORMAT_SUPPORT1_SHADER_LOAD",
-    "D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE",
-    "D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_COMPARISON",
-    "D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_MONO_TEXT",
-    "D3D12_FORMAT_SUPPORT1_MIP",
-    "D3D12_FORMAT_SUPPORT1_RENDER_TARGET",
-    "D3D12_FORMAT_SUPPORT1_BLENDABLE",
-    "D3D12_FORMAT_SUPPORT1_DEPTH_STENCIL",
-    "D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RESOLVE",
-    "D3D12_FORMAT_SUPPORT1_DISPLAY",
-    "D3D12_FORMAT_SUPPORT1_CAST_WITHIN_BIT_LAYOUT",
-    "D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RENDERTARGET",
-    "D3D12_FORMAT_SUPPORT1_MULTISAMPLE_LOAD",
-    "D3D12_FORMAT_SUPPORT1_SHADER_GATHER",
-    "D3D12_FORMAT_SUPPORT1_BACK_BUFFER_CAST",
-    "D3D12_FORMAT_SUPPORT1_TYPED_UNORDERED_ACCESS_VIEW",
-    "D3D12_FORMAT_SUPPORT1_SHADER_GATHER_COMPARISON",
-    "D3D12_FORMAT_SUPPORT1_DECODER_OUTPUT",
-    "D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_OUTPUT",
-    "D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_INPUT",
-    "D3D12_FORMAT_SUPPORT1_VIDEO_ENCODER",
-    "D3D12_FORMAT_SUPPORT2",
-    "D3D12_FORMAT_SUPPORT2_NONE",
-    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_ADD",
-    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS",
-    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE",
-    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE",
-    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX",
-    "D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX",
-    "D3D12_FORMAT_SUPPORT2_UAV_TYPED_LOAD",
-    "D3D12_FORMAT_SUPPORT2_UAV_TYPED_STORE",
-    "D3D12_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP",
-    "D3D12_FORMAT_SUPPORT2_TILED",
-    "D3D12_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY",
-    "D3D12_FORMAT_SUPPORT2_SAMPLER_FEEDBACK",
-    "D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS",
-    "D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE",
-    "D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_TILED_RESOURCE",
-    "D3D12_CROSS_NODE_SHARING_TIER",
-    "D3D12_CROSS_NODE_SHARING_TIER_NOT_SUPPORTED",
-    "D3D12_CROSS_NODE_SHARING_TIER_1_EMULATED",
-    "D3D12_CROSS_NODE_SHARING_TIER_1",
-    "D3D12_CROSS_NODE_SHARING_TIER_2",
-    "D3D12_CROSS_NODE_SHARING_TIER_3",
-    "D3D12_RESOURCE_HEAP_TIER",
-    "D3D12_RESOURCE_HEAP_TIER_1",
-    "D3D12_RESOURCE_HEAP_TIER_2",
-    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER",
-    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_NOT_SUPPORTED",
-    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_1",
-    "D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER_2",
-    "D3D12_VIEW_INSTANCING_TIER",
-    "D3D12_VIEW_INSTANCING_TIER_NOT_SUPPORTED",
-    "D3D12_VIEW_INSTANCING_TIER_1",
-    "D3D12_VIEW_INSTANCING_TIER_2",
-    "D3D12_VIEW_INSTANCING_TIER_3",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS1",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS2",
+    "D3D12_WRITEBUFFERIMMEDIATE_MODE",
+    "D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT",
+    "D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_IN",
+    "D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_OUT",
+    "D3D12_WRITEBUFFERIMMEDIATE_PARAMETER",
     "D3D_ROOT_SIGNATURE_VERSION",
     "D3D_ROOT_SIGNATURE_VERSION_1",
     "D3D_ROOT_SIGNATURE_VERSION_1_0",
     "D3D_ROOT_SIGNATURE_VERSION_1_1",
-    "D3D12_FEATURE_DATA_ROOT_SIGNATURE",
-    "D3D12_FEATURE_DATA_ARCHITECTURE",
-    "D3D12_FEATURE_DATA_ARCHITECTURE1",
-    "D3D12_FEATURE_DATA_FEATURE_LEVELS",
     "D3D_SHADER_MODEL",
     "D3D_SHADER_MODEL_5_1",
     "D3D_SHADER_MODEL_6_0",
@@ -7292,1931 +9118,114 @@ __all__ = [
     "D3D_SHADER_MODEL_6_5",
     "D3D_SHADER_MODEL_6_6",
     "D3D_SHADER_MODEL_6_7",
-    "D3D12_FEATURE_DATA_SHADER_MODEL",
-    "D3D12_FEATURE_DATA_FORMAT_SUPPORT",
-    "D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS",
-    "D3D12_FEATURE_DATA_FORMAT_INFO",
-    "D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT",
-    "D3D12_SHADER_CACHE_SUPPORT_FLAGS",
-    "D3D12_SHADER_CACHE_SUPPORT_NONE",
-    "D3D12_SHADER_CACHE_SUPPORT_SINGLE_PSO",
-    "D3D12_SHADER_CACHE_SUPPORT_LIBRARY",
-    "D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_INPROC_CACHE",
-    "D3D12_SHADER_CACHE_SUPPORT_AUTOMATIC_DISK_CACHE",
-    "D3D12_SHADER_CACHE_SUPPORT_DRIVER_MANAGED_CACHE",
-    "D3D12_SHADER_CACHE_SUPPORT_SHADER_CONTROL_CLEAR",
-    "D3D12_SHADER_CACHE_SUPPORT_SHADER_SESSION_DELETE",
-    "D3D12_FEATURE_DATA_SHADER_CACHE",
-    "D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAGS",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_NONE",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_DIRECT",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_BUNDLE",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_COMPUTE",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_COPY",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS",
-    "D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS3",
-    "D3D12_FEATURE_DATA_EXISTING_HEAPS",
-    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER",
-    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0",
-    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1",
-    "D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_2",
-    "D3D12_FEATURE_DATA_DISPLAYABLE",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS4",
-    "D3D12_HEAP_SERIALIZATION_TIER",
-    "D3D12_HEAP_SERIALIZATION_TIER_0",
-    "D3D12_HEAP_SERIALIZATION_TIER_10",
-    "D3D12_FEATURE_DATA_SERIALIZATION",
-    "D3D12_FEATURE_DATA_CROSS_NODE",
-    "D3D12_RENDER_PASS_TIER",
-    "D3D12_RENDER_PASS_TIER_0",
-    "D3D12_RENDER_PASS_TIER_1",
-    "D3D12_RENDER_PASS_TIER_2",
-    "D3D12_RAYTRACING_TIER",
-    "D3D12_RAYTRACING_TIER_NOT_SUPPORTED",
-    "D3D12_RAYTRACING_TIER_1_0",
-    "D3D12_RAYTRACING_TIER_1_1",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS5",
-    "D3D12_VARIABLE_SHADING_RATE_TIER",
-    "D3D12_VARIABLE_SHADING_RATE_TIER_NOT_SUPPORTED",
-    "D3D12_VARIABLE_SHADING_RATE_TIER_1",
-    "D3D12_VARIABLE_SHADING_RATE_TIER_2",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS6",
-    "D3D12_MESH_SHADER_TIER",
-    "D3D12_MESH_SHADER_TIER_NOT_SUPPORTED",
-    "D3D12_MESH_SHADER_TIER_1",
-    "D3D12_SAMPLER_FEEDBACK_TIER",
-    "D3D12_SAMPLER_FEEDBACK_TIER_NOT_SUPPORTED",
-    "D3D12_SAMPLER_FEEDBACK_TIER_0_9",
-    "D3D12_SAMPLER_FEEDBACK_TIER_1_0",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS7",
-    "D3D12_FEATURE_DATA_QUERY_META_COMMAND",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS8",
-    "D3D12_WAVE_MMA_TIER",
-    "D3D12_WAVE_MMA_TIER_NOT_SUPPORTED",
-    "D3D12_WAVE_MMA_TIER_1_0",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS9",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS10",
-    "D3D12_FEATURE_DATA_D3D12_OPTIONS11",
-    "D3D12_RESOURCE_ALLOCATION_INFO",
-    "D3D12_RESOURCE_ALLOCATION_INFO1",
-    "D3D12_HEAP_TYPE",
-    "D3D12_HEAP_TYPE_DEFAULT",
-    "D3D12_HEAP_TYPE_UPLOAD",
-    "D3D12_HEAP_TYPE_READBACK",
-    "D3D12_HEAP_TYPE_CUSTOM",
-    "D3D12_CPU_PAGE_PROPERTY",
-    "D3D12_CPU_PAGE_PROPERTY_UNKNOWN",
-    "D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE",
-    "D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE",
-    "D3D12_CPU_PAGE_PROPERTY_WRITE_BACK",
-    "D3D12_MEMORY_POOL",
-    "D3D12_MEMORY_POOL_UNKNOWN",
-    "D3D12_MEMORY_POOL_L0",
-    "D3D12_MEMORY_POOL_L1",
-    "D3D12_HEAP_PROPERTIES",
-    "D3D12_HEAP_FLAGS",
-    "D3D12_HEAP_FLAG_NONE",
-    "D3D12_HEAP_FLAG_SHARED",
-    "D3D12_HEAP_FLAG_DENY_BUFFERS",
-    "D3D12_HEAP_FLAG_ALLOW_DISPLAY",
-    "D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER",
-    "D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES",
-    "D3D12_HEAP_FLAG_DENY_NON_RT_DS_TEXTURES",
-    "D3D12_HEAP_FLAG_HARDWARE_PROTECTED",
-    "D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH",
-    "D3D12_HEAP_FLAG_ALLOW_SHADER_ATOMICS",
-    "D3D12_HEAP_FLAG_CREATE_NOT_RESIDENT",
-    "D3D12_HEAP_FLAG_CREATE_NOT_ZEROED",
-    "D3D12_HEAP_FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES",
-    "D3D12_HEAP_FLAG_ALLOW_ONLY_BUFFERS",
-    "D3D12_HEAP_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES",
-    "D3D12_HEAP_FLAG_ALLOW_ONLY_RT_DS_TEXTURES",
-    "D3D12_HEAP_DESC",
-    "D3D12_RESOURCE_DIMENSION",
-    "D3D12_RESOURCE_DIMENSION_UNKNOWN",
-    "D3D12_RESOURCE_DIMENSION_BUFFER",
-    "D3D12_RESOURCE_DIMENSION_TEXTURE1D",
-    "D3D12_RESOURCE_DIMENSION_TEXTURE2D",
-    "D3D12_RESOURCE_DIMENSION_TEXTURE3D",
-    "D3D12_TEXTURE_LAYOUT",
-    "D3D12_TEXTURE_LAYOUT_UNKNOWN",
-    "D3D12_TEXTURE_LAYOUT_ROW_MAJOR",
-    "D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE",
-    "D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE",
-    "D3D12_RESOURCE_FLAGS",
-    "D3D12_RESOURCE_FLAG_NONE",
-    "D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET",
-    "D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL",
-    "D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS",
-    "D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE",
-    "D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER",
-    "D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS",
-    "D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY",
-    "D3D12_RESOURCE_FLAG_VIDEO_ENCODE_REFERENCE_ONLY",
-    "D3D12_MIP_REGION",
-    "D3D12_RESOURCE_DESC",
-    "D3D12_RESOURCE_DESC1",
-    "D3D12_DEPTH_STENCIL_VALUE",
-    "D3D12_CLEAR_VALUE",
-    "D3D12_RANGE",
-    "D3D12_RANGE_UINT64",
-    "D3D12_SUBRESOURCE_RANGE_UINT64",
-    "D3D12_SUBRESOURCE_INFO",
-    "D3D12_TILED_RESOURCE_COORDINATE",
-    "D3D12_TILE_REGION_SIZE",
-    "D3D12_TILE_RANGE_FLAGS",
-    "D3D12_TILE_RANGE_FLAG_NONE",
-    "D3D12_TILE_RANGE_FLAG_NULL",
-    "D3D12_TILE_RANGE_FLAG_SKIP",
-    "D3D12_TILE_RANGE_FLAG_REUSE_SINGLE_TILE",
-    "D3D12_SUBRESOURCE_TILING",
-    "D3D12_TILE_SHAPE",
-    "D3D12_PACKED_MIP_INFO",
-    "D3D12_TILE_MAPPING_FLAGS",
-    "D3D12_TILE_MAPPING_FLAG_NONE",
-    "D3D12_TILE_MAPPING_FLAG_NO_HAZARD",
-    "D3D12_TILE_COPY_FLAGS",
-    "D3D12_TILE_COPY_FLAG_NONE",
-    "D3D12_TILE_COPY_FLAG_NO_HAZARD",
-    "D3D12_TILE_COPY_FLAG_LINEAR_BUFFER_TO_SWIZZLED_TILED_RESOURCE",
-    "D3D12_TILE_COPY_FLAG_SWIZZLED_TILED_RESOURCE_TO_LINEAR_BUFFER",
-    "D3D12_RESOURCE_STATES",
-    "D3D12_RESOURCE_STATE_COMMON",
-    "D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER",
-    "D3D12_RESOURCE_STATE_INDEX_BUFFER",
-    "D3D12_RESOURCE_STATE_RENDER_TARGET",
-    "D3D12_RESOURCE_STATE_UNORDERED_ACCESS",
-    "D3D12_RESOURCE_STATE_DEPTH_WRITE",
-    "D3D12_RESOURCE_STATE_DEPTH_READ",
-    "D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE",
-    "D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE",
-    "D3D12_RESOURCE_STATE_STREAM_OUT",
-    "D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT",
-    "D3D12_RESOURCE_STATE_COPY_DEST",
-    "D3D12_RESOURCE_STATE_COPY_SOURCE",
-    "D3D12_RESOURCE_STATE_RESOLVE_DEST",
-    "D3D12_RESOURCE_STATE_RESOLVE_SOURCE",
-    "D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE",
-    "D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE",
-    "D3D12_RESOURCE_STATE_GENERIC_READ",
-    "D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE",
-    "D3D12_RESOURCE_STATE_PRESENT",
-    "D3D12_RESOURCE_STATE_PREDICATION",
-    "D3D12_RESOURCE_STATE_VIDEO_DECODE_READ",
-    "D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE",
-    "D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ",
-    "D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE",
-    "D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ",
-    "D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE",
-    "D3D12_RESOURCE_BARRIER_TYPE",
-    "D3D12_RESOURCE_BARRIER_TYPE_TRANSITION",
-    "D3D12_RESOURCE_BARRIER_TYPE_ALIASING",
-    "D3D12_RESOURCE_BARRIER_TYPE_UAV",
-    "D3D12_RESOURCE_TRANSITION_BARRIER",
-    "D3D12_RESOURCE_ALIASING_BARRIER",
-    "D3D12_RESOURCE_UAV_BARRIER",
-    "D3D12_RESOURCE_BARRIER_FLAGS",
-    "D3D12_RESOURCE_BARRIER_FLAG_NONE",
-    "D3D12_RESOURCE_BARRIER_FLAG_BEGIN_ONLY",
-    "D3D12_RESOURCE_BARRIER_FLAG_END_ONLY",
-    "D3D12_RESOURCE_BARRIER",
-    "D3D12_SUBRESOURCE_FOOTPRINT",
-    "D3D12_PLACED_SUBRESOURCE_FOOTPRINT",
-    "D3D12_TEXTURE_COPY_TYPE",
-    "D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX",
-    "D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT",
-    "D3D12_TEXTURE_COPY_LOCATION",
-    "D3D12_RESOLVE_MODE",
-    "D3D12_RESOLVE_MODE_DECOMPRESS",
-    "D3D12_RESOLVE_MODE_MIN",
-    "D3D12_RESOLVE_MODE_MAX",
-    "D3D12_RESOLVE_MODE_AVERAGE",
-    "D3D12_RESOLVE_MODE_ENCODE_SAMPLER_FEEDBACK",
-    "D3D12_RESOLVE_MODE_DECODE_SAMPLER_FEEDBACK",
-    "D3D12_SAMPLE_POSITION",
-    "D3D12_VIEW_INSTANCE_LOCATION",
-    "D3D12_VIEW_INSTANCING_FLAGS",
-    "D3D12_VIEW_INSTANCING_FLAG_NONE",
-    "D3D12_VIEW_INSTANCING_FLAG_ENABLE_VIEW_INSTANCE_MASKING",
-    "D3D12_VIEW_INSTANCING_DESC",
-    "D3D12_SHADER_COMPONENT_MAPPING",
-    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0",
-    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1",
-    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2",
-    "D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_3",
-    "D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_0",
-    "D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1",
-    "D3D12_BUFFER_SRV_FLAGS",
-    "D3D12_BUFFER_SRV_FLAG_NONE",
-    "D3D12_BUFFER_SRV_FLAG_RAW",
-    "D3D12_BUFFER_SRV",
-    "D3D12_TEX1D_SRV",
-    "D3D12_TEX1D_ARRAY_SRV",
-    "D3D12_TEX2D_SRV",
-    "D3D12_TEX2D_ARRAY_SRV",
-    "D3D12_TEX3D_SRV",
-    "D3D12_TEXCUBE_SRV",
-    "D3D12_TEXCUBE_ARRAY_SRV",
-    "D3D12_TEX2DMS_SRV",
-    "D3D12_TEX2DMS_ARRAY_SRV",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV",
-    "D3D12_SRV_DIMENSION",
-    "D3D12_SRV_DIMENSION_UNKNOWN",
-    "D3D12_SRV_DIMENSION_BUFFER",
-    "D3D12_SRV_DIMENSION_TEXTURE1D",
-    "D3D12_SRV_DIMENSION_TEXTURE1DARRAY",
-    "D3D12_SRV_DIMENSION_TEXTURE2D",
-    "D3D12_SRV_DIMENSION_TEXTURE2DARRAY",
-    "D3D12_SRV_DIMENSION_TEXTURE2DMS",
-    "D3D12_SRV_DIMENSION_TEXTURE2DMSARRAY",
-    "D3D12_SRV_DIMENSION_TEXTURE3D",
-    "D3D12_SRV_DIMENSION_TEXTURECUBE",
-    "D3D12_SRV_DIMENSION_TEXTURECUBEARRAY",
-    "D3D12_SRV_DIMENSION_RAYTRACING_ACCELERATION_STRUCTURE",
-    "D3D12_SHADER_RESOURCE_VIEW_DESC",
-    "D3D12_CONSTANT_BUFFER_VIEW_DESC",
-    "D3D12_FILTER",
-    "D3D12_FILTER_MIN_MAG_MIP_POINT",
-    "D3D12_FILTER_MIN_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_MIN_POINT_MAG_MIP_LINEAR",
-    "D3D12_FILTER_MIN_LINEAR_MAG_MIP_POINT",
-    "D3D12_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_MIN_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_MIN_MAG_MIP_LINEAR",
-    "D3D12_FILTER_ANISOTROPIC",
-    "D3D12_FILTER_COMPARISON_MIN_MAG_MIP_POINT",
-    "D3D12_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR",
-    "D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT",
-    "D3D12_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR",
-    "D3D12_FILTER_COMPARISON_ANISOTROPIC",
-    "D3D12_FILTER_MINIMUM_MIN_MAG_MIP_POINT",
-    "D3D12_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR",
-    "D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT",
-    "D3D12_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR",
-    "D3D12_FILTER_MINIMUM_ANISOTROPIC",
-    "D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_POINT",
-    "D3D12_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR",
-    "D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT",
-    "D3D12_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR",
-    "D3D12_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT",
-    "D3D12_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR",
-    "D3D12_FILTER_MAXIMUM_ANISOTROPIC",
-    "D3D12_FILTER_TYPE",
-    "D3D12_FILTER_TYPE_POINT",
-    "D3D12_FILTER_TYPE_LINEAR",
-    "D3D12_FILTER_REDUCTION_TYPE",
-    "D3D12_FILTER_REDUCTION_TYPE_STANDARD",
-    "D3D12_FILTER_REDUCTION_TYPE_COMPARISON",
-    "D3D12_FILTER_REDUCTION_TYPE_MINIMUM",
-    "D3D12_FILTER_REDUCTION_TYPE_MAXIMUM",
-    "D3D12_TEXTURE_ADDRESS_MODE",
-    "D3D12_TEXTURE_ADDRESS_MODE_WRAP",
-    "D3D12_TEXTURE_ADDRESS_MODE_MIRROR",
-    "D3D12_TEXTURE_ADDRESS_MODE_CLAMP",
-    "D3D12_TEXTURE_ADDRESS_MODE_BORDER",
-    "D3D12_TEXTURE_ADDRESS_MODE_MIRROR_ONCE",
-    "D3D12_SAMPLER_DESC",
-    "D3D12_BUFFER_UAV_FLAGS",
-    "D3D12_BUFFER_UAV_FLAG_NONE",
-    "D3D12_BUFFER_UAV_FLAG_RAW",
-    "D3D12_BUFFER_UAV",
-    "D3D12_TEX1D_UAV",
-    "D3D12_TEX1D_ARRAY_UAV",
-    "D3D12_TEX2D_UAV",
-    "D3D12_TEX2D_ARRAY_UAV",
-    "D3D12_TEX3D_UAV",
-    "D3D12_UAV_DIMENSION",
-    "D3D12_UAV_DIMENSION_UNKNOWN",
-    "D3D12_UAV_DIMENSION_BUFFER",
-    "D3D12_UAV_DIMENSION_TEXTURE1D",
-    "D3D12_UAV_DIMENSION_TEXTURE1DARRAY",
-    "D3D12_UAV_DIMENSION_TEXTURE2D",
-    "D3D12_UAV_DIMENSION_TEXTURE2DARRAY",
-    "D3D12_UAV_DIMENSION_TEXTURE3D",
-    "D3D12_UNORDERED_ACCESS_VIEW_DESC",
-    "D3D12_BUFFER_RTV",
-    "D3D12_TEX1D_RTV",
-    "D3D12_TEX1D_ARRAY_RTV",
-    "D3D12_TEX2D_RTV",
-    "D3D12_TEX2DMS_RTV",
-    "D3D12_TEX2D_ARRAY_RTV",
-    "D3D12_TEX2DMS_ARRAY_RTV",
-    "D3D12_TEX3D_RTV",
-    "D3D12_RTV_DIMENSION",
-    "D3D12_RTV_DIMENSION_UNKNOWN",
-    "D3D12_RTV_DIMENSION_BUFFER",
-    "D3D12_RTV_DIMENSION_TEXTURE1D",
-    "D3D12_RTV_DIMENSION_TEXTURE1DARRAY",
-    "D3D12_RTV_DIMENSION_TEXTURE2D",
-    "D3D12_RTV_DIMENSION_TEXTURE2DARRAY",
-    "D3D12_RTV_DIMENSION_TEXTURE2DMS",
-    "D3D12_RTV_DIMENSION_TEXTURE2DMSARRAY",
-    "D3D12_RTV_DIMENSION_TEXTURE3D",
-    "D3D12_RENDER_TARGET_VIEW_DESC",
-    "D3D12_TEX1D_DSV",
-    "D3D12_TEX1D_ARRAY_DSV",
-    "D3D12_TEX2D_DSV",
-    "D3D12_TEX2D_ARRAY_DSV",
-    "D3D12_TEX2DMS_DSV",
-    "D3D12_TEX2DMS_ARRAY_DSV",
-    "D3D12_DSV_FLAGS",
-    "D3D12_DSV_FLAG_NONE",
-    "D3D12_DSV_FLAG_READ_ONLY_DEPTH",
-    "D3D12_DSV_FLAG_READ_ONLY_STENCIL",
-    "D3D12_DSV_DIMENSION",
-    "D3D12_DSV_DIMENSION_UNKNOWN",
-    "D3D12_DSV_DIMENSION_TEXTURE1D",
-    "D3D12_DSV_DIMENSION_TEXTURE1DARRAY",
-    "D3D12_DSV_DIMENSION_TEXTURE2D",
-    "D3D12_DSV_DIMENSION_TEXTURE2DARRAY",
-    "D3D12_DSV_DIMENSION_TEXTURE2DMS",
-    "D3D12_DSV_DIMENSION_TEXTURE2DMSARRAY",
-    "D3D12_DEPTH_STENCIL_VIEW_DESC",
-    "D3D12_CLEAR_FLAGS",
-    "D3D12_CLEAR_FLAG_DEPTH",
-    "D3D12_CLEAR_FLAG_STENCIL",
-    "D3D12_FENCE_FLAGS",
-    "D3D12_FENCE_FLAG_NONE",
-    "D3D12_FENCE_FLAG_SHARED",
-    "D3D12_FENCE_FLAG_SHARED_CROSS_ADAPTER",
-    "D3D12_FENCE_FLAG_NON_MONITORED",
-    "D3D12_DESCRIPTOR_HEAP_TYPE",
-    "D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV",
-    "D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER",
-    "D3D12_DESCRIPTOR_HEAP_TYPE_RTV",
-    "D3D12_DESCRIPTOR_HEAP_TYPE_DSV",
-    "D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES",
-    "D3D12_DESCRIPTOR_HEAP_FLAGS",
-    "D3D12_DESCRIPTOR_HEAP_FLAG_NONE",
-    "D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE",
-    "D3D12_DESCRIPTOR_HEAP_DESC",
-    "D3D12_DESCRIPTOR_RANGE_TYPE",
-    "D3D12_DESCRIPTOR_RANGE_TYPE_SRV",
-    "D3D12_DESCRIPTOR_RANGE_TYPE_UAV",
-    "D3D12_DESCRIPTOR_RANGE_TYPE_CBV",
-    "D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER",
-    "D3D12_DESCRIPTOR_RANGE",
-    "D3D12_ROOT_DESCRIPTOR_TABLE",
-    "D3D12_ROOT_CONSTANTS",
-    "D3D12_ROOT_DESCRIPTOR",
-    "D3D12_SHADER_VISIBILITY",
-    "D3D12_SHADER_VISIBILITY_ALL",
-    "D3D12_SHADER_VISIBILITY_VERTEX",
-    "D3D12_SHADER_VISIBILITY_HULL",
-    "D3D12_SHADER_VISIBILITY_DOMAIN",
-    "D3D12_SHADER_VISIBILITY_GEOMETRY",
-    "D3D12_SHADER_VISIBILITY_PIXEL",
-    "D3D12_SHADER_VISIBILITY_AMPLIFICATION",
-    "D3D12_SHADER_VISIBILITY_MESH",
-    "D3D12_ROOT_PARAMETER_TYPE",
-    "D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE",
-    "D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS",
-    "D3D12_ROOT_PARAMETER_TYPE_CBV",
-    "D3D12_ROOT_PARAMETER_TYPE_SRV",
-    "D3D12_ROOT_PARAMETER_TYPE_UAV",
-    "D3D12_ROOT_PARAMETER",
-    "D3D12_ROOT_SIGNATURE_FLAGS",
-    "D3D12_ROOT_SIGNATURE_FLAG_NONE",
-    "D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_ALLOW_STREAM_OUTPUT",
-    "D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS",
-    "D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED",
-    "D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED",
-    "D3D12_STATIC_BORDER_COLOR",
-    "D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK",
-    "D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK",
-    "D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE",
-    "D3D12_STATIC_SAMPLER_DESC",
-    "D3D12_ROOT_SIGNATURE_DESC",
-    "D3D12_DESCRIPTOR_RANGE_FLAGS",
-    "D3D12_DESCRIPTOR_RANGE_FLAG_NONE",
-    "D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE",
-    "D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE",
-    "D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE",
-    "D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC",
-    "D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS",
-    "D3D12_DESCRIPTOR_RANGE1",
-    "D3D12_ROOT_DESCRIPTOR_TABLE1",
-    "D3D12_ROOT_DESCRIPTOR_FLAGS",
-    "D3D12_ROOT_DESCRIPTOR_FLAG_NONE",
-    "D3D12_ROOT_DESCRIPTOR_FLAG_DATA_VOLATILE",
-    "D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE",
-    "D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC",
-    "D3D12_ROOT_DESCRIPTOR1",
-    "D3D12_ROOT_PARAMETER1",
-    "D3D12_ROOT_SIGNATURE_DESC1",
-    "D3D12_VERSIONED_ROOT_SIGNATURE_DESC",
-    "ID3D12RootSignatureDeserializer",
-    "ID3D12VersionedRootSignatureDeserializer",
-    "PFN_D3D12_SERIALIZE_ROOT_SIGNATURE",
-    "PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER",
-    "PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE",
-    "PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER",
-    "D3D12_CPU_DESCRIPTOR_HANDLE",
-    "D3D12_GPU_DESCRIPTOR_HANDLE",
-    "D3D12_DISCARD_REGION",
-    "D3D12_QUERY_HEAP_TYPE",
-    "D3D12_QUERY_HEAP_TYPE_OCCLUSION",
-    "D3D12_QUERY_HEAP_TYPE_TIMESTAMP",
-    "D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS",
-    "D3D12_QUERY_HEAP_TYPE_SO_STATISTICS",
-    "D3D12_QUERY_HEAP_TYPE_VIDEO_DECODE_STATISTICS",
-    "D3D12_QUERY_HEAP_TYPE_COPY_QUEUE_TIMESTAMP",
-    "D3D12_QUERY_HEAP_TYPE_PIPELINE_STATISTICS1",
-    "D3D12_QUERY_HEAP_DESC",
-    "D3D12_QUERY_TYPE",
-    "D3D12_QUERY_TYPE_OCCLUSION",
-    "D3D12_QUERY_TYPE_BINARY_OCCLUSION",
-    "D3D12_QUERY_TYPE_TIMESTAMP",
-    "D3D12_QUERY_TYPE_PIPELINE_STATISTICS",
-    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM0",
-    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM1",
-    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM2",
-    "D3D12_QUERY_TYPE_SO_STATISTICS_STREAM3",
-    "D3D12_QUERY_TYPE_VIDEO_DECODE_STATISTICS",
-    "D3D12_QUERY_TYPE_PIPELINE_STATISTICS1",
-    "D3D12_PREDICATION_OP",
-    "D3D12_PREDICATION_OP_EQUAL_ZERO",
-    "D3D12_PREDICATION_OP_NOT_EQUAL_ZERO",
-    "D3D12_QUERY_DATA_PIPELINE_STATISTICS",
-    "D3D12_QUERY_DATA_PIPELINE_STATISTICS1",
-    "D3D12_QUERY_DATA_SO_STATISTICS",
-    "D3D12_STREAM_OUTPUT_BUFFER_VIEW",
-    "D3D12_DRAW_ARGUMENTS",
-    "D3D12_DRAW_INDEXED_ARGUMENTS",
-    "D3D12_DISPATCH_ARGUMENTS",
-    "D3D12_VERTEX_BUFFER_VIEW",
-    "D3D12_INDEX_BUFFER_VIEW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_DRAW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS",
-    "D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH",
-    "D3D12_INDIRECT_ARGUMENT_DESC",
-    "D3D12_COMMAND_SIGNATURE_DESC",
-    "ID3D12Pageable",
-    "ID3D12Heap",
-    "ID3D12Resource",
+    "D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_DESCRIPTOR_HEAP_RESOURCE",
+    "D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_GROUP_SHARED",
+    "D3D_SHADER_REQUIRES_ATOMIC_INT64_ON_TYPED_RESOURCE",
+    "D3D_SHADER_REQUIRES_BARYCENTRICS",
+    "D3D_SHADER_REQUIRES_DERIVATIVES_IN_MESH_AND_AMPLIFICATION_SHADERS",
+    "D3D_SHADER_REQUIRES_INNER_COVERAGE",
+    "D3D_SHADER_REQUIRES_INT64_OPS",
+    "D3D_SHADER_REQUIRES_NATIVE_16BIT_OPS",
+    "D3D_SHADER_REQUIRES_RAYTRACING_TIER_1_1",
+    "D3D_SHADER_REQUIRES_RESOURCE_DESCRIPTOR_HEAP_INDEXING",
+    "D3D_SHADER_REQUIRES_ROVS",
+    "D3D_SHADER_REQUIRES_SAMPLER_DESCRIPTOR_HEAP_INDEXING",
+    "D3D_SHADER_REQUIRES_SAMPLER_FEEDBACK",
+    "D3D_SHADER_REQUIRES_SHADING_RATE",
+    "D3D_SHADER_REQUIRES_STENCIL_REF",
+    "D3D_SHADER_REQUIRES_TYPED_UAV_LOAD_ADDITIONAL_FORMATS",
+    "D3D_SHADER_REQUIRES_VIEWPORT_AND_RT_ARRAY_INDEX_FROM_ANY_SHADER_FEEDING_RASTERIZER",
+    "D3D_SHADER_REQUIRES_VIEW_ID",
+    "D3D_SHADER_REQUIRES_WAVE_MMA",
+    "D3D_SHADER_REQUIRES_WAVE_OPS",
+    "DXGI_DEBUG_D3D12",
     "ID3D12CommandAllocator",
-    "ID3D12Fence",
-    "ID3D12Fence1",
-    "ID3D12PipelineState",
-    "ID3D12DescriptorHeap",
-    "ID3D12QueryHeap",
-    "ID3D12CommandSignature",
     "ID3D12CommandList",
-    "ID3D12GraphicsCommandList",
-    "ID3D12GraphicsCommandList1",
-    "D3D12_WRITEBUFFERIMMEDIATE_PARAMETER",
-    "D3D12_WRITEBUFFERIMMEDIATE_MODE",
-    "D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT",
-    "D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_IN",
-    "D3D12_WRITEBUFFERIMMEDIATE_MODE_MARKER_OUT",
-    "ID3D12GraphicsCommandList2",
     "ID3D12CommandQueue",
-    "ID3D12Device",
-    "ID3D12PipelineLibrary",
-    "ID3D12PipelineLibrary1",
-    "D3D12_MULTIPLE_FENCE_WAIT_FLAGS",
-    "D3D12_MULTIPLE_FENCE_WAIT_FLAG_NONE",
-    "D3D12_MULTIPLE_FENCE_WAIT_FLAG_ANY",
-    "D3D12_MULTIPLE_FENCE_WAIT_FLAG_ALL",
-    "D3D12_RESIDENCY_PRIORITY",
-    "D3D12_RESIDENCY_PRIORITY_MINIMUM",
-    "D3D12_RESIDENCY_PRIORITY_LOW",
-    "D3D12_RESIDENCY_PRIORITY_NORMAL",
-    "D3D12_RESIDENCY_PRIORITY_HIGH",
-    "D3D12_RESIDENCY_PRIORITY_MAXIMUM",
-    "ID3D12Device1",
-    "ID3D12Device2",
-    "D3D12_RESIDENCY_FLAGS",
-    "D3D12_RESIDENCY_FLAG_NONE",
-    "D3D12_RESIDENCY_FLAG_DENY_OVERBUDGET",
-    "ID3D12Device3",
-    "D3D12_COMMAND_LIST_FLAGS",
-    "D3D12_COMMAND_LIST_FLAG_NONE",
-    "D3D12_COMMAND_POOL_FLAGS",
-    "D3D12_COMMAND_POOL_FLAG_NONE",
-    "D3D12_COMMAND_RECORDER_FLAGS",
-    "D3D12_COMMAND_RECORDER_FLAG_NONE",
-    "D3D12_PROTECTED_SESSION_STATUS",
-    "D3D12_PROTECTED_SESSION_STATUS_OK",
-    "D3D12_PROTECTED_SESSION_STATUS_INVALID",
-    "ID3D12ProtectedSession",
-    "D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS",
-    "D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE",
-    "D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_SUPPORTED",
-    "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT",
-    "D3D12_PROTECTED_RESOURCE_SESSION_FLAGS",
-    "D3D12_PROTECTED_RESOURCE_SESSION_FLAG_NONE",
-    "D3D12_PROTECTED_RESOURCE_SESSION_DESC",
-    "ID3D12ProtectedResourceSession",
-    "ID3D12Device4",
-    "D3D12_LIFETIME_STATE",
-    "D3D12_LIFETIME_STATE_IN_USE",
-    "D3D12_LIFETIME_STATE_NOT_IN_USE",
-    "ID3D12LifetimeOwner",
-    "ID3D12SwapChainAssistant",
-    "ID3D12LifetimeTracker",
-    "D3D12_META_COMMAND_PARAMETER_TYPE",
-    "D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT",
-    "D3D12_META_COMMAND_PARAMETER_TYPE_UINT64",
-    "D3D12_META_COMMAND_PARAMETER_TYPE_GPU_VIRTUAL_ADDRESS",
-    "D3D12_META_COMMAND_PARAMETER_TYPE_CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV",
-    "D3D12_META_COMMAND_PARAMETER_TYPE_GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV",
-    "D3D12_META_COMMAND_PARAMETER_FLAGS",
-    "D3D12_META_COMMAND_PARAMETER_FLAG_INPUT",
-    "D3D12_META_COMMAND_PARAMETER_FLAG_OUTPUT",
-    "D3D12_META_COMMAND_PARAMETER_STAGE",
-    "D3D12_META_COMMAND_PARAMETER_STAGE_CREATION",
-    "D3D12_META_COMMAND_PARAMETER_STAGE_INITIALIZATION",
-    "D3D12_META_COMMAND_PARAMETER_STAGE_EXECUTION",
-    "D3D12_META_COMMAND_PARAMETER_DESC",
-    "D3D12_GRAPHICS_STATES",
-    "D3D12_GRAPHICS_STATE_NONE",
-    "D3D12_GRAPHICS_STATE_IA_VERTEX_BUFFERS",
-    "D3D12_GRAPHICS_STATE_IA_INDEX_BUFFER",
-    "D3D12_GRAPHICS_STATE_IA_PRIMITIVE_TOPOLOGY",
-    "D3D12_GRAPHICS_STATE_DESCRIPTOR_HEAP",
-    "D3D12_GRAPHICS_STATE_GRAPHICS_ROOT_SIGNATURE",
-    "D3D12_GRAPHICS_STATE_COMPUTE_ROOT_SIGNATURE",
-    "D3D12_GRAPHICS_STATE_RS_VIEWPORTS",
-    "D3D12_GRAPHICS_STATE_RS_SCISSOR_RECTS",
-    "D3D12_GRAPHICS_STATE_PREDICATION",
-    "D3D12_GRAPHICS_STATE_OM_RENDER_TARGETS",
-    "D3D12_GRAPHICS_STATE_OM_STENCIL_REF",
-    "D3D12_GRAPHICS_STATE_OM_BLEND_FACTOR",
-    "D3D12_GRAPHICS_STATE_PIPELINE_STATE",
-    "D3D12_GRAPHICS_STATE_SO_TARGETS",
-    "D3D12_GRAPHICS_STATE_OM_DEPTH_BOUNDS",
-    "D3D12_GRAPHICS_STATE_SAMPLE_POSITIONS",
-    "D3D12_GRAPHICS_STATE_VIEW_INSTANCE_MASK",
-    "D3D12_META_COMMAND_DESC",
-    "ID3D12StateObject",
-    "ID3D12StateObjectProperties",
-    "D3D12_STATE_SUBOBJECT_TYPE",
-    "D3D12_STATE_SUBOBJECT_TYPE_STATE_OBJECT_CONFIG",
-    "D3D12_STATE_SUBOBJECT_TYPE_GLOBAL_ROOT_SIGNATURE",
-    "D3D12_STATE_SUBOBJECT_TYPE_LOCAL_ROOT_SIGNATURE",
-    "D3D12_STATE_SUBOBJECT_TYPE_NODE_MASK",
-    "D3D12_STATE_SUBOBJECT_TYPE_DXIL_LIBRARY",
-    "D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION",
-    "D3D12_STATE_SUBOBJECT_TYPE_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
-    "D3D12_STATE_SUBOBJECT_TYPE_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
-    "D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_SHADER_CONFIG",
-    "D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG",
-    "D3D12_STATE_SUBOBJECT_TYPE_HIT_GROUP",
-    "D3D12_STATE_SUBOBJECT_TYPE_RAYTRACING_PIPELINE_CONFIG1",
-    "D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID",
-    "D3D12_STATE_SUBOBJECT",
-    "D3D12_STATE_OBJECT_FLAGS",
-    "D3D12_STATE_OBJECT_FLAG_NONE",
-    "D3D12_STATE_OBJECT_FLAG_ALLOW_LOCAL_DEPENDENCIES_ON_EXTERNAL_DEFINITIONS",
-    "D3D12_STATE_OBJECT_FLAG_ALLOW_EXTERNAL_DEPENDENCIES_ON_LOCAL_DEFINITIONS",
-    "D3D12_STATE_OBJECT_FLAG_ALLOW_STATE_OBJECT_ADDITIONS",
-    "D3D12_STATE_OBJECT_CONFIG",
-    "D3D12_GLOBAL_ROOT_SIGNATURE",
-    "D3D12_LOCAL_ROOT_SIGNATURE",
-    "D3D12_NODE_MASK",
-    "D3D12_EXPORT_FLAGS",
-    "D3D12_EXPORT_FLAG_NONE",
-    "D3D12_EXPORT_DESC",
-    "D3D12_DXIL_LIBRARY_DESC",
-    "D3D12_EXISTING_COLLECTION_DESC",
-    "D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
-    "D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
-    "D3D12_HIT_GROUP_TYPE",
-    "D3D12_HIT_GROUP_TYPE_TRIANGLES",
-    "D3D12_HIT_GROUP_TYPE_PROCEDURAL_PRIMITIVE",
-    "D3D12_HIT_GROUP_DESC",
-    "D3D12_RAYTRACING_SHADER_CONFIG",
-    "D3D12_RAYTRACING_PIPELINE_CONFIG",
-    "D3D12_RAYTRACING_PIPELINE_FLAGS",
-    "D3D12_RAYTRACING_PIPELINE_FLAG_NONE",
-    "D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES",
-    "D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES",
-    "D3D12_RAYTRACING_PIPELINE_CONFIG1",
-    "D3D12_STATE_OBJECT_TYPE",
-    "D3D12_STATE_OBJECT_TYPE_COLLECTION",
-    "D3D12_STATE_OBJECT_TYPE_RAYTRACING_PIPELINE",
-    "D3D12_STATE_OBJECT_DESC",
-    "D3D12_RAYTRACING_GEOMETRY_FLAGS",
-    "D3D12_RAYTRACING_GEOMETRY_FLAG_NONE",
-    "D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE",
-    "D3D12_RAYTRACING_GEOMETRY_FLAG_NO_DUPLICATE_ANYHIT_INVOCATION",
-    "D3D12_RAYTRACING_GEOMETRY_TYPE",
-    "D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES",
-    "D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS",
-    "D3D12_RAYTRACING_INSTANCE_FLAGS",
-    "D3D12_RAYTRACING_INSTANCE_FLAG_NONE",
-    "D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_CULL_DISABLE",
-    "D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_FRONT_COUNTERCLOCKWISE",
-    "D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OPAQUE",
-    "D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE",
-    "D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE",
-    "D3D12_GPU_VIRTUAL_ADDRESS_RANGE",
-    "D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE",
-    "D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC",
-    "D3D12_RAYTRACING_AABB",
-    "D3D12_RAYTRACING_GEOMETRY_AABBS_DESC",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_NONE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_UPDATE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_COMPACTION",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_TRACE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_BUILD",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_MINIMIZE_MEMORY",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PERFORM_UPDATE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_CLONE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_COMPACT",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_VISUALIZATION_DECODE_FOR_TOOLS",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_SERIALIZE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_DESERIALIZE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL",
-    "D3D12_ELEMENTS_LAYOUT",
-    "D3D12_ELEMENTS_LAYOUT_ARRAY",
-    "D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC",
-    "D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC",
-    "D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER",
-    "D3D12_SERIALIZED_DATA_TYPE",
-    "D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE",
-    "D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS",
-    "D3D12_DRIVER_MATCHING_IDENTIFIER_COMPATIBLE_WITH_DEVICE",
-    "D3D12_DRIVER_MATCHING_IDENTIFIER_UNSUPPORTED_TYPE",
-    "D3D12_DRIVER_MATCHING_IDENTIFIER_UNRECOGNIZED",
-    "D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_VERSION",
-    "D3D12_DRIVER_MATCHING_IDENTIFIER_INCOMPATIBLE_TYPE",
-    "D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC",
-    "D3D12_RAYTRACING_INSTANCE_DESC",
-    "D3D12_RAYTRACING_GEOMETRY_DESC",
-    "D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS",
-    "D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC",
-    "D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO",
-    "D3D12_RAY_FLAGS",
-    "D3D12_RAY_FLAG_NONE",
-    "D3D12_RAY_FLAG_FORCE_OPAQUE",
-    "D3D12_RAY_FLAG_FORCE_NON_OPAQUE",
-    "D3D12_RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH",
-    "D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER",
-    "D3D12_RAY_FLAG_CULL_BACK_FACING_TRIANGLES",
-    "D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES",
-    "D3D12_RAY_FLAG_CULL_OPAQUE",
-    "D3D12_RAY_FLAG_CULL_NON_OPAQUE",
-    "D3D12_RAY_FLAG_SKIP_TRIANGLES",
-    "D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES",
-    "D3D12_HIT_KIND",
-    "D3D12_HIT_KIND_TRIANGLE_FRONT_FACE",
-    "D3D12_HIT_KIND_TRIANGLE_BACK_FACE",
-    "ID3D12Device5",
-    "D3D12_AUTO_BREADCRUMB_OP",
-    "D3D12_AUTO_BREADCRUMB_OP_SETMARKER",
-    "D3D12_AUTO_BREADCRUMB_OP_BEGINEVENT",
-    "D3D12_AUTO_BREADCRUMB_OP_ENDEVENT",
-    "D3D12_AUTO_BREADCRUMB_OP_DRAWINSTANCED",
-    "D3D12_AUTO_BREADCRUMB_OP_DRAWINDEXEDINSTANCED",
-    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEINDIRECT",
-    "D3D12_AUTO_BREADCRUMB_OP_DISPATCH",
-    "D3D12_AUTO_BREADCRUMB_OP_COPYBUFFERREGION",
-    "D3D12_AUTO_BREADCRUMB_OP_COPYTEXTUREREGION",
-    "D3D12_AUTO_BREADCRUMB_OP_COPYRESOURCE",
-    "D3D12_AUTO_BREADCRUMB_OP_COPYTILES",
-    "D3D12_AUTO_BREADCRUMB_OP_RESOLVESUBRESOURCE",
-    "D3D12_AUTO_BREADCRUMB_OP_CLEARRENDERTARGETVIEW",
-    "D3D12_AUTO_BREADCRUMB_OP_CLEARUNORDEREDACCESSVIEW",
-    "D3D12_AUTO_BREADCRUMB_OP_CLEARDEPTHSTENCILVIEW",
-    "D3D12_AUTO_BREADCRUMB_OP_RESOURCEBARRIER",
-    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEBUNDLE",
-    "D3D12_AUTO_BREADCRUMB_OP_PRESENT",
-    "D3D12_AUTO_BREADCRUMB_OP_RESOLVEQUERYDATA",
-    "D3D12_AUTO_BREADCRUMB_OP_BEGINSUBMISSION",
-    "D3D12_AUTO_BREADCRUMB_OP_ENDSUBMISSION",
-    "D3D12_AUTO_BREADCRUMB_OP_DECODEFRAME",
-    "D3D12_AUTO_BREADCRUMB_OP_PROCESSFRAMES",
-    "D3D12_AUTO_BREADCRUMB_OP_ATOMICCOPYBUFFERUINT",
-    "D3D12_AUTO_BREADCRUMB_OP_ATOMICCOPYBUFFERUINT64",
-    "D3D12_AUTO_BREADCRUMB_OP_RESOLVESUBRESOURCEREGION",
-    "D3D12_AUTO_BREADCRUMB_OP_WRITEBUFFERIMMEDIATE",
-    "D3D12_AUTO_BREADCRUMB_OP_DECODEFRAME1",
-    "D3D12_AUTO_BREADCRUMB_OP_SETPROTECTEDRESOURCESESSION",
-    "D3D12_AUTO_BREADCRUMB_OP_DECODEFRAME2",
-    "D3D12_AUTO_BREADCRUMB_OP_PROCESSFRAMES1",
-    "D3D12_AUTO_BREADCRUMB_OP_BUILDRAYTRACINGACCELERATIONSTRUCTURE",
-    "D3D12_AUTO_BREADCRUMB_OP_EMITRAYTRACINGACCELERATIONSTRUCTUREPOSTBUILDINFO",
-    "D3D12_AUTO_BREADCRUMB_OP_COPYRAYTRACINGACCELERATIONSTRUCTURE",
-    "D3D12_AUTO_BREADCRUMB_OP_DISPATCHRAYS",
-    "D3D12_AUTO_BREADCRUMB_OP_INITIALIZEMETACOMMAND",
-    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEMETACOMMAND",
-    "D3D12_AUTO_BREADCRUMB_OP_ESTIMATEMOTION",
-    "D3D12_AUTO_BREADCRUMB_OP_RESOLVEMOTIONVECTORHEAP",
-    "D3D12_AUTO_BREADCRUMB_OP_SETPIPELINESTATE1",
-    "D3D12_AUTO_BREADCRUMB_OP_INITIALIZEEXTENSIONCOMMAND",
-    "D3D12_AUTO_BREADCRUMB_OP_EXECUTEEXTENSIONCOMMAND",
-    "D3D12_AUTO_BREADCRUMB_OP_DISPATCHMESH",
-    "D3D12_AUTO_BREADCRUMB_OP_ENCODEFRAME",
-    "D3D12_AUTO_BREADCRUMB_OP_RESOLVEENCODEROUTPUTMETADATA",
-    "D3D12_AUTO_BREADCRUMB_NODE",
-    "D3D12_DRED_BREADCRUMB_CONTEXT",
-    "D3D12_AUTO_BREADCRUMB_NODE1",
-    "D3D12_DRED_VERSION",
-    "D3D12_DRED_VERSION_1_0",
-    "D3D12_DRED_VERSION_1_1",
-    "D3D12_DRED_VERSION_1_2",
-    "D3D12_DRED_VERSION_1_3",
-    "D3D12_DRED_FLAGS",
-    "D3D12_DRED_FLAG_NONE",
-    "D3D12_DRED_FLAG_FORCE_ENABLE",
-    "D3D12_DRED_FLAG_DISABLE_AUTOBREADCRUMBS",
-    "D3D12_DRED_ENABLEMENT",
-    "D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED",
-    "D3D12_DRED_ENABLEMENT_FORCED_OFF",
-    "D3D12_DRED_ENABLEMENT_FORCED_ON",
-    "D3D12_DEVICE_REMOVED_EXTENDED_DATA",
-    "D3D12_DRED_ALLOCATION_TYPE",
-    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_QUEUE",
-    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_ALLOCATOR",
-    "D3D12_DRED_ALLOCATION_TYPE_PIPELINE_STATE",
-    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_LIST",
-    "D3D12_DRED_ALLOCATION_TYPE_FENCE",
-    "D3D12_DRED_ALLOCATION_TYPE_DESCRIPTOR_HEAP",
-    "D3D12_DRED_ALLOCATION_TYPE_HEAP",
-    "D3D12_DRED_ALLOCATION_TYPE_QUERY_HEAP",
-    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_SIGNATURE",
-    "D3D12_DRED_ALLOCATION_TYPE_PIPELINE_LIBRARY",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_DECODER",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_PROCESSOR",
-    "D3D12_DRED_ALLOCATION_TYPE_RESOURCE",
-    "D3D12_DRED_ALLOCATION_TYPE_PASS",
-    "D3D12_DRED_ALLOCATION_TYPE_CRYPTOSESSION",
-    "D3D12_DRED_ALLOCATION_TYPE_CRYPTOSESSIONPOLICY",
-    "D3D12_DRED_ALLOCATION_TYPE_PROTECTEDRESOURCESESSION",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_DECODER_HEAP",
-    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_POOL",
-    "D3D12_DRED_ALLOCATION_TYPE_COMMAND_RECORDER",
-    "D3D12_DRED_ALLOCATION_TYPE_STATE_OBJECT",
-    "D3D12_DRED_ALLOCATION_TYPE_METACOMMAND",
-    "D3D12_DRED_ALLOCATION_TYPE_SCHEDULINGGROUP",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_MOTION_ESTIMATOR",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_MOTION_VECTOR_HEAP",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_EXTENSION_COMMAND",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER",
-    "D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER_HEAP",
-    "D3D12_DRED_ALLOCATION_TYPE_INVALID",
-    "D3D12_DRED_ALLOCATION_NODE",
-    "D3D12_DRED_ALLOCATION_NODE1",
-    "D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT",
-    "D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1",
-    "D3D12_DRED_PAGE_FAULT_OUTPUT",
-    "D3D12_DRED_PAGE_FAULT_OUTPUT1",
-    "D3D12_DRED_PAGE_FAULT_FLAGS",
-    "D3D12_DRED_PAGE_FAULT_FLAGS_NONE",
-    "D3D12_DRED_DEVICE_STATE",
-    "D3D12_DRED_DEVICE_STATE_UNKNOWN",
-    "D3D12_DRED_DEVICE_STATE_HUNG",
-    "D3D12_DRED_DEVICE_STATE_FAULT",
-    "D3D12_DRED_DEVICE_STATE_PAGEFAULT",
-    "D3D12_DRED_PAGE_FAULT_OUTPUT2",
-    "D3D12_DEVICE_REMOVED_EXTENDED_DATA1",
-    "D3D12_DEVICE_REMOVED_EXTENDED_DATA2",
-    "D3D12_DEVICE_REMOVED_EXTENDED_DATA3",
-    "D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA",
-    "ID3D12DeviceRemovedExtendedDataSettings",
-    "ID3D12DeviceRemovedExtendedDataSettings1",
-    "ID3D12DeviceRemovedExtendedData",
-    "ID3D12DeviceRemovedExtendedData1",
-    "ID3D12DeviceRemovedExtendedData2",
-    "D3D12_BACKGROUND_PROCESSING_MODE",
-    "D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED",
-    "D3D12_BACKGROUND_PROCESSING_MODE_ALLOW_INTRUSIVE_MEASUREMENTS",
-    "D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_BACKGROUND_WORK",
-    "D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_PROFILING_BY_SYSTEM",
-    "D3D12_MEASUREMENTS_ACTION",
-    "D3D12_MEASUREMENTS_ACTION_KEEP_ALL",
-    "D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS",
-    "D3D12_MEASUREMENTS_ACTION_COMMIT_RESULTS_HIGH_PRIORITY",
-    "D3D12_MEASUREMENTS_ACTION_DISCARD_PREVIOUS",
-    "ID3D12Device6",
-    "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT",
-    "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES",
-    "D3D12_PROTECTED_RESOURCE_SESSION_DESC1",
-    "ID3D12ProtectedResourceSession1",
-    "ID3D12Device7",
-    "ID3D12Device8",
-    "ID3D12Resource1",
-    "ID3D12Resource2",
-    "ID3D12Heap1",
-    "ID3D12GraphicsCommandList3",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_DISCARD",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_PRESERVE",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_CLEAR",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_NO_ACCESS",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS",
-    "D3D12_RENDER_PASS_BEGINNING_ACCESS",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_DISCARD",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_PRESERVE",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_RESOLVE",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_TYPE_NO_ACCESS",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS",
-    "D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS",
-    "D3D12_RENDER_PASS_ENDING_ACCESS",
-    "D3D12_RENDER_PASS_RENDER_TARGET_DESC",
-    "D3D12_RENDER_PASS_DEPTH_STENCIL_DESC",
-    "D3D12_RENDER_PASS_FLAGS",
-    "D3D12_RENDER_PASS_FLAG_NONE",
-    "D3D12_RENDER_PASS_FLAG_ALLOW_UAV_WRITES",
-    "D3D12_RENDER_PASS_FLAG_SUSPENDING_PASS",
-    "D3D12_RENDER_PASS_FLAG_RESUMING_PASS",
-    "ID3D12MetaCommand",
-    "D3D12_DISPATCH_RAYS_DESC",
-    "ID3D12GraphicsCommandList4",
-    "D3D12_SHADER_CACHE_MODE",
-    "D3D12_SHADER_CACHE_MODE_MEMORY",
-    "D3D12_SHADER_CACHE_MODE_DISK",
-    "D3D12_SHADER_CACHE_FLAGS",
-    "D3D12_SHADER_CACHE_FLAG_NONE",
-    "D3D12_SHADER_CACHE_FLAG_DRIVER_VERSIONED",
-    "D3D12_SHADER_CACHE_FLAG_USE_WORKING_DIR",
-    "D3D12_SHADER_CACHE_SESSION_DESC",
-    "ID3D12ShaderCacheSession",
-    "D3D12_SHADER_CACHE_KIND_FLAGS",
-    "D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CACHE_FOR_DRIVER",
-    "D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CONVERSIONS",
-    "D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_DRIVER_MANAGED",
-    "D3D12_SHADER_CACHE_KIND_FLAG_APPLICATION_MANAGED",
-    "D3D12_SHADER_CACHE_CONTROL_FLAGS",
-    "D3D12_SHADER_CACHE_CONTROL_FLAG_DISABLE",
-    "D3D12_SHADER_CACHE_CONTROL_FLAG_ENABLE",
-    "D3D12_SHADER_CACHE_CONTROL_FLAG_CLEAR",
-    "ID3D12Device9",
-    "ID3D12Tools",
-    "D3D12_SUBRESOURCE_DATA",
-    "D3D12_MEMCPY_DEST",
+    "ID3D12CommandSignature",
     "ID3D12Debug",
-    "D3D12_GPU_BASED_VALIDATION_FLAGS",
-    "D3D12_GPU_BASED_VALIDATION_FLAGS_NONE",
-    "D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING",
     "ID3D12Debug1",
     "ID3D12Debug2",
     "ID3D12Debug3",
     "ID3D12Debug4",
     "ID3D12Debug5",
-    "D3D12_RLDO_FLAGS",
-    "D3D12_RLDO_NONE",
-    "D3D12_RLDO_SUMMARY",
-    "D3D12_RLDO_DETAIL",
-    "D3D12_RLDO_IGNORE_INTERNAL",
-    "D3D12_DEBUG_DEVICE_PARAMETER_TYPE",
-    "D3D12_DEBUG_DEVICE_PARAMETER_FEATURE_FLAGS",
-    "D3D12_DEBUG_DEVICE_PARAMETER_GPU_BASED_VALIDATION_SETTINGS",
-    "D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR",
-    "D3D12_DEBUG_FEATURE",
-    "D3D12_DEBUG_FEATURE_NONE",
-    "D3D12_DEBUG_FEATURE_ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS",
-    "D3D12_DEBUG_FEATURE_CONSERVATIVE_RESOURCE_STATE_TRACKING",
-    "D3D12_DEBUG_FEATURE_DISABLE_VIRTUALIZED_BUNDLES_VALIDATION",
-    "D3D12_DEBUG_FEATURE_EMULATE_WINDOWS7",
-    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE",
-    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_NONE",
-    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_STATE_TRACKING_ONLY",
-    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_UNGUARDED_VALIDATION",
-    "D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_GUARDED_VALIDATION",
-    "NUM_D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODES",
-    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS",
-    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_NONE",
-    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS",
-    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS",
-    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS",
-    "D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS_VALID_MASK",
-    "D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS",
-    "D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR",
-    "ID3D12DebugDevice1",
-    "ID3D12DebugDevice",
-    "ID3D12DebugDevice2",
-    "ID3D12DebugCommandQueue",
-    "D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE",
-    "D3D12_DEBUG_COMMAND_LIST_PARAMETER_GPU_BASED_VALIDATION_SETTINGS",
-    "D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS",
-    "ID3D12DebugCommandList1",
     "ID3D12DebugCommandList",
+    "ID3D12DebugCommandList1",
     "ID3D12DebugCommandList2",
-    "ID3D12SharingContract",
-    "D3D12_MESSAGE_CATEGORY",
-    "D3D12_MESSAGE_CATEGORY_APPLICATION_DEFINED",
-    "D3D12_MESSAGE_CATEGORY_MISCELLANEOUS",
-    "D3D12_MESSAGE_CATEGORY_INITIALIZATION",
-    "D3D12_MESSAGE_CATEGORY_CLEANUP",
-    "D3D12_MESSAGE_CATEGORY_COMPILATION",
-    "D3D12_MESSAGE_CATEGORY_STATE_CREATION",
-    "D3D12_MESSAGE_CATEGORY_STATE_SETTING",
-    "D3D12_MESSAGE_CATEGORY_STATE_GETTING",
-    "D3D12_MESSAGE_CATEGORY_RESOURCE_MANIPULATION",
-    "D3D12_MESSAGE_CATEGORY_EXECUTION",
-    "D3D12_MESSAGE_CATEGORY_SHADER",
-    "D3D12_MESSAGE_SEVERITY",
-    "D3D12_MESSAGE_SEVERITY_CORRUPTION",
-    "D3D12_MESSAGE_SEVERITY_ERROR",
-    "D3D12_MESSAGE_SEVERITY_WARNING",
-    "D3D12_MESSAGE_SEVERITY_INFO",
-    "D3D12_MESSAGE_SEVERITY_MESSAGE",
-    "D3D12_MESSAGE_ID",
-    "D3D12_MESSAGE_ID_UNKNOWN",
-    "D3D12_MESSAGE_ID_STRING_FROM_APPLICATION",
-    "D3D12_MESSAGE_ID_CORRUPTED_THIS",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER1",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER2",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER3",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER4",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER5",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER6",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER7",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER8",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER9",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER10",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER11",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER12",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER13",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER14",
-    "D3D12_MESSAGE_ID_CORRUPTED_PARAMETER15",
-    "D3D12_MESSAGE_ID_CORRUPTED_MULTITHREADING",
-    "D3D12_MESSAGE_ID_MESSAGE_REPORTING_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_GETPRIVATEDATA_MOREDATA",
-    "D3D12_MESSAGE_ID_SETPRIVATEDATA_INVALIDFREEDATA",
-    "D3D12_MESSAGE_ID_SETPRIVATEDATA_CHANGINGPARAMS",
-    "D3D12_MESSAGE_ID_SETPRIVATEDATA_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_UNRECOGNIZEDFORMAT",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDDESC",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDVIDEOPLANESLICE",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDPLANESLICE",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDDIMENSIONS",
-    "D3D12_MESSAGE_ID_CREATESHADERRESOURCEVIEW_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_UNRECOGNIZEDFORMAT",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_UNSUPPORTEDFORMAT",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDDESC",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDVIDEOPLANESLICE",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDPLANESLICE",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDDIMENSIONS",
-    "D3D12_MESSAGE_ID_CREATERENDERTARGETVIEW_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_UNRECOGNIZEDFORMAT",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDDESC",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDDIMENSIONS",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_TOOMANYELEMENTS",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INCOMPATIBLEFORMAT",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDSLOT",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDINPUTSLOTCLASS",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_STEPRATESLOTCLASSMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDSLOTCLASSCHANGE",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDSTEPRATECHANGE",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_INVALIDALIGNMENT",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_DUPLICATESEMANTIC",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_UNPARSEABLEINPUTSIGNATURE",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_NULLSEMANTIC",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_MISSINGELEMENT",
-    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDNUMENTRIES",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_OUTPUTSTREAMSTRIDEUNUSED",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_OUTPUTSLOT0EXPECTED",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDOUTPUTSLOT",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_ONLYONEELEMENTPERSLOT",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDCOMPONENTCOUNT",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSTARTCOMPONENTANDCOMPONENTCOUNT",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDGAPDEFINITION",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_REPEATEDOUTPUT",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDOUTPUTSTREAMSTRIDE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_MISSINGSEMANTIC",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_MASKMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_CANTHAVEONLYGAPS",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_DECLTOOCOMPLEX",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_MISSINGOUTPUTSIGNATURE",
-    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDFILLMODE",
-    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDCULLMODE",
-    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDDEPTHBIASCLAMP",
-    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDSLOPESCALEDDEPTHBIAS",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDDEPTHWRITEMASK",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDDEPTHFUNC",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILFAILOP",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILZFAILOP",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILPASSOP",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDFRONTFACESTENCILFUNC",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILFAILOP",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILZFAILOP",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILPASSOP",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_INVALIDBACKFACESTENCILFUNC",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDSRCBLEND",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDDESTBLEND",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDBLENDOP",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDSRCBLENDALPHA",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDDESTBLENDALPHA",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDBLENDOPALPHA",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDRENDERTARGETWRITEMASK",
-    "D3D12_MESSAGE_ID_CLEARDEPTHSTENCILVIEW_INVALID",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_ROOT_SIGNATURE_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_BUFFER_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_BUFFER_STRIDE_TOO_SMALL",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_BUFFER_TOO_SMALL",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_BUFFER_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_BUFFER_FORMAT_INVALID",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_BUFFER_TOO_SMALL",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INVALID_PRIMITIVETOPOLOGY",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_VERTEX_STRIDE_UNALIGNED",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_INDEX_OFFSET_UNALIGNED",
-    "D3D12_MESSAGE_ID_DEVICE_REMOVAL_PROCESS_AT_FAULT",
-    "D3D12_MESSAGE_ID_DEVICE_REMOVAL_PROCESS_POSSIBLY_AT_FAULT",
-    "D3D12_MESSAGE_ID_DEVICE_REMOVAL_PROCESS_NOT_AT_FAULT",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_TRAILING_DIGIT_IN_SEMANTIC",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_TRAILING_DIGIT_IN_SEMANTIC",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_TYPE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEINPUTLAYOUT_EMPTY_LAYOUT",
-    "D3D12_MESSAGE_ID_LIVE_OBJECT_SUMMARY",
-    "D3D12_MESSAGE_ID_LIVE_DEVICE",
-    "D3D12_MESSAGE_ID_LIVE_SWAPCHAIN",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILVIEW_INVALIDFLAGS",
-    "D3D12_MESSAGE_ID_CREATEVERTEXSHADER_INVALIDCLASSLINKAGE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADER_INVALIDCLASSLINKAGE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSTREAMTORASTERIZER",
-    "D3D12_MESSAGE_ID_CREATEPIXELSHADER_INVALIDCLASSLINKAGE",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDSTREAM",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_UNEXPECTEDENTRIES",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_UNEXPECTEDSTRIDES",
-    "D3D12_MESSAGE_ID_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_INVALIDNUMSTRIDES",
-    "D3D12_MESSAGE_ID_CREATEHULLSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEHULLSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEHULLSHADER_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_CREATEHULLSHADER_INVALIDCLASSLINKAGE",
-    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_CREATEDOMAINSHADER_INVALIDCLASSLINKAGE",
-    "D3D12_MESSAGE_ID_RESOURCE_UNMAP_NOTMAPPED",
-    "D3D12_MESSAGE_ID_DEVICE_CHECKFEATURESUPPORT_MISMATCHED_DATA_SIZE",
-    "D3D12_MESSAGE_ID_CREATECOMPUTESHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATECOMPUTESHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATECOMPUTESHADER_INVALIDCLASSLINKAGE",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEVERTEXSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEHULLSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEDOMAINSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEPIXELSHADER_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATECOMPUTESHADER_DOUBLEFLOATOPSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDDESC",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDVIDEOPLANESLICE",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDPLANESLICE",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDDIMENSIONS",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_UNRECOGNIZEDFORMAT",
-    "D3D12_MESSAGE_ID_CREATEUNORDEREDACCESSVIEW_INVALIDFLAGS",
-    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALIDFORCEDSAMPLECOUNT",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_INVALIDLOGICOPS",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEVERTEXSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEHULLSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEDOMAINSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEPIXELSHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATECOMPUTESHADER_DOUBLEEXTENSIONSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEVERTEXSHADER_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEHULLSHADER_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEDOMAINSHADER_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADER_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEGEOMETRYSHADERWITHSTREAMOUTPUT_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATEPIXELSHADER_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CREATECOMPUTESHADER_UAVSNOTSUPPORTED",
-    "D3D12_MESSAGE_ID_DEVICE_CLEARVIEW_INVALIDSOURCERECT",
-    "D3D12_MESSAGE_ID_DEVICE_CLEARVIEW_EMPTYRECT",
-    "D3D12_MESSAGE_ID_UPDATETILEMAPPINGS_INVALID_PARAMETER",
-    "D3D12_MESSAGE_ID_COPYTILEMAPPINGS_INVALID_PARAMETER",
-    "D3D12_MESSAGE_ID_CREATEDEVICE_INVALIDARGS",
-    "D3D12_MESSAGE_ID_CREATEDEVICE_WARNING",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_TYPE",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_NULL_POINTER",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_SUBRESOURCE",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_RESERVED_BITS",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISSING_BIND_FLAGS",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_MISC_FLAGS",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MATCHING_STATES",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_COMBINATION",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_BEFORE_AFTER_MISMATCH",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_RESOURCE",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_SAMPLE_COUNT",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_COMBINED_FLAGS",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_FLAGS_FOR_FORMAT",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_SPLIT_BARRIER",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_UNMATCHED_END",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_UNMATCHED_BEGIN",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_FLAG",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_COMMAND_LIST_TYPE",
-    "D3D12_MESSAGE_ID_INVALID_SUBRESOURCE_STATE",
-    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_CONTENTION",
-    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_RESET",
-    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_RESET_BUNDLE",
-    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_CANNOT_RESET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_OPEN",
-    "D3D12_MESSAGE_ID_INVALID_BUNDLE_API",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_CLOSED",
-    "D3D12_MESSAGE_ID_WRONG_COMMAND_ALLOCATOR_TYPE",
-    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_SYNC",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_SYNC",
-    "D3D12_MESSAGE_ID_SET_DESCRIPTOR_HEAP_INVALID",
-    "D3D12_MESSAGE_ID_CREATE_COMMANDQUEUE",
-    "D3D12_MESSAGE_ID_CREATE_COMMANDALLOCATOR",
-    "D3D12_MESSAGE_ID_CREATE_PIPELINESTATE",
-    "D3D12_MESSAGE_ID_CREATE_COMMANDLIST12",
-    "D3D12_MESSAGE_ID_CREATE_RESOURCE",
-    "D3D12_MESSAGE_ID_CREATE_DESCRIPTORHEAP",
-    "D3D12_MESSAGE_ID_CREATE_ROOTSIGNATURE",
-    "D3D12_MESSAGE_ID_CREATE_LIBRARY",
-    "D3D12_MESSAGE_ID_CREATE_HEAP",
-    "D3D12_MESSAGE_ID_CREATE_MONITOREDFENCE",
-    "D3D12_MESSAGE_ID_CREATE_QUERYHEAP",
-    "D3D12_MESSAGE_ID_CREATE_COMMANDSIGNATURE",
-    "D3D12_MESSAGE_ID_LIVE_COMMANDQUEUE",
-    "D3D12_MESSAGE_ID_LIVE_COMMANDALLOCATOR",
-    "D3D12_MESSAGE_ID_LIVE_PIPELINESTATE",
-    "D3D12_MESSAGE_ID_LIVE_COMMANDLIST12",
-    "D3D12_MESSAGE_ID_LIVE_RESOURCE",
-    "D3D12_MESSAGE_ID_LIVE_DESCRIPTORHEAP",
-    "D3D12_MESSAGE_ID_LIVE_ROOTSIGNATURE",
-    "D3D12_MESSAGE_ID_LIVE_LIBRARY",
-    "D3D12_MESSAGE_ID_LIVE_HEAP",
-    "D3D12_MESSAGE_ID_LIVE_MONITOREDFENCE",
-    "D3D12_MESSAGE_ID_LIVE_QUERYHEAP",
-    "D3D12_MESSAGE_ID_LIVE_COMMANDSIGNATURE",
-    "D3D12_MESSAGE_ID_DESTROY_COMMANDQUEUE",
-    "D3D12_MESSAGE_ID_DESTROY_COMMANDALLOCATOR",
-    "D3D12_MESSAGE_ID_DESTROY_PIPELINESTATE",
-    "D3D12_MESSAGE_ID_DESTROY_COMMANDLIST12",
-    "D3D12_MESSAGE_ID_DESTROY_RESOURCE",
-    "D3D12_MESSAGE_ID_DESTROY_DESCRIPTORHEAP",
-    "D3D12_MESSAGE_ID_DESTROY_ROOTSIGNATURE",
-    "D3D12_MESSAGE_ID_DESTROY_LIBRARY",
-    "D3D12_MESSAGE_ID_DESTROY_HEAP",
-    "D3D12_MESSAGE_ID_DESTROY_MONITOREDFENCE",
-    "D3D12_MESSAGE_ID_DESTROY_QUERYHEAP",
-    "D3D12_MESSAGE_ID_DESTROY_COMMANDSIGNATURE",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDDIMENSIONS",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDMISCFLAGS",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDARG_RETURN",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_OUTOFMEMORY_RETURN",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDDESC",
-    "D3D12_MESSAGE_ID_POSSIBLY_INVALID_SUBRESOURCE_STATE",
-    "D3D12_MESSAGE_ID_INVALID_USE_OF_NON_RESIDENT_RESOURCE",
-    "D3D12_MESSAGE_ID_POSSIBLE_INVALID_USE_OF_NON_RESIDENT_RESOURCE",
-    "D3D12_MESSAGE_ID_BUNDLE_PIPELINE_STATE_MISMATCH",
-    "D3D12_MESSAGE_ID_PRIMITIVE_TOPOLOGY_MISMATCH_PIPELINE_STATE",
-    "D3D12_MESSAGE_ID_RENDER_TARGET_FORMAT_MISMATCH_PIPELINE_STATE",
-    "D3D12_MESSAGE_ID_RENDER_TARGET_SAMPLE_DESC_MISMATCH_PIPELINE_STATE",
-    "D3D12_MESSAGE_ID_DEPTH_STENCIL_FORMAT_MISMATCH_PIPELINE_STATE",
-    "D3D12_MESSAGE_ID_DEPTH_STENCIL_SAMPLE_DESC_MISMATCH_PIPELINE_STATE",
-    "D3D12_MESSAGE_ID_CREATESHADER_INVALIDBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEHEAP_NULLDESC",
-    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDSIZE",
-    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDHEAPTYPE",
-    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDCPUPAGEPROPERTIES",
-    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDMEMORYPOOL",
-    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDPROPERTIES",
-    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDALIGNMENT",
-    "D3D12_MESSAGE_ID_CREATEHEAP_UNRECOGNIZEDMISCFLAGS",
-    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDMISCFLAGS",
-    "D3D12_MESSAGE_ID_CREATEHEAP_INVALIDARG_RETURN",
-    "D3D12_MESSAGE_ID_CREATEHEAP_OUTOFMEMORY_RETURN",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_NULLHEAPPROPERTIES",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDHEAPTYPE",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDCPUPAGEPROPERTIES",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDMEMORYPOOL",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDHEAPPROPERTIES",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_UNRECOGNIZEDHEAPMISCFLAGS",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDHEAPMISCFLAGS",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDARG_RETURN",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_OUTOFMEMORY_RETURN",
-    "D3D12_MESSAGE_ID_GETCUSTOMHEAPPROPERTIES_UNRECOGNIZEDHEAPTYPE",
-    "D3D12_MESSAGE_ID_GETCUSTOMHEAPPROPERTIES_INVALIDHEAPTYPE",
-    "D3D12_MESSAGE_ID_CREATE_DESCRIPTOR_HEAP_INVALID_DESC",
-    "D3D12_MESSAGE_ID_INVALID_DESCRIPTOR_HANDLE",
-    "D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_INVALID_CONSERVATIVERASTERMODE",
-    "D3D12_MESSAGE_ID_CREATE_CONSTANT_BUFFER_VIEW_INVALID_RESOURCE",
-    "D3D12_MESSAGE_ID_CREATE_CONSTANT_BUFFER_VIEW_INVALID_DESC",
-    "D3D12_MESSAGE_ID_CREATE_UNORDEREDACCESS_VIEW_INVALID_COUNTER_USAGE",
-    "D3D12_MESSAGE_ID_COPY_DESCRIPTORS_INVALID_RANGES",
-    "D3D12_MESSAGE_ID_COPY_DESCRIPTORS_WRITE_ONLY_DESCRIPTOR",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_RTV_FORMAT_NOT_UNKNOWN",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_RENDER_TARGET_COUNT",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_VERTEX_SHADER_NOT_SET",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INPUTLAYOUT_NOT_SET",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_HS_DS_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_REGISTERINDEX",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_COMPONENTTYPE",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_REGISTERMASK",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_SYSTEMVALUE",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_NEVERWRITTEN_ALWAYSREADS",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_MINPRECISION",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_LINKAGE_SEMANTICNAME_NOT_FOUND",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_XOR_DS_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HULL_SHADER_INPUT_TOPOLOGY_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_DS_CONTROL_POINT_COUNT_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_DS_TESSELLATOR_DOMAIN_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_USE_OF_CENTER_MULTISAMPLE_PATTERN",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_USE_OF_FORCED_SAMPLE_COUNT",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_PRIMITIVETOPOLOGY",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_SYSTEMVALUE",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_OM_DUAL_SOURCE_BLENDING_CAN_ONLY_HAVE_RENDER_TARGET_0",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_OM_RENDER_TARGET_DOES_NOT_SUPPORT_BLENDING",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_PS_OUTPUT_TYPE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_OM_RENDER_TARGET_DOES_NOT_SUPPORT_LOGIC_OPS",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_RENDERTARGETVIEW_NOT_SET",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_DEPTHSTENCILVIEW_NOT_SET",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_GS_INPUT_PRIMITIVE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_POSITION_NOT_PRESENT",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MISSING_ROOT_SIGNATURE_FLAGS",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_INDEX_BUFFER_PROPERTIES",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INVALID_SAMPLE_DESC",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_HS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_DS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_VS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_GS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_PS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MISSING_ROOT_SIGNATURE",
-    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_OPEN_BUNDLE",
-    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_DESCRIPTOR_HEAP_MISMATCH",
-    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_TYPE",
-    "D3D12_MESSAGE_ID_DRAW_EMPTY_SCISSOR_RECTANGLE",
-    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_BLOB_NOT_FOUND",
-    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_DESERIALIZE_FAILED",
-    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_INVALID_CONFIGURATION",
-    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_NOT_SUPPORTED_ON_DEVICE",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_NULLRESOURCEPROPERTIES",
-    "D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_NULLHEAP",
-    "D3D12_MESSAGE_ID_GETRESOURCEALLOCATIONINFO_INVALIDRDESCS",
-    "D3D12_MESSAGE_ID_MAKERESIDENT_NULLOBJECTARRAY",
-    "D3D12_MESSAGE_ID_EVICT_NULLOBJECTARRAY",
-    "D3D12_MESSAGE_ID_SET_DESCRIPTOR_TABLE_INVALID",
-    "D3D12_MESSAGE_ID_SET_ROOT_CONSTANT_INVALID",
-    "D3D12_MESSAGE_ID_SET_ROOT_CONSTANT_BUFFER_VIEW_INVALID",
-    "D3D12_MESSAGE_ID_SET_ROOT_SHADER_RESOURCE_VIEW_INVALID",
-    "D3D12_MESSAGE_ID_SET_ROOT_UNORDERED_ACCESS_VIEW_INVALID",
-    "D3D12_MESSAGE_ID_SET_VERTEX_BUFFERS_INVALID_DESC",
-    "D3D12_MESSAGE_ID_SET_INDEX_BUFFER_INVALID_DESC",
-    "D3D12_MESSAGE_ID_SET_STREAM_OUTPUT_BUFFERS_INVALID_DESC",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDDIMENSIONALITY",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDLAYOUT",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDDIMENSIONALITY",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDALIGNMENT",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDMIPLEVELS",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDSAMPLEDESC",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDLAYOUT",
-    "D3D12_MESSAGE_ID_SET_INDEX_BUFFER_INVALID",
-    "D3D12_MESSAGE_ID_SET_VERTEX_BUFFERS_INVALID",
-    "D3D12_MESSAGE_ID_SET_STREAM_OUTPUT_BUFFERS_INVALID",
-    "D3D12_MESSAGE_ID_SET_RENDER_TARGETS_INVALID",
-    "D3D12_MESSAGE_ID_CREATEQUERY_HEAP_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_BEGIN_END_QUERY_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_CLOSE_COMMAND_LIST_OPEN_QUERY",
-    "D3D12_MESSAGE_ID_RESOLVE_QUERY_DATA_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_SET_PREDICATION_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_TIMESTAMPS_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDFORMAT",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_INVALIDSUBRESOURCERANGE",
-    "D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_INVALIDBASEOFFSET",
-    "D3D12_MESSAGE_ID_GETCOPYABLELAYOUT_INVALIDSUBRESOURCERANGE",
-    "D3D12_MESSAGE_ID_GETCOPYABLELAYOUT_INVALIDBASEOFFSET",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_INVALID_HEAP",
-    "D3D12_MESSAGE_ID_CREATE_SAMPLER_INVALID",
-    "D3D12_MESSAGE_ID_CREATECOMMANDSIGNATURE_INVALID",
-    "D3D12_MESSAGE_ID_EXECUTE_INDIRECT_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_GETGPUVIRTUALADDRESS_INVALID_RESOURCE_DIMENSION",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDCLEARVALUE",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_UNRECOGNIZEDCLEARVALUEFORMAT",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_INVALIDCLEARVALUEFORMAT",
-    "D3D12_MESSAGE_ID_CREATERESOURCE_CLEARVALUEDENORMFLUSH",
-    "D3D12_MESSAGE_ID_CLEARRENDERTARGETVIEW_MISMATCHINGCLEARVALUE",
-    "D3D12_MESSAGE_ID_CLEARDEPTHSTENCILVIEW_MISMATCHINGCLEARVALUE",
-    "D3D12_MESSAGE_ID_MAP_INVALIDHEAP",
-    "D3D12_MESSAGE_ID_UNMAP_INVALIDHEAP",
-    "D3D12_MESSAGE_ID_MAP_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_UNMAP_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_MAP_INVALIDSUBRESOURCE",
-    "D3D12_MESSAGE_ID_UNMAP_INVALIDSUBRESOURCE",
-    "D3D12_MESSAGE_ID_MAP_INVALIDRANGE",
-    "D3D12_MESSAGE_ID_UNMAP_INVALIDRANGE",
-    "D3D12_MESSAGE_ID_MAP_INVALIDDATAPOINTER",
-    "D3D12_MESSAGE_ID_MAP_INVALIDARG_RETURN",
-    "D3D12_MESSAGE_ID_MAP_OUTOFMEMORY_RETURN",
-    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_BUNDLENOTSUPPORTED",
-    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_COMMANDLISTMISMATCH",
-    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_OPENCOMMANDLIST",
-    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_FAILEDCOMMANDLIST",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_NULLDST",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALIDDSTRESOURCEDIMENSION",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_DSTRANGEOUTOFBOUNDS",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_NULLSRC",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALIDSRCRESOURCEDIMENSION",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_SRCRANGEOUTOFBOUNDS",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALIDCOPYFLAGS",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_NULLDST",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDDSTTYPE",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTRESOURCEDIMENSION",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTRESOURCE",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTSUBRESOURCE",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTOFFSET",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDDSTFORMAT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTFORMAT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTDIMENSIONS",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTROWPITCH",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTPLACEMENT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTDSPLACEDFOOTPRINTFORMAT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_DSTREGIONOUTOFBOUNDS",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_NULLSRC",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDSRCTYPE",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCRESOURCEDIMENSION",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCRESOURCE",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCSUBRESOURCE",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCOFFSET",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_UNRECOGNIZEDSRCFORMAT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCFORMAT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCDIMENSIONS",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCROWPITCH",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCPLACEMENT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCDSPLACEDFOOTPRINTFORMAT",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_SRCREGIONOUTOFBOUNDS",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDDSTCOORDINATES",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDSRCBOX",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_FORMATMISMATCH",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_EMPTYBOX",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_INVALIDCOPYFLAGS",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALID_SUBRESOURCE_INDEX",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALID_FORMAT",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_RESOURCE_MISMATCH",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALID_SAMPLE_COUNT",
-    "D3D12_MESSAGE_ID_CREATECOMPUTEPIPELINESTATE_INVALID_SHADER",
-    "D3D12_MESSAGE_ID_CREATECOMPUTEPIPELINESTATE_CS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATECOMPUTEPIPELINESTATE_MISSING_ROOT_SIGNATURE",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_INVALIDCACHEDBLOB",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBADAPTERMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBDRIVERVERSIONMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBDESCMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CACHEDBLOBIGNORED",
-    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDHEAP",
-    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDBOX",
-    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_INVALIDSUBRESOURCE",
-    "D3D12_MESSAGE_ID_WRITETOSUBRESOURCE_EMPTYBOX",
-    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDHEAP",
-    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDBOX",
-    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_INVALIDSUBRESOURCE",
-    "D3D12_MESSAGE_ID_READFROMSUBRESOURCE_EMPTYBOX",
-    "D3D12_MESSAGE_ID_TOO_MANY_NODES_SPECIFIED",
-    "D3D12_MESSAGE_ID_INVALID_NODE_INDEX",
-    "D3D12_MESSAGE_ID_GETHEAPPROPERTIES_INVALIDRESOURCE",
-    "D3D12_MESSAGE_ID_NODE_MASK_MISMATCH",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_MULTIPLE_SWAPCHAIN_BUFFER_REFERENCES",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_TOO_MANY_SWAPCHAIN_REFERENCES",
-    "D3D12_MESSAGE_ID_COMMAND_QUEUE_TOO_MANY_SWAPCHAIN_REFERENCES",
-    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_WRONGSWAPCHAINBUFFERREFERENCE",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_SETRENDERTARGETS_INVALIDNUMRENDERTARGETS",
-    "D3D12_MESSAGE_ID_CREATE_QUEUE_INVALID_TYPE",
-    "D3D12_MESSAGE_ID_CREATE_QUEUE_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_CREATESHAREDRESOURCE_INVALIDFLAGS",
-    "D3D12_MESSAGE_ID_CREATESHAREDRESOURCE_INVALIDFORMAT",
-    "D3D12_MESSAGE_ID_CREATESHAREDHEAP_INVALIDFLAGS",
-    "D3D12_MESSAGE_ID_REFLECTSHAREDPROPERTIES_UNRECOGNIZEDPROPERTIES",
-    "D3D12_MESSAGE_ID_REFLECTSHAREDPROPERTIES_INVALIDSIZE",
-    "D3D12_MESSAGE_ID_REFLECTSHAREDPROPERTIES_INVALIDOBJECT",
-    "D3D12_MESSAGE_ID_KEYEDMUTEX_INVALIDOBJECT",
-    "D3D12_MESSAGE_ID_KEYEDMUTEX_INVALIDKEY",
-    "D3D12_MESSAGE_ID_KEYEDMUTEX_WRONGSTATE",
-    "D3D12_MESSAGE_ID_CREATE_QUEUE_INVALID_PRIORITY",
-    "D3D12_MESSAGE_ID_OBJECT_DELETED_WHILE_STILL_IN_USE",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_HEAP_ADDRESS_RANGE_HAS_NO_RESOURCE",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_RENDER_TARGET_DELETED",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_ALL_RENDER_TARGETS_HAVE_UNKNOWN_FORMAT",
-    "D3D12_MESSAGE_ID_HEAP_ADDRESS_RANGE_INTERSECTS_MULTIPLE_BUFFERS",
-    "D3D12_MESSAGE_ID_EXECUTECOMMANDLISTS_GPU_WRITTEN_READBACK_RESOURCE_MAPPED",
-    "D3D12_MESSAGE_ID_UNMAP_RANGE_NOT_EMPTY",
-    "D3D12_MESSAGE_ID_MAP_INVALID_NULLRANGE",
-    "D3D12_MESSAGE_ID_UNMAP_INVALID_NULLRANGE",
-    "D3D12_MESSAGE_ID_NO_GRAPHICS_API_SUPPORT",
-    "D3D12_MESSAGE_ID_NO_COMPUTE_API_SUPPORT",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_RESOURCE_FLAGS_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_ROOT_ARGUMENT_UNINITIALIZED",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_HEAP_INDEX_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_TABLE_REGISTER_INDEX_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_UNINITIALIZED",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_DESCRIPTOR_TYPE_MISMATCH",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_SRV_RESOURCE_DIMENSION_MISMATCH",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_UAV_RESOURCE_DIMENSION_MISMATCH",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_INCOMPATIBLE_RESOURCE_STATE",
-    "D3D12_MESSAGE_ID_COPYRESOURCE_NULLDST",
-    "D3D12_MESSAGE_ID_COPYRESOURCE_INVALIDDSTRESOURCE",
-    "D3D12_MESSAGE_ID_COPYRESOURCE_NULLSRC",
-    "D3D12_MESSAGE_ID_COPYRESOURCE_INVALIDSRCRESOURCE",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_NULLDST",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALIDDSTRESOURCE",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_NULLSRC",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_INVALIDSRCRESOURCE",
-    "D3D12_MESSAGE_ID_PIPELINE_STATE_TYPE_MISMATCH",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DISPATCH_ROOT_SIGNATURE_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DISPATCH_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_ZERO_BARRIERS",
-    "D3D12_MESSAGE_ID_BEGIN_END_EVENT_MISMATCH",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_POSSIBLE_BEFORE_AFTER_MISMATCH",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_BEGIN_END",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_INVALID_RESOURCE",
-    "D3D12_MESSAGE_ID_USE_OF_ZERO_REFCOUNT_OBJECT",
-    "D3D12_MESSAGE_ID_OBJECT_EVICTED_WHILE_STILL_IN_USE",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_ROOT_DESCRIPTOR_ACCESS_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_INVALIDLIBRARYBLOB",
-    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_DRIVERVERSIONMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_ADAPTERVERSIONMISMATCH",
-    "D3D12_MESSAGE_ID_CREATEPIPELINELIBRARY_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_CREATE_PIPELINELIBRARY",
-    "D3D12_MESSAGE_ID_LIVE_PIPELINELIBRARY",
-    "D3D12_MESSAGE_ID_DESTROY_PIPELINELIBRARY",
-    "D3D12_MESSAGE_ID_STOREPIPELINE_NONAME",
-    "D3D12_MESSAGE_ID_STOREPIPELINE_DUPLICATENAME",
-    "D3D12_MESSAGE_ID_LOADPIPELINE_NAMENOTFOUND",
-    "D3D12_MESSAGE_ID_LOADPIPELINE_INVALIDDESC",
-    "D3D12_MESSAGE_ID_PIPELINELIBRARY_SERIALIZE_NOTENOUGHMEMORY",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_PS_OUTPUT_RT_OUTPUT_MISMATCH",
-    "D3D12_MESSAGE_ID_SETEVENTONMULTIPLEFENCECOMPLETION_INVALIDFLAGS",
-    "D3D12_MESSAGE_ID_CREATE_QUEUE_VIDEO_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_ALLOCATOR_VIDEO_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_CREATEQUERY_HEAP_VIDEO_DECODE_STATISTICS_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_CREATE_VIDEODECODECOMMANDLIST",
-    "D3D12_MESSAGE_ID_CREATE_VIDEODECODER",
-    "D3D12_MESSAGE_ID_CREATE_VIDEODECODESTREAM",
-    "D3D12_MESSAGE_ID_LIVE_VIDEODECODECOMMANDLIST",
-    "D3D12_MESSAGE_ID_LIVE_VIDEODECODER",
-    "D3D12_MESSAGE_ID_LIVE_VIDEODECODESTREAM",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODECOMMANDLIST",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODER",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODESTREAM",
-    "D3D12_MESSAGE_ID_DECODE_FRAME_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_DEPRECATED_API",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_COMMAND_LIST_TYPE",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_DESCRIPTOR_TABLE_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_ROOT_CONSTANT_BUFFER_VIEW_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_ROOT_SHADER_RESOURCE_VIEW_NOT_SET",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_ROOT_UNORDERED_ACCESS_VIEW_NOT_SET",
-    "D3D12_MESSAGE_ID_DISCARD_INVALID_SUBRESOURCE_RANGE",
-    "D3D12_MESSAGE_ID_DISCARD_ONE_SUBRESOURCE_FOR_MIPS_WITH_RECTS",
-    "D3D12_MESSAGE_ID_DISCARD_NO_RECTS_FOR_NON_TEXTURE2D",
-    "D3D12_MESSAGE_ID_COPY_ON_SAME_SUBRESOURCE",
-    "D3D12_MESSAGE_ID_SETRESIDENCYPRIORITY_INVALID_PAGEABLE",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_STATIC_DESCRIPTOR_INVALID_DESCRIPTOR_CHANGE",
-    "D3D12_MESSAGE_ID_DATA_STATIC_DESCRIPTOR_INVALID_DATA_CHANGE",
-    "D3D12_MESSAGE_ID_DATA_STATIC_WHILE_SET_AT_EXECUTE_DESCRIPTOR_INVALID_DATA_CHANGE",
-    "D3D12_MESSAGE_ID_EXECUTE_BUNDLE_STATIC_DESCRIPTOR_DATA_STATIC_NOT_SET",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_RESOURCE_ACCESS_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_SAMPLER_MODE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATE_FENCE_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_RESOURCE_BARRIER_DUPLICATE_SUBRESOURCE_TRANSITIONS",
-    "D3D12_MESSAGE_ID_SETRESIDENCYPRIORITY_INVALID_PRIORITY",
-    "D3D12_MESSAGE_ID_CREATE_DESCRIPTOR_HEAP_LARGE_NUM_DESCRIPTORS",
-    "D3D12_MESSAGE_ID_BEGIN_EVENT",
-    "D3D12_MESSAGE_ID_END_EVENT",
-    "D3D12_MESSAGE_ID_CREATEDEVICE_DEBUG_LAYER_STARTUP_OPTIONS",
-    "D3D12_MESSAGE_ID_CREATEDEPTHSTENCILSTATE_DEPTHBOUNDSTEST_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_DUPLICATE_SUBOBJECT",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_UNKNOWN_SUBOBJECT",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_ZERO_SIZE_STREAM",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_INVALID_STREAM",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_CANNOT_DEDUCE_TYPE",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_STATIC_DESCRIPTOR_RESOURCE_DIMENSION_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_QUEUE_INSUFFICIENT_PRIVILEGE_FOR_GLOBAL_REALTIME",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_QUEUE_INSUFFICIENT_HARDWARE_SUPPORT_FOR_GLOBAL_REALTIME",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_ARCHITECTURE",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_DST",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DST_RESOURCE_DIMENSION",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_DST_RANGE_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_SRC",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_SRC_RESOURCE_DIMENSION",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_SRC_RANGE_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_OFFSET_ALIGNMENT",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_DEPENDENT_RESOURCES",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_NULL_DEPENDENT_SUBRESOURCE_RANGES",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DEPENDENT_RESOURCE",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DEPENDENT_SUBRESOURCE_RANGE",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_DEPENDENT_SUBRESOURCE_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_DEPENDENT_RANGE_OUT_OF_BOUNDS",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_ZERO_DEPENDENCIES",
-    "D3D12_MESSAGE_ID_DEVICE_CREATE_SHARED_HANDLE_INVALIDARG",
-    "D3D12_MESSAGE_ID_DESCRIPTOR_HANDLE_WITH_INVALID_RESOURCE",
-    "D3D12_MESSAGE_ID_SETDEPTHBOUNDS_INVALIDARGS",
-    "D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_RESOURCE_STATE_IMPRECISE",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_PIPELINE_STATE_NOT_SET",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_SHADER_MODEL_MISMATCH",
-    "D3D12_MESSAGE_ID_OBJECT_ACCESSED_WHILE_STILL_IN_USE",
-    "D3D12_MESSAGE_ID_PROGRAMMABLE_MSAA_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_SETSAMPLEPOSITIONS_INVALIDARGS",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCEREGION_INVALID_RECT",
-    "D3D12_MESSAGE_ID_CREATE_VIDEODECODECOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSCOMMANDLIST",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSCOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_LIVE_VIDEODECODECOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSCOMMANDLIST",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSCOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODECOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSCOMMANDLIST",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSCOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSOR",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOPROCESSSTREAM",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSOR",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOPROCESSSTREAM",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSOR",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOPROCESSSTREAM",
-    "D3D12_MESSAGE_ID_PROCESS_FRAME_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_COPY_INVALIDLAYOUT",
-    "D3D12_MESSAGE_ID_CREATE_CRYPTO_SESSION",
-    "D3D12_MESSAGE_ID_CREATE_CRYPTO_SESSION_POLICY",
-    "D3D12_MESSAGE_ID_CREATE_PROTECTED_RESOURCE_SESSION",
-    "D3D12_MESSAGE_ID_LIVE_CRYPTO_SESSION",
-    "D3D12_MESSAGE_ID_LIVE_CRYPTO_SESSION_POLICY",
-    "D3D12_MESSAGE_ID_LIVE_PROTECTED_RESOURCE_SESSION",
-    "D3D12_MESSAGE_ID_DESTROY_CRYPTO_SESSION",
-    "D3D12_MESSAGE_ID_DESTROY_CRYPTO_SESSION_POLICY",
-    "D3D12_MESSAGE_ID_DESTROY_PROTECTED_RESOURCE_SESSION",
-    "D3D12_MESSAGE_ID_PROTECTED_RESOURCE_SESSION_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_FENCE_INVALIDOPERATION",
-    "D3D12_MESSAGE_ID_CREATEQUERY_HEAP_COPY_QUEUE_TIMESTAMPS_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_SAMPLEPOSITIONS_MISMATCH_DEFERRED",
-    "D3D12_MESSAGE_ID_SAMPLEPOSITIONS_MISMATCH_RECORDTIME_ASSUMEDFROMFIRSTUSE",
-    "D3D12_MESSAGE_ID_SAMPLEPOSITIONS_MISMATCH_RECORDTIME_ASSUMEDFROMCLEAR",
-    "D3D12_MESSAGE_ID_CREATE_VIDEODECODERHEAP",
-    "D3D12_MESSAGE_ID_LIVE_VIDEODECODERHEAP",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEODECODERHEAP",
-    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_INVALIDARG_RETURN",
-    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_OUTOFMEMORY_RETURN",
-    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_INVALIDADDRESS",
-    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_INVALIDHANDLE",
-    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_INVALID_DEST",
-    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_INVALID_MODE",
-    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_INVALID_ALIGNMENT",
-    "D3D12_MESSAGE_ID_WRITEBUFFERIMMEDIATE_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_SETVIEWINSTANCEMASK_INVALIDARGS",
-    "D3D12_MESSAGE_ID_VIEW_INSTANCING_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_VIEW_INSTANCING_INVALIDARGS",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_MISMATCH_DECODE_REFERENCE_ONLY_FLAG",
-    "D3D12_MESSAGE_ID_COPYRESOURCE_MISMATCH_DECODE_REFERENCE_ONLY_FLAG",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_DECODE_HEAP_CAPS_FAILURE",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_DECODE_HEAP_CAPS_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_VIDEO_DECODE_SUPPORT_INVALID_INPUT",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_DECODER_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_METADATA_ERROR",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_VIEW_INSTANCING_VERTEX_SIZE_EXCEEDED",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_RUNTIME_INTERNAL_ERROR",
-    "D3D12_MESSAGE_ID_NO_VIDEO_API_SUPPORT",
-    "D3D12_MESSAGE_ID_VIDEO_PROCESS_SUPPORT_INVALID_INPUT",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_PROCESSOR_CAPS_FAILURE",
-    "D3D12_MESSAGE_ID_VIDEO_PROCESS_SUPPORT_UNSUPPORTED_FORMAT",
-    "D3D12_MESSAGE_ID_VIDEO_DECODE_FRAME_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_ENQUEUE_MAKE_RESIDENT_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_OPENEXISTINGHEAP_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_VIDEO_PROCESS_FRAMES_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_VIDEO_DECODE_SUPPORT_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_CREATE_COMMANDRECORDER",
-    "D3D12_MESSAGE_ID_LIVE_COMMANDRECORDER",
-    "D3D12_MESSAGE_ID_DESTROY_COMMANDRECORDER",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_VIDEO_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_INVALID_SUPPORT_FLAGS",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_RECORDER_MORE_RECORDERS_THAN_LOGICAL_PROCESSORS",
-    "D3D12_MESSAGE_ID_CREATE_COMMANDPOOL",
-    "D3D12_MESSAGE_ID_LIVE_COMMANDPOOL",
-    "D3D12_MESSAGE_ID_DESTROY_COMMANDPOOL",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_POOL_INVALID_FLAGS",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_LIST_VIDEO_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_COMMAND_RECORDER_SUPPORT_FLAGS_MISMATCH",
-    "D3D12_MESSAGE_ID_COMMAND_RECORDER_CONTENTION",
-    "D3D12_MESSAGE_ID_COMMAND_RECORDER_USAGE_WITH_CREATECOMMANDLIST_COMMAND_LIST",
-    "D3D12_MESSAGE_ID_COMMAND_ALLOCATOR_USAGE_WITH_CREATECOMMANDLIST1_COMMAND_LIST",
-    "D3D12_MESSAGE_ID_CANNOT_EXECUTE_EMPTY_COMMAND_LIST",
-    "D3D12_MESSAGE_ID_CANNOT_RESET_COMMAND_POOL_WITH_OPEN_COMMAND_LISTS",
-    "D3D12_MESSAGE_ID_CANNOT_USE_COMMAND_RECORDER_WITHOUT_CURRENT_TARGET",
-    "D3D12_MESSAGE_ID_CANNOT_CHANGE_COMMAND_RECORDER_TARGET_WHILE_RECORDING",
-    "D3D12_MESSAGE_ID_COMMAND_POOL_SYNC",
-    "D3D12_MESSAGE_ID_EVICT_UNDERFLOW",
-    "D3D12_MESSAGE_ID_CREATE_META_COMMAND",
-    "D3D12_MESSAGE_ID_LIVE_META_COMMAND",
-    "D3D12_MESSAGE_ID_DESTROY_META_COMMAND",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALID_DST_RESOURCE",
-    "D3D12_MESSAGE_ID_COPYBUFFERREGION_INVALID_SRC_RESOURCE",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_DST_RESOURCE",
-    "D3D12_MESSAGE_ID_ATOMICCOPYBUFFER_INVALID_SRC_RESOURCE",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_NULL_BUFFER",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_NULL_RESOURCE_DESC",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_BUFFER_DIMENSION",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_BUFFER_FLAGS",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_BUFFER_OFFSET",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_RESOURCE_DIMENSION",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_INVALID_RESOURCE_FLAGS",
-    "D3D12_MESSAGE_ID_CREATEPLACEDRESOURCEONBUFFER_OUTOFMEMORY_RETURN",
-    "D3D12_MESSAGE_ID_CANNOT_CREATE_GRAPHICS_AND_VIDEO_COMMAND_RECORDER",
-    "D3D12_MESSAGE_ID_UPDATETILEMAPPINGS_POSSIBLY_MISMATCHING_PROPERTIES",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_LIST_INVALID_COMMAND_LIST_TYPE",
-    "D3D12_MESSAGE_ID_CLEARUNORDEREDACCESSVIEW_INCOMPATIBLE_WITH_STRUCTURED_BUFFERS",
-    "D3D12_MESSAGE_ID_COMPUTE_ONLY_DEVICE_OPERATION_UNSUPPORTED",
-    "D3D12_MESSAGE_ID_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INVALID",
-    "D3D12_MESSAGE_ID_EMIT_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_INVALID",
-    "D3D12_MESSAGE_ID_COPY_RAYTRACING_ACCELERATION_STRUCTURE_INVALID",
-    "D3D12_MESSAGE_ID_DISPATCH_RAYS_INVALID",
-    "D3D12_MESSAGE_ID_GET_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_INVALID",
-    "D3D12_MESSAGE_ID_CREATE_LIFETIMETRACKER",
-    "D3D12_MESSAGE_ID_LIVE_LIFETIMETRACKER",
-    "D3D12_MESSAGE_ID_DESTROY_LIFETIMETRACKER",
-    "D3D12_MESSAGE_ID_DESTROYOWNEDOBJECT_OBJECTNOTOWNED",
-    "D3D12_MESSAGE_ID_CREATE_TRACKEDWORKLOAD",
-    "D3D12_MESSAGE_ID_LIVE_TRACKEDWORKLOAD",
-    "D3D12_MESSAGE_ID_DESTROY_TRACKEDWORKLOAD",
-    "D3D12_MESSAGE_ID_RENDER_PASS_ERROR",
-    "D3D12_MESSAGE_ID_META_COMMAND_ID_INVALID",
-    "D3D12_MESSAGE_ID_META_COMMAND_UNSUPPORTED_PARAMS",
-    "D3D12_MESSAGE_ID_META_COMMAND_FAILED_ENUMERATION",
-    "D3D12_MESSAGE_ID_META_COMMAND_PARAMETER_SIZE_MISMATCH",
-    "D3D12_MESSAGE_ID_UNINITIALIZED_META_COMMAND",
-    "D3D12_MESSAGE_ID_META_COMMAND_INVALID_GPU_VIRTUAL_ADDRESS",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODECOMMANDLIST",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODECOMMANDLIST",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODECOMMANDLIST",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODECOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODECOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODECOMMANDQUEUE",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOMOTIONESTIMATOR",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOMOTIONESTIMATOR",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOMOTIONESTIMATOR",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOMOTIONVECTORHEAP",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOMOTIONVECTORHEAP",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOMOTIONVECTORHEAP",
-    "D3D12_MESSAGE_ID_MULTIPLE_TRACKED_WORKLOADS",
-    "D3D12_MESSAGE_ID_MULTIPLE_TRACKED_WORKLOAD_PAIRS",
-    "D3D12_MESSAGE_ID_OUT_OF_ORDER_TRACKED_WORKLOAD_PAIR",
-    "D3D12_MESSAGE_ID_CANNOT_ADD_TRACKED_WORKLOAD",
-    "D3D12_MESSAGE_ID_INCOMPLETE_TRACKED_WORKLOAD_PAIR",
-    "D3D12_MESSAGE_ID_CREATE_STATE_OBJECT_ERROR",
-    "D3D12_MESSAGE_ID_GET_SHADER_IDENTIFIER_ERROR",
-    "D3D12_MESSAGE_ID_GET_SHADER_STACK_SIZE_ERROR",
-    "D3D12_MESSAGE_ID_GET_PIPELINE_STACK_SIZE_ERROR",
-    "D3D12_MESSAGE_ID_SET_PIPELINE_STACK_SIZE_ERROR",
-    "D3D12_MESSAGE_ID_GET_SHADER_IDENTIFIER_SIZE_INVALID",
-    "D3D12_MESSAGE_ID_CHECK_DRIVER_MATCHING_IDENTIFIER_INVALID",
-    "D3D12_MESSAGE_ID_CHECK_DRIVER_MATCHING_IDENTIFIER_DRIVER_REPORTED_ISSUE",
-    "D3D12_MESSAGE_ID_RENDER_PASS_INVALID_RESOURCE_BARRIER",
-    "D3D12_MESSAGE_ID_RENDER_PASS_DISALLOWED_API_CALLED",
-    "D3D12_MESSAGE_ID_RENDER_PASS_CANNOT_NEST_RENDER_PASSES",
-    "D3D12_MESSAGE_ID_RENDER_PASS_CANNOT_END_WITHOUT_BEGIN",
-    "D3D12_MESSAGE_ID_RENDER_PASS_CANNOT_CLOSE_COMMAND_LIST",
-    "D3D12_MESSAGE_ID_RENDER_PASS_GPU_WORK_WHILE_SUSPENDED",
-    "D3D12_MESSAGE_ID_RENDER_PASS_MISMATCHING_SUSPEND_RESUME",
-    "D3D12_MESSAGE_ID_RENDER_PASS_NO_PRIOR_SUSPEND_WITHIN_EXECUTECOMMANDLISTS",
-    "D3D12_MESSAGE_ID_RENDER_PASS_NO_SUBSEQUENT_RESUME_WITHIN_EXECUTECOMMANDLISTS",
-    "D3D12_MESSAGE_ID_TRACKED_WORKLOAD_COMMAND_QUEUE_MISMATCH",
-    "D3D12_MESSAGE_ID_TRACKED_WORKLOAD_NOT_SUPPORTED",
-    "D3D12_MESSAGE_ID_RENDER_PASS_MISMATCHING_NO_ACCESS",
-    "D3D12_MESSAGE_ID_RENDER_PASS_UNSUPPORTED_RESOLVE",
-    "D3D12_MESSAGE_ID_CLEARUNORDEREDACCESSVIEW_INVALID_RESOURCE_PTR",
-    "D3D12_MESSAGE_ID_WINDOWS7_FENCE_OUTOFORDER_SIGNAL",
-    "D3D12_MESSAGE_ID_WINDOWS7_FENCE_OUTOFORDER_WAIT",
-    "D3D12_MESSAGE_ID_VIDEO_CREATE_MOTION_ESTIMATOR_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_VIDEO_CREATE_MOTION_VECTOR_HEAP_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_ESTIMATE_MOTION_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_RESOLVE_MOTION_VECTOR_HEAP_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_GETGPUVIRTUALADDRESS_INVALID_HEAP_TYPE",
-    "D3D12_MESSAGE_ID_SET_BACKGROUND_PROCESSING_MODE_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_CREATE_COMMAND_LIST_INVALID_COMMAND_LIST_TYPE_FOR_FEATURE_LEVEL",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOEXTENSIONCOMMAND",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOEXTENSIONCOMMAND",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOEXTENSIONCOMMAND",
-    "D3D12_MESSAGE_ID_INVALID_VIDEO_EXTENSION_COMMAND_ID",
-    "D3D12_MESSAGE_ID_VIDEO_EXTENSION_COMMAND_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_NOT_UNIQUE_IN_DXIL_LIBRARY",
-    "D3D12_MESSAGE_ID_VARIABLE_SHADING_RATE_NOT_ALLOWED_WITH_TIR",
-    "D3D12_MESSAGE_ID_GEOMETRY_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE",
-    "D3D12_MESSAGE_ID_RSSETSHADING_RATE_INVALID_SHADING_RATE",
-    "D3D12_MESSAGE_ID_RSSETSHADING_RATE_SHADING_RATE_NOT_PERMITTED_BY_CAP",
-    "D3D12_MESSAGE_ID_RSSETSHADING_RATE_INVALID_COMBINER",
-    "D3D12_MESSAGE_ID_RSSETSHADINGRATEIMAGE_REQUIRES_TIER_2",
-    "D3D12_MESSAGE_ID_RSSETSHADINGRATE_REQUIRES_TIER_1",
-    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_FORMAT",
-    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_ARRAY_SIZE",
-    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_MIP_LEVEL",
-    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_SAMPLE_COUNT",
-    "D3D12_MESSAGE_ID_SHADING_RATE_IMAGE_INCORRECT_SAMPLE_QUALITY",
-    "D3D12_MESSAGE_ID_NON_RETAIL_SHADER_MODEL_WONT_VALIDATE",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_AS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MS_ROOT_SIGNATURE_MISMATCH",
-    "D3D12_MESSAGE_ID_ADD_TO_STATE_OBJECT_ERROR",
-    "D3D12_MESSAGE_ID_CREATE_PROTECTED_RESOURCE_SESSION_INVALID_ARGUMENT",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MS_PSO_DESC_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEPIPELINESTATE_MS_INCOMPLETE_TYPE",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_AS_NOT_MS_MISMATCH",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_MS_NOT_PS_MISMATCH",
-    "D3D12_MESSAGE_ID_NONZERO_SAMPLER_FEEDBACK_MIP_REGION_WITH_INCOMPATIBLE_FORMAT",
-    "D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_INPUTLAYOUT_SHADER_MISMATCH",
-    "D3D12_MESSAGE_ID_EMPTY_DISPATCH",
-    "D3D12_MESSAGE_ID_RESOURCE_FORMAT_REQUIRES_SAMPLER_FEEDBACK_CAPABILITY",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_MIP_REGION",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_DIMENSION",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_SAMPLE_COUNT",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_SAMPLE_QUALITY",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_INVALID_LAYOUT",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_MAP_REQUIRES_UNORDERED_ACCESS_FLAG",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_CREATE_UAV_NULL_ARGUMENTS",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_UAV_REQUIRES_SAMPLER_FEEDBACK_CAPABILITY",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_CREATE_UAV_REQUIRES_FEEDBACK_MAP_FORMAT",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADERWITHSTREAMOUTPUT_INVALIDSHADERTYPE",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_SAMPLER_FEEDBACK_TRANSCODE_INVALID_FORMAT",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_SAMPLER_FEEDBACK_INVALID_MIP_LEVEL_COUNT",
-    "D3D12_MESSAGE_ID_RESOLVESUBRESOURCE_SAMPLER_FEEDBACK_TRANSCODE_ARRAY_SIZE_MISMATCH",
-    "D3D12_MESSAGE_ID_SAMPLER_FEEDBACK_CREATE_UAV_MISMATCHING_TARGETED_RESOURCE",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADER_OUTPUTEXCEEDSMAXSIZE",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADER_GROUPSHAREDEXCEEDSMAXSIZE",
-    "D3D12_MESSAGE_ID_VERTEX_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE",
-    "D3D12_MESSAGE_ID_MESH_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADER_MISMATCHEDASMSPAYLOADSIZE",
-    "D3D12_MESSAGE_ID_CREATE_ROOT_SIGNATURE_UNBOUNDED_STATIC_DESCRIPTORS",
-    "D3D12_MESSAGE_ID_CREATEAMPLIFICATIONSHADER_INVALIDSHADERBYTECODE",
-    "D3D12_MESSAGE_ID_CREATEAMPLIFICATIONSHADER_OUTOFMEMORY",
-    "D3D12_MESSAGE_ID_CREATE_SHADERCACHESESSION",
-    "D3D12_MESSAGE_ID_LIVE_SHADERCACHESESSION",
-    "D3D12_MESSAGE_ID_DESTROY_SHADERCACHESESSION",
-    "D3D12_MESSAGE_ID_CREATESHADERCACHESESSION_INVALIDARGS",
-    "D3D12_MESSAGE_ID_CREATESHADERCACHESESSION_DISABLED",
-    "D3D12_MESSAGE_ID_CREATESHADERCACHESESSION_ALREADYOPEN",
-    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_DEVELOPERMODE",
-    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_INVALIDFLAGS",
-    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_STATEALREADYSET",
-    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_IGNOREDFLAG",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_STOREVALUE_ALREADYPRESENT",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_STOREVALUE_HASHCOLLISION",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_STOREVALUE_CACHEFULL",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_FINDVALUE_NOTFOUND",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_CORRUPT",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_DISABLED",
-    "D3D12_MESSAGE_ID_OVERSIZED_DISPATCH",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODER",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODER",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODER",
-    "D3D12_MESSAGE_ID_CREATE_VIDEOENCODERHEAP",
-    "D3D12_MESSAGE_ID_LIVE_VIDEOENCODERHEAP",
-    "D3D12_MESSAGE_ID_DESTROY_VIDEOENCODERHEAP",
-    "D3D12_MESSAGE_ID_COPYTEXTUREREGION_MISMATCH_ENCODE_REFERENCE_ONLY_FLAG",
-    "D3D12_MESSAGE_ID_COPYRESOURCE_MISMATCH_ENCODE_REFERENCE_ONLY_FLAG",
-    "D3D12_MESSAGE_ID_ENCODE_FRAME_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_ENCODE_FRAME_UNSUPPORTED_PARAMETERS",
-    "D3D12_MESSAGE_ID_RESOLVE_ENCODER_OUTPUT_METADATA_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_RESOLVE_ENCODER_OUTPUT_METADATA_UNSUPPORTED_PARAMETERS",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_UNSUPPORTED_PARAMETERS",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_HEAP_INVALID_PARAMETERS",
-    "D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_HEAP_UNSUPPORTED_PARAMETERS",
-    "D3D12_MESSAGE_ID_CREATECOMMANDLIST_NULL_COMMANDALLOCATOR",
-    "D3D12_MESSAGE_ID_CLEAR_UNORDERED_ACCESS_VIEW_INVALID_DESCRIPTOR_HANDLE",
-    "D3D12_MESSAGE_ID_DESCRIPTOR_HEAP_NOT_SHADER_VISIBLE",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_BLENDOP_WARNING",
-    "D3D12_MESSAGE_ID_CREATEBLENDSTATE_BLENDOPALPHA_WARNING",
-    "D3D12_MESSAGE_ID_WRITE_COMBINE_PERFORMANCE_WARNING",
-    "D3D12_MESSAGE_ID_RESOLVE_QUERY_INVALID_QUERY_STATE",
-    "D3D12_MESSAGE_ID_SETPRIVATEDATA_NO_ACCESS",
-    "D3D12_MESSAGE_ID_COMMAND_LIST_STATIC_DESCRIPTOR_SAMPLER_MODE_MISMATCH",
-    "D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_UNSUPPORTED_BUFFER_WIDTH",
-    "D3D12_MESSAGE_ID_CREATEMESHSHADER_TOPOLOGY_MISMATCH",
-    "D3D12_MESSAGE_ID_VRS_SUM_COMBINER_REQUIRES_CAPABILITY",
-    "D3D12_MESSAGE_ID_SETTING_SHADING_RATE_FROM_MS_REQUIRES_CAPABILITY",
-    "D3D12_MESSAGE_ID_SHADERCACHESESSION_SHADERCACHEDELETE_NOTSUPPORTED",
-    "D3D12_MESSAGE_ID_SHADERCACHECONTROL_SHADERCACHECLEAR_NOTSUPPORTED",
-    "D3D12_MESSAGE_ID_D3D12_MESSAGES_END",
-    "D3D12_MESSAGE",
-    "D3D12_INFO_QUEUE_FILTER_DESC",
-    "D3D12_INFO_QUEUE_FILTER",
-    "ID3D12InfoQueue",
-    "D3D12_MESSAGE_CALLBACK_FLAGS",
-    "D3D12_MESSAGE_CALLBACK_FLAG_NONE",
-    "D3D12_MESSAGE_CALLBACK_IGNORE_FILTERS",
-    "D3D12MessageFunc",
-    "ID3D12InfoQueue1",
-    "PFN_D3D12_CREATE_DEVICE",
-    "PFN_D3D12_GET_DEBUG_INTERFACE",
-    "PFN_D3D12_GET_INTERFACE",
-    "ID3D12SDKConfiguration",
-    "D3D12_AXIS_SHADING_RATE",
-    "D3D12_AXIS_SHADING_RATE_1X",
-    "D3D12_AXIS_SHADING_RATE_2X",
-    "D3D12_AXIS_SHADING_RATE_4X",
-    "D3D12_SHADING_RATE",
-    "D3D12_SHADING_RATE_1X1",
-    "D3D12_SHADING_RATE_1X2",
-    "D3D12_SHADING_RATE_2X1",
-    "D3D12_SHADING_RATE_2X2",
-    "D3D12_SHADING_RATE_2X4",
-    "D3D12_SHADING_RATE_4X2",
-    "D3D12_SHADING_RATE_4X4",
-    "D3D12_SHADING_RATE_COMBINER",
-    "D3D12_SHADING_RATE_COMBINER_PASSTHROUGH",
-    "D3D12_SHADING_RATE_COMBINER_OVERRIDE",
-    "D3D12_SHADING_RATE_COMBINER_MIN",
-    "D3D12_SHADING_RATE_COMBINER_MAX",
-    "D3D12_SHADING_RATE_COMBINER_SUM",
+    "ID3D12DebugCommandQueue",
+    "ID3D12DebugDevice",
+    "ID3D12DebugDevice1",
+    "ID3D12DebugDevice2",
+    "ID3D12DescriptorHeap",
+    "ID3D12Device",
+    "ID3D12Device1",
+    "ID3D12Device2",
+    "ID3D12Device3",
+    "ID3D12Device4",
+    "ID3D12Device5",
+    "ID3D12Device6",
+    "ID3D12Device7",
+    "ID3D12Device8",
+    "ID3D12Device9",
+    "ID3D12DeviceChild",
+    "ID3D12DeviceRemovedExtendedData",
+    "ID3D12DeviceRemovedExtendedData1",
+    "ID3D12DeviceRemovedExtendedData2",
+    "ID3D12DeviceRemovedExtendedDataSettings",
+    "ID3D12DeviceRemovedExtendedDataSettings1",
+    "ID3D12Fence",
+    "ID3D12Fence1",
+    "ID3D12FunctionParameterReflection",
+    "ID3D12FunctionReflection",
+    "ID3D12GraphicsCommandList",
+    "ID3D12GraphicsCommandList1",
+    "ID3D12GraphicsCommandList2",
+    "ID3D12GraphicsCommandList3",
+    "ID3D12GraphicsCommandList4",
     "ID3D12GraphicsCommandList5",
-    "D3D12_DISPATCH_MESH_ARGUMENTS",
     "ID3D12GraphicsCommandList6",
-    "D3D12_SHADER_VERSION_TYPE",
-    "D3D12_SHVER_PIXEL_SHADER",
-    "D3D12_SHVER_VERTEX_SHADER",
-    "D3D12_SHVER_GEOMETRY_SHADER",
-    "D3D12_SHVER_HULL_SHADER",
-    "D3D12_SHVER_DOMAIN_SHADER",
-    "D3D12_SHVER_COMPUTE_SHADER",
-    "D3D12_SHVER_RESERVED0",
-    "D3D12_SIGNATURE_PARAMETER_DESC",
-    "D3D12_SHADER_BUFFER_DESC",
-    "D3D12_SHADER_VARIABLE_DESC",
-    "D3D12_SHADER_TYPE_DESC",
-    "D3D12_SHADER_DESC",
-    "D3D12_SHADER_INPUT_BIND_DESC",
-    "D3D12_LIBRARY_DESC",
-    "D3D12_FUNCTION_DESC",
-    "D3D12_PARAMETER_DESC",
+    "ID3D12Heap",
+    "ID3D12Heap1",
+    "ID3D12InfoQueue",
+    "ID3D12InfoQueue1",
+    "ID3D12LibraryReflection",
+    "ID3D12LifetimeOwner",
+    "ID3D12LifetimeTracker",
+    "ID3D12MetaCommand",
+    "ID3D12Object",
+    "ID3D12Pageable",
+    "ID3D12PipelineLibrary",
+    "ID3D12PipelineLibrary1",
+    "ID3D12PipelineState",
+    "ID3D12ProtectedResourceSession",
+    "ID3D12ProtectedResourceSession1",
+    "ID3D12ProtectedSession",
+    "ID3D12QueryHeap",
+    "ID3D12Resource",
+    "ID3D12Resource1",
+    "ID3D12Resource2",
+    "ID3D12RootSignature",
+    "ID3D12RootSignatureDeserializer",
+    "ID3D12SDKConfiguration",
+    "ID3D12ShaderCacheSession",
+    "ID3D12ShaderReflection",
+    "ID3D12ShaderReflectionConstantBuffer",
     "ID3D12ShaderReflectionType",
     "ID3D12ShaderReflectionVariable",
-    "ID3D12ShaderReflectionConstantBuffer",
-    "ID3D12ShaderReflection",
-    "ID3D12LibraryReflection",
-    "ID3D12FunctionReflection",
-    "ID3D12FunctionParameterReflection",
-    "D3D12SerializeRootSignature",
-    "D3D12CreateRootSignatureDeserializer",
-    "D3D12SerializeVersionedRootSignature",
-    "D3D12CreateVersionedRootSignatureDeserializer",
-    "D3D12CreateDevice",
-    "D3D12GetDebugInterface",
-    "D3D12EnableExperimentalFeatures",
-    "D3D12GetInterface",
+    "ID3D12SharingContract",
+    "ID3D12StateObject",
+    "ID3D12StateObjectProperties",
+    "ID3D12SwapChainAssistant",
+    "ID3D12Tools",
+    "ID3D12VersionedRootSignatureDeserializer",
+    "LUID_DEFINED",
+    "NUM_D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODES",
+    "PFN_D3D12_CREATE_DEVICE",
+    "PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER",
+    "PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER",
+    "PFN_D3D12_GET_DEBUG_INTERFACE",
+    "PFN_D3D12_GET_INTERFACE",
+    "PFN_D3D12_SERIALIZE_ROOT_SIGNATURE",
+    "PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE",
+    "WKPDID_D3DAutoDebugObjectNameW",
 ]

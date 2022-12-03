@@ -1,17 +1,16 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.Security
 import win32more.Storage.FileSystem
 import win32more.Storage.Vhd
 import win32more.System.Ioctl
-import win32more.UI.Shell.PropertiesSystem
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -24,32 +23,58 @@ IOCTL_DISK_BASE = 7
 IOCTL_CHANGER_BASE = 48
 FILE_SPECIAL_ACCESS = 0
 FILE_DEVICE_UNKNOWN = 34
-GUID_DEVINTERFACE_DISK = '53f56307-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_CDROM = '53f56308-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_PARTITION = '53f5630a-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_TAPE = '53f5630b-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_WRITEONCEDISK = '53f5630c-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_VOLUME = '53f5630d-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_MEDIUMCHANGER = '53f56310-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_FLOPPY = '53f56311-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_CDCHANGER = '53f56312-b6bf-11d0-94f2-00a0c91efb8b'
-GUID_DEVINTERFACE_STORAGEPORT = '2accfe60-c130-11d2-b082-00a0c91efb8b'
-GUID_DEVINTERFACE_VMLUN = '6f416619-9f29-42a5-b20b-37e219ca02b0'
-GUID_DEVINTERFACE_SES = '1790c9ec-47d5-4df3-b5af-9adf3cf23e48'
-GUID_DEVINTERFACE_ZNSDISK = 'b87941c5-ffdb-43c7-b6b1-20b632f0b109'
-GUID_DEVINTERFACE_SERVICE_VOLUME = '6ead3d82-25ec-46bc-b7fd-c1f0df8f5037'
-GUID_DEVINTERFACE_HIDDEN_VOLUME = '7f108a28-9833-4b3b-b780-2c6b5fa5c062'
-GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB = '27447c21-bcc3-4d07-a05b-a3395bb4eee7'
-GUID_DEVICEDUMP_STORAGE_DEVICE = 'd8e2592f-1aab-4d56-a746-1f7585df40f4'
-GUID_DEVICEDUMP_DRIVER_STORAGE_PORT = 'da82441d-7142-4bc1-b844-0807c5a4b67f'
-DEVPKEY_Storage_Portable = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=2)
-DEVPKEY_Storage_Removable_Media = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=3)
-DEVPKEY_Storage_System_Critical = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=4)
-DEVPKEY_Storage_Disk_Number = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=5)
-DEVPKEY_Storage_Partition_Number = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=6)
-DEVPKEY_Storage_Mbr_Type = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=7)
-DEVPKEY_Storage_Gpt_Type = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=8)
-DEVPKEY_Storage_Gpt_Name = PROPERTYKEY(Fmtid='4d1ebee8-0803-4774-9842-b77db50265e9', Pid=9)
+def _define_GUID_DEVINTERFACE_DISK():
+    return Guid('53f56307-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_CDROM():
+    return Guid('53f56308-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_PARTITION():
+    return Guid('53f5630a-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_TAPE():
+    return Guid('53f5630b-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_WRITEONCEDISK():
+    return Guid('53f5630c-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_VOLUME():
+    return Guid('53f5630d-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_MEDIUMCHANGER():
+    return Guid('53f56310-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_FLOPPY():
+    return Guid('53f56311-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_CDCHANGER():
+    return Guid('53f56312-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_STORAGEPORT():
+    return Guid('2accfe60-c130-11d2-b0-82-00-a0-c9-1e-fb-8b')
+def _define_GUID_DEVINTERFACE_VMLUN():
+    return Guid('6f416619-9f29-42a5-b2-0b-37-e2-19-ca-02-b0')
+def _define_GUID_DEVINTERFACE_SES():
+    return Guid('1790c9ec-47d5-4df3-b5-af-9a-df-3c-f2-3e-48')
+def _define_GUID_DEVINTERFACE_ZNSDISK():
+    return Guid('b87941c5-ffdb-43c7-b6-b1-20-b6-32-f0-b1-09')
+def _define_GUID_DEVINTERFACE_SERVICE_VOLUME():
+    return Guid('6ead3d82-25ec-46bc-b7-fd-c1-f0-df-8f-50-37')
+def _define_GUID_DEVINTERFACE_HIDDEN_VOLUME():
+    return Guid('7f108a28-9833-4b3b-b7-80-2c-6b-5f-a5-c0-62')
+def _define_GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB():
+    return Guid('27447c21-bcc3-4d07-a0-5b-a3-39-5b-b4-ee-e7')
+def _define_GUID_DEVICEDUMP_STORAGE_DEVICE():
+    return Guid('d8e2592f-1aab-4d56-a7-46-1f-75-85-df-40-f4')
+def _define_GUID_DEVICEDUMP_DRIVER_STORAGE_PORT():
+    return Guid('da82441d-7142-4bc1-b8-44-08-07-c5-a4-b6-7f')
+def _define_DEVPKEY_Storage_Portable():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=2)
+def _define_DEVPKEY_Storage_Removable_Media():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=3)
+def _define_DEVPKEY_Storage_System_Critical():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=4)
+def _define_DEVPKEY_Storage_Disk_Number():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=5)
+def _define_DEVPKEY_Storage_Partition_Number():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=6)
+def _define_DEVPKEY_Storage_Mbr_Type():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=7)
+def _define_DEVPKEY_Storage_Gpt_Type():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=8)
+def _define_DEVPKEY_Storage_Gpt_Name():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('4d1ebee8-0803-4774-98-42-b7-7d-b5-02-65-e9'), pid=9)
 IOCTL_STORAGE_CHECK_VERIFY = 2967552
 IOCTL_STORAGE_CHECK_VERIFY2 = 2951168
 IOCTL_STORAGE_MEDIA_REMOVAL = 2967556
@@ -190,6 +215,8 @@ ERROR_HISTORY_DIRECTORY_ENTRY_DEFAULT_COUNT = 8
 DEVICEDUMP_STRUCTURE_VERSION_V1 = 1
 DEVICEDUMP_MAX_IDSTRING = 32
 MAX_FW_BUCKET_ID_LENGTH = 132
+STORAGE_CRASH_TELEMETRY_REGKEY = '\\Registry\\Machine\\System\\CurrentControlSet\\Control\\CrashControl\\StorageTelemetry'
+STORAGE_DEVICE_TELEMETRY_REGKEY = '\\Registry\\Machine\\System\\CurrentControlSet\\Control\\Storage\\StorageTelemetry'
 DDUMP_FLAG_DATA_READ_FROM_DEVICE = 1
 FW_ISSUEID_NO_ISSUE = 0
 FW_ISSUEID_UNKNOWN = 4294967295
@@ -197,6 +224,8 @@ TC_PUBLIC_DEVICEDUMP_CONTENT_SMART = 1
 TC_PUBLIC_DEVICEDUMP_CONTENT_GPLOG = 2
 TC_PUBLIC_DEVICEDUMP_CONTENT_GPLOG_MAX = 16
 TC_DEVICEDUMP_SUBSECTION_DESC_LENGTH = 16
+TC_PUBLIC_DATA_TYPE_ATAGP = 'ATAGPLogPages'
+TC_PUBLIC_DATA_TYPE_ATASMART = 'ATASMARTPages'
 CDB_SIZE = 16
 TELEMETRY_COMMAND_SIZE = 16
 DEVICEDUMP_CAP_PRIVATE_SECTION = 1
@@ -234,11 +263,16 @@ STORATTRIBUTE_NONE = 0
 STORATTRIBUTE_MANAGEMENT_STATE = 1
 STORAGE_SUPPORTED_FEATURES_BYPASS_IO = 1
 STORAGE_SUPPORTED_FEATURES_MASK = 1
-GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE = '4283609d-4dc2-43be-bbb4-4f15dfce2c61'
-GUID_SCM_PD_HEALTH_NOTIFICATION = '9da2d386-72f5-4ee3-8155-eca0678e3b06'
-GUID_SCM_PD_PASSTHROUGH_INVDIMM = '4309ac30-0d11-11e4-9191-0800200c9a66'
-GUID_DEVINTERFACE_COMPORT = '86e0d1e0-8089-11d0-9ce4-08003e301f73'
-GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR = '4d36e978-e325-11ce-bfc1-08002be10318'
+def _define_GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE():
+    return Guid('4283609d-4dc2-43be-bb-b4-4f-15-df-ce-2c-61')
+def _define_GUID_SCM_PD_HEALTH_NOTIFICATION():
+    return Guid('9da2d386-72f5-4ee3-81-55-ec-a0-67-8e-3b-06')
+def _define_GUID_SCM_PD_PASSTHROUGH_INVDIMM():
+    return Guid('4309ac30-0d11-11e4-91-91-08-00-20-0c-9a-66')
+def _define_GUID_DEVINTERFACE_COMPORT():
+    return Guid('86e0d1e0-8089-11d0-9c-e4-08-00-3e-30-1f-73')
+def _define_GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR():
+    return Guid('4d36e978-e325-11ce-bf-c1-08-00-2b-e1-03-18')
 FILE_DEVICE_BEEP = 1
 FILE_DEVICE_CD_ROM_FILE_SYSTEM = 3
 FILE_DEVICE_CONTROLLER = 4
@@ -930,9 +964,12 @@ LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_INDEX = 33554432
 LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_SYSTEM = 50331648
 FILE_TYPE_NOTIFICATION_FLAG_USAGE_BEGIN = 1
 FILE_TYPE_NOTIFICATION_FLAG_USAGE_END = 2
-FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE = '0d0a64a1-38fc-4db8-9fe7-3f4352cd7c5c'
-FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE = 'b7624d64-b9a3-4cf8-8011-5b86c940e7b7'
-FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE = '9d453eb7-d2a6-4dbd-a2e3-fbd0ed9109a9'
+def _define_FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE():
+    return Guid('0d0a64a1-38fc-4db8-9f-e7-3f-43-52-cd-7c-5c')
+def _define_FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE():
+    return Guid('b7624d64-b9a3-4cf8-80-11-5b-86-c9-40-e7-b7')
+def _define_FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE():
+    return Guid('9d453eb7-d2a6-4dbd-a2-e3-fb-d0-ed-91-09-a9')
 CSV_MGMTLOCK_CHECK_VOLUME_REDIRECTED = 1
 CSV_INVALID_DEVICE_NUMBER = 4294967295
 CSV_QUERY_MDS_PATH_V2_VERSION_1 = 1
@@ -1027,15 +1064,190 @@ CONTAINER_ROOT_INFO_VALID_FLAGS = 1023
 PROJFS_PROTOCOL_VERSION = 3
 EFS_TRACKED_OFFSET_HEADER_FLAG = 1
 SPACES_TRACKED_OFFSET_HEADER_FLAG = 2
-GPT_ATTRIBUTES = UInt64
-GPT_ATTRIBUTE_PLATFORM_REQUIRED = 1
-GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER = 9223372036854775808
-GPT_BASIC_DATA_ATTRIBUTE_HIDDEN = 4611686018427387904
-GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY = 2305843009213693952
-GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY = 1152921504606846976
-USN_DELETE_FLAGS = UInt32
-USN_DELETE_FLAG_DELETE = 1
-USN_DELETE_FLAG_NOTIFY = 2
+def _define_ASYNC_DUPLICATE_EXTENTS_STATUS_head():
+    class ASYNC_DUPLICATE_EXTENTS_STATUS(Structure):
+        pass
+    return ASYNC_DUPLICATE_EXTENTS_STATUS
+def _define_ASYNC_DUPLICATE_EXTENTS_STATUS():
+    ASYNC_DUPLICATE_EXTENTS_STATUS = win32more.System.Ioctl.ASYNC_DUPLICATE_EXTENTS_STATUS_head
+    ASYNC_DUPLICATE_EXTENTS_STATUS._fields_ = [
+        ('Version', UInt32),
+        ('State', win32more.System.Ioctl.DUPLICATE_EXTENTS_STATE),
+        ('SourceFileOffset', UInt64),
+        ('TargetFileOffset', UInt64),
+        ('ByteCount', UInt64),
+        ('BytesDuplicated', UInt64),
+    ]
+    return ASYNC_DUPLICATE_EXTENTS_STATUS
+def _define_BIN_COUNT_head():
+    class BIN_COUNT(Structure):
+        pass
+    return BIN_COUNT
+def _define_BIN_COUNT():
+    BIN_COUNT = win32more.System.Ioctl.BIN_COUNT_head
+    BIN_COUNT._fields_ = [
+        ('BinRange', win32more.System.Ioctl.BIN_RANGE),
+        ('BinCount', UInt32),
+    ]
+    return BIN_COUNT
+def _define_BIN_RANGE_head():
+    class BIN_RANGE(Structure):
+        pass
+    return BIN_RANGE
+def _define_BIN_RANGE():
+    BIN_RANGE = win32more.System.Ioctl.BIN_RANGE_head
+    BIN_RANGE._fields_ = [
+        ('StartValue', win32more.Foundation.LARGE_INTEGER),
+        ('Length', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return BIN_RANGE
+def _define_BIN_RESULTS_head():
+    class BIN_RESULTS(Structure):
+        pass
+    return BIN_RESULTS
+def _define_BIN_RESULTS():
+    BIN_RESULTS = win32more.System.Ioctl.BIN_RESULTS_head
+    BIN_RESULTS._fields_ = [
+        ('NumberOfBins', UInt32),
+        ('BinCounts', win32more.System.Ioctl.BIN_COUNT * 1),
+    ]
+    return BIN_RESULTS
+BIN_TYPES = Int32
+BIN_TYPES_RequestSize = 0
+BIN_TYPES_RequestLocation = 1
+def _define_BOOT_AREA_INFO_head():
+    class BOOT_AREA_INFO(Structure):
+        pass
+    return BOOT_AREA_INFO
+def _define_BOOT_AREA_INFO():
+    BOOT_AREA_INFO = win32more.System.Ioctl.BOOT_AREA_INFO_head
+    class BOOT_AREA_INFO__Anonymous_e__Struct(Structure):
+        pass
+    BOOT_AREA_INFO__Anonymous_e__Struct._fields_ = [
+        ('Offset', win32more.Foundation.LARGE_INTEGER),
+    ]
+    BOOT_AREA_INFO._fields_ = [
+        ('BootSectorCount', UInt32),
+        ('BootSectors', BOOT_AREA_INFO__Anonymous_e__Struct * 2),
+    ]
+    return BOOT_AREA_INFO
+def _define_BULK_SECURITY_TEST_DATA_head():
+    class BULK_SECURITY_TEST_DATA(Structure):
+        pass
+    return BULK_SECURITY_TEST_DATA
+def _define_BULK_SECURITY_TEST_DATA():
+    BULK_SECURITY_TEST_DATA = win32more.System.Ioctl.BULK_SECURITY_TEST_DATA_head
+    BULK_SECURITY_TEST_DATA._fields_ = [
+        ('DesiredAccess', UInt32),
+        ('SecurityIds', UInt32 * 1),
+    ]
+    return BULK_SECURITY_TEST_DATA
+CHANGER_DEVICE_PROBLEM_TYPE = Int32
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemNone = 0
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemHardware = 1
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMError = 2
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDoorOpen = 3
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCalibrationError = 4
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemTargetFailure = 5
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMMoveError = 6
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMZeroError = 7
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeInsertError = 8
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemPositionError = 9
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemSensorError = 10
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeEjectError = 11
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemGripperError = 12
+CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDriveError = 13
+def _define_CHANGER_ELEMENT_head():
+    class CHANGER_ELEMENT(Structure):
+        pass
+    return CHANGER_ELEMENT
+def _define_CHANGER_ELEMENT():
+    CHANGER_ELEMENT = win32more.System.Ioctl.CHANGER_ELEMENT_head
+    CHANGER_ELEMENT._fields_ = [
+        ('ElementType', win32more.System.Ioctl.ELEMENT_TYPE),
+        ('ElementAddress', UInt32),
+    ]
+    return CHANGER_ELEMENT
+def _define_CHANGER_ELEMENT_LIST_head():
+    class CHANGER_ELEMENT_LIST(Structure):
+        pass
+    return CHANGER_ELEMENT_LIST
+def _define_CHANGER_ELEMENT_LIST():
+    CHANGER_ELEMENT_LIST = win32more.System.Ioctl.CHANGER_ELEMENT_LIST_head
+    CHANGER_ELEMENT_LIST._fields_ = [
+        ('Element', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('NumberOfElements', UInt32),
+    ]
+    return CHANGER_ELEMENT_LIST
+def _define_CHANGER_ELEMENT_STATUS_head():
+    class CHANGER_ELEMENT_STATUS(Structure):
+        pass
+    return CHANGER_ELEMENT_STATUS
+def _define_CHANGER_ELEMENT_STATUS():
+    CHANGER_ELEMENT_STATUS = win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_head
+    CHANGER_ELEMENT_STATUS._fields_ = [
+        ('Element', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('SrcElementAddress', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Flags', win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS),
+        ('ExceptionCode', UInt32),
+        ('TargetId', Byte),
+        ('Lun', Byte),
+        ('Reserved', UInt16),
+        ('PrimaryVolumeID', Byte * 36),
+        ('AlternateVolumeID', Byte * 36),
+    ]
+    return CHANGER_ELEMENT_STATUS
+def _define_CHANGER_ELEMENT_STATUS_EX_head():
+    class CHANGER_ELEMENT_STATUS_EX(Structure):
+        pass
+    return CHANGER_ELEMENT_STATUS_EX
+def _define_CHANGER_ELEMENT_STATUS_EX():
+    CHANGER_ELEMENT_STATUS_EX = win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_EX_head
+    CHANGER_ELEMENT_STATUS_EX._fields_ = [
+        ('Element', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('SrcElementAddress', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Flags', win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS),
+        ('ExceptionCode', UInt32),
+        ('TargetId', Byte),
+        ('Lun', Byte),
+        ('Reserved', UInt16),
+        ('PrimaryVolumeID', Byte * 36),
+        ('AlternateVolumeID', Byte * 36),
+        ('VendorIdentification', Byte * 8),
+        ('ProductIdentification', Byte * 16),
+        ('SerialNumber', Byte * 32),
+    ]
+    return CHANGER_ELEMENT_STATUS_EX
+CHANGER_ELEMENT_STATUS_FLAGS = UInt32
+ELEMENT_STATUS_ACCESS = 8
+ELEMENT_STATUS_AVOLTAG = 536870912
+ELEMENT_STATUS_EXCEPT = 4
+ELEMENT_STATUS_EXENAB = 16
+ELEMENT_STATUS_FULL = 1
+ELEMENT_STATUS_ID_VALID = 8192
+ELEMENT_STATUS_IMPEXP = 2
+ELEMENT_STATUS_INENAB = 32
+ELEMENT_STATUS_INVERT = 4194304
+ELEMENT_STATUS_LUN_VALID = 4096
+ELEMENT_STATUS_NOT_BUS = 32768
+ELEMENT_STATUS_PVOLTAG = 268435456
+ELEMENT_STATUS_SVALID = 8388608
+ELEMENT_STATUS_PRODUCT_DATA = 64
+def _define_CHANGER_EXCHANGE_MEDIUM_head():
+    class CHANGER_EXCHANGE_MEDIUM(Structure):
+        pass
+    return CHANGER_EXCHANGE_MEDIUM
+def _define_CHANGER_EXCHANGE_MEDIUM():
+    CHANGER_EXCHANGE_MEDIUM = win32more.System.Ioctl.CHANGER_EXCHANGE_MEDIUM_head
+    CHANGER_EXCHANGE_MEDIUM._fields_ = [
+        ('Transport', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Source', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Destination1', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Destination2', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Flip1', win32more.Foundation.BOOLEAN),
+        ('Flip2', win32more.Foundation.BOOLEAN),
+    ]
+    return CHANGER_EXCHANGE_MEDIUM
 CHANGER_FEATURES = UInt32
 CHANGER_BAR_CODE_SCANNER_INSTALLED = 1
 CHANGER_CARTRIDGE_MAGAZINE = 256
@@ -1066,50 +1278,2468 @@ CHANGER_VOLUME_IDENTIFICATION = 1048576
 CHANGER_VOLUME_REPLACE = 8388608
 CHANGER_VOLUME_SEARCH = 2097152
 CHANGER_VOLUME_UNDEFINE = 16777216
-TXFS_RMF_LAGS = UInt32
-TXFS_RM_FLAG_LOGGING_MODE = 1
-TXFS_RM_FLAG_RENAME_RM = 2
-TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MAX = 4
-TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MIN = 8
-TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_NUM_CONTAINERS = 16
-TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_PERCENT = 32
-TXFS_RM_FLAG_LOG_AUTO_SHRINK_PERCENTAGE = 64
-TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MAX = 128
-TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MIN = 256
-TXFS_RM_FLAG_GROW_LOG = 1024
-TXFS_RM_FLAG_SHRINK_LOG = 2048
-TXFS_RM_FLAG_ENFORCE_MINIMUM_SIZE = 4096
-TXFS_RM_FLAG_PRESERVE_CHANGES = 8192
-TXFS_RM_FLAG_RESET_RM_AT_NEXT_START = 16384
-TXFS_RM_FLAG_DO_NOT_RESET_RM_AT_NEXT_START = 32768
-TXFS_RM_FLAG_PREFER_CONSISTENCY = 65536
-TXFS_RM_FLAG_PREFER_AVAILABILITY = 131072
+def _define_CHANGER_INITIALIZE_ELEMENT_STATUS_head():
+    class CHANGER_INITIALIZE_ELEMENT_STATUS(Structure):
+        pass
+    return CHANGER_INITIALIZE_ELEMENT_STATUS
+def _define_CHANGER_INITIALIZE_ELEMENT_STATUS():
+    CHANGER_INITIALIZE_ELEMENT_STATUS = win32more.System.Ioctl.CHANGER_INITIALIZE_ELEMENT_STATUS_head
+    CHANGER_INITIALIZE_ELEMENT_STATUS._fields_ = [
+        ('ElementList', win32more.System.Ioctl.CHANGER_ELEMENT_LIST),
+        ('BarCodeScan', win32more.Foundation.BOOLEAN),
+    ]
+    return CHANGER_INITIALIZE_ELEMENT_STATUS
+def _define_CHANGER_MOVE_MEDIUM_head():
+    class CHANGER_MOVE_MEDIUM(Structure):
+        pass
+    return CHANGER_MOVE_MEDIUM
+def _define_CHANGER_MOVE_MEDIUM():
+    CHANGER_MOVE_MEDIUM = win32more.System.Ioctl.CHANGER_MOVE_MEDIUM_head
+    CHANGER_MOVE_MEDIUM._fields_ = [
+        ('Transport', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Source', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Destination', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Flip', win32more.Foundation.BOOLEAN),
+    ]
+    return CHANGER_MOVE_MEDIUM
+def _define_CHANGER_PRODUCT_DATA_head():
+    class CHANGER_PRODUCT_DATA(Structure):
+        pass
+    return CHANGER_PRODUCT_DATA
+def _define_CHANGER_PRODUCT_DATA():
+    CHANGER_PRODUCT_DATA = win32more.System.Ioctl.CHANGER_PRODUCT_DATA_head
+    CHANGER_PRODUCT_DATA._fields_ = [
+        ('VendorId', Byte * 8),
+        ('ProductId', Byte * 16),
+        ('Revision', Byte * 4),
+        ('SerialNumber', Byte * 32),
+        ('DeviceType', Byte),
+    ]
+    return CHANGER_PRODUCT_DATA
+def _define_CHANGER_READ_ELEMENT_STATUS_head():
+    class CHANGER_READ_ELEMENT_STATUS(Structure):
+        pass
+    return CHANGER_READ_ELEMENT_STATUS
+def _define_CHANGER_READ_ELEMENT_STATUS():
+    CHANGER_READ_ELEMENT_STATUS = win32more.System.Ioctl.CHANGER_READ_ELEMENT_STATUS_head
+    CHANGER_READ_ELEMENT_STATUS._fields_ = [
+        ('ElementList', win32more.System.Ioctl.CHANGER_ELEMENT_LIST),
+        ('VolumeTagInfo', win32more.Foundation.BOOLEAN),
+    ]
+    return CHANGER_READ_ELEMENT_STATUS
+def _define_CHANGER_SEND_VOLUME_TAG_INFORMATION_head():
+    class CHANGER_SEND_VOLUME_TAG_INFORMATION(Structure):
+        pass
+    return CHANGER_SEND_VOLUME_TAG_INFORMATION
+def _define_CHANGER_SEND_VOLUME_TAG_INFORMATION():
+    CHANGER_SEND_VOLUME_TAG_INFORMATION = win32more.System.Ioctl.CHANGER_SEND_VOLUME_TAG_INFORMATION_head
+    CHANGER_SEND_VOLUME_TAG_INFORMATION._fields_ = [
+        ('StartingElement', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('ActionCode', UInt32),
+        ('VolumeIDTemplate', Byte * 40),
+    ]
+    return CHANGER_SEND_VOLUME_TAG_INFORMATION
+def _define_CHANGER_SET_ACCESS_head():
+    class CHANGER_SET_ACCESS(Structure):
+        pass
+    return CHANGER_SET_ACCESS
+def _define_CHANGER_SET_ACCESS():
+    CHANGER_SET_ACCESS = win32more.System.Ioctl.CHANGER_SET_ACCESS_head
+    CHANGER_SET_ACCESS._fields_ = [
+        ('Element', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Control', UInt32),
+    ]
+    return CHANGER_SET_ACCESS
+def _define_CHANGER_SET_POSITION_head():
+    class CHANGER_SET_POSITION(Structure):
+        pass
+    return CHANGER_SET_POSITION
+def _define_CHANGER_SET_POSITION():
+    CHANGER_SET_POSITION = win32more.System.Ioctl.CHANGER_SET_POSITION_head
+    CHANGER_SET_POSITION._fields_ = [
+        ('Transport', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Destination', win32more.System.Ioctl.CHANGER_ELEMENT),
+        ('Flip', win32more.Foundation.BOOLEAN),
+    ]
+    return CHANGER_SET_POSITION
+def _define_CLASS_MEDIA_CHANGE_CONTEXT_head():
+    class CLASS_MEDIA_CHANGE_CONTEXT(Structure):
+        pass
+    return CLASS_MEDIA_CHANGE_CONTEXT
+def _define_CLASS_MEDIA_CHANGE_CONTEXT():
+    CLASS_MEDIA_CHANGE_CONTEXT = win32more.System.Ioctl.CLASS_MEDIA_CHANGE_CONTEXT_head
+    CLASS_MEDIA_CHANGE_CONTEXT._fields_ = [
+        ('MediaChangeCount', UInt32),
+        ('NewState', UInt32),
+    ]
+    return CLASS_MEDIA_CHANGE_CONTEXT
+def _define_CLUSTER_RANGE_head():
+    class CLUSTER_RANGE(Structure):
+        pass
+    return CLUSTER_RANGE
+def _define_CLUSTER_RANGE():
+    CLUSTER_RANGE = win32more.System.Ioctl.CLUSTER_RANGE_head
+    CLUSTER_RANGE._fields_ = [
+        ('StartingCluster', win32more.Foundation.LARGE_INTEGER),
+        ('ClusterCount', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return CLUSTER_RANGE
+def _define_CONTAINER_ROOT_INFO_INPUT_head():
+    class CONTAINER_ROOT_INFO_INPUT(Structure):
+        pass
+    return CONTAINER_ROOT_INFO_INPUT
+def _define_CONTAINER_ROOT_INFO_INPUT():
+    CONTAINER_ROOT_INFO_INPUT = win32more.System.Ioctl.CONTAINER_ROOT_INFO_INPUT_head
+    CONTAINER_ROOT_INFO_INPUT._fields_ = [
+        ('Flags', UInt32),
+    ]
+    return CONTAINER_ROOT_INFO_INPUT
+def _define_CONTAINER_ROOT_INFO_OUTPUT_head():
+    class CONTAINER_ROOT_INFO_OUTPUT(Structure):
+        pass
+    return CONTAINER_ROOT_INFO_OUTPUT
+def _define_CONTAINER_ROOT_INFO_OUTPUT():
+    CONTAINER_ROOT_INFO_OUTPUT = win32more.System.Ioctl.CONTAINER_ROOT_INFO_OUTPUT_head
+    CONTAINER_ROOT_INFO_OUTPUT._fields_ = [
+        ('ContainerRootIdLength', UInt16),
+        ('ContainerRootId', Byte * 1),
+    ]
+    return CONTAINER_ROOT_INFO_OUTPUT
+def _define_CONTAINER_VOLUME_STATE_head():
+    class CONTAINER_VOLUME_STATE(Structure):
+        pass
+    return CONTAINER_VOLUME_STATE
+def _define_CONTAINER_VOLUME_STATE():
+    CONTAINER_VOLUME_STATE = win32more.System.Ioctl.CONTAINER_VOLUME_STATE_head
+    CONTAINER_VOLUME_STATE._fields_ = [
+        ('Flags', UInt32),
+    ]
+    return CONTAINER_VOLUME_STATE
+def _define_CREATE_DISK_head():
+    class CREATE_DISK(Structure):
+        pass
+    return CREATE_DISK
+def _define_CREATE_DISK():
+    CREATE_DISK = win32more.System.Ioctl.CREATE_DISK_head
+    class CREATE_DISK__Anonymous_e__Union(Union):
+        pass
+    CREATE_DISK__Anonymous_e__Union._fields_ = [
+        ('Mbr', win32more.System.Ioctl.CREATE_DISK_MBR),
+        ('Gpt', win32more.System.Ioctl.CREATE_DISK_GPT),
+    ]
+    CREATE_DISK._anonymous_ = [
+        'Anonymous',
+    ]
+    CREATE_DISK._fields_ = [
+        ('PartitionStyle', win32more.System.Ioctl.PARTITION_STYLE),
+        ('Anonymous', CREATE_DISK__Anonymous_e__Union),
+    ]
+    return CREATE_DISK
+def _define_CREATE_DISK_GPT_head():
+    class CREATE_DISK_GPT(Structure):
+        pass
+    return CREATE_DISK_GPT
+def _define_CREATE_DISK_GPT():
+    CREATE_DISK_GPT = win32more.System.Ioctl.CREATE_DISK_GPT_head
+    CREATE_DISK_GPT._fields_ = [
+        ('DiskId', Guid),
+        ('MaxPartitionCount', UInt32),
+    ]
+    return CREATE_DISK_GPT
+def _define_CREATE_DISK_MBR_head():
+    class CREATE_DISK_MBR(Structure):
+        pass
+    return CREATE_DISK_MBR
+def _define_CREATE_DISK_MBR():
+    CREATE_DISK_MBR = win32more.System.Ioctl.CREATE_DISK_MBR_head
+    CREATE_DISK_MBR._fields_ = [
+        ('Signature', UInt32),
+    ]
+    return CREATE_DISK_MBR
+def _define_CREATE_USN_JOURNAL_DATA_head():
+    class CREATE_USN_JOURNAL_DATA(Structure):
+        pass
+    return CREATE_USN_JOURNAL_DATA
+def _define_CREATE_USN_JOURNAL_DATA():
+    CREATE_USN_JOURNAL_DATA = win32more.System.Ioctl.CREATE_USN_JOURNAL_DATA_head
+    CREATE_USN_JOURNAL_DATA._fields_ = [
+        ('MaximumSize', UInt64),
+        ('AllocationDelta', UInt64),
+    ]
+    return CREATE_USN_JOURNAL_DATA
+CSV_CONTROL_OP = Int32
+CSV_CONTROL_OP_CsvControlStartRedirectFile = 2
+CSV_CONTROL_OP_CsvControlStopRedirectFile = 3
+CSV_CONTROL_OP_CsvControlQueryRedirectState = 4
+CSV_CONTROL_OP_CsvControlQueryFileRevision = 6
+CSV_CONTROL_OP_CsvControlQueryMdsPath = 8
+CSV_CONTROL_OP_CsvControlQueryFileRevisionFileId128 = 9
+CSV_CONTROL_OP_CsvControlQueryVolumeRedirectState = 10
+CSV_CONTROL_OP_CsvControlEnableUSNRangeModificationTracking = 13
+CSV_CONTROL_OP_CsvControlMarkHandleLocalVolumeMount = 14
+CSV_CONTROL_OP_CsvControlUnmarkHandleLocalVolumeMount = 15
+CSV_CONTROL_OP_CsvControlGetCsvFsMdsPathV2 = 18
+CSV_CONTROL_OP_CsvControlDisableCaching = 19
+CSV_CONTROL_OP_CsvControlEnableCaching = 20
+CSV_CONTROL_OP_CsvControlStartForceDFO = 21
+CSV_CONTROL_OP_CsvControlStopForceDFO = 22
+CSV_CONTROL_OP_CsvControlQueryMdsPathNoPause = 23
+CSV_CONTROL_OP_CsvControlSetVolumeId = 24
+CSV_CONTROL_OP_CsvControlQueryVolumeId = 25
+def _define_CSV_CONTROL_PARAM_head():
+    class CSV_CONTROL_PARAM(Structure):
+        pass
+    return CSV_CONTROL_PARAM
+def _define_CSV_CONTROL_PARAM():
+    CSV_CONTROL_PARAM = win32more.System.Ioctl.CSV_CONTROL_PARAM_head
+    CSV_CONTROL_PARAM._fields_ = [
+        ('Operation', win32more.System.Ioctl.CSV_CONTROL_OP),
+        ('Unused', Int64),
+    ]
+    return CSV_CONTROL_PARAM
+def _define_CSV_IS_OWNED_BY_CSVFS_head():
+    class CSV_IS_OWNED_BY_CSVFS(Structure):
+        pass
+    return CSV_IS_OWNED_BY_CSVFS
+def _define_CSV_IS_OWNED_BY_CSVFS():
+    CSV_IS_OWNED_BY_CSVFS = win32more.System.Ioctl.CSV_IS_OWNED_BY_CSVFS_head
+    CSV_IS_OWNED_BY_CSVFS._fields_ = [
+        ('OwnedByCSVFS', win32more.Foundation.BOOLEAN),
+    ]
+    return CSV_IS_OWNED_BY_CSVFS
+def _define_CSV_MGMT_LOCK_head():
+    class CSV_MGMT_LOCK(Structure):
+        pass
+    return CSV_MGMT_LOCK
+def _define_CSV_MGMT_LOCK():
+    CSV_MGMT_LOCK = win32more.System.Ioctl.CSV_MGMT_LOCK_head
+    CSV_MGMT_LOCK._fields_ = [
+        ('Flags', UInt32),
+    ]
+    return CSV_MGMT_LOCK
+def _define_CSV_NAMESPACE_INFO_head():
+    class CSV_NAMESPACE_INFO(Structure):
+        pass
+    return CSV_NAMESPACE_INFO
+def _define_CSV_NAMESPACE_INFO():
+    CSV_NAMESPACE_INFO = win32more.System.Ioctl.CSV_NAMESPACE_INFO_head
+    CSV_NAMESPACE_INFO._fields_ = [
+        ('Version', UInt32),
+        ('DeviceNumber', UInt32),
+        ('StartingOffset', win32more.Foundation.LARGE_INTEGER),
+        ('SectorSize', UInt32),
+    ]
+    return CSV_NAMESPACE_INFO
+def _define_CSV_QUERY_FILE_REVISION_head():
+    class CSV_QUERY_FILE_REVISION(Structure):
+        pass
+    return CSV_QUERY_FILE_REVISION
+def _define_CSV_QUERY_FILE_REVISION():
+    CSV_QUERY_FILE_REVISION = win32more.System.Ioctl.CSV_QUERY_FILE_REVISION_head
+    CSV_QUERY_FILE_REVISION._fields_ = [
+        ('FileId', Int64),
+        ('FileRevision', Int64 * 3),
+    ]
+    return CSV_QUERY_FILE_REVISION
+def _define_CSV_QUERY_FILE_REVISION_FILE_ID_128_head():
+    class CSV_QUERY_FILE_REVISION_FILE_ID_128(Structure):
+        pass
+    return CSV_QUERY_FILE_REVISION_FILE_ID_128
+def _define_CSV_QUERY_FILE_REVISION_FILE_ID_128():
+    CSV_QUERY_FILE_REVISION_FILE_ID_128 = win32more.System.Ioctl.CSV_QUERY_FILE_REVISION_FILE_ID_128_head
+    CSV_QUERY_FILE_REVISION_FILE_ID_128._fields_ = [
+        ('FileId', win32more.Storage.FileSystem.FILE_ID_128),
+        ('FileRevision', Int64 * 3),
+    ]
+    return CSV_QUERY_FILE_REVISION_FILE_ID_128
+def _define_CSV_QUERY_MDS_PATH_head():
+    class CSV_QUERY_MDS_PATH(Structure):
+        pass
+    return CSV_QUERY_MDS_PATH
+def _define_CSV_QUERY_MDS_PATH():
+    CSV_QUERY_MDS_PATH = win32more.System.Ioctl.CSV_QUERY_MDS_PATH_head
+    CSV_QUERY_MDS_PATH._fields_ = [
+        ('MdsNodeId', UInt32),
+        ('DsNodeId', UInt32),
+        ('PathLength', UInt32),
+        ('Path', Char * 1),
+    ]
+    return CSV_QUERY_MDS_PATH
+def _define_CSV_QUERY_MDS_PATH_V2_head():
+    class CSV_QUERY_MDS_PATH_V2(Structure):
+        pass
+    return CSV_QUERY_MDS_PATH_V2
+def _define_CSV_QUERY_MDS_PATH_V2():
+    CSV_QUERY_MDS_PATH_V2 = win32more.System.Ioctl.CSV_QUERY_MDS_PATH_V2_head
+    CSV_QUERY_MDS_PATH_V2._fields_ = [
+        ('Version', Int64),
+        ('RequiredSize', UInt32),
+        ('MdsNodeId', UInt32),
+        ('DsNodeId', UInt32),
+        ('Flags', UInt32),
+        ('DiskConnectivity', win32more.System.Ioctl.CSVFS_DISK_CONNECTIVITY),
+        ('VolumeId', Guid),
+        ('IpAddressOffset', UInt32),
+        ('IpAddressLength', UInt32),
+        ('PathOffset', UInt32),
+        ('PathLength', UInt32),
+    ]
+    return CSV_QUERY_MDS_PATH_V2
+def _define_CSV_QUERY_REDIRECT_STATE_head():
+    class CSV_QUERY_REDIRECT_STATE(Structure):
+        pass
+    return CSV_QUERY_REDIRECT_STATE
+def _define_CSV_QUERY_REDIRECT_STATE():
+    CSV_QUERY_REDIRECT_STATE = win32more.System.Ioctl.CSV_QUERY_REDIRECT_STATE_head
+    CSV_QUERY_REDIRECT_STATE._fields_ = [
+        ('MdsNodeId', UInt32),
+        ('DsNodeId', UInt32),
+        ('FileRedirected', win32more.Foundation.BOOLEAN),
+    ]
+    return CSV_QUERY_REDIRECT_STATE
+def _define_CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT_head():
+    class CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT(Structure):
+        pass
+    return CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT
+def _define_CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT():
+    CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT = win32more.System.Ioctl.CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT_head
+    CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT._fields_ = [
+        ('VetoedFromAltitudeIntegral', UInt64),
+        ('VetoedFromAltitudeDecimal', UInt64),
+        ('Reason', Char * 256),
+    ]
+    return CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT
+def _define_CSV_QUERY_VOLUME_ID_head():
+    class CSV_QUERY_VOLUME_ID(Structure):
+        pass
+    return CSV_QUERY_VOLUME_ID
+def _define_CSV_QUERY_VOLUME_ID():
+    CSV_QUERY_VOLUME_ID = win32more.System.Ioctl.CSV_QUERY_VOLUME_ID_head
+    CSV_QUERY_VOLUME_ID._fields_ = [
+        ('VolumeId', Guid),
+    ]
+    return CSV_QUERY_VOLUME_ID
+def _define_CSV_QUERY_VOLUME_REDIRECT_STATE_head():
+    class CSV_QUERY_VOLUME_REDIRECT_STATE(Structure):
+        pass
+    return CSV_QUERY_VOLUME_REDIRECT_STATE
+def _define_CSV_QUERY_VOLUME_REDIRECT_STATE():
+    CSV_QUERY_VOLUME_REDIRECT_STATE = win32more.System.Ioctl.CSV_QUERY_VOLUME_REDIRECT_STATE_head
+    CSV_QUERY_VOLUME_REDIRECT_STATE._fields_ = [
+        ('MdsNodeId', UInt32),
+        ('DsNodeId', UInt32),
+        ('IsDiskConnected', win32more.Foundation.BOOLEAN),
+        ('ClusterEnableDirectIo', win32more.Foundation.BOOLEAN),
+        ('DiskConnectivity', win32more.System.Ioctl.CSVFS_DISK_CONNECTIVITY),
+    ]
+    return CSV_QUERY_VOLUME_REDIRECT_STATE
+def _define_CSV_SET_VOLUME_ID_head():
+    class CSV_SET_VOLUME_ID(Structure):
+        pass
+    return CSV_SET_VOLUME_ID
+def _define_CSV_SET_VOLUME_ID():
+    CSV_SET_VOLUME_ID = win32more.System.Ioctl.CSV_SET_VOLUME_ID_head
+    CSV_SET_VOLUME_ID._fields_ = [
+        ('VolumeId', Guid),
+    ]
+    return CSV_SET_VOLUME_ID
+CSVFS_DISK_CONNECTIVITY = Int32
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone = 0
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly = 1
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes = 2
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes = 3
+def _define_DECRYPTION_STATUS_BUFFER_head():
+    class DECRYPTION_STATUS_BUFFER(Structure):
+        pass
+    return DECRYPTION_STATUS_BUFFER
+def _define_DECRYPTION_STATUS_BUFFER():
+    DECRYPTION_STATUS_BUFFER = win32more.System.Ioctl.DECRYPTION_STATUS_BUFFER_head
+    DECRYPTION_STATUS_BUFFER._fields_ = [
+        ('NoEncryptedStreams', win32more.Foundation.BOOLEAN),
+    ]
+    return DECRYPTION_STATUS_BUFFER
+def _define_DELETE_USN_JOURNAL_DATA_head():
+    class DELETE_USN_JOURNAL_DATA(Structure):
+        pass
+    return DELETE_USN_JOURNAL_DATA
+def _define_DELETE_USN_JOURNAL_DATA():
+    DELETE_USN_JOURNAL_DATA = win32more.System.Ioctl.DELETE_USN_JOURNAL_DATA_head
+    DELETE_USN_JOURNAL_DATA._fields_ = [
+        ('UsnJournalID', UInt64),
+        ('DeleteFlags', win32more.System.Ioctl.USN_DELETE_FLAGS),
+    ]
+    return DELETE_USN_JOURNAL_DATA
+DETECTION_TYPE = Int32
+DETECTION_TYPE_DetectNone = 0
+DETECTION_TYPE_DetectInt13 = 1
+DETECTION_TYPE_DetectExInt13 = 2
+def _define_DEVICE_COPY_OFFLOAD_DESCRIPTOR_head():
+    class DEVICE_COPY_OFFLOAD_DESCRIPTOR(Structure):
+        pass
+    return DEVICE_COPY_OFFLOAD_DESCRIPTOR
+def _define_DEVICE_COPY_OFFLOAD_DESCRIPTOR():
+    DEVICE_COPY_OFFLOAD_DESCRIPTOR = win32more.System.Ioctl.DEVICE_COPY_OFFLOAD_DESCRIPTOR_head
+    DEVICE_COPY_OFFLOAD_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('MaximumTokenLifetime', UInt32),
+        ('DefaultTokenLifetime', UInt32),
+        ('MaximumTransferSize', UInt64),
+        ('OptimalTransferCount', UInt64),
+        ('MaximumDataDescriptors', UInt32),
+        ('MaximumTransferLengthPerDescriptor', UInt32),
+        ('OptimalTransferLengthPerDescriptor', UInt32),
+        ('OptimalTransferLengthGranularity', UInt16),
+        ('Reserved', Byte * 2),
+    ]
+    return DEVICE_COPY_OFFLOAD_DESCRIPTOR
+def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE_head():
+    class DEVICE_DATA_SET_LB_PROVISIONING_STATE(Structure):
+        pass
+    return DEVICE_DATA_SET_LB_PROVISIONING_STATE
+def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE():
+    DEVICE_DATA_SET_LB_PROVISIONING_STATE = win32more.System.Ioctl.DEVICE_DATA_SET_LB_PROVISIONING_STATE_head
+    DEVICE_DATA_SET_LB_PROVISIONING_STATE._fields_ = [
+        ('Size', UInt32),
+        ('Version', UInt32),
+        ('SlabSizeInBytes', UInt64),
+        ('SlabOffsetDeltaInBytes', UInt32),
+        ('SlabAllocationBitMapBitCount', UInt32),
+        ('SlabAllocationBitMapLength', UInt32),
+        ('SlabAllocationBitMap', UInt32 * 1),
+    ]
+    return DEVICE_DATA_SET_LB_PROVISIONING_STATE
+def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2_head():
+    class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(Structure):
+        pass
+    return DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2
+def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2():
+    DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 = win32more.System.Ioctl.DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2_head
+    DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2._fields_ = [
+        ('Size', UInt32),
+        ('Version', UInt32),
+        ('SlabSizeInBytes', UInt64),
+        ('SlabOffsetDeltaInBytes', UInt64),
+        ('SlabAllocationBitMapBitCount', UInt32),
+        ('SlabAllocationBitMapLength', UInt32),
+        ('SlabAllocationBitMap', UInt32 * 1),
+    ]
+    return DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2
+def _define_DEVICE_DATA_SET_LBP_STATE_PARAMETERS_head():
+    class DEVICE_DATA_SET_LBP_STATE_PARAMETERS(Structure):
+        pass
+    return DEVICE_DATA_SET_LBP_STATE_PARAMETERS
+def _define_DEVICE_DATA_SET_LBP_STATE_PARAMETERS():
+    DEVICE_DATA_SET_LBP_STATE_PARAMETERS = win32more.System.Ioctl.DEVICE_DATA_SET_LBP_STATE_PARAMETERS_head
+    DEVICE_DATA_SET_LBP_STATE_PARAMETERS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('OutputVersion', UInt32),
+    ]
+    return DEVICE_DATA_SET_LBP_STATE_PARAMETERS
+def _define_DEVICE_DATA_SET_RANGE_head():
+    class DEVICE_DATA_SET_RANGE(Structure):
+        pass
+    return DEVICE_DATA_SET_RANGE
+def _define_DEVICE_DATA_SET_RANGE():
+    DEVICE_DATA_SET_RANGE = win32more.System.Ioctl.DEVICE_DATA_SET_RANGE_head
+    DEVICE_DATA_SET_RANGE._fields_ = [
+        ('StartingOffset', Int64),
+        ('LengthInBytes', UInt64),
+    ]
+    return DEVICE_DATA_SET_RANGE
+def _define_DEVICE_DATA_SET_REPAIR_OUTPUT_head():
+    class DEVICE_DATA_SET_REPAIR_OUTPUT(Structure):
+        pass
+    return DEVICE_DATA_SET_REPAIR_OUTPUT
+def _define_DEVICE_DATA_SET_REPAIR_OUTPUT():
+    DEVICE_DATA_SET_REPAIR_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_REPAIR_OUTPUT_head
+    DEVICE_DATA_SET_REPAIR_OUTPUT._fields_ = [
+        ('ParityExtent', win32more.System.Ioctl.DEVICE_DATA_SET_RANGE),
+    ]
+    return DEVICE_DATA_SET_REPAIR_OUTPUT
+def _define_DEVICE_DATA_SET_REPAIR_PARAMETERS_head():
+    class DEVICE_DATA_SET_REPAIR_PARAMETERS(Structure):
+        pass
+    return DEVICE_DATA_SET_REPAIR_PARAMETERS
+def _define_DEVICE_DATA_SET_REPAIR_PARAMETERS():
+    DEVICE_DATA_SET_REPAIR_PARAMETERS = win32more.System.Ioctl.DEVICE_DATA_SET_REPAIR_PARAMETERS_head
+    DEVICE_DATA_SET_REPAIR_PARAMETERS._fields_ = [
+        ('NumberOfRepairCopies', UInt32),
+        ('SourceCopy', UInt32),
+        ('RepairCopies', UInt32 * 1),
+    ]
+    return DEVICE_DATA_SET_REPAIR_PARAMETERS
+def _define_DEVICE_DATA_SET_SCRUB_EX_OUTPUT_head():
+    class DEVICE_DATA_SET_SCRUB_EX_OUTPUT(Structure):
+        pass
+    return DEVICE_DATA_SET_SCRUB_EX_OUTPUT
+def _define_DEVICE_DATA_SET_SCRUB_EX_OUTPUT():
+    DEVICE_DATA_SET_SCRUB_EX_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_SCRUB_EX_OUTPUT_head
+    DEVICE_DATA_SET_SCRUB_EX_OUTPUT._fields_ = [
+        ('BytesProcessed', UInt64),
+        ('BytesRepaired', UInt64),
+        ('BytesFailed', UInt64),
+        ('ParityExtent', win32more.System.Ioctl.DEVICE_DATA_SET_RANGE),
+        ('BytesScrubbed', UInt64),
+    ]
+    return DEVICE_DATA_SET_SCRUB_EX_OUTPUT
+def _define_DEVICE_DATA_SET_SCRUB_OUTPUT_head():
+    class DEVICE_DATA_SET_SCRUB_OUTPUT(Structure):
+        pass
+    return DEVICE_DATA_SET_SCRUB_OUTPUT
+def _define_DEVICE_DATA_SET_SCRUB_OUTPUT():
+    DEVICE_DATA_SET_SCRUB_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_SCRUB_OUTPUT_head
+    DEVICE_DATA_SET_SCRUB_OUTPUT._fields_ = [
+        ('BytesProcessed', UInt64),
+        ('BytesRepaired', UInt64),
+        ('BytesFailed', UInt64),
+    ]
+    return DEVICE_DATA_SET_SCRUB_OUTPUT
+def _define_DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT_head():
+    class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT(Structure):
+        pass
+    return DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT
+def _define_DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT():
+    DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT_head
+    DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT._fields_ = [
+        ('TopologyRangeBytes', UInt64),
+        ('TopologyId', Byte * 16),
+    ]
+    return DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT
+def _define_DEVICE_DSM_CONVERSION_OUTPUT_head():
+    class DEVICE_DSM_CONVERSION_OUTPUT(Structure):
+        pass
+    return DEVICE_DSM_CONVERSION_OUTPUT
+def _define_DEVICE_DSM_CONVERSION_OUTPUT():
+    DEVICE_DSM_CONVERSION_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_CONVERSION_OUTPUT_head
+    DEVICE_DSM_CONVERSION_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Source', Guid),
+    ]
+    return DEVICE_DSM_CONVERSION_OUTPUT
+def _define_DEVICE_DSM_DEFINITION_head():
+    class DEVICE_DSM_DEFINITION(Structure):
+        pass
+    return DEVICE_DSM_DEFINITION
+def _define_DEVICE_DSM_DEFINITION():
+    DEVICE_DSM_DEFINITION = win32more.System.Ioctl.DEVICE_DSM_DEFINITION_head
+    DEVICE_DSM_DEFINITION._fields_ = [
+        ('Action', UInt32),
+        ('SingleRange', win32more.Foundation.BOOLEAN),
+        ('ParameterBlockAlignment', UInt32),
+        ('ParameterBlockLength', UInt32),
+        ('HasOutput', win32more.Foundation.BOOLEAN),
+        ('OutputBlockAlignment', UInt32),
+        ('OutputBlockLength', UInt32),
+    ]
+    return DEVICE_DSM_DEFINITION
+def _define_DEVICE_DSM_FREE_SPACE_OUTPUT_head():
+    class DEVICE_DSM_FREE_SPACE_OUTPUT(Structure):
+        pass
+    return DEVICE_DSM_FREE_SPACE_OUTPUT
+def _define_DEVICE_DSM_FREE_SPACE_OUTPUT():
+    DEVICE_DSM_FREE_SPACE_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_FREE_SPACE_OUTPUT_head
+    DEVICE_DSM_FREE_SPACE_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('FreeSpace', UInt64),
+    ]
+    return DEVICE_DSM_FREE_SPACE_OUTPUT
+def _define_DEVICE_DSM_LOST_QUERY_OUTPUT_head():
+    class DEVICE_DSM_LOST_QUERY_OUTPUT(Structure):
+        pass
+    return DEVICE_DSM_LOST_QUERY_OUTPUT
+def _define_DEVICE_DSM_LOST_QUERY_OUTPUT():
+    DEVICE_DSM_LOST_QUERY_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_LOST_QUERY_OUTPUT_head
+    DEVICE_DSM_LOST_QUERY_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Alignment', UInt64),
+        ('NumberOfBits', UInt32),
+        ('BitMap', UInt32 * 1),
+    ]
+    return DEVICE_DSM_LOST_QUERY_OUTPUT
+def _define_DEVICE_DSM_LOST_QUERY_PARAMETERS_head():
+    class DEVICE_DSM_LOST_QUERY_PARAMETERS(Structure):
+        pass
+    return DEVICE_DSM_LOST_QUERY_PARAMETERS
+def _define_DEVICE_DSM_LOST_QUERY_PARAMETERS():
+    DEVICE_DSM_LOST_QUERY_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_LOST_QUERY_PARAMETERS_head
+    DEVICE_DSM_LOST_QUERY_PARAMETERS._fields_ = [
+        ('Version', UInt32),
+        ('Granularity', UInt64),
+    ]
+    return DEVICE_DSM_LOST_QUERY_PARAMETERS
+def _define_DEVICE_DSM_NOTIFICATION_PARAMETERS_head():
+    class DEVICE_DSM_NOTIFICATION_PARAMETERS(Structure):
+        pass
+    return DEVICE_DSM_NOTIFICATION_PARAMETERS
+def _define_DEVICE_DSM_NOTIFICATION_PARAMETERS():
+    DEVICE_DSM_NOTIFICATION_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_NOTIFICATION_PARAMETERS_head
+    DEVICE_DSM_NOTIFICATION_PARAMETERS._fields_ = [
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('NumFileTypeIDs', UInt32),
+        ('FileTypeID', Guid * 1),
+    ]
+    return DEVICE_DSM_NOTIFICATION_PARAMETERS
+def _define_DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS_head():
+    class DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS(Structure):
+        pass
+    return DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
+def _define_DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS():
+    DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS_head
+    DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS._fields_ = [
+        ('Size', UInt32),
+        ('TargetPriority', Byte),
+        ('Reserved', Byte * 3),
+    ]
+    return DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
+def _define_DEVICE_DSM_OFFLOAD_READ_PARAMETERS_head():
+    class DEVICE_DSM_OFFLOAD_READ_PARAMETERS(Structure):
+        pass
+    return DEVICE_DSM_OFFLOAD_READ_PARAMETERS
+def _define_DEVICE_DSM_OFFLOAD_READ_PARAMETERS():
+    DEVICE_DSM_OFFLOAD_READ_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_OFFLOAD_READ_PARAMETERS_head
+    DEVICE_DSM_OFFLOAD_READ_PARAMETERS._fields_ = [
+        ('Flags', UInt32),
+        ('TimeToLive', UInt32),
+        ('Reserved', UInt32 * 2),
+    ]
+    return DEVICE_DSM_OFFLOAD_READ_PARAMETERS
+def _define_DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS_head():
+    class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS(Structure):
+        pass
+    return DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS
+def _define_DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS():
+    DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS_head
+    DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS._fields_ = [
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+        ('TokenOffset', UInt64),
+        ('Token', win32more.System.Ioctl.STORAGE_OFFLOAD_TOKEN),
+    ]
+    return DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS
+def _define_DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_head():
+    class DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT(Structure):
+        pass
+    return DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT
+def _define_DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT():
+    DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_head
+    DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('TotalNumberOfRanges', UInt32),
+        ('NumberOfRangesReturned', UInt32),
+        ('Ranges', win32more.System.Ioctl.DEVICE_STORAGE_ADDRESS_RANGE * 1),
+    ]
+    return DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT
+def _define_DEVICE_DSM_RANGE_ERROR_INFO_head():
+    class DEVICE_DSM_RANGE_ERROR_INFO(Structure):
+        pass
+    return DEVICE_DSM_RANGE_ERROR_INFO
+def _define_DEVICE_DSM_RANGE_ERROR_INFO():
+    DEVICE_DSM_RANGE_ERROR_INFO = win32more.System.Ioctl.DEVICE_DSM_RANGE_ERROR_INFO_head
+    DEVICE_DSM_RANGE_ERROR_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('TotalNumberOfRanges', UInt32),
+        ('NumberOfRangesReturned', UInt32),
+        ('Ranges', win32more.System.Ioctl.DEVICE_STORAGE_RANGE_ATTRIBUTES * 1),
+    ]
+    return DEVICE_DSM_RANGE_ERROR_INFO
+def _define_DEVICE_DSM_REPORT_ZONES_DATA_head():
+    class DEVICE_DSM_REPORT_ZONES_DATA(Structure):
+        pass
+    return DEVICE_DSM_REPORT_ZONES_DATA
+def _define_DEVICE_DSM_REPORT_ZONES_DATA():
+    DEVICE_DSM_REPORT_ZONES_DATA = win32more.System.Ioctl.DEVICE_DSM_REPORT_ZONES_DATA_head
+    DEVICE_DSM_REPORT_ZONES_DATA._fields_ = [
+        ('Size', UInt32),
+        ('ZoneCount', UInt32),
+        ('Attributes', win32more.System.Ioctl.STORAGE_ZONES_ATTRIBUTES),
+        ('Reserved0', UInt32),
+        ('ZoneDescriptors', win32more.System.Ioctl.STORAGE_ZONE_DESCRIPTOR * 1),
+    ]
+    return DEVICE_DSM_REPORT_ZONES_DATA
+def _define_DEVICE_DSM_REPORT_ZONES_PARAMETERS_head():
+    class DEVICE_DSM_REPORT_ZONES_PARAMETERS(Structure):
+        pass
+    return DEVICE_DSM_REPORT_ZONES_PARAMETERS
+def _define_DEVICE_DSM_REPORT_ZONES_PARAMETERS():
+    DEVICE_DSM_REPORT_ZONES_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_REPORT_ZONES_PARAMETERS_head
+    DEVICE_DSM_REPORT_ZONES_PARAMETERS._fields_ = [
+        ('Size', UInt32),
+        ('ReportOption', Byte),
+        ('Partial', Byte),
+        ('Reserved', Byte * 2),
+    ]
+    return DEVICE_DSM_REPORT_ZONES_PARAMETERS
+def _define_DEVICE_DSM_TIERING_QUERY_INPUT_head():
+    class DEVICE_DSM_TIERING_QUERY_INPUT(Structure):
+        pass
+    return DEVICE_DSM_TIERING_QUERY_INPUT
+def _define_DEVICE_DSM_TIERING_QUERY_INPUT():
+    DEVICE_DSM_TIERING_QUERY_INPUT = win32more.System.Ioctl.DEVICE_DSM_TIERING_QUERY_INPUT_head
+    DEVICE_DSM_TIERING_QUERY_INPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('NumberOfTierIds', UInt32),
+        ('TierIds', Guid * 1),
+    ]
+    return DEVICE_DSM_TIERING_QUERY_INPUT
+def _define_DEVICE_DSM_TIERING_QUERY_OUTPUT_head():
+    class DEVICE_DSM_TIERING_QUERY_OUTPUT(Structure):
+        pass
+    return DEVICE_DSM_TIERING_QUERY_OUTPUT
+def _define_DEVICE_DSM_TIERING_QUERY_OUTPUT():
+    DEVICE_DSM_TIERING_QUERY_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_TIERING_QUERY_OUTPUT_head
+    DEVICE_DSM_TIERING_QUERY_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+        ('Alignment', UInt64),
+        ('TotalNumberOfRegions', UInt32),
+        ('NumberOfRegionsReturned', UInt32),
+        ('Regions', win32more.System.Ioctl.STORAGE_TIER_REGION * 1),
+    ]
+    return DEVICE_DSM_TIERING_QUERY_OUTPUT
+def _define_DEVICE_INTERNAL_STATUS_DATA_head():
+    class DEVICE_INTERNAL_STATUS_DATA(Structure):
+        pass
+    return DEVICE_INTERNAL_STATUS_DATA
+def _define_DEVICE_INTERNAL_STATUS_DATA():
+    DEVICE_INTERNAL_STATUS_DATA = win32more.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_head
+    DEVICE_INTERNAL_STATUS_DATA._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('T10VendorId', UInt64),
+        ('DataSet1Length', UInt32),
+        ('DataSet2Length', UInt32),
+        ('DataSet3Length', UInt32),
+        ('DataSet4Length', UInt32),
+        ('StatusDataVersion', Byte),
+        ('Reserved', Byte * 3),
+        ('ReasonIdentifier', Byte * 128),
+        ('StatusDataLength', UInt32),
+        ('StatusData', Byte * 1),
+    ]
+    return DEVICE_INTERNAL_STATUS_DATA
+DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = Int32
+DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceInternalStatusDataRequestTypeUndefined = 0
+DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusDataHeader = 1
+DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusData = 2
+DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusDataHeader = 3
+DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusData = 4
+DEVICE_INTERNAL_STATUS_DATA_SET = Int32
+DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetUndefined = 0
+DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet1 = 1
+DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet2 = 2
+DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet3 = 3
+DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet4 = 4
+DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetMax = 5
+def _define_DEVICE_LB_PROVISIONING_DESCRIPTOR_head():
+    class DEVICE_LB_PROVISIONING_DESCRIPTOR(Structure):
+        pass
+    return DEVICE_LB_PROVISIONING_DESCRIPTOR
+def _define_DEVICE_LB_PROVISIONING_DESCRIPTOR():
+    DEVICE_LB_PROVISIONING_DESCRIPTOR = win32more.System.Ioctl.DEVICE_LB_PROVISIONING_DESCRIPTOR_head
+    DEVICE_LB_PROVISIONING_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('_bitfield', Byte),
+        ('Reserved1', Byte * 7),
+        ('OptimalUnmapGranularity', UInt64),
+        ('UnmapGranularityAlignment', UInt64),
+        ('MaxUnmapLbaCount', UInt32),
+        ('MaxUnmapBlockDescriptorCount', UInt32),
+    ]
+    return DEVICE_LB_PROVISIONING_DESCRIPTOR
+def _define_DEVICE_LOCATION_head():
+    class DEVICE_LOCATION(Structure):
+        pass
+    return DEVICE_LOCATION
+def _define_DEVICE_LOCATION():
+    DEVICE_LOCATION = win32more.System.Ioctl.DEVICE_LOCATION_head
+    class DEVICE_LOCATION__Anonymous_e__Union(Union):
+        pass
+    class DEVICE_LOCATION__Anonymous_e__Union__Anonymous1_e__Struct(Structure):
+        pass
+    DEVICE_LOCATION__Anonymous_e__Union__Anonymous1_e__Struct._fields_ = [
+        ('Channel', UInt32),
+        ('Device', UInt32),
+    ]
+    class DEVICE_LOCATION__Anonymous_e__Union__Anonymous2_e__Struct(Structure):
+        pass
+    DEVICE_LOCATION__Anonymous_e__Union__Anonymous2_e__Struct._fields_ = [
+        ('Target', UInt32),
+        ('Lun', UInt32),
+    ]
+    DEVICE_LOCATION__Anonymous_e__Union._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+    ]
+    DEVICE_LOCATION__Anonymous_e__Union._fields_ = [
+        ('Anonymous1', DEVICE_LOCATION__Anonymous_e__Union__Anonymous1_e__Struct),
+        ('Anonymous2', DEVICE_LOCATION__Anonymous_e__Union__Anonymous2_e__Struct),
+    ]
+    DEVICE_LOCATION._anonymous_ = [
+        'Anonymous',
+    ]
+    DEVICE_LOCATION._fields_ = [
+        ('Socket', UInt32),
+        ('Slot', UInt32),
+        ('Adapter', UInt32),
+        ('Port', UInt32),
+        ('Anonymous', DEVICE_LOCATION__Anonymous_e__Union),
+    ]
+    return DEVICE_LOCATION
+def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES_head():
+    class DEVICE_MANAGE_DATA_SET_ATTRIBUTES(Structure):
+        pass
+    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES
+def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES():
+    DEVICE_MANAGE_DATA_SET_ATTRIBUTES = win32more.System.Ioctl.DEVICE_MANAGE_DATA_SET_ATTRIBUTES_head
+    DEVICE_MANAGE_DATA_SET_ATTRIBUTES._fields_ = [
+        ('Size', UInt32),
+        ('Action', UInt32),
+        ('Flags', UInt32),
+        ('ParameterBlockOffset', UInt32),
+        ('ParameterBlockLength', UInt32),
+        ('DataSetRangesOffset', UInt32),
+        ('DataSetRangesLength', UInt32),
+    ]
+    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES
+def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT_head():
+    class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT(Structure):
+        pass
+    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT
+def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT():
+    DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT = win32more.System.Ioctl.DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT_head
+    DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT._fields_ = [
+        ('Size', UInt32),
+        ('Action', UInt32),
+        ('Flags', UInt32),
+        ('OperationStatus', UInt32),
+        ('ExtendedError', UInt32),
+        ('TargetDetailedError', UInt32),
+        ('ReservedStatus', UInt32),
+        ('OutputBlockOffset', UInt32),
+        ('OutputBlockLength', UInt32),
+    ]
+    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT
+def _define_DEVICE_MEDIA_INFO_head():
+    class DEVICE_MEDIA_INFO(Structure):
+        pass
+    return DEVICE_MEDIA_INFO
+def _define_DEVICE_MEDIA_INFO():
+    DEVICE_MEDIA_INFO = win32more.System.Ioctl.DEVICE_MEDIA_INFO_head
+    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union(Union):
+        pass
+    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__DiskInfo_e__Struct(Structure):
+        pass
+    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__DiskInfo_e__Struct._fields_ = [
+        ('Cylinders', win32more.Foundation.LARGE_INTEGER),
+        ('MediaType', win32more.System.Ioctl.STORAGE_MEDIA_TYPE),
+        ('TracksPerCylinder', UInt32),
+        ('SectorsPerTrack', UInt32),
+        ('BytesPerSector', UInt32),
+        ('NumberMediaSides', UInt32),
+        ('MediaCharacteristics', UInt32),
+    ]
+    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__RemovableDiskInfo_e__Struct(Structure):
+        pass
+    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__RemovableDiskInfo_e__Struct._fields_ = [
+        ('Cylinders', win32more.Foundation.LARGE_INTEGER),
+        ('MediaType', win32more.System.Ioctl.STORAGE_MEDIA_TYPE),
+        ('TracksPerCylinder', UInt32),
+        ('SectorsPerTrack', UInt32),
+        ('BytesPerSector', UInt32),
+        ('NumberMediaSides', UInt32),
+        ('MediaCharacteristics', UInt32),
+    ]
+    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct(Structure):
+        pass
+    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union(Union):
+        pass
+    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union__ScsiInformation_e__Struct(Structure):
+        pass
+    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union__ScsiInformation_e__Struct._fields_ = [
+        ('MediumType', Byte),
+        ('DensityCode', Byte),
+    ]
+    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union._fields_ = [
+        ('ScsiInformation', DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union__ScsiInformation_e__Struct),
+    ]
+    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct._fields_ = [
+        ('MediaType', win32more.System.Ioctl.STORAGE_MEDIA_TYPE),
+        ('MediaCharacteristics', UInt32),
+        ('CurrentBlockSize', UInt32),
+        ('BusType', win32more.Storage.FileSystem.STORAGE_BUS_TYPE),
+        ('BusSpecificData', DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union),
+    ]
+    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union._fields_ = [
+        ('DiskInfo', DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__DiskInfo_e__Struct),
+        ('RemovableDiskInfo', DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__RemovableDiskInfo_e__Struct),
+        ('TapeInfo', DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct),
+    ]
+    DEVICE_MEDIA_INFO._fields_ = [
+        ('DeviceSpecific', DEVICE_MEDIA_INFO__DeviceSpecific_e__Union),
+    ]
+    return DEVICE_MEDIA_INFO
+def _define_DEVICE_POWER_DESCRIPTOR_head():
+    class DEVICE_POWER_DESCRIPTOR(Structure):
+        pass
+    return DEVICE_POWER_DESCRIPTOR
+def _define_DEVICE_POWER_DESCRIPTOR():
+    DEVICE_POWER_DESCRIPTOR = win32more.System.Ioctl.DEVICE_POWER_DESCRIPTOR_head
+    DEVICE_POWER_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceAttentionSupported', win32more.Foundation.BOOLEAN),
+        ('AsynchronousNotificationSupported', win32more.Foundation.BOOLEAN),
+        ('IdlePowerManagementEnabled', win32more.Foundation.BOOLEAN),
+        ('D3ColdEnabled', win32more.Foundation.BOOLEAN),
+        ('D3ColdSupported', win32more.Foundation.BOOLEAN),
+        ('NoVerifyDuringIdlePower', win32more.Foundation.BOOLEAN),
+        ('Reserved', Byte * 2),
+        ('IdleTimeoutInMS', UInt32),
+    ]
+    return DEVICE_POWER_DESCRIPTOR
+def _define_DEVICE_SEEK_PENALTY_DESCRIPTOR_head():
+    class DEVICE_SEEK_PENALTY_DESCRIPTOR(Structure):
+        pass
+    return DEVICE_SEEK_PENALTY_DESCRIPTOR
+def _define_DEVICE_SEEK_PENALTY_DESCRIPTOR():
+    DEVICE_SEEK_PENALTY_DESCRIPTOR = win32more.System.Ioctl.DEVICE_SEEK_PENALTY_DESCRIPTOR_head
+    DEVICE_SEEK_PENALTY_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('IncursSeekPenalty', win32more.Foundation.BOOLEAN),
+    ]
+    return DEVICE_SEEK_PENALTY_DESCRIPTOR
+def _define_DEVICE_STORAGE_ADDRESS_RANGE_head():
+    class DEVICE_STORAGE_ADDRESS_RANGE(Structure):
+        pass
+    return DEVICE_STORAGE_ADDRESS_RANGE
+def _define_DEVICE_STORAGE_ADDRESS_RANGE():
+    DEVICE_STORAGE_ADDRESS_RANGE = win32more.System.Ioctl.DEVICE_STORAGE_ADDRESS_RANGE_head
+    DEVICE_STORAGE_ADDRESS_RANGE._fields_ = [
+        ('StartAddress', Int64),
+        ('LengthInBytes', UInt64),
+    ]
+    return DEVICE_STORAGE_ADDRESS_RANGE
+def _define_DEVICE_STORAGE_RANGE_ATTRIBUTES_head():
+    class DEVICE_STORAGE_RANGE_ATTRIBUTES(Structure):
+        pass
+    return DEVICE_STORAGE_RANGE_ATTRIBUTES
+def _define_DEVICE_STORAGE_RANGE_ATTRIBUTES():
+    DEVICE_STORAGE_RANGE_ATTRIBUTES = win32more.System.Ioctl.DEVICE_STORAGE_RANGE_ATTRIBUTES_head
+    class DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union(Union):
+        pass
+    class DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union._fields_ = [
+        ('AllFlags', UInt32),
+        ('Anonymous', DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    DEVICE_STORAGE_RANGE_ATTRIBUTES._anonymous_ = [
+        'Anonymous',
+    ]
+    DEVICE_STORAGE_RANGE_ATTRIBUTES._fields_ = [
+        ('LengthInBytes', UInt64),
+        ('Anonymous', DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union),
+        ('Reserved', UInt32),
+    ]
+    return DEVICE_STORAGE_RANGE_ATTRIBUTES
+def _define_DEVICE_TRIM_DESCRIPTOR_head():
+    class DEVICE_TRIM_DESCRIPTOR(Structure):
+        pass
+    return DEVICE_TRIM_DESCRIPTOR
+def _define_DEVICE_TRIM_DESCRIPTOR():
+    DEVICE_TRIM_DESCRIPTOR = win32more.System.Ioctl.DEVICE_TRIM_DESCRIPTOR_head
+    DEVICE_TRIM_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('TrimEnabled', win32more.Foundation.BOOLEAN),
+    ]
+    return DEVICE_TRIM_DESCRIPTOR
+def _define_DEVICE_WRITE_AGGREGATION_DESCRIPTOR_head():
+    class DEVICE_WRITE_AGGREGATION_DESCRIPTOR(Structure):
+        pass
+    return DEVICE_WRITE_AGGREGATION_DESCRIPTOR
+def _define_DEVICE_WRITE_AGGREGATION_DESCRIPTOR():
+    DEVICE_WRITE_AGGREGATION_DESCRIPTOR = win32more.System.Ioctl.DEVICE_WRITE_AGGREGATION_DESCRIPTOR_head
+    DEVICE_WRITE_AGGREGATION_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('BenefitsFromWriteAggregation', win32more.Foundation.BOOLEAN),
+    ]
+    return DEVICE_WRITE_AGGREGATION_DESCRIPTOR
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = Int32
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionBugCheck = 1
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionApplicationRequested = 2
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionDeviceRequested = 3
+def _define_DEVICEDUMP_PRIVATE_SUBSECTION_head():
+    class DEVICEDUMP_PRIVATE_SUBSECTION(Structure):
+        pass
+    return DEVICEDUMP_PRIVATE_SUBSECTION
+def _define_DEVICEDUMP_PRIVATE_SUBSECTION():
+    DEVICEDUMP_PRIVATE_SUBSECTION = win32more.System.Ioctl.DEVICEDUMP_PRIVATE_SUBSECTION_head
+    DEVICEDUMP_PRIVATE_SUBSECTION._pack_ = 1
+    DEVICEDUMP_PRIVATE_SUBSECTION._fields_ = [
+        ('dwFlags', UInt32),
+        ('GPLogId', win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR),
+        ('bData', Byte * 1),
+    ]
+    return DEVICEDUMP_PRIVATE_SUBSECTION
+def _define_DEVICEDUMP_PUBLIC_SUBSECTION_head():
+    class DEVICEDUMP_PUBLIC_SUBSECTION(Structure):
+        pass
+    return DEVICEDUMP_PUBLIC_SUBSECTION
+def _define_DEVICEDUMP_PUBLIC_SUBSECTION():
+    DEVICEDUMP_PUBLIC_SUBSECTION = win32more.System.Ioctl.DEVICEDUMP_PUBLIC_SUBSECTION_head
+    DEVICEDUMP_PUBLIC_SUBSECTION._pack_ = 1
+    DEVICEDUMP_PUBLIC_SUBSECTION._fields_ = [
+        ('dwFlags', UInt32),
+        ('GPLogTable', win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR * 16),
+        ('szDescription', win32more.Foundation.CHAR * 16),
+        ('bData', Byte * 1),
+    ]
+    return DEVICEDUMP_PUBLIC_SUBSECTION
+def _define_DEVICEDUMP_RESTRICTED_SUBSECTION_head():
+    class DEVICEDUMP_RESTRICTED_SUBSECTION(Structure):
+        pass
+    return DEVICEDUMP_RESTRICTED_SUBSECTION
+def _define_DEVICEDUMP_RESTRICTED_SUBSECTION():
+    DEVICEDUMP_RESTRICTED_SUBSECTION = win32more.System.Ioctl.DEVICEDUMP_RESTRICTED_SUBSECTION_head
+    DEVICEDUMP_RESTRICTED_SUBSECTION._fields_ = [
+        ('bData', Byte * 1),
+    ]
+    return DEVICEDUMP_RESTRICTED_SUBSECTION
+def _define_DEVICEDUMP_SECTION_HEADER_head():
+    class DEVICEDUMP_SECTION_HEADER(Structure):
+        pass
+    return DEVICEDUMP_SECTION_HEADER
+def _define_DEVICEDUMP_SECTION_HEADER():
+    DEVICEDUMP_SECTION_HEADER = win32more.System.Ioctl.DEVICEDUMP_SECTION_HEADER_head
+    DEVICEDUMP_SECTION_HEADER._pack_ = 1
+    DEVICEDUMP_SECTION_HEADER._fields_ = [
+        ('guidDeviceDataId', Guid),
+        ('sOrganizationID', Byte * 16),
+        ('dwFirmwareRevision', UInt32),
+        ('sModelNumber', Byte * 32),
+        ('szDeviceManufacturingID', Byte * 32),
+        ('dwFlags', UInt32),
+        ('bRestrictedPrivateDataVersion', UInt32),
+        ('dwFirmwareIssueId', UInt32),
+        ('szIssueDescriptionString', Byte * 132),
+    ]
+    return DEVICEDUMP_SECTION_HEADER
+def _define_DEVICEDUMP_STORAGEDEVICE_DATA_head():
+    class DEVICEDUMP_STORAGEDEVICE_DATA(Structure):
+        pass
+    return DEVICEDUMP_STORAGEDEVICE_DATA
+def _define_DEVICEDUMP_STORAGEDEVICE_DATA():
+    DEVICEDUMP_STORAGEDEVICE_DATA = win32more.System.Ioctl.DEVICEDUMP_STORAGEDEVICE_DATA_head
+    DEVICEDUMP_STORAGEDEVICE_DATA._pack_ = 1
+    DEVICEDUMP_STORAGEDEVICE_DATA._fields_ = [
+        ('Descriptor', win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION),
+        ('SectionHeader', win32more.System.Ioctl.DEVICEDUMP_SECTION_HEADER),
+        ('dwBufferSize', UInt32),
+        ('dwReasonForCollection', UInt32),
+        ('PublicData', win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER),
+        ('RestrictedData', win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER),
+        ('PrivateData', win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER),
+    ]
+    return DEVICEDUMP_STORAGEDEVICE_DATA
+def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP_head():
+    class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP(Structure):
+        pass
+    return DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP
+def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP():
+    DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP = win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP_head
+    DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP._pack_ = 1
+    DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP._fields_ = [
+        ('Descriptor', win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION),
+        ('dwReasonForCollection', UInt32),
+        ('cDriverName', Byte * 16),
+        ('uiNumRecords', UInt32),
+        ('RecordArray', win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD * 1),
+    ]
+    return DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP
+def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD_head():
+    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(Structure):
+        pass
+    return DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD
+def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD():
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD = win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD_head
+    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union(Union):
+        pass
+    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct(Structure):
+        pass
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct._pack_ = 1
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct._fields_ = [
+        ('dwReserved', UInt32),
+    ]
+    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct(Structure):
+        pass
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct._pack_ = 1
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct._fields_ = [
+        ('dwAtaPortSpecific', UInt32),
+    ]
+    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct(Structure):
+        pass
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct._pack_ = 1
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct._fields_ = [
+        ('SrbTag', UInt32),
+    ]
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union._fields_ = [
+        ('ExternalStack', DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct),
+        ('AtaPort', DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct),
+        ('StorPort', DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct),
+    ]
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._pack_ = 1
+    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._fields_ = [
+        ('Cdb', Byte * 16),
+        ('Command', Byte * 16),
+        ('StartTime', UInt64),
+        ('EndTime', UInt64),
+        ('OperationStatus', UInt32),
+        ('OperationError', UInt32),
+        ('StackSpecific', DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union),
+    ]
+    return DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD
+def _define_DEVICEDUMP_STRUCTURE_VERSION_head():
+    class DEVICEDUMP_STRUCTURE_VERSION(Structure):
+        pass
+    return DEVICEDUMP_STRUCTURE_VERSION
+def _define_DEVICEDUMP_STRUCTURE_VERSION():
+    DEVICEDUMP_STRUCTURE_VERSION = win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION_head
+    DEVICEDUMP_STRUCTURE_VERSION._pack_ = 1
+    DEVICEDUMP_STRUCTURE_VERSION._fields_ = [
+        ('dwSignature', UInt32),
+        ('dwVersion', UInt32),
+        ('dwSize', UInt32),
+    ]
+    return DEVICEDUMP_STRUCTURE_VERSION
+def _define_DEVICEDUMP_SUBSECTION_POINTER_head():
+    class DEVICEDUMP_SUBSECTION_POINTER(Structure):
+        pass
+    return DEVICEDUMP_SUBSECTION_POINTER
+def _define_DEVICEDUMP_SUBSECTION_POINTER():
+    DEVICEDUMP_SUBSECTION_POINTER = win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER_head
+    DEVICEDUMP_SUBSECTION_POINTER._pack_ = 1
+    DEVICEDUMP_SUBSECTION_POINTER._fields_ = [
+        ('dwSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwOffset', UInt32),
+    ]
+    return DEVICEDUMP_SUBSECTION_POINTER
+def _define_DISK_CACHE_INFORMATION_head():
+    class DISK_CACHE_INFORMATION(Structure):
+        pass
+    return DISK_CACHE_INFORMATION
+def _define_DISK_CACHE_INFORMATION():
+    DISK_CACHE_INFORMATION = win32more.System.Ioctl.DISK_CACHE_INFORMATION_head
+    class DISK_CACHE_INFORMATION__Anonymous_e__Union(Union):
+        pass
+    class DISK_CACHE_INFORMATION__Anonymous_e__Union__ScalarPrefetch_e__Struct(Structure):
+        pass
+    DISK_CACHE_INFORMATION__Anonymous_e__Union__ScalarPrefetch_e__Struct._fields_ = [
+        ('Minimum', UInt16),
+        ('Maximum', UInt16),
+        ('MaximumBlocks', UInt16),
+    ]
+    class DISK_CACHE_INFORMATION__Anonymous_e__Union__BlockPrefetch_e__Struct(Structure):
+        pass
+    DISK_CACHE_INFORMATION__Anonymous_e__Union__BlockPrefetch_e__Struct._fields_ = [
+        ('Minimum', UInt16),
+        ('Maximum', UInt16),
+    ]
+    DISK_CACHE_INFORMATION__Anonymous_e__Union._fields_ = [
+        ('ScalarPrefetch', DISK_CACHE_INFORMATION__Anonymous_e__Union__ScalarPrefetch_e__Struct),
+        ('BlockPrefetch', DISK_CACHE_INFORMATION__Anonymous_e__Union__BlockPrefetch_e__Struct),
+    ]
+    DISK_CACHE_INFORMATION._anonymous_ = [
+        'Anonymous',
+    ]
+    DISK_CACHE_INFORMATION._fields_ = [
+        ('ParametersSavable', win32more.Foundation.BOOLEAN),
+        ('ReadCacheEnabled', win32more.Foundation.BOOLEAN),
+        ('WriteCacheEnabled', win32more.Foundation.BOOLEAN),
+        ('ReadRetentionPriority', win32more.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY),
+        ('WriteRetentionPriority', win32more.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY),
+        ('DisablePrefetchTransferLength', UInt16),
+        ('PrefetchScalar', win32more.Foundation.BOOLEAN),
+        ('Anonymous', DISK_CACHE_INFORMATION__Anonymous_e__Union),
+    ]
+    return DISK_CACHE_INFORMATION
+DISK_CACHE_RETENTION_PRIORITY = Int32
+DISK_CACHE_RETENTION_PRIORITY_EqualPriority = 0
+DISK_CACHE_RETENTION_PRIORITY_KeepPrefetchedData = 1
+DISK_CACHE_RETENTION_PRIORITY_KeepReadData = 2
+def _define_DISK_CONTROLLER_NUMBER_head():
+    class DISK_CONTROLLER_NUMBER(Structure):
+        pass
+    return DISK_CONTROLLER_NUMBER
+def _define_DISK_CONTROLLER_NUMBER():
+    DISK_CONTROLLER_NUMBER = win32more.System.Ioctl.DISK_CONTROLLER_NUMBER_head
+    DISK_CONTROLLER_NUMBER._fields_ = [
+        ('ControllerNumber', UInt32),
+        ('DiskNumber', UInt32),
+    ]
+    return DISK_CONTROLLER_NUMBER
+def _define_DISK_DETECTION_INFO_head():
+    class DISK_DETECTION_INFO(Structure):
+        pass
+    return DISK_DETECTION_INFO
+def _define_DISK_DETECTION_INFO():
+    DISK_DETECTION_INFO = win32more.System.Ioctl.DISK_DETECTION_INFO_head
+    class DISK_DETECTION_INFO__Anonymous_e__Union(Union):
+        pass
+    class DISK_DETECTION_INFO__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    DISK_DETECTION_INFO__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('Int13', win32more.System.Ioctl.DISK_INT13_INFO),
+        ('ExInt13', win32more.System.Ioctl.DISK_EX_INT13_INFO),
+    ]
+    DISK_DETECTION_INFO__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    DISK_DETECTION_INFO__Anonymous_e__Union._fields_ = [
+        ('Anonymous', DISK_DETECTION_INFO__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    DISK_DETECTION_INFO._anonymous_ = [
+        'Anonymous',
+    ]
+    DISK_DETECTION_INFO._fields_ = [
+        ('SizeOfDetectInfo', UInt32),
+        ('DetectionType', win32more.System.Ioctl.DETECTION_TYPE),
+        ('Anonymous', DISK_DETECTION_INFO__Anonymous_e__Union),
+    ]
+    return DISK_DETECTION_INFO
+def _define_DISK_EX_INT13_INFO_head():
+    class DISK_EX_INT13_INFO(Structure):
+        pass
+    return DISK_EX_INT13_INFO
+def _define_DISK_EX_INT13_INFO():
+    DISK_EX_INT13_INFO = win32more.System.Ioctl.DISK_EX_INT13_INFO_head
+    DISK_EX_INT13_INFO._fields_ = [
+        ('ExBufferSize', UInt16),
+        ('ExFlags', UInt16),
+        ('ExCylinders', UInt32),
+        ('ExHeads', UInt32),
+        ('ExSectorsPerTrack', UInt32),
+        ('ExSectorsPerDrive', UInt64),
+        ('ExSectorSize', UInt16),
+        ('ExReserved', UInt16),
+    ]
+    return DISK_EX_INT13_INFO
+def _define_DISK_EXTENT_head():
+    class DISK_EXTENT(Structure):
+        pass
+    return DISK_EXTENT
+def _define_DISK_EXTENT():
+    DISK_EXTENT = win32more.System.Ioctl.DISK_EXTENT_head
+    DISK_EXTENT._fields_ = [
+        ('DiskNumber', UInt32),
+        ('StartingOffset', win32more.Foundation.LARGE_INTEGER),
+        ('ExtentLength', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return DISK_EXTENT
+def _define_DISK_GEOMETRY_head():
+    class DISK_GEOMETRY(Structure):
+        pass
+    return DISK_GEOMETRY
+def _define_DISK_GEOMETRY():
+    DISK_GEOMETRY = win32more.System.Ioctl.DISK_GEOMETRY_head
+    DISK_GEOMETRY._fields_ = [
+        ('Cylinders', win32more.Foundation.LARGE_INTEGER),
+        ('MediaType', win32more.System.Ioctl.MEDIA_TYPE),
+        ('TracksPerCylinder', UInt32),
+        ('SectorsPerTrack', UInt32),
+        ('BytesPerSector', UInt32),
+    ]
+    return DISK_GEOMETRY
+def _define_DISK_GEOMETRY_EX_head():
+    class DISK_GEOMETRY_EX(Structure):
+        pass
+    return DISK_GEOMETRY_EX
+def _define_DISK_GEOMETRY_EX():
+    DISK_GEOMETRY_EX = win32more.System.Ioctl.DISK_GEOMETRY_EX_head
+    DISK_GEOMETRY_EX._fields_ = [
+        ('Geometry', win32more.System.Ioctl.DISK_GEOMETRY),
+        ('DiskSize', win32more.Foundation.LARGE_INTEGER),
+        ('Data', Byte * 1),
+    ]
+    return DISK_GEOMETRY_EX
+def _define_DISK_GROW_PARTITION_head():
+    class DISK_GROW_PARTITION(Structure):
+        pass
+    return DISK_GROW_PARTITION
+def _define_DISK_GROW_PARTITION():
+    DISK_GROW_PARTITION = win32more.System.Ioctl.DISK_GROW_PARTITION_head
+    DISK_GROW_PARTITION._fields_ = [
+        ('PartitionNumber', UInt32),
+        ('BytesToGrow', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return DISK_GROW_PARTITION
+def _define_DISK_HISTOGRAM_head():
+    class DISK_HISTOGRAM(Structure):
+        pass
+    return DISK_HISTOGRAM
+def _define_DISK_HISTOGRAM():
+    DISK_HISTOGRAM = win32more.System.Ioctl.DISK_HISTOGRAM_head
+    DISK_HISTOGRAM._fields_ = [
+        ('DiskSize', win32more.Foundation.LARGE_INTEGER),
+        ('Start', win32more.Foundation.LARGE_INTEGER),
+        ('End', win32more.Foundation.LARGE_INTEGER),
+        ('Average', win32more.Foundation.LARGE_INTEGER),
+        ('AverageRead', win32more.Foundation.LARGE_INTEGER),
+        ('AverageWrite', win32more.Foundation.LARGE_INTEGER),
+        ('Granularity', UInt32),
+        ('Size', UInt32),
+        ('ReadCount', UInt32),
+        ('WriteCount', UInt32),
+        ('Histogram', POINTER(win32more.System.Ioctl.HISTOGRAM_BUCKET_head)),
+    ]
+    return DISK_HISTOGRAM
+def _define_DISK_INT13_INFO_head():
+    class DISK_INT13_INFO(Structure):
+        pass
+    return DISK_INT13_INFO
+def _define_DISK_INT13_INFO():
+    DISK_INT13_INFO = win32more.System.Ioctl.DISK_INT13_INFO_head
+    DISK_INT13_INFO._fields_ = [
+        ('DriveSelect', UInt16),
+        ('MaxCylinders', UInt32),
+        ('SectorsPerTrack', UInt16),
+        ('MaxHeads', UInt16),
+        ('NumberDrives', UInt16),
+    ]
+    return DISK_INT13_INFO
+def _define_DISK_LOGGING_head():
+    class DISK_LOGGING(Structure):
+        pass
+    return DISK_LOGGING
+def _define_DISK_LOGGING():
+    DISK_LOGGING = win32more.System.Ioctl.DISK_LOGGING_head
+    DISK_LOGGING._fields_ = [
+        ('Function', Byte),
+        ('BufferAddress', c_void_p),
+        ('BufferSize', UInt32),
+    ]
+    return DISK_LOGGING
+def _define_DISK_PARTITION_INFO_head():
+    class DISK_PARTITION_INFO(Structure):
+        pass
+    return DISK_PARTITION_INFO
+def _define_DISK_PARTITION_INFO():
+    DISK_PARTITION_INFO = win32more.System.Ioctl.DISK_PARTITION_INFO_head
+    class DISK_PARTITION_INFO__Anonymous_e__Union(Union):
+        pass
+    class DISK_PARTITION_INFO__Anonymous_e__Union__Mbr_e__Struct(Structure):
+        pass
+    DISK_PARTITION_INFO__Anonymous_e__Union__Mbr_e__Struct._fields_ = [
+        ('Signature', UInt32),
+        ('CheckSum', UInt32),
+    ]
+    class DISK_PARTITION_INFO__Anonymous_e__Union__Gpt_e__Struct(Structure):
+        pass
+    DISK_PARTITION_INFO__Anonymous_e__Union__Gpt_e__Struct._fields_ = [
+        ('DiskId', Guid),
+    ]
+    DISK_PARTITION_INFO__Anonymous_e__Union._fields_ = [
+        ('Mbr', DISK_PARTITION_INFO__Anonymous_e__Union__Mbr_e__Struct),
+        ('Gpt', DISK_PARTITION_INFO__Anonymous_e__Union__Gpt_e__Struct),
+    ]
+    DISK_PARTITION_INFO._anonymous_ = [
+        'Anonymous',
+    ]
+    DISK_PARTITION_INFO._fields_ = [
+        ('SizeOfPartitionInfo', UInt32),
+        ('PartitionStyle', win32more.System.Ioctl.PARTITION_STYLE),
+        ('Anonymous', DISK_PARTITION_INFO__Anonymous_e__Union),
+    ]
+    return DISK_PARTITION_INFO
+def _define_DISK_PERFORMANCE_head():
+    class DISK_PERFORMANCE(Structure):
+        pass
+    return DISK_PERFORMANCE
+def _define_DISK_PERFORMANCE():
+    DISK_PERFORMANCE = win32more.System.Ioctl.DISK_PERFORMANCE_head
+    DISK_PERFORMANCE._fields_ = [
+        ('BytesRead', win32more.Foundation.LARGE_INTEGER),
+        ('BytesWritten', win32more.Foundation.LARGE_INTEGER),
+        ('ReadTime', win32more.Foundation.LARGE_INTEGER),
+        ('WriteTime', win32more.Foundation.LARGE_INTEGER),
+        ('IdleTime', win32more.Foundation.LARGE_INTEGER),
+        ('ReadCount', UInt32),
+        ('WriteCount', UInt32),
+        ('QueueDepth', UInt32),
+        ('SplitCount', UInt32),
+        ('QueryTime', win32more.Foundation.LARGE_INTEGER),
+        ('StorageDeviceNumber', UInt32),
+        ('StorageManagerName', Char * 8),
+    ]
+    return DISK_PERFORMANCE
+def _define_DISK_RECORD_head():
+    class DISK_RECORD(Structure):
+        pass
+    return DISK_RECORD
+def _define_DISK_RECORD():
+    DISK_RECORD = win32more.System.Ioctl.DISK_RECORD_head
+    DISK_RECORD._fields_ = [
+        ('ByteOffset', win32more.Foundation.LARGE_INTEGER),
+        ('StartTime', win32more.Foundation.LARGE_INTEGER),
+        ('EndTime', win32more.Foundation.LARGE_INTEGER),
+        ('VirtualAddress', c_void_p),
+        ('NumberOfBytes', UInt32),
+        ('DeviceNumber', Byte),
+        ('ReadRequest', win32more.Foundation.BOOLEAN),
+    ]
+    return DISK_RECORD
+def _define_DRIVE_LAYOUT_INFORMATION_head():
+    class DRIVE_LAYOUT_INFORMATION(Structure):
+        pass
+    return DRIVE_LAYOUT_INFORMATION
+def _define_DRIVE_LAYOUT_INFORMATION():
+    DRIVE_LAYOUT_INFORMATION = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_head
+    DRIVE_LAYOUT_INFORMATION._fields_ = [
+        ('PartitionCount', UInt32),
+        ('Signature', UInt32),
+        ('PartitionEntry', win32more.System.Ioctl.PARTITION_INFORMATION * 1),
+    ]
+    return DRIVE_LAYOUT_INFORMATION
+def _define_DRIVE_LAYOUT_INFORMATION_EX_head():
+    class DRIVE_LAYOUT_INFORMATION_EX(Structure):
+        pass
+    return DRIVE_LAYOUT_INFORMATION_EX
+def _define_DRIVE_LAYOUT_INFORMATION_EX():
+    DRIVE_LAYOUT_INFORMATION_EX = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_EX_head
+    class DRIVE_LAYOUT_INFORMATION_EX__Anonymous_e__Union(Union):
+        pass
+    DRIVE_LAYOUT_INFORMATION_EX__Anonymous_e__Union._fields_ = [
+        ('Mbr', win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR),
+        ('Gpt', win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT),
+    ]
+    DRIVE_LAYOUT_INFORMATION_EX._anonymous_ = [
+        'Anonymous',
+    ]
+    DRIVE_LAYOUT_INFORMATION_EX._fields_ = [
+        ('PartitionStyle', UInt32),
+        ('PartitionCount', UInt32),
+        ('Anonymous', DRIVE_LAYOUT_INFORMATION_EX__Anonymous_e__Union),
+        ('PartitionEntry', win32more.System.Ioctl.PARTITION_INFORMATION_EX * 1),
+    ]
+    return DRIVE_LAYOUT_INFORMATION_EX
+def _define_DRIVE_LAYOUT_INFORMATION_GPT_head():
+    class DRIVE_LAYOUT_INFORMATION_GPT(Structure):
+        pass
+    return DRIVE_LAYOUT_INFORMATION_GPT
+def _define_DRIVE_LAYOUT_INFORMATION_GPT():
+    DRIVE_LAYOUT_INFORMATION_GPT = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT_head
+    DRIVE_LAYOUT_INFORMATION_GPT._fields_ = [
+        ('DiskId', Guid),
+        ('StartingUsableOffset', win32more.Foundation.LARGE_INTEGER),
+        ('UsableLength', win32more.Foundation.LARGE_INTEGER),
+        ('MaxPartitionCount', UInt32),
+    ]
+    return DRIVE_LAYOUT_INFORMATION_GPT
+def _define_DRIVE_LAYOUT_INFORMATION_MBR_head():
+    class DRIVE_LAYOUT_INFORMATION_MBR(Structure):
+        pass
+    return DRIVE_LAYOUT_INFORMATION_MBR
+def _define_DRIVE_LAYOUT_INFORMATION_MBR():
+    DRIVE_LAYOUT_INFORMATION_MBR = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR_head
+    DRIVE_LAYOUT_INFORMATION_MBR._fields_ = [
+        ('Signature', UInt32),
+        ('CheckSum', UInt32),
+    ]
+    return DRIVE_LAYOUT_INFORMATION_MBR
+def _define_DRIVERSTATUS_head():
+    class DRIVERSTATUS(Structure):
+        pass
+    return DRIVERSTATUS
+def _define_DRIVERSTATUS():
+    DRIVERSTATUS = win32more.System.Ioctl.DRIVERSTATUS_head
+    DRIVERSTATUS._pack_ = 1
+    DRIVERSTATUS._fields_ = [
+        ('bDriverError', Byte),
+        ('bIDEError', Byte),
+        ('bReserved', Byte * 2),
+        ('dwReserved', UInt32 * 2),
+    ]
+    return DRIVERSTATUS
+def _define_DUPLICATE_EXTENTS_DATA_head():
+    class DUPLICATE_EXTENTS_DATA(Structure):
+        pass
+    return DUPLICATE_EXTENTS_DATA
+def _define_DUPLICATE_EXTENTS_DATA():
+    DUPLICATE_EXTENTS_DATA = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA_head
+    DUPLICATE_EXTENTS_DATA._fields_ = [
+        ('FileHandle', win32more.Foundation.HANDLE),
+        ('SourceFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('TargetFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('ByteCount', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return DUPLICATE_EXTENTS_DATA
+def _define_DUPLICATE_EXTENTS_DATA_EX_head():
+    class DUPLICATE_EXTENTS_DATA_EX(Structure):
+        pass
+    return DUPLICATE_EXTENTS_DATA_EX
+def _define_DUPLICATE_EXTENTS_DATA_EX():
+    DUPLICATE_EXTENTS_DATA_EX = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA_EX_head
+    DUPLICATE_EXTENTS_DATA_EX._fields_ = [
+        ('Size', UIntPtr),
+        ('FileHandle', win32more.Foundation.HANDLE),
+        ('SourceFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('TargetFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('ByteCount', win32more.Foundation.LARGE_INTEGER),
+        ('Flags', UInt32),
+    ]
+    return DUPLICATE_EXTENTS_DATA_EX
+def _define_DUPLICATE_EXTENTS_DATA_EX32_head():
+    class DUPLICATE_EXTENTS_DATA_EX32(Structure):
+        pass
+    return DUPLICATE_EXTENTS_DATA_EX32
+def _define_DUPLICATE_EXTENTS_DATA_EX32():
+    DUPLICATE_EXTENTS_DATA_EX32 = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA_EX32_head
+    DUPLICATE_EXTENTS_DATA_EX32._fields_ = [
+        ('Size', UInt32),
+        ('FileHandle', UInt32),
+        ('SourceFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('TargetFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('ByteCount', win32more.Foundation.LARGE_INTEGER),
+        ('Flags', UInt32),
+    ]
+    return DUPLICATE_EXTENTS_DATA_EX32
+def _define_DUPLICATE_EXTENTS_DATA32_head():
+    class DUPLICATE_EXTENTS_DATA32(Structure):
+        pass
+    return DUPLICATE_EXTENTS_DATA32
+def _define_DUPLICATE_EXTENTS_DATA32():
+    DUPLICATE_EXTENTS_DATA32 = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA32_head
+    DUPLICATE_EXTENTS_DATA32._fields_ = [
+        ('FileHandle', UInt32),
+        ('SourceFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('TargetFileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('ByteCount', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return DUPLICATE_EXTENTS_DATA32
+DUPLICATE_EXTENTS_STATE = Int32
+DUPLICATE_EXTENTS_STATE_FileSnapStateInactive = 0
+DUPLICATE_EXTENTS_STATE_FileSnapStateSource = 1
+DUPLICATE_EXTENTS_STATE_FileSnapStateTarget = 2
+ELEMENT_TYPE = Int32
+ELEMENT_TYPE_AllElements = 0
+ELEMENT_TYPE_ChangerTransport = 1
+ELEMENT_TYPE_ChangerSlot = 2
+ELEMENT_TYPE_ChangerIEPort = 3
+ELEMENT_TYPE_ChangerDrive = 4
+ELEMENT_TYPE_ChangerDoor = 5
+ELEMENT_TYPE_ChangerKeypad = 6
+ELEMENT_TYPE_ChangerMaxElement = 7
+def _define_ENCRYPTED_DATA_INFO_head():
+    class ENCRYPTED_DATA_INFO(Structure):
+        pass
+    return ENCRYPTED_DATA_INFO
+def _define_ENCRYPTED_DATA_INFO():
+    ENCRYPTED_DATA_INFO = win32more.System.Ioctl.ENCRYPTED_DATA_INFO_head
+    ENCRYPTED_DATA_INFO._fields_ = [
+        ('StartingFileOffset', UInt64),
+        ('OutputBufferOffset', UInt32),
+        ('BytesWithinFileSize', UInt32),
+        ('BytesWithinValidDataLength', UInt32),
+        ('CompressionFormat', UInt16),
+        ('DataUnitShift', Byte),
+        ('ChunkShift', Byte),
+        ('ClusterShift', Byte),
+        ('EncryptionFormat', Byte),
+        ('NumberOfDataBlocks', UInt16),
+        ('DataBlockSize', UInt32 * 1),
+    ]
+    return ENCRYPTED_DATA_INFO
+def _define_ENCRYPTION_BUFFER_head():
+    class ENCRYPTION_BUFFER(Structure):
+        pass
+    return ENCRYPTION_BUFFER
+def _define_ENCRYPTION_BUFFER():
+    ENCRYPTION_BUFFER = win32more.System.Ioctl.ENCRYPTION_BUFFER_head
+    ENCRYPTION_BUFFER._fields_ = [
+        ('EncryptionOperation', UInt32),
+        ('Private', Byte * 1),
+    ]
+    return ENCRYPTION_BUFFER
+def _define_ENCRYPTION_KEY_CTRL_INPUT_head():
+    class ENCRYPTION_KEY_CTRL_INPUT(Structure):
+        pass
+    return ENCRYPTION_KEY_CTRL_INPUT
+def _define_ENCRYPTION_KEY_CTRL_INPUT():
+    ENCRYPTION_KEY_CTRL_INPUT = win32more.System.Ioctl.ENCRYPTION_KEY_CTRL_INPUT_head
+    ENCRYPTION_KEY_CTRL_INPUT._fields_ = [
+        ('HeaderSize', UInt32),
+        ('StructureSize', UInt32),
+        ('KeyOffset', UInt16),
+        ('KeySize', UInt16),
+        ('DplLock', UInt32),
+        ('DplUserId', UInt64),
+        ('DplCredentialId', UInt64),
+    ]
+    return ENCRYPTION_KEY_CTRL_INPUT
+def _define_EXFAT_STATISTICS_head():
+    class EXFAT_STATISTICS(Structure):
+        pass
+    return EXFAT_STATISTICS
+def _define_EXFAT_STATISTICS():
+    EXFAT_STATISTICS = win32more.System.Ioctl.EXFAT_STATISTICS_head
+    EXFAT_STATISTICS._fields_ = [
+        ('CreateHits', UInt32),
+        ('SuccessfulCreates', UInt32),
+        ('FailedCreates', UInt32),
+        ('NonCachedReads', UInt32),
+        ('NonCachedReadBytes', UInt32),
+        ('NonCachedWrites', UInt32),
+        ('NonCachedWriteBytes', UInt32),
+        ('NonCachedDiskReads', UInt32),
+        ('NonCachedDiskWrites', UInt32),
+    ]
+    return EXFAT_STATISTICS
+def _define_EXTENDED_ENCRYPTED_DATA_INFO_head():
+    class EXTENDED_ENCRYPTED_DATA_INFO(Structure):
+        pass
+    return EXTENDED_ENCRYPTED_DATA_INFO
+def _define_EXTENDED_ENCRYPTED_DATA_INFO():
+    EXTENDED_ENCRYPTED_DATA_INFO = win32more.System.Ioctl.EXTENDED_ENCRYPTED_DATA_INFO_head
+    EXTENDED_ENCRYPTED_DATA_INFO._fields_ = [
+        ('ExtendedCode', UInt32),
+        ('Length', UInt32),
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+    ]
+    return EXTENDED_ENCRYPTED_DATA_INFO
+def _define_FAT_STATISTICS_head():
+    class FAT_STATISTICS(Structure):
+        pass
+    return FAT_STATISTICS
+def _define_FAT_STATISTICS():
+    FAT_STATISTICS = win32more.System.Ioctl.FAT_STATISTICS_head
+    FAT_STATISTICS._fields_ = [
+        ('CreateHits', UInt32),
+        ('SuccessfulCreates', UInt32),
+        ('FailedCreates', UInt32),
+        ('NonCachedReads', UInt32),
+        ('NonCachedReadBytes', UInt32),
+        ('NonCachedWrites', UInt32),
+        ('NonCachedWriteBytes', UInt32),
+        ('NonCachedDiskReads', UInt32),
+        ('NonCachedDiskWrites', UInt32),
+    ]
+    return FAT_STATISTICS
+def _define_FILE_ALLOCATED_RANGE_BUFFER_head():
+    class FILE_ALLOCATED_RANGE_BUFFER(Structure):
+        pass
+    return FILE_ALLOCATED_RANGE_BUFFER
+def _define_FILE_ALLOCATED_RANGE_BUFFER():
+    FILE_ALLOCATED_RANGE_BUFFER = win32more.System.Ioctl.FILE_ALLOCATED_RANGE_BUFFER_head
+    FILE_ALLOCATED_RANGE_BUFFER._fields_ = [
+        ('FileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('Length', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return FILE_ALLOCATED_RANGE_BUFFER
+def _define_FILE_DESIRED_STORAGE_CLASS_INFORMATION_head():
+    class FILE_DESIRED_STORAGE_CLASS_INFORMATION(Structure):
+        pass
+    return FILE_DESIRED_STORAGE_CLASS_INFORMATION
+def _define_FILE_DESIRED_STORAGE_CLASS_INFORMATION():
+    FILE_DESIRED_STORAGE_CLASS_INFORMATION = win32more.System.Ioctl.FILE_DESIRED_STORAGE_CLASS_INFORMATION_head
+    FILE_DESIRED_STORAGE_CLASS_INFORMATION._fields_ = [
+        ('Class', win32more.System.Ioctl.FILE_STORAGE_TIER_CLASS),
+        ('Flags', UInt32),
+    ]
+    return FILE_DESIRED_STORAGE_CLASS_INFORMATION
+def _define_FILE_FS_PERSISTENT_VOLUME_INFORMATION_head():
+    class FILE_FS_PERSISTENT_VOLUME_INFORMATION(Structure):
+        pass
+    return FILE_FS_PERSISTENT_VOLUME_INFORMATION
+def _define_FILE_FS_PERSISTENT_VOLUME_INFORMATION():
+    FILE_FS_PERSISTENT_VOLUME_INFORMATION = win32more.System.Ioctl.FILE_FS_PERSISTENT_VOLUME_INFORMATION_head
+    FILE_FS_PERSISTENT_VOLUME_INFORMATION._fields_ = [
+        ('VolumeFlags', UInt32),
+        ('FlagMask', UInt32),
+        ('Version', UInt32),
+        ('Reserved', UInt32),
+    ]
+    return FILE_FS_PERSISTENT_VOLUME_INFORMATION
+def _define_FILE_INITIATE_REPAIR_OUTPUT_BUFFER_head():
+    class FILE_INITIATE_REPAIR_OUTPUT_BUFFER(Structure):
+        pass
+    return FILE_INITIATE_REPAIR_OUTPUT_BUFFER
+def _define_FILE_INITIATE_REPAIR_OUTPUT_BUFFER():
+    FILE_INITIATE_REPAIR_OUTPUT_BUFFER = win32more.System.Ioctl.FILE_INITIATE_REPAIR_OUTPUT_BUFFER_head
+    FILE_INITIATE_REPAIR_OUTPUT_BUFFER._fields_ = [
+        ('Hint1', UInt64),
+        ('Hint2', UInt64),
+        ('Clsn', UInt64),
+        ('Status', UInt32),
+    ]
+    return FILE_INITIATE_REPAIR_OUTPUT_BUFFER
+def _define_FILE_LAYOUT_ENTRY_head():
+    class FILE_LAYOUT_ENTRY(Structure):
+        pass
+    return FILE_LAYOUT_ENTRY
+def _define_FILE_LAYOUT_ENTRY():
+    FILE_LAYOUT_ENTRY = win32more.System.Ioctl.FILE_LAYOUT_ENTRY_head
+    FILE_LAYOUT_ENTRY._fields_ = [
+        ('Version', UInt32),
+        ('NextFileOffset', UInt32),
+        ('Flags', UInt32),
+        ('FileAttributes', UInt32),
+        ('FileReferenceNumber', UInt64),
+        ('FirstNameOffset', UInt32),
+        ('FirstStreamOffset', UInt32),
+        ('ExtraInfoOffset', UInt32),
+        ('ExtraInfoLength', UInt32),
+    ]
+    return FILE_LAYOUT_ENTRY
+def _define_FILE_LAYOUT_INFO_ENTRY_head():
+    class FILE_LAYOUT_INFO_ENTRY(Structure):
+        pass
+    return FILE_LAYOUT_INFO_ENTRY
+def _define_FILE_LAYOUT_INFO_ENTRY():
+    FILE_LAYOUT_INFO_ENTRY = win32more.System.Ioctl.FILE_LAYOUT_INFO_ENTRY_head
+    class FILE_LAYOUT_INFO_ENTRY__BasicInformation_e__Struct(Structure):
+        pass
+    FILE_LAYOUT_INFO_ENTRY__BasicInformation_e__Struct._fields_ = [
+        ('CreationTime', win32more.Foundation.LARGE_INTEGER),
+        ('LastAccessTime', win32more.Foundation.LARGE_INTEGER),
+        ('LastWriteTime', win32more.Foundation.LARGE_INTEGER),
+        ('ChangeTime', win32more.Foundation.LARGE_INTEGER),
+        ('FileAttributes', UInt32),
+    ]
+    FILE_LAYOUT_INFO_ENTRY._fields_ = [
+        ('BasicInformation', FILE_LAYOUT_INFO_ENTRY__BasicInformation_e__Struct),
+        ('OwnerId', UInt32),
+        ('SecurityId', UInt32),
+        ('Usn', Int64),
+        ('StorageReserveId', win32more.System.Ioctl.STORAGE_RESERVE_ID),
+    ]
+    return FILE_LAYOUT_INFO_ENTRY
+def _define_FILE_LAYOUT_NAME_ENTRY_head():
+    class FILE_LAYOUT_NAME_ENTRY(Structure):
+        pass
+    return FILE_LAYOUT_NAME_ENTRY
+def _define_FILE_LAYOUT_NAME_ENTRY():
+    FILE_LAYOUT_NAME_ENTRY = win32more.System.Ioctl.FILE_LAYOUT_NAME_ENTRY_head
+    FILE_LAYOUT_NAME_ENTRY._fields_ = [
+        ('NextNameOffset', UInt32),
+        ('Flags', UInt32),
+        ('ParentFileReferenceNumber', UInt64),
+        ('FileNameLength', UInt32),
+        ('Reserved', UInt32),
+        ('FileName', Char * 1),
+    ]
+    return FILE_LAYOUT_NAME_ENTRY
+def _define_FILE_LEVEL_TRIM_head():
+    class FILE_LEVEL_TRIM(Structure):
+        pass
+    return FILE_LEVEL_TRIM
+def _define_FILE_LEVEL_TRIM():
+    FILE_LEVEL_TRIM = win32more.System.Ioctl.FILE_LEVEL_TRIM_head
+    FILE_LEVEL_TRIM._fields_ = [
+        ('Key', UInt32),
+        ('NumRanges', UInt32),
+        ('Ranges', win32more.System.Ioctl.FILE_LEVEL_TRIM_RANGE * 1),
+    ]
+    return FILE_LEVEL_TRIM
+def _define_FILE_LEVEL_TRIM_OUTPUT_head():
+    class FILE_LEVEL_TRIM_OUTPUT(Structure):
+        pass
+    return FILE_LEVEL_TRIM_OUTPUT
+def _define_FILE_LEVEL_TRIM_OUTPUT():
+    FILE_LEVEL_TRIM_OUTPUT = win32more.System.Ioctl.FILE_LEVEL_TRIM_OUTPUT_head
+    FILE_LEVEL_TRIM_OUTPUT._fields_ = [
+        ('NumRangesProcessed', UInt32),
+    ]
+    return FILE_LEVEL_TRIM_OUTPUT
+def _define_FILE_LEVEL_TRIM_RANGE_head():
+    class FILE_LEVEL_TRIM_RANGE(Structure):
+        pass
+    return FILE_LEVEL_TRIM_RANGE
+def _define_FILE_LEVEL_TRIM_RANGE():
+    FILE_LEVEL_TRIM_RANGE = win32more.System.Ioctl.FILE_LEVEL_TRIM_RANGE_head
+    FILE_LEVEL_TRIM_RANGE._fields_ = [
+        ('Offset', UInt64),
+        ('Length', UInt64),
+    ]
+    return FILE_LEVEL_TRIM_RANGE
+def _define_FILE_MAKE_COMPATIBLE_BUFFER_head():
+    class FILE_MAKE_COMPATIBLE_BUFFER(Structure):
+        pass
+    return FILE_MAKE_COMPATIBLE_BUFFER
+def _define_FILE_MAKE_COMPATIBLE_BUFFER():
+    FILE_MAKE_COMPATIBLE_BUFFER = win32more.System.Ioctl.FILE_MAKE_COMPATIBLE_BUFFER_head
+    FILE_MAKE_COMPATIBLE_BUFFER._fields_ = [
+        ('CloseDisc', win32more.Foundation.BOOLEAN),
+    ]
+    return FILE_MAKE_COMPATIBLE_BUFFER
+def _define_FILE_OBJECTID_BUFFER_head():
+    class FILE_OBJECTID_BUFFER(Structure):
+        pass
+    return FILE_OBJECTID_BUFFER
+def _define_FILE_OBJECTID_BUFFER():
+    FILE_OBJECTID_BUFFER = win32more.System.Ioctl.FILE_OBJECTID_BUFFER_head
+    class FILE_OBJECTID_BUFFER__Anonymous_e__Union(Union):
+        pass
+    class FILE_OBJECTID_BUFFER__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    FILE_OBJECTID_BUFFER__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('BirthVolumeId', Byte * 16),
+        ('BirthObjectId', Byte * 16),
+        ('DomainId', Byte * 16),
+    ]
+    FILE_OBJECTID_BUFFER__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    FILE_OBJECTID_BUFFER__Anonymous_e__Union._fields_ = [
+        ('Anonymous', FILE_OBJECTID_BUFFER__Anonymous_e__Union__Anonymous_e__Struct),
+        ('ExtendedInfo', Byte * 48),
+    ]
+    FILE_OBJECTID_BUFFER._anonymous_ = [
+        'Anonymous',
+    ]
+    FILE_OBJECTID_BUFFER._fields_ = [
+        ('ObjectId', Byte * 16),
+        ('Anonymous', FILE_OBJECTID_BUFFER__Anonymous_e__Union),
+    ]
+    return FILE_OBJECTID_BUFFER
+def _define_FILE_PREFETCH_head():
+    class FILE_PREFETCH(Structure):
+        pass
+    return FILE_PREFETCH
+def _define_FILE_PREFETCH():
+    FILE_PREFETCH = win32more.System.Ioctl.FILE_PREFETCH_head
+    FILE_PREFETCH._fields_ = [
+        ('Type', UInt32),
+        ('Count', UInt32),
+        ('Prefetch', UInt64 * 1),
+    ]
+    return FILE_PREFETCH
+def _define_FILE_PREFETCH_EX_head():
+    class FILE_PREFETCH_EX(Structure):
+        pass
+    return FILE_PREFETCH_EX
+def _define_FILE_PREFETCH_EX():
+    FILE_PREFETCH_EX = win32more.System.Ioctl.FILE_PREFETCH_EX_head
+    FILE_PREFETCH_EX._fields_ = [
+        ('Type', UInt32),
+        ('Count', UInt32),
+        ('Context', c_void_p),
+        ('Prefetch', UInt64 * 1),
+    ]
+    return FILE_PREFETCH_EX
+def _define_FILE_PROVIDER_EXTERNAL_INFO_V0_head():
+    class FILE_PROVIDER_EXTERNAL_INFO_V0(Structure):
+        pass
+    return FILE_PROVIDER_EXTERNAL_INFO_V0
+def _define_FILE_PROVIDER_EXTERNAL_INFO_V0():
+    FILE_PROVIDER_EXTERNAL_INFO_V0 = win32more.System.Ioctl.FILE_PROVIDER_EXTERNAL_INFO_V0_head
+    FILE_PROVIDER_EXTERNAL_INFO_V0._fields_ = [
+        ('Version', UInt32),
+        ('Algorithm', UInt32),
+    ]
+    return FILE_PROVIDER_EXTERNAL_INFO_V0
+def _define_FILE_PROVIDER_EXTERNAL_INFO_V1_head():
+    class FILE_PROVIDER_EXTERNAL_INFO_V1(Structure):
+        pass
+    return FILE_PROVIDER_EXTERNAL_INFO_V1
+def _define_FILE_PROVIDER_EXTERNAL_INFO_V1():
+    FILE_PROVIDER_EXTERNAL_INFO_V1 = win32more.System.Ioctl.FILE_PROVIDER_EXTERNAL_INFO_V1_head
+    FILE_PROVIDER_EXTERNAL_INFO_V1._fields_ = [
+        ('Version', UInt32),
+        ('Algorithm', UInt32),
+        ('Flags', UInt32),
+    ]
+    return FILE_PROVIDER_EXTERNAL_INFO_V1
+def _define_FILE_QUERY_ON_DISK_VOL_INFO_BUFFER_head():
+    class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER(Structure):
+        pass
+    return FILE_QUERY_ON_DISK_VOL_INFO_BUFFER
+def _define_FILE_QUERY_ON_DISK_VOL_INFO_BUFFER():
+    FILE_QUERY_ON_DISK_VOL_INFO_BUFFER = win32more.System.Ioctl.FILE_QUERY_ON_DISK_VOL_INFO_BUFFER_head
+    FILE_QUERY_ON_DISK_VOL_INFO_BUFFER._fields_ = [
+        ('DirectoryCount', win32more.Foundation.LARGE_INTEGER),
+        ('FileCount', win32more.Foundation.LARGE_INTEGER),
+        ('FsFormatMajVersion', UInt16),
+        ('FsFormatMinVersion', UInt16),
+        ('FsFormatName', Char * 12),
+        ('FormatTime', win32more.Foundation.LARGE_INTEGER),
+        ('LastUpdateTime', win32more.Foundation.LARGE_INTEGER),
+        ('CopyrightInfo', Char * 34),
+        ('AbstractInfo', Char * 34),
+        ('FormattingImplementationInfo', Char * 34),
+        ('LastModifyingImplementationInfo', Char * 34),
+    ]
+    return FILE_QUERY_ON_DISK_VOL_INFO_BUFFER
+def _define_FILE_QUERY_SPARING_BUFFER_head():
+    class FILE_QUERY_SPARING_BUFFER(Structure):
+        pass
+    return FILE_QUERY_SPARING_BUFFER
+def _define_FILE_QUERY_SPARING_BUFFER():
+    FILE_QUERY_SPARING_BUFFER = win32more.System.Ioctl.FILE_QUERY_SPARING_BUFFER_head
+    FILE_QUERY_SPARING_BUFFER._fields_ = [
+        ('SparingUnitBytes', UInt32),
+        ('SoftwareSparing', win32more.Foundation.BOOLEAN),
+        ('TotalSpareBlocks', UInt32),
+        ('FreeSpareBlocks', UInt32),
+    ]
+    return FILE_QUERY_SPARING_BUFFER
+def _define_FILE_REFERENCE_RANGE_head():
+    class FILE_REFERENCE_RANGE(Structure):
+        pass
+    return FILE_REFERENCE_RANGE
+def _define_FILE_REFERENCE_RANGE():
+    FILE_REFERENCE_RANGE = win32more.System.Ioctl.FILE_REFERENCE_RANGE_head
+    FILE_REFERENCE_RANGE._fields_ = [
+        ('StartingFileReferenceNumber', UInt64),
+        ('EndingFileReferenceNumber', UInt64),
+    ]
+    return FILE_REFERENCE_RANGE
+def _define_FILE_REGION_INFO_head():
+    class FILE_REGION_INFO(Structure):
+        pass
+    return FILE_REGION_INFO
+def _define_FILE_REGION_INFO():
+    FILE_REGION_INFO = win32more.System.Ioctl.FILE_REGION_INFO_head
+    FILE_REGION_INFO._fields_ = [
+        ('FileOffset', Int64),
+        ('Length', Int64),
+        ('Usage', UInt32),
+        ('Reserved', UInt32),
+    ]
+    return FILE_REGION_INFO
+def _define_FILE_REGION_INPUT_head():
+    class FILE_REGION_INPUT(Structure):
+        pass
+    return FILE_REGION_INPUT
+def _define_FILE_REGION_INPUT():
+    FILE_REGION_INPUT = win32more.System.Ioctl.FILE_REGION_INPUT_head
+    FILE_REGION_INPUT._fields_ = [
+        ('FileOffset', Int64),
+        ('Length', Int64),
+        ('DesiredUsage', UInt32),
+    ]
+    return FILE_REGION_INPUT
+def _define_FILE_REGION_OUTPUT_head():
+    class FILE_REGION_OUTPUT(Structure):
+        pass
+    return FILE_REGION_OUTPUT
+def _define_FILE_REGION_OUTPUT():
+    FILE_REGION_OUTPUT = win32more.System.Ioctl.FILE_REGION_OUTPUT_head
+    FILE_REGION_OUTPUT._fields_ = [
+        ('Flags', UInt32),
+        ('TotalRegionEntryCount', UInt32),
+        ('RegionEntryCount', UInt32),
+        ('Reserved', UInt32),
+        ('Region', win32more.System.Ioctl.FILE_REGION_INFO * 1),
+    ]
+    return FILE_REGION_OUTPUT
+def _define_FILE_SET_DEFECT_MGMT_BUFFER_head():
+    class FILE_SET_DEFECT_MGMT_BUFFER(Structure):
+        pass
+    return FILE_SET_DEFECT_MGMT_BUFFER
+def _define_FILE_SET_DEFECT_MGMT_BUFFER():
+    FILE_SET_DEFECT_MGMT_BUFFER = win32more.System.Ioctl.FILE_SET_DEFECT_MGMT_BUFFER_head
+    FILE_SET_DEFECT_MGMT_BUFFER._fields_ = [
+        ('Disable', win32more.Foundation.BOOLEAN),
+    ]
+    return FILE_SET_DEFECT_MGMT_BUFFER
+def _define_FILE_SET_SPARSE_BUFFER_head():
+    class FILE_SET_SPARSE_BUFFER(Structure):
+        pass
+    return FILE_SET_SPARSE_BUFFER
+def _define_FILE_SET_SPARSE_BUFFER():
+    FILE_SET_SPARSE_BUFFER = win32more.System.Ioctl.FILE_SET_SPARSE_BUFFER_head
+    FILE_SET_SPARSE_BUFFER._fields_ = [
+        ('SetSparse', win32more.Foundation.BOOLEAN),
+    ]
+    return FILE_SET_SPARSE_BUFFER
+def _define_FILE_STORAGE_TIER_head():
+    class FILE_STORAGE_TIER(Structure):
+        pass
+    return FILE_STORAGE_TIER
+def _define_FILE_STORAGE_TIER():
+    FILE_STORAGE_TIER = win32more.System.Ioctl.FILE_STORAGE_TIER_head
+    FILE_STORAGE_TIER._fields_ = [
+        ('Id', Guid),
+        ('Name', Char * 256),
+        ('Description', Char * 256),
+        ('Flags', UInt64),
+        ('ProvisionedCapacity', UInt64),
+        ('MediaType', win32more.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE),
+        ('Class', win32more.System.Ioctl.FILE_STORAGE_TIER_CLASS),
+    ]
+    return FILE_STORAGE_TIER
+FILE_STORAGE_TIER_CLASS = Int32
+FILE_STORAGE_TIER_CLASS_FileStorageTierClassUnspecified = 0
+FILE_STORAGE_TIER_CLASS_FileStorageTierClassCapacity = 1
+FILE_STORAGE_TIER_CLASS_FileStorageTierClassPerformance = 2
+FILE_STORAGE_TIER_CLASS_FileStorageTierClassMax = 3
+FILE_STORAGE_TIER_FLAGS = UInt32
+FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY = 131072
+FILE_STORAGE_TIER_MEDIA_TYPE = Int32
+FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeUnspecified = 0
+FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeDisk = 1
+FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeSsd = 2
+FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeScm = 4
+FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeMax = 5
+def _define_FILE_STORAGE_TIER_REGION_head():
+    class FILE_STORAGE_TIER_REGION(Structure):
+        pass
+    return FILE_STORAGE_TIER_REGION
+def _define_FILE_STORAGE_TIER_REGION():
+    FILE_STORAGE_TIER_REGION = win32more.System.Ioctl.FILE_STORAGE_TIER_REGION_head
+    FILE_STORAGE_TIER_REGION._fields_ = [
+        ('TierId', Guid),
+        ('Offset', UInt64),
+        ('Length', UInt64),
+    ]
+    return FILE_STORAGE_TIER_REGION
+def _define_FILE_SYSTEM_RECOGNITION_INFORMATION_head():
+    class FILE_SYSTEM_RECOGNITION_INFORMATION(Structure):
+        pass
+    return FILE_SYSTEM_RECOGNITION_INFORMATION
+def _define_FILE_SYSTEM_RECOGNITION_INFORMATION():
+    FILE_SYSTEM_RECOGNITION_INFORMATION = win32more.System.Ioctl.FILE_SYSTEM_RECOGNITION_INFORMATION_head
+    FILE_SYSTEM_RECOGNITION_INFORMATION._fields_ = [
+        ('FileSystem', win32more.Foundation.CHAR * 9),
+    ]
+    return FILE_SYSTEM_RECOGNITION_INFORMATION
+def _define_FILE_TYPE_NOTIFICATION_INPUT_head():
+    class FILE_TYPE_NOTIFICATION_INPUT(Structure):
+        pass
+    return FILE_TYPE_NOTIFICATION_INPUT
+def _define_FILE_TYPE_NOTIFICATION_INPUT():
+    FILE_TYPE_NOTIFICATION_INPUT = win32more.System.Ioctl.FILE_TYPE_NOTIFICATION_INPUT_head
+    FILE_TYPE_NOTIFICATION_INPUT._fields_ = [
+        ('Flags', UInt32),
+        ('NumFileTypeIDs', UInt32),
+        ('FileTypeID', Guid * 1),
+    ]
+    return FILE_TYPE_NOTIFICATION_INPUT
+def _define_FILE_ZERO_DATA_INFORMATION_head():
+    class FILE_ZERO_DATA_INFORMATION(Structure):
+        pass
+    return FILE_ZERO_DATA_INFORMATION
+def _define_FILE_ZERO_DATA_INFORMATION():
+    FILE_ZERO_DATA_INFORMATION = win32more.System.Ioctl.FILE_ZERO_DATA_INFORMATION_head
+    FILE_ZERO_DATA_INFORMATION._fields_ = [
+        ('FileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('BeyondFinalZero', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return FILE_ZERO_DATA_INFORMATION
+def _define_FILE_ZERO_DATA_INFORMATION_EX_head():
+    class FILE_ZERO_DATA_INFORMATION_EX(Structure):
+        pass
+    return FILE_ZERO_DATA_INFORMATION_EX
+def _define_FILE_ZERO_DATA_INFORMATION_EX():
+    FILE_ZERO_DATA_INFORMATION_EX = win32more.System.Ioctl.FILE_ZERO_DATA_INFORMATION_EX_head
+    FILE_ZERO_DATA_INFORMATION_EX._fields_ = [
+        ('FileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('BeyondFinalZero', win32more.Foundation.LARGE_INTEGER),
+        ('Flags', UInt32),
+    ]
+    return FILE_ZERO_DATA_INFORMATION_EX
+def _define_FILESYSTEM_STATISTICS_head():
+    class FILESYSTEM_STATISTICS(Structure):
+        pass
+    return FILESYSTEM_STATISTICS
+def _define_FILESYSTEM_STATISTICS():
+    FILESYSTEM_STATISTICS = win32more.System.Ioctl.FILESYSTEM_STATISTICS_head
+    FILESYSTEM_STATISTICS._fields_ = [
+        ('FileSystemType', win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE),
+        ('Version', UInt16),
+        ('SizeOfCompleteStructure', UInt32),
+        ('UserFileReads', UInt32),
+        ('UserFileReadBytes', UInt32),
+        ('UserDiskReads', UInt32),
+        ('UserFileWrites', UInt32),
+        ('UserFileWriteBytes', UInt32),
+        ('UserDiskWrites', UInt32),
+        ('MetaDataReads', UInt32),
+        ('MetaDataReadBytes', UInt32),
+        ('MetaDataDiskReads', UInt32),
+        ('MetaDataWrites', UInt32),
+        ('MetaDataWriteBytes', UInt32),
+        ('MetaDataDiskWrites', UInt32),
+    ]
+    return FILESYSTEM_STATISTICS
+def _define_FILESYSTEM_STATISTICS_EX_head():
+    class FILESYSTEM_STATISTICS_EX(Structure):
+        pass
+    return FILESYSTEM_STATISTICS_EX
+def _define_FILESYSTEM_STATISTICS_EX():
+    FILESYSTEM_STATISTICS_EX = win32more.System.Ioctl.FILESYSTEM_STATISTICS_EX_head
+    FILESYSTEM_STATISTICS_EX._fields_ = [
+        ('FileSystemType', win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE),
+        ('Version', UInt16),
+        ('SizeOfCompleteStructure', UInt32),
+        ('UserFileReads', UInt64),
+        ('UserFileReadBytes', UInt64),
+        ('UserDiskReads', UInt64),
+        ('UserFileWrites', UInt64),
+        ('UserFileWriteBytes', UInt64),
+        ('UserDiskWrites', UInt64),
+        ('MetaDataReads', UInt64),
+        ('MetaDataReadBytes', UInt64),
+        ('MetaDataDiskReads', UInt64),
+        ('MetaDataWrites', UInt64),
+        ('MetaDataWriteBytes', UInt64),
+        ('MetaDataDiskWrites', UInt64),
+    ]
+    return FILESYSTEM_STATISTICS_EX
 FILESYSTEM_STATISTICS_TYPE = UInt16
 FILESYSTEM_STATISTICS_TYPE_EXFAT = 3
 FILESYSTEM_STATISTICS_TYPE_FAT = 2
 FILESYSTEM_STATISTICS_TYPE_NTFS = 1
-USN_SOURCE_INFO_ID = UInt32
-USN_SOURCE_AUXILIARY_DATA = 2
-USN_SOURCE_DATA_MANAGEMENT = 1
-USN_SOURCE_REPLICATION_MANAGEMENT = 4
-USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT = 8
-FILE_STORAGE_TIER_FLAGS = UInt32
-FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY = 131072
-CHANGER_ELEMENT_STATUS_FLAGS = UInt32
-ELEMENT_STATUS_ACCESS = 8
-ELEMENT_STATUS_AVOLTAG = 536870912
-ELEMENT_STATUS_EXCEPT = 4
-ELEMENT_STATUS_EXENAB = 16
-ELEMENT_STATUS_FULL = 1
-ELEMENT_STATUS_ID_VALID = 8192
-ELEMENT_STATUS_IMPEXP = 2
-ELEMENT_STATUS_INENAB = 32
-ELEMENT_STATUS_INVERT = 4194304
-ELEMENT_STATUS_LUN_VALID = 4096
-ELEMENT_STATUS_NOT_BUS = 32768
-ELEMENT_STATUS_PVOLTAG = 268435456
-ELEMENT_STATUS_SVALID = 8388608
-ELEMENT_STATUS_PRODUCT_DATA = 64
+def _define_FIND_BY_SID_DATA_head():
+    class FIND_BY_SID_DATA(Structure):
+        pass
+    return FIND_BY_SID_DATA
+def _define_FIND_BY_SID_DATA():
+    FIND_BY_SID_DATA = win32more.System.Ioctl.FIND_BY_SID_DATA_head
+    FIND_BY_SID_DATA._fields_ = [
+        ('Restart', UInt32),
+        ('Sid', win32more.Security.SID),
+    ]
+    return FIND_BY_SID_DATA
+def _define_FIND_BY_SID_OUTPUT_head():
+    class FIND_BY_SID_OUTPUT(Structure):
+        pass
+    return FIND_BY_SID_OUTPUT
+def _define_FIND_BY_SID_OUTPUT():
+    FIND_BY_SID_OUTPUT = win32more.System.Ioctl.FIND_BY_SID_OUTPUT_head
+    FIND_BY_SID_OUTPUT._fields_ = [
+        ('NextEntryOffset', UInt32),
+        ('FileIndex', UInt32),
+        ('FileNameLength', UInt32),
+        ('FileName', Char * 1),
+    ]
+    return FIND_BY_SID_OUTPUT
+def _define_FORMAT_EX_PARAMETERS_head():
+    class FORMAT_EX_PARAMETERS(Structure):
+        pass
+    return FORMAT_EX_PARAMETERS
+def _define_FORMAT_EX_PARAMETERS():
+    FORMAT_EX_PARAMETERS = win32more.System.Ioctl.FORMAT_EX_PARAMETERS_head
+    FORMAT_EX_PARAMETERS._fields_ = [
+        ('MediaType', win32more.System.Ioctl.MEDIA_TYPE),
+        ('StartCylinderNumber', UInt32),
+        ('EndCylinderNumber', UInt32),
+        ('StartHeadNumber', UInt32),
+        ('EndHeadNumber', UInt32),
+        ('FormatGapLength', UInt16),
+        ('SectorsPerTrack', UInt16),
+        ('SectorNumber', UInt16 * 1),
+    ]
+    return FORMAT_EX_PARAMETERS
+def _define_FORMAT_PARAMETERS_head():
+    class FORMAT_PARAMETERS(Structure):
+        pass
+    return FORMAT_PARAMETERS
+def _define_FORMAT_PARAMETERS():
+    FORMAT_PARAMETERS = win32more.System.Ioctl.FORMAT_PARAMETERS_head
+    FORMAT_PARAMETERS._fields_ = [
+        ('MediaType', win32more.System.Ioctl.MEDIA_TYPE),
+        ('StartCylinderNumber', UInt32),
+        ('EndCylinderNumber', UInt32),
+        ('StartHeadNumber', UInt32),
+        ('EndHeadNumber', UInt32),
+    ]
+    return FORMAT_PARAMETERS
+FS_BPIO_INFLAGS = Int32
+FSBPIO_INFL_None = 0
+FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY = 1
+def _define_FS_BPIO_INFO_head():
+    class FS_BPIO_INFO(Structure):
+        pass
+    return FS_BPIO_INFO
+def _define_FS_BPIO_INFO():
+    FS_BPIO_INFO = win32more.System.Ioctl.FS_BPIO_INFO_head
+    FS_BPIO_INFO._fields_ = [
+        ('ActiveBypassIoCount', UInt32),
+        ('StorageDriverNameLen', UInt16),
+        ('StorageDriverName', Char * 32),
+    ]
+    return FS_BPIO_INFO
+def _define_FS_BPIO_INPUT_head():
+    class FS_BPIO_INPUT(Structure):
+        pass
+    return FS_BPIO_INPUT
+def _define_FS_BPIO_INPUT():
+    FS_BPIO_INPUT = win32more.System.Ioctl.FS_BPIO_INPUT_head
+    FS_BPIO_INPUT._fields_ = [
+        ('Operation', win32more.System.Ioctl.FS_BPIO_OPERATIONS),
+        ('InFlags', win32more.System.Ioctl.FS_BPIO_INFLAGS),
+        ('Reserved1', UInt64),
+        ('Reserved2', UInt64),
+    ]
+    return FS_BPIO_INPUT
+FS_BPIO_OPERATIONS = Int32
+FS_BPIO_OP_ENABLE = 1
+FS_BPIO_OP_DISABLE = 2
+FS_BPIO_OP_QUERY = 3
+FS_BPIO_OP_VOLUME_STACK_PAUSE = 4
+FS_BPIO_OP_VOLUME_STACK_RESUME = 5
+FS_BPIO_OP_STREAM_PAUSE = 6
+FS_BPIO_OP_STREAM_RESUME = 7
+FS_BPIO_OP_GET_INFO = 8
+FS_BPIO_OP_MAX_OPERATION = 9
+FS_BPIO_OUTFLAGS = Int32
+FSBPIO_OUTFL_None = 0
+FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED = 1
+FSBPIO_OUTFL_STREAM_BYPASS_PAUSED = 2
+FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED = 4
+FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER = 8
+def _define_FS_BPIO_OUTPUT_head():
+    class FS_BPIO_OUTPUT(Structure):
+        pass
+    return FS_BPIO_OUTPUT
+def _define_FS_BPIO_OUTPUT():
+    FS_BPIO_OUTPUT = win32more.System.Ioctl.FS_BPIO_OUTPUT_head
+    class FS_BPIO_OUTPUT__Anonymous_e__Union(Union):
+        pass
+    FS_BPIO_OUTPUT__Anonymous_e__Union._fields_ = [
+        ('Enable', win32more.System.Ioctl.FS_BPIO_RESULTS),
+        ('Query', win32more.System.Ioctl.FS_BPIO_RESULTS),
+        ('VolumeStackResume', win32more.System.Ioctl.FS_BPIO_RESULTS),
+        ('StreamResume', win32more.System.Ioctl.FS_BPIO_RESULTS),
+        ('GetInfo', win32more.System.Ioctl.FS_BPIO_INFO),
+    ]
+    FS_BPIO_OUTPUT._anonymous_ = [
+        'Anonymous',
+    ]
+    FS_BPIO_OUTPUT._fields_ = [
+        ('Operation', win32more.System.Ioctl.FS_BPIO_OPERATIONS),
+        ('OutFlags', win32more.System.Ioctl.FS_BPIO_OUTFLAGS),
+        ('Reserved1', UInt64),
+        ('Reserved2', UInt64),
+        ('Anonymous', FS_BPIO_OUTPUT__Anonymous_e__Union),
+    ]
+    return FS_BPIO_OUTPUT
+def _define_FS_BPIO_RESULTS_head():
+    class FS_BPIO_RESULTS(Structure):
+        pass
+    return FS_BPIO_RESULTS
+def _define_FS_BPIO_RESULTS():
+    FS_BPIO_RESULTS = win32more.System.Ioctl.FS_BPIO_RESULTS_head
+    FS_BPIO_RESULTS._fields_ = [
+        ('OpStatus', UInt32),
+        ('FailingDriverNameLen', UInt16),
+        ('FailingDriverName', Char * 32),
+        ('FailureReasonLen', UInt16),
+        ('FailureReason', Char * 128),
+    ]
+    return FS_BPIO_RESULTS
+def _define_FSCTL_GET_INTEGRITY_INFORMATION_BUFFER_head():
+    class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER(Structure):
+        pass
+    return FSCTL_GET_INTEGRITY_INFORMATION_BUFFER
+def _define_FSCTL_GET_INTEGRITY_INFORMATION_BUFFER():
+    FSCTL_GET_INTEGRITY_INFORMATION_BUFFER = win32more.System.Ioctl.FSCTL_GET_INTEGRITY_INFORMATION_BUFFER_head
+    FSCTL_GET_INTEGRITY_INFORMATION_BUFFER._fields_ = [
+        ('ChecksumAlgorithm', UInt16),
+        ('Reserved', UInt16),
+        ('Flags', UInt32),
+        ('ChecksumChunkSizeInBytes', UInt32),
+        ('ClusterSizeInBytes', UInt32),
+    ]
+    return FSCTL_GET_INTEGRITY_INFORMATION_BUFFER
+def _define_FSCTL_OFFLOAD_READ_INPUT_head():
+    class FSCTL_OFFLOAD_READ_INPUT(Structure):
+        pass
+    return FSCTL_OFFLOAD_READ_INPUT
+def _define_FSCTL_OFFLOAD_READ_INPUT():
+    FSCTL_OFFLOAD_READ_INPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_READ_INPUT_head
+    FSCTL_OFFLOAD_READ_INPUT._fields_ = [
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('TokenTimeToLive', UInt32),
+        ('Reserved', UInt32),
+        ('FileOffset', UInt64),
+        ('CopyLength', UInt64),
+    ]
+    return FSCTL_OFFLOAD_READ_INPUT
+def _define_FSCTL_OFFLOAD_READ_OUTPUT_head():
+    class FSCTL_OFFLOAD_READ_OUTPUT(Structure):
+        pass
+    return FSCTL_OFFLOAD_READ_OUTPUT
+def _define_FSCTL_OFFLOAD_READ_OUTPUT():
+    FSCTL_OFFLOAD_READ_OUTPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_READ_OUTPUT_head
+    FSCTL_OFFLOAD_READ_OUTPUT._fields_ = [
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('TransferLength', UInt64),
+        ('Token', Byte * 512),
+    ]
+    return FSCTL_OFFLOAD_READ_OUTPUT
+def _define_FSCTL_OFFLOAD_WRITE_INPUT_head():
+    class FSCTL_OFFLOAD_WRITE_INPUT(Structure):
+        pass
+    return FSCTL_OFFLOAD_WRITE_INPUT
+def _define_FSCTL_OFFLOAD_WRITE_INPUT():
+    FSCTL_OFFLOAD_WRITE_INPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_WRITE_INPUT_head
+    FSCTL_OFFLOAD_WRITE_INPUT._fields_ = [
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('FileOffset', UInt64),
+        ('CopyLength', UInt64),
+        ('TransferOffset', UInt64),
+        ('Token', Byte * 512),
+    ]
+    return FSCTL_OFFLOAD_WRITE_INPUT
+def _define_FSCTL_OFFLOAD_WRITE_OUTPUT_head():
+    class FSCTL_OFFLOAD_WRITE_OUTPUT(Structure):
+        pass
+    return FSCTL_OFFLOAD_WRITE_OUTPUT
+def _define_FSCTL_OFFLOAD_WRITE_OUTPUT():
+    FSCTL_OFFLOAD_WRITE_OUTPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_WRITE_OUTPUT_head
+    FSCTL_OFFLOAD_WRITE_OUTPUT._fields_ = [
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('LengthWritten', UInt64),
+    ]
+    return FSCTL_OFFLOAD_WRITE_OUTPUT
+def _define_FSCTL_QUERY_FAT_BPB_BUFFER_head():
+    class FSCTL_QUERY_FAT_BPB_BUFFER(Structure):
+        pass
+    return FSCTL_QUERY_FAT_BPB_BUFFER
+def _define_FSCTL_QUERY_FAT_BPB_BUFFER():
+    FSCTL_QUERY_FAT_BPB_BUFFER = win32more.System.Ioctl.FSCTL_QUERY_FAT_BPB_BUFFER_head
+    FSCTL_QUERY_FAT_BPB_BUFFER._fields_ = [
+        ('First0x24BytesOfBootSector', Byte * 36),
+    ]
+    return FSCTL_QUERY_FAT_BPB_BUFFER
+def _define_FSCTL_QUERY_REGION_INFO_INPUT_head():
+    class FSCTL_QUERY_REGION_INFO_INPUT(Structure):
+        pass
+    return FSCTL_QUERY_REGION_INFO_INPUT
+def _define_FSCTL_QUERY_REGION_INFO_INPUT():
+    FSCTL_QUERY_REGION_INFO_INPUT = win32more.System.Ioctl.FSCTL_QUERY_REGION_INFO_INPUT_head
+    FSCTL_QUERY_REGION_INFO_INPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('NumberOfTierIds', UInt32),
+        ('TierIds', Guid * 1),
+    ]
+    return FSCTL_QUERY_REGION_INFO_INPUT
+def _define_FSCTL_QUERY_REGION_INFO_OUTPUT_head():
+    class FSCTL_QUERY_REGION_INFO_OUTPUT(Structure):
+        pass
+    return FSCTL_QUERY_REGION_INFO_OUTPUT
+def _define_FSCTL_QUERY_REGION_INFO_OUTPUT():
+    FSCTL_QUERY_REGION_INFO_OUTPUT = win32more.System.Ioctl.FSCTL_QUERY_REGION_INFO_OUTPUT_head
+    FSCTL_QUERY_REGION_INFO_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+        ('Alignment', UInt64),
+        ('TotalNumberOfRegions', UInt32),
+        ('NumberOfRegionsReturned', UInt32),
+        ('Regions', win32more.System.Ioctl.FILE_STORAGE_TIER_REGION * 1),
+    ]
+    return FSCTL_QUERY_REGION_INFO_OUTPUT
+def _define_FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_head():
+    class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT(Structure):
+        pass
+    return FSCTL_QUERY_STORAGE_CLASSES_OUTPUT
+def _define_FSCTL_QUERY_STORAGE_CLASSES_OUTPUT():
+    FSCTL_QUERY_STORAGE_CLASSES_OUTPUT = win32more.System.Ioctl.FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_head
+    FSCTL_QUERY_STORAGE_CLASSES_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', win32more.System.Ioctl.FILE_STORAGE_TIER_FLAGS),
+        ('TotalNumberOfTiers', UInt32),
+        ('NumberOfTiersReturned', UInt32),
+        ('Tiers', win32more.System.Ioctl.FILE_STORAGE_TIER * 1),
+    ]
+    return FSCTL_QUERY_STORAGE_CLASSES_OUTPUT
+def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_head():
+    class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER(Structure):
+        pass
+    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER
+def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER():
+    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER = win32more.System.Ioctl.FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_head
+    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER._fields_ = [
+        ('ChecksumAlgorithm', UInt16),
+        ('Reserved', UInt16),
+        ('Flags', UInt32),
+    ]
+    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER
+def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX_head():
+    class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX(Structure):
+        pass
+    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX
+def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX():
+    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX = win32more.System.Ioctl.FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX_head
+    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX._fields_ = [
+        ('EnableIntegrity', Byte),
+        ('KeepIntegrityStateUnchanged', Byte),
+        ('Reserved', UInt16),
+        ('Flags', UInt32),
+        ('Version', Byte),
+        ('Reserved2', Byte * 7),
+    ]
+    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX
+def _define_GET_CHANGER_PARAMETERS_head():
+    class GET_CHANGER_PARAMETERS(Structure):
+        pass
+    return GET_CHANGER_PARAMETERS
+def _define_GET_CHANGER_PARAMETERS():
+    GET_CHANGER_PARAMETERS = win32more.System.Ioctl.GET_CHANGER_PARAMETERS_head
+    GET_CHANGER_PARAMETERS._fields_ = [
+        ('Size', UInt32),
+        ('NumberTransportElements', UInt16),
+        ('NumberStorageElements', UInt16),
+        ('NumberCleanerSlots', UInt16),
+        ('NumberIEElements', UInt16),
+        ('NumberDataTransferElements', UInt16),
+        ('NumberOfDoors', UInt16),
+        ('FirstSlotNumber', UInt16),
+        ('FirstDriveNumber', UInt16),
+        ('FirstTransportNumber', UInt16),
+        ('FirstIEPortNumber', UInt16),
+        ('FirstCleanerSlotAddress', UInt16),
+        ('MagazineSize', UInt16),
+        ('DriveCleanTimeout', UInt32),
+        ('Features0', win32more.System.Ioctl.CHANGER_FEATURES),
+        ('Features1', win32more.System.Ioctl.GET_CHANGER_PARAMETERS_FEATURES1),
+        ('MoveFromTransport', Byte),
+        ('MoveFromSlot', Byte),
+        ('MoveFromIePort', Byte),
+        ('MoveFromDrive', Byte),
+        ('ExchangeFromTransport', Byte),
+        ('ExchangeFromSlot', Byte),
+        ('ExchangeFromIePort', Byte),
+        ('ExchangeFromDrive', Byte),
+        ('LockUnlockCapabilities', Byte),
+        ('PositionCapabilities', Byte),
+        ('Reserved1', Byte * 2),
+        ('Reserved2', UInt32 * 2),
+    ]
+    return GET_CHANGER_PARAMETERS
 GET_CHANGER_PARAMETERS_FEATURES1 = UInt32
 CHANGER_CLEANER_AUTODISMOUNT = 2147483652
 CHANGER_CLEANER_OPS_NOT_SUPPORTED = 2147483712
@@ -1122,85 +3752,788 @@ CHANGER_PREDISMOUNT_ALIGN_TO_SLOT = 2147483649
 CHANGER_RTN_MEDIA_TO_ORIGINAL_ADDR = 2147483680
 CHANGER_SLOTS_USE_TRAYS = 2147483664
 CHANGER_TRUE_EXCHANGE_CAPABLE = 2147483656
-def _define_STORAGE_HOTPLUG_INFO_head():
-    class STORAGE_HOTPLUG_INFO(Structure):
+def _define_GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST_head():
+    class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST(Structure):
         pass
-    return STORAGE_HOTPLUG_INFO
-def _define_STORAGE_HOTPLUG_INFO():
-    STORAGE_HOTPLUG_INFO = win32more.System.Ioctl.STORAGE_HOTPLUG_INFO_head
-    STORAGE_HOTPLUG_INFO._fields_ = [
-        ("Size", UInt32),
-        ("MediaRemovable", win32more.Foundation.BOOLEAN),
-        ("MediaHotplug", win32more.Foundation.BOOLEAN),
-        ("DeviceHotplug", win32more.Foundation.BOOLEAN),
-        ("WriteCacheEnableOverride", win32more.Foundation.BOOLEAN),
+    return GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST
+def _define_GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST():
+    GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST = win32more.System.Ioctl.GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST_head
+    GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('RequestDataType', win32more.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE),
+        ('RequestDataSet', win32more.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET),
     ]
-    return STORAGE_HOTPLUG_INFO
-def _define_STORAGE_DEVICE_NUMBER_head():
-    class STORAGE_DEVICE_NUMBER(Structure):
+    return GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST
+def _define_GET_DISK_ATTRIBUTES_head():
+    class GET_DISK_ATTRIBUTES(Structure):
         pass
-    return STORAGE_DEVICE_NUMBER
-def _define_STORAGE_DEVICE_NUMBER():
-    STORAGE_DEVICE_NUMBER = win32more.System.Ioctl.STORAGE_DEVICE_NUMBER_head
-    STORAGE_DEVICE_NUMBER._fields_ = [
-        ("DeviceType", UInt32),
-        ("DeviceNumber", UInt32),
-        ("PartitionNumber", UInt32),
+    return GET_DISK_ATTRIBUTES
+def _define_GET_DISK_ATTRIBUTES():
+    GET_DISK_ATTRIBUTES = win32more.System.Ioctl.GET_DISK_ATTRIBUTES_head
+    GET_DISK_ATTRIBUTES._fields_ = [
+        ('Version', UInt32),
+        ('Reserved1', UInt32),
+        ('Attributes', UInt64),
     ]
-    return STORAGE_DEVICE_NUMBER
-def _define_STORAGE_DEVICE_NUMBERS_head():
-    class STORAGE_DEVICE_NUMBERS(Structure):
+    return GET_DISK_ATTRIBUTES
+def _define_GET_FILTER_FILE_IDENTIFIER_INPUT_head():
+    class GET_FILTER_FILE_IDENTIFIER_INPUT(Structure):
         pass
-    return STORAGE_DEVICE_NUMBERS
-def _define_STORAGE_DEVICE_NUMBERS():
-    STORAGE_DEVICE_NUMBERS = win32more.System.Ioctl.STORAGE_DEVICE_NUMBERS_head
-    STORAGE_DEVICE_NUMBERS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumberOfDevices", UInt32),
-        ("Devices", win32more.System.Ioctl.STORAGE_DEVICE_NUMBER * 0),
+    return GET_FILTER_FILE_IDENTIFIER_INPUT
+def _define_GET_FILTER_FILE_IDENTIFIER_INPUT():
+    GET_FILTER_FILE_IDENTIFIER_INPUT = win32more.System.Ioctl.GET_FILTER_FILE_IDENTIFIER_INPUT_head
+    GET_FILTER_FILE_IDENTIFIER_INPUT._fields_ = [
+        ('AltitudeLength', UInt16),
+        ('Altitude', Char * 1),
     ]
-    return STORAGE_DEVICE_NUMBERS
-def _define_STORAGE_DEVICE_NUMBER_EX_head():
-    class STORAGE_DEVICE_NUMBER_EX(Structure):
+    return GET_FILTER_FILE_IDENTIFIER_INPUT
+def _define_GET_FILTER_FILE_IDENTIFIER_OUTPUT_head():
+    class GET_FILTER_FILE_IDENTIFIER_OUTPUT(Structure):
         pass
-    return STORAGE_DEVICE_NUMBER_EX
-def _define_STORAGE_DEVICE_NUMBER_EX():
-    STORAGE_DEVICE_NUMBER_EX = win32more.System.Ioctl.STORAGE_DEVICE_NUMBER_EX_head
-    STORAGE_DEVICE_NUMBER_EX._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("DeviceType", UInt32),
-        ("DeviceNumber", UInt32),
-        ("DeviceGuid", Guid),
-        ("PartitionNumber", UInt32),
+    return GET_FILTER_FILE_IDENTIFIER_OUTPUT
+def _define_GET_FILTER_FILE_IDENTIFIER_OUTPUT():
+    GET_FILTER_FILE_IDENTIFIER_OUTPUT = win32more.System.Ioctl.GET_FILTER_FILE_IDENTIFIER_OUTPUT_head
+    GET_FILTER_FILE_IDENTIFIER_OUTPUT._fields_ = [
+        ('FilterFileIdentifierLength', UInt16),
+        ('FilterFileIdentifier', Byte * 1),
     ]
-    return STORAGE_DEVICE_NUMBER_EX
-def _define_STORAGE_BUS_RESET_REQUEST_head():
-    class STORAGE_BUS_RESET_REQUEST(Structure):
+    return GET_FILTER_FILE_IDENTIFIER_OUTPUT
+def _define_GET_LENGTH_INFORMATION_head():
+    class GET_LENGTH_INFORMATION(Structure):
         pass
-    return STORAGE_BUS_RESET_REQUEST
-def _define_STORAGE_BUS_RESET_REQUEST():
-    STORAGE_BUS_RESET_REQUEST = win32more.System.Ioctl.STORAGE_BUS_RESET_REQUEST_head
-    STORAGE_BUS_RESET_REQUEST._fields_ = [
-        ("PathId", Byte),
+    return GET_LENGTH_INFORMATION
+def _define_GET_LENGTH_INFORMATION():
+    GET_LENGTH_INFORMATION = win32more.System.Ioctl.GET_LENGTH_INFORMATION_head
+    GET_LENGTH_INFORMATION._fields_ = [
+        ('Length', win32more.Foundation.LARGE_INTEGER),
     ]
-    return STORAGE_BUS_RESET_REQUEST
-def _define_STORAGE_BREAK_RESERVATION_REQUEST_head():
-    class STORAGE_BREAK_RESERVATION_REQUEST(Structure):
+    return GET_LENGTH_INFORMATION
+def _define_GET_MEDIA_TYPES_head():
+    class GET_MEDIA_TYPES(Structure):
         pass
-    return STORAGE_BREAK_RESERVATION_REQUEST
-def _define_STORAGE_BREAK_RESERVATION_REQUEST():
-    STORAGE_BREAK_RESERVATION_REQUEST = win32more.System.Ioctl.STORAGE_BREAK_RESERVATION_REQUEST_head
-    STORAGE_BREAK_RESERVATION_REQUEST._fields_ = [
-        ("Length", UInt32),
-        ("_unused", Byte),
-        ("PathId", Byte),
-        ("TargetId", Byte),
-        ("Lun", Byte),
+    return GET_MEDIA_TYPES
+def _define_GET_MEDIA_TYPES():
+    GET_MEDIA_TYPES = win32more.System.Ioctl.GET_MEDIA_TYPES_head
+    GET_MEDIA_TYPES._fields_ = [
+        ('DeviceType', UInt32),
+        ('MediaInfoCount', UInt32),
+        ('MediaInfo', win32more.System.Ioctl.DEVICE_MEDIA_INFO * 1),
     ]
-    return STORAGE_BREAK_RESERVATION_REQUEST
+    return GET_MEDIA_TYPES
+def _define_GETVERSIONINPARAMS_head():
+    class GETVERSIONINPARAMS(Structure):
+        pass
+    return GETVERSIONINPARAMS
+def _define_GETVERSIONINPARAMS():
+    GETVERSIONINPARAMS = win32more.System.Ioctl.GETVERSIONINPARAMS_head
+    GETVERSIONINPARAMS._pack_ = 1
+    GETVERSIONINPARAMS._fields_ = [
+        ('bVersion', Byte),
+        ('bRevision', Byte),
+        ('bReserved', Byte),
+        ('bIDEDeviceMap', Byte),
+        ('fCapabilities', UInt32),
+        ('dwReserved', UInt32 * 4),
+    ]
+    return GETVERSIONINPARAMS
+def _define_GP_LOG_PAGE_DESCRIPTOR_head():
+    class GP_LOG_PAGE_DESCRIPTOR(Structure):
+        pass
+    return GP_LOG_PAGE_DESCRIPTOR
+def _define_GP_LOG_PAGE_DESCRIPTOR():
+    GP_LOG_PAGE_DESCRIPTOR = win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR_head
+    GP_LOG_PAGE_DESCRIPTOR._pack_ = 1
+    GP_LOG_PAGE_DESCRIPTOR._fields_ = [
+        ('LogAddress', UInt16),
+        ('LogSectors', UInt16),
+    ]
+    return GP_LOG_PAGE_DESCRIPTOR
+GPT_ATTRIBUTES = UInt64
+GPT_ATTRIBUTE_PLATFORM_REQUIRED = 1
+GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER = 9223372036854775808
+GPT_BASIC_DATA_ATTRIBUTE_HIDDEN = 4611686018427387904
+GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY = 2305843009213693952
+GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY = 1152921504606846976
+def _define_HISTOGRAM_BUCKET_head():
+    class HISTOGRAM_BUCKET(Structure):
+        pass
+    return HISTOGRAM_BUCKET
+def _define_HISTOGRAM_BUCKET():
+    HISTOGRAM_BUCKET = win32more.System.Ioctl.HISTOGRAM_BUCKET_head
+    HISTOGRAM_BUCKET._fields_ = [
+        ('Reads', UInt32),
+        ('Writes', UInt32),
+    ]
+    return HISTOGRAM_BUCKET
+def _define_IDEREGS_head():
+    class IDEREGS(Structure):
+        pass
+    return IDEREGS
+def _define_IDEREGS():
+    IDEREGS = win32more.System.Ioctl.IDEREGS_head
+    IDEREGS._fields_ = [
+        ('bFeaturesReg', Byte),
+        ('bSectorCountReg', Byte),
+        ('bSectorNumberReg', Byte),
+        ('bCylLowReg', Byte),
+        ('bCylHighReg', Byte),
+        ('bDriveHeadReg', Byte),
+        ('bCommandReg', Byte),
+        ('bReserved', Byte),
+    ]
+    return IDEREGS
+def _define_IO_IRP_EXT_TRACK_OFFSET_HEADER_head():
+    class IO_IRP_EXT_TRACK_OFFSET_HEADER(Structure):
+        pass
+    return IO_IRP_EXT_TRACK_OFFSET_HEADER
+def _define_IO_IRP_EXT_TRACK_OFFSET_HEADER():
+    IO_IRP_EXT_TRACK_OFFSET_HEADER = win32more.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head
+    IO_IRP_EXT_TRACK_OFFSET_HEADER._fields_ = [
+        ('Validation', UInt16),
+        ('Flags', UInt16),
+        ('TrackedOffsetCallback', win32more.System.Ioctl.PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK),
+    ]
+    return IO_IRP_EXT_TRACK_OFFSET_HEADER
+def _define_LOOKUP_STREAM_FROM_CLUSTER_ENTRY_head():
+    class LOOKUP_STREAM_FROM_CLUSTER_ENTRY(Structure):
+        pass
+    return LOOKUP_STREAM_FROM_CLUSTER_ENTRY
+def _define_LOOKUP_STREAM_FROM_CLUSTER_ENTRY():
+    LOOKUP_STREAM_FROM_CLUSTER_ENTRY = win32more.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_ENTRY_head
+    LOOKUP_STREAM_FROM_CLUSTER_ENTRY._fields_ = [
+        ('OffsetToNext', UInt32),
+        ('Flags', UInt32),
+        ('Reserved', win32more.Foundation.LARGE_INTEGER),
+        ('Cluster', win32more.Foundation.LARGE_INTEGER),
+        ('FileName', Char * 1),
+    ]
+    return LOOKUP_STREAM_FROM_CLUSTER_ENTRY
+def _define_LOOKUP_STREAM_FROM_CLUSTER_INPUT_head():
+    class LOOKUP_STREAM_FROM_CLUSTER_INPUT(Structure):
+        pass
+    return LOOKUP_STREAM_FROM_CLUSTER_INPUT
+def _define_LOOKUP_STREAM_FROM_CLUSTER_INPUT():
+    LOOKUP_STREAM_FROM_CLUSTER_INPUT = win32more.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_INPUT_head
+    LOOKUP_STREAM_FROM_CLUSTER_INPUT._fields_ = [
+        ('Flags', UInt32),
+        ('NumberOfClusters', UInt32),
+        ('Cluster', win32more.Foundation.LARGE_INTEGER * 1),
+    ]
+    return LOOKUP_STREAM_FROM_CLUSTER_INPUT
+def _define_LOOKUP_STREAM_FROM_CLUSTER_OUTPUT_head():
+    class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT(Structure):
+        pass
+    return LOOKUP_STREAM_FROM_CLUSTER_OUTPUT
+def _define_LOOKUP_STREAM_FROM_CLUSTER_OUTPUT():
+    LOOKUP_STREAM_FROM_CLUSTER_OUTPUT = win32more.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_OUTPUT_head
+    LOOKUP_STREAM_FROM_CLUSTER_OUTPUT._fields_ = [
+        ('Offset', UInt32),
+        ('NumberOfMatches', UInt32),
+        ('BufferSizeRequired', UInt32),
+    ]
+    return LOOKUP_STREAM_FROM_CLUSTER_OUTPUT
+def _define_MARK_HANDLE_INFO_head():
+    class MARK_HANDLE_INFO(Structure):
+        pass
+    return MARK_HANDLE_INFO
+def _define_MARK_HANDLE_INFO():
+    MARK_HANDLE_INFO = win32more.System.Ioctl.MARK_HANDLE_INFO_head
+    class MARK_HANDLE_INFO__Anonymous_e__Union(Union):
+        pass
+    MARK_HANDLE_INFO__Anonymous_e__Union._fields_ = [
+        ('UsnSourceInfo', UInt32),
+        ('CopyNumber', UInt32),
+    ]
+    MARK_HANDLE_INFO._anonymous_ = [
+        'Anonymous',
+    ]
+    MARK_HANDLE_INFO._fields_ = [
+        ('Anonymous', MARK_HANDLE_INFO__Anonymous_e__Union),
+        ('VolumeHandle', win32more.Foundation.HANDLE),
+        ('HandleInfo', UInt32),
+    ]
+    return MARK_HANDLE_INFO
+def _define_MARK_HANDLE_INFO32_head():
+    class MARK_HANDLE_INFO32(Structure):
+        pass
+    return MARK_HANDLE_INFO32
+def _define_MARK_HANDLE_INFO32():
+    MARK_HANDLE_INFO32 = win32more.System.Ioctl.MARK_HANDLE_INFO32_head
+    class MARK_HANDLE_INFO32__Anonymous_e__Union(Union):
+        pass
+    MARK_HANDLE_INFO32__Anonymous_e__Union._fields_ = [
+        ('UsnSourceInfo', UInt32),
+        ('CopyNumber', UInt32),
+    ]
+    MARK_HANDLE_INFO32._anonymous_ = [
+        'Anonymous',
+    ]
+    MARK_HANDLE_INFO32._fields_ = [
+        ('Anonymous', MARK_HANDLE_INFO32__Anonymous_e__Union),
+        ('VolumeHandle', UInt32),
+        ('HandleInfo', UInt32),
+    ]
+    return MARK_HANDLE_INFO32
+MEDIA_TYPE = Int32
+MEDIA_TYPE_Unknown = 0
+MEDIA_TYPE_F5_1Pt2_512 = 1
+MEDIA_TYPE_F3_1Pt44_512 = 2
+MEDIA_TYPE_F3_2Pt88_512 = 3
+MEDIA_TYPE_F3_20Pt8_512 = 4
+MEDIA_TYPE_F3_720_512 = 5
+MEDIA_TYPE_F5_360_512 = 6
+MEDIA_TYPE_F5_320_512 = 7
+MEDIA_TYPE_F5_320_1024 = 8
+MEDIA_TYPE_F5_180_512 = 9
+MEDIA_TYPE_F5_160_512 = 10
+MEDIA_TYPE_RemovableMedia = 11
+MEDIA_TYPE_FixedMedia = 12
+MEDIA_TYPE_F3_120M_512 = 13
+MEDIA_TYPE_F3_640_512 = 14
+MEDIA_TYPE_F5_640_512 = 15
+MEDIA_TYPE_F5_720_512 = 16
+MEDIA_TYPE_F3_1Pt2_512 = 17
+MEDIA_TYPE_F3_1Pt23_1024 = 18
+MEDIA_TYPE_F5_1Pt23_1024 = 19
+MEDIA_TYPE_F3_128Mb_512 = 20
+MEDIA_TYPE_F3_230Mb_512 = 21
+MEDIA_TYPE_F8_256_128 = 22
+MEDIA_TYPE_F3_200Mb_512 = 23
+MEDIA_TYPE_F3_240M_512 = 24
+MEDIA_TYPE_F3_32M_512 = 25
+def _define_MFT_ENUM_DATA_V0_head():
+    class MFT_ENUM_DATA_V0(Structure):
+        pass
+    return MFT_ENUM_DATA_V0
+def _define_MFT_ENUM_DATA_V0():
+    MFT_ENUM_DATA_V0 = win32more.System.Ioctl.MFT_ENUM_DATA_V0_head
+    MFT_ENUM_DATA_V0._fields_ = [
+        ('StartFileReferenceNumber', UInt64),
+        ('LowUsn', Int64),
+        ('HighUsn', Int64),
+    ]
+    return MFT_ENUM_DATA_V0
+def _define_MFT_ENUM_DATA_V1_head():
+    class MFT_ENUM_DATA_V1(Structure):
+        pass
+    return MFT_ENUM_DATA_V1
+def _define_MFT_ENUM_DATA_V1():
+    MFT_ENUM_DATA_V1 = win32more.System.Ioctl.MFT_ENUM_DATA_V1_head
+    MFT_ENUM_DATA_V1._fields_ = [
+        ('StartFileReferenceNumber', UInt64),
+        ('LowUsn', Int64),
+        ('HighUsn', Int64),
+        ('MinMajorVersion', UInt16),
+        ('MaxMajorVersion', UInt16),
+    ]
+    return MFT_ENUM_DATA_V1
+def _define_MOVE_FILE_DATA_head():
+    class MOVE_FILE_DATA(Structure):
+        pass
+    return MOVE_FILE_DATA
+def _define_MOVE_FILE_DATA():
+    MOVE_FILE_DATA = win32more.System.Ioctl.MOVE_FILE_DATA_head
+    MOVE_FILE_DATA._fields_ = [
+        ('FileHandle', win32more.Foundation.HANDLE),
+        ('StartingVcn', win32more.Foundation.LARGE_INTEGER),
+        ('StartingLcn', win32more.Foundation.LARGE_INTEGER),
+        ('ClusterCount', UInt32),
+    ]
+    return MOVE_FILE_DATA
+def _define_MOVE_FILE_DATA32_head():
+    class MOVE_FILE_DATA32(Structure):
+        pass
+    return MOVE_FILE_DATA32
+def _define_MOVE_FILE_DATA32():
+    MOVE_FILE_DATA32 = win32more.System.Ioctl.MOVE_FILE_DATA32_head
+    MOVE_FILE_DATA32._fields_ = [
+        ('FileHandle', UInt32),
+        ('StartingVcn', win32more.Foundation.LARGE_INTEGER),
+        ('StartingLcn', win32more.Foundation.LARGE_INTEGER),
+        ('ClusterCount', UInt32),
+    ]
+    return MOVE_FILE_DATA32
+def _define_MOVE_FILE_RECORD_DATA_head():
+    class MOVE_FILE_RECORD_DATA(Structure):
+        pass
+    return MOVE_FILE_RECORD_DATA
+def _define_MOVE_FILE_RECORD_DATA():
+    MOVE_FILE_RECORD_DATA = win32more.System.Ioctl.MOVE_FILE_RECORD_DATA_head
+    MOVE_FILE_RECORD_DATA._fields_ = [
+        ('FileHandle', win32more.Foundation.HANDLE),
+        ('SourceFileRecord', win32more.Foundation.LARGE_INTEGER),
+        ('TargetFileRecord', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return MOVE_FILE_RECORD_DATA
+def _define_NTFS_EXTENDED_VOLUME_DATA_head():
+    class NTFS_EXTENDED_VOLUME_DATA(Structure):
+        pass
+    return NTFS_EXTENDED_VOLUME_DATA
+def _define_NTFS_EXTENDED_VOLUME_DATA():
+    NTFS_EXTENDED_VOLUME_DATA = win32more.System.Ioctl.NTFS_EXTENDED_VOLUME_DATA_head
+    NTFS_EXTENDED_VOLUME_DATA._fields_ = [
+        ('ByteCount', UInt32),
+        ('MajorVersion', UInt16),
+        ('MinorVersion', UInt16),
+        ('BytesPerPhysicalSector', UInt32),
+        ('LfsMajorVersion', UInt16),
+        ('LfsMinorVersion', UInt16),
+        ('MaxDeviceTrimExtentCount', UInt32),
+        ('MaxDeviceTrimByteCount', UInt32),
+        ('MaxVolumeTrimExtentCount', UInt32),
+        ('MaxVolumeTrimByteCount', UInt32),
+    ]
+    return NTFS_EXTENDED_VOLUME_DATA
+def _define_NTFS_FILE_RECORD_INPUT_BUFFER_head():
+    class NTFS_FILE_RECORD_INPUT_BUFFER(Structure):
+        pass
+    return NTFS_FILE_RECORD_INPUT_BUFFER
+def _define_NTFS_FILE_RECORD_INPUT_BUFFER():
+    NTFS_FILE_RECORD_INPUT_BUFFER = win32more.System.Ioctl.NTFS_FILE_RECORD_INPUT_BUFFER_head
+    NTFS_FILE_RECORD_INPUT_BUFFER._fields_ = [
+        ('FileReferenceNumber', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return NTFS_FILE_RECORD_INPUT_BUFFER
+def _define_NTFS_FILE_RECORD_OUTPUT_BUFFER_head():
+    class NTFS_FILE_RECORD_OUTPUT_BUFFER(Structure):
+        pass
+    return NTFS_FILE_RECORD_OUTPUT_BUFFER
+def _define_NTFS_FILE_RECORD_OUTPUT_BUFFER():
+    NTFS_FILE_RECORD_OUTPUT_BUFFER = win32more.System.Ioctl.NTFS_FILE_RECORD_OUTPUT_BUFFER_head
+    NTFS_FILE_RECORD_OUTPUT_BUFFER._fields_ = [
+        ('FileReferenceNumber', win32more.Foundation.LARGE_INTEGER),
+        ('FileRecordLength', UInt32),
+        ('FileRecordBuffer', Byte * 1),
+    ]
+    return NTFS_FILE_RECORD_OUTPUT_BUFFER
+def _define_NTFS_STATISTICS_head():
+    class NTFS_STATISTICS(Structure):
+        pass
+    return NTFS_STATISTICS
+def _define_NTFS_STATISTICS():
+    NTFS_STATISTICS = win32more.System.Ioctl.NTFS_STATISTICS_head
+    class NTFS_STATISTICS__MftWritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS__MftWritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt16),
+        ('Create', UInt16),
+        ('SetInfo', UInt16),
+        ('Flush', UInt16),
+    ]
+    class NTFS_STATISTICS__Mft2WritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS__Mft2WritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt16),
+        ('Create', UInt16),
+        ('SetInfo', UInt16),
+        ('Flush', UInt16),
+    ]
+    class NTFS_STATISTICS__BitmapWritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS__BitmapWritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt16),
+        ('Create', UInt16),
+        ('SetInfo', UInt16),
+    ]
+    class NTFS_STATISTICS__MftBitmapWritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS__MftBitmapWritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt16),
+        ('Create', UInt16),
+        ('SetInfo', UInt16),
+        ('Flush', UInt16),
+    ]
+    class NTFS_STATISTICS__Allocate_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS__Allocate_e__Struct._fields_ = [
+        ('Calls', UInt32),
+        ('Clusters', UInt32),
+        ('Hints', UInt32),
+        ('RunsReturned', UInt32),
+        ('HintsHonored', UInt32),
+        ('HintsClusters', UInt32),
+        ('Cache', UInt32),
+        ('CacheClusters', UInt32),
+        ('CacheMiss', UInt32),
+        ('CacheMissClusters', UInt32),
+    ]
+    NTFS_STATISTICS._fields_ = [
+        ('LogFileFullExceptions', UInt32),
+        ('OtherExceptions', UInt32),
+        ('MftReads', UInt32),
+        ('MftReadBytes', UInt32),
+        ('MftWrites', UInt32),
+        ('MftWriteBytes', UInt32),
+        ('MftWritesUserLevel', NTFS_STATISTICS__MftWritesUserLevel_e__Struct),
+        ('MftWritesFlushForLogFileFull', UInt16),
+        ('MftWritesLazyWriter', UInt16),
+        ('MftWritesUserRequest', UInt16),
+        ('Mft2Writes', UInt32),
+        ('Mft2WriteBytes', UInt32),
+        ('Mft2WritesUserLevel', NTFS_STATISTICS__Mft2WritesUserLevel_e__Struct),
+        ('Mft2WritesFlushForLogFileFull', UInt16),
+        ('Mft2WritesLazyWriter', UInt16),
+        ('Mft2WritesUserRequest', UInt16),
+        ('RootIndexReads', UInt32),
+        ('RootIndexReadBytes', UInt32),
+        ('RootIndexWrites', UInt32),
+        ('RootIndexWriteBytes', UInt32),
+        ('BitmapReads', UInt32),
+        ('BitmapReadBytes', UInt32),
+        ('BitmapWrites', UInt32),
+        ('BitmapWriteBytes', UInt32),
+        ('BitmapWritesFlushForLogFileFull', UInt16),
+        ('BitmapWritesLazyWriter', UInt16),
+        ('BitmapWritesUserRequest', UInt16),
+        ('BitmapWritesUserLevel', NTFS_STATISTICS__BitmapWritesUserLevel_e__Struct),
+        ('MftBitmapReads', UInt32),
+        ('MftBitmapReadBytes', UInt32),
+        ('MftBitmapWrites', UInt32),
+        ('MftBitmapWriteBytes', UInt32),
+        ('MftBitmapWritesFlushForLogFileFull', UInt16),
+        ('MftBitmapWritesLazyWriter', UInt16),
+        ('MftBitmapWritesUserRequest', UInt16),
+        ('MftBitmapWritesUserLevel', NTFS_STATISTICS__MftBitmapWritesUserLevel_e__Struct),
+        ('UserIndexReads', UInt32),
+        ('UserIndexReadBytes', UInt32),
+        ('UserIndexWrites', UInt32),
+        ('UserIndexWriteBytes', UInt32),
+        ('LogFileReads', UInt32),
+        ('LogFileReadBytes', UInt32),
+        ('LogFileWrites', UInt32),
+        ('LogFileWriteBytes', UInt32),
+        ('Allocate', NTFS_STATISTICS__Allocate_e__Struct),
+        ('DiskResourcesExhausted', UInt32),
+    ]
+    return NTFS_STATISTICS
+def _define_NTFS_STATISTICS_EX_head():
+    class NTFS_STATISTICS_EX(Structure):
+        pass
+    return NTFS_STATISTICS_EX
+def _define_NTFS_STATISTICS_EX():
+    NTFS_STATISTICS_EX = win32more.System.Ioctl.NTFS_STATISTICS_EX_head
+    class NTFS_STATISTICS_EX__MftWritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS_EX__MftWritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt32),
+        ('Create', UInt32),
+        ('SetInfo', UInt32),
+        ('Flush', UInt32),
+    ]
+    class NTFS_STATISTICS_EX__Mft2WritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS_EX__Mft2WritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt32),
+        ('Create', UInt32),
+        ('SetInfo', UInt32),
+        ('Flush', UInt32),
+    ]
+    class NTFS_STATISTICS_EX__BitmapWritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS_EX__BitmapWritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt32),
+        ('Create', UInt32),
+        ('SetInfo', UInt32),
+        ('Flush', UInt32),
+    ]
+    class NTFS_STATISTICS_EX__MftBitmapWritesUserLevel_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS_EX__MftBitmapWritesUserLevel_e__Struct._fields_ = [
+        ('Write', UInt32),
+        ('Create', UInt32),
+        ('SetInfo', UInt32),
+        ('Flush', UInt32),
+    ]
+    class NTFS_STATISTICS_EX__Allocate_e__Struct(Structure):
+        pass
+    NTFS_STATISTICS_EX__Allocate_e__Struct._fields_ = [
+        ('Calls', UInt32),
+        ('RunsReturned', UInt32),
+        ('Hints', UInt32),
+        ('HintsHonored', UInt32),
+        ('Cache', UInt32),
+        ('CacheMiss', UInt32),
+        ('Clusters', UInt64),
+        ('HintsClusters', UInt64),
+        ('CacheClusters', UInt64),
+        ('CacheMissClusters', UInt64),
+    ]
+    NTFS_STATISTICS_EX._fields_ = [
+        ('LogFileFullExceptions', UInt32),
+        ('OtherExceptions', UInt32),
+        ('MftReads', UInt64),
+        ('MftReadBytes', UInt64),
+        ('MftWrites', UInt64),
+        ('MftWriteBytes', UInt64),
+        ('MftWritesUserLevel', NTFS_STATISTICS_EX__MftWritesUserLevel_e__Struct),
+        ('MftWritesFlushForLogFileFull', UInt32),
+        ('MftWritesLazyWriter', UInt32),
+        ('MftWritesUserRequest', UInt32),
+        ('Mft2Writes', UInt64),
+        ('Mft2WriteBytes', UInt64),
+        ('Mft2WritesUserLevel', NTFS_STATISTICS_EX__Mft2WritesUserLevel_e__Struct),
+        ('Mft2WritesFlushForLogFileFull', UInt32),
+        ('Mft2WritesLazyWriter', UInt32),
+        ('Mft2WritesUserRequest', UInt32),
+        ('RootIndexReads', UInt64),
+        ('RootIndexReadBytes', UInt64),
+        ('RootIndexWrites', UInt64),
+        ('RootIndexWriteBytes', UInt64),
+        ('BitmapReads', UInt64),
+        ('BitmapReadBytes', UInt64),
+        ('BitmapWrites', UInt64),
+        ('BitmapWriteBytes', UInt64),
+        ('BitmapWritesFlushForLogFileFull', UInt32),
+        ('BitmapWritesLazyWriter', UInt32),
+        ('BitmapWritesUserRequest', UInt32),
+        ('BitmapWritesUserLevel', NTFS_STATISTICS_EX__BitmapWritesUserLevel_e__Struct),
+        ('MftBitmapReads', UInt64),
+        ('MftBitmapReadBytes', UInt64),
+        ('MftBitmapWrites', UInt64),
+        ('MftBitmapWriteBytes', UInt64),
+        ('MftBitmapWritesFlushForLogFileFull', UInt32),
+        ('MftBitmapWritesLazyWriter', UInt32),
+        ('MftBitmapWritesUserRequest', UInt32),
+        ('MftBitmapWritesUserLevel', NTFS_STATISTICS_EX__MftBitmapWritesUserLevel_e__Struct),
+        ('UserIndexReads', UInt64),
+        ('UserIndexReadBytes', UInt64),
+        ('UserIndexWrites', UInt64),
+        ('UserIndexWriteBytes', UInt64),
+        ('LogFileReads', UInt64),
+        ('LogFileReadBytes', UInt64),
+        ('LogFileWrites', UInt64),
+        ('LogFileWriteBytes', UInt64),
+        ('Allocate', NTFS_STATISTICS_EX__Allocate_e__Struct),
+        ('DiskResourcesExhausted', UInt32),
+        ('VolumeTrimCount', UInt64),
+        ('VolumeTrimTime', UInt64),
+        ('VolumeTrimByteCount', UInt64),
+        ('FileLevelTrimCount', UInt64),
+        ('FileLevelTrimTime', UInt64),
+        ('FileLevelTrimByteCount', UInt64),
+        ('VolumeTrimSkippedCount', UInt64),
+        ('VolumeTrimSkippedByteCount', UInt64),
+        ('NtfsFillStatInfoFromMftRecordCalledCount', UInt64),
+        ('NtfsFillStatInfoFromMftRecordBailedBecauseOfAttributeListCount', UInt64),
+        ('NtfsFillStatInfoFromMftRecordBailedBecauseOfNonResReparsePointCount', UInt64),
+    ]
+    return NTFS_STATISTICS_EX
+def _define_NTFS_VOLUME_DATA_BUFFER_head():
+    class NTFS_VOLUME_DATA_BUFFER(Structure):
+        pass
+    return NTFS_VOLUME_DATA_BUFFER
+def _define_NTFS_VOLUME_DATA_BUFFER():
+    NTFS_VOLUME_DATA_BUFFER = win32more.System.Ioctl.NTFS_VOLUME_DATA_BUFFER_head
+    NTFS_VOLUME_DATA_BUFFER._fields_ = [
+        ('VolumeSerialNumber', win32more.Foundation.LARGE_INTEGER),
+        ('NumberSectors', win32more.Foundation.LARGE_INTEGER),
+        ('TotalClusters', win32more.Foundation.LARGE_INTEGER),
+        ('FreeClusters', win32more.Foundation.LARGE_INTEGER),
+        ('TotalReserved', win32more.Foundation.LARGE_INTEGER),
+        ('BytesPerSector', UInt32),
+        ('BytesPerCluster', UInt32),
+        ('BytesPerFileRecordSegment', UInt32),
+        ('ClustersPerFileRecordSegment', UInt32),
+        ('MftValidDataLength', win32more.Foundation.LARGE_INTEGER),
+        ('MftStartLcn', win32more.Foundation.LARGE_INTEGER),
+        ('Mft2StartLcn', win32more.Foundation.LARGE_INTEGER),
+        ('MftZoneStart', win32more.Foundation.LARGE_INTEGER),
+        ('MftZoneEnd', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return NTFS_VOLUME_DATA_BUFFER
+def _define_PARTITION_INFORMATION_head():
+    class PARTITION_INFORMATION(Structure):
+        pass
+    return PARTITION_INFORMATION
+def _define_PARTITION_INFORMATION():
+    PARTITION_INFORMATION = win32more.System.Ioctl.PARTITION_INFORMATION_head
+    PARTITION_INFORMATION._fields_ = [
+        ('StartingOffset', win32more.Foundation.LARGE_INTEGER),
+        ('PartitionLength', win32more.Foundation.LARGE_INTEGER),
+        ('HiddenSectors', UInt32),
+        ('PartitionNumber', UInt32),
+        ('PartitionType', Byte),
+        ('BootIndicator', win32more.Foundation.BOOLEAN),
+        ('RecognizedPartition', win32more.Foundation.BOOLEAN),
+        ('RewritePartition', win32more.Foundation.BOOLEAN),
+    ]
+    return PARTITION_INFORMATION
+def _define_PARTITION_INFORMATION_EX_head():
+    class PARTITION_INFORMATION_EX(Structure):
+        pass
+    return PARTITION_INFORMATION_EX
+def _define_PARTITION_INFORMATION_EX():
+    PARTITION_INFORMATION_EX = win32more.System.Ioctl.PARTITION_INFORMATION_EX_head
+    class PARTITION_INFORMATION_EX__Anonymous_e__Union(Union):
+        pass
+    PARTITION_INFORMATION_EX__Anonymous_e__Union._fields_ = [
+        ('Mbr', win32more.System.Ioctl.PARTITION_INFORMATION_MBR),
+        ('Gpt', win32more.System.Ioctl.PARTITION_INFORMATION_GPT),
+    ]
+    PARTITION_INFORMATION_EX._anonymous_ = [
+        'Anonymous',
+    ]
+    PARTITION_INFORMATION_EX._fields_ = [
+        ('PartitionStyle', win32more.System.Ioctl.PARTITION_STYLE),
+        ('StartingOffset', win32more.Foundation.LARGE_INTEGER),
+        ('PartitionLength', win32more.Foundation.LARGE_INTEGER),
+        ('PartitionNumber', UInt32),
+        ('RewritePartition', win32more.Foundation.BOOLEAN),
+        ('IsServicePartition', win32more.Foundation.BOOLEAN),
+        ('Anonymous', PARTITION_INFORMATION_EX__Anonymous_e__Union),
+    ]
+    return PARTITION_INFORMATION_EX
+def _define_PARTITION_INFORMATION_GPT_head():
+    class PARTITION_INFORMATION_GPT(Structure):
+        pass
+    return PARTITION_INFORMATION_GPT
+def _define_PARTITION_INFORMATION_GPT():
+    PARTITION_INFORMATION_GPT = win32more.System.Ioctl.PARTITION_INFORMATION_GPT_head
+    PARTITION_INFORMATION_GPT._fields_ = [
+        ('PartitionType', Guid),
+        ('PartitionId', Guid),
+        ('Attributes', win32more.System.Ioctl.GPT_ATTRIBUTES),
+        ('Name', Char * 36),
+    ]
+    return PARTITION_INFORMATION_GPT
+def _define_PARTITION_INFORMATION_MBR_head():
+    class PARTITION_INFORMATION_MBR(Structure):
+        pass
+    return PARTITION_INFORMATION_MBR
+def _define_PARTITION_INFORMATION_MBR():
+    PARTITION_INFORMATION_MBR = win32more.System.Ioctl.PARTITION_INFORMATION_MBR_head
+    PARTITION_INFORMATION_MBR._fields_ = [
+        ('PartitionType', Byte),
+        ('BootIndicator', win32more.Foundation.BOOLEAN),
+        ('RecognizedPartition', win32more.Foundation.BOOLEAN),
+        ('HiddenSectors', UInt32),
+        ('PartitionId', Guid),
+    ]
+    return PARTITION_INFORMATION_MBR
+PARTITION_STYLE = Int32
+PARTITION_STYLE_MBR = 0
+PARTITION_STYLE_GPT = 1
+PARTITION_STYLE_RAW = 2
+def _define_PATHNAME_BUFFER_head():
+    class PATHNAME_BUFFER(Structure):
+        pass
+    return PATHNAME_BUFFER
+def _define_PATHNAME_BUFFER():
+    PATHNAME_BUFFER = win32more.System.Ioctl.PATHNAME_BUFFER_head
+    PATHNAME_BUFFER._fields_ = [
+        ('PathNameLength', UInt32),
+        ('Name', Char * 1),
+    ]
+    return PATHNAME_BUFFER
+def _define_PERF_BIN_head():
+    class PERF_BIN(Structure):
+        pass
+    return PERF_BIN
+def _define_PERF_BIN():
+    PERF_BIN = win32more.System.Ioctl.PERF_BIN_head
+    PERF_BIN._fields_ = [
+        ('NumberOfBins', UInt32),
+        ('TypeOfBin', UInt32),
+        ('BinsRanges', win32more.System.Ioctl.BIN_RANGE * 1),
+    ]
+    return PERF_BIN
+def _define_PERSISTENT_RESERVE_COMMAND_head():
+    class PERSISTENT_RESERVE_COMMAND(Structure):
+        pass
+    return PERSISTENT_RESERVE_COMMAND
+def _define_PERSISTENT_RESERVE_COMMAND():
+    PERSISTENT_RESERVE_COMMAND = win32more.System.Ioctl.PERSISTENT_RESERVE_COMMAND_head
+    class PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union(Union):
+        pass
+    class PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_IN_e__Struct(Structure):
+        pass
+    PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_IN_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+        ('AllocationLength', UInt16),
+    ]
+    class PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_OUT_e__Struct(Structure):
+        pass
+    PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_OUT_e__Struct._fields_ = [
+        ('_bitfield1', Byte),
+        ('_bitfield2', Byte),
+        ('ParameterList', Byte * 1),
+    ]
+    PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union._fields_ = [
+        ('PR_IN', PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_IN_e__Struct),
+        ('PR_OUT', PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_OUT_e__Struct),
+    ]
+    PERSISTENT_RESERVE_COMMAND._anonymous_ = [
+        'Anonymous',
+    ]
+    PERSISTENT_RESERVE_COMMAND._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Anonymous', PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union),
+    ]
+    return PERSISTENT_RESERVE_COMMAND
+def _define_PHYSICAL_ELEMENT_STATUS_head():
+    class PHYSICAL_ELEMENT_STATUS(Structure):
+        pass
+    return PHYSICAL_ELEMENT_STATUS
+def _define_PHYSICAL_ELEMENT_STATUS():
+    PHYSICAL_ELEMENT_STATUS = win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_head
+    PHYSICAL_ELEMENT_STATUS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DescriptorCount', UInt32),
+        ('ReturnedDescriptorCount', UInt32),
+        ('ElementIdentifierBeingDepoped', UInt32),
+        ('Reserved', UInt32),
+        ('Descriptors', win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_DESCRIPTOR * 1),
+    ]
+    return PHYSICAL_ELEMENT_STATUS
+def _define_PHYSICAL_ELEMENT_STATUS_DESCRIPTOR_head():
+    class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR(Structure):
+        pass
+    return PHYSICAL_ELEMENT_STATUS_DESCRIPTOR
+def _define_PHYSICAL_ELEMENT_STATUS_DESCRIPTOR():
+    PHYSICAL_ELEMENT_STATUS_DESCRIPTOR = win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_DESCRIPTOR_head
+    PHYSICAL_ELEMENT_STATUS_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ElementIdentifier', UInt32),
+        ('PhysicalElementType', Byte),
+        ('PhysicalElementHealth', Byte),
+        ('Reserved1', Byte * 2),
+        ('AssociatedCapacity', UInt64),
+        ('Reserved2', UInt32 * 4),
+    ]
+    return PHYSICAL_ELEMENT_STATUS_DESCRIPTOR
+def _define_PHYSICAL_ELEMENT_STATUS_REQUEST_head():
+    class PHYSICAL_ELEMENT_STATUS_REQUEST(Structure):
+        pass
+    return PHYSICAL_ELEMENT_STATUS_REQUEST
+def _define_PHYSICAL_ELEMENT_STATUS_REQUEST():
+    PHYSICAL_ELEMENT_STATUS_REQUEST = win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_REQUEST_head
+    PHYSICAL_ELEMENT_STATUS_REQUEST._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('StartingElement', UInt32),
+        ('Filter', Byte),
+        ('ReportType', Byte),
+        ('Reserved', Byte * 2),
+    ]
+    return PHYSICAL_ELEMENT_STATUS_REQUEST
+def _define_PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK():
+    return WINFUNCTYPE(Void,POINTER(win32more.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head),POINTER(win32more.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head),Int64)
+def _define_PLEX_READ_DATA_REQUEST_head():
+    class PLEX_READ_DATA_REQUEST(Structure):
+        pass
+    return PLEX_READ_DATA_REQUEST
+def _define_PLEX_READ_DATA_REQUEST():
+    PLEX_READ_DATA_REQUEST = win32more.System.Ioctl.PLEX_READ_DATA_REQUEST_head
+    PLEX_READ_DATA_REQUEST._fields_ = [
+        ('ByteOffset', win32more.Foundation.LARGE_INTEGER),
+        ('ByteLength', UInt32),
+        ('PlexNumber', UInt32),
+    ]
+    return PLEX_READ_DATA_REQUEST
 def _define_PREVENT_MEDIA_REMOVAL_head():
     class PREVENT_MEDIA_REMOVAL(Structure):
         pass
@@ -1208,47 +4541,2172 @@ def _define_PREVENT_MEDIA_REMOVAL_head():
 def _define_PREVENT_MEDIA_REMOVAL():
     PREVENT_MEDIA_REMOVAL = win32more.System.Ioctl.PREVENT_MEDIA_REMOVAL_head
     PREVENT_MEDIA_REMOVAL._fields_ = [
-        ("PreventMediaRemoval", win32more.Foundation.BOOLEAN),
+        ('PreventMediaRemoval', win32more.Foundation.BOOLEAN),
     ]
     return PREVENT_MEDIA_REMOVAL
-def _define_CLASS_MEDIA_CHANGE_CONTEXT_head():
-    class CLASS_MEDIA_CHANGE_CONTEXT(Structure):
+def _define_QUERY_BAD_RANGES_INPUT_head():
+    class QUERY_BAD_RANGES_INPUT(Structure):
         pass
-    return CLASS_MEDIA_CHANGE_CONTEXT
-def _define_CLASS_MEDIA_CHANGE_CONTEXT():
-    CLASS_MEDIA_CHANGE_CONTEXT = win32more.System.Ioctl.CLASS_MEDIA_CHANGE_CONTEXT_head
-    CLASS_MEDIA_CHANGE_CONTEXT._fields_ = [
-        ("MediaChangeCount", UInt32),
-        ("NewState", UInt32),
+    return QUERY_BAD_RANGES_INPUT
+def _define_QUERY_BAD_RANGES_INPUT():
+    QUERY_BAD_RANGES_INPUT = win32more.System.Ioctl.QUERY_BAD_RANGES_INPUT_head
+    QUERY_BAD_RANGES_INPUT._fields_ = [
+        ('Flags', UInt32),
+        ('NumRanges', UInt32),
+        ('Ranges', win32more.System.Ioctl.QUERY_BAD_RANGES_INPUT_RANGE * 1),
     ]
-    return CLASS_MEDIA_CHANGE_CONTEXT
-def _define_TAPE_STATISTICS_head():
-    class TAPE_STATISTICS(Structure):
+    return QUERY_BAD_RANGES_INPUT
+def _define_QUERY_BAD_RANGES_INPUT_RANGE_head():
+    class QUERY_BAD_RANGES_INPUT_RANGE(Structure):
         pass
-    return TAPE_STATISTICS
-def _define_TAPE_STATISTICS():
-    TAPE_STATISTICS = win32more.System.Ioctl.TAPE_STATISTICS_head
-    TAPE_STATISTICS._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("RecoveredWrites", win32more.Foundation.LARGE_INTEGER),
-        ("UnrecoveredWrites", win32more.Foundation.LARGE_INTEGER),
-        ("RecoveredReads", win32more.Foundation.LARGE_INTEGER),
-        ("UnrecoveredReads", win32more.Foundation.LARGE_INTEGER),
-        ("CompressionRatioReads", Byte),
-        ("CompressionRatioWrites", Byte),
+    return QUERY_BAD_RANGES_INPUT_RANGE
+def _define_QUERY_BAD_RANGES_INPUT_RANGE():
+    QUERY_BAD_RANGES_INPUT_RANGE = win32more.System.Ioctl.QUERY_BAD_RANGES_INPUT_RANGE_head
+    QUERY_BAD_RANGES_INPUT_RANGE._fields_ = [
+        ('StartOffset', UInt64),
+        ('LengthInBytes', UInt64),
     ]
-    return TAPE_STATISTICS
-def _define_TAPE_GET_STATISTICS_head():
-    class TAPE_GET_STATISTICS(Structure):
+    return QUERY_BAD_RANGES_INPUT_RANGE
+def _define_QUERY_BAD_RANGES_OUTPUT_head():
+    class QUERY_BAD_RANGES_OUTPUT(Structure):
         pass
-    return TAPE_GET_STATISTICS
-def _define_TAPE_GET_STATISTICS():
-    TAPE_GET_STATISTICS = win32more.System.Ioctl.TAPE_GET_STATISTICS_head
-    TAPE_GET_STATISTICS._fields_ = [
-        ("Operation", UInt32),
+    return QUERY_BAD_RANGES_OUTPUT
+def _define_QUERY_BAD_RANGES_OUTPUT():
+    QUERY_BAD_RANGES_OUTPUT = win32more.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_head
+    QUERY_BAD_RANGES_OUTPUT._fields_ = [
+        ('Flags', UInt32),
+        ('NumBadRanges', UInt32),
+        ('NextOffsetToLookUp', UInt64),
+        ('BadRanges', win32more.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_RANGE * 1),
     ]
-    return TAPE_GET_STATISTICS
+    return QUERY_BAD_RANGES_OUTPUT
+def _define_QUERY_BAD_RANGES_OUTPUT_RANGE_head():
+    class QUERY_BAD_RANGES_OUTPUT_RANGE(Structure):
+        pass
+    return QUERY_BAD_RANGES_OUTPUT_RANGE
+def _define_QUERY_BAD_RANGES_OUTPUT_RANGE():
+    QUERY_BAD_RANGES_OUTPUT_RANGE = win32more.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_RANGE_head
+    QUERY_BAD_RANGES_OUTPUT_RANGE._fields_ = [
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+        ('StartOffset', UInt64),
+        ('LengthInBytes', UInt64),
+    ]
+    return QUERY_BAD_RANGES_OUTPUT_RANGE
+QUERY_FILE_LAYOUT_FILTER_TYPE = Int32
+QUERY_FILE_LAYOUT_FILTER_TYPE_NONE = 0
+QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS = 1
+QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID = 2
+QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID = 3
+QUERY_FILE_LAYOUT_NUM_FILTER_TYPES = 4
+def _define_QUERY_FILE_LAYOUT_INPUT_head():
+    class QUERY_FILE_LAYOUT_INPUT(Structure):
+        pass
+    return QUERY_FILE_LAYOUT_INPUT
+def _define_QUERY_FILE_LAYOUT_INPUT():
+    QUERY_FILE_LAYOUT_INPUT = win32more.System.Ioctl.QUERY_FILE_LAYOUT_INPUT_head
+    class QUERY_FILE_LAYOUT_INPUT__Anonymous_e__Union(Union):
+        pass
+    QUERY_FILE_LAYOUT_INPUT__Anonymous_e__Union._fields_ = [
+        ('FilterEntryCount', UInt32),
+        ('NumberOfPairs', UInt32),
+    ]
+    class QUERY_FILE_LAYOUT_INPUT__Filter_e__Union(Union):
+        pass
+    QUERY_FILE_LAYOUT_INPUT__Filter_e__Union._fields_ = [
+        ('ClusterRanges', win32more.System.Ioctl.CLUSTER_RANGE * 1),
+        ('FileReferenceRanges', win32more.System.Ioctl.FILE_REFERENCE_RANGE * 1),
+        ('StorageReserveIds', win32more.System.Ioctl.STORAGE_RESERVE_ID * 1),
+    ]
+    QUERY_FILE_LAYOUT_INPUT._anonymous_ = [
+        'Anonymous',
+    ]
+    QUERY_FILE_LAYOUT_INPUT._fields_ = [
+        ('Anonymous', QUERY_FILE_LAYOUT_INPUT__Anonymous_e__Union),
+        ('Flags', UInt32),
+        ('FilterType', win32more.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE),
+        ('Reserved', UInt32),
+        ('Filter', QUERY_FILE_LAYOUT_INPUT__Filter_e__Union),
+    ]
+    return QUERY_FILE_LAYOUT_INPUT
+def _define_QUERY_FILE_LAYOUT_OUTPUT_head():
+    class QUERY_FILE_LAYOUT_OUTPUT(Structure):
+        pass
+    return QUERY_FILE_LAYOUT_OUTPUT
+def _define_QUERY_FILE_LAYOUT_OUTPUT():
+    QUERY_FILE_LAYOUT_OUTPUT = win32more.System.Ioctl.QUERY_FILE_LAYOUT_OUTPUT_head
+    QUERY_FILE_LAYOUT_OUTPUT._fields_ = [
+        ('FileEntryCount', UInt32),
+        ('FirstFileOffset', UInt32),
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+    ]
+    return QUERY_FILE_LAYOUT_OUTPUT
+def _define_READ_ELEMENT_ADDRESS_INFO_head():
+    class READ_ELEMENT_ADDRESS_INFO(Structure):
+        pass
+    return READ_ELEMENT_ADDRESS_INFO
+def _define_READ_ELEMENT_ADDRESS_INFO():
+    READ_ELEMENT_ADDRESS_INFO = win32more.System.Ioctl.READ_ELEMENT_ADDRESS_INFO_head
+    READ_ELEMENT_ADDRESS_INFO._fields_ = [
+        ('NumberOfElements', UInt32),
+        ('ElementStatus', win32more.System.Ioctl.CHANGER_ELEMENT_STATUS * 1),
+    ]
+    return READ_ELEMENT_ADDRESS_INFO
+def _define_READ_FILE_USN_DATA_head():
+    class READ_FILE_USN_DATA(Structure):
+        pass
+    return READ_FILE_USN_DATA
+def _define_READ_FILE_USN_DATA():
+    READ_FILE_USN_DATA = win32more.System.Ioctl.READ_FILE_USN_DATA_head
+    READ_FILE_USN_DATA._fields_ = [
+        ('MinMajorVersion', UInt16),
+        ('MaxMajorVersion', UInt16),
+    ]
+    return READ_FILE_USN_DATA
+def _define_READ_USN_JOURNAL_DATA_V0_head():
+    class READ_USN_JOURNAL_DATA_V0(Structure):
+        pass
+    return READ_USN_JOURNAL_DATA_V0
+def _define_READ_USN_JOURNAL_DATA_V0():
+    READ_USN_JOURNAL_DATA_V0 = win32more.System.Ioctl.READ_USN_JOURNAL_DATA_V0_head
+    READ_USN_JOURNAL_DATA_V0._fields_ = [
+        ('StartUsn', Int64),
+        ('ReasonMask', UInt32),
+        ('ReturnOnlyOnClose', UInt32),
+        ('Timeout', UInt64),
+        ('BytesToWaitFor', UInt64),
+        ('UsnJournalID', UInt64),
+    ]
+    return READ_USN_JOURNAL_DATA_V0
+def _define_READ_USN_JOURNAL_DATA_V1_head():
+    class READ_USN_JOURNAL_DATA_V1(Structure):
+        pass
+    return READ_USN_JOURNAL_DATA_V1
+def _define_READ_USN_JOURNAL_DATA_V1():
+    READ_USN_JOURNAL_DATA_V1 = win32more.System.Ioctl.READ_USN_JOURNAL_DATA_V1_head
+    READ_USN_JOURNAL_DATA_V1._fields_ = [
+        ('StartUsn', Int64),
+        ('ReasonMask', UInt32),
+        ('ReturnOnlyOnClose', UInt32),
+        ('Timeout', UInt64),
+        ('BytesToWaitFor', UInt64),
+        ('UsnJournalID', UInt64),
+        ('MinMajorVersion', UInt16),
+        ('MaxMajorVersion', UInt16),
+    ]
+    return READ_USN_JOURNAL_DATA_V1
+def _define_REASSIGN_BLOCKS_head():
+    class REASSIGN_BLOCKS(Structure):
+        pass
+    return REASSIGN_BLOCKS
+def _define_REASSIGN_BLOCKS():
+    REASSIGN_BLOCKS = win32more.System.Ioctl.REASSIGN_BLOCKS_head
+    REASSIGN_BLOCKS._fields_ = [
+        ('Reserved', UInt16),
+        ('Count', UInt16),
+        ('BlockNumber', UInt32 * 1),
+    ]
+    return REASSIGN_BLOCKS
+def _define_REASSIGN_BLOCKS_EX_head():
+    class REASSIGN_BLOCKS_EX(Structure):
+        pass
+    return REASSIGN_BLOCKS_EX
+def _define_REASSIGN_BLOCKS_EX():
+    REASSIGN_BLOCKS_EX = win32more.System.Ioctl.REASSIGN_BLOCKS_EX_head
+    REASSIGN_BLOCKS_EX._pack_ = 1
+    REASSIGN_BLOCKS_EX._fields_ = [
+        ('Reserved', UInt16),
+        ('Count', UInt16),
+        ('BlockNumber', win32more.Foundation.LARGE_INTEGER * 1),
+    ]
+    return REASSIGN_BLOCKS_EX
+REFS_SMR_VOLUME_GC_ACTION = Int32
+REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStart = 1
+REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStartFullSpeed = 2
+REFS_SMR_VOLUME_GC_ACTION_SmrGcActionPause = 3
+REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStop = 4
+REFS_SMR_VOLUME_GC_METHOD = Int32
+REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompaction = 1
+REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompression = 2
+REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodRotation = 3
+def _define_REFS_SMR_VOLUME_GC_PARAMETERS_head():
+    class REFS_SMR_VOLUME_GC_PARAMETERS(Structure):
+        pass
+    return REFS_SMR_VOLUME_GC_PARAMETERS
+def _define_REFS_SMR_VOLUME_GC_PARAMETERS():
+    REFS_SMR_VOLUME_GC_PARAMETERS = win32more.System.Ioctl.REFS_SMR_VOLUME_GC_PARAMETERS_head
+    REFS_SMR_VOLUME_GC_PARAMETERS._fields_ = [
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('Action', win32more.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION),
+        ('Method', win32more.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD),
+        ('IoGranularity', UInt32),
+        ('CompressionFormat', UInt32),
+        ('Unused', UInt64 * 8),
+    ]
+    return REFS_SMR_VOLUME_GC_PARAMETERS
+REFS_SMR_VOLUME_GC_STATE = Int32
+REFS_SMR_VOLUME_GC_STATE_SmrGcStateInactive = 0
+REFS_SMR_VOLUME_GC_STATE_SmrGcStatePaused = 1
+REFS_SMR_VOLUME_GC_STATE_SmrGcStateActive = 2
+REFS_SMR_VOLUME_GC_STATE_SmrGcStateActiveFullSpeed = 3
+def _define_REFS_SMR_VOLUME_INFO_OUTPUT_head():
+    class REFS_SMR_VOLUME_INFO_OUTPUT(Structure):
+        pass
+    return REFS_SMR_VOLUME_INFO_OUTPUT
+def _define_REFS_SMR_VOLUME_INFO_OUTPUT():
+    REFS_SMR_VOLUME_INFO_OUTPUT = win32more.System.Ioctl.REFS_SMR_VOLUME_INFO_OUTPUT_head
+    REFS_SMR_VOLUME_INFO_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('SizeOfRandomlyWritableTier', win32more.Foundation.LARGE_INTEGER),
+        ('FreeSpaceInRandomlyWritableTier', win32more.Foundation.LARGE_INTEGER),
+        ('SizeofSMRTier', win32more.Foundation.LARGE_INTEGER),
+        ('FreeSpaceInSMRTier', win32more.Foundation.LARGE_INTEGER),
+        ('UsableFreeSpaceInSMRTier', win32more.Foundation.LARGE_INTEGER),
+        ('VolumeGcState', win32more.System.Ioctl.REFS_SMR_VOLUME_GC_STATE),
+        ('VolumeGcLastStatus', UInt32),
+        ('CurrentGcBandFillPercentage', UInt32),
+        ('Unused', UInt64 * 6),
+    ]
+    return REFS_SMR_VOLUME_INFO_OUTPUT
+def _define_REFS_VOLUME_DATA_BUFFER_head():
+    class REFS_VOLUME_DATA_BUFFER(Structure):
+        pass
+    return REFS_VOLUME_DATA_BUFFER
+def _define_REFS_VOLUME_DATA_BUFFER():
+    REFS_VOLUME_DATA_BUFFER = win32more.System.Ioctl.REFS_VOLUME_DATA_BUFFER_head
+    REFS_VOLUME_DATA_BUFFER._fields_ = [
+        ('ByteCount', UInt32),
+        ('MajorVersion', UInt32),
+        ('MinorVersion', UInt32),
+        ('BytesPerPhysicalSector', UInt32),
+        ('VolumeSerialNumber', win32more.Foundation.LARGE_INTEGER),
+        ('NumberSectors', win32more.Foundation.LARGE_INTEGER),
+        ('TotalClusters', win32more.Foundation.LARGE_INTEGER),
+        ('FreeClusters', win32more.Foundation.LARGE_INTEGER),
+        ('TotalReserved', win32more.Foundation.LARGE_INTEGER),
+        ('BytesPerSector', UInt32),
+        ('BytesPerCluster', UInt32),
+        ('MaximumSizeOfResidentFile', win32more.Foundation.LARGE_INTEGER),
+        ('FastTierDataFillRatio', UInt16),
+        ('SlowTierDataFillRatio', UInt16),
+        ('DestagesFastTierToSlowTierRate', UInt32),
+        ('Reserved', win32more.Foundation.LARGE_INTEGER * 9),
+    ]
+    return REFS_VOLUME_DATA_BUFFER
+def _define_REMOVE_ELEMENT_AND_TRUNCATE_REQUEST_head():
+    class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST(Structure):
+        pass
+    return REMOVE_ELEMENT_AND_TRUNCATE_REQUEST
+def _define_REMOVE_ELEMENT_AND_TRUNCATE_REQUEST():
+    REMOVE_ELEMENT_AND_TRUNCATE_REQUEST = win32more.System.Ioctl.REMOVE_ELEMENT_AND_TRUNCATE_REQUEST_head
+    REMOVE_ELEMENT_AND_TRUNCATE_REQUEST._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('RequestCapacity', UInt64),
+        ('ElementIdentifier', UInt32),
+        ('Reserved', UInt32),
+    ]
+    return REMOVE_ELEMENT_AND_TRUNCATE_REQUEST
+def _define_REPAIR_COPIES_INPUT_head():
+    class REPAIR_COPIES_INPUT(Structure):
+        pass
+    return REPAIR_COPIES_INPUT
+def _define_REPAIR_COPIES_INPUT():
+    REPAIR_COPIES_INPUT = win32more.System.Ioctl.REPAIR_COPIES_INPUT_head
+    REPAIR_COPIES_INPUT._fields_ = [
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('FileOffset', win32more.Foundation.LARGE_INTEGER),
+        ('Length', UInt32),
+        ('SourceCopy', UInt32),
+        ('NumberOfRepairCopies', UInt32),
+        ('RepairCopies', UInt32 * 1),
+    ]
+    return REPAIR_COPIES_INPUT
+def _define_REPAIR_COPIES_OUTPUT_head():
+    class REPAIR_COPIES_OUTPUT(Structure):
+        pass
+    return REPAIR_COPIES_OUTPUT
+def _define_REPAIR_COPIES_OUTPUT():
+    REPAIR_COPIES_OUTPUT = win32more.System.Ioctl.REPAIR_COPIES_OUTPUT_head
+    REPAIR_COPIES_OUTPUT._fields_ = [
+        ('Size', UInt32),
+        ('Status', UInt32),
+        ('ResumeFileOffset', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return REPAIR_COPIES_OUTPUT
+def _define_REQUEST_OPLOCK_INPUT_BUFFER_head():
+    class REQUEST_OPLOCK_INPUT_BUFFER(Structure):
+        pass
+    return REQUEST_OPLOCK_INPUT_BUFFER
+def _define_REQUEST_OPLOCK_INPUT_BUFFER():
+    REQUEST_OPLOCK_INPUT_BUFFER = win32more.System.Ioctl.REQUEST_OPLOCK_INPUT_BUFFER_head
+    REQUEST_OPLOCK_INPUT_BUFFER._fields_ = [
+        ('StructureVersion', UInt16),
+        ('StructureLength', UInt16),
+        ('RequestedOplockLevel', UInt32),
+        ('Flags', UInt32),
+    ]
+    return REQUEST_OPLOCK_INPUT_BUFFER
+def _define_REQUEST_OPLOCK_OUTPUT_BUFFER_head():
+    class REQUEST_OPLOCK_OUTPUT_BUFFER(Structure):
+        pass
+    return REQUEST_OPLOCK_OUTPUT_BUFFER
+def _define_REQUEST_OPLOCK_OUTPUT_BUFFER():
+    REQUEST_OPLOCK_OUTPUT_BUFFER = win32more.System.Ioctl.REQUEST_OPLOCK_OUTPUT_BUFFER_head
+    REQUEST_OPLOCK_OUTPUT_BUFFER._fields_ = [
+        ('StructureVersion', UInt16),
+        ('StructureLength', UInt16),
+        ('OriginalOplockLevel', UInt32),
+        ('NewOplockLevel', UInt32),
+        ('Flags', UInt32),
+        ('AccessMode', UInt32),
+        ('ShareMode', UInt16),
+    ]
+    return REQUEST_OPLOCK_OUTPUT_BUFFER
+def _define_REQUEST_RAW_ENCRYPTED_DATA_head():
+    class REQUEST_RAW_ENCRYPTED_DATA(Structure):
+        pass
+    return REQUEST_RAW_ENCRYPTED_DATA
+def _define_REQUEST_RAW_ENCRYPTED_DATA():
+    REQUEST_RAW_ENCRYPTED_DATA = win32more.System.Ioctl.REQUEST_RAW_ENCRYPTED_DATA_head
+    REQUEST_RAW_ENCRYPTED_DATA._fields_ = [
+        ('FileOffset', Int64),
+        ('Length', UInt32),
+    ]
+    return REQUEST_RAW_ENCRYPTED_DATA
+def _define_RETRIEVAL_POINTER_BASE_head():
+    class RETRIEVAL_POINTER_BASE(Structure):
+        pass
+    return RETRIEVAL_POINTER_BASE
+def _define_RETRIEVAL_POINTER_BASE():
+    RETRIEVAL_POINTER_BASE = win32more.System.Ioctl.RETRIEVAL_POINTER_BASE_head
+    RETRIEVAL_POINTER_BASE._fields_ = [
+        ('FileAreaOffset', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return RETRIEVAL_POINTER_BASE
+def _define_RETRIEVAL_POINTER_COUNT_head():
+    class RETRIEVAL_POINTER_COUNT(Structure):
+        pass
+    return RETRIEVAL_POINTER_COUNT
+def _define_RETRIEVAL_POINTER_COUNT():
+    RETRIEVAL_POINTER_COUNT = win32more.System.Ioctl.RETRIEVAL_POINTER_COUNT_head
+    RETRIEVAL_POINTER_COUNT._fields_ = [
+        ('ExtentCount', UInt32),
+    ]
+    return RETRIEVAL_POINTER_COUNT
+def _define_RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER_head():
+    class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER(Structure):
+        pass
+    return RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER
+def _define_RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER():
+    RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER = win32more.System.Ioctl.RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER_head
+    class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER__Anonymous_e__Struct(Structure):
+        pass
+    RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER__Anonymous_e__Struct._fields_ = [
+        ('NextVcn', win32more.Foundation.LARGE_INTEGER),
+        ('Lcn', win32more.Foundation.LARGE_INTEGER),
+        ('ReferenceCount', UInt32),
+    ]
+    RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER._fields_ = [
+        ('ExtentCount', UInt32),
+        ('StartingVcn', win32more.Foundation.LARGE_INTEGER),
+        ('Extents', RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER__Anonymous_e__Struct * 1),
+    ]
+    return RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER
+def _define_RETRIEVAL_POINTERS_BUFFER_head():
+    class RETRIEVAL_POINTERS_BUFFER(Structure):
+        pass
+    return RETRIEVAL_POINTERS_BUFFER
+def _define_RETRIEVAL_POINTERS_BUFFER():
+    RETRIEVAL_POINTERS_BUFFER = win32more.System.Ioctl.RETRIEVAL_POINTERS_BUFFER_head
+    class RETRIEVAL_POINTERS_BUFFER__Anonymous_e__Struct(Structure):
+        pass
+    RETRIEVAL_POINTERS_BUFFER__Anonymous_e__Struct._fields_ = [
+        ('NextVcn', win32more.Foundation.LARGE_INTEGER),
+        ('Lcn', win32more.Foundation.LARGE_INTEGER),
+    ]
+    RETRIEVAL_POINTERS_BUFFER._fields_ = [
+        ('ExtentCount', UInt32),
+        ('StartingVcn', win32more.Foundation.LARGE_INTEGER),
+        ('Extents', RETRIEVAL_POINTERS_BUFFER__Anonymous_e__Struct * 1),
+    ]
+    return RETRIEVAL_POINTERS_BUFFER
+def _define_SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO_head():
+    class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(Structure):
+        pass
+    return SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO
+def _define_SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO():
+    SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO = win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO_head
+    class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO__Flags_e__Struct(Structure):
+        pass
+    SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO__Flags_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO._fields_ = [
+        ('DeviceGuid', Guid),
+        ('DeviceNumber', UInt32),
+        ('Flags', SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO__Flags_e__Struct),
+        ('DeviceSize', UInt64),
+    ]
+    return SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO
+def _define_SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO_head():
+    class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(Structure):
+        pass
+    return SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO
+def _define_SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO():
+    SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO = win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO_head
+    SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceCount', UInt32),
+        ('Devices', win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO * 1),
+    ]
+    return SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO
+def _define_SCM_BUS_DEDICATED_MEMORY_STATE_head():
+    class SCM_BUS_DEDICATED_MEMORY_STATE(Structure):
+        pass
+    return SCM_BUS_DEDICATED_MEMORY_STATE
+def _define_SCM_BUS_DEDICATED_MEMORY_STATE():
+    SCM_BUS_DEDICATED_MEMORY_STATE = win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_STATE_head
+    SCM_BUS_DEDICATED_MEMORY_STATE._fields_ = [
+        ('ActivateState', win32more.Foundation.BOOLEAN),
+    ]
+    return SCM_BUS_DEDICATED_MEMORY_STATE
+SCM_BUS_FIRMWARE_ACTIVATION_STATE = Int32
+ScmBusFirmwareActivationState_Idle = 0
+ScmBusFirmwareActivationState_Armed = 1
+ScmBusFirmwareActivationState_Busy = 2
+SCM_BUS_PROPERTY_ID = Int32
+ScmBusProperty_RuntimeFwActivationInfo = 0
+ScmBusProperty_DedicatedMemoryInfo = 1
+ScmBusProperty_DedicatedMemoryState = 2
+ScmBusProperty_Max = 3
+def _define_SCM_BUS_PROPERTY_QUERY_head():
+    class SCM_BUS_PROPERTY_QUERY(Structure):
+        pass
+    return SCM_BUS_PROPERTY_QUERY
+def _define_SCM_BUS_PROPERTY_QUERY():
+    SCM_BUS_PROPERTY_QUERY = win32more.System.Ioctl.SCM_BUS_PROPERTY_QUERY_head
+    SCM_BUS_PROPERTY_QUERY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('PropertyId', win32more.System.Ioctl.SCM_BUS_PROPERTY_ID),
+        ('QueryType', win32more.System.Ioctl.SCM_BUS_QUERY_TYPE),
+        ('AdditionalParameters', Byte * 1),
+    ]
+    return SCM_BUS_PROPERTY_QUERY
+def _define_SCM_BUS_PROPERTY_SET_head():
+    class SCM_BUS_PROPERTY_SET(Structure):
+        pass
+    return SCM_BUS_PROPERTY_SET
+def _define_SCM_BUS_PROPERTY_SET():
+    SCM_BUS_PROPERTY_SET = win32more.System.Ioctl.SCM_BUS_PROPERTY_SET_head
+    SCM_BUS_PROPERTY_SET._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('PropertyId', win32more.System.Ioctl.SCM_BUS_PROPERTY_ID),
+        ('SetType', win32more.System.Ioctl.SCM_BUS_SET_TYPE),
+        ('AdditionalParameters', Byte * 1),
+    ]
+    return SCM_BUS_PROPERTY_SET
+SCM_BUS_QUERY_TYPE = Int32
+ScmBusQuery_Descriptor = 0
+ScmBusQuery_IsSupported = 1
+ScmBusQuery_Max = 2
+def _define_SCM_BUS_RUNTIME_FW_ACTIVATION_INFO_head():
+    class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO(Structure):
+        pass
+    return SCM_BUS_RUNTIME_FW_ACTIVATION_INFO
+def _define_SCM_BUS_RUNTIME_FW_ACTIVATION_INFO():
+    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO = win32more.System.Ioctl.SCM_BUS_RUNTIME_FW_ACTIVATION_INFO_head
+    class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO__FirmwareActivationCapability_e__Struct(Structure):
+        pass
+    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO__FirmwareActivationCapability_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('RuntimeFwActivationSupported', win32more.Foundation.BOOLEAN),
+        ('FirmwareActivationState', win32more.System.Ioctl.SCM_BUS_FIRMWARE_ACTIVATION_STATE),
+        ('FirmwareActivationCapability', SCM_BUS_RUNTIME_FW_ACTIVATION_INFO__FirmwareActivationCapability_e__Struct),
+        ('EstimatedFirmwareActivationTimeInUSecs', UInt64),
+        ('EstimatedProcessorAccessQuiesceTimeInUSecs', UInt64),
+        ('EstimatedIOAccessQuiesceTimeInUSecs', UInt64),
+        ('PlatformSupportedMaxIOAccessQuiesceTimeInUSecs', UInt64),
+    ]
+    return SCM_BUS_RUNTIME_FW_ACTIVATION_INFO
+SCM_BUS_SET_TYPE = Int32
+ScmBusSet_Descriptor = 0
+ScmBusSet_IsSupported = 1
+ScmBusSet_Max = 2
+def _define_SCM_INTERLEAVED_PD_INFO_head():
+    class SCM_INTERLEAVED_PD_INFO(Structure):
+        pass
+    return SCM_INTERLEAVED_PD_INFO
+def _define_SCM_INTERLEAVED_PD_INFO():
+    SCM_INTERLEAVED_PD_INFO = win32more.System.Ioctl.SCM_INTERLEAVED_PD_INFO_head
+    SCM_INTERLEAVED_PD_INFO._fields_ = [
+        ('DeviceHandle', UInt32),
+        ('DeviceGuid', Guid),
+    ]
+    return SCM_INTERLEAVED_PD_INFO
+def _define_SCM_LD_INTERLEAVE_SET_INFO_head():
+    class SCM_LD_INTERLEAVE_SET_INFO(Structure):
+        pass
+    return SCM_LD_INTERLEAVE_SET_INFO
+def _define_SCM_LD_INTERLEAVE_SET_INFO():
+    SCM_LD_INTERLEAVE_SET_INFO = win32more.System.Ioctl.SCM_LD_INTERLEAVE_SET_INFO_head
+    SCM_LD_INTERLEAVE_SET_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('InterleaveSetSize', UInt32),
+        ('InterleaveSet', win32more.System.Ioctl.SCM_INTERLEAVED_PD_INFO * 1),
+    ]
+    return SCM_LD_INTERLEAVE_SET_INFO
+def _define_SCM_LOGICAL_DEVICE_INSTANCE_head():
+    class SCM_LOGICAL_DEVICE_INSTANCE(Structure):
+        pass
+    return SCM_LOGICAL_DEVICE_INSTANCE
+def _define_SCM_LOGICAL_DEVICE_INSTANCE():
+    SCM_LOGICAL_DEVICE_INSTANCE = win32more.System.Ioctl.SCM_LOGICAL_DEVICE_INSTANCE_head
+    SCM_LOGICAL_DEVICE_INSTANCE._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceGuid', Guid),
+        ('SymbolicLink', Char * 256),
+    ]
+    return SCM_LOGICAL_DEVICE_INSTANCE
+def _define_SCM_LOGICAL_DEVICES_head():
+    class SCM_LOGICAL_DEVICES(Structure):
+        pass
+    return SCM_LOGICAL_DEVICES
+def _define_SCM_LOGICAL_DEVICES():
+    SCM_LOGICAL_DEVICES = win32more.System.Ioctl.SCM_LOGICAL_DEVICES_head
+    SCM_LOGICAL_DEVICES._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceCount', UInt32),
+        ('Devices', win32more.System.Ioctl.SCM_LOGICAL_DEVICE_INSTANCE * 1),
+    ]
+    return SCM_LOGICAL_DEVICES
+def _define_SCM_PD_DESCRIPTOR_HEADER_head():
+    class SCM_PD_DESCRIPTOR_HEADER(Structure):
+        pass
+    return SCM_PD_DESCRIPTOR_HEADER
+def _define_SCM_PD_DESCRIPTOR_HEADER():
+    SCM_PD_DESCRIPTOR_HEADER = win32more.System.Ioctl.SCM_PD_DESCRIPTOR_HEADER_head
+    SCM_PD_DESCRIPTOR_HEADER._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+    ]
+    return SCM_PD_DESCRIPTOR_HEADER
+def _define_SCM_PD_DEVICE_HANDLE_head():
+    class SCM_PD_DEVICE_HANDLE(Structure):
+        pass
+    return SCM_PD_DEVICE_HANDLE
+def _define_SCM_PD_DEVICE_HANDLE():
+    SCM_PD_DEVICE_HANDLE = win32more.System.Ioctl.SCM_PD_DEVICE_HANDLE_head
+    SCM_PD_DEVICE_HANDLE._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceGuid', Guid),
+        ('DeviceHandle', UInt32),
+    ]
+    return SCM_PD_DEVICE_HANDLE
+def _define_SCM_PD_DEVICE_INFO_head():
+    class SCM_PD_DEVICE_INFO(Structure):
+        pass
+    return SCM_PD_DEVICE_INFO
+def _define_SCM_PD_DEVICE_INFO():
+    SCM_PD_DEVICE_INFO = win32more.System.Ioctl.SCM_PD_DEVICE_INFO_head
+    SCM_PD_DEVICE_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceGuid', Guid),
+        ('UnsafeShutdownCount', UInt32),
+        ('PersistentMemorySizeInBytes', UInt64),
+        ('VolatileMemorySizeInBytes', UInt64),
+        ('TotalMemorySizeInBytes', UInt64),
+        ('SlotNumber', UInt32),
+        ('DeviceHandle', UInt32),
+        ('PhysicalId', UInt16),
+        ('NumberOfFormatInterfaceCodes', Byte),
+        ('FormatInterfaceCodes', UInt16 * 8),
+        ('VendorId', UInt32),
+        ('ProductId', UInt32),
+        ('SubsystemDeviceId', UInt32),
+        ('SubsystemVendorId', UInt32),
+        ('ManufacturingLocation', Byte),
+        ('ManufacturingWeek', Byte),
+        ('ManufacturingYear', Byte),
+        ('SerialNumber4Byte', UInt32),
+        ('SerialNumberLengthInChars', UInt32),
+        ('SerialNumber', win32more.Foundation.CHAR * 1),
+    ]
+    return SCM_PD_DEVICE_INFO
+def _define_SCM_PD_DEVICE_SPECIFIC_INFO_head():
+    class SCM_PD_DEVICE_SPECIFIC_INFO(Structure):
+        pass
+    return SCM_PD_DEVICE_SPECIFIC_INFO
+def _define_SCM_PD_DEVICE_SPECIFIC_INFO():
+    SCM_PD_DEVICE_SPECIFIC_INFO = win32more.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_INFO_head
+    SCM_PD_DEVICE_SPECIFIC_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumberOfProperties', UInt32),
+        ('DeviceSpecificProperties', win32more.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_PROPERTY * 1),
+    ]
+    return SCM_PD_DEVICE_SPECIFIC_INFO
+def _define_SCM_PD_DEVICE_SPECIFIC_PROPERTY_head():
+    class SCM_PD_DEVICE_SPECIFIC_PROPERTY(Structure):
+        pass
+    return SCM_PD_DEVICE_SPECIFIC_PROPERTY
+def _define_SCM_PD_DEVICE_SPECIFIC_PROPERTY():
+    SCM_PD_DEVICE_SPECIFIC_PROPERTY = win32more.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_PROPERTY_head
+    SCM_PD_DEVICE_SPECIFIC_PROPERTY._fields_ = [
+        ('Name', Char * 128),
+        ('Value', Int64),
+    ]
+    return SCM_PD_DEVICE_SPECIFIC_PROPERTY
+def _define_SCM_PD_FIRMWARE_ACTIVATE_head():
+    class SCM_PD_FIRMWARE_ACTIVATE(Structure):
+        pass
+    return SCM_PD_FIRMWARE_ACTIVATE
+def _define_SCM_PD_FIRMWARE_ACTIVATE():
+    SCM_PD_FIRMWARE_ACTIVATE = win32more.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATE_head
+    SCM_PD_FIRMWARE_ACTIVATE._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Slot', Byte),
+    ]
+    return SCM_PD_FIRMWARE_ACTIVATE
+SCM_PD_FIRMWARE_ACTIVATION_STATE = Int32
+ScmPdFirmwareActivationState_Idle = 0
+ScmPdFirmwareActivationState_Armed = 1
+ScmPdFirmwareActivationState_Busy = 2
+def _define_SCM_PD_FIRMWARE_DOWNLOAD_head():
+    class SCM_PD_FIRMWARE_DOWNLOAD(Structure):
+        pass
+    return SCM_PD_FIRMWARE_DOWNLOAD
+def _define_SCM_PD_FIRMWARE_DOWNLOAD():
+    SCM_PD_FIRMWARE_DOWNLOAD = win32more.System.Ioctl.SCM_PD_FIRMWARE_DOWNLOAD_head
+    SCM_PD_FIRMWARE_DOWNLOAD._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Slot', Byte),
+        ('Reserved', Byte * 3),
+        ('Offset', UInt64),
+        ('FirmwareImageSizeInBytes', UInt32),
+        ('FirmwareImage', Byte * 1),
+    ]
+    return SCM_PD_FIRMWARE_DOWNLOAD
+def _define_SCM_PD_FIRMWARE_INFO_head():
+    class SCM_PD_FIRMWARE_INFO(Structure):
+        pass
+    return SCM_PD_FIRMWARE_INFO
+def _define_SCM_PD_FIRMWARE_INFO():
+    SCM_PD_FIRMWARE_INFO = win32more.System.Ioctl.SCM_PD_FIRMWARE_INFO_head
+    SCM_PD_FIRMWARE_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ActiveSlot', Byte),
+        ('NextActiveSlot', Byte),
+        ('SlotCount', Byte),
+        ('Slots', win32more.System.Ioctl.SCM_PD_FIRMWARE_SLOT_INFO * 1),
+    ]
+    return SCM_PD_FIRMWARE_INFO
+def _define_SCM_PD_FIRMWARE_SLOT_INFO_head():
+    class SCM_PD_FIRMWARE_SLOT_INFO(Structure):
+        pass
+    return SCM_PD_FIRMWARE_SLOT_INFO
+def _define_SCM_PD_FIRMWARE_SLOT_INFO():
+    SCM_PD_FIRMWARE_SLOT_INFO = win32more.System.Ioctl.SCM_PD_FIRMWARE_SLOT_INFO_head
+    SCM_PD_FIRMWARE_SLOT_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('SlotNumber', Byte),
+        ('_bitfield', Byte),
+        ('Reserved1', Byte * 6),
+        ('Revision', Byte * 32),
+    ]
+    return SCM_PD_FIRMWARE_SLOT_INFO
+def _define_SCM_PD_FRU_ID_STRING_head():
+    class SCM_PD_FRU_ID_STRING(Structure):
+        pass
+    return SCM_PD_FRU_ID_STRING
+def _define_SCM_PD_FRU_ID_STRING():
+    SCM_PD_FRU_ID_STRING = win32more.System.Ioctl.SCM_PD_FRU_ID_STRING_head
+    SCM_PD_FRU_ID_STRING._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('IdentifierSize', UInt32),
+        ('Identifier', Byte * 1),
+    ]
+    return SCM_PD_FRU_ID_STRING
+def _define_SCM_PD_HEALTH_NOTIFICATION_DATA_head():
+    class SCM_PD_HEALTH_NOTIFICATION_DATA(Structure):
+        pass
+    return SCM_PD_HEALTH_NOTIFICATION_DATA
+def _define_SCM_PD_HEALTH_NOTIFICATION_DATA():
+    SCM_PD_HEALTH_NOTIFICATION_DATA = win32more.System.Ioctl.SCM_PD_HEALTH_NOTIFICATION_DATA_head
+    SCM_PD_HEALTH_NOTIFICATION_DATA._fields_ = [
+        ('DeviceGuid', Guid),
+    ]
+    return SCM_PD_HEALTH_NOTIFICATION_DATA
+SCM_PD_HEALTH_STATUS = Int32
+ScmPhysicalDeviceHealth_Unknown = 0
+ScmPhysicalDeviceHealth_Unhealthy = 1
+ScmPhysicalDeviceHealth_Warning = 2
+ScmPhysicalDeviceHealth_Healthy = 3
+ScmPhysicalDeviceHealth_Max = 4
+SCM_PD_LAST_FW_ACTIVATION_STATUS = Int32
+ScmPdLastFwActivationStatus_None = 0
+ScmPdLastFwActivationStatus_Success = 1
+ScmPdLastFwActivationStatus_FwNotFound = 2
+ScmPdLastFwActivationStatus_ColdRebootRequired = 3
+ScmPdLastFwActivaitonStatus_ActivationInProgress = 4
+ScmPdLastFwActivaitonStatus_Retry = 5
+ScmPdLastFwActivaitonStatus_FwUnsupported = 6
+ScmPdLastFwActivaitonStatus_UnknownError = 7
+def _define_SCM_PD_LOCATION_STRING_head():
+    class SCM_PD_LOCATION_STRING(Structure):
+        pass
+    return SCM_PD_LOCATION_STRING
+def _define_SCM_PD_LOCATION_STRING():
+    SCM_PD_LOCATION_STRING = win32more.System.Ioctl.SCM_PD_LOCATION_STRING_head
+    SCM_PD_LOCATION_STRING._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Location', Char * 1),
+    ]
+    return SCM_PD_LOCATION_STRING
+def _define_SCM_PD_MANAGEMENT_STATUS_head():
+    class SCM_PD_MANAGEMENT_STATUS(Structure):
+        pass
+    return SCM_PD_MANAGEMENT_STATUS
+def _define_SCM_PD_MANAGEMENT_STATUS():
+    SCM_PD_MANAGEMENT_STATUS = win32more.System.Ioctl.SCM_PD_MANAGEMENT_STATUS_head
+    SCM_PD_MANAGEMENT_STATUS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Health', win32more.System.Ioctl.SCM_PD_HEALTH_STATUS),
+        ('NumberOfOperationalStatus', UInt32),
+        ('NumberOfAdditionalReasons', UInt32),
+        ('OperationalStatus', win32more.System.Ioctl.SCM_PD_OPERATIONAL_STATUS * 16),
+        ('AdditionalReasons', win32more.System.Ioctl.SCM_PD_OPERATIONAL_STATUS_REASON * 1),
+    ]
+    return SCM_PD_MANAGEMENT_STATUS
+SCM_PD_MEDIA_REINITIALIZATION_STATUS = Int32
+ScmPhysicalDeviceReinit_Success = 0
+ScmPhysicalDeviceReinit_RebootNeeded = 1
+ScmPhysicalDeviceReinit_ColdBootNeeded = 2
+ScmPhysicalDeviceReinit_Max = 3
+SCM_PD_OPERATIONAL_STATUS = Int32
+ScmPhysicalDeviceOpStatus_Unknown = 0
+ScmPhysicalDeviceOpStatus_Ok = 1
+ScmPhysicalDeviceOpStatus_PredictingFailure = 2
+ScmPhysicalDeviceOpStatus_InService = 3
+ScmPhysicalDeviceOpStatus_HardwareError = 4
+ScmPhysicalDeviceOpStatus_NotUsable = 5
+ScmPhysicalDeviceOpStatus_TransientError = 6
+ScmPhysicalDeviceOpStatus_Missing = 7
+ScmPhysicalDeviceOpStatus_Max = 8
+SCM_PD_OPERATIONAL_STATUS_REASON = Int32
+ScmPhysicalDeviceOpReason_Unknown = 0
+ScmPhysicalDeviceOpReason_Media = 1
+ScmPhysicalDeviceOpReason_ThresholdExceeded = 2
+ScmPhysicalDeviceOpReason_LostData = 3
+ScmPhysicalDeviceOpReason_EnergySource = 4
+ScmPhysicalDeviceOpReason_Configuration = 5
+ScmPhysicalDeviceOpReason_DeviceController = 6
+ScmPhysicalDeviceOpReason_MediaController = 7
+ScmPhysicalDeviceOpReason_Component = 8
+ScmPhysicalDeviceOpReason_BackgroundOperation = 9
+ScmPhysicalDeviceOpReason_InvalidFirmware = 10
+ScmPhysicalDeviceOpReason_HealthCheck = 11
+ScmPhysicalDeviceOpReason_LostDataPersistence = 12
+ScmPhysicalDeviceOpReason_DisabledByPlatform = 13
+ScmPhysicalDeviceOpReason_PermanentError = 14
+ScmPhysicalDeviceOpReason_LostWritePersistence = 15
+ScmPhysicalDeviceOpReason_FatalError = 16
+ScmPhysicalDeviceOpReason_DataPersistenceLossImminent = 17
+ScmPhysicalDeviceOpReason_WritePersistenceLossImminent = 18
+ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock = 19
+ScmPhysicalDeviceOpReason_PerformanceDegradation = 20
+ScmPhysicalDeviceOpReason_ExcessiveTemperature = 21
+ScmPhysicalDeviceOpReason_InternalFailure = 22
+ScmPhysicalDeviceOpReason_Max = 23
+def _define_SCM_PD_PASSTHROUGH_INPUT_head():
+    class SCM_PD_PASSTHROUGH_INPUT(Structure):
+        pass
+    return SCM_PD_PASSTHROUGH_INPUT
+def _define_SCM_PD_PASSTHROUGH_INPUT():
+    SCM_PD_PASSTHROUGH_INPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_INPUT_head
+    SCM_PD_PASSTHROUGH_INPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ProtocolGuid', Guid),
+        ('DataSize', UInt32),
+        ('Data', Byte * 1),
+    ]
+    return SCM_PD_PASSTHROUGH_INPUT
+def _define_SCM_PD_PASSTHROUGH_INVDIMM_INPUT_head():
+    class SCM_PD_PASSTHROUGH_INVDIMM_INPUT(Structure):
+        pass
+    return SCM_PD_PASSTHROUGH_INVDIMM_INPUT
+def _define_SCM_PD_PASSTHROUGH_INVDIMM_INPUT():
+    SCM_PD_PASSTHROUGH_INVDIMM_INPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_INVDIMM_INPUT_head
+    SCM_PD_PASSTHROUGH_INVDIMM_INPUT._fields_ = [
+        ('Opcode', UInt32),
+        ('OpcodeParametersLength', UInt32),
+        ('OpcodeParameters', Byte * 1),
+    ]
+    return SCM_PD_PASSTHROUGH_INVDIMM_INPUT
+def _define_SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT_head():
+    class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT(Structure):
+        pass
+    return SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
+def _define_SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT():
+    SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT_head
+    SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT._fields_ = [
+        ('GeneralStatus', UInt16),
+        ('ExtendedStatus', UInt16),
+        ('OutputDataLength', UInt32),
+        ('OutputData', Byte * 1),
+    ]
+    return SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
+def _define_SCM_PD_PASSTHROUGH_OUTPUT_head():
+    class SCM_PD_PASSTHROUGH_OUTPUT(Structure):
+        pass
+    return SCM_PD_PASSTHROUGH_OUTPUT
+def _define_SCM_PD_PASSTHROUGH_OUTPUT():
+    SCM_PD_PASSTHROUGH_OUTPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_OUTPUT_head
+    SCM_PD_PASSTHROUGH_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ProtocolGuid', Guid),
+        ('DataSize', UInt32),
+        ('Data', Byte * 1),
+    ]
+    return SCM_PD_PASSTHROUGH_OUTPUT
+SCM_PD_PROPERTY_ID = Int32
+ScmPhysicalDeviceProperty_DeviceInfo = 0
+ScmPhysicalDeviceProperty_ManagementStatus = 1
+ScmPhysicalDeviceProperty_FirmwareInfo = 2
+ScmPhysicalDeviceProperty_LocationString = 3
+ScmPhysicalDeviceProperty_DeviceSpecificInfo = 4
+ScmPhysicalDeviceProperty_DeviceHandle = 5
+ScmPhysicalDeviceProperty_FruIdString = 6
+ScmPhysicalDeviceProperty_RuntimeFwActivationInfo = 7
+ScmPhysicalDeviceProperty_RuntimeFwActivationArmState = 8
+ScmPhysicalDeviceProperty_Max = 9
+def _define_SCM_PD_PROPERTY_QUERY_head():
+    class SCM_PD_PROPERTY_QUERY(Structure):
+        pass
+    return SCM_PD_PROPERTY_QUERY
+def _define_SCM_PD_PROPERTY_QUERY():
+    SCM_PD_PROPERTY_QUERY = win32more.System.Ioctl.SCM_PD_PROPERTY_QUERY_head
+    SCM_PD_PROPERTY_QUERY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('PropertyId', win32more.System.Ioctl.SCM_PD_PROPERTY_ID),
+        ('QueryType', win32more.System.Ioctl.SCM_PD_QUERY_TYPE),
+        ('AdditionalParameters', Byte * 1),
+    ]
+    return SCM_PD_PROPERTY_QUERY
+def _define_SCM_PD_PROPERTY_SET_head():
+    class SCM_PD_PROPERTY_SET(Structure):
+        pass
+    return SCM_PD_PROPERTY_SET
+def _define_SCM_PD_PROPERTY_SET():
+    SCM_PD_PROPERTY_SET = win32more.System.Ioctl.SCM_PD_PROPERTY_SET_head
+    SCM_PD_PROPERTY_SET._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('PropertyId', win32more.System.Ioctl.SCM_PD_PROPERTY_ID),
+        ('SetType', win32more.System.Ioctl.SCM_PD_SET_TYPE),
+        ('AdditionalParameters', Byte * 1),
+    ]
+    return SCM_PD_PROPERTY_SET
+SCM_PD_QUERY_TYPE = Int32
+ScmPhysicalDeviceQuery_Descriptor = 0
+ScmPhysicalDeviceQuery_IsSupported = 1
+ScmPhysicalDeviceQuery_Max = 2
+def _define_SCM_PD_REINITIALIZE_MEDIA_INPUT_head():
+    class SCM_PD_REINITIALIZE_MEDIA_INPUT(Structure):
+        pass
+    return SCM_PD_REINITIALIZE_MEDIA_INPUT
+def _define_SCM_PD_REINITIALIZE_MEDIA_INPUT():
+    SCM_PD_REINITIALIZE_MEDIA_INPUT = win32more.System.Ioctl.SCM_PD_REINITIALIZE_MEDIA_INPUT_head
+    class SCM_PD_REINITIALIZE_MEDIA_INPUT__Options_e__Struct(Structure):
+        pass
+    SCM_PD_REINITIALIZE_MEDIA_INPUT__Options_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    SCM_PD_REINITIALIZE_MEDIA_INPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Options', SCM_PD_REINITIALIZE_MEDIA_INPUT__Options_e__Struct),
+    ]
+    return SCM_PD_REINITIALIZE_MEDIA_INPUT
+def _define_SCM_PD_REINITIALIZE_MEDIA_OUTPUT_head():
+    class SCM_PD_REINITIALIZE_MEDIA_OUTPUT(Structure):
+        pass
+    return SCM_PD_REINITIALIZE_MEDIA_OUTPUT
+def _define_SCM_PD_REINITIALIZE_MEDIA_OUTPUT():
+    SCM_PD_REINITIALIZE_MEDIA_OUTPUT = win32more.System.Ioctl.SCM_PD_REINITIALIZE_MEDIA_OUTPUT_head
+    SCM_PD_REINITIALIZE_MEDIA_OUTPUT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Status', win32more.System.Ioctl.SCM_PD_MEDIA_REINITIALIZATION_STATUS),
+    ]
+    return SCM_PD_REINITIALIZE_MEDIA_OUTPUT
+def _define_SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE_head():
+    class SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE(Structure):
+        pass
+    return SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE
+def _define_SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE():
+    SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE = win32more.System.Ioctl.SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE_head
+    SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE._fields_ = [
+        ('ArmState', win32more.Foundation.BOOLEAN),
+    ]
+    return SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE
+def _define_SCM_PD_RUNTIME_FW_ACTIVATION_INFO_head():
+    class SCM_PD_RUNTIME_FW_ACTIVATION_INFO(Structure):
+        pass
+    return SCM_PD_RUNTIME_FW_ACTIVATION_INFO
+def _define_SCM_PD_RUNTIME_FW_ACTIVATION_INFO():
+    SCM_PD_RUNTIME_FW_ACTIVATION_INFO = win32more.System.Ioctl.SCM_PD_RUNTIME_FW_ACTIVATION_INFO_head
+    SCM_PD_RUNTIME_FW_ACTIVATION_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('LastFirmwareActivationStatus', win32more.System.Ioctl.SCM_PD_LAST_FW_ACTIVATION_STATUS),
+        ('FirmwareActivationState', win32more.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATION_STATE),
+    ]
+    return SCM_PD_RUNTIME_FW_ACTIVATION_INFO
+SCM_PD_SET_TYPE = Int32
+ScmPhysicalDeviceSet_Descriptor = 0
+ScmPhysicalDeviceSet_IsSupported = 1
+ScmPhysicalDeviceSet_Max = 2
+def _define_SCM_PHYSICAL_DEVICE_INSTANCE_head():
+    class SCM_PHYSICAL_DEVICE_INSTANCE(Structure):
+        pass
+    return SCM_PHYSICAL_DEVICE_INSTANCE
+def _define_SCM_PHYSICAL_DEVICE_INSTANCE():
+    SCM_PHYSICAL_DEVICE_INSTANCE = win32more.System.Ioctl.SCM_PHYSICAL_DEVICE_INSTANCE_head
+    SCM_PHYSICAL_DEVICE_INSTANCE._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NfitHandle', UInt32),
+        ('SymbolicLink', Char * 256),
+    ]
+    return SCM_PHYSICAL_DEVICE_INSTANCE
+def _define_SCM_PHYSICAL_DEVICES_head():
+    class SCM_PHYSICAL_DEVICES(Structure):
+        pass
+    return SCM_PHYSICAL_DEVICES
+def _define_SCM_PHYSICAL_DEVICES():
+    SCM_PHYSICAL_DEVICES = win32more.System.Ioctl.SCM_PHYSICAL_DEVICES_head
+    SCM_PHYSICAL_DEVICES._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceCount', UInt32),
+        ('Devices', win32more.System.Ioctl.SCM_PHYSICAL_DEVICE_INSTANCE * 1),
+    ]
+    return SCM_PHYSICAL_DEVICES
+def _define_SCM_REGION_head():
+    class SCM_REGION(Structure):
+        pass
+    return SCM_REGION
+def _define_SCM_REGION():
+    SCM_REGION = win32more.System.Ioctl.SCM_REGION_head
+    SCM_REGION._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('NfitHandle', UInt32),
+        ('LogicalDeviceGuid', Guid),
+        ('AddressRangeType', Guid),
+        ('AssociatedId', UInt32),
+        ('Length', UInt64),
+        ('StartingDPA', UInt64),
+        ('BaseSPA', UInt64),
+        ('SPAOffset', UInt64),
+        ('RegionOffset', UInt64),
+    ]
+    return SCM_REGION
+SCM_REGION_FLAG = Int32
+SCM_REGION_FLAG_ScmRegionFlagNone = 0
+SCM_REGION_FLAG_ScmRegionFlagLabel = 1
+def _define_SCM_REGIONS_head():
+    class SCM_REGIONS(Structure):
+        pass
+    return SCM_REGIONS
+def _define_SCM_REGIONS():
+    SCM_REGIONS = win32more.System.Ioctl.SCM_REGIONS_head
+    SCM_REGIONS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('RegionCount', UInt32),
+        ('Regions', win32more.System.Ioctl.SCM_REGION * 1),
+    ]
+    return SCM_REGIONS
+def _define_SD_CHANGE_MACHINE_SID_INPUT_head():
+    class SD_CHANGE_MACHINE_SID_INPUT(Structure):
+        pass
+    return SD_CHANGE_MACHINE_SID_INPUT
+def _define_SD_CHANGE_MACHINE_SID_INPUT():
+    SD_CHANGE_MACHINE_SID_INPUT = win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_INPUT_head
+    SD_CHANGE_MACHINE_SID_INPUT._fields_ = [
+        ('CurrentMachineSIDOffset', UInt16),
+        ('CurrentMachineSIDLength', UInt16),
+        ('NewMachineSIDOffset', UInt16),
+        ('NewMachineSIDLength', UInt16),
+    ]
+    return SD_CHANGE_MACHINE_SID_INPUT
+def _define_SD_CHANGE_MACHINE_SID_OUTPUT_head():
+    class SD_CHANGE_MACHINE_SID_OUTPUT(Structure):
+        pass
+    return SD_CHANGE_MACHINE_SID_OUTPUT
+def _define_SD_CHANGE_MACHINE_SID_OUTPUT():
+    SD_CHANGE_MACHINE_SID_OUTPUT = win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT_head
+    SD_CHANGE_MACHINE_SID_OUTPUT._fields_ = [
+        ('NumSDChangedSuccess', UInt64),
+        ('NumSDChangedFail', UInt64),
+        ('NumSDUnused', UInt64),
+        ('NumSDTotal', UInt64),
+        ('NumMftSDChangedSuccess', UInt64),
+        ('NumMftSDChangedFail', UInt64),
+        ('NumMftSDTotal', UInt64),
+    ]
+    return SD_CHANGE_MACHINE_SID_OUTPUT
+def _define_SD_ENUM_SDS_ENTRY_head():
+    class SD_ENUM_SDS_ENTRY(Structure):
+        pass
+    return SD_ENUM_SDS_ENTRY
+def _define_SD_ENUM_SDS_ENTRY():
+    SD_ENUM_SDS_ENTRY = win32more.System.Ioctl.SD_ENUM_SDS_ENTRY_head
+    SD_ENUM_SDS_ENTRY._fields_ = [
+        ('Hash', UInt32),
+        ('SecurityId', UInt32),
+        ('Offset', UInt64),
+        ('Length', UInt32),
+        ('Descriptor', Byte * 1),
+    ]
+    return SD_ENUM_SDS_ENTRY
+def _define_SD_ENUM_SDS_INPUT_head():
+    class SD_ENUM_SDS_INPUT(Structure):
+        pass
+    return SD_ENUM_SDS_INPUT
+def _define_SD_ENUM_SDS_INPUT():
+    SD_ENUM_SDS_INPUT = win32more.System.Ioctl.SD_ENUM_SDS_INPUT_head
+    SD_ENUM_SDS_INPUT._fields_ = [
+        ('StartingOffset', UInt64),
+        ('MaxSDEntriesToReturn', UInt64),
+    ]
+    return SD_ENUM_SDS_INPUT
+def _define_SD_ENUM_SDS_OUTPUT_head():
+    class SD_ENUM_SDS_OUTPUT(Structure):
+        pass
+    return SD_ENUM_SDS_OUTPUT
+def _define_SD_ENUM_SDS_OUTPUT():
+    SD_ENUM_SDS_OUTPUT = win32more.System.Ioctl.SD_ENUM_SDS_OUTPUT_head
+    SD_ENUM_SDS_OUTPUT._fields_ = [
+        ('NextOffset', UInt64),
+        ('NumSDEntriesReturned', UInt64),
+        ('NumSDBytesReturned', UInt64),
+        ('SDEntry', win32more.System.Ioctl.SD_ENUM_SDS_ENTRY * 1),
+    ]
+    return SD_ENUM_SDS_OUTPUT
+def _define_SD_GLOBAL_CHANGE_INPUT_head():
+    class SD_GLOBAL_CHANGE_INPUT(Structure):
+        pass
+    return SD_GLOBAL_CHANGE_INPUT
+def _define_SD_GLOBAL_CHANGE_INPUT():
+    SD_GLOBAL_CHANGE_INPUT = win32more.System.Ioctl.SD_GLOBAL_CHANGE_INPUT_head
+    class SD_GLOBAL_CHANGE_INPUT__Anonymous_e__Union(Union):
+        pass
+    SD_GLOBAL_CHANGE_INPUT__Anonymous_e__Union._fields_ = [
+        ('SdChange', win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_INPUT),
+        ('SdQueryStats', win32more.System.Ioctl.SD_QUERY_STATS_INPUT),
+        ('SdEnumSds', win32more.System.Ioctl.SD_ENUM_SDS_INPUT),
+    ]
+    SD_GLOBAL_CHANGE_INPUT._anonymous_ = [
+        'Anonymous',
+    ]
+    SD_GLOBAL_CHANGE_INPUT._fields_ = [
+        ('Flags', UInt32),
+        ('ChangeType', UInt32),
+        ('Anonymous', SD_GLOBAL_CHANGE_INPUT__Anonymous_e__Union),
+    ]
+    return SD_GLOBAL_CHANGE_INPUT
+def _define_SD_GLOBAL_CHANGE_OUTPUT_head():
+    class SD_GLOBAL_CHANGE_OUTPUT(Structure):
+        pass
+    return SD_GLOBAL_CHANGE_OUTPUT
+def _define_SD_GLOBAL_CHANGE_OUTPUT():
+    SD_GLOBAL_CHANGE_OUTPUT = win32more.System.Ioctl.SD_GLOBAL_CHANGE_OUTPUT_head
+    class SD_GLOBAL_CHANGE_OUTPUT__Anonymous_e__Union(Union):
+        pass
+    SD_GLOBAL_CHANGE_OUTPUT__Anonymous_e__Union._fields_ = [
+        ('SdChange', win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT),
+        ('SdQueryStats', win32more.System.Ioctl.SD_QUERY_STATS_OUTPUT),
+        ('SdEnumSds', win32more.System.Ioctl.SD_ENUM_SDS_OUTPUT),
+    ]
+    SD_GLOBAL_CHANGE_OUTPUT._anonymous_ = [
+        'Anonymous',
+    ]
+    SD_GLOBAL_CHANGE_OUTPUT._fields_ = [
+        ('Flags', UInt32),
+        ('ChangeType', UInt32),
+        ('Anonymous', SD_GLOBAL_CHANGE_OUTPUT__Anonymous_e__Union),
+    ]
+    return SD_GLOBAL_CHANGE_OUTPUT
+def _define_SD_QUERY_STATS_INPUT_head():
+    class SD_QUERY_STATS_INPUT(Structure):
+        pass
+    return SD_QUERY_STATS_INPUT
+def _define_SD_QUERY_STATS_INPUT():
+    SD_QUERY_STATS_INPUT = win32more.System.Ioctl.SD_QUERY_STATS_INPUT_head
+    SD_QUERY_STATS_INPUT._fields_ = [
+        ('Reserved', UInt32),
+    ]
+    return SD_QUERY_STATS_INPUT
+def _define_SD_QUERY_STATS_OUTPUT_head():
+    class SD_QUERY_STATS_OUTPUT(Structure):
+        pass
+    return SD_QUERY_STATS_OUTPUT
+def _define_SD_QUERY_STATS_OUTPUT():
+    SD_QUERY_STATS_OUTPUT = win32more.System.Ioctl.SD_QUERY_STATS_OUTPUT_head
+    SD_QUERY_STATS_OUTPUT._fields_ = [
+        ('SdsStreamSize', UInt64),
+        ('SdsAllocationSize', UInt64),
+        ('SiiStreamSize', UInt64),
+        ('SiiAllocationSize', UInt64),
+        ('SdhStreamSize', UInt64),
+        ('SdhAllocationSize', UInt64),
+        ('NumSDTotal', UInt64),
+        ('NumSDUnused', UInt64),
+    ]
+    return SD_QUERY_STATS_OUTPUT
+def _define_SENDCMDINPARAMS_head():
+    class SENDCMDINPARAMS(Structure):
+        pass
+    return SENDCMDINPARAMS
+def _define_SENDCMDINPARAMS():
+    SENDCMDINPARAMS = win32more.System.Ioctl.SENDCMDINPARAMS_head
+    SENDCMDINPARAMS._pack_ = 1
+    SENDCMDINPARAMS._fields_ = [
+        ('cBufferSize', UInt32),
+        ('irDriveRegs', win32more.System.Ioctl.IDEREGS),
+        ('bDriveNumber', Byte),
+        ('bReserved', Byte * 3),
+        ('dwReserved', UInt32 * 4),
+        ('bBuffer', Byte * 1),
+    ]
+    return SENDCMDINPARAMS
+def _define_SENDCMDOUTPARAMS_head():
+    class SENDCMDOUTPARAMS(Structure):
+        pass
+    return SENDCMDOUTPARAMS
+def _define_SENDCMDOUTPARAMS():
+    SENDCMDOUTPARAMS = win32more.System.Ioctl.SENDCMDOUTPARAMS_head
+    SENDCMDOUTPARAMS._pack_ = 1
+    SENDCMDOUTPARAMS._fields_ = [
+        ('cBufferSize', UInt32),
+        ('DriverStatus', win32more.System.Ioctl.DRIVERSTATUS),
+        ('bBuffer', Byte * 1),
+    ]
+    return SENDCMDOUTPARAMS
+def _define_SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT_head():
+    class SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT(Structure):
+        pass
+    return SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT
+def _define_SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT():
+    SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT = win32more.System.Ioctl.SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT_head
+    SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT._fields_ = [
+        ('Flags', UInt32),
+        ('AlignmentShift', UInt32),
+        ('FileOffsetToAlign', UInt64),
+        ('FallbackAlignmentShift', UInt32),
+    ]
+    return SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT
+def _define_SET_DISK_ATTRIBUTES_head():
+    class SET_DISK_ATTRIBUTES(Structure):
+        pass
+    return SET_DISK_ATTRIBUTES
+def _define_SET_DISK_ATTRIBUTES():
+    SET_DISK_ATTRIBUTES = win32more.System.Ioctl.SET_DISK_ATTRIBUTES_head
+    SET_DISK_ATTRIBUTES._fields_ = [
+        ('Version', UInt32),
+        ('Persist', win32more.Foundation.BOOLEAN),
+        ('Reserved1', Byte * 3),
+        ('Attributes', UInt64),
+        ('AttributesMask', UInt64),
+        ('Reserved2', UInt32 * 4),
+    ]
+    return SET_DISK_ATTRIBUTES
+def _define_SET_PARTITION_INFORMATION_head():
+    class SET_PARTITION_INFORMATION(Structure):
+        pass
+    return SET_PARTITION_INFORMATION
+def _define_SET_PARTITION_INFORMATION():
+    SET_PARTITION_INFORMATION = win32more.System.Ioctl.SET_PARTITION_INFORMATION_head
+    SET_PARTITION_INFORMATION._fields_ = [
+        ('PartitionType', Byte),
+    ]
+    return SET_PARTITION_INFORMATION
+def _define_SET_PARTITION_INFORMATION_EX_head():
+    class SET_PARTITION_INFORMATION_EX(Structure):
+        pass
+    return SET_PARTITION_INFORMATION_EX
+def _define_SET_PARTITION_INFORMATION_EX():
+    SET_PARTITION_INFORMATION_EX = win32more.System.Ioctl.SET_PARTITION_INFORMATION_EX_head
+    class SET_PARTITION_INFORMATION_EX__Anonymous_e__Union(Union):
+        pass
+    SET_PARTITION_INFORMATION_EX__Anonymous_e__Union._fields_ = [
+        ('Mbr', win32more.System.Ioctl.SET_PARTITION_INFORMATION),
+        ('Gpt', win32more.System.Ioctl.PARTITION_INFORMATION_GPT),
+    ]
+    SET_PARTITION_INFORMATION_EX._anonymous_ = [
+        'Anonymous',
+    ]
+    SET_PARTITION_INFORMATION_EX._fields_ = [
+        ('PartitionStyle', win32more.System.Ioctl.PARTITION_STYLE),
+        ('Anonymous', SET_PARTITION_INFORMATION_EX__Anonymous_e__Union),
+    ]
+    return SET_PARTITION_INFORMATION_EX
+def _define_SET_PURGE_FAILURE_MODE_INPUT_head():
+    class SET_PURGE_FAILURE_MODE_INPUT(Structure):
+        pass
+    return SET_PURGE_FAILURE_MODE_INPUT
+def _define_SET_PURGE_FAILURE_MODE_INPUT():
+    SET_PURGE_FAILURE_MODE_INPUT = win32more.System.Ioctl.SET_PURGE_FAILURE_MODE_INPUT_head
+    SET_PURGE_FAILURE_MODE_INPUT._fields_ = [
+        ('Flags', UInt32),
+    ]
+    return SET_PURGE_FAILURE_MODE_INPUT
+def _define_SHRINK_VOLUME_INFORMATION_head():
+    class SHRINK_VOLUME_INFORMATION(Structure):
+        pass
+    return SHRINK_VOLUME_INFORMATION
+def _define_SHRINK_VOLUME_INFORMATION():
+    SHRINK_VOLUME_INFORMATION = win32more.System.Ioctl.SHRINK_VOLUME_INFORMATION_head
+    SHRINK_VOLUME_INFORMATION._fields_ = [
+        ('ShrinkRequestType', win32more.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES),
+        ('Flags', UInt64),
+        ('NewNumberOfSectors', Int64),
+    ]
+    return SHRINK_VOLUME_INFORMATION
+SHRINK_VOLUME_REQUEST_TYPES = Int32
+SHRINK_VOLUME_REQUEST_TYPES_ShrinkPrepare = 1
+SHRINK_VOLUME_REQUEST_TYPES_ShrinkCommit = 2
+SHRINK_VOLUME_REQUEST_TYPES_ShrinkAbort = 3
+def _define_SI_COPYFILE_head():
+    class SI_COPYFILE(Structure):
+        pass
+    return SI_COPYFILE
+def _define_SI_COPYFILE():
+    SI_COPYFILE = win32more.System.Ioctl.SI_COPYFILE_head
+    SI_COPYFILE._fields_ = [
+        ('SourceFileNameLength', UInt32),
+        ('DestinationFileNameLength', UInt32),
+        ('Flags', UInt32),
+        ('FileNameBuffer', Char * 1),
+    ]
+    return SI_COPYFILE
+def _define_SMB_SHARE_FLUSH_AND_PURGE_INPUT_head():
+    class SMB_SHARE_FLUSH_AND_PURGE_INPUT(Structure):
+        pass
+    return SMB_SHARE_FLUSH_AND_PURGE_INPUT
+def _define_SMB_SHARE_FLUSH_AND_PURGE_INPUT():
+    SMB_SHARE_FLUSH_AND_PURGE_INPUT = win32more.System.Ioctl.SMB_SHARE_FLUSH_AND_PURGE_INPUT_head
+    SMB_SHARE_FLUSH_AND_PURGE_INPUT._fields_ = [
+        ('Version', UInt16),
+    ]
+    return SMB_SHARE_FLUSH_AND_PURGE_INPUT
+def _define_SMB_SHARE_FLUSH_AND_PURGE_OUTPUT_head():
+    class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT(Structure):
+        pass
+    return SMB_SHARE_FLUSH_AND_PURGE_OUTPUT
+def _define_SMB_SHARE_FLUSH_AND_PURGE_OUTPUT():
+    SMB_SHARE_FLUSH_AND_PURGE_OUTPUT = win32more.System.Ioctl.SMB_SHARE_FLUSH_AND_PURGE_OUTPUT_head
+    SMB_SHARE_FLUSH_AND_PURGE_OUTPUT._fields_ = [
+        ('cEntriesPurged', UInt32),
+    ]
+    return SMB_SHARE_FLUSH_AND_PURGE_OUTPUT
+def _define_STARTING_LCN_INPUT_BUFFER_head():
+    class STARTING_LCN_INPUT_BUFFER(Structure):
+        pass
+    return STARTING_LCN_INPUT_BUFFER
+def _define_STARTING_LCN_INPUT_BUFFER():
+    STARTING_LCN_INPUT_BUFFER = win32more.System.Ioctl.STARTING_LCN_INPUT_BUFFER_head
+    STARTING_LCN_INPUT_BUFFER._fields_ = [
+        ('StartingLcn', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return STARTING_LCN_INPUT_BUFFER
+def _define_STARTING_LCN_INPUT_BUFFER_EX_head():
+    class STARTING_LCN_INPUT_BUFFER_EX(Structure):
+        pass
+    return STARTING_LCN_INPUT_BUFFER_EX
+def _define_STARTING_LCN_INPUT_BUFFER_EX():
+    STARTING_LCN_INPUT_BUFFER_EX = win32more.System.Ioctl.STARTING_LCN_INPUT_BUFFER_EX_head
+    STARTING_LCN_INPUT_BUFFER_EX._fields_ = [
+        ('StartingLcn', win32more.Foundation.LARGE_INTEGER),
+        ('Flags', UInt32),
+    ]
+    return STARTING_LCN_INPUT_BUFFER_EX
+def _define_STARTING_VCN_INPUT_BUFFER_head():
+    class STARTING_VCN_INPUT_BUFFER(Structure):
+        pass
+    return STARTING_VCN_INPUT_BUFFER
+def _define_STARTING_VCN_INPUT_BUFFER():
+    STARTING_VCN_INPUT_BUFFER = win32more.System.Ioctl.STARTING_VCN_INPUT_BUFFER_head
+    STARTING_VCN_INPUT_BUFFER._fields_ = [
+        ('StartingVcn', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return STARTING_VCN_INPUT_BUFFER
+def _define_STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR_head():
+    class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR
+def _define_STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR():
+    STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR_head
+    STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('BytesPerCacheLine', UInt32),
+        ('BytesOffsetForCacheAlignment', UInt32),
+        ('BytesPerLogicalSector', UInt32),
+        ('BytesPerPhysicalSector', UInt32),
+        ('BytesOffsetForSectorAlignment', UInt32),
+    ]
+    return STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR
+def _define_STORAGE_ADAPTER_DESCRIPTOR_head():
+    class STORAGE_ADAPTER_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_ADAPTER_DESCRIPTOR
+def _define_STORAGE_ADAPTER_DESCRIPTOR():
+    STORAGE_ADAPTER_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ADAPTER_DESCRIPTOR_head
+    STORAGE_ADAPTER_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('MaximumTransferLength', UInt32),
+        ('MaximumPhysicalPages', UInt32),
+        ('AlignmentMask', UInt32),
+        ('AdapterUsesPio', win32more.Foundation.BOOLEAN),
+        ('AdapterScansDown', win32more.Foundation.BOOLEAN),
+        ('CommandQueueing', win32more.Foundation.BOOLEAN),
+        ('AcceleratedTransfer', win32more.Foundation.BOOLEAN),
+        ('BusType', Byte),
+        ('BusMajorVersion', UInt16),
+        ('BusMinorVersion', UInt16),
+        ('SrbType', Byte),
+        ('AddressType', Byte),
+    ]
+    return STORAGE_ADAPTER_DESCRIPTOR
+def _define_STORAGE_ADAPTER_SERIAL_NUMBER_head():
+    class STORAGE_ADAPTER_SERIAL_NUMBER(Structure):
+        pass
+    return STORAGE_ADAPTER_SERIAL_NUMBER
+def _define_STORAGE_ADAPTER_SERIAL_NUMBER():
+    STORAGE_ADAPTER_SERIAL_NUMBER = win32more.System.Ioctl.STORAGE_ADAPTER_SERIAL_NUMBER_head
+    STORAGE_ADAPTER_SERIAL_NUMBER._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('SerialNumber', Char * 128),
+    ]
+    return STORAGE_ADAPTER_SERIAL_NUMBER
+def _define_STORAGE_ALLOCATE_BC_STREAM_INPUT_head():
+    class STORAGE_ALLOCATE_BC_STREAM_INPUT(Structure):
+        pass
+    return STORAGE_ALLOCATE_BC_STREAM_INPUT
+def _define_STORAGE_ALLOCATE_BC_STREAM_INPUT():
+    STORAGE_ALLOCATE_BC_STREAM_INPUT = win32more.System.Ioctl.STORAGE_ALLOCATE_BC_STREAM_INPUT_head
+    STORAGE_ALLOCATE_BC_STREAM_INPUT._fields_ = [
+        ('Version', UInt32),
+        ('RequestsPerPeriod', UInt32),
+        ('Period', UInt32),
+        ('RetryFailures', win32more.Foundation.BOOLEAN),
+        ('Discardable', win32more.Foundation.BOOLEAN),
+        ('Reserved1', win32more.Foundation.BOOLEAN * 2),
+        ('AccessType', UInt32),
+        ('AccessMode', UInt32),
+    ]
+    return STORAGE_ALLOCATE_BC_STREAM_INPUT
+def _define_STORAGE_ALLOCATE_BC_STREAM_OUTPUT_head():
+    class STORAGE_ALLOCATE_BC_STREAM_OUTPUT(Structure):
+        pass
+    return STORAGE_ALLOCATE_BC_STREAM_OUTPUT
+def _define_STORAGE_ALLOCATE_BC_STREAM_OUTPUT():
+    STORAGE_ALLOCATE_BC_STREAM_OUTPUT = win32more.System.Ioctl.STORAGE_ALLOCATE_BC_STREAM_OUTPUT_head
+    STORAGE_ALLOCATE_BC_STREAM_OUTPUT._fields_ = [
+        ('RequestSize', UInt64),
+        ('NumOutStandingRequests', UInt32),
+    ]
+    return STORAGE_ALLOCATE_BC_STREAM_OUTPUT
+STORAGE_ASSOCIATION_TYPE = Int32
+STORAGE_ASSOCIATION_TYPE_StorageIdAssocDevice = 0
+STORAGE_ASSOCIATION_TYPE_StorageIdAssocPort = 1
+STORAGE_ASSOCIATION_TYPE_StorageIdAssocTarget = 2
+def _define_STORAGE_ATTRIBUTE_MGMT_head():
+    class STORAGE_ATTRIBUTE_MGMT(Structure):
+        pass
+    return STORAGE_ATTRIBUTE_MGMT
+def _define_STORAGE_ATTRIBUTE_MGMT():
+    STORAGE_ATTRIBUTE_MGMT = win32more.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_head
+    STORAGE_ATTRIBUTE_MGMT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Action', win32more.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_ACTION),
+        ('Attribute', UInt32),
+    ]
+    return STORAGE_ATTRIBUTE_MGMT
+STORAGE_ATTRIBUTE_MGMT_ACTION = Int32
+StorAttributeMgmt_ClearAttribute = 0
+StorAttributeMgmt_SetAttribute = 1
+StorAttributeMgmt_ResetAttribute = 2
+def _define_STORAGE_BREAK_RESERVATION_REQUEST_head():
+    class STORAGE_BREAK_RESERVATION_REQUEST(Structure):
+        pass
+    return STORAGE_BREAK_RESERVATION_REQUEST
+def _define_STORAGE_BREAK_RESERVATION_REQUEST():
+    STORAGE_BREAK_RESERVATION_REQUEST = win32more.System.Ioctl.STORAGE_BREAK_RESERVATION_REQUEST_head
+    STORAGE_BREAK_RESERVATION_REQUEST._fields_ = [
+        ('Length', UInt32),
+        ('_unused', Byte),
+        ('PathId', Byte),
+        ('TargetId', Byte),
+        ('Lun', Byte),
+    ]
+    return STORAGE_BREAK_RESERVATION_REQUEST
+def _define_STORAGE_BUS_RESET_REQUEST_head():
+    class STORAGE_BUS_RESET_REQUEST(Structure):
+        pass
+    return STORAGE_BUS_RESET_REQUEST
+def _define_STORAGE_BUS_RESET_REQUEST():
+    STORAGE_BUS_RESET_REQUEST = win32more.System.Ioctl.STORAGE_BUS_RESET_REQUEST_head
+    STORAGE_BUS_RESET_REQUEST._fields_ = [
+        ('PathId', Byte),
+    ]
+    return STORAGE_BUS_RESET_REQUEST
+STORAGE_COMPONENT_HEALTH_STATUS = Int32
+STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusUnknown = 0
+STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusNormal = 1
+STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusThrottled = 2
+STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusWarning = 3
+STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusDisabled = 4
+STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusFailed = 5
+def _define_STORAGE_COUNTER_head():
+    class STORAGE_COUNTER(Structure):
+        pass
+    return STORAGE_COUNTER
+def _define_STORAGE_COUNTER():
+    STORAGE_COUNTER = win32more.System.Ioctl.STORAGE_COUNTER_head
+    class STORAGE_COUNTER__Value_e__Union(Union):
+        pass
+    class STORAGE_COUNTER__Value_e__Union__ManufactureDate_e__Struct(Structure):
+        pass
+    STORAGE_COUNTER__Value_e__Union__ManufactureDate_e__Struct._fields_ = [
+        ('Week', UInt32),
+        ('Year', UInt32),
+    ]
+    STORAGE_COUNTER__Value_e__Union._fields_ = [
+        ('ManufactureDate', STORAGE_COUNTER__Value_e__Union__ManufactureDate_e__Struct),
+        ('AsUlonglong', UInt64),
+    ]
+    STORAGE_COUNTER._fields_ = [
+        ('Type', win32more.System.Ioctl.STORAGE_COUNTER_TYPE),
+        ('Value', STORAGE_COUNTER__Value_e__Union),
+    ]
+    return STORAGE_COUNTER
+STORAGE_COUNTER_TYPE = Int32
+STORAGE_COUNTER_TYPE_StorageCounterTypeUnknown = 0
+STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsius = 1
+STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsiusMax = 2
+STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsTotal = 3
+STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsCorrected = 4
+STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsUncorrected = 5
+STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsTotal = 6
+STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsCorrected = 7
+STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsUncorrected = 8
+STORAGE_COUNTER_TYPE_StorageCounterTypeManufactureDate = 9
+STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCount = 10
+STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCountMax = 11
+STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCount = 12
+STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCountMax = 13
+STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentage = 14
+STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageWarning = 15
+STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageMax = 16
+STORAGE_COUNTER_TYPE_StorageCounterTypePowerOnHours = 17
+STORAGE_COUNTER_TYPE_StorageCounterTypeReadLatency100NSMax = 18
+STORAGE_COUNTER_TYPE_StorageCounterTypeWriteLatency100NSMax = 19
+STORAGE_COUNTER_TYPE_StorageCounterTypeFlushLatency100NSMax = 20
+STORAGE_COUNTER_TYPE_StorageCounterTypeMax = 21
+def _define_STORAGE_COUNTERS_head():
+    class STORAGE_COUNTERS(Structure):
+        pass
+    return STORAGE_COUNTERS
+def _define_STORAGE_COUNTERS():
+    STORAGE_COUNTERS = win32more.System.Ioctl.STORAGE_COUNTERS_head
+    STORAGE_COUNTERS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumberOfCounters', UInt32),
+        ('Counters', win32more.System.Ioctl.STORAGE_COUNTER * 1),
+    ]
+    return STORAGE_COUNTERS
+STORAGE_CRYPTO_ALGORITHM_ID = Int32
+STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmUnknown = 0
+STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmXTSAES = 1
+STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmBitlockerAESCBC = 2
+STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmAESECB = 3
+STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmESSIVAESCBC = 4
+STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmMax = 5
+def _define_STORAGE_CRYPTO_CAPABILITY_head():
+    class STORAGE_CRYPTO_CAPABILITY(Structure):
+        pass
+    return STORAGE_CRYPTO_CAPABILITY
+def _define_STORAGE_CRYPTO_CAPABILITY():
+    STORAGE_CRYPTO_CAPABILITY = win32more.System.Ioctl.STORAGE_CRYPTO_CAPABILITY_head
+    STORAGE_CRYPTO_CAPABILITY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('CryptoCapabilityIndex', UInt32),
+        ('AlgorithmId', win32more.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID),
+        ('KeySize', win32more.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE),
+        ('DataUnitSizeBitmask', UInt32),
+    ]
+    return STORAGE_CRYPTO_CAPABILITY
+def _define_STORAGE_CRYPTO_DESCRIPTOR_head():
+    class STORAGE_CRYPTO_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_CRYPTO_DESCRIPTOR
+def _define_STORAGE_CRYPTO_DESCRIPTOR():
+    STORAGE_CRYPTO_DESCRIPTOR = win32more.System.Ioctl.STORAGE_CRYPTO_DESCRIPTOR_head
+    STORAGE_CRYPTO_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumKeysSupported', UInt32),
+        ('NumCryptoCapabilities', UInt32),
+        ('CryptoCapabilities', win32more.System.Ioctl.STORAGE_CRYPTO_CAPABILITY * 1),
+    ]
+    return STORAGE_CRYPTO_DESCRIPTOR
+STORAGE_CRYPTO_KEY_SIZE = Int32
+STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySizeUnknown = 0
+STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize128Bits = 1
+STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize192Bits = 2
+STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize256Bits = 3
+STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize512Bits = 4
+def _define_STORAGE_DESCRIPTOR_HEADER_head():
+    class STORAGE_DESCRIPTOR_HEADER(Structure):
+        pass
+    return STORAGE_DESCRIPTOR_HEADER
+def _define_STORAGE_DESCRIPTOR_HEADER():
+    STORAGE_DESCRIPTOR_HEADER = win32more.System.Ioctl.STORAGE_DESCRIPTOR_HEADER_head
+    STORAGE_DESCRIPTOR_HEADER._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+    ]
+    return STORAGE_DESCRIPTOR_HEADER
+def _define_STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR_head():
+    class STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR
+def _define_STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR():
+    STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR_head
+    STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Attributes', UInt64),
+    ]
+    return STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR
+def _define_STORAGE_DEVICE_DESCRIPTOR_head():
+    class STORAGE_DEVICE_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_DESCRIPTOR
+def _define_STORAGE_DEVICE_DESCRIPTOR():
+    STORAGE_DEVICE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_DESCRIPTOR_head
+    STORAGE_DEVICE_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceType', Byte),
+        ('DeviceTypeModifier', Byte),
+        ('RemovableMedia', win32more.Foundation.BOOLEAN),
+        ('CommandQueueing', win32more.Foundation.BOOLEAN),
+        ('VendorIdOffset', UInt32),
+        ('ProductIdOffset', UInt32),
+        ('ProductRevisionOffset', UInt32),
+        ('SerialNumberOffset', UInt32),
+        ('BusType', win32more.Storage.FileSystem.STORAGE_BUS_TYPE),
+        ('RawPropertiesLength', UInt32),
+        ('RawDeviceProperties', Byte * 1),
+    ]
+    return STORAGE_DEVICE_DESCRIPTOR
+def _define_STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR_head():
+    class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR
+def _define_STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR():
+    STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR_head
+    STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumberOfFaultDomains', UInt32),
+        ('FaultDomainIds', Guid * 1),
+    ]
+    return STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR
+STORAGE_DEVICE_FORM_FACTOR = Int32
+STORAGE_DEVICE_FORM_FACTOR_FormFactorUnknown = 0
+STORAGE_DEVICE_FORM_FACTOR_FormFactor3_5 = 1
+STORAGE_DEVICE_FORM_FACTOR_FormFactor2_5 = 2
+STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8 = 3
+STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8Less = 4
+STORAGE_DEVICE_FORM_FACTOR_FormFactorEmbedded = 5
+STORAGE_DEVICE_FORM_FACTOR_FormFactorMemoryCard = 6
+STORAGE_DEVICE_FORM_FACTOR_FormFactormSata = 7
+STORAGE_DEVICE_FORM_FACTOR_FormFactorM_2 = 8
+STORAGE_DEVICE_FORM_FACTOR_FormFactorPCIeBoard = 9
+STORAGE_DEVICE_FORM_FACTOR_FormFactorDimm = 10
+def _define_STORAGE_DEVICE_ID_DESCRIPTOR_head():
+    class STORAGE_DEVICE_ID_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_ID_DESCRIPTOR
+def _define_STORAGE_DEVICE_ID_DESCRIPTOR():
+    STORAGE_DEVICE_ID_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_ID_DESCRIPTOR_head
+    STORAGE_DEVICE_ID_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumberOfIdentifiers', UInt32),
+        ('Identifiers', Byte * 1),
+    ]
+    return STORAGE_DEVICE_ID_DESCRIPTOR
+def _define_STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR_head():
+    class STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR
+def _define_STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR():
+    STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR_head
+    STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('LunMaxIoCount', UInt32),
+        ('AdapterMaxIoCount', UInt32),
+    ]
+    return STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR
+def _define_STORAGE_DEVICE_LED_STATE_DESCRIPTOR_head():
+    class STORAGE_DEVICE_LED_STATE_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_LED_STATE_DESCRIPTOR
+def _define_STORAGE_DEVICE_LED_STATE_DESCRIPTOR():
+    STORAGE_DEVICE_LED_STATE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_LED_STATE_DESCRIPTOR_head
+    STORAGE_DEVICE_LED_STATE_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('State', UInt64),
+    ]
+    return STORAGE_DEVICE_LED_STATE_DESCRIPTOR
+def _define_STORAGE_DEVICE_LOCATION_DESCRIPTOR_head():
+    class STORAGE_DEVICE_LOCATION_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_LOCATION_DESCRIPTOR
+def _define_STORAGE_DEVICE_LOCATION_DESCRIPTOR():
+    STORAGE_DEVICE_LOCATION_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_LOCATION_DESCRIPTOR_head
+    STORAGE_DEVICE_LOCATION_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Location', win32more.System.Ioctl.DEVICE_LOCATION),
+        ('StringOffset', UInt32),
+    ]
+    return STORAGE_DEVICE_LOCATION_DESCRIPTOR
+def _define_STORAGE_DEVICE_MANAGEMENT_STATUS_head():
+    class STORAGE_DEVICE_MANAGEMENT_STATUS(Structure):
+        pass
+    return STORAGE_DEVICE_MANAGEMENT_STATUS
+def _define_STORAGE_DEVICE_MANAGEMENT_STATUS():
+    STORAGE_DEVICE_MANAGEMENT_STATUS = win32more.System.Ioctl.STORAGE_DEVICE_MANAGEMENT_STATUS_head
+    STORAGE_DEVICE_MANAGEMENT_STATUS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Health', win32more.System.Ioctl.STORAGE_DISK_HEALTH_STATUS),
+        ('NumberOfOperationalStatus', UInt32),
+        ('NumberOfAdditionalReasons', UInt32),
+        ('OperationalStatus', win32more.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS * 16),
+        ('AdditionalReasons', win32more.System.Ioctl.STORAGE_OPERATIONAL_REASON * 1),
+    ]
+    return STORAGE_DEVICE_MANAGEMENT_STATUS
+def _define_STORAGE_DEVICE_NUMA_PROPERTY_head():
+    class STORAGE_DEVICE_NUMA_PROPERTY(Structure):
+        pass
+    return STORAGE_DEVICE_NUMA_PROPERTY
+def _define_STORAGE_DEVICE_NUMA_PROPERTY():
+    STORAGE_DEVICE_NUMA_PROPERTY = win32more.System.Ioctl.STORAGE_DEVICE_NUMA_PROPERTY_head
+    STORAGE_DEVICE_NUMA_PROPERTY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumaNode', UInt32),
+    ]
+    return STORAGE_DEVICE_NUMA_PROPERTY
+def _define_STORAGE_DEVICE_NUMBER_head():
+    class STORAGE_DEVICE_NUMBER(Structure):
+        pass
+    return STORAGE_DEVICE_NUMBER
+def _define_STORAGE_DEVICE_NUMBER():
+    STORAGE_DEVICE_NUMBER = win32more.System.Ioctl.STORAGE_DEVICE_NUMBER_head
+    STORAGE_DEVICE_NUMBER._fields_ = [
+        ('DeviceType', UInt32),
+        ('DeviceNumber', UInt32),
+        ('PartitionNumber', UInt32),
+    ]
+    return STORAGE_DEVICE_NUMBER
+def _define_STORAGE_DEVICE_NUMBER_EX_head():
+    class STORAGE_DEVICE_NUMBER_EX(Structure):
+        pass
+    return STORAGE_DEVICE_NUMBER_EX
+def _define_STORAGE_DEVICE_NUMBER_EX():
+    STORAGE_DEVICE_NUMBER_EX = win32more.System.Ioctl.STORAGE_DEVICE_NUMBER_EX_head
+    STORAGE_DEVICE_NUMBER_EX._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('DeviceType', UInt32),
+        ('DeviceNumber', UInt32),
+        ('DeviceGuid', Guid),
+        ('PartitionNumber', UInt32),
+    ]
+    return STORAGE_DEVICE_NUMBER_EX
+def _define_STORAGE_DEVICE_NUMBERS_head():
+    class STORAGE_DEVICE_NUMBERS(Structure):
+        pass
+    return STORAGE_DEVICE_NUMBERS
+def _define_STORAGE_DEVICE_NUMBERS():
+    STORAGE_DEVICE_NUMBERS = win32more.System.Ioctl.STORAGE_DEVICE_NUMBERS_head
+    STORAGE_DEVICE_NUMBERS._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NumberOfDevices', UInt32),
+        ('Devices', win32more.System.Ioctl.STORAGE_DEVICE_NUMBER * 1),
+    ]
+    return STORAGE_DEVICE_NUMBERS
+def _define_STORAGE_DEVICE_POWER_CAP_head():
+    class STORAGE_DEVICE_POWER_CAP(Structure):
+        pass
+    return STORAGE_DEVICE_POWER_CAP
+def _define_STORAGE_DEVICE_POWER_CAP():
+    STORAGE_DEVICE_POWER_CAP = win32more.System.Ioctl.STORAGE_DEVICE_POWER_CAP_head
+    STORAGE_DEVICE_POWER_CAP._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Units', win32more.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS),
+        ('MaxPower', UInt64),
+    ]
+    return STORAGE_DEVICE_POWER_CAP
+STORAGE_DEVICE_POWER_CAP_UNITS = Int32
+STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsPercent = 0
+STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsMilliwatts = 1
+def _define_STORAGE_DEVICE_RESILIENCY_DESCRIPTOR_head():
+    class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_RESILIENCY_DESCRIPTOR
+def _define_STORAGE_DEVICE_RESILIENCY_DESCRIPTOR():
+    STORAGE_DEVICE_RESILIENCY_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_RESILIENCY_DESCRIPTOR_head
+    STORAGE_DEVICE_RESILIENCY_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NameOffset', UInt32),
+        ('NumberOfLogicalCopies', UInt32),
+        ('NumberOfPhysicalCopies', UInt32),
+        ('PhysicalDiskRedundancy', UInt32),
+        ('NumberOfColumns', UInt32),
+        ('Interleave', UInt32),
+    ]
+    return STORAGE_DEVICE_RESILIENCY_DESCRIPTOR
+def _define_STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_head():
+    class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY(Structure):
+        pass
+    return STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY
+def _define_STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY():
+    STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY = win32more.System.Ioctl.STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_head
+    STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('SupportsSelfEncryption', win32more.Foundation.BOOLEAN),
+    ]
+    return STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY
+def _define_STORAGE_DEVICE_TIERING_DESCRIPTOR_head():
+    class STORAGE_DEVICE_TIERING_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_DEVICE_TIERING_DESCRIPTOR
+def _define_STORAGE_DEVICE_TIERING_DESCRIPTOR():
+    STORAGE_DEVICE_TIERING_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_TIERING_DESCRIPTOR_head
+    STORAGE_DEVICE_TIERING_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('TotalNumberOfTiers', UInt32),
+        ('NumberOfTiersReturned', UInt32),
+        ('Tiers', win32more.System.Ioctl.STORAGE_TIER * 1),
+    ]
+    return STORAGE_DEVICE_TIERING_DESCRIPTOR
+def _define_STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT_head():
+    class STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT(Structure):
+        pass
+    return STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT
+def _define_STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT():
+    STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT = win32more.System.Ioctl.STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT_head
+    STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('UnsafeShutdownCount', UInt32),
+    ]
+    return STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT
+def _define_STORAGE_DIAGNOSTIC_DATA_head():
+    class STORAGE_DIAGNOSTIC_DATA(Structure):
+        pass
+    return STORAGE_DIAGNOSTIC_DATA
+def _define_STORAGE_DIAGNOSTIC_DATA():
+    STORAGE_DIAGNOSTIC_DATA = win32more.System.Ioctl.STORAGE_DIAGNOSTIC_DATA_head
+    STORAGE_DIAGNOSTIC_DATA._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ProviderId', Guid),
+        ('BufferSize', UInt32),
+        ('Reserved', UInt32),
+        ('DiagnosticDataBuffer', Byte * 1),
+    ]
+    return STORAGE_DIAGNOSTIC_DATA
+STORAGE_DIAGNOSTIC_LEVEL = Int32
+STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelDefault = 0
+STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelMax = 1
+def _define_STORAGE_DIAGNOSTIC_REQUEST_head():
+    class STORAGE_DIAGNOSTIC_REQUEST(Structure):
+        pass
+    return STORAGE_DIAGNOSTIC_REQUEST
+def _define_STORAGE_DIAGNOSTIC_REQUEST():
+    STORAGE_DIAGNOSTIC_REQUEST = win32more.System.Ioctl.STORAGE_DIAGNOSTIC_REQUEST_head
+    STORAGE_DIAGNOSTIC_REQUEST._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('TargetType', win32more.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE),
+        ('Level', win32more.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL),
+    ]
+    return STORAGE_DIAGNOSTIC_REQUEST
+STORAGE_DIAGNOSTIC_TARGET_TYPE = Int32
+STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeUndefined = 0
+STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypePort = 1
+STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMiniport = 2
+STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeHbaFirmware = 3
+STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMax = 4
+STORAGE_DISK_HEALTH_STATUS = Int32
+STORAGE_DISK_HEALTH_STATUS_DiskHealthUnknown = 0
+STORAGE_DISK_HEALTH_STATUS_DiskHealthUnhealthy = 1
+STORAGE_DISK_HEALTH_STATUS_DiskHealthWarning = 2
+STORAGE_DISK_HEALTH_STATUS_DiskHealthHealthy = 3
+STORAGE_DISK_HEALTH_STATUS_DiskHealthMax = 4
+STORAGE_DISK_OPERATIONAL_STATUS = Int32
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNone = 0
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusUnknown = 1
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusOk = 2
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusPredictingFailure = 3
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusInService = 4
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusHardwareError = 5
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNotUsable = 6
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusTransientError = 7
+STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusMissing = 8
+def _define_STORAGE_EVENT_NOTIFICATION_head():
+    class STORAGE_EVENT_NOTIFICATION(Structure):
+        pass
+    return STORAGE_EVENT_NOTIFICATION
+def _define_STORAGE_EVENT_NOTIFICATION():
+    STORAGE_EVENT_NOTIFICATION = win32more.System.Ioctl.STORAGE_EVENT_NOTIFICATION_head
+    STORAGE_EVENT_NOTIFICATION._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Events', UInt64),
+    ]
+    return STORAGE_EVENT_NOTIFICATION
+def _define_STORAGE_FAILURE_PREDICTION_CONFIG_head():
+    class STORAGE_FAILURE_PREDICTION_CONFIG(Structure):
+        pass
+    return STORAGE_FAILURE_PREDICTION_CONFIG
+def _define_STORAGE_FAILURE_PREDICTION_CONFIG():
+    STORAGE_FAILURE_PREDICTION_CONFIG = win32more.System.Ioctl.STORAGE_FAILURE_PREDICTION_CONFIG_head
+    STORAGE_FAILURE_PREDICTION_CONFIG._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Set', win32more.Foundation.BOOLEAN),
+        ('Enabled', win32more.Foundation.BOOLEAN),
+        ('Reserved', UInt16),
+    ]
+    return STORAGE_FAILURE_PREDICTION_CONFIG
+def _define_STORAGE_FRU_ID_DESCRIPTOR_head():
+    class STORAGE_FRU_ID_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_FRU_ID_DESCRIPTOR
+def _define_STORAGE_FRU_ID_DESCRIPTOR():
+    STORAGE_FRU_ID_DESCRIPTOR = win32more.System.Ioctl.STORAGE_FRU_ID_DESCRIPTOR_head
+    STORAGE_FRU_ID_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('IdentifierSize', UInt32),
+        ('Identifier', Byte * 1),
+    ]
+    return STORAGE_FRU_ID_DESCRIPTOR
+def _define_STORAGE_GET_BC_PROPERTIES_OUTPUT_head():
+    class STORAGE_GET_BC_PROPERTIES_OUTPUT(Structure):
+        pass
+    return STORAGE_GET_BC_PROPERTIES_OUTPUT
+def _define_STORAGE_GET_BC_PROPERTIES_OUTPUT():
+    STORAGE_GET_BC_PROPERTIES_OUTPUT = win32more.System.Ioctl.STORAGE_GET_BC_PROPERTIES_OUTPUT_head
+    STORAGE_GET_BC_PROPERTIES_OUTPUT._fields_ = [
+        ('MaximumRequestsPerPeriod', UInt32),
+        ('MinimumPeriod', UInt32),
+        ('MaximumRequestSize', UInt64),
+        ('EstimatedTimePerRequest', UInt32),
+        ('NumOutStandingRequests', UInt32),
+        ('RequestSize', UInt64),
+    ]
+    return STORAGE_GET_BC_PROPERTIES_OUTPUT
+def _define_STORAGE_HOTPLUG_INFO_head():
+    class STORAGE_HOTPLUG_INFO(Structure):
+        pass
+    return STORAGE_HOTPLUG_INFO
+def _define_STORAGE_HOTPLUG_INFO():
+    STORAGE_HOTPLUG_INFO = win32more.System.Ioctl.STORAGE_HOTPLUG_INFO_head
+    STORAGE_HOTPLUG_INFO._fields_ = [
+        ('Size', UInt32),
+        ('MediaRemovable', win32more.Foundation.BOOLEAN),
+        ('MediaHotplug', win32more.Foundation.BOOLEAN),
+        ('DeviceHotplug', win32more.Foundation.BOOLEAN),
+        ('WriteCacheEnableOverride', win32more.Foundation.BOOLEAN),
+    ]
+    return STORAGE_HOTPLUG_INFO
+def _define_STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR_head():
+    class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR
+def _define_STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR():
+    STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR = win32more.System.Ioctl.STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR_head
+    STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('EnduranceInfo', win32more.System.Ioctl.STORAGE_HW_ENDURANCE_INFO),
+    ]
+    return STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR
+def _define_STORAGE_HW_ENDURANCE_INFO_head():
+    class STORAGE_HW_ENDURANCE_INFO(Structure):
+        pass
+    return STORAGE_HW_ENDURANCE_INFO
+def _define_STORAGE_HW_ENDURANCE_INFO():
+    STORAGE_HW_ENDURANCE_INFO = win32more.System.Ioctl.STORAGE_HW_ENDURANCE_INFO_head
+    class STORAGE_HW_ENDURANCE_INFO__Flags_e__Struct(Structure):
+        pass
+    STORAGE_HW_ENDURANCE_INFO__Flags_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    STORAGE_HW_ENDURANCE_INFO._fields_ = [
+        ('ValidFields', UInt32),
+        ('GroupId', UInt32),
+        ('Flags', STORAGE_HW_ENDURANCE_INFO__Flags_e__Struct),
+        ('LifePercentage', UInt32),
+        ('BytesReadCount', Byte * 16),
+        ('ByteWriteCount', Byte * 16),
+    ]
+    return STORAGE_HW_ENDURANCE_INFO
+def _define_STORAGE_HW_FIRMWARE_ACTIVATE_head():
+    class STORAGE_HW_FIRMWARE_ACTIVATE(Structure):
+        pass
+    return STORAGE_HW_FIRMWARE_ACTIVATE
+def _define_STORAGE_HW_FIRMWARE_ACTIVATE():
+    STORAGE_HW_FIRMWARE_ACTIVATE = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_ACTIVATE_head
+    STORAGE_HW_FIRMWARE_ACTIVATE._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Slot', Byte),
+        ('Reserved0', Byte * 3),
+    ]
+    return STORAGE_HW_FIRMWARE_ACTIVATE
+def _define_STORAGE_HW_FIRMWARE_DOWNLOAD_head():
+    class STORAGE_HW_FIRMWARE_DOWNLOAD(Structure):
+        pass
+    return STORAGE_HW_FIRMWARE_DOWNLOAD
+def _define_STORAGE_HW_FIRMWARE_DOWNLOAD():
+    STORAGE_HW_FIRMWARE_DOWNLOAD = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_DOWNLOAD_head
+    STORAGE_HW_FIRMWARE_DOWNLOAD._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Slot', Byte),
+        ('Reserved', Byte * 3),
+        ('Offset', UInt64),
+        ('BufferSize', UInt64),
+        ('ImageBuffer', Byte * 1),
+    ]
+    return STORAGE_HW_FIRMWARE_DOWNLOAD
+def _define_STORAGE_HW_FIRMWARE_DOWNLOAD_V2_head():
+    class STORAGE_HW_FIRMWARE_DOWNLOAD_V2(Structure):
+        pass
+    return STORAGE_HW_FIRMWARE_DOWNLOAD_V2
+def _define_STORAGE_HW_FIRMWARE_DOWNLOAD_V2():
+    STORAGE_HW_FIRMWARE_DOWNLOAD_V2 = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_DOWNLOAD_V2_head
+    STORAGE_HW_FIRMWARE_DOWNLOAD_V2._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Slot', Byte),
+        ('Reserved', Byte * 3),
+        ('Offset', UInt64),
+        ('BufferSize', UInt64),
+        ('ImageSize', UInt32),
+        ('Reserved2', UInt32),
+        ('ImageBuffer', Byte * 1),
+    ]
+    return STORAGE_HW_FIRMWARE_DOWNLOAD_V2
+def _define_STORAGE_HW_FIRMWARE_INFO_head():
+    class STORAGE_HW_FIRMWARE_INFO(Structure):
+        pass
+    return STORAGE_HW_FIRMWARE_INFO
+def _define_STORAGE_HW_FIRMWARE_INFO():
+    STORAGE_HW_FIRMWARE_INFO = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_INFO_head
+    STORAGE_HW_FIRMWARE_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('_bitfield', Byte),
+        ('SlotCount', Byte),
+        ('ActiveSlot', Byte),
+        ('PendingActivateSlot', Byte),
+        ('FirmwareShared', win32more.Foundation.BOOLEAN),
+        ('Reserved', Byte * 3),
+        ('ImagePayloadAlignment', UInt32),
+        ('ImagePayloadMaxSize', UInt32),
+        ('Slot', win32more.System.Ioctl.STORAGE_HW_FIRMWARE_SLOT_INFO * 1),
+    ]
+    return STORAGE_HW_FIRMWARE_INFO
+def _define_STORAGE_HW_FIRMWARE_INFO_QUERY_head():
+    class STORAGE_HW_FIRMWARE_INFO_QUERY(Structure):
+        pass
+    return STORAGE_HW_FIRMWARE_INFO_QUERY
+def _define_STORAGE_HW_FIRMWARE_INFO_QUERY():
+    STORAGE_HW_FIRMWARE_INFO_QUERY = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_INFO_QUERY_head
+    STORAGE_HW_FIRMWARE_INFO_QUERY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt32),
+        ('Reserved', UInt32),
+    ]
+    return STORAGE_HW_FIRMWARE_INFO_QUERY
+def _define_STORAGE_HW_FIRMWARE_SLOT_INFO_head():
+    class STORAGE_HW_FIRMWARE_SLOT_INFO(Structure):
+        pass
+    return STORAGE_HW_FIRMWARE_SLOT_INFO
+def _define_STORAGE_HW_FIRMWARE_SLOT_INFO():
+    STORAGE_HW_FIRMWARE_SLOT_INFO = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_SLOT_INFO_head
+    STORAGE_HW_FIRMWARE_SLOT_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('SlotNumber', Byte),
+        ('_bitfield', Byte),
+        ('Reserved1', Byte * 6),
+        ('Revision', Byte * 16),
+    ]
+    return STORAGE_HW_FIRMWARE_SLOT_INFO
+STORAGE_ID_NAA_FORMAT = Int32
+STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended = 2
+STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered = 3
+STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended = 5
+def _define_STORAGE_IDENTIFIER_head():
+    class STORAGE_IDENTIFIER(Structure):
+        pass
+    return STORAGE_IDENTIFIER
+def _define_STORAGE_IDENTIFIER():
+    STORAGE_IDENTIFIER = win32more.System.Ioctl.STORAGE_IDENTIFIER_head
+    STORAGE_IDENTIFIER._fields_ = [
+        ('CodeSet', win32more.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET),
+        ('Type', win32more.System.Ioctl.STORAGE_IDENTIFIER_TYPE),
+        ('IdentifierSize', UInt16),
+        ('NextOffset', UInt16),
+        ('Association', win32more.System.Ioctl.STORAGE_ASSOCIATION_TYPE),
+        ('Identifier', Byte * 1),
+    ]
+    return STORAGE_IDENTIFIER
+STORAGE_IDENTIFIER_CODE_SET = Int32
+STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetReserved = 0
+STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetBinary = 1
+STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetAscii = 2
+STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetUtf8 = 3
+STORAGE_IDENTIFIER_TYPE = Int32
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorSpecific = 0
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorId = 1
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeEUI64 = 2
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeFCPHName = 3
+STORAGE_IDENTIFIER_TYPE_StorageIdTypePortRelative = 4
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeTargetPortGroup = 5
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeLogicalUnitGroup = 6
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeMD5LogicalUnitIdentifier = 7
+STORAGE_IDENTIFIER_TYPE_StorageIdTypeScsiNameString = 8
+def _define_STORAGE_IDLE_POWER_head():
+    class STORAGE_IDLE_POWER(Structure):
+        pass
+    return STORAGE_IDLE_POWER
+def _define_STORAGE_IDLE_POWER():
+    STORAGE_IDLE_POWER = win32more.System.Ioctl.STORAGE_IDLE_POWER_head
+    STORAGE_IDLE_POWER._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('_bitfield', UInt32),
+        ('D3IdleTimeout', UInt32),
+    ]
+    return STORAGE_IDLE_POWER
+def _define_STORAGE_IDLE_POWERUP_REASON_head():
+    class STORAGE_IDLE_POWERUP_REASON(Structure):
+        pass
+    return STORAGE_IDLE_POWERUP_REASON
+def _define_STORAGE_IDLE_POWERUP_REASON():
+    STORAGE_IDLE_POWERUP_REASON = win32more.System.Ioctl.STORAGE_IDLE_POWERUP_REASON_head
+    STORAGE_IDLE_POWERUP_REASON._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('PowerupReason', win32more.System.Ioctl.STORAGE_POWERUP_REASON_TYPE),
+    ]
+    return STORAGE_IDLE_POWERUP_REASON
+def _define_STORAGE_LB_PROVISIONING_MAP_RESOURCES_head():
+    class STORAGE_LB_PROVISIONING_MAP_RESOURCES(Structure):
+        pass
+    return STORAGE_LB_PROVISIONING_MAP_RESOURCES
+def _define_STORAGE_LB_PROVISIONING_MAP_RESOURCES():
+    STORAGE_LB_PROVISIONING_MAP_RESOURCES = win32more.System.Ioctl.STORAGE_LB_PROVISIONING_MAP_RESOURCES_head
+    STORAGE_LB_PROVISIONING_MAP_RESOURCES._fields_ = [
+        ('Size', UInt32),
+        ('Version', UInt32),
+        ('_bitfield1', Byte),
+        ('Reserved1', Byte * 3),
+        ('_bitfield2', Byte),
+        ('Reserved3', Byte * 3),
+        ('AvailableMappingResources', UInt64),
+        ('UsedMappingResources', UInt64),
+    ]
+    return STORAGE_LB_PROVISIONING_MAP_RESOURCES
+def _define_STORAGE_MEDIA_SERIAL_NUMBER_DATA_head():
+    class STORAGE_MEDIA_SERIAL_NUMBER_DATA(Structure):
+        pass
+    return STORAGE_MEDIA_SERIAL_NUMBER_DATA
+def _define_STORAGE_MEDIA_SERIAL_NUMBER_DATA():
+    STORAGE_MEDIA_SERIAL_NUMBER_DATA = win32more.System.Ioctl.STORAGE_MEDIA_SERIAL_NUMBER_DATA_head
+    STORAGE_MEDIA_SERIAL_NUMBER_DATA._fields_ = [
+        ('Reserved', UInt16),
+        ('SerialNumberLength', UInt16),
+        ('SerialNumber', Byte * 1),
+    ]
+    return STORAGE_MEDIA_SERIAL_NUMBER_DATA
 STORAGE_MEDIA_TYPE = Int32
 STORAGE_MEDIA_TYPE_DDS_4mm = 32
 STORAGE_MEDIA_TYPE_MiniQic = 33
@@ -1313,77 +6771,246 @@ STORAGE_MEDIA_TYPE_ADR_2 = 91
 STORAGE_MEDIA_TYPE_STK_9940 = 92
 STORAGE_MEDIA_TYPE_SAIT = 93
 STORAGE_MEDIA_TYPE_VXATape = 94
-def _define_DEVICE_MEDIA_INFO_head():
-    class DEVICE_MEDIA_INFO(Structure):
+def _define_STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR_head():
+    class STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR(Structure):
         pass
-    return DEVICE_MEDIA_INFO
-def _define_DEVICE_MEDIA_INFO():
-    DEVICE_MEDIA_INFO = win32more.System.Ioctl.DEVICE_MEDIA_INFO_head
-    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union(Union):
+    return STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR
+def _define_STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR():
+    STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR_head
+    STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('MediumProductType', UInt32),
+    ]
+    return STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR
+def _define_STORAGE_MINIPORT_DESCRIPTOR_head():
+    class STORAGE_MINIPORT_DESCRIPTOR(Structure):
         pass
-    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct(Structure):
+    return STORAGE_MINIPORT_DESCRIPTOR
+def _define_STORAGE_MINIPORT_DESCRIPTOR():
+    STORAGE_MINIPORT_DESCRIPTOR = win32more.System.Ioctl.STORAGE_MINIPORT_DESCRIPTOR_head
+    class STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union(Union):
         pass
-    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union(Union):
+    class STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union__Anonymous_e__Struct(Structure):
         pass
-    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union__ScsiInformation_e__Struct(Structure):
+    STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union._fields_ = [
+        ('Anonymous', STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union__Anonymous_e__Struct),
+        ('AsBYTE', Byte),
+    ]
+    STORAGE_MINIPORT_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Portdriver', win32more.System.Ioctl.STORAGE_PORT_CODE_SET),
+        ('LUNResetSupported', win32more.Foundation.BOOLEAN),
+        ('TargetResetSupported', win32more.Foundation.BOOLEAN),
+        ('IoTimeoutValue', UInt16),
+        ('ExtraIoInfoSupported', win32more.Foundation.BOOLEAN),
+        ('Flags', STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union),
+        ('Reserved0', Byte * 2),
+        ('Reserved1', UInt32),
+    ]
+    return STORAGE_MINIPORT_DESCRIPTOR
+def _define_STORAGE_OFFLOAD_READ_OUTPUT_head():
+    class STORAGE_OFFLOAD_READ_OUTPUT(Structure):
         pass
-    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union__ScsiInformation_e__Struct._fields_ = [
-        ("MediumType", Byte),
-        ("DensityCode", Byte),
+    return STORAGE_OFFLOAD_READ_OUTPUT
+def _define_STORAGE_OFFLOAD_READ_OUTPUT():
+    STORAGE_OFFLOAD_READ_OUTPUT = win32more.System.Ioctl.STORAGE_OFFLOAD_READ_OUTPUT_head
+    STORAGE_OFFLOAD_READ_OUTPUT._fields_ = [
+        ('OffloadReadFlags', UInt32),
+        ('Reserved', UInt32),
+        ('LengthProtected', UInt64),
+        ('TokenLength', UInt32),
+        ('Token', win32more.System.Ioctl.STORAGE_OFFLOAD_TOKEN),
     ]
-    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union._fields_ = [
-        ("ScsiInformation", DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union__ScsiInformation_e__Struct),
-    ]
-    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct._fields_ = [
-        ("MediaType", win32more.System.Ioctl.STORAGE_MEDIA_TYPE),
-        ("MediaCharacteristics", UInt32),
-        ("CurrentBlockSize", UInt32),
-        ("BusType", win32more.Storage.FileSystem.STORAGE_BUS_TYPE),
-        ("BusSpecificData", DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct__BusSpecificData_e__Union),
-    ]
-    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__DiskInfo_e__Struct(Structure):
+    return STORAGE_OFFLOAD_READ_OUTPUT
+def _define_STORAGE_OFFLOAD_TOKEN_head():
+    class STORAGE_OFFLOAD_TOKEN(Structure):
         pass
-    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__DiskInfo_e__Struct._fields_ = [
-        ("Cylinders", win32more.Foundation.LARGE_INTEGER),
-        ("MediaType", win32more.System.Ioctl.STORAGE_MEDIA_TYPE),
-        ("TracksPerCylinder", UInt32),
-        ("SectorsPerTrack", UInt32),
-        ("BytesPerSector", UInt32),
-        ("NumberMediaSides", UInt32),
-        ("MediaCharacteristics", UInt32),
-    ]
-    class DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__RemovableDiskInfo_e__Struct(Structure):
+    return STORAGE_OFFLOAD_TOKEN
+def _define_STORAGE_OFFLOAD_TOKEN():
+    STORAGE_OFFLOAD_TOKEN = win32more.System.Ioctl.STORAGE_OFFLOAD_TOKEN_head
+    class STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union(Union):
         pass
-    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__RemovableDiskInfo_e__Struct._fields_ = [
-        ("Cylinders", win32more.Foundation.LARGE_INTEGER),
-        ("MediaType", win32more.System.Ioctl.STORAGE_MEDIA_TYPE),
-        ("TracksPerCylinder", UInt32),
-        ("SectorsPerTrack", UInt32),
-        ("BytesPerSector", UInt32),
-        ("NumberMediaSides", UInt32),
-        ("MediaCharacteristics", UInt32),
-    ]
-    DEVICE_MEDIA_INFO__DeviceSpecific_e__Union._fields_ = [
-        ("DiskInfo", DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__DiskInfo_e__Struct),
-        ("RemovableDiskInfo", DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__RemovableDiskInfo_e__Struct),
-        ("TapeInfo", DEVICE_MEDIA_INFO__DeviceSpecific_e__Union__TapeInfo_e__Struct),
-    ]
-    DEVICE_MEDIA_INFO._fields_ = [
-        ("DeviceSpecific", DEVICE_MEDIA_INFO__DeviceSpecific_e__Union),
-    ]
-    return DEVICE_MEDIA_INFO
-def _define_GET_MEDIA_TYPES_head():
-    class GET_MEDIA_TYPES(Structure):
+    class STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union__StorageOffloadZeroDataToken_e__Struct(Structure):
         pass
-    return GET_MEDIA_TYPES
-def _define_GET_MEDIA_TYPES():
-    GET_MEDIA_TYPES = win32more.System.Ioctl.GET_MEDIA_TYPES_head
-    GET_MEDIA_TYPES._fields_ = [
-        ("DeviceType", UInt32),
-        ("MediaInfoCount", UInt32),
-        ("MediaInfo", win32more.System.Ioctl.DEVICE_MEDIA_INFO * 0),
+    STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union__StorageOffloadZeroDataToken_e__Struct._fields_ = [
+        ('Reserved2', Byte * 504),
     ]
-    return GET_MEDIA_TYPES
+    STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union._fields_ = [
+        ('StorageOffloadZeroDataToken', STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union__StorageOffloadZeroDataToken_e__Struct),
+        ('Token', Byte * 504),
+    ]
+    STORAGE_OFFLOAD_TOKEN._anonymous_ = [
+        'Anonymous',
+    ]
+    STORAGE_OFFLOAD_TOKEN._fields_ = [
+        ('TokenType', Byte * 4),
+        ('Reserved', Byte * 2),
+        ('TokenIdLength', Byte * 2),
+        ('Anonymous', STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union),
+    ]
+    return STORAGE_OFFLOAD_TOKEN
+def _define_STORAGE_OFFLOAD_WRITE_OUTPUT_head():
+    class STORAGE_OFFLOAD_WRITE_OUTPUT(Structure):
+        pass
+    return STORAGE_OFFLOAD_WRITE_OUTPUT
+def _define_STORAGE_OFFLOAD_WRITE_OUTPUT():
+    STORAGE_OFFLOAD_WRITE_OUTPUT = win32more.System.Ioctl.STORAGE_OFFLOAD_WRITE_OUTPUT_head
+    STORAGE_OFFLOAD_WRITE_OUTPUT._fields_ = [
+        ('OffloadWriteFlags', UInt32),
+        ('Reserved', UInt32),
+        ('LengthCopied', UInt64),
+    ]
+    return STORAGE_OFFLOAD_WRITE_OUTPUT
+def _define_STORAGE_OPERATIONAL_REASON_head():
+    class STORAGE_OPERATIONAL_REASON(Structure):
+        pass
+    return STORAGE_OPERATIONAL_REASON
+def _define_STORAGE_OPERATIONAL_REASON():
+    STORAGE_OPERATIONAL_REASON = win32more.System.Ioctl.STORAGE_OPERATIONAL_REASON_head
+    class STORAGE_OPERATIONAL_REASON__RawBytes_e__Union(Union):
+        pass
+    class STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__ScsiSenseKey_e__Struct(Structure):
+        pass
+    STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__ScsiSenseKey_e__Struct._fields_ = [
+        ('SenseKey', Byte),
+        ('ASC', Byte),
+        ('ASCQ', Byte),
+        ('Reserved', Byte),
+    ]
+    class STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__NVDIMM_N_e__Struct(Structure):
+        pass
+    STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__NVDIMM_N_e__Struct._fields_ = [
+        ('CriticalHealth', Byte),
+        ('ModuleHealth', Byte * 2),
+        ('ErrorThresholdStatus', Byte),
+    ]
+    STORAGE_OPERATIONAL_REASON__RawBytes_e__Union._fields_ = [
+        ('ScsiSenseKey', STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__ScsiSenseKey_e__Struct),
+        ('NVDIMM_N', STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__NVDIMM_N_e__Struct),
+        ('AsUlong', UInt32),
+    ]
+    STORAGE_OPERATIONAL_REASON._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Reason', win32more.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON),
+        ('RawBytes', STORAGE_OPERATIONAL_REASON__RawBytes_e__Union),
+    ]
+    return STORAGE_OPERATIONAL_REASON
+STORAGE_OPERATIONAL_STATUS_REASON = Int32
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonUnknown = 0
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonScsiSenseCode = 1
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMedia = 2
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonIo = 3
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonThresholdExceeded = 4
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostData = 5
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonEnergySource = 6
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonConfiguration = 7
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDeviceController = 8
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMediaController = 9
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonComponent = 10
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonNVDIMM_N = 11
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonBackgroundOperation = 12
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonInvalidFirmware = 13
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonHealthCheck = 14
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostDataPersistence = 15
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDisabledByPlatform = 16
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostWritePersistence = 17
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDataPersistenceLossImminent = 18
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonWritePersistenceLossImminent = 19
+STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMax = 20
+def _define_STORAGE_PHYSICAL_ADAPTER_DATA_head():
+    class STORAGE_PHYSICAL_ADAPTER_DATA(Structure):
+        pass
+    return STORAGE_PHYSICAL_ADAPTER_DATA
+def _define_STORAGE_PHYSICAL_ADAPTER_DATA():
+    STORAGE_PHYSICAL_ADAPTER_DATA = win32more.System.Ioctl.STORAGE_PHYSICAL_ADAPTER_DATA_head
+    STORAGE_PHYSICAL_ADAPTER_DATA._fields_ = [
+        ('AdapterId', UInt32),
+        ('HealthStatus', win32more.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS),
+        ('CommandProtocol', win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
+        ('SpecVersion', win32more.System.Ioctl.STORAGE_SPEC_VERSION),
+        ('Vendor', Byte * 8),
+        ('Model', Byte * 40),
+        ('FirmwareRevision', Byte * 16),
+        ('PhysicalLocation', Byte * 32),
+        ('ExpanderConnected', win32more.Foundation.BOOLEAN),
+        ('Reserved0', Byte * 3),
+        ('Reserved1', UInt32 * 3),
+    ]
+    return STORAGE_PHYSICAL_ADAPTER_DATA
+def _define_STORAGE_PHYSICAL_DEVICE_DATA_head():
+    class STORAGE_PHYSICAL_DEVICE_DATA(Structure):
+        pass
+    return STORAGE_PHYSICAL_DEVICE_DATA
+def _define_STORAGE_PHYSICAL_DEVICE_DATA():
+    STORAGE_PHYSICAL_DEVICE_DATA = win32more.System.Ioctl.STORAGE_PHYSICAL_DEVICE_DATA_head
+    STORAGE_PHYSICAL_DEVICE_DATA._fields_ = [
+        ('DeviceId', UInt32),
+        ('Role', UInt32),
+        ('HealthStatus', win32more.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS),
+        ('CommandProtocol', win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
+        ('SpecVersion', win32more.System.Ioctl.STORAGE_SPEC_VERSION),
+        ('FormFactor', win32more.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR),
+        ('Vendor', Byte * 8),
+        ('Model', Byte * 40),
+        ('FirmwareRevision', Byte * 16),
+        ('Capacity', UInt64),
+        ('PhysicalLocation', Byte * 32),
+        ('Reserved', UInt32 * 2),
+    ]
+    return STORAGE_PHYSICAL_DEVICE_DATA
+def _define_STORAGE_PHYSICAL_NODE_DATA_head():
+    class STORAGE_PHYSICAL_NODE_DATA(Structure):
+        pass
+    return STORAGE_PHYSICAL_NODE_DATA
+def _define_STORAGE_PHYSICAL_NODE_DATA():
+    STORAGE_PHYSICAL_NODE_DATA = win32more.System.Ioctl.STORAGE_PHYSICAL_NODE_DATA_head
+    STORAGE_PHYSICAL_NODE_DATA._fields_ = [
+        ('NodeId', UInt32),
+        ('AdapterCount', UInt32),
+        ('AdapterDataLength', UInt32),
+        ('AdapterDataOffset', UInt32),
+        ('DeviceCount', UInt32),
+        ('DeviceDataLength', UInt32),
+        ('DeviceDataOffset', UInt32),
+        ('Reserved', UInt32 * 3),
+    ]
+    return STORAGE_PHYSICAL_NODE_DATA
+def _define_STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR_head():
+    class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR
+def _define_STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR():
+    STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR = win32more.System.Ioctl.STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR_head
+    STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('NodeCount', UInt32),
+        ('Reserved', UInt32),
+        ('Node', win32more.System.Ioctl.STORAGE_PHYSICAL_NODE_DATA * 1),
+    ]
+    return STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR
+STORAGE_PORT_CODE_SET = Int32
+STORAGE_PORT_CODE_SET_StoragePortCodeSetReserved = 0
+STORAGE_PORT_CODE_SET_StoragePortCodeSetStorport = 1
+STORAGE_PORT_CODE_SET_StoragePortCodeSetSCSIport = 2
+STORAGE_PORT_CODE_SET_StoragePortCodeSetSpaceport = 3
+STORAGE_PORT_CODE_SET_StoragePortCodeSetATAport = 4
+STORAGE_PORT_CODE_SET_StoragePortCodeSetUSBport = 5
+STORAGE_PORT_CODE_SET_StoragePortCodeSetSBP2port = 6
+STORAGE_PORT_CODE_SET_StoragePortCodeSetSDport = 7
+STORAGE_POWERUP_REASON_TYPE = Int32
+STORAGE_POWERUP_REASON_TYPE_StoragePowerupUnknown = 0
+STORAGE_POWERUP_REASON_TYPE_StoragePowerupIO = 1
+STORAGE_POWERUP_REASON_TYPE_StoragePowerupDeviceAttention = 2
 def _define_STORAGE_PREDICT_FAILURE_head():
     class STORAGE_PREDICT_FAILURE(Structure):
         pass
@@ -1391,33 +7018,20 @@ def _define_STORAGE_PREDICT_FAILURE_head():
 def _define_STORAGE_PREDICT_FAILURE():
     STORAGE_PREDICT_FAILURE = win32more.System.Ioctl.STORAGE_PREDICT_FAILURE_head
     STORAGE_PREDICT_FAILURE._fields_ = [
-        ("PredictFailure", UInt32),
-        ("VendorSpecific", Byte * 512),
+        ('PredictFailure', UInt32),
+        ('VendorSpecific', Byte * 512),
     ]
     return STORAGE_PREDICT_FAILURE
-def _define_STORAGE_FAILURE_PREDICTION_CONFIG_head():
-    class STORAGE_FAILURE_PREDICTION_CONFIG(Structure):
+def _define_STORAGE_PRIORITY_HINT_SUPPORT_head():
+    class STORAGE_PRIORITY_HINT_SUPPORT(Structure):
         pass
-    return STORAGE_FAILURE_PREDICTION_CONFIG
-def _define_STORAGE_FAILURE_PREDICTION_CONFIG():
-    STORAGE_FAILURE_PREDICTION_CONFIG = win32more.System.Ioctl.STORAGE_FAILURE_PREDICTION_CONFIG_head
-    STORAGE_FAILURE_PREDICTION_CONFIG._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Set", win32more.Foundation.BOOLEAN),
-        ("Enabled", win32more.Foundation.BOOLEAN),
-        ("Reserved", UInt16),
+    return STORAGE_PRIORITY_HINT_SUPPORT
+def _define_STORAGE_PRIORITY_HINT_SUPPORT():
+    STORAGE_PRIORITY_HINT_SUPPORT = win32more.System.Ioctl.STORAGE_PRIORITY_HINT_SUPPORT_head
+    STORAGE_PRIORITY_HINT_SUPPORT._fields_ = [
+        ('SupportFlags', UInt32),
     ]
-    return STORAGE_FAILURE_PREDICTION_CONFIG
-STORAGE_QUERY_TYPE = Int32
-STORAGE_QUERY_TYPE_PropertyStandardQuery = 0
-STORAGE_QUERY_TYPE_PropertyExistsQuery = 1
-STORAGE_QUERY_TYPE_PropertyMaskQuery = 2
-STORAGE_QUERY_TYPE_PropertyQueryMaxDefined = 3
-STORAGE_SET_TYPE = Int32
-STORAGE_SET_TYPE_PropertyStandardSet = 0
-STORAGE_SET_TYPE_PropertyExistsSet = 1
-STORAGE_SET_TYPE_PropertySetMaxDefined = 2
+    return STORAGE_PRIORITY_HINT_SUPPORT
 STORAGE_PROPERTY_ID = Int32
 STORAGE_PROPERTY_ID_StorageDeviceProperty = 0
 STORAGE_PROPERTY_ID_StorageAdapterProperty = 1
@@ -1462,9 +7076,9 @@ def _define_STORAGE_PROPERTY_QUERY_head():
 def _define_STORAGE_PROPERTY_QUERY():
     STORAGE_PROPERTY_QUERY = win32more.System.Ioctl.STORAGE_PROPERTY_QUERY_head
     STORAGE_PROPERTY_QUERY._fields_ = [
-        ("PropertyId", win32more.System.Ioctl.STORAGE_PROPERTY_ID),
-        ("QueryType", win32more.System.Ioctl.STORAGE_QUERY_TYPE),
-        ("AdditionalParameters", Byte * 0),
+        ('PropertyId', win32more.System.Ioctl.STORAGE_PROPERTY_ID),
+        ('QueryType', win32more.System.Ioctl.STORAGE_QUERY_TYPE),
+        ('AdditionalParameters', Byte * 1),
     ]
     return STORAGE_PROPERTY_QUERY
 def _define_STORAGE_PROPERTY_SET_head():
@@ -1474,514 +7088,43 @@ def _define_STORAGE_PROPERTY_SET_head():
 def _define_STORAGE_PROPERTY_SET():
     STORAGE_PROPERTY_SET = win32more.System.Ioctl.STORAGE_PROPERTY_SET_head
     STORAGE_PROPERTY_SET._fields_ = [
-        ("PropertyId", win32more.System.Ioctl.STORAGE_PROPERTY_ID),
-        ("SetType", win32more.System.Ioctl.STORAGE_SET_TYPE),
-        ("AdditionalParameters", Byte * 0),
+        ('PropertyId', win32more.System.Ioctl.STORAGE_PROPERTY_ID),
+        ('SetType', win32more.System.Ioctl.STORAGE_SET_TYPE),
+        ('AdditionalParameters', Byte * 1),
     ]
     return STORAGE_PROPERTY_SET
-def _define_STORAGE_DESCRIPTOR_HEADER_head():
-    class STORAGE_DESCRIPTOR_HEADER(Structure):
-        pass
-    return STORAGE_DESCRIPTOR_HEADER
-def _define_STORAGE_DESCRIPTOR_HEADER():
-    STORAGE_DESCRIPTOR_HEADER = win32more.System.Ioctl.STORAGE_DESCRIPTOR_HEADER_head
-    STORAGE_DESCRIPTOR_HEADER._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-    ]
-    return STORAGE_DESCRIPTOR_HEADER
-def _define_STORAGE_DEVICE_DESCRIPTOR_head():
-    class STORAGE_DEVICE_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_DESCRIPTOR
-def _define_STORAGE_DEVICE_DESCRIPTOR():
-    STORAGE_DEVICE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_DESCRIPTOR_head
-    STORAGE_DEVICE_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceType", Byte),
-        ("DeviceTypeModifier", Byte),
-        ("RemovableMedia", win32more.Foundation.BOOLEAN),
-        ("CommandQueueing", win32more.Foundation.BOOLEAN),
-        ("VendorIdOffset", UInt32),
-        ("ProductIdOffset", UInt32),
-        ("ProductRevisionOffset", UInt32),
-        ("SerialNumberOffset", UInt32),
-        ("BusType", win32more.Storage.FileSystem.STORAGE_BUS_TYPE),
-        ("RawPropertiesLength", UInt32),
-        ("RawDeviceProperties", Byte * 0),
-    ]
-    return STORAGE_DEVICE_DESCRIPTOR
-def _define_STORAGE_ADAPTER_DESCRIPTOR_head():
-    class STORAGE_ADAPTER_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_ADAPTER_DESCRIPTOR
-def _define_STORAGE_ADAPTER_DESCRIPTOR():
-    STORAGE_ADAPTER_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ADAPTER_DESCRIPTOR_head
-    STORAGE_ADAPTER_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("MaximumTransferLength", UInt32),
-        ("MaximumPhysicalPages", UInt32),
-        ("AlignmentMask", UInt32),
-        ("AdapterUsesPio", win32more.Foundation.BOOLEAN),
-        ("AdapterScansDown", win32more.Foundation.BOOLEAN),
-        ("CommandQueueing", win32more.Foundation.BOOLEAN),
-        ("AcceleratedTransfer", win32more.Foundation.BOOLEAN),
-        ("BusType", Byte),
-        ("BusMajorVersion", UInt16),
-        ("BusMinorVersion", UInt16),
-        ("SrbType", Byte),
-        ("AddressType", Byte),
-    ]
-    return STORAGE_ADAPTER_DESCRIPTOR
-def _define_STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR_head():
-    class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR
-def _define_STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR():
-    STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR_head
-    STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("BytesPerCacheLine", UInt32),
-        ("BytesOffsetForCacheAlignment", UInt32),
-        ("BytesPerLogicalSector", UInt32),
-        ("BytesPerPhysicalSector", UInt32),
-        ("BytesOffsetForSectorAlignment", UInt32),
-    ]
-    return STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR
-def _define_STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR_head():
-    class STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR
-def _define_STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR():
-    STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR_head
-    STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("MediumProductType", UInt32),
-    ]
-    return STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR
-STORAGE_PORT_CODE_SET = Int32
-STORAGE_PORT_CODE_SET_StoragePortCodeSetReserved = 0
-STORAGE_PORT_CODE_SET_StoragePortCodeSetStorport = 1
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSCSIport = 2
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSpaceport = 3
-STORAGE_PORT_CODE_SET_StoragePortCodeSetATAport = 4
-STORAGE_PORT_CODE_SET_StoragePortCodeSetUSBport = 5
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSBP2port = 6
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSDport = 7
-def _define_STORAGE_MINIPORT_DESCRIPTOR_head():
-    class STORAGE_MINIPORT_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_MINIPORT_DESCRIPTOR
-def _define_STORAGE_MINIPORT_DESCRIPTOR():
-    STORAGE_MINIPORT_DESCRIPTOR = win32more.System.Ioctl.STORAGE_MINIPORT_DESCRIPTOR_head
-    class STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union(Union):
-        pass
-    class STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union__Anonymous_e__Struct._fields_ = [
-        ("_bitfield", Byte),
-    ]
-    STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union._fields_ = [
-        ("Anonymous", STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union__Anonymous_e__Struct),
-        ("AsBYTE", Byte),
-    ]
-    STORAGE_MINIPORT_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Portdriver", win32more.System.Ioctl.STORAGE_PORT_CODE_SET),
-        ("LUNResetSupported", win32more.Foundation.BOOLEAN),
-        ("TargetResetSupported", win32more.Foundation.BOOLEAN),
-        ("IoTimeoutValue", UInt16),
-        ("ExtraIoInfoSupported", win32more.Foundation.BOOLEAN),
-        ("Flags", STORAGE_MINIPORT_DESCRIPTOR__Flags_e__Union),
-        ("Reserved0", Byte * 2),
-        ("Reserved1", UInt32),
-    ]
-    return STORAGE_MINIPORT_DESCRIPTOR
-STORAGE_IDENTIFIER_CODE_SET = Int32
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetReserved = 0
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetBinary = 1
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetAscii = 2
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetUtf8 = 3
-STORAGE_IDENTIFIER_TYPE = Int32
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorSpecific = 0
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorId = 1
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeEUI64 = 2
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeFCPHName = 3
-STORAGE_IDENTIFIER_TYPE_StorageIdTypePortRelative = 4
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeTargetPortGroup = 5
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeLogicalUnitGroup = 6
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeMD5LogicalUnitIdentifier = 7
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeScsiNameString = 8
-STORAGE_ID_NAA_FORMAT = Int32
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended = 2
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered = 3
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended = 5
-STORAGE_ASSOCIATION_TYPE = Int32
-STORAGE_ASSOCIATION_TYPE_StorageIdAssocDevice = 0
-STORAGE_ASSOCIATION_TYPE_StorageIdAssocPort = 1
-STORAGE_ASSOCIATION_TYPE_StorageIdAssocTarget = 2
-def _define_STORAGE_IDENTIFIER_head():
-    class STORAGE_IDENTIFIER(Structure):
-        pass
-    return STORAGE_IDENTIFIER
-def _define_STORAGE_IDENTIFIER():
-    STORAGE_IDENTIFIER = win32more.System.Ioctl.STORAGE_IDENTIFIER_head
-    STORAGE_IDENTIFIER._fields_ = [
-        ("CodeSet", win32more.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET),
-        ("Type", win32more.System.Ioctl.STORAGE_IDENTIFIER_TYPE),
-        ("IdentifierSize", UInt16),
-        ("NextOffset", UInt16),
-        ("Association", win32more.System.Ioctl.STORAGE_ASSOCIATION_TYPE),
-        ("Identifier", Byte * 0),
-    ]
-    return STORAGE_IDENTIFIER
-def _define_STORAGE_DEVICE_ID_DESCRIPTOR_head():
-    class STORAGE_DEVICE_ID_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_ID_DESCRIPTOR
-def _define_STORAGE_DEVICE_ID_DESCRIPTOR():
-    STORAGE_DEVICE_ID_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_ID_DESCRIPTOR_head
-    STORAGE_DEVICE_ID_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumberOfIdentifiers", UInt32),
-        ("Identifiers", Byte * 0),
-    ]
-    return STORAGE_DEVICE_ID_DESCRIPTOR
-def _define_DEVICE_SEEK_PENALTY_DESCRIPTOR_head():
-    class DEVICE_SEEK_PENALTY_DESCRIPTOR(Structure):
-        pass
-    return DEVICE_SEEK_PENALTY_DESCRIPTOR
-def _define_DEVICE_SEEK_PENALTY_DESCRIPTOR():
-    DEVICE_SEEK_PENALTY_DESCRIPTOR = win32more.System.Ioctl.DEVICE_SEEK_PENALTY_DESCRIPTOR_head
-    DEVICE_SEEK_PENALTY_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("IncursSeekPenalty", win32more.Foundation.BOOLEAN),
-    ]
-    return DEVICE_SEEK_PENALTY_DESCRIPTOR
-def _define_DEVICE_WRITE_AGGREGATION_DESCRIPTOR_head():
-    class DEVICE_WRITE_AGGREGATION_DESCRIPTOR(Structure):
-        pass
-    return DEVICE_WRITE_AGGREGATION_DESCRIPTOR
-def _define_DEVICE_WRITE_AGGREGATION_DESCRIPTOR():
-    DEVICE_WRITE_AGGREGATION_DESCRIPTOR = win32more.System.Ioctl.DEVICE_WRITE_AGGREGATION_DESCRIPTOR_head
-    DEVICE_WRITE_AGGREGATION_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("BenefitsFromWriteAggregation", win32more.Foundation.BOOLEAN),
-    ]
-    return DEVICE_WRITE_AGGREGATION_DESCRIPTOR
-def _define_DEVICE_TRIM_DESCRIPTOR_head():
-    class DEVICE_TRIM_DESCRIPTOR(Structure):
-        pass
-    return DEVICE_TRIM_DESCRIPTOR
-def _define_DEVICE_TRIM_DESCRIPTOR():
-    DEVICE_TRIM_DESCRIPTOR = win32more.System.Ioctl.DEVICE_TRIM_DESCRIPTOR_head
-    DEVICE_TRIM_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("TrimEnabled", win32more.Foundation.BOOLEAN),
-    ]
-    return DEVICE_TRIM_DESCRIPTOR
-def _define_DEVICE_LB_PROVISIONING_DESCRIPTOR_head():
-    class DEVICE_LB_PROVISIONING_DESCRIPTOR(Structure):
-        pass
-    return DEVICE_LB_PROVISIONING_DESCRIPTOR
-def _define_DEVICE_LB_PROVISIONING_DESCRIPTOR():
-    DEVICE_LB_PROVISIONING_DESCRIPTOR = win32more.System.Ioctl.DEVICE_LB_PROVISIONING_DESCRIPTOR_head
-    DEVICE_LB_PROVISIONING_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("_bitfield", Byte),
-        ("Reserved1", Byte * 7),
-        ("OptimalUnmapGranularity", UInt64),
-        ("UnmapGranularityAlignment", UInt64),
-        ("MaxUnmapLbaCount", UInt32),
-        ("MaxUnmapBlockDescriptorCount", UInt32),
-    ]
-    return DEVICE_LB_PROVISIONING_DESCRIPTOR
-def _define_STORAGE_LB_PROVISIONING_MAP_RESOURCES_head():
-    class STORAGE_LB_PROVISIONING_MAP_RESOURCES(Structure):
-        pass
-    return STORAGE_LB_PROVISIONING_MAP_RESOURCES
-def _define_STORAGE_LB_PROVISIONING_MAP_RESOURCES():
-    STORAGE_LB_PROVISIONING_MAP_RESOURCES = win32more.System.Ioctl.STORAGE_LB_PROVISIONING_MAP_RESOURCES_head
-    STORAGE_LB_PROVISIONING_MAP_RESOURCES._fields_ = [
-        ("Size", UInt32),
-        ("Version", UInt32),
-        ("_bitfield1", Byte),
-        ("Reserved1", Byte * 3),
-        ("_bitfield2", Byte),
-        ("Reserved3", Byte * 3),
-        ("AvailableMappingResources", UInt64),
-        ("UsedMappingResources", UInt64),
-    ]
-    return STORAGE_LB_PROVISIONING_MAP_RESOURCES
-def _define_DEVICE_POWER_DESCRIPTOR_head():
-    class DEVICE_POWER_DESCRIPTOR(Structure):
-        pass
-    return DEVICE_POWER_DESCRIPTOR
-def _define_DEVICE_POWER_DESCRIPTOR():
-    DEVICE_POWER_DESCRIPTOR = win32more.System.Ioctl.DEVICE_POWER_DESCRIPTOR_head
-    DEVICE_POWER_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceAttentionSupported", win32more.Foundation.BOOLEAN),
-        ("AsynchronousNotificationSupported", win32more.Foundation.BOOLEAN),
-        ("IdlePowerManagementEnabled", win32more.Foundation.BOOLEAN),
-        ("D3ColdEnabled", win32more.Foundation.BOOLEAN),
-        ("D3ColdSupported", win32more.Foundation.BOOLEAN),
-        ("NoVerifyDuringIdlePower", win32more.Foundation.BOOLEAN),
-        ("Reserved", Byte * 2),
-        ("IdleTimeoutInMS", UInt32),
-    ]
-    return DEVICE_POWER_DESCRIPTOR
-def _define_DEVICE_COPY_OFFLOAD_DESCRIPTOR_head():
-    class DEVICE_COPY_OFFLOAD_DESCRIPTOR(Structure):
-        pass
-    return DEVICE_COPY_OFFLOAD_DESCRIPTOR
-def _define_DEVICE_COPY_OFFLOAD_DESCRIPTOR():
-    DEVICE_COPY_OFFLOAD_DESCRIPTOR = win32more.System.Ioctl.DEVICE_COPY_OFFLOAD_DESCRIPTOR_head
-    DEVICE_COPY_OFFLOAD_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("MaximumTokenLifetime", UInt32),
-        ("DefaultTokenLifetime", UInt32),
-        ("MaximumTransferSize", UInt64),
-        ("OptimalTransferCount", UInt64),
-        ("MaximumDataDescriptors", UInt32),
-        ("MaximumTransferLengthPerDescriptor", UInt32),
-        ("OptimalTransferLengthPerDescriptor", UInt32),
-        ("OptimalTransferLengthGranularity", UInt16),
-        ("Reserved", Byte * 2),
-    ]
-    return DEVICE_COPY_OFFLOAD_DESCRIPTOR
-def _define_STORAGE_DEVICE_RESILIENCY_DESCRIPTOR_head():
-    class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_RESILIENCY_DESCRIPTOR
-def _define_STORAGE_DEVICE_RESILIENCY_DESCRIPTOR():
-    STORAGE_DEVICE_RESILIENCY_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_RESILIENCY_DESCRIPTOR_head
-    STORAGE_DEVICE_RESILIENCY_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NameOffset", UInt32),
-        ("NumberOfLogicalCopies", UInt32),
-        ("NumberOfPhysicalCopies", UInt32),
-        ("PhysicalDiskRedundancy", UInt32),
-        ("NumberOfColumns", UInt32),
-        ("Interleave", UInt32),
-    ]
-    return STORAGE_DEVICE_RESILIENCY_DESCRIPTOR
-STORAGE_RPMB_FRAME_TYPE = Int32
-STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeUnknown = 0
-STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeStandard = 1
-STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeMax = 2
-def _define_STORAGE_RPMB_DESCRIPTOR_head():
-    class STORAGE_RPMB_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_RPMB_DESCRIPTOR
-def _define_STORAGE_RPMB_DESCRIPTOR():
-    STORAGE_RPMB_DESCRIPTOR = win32more.System.Ioctl.STORAGE_RPMB_DESCRIPTOR_head
-    STORAGE_RPMB_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("SizeInBytes", UInt32),
-        ("MaxReliableWriteSizeInBytes", UInt32),
-        ("FrameFormat", win32more.System.Ioctl.STORAGE_RPMB_FRAME_TYPE),
-    ]
-    return STORAGE_RPMB_DESCRIPTOR
-STORAGE_CRYPTO_ALGORITHM_ID = Int32
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmUnknown = 0
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmXTSAES = 1
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmBitlockerAESCBC = 2
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmAESECB = 3
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmESSIVAESCBC = 4
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmMax = 5
-STORAGE_CRYPTO_KEY_SIZE = Int32
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySizeUnknown = 0
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize128Bits = 1
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize192Bits = 2
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize256Bits = 3
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize512Bits = 4
-def _define_STORAGE_CRYPTO_CAPABILITY_head():
-    class STORAGE_CRYPTO_CAPABILITY(Structure):
-        pass
-    return STORAGE_CRYPTO_CAPABILITY
-def _define_STORAGE_CRYPTO_CAPABILITY():
-    STORAGE_CRYPTO_CAPABILITY = win32more.System.Ioctl.STORAGE_CRYPTO_CAPABILITY_head
-    STORAGE_CRYPTO_CAPABILITY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("CryptoCapabilityIndex", UInt32),
-        ("AlgorithmId", win32more.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID),
-        ("KeySize", win32more.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE),
-        ("DataUnitSizeBitmask", UInt32),
-    ]
-    return STORAGE_CRYPTO_CAPABILITY
-def _define_STORAGE_CRYPTO_DESCRIPTOR_head():
-    class STORAGE_CRYPTO_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_CRYPTO_DESCRIPTOR
-def _define_STORAGE_CRYPTO_DESCRIPTOR():
-    STORAGE_CRYPTO_DESCRIPTOR = win32more.System.Ioctl.STORAGE_CRYPTO_DESCRIPTOR_head
-    STORAGE_CRYPTO_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumKeysSupported", UInt32),
-        ("NumCryptoCapabilities", UInt32),
-        ("CryptoCapabilities", win32more.System.Ioctl.STORAGE_CRYPTO_CAPABILITY * 0),
-    ]
-    return STORAGE_CRYPTO_DESCRIPTOR
-STORAGE_TIER_MEDIA_TYPE = Int32
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeUnspecified = 0
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeDisk = 1
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeSsd = 2
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeScm = 4
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeMax = 5
-STORAGE_TIER_CLASS = Int32
-STORAGE_TIER_CLASS_StorageTierClassUnspecified = 0
-STORAGE_TIER_CLASS_StorageTierClassCapacity = 1
-STORAGE_TIER_CLASS_StorageTierClassPerformance = 2
-STORAGE_TIER_CLASS_StorageTierClassMax = 3
-def _define_STORAGE_TIER_head():
-    class STORAGE_TIER(Structure):
-        pass
-    return STORAGE_TIER
-def _define_STORAGE_TIER():
-    STORAGE_TIER = win32more.System.Ioctl.STORAGE_TIER_head
-    STORAGE_TIER._fields_ = [
-        ("Id", Guid),
-        ("Name", Char * 256),
-        ("Description", Char * 256),
-        ("Flags", UInt64),
-        ("ProvisionedCapacity", UInt64),
-        ("MediaType", win32more.System.Ioctl.STORAGE_TIER_MEDIA_TYPE),
-        ("Class", win32more.System.Ioctl.STORAGE_TIER_CLASS),
-    ]
-    return STORAGE_TIER
-def _define_STORAGE_DEVICE_TIERING_DESCRIPTOR_head():
-    class STORAGE_DEVICE_TIERING_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_TIERING_DESCRIPTOR
-def _define_STORAGE_DEVICE_TIERING_DESCRIPTOR():
-    STORAGE_DEVICE_TIERING_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_TIERING_DESCRIPTOR_head
-    STORAGE_DEVICE_TIERING_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("TotalNumberOfTiers", UInt32),
-        ("NumberOfTiersReturned", UInt32),
-        ("Tiers", win32more.System.Ioctl.STORAGE_TIER * 0),
-    ]
-    return STORAGE_DEVICE_TIERING_DESCRIPTOR
-def _define_STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR_head():
-    class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR
-def _define_STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR():
-    STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR_head
-    STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumberOfFaultDomains", UInt32),
-        ("FaultDomainIds", Guid * 0),
-    ]
-    return STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR
-STORAGE_PROTOCOL_TYPE = Int32
-STORAGE_PROTOCOL_TYPE_ProtocolTypeUnknown = 0
-STORAGE_PROTOCOL_TYPE_ProtocolTypeScsi = 1
-STORAGE_PROTOCOL_TYPE_ProtocolTypeAta = 2
-STORAGE_PROTOCOL_TYPE_ProtocolTypeNvme = 3
-STORAGE_PROTOCOL_TYPE_ProtocolTypeSd = 4
-STORAGE_PROTOCOL_TYPE_ProtocolTypeUfs = 5
-STORAGE_PROTOCOL_TYPE_ProtocolTypeProprietary = 126
-STORAGE_PROTOCOL_TYPE_ProtocolTypeMaxReserved = 127
-STORAGE_PROTOCOL_NVME_DATA_TYPE = Int32
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeUnknown = 0
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeIdentify = 1
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeLogPage = 2
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeFeature = 3
 STORAGE_PROTOCOL_ATA_DATA_TYPE = Int32
 STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeUnknown = 0
 STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeIdentify = 1
 STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeLogPage = 2
-STORAGE_PROTOCOL_UFS_DATA_TYPE = Int32
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeUnknown = 0
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDescriptor = 1
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryAttribute = 2
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryFlag = 3
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmeAttribute = 4
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmePeerAttribute = 5
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeMax = 6
-def _define_STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE_head():
-    class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(Union):
+def _define_STORAGE_PROTOCOL_COMMAND_head():
+    class STORAGE_PROTOCOL_COMMAND(Structure):
         pass
-    return STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE
-def _define_STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE():
-    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE = win32more.System.Ioctl.STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE_head
-    class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE__Anonymous_e__Struct(Structure):
-        pass
-    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE__Anonymous_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
+    return STORAGE_PROTOCOL_COMMAND
+def _define_STORAGE_PROTOCOL_COMMAND():
+    STORAGE_PROTOCOL_COMMAND = win32more.System.Ioctl.STORAGE_PROTOCOL_COMMAND_head
+    STORAGE_PROTOCOL_COMMAND._fields_ = [
+        ('Version', UInt32),
+        ('Length', UInt32),
+        ('ProtocolType', win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
+        ('Flags', UInt32),
+        ('ReturnStatus', UInt32),
+        ('ErrorCode', UInt32),
+        ('CommandLength', UInt32),
+        ('ErrorInfoLength', UInt32),
+        ('DataToDeviceTransferLength', UInt32),
+        ('DataFromDeviceTransferLength', UInt32),
+        ('TimeOutValue', UInt32),
+        ('ErrorInfoOffset', UInt32),
+        ('DataToDeviceBufferOffset', UInt32),
+        ('DataFromDeviceBufferOffset', UInt32),
+        ('CommandSpecific', UInt32),
+        ('Reserved0', UInt32),
+        ('FixedProtocolReturnData', UInt32),
+        ('Reserved1', UInt32 * 3),
+        ('Command', Byte * 1),
     ]
-    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE._anonymous_ = [
-        'Anonymous',
-    ]
-    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE._fields_ = [
-        ("Anonymous", STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE__Anonymous_e__Struct),
-        ("AsUlong", UInt32),
-    ]
-    return STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE
-def _define_STORAGE_PROTOCOL_SPECIFIC_DATA_head():
-    class STORAGE_PROTOCOL_SPECIFIC_DATA(Structure):
-        pass
-    return STORAGE_PROTOCOL_SPECIFIC_DATA
-def _define_STORAGE_PROTOCOL_SPECIFIC_DATA():
-    STORAGE_PROTOCOL_SPECIFIC_DATA = win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_head
-    STORAGE_PROTOCOL_SPECIFIC_DATA._fields_ = [
-        ("ProtocolType", win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
-        ("DataType", UInt32),
-        ("ProtocolDataRequestValue", UInt32),
-        ("ProtocolDataRequestSubValue", UInt32),
-        ("ProtocolDataOffset", UInt32),
-        ("ProtocolDataLength", UInt32),
-        ("FixedProtocolReturnData", UInt32),
-        ("ProtocolDataRequestSubValue2", UInt32),
-        ("ProtocolDataRequestSubValue3", UInt32),
-        ("ProtocolDataRequestSubValue4", UInt32),
-    ]
-    return STORAGE_PROTOCOL_SPECIFIC_DATA
-def _define_STORAGE_PROTOCOL_SPECIFIC_DATA_EXT_head():
-    class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT(Structure):
-        pass
-    return STORAGE_PROTOCOL_SPECIFIC_DATA_EXT
-def _define_STORAGE_PROTOCOL_SPECIFIC_DATA_EXT():
-    STORAGE_PROTOCOL_SPECIFIC_DATA_EXT = win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_EXT_head
-    STORAGE_PROTOCOL_SPECIFIC_DATA_EXT._fields_ = [
-        ("ProtocolType", win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
-        ("DataType", UInt32),
-        ("ProtocolDataValue", UInt32),
-        ("ProtocolDataSubValue", UInt32),
-        ("ProtocolDataOffset", UInt32),
-        ("ProtocolDataLength", UInt32),
-        ("FixedProtocolReturnData", UInt32),
-        ("ProtocolDataSubValue2", UInt32),
-        ("ProtocolDataSubValue3", UInt32),
-        ("ProtocolDataSubValue4", UInt32),
-        ("ProtocolDataSubValue5", UInt32),
-        ("Reserved", UInt32 * 5),
-    ]
-    return STORAGE_PROTOCOL_SPECIFIC_DATA_EXT
+    return STORAGE_PROTOCOL_COMMAND
 def _define_STORAGE_PROTOCOL_DATA_DESCRIPTOR_head():
     class STORAGE_PROTOCOL_DATA_DESCRIPTOR(Structure):
         pass
@@ -1989,9 +7132,9 @@ def _define_STORAGE_PROTOCOL_DATA_DESCRIPTOR_head():
 def _define_STORAGE_PROTOCOL_DATA_DESCRIPTOR():
     STORAGE_PROTOCOL_DATA_DESCRIPTOR = win32more.System.Ioctl.STORAGE_PROTOCOL_DATA_DESCRIPTOR_head
     STORAGE_PROTOCOL_DATA_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ProtocolSpecificData", win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA),
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ProtocolSpecificData', win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA),
     ]
     return STORAGE_PROTOCOL_DATA_DESCRIPTOR
 def _define_STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT_head():
@@ -2001,81 +7144,254 @@ def _define_STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT_head():
 def _define_STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT():
     STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT = win32more.System.Ioctl.STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT_head
     STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ProtocolSpecificData", win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_EXT),
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('ProtocolSpecificData', win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_EXT),
     ]
     return STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT
-def _define_STORAGE_TEMPERATURE_INFO_head():
-    class STORAGE_TEMPERATURE_INFO(Structure):
+def _define_STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE_head():
+    class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(Union):
         pass
-    return STORAGE_TEMPERATURE_INFO
-def _define_STORAGE_TEMPERATURE_INFO():
-    STORAGE_TEMPERATURE_INFO = win32more.System.Ioctl.STORAGE_TEMPERATURE_INFO_head
-    STORAGE_TEMPERATURE_INFO._fields_ = [
-        ("Index", UInt16),
-        ("Temperature", Int16),
-        ("OverThreshold", Int16),
-        ("UnderThreshold", Int16),
-        ("OverThresholdChangable", win32more.Foundation.BOOLEAN),
-        ("UnderThresholdChangable", win32more.Foundation.BOOLEAN),
-        ("EventGenerated", win32more.Foundation.BOOLEAN),
-        ("Reserved0", Byte),
-        ("Reserved1", UInt32),
-    ]
-    return STORAGE_TEMPERATURE_INFO
-def _define_STORAGE_TEMPERATURE_DATA_DESCRIPTOR_head():
-    class STORAGE_TEMPERATURE_DATA_DESCRIPTOR(Structure):
+    return STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE
+def _define_STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE():
+    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE = win32more.System.Ioctl.STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE_head
+    class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE__Anonymous_e__Struct(Structure):
         pass
-    return STORAGE_TEMPERATURE_DATA_DESCRIPTOR
-def _define_STORAGE_TEMPERATURE_DATA_DESCRIPTOR():
-    STORAGE_TEMPERATURE_DATA_DESCRIPTOR = win32more.System.Ioctl.STORAGE_TEMPERATURE_DATA_DESCRIPTOR_head
-    STORAGE_TEMPERATURE_DATA_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("CriticalTemperature", Int16),
-        ("WarningTemperature", Int16),
-        ("InfoCount", UInt16),
-        ("Reserved0", Byte * 2),
-        ("Reserved1", UInt32 * 2),
-        ("TemperatureInfo", win32more.System.Ioctl.STORAGE_TEMPERATURE_INFO * 0),
+    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
     ]
-    return STORAGE_TEMPERATURE_DATA_DESCRIPTOR
-def _define_STORAGE_TEMPERATURE_THRESHOLD_head():
-    class STORAGE_TEMPERATURE_THRESHOLD(Structure):
+    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE._anonymous_ = [
+        'Anonymous',
+    ]
+    STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE._fields_ = [
+        ('Anonymous', STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE__Anonymous_e__Struct),
+        ('AsUlong', UInt32),
+    ]
+    return STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE
+STORAGE_PROTOCOL_NVME_DATA_TYPE = Int32
+STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeUnknown = 0
+STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeIdentify = 1
+STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeLogPage = 2
+STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeFeature = 3
+def _define_STORAGE_PROTOCOL_SPECIFIC_DATA_head():
+    class STORAGE_PROTOCOL_SPECIFIC_DATA(Structure):
         pass
-    return STORAGE_TEMPERATURE_THRESHOLD
-def _define_STORAGE_TEMPERATURE_THRESHOLD():
-    STORAGE_TEMPERATURE_THRESHOLD = win32more.System.Ioctl.STORAGE_TEMPERATURE_THRESHOLD_head
-    STORAGE_TEMPERATURE_THRESHOLD._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt16),
-        ("Index", UInt16),
-        ("Threshold", Int16),
-        ("OverThreshold", win32more.Foundation.BOOLEAN),
-        ("Reserved", Byte),
+    return STORAGE_PROTOCOL_SPECIFIC_DATA
+def _define_STORAGE_PROTOCOL_SPECIFIC_DATA():
+    STORAGE_PROTOCOL_SPECIFIC_DATA = win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_head
+    STORAGE_PROTOCOL_SPECIFIC_DATA._fields_ = [
+        ('ProtocolType', win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
+        ('DataType', UInt32),
+        ('ProtocolDataRequestValue', UInt32),
+        ('ProtocolDataRequestSubValue', UInt32),
+        ('ProtocolDataOffset', UInt32),
+        ('ProtocolDataLength', UInt32),
+        ('FixedProtocolReturnData', UInt32),
+        ('ProtocolDataRequestSubValue2', UInt32),
+        ('ProtocolDataRequestSubValue3', UInt32),
+        ('ProtocolDataRequestSubValue4', UInt32),
     ]
-    return STORAGE_TEMPERATURE_THRESHOLD
-STORAGE_DEVICE_FORM_FACTOR = Int32
-STORAGE_DEVICE_FORM_FACTOR_FormFactorUnknown = 0
-STORAGE_DEVICE_FORM_FACTOR_FormFactor3_5 = 1
-STORAGE_DEVICE_FORM_FACTOR_FormFactor2_5 = 2
-STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8 = 3
-STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8Less = 4
-STORAGE_DEVICE_FORM_FACTOR_FormFactorEmbedded = 5
-STORAGE_DEVICE_FORM_FACTOR_FormFactorMemoryCard = 6
-STORAGE_DEVICE_FORM_FACTOR_FormFactormSata = 7
-STORAGE_DEVICE_FORM_FACTOR_FormFactorM_2 = 8
-STORAGE_DEVICE_FORM_FACTOR_FormFactorPCIeBoard = 9
-STORAGE_DEVICE_FORM_FACTOR_FormFactorDimm = 10
-STORAGE_COMPONENT_HEALTH_STATUS = Int32
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusUnknown = 0
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusNormal = 1
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusThrottled = 2
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusWarning = 3
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusDisabled = 4
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusFailed = 5
+    return STORAGE_PROTOCOL_SPECIFIC_DATA
+def _define_STORAGE_PROTOCOL_SPECIFIC_DATA_EXT_head():
+    class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT(Structure):
+        pass
+    return STORAGE_PROTOCOL_SPECIFIC_DATA_EXT
+def _define_STORAGE_PROTOCOL_SPECIFIC_DATA_EXT():
+    STORAGE_PROTOCOL_SPECIFIC_DATA_EXT = win32more.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_EXT_head
+    STORAGE_PROTOCOL_SPECIFIC_DATA_EXT._fields_ = [
+        ('ProtocolType', win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
+        ('DataType', UInt32),
+        ('ProtocolDataValue', UInt32),
+        ('ProtocolDataSubValue', UInt32),
+        ('ProtocolDataOffset', UInt32),
+        ('ProtocolDataLength', UInt32),
+        ('FixedProtocolReturnData', UInt32),
+        ('ProtocolDataSubValue2', UInt32),
+        ('ProtocolDataSubValue3', UInt32),
+        ('ProtocolDataSubValue4', UInt32),
+        ('ProtocolDataSubValue5', UInt32),
+        ('Reserved', UInt32 * 5),
+    ]
+    return STORAGE_PROTOCOL_SPECIFIC_DATA_EXT
+STORAGE_PROTOCOL_TYPE = Int32
+STORAGE_PROTOCOL_TYPE_ProtocolTypeUnknown = 0
+STORAGE_PROTOCOL_TYPE_ProtocolTypeScsi = 1
+STORAGE_PROTOCOL_TYPE_ProtocolTypeAta = 2
+STORAGE_PROTOCOL_TYPE_ProtocolTypeNvme = 3
+STORAGE_PROTOCOL_TYPE_ProtocolTypeSd = 4
+STORAGE_PROTOCOL_TYPE_ProtocolTypeUfs = 5
+STORAGE_PROTOCOL_TYPE_ProtocolTypeProprietary = 126
+STORAGE_PROTOCOL_TYPE_ProtocolTypeMaxReserved = 127
+STORAGE_PROTOCOL_UFS_DATA_TYPE = Int32
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeUnknown = 0
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDescriptor = 1
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryAttribute = 2
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryFlag = 3
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmeAttribute = 4
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmePeerAttribute = 5
+STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeMax = 6
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY_head():
+    class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY(Structure):
+        pass
+    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY():
+    STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY_head
+    STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY._fields_ = [
+        ('EntryLength', UInt32),
+        ('DependencyTypeFlags', UInt32),
+        ('ProviderSpecificFlags', UInt32),
+        ('VirtualStorageType', win32more.Storage.Vhd.VIRTUAL_STORAGE_TYPE),
+    ]
+    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY_head():
+    class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY(Structure):
+        pass
+    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY():
+    STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY_head
+    STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY._fields_ = [
+        ('EntryLength', UInt32),
+        ('DependencyTypeFlags', UInt32),
+        ('ProviderSpecificFlags', UInt32),
+        ('VirtualStorageType', win32more.Storage.Vhd.VIRTUAL_STORAGE_TYPE),
+        ('AncestorLevel', UInt32),
+        ('HostVolumeNameOffset', UInt32),
+        ('HostVolumeNameSize', UInt32),
+        ('DependentVolumeNameOffset', UInt32),
+        ('DependentVolumeNameSize', UInt32),
+        ('RelativePathOffset', UInt32),
+        ('RelativePathSize', UInt32),
+        ('DependentDeviceNameOffset', UInt32),
+        ('DependentDeviceNameSize', UInt32),
+    ]
+    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST_head():
+    class STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST(Structure):
+        pass
+    return STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST():
+    STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST_head
+    STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST._fields_ = [
+        ('RequestLevel', UInt32),
+        ('RequestFlags', UInt32),
+    ]
+    return STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE_head():
+    class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE(Structure):
+        pass
+    return STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE
+def _define_STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE():
+    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE_head
+    class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE__Anonymous_e__Union(Union):
+        pass
+    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE__Anonymous_e__Union._fields_ = [
+        ('Lev1Depends', win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY * 1),
+        ('Lev2Depends', win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY * 1),
+    ]
+    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE._anonymous_ = [
+        'Anonymous',
+    ]
+    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE._fields_ = [
+        ('ResponseLevel', UInt32),
+        ('NumberEntries', UInt32),
+        ('Anonymous', STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE__Anonymous_e__Union),
+    ]
+    return STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE
+STORAGE_QUERY_TYPE = Int32
+STORAGE_QUERY_TYPE_PropertyStandardQuery = 0
+STORAGE_QUERY_TYPE_PropertyExistsQuery = 1
+STORAGE_QUERY_TYPE_PropertyMaskQuery = 2
+STORAGE_QUERY_TYPE_PropertyQueryMaxDefined = 3
+def _define_STORAGE_READ_CAPACITY_head():
+    class STORAGE_READ_CAPACITY(Structure):
+        pass
+    return STORAGE_READ_CAPACITY
+def _define_STORAGE_READ_CAPACITY():
+    STORAGE_READ_CAPACITY = win32more.System.Ioctl.STORAGE_READ_CAPACITY_head
+    STORAGE_READ_CAPACITY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('BlockLength', UInt32),
+        ('NumberOfBlocks', win32more.Foundation.LARGE_INTEGER),
+        ('DiskLength', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return STORAGE_READ_CAPACITY
+def _define_STORAGE_REINITIALIZE_MEDIA_head():
+    class STORAGE_REINITIALIZE_MEDIA(Structure):
+        pass
+    return STORAGE_REINITIALIZE_MEDIA
+def _define_STORAGE_REINITIALIZE_MEDIA():
+    STORAGE_REINITIALIZE_MEDIA = win32more.System.Ioctl.STORAGE_REINITIALIZE_MEDIA_head
+    class STORAGE_REINITIALIZE_MEDIA__SanitizeOption_e__Struct(Structure):
+        pass
+    STORAGE_REINITIALIZE_MEDIA__SanitizeOption_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    STORAGE_REINITIALIZE_MEDIA._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('TimeoutInSeconds', UInt32),
+        ('SanitizeOption', STORAGE_REINITIALIZE_MEDIA__SanitizeOption_e__Struct),
+    ]
+    return STORAGE_REINITIALIZE_MEDIA
+STORAGE_RESERVE_ID = Int32
+STORAGE_RESERVE_ID_StorageReserveIdNone = 0
+STORAGE_RESERVE_ID_StorageReserveIdHard = 1
+STORAGE_RESERVE_ID_StorageReserveIdSoft = 2
+STORAGE_RESERVE_ID_StorageReserveIdUpdateScratch = 3
+STORAGE_RESERVE_ID_StorageReserveIdMax = 4
+STORAGE_RPMB_COMMAND_TYPE = Int32
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbProgramAuthKey = 1
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbQueryWriteCounter = 2
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedWrite = 3
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedRead = 4
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbReadResultRequest = 5
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigWrite = 6
+STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigRead = 7
+def _define_STORAGE_RPMB_DATA_FRAME_head():
+    class STORAGE_RPMB_DATA_FRAME(Structure):
+        pass
+    return STORAGE_RPMB_DATA_FRAME
+def _define_STORAGE_RPMB_DATA_FRAME():
+    STORAGE_RPMB_DATA_FRAME = win32more.System.Ioctl.STORAGE_RPMB_DATA_FRAME_head
+    STORAGE_RPMB_DATA_FRAME._fields_ = [
+        ('Stuff', Byte * 196),
+        ('KeyOrMAC', Byte * 32),
+        ('Data', Byte * 256),
+        ('Nonce', Byte * 16),
+        ('WriteCounter', Byte * 4),
+        ('Address', Byte * 2),
+        ('BlockCount', Byte * 2),
+        ('OperationResult', Byte * 2),
+        ('RequestOrResponseType', Byte * 2),
+    ]
+    return STORAGE_RPMB_DATA_FRAME
+def _define_STORAGE_RPMB_DESCRIPTOR_head():
+    class STORAGE_RPMB_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_RPMB_DESCRIPTOR
+def _define_STORAGE_RPMB_DESCRIPTOR():
+    STORAGE_RPMB_DESCRIPTOR = win32more.System.Ioctl.STORAGE_RPMB_DESCRIPTOR_head
+    STORAGE_RPMB_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('SizeInBytes', UInt32),
+        ('MaxReliableWriteSizeInBytes', UInt32),
+        ('FrameFormat', win32more.System.Ioctl.STORAGE_RPMB_FRAME_TYPE),
+    ]
+    return STORAGE_RPMB_DESCRIPTOR
+STORAGE_RPMB_FRAME_TYPE = Int32
+STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeUnknown = 0
+STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeStandard = 1
+STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeMax = 2
+STORAGE_SANITIZE_METHOD = Int32
+STORAGE_SANITIZE_METHOD_StorageSanitizeMethodDefault = 0
+STORAGE_SANITIZE_METHOD_StorageSanitizeMethodBlockErase = 1
+STORAGE_SANITIZE_METHOD_StorageSanitizeMethodCryptoErase = 2
+STORAGE_SET_TYPE = Int32
+STORAGE_SET_TYPE_PropertyStandardSet = 0
+STORAGE_SET_TYPE_PropertyExistsSet = 1
+STORAGE_SET_TYPE_PropertySetMaxDefined = 2
 def _define_STORAGE_SPEC_VERSION_head():
     class STORAGE_SPEC_VERSION(Union):
         pass
@@ -2089,688 +7405,106 @@ def _define_STORAGE_SPEC_VERSION():
     class STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union__Anonymous_e__Struct(Structure):
         pass
     STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union__Anonymous_e__Struct._fields_ = [
-        ("SubMinor", Byte),
-        ("Minor", Byte),
+        ('SubMinor', Byte),
+        ('Minor', Byte),
     ]
     STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union._anonymous_ = [
         'Anonymous',
     ]
     STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union._fields_ = [
-        ("Anonymous", STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union__Anonymous_e__Struct),
-        ("AsUshort", UInt16),
+        ('Anonymous', STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union__Anonymous_e__Struct),
+        ('AsUshort', UInt16),
     ]
     STORAGE_SPEC_VERSION__Anonymous_e__Struct._fields_ = [
-        ("MinorVersion", STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union),
-        ("MajorVersion", UInt16),
+        ('MinorVersion', STORAGE_SPEC_VERSION__Anonymous_e__Struct__MinorVersion_e__Union),
+        ('MajorVersion', UInt16),
     ]
     STORAGE_SPEC_VERSION._anonymous_ = [
         'Anonymous',
     ]
     STORAGE_SPEC_VERSION._fields_ = [
-        ("Anonymous", STORAGE_SPEC_VERSION__Anonymous_e__Struct),
-        ("AsUlong", UInt32),
+        ('Anonymous', STORAGE_SPEC_VERSION__Anonymous_e__Struct),
+        ('AsUlong', UInt32),
     ]
     return STORAGE_SPEC_VERSION
-def _define_STORAGE_PHYSICAL_DEVICE_DATA_head():
-    class STORAGE_PHYSICAL_DEVICE_DATA(Structure):
+def _define_STORAGE_TEMPERATURE_DATA_DESCRIPTOR_head():
+    class STORAGE_TEMPERATURE_DATA_DESCRIPTOR(Structure):
         pass
-    return STORAGE_PHYSICAL_DEVICE_DATA
-def _define_STORAGE_PHYSICAL_DEVICE_DATA():
-    STORAGE_PHYSICAL_DEVICE_DATA = win32more.System.Ioctl.STORAGE_PHYSICAL_DEVICE_DATA_head
-    STORAGE_PHYSICAL_DEVICE_DATA._fields_ = [
-        ("DeviceId", UInt32),
-        ("Role", UInt32),
-        ("HealthStatus", win32more.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS),
-        ("CommandProtocol", win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
-        ("SpecVersion", win32more.System.Ioctl.STORAGE_SPEC_VERSION),
-        ("FormFactor", win32more.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR),
-        ("Vendor", Byte * 8),
-        ("Model", Byte * 40),
-        ("FirmwareRevision", Byte * 16),
-        ("Capacity", UInt64),
-        ("PhysicalLocation", Byte * 32),
-        ("Reserved", UInt32 * 2),
+    return STORAGE_TEMPERATURE_DATA_DESCRIPTOR
+def _define_STORAGE_TEMPERATURE_DATA_DESCRIPTOR():
+    STORAGE_TEMPERATURE_DATA_DESCRIPTOR = win32more.System.Ioctl.STORAGE_TEMPERATURE_DATA_DESCRIPTOR_head
+    STORAGE_TEMPERATURE_DATA_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('CriticalTemperature', Int16),
+        ('WarningTemperature', Int16),
+        ('InfoCount', UInt16),
+        ('Reserved0', Byte * 2),
+        ('Reserved1', UInt32 * 2),
+        ('TemperatureInfo', win32more.System.Ioctl.STORAGE_TEMPERATURE_INFO * 1),
     ]
-    return STORAGE_PHYSICAL_DEVICE_DATA
-def _define_STORAGE_PHYSICAL_ADAPTER_DATA_head():
-    class STORAGE_PHYSICAL_ADAPTER_DATA(Structure):
+    return STORAGE_TEMPERATURE_DATA_DESCRIPTOR
+def _define_STORAGE_TEMPERATURE_INFO_head():
+    class STORAGE_TEMPERATURE_INFO(Structure):
         pass
-    return STORAGE_PHYSICAL_ADAPTER_DATA
-def _define_STORAGE_PHYSICAL_ADAPTER_DATA():
-    STORAGE_PHYSICAL_ADAPTER_DATA = win32more.System.Ioctl.STORAGE_PHYSICAL_ADAPTER_DATA_head
-    STORAGE_PHYSICAL_ADAPTER_DATA._fields_ = [
-        ("AdapterId", UInt32),
-        ("HealthStatus", win32more.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS),
-        ("CommandProtocol", win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
-        ("SpecVersion", win32more.System.Ioctl.STORAGE_SPEC_VERSION),
-        ("Vendor", Byte * 8),
-        ("Model", Byte * 40),
-        ("FirmwareRevision", Byte * 16),
-        ("PhysicalLocation", Byte * 32),
-        ("ExpanderConnected", win32more.Foundation.BOOLEAN),
-        ("Reserved0", Byte * 3),
-        ("Reserved1", UInt32 * 3),
+    return STORAGE_TEMPERATURE_INFO
+def _define_STORAGE_TEMPERATURE_INFO():
+    STORAGE_TEMPERATURE_INFO = win32more.System.Ioctl.STORAGE_TEMPERATURE_INFO_head
+    STORAGE_TEMPERATURE_INFO._fields_ = [
+        ('Index', UInt16),
+        ('Temperature', Int16),
+        ('OverThreshold', Int16),
+        ('UnderThreshold', Int16),
+        ('OverThresholdChangable', win32more.Foundation.BOOLEAN),
+        ('UnderThresholdChangable', win32more.Foundation.BOOLEAN),
+        ('EventGenerated', win32more.Foundation.BOOLEAN),
+        ('Reserved0', Byte),
+        ('Reserved1', UInt32),
     ]
-    return STORAGE_PHYSICAL_ADAPTER_DATA
-def _define_STORAGE_PHYSICAL_NODE_DATA_head():
-    class STORAGE_PHYSICAL_NODE_DATA(Structure):
+    return STORAGE_TEMPERATURE_INFO
+def _define_STORAGE_TEMPERATURE_THRESHOLD_head():
+    class STORAGE_TEMPERATURE_THRESHOLD(Structure):
         pass
-    return STORAGE_PHYSICAL_NODE_DATA
-def _define_STORAGE_PHYSICAL_NODE_DATA():
-    STORAGE_PHYSICAL_NODE_DATA = win32more.System.Ioctl.STORAGE_PHYSICAL_NODE_DATA_head
-    STORAGE_PHYSICAL_NODE_DATA._fields_ = [
-        ("NodeId", UInt32),
-        ("AdapterCount", UInt32),
-        ("AdapterDataLength", UInt32),
-        ("AdapterDataOffset", UInt32),
-        ("DeviceCount", UInt32),
-        ("DeviceDataLength", UInt32),
-        ("DeviceDataOffset", UInt32),
-        ("Reserved", UInt32 * 3),
+    return STORAGE_TEMPERATURE_THRESHOLD
+def _define_STORAGE_TEMPERATURE_THRESHOLD():
+    STORAGE_TEMPERATURE_THRESHOLD = win32more.System.Ioctl.STORAGE_TEMPERATURE_THRESHOLD_head
+    STORAGE_TEMPERATURE_THRESHOLD._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('Flags', UInt16),
+        ('Index', UInt16),
+        ('Threshold', Int16),
+        ('OverThreshold', win32more.Foundation.BOOLEAN),
+        ('Reserved', Byte),
     ]
-    return STORAGE_PHYSICAL_NODE_DATA
-def _define_STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR_head():
-    class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR(Structure):
+    return STORAGE_TEMPERATURE_THRESHOLD
+def _define_STORAGE_TIER_head():
+    class STORAGE_TIER(Structure):
         pass
-    return STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR
-def _define_STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR():
-    STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR = win32more.System.Ioctl.STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR_head
-    STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NodeCount", UInt32),
-        ("Reserved", UInt32),
-        ("Node", win32more.System.Ioctl.STORAGE_PHYSICAL_NODE_DATA * 0),
+    return STORAGE_TIER
+def _define_STORAGE_TIER():
+    STORAGE_TIER = win32more.System.Ioctl.STORAGE_TIER_head
+    STORAGE_TIER._fields_ = [
+        ('Id', Guid),
+        ('Name', Char * 256),
+        ('Description', Char * 256),
+        ('Flags', UInt64),
+        ('ProvisionedCapacity', UInt64),
+        ('MediaType', win32more.System.Ioctl.STORAGE_TIER_MEDIA_TYPE),
+        ('Class', win32more.System.Ioctl.STORAGE_TIER_CLASS),
     ]
-    return STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR
-def _define_STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR_head():
-    class STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR
-def _define_STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR():
-    STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR_head
-    STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("LunMaxIoCount", UInt32),
-        ("AdapterMaxIoCount", UInt32),
-    ]
-    return STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR
-def _define_STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR_head():
-    class STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR
-def _define_STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR():
-    STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR_head
-    STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Attributes", UInt64),
-    ]
-    return STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR
-STORAGE_DISK_HEALTH_STATUS = Int32
-STORAGE_DISK_HEALTH_STATUS_DiskHealthUnknown = 0
-STORAGE_DISK_HEALTH_STATUS_DiskHealthUnhealthy = 1
-STORAGE_DISK_HEALTH_STATUS_DiskHealthWarning = 2
-STORAGE_DISK_HEALTH_STATUS_DiskHealthHealthy = 3
-STORAGE_DISK_HEALTH_STATUS_DiskHealthMax = 4
-STORAGE_DISK_OPERATIONAL_STATUS = Int32
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNone = 0
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusUnknown = 1
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusOk = 2
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusPredictingFailure = 3
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusInService = 4
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusHardwareError = 5
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNotUsable = 6
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusTransientError = 7
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusMissing = 8
-STORAGE_OPERATIONAL_STATUS_REASON = Int32
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonUnknown = 0
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonScsiSenseCode = 1
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMedia = 2
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonIo = 3
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonThresholdExceeded = 4
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostData = 5
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonEnergySource = 6
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonConfiguration = 7
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDeviceController = 8
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMediaController = 9
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonComponent = 10
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonNVDIMM_N = 11
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonBackgroundOperation = 12
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonInvalidFirmware = 13
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonHealthCheck = 14
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostDataPersistence = 15
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDisabledByPlatform = 16
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostWritePersistence = 17
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDataPersistenceLossImminent = 18
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonWritePersistenceLossImminent = 19
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMax = 20
-def _define_STORAGE_OPERATIONAL_REASON_head():
-    class STORAGE_OPERATIONAL_REASON(Structure):
-        pass
-    return STORAGE_OPERATIONAL_REASON
-def _define_STORAGE_OPERATIONAL_REASON():
-    STORAGE_OPERATIONAL_REASON = win32more.System.Ioctl.STORAGE_OPERATIONAL_REASON_head
-    class STORAGE_OPERATIONAL_REASON__RawBytes_e__Union(Union):
-        pass
-    class STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__ScsiSenseKey_e__Struct(Structure):
-        pass
-    STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__ScsiSenseKey_e__Struct._fields_ = [
-        ("SenseKey", Byte),
-        ("ASC", Byte),
-        ("ASCQ", Byte),
-        ("Reserved", Byte),
-    ]
-    class STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__NVDIMM_N_e__Struct(Structure):
-        pass
-    STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__NVDIMM_N_e__Struct._fields_ = [
-        ("CriticalHealth", Byte),
-        ("ModuleHealth", Byte * 2),
-        ("ErrorThresholdStatus", Byte),
-    ]
-    STORAGE_OPERATIONAL_REASON__RawBytes_e__Union._fields_ = [
-        ("ScsiSenseKey", STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__ScsiSenseKey_e__Struct),
-        ("NVDIMM_N", STORAGE_OPERATIONAL_REASON__RawBytes_e__Union__NVDIMM_N_e__Struct),
-        ("AsUlong", UInt32),
-    ]
-    STORAGE_OPERATIONAL_REASON._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Reason", win32more.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON),
-        ("RawBytes", STORAGE_OPERATIONAL_REASON__RawBytes_e__Union),
-    ]
-    return STORAGE_OPERATIONAL_REASON
-def _define_STORAGE_DEVICE_MANAGEMENT_STATUS_head():
-    class STORAGE_DEVICE_MANAGEMENT_STATUS(Structure):
-        pass
-    return STORAGE_DEVICE_MANAGEMENT_STATUS
-def _define_STORAGE_DEVICE_MANAGEMENT_STATUS():
-    STORAGE_DEVICE_MANAGEMENT_STATUS = win32more.System.Ioctl.STORAGE_DEVICE_MANAGEMENT_STATUS_head
-    STORAGE_DEVICE_MANAGEMENT_STATUS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Health", win32more.System.Ioctl.STORAGE_DISK_HEALTH_STATUS),
-        ("NumberOfOperationalStatus", UInt32),
-        ("NumberOfAdditionalReasons", UInt32),
-        ("OperationalStatus", win32more.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS * 16),
-        ("AdditionalReasons", win32more.System.Ioctl.STORAGE_OPERATIONAL_REASON * 0),
-    ]
-    return STORAGE_DEVICE_MANAGEMENT_STATUS
-def _define_STORAGE_ADAPTER_SERIAL_NUMBER_head():
-    class STORAGE_ADAPTER_SERIAL_NUMBER(Structure):
-        pass
-    return STORAGE_ADAPTER_SERIAL_NUMBER
-def _define_STORAGE_ADAPTER_SERIAL_NUMBER():
-    STORAGE_ADAPTER_SERIAL_NUMBER = win32more.System.Ioctl.STORAGE_ADAPTER_SERIAL_NUMBER_head
-    STORAGE_ADAPTER_SERIAL_NUMBER._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("SerialNumber", Char * 128),
-    ]
-    return STORAGE_ADAPTER_SERIAL_NUMBER
-STORAGE_ZONED_DEVICE_TYPES = Int32
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeUnknown = 0
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostManaged = 1
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostAware = 2
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeDeviceManaged = 3
-STORAGE_ZONE_TYPES = Int32
-STORAGE_ZONE_TYPES_ZoneTypeUnknown = 0
-STORAGE_ZONE_TYPES_ZoneTypeConventional = 1
-STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired = 2
-STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred = 3
-STORAGE_ZONE_TYPES_ZoneTypeMax = 4
-def _define_STORAGE_ZONE_GROUP_head():
-    class STORAGE_ZONE_GROUP(Structure):
-        pass
-    return STORAGE_ZONE_GROUP
-def _define_STORAGE_ZONE_GROUP():
-    STORAGE_ZONE_GROUP = win32more.System.Ioctl.STORAGE_ZONE_GROUP_head
-    STORAGE_ZONE_GROUP._fields_ = [
-        ("ZoneCount", UInt32),
-        ("ZoneType", win32more.System.Ioctl.STORAGE_ZONE_TYPES),
-        ("ZoneSize", UInt64),
-    ]
-    return STORAGE_ZONE_GROUP
-def _define_STORAGE_ZONED_DEVICE_DESCRIPTOR_head():
-    class STORAGE_ZONED_DEVICE_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_ZONED_DEVICE_DESCRIPTOR
-def _define_STORAGE_ZONED_DEVICE_DESCRIPTOR():
-    STORAGE_ZONED_DEVICE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ZONED_DEVICE_DESCRIPTOR_head
-    class STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union(Union):
-        pass
-    class STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialRequiredZone_e__Struct(Structure):
-        pass
-    STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialRequiredZone_e__Struct._fields_ = [
-        ("MaxOpenZoneCount", UInt32),
-        ("UnrestrictedRead", win32more.Foundation.BOOLEAN),
-        ("Reserved", Byte * 3),
-    ]
-    class STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialPreferredZone_e__Struct(Structure):
-        pass
-    STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialPreferredZone_e__Struct._fields_ = [
-        ("OptimalOpenZoneCount", UInt32),
-        ("Reserved", UInt32),
-    ]
-    STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union._fields_ = [
-        ("SequentialRequiredZone", STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialRequiredZone_e__Struct),
-        ("SequentialPreferredZone", STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialPreferredZone_e__Struct),
-    ]
-    STORAGE_ZONED_DEVICE_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceType", win32more.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES),
-        ("ZoneCount", UInt32),
-        ("ZoneAttributes", STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union),
-        ("ZoneGroupCount", UInt32),
-        ("ZoneGroup", win32more.System.Ioctl.STORAGE_ZONE_GROUP * 0),
-    ]
-    return STORAGE_ZONED_DEVICE_DESCRIPTOR
-def _define_DEVICE_LOCATION_head():
-    class DEVICE_LOCATION(Structure):
-        pass
-    return DEVICE_LOCATION
-def _define_DEVICE_LOCATION():
-    DEVICE_LOCATION = win32more.System.Ioctl.DEVICE_LOCATION_head
-    class DEVICE_LOCATION__Anonymous_e__Union(Union):
-        pass
-    class DEVICE_LOCATION__Anonymous_e__Union__Anonymous1_e__Struct(Structure):
-        pass
-    DEVICE_LOCATION__Anonymous_e__Union__Anonymous1_e__Struct._fields_ = [
-        ("Channel", UInt32),
-        ("Device", UInt32),
-    ]
-    class DEVICE_LOCATION__Anonymous_e__Union__Anonymous2_e__Struct(Structure):
-        pass
-    DEVICE_LOCATION__Anonymous_e__Union__Anonymous2_e__Struct._fields_ = [
-        ("Target", UInt32),
-        ("Lun", UInt32),
-    ]
-    DEVICE_LOCATION__Anonymous_e__Union._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    DEVICE_LOCATION__Anonymous_e__Union._fields_ = [
-        ("Anonymous1", DEVICE_LOCATION__Anonymous_e__Union__Anonymous1_e__Struct),
-        ("Anonymous2", DEVICE_LOCATION__Anonymous_e__Union__Anonymous2_e__Struct),
-    ]
-    DEVICE_LOCATION._anonymous_ = [
-        'Anonymous',
-    ]
-    DEVICE_LOCATION._fields_ = [
-        ("Socket", UInt32),
-        ("Slot", UInt32),
-        ("Adapter", UInt32),
-        ("Port", UInt32),
-        ("Anonymous", DEVICE_LOCATION__Anonymous_e__Union),
-    ]
-    return DEVICE_LOCATION
-def _define_STORAGE_DEVICE_LOCATION_DESCRIPTOR_head():
-    class STORAGE_DEVICE_LOCATION_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_LOCATION_DESCRIPTOR
-def _define_STORAGE_DEVICE_LOCATION_DESCRIPTOR():
-    STORAGE_DEVICE_LOCATION_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_LOCATION_DESCRIPTOR_head
-    STORAGE_DEVICE_LOCATION_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Location", win32more.System.Ioctl.DEVICE_LOCATION),
-        ("StringOffset", UInt32),
-    ]
-    return STORAGE_DEVICE_LOCATION_DESCRIPTOR
-def _define_STORAGE_DEVICE_NUMA_PROPERTY_head():
-    class STORAGE_DEVICE_NUMA_PROPERTY(Structure):
-        pass
-    return STORAGE_DEVICE_NUMA_PROPERTY
-def _define_STORAGE_DEVICE_NUMA_PROPERTY():
-    STORAGE_DEVICE_NUMA_PROPERTY = win32more.System.Ioctl.STORAGE_DEVICE_NUMA_PROPERTY_head
-    STORAGE_DEVICE_NUMA_PROPERTY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumaNode", UInt32),
-    ]
-    return STORAGE_DEVICE_NUMA_PROPERTY
-def _define_STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT_head():
-    class STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT(Structure):
-        pass
-    return STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT
-def _define_STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT():
-    STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT = win32more.System.Ioctl.STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT_head
-    STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("UnsafeShutdownCount", UInt32),
-    ]
-    return STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT
-def _define_STORAGE_HW_ENDURANCE_INFO_head():
-    class STORAGE_HW_ENDURANCE_INFO(Structure):
-        pass
-    return STORAGE_HW_ENDURANCE_INFO
-def _define_STORAGE_HW_ENDURANCE_INFO():
-    STORAGE_HW_ENDURANCE_INFO = win32more.System.Ioctl.STORAGE_HW_ENDURANCE_INFO_head
-    class STORAGE_HW_ENDURANCE_INFO__Flags_e__Struct(Structure):
-        pass
-    STORAGE_HW_ENDURANCE_INFO__Flags_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    STORAGE_HW_ENDURANCE_INFO._fields_ = [
-        ("ValidFields", UInt32),
-        ("GroupId", UInt32),
-        ("Flags", STORAGE_HW_ENDURANCE_INFO__Flags_e__Struct),
-        ("LifePercentage", UInt32),
-        ("BytesReadCount", Byte * 16),
-        ("ByteWriteCount", Byte * 16),
-    ]
-    return STORAGE_HW_ENDURANCE_INFO
-def _define_STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR_head():
-    class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR
-def _define_STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR():
-    STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR = win32more.System.Ioctl.STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR_head
-    STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("EnduranceInfo", win32more.System.Ioctl.STORAGE_HW_ENDURANCE_INFO),
-    ]
-    return STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR
-def _define_STORAGE_DEVICE_LED_STATE_DESCRIPTOR_head():
-    class STORAGE_DEVICE_LED_STATE_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_DEVICE_LED_STATE_DESCRIPTOR
-def _define_STORAGE_DEVICE_LED_STATE_DESCRIPTOR():
-    STORAGE_DEVICE_LED_STATE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_DEVICE_LED_STATE_DESCRIPTOR_head
-    STORAGE_DEVICE_LED_STATE_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("State", UInt64),
-    ]
-    return STORAGE_DEVICE_LED_STATE_DESCRIPTOR
-def _define_STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_head():
-    class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY(Structure):
-        pass
-    return STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY
-def _define_STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY():
-    STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY = win32more.System.Ioctl.STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_head
-    STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("SupportsSelfEncryption", win32more.Foundation.BOOLEAN),
-    ]
-    return STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY
-def _define_STORAGE_FRU_ID_DESCRIPTOR_head():
-    class STORAGE_FRU_ID_DESCRIPTOR(Structure):
-        pass
-    return STORAGE_FRU_ID_DESCRIPTOR
-def _define_STORAGE_FRU_ID_DESCRIPTOR():
-    STORAGE_FRU_ID_DESCRIPTOR = win32more.System.Ioctl.STORAGE_FRU_ID_DESCRIPTOR_head
-    STORAGE_FRU_ID_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("IdentifierSize", UInt32),
-        ("Identifier", Byte * 0),
-    ]
-    return STORAGE_FRU_ID_DESCRIPTOR
-def _define_DEVICE_DATA_SET_RANGE_head():
-    class DEVICE_DATA_SET_RANGE(Structure):
-        pass
-    return DEVICE_DATA_SET_RANGE
-def _define_DEVICE_DATA_SET_RANGE():
-    DEVICE_DATA_SET_RANGE = win32more.System.Ioctl.DEVICE_DATA_SET_RANGE_head
-    DEVICE_DATA_SET_RANGE._fields_ = [
-        ("StartingOffset", Int64),
-        ("LengthInBytes", UInt64),
-    ]
-    return DEVICE_DATA_SET_RANGE
-def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES_head():
-    class DEVICE_MANAGE_DATA_SET_ATTRIBUTES(Structure):
-        pass
-    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES
-def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES():
-    DEVICE_MANAGE_DATA_SET_ATTRIBUTES = win32more.System.Ioctl.DEVICE_MANAGE_DATA_SET_ATTRIBUTES_head
-    DEVICE_MANAGE_DATA_SET_ATTRIBUTES._fields_ = [
-        ("Size", UInt32),
-        ("Action", UInt32),
-        ("Flags", UInt32),
-        ("ParameterBlockOffset", UInt32),
-        ("ParameterBlockLength", UInt32),
-        ("DataSetRangesOffset", UInt32),
-        ("DataSetRangesLength", UInt32),
-    ]
-    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES
-def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT_head():
-    class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT(Structure):
-        pass
-    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT
-def _define_DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT():
-    DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT = win32more.System.Ioctl.DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT_head
-    DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT._fields_ = [
-        ("Size", UInt32),
-        ("Action", UInt32),
-        ("Flags", UInt32),
-        ("OperationStatus", UInt32),
-        ("ExtendedError", UInt32),
-        ("TargetDetailedError", UInt32),
-        ("ReservedStatus", UInt32),
-        ("OutputBlockOffset", UInt32),
-        ("OutputBlockLength", UInt32),
-    ]
-    return DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT
-def _define_DEVICE_DSM_DEFINITION_head():
-    class DEVICE_DSM_DEFINITION(Structure):
-        pass
-    return DEVICE_DSM_DEFINITION
-def _define_DEVICE_DSM_DEFINITION():
-    DEVICE_DSM_DEFINITION = win32more.System.Ioctl.DEVICE_DSM_DEFINITION_head
-    DEVICE_DSM_DEFINITION._fields_ = [
-        ("Action", UInt32),
-        ("SingleRange", win32more.Foundation.BOOLEAN),
-        ("ParameterBlockAlignment", UInt32),
-        ("ParameterBlockLength", UInt32),
-        ("HasOutput", win32more.Foundation.BOOLEAN),
-        ("OutputBlockAlignment", UInt32),
-        ("OutputBlockLength", UInt32),
-    ]
-    return DEVICE_DSM_DEFINITION
-def _define_DEVICE_DSM_NOTIFICATION_PARAMETERS_head():
-    class DEVICE_DSM_NOTIFICATION_PARAMETERS(Structure):
-        pass
-    return DEVICE_DSM_NOTIFICATION_PARAMETERS
-def _define_DEVICE_DSM_NOTIFICATION_PARAMETERS():
-    DEVICE_DSM_NOTIFICATION_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_NOTIFICATION_PARAMETERS_head
-    DEVICE_DSM_NOTIFICATION_PARAMETERS._fields_ = [
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("NumFileTypeIDs", UInt32),
-        ("FileTypeID", Guid * 0),
-    ]
-    return DEVICE_DSM_NOTIFICATION_PARAMETERS
-def _define_STORAGE_OFFLOAD_TOKEN_head():
-    class STORAGE_OFFLOAD_TOKEN(Structure):
-        pass
-    return STORAGE_OFFLOAD_TOKEN
-def _define_STORAGE_OFFLOAD_TOKEN():
-    STORAGE_OFFLOAD_TOKEN = win32more.System.Ioctl.STORAGE_OFFLOAD_TOKEN_head
-    class STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union(Union):
-        pass
-    class STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union__StorageOffloadZeroDataToken_e__Struct(Structure):
-        pass
-    STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union__StorageOffloadZeroDataToken_e__Struct._fields_ = [
-        ("Reserved2", Byte * 504),
-    ]
-    STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union._fields_ = [
-        ("StorageOffloadZeroDataToken", STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union__StorageOffloadZeroDataToken_e__Struct),
-        ("Token", Byte * 504),
-    ]
-    STORAGE_OFFLOAD_TOKEN._anonymous_ = [
-        'Anonymous',
-    ]
-    STORAGE_OFFLOAD_TOKEN._fields_ = [
-        ("TokenType", Byte * 4),
-        ("Reserved", Byte * 2),
-        ("TokenIdLength", Byte * 2),
-        ("Anonymous", STORAGE_OFFLOAD_TOKEN__Anonymous_e__Union),
-    ]
-    return STORAGE_OFFLOAD_TOKEN
-def _define_DEVICE_DSM_OFFLOAD_READ_PARAMETERS_head():
-    class DEVICE_DSM_OFFLOAD_READ_PARAMETERS(Structure):
-        pass
-    return DEVICE_DSM_OFFLOAD_READ_PARAMETERS
-def _define_DEVICE_DSM_OFFLOAD_READ_PARAMETERS():
-    DEVICE_DSM_OFFLOAD_READ_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_OFFLOAD_READ_PARAMETERS_head
-    DEVICE_DSM_OFFLOAD_READ_PARAMETERS._fields_ = [
-        ("Flags", UInt32),
-        ("TimeToLive", UInt32),
-        ("Reserved", UInt32 * 2),
-    ]
-    return DEVICE_DSM_OFFLOAD_READ_PARAMETERS
-def _define_STORAGE_OFFLOAD_READ_OUTPUT_head():
-    class STORAGE_OFFLOAD_READ_OUTPUT(Structure):
-        pass
-    return STORAGE_OFFLOAD_READ_OUTPUT
-def _define_STORAGE_OFFLOAD_READ_OUTPUT():
-    STORAGE_OFFLOAD_READ_OUTPUT = win32more.System.Ioctl.STORAGE_OFFLOAD_READ_OUTPUT_head
-    STORAGE_OFFLOAD_READ_OUTPUT._fields_ = [
-        ("OffloadReadFlags", UInt32),
-        ("Reserved", UInt32),
-        ("LengthProtected", UInt64),
-        ("TokenLength", UInt32),
-        ("Token", win32more.System.Ioctl.STORAGE_OFFLOAD_TOKEN),
-    ]
-    return STORAGE_OFFLOAD_READ_OUTPUT
-def _define_DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS_head():
-    class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS(Structure):
-        pass
-    return DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS
-def _define_DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS():
-    DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS_head
-    DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS._fields_ = [
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-        ("TokenOffset", UInt64),
-        ("Token", win32more.System.Ioctl.STORAGE_OFFLOAD_TOKEN),
-    ]
-    return DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS
-def _define_STORAGE_OFFLOAD_WRITE_OUTPUT_head():
-    class STORAGE_OFFLOAD_WRITE_OUTPUT(Structure):
-        pass
-    return STORAGE_OFFLOAD_WRITE_OUTPUT
-def _define_STORAGE_OFFLOAD_WRITE_OUTPUT():
-    STORAGE_OFFLOAD_WRITE_OUTPUT = win32more.System.Ioctl.STORAGE_OFFLOAD_WRITE_OUTPUT_head
-    STORAGE_OFFLOAD_WRITE_OUTPUT._fields_ = [
-        ("OffloadWriteFlags", UInt32),
-        ("Reserved", UInt32),
-        ("LengthCopied", UInt64),
-    ]
-    return STORAGE_OFFLOAD_WRITE_OUTPUT
-def _define_DEVICE_DATA_SET_LBP_STATE_PARAMETERS_head():
-    class DEVICE_DATA_SET_LBP_STATE_PARAMETERS(Structure):
-        pass
-    return DEVICE_DATA_SET_LBP_STATE_PARAMETERS
-def _define_DEVICE_DATA_SET_LBP_STATE_PARAMETERS():
-    DEVICE_DATA_SET_LBP_STATE_PARAMETERS = win32more.System.Ioctl.DEVICE_DATA_SET_LBP_STATE_PARAMETERS_head
-    DEVICE_DATA_SET_LBP_STATE_PARAMETERS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("OutputVersion", UInt32),
-    ]
-    return DEVICE_DATA_SET_LBP_STATE_PARAMETERS
-def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE_head():
-    class DEVICE_DATA_SET_LB_PROVISIONING_STATE(Structure):
-        pass
-    return DEVICE_DATA_SET_LB_PROVISIONING_STATE
-def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE():
-    DEVICE_DATA_SET_LB_PROVISIONING_STATE = win32more.System.Ioctl.DEVICE_DATA_SET_LB_PROVISIONING_STATE_head
-    DEVICE_DATA_SET_LB_PROVISIONING_STATE._fields_ = [
-        ("Size", UInt32),
-        ("Version", UInt32),
-        ("SlabSizeInBytes", UInt64),
-        ("SlabOffsetDeltaInBytes", UInt32),
-        ("SlabAllocationBitMapBitCount", UInt32),
-        ("SlabAllocationBitMapLength", UInt32),
-        ("SlabAllocationBitMap", UInt32 * 0),
-    ]
-    return DEVICE_DATA_SET_LB_PROVISIONING_STATE
-def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2_head():
-    class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(Structure):
-        pass
-    return DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2
-def _define_DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2():
-    DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 = win32more.System.Ioctl.DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2_head
-    DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2._fields_ = [
-        ("Size", UInt32),
-        ("Version", UInt32),
-        ("SlabSizeInBytes", UInt64),
-        ("SlabOffsetDeltaInBytes", UInt64),
-        ("SlabAllocationBitMapBitCount", UInt32),
-        ("SlabAllocationBitMapLength", UInt32),
-        ("SlabAllocationBitMap", UInt32 * 0),
-    ]
-    return DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2
-def _define_DEVICE_DATA_SET_REPAIR_PARAMETERS_head():
-    class DEVICE_DATA_SET_REPAIR_PARAMETERS(Structure):
-        pass
-    return DEVICE_DATA_SET_REPAIR_PARAMETERS
-def _define_DEVICE_DATA_SET_REPAIR_PARAMETERS():
-    DEVICE_DATA_SET_REPAIR_PARAMETERS = win32more.System.Ioctl.DEVICE_DATA_SET_REPAIR_PARAMETERS_head
-    DEVICE_DATA_SET_REPAIR_PARAMETERS._fields_ = [
-        ("NumberOfRepairCopies", UInt32),
-        ("SourceCopy", UInt32),
-        ("RepairCopies", UInt32 * 0),
-    ]
-    return DEVICE_DATA_SET_REPAIR_PARAMETERS
-def _define_DEVICE_DATA_SET_REPAIR_OUTPUT_head():
-    class DEVICE_DATA_SET_REPAIR_OUTPUT(Structure):
-        pass
-    return DEVICE_DATA_SET_REPAIR_OUTPUT
-def _define_DEVICE_DATA_SET_REPAIR_OUTPUT():
-    DEVICE_DATA_SET_REPAIR_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_REPAIR_OUTPUT_head
-    DEVICE_DATA_SET_REPAIR_OUTPUT._fields_ = [
-        ("ParityExtent", win32more.System.Ioctl.DEVICE_DATA_SET_RANGE),
-    ]
-    return DEVICE_DATA_SET_REPAIR_OUTPUT
-def _define_DEVICE_DATA_SET_SCRUB_OUTPUT_head():
-    class DEVICE_DATA_SET_SCRUB_OUTPUT(Structure):
-        pass
-    return DEVICE_DATA_SET_SCRUB_OUTPUT
-def _define_DEVICE_DATA_SET_SCRUB_OUTPUT():
-    DEVICE_DATA_SET_SCRUB_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_SCRUB_OUTPUT_head
-    DEVICE_DATA_SET_SCRUB_OUTPUT._fields_ = [
-        ("BytesProcessed", UInt64),
-        ("BytesRepaired", UInt64),
-        ("BytesFailed", UInt64),
-    ]
-    return DEVICE_DATA_SET_SCRUB_OUTPUT
-def _define_DEVICE_DATA_SET_SCRUB_EX_OUTPUT_head():
-    class DEVICE_DATA_SET_SCRUB_EX_OUTPUT(Structure):
-        pass
-    return DEVICE_DATA_SET_SCRUB_EX_OUTPUT
-def _define_DEVICE_DATA_SET_SCRUB_EX_OUTPUT():
-    DEVICE_DATA_SET_SCRUB_EX_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_SCRUB_EX_OUTPUT_head
-    DEVICE_DATA_SET_SCRUB_EX_OUTPUT._fields_ = [
-        ("BytesProcessed", UInt64),
-        ("BytesRepaired", UInt64),
-        ("BytesFailed", UInt64),
-        ("ParityExtent", win32more.System.Ioctl.DEVICE_DATA_SET_RANGE),
-        ("BytesScrubbed", UInt64),
-    ]
-    return DEVICE_DATA_SET_SCRUB_EX_OUTPUT
-def _define_DEVICE_DSM_TIERING_QUERY_INPUT_head():
-    class DEVICE_DSM_TIERING_QUERY_INPUT(Structure):
-        pass
-    return DEVICE_DSM_TIERING_QUERY_INPUT
-def _define_DEVICE_DSM_TIERING_QUERY_INPUT():
-    DEVICE_DSM_TIERING_QUERY_INPUT = win32more.System.Ioctl.DEVICE_DSM_TIERING_QUERY_INPUT_head
-    DEVICE_DSM_TIERING_QUERY_INPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("NumberOfTierIds", UInt32),
-        ("TierIds", Guid * 0),
-    ]
-    return DEVICE_DSM_TIERING_QUERY_INPUT
+    return STORAGE_TIER
+STORAGE_TIER_CLASS = Int32
+STORAGE_TIER_CLASS_StorageTierClassUnspecified = 0
+STORAGE_TIER_CLASS_StorageTierClassCapacity = 1
+STORAGE_TIER_CLASS_StorageTierClassPerformance = 2
+STORAGE_TIER_CLASS_StorageTierClassMax = 3
+STORAGE_TIER_MEDIA_TYPE = Int32
+STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeUnspecified = 0
+STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeDisk = 1
+STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeSsd = 2
+STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeScm = 4
+STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeMax = 5
 def _define_STORAGE_TIER_REGION_head():
     class STORAGE_TIER_REGION(Structure):
         pass
@@ -2778,94 +7512,29 @@ def _define_STORAGE_TIER_REGION_head():
 def _define_STORAGE_TIER_REGION():
     STORAGE_TIER_REGION = win32more.System.Ioctl.STORAGE_TIER_REGION_head
     STORAGE_TIER_REGION._fields_ = [
-        ("TierId", Guid),
-        ("Offset", UInt64),
-        ("Length", UInt64),
+        ('TierId', Guid),
+        ('Offset', UInt64),
+        ('Length', UInt64),
     ]
     return STORAGE_TIER_REGION
-def _define_DEVICE_DSM_TIERING_QUERY_OUTPUT_head():
-    class DEVICE_DSM_TIERING_QUERY_OUTPUT(Structure):
+def _define_STORAGE_WRITE_CACHE_PROPERTY_head():
+    class STORAGE_WRITE_CACHE_PROPERTY(Structure):
         pass
-    return DEVICE_DSM_TIERING_QUERY_OUTPUT
-def _define_DEVICE_DSM_TIERING_QUERY_OUTPUT():
-    DEVICE_DSM_TIERING_QUERY_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_TIERING_QUERY_OUTPUT_head
-    DEVICE_DSM_TIERING_QUERY_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-        ("Alignment", UInt64),
-        ("TotalNumberOfRegions", UInt32),
-        ("NumberOfRegionsReturned", UInt32),
-        ("Regions", win32more.System.Ioctl.STORAGE_TIER_REGION * 0),
+    return STORAGE_WRITE_CACHE_PROPERTY
+def _define_STORAGE_WRITE_CACHE_PROPERTY():
+    STORAGE_WRITE_CACHE_PROPERTY = win32more.System.Ioctl.STORAGE_WRITE_CACHE_PROPERTY_head
+    STORAGE_WRITE_CACHE_PROPERTY._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('WriteCacheType', win32more.System.Ioctl.WRITE_CACHE_TYPE),
+        ('WriteCacheEnabled', win32more.System.Ioctl.WRITE_CACHE_ENABLE),
+        ('WriteCacheChangeable', win32more.System.Ioctl.WRITE_CACHE_CHANGE),
+        ('WriteThroughSupported', win32more.System.Ioctl.WRITE_THROUGH),
+        ('FlushCacheSupported', win32more.Foundation.BOOLEAN),
+        ('UserDefinedPowerProtection', win32more.Foundation.BOOLEAN),
+        ('NVCacheEnabled', win32more.Foundation.BOOLEAN),
     ]
-    return DEVICE_DSM_TIERING_QUERY_OUTPUT
-def _define_DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS_head():
-    class DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS(Structure):
-        pass
-    return DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
-def _define_DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS():
-    DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS_head
-    DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS._fields_ = [
-        ("Size", UInt32),
-        ("TargetPriority", Byte),
-        ("Reserved", Byte * 3),
-    ]
-    return DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
-def _define_DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT_head():
-    class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT(Structure):
-        pass
-    return DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT
-def _define_DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT():
-    DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT = win32more.System.Ioctl.DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT_head
-    DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT._fields_ = [
-        ("TopologyRangeBytes", UInt64),
-        ("TopologyId", Byte * 16),
-    ]
-    return DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT
-def _define_DEVICE_STORAGE_ADDRESS_RANGE_head():
-    class DEVICE_STORAGE_ADDRESS_RANGE(Structure):
-        pass
-    return DEVICE_STORAGE_ADDRESS_RANGE
-def _define_DEVICE_STORAGE_ADDRESS_RANGE():
-    DEVICE_STORAGE_ADDRESS_RANGE = win32more.System.Ioctl.DEVICE_STORAGE_ADDRESS_RANGE_head
-    DEVICE_STORAGE_ADDRESS_RANGE._fields_ = [
-        ("StartAddress", Int64),
-        ("LengthInBytes", UInt64),
-    ]
-    return DEVICE_STORAGE_ADDRESS_RANGE
-def _define_DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_head():
-    class DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT(Structure):
-        pass
-    return DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT
-def _define_DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT():
-    DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_head
-    DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("TotalNumberOfRanges", UInt32),
-        ("NumberOfRangesReturned", UInt32),
-        ("Ranges", win32more.System.Ioctl.DEVICE_STORAGE_ADDRESS_RANGE * 0),
-    ]
-    return DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT
-def _define_DEVICE_DSM_REPORT_ZONES_PARAMETERS_head():
-    class DEVICE_DSM_REPORT_ZONES_PARAMETERS(Structure):
-        pass
-    return DEVICE_DSM_REPORT_ZONES_PARAMETERS
-def _define_DEVICE_DSM_REPORT_ZONES_PARAMETERS():
-    DEVICE_DSM_REPORT_ZONES_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_REPORT_ZONES_PARAMETERS_head
-    DEVICE_DSM_REPORT_ZONES_PARAMETERS._fields_ = [
-        ("Size", UInt32),
-        ("ReportOption", Byte),
-        ("Partial", Byte),
-        ("Reserved", Byte * 2),
-    ]
-    return DEVICE_DSM_REPORT_ZONES_PARAMETERS
-STORAGE_ZONES_ATTRIBUTES = Int32
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeAndLengthMayDifferent = 0
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLengthSame = 1
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLastZoneLengthDifferent = 2
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeMayDifferentLengthSame = 3
+    return STORAGE_WRITE_CACHE_PROPERTY
 STORAGE_ZONE_CONDITION = Int32
 STORAGE_ZONE_CONDITION_ZoneConditionConventional = 0
 STORAGE_ZONE_CONDITION_ZoneConditionEmpty = 1
@@ -2882,4561 +7551,78 @@ def _define_STORAGE_ZONE_DESCRIPTOR_head():
 def _define_STORAGE_ZONE_DESCRIPTOR():
     STORAGE_ZONE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ZONE_DESCRIPTOR_head
     STORAGE_ZONE_DESCRIPTOR._fields_ = [
-        ("Size", UInt32),
-        ("ZoneType", win32more.System.Ioctl.STORAGE_ZONE_TYPES),
-        ("ZoneCondition", win32more.System.Ioctl.STORAGE_ZONE_CONDITION),
-        ("ResetWritePointerRecommend", win32more.Foundation.BOOLEAN),
-        ("Reserved0", Byte * 3),
-        ("ZoneSize", UInt64),
-        ("WritePointerOffset", UInt64),
+        ('Size', UInt32),
+        ('ZoneType', win32more.System.Ioctl.STORAGE_ZONE_TYPES),
+        ('ZoneCondition', win32more.System.Ioctl.STORAGE_ZONE_CONDITION),
+        ('ResetWritePointerRecommend', win32more.Foundation.BOOLEAN),
+        ('Reserved0', Byte * 3),
+        ('ZoneSize', UInt64),
+        ('WritePointerOffset', UInt64),
     ]
     return STORAGE_ZONE_DESCRIPTOR
-def _define_DEVICE_DSM_REPORT_ZONES_DATA_head():
-    class DEVICE_DSM_REPORT_ZONES_DATA(Structure):
-        pass
-    return DEVICE_DSM_REPORT_ZONES_DATA
-def _define_DEVICE_DSM_REPORT_ZONES_DATA():
-    DEVICE_DSM_REPORT_ZONES_DATA = win32more.System.Ioctl.DEVICE_DSM_REPORT_ZONES_DATA_head
-    DEVICE_DSM_REPORT_ZONES_DATA._fields_ = [
-        ("Size", UInt32),
-        ("ZoneCount", UInt32),
-        ("Attributes", win32more.System.Ioctl.STORAGE_ZONES_ATTRIBUTES),
-        ("Reserved0", UInt32),
-        ("ZoneDescriptors", win32more.System.Ioctl.STORAGE_ZONE_DESCRIPTOR * 0),
-    ]
-    return DEVICE_DSM_REPORT_ZONES_DATA
-def _define_DEVICE_STORAGE_RANGE_ATTRIBUTES_head():
-    class DEVICE_STORAGE_RANGE_ATTRIBUTES(Structure):
-        pass
-    return DEVICE_STORAGE_RANGE_ATTRIBUTES
-def _define_DEVICE_STORAGE_RANGE_ATTRIBUTES():
-    DEVICE_STORAGE_RANGE_ATTRIBUTES = win32more.System.Ioctl.DEVICE_STORAGE_RANGE_ATTRIBUTES_head
-    class DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union(Union):
-        pass
-    class DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union._fields_ = [
-        ("AllFlags", UInt32),
-        ("Anonymous", DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    DEVICE_STORAGE_RANGE_ATTRIBUTES._anonymous_ = [
-        'Anonymous',
-    ]
-    DEVICE_STORAGE_RANGE_ATTRIBUTES._fields_ = [
-        ("LengthInBytes", UInt64),
-        ("Anonymous", DEVICE_STORAGE_RANGE_ATTRIBUTES__Anonymous_e__Union),
-        ("Reserved", UInt32),
-    ]
-    return DEVICE_STORAGE_RANGE_ATTRIBUTES
-def _define_DEVICE_DSM_RANGE_ERROR_INFO_head():
-    class DEVICE_DSM_RANGE_ERROR_INFO(Structure):
-        pass
-    return DEVICE_DSM_RANGE_ERROR_INFO
-def _define_DEVICE_DSM_RANGE_ERROR_INFO():
-    DEVICE_DSM_RANGE_ERROR_INFO = win32more.System.Ioctl.DEVICE_DSM_RANGE_ERROR_INFO_head
-    DEVICE_DSM_RANGE_ERROR_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("TotalNumberOfRanges", UInt32),
-        ("NumberOfRangesReturned", UInt32),
-        ("Ranges", win32more.System.Ioctl.DEVICE_STORAGE_RANGE_ATTRIBUTES * 0),
-    ]
-    return DEVICE_DSM_RANGE_ERROR_INFO
-def _define_DEVICE_DSM_LOST_QUERY_PARAMETERS_head():
-    class DEVICE_DSM_LOST_QUERY_PARAMETERS(Structure):
-        pass
-    return DEVICE_DSM_LOST_QUERY_PARAMETERS
-def _define_DEVICE_DSM_LOST_QUERY_PARAMETERS():
-    DEVICE_DSM_LOST_QUERY_PARAMETERS = win32more.System.Ioctl.DEVICE_DSM_LOST_QUERY_PARAMETERS_head
-    DEVICE_DSM_LOST_QUERY_PARAMETERS._fields_ = [
-        ("Version", UInt32),
-        ("Granularity", UInt64),
-    ]
-    return DEVICE_DSM_LOST_QUERY_PARAMETERS
-def _define_DEVICE_DSM_LOST_QUERY_OUTPUT_head():
-    class DEVICE_DSM_LOST_QUERY_OUTPUT(Structure):
-        pass
-    return DEVICE_DSM_LOST_QUERY_OUTPUT
-def _define_DEVICE_DSM_LOST_QUERY_OUTPUT():
-    DEVICE_DSM_LOST_QUERY_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_LOST_QUERY_OUTPUT_head
-    DEVICE_DSM_LOST_QUERY_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Alignment", UInt64),
-        ("NumberOfBits", UInt32),
-        ("BitMap", UInt32 * 0),
-    ]
-    return DEVICE_DSM_LOST_QUERY_OUTPUT
-def _define_DEVICE_DSM_FREE_SPACE_OUTPUT_head():
-    class DEVICE_DSM_FREE_SPACE_OUTPUT(Structure):
-        pass
-    return DEVICE_DSM_FREE_SPACE_OUTPUT
-def _define_DEVICE_DSM_FREE_SPACE_OUTPUT():
-    DEVICE_DSM_FREE_SPACE_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_FREE_SPACE_OUTPUT_head
-    DEVICE_DSM_FREE_SPACE_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("FreeSpace", UInt64),
-    ]
-    return DEVICE_DSM_FREE_SPACE_OUTPUT
-def _define_DEVICE_DSM_CONVERSION_OUTPUT_head():
-    class DEVICE_DSM_CONVERSION_OUTPUT(Structure):
-        pass
-    return DEVICE_DSM_CONVERSION_OUTPUT
-def _define_DEVICE_DSM_CONVERSION_OUTPUT():
-    DEVICE_DSM_CONVERSION_OUTPUT = win32more.System.Ioctl.DEVICE_DSM_CONVERSION_OUTPUT_head
-    DEVICE_DSM_CONVERSION_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Source", Guid),
-    ]
-    return DEVICE_DSM_CONVERSION_OUTPUT
-def _define_STORAGE_GET_BC_PROPERTIES_OUTPUT_head():
-    class STORAGE_GET_BC_PROPERTIES_OUTPUT(Structure):
-        pass
-    return STORAGE_GET_BC_PROPERTIES_OUTPUT
-def _define_STORAGE_GET_BC_PROPERTIES_OUTPUT():
-    STORAGE_GET_BC_PROPERTIES_OUTPUT = win32more.System.Ioctl.STORAGE_GET_BC_PROPERTIES_OUTPUT_head
-    STORAGE_GET_BC_PROPERTIES_OUTPUT._fields_ = [
-        ("MaximumRequestsPerPeriod", UInt32),
-        ("MinimumPeriod", UInt32),
-        ("MaximumRequestSize", UInt64),
-        ("EstimatedTimePerRequest", UInt32),
-        ("NumOutStandingRequests", UInt32),
-        ("RequestSize", UInt64),
-    ]
-    return STORAGE_GET_BC_PROPERTIES_OUTPUT
-def _define_STORAGE_ALLOCATE_BC_STREAM_INPUT_head():
-    class STORAGE_ALLOCATE_BC_STREAM_INPUT(Structure):
-        pass
-    return STORAGE_ALLOCATE_BC_STREAM_INPUT
-def _define_STORAGE_ALLOCATE_BC_STREAM_INPUT():
-    STORAGE_ALLOCATE_BC_STREAM_INPUT = win32more.System.Ioctl.STORAGE_ALLOCATE_BC_STREAM_INPUT_head
-    STORAGE_ALLOCATE_BC_STREAM_INPUT._fields_ = [
-        ("Version", UInt32),
-        ("RequestsPerPeriod", UInt32),
-        ("Period", UInt32),
-        ("RetryFailures", win32more.Foundation.BOOLEAN),
-        ("Discardable", win32more.Foundation.BOOLEAN),
-        ("Reserved1", win32more.Foundation.BOOLEAN * 2),
-        ("AccessType", UInt32),
-        ("AccessMode", UInt32),
-    ]
-    return STORAGE_ALLOCATE_BC_STREAM_INPUT
-def _define_STORAGE_ALLOCATE_BC_STREAM_OUTPUT_head():
-    class STORAGE_ALLOCATE_BC_STREAM_OUTPUT(Structure):
-        pass
-    return STORAGE_ALLOCATE_BC_STREAM_OUTPUT
-def _define_STORAGE_ALLOCATE_BC_STREAM_OUTPUT():
-    STORAGE_ALLOCATE_BC_STREAM_OUTPUT = win32more.System.Ioctl.STORAGE_ALLOCATE_BC_STREAM_OUTPUT_head
-    STORAGE_ALLOCATE_BC_STREAM_OUTPUT._fields_ = [
-        ("RequestSize", UInt64),
-        ("NumOutStandingRequests", UInt32),
-    ]
-    return STORAGE_ALLOCATE_BC_STREAM_OUTPUT
-def _define_STORAGE_PRIORITY_HINT_SUPPORT_head():
-    class STORAGE_PRIORITY_HINT_SUPPORT(Structure):
-        pass
-    return STORAGE_PRIORITY_HINT_SUPPORT
-def _define_STORAGE_PRIORITY_HINT_SUPPORT():
-    STORAGE_PRIORITY_HINT_SUPPORT = win32more.System.Ioctl.STORAGE_PRIORITY_HINT_SUPPORT_head
-    STORAGE_PRIORITY_HINT_SUPPORT._fields_ = [
-        ("SupportFlags", UInt32),
-    ]
-    return STORAGE_PRIORITY_HINT_SUPPORT
-STORAGE_DIAGNOSTIC_LEVEL = Int32
-STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelDefault = 0
-STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelMax = 1
-STORAGE_DIAGNOSTIC_TARGET_TYPE = Int32
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeUndefined = 0
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypePort = 1
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMiniport = 2
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeHbaFirmware = 3
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMax = 4
-def _define_STORAGE_DIAGNOSTIC_REQUEST_head():
-    class STORAGE_DIAGNOSTIC_REQUEST(Structure):
-        pass
-    return STORAGE_DIAGNOSTIC_REQUEST
-def _define_STORAGE_DIAGNOSTIC_REQUEST():
-    STORAGE_DIAGNOSTIC_REQUEST = win32more.System.Ioctl.STORAGE_DIAGNOSTIC_REQUEST_head
-    STORAGE_DIAGNOSTIC_REQUEST._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("TargetType", win32more.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE),
-        ("Level", win32more.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL),
-    ]
-    return STORAGE_DIAGNOSTIC_REQUEST
-def _define_STORAGE_DIAGNOSTIC_DATA_head():
-    class STORAGE_DIAGNOSTIC_DATA(Structure):
-        pass
-    return STORAGE_DIAGNOSTIC_DATA
-def _define_STORAGE_DIAGNOSTIC_DATA():
-    STORAGE_DIAGNOSTIC_DATA = win32more.System.Ioctl.STORAGE_DIAGNOSTIC_DATA_head
-    STORAGE_DIAGNOSTIC_DATA._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ProviderId", Guid),
-        ("BufferSize", UInt32),
-        ("Reserved", UInt32),
-        ("DiagnosticDataBuffer", Byte * 0),
-    ]
-    return STORAGE_DIAGNOSTIC_DATA
-def _define_PHYSICAL_ELEMENT_STATUS_REQUEST_head():
-    class PHYSICAL_ELEMENT_STATUS_REQUEST(Structure):
-        pass
-    return PHYSICAL_ELEMENT_STATUS_REQUEST
-def _define_PHYSICAL_ELEMENT_STATUS_REQUEST():
-    PHYSICAL_ELEMENT_STATUS_REQUEST = win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_REQUEST_head
-    PHYSICAL_ELEMENT_STATUS_REQUEST._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("StartingElement", UInt32),
-        ("Filter", Byte),
-        ("ReportType", Byte),
-        ("Reserved", Byte * 2),
-    ]
-    return PHYSICAL_ELEMENT_STATUS_REQUEST
-def _define_PHYSICAL_ELEMENT_STATUS_DESCRIPTOR_head():
-    class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR(Structure):
-        pass
-    return PHYSICAL_ELEMENT_STATUS_DESCRIPTOR
-def _define_PHYSICAL_ELEMENT_STATUS_DESCRIPTOR():
-    PHYSICAL_ELEMENT_STATUS_DESCRIPTOR = win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_DESCRIPTOR_head
-    PHYSICAL_ELEMENT_STATUS_DESCRIPTOR._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ElementIdentifier", UInt32),
-        ("PhysicalElementType", Byte),
-        ("PhysicalElementHealth", Byte),
-        ("Reserved1", Byte * 2),
-        ("AssociatedCapacity", UInt64),
-        ("Reserved2", UInt32 * 4),
-    ]
-    return PHYSICAL_ELEMENT_STATUS_DESCRIPTOR
-def _define_PHYSICAL_ELEMENT_STATUS_head():
-    class PHYSICAL_ELEMENT_STATUS(Structure):
-        pass
-    return PHYSICAL_ELEMENT_STATUS
-def _define_PHYSICAL_ELEMENT_STATUS():
-    PHYSICAL_ELEMENT_STATUS = win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_head
-    PHYSICAL_ELEMENT_STATUS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DescriptorCount", UInt32),
-        ("ReturnedDescriptorCount", UInt32),
-        ("ElementIdentifierBeingDepoped", UInt32),
-        ("Reserved", UInt32),
-        ("Descriptors", win32more.System.Ioctl.PHYSICAL_ELEMENT_STATUS_DESCRIPTOR * 0),
-    ]
-    return PHYSICAL_ELEMENT_STATUS
-def _define_REMOVE_ELEMENT_AND_TRUNCATE_REQUEST_head():
-    class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST(Structure):
-        pass
-    return REMOVE_ELEMENT_AND_TRUNCATE_REQUEST
-def _define_REMOVE_ELEMENT_AND_TRUNCATE_REQUEST():
-    REMOVE_ELEMENT_AND_TRUNCATE_REQUEST = win32more.System.Ioctl.REMOVE_ELEMENT_AND_TRUNCATE_REQUEST_head
-    REMOVE_ELEMENT_AND_TRUNCATE_REQUEST._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("RequestCapacity", UInt64),
-        ("ElementIdentifier", UInt32),
-        ("Reserved", UInt32),
-    ]
-    return REMOVE_ELEMENT_AND_TRUNCATE_REQUEST
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = Int32
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceInternalStatusDataRequestTypeUndefined = 0
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusDataHeader = 1
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusData = 2
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusDataHeader = 3
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusData = 4
-DEVICE_INTERNAL_STATUS_DATA_SET = Int32
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetUndefined = 0
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet1 = 1
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet2 = 2
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet3 = 3
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet4 = 4
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetMax = 5
-def _define_GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST_head():
-    class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST(Structure):
-        pass
-    return GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST
-def _define_GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST():
-    GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST = win32more.System.Ioctl.GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST_head
-    GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("RequestDataType", win32more.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE),
-        ("RequestDataSet", win32more.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET),
-    ]
-    return GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST
-def _define_DEVICE_INTERNAL_STATUS_DATA_head():
-    class DEVICE_INTERNAL_STATUS_DATA(Structure):
-        pass
-    return DEVICE_INTERNAL_STATUS_DATA
-def _define_DEVICE_INTERNAL_STATUS_DATA():
-    DEVICE_INTERNAL_STATUS_DATA = win32more.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_head
-    DEVICE_INTERNAL_STATUS_DATA._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("T10VendorId", UInt64),
-        ("DataSet1Length", UInt32),
-        ("DataSet2Length", UInt32),
-        ("DataSet3Length", UInt32),
-        ("DataSet4Length", UInt32),
-        ("StatusDataVersion", Byte),
-        ("Reserved", Byte * 3),
-        ("ReasonIdentifier", Byte * 128),
-        ("StatusDataLength", UInt32),
-        ("StatusData", Byte * 0),
-    ]
-    return DEVICE_INTERNAL_STATUS_DATA
-STORAGE_SANITIZE_METHOD = Int32
-STORAGE_SANITIZE_METHOD_StorageSanitizeMethodDefault = 0
-STORAGE_SANITIZE_METHOD_StorageSanitizeMethodBlockErase = 1
-STORAGE_SANITIZE_METHOD_StorageSanitizeMethodCryptoErase = 2
-def _define_STORAGE_REINITIALIZE_MEDIA_head():
-    class STORAGE_REINITIALIZE_MEDIA(Structure):
-        pass
-    return STORAGE_REINITIALIZE_MEDIA
-def _define_STORAGE_REINITIALIZE_MEDIA():
-    STORAGE_REINITIALIZE_MEDIA = win32more.System.Ioctl.STORAGE_REINITIALIZE_MEDIA_head
-    class STORAGE_REINITIALIZE_MEDIA__SanitizeOption_e__Struct(Structure):
-        pass
-    STORAGE_REINITIALIZE_MEDIA__SanitizeOption_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    STORAGE_REINITIALIZE_MEDIA._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("TimeoutInSeconds", UInt32),
-        ("SanitizeOption", STORAGE_REINITIALIZE_MEDIA__SanitizeOption_e__Struct),
-    ]
-    return STORAGE_REINITIALIZE_MEDIA
-def _define_STORAGE_MEDIA_SERIAL_NUMBER_DATA_head():
-    class STORAGE_MEDIA_SERIAL_NUMBER_DATA(Structure):
-        pass
-    return STORAGE_MEDIA_SERIAL_NUMBER_DATA
-def _define_STORAGE_MEDIA_SERIAL_NUMBER_DATA():
-    STORAGE_MEDIA_SERIAL_NUMBER_DATA = win32more.System.Ioctl.STORAGE_MEDIA_SERIAL_NUMBER_DATA_head
-    STORAGE_MEDIA_SERIAL_NUMBER_DATA._fields_ = [
-        ("Reserved", UInt16),
-        ("SerialNumberLength", UInt16),
-        ("SerialNumber", Byte * 0),
-    ]
-    return STORAGE_MEDIA_SERIAL_NUMBER_DATA
-def _define_STORAGE_READ_CAPACITY_head():
-    class STORAGE_READ_CAPACITY(Structure):
-        pass
-    return STORAGE_READ_CAPACITY
-def _define_STORAGE_READ_CAPACITY():
-    STORAGE_READ_CAPACITY = win32more.System.Ioctl.STORAGE_READ_CAPACITY_head
-    STORAGE_READ_CAPACITY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("BlockLength", UInt32),
-        ("NumberOfBlocks", win32more.Foundation.LARGE_INTEGER),
-        ("DiskLength", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return STORAGE_READ_CAPACITY
-WRITE_CACHE_TYPE = Int32
-WRITE_CACHE_TYPE_WriteCacheTypeUnknown = 0
-WRITE_CACHE_TYPE_WriteCacheTypeNone = 1
-WRITE_CACHE_TYPE_WriteCacheTypeWriteBack = 2
-WRITE_CACHE_TYPE_WriteCacheTypeWriteThrough = 3
-WRITE_CACHE_ENABLE = Int32
-WRITE_CACHE_ENABLE_WriteCacheEnableUnknown = 0
-WRITE_CACHE_ENABLE_WriteCacheDisabled = 1
-WRITE_CACHE_ENABLE_WriteCacheEnabled = 2
-WRITE_CACHE_CHANGE = Int32
-WRITE_CACHE_CHANGE_WriteCacheChangeUnknown = 0
-WRITE_CACHE_CHANGE_WriteCacheNotChangeable = 1
-WRITE_CACHE_CHANGE_WriteCacheChangeable = 2
-WRITE_THROUGH = Int32
-WRITE_THROUGH_WriteThroughUnknown = 0
-WRITE_THROUGH_WriteThroughNotSupported = 1
-WRITE_THROUGH_WriteThroughSupported = 2
-def _define_STORAGE_WRITE_CACHE_PROPERTY_head():
-    class STORAGE_WRITE_CACHE_PROPERTY(Structure):
-        pass
-    return STORAGE_WRITE_CACHE_PROPERTY
-def _define_STORAGE_WRITE_CACHE_PROPERTY():
-    STORAGE_WRITE_CACHE_PROPERTY = win32more.System.Ioctl.STORAGE_WRITE_CACHE_PROPERTY_head
-    STORAGE_WRITE_CACHE_PROPERTY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("WriteCacheType", win32more.System.Ioctl.WRITE_CACHE_TYPE),
-        ("WriteCacheEnabled", win32more.System.Ioctl.WRITE_CACHE_ENABLE),
-        ("WriteCacheChangeable", win32more.System.Ioctl.WRITE_CACHE_CHANGE),
-        ("WriteThroughSupported", win32more.System.Ioctl.WRITE_THROUGH),
-        ("FlushCacheSupported", win32more.Foundation.BOOLEAN),
-        ("UserDefinedPowerProtection", win32more.Foundation.BOOLEAN),
-        ("NVCacheEnabled", win32more.Foundation.BOOLEAN),
-    ]
-    return STORAGE_WRITE_CACHE_PROPERTY
-def _define_PERSISTENT_RESERVE_COMMAND_head():
-    class PERSISTENT_RESERVE_COMMAND(Structure):
-        pass
-    return PERSISTENT_RESERVE_COMMAND
-def _define_PERSISTENT_RESERVE_COMMAND():
-    PERSISTENT_RESERVE_COMMAND = win32more.System.Ioctl.PERSISTENT_RESERVE_COMMAND_head
-    class PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union(Union):
-        pass
-    class PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_IN_e__Struct(Structure):
-        pass
-    PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_IN_e__Struct._fields_ = [
-        ("_bitfield", Byte),
-        ("AllocationLength", UInt16),
-    ]
-    class PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_OUT_e__Struct(Structure):
-        pass
-    PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_OUT_e__Struct._fields_ = [
-        ("_bitfield1", Byte),
-        ("_bitfield2", Byte),
-        ("ParameterList", Byte * 0),
-    ]
-    PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union._fields_ = [
-        ("PR_IN", PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_IN_e__Struct),
-        ("PR_OUT", PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union__PR_OUT_e__Struct),
-    ]
-    PERSISTENT_RESERVE_COMMAND._anonymous_ = [
-        'Anonymous',
-    ]
-    PERSISTENT_RESERVE_COMMAND._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Anonymous", PERSISTENT_RESERVE_COMMAND__Anonymous_e__Union),
-    ]
-    return PERSISTENT_RESERVE_COMMAND
-_DEVICEDUMP_COLLECTION_TYPE = Int32
-_DEVICEDUMP_COLLECTION_TYPE_TCCollectionBugCheck = 1
-_DEVICEDUMP_COLLECTION_TYPE_TCCollectionApplicationRequested = 2
-_DEVICEDUMP_COLLECTION_TYPE_TCCollectionDeviceRequested = 3
-def _define_DEVICEDUMP_SUBSECTION_POINTER_head():
-    class DEVICEDUMP_SUBSECTION_POINTER(Structure):
-        pass
-    return DEVICEDUMP_SUBSECTION_POINTER
-def _define_DEVICEDUMP_SUBSECTION_POINTER():
-    DEVICEDUMP_SUBSECTION_POINTER = win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER_head
-    DEVICEDUMP_SUBSECTION_POINTER._pack_ = 1
-    DEVICEDUMP_SUBSECTION_POINTER._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwOffset", UInt32),
-    ]
-    return DEVICEDUMP_SUBSECTION_POINTER
-def _define_DEVICEDUMP_STRUCTURE_VERSION_head():
-    class DEVICEDUMP_STRUCTURE_VERSION(Structure):
-        pass
-    return DEVICEDUMP_STRUCTURE_VERSION
-def _define_DEVICEDUMP_STRUCTURE_VERSION():
-    DEVICEDUMP_STRUCTURE_VERSION = win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION_head
-    DEVICEDUMP_STRUCTURE_VERSION._pack_ = 1
-    DEVICEDUMP_STRUCTURE_VERSION._fields_ = [
-        ("dwSignature", UInt32),
-        ("dwVersion", UInt32),
-        ("dwSize", UInt32),
-    ]
-    return DEVICEDUMP_STRUCTURE_VERSION
-def _define_DEVICEDUMP_SECTION_HEADER_head():
-    class DEVICEDUMP_SECTION_HEADER(Structure):
-        pass
-    return DEVICEDUMP_SECTION_HEADER
-def _define_DEVICEDUMP_SECTION_HEADER():
-    DEVICEDUMP_SECTION_HEADER = win32more.System.Ioctl.DEVICEDUMP_SECTION_HEADER_head
-    DEVICEDUMP_SECTION_HEADER._pack_ = 1
-    DEVICEDUMP_SECTION_HEADER._fields_ = [
-        ("guidDeviceDataId", Guid),
-        ("sOrganizationID", Byte * 16),
-        ("dwFirmwareRevision", UInt32),
-        ("sModelNumber", Byte * 32),
-        ("szDeviceManufacturingID", Byte * 32),
-        ("dwFlags", UInt32),
-        ("bRestrictedPrivateDataVersion", UInt32),
-        ("dwFirmwareIssueId", UInt32),
-        ("szIssueDescriptionString", Byte * 132),
-    ]
-    return DEVICEDUMP_SECTION_HEADER
-def _define_GP_LOG_PAGE_DESCRIPTOR_head():
-    class GP_LOG_PAGE_DESCRIPTOR(Structure):
-        pass
-    return GP_LOG_PAGE_DESCRIPTOR
-def _define_GP_LOG_PAGE_DESCRIPTOR():
-    GP_LOG_PAGE_DESCRIPTOR = win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR_head
-    GP_LOG_PAGE_DESCRIPTOR._pack_ = 1
-    GP_LOG_PAGE_DESCRIPTOR._fields_ = [
-        ("LogAddress", UInt16),
-        ("LogSectors", UInt16),
-    ]
-    return GP_LOG_PAGE_DESCRIPTOR
-def _define_DEVICEDUMP_PUBLIC_SUBSECTION_head():
-    class DEVICEDUMP_PUBLIC_SUBSECTION(Structure):
-        pass
-    return DEVICEDUMP_PUBLIC_SUBSECTION
-def _define_DEVICEDUMP_PUBLIC_SUBSECTION():
-    DEVICEDUMP_PUBLIC_SUBSECTION = win32more.System.Ioctl.DEVICEDUMP_PUBLIC_SUBSECTION_head
-    DEVICEDUMP_PUBLIC_SUBSECTION._pack_ = 1
-    DEVICEDUMP_PUBLIC_SUBSECTION._fields_ = [
-        ("dwFlags", UInt32),
-        ("GPLogTable", win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR * 16),
-        ("szDescription", win32more.Foundation.CHAR * 16),
-        ("bData", Byte * 0),
-    ]
-    return DEVICEDUMP_PUBLIC_SUBSECTION
-def _define_DEVICEDUMP_RESTRICTED_SUBSECTION_head():
-    class DEVICEDUMP_RESTRICTED_SUBSECTION(Structure):
-        pass
-    return DEVICEDUMP_RESTRICTED_SUBSECTION
-def _define_DEVICEDUMP_RESTRICTED_SUBSECTION():
-    DEVICEDUMP_RESTRICTED_SUBSECTION = win32more.System.Ioctl.DEVICEDUMP_RESTRICTED_SUBSECTION_head
-    DEVICEDUMP_RESTRICTED_SUBSECTION._fields_ = [
-        ("bData", Byte * 0),
-    ]
-    return DEVICEDUMP_RESTRICTED_SUBSECTION
-def _define_DEVICEDUMP_PRIVATE_SUBSECTION_head():
-    class DEVICEDUMP_PRIVATE_SUBSECTION(Structure):
-        pass
-    return DEVICEDUMP_PRIVATE_SUBSECTION
-def _define_DEVICEDUMP_PRIVATE_SUBSECTION():
-    DEVICEDUMP_PRIVATE_SUBSECTION = win32more.System.Ioctl.DEVICEDUMP_PRIVATE_SUBSECTION_head
-    DEVICEDUMP_PRIVATE_SUBSECTION._pack_ = 1
-    DEVICEDUMP_PRIVATE_SUBSECTION._fields_ = [
-        ("dwFlags", UInt32),
-        ("GPLogId", win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR),
-        ("bData", Byte * 0),
-    ]
-    return DEVICEDUMP_PRIVATE_SUBSECTION
-def _define_DEVICEDUMP_STORAGEDEVICE_DATA_head():
-    class DEVICEDUMP_STORAGEDEVICE_DATA(Structure):
-        pass
-    return DEVICEDUMP_STORAGEDEVICE_DATA
-def _define_DEVICEDUMP_STORAGEDEVICE_DATA():
-    DEVICEDUMP_STORAGEDEVICE_DATA = win32more.System.Ioctl.DEVICEDUMP_STORAGEDEVICE_DATA_head
-    DEVICEDUMP_STORAGEDEVICE_DATA._pack_ = 1
-    DEVICEDUMP_STORAGEDEVICE_DATA._fields_ = [
-        ("Descriptor", win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION),
-        ("SectionHeader", win32more.System.Ioctl.DEVICEDUMP_SECTION_HEADER),
-        ("dwBufferSize", UInt32),
-        ("dwReasonForCollection", UInt32),
-        ("PublicData", win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER),
-        ("RestrictedData", win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER),
-        ("PrivateData", win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER),
-    ]
-    return DEVICEDUMP_STORAGEDEVICE_DATA
-def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD_head():
-    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(Structure):
-        pass
-    return DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD
-def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD():
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD = win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD_head
-    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union(Union):
-        pass
-    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct(Structure):
-        pass
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct._pack_ = 1
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct._fields_ = [
-        ("SrbTag", UInt32),
-    ]
-    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct(Structure):
-        pass
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct._pack_ = 1
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct._fields_ = [
-        ("dwReserved", UInt32),
-    ]
-    class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct(Structure):
-        pass
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct._pack_ = 1
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct._fields_ = [
-        ("dwAtaPortSpecific", UInt32),
-    ]
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union._fields_ = [
-        ("ExternalStack", DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__ExternalStack_e__Struct),
-        ("AtaPort", DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__AtaPort_e__Struct),
-        ("StorPort", DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union__StorPort_e__Struct),
-    ]
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._pack_ = 1
-    DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._fields_ = [
-        ("Cdb", Byte * 16),
-        ("Command", Byte * 16),
-        ("StartTime", UInt64),
-        ("EndTime", UInt64),
-        ("OperationStatus", UInt32),
-        ("OperationError", UInt32),
-        ("StackSpecific", DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD__StackSpecific_e__Union),
-    ]
-    return DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD
-def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP_head():
-    class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP(Structure):
-        pass
-    return DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP
-def _define_DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP():
-    DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP = win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP_head
-    DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP._pack_ = 1
-    DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP._fields_ = [
-        ("Descriptor", win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION),
-        ("dwReasonForCollection", UInt32),
-        ("cDriverName", Byte * 16),
-        ("uiNumRecords", UInt32),
-        ("RecordArray", win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD * 0),
-    ]
-    return DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP
-def _define_STORAGE_IDLE_POWER_head():
-    class STORAGE_IDLE_POWER(Structure):
-        pass
-    return STORAGE_IDLE_POWER
-def _define_STORAGE_IDLE_POWER():
-    STORAGE_IDLE_POWER = win32more.System.Ioctl.STORAGE_IDLE_POWER_head
-    STORAGE_IDLE_POWER._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("_bitfield", UInt32),
-        ("D3IdleTimeout", UInt32),
-    ]
-    return STORAGE_IDLE_POWER
-STORAGE_POWERUP_REASON_TYPE = Int32
-STORAGE_POWERUP_REASON_TYPE_StoragePowerupUnknown = 0
-STORAGE_POWERUP_REASON_TYPE_StoragePowerupIO = 1
-STORAGE_POWERUP_REASON_TYPE_StoragePowerupDeviceAttention = 2
-def _define_STORAGE_IDLE_POWERUP_REASON_head():
-    class STORAGE_IDLE_POWERUP_REASON(Structure):
-        pass
-    return STORAGE_IDLE_POWERUP_REASON
-def _define_STORAGE_IDLE_POWERUP_REASON():
-    STORAGE_IDLE_POWERUP_REASON = win32more.System.Ioctl.STORAGE_IDLE_POWERUP_REASON_head
-    STORAGE_IDLE_POWERUP_REASON._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("PowerupReason", win32more.System.Ioctl.STORAGE_POWERUP_REASON_TYPE),
-    ]
-    return STORAGE_IDLE_POWERUP_REASON
-STORAGE_DEVICE_POWER_CAP_UNITS = Int32
-STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsPercent = 0
-STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsMilliwatts = 1
-def _define_STORAGE_DEVICE_POWER_CAP_head():
-    class STORAGE_DEVICE_POWER_CAP(Structure):
-        pass
-    return STORAGE_DEVICE_POWER_CAP
-def _define_STORAGE_DEVICE_POWER_CAP():
-    STORAGE_DEVICE_POWER_CAP = win32more.System.Ioctl.STORAGE_DEVICE_POWER_CAP_head
-    STORAGE_DEVICE_POWER_CAP._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Units", win32more.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS),
-        ("MaxPower", UInt64),
-    ]
-    return STORAGE_DEVICE_POWER_CAP
-def _define_STORAGE_RPMB_DATA_FRAME_head():
-    class STORAGE_RPMB_DATA_FRAME(Structure):
-        pass
-    return STORAGE_RPMB_DATA_FRAME
-def _define_STORAGE_RPMB_DATA_FRAME():
-    STORAGE_RPMB_DATA_FRAME = win32more.System.Ioctl.STORAGE_RPMB_DATA_FRAME_head
-    STORAGE_RPMB_DATA_FRAME._fields_ = [
-        ("Stuff", Byte * 196),
-        ("KeyOrMAC", Byte * 32),
-        ("Data", Byte * 256),
-        ("Nonce", Byte * 16),
-        ("WriteCounter", Byte * 4),
-        ("Address", Byte * 2),
-        ("BlockCount", Byte * 2),
-        ("OperationResult", Byte * 2),
-        ("RequestOrResponseType", Byte * 2),
-    ]
-    return STORAGE_RPMB_DATA_FRAME
-STORAGE_RPMB_COMMAND_TYPE = Int32
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbProgramAuthKey = 1
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbQueryWriteCounter = 2
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedWrite = 3
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedRead = 4
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbReadResultRequest = 5
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigWrite = 6
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigRead = 7
-def _define_STORAGE_EVENT_NOTIFICATION_head():
-    class STORAGE_EVENT_NOTIFICATION(Structure):
-        pass
-    return STORAGE_EVENT_NOTIFICATION
-def _define_STORAGE_EVENT_NOTIFICATION():
-    STORAGE_EVENT_NOTIFICATION = win32more.System.Ioctl.STORAGE_EVENT_NOTIFICATION_head
-    STORAGE_EVENT_NOTIFICATION._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Events", UInt64),
-    ]
-    return STORAGE_EVENT_NOTIFICATION
-STORAGE_COUNTER_TYPE = Int32
-STORAGE_COUNTER_TYPE_StorageCounterTypeUnknown = 0
-STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsius = 1
-STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsiusMax = 2
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsTotal = 3
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsCorrected = 4
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsUncorrected = 5
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsTotal = 6
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsCorrected = 7
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsUncorrected = 8
-STORAGE_COUNTER_TYPE_StorageCounterTypeManufactureDate = 9
-STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCount = 10
-STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCountMax = 11
-STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCount = 12
-STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCountMax = 13
-STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentage = 14
-STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageWarning = 15
-STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageMax = 16
-STORAGE_COUNTER_TYPE_StorageCounterTypePowerOnHours = 17
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadLatency100NSMax = 18
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteLatency100NSMax = 19
-STORAGE_COUNTER_TYPE_StorageCounterTypeFlushLatency100NSMax = 20
-STORAGE_COUNTER_TYPE_StorageCounterTypeMax = 21
-def _define_STORAGE_COUNTER_head():
-    class STORAGE_COUNTER(Structure):
-        pass
-    return STORAGE_COUNTER
-def _define_STORAGE_COUNTER():
-    STORAGE_COUNTER = win32more.System.Ioctl.STORAGE_COUNTER_head
-    class STORAGE_COUNTER__Value_e__Union(Union):
-        pass
-    class STORAGE_COUNTER__Value_e__Union__ManufactureDate_e__Struct(Structure):
-        pass
-    STORAGE_COUNTER__Value_e__Union__ManufactureDate_e__Struct._fields_ = [
-        ("Week", UInt32),
-        ("Year", UInt32),
-    ]
-    STORAGE_COUNTER__Value_e__Union._fields_ = [
-        ("ManufactureDate", STORAGE_COUNTER__Value_e__Union__ManufactureDate_e__Struct),
-        ("AsUlonglong", UInt64),
-    ]
-    STORAGE_COUNTER._fields_ = [
-        ("Type", win32more.System.Ioctl.STORAGE_COUNTER_TYPE),
-        ("Value", STORAGE_COUNTER__Value_e__Union),
-    ]
-    return STORAGE_COUNTER
-def _define_STORAGE_COUNTERS_head():
-    class STORAGE_COUNTERS(Structure):
-        pass
-    return STORAGE_COUNTERS
-def _define_STORAGE_COUNTERS():
-    STORAGE_COUNTERS = win32more.System.Ioctl.STORAGE_COUNTERS_head
-    STORAGE_COUNTERS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumberOfCounters", UInt32),
-        ("Counters", win32more.System.Ioctl.STORAGE_COUNTER * 0),
-    ]
-    return STORAGE_COUNTERS
-def _define_STORAGE_HW_FIRMWARE_INFO_QUERY_head():
-    class STORAGE_HW_FIRMWARE_INFO_QUERY(Structure):
-        pass
-    return STORAGE_HW_FIRMWARE_INFO_QUERY
-def _define_STORAGE_HW_FIRMWARE_INFO_QUERY():
-    STORAGE_HW_FIRMWARE_INFO_QUERY = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_INFO_QUERY_head
-    STORAGE_HW_FIRMWARE_INFO_QUERY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-    ]
-    return STORAGE_HW_FIRMWARE_INFO_QUERY
-def _define_STORAGE_HW_FIRMWARE_SLOT_INFO_head():
-    class STORAGE_HW_FIRMWARE_SLOT_INFO(Structure):
-        pass
-    return STORAGE_HW_FIRMWARE_SLOT_INFO
-def _define_STORAGE_HW_FIRMWARE_SLOT_INFO():
-    STORAGE_HW_FIRMWARE_SLOT_INFO = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_SLOT_INFO_head
-    STORAGE_HW_FIRMWARE_SLOT_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("SlotNumber", Byte),
-        ("_bitfield", Byte),
-        ("Reserved1", Byte * 6),
-        ("Revision", Byte * 16),
-    ]
-    return STORAGE_HW_FIRMWARE_SLOT_INFO
-def _define_STORAGE_HW_FIRMWARE_INFO_head():
-    class STORAGE_HW_FIRMWARE_INFO(Structure):
-        pass
-    return STORAGE_HW_FIRMWARE_INFO
-def _define_STORAGE_HW_FIRMWARE_INFO():
-    STORAGE_HW_FIRMWARE_INFO = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_INFO_head
-    STORAGE_HW_FIRMWARE_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("_bitfield", Byte),
-        ("SlotCount", Byte),
-        ("ActiveSlot", Byte),
-        ("PendingActivateSlot", Byte),
-        ("FirmwareShared", win32more.Foundation.BOOLEAN),
-        ("Reserved", Byte * 3),
-        ("ImagePayloadAlignment", UInt32),
-        ("ImagePayloadMaxSize", UInt32),
-        ("Slot", win32more.System.Ioctl.STORAGE_HW_FIRMWARE_SLOT_INFO * 0),
-    ]
-    return STORAGE_HW_FIRMWARE_INFO
-def _define_STORAGE_HW_FIRMWARE_DOWNLOAD_head():
-    class STORAGE_HW_FIRMWARE_DOWNLOAD(Structure):
-        pass
-    return STORAGE_HW_FIRMWARE_DOWNLOAD
-def _define_STORAGE_HW_FIRMWARE_DOWNLOAD():
-    STORAGE_HW_FIRMWARE_DOWNLOAD = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_DOWNLOAD_head
-    STORAGE_HW_FIRMWARE_DOWNLOAD._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Slot", Byte),
-        ("Reserved", Byte * 3),
-        ("Offset", UInt64),
-        ("BufferSize", UInt64),
-        ("ImageBuffer", Byte * 0),
-    ]
-    return STORAGE_HW_FIRMWARE_DOWNLOAD
-def _define_STORAGE_HW_FIRMWARE_DOWNLOAD_V2_head():
-    class STORAGE_HW_FIRMWARE_DOWNLOAD_V2(Structure):
-        pass
-    return STORAGE_HW_FIRMWARE_DOWNLOAD_V2
-def _define_STORAGE_HW_FIRMWARE_DOWNLOAD_V2():
-    STORAGE_HW_FIRMWARE_DOWNLOAD_V2 = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_DOWNLOAD_V2_head
-    STORAGE_HW_FIRMWARE_DOWNLOAD_V2._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Slot", Byte),
-        ("Reserved", Byte * 3),
-        ("Offset", UInt64),
-        ("BufferSize", UInt64),
-        ("ImageSize", UInt32),
-        ("Reserved2", UInt32),
-        ("ImageBuffer", Byte * 0),
-    ]
-    return STORAGE_HW_FIRMWARE_DOWNLOAD_V2
-def _define_STORAGE_HW_FIRMWARE_ACTIVATE_head():
-    class STORAGE_HW_FIRMWARE_ACTIVATE(Structure):
-        pass
-    return STORAGE_HW_FIRMWARE_ACTIVATE
-def _define_STORAGE_HW_FIRMWARE_ACTIVATE():
-    STORAGE_HW_FIRMWARE_ACTIVATE = win32more.System.Ioctl.STORAGE_HW_FIRMWARE_ACTIVATE_head
-    STORAGE_HW_FIRMWARE_ACTIVATE._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Slot", Byte),
-        ("Reserved0", Byte * 3),
-    ]
-    return STORAGE_HW_FIRMWARE_ACTIVATE
-def _define_STORAGE_PROTOCOL_COMMAND_head():
-    class STORAGE_PROTOCOL_COMMAND(Structure):
-        pass
-    return STORAGE_PROTOCOL_COMMAND
-def _define_STORAGE_PROTOCOL_COMMAND():
-    STORAGE_PROTOCOL_COMMAND = win32more.System.Ioctl.STORAGE_PROTOCOL_COMMAND_head
-    STORAGE_PROTOCOL_COMMAND._fields_ = [
-        ("Version", UInt32),
-        ("Length", UInt32),
-        ("ProtocolType", win32more.System.Ioctl.STORAGE_PROTOCOL_TYPE),
-        ("Flags", UInt32),
-        ("ReturnStatus", UInt32),
-        ("ErrorCode", UInt32),
-        ("CommandLength", UInt32),
-        ("ErrorInfoLength", UInt32),
-        ("DataToDeviceTransferLength", UInt32),
-        ("DataFromDeviceTransferLength", UInt32),
-        ("TimeOutValue", UInt32),
-        ("ErrorInfoOffset", UInt32),
-        ("DataToDeviceBufferOffset", UInt32),
-        ("DataFromDeviceBufferOffset", UInt32),
-        ("CommandSpecific", UInt32),
-        ("Reserved0", UInt32),
-        ("FixedProtocolReturnData", UInt32),
-        ("Reserved1", UInt32 * 3),
-        ("Command", Byte * 0),
-    ]
-    return STORAGE_PROTOCOL_COMMAND
-STORAGE_ATTRIBUTE_MGMT_ACTION = Int32
-StorAttributeMgmt_ClearAttribute = 0
-StorAttributeMgmt_SetAttribute = 1
-StorAttributeMgmt_ResetAttribute = 2
-def _define_STORAGE_ATTRIBUTE_MGMT_head():
-    class STORAGE_ATTRIBUTE_MGMT(Structure):
-        pass
-    return STORAGE_ATTRIBUTE_MGMT
-def _define_STORAGE_ATTRIBUTE_MGMT():
-    STORAGE_ATTRIBUTE_MGMT = win32more.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_head
-    STORAGE_ATTRIBUTE_MGMT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Action", win32more.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_ACTION),
-        ("Attribute", UInt32),
-    ]
-    return STORAGE_ATTRIBUTE_MGMT
-def _define_SCM_PD_HEALTH_NOTIFICATION_DATA_head():
-    class SCM_PD_HEALTH_NOTIFICATION_DATA(Structure):
-        pass
-    return SCM_PD_HEALTH_NOTIFICATION_DATA
-def _define_SCM_PD_HEALTH_NOTIFICATION_DATA():
-    SCM_PD_HEALTH_NOTIFICATION_DATA = win32more.System.Ioctl.SCM_PD_HEALTH_NOTIFICATION_DATA_head
-    SCM_PD_HEALTH_NOTIFICATION_DATA._fields_ = [
-        ("DeviceGuid", Guid),
-    ]
-    return SCM_PD_HEALTH_NOTIFICATION_DATA
-def _define_SCM_LOGICAL_DEVICE_INSTANCE_head():
-    class SCM_LOGICAL_DEVICE_INSTANCE(Structure):
-        pass
-    return SCM_LOGICAL_DEVICE_INSTANCE
-def _define_SCM_LOGICAL_DEVICE_INSTANCE():
-    SCM_LOGICAL_DEVICE_INSTANCE = win32more.System.Ioctl.SCM_LOGICAL_DEVICE_INSTANCE_head
-    SCM_LOGICAL_DEVICE_INSTANCE._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceGuid", Guid),
-        ("SymbolicLink", Char * 256),
-    ]
-    return SCM_LOGICAL_DEVICE_INSTANCE
-def _define_SCM_LOGICAL_DEVICES_head():
-    class SCM_LOGICAL_DEVICES(Structure):
-        pass
-    return SCM_LOGICAL_DEVICES
-def _define_SCM_LOGICAL_DEVICES():
-    SCM_LOGICAL_DEVICES = win32more.System.Ioctl.SCM_LOGICAL_DEVICES_head
-    SCM_LOGICAL_DEVICES._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceCount", UInt32),
-        ("Devices", win32more.System.Ioctl.SCM_LOGICAL_DEVICE_INSTANCE * 0),
-    ]
-    return SCM_LOGICAL_DEVICES
-def _define_SCM_PHYSICAL_DEVICE_INSTANCE_head():
-    class SCM_PHYSICAL_DEVICE_INSTANCE(Structure):
-        pass
-    return SCM_PHYSICAL_DEVICE_INSTANCE
-def _define_SCM_PHYSICAL_DEVICE_INSTANCE():
-    SCM_PHYSICAL_DEVICE_INSTANCE = win32more.System.Ioctl.SCM_PHYSICAL_DEVICE_INSTANCE_head
-    SCM_PHYSICAL_DEVICE_INSTANCE._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NfitHandle", UInt32),
-        ("SymbolicLink", Char * 256),
-    ]
-    return SCM_PHYSICAL_DEVICE_INSTANCE
-def _define_SCM_PHYSICAL_DEVICES_head():
-    class SCM_PHYSICAL_DEVICES(Structure):
-        pass
-    return SCM_PHYSICAL_DEVICES
-def _define_SCM_PHYSICAL_DEVICES():
-    SCM_PHYSICAL_DEVICES = win32more.System.Ioctl.SCM_PHYSICAL_DEVICES_head
-    SCM_PHYSICAL_DEVICES._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceCount", UInt32),
-        ("Devices", win32more.System.Ioctl.SCM_PHYSICAL_DEVICE_INSTANCE * 0),
-    ]
-    return SCM_PHYSICAL_DEVICES
-SCM_REGION_FLAG = Int32
-SCM_REGION_FLAG_ScmRegionFlagNone = 0
-SCM_REGION_FLAG_ScmRegionFlagLabel = 1
-def _define_SCM_REGION_head():
-    class SCM_REGION(Structure):
-        pass
-    return SCM_REGION
-def _define_SCM_REGION():
-    SCM_REGION = win32more.System.Ioctl.SCM_REGION_head
-    SCM_REGION._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("NfitHandle", UInt32),
-        ("LogicalDeviceGuid", Guid),
-        ("AddressRangeType", Guid),
-        ("AssociatedId", UInt32),
-        ("Length", UInt64),
-        ("StartingDPA", UInt64),
-        ("BaseSPA", UInt64),
-        ("SPAOffset", UInt64),
-        ("RegionOffset", UInt64),
-    ]
-    return SCM_REGION
-def _define_SCM_REGIONS_head():
-    class SCM_REGIONS(Structure):
-        pass
-    return SCM_REGIONS
-def _define_SCM_REGIONS():
-    SCM_REGIONS = win32more.System.Ioctl.SCM_REGIONS_head
-    SCM_REGIONS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("RegionCount", UInt32),
-        ("Regions", win32more.System.Ioctl.SCM_REGION * 0),
-    ]
-    return SCM_REGIONS
-SCM_BUS_QUERY_TYPE = Int32
-ScmBusQuery_Descriptor = 0
-ScmBusQuery_IsSupported = 1
-ScmBusQuery_Max = 2
-SCM_BUS_SET_TYPE = Int32
-ScmBusSet_Descriptor = 0
-ScmBusSet_IsSupported = 1
-ScmBusSet_Max = 2
-SCM_BUS_PROPERTY_ID = Int32
-ScmBusProperty_RuntimeFwActivationInfo = 0
-ScmBusProperty_DedicatedMemoryInfo = 1
-ScmBusProperty_DedicatedMemoryState = 2
-ScmBusProperty_Max = 3
-def _define_SCM_BUS_PROPERTY_QUERY_head():
-    class SCM_BUS_PROPERTY_QUERY(Structure):
-        pass
-    return SCM_BUS_PROPERTY_QUERY
-def _define_SCM_BUS_PROPERTY_QUERY():
-    SCM_BUS_PROPERTY_QUERY = win32more.System.Ioctl.SCM_BUS_PROPERTY_QUERY_head
-    SCM_BUS_PROPERTY_QUERY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("PropertyId", win32more.System.Ioctl.SCM_BUS_PROPERTY_ID),
-        ("QueryType", win32more.System.Ioctl.SCM_BUS_QUERY_TYPE),
-        ("AdditionalParameters", Byte * 0),
-    ]
-    return SCM_BUS_PROPERTY_QUERY
-SCM_BUS_FIRMWARE_ACTIVATION_STATE = Int32
-ScmBusFirmwareActivationState_Idle = 0
-ScmBusFirmwareActivationState_Armed = 1
-ScmBusFirmwareActivationState_Busy = 2
-def _define_SCM_BUS_RUNTIME_FW_ACTIVATION_INFO_head():
-    class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO(Structure):
-        pass
-    return SCM_BUS_RUNTIME_FW_ACTIVATION_INFO
-def _define_SCM_BUS_RUNTIME_FW_ACTIVATION_INFO():
-    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO = win32more.System.Ioctl.SCM_BUS_RUNTIME_FW_ACTIVATION_INFO_head
-    class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO__FirmwareActivationCapability_e__Struct(Structure):
-        pass
-    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO__FirmwareActivationCapability_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("RuntimeFwActivationSupported", win32more.Foundation.BOOLEAN),
-        ("FirmwareActivationState", win32more.System.Ioctl.SCM_BUS_FIRMWARE_ACTIVATION_STATE),
-        ("FirmwareActivationCapability", SCM_BUS_RUNTIME_FW_ACTIVATION_INFO__FirmwareActivationCapability_e__Struct),
-        ("EstimatedFirmwareActivationTimeInUSecs", UInt64),
-        ("EstimatedProcessorAccessQuiesceTimeInUSecs", UInt64),
-        ("EstimatedIOAccessQuiesceTimeInUSecs", UInt64),
-        ("PlatformSupportedMaxIOAccessQuiesceTimeInUSecs", UInt64),
-    ]
-    return SCM_BUS_RUNTIME_FW_ACTIVATION_INFO
-def _define_SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO_head():
-    class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(Structure):
-        pass
-    return SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO
-def _define_SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO():
-    SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO = win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO_head
-    class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO__Flags_e__Struct(Structure):
-        pass
-    SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO__Flags_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO._fields_ = [
-        ("DeviceGuid", Guid),
-        ("DeviceNumber", UInt32),
-        ("Flags", SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO__Flags_e__Struct),
-        ("DeviceSize", UInt64),
-    ]
-    return SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO
-def _define_SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO_head():
-    class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(Structure):
-        pass
-    return SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO
-def _define_SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO():
-    SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO = win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO_head
-    SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceCount", UInt32),
-        ("Devices", win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO * 0),
-    ]
-    return SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO
-def _define_SCM_BUS_PROPERTY_SET_head():
-    class SCM_BUS_PROPERTY_SET(Structure):
-        pass
-    return SCM_BUS_PROPERTY_SET
-def _define_SCM_BUS_PROPERTY_SET():
-    SCM_BUS_PROPERTY_SET = win32more.System.Ioctl.SCM_BUS_PROPERTY_SET_head
-    SCM_BUS_PROPERTY_SET._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("PropertyId", win32more.System.Ioctl.SCM_BUS_PROPERTY_ID),
-        ("SetType", win32more.System.Ioctl.SCM_BUS_SET_TYPE),
-        ("AdditionalParameters", Byte * 0),
-    ]
-    return SCM_BUS_PROPERTY_SET
-def _define_SCM_BUS_DEDICATED_MEMORY_STATE_head():
-    class SCM_BUS_DEDICATED_MEMORY_STATE(Structure):
-        pass
-    return SCM_BUS_DEDICATED_MEMORY_STATE
-def _define_SCM_BUS_DEDICATED_MEMORY_STATE():
-    SCM_BUS_DEDICATED_MEMORY_STATE = win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_STATE_head
-    SCM_BUS_DEDICATED_MEMORY_STATE._fields_ = [
-        ("ActivateState", win32more.Foundation.BOOLEAN),
-    ]
-    return SCM_BUS_DEDICATED_MEMORY_STATE
-def _define_SCM_INTERLEAVED_PD_INFO_head():
-    class SCM_INTERLEAVED_PD_INFO(Structure):
-        pass
-    return SCM_INTERLEAVED_PD_INFO
-def _define_SCM_INTERLEAVED_PD_INFO():
-    SCM_INTERLEAVED_PD_INFO = win32more.System.Ioctl.SCM_INTERLEAVED_PD_INFO_head
-    SCM_INTERLEAVED_PD_INFO._fields_ = [
-        ("DeviceHandle", UInt32),
-        ("DeviceGuid", Guid),
-    ]
-    return SCM_INTERLEAVED_PD_INFO
-def _define_SCM_LD_INTERLEAVE_SET_INFO_head():
-    class SCM_LD_INTERLEAVE_SET_INFO(Structure):
-        pass
-    return SCM_LD_INTERLEAVE_SET_INFO
-def _define_SCM_LD_INTERLEAVE_SET_INFO():
-    SCM_LD_INTERLEAVE_SET_INFO = win32more.System.Ioctl.SCM_LD_INTERLEAVE_SET_INFO_head
-    SCM_LD_INTERLEAVE_SET_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("InterleaveSetSize", UInt32),
-        ("InterleaveSet", win32more.System.Ioctl.SCM_INTERLEAVED_PD_INFO * 0),
-    ]
-    return SCM_LD_INTERLEAVE_SET_INFO
-SCM_PD_QUERY_TYPE = Int32
-ScmPhysicalDeviceQuery_Descriptor = 0
-ScmPhysicalDeviceQuery_IsSupported = 1
-ScmPhysicalDeviceQuery_Max = 2
-SCM_PD_SET_TYPE = Int32
-ScmPhysicalDeviceSet_Descriptor = 0
-ScmPhysicalDeviceSet_IsSupported = 1
-ScmPhysicalDeviceSet_Max = 2
-SCM_PD_PROPERTY_ID = Int32
-ScmPhysicalDeviceProperty_DeviceInfo = 0
-ScmPhysicalDeviceProperty_ManagementStatus = 1
-ScmPhysicalDeviceProperty_FirmwareInfo = 2
-ScmPhysicalDeviceProperty_LocationString = 3
-ScmPhysicalDeviceProperty_DeviceSpecificInfo = 4
-ScmPhysicalDeviceProperty_DeviceHandle = 5
-ScmPhysicalDeviceProperty_FruIdString = 6
-ScmPhysicalDeviceProperty_RuntimeFwActivationInfo = 7
-ScmPhysicalDeviceProperty_RuntimeFwActivationArmState = 8
-ScmPhysicalDeviceProperty_Max = 9
-def _define_SCM_PD_PROPERTY_QUERY_head():
-    class SCM_PD_PROPERTY_QUERY(Structure):
-        pass
-    return SCM_PD_PROPERTY_QUERY
-def _define_SCM_PD_PROPERTY_QUERY():
-    SCM_PD_PROPERTY_QUERY = win32more.System.Ioctl.SCM_PD_PROPERTY_QUERY_head
-    SCM_PD_PROPERTY_QUERY._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("PropertyId", win32more.System.Ioctl.SCM_PD_PROPERTY_ID),
-        ("QueryType", win32more.System.Ioctl.SCM_PD_QUERY_TYPE),
-        ("AdditionalParameters", Byte * 0),
-    ]
-    return SCM_PD_PROPERTY_QUERY
-def _define_SCM_PD_PROPERTY_SET_head():
-    class SCM_PD_PROPERTY_SET(Structure):
-        pass
-    return SCM_PD_PROPERTY_SET
-def _define_SCM_PD_PROPERTY_SET():
-    SCM_PD_PROPERTY_SET = win32more.System.Ioctl.SCM_PD_PROPERTY_SET_head
-    SCM_PD_PROPERTY_SET._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("PropertyId", win32more.System.Ioctl.SCM_PD_PROPERTY_ID),
-        ("SetType", win32more.System.Ioctl.SCM_PD_SET_TYPE),
-        ("AdditionalParameters", Byte * 0),
-    ]
-    return SCM_PD_PROPERTY_SET
-def _define_SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE_head():
-    class SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE(Structure):
-        pass
-    return SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE
-def _define_SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE():
-    SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE = win32more.System.Ioctl.SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE_head
-    SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE._fields_ = [
-        ("ArmState", win32more.Foundation.BOOLEAN),
-    ]
-    return SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE
-def _define_SCM_PD_DESCRIPTOR_HEADER_head():
-    class SCM_PD_DESCRIPTOR_HEADER(Structure):
-        pass
-    return SCM_PD_DESCRIPTOR_HEADER
-def _define_SCM_PD_DESCRIPTOR_HEADER():
-    SCM_PD_DESCRIPTOR_HEADER = win32more.System.Ioctl.SCM_PD_DESCRIPTOR_HEADER_head
-    SCM_PD_DESCRIPTOR_HEADER._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-    ]
-    return SCM_PD_DESCRIPTOR_HEADER
-def _define_SCM_PD_DEVICE_HANDLE_head():
-    class SCM_PD_DEVICE_HANDLE(Structure):
-        pass
-    return SCM_PD_DEVICE_HANDLE
-def _define_SCM_PD_DEVICE_HANDLE():
-    SCM_PD_DEVICE_HANDLE = win32more.System.Ioctl.SCM_PD_DEVICE_HANDLE_head
-    SCM_PD_DEVICE_HANDLE._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceGuid", Guid),
-        ("DeviceHandle", UInt32),
-    ]
-    return SCM_PD_DEVICE_HANDLE
-def _define_SCM_PD_DEVICE_INFO_head():
-    class SCM_PD_DEVICE_INFO(Structure):
-        pass
-    return SCM_PD_DEVICE_INFO
-def _define_SCM_PD_DEVICE_INFO():
-    SCM_PD_DEVICE_INFO = win32more.System.Ioctl.SCM_PD_DEVICE_INFO_head
-    SCM_PD_DEVICE_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("DeviceGuid", Guid),
-        ("UnsafeShutdownCount", UInt32),
-        ("PersistentMemorySizeInBytes", UInt64),
-        ("VolatileMemorySizeInBytes", UInt64),
-        ("TotalMemorySizeInBytes", UInt64),
-        ("SlotNumber", UInt32),
-        ("DeviceHandle", UInt32),
-        ("PhysicalId", UInt16),
-        ("NumberOfFormatInterfaceCodes", Byte),
-        ("FormatInterfaceCodes", UInt16 * 8),
-        ("VendorId", UInt32),
-        ("ProductId", UInt32),
-        ("SubsystemDeviceId", UInt32),
-        ("SubsystemVendorId", UInt32),
-        ("ManufacturingLocation", Byte),
-        ("ManufacturingWeek", Byte),
-        ("ManufacturingYear", Byte),
-        ("SerialNumber4Byte", UInt32),
-        ("SerialNumberLengthInChars", UInt32),
-        ("SerialNumber", win32more.Foundation.CHAR * 0),
-    ]
-    return SCM_PD_DEVICE_INFO
-def _define_SCM_PD_DEVICE_SPECIFIC_PROPERTY_head():
-    class SCM_PD_DEVICE_SPECIFIC_PROPERTY(Structure):
-        pass
-    return SCM_PD_DEVICE_SPECIFIC_PROPERTY
-def _define_SCM_PD_DEVICE_SPECIFIC_PROPERTY():
-    SCM_PD_DEVICE_SPECIFIC_PROPERTY = win32more.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_PROPERTY_head
-    SCM_PD_DEVICE_SPECIFIC_PROPERTY._fields_ = [
-        ("Name", Char * 128),
-        ("Value", Int64),
-    ]
-    return SCM_PD_DEVICE_SPECIFIC_PROPERTY
-def _define_SCM_PD_DEVICE_SPECIFIC_INFO_head():
-    class SCM_PD_DEVICE_SPECIFIC_INFO(Structure):
-        pass
-    return SCM_PD_DEVICE_SPECIFIC_INFO
-def _define_SCM_PD_DEVICE_SPECIFIC_INFO():
-    SCM_PD_DEVICE_SPECIFIC_INFO = win32more.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_INFO_head
-    SCM_PD_DEVICE_SPECIFIC_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("NumberOfProperties", UInt32),
-        ("DeviceSpecificProperties", win32more.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_PROPERTY * 0),
-    ]
-    return SCM_PD_DEVICE_SPECIFIC_INFO
-def _define_SCM_PD_FIRMWARE_SLOT_INFO_head():
-    class SCM_PD_FIRMWARE_SLOT_INFO(Structure):
-        pass
-    return SCM_PD_FIRMWARE_SLOT_INFO
-def _define_SCM_PD_FIRMWARE_SLOT_INFO():
-    SCM_PD_FIRMWARE_SLOT_INFO = win32more.System.Ioctl.SCM_PD_FIRMWARE_SLOT_INFO_head
-    SCM_PD_FIRMWARE_SLOT_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("SlotNumber", Byte),
-        ("_bitfield", Byte),
-        ("Reserved1", Byte * 6),
-        ("Revision", Byte * 32),
-    ]
-    return SCM_PD_FIRMWARE_SLOT_INFO
-def _define_SCM_PD_FIRMWARE_INFO_head():
-    class SCM_PD_FIRMWARE_INFO(Structure):
-        pass
-    return SCM_PD_FIRMWARE_INFO
-def _define_SCM_PD_FIRMWARE_INFO():
-    SCM_PD_FIRMWARE_INFO = win32more.System.Ioctl.SCM_PD_FIRMWARE_INFO_head
-    SCM_PD_FIRMWARE_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ActiveSlot", Byte),
-        ("NextActiveSlot", Byte),
-        ("SlotCount", Byte),
-        ("Slots", win32more.System.Ioctl.SCM_PD_FIRMWARE_SLOT_INFO * 0),
-    ]
-    return SCM_PD_FIRMWARE_INFO
-SCM_PD_HEALTH_STATUS = Int32
-ScmPhysicalDeviceHealth_Unknown = 0
-ScmPhysicalDeviceHealth_Unhealthy = 1
-ScmPhysicalDeviceHealth_Warning = 2
-ScmPhysicalDeviceHealth_Healthy = 3
-ScmPhysicalDeviceHealth_Max = 4
-SCM_PD_OPERATIONAL_STATUS = Int32
-ScmPhysicalDeviceOpStatus_Unknown = 0
-ScmPhysicalDeviceOpStatus_Ok = 1
-ScmPhysicalDeviceOpStatus_PredictingFailure = 2
-ScmPhysicalDeviceOpStatus_InService = 3
-ScmPhysicalDeviceOpStatus_HardwareError = 4
-ScmPhysicalDeviceOpStatus_NotUsable = 5
-ScmPhysicalDeviceOpStatus_TransientError = 6
-ScmPhysicalDeviceOpStatus_Missing = 7
-ScmPhysicalDeviceOpStatus_Max = 8
-SCM_PD_OPERATIONAL_STATUS_REASON = Int32
-ScmPhysicalDeviceOpReason_Unknown = 0
-ScmPhysicalDeviceOpReason_Media = 1
-ScmPhysicalDeviceOpReason_ThresholdExceeded = 2
-ScmPhysicalDeviceOpReason_LostData = 3
-ScmPhysicalDeviceOpReason_EnergySource = 4
-ScmPhysicalDeviceOpReason_Configuration = 5
-ScmPhysicalDeviceOpReason_DeviceController = 6
-ScmPhysicalDeviceOpReason_MediaController = 7
-ScmPhysicalDeviceOpReason_Component = 8
-ScmPhysicalDeviceOpReason_BackgroundOperation = 9
-ScmPhysicalDeviceOpReason_InvalidFirmware = 10
-ScmPhysicalDeviceOpReason_HealthCheck = 11
-ScmPhysicalDeviceOpReason_LostDataPersistence = 12
-ScmPhysicalDeviceOpReason_DisabledByPlatform = 13
-ScmPhysicalDeviceOpReason_PermanentError = 14
-ScmPhysicalDeviceOpReason_LostWritePersistence = 15
-ScmPhysicalDeviceOpReason_FatalError = 16
-ScmPhysicalDeviceOpReason_DataPersistenceLossImminent = 17
-ScmPhysicalDeviceOpReason_WritePersistenceLossImminent = 18
-ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock = 19
-ScmPhysicalDeviceOpReason_PerformanceDegradation = 20
-ScmPhysicalDeviceOpReason_ExcessiveTemperature = 21
-ScmPhysicalDeviceOpReason_InternalFailure = 22
-ScmPhysicalDeviceOpReason_Max = 23
-def _define_SCM_PD_MANAGEMENT_STATUS_head():
-    class SCM_PD_MANAGEMENT_STATUS(Structure):
-        pass
-    return SCM_PD_MANAGEMENT_STATUS
-def _define_SCM_PD_MANAGEMENT_STATUS():
-    SCM_PD_MANAGEMENT_STATUS = win32more.System.Ioctl.SCM_PD_MANAGEMENT_STATUS_head
-    SCM_PD_MANAGEMENT_STATUS._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Health", win32more.System.Ioctl.SCM_PD_HEALTH_STATUS),
-        ("NumberOfOperationalStatus", UInt32),
-        ("NumberOfAdditionalReasons", UInt32),
-        ("OperationalStatus", win32more.System.Ioctl.SCM_PD_OPERATIONAL_STATUS * 16),
-        ("AdditionalReasons", win32more.System.Ioctl.SCM_PD_OPERATIONAL_STATUS_REASON * 0),
-    ]
-    return SCM_PD_MANAGEMENT_STATUS
-def _define_SCM_PD_LOCATION_STRING_head():
-    class SCM_PD_LOCATION_STRING(Structure):
-        pass
-    return SCM_PD_LOCATION_STRING
-def _define_SCM_PD_LOCATION_STRING():
-    SCM_PD_LOCATION_STRING = win32more.System.Ioctl.SCM_PD_LOCATION_STRING_head
-    SCM_PD_LOCATION_STRING._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Location", Char * 0),
-    ]
-    return SCM_PD_LOCATION_STRING
-def _define_SCM_PD_FRU_ID_STRING_head():
-    class SCM_PD_FRU_ID_STRING(Structure):
-        pass
-    return SCM_PD_FRU_ID_STRING
-def _define_SCM_PD_FRU_ID_STRING():
-    SCM_PD_FRU_ID_STRING = win32more.System.Ioctl.SCM_PD_FRU_ID_STRING_head
-    SCM_PD_FRU_ID_STRING._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("IdentifierSize", UInt32),
-        ("Identifier", Byte * 0),
-    ]
-    return SCM_PD_FRU_ID_STRING
-def _define_SCM_PD_FIRMWARE_DOWNLOAD_head():
-    class SCM_PD_FIRMWARE_DOWNLOAD(Structure):
-        pass
-    return SCM_PD_FIRMWARE_DOWNLOAD
-def _define_SCM_PD_FIRMWARE_DOWNLOAD():
-    SCM_PD_FIRMWARE_DOWNLOAD = win32more.System.Ioctl.SCM_PD_FIRMWARE_DOWNLOAD_head
-    SCM_PD_FIRMWARE_DOWNLOAD._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Slot", Byte),
-        ("Reserved", Byte * 3),
-        ("Offset", UInt64),
-        ("FirmwareImageSizeInBytes", UInt32),
-        ("FirmwareImage", Byte * 0),
-    ]
-    return SCM_PD_FIRMWARE_DOWNLOAD
-def _define_SCM_PD_FIRMWARE_ACTIVATE_head():
-    class SCM_PD_FIRMWARE_ACTIVATE(Structure):
-        pass
-    return SCM_PD_FIRMWARE_ACTIVATE
-def _define_SCM_PD_FIRMWARE_ACTIVATE():
-    SCM_PD_FIRMWARE_ACTIVATE = win32more.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATE_head
-    SCM_PD_FIRMWARE_ACTIVATE._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Slot", Byte),
-    ]
-    return SCM_PD_FIRMWARE_ACTIVATE
-SCM_PD_LAST_FW_ACTIVATION_STATUS = Int32
-ScmPdLastFwActivationStatus_None = 0
-ScmPdLastFwActivationStatus_Success = 1
-ScmPdLastFwActivationStatus_FwNotFound = 2
-ScmPdLastFwActivationStatus_ColdRebootRequired = 3
-ScmPdLastFwActivaitonStatus_ActivationInProgress = 4
-ScmPdLastFwActivaitonStatus_Retry = 5
-ScmPdLastFwActivaitonStatus_FwUnsupported = 6
-ScmPdLastFwActivaitonStatus_UnknownError = 7
-SCM_PD_FIRMWARE_ACTIVATION_STATE = Int32
-ScmPdFirmwareActivationState_Idle = 0
-ScmPdFirmwareActivationState_Armed = 1
-ScmPdFirmwareActivationState_Busy = 2
-def _define_SCM_PD_RUNTIME_FW_ACTIVATION_INFO_head():
-    class SCM_PD_RUNTIME_FW_ACTIVATION_INFO(Structure):
-        pass
-    return SCM_PD_RUNTIME_FW_ACTIVATION_INFO
-def _define_SCM_PD_RUNTIME_FW_ACTIVATION_INFO():
-    SCM_PD_RUNTIME_FW_ACTIVATION_INFO = win32more.System.Ioctl.SCM_PD_RUNTIME_FW_ACTIVATION_INFO_head
-    SCM_PD_RUNTIME_FW_ACTIVATION_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("LastFirmwareActivationStatus", win32more.System.Ioctl.SCM_PD_LAST_FW_ACTIVATION_STATUS),
-        ("FirmwareActivationState", win32more.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATION_STATE),
-    ]
-    return SCM_PD_RUNTIME_FW_ACTIVATION_INFO
-def _define_SCM_PD_PASSTHROUGH_INPUT_head():
-    class SCM_PD_PASSTHROUGH_INPUT(Structure):
-        pass
-    return SCM_PD_PASSTHROUGH_INPUT
-def _define_SCM_PD_PASSTHROUGH_INPUT():
-    SCM_PD_PASSTHROUGH_INPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_INPUT_head
-    SCM_PD_PASSTHROUGH_INPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ProtocolGuid", Guid),
-        ("DataSize", UInt32),
-        ("Data", Byte * 0),
-    ]
-    return SCM_PD_PASSTHROUGH_INPUT
-def _define_SCM_PD_PASSTHROUGH_OUTPUT_head():
-    class SCM_PD_PASSTHROUGH_OUTPUT(Structure):
-        pass
-    return SCM_PD_PASSTHROUGH_OUTPUT
-def _define_SCM_PD_PASSTHROUGH_OUTPUT():
-    SCM_PD_PASSTHROUGH_OUTPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_OUTPUT_head
-    SCM_PD_PASSTHROUGH_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("ProtocolGuid", Guid),
-        ("DataSize", UInt32),
-        ("Data", Byte * 0),
-    ]
-    return SCM_PD_PASSTHROUGH_OUTPUT
-def _define_SCM_PD_PASSTHROUGH_INVDIMM_INPUT_head():
-    class SCM_PD_PASSTHROUGH_INVDIMM_INPUT(Structure):
-        pass
-    return SCM_PD_PASSTHROUGH_INVDIMM_INPUT
-def _define_SCM_PD_PASSTHROUGH_INVDIMM_INPUT():
-    SCM_PD_PASSTHROUGH_INVDIMM_INPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_INVDIMM_INPUT_head
-    SCM_PD_PASSTHROUGH_INVDIMM_INPUT._fields_ = [
-        ("Opcode", UInt32),
-        ("OpcodeParametersLength", UInt32),
-        ("OpcodeParameters", Byte * 0),
-    ]
-    return SCM_PD_PASSTHROUGH_INVDIMM_INPUT
-def _define_SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT_head():
-    class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT(Structure):
-        pass
-    return SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
-def _define_SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT():
-    SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT = win32more.System.Ioctl.SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT_head
-    SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT._fields_ = [
-        ("GeneralStatus", UInt16),
-        ("ExtendedStatus", UInt16),
-        ("OutputDataLength", UInt32),
-        ("OutputData", Byte * 0),
-    ]
-    return SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
-def _define_SCM_PD_REINITIALIZE_MEDIA_INPUT_head():
-    class SCM_PD_REINITIALIZE_MEDIA_INPUT(Structure):
-        pass
-    return SCM_PD_REINITIALIZE_MEDIA_INPUT
-def _define_SCM_PD_REINITIALIZE_MEDIA_INPUT():
-    SCM_PD_REINITIALIZE_MEDIA_INPUT = win32more.System.Ioctl.SCM_PD_REINITIALIZE_MEDIA_INPUT_head
-    class SCM_PD_REINITIALIZE_MEDIA_INPUT__Options_e__Struct(Structure):
-        pass
-    SCM_PD_REINITIALIZE_MEDIA_INPUT__Options_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    SCM_PD_REINITIALIZE_MEDIA_INPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Options", SCM_PD_REINITIALIZE_MEDIA_INPUT__Options_e__Struct),
-    ]
-    return SCM_PD_REINITIALIZE_MEDIA_INPUT
-SCM_PD_MEDIA_REINITIALIZATION_STATUS = Int32
-ScmPhysicalDeviceReinit_Success = 0
-ScmPhysicalDeviceReinit_RebootNeeded = 1
-ScmPhysicalDeviceReinit_ColdBootNeeded = 2
-ScmPhysicalDeviceReinit_Max = 3
-def _define_SCM_PD_REINITIALIZE_MEDIA_OUTPUT_head():
-    class SCM_PD_REINITIALIZE_MEDIA_OUTPUT(Structure):
-        pass
-    return SCM_PD_REINITIALIZE_MEDIA_OUTPUT
-def _define_SCM_PD_REINITIALIZE_MEDIA_OUTPUT():
-    SCM_PD_REINITIALIZE_MEDIA_OUTPUT = win32more.System.Ioctl.SCM_PD_REINITIALIZE_MEDIA_OUTPUT_head
-    SCM_PD_REINITIALIZE_MEDIA_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Status", win32more.System.Ioctl.SCM_PD_MEDIA_REINITIALIZATION_STATUS),
-    ]
-    return SCM_PD_REINITIALIZE_MEDIA_OUTPUT
-MEDIA_TYPE = Int32
-MEDIA_TYPE_Unknown = 0
-MEDIA_TYPE_F5_1Pt2_512 = 1
-MEDIA_TYPE_F3_1Pt44_512 = 2
-MEDIA_TYPE_F3_2Pt88_512 = 3
-MEDIA_TYPE_F3_20Pt8_512 = 4
-MEDIA_TYPE_F3_720_512 = 5
-MEDIA_TYPE_F5_360_512 = 6
-MEDIA_TYPE_F5_320_512 = 7
-MEDIA_TYPE_F5_320_1024 = 8
-MEDIA_TYPE_F5_180_512 = 9
-MEDIA_TYPE_F5_160_512 = 10
-MEDIA_TYPE_RemovableMedia = 11
-MEDIA_TYPE_FixedMedia = 12
-MEDIA_TYPE_F3_120M_512 = 13
-MEDIA_TYPE_F3_640_512 = 14
-MEDIA_TYPE_F5_640_512 = 15
-MEDIA_TYPE_F5_720_512 = 16
-MEDIA_TYPE_F3_1Pt2_512 = 17
-MEDIA_TYPE_F3_1Pt23_1024 = 18
-MEDIA_TYPE_F5_1Pt23_1024 = 19
-MEDIA_TYPE_F3_128Mb_512 = 20
-MEDIA_TYPE_F3_230Mb_512 = 21
-MEDIA_TYPE_F8_256_128 = 22
-MEDIA_TYPE_F3_200Mb_512 = 23
-MEDIA_TYPE_F3_240M_512 = 24
-MEDIA_TYPE_F3_32M_512 = 25
-def _define_FORMAT_PARAMETERS_head():
-    class FORMAT_PARAMETERS(Structure):
-        pass
-    return FORMAT_PARAMETERS
-def _define_FORMAT_PARAMETERS():
-    FORMAT_PARAMETERS = win32more.System.Ioctl.FORMAT_PARAMETERS_head
-    FORMAT_PARAMETERS._fields_ = [
-        ("MediaType", win32more.System.Ioctl.MEDIA_TYPE),
-        ("StartCylinderNumber", UInt32),
-        ("EndCylinderNumber", UInt32),
-        ("StartHeadNumber", UInt32),
-        ("EndHeadNumber", UInt32),
-    ]
-    return FORMAT_PARAMETERS
-def _define_FORMAT_EX_PARAMETERS_head():
-    class FORMAT_EX_PARAMETERS(Structure):
-        pass
-    return FORMAT_EX_PARAMETERS
-def _define_FORMAT_EX_PARAMETERS():
-    FORMAT_EX_PARAMETERS = win32more.System.Ioctl.FORMAT_EX_PARAMETERS_head
-    FORMAT_EX_PARAMETERS._fields_ = [
-        ("MediaType", win32more.System.Ioctl.MEDIA_TYPE),
-        ("StartCylinderNumber", UInt32),
-        ("EndCylinderNumber", UInt32),
-        ("StartHeadNumber", UInt32),
-        ("EndHeadNumber", UInt32),
-        ("FormatGapLength", UInt16),
-        ("SectorsPerTrack", UInt16),
-        ("SectorNumber", UInt16 * 0),
-    ]
-    return FORMAT_EX_PARAMETERS
-def _define_DISK_GEOMETRY_head():
-    class DISK_GEOMETRY(Structure):
-        pass
-    return DISK_GEOMETRY
-def _define_DISK_GEOMETRY():
-    DISK_GEOMETRY = win32more.System.Ioctl.DISK_GEOMETRY_head
-    DISK_GEOMETRY._fields_ = [
-        ("Cylinders", win32more.Foundation.LARGE_INTEGER),
-        ("MediaType", win32more.System.Ioctl.MEDIA_TYPE),
-        ("TracksPerCylinder", UInt32),
-        ("SectorsPerTrack", UInt32),
-        ("BytesPerSector", UInt32),
-    ]
-    return DISK_GEOMETRY
-def _define_PARTITION_INFORMATION_head():
-    class PARTITION_INFORMATION(Structure):
-        pass
-    return PARTITION_INFORMATION
-def _define_PARTITION_INFORMATION():
-    PARTITION_INFORMATION = win32more.System.Ioctl.PARTITION_INFORMATION_head
-    PARTITION_INFORMATION._fields_ = [
-        ("StartingOffset", win32more.Foundation.LARGE_INTEGER),
-        ("PartitionLength", win32more.Foundation.LARGE_INTEGER),
-        ("HiddenSectors", UInt32),
-        ("PartitionNumber", UInt32),
-        ("PartitionType", Byte),
-        ("BootIndicator", win32more.Foundation.BOOLEAN),
-        ("RecognizedPartition", win32more.Foundation.BOOLEAN),
-        ("RewritePartition", win32more.Foundation.BOOLEAN),
-    ]
-    return PARTITION_INFORMATION
-def _define_SET_PARTITION_INFORMATION_head():
-    class SET_PARTITION_INFORMATION(Structure):
-        pass
-    return SET_PARTITION_INFORMATION
-def _define_SET_PARTITION_INFORMATION():
-    SET_PARTITION_INFORMATION = win32more.System.Ioctl.SET_PARTITION_INFORMATION_head
-    SET_PARTITION_INFORMATION._fields_ = [
-        ("PartitionType", Byte),
-    ]
-    return SET_PARTITION_INFORMATION
-def _define_DRIVE_LAYOUT_INFORMATION_head():
-    class DRIVE_LAYOUT_INFORMATION(Structure):
-        pass
-    return DRIVE_LAYOUT_INFORMATION
-def _define_DRIVE_LAYOUT_INFORMATION():
-    DRIVE_LAYOUT_INFORMATION = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_head
-    DRIVE_LAYOUT_INFORMATION._fields_ = [
-        ("PartitionCount", UInt32),
-        ("Signature", UInt32),
-        ("PartitionEntry", win32more.System.Ioctl.PARTITION_INFORMATION * 0),
-    ]
-    return DRIVE_LAYOUT_INFORMATION
-def _define_VERIFY_INFORMATION_head():
-    class VERIFY_INFORMATION(Structure):
-        pass
-    return VERIFY_INFORMATION
-def _define_VERIFY_INFORMATION():
-    VERIFY_INFORMATION = win32more.System.Ioctl.VERIFY_INFORMATION_head
-    VERIFY_INFORMATION._fields_ = [
-        ("StartingOffset", win32more.Foundation.LARGE_INTEGER),
-        ("Length", UInt32),
-    ]
-    return VERIFY_INFORMATION
-def _define_REASSIGN_BLOCKS_head():
-    class REASSIGN_BLOCKS(Structure):
-        pass
-    return REASSIGN_BLOCKS
-def _define_REASSIGN_BLOCKS():
-    REASSIGN_BLOCKS = win32more.System.Ioctl.REASSIGN_BLOCKS_head
-    REASSIGN_BLOCKS._fields_ = [
-        ("Reserved", UInt16),
-        ("Count", UInt16),
-        ("BlockNumber", UInt32 * 0),
-    ]
-    return REASSIGN_BLOCKS
-def _define_REASSIGN_BLOCKS_EX_head():
-    class REASSIGN_BLOCKS_EX(Structure):
-        pass
-    return REASSIGN_BLOCKS_EX
-def _define_REASSIGN_BLOCKS_EX():
-    REASSIGN_BLOCKS_EX = win32more.System.Ioctl.REASSIGN_BLOCKS_EX_head
-    REASSIGN_BLOCKS_EX._pack_ = 1
-    REASSIGN_BLOCKS_EX._fields_ = [
-        ("Reserved", UInt16),
-        ("Count", UInt16),
-        ("BlockNumber", win32more.Foundation.LARGE_INTEGER * 0),
-    ]
-    return REASSIGN_BLOCKS_EX
-PARTITION_STYLE = Int32
-PARTITION_STYLE_MBR = 0
-PARTITION_STYLE_GPT = 1
-PARTITION_STYLE_RAW = 2
-def _define_PARTITION_INFORMATION_GPT_head():
-    class PARTITION_INFORMATION_GPT(Structure):
-        pass
-    return PARTITION_INFORMATION_GPT
-def _define_PARTITION_INFORMATION_GPT():
-    PARTITION_INFORMATION_GPT = win32more.System.Ioctl.PARTITION_INFORMATION_GPT_head
-    PARTITION_INFORMATION_GPT._fields_ = [
-        ("PartitionType", Guid),
-        ("PartitionId", Guid),
-        ("Attributes", win32more.System.Ioctl.GPT_ATTRIBUTES),
-        ("Name", Char * 36),
-    ]
-    return PARTITION_INFORMATION_GPT
-def _define_PARTITION_INFORMATION_MBR_head():
-    class PARTITION_INFORMATION_MBR(Structure):
-        pass
-    return PARTITION_INFORMATION_MBR
-def _define_PARTITION_INFORMATION_MBR():
-    PARTITION_INFORMATION_MBR = win32more.System.Ioctl.PARTITION_INFORMATION_MBR_head
-    PARTITION_INFORMATION_MBR._fields_ = [
-        ("PartitionType", Byte),
-        ("BootIndicator", win32more.Foundation.BOOLEAN),
-        ("RecognizedPartition", win32more.Foundation.BOOLEAN),
-        ("HiddenSectors", UInt32),
-        ("PartitionId", Guid),
-    ]
-    return PARTITION_INFORMATION_MBR
-def _define_SET_PARTITION_INFORMATION_EX_head():
-    class SET_PARTITION_INFORMATION_EX(Structure):
-        pass
-    return SET_PARTITION_INFORMATION_EX
-def _define_SET_PARTITION_INFORMATION_EX():
-    SET_PARTITION_INFORMATION_EX = win32more.System.Ioctl.SET_PARTITION_INFORMATION_EX_head
-    class SET_PARTITION_INFORMATION_EX__Anonymous_e__Union(Union):
-        pass
-    SET_PARTITION_INFORMATION_EX__Anonymous_e__Union._fields_ = [
-        ("Mbr", win32more.System.Ioctl.SET_PARTITION_INFORMATION),
-        ("Gpt", win32more.System.Ioctl.PARTITION_INFORMATION_GPT),
-    ]
-    SET_PARTITION_INFORMATION_EX._anonymous_ = [
-        'Anonymous',
-    ]
-    SET_PARTITION_INFORMATION_EX._fields_ = [
-        ("PartitionStyle", win32more.System.Ioctl.PARTITION_STYLE),
-        ("Anonymous", SET_PARTITION_INFORMATION_EX__Anonymous_e__Union),
-    ]
-    return SET_PARTITION_INFORMATION_EX
-def _define_CREATE_DISK_GPT_head():
-    class CREATE_DISK_GPT(Structure):
-        pass
-    return CREATE_DISK_GPT
-def _define_CREATE_DISK_GPT():
-    CREATE_DISK_GPT = win32more.System.Ioctl.CREATE_DISK_GPT_head
-    CREATE_DISK_GPT._fields_ = [
-        ("DiskId", Guid),
-        ("MaxPartitionCount", UInt32),
-    ]
-    return CREATE_DISK_GPT
-def _define_CREATE_DISK_MBR_head():
-    class CREATE_DISK_MBR(Structure):
-        pass
-    return CREATE_DISK_MBR
-def _define_CREATE_DISK_MBR():
-    CREATE_DISK_MBR = win32more.System.Ioctl.CREATE_DISK_MBR_head
-    CREATE_DISK_MBR._fields_ = [
-        ("Signature", UInt32),
-    ]
-    return CREATE_DISK_MBR
-def _define_CREATE_DISK_head():
-    class CREATE_DISK(Structure):
-        pass
-    return CREATE_DISK
-def _define_CREATE_DISK():
-    CREATE_DISK = win32more.System.Ioctl.CREATE_DISK_head
-    class CREATE_DISK__Anonymous_e__Union(Union):
-        pass
-    CREATE_DISK__Anonymous_e__Union._fields_ = [
-        ("Mbr", win32more.System.Ioctl.CREATE_DISK_MBR),
-        ("Gpt", win32more.System.Ioctl.CREATE_DISK_GPT),
-    ]
-    CREATE_DISK._anonymous_ = [
-        'Anonymous',
-    ]
-    CREATE_DISK._fields_ = [
-        ("PartitionStyle", win32more.System.Ioctl.PARTITION_STYLE),
-        ("Anonymous", CREATE_DISK__Anonymous_e__Union),
-    ]
-    return CREATE_DISK
-def _define_GET_LENGTH_INFORMATION_head():
-    class GET_LENGTH_INFORMATION(Structure):
-        pass
-    return GET_LENGTH_INFORMATION
-def _define_GET_LENGTH_INFORMATION():
-    GET_LENGTH_INFORMATION = win32more.System.Ioctl.GET_LENGTH_INFORMATION_head
-    GET_LENGTH_INFORMATION._fields_ = [
-        ("Length", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return GET_LENGTH_INFORMATION
-def _define_PARTITION_INFORMATION_EX_head():
-    class PARTITION_INFORMATION_EX(Structure):
-        pass
-    return PARTITION_INFORMATION_EX
-def _define_PARTITION_INFORMATION_EX():
-    PARTITION_INFORMATION_EX = win32more.System.Ioctl.PARTITION_INFORMATION_EX_head
-    class PARTITION_INFORMATION_EX__Anonymous_e__Union(Union):
-        pass
-    PARTITION_INFORMATION_EX__Anonymous_e__Union._fields_ = [
-        ("Mbr", win32more.System.Ioctl.PARTITION_INFORMATION_MBR),
-        ("Gpt", win32more.System.Ioctl.PARTITION_INFORMATION_GPT),
-    ]
-    PARTITION_INFORMATION_EX._anonymous_ = [
-        'Anonymous',
-    ]
-    PARTITION_INFORMATION_EX._fields_ = [
-        ("PartitionStyle", win32more.System.Ioctl.PARTITION_STYLE),
-        ("StartingOffset", win32more.Foundation.LARGE_INTEGER),
-        ("PartitionLength", win32more.Foundation.LARGE_INTEGER),
-        ("PartitionNumber", UInt32),
-        ("RewritePartition", win32more.Foundation.BOOLEAN),
-        ("IsServicePartition", win32more.Foundation.BOOLEAN),
-        ("Anonymous", PARTITION_INFORMATION_EX__Anonymous_e__Union),
-    ]
-    return PARTITION_INFORMATION_EX
-def _define_DRIVE_LAYOUT_INFORMATION_GPT_head():
-    class DRIVE_LAYOUT_INFORMATION_GPT(Structure):
-        pass
-    return DRIVE_LAYOUT_INFORMATION_GPT
-def _define_DRIVE_LAYOUT_INFORMATION_GPT():
-    DRIVE_LAYOUT_INFORMATION_GPT = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT_head
-    DRIVE_LAYOUT_INFORMATION_GPT._fields_ = [
-        ("DiskId", Guid),
-        ("StartingUsableOffset", win32more.Foundation.LARGE_INTEGER),
-        ("UsableLength", win32more.Foundation.LARGE_INTEGER),
-        ("MaxPartitionCount", UInt32),
-    ]
-    return DRIVE_LAYOUT_INFORMATION_GPT
-def _define_DRIVE_LAYOUT_INFORMATION_MBR_head():
-    class DRIVE_LAYOUT_INFORMATION_MBR(Structure):
-        pass
-    return DRIVE_LAYOUT_INFORMATION_MBR
-def _define_DRIVE_LAYOUT_INFORMATION_MBR():
-    DRIVE_LAYOUT_INFORMATION_MBR = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR_head
-    DRIVE_LAYOUT_INFORMATION_MBR._fields_ = [
-        ("Signature", UInt32),
-        ("CheckSum", UInt32),
-    ]
-    return DRIVE_LAYOUT_INFORMATION_MBR
-def _define_DRIVE_LAYOUT_INFORMATION_EX_head():
-    class DRIVE_LAYOUT_INFORMATION_EX(Structure):
-        pass
-    return DRIVE_LAYOUT_INFORMATION_EX
-def _define_DRIVE_LAYOUT_INFORMATION_EX():
-    DRIVE_LAYOUT_INFORMATION_EX = win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_EX_head
-    class DRIVE_LAYOUT_INFORMATION_EX__Anonymous_e__Union(Union):
-        pass
-    DRIVE_LAYOUT_INFORMATION_EX__Anonymous_e__Union._fields_ = [
-        ("Mbr", win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR),
-        ("Gpt", win32more.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT),
-    ]
-    DRIVE_LAYOUT_INFORMATION_EX._anonymous_ = [
-        'Anonymous',
-    ]
-    DRIVE_LAYOUT_INFORMATION_EX._fields_ = [
-        ("PartitionStyle", UInt32),
-        ("PartitionCount", UInt32),
-        ("Anonymous", DRIVE_LAYOUT_INFORMATION_EX__Anonymous_e__Union),
-        ("PartitionEntry", win32more.System.Ioctl.PARTITION_INFORMATION_EX * 0),
-    ]
-    return DRIVE_LAYOUT_INFORMATION_EX
-DETECTION_TYPE = Int32
-DETECTION_TYPE_DetectNone = 0
-DETECTION_TYPE_DetectInt13 = 1
-DETECTION_TYPE_DetectExInt13 = 2
-def _define_DISK_INT13_INFO_head():
-    class DISK_INT13_INFO(Structure):
-        pass
-    return DISK_INT13_INFO
-def _define_DISK_INT13_INFO():
-    DISK_INT13_INFO = win32more.System.Ioctl.DISK_INT13_INFO_head
-    DISK_INT13_INFO._fields_ = [
-        ("DriveSelect", UInt16),
-        ("MaxCylinders", UInt32),
-        ("SectorsPerTrack", UInt16),
-        ("MaxHeads", UInt16),
-        ("NumberDrives", UInt16),
-    ]
-    return DISK_INT13_INFO
-def _define_DISK_EX_INT13_INFO_head():
-    class DISK_EX_INT13_INFO(Structure):
-        pass
-    return DISK_EX_INT13_INFO
-def _define_DISK_EX_INT13_INFO():
-    DISK_EX_INT13_INFO = win32more.System.Ioctl.DISK_EX_INT13_INFO_head
-    DISK_EX_INT13_INFO._fields_ = [
-        ("ExBufferSize", UInt16),
-        ("ExFlags", UInt16),
-        ("ExCylinders", UInt32),
-        ("ExHeads", UInt32),
-        ("ExSectorsPerTrack", UInt32),
-        ("ExSectorsPerDrive", UInt64),
-        ("ExSectorSize", UInt16),
-        ("ExReserved", UInt16),
-    ]
-    return DISK_EX_INT13_INFO
-def _define_DISK_DETECTION_INFO_head():
-    class DISK_DETECTION_INFO(Structure):
-        pass
-    return DISK_DETECTION_INFO
-def _define_DISK_DETECTION_INFO():
-    DISK_DETECTION_INFO = win32more.System.Ioctl.DISK_DETECTION_INFO_head
-    class DISK_DETECTION_INFO__Anonymous_e__Union(Union):
-        pass
-    class DISK_DETECTION_INFO__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    DISK_DETECTION_INFO__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("Int13", win32more.System.Ioctl.DISK_INT13_INFO),
-        ("ExInt13", win32more.System.Ioctl.DISK_EX_INT13_INFO),
-    ]
-    DISK_DETECTION_INFO__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    DISK_DETECTION_INFO__Anonymous_e__Union._fields_ = [
-        ("Anonymous", DISK_DETECTION_INFO__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    DISK_DETECTION_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    DISK_DETECTION_INFO._fields_ = [
-        ("SizeOfDetectInfo", UInt32),
-        ("DetectionType", win32more.System.Ioctl.DETECTION_TYPE),
-        ("Anonymous", DISK_DETECTION_INFO__Anonymous_e__Union),
-    ]
-    return DISK_DETECTION_INFO
-def _define_DISK_PARTITION_INFO_head():
-    class DISK_PARTITION_INFO(Structure):
-        pass
-    return DISK_PARTITION_INFO
-def _define_DISK_PARTITION_INFO():
-    DISK_PARTITION_INFO = win32more.System.Ioctl.DISK_PARTITION_INFO_head
-    class DISK_PARTITION_INFO__Anonymous_e__Union(Union):
-        pass
-    class DISK_PARTITION_INFO__Anonymous_e__Union__Gpt_e__Struct(Structure):
-        pass
-    DISK_PARTITION_INFO__Anonymous_e__Union__Gpt_e__Struct._fields_ = [
-        ("DiskId", Guid),
-    ]
-    class DISK_PARTITION_INFO__Anonymous_e__Union__Mbr_e__Struct(Structure):
-        pass
-    DISK_PARTITION_INFO__Anonymous_e__Union__Mbr_e__Struct._fields_ = [
-        ("Signature", UInt32),
-        ("CheckSum", UInt32),
-    ]
-    DISK_PARTITION_INFO__Anonymous_e__Union._fields_ = [
-        ("Mbr", DISK_PARTITION_INFO__Anonymous_e__Union__Mbr_e__Struct),
-        ("Gpt", DISK_PARTITION_INFO__Anonymous_e__Union__Gpt_e__Struct),
-    ]
-    DISK_PARTITION_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    DISK_PARTITION_INFO._fields_ = [
-        ("SizeOfPartitionInfo", UInt32),
-        ("PartitionStyle", win32more.System.Ioctl.PARTITION_STYLE),
-        ("Anonymous", DISK_PARTITION_INFO__Anonymous_e__Union),
-    ]
-    return DISK_PARTITION_INFO
-def _define_DISK_GEOMETRY_EX_head():
-    class DISK_GEOMETRY_EX(Structure):
-        pass
-    return DISK_GEOMETRY_EX
-def _define_DISK_GEOMETRY_EX():
-    DISK_GEOMETRY_EX = win32more.System.Ioctl.DISK_GEOMETRY_EX_head
-    DISK_GEOMETRY_EX._fields_ = [
-        ("Geometry", win32more.System.Ioctl.DISK_GEOMETRY),
-        ("DiskSize", win32more.Foundation.LARGE_INTEGER),
-        ("Data", Byte * 0),
-    ]
-    return DISK_GEOMETRY_EX
-def _define_DISK_CONTROLLER_NUMBER_head():
-    class DISK_CONTROLLER_NUMBER(Structure):
-        pass
-    return DISK_CONTROLLER_NUMBER
-def _define_DISK_CONTROLLER_NUMBER():
-    DISK_CONTROLLER_NUMBER = win32more.System.Ioctl.DISK_CONTROLLER_NUMBER_head
-    DISK_CONTROLLER_NUMBER._fields_ = [
-        ("ControllerNumber", UInt32),
-        ("DiskNumber", UInt32),
-    ]
-    return DISK_CONTROLLER_NUMBER
-DISK_CACHE_RETENTION_PRIORITY = Int32
-DISK_CACHE_RETENTION_PRIORITY_EqualPriority = 0
-DISK_CACHE_RETENTION_PRIORITY_KeepPrefetchedData = 1
-DISK_CACHE_RETENTION_PRIORITY_KeepReadData = 2
-def _define_DISK_CACHE_INFORMATION_head():
-    class DISK_CACHE_INFORMATION(Structure):
-        pass
-    return DISK_CACHE_INFORMATION
-def _define_DISK_CACHE_INFORMATION():
-    DISK_CACHE_INFORMATION = win32more.System.Ioctl.DISK_CACHE_INFORMATION_head
-    class DISK_CACHE_INFORMATION__Anonymous_e__Union(Union):
-        pass
-    class DISK_CACHE_INFORMATION__Anonymous_e__Union__BlockPrefetch_e__Struct(Structure):
-        pass
-    DISK_CACHE_INFORMATION__Anonymous_e__Union__BlockPrefetch_e__Struct._fields_ = [
-        ("Minimum", UInt16),
-        ("Maximum", UInt16),
-    ]
-    class DISK_CACHE_INFORMATION__Anonymous_e__Union__ScalarPrefetch_e__Struct(Structure):
-        pass
-    DISK_CACHE_INFORMATION__Anonymous_e__Union__ScalarPrefetch_e__Struct._fields_ = [
-        ("Minimum", UInt16),
-        ("Maximum", UInt16),
-        ("MaximumBlocks", UInt16),
-    ]
-    DISK_CACHE_INFORMATION__Anonymous_e__Union._fields_ = [
-        ("ScalarPrefetch", DISK_CACHE_INFORMATION__Anonymous_e__Union__ScalarPrefetch_e__Struct),
-        ("BlockPrefetch", DISK_CACHE_INFORMATION__Anonymous_e__Union__BlockPrefetch_e__Struct),
-    ]
-    DISK_CACHE_INFORMATION._anonymous_ = [
-        'Anonymous',
-    ]
-    DISK_CACHE_INFORMATION._fields_ = [
-        ("ParametersSavable", win32more.Foundation.BOOLEAN),
-        ("ReadCacheEnabled", win32more.Foundation.BOOLEAN),
-        ("WriteCacheEnabled", win32more.Foundation.BOOLEAN),
-        ("ReadRetentionPriority", win32more.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY),
-        ("WriteRetentionPriority", win32more.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY),
-        ("DisablePrefetchTransferLength", UInt16),
-        ("PrefetchScalar", win32more.Foundation.BOOLEAN),
-        ("Anonymous", DISK_CACHE_INFORMATION__Anonymous_e__Union),
-    ]
-    return DISK_CACHE_INFORMATION
-def _define_DISK_GROW_PARTITION_head():
-    class DISK_GROW_PARTITION(Structure):
-        pass
-    return DISK_GROW_PARTITION
-def _define_DISK_GROW_PARTITION():
-    DISK_GROW_PARTITION = win32more.System.Ioctl.DISK_GROW_PARTITION_head
-    DISK_GROW_PARTITION._fields_ = [
-        ("PartitionNumber", UInt32),
-        ("BytesToGrow", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return DISK_GROW_PARTITION
-def _define_HISTOGRAM_BUCKET_head():
-    class HISTOGRAM_BUCKET(Structure):
-        pass
-    return HISTOGRAM_BUCKET
-def _define_HISTOGRAM_BUCKET():
-    HISTOGRAM_BUCKET = win32more.System.Ioctl.HISTOGRAM_BUCKET_head
-    HISTOGRAM_BUCKET._fields_ = [
-        ("Reads", UInt32),
-        ("Writes", UInt32),
-    ]
-    return HISTOGRAM_BUCKET
-def _define_DISK_HISTOGRAM_head():
-    class DISK_HISTOGRAM(Structure):
-        pass
-    return DISK_HISTOGRAM
-def _define_DISK_HISTOGRAM():
-    DISK_HISTOGRAM = win32more.System.Ioctl.DISK_HISTOGRAM_head
-    DISK_HISTOGRAM._fields_ = [
-        ("DiskSize", win32more.Foundation.LARGE_INTEGER),
-        ("Start", win32more.Foundation.LARGE_INTEGER),
-        ("End", win32more.Foundation.LARGE_INTEGER),
-        ("Average", win32more.Foundation.LARGE_INTEGER),
-        ("AverageRead", win32more.Foundation.LARGE_INTEGER),
-        ("AverageWrite", win32more.Foundation.LARGE_INTEGER),
-        ("Granularity", UInt32),
-        ("Size", UInt32),
-        ("ReadCount", UInt32),
-        ("WriteCount", UInt32),
-        ("Histogram", POINTER(win32more.System.Ioctl.HISTOGRAM_BUCKET_head)),
-    ]
-    return DISK_HISTOGRAM
-def _define_DISK_PERFORMANCE_head():
-    class DISK_PERFORMANCE(Structure):
-        pass
-    return DISK_PERFORMANCE
-def _define_DISK_PERFORMANCE():
-    DISK_PERFORMANCE = win32more.System.Ioctl.DISK_PERFORMANCE_head
-    DISK_PERFORMANCE._fields_ = [
-        ("BytesRead", win32more.Foundation.LARGE_INTEGER),
-        ("BytesWritten", win32more.Foundation.LARGE_INTEGER),
-        ("ReadTime", win32more.Foundation.LARGE_INTEGER),
-        ("WriteTime", win32more.Foundation.LARGE_INTEGER),
-        ("IdleTime", win32more.Foundation.LARGE_INTEGER),
-        ("ReadCount", UInt32),
-        ("WriteCount", UInt32),
-        ("QueueDepth", UInt32),
-        ("SplitCount", UInt32),
-        ("QueryTime", win32more.Foundation.LARGE_INTEGER),
-        ("StorageDeviceNumber", UInt32),
-        ("StorageManagerName", Char * 8),
-    ]
-    return DISK_PERFORMANCE
-def _define_DISK_RECORD_head():
-    class DISK_RECORD(Structure):
-        pass
-    return DISK_RECORD
-def _define_DISK_RECORD():
-    DISK_RECORD = win32more.System.Ioctl.DISK_RECORD_head
-    DISK_RECORD._fields_ = [
-        ("ByteOffset", win32more.Foundation.LARGE_INTEGER),
-        ("StartTime", win32more.Foundation.LARGE_INTEGER),
-        ("EndTime", win32more.Foundation.LARGE_INTEGER),
-        ("VirtualAddress", c_void_p),
-        ("NumberOfBytes", UInt32),
-        ("DeviceNumber", Byte),
-        ("ReadRequest", win32more.Foundation.BOOLEAN),
-    ]
-    return DISK_RECORD
-def _define_DISK_LOGGING_head():
-    class DISK_LOGGING(Structure):
-        pass
-    return DISK_LOGGING
-def _define_DISK_LOGGING():
-    DISK_LOGGING = win32more.System.Ioctl.DISK_LOGGING_head
-    DISK_LOGGING._fields_ = [
-        ("Function", Byte),
-        ("BufferAddress", c_void_p),
-        ("BufferSize", UInt32),
-    ]
-    return DISK_LOGGING
-BIN_TYPES = Int32
-BIN_TYPES_RequestSize = 0
-BIN_TYPES_RequestLocation = 1
-def _define_BIN_RANGE_head():
-    class BIN_RANGE(Structure):
-        pass
-    return BIN_RANGE
-def _define_BIN_RANGE():
-    BIN_RANGE = win32more.System.Ioctl.BIN_RANGE_head
-    BIN_RANGE._fields_ = [
-        ("StartValue", win32more.Foundation.LARGE_INTEGER),
-        ("Length", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return BIN_RANGE
-def _define_PERF_BIN_head():
-    class PERF_BIN(Structure):
-        pass
-    return PERF_BIN
-def _define_PERF_BIN():
-    PERF_BIN = win32more.System.Ioctl.PERF_BIN_head
-    PERF_BIN._fields_ = [
-        ("NumberOfBins", UInt32),
-        ("TypeOfBin", UInt32),
-        ("BinsRanges", win32more.System.Ioctl.BIN_RANGE * 0),
-    ]
-    return PERF_BIN
-def _define_BIN_COUNT_head():
-    class BIN_COUNT(Structure):
-        pass
-    return BIN_COUNT
-def _define_BIN_COUNT():
-    BIN_COUNT = win32more.System.Ioctl.BIN_COUNT_head
-    BIN_COUNT._fields_ = [
-        ("BinRange", win32more.System.Ioctl.BIN_RANGE),
-        ("BinCount", UInt32),
-    ]
-    return BIN_COUNT
-def _define_BIN_RESULTS_head():
-    class BIN_RESULTS(Structure):
-        pass
-    return BIN_RESULTS
-def _define_BIN_RESULTS():
-    BIN_RESULTS = win32more.System.Ioctl.BIN_RESULTS_head
-    BIN_RESULTS._fields_ = [
-        ("NumberOfBins", UInt32),
-        ("BinCounts", win32more.System.Ioctl.BIN_COUNT * 0),
-    ]
-    return BIN_RESULTS
-def _define_GETVERSIONINPARAMS_head():
-    class GETVERSIONINPARAMS(Structure):
-        pass
-    return GETVERSIONINPARAMS
-def _define_GETVERSIONINPARAMS():
-    GETVERSIONINPARAMS = win32more.System.Ioctl.GETVERSIONINPARAMS_head
-    GETVERSIONINPARAMS._pack_ = 1
-    GETVERSIONINPARAMS._fields_ = [
-        ("bVersion", Byte),
-        ("bRevision", Byte),
-        ("bReserved", Byte),
-        ("bIDEDeviceMap", Byte),
-        ("fCapabilities", UInt32),
-        ("dwReserved", UInt32 * 4),
-    ]
-    return GETVERSIONINPARAMS
-def _define_IDEREGS_head():
-    class IDEREGS(Structure):
-        pass
-    return IDEREGS
-def _define_IDEREGS():
-    IDEREGS = win32more.System.Ioctl.IDEREGS_head
-    IDEREGS._fields_ = [
-        ("bFeaturesReg", Byte),
-        ("bSectorCountReg", Byte),
-        ("bSectorNumberReg", Byte),
-        ("bCylLowReg", Byte),
-        ("bCylHighReg", Byte),
-        ("bDriveHeadReg", Byte),
-        ("bCommandReg", Byte),
-        ("bReserved", Byte),
-    ]
-    return IDEREGS
-def _define_SENDCMDINPARAMS_head():
-    class SENDCMDINPARAMS(Structure):
-        pass
-    return SENDCMDINPARAMS
-def _define_SENDCMDINPARAMS():
-    SENDCMDINPARAMS = win32more.System.Ioctl.SENDCMDINPARAMS_head
-    SENDCMDINPARAMS._pack_ = 1
-    SENDCMDINPARAMS._fields_ = [
-        ("cBufferSize", UInt32),
-        ("irDriveRegs", win32more.System.Ioctl.IDEREGS),
-        ("bDriveNumber", Byte),
-        ("bReserved", Byte * 3),
-        ("dwReserved", UInt32 * 4),
-        ("bBuffer", Byte * 0),
-    ]
-    return SENDCMDINPARAMS
-def _define_DRIVERSTATUS_head():
-    class DRIVERSTATUS(Structure):
-        pass
-    return DRIVERSTATUS
-def _define_DRIVERSTATUS():
-    DRIVERSTATUS = win32more.System.Ioctl.DRIVERSTATUS_head
-    DRIVERSTATUS._pack_ = 1
-    DRIVERSTATUS._fields_ = [
-        ("bDriverError", Byte),
-        ("bIDEError", Byte),
-        ("bReserved", Byte * 2),
-        ("dwReserved", UInt32 * 2),
-    ]
-    return DRIVERSTATUS
-def _define_SENDCMDOUTPARAMS_head():
-    class SENDCMDOUTPARAMS(Structure):
-        pass
-    return SENDCMDOUTPARAMS
-def _define_SENDCMDOUTPARAMS():
-    SENDCMDOUTPARAMS = win32more.System.Ioctl.SENDCMDOUTPARAMS_head
-    SENDCMDOUTPARAMS._pack_ = 1
-    SENDCMDOUTPARAMS._fields_ = [
-        ("cBufferSize", UInt32),
-        ("DriverStatus", win32more.System.Ioctl.DRIVERSTATUS),
-        ("bBuffer", Byte * 0),
-    ]
-    return SENDCMDOUTPARAMS
-def _define_GET_DISK_ATTRIBUTES_head():
-    class GET_DISK_ATTRIBUTES(Structure):
-        pass
-    return GET_DISK_ATTRIBUTES
-def _define_GET_DISK_ATTRIBUTES():
-    GET_DISK_ATTRIBUTES = win32more.System.Ioctl.GET_DISK_ATTRIBUTES_head
-    GET_DISK_ATTRIBUTES._fields_ = [
-        ("Version", UInt32),
-        ("Reserved1", UInt32),
-        ("Attributes", UInt64),
-    ]
-    return GET_DISK_ATTRIBUTES
-def _define_SET_DISK_ATTRIBUTES_head():
-    class SET_DISK_ATTRIBUTES(Structure):
-        pass
-    return SET_DISK_ATTRIBUTES
-def _define_SET_DISK_ATTRIBUTES():
-    SET_DISK_ATTRIBUTES = win32more.System.Ioctl.SET_DISK_ATTRIBUTES_head
-    SET_DISK_ATTRIBUTES._fields_ = [
-        ("Version", UInt32),
-        ("Persist", win32more.Foundation.BOOLEAN),
-        ("Reserved1", Byte * 3),
-        ("Attributes", UInt64),
-        ("AttributesMask", UInt64),
-        ("Reserved2", UInt32 * 4),
-    ]
-    return SET_DISK_ATTRIBUTES
-ELEMENT_TYPE = Int32
-ELEMENT_TYPE_AllElements = 0
-ELEMENT_TYPE_ChangerTransport = 1
-ELEMENT_TYPE_ChangerSlot = 2
-ELEMENT_TYPE_ChangerIEPort = 3
-ELEMENT_TYPE_ChangerDrive = 4
-ELEMENT_TYPE_ChangerDoor = 5
-ELEMENT_TYPE_ChangerKeypad = 6
-ELEMENT_TYPE_ChangerMaxElement = 7
-def _define_CHANGER_ELEMENT_head():
-    class CHANGER_ELEMENT(Structure):
-        pass
-    return CHANGER_ELEMENT
-def _define_CHANGER_ELEMENT():
-    CHANGER_ELEMENT = win32more.System.Ioctl.CHANGER_ELEMENT_head
-    CHANGER_ELEMENT._fields_ = [
-        ("ElementType", win32more.System.Ioctl.ELEMENT_TYPE),
-        ("ElementAddress", UInt32),
-    ]
-    return CHANGER_ELEMENT
-def _define_CHANGER_ELEMENT_LIST_head():
-    class CHANGER_ELEMENT_LIST(Structure):
-        pass
-    return CHANGER_ELEMENT_LIST
-def _define_CHANGER_ELEMENT_LIST():
-    CHANGER_ELEMENT_LIST = win32more.System.Ioctl.CHANGER_ELEMENT_LIST_head
-    CHANGER_ELEMENT_LIST._fields_ = [
-        ("Element", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("NumberOfElements", UInt32),
-    ]
-    return CHANGER_ELEMENT_LIST
-def _define_GET_CHANGER_PARAMETERS_head():
-    class GET_CHANGER_PARAMETERS(Structure):
-        pass
-    return GET_CHANGER_PARAMETERS
-def _define_GET_CHANGER_PARAMETERS():
-    GET_CHANGER_PARAMETERS = win32more.System.Ioctl.GET_CHANGER_PARAMETERS_head
-    GET_CHANGER_PARAMETERS._fields_ = [
-        ("Size", UInt32),
-        ("NumberTransportElements", UInt16),
-        ("NumberStorageElements", UInt16),
-        ("NumberCleanerSlots", UInt16),
-        ("NumberIEElements", UInt16),
-        ("NumberDataTransferElements", UInt16),
-        ("NumberOfDoors", UInt16),
-        ("FirstSlotNumber", UInt16),
-        ("FirstDriveNumber", UInt16),
-        ("FirstTransportNumber", UInt16),
-        ("FirstIEPortNumber", UInt16),
-        ("FirstCleanerSlotAddress", UInt16),
-        ("MagazineSize", UInt16),
-        ("DriveCleanTimeout", UInt32),
-        ("Features0", win32more.System.Ioctl.CHANGER_FEATURES),
-        ("Features1", win32more.System.Ioctl.GET_CHANGER_PARAMETERS_FEATURES1),
-        ("MoveFromTransport", Byte),
-        ("MoveFromSlot", Byte),
-        ("MoveFromIePort", Byte),
-        ("MoveFromDrive", Byte),
-        ("ExchangeFromTransport", Byte),
-        ("ExchangeFromSlot", Byte),
-        ("ExchangeFromIePort", Byte),
-        ("ExchangeFromDrive", Byte),
-        ("LockUnlockCapabilities", Byte),
-        ("PositionCapabilities", Byte),
-        ("Reserved1", Byte * 2),
-        ("Reserved2", UInt32 * 2),
-    ]
-    return GET_CHANGER_PARAMETERS
-def _define_CHANGER_PRODUCT_DATA_head():
-    class CHANGER_PRODUCT_DATA(Structure):
-        pass
-    return CHANGER_PRODUCT_DATA
-def _define_CHANGER_PRODUCT_DATA():
-    CHANGER_PRODUCT_DATA = win32more.System.Ioctl.CHANGER_PRODUCT_DATA_head
-    CHANGER_PRODUCT_DATA._fields_ = [
-        ("VendorId", Byte * 8),
-        ("ProductId", Byte * 16),
-        ("Revision", Byte * 4),
-        ("SerialNumber", Byte * 32),
-        ("DeviceType", Byte),
-    ]
-    return CHANGER_PRODUCT_DATA
-def _define_CHANGER_SET_ACCESS_head():
-    class CHANGER_SET_ACCESS(Structure):
-        pass
-    return CHANGER_SET_ACCESS
-def _define_CHANGER_SET_ACCESS():
-    CHANGER_SET_ACCESS = win32more.System.Ioctl.CHANGER_SET_ACCESS_head
-    CHANGER_SET_ACCESS._fields_ = [
-        ("Element", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Control", UInt32),
-    ]
-    return CHANGER_SET_ACCESS
-def _define_CHANGER_READ_ELEMENT_STATUS_head():
-    class CHANGER_READ_ELEMENT_STATUS(Structure):
-        pass
-    return CHANGER_READ_ELEMENT_STATUS
-def _define_CHANGER_READ_ELEMENT_STATUS():
-    CHANGER_READ_ELEMENT_STATUS = win32more.System.Ioctl.CHANGER_READ_ELEMENT_STATUS_head
-    CHANGER_READ_ELEMENT_STATUS._fields_ = [
-        ("ElementList", win32more.System.Ioctl.CHANGER_ELEMENT_LIST),
-        ("VolumeTagInfo", win32more.Foundation.BOOLEAN),
-    ]
-    return CHANGER_READ_ELEMENT_STATUS
-def _define_CHANGER_ELEMENT_STATUS_head():
-    class CHANGER_ELEMENT_STATUS(Structure):
-        pass
-    return CHANGER_ELEMENT_STATUS
-def _define_CHANGER_ELEMENT_STATUS():
-    CHANGER_ELEMENT_STATUS = win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_head
-    CHANGER_ELEMENT_STATUS._fields_ = [
-        ("Element", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("SrcElementAddress", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Flags", win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS),
-        ("ExceptionCode", UInt32),
-        ("TargetId", Byte),
-        ("Lun", Byte),
-        ("Reserved", UInt16),
-        ("PrimaryVolumeID", Byte * 36),
-        ("AlternateVolumeID", Byte * 36),
-    ]
-    return CHANGER_ELEMENT_STATUS
-def _define_CHANGER_ELEMENT_STATUS_EX_head():
-    class CHANGER_ELEMENT_STATUS_EX(Structure):
-        pass
-    return CHANGER_ELEMENT_STATUS_EX
-def _define_CHANGER_ELEMENT_STATUS_EX():
-    CHANGER_ELEMENT_STATUS_EX = win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_EX_head
-    CHANGER_ELEMENT_STATUS_EX._fields_ = [
-        ("Element", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("SrcElementAddress", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Flags", win32more.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS),
-        ("ExceptionCode", UInt32),
-        ("TargetId", Byte),
-        ("Lun", Byte),
-        ("Reserved", UInt16),
-        ("PrimaryVolumeID", Byte * 36),
-        ("AlternateVolumeID", Byte * 36),
-        ("VendorIdentification", Byte * 8),
-        ("ProductIdentification", Byte * 16),
-        ("SerialNumber", Byte * 32),
-    ]
-    return CHANGER_ELEMENT_STATUS_EX
-def _define_CHANGER_INITIALIZE_ELEMENT_STATUS_head():
-    class CHANGER_INITIALIZE_ELEMENT_STATUS(Structure):
-        pass
-    return CHANGER_INITIALIZE_ELEMENT_STATUS
-def _define_CHANGER_INITIALIZE_ELEMENT_STATUS():
-    CHANGER_INITIALIZE_ELEMENT_STATUS = win32more.System.Ioctl.CHANGER_INITIALIZE_ELEMENT_STATUS_head
-    CHANGER_INITIALIZE_ELEMENT_STATUS._fields_ = [
-        ("ElementList", win32more.System.Ioctl.CHANGER_ELEMENT_LIST),
-        ("BarCodeScan", win32more.Foundation.BOOLEAN),
-    ]
-    return CHANGER_INITIALIZE_ELEMENT_STATUS
-def _define_CHANGER_SET_POSITION_head():
-    class CHANGER_SET_POSITION(Structure):
-        pass
-    return CHANGER_SET_POSITION
-def _define_CHANGER_SET_POSITION():
-    CHANGER_SET_POSITION = win32more.System.Ioctl.CHANGER_SET_POSITION_head
-    CHANGER_SET_POSITION._fields_ = [
-        ("Transport", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Destination", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Flip", win32more.Foundation.BOOLEAN),
-    ]
-    return CHANGER_SET_POSITION
-def _define_CHANGER_EXCHANGE_MEDIUM_head():
-    class CHANGER_EXCHANGE_MEDIUM(Structure):
-        pass
-    return CHANGER_EXCHANGE_MEDIUM
-def _define_CHANGER_EXCHANGE_MEDIUM():
-    CHANGER_EXCHANGE_MEDIUM = win32more.System.Ioctl.CHANGER_EXCHANGE_MEDIUM_head
-    CHANGER_EXCHANGE_MEDIUM._fields_ = [
-        ("Transport", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Source", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Destination1", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Destination2", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Flip1", win32more.Foundation.BOOLEAN),
-        ("Flip2", win32more.Foundation.BOOLEAN),
-    ]
-    return CHANGER_EXCHANGE_MEDIUM
-def _define_CHANGER_MOVE_MEDIUM_head():
-    class CHANGER_MOVE_MEDIUM(Structure):
-        pass
-    return CHANGER_MOVE_MEDIUM
-def _define_CHANGER_MOVE_MEDIUM():
-    CHANGER_MOVE_MEDIUM = win32more.System.Ioctl.CHANGER_MOVE_MEDIUM_head
-    CHANGER_MOVE_MEDIUM._fields_ = [
-        ("Transport", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Source", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Destination", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("Flip", win32more.Foundation.BOOLEAN),
-    ]
-    return CHANGER_MOVE_MEDIUM
-def _define_CHANGER_SEND_VOLUME_TAG_INFORMATION_head():
-    class CHANGER_SEND_VOLUME_TAG_INFORMATION(Structure):
-        pass
-    return CHANGER_SEND_VOLUME_TAG_INFORMATION
-def _define_CHANGER_SEND_VOLUME_TAG_INFORMATION():
-    CHANGER_SEND_VOLUME_TAG_INFORMATION = win32more.System.Ioctl.CHANGER_SEND_VOLUME_TAG_INFORMATION_head
-    CHANGER_SEND_VOLUME_TAG_INFORMATION._fields_ = [
-        ("StartingElement", win32more.System.Ioctl.CHANGER_ELEMENT),
-        ("ActionCode", UInt32),
-        ("VolumeIDTemplate", Byte * 40),
-    ]
-    return CHANGER_SEND_VOLUME_TAG_INFORMATION
-def _define_READ_ELEMENT_ADDRESS_INFO_head():
-    class READ_ELEMENT_ADDRESS_INFO(Structure):
-        pass
-    return READ_ELEMENT_ADDRESS_INFO
-def _define_READ_ELEMENT_ADDRESS_INFO():
-    READ_ELEMENT_ADDRESS_INFO = win32more.System.Ioctl.READ_ELEMENT_ADDRESS_INFO_head
-    READ_ELEMENT_ADDRESS_INFO._fields_ = [
-        ("NumberOfElements", UInt32),
-        ("ElementStatus", win32more.System.Ioctl.CHANGER_ELEMENT_STATUS * 0),
-    ]
-    return READ_ELEMENT_ADDRESS_INFO
-CHANGER_DEVICE_PROBLEM_TYPE = Int32
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemNone = 0
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemHardware = 1
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMError = 2
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDoorOpen = 3
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCalibrationError = 4
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemTargetFailure = 5
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMMoveError = 6
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMZeroError = 7
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeInsertError = 8
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemPositionError = 9
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemSensorError = 10
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeEjectError = 11
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemGripperError = 12
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDriveError = 13
-def _define_PATHNAME_BUFFER_head():
-    class PATHNAME_BUFFER(Structure):
-        pass
-    return PATHNAME_BUFFER
-def _define_PATHNAME_BUFFER():
-    PATHNAME_BUFFER = win32more.System.Ioctl.PATHNAME_BUFFER_head
-    PATHNAME_BUFFER._fields_ = [
-        ("PathNameLength", UInt32),
-        ("Name", Char * 0),
-    ]
-    return PATHNAME_BUFFER
-def _define_FSCTL_QUERY_FAT_BPB_BUFFER_head():
-    class FSCTL_QUERY_FAT_BPB_BUFFER(Structure):
-        pass
-    return FSCTL_QUERY_FAT_BPB_BUFFER
-def _define_FSCTL_QUERY_FAT_BPB_BUFFER():
-    FSCTL_QUERY_FAT_BPB_BUFFER = win32more.System.Ioctl.FSCTL_QUERY_FAT_BPB_BUFFER_head
-    FSCTL_QUERY_FAT_BPB_BUFFER._fields_ = [
-        ("First0x24BytesOfBootSector", Byte * 36),
-    ]
-    return FSCTL_QUERY_FAT_BPB_BUFFER
-def _define_NTFS_VOLUME_DATA_BUFFER_head():
-    class NTFS_VOLUME_DATA_BUFFER(Structure):
-        pass
-    return NTFS_VOLUME_DATA_BUFFER
-def _define_NTFS_VOLUME_DATA_BUFFER():
-    NTFS_VOLUME_DATA_BUFFER = win32more.System.Ioctl.NTFS_VOLUME_DATA_BUFFER_head
-    NTFS_VOLUME_DATA_BUFFER._fields_ = [
-        ("VolumeSerialNumber", win32more.Foundation.LARGE_INTEGER),
-        ("NumberSectors", win32more.Foundation.LARGE_INTEGER),
-        ("TotalClusters", win32more.Foundation.LARGE_INTEGER),
-        ("FreeClusters", win32more.Foundation.LARGE_INTEGER),
-        ("TotalReserved", win32more.Foundation.LARGE_INTEGER),
-        ("BytesPerSector", UInt32),
-        ("BytesPerCluster", UInt32),
-        ("BytesPerFileRecordSegment", UInt32),
-        ("ClustersPerFileRecordSegment", UInt32),
-        ("MftValidDataLength", win32more.Foundation.LARGE_INTEGER),
-        ("MftStartLcn", win32more.Foundation.LARGE_INTEGER),
-        ("Mft2StartLcn", win32more.Foundation.LARGE_INTEGER),
-        ("MftZoneStart", win32more.Foundation.LARGE_INTEGER),
-        ("MftZoneEnd", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return NTFS_VOLUME_DATA_BUFFER
-def _define_NTFS_EXTENDED_VOLUME_DATA_head():
-    class NTFS_EXTENDED_VOLUME_DATA(Structure):
-        pass
-    return NTFS_EXTENDED_VOLUME_DATA
-def _define_NTFS_EXTENDED_VOLUME_DATA():
-    NTFS_EXTENDED_VOLUME_DATA = win32more.System.Ioctl.NTFS_EXTENDED_VOLUME_DATA_head
-    NTFS_EXTENDED_VOLUME_DATA._fields_ = [
-        ("ByteCount", UInt32),
-        ("MajorVersion", UInt16),
-        ("MinorVersion", UInt16),
-        ("BytesPerPhysicalSector", UInt32),
-        ("LfsMajorVersion", UInt16),
-        ("LfsMinorVersion", UInt16),
-        ("MaxDeviceTrimExtentCount", UInt32),
-        ("MaxDeviceTrimByteCount", UInt32),
-        ("MaxVolumeTrimExtentCount", UInt32),
-        ("MaxVolumeTrimByteCount", UInt32),
-    ]
-    return NTFS_EXTENDED_VOLUME_DATA
-def _define_REFS_VOLUME_DATA_BUFFER_head():
-    class REFS_VOLUME_DATA_BUFFER(Structure):
-        pass
-    return REFS_VOLUME_DATA_BUFFER
-def _define_REFS_VOLUME_DATA_BUFFER():
-    REFS_VOLUME_DATA_BUFFER = win32more.System.Ioctl.REFS_VOLUME_DATA_BUFFER_head
-    REFS_VOLUME_DATA_BUFFER._fields_ = [
-        ("ByteCount", UInt32),
-        ("MajorVersion", UInt32),
-        ("MinorVersion", UInt32),
-        ("BytesPerPhysicalSector", UInt32),
-        ("VolumeSerialNumber", win32more.Foundation.LARGE_INTEGER),
-        ("NumberSectors", win32more.Foundation.LARGE_INTEGER),
-        ("TotalClusters", win32more.Foundation.LARGE_INTEGER),
-        ("FreeClusters", win32more.Foundation.LARGE_INTEGER),
-        ("TotalReserved", win32more.Foundation.LARGE_INTEGER),
-        ("BytesPerSector", UInt32),
-        ("BytesPerCluster", UInt32),
-        ("MaximumSizeOfResidentFile", win32more.Foundation.LARGE_INTEGER),
-        ("FastTierDataFillRatio", UInt16),
-        ("SlowTierDataFillRatio", UInt16),
-        ("DestagesFastTierToSlowTierRate", UInt32),
-        ("Reserved", win32more.Foundation.LARGE_INTEGER * 9),
-    ]
-    return REFS_VOLUME_DATA_BUFFER
-def _define_STARTING_LCN_INPUT_BUFFER_head():
-    class STARTING_LCN_INPUT_BUFFER(Structure):
-        pass
-    return STARTING_LCN_INPUT_BUFFER
-def _define_STARTING_LCN_INPUT_BUFFER():
-    STARTING_LCN_INPUT_BUFFER = win32more.System.Ioctl.STARTING_LCN_INPUT_BUFFER_head
-    STARTING_LCN_INPUT_BUFFER._fields_ = [
-        ("StartingLcn", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return STARTING_LCN_INPUT_BUFFER
-def _define_STARTING_LCN_INPUT_BUFFER_EX_head():
-    class STARTING_LCN_INPUT_BUFFER_EX(Structure):
-        pass
-    return STARTING_LCN_INPUT_BUFFER_EX
-def _define_STARTING_LCN_INPUT_BUFFER_EX():
-    STARTING_LCN_INPUT_BUFFER_EX = win32more.System.Ioctl.STARTING_LCN_INPUT_BUFFER_EX_head
-    STARTING_LCN_INPUT_BUFFER_EX._fields_ = [
-        ("StartingLcn", win32more.Foundation.LARGE_INTEGER),
-        ("Flags", UInt32),
-    ]
-    return STARTING_LCN_INPUT_BUFFER_EX
-def _define_VOLUME_BITMAP_BUFFER_head():
-    class VOLUME_BITMAP_BUFFER(Structure):
-        pass
-    return VOLUME_BITMAP_BUFFER
-def _define_VOLUME_BITMAP_BUFFER():
-    VOLUME_BITMAP_BUFFER = win32more.System.Ioctl.VOLUME_BITMAP_BUFFER_head
-    VOLUME_BITMAP_BUFFER._fields_ = [
-        ("StartingLcn", win32more.Foundation.LARGE_INTEGER),
-        ("BitmapSize", win32more.Foundation.LARGE_INTEGER),
-        ("Buffer", Byte * 0),
-    ]
-    return VOLUME_BITMAP_BUFFER
-def _define_STARTING_VCN_INPUT_BUFFER_head():
-    class STARTING_VCN_INPUT_BUFFER(Structure):
-        pass
-    return STARTING_VCN_INPUT_BUFFER
-def _define_STARTING_VCN_INPUT_BUFFER():
-    STARTING_VCN_INPUT_BUFFER = win32more.System.Ioctl.STARTING_VCN_INPUT_BUFFER_head
-    STARTING_VCN_INPUT_BUFFER._fields_ = [
-        ("StartingVcn", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return STARTING_VCN_INPUT_BUFFER
-def _define_RETRIEVAL_POINTERS_BUFFER_head():
-    class RETRIEVAL_POINTERS_BUFFER(Structure):
-        pass
-    return RETRIEVAL_POINTERS_BUFFER
-def _define_RETRIEVAL_POINTERS_BUFFER():
-    RETRIEVAL_POINTERS_BUFFER = win32more.System.Ioctl.RETRIEVAL_POINTERS_BUFFER_head
-    class RETRIEVAL_POINTERS_BUFFER__Anonymous_e__Struct(Structure):
-        pass
-    RETRIEVAL_POINTERS_BUFFER__Anonymous_e__Struct._fields_ = [
-        ("NextVcn", win32more.Foundation.LARGE_INTEGER),
-        ("Lcn", win32more.Foundation.LARGE_INTEGER),
-    ]
-    RETRIEVAL_POINTERS_BUFFER._fields_ = [
-        ("ExtentCount", UInt32),
-        ("StartingVcn", win32more.Foundation.LARGE_INTEGER),
-        ("Extents", RETRIEVAL_POINTERS_BUFFER__Anonymous_e__Struct * 0),
-    ]
-    return RETRIEVAL_POINTERS_BUFFER
-def _define_RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER_head():
-    class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER(Structure):
-        pass
-    return RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER
-def _define_RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER():
-    RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER = win32more.System.Ioctl.RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER_head
-    class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER__Anonymous_e__Struct(Structure):
-        pass
-    RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER__Anonymous_e__Struct._fields_ = [
-        ("NextVcn", win32more.Foundation.LARGE_INTEGER),
-        ("Lcn", win32more.Foundation.LARGE_INTEGER),
-        ("ReferenceCount", UInt32),
-    ]
-    RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER._fields_ = [
-        ("ExtentCount", UInt32),
-        ("StartingVcn", win32more.Foundation.LARGE_INTEGER),
-        ("Extents", RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER__Anonymous_e__Struct * 0),
-    ]
-    return RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER
-def _define_RETRIEVAL_POINTER_COUNT_head():
-    class RETRIEVAL_POINTER_COUNT(Structure):
-        pass
-    return RETRIEVAL_POINTER_COUNT
-def _define_RETRIEVAL_POINTER_COUNT():
-    RETRIEVAL_POINTER_COUNT = win32more.System.Ioctl.RETRIEVAL_POINTER_COUNT_head
-    RETRIEVAL_POINTER_COUNT._fields_ = [
-        ("ExtentCount", UInt32),
-    ]
-    return RETRIEVAL_POINTER_COUNT
-def _define_NTFS_FILE_RECORD_INPUT_BUFFER_head():
-    class NTFS_FILE_RECORD_INPUT_BUFFER(Structure):
-        pass
-    return NTFS_FILE_RECORD_INPUT_BUFFER
-def _define_NTFS_FILE_RECORD_INPUT_BUFFER():
-    NTFS_FILE_RECORD_INPUT_BUFFER = win32more.System.Ioctl.NTFS_FILE_RECORD_INPUT_BUFFER_head
-    NTFS_FILE_RECORD_INPUT_BUFFER._fields_ = [
-        ("FileReferenceNumber", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return NTFS_FILE_RECORD_INPUT_BUFFER
-def _define_NTFS_FILE_RECORD_OUTPUT_BUFFER_head():
-    class NTFS_FILE_RECORD_OUTPUT_BUFFER(Structure):
-        pass
-    return NTFS_FILE_RECORD_OUTPUT_BUFFER
-def _define_NTFS_FILE_RECORD_OUTPUT_BUFFER():
-    NTFS_FILE_RECORD_OUTPUT_BUFFER = win32more.System.Ioctl.NTFS_FILE_RECORD_OUTPUT_BUFFER_head
-    NTFS_FILE_RECORD_OUTPUT_BUFFER._fields_ = [
-        ("FileReferenceNumber", win32more.Foundation.LARGE_INTEGER),
-        ("FileRecordLength", UInt32),
-        ("FileRecordBuffer", Byte * 0),
-    ]
-    return NTFS_FILE_RECORD_OUTPUT_BUFFER
-def _define_MOVE_FILE_DATA_head():
-    class MOVE_FILE_DATA(Structure):
-        pass
-    return MOVE_FILE_DATA
-def _define_MOVE_FILE_DATA():
-    MOVE_FILE_DATA = win32more.System.Ioctl.MOVE_FILE_DATA_head
-    MOVE_FILE_DATA._fields_ = [
-        ("FileHandle", win32more.Foundation.HANDLE),
-        ("StartingVcn", win32more.Foundation.LARGE_INTEGER),
-        ("StartingLcn", win32more.Foundation.LARGE_INTEGER),
-        ("ClusterCount", UInt32),
-    ]
-    return MOVE_FILE_DATA
-def _define_MOVE_FILE_RECORD_DATA_head():
-    class MOVE_FILE_RECORD_DATA(Structure):
-        pass
-    return MOVE_FILE_RECORD_DATA
-def _define_MOVE_FILE_RECORD_DATA():
-    MOVE_FILE_RECORD_DATA = win32more.System.Ioctl.MOVE_FILE_RECORD_DATA_head
-    MOVE_FILE_RECORD_DATA._fields_ = [
-        ("FileHandle", win32more.Foundation.HANDLE),
-        ("SourceFileRecord", win32more.Foundation.LARGE_INTEGER),
-        ("TargetFileRecord", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return MOVE_FILE_RECORD_DATA
-def _define_MOVE_FILE_DATA32_head():
-    class MOVE_FILE_DATA32(Structure):
-        pass
-    return MOVE_FILE_DATA32
-def _define_MOVE_FILE_DATA32():
-    MOVE_FILE_DATA32 = win32more.System.Ioctl.MOVE_FILE_DATA32_head
-    MOVE_FILE_DATA32._fields_ = [
-        ("FileHandle", UInt32),
-        ("StartingVcn", win32more.Foundation.LARGE_INTEGER),
-        ("StartingLcn", win32more.Foundation.LARGE_INTEGER),
-        ("ClusterCount", UInt32),
-    ]
-    return MOVE_FILE_DATA32
-def _define_FIND_BY_SID_DATA_head():
-    class FIND_BY_SID_DATA(Structure):
-        pass
-    return FIND_BY_SID_DATA
-def _define_FIND_BY_SID_DATA():
-    FIND_BY_SID_DATA = win32more.System.Ioctl.FIND_BY_SID_DATA_head
-    FIND_BY_SID_DATA._fields_ = [
-        ("Restart", UInt32),
-        ("Sid", win32more.Security.SID),
-    ]
-    return FIND_BY_SID_DATA
-def _define_FIND_BY_SID_OUTPUT_head():
-    class FIND_BY_SID_OUTPUT(Structure):
-        pass
-    return FIND_BY_SID_OUTPUT
-def _define_FIND_BY_SID_OUTPUT():
-    FIND_BY_SID_OUTPUT = win32more.System.Ioctl.FIND_BY_SID_OUTPUT_head
-    FIND_BY_SID_OUTPUT._fields_ = [
-        ("NextEntryOffset", UInt32),
-        ("FileIndex", UInt32),
-        ("FileNameLength", UInt32),
-        ("FileName", Char * 0),
-    ]
-    return FIND_BY_SID_OUTPUT
-def _define_MFT_ENUM_DATA_V0_head():
-    class MFT_ENUM_DATA_V0(Structure):
-        pass
-    return MFT_ENUM_DATA_V0
-def _define_MFT_ENUM_DATA_V0():
-    MFT_ENUM_DATA_V0 = win32more.System.Ioctl.MFT_ENUM_DATA_V0_head
-    MFT_ENUM_DATA_V0._fields_ = [
-        ("StartFileReferenceNumber", UInt64),
-        ("LowUsn", Int64),
-        ("HighUsn", Int64),
-    ]
-    return MFT_ENUM_DATA_V0
-def _define_MFT_ENUM_DATA_V1_head():
-    class MFT_ENUM_DATA_V1(Structure):
-        pass
-    return MFT_ENUM_DATA_V1
-def _define_MFT_ENUM_DATA_V1():
-    MFT_ENUM_DATA_V1 = win32more.System.Ioctl.MFT_ENUM_DATA_V1_head
-    MFT_ENUM_DATA_V1._fields_ = [
-        ("StartFileReferenceNumber", UInt64),
-        ("LowUsn", Int64),
-        ("HighUsn", Int64),
-        ("MinMajorVersion", UInt16),
-        ("MaxMajorVersion", UInt16),
-    ]
-    return MFT_ENUM_DATA_V1
-def _define_CREATE_USN_JOURNAL_DATA_head():
-    class CREATE_USN_JOURNAL_DATA(Structure):
-        pass
-    return CREATE_USN_JOURNAL_DATA
-def _define_CREATE_USN_JOURNAL_DATA():
-    CREATE_USN_JOURNAL_DATA = win32more.System.Ioctl.CREATE_USN_JOURNAL_DATA_head
-    CREATE_USN_JOURNAL_DATA._fields_ = [
-        ("MaximumSize", UInt64),
-        ("AllocationDelta", UInt64),
-    ]
-    return CREATE_USN_JOURNAL_DATA
-def _define_READ_FILE_USN_DATA_head():
-    class READ_FILE_USN_DATA(Structure):
-        pass
-    return READ_FILE_USN_DATA
-def _define_READ_FILE_USN_DATA():
-    READ_FILE_USN_DATA = win32more.System.Ioctl.READ_FILE_USN_DATA_head
-    READ_FILE_USN_DATA._fields_ = [
-        ("MinMajorVersion", UInt16),
-        ("MaxMajorVersion", UInt16),
-    ]
-    return READ_FILE_USN_DATA
-def _define_READ_USN_JOURNAL_DATA_V0_head():
-    class READ_USN_JOURNAL_DATA_V0(Structure):
-        pass
-    return READ_USN_JOURNAL_DATA_V0
-def _define_READ_USN_JOURNAL_DATA_V0():
-    READ_USN_JOURNAL_DATA_V0 = win32more.System.Ioctl.READ_USN_JOURNAL_DATA_V0_head
-    READ_USN_JOURNAL_DATA_V0._fields_ = [
-        ("StartUsn", Int64),
-        ("ReasonMask", UInt32),
-        ("ReturnOnlyOnClose", UInt32),
-        ("Timeout", UInt64),
-        ("BytesToWaitFor", UInt64),
-        ("UsnJournalID", UInt64),
-    ]
-    return READ_USN_JOURNAL_DATA_V0
-def _define_READ_USN_JOURNAL_DATA_V1_head():
-    class READ_USN_JOURNAL_DATA_V1(Structure):
-        pass
-    return READ_USN_JOURNAL_DATA_V1
-def _define_READ_USN_JOURNAL_DATA_V1():
-    READ_USN_JOURNAL_DATA_V1 = win32more.System.Ioctl.READ_USN_JOURNAL_DATA_V1_head
-    READ_USN_JOURNAL_DATA_V1._fields_ = [
-        ("StartUsn", Int64),
-        ("ReasonMask", UInt32),
-        ("ReturnOnlyOnClose", UInt32),
-        ("Timeout", UInt64),
-        ("BytesToWaitFor", UInt64),
-        ("UsnJournalID", UInt64),
-        ("MinMajorVersion", UInt16),
-        ("MaxMajorVersion", UInt16),
-    ]
-    return READ_USN_JOURNAL_DATA_V1
-def _define_USN_TRACK_MODIFIED_RANGES_head():
-    class USN_TRACK_MODIFIED_RANGES(Structure):
-        pass
-    return USN_TRACK_MODIFIED_RANGES
-def _define_USN_TRACK_MODIFIED_RANGES():
-    USN_TRACK_MODIFIED_RANGES = win32more.System.Ioctl.USN_TRACK_MODIFIED_RANGES_head
-    USN_TRACK_MODIFIED_RANGES._fields_ = [
-        ("Flags", UInt32),
-        ("Unused", UInt32),
-        ("ChunkSize", UInt64),
-        ("FileSizeThreshold", Int64),
-    ]
-    return USN_TRACK_MODIFIED_RANGES
-def _define_USN_RANGE_TRACK_OUTPUT_head():
-    class USN_RANGE_TRACK_OUTPUT(Structure):
-        pass
-    return USN_RANGE_TRACK_OUTPUT
-def _define_USN_RANGE_TRACK_OUTPUT():
-    USN_RANGE_TRACK_OUTPUT = win32more.System.Ioctl.USN_RANGE_TRACK_OUTPUT_head
-    USN_RANGE_TRACK_OUTPUT._fields_ = [
-        ("Usn", Int64),
-    ]
-    return USN_RANGE_TRACK_OUTPUT
-def _define_USN_RECORD_V2_head():
-    class USN_RECORD_V2(Structure):
-        pass
-    return USN_RECORD_V2
-def _define_USN_RECORD_V2():
-    USN_RECORD_V2 = win32more.System.Ioctl.USN_RECORD_V2_head
-    USN_RECORD_V2._fields_ = [
-        ("RecordLength", UInt32),
-        ("MajorVersion", UInt16),
-        ("MinorVersion", UInt16),
-        ("FileReferenceNumber", UInt64),
-        ("ParentFileReferenceNumber", UInt64),
-        ("Usn", Int64),
-        ("TimeStamp", win32more.Foundation.LARGE_INTEGER),
-        ("Reason", UInt32),
-        ("SourceInfo", UInt32),
-        ("SecurityId", UInt32),
-        ("FileAttributes", UInt32),
-        ("FileNameLength", UInt16),
-        ("FileNameOffset", UInt16),
-        ("FileName", Char * 0),
-    ]
-    return USN_RECORD_V2
-def _define_USN_RECORD_V3_head():
-    class USN_RECORD_V3(Structure):
-        pass
-    return USN_RECORD_V3
-def _define_USN_RECORD_V3():
-    USN_RECORD_V3 = win32more.System.Ioctl.USN_RECORD_V3_head
-    USN_RECORD_V3._fields_ = [
-        ("RecordLength", UInt32),
-        ("MajorVersion", UInt16),
-        ("MinorVersion", UInt16),
-        ("FileReferenceNumber", win32more.Storage.FileSystem.FILE_ID_128),
-        ("ParentFileReferenceNumber", win32more.Storage.FileSystem.FILE_ID_128),
-        ("Usn", Int64),
-        ("TimeStamp", win32more.Foundation.LARGE_INTEGER),
-        ("Reason", UInt32),
-        ("SourceInfo", UInt32),
-        ("SecurityId", UInt32),
-        ("FileAttributes", UInt32),
-        ("FileNameLength", UInt16),
-        ("FileNameOffset", UInt16),
-        ("FileName", Char * 0),
-    ]
-    return USN_RECORD_V3
-def _define_USN_RECORD_COMMON_HEADER_head():
-    class USN_RECORD_COMMON_HEADER(Structure):
-        pass
-    return USN_RECORD_COMMON_HEADER
-def _define_USN_RECORD_COMMON_HEADER():
-    USN_RECORD_COMMON_HEADER = win32more.System.Ioctl.USN_RECORD_COMMON_HEADER_head
-    USN_RECORD_COMMON_HEADER._fields_ = [
-        ("RecordLength", UInt32),
-        ("MajorVersion", UInt16),
-        ("MinorVersion", UInt16),
-    ]
-    return USN_RECORD_COMMON_HEADER
-def _define_USN_RECORD_EXTENT_head():
-    class USN_RECORD_EXTENT(Structure):
-        pass
-    return USN_RECORD_EXTENT
-def _define_USN_RECORD_EXTENT():
-    USN_RECORD_EXTENT = win32more.System.Ioctl.USN_RECORD_EXTENT_head
-    USN_RECORD_EXTENT._fields_ = [
-        ("Offset", Int64),
-        ("Length", Int64),
-    ]
-    return USN_RECORD_EXTENT
-def _define_USN_RECORD_V4_head():
-    class USN_RECORD_V4(Structure):
-        pass
-    return USN_RECORD_V4
-def _define_USN_RECORD_V4():
-    USN_RECORD_V4 = win32more.System.Ioctl.USN_RECORD_V4_head
-    USN_RECORD_V4._fields_ = [
-        ("Header", win32more.System.Ioctl.USN_RECORD_COMMON_HEADER),
-        ("FileReferenceNumber", win32more.Storage.FileSystem.FILE_ID_128),
-        ("ParentFileReferenceNumber", win32more.Storage.FileSystem.FILE_ID_128),
-        ("Usn", Int64),
-        ("Reason", UInt32),
-        ("SourceInfo", win32more.System.Ioctl.USN_SOURCE_INFO_ID),
-        ("RemainingExtents", UInt32),
-        ("NumberOfExtents", UInt16),
-        ("ExtentSize", UInt16),
-        ("Extents", win32more.System.Ioctl.USN_RECORD_EXTENT * 0),
-    ]
-    return USN_RECORD_V4
-def _define_USN_RECORD_UNION_head():
-    class USN_RECORD_UNION(Union):
-        pass
-    return USN_RECORD_UNION
-def _define_USN_RECORD_UNION():
-    USN_RECORD_UNION = win32more.System.Ioctl.USN_RECORD_UNION_head
-    USN_RECORD_UNION._fields_ = [
-        ("Header", win32more.System.Ioctl.USN_RECORD_COMMON_HEADER),
-        ("V2", win32more.System.Ioctl.USN_RECORD_V2),
-        ("V3", win32more.System.Ioctl.USN_RECORD_V3),
-        ("V4", win32more.System.Ioctl.USN_RECORD_V4),
-    ]
-    return USN_RECORD_UNION
-def _define_USN_JOURNAL_DATA_V0_head():
-    class USN_JOURNAL_DATA_V0(Structure):
-        pass
-    return USN_JOURNAL_DATA_V0
-def _define_USN_JOURNAL_DATA_V0():
-    USN_JOURNAL_DATA_V0 = win32more.System.Ioctl.USN_JOURNAL_DATA_V0_head
-    USN_JOURNAL_DATA_V0._fields_ = [
-        ("UsnJournalID", UInt64),
-        ("FirstUsn", Int64),
-        ("NextUsn", Int64),
-        ("LowestValidUsn", Int64),
-        ("MaxUsn", Int64),
-        ("MaximumSize", UInt64),
-        ("AllocationDelta", UInt64),
-    ]
-    return USN_JOURNAL_DATA_V0
-def _define_USN_JOURNAL_DATA_V1_head():
-    class USN_JOURNAL_DATA_V1(Structure):
-        pass
-    return USN_JOURNAL_DATA_V1
-def _define_USN_JOURNAL_DATA_V1():
-    USN_JOURNAL_DATA_V1 = win32more.System.Ioctl.USN_JOURNAL_DATA_V1_head
-    USN_JOURNAL_DATA_V1._fields_ = [
-        ("UsnJournalID", UInt64),
-        ("FirstUsn", Int64),
-        ("NextUsn", Int64),
-        ("LowestValidUsn", Int64),
-        ("MaxUsn", Int64),
-        ("MaximumSize", UInt64),
-        ("AllocationDelta", UInt64),
-        ("MinSupportedMajorVersion", UInt16),
-        ("MaxSupportedMajorVersion", UInt16),
-    ]
-    return USN_JOURNAL_DATA_V1
-def _define_USN_JOURNAL_DATA_V2_head():
-    class USN_JOURNAL_DATA_V2(Structure):
-        pass
-    return USN_JOURNAL_DATA_V2
-def _define_USN_JOURNAL_DATA_V2():
-    USN_JOURNAL_DATA_V2 = win32more.System.Ioctl.USN_JOURNAL_DATA_V2_head
-    USN_JOURNAL_DATA_V2._fields_ = [
-        ("UsnJournalID", UInt64),
-        ("FirstUsn", Int64),
-        ("NextUsn", Int64),
-        ("LowestValidUsn", Int64),
-        ("MaxUsn", Int64),
-        ("MaximumSize", UInt64),
-        ("AllocationDelta", UInt64),
-        ("MinSupportedMajorVersion", UInt16),
-        ("MaxSupportedMajorVersion", UInt16),
-        ("Flags", UInt32),
-        ("RangeTrackChunkSize", UInt64),
-        ("RangeTrackFileSizeThreshold", Int64),
-    ]
-    return USN_JOURNAL_DATA_V2
-def _define_DELETE_USN_JOURNAL_DATA_head():
-    class DELETE_USN_JOURNAL_DATA(Structure):
-        pass
-    return DELETE_USN_JOURNAL_DATA
-def _define_DELETE_USN_JOURNAL_DATA():
-    DELETE_USN_JOURNAL_DATA = win32more.System.Ioctl.DELETE_USN_JOURNAL_DATA_head
-    DELETE_USN_JOURNAL_DATA._fields_ = [
-        ("UsnJournalID", UInt64),
-        ("DeleteFlags", win32more.System.Ioctl.USN_DELETE_FLAGS),
-    ]
-    return DELETE_USN_JOURNAL_DATA
-def _define_MARK_HANDLE_INFO_head():
-    class MARK_HANDLE_INFO(Structure):
-        pass
-    return MARK_HANDLE_INFO
-def _define_MARK_HANDLE_INFO():
-    MARK_HANDLE_INFO = win32more.System.Ioctl.MARK_HANDLE_INFO_head
-    class MARK_HANDLE_INFO__Anonymous_e__Union(Union):
-        pass
-    MARK_HANDLE_INFO__Anonymous_e__Union._fields_ = [
-        ("UsnSourceInfo", UInt32),
-        ("CopyNumber", UInt32),
-    ]
-    MARK_HANDLE_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    MARK_HANDLE_INFO._fields_ = [
-        ("Anonymous", MARK_HANDLE_INFO__Anonymous_e__Union),
-        ("VolumeHandle", win32more.Foundation.HANDLE),
-        ("HandleInfo", UInt32),
-    ]
-    return MARK_HANDLE_INFO
-def _define_MARK_HANDLE_INFO32_head():
-    class MARK_HANDLE_INFO32(Structure):
-        pass
-    return MARK_HANDLE_INFO32
-def _define_MARK_HANDLE_INFO32():
-    MARK_HANDLE_INFO32 = win32more.System.Ioctl.MARK_HANDLE_INFO32_head
-    class MARK_HANDLE_INFO32__Anonymous_e__Union(Union):
-        pass
-    MARK_HANDLE_INFO32__Anonymous_e__Union._fields_ = [
-        ("UsnSourceInfo", UInt32),
-        ("CopyNumber", UInt32),
-    ]
-    MARK_HANDLE_INFO32._anonymous_ = [
-        'Anonymous',
-    ]
-    MARK_HANDLE_INFO32._fields_ = [
-        ("Anonymous", MARK_HANDLE_INFO32__Anonymous_e__Union),
-        ("VolumeHandle", UInt32),
-        ("HandleInfo", UInt32),
-    ]
-    return MARK_HANDLE_INFO32
-def _define_BULK_SECURITY_TEST_DATA_head():
-    class BULK_SECURITY_TEST_DATA(Structure):
-        pass
-    return BULK_SECURITY_TEST_DATA
-def _define_BULK_SECURITY_TEST_DATA():
-    BULK_SECURITY_TEST_DATA = win32more.System.Ioctl.BULK_SECURITY_TEST_DATA_head
-    BULK_SECURITY_TEST_DATA._fields_ = [
-        ("DesiredAccess", UInt32),
-        ("SecurityIds", UInt32 * 0),
-    ]
-    return BULK_SECURITY_TEST_DATA
-def _define_FILE_PREFETCH_head():
-    class FILE_PREFETCH(Structure):
-        pass
-    return FILE_PREFETCH
-def _define_FILE_PREFETCH():
-    FILE_PREFETCH = win32more.System.Ioctl.FILE_PREFETCH_head
-    FILE_PREFETCH._fields_ = [
-        ("Type", UInt32),
-        ("Count", UInt32),
-        ("Prefetch", UInt64 * 0),
-    ]
-    return FILE_PREFETCH
-def _define_FILE_PREFETCH_EX_head():
-    class FILE_PREFETCH_EX(Structure):
-        pass
-    return FILE_PREFETCH_EX
-def _define_FILE_PREFETCH_EX():
-    FILE_PREFETCH_EX = win32more.System.Ioctl.FILE_PREFETCH_EX_head
-    FILE_PREFETCH_EX._fields_ = [
-        ("Type", UInt32),
-        ("Count", UInt32),
-        ("Context", c_void_p),
-        ("Prefetch", UInt64 * 0),
-    ]
-    return FILE_PREFETCH_EX
-def _define_FILESYSTEM_STATISTICS_head():
-    class FILESYSTEM_STATISTICS(Structure):
-        pass
-    return FILESYSTEM_STATISTICS
-def _define_FILESYSTEM_STATISTICS():
-    FILESYSTEM_STATISTICS = win32more.System.Ioctl.FILESYSTEM_STATISTICS_head
-    FILESYSTEM_STATISTICS._fields_ = [
-        ("FileSystemType", win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE),
-        ("Version", UInt16),
-        ("SizeOfCompleteStructure", UInt32),
-        ("UserFileReads", UInt32),
-        ("UserFileReadBytes", UInt32),
-        ("UserDiskReads", UInt32),
-        ("UserFileWrites", UInt32),
-        ("UserFileWriteBytes", UInt32),
-        ("UserDiskWrites", UInt32),
-        ("MetaDataReads", UInt32),
-        ("MetaDataReadBytes", UInt32),
-        ("MetaDataDiskReads", UInt32),
-        ("MetaDataWrites", UInt32),
-        ("MetaDataWriteBytes", UInt32),
-        ("MetaDataDiskWrites", UInt32),
-    ]
-    return FILESYSTEM_STATISTICS
-def _define_FAT_STATISTICS_head():
-    class FAT_STATISTICS(Structure):
-        pass
-    return FAT_STATISTICS
-def _define_FAT_STATISTICS():
-    FAT_STATISTICS = win32more.System.Ioctl.FAT_STATISTICS_head
-    FAT_STATISTICS._fields_ = [
-        ("CreateHits", UInt32),
-        ("SuccessfulCreates", UInt32),
-        ("FailedCreates", UInt32),
-        ("NonCachedReads", UInt32),
-        ("NonCachedReadBytes", UInt32),
-        ("NonCachedWrites", UInt32),
-        ("NonCachedWriteBytes", UInt32),
-        ("NonCachedDiskReads", UInt32),
-        ("NonCachedDiskWrites", UInt32),
-    ]
-    return FAT_STATISTICS
-def _define_EXFAT_STATISTICS_head():
-    class EXFAT_STATISTICS(Structure):
-        pass
-    return EXFAT_STATISTICS
-def _define_EXFAT_STATISTICS():
-    EXFAT_STATISTICS = win32more.System.Ioctl.EXFAT_STATISTICS_head
-    EXFAT_STATISTICS._fields_ = [
-        ("CreateHits", UInt32),
-        ("SuccessfulCreates", UInt32),
-        ("FailedCreates", UInt32),
-        ("NonCachedReads", UInt32),
-        ("NonCachedReadBytes", UInt32),
-        ("NonCachedWrites", UInt32),
-        ("NonCachedWriteBytes", UInt32),
-        ("NonCachedDiskReads", UInt32),
-        ("NonCachedDiskWrites", UInt32),
-    ]
-    return EXFAT_STATISTICS
-def _define_NTFS_STATISTICS_head():
-    class NTFS_STATISTICS(Structure):
-        pass
-    return NTFS_STATISTICS
-def _define_NTFS_STATISTICS():
-    NTFS_STATISTICS = win32more.System.Ioctl.NTFS_STATISTICS_head
-    class NTFS_STATISTICS__Allocate_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS__Allocate_e__Struct._fields_ = [
-        ("Calls", UInt32),
-        ("Clusters", UInt32),
-        ("Hints", UInt32),
-        ("RunsReturned", UInt32),
-        ("HintsHonored", UInt32),
-        ("HintsClusters", UInt32),
-        ("Cache", UInt32),
-        ("CacheClusters", UInt32),
-        ("CacheMiss", UInt32),
-        ("CacheMissClusters", UInt32),
-    ]
-    class NTFS_STATISTICS__BitmapWritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS__BitmapWritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt16),
-        ("Create", UInt16),
-        ("SetInfo", UInt16),
-    ]
-    class NTFS_STATISTICS__MftWritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS__MftWritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt16),
-        ("Create", UInt16),
-        ("SetInfo", UInt16),
-        ("Flush", UInt16),
-    ]
-    class NTFS_STATISTICS__MftBitmapWritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS__MftBitmapWritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt16),
-        ("Create", UInt16),
-        ("SetInfo", UInt16),
-        ("Flush", UInt16),
-    ]
-    class NTFS_STATISTICS__Mft2WritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS__Mft2WritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt16),
-        ("Create", UInt16),
-        ("SetInfo", UInt16),
-        ("Flush", UInt16),
-    ]
-    NTFS_STATISTICS._fields_ = [
-        ("LogFileFullExceptions", UInt32),
-        ("OtherExceptions", UInt32),
-        ("MftReads", UInt32),
-        ("MftReadBytes", UInt32),
-        ("MftWrites", UInt32),
-        ("MftWriteBytes", UInt32),
-        ("MftWritesUserLevel", NTFS_STATISTICS__MftWritesUserLevel_e__Struct),
-        ("MftWritesFlushForLogFileFull", UInt16),
-        ("MftWritesLazyWriter", UInt16),
-        ("MftWritesUserRequest", UInt16),
-        ("Mft2Writes", UInt32),
-        ("Mft2WriteBytes", UInt32),
-        ("Mft2WritesUserLevel", NTFS_STATISTICS__Mft2WritesUserLevel_e__Struct),
-        ("Mft2WritesFlushForLogFileFull", UInt16),
-        ("Mft2WritesLazyWriter", UInt16),
-        ("Mft2WritesUserRequest", UInt16),
-        ("RootIndexReads", UInt32),
-        ("RootIndexReadBytes", UInt32),
-        ("RootIndexWrites", UInt32),
-        ("RootIndexWriteBytes", UInt32),
-        ("BitmapReads", UInt32),
-        ("BitmapReadBytes", UInt32),
-        ("BitmapWrites", UInt32),
-        ("BitmapWriteBytes", UInt32),
-        ("BitmapWritesFlushForLogFileFull", UInt16),
-        ("BitmapWritesLazyWriter", UInt16),
-        ("BitmapWritesUserRequest", UInt16),
-        ("BitmapWritesUserLevel", NTFS_STATISTICS__BitmapWritesUserLevel_e__Struct),
-        ("MftBitmapReads", UInt32),
-        ("MftBitmapReadBytes", UInt32),
-        ("MftBitmapWrites", UInt32),
-        ("MftBitmapWriteBytes", UInt32),
-        ("MftBitmapWritesFlushForLogFileFull", UInt16),
-        ("MftBitmapWritesLazyWriter", UInt16),
-        ("MftBitmapWritesUserRequest", UInt16),
-        ("MftBitmapWritesUserLevel", NTFS_STATISTICS__MftBitmapWritesUserLevel_e__Struct),
-        ("UserIndexReads", UInt32),
-        ("UserIndexReadBytes", UInt32),
-        ("UserIndexWrites", UInt32),
-        ("UserIndexWriteBytes", UInt32),
-        ("LogFileReads", UInt32),
-        ("LogFileReadBytes", UInt32),
-        ("LogFileWrites", UInt32),
-        ("LogFileWriteBytes", UInt32),
-        ("Allocate", NTFS_STATISTICS__Allocate_e__Struct),
-        ("DiskResourcesExhausted", UInt32),
-    ]
-    return NTFS_STATISTICS
-def _define_FILESYSTEM_STATISTICS_EX_head():
-    class FILESYSTEM_STATISTICS_EX(Structure):
-        pass
-    return FILESYSTEM_STATISTICS_EX
-def _define_FILESYSTEM_STATISTICS_EX():
-    FILESYSTEM_STATISTICS_EX = win32more.System.Ioctl.FILESYSTEM_STATISTICS_EX_head
-    FILESYSTEM_STATISTICS_EX._fields_ = [
-        ("FileSystemType", win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE),
-        ("Version", UInt16),
-        ("SizeOfCompleteStructure", UInt32),
-        ("UserFileReads", UInt64),
-        ("UserFileReadBytes", UInt64),
-        ("UserDiskReads", UInt64),
-        ("UserFileWrites", UInt64),
-        ("UserFileWriteBytes", UInt64),
-        ("UserDiskWrites", UInt64),
-        ("MetaDataReads", UInt64),
-        ("MetaDataReadBytes", UInt64),
-        ("MetaDataDiskReads", UInt64),
-        ("MetaDataWrites", UInt64),
-        ("MetaDataWriteBytes", UInt64),
-        ("MetaDataDiskWrites", UInt64),
-    ]
-    return FILESYSTEM_STATISTICS_EX
-def _define_NTFS_STATISTICS_EX_head():
-    class NTFS_STATISTICS_EX(Structure):
-        pass
-    return NTFS_STATISTICS_EX
-def _define_NTFS_STATISTICS_EX():
-    NTFS_STATISTICS_EX = win32more.System.Ioctl.NTFS_STATISTICS_EX_head
-    class NTFS_STATISTICS_EX__MftBitmapWritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS_EX__MftBitmapWritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt32),
-        ("Create", UInt32),
-        ("SetInfo", UInt32),
-        ("Flush", UInt32),
-    ]
-    class NTFS_STATISTICS_EX__Mft2WritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS_EX__Mft2WritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt32),
-        ("Create", UInt32),
-        ("SetInfo", UInt32),
-        ("Flush", UInt32),
-    ]
-    class NTFS_STATISTICS_EX__BitmapWritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS_EX__BitmapWritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt32),
-        ("Create", UInt32),
-        ("SetInfo", UInt32),
-        ("Flush", UInt32),
-    ]
-    class NTFS_STATISTICS_EX__Allocate_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS_EX__Allocate_e__Struct._fields_ = [
-        ("Calls", UInt32),
-        ("RunsReturned", UInt32),
-        ("Hints", UInt32),
-        ("HintsHonored", UInt32),
-        ("Cache", UInt32),
-        ("CacheMiss", UInt32),
-        ("Clusters", UInt64),
-        ("HintsClusters", UInt64),
-        ("CacheClusters", UInt64),
-        ("CacheMissClusters", UInt64),
-    ]
-    class NTFS_STATISTICS_EX__MftWritesUserLevel_e__Struct(Structure):
-        pass
-    NTFS_STATISTICS_EX__MftWritesUserLevel_e__Struct._fields_ = [
-        ("Write", UInt32),
-        ("Create", UInt32),
-        ("SetInfo", UInt32),
-        ("Flush", UInt32),
-    ]
-    NTFS_STATISTICS_EX._fields_ = [
-        ("LogFileFullExceptions", UInt32),
-        ("OtherExceptions", UInt32),
-        ("MftReads", UInt64),
-        ("MftReadBytes", UInt64),
-        ("MftWrites", UInt64),
-        ("MftWriteBytes", UInt64),
-        ("MftWritesUserLevel", NTFS_STATISTICS_EX__MftWritesUserLevel_e__Struct),
-        ("MftWritesFlushForLogFileFull", UInt32),
-        ("MftWritesLazyWriter", UInt32),
-        ("MftWritesUserRequest", UInt32),
-        ("Mft2Writes", UInt64),
-        ("Mft2WriteBytes", UInt64),
-        ("Mft2WritesUserLevel", NTFS_STATISTICS_EX__Mft2WritesUserLevel_e__Struct),
-        ("Mft2WritesFlushForLogFileFull", UInt32),
-        ("Mft2WritesLazyWriter", UInt32),
-        ("Mft2WritesUserRequest", UInt32),
-        ("RootIndexReads", UInt64),
-        ("RootIndexReadBytes", UInt64),
-        ("RootIndexWrites", UInt64),
-        ("RootIndexWriteBytes", UInt64),
-        ("BitmapReads", UInt64),
-        ("BitmapReadBytes", UInt64),
-        ("BitmapWrites", UInt64),
-        ("BitmapWriteBytes", UInt64),
-        ("BitmapWritesFlushForLogFileFull", UInt32),
-        ("BitmapWritesLazyWriter", UInt32),
-        ("BitmapWritesUserRequest", UInt32),
-        ("BitmapWritesUserLevel", NTFS_STATISTICS_EX__BitmapWritesUserLevel_e__Struct),
-        ("MftBitmapReads", UInt64),
-        ("MftBitmapReadBytes", UInt64),
-        ("MftBitmapWrites", UInt64),
-        ("MftBitmapWriteBytes", UInt64),
-        ("MftBitmapWritesFlushForLogFileFull", UInt32),
-        ("MftBitmapWritesLazyWriter", UInt32),
-        ("MftBitmapWritesUserRequest", UInt32),
-        ("MftBitmapWritesUserLevel", NTFS_STATISTICS_EX__MftBitmapWritesUserLevel_e__Struct),
-        ("UserIndexReads", UInt64),
-        ("UserIndexReadBytes", UInt64),
-        ("UserIndexWrites", UInt64),
-        ("UserIndexWriteBytes", UInt64),
-        ("LogFileReads", UInt64),
-        ("LogFileReadBytes", UInt64),
-        ("LogFileWrites", UInt64),
-        ("LogFileWriteBytes", UInt64),
-        ("Allocate", NTFS_STATISTICS_EX__Allocate_e__Struct),
-        ("DiskResourcesExhausted", UInt32),
-        ("VolumeTrimCount", UInt64),
-        ("VolumeTrimTime", UInt64),
-        ("VolumeTrimByteCount", UInt64),
-        ("FileLevelTrimCount", UInt64),
-        ("FileLevelTrimTime", UInt64),
-        ("FileLevelTrimByteCount", UInt64),
-        ("VolumeTrimSkippedCount", UInt64),
-        ("VolumeTrimSkippedByteCount", UInt64),
-        ("NtfsFillStatInfoFromMftRecordCalledCount", UInt64),
-        ("NtfsFillStatInfoFromMftRecordBailedBecauseOfAttributeListCount", UInt64),
-        ("NtfsFillStatInfoFromMftRecordBailedBecauseOfNonResReparsePointCount", UInt64),
-    ]
-    return NTFS_STATISTICS_EX
-def _define_FILE_OBJECTID_BUFFER_head():
-    class FILE_OBJECTID_BUFFER(Structure):
-        pass
-    return FILE_OBJECTID_BUFFER
-def _define_FILE_OBJECTID_BUFFER():
-    FILE_OBJECTID_BUFFER = win32more.System.Ioctl.FILE_OBJECTID_BUFFER_head
-    class FILE_OBJECTID_BUFFER__Anonymous_e__Union(Union):
-        pass
-    class FILE_OBJECTID_BUFFER__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    FILE_OBJECTID_BUFFER__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("BirthVolumeId", Byte * 16),
-        ("BirthObjectId", Byte * 16),
-        ("DomainId", Byte * 16),
-    ]
-    FILE_OBJECTID_BUFFER__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    FILE_OBJECTID_BUFFER__Anonymous_e__Union._fields_ = [
-        ("Anonymous", FILE_OBJECTID_BUFFER__Anonymous_e__Union__Anonymous_e__Struct),
-        ("ExtendedInfo", Byte * 48),
-    ]
-    FILE_OBJECTID_BUFFER._anonymous_ = [
-        'Anonymous',
-    ]
-    FILE_OBJECTID_BUFFER._fields_ = [
-        ("ObjectId", Byte * 16),
-        ("Anonymous", FILE_OBJECTID_BUFFER__Anonymous_e__Union),
-    ]
-    return FILE_OBJECTID_BUFFER
-def _define_FILE_SET_SPARSE_BUFFER_head():
-    class FILE_SET_SPARSE_BUFFER(Structure):
-        pass
-    return FILE_SET_SPARSE_BUFFER
-def _define_FILE_SET_SPARSE_BUFFER():
-    FILE_SET_SPARSE_BUFFER = win32more.System.Ioctl.FILE_SET_SPARSE_BUFFER_head
-    FILE_SET_SPARSE_BUFFER._fields_ = [
-        ("SetSparse", win32more.Foundation.BOOLEAN),
-    ]
-    return FILE_SET_SPARSE_BUFFER
-def _define_FILE_ZERO_DATA_INFORMATION_head():
-    class FILE_ZERO_DATA_INFORMATION(Structure):
-        pass
-    return FILE_ZERO_DATA_INFORMATION
-def _define_FILE_ZERO_DATA_INFORMATION():
-    FILE_ZERO_DATA_INFORMATION = win32more.System.Ioctl.FILE_ZERO_DATA_INFORMATION_head
-    FILE_ZERO_DATA_INFORMATION._fields_ = [
-        ("FileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("BeyondFinalZero", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return FILE_ZERO_DATA_INFORMATION
-def _define_FILE_ZERO_DATA_INFORMATION_EX_head():
-    class FILE_ZERO_DATA_INFORMATION_EX(Structure):
-        pass
-    return FILE_ZERO_DATA_INFORMATION_EX
-def _define_FILE_ZERO_DATA_INFORMATION_EX():
-    FILE_ZERO_DATA_INFORMATION_EX = win32more.System.Ioctl.FILE_ZERO_DATA_INFORMATION_EX_head
-    FILE_ZERO_DATA_INFORMATION_EX._fields_ = [
-        ("FileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("BeyondFinalZero", win32more.Foundation.LARGE_INTEGER),
-        ("Flags", UInt32),
-    ]
-    return FILE_ZERO_DATA_INFORMATION_EX
-def _define_FILE_ALLOCATED_RANGE_BUFFER_head():
-    class FILE_ALLOCATED_RANGE_BUFFER(Structure):
-        pass
-    return FILE_ALLOCATED_RANGE_BUFFER
-def _define_FILE_ALLOCATED_RANGE_BUFFER():
-    FILE_ALLOCATED_RANGE_BUFFER = win32more.System.Ioctl.FILE_ALLOCATED_RANGE_BUFFER_head
-    FILE_ALLOCATED_RANGE_BUFFER._fields_ = [
-        ("FileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("Length", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return FILE_ALLOCATED_RANGE_BUFFER
-def _define_ENCRYPTION_BUFFER_head():
-    class ENCRYPTION_BUFFER(Structure):
-        pass
-    return ENCRYPTION_BUFFER
-def _define_ENCRYPTION_BUFFER():
-    ENCRYPTION_BUFFER = win32more.System.Ioctl.ENCRYPTION_BUFFER_head
-    ENCRYPTION_BUFFER._fields_ = [
-        ("EncryptionOperation", UInt32),
-        ("Private", Byte * 0),
-    ]
-    return ENCRYPTION_BUFFER
-def _define_DECRYPTION_STATUS_BUFFER_head():
-    class DECRYPTION_STATUS_BUFFER(Structure):
-        pass
-    return DECRYPTION_STATUS_BUFFER
-def _define_DECRYPTION_STATUS_BUFFER():
-    DECRYPTION_STATUS_BUFFER = win32more.System.Ioctl.DECRYPTION_STATUS_BUFFER_head
-    DECRYPTION_STATUS_BUFFER._fields_ = [
-        ("NoEncryptedStreams", win32more.Foundation.BOOLEAN),
-    ]
-    return DECRYPTION_STATUS_BUFFER
-def _define_REQUEST_RAW_ENCRYPTED_DATA_head():
-    class REQUEST_RAW_ENCRYPTED_DATA(Structure):
-        pass
-    return REQUEST_RAW_ENCRYPTED_DATA
-def _define_REQUEST_RAW_ENCRYPTED_DATA():
-    REQUEST_RAW_ENCRYPTED_DATA = win32more.System.Ioctl.REQUEST_RAW_ENCRYPTED_DATA_head
-    REQUEST_RAW_ENCRYPTED_DATA._fields_ = [
-        ("FileOffset", Int64),
-        ("Length", UInt32),
-    ]
-    return REQUEST_RAW_ENCRYPTED_DATA
-def _define_ENCRYPTED_DATA_INFO_head():
-    class ENCRYPTED_DATA_INFO(Structure):
-        pass
-    return ENCRYPTED_DATA_INFO
-def _define_ENCRYPTED_DATA_INFO():
-    ENCRYPTED_DATA_INFO = win32more.System.Ioctl.ENCRYPTED_DATA_INFO_head
-    ENCRYPTED_DATA_INFO._fields_ = [
-        ("StartingFileOffset", UInt64),
-        ("OutputBufferOffset", UInt32),
-        ("BytesWithinFileSize", UInt32),
-        ("BytesWithinValidDataLength", UInt32),
-        ("CompressionFormat", UInt16),
-        ("DataUnitShift", Byte),
-        ("ChunkShift", Byte),
-        ("ClusterShift", Byte),
-        ("EncryptionFormat", Byte),
-        ("NumberOfDataBlocks", UInt16),
-        ("DataBlockSize", UInt32 * 0),
-    ]
-    return ENCRYPTED_DATA_INFO
-def _define_EXTENDED_ENCRYPTED_DATA_INFO_head():
-    class EXTENDED_ENCRYPTED_DATA_INFO(Structure):
-        pass
-    return EXTENDED_ENCRYPTED_DATA_INFO
-def _define_EXTENDED_ENCRYPTED_DATA_INFO():
-    EXTENDED_ENCRYPTED_DATA_INFO = win32more.System.Ioctl.EXTENDED_ENCRYPTED_DATA_INFO_head
-    EXTENDED_ENCRYPTED_DATA_INFO._fields_ = [
-        ("ExtendedCode", UInt32),
-        ("Length", UInt32),
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-    ]
-    return EXTENDED_ENCRYPTED_DATA_INFO
-def _define_PLEX_READ_DATA_REQUEST_head():
-    class PLEX_READ_DATA_REQUEST(Structure):
-        pass
-    return PLEX_READ_DATA_REQUEST
-def _define_PLEX_READ_DATA_REQUEST():
-    PLEX_READ_DATA_REQUEST = win32more.System.Ioctl.PLEX_READ_DATA_REQUEST_head
-    PLEX_READ_DATA_REQUEST._fields_ = [
-        ("ByteOffset", win32more.Foundation.LARGE_INTEGER),
-        ("ByteLength", UInt32),
-        ("PlexNumber", UInt32),
-    ]
-    return PLEX_READ_DATA_REQUEST
-def _define_SI_COPYFILE_head():
-    class SI_COPYFILE(Structure):
-        pass
-    return SI_COPYFILE
-def _define_SI_COPYFILE():
-    SI_COPYFILE = win32more.System.Ioctl.SI_COPYFILE_head
-    SI_COPYFILE._fields_ = [
-        ("SourceFileNameLength", UInt32),
-        ("DestinationFileNameLength", UInt32),
-        ("Flags", UInt32),
-        ("FileNameBuffer", Char * 0),
-    ]
-    return SI_COPYFILE
-def _define_FILE_MAKE_COMPATIBLE_BUFFER_head():
-    class FILE_MAKE_COMPATIBLE_BUFFER(Structure):
-        pass
-    return FILE_MAKE_COMPATIBLE_BUFFER
-def _define_FILE_MAKE_COMPATIBLE_BUFFER():
-    FILE_MAKE_COMPATIBLE_BUFFER = win32more.System.Ioctl.FILE_MAKE_COMPATIBLE_BUFFER_head
-    FILE_MAKE_COMPATIBLE_BUFFER._fields_ = [
-        ("CloseDisc", win32more.Foundation.BOOLEAN),
-    ]
-    return FILE_MAKE_COMPATIBLE_BUFFER
-def _define_FILE_SET_DEFECT_MGMT_BUFFER_head():
-    class FILE_SET_DEFECT_MGMT_BUFFER(Structure):
-        pass
-    return FILE_SET_DEFECT_MGMT_BUFFER
-def _define_FILE_SET_DEFECT_MGMT_BUFFER():
-    FILE_SET_DEFECT_MGMT_BUFFER = win32more.System.Ioctl.FILE_SET_DEFECT_MGMT_BUFFER_head
-    FILE_SET_DEFECT_MGMT_BUFFER._fields_ = [
-        ("Disable", win32more.Foundation.BOOLEAN),
-    ]
-    return FILE_SET_DEFECT_MGMT_BUFFER
-def _define_FILE_QUERY_SPARING_BUFFER_head():
-    class FILE_QUERY_SPARING_BUFFER(Structure):
-        pass
-    return FILE_QUERY_SPARING_BUFFER
-def _define_FILE_QUERY_SPARING_BUFFER():
-    FILE_QUERY_SPARING_BUFFER = win32more.System.Ioctl.FILE_QUERY_SPARING_BUFFER_head
-    FILE_QUERY_SPARING_BUFFER._fields_ = [
-        ("SparingUnitBytes", UInt32),
-        ("SoftwareSparing", win32more.Foundation.BOOLEAN),
-        ("TotalSpareBlocks", UInt32),
-        ("FreeSpareBlocks", UInt32),
-    ]
-    return FILE_QUERY_SPARING_BUFFER
-def _define_FILE_QUERY_ON_DISK_VOL_INFO_BUFFER_head():
-    class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER(Structure):
-        pass
-    return FILE_QUERY_ON_DISK_VOL_INFO_BUFFER
-def _define_FILE_QUERY_ON_DISK_VOL_INFO_BUFFER():
-    FILE_QUERY_ON_DISK_VOL_INFO_BUFFER = win32more.System.Ioctl.FILE_QUERY_ON_DISK_VOL_INFO_BUFFER_head
-    FILE_QUERY_ON_DISK_VOL_INFO_BUFFER._fields_ = [
-        ("DirectoryCount", win32more.Foundation.LARGE_INTEGER),
-        ("FileCount", win32more.Foundation.LARGE_INTEGER),
-        ("FsFormatMajVersion", UInt16),
-        ("FsFormatMinVersion", UInt16),
-        ("FsFormatName", Char * 12),
-        ("FormatTime", win32more.Foundation.LARGE_INTEGER),
-        ("LastUpdateTime", win32more.Foundation.LARGE_INTEGER),
-        ("CopyrightInfo", Char * 34),
-        ("AbstractInfo", Char * 34),
-        ("FormattingImplementationInfo", Char * 34),
-        ("LastModifyingImplementationInfo", Char * 34),
-    ]
-    return FILE_QUERY_ON_DISK_VOL_INFO_BUFFER
-def _define_FILE_INITIATE_REPAIR_OUTPUT_BUFFER_head():
-    class FILE_INITIATE_REPAIR_OUTPUT_BUFFER(Structure):
-        pass
-    return FILE_INITIATE_REPAIR_OUTPUT_BUFFER
-def _define_FILE_INITIATE_REPAIR_OUTPUT_BUFFER():
-    FILE_INITIATE_REPAIR_OUTPUT_BUFFER = win32more.System.Ioctl.FILE_INITIATE_REPAIR_OUTPUT_BUFFER_head
-    FILE_INITIATE_REPAIR_OUTPUT_BUFFER._fields_ = [
-        ("Hint1", UInt64),
-        ("Hint2", UInt64),
-        ("Clsn", UInt64),
-        ("Status", UInt32),
-    ]
-    return FILE_INITIATE_REPAIR_OUTPUT_BUFFER
-SHRINK_VOLUME_REQUEST_TYPES = Int32
-SHRINK_VOLUME_REQUEST_TYPES_ShrinkPrepare = 1
-SHRINK_VOLUME_REQUEST_TYPES_ShrinkCommit = 2
-SHRINK_VOLUME_REQUEST_TYPES_ShrinkAbort = 3
-def _define_SHRINK_VOLUME_INFORMATION_head():
-    class SHRINK_VOLUME_INFORMATION(Structure):
-        pass
-    return SHRINK_VOLUME_INFORMATION
-def _define_SHRINK_VOLUME_INFORMATION():
-    SHRINK_VOLUME_INFORMATION = win32more.System.Ioctl.SHRINK_VOLUME_INFORMATION_head
-    SHRINK_VOLUME_INFORMATION._fields_ = [
-        ("ShrinkRequestType", win32more.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES),
-        ("Flags", UInt64),
-        ("NewNumberOfSectors", Int64),
-    ]
-    return SHRINK_VOLUME_INFORMATION
-def _define_TXFS_MODIFY_RM_head():
-    class TXFS_MODIFY_RM(Structure):
-        pass
-    return TXFS_MODIFY_RM
-def _define_TXFS_MODIFY_RM():
-    TXFS_MODIFY_RM = win32more.System.Ioctl.TXFS_MODIFY_RM_head
-    TXFS_MODIFY_RM._fields_ = [
-        ("Flags", win32more.System.Ioctl.TXFS_RMF_LAGS),
-        ("LogContainerCountMax", UInt32),
-        ("LogContainerCountMin", UInt32),
-        ("LogContainerCount", UInt32),
-        ("LogGrowthIncrement", UInt32),
-        ("LogAutoShrinkPercentage", UInt32),
-        ("Reserved", UInt64),
-        ("LoggingMode", UInt16),
-    ]
-    return TXFS_MODIFY_RM
-def _define_TXFS_QUERY_RM_INFORMATION_head():
-    class TXFS_QUERY_RM_INFORMATION(Structure):
-        pass
-    return TXFS_QUERY_RM_INFORMATION
-def _define_TXFS_QUERY_RM_INFORMATION():
-    TXFS_QUERY_RM_INFORMATION = win32more.System.Ioctl.TXFS_QUERY_RM_INFORMATION_head
-    TXFS_QUERY_RM_INFORMATION._fields_ = [
-        ("BytesRequired", UInt32),
-        ("TailLsn", UInt64),
-        ("CurrentLsn", UInt64),
-        ("ArchiveTailLsn", UInt64),
-        ("LogContainerSize", UInt64),
-        ("HighestVirtualClock", win32more.Foundation.LARGE_INTEGER),
-        ("LogContainerCount", UInt32),
-        ("LogContainerCountMax", UInt32),
-        ("LogContainerCountMin", UInt32),
-        ("LogGrowthIncrement", UInt32),
-        ("LogAutoShrinkPercentage", UInt32),
-        ("Flags", win32more.System.Ioctl.TXFS_RMF_LAGS),
-        ("LoggingMode", UInt16),
-        ("Reserved", UInt16),
-        ("RmState", UInt32),
-        ("LogCapacity", UInt64),
-        ("LogFree", UInt64),
-        ("TopsSize", UInt64),
-        ("TopsUsed", UInt64),
-        ("TransactionCount", UInt64),
-        ("OnePCCount", UInt64),
-        ("TwoPCCount", UInt64),
-        ("NumberLogFileFull", UInt64),
-        ("OldestTransactionAge", UInt64),
-        ("RMName", Guid),
-        ("TmLogPathOffset", UInt32),
-    ]
-    return TXFS_QUERY_RM_INFORMATION
-def _define_TXFS_ROLLFORWARD_REDO_INFORMATION_head():
-    class TXFS_ROLLFORWARD_REDO_INFORMATION(Structure):
-        pass
-    return TXFS_ROLLFORWARD_REDO_INFORMATION
-def _define_TXFS_ROLLFORWARD_REDO_INFORMATION():
-    TXFS_ROLLFORWARD_REDO_INFORMATION = win32more.System.Ioctl.TXFS_ROLLFORWARD_REDO_INFORMATION_head
-    TXFS_ROLLFORWARD_REDO_INFORMATION._fields_ = [
-        ("LastVirtualClock", win32more.Foundation.LARGE_INTEGER),
-        ("LastRedoLsn", UInt64),
-        ("HighestRecoveryLsn", UInt64),
-        ("Flags", UInt32),
-    ]
-    return TXFS_ROLLFORWARD_REDO_INFORMATION
-def _define_TXFS_START_RM_INFORMATION_head():
-    class TXFS_START_RM_INFORMATION(Structure):
-        pass
-    return TXFS_START_RM_INFORMATION
-def _define_TXFS_START_RM_INFORMATION():
-    TXFS_START_RM_INFORMATION = win32more.System.Ioctl.TXFS_START_RM_INFORMATION_head
-    TXFS_START_RM_INFORMATION._fields_ = [
-        ("Flags", UInt32),
-        ("LogContainerSize", UInt64),
-        ("LogContainerCountMin", UInt32),
-        ("LogContainerCountMax", UInt32),
-        ("LogGrowthIncrement", UInt32),
-        ("LogAutoShrinkPercentage", UInt32),
-        ("TmLogPathOffset", UInt32),
-        ("TmLogPathLength", UInt16),
-        ("LoggingMode", UInt16),
-        ("LogPathLength", UInt16),
-        ("Reserved", UInt16),
-        ("LogPath", Char * 0),
-    ]
-    return TXFS_START_RM_INFORMATION
-def _define_TXFS_GET_METADATA_INFO_OUT_head():
-    class TXFS_GET_METADATA_INFO_OUT(Structure):
-        pass
-    return TXFS_GET_METADATA_INFO_OUT
-def _define_TXFS_GET_METADATA_INFO_OUT():
-    TXFS_GET_METADATA_INFO_OUT = win32more.System.Ioctl.TXFS_GET_METADATA_INFO_OUT_head
-    class TXFS_GET_METADATA_INFO_OUT__TxfFileId_e__Struct(Structure):
-        pass
-    TXFS_GET_METADATA_INFO_OUT__TxfFileId_e__Struct._fields_ = [
-        ("LowPart", Int64),
-        ("HighPart", Int64),
-    ]
-    TXFS_GET_METADATA_INFO_OUT._fields_ = [
-        ("TxfFileId", TXFS_GET_METADATA_INFO_OUT__TxfFileId_e__Struct),
-        ("LockingTransaction", Guid),
-        ("LastLsn", UInt64),
-        ("TransactionState", UInt32),
-    ]
-    return TXFS_GET_METADATA_INFO_OUT
-def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_head():
-    class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(Structure):
-        pass
-    return TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
-def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY():
-    TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY = win32more.System.Ioctl.TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_head
-    TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY._fields_ = [
-        ("Offset", UInt64),
-        ("NameFlags", UInt32),
-        ("FileId", Int64),
-        ("Reserved1", UInt32),
-        ("Reserved2", UInt32),
-        ("Reserved3", Int64),
-        ("FileName", Char * 0),
-    ]
-    return TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
-def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES_head():
-    class TXFS_LIST_TRANSACTION_LOCKED_FILES(Structure):
-        pass
-    return TXFS_LIST_TRANSACTION_LOCKED_FILES
-def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES():
-    TXFS_LIST_TRANSACTION_LOCKED_FILES = win32more.System.Ioctl.TXFS_LIST_TRANSACTION_LOCKED_FILES_head
-    TXFS_LIST_TRANSACTION_LOCKED_FILES._fields_ = [
-        ("KtmTransaction", Guid),
-        ("NumberOfFiles", UInt64),
-        ("BufferSizeRequired", UInt64),
-        ("Offset", UInt64),
-    ]
-    return TXFS_LIST_TRANSACTION_LOCKED_FILES
-def _define_TXFS_LIST_TRANSACTIONS_ENTRY_head():
-    class TXFS_LIST_TRANSACTIONS_ENTRY(Structure):
-        pass
-    return TXFS_LIST_TRANSACTIONS_ENTRY
-def _define_TXFS_LIST_TRANSACTIONS_ENTRY():
-    TXFS_LIST_TRANSACTIONS_ENTRY = win32more.System.Ioctl.TXFS_LIST_TRANSACTIONS_ENTRY_head
-    TXFS_LIST_TRANSACTIONS_ENTRY._fields_ = [
-        ("TransactionId", Guid),
-        ("TransactionState", UInt32),
-        ("Reserved1", UInt32),
-        ("Reserved2", UInt32),
-        ("Reserved3", Int64),
-    ]
-    return TXFS_LIST_TRANSACTIONS_ENTRY
-def _define_TXFS_LIST_TRANSACTIONS_head():
-    class TXFS_LIST_TRANSACTIONS(Structure):
-        pass
-    return TXFS_LIST_TRANSACTIONS
-def _define_TXFS_LIST_TRANSACTIONS():
-    TXFS_LIST_TRANSACTIONS = win32more.System.Ioctl.TXFS_LIST_TRANSACTIONS_head
-    TXFS_LIST_TRANSACTIONS._fields_ = [
-        ("NumberOfTransactions", UInt64),
-        ("BufferSizeRequired", UInt64),
-    ]
-    return TXFS_LIST_TRANSACTIONS
-def _define_TXFS_READ_BACKUP_INFORMATION_OUT_head():
-    class TXFS_READ_BACKUP_INFORMATION_OUT(Structure):
-        pass
-    return TXFS_READ_BACKUP_INFORMATION_OUT
-def _define_TXFS_READ_BACKUP_INFORMATION_OUT():
-    TXFS_READ_BACKUP_INFORMATION_OUT = win32more.System.Ioctl.TXFS_READ_BACKUP_INFORMATION_OUT_head
-    class TXFS_READ_BACKUP_INFORMATION_OUT__Anonymous_e__Union(Union):
-        pass
-    TXFS_READ_BACKUP_INFORMATION_OUT__Anonymous_e__Union._fields_ = [
-        ("BufferLength", UInt32),
-        ("Buffer", Byte * 0),
-    ]
-    TXFS_READ_BACKUP_INFORMATION_OUT._anonymous_ = [
-        'Anonymous',
-    ]
-    TXFS_READ_BACKUP_INFORMATION_OUT._fields_ = [
-        ("Anonymous", TXFS_READ_BACKUP_INFORMATION_OUT__Anonymous_e__Union),
-    ]
-    return TXFS_READ_BACKUP_INFORMATION_OUT
-def _define_TXFS_WRITE_BACKUP_INFORMATION_head():
-    class TXFS_WRITE_BACKUP_INFORMATION(Structure):
-        pass
-    return TXFS_WRITE_BACKUP_INFORMATION
-def _define_TXFS_WRITE_BACKUP_INFORMATION():
-    TXFS_WRITE_BACKUP_INFORMATION = win32more.System.Ioctl.TXFS_WRITE_BACKUP_INFORMATION_head
-    TXFS_WRITE_BACKUP_INFORMATION._fields_ = [
-        ("Buffer", Byte * 0),
-    ]
-    return TXFS_WRITE_BACKUP_INFORMATION
-def _define_TXFS_GET_TRANSACTED_VERSION_head():
-    class TXFS_GET_TRANSACTED_VERSION(Structure):
-        pass
-    return TXFS_GET_TRANSACTED_VERSION
-def _define_TXFS_GET_TRANSACTED_VERSION():
-    TXFS_GET_TRANSACTED_VERSION = win32more.System.Ioctl.TXFS_GET_TRANSACTED_VERSION_head
-    TXFS_GET_TRANSACTED_VERSION._fields_ = [
-        ("ThisBaseVersion", UInt32),
-        ("LatestVersion", UInt32),
-        ("ThisMiniVersion", UInt16),
-        ("FirstMiniVersion", UInt16),
-        ("LatestMiniVersion", UInt16),
-    ]
-    return TXFS_GET_TRANSACTED_VERSION
-def _define_TXFS_SAVEPOINT_INFORMATION_head():
-    class TXFS_SAVEPOINT_INFORMATION(Structure):
-        pass
-    return TXFS_SAVEPOINT_INFORMATION
-def _define_TXFS_SAVEPOINT_INFORMATION():
-    TXFS_SAVEPOINT_INFORMATION = win32more.System.Ioctl.TXFS_SAVEPOINT_INFORMATION_head
-    TXFS_SAVEPOINT_INFORMATION._fields_ = [
-        ("KtmTransaction", win32more.Foundation.HANDLE),
-        ("ActionCode", UInt32),
-        ("SavepointId", UInt32),
-    ]
-    return TXFS_SAVEPOINT_INFORMATION
-def _define_TXFS_CREATE_MINIVERSION_INFO_head():
-    class TXFS_CREATE_MINIVERSION_INFO(Structure):
-        pass
-    return TXFS_CREATE_MINIVERSION_INFO
-def _define_TXFS_CREATE_MINIVERSION_INFO():
-    TXFS_CREATE_MINIVERSION_INFO = win32more.System.Ioctl.TXFS_CREATE_MINIVERSION_INFO_head
-    TXFS_CREATE_MINIVERSION_INFO._fields_ = [
-        ("StructureVersion", UInt16),
-        ("StructureLength", UInt16),
-        ("BaseVersion", UInt32),
-        ("MiniVersion", UInt16),
-    ]
-    return TXFS_CREATE_MINIVERSION_INFO
-def _define_TXFS_TRANSACTION_ACTIVE_INFO_head():
-    class TXFS_TRANSACTION_ACTIVE_INFO(Structure):
-        pass
-    return TXFS_TRANSACTION_ACTIVE_INFO
-def _define_TXFS_TRANSACTION_ACTIVE_INFO():
-    TXFS_TRANSACTION_ACTIVE_INFO = win32more.System.Ioctl.TXFS_TRANSACTION_ACTIVE_INFO_head
-    TXFS_TRANSACTION_ACTIVE_INFO._fields_ = [
-        ("TransactionsActiveAtSnapshot", win32more.Foundation.BOOLEAN),
-    ]
-    return TXFS_TRANSACTION_ACTIVE_INFO
-def _define_BOOT_AREA_INFO_head():
-    class BOOT_AREA_INFO(Structure):
-        pass
-    return BOOT_AREA_INFO
-def _define_BOOT_AREA_INFO():
-    BOOT_AREA_INFO = win32more.System.Ioctl.BOOT_AREA_INFO_head
-    class BOOT_AREA_INFO__Anonymous_e__Struct(Structure):
-        pass
-    BOOT_AREA_INFO__Anonymous_e__Struct._fields_ = [
-        ("Offset", win32more.Foundation.LARGE_INTEGER),
-    ]
-    BOOT_AREA_INFO._fields_ = [
-        ("BootSectorCount", UInt32),
-        ("BootSectors", BOOT_AREA_INFO__Anonymous_e__Struct * 2),
-    ]
-    return BOOT_AREA_INFO
-def _define_RETRIEVAL_POINTER_BASE_head():
-    class RETRIEVAL_POINTER_BASE(Structure):
-        pass
-    return RETRIEVAL_POINTER_BASE
-def _define_RETRIEVAL_POINTER_BASE():
-    RETRIEVAL_POINTER_BASE = win32more.System.Ioctl.RETRIEVAL_POINTER_BASE_head
-    RETRIEVAL_POINTER_BASE._fields_ = [
-        ("FileAreaOffset", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return RETRIEVAL_POINTER_BASE
-def _define_FILE_FS_PERSISTENT_VOLUME_INFORMATION_head():
-    class FILE_FS_PERSISTENT_VOLUME_INFORMATION(Structure):
-        pass
-    return FILE_FS_PERSISTENT_VOLUME_INFORMATION
-def _define_FILE_FS_PERSISTENT_VOLUME_INFORMATION():
-    FILE_FS_PERSISTENT_VOLUME_INFORMATION = win32more.System.Ioctl.FILE_FS_PERSISTENT_VOLUME_INFORMATION_head
-    FILE_FS_PERSISTENT_VOLUME_INFORMATION._fields_ = [
-        ("VolumeFlags", UInt32),
-        ("FlagMask", UInt32),
-        ("Version", UInt32),
-        ("Reserved", UInt32),
-    ]
-    return FILE_FS_PERSISTENT_VOLUME_INFORMATION
-def _define_FILE_SYSTEM_RECOGNITION_INFORMATION_head():
-    class FILE_SYSTEM_RECOGNITION_INFORMATION(Structure):
-        pass
-    return FILE_SYSTEM_RECOGNITION_INFORMATION
-def _define_FILE_SYSTEM_RECOGNITION_INFORMATION():
-    FILE_SYSTEM_RECOGNITION_INFORMATION = win32more.System.Ioctl.FILE_SYSTEM_RECOGNITION_INFORMATION_head
-    FILE_SYSTEM_RECOGNITION_INFORMATION._fields_ = [
-        ("FileSystem", win32more.Foundation.CHAR * 9),
-    ]
-    return FILE_SYSTEM_RECOGNITION_INFORMATION
-def _define_REQUEST_OPLOCK_INPUT_BUFFER_head():
-    class REQUEST_OPLOCK_INPUT_BUFFER(Structure):
-        pass
-    return REQUEST_OPLOCK_INPUT_BUFFER
-def _define_REQUEST_OPLOCK_INPUT_BUFFER():
-    REQUEST_OPLOCK_INPUT_BUFFER = win32more.System.Ioctl.REQUEST_OPLOCK_INPUT_BUFFER_head
-    REQUEST_OPLOCK_INPUT_BUFFER._fields_ = [
-        ("StructureVersion", UInt16),
-        ("StructureLength", UInt16),
-        ("RequestedOplockLevel", UInt32),
-        ("Flags", UInt32),
-    ]
-    return REQUEST_OPLOCK_INPUT_BUFFER
-def _define_REQUEST_OPLOCK_OUTPUT_BUFFER_head():
-    class REQUEST_OPLOCK_OUTPUT_BUFFER(Structure):
-        pass
-    return REQUEST_OPLOCK_OUTPUT_BUFFER
-def _define_REQUEST_OPLOCK_OUTPUT_BUFFER():
-    REQUEST_OPLOCK_OUTPUT_BUFFER = win32more.System.Ioctl.REQUEST_OPLOCK_OUTPUT_BUFFER_head
-    REQUEST_OPLOCK_OUTPUT_BUFFER._fields_ = [
-        ("StructureVersion", UInt16),
-        ("StructureLength", UInt16),
-        ("OriginalOplockLevel", UInt32),
-        ("NewOplockLevel", UInt32),
-        ("Flags", UInt32),
-        ("AccessMode", UInt32),
-        ("ShareMode", UInt16),
-    ]
-    return REQUEST_OPLOCK_OUTPUT_BUFFER
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST_head():
-    class STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST(Structure):
-        pass
-    return STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST():
-    STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST_head
-    STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST._fields_ = [
-        ("RequestLevel", UInt32),
-        ("RequestFlags", UInt32),
-    ]
-    return STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY_head():
-    class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY(Structure):
-        pass
-    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY():
-    STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY_head
-    STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY._fields_ = [
-        ("EntryLength", UInt32),
-        ("DependencyTypeFlags", UInt32),
-        ("ProviderSpecificFlags", UInt32),
-        ("VirtualStorageType", win32more.Storage.Vhd.VIRTUAL_STORAGE_TYPE),
-    ]
-    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY_head():
-    class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY(Structure):
-        pass
-    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY():
-    STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY_head
-    STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY._fields_ = [
-        ("EntryLength", UInt32),
-        ("DependencyTypeFlags", UInt32),
-        ("ProviderSpecificFlags", UInt32),
-        ("VirtualStorageType", win32more.Storage.Vhd.VIRTUAL_STORAGE_TYPE),
-        ("AncestorLevel", UInt32),
-        ("HostVolumeNameOffset", UInt32),
-        ("HostVolumeNameSize", UInt32),
-        ("DependentVolumeNameOffset", UInt32),
-        ("DependentVolumeNameSize", UInt32),
-        ("RelativePathOffset", UInt32),
-        ("RelativePathSize", UInt32),
-        ("DependentDeviceNameOffset", UInt32),
-        ("DependentDeviceNameSize", UInt32),
-    ]
-    return STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE_head():
-    class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE(Structure):
-        pass
-    return STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE
-def _define_STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE():
-    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE = win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE_head
-    class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE__Anonymous_e__Union(Union):
-        pass
-    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE__Anonymous_e__Union._fields_ = [
-        ("Lev1Depends", win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY * 0),
-        ("Lev2Depends", win32more.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY * 0),
-    ]
-    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE._anonymous_ = [
-        'Anonymous',
-    ]
-    STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE._fields_ = [
-        ("ResponseLevel", UInt32),
-        ("NumberEntries", UInt32),
-        ("Anonymous", STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE__Anonymous_e__Union),
-    ]
-    return STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE
-def _define_SD_CHANGE_MACHINE_SID_INPUT_head():
-    class SD_CHANGE_MACHINE_SID_INPUT(Structure):
-        pass
-    return SD_CHANGE_MACHINE_SID_INPUT
-def _define_SD_CHANGE_MACHINE_SID_INPUT():
-    SD_CHANGE_MACHINE_SID_INPUT = win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_INPUT_head
-    SD_CHANGE_MACHINE_SID_INPUT._fields_ = [
-        ("CurrentMachineSIDOffset", UInt16),
-        ("CurrentMachineSIDLength", UInt16),
-        ("NewMachineSIDOffset", UInt16),
-        ("NewMachineSIDLength", UInt16),
-    ]
-    return SD_CHANGE_MACHINE_SID_INPUT
-def _define_SD_CHANGE_MACHINE_SID_OUTPUT_head():
-    class SD_CHANGE_MACHINE_SID_OUTPUT(Structure):
-        pass
-    return SD_CHANGE_MACHINE_SID_OUTPUT
-def _define_SD_CHANGE_MACHINE_SID_OUTPUT():
-    SD_CHANGE_MACHINE_SID_OUTPUT = win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT_head
-    SD_CHANGE_MACHINE_SID_OUTPUT._fields_ = [
-        ("NumSDChangedSuccess", UInt64),
-        ("NumSDChangedFail", UInt64),
-        ("NumSDUnused", UInt64),
-        ("NumSDTotal", UInt64),
-        ("NumMftSDChangedSuccess", UInt64),
-        ("NumMftSDChangedFail", UInt64),
-        ("NumMftSDTotal", UInt64),
-    ]
-    return SD_CHANGE_MACHINE_SID_OUTPUT
-def _define_SD_QUERY_STATS_INPUT_head():
-    class SD_QUERY_STATS_INPUT(Structure):
-        pass
-    return SD_QUERY_STATS_INPUT
-def _define_SD_QUERY_STATS_INPUT():
-    SD_QUERY_STATS_INPUT = win32more.System.Ioctl.SD_QUERY_STATS_INPUT_head
-    SD_QUERY_STATS_INPUT._fields_ = [
-        ("Reserved", UInt32),
-    ]
-    return SD_QUERY_STATS_INPUT
-def _define_SD_QUERY_STATS_OUTPUT_head():
-    class SD_QUERY_STATS_OUTPUT(Structure):
-        pass
-    return SD_QUERY_STATS_OUTPUT
-def _define_SD_QUERY_STATS_OUTPUT():
-    SD_QUERY_STATS_OUTPUT = win32more.System.Ioctl.SD_QUERY_STATS_OUTPUT_head
-    SD_QUERY_STATS_OUTPUT._fields_ = [
-        ("SdsStreamSize", UInt64),
-        ("SdsAllocationSize", UInt64),
-        ("SiiStreamSize", UInt64),
-        ("SiiAllocationSize", UInt64),
-        ("SdhStreamSize", UInt64),
-        ("SdhAllocationSize", UInt64),
-        ("NumSDTotal", UInt64),
-        ("NumSDUnused", UInt64),
-    ]
-    return SD_QUERY_STATS_OUTPUT
-def _define_SD_ENUM_SDS_INPUT_head():
-    class SD_ENUM_SDS_INPUT(Structure):
-        pass
-    return SD_ENUM_SDS_INPUT
-def _define_SD_ENUM_SDS_INPUT():
-    SD_ENUM_SDS_INPUT = win32more.System.Ioctl.SD_ENUM_SDS_INPUT_head
-    SD_ENUM_SDS_INPUT._fields_ = [
-        ("StartingOffset", UInt64),
-        ("MaxSDEntriesToReturn", UInt64),
-    ]
-    return SD_ENUM_SDS_INPUT
-def _define_SD_ENUM_SDS_ENTRY_head():
-    class SD_ENUM_SDS_ENTRY(Structure):
-        pass
-    return SD_ENUM_SDS_ENTRY
-def _define_SD_ENUM_SDS_ENTRY():
-    SD_ENUM_SDS_ENTRY = win32more.System.Ioctl.SD_ENUM_SDS_ENTRY_head
-    SD_ENUM_SDS_ENTRY._fields_ = [
-        ("Hash", UInt32),
-        ("SecurityId", UInt32),
-        ("Offset", UInt64),
-        ("Length", UInt32),
-        ("Descriptor", Byte * 0),
-    ]
-    return SD_ENUM_SDS_ENTRY
-def _define_SD_ENUM_SDS_OUTPUT_head():
-    class SD_ENUM_SDS_OUTPUT(Structure):
-        pass
-    return SD_ENUM_SDS_OUTPUT
-def _define_SD_ENUM_SDS_OUTPUT():
-    SD_ENUM_SDS_OUTPUT = win32more.System.Ioctl.SD_ENUM_SDS_OUTPUT_head
-    SD_ENUM_SDS_OUTPUT._fields_ = [
-        ("NextOffset", UInt64),
-        ("NumSDEntriesReturned", UInt64),
-        ("NumSDBytesReturned", UInt64),
-        ("SDEntry", win32more.System.Ioctl.SD_ENUM_SDS_ENTRY * 0),
-    ]
-    return SD_ENUM_SDS_OUTPUT
-def _define_SD_GLOBAL_CHANGE_INPUT_head():
-    class SD_GLOBAL_CHANGE_INPUT(Structure):
-        pass
-    return SD_GLOBAL_CHANGE_INPUT
-def _define_SD_GLOBAL_CHANGE_INPUT():
-    SD_GLOBAL_CHANGE_INPUT = win32more.System.Ioctl.SD_GLOBAL_CHANGE_INPUT_head
-    class SD_GLOBAL_CHANGE_INPUT__Anonymous_e__Union(Union):
-        pass
-    SD_GLOBAL_CHANGE_INPUT__Anonymous_e__Union._fields_ = [
-        ("SdChange", win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_INPUT),
-        ("SdQueryStats", win32more.System.Ioctl.SD_QUERY_STATS_INPUT),
-        ("SdEnumSds", win32more.System.Ioctl.SD_ENUM_SDS_INPUT),
-    ]
-    SD_GLOBAL_CHANGE_INPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    SD_GLOBAL_CHANGE_INPUT._fields_ = [
-        ("Flags", UInt32),
-        ("ChangeType", UInt32),
-        ("Anonymous", SD_GLOBAL_CHANGE_INPUT__Anonymous_e__Union),
-    ]
-    return SD_GLOBAL_CHANGE_INPUT
-def _define_SD_GLOBAL_CHANGE_OUTPUT_head():
-    class SD_GLOBAL_CHANGE_OUTPUT(Structure):
-        pass
-    return SD_GLOBAL_CHANGE_OUTPUT
-def _define_SD_GLOBAL_CHANGE_OUTPUT():
-    SD_GLOBAL_CHANGE_OUTPUT = win32more.System.Ioctl.SD_GLOBAL_CHANGE_OUTPUT_head
-    class SD_GLOBAL_CHANGE_OUTPUT__Anonymous_e__Union(Union):
-        pass
-    SD_GLOBAL_CHANGE_OUTPUT__Anonymous_e__Union._fields_ = [
-        ("SdChange", win32more.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT),
-        ("SdQueryStats", win32more.System.Ioctl.SD_QUERY_STATS_OUTPUT),
-        ("SdEnumSds", win32more.System.Ioctl.SD_ENUM_SDS_OUTPUT),
-    ]
-    SD_GLOBAL_CHANGE_OUTPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    SD_GLOBAL_CHANGE_OUTPUT._fields_ = [
-        ("Flags", UInt32),
-        ("ChangeType", UInt32),
-        ("Anonymous", SD_GLOBAL_CHANGE_OUTPUT__Anonymous_e__Union),
-    ]
-    return SD_GLOBAL_CHANGE_OUTPUT
-def _define_LOOKUP_STREAM_FROM_CLUSTER_INPUT_head():
-    class LOOKUP_STREAM_FROM_CLUSTER_INPUT(Structure):
-        pass
-    return LOOKUP_STREAM_FROM_CLUSTER_INPUT
-def _define_LOOKUP_STREAM_FROM_CLUSTER_INPUT():
-    LOOKUP_STREAM_FROM_CLUSTER_INPUT = win32more.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_INPUT_head
-    LOOKUP_STREAM_FROM_CLUSTER_INPUT._fields_ = [
-        ("Flags", UInt32),
-        ("NumberOfClusters", UInt32),
-        ("Cluster", win32more.Foundation.LARGE_INTEGER * 0),
-    ]
-    return LOOKUP_STREAM_FROM_CLUSTER_INPUT
-def _define_LOOKUP_STREAM_FROM_CLUSTER_OUTPUT_head():
-    class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT(Structure):
-        pass
-    return LOOKUP_STREAM_FROM_CLUSTER_OUTPUT
-def _define_LOOKUP_STREAM_FROM_CLUSTER_OUTPUT():
-    LOOKUP_STREAM_FROM_CLUSTER_OUTPUT = win32more.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_OUTPUT_head
-    LOOKUP_STREAM_FROM_CLUSTER_OUTPUT._fields_ = [
-        ("Offset", UInt32),
-        ("NumberOfMatches", UInt32),
-        ("BufferSizeRequired", UInt32),
-    ]
-    return LOOKUP_STREAM_FROM_CLUSTER_OUTPUT
-def _define_LOOKUP_STREAM_FROM_CLUSTER_ENTRY_head():
-    class LOOKUP_STREAM_FROM_CLUSTER_ENTRY(Structure):
-        pass
-    return LOOKUP_STREAM_FROM_CLUSTER_ENTRY
-def _define_LOOKUP_STREAM_FROM_CLUSTER_ENTRY():
-    LOOKUP_STREAM_FROM_CLUSTER_ENTRY = win32more.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_ENTRY_head
-    LOOKUP_STREAM_FROM_CLUSTER_ENTRY._fields_ = [
-        ("OffsetToNext", UInt32),
-        ("Flags", UInt32),
-        ("Reserved", win32more.Foundation.LARGE_INTEGER),
-        ("Cluster", win32more.Foundation.LARGE_INTEGER),
-        ("FileName", Char * 0),
-    ]
-    return LOOKUP_STREAM_FROM_CLUSTER_ENTRY
-def _define_FILE_TYPE_NOTIFICATION_INPUT_head():
-    class FILE_TYPE_NOTIFICATION_INPUT(Structure):
-        pass
-    return FILE_TYPE_NOTIFICATION_INPUT
-def _define_FILE_TYPE_NOTIFICATION_INPUT():
-    FILE_TYPE_NOTIFICATION_INPUT = win32more.System.Ioctl.FILE_TYPE_NOTIFICATION_INPUT_head
-    FILE_TYPE_NOTIFICATION_INPUT._fields_ = [
-        ("Flags", UInt32),
-        ("NumFileTypeIDs", UInt32),
-        ("FileTypeID", Guid * 0),
-    ]
-    return FILE_TYPE_NOTIFICATION_INPUT
-def _define_CSV_MGMT_LOCK_head():
-    class CSV_MGMT_LOCK(Structure):
-        pass
-    return CSV_MGMT_LOCK
-def _define_CSV_MGMT_LOCK():
-    CSV_MGMT_LOCK = win32more.System.Ioctl.CSV_MGMT_LOCK_head
-    CSV_MGMT_LOCK._fields_ = [
-        ("Flags", UInt32),
-    ]
-    return CSV_MGMT_LOCK
-def _define_CSV_NAMESPACE_INFO_head():
-    class CSV_NAMESPACE_INFO(Structure):
-        pass
-    return CSV_NAMESPACE_INFO
-def _define_CSV_NAMESPACE_INFO():
-    CSV_NAMESPACE_INFO = win32more.System.Ioctl.CSV_NAMESPACE_INFO_head
-    CSV_NAMESPACE_INFO._fields_ = [
-        ("Version", UInt32),
-        ("DeviceNumber", UInt32),
-        ("StartingOffset", win32more.Foundation.LARGE_INTEGER),
-        ("SectorSize", UInt32),
-    ]
-    return CSV_NAMESPACE_INFO
-CSV_CONTROL_OP = Int32
-CSV_CONTROL_OP_CsvControlStartRedirectFile = 2
-CSV_CONTROL_OP_CsvControlStopRedirectFile = 3
-CSV_CONTROL_OP_CsvControlQueryRedirectState = 4
-CSV_CONTROL_OP_CsvControlQueryFileRevision = 6
-CSV_CONTROL_OP_CsvControlQueryMdsPath = 8
-CSV_CONTROL_OP_CsvControlQueryFileRevisionFileId128 = 9
-CSV_CONTROL_OP_CsvControlQueryVolumeRedirectState = 10
-CSV_CONTROL_OP_CsvControlEnableUSNRangeModificationTracking = 13
-CSV_CONTROL_OP_CsvControlMarkHandleLocalVolumeMount = 14
-CSV_CONTROL_OP_CsvControlUnmarkHandleLocalVolumeMount = 15
-CSV_CONTROL_OP_CsvControlGetCsvFsMdsPathV2 = 18
-CSV_CONTROL_OP_CsvControlDisableCaching = 19
-CSV_CONTROL_OP_CsvControlEnableCaching = 20
-CSV_CONTROL_OP_CsvControlStartForceDFO = 21
-CSV_CONTROL_OP_CsvControlStopForceDFO = 22
-CSV_CONTROL_OP_CsvControlQueryMdsPathNoPause = 23
-CSV_CONTROL_OP_CsvControlSetVolumeId = 24
-CSV_CONTROL_OP_CsvControlQueryVolumeId = 25
-def _define_CSV_CONTROL_PARAM_head():
-    class CSV_CONTROL_PARAM(Structure):
-        pass
-    return CSV_CONTROL_PARAM
-def _define_CSV_CONTROL_PARAM():
-    CSV_CONTROL_PARAM = win32more.System.Ioctl.CSV_CONTROL_PARAM_head
-    CSV_CONTROL_PARAM._fields_ = [
-        ("Operation", win32more.System.Ioctl.CSV_CONTROL_OP),
-        ("Unused", Int64),
-    ]
-    return CSV_CONTROL_PARAM
-def _define_CSV_QUERY_REDIRECT_STATE_head():
-    class CSV_QUERY_REDIRECT_STATE(Structure):
-        pass
-    return CSV_QUERY_REDIRECT_STATE
-def _define_CSV_QUERY_REDIRECT_STATE():
-    CSV_QUERY_REDIRECT_STATE = win32more.System.Ioctl.CSV_QUERY_REDIRECT_STATE_head
-    CSV_QUERY_REDIRECT_STATE._fields_ = [
-        ("MdsNodeId", UInt32),
-        ("DsNodeId", UInt32),
-        ("FileRedirected", win32more.Foundation.BOOLEAN),
-    ]
-    return CSV_QUERY_REDIRECT_STATE
-def _define_CSV_QUERY_FILE_REVISION_head():
-    class CSV_QUERY_FILE_REVISION(Structure):
-        pass
-    return CSV_QUERY_FILE_REVISION
-def _define_CSV_QUERY_FILE_REVISION():
-    CSV_QUERY_FILE_REVISION = win32more.System.Ioctl.CSV_QUERY_FILE_REVISION_head
-    CSV_QUERY_FILE_REVISION._fields_ = [
-        ("FileId", Int64),
-        ("FileRevision", Int64 * 3),
-    ]
-    return CSV_QUERY_FILE_REVISION
-def _define_CSV_QUERY_FILE_REVISION_FILE_ID_128_head():
-    class CSV_QUERY_FILE_REVISION_FILE_ID_128(Structure):
-        pass
-    return CSV_QUERY_FILE_REVISION_FILE_ID_128
-def _define_CSV_QUERY_FILE_REVISION_FILE_ID_128():
-    CSV_QUERY_FILE_REVISION_FILE_ID_128 = win32more.System.Ioctl.CSV_QUERY_FILE_REVISION_FILE_ID_128_head
-    CSV_QUERY_FILE_REVISION_FILE_ID_128._fields_ = [
-        ("FileId", win32more.Storage.FileSystem.FILE_ID_128),
-        ("FileRevision", Int64 * 3),
-    ]
-    return CSV_QUERY_FILE_REVISION_FILE_ID_128
-def _define_CSV_QUERY_MDS_PATH_head():
-    class CSV_QUERY_MDS_PATH(Structure):
-        pass
-    return CSV_QUERY_MDS_PATH
-def _define_CSV_QUERY_MDS_PATH():
-    CSV_QUERY_MDS_PATH = win32more.System.Ioctl.CSV_QUERY_MDS_PATH_head
-    CSV_QUERY_MDS_PATH._fields_ = [
-        ("MdsNodeId", UInt32),
-        ("DsNodeId", UInt32),
-        ("PathLength", UInt32),
-        ("Path", Char * 0),
-    ]
-    return CSV_QUERY_MDS_PATH
-CSVFS_DISK_CONNECTIVITY = Int32
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone = 0
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly = 1
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes = 2
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes = 3
-def _define_CSV_QUERY_VOLUME_REDIRECT_STATE_head():
-    class CSV_QUERY_VOLUME_REDIRECT_STATE(Structure):
-        pass
-    return CSV_QUERY_VOLUME_REDIRECT_STATE
-def _define_CSV_QUERY_VOLUME_REDIRECT_STATE():
-    CSV_QUERY_VOLUME_REDIRECT_STATE = win32more.System.Ioctl.CSV_QUERY_VOLUME_REDIRECT_STATE_head
-    CSV_QUERY_VOLUME_REDIRECT_STATE._fields_ = [
-        ("MdsNodeId", UInt32),
-        ("DsNodeId", UInt32),
-        ("IsDiskConnected", win32more.Foundation.BOOLEAN),
-        ("ClusterEnableDirectIo", win32more.Foundation.BOOLEAN),
-        ("DiskConnectivity", win32more.System.Ioctl.CSVFS_DISK_CONNECTIVITY),
-    ]
-    return CSV_QUERY_VOLUME_REDIRECT_STATE
-def _define_CSV_QUERY_MDS_PATH_V2_head():
-    class CSV_QUERY_MDS_PATH_V2(Structure):
-        pass
-    return CSV_QUERY_MDS_PATH_V2
-def _define_CSV_QUERY_MDS_PATH_V2():
-    CSV_QUERY_MDS_PATH_V2 = win32more.System.Ioctl.CSV_QUERY_MDS_PATH_V2_head
-    CSV_QUERY_MDS_PATH_V2._fields_ = [
-        ("Version", Int64),
-        ("RequiredSize", UInt32),
-        ("MdsNodeId", UInt32),
-        ("DsNodeId", UInt32),
-        ("Flags", UInt32),
-        ("DiskConnectivity", win32more.System.Ioctl.CSVFS_DISK_CONNECTIVITY),
-        ("VolumeId", Guid),
-        ("IpAddressOffset", UInt32),
-        ("IpAddressLength", UInt32),
-        ("PathOffset", UInt32),
-        ("PathLength", UInt32),
-    ]
-    return CSV_QUERY_MDS_PATH_V2
-def _define_CSV_SET_VOLUME_ID_head():
-    class CSV_SET_VOLUME_ID(Structure):
-        pass
-    return CSV_SET_VOLUME_ID
-def _define_CSV_SET_VOLUME_ID():
-    CSV_SET_VOLUME_ID = win32more.System.Ioctl.CSV_SET_VOLUME_ID_head
-    CSV_SET_VOLUME_ID._fields_ = [
-        ("VolumeId", Guid),
-    ]
-    return CSV_SET_VOLUME_ID
-def _define_CSV_QUERY_VOLUME_ID_head():
-    class CSV_QUERY_VOLUME_ID(Structure):
-        pass
-    return CSV_QUERY_VOLUME_ID
-def _define_CSV_QUERY_VOLUME_ID():
-    CSV_QUERY_VOLUME_ID = win32more.System.Ioctl.CSV_QUERY_VOLUME_ID_head
-    CSV_QUERY_VOLUME_ID._fields_ = [
-        ("VolumeId", Guid),
-    ]
-    return CSV_QUERY_VOLUME_ID
-def _define_CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT_head():
-    class CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT(Structure):
-        pass
-    return CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT
-def _define_CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT():
-    CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT = win32more.System.Ioctl.CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT_head
-    CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT._fields_ = [
-        ("VetoedFromAltitudeIntegral", UInt64),
-        ("VetoedFromAltitudeDecimal", UInt64),
-        ("Reason", Char * 256),
-    ]
-    return CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT
-STORAGE_RESERVE_ID = Int32
-STORAGE_RESERVE_ID_StorageReserveIdNone = 0
-STORAGE_RESERVE_ID_StorageReserveIdHard = 1
-STORAGE_RESERVE_ID_StorageReserveIdSoft = 2
-STORAGE_RESERVE_ID_StorageReserveIdUpdateScratch = 3
-STORAGE_RESERVE_ID_StorageReserveIdMax = 4
-def _define_CSV_IS_OWNED_BY_CSVFS_head():
-    class CSV_IS_OWNED_BY_CSVFS(Structure):
-        pass
-    return CSV_IS_OWNED_BY_CSVFS
-def _define_CSV_IS_OWNED_BY_CSVFS():
-    CSV_IS_OWNED_BY_CSVFS = win32more.System.Ioctl.CSV_IS_OWNED_BY_CSVFS_head
-    CSV_IS_OWNED_BY_CSVFS._fields_ = [
-        ("OwnedByCSVFS", win32more.Foundation.BOOLEAN),
-    ]
-    return CSV_IS_OWNED_BY_CSVFS
-def _define_FILE_LEVEL_TRIM_RANGE_head():
-    class FILE_LEVEL_TRIM_RANGE(Structure):
-        pass
-    return FILE_LEVEL_TRIM_RANGE
-def _define_FILE_LEVEL_TRIM_RANGE():
-    FILE_LEVEL_TRIM_RANGE = win32more.System.Ioctl.FILE_LEVEL_TRIM_RANGE_head
-    FILE_LEVEL_TRIM_RANGE._fields_ = [
-        ("Offset", UInt64),
-        ("Length", UInt64),
-    ]
-    return FILE_LEVEL_TRIM_RANGE
-def _define_FILE_LEVEL_TRIM_head():
-    class FILE_LEVEL_TRIM(Structure):
-        pass
-    return FILE_LEVEL_TRIM
-def _define_FILE_LEVEL_TRIM():
-    FILE_LEVEL_TRIM = win32more.System.Ioctl.FILE_LEVEL_TRIM_head
-    FILE_LEVEL_TRIM._fields_ = [
-        ("Key", UInt32),
-        ("NumRanges", UInt32),
-        ("Ranges", win32more.System.Ioctl.FILE_LEVEL_TRIM_RANGE * 0),
-    ]
-    return FILE_LEVEL_TRIM
-def _define_FILE_LEVEL_TRIM_OUTPUT_head():
-    class FILE_LEVEL_TRIM_OUTPUT(Structure):
-        pass
-    return FILE_LEVEL_TRIM_OUTPUT
-def _define_FILE_LEVEL_TRIM_OUTPUT():
-    FILE_LEVEL_TRIM_OUTPUT = win32more.System.Ioctl.FILE_LEVEL_TRIM_OUTPUT_head
-    FILE_LEVEL_TRIM_OUTPUT._fields_ = [
-        ("NumRangesProcessed", UInt32),
-    ]
-    return FILE_LEVEL_TRIM_OUTPUT
-QUERY_FILE_LAYOUT_FILTER_TYPE = Int32
-QUERY_FILE_LAYOUT_FILTER_TYPE_NONE = 0
-QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS = 1
-QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID = 2
-QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID = 3
-QUERY_FILE_LAYOUT_NUM_FILTER_TYPES = 4
-def _define_CLUSTER_RANGE_head():
-    class CLUSTER_RANGE(Structure):
-        pass
-    return CLUSTER_RANGE
-def _define_CLUSTER_RANGE():
-    CLUSTER_RANGE = win32more.System.Ioctl.CLUSTER_RANGE_head
-    CLUSTER_RANGE._fields_ = [
-        ("StartingCluster", win32more.Foundation.LARGE_INTEGER),
-        ("ClusterCount", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return CLUSTER_RANGE
-def _define_FILE_REFERENCE_RANGE_head():
-    class FILE_REFERENCE_RANGE(Structure):
-        pass
-    return FILE_REFERENCE_RANGE
-def _define_FILE_REFERENCE_RANGE():
-    FILE_REFERENCE_RANGE = win32more.System.Ioctl.FILE_REFERENCE_RANGE_head
-    FILE_REFERENCE_RANGE._fields_ = [
-        ("StartingFileReferenceNumber", UInt64),
-        ("EndingFileReferenceNumber", UInt64),
-    ]
-    return FILE_REFERENCE_RANGE
-def _define_QUERY_FILE_LAYOUT_INPUT_head():
-    class QUERY_FILE_LAYOUT_INPUT(Structure):
-        pass
-    return QUERY_FILE_LAYOUT_INPUT
-def _define_QUERY_FILE_LAYOUT_INPUT():
-    QUERY_FILE_LAYOUT_INPUT = win32more.System.Ioctl.QUERY_FILE_LAYOUT_INPUT_head
-    class QUERY_FILE_LAYOUT_INPUT__Anonymous_e__Union(Union):
-        pass
-    QUERY_FILE_LAYOUT_INPUT__Anonymous_e__Union._fields_ = [
-        ("FilterEntryCount", UInt32),
-        ("NumberOfPairs", UInt32),
-    ]
-    class QUERY_FILE_LAYOUT_INPUT__Filter_e__Union(Union):
-        pass
-    QUERY_FILE_LAYOUT_INPUT__Filter_e__Union._fields_ = [
-        ("ClusterRanges", win32more.System.Ioctl.CLUSTER_RANGE * 0),
-        ("FileReferenceRanges", win32more.System.Ioctl.FILE_REFERENCE_RANGE * 0),
-        ("StorageReserveIds", win32more.System.Ioctl.STORAGE_RESERVE_ID * 0),
-    ]
-    QUERY_FILE_LAYOUT_INPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    QUERY_FILE_LAYOUT_INPUT._fields_ = [
-        ("Anonymous", QUERY_FILE_LAYOUT_INPUT__Anonymous_e__Union),
-        ("Flags", UInt32),
-        ("FilterType", win32more.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE),
-        ("Reserved", UInt32),
-        ("Filter", QUERY_FILE_LAYOUT_INPUT__Filter_e__Union),
-    ]
-    return QUERY_FILE_LAYOUT_INPUT
-def _define_QUERY_FILE_LAYOUT_OUTPUT_head():
-    class QUERY_FILE_LAYOUT_OUTPUT(Structure):
-        pass
-    return QUERY_FILE_LAYOUT_OUTPUT
-def _define_QUERY_FILE_LAYOUT_OUTPUT():
-    QUERY_FILE_LAYOUT_OUTPUT = win32more.System.Ioctl.QUERY_FILE_LAYOUT_OUTPUT_head
-    QUERY_FILE_LAYOUT_OUTPUT._fields_ = [
-        ("FileEntryCount", UInt32),
-        ("FirstFileOffset", UInt32),
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-    ]
-    return QUERY_FILE_LAYOUT_OUTPUT
-def _define_FILE_LAYOUT_ENTRY_head():
-    class FILE_LAYOUT_ENTRY(Structure):
-        pass
-    return FILE_LAYOUT_ENTRY
-def _define_FILE_LAYOUT_ENTRY():
-    FILE_LAYOUT_ENTRY = win32more.System.Ioctl.FILE_LAYOUT_ENTRY_head
-    FILE_LAYOUT_ENTRY._fields_ = [
-        ("Version", UInt32),
-        ("NextFileOffset", UInt32),
-        ("Flags", UInt32),
-        ("FileAttributes", UInt32),
-        ("FileReferenceNumber", UInt64),
-        ("FirstNameOffset", UInt32),
-        ("FirstStreamOffset", UInt32),
-        ("ExtraInfoOffset", UInt32),
-        ("ExtraInfoLength", UInt32),
-    ]
-    return FILE_LAYOUT_ENTRY
-def _define_FILE_LAYOUT_NAME_ENTRY_head():
-    class FILE_LAYOUT_NAME_ENTRY(Structure):
-        pass
-    return FILE_LAYOUT_NAME_ENTRY
-def _define_FILE_LAYOUT_NAME_ENTRY():
-    FILE_LAYOUT_NAME_ENTRY = win32more.System.Ioctl.FILE_LAYOUT_NAME_ENTRY_head
-    FILE_LAYOUT_NAME_ENTRY._fields_ = [
-        ("NextNameOffset", UInt32),
-        ("Flags", UInt32),
-        ("ParentFileReferenceNumber", UInt64),
-        ("FileNameLength", UInt32),
-        ("Reserved", UInt32),
-        ("FileName", Char * 0),
-    ]
-    return FILE_LAYOUT_NAME_ENTRY
-def _define_FILE_LAYOUT_INFO_ENTRY_head():
-    class FILE_LAYOUT_INFO_ENTRY(Structure):
-        pass
-    return FILE_LAYOUT_INFO_ENTRY
-def _define_FILE_LAYOUT_INFO_ENTRY():
-    FILE_LAYOUT_INFO_ENTRY = win32more.System.Ioctl.FILE_LAYOUT_INFO_ENTRY_head
-    class FILE_LAYOUT_INFO_ENTRY__BasicInformation_e__Struct(Structure):
-        pass
-    FILE_LAYOUT_INFO_ENTRY__BasicInformation_e__Struct._fields_ = [
-        ("CreationTime", win32more.Foundation.LARGE_INTEGER),
-        ("LastAccessTime", win32more.Foundation.LARGE_INTEGER),
-        ("LastWriteTime", win32more.Foundation.LARGE_INTEGER),
-        ("ChangeTime", win32more.Foundation.LARGE_INTEGER),
-        ("FileAttributes", UInt32),
-    ]
-    FILE_LAYOUT_INFO_ENTRY._fields_ = [
-        ("BasicInformation", FILE_LAYOUT_INFO_ENTRY__BasicInformation_e__Struct),
-        ("OwnerId", UInt32),
-        ("SecurityId", UInt32),
-        ("Usn", Int64),
-        ("StorageReserveId", win32more.System.Ioctl.STORAGE_RESERVE_ID),
-    ]
-    return FILE_LAYOUT_INFO_ENTRY
-def _define_STREAM_LAYOUT_ENTRY_head():
-    class STREAM_LAYOUT_ENTRY(Structure):
-        pass
-    return STREAM_LAYOUT_ENTRY
-def _define_STREAM_LAYOUT_ENTRY():
-    STREAM_LAYOUT_ENTRY = win32more.System.Ioctl.STREAM_LAYOUT_ENTRY_head
-    STREAM_LAYOUT_ENTRY._fields_ = [
-        ("Version", UInt32),
-        ("NextStreamOffset", UInt32),
-        ("Flags", UInt32),
-        ("ExtentInformationOffset", UInt32),
-        ("AllocationSize", win32more.Foundation.LARGE_INTEGER),
-        ("EndOfFile", win32more.Foundation.LARGE_INTEGER),
-        ("StreamInformationOffset", UInt32),
-        ("AttributeTypeCode", UInt32),
-        ("AttributeFlags", UInt32),
-        ("StreamIdentifierLength", UInt32),
-        ("StreamIdentifier", Char * 0),
-    ]
-    return STREAM_LAYOUT_ENTRY
+def _define_STORAGE_ZONE_GROUP_head():
+    class STORAGE_ZONE_GROUP(Structure):
+        pass
+    return STORAGE_ZONE_GROUP
+def _define_STORAGE_ZONE_GROUP():
+    STORAGE_ZONE_GROUP = win32more.System.Ioctl.STORAGE_ZONE_GROUP_head
+    STORAGE_ZONE_GROUP._fields_ = [
+        ('ZoneCount', UInt32),
+        ('ZoneType', win32more.System.Ioctl.STORAGE_ZONE_TYPES),
+        ('ZoneSize', UInt64),
+    ]
+    return STORAGE_ZONE_GROUP
+STORAGE_ZONE_TYPES = Int32
+STORAGE_ZONE_TYPES_ZoneTypeUnknown = 0
+STORAGE_ZONE_TYPES_ZoneTypeConventional = 1
+STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired = 2
+STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred = 3
+STORAGE_ZONE_TYPES_ZoneTypeMax = 4
+def _define_STORAGE_ZONED_DEVICE_DESCRIPTOR_head():
+    class STORAGE_ZONED_DEVICE_DESCRIPTOR(Structure):
+        pass
+    return STORAGE_ZONED_DEVICE_DESCRIPTOR
+def _define_STORAGE_ZONED_DEVICE_DESCRIPTOR():
+    STORAGE_ZONED_DEVICE_DESCRIPTOR = win32more.System.Ioctl.STORAGE_ZONED_DEVICE_DESCRIPTOR_head
+    class STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union(Union):
+        pass
+    class STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialRequiredZone_e__Struct(Structure):
+        pass
+    STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialRequiredZone_e__Struct._fields_ = [
+        ('MaxOpenZoneCount', UInt32),
+        ('UnrestrictedRead', win32more.Foundation.BOOLEAN),
+        ('Reserved', Byte * 3),
+    ]
+    class STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialPreferredZone_e__Struct(Structure):
+        pass
+    STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialPreferredZone_e__Struct._fields_ = [
+        ('OptimalOpenZoneCount', UInt32),
+        ('Reserved', UInt32),
+    ]
+    STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union._fields_ = [
+        ('SequentialRequiredZone', STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialRequiredZone_e__Struct),
+        ('SequentialPreferredZone', STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union__SequentialPreferredZone_e__Struct),
+    ]
+    STORAGE_ZONED_DEVICE_DESCRIPTOR._fields_ = [
+        ('Version', UInt32),
+        ('Size', UInt32),
+        ('DeviceType', win32more.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES),
+        ('ZoneCount', UInt32),
+        ('ZoneAttributes', STORAGE_ZONED_DEVICE_DESCRIPTOR__ZoneAttributes_e__Union),
+        ('ZoneGroupCount', UInt32),
+        ('ZoneGroup', win32more.System.Ioctl.STORAGE_ZONE_GROUP * 1),
+    ]
+    return STORAGE_ZONED_DEVICE_DESCRIPTOR
+STORAGE_ZONED_DEVICE_TYPES = Int32
+STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeUnknown = 0
+STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostManaged = 1
+STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostAware = 2
+STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeDeviceManaged = 3
+STORAGE_ZONES_ATTRIBUTES = Int32
+STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeAndLengthMayDifferent = 0
+STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLengthSame = 1
+STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLastZoneLengthDifferent = 2
+STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeMayDifferentLengthSame = 3
 def _define_STREAM_EXTENT_ENTRY_head():
     class STREAM_EXTENT_ENTRY(Structure):
         pass
@@ -7446,239 +7632,13 @@ def _define_STREAM_EXTENT_ENTRY():
     class STREAM_EXTENT_ENTRY__ExtentInformation_e__Union(Union):
         pass
     STREAM_EXTENT_ENTRY__ExtentInformation_e__Union._fields_ = [
-        ("RetrievalPointers", win32more.System.Ioctl.RETRIEVAL_POINTERS_BUFFER),
+        ('RetrievalPointers', win32more.System.Ioctl.RETRIEVAL_POINTERS_BUFFER),
     ]
     STREAM_EXTENT_ENTRY._fields_ = [
-        ("Flags", UInt32),
-        ("ExtentInformation", STREAM_EXTENT_ENTRY__ExtentInformation_e__Union),
+        ('Flags', UInt32),
+        ('ExtentInformation', STREAM_EXTENT_ENTRY__ExtentInformation_e__Union),
     ]
     return STREAM_EXTENT_ENTRY
-def _define_FSCTL_GET_INTEGRITY_INFORMATION_BUFFER_head():
-    class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER(Structure):
-        pass
-    return FSCTL_GET_INTEGRITY_INFORMATION_BUFFER
-def _define_FSCTL_GET_INTEGRITY_INFORMATION_BUFFER():
-    FSCTL_GET_INTEGRITY_INFORMATION_BUFFER = win32more.System.Ioctl.FSCTL_GET_INTEGRITY_INFORMATION_BUFFER_head
-    FSCTL_GET_INTEGRITY_INFORMATION_BUFFER._fields_ = [
-        ("ChecksumAlgorithm", UInt16),
-        ("Reserved", UInt16),
-        ("Flags", UInt32),
-        ("ChecksumChunkSizeInBytes", UInt32),
-        ("ClusterSizeInBytes", UInt32),
-    ]
-    return FSCTL_GET_INTEGRITY_INFORMATION_BUFFER
-def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_head():
-    class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER(Structure):
-        pass
-    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER
-def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER():
-    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER = win32more.System.Ioctl.FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_head
-    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER._fields_ = [
-        ("ChecksumAlgorithm", UInt16),
-        ("Reserved", UInt16),
-        ("Flags", UInt32),
-    ]
-    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER
-def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX_head():
-    class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX(Structure):
-        pass
-    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX
-def _define_FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX():
-    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX = win32more.System.Ioctl.FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX_head
-    FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX._fields_ = [
-        ("EnableIntegrity", Byte),
-        ("KeepIntegrityStateUnchanged", Byte),
-        ("Reserved", UInt16),
-        ("Flags", UInt32),
-        ("Version", Byte),
-        ("Reserved2", Byte * 7),
-    ]
-    return FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX
-def _define_FSCTL_OFFLOAD_READ_INPUT_head():
-    class FSCTL_OFFLOAD_READ_INPUT(Structure):
-        pass
-    return FSCTL_OFFLOAD_READ_INPUT
-def _define_FSCTL_OFFLOAD_READ_INPUT():
-    FSCTL_OFFLOAD_READ_INPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_READ_INPUT_head
-    FSCTL_OFFLOAD_READ_INPUT._fields_ = [
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("TokenTimeToLive", UInt32),
-        ("Reserved", UInt32),
-        ("FileOffset", UInt64),
-        ("CopyLength", UInt64),
-    ]
-    return FSCTL_OFFLOAD_READ_INPUT
-def _define_FSCTL_OFFLOAD_READ_OUTPUT_head():
-    class FSCTL_OFFLOAD_READ_OUTPUT(Structure):
-        pass
-    return FSCTL_OFFLOAD_READ_OUTPUT
-def _define_FSCTL_OFFLOAD_READ_OUTPUT():
-    FSCTL_OFFLOAD_READ_OUTPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_READ_OUTPUT_head
-    FSCTL_OFFLOAD_READ_OUTPUT._fields_ = [
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("TransferLength", UInt64),
-        ("Token", Byte * 512),
-    ]
-    return FSCTL_OFFLOAD_READ_OUTPUT
-def _define_FSCTL_OFFLOAD_WRITE_INPUT_head():
-    class FSCTL_OFFLOAD_WRITE_INPUT(Structure):
-        pass
-    return FSCTL_OFFLOAD_WRITE_INPUT
-def _define_FSCTL_OFFLOAD_WRITE_INPUT():
-    FSCTL_OFFLOAD_WRITE_INPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_WRITE_INPUT_head
-    FSCTL_OFFLOAD_WRITE_INPUT._fields_ = [
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("FileOffset", UInt64),
-        ("CopyLength", UInt64),
-        ("TransferOffset", UInt64),
-        ("Token", Byte * 512),
-    ]
-    return FSCTL_OFFLOAD_WRITE_INPUT
-def _define_FSCTL_OFFLOAD_WRITE_OUTPUT_head():
-    class FSCTL_OFFLOAD_WRITE_OUTPUT(Structure):
-        pass
-    return FSCTL_OFFLOAD_WRITE_OUTPUT
-def _define_FSCTL_OFFLOAD_WRITE_OUTPUT():
-    FSCTL_OFFLOAD_WRITE_OUTPUT = win32more.System.Ioctl.FSCTL_OFFLOAD_WRITE_OUTPUT_head
-    FSCTL_OFFLOAD_WRITE_OUTPUT._fields_ = [
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("LengthWritten", UInt64),
-    ]
-    return FSCTL_OFFLOAD_WRITE_OUTPUT
-def _define_SET_PURGE_FAILURE_MODE_INPUT_head():
-    class SET_PURGE_FAILURE_MODE_INPUT(Structure):
-        pass
-    return SET_PURGE_FAILURE_MODE_INPUT
-def _define_SET_PURGE_FAILURE_MODE_INPUT():
-    SET_PURGE_FAILURE_MODE_INPUT = win32more.System.Ioctl.SET_PURGE_FAILURE_MODE_INPUT_head
-    SET_PURGE_FAILURE_MODE_INPUT._fields_ = [
-        ("Flags", UInt32),
-    ]
-    return SET_PURGE_FAILURE_MODE_INPUT
-def _define_REPAIR_COPIES_INPUT_head():
-    class REPAIR_COPIES_INPUT(Structure):
-        pass
-    return REPAIR_COPIES_INPUT
-def _define_REPAIR_COPIES_INPUT():
-    REPAIR_COPIES_INPUT = win32more.System.Ioctl.REPAIR_COPIES_INPUT_head
-    REPAIR_COPIES_INPUT._fields_ = [
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("FileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("Length", UInt32),
-        ("SourceCopy", UInt32),
-        ("NumberOfRepairCopies", UInt32),
-        ("RepairCopies", UInt32 * 0),
-    ]
-    return REPAIR_COPIES_INPUT
-def _define_REPAIR_COPIES_OUTPUT_head():
-    class REPAIR_COPIES_OUTPUT(Structure):
-        pass
-    return REPAIR_COPIES_OUTPUT
-def _define_REPAIR_COPIES_OUTPUT():
-    REPAIR_COPIES_OUTPUT = win32more.System.Ioctl.REPAIR_COPIES_OUTPUT_head
-    REPAIR_COPIES_OUTPUT._fields_ = [
-        ("Size", UInt32),
-        ("Status", UInt32),
-        ("ResumeFileOffset", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return REPAIR_COPIES_OUTPUT
-def _define_FILE_REGION_INFO_head():
-    class FILE_REGION_INFO(Structure):
-        pass
-    return FILE_REGION_INFO
-def _define_FILE_REGION_INFO():
-    FILE_REGION_INFO = win32more.System.Ioctl.FILE_REGION_INFO_head
-    FILE_REGION_INFO._fields_ = [
-        ("FileOffset", Int64),
-        ("Length", Int64),
-        ("Usage", UInt32),
-        ("Reserved", UInt32),
-    ]
-    return FILE_REGION_INFO
-def _define_FILE_REGION_OUTPUT_head():
-    class FILE_REGION_OUTPUT(Structure):
-        pass
-    return FILE_REGION_OUTPUT
-def _define_FILE_REGION_OUTPUT():
-    FILE_REGION_OUTPUT = win32more.System.Ioctl.FILE_REGION_OUTPUT_head
-    FILE_REGION_OUTPUT._fields_ = [
-        ("Flags", UInt32),
-        ("TotalRegionEntryCount", UInt32),
-        ("RegionEntryCount", UInt32),
-        ("Reserved", UInt32),
-        ("Region", win32more.System.Ioctl.FILE_REGION_INFO * 0),
-    ]
-    return FILE_REGION_OUTPUT
-def _define_FILE_REGION_INPUT_head():
-    class FILE_REGION_INPUT(Structure):
-        pass
-    return FILE_REGION_INPUT
-def _define_FILE_REGION_INPUT():
-    FILE_REGION_INPUT = win32more.System.Ioctl.FILE_REGION_INPUT_head
-    FILE_REGION_INPUT._fields_ = [
-        ("FileOffset", Int64),
-        ("Length", Int64),
-        ("DesiredUsage", UInt32),
-    ]
-    return FILE_REGION_INPUT
-def _define_WRITE_USN_REASON_INPUT_head():
-    class WRITE_USN_REASON_INPUT(Structure):
-        pass
-    return WRITE_USN_REASON_INPUT
-def _define_WRITE_USN_REASON_INPUT():
-    WRITE_USN_REASON_INPUT = win32more.System.Ioctl.WRITE_USN_REASON_INPUT_head
-    WRITE_USN_REASON_INPUT._fields_ = [
-        ("Flags", UInt32),
-        ("UsnReasonToWrite", UInt32),
-    ]
-    return WRITE_USN_REASON_INPUT
-FILE_STORAGE_TIER_MEDIA_TYPE = Int32
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeUnspecified = 0
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeDisk = 1
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeSsd = 2
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeScm = 4
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeMax = 5
-FILE_STORAGE_TIER_CLASS = Int32
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassUnspecified = 0
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassCapacity = 1
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassPerformance = 2
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassMax = 3
-def _define_FILE_STORAGE_TIER_head():
-    class FILE_STORAGE_TIER(Structure):
-        pass
-    return FILE_STORAGE_TIER
-def _define_FILE_STORAGE_TIER():
-    FILE_STORAGE_TIER = win32more.System.Ioctl.FILE_STORAGE_TIER_head
-    FILE_STORAGE_TIER._fields_ = [
-        ("Id", Guid),
-        ("Name", Char * 256),
-        ("Description", Char * 256),
-        ("Flags", win32more.System.Ioctl.FILE_STORAGE_TIER_FLAGS),
-        ("ProvisionedCapacity", UInt64),
-        ("MediaType", win32more.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE),
-        ("Class", win32more.System.Ioctl.FILE_STORAGE_TIER_CLASS),
-    ]
-    return FILE_STORAGE_TIER
-def _define_FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_head():
-    class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT(Structure):
-        pass
-    return FSCTL_QUERY_STORAGE_CLASSES_OUTPUT
-def _define_FSCTL_QUERY_STORAGE_CLASSES_OUTPUT():
-    FSCTL_QUERY_STORAGE_CLASSES_OUTPUT = win32more.System.Ioctl.FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_head
-    FSCTL_QUERY_STORAGE_CLASSES_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", win32more.System.Ioctl.FILE_STORAGE_TIER_FLAGS),
-        ("TotalNumberOfTiers", UInt32),
-        ("NumberOfTiersReturned", UInt32),
-        ("Tiers", win32more.System.Ioctl.FILE_STORAGE_TIER * 0),
-    ]
-    return FSCTL_QUERY_STORAGE_CLASSES_OUTPUT
 def _define_STREAM_INFORMATION_ENTRY_head():
     class STREAM_INFORMATION_ENTRY(Structure):
         pass
@@ -7687,240 +7647,68 @@ def _define_STREAM_INFORMATION_ENTRY():
     STREAM_INFORMATION_ENTRY = win32more.System.Ioctl.STREAM_INFORMATION_ENTRY_head
     class STREAM_INFORMATION_ENTRY__StreamInformation(Union):
         pass
-    class STREAM_INFORMATION_ENTRY__StreamInformation__Reparse(Structure):
-        pass
-    STREAM_INFORMATION_ENTRY__StreamInformation__Reparse._fields_ = [
-        ("Length", UInt16),
-        ("Flags", UInt16),
-        ("ReparseDataSize", UInt32),
-        ("ReparseDataOffset", UInt32),
-    ]
     class STREAM_INFORMATION_ENTRY__StreamInformation__DesiredStorageClass(Structure):
         pass
     STREAM_INFORMATION_ENTRY__StreamInformation__DesiredStorageClass._fields_ = [
-        ("Class", win32more.System.Ioctl.FILE_STORAGE_TIER_CLASS),
-        ("Flags", UInt32),
+        ('Class', win32more.System.Ioctl.FILE_STORAGE_TIER_CLASS),
+        ('Flags', UInt32),
     ]
     class STREAM_INFORMATION_ENTRY__StreamInformation__DataStream(Structure):
         pass
     STREAM_INFORMATION_ENTRY__StreamInformation__DataStream._fields_ = [
-        ("Length", UInt16),
-        ("Flags", UInt16),
-        ("Reserved", UInt32),
-        ("Vdl", UInt64),
+        ('Length', UInt16),
+        ('Flags', UInt16),
+        ('Reserved', UInt32),
+        ('Vdl', UInt64),
+    ]
+    class STREAM_INFORMATION_ENTRY__StreamInformation__Reparse(Structure):
+        pass
+    STREAM_INFORMATION_ENTRY__StreamInformation__Reparse._fields_ = [
+        ('Length', UInt16),
+        ('Flags', UInt16),
+        ('ReparseDataSize', UInt32),
+        ('ReparseDataOffset', UInt32),
     ]
     class STREAM_INFORMATION_ENTRY__StreamInformation__Ea(Structure):
         pass
     STREAM_INFORMATION_ENTRY__StreamInformation__Ea._fields_ = [
-        ("Length", UInt16),
-        ("Flags", UInt16),
-        ("EaSize", UInt32),
-        ("EaInformationOffset", UInt32),
+        ('Length', UInt16),
+        ('Flags', UInt16),
+        ('EaSize', UInt32),
+        ('EaInformationOffset', UInt32),
     ]
     STREAM_INFORMATION_ENTRY__StreamInformation._fields_ = [
-        ("DesiredStorageClass", STREAM_INFORMATION_ENTRY__StreamInformation__DesiredStorageClass),
-        ("DataStream", STREAM_INFORMATION_ENTRY__StreamInformation__DataStream),
-        ("Reparse", STREAM_INFORMATION_ENTRY__StreamInformation__Reparse),
-        ("Ea", STREAM_INFORMATION_ENTRY__StreamInformation__Ea),
+        ('DesiredStorageClass', STREAM_INFORMATION_ENTRY__StreamInformation__DesiredStorageClass),
+        ('DataStream', STREAM_INFORMATION_ENTRY__StreamInformation__DataStream),
+        ('Reparse', STREAM_INFORMATION_ENTRY__StreamInformation__Reparse),
+        ('Ea', STREAM_INFORMATION_ENTRY__StreamInformation__Ea),
     ]
     STREAM_INFORMATION_ENTRY._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("StreamInformation", STREAM_INFORMATION_ENTRY__StreamInformation),
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('StreamInformation', STREAM_INFORMATION_ENTRY__StreamInformation),
     ]
     return STREAM_INFORMATION_ENTRY
-def _define_FSCTL_QUERY_REGION_INFO_INPUT_head():
-    class FSCTL_QUERY_REGION_INFO_INPUT(Structure):
+def _define_STREAM_LAYOUT_ENTRY_head():
+    class STREAM_LAYOUT_ENTRY(Structure):
         pass
-    return FSCTL_QUERY_REGION_INFO_INPUT
-def _define_FSCTL_QUERY_REGION_INFO_INPUT():
-    FSCTL_QUERY_REGION_INFO_INPUT = win32more.System.Ioctl.FSCTL_QUERY_REGION_INFO_INPUT_head
-    FSCTL_QUERY_REGION_INFO_INPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("NumberOfTierIds", UInt32),
-        ("TierIds", Guid * 0),
+    return STREAM_LAYOUT_ENTRY
+def _define_STREAM_LAYOUT_ENTRY():
+    STREAM_LAYOUT_ENTRY = win32more.System.Ioctl.STREAM_LAYOUT_ENTRY_head
+    STREAM_LAYOUT_ENTRY._fields_ = [
+        ('Version', UInt32),
+        ('NextStreamOffset', UInt32),
+        ('Flags', UInt32),
+        ('ExtentInformationOffset', UInt32),
+        ('AllocationSize', win32more.Foundation.LARGE_INTEGER),
+        ('EndOfFile', win32more.Foundation.LARGE_INTEGER),
+        ('StreamInformationOffset', UInt32),
+        ('AttributeTypeCode', UInt32),
+        ('AttributeFlags', UInt32),
+        ('StreamIdentifierLength', UInt32),
+        ('StreamIdentifier', Char * 1),
     ]
-    return FSCTL_QUERY_REGION_INFO_INPUT
-def _define_FILE_STORAGE_TIER_REGION_head():
-    class FILE_STORAGE_TIER_REGION(Structure):
-        pass
-    return FILE_STORAGE_TIER_REGION
-def _define_FILE_STORAGE_TIER_REGION():
-    FILE_STORAGE_TIER_REGION = win32more.System.Ioctl.FILE_STORAGE_TIER_REGION_head
-    FILE_STORAGE_TIER_REGION._fields_ = [
-        ("TierId", Guid),
-        ("Offset", UInt64),
-        ("Length", UInt64),
-    ]
-    return FILE_STORAGE_TIER_REGION
-def _define_FSCTL_QUERY_REGION_INFO_OUTPUT_head():
-    class FSCTL_QUERY_REGION_INFO_OUTPUT(Structure):
-        pass
-    return FSCTL_QUERY_REGION_INFO_OUTPUT
-def _define_FSCTL_QUERY_REGION_INFO_OUTPUT():
-    FSCTL_QUERY_REGION_INFO_OUTPUT = win32more.System.Ioctl.FSCTL_QUERY_REGION_INFO_OUTPUT_head
-    FSCTL_QUERY_REGION_INFO_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Size", UInt32),
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-        ("Alignment", UInt64),
-        ("TotalNumberOfRegions", UInt32),
-        ("NumberOfRegionsReturned", UInt32),
-        ("Regions", win32more.System.Ioctl.FILE_STORAGE_TIER_REGION * 0),
-    ]
-    return FSCTL_QUERY_REGION_INFO_OUTPUT
-def _define_FILE_DESIRED_STORAGE_CLASS_INFORMATION_head():
-    class FILE_DESIRED_STORAGE_CLASS_INFORMATION(Structure):
-        pass
-    return FILE_DESIRED_STORAGE_CLASS_INFORMATION
-def _define_FILE_DESIRED_STORAGE_CLASS_INFORMATION():
-    FILE_DESIRED_STORAGE_CLASS_INFORMATION = win32more.System.Ioctl.FILE_DESIRED_STORAGE_CLASS_INFORMATION_head
-    FILE_DESIRED_STORAGE_CLASS_INFORMATION._fields_ = [
-        ("Class", win32more.System.Ioctl.FILE_STORAGE_TIER_CLASS),
-        ("Flags", UInt32),
-    ]
-    return FILE_DESIRED_STORAGE_CLASS_INFORMATION
-def _define_DUPLICATE_EXTENTS_DATA_head():
-    class DUPLICATE_EXTENTS_DATA(Structure):
-        pass
-    return DUPLICATE_EXTENTS_DATA
-def _define_DUPLICATE_EXTENTS_DATA():
-    DUPLICATE_EXTENTS_DATA = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA_head
-    DUPLICATE_EXTENTS_DATA._fields_ = [
-        ("FileHandle", win32more.Foundation.HANDLE),
-        ("SourceFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("TargetFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("ByteCount", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return DUPLICATE_EXTENTS_DATA
-def _define_DUPLICATE_EXTENTS_DATA32_head():
-    class DUPLICATE_EXTENTS_DATA32(Structure):
-        pass
-    return DUPLICATE_EXTENTS_DATA32
-def _define_DUPLICATE_EXTENTS_DATA32():
-    DUPLICATE_EXTENTS_DATA32 = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA32_head
-    DUPLICATE_EXTENTS_DATA32._fields_ = [
-        ("FileHandle", UInt32),
-        ("SourceFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("TargetFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("ByteCount", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return DUPLICATE_EXTENTS_DATA32
-def _define_DUPLICATE_EXTENTS_DATA_EX_head():
-    class DUPLICATE_EXTENTS_DATA_EX(Structure):
-        pass
-    return DUPLICATE_EXTENTS_DATA_EX
-def _define_DUPLICATE_EXTENTS_DATA_EX():
-    DUPLICATE_EXTENTS_DATA_EX = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA_EX_head
-    DUPLICATE_EXTENTS_DATA_EX._fields_ = [
-        ("Size", UIntPtr),
-        ("FileHandle", win32more.Foundation.HANDLE),
-        ("SourceFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("TargetFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("ByteCount", win32more.Foundation.LARGE_INTEGER),
-        ("Flags", UInt32),
-    ]
-    return DUPLICATE_EXTENTS_DATA_EX
-def _define_DUPLICATE_EXTENTS_DATA_EX32_head():
-    class DUPLICATE_EXTENTS_DATA_EX32(Structure):
-        pass
-    return DUPLICATE_EXTENTS_DATA_EX32
-def _define_DUPLICATE_EXTENTS_DATA_EX32():
-    DUPLICATE_EXTENTS_DATA_EX32 = win32more.System.Ioctl.DUPLICATE_EXTENTS_DATA_EX32_head
-    DUPLICATE_EXTENTS_DATA_EX32._fields_ = [
-        ("Size", UInt32),
-        ("FileHandle", UInt32),
-        ("SourceFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("TargetFileOffset", win32more.Foundation.LARGE_INTEGER),
-        ("ByteCount", win32more.Foundation.LARGE_INTEGER),
-        ("Flags", UInt32),
-    ]
-    return DUPLICATE_EXTENTS_DATA_EX32
-DUPLICATE_EXTENTS_STATE = Int32
-DUPLICATE_EXTENTS_STATE_FileSnapStateInactive = 0
-DUPLICATE_EXTENTS_STATE_FileSnapStateSource = 1
-DUPLICATE_EXTENTS_STATE_FileSnapStateTarget = 2
-def _define_ASYNC_DUPLICATE_EXTENTS_STATUS_head():
-    class ASYNC_DUPLICATE_EXTENTS_STATUS(Structure):
-        pass
-    return ASYNC_DUPLICATE_EXTENTS_STATUS
-def _define_ASYNC_DUPLICATE_EXTENTS_STATUS():
-    ASYNC_DUPLICATE_EXTENTS_STATUS = win32more.System.Ioctl.ASYNC_DUPLICATE_EXTENTS_STATUS_head
-    ASYNC_DUPLICATE_EXTENTS_STATUS._fields_ = [
-        ("Version", UInt32),
-        ("State", win32more.System.Ioctl.DUPLICATE_EXTENTS_STATE),
-        ("SourceFileOffset", UInt64),
-        ("TargetFileOffset", UInt64),
-        ("ByteCount", UInt64),
-        ("BytesDuplicated", UInt64),
-    ]
-    return ASYNC_DUPLICATE_EXTENTS_STATUS
-REFS_SMR_VOLUME_GC_STATE = Int32
-REFS_SMR_VOLUME_GC_STATE_SmrGcStateInactive = 0
-REFS_SMR_VOLUME_GC_STATE_SmrGcStatePaused = 1
-REFS_SMR_VOLUME_GC_STATE_SmrGcStateActive = 2
-REFS_SMR_VOLUME_GC_STATE_SmrGcStateActiveFullSpeed = 3
-def _define_REFS_SMR_VOLUME_INFO_OUTPUT_head():
-    class REFS_SMR_VOLUME_INFO_OUTPUT(Structure):
-        pass
-    return REFS_SMR_VOLUME_INFO_OUTPUT
-def _define_REFS_SMR_VOLUME_INFO_OUTPUT():
-    REFS_SMR_VOLUME_INFO_OUTPUT = win32more.System.Ioctl.REFS_SMR_VOLUME_INFO_OUTPUT_head
-    REFS_SMR_VOLUME_INFO_OUTPUT._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("SizeOfRandomlyWritableTier", win32more.Foundation.LARGE_INTEGER),
-        ("FreeSpaceInRandomlyWritableTier", win32more.Foundation.LARGE_INTEGER),
-        ("SizeofSMRTier", win32more.Foundation.LARGE_INTEGER),
-        ("FreeSpaceInSMRTier", win32more.Foundation.LARGE_INTEGER),
-        ("UsableFreeSpaceInSMRTier", win32more.Foundation.LARGE_INTEGER),
-        ("VolumeGcState", win32more.System.Ioctl.REFS_SMR_VOLUME_GC_STATE),
-        ("VolumeGcLastStatus", UInt32),
-        ("CurrentGcBandFillPercentage", UInt32),
-        ("Unused", UInt64 * 6),
-    ]
-    return REFS_SMR_VOLUME_INFO_OUTPUT
-REFS_SMR_VOLUME_GC_ACTION = Int32
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStart = 1
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStartFullSpeed = 2
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionPause = 3
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStop = 4
-REFS_SMR_VOLUME_GC_METHOD = Int32
-REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompaction = 1
-REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompression = 2
-REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodRotation = 3
-def _define_REFS_SMR_VOLUME_GC_PARAMETERS_head():
-    class REFS_SMR_VOLUME_GC_PARAMETERS(Structure):
-        pass
-    return REFS_SMR_VOLUME_GC_PARAMETERS
-def _define_REFS_SMR_VOLUME_GC_PARAMETERS():
-    REFS_SMR_VOLUME_GC_PARAMETERS = win32more.System.Ioctl.REFS_SMR_VOLUME_GC_PARAMETERS_head
-    REFS_SMR_VOLUME_GC_PARAMETERS._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("Action", win32more.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION),
-        ("Method", win32more.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD),
-        ("IoGranularity", UInt32),
-        ("CompressionFormat", UInt32),
-        ("Unused", UInt64 * 8),
-    ]
-    return REFS_SMR_VOLUME_GC_PARAMETERS
-def _define_STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER_head():
-    class STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER(Structure):
-        pass
-    return STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER
-def _define_STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER():
-    STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER = win32more.System.Ioctl.STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER_head
-    STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER._fields_ = [
-        ("OptimalWriteSize", UInt32),
-        ("StreamGranularitySize", UInt32),
-        ("StreamIdMin", UInt32),
-        ("StreamIdMax", UInt32),
-    ]
-    return STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER
+    return STREAM_LAYOUT_ENTRY
 def _define_STREAMS_ASSOCIATE_ID_INPUT_BUFFER_head():
     class STREAMS_ASSOCIATE_ID_INPUT_BUFFER(Structure):
         pass
@@ -7928,8 +7716,8 @@ def _define_STREAMS_ASSOCIATE_ID_INPUT_BUFFER_head():
 def _define_STREAMS_ASSOCIATE_ID_INPUT_BUFFER():
     STREAMS_ASSOCIATE_ID_INPUT_BUFFER = win32more.System.Ioctl.STREAMS_ASSOCIATE_ID_INPUT_BUFFER_head
     STREAMS_ASSOCIATE_ID_INPUT_BUFFER._fields_ = [
-        ("Flags", UInt32),
-        ("StreamId", UInt32),
+        ('Flags', UInt32),
+        ('StreamId', UInt32),
     ]
     return STREAMS_ASSOCIATE_ID_INPUT_BUFFER
 def _define_STREAMS_QUERY_ID_OUTPUT_BUFFER_head():
@@ -7939,71 +7727,502 @@ def _define_STREAMS_QUERY_ID_OUTPUT_BUFFER_head():
 def _define_STREAMS_QUERY_ID_OUTPUT_BUFFER():
     STREAMS_QUERY_ID_OUTPUT_BUFFER = win32more.System.Ioctl.STREAMS_QUERY_ID_OUTPUT_BUFFER_head
     STREAMS_QUERY_ID_OUTPUT_BUFFER._fields_ = [
-        ("StreamId", UInt32),
+        ('StreamId', UInt32),
     ]
     return STREAMS_QUERY_ID_OUTPUT_BUFFER
-def _define_QUERY_BAD_RANGES_INPUT_RANGE_head():
-    class QUERY_BAD_RANGES_INPUT_RANGE(Structure):
+def _define_STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER_head():
+    class STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER(Structure):
         pass
-    return QUERY_BAD_RANGES_INPUT_RANGE
-def _define_QUERY_BAD_RANGES_INPUT_RANGE():
-    QUERY_BAD_RANGES_INPUT_RANGE = win32more.System.Ioctl.QUERY_BAD_RANGES_INPUT_RANGE_head
-    QUERY_BAD_RANGES_INPUT_RANGE._fields_ = [
-        ("StartOffset", UInt64),
-        ("LengthInBytes", UInt64),
+    return STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER
+def _define_STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER():
+    STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER = win32more.System.Ioctl.STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER_head
+    STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER._fields_ = [
+        ('OptimalWriteSize', UInt32),
+        ('StreamGranularitySize', UInt32),
+        ('StreamIdMin', UInt32),
+        ('StreamIdMax', UInt32),
     ]
-    return QUERY_BAD_RANGES_INPUT_RANGE
-def _define_QUERY_BAD_RANGES_INPUT_head():
-    class QUERY_BAD_RANGES_INPUT(Structure):
+    return STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER
+def _define_TAPE_GET_STATISTICS_head():
+    class TAPE_GET_STATISTICS(Structure):
         pass
-    return QUERY_BAD_RANGES_INPUT
-def _define_QUERY_BAD_RANGES_INPUT():
-    QUERY_BAD_RANGES_INPUT = win32more.System.Ioctl.QUERY_BAD_RANGES_INPUT_head
-    QUERY_BAD_RANGES_INPUT._fields_ = [
-        ("Flags", UInt32),
-        ("NumRanges", UInt32),
-        ("Ranges", win32more.System.Ioctl.QUERY_BAD_RANGES_INPUT_RANGE * 0),
+    return TAPE_GET_STATISTICS
+def _define_TAPE_GET_STATISTICS():
+    TAPE_GET_STATISTICS = win32more.System.Ioctl.TAPE_GET_STATISTICS_head
+    TAPE_GET_STATISTICS._fields_ = [
+        ('Operation', UInt32),
     ]
-    return QUERY_BAD_RANGES_INPUT
-def _define_QUERY_BAD_RANGES_OUTPUT_RANGE_head():
-    class QUERY_BAD_RANGES_OUTPUT_RANGE(Structure):
+    return TAPE_GET_STATISTICS
+def _define_TAPE_STATISTICS_head():
+    class TAPE_STATISTICS(Structure):
         pass
-    return QUERY_BAD_RANGES_OUTPUT_RANGE
-def _define_QUERY_BAD_RANGES_OUTPUT_RANGE():
-    QUERY_BAD_RANGES_OUTPUT_RANGE = win32more.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_RANGE_head
-    QUERY_BAD_RANGES_OUTPUT_RANGE._fields_ = [
-        ("Flags", UInt32),
-        ("Reserved", UInt32),
-        ("StartOffset", UInt64),
-        ("LengthInBytes", UInt64),
+    return TAPE_STATISTICS
+def _define_TAPE_STATISTICS():
+    TAPE_STATISTICS = win32more.System.Ioctl.TAPE_STATISTICS_head
+    TAPE_STATISTICS._fields_ = [
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('RecoveredWrites', win32more.Foundation.LARGE_INTEGER),
+        ('UnrecoveredWrites', win32more.Foundation.LARGE_INTEGER),
+        ('RecoveredReads', win32more.Foundation.LARGE_INTEGER),
+        ('UnrecoveredReads', win32more.Foundation.LARGE_INTEGER),
+        ('CompressionRatioReads', Byte),
+        ('CompressionRatioWrites', Byte),
     ]
-    return QUERY_BAD_RANGES_OUTPUT_RANGE
-def _define_QUERY_BAD_RANGES_OUTPUT_head():
-    class QUERY_BAD_RANGES_OUTPUT(Structure):
+    return TAPE_STATISTICS
+def _define_TXFS_CREATE_MINIVERSION_INFO_head():
+    class TXFS_CREATE_MINIVERSION_INFO(Structure):
         pass
-    return QUERY_BAD_RANGES_OUTPUT
-def _define_QUERY_BAD_RANGES_OUTPUT():
-    QUERY_BAD_RANGES_OUTPUT = win32more.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_head
-    QUERY_BAD_RANGES_OUTPUT._fields_ = [
-        ("Flags", UInt32),
-        ("NumBadRanges", UInt32),
-        ("NextOffsetToLookUp", UInt64),
-        ("BadRanges", win32more.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_RANGE * 0),
+    return TXFS_CREATE_MINIVERSION_INFO
+def _define_TXFS_CREATE_MINIVERSION_INFO():
+    TXFS_CREATE_MINIVERSION_INFO = win32more.System.Ioctl.TXFS_CREATE_MINIVERSION_INFO_head
+    TXFS_CREATE_MINIVERSION_INFO._fields_ = [
+        ('StructureVersion', UInt16),
+        ('StructureLength', UInt16),
+        ('BaseVersion', UInt32),
+        ('MiniVersion', UInt16),
     ]
-    return QUERY_BAD_RANGES_OUTPUT
-def _define_SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT_head():
-    class SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT(Structure):
+    return TXFS_CREATE_MINIVERSION_INFO
+def _define_TXFS_GET_METADATA_INFO_OUT_head():
+    class TXFS_GET_METADATA_INFO_OUT(Structure):
         pass
-    return SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT
-def _define_SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT():
-    SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT = win32more.System.Ioctl.SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT_head
-    SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT._fields_ = [
-        ("Flags", UInt32),
-        ("AlignmentShift", UInt32),
-        ("FileOffsetToAlign", UInt64),
-        ("FallbackAlignmentShift", UInt32),
+    return TXFS_GET_METADATA_INFO_OUT
+def _define_TXFS_GET_METADATA_INFO_OUT():
+    TXFS_GET_METADATA_INFO_OUT = win32more.System.Ioctl.TXFS_GET_METADATA_INFO_OUT_head
+    class TXFS_GET_METADATA_INFO_OUT__TxfFileId_e__Struct(Structure):
+        pass
+    TXFS_GET_METADATA_INFO_OUT__TxfFileId_e__Struct._fields_ = [
+        ('LowPart', Int64),
+        ('HighPart', Int64),
     ]
-    return SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT
+    TXFS_GET_METADATA_INFO_OUT._fields_ = [
+        ('TxfFileId', TXFS_GET_METADATA_INFO_OUT__TxfFileId_e__Struct),
+        ('LockingTransaction', Guid),
+        ('LastLsn', UInt64),
+        ('TransactionState', UInt32),
+    ]
+    return TXFS_GET_METADATA_INFO_OUT
+def _define_TXFS_GET_TRANSACTED_VERSION_head():
+    class TXFS_GET_TRANSACTED_VERSION(Structure):
+        pass
+    return TXFS_GET_TRANSACTED_VERSION
+def _define_TXFS_GET_TRANSACTED_VERSION():
+    TXFS_GET_TRANSACTED_VERSION = win32more.System.Ioctl.TXFS_GET_TRANSACTED_VERSION_head
+    TXFS_GET_TRANSACTED_VERSION._fields_ = [
+        ('ThisBaseVersion', UInt32),
+        ('LatestVersion', UInt32),
+        ('ThisMiniVersion', UInt16),
+        ('FirstMiniVersion', UInt16),
+        ('LatestMiniVersion', UInt16),
+    ]
+    return TXFS_GET_TRANSACTED_VERSION
+def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES_head():
+    class TXFS_LIST_TRANSACTION_LOCKED_FILES(Structure):
+        pass
+    return TXFS_LIST_TRANSACTION_LOCKED_FILES
+def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES():
+    TXFS_LIST_TRANSACTION_LOCKED_FILES = win32more.System.Ioctl.TXFS_LIST_TRANSACTION_LOCKED_FILES_head
+    TXFS_LIST_TRANSACTION_LOCKED_FILES._fields_ = [
+        ('KtmTransaction', Guid),
+        ('NumberOfFiles', UInt64),
+        ('BufferSizeRequired', UInt64),
+        ('Offset', UInt64),
+    ]
+    return TXFS_LIST_TRANSACTION_LOCKED_FILES
+def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_head():
+    class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(Structure):
+        pass
+    return TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
+def _define_TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY():
+    TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY = win32more.System.Ioctl.TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_head
+    TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY._fields_ = [
+        ('Offset', UInt64),
+        ('NameFlags', UInt32),
+        ('FileId', Int64),
+        ('Reserved1', UInt32),
+        ('Reserved2', UInt32),
+        ('Reserved3', Int64),
+        ('FileName', Char * 1),
+    ]
+    return TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
+def _define_TXFS_LIST_TRANSACTIONS_head():
+    class TXFS_LIST_TRANSACTIONS(Structure):
+        pass
+    return TXFS_LIST_TRANSACTIONS
+def _define_TXFS_LIST_TRANSACTIONS():
+    TXFS_LIST_TRANSACTIONS = win32more.System.Ioctl.TXFS_LIST_TRANSACTIONS_head
+    TXFS_LIST_TRANSACTIONS._fields_ = [
+        ('NumberOfTransactions', UInt64),
+        ('BufferSizeRequired', UInt64),
+    ]
+    return TXFS_LIST_TRANSACTIONS
+def _define_TXFS_LIST_TRANSACTIONS_ENTRY_head():
+    class TXFS_LIST_TRANSACTIONS_ENTRY(Structure):
+        pass
+    return TXFS_LIST_TRANSACTIONS_ENTRY
+def _define_TXFS_LIST_TRANSACTIONS_ENTRY():
+    TXFS_LIST_TRANSACTIONS_ENTRY = win32more.System.Ioctl.TXFS_LIST_TRANSACTIONS_ENTRY_head
+    TXFS_LIST_TRANSACTIONS_ENTRY._fields_ = [
+        ('TransactionId', Guid),
+        ('TransactionState', UInt32),
+        ('Reserved1', UInt32),
+        ('Reserved2', UInt32),
+        ('Reserved3', Int64),
+    ]
+    return TXFS_LIST_TRANSACTIONS_ENTRY
+def _define_TXFS_MODIFY_RM_head():
+    class TXFS_MODIFY_RM(Structure):
+        pass
+    return TXFS_MODIFY_RM
+def _define_TXFS_MODIFY_RM():
+    TXFS_MODIFY_RM = win32more.System.Ioctl.TXFS_MODIFY_RM_head
+    TXFS_MODIFY_RM._fields_ = [
+        ('Flags', win32more.System.Ioctl.TXFS_RMF_LAGS),
+        ('LogContainerCountMax', UInt32),
+        ('LogContainerCountMin', UInt32),
+        ('LogContainerCount', UInt32),
+        ('LogGrowthIncrement', UInt32),
+        ('LogAutoShrinkPercentage', UInt32),
+        ('Reserved', UInt64),
+        ('LoggingMode', UInt16),
+    ]
+    return TXFS_MODIFY_RM
+def _define_TXFS_QUERY_RM_INFORMATION_head():
+    class TXFS_QUERY_RM_INFORMATION(Structure):
+        pass
+    return TXFS_QUERY_RM_INFORMATION
+def _define_TXFS_QUERY_RM_INFORMATION():
+    TXFS_QUERY_RM_INFORMATION = win32more.System.Ioctl.TXFS_QUERY_RM_INFORMATION_head
+    TXFS_QUERY_RM_INFORMATION._fields_ = [
+        ('BytesRequired', UInt32),
+        ('TailLsn', UInt64),
+        ('CurrentLsn', UInt64),
+        ('ArchiveTailLsn', UInt64),
+        ('LogContainerSize', UInt64),
+        ('HighestVirtualClock', win32more.Foundation.LARGE_INTEGER),
+        ('LogContainerCount', UInt32),
+        ('LogContainerCountMax', UInt32),
+        ('LogContainerCountMin', UInt32),
+        ('LogGrowthIncrement', UInt32),
+        ('LogAutoShrinkPercentage', UInt32),
+        ('Flags', win32more.System.Ioctl.TXFS_RMF_LAGS),
+        ('LoggingMode', UInt16),
+        ('Reserved', UInt16),
+        ('RmState', UInt32),
+        ('LogCapacity', UInt64),
+        ('LogFree', UInt64),
+        ('TopsSize', UInt64),
+        ('TopsUsed', UInt64),
+        ('TransactionCount', UInt64),
+        ('OnePCCount', UInt64),
+        ('TwoPCCount', UInt64),
+        ('NumberLogFileFull', UInt64),
+        ('OldestTransactionAge', UInt64),
+        ('RMName', Guid),
+        ('TmLogPathOffset', UInt32),
+    ]
+    return TXFS_QUERY_RM_INFORMATION
+def _define_TXFS_READ_BACKUP_INFORMATION_OUT_head():
+    class TXFS_READ_BACKUP_INFORMATION_OUT(Structure):
+        pass
+    return TXFS_READ_BACKUP_INFORMATION_OUT
+def _define_TXFS_READ_BACKUP_INFORMATION_OUT():
+    TXFS_READ_BACKUP_INFORMATION_OUT = win32more.System.Ioctl.TXFS_READ_BACKUP_INFORMATION_OUT_head
+    class TXFS_READ_BACKUP_INFORMATION_OUT__Anonymous_e__Union(Union):
+        pass
+    TXFS_READ_BACKUP_INFORMATION_OUT__Anonymous_e__Union._fields_ = [
+        ('BufferLength', UInt32),
+        ('Buffer', Byte * 1),
+    ]
+    TXFS_READ_BACKUP_INFORMATION_OUT._anonymous_ = [
+        'Anonymous',
+    ]
+    TXFS_READ_BACKUP_INFORMATION_OUT._fields_ = [
+        ('Anonymous', TXFS_READ_BACKUP_INFORMATION_OUT__Anonymous_e__Union),
+    ]
+    return TXFS_READ_BACKUP_INFORMATION_OUT
+TXFS_RMF_LAGS = UInt32
+TXFS_RM_FLAG_LOGGING_MODE = 1
+TXFS_RM_FLAG_RENAME_RM = 2
+TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MAX = 4
+TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MIN = 8
+TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_NUM_CONTAINERS = 16
+TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_PERCENT = 32
+TXFS_RM_FLAG_LOG_AUTO_SHRINK_PERCENTAGE = 64
+TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MAX = 128
+TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MIN = 256
+TXFS_RM_FLAG_GROW_LOG = 1024
+TXFS_RM_FLAG_SHRINK_LOG = 2048
+TXFS_RM_FLAG_ENFORCE_MINIMUM_SIZE = 4096
+TXFS_RM_FLAG_PRESERVE_CHANGES = 8192
+TXFS_RM_FLAG_RESET_RM_AT_NEXT_START = 16384
+TXFS_RM_FLAG_DO_NOT_RESET_RM_AT_NEXT_START = 32768
+TXFS_RM_FLAG_PREFER_CONSISTENCY = 65536
+TXFS_RM_FLAG_PREFER_AVAILABILITY = 131072
+def _define_TXFS_ROLLFORWARD_REDO_INFORMATION_head():
+    class TXFS_ROLLFORWARD_REDO_INFORMATION(Structure):
+        pass
+    return TXFS_ROLLFORWARD_REDO_INFORMATION
+def _define_TXFS_ROLLFORWARD_REDO_INFORMATION():
+    TXFS_ROLLFORWARD_REDO_INFORMATION = win32more.System.Ioctl.TXFS_ROLLFORWARD_REDO_INFORMATION_head
+    TXFS_ROLLFORWARD_REDO_INFORMATION._fields_ = [
+        ('LastVirtualClock', win32more.Foundation.LARGE_INTEGER),
+        ('LastRedoLsn', UInt64),
+        ('HighestRecoveryLsn', UInt64),
+        ('Flags', UInt32),
+    ]
+    return TXFS_ROLLFORWARD_REDO_INFORMATION
+def _define_TXFS_SAVEPOINT_INFORMATION_head():
+    class TXFS_SAVEPOINT_INFORMATION(Structure):
+        pass
+    return TXFS_SAVEPOINT_INFORMATION
+def _define_TXFS_SAVEPOINT_INFORMATION():
+    TXFS_SAVEPOINT_INFORMATION = win32more.System.Ioctl.TXFS_SAVEPOINT_INFORMATION_head
+    TXFS_SAVEPOINT_INFORMATION._fields_ = [
+        ('KtmTransaction', win32more.Foundation.HANDLE),
+        ('ActionCode', UInt32),
+        ('SavepointId', UInt32),
+    ]
+    return TXFS_SAVEPOINT_INFORMATION
+def _define_TXFS_START_RM_INFORMATION_head():
+    class TXFS_START_RM_INFORMATION(Structure):
+        pass
+    return TXFS_START_RM_INFORMATION
+def _define_TXFS_START_RM_INFORMATION():
+    TXFS_START_RM_INFORMATION = win32more.System.Ioctl.TXFS_START_RM_INFORMATION_head
+    TXFS_START_RM_INFORMATION._fields_ = [
+        ('Flags', UInt32),
+        ('LogContainerSize', UInt64),
+        ('LogContainerCountMin', UInt32),
+        ('LogContainerCountMax', UInt32),
+        ('LogGrowthIncrement', UInt32),
+        ('LogAutoShrinkPercentage', UInt32),
+        ('TmLogPathOffset', UInt32),
+        ('TmLogPathLength', UInt16),
+        ('LoggingMode', UInt16),
+        ('LogPathLength', UInt16),
+        ('Reserved', UInt16),
+        ('LogPath', Char * 1),
+    ]
+    return TXFS_START_RM_INFORMATION
+def _define_TXFS_TRANSACTION_ACTIVE_INFO_head():
+    class TXFS_TRANSACTION_ACTIVE_INFO(Structure):
+        pass
+    return TXFS_TRANSACTION_ACTIVE_INFO
+def _define_TXFS_TRANSACTION_ACTIVE_INFO():
+    TXFS_TRANSACTION_ACTIVE_INFO = win32more.System.Ioctl.TXFS_TRANSACTION_ACTIVE_INFO_head
+    TXFS_TRANSACTION_ACTIVE_INFO._fields_ = [
+        ('TransactionsActiveAtSnapshot', win32more.Foundation.BOOLEAN),
+    ]
+    return TXFS_TRANSACTION_ACTIVE_INFO
+def _define_TXFS_WRITE_BACKUP_INFORMATION_head():
+    class TXFS_WRITE_BACKUP_INFORMATION(Structure):
+        pass
+    return TXFS_WRITE_BACKUP_INFORMATION
+def _define_TXFS_WRITE_BACKUP_INFORMATION():
+    TXFS_WRITE_BACKUP_INFORMATION = win32more.System.Ioctl.TXFS_WRITE_BACKUP_INFORMATION_head
+    TXFS_WRITE_BACKUP_INFORMATION._fields_ = [
+        ('Buffer', Byte * 1),
+    ]
+    return TXFS_WRITE_BACKUP_INFORMATION
+USN_DELETE_FLAGS = UInt32
+USN_DELETE_FLAG_DELETE = 1
+USN_DELETE_FLAG_NOTIFY = 2
+def _define_USN_JOURNAL_DATA_V0_head():
+    class USN_JOURNAL_DATA_V0(Structure):
+        pass
+    return USN_JOURNAL_DATA_V0
+def _define_USN_JOURNAL_DATA_V0():
+    USN_JOURNAL_DATA_V0 = win32more.System.Ioctl.USN_JOURNAL_DATA_V0_head
+    USN_JOURNAL_DATA_V0._fields_ = [
+        ('UsnJournalID', UInt64),
+        ('FirstUsn', Int64),
+        ('NextUsn', Int64),
+        ('LowestValidUsn', Int64),
+        ('MaxUsn', Int64),
+        ('MaximumSize', UInt64),
+        ('AllocationDelta', UInt64),
+    ]
+    return USN_JOURNAL_DATA_V0
+def _define_USN_JOURNAL_DATA_V1_head():
+    class USN_JOURNAL_DATA_V1(Structure):
+        pass
+    return USN_JOURNAL_DATA_V1
+def _define_USN_JOURNAL_DATA_V1():
+    USN_JOURNAL_DATA_V1 = win32more.System.Ioctl.USN_JOURNAL_DATA_V1_head
+    USN_JOURNAL_DATA_V1._fields_ = [
+        ('UsnJournalID', UInt64),
+        ('FirstUsn', Int64),
+        ('NextUsn', Int64),
+        ('LowestValidUsn', Int64),
+        ('MaxUsn', Int64),
+        ('MaximumSize', UInt64),
+        ('AllocationDelta', UInt64),
+        ('MinSupportedMajorVersion', UInt16),
+        ('MaxSupportedMajorVersion', UInt16),
+    ]
+    return USN_JOURNAL_DATA_V1
+def _define_USN_JOURNAL_DATA_V2_head():
+    class USN_JOURNAL_DATA_V2(Structure):
+        pass
+    return USN_JOURNAL_DATA_V2
+def _define_USN_JOURNAL_DATA_V2():
+    USN_JOURNAL_DATA_V2 = win32more.System.Ioctl.USN_JOURNAL_DATA_V2_head
+    USN_JOURNAL_DATA_V2._fields_ = [
+        ('UsnJournalID', UInt64),
+        ('FirstUsn', Int64),
+        ('NextUsn', Int64),
+        ('LowestValidUsn', Int64),
+        ('MaxUsn', Int64),
+        ('MaximumSize', UInt64),
+        ('AllocationDelta', UInt64),
+        ('MinSupportedMajorVersion', UInt16),
+        ('MaxSupportedMajorVersion', UInt16),
+        ('Flags', UInt32),
+        ('RangeTrackChunkSize', UInt64),
+        ('RangeTrackFileSizeThreshold', Int64),
+    ]
+    return USN_JOURNAL_DATA_V2
+def _define_USN_RANGE_TRACK_OUTPUT_head():
+    class USN_RANGE_TRACK_OUTPUT(Structure):
+        pass
+    return USN_RANGE_TRACK_OUTPUT
+def _define_USN_RANGE_TRACK_OUTPUT():
+    USN_RANGE_TRACK_OUTPUT = win32more.System.Ioctl.USN_RANGE_TRACK_OUTPUT_head
+    USN_RANGE_TRACK_OUTPUT._fields_ = [
+        ('Usn', Int64),
+    ]
+    return USN_RANGE_TRACK_OUTPUT
+def _define_USN_RECORD_COMMON_HEADER_head():
+    class USN_RECORD_COMMON_HEADER(Structure):
+        pass
+    return USN_RECORD_COMMON_HEADER
+def _define_USN_RECORD_COMMON_HEADER():
+    USN_RECORD_COMMON_HEADER = win32more.System.Ioctl.USN_RECORD_COMMON_HEADER_head
+    USN_RECORD_COMMON_HEADER._fields_ = [
+        ('RecordLength', UInt32),
+        ('MajorVersion', UInt16),
+        ('MinorVersion', UInt16),
+    ]
+    return USN_RECORD_COMMON_HEADER
+def _define_USN_RECORD_EXTENT_head():
+    class USN_RECORD_EXTENT(Structure):
+        pass
+    return USN_RECORD_EXTENT
+def _define_USN_RECORD_EXTENT():
+    USN_RECORD_EXTENT = win32more.System.Ioctl.USN_RECORD_EXTENT_head
+    USN_RECORD_EXTENT._fields_ = [
+        ('Offset', Int64),
+        ('Length', Int64),
+    ]
+    return USN_RECORD_EXTENT
+def _define_USN_RECORD_UNION_head():
+    class USN_RECORD_UNION(Union):
+        pass
+    return USN_RECORD_UNION
+def _define_USN_RECORD_UNION():
+    USN_RECORD_UNION = win32more.System.Ioctl.USN_RECORD_UNION_head
+    USN_RECORD_UNION._fields_ = [
+        ('Header', win32more.System.Ioctl.USN_RECORD_COMMON_HEADER),
+        ('V2', win32more.System.Ioctl.USN_RECORD_V2),
+        ('V3', win32more.System.Ioctl.USN_RECORD_V3),
+        ('V4', win32more.System.Ioctl.USN_RECORD_V4),
+    ]
+    return USN_RECORD_UNION
+def _define_USN_RECORD_V2_head():
+    class USN_RECORD_V2(Structure):
+        pass
+    return USN_RECORD_V2
+def _define_USN_RECORD_V2():
+    USN_RECORD_V2 = win32more.System.Ioctl.USN_RECORD_V2_head
+    USN_RECORD_V2._fields_ = [
+        ('RecordLength', UInt32),
+        ('MajorVersion', UInt16),
+        ('MinorVersion', UInt16),
+        ('FileReferenceNumber', UInt64),
+        ('ParentFileReferenceNumber', UInt64),
+        ('Usn', Int64),
+        ('TimeStamp', win32more.Foundation.LARGE_INTEGER),
+        ('Reason', UInt32),
+        ('SourceInfo', UInt32),
+        ('SecurityId', UInt32),
+        ('FileAttributes', UInt32),
+        ('FileNameLength', UInt16),
+        ('FileNameOffset', UInt16),
+        ('FileName', Char * 1),
+    ]
+    return USN_RECORD_V2
+def _define_USN_RECORD_V3_head():
+    class USN_RECORD_V3(Structure):
+        pass
+    return USN_RECORD_V3
+def _define_USN_RECORD_V3():
+    USN_RECORD_V3 = win32more.System.Ioctl.USN_RECORD_V3_head
+    USN_RECORD_V3._fields_ = [
+        ('RecordLength', UInt32),
+        ('MajorVersion', UInt16),
+        ('MinorVersion', UInt16),
+        ('FileReferenceNumber', win32more.Storage.FileSystem.FILE_ID_128),
+        ('ParentFileReferenceNumber', win32more.Storage.FileSystem.FILE_ID_128),
+        ('Usn', Int64),
+        ('TimeStamp', win32more.Foundation.LARGE_INTEGER),
+        ('Reason', UInt32),
+        ('SourceInfo', UInt32),
+        ('SecurityId', UInt32),
+        ('FileAttributes', UInt32),
+        ('FileNameLength', UInt16),
+        ('FileNameOffset', UInt16),
+        ('FileName', Char * 1),
+    ]
+    return USN_RECORD_V3
+def _define_USN_RECORD_V4_head():
+    class USN_RECORD_V4(Structure):
+        pass
+    return USN_RECORD_V4
+def _define_USN_RECORD_V4():
+    USN_RECORD_V4 = win32more.System.Ioctl.USN_RECORD_V4_head
+    USN_RECORD_V4._fields_ = [
+        ('Header', win32more.System.Ioctl.USN_RECORD_COMMON_HEADER),
+        ('FileReferenceNumber', win32more.Storage.FileSystem.FILE_ID_128),
+        ('ParentFileReferenceNumber', win32more.Storage.FileSystem.FILE_ID_128),
+        ('Usn', Int64),
+        ('Reason', UInt32),
+        ('SourceInfo', win32more.System.Ioctl.USN_SOURCE_INFO_ID),
+        ('RemainingExtents', UInt32),
+        ('NumberOfExtents', UInt16),
+        ('ExtentSize', UInt16),
+        ('Extents', win32more.System.Ioctl.USN_RECORD_EXTENT * 1),
+    ]
+    return USN_RECORD_V4
+USN_SOURCE_INFO_ID = UInt32
+USN_SOURCE_AUXILIARY_DATA = 2
+USN_SOURCE_DATA_MANAGEMENT = 1
+USN_SOURCE_REPLICATION_MANAGEMENT = 4
+USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT = 8
+def _define_USN_TRACK_MODIFIED_RANGES_head():
+    class USN_TRACK_MODIFIED_RANGES(Structure):
+        pass
+    return USN_TRACK_MODIFIED_RANGES
+def _define_USN_TRACK_MODIFIED_RANGES():
+    USN_TRACK_MODIFIED_RANGES = win32more.System.Ioctl.USN_TRACK_MODIFIED_RANGES_head
+    USN_TRACK_MODIFIED_RANGES._fields_ = [
+        ('Flags', UInt32),
+        ('Unused', UInt32),
+        ('ChunkSize', UInt64),
+        ('FileSizeThreshold', Int64),
+    ]
+    return USN_TRACK_MODIFIED_RANGES
+def _define_VERIFY_INFORMATION_head():
+    class VERIFY_INFORMATION(Structure):
+        pass
+    return VERIFY_INFORMATION
+def _define_VERIFY_INFORMATION():
+    VERIFY_INFORMATION = win32more.System.Ioctl.VERIFY_INFORMATION_head
+    VERIFY_INFORMATION._fields_ = [
+        ('StartingOffset', win32more.Foundation.LARGE_INTEGER),
+        ('Length', UInt32),
+    ]
+    return VERIFY_INFORMATION
 VIRTUAL_STORAGE_BEHAVIOR_CODE = Int32
 VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorUndefined = 0
 VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteThrough = 1
@@ -8017,185 +8236,10 @@ def _define_VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT_head():
 def _define_VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT():
     VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT = win32more.System.Ioctl.VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT_head
     VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT._fields_ = [
-        ("Size", UInt32),
-        ("BehaviorCode", win32more.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE),
+        ('Size', UInt32),
+        ('BehaviorCode', win32more.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE),
     ]
     return VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT
-def _define_ENCRYPTION_KEY_CTRL_INPUT_head():
-    class ENCRYPTION_KEY_CTRL_INPUT(Structure):
-        pass
-    return ENCRYPTION_KEY_CTRL_INPUT
-def _define_ENCRYPTION_KEY_CTRL_INPUT():
-    ENCRYPTION_KEY_CTRL_INPUT = win32more.System.Ioctl.ENCRYPTION_KEY_CTRL_INPUT_head
-    ENCRYPTION_KEY_CTRL_INPUT._fields_ = [
-        ("HeaderSize", UInt32),
-        ("StructureSize", UInt32),
-        ("KeyOffset", UInt16),
-        ("KeySize", UInt16),
-        ("DplLock", UInt32),
-        ("DplUserId", UInt64),
-        ("DplCredentialId", UInt64),
-    ]
-    return ENCRYPTION_KEY_CTRL_INPUT
-def _define_WOF_EXTERNAL_INFO_head():
-    class WOF_EXTERNAL_INFO(Structure):
-        pass
-    return WOF_EXTERNAL_INFO
-def _define_WOF_EXTERNAL_INFO():
-    WOF_EXTERNAL_INFO = win32more.System.Ioctl.WOF_EXTERNAL_INFO_head
-    WOF_EXTERNAL_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Provider", UInt32),
-    ]
-    return WOF_EXTERNAL_INFO
-def _define_WOF_EXTERNAL_FILE_ID_head():
-    class WOF_EXTERNAL_FILE_ID(Structure):
-        pass
-    return WOF_EXTERNAL_FILE_ID
-def _define_WOF_EXTERNAL_FILE_ID():
-    WOF_EXTERNAL_FILE_ID = win32more.System.Ioctl.WOF_EXTERNAL_FILE_ID_head
-    WOF_EXTERNAL_FILE_ID._fields_ = [
-        ("FileId", win32more.Storage.FileSystem.FILE_ID_128),
-    ]
-    return WOF_EXTERNAL_FILE_ID
-def _define_WOF_VERSION_INFO_head():
-    class WOF_VERSION_INFO(Structure):
-        pass
-    return WOF_VERSION_INFO
-def _define_WOF_VERSION_INFO():
-    WOF_VERSION_INFO = win32more.System.Ioctl.WOF_VERSION_INFO_head
-    WOF_VERSION_INFO._fields_ = [
-        ("WofVersion", UInt32),
-    ]
-    return WOF_VERSION_INFO
-def _define_WIM_PROVIDER_EXTERNAL_INFO_head():
-    class WIM_PROVIDER_EXTERNAL_INFO(Structure):
-        pass
-    return WIM_PROVIDER_EXTERNAL_INFO
-def _define_WIM_PROVIDER_EXTERNAL_INFO():
-    WIM_PROVIDER_EXTERNAL_INFO = win32more.System.Ioctl.WIM_PROVIDER_EXTERNAL_INFO_head
-    WIM_PROVIDER_EXTERNAL_INFO._fields_ = [
-        ("Version", UInt32),
-        ("Flags", UInt32),
-        ("DataSourceId", win32more.Foundation.LARGE_INTEGER),
-        ("ResourceHash", Byte * 20),
-    ]
-    return WIM_PROVIDER_EXTERNAL_INFO
-def _define_WIM_PROVIDER_ADD_OVERLAY_INPUT_head():
-    class WIM_PROVIDER_ADD_OVERLAY_INPUT(Structure):
-        pass
-    return WIM_PROVIDER_ADD_OVERLAY_INPUT
-def _define_WIM_PROVIDER_ADD_OVERLAY_INPUT():
-    WIM_PROVIDER_ADD_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_ADD_OVERLAY_INPUT_head
-    WIM_PROVIDER_ADD_OVERLAY_INPUT._fields_ = [
-        ("WimType", UInt32),
-        ("WimIndex", UInt32),
-        ("WimFileNameOffset", UInt32),
-        ("WimFileNameLength", UInt32),
-    ]
-    return WIM_PROVIDER_ADD_OVERLAY_INPUT
-def _define_WIM_PROVIDER_UPDATE_OVERLAY_INPUT_head():
-    class WIM_PROVIDER_UPDATE_OVERLAY_INPUT(Structure):
-        pass
-    return WIM_PROVIDER_UPDATE_OVERLAY_INPUT
-def _define_WIM_PROVIDER_UPDATE_OVERLAY_INPUT():
-    WIM_PROVIDER_UPDATE_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_UPDATE_OVERLAY_INPUT_head
-    WIM_PROVIDER_UPDATE_OVERLAY_INPUT._fields_ = [
-        ("DataSourceId", win32more.Foundation.LARGE_INTEGER),
-        ("WimFileNameOffset", UInt32),
-        ("WimFileNameLength", UInt32),
-    ]
-    return WIM_PROVIDER_UPDATE_OVERLAY_INPUT
-def _define_WIM_PROVIDER_REMOVE_OVERLAY_INPUT_head():
-    class WIM_PROVIDER_REMOVE_OVERLAY_INPUT(Structure):
-        pass
-    return WIM_PROVIDER_REMOVE_OVERLAY_INPUT
-def _define_WIM_PROVIDER_REMOVE_OVERLAY_INPUT():
-    WIM_PROVIDER_REMOVE_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_REMOVE_OVERLAY_INPUT_head
-    WIM_PROVIDER_REMOVE_OVERLAY_INPUT._fields_ = [
-        ("DataSourceId", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return WIM_PROVIDER_REMOVE_OVERLAY_INPUT
-def _define_WIM_PROVIDER_SUSPEND_OVERLAY_INPUT_head():
-    class WIM_PROVIDER_SUSPEND_OVERLAY_INPUT(Structure):
-        pass
-    return WIM_PROVIDER_SUSPEND_OVERLAY_INPUT
-def _define_WIM_PROVIDER_SUSPEND_OVERLAY_INPUT():
-    WIM_PROVIDER_SUSPEND_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_SUSPEND_OVERLAY_INPUT_head
-    WIM_PROVIDER_SUSPEND_OVERLAY_INPUT._fields_ = [
-        ("DataSourceId", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return WIM_PROVIDER_SUSPEND_OVERLAY_INPUT
-def _define_WIM_PROVIDER_OVERLAY_ENTRY_head():
-    class WIM_PROVIDER_OVERLAY_ENTRY(Structure):
-        pass
-    return WIM_PROVIDER_OVERLAY_ENTRY
-def _define_WIM_PROVIDER_OVERLAY_ENTRY():
-    WIM_PROVIDER_OVERLAY_ENTRY = win32more.System.Ioctl.WIM_PROVIDER_OVERLAY_ENTRY_head
-    WIM_PROVIDER_OVERLAY_ENTRY._fields_ = [
-        ("NextEntryOffset", UInt32),
-        ("DataSourceId", win32more.Foundation.LARGE_INTEGER),
-        ("WimGuid", Guid),
-        ("WimFileNameOffset", UInt32),
-        ("WimType", UInt32),
-        ("WimIndex", UInt32),
-        ("Flags", UInt32),
-    ]
-    return WIM_PROVIDER_OVERLAY_ENTRY
-def _define_FILE_PROVIDER_EXTERNAL_INFO_V0_head():
-    class FILE_PROVIDER_EXTERNAL_INFO_V0(Structure):
-        pass
-    return FILE_PROVIDER_EXTERNAL_INFO_V0
-def _define_FILE_PROVIDER_EXTERNAL_INFO_V0():
-    FILE_PROVIDER_EXTERNAL_INFO_V0 = win32more.System.Ioctl.FILE_PROVIDER_EXTERNAL_INFO_V0_head
-    FILE_PROVIDER_EXTERNAL_INFO_V0._fields_ = [
-        ("Version", UInt32),
-        ("Algorithm", UInt32),
-    ]
-    return FILE_PROVIDER_EXTERNAL_INFO_V0
-def _define_FILE_PROVIDER_EXTERNAL_INFO_V1_head():
-    class FILE_PROVIDER_EXTERNAL_INFO_V1(Structure):
-        pass
-    return FILE_PROVIDER_EXTERNAL_INFO_V1
-def _define_FILE_PROVIDER_EXTERNAL_INFO_V1():
-    FILE_PROVIDER_EXTERNAL_INFO_V1 = win32more.System.Ioctl.FILE_PROVIDER_EXTERNAL_INFO_V1_head
-    FILE_PROVIDER_EXTERNAL_INFO_V1._fields_ = [
-        ("Version", UInt32),
-        ("Algorithm", UInt32),
-        ("Flags", UInt32),
-    ]
-    return FILE_PROVIDER_EXTERNAL_INFO_V1
-def _define_CONTAINER_VOLUME_STATE_head():
-    class CONTAINER_VOLUME_STATE(Structure):
-        pass
-    return CONTAINER_VOLUME_STATE
-def _define_CONTAINER_VOLUME_STATE():
-    CONTAINER_VOLUME_STATE = win32more.System.Ioctl.CONTAINER_VOLUME_STATE_head
-    CONTAINER_VOLUME_STATE._fields_ = [
-        ("Flags", UInt32),
-    ]
-    return CONTAINER_VOLUME_STATE
-def _define_CONTAINER_ROOT_INFO_INPUT_head():
-    class CONTAINER_ROOT_INFO_INPUT(Structure):
-        pass
-    return CONTAINER_ROOT_INFO_INPUT
-def _define_CONTAINER_ROOT_INFO_INPUT():
-    CONTAINER_ROOT_INFO_INPUT = win32more.System.Ioctl.CONTAINER_ROOT_INFO_INPUT_head
-    CONTAINER_ROOT_INFO_INPUT._fields_ = [
-        ("Flags", UInt32),
-    ]
-    return CONTAINER_ROOT_INFO_INPUT
-def _define_CONTAINER_ROOT_INFO_OUTPUT_head():
-    class CONTAINER_ROOT_INFO_OUTPUT(Structure):
-        pass
-    return CONTAINER_ROOT_INFO_OUTPUT
-def _define_CONTAINER_ROOT_INFO_OUTPUT():
-    CONTAINER_ROOT_INFO_OUTPUT = win32more.System.Ioctl.CONTAINER_ROOT_INFO_OUTPUT_head
-    CONTAINER_ROOT_INFO_OUTPUT._fields_ = [
-        ("ContainerRootIdLength", UInt16),
-        ("ContainerRootId", Byte * 0),
-    ]
-    return CONTAINER_ROOT_INFO_OUTPUT
 def _define_VIRTUALIZATION_INSTANCE_INFO_INPUT_head():
     class VIRTUALIZATION_INSTANCE_INFO_INPUT(Structure):
         pass
@@ -8203,8 +8247,8 @@ def _define_VIRTUALIZATION_INSTANCE_INFO_INPUT_head():
 def _define_VIRTUALIZATION_INSTANCE_INFO_INPUT():
     VIRTUALIZATION_INSTANCE_INFO_INPUT = win32more.System.Ioctl.VIRTUALIZATION_INSTANCE_INFO_INPUT_head
     VIRTUALIZATION_INSTANCE_INFO_INPUT._fields_ = [
-        ("NumberOfWorkerThreads", UInt32),
-        ("Flags", UInt32),
+        ('NumberOfWorkerThreads', UInt32),
+        ('Flags', UInt32),
     ]
     return VIRTUALIZATION_INSTANCE_INFO_INPUT
 def _define_VIRTUALIZATION_INSTANCE_INFO_INPUT_EX_head():
@@ -8214,11 +8258,11 @@ def _define_VIRTUALIZATION_INSTANCE_INFO_INPUT_EX_head():
 def _define_VIRTUALIZATION_INSTANCE_INFO_INPUT_EX():
     VIRTUALIZATION_INSTANCE_INFO_INPUT_EX = win32more.System.Ioctl.VIRTUALIZATION_INSTANCE_INFO_INPUT_EX_head
     VIRTUALIZATION_INSTANCE_INFO_INPUT_EX._fields_ = [
-        ("HeaderSize", UInt16),
-        ("Flags", UInt32),
-        ("NotificationInfoSize", UInt32),
-        ("NotificationInfoOffset", UInt16),
-        ("ProviderMajorVersion", UInt16),
+        ('HeaderSize', UInt16),
+        ('Flags', UInt32),
+        ('NotificationInfoSize', UInt32),
+        ('NotificationInfoOffset', UInt16),
+        ('ProviderMajorVersion', UInt16),
     ]
     return VIRTUALIZATION_INSTANCE_INFO_INPUT_EX
 def _define_VIRTUALIZATION_INSTANCE_INFO_OUTPUT_head():
@@ -8228,147 +8272,21 @@ def _define_VIRTUALIZATION_INSTANCE_INFO_OUTPUT_head():
 def _define_VIRTUALIZATION_INSTANCE_INFO_OUTPUT():
     VIRTUALIZATION_INSTANCE_INFO_OUTPUT = win32more.System.Ioctl.VIRTUALIZATION_INSTANCE_INFO_OUTPUT_head
     VIRTUALIZATION_INSTANCE_INFO_OUTPUT._fields_ = [
-        ("VirtualizationInstanceID", Guid),
+        ('VirtualizationInstanceID', Guid),
     ]
     return VIRTUALIZATION_INSTANCE_INFO_OUTPUT
-def _define_GET_FILTER_FILE_IDENTIFIER_INPUT_head():
-    class GET_FILTER_FILE_IDENTIFIER_INPUT(Structure):
+def _define_VOLUME_BITMAP_BUFFER_head():
+    class VOLUME_BITMAP_BUFFER(Structure):
         pass
-    return GET_FILTER_FILE_IDENTIFIER_INPUT
-def _define_GET_FILTER_FILE_IDENTIFIER_INPUT():
-    GET_FILTER_FILE_IDENTIFIER_INPUT = win32more.System.Ioctl.GET_FILTER_FILE_IDENTIFIER_INPUT_head
-    GET_FILTER_FILE_IDENTIFIER_INPUT._fields_ = [
-        ("AltitudeLength", UInt16),
-        ("Altitude", Char * 0),
+    return VOLUME_BITMAP_BUFFER
+def _define_VOLUME_BITMAP_BUFFER():
+    VOLUME_BITMAP_BUFFER = win32more.System.Ioctl.VOLUME_BITMAP_BUFFER_head
+    VOLUME_BITMAP_BUFFER._fields_ = [
+        ('StartingLcn', win32more.Foundation.LARGE_INTEGER),
+        ('BitmapSize', win32more.Foundation.LARGE_INTEGER),
+        ('Buffer', Byte * 1),
     ]
-    return GET_FILTER_FILE_IDENTIFIER_INPUT
-def _define_GET_FILTER_FILE_IDENTIFIER_OUTPUT_head():
-    class GET_FILTER_FILE_IDENTIFIER_OUTPUT(Structure):
-        pass
-    return GET_FILTER_FILE_IDENTIFIER_OUTPUT
-def _define_GET_FILTER_FILE_IDENTIFIER_OUTPUT():
-    GET_FILTER_FILE_IDENTIFIER_OUTPUT = win32more.System.Ioctl.GET_FILTER_FILE_IDENTIFIER_OUTPUT_head
-    GET_FILTER_FILE_IDENTIFIER_OUTPUT._fields_ = [
-        ("FilterFileIdentifierLength", UInt16),
-        ("FilterFileIdentifier", Byte * 0),
-    ]
-    return GET_FILTER_FILE_IDENTIFIER_OUTPUT
-FS_BPIO_OPERATIONS = Int32
-FS_BPIO_OP_ENABLE = 1
-FS_BPIO_OP_DISABLE = 2
-FS_BPIO_OP_QUERY = 3
-FS_BPIO_OP_VOLUME_STACK_PAUSE = 4
-FS_BPIO_OP_VOLUME_STACK_RESUME = 5
-FS_BPIO_OP_STREAM_PAUSE = 6
-FS_BPIO_OP_STREAM_RESUME = 7
-FS_BPIO_OP_GET_INFO = 8
-FS_BPIO_OP_MAX_OPERATION = 9
-FS_BPIO_INFLAGS = Int32
-FSBPIO_INFL_None = 0
-FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY = 1
-def _define_FS_BPIO_INPUT_head():
-    class FS_BPIO_INPUT(Structure):
-        pass
-    return FS_BPIO_INPUT
-def _define_FS_BPIO_INPUT():
-    FS_BPIO_INPUT = win32more.System.Ioctl.FS_BPIO_INPUT_head
-    FS_BPIO_INPUT._fields_ = [
-        ("Operation", win32more.System.Ioctl.FS_BPIO_OPERATIONS),
-        ("InFlags", win32more.System.Ioctl.FS_BPIO_INFLAGS),
-        ("Reserved1", UInt64),
-        ("Reserved2", UInt64),
-    ]
-    return FS_BPIO_INPUT
-FS_BPIO_OUTFLAGS = Int32
-FSBPIO_OUTFL_None = 0
-FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED = 1
-FSBPIO_OUTFL_STREAM_BYPASS_PAUSED = 2
-FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED = 4
-FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER = 8
-def _define_FS_BPIO_RESULTS_head():
-    class FS_BPIO_RESULTS(Structure):
-        pass
-    return FS_BPIO_RESULTS
-def _define_FS_BPIO_RESULTS():
-    FS_BPIO_RESULTS = win32more.System.Ioctl.FS_BPIO_RESULTS_head
-    FS_BPIO_RESULTS._fields_ = [
-        ("OpStatus", UInt32),
-        ("FailingDriverNameLen", UInt16),
-        ("FailingDriverName", Char * 32),
-        ("FailureReasonLen", UInt16),
-        ("FailureReason", Char * 128),
-    ]
-    return FS_BPIO_RESULTS
-def _define_FS_BPIO_INFO_head():
-    class FS_BPIO_INFO(Structure):
-        pass
-    return FS_BPIO_INFO
-def _define_FS_BPIO_INFO():
-    FS_BPIO_INFO = win32more.System.Ioctl.FS_BPIO_INFO_head
-    FS_BPIO_INFO._fields_ = [
-        ("ActiveBypassIoCount", UInt32),
-        ("StorageDriverNameLen", UInt16),
-        ("StorageDriverName", Char * 32),
-    ]
-    return FS_BPIO_INFO
-def _define_FS_BPIO_OUTPUT_head():
-    class FS_BPIO_OUTPUT(Structure):
-        pass
-    return FS_BPIO_OUTPUT
-def _define_FS_BPIO_OUTPUT():
-    FS_BPIO_OUTPUT = win32more.System.Ioctl.FS_BPIO_OUTPUT_head
-    class FS_BPIO_OUTPUT__Anonymous_e__Union(Union):
-        pass
-    FS_BPIO_OUTPUT__Anonymous_e__Union._fields_ = [
-        ("Enable", win32more.System.Ioctl.FS_BPIO_RESULTS),
-        ("Query", win32more.System.Ioctl.FS_BPIO_RESULTS),
-        ("VolumeStackResume", win32more.System.Ioctl.FS_BPIO_RESULTS),
-        ("StreamResume", win32more.System.Ioctl.FS_BPIO_RESULTS),
-        ("GetInfo", win32more.System.Ioctl.FS_BPIO_INFO),
-    ]
-    FS_BPIO_OUTPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    FS_BPIO_OUTPUT._fields_ = [
-        ("Operation", win32more.System.Ioctl.FS_BPIO_OPERATIONS),
-        ("OutFlags", win32more.System.Ioctl.FS_BPIO_OUTFLAGS),
-        ("Reserved1", UInt64),
-        ("Reserved2", UInt64),
-        ("Anonymous", FS_BPIO_OUTPUT__Anonymous_e__Union),
-    ]
-    return FS_BPIO_OUTPUT
-def _define_SMB_SHARE_FLUSH_AND_PURGE_INPUT_head():
-    class SMB_SHARE_FLUSH_AND_PURGE_INPUT(Structure):
-        pass
-    return SMB_SHARE_FLUSH_AND_PURGE_INPUT
-def _define_SMB_SHARE_FLUSH_AND_PURGE_INPUT():
-    SMB_SHARE_FLUSH_AND_PURGE_INPUT = win32more.System.Ioctl.SMB_SHARE_FLUSH_AND_PURGE_INPUT_head
-    SMB_SHARE_FLUSH_AND_PURGE_INPUT._fields_ = [
-        ("Version", UInt16),
-    ]
-    return SMB_SHARE_FLUSH_AND_PURGE_INPUT
-def _define_SMB_SHARE_FLUSH_AND_PURGE_OUTPUT_head():
-    class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT(Structure):
-        pass
-    return SMB_SHARE_FLUSH_AND_PURGE_OUTPUT
-def _define_SMB_SHARE_FLUSH_AND_PURGE_OUTPUT():
-    SMB_SHARE_FLUSH_AND_PURGE_OUTPUT = win32more.System.Ioctl.SMB_SHARE_FLUSH_AND_PURGE_OUTPUT_head
-    SMB_SHARE_FLUSH_AND_PURGE_OUTPUT._fields_ = [
-        ("cEntriesPurged", UInt32),
-    ]
-    return SMB_SHARE_FLUSH_AND_PURGE_OUTPUT
-def _define_DISK_EXTENT_head():
-    class DISK_EXTENT(Structure):
-        pass
-    return DISK_EXTENT
-def _define_DISK_EXTENT():
-    DISK_EXTENT = win32more.System.Ioctl.DISK_EXTENT_head
-    DISK_EXTENT._fields_ = [
-        ("DiskNumber", UInt32),
-        ("StartingOffset", win32more.Foundation.LARGE_INTEGER),
-        ("ExtentLength", win32more.Foundation.LARGE_INTEGER),
-    ]
-    return DISK_EXTENT
+    return VOLUME_BITMAP_BUFFER
 def _define_VOLUME_DISK_EXTENTS_head():
     class VOLUME_DISK_EXTENTS(Structure):
         pass
@@ -8376,8 +8294,8 @@ def _define_VOLUME_DISK_EXTENTS_head():
 def _define_VOLUME_DISK_EXTENTS():
     VOLUME_DISK_EXTENTS = win32more.System.Ioctl.VOLUME_DISK_EXTENTS_head
     VOLUME_DISK_EXTENTS._fields_ = [
-        ("NumberOfDiskExtents", UInt32),
-        ("Extents", win32more.System.Ioctl.DISK_EXTENT * 0),
+        ('NumberOfDiskExtents', UInt32),
+        ('Extents', win32more.System.Ioctl.DISK_EXTENT * 1),
     ]
     return VOLUME_DISK_EXTENTS
 def _define_VOLUME_GET_GPT_ATTRIBUTES_INFORMATION_head():
@@ -8387,1102 +8305,450 @@ def _define_VOLUME_GET_GPT_ATTRIBUTES_INFORMATION_head():
 def _define_VOLUME_GET_GPT_ATTRIBUTES_INFORMATION():
     VOLUME_GET_GPT_ATTRIBUTES_INFORMATION = win32more.System.Ioctl.VOLUME_GET_GPT_ATTRIBUTES_INFORMATION_head
     VOLUME_GET_GPT_ATTRIBUTES_INFORMATION._fields_ = [
-        ("GptAttributes", UInt64),
+        ('GptAttributes', UInt64),
     ]
     return VOLUME_GET_GPT_ATTRIBUTES_INFORMATION
-def _define_PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK():
-    return CFUNCTYPE(Void,POINTER(win32more.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head),POINTER(win32more.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head),Int64, use_last_error=False)
-def _define_IO_IRP_EXT_TRACK_OFFSET_HEADER_head():
-    class IO_IRP_EXT_TRACK_OFFSET_HEADER(Structure):
+def _define_WIM_PROVIDER_ADD_OVERLAY_INPUT_head():
+    class WIM_PROVIDER_ADD_OVERLAY_INPUT(Structure):
         pass
-    return IO_IRP_EXT_TRACK_OFFSET_HEADER
-def _define_IO_IRP_EXT_TRACK_OFFSET_HEADER():
-    IO_IRP_EXT_TRACK_OFFSET_HEADER = win32more.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head
-    IO_IRP_EXT_TRACK_OFFSET_HEADER._fields_ = [
-        ("Validation", UInt16),
-        ("Flags", UInt16),
-        ("TrackedOffsetCallback", win32more.System.Ioctl.PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK),
+    return WIM_PROVIDER_ADD_OVERLAY_INPUT
+def _define_WIM_PROVIDER_ADD_OVERLAY_INPUT():
+    WIM_PROVIDER_ADD_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_ADD_OVERLAY_INPUT_head
+    WIM_PROVIDER_ADD_OVERLAY_INPUT._fields_ = [
+        ('WimType', UInt32),
+        ('WimIndex', UInt32),
+        ('WimFileNameOffset', UInt32),
+        ('WimFileNameLength', UInt32),
     ]
-    return IO_IRP_EXT_TRACK_OFFSET_HEADER
+    return WIM_PROVIDER_ADD_OVERLAY_INPUT
+def _define_WIM_PROVIDER_EXTERNAL_INFO_head():
+    class WIM_PROVIDER_EXTERNAL_INFO(Structure):
+        pass
+    return WIM_PROVIDER_EXTERNAL_INFO
+def _define_WIM_PROVIDER_EXTERNAL_INFO():
+    WIM_PROVIDER_EXTERNAL_INFO = win32more.System.Ioctl.WIM_PROVIDER_EXTERNAL_INFO_head
+    WIM_PROVIDER_EXTERNAL_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Flags', UInt32),
+        ('DataSourceId', win32more.Foundation.LARGE_INTEGER),
+        ('ResourceHash', Byte * 20),
+    ]
+    return WIM_PROVIDER_EXTERNAL_INFO
+def _define_WIM_PROVIDER_OVERLAY_ENTRY_head():
+    class WIM_PROVIDER_OVERLAY_ENTRY(Structure):
+        pass
+    return WIM_PROVIDER_OVERLAY_ENTRY
+def _define_WIM_PROVIDER_OVERLAY_ENTRY():
+    WIM_PROVIDER_OVERLAY_ENTRY = win32more.System.Ioctl.WIM_PROVIDER_OVERLAY_ENTRY_head
+    WIM_PROVIDER_OVERLAY_ENTRY._fields_ = [
+        ('NextEntryOffset', UInt32),
+        ('DataSourceId', win32more.Foundation.LARGE_INTEGER),
+        ('WimGuid', Guid),
+        ('WimFileNameOffset', UInt32),
+        ('WimType', UInt32),
+        ('WimIndex', UInt32),
+        ('Flags', UInt32),
+    ]
+    return WIM_PROVIDER_OVERLAY_ENTRY
+def _define_WIM_PROVIDER_REMOVE_OVERLAY_INPUT_head():
+    class WIM_PROVIDER_REMOVE_OVERLAY_INPUT(Structure):
+        pass
+    return WIM_PROVIDER_REMOVE_OVERLAY_INPUT
+def _define_WIM_PROVIDER_REMOVE_OVERLAY_INPUT():
+    WIM_PROVIDER_REMOVE_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_REMOVE_OVERLAY_INPUT_head
+    WIM_PROVIDER_REMOVE_OVERLAY_INPUT._fields_ = [
+        ('DataSourceId', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return WIM_PROVIDER_REMOVE_OVERLAY_INPUT
+def _define_WIM_PROVIDER_SUSPEND_OVERLAY_INPUT_head():
+    class WIM_PROVIDER_SUSPEND_OVERLAY_INPUT(Structure):
+        pass
+    return WIM_PROVIDER_SUSPEND_OVERLAY_INPUT
+def _define_WIM_PROVIDER_SUSPEND_OVERLAY_INPUT():
+    WIM_PROVIDER_SUSPEND_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_SUSPEND_OVERLAY_INPUT_head
+    WIM_PROVIDER_SUSPEND_OVERLAY_INPUT._fields_ = [
+        ('DataSourceId', win32more.Foundation.LARGE_INTEGER),
+    ]
+    return WIM_PROVIDER_SUSPEND_OVERLAY_INPUT
+def _define_WIM_PROVIDER_UPDATE_OVERLAY_INPUT_head():
+    class WIM_PROVIDER_UPDATE_OVERLAY_INPUT(Structure):
+        pass
+    return WIM_PROVIDER_UPDATE_OVERLAY_INPUT
+def _define_WIM_PROVIDER_UPDATE_OVERLAY_INPUT():
+    WIM_PROVIDER_UPDATE_OVERLAY_INPUT = win32more.System.Ioctl.WIM_PROVIDER_UPDATE_OVERLAY_INPUT_head
+    WIM_PROVIDER_UPDATE_OVERLAY_INPUT._fields_ = [
+        ('DataSourceId', win32more.Foundation.LARGE_INTEGER),
+        ('WimFileNameOffset', UInt32),
+        ('WimFileNameLength', UInt32),
+    ]
+    return WIM_PROVIDER_UPDATE_OVERLAY_INPUT
+def _define_WOF_EXTERNAL_FILE_ID_head():
+    class WOF_EXTERNAL_FILE_ID(Structure):
+        pass
+    return WOF_EXTERNAL_FILE_ID
+def _define_WOF_EXTERNAL_FILE_ID():
+    WOF_EXTERNAL_FILE_ID = win32more.System.Ioctl.WOF_EXTERNAL_FILE_ID_head
+    WOF_EXTERNAL_FILE_ID._fields_ = [
+        ('FileId', win32more.Storage.FileSystem.FILE_ID_128),
+    ]
+    return WOF_EXTERNAL_FILE_ID
+def _define_WOF_EXTERNAL_INFO_head():
+    class WOF_EXTERNAL_INFO(Structure):
+        pass
+    return WOF_EXTERNAL_INFO
+def _define_WOF_EXTERNAL_INFO():
+    WOF_EXTERNAL_INFO = win32more.System.Ioctl.WOF_EXTERNAL_INFO_head
+    WOF_EXTERNAL_INFO._fields_ = [
+        ('Version', UInt32),
+        ('Provider', UInt32),
+    ]
+    return WOF_EXTERNAL_INFO
+def _define_WOF_VERSION_INFO_head():
+    class WOF_VERSION_INFO(Structure):
+        pass
+    return WOF_VERSION_INFO
+def _define_WOF_VERSION_INFO():
+    WOF_VERSION_INFO = win32more.System.Ioctl.WOF_VERSION_INFO_head
+    WOF_VERSION_INFO._fields_ = [
+        ('WofVersion', UInt32),
+    ]
+    return WOF_VERSION_INFO
+WRITE_CACHE_CHANGE = Int32
+WRITE_CACHE_CHANGE_WriteCacheChangeUnknown = 0
+WRITE_CACHE_CHANGE_WriteCacheNotChangeable = 1
+WRITE_CACHE_CHANGE_WriteCacheChangeable = 2
+WRITE_CACHE_ENABLE = Int32
+WRITE_CACHE_ENABLE_WriteCacheEnableUnknown = 0
+WRITE_CACHE_ENABLE_WriteCacheDisabled = 1
+WRITE_CACHE_ENABLE_WriteCacheEnabled = 2
+WRITE_CACHE_TYPE = Int32
+WRITE_CACHE_TYPE_WriteCacheTypeUnknown = 0
+WRITE_CACHE_TYPE_WriteCacheTypeNone = 1
+WRITE_CACHE_TYPE_WriteCacheTypeWriteBack = 2
+WRITE_CACHE_TYPE_WriteCacheTypeWriteThrough = 3
+WRITE_THROUGH = Int32
+WRITE_THROUGH_WriteThroughUnknown = 0
+WRITE_THROUGH_WriteThroughNotSupported = 1
+WRITE_THROUGH_WriteThroughSupported = 2
+def _define_WRITE_USN_REASON_INPUT_head():
+    class WRITE_USN_REASON_INPUT(Structure):
+        pass
+    return WRITE_USN_REASON_INPUT
+def _define_WRITE_USN_REASON_INPUT():
+    WRITE_USN_REASON_INPUT = win32more.System.Ioctl.WRITE_USN_REASON_INPUT_head
+    WRITE_USN_REASON_INPUT._fields_ = [
+        ('Flags', UInt32),
+        ('UsnReasonToWrite', UInt32),
+    ]
+    return WRITE_USN_REASON_INPUT
 __all__ = [
-    "IOCTL_STORAGE_BASE",
-    "IOCTL_SCMBUS_BASE",
-    "IOCTL_DISK_BASE",
-    "IOCTL_CHANGER_BASE",
-    "FILE_SPECIAL_ACCESS",
-    "FILE_DEVICE_UNKNOWN",
-    "GUID_DEVINTERFACE_DISK",
-    "GUID_DEVINTERFACE_CDROM",
-    "GUID_DEVINTERFACE_PARTITION",
-    "GUID_DEVINTERFACE_TAPE",
-    "GUID_DEVINTERFACE_WRITEONCEDISK",
-    "GUID_DEVINTERFACE_VOLUME",
-    "GUID_DEVINTERFACE_MEDIUMCHANGER",
-    "GUID_DEVINTERFACE_FLOPPY",
-    "GUID_DEVINTERFACE_CDCHANGER",
-    "GUID_DEVINTERFACE_STORAGEPORT",
-    "GUID_DEVINTERFACE_VMLUN",
-    "GUID_DEVINTERFACE_SES",
-    "GUID_DEVINTERFACE_ZNSDISK",
-    "GUID_DEVINTERFACE_SERVICE_VOLUME",
-    "GUID_DEVINTERFACE_HIDDEN_VOLUME",
-    "GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB",
-    "GUID_DEVICEDUMP_STORAGE_DEVICE",
-    "GUID_DEVICEDUMP_DRIVER_STORAGE_PORT",
-    "DEVPKEY_Storage_Portable",
-    "DEVPKEY_Storage_Removable_Media",
-    "DEVPKEY_Storage_System_Critical",
-    "DEVPKEY_Storage_Disk_Number",
-    "DEVPKEY_Storage_Partition_Number",
-    "DEVPKEY_Storage_Mbr_Type",
-    "DEVPKEY_Storage_Gpt_Type",
-    "DEVPKEY_Storage_Gpt_Name",
-    "IOCTL_STORAGE_CHECK_VERIFY",
-    "IOCTL_STORAGE_CHECK_VERIFY2",
-    "IOCTL_STORAGE_MEDIA_REMOVAL",
-    "IOCTL_STORAGE_EJECT_MEDIA",
-    "IOCTL_STORAGE_LOAD_MEDIA",
-    "IOCTL_STORAGE_LOAD_MEDIA2",
-    "IOCTL_STORAGE_RESERVE",
-    "IOCTL_STORAGE_RELEASE",
-    "IOCTL_STORAGE_FIND_NEW_DEVICES",
-    "IOCTL_STORAGE_MANAGE_BYPASS_IO",
-    "IOCTL_STORAGE_EJECTION_CONTROL",
-    "IOCTL_STORAGE_MCN_CONTROL",
-    "IOCTL_STORAGE_GET_MEDIA_TYPES",
-    "IOCTL_STORAGE_GET_MEDIA_TYPES_EX",
-    "IOCTL_STORAGE_GET_MEDIA_SERIAL_NUMBER",
-    "IOCTL_STORAGE_GET_HOTPLUG_INFO",
-    "IOCTL_STORAGE_SET_HOTPLUG_INFO",
-    "IOCTL_STORAGE_RESET_BUS",
-    "IOCTL_STORAGE_RESET_DEVICE",
-    "IOCTL_STORAGE_BREAK_RESERVATION",
-    "IOCTL_STORAGE_PERSISTENT_RESERVE_IN",
-    "IOCTL_STORAGE_PERSISTENT_RESERVE_OUT",
-    "IOCTL_STORAGE_GET_DEVICE_NUMBER",
-    "IOCTL_STORAGE_GET_DEVICE_NUMBER_EX",
-    "IOCTL_STORAGE_PREDICT_FAILURE",
-    "IOCTL_STORAGE_FAILURE_PREDICTION_CONFIG",
-    "IOCTL_STORAGE_GET_COUNTERS",
-    "IOCTL_STORAGE_READ_CAPACITY",
-    "IOCTL_STORAGE_GET_DEVICE_TELEMETRY",
-    "IOCTL_STORAGE_DEVICE_TELEMETRY_NOTIFY",
-    "IOCTL_STORAGE_DEVICE_TELEMETRY_QUERY_CAPS",
-    "IOCTL_STORAGE_GET_DEVICE_TELEMETRY_RAW",
-    "IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD",
-    "IOCTL_STORAGE_PROTOCOL_COMMAND",
-    "IOCTL_STORAGE_SET_PROPERTY",
-    "IOCTL_STORAGE_QUERY_PROPERTY",
-    "IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES",
-    "IOCTL_STORAGE_GET_LB_PROVISIONING_MAP_RESOURCES",
-    "IOCTL_STORAGE_REINITIALIZE_MEDIA",
-    "IOCTL_STORAGE_GET_BC_PROPERTIES",
-    "IOCTL_STORAGE_ALLOCATE_BC_STREAM",
-    "IOCTL_STORAGE_FREE_BC_STREAM",
-    "IOCTL_STORAGE_CHECK_PRIORITY_HINT_SUPPORT",
-    "IOCTL_STORAGE_START_DATA_INTEGRITY_CHECK",
-    "IOCTL_STORAGE_STOP_DATA_INTEGRITY_CHECK",
-    "OBSOLETE_IOCTL_STORAGE_RESET_BUS",
-    "OBSOLETE_IOCTL_STORAGE_RESET_DEVICE",
-    "IOCTL_STORAGE_FIRMWARE_GET_INFO",
-    "IOCTL_STORAGE_FIRMWARE_DOWNLOAD",
-    "IOCTL_STORAGE_FIRMWARE_ACTIVATE",
-    "IOCTL_STORAGE_ENABLE_IDLE_POWER",
-    "IOCTL_STORAGE_GET_IDLE_POWERUP_REASON",
-    "IOCTL_STORAGE_POWER_ACTIVE",
-    "IOCTL_STORAGE_POWER_IDLE",
-    "IOCTL_STORAGE_EVENT_NOTIFICATION",
-    "IOCTL_STORAGE_DEVICE_POWER_CAP",
-    "IOCTL_STORAGE_RPMB_COMMAND",
-    "IOCTL_STORAGE_ATTRIBUTE_MANAGEMENT",
-    "IOCTL_STORAGE_DIAGNOSTIC",
-    "IOCTL_STORAGE_GET_PHYSICAL_ELEMENT_STATUS",
-    "IOCTL_STORAGE_REMOVE_ELEMENT_AND_TRUNCATE",
-    "IOCTL_STORAGE_GET_DEVICE_INTERNAL_LOG",
-    "STORAGE_DEVICE_FLAGS_RANDOM_DEVICEGUID_REASON_CONFLICT",
-    "STORAGE_DEVICE_FLAGS_RANDOM_DEVICEGUID_REASON_NOHWID",
-    "STORAGE_DEVICE_FLAGS_PAGE_83_DEVICEGUID",
-    "RECOVERED_WRITES_VALID",
-    "UNRECOVERED_WRITES_VALID",
-    "RECOVERED_READS_VALID",
-    "UNRECOVERED_READS_VALID",
-    "WRITE_COMPRESSION_INFO_VALID",
-    "READ_COMPRESSION_INFO_VALID",
-    "TAPE_RETURN_STATISTICS",
-    "TAPE_RETURN_ENV_INFO",
-    "TAPE_RESET_STATISTICS",
-    "MEDIA_ERASEABLE",
-    "MEDIA_WRITE_ONCE",
-    "MEDIA_READ_ONLY",
-    "MEDIA_READ_WRITE",
-    "MEDIA_WRITE_PROTECTED",
-    "MEDIA_CURRENTLY_MOUNTED",
-    "STORAGE_FAILURE_PREDICTION_CONFIG_V1",
-    "SRB_TYPE_SCSI_REQUEST_BLOCK",
-    "SRB_TYPE_STORAGE_REQUEST_BLOCK",
-    "STORAGE_ADDRESS_TYPE_BTL8",
-    "STORAGE_RPMB_DESCRIPTOR_VERSION_1",
-    "STORAGE_RPMB_MINIMUM_RELIABLE_WRITE_SIZE",
-    "STORAGE_CRYPTO_CAPABILITY_VERSION_1",
-    "STORAGE_CRYPTO_DESCRIPTOR_VERSION_1",
-    "STORAGE_TIER_NAME_LENGTH",
-    "STORAGE_TIER_DESCRIPTION_LENGTH",
-    "STORAGE_TIER_FLAG_NO_SEEK_PENALTY",
-    "STORAGE_TIER_FLAG_WRITE_BACK_CACHE",
-    "STORAGE_TIER_FLAG_READ_CACHE",
-    "STORAGE_TIER_FLAG_PARITY",
-    "STORAGE_TIER_FLAG_SMR",
-    "STORAGE_TEMPERATURE_VALUE_NOT_REPORTED",
-    "STORAGE_TEMPERATURE_THRESHOLD_FLAG_ADAPTER_REQUEST",
-    "STORAGE_COMPONENT_ROLE_CACHE",
-    "STORAGE_COMPONENT_ROLE_TIERING",
-    "STORAGE_COMPONENT_ROLE_DATA",
-    "STORAGE_ATTRIBUTE_BYTE_ADDRESSABLE_IO",
-    "STORAGE_ATTRIBUTE_BLOCK_IO",
-    "STORAGE_ATTRIBUTE_DYNAMIC_PERSISTENCE",
-    "STORAGE_ATTRIBUTE_VOLATILE",
-    "STORAGE_ATTRIBUTE_ASYNC_EVENT_NOTIFICATION",
-    "STORAGE_ATTRIBUTE_PERF_SIZE_INDEPENDENT",
-    "STORAGE_DEVICE_MAX_OPERATIONAL_STATUS",
-    "STORAGE_ADAPTER_SERIAL_NUMBER_V1_MAX_LENGTH",
-    "DeviceDsmActionFlag_NonDestructive",
-    "DEVICE_DSM_FLAG_ENTIRE_DATA_SET_RANGE",
-    "DEVICE_DSM_FLAG_TRIM_NOT_FS_ALLOCATED",
-    "DEVICE_DSM_FLAG_TRIM_BYPASS_RZAT",
-    "DEVICE_DSM_NOTIFY_FLAG_BEGIN",
-    "DEVICE_DSM_NOTIFY_FLAG_END",
-    "STORAGE_OFFLOAD_MAX_TOKEN_LENGTH",
-    "STORAGE_OFFLOAD_TOKEN_ID_LENGTH",
-    "STORAGE_OFFLOAD_TOKEN_TYPE_ZERO_DATA",
-    "STORAGE_OFFLOAD_READ_RANGE_TRUNCATED",
-    "STORAGE_OFFLOAD_WRITE_RANGE_TRUNCATED",
-    "STORAGE_OFFLOAD_TOKEN_INVALID",
-    "DEVICE_DSM_FLAG_ALLOCATION_CONSOLIDATEABLE_ONLY",
-    "DEVICE_DSM_PARAMETERS_V1",
-    "DEVICE_DATA_SET_LBP_STATE_PARAMETERS_VERSION_V1",
-    "DEVICE_DSM_FLAG_REPAIR_INPUT_TOPOLOGY_ID_PRESENT",
-    "DEVICE_DSM_FLAG_REPAIR_OUTPUT_PARITY_EXTENT",
-    "DEVICE_DSM_FLAG_SCRUB_SKIP_IN_SYNC",
-    "DEVICE_DSM_FLAG_SCRUB_OUTPUT_PARITY_EXTENT",
-    "DEVICE_DSM_FLAG_PHYSICAL_ADDRESSES_OMIT_TOTAL_RANGES",
-    "DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_V1",
-    "DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_VERSION_V1",
-    "DEVICE_STORAGE_NO_ERRORS",
-    "DEVICE_DSM_RANGE_ERROR_OUTPUT_V1",
-    "DEVICE_DSM_RANGE_ERROR_INFO_VERSION_V1",
-    "IOCTL_STORAGE_BC_VERSION",
-    "STORAGE_PRIORITY_HINT_SUPPORTED",
-    "STORAGE_DIAGNOSTIC_FLAG_ADAPTER_REQUEST",
-    "ERROR_HISTORY_DIRECTORY_ENTRY_DEFAULT_COUNT",
-    "DEVICEDUMP_STRUCTURE_VERSION_V1",
-    "DEVICEDUMP_MAX_IDSTRING",
-    "MAX_FW_BUCKET_ID_LENGTH",
-    "DDUMP_FLAG_DATA_READ_FROM_DEVICE",
-    "FW_ISSUEID_NO_ISSUE",
-    "FW_ISSUEID_UNKNOWN",
-    "TC_PUBLIC_DEVICEDUMP_CONTENT_SMART",
-    "TC_PUBLIC_DEVICEDUMP_CONTENT_GPLOG",
-    "TC_PUBLIC_DEVICEDUMP_CONTENT_GPLOG_MAX",
-    "TC_DEVICEDUMP_SUBSECTION_DESC_LENGTH",
-    "CDB_SIZE",
-    "TELEMETRY_COMMAND_SIZE",
-    "DEVICEDUMP_CAP_PRIVATE_SECTION",
-    "DEVICEDUMP_CAP_RESTRICTED_SECTION",
-    "STORAGE_IDLE_POWERUP_REASON_VERSION_V1",
-    "STORAGE_DEVICE_POWER_CAP_VERSION_V1",
-    "STORAGE_EVENT_NOTIFICATION_VERSION_V1",
-    "STORAGE_EVENT_MEDIA_STATUS",
-    "STORAGE_EVENT_DEVICE_STATUS",
-    "STORAGE_EVENT_DEVICE_OPERATION",
-    "READ_COPY_NUMBER_KEY",
-    "READ_COPY_NUMBER_BYPASS_CACHE_FLAG",
-    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_CONTROLLER",
-    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_LAST_SEGMENT",
-    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_FIRST_SEGMENT",
-    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_SWITCH_TO_EXISTING_FIRMWARE",
-    "STORAGE_HW_FIRMWARE_INVALID_SLOT",
-    "STORAGE_HW_FIRMWARE_REVISION_LENGTH",
-    "STORAGE_PROTOCOL_STRUCTURE_VERSION",
-    "STORAGE_PROTOCOL_COMMAND_FLAG_ADAPTER_REQUEST",
-    "STORAGE_PROTOCOL_STATUS_PENDING",
-    "STORAGE_PROTOCOL_STATUS_SUCCESS",
-    "STORAGE_PROTOCOL_STATUS_ERROR",
-    "STORAGE_PROTOCOL_STATUS_INVALID_REQUEST",
-    "STORAGE_PROTOCOL_STATUS_NO_DEVICE",
-    "STORAGE_PROTOCOL_STATUS_BUSY",
-    "STORAGE_PROTOCOL_STATUS_DATA_OVERRUN",
-    "STORAGE_PROTOCOL_STATUS_INSUFFICIENT_RESOURCES",
-    "STORAGE_PROTOCOL_STATUS_THROTTLED_REQUEST",
-    "STORAGE_PROTOCOL_STATUS_NOT_SUPPORTED",
-    "STORAGE_PROTOCOL_COMMAND_LENGTH_NVME",
-    "STORAGE_PROTOCOL_SPECIFIC_NVME_ADMIN_COMMAND",
-    "STORAGE_PROTOCOL_SPECIFIC_NVME_NVM_COMMAND",
-    "STORATTRIBUTE_NONE",
-    "STORATTRIBUTE_MANAGEMENT_STATE",
-    "STORAGE_SUPPORTED_FEATURES_BYPASS_IO",
-    "STORAGE_SUPPORTED_FEATURES_MASK",
-    "GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE",
-    "GUID_SCM_PD_HEALTH_NOTIFICATION",
-    "GUID_SCM_PD_PASSTHROUGH_INVDIMM",
-    "GUID_DEVINTERFACE_COMPORT",
-    "GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR",
-    "FILE_DEVICE_BEEP",
-    "FILE_DEVICE_CD_ROM_FILE_SYSTEM",
-    "FILE_DEVICE_CONTROLLER",
-    "FILE_DEVICE_DATALINK",
-    "FILE_DEVICE_DFS",
-    "FILE_DEVICE_DISK_FILE_SYSTEM",
-    "FILE_DEVICE_FILE_SYSTEM",
-    "FILE_DEVICE_INPORT_PORT",
-    "FILE_DEVICE_KEYBOARD",
-    "FILE_DEVICE_MAILSLOT",
-    "FILE_DEVICE_MIDI_IN",
-    "FILE_DEVICE_MIDI_OUT",
-    "FILE_DEVICE_MOUSE",
-    "FILE_DEVICE_MULTI_UNC_PROVIDER",
-    "FILE_DEVICE_NAMED_PIPE",
-    "FILE_DEVICE_NETWORK",
-    "FILE_DEVICE_NETWORK_BROWSER",
-    "FILE_DEVICE_NETWORK_FILE_SYSTEM",
-    "FILE_DEVICE_NULL",
-    "FILE_DEVICE_PARALLEL_PORT",
-    "FILE_DEVICE_PHYSICAL_NETCARD",
-    "FILE_DEVICE_PRINTER",
-    "FILE_DEVICE_SCANNER",
-    "FILE_DEVICE_SERIAL_MOUSE_PORT",
-    "FILE_DEVICE_SERIAL_PORT",
-    "FILE_DEVICE_SCREEN",
-    "FILE_DEVICE_SOUND",
-    "FILE_DEVICE_STREAMS",
-    "FILE_DEVICE_TAPE_FILE_SYSTEM",
-    "FILE_DEVICE_TRANSPORT",
-    "FILE_DEVICE_VIDEO",
-    "FILE_DEVICE_VIRTUAL_DISK",
-    "FILE_DEVICE_WAVE_IN",
-    "FILE_DEVICE_WAVE_OUT",
-    "FILE_DEVICE_8042_PORT",
-    "FILE_DEVICE_NETWORK_REDIRECTOR",
-    "FILE_DEVICE_BATTERY",
-    "FILE_DEVICE_BUS_EXTENDER",
-    "FILE_DEVICE_MODEM",
-    "FILE_DEVICE_VDM",
-    "FILE_DEVICE_MASS_STORAGE",
-    "FILE_DEVICE_SMB",
-    "FILE_DEVICE_KS",
-    "FILE_DEVICE_CHANGER",
-    "FILE_DEVICE_ACPI",
-    "FILE_DEVICE_FULLSCREEN_VIDEO",
-    "FILE_DEVICE_DFS_FILE_SYSTEM",
-    "FILE_DEVICE_DFS_VOLUME",
-    "FILE_DEVICE_SERENUM",
-    "FILE_DEVICE_TERMSRV",
-    "FILE_DEVICE_KSEC",
-    "FILE_DEVICE_FIPS",
-    "FILE_DEVICE_INFINIBAND",
-    "FILE_DEVICE_VMBUS",
-    "FILE_DEVICE_CRYPT_PROVIDER",
-    "FILE_DEVICE_WPD",
-    "FILE_DEVICE_BLUETOOTH",
-    "FILE_DEVICE_MT_COMPOSITE",
-    "FILE_DEVICE_MT_TRANSPORT",
-    "FILE_DEVICE_BIOMETRIC",
-    "FILE_DEVICE_PMI",
-    "FILE_DEVICE_EHSTOR",
-    "FILE_DEVICE_DEVAPI",
-    "FILE_DEVICE_GPIO",
-    "FILE_DEVICE_USBEX",
-    "FILE_DEVICE_CONSOLE",
-    "FILE_DEVICE_NFP",
-    "FILE_DEVICE_SYSENV",
-    "FILE_DEVICE_VIRTUAL_BLOCK",
-    "FILE_DEVICE_POINT_OF_SERVICE",
-    "FILE_DEVICE_STORAGE_REPLICATION",
-    "FILE_DEVICE_TRUST_ENV",
-    "FILE_DEVICE_UCM",
-    "FILE_DEVICE_UCMTCPCI",
-    "FILE_DEVICE_PERSISTENT_MEMORY",
-    "FILE_DEVICE_NVDIMM",
-    "FILE_DEVICE_HOLOGRAPHIC",
-    "FILE_DEVICE_SDFXHCI",
-    "FILE_DEVICE_UCMUCSI",
-    "FILE_DEVICE_PRM",
-    "FILE_DEVICE_EVENT_COLLECTOR",
-    "FILE_DEVICE_USB4",
-    "FILE_DEVICE_SOUNDWIRE",
-    "METHOD_BUFFERED",
-    "METHOD_IN_DIRECT",
-    "METHOD_OUT_DIRECT",
-    "METHOD_NEITHER",
-    "METHOD_DIRECT_TO_HARDWARE",
-    "METHOD_DIRECT_FROM_HARDWARE",
-    "FILE_ANY_ACCESS",
-    "FILE_READ_ACCESS",
-    "FILE_WRITE_ACCESS",
-    "STORAGE_DEVICE_NUMA_NODE_UNKNOWN",
-    "IOCTL_SCMBUS_DEVICE_FUNCTION_BASE",
-    "IOCTL_SCM_LOGICAL_DEVICE_FUNCTION_BASE",
-    "IOCTL_SCM_PHYSICAL_DEVICE_FUNCTION_BASE",
-    "IOCTL_SCM_BUS_GET_LOGICAL_DEVICES",
-    "IOCTL_SCM_BUS_GET_PHYSICAL_DEVICES",
-    "IOCTL_SCM_BUS_GET_REGIONS",
-    "IOCTL_SCM_BUS_QUERY_PROPERTY",
-    "IOCTL_SCM_BUS_SET_PROPERTY",
-    "IOCTL_SCM_BUS_RUNTIME_FW_ACTIVATE",
-    "IOCTL_SCM_LD_GET_INTERLEAVE_SET",
-    "IOCTL_SCM_PD_QUERY_PROPERTY",
-    "IOCTL_SCM_PD_FIRMWARE_DOWNLOAD",
-    "IOCTL_SCM_PD_FIRMWARE_ACTIVATE",
-    "IOCTL_SCM_PD_PASSTHROUGH",
-    "IOCTL_SCM_PD_UPDATE_MANAGEMENT_STATUS",
-    "IOCTL_SCM_PD_REINITIALIZE_MEDIA",
-    "IOCTL_SCM_PD_SET_PROPERTY",
-    "SCM_MAX_SYMLINK_LEN_IN_CHARS",
-    "MAX_INTERFACE_CODES",
-    "SCM_PD_FIRMWARE_REVISION_LENGTH_BYTES",
-    "SCM_PD_PROPERTY_NAME_LENGTH_IN_CHARS",
-    "SCM_PD_MAX_OPERATIONAL_STATUS",
-    "SCM_PD_FIRMWARE_LAST_DOWNLOAD",
-    "IOCTL_DISK_GET_DRIVE_GEOMETRY",
-    "IOCTL_DISK_GET_PARTITION_INFO",
-    "IOCTL_DISK_SET_PARTITION_INFO",
-    "IOCTL_DISK_GET_DRIVE_LAYOUT",
-    "IOCTL_DISK_SET_DRIVE_LAYOUT",
-    "IOCTL_DISK_VERIFY",
-    "IOCTL_DISK_FORMAT_TRACKS",
-    "IOCTL_DISK_REASSIGN_BLOCKS",
-    "IOCTL_DISK_PERFORMANCE",
-    "IOCTL_DISK_IS_WRITABLE",
-    "IOCTL_DISK_LOGGING",
-    "IOCTL_DISK_FORMAT_TRACKS_EX",
-    "IOCTL_DISK_HISTOGRAM_STRUCTURE",
-    "IOCTL_DISK_HISTOGRAM_DATA",
-    "IOCTL_DISK_HISTOGRAM_RESET",
-    "IOCTL_DISK_REQUEST_STRUCTURE",
-    "IOCTL_DISK_REQUEST_DATA",
-    "IOCTL_DISK_PERFORMANCE_OFF",
-    "IOCTL_DISK_CONTROLLER_NUMBER",
-    "SMART_GET_VERSION",
-    "SMART_SEND_DRIVE_COMMAND",
-    "SMART_RCV_DRIVE_DATA",
-    "SMART_RCV_DRIVE_DATA_EX",
-    "IOCTL_DISK_GET_PARTITION_INFO_EX",
-    "IOCTL_DISK_SET_PARTITION_INFO_EX",
-    "IOCTL_DISK_GET_DRIVE_LAYOUT_EX",
-    "IOCTL_DISK_SET_DRIVE_LAYOUT_EX",
-    "IOCTL_DISK_CREATE_DISK",
-    "IOCTL_DISK_GET_LENGTH_INFO",
-    "IOCTL_DISK_GET_DRIVE_GEOMETRY_EX",
-    "IOCTL_DISK_REASSIGN_BLOCKS_EX",
-    "IOCTL_DISK_UPDATE_DRIVE_SIZE",
-    "IOCTL_DISK_GROW_PARTITION",
-    "IOCTL_DISK_GET_CACHE_INFORMATION",
-    "IOCTL_DISK_SET_CACHE_INFORMATION",
-    "IOCTL_DISK_GET_WRITE_CACHE_STATE",
-    "OBSOLETE_DISK_GET_WRITE_CACHE_STATE",
-    "IOCTL_DISK_DELETE_DRIVE_LAYOUT",
-    "IOCTL_DISK_UPDATE_PROPERTIES",
-    "IOCTL_DISK_FORMAT_DRIVE",
-    "IOCTL_DISK_SENSE_DEVICE",
-    "IOCTL_DISK_CHECK_VERIFY",
-    "IOCTL_DISK_MEDIA_REMOVAL",
-    "IOCTL_DISK_EJECT_MEDIA",
-    "IOCTL_DISK_LOAD_MEDIA",
-    "IOCTL_DISK_RESERVE",
-    "IOCTL_DISK_RELEASE",
-    "IOCTL_DISK_FIND_NEW_DEVICES",
-    "IOCTL_DISK_GET_MEDIA_TYPES",
-    "PARTITION_ENTRY_UNUSED",
-    "PARTITION_FAT_12",
-    "PARTITION_XENIX_1",
-    "PARTITION_XENIX_2",
-    "PARTITION_FAT_16",
-    "PARTITION_EXTENDED",
-    "PARTITION_HUGE",
-    "PARTITION_IFS",
-    "PARTITION_OS2BOOTMGR",
-    "PARTITION_FAT32",
-    "PARTITION_FAT32_XINT13",
-    "PARTITION_XINT13",
-    "PARTITION_XINT13_EXTENDED",
-    "PARTITION_MSFT_RECOVERY",
-    "PARTITION_MAIN_OS",
-    "PARTIITON_OS_DATA",
-    "PARTITION_PRE_INSTALLED",
-    "PARTITION_BSP",
-    "PARTITION_DPP",
-    "PARTITION_WINDOWS_SYSTEM",
-    "PARTITION_PREP",
-    "PARTITION_LDM",
-    "PARTITION_DM",
-    "PARTITION_EZDRIVE",
-    "PARTITION_UNIX",
-    "PARTITION_SPACES_DATA",
-    "PARTITION_SPACES",
-    "PARTITION_GPT",
-    "PARTITION_SYSTEM",
-    "VALID_NTFT",
-    "PARTITION_NTFT",
-    "GPT_ATTRIBUTE_NO_BLOCK_IO_PROTOCOL",
-    "GPT_ATTRIBUTE_LEGACY_BIOS_BOOTABLE",
-    "GPT_BASIC_DATA_ATTRIBUTE_OFFLINE",
-    "GPT_BASIC_DATA_ATTRIBUTE_DAX",
-    "GPT_BASIC_DATA_ATTRIBUTE_SERVICE",
-    "GPT_SPACES_ATTRIBUTE_NO_METADATA",
-    "HIST_NO_OF_BUCKETS",
-    "DISK_LOGGING_START",
-    "DISK_LOGGING_STOP",
-    "DISK_LOGGING_DUMP",
-    "DISK_BINNING",
-    "CAP_ATA_ID_CMD",
-    "CAP_ATAPI_ID_CMD",
-    "CAP_SMART_CMD",
-    "ATAPI_ID_CMD",
-    "ID_CMD",
-    "SMART_CMD",
-    "SMART_CYL_LOW",
-    "SMART_CYL_HI",
-    "SMART_NO_ERROR",
-    "SMART_IDE_ERROR",
-    "SMART_INVALID_FLAG",
-    "SMART_INVALID_COMMAND",
-    "SMART_INVALID_BUFFER",
-    "SMART_INVALID_DRIVE",
-    "SMART_INVALID_IOCTL",
-    "SMART_ERROR_NO_MEM",
-    "SMART_INVALID_REGISTER",
-    "SMART_NOT_SUPPORTED",
-    "SMART_NO_IDE_DEVICE",
-    "SMART_OFFLINE_ROUTINE_OFFLINE",
-    "SMART_SHORT_SELFTEST_OFFLINE",
-    "SMART_EXTENDED_SELFTEST_OFFLINE",
-    "SMART_ABORT_OFFLINE_SELFTEST",
-    "SMART_SHORT_SELFTEST_CAPTIVE",
-    "SMART_EXTENDED_SELFTEST_CAPTIVE",
-    "READ_ATTRIBUTE_BUFFER_SIZE",
-    "IDENTIFY_BUFFER_SIZE",
-    "READ_THRESHOLD_BUFFER_SIZE",
-    "SMART_LOG_SECTOR_SIZE",
-    "READ_ATTRIBUTES",
-    "READ_THRESHOLDS",
-    "ENABLE_DISABLE_AUTOSAVE",
-    "SAVE_ATTRIBUTE_VALUES",
-    "EXECUTE_OFFLINE_DIAGS",
-    "SMART_READ_LOG",
-    "SMART_WRITE_LOG",
-    "ENABLE_SMART",
-    "DISABLE_SMART",
-    "RETURN_SMART_STATUS",
-    "ENABLE_DISABLE_AUTO_OFFLINE",
-    "IOCTL_DISK_GET_DISK_ATTRIBUTES",
-    "IOCTL_DISK_SET_DISK_ATTRIBUTES",
-    "DISK_ATTRIBUTE_OFFLINE",
-    "DISK_ATTRIBUTE_READ_ONLY",
-    "IOCTL_DISK_RESET_SNAPSHOT_INFO",
-    "IOCTL_CHANGER_GET_PARAMETERS",
-    "IOCTL_CHANGER_GET_STATUS",
-    "IOCTL_CHANGER_GET_PRODUCT_DATA",
-    "IOCTL_CHANGER_SET_ACCESS",
-    "IOCTL_CHANGER_GET_ELEMENT_STATUS",
-    "IOCTL_CHANGER_INITIALIZE_ELEMENT_STATUS",
-    "IOCTL_CHANGER_SET_POSITION",
-    "IOCTL_CHANGER_EXCHANGE_MEDIUM",
-    "IOCTL_CHANGER_MOVE_MEDIUM",
-    "IOCTL_CHANGER_REINITIALIZE_TRANSPORT",
-    "IOCTL_CHANGER_QUERY_VOLUME_TAGS",
-    "MAX_VOLUME_ID_SIZE",
-    "MAX_VOLUME_TEMPLATE_SIZE",
-    "VENDOR_ID_LENGTH",
-    "PRODUCT_ID_LENGTH",
-    "REVISION_LENGTH",
-    "SERIAL_NUMBER_LENGTH",
-    "CHANGER_RESERVED_BIT",
-    "CHANGER_TO_TRANSPORT",
-    "CHANGER_TO_SLOT",
-    "CHANGER_TO_IEPORT",
-    "CHANGER_TO_DRIVE",
-    "LOCK_UNLOCK_IEPORT",
-    "LOCK_UNLOCK_DOOR",
-    "LOCK_UNLOCK_KEYPAD",
-    "LOCK_ELEMENT",
-    "UNLOCK_ELEMENT",
-    "EXTEND_IEPORT",
-    "RETRACT_IEPORT",
-    "ERROR_LABEL_UNREADABLE",
-    "ERROR_LABEL_QUESTIONABLE",
-    "ERROR_SLOT_NOT_PRESENT",
-    "ERROR_DRIVE_NOT_INSTALLED",
-    "ERROR_TRAY_MALFUNCTION",
-    "ERROR_INIT_STATUS_NEEDED",
-    "ERROR_UNHANDLED_ERROR",
-    "SEARCH_ALL",
-    "SEARCH_PRIMARY",
-    "SEARCH_ALTERNATE",
-    "SEARCH_ALL_NO_SEQ",
-    "SEARCH_PRI_NO_SEQ",
-    "SEARCH_ALT_NO_SEQ",
-    "ASSERT_PRIMARY",
     "ASSERT_ALTERNATE",
-    "REPLACE_PRIMARY",
-    "REPLACE_ALTERNATE",
-    "UNDEFINE_PRIMARY",
-    "UNDEFINE_ALTERNATE",
-    "IOCTL_SERIAL_LSRMST_INSERT",
-    "IOCTL_SERENUM_EXPOSE_HARDWARE",
-    "IOCTL_SERENUM_REMOVE_HARDWARE",
-    "IOCTL_SERENUM_PORT_DESC",
-    "IOCTL_SERENUM_GET_PORT_NAME",
-    "FSCTL_REQUEST_OPLOCK_LEVEL_1",
-    "FSCTL_REQUEST_OPLOCK_LEVEL_2",
-    "FSCTL_REQUEST_BATCH_OPLOCK",
-    "FSCTL_OPLOCK_BREAK_ACKNOWLEDGE",
-    "FSCTL_OPBATCH_ACK_CLOSE_PENDING",
-    "FSCTL_OPLOCK_BREAK_NOTIFY",
-    "FSCTL_LOCK_VOLUME",
-    "FSCTL_UNLOCK_VOLUME",
-    "FSCTL_DISMOUNT_VOLUME",
-    "FSCTL_IS_VOLUME_MOUNTED",
-    "FSCTL_IS_PATHNAME_VALID",
-    "FSCTL_MARK_VOLUME_DIRTY",
-    "FSCTL_QUERY_RETRIEVAL_POINTERS",
-    "FSCTL_GET_COMPRESSION",
-    "FSCTL_SET_COMPRESSION",
-    "FSCTL_SET_BOOTLOADER_ACCESSED",
-    "FSCTL_MARK_AS_SYSTEM_HIVE",
-    "FSCTL_OPLOCK_BREAK_ACK_NO_2",
-    "FSCTL_INVALIDATE_VOLUMES",
-    "FSCTL_QUERY_FAT_BPB",
-    "FSCTL_REQUEST_FILTER_OPLOCK",
-    "FSCTL_FILESYSTEM_GET_STATISTICS",
-    "FSCTL_GET_NTFS_VOLUME_DATA",
-    "FSCTL_GET_NTFS_FILE_RECORD",
-    "FSCTL_GET_VOLUME_BITMAP",
-    "FSCTL_GET_RETRIEVAL_POINTERS",
-    "FSCTL_MOVE_FILE",
-    "FSCTL_IS_VOLUME_DIRTY",
-    "FSCTL_ALLOW_EXTENDED_DASD_IO",
-    "FSCTL_FIND_FILES_BY_SID",
-    "FSCTL_SET_OBJECT_ID",
-    "FSCTL_GET_OBJECT_ID",
-    "FSCTL_DELETE_OBJECT_ID",
-    "FSCTL_SET_REPARSE_POINT",
-    "FSCTL_GET_REPARSE_POINT",
-    "FSCTL_DELETE_REPARSE_POINT",
-    "FSCTL_ENUM_USN_DATA",
-    "FSCTL_SECURITY_ID_CHECK",
-    "FSCTL_READ_USN_JOURNAL",
-    "FSCTL_SET_OBJECT_ID_EXTENDED",
-    "FSCTL_CREATE_OR_GET_OBJECT_ID",
-    "FSCTL_SET_SPARSE",
-    "FSCTL_SET_ZERO_DATA",
-    "FSCTL_QUERY_ALLOCATED_RANGES",
-    "FSCTL_ENABLE_UPGRADE",
-    "FSCTL_SET_ENCRYPTION",
-    "FSCTL_ENCRYPTION_FSCTL_IO",
-    "FSCTL_WRITE_RAW_ENCRYPTED",
-    "FSCTL_READ_RAW_ENCRYPTED",
-    "FSCTL_CREATE_USN_JOURNAL",
-    "FSCTL_READ_FILE_USN_DATA",
-    "FSCTL_WRITE_USN_CLOSE_RECORD",
-    "FSCTL_EXTEND_VOLUME",
-    "FSCTL_QUERY_USN_JOURNAL",
-    "FSCTL_DELETE_USN_JOURNAL",
-    "FSCTL_MARK_HANDLE",
-    "FSCTL_SIS_COPYFILE",
-    "FSCTL_SIS_LINK_FILES",
-    "FSCTL_RECALL_FILE",
-    "FSCTL_READ_FROM_PLEX",
-    "FSCTL_FILE_PREFETCH",
-    "FSCTL_MAKE_MEDIA_COMPATIBLE",
-    "FSCTL_SET_DEFECT_MANAGEMENT",
-    "FSCTL_QUERY_SPARING_INFO",
-    "FSCTL_QUERY_ON_DISK_VOLUME_INFO",
-    "FSCTL_SET_VOLUME_COMPRESSION_STATE",
-    "FSCTL_TXFS_MODIFY_RM",
-    "FSCTL_TXFS_QUERY_RM_INFORMATION",
-    "FSCTL_TXFS_ROLLFORWARD_REDO",
-    "FSCTL_TXFS_ROLLFORWARD_UNDO",
-    "FSCTL_TXFS_START_RM",
-    "FSCTL_TXFS_SHUTDOWN_RM",
-    "FSCTL_TXFS_READ_BACKUP_INFORMATION",
-    "FSCTL_TXFS_WRITE_BACKUP_INFORMATION",
-    "FSCTL_TXFS_CREATE_SECONDARY_RM",
-    "FSCTL_TXFS_GET_METADATA_INFO",
-    "FSCTL_TXFS_GET_TRANSACTED_VERSION",
-    "FSCTL_TXFS_SAVEPOINT_INFORMATION",
-    "FSCTL_TXFS_CREATE_MINIVERSION",
-    "FSCTL_TXFS_TRANSACTION_ACTIVE",
-    "FSCTL_SET_ZERO_ON_DEALLOCATION",
-    "FSCTL_SET_REPAIR",
-    "FSCTL_GET_REPAIR",
-    "FSCTL_WAIT_FOR_REPAIR",
-    "FSCTL_INITIATE_REPAIR",
-    "FSCTL_CSC_INTERNAL",
-    "FSCTL_SHRINK_VOLUME",
-    "FSCTL_SET_SHORT_NAME_BEHAVIOR",
-    "FSCTL_DFSR_SET_GHOST_HANDLE_STATE",
-    "FSCTL_TXFS_LIST_TRANSACTION_LOCKED_FILES",
-    "FSCTL_TXFS_LIST_TRANSACTIONS",
-    "FSCTL_QUERY_PAGEFILE_ENCRYPTION",
-    "FSCTL_RESET_VOLUME_ALLOCATION_HINTS",
-    "FSCTL_QUERY_DEPENDENT_VOLUME",
-    "FSCTL_SD_GLOBAL_CHANGE",
-    "FSCTL_TXFS_READ_BACKUP_INFORMATION2",
-    "FSCTL_LOOKUP_STREAM_FROM_CLUSTER",
-    "FSCTL_TXFS_WRITE_BACKUP_INFORMATION2",
-    "FSCTL_FILE_TYPE_NOTIFICATION",
-    "FSCTL_FILE_LEVEL_TRIM",
-    "FSCTL_GET_BOOT_AREA_INFO",
-    "FSCTL_GET_RETRIEVAL_POINTER_BASE",
-    "FSCTL_SET_PERSISTENT_VOLUME_STATE",
-    "FSCTL_QUERY_PERSISTENT_VOLUME_STATE",
-    "FSCTL_REQUEST_OPLOCK",
-    "FSCTL_CSV_TUNNEL_REQUEST",
-    "FSCTL_IS_CSV_FILE",
-    "FSCTL_QUERY_FILE_SYSTEM_RECOGNITION",
-    "FSCTL_CSV_GET_VOLUME_PATH_NAME",
-    "FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT",
-    "FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME",
-    "FSCTL_IS_FILE_ON_CSV_VOLUME",
-    "FSCTL_CORRUPTION_HANDLING",
-    "FSCTL_OFFLOAD_READ",
-    "FSCTL_OFFLOAD_WRITE",
-    "FSCTL_CSV_INTERNAL",
-    "FSCTL_SET_PURGE_FAILURE_MODE",
-    "FSCTL_QUERY_FILE_LAYOUT",
-    "FSCTL_IS_VOLUME_OWNED_BYCSVFS",
-    "FSCTL_GET_INTEGRITY_INFORMATION",
-    "FSCTL_SET_INTEGRITY_INFORMATION",
-    "FSCTL_QUERY_FILE_REGIONS",
-    "FSCTL_RKF_INTERNAL",
-    "FSCTL_SCRUB_DATA",
-    "FSCTL_REPAIR_COPIES",
-    "FSCTL_DISABLE_LOCAL_BUFFERING",
-    "FSCTL_CSV_MGMT_LOCK",
-    "FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS",
-    "FSCTL_ADVANCE_FILE_ID",
-    "FSCTL_CSV_SYNC_TUNNEL_REQUEST",
-    "FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO",
-    "FSCTL_WRITE_USN_REASON",
-    "FSCTL_CSV_CONTROL",
-    "FSCTL_GET_REFS_VOLUME_DATA",
-    "FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST",
-    "FSCTL_QUERY_STORAGE_CLASSES",
-    "FSCTL_QUERY_REGION_INFO",
-    "FSCTL_USN_TRACK_MODIFIED_RANGES",
-    "FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT",
-    "FSCTL_SVHDX_SYNC_TUNNEL_REQUEST",
-    "FSCTL_SVHDX_SET_INITIATOR_INFORMATION",
-    "FSCTL_SET_EXTERNAL_BACKING",
-    "FSCTL_GET_EXTERNAL_BACKING",
-    "FSCTL_DELETE_EXTERNAL_BACKING",
-    "FSCTL_ENUM_EXTERNAL_BACKING",
-    "FSCTL_ENUM_OVERLAY",
-    "FSCTL_ADD_OVERLAY",
-    "FSCTL_REMOVE_OVERLAY",
-    "FSCTL_UPDATE_OVERLAY",
-    "FSCTL_SHUFFLE_FILE",
-    "FSCTL_DUPLICATE_EXTENTS_TO_FILE",
-    "FSCTL_SPARSE_OVERALLOCATE",
-    "FSCTL_STORAGE_QOS_CONTROL",
-    "FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION",
-    "FSCTL_QUERY_FILE_METADATA_OPTIMIZATION",
-    "FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST",
-    "FSCTL_GET_WOF_VERSION",
-    "FSCTL_HCS_SYNC_TUNNEL_REQUEST",
-    "FSCTL_HCS_ASYNC_TUNNEL_REQUEST",
-    "FSCTL_QUERY_EXTENT_READ_CACHE_INFO",
-    "FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO",
-    "FSCTL_CLEAN_VOLUME_METADATA",
-    "FSCTL_SET_INTEGRITY_INFORMATION_EX",
-    "FSCTL_SUSPEND_OVERLAY",
-    "FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY",
-    "FSCTL_FILESYSTEM_GET_STATISTICS_EX",
-    "FSCTL_QUERY_VOLUME_CONTAINER_STATE",
-    "FSCTL_SET_LAYER_ROOT",
-    "FSCTL_QUERY_DIRECT_ACCESS_EXTENTS",
-    "FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION",
-    "FSCTL_SSDI_STORAGE_REQUEST",
-    "FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE",
-    "FSCTL_READ_UNPRIVILEGED_USN_JOURNAL",
-    "FSCTL_GHOST_FILE_EXTENTS",
-    "FSCTL_QUERY_GHOSTED_FILE_EXTENTS",
-    "FSCTL_UNMAP_SPACE",
-    "FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST",
-    "FSCTL_START_VIRTUALIZATION_INSTANCE",
-    "FSCTL_GET_FILTER_FILE_IDENTIFIER",
-    "FSCTL_STREAMS_QUERY_PARAMETERS",
-    "FSCTL_STREAMS_ASSOCIATE_ID",
-    "FSCTL_STREAMS_QUERY_ID",
-    "FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT",
-    "FSCTL_QUERY_VOLUME_NUMA_INFO",
-    "FSCTL_REFS_DEALLOCATE_RANGES",
-    "FSCTL_QUERY_REFS_SMR_VOLUME_INFO",
-    "FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS",
-    "FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL",
-    "FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX",
-    "FSCTL_QUERY_BAD_RANGES",
-    "FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT",
-    "FSCTL_DELETE_CORRUPTED_REFS_CONTAINER",
-    "FSCTL_SCRUB_UNDISCOVERABLE_ID",
-    "FSCTL_NOTIFY_DATA_CHANGE",
-    "FSCTL_START_VIRTUALIZATION_INSTANCE_EX",
-    "FSCTL_ENCRYPTION_KEY_CONTROL",
-    "FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR",
-    "FSCTL_SET_REPARSE_POINT_EX",
-    "FSCTL_REARRANGE_FILE",
-    "FSCTL_VIRTUAL_STORAGE_PASSTHROUGH",
-    "FSCTL_GET_RETRIEVAL_POINTER_COUNT",
-    "FSCTL_ENABLE_PER_IO_FLAGS",
-    "FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS",
-    "FSCTL_SMB_SHARE_FLUSH_AND_PURGE",
-    "FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT",
-    "FSCTL_MANAGE_BYPASS_IO",
-    "GET_VOLUME_BITMAP_FLAG_MASK_METADATA",
-    "FLAG_USN_TRACK_MODIFIED_RANGES_ENABLE",
-    "USN_PAGE_SIZE",
-    "USN_REASON_DATA_OVERWRITE",
-    "USN_REASON_DATA_EXTEND",
-    "USN_REASON_DATA_TRUNCATION",
-    "USN_REASON_NAMED_DATA_OVERWRITE",
-    "USN_REASON_NAMED_DATA_EXTEND",
-    "USN_REASON_NAMED_DATA_TRUNCATION",
-    "USN_REASON_FILE_CREATE",
-    "USN_REASON_FILE_DELETE",
-    "USN_REASON_EA_CHANGE",
-    "USN_REASON_SECURITY_CHANGE",
-    "USN_REASON_RENAME_OLD_NAME",
-    "USN_REASON_RENAME_NEW_NAME",
-    "USN_REASON_INDEXABLE_CHANGE",
-    "USN_REASON_BASIC_INFO_CHANGE",
-    "USN_REASON_HARD_LINK_CHANGE",
-    "USN_REASON_COMPRESSION_CHANGE",
-    "USN_REASON_ENCRYPTION_CHANGE",
-    "USN_REASON_OBJECT_ID_CHANGE",
-    "USN_REASON_REPARSE_POINT_CHANGE",
-    "USN_REASON_STREAM_CHANGE",
-    "USN_REASON_TRANSACTED_CHANGE",
-    "USN_REASON_INTEGRITY_CHANGE",
-    "USN_REASON_DESIRED_STORAGE_CLASS_CHANGE",
-    "USN_REASON_CLOSE",
-    "USN_DELETE_VALID_FLAGS",
-    "MARK_HANDLE_PROTECT_CLUSTERS",
-    "MARK_HANDLE_TXF_SYSTEM_LOG",
-    "MARK_HANDLE_NOT_TXF_SYSTEM_LOG",
-    "MARK_HANDLE_REALTIME",
-    "MARK_HANDLE_NOT_REALTIME",
-    "MARK_HANDLE_CLOUD_SYNC",
-    "MARK_HANDLE_READ_COPY",
-    "MARK_HANDLE_NOT_READ_COPY",
-    "MARK_HANDLE_FILTER_METADATA",
-    "MARK_HANDLE_RETURN_PURGE_FAILURE",
-    "MARK_HANDLE_DISABLE_FILE_METADATA_OPTIMIZATION",
-    "MARK_HANDLE_ENABLE_USN_SOURCE_ON_PAGING_IO",
-    "MARK_HANDLE_SKIP_COHERENCY_SYNC_DISALLOW_WRITES",
-    "MARK_HANDLE_SUPPRESS_VOLUME_OPEN_FLUSH",
-    "MARK_HANDLE_ENABLE_CPU_CACHE",
-    "VOLUME_IS_DIRTY",
-    "VOLUME_UPGRADE_SCHEDULED",
-    "VOLUME_SESSION_OPEN",
-    "FILE_PREFETCH_TYPE_FOR_CREATE",
-    "FILE_PREFETCH_TYPE_FOR_DIRENUM",
-    "FILE_PREFETCH_TYPE_FOR_CREATE_EX",
-    "FILE_PREFETCH_TYPE_FOR_DIRENUM_EX",
-    "FILE_PREFETCH_TYPE_MAX",
-    "FILESYSTEM_STATISTICS_TYPE_REFS",
-    "FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA",
-    "FILE_SET_ENCRYPTION",
-    "FILE_CLEAR_ENCRYPTION",
-    "STREAM_SET_ENCRYPTION",
-    "STREAM_CLEAR_ENCRYPTION",
-    "MAXIMUM_ENCRYPTION_VALUE",
-    "ENCRYPTION_FORMAT_DEFAULT",
-    "ENCRYPTED_DATA_INFO_SPARSE_FILE",
-    "COPYFILE_SIS_LINK",
-    "COPYFILE_SIS_REPLACE",
-    "COPYFILE_SIS_FLAGS",
-    "SET_REPAIR_ENABLED",
-    "SET_REPAIR_WARN_ABOUT_DATA_LOSS",
-    "SET_REPAIR_DISABLED_AND_BUGCHECK_ON_CORRUPT",
-    "SET_REPAIR_VALID_MASK",
-    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_IN_USE",
-    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_REUSED",
-    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_EXIST",
-    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_BASE_RECORD",
-    "FILE_INITIATE_REPAIR_HINT1_SYSTEM_FILE",
-    "FILE_INITIATE_REPAIR_HINT1_NOT_IMPLEMENTED",
-    "FILE_INITIATE_REPAIR_HINT1_UNABLE_TO_REPAIR",
-    "FILE_INITIATE_REPAIR_HINT1_REPAIR_DISABLED",
-    "FILE_INITIATE_REPAIR_HINT1_RECURSIVELY_CORRUPTED",
-    "FILE_INITIATE_REPAIR_HINT1_ORPHAN_GENERATED",
-    "FILE_INITIATE_REPAIR_HINT1_REPAIRED",
-    "FILE_INITIATE_REPAIR_HINT1_NOTHING_WRONG",
-    "FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NOT_FOUND",
-    "FILE_INITIATE_REPAIR_HINT1_POTENTIAL_CROSSLINK",
-    "FILE_INITIATE_REPAIR_HINT1_STALE_INFORMATION",
-    "FILE_INITIATE_REPAIR_HINT1_CLUSTERS_ALREADY_IN_USE",
-    "FILE_INITIATE_REPAIR_HINT1_LCN_NOT_EXIST",
-    "FILE_INITIATE_REPAIR_HINT1_INVALID_RUN_LENGTH",
-    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_ORPHAN",
-    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_IS_BASE_RECORD",
-    "FILE_INITIATE_REPAIR_HINT1_INVALID_ARRAY_LENGTH_COUNT",
-    "FILE_INITIATE_REPAIR_HINT1_SID_VALID",
-    "FILE_INITIATE_REPAIR_HINT1_SID_MISMATCH",
-    "FILE_INITIATE_REPAIR_HINT1_INVALID_PARENT",
-    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_IN_USE",
-    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_REUSED",
-    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_EXIST",
-    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_BASE_RECORD",
-    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_INDEX",
-    "FILE_INITIATE_REPAIR_HINT1_VALID_INDEX_ENTRY",
-    "FILE_INITIATE_REPAIR_HINT1_OUT_OF_GENERIC_NAMES",
-    "FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE",
-    "FILE_INITIATE_REPAIR_HINT1_INVALID_LCN",
-    "FILE_INITIATE_REPAIR_HINT1_INVALID_VCN",
-    "FILE_INITIATE_REPAIR_HINT1_NAME_CONFLICT",
-    "FILE_INITIATE_REPAIR_HINT1_ORPHAN",
-    "FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_TOO_SMALL",
-    "FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NON_RESIDENT",
-    "FILE_INITIATE_REPAIR_HINT1_DENY_DEFRAG",
-    "FILE_INITIATE_REPAIR_HINT1_PREVIOUS_PARENT_STILL_VALID",
-    "FILE_INITIATE_REPAIR_HINT1_INDEX_ENTRY_MISMATCH",
-    "FILE_INITIATE_REPAIR_HINT1_INVALID_ORPHAN_RECOVERY_NAME",
-    "FILE_INITIATE_REPAIR_HINT1_MULTIPLE_FILE_NAME_ATTRIBUTES",
-    "TXFS_LOGGING_MODE_SIMPLE",
-    "TXFS_LOGGING_MODE_FULL",
-    "TXFS_TRANSACTION_STATE_NONE",
-    "TXFS_TRANSACTION_STATE_ACTIVE",
-    "TXFS_TRANSACTION_STATE_PREPARED",
-    "TXFS_TRANSACTION_STATE_NOTACTIVE",
-    "TXFS_RM_STATE_NOT_STARTED",
-    "TXFS_RM_STATE_STARTING",
-    "TXFS_RM_STATE_ACTIVE",
-    "TXFS_RM_STATE_SHUTTING_DOWN",
-    "TXFS_ROLLFORWARD_REDO_FLAG_USE_LAST_REDO_LSN",
-    "TXFS_ROLLFORWARD_REDO_FLAG_USE_LAST_VIRTUAL_CLOCK",
-    "TXFS_START_RM_FLAG_LOG_CONTAINER_COUNT_MAX",
-    "TXFS_START_RM_FLAG_LOG_CONTAINER_COUNT_MIN",
-    "TXFS_START_RM_FLAG_LOG_CONTAINER_SIZE",
-    "TXFS_START_RM_FLAG_LOG_GROWTH_INCREMENT_NUM_CONTAINERS",
-    "TXFS_START_RM_FLAG_LOG_GROWTH_INCREMENT_PERCENT",
-    "TXFS_START_RM_FLAG_LOG_AUTO_SHRINK_PERCENTAGE",
-    "TXFS_START_RM_FLAG_LOG_NO_CONTAINER_COUNT_MAX",
-    "TXFS_START_RM_FLAG_LOG_NO_CONTAINER_COUNT_MIN",
-    "TXFS_START_RM_FLAG_RECOVER_BEST_EFFORT",
-    "TXFS_START_RM_FLAG_LOGGING_MODE",
-    "TXFS_START_RM_FLAG_PRESERVE_CHANGES",
-    "TXFS_START_RM_FLAG_PREFER_CONSISTENCY",
-    "TXFS_START_RM_FLAG_PREFER_AVAILABILITY",
-    "TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_FLAG_CREATED",
-    "TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_FLAG_DELETED",
-    "TXFS_TRANSACTED_VERSION_NONTRANSACTED",
-    "TXFS_TRANSACTED_VERSION_UNCOMMITTED",
-    "TXFS_SAVEPOINT_SET",
-    "TXFS_SAVEPOINT_ROLLBACK",
-    "TXFS_SAVEPOINT_CLEAR",
-    "TXFS_SAVEPOINT_CLEAR_ALL",
-    "PERSISTENT_VOLUME_STATE_SHORT_NAME_CREATION_DISABLED",
-    "PERSISTENT_VOLUME_STATE_VOLUME_SCRUB_DISABLED",
-    "PERSISTENT_VOLUME_STATE_GLOBAL_METADATA_NO_SEEK_PENALTY",
-    "PERSISTENT_VOLUME_STATE_LOCAL_METADATA_NO_SEEK_PENALTY",
-    "PERSISTENT_VOLUME_STATE_NO_HEAT_GATHERING",
-    "PERSISTENT_VOLUME_STATE_CONTAINS_BACKING_WIM",
-    "PERSISTENT_VOLUME_STATE_BACKED_BY_WIM",
-    "PERSISTENT_VOLUME_STATE_NO_WRITE_AUTO_TIERING",
-    "PERSISTENT_VOLUME_STATE_TXF_DISABLED",
-    "PERSISTENT_VOLUME_STATE_REALLOCATE_ALL_DATA_WRITES",
-    "PERSISTENT_VOLUME_STATE_CHKDSK_RAN_ONCE",
-    "PERSISTENT_VOLUME_STATE_MODIFIED_BY_CHKDSK",
-    "PERSISTENT_VOLUME_STATE_DAX_FORMATTED",
-    "OPLOCK_LEVEL_CACHE_READ",
-    "OPLOCK_LEVEL_CACHE_HANDLE",
-    "OPLOCK_LEVEL_CACHE_WRITE",
-    "REQUEST_OPLOCK_INPUT_FLAG_REQUEST",
-    "REQUEST_OPLOCK_INPUT_FLAG_ACK",
-    "REQUEST_OPLOCK_INPUT_FLAG_COMPLETE_ACK_ON_CLOSE",
-    "REQUEST_OPLOCK_CURRENT_VERSION",
-    "REQUEST_OPLOCK_OUTPUT_FLAG_ACK_REQUIRED",
-    "REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED",
-    "QUERY_DEPENDENT_VOLUME_REQUEST_FLAG_HOST_VOLUMES",
-    "QUERY_DEPENDENT_VOLUME_REQUEST_FLAG_GUEST_VOLUMES",
-    "SD_GLOBAL_CHANGE_TYPE_MACHINE_SID",
-    "SD_GLOBAL_CHANGE_TYPE_QUERY_STATS",
-    "SD_GLOBAL_CHANGE_TYPE_ENUM_SDS",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_PAGE_FILE",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_DENY_DEFRAG_SET",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_FS_SYSTEM_FILE",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_TXF_SYSTEM_FILE",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_MASK",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_DATA",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_INDEX",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_SYSTEM",
-    "FILE_TYPE_NOTIFICATION_FLAG_USAGE_BEGIN",
-    "FILE_TYPE_NOTIFICATION_FLAG_USAGE_END",
-    "FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE",
-    "FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE",
-    "FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE",
-    "CSV_MGMTLOCK_CHECK_VOLUME_REDIRECTED",
-    "CSV_INVALID_DEVICE_NUMBER",
-    "CSV_QUERY_MDS_PATH_V2_VERSION_1",
-    "CSV_QUERY_MDS_PATH_FLAG_STORAGE_ON_THIS_NODE_IS_CONNECTED",
-    "CSV_QUERY_MDS_PATH_FLAG_CSV_DIRECT_IO_ENABLED",
-    "CSV_QUERY_MDS_PATH_FLAG_SMB_BYPASS_CSV_ENABLED",
-    "QUERY_FILE_LAYOUT_RESTART",
-    "QUERY_FILE_LAYOUT_INCLUDE_NAMES",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAMS",
-    "QUERY_FILE_LAYOUT_INCLUDE_EXTENTS",
-    "QUERY_FILE_LAYOUT_INCLUDE_EXTRA_INFO",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAMS_WITH_NO_CLUSTERS_ALLOCATED",
-    "QUERY_FILE_LAYOUT_INCLUDE_FULL_PATH_IN_NAMES",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DSC_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_TXF_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EFS_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_INCLUDE_ONLY_FILES_WITH_SPECIFIC_ATTRIBUTES",
-    "QUERY_FILE_LAYOUT_INCLUDE_FILES_WITH_DSC_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DATA_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_REPARSE_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EA_ATTRIBUTE",
-    "QUERY_FILE_LAYOUT_SINGLE_INSTANCED",
-    "FILE_LAYOUT_NAME_ENTRY_PRIMARY",
-    "FILE_LAYOUT_NAME_ENTRY_DOS",
-    "STREAM_LAYOUT_ENTRY_IMMOVABLE",
-    "STREAM_LAYOUT_ENTRY_PINNED",
-    "STREAM_LAYOUT_ENTRY_RESIDENT",
-    "STREAM_LAYOUT_ENTRY_NO_CLUSTERS_ALLOCATED",
-    "STREAM_LAYOUT_ENTRY_HAS_INFORMATION",
-    "STREAM_EXTENT_ENTRY_AS_RETRIEVAL_POINTERS",
-    "STREAM_EXTENT_ENTRY_ALL_EXTENTS",
-    "CHECKSUM_TYPE_UNCHANGED",
-    "CHECKSUM_TYPE_NONE",
-    "CHECKSUM_TYPE_CRC32",
-    "CHECKSUM_TYPE_CRC64",
-    "CHECKSUM_TYPE_ECC",
-    "CHECKSUM_TYPE_FIRST_UNUSED_TYPE",
-    "FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF",
-    "OFFLOAD_READ_FLAG_ALL_ZERO_BEYOND_CURRENT_RANGE",
-    "SET_PURGE_FAILURE_MODE_ENABLED",
-    "SET_PURGE_FAILURE_MODE_DISABLED",
-    "FILE_REGION_USAGE_VALID_CACHED_DATA",
-    "FILE_REGION_USAGE_VALID_NONCACHED_DATA",
-    "FILE_REGION_USAGE_OTHER_PAGE_ALIGNMENT",
-    "FILE_REGION_USAGE_LARGE_PAGE_ALIGNMENT",
-    "FILE_REGION_USAGE_HUGE_PAGE_ALIGNMENT",
-    "FILE_REGION_USAGE_QUERY_ALIGNMENT",
-    "FILE_STORAGE_TIER_NAME_LENGTH",
-    "FILE_STORAGE_TIER_DESCRIPTION_LENGTH",
-    "FILE_STORAGE_TIER_FLAG_WRITE_BACK_CACHE",
-    "FILE_STORAGE_TIER_FLAG_READ_CACHE",
-    "FILE_STORAGE_TIER_FLAG_PARITY",
-    "FILE_STORAGE_TIER_FLAG_SMR",
-    "QUERY_STORAGE_CLASSES_FLAGS_MEASURE_WRITE",
-    "QUERY_STORAGE_CLASSES_FLAGS_MEASURE_READ",
-    "QUERY_STORAGE_CLASSES_FLAGS_NO_DEFRAG_VOLUME",
-    "QUERY_FILE_LAYOUT_REPARSE_DATA_INVALID",
-    "QUERY_FILE_LAYOUT_REPARSE_TAG_INVALID",
-    "DUPLICATE_EXTENTS_DATA_EX_SOURCE_ATOMIC",
-    "DUPLICATE_EXTENTS_DATA_EX_ASYNC",
-    "REFS_SMR_VOLUME_INFO_OUTPUT_VERSION_V0",
-    "REFS_SMR_VOLUME_INFO_OUTPUT_VERSION_V1",
-    "REFS_SMR_VOLUME_GC_PARAMETERS_VERSION_V1",
-    "STREAMS_INVALID_ID",
-    "STREAMS_MAX_ID",
-    "STREAMS_ASSOCIATE_ID_CLEAR",
-    "STREAMS_ASSOCIATE_ID_SET",
-    "DAX_ALLOC_ALIGNMENT_FLAG_MANDATORY",
-    "DAX_ALLOC_ALIGNMENT_FLAG_FALLBACK_SPECIFIED",
-    "WOF_CURRENT_VERSION",
-    "WOF_PROVIDER_CLOUD",
-    "WIM_PROVIDER_CURRENT_VERSION",
-    "WIM_PROVIDER_EXTERNAL_FLAG_NOT_ACTIVE",
-    "WIM_PROVIDER_EXTERNAL_FLAG_SUSPENDED",
-    "FILE_PROVIDER_CURRENT_VERSION",
-    "FILE_PROVIDER_SINGLE_FILE",
-    "FILE_PROVIDER_COMPRESSION_MAXIMUM",
-    "FILE_PROVIDER_FLAG_COMPRESS_ON_WRITE",
-    "CONTAINER_VOLUME_STATE_HOSTING_CONTAINER",
-    "CONTAINER_ROOT_INFO_FLAG_SCRATCH_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_LAYER_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_TARGET_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_EXCEPTION_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_BIND_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_BIND_TARGET_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_BIND_EXCEPTION_ROOT",
-    "CONTAINER_ROOT_INFO_FLAG_BIND_DO_NOT_MAP_NAME",
-    "CONTAINER_ROOT_INFO_FLAG_UNION_LAYER_ROOT",
-    "CONTAINER_ROOT_INFO_VALID_FLAGS",
-    "PROJFS_PROTOCOL_VERSION",
-    "EFS_TRACKED_OFFSET_HEADER_FLAG",
-    "SPACES_TRACKED_OFFSET_HEADER_FLAG",
-    "GPT_ATTRIBUTES",
-    "GPT_ATTRIBUTE_PLATFORM_REQUIRED",
-    "GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER",
-    "GPT_BASIC_DATA_ATTRIBUTE_HIDDEN",
-    "GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY",
-    "GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY",
-    "USN_DELETE_FLAGS",
-    "USN_DELETE_FLAG_DELETE",
-    "USN_DELETE_FLAG_NOTIFY",
-    "CHANGER_FEATURES",
+    "ASSERT_PRIMARY",
+    "ASYNC_DUPLICATE_EXTENTS_STATUS",
+    "ATAPI_ID_CMD",
+    "BIN_COUNT",
+    "BIN_RANGE",
+    "BIN_RESULTS",
+    "BIN_TYPES",
+    "BIN_TYPES_RequestLocation",
+    "BIN_TYPES_RequestSize",
+    "BOOT_AREA_INFO",
+    "BULK_SECURITY_TEST_DATA",
+    "CAP_ATAPI_ID_CMD",
+    "CAP_ATA_ID_CMD",
+    "CAP_SMART_CMD",
+    "CDB_SIZE",
     "CHANGER_BAR_CODE_SCANNER_INSTALLED",
     "CHANGER_CARTRIDGE_MAGAZINE",
     "CHANGER_CLEANER_ACCESS_NOT_VALID",
+    "CHANGER_CLEANER_AUTODISMOUNT",
+    "CHANGER_CLEANER_OPS_NOT_SUPPORTED",
     "CHANGER_CLEANER_SLOT",
     "CHANGER_CLOSE_IEPORT",
+    "CHANGER_DEVICE_PROBLEM_TYPE",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMMoveError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMZeroError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCalibrationError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeEjectError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeInsertError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDoorOpen",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDriveError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemGripperError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemHardware",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemNone",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemPositionError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemSensorError",
+    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemTargetFailure",
     "CHANGER_DEVICE_REINITIALIZE_CAPABLE",
     "CHANGER_DRIVE_CLEANING_REQUIRED",
     "CHANGER_DRIVE_EMPTY_ON_DOOR_ACCESS",
+    "CHANGER_ELEMENT",
+    "CHANGER_ELEMENT_LIST",
+    "CHANGER_ELEMENT_STATUS",
+    "CHANGER_ELEMENT_STATUS_EX",
+    "CHANGER_ELEMENT_STATUS_FLAGS",
     "CHANGER_EXCHANGE_MEDIA",
+    "CHANGER_EXCHANGE_MEDIUM",
+    "CHANGER_FEATURES",
+    "CHANGER_IEPORT_USER_CONTROL_CLOSE",
+    "CHANGER_IEPORT_USER_CONTROL_OPEN",
+    "CHANGER_INITIALIZE_ELEMENT_STATUS",
     "CHANGER_INIT_ELEM_STAT_WITH_RANGE",
     "CHANGER_KEYPAD_ENABLE_DISABLE",
     "CHANGER_LOCK_UNLOCK",
     "CHANGER_MEDIUM_FLIP",
+    "CHANGER_MOVE_EXTENDS_IEPORT",
+    "CHANGER_MOVE_MEDIUM",
+    "CHANGER_MOVE_RETRACTS_IEPORT",
     "CHANGER_OPEN_IEPORT",
     "CHANGER_POSITION_TO_ELEMENT",
+    "CHANGER_PREDISMOUNT_ALIGN_TO_DRIVE",
+    "CHANGER_PREDISMOUNT_ALIGN_TO_SLOT",
     "CHANGER_PREDISMOUNT_EJECT_REQUIRED",
     "CHANGER_PREMOUNT_EJECT_REQUIRED",
+    "CHANGER_PRODUCT_DATA",
+    "CHANGER_READ_ELEMENT_STATUS",
     "CHANGER_REPORT_IEPORT_STATE",
+    "CHANGER_RESERVED_BIT",
+    "CHANGER_RTN_MEDIA_TO_ORIGINAL_ADDR",
+    "CHANGER_SEND_VOLUME_TAG_INFORMATION",
     "CHANGER_SERIAL_NUMBER_VALID",
+    "CHANGER_SET_ACCESS",
+    "CHANGER_SET_POSITION",
+    "CHANGER_SLOTS_USE_TRAYS",
     "CHANGER_STATUS_NON_VOLATILE",
     "CHANGER_STORAGE_DRIVE",
     "CHANGER_STORAGE_IEPORT",
     "CHANGER_STORAGE_SLOT",
     "CHANGER_STORAGE_TRANSPORT",
+    "CHANGER_TO_DRIVE",
+    "CHANGER_TO_IEPORT",
+    "CHANGER_TO_SLOT",
+    "CHANGER_TO_TRANSPORT",
+    "CHANGER_TRUE_EXCHANGE_CAPABLE",
     "CHANGER_VOLUME_ASSERT",
     "CHANGER_VOLUME_IDENTIFICATION",
     "CHANGER_VOLUME_REPLACE",
     "CHANGER_VOLUME_SEARCH",
     "CHANGER_VOLUME_UNDEFINE",
-    "TXFS_RMF_LAGS",
-    "TXFS_RM_FLAG_LOGGING_MODE",
-    "TXFS_RM_FLAG_RENAME_RM",
-    "TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MAX",
-    "TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MIN",
-    "TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_NUM_CONTAINERS",
-    "TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_PERCENT",
-    "TXFS_RM_FLAG_LOG_AUTO_SHRINK_PERCENTAGE",
-    "TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MAX",
-    "TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MIN",
-    "TXFS_RM_FLAG_GROW_LOG",
-    "TXFS_RM_FLAG_SHRINK_LOG",
-    "TXFS_RM_FLAG_ENFORCE_MINIMUM_SIZE",
-    "TXFS_RM_FLAG_PRESERVE_CHANGES",
-    "TXFS_RM_FLAG_RESET_RM_AT_NEXT_START",
-    "TXFS_RM_FLAG_DO_NOT_RESET_RM_AT_NEXT_START",
-    "TXFS_RM_FLAG_PREFER_CONSISTENCY",
-    "TXFS_RM_FLAG_PREFER_AVAILABILITY",
-    "FILESYSTEM_STATISTICS_TYPE",
-    "FILESYSTEM_STATISTICS_TYPE_EXFAT",
-    "FILESYSTEM_STATISTICS_TYPE_FAT",
-    "FILESYSTEM_STATISTICS_TYPE_NTFS",
-    "USN_SOURCE_INFO_ID",
-    "USN_SOURCE_AUXILIARY_DATA",
-    "USN_SOURCE_DATA_MANAGEMENT",
-    "USN_SOURCE_REPLICATION_MANAGEMENT",
-    "USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT",
-    "FILE_STORAGE_TIER_FLAGS",
-    "FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY",
-    "CHANGER_ELEMENT_STATUS_FLAGS",
+    "CHECKSUM_TYPE_CRC32",
+    "CHECKSUM_TYPE_CRC64",
+    "CHECKSUM_TYPE_ECC",
+    "CHECKSUM_TYPE_FIRST_UNUSED_TYPE",
+    "CHECKSUM_TYPE_NONE",
+    "CHECKSUM_TYPE_UNCHANGED",
+    "CLASS_MEDIA_CHANGE_CONTEXT",
+    "CLUSTER_RANGE",
+    "CONTAINER_ROOT_INFO_FLAG_BIND_DO_NOT_MAP_NAME",
+    "CONTAINER_ROOT_INFO_FLAG_BIND_EXCEPTION_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_BIND_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_BIND_TARGET_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_LAYER_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_SCRATCH_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_UNION_LAYER_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_EXCEPTION_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_ROOT",
+    "CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_TARGET_ROOT",
+    "CONTAINER_ROOT_INFO_INPUT",
+    "CONTAINER_ROOT_INFO_OUTPUT",
+    "CONTAINER_ROOT_INFO_VALID_FLAGS",
+    "CONTAINER_VOLUME_STATE",
+    "CONTAINER_VOLUME_STATE_HOSTING_CONTAINER",
+    "COPYFILE_SIS_FLAGS",
+    "COPYFILE_SIS_LINK",
+    "COPYFILE_SIS_REPLACE",
+    "CREATE_DISK",
+    "CREATE_DISK_GPT",
+    "CREATE_DISK_MBR",
+    "CREATE_USN_JOURNAL_DATA",
+    "CSVFS_DISK_CONNECTIVITY",
+    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes",
+    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly",
+    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone",
+    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes",
+    "CSV_CONTROL_OP",
+    "CSV_CONTROL_OP_CsvControlDisableCaching",
+    "CSV_CONTROL_OP_CsvControlEnableCaching",
+    "CSV_CONTROL_OP_CsvControlEnableUSNRangeModificationTracking",
+    "CSV_CONTROL_OP_CsvControlGetCsvFsMdsPathV2",
+    "CSV_CONTROL_OP_CsvControlMarkHandleLocalVolumeMount",
+    "CSV_CONTROL_OP_CsvControlQueryFileRevision",
+    "CSV_CONTROL_OP_CsvControlQueryFileRevisionFileId128",
+    "CSV_CONTROL_OP_CsvControlQueryMdsPath",
+    "CSV_CONTROL_OP_CsvControlQueryMdsPathNoPause",
+    "CSV_CONTROL_OP_CsvControlQueryRedirectState",
+    "CSV_CONTROL_OP_CsvControlQueryVolumeId",
+    "CSV_CONTROL_OP_CsvControlQueryVolumeRedirectState",
+    "CSV_CONTROL_OP_CsvControlSetVolumeId",
+    "CSV_CONTROL_OP_CsvControlStartForceDFO",
+    "CSV_CONTROL_OP_CsvControlStartRedirectFile",
+    "CSV_CONTROL_OP_CsvControlStopForceDFO",
+    "CSV_CONTROL_OP_CsvControlStopRedirectFile",
+    "CSV_CONTROL_OP_CsvControlUnmarkHandleLocalVolumeMount",
+    "CSV_CONTROL_PARAM",
+    "CSV_INVALID_DEVICE_NUMBER",
+    "CSV_IS_OWNED_BY_CSVFS",
+    "CSV_MGMTLOCK_CHECK_VOLUME_REDIRECTED",
+    "CSV_MGMT_LOCK",
+    "CSV_NAMESPACE_INFO",
+    "CSV_QUERY_FILE_REVISION",
+    "CSV_QUERY_FILE_REVISION_FILE_ID_128",
+    "CSV_QUERY_MDS_PATH",
+    "CSV_QUERY_MDS_PATH_FLAG_CSV_DIRECT_IO_ENABLED",
+    "CSV_QUERY_MDS_PATH_FLAG_SMB_BYPASS_CSV_ENABLED",
+    "CSV_QUERY_MDS_PATH_FLAG_STORAGE_ON_THIS_NODE_IS_CONNECTED",
+    "CSV_QUERY_MDS_PATH_V2",
+    "CSV_QUERY_MDS_PATH_V2_VERSION_1",
+    "CSV_QUERY_REDIRECT_STATE",
+    "CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT",
+    "CSV_QUERY_VOLUME_ID",
+    "CSV_QUERY_VOLUME_REDIRECT_STATE",
+    "CSV_SET_VOLUME_ID",
+    "DAX_ALLOC_ALIGNMENT_FLAG_FALLBACK_SPECIFIED",
+    "DAX_ALLOC_ALIGNMENT_FLAG_MANDATORY",
+    "DDUMP_FLAG_DATA_READ_FROM_DEVICE",
+    "DECRYPTION_STATUS_BUFFER",
+    "DELETE_USN_JOURNAL_DATA",
+    "DETECTION_TYPE",
+    "DETECTION_TYPE_DetectExInt13",
+    "DETECTION_TYPE_DetectInt13",
+    "DETECTION_TYPE_DetectNone",
+    "DEVICEDUMP_CAP_PRIVATE_SECTION",
+    "DEVICEDUMP_CAP_RESTRICTED_SECTION",
+    "DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE",
+    "DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionApplicationRequested",
+    "DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionBugCheck",
+    "DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionDeviceRequested",
+    "DEVICEDUMP_MAX_IDSTRING",
+    "DEVICEDUMP_PRIVATE_SUBSECTION",
+    "DEVICEDUMP_PUBLIC_SUBSECTION",
+    "DEVICEDUMP_RESTRICTED_SUBSECTION",
+    "DEVICEDUMP_SECTION_HEADER",
+    "DEVICEDUMP_STORAGEDEVICE_DATA",
+    "DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP",
+    "DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD",
+    "DEVICEDUMP_STRUCTURE_VERSION",
+    "DEVICEDUMP_STRUCTURE_VERSION_V1",
+    "DEVICEDUMP_SUBSECTION_POINTER",
+    "DEVICE_COPY_OFFLOAD_DESCRIPTOR",
+    "DEVICE_DATA_SET_LBP_STATE_PARAMETERS",
+    "DEVICE_DATA_SET_LBP_STATE_PARAMETERS_VERSION_V1",
+    "DEVICE_DATA_SET_LB_PROVISIONING_STATE",
+    "DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2",
+    "DEVICE_DATA_SET_RANGE",
+    "DEVICE_DATA_SET_REPAIR_OUTPUT",
+    "DEVICE_DATA_SET_REPAIR_PARAMETERS",
+    "DEVICE_DATA_SET_SCRUB_EX_OUTPUT",
+    "DEVICE_DATA_SET_SCRUB_OUTPUT",
+    "DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT",
+    "DEVICE_DSM_CONVERSION_OUTPUT",
+    "DEVICE_DSM_DEFINITION",
+    "DEVICE_DSM_FLAG_ALLOCATION_CONSOLIDATEABLE_ONLY",
+    "DEVICE_DSM_FLAG_ENTIRE_DATA_SET_RANGE",
+    "DEVICE_DSM_FLAG_PHYSICAL_ADDRESSES_OMIT_TOTAL_RANGES",
+    "DEVICE_DSM_FLAG_REPAIR_INPUT_TOPOLOGY_ID_PRESENT",
+    "DEVICE_DSM_FLAG_REPAIR_OUTPUT_PARITY_EXTENT",
+    "DEVICE_DSM_FLAG_SCRUB_OUTPUT_PARITY_EXTENT",
+    "DEVICE_DSM_FLAG_SCRUB_SKIP_IN_SYNC",
+    "DEVICE_DSM_FLAG_TRIM_BYPASS_RZAT",
+    "DEVICE_DSM_FLAG_TRIM_NOT_FS_ALLOCATED",
+    "DEVICE_DSM_FREE_SPACE_OUTPUT",
+    "DEVICE_DSM_LOST_QUERY_OUTPUT",
+    "DEVICE_DSM_LOST_QUERY_PARAMETERS",
+    "DEVICE_DSM_NOTIFICATION_PARAMETERS",
+    "DEVICE_DSM_NOTIFY_FLAG_BEGIN",
+    "DEVICE_DSM_NOTIFY_FLAG_END",
+    "DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS",
+    "DEVICE_DSM_OFFLOAD_READ_PARAMETERS",
+    "DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS",
+    "DEVICE_DSM_PARAMETERS_V1",
+    "DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT",
+    "DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_V1",
+    "DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_VERSION_V1",
+    "DEVICE_DSM_RANGE_ERROR_INFO",
+    "DEVICE_DSM_RANGE_ERROR_INFO_VERSION_V1",
+    "DEVICE_DSM_RANGE_ERROR_OUTPUT_V1",
+    "DEVICE_DSM_REPORT_ZONES_DATA",
+    "DEVICE_DSM_REPORT_ZONES_PARAMETERS",
+    "DEVICE_DSM_TIERING_QUERY_INPUT",
+    "DEVICE_DSM_TIERING_QUERY_OUTPUT",
+    "DEVICE_INTERNAL_STATUS_DATA",
+    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE",
+    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusData",
+    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusDataHeader",
+    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceInternalStatusDataRequestTypeUndefined",
+    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusData",
+    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusDataHeader",
+    "DEVICE_INTERNAL_STATUS_DATA_SET",
+    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet1",
+    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet2",
+    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet3",
+    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet4",
+    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetMax",
+    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetUndefined",
+    "DEVICE_LB_PROVISIONING_DESCRIPTOR",
+    "DEVICE_LOCATION",
+    "DEVICE_MANAGE_DATA_SET_ATTRIBUTES",
+    "DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT",
+    "DEVICE_MEDIA_INFO",
+    "DEVICE_POWER_DESCRIPTOR",
+    "DEVICE_SEEK_PENALTY_DESCRIPTOR",
+    "DEVICE_STORAGE_ADDRESS_RANGE",
+    "DEVICE_STORAGE_NO_ERRORS",
+    "DEVICE_STORAGE_RANGE_ATTRIBUTES",
+    "DEVICE_TRIM_DESCRIPTOR",
+    "DEVICE_WRITE_AGGREGATION_DESCRIPTOR",
+    "DEVPKEY_Storage_Disk_Number",
+    "DEVPKEY_Storage_Gpt_Name",
+    "DEVPKEY_Storage_Gpt_Type",
+    "DEVPKEY_Storage_Mbr_Type",
+    "DEVPKEY_Storage_Partition_Number",
+    "DEVPKEY_Storage_Portable",
+    "DEVPKEY_Storage_Removable_Media",
+    "DEVPKEY_Storage_System_Critical",
+    "DISABLE_SMART",
+    "DISK_ATTRIBUTE_OFFLINE",
+    "DISK_ATTRIBUTE_READ_ONLY",
+    "DISK_BINNING",
+    "DISK_CACHE_INFORMATION",
+    "DISK_CACHE_RETENTION_PRIORITY",
+    "DISK_CACHE_RETENTION_PRIORITY_EqualPriority",
+    "DISK_CACHE_RETENTION_PRIORITY_KeepPrefetchedData",
+    "DISK_CACHE_RETENTION_PRIORITY_KeepReadData",
+    "DISK_CONTROLLER_NUMBER",
+    "DISK_DETECTION_INFO",
+    "DISK_EXTENT",
+    "DISK_EX_INT13_INFO",
+    "DISK_GEOMETRY",
+    "DISK_GEOMETRY_EX",
+    "DISK_GROW_PARTITION",
+    "DISK_HISTOGRAM",
+    "DISK_INT13_INFO",
+    "DISK_LOGGING",
+    "DISK_LOGGING_DUMP",
+    "DISK_LOGGING_START",
+    "DISK_LOGGING_STOP",
+    "DISK_PARTITION_INFO",
+    "DISK_PERFORMANCE",
+    "DISK_RECORD",
+    "DRIVERSTATUS",
+    "DRIVE_LAYOUT_INFORMATION",
+    "DRIVE_LAYOUT_INFORMATION_EX",
+    "DRIVE_LAYOUT_INFORMATION_GPT",
+    "DRIVE_LAYOUT_INFORMATION_MBR",
+    "DUPLICATE_EXTENTS_DATA",
+    "DUPLICATE_EXTENTS_DATA32",
+    "DUPLICATE_EXTENTS_DATA_EX",
+    "DUPLICATE_EXTENTS_DATA_EX32",
+    "DUPLICATE_EXTENTS_DATA_EX_ASYNC",
+    "DUPLICATE_EXTENTS_DATA_EX_SOURCE_ATOMIC",
+    "DUPLICATE_EXTENTS_STATE",
+    "DUPLICATE_EXTENTS_STATE_FileSnapStateInactive",
+    "DUPLICATE_EXTENTS_STATE_FileSnapStateSource",
+    "DUPLICATE_EXTENTS_STATE_FileSnapStateTarget",
+    "DeviceDsmActionFlag_NonDestructive",
+    "EFS_TRACKED_OFFSET_HEADER_FLAG",
     "ELEMENT_STATUS_ACCESS",
     "ELEMENT_STATUS_AVOLTAG",
     "ELEMENT_STATUS_EXCEPT",
@@ -9494,1078 +8760,1853 @@ __all__ = [
     "ELEMENT_STATUS_INVERT",
     "ELEMENT_STATUS_LUN_VALID",
     "ELEMENT_STATUS_NOT_BUS",
+    "ELEMENT_STATUS_PRODUCT_DATA",
     "ELEMENT_STATUS_PVOLTAG",
     "ELEMENT_STATUS_SVALID",
-    "ELEMENT_STATUS_PRODUCT_DATA",
-    "GET_CHANGER_PARAMETERS_FEATURES1",
-    "CHANGER_CLEANER_AUTODISMOUNT",
-    "CHANGER_CLEANER_OPS_NOT_SUPPORTED",
-    "CHANGER_IEPORT_USER_CONTROL_CLOSE",
-    "CHANGER_IEPORT_USER_CONTROL_OPEN",
-    "CHANGER_MOVE_EXTENDS_IEPORT",
-    "CHANGER_MOVE_RETRACTS_IEPORT",
-    "CHANGER_PREDISMOUNT_ALIGN_TO_DRIVE",
-    "CHANGER_PREDISMOUNT_ALIGN_TO_SLOT",
-    "CHANGER_RTN_MEDIA_TO_ORIGINAL_ADDR",
-    "CHANGER_SLOTS_USE_TRAYS",
-    "CHANGER_TRUE_EXCHANGE_CAPABLE",
-    "STORAGE_HOTPLUG_INFO",
-    "STORAGE_DEVICE_NUMBER",
-    "STORAGE_DEVICE_NUMBERS",
-    "STORAGE_DEVICE_NUMBER_EX",
-    "STORAGE_BUS_RESET_REQUEST",
-    "STORAGE_BREAK_RESERVATION_REQUEST",
-    "PREVENT_MEDIA_REMOVAL",
-    "CLASS_MEDIA_CHANGE_CONTEXT",
-    "TAPE_STATISTICS",
-    "TAPE_GET_STATISTICS",
-    "STORAGE_MEDIA_TYPE",
-    "STORAGE_MEDIA_TYPE_DDS_4mm",
-    "STORAGE_MEDIA_TYPE_MiniQic",
-    "STORAGE_MEDIA_TYPE_Travan",
-    "STORAGE_MEDIA_TYPE_QIC",
-    "STORAGE_MEDIA_TYPE_MP_8mm",
-    "STORAGE_MEDIA_TYPE_AME_8mm",
-    "STORAGE_MEDIA_TYPE_AIT1_8mm",
-    "STORAGE_MEDIA_TYPE_DLT",
-    "STORAGE_MEDIA_TYPE_NCTP",
-    "STORAGE_MEDIA_TYPE_IBM_3480",
-    "STORAGE_MEDIA_TYPE_IBM_3490E",
-    "STORAGE_MEDIA_TYPE_IBM_Magstar_3590",
-    "STORAGE_MEDIA_TYPE_IBM_Magstar_MP",
-    "STORAGE_MEDIA_TYPE_STK_DATA_D3",
-    "STORAGE_MEDIA_TYPE_SONY_DTF",
-    "STORAGE_MEDIA_TYPE_DV_6mm",
-    "STORAGE_MEDIA_TYPE_DMI",
-    "STORAGE_MEDIA_TYPE_SONY_D2",
-    "STORAGE_MEDIA_TYPE_CLEANER_CARTRIDGE",
-    "STORAGE_MEDIA_TYPE_CD_ROM",
-    "STORAGE_MEDIA_TYPE_CD_R",
-    "STORAGE_MEDIA_TYPE_CD_RW",
-    "STORAGE_MEDIA_TYPE_DVD_ROM",
-    "STORAGE_MEDIA_TYPE_DVD_R",
-    "STORAGE_MEDIA_TYPE_DVD_RW",
-    "STORAGE_MEDIA_TYPE_MO_3_RW",
-    "STORAGE_MEDIA_TYPE_MO_5_WO",
-    "STORAGE_MEDIA_TYPE_MO_5_RW",
-    "STORAGE_MEDIA_TYPE_MO_5_LIMDOW",
-    "STORAGE_MEDIA_TYPE_PC_5_WO",
-    "STORAGE_MEDIA_TYPE_PC_5_RW",
-    "STORAGE_MEDIA_TYPE_PD_5_RW",
-    "STORAGE_MEDIA_TYPE_ABL_5_WO",
-    "STORAGE_MEDIA_TYPE_PINNACLE_APEX_5_RW",
-    "STORAGE_MEDIA_TYPE_SONY_12_WO",
-    "STORAGE_MEDIA_TYPE_PHILIPS_12_WO",
-    "STORAGE_MEDIA_TYPE_HITACHI_12_WO",
-    "STORAGE_MEDIA_TYPE_CYGNET_12_WO",
-    "STORAGE_MEDIA_TYPE_KODAK_14_WO",
-    "STORAGE_MEDIA_TYPE_MO_NFR_525",
-    "STORAGE_MEDIA_TYPE_NIKON_12_RW",
-    "STORAGE_MEDIA_TYPE_IOMEGA_ZIP",
-    "STORAGE_MEDIA_TYPE_IOMEGA_JAZ",
-    "STORAGE_MEDIA_TYPE_SYQUEST_EZ135",
-    "STORAGE_MEDIA_TYPE_SYQUEST_EZFLYER",
-    "STORAGE_MEDIA_TYPE_SYQUEST_SYJET",
-    "STORAGE_MEDIA_TYPE_AVATAR_F2",
-    "STORAGE_MEDIA_TYPE_MP2_8mm",
-    "STORAGE_MEDIA_TYPE_DST_S",
-    "STORAGE_MEDIA_TYPE_DST_M",
-    "STORAGE_MEDIA_TYPE_DST_L",
-    "STORAGE_MEDIA_TYPE_VXATape_1",
-    "STORAGE_MEDIA_TYPE_VXATape_2",
-    "STORAGE_MEDIA_TYPE_STK_9840",
-    "STORAGE_MEDIA_TYPE_LTO_Ultrium",
-    "STORAGE_MEDIA_TYPE_LTO_Accelis",
-    "STORAGE_MEDIA_TYPE_DVD_RAM",
-    "STORAGE_MEDIA_TYPE_AIT_8mm",
-    "STORAGE_MEDIA_TYPE_ADR_1",
-    "STORAGE_MEDIA_TYPE_ADR_2",
-    "STORAGE_MEDIA_TYPE_STK_9940",
-    "STORAGE_MEDIA_TYPE_SAIT",
-    "STORAGE_MEDIA_TYPE_VXATape",
-    "DEVICE_MEDIA_INFO",
-    "GET_MEDIA_TYPES",
-    "STORAGE_PREDICT_FAILURE",
-    "STORAGE_FAILURE_PREDICTION_CONFIG",
-    "STORAGE_QUERY_TYPE",
-    "STORAGE_QUERY_TYPE_PropertyStandardQuery",
-    "STORAGE_QUERY_TYPE_PropertyExistsQuery",
-    "STORAGE_QUERY_TYPE_PropertyMaskQuery",
-    "STORAGE_QUERY_TYPE_PropertyQueryMaxDefined",
-    "STORAGE_SET_TYPE",
-    "STORAGE_SET_TYPE_PropertyStandardSet",
-    "STORAGE_SET_TYPE_PropertyExistsSet",
-    "STORAGE_SET_TYPE_PropertySetMaxDefined",
-    "STORAGE_PROPERTY_ID",
-    "STORAGE_PROPERTY_ID_StorageDeviceProperty",
-    "STORAGE_PROPERTY_ID_StorageAdapterProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceIdProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceUniqueIdProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceWriteCacheProperty",
-    "STORAGE_PROPERTY_ID_StorageMiniportProperty",
-    "STORAGE_PROPERTY_ID_StorageAccessAlignmentProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceSeekPenaltyProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceTrimProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceWriteAggregationProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceDeviceTelemetryProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceLBProvisioningProperty",
-    "STORAGE_PROPERTY_ID_StorageDevicePowerProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceCopyOffloadProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceResiliencyProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceMediumProductType",
-    "STORAGE_PROPERTY_ID_StorageAdapterRpmbProperty",
-    "STORAGE_PROPERTY_ID_StorageAdapterCryptoProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceIoCapabilityProperty",
-    "STORAGE_PROPERTY_ID_StorageAdapterProtocolSpecificProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceProtocolSpecificProperty",
-    "STORAGE_PROPERTY_ID_StorageAdapterTemperatureProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceTemperatureProperty",
-    "STORAGE_PROPERTY_ID_StorageAdapterPhysicalTopologyProperty",
-    "STORAGE_PROPERTY_ID_StorageDevicePhysicalTopologyProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceAttributesProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceManagementStatus",
-    "STORAGE_PROPERTY_ID_StorageAdapterSerialNumberProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceLocationProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceNumaProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceZonedDeviceProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceUnsafeShutdownCount",
-    "STORAGE_PROPERTY_ID_StorageDeviceEnduranceProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceLedStateProperty",
-    "STORAGE_PROPERTY_ID_StorageDeviceSelfEncryptionProperty",
-    "STORAGE_PROPERTY_ID_StorageFruIdProperty",
-    "STORAGE_PROPERTY_QUERY",
-    "STORAGE_PROPERTY_SET",
-    "STORAGE_DESCRIPTOR_HEADER",
-    "STORAGE_DEVICE_DESCRIPTOR",
-    "STORAGE_ADAPTER_DESCRIPTOR",
-    "STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR",
-    "STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR",
-    "STORAGE_PORT_CODE_SET",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetReserved",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetStorport",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSCSIport",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSpaceport",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetATAport",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetUSBport",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSBP2port",
-    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSDport",
-    "STORAGE_MINIPORT_DESCRIPTOR",
-    "STORAGE_IDENTIFIER_CODE_SET",
-    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetReserved",
-    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetBinary",
-    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetAscii",
-    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetUtf8",
-    "STORAGE_IDENTIFIER_TYPE",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorSpecific",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorId",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeEUI64",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeFCPHName",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypePortRelative",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeTargetPortGroup",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeLogicalUnitGroup",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeMD5LogicalUnitIdentifier",
-    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeScsiNameString",
-    "STORAGE_ID_NAA_FORMAT",
-    "STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended",
-    "STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered",
-    "STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended",
-    "STORAGE_ASSOCIATION_TYPE",
-    "STORAGE_ASSOCIATION_TYPE_StorageIdAssocDevice",
-    "STORAGE_ASSOCIATION_TYPE_StorageIdAssocPort",
-    "STORAGE_ASSOCIATION_TYPE_StorageIdAssocTarget",
-    "STORAGE_IDENTIFIER",
-    "STORAGE_DEVICE_ID_DESCRIPTOR",
-    "DEVICE_SEEK_PENALTY_DESCRIPTOR",
-    "DEVICE_WRITE_AGGREGATION_DESCRIPTOR",
-    "DEVICE_TRIM_DESCRIPTOR",
-    "DEVICE_LB_PROVISIONING_DESCRIPTOR",
-    "STORAGE_LB_PROVISIONING_MAP_RESOURCES",
-    "DEVICE_POWER_DESCRIPTOR",
-    "DEVICE_COPY_OFFLOAD_DESCRIPTOR",
-    "STORAGE_DEVICE_RESILIENCY_DESCRIPTOR",
-    "STORAGE_RPMB_FRAME_TYPE",
-    "STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeUnknown",
-    "STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeStandard",
-    "STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeMax",
-    "STORAGE_RPMB_DESCRIPTOR",
-    "STORAGE_CRYPTO_ALGORITHM_ID",
-    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmUnknown",
-    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmXTSAES",
-    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmBitlockerAESCBC",
-    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmAESECB",
-    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmESSIVAESCBC",
-    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmMax",
-    "STORAGE_CRYPTO_KEY_SIZE",
-    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySizeUnknown",
-    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize128Bits",
-    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize192Bits",
-    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize256Bits",
-    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize512Bits",
-    "STORAGE_CRYPTO_CAPABILITY",
-    "STORAGE_CRYPTO_DESCRIPTOR",
-    "STORAGE_TIER_MEDIA_TYPE",
-    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeUnspecified",
-    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeDisk",
-    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeSsd",
-    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeScm",
-    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeMax",
-    "STORAGE_TIER_CLASS",
-    "STORAGE_TIER_CLASS_StorageTierClassUnspecified",
-    "STORAGE_TIER_CLASS_StorageTierClassCapacity",
-    "STORAGE_TIER_CLASS_StorageTierClassPerformance",
-    "STORAGE_TIER_CLASS_StorageTierClassMax",
-    "STORAGE_TIER",
-    "STORAGE_DEVICE_TIERING_DESCRIPTOR",
-    "STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR",
-    "STORAGE_PROTOCOL_TYPE",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeUnknown",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeScsi",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeAta",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeNvme",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeSd",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeUfs",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeProprietary",
-    "STORAGE_PROTOCOL_TYPE_ProtocolTypeMaxReserved",
-    "STORAGE_PROTOCOL_NVME_DATA_TYPE",
-    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeUnknown",
-    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeIdentify",
-    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeLogPage",
-    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeFeature",
-    "STORAGE_PROTOCOL_ATA_DATA_TYPE",
-    "STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeUnknown",
-    "STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeIdentify",
-    "STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeLogPage",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeUnknown",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDescriptor",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryAttribute",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryFlag",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmeAttribute",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmePeerAttribute",
-    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeMax",
-    "STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE",
-    "STORAGE_PROTOCOL_SPECIFIC_DATA",
-    "STORAGE_PROTOCOL_SPECIFIC_DATA_EXT",
-    "STORAGE_PROTOCOL_DATA_DESCRIPTOR",
-    "STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT",
-    "STORAGE_TEMPERATURE_INFO",
-    "STORAGE_TEMPERATURE_DATA_DESCRIPTOR",
-    "STORAGE_TEMPERATURE_THRESHOLD",
-    "STORAGE_DEVICE_FORM_FACTOR",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactorUnknown",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactor3_5",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactor2_5",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8Less",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactorEmbedded",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactorMemoryCard",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactormSata",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactorM_2",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactorPCIeBoard",
-    "STORAGE_DEVICE_FORM_FACTOR_FormFactorDimm",
-    "STORAGE_COMPONENT_HEALTH_STATUS",
-    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusUnknown",
-    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusNormal",
-    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusThrottled",
-    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusWarning",
-    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusDisabled",
-    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusFailed",
-    "STORAGE_SPEC_VERSION",
-    "STORAGE_PHYSICAL_DEVICE_DATA",
-    "STORAGE_PHYSICAL_ADAPTER_DATA",
-    "STORAGE_PHYSICAL_NODE_DATA",
-    "STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR",
-    "STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR",
-    "STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR",
-    "STORAGE_DISK_HEALTH_STATUS",
-    "STORAGE_DISK_HEALTH_STATUS_DiskHealthUnknown",
-    "STORAGE_DISK_HEALTH_STATUS_DiskHealthUnhealthy",
-    "STORAGE_DISK_HEALTH_STATUS_DiskHealthWarning",
-    "STORAGE_DISK_HEALTH_STATUS_DiskHealthHealthy",
-    "STORAGE_DISK_HEALTH_STATUS_DiskHealthMax",
-    "STORAGE_DISK_OPERATIONAL_STATUS",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNone",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusUnknown",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusOk",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusPredictingFailure",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusInService",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusHardwareError",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNotUsable",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusTransientError",
-    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusMissing",
-    "STORAGE_OPERATIONAL_STATUS_REASON",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonUnknown",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonScsiSenseCode",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMedia",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonIo",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonThresholdExceeded",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostData",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonEnergySource",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonConfiguration",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDeviceController",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMediaController",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonComponent",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonNVDIMM_N",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonBackgroundOperation",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonInvalidFirmware",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonHealthCheck",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostDataPersistence",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDisabledByPlatform",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostWritePersistence",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDataPersistenceLossImminent",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonWritePersistenceLossImminent",
-    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMax",
-    "STORAGE_OPERATIONAL_REASON",
-    "STORAGE_DEVICE_MANAGEMENT_STATUS",
-    "STORAGE_ADAPTER_SERIAL_NUMBER",
-    "STORAGE_ZONED_DEVICE_TYPES",
-    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeUnknown",
-    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostManaged",
-    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostAware",
-    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeDeviceManaged",
-    "STORAGE_ZONE_TYPES",
-    "STORAGE_ZONE_TYPES_ZoneTypeUnknown",
-    "STORAGE_ZONE_TYPES_ZoneTypeConventional",
-    "STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired",
-    "STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred",
-    "STORAGE_ZONE_TYPES_ZoneTypeMax",
-    "STORAGE_ZONE_GROUP",
-    "STORAGE_ZONED_DEVICE_DESCRIPTOR",
-    "DEVICE_LOCATION",
-    "STORAGE_DEVICE_LOCATION_DESCRIPTOR",
-    "STORAGE_DEVICE_NUMA_PROPERTY",
-    "STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT",
-    "STORAGE_HW_ENDURANCE_INFO",
-    "STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR",
-    "STORAGE_DEVICE_LED_STATE_DESCRIPTOR",
-    "STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY",
-    "STORAGE_FRU_ID_DESCRIPTOR",
-    "DEVICE_DATA_SET_RANGE",
-    "DEVICE_MANAGE_DATA_SET_ATTRIBUTES",
-    "DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT",
-    "DEVICE_DSM_DEFINITION",
-    "DEVICE_DSM_NOTIFICATION_PARAMETERS",
-    "STORAGE_OFFLOAD_TOKEN",
-    "DEVICE_DSM_OFFLOAD_READ_PARAMETERS",
-    "STORAGE_OFFLOAD_READ_OUTPUT",
-    "DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS",
-    "STORAGE_OFFLOAD_WRITE_OUTPUT",
-    "DEVICE_DATA_SET_LBP_STATE_PARAMETERS",
-    "DEVICE_DATA_SET_LB_PROVISIONING_STATE",
-    "DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2",
-    "DEVICE_DATA_SET_REPAIR_PARAMETERS",
-    "DEVICE_DATA_SET_REPAIR_OUTPUT",
-    "DEVICE_DATA_SET_SCRUB_OUTPUT",
-    "DEVICE_DATA_SET_SCRUB_EX_OUTPUT",
-    "DEVICE_DSM_TIERING_QUERY_INPUT",
-    "STORAGE_TIER_REGION",
-    "DEVICE_DSM_TIERING_QUERY_OUTPUT",
-    "DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS",
-    "DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT",
-    "DEVICE_STORAGE_ADDRESS_RANGE",
-    "DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT",
-    "DEVICE_DSM_REPORT_ZONES_PARAMETERS",
-    "STORAGE_ZONES_ATTRIBUTES",
-    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeAndLengthMayDifferent",
-    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLengthSame",
-    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLastZoneLengthDifferent",
-    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeMayDifferentLengthSame",
-    "STORAGE_ZONE_CONDITION",
-    "STORAGE_ZONE_CONDITION_ZoneConditionConventional",
-    "STORAGE_ZONE_CONDITION_ZoneConditionEmpty",
-    "STORAGE_ZONE_CONDITION_ZoneConditionImplicitlyOpened",
-    "STORAGE_ZONE_CONDITION_ZoneConditionExplicitlyOpened",
-    "STORAGE_ZONE_CONDITION_ZoneConditionClosed",
-    "STORAGE_ZONE_CONDITION_ZoneConditionReadOnly",
-    "STORAGE_ZONE_CONDITION_ZoneConditionFull",
-    "STORAGE_ZONE_CONDITION_ZoneConditionOffline",
-    "STORAGE_ZONE_DESCRIPTOR",
-    "DEVICE_DSM_REPORT_ZONES_DATA",
-    "DEVICE_STORAGE_RANGE_ATTRIBUTES",
-    "DEVICE_DSM_RANGE_ERROR_INFO",
-    "DEVICE_DSM_LOST_QUERY_PARAMETERS",
-    "DEVICE_DSM_LOST_QUERY_OUTPUT",
-    "DEVICE_DSM_FREE_SPACE_OUTPUT",
-    "DEVICE_DSM_CONVERSION_OUTPUT",
-    "STORAGE_GET_BC_PROPERTIES_OUTPUT",
-    "STORAGE_ALLOCATE_BC_STREAM_INPUT",
-    "STORAGE_ALLOCATE_BC_STREAM_OUTPUT",
-    "STORAGE_PRIORITY_HINT_SUPPORT",
-    "STORAGE_DIAGNOSTIC_LEVEL",
-    "STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelDefault",
-    "STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelMax",
-    "STORAGE_DIAGNOSTIC_TARGET_TYPE",
-    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeUndefined",
-    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypePort",
-    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMiniport",
-    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeHbaFirmware",
-    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMax",
-    "STORAGE_DIAGNOSTIC_REQUEST",
-    "STORAGE_DIAGNOSTIC_DATA",
-    "PHYSICAL_ELEMENT_STATUS_REQUEST",
-    "PHYSICAL_ELEMENT_STATUS_DESCRIPTOR",
-    "PHYSICAL_ELEMENT_STATUS",
-    "REMOVE_ELEMENT_AND_TRUNCATE_REQUEST",
-    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE",
-    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceInternalStatusDataRequestTypeUndefined",
-    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusDataHeader",
-    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusData",
-    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusDataHeader",
-    "DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusData",
-    "DEVICE_INTERNAL_STATUS_DATA_SET",
-    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetUndefined",
-    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet1",
-    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet2",
-    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet3",
-    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet4",
-    "DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetMax",
-    "GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST",
-    "DEVICE_INTERNAL_STATUS_DATA",
-    "STORAGE_SANITIZE_METHOD",
-    "STORAGE_SANITIZE_METHOD_StorageSanitizeMethodDefault",
-    "STORAGE_SANITIZE_METHOD_StorageSanitizeMethodBlockErase",
-    "STORAGE_SANITIZE_METHOD_StorageSanitizeMethodCryptoErase",
-    "STORAGE_REINITIALIZE_MEDIA",
-    "STORAGE_MEDIA_SERIAL_NUMBER_DATA",
-    "STORAGE_READ_CAPACITY",
-    "WRITE_CACHE_TYPE",
-    "WRITE_CACHE_TYPE_WriteCacheTypeUnknown",
-    "WRITE_CACHE_TYPE_WriteCacheTypeNone",
-    "WRITE_CACHE_TYPE_WriteCacheTypeWriteBack",
-    "WRITE_CACHE_TYPE_WriteCacheTypeWriteThrough",
-    "WRITE_CACHE_ENABLE",
-    "WRITE_CACHE_ENABLE_WriteCacheEnableUnknown",
-    "WRITE_CACHE_ENABLE_WriteCacheDisabled",
-    "WRITE_CACHE_ENABLE_WriteCacheEnabled",
-    "WRITE_CACHE_CHANGE",
-    "WRITE_CACHE_CHANGE_WriteCacheChangeUnknown",
-    "WRITE_CACHE_CHANGE_WriteCacheNotChangeable",
-    "WRITE_CACHE_CHANGE_WriteCacheChangeable",
-    "WRITE_THROUGH",
-    "WRITE_THROUGH_WriteThroughUnknown",
-    "WRITE_THROUGH_WriteThroughNotSupported",
-    "WRITE_THROUGH_WriteThroughSupported",
-    "STORAGE_WRITE_CACHE_PROPERTY",
-    "PERSISTENT_RESERVE_COMMAND",
-    "_DEVICEDUMP_COLLECTION_TYPE",
-    "_DEVICEDUMP_COLLECTION_TYPE_TCCollectionBugCheck",
-    "_DEVICEDUMP_COLLECTION_TYPE_TCCollectionApplicationRequested",
-    "_DEVICEDUMP_COLLECTION_TYPE_TCCollectionDeviceRequested",
-    "DEVICEDUMP_SUBSECTION_POINTER",
-    "DEVICEDUMP_STRUCTURE_VERSION",
-    "DEVICEDUMP_SECTION_HEADER",
-    "GP_LOG_PAGE_DESCRIPTOR",
-    "DEVICEDUMP_PUBLIC_SUBSECTION",
-    "DEVICEDUMP_RESTRICTED_SUBSECTION",
-    "DEVICEDUMP_PRIVATE_SUBSECTION",
-    "DEVICEDUMP_STORAGEDEVICE_DATA",
-    "DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD",
-    "DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP",
-    "STORAGE_IDLE_POWER",
-    "STORAGE_POWERUP_REASON_TYPE",
-    "STORAGE_POWERUP_REASON_TYPE_StoragePowerupUnknown",
-    "STORAGE_POWERUP_REASON_TYPE_StoragePowerupIO",
-    "STORAGE_POWERUP_REASON_TYPE_StoragePowerupDeviceAttention",
-    "STORAGE_IDLE_POWERUP_REASON",
-    "STORAGE_DEVICE_POWER_CAP_UNITS",
-    "STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsPercent",
-    "STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsMilliwatts",
-    "STORAGE_DEVICE_POWER_CAP",
-    "STORAGE_RPMB_DATA_FRAME",
-    "STORAGE_RPMB_COMMAND_TYPE",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbProgramAuthKey",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbQueryWriteCounter",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedWrite",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedRead",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbReadResultRequest",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigWrite",
-    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigRead",
-    "STORAGE_EVENT_NOTIFICATION",
-    "STORAGE_COUNTER_TYPE",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeUnknown",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsius",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsiusMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsTotal",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsCorrected",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsUncorrected",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsTotal",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsCorrected",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsUncorrected",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeManufactureDate",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCount",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCountMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCount",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCountMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentage",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageWarning",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypePowerOnHours",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadLatency100NSMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteLatency100NSMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeFlushLatency100NSMax",
-    "STORAGE_COUNTER_TYPE_StorageCounterTypeMax",
-    "STORAGE_COUNTER",
-    "STORAGE_COUNTERS",
-    "STORAGE_HW_FIRMWARE_INFO_QUERY",
-    "STORAGE_HW_FIRMWARE_SLOT_INFO",
-    "STORAGE_HW_FIRMWARE_INFO",
-    "STORAGE_HW_FIRMWARE_DOWNLOAD",
-    "STORAGE_HW_FIRMWARE_DOWNLOAD_V2",
-    "STORAGE_HW_FIRMWARE_ACTIVATE",
-    "STORAGE_PROTOCOL_COMMAND",
-    "STORAGE_ATTRIBUTE_MGMT_ACTION",
-    "StorAttributeMgmt_ClearAttribute",
-    "StorAttributeMgmt_SetAttribute",
-    "StorAttributeMgmt_ResetAttribute",
-    "STORAGE_ATTRIBUTE_MGMT",
-    "SCM_PD_HEALTH_NOTIFICATION_DATA",
-    "SCM_LOGICAL_DEVICE_INSTANCE",
-    "SCM_LOGICAL_DEVICES",
-    "SCM_PHYSICAL_DEVICE_INSTANCE",
-    "SCM_PHYSICAL_DEVICES",
-    "SCM_REGION_FLAG",
-    "SCM_REGION_FLAG_ScmRegionFlagNone",
-    "SCM_REGION_FLAG_ScmRegionFlagLabel",
-    "SCM_REGION",
-    "SCM_REGIONS",
-    "SCM_BUS_QUERY_TYPE",
-    "ScmBusQuery_Descriptor",
-    "ScmBusQuery_IsSupported",
-    "ScmBusQuery_Max",
-    "SCM_BUS_SET_TYPE",
-    "ScmBusSet_Descriptor",
-    "ScmBusSet_IsSupported",
-    "ScmBusSet_Max",
-    "SCM_BUS_PROPERTY_ID",
-    "ScmBusProperty_RuntimeFwActivationInfo",
-    "ScmBusProperty_DedicatedMemoryInfo",
-    "ScmBusProperty_DedicatedMemoryState",
-    "ScmBusProperty_Max",
-    "SCM_BUS_PROPERTY_QUERY",
-    "SCM_BUS_FIRMWARE_ACTIVATION_STATE",
-    "ScmBusFirmwareActivationState_Idle",
-    "ScmBusFirmwareActivationState_Armed",
-    "ScmBusFirmwareActivationState_Busy",
-    "SCM_BUS_RUNTIME_FW_ACTIVATION_INFO",
-    "SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO",
-    "SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO",
-    "SCM_BUS_PROPERTY_SET",
-    "SCM_BUS_DEDICATED_MEMORY_STATE",
-    "SCM_INTERLEAVED_PD_INFO",
-    "SCM_LD_INTERLEAVE_SET_INFO",
-    "SCM_PD_QUERY_TYPE",
-    "ScmPhysicalDeviceQuery_Descriptor",
-    "ScmPhysicalDeviceQuery_IsSupported",
-    "ScmPhysicalDeviceQuery_Max",
-    "SCM_PD_SET_TYPE",
-    "ScmPhysicalDeviceSet_Descriptor",
-    "ScmPhysicalDeviceSet_IsSupported",
-    "ScmPhysicalDeviceSet_Max",
-    "SCM_PD_PROPERTY_ID",
-    "ScmPhysicalDeviceProperty_DeviceInfo",
-    "ScmPhysicalDeviceProperty_ManagementStatus",
-    "ScmPhysicalDeviceProperty_FirmwareInfo",
-    "ScmPhysicalDeviceProperty_LocationString",
-    "ScmPhysicalDeviceProperty_DeviceSpecificInfo",
-    "ScmPhysicalDeviceProperty_DeviceHandle",
-    "ScmPhysicalDeviceProperty_FruIdString",
-    "ScmPhysicalDeviceProperty_RuntimeFwActivationInfo",
-    "ScmPhysicalDeviceProperty_RuntimeFwActivationArmState",
-    "ScmPhysicalDeviceProperty_Max",
-    "SCM_PD_PROPERTY_QUERY",
-    "SCM_PD_PROPERTY_SET",
-    "SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE",
-    "SCM_PD_DESCRIPTOR_HEADER",
-    "SCM_PD_DEVICE_HANDLE",
-    "SCM_PD_DEVICE_INFO",
-    "SCM_PD_DEVICE_SPECIFIC_PROPERTY",
-    "SCM_PD_DEVICE_SPECIFIC_INFO",
-    "SCM_PD_FIRMWARE_SLOT_INFO",
-    "SCM_PD_FIRMWARE_INFO",
-    "SCM_PD_HEALTH_STATUS",
-    "ScmPhysicalDeviceHealth_Unknown",
-    "ScmPhysicalDeviceHealth_Unhealthy",
-    "ScmPhysicalDeviceHealth_Warning",
-    "ScmPhysicalDeviceHealth_Healthy",
-    "ScmPhysicalDeviceHealth_Max",
-    "SCM_PD_OPERATIONAL_STATUS",
-    "ScmPhysicalDeviceOpStatus_Unknown",
-    "ScmPhysicalDeviceOpStatus_Ok",
-    "ScmPhysicalDeviceOpStatus_PredictingFailure",
-    "ScmPhysicalDeviceOpStatus_InService",
-    "ScmPhysicalDeviceOpStatus_HardwareError",
-    "ScmPhysicalDeviceOpStatus_NotUsable",
-    "ScmPhysicalDeviceOpStatus_TransientError",
-    "ScmPhysicalDeviceOpStatus_Missing",
-    "ScmPhysicalDeviceOpStatus_Max",
-    "SCM_PD_OPERATIONAL_STATUS_REASON",
-    "ScmPhysicalDeviceOpReason_Unknown",
-    "ScmPhysicalDeviceOpReason_Media",
-    "ScmPhysicalDeviceOpReason_ThresholdExceeded",
-    "ScmPhysicalDeviceOpReason_LostData",
-    "ScmPhysicalDeviceOpReason_EnergySource",
-    "ScmPhysicalDeviceOpReason_Configuration",
-    "ScmPhysicalDeviceOpReason_DeviceController",
-    "ScmPhysicalDeviceOpReason_MediaController",
-    "ScmPhysicalDeviceOpReason_Component",
-    "ScmPhysicalDeviceOpReason_BackgroundOperation",
-    "ScmPhysicalDeviceOpReason_InvalidFirmware",
-    "ScmPhysicalDeviceOpReason_HealthCheck",
-    "ScmPhysicalDeviceOpReason_LostDataPersistence",
-    "ScmPhysicalDeviceOpReason_DisabledByPlatform",
-    "ScmPhysicalDeviceOpReason_PermanentError",
-    "ScmPhysicalDeviceOpReason_LostWritePersistence",
-    "ScmPhysicalDeviceOpReason_FatalError",
-    "ScmPhysicalDeviceOpReason_DataPersistenceLossImminent",
-    "ScmPhysicalDeviceOpReason_WritePersistenceLossImminent",
-    "ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock",
-    "ScmPhysicalDeviceOpReason_PerformanceDegradation",
-    "ScmPhysicalDeviceOpReason_ExcessiveTemperature",
-    "ScmPhysicalDeviceOpReason_InternalFailure",
-    "ScmPhysicalDeviceOpReason_Max",
-    "SCM_PD_MANAGEMENT_STATUS",
-    "SCM_PD_LOCATION_STRING",
-    "SCM_PD_FRU_ID_STRING",
-    "SCM_PD_FIRMWARE_DOWNLOAD",
-    "SCM_PD_FIRMWARE_ACTIVATE",
-    "SCM_PD_LAST_FW_ACTIVATION_STATUS",
-    "ScmPdLastFwActivationStatus_None",
-    "ScmPdLastFwActivationStatus_Success",
-    "ScmPdLastFwActivationStatus_FwNotFound",
-    "ScmPdLastFwActivationStatus_ColdRebootRequired",
-    "ScmPdLastFwActivaitonStatus_ActivationInProgress",
-    "ScmPdLastFwActivaitonStatus_Retry",
-    "ScmPdLastFwActivaitonStatus_FwUnsupported",
-    "ScmPdLastFwActivaitonStatus_UnknownError",
-    "SCM_PD_FIRMWARE_ACTIVATION_STATE",
-    "ScmPdFirmwareActivationState_Idle",
-    "ScmPdFirmwareActivationState_Armed",
-    "ScmPdFirmwareActivationState_Busy",
-    "SCM_PD_RUNTIME_FW_ACTIVATION_INFO",
-    "SCM_PD_PASSTHROUGH_INPUT",
-    "SCM_PD_PASSTHROUGH_OUTPUT",
-    "SCM_PD_PASSTHROUGH_INVDIMM_INPUT",
-    "SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT",
-    "SCM_PD_REINITIALIZE_MEDIA_INPUT",
-    "SCM_PD_MEDIA_REINITIALIZATION_STATUS",
-    "ScmPhysicalDeviceReinit_Success",
-    "ScmPhysicalDeviceReinit_RebootNeeded",
-    "ScmPhysicalDeviceReinit_ColdBootNeeded",
-    "ScmPhysicalDeviceReinit_Max",
-    "SCM_PD_REINITIALIZE_MEDIA_OUTPUT",
-    "MEDIA_TYPE",
-    "MEDIA_TYPE_Unknown",
-    "MEDIA_TYPE_F5_1Pt2_512",
-    "MEDIA_TYPE_F3_1Pt44_512",
-    "MEDIA_TYPE_F3_2Pt88_512",
-    "MEDIA_TYPE_F3_20Pt8_512",
-    "MEDIA_TYPE_F3_720_512",
-    "MEDIA_TYPE_F5_360_512",
-    "MEDIA_TYPE_F5_320_512",
-    "MEDIA_TYPE_F5_320_1024",
-    "MEDIA_TYPE_F5_180_512",
-    "MEDIA_TYPE_F5_160_512",
-    "MEDIA_TYPE_RemovableMedia",
-    "MEDIA_TYPE_FixedMedia",
-    "MEDIA_TYPE_F3_120M_512",
-    "MEDIA_TYPE_F3_640_512",
-    "MEDIA_TYPE_F5_640_512",
-    "MEDIA_TYPE_F5_720_512",
-    "MEDIA_TYPE_F3_1Pt2_512",
-    "MEDIA_TYPE_F3_1Pt23_1024",
-    "MEDIA_TYPE_F5_1Pt23_1024",
-    "MEDIA_TYPE_F3_128Mb_512",
-    "MEDIA_TYPE_F3_230Mb_512",
-    "MEDIA_TYPE_F8_256_128",
-    "MEDIA_TYPE_F3_200Mb_512",
-    "MEDIA_TYPE_F3_240M_512",
-    "MEDIA_TYPE_F3_32M_512",
-    "FORMAT_PARAMETERS",
-    "FORMAT_EX_PARAMETERS",
-    "DISK_GEOMETRY",
-    "PARTITION_INFORMATION",
-    "SET_PARTITION_INFORMATION",
-    "DRIVE_LAYOUT_INFORMATION",
-    "VERIFY_INFORMATION",
-    "REASSIGN_BLOCKS",
-    "REASSIGN_BLOCKS_EX",
-    "PARTITION_STYLE",
-    "PARTITION_STYLE_MBR",
-    "PARTITION_STYLE_GPT",
-    "PARTITION_STYLE_RAW",
-    "PARTITION_INFORMATION_GPT",
-    "PARTITION_INFORMATION_MBR",
-    "SET_PARTITION_INFORMATION_EX",
-    "CREATE_DISK_GPT",
-    "CREATE_DISK_MBR",
-    "CREATE_DISK",
-    "GET_LENGTH_INFORMATION",
-    "PARTITION_INFORMATION_EX",
-    "DRIVE_LAYOUT_INFORMATION_GPT",
-    "DRIVE_LAYOUT_INFORMATION_MBR",
-    "DRIVE_LAYOUT_INFORMATION_EX",
-    "DETECTION_TYPE",
-    "DETECTION_TYPE_DetectNone",
-    "DETECTION_TYPE_DetectInt13",
-    "DETECTION_TYPE_DetectExInt13",
-    "DISK_INT13_INFO",
-    "DISK_EX_INT13_INFO",
-    "DISK_DETECTION_INFO",
-    "DISK_PARTITION_INFO",
-    "DISK_GEOMETRY_EX",
-    "DISK_CONTROLLER_NUMBER",
-    "DISK_CACHE_RETENTION_PRIORITY",
-    "DISK_CACHE_RETENTION_PRIORITY_EqualPriority",
-    "DISK_CACHE_RETENTION_PRIORITY_KeepPrefetchedData",
-    "DISK_CACHE_RETENTION_PRIORITY_KeepReadData",
-    "DISK_CACHE_INFORMATION",
-    "DISK_GROW_PARTITION",
-    "HISTOGRAM_BUCKET",
-    "DISK_HISTOGRAM",
-    "DISK_PERFORMANCE",
-    "DISK_RECORD",
-    "DISK_LOGGING",
-    "BIN_TYPES",
-    "BIN_TYPES_RequestSize",
-    "BIN_TYPES_RequestLocation",
-    "BIN_RANGE",
-    "PERF_BIN",
-    "BIN_COUNT",
-    "BIN_RESULTS",
-    "GETVERSIONINPARAMS",
-    "IDEREGS",
-    "SENDCMDINPARAMS",
-    "DRIVERSTATUS",
-    "SENDCMDOUTPARAMS",
-    "GET_DISK_ATTRIBUTES",
-    "SET_DISK_ATTRIBUTES",
     "ELEMENT_TYPE",
     "ELEMENT_TYPE_AllElements",
-    "ELEMENT_TYPE_ChangerTransport",
-    "ELEMENT_TYPE_ChangerSlot",
-    "ELEMENT_TYPE_ChangerIEPort",
-    "ELEMENT_TYPE_ChangerDrive",
     "ELEMENT_TYPE_ChangerDoor",
+    "ELEMENT_TYPE_ChangerDrive",
+    "ELEMENT_TYPE_ChangerIEPort",
     "ELEMENT_TYPE_ChangerKeypad",
     "ELEMENT_TYPE_ChangerMaxElement",
-    "CHANGER_ELEMENT",
-    "CHANGER_ELEMENT_LIST",
-    "GET_CHANGER_PARAMETERS",
-    "CHANGER_PRODUCT_DATA",
-    "CHANGER_SET_ACCESS",
-    "CHANGER_READ_ELEMENT_STATUS",
-    "CHANGER_ELEMENT_STATUS",
-    "CHANGER_ELEMENT_STATUS_EX",
-    "CHANGER_INITIALIZE_ELEMENT_STATUS",
-    "CHANGER_SET_POSITION",
-    "CHANGER_EXCHANGE_MEDIUM",
-    "CHANGER_MOVE_MEDIUM",
-    "CHANGER_SEND_VOLUME_TAG_INFORMATION",
-    "READ_ELEMENT_ADDRESS_INFO",
-    "CHANGER_DEVICE_PROBLEM_TYPE",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemNone",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemHardware",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDoorOpen",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCalibrationError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemTargetFailure",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMMoveError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMZeroError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeInsertError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemPositionError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemSensorError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeEjectError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemGripperError",
-    "CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDriveError",
-    "PATHNAME_BUFFER",
-    "FSCTL_QUERY_FAT_BPB_BUFFER",
-    "NTFS_VOLUME_DATA_BUFFER",
-    "NTFS_EXTENDED_VOLUME_DATA",
-    "REFS_VOLUME_DATA_BUFFER",
-    "STARTING_LCN_INPUT_BUFFER",
-    "STARTING_LCN_INPUT_BUFFER_EX",
-    "VOLUME_BITMAP_BUFFER",
-    "STARTING_VCN_INPUT_BUFFER",
-    "RETRIEVAL_POINTERS_BUFFER",
-    "RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER",
-    "RETRIEVAL_POINTER_COUNT",
-    "NTFS_FILE_RECORD_INPUT_BUFFER",
-    "NTFS_FILE_RECORD_OUTPUT_BUFFER",
-    "MOVE_FILE_DATA",
-    "MOVE_FILE_RECORD_DATA",
-    "MOVE_FILE_DATA32",
-    "FIND_BY_SID_DATA",
-    "FIND_BY_SID_OUTPUT",
-    "MFT_ENUM_DATA_V0",
-    "MFT_ENUM_DATA_V1",
-    "CREATE_USN_JOURNAL_DATA",
-    "READ_FILE_USN_DATA",
-    "READ_USN_JOURNAL_DATA_V0",
-    "READ_USN_JOURNAL_DATA_V1",
-    "USN_TRACK_MODIFIED_RANGES",
-    "USN_RANGE_TRACK_OUTPUT",
-    "USN_RECORD_V2",
-    "USN_RECORD_V3",
-    "USN_RECORD_COMMON_HEADER",
-    "USN_RECORD_EXTENT",
-    "USN_RECORD_V4",
-    "USN_RECORD_UNION",
-    "USN_JOURNAL_DATA_V0",
-    "USN_JOURNAL_DATA_V1",
-    "USN_JOURNAL_DATA_V2",
-    "DELETE_USN_JOURNAL_DATA",
-    "MARK_HANDLE_INFO",
-    "MARK_HANDLE_INFO32",
-    "BULK_SECURITY_TEST_DATA",
-    "FILE_PREFETCH",
-    "FILE_PREFETCH_EX",
-    "FILESYSTEM_STATISTICS",
-    "FAT_STATISTICS",
-    "EXFAT_STATISTICS",
-    "NTFS_STATISTICS",
-    "FILESYSTEM_STATISTICS_EX",
-    "NTFS_STATISTICS_EX",
-    "FILE_OBJECTID_BUFFER",
-    "FILE_SET_SPARSE_BUFFER",
-    "FILE_ZERO_DATA_INFORMATION",
-    "FILE_ZERO_DATA_INFORMATION_EX",
-    "FILE_ALLOCATED_RANGE_BUFFER",
-    "ENCRYPTION_BUFFER",
-    "DECRYPTION_STATUS_BUFFER",
-    "REQUEST_RAW_ENCRYPTED_DATA",
+    "ELEMENT_TYPE_ChangerSlot",
+    "ELEMENT_TYPE_ChangerTransport",
+    "ENABLE_DISABLE_AUTOSAVE",
+    "ENABLE_DISABLE_AUTO_OFFLINE",
+    "ENABLE_SMART",
     "ENCRYPTED_DATA_INFO",
+    "ENCRYPTED_DATA_INFO_SPARSE_FILE",
+    "ENCRYPTION_BUFFER",
+    "ENCRYPTION_FORMAT_DEFAULT",
+    "ENCRYPTION_KEY_CTRL_INPUT",
+    "ERROR_DRIVE_NOT_INSTALLED",
+    "ERROR_HISTORY_DIRECTORY_ENTRY_DEFAULT_COUNT",
+    "ERROR_INIT_STATUS_NEEDED",
+    "ERROR_LABEL_QUESTIONABLE",
+    "ERROR_LABEL_UNREADABLE",
+    "ERROR_SLOT_NOT_PRESENT",
+    "ERROR_TRAY_MALFUNCTION",
+    "ERROR_UNHANDLED_ERROR",
+    "EXECUTE_OFFLINE_DIAGS",
+    "EXFAT_STATISTICS",
     "EXTENDED_ENCRYPTED_DATA_INFO",
-    "PLEX_READ_DATA_REQUEST",
-    "SI_COPYFILE",
-    "FILE_MAKE_COMPATIBLE_BUFFER",
-    "FILE_SET_DEFECT_MGMT_BUFFER",
-    "FILE_QUERY_SPARING_BUFFER",
-    "FILE_QUERY_ON_DISK_VOL_INFO_BUFFER",
-    "FILE_INITIATE_REPAIR_OUTPUT_BUFFER",
-    "SHRINK_VOLUME_REQUEST_TYPES",
-    "SHRINK_VOLUME_REQUEST_TYPES_ShrinkPrepare",
-    "SHRINK_VOLUME_REQUEST_TYPES_ShrinkCommit",
-    "SHRINK_VOLUME_REQUEST_TYPES_ShrinkAbort",
-    "SHRINK_VOLUME_INFORMATION",
-    "TXFS_MODIFY_RM",
-    "TXFS_QUERY_RM_INFORMATION",
-    "TXFS_ROLLFORWARD_REDO_INFORMATION",
-    "TXFS_START_RM_INFORMATION",
-    "TXFS_GET_METADATA_INFO_OUT",
-    "TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY",
-    "TXFS_LIST_TRANSACTION_LOCKED_FILES",
-    "TXFS_LIST_TRANSACTIONS_ENTRY",
-    "TXFS_LIST_TRANSACTIONS",
-    "TXFS_READ_BACKUP_INFORMATION_OUT",
-    "TXFS_WRITE_BACKUP_INFORMATION",
-    "TXFS_GET_TRANSACTED_VERSION",
-    "TXFS_SAVEPOINT_INFORMATION",
-    "TXFS_CREATE_MINIVERSION_INFO",
-    "TXFS_TRANSACTION_ACTIVE_INFO",
-    "BOOT_AREA_INFO",
-    "RETRIEVAL_POINTER_BASE",
+    "EXTEND_IEPORT",
+    "FAT_STATISTICS",
+    "FILESYSTEM_STATISTICS",
+    "FILESYSTEM_STATISTICS_EX",
+    "FILESYSTEM_STATISTICS_TYPE",
+    "FILESYSTEM_STATISTICS_TYPE_EXFAT",
+    "FILESYSTEM_STATISTICS_TYPE_FAT",
+    "FILESYSTEM_STATISTICS_TYPE_NTFS",
+    "FILESYSTEM_STATISTICS_TYPE_REFS",
+    "FILE_ALLOCATED_RANGE_BUFFER",
+    "FILE_ANY_ACCESS",
+    "FILE_CLEAR_ENCRYPTION",
+    "FILE_DESIRED_STORAGE_CLASS_INFORMATION",
+    "FILE_DEVICE_8042_PORT",
+    "FILE_DEVICE_ACPI",
+    "FILE_DEVICE_BATTERY",
+    "FILE_DEVICE_BEEP",
+    "FILE_DEVICE_BIOMETRIC",
+    "FILE_DEVICE_BLUETOOTH",
+    "FILE_DEVICE_BUS_EXTENDER",
+    "FILE_DEVICE_CD_ROM_FILE_SYSTEM",
+    "FILE_DEVICE_CHANGER",
+    "FILE_DEVICE_CONSOLE",
+    "FILE_DEVICE_CONTROLLER",
+    "FILE_DEVICE_CRYPT_PROVIDER",
+    "FILE_DEVICE_DATALINK",
+    "FILE_DEVICE_DEVAPI",
+    "FILE_DEVICE_DFS",
+    "FILE_DEVICE_DFS_FILE_SYSTEM",
+    "FILE_DEVICE_DFS_VOLUME",
+    "FILE_DEVICE_DISK_FILE_SYSTEM",
+    "FILE_DEVICE_EHSTOR",
+    "FILE_DEVICE_EVENT_COLLECTOR",
+    "FILE_DEVICE_FILE_SYSTEM",
+    "FILE_DEVICE_FIPS",
+    "FILE_DEVICE_FULLSCREEN_VIDEO",
+    "FILE_DEVICE_GPIO",
+    "FILE_DEVICE_HOLOGRAPHIC",
+    "FILE_DEVICE_INFINIBAND",
+    "FILE_DEVICE_INPORT_PORT",
+    "FILE_DEVICE_KEYBOARD",
+    "FILE_DEVICE_KS",
+    "FILE_DEVICE_KSEC",
+    "FILE_DEVICE_MAILSLOT",
+    "FILE_DEVICE_MASS_STORAGE",
+    "FILE_DEVICE_MIDI_IN",
+    "FILE_DEVICE_MIDI_OUT",
+    "FILE_DEVICE_MODEM",
+    "FILE_DEVICE_MOUSE",
+    "FILE_DEVICE_MT_COMPOSITE",
+    "FILE_DEVICE_MT_TRANSPORT",
+    "FILE_DEVICE_MULTI_UNC_PROVIDER",
+    "FILE_DEVICE_NAMED_PIPE",
+    "FILE_DEVICE_NETWORK",
+    "FILE_DEVICE_NETWORK_BROWSER",
+    "FILE_DEVICE_NETWORK_FILE_SYSTEM",
+    "FILE_DEVICE_NETWORK_REDIRECTOR",
+    "FILE_DEVICE_NFP",
+    "FILE_DEVICE_NULL",
+    "FILE_DEVICE_NVDIMM",
+    "FILE_DEVICE_PARALLEL_PORT",
+    "FILE_DEVICE_PERSISTENT_MEMORY",
+    "FILE_DEVICE_PHYSICAL_NETCARD",
+    "FILE_DEVICE_PMI",
+    "FILE_DEVICE_POINT_OF_SERVICE",
+    "FILE_DEVICE_PRINTER",
+    "FILE_DEVICE_PRM",
+    "FILE_DEVICE_SCANNER",
+    "FILE_DEVICE_SCREEN",
+    "FILE_DEVICE_SDFXHCI",
+    "FILE_DEVICE_SERENUM",
+    "FILE_DEVICE_SERIAL_MOUSE_PORT",
+    "FILE_DEVICE_SERIAL_PORT",
+    "FILE_DEVICE_SMB",
+    "FILE_DEVICE_SOUND",
+    "FILE_DEVICE_SOUNDWIRE",
+    "FILE_DEVICE_STORAGE_REPLICATION",
+    "FILE_DEVICE_STREAMS",
+    "FILE_DEVICE_SYSENV",
+    "FILE_DEVICE_TAPE_FILE_SYSTEM",
+    "FILE_DEVICE_TERMSRV",
+    "FILE_DEVICE_TRANSPORT",
+    "FILE_DEVICE_TRUST_ENV",
+    "FILE_DEVICE_UCM",
+    "FILE_DEVICE_UCMTCPCI",
+    "FILE_DEVICE_UCMUCSI",
+    "FILE_DEVICE_UNKNOWN",
+    "FILE_DEVICE_USB4",
+    "FILE_DEVICE_USBEX",
+    "FILE_DEVICE_VDM",
+    "FILE_DEVICE_VIDEO",
+    "FILE_DEVICE_VIRTUAL_BLOCK",
+    "FILE_DEVICE_VIRTUAL_DISK",
+    "FILE_DEVICE_VMBUS",
+    "FILE_DEVICE_WAVE_IN",
+    "FILE_DEVICE_WAVE_OUT",
+    "FILE_DEVICE_WPD",
     "FILE_FS_PERSISTENT_VOLUME_INFORMATION",
-    "FILE_SYSTEM_RECOGNITION_INFORMATION",
-    "REQUEST_OPLOCK_INPUT_BUFFER",
-    "REQUEST_OPLOCK_OUTPUT_BUFFER",
-    "STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST",
-    "STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY",
-    "STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY",
-    "STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE",
-    "SD_CHANGE_MACHINE_SID_INPUT",
-    "SD_CHANGE_MACHINE_SID_OUTPUT",
-    "SD_QUERY_STATS_INPUT",
-    "SD_QUERY_STATS_OUTPUT",
-    "SD_ENUM_SDS_INPUT",
-    "SD_ENUM_SDS_ENTRY",
-    "SD_ENUM_SDS_OUTPUT",
-    "SD_GLOBAL_CHANGE_INPUT",
-    "SD_GLOBAL_CHANGE_OUTPUT",
-    "LOOKUP_STREAM_FROM_CLUSTER_INPUT",
-    "LOOKUP_STREAM_FROM_CLUSTER_OUTPUT",
-    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY",
-    "FILE_TYPE_NOTIFICATION_INPUT",
-    "CSV_MGMT_LOCK",
-    "CSV_NAMESPACE_INFO",
-    "CSV_CONTROL_OP",
-    "CSV_CONTROL_OP_CsvControlStartRedirectFile",
-    "CSV_CONTROL_OP_CsvControlStopRedirectFile",
-    "CSV_CONTROL_OP_CsvControlQueryRedirectState",
-    "CSV_CONTROL_OP_CsvControlQueryFileRevision",
-    "CSV_CONTROL_OP_CsvControlQueryMdsPath",
-    "CSV_CONTROL_OP_CsvControlQueryFileRevisionFileId128",
-    "CSV_CONTROL_OP_CsvControlQueryVolumeRedirectState",
-    "CSV_CONTROL_OP_CsvControlEnableUSNRangeModificationTracking",
-    "CSV_CONTROL_OP_CsvControlMarkHandleLocalVolumeMount",
-    "CSV_CONTROL_OP_CsvControlUnmarkHandleLocalVolumeMount",
-    "CSV_CONTROL_OP_CsvControlGetCsvFsMdsPathV2",
-    "CSV_CONTROL_OP_CsvControlDisableCaching",
-    "CSV_CONTROL_OP_CsvControlEnableCaching",
-    "CSV_CONTROL_OP_CsvControlStartForceDFO",
-    "CSV_CONTROL_OP_CsvControlStopForceDFO",
-    "CSV_CONTROL_OP_CsvControlQueryMdsPathNoPause",
-    "CSV_CONTROL_OP_CsvControlSetVolumeId",
-    "CSV_CONTROL_OP_CsvControlQueryVolumeId",
-    "CSV_CONTROL_PARAM",
-    "CSV_QUERY_REDIRECT_STATE",
-    "CSV_QUERY_FILE_REVISION",
-    "CSV_QUERY_FILE_REVISION_FILE_ID_128",
-    "CSV_QUERY_MDS_PATH",
-    "CSVFS_DISK_CONNECTIVITY",
-    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone",
-    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly",
-    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes",
-    "CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes",
-    "CSV_QUERY_VOLUME_REDIRECT_STATE",
-    "CSV_QUERY_MDS_PATH_V2",
-    "CSV_SET_VOLUME_ID",
-    "CSV_QUERY_VOLUME_ID",
-    "CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT",
-    "STORAGE_RESERVE_ID",
-    "STORAGE_RESERVE_ID_StorageReserveIdNone",
-    "STORAGE_RESERVE_ID_StorageReserveIdHard",
-    "STORAGE_RESERVE_ID_StorageReserveIdSoft",
-    "STORAGE_RESERVE_ID_StorageReserveIdUpdateScratch",
-    "STORAGE_RESERVE_ID_StorageReserveIdMax",
-    "CSV_IS_OWNED_BY_CSVFS",
-    "FILE_LEVEL_TRIM_RANGE",
+    "FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NON_RESIDENT",
+    "FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NOT_FOUND",
+    "FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_TOO_SMALL",
+    "FILE_INITIATE_REPAIR_HINT1_CLUSTERS_ALREADY_IN_USE",
+    "FILE_INITIATE_REPAIR_HINT1_DENY_DEFRAG",
+    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_IS_BASE_RECORD",
+    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_BASE_RECORD",
+    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_EXIST",
+    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_IN_USE",
+    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_ORPHAN",
+    "FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_REUSED",
+    "FILE_INITIATE_REPAIR_HINT1_INDEX_ENTRY_MISMATCH",
+    "FILE_INITIATE_REPAIR_HINT1_INVALID_ARRAY_LENGTH_COUNT",
+    "FILE_INITIATE_REPAIR_HINT1_INVALID_LCN",
+    "FILE_INITIATE_REPAIR_HINT1_INVALID_ORPHAN_RECOVERY_NAME",
+    "FILE_INITIATE_REPAIR_HINT1_INVALID_PARENT",
+    "FILE_INITIATE_REPAIR_HINT1_INVALID_RUN_LENGTH",
+    "FILE_INITIATE_REPAIR_HINT1_INVALID_VCN",
+    "FILE_INITIATE_REPAIR_HINT1_LCN_NOT_EXIST",
+    "FILE_INITIATE_REPAIR_HINT1_MULTIPLE_FILE_NAME_ATTRIBUTES",
+    "FILE_INITIATE_REPAIR_HINT1_NAME_CONFLICT",
+    "FILE_INITIATE_REPAIR_HINT1_NOTHING_WRONG",
+    "FILE_INITIATE_REPAIR_HINT1_NOT_IMPLEMENTED",
+    "FILE_INITIATE_REPAIR_HINT1_ORPHAN",
+    "FILE_INITIATE_REPAIR_HINT1_ORPHAN_GENERATED",
+    "FILE_INITIATE_REPAIR_HINT1_OUT_OF_GENERIC_NAMES",
+    "FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE",
+    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_BASE_RECORD",
+    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_EXIST",
+    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_INDEX",
+    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_IN_USE",
+    "FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_REUSED",
+    "FILE_INITIATE_REPAIR_HINT1_POTENTIAL_CROSSLINK",
+    "FILE_INITIATE_REPAIR_HINT1_PREVIOUS_PARENT_STILL_VALID",
+    "FILE_INITIATE_REPAIR_HINT1_RECURSIVELY_CORRUPTED",
+    "FILE_INITIATE_REPAIR_HINT1_REPAIRED",
+    "FILE_INITIATE_REPAIR_HINT1_REPAIR_DISABLED",
+    "FILE_INITIATE_REPAIR_HINT1_SID_MISMATCH",
+    "FILE_INITIATE_REPAIR_HINT1_SID_VALID",
+    "FILE_INITIATE_REPAIR_HINT1_STALE_INFORMATION",
+    "FILE_INITIATE_REPAIR_HINT1_SYSTEM_FILE",
+    "FILE_INITIATE_REPAIR_HINT1_UNABLE_TO_REPAIR",
+    "FILE_INITIATE_REPAIR_HINT1_VALID_INDEX_ENTRY",
+    "FILE_INITIATE_REPAIR_OUTPUT_BUFFER",
+    "FILE_LAYOUT_ENTRY",
+    "FILE_LAYOUT_INFO_ENTRY",
+    "FILE_LAYOUT_NAME_ENTRY",
+    "FILE_LAYOUT_NAME_ENTRY_DOS",
+    "FILE_LAYOUT_NAME_ENTRY_PRIMARY",
     "FILE_LEVEL_TRIM",
     "FILE_LEVEL_TRIM_OUTPUT",
-    "QUERY_FILE_LAYOUT_FILTER_TYPE",
-    "QUERY_FILE_LAYOUT_FILTER_TYPE_NONE",
-    "QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS",
-    "QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID",
-    "QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID",
-    "QUERY_FILE_LAYOUT_NUM_FILTER_TYPES",
-    "CLUSTER_RANGE",
+    "FILE_LEVEL_TRIM_RANGE",
+    "FILE_MAKE_COMPATIBLE_BUFFER",
+    "FILE_OBJECTID_BUFFER",
+    "FILE_PREFETCH",
+    "FILE_PREFETCH_EX",
+    "FILE_PREFETCH_TYPE_FOR_CREATE",
+    "FILE_PREFETCH_TYPE_FOR_CREATE_EX",
+    "FILE_PREFETCH_TYPE_FOR_DIRENUM",
+    "FILE_PREFETCH_TYPE_FOR_DIRENUM_EX",
+    "FILE_PREFETCH_TYPE_MAX",
+    "FILE_PROVIDER_COMPRESSION_MAXIMUM",
+    "FILE_PROVIDER_CURRENT_VERSION",
+    "FILE_PROVIDER_EXTERNAL_INFO_V0",
+    "FILE_PROVIDER_EXTERNAL_INFO_V1",
+    "FILE_PROVIDER_FLAG_COMPRESS_ON_WRITE",
+    "FILE_PROVIDER_SINGLE_FILE",
+    "FILE_QUERY_ON_DISK_VOL_INFO_BUFFER",
+    "FILE_QUERY_SPARING_BUFFER",
+    "FILE_READ_ACCESS",
     "FILE_REFERENCE_RANGE",
-    "QUERY_FILE_LAYOUT_INPUT",
-    "QUERY_FILE_LAYOUT_OUTPUT",
-    "FILE_LAYOUT_ENTRY",
-    "FILE_LAYOUT_NAME_ENTRY",
-    "FILE_LAYOUT_INFO_ENTRY",
-    "STREAM_LAYOUT_ENTRY",
-    "STREAM_EXTENT_ENTRY",
+    "FILE_REGION_INFO",
+    "FILE_REGION_INPUT",
+    "FILE_REGION_OUTPUT",
+    "FILE_REGION_USAGE_HUGE_PAGE_ALIGNMENT",
+    "FILE_REGION_USAGE_LARGE_PAGE_ALIGNMENT",
+    "FILE_REGION_USAGE_OTHER_PAGE_ALIGNMENT",
+    "FILE_REGION_USAGE_QUERY_ALIGNMENT",
+    "FILE_REGION_USAGE_VALID_CACHED_DATA",
+    "FILE_REGION_USAGE_VALID_NONCACHED_DATA",
+    "FILE_SET_DEFECT_MGMT_BUFFER",
+    "FILE_SET_ENCRYPTION",
+    "FILE_SET_SPARSE_BUFFER",
+    "FILE_SPECIAL_ACCESS",
+    "FILE_STORAGE_TIER",
+    "FILE_STORAGE_TIER_CLASS",
+    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassCapacity",
+    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassMax",
+    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassPerformance",
+    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassUnspecified",
+    "FILE_STORAGE_TIER_DESCRIPTION_LENGTH",
+    "FILE_STORAGE_TIER_FLAGS",
+    "FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY",
+    "FILE_STORAGE_TIER_FLAG_PARITY",
+    "FILE_STORAGE_TIER_FLAG_READ_CACHE",
+    "FILE_STORAGE_TIER_FLAG_SMR",
+    "FILE_STORAGE_TIER_FLAG_WRITE_BACK_CACHE",
+    "FILE_STORAGE_TIER_MEDIA_TYPE",
+    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeDisk",
+    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeMax",
+    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeScm",
+    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeSsd",
+    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeUnspecified",
+    "FILE_STORAGE_TIER_NAME_LENGTH",
+    "FILE_STORAGE_TIER_REGION",
+    "FILE_SYSTEM_RECOGNITION_INFORMATION",
+    "FILE_TYPE_NOTIFICATION_FLAG_USAGE_BEGIN",
+    "FILE_TYPE_NOTIFICATION_FLAG_USAGE_END",
+    "FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE",
+    "FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE",
+    "FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE",
+    "FILE_TYPE_NOTIFICATION_INPUT",
+    "FILE_WRITE_ACCESS",
+    "FILE_ZERO_DATA_INFORMATION",
+    "FILE_ZERO_DATA_INFORMATION_EX",
+    "FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA",
+    "FIND_BY_SID_DATA",
+    "FIND_BY_SID_OUTPUT",
+    "FLAG_USN_TRACK_MODIFIED_RANGES_ENABLE",
+    "FORMAT_EX_PARAMETERS",
+    "FORMAT_PARAMETERS",
+    "FSBPIO_INFL_None",
+    "FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY",
+    "FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER",
+    "FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED",
+    "FSBPIO_OUTFL_None",
+    "FSBPIO_OUTFL_STREAM_BYPASS_PAUSED",
+    "FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED",
+    "FSCTL_ADD_OVERLAY",
+    "FSCTL_ADVANCE_FILE_ID",
+    "FSCTL_ALLOW_EXTENDED_DASD_IO",
+    "FSCTL_CLEAN_VOLUME_METADATA",
+    "FSCTL_CORRUPTION_HANDLING",
+    "FSCTL_CREATE_OR_GET_OBJECT_ID",
+    "FSCTL_CREATE_USN_JOURNAL",
+    "FSCTL_CSC_INTERNAL",
+    "FSCTL_CSV_CONTROL",
+    "FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT",
+    "FSCTL_CSV_GET_VOLUME_PATH_NAME",
+    "FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME",
+    "FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST",
+    "FSCTL_CSV_INTERNAL",
+    "FSCTL_CSV_MGMT_LOCK",
+    "FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS",
+    "FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO",
+    "FSCTL_CSV_SYNC_TUNNEL_REQUEST",
+    "FSCTL_CSV_TUNNEL_REQUEST",
+    "FSCTL_DELETE_CORRUPTED_REFS_CONTAINER",
+    "FSCTL_DELETE_EXTERNAL_BACKING",
+    "FSCTL_DELETE_OBJECT_ID",
+    "FSCTL_DELETE_REPARSE_POINT",
+    "FSCTL_DELETE_USN_JOURNAL",
+    "FSCTL_DFSR_SET_GHOST_HANDLE_STATE",
+    "FSCTL_DISABLE_LOCAL_BUFFERING",
+    "FSCTL_DISMOUNT_VOLUME",
+    "FSCTL_DUPLICATE_EXTENTS_TO_FILE",
+    "FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX",
+    "FSCTL_ENABLE_PER_IO_FLAGS",
+    "FSCTL_ENABLE_UPGRADE",
+    "FSCTL_ENCRYPTION_FSCTL_IO",
+    "FSCTL_ENCRYPTION_KEY_CONTROL",
+    "FSCTL_ENUM_EXTERNAL_BACKING",
+    "FSCTL_ENUM_OVERLAY",
+    "FSCTL_ENUM_USN_DATA",
+    "FSCTL_EXTEND_VOLUME",
+    "FSCTL_FILESYSTEM_GET_STATISTICS",
+    "FSCTL_FILESYSTEM_GET_STATISTICS_EX",
+    "FSCTL_FILE_LEVEL_TRIM",
+    "FSCTL_FILE_PREFETCH",
+    "FSCTL_FILE_TYPE_NOTIFICATION",
+    "FSCTL_FIND_FILES_BY_SID",
+    "FSCTL_GET_BOOT_AREA_INFO",
+    "FSCTL_GET_COMPRESSION",
+    "FSCTL_GET_EXTERNAL_BACKING",
+    "FSCTL_GET_FILTER_FILE_IDENTIFIER",
+    "FSCTL_GET_INTEGRITY_INFORMATION",
     "FSCTL_GET_INTEGRITY_INFORMATION_BUFFER",
-    "FSCTL_SET_INTEGRITY_INFORMATION_BUFFER",
-    "FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX",
+    "FSCTL_GET_NTFS_FILE_RECORD",
+    "FSCTL_GET_NTFS_VOLUME_DATA",
+    "FSCTL_GET_OBJECT_ID",
+    "FSCTL_GET_REFS_VOLUME_DATA",
+    "FSCTL_GET_REPAIR",
+    "FSCTL_GET_REPARSE_POINT",
+    "FSCTL_GET_RETRIEVAL_POINTERS",
+    "FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT",
+    "FSCTL_GET_RETRIEVAL_POINTER_BASE",
+    "FSCTL_GET_RETRIEVAL_POINTER_COUNT",
+    "FSCTL_GET_VOLUME_BITMAP",
+    "FSCTL_GET_WOF_VERSION",
+    "FSCTL_GHOST_FILE_EXTENTS",
+    "FSCTL_HCS_ASYNC_TUNNEL_REQUEST",
+    "FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST",
+    "FSCTL_HCS_SYNC_TUNNEL_REQUEST",
+    "FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION",
+    "FSCTL_INITIATE_REPAIR",
+    "FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF",
+    "FSCTL_INVALIDATE_VOLUMES",
+    "FSCTL_IS_CSV_FILE",
+    "FSCTL_IS_FILE_ON_CSV_VOLUME",
+    "FSCTL_IS_PATHNAME_VALID",
+    "FSCTL_IS_VOLUME_DIRTY",
+    "FSCTL_IS_VOLUME_MOUNTED",
+    "FSCTL_IS_VOLUME_OWNED_BYCSVFS",
+    "FSCTL_LOCK_VOLUME",
+    "FSCTL_LOOKUP_STREAM_FROM_CLUSTER",
+    "FSCTL_MAKE_MEDIA_COMPATIBLE",
+    "FSCTL_MANAGE_BYPASS_IO",
+    "FSCTL_MARK_AS_SYSTEM_HIVE",
+    "FSCTL_MARK_HANDLE",
+    "FSCTL_MARK_VOLUME_DIRTY",
+    "FSCTL_MOVE_FILE",
+    "FSCTL_NOTIFY_DATA_CHANGE",
+    "FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION",
+    "FSCTL_OFFLOAD_READ",
     "FSCTL_OFFLOAD_READ_INPUT",
     "FSCTL_OFFLOAD_READ_OUTPUT",
+    "FSCTL_OFFLOAD_WRITE",
     "FSCTL_OFFLOAD_WRITE_INPUT",
     "FSCTL_OFFLOAD_WRITE_OUTPUT",
-    "SET_PURGE_FAILURE_MODE_INPUT",
-    "REPAIR_COPIES_INPUT",
-    "REPAIR_COPIES_OUTPUT",
-    "FILE_REGION_INFO",
-    "FILE_REGION_OUTPUT",
-    "FILE_REGION_INPUT",
-    "WRITE_USN_REASON_INPUT",
-    "FILE_STORAGE_TIER_MEDIA_TYPE",
-    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeUnspecified",
-    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeDisk",
-    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeSsd",
-    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeScm",
-    "FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeMax",
-    "FILE_STORAGE_TIER_CLASS",
-    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassUnspecified",
-    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassCapacity",
-    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassPerformance",
-    "FILE_STORAGE_TIER_CLASS_FileStorageTierClassMax",
-    "FILE_STORAGE_TIER",
-    "FSCTL_QUERY_STORAGE_CLASSES_OUTPUT",
-    "STREAM_INFORMATION_ENTRY",
+    "FSCTL_OPBATCH_ACK_CLOSE_PENDING",
+    "FSCTL_OPLOCK_BREAK_ACKNOWLEDGE",
+    "FSCTL_OPLOCK_BREAK_ACK_NO_2",
+    "FSCTL_OPLOCK_BREAK_NOTIFY",
+    "FSCTL_QUERY_ALLOCATED_RANGES",
+    "FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS",
+    "FSCTL_QUERY_BAD_RANGES",
+    "FSCTL_QUERY_DEPENDENT_VOLUME",
+    "FSCTL_QUERY_DIRECT_ACCESS_EXTENTS",
+    "FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE",
+    "FSCTL_QUERY_EXTENT_READ_CACHE_INFO",
+    "FSCTL_QUERY_FAT_BPB",
+    "FSCTL_QUERY_FAT_BPB_BUFFER",
+    "FSCTL_QUERY_FILE_LAYOUT",
+    "FSCTL_QUERY_FILE_METADATA_OPTIMIZATION",
+    "FSCTL_QUERY_FILE_REGIONS",
+    "FSCTL_QUERY_FILE_SYSTEM_RECOGNITION",
+    "FSCTL_QUERY_GHOSTED_FILE_EXTENTS",
+    "FSCTL_QUERY_ON_DISK_VOLUME_INFO",
+    "FSCTL_QUERY_PAGEFILE_ENCRYPTION",
+    "FSCTL_QUERY_PERSISTENT_VOLUME_STATE",
+    "FSCTL_QUERY_REFS_SMR_VOLUME_INFO",
+    "FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO",
+    "FSCTL_QUERY_REGION_INFO",
     "FSCTL_QUERY_REGION_INFO_INPUT",
-    "FILE_STORAGE_TIER_REGION",
     "FSCTL_QUERY_REGION_INFO_OUTPUT",
-    "FILE_DESIRED_STORAGE_CLASS_INFORMATION",
-    "DUPLICATE_EXTENTS_DATA",
-    "DUPLICATE_EXTENTS_DATA32",
-    "DUPLICATE_EXTENTS_DATA_EX",
-    "DUPLICATE_EXTENTS_DATA_EX32",
-    "DUPLICATE_EXTENTS_STATE",
-    "DUPLICATE_EXTENTS_STATE_FileSnapStateInactive",
-    "DUPLICATE_EXTENTS_STATE_FileSnapStateSource",
-    "DUPLICATE_EXTENTS_STATE_FileSnapStateTarget",
-    "ASYNC_DUPLICATE_EXTENTS_STATUS",
-    "REFS_SMR_VOLUME_GC_STATE",
-    "REFS_SMR_VOLUME_GC_STATE_SmrGcStateInactive",
-    "REFS_SMR_VOLUME_GC_STATE_SmrGcStatePaused",
-    "REFS_SMR_VOLUME_GC_STATE_SmrGcStateActive",
-    "REFS_SMR_VOLUME_GC_STATE_SmrGcStateActiveFullSpeed",
-    "REFS_SMR_VOLUME_INFO_OUTPUT",
+    "FSCTL_QUERY_RETRIEVAL_POINTERS",
+    "FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT",
+    "FSCTL_QUERY_SPARING_INFO",
+    "FSCTL_QUERY_STORAGE_CLASSES",
+    "FSCTL_QUERY_STORAGE_CLASSES_OUTPUT",
+    "FSCTL_QUERY_USN_JOURNAL",
+    "FSCTL_QUERY_VOLUME_CONTAINER_STATE",
+    "FSCTL_QUERY_VOLUME_NUMA_INFO",
+    "FSCTL_READ_FILE_USN_DATA",
+    "FSCTL_READ_FROM_PLEX",
+    "FSCTL_READ_RAW_ENCRYPTED",
+    "FSCTL_READ_UNPRIVILEGED_USN_JOURNAL",
+    "FSCTL_READ_USN_JOURNAL",
+    "FSCTL_REARRANGE_FILE",
+    "FSCTL_RECALL_FILE",
+    "FSCTL_REFS_DEALLOCATE_RANGES",
+    "FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT",
+    "FSCTL_REMOVE_OVERLAY",
+    "FSCTL_REPAIR_COPIES",
+    "FSCTL_REQUEST_BATCH_OPLOCK",
+    "FSCTL_REQUEST_FILTER_OPLOCK",
+    "FSCTL_REQUEST_OPLOCK",
+    "FSCTL_REQUEST_OPLOCK_LEVEL_1",
+    "FSCTL_REQUEST_OPLOCK_LEVEL_2",
+    "FSCTL_RESET_VOLUME_ALLOCATION_HINTS",
+    "FSCTL_RKF_INTERNAL",
+    "FSCTL_SCRUB_DATA",
+    "FSCTL_SCRUB_UNDISCOVERABLE_ID",
+    "FSCTL_SD_GLOBAL_CHANGE",
+    "FSCTL_SECURITY_ID_CHECK",
+    "FSCTL_SET_BOOTLOADER_ACCESSED",
+    "FSCTL_SET_COMPRESSION",
+    "FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT",
+    "FSCTL_SET_DEFECT_MANAGEMENT",
+    "FSCTL_SET_ENCRYPTION",
+    "FSCTL_SET_EXTERNAL_BACKING",
+    "FSCTL_SET_INTEGRITY_INFORMATION",
+    "FSCTL_SET_INTEGRITY_INFORMATION_BUFFER",
+    "FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX",
+    "FSCTL_SET_INTEGRITY_INFORMATION_EX",
+    "FSCTL_SET_LAYER_ROOT",
+    "FSCTL_SET_OBJECT_ID",
+    "FSCTL_SET_OBJECT_ID_EXTENDED",
+    "FSCTL_SET_PERSISTENT_VOLUME_STATE",
+    "FSCTL_SET_PURGE_FAILURE_MODE",
+    "FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL",
+    "FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS",
+    "FSCTL_SET_REPAIR",
+    "FSCTL_SET_REPARSE_POINT",
+    "FSCTL_SET_REPARSE_POINT_EX",
+    "FSCTL_SET_SHORT_NAME_BEHAVIOR",
+    "FSCTL_SET_SPARSE",
+    "FSCTL_SET_VOLUME_COMPRESSION_STATE",
+    "FSCTL_SET_ZERO_DATA",
+    "FSCTL_SET_ZERO_ON_DEALLOCATION",
+    "FSCTL_SHRINK_VOLUME",
+    "FSCTL_SHUFFLE_FILE",
+    "FSCTL_SIS_COPYFILE",
+    "FSCTL_SIS_LINK_FILES",
+    "FSCTL_SMB_SHARE_FLUSH_AND_PURGE",
+    "FSCTL_SPARSE_OVERALLOCATE",
+    "FSCTL_SSDI_STORAGE_REQUEST",
+    "FSCTL_START_VIRTUALIZATION_INSTANCE",
+    "FSCTL_START_VIRTUALIZATION_INSTANCE_EX",
+    "FSCTL_STORAGE_QOS_CONTROL",
+    "FSCTL_STREAMS_ASSOCIATE_ID",
+    "FSCTL_STREAMS_QUERY_ID",
+    "FSCTL_STREAMS_QUERY_PARAMETERS",
+    "FSCTL_SUSPEND_OVERLAY",
+    "FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST",
+    "FSCTL_SVHDX_SET_INITIATOR_INFORMATION",
+    "FSCTL_SVHDX_SYNC_TUNNEL_REQUEST",
+    "FSCTL_TXFS_CREATE_MINIVERSION",
+    "FSCTL_TXFS_CREATE_SECONDARY_RM",
+    "FSCTL_TXFS_GET_METADATA_INFO",
+    "FSCTL_TXFS_GET_TRANSACTED_VERSION",
+    "FSCTL_TXFS_LIST_TRANSACTIONS",
+    "FSCTL_TXFS_LIST_TRANSACTION_LOCKED_FILES",
+    "FSCTL_TXFS_MODIFY_RM",
+    "FSCTL_TXFS_QUERY_RM_INFORMATION",
+    "FSCTL_TXFS_READ_BACKUP_INFORMATION",
+    "FSCTL_TXFS_READ_BACKUP_INFORMATION2",
+    "FSCTL_TXFS_ROLLFORWARD_REDO",
+    "FSCTL_TXFS_ROLLFORWARD_UNDO",
+    "FSCTL_TXFS_SAVEPOINT_INFORMATION",
+    "FSCTL_TXFS_SHUTDOWN_RM",
+    "FSCTL_TXFS_START_RM",
+    "FSCTL_TXFS_TRANSACTION_ACTIVE",
+    "FSCTL_TXFS_WRITE_BACKUP_INFORMATION",
+    "FSCTL_TXFS_WRITE_BACKUP_INFORMATION2",
+    "FSCTL_UNLOCK_VOLUME",
+    "FSCTL_UNMAP_SPACE",
+    "FSCTL_UPDATE_OVERLAY",
+    "FSCTL_USN_TRACK_MODIFIED_RANGES",
+    "FSCTL_VIRTUAL_STORAGE_PASSTHROUGH",
+    "FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY",
+    "FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR",
+    "FSCTL_WAIT_FOR_REPAIR",
+    "FSCTL_WRITE_RAW_ENCRYPTED",
+    "FSCTL_WRITE_USN_CLOSE_RECORD",
+    "FSCTL_WRITE_USN_REASON",
+    "FS_BPIO_INFLAGS",
+    "FS_BPIO_INFO",
+    "FS_BPIO_INPUT",
+    "FS_BPIO_OPERATIONS",
+    "FS_BPIO_OP_DISABLE",
+    "FS_BPIO_OP_ENABLE",
+    "FS_BPIO_OP_GET_INFO",
+    "FS_BPIO_OP_MAX_OPERATION",
+    "FS_BPIO_OP_QUERY",
+    "FS_BPIO_OP_STREAM_PAUSE",
+    "FS_BPIO_OP_STREAM_RESUME",
+    "FS_BPIO_OP_VOLUME_STACK_PAUSE",
+    "FS_BPIO_OP_VOLUME_STACK_RESUME",
+    "FS_BPIO_OUTFLAGS",
+    "FS_BPIO_OUTPUT",
+    "FS_BPIO_RESULTS",
+    "FW_ISSUEID_NO_ISSUE",
+    "FW_ISSUEID_UNKNOWN",
+    "GETVERSIONINPARAMS",
+    "GET_CHANGER_PARAMETERS",
+    "GET_CHANGER_PARAMETERS_FEATURES1",
+    "GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST",
+    "GET_DISK_ATTRIBUTES",
+    "GET_FILTER_FILE_IDENTIFIER_INPUT",
+    "GET_FILTER_FILE_IDENTIFIER_OUTPUT",
+    "GET_LENGTH_INFORMATION",
+    "GET_MEDIA_TYPES",
+    "GET_VOLUME_BITMAP_FLAG_MASK_METADATA",
+    "GPT_ATTRIBUTES",
+    "GPT_ATTRIBUTE_LEGACY_BIOS_BOOTABLE",
+    "GPT_ATTRIBUTE_NO_BLOCK_IO_PROTOCOL",
+    "GPT_ATTRIBUTE_PLATFORM_REQUIRED",
+    "GPT_BASIC_DATA_ATTRIBUTE_DAX",
+    "GPT_BASIC_DATA_ATTRIBUTE_HIDDEN",
+    "GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER",
+    "GPT_BASIC_DATA_ATTRIBUTE_OFFLINE",
+    "GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY",
+    "GPT_BASIC_DATA_ATTRIBUTE_SERVICE",
+    "GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY",
+    "GPT_SPACES_ATTRIBUTE_NO_METADATA",
+    "GP_LOG_PAGE_DESCRIPTOR",
+    "GUID_DEVICEDUMP_DRIVER_STORAGE_PORT",
+    "GUID_DEVICEDUMP_STORAGE_DEVICE",
+    "GUID_DEVINTERFACE_CDCHANGER",
+    "GUID_DEVINTERFACE_CDROM",
+    "GUID_DEVINTERFACE_COMPORT",
+    "GUID_DEVINTERFACE_DISK",
+    "GUID_DEVINTERFACE_FLOPPY",
+    "GUID_DEVINTERFACE_HIDDEN_VOLUME",
+    "GUID_DEVINTERFACE_MEDIUMCHANGER",
+    "GUID_DEVINTERFACE_PARTITION",
+    "GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE",
+    "GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR",
+    "GUID_DEVINTERFACE_SERVICE_VOLUME",
+    "GUID_DEVINTERFACE_SES",
+    "GUID_DEVINTERFACE_STORAGEPORT",
+    "GUID_DEVINTERFACE_TAPE",
+    "GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB",
+    "GUID_DEVINTERFACE_VMLUN",
+    "GUID_DEVINTERFACE_VOLUME",
+    "GUID_DEVINTERFACE_WRITEONCEDISK",
+    "GUID_DEVINTERFACE_ZNSDISK",
+    "GUID_SCM_PD_HEALTH_NOTIFICATION",
+    "GUID_SCM_PD_PASSTHROUGH_INVDIMM",
+    "HISTOGRAM_BUCKET",
+    "HIST_NO_OF_BUCKETS",
+    "IDENTIFY_BUFFER_SIZE",
+    "IDEREGS",
+    "ID_CMD",
+    "IOCTL_CHANGER_BASE",
+    "IOCTL_CHANGER_EXCHANGE_MEDIUM",
+    "IOCTL_CHANGER_GET_ELEMENT_STATUS",
+    "IOCTL_CHANGER_GET_PARAMETERS",
+    "IOCTL_CHANGER_GET_PRODUCT_DATA",
+    "IOCTL_CHANGER_GET_STATUS",
+    "IOCTL_CHANGER_INITIALIZE_ELEMENT_STATUS",
+    "IOCTL_CHANGER_MOVE_MEDIUM",
+    "IOCTL_CHANGER_QUERY_VOLUME_TAGS",
+    "IOCTL_CHANGER_REINITIALIZE_TRANSPORT",
+    "IOCTL_CHANGER_SET_ACCESS",
+    "IOCTL_CHANGER_SET_POSITION",
+    "IOCTL_DISK_BASE",
+    "IOCTL_DISK_CHECK_VERIFY",
+    "IOCTL_DISK_CONTROLLER_NUMBER",
+    "IOCTL_DISK_CREATE_DISK",
+    "IOCTL_DISK_DELETE_DRIVE_LAYOUT",
+    "IOCTL_DISK_EJECT_MEDIA",
+    "IOCTL_DISK_FIND_NEW_DEVICES",
+    "IOCTL_DISK_FORMAT_DRIVE",
+    "IOCTL_DISK_FORMAT_TRACKS",
+    "IOCTL_DISK_FORMAT_TRACKS_EX",
+    "IOCTL_DISK_GET_CACHE_INFORMATION",
+    "IOCTL_DISK_GET_DISK_ATTRIBUTES",
+    "IOCTL_DISK_GET_DRIVE_GEOMETRY",
+    "IOCTL_DISK_GET_DRIVE_GEOMETRY_EX",
+    "IOCTL_DISK_GET_DRIVE_LAYOUT",
+    "IOCTL_DISK_GET_DRIVE_LAYOUT_EX",
+    "IOCTL_DISK_GET_LENGTH_INFO",
+    "IOCTL_DISK_GET_MEDIA_TYPES",
+    "IOCTL_DISK_GET_PARTITION_INFO",
+    "IOCTL_DISK_GET_PARTITION_INFO_EX",
+    "IOCTL_DISK_GET_WRITE_CACHE_STATE",
+    "IOCTL_DISK_GROW_PARTITION",
+    "IOCTL_DISK_HISTOGRAM_DATA",
+    "IOCTL_DISK_HISTOGRAM_RESET",
+    "IOCTL_DISK_HISTOGRAM_STRUCTURE",
+    "IOCTL_DISK_IS_WRITABLE",
+    "IOCTL_DISK_LOAD_MEDIA",
+    "IOCTL_DISK_LOGGING",
+    "IOCTL_DISK_MEDIA_REMOVAL",
+    "IOCTL_DISK_PERFORMANCE",
+    "IOCTL_DISK_PERFORMANCE_OFF",
+    "IOCTL_DISK_REASSIGN_BLOCKS",
+    "IOCTL_DISK_REASSIGN_BLOCKS_EX",
+    "IOCTL_DISK_RELEASE",
+    "IOCTL_DISK_REQUEST_DATA",
+    "IOCTL_DISK_REQUEST_STRUCTURE",
+    "IOCTL_DISK_RESERVE",
+    "IOCTL_DISK_RESET_SNAPSHOT_INFO",
+    "IOCTL_DISK_SENSE_DEVICE",
+    "IOCTL_DISK_SET_CACHE_INFORMATION",
+    "IOCTL_DISK_SET_DISK_ATTRIBUTES",
+    "IOCTL_DISK_SET_DRIVE_LAYOUT",
+    "IOCTL_DISK_SET_DRIVE_LAYOUT_EX",
+    "IOCTL_DISK_SET_PARTITION_INFO",
+    "IOCTL_DISK_SET_PARTITION_INFO_EX",
+    "IOCTL_DISK_UPDATE_DRIVE_SIZE",
+    "IOCTL_DISK_UPDATE_PROPERTIES",
+    "IOCTL_DISK_VERIFY",
+    "IOCTL_SCMBUS_BASE",
+    "IOCTL_SCMBUS_DEVICE_FUNCTION_BASE",
+    "IOCTL_SCM_BUS_GET_LOGICAL_DEVICES",
+    "IOCTL_SCM_BUS_GET_PHYSICAL_DEVICES",
+    "IOCTL_SCM_BUS_GET_REGIONS",
+    "IOCTL_SCM_BUS_QUERY_PROPERTY",
+    "IOCTL_SCM_BUS_RUNTIME_FW_ACTIVATE",
+    "IOCTL_SCM_BUS_SET_PROPERTY",
+    "IOCTL_SCM_LD_GET_INTERLEAVE_SET",
+    "IOCTL_SCM_LOGICAL_DEVICE_FUNCTION_BASE",
+    "IOCTL_SCM_PD_FIRMWARE_ACTIVATE",
+    "IOCTL_SCM_PD_FIRMWARE_DOWNLOAD",
+    "IOCTL_SCM_PD_PASSTHROUGH",
+    "IOCTL_SCM_PD_QUERY_PROPERTY",
+    "IOCTL_SCM_PD_REINITIALIZE_MEDIA",
+    "IOCTL_SCM_PD_SET_PROPERTY",
+    "IOCTL_SCM_PD_UPDATE_MANAGEMENT_STATUS",
+    "IOCTL_SCM_PHYSICAL_DEVICE_FUNCTION_BASE",
+    "IOCTL_SERENUM_EXPOSE_HARDWARE",
+    "IOCTL_SERENUM_GET_PORT_NAME",
+    "IOCTL_SERENUM_PORT_DESC",
+    "IOCTL_SERENUM_REMOVE_HARDWARE",
+    "IOCTL_SERIAL_LSRMST_INSERT",
+    "IOCTL_STORAGE_ALLOCATE_BC_STREAM",
+    "IOCTL_STORAGE_ATTRIBUTE_MANAGEMENT",
+    "IOCTL_STORAGE_BASE",
+    "IOCTL_STORAGE_BC_VERSION",
+    "IOCTL_STORAGE_BREAK_RESERVATION",
+    "IOCTL_STORAGE_CHECK_PRIORITY_HINT_SUPPORT",
+    "IOCTL_STORAGE_CHECK_VERIFY",
+    "IOCTL_STORAGE_CHECK_VERIFY2",
+    "IOCTL_STORAGE_DEVICE_POWER_CAP",
+    "IOCTL_STORAGE_DEVICE_TELEMETRY_NOTIFY",
+    "IOCTL_STORAGE_DEVICE_TELEMETRY_QUERY_CAPS",
+    "IOCTL_STORAGE_DIAGNOSTIC",
+    "IOCTL_STORAGE_EJECTION_CONTROL",
+    "IOCTL_STORAGE_EJECT_MEDIA",
+    "IOCTL_STORAGE_ENABLE_IDLE_POWER",
+    "IOCTL_STORAGE_EVENT_NOTIFICATION",
+    "IOCTL_STORAGE_FAILURE_PREDICTION_CONFIG",
+    "IOCTL_STORAGE_FIND_NEW_DEVICES",
+    "IOCTL_STORAGE_FIRMWARE_ACTIVATE",
+    "IOCTL_STORAGE_FIRMWARE_DOWNLOAD",
+    "IOCTL_STORAGE_FIRMWARE_GET_INFO",
+    "IOCTL_STORAGE_FREE_BC_STREAM",
+    "IOCTL_STORAGE_GET_BC_PROPERTIES",
+    "IOCTL_STORAGE_GET_COUNTERS",
+    "IOCTL_STORAGE_GET_DEVICE_INTERNAL_LOG",
+    "IOCTL_STORAGE_GET_DEVICE_NUMBER",
+    "IOCTL_STORAGE_GET_DEVICE_NUMBER_EX",
+    "IOCTL_STORAGE_GET_DEVICE_TELEMETRY",
+    "IOCTL_STORAGE_GET_DEVICE_TELEMETRY_RAW",
+    "IOCTL_STORAGE_GET_HOTPLUG_INFO",
+    "IOCTL_STORAGE_GET_IDLE_POWERUP_REASON",
+    "IOCTL_STORAGE_GET_LB_PROVISIONING_MAP_RESOURCES",
+    "IOCTL_STORAGE_GET_MEDIA_SERIAL_NUMBER",
+    "IOCTL_STORAGE_GET_MEDIA_TYPES",
+    "IOCTL_STORAGE_GET_MEDIA_TYPES_EX",
+    "IOCTL_STORAGE_GET_PHYSICAL_ELEMENT_STATUS",
+    "IOCTL_STORAGE_LOAD_MEDIA",
+    "IOCTL_STORAGE_LOAD_MEDIA2",
+    "IOCTL_STORAGE_MANAGE_BYPASS_IO",
+    "IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES",
+    "IOCTL_STORAGE_MCN_CONTROL",
+    "IOCTL_STORAGE_MEDIA_REMOVAL",
+    "IOCTL_STORAGE_PERSISTENT_RESERVE_IN",
+    "IOCTL_STORAGE_PERSISTENT_RESERVE_OUT",
+    "IOCTL_STORAGE_POWER_ACTIVE",
+    "IOCTL_STORAGE_POWER_IDLE",
+    "IOCTL_STORAGE_PREDICT_FAILURE",
+    "IOCTL_STORAGE_PROTOCOL_COMMAND",
+    "IOCTL_STORAGE_QUERY_PROPERTY",
+    "IOCTL_STORAGE_READ_CAPACITY",
+    "IOCTL_STORAGE_REINITIALIZE_MEDIA",
+    "IOCTL_STORAGE_RELEASE",
+    "IOCTL_STORAGE_REMOVE_ELEMENT_AND_TRUNCATE",
+    "IOCTL_STORAGE_RESERVE",
+    "IOCTL_STORAGE_RESET_BUS",
+    "IOCTL_STORAGE_RESET_DEVICE",
+    "IOCTL_STORAGE_RPMB_COMMAND",
+    "IOCTL_STORAGE_SET_HOTPLUG_INFO",
+    "IOCTL_STORAGE_SET_PROPERTY",
+    "IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD",
+    "IOCTL_STORAGE_START_DATA_INTEGRITY_CHECK",
+    "IOCTL_STORAGE_STOP_DATA_INTEGRITY_CHECK",
+    "IO_IRP_EXT_TRACK_OFFSET_HEADER",
+    "LOCK_ELEMENT",
+    "LOCK_UNLOCK_DOOR",
+    "LOCK_UNLOCK_IEPORT",
+    "LOCK_UNLOCK_KEYPAD",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_DATA",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_INDEX",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_MASK",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_SYSTEM",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_DENY_DEFRAG_SET",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_FS_SYSTEM_FILE",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_PAGE_FILE",
+    "LOOKUP_STREAM_FROM_CLUSTER_ENTRY_FLAG_TXF_SYSTEM_FILE",
+    "LOOKUP_STREAM_FROM_CLUSTER_INPUT",
+    "LOOKUP_STREAM_FROM_CLUSTER_OUTPUT",
+    "MARK_HANDLE_CLOUD_SYNC",
+    "MARK_HANDLE_DISABLE_FILE_METADATA_OPTIMIZATION",
+    "MARK_HANDLE_ENABLE_CPU_CACHE",
+    "MARK_HANDLE_ENABLE_USN_SOURCE_ON_PAGING_IO",
+    "MARK_HANDLE_FILTER_METADATA",
+    "MARK_HANDLE_INFO",
+    "MARK_HANDLE_INFO32",
+    "MARK_HANDLE_NOT_READ_COPY",
+    "MARK_HANDLE_NOT_REALTIME",
+    "MARK_HANDLE_NOT_TXF_SYSTEM_LOG",
+    "MARK_HANDLE_PROTECT_CLUSTERS",
+    "MARK_HANDLE_READ_COPY",
+    "MARK_HANDLE_REALTIME",
+    "MARK_HANDLE_RETURN_PURGE_FAILURE",
+    "MARK_HANDLE_SKIP_COHERENCY_SYNC_DISALLOW_WRITES",
+    "MARK_HANDLE_SUPPRESS_VOLUME_OPEN_FLUSH",
+    "MARK_HANDLE_TXF_SYSTEM_LOG",
+    "MAXIMUM_ENCRYPTION_VALUE",
+    "MAX_FW_BUCKET_ID_LENGTH",
+    "MAX_INTERFACE_CODES",
+    "MAX_VOLUME_ID_SIZE",
+    "MAX_VOLUME_TEMPLATE_SIZE",
+    "MEDIA_CURRENTLY_MOUNTED",
+    "MEDIA_ERASEABLE",
+    "MEDIA_READ_ONLY",
+    "MEDIA_READ_WRITE",
+    "MEDIA_TYPE",
+    "MEDIA_TYPE_F3_120M_512",
+    "MEDIA_TYPE_F3_128Mb_512",
+    "MEDIA_TYPE_F3_1Pt23_1024",
+    "MEDIA_TYPE_F3_1Pt2_512",
+    "MEDIA_TYPE_F3_1Pt44_512",
+    "MEDIA_TYPE_F3_200Mb_512",
+    "MEDIA_TYPE_F3_20Pt8_512",
+    "MEDIA_TYPE_F3_230Mb_512",
+    "MEDIA_TYPE_F3_240M_512",
+    "MEDIA_TYPE_F3_2Pt88_512",
+    "MEDIA_TYPE_F3_32M_512",
+    "MEDIA_TYPE_F3_640_512",
+    "MEDIA_TYPE_F3_720_512",
+    "MEDIA_TYPE_F5_160_512",
+    "MEDIA_TYPE_F5_180_512",
+    "MEDIA_TYPE_F5_1Pt23_1024",
+    "MEDIA_TYPE_F5_1Pt2_512",
+    "MEDIA_TYPE_F5_320_1024",
+    "MEDIA_TYPE_F5_320_512",
+    "MEDIA_TYPE_F5_360_512",
+    "MEDIA_TYPE_F5_640_512",
+    "MEDIA_TYPE_F5_720_512",
+    "MEDIA_TYPE_F8_256_128",
+    "MEDIA_TYPE_FixedMedia",
+    "MEDIA_TYPE_RemovableMedia",
+    "MEDIA_TYPE_Unknown",
+    "MEDIA_WRITE_ONCE",
+    "MEDIA_WRITE_PROTECTED",
+    "METHOD_BUFFERED",
+    "METHOD_DIRECT_FROM_HARDWARE",
+    "METHOD_DIRECT_TO_HARDWARE",
+    "METHOD_IN_DIRECT",
+    "METHOD_NEITHER",
+    "METHOD_OUT_DIRECT",
+    "MFT_ENUM_DATA_V0",
+    "MFT_ENUM_DATA_V1",
+    "MOVE_FILE_DATA",
+    "MOVE_FILE_DATA32",
+    "MOVE_FILE_RECORD_DATA",
+    "NTFS_EXTENDED_VOLUME_DATA",
+    "NTFS_FILE_RECORD_INPUT_BUFFER",
+    "NTFS_FILE_RECORD_OUTPUT_BUFFER",
+    "NTFS_STATISTICS",
+    "NTFS_STATISTICS_EX",
+    "NTFS_VOLUME_DATA_BUFFER",
+    "OBSOLETE_DISK_GET_WRITE_CACHE_STATE",
+    "OBSOLETE_IOCTL_STORAGE_RESET_BUS",
+    "OBSOLETE_IOCTL_STORAGE_RESET_DEVICE",
+    "OFFLOAD_READ_FLAG_ALL_ZERO_BEYOND_CURRENT_RANGE",
+    "OPLOCK_LEVEL_CACHE_HANDLE",
+    "OPLOCK_LEVEL_CACHE_READ",
+    "OPLOCK_LEVEL_CACHE_WRITE",
+    "PARTIITON_OS_DATA",
+    "PARTITION_BSP",
+    "PARTITION_DM",
+    "PARTITION_DPP",
+    "PARTITION_ENTRY_UNUSED",
+    "PARTITION_EXTENDED",
+    "PARTITION_EZDRIVE",
+    "PARTITION_FAT32",
+    "PARTITION_FAT32_XINT13",
+    "PARTITION_FAT_12",
+    "PARTITION_FAT_16",
+    "PARTITION_GPT",
+    "PARTITION_HUGE",
+    "PARTITION_IFS",
+    "PARTITION_INFORMATION",
+    "PARTITION_INFORMATION_EX",
+    "PARTITION_INFORMATION_GPT",
+    "PARTITION_INFORMATION_MBR",
+    "PARTITION_LDM",
+    "PARTITION_MAIN_OS",
+    "PARTITION_MSFT_RECOVERY",
+    "PARTITION_NTFT",
+    "PARTITION_OS2BOOTMGR",
+    "PARTITION_PREP",
+    "PARTITION_PRE_INSTALLED",
+    "PARTITION_SPACES",
+    "PARTITION_SPACES_DATA",
+    "PARTITION_STYLE",
+    "PARTITION_STYLE_GPT",
+    "PARTITION_STYLE_MBR",
+    "PARTITION_STYLE_RAW",
+    "PARTITION_SYSTEM",
+    "PARTITION_UNIX",
+    "PARTITION_WINDOWS_SYSTEM",
+    "PARTITION_XENIX_1",
+    "PARTITION_XENIX_2",
+    "PARTITION_XINT13",
+    "PARTITION_XINT13_EXTENDED",
+    "PATHNAME_BUFFER",
+    "PERF_BIN",
+    "PERSISTENT_RESERVE_COMMAND",
+    "PERSISTENT_VOLUME_STATE_BACKED_BY_WIM",
+    "PERSISTENT_VOLUME_STATE_CHKDSK_RAN_ONCE",
+    "PERSISTENT_VOLUME_STATE_CONTAINS_BACKING_WIM",
+    "PERSISTENT_VOLUME_STATE_DAX_FORMATTED",
+    "PERSISTENT_VOLUME_STATE_GLOBAL_METADATA_NO_SEEK_PENALTY",
+    "PERSISTENT_VOLUME_STATE_LOCAL_METADATA_NO_SEEK_PENALTY",
+    "PERSISTENT_VOLUME_STATE_MODIFIED_BY_CHKDSK",
+    "PERSISTENT_VOLUME_STATE_NO_HEAT_GATHERING",
+    "PERSISTENT_VOLUME_STATE_NO_WRITE_AUTO_TIERING",
+    "PERSISTENT_VOLUME_STATE_REALLOCATE_ALL_DATA_WRITES",
+    "PERSISTENT_VOLUME_STATE_SHORT_NAME_CREATION_DISABLED",
+    "PERSISTENT_VOLUME_STATE_TXF_DISABLED",
+    "PERSISTENT_VOLUME_STATE_VOLUME_SCRUB_DISABLED",
+    "PHYSICAL_ELEMENT_STATUS",
+    "PHYSICAL_ELEMENT_STATUS_DESCRIPTOR",
+    "PHYSICAL_ELEMENT_STATUS_REQUEST",
+    "PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK",
+    "PLEX_READ_DATA_REQUEST",
+    "PREVENT_MEDIA_REMOVAL",
+    "PRODUCT_ID_LENGTH",
+    "PROJFS_PROTOCOL_VERSION",
+    "QUERY_BAD_RANGES_INPUT",
+    "QUERY_BAD_RANGES_INPUT_RANGE",
+    "QUERY_BAD_RANGES_OUTPUT",
+    "QUERY_BAD_RANGES_OUTPUT_RANGE",
+    "QUERY_DEPENDENT_VOLUME_REQUEST_FLAG_GUEST_VOLUMES",
+    "QUERY_DEPENDENT_VOLUME_REQUEST_FLAG_HOST_VOLUMES",
+    "QUERY_FILE_LAYOUT_FILTER_TYPE",
+    "QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS",
+    "QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID",
+    "QUERY_FILE_LAYOUT_FILTER_TYPE_NONE",
+    "QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID",
+    "QUERY_FILE_LAYOUT_INCLUDE_EXTENTS",
+    "QUERY_FILE_LAYOUT_INCLUDE_EXTRA_INFO",
+    "QUERY_FILE_LAYOUT_INCLUDE_FILES_WITH_DSC_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INCLUDE_FULL_PATH_IN_NAMES",
+    "QUERY_FILE_LAYOUT_INCLUDE_NAMES",
+    "QUERY_FILE_LAYOUT_INCLUDE_ONLY_FILES_WITH_SPECIFIC_ATTRIBUTES",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAMS",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAMS_WITH_NO_CLUSTERS_ALLOCATED",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DATA_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DSC_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EA_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EFS_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_REPARSE_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_TXF_ATTRIBUTE",
+    "QUERY_FILE_LAYOUT_INPUT",
+    "QUERY_FILE_LAYOUT_NUM_FILTER_TYPES",
+    "QUERY_FILE_LAYOUT_OUTPUT",
+    "QUERY_FILE_LAYOUT_REPARSE_DATA_INVALID",
+    "QUERY_FILE_LAYOUT_REPARSE_TAG_INVALID",
+    "QUERY_FILE_LAYOUT_RESTART",
+    "QUERY_FILE_LAYOUT_SINGLE_INSTANCED",
+    "QUERY_STORAGE_CLASSES_FLAGS_MEASURE_READ",
+    "QUERY_STORAGE_CLASSES_FLAGS_MEASURE_WRITE",
+    "QUERY_STORAGE_CLASSES_FLAGS_NO_DEFRAG_VOLUME",
+    "READ_ATTRIBUTES",
+    "READ_ATTRIBUTE_BUFFER_SIZE",
+    "READ_COMPRESSION_INFO_VALID",
+    "READ_COPY_NUMBER_BYPASS_CACHE_FLAG",
+    "READ_COPY_NUMBER_KEY",
+    "READ_ELEMENT_ADDRESS_INFO",
+    "READ_FILE_USN_DATA",
+    "READ_THRESHOLDS",
+    "READ_THRESHOLD_BUFFER_SIZE",
+    "READ_USN_JOURNAL_DATA_V0",
+    "READ_USN_JOURNAL_DATA_V1",
+    "REASSIGN_BLOCKS",
+    "REASSIGN_BLOCKS_EX",
+    "RECOVERED_READS_VALID",
+    "RECOVERED_WRITES_VALID",
     "REFS_SMR_VOLUME_GC_ACTION",
+    "REFS_SMR_VOLUME_GC_ACTION_SmrGcActionPause",
     "REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStart",
     "REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStartFullSpeed",
-    "REFS_SMR_VOLUME_GC_ACTION_SmrGcActionPause",
     "REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStop",
     "REFS_SMR_VOLUME_GC_METHOD",
     "REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompaction",
     "REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompression",
     "REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodRotation",
     "REFS_SMR_VOLUME_GC_PARAMETERS",
-    "STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER",
-    "STREAMS_ASSOCIATE_ID_INPUT_BUFFER",
-    "STREAMS_QUERY_ID_OUTPUT_BUFFER",
-    "QUERY_BAD_RANGES_INPUT_RANGE",
-    "QUERY_BAD_RANGES_INPUT",
-    "QUERY_BAD_RANGES_OUTPUT_RANGE",
-    "QUERY_BAD_RANGES_OUTPUT",
+    "REFS_SMR_VOLUME_GC_PARAMETERS_VERSION_V1",
+    "REFS_SMR_VOLUME_GC_STATE",
+    "REFS_SMR_VOLUME_GC_STATE_SmrGcStateActive",
+    "REFS_SMR_VOLUME_GC_STATE_SmrGcStateActiveFullSpeed",
+    "REFS_SMR_VOLUME_GC_STATE_SmrGcStateInactive",
+    "REFS_SMR_VOLUME_GC_STATE_SmrGcStatePaused",
+    "REFS_SMR_VOLUME_INFO_OUTPUT",
+    "REFS_SMR_VOLUME_INFO_OUTPUT_VERSION_V0",
+    "REFS_SMR_VOLUME_INFO_OUTPUT_VERSION_V1",
+    "REFS_VOLUME_DATA_BUFFER",
+    "REMOVE_ELEMENT_AND_TRUNCATE_REQUEST",
+    "REPAIR_COPIES_INPUT",
+    "REPAIR_COPIES_OUTPUT",
+    "REPLACE_ALTERNATE",
+    "REPLACE_PRIMARY",
+    "REQUEST_OPLOCK_CURRENT_VERSION",
+    "REQUEST_OPLOCK_INPUT_BUFFER",
+    "REQUEST_OPLOCK_INPUT_FLAG_ACK",
+    "REQUEST_OPLOCK_INPUT_FLAG_COMPLETE_ACK_ON_CLOSE",
+    "REQUEST_OPLOCK_INPUT_FLAG_REQUEST",
+    "REQUEST_OPLOCK_OUTPUT_BUFFER",
+    "REQUEST_OPLOCK_OUTPUT_FLAG_ACK_REQUIRED",
+    "REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED",
+    "REQUEST_RAW_ENCRYPTED_DATA",
+    "RETRACT_IEPORT",
+    "RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER",
+    "RETRIEVAL_POINTERS_BUFFER",
+    "RETRIEVAL_POINTER_BASE",
+    "RETRIEVAL_POINTER_COUNT",
+    "RETURN_SMART_STATUS",
+    "REVISION_LENGTH",
+    "SAVE_ATTRIBUTE_VALUES",
+    "SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO",
+    "SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO",
+    "SCM_BUS_DEDICATED_MEMORY_STATE",
+    "SCM_BUS_FIRMWARE_ACTIVATION_STATE",
+    "SCM_BUS_PROPERTY_ID",
+    "SCM_BUS_PROPERTY_QUERY",
+    "SCM_BUS_PROPERTY_SET",
+    "SCM_BUS_QUERY_TYPE",
+    "SCM_BUS_RUNTIME_FW_ACTIVATION_INFO",
+    "SCM_BUS_SET_TYPE",
+    "SCM_INTERLEAVED_PD_INFO",
+    "SCM_LD_INTERLEAVE_SET_INFO",
+    "SCM_LOGICAL_DEVICES",
+    "SCM_LOGICAL_DEVICE_INSTANCE",
+    "SCM_MAX_SYMLINK_LEN_IN_CHARS",
+    "SCM_PD_DESCRIPTOR_HEADER",
+    "SCM_PD_DEVICE_HANDLE",
+    "SCM_PD_DEVICE_INFO",
+    "SCM_PD_DEVICE_SPECIFIC_INFO",
+    "SCM_PD_DEVICE_SPECIFIC_PROPERTY",
+    "SCM_PD_FIRMWARE_ACTIVATE",
+    "SCM_PD_FIRMWARE_ACTIVATION_STATE",
+    "SCM_PD_FIRMWARE_DOWNLOAD",
+    "SCM_PD_FIRMWARE_INFO",
+    "SCM_PD_FIRMWARE_LAST_DOWNLOAD",
+    "SCM_PD_FIRMWARE_REVISION_LENGTH_BYTES",
+    "SCM_PD_FIRMWARE_SLOT_INFO",
+    "SCM_PD_FRU_ID_STRING",
+    "SCM_PD_HEALTH_NOTIFICATION_DATA",
+    "SCM_PD_HEALTH_STATUS",
+    "SCM_PD_LAST_FW_ACTIVATION_STATUS",
+    "SCM_PD_LOCATION_STRING",
+    "SCM_PD_MANAGEMENT_STATUS",
+    "SCM_PD_MAX_OPERATIONAL_STATUS",
+    "SCM_PD_MEDIA_REINITIALIZATION_STATUS",
+    "SCM_PD_OPERATIONAL_STATUS",
+    "SCM_PD_OPERATIONAL_STATUS_REASON",
+    "SCM_PD_PASSTHROUGH_INPUT",
+    "SCM_PD_PASSTHROUGH_INVDIMM_INPUT",
+    "SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT",
+    "SCM_PD_PASSTHROUGH_OUTPUT",
+    "SCM_PD_PROPERTY_ID",
+    "SCM_PD_PROPERTY_NAME_LENGTH_IN_CHARS",
+    "SCM_PD_PROPERTY_QUERY",
+    "SCM_PD_PROPERTY_SET",
+    "SCM_PD_QUERY_TYPE",
+    "SCM_PD_REINITIALIZE_MEDIA_INPUT",
+    "SCM_PD_REINITIALIZE_MEDIA_OUTPUT",
+    "SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE",
+    "SCM_PD_RUNTIME_FW_ACTIVATION_INFO",
+    "SCM_PD_SET_TYPE",
+    "SCM_PHYSICAL_DEVICES",
+    "SCM_PHYSICAL_DEVICE_INSTANCE",
+    "SCM_REGION",
+    "SCM_REGIONS",
+    "SCM_REGION_FLAG",
+    "SCM_REGION_FLAG_ScmRegionFlagLabel",
+    "SCM_REGION_FLAG_ScmRegionFlagNone",
+    "SD_CHANGE_MACHINE_SID_INPUT",
+    "SD_CHANGE_MACHINE_SID_OUTPUT",
+    "SD_ENUM_SDS_ENTRY",
+    "SD_ENUM_SDS_INPUT",
+    "SD_ENUM_SDS_OUTPUT",
+    "SD_GLOBAL_CHANGE_INPUT",
+    "SD_GLOBAL_CHANGE_OUTPUT",
+    "SD_GLOBAL_CHANGE_TYPE_ENUM_SDS",
+    "SD_GLOBAL_CHANGE_TYPE_MACHINE_SID",
+    "SD_GLOBAL_CHANGE_TYPE_QUERY_STATS",
+    "SD_QUERY_STATS_INPUT",
+    "SD_QUERY_STATS_OUTPUT",
+    "SEARCH_ALL",
+    "SEARCH_ALL_NO_SEQ",
+    "SEARCH_ALTERNATE",
+    "SEARCH_ALT_NO_SEQ",
+    "SEARCH_PRIMARY",
+    "SEARCH_PRI_NO_SEQ",
+    "SENDCMDINPARAMS",
+    "SENDCMDOUTPARAMS",
+    "SERIAL_NUMBER_LENGTH",
     "SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT",
-    "VIRTUAL_STORAGE_BEHAVIOR_CODE",
-    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorUndefined",
-    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteThrough",
-    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteBack",
-    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorStopIoProcessing",
-    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorRestartIoProcessing",
-    "VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT",
-    "ENCRYPTION_KEY_CTRL_INPUT",
-    "WOF_EXTERNAL_INFO",
-    "WOF_EXTERNAL_FILE_ID",
-    "WOF_VERSION_INFO",
-    "WIM_PROVIDER_EXTERNAL_INFO",
-    "WIM_PROVIDER_ADD_OVERLAY_INPUT",
-    "WIM_PROVIDER_UPDATE_OVERLAY_INPUT",
-    "WIM_PROVIDER_REMOVE_OVERLAY_INPUT",
-    "WIM_PROVIDER_SUSPEND_OVERLAY_INPUT",
-    "WIM_PROVIDER_OVERLAY_ENTRY",
-    "FILE_PROVIDER_EXTERNAL_INFO_V0",
-    "FILE_PROVIDER_EXTERNAL_INFO_V1",
-    "CONTAINER_VOLUME_STATE",
-    "CONTAINER_ROOT_INFO_INPUT",
-    "CONTAINER_ROOT_INFO_OUTPUT",
+    "SET_DISK_ATTRIBUTES",
+    "SET_PARTITION_INFORMATION",
+    "SET_PARTITION_INFORMATION_EX",
+    "SET_PURGE_FAILURE_MODE_DISABLED",
+    "SET_PURGE_FAILURE_MODE_ENABLED",
+    "SET_PURGE_FAILURE_MODE_INPUT",
+    "SET_REPAIR_DISABLED_AND_BUGCHECK_ON_CORRUPT",
+    "SET_REPAIR_ENABLED",
+    "SET_REPAIR_VALID_MASK",
+    "SET_REPAIR_WARN_ABOUT_DATA_LOSS",
+    "SHRINK_VOLUME_INFORMATION",
+    "SHRINK_VOLUME_REQUEST_TYPES",
+    "SHRINK_VOLUME_REQUEST_TYPES_ShrinkAbort",
+    "SHRINK_VOLUME_REQUEST_TYPES_ShrinkCommit",
+    "SHRINK_VOLUME_REQUEST_TYPES_ShrinkPrepare",
+    "SI_COPYFILE",
+    "SMART_ABORT_OFFLINE_SELFTEST",
+    "SMART_CMD",
+    "SMART_CYL_HI",
+    "SMART_CYL_LOW",
+    "SMART_ERROR_NO_MEM",
+    "SMART_EXTENDED_SELFTEST_CAPTIVE",
+    "SMART_EXTENDED_SELFTEST_OFFLINE",
+    "SMART_GET_VERSION",
+    "SMART_IDE_ERROR",
+    "SMART_INVALID_BUFFER",
+    "SMART_INVALID_COMMAND",
+    "SMART_INVALID_DRIVE",
+    "SMART_INVALID_FLAG",
+    "SMART_INVALID_IOCTL",
+    "SMART_INVALID_REGISTER",
+    "SMART_LOG_SECTOR_SIZE",
+    "SMART_NOT_SUPPORTED",
+    "SMART_NO_ERROR",
+    "SMART_NO_IDE_DEVICE",
+    "SMART_OFFLINE_ROUTINE_OFFLINE",
+    "SMART_RCV_DRIVE_DATA",
+    "SMART_RCV_DRIVE_DATA_EX",
+    "SMART_READ_LOG",
+    "SMART_SEND_DRIVE_COMMAND",
+    "SMART_SHORT_SELFTEST_CAPTIVE",
+    "SMART_SHORT_SELFTEST_OFFLINE",
+    "SMART_WRITE_LOG",
+    "SMB_SHARE_FLUSH_AND_PURGE_INPUT",
+    "SMB_SHARE_FLUSH_AND_PURGE_OUTPUT",
+    "SPACES_TRACKED_OFFSET_HEADER_FLAG",
+    "SRB_TYPE_SCSI_REQUEST_BLOCK",
+    "SRB_TYPE_STORAGE_REQUEST_BLOCK",
+    "STARTING_LCN_INPUT_BUFFER",
+    "STARTING_LCN_INPUT_BUFFER_EX",
+    "STARTING_VCN_INPUT_BUFFER",
+    "STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR",
+    "STORAGE_ADAPTER_DESCRIPTOR",
+    "STORAGE_ADAPTER_SERIAL_NUMBER",
+    "STORAGE_ADAPTER_SERIAL_NUMBER_V1_MAX_LENGTH",
+    "STORAGE_ADDRESS_TYPE_BTL8",
+    "STORAGE_ALLOCATE_BC_STREAM_INPUT",
+    "STORAGE_ALLOCATE_BC_STREAM_OUTPUT",
+    "STORAGE_ASSOCIATION_TYPE",
+    "STORAGE_ASSOCIATION_TYPE_StorageIdAssocDevice",
+    "STORAGE_ASSOCIATION_TYPE_StorageIdAssocPort",
+    "STORAGE_ASSOCIATION_TYPE_StorageIdAssocTarget",
+    "STORAGE_ATTRIBUTE_ASYNC_EVENT_NOTIFICATION",
+    "STORAGE_ATTRIBUTE_BLOCK_IO",
+    "STORAGE_ATTRIBUTE_BYTE_ADDRESSABLE_IO",
+    "STORAGE_ATTRIBUTE_DYNAMIC_PERSISTENCE",
+    "STORAGE_ATTRIBUTE_MGMT",
+    "STORAGE_ATTRIBUTE_MGMT_ACTION",
+    "STORAGE_ATTRIBUTE_PERF_SIZE_INDEPENDENT",
+    "STORAGE_ATTRIBUTE_VOLATILE",
+    "STORAGE_BREAK_RESERVATION_REQUEST",
+    "STORAGE_BUS_RESET_REQUEST",
+    "STORAGE_COMPONENT_HEALTH_STATUS",
+    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusDisabled",
+    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusFailed",
+    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusNormal",
+    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusThrottled",
+    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusUnknown",
+    "STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusWarning",
+    "STORAGE_COMPONENT_ROLE_CACHE",
+    "STORAGE_COMPONENT_ROLE_DATA",
+    "STORAGE_COMPONENT_ROLE_TIERING",
+    "STORAGE_COUNTER",
+    "STORAGE_COUNTERS",
+    "STORAGE_COUNTER_TYPE",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeFlushLatency100NSMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCount",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCountMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeManufactureDate",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypePowerOnHours",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsCorrected",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsTotal",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsUncorrected",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeReadLatency100NSMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCount",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCountMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsius",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsiusMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeUnknown",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentage",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageMax",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageWarning",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsCorrected",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsTotal",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsUncorrected",
+    "STORAGE_COUNTER_TYPE_StorageCounterTypeWriteLatency100NSMax",
+    "STORAGE_CRASH_TELEMETRY_REGKEY",
+    "STORAGE_CRYPTO_ALGORITHM_ID",
+    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmAESECB",
+    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmBitlockerAESCBC",
+    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmESSIVAESCBC",
+    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmMax",
+    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmUnknown",
+    "STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmXTSAES",
+    "STORAGE_CRYPTO_CAPABILITY",
+    "STORAGE_CRYPTO_CAPABILITY_VERSION_1",
+    "STORAGE_CRYPTO_DESCRIPTOR",
+    "STORAGE_CRYPTO_DESCRIPTOR_VERSION_1",
+    "STORAGE_CRYPTO_KEY_SIZE",
+    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize128Bits",
+    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize192Bits",
+    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize256Bits",
+    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize512Bits",
+    "STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySizeUnknown",
+    "STORAGE_DESCRIPTOR_HEADER",
+    "STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR",
+    "STORAGE_DEVICE_DESCRIPTOR",
+    "STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR",
+    "STORAGE_DEVICE_FLAGS_PAGE_83_DEVICEGUID",
+    "STORAGE_DEVICE_FLAGS_RANDOM_DEVICEGUID_REASON_CONFLICT",
+    "STORAGE_DEVICE_FLAGS_RANDOM_DEVICEGUID_REASON_NOHWID",
+    "STORAGE_DEVICE_FORM_FACTOR",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8Less",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactor2_5",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactor3_5",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactorDimm",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactorEmbedded",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactorM_2",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactorMemoryCard",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactorPCIeBoard",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactorUnknown",
+    "STORAGE_DEVICE_FORM_FACTOR_FormFactormSata",
+    "STORAGE_DEVICE_ID_DESCRIPTOR",
+    "STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR",
+    "STORAGE_DEVICE_LED_STATE_DESCRIPTOR",
+    "STORAGE_DEVICE_LOCATION_DESCRIPTOR",
+    "STORAGE_DEVICE_MANAGEMENT_STATUS",
+    "STORAGE_DEVICE_MAX_OPERATIONAL_STATUS",
+    "STORAGE_DEVICE_NUMA_NODE_UNKNOWN",
+    "STORAGE_DEVICE_NUMA_PROPERTY",
+    "STORAGE_DEVICE_NUMBER",
+    "STORAGE_DEVICE_NUMBERS",
+    "STORAGE_DEVICE_NUMBER_EX",
+    "STORAGE_DEVICE_POWER_CAP",
+    "STORAGE_DEVICE_POWER_CAP_UNITS",
+    "STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsMilliwatts",
+    "STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsPercent",
+    "STORAGE_DEVICE_POWER_CAP_VERSION_V1",
+    "STORAGE_DEVICE_RESILIENCY_DESCRIPTOR",
+    "STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY",
+    "STORAGE_DEVICE_TELEMETRY_REGKEY",
+    "STORAGE_DEVICE_TIERING_DESCRIPTOR",
+    "STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT",
+    "STORAGE_DIAGNOSTIC_DATA",
+    "STORAGE_DIAGNOSTIC_FLAG_ADAPTER_REQUEST",
+    "STORAGE_DIAGNOSTIC_LEVEL",
+    "STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelDefault",
+    "STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelMax",
+    "STORAGE_DIAGNOSTIC_REQUEST",
+    "STORAGE_DIAGNOSTIC_TARGET_TYPE",
+    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeHbaFirmware",
+    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMax",
+    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMiniport",
+    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypePort",
+    "STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeUndefined",
+    "STORAGE_DISK_HEALTH_STATUS",
+    "STORAGE_DISK_HEALTH_STATUS_DiskHealthHealthy",
+    "STORAGE_DISK_HEALTH_STATUS_DiskHealthMax",
+    "STORAGE_DISK_HEALTH_STATUS_DiskHealthUnhealthy",
+    "STORAGE_DISK_HEALTH_STATUS_DiskHealthUnknown",
+    "STORAGE_DISK_HEALTH_STATUS_DiskHealthWarning",
+    "STORAGE_DISK_OPERATIONAL_STATUS",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusHardwareError",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusInService",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusMissing",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNone",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNotUsable",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusOk",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusPredictingFailure",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusTransientError",
+    "STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusUnknown",
+    "STORAGE_EVENT_DEVICE_OPERATION",
+    "STORAGE_EVENT_DEVICE_STATUS",
+    "STORAGE_EVENT_MEDIA_STATUS",
+    "STORAGE_EVENT_NOTIFICATION",
+    "STORAGE_EVENT_NOTIFICATION_VERSION_V1",
+    "STORAGE_FAILURE_PREDICTION_CONFIG",
+    "STORAGE_FAILURE_PREDICTION_CONFIG_V1",
+    "STORAGE_FRU_ID_DESCRIPTOR",
+    "STORAGE_GET_BC_PROPERTIES_OUTPUT",
+    "STORAGE_HOTPLUG_INFO",
+    "STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR",
+    "STORAGE_HW_ENDURANCE_INFO",
+    "STORAGE_HW_FIRMWARE_ACTIVATE",
+    "STORAGE_HW_FIRMWARE_DOWNLOAD",
+    "STORAGE_HW_FIRMWARE_DOWNLOAD_V2",
+    "STORAGE_HW_FIRMWARE_INFO",
+    "STORAGE_HW_FIRMWARE_INFO_QUERY",
+    "STORAGE_HW_FIRMWARE_INVALID_SLOT",
+    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_CONTROLLER",
+    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_FIRST_SEGMENT",
+    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_LAST_SEGMENT",
+    "STORAGE_HW_FIRMWARE_REQUEST_FLAG_SWITCH_TO_EXISTING_FIRMWARE",
+    "STORAGE_HW_FIRMWARE_REVISION_LENGTH",
+    "STORAGE_HW_FIRMWARE_SLOT_INFO",
+    "STORAGE_IDENTIFIER",
+    "STORAGE_IDENTIFIER_CODE_SET",
+    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetAscii",
+    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetBinary",
+    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetReserved",
+    "STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetUtf8",
+    "STORAGE_IDENTIFIER_TYPE",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeEUI64",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeFCPHName",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeLogicalUnitGroup",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeMD5LogicalUnitIdentifier",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypePortRelative",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeScsiNameString",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeTargetPortGroup",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorId",
+    "STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorSpecific",
+    "STORAGE_IDLE_POWER",
+    "STORAGE_IDLE_POWERUP_REASON",
+    "STORAGE_IDLE_POWERUP_REASON_VERSION_V1",
+    "STORAGE_ID_NAA_FORMAT",
+    "STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended",
+    "STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended",
+    "STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered",
+    "STORAGE_LB_PROVISIONING_MAP_RESOURCES",
+    "STORAGE_MEDIA_SERIAL_NUMBER_DATA",
+    "STORAGE_MEDIA_TYPE",
+    "STORAGE_MEDIA_TYPE_ABL_5_WO",
+    "STORAGE_MEDIA_TYPE_ADR_1",
+    "STORAGE_MEDIA_TYPE_ADR_2",
+    "STORAGE_MEDIA_TYPE_AIT1_8mm",
+    "STORAGE_MEDIA_TYPE_AIT_8mm",
+    "STORAGE_MEDIA_TYPE_AME_8mm",
+    "STORAGE_MEDIA_TYPE_AVATAR_F2",
+    "STORAGE_MEDIA_TYPE_CD_R",
+    "STORAGE_MEDIA_TYPE_CD_ROM",
+    "STORAGE_MEDIA_TYPE_CD_RW",
+    "STORAGE_MEDIA_TYPE_CLEANER_CARTRIDGE",
+    "STORAGE_MEDIA_TYPE_CYGNET_12_WO",
+    "STORAGE_MEDIA_TYPE_DDS_4mm",
+    "STORAGE_MEDIA_TYPE_DLT",
+    "STORAGE_MEDIA_TYPE_DMI",
+    "STORAGE_MEDIA_TYPE_DST_L",
+    "STORAGE_MEDIA_TYPE_DST_M",
+    "STORAGE_MEDIA_TYPE_DST_S",
+    "STORAGE_MEDIA_TYPE_DVD_R",
+    "STORAGE_MEDIA_TYPE_DVD_RAM",
+    "STORAGE_MEDIA_TYPE_DVD_ROM",
+    "STORAGE_MEDIA_TYPE_DVD_RW",
+    "STORAGE_MEDIA_TYPE_DV_6mm",
+    "STORAGE_MEDIA_TYPE_HITACHI_12_WO",
+    "STORAGE_MEDIA_TYPE_IBM_3480",
+    "STORAGE_MEDIA_TYPE_IBM_3490E",
+    "STORAGE_MEDIA_TYPE_IBM_Magstar_3590",
+    "STORAGE_MEDIA_TYPE_IBM_Magstar_MP",
+    "STORAGE_MEDIA_TYPE_IOMEGA_JAZ",
+    "STORAGE_MEDIA_TYPE_IOMEGA_ZIP",
+    "STORAGE_MEDIA_TYPE_KODAK_14_WO",
+    "STORAGE_MEDIA_TYPE_LTO_Accelis",
+    "STORAGE_MEDIA_TYPE_LTO_Ultrium",
+    "STORAGE_MEDIA_TYPE_MO_3_RW",
+    "STORAGE_MEDIA_TYPE_MO_5_LIMDOW",
+    "STORAGE_MEDIA_TYPE_MO_5_RW",
+    "STORAGE_MEDIA_TYPE_MO_5_WO",
+    "STORAGE_MEDIA_TYPE_MO_NFR_525",
+    "STORAGE_MEDIA_TYPE_MP2_8mm",
+    "STORAGE_MEDIA_TYPE_MP_8mm",
+    "STORAGE_MEDIA_TYPE_MiniQic",
+    "STORAGE_MEDIA_TYPE_NCTP",
+    "STORAGE_MEDIA_TYPE_NIKON_12_RW",
+    "STORAGE_MEDIA_TYPE_PC_5_RW",
+    "STORAGE_MEDIA_TYPE_PC_5_WO",
+    "STORAGE_MEDIA_TYPE_PD_5_RW",
+    "STORAGE_MEDIA_TYPE_PHILIPS_12_WO",
+    "STORAGE_MEDIA_TYPE_PINNACLE_APEX_5_RW",
+    "STORAGE_MEDIA_TYPE_QIC",
+    "STORAGE_MEDIA_TYPE_SAIT",
+    "STORAGE_MEDIA_TYPE_SONY_12_WO",
+    "STORAGE_MEDIA_TYPE_SONY_D2",
+    "STORAGE_MEDIA_TYPE_SONY_DTF",
+    "STORAGE_MEDIA_TYPE_STK_9840",
+    "STORAGE_MEDIA_TYPE_STK_9940",
+    "STORAGE_MEDIA_TYPE_STK_DATA_D3",
+    "STORAGE_MEDIA_TYPE_SYQUEST_EZ135",
+    "STORAGE_MEDIA_TYPE_SYQUEST_EZFLYER",
+    "STORAGE_MEDIA_TYPE_SYQUEST_SYJET",
+    "STORAGE_MEDIA_TYPE_Travan",
+    "STORAGE_MEDIA_TYPE_VXATape",
+    "STORAGE_MEDIA_TYPE_VXATape_1",
+    "STORAGE_MEDIA_TYPE_VXATape_2",
+    "STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR",
+    "STORAGE_MINIPORT_DESCRIPTOR",
+    "STORAGE_OFFLOAD_MAX_TOKEN_LENGTH",
+    "STORAGE_OFFLOAD_READ_OUTPUT",
+    "STORAGE_OFFLOAD_READ_RANGE_TRUNCATED",
+    "STORAGE_OFFLOAD_TOKEN",
+    "STORAGE_OFFLOAD_TOKEN_ID_LENGTH",
+    "STORAGE_OFFLOAD_TOKEN_INVALID",
+    "STORAGE_OFFLOAD_TOKEN_TYPE_ZERO_DATA",
+    "STORAGE_OFFLOAD_WRITE_OUTPUT",
+    "STORAGE_OFFLOAD_WRITE_RANGE_TRUNCATED",
+    "STORAGE_OPERATIONAL_REASON",
+    "STORAGE_OPERATIONAL_STATUS_REASON",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonBackgroundOperation",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonComponent",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonConfiguration",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDataPersistenceLossImminent",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDeviceController",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDisabledByPlatform",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonEnergySource",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonHealthCheck",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonInvalidFirmware",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonIo",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostData",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostDataPersistence",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostWritePersistence",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMax",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMedia",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMediaController",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonNVDIMM_N",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonScsiSenseCode",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonThresholdExceeded",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonUnknown",
+    "STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonWritePersistenceLossImminent",
+    "STORAGE_PHYSICAL_ADAPTER_DATA",
+    "STORAGE_PHYSICAL_DEVICE_DATA",
+    "STORAGE_PHYSICAL_NODE_DATA",
+    "STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR",
+    "STORAGE_PORT_CODE_SET",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetATAport",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetReserved",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSBP2port",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSCSIport",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSDport",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetSpaceport",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetStorport",
+    "STORAGE_PORT_CODE_SET_StoragePortCodeSetUSBport",
+    "STORAGE_POWERUP_REASON_TYPE",
+    "STORAGE_POWERUP_REASON_TYPE_StoragePowerupDeviceAttention",
+    "STORAGE_POWERUP_REASON_TYPE_StoragePowerupIO",
+    "STORAGE_POWERUP_REASON_TYPE_StoragePowerupUnknown",
+    "STORAGE_PREDICT_FAILURE",
+    "STORAGE_PRIORITY_HINT_SUPPORT",
+    "STORAGE_PRIORITY_HINT_SUPPORTED",
+    "STORAGE_PROPERTY_ID",
+    "STORAGE_PROPERTY_ID_StorageAccessAlignmentProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterCryptoProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterPhysicalTopologyProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterProtocolSpecificProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterRpmbProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterSerialNumberProperty",
+    "STORAGE_PROPERTY_ID_StorageAdapterTemperatureProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceAttributesProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceCopyOffloadProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceDeviceTelemetryProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceEnduranceProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceIdProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceIoCapabilityProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceLBProvisioningProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceLedStateProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceLocationProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceManagementStatus",
+    "STORAGE_PROPERTY_ID_StorageDeviceMediumProductType",
+    "STORAGE_PROPERTY_ID_StorageDeviceNumaProperty",
+    "STORAGE_PROPERTY_ID_StorageDevicePhysicalTopologyProperty",
+    "STORAGE_PROPERTY_ID_StorageDevicePowerProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceProtocolSpecificProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceResiliencyProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceSeekPenaltyProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceSelfEncryptionProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceTemperatureProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceTrimProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceUniqueIdProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceUnsafeShutdownCount",
+    "STORAGE_PROPERTY_ID_StorageDeviceWriteAggregationProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceWriteCacheProperty",
+    "STORAGE_PROPERTY_ID_StorageDeviceZonedDeviceProperty",
+    "STORAGE_PROPERTY_ID_StorageFruIdProperty",
+    "STORAGE_PROPERTY_ID_StorageMiniportProperty",
+    "STORAGE_PROPERTY_QUERY",
+    "STORAGE_PROPERTY_SET",
+    "STORAGE_PROTOCOL_ATA_DATA_TYPE",
+    "STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeIdentify",
+    "STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeLogPage",
+    "STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeUnknown",
+    "STORAGE_PROTOCOL_COMMAND",
+    "STORAGE_PROTOCOL_COMMAND_FLAG_ADAPTER_REQUEST",
+    "STORAGE_PROTOCOL_COMMAND_LENGTH_NVME",
+    "STORAGE_PROTOCOL_DATA_DESCRIPTOR",
+    "STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT",
+    "STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE",
+    "STORAGE_PROTOCOL_NVME_DATA_TYPE",
+    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeFeature",
+    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeIdentify",
+    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeLogPage",
+    "STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeUnknown",
+    "STORAGE_PROTOCOL_SPECIFIC_DATA",
+    "STORAGE_PROTOCOL_SPECIFIC_DATA_EXT",
+    "STORAGE_PROTOCOL_SPECIFIC_NVME_ADMIN_COMMAND",
+    "STORAGE_PROTOCOL_SPECIFIC_NVME_NVM_COMMAND",
+    "STORAGE_PROTOCOL_STATUS_BUSY",
+    "STORAGE_PROTOCOL_STATUS_DATA_OVERRUN",
+    "STORAGE_PROTOCOL_STATUS_ERROR",
+    "STORAGE_PROTOCOL_STATUS_INSUFFICIENT_RESOURCES",
+    "STORAGE_PROTOCOL_STATUS_INVALID_REQUEST",
+    "STORAGE_PROTOCOL_STATUS_NOT_SUPPORTED",
+    "STORAGE_PROTOCOL_STATUS_NO_DEVICE",
+    "STORAGE_PROTOCOL_STATUS_PENDING",
+    "STORAGE_PROTOCOL_STATUS_SUCCESS",
+    "STORAGE_PROTOCOL_STATUS_THROTTLED_REQUEST",
+    "STORAGE_PROTOCOL_STRUCTURE_VERSION",
+    "STORAGE_PROTOCOL_TYPE",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeAta",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeMaxReserved",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeNvme",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeProprietary",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeScsi",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeSd",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeUfs",
+    "STORAGE_PROTOCOL_TYPE_ProtocolTypeUnknown",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeMax",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryAttribute",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDescriptor",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmeAttribute",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmePeerAttribute",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryFlag",
+    "STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeUnknown",
+    "STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY",
+    "STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY",
+    "STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST",
+    "STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE",
+    "STORAGE_QUERY_TYPE",
+    "STORAGE_QUERY_TYPE_PropertyExistsQuery",
+    "STORAGE_QUERY_TYPE_PropertyMaskQuery",
+    "STORAGE_QUERY_TYPE_PropertyQueryMaxDefined",
+    "STORAGE_QUERY_TYPE_PropertyStandardQuery",
+    "STORAGE_READ_CAPACITY",
+    "STORAGE_REINITIALIZE_MEDIA",
+    "STORAGE_RESERVE_ID",
+    "STORAGE_RESERVE_ID_StorageReserveIdHard",
+    "STORAGE_RESERVE_ID_StorageReserveIdMax",
+    "STORAGE_RESERVE_ID_StorageReserveIdNone",
+    "STORAGE_RESERVE_ID_StorageReserveIdSoft",
+    "STORAGE_RESERVE_ID_StorageReserveIdUpdateScratch",
+    "STORAGE_RPMB_COMMAND_TYPE",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigRead",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigWrite",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedRead",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedWrite",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbProgramAuthKey",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbQueryWriteCounter",
+    "STORAGE_RPMB_COMMAND_TYPE_StorRpmbReadResultRequest",
+    "STORAGE_RPMB_DATA_FRAME",
+    "STORAGE_RPMB_DESCRIPTOR",
+    "STORAGE_RPMB_DESCRIPTOR_VERSION_1",
+    "STORAGE_RPMB_FRAME_TYPE",
+    "STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeMax",
+    "STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeStandard",
+    "STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeUnknown",
+    "STORAGE_RPMB_MINIMUM_RELIABLE_WRITE_SIZE",
+    "STORAGE_SANITIZE_METHOD",
+    "STORAGE_SANITIZE_METHOD_StorageSanitizeMethodBlockErase",
+    "STORAGE_SANITIZE_METHOD_StorageSanitizeMethodCryptoErase",
+    "STORAGE_SANITIZE_METHOD_StorageSanitizeMethodDefault",
+    "STORAGE_SET_TYPE",
+    "STORAGE_SET_TYPE_PropertyExistsSet",
+    "STORAGE_SET_TYPE_PropertySetMaxDefined",
+    "STORAGE_SET_TYPE_PropertyStandardSet",
+    "STORAGE_SPEC_VERSION",
+    "STORAGE_SUPPORTED_FEATURES_BYPASS_IO",
+    "STORAGE_SUPPORTED_FEATURES_MASK",
+    "STORAGE_TEMPERATURE_DATA_DESCRIPTOR",
+    "STORAGE_TEMPERATURE_INFO",
+    "STORAGE_TEMPERATURE_THRESHOLD",
+    "STORAGE_TEMPERATURE_THRESHOLD_FLAG_ADAPTER_REQUEST",
+    "STORAGE_TEMPERATURE_VALUE_NOT_REPORTED",
+    "STORAGE_TIER",
+    "STORAGE_TIER_CLASS",
+    "STORAGE_TIER_CLASS_StorageTierClassCapacity",
+    "STORAGE_TIER_CLASS_StorageTierClassMax",
+    "STORAGE_TIER_CLASS_StorageTierClassPerformance",
+    "STORAGE_TIER_CLASS_StorageTierClassUnspecified",
+    "STORAGE_TIER_DESCRIPTION_LENGTH",
+    "STORAGE_TIER_FLAG_NO_SEEK_PENALTY",
+    "STORAGE_TIER_FLAG_PARITY",
+    "STORAGE_TIER_FLAG_READ_CACHE",
+    "STORAGE_TIER_FLAG_SMR",
+    "STORAGE_TIER_FLAG_WRITE_BACK_CACHE",
+    "STORAGE_TIER_MEDIA_TYPE",
+    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeDisk",
+    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeMax",
+    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeScm",
+    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeSsd",
+    "STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeUnspecified",
+    "STORAGE_TIER_NAME_LENGTH",
+    "STORAGE_TIER_REGION",
+    "STORAGE_WRITE_CACHE_PROPERTY",
+    "STORAGE_ZONED_DEVICE_DESCRIPTOR",
+    "STORAGE_ZONED_DEVICE_TYPES",
+    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeDeviceManaged",
+    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostAware",
+    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostManaged",
+    "STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeUnknown",
+    "STORAGE_ZONES_ATTRIBUTES",
+    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeAndLengthMayDifferent",
+    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeMayDifferentLengthSame",
+    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLastZoneLengthDifferent",
+    "STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLengthSame",
+    "STORAGE_ZONE_CONDITION",
+    "STORAGE_ZONE_CONDITION_ZoneConditionClosed",
+    "STORAGE_ZONE_CONDITION_ZoneConditionConventional",
+    "STORAGE_ZONE_CONDITION_ZoneConditionEmpty",
+    "STORAGE_ZONE_CONDITION_ZoneConditionExplicitlyOpened",
+    "STORAGE_ZONE_CONDITION_ZoneConditionFull",
+    "STORAGE_ZONE_CONDITION_ZoneConditionImplicitlyOpened",
+    "STORAGE_ZONE_CONDITION_ZoneConditionOffline",
+    "STORAGE_ZONE_CONDITION_ZoneConditionReadOnly",
+    "STORAGE_ZONE_DESCRIPTOR",
+    "STORAGE_ZONE_GROUP",
+    "STORAGE_ZONE_TYPES",
+    "STORAGE_ZONE_TYPES_ZoneTypeConventional",
+    "STORAGE_ZONE_TYPES_ZoneTypeMax",
+    "STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred",
+    "STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired",
+    "STORAGE_ZONE_TYPES_ZoneTypeUnknown",
+    "STORATTRIBUTE_MANAGEMENT_STATE",
+    "STORATTRIBUTE_NONE",
+    "STREAMS_ASSOCIATE_ID_CLEAR",
+    "STREAMS_ASSOCIATE_ID_INPUT_BUFFER",
+    "STREAMS_ASSOCIATE_ID_SET",
+    "STREAMS_INVALID_ID",
+    "STREAMS_MAX_ID",
+    "STREAMS_QUERY_ID_OUTPUT_BUFFER",
+    "STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER",
+    "STREAM_CLEAR_ENCRYPTION",
+    "STREAM_EXTENT_ENTRY",
+    "STREAM_EXTENT_ENTRY_ALL_EXTENTS",
+    "STREAM_EXTENT_ENTRY_AS_RETRIEVAL_POINTERS",
+    "STREAM_INFORMATION_ENTRY",
+    "STREAM_LAYOUT_ENTRY",
+    "STREAM_LAYOUT_ENTRY_HAS_INFORMATION",
+    "STREAM_LAYOUT_ENTRY_IMMOVABLE",
+    "STREAM_LAYOUT_ENTRY_NO_CLUSTERS_ALLOCATED",
+    "STREAM_LAYOUT_ENTRY_PINNED",
+    "STREAM_LAYOUT_ENTRY_RESIDENT",
+    "STREAM_SET_ENCRYPTION",
+    "ScmBusFirmwareActivationState_Armed",
+    "ScmBusFirmwareActivationState_Busy",
+    "ScmBusFirmwareActivationState_Idle",
+    "ScmBusProperty_DedicatedMemoryInfo",
+    "ScmBusProperty_DedicatedMemoryState",
+    "ScmBusProperty_Max",
+    "ScmBusProperty_RuntimeFwActivationInfo",
+    "ScmBusQuery_Descriptor",
+    "ScmBusQuery_IsSupported",
+    "ScmBusQuery_Max",
+    "ScmBusSet_Descriptor",
+    "ScmBusSet_IsSupported",
+    "ScmBusSet_Max",
+    "ScmPdFirmwareActivationState_Armed",
+    "ScmPdFirmwareActivationState_Busy",
+    "ScmPdFirmwareActivationState_Idle",
+    "ScmPdLastFwActivaitonStatus_ActivationInProgress",
+    "ScmPdLastFwActivaitonStatus_FwUnsupported",
+    "ScmPdLastFwActivaitonStatus_Retry",
+    "ScmPdLastFwActivaitonStatus_UnknownError",
+    "ScmPdLastFwActivationStatus_ColdRebootRequired",
+    "ScmPdLastFwActivationStatus_FwNotFound",
+    "ScmPdLastFwActivationStatus_None",
+    "ScmPdLastFwActivationStatus_Success",
+    "ScmPhysicalDeviceHealth_Healthy",
+    "ScmPhysicalDeviceHealth_Max",
+    "ScmPhysicalDeviceHealth_Unhealthy",
+    "ScmPhysicalDeviceHealth_Unknown",
+    "ScmPhysicalDeviceHealth_Warning",
+    "ScmPhysicalDeviceOpReason_BackgroundOperation",
+    "ScmPhysicalDeviceOpReason_Component",
+    "ScmPhysicalDeviceOpReason_Configuration",
+    "ScmPhysicalDeviceOpReason_DataPersistenceLossImminent",
+    "ScmPhysicalDeviceOpReason_DeviceController",
+    "ScmPhysicalDeviceOpReason_DisabledByPlatform",
+    "ScmPhysicalDeviceOpReason_EnergySource",
+    "ScmPhysicalDeviceOpReason_ExcessiveTemperature",
+    "ScmPhysicalDeviceOpReason_FatalError",
+    "ScmPhysicalDeviceOpReason_HealthCheck",
+    "ScmPhysicalDeviceOpReason_InternalFailure",
+    "ScmPhysicalDeviceOpReason_InvalidFirmware",
+    "ScmPhysicalDeviceOpReason_LostData",
+    "ScmPhysicalDeviceOpReason_LostDataPersistence",
+    "ScmPhysicalDeviceOpReason_LostWritePersistence",
+    "ScmPhysicalDeviceOpReason_Max",
+    "ScmPhysicalDeviceOpReason_Media",
+    "ScmPhysicalDeviceOpReason_MediaController",
+    "ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock",
+    "ScmPhysicalDeviceOpReason_PerformanceDegradation",
+    "ScmPhysicalDeviceOpReason_PermanentError",
+    "ScmPhysicalDeviceOpReason_ThresholdExceeded",
+    "ScmPhysicalDeviceOpReason_Unknown",
+    "ScmPhysicalDeviceOpReason_WritePersistenceLossImminent",
+    "ScmPhysicalDeviceOpStatus_HardwareError",
+    "ScmPhysicalDeviceOpStatus_InService",
+    "ScmPhysicalDeviceOpStatus_Max",
+    "ScmPhysicalDeviceOpStatus_Missing",
+    "ScmPhysicalDeviceOpStatus_NotUsable",
+    "ScmPhysicalDeviceOpStatus_Ok",
+    "ScmPhysicalDeviceOpStatus_PredictingFailure",
+    "ScmPhysicalDeviceOpStatus_TransientError",
+    "ScmPhysicalDeviceOpStatus_Unknown",
+    "ScmPhysicalDeviceProperty_DeviceHandle",
+    "ScmPhysicalDeviceProperty_DeviceInfo",
+    "ScmPhysicalDeviceProperty_DeviceSpecificInfo",
+    "ScmPhysicalDeviceProperty_FirmwareInfo",
+    "ScmPhysicalDeviceProperty_FruIdString",
+    "ScmPhysicalDeviceProperty_LocationString",
+    "ScmPhysicalDeviceProperty_ManagementStatus",
+    "ScmPhysicalDeviceProperty_Max",
+    "ScmPhysicalDeviceProperty_RuntimeFwActivationArmState",
+    "ScmPhysicalDeviceProperty_RuntimeFwActivationInfo",
+    "ScmPhysicalDeviceQuery_Descriptor",
+    "ScmPhysicalDeviceQuery_IsSupported",
+    "ScmPhysicalDeviceQuery_Max",
+    "ScmPhysicalDeviceReinit_ColdBootNeeded",
+    "ScmPhysicalDeviceReinit_Max",
+    "ScmPhysicalDeviceReinit_RebootNeeded",
+    "ScmPhysicalDeviceReinit_Success",
+    "ScmPhysicalDeviceSet_Descriptor",
+    "ScmPhysicalDeviceSet_IsSupported",
+    "ScmPhysicalDeviceSet_Max",
+    "StorAttributeMgmt_ClearAttribute",
+    "StorAttributeMgmt_ResetAttribute",
+    "StorAttributeMgmt_SetAttribute",
+    "TAPE_GET_STATISTICS",
+    "TAPE_RESET_STATISTICS",
+    "TAPE_RETURN_ENV_INFO",
+    "TAPE_RETURN_STATISTICS",
+    "TAPE_STATISTICS",
+    "TC_DEVICEDUMP_SUBSECTION_DESC_LENGTH",
+    "TC_PUBLIC_DATA_TYPE_ATAGP",
+    "TC_PUBLIC_DATA_TYPE_ATASMART",
+    "TC_PUBLIC_DEVICEDUMP_CONTENT_GPLOG",
+    "TC_PUBLIC_DEVICEDUMP_CONTENT_GPLOG_MAX",
+    "TC_PUBLIC_DEVICEDUMP_CONTENT_SMART",
+    "TELEMETRY_COMMAND_SIZE",
+    "TXFS_CREATE_MINIVERSION_INFO",
+    "TXFS_GET_METADATA_INFO_OUT",
+    "TXFS_GET_TRANSACTED_VERSION",
+    "TXFS_LIST_TRANSACTIONS",
+    "TXFS_LIST_TRANSACTIONS_ENTRY",
+    "TXFS_LIST_TRANSACTION_LOCKED_FILES",
+    "TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY",
+    "TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_FLAG_CREATED",
+    "TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY_FLAG_DELETED",
+    "TXFS_LOGGING_MODE_FULL",
+    "TXFS_LOGGING_MODE_SIMPLE",
+    "TXFS_MODIFY_RM",
+    "TXFS_QUERY_RM_INFORMATION",
+    "TXFS_READ_BACKUP_INFORMATION_OUT",
+    "TXFS_RMF_LAGS",
+    "TXFS_RM_FLAG_DO_NOT_RESET_RM_AT_NEXT_START",
+    "TXFS_RM_FLAG_ENFORCE_MINIMUM_SIZE",
+    "TXFS_RM_FLAG_GROW_LOG",
+    "TXFS_RM_FLAG_LOGGING_MODE",
+    "TXFS_RM_FLAG_LOG_AUTO_SHRINK_PERCENTAGE",
+    "TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MAX",
+    "TXFS_RM_FLAG_LOG_CONTAINER_COUNT_MIN",
+    "TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_NUM_CONTAINERS",
+    "TXFS_RM_FLAG_LOG_GROWTH_INCREMENT_PERCENT",
+    "TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MAX",
+    "TXFS_RM_FLAG_LOG_NO_CONTAINER_COUNT_MIN",
+    "TXFS_RM_FLAG_PREFER_AVAILABILITY",
+    "TXFS_RM_FLAG_PREFER_CONSISTENCY",
+    "TXFS_RM_FLAG_PRESERVE_CHANGES",
+    "TXFS_RM_FLAG_RENAME_RM",
+    "TXFS_RM_FLAG_RESET_RM_AT_NEXT_START",
+    "TXFS_RM_FLAG_SHRINK_LOG",
+    "TXFS_RM_STATE_ACTIVE",
+    "TXFS_RM_STATE_NOT_STARTED",
+    "TXFS_RM_STATE_SHUTTING_DOWN",
+    "TXFS_RM_STATE_STARTING",
+    "TXFS_ROLLFORWARD_REDO_FLAG_USE_LAST_REDO_LSN",
+    "TXFS_ROLLFORWARD_REDO_FLAG_USE_LAST_VIRTUAL_CLOCK",
+    "TXFS_ROLLFORWARD_REDO_INFORMATION",
+    "TXFS_SAVEPOINT_CLEAR",
+    "TXFS_SAVEPOINT_CLEAR_ALL",
+    "TXFS_SAVEPOINT_INFORMATION",
+    "TXFS_SAVEPOINT_ROLLBACK",
+    "TXFS_SAVEPOINT_SET",
+    "TXFS_START_RM_FLAG_LOGGING_MODE",
+    "TXFS_START_RM_FLAG_LOG_AUTO_SHRINK_PERCENTAGE",
+    "TXFS_START_RM_FLAG_LOG_CONTAINER_COUNT_MAX",
+    "TXFS_START_RM_FLAG_LOG_CONTAINER_COUNT_MIN",
+    "TXFS_START_RM_FLAG_LOG_CONTAINER_SIZE",
+    "TXFS_START_RM_FLAG_LOG_GROWTH_INCREMENT_NUM_CONTAINERS",
+    "TXFS_START_RM_FLAG_LOG_GROWTH_INCREMENT_PERCENT",
+    "TXFS_START_RM_FLAG_LOG_NO_CONTAINER_COUNT_MAX",
+    "TXFS_START_RM_FLAG_LOG_NO_CONTAINER_COUNT_MIN",
+    "TXFS_START_RM_FLAG_PREFER_AVAILABILITY",
+    "TXFS_START_RM_FLAG_PREFER_CONSISTENCY",
+    "TXFS_START_RM_FLAG_PRESERVE_CHANGES",
+    "TXFS_START_RM_FLAG_RECOVER_BEST_EFFORT",
+    "TXFS_START_RM_INFORMATION",
+    "TXFS_TRANSACTED_VERSION_NONTRANSACTED",
+    "TXFS_TRANSACTED_VERSION_UNCOMMITTED",
+    "TXFS_TRANSACTION_ACTIVE_INFO",
+    "TXFS_TRANSACTION_STATE_ACTIVE",
+    "TXFS_TRANSACTION_STATE_NONE",
+    "TXFS_TRANSACTION_STATE_NOTACTIVE",
+    "TXFS_TRANSACTION_STATE_PREPARED",
+    "TXFS_WRITE_BACKUP_INFORMATION",
+    "UNDEFINE_ALTERNATE",
+    "UNDEFINE_PRIMARY",
+    "UNLOCK_ELEMENT",
+    "UNRECOVERED_READS_VALID",
+    "UNRECOVERED_WRITES_VALID",
+    "USN_DELETE_FLAGS",
+    "USN_DELETE_FLAG_DELETE",
+    "USN_DELETE_FLAG_NOTIFY",
+    "USN_DELETE_VALID_FLAGS",
+    "USN_JOURNAL_DATA_V0",
+    "USN_JOURNAL_DATA_V1",
+    "USN_JOURNAL_DATA_V2",
+    "USN_PAGE_SIZE",
+    "USN_RANGE_TRACK_OUTPUT",
+    "USN_REASON_BASIC_INFO_CHANGE",
+    "USN_REASON_CLOSE",
+    "USN_REASON_COMPRESSION_CHANGE",
+    "USN_REASON_DATA_EXTEND",
+    "USN_REASON_DATA_OVERWRITE",
+    "USN_REASON_DATA_TRUNCATION",
+    "USN_REASON_DESIRED_STORAGE_CLASS_CHANGE",
+    "USN_REASON_EA_CHANGE",
+    "USN_REASON_ENCRYPTION_CHANGE",
+    "USN_REASON_FILE_CREATE",
+    "USN_REASON_FILE_DELETE",
+    "USN_REASON_HARD_LINK_CHANGE",
+    "USN_REASON_INDEXABLE_CHANGE",
+    "USN_REASON_INTEGRITY_CHANGE",
+    "USN_REASON_NAMED_DATA_EXTEND",
+    "USN_REASON_NAMED_DATA_OVERWRITE",
+    "USN_REASON_NAMED_DATA_TRUNCATION",
+    "USN_REASON_OBJECT_ID_CHANGE",
+    "USN_REASON_RENAME_NEW_NAME",
+    "USN_REASON_RENAME_OLD_NAME",
+    "USN_REASON_REPARSE_POINT_CHANGE",
+    "USN_REASON_SECURITY_CHANGE",
+    "USN_REASON_STREAM_CHANGE",
+    "USN_REASON_TRANSACTED_CHANGE",
+    "USN_RECORD_COMMON_HEADER",
+    "USN_RECORD_EXTENT",
+    "USN_RECORD_UNION",
+    "USN_RECORD_V2",
+    "USN_RECORD_V3",
+    "USN_RECORD_V4",
+    "USN_SOURCE_AUXILIARY_DATA",
+    "USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT",
+    "USN_SOURCE_DATA_MANAGEMENT",
+    "USN_SOURCE_INFO_ID",
+    "USN_SOURCE_REPLICATION_MANAGEMENT",
+    "USN_TRACK_MODIFIED_RANGES",
+    "VALID_NTFT",
+    "VENDOR_ID_LENGTH",
+    "VERIFY_INFORMATION",
     "VIRTUALIZATION_INSTANCE_INFO_INPUT",
     "VIRTUALIZATION_INSTANCE_INFO_INPUT_EX",
     "VIRTUALIZATION_INSTANCE_INFO_OUTPUT",
-    "GET_FILTER_FILE_IDENTIFIER_INPUT",
-    "GET_FILTER_FILE_IDENTIFIER_OUTPUT",
-    "FS_BPIO_OPERATIONS",
-    "FS_BPIO_OP_ENABLE",
-    "FS_BPIO_OP_DISABLE",
-    "FS_BPIO_OP_QUERY",
-    "FS_BPIO_OP_VOLUME_STACK_PAUSE",
-    "FS_BPIO_OP_VOLUME_STACK_RESUME",
-    "FS_BPIO_OP_STREAM_PAUSE",
-    "FS_BPIO_OP_STREAM_RESUME",
-    "FS_BPIO_OP_GET_INFO",
-    "FS_BPIO_OP_MAX_OPERATION",
-    "FS_BPIO_INFLAGS",
-    "FSBPIO_INFL_None",
-    "FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY",
-    "FS_BPIO_INPUT",
-    "FS_BPIO_OUTFLAGS",
-    "FSBPIO_OUTFL_None",
-    "FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED",
-    "FSBPIO_OUTFL_STREAM_BYPASS_PAUSED",
-    "FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED",
-    "FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER",
-    "FS_BPIO_RESULTS",
-    "FS_BPIO_INFO",
-    "FS_BPIO_OUTPUT",
-    "SMB_SHARE_FLUSH_AND_PURGE_INPUT",
-    "SMB_SHARE_FLUSH_AND_PURGE_OUTPUT",
-    "DISK_EXTENT",
+    "VIRTUAL_STORAGE_BEHAVIOR_CODE",
+    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteBack",
+    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteThrough",
+    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorRestartIoProcessing",
+    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorStopIoProcessing",
+    "VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorUndefined",
+    "VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT",
+    "VOLUME_BITMAP_BUFFER",
     "VOLUME_DISK_EXTENTS",
     "VOLUME_GET_GPT_ATTRIBUTES_INFORMATION",
-    "PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK",
-    "IO_IRP_EXT_TRACK_OFFSET_HEADER",
+    "VOLUME_IS_DIRTY",
+    "VOLUME_SESSION_OPEN",
+    "VOLUME_UPGRADE_SCHEDULED",
+    "WIM_PROVIDER_ADD_OVERLAY_INPUT",
+    "WIM_PROVIDER_CURRENT_VERSION",
+    "WIM_PROVIDER_EXTERNAL_FLAG_NOT_ACTIVE",
+    "WIM_PROVIDER_EXTERNAL_FLAG_SUSPENDED",
+    "WIM_PROVIDER_EXTERNAL_INFO",
+    "WIM_PROVIDER_OVERLAY_ENTRY",
+    "WIM_PROVIDER_REMOVE_OVERLAY_INPUT",
+    "WIM_PROVIDER_SUSPEND_OVERLAY_INPUT",
+    "WIM_PROVIDER_UPDATE_OVERLAY_INPUT",
+    "WOF_CURRENT_VERSION",
+    "WOF_EXTERNAL_FILE_ID",
+    "WOF_EXTERNAL_INFO",
+    "WOF_PROVIDER_CLOUD",
+    "WOF_VERSION_INFO",
+    "WRITE_CACHE_CHANGE",
+    "WRITE_CACHE_CHANGE_WriteCacheChangeUnknown",
+    "WRITE_CACHE_CHANGE_WriteCacheChangeable",
+    "WRITE_CACHE_CHANGE_WriteCacheNotChangeable",
+    "WRITE_CACHE_ENABLE",
+    "WRITE_CACHE_ENABLE_WriteCacheDisabled",
+    "WRITE_CACHE_ENABLE_WriteCacheEnableUnknown",
+    "WRITE_CACHE_ENABLE_WriteCacheEnabled",
+    "WRITE_CACHE_TYPE",
+    "WRITE_CACHE_TYPE_WriteCacheTypeNone",
+    "WRITE_CACHE_TYPE_WriteCacheTypeUnknown",
+    "WRITE_CACHE_TYPE_WriteCacheTypeWriteBack",
+    "WRITE_CACHE_TYPE_WriteCacheTypeWriteThrough",
+    "WRITE_COMPRESSION_INFO_VALID",
+    "WRITE_THROUGH",
+    "WRITE_THROUGH_WriteThroughNotSupported",
+    "WRITE_THROUGH_WriteThroughSupported",
+    "WRITE_THROUGH_WriteThroughUnknown",
+    "WRITE_USN_REASON_INPUT",
 ]

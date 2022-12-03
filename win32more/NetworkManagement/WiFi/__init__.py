@@ -1,17 +1,17 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.NetworkManagement.Ndis
 import win32more.NetworkManagement.WiFi
 import win32more.Security.ExtensibleAuthenticationProtocol
 import win32more.System.Com
-import win32more.UI.Shell.PropertiesSystem
-
+import win32more.System.RemoteDesktop
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
@@ -772,68 +772,609 @@ WFD_API_VERSION_1_0 = 1
 WFD_API_VERSION = 1
 WLAN_UI_API_VERSION = 1
 WLAN_UI_API_INITIAL_VERSION = 1
-GUID_DEVINTERFACE_WIFIDIRECT_DEVICE = '439b20af-8955-405b-99f0-a62af0c68d43'
-GUID_AEPSERVICE_WIFIDIRECT_DEVICE = 'cc29827c-9caf-4928-99a9-18f7c2381389'
-GUID_DEVINTERFACE_ASP_INFRA_DEVICE = 'ff823995-7a72-4c80-8757-c67ee13d1a49'
-DEVPKEY_WiFiDirect_DeviceAddress = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=1)
-DEVPKEY_WiFiDirect_InterfaceAddress = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=2)
-DEVPKEY_WiFiDirect_InterfaceGuid = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=3)
-DEVPKEY_WiFiDirect_GroupId = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=4)
-DEVPKEY_WiFiDirect_IsConnected = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=5)
-DEVPKEY_WiFiDirect_IsVisible = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=6)
-DEVPKEY_WiFiDirect_IsLegacyDevice = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=7)
-DEVPKEY_WiFiDirect_MiracastVersion = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=8)
-DEVPKEY_WiFiDirect_IsMiracastLCPSupported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=9)
-DEVPKEY_WiFiDirect_Services = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=10)
-DEVPKEY_WiFiDirect_SupportedChannelList = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=11)
-DEVPKEY_WiFiDirect_InformationElements = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=12)
-DEVPKEY_WiFiDirect_DeviceAddressCopy = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=13)
-DEVPKEY_WiFiDirect_IsRecentlyAssociated = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=14)
-DEVPKEY_WiFiDirect_Service_Aeps = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=15)
-DEVPKEY_WiFiDirect_NoMiracastAutoProject = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=16)
-DEVPKEY_InfraCast_Supported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=17)
-DEVPKEY_InfraCast_StreamSecuritySupported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=18)
-DEVPKEY_InfraCast_AccessPointBssid = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=19)
-DEVPKEY_InfraCast_SinkHostName = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=20)
-DEVPKEY_InfraCast_ChallengeAep = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=21)
-DEVPKEY_WiFiDirect_IsDMGCapable = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=22)
-DEVPKEY_InfraCast_DevnodeAep = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=23)
-DEVPKEY_WiFiDirect_FoundWsbService = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=24)
-DEVPKEY_InfraCast_HostName_ResolutionMode = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=25)
-DEVPKEY_InfraCast_SinkIpAddress = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=26)
-DEVPKEY_WiFiDirect_TransientAssociation = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=27)
-DEVPKEY_WiFiDirect_LinkQuality = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=28)
-DEVPKEY_InfraCast_PinSupported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=29)
-DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=30)
-DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=31)
-DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported = PROPERTYKEY(Fmtid='1506935d-e3e7-450f-8637-82233ebe5f6e', Pid=32)
-DEVPKEY_WiFiDirectServices_ServiceAddress = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=2)
-DEVPKEY_WiFiDirectServices_ServiceName = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=3)
-DEVPKEY_WiFiDirectServices_ServiceInformation = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=4)
-DEVPKEY_WiFiDirectServices_AdvertisementId = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=5)
-DEVPKEY_WiFiDirectServices_ServiceConfigMethods = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=6)
-DEVPKEY_WiFiDirectServices_RequestServiceInformation = PROPERTYKEY(Fmtid='31b37743-7c5e-4005-93e6-e953f92b82e9', Pid=7)
-DEVPKEY_WiFi_InterfaceGuid = PROPERTYKEY(Fmtid='ef1167eb-cbfc-4341-a568-a7c91a68982c', Pid=2)
-WLAN_SET_EAPHOST_FLAGS = UInt32
-WLAN_SET_EAPHOST_DATA_ALL_USERS = 1
-WLAN_CONNECTION_NOTIFICATION_FLAGS = UInt32
-WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED = 1
-WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE = 4
-DOT11_BSS_TYPE = Int32
-dot11_BSS_type_infrastructure = 1
-dot11_BSS_type_independent = 2
-dot11_BSS_type_any = 3
-def _define_DOT11_SSID_head():
-    class DOT11_SSID(Structure):
+def _define_GUID_DEVINTERFACE_WIFIDIRECT_DEVICE():
+    return Guid('439b20af-8955-405b-99-f0-a6-2a-f0-c6-8d-43')
+def _define_GUID_AEPSERVICE_WIFIDIRECT_DEVICE():
+    return Guid('cc29827c-9caf-4928-99-a9-18-f7-c2-38-13-89')
+def _define_GUID_DEVINTERFACE_ASP_INFRA_DEVICE():
+    return Guid('ff823995-7a72-4c80-87-57-c6-7e-e1-3d-1a-49')
+def _define_DEVPKEY_WiFiDirect_DeviceAddress():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=1)
+def _define_DEVPKEY_WiFiDirect_InterfaceAddress():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=2)
+def _define_DEVPKEY_WiFiDirect_InterfaceGuid():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=3)
+def _define_DEVPKEY_WiFiDirect_GroupId():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=4)
+def _define_DEVPKEY_WiFiDirect_IsConnected():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=5)
+def _define_DEVPKEY_WiFiDirect_IsVisible():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=6)
+def _define_DEVPKEY_WiFiDirect_IsLegacyDevice():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=7)
+def _define_DEVPKEY_WiFiDirect_MiracastVersion():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=8)
+def _define_DEVPKEY_WiFiDirect_IsMiracastLCPSupported():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=9)
+def _define_DEVPKEY_WiFiDirect_Services():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=10)
+def _define_DEVPKEY_WiFiDirect_SupportedChannelList():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=11)
+def _define_DEVPKEY_WiFiDirect_InformationElements():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=12)
+def _define_DEVPKEY_WiFiDirect_DeviceAddressCopy():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=13)
+def _define_DEVPKEY_WiFiDirect_IsRecentlyAssociated():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=14)
+def _define_DEVPKEY_WiFiDirect_Service_Aeps():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=15)
+def _define_DEVPKEY_WiFiDirect_NoMiracastAutoProject():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=16)
+def _define_DEVPKEY_InfraCast_Supported():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=17)
+def _define_DEVPKEY_InfraCast_StreamSecuritySupported():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=18)
+def _define_DEVPKEY_InfraCast_AccessPointBssid():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=19)
+def _define_DEVPKEY_InfraCast_SinkHostName():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=20)
+def _define_DEVPKEY_InfraCast_ChallengeAep():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=21)
+def _define_DEVPKEY_WiFiDirect_IsDMGCapable():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=22)
+def _define_DEVPKEY_InfraCast_DevnodeAep():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=23)
+def _define_DEVPKEY_WiFiDirect_FoundWsbService():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=24)
+def _define_DEVPKEY_InfraCast_HostName_ResolutionMode():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=25)
+def _define_DEVPKEY_InfraCast_SinkIpAddress():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=26)
+def _define_DEVPKEY_WiFiDirect_TransientAssociation():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=27)
+def _define_DEVPKEY_WiFiDirect_LinkQuality():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=28)
+def _define_DEVPKEY_InfraCast_PinSupported():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=29)
+def _define_DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=30)
+def _define_DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=31)
+def _define_DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=32)
+def _define_DEVPKEY_WiFiDirectServices_ServiceAddress():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=2)
+def _define_DEVPKEY_WiFiDirectServices_ServiceName():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=3)
+def _define_DEVPKEY_WiFiDirectServices_ServiceInformation():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=4)
+def _define_DEVPKEY_WiFiDirectServices_AdvertisementId():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=5)
+def _define_DEVPKEY_WiFiDirectServices_ServiceConfigMethods():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=6)
+def _define_DEVPKEY_WiFiDirectServices_RequestServiceInformation():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=7)
+def _define_DEVPKEY_WiFi_InterfaceGuid():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('ef1167eb-cbfc-4341-a5-68-a7-c9-1a-68-98-2c'), pid=2)
+DOT11EXT_PSK_MAX_LENGTH = 64
+WDIAG_IHV_WLAN_ID_FLAG_SECURITY_ENABLED = 1
+IHV_VERSION_FUNCTION_NAME = 'Dot11ExtIhvGetVersionInfo'
+IHV_INIT_FUNCTION_NAME = 'Dot11ExtIhvInitService'
+IHV_INIT_VS_FUNCTION_NAME = 'Dot11ExtIhvInitVirtualStation'
+MS_MAX_PROFILE_NAME_LENGTH = 256
+MS_PROFILE_GROUP_POLICY = 1
+MS_PROFILE_USER = 2
+def _define_WlanOpenHandle():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Foundation.HANDLE))(('WlanOpenHandle', windll['wlanapi.dll']), ((1, 'dwClientVersion'),(1, 'pReserved'),(1, 'pdwNegotiatedVersion'),(1, 'phClientHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanCloseHandle():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_void_p)(('WlanCloseHandle', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanEnumInterfaces():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_LIST_head)))(('WlanEnumInterfaces', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pReserved'),(1, 'ppInterfaceList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetAutoConfigParameter():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE,UInt32,c_void_p,c_void_p)(('WlanSetAutoConfigParameter', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'dwDataSize'),(1, 'pData'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanQueryAutoConfigParameter():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE,c_void_p,POINTER(UInt32),POINTER(c_void_p),POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE))(('WlanQueryAutoConfigParameter', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'pReserved'),(1, 'pdwDataSize'),(1, 'ppData'),(1, 'pWlanOpcodeValueType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetInterfaceCapability():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_INTERFACE_CAPABILITY_head)))(('WlanGetInterfaceCapability', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pReserved'),(1, 'ppCapability'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetInterface():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.NetworkManagement.WiFi.WLAN_INTF_OPCODE,UInt32,c_void_p,c_void_p)(('WlanSetInterface', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'OpCode'),(1, 'dwDataSize'),(1, 'pData'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanQueryInterface():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.NetworkManagement.WiFi.WLAN_INTF_OPCODE,c_void_p,POINTER(UInt32),POINTER(c_void_p),POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE))(('WlanQueryInterface', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'OpCode'),(1, 'pReserved'),(1, 'pdwDataSize'),(1, 'ppData'),(1, 'pWlanOpcodeValueType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanIhvControl():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE,UInt32,c_void_p,UInt32,c_void_p,POINTER(UInt32))(('WlanIhvControl', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'Type'),(1, 'dwInBufferSize'),(1, 'pInBuffer'),(1, 'dwOutBufferSize'),(1, 'pOutBuffer'),(1, 'pdwBytesReturned'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanScan():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head),POINTER(win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_head),c_void_p)(('WlanScan', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pDot11Ssid'),(1, 'pIeData'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetAvailableNetworkList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_head)))(('WlanGetAvailableNetworkList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwFlags'),(1, 'pReserved'),(1, 'ppAvailableNetworkList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetAvailableNetworkList2():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_V2_head)))(('WlanGetAvailableNetworkList2', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwFlags'),(1, 'pReserved'),(1, 'ppAvailableNetworkList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetNetworkBssList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head),win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE,win32more.Foundation.BOOL,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_BSS_LIST_head)))(('WlanGetNetworkBssList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pDot11Ssid'),(1, 'dot11BssType'),(1, 'bSecurityEnabled'),(1, 'pReserved'),(1, 'ppWlanBssList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanConnect():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_head),c_void_p)(('WlanConnect', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pConnectionParameters'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanConnect2():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_V2_head),c_void_p)(('WlanConnect2', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pConnectionParameters'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanDisconnect():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),c_void_p)(('WlanDisconnect', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanRegisterNotification():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.NetworkManagement.WiFi.WLAN_NOTIFICATION_CALLBACK,c_void_p,c_void_p,POINTER(UInt32))(('WlanRegisterNotification', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'dwNotifSource'),(1, 'bIgnoreDuplicate'),(1, 'funcCallback'),(1, 'pCallbackContext'),(1, 'pReserved'),(1, 'pdwPrevNotifSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetProfile():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32))(('WlanGetProfile', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'pReserved'),(1, 'pstrProfileXml'),(1, 'pdwFlags'),(1, 'pdwGrantedAccess'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetProfileEapUserData():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE,win32more.NetworkManagement.WiFi.WLAN_SET_EAPHOST_FLAGS,UInt32,c_char_p_no,c_void_p)(('WlanSetProfileEapUserData', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'eapType'),(1, 'dwFlags'),(1, 'dwEapUserDataSize'),(1, 'pbEapUserData'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetProfileEapXmlUserData():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.NetworkManagement.WiFi.WLAN_SET_EAPHOST_FLAGS,win32more.Foundation.PWSTR,c_void_p)(('WlanSetProfileEapXmlUserData', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'dwFlags'),(1, 'strEapXmlUserData'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetProfile():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,c_void_p,POINTER(UInt32))(('WlanSetProfile', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwFlags'),(1, 'strProfileXml'),(1, 'strAllUserProfileSecurity'),(1, 'bOverwrite'),(1, 'pReserved'),(1, 'pdwReasonCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanDeleteProfile():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,c_void_p)(('WlanDeleteProfile', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanRenameProfile():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p)(('WlanRenameProfile', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strOldProfileName'),(1, 'strNewProfileName'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetProfileList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO_LIST_head)))(('WlanGetProfileList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pReserved'),(1, 'ppProfileList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetProfileList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,POINTER(win32more.Foundation.PWSTR),c_void_p)(('WlanSetProfileList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwItems'),(1, 'strProfileNames'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetProfilePosition():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,c_void_p)(('WlanSetProfilePosition', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'dwPosition'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetProfileCustomUserData():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,c_char_p_no,c_void_p)(('WlanSetProfileCustomUserData', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'dwDataSize'),(1, 'pData'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetProfileCustomUserData():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,c_void_p,POINTER(UInt32),POINTER(c_char_p_no))(('WlanGetProfileCustomUserData', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'pReserved'),(1, 'pdwDataSize'),(1, 'ppData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetFilterList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE,POINTER(win32more.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head),c_void_p)(('WlanSetFilterList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'wlanFilterListType'),(1, 'pNetworkList'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetFilterList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head)))(('WlanGetFilterList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'wlanFilterListType'),(1, 'pReserved'),(1, 'ppNetworkList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetPsdIEDataList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head),c_void_p)(('WlanSetPsdIEDataList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'strFormat'),(1, 'pPsdIEDataList'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSaveTemporaryProfile():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,c_void_p)(('WlanSaveTemporaryProfile', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'strAllUserProfileSecurity'),(1, 'dwFlags'),(1, 'bOverWrite'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanDeviceServiceCommand():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(Guid),UInt32,UInt32,c_void_p,UInt32,c_void_p,POINTER(UInt32))(('WlanDeviceServiceCommand', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pDeviceServiceGuid'),(1, 'dwOpCode'),(1, 'dwInBufferSize'),(1, 'pInBuffer'),(1, 'dwOutBufferSize'),(1, 'pOutBuffer'),(1, 'pdwBytesReturned'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetSupportedDeviceServices():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head)))(('WlanGetSupportedDeviceServices', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'ppDevSvcGuidList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanRegisterDeviceServiceNotification():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head))(('WlanRegisterDeviceServiceNotification', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pDevSvcGuidList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanExtractPsdIEDataList():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_char_p_no,win32more.Foundation.PWSTR,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head)))(('WlanExtractPsdIEDataList', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'dwIeDataSize'),(1, 'pRawIeData'),(1, 'strFormat'),(1, 'pReserved'),(1, 'ppPsdIEDataList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanReasonCodeToString():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,c_void_p)(('WlanReasonCodeToString', windll['wlanapi.dll']), ((1, 'dwReasonCode'),(1, 'dwBufferSize'),(1, 'pStringBuffer'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanAllocateMemory():
+    try:
+        return WINFUNCTYPE(c_void_p,UInt32)(('WlanAllocateMemory', windll['wlanapi.dll']), ((1, 'dwMemorySize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanFreeMemory():
+    try:
+        return WINFUNCTYPE(Void,c_void_p)(('WlanFreeMemory', windll['wlanapi.dll']), ((1, 'pMemory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanSetSecuritySettings():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT,win32more.Foundation.PWSTR)(('WlanSetSecuritySettings', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'SecurableObject'),(1, 'strModifiedSDDL'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanGetSecuritySettings():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT,POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE),POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(('WlanGetSecuritySettings', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'SecurableObject'),(1, 'pValueType'),(1, 'pstrCurrentSDDL'),(1, 'pdwGrantedAccess'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanUIEditProfile():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),win32more.Foundation.HWND,win32more.NetworkManagement.WiFi.WL_DISPLAY_PAGES,c_void_p,POINTER(UInt32))(('WlanUIEditProfile', windll['wlanui.dll']), ((1, 'dwClientVersion'),(1, 'wstrProfileName'),(1, 'pInterfaceGuid'),(1, 'hWnd'),(1, 'wlStartPage'),(1, 'pReserved'),(1, 'pWlanReasonCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkStartUsing():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkStartUsing', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkStopUsing():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkStopUsing', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkForceStart():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkForceStart', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkForceStop():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkForceStop', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkQueryProperty():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE,POINTER(UInt32),POINTER(c_void_p),POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE),c_void_p)(('WlanHostedNetworkQueryProperty', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'pdwDataSize'),(1, 'ppvData'),(1, 'pWlanOpcodeValueType'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkSetProperty():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE,UInt32,c_void_p,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkSetProperty', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'dwDataSize'),(1, 'pvData'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkInitSettings():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkInitSettings', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkRefreshSecuritySettings():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkRefreshSecuritySettings', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkQueryStatus():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATUS_head)),c_void_p)(('WlanHostedNetworkQueryStatus', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'ppWlanHostedNetworkStatus'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkSetSecondaryKey():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_char_p_no,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkSetSecondaryKey', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'dwKeyLength'),(1, 'pucKeyData'),(1, 'bIsPassPhrase'),(1, 'bPersistent'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanHostedNetworkQuerySecondaryKey():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(c_char_p_no),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL),POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p)(('WlanHostedNetworkQuerySecondaryKey', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pdwKeyLength'),(1, 'ppucKeyData'),(1, 'pbIsPassPhrase'),(1, 'pbPersistent'),(1, 'pFailReason'),(1, 'pvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WlanRegisterVirtualStationNotification():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,c_void_p)(('WlanRegisterVirtualStationNotification', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'bRegister'),(1, 'pReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDOpenHandle():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.HANDLE))(('WFDOpenHandle', windll['wlanapi.dll']), ((1, 'dwClientVersion'),(1, 'pdwNegotiatedVersion'),(1, 'phClientHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDCloseHandle():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('WFDCloseHandle', windll['wlanapi.dll']), ((1, 'hClientHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDStartOpenSession():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no),c_void_p,win32more.NetworkManagement.WiFi.WFD_OPEN_SESSION_COMPLETE_CALLBACK,POINTER(win32more.Foundation.HANDLE))(('WFDStartOpenSession', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pDeviceAddress'),(1, 'pvContext'),(1, 'pfnCallback'),(1, 'phSessionHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDCancelOpenSession():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('WFDCancelOpenSession', windll['wlanapi.dll']), ((1, 'hSessionHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDOpenLegacySession():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no),POINTER(win32more.Foundation.HANDLE),POINTER(Guid))(('WFDOpenLegacySession', windll['wlanapi.dll']), ((1, 'hClientHandle'),(1, 'pLegacyMacAddress'),(1, 'phSessionHandle'),(1, 'pGuidSessionInterface'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDCloseSession():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('WFDCloseSession', windll['wlanapi.dll']), ((1, 'hSessionHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_WFDUpdateDeviceVisibility():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(c_char_p_no))(('WFDUpdateDeviceVisibility', windll['wlanapi.dll']), ((1, 'pDeviceAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+CH_DESCRIPTION_TYPE = Int32
+ch_description_type_logical = 1
+ch_description_type_center_frequency = 2
+ch_description_type_phy_specific = 3
+DOT11_AC_PARAM = Int32
+dot11_AC_param_BE = 0
+dot11_AC_param_BK = 1
+dot11_AC_param_VI = 2
+dot11_AC_param_VO = 3
+dot11_AC_param_max = 4
+def _define_DOT11_ACCESSNETWORKOPTIONS_head():
+    class DOT11_ACCESSNETWORKOPTIONS(Structure):
         pass
-    return DOT11_SSID
-def _define_DOT11_SSID():
-    DOT11_SSID = win32more.NetworkManagement.WiFi.DOT11_SSID_head
-    DOT11_SSID._fields_ = [
-        ("uSSIDLength", UInt32),
-        ("ucSSID", Byte * 32),
+    return DOT11_ACCESSNETWORKOPTIONS
+def _define_DOT11_ACCESSNETWORKOPTIONS():
+    DOT11_ACCESSNETWORKOPTIONS = win32more.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS_head
+    DOT11_ACCESSNETWORKOPTIONS._fields_ = [
+        ('AccessNetworkType', Byte),
+        ('Internet', Byte),
+        ('ASRA', Byte),
+        ('ESR', Byte),
+        ('UESA', Byte),
     ]
-    return DOT11_SSID
+    return DOT11_ACCESSNETWORKOPTIONS
+def _define_DOT11_ADAPTER_head():
+    class DOT11_ADAPTER(Structure):
+        pass
+    return DOT11_ADAPTER
+def _define_DOT11_ADAPTER():
+    DOT11_ADAPTER = win32more.NetworkManagement.WiFi.DOT11_ADAPTER_head
+    DOT11_ADAPTER._fields_ = [
+        ('gAdapterId', Guid),
+        ('pszDescription', win32more.Foundation.PWSTR),
+        ('Dot11CurrentOpMode', win32more.NetworkManagement.WiFi.DOT11_CURRENT_OPERATION_MODE),
+    ]
+    return DOT11_ADAPTER
+def _define_DOT11_ADDITIONAL_IE_head():
+    class DOT11_ADDITIONAL_IE(Structure):
+        pass
+    return DOT11_ADDITIONAL_IE
+def _define_DOT11_ADDITIONAL_IE():
+    DOT11_ADDITIONAL_IE = win32more.NetworkManagement.WiFi.DOT11_ADDITIONAL_IE_head
+    DOT11_ADDITIONAL_IE._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uBeaconIEsOffset', UInt32),
+        ('uBeaconIEsLength', UInt32),
+        ('uResponseIEsOffset', UInt32),
+        ('uResponseIEsLength', UInt32),
+    ]
+    return DOT11_ADDITIONAL_IE
+DOT11_ADHOC_AUTH_ALGORITHM = Int32
+DOT11_ADHOC_AUTH_ALGO_INVALID = -1
+DOT11_ADHOC_AUTH_ALGO_80211_OPEN = 1
+DOT11_ADHOC_AUTH_ALGO_RSNA_PSK = 7
+DOT11_ADHOC_CIPHER_ALGORITHM = Int32
+DOT11_ADHOC_CIPHER_ALGO_INVALID = -1
+DOT11_ADHOC_CIPHER_ALGO_NONE = 0
+DOT11_ADHOC_CIPHER_ALGO_CCMP = 4
+DOT11_ADHOC_CIPHER_ALGO_WEP = 257
+DOT11_ADHOC_CONNECT_FAIL_REASON = Int32
+DOT11_ADHOC_CONNECT_FAIL_DOMAIN_MISMATCH = 0
+DOT11_ADHOC_CONNECT_FAIL_PASSPHRASE_MISMATCH = 1
+DOT11_ADHOC_CONNECT_FAIL_OTHER = 2
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS = Int32
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_INVALID = 0
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED = 11
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING = 12
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED = 13
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED = 14
+def _define_DOT11_ANQP_QUERY_COMPLETE_PARAMETERS_head():
+    class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_ANQP_QUERY_COMPLETE_PARAMETERS
+def _define_DOT11_ANQP_QUERY_COMPLETE_PARAMETERS():
+    DOT11_ANQP_QUERY_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ANQP_QUERY_COMPLETE_PARAMETERS_head
+    DOT11_ANQP_QUERY_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('Status', win32more.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT),
+        ('hContext', win32more.Foundation.HANDLE),
+        ('uResponseLength', UInt32),
+    ]
+    return DOT11_ANQP_QUERY_COMPLETE_PARAMETERS
+DOT11_ANQP_QUERY_RESULT = Int32
+dot11_ANQP_query_result_success = 0
+dot11_ANQP_query_result_failure = 1
+dot11_ANQP_query_result_timed_out = 2
+dot11_ANQP_query_result_resources = 3
+dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote = 4
+dot11_ANQP_query_result_gas_protocol_failure = 5
+dot11_ANQP_query_result_advertisement_server_not_responding = 6
+dot11_ANQP_query_result_access_issues = 7
+def _define_DOT11_AP_JOIN_REQUEST_head():
+    class DOT11_AP_JOIN_REQUEST(Structure):
+        pass
+    return DOT11_AP_JOIN_REQUEST
+def _define_DOT11_AP_JOIN_REQUEST():
+    DOT11_AP_JOIN_REQUEST = win32more.NetworkManagement.WiFi.DOT11_AP_JOIN_REQUEST_head
+    DOT11_AP_JOIN_REQUEST._fields_ = [
+        ('uJoinFailureTimeout', UInt32),
+        ('OperationalRateSet', win32more.NetworkManagement.WiFi.DOT11_RATE_SET),
+        ('uChCenterFrequency', UInt32),
+        ('dot11BSSDescription', win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION),
+    ]
+    return DOT11_AP_JOIN_REQUEST
+def _define_DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head():
+    class DOT11_ASSOCIATION_COMPLETION_PARAMETERS(Structure):
+        pass
+    return DOT11_ASSOCIATION_COMPLETION_PARAMETERS
+def _define_DOT11_ASSOCIATION_COMPLETION_PARAMETERS():
+    DOT11_ASSOCIATION_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head
+    DOT11_ASSOCIATION_COMPLETION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('MacAddr', Byte * 6),
+        ('uStatus', UInt32),
+        ('bReAssocReq', win32more.Foundation.BOOLEAN),
+        ('bReAssocResp', win32more.Foundation.BOOLEAN),
+        ('uAssocReqOffset', UInt32),
+        ('uAssocReqSize', UInt32),
+        ('uAssocRespOffset', UInt32),
+        ('uAssocRespSize', UInt32),
+        ('uBeaconOffset', UInt32),
+        ('uBeaconSize', UInt32),
+        ('uIHVDataOffset', UInt32),
+        ('uIHVDataSize', UInt32),
+        ('AuthAlgo', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('UnicastCipher', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('MulticastCipher', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('uActivePhyListOffset', UInt32),
+        ('uActivePhyListSize', UInt32),
+        ('bFourAddressSupported', win32more.Foundation.BOOLEAN),
+        ('bPortAuthorized', win32more.Foundation.BOOLEAN),
+        ('ucActiveQoSProtocol', Byte),
+        ('DSInfo', win32more.NetworkManagement.WiFi.DOT11_DS_INFO),
+        ('uEncapTableOffset', UInt32),
+        ('uEncapTableSize', UInt32),
+        ('MulticastMgmtCipher', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('uAssocComebackTime', UInt32),
+    ]
+    return DOT11_ASSOCIATION_COMPLETION_PARAMETERS
+def _define_DOT11_ASSOCIATION_INFO_EX_head():
+    class DOT11_ASSOCIATION_INFO_EX(Structure):
+        pass
+    return DOT11_ASSOCIATION_INFO_EX
+def _define_DOT11_ASSOCIATION_INFO_EX():
+    DOT11_ASSOCIATION_INFO_EX = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_EX_head
+    DOT11_ASSOCIATION_INFO_EX._fields_ = [
+        ('PeerMacAddress', Byte * 6),
+        ('BSSID', Byte * 6),
+        ('usCapabilityInformation', UInt16),
+        ('usListenInterval', UInt16),
+        ('ucPeerSupportedRates', Byte * 255),
+        ('usAssociationID', UInt16),
+        ('dot11AssociationState', win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE),
+        ('dot11PowerMode', win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
+        ('liAssociationUpTime', win32more.Foundation.LARGE_INTEGER),
+        ('ullNumOfTxPacketSuccesses', UInt64),
+        ('ullNumOfTxPacketFailures', UInt64),
+        ('ullNumOfRxPacketSuccesses', UInt64),
+        ('ullNumOfRxPacketFailures', UInt64),
+    ]
+    return DOT11_ASSOCIATION_INFO_EX
+def _define_DOT11_ASSOCIATION_INFO_LIST_head():
+    class DOT11_ASSOCIATION_INFO_LIST(Structure):
+        pass
+    return DOT11_ASSOCIATION_INFO_LIST
+def _define_DOT11_ASSOCIATION_INFO_LIST():
+    DOT11_ASSOCIATION_INFO_LIST = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_LIST_head
+    DOT11_ASSOCIATION_INFO_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11AssocInfo', win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_EX * 1),
+    ]
+    return DOT11_ASSOCIATION_INFO_LIST
+def _define_DOT11_ASSOCIATION_PARAMS_head():
+    class DOT11_ASSOCIATION_PARAMS(Structure):
+        pass
+    return DOT11_ASSOCIATION_PARAMS
+def _define_DOT11_ASSOCIATION_PARAMS():
+    DOT11_ASSOCIATION_PARAMS = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_PARAMS_head
+    DOT11_ASSOCIATION_PARAMS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('BSSID', Byte * 6),
+        ('uAssocRequestIEsOffset', UInt32),
+        ('uAssocRequestIEsLength', UInt32),
+    ]
+    return DOT11_ASSOCIATION_PARAMS
+def _define_DOT11_ASSOCIATION_START_PARAMETERS_head():
+    class DOT11_ASSOCIATION_START_PARAMETERS(Structure):
+        pass
+    return DOT11_ASSOCIATION_START_PARAMETERS
+def _define_DOT11_ASSOCIATION_START_PARAMETERS():
+    DOT11_ASSOCIATION_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_START_PARAMETERS_head
+    DOT11_ASSOCIATION_START_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('MacAddr', Byte * 6),
+        ('SSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('uIHVDataOffset', UInt32),
+        ('uIHVDataSize', UInt32),
+    ]
+    return DOT11_ASSOCIATION_START_PARAMETERS
+DOT11_ASSOCIATION_STATE = Int32
+dot11_assoc_state_zero = 0
+dot11_assoc_state_unauth_unassoc = 1
+dot11_assoc_state_auth_unassoc = 2
+dot11_assoc_state_auth_assoc = 3
 DOT11_AUTH_ALGORITHM = Int32
 DOT11_AUTH_ALGO_80211_OPEN = 1
 DOT11_AUTH_ALGO_80211_SHARED_KEY = 2
@@ -849,6 +1390,204 @@ DOT11_AUTH_ALGO_OWE = 10
 DOT11_AUTH_ALGO_WPA3_ENT = 11
 DOT11_AUTH_ALGO_IHV_START = -2147483648
 DOT11_AUTH_ALGO_IHV_END = -1
+def _define_DOT11_AUTH_ALGORITHM_LIST_head():
+    class DOT11_AUTH_ALGORITHM_LIST(Structure):
+        pass
+    return DOT11_AUTH_ALGORITHM_LIST
+def _define_DOT11_AUTH_ALGORITHM_LIST():
+    DOT11_AUTH_ALGORITHM_LIST = win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM_LIST_head
+    DOT11_AUTH_ALGORITHM_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('AlgorithmIds', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM * 1),
+    ]
+    return DOT11_AUTH_ALGORITHM_LIST
+def _define_DOT11_AUTH_CIPHER_PAIR_head():
+    class DOT11_AUTH_CIPHER_PAIR(Structure):
+        pass
+    return DOT11_AUTH_CIPHER_PAIR
+def _define_DOT11_AUTH_CIPHER_PAIR():
+    DOT11_AUTH_CIPHER_PAIR = win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head
+    DOT11_AUTH_CIPHER_PAIR._fields_ = [
+        ('AuthAlgoId', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('CipherAlgoId', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+    ]
+    return DOT11_AUTH_CIPHER_PAIR
+def _define_DOT11_AUTH_CIPHER_PAIR_LIST_head():
+    class DOT11_AUTH_CIPHER_PAIR_LIST(Structure):
+        pass
+    return DOT11_AUTH_CIPHER_PAIR_LIST
+def _define_DOT11_AUTH_CIPHER_PAIR_LIST():
+    DOT11_AUTH_CIPHER_PAIR_LIST = win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_LIST_head
+    DOT11_AUTH_CIPHER_PAIR_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('AuthCipherPairs', win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 1),
+    ]
+    return DOT11_AUTH_CIPHER_PAIR_LIST
+def _define_DOT11_AVAILABLE_CHANNEL_LIST_head():
+    class DOT11_AVAILABLE_CHANNEL_LIST(Structure):
+        pass
+    return DOT11_AVAILABLE_CHANNEL_LIST
+def _define_DOT11_AVAILABLE_CHANNEL_LIST():
+    DOT11_AVAILABLE_CHANNEL_LIST = win32more.NetworkManagement.WiFi.DOT11_AVAILABLE_CHANNEL_LIST_head
+    DOT11_AVAILABLE_CHANNEL_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('uChannelNumber', UInt32 * 1),
+    ]
+    return DOT11_AVAILABLE_CHANNEL_LIST
+def _define_DOT11_AVAILABLE_FREQUENCY_LIST_head():
+    class DOT11_AVAILABLE_FREQUENCY_LIST(Structure):
+        pass
+    return DOT11_AVAILABLE_FREQUENCY_LIST
+def _define_DOT11_AVAILABLE_FREQUENCY_LIST():
+    DOT11_AVAILABLE_FREQUENCY_LIST = win32more.NetworkManagement.WiFi.DOT11_AVAILABLE_FREQUENCY_LIST_head
+    DOT11_AVAILABLE_FREQUENCY_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('uFrequencyValue', UInt32 * 1),
+    ]
+    return DOT11_AVAILABLE_FREQUENCY_LIST
+DOT11_BAND = Int32
+dot11_band_2p4g = 1
+dot11_band_4p9g = 2
+dot11_band_5g = 3
+def _define_DOT11_BSS_DESCRIPTION_head():
+    class DOT11_BSS_DESCRIPTION(Structure):
+        pass
+    return DOT11_BSS_DESCRIPTION
+def _define_DOT11_BSS_DESCRIPTION():
+    DOT11_BSS_DESCRIPTION = win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION_head
+    DOT11_BSS_DESCRIPTION._fields_ = [
+        ('uReserved', UInt32),
+        ('dot11BSSID', Byte * 6),
+        ('dot11BSSType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('usBeaconPeriod', UInt16),
+        ('ullTimestamp', UInt64),
+        ('usCapabilityInformation', UInt16),
+        ('uBufferLength', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_BSS_DESCRIPTION
+def _define_DOT11_BSS_ENTRY_head():
+    class DOT11_BSS_ENTRY(Structure):
+        pass
+    return DOT11_BSS_ENTRY
+def _define_DOT11_BSS_ENTRY():
+    DOT11_BSS_ENTRY = win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_head
+    DOT11_BSS_ENTRY._fields_ = [
+        ('uPhyId', UInt32),
+        ('PhySpecificInfo', win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO),
+        ('dot11BSSID', Byte * 6),
+        ('dot11BSSType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('lRSSI', Int32),
+        ('uLinkQuality', UInt32),
+        ('bInRegDomain', win32more.Foundation.BOOLEAN),
+        ('usBeaconPeriod', UInt16),
+        ('ullTimestamp', UInt64),
+        ('ullHostTimestamp', UInt64),
+        ('usCapabilityInformation', UInt16),
+        ('uBufferLength', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_BSS_ENTRY
+def _define_DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO_head():
+    class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(Union):
+        pass
+    return DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
+def _define_DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO():
+    DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO = win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO_head
+    class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO__FHSS_e__Struct(Structure):
+        pass
+    DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO__FHSS_e__Struct._fields_ = [
+        ('uHopPattern', UInt32),
+        ('uHopSet', UInt32),
+        ('uDwellTime', UInt32),
+    ]
+    DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO._fields_ = [
+        ('uChCenterFrequency', UInt32),
+        ('FHSS', DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO__FHSS_e__Struct),
+    ]
+    return DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
+def _define_DOT11_BSS_LIST_head():
+    class DOT11_BSS_LIST(Structure):
+        pass
+    return DOT11_BSS_LIST
+def _define_DOT11_BSS_LIST():
+    DOT11_BSS_LIST = win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head
+    DOT11_BSS_LIST._fields_ = [
+        ('uNumOfBytes', UInt32),
+        ('pucBuffer', c_char_p_no),
+    ]
+    return DOT11_BSS_LIST
+DOT11_BSS_TYPE = Int32
+dot11_BSS_type_infrastructure = 1
+dot11_BSS_type_independent = 2
+dot11_BSS_type_any = 3
+def _define_DOT11_BSSID_CANDIDATE_head():
+    class DOT11_BSSID_CANDIDATE(Structure):
+        pass
+    return DOT11_BSSID_CANDIDATE
+def _define_DOT11_BSSID_CANDIDATE():
+    DOT11_BSSID_CANDIDATE = win32more.NetworkManagement.WiFi.DOT11_BSSID_CANDIDATE_head
+    DOT11_BSSID_CANDIDATE._fields_ = [
+        ('BSSID', Byte * 6),
+        ('uFlags', UInt32),
+    ]
+    return DOT11_BSSID_CANDIDATE
+def _define_DOT11_BSSID_LIST_head():
+    class DOT11_BSSID_LIST(Structure):
+        pass
+    return DOT11_BSSID_LIST
+def _define_DOT11_BSSID_LIST():
+    DOT11_BSSID_LIST = win32more.NetworkManagement.WiFi.DOT11_BSSID_LIST_head
+    DOT11_BSSID_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('BSSIDs', Byte * 6),
+    ]
+    return DOT11_BSSID_LIST
+def _define_DOT11_BYTE_ARRAY_head():
+    class DOT11_BYTE_ARRAY(Structure):
+        pass
+    return DOT11_BYTE_ARRAY
+def _define_DOT11_BYTE_ARRAY():
+    DOT11_BYTE_ARRAY = win32more.NetworkManagement.WiFi.DOT11_BYTE_ARRAY_head
+    DOT11_BYTE_ARRAY._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfBytes', UInt32),
+        ('uTotalNumOfBytes', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_BYTE_ARRAY
+def _define_DOT11_CAN_SUSTAIN_AP_PARAMETERS_head():
+    class DOT11_CAN_SUSTAIN_AP_PARAMETERS(Structure):
+        pass
+    return DOT11_CAN_SUSTAIN_AP_PARAMETERS
+def _define_DOT11_CAN_SUSTAIN_AP_PARAMETERS():
+    DOT11_CAN_SUSTAIN_AP_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_CAN_SUSTAIN_AP_PARAMETERS_head
+    DOT11_CAN_SUSTAIN_AP_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ulReason', UInt32),
+    ]
+    return DOT11_CAN_SUSTAIN_AP_PARAMETERS
+def _define_DOT11_CHANNEL_HINT_head():
+    class DOT11_CHANNEL_HINT(Structure):
+        pass
+    return DOT11_CHANNEL_HINT
+def _define_DOT11_CHANNEL_HINT():
+    DOT11_CHANNEL_HINT = win32more.NetworkManagement.WiFi.DOT11_CHANNEL_HINT_head
+    DOT11_CHANNEL_HINT._fields_ = [
+        ('Dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('uChannelNumber', UInt32),
+    ]
+    return DOT11_CHANNEL_HINT
 DOT11_CIPHER_ALGORITHM = Int32
 DOT11_CIPHER_ALGO_NONE = 0
 DOT11_CIPHER_ALGO_WEP40 = 1
@@ -867,17 +1606,1175 @@ DOT11_CIPHER_ALGO_RSN_USE_GROUP = 256
 DOT11_CIPHER_ALGO_WEP = 257
 DOT11_CIPHER_ALGO_IHV_START = -2147483648
 DOT11_CIPHER_ALGO_IHV_END = -1
-def _define_DOT11_AUTH_CIPHER_PAIR_head():
-    class DOT11_AUTH_CIPHER_PAIR(Structure):
+def _define_DOT11_CIPHER_ALGORITHM_LIST_head():
+    class DOT11_CIPHER_ALGORITHM_LIST(Structure):
         pass
-    return DOT11_AUTH_CIPHER_PAIR
-def _define_DOT11_AUTH_CIPHER_PAIR():
-    DOT11_AUTH_CIPHER_PAIR = win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head
-    DOT11_AUTH_CIPHER_PAIR._fields_ = [
-        ("AuthAlgoId", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("CipherAlgoId", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+    return DOT11_CIPHER_ALGORITHM_LIST
+def _define_DOT11_CIPHER_ALGORITHM_LIST():
+    DOT11_CIPHER_ALGORITHM_LIST = win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM_LIST_head
+    DOT11_CIPHER_ALGORITHM_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('AlgorithmIds', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM * 1),
     ]
-    return DOT11_AUTH_CIPHER_PAIR
+    return DOT11_CIPHER_ALGORITHM_LIST
+def _define_DOT11_CIPHER_DEFAULT_KEY_VALUE_head():
+    class DOT11_CIPHER_DEFAULT_KEY_VALUE(Structure):
+        pass
+    return DOT11_CIPHER_DEFAULT_KEY_VALUE
+def _define_DOT11_CIPHER_DEFAULT_KEY_VALUE():
+    DOT11_CIPHER_DEFAULT_KEY_VALUE = win32more.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE_head
+    DOT11_CIPHER_DEFAULT_KEY_VALUE._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uKeyIndex', UInt32),
+        ('AlgorithmId', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('MacAddr', Byte * 6),
+        ('bDelete', win32more.Foundation.BOOLEAN),
+        ('bStatic', win32more.Foundation.BOOLEAN),
+        ('usKeyLength', UInt16),
+        ('ucKey', Byte * 1),
+    ]
+    return DOT11_CIPHER_DEFAULT_KEY_VALUE
+def _define_DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head():
+    class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE(Structure):
+        pass
+    return DOT11_CIPHER_KEY_MAPPING_KEY_VALUE
+def _define_DOT11_CIPHER_KEY_MAPPING_KEY_VALUE():
+    DOT11_CIPHER_KEY_MAPPING_KEY_VALUE = win32more.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head
+    DOT11_CIPHER_KEY_MAPPING_KEY_VALUE._fields_ = [
+        ('PeerMacAddr', Byte * 6),
+        ('AlgorithmId', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('Direction', win32more.NetworkManagement.WiFi.DOT11_DIRECTION),
+        ('bDelete', win32more.Foundation.BOOLEAN),
+        ('bStatic', win32more.Foundation.BOOLEAN),
+        ('usKeyLength', UInt16),
+        ('ucKey', Byte * 1),
+    ]
+    return DOT11_CIPHER_KEY_MAPPING_KEY_VALUE
+def _define_DOT11_CONNECTION_COMPLETION_PARAMETERS_head():
+    class DOT11_CONNECTION_COMPLETION_PARAMETERS(Structure):
+        pass
+    return DOT11_CONNECTION_COMPLETION_PARAMETERS
+def _define_DOT11_CONNECTION_COMPLETION_PARAMETERS():
+    DOT11_CONNECTION_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_CONNECTION_COMPLETION_PARAMETERS_head
+    DOT11_CONNECTION_COMPLETION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uStatus', UInt32),
+    ]
+    return DOT11_CONNECTION_COMPLETION_PARAMETERS
+def _define_DOT11_CONNECTION_START_PARAMETERS_head():
+    class DOT11_CONNECTION_START_PARAMETERS(Structure):
+        pass
+    return DOT11_CONNECTION_START_PARAMETERS
+def _define_DOT11_CONNECTION_START_PARAMETERS():
+    DOT11_CONNECTION_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_CONNECTION_START_PARAMETERS_head
+    DOT11_CONNECTION_START_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('BSSType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('AdhocBSSID', Byte * 6),
+        ('AdhocSSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+    ]
+    return DOT11_CONNECTION_START_PARAMETERS
+def _define_DOT11_COUNTERS_ENTRY_head():
+    class DOT11_COUNTERS_ENTRY(Structure):
+        pass
+    return DOT11_COUNTERS_ENTRY
+def _define_DOT11_COUNTERS_ENTRY():
+    DOT11_COUNTERS_ENTRY = win32more.NetworkManagement.WiFi.DOT11_COUNTERS_ENTRY_head
+    DOT11_COUNTERS_ENTRY._fields_ = [
+        ('uTransmittedFragmentCount', UInt32),
+        ('uMulticastTransmittedFrameCount', UInt32),
+        ('uFailedCount', UInt32),
+        ('uRetryCount', UInt32),
+        ('uMultipleRetryCount', UInt32),
+        ('uFrameDuplicateCount', UInt32),
+        ('uRTSSuccessCount', UInt32),
+        ('uRTSFailureCount', UInt32),
+        ('uACKFailureCount', UInt32),
+        ('uReceivedFragmentCount', UInt32),
+        ('uMulticastReceivedFrameCount', UInt32),
+        ('uFCSErrorCount', UInt32),
+        ('uTransmittedFrameCount', UInt32),
+    ]
+    return DOT11_COUNTERS_ENTRY
+def _define_DOT11_COUNTRY_OR_REGION_STRING_LIST_head():
+    class DOT11_COUNTRY_OR_REGION_STRING_LIST(Structure):
+        pass
+    return DOT11_COUNTRY_OR_REGION_STRING_LIST
+def _define_DOT11_COUNTRY_OR_REGION_STRING_LIST():
+    DOT11_COUNTRY_OR_REGION_STRING_LIST = win32more.NetworkManagement.WiFi.DOT11_COUNTRY_OR_REGION_STRING_LIST_head
+    DOT11_COUNTRY_OR_REGION_STRING_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('CountryOrRegionStrings', Byte * 3),
+    ]
+    return DOT11_COUNTRY_OR_REGION_STRING_LIST
+def _define_DOT11_CURRENT_OFFLOAD_CAPABILITY_head():
+    class DOT11_CURRENT_OFFLOAD_CAPABILITY(Structure):
+        pass
+    return DOT11_CURRENT_OFFLOAD_CAPABILITY
+def _define_DOT11_CURRENT_OFFLOAD_CAPABILITY():
+    DOT11_CURRENT_OFFLOAD_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_CURRENT_OFFLOAD_CAPABILITY_head
+    DOT11_CURRENT_OFFLOAD_CAPABILITY._fields_ = [
+        ('uReserved', UInt32),
+        ('uFlags', UInt32),
+    ]
+    return DOT11_CURRENT_OFFLOAD_CAPABILITY
+def _define_DOT11_CURRENT_OPERATION_MODE_head():
+    class DOT11_CURRENT_OPERATION_MODE(Structure):
+        pass
+    return DOT11_CURRENT_OPERATION_MODE
+def _define_DOT11_CURRENT_OPERATION_MODE():
+    DOT11_CURRENT_OPERATION_MODE = win32more.NetworkManagement.WiFi.DOT11_CURRENT_OPERATION_MODE_head
+    DOT11_CURRENT_OPERATION_MODE._fields_ = [
+        ('uReserved', UInt32),
+        ('uCurrentOpMode', UInt32),
+    ]
+    return DOT11_CURRENT_OPERATION_MODE
+def _define_DOT11_CURRENT_OPTIONAL_CAPABILITY_head():
+    class DOT11_CURRENT_OPTIONAL_CAPABILITY(Structure):
+        pass
+    return DOT11_CURRENT_OPTIONAL_CAPABILITY
+def _define_DOT11_CURRENT_OPTIONAL_CAPABILITY():
+    DOT11_CURRENT_OPTIONAL_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_CURRENT_OPTIONAL_CAPABILITY_head
+    DOT11_CURRENT_OPTIONAL_CAPABILITY._fields_ = [
+        ('uReserved', UInt32),
+        ('bDot11CFPollable', win32more.Foundation.BOOLEAN),
+        ('bDot11PCF', win32more.Foundation.BOOLEAN),
+        ('bDot11PCFMPDUTransferToPC', win32more.Foundation.BOOLEAN),
+        ('bStrictlyOrderedServiceClass', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_CURRENT_OPTIONAL_CAPABILITY
+def _define_DOT11_DATA_RATE_MAPPING_ENTRY_head():
+    class DOT11_DATA_RATE_MAPPING_ENTRY(Structure):
+        pass
+    return DOT11_DATA_RATE_MAPPING_ENTRY
+def _define_DOT11_DATA_RATE_MAPPING_ENTRY():
+    DOT11_DATA_RATE_MAPPING_ENTRY = win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY_head
+    DOT11_DATA_RATE_MAPPING_ENTRY._fields_ = [
+        ('ucDataRateIndex', Byte),
+        ('ucDataRateFlag', Byte),
+        ('usDataRateValue', UInt16),
+    ]
+    return DOT11_DATA_RATE_MAPPING_ENTRY
+def _define_DOT11_DATA_RATE_MAPPING_TABLE_head():
+    class DOT11_DATA_RATE_MAPPING_TABLE(Structure):
+        pass
+    return DOT11_DATA_RATE_MAPPING_TABLE
+def _define_DOT11_DATA_RATE_MAPPING_TABLE():
+    DOT11_DATA_RATE_MAPPING_TABLE = win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_TABLE_head
+    DOT11_DATA_RATE_MAPPING_TABLE._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uDataRateMappingLength', UInt32),
+        ('DataRateMappingEntries', win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY * 126),
+    ]
+    return DOT11_DATA_RATE_MAPPING_TABLE
+def _define_DOT11_DEFAULT_WEP_OFFLOAD_head():
+    class DOT11_DEFAULT_WEP_OFFLOAD(Structure):
+        pass
+    return DOT11_DEFAULT_WEP_OFFLOAD
+def _define_DOT11_DEFAULT_WEP_OFFLOAD():
+    DOT11_DEFAULT_WEP_OFFLOAD = win32more.NetworkManagement.WiFi.DOT11_DEFAULT_WEP_OFFLOAD_head
+    DOT11_DEFAULT_WEP_OFFLOAD._fields_ = [
+        ('uReserved', UInt32),
+        ('hOffloadContext', win32more.Foundation.HANDLE),
+        ('hOffload', win32more.Foundation.HANDLE),
+        ('dwIndex', UInt32),
+        ('dot11OffloadType', win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
+        ('dwAlgorithm', UInt32),
+        ('uFlags', UInt32),
+        ('dot11KeyDirection', win32more.NetworkManagement.WiFi.DOT11_KEY_DIRECTION),
+        ('ucMacAddress', Byte * 6),
+        ('uNumOfRWsOnMe', UInt32),
+        ('dot11IV48Counters', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
+        ('usDot11RWBitMaps', UInt16 * 16),
+        ('usKeyLength', UInt16),
+        ('ucKey', Byte * 1),
+    ]
+    return DOT11_DEFAULT_WEP_OFFLOAD
+def _define_DOT11_DEFAULT_WEP_UPLOAD_head():
+    class DOT11_DEFAULT_WEP_UPLOAD(Structure):
+        pass
+    return DOT11_DEFAULT_WEP_UPLOAD
+def _define_DOT11_DEFAULT_WEP_UPLOAD():
+    DOT11_DEFAULT_WEP_UPLOAD = win32more.NetworkManagement.WiFi.DOT11_DEFAULT_WEP_UPLOAD_head
+    DOT11_DEFAULT_WEP_UPLOAD._fields_ = [
+        ('uReserved', UInt32),
+        ('dot11OffloadType', win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
+        ('hOffload', win32more.Foundation.HANDLE),
+        ('uNumOfRWsUsed', UInt32),
+        ('dot11IV48Counters', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
+        ('usDot11RWBitMaps', UInt16 * 16),
+    ]
+    return DOT11_DEFAULT_WEP_UPLOAD
+DOT11_DIRECTION = Int32
+DOT11_DIR_INBOUND = 1
+DOT11_DIR_OUTBOUND = 2
+DOT11_DIR_BOTH = 3
+def _define_DOT11_DISASSOCIATE_PEER_REQUEST_head():
+    class DOT11_DISASSOCIATE_PEER_REQUEST(Structure):
+        pass
+    return DOT11_DISASSOCIATE_PEER_REQUEST
+def _define_DOT11_DISASSOCIATE_PEER_REQUEST():
+    DOT11_DISASSOCIATE_PEER_REQUEST = win32more.NetworkManagement.WiFi.DOT11_DISASSOCIATE_PEER_REQUEST_head
+    DOT11_DISASSOCIATE_PEER_REQUEST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMacAddr', Byte * 6),
+        ('usReason', UInt16),
+    ]
+    return DOT11_DISASSOCIATE_PEER_REQUEST
+def _define_DOT11_DISASSOCIATION_PARAMETERS_head():
+    class DOT11_DISASSOCIATION_PARAMETERS(Structure):
+        pass
+    return DOT11_DISASSOCIATION_PARAMETERS
+def _define_DOT11_DISASSOCIATION_PARAMETERS():
+    DOT11_DISASSOCIATION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_DISASSOCIATION_PARAMETERS_head
+    DOT11_DISASSOCIATION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('MacAddr', Byte * 6),
+        ('uReason', UInt32),
+        ('uIHVDataOffset', UInt32),
+        ('uIHVDataSize', UInt32),
+    ]
+    return DOT11_DISASSOCIATION_PARAMETERS
+def _define_DOT11_DIVERSITY_SELECTION_RX_head():
+    class DOT11_DIVERSITY_SELECTION_RX(Structure):
+        pass
+    return DOT11_DIVERSITY_SELECTION_RX
+def _define_DOT11_DIVERSITY_SELECTION_RX():
+    DOT11_DIVERSITY_SELECTION_RX = win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX_head
+    DOT11_DIVERSITY_SELECTION_RX._fields_ = [
+        ('uAntennaListIndex', UInt32),
+        ('bDiversitySelectionRX', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_DIVERSITY_SELECTION_RX
+def _define_DOT11_DIVERSITY_SELECTION_RX_LIST_head():
+    class DOT11_DIVERSITY_SELECTION_RX_LIST(Structure):
+        pass
+    return DOT11_DIVERSITY_SELECTION_RX_LIST
+def _define_DOT11_DIVERSITY_SELECTION_RX_LIST():
+    DOT11_DIVERSITY_SELECTION_RX_LIST = win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX_LIST_head
+    DOT11_DIVERSITY_SELECTION_RX_LIST._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11DiversitySelectionRx', win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX * 1),
+    ]
+    return DOT11_DIVERSITY_SELECTION_RX_LIST
+DOT11_DIVERSITY_SUPPORT = Int32
+dot11_diversity_support_unknown = 0
+dot11_diversity_support_fixedlist = 1
+dot11_diversity_support_notsupported = 2
+dot11_diversity_support_dynamic = 3
+DOT11_DS_INFO = Int32
+DOT11_DS_CHANGED = 0
+DOT11_DS_UNCHANGED = 1
+DOT11_DS_UNKNOWN = 2
+def _define_DOT11_EAP_RESULT_head():
+    class DOT11_EAP_RESULT(Structure):
+        pass
+    return DOT11_EAP_RESULT
+def _define_DOT11_EAP_RESULT():
+    DOT11_EAP_RESULT = win32more.NetworkManagement.WiFi.DOT11_EAP_RESULT_head
+    DOT11_EAP_RESULT._fields_ = [
+        ('dwFailureReasonCode', UInt32),
+        ('pAttribArray', POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)),
+    ]
+    return DOT11_EAP_RESULT
+def _define_DOT11_ENCAP_ENTRY_head():
+    class DOT11_ENCAP_ENTRY(Structure):
+        pass
+    return DOT11_ENCAP_ENTRY
+def _define_DOT11_ENCAP_ENTRY():
+    DOT11_ENCAP_ENTRY = win32more.NetworkManagement.WiFi.DOT11_ENCAP_ENTRY_head
+    DOT11_ENCAP_ENTRY._fields_ = [
+        ('usEtherType', UInt16),
+        ('usEncapType', UInt16),
+    ]
+    return DOT11_ENCAP_ENTRY
+def _define_DOT11_ERP_PHY_ATTRIBUTES_head():
+    class DOT11_ERP_PHY_ATTRIBUTES(Structure):
+        pass
+    return DOT11_ERP_PHY_ATTRIBUTES
+def _define_DOT11_ERP_PHY_ATTRIBUTES():
+    DOT11_ERP_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_ERP_PHY_ATTRIBUTES_head
+    DOT11_ERP_PHY_ATTRIBUTES._fields_ = [
+        ('HRDSSSAttributes', win32more.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES),
+        ('bERPPBCCOptionImplemented', win32more.Foundation.BOOLEAN),
+        ('bDSSSOFDMOptionImplemented', win32more.Foundation.BOOLEAN),
+        ('bShortSlotTimeOptionImplemented', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_ERP_PHY_ATTRIBUTES
+def _define_DOT11_EXTAP_ATTRIBUTES_head():
+    class DOT11_EXTAP_ATTRIBUTES(Structure):
+        pass
+    return DOT11_EXTAP_ATTRIBUTES
+def _define_DOT11_EXTAP_ATTRIBUTES():
+    DOT11_EXTAP_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_EXTAP_ATTRIBUTES_head
+    DOT11_EXTAP_ATTRIBUTES._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uScanSSIDListSize', UInt32),
+        ('uDesiredSSIDListSize', UInt32),
+        ('uPrivacyExemptionListSize', UInt32),
+        ('uAssociationTableSize', UInt32),
+        ('uDefaultKeyTableSize', UInt32),
+        ('uWEPKeyValueMaxLength', UInt32),
+        ('bStrictlyOrderedServiceClassImplemented', win32more.Foundation.BOOLEAN),
+        ('uNumSupportedCountryOrRegionStrings', UInt32),
+        ('pSupportedCountryOrRegionStrings', c_char_p_no),
+        ('uInfraNumSupportedUcastAlgoPairs', UInt32),
+        ('pInfraSupportedUcastAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+        ('uInfraNumSupportedMcastAlgoPairs', UInt32),
+        ('pInfraSupportedMcastAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+    ]
+    return DOT11_EXTAP_ATTRIBUTES
+def _define_DOT11_EXTSTA_ATTRIBUTES_head():
+    class DOT11_EXTSTA_ATTRIBUTES(Structure):
+        pass
+    return DOT11_EXTSTA_ATTRIBUTES
+def _define_DOT11_EXTSTA_ATTRIBUTES():
+    DOT11_EXTSTA_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_ATTRIBUTES_head
+    DOT11_EXTSTA_ATTRIBUTES._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uScanSSIDListSize', UInt32),
+        ('uDesiredBSSIDListSize', UInt32),
+        ('uDesiredSSIDListSize', UInt32),
+        ('uExcludedMacAddressListSize', UInt32),
+        ('uPrivacyExemptionListSize', UInt32),
+        ('uKeyMappingTableSize', UInt32),
+        ('uDefaultKeyTableSize', UInt32),
+        ('uWEPKeyValueMaxLength', UInt32),
+        ('uPMKIDCacheSize', UInt32),
+        ('uMaxNumPerSTADefaultKeyTables', UInt32),
+        ('bStrictlyOrderedServiceClassImplemented', win32more.Foundation.BOOLEAN),
+        ('ucSupportedQoSProtocolFlags', Byte),
+        ('bSafeModeImplemented', win32more.Foundation.BOOLEAN),
+        ('uNumSupportedCountryOrRegionStrings', UInt32),
+        ('pSupportedCountryOrRegionStrings', c_char_p_no),
+        ('uInfraNumSupportedUcastAlgoPairs', UInt32),
+        ('pInfraSupportedUcastAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+        ('uInfraNumSupportedMcastAlgoPairs', UInt32),
+        ('pInfraSupportedMcastAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+        ('uAdhocNumSupportedUcastAlgoPairs', UInt32),
+        ('pAdhocSupportedUcastAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+        ('uAdhocNumSupportedMcastAlgoPairs', UInt32),
+        ('pAdhocSupportedMcastAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+        ('bAutoPowerSaveMode', win32more.Foundation.BOOLEAN),
+        ('uMaxNetworkOffloadListSize', UInt32),
+        ('bMFPCapable', win32more.Foundation.BOOLEAN),
+        ('uInfraNumSupportedMcastMgmtAlgoPairs', UInt32),
+        ('pInfraSupportedMcastMgmtAlgoPairs', POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
+        ('bNeighborReportSupported', win32more.Foundation.BOOLEAN),
+        ('bAPChannelReportSupported', win32more.Foundation.BOOLEAN),
+        ('bActionFramesSupported', win32more.Foundation.BOOLEAN),
+        ('bANQPQueryOffloadSupported', win32more.Foundation.BOOLEAN),
+        ('bHESSIDConnectionSupported', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_EXTSTA_ATTRIBUTES
+def _define_DOT11_EXTSTA_CAPABILITY_head():
+    class DOT11_EXTSTA_CAPABILITY(Structure):
+        pass
+    return DOT11_EXTSTA_CAPABILITY
+def _define_DOT11_EXTSTA_CAPABILITY():
+    DOT11_EXTSTA_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_CAPABILITY_head
+    DOT11_EXTSTA_CAPABILITY._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uScanSSIDListSize', UInt32),
+        ('uDesiredBSSIDListSize', UInt32),
+        ('uDesiredSSIDListSize', UInt32),
+        ('uExcludedMacAddressListSize', UInt32),
+        ('uPrivacyExemptionListSize', UInt32),
+        ('uKeyMappingTableSize', UInt32),
+        ('uDefaultKeyTableSize', UInt32),
+        ('uWEPKeyValueMaxLength', UInt32),
+        ('uPMKIDCacheSize', UInt32),
+        ('uMaxNumPerSTADefaultKeyTables', UInt32),
+    ]
+    return DOT11_EXTSTA_CAPABILITY
+def _define_DOT11_EXTSTA_RECV_CONTEXT_head():
+    class DOT11_EXTSTA_RECV_CONTEXT(Structure):
+        pass
+    return DOT11_EXTSTA_RECV_CONTEXT
+def _define_DOT11_EXTSTA_RECV_CONTEXT():
+    DOT11_EXTSTA_RECV_CONTEXT = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_RECV_CONTEXT_head
+    DOT11_EXTSTA_RECV_CONTEXT._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uReceiveFlags', UInt32),
+        ('uPhyId', UInt32),
+        ('uChCenterFrequency', UInt32),
+        ('usNumberOfMPDUsReceived', UInt16),
+        ('lRSSI', Int32),
+        ('ucDataRate', Byte),
+        ('uSizeMediaSpecificInfo', UInt32),
+        ('pvMediaSpecificInfo', c_void_p),
+        ('ullTimestamp', UInt64),
+    ]
+    return DOT11_EXTSTA_RECV_CONTEXT
+def _define_DOT11_EXTSTA_SEND_CONTEXT_head():
+    class DOT11_EXTSTA_SEND_CONTEXT(Structure):
+        pass
+    return DOT11_EXTSTA_SEND_CONTEXT
+def _define_DOT11_EXTSTA_SEND_CONTEXT():
+    DOT11_EXTSTA_SEND_CONTEXT = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_SEND_CONTEXT_head
+    DOT11_EXTSTA_SEND_CONTEXT._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('usExemptionActionType', UInt16),
+        ('uPhyId', UInt32),
+        ('uDelayedSleepValue', UInt32),
+        ('pvMediaSpecificInfo', c_void_p),
+        ('uSendFlags', UInt32),
+    ]
+    return DOT11_EXTSTA_SEND_CONTEXT
+def _define_DOT11_FRAGMENT_DESCRIPTOR_head():
+    class DOT11_FRAGMENT_DESCRIPTOR(Structure):
+        pass
+    return DOT11_FRAGMENT_DESCRIPTOR
+def _define_DOT11_FRAGMENT_DESCRIPTOR():
+    DOT11_FRAGMENT_DESCRIPTOR = win32more.NetworkManagement.WiFi.DOT11_FRAGMENT_DESCRIPTOR_head
+    DOT11_FRAGMENT_DESCRIPTOR._fields_ = [
+        ('uOffset', UInt32),
+        ('uLength', UInt32),
+    ]
+    return DOT11_FRAGMENT_DESCRIPTOR
+def _define_DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS():
+    DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS_head
+    DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS():
+    DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS_head
+    DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS():
+    DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head
+    DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS
+DOT11_HOP_ALGO_ADOPTED = Int32
+dot11_hop_algo_current = 0
+dot11_hop_algo_hop_index = 1
+dot11_hop_algo_hcc = 2
+def _define_DOT11_HOPPING_PATTERN_ENTRY_head():
+    class DOT11_HOPPING_PATTERN_ENTRY(Structure):
+        pass
+    return DOT11_HOPPING_PATTERN_ENTRY
+def _define_DOT11_HOPPING_PATTERN_ENTRY():
+    DOT11_HOPPING_PATTERN_ENTRY = win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY_head
+    DOT11_HOPPING_PATTERN_ENTRY._fields_ = [
+        ('uHoppingPatternIndex', UInt32),
+        ('uRandomTableFieldNumber', UInt32),
+    ]
+    return DOT11_HOPPING_PATTERN_ENTRY
+def _define_DOT11_HOPPING_PATTERN_ENTRY_LIST_head():
+    class DOT11_HOPPING_PATTERN_ENTRY_LIST(Structure):
+        pass
+    return DOT11_HOPPING_PATTERN_ENTRY_LIST
+def _define_DOT11_HOPPING_PATTERN_ENTRY_LIST():
+    DOT11_HOPPING_PATTERN_ENTRY_LIST = win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY_LIST_head
+    DOT11_HOPPING_PATTERN_ENTRY_LIST._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11HoppingPatternEntry', win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY * 1),
+    ]
+    return DOT11_HOPPING_PATTERN_ENTRY_LIST
+def _define_DOT11_HRDSSS_PHY_ATTRIBUTES_head():
+    class DOT11_HRDSSS_PHY_ATTRIBUTES(Structure):
+        pass
+    return DOT11_HRDSSS_PHY_ATTRIBUTES
+def _define_DOT11_HRDSSS_PHY_ATTRIBUTES():
+    DOT11_HRDSSS_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES_head
+    DOT11_HRDSSS_PHY_ATTRIBUTES._fields_ = [
+        ('bShortPreambleOptionImplemented', win32more.Foundation.BOOLEAN),
+        ('bPBCCOptionImplemented', win32more.Foundation.BOOLEAN),
+        ('bChannelAgilityPresent', win32more.Foundation.BOOLEAN),
+        ('uHRCCAModeSupported', UInt32),
+    ]
+    return DOT11_HRDSSS_PHY_ATTRIBUTES
+def _define_DOT11_IBSS_PARAMS_head():
+    class DOT11_IBSS_PARAMS(Structure):
+        pass
+    return DOT11_IBSS_PARAMS
+def _define_DOT11_IBSS_PARAMS():
+    DOT11_IBSS_PARAMS = win32more.NetworkManagement.WiFi.DOT11_IBSS_PARAMS_head
+    DOT11_IBSS_PARAMS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('bJoinOnly', win32more.Foundation.BOOLEAN),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_IBSS_PARAMS
+def _define_DOT11_IHV_VERSION_INFO_head():
+    class DOT11_IHV_VERSION_INFO(Structure):
+        pass
+    return DOT11_IHV_VERSION_INFO
+def _define_DOT11_IHV_VERSION_INFO():
+    DOT11_IHV_VERSION_INFO = win32more.NetworkManagement.WiFi.DOT11_IHV_VERSION_INFO_head
+    DOT11_IHV_VERSION_INFO._fields_ = [
+        ('dwVerMin', UInt32),
+        ('dwVerMax', UInt32),
+    ]
+    return DOT11_IHV_VERSION_INFO
+def _define_DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS_head():
+    class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS(Structure):
+        pass
+    return DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS
+def _define_DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS():
+    DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS_head
+    DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMacAddr', Byte * 6),
+        ('uStatus', UInt32),
+        ('ucErrorSource', Byte),
+        ('bReAssocReq', win32more.Foundation.BOOLEAN),
+        ('bReAssocResp', win32more.Foundation.BOOLEAN),
+        ('uAssocReqOffset', UInt32),
+        ('uAssocReqSize', UInt32),
+        ('uAssocRespOffset', UInt32),
+        ('uAssocRespSize', UInt32),
+        ('AuthAlgo', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('UnicastCipher', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('MulticastCipher', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('uActivePhyListOffset', UInt32),
+        ('uActivePhyListSize', UInt32),
+        ('uBeaconOffset', UInt32),
+        ('uBeaconSize', UInt32),
+    ]
+    return DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS
+def _define_DOT11_INCOMING_ASSOC_DECISION_head():
+    class DOT11_INCOMING_ASSOC_DECISION(Structure):
+        pass
+    return DOT11_INCOMING_ASSOC_DECISION
+def _define_DOT11_INCOMING_ASSOC_DECISION():
+    DOT11_INCOMING_ASSOC_DECISION = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_DECISION_head
+    DOT11_INCOMING_ASSOC_DECISION._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMacAddr', Byte * 6),
+        ('bAccept', win32more.Foundation.BOOLEAN),
+        ('usReasonCode', UInt16),
+        ('uAssocResponseIEsOffset', UInt32),
+        ('uAssocResponseIEsLength', UInt32),
+    ]
+    return DOT11_INCOMING_ASSOC_DECISION
+def _define_DOT11_INCOMING_ASSOC_DECISION_V2_head():
+    class DOT11_INCOMING_ASSOC_DECISION_V2(Structure):
+        pass
+    return DOT11_INCOMING_ASSOC_DECISION_V2
+def _define_DOT11_INCOMING_ASSOC_DECISION_V2():
+    DOT11_INCOMING_ASSOC_DECISION_V2 = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_DECISION_V2_head
+    DOT11_INCOMING_ASSOC_DECISION_V2._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMacAddr', Byte * 6),
+        ('bAccept', win32more.Foundation.BOOLEAN),
+        ('usReasonCode', UInt16),
+        ('uAssocResponseIEsOffset', UInt32),
+        ('uAssocResponseIEsLength', UInt32),
+        ('WFDStatus', Byte),
+    ]
+    return DOT11_INCOMING_ASSOC_DECISION_V2
+def _define_DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS_head():
+    class DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS(Structure):
+        pass
+    return DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS
+def _define_DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS():
+    DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS_head
+    DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMacAddr', Byte * 6),
+        ('bReAssocReq', win32more.Foundation.BOOLEAN),
+        ('uAssocReqOffset', UInt32),
+        ('uAssocReqSize', UInt32),
+    ]
+    return DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS
+def _define_DOT11_INCOMING_ASSOC_STARTED_PARAMETERS_head():
+    class DOT11_INCOMING_ASSOC_STARTED_PARAMETERS(Structure):
+        pass
+    return DOT11_INCOMING_ASSOC_STARTED_PARAMETERS
+def _define_DOT11_INCOMING_ASSOC_STARTED_PARAMETERS():
+    DOT11_INCOMING_ASSOC_STARTED_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_STARTED_PARAMETERS_head
+    DOT11_INCOMING_ASSOC_STARTED_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMacAddr', Byte * 6),
+    ]
+    return DOT11_INCOMING_ASSOC_STARTED_PARAMETERS
+def _define_DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS():
+    DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS_head
+    DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('ReceiverAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS():
+    DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head
+    DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ReceiverDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_IV48_COUNTER_head():
+    class DOT11_IV48_COUNTER(Structure):
+        pass
+    return DOT11_IV48_COUNTER
+def _define_DOT11_IV48_COUNTER():
+    DOT11_IV48_COUNTER = win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER_head
+    DOT11_IV48_COUNTER._fields_ = [
+        ('uIV32Counter', UInt32),
+        ('usIV16Counter', UInt16),
+    ]
+    return DOT11_IV48_COUNTER
+def _define_DOT11_JOIN_REQUEST_head():
+    class DOT11_JOIN_REQUEST(Structure):
+        pass
+    return DOT11_JOIN_REQUEST
+def _define_DOT11_JOIN_REQUEST():
+    DOT11_JOIN_REQUEST = win32more.NetworkManagement.WiFi.DOT11_JOIN_REQUEST_head
+    DOT11_JOIN_REQUEST._fields_ = [
+        ('uJoinFailureTimeout', UInt32),
+        ('OperationalRateSet', win32more.NetworkManagement.WiFi.DOT11_RATE_SET),
+        ('uChCenterFrequency', UInt32),
+        ('dot11BSSDescription', win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION),
+    ]
+    return DOT11_JOIN_REQUEST
+def _define_DOT11_KEY_ALGO_BIP_head():
+    class DOT11_KEY_ALGO_BIP(Structure):
+        pass
+    return DOT11_KEY_ALGO_BIP
+def _define_DOT11_KEY_ALGO_BIP():
+    DOT11_KEY_ALGO_BIP = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_BIP_head
+    DOT11_KEY_ALGO_BIP._fields_ = [
+        ('ucIPN', Byte * 6),
+        ('ulBIPKeyLength', UInt32),
+        ('ucBIPKey', Byte * 1),
+    ]
+    return DOT11_KEY_ALGO_BIP
+def _define_DOT11_KEY_ALGO_BIP_GMAC_256_head():
+    class DOT11_KEY_ALGO_BIP_GMAC_256(Structure):
+        pass
+    return DOT11_KEY_ALGO_BIP_GMAC_256
+def _define_DOT11_KEY_ALGO_BIP_GMAC_256():
+    DOT11_KEY_ALGO_BIP_GMAC_256 = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_BIP_GMAC_256_head
+    DOT11_KEY_ALGO_BIP_GMAC_256._fields_ = [
+        ('ucIPN', Byte * 6),
+        ('ulBIPGmac256KeyLength', UInt32),
+        ('ucBIPGmac256Key', Byte * 1),
+    ]
+    return DOT11_KEY_ALGO_BIP_GMAC_256
+def _define_DOT11_KEY_ALGO_CCMP_head():
+    class DOT11_KEY_ALGO_CCMP(Structure):
+        pass
+    return DOT11_KEY_ALGO_CCMP
+def _define_DOT11_KEY_ALGO_CCMP():
+    DOT11_KEY_ALGO_CCMP = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_CCMP_head
+    DOT11_KEY_ALGO_CCMP._fields_ = [
+        ('ucIV48Counter', Byte * 6),
+        ('ulCCMPKeyLength', UInt32),
+        ('ucCCMPKey', Byte * 1),
+    ]
+    return DOT11_KEY_ALGO_CCMP
+def _define_DOT11_KEY_ALGO_GCMP_head():
+    class DOT11_KEY_ALGO_GCMP(Structure):
+        pass
+    return DOT11_KEY_ALGO_GCMP
+def _define_DOT11_KEY_ALGO_GCMP():
+    DOT11_KEY_ALGO_GCMP = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_GCMP_head
+    DOT11_KEY_ALGO_GCMP._fields_ = [
+        ('ucIV48Counter', Byte * 6),
+        ('ulGCMPKeyLength', UInt32),
+        ('ucGCMPKey', Byte * 1),
+    ]
+    return DOT11_KEY_ALGO_GCMP
+def _define_DOT11_KEY_ALGO_GCMP_256_head():
+    class DOT11_KEY_ALGO_GCMP_256(Structure):
+        pass
+    return DOT11_KEY_ALGO_GCMP_256
+def _define_DOT11_KEY_ALGO_GCMP_256():
+    DOT11_KEY_ALGO_GCMP_256 = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_GCMP_256_head
+    DOT11_KEY_ALGO_GCMP_256._fields_ = [
+        ('ucIV48Counter', Byte * 6),
+        ('ulGCMP256KeyLength', UInt32),
+        ('ucGCMP256Key', Byte * 1),
+    ]
+    return DOT11_KEY_ALGO_GCMP_256
+def _define_DOT11_KEY_ALGO_TKIP_MIC_head():
+    class DOT11_KEY_ALGO_TKIP_MIC(Structure):
+        pass
+    return DOT11_KEY_ALGO_TKIP_MIC
+def _define_DOT11_KEY_ALGO_TKIP_MIC():
+    DOT11_KEY_ALGO_TKIP_MIC = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_TKIP_MIC_head
+    DOT11_KEY_ALGO_TKIP_MIC._fields_ = [
+        ('ucIV48Counter', Byte * 6),
+        ('ulTKIPKeyLength', UInt32),
+        ('ulMICKeyLength', UInt32),
+        ('ucTKIPMICKeys', Byte * 1),
+    ]
+    return DOT11_KEY_ALGO_TKIP_MIC
+DOT11_KEY_DIRECTION = Int32
+dot11_key_direction_both = 1
+dot11_key_direction_inbound = 2
+dot11_key_direction_outbound = 3
+def _define_DOT11_LINK_QUALITY_ENTRY_head():
+    class DOT11_LINK_QUALITY_ENTRY(Structure):
+        pass
+    return DOT11_LINK_QUALITY_ENTRY
+def _define_DOT11_LINK_QUALITY_ENTRY():
+    DOT11_LINK_QUALITY_ENTRY = win32more.NetworkManagement.WiFi.DOT11_LINK_QUALITY_ENTRY_head
+    DOT11_LINK_QUALITY_ENTRY._fields_ = [
+        ('PeerMacAddr', Byte * 6),
+        ('ucLinkQuality', Byte),
+    ]
+    return DOT11_LINK_QUALITY_ENTRY
+def _define_DOT11_LINK_QUALITY_PARAMETERS_head():
+    class DOT11_LINK_QUALITY_PARAMETERS(Structure):
+        pass
+    return DOT11_LINK_QUALITY_PARAMETERS
+def _define_DOT11_LINK_QUALITY_PARAMETERS():
+    DOT11_LINK_QUALITY_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_LINK_QUALITY_PARAMETERS_head
+    DOT11_LINK_QUALITY_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uLinkQualityListSize', UInt32),
+        ('uLinkQualityListOffset', UInt32),
+    ]
+    return DOT11_LINK_QUALITY_PARAMETERS
+def _define_DOT11_MAC_ADDRESS_LIST_head():
+    class DOT11_MAC_ADDRESS_LIST(Structure):
+        pass
+    return DOT11_MAC_ADDRESS_LIST
+def _define_DOT11_MAC_ADDRESS_LIST():
+    DOT11_MAC_ADDRESS_LIST = win32more.NetworkManagement.WiFi.DOT11_MAC_ADDRESS_LIST_head
+    DOT11_MAC_ADDRESS_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('MacAddrs', Byte * 6),
+    ]
+    return DOT11_MAC_ADDRESS_LIST
+def _define_DOT11_MAC_FRAME_STATISTICS_head():
+    class DOT11_MAC_FRAME_STATISTICS(Structure):
+        pass
+    return DOT11_MAC_FRAME_STATISTICS
+def _define_DOT11_MAC_FRAME_STATISTICS():
+    DOT11_MAC_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS_head
+    DOT11_MAC_FRAME_STATISTICS._fields_ = [
+        ('ullTransmittedFrameCount', UInt64),
+        ('ullReceivedFrameCount', UInt64),
+        ('ullTransmittedFailureFrameCount', UInt64),
+        ('ullReceivedFailureFrameCount', UInt64),
+        ('ullWEPExcludedCount', UInt64),
+        ('ullTKIPLocalMICFailures', UInt64),
+        ('ullTKIPReplays', UInt64),
+        ('ullTKIPICVErrorCount', UInt64),
+        ('ullCCMPReplays', UInt64),
+        ('ullCCMPDecryptErrors', UInt64),
+        ('ullWEPUndecryptableCount', UInt64),
+        ('ullWEPICVErrorCount', UInt64),
+        ('ullDecryptSuccessCount', UInt64),
+        ('ullDecryptFailureCount', UInt64),
+    ]
+    return DOT11_MAC_FRAME_STATISTICS
+def _define_DOT11_MAC_INFO_head():
+    class DOT11_MAC_INFO(Structure):
+        pass
+    return DOT11_MAC_INFO
+def _define_DOT11_MAC_INFO():
+    DOT11_MAC_INFO = win32more.NetworkManagement.WiFi.DOT11_MAC_INFO_head
+    DOT11_MAC_INFO._fields_ = [
+        ('uReserved', UInt32),
+        ('uNdisPortNumber', UInt32),
+        ('MacAddr', Byte * 6),
+    ]
+    return DOT11_MAC_INFO
+def _define_DOT11_MAC_PARAMETERS_head():
+    class DOT11_MAC_PARAMETERS(Structure):
+        pass
+    return DOT11_MAC_PARAMETERS
+def _define_DOT11_MAC_PARAMETERS():
+    DOT11_MAC_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_MAC_PARAMETERS_head
+    DOT11_MAC_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uOpmodeMask', UInt32),
+    ]
+    return DOT11_MAC_PARAMETERS
+def _define_DOT11_MANUFACTURING_CALLBACK_PARAMETERS_head():
+    class DOT11_MANUFACTURING_CALLBACK_PARAMETERS(Structure):
+        pass
+    return DOT11_MANUFACTURING_CALLBACK_PARAMETERS
+def _define_DOT11_MANUFACTURING_CALLBACK_PARAMETERS():
+    DOT11_MANUFACTURING_CALLBACK_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_PARAMETERS_head
+    DOT11_MANUFACTURING_CALLBACK_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('dot11ManufacturingCallbackType', win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE),
+        ('uStatus', UInt32),
+        ('pvContext', c_void_p),
+    ]
+    return DOT11_MANUFACTURING_CALLBACK_PARAMETERS
+DOT11_MANUFACTURING_CALLBACK_TYPE = Int32
+dot11_manufacturing_callback_unknown = 0
+dot11_manufacturing_callback_self_test_complete = 1
+dot11_manufacturing_callback_sleep_complete = 2
+dot11_manufacturing_callback_IHV_start = -2147483648
+dot11_manufacturing_callback_IHV_end = -1
+def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC_head():
+    class DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC(Structure):
+        pass
+    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC
+def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC():
+    DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC_head
+    DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC._fields_ = [
+        ('Dot11Band', win32more.NetworkManagement.WiFi.DOT11_BAND),
+        ('uChannel', UInt32),
+        ('ADCPowerLevel', Int32),
+    ]
+    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC
+def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX_head():
+    class DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX(Structure):
+        pass
+    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX
+def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX():
+    DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX_head
+    DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX._fields_ = [
+        ('bEnabled', win32more.Foundation.BOOLEAN),
+        ('Dot11Band', win32more.NetworkManagement.WiFi.DOT11_BAND),
+        ('uChannel', UInt32),
+        ('PowerLevel', Int32),
+    ]
+    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX
+def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX_head():
+    class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX(Structure):
+        pass
+    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX
+def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX():
+    DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX_head
+    DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX._fields_ = [
+        ('bEnable', win32more.Foundation.BOOLEAN),
+        ('bOpenLoop', win32more.Foundation.BOOLEAN),
+        ('Dot11Band', win32more.NetworkManagement.WiFi.DOT11_BAND),
+        ('uChannel', UInt32),
+        ('uSetPowerLevel', UInt32),
+        ('ADCPowerLevel', Int32),
+    ]
+    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX
+def _define_DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS_head():
+    class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS(Structure):
+        pass
+    return DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS
+def _define_DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS():
+    DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS_head
+    DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS._fields_ = [
+        ('SelfTestType', win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE),
+        ('uTestID', UInt32),
+        ('bResult', win32more.Foundation.BOOLEAN),
+        ('uPinFailedBitMask', UInt32),
+        ('pvContext', c_void_p),
+        ('uBytesWrittenOut', UInt32),
+        ('ucBufferOut', Byte * 1),
+    ]
+    return DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS
+def _define_DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS_head():
+    class DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS(Structure):
+        pass
+    return DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS
+def _define_DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS():
+    DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS_head
+    DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS._fields_ = [
+        ('SelfTestType', win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE),
+        ('uTestID', UInt32),
+        ('uPinBitMask', UInt32),
+        ('pvContext', c_void_p),
+        ('uBufferLength', UInt32),
+        ('ucBufferIn', Byte * 1),
+    ]
+    return DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS
+DOT11_MANUFACTURING_SELF_TEST_TYPE = Int32
+DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE = 1
+DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE = 2
+DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE = 3
+def _define_DOT11_MANUFACTURING_TEST_head():
+    class DOT11_MANUFACTURING_TEST(Structure):
+        pass
+    return DOT11_MANUFACTURING_TEST
+def _define_DOT11_MANUFACTURING_TEST():
+    DOT11_MANUFACTURING_TEST = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_head
+    DOT11_MANUFACTURING_TEST._fields_ = [
+        ('dot11ManufacturingTestType', win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE),
+        ('uBufferLength', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_MANUFACTURING_TEST
+def _define_DOT11_MANUFACTURING_TEST_QUERY_DATA_head():
+    class DOT11_MANUFACTURING_TEST_QUERY_DATA(Structure):
+        pass
+    return DOT11_MANUFACTURING_TEST_QUERY_DATA
+def _define_DOT11_MANUFACTURING_TEST_QUERY_DATA():
+    DOT11_MANUFACTURING_TEST_QUERY_DATA = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_QUERY_DATA_head
+    DOT11_MANUFACTURING_TEST_QUERY_DATA._fields_ = [
+        ('uKey', UInt32),
+        ('uOffset', UInt32),
+        ('uBufferLength', UInt32),
+        ('uBytesRead', UInt32),
+        ('ucBufferOut', Byte * 1),
+    ]
+    return DOT11_MANUFACTURING_TEST_QUERY_DATA
+def _define_DOT11_MANUFACTURING_TEST_SET_DATA_head():
+    class DOT11_MANUFACTURING_TEST_SET_DATA(Structure):
+        pass
+    return DOT11_MANUFACTURING_TEST_SET_DATA
+def _define_DOT11_MANUFACTURING_TEST_SET_DATA():
+    DOT11_MANUFACTURING_TEST_SET_DATA = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_SET_DATA_head
+    DOT11_MANUFACTURING_TEST_SET_DATA._fields_ = [
+        ('uKey', UInt32),
+        ('uOffset', UInt32),
+        ('uBufferLength', UInt32),
+        ('ucBufferIn', Byte * 1),
+    ]
+    return DOT11_MANUFACTURING_TEST_SET_DATA
+def _define_DOT11_MANUFACTURING_TEST_SLEEP_head():
+    class DOT11_MANUFACTURING_TEST_SLEEP(Structure):
+        pass
+    return DOT11_MANUFACTURING_TEST_SLEEP
+def _define_DOT11_MANUFACTURING_TEST_SLEEP():
+    DOT11_MANUFACTURING_TEST_SLEEP = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_SLEEP_head
+    DOT11_MANUFACTURING_TEST_SLEEP._fields_ = [
+        ('uSleepTime', UInt32),
+        ('pvContext', c_void_p),
+    ]
+    return DOT11_MANUFACTURING_TEST_SLEEP
+DOT11_MANUFACTURING_TEST_TYPE = Int32
+dot11_manufacturing_test_unknown = 0
+dot11_manufacturing_test_self_start = 1
+dot11_manufacturing_test_self_query_result = 2
+dot11_manufacturing_test_rx = 3
+dot11_manufacturing_test_tx = 4
+dot11_manufacturing_test_query_adc = 5
+dot11_manufacturing_test_set_data = 6
+dot11_manufacturing_test_query_data = 7
+dot11_manufacturing_test_sleep = 8
+dot11_manufacturing_test_awake = 9
+dot11_manufacturing_test_IHV_start = -2147483648
+dot11_manufacturing_test_IHV_end = -1
+def _define_DOT11_MD_CAPABILITY_ENTRY_LIST_head():
+    class DOT11_MD_CAPABILITY_ENTRY_LIST(Structure):
+        pass
+    return DOT11_MD_CAPABILITY_ENTRY_LIST
+def _define_DOT11_MD_CAPABILITY_ENTRY_LIST():
+    DOT11_MD_CAPABILITY_ENTRY_LIST = win32more.NetworkManagement.WiFi.DOT11_MD_CAPABILITY_ENTRY_LIST_head
+    DOT11_MD_CAPABILITY_ENTRY_LIST._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11MDCapabilityEntry', win32more.NetworkManagement.WiFi.DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY * 1),
+    ]
+    return DOT11_MD_CAPABILITY_ENTRY_LIST
+def _define_DOT11_MPDU_MAX_LENGTH_INDICATION_head():
+    class DOT11_MPDU_MAX_LENGTH_INDICATION(Structure):
+        pass
+    return DOT11_MPDU_MAX_LENGTH_INDICATION
+def _define_DOT11_MPDU_MAX_LENGTH_INDICATION():
+    DOT11_MPDU_MAX_LENGTH_INDICATION = win32more.NetworkManagement.WiFi.DOT11_MPDU_MAX_LENGTH_INDICATION_head
+    DOT11_MPDU_MAX_LENGTH_INDICATION._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uPhyId', UInt32),
+        ('uMPDUMaxLength', UInt32),
+    ]
+    return DOT11_MPDU_MAX_LENGTH_INDICATION
+DOT11_MSONEX_RESULT = Int32
+DOT11_MSONEX_SUCCESS = 0
+DOT11_MSONEX_FAILURE = 1
+DOT11_MSONEX_IN_PROGRESS = 2
+def _define_DOT11_MSONEX_RESULT_PARAMS_head():
+    class DOT11_MSONEX_RESULT_PARAMS(Structure):
+        pass
+    return DOT11_MSONEX_RESULT_PARAMS
+def _define_DOT11_MSONEX_RESULT_PARAMS():
+    DOT11_MSONEX_RESULT_PARAMS = win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT_PARAMS_head
+    DOT11_MSONEX_RESULT_PARAMS._fields_ = [
+        ('Dot11OnexAuthStatus', win32more.NetworkManagement.WiFi.ONEX_AUTH_STATUS),
+        ('Dot11OneXReasonCode', win32more.NetworkManagement.WiFi.ONEX_REASON_CODE),
+        ('pbMPPESendKey', c_char_p_no),
+        ('dwMPPESendKeyLen', UInt32),
+        ('pbMPPERecvKey', c_char_p_no),
+        ('dwMPPERecvKeyLen', UInt32),
+        ('pDot11EapResult', POINTER(win32more.NetworkManagement.WiFi.DOT11_EAP_RESULT_head)),
+    ]
+    return DOT11_MSONEX_RESULT_PARAMS
+def _define_DOT11_MSSECURITY_SETTINGS_head():
+    class DOT11_MSSECURITY_SETTINGS(Structure):
+        pass
+    return DOT11_MSSECURITY_SETTINGS
+def _define_DOT11_MSSECURITY_SETTINGS():
+    DOT11_MSSECURITY_SETTINGS = win32more.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS_head
+    DOT11_MSSECURITY_SETTINGS._fields_ = [
+        ('dot11AuthAlgorithm', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('dot11CipherAlgorithm', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('fOneXEnabled', win32more.Foundation.BOOL),
+        ('eapMethodType', win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE),
+        ('dwEapConnectionDataLen', UInt32),
+        ('pEapConnectionData', c_char_p_no),
+    ]
+    return DOT11_MSSECURITY_SETTINGS
+def _define_DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY_head():
+    class DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY(Structure):
+        pass
+    return DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY
+def _define_DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY():
+    DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY = win32more.NetworkManagement.WiFi.DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY_head
+    DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY._fields_ = [
+        ('uMultiDomainCapabilityIndex', UInt32),
+        ('uFirstChannelNumber', UInt32),
+        ('uNumberOfChannels', UInt32),
+        ('lMaximumTransmitPowerLevel', Int32),
+    ]
+    return DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY
+def _define_DOT11_NETWORK_head():
+    class DOT11_NETWORK(Structure):
+        pass
+    return DOT11_NETWORK
+def _define_DOT11_NETWORK():
+    DOT11_NETWORK = win32more.NetworkManagement.WiFi.DOT11_NETWORK_head
+    DOT11_NETWORK._fields_ = [
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+    ]
+    return DOT11_NETWORK
+def _define_DOT11_NETWORK_LIST_head():
+    class DOT11_NETWORK_LIST(Structure):
+        pass
+    return DOT11_NETWORK_LIST
+def _define_DOT11_NETWORK_LIST():
+    DOT11_NETWORK_LIST = win32more.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head
+    DOT11_NETWORK_LIST._fields_ = [
+        ('dwNumberOfItems', UInt32),
+        ('dwIndex', UInt32),
+        ('Network', win32more.NetworkManagement.WiFi.DOT11_NETWORK * 1),
+    ]
+    return DOT11_NETWORK_LIST
+def _define_DOT11_NIC_SPECIFIC_EXTENSION_head():
+    class DOT11_NIC_SPECIFIC_EXTENSION(Structure):
+        pass
+    return DOT11_NIC_SPECIFIC_EXTENSION
+def _define_DOT11_NIC_SPECIFIC_EXTENSION():
+    DOT11_NIC_SPECIFIC_EXTENSION = win32more.NetworkManagement.WiFi.DOT11_NIC_SPECIFIC_EXTENSION_head
+    DOT11_NIC_SPECIFIC_EXTENSION._fields_ = [
+        ('uBufferLength', UInt32),
+        ('uTotalBufferLength', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_NIC_SPECIFIC_EXTENSION
+def _define_DOT11_OFDM_PHY_ATTRIBUTES_head():
+    class DOT11_OFDM_PHY_ATTRIBUTES(Structure):
+        pass
+    return DOT11_OFDM_PHY_ATTRIBUTES
+def _define_DOT11_OFDM_PHY_ATTRIBUTES():
+    DOT11_OFDM_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_OFDM_PHY_ATTRIBUTES_head
+    DOT11_OFDM_PHY_ATTRIBUTES._fields_ = [
+        ('uFrequencyBandsSupported', UInt32),
+    ]
+    return DOT11_OFDM_PHY_ATTRIBUTES
+def _define_DOT11_OFFLOAD_CAPABILITY_head():
+    class DOT11_OFFLOAD_CAPABILITY(Structure):
+        pass
+    return DOT11_OFFLOAD_CAPABILITY
+def _define_DOT11_OFFLOAD_CAPABILITY():
+    DOT11_OFFLOAD_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_CAPABILITY_head
+    DOT11_OFFLOAD_CAPABILITY._fields_ = [
+        ('uReserved', UInt32),
+        ('uFlags', UInt32),
+        ('uSupportedWEPAlgorithms', UInt32),
+        ('uNumOfReplayWindows', UInt32),
+        ('uMaxWEPKeyMappingLength', UInt32),
+        ('uSupportedAuthAlgorithms', UInt32),
+        ('uMaxAuthKeyMappingLength', UInt32),
+    ]
+    return DOT11_OFFLOAD_CAPABILITY
+def _define_DOT11_OFFLOAD_NETWORK_head():
+    class DOT11_OFFLOAD_NETWORK(Structure):
+        pass
+    return DOT11_OFFLOAD_NETWORK
+def _define_DOT11_OFFLOAD_NETWORK():
+    DOT11_OFFLOAD_NETWORK = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK_head
+    DOT11_OFFLOAD_NETWORK._fields_ = [
+        ('Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('UnicastCipher', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('AuthAlgo', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('Dot11ChannelHints', win32more.NetworkManagement.WiFi.DOT11_CHANNEL_HINT * 4),
+    ]
+    return DOT11_OFFLOAD_NETWORK
+def _define_DOT11_OFFLOAD_NETWORK_LIST_INFO_head():
+    class DOT11_OFFLOAD_NETWORK_LIST_INFO(Structure):
+        pass
+    return DOT11_OFFLOAD_NETWORK_LIST_INFO
+def _define_DOT11_OFFLOAD_NETWORK_LIST_INFO():
+    DOT11_OFFLOAD_NETWORK_LIST_INFO = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK_LIST_INFO_head
+    DOT11_OFFLOAD_NETWORK_LIST_INFO._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ulFlags', UInt32),
+        ('FastScanPeriod', UInt32),
+        ('FastScanIterations', UInt32),
+        ('SlowScanPeriod', UInt32),
+        ('uNumOfEntries', UInt32),
+        ('offloadNetworkList', win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK * 1),
+    ]
+    return DOT11_OFFLOAD_NETWORK_LIST_INFO
+def _define_DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS_head():
+    class DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS(Structure):
+        pass
+    return DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS
+def _define_DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS():
+    DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS_head
+    DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('Status', Int32),
+    ]
+    return DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS
+DOT11_OFFLOAD_TYPE = Int32
+dot11_offload_type_wep = 1
+dot11_offload_type_auth = 2
 def _define_DOT11_OI_head():
     class DOT11_OI(Structure):
         pass
@@ -885,48 +2782,206 @@ def _define_DOT11_OI_head():
 def _define_DOT11_OI():
     DOT11_OI = win32more.NetworkManagement.WiFi.DOT11_OI_head
     DOT11_OI._fields_ = [
-        ("OILength", UInt16),
-        ("OI", Byte * 5),
+        ('OILength', UInt16),
+        ('OI', Byte * 5),
     ]
     return DOT11_OI
-def _define_DOT11_ACCESSNETWORKOPTIONS_head():
-    class DOT11_ACCESSNETWORKOPTIONS(Structure):
+def _define_DOT11_OPERATION_MODE_CAPABILITY_head():
+    class DOT11_OPERATION_MODE_CAPABILITY(Structure):
         pass
-    return DOT11_ACCESSNETWORKOPTIONS
-def _define_DOT11_ACCESSNETWORKOPTIONS():
-    DOT11_ACCESSNETWORKOPTIONS = win32more.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS_head
-    DOT11_ACCESSNETWORKOPTIONS._fields_ = [
-        ("AccessNetworkType", Byte),
-        ("Internet", Byte),
-        ("ASRA", Byte),
-        ("ESR", Byte),
-        ("UESA", Byte),
+    return DOT11_OPERATION_MODE_CAPABILITY
+def _define_DOT11_OPERATION_MODE_CAPABILITY():
+    DOT11_OPERATION_MODE_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_OPERATION_MODE_CAPABILITY_head
+    DOT11_OPERATION_MODE_CAPABILITY._fields_ = [
+        ('uReserved', UInt32),
+        ('uMajorVersion', UInt32),
+        ('uMinorVersion', UInt32),
+        ('uNumOfTXBuffers', UInt32),
+        ('uNumOfRXBuffers', UInt32),
+        ('uOpModeCapability', UInt32),
     ]
-    return DOT11_ACCESSNETWORKOPTIONS
-def _define_DOT11_VENUEINFO_head():
-    class DOT11_VENUEINFO(Structure):
+    return DOT11_OPERATION_MODE_CAPABILITY
+def _define_DOT11_OPTIONAL_CAPABILITY_head():
+    class DOT11_OPTIONAL_CAPABILITY(Structure):
         pass
-    return DOT11_VENUEINFO
-def _define_DOT11_VENUEINFO():
-    DOT11_VENUEINFO = win32more.NetworkManagement.WiFi.DOT11_VENUEINFO_head
-    DOT11_VENUEINFO._fields_ = [
-        ("VenueGroup", Byte),
-        ("VenueType", Byte),
+    return DOT11_OPTIONAL_CAPABILITY
+def _define_DOT11_OPTIONAL_CAPABILITY():
+    DOT11_OPTIONAL_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_OPTIONAL_CAPABILITY_head
+    DOT11_OPTIONAL_CAPABILITY._fields_ = [
+        ('uReserved', UInt32),
+        ('bDot11PCF', win32more.Foundation.BOOLEAN),
+        ('bDot11PCFMPDUTransferToPC', win32more.Foundation.BOOLEAN),
+        ('bStrictlyOrderedServiceClass', win32more.Foundation.BOOLEAN),
     ]
-    return DOT11_VENUEINFO
-def _define_DOT11_BSSID_LIST_head():
-    class DOT11_BSSID_LIST(Structure):
+    return DOT11_OPTIONAL_CAPABILITY
+def _define_DOT11_PEER_INFO_head():
+    class DOT11_PEER_INFO(Structure):
         pass
-    return DOT11_BSSID_LIST
-def _define_DOT11_BSSID_LIST():
-    DOT11_BSSID_LIST = win32more.NetworkManagement.WiFi.DOT11_BSSID_LIST_head
-    DOT11_BSSID_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("BSSIDs", Byte * 6),
+    return DOT11_PEER_INFO
+def _define_DOT11_PEER_INFO():
+    DOT11_PEER_INFO = win32more.NetworkManagement.WiFi.DOT11_PEER_INFO_head
+    DOT11_PEER_INFO._fields_ = [
+        ('MacAddress', Byte * 6),
+        ('usCapabilityInformation', UInt16),
+        ('AuthAlgo', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('UnicastCipherAlgo', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('MulticastCipherAlgo', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('bWpsEnabled', win32more.Foundation.BOOLEAN),
+        ('usListenInterval', UInt16),
+        ('ucSupportedRates', Byte * 255),
+        ('usAssociationID', UInt16),
+        ('AssociationState', win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE),
+        ('PowerMode', win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
+        ('liAssociationUpTime', win32more.Foundation.LARGE_INTEGER),
+        ('Statistics', win32more.NetworkManagement.WiFi.DOT11_PEER_STATISTICS),
     ]
-    return DOT11_BSSID_LIST
+    return DOT11_PEER_INFO
+def _define_DOT11_PEER_INFO_LIST_head():
+    class DOT11_PEER_INFO_LIST(Structure):
+        pass
+    return DOT11_PEER_INFO_LIST
+def _define_DOT11_PEER_INFO_LIST():
+    DOT11_PEER_INFO_LIST = win32more.NetworkManagement.WiFi.DOT11_PEER_INFO_LIST_head
+    DOT11_PEER_INFO_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('PeerInfo', win32more.NetworkManagement.WiFi.DOT11_PEER_INFO * 1),
+    ]
+    return DOT11_PEER_INFO_LIST
+def _define_DOT11_PEER_STATISTICS_head():
+    class DOT11_PEER_STATISTICS(Structure):
+        pass
+    return DOT11_PEER_STATISTICS
+def _define_DOT11_PEER_STATISTICS():
+    DOT11_PEER_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_PEER_STATISTICS_head
+    DOT11_PEER_STATISTICS._fields_ = [
+        ('ullDecryptSuccessCount', UInt64),
+        ('ullDecryptFailureCount', UInt64),
+        ('ullTxPacketSuccessCount', UInt64),
+        ('ullTxPacketFailureCount', UInt64),
+        ('ullRxPacketSuccessCount', UInt64),
+        ('ullRxPacketFailureCount', UInt64),
+    ]
+    return DOT11_PEER_STATISTICS
+def _define_DOT11_PER_MSDU_COUNTERS_head():
+    class DOT11_PER_MSDU_COUNTERS(Structure):
+        pass
+    return DOT11_PER_MSDU_COUNTERS
+def _define_DOT11_PER_MSDU_COUNTERS():
+    DOT11_PER_MSDU_COUNTERS = win32more.NetworkManagement.WiFi.DOT11_PER_MSDU_COUNTERS_head
+    DOT11_PER_MSDU_COUNTERS._fields_ = [
+        ('uTransmittedFragmentCount', UInt32),
+        ('uRetryCount', UInt32),
+        ('uRTSSuccessCount', UInt32),
+        ('uRTSFailureCount', UInt32),
+        ('uACKFailureCount', UInt32),
+    ]
+    return DOT11_PER_MSDU_COUNTERS
+def _define_DOT11_PHY_ATTRIBUTES_head():
+    class DOT11_PHY_ATTRIBUTES(Structure):
+        pass
+    return DOT11_PHY_ATTRIBUTES
+def _define_DOT11_PHY_ATTRIBUTES():
+    DOT11_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_PHY_ATTRIBUTES_head
+    class DOT11_PHY_ATTRIBUTES__PhySpecificAttributes_e__Union(Union):
+        pass
+    DOT11_PHY_ATTRIBUTES__PhySpecificAttributes_e__Union._fields_ = [
+        ('HRDSSSAttributes', win32more.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES),
+        ('OFDMAttributes', win32more.NetworkManagement.WiFi.DOT11_OFDM_PHY_ATTRIBUTES),
+        ('ERPAttributes', win32more.NetworkManagement.WiFi.DOT11_ERP_PHY_ATTRIBUTES),
+    ]
+    DOT11_PHY_ATTRIBUTES._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('bHardwarePhyState', win32more.Foundation.BOOLEAN),
+        ('bSoftwarePhyState', win32more.Foundation.BOOLEAN),
+        ('bCFPollable', win32more.Foundation.BOOLEAN),
+        ('uMPDUMaxLength', UInt32),
+        ('TempType', win32more.NetworkManagement.WiFi.DOT11_TEMP_TYPE),
+        ('DiversitySupport', win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SUPPORT),
+        ('PhySpecificAttributes', DOT11_PHY_ATTRIBUTES__PhySpecificAttributes_e__Union),
+        ('uNumberSupportedPowerLevels', UInt32),
+        ('TxPowerLevels', UInt32 * 8),
+        ('uNumDataRateMappingEntries', UInt32),
+        ('DataRateMappingEntries', win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY * 126),
+        ('SupportedDataRatesValue', win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_V2),
+    ]
+    return DOT11_PHY_ATTRIBUTES
+def _define_DOT11_PHY_FRAME_STATISTICS_head():
+    class DOT11_PHY_FRAME_STATISTICS(Structure):
+        pass
+    return DOT11_PHY_FRAME_STATISTICS
+def _define_DOT11_PHY_FRAME_STATISTICS():
+    DOT11_PHY_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_PHY_FRAME_STATISTICS_head
+    DOT11_PHY_FRAME_STATISTICS._fields_ = [
+        ('ullTransmittedFrameCount', UInt64),
+        ('ullMulticastTransmittedFrameCount', UInt64),
+        ('ullFailedCount', UInt64),
+        ('ullRetryCount', UInt64),
+        ('ullMultipleRetryCount', UInt64),
+        ('ullMaxTXLifetimeExceededCount', UInt64),
+        ('ullTransmittedFragmentCount', UInt64),
+        ('ullRTSSuccessCount', UInt64),
+        ('ullRTSFailureCount', UInt64),
+        ('ullACKFailureCount', UInt64),
+        ('ullReceivedFrameCount', UInt64),
+        ('ullMulticastReceivedFrameCount', UInt64),
+        ('ullPromiscuousReceivedFrameCount', UInt64),
+        ('ullMaxRXLifetimeExceededCount', UInt64),
+        ('ullFrameDuplicateCount', UInt64),
+        ('ullReceivedFragmentCount', UInt64),
+        ('ullPromiscuousReceivedFragmentCount', UInt64),
+        ('ullFCSErrorCount', UInt64),
+    ]
+    return DOT11_PHY_FRAME_STATISTICS
+def _define_DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS_head():
+    class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS(Structure):
+        pass
+    return DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS
+def _define_DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS():
+    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS_head
+    class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS__Anonymous_e__Union(Union):
+        pass
+    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS__Anonymous_e__Union._fields_ = [
+        ('ulChannel', UInt32),
+        ('ulFrequency', UInt32),
+    ]
+    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS._anonymous_ = [
+        'Anonymous',
+    ]
+    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ulPhyId', UInt32),
+        ('Anonymous', DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS__Anonymous_e__Union),
+    ]
+    return DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS
+def _define_DOT11_PHY_ID_LIST_head():
+    class DOT11_PHY_ID_LIST(Structure):
+        pass
+    return DOT11_PHY_ID_LIST
+def _define_DOT11_PHY_ID_LIST():
+    DOT11_PHY_ID_LIST = win32more.NetworkManagement.WiFi.DOT11_PHY_ID_LIST_head
+    DOT11_PHY_ID_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11PhyId', UInt32 * 1),
+    ]
+    return DOT11_PHY_ID_LIST
+def _define_DOT11_PHY_STATE_PARAMETERS_head():
+    class DOT11_PHY_STATE_PARAMETERS(Structure):
+        pass
+    return DOT11_PHY_STATE_PARAMETERS
+def _define_DOT11_PHY_STATE_PARAMETERS():
+    DOT11_PHY_STATE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PHY_STATE_PARAMETERS_head
+    DOT11_PHY_STATE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uPhyId', UInt32),
+        ('bHardwarePhyState', win32more.Foundation.BOOLEAN),
+        ('bSoftwarePhyState', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_PHY_STATE_PARAMETERS
 DOT11_PHY_TYPE = Int32
 dot11_phy_type_unknown = 0
 dot11_phy_type_any = 0
@@ -942,207 +2997,6 @@ dot11_phy_type_dmg = 9
 dot11_phy_type_he = 10
 dot11_phy_type_IHV_start = -2147483648
 dot11_phy_type_IHV_end = -1
-def _define_DOT11_RATE_SET_head():
-    class DOT11_RATE_SET(Structure):
-        pass
-    return DOT11_RATE_SET
-def _define_DOT11_RATE_SET():
-    DOT11_RATE_SET = win32more.NetworkManagement.WiFi.DOT11_RATE_SET_head
-    DOT11_RATE_SET._fields_ = [
-        ("uRateSetLength", UInt32),
-        ("ucRateSet", Byte * 126),
-    ]
-    return DOT11_RATE_SET
-def _define_DOT11_WFD_SESSION_INFO_head():
-    class DOT11_WFD_SESSION_INFO(Structure):
-        pass
-    return DOT11_WFD_SESSION_INFO
-def _define_DOT11_WFD_SESSION_INFO():
-    DOT11_WFD_SESSION_INFO = win32more.NetworkManagement.WiFi.DOT11_WFD_SESSION_INFO_head
-    DOT11_WFD_SESSION_INFO._fields_ = [
-        ("uSessionInfoLength", UInt16),
-        ("ucSessionInfo", Byte * 144),
-    ]
-    return DOT11_WFD_SESSION_INFO
-def _define_DOT11_OFFLOAD_CAPABILITY_head():
-    class DOT11_OFFLOAD_CAPABILITY(Structure):
-        pass
-    return DOT11_OFFLOAD_CAPABILITY
-def _define_DOT11_OFFLOAD_CAPABILITY():
-    DOT11_OFFLOAD_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_CAPABILITY_head
-    DOT11_OFFLOAD_CAPABILITY._fields_ = [
-        ("uReserved", UInt32),
-        ("uFlags", UInt32),
-        ("uSupportedWEPAlgorithms", UInt32),
-        ("uNumOfReplayWindows", UInt32),
-        ("uMaxWEPKeyMappingLength", UInt32),
-        ("uSupportedAuthAlgorithms", UInt32),
-        ("uMaxAuthKeyMappingLength", UInt32),
-    ]
-    return DOT11_OFFLOAD_CAPABILITY
-def _define_DOT11_CURRENT_OFFLOAD_CAPABILITY_head():
-    class DOT11_CURRENT_OFFLOAD_CAPABILITY(Structure):
-        pass
-    return DOT11_CURRENT_OFFLOAD_CAPABILITY
-def _define_DOT11_CURRENT_OFFLOAD_CAPABILITY():
-    DOT11_CURRENT_OFFLOAD_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_CURRENT_OFFLOAD_CAPABILITY_head
-    DOT11_CURRENT_OFFLOAD_CAPABILITY._fields_ = [
-        ("uReserved", UInt32),
-        ("uFlags", UInt32),
-    ]
-    return DOT11_CURRENT_OFFLOAD_CAPABILITY
-DOT11_OFFLOAD_TYPE = Int32
-dot11_offload_type_wep = 1
-dot11_offload_type_auth = 2
-def _define_DOT11_IV48_COUNTER_head():
-    class DOT11_IV48_COUNTER(Structure):
-        pass
-    return DOT11_IV48_COUNTER
-def _define_DOT11_IV48_COUNTER():
-    DOT11_IV48_COUNTER = win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER_head
-    DOT11_IV48_COUNTER._fields_ = [
-        ("uIV32Counter", UInt32),
-        ("usIV16Counter", UInt16),
-    ]
-    return DOT11_IV48_COUNTER
-def _define_DOT11_WEP_OFFLOAD_head():
-    class DOT11_WEP_OFFLOAD(Structure):
-        pass
-    return DOT11_WEP_OFFLOAD
-def _define_DOT11_WEP_OFFLOAD():
-    DOT11_WEP_OFFLOAD = win32more.NetworkManagement.WiFi.DOT11_WEP_OFFLOAD_head
-    DOT11_WEP_OFFLOAD._fields_ = [
-        ("uReserved", UInt32),
-        ("hOffloadContext", win32more.Foundation.HANDLE),
-        ("hOffload", win32more.Foundation.HANDLE),
-        ("dot11OffloadType", win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
-        ("dwAlgorithm", UInt32),
-        ("bRowIsOutbound", win32more.Foundation.BOOLEAN),
-        ("bUseDefault", win32more.Foundation.BOOLEAN),
-        ("uFlags", UInt32),
-        ("ucMacAddress", Byte * 6),
-        ("uNumOfRWsOnPeer", UInt32),
-        ("uNumOfRWsOnMe", UInt32),
-        ("dot11IV48Counters", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
-        ("usDot11RWBitMaps", UInt16 * 16),
-        ("usKeyLength", UInt16),
-        ("ucKey", Byte * 0),
-    ]
-    return DOT11_WEP_OFFLOAD
-def _define_DOT11_WEP_UPLOAD_head():
-    class DOT11_WEP_UPLOAD(Structure):
-        pass
-    return DOT11_WEP_UPLOAD
-def _define_DOT11_WEP_UPLOAD():
-    DOT11_WEP_UPLOAD = win32more.NetworkManagement.WiFi.DOT11_WEP_UPLOAD_head
-    DOT11_WEP_UPLOAD._fields_ = [
-        ("uReserved", UInt32),
-        ("dot11OffloadType", win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
-        ("hOffload", win32more.Foundation.HANDLE),
-        ("uNumOfRWsUsed", UInt32),
-        ("dot11IV48Counters", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
-        ("usDot11RWBitMaps", UInt16 * 16),
-    ]
-    return DOT11_WEP_UPLOAD
-DOT11_KEY_DIRECTION = Int32
-dot11_key_direction_both = 1
-dot11_key_direction_inbound = 2
-dot11_key_direction_outbound = 3
-def _define_DOT11_DEFAULT_WEP_OFFLOAD_head():
-    class DOT11_DEFAULT_WEP_OFFLOAD(Structure):
-        pass
-    return DOT11_DEFAULT_WEP_OFFLOAD
-def _define_DOT11_DEFAULT_WEP_OFFLOAD():
-    DOT11_DEFAULT_WEP_OFFLOAD = win32more.NetworkManagement.WiFi.DOT11_DEFAULT_WEP_OFFLOAD_head
-    DOT11_DEFAULT_WEP_OFFLOAD._fields_ = [
-        ("uReserved", UInt32),
-        ("hOffloadContext", win32more.Foundation.HANDLE),
-        ("hOffload", win32more.Foundation.HANDLE),
-        ("dwIndex", UInt32),
-        ("dot11OffloadType", win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
-        ("dwAlgorithm", UInt32),
-        ("uFlags", UInt32),
-        ("dot11KeyDirection", win32more.NetworkManagement.WiFi.DOT11_KEY_DIRECTION),
-        ("ucMacAddress", Byte * 6),
-        ("uNumOfRWsOnMe", UInt32),
-        ("dot11IV48Counters", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
-        ("usDot11RWBitMaps", UInt16 * 16),
-        ("usKeyLength", UInt16),
-        ("ucKey", Byte * 0),
-    ]
-    return DOT11_DEFAULT_WEP_OFFLOAD
-def _define_DOT11_DEFAULT_WEP_UPLOAD_head():
-    class DOT11_DEFAULT_WEP_UPLOAD(Structure):
-        pass
-    return DOT11_DEFAULT_WEP_UPLOAD
-def _define_DOT11_DEFAULT_WEP_UPLOAD():
-    DOT11_DEFAULT_WEP_UPLOAD = win32more.NetworkManagement.WiFi.DOT11_DEFAULT_WEP_UPLOAD_head
-    DOT11_DEFAULT_WEP_UPLOAD._fields_ = [
-        ("uReserved", UInt32),
-        ("dot11OffloadType", win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
-        ("hOffload", win32more.Foundation.HANDLE),
-        ("uNumOfRWsUsed", UInt32),
-        ("dot11IV48Counters", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
-        ("usDot11RWBitMaps", UInt16 * 16),
-    ]
-    return DOT11_DEFAULT_WEP_UPLOAD
-def _define_DOT11_OPERATION_MODE_CAPABILITY_head():
-    class DOT11_OPERATION_MODE_CAPABILITY(Structure):
-        pass
-    return DOT11_OPERATION_MODE_CAPABILITY
-def _define_DOT11_OPERATION_MODE_CAPABILITY():
-    DOT11_OPERATION_MODE_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_OPERATION_MODE_CAPABILITY_head
-    DOT11_OPERATION_MODE_CAPABILITY._fields_ = [
-        ("uReserved", UInt32),
-        ("uMajorVersion", UInt32),
-        ("uMinorVersion", UInt32),
-        ("uNumOfTXBuffers", UInt32),
-        ("uNumOfRXBuffers", UInt32),
-        ("uOpModeCapability", UInt32),
-    ]
-    return DOT11_OPERATION_MODE_CAPABILITY
-def _define_DOT11_CURRENT_OPERATION_MODE_head():
-    class DOT11_CURRENT_OPERATION_MODE(Structure):
-        pass
-    return DOT11_CURRENT_OPERATION_MODE
-def _define_DOT11_CURRENT_OPERATION_MODE():
-    DOT11_CURRENT_OPERATION_MODE = win32more.NetworkManagement.WiFi.DOT11_CURRENT_OPERATION_MODE_head
-    DOT11_CURRENT_OPERATION_MODE._fields_ = [
-        ("uReserved", UInt32),
-        ("uCurrentOpMode", UInt32),
-    ]
-    return DOT11_CURRENT_OPERATION_MODE
-DOT11_SCAN_TYPE = Int32
-dot11_scan_type_active = 1
-dot11_scan_type_passive = 2
-dot11_scan_type_auto = 3
-dot11_scan_type_forced = -2147483648
-def _define_DOT11_SCAN_REQUEST_head():
-    class DOT11_SCAN_REQUEST(Structure):
-        pass
-    return DOT11_SCAN_REQUEST
-def _define_DOT11_SCAN_REQUEST():
-    DOT11_SCAN_REQUEST = win32more.NetworkManagement.WiFi.DOT11_SCAN_REQUEST_head
-    DOT11_SCAN_REQUEST._fields_ = [
-        ("dot11BSSType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dot11BSSID", Byte * 6),
-        ("dot11SSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11ScanType", win32more.NetworkManagement.WiFi.DOT11_SCAN_TYPE),
-        ("bRestrictedScan", win32more.Foundation.BOOLEAN),
-        ("bUseRequestIE", win32more.Foundation.BOOLEAN),
-        ("uRequestIDsOffset", UInt32),
-        ("uNumOfRequestIDs", UInt32),
-        ("uPhyTypesOffset", UInt32),
-        ("uNumOfPhyTypes", UInt32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-        ("ucBuffer", Byte * 0),
-    ]
-    return DOT11_SCAN_REQUEST
-CH_DESCRIPTION_TYPE = Int32
-ch_description_type_logical = 1
-ch_description_type_center_frequency = 2
-ch_description_type_phy_specific = 3
 def _define_DOT11_PHY_TYPE_INFO_head():
     class DOT11_PHY_TYPE_INFO(Structure):
         pass
@@ -1150,39 +3004,16 @@ def _define_DOT11_PHY_TYPE_INFO_head():
 def _define_DOT11_PHY_TYPE_INFO():
     DOT11_PHY_TYPE_INFO = win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE_INFO_head
     DOT11_PHY_TYPE_INFO._fields_ = [
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("bUseParameters", win32more.Foundation.BOOLEAN),
-        ("uProbeDelay", UInt32),
-        ("uMinChannelTime", UInt32),
-        ("uMaxChannelTime", UInt32),
-        ("ChDescriptionType", win32more.NetworkManagement.WiFi.CH_DESCRIPTION_TYPE),
-        ("uChannelListSize", UInt32),
-        ("ucChannelListBuffer", Byte * 0),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('bUseParameters', win32more.Foundation.BOOLEAN),
+        ('uProbeDelay', UInt32),
+        ('uMinChannelTime', UInt32),
+        ('uMaxChannelTime', UInt32),
+        ('ChDescriptionType', win32more.NetworkManagement.WiFi.CH_DESCRIPTION_TYPE),
+        ('uChannelListSize', UInt32),
+        ('ucChannelListBuffer', Byte * 1),
     ]
     return DOT11_PHY_TYPE_INFO
-def _define_DOT11_SCAN_REQUEST_V2_head():
-    class DOT11_SCAN_REQUEST_V2(Structure):
-        pass
-    return DOT11_SCAN_REQUEST_V2
-def _define_DOT11_SCAN_REQUEST_V2():
-    DOT11_SCAN_REQUEST_V2 = win32more.NetworkManagement.WiFi.DOT11_SCAN_REQUEST_V2_head
-    DOT11_SCAN_REQUEST_V2._fields_ = [
-        ("dot11BSSType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dot11BSSID", Byte * 6),
-        ("dot11ScanType", win32more.NetworkManagement.WiFi.DOT11_SCAN_TYPE),
-        ("bRestrictedScan", win32more.Foundation.BOOLEAN),
-        ("udot11SSIDsOffset", UInt32),
-        ("uNumOfdot11SSIDs", UInt32),
-        ("bUseRequestIE", win32more.Foundation.BOOLEAN),
-        ("uRequestIDsOffset", UInt32),
-        ("uNumOfRequestIDs", UInt32),
-        ("uPhyTypeInfosOffset", UInt32),
-        ("uNumOfPhyTypeInfos", UInt32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-        ("ucBuffer", Byte * 0),
-    ]
-    return DOT11_SCAN_REQUEST_V2
 def _define_DOT11_PHY_TYPE_LIST_head():
     class DOT11_PHY_TYPE_LIST(Structure):
         pass
@@ -1190,117 +3021,85 @@ def _define_DOT11_PHY_TYPE_LIST_head():
 def _define_DOT11_PHY_TYPE_LIST():
     DOT11_PHY_TYPE_LIST = win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE_LIST_head
     DOT11_PHY_TYPE_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 0),
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 1),
     ]
     return DOT11_PHY_TYPE_LIST
-def _define_DOT11_BSS_DESCRIPTION_head():
-    class DOT11_BSS_DESCRIPTION(Structure):
+def _define_DOT11_PMKID_CANDIDATE_LIST_PARAMETERS_head():
+    class DOT11_PMKID_CANDIDATE_LIST_PARAMETERS(Structure):
         pass
-    return DOT11_BSS_DESCRIPTION
-def _define_DOT11_BSS_DESCRIPTION():
-    DOT11_BSS_DESCRIPTION = win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION_head
-    DOT11_BSS_DESCRIPTION._fields_ = [
-        ("uReserved", UInt32),
-        ("dot11BSSID", Byte * 6),
-        ("dot11BSSType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("usBeaconPeriod", UInt16),
-        ("ullTimestamp", UInt64),
-        ("usCapabilityInformation", UInt16),
-        ("uBufferLength", UInt32),
-        ("ucBuffer", Byte * 0),
+    return DOT11_PMKID_CANDIDATE_LIST_PARAMETERS
+def _define_DOT11_PMKID_CANDIDATE_LIST_PARAMETERS():
+    DOT11_PMKID_CANDIDATE_LIST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PMKID_CANDIDATE_LIST_PARAMETERS_head
+    DOT11_PMKID_CANDIDATE_LIST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uCandidateListSize', UInt32),
+        ('uCandidateListOffset', UInt32),
     ]
-    return DOT11_BSS_DESCRIPTION
-def _define_DOT11_JOIN_REQUEST_head():
-    class DOT11_JOIN_REQUEST(Structure):
+    return DOT11_PMKID_CANDIDATE_LIST_PARAMETERS
+def _define_DOT11_PMKID_ENTRY_head():
+    class DOT11_PMKID_ENTRY(Structure):
         pass
-    return DOT11_JOIN_REQUEST
-def _define_DOT11_JOIN_REQUEST():
-    DOT11_JOIN_REQUEST = win32more.NetworkManagement.WiFi.DOT11_JOIN_REQUEST_head
-    DOT11_JOIN_REQUEST._fields_ = [
-        ("uJoinFailureTimeout", UInt32),
-        ("OperationalRateSet", win32more.NetworkManagement.WiFi.DOT11_RATE_SET),
-        ("uChCenterFrequency", UInt32),
-        ("dot11BSSDescription", win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION),
+    return DOT11_PMKID_ENTRY
+def _define_DOT11_PMKID_ENTRY():
+    DOT11_PMKID_ENTRY = win32more.NetworkManagement.WiFi.DOT11_PMKID_ENTRY_head
+    DOT11_PMKID_ENTRY._fields_ = [
+        ('BSSID', Byte * 6),
+        ('PMKID', Byte * 16),
+        ('uFlags', UInt32),
     ]
-    return DOT11_JOIN_REQUEST
-def _define_DOT11_START_REQUEST_head():
-    class DOT11_START_REQUEST(Structure):
+    return DOT11_PMKID_ENTRY
+def _define_DOT11_PMKID_LIST_head():
+    class DOT11_PMKID_LIST(Structure):
         pass
-    return DOT11_START_REQUEST
-def _define_DOT11_START_REQUEST():
-    DOT11_START_REQUEST = win32more.NetworkManagement.WiFi.DOT11_START_REQUEST_head
-    DOT11_START_REQUEST._fields_ = [
-        ("uStartFailureTimeout", UInt32),
-        ("OperationalRateSet", win32more.NetworkManagement.WiFi.DOT11_RATE_SET),
-        ("uChCenterFrequency", UInt32),
-        ("dot11BSSDescription", win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION),
+    return DOT11_PMKID_LIST
+def _define_DOT11_PMKID_LIST():
+    DOT11_PMKID_LIST = win32more.NetworkManagement.WiFi.DOT11_PMKID_LIST_head
+    DOT11_PMKID_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('PMKIDs', win32more.NetworkManagement.WiFi.DOT11_PMKID_ENTRY * 1),
     ]
-    return DOT11_START_REQUEST
-DOT11_UPDATE_IE_OP = Int32
-dot11_update_ie_op_create_replace = 1
-dot11_update_ie_op_delete = 2
-def _define_DOT11_UPDATE_IE_head():
-    class DOT11_UPDATE_IE(Structure):
+    return DOT11_PMKID_LIST
+def _define_DOT11_PORT_STATE_head():
+    class DOT11_PORT_STATE(Structure):
         pass
-    return DOT11_UPDATE_IE
-def _define_DOT11_UPDATE_IE():
-    DOT11_UPDATE_IE = win32more.NetworkManagement.WiFi.DOT11_UPDATE_IE_head
-    DOT11_UPDATE_IE._fields_ = [
-        ("dot11UpdateIEOp", win32more.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP),
-        ("uBufferLength", UInt32),
-        ("ucBuffer", Byte * 0),
+    return DOT11_PORT_STATE
+def _define_DOT11_PORT_STATE():
+    DOT11_PORT_STATE = win32more.NetworkManagement.WiFi.DOT11_PORT_STATE_head
+    DOT11_PORT_STATE._fields_ = [
+        ('PeerMacAddress', Byte * 6),
+        ('uSessionId', UInt32),
+        ('bPortControlled', win32more.Foundation.BOOL),
+        ('bPortAuthorized', win32more.Foundation.BOOL),
     ]
-    return DOT11_UPDATE_IE
-DOT11_RESET_TYPE = Int32
-dot11_reset_type_phy = 1
-dot11_reset_type_mac = 2
-dot11_reset_type_phy_and_mac = 3
-def _define_DOT11_RESET_REQUEST_head():
-    class DOT11_RESET_REQUEST(Structure):
+    return DOT11_PORT_STATE
+def _define_DOT11_PORT_STATE_NOTIFICATION_head():
+    class DOT11_PORT_STATE_NOTIFICATION(Structure):
         pass
-    return DOT11_RESET_REQUEST
-def _define_DOT11_RESET_REQUEST():
-    DOT11_RESET_REQUEST = win32more.NetworkManagement.WiFi.DOT11_RESET_REQUEST_head
-    DOT11_RESET_REQUEST._fields_ = [
-        ("dot11ResetType", win32more.NetworkManagement.WiFi.DOT11_RESET_TYPE),
-        ("dot11MacAddress", Byte * 6),
-        ("bSetDefaultMIB", win32more.Foundation.BOOLEAN),
+    return DOT11_PORT_STATE_NOTIFICATION
+def _define_DOT11_PORT_STATE_NOTIFICATION():
+    DOT11_PORT_STATE_NOTIFICATION = win32more.NetworkManagement.WiFi.DOT11_PORT_STATE_NOTIFICATION_head
+    DOT11_PORT_STATE_NOTIFICATION._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerMac', Byte * 6),
+        ('bOpen', win32more.Foundation.BOOLEAN),
     ]
-    return DOT11_RESET_REQUEST
-def _define_DOT11_OPTIONAL_CAPABILITY_head():
-    class DOT11_OPTIONAL_CAPABILITY(Structure):
+    return DOT11_PORT_STATE_NOTIFICATION
+def _define_DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO_head():
+    class DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO(Structure):
         pass
-    return DOT11_OPTIONAL_CAPABILITY
-def _define_DOT11_OPTIONAL_CAPABILITY():
-    DOT11_OPTIONAL_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_OPTIONAL_CAPABILITY_head
-    DOT11_OPTIONAL_CAPABILITY._fields_ = [
-        ("uReserved", UInt32),
-        ("bDot11PCF", win32more.Foundation.BOOLEAN),
-        ("bDot11PCFMPDUTransferToPC", win32more.Foundation.BOOLEAN),
-        ("bStrictlyOrderedServiceClass", win32more.Foundation.BOOLEAN),
+    return DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO
+def _define_DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO():
+    DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO = win32more.NetworkManagement.WiFi.DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO_head
+    DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('bEnabled', win32more.Foundation.BOOLEAN),
     ]
-    return DOT11_OPTIONAL_CAPABILITY
-def _define_DOT11_CURRENT_OPTIONAL_CAPABILITY_head():
-    class DOT11_CURRENT_OPTIONAL_CAPABILITY(Structure):
-        pass
-    return DOT11_CURRENT_OPTIONAL_CAPABILITY
-def _define_DOT11_CURRENT_OPTIONAL_CAPABILITY():
-    DOT11_CURRENT_OPTIONAL_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_CURRENT_OPTIONAL_CAPABILITY_head
-    DOT11_CURRENT_OPTIONAL_CAPABILITY._fields_ = [
-        ("uReserved", UInt32),
-        ("bDot11CFPollable", win32more.Foundation.BOOLEAN),
-        ("bDot11PCF", win32more.Foundation.BOOLEAN),
-        ("bDot11PCFMPDUTransferToPC", win32more.Foundation.BOOLEAN),
-        ("bStrictlyOrderedServiceClass", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_CURRENT_OPTIONAL_CAPABILITY
-DOT11_POWER_MODE = Int32
-dot11_power_mode_unknown = 0
-dot11_power_mode_active = 1
-dot11_power_mode_powersave = 2
+    return DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO
 def _define_DOT11_POWER_MGMT_MODE_head():
     class DOT11_POWER_MGMT_MODE(Structure):
         pass
@@ -1308,260 +3107,311 @@ def _define_DOT11_POWER_MGMT_MODE_head():
 def _define_DOT11_POWER_MGMT_MODE():
     DOT11_POWER_MGMT_MODE = win32more.NetworkManagement.WiFi.DOT11_POWER_MGMT_MODE_head
     DOT11_POWER_MGMT_MODE._fields_ = [
-        ("dot11PowerMode", win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
-        ("uPowerSaveLevel", UInt32),
-        ("usListenInterval", UInt16),
-        ("usAID", UInt16),
-        ("bReceiveDTIMs", win32more.Foundation.BOOLEAN),
+        ('dot11PowerMode', win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
+        ('uPowerSaveLevel', UInt32),
+        ('usListenInterval', UInt16),
+        ('usAID', UInt16),
+        ('bReceiveDTIMs', win32more.Foundation.BOOLEAN),
     ]
     return DOT11_POWER_MGMT_MODE
-def _define_DOT11_COUNTERS_ENTRY_head():
-    class DOT11_COUNTERS_ENTRY(Structure):
+def _define_DOT11_POWER_MGMT_MODE_STATUS_INFO_head():
+    class DOT11_POWER_MGMT_MODE_STATUS_INFO(Structure):
         pass
-    return DOT11_COUNTERS_ENTRY
-def _define_DOT11_COUNTERS_ENTRY():
-    DOT11_COUNTERS_ENTRY = win32more.NetworkManagement.WiFi.DOT11_COUNTERS_ENTRY_head
-    DOT11_COUNTERS_ENTRY._fields_ = [
-        ("uTransmittedFragmentCount", UInt32),
-        ("uMulticastTransmittedFrameCount", UInt32),
-        ("uFailedCount", UInt32),
-        ("uRetryCount", UInt32),
-        ("uMultipleRetryCount", UInt32),
-        ("uFrameDuplicateCount", UInt32),
-        ("uRTSSuccessCount", UInt32),
-        ("uRTSFailureCount", UInt32),
-        ("uACKFailureCount", UInt32),
-        ("uReceivedFragmentCount", UInt32),
-        ("uMulticastReceivedFrameCount", UInt32),
-        ("uFCSErrorCount", UInt32),
-        ("uTransmittedFrameCount", UInt32),
+    return DOT11_POWER_MGMT_MODE_STATUS_INFO
+def _define_DOT11_POWER_MGMT_MODE_STATUS_INFO():
+    DOT11_POWER_MGMT_MODE_STATUS_INFO = win32more.NetworkManagement.WiFi.DOT11_POWER_MGMT_MODE_STATUS_INFO_head
+    DOT11_POWER_MGMT_MODE_STATUS_INFO._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PowerSaveMode', win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
+        ('uPowerSaveLevel', UInt32),
+        ('Reason', win32more.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON),
     ]
-    return DOT11_COUNTERS_ENTRY
-def _define_DOT11_SUPPORTED_PHY_TYPES_head():
-    class DOT11_SUPPORTED_PHY_TYPES(Structure):
+    return DOT11_POWER_MGMT_MODE_STATUS_INFO
+DOT11_POWER_MODE = Int32
+dot11_power_mode_unknown = 0
+dot11_power_mode_active = 1
+dot11_power_mode_powersave = 2
+DOT11_POWER_MODE_REASON = Int32
+dot11_power_mode_reason_no_change = 0
+dot11_power_mode_reason_noncompliant_AP = 1
+dot11_power_mode_reason_legacy_WFD_device = 2
+dot11_power_mode_reason_compliant_AP = 3
+dot11_power_mode_reason_compliant_WFD_device = 4
+dot11_power_mode_reason_others = 5
+def _define_DOT11_PRIVACY_EXEMPTION_head():
+    class DOT11_PRIVACY_EXEMPTION(Structure):
         pass
-    return DOT11_SUPPORTED_PHY_TYPES
-def _define_DOT11_SUPPORTED_PHY_TYPES():
-    DOT11_SUPPORTED_PHY_TYPES = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_PHY_TYPES_head
-    DOT11_SUPPORTED_PHY_TYPES._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11PHYType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 0),
+    return DOT11_PRIVACY_EXEMPTION
+def _define_DOT11_PRIVACY_EXEMPTION():
+    DOT11_PRIVACY_EXEMPTION = win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_head
+    DOT11_PRIVACY_EXEMPTION._fields_ = [
+        ('usEtherType', UInt16),
+        ('usExemptionActionType', UInt16),
+        ('usExemptionPacketType', UInt16),
     ]
-    return DOT11_SUPPORTED_PHY_TYPES
-DOT11_TEMP_TYPE = Int32
-dot11_temp_type_unknown = 0
-dot11_temp_type_1 = 1
-dot11_temp_type_2 = 2
-DOT11_DIVERSITY_SUPPORT = Int32
-dot11_diversity_support_unknown = 0
-dot11_diversity_support_fixedlist = 1
-dot11_diversity_support_notsupported = 2
-dot11_diversity_support_dynamic = 3
-def _define_DOT11_SUPPORTED_POWER_LEVELS_head():
-    class DOT11_SUPPORTED_POWER_LEVELS(Structure):
+    return DOT11_PRIVACY_EXEMPTION
+def _define_DOT11_PRIVACY_EXEMPTION_LIST_head():
+    class DOT11_PRIVACY_EXEMPTION_LIST(Structure):
         pass
-    return DOT11_SUPPORTED_POWER_LEVELS
-def _define_DOT11_SUPPORTED_POWER_LEVELS():
-    DOT11_SUPPORTED_POWER_LEVELS = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_POWER_LEVELS_head
-    DOT11_SUPPORTED_POWER_LEVELS._fields_ = [
-        ("uNumOfSupportedPowerLevels", UInt32),
-        ("uTxPowerLevelValues", UInt32 * 8),
+    return DOT11_PRIVACY_EXEMPTION_LIST
+def _define_DOT11_PRIVACY_EXEMPTION_LIST():
+    DOT11_PRIVACY_EXEMPTION_LIST = win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_LIST_head
+    DOT11_PRIVACY_EXEMPTION_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('PrivacyExemptionEntries', win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION * 1),
     ]
-    return DOT11_SUPPORTED_POWER_LEVELS
-def _define_DOT11_REG_DOMAIN_VALUE_head():
-    class DOT11_REG_DOMAIN_VALUE(Structure):
+    return DOT11_PRIVACY_EXEMPTION_LIST
+def _define_DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
         pass
-    return DOT11_REG_DOMAIN_VALUE
-def _define_DOT11_REG_DOMAIN_VALUE():
-    DOT11_REG_DOMAIN_VALUE = win32more.NetworkManagement.WiFi.DOT11_REG_DOMAIN_VALUE_head
-    DOT11_REG_DOMAIN_VALUE._fields_ = [
-        ("uRegDomainsSupportIndex", UInt32),
-        ("uRegDomainsSupportValue", UInt32),
+    return DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS():
+    DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS_head
+    DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('ReceiverAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_REG_DOMAIN_VALUE
-def _define_DOT11_REG_DOMAINS_SUPPORT_VALUE_head():
-    class DOT11_REG_DOMAINS_SUPPORT_VALUE(Structure):
+    return DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS_head():
+    class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
         pass
-    return DOT11_REG_DOMAINS_SUPPORT_VALUE
-def _define_DOT11_REG_DOMAINS_SUPPORT_VALUE():
-    DOT11_REG_DOMAINS_SUPPORT_VALUE = win32more.NetworkManagement.WiFi.DOT11_REG_DOMAINS_SUPPORT_VALUE_head
-    DOT11_REG_DOMAINS_SUPPORT_VALUE._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11RegDomainValue", win32more.NetworkManagement.WiFi.DOT11_REG_DOMAIN_VALUE * 0),
+    return DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS():
+    DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS_head
+    DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ReceiverDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('Status', Int32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_REG_DOMAINS_SUPPORT_VALUE
-def _define_DOT11_SUPPORTED_ANTENNA_head():
-    class DOT11_SUPPORTED_ANTENNA(Structure):
+    return DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS
+def _define_DOT11_QOS_PARAMS_head():
+    class DOT11_QOS_PARAMS(Structure):
         pass
-    return DOT11_SUPPORTED_ANTENNA
-def _define_DOT11_SUPPORTED_ANTENNA():
-    DOT11_SUPPORTED_ANTENNA = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA_head
-    DOT11_SUPPORTED_ANTENNA._fields_ = [
-        ("uAntennaListIndex", UInt32),
-        ("bSupportedAntenna", win32more.Foundation.BOOLEAN),
+    return DOT11_QOS_PARAMS
+def _define_DOT11_QOS_PARAMS():
+    DOT11_QOS_PARAMS = win32more.NetworkManagement.WiFi.DOT11_QOS_PARAMS_head
+    DOT11_QOS_PARAMS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ucEnabledQoSProtocolFlags', Byte),
     ]
-    return DOT11_SUPPORTED_ANTENNA
-def _define_DOT11_SUPPORTED_ANTENNA_LIST_head():
-    class DOT11_SUPPORTED_ANTENNA_LIST(Structure):
+    return DOT11_QOS_PARAMS
+def _define_DOT11_QOS_TX_DURATION_head():
+    class DOT11_QOS_TX_DURATION(Structure):
         pass
-    return DOT11_SUPPORTED_ANTENNA_LIST
-def _define_DOT11_SUPPORTED_ANTENNA_LIST():
-    DOT11_SUPPORTED_ANTENNA_LIST = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA_LIST_head
-    DOT11_SUPPORTED_ANTENNA_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11SupportedAntenna", win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA * 0),
+    return DOT11_QOS_TX_DURATION
+def _define_DOT11_QOS_TX_DURATION():
+    DOT11_QOS_TX_DURATION = win32more.NetworkManagement.WiFi.DOT11_QOS_TX_DURATION_head
+    DOT11_QOS_TX_DURATION._fields_ = [
+        ('uNominalMSDUSize', UInt32),
+        ('uMinPHYRate', UInt32),
+        ('uDuration', UInt32),
     ]
-    return DOT11_SUPPORTED_ANTENNA_LIST
-def _define_DOT11_DIVERSITY_SELECTION_RX_head():
-    class DOT11_DIVERSITY_SELECTION_RX(Structure):
+    return DOT11_QOS_TX_DURATION
+def _define_DOT11_QOS_TX_MEDIUM_TIME_head():
+    class DOT11_QOS_TX_MEDIUM_TIME(Structure):
         pass
-    return DOT11_DIVERSITY_SELECTION_RX
-def _define_DOT11_DIVERSITY_SELECTION_RX():
-    DOT11_DIVERSITY_SELECTION_RX = win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX_head
-    DOT11_DIVERSITY_SELECTION_RX._fields_ = [
-        ("uAntennaListIndex", UInt32),
-        ("bDiversitySelectionRX", win32more.Foundation.BOOLEAN),
+    return DOT11_QOS_TX_MEDIUM_TIME
+def _define_DOT11_QOS_TX_MEDIUM_TIME():
+    DOT11_QOS_TX_MEDIUM_TIME = win32more.NetworkManagement.WiFi.DOT11_QOS_TX_MEDIUM_TIME_head
+    DOT11_QOS_TX_MEDIUM_TIME._fields_ = [
+        ('dot11PeerAddress', Byte * 6),
+        ('ucQoSPriority', Byte),
+        ('uMediumTimeAdmited', UInt32),
     ]
-    return DOT11_DIVERSITY_SELECTION_RX
-def _define_DOT11_DIVERSITY_SELECTION_RX_LIST_head():
-    class DOT11_DIVERSITY_SELECTION_RX_LIST(Structure):
+    return DOT11_QOS_TX_MEDIUM_TIME
+DOT11_RADIO_STATE = Int32
+dot11_radio_state_unknown = 0
+dot11_radio_state_on = 1
+dot11_radio_state_off = 2
+def _define_DOT11_RATE_SET_head():
+    class DOT11_RATE_SET(Structure):
         pass
-    return DOT11_DIVERSITY_SELECTION_RX_LIST
-def _define_DOT11_DIVERSITY_SELECTION_RX_LIST():
-    DOT11_DIVERSITY_SELECTION_RX_LIST = win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX_LIST_head
-    DOT11_DIVERSITY_SELECTION_RX_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11DiversitySelectionRx", win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX * 0),
+    return DOT11_RATE_SET
+def _define_DOT11_RATE_SET():
+    DOT11_RATE_SET = win32more.NetworkManagement.WiFi.DOT11_RATE_SET_head
+    DOT11_RATE_SET._fields_ = [
+        ('uRateSetLength', UInt32),
+        ('ucRateSet', Byte * 126),
     ]
-    return DOT11_DIVERSITY_SELECTION_RX_LIST
-def _define_DOT11_SUPPORTED_DATA_RATES_VALUE_head():
-    class DOT11_SUPPORTED_DATA_RATES_VALUE(Structure):
+    return DOT11_RATE_SET
+def _define_DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head():
+    class DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(Structure):
         pass
-    return DOT11_SUPPORTED_DATA_RATES_VALUE
-def _define_DOT11_SUPPORTED_DATA_RATES_VALUE():
-    DOT11_SUPPORTED_DATA_RATES_VALUE = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_head
-    DOT11_SUPPORTED_DATA_RATES_VALUE._fields_ = [
-        ("ucSupportedTxDataRatesValue", Byte * 8),
-        ("ucSupportedRxDataRatesValue", Byte * 8),
+    return DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
+def _define_DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS():
+    DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head
+    DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_SUPPORTED_DATA_RATES_VALUE
-def _define_DOT11_SUPPORTED_DATA_RATES_VALUE_V2_head():
-    class DOT11_SUPPORTED_DATA_RATES_VALUE_V2(Structure):
+    return DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
+def _define_DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS_head():
+    class DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS(Structure):
         pass
-    return DOT11_SUPPORTED_DATA_RATES_VALUE_V2
-def _define_DOT11_SUPPORTED_DATA_RATES_VALUE_V2():
-    DOT11_SUPPORTED_DATA_RATES_VALUE_V2 = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_V2_head
-    DOT11_SUPPORTED_DATA_RATES_VALUE_V2._fields_ = [
-        ("ucSupportedTxDataRatesValue", Byte * 255),
-        ("ucSupportedRxDataRatesValue", Byte * 255),
+    return DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS
+def _define_DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS():
+    DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS_head
+    DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('RequestContext', c_void_p),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_SUPPORTED_DATA_RATES_VALUE_V2
-def _define_DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY_head():
-    class DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY(Structure):
+    return DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS
+def _define_DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS_head():
+    class DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS(Structure):
         pass
-    return DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY
-def _define_DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY():
-    DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY = win32more.NetworkManagement.WiFi.DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY_head
-    DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY._fields_ = [
-        ("uMultiDomainCapabilityIndex", UInt32),
-        ("uFirstChannelNumber", UInt32),
-        ("uNumberOfChannels", UInt32),
-        ("lMaximumTransmitPowerLevel", Int32),
+    return DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS
+def _define_DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS():
+    DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS_head
+    DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('ResponseContext', c_void_p),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY
-def _define_DOT11_MD_CAPABILITY_ENTRY_LIST_head():
-    class DOT11_MD_CAPABILITY_ENTRY_LIST(Structure):
+    return DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS
+def _define_DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS_head():
+    class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS(Structure):
         pass
-    return DOT11_MD_CAPABILITY_ENTRY_LIST
-def _define_DOT11_MD_CAPABILITY_ENTRY_LIST():
-    DOT11_MD_CAPABILITY_ENTRY_LIST = win32more.NetworkManagement.WiFi.DOT11_MD_CAPABILITY_ENTRY_LIST_head
-    DOT11_MD_CAPABILITY_ENTRY_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11MDCapabilityEntry", win32more.NetworkManagement.WiFi.DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY * 0),
+    return DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS
+def _define_DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS():
+    DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS_head
+    DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('TransmitterDeviceAddress', Byte * 6),
+        ('BSSID', Byte * 6),
+        ('DialogToken', Byte),
+        ('RequestContext', c_void_p),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_MD_CAPABILITY_ENTRY_LIST
-DOT11_HOP_ALGO_ADOPTED = Int32
-dot11_hop_algo_current = 0
-dot11_hop_algo_hop_index = 1
-dot11_hop_algo_hcc = 2
-def _define_DOT11_HOPPING_PATTERN_ENTRY_head():
-    class DOT11_HOPPING_PATTERN_ENTRY(Structure):
+    return DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS
+def _define_DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS_head():
+    class DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS(Structure):
         pass
-    return DOT11_HOPPING_PATTERN_ENTRY
-def _define_DOT11_HOPPING_PATTERN_ENTRY():
-    DOT11_HOPPING_PATTERN_ENTRY = win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY_head
-    DOT11_HOPPING_PATTERN_ENTRY._fields_ = [
-        ("uHoppingPatternIndex", UInt32),
-        ("uRandomTableFieldNumber", UInt32),
+    return DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS
+def _define_DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS():
+    DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS_head
+    DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('TransmitterDeviceAddress', Byte * 6),
+        ('BSSID', Byte * 6),
+        ('DialogToken', Byte),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_HOPPING_PATTERN_ENTRY
-def _define_DOT11_HOPPING_PATTERN_ENTRY_LIST_head():
-    class DOT11_HOPPING_PATTERN_ENTRY_LIST(Structure):
+    return DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS
+def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head():
+    class DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS(Structure):
         pass
-    return DOT11_HOPPING_PATTERN_ENTRY_LIST
-def _define_DOT11_HOPPING_PATTERN_ENTRY_LIST():
-    DOT11_HOPPING_PATTERN_ENTRY_LIST = win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY_LIST_head
-    DOT11_HOPPING_PATTERN_ENTRY_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11HoppingPatternEntry", win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY * 0),
+    return DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS
+def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS():
+    DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head
+    DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('TransmitterDeviceAddress', Byte * 6),
+        ('BSSID', Byte * 6),
+        ('DialogToken', Byte),
+        ('RequestContext', c_void_p),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_HOPPING_PATTERN_ENTRY_LIST
-def _define_DOT11_WPA_TSC_head():
-    class DOT11_WPA_TSC(Structure):
+    return DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS
+def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head():
+    class DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(Structure):
         pass
-    return DOT11_WPA_TSC
-def _define_DOT11_WPA_TSC():
-    DOT11_WPA_TSC = win32more.NetworkManagement.WiFi.DOT11_WPA_TSC_head
-    DOT11_WPA_TSC._fields_ = [
-        ("uReserved", UInt32),
-        ("dot11OffloadType", win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
-        ("hOffload", win32more.Foundation.HANDLE),
-        ("dot11IV48Counter", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
+    return DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
+def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS():
+    DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head
+    DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('TransmitterDeviceAddress', Byte * 6),
+        ('BSSID', Byte * 6),
+        ('DialogToken', Byte),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
     ]
-    return DOT11_WPA_TSC
-def _define_DOT11_RSSI_RANGE_head():
-    class DOT11_RSSI_RANGE(Structure):
+    return DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
+def _define_DOT11_RECV_EXTENSION_INFO_head():
+    class DOT11_RECV_EXTENSION_INFO(Structure):
         pass
-    return DOT11_RSSI_RANGE
-def _define_DOT11_RSSI_RANGE():
-    DOT11_RSSI_RANGE = win32more.NetworkManagement.WiFi.DOT11_RSSI_RANGE_head
-    DOT11_RSSI_RANGE._fields_ = [
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("uRSSIMin", UInt32),
-        ("uRSSIMax", UInt32),
+    return DOT11_RECV_EXTENSION_INFO
+def _define_DOT11_RECV_EXTENSION_INFO():
+    DOT11_RECV_EXTENSION_INFO = win32more.NetworkManagement.WiFi.DOT11_RECV_EXTENSION_INFO_head
+    DOT11_RECV_EXTENSION_INFO._fields_ = [
+        ('uVersion', UInt32),
+        ('pvReserved', c_void_p),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('uChCenterFrequency', UInt32),
+        ('lRSSI', Int32),
+        ('lRSSIMin', Int32),
+        ('lRSSIMax', Int32),
+        ('uRSSI', UInt32),
+        ('ucPriority', Byte),
+        ('ucDataRate', Byte),
+        ('ucPeerMacAddress', Byte * 6),
+        ('dwExtendedStatus', UInt32),
+        ('hWEPOffloadContext', win32more.Foundation.HANDLE),
+        ('hAuthOffloadContext', win32more.Foundation.HANDLE),
+        ('usWEPAppliedMask', UInt16),
+        ('usWPAMSDUPriority', UInt16),
+        ('dot11LowestIV48Counter', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
+        ('usDot11LeftRWBitMap', UInt16),
+        ('dot11HighestIV48Counter', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
+        ('usDot11RightRWBitMap', UInt16),
+        ('usNumberOfMPDUsReceived', UInt16),
+        ('usNumberOfFragments', UInt16),
+        ('pNdisPackets', c_void_p * 1),
     ]
-    return DOT11_RSSI_RANGE
-def _define_DOT11_NIC_SPECIFIC_EXTENSION_head():
-    class DOT11_NIC_SPECIFIC_EXTENSION(Structure):
+    return DOT11_RECV_EXTENSION_INFO
+def _define_DOT11_RECV_EXTENSION_INFO_V2_head():
+    class DOT11_RECV_EXTENSION_INFO_V2(Structure):
         pass
-    return DOT11_NIC_SPECIFIC_EXTENSION
-def _define_DOT11_NIC_SPECIFIC_EXTENSION():
-    DOT11_NIC_SPECIFIC_EXTENSION = win32more.NetworkManagement.WiFi.DOT11_NIC_SPECIFIC_EXTENSION_head
-    DOT11_NIC_SPECIFIC_EXTENSION._fields_ = [
-        ("uBufferLength", UInt32),
-        ("uTotalBufferLength", UInt32),
-        ("ucBuffer", Byte * 0),
+    return DOT11_RECV_EXTENSION_INFO_V2
+def _define_DOT11_RECV_EXTENSION_INFO_V2():
+    DOT11_RECV_EXTENSION_INFO_V2 = win32more.NetworkManagement.WiFi.DOT11_RECV_EXTENSION_INFO_V2_head
+    DOT11_RECV_EXTENSION_INFO_V2._fields_ = [
+        ('uVersion', UInt32),
+        ('pvReserved', c_void_p),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('uChCenterFrequency', UInt32),
+        ('lRSSI', Int32),
+        ('uRSSI', UInt32),
+        ('ucPriority', Byte),
+        ('ucDataRate', Byte),
+        ('ucPeerMacAddress', Byte * 6),
+        ('dwExtendedStatus', UInt32),
+        ('hWEPOffloadContext', win32more.Foundation.HANDLE),
+        ('hAuthOffloadContext', win32more.Foundation.HANDLE),
+        ('usWEPAppliedMask', UInt16),
+        ('usWPAMSDUPriority', UInt16),
+        ('dot11LowestIV48Counter', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
+        ('usDot11LeftRWBitMap', UInt16),
+        ('dot11HighestIV48Counter', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
+        ('usDot11RightRWBitMap', UInt16),
+        ('usNumberOfMPDUsReceived', UInt16),
+        ('usNumberOfFragments', UInt16),
+        ('pNdisPackets', c_void_p * 1),
     ]
-    return DOT11_NIC_SPECIFIC_EXTENSION
-def _define_DOT11_AP_JOIN_REQUEST_head():
-    class DOT11_AP_JOIN_REQUEST(Structure):
-        pass
-    return DOT11_AP_JOIN_REQUEST
-def _define_DOT11_AP_JOIN_REQUEST():
-    DOT11_AP_JOIN_REQUEST = win32more.NetworkManagement.WiFi.DOT11_AP_JOIN_REQUEST_head
-    DOT11_AP_JOIN_REQUEST._fields_ = [
-        ("uJoinFailureTimeout", UInt32),
-        ("OperationalRateSet", win32more.NetworkManagement.WiFi.DOT11_RATE_SET),
-        ("uChCenterFrequency", UInt32),
-        ("dot11BSSDescription", win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION),
-    ]
-    return DOT11_AP_JOIN_REQUEST
+    return DOT11_RECV_EXTENSION_INFO_V2
 def _define_DOT11_RECV_SENSITIVITY_head():
     class DOT11_RECV_SENSITIVITY(Structure):
         pass
@@ -1569,9 +3419,9 @@ def _define_DOT11_RECV_SENSITIVITY_head():
 def _define_DOT11_RECV_SENSITIVITY():
     DOT11_RECV_SENSITIVITY = win32more.NetworkManagement.WiFi.DOT11_RECV_SENSITIVITY_head
     DOT11_RECV_SENSITIVITY._fields_ = [
-        ("ucDataRate", Byte),
-        ("lRSSIMin", Int32),
-        ("lRSSIMax", Int32),
+        ('ucDataRate', Byte),
+        ('lRSSIMin', Int32),
+        ('lRSSIMax', Int32),
     ]
     return DOT11_RECV_SENSITIVITY
 def _define_DOT11_RECV_SENSITIVITY_LIST_head():
@@ -1583,112 +3433,418 @@ def _define_DOT11_RECV_SENSITIVITY_LIST():
     class DOT11_RECV_SENSITIVITY_LIST__Anonymous_e__Union(Union):
         pass
     DOT11_RECV_SENSITIVITY_LIST__Anonymous_e__Union._fields_ = [
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("uPhyId", UInt32),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('uPhyId', UInt32),
     ]
     DOT11_RECV_SENSITIVITY_LIST._anonymous_ = [
         'Anonymous',
     ]
     DOT11_RECV_SENSITIVITY_LIST._fields_ = [
-        ("Anonymous", DOT11_RECV_SENSITIVITY_LIST__Anonymous_e__Union),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11RecvSensitivity", win32more.NetworkManagement.WiFi.DOT11_RECV_SENSITIVITY * 0),
+        ('Anonymous', DOT11_RECV_SENSITIVITY_LIST__Anonymous_e__Union),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11RecvSensitivity', win32more.NetworkManagement.WiFi.DOT11_RECV_SENSITIVITY * 1),
     ]
     return DOT11_RECV_SENSITIVITY_LIST
-DOT11_AC_PARAM = Int32
-dot11_AC_param_BE = 0
-dot11_AC_param_BK = 1
-dot11_AC_param_VI = 2
-dot11_AC_param_VO = 3
-dot11_AC_param_max = 4
-def _define_DOT11_WME_AC_PARAMETERS_head():
-    class DOT11_WME_AC_PARAMETERS(Structure):
+def _define_DOT11_REG_DOMAIN_VALUE_head():
+    class DOT11_REG_DOMAIN_VALUE(Structure):
         pass
-    return DOT11_WME_AC_PARAMETERS
-def _define_DOT11_WME_AC_PARAMETERS():
-    DOT11_WME_AC_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WME_AC_PARAMETERS_head
-    DOT11_WME_AC_PARAMETERS._fields_ = [
-        ("ucAccessCategoryIndex", Byte),
-        ("ucAIFSN", Byte),
-        ("ucECWmin", Byte),
-        ("ucECWmax", Byte),
-        ("usTXOPLimit", UInt16),
+    return DOT11_REG_DOMAIN_VALUE
+def _define_DOT11_REG_DOMAIN_VALUE():
+    DOT11_REG_DOMAIN_VALUE = win32more.NetworkManagement.WiFi.DOT11_REG_DOMAIN_VALUE_head
+    DOT11_REG_DOMAIN_VALUE._fields_ = [
+        ('uRegDomainsSupportIndex', UInt32),
+        ('uRegDomainsSupportValue', UInt32),
     ]
-    return DOT11_WME_AC_PARAMETERS
-def _define__DOT11_WME_AC_PARAMTERS_LIST_head():
-    class _DOT11_WME_AC_PARAMTERS_LIST(Structure):
+    return DOT11_REG_DOMAIN_VALUE
+def _define_DOT11_REG_DOMAINS_SUPPORT_VALUE_head():
+    class DOT11_REG_DOMAINS_SUPPORT_VALUE(Structure):
         pass
-    return _DOT11_WME_AC_PARAMTERS_LIST
-def _define__DOT11_WME_AC_PARAMTERS_LIST():
-    _DOT11_WME_AC_PARAMTERS_LIST = win32more.NetworkManagement.WiFi._DOT11_WME_AC_PARAMTERS_LIST_head
-    _DOT11_WME_AC_PARAMTERS_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11WMEACParameters", win32more.NetworkManagement.WiFi.DOT11_WME_AC_PARAMETERS * 0),
+    return DOT11_REG_DOMAINS_SUPPORT_VALUE
+def _define_DOT11_REG_DOMAINS_SUPPORT_VALUE():
+    DOT11_REG_DOMAINS_SUPPORT_VALUE = win32more.NetworkManagement.WiFi.DOT11_REG_DOMAINS_SUPPORT_VALUE_head
+    DOT11_REG_DOMAINS_SUPPORT_VALUE._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11RegDomainValue', win32more.NetworkManagement.WiFi.DOT11_REG_DOMAIN_VALUE * 1),
     ]
-    return _DOT11_WME_AC_PARAMTERS_LIST
-def _define_DOT11_WME_UPDATE_IE_head():
-    class DOT11_WME_UPDATE_IE(Structure):
+    return DOT11_REG_DOMAINS_SUPPORT_VALUE
+def _define_DOT11_RESET_REQUEST_head():
+    class DOT11_RESET_REQUEST(Structure):
         pass
-    return DOT11_WME_UPDATE_IE
-def _define_DOT11_WME_UPDATE_IE():
-    DOT11_WME_UPDATE_IE = win32more.NetworkManagement.WiFi.DOT11_WME_UPDATE_IE_head
-    DOT11_WME_UPDATE_IE._fields_ = [
-        ("uParamElemMinBeaconIntervals", UInt32),
-        ("uWMEInfoElemOffset", UInt32),
-        ("uWMEInfoElemLength", UInt32),
-        ("uWMEParamElemOffset", UInt32),
-        ("uWMEParamElemLength", UInt32),
-        ("ucBuffer", Byte * 0),
+    return DOT11_RESET_REQUEST
+def _define_DOT11_RESET_REQUEST():
+    DOT11_RESET_REQUEST = win32more.NetworkManagement.WiFi.DOT11_RESET_REQUEST_head
+    DOT11_RESET_REQUEST._fields_ = [
+        ('dot11ResetType', win32more.NetworkManagement.WiFi.DOT11_RESET_TYPE),
+        ('dot11MacAddress', Byte * 6),
+        ('bSetDefaultMIB', win32more.Foundation.BOOLEAN),
     ]
-    return DOT11_WME_UPDATE_IE
-def _define_DOT11_QOS_TX_DURATION_head():
-    class DOT11_QOS_TX_DURATION(Structure):
+    return DOT11_RESET_REQUEST
+DOT11_RESET_TYPE = Int32
+dot11_reset_type_phy = 1
+dot11_reset_type_mac = 2
+dot11_reset_type_phy_and_mac = 3
+def _define_DOT11_ROAMING_COMPLETION_PARAMETERS_head():
+    class DOT11_ROAMING_COMPLETION_PARAMETERS(Structure):
         pass
-    return DOT11_QOS_TX_DURATION
-def _define_DOT11_QOS_TX_DURATION():
-    DOT11_QOS_TX_DURATION = win32more.NetworkManagement.WiFi.DOT11_QOS_TX_DURATION_head
-    DOT11_QOS_TX_DURATION._fields_ = [
-        ("uNominalMSDUSize", UInt32),
-        ("uMinPHYRate", UInt32),
-        ("uDuration", UInt32),
+    return DOT11_ROAMING_COMPLETION_PARAMETERS
+def _define_DOT11_ROAMING_COMPLETION_PARAMETERS():
+    DOT11_ROAMING_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ROAMING_COMPLETION_PARAMETERS_head
+    DOT11_ROAMING_COMPLETION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uStatus', UInt32),
     ]
-    return DOT11_QOS_TX_DURATION
-def _define_DOT11_QOS_TX_MEDIUM_TIME_head():
-    class DOT11_QOS_TX_MEDIUM_TIME(Structure):
+    return DOT11_ROAMING_COMPLETION_PARAMETERS
+def _define_DOT11_ROAMING_START_PARAMETERS_head():
+    class DOT11_ROAMING_START_PARAMETERS(Structure):
         pass
-    return DOT11_QOS_TX_MEDIUM_TIME
-def _define_DOT11_QOS_TX_MEDIUM_TIME():
-    DOT11_QOS_TX_MEDIUM_TIME = win32more.NetworkManagement.WiFi.DOT11_QOS_TX_MEDIUM_TIME_head
-    DOT11_QOS_TX_MEDIUM_TIME._fields_ = [
-        ("dot11PeerAddress", Byte * 6),
-        ("ucQoSPriority", Byte),
-        ("uMediumTimeAdmited", UInt32),
+    return DOT11_ROAMING_START_PARAMETERS
+def _define_DOT11_ROAMING_START_PARAMETERS():
+    DOT11_ROAMING_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ROAMING_START_PARAMETERS_head
+    DOT11_ROAMING_START_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('AdhocBSSID', Byte * 6),
+        ('AdhocSSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('uRoamingReason', UInt32),
     ]
-    return DOT11_QOS_TX_MEDIUM_TIME
-def _define_DOT11_SUPPORTED_OFDM_FREQUENCY_head():
-    class DOT11_SUPPORTED_OFDM_FREQUENCY(Structure):
+    return DOT11_ROAMING_START_PARAMETERS
+def _define_DOT11_RSSI_RANGE_head():
+    class DOT11_RSSI_RANGE(Structure):
         pass
-    return DOT11_SUPPORTED_OFDM_FREQUENCY
-def _define_DOT11_SUPPORTED_OFDM_FREQUENCY():
-    DOT11_SUPPORTED_OFDM_FREQUENCY = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY_head
-    DOT11_SUPPORTED_OFDM_FREQUENCY._fields_ = [
-        ("uCenterFrequency", UInt32),
+    return DOT11_RSSI_RANGE
+def _define_DOT11_RSSI_RANGE():
+    DOT11_RSSI_RANGE = win32more.NetworkManagement.WiFi.DOT11_RSSI_RANGE_head
+    DOT11_RSSI_RANGE._fields_ = [
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('uRSSIMin', UInt32),
+        ('uRSSIMax', UInt32),
     ]
-    return DOT11_SUPPORTED_OFDM_FREQUENCY
-def _define_DOT11_SUPPORTED_OFDM_FREQUENCY_LIST_head():
-    class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST(Structure):
+    return DOT11_RSSI_RANGE
+def _define_DOT11_SCAN_REQUEST_head():
+    class DOT11_SCAN_REQUEST(Structure):
         pass
-    return DOT11_SUPPORTED_OFDM_FREQUENCY_LIST
-def _define_DOT11_SUPPORTED_OFDM_FREQUENCY_LIST():
-    DOT11_SUPPORTED_OFDM_FREQUENCY_LIST = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY_LIST_head
-    DOT11_SUPPORTED_OFDM_FREQUENCY_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11SupportedOFDMFrequency", win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY * 0),
+    return DOT11_SCAN_REQUEST
+def _define_DOT11_SCAN_REQUEST():
+    DOT11_SCAN_REQUEST = win32more.NetworkManagement.WiFi.DOT11_SCAN_REQUEST_head
+    DOT11_SCAN_REQUEST._fields_ = [
+        ('dot11BSSType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dot11BSSID', Byte * 6),
+        ('dot11SSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11ScanType', win32more.NetworkManagement.WiFi.DOT11_SCAN_TYPE),
+        ('bRestrictedScan', win32more.Foundation.BOOLEAN),
+        ('bUseRequestIE', win32more.Foundation.BOOLEAN),
+        ('uRequestIDsOffset', UInt32),
+        ('uNumOfRequestIDs', UInt32),
+        ('uPhyTypesOffset', UInt32),
+        ('uNumOfPhyTypes', UInt32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+        ('ucBuffer', Byte * 1),
     ]
-    return DOT11_SUPPORTED_OFDM_FREQUENCY_LIST
+    return DOT11_SCAN_REQUEST
+def _define_DOT11_SCAN_REQUEST_V2_head():
+    class DOT11_SCAN_REQUEST_V2(Structure):
+        pass
+    return DOT11_SCAN_REQUEST_V2
+def _define_DOT11_SCAN_REQUEST_V2():
+    DOT11_SCAN_REQUEST_V2 = win32more.NetworkManagement.WiFi.DOT11_SCAN_REQUEST_V2_head
+    DOT11_SCAN_REQUEST_V2._fields_ = [
+        ('dot11BSSType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dot11BSSID', Byte * 6),
+        ('dot11ScanType', win32more.NetworkManagement.WiFi.DOT11_SCAN_TYPE),
+        ('bRestrictedScan', win32more.Foundation.BOOLEAN),
+        ('udot11SSIDsOffset', UInt32),
+        ('uNumOfdot11SSIDs', UInt32),
+        ('bUseRequestIE', win32more.Foundation.BOOLEAN),
+        ('uRequestIDsOffset', UInt32),
+        ('uNumOfRequestIDs', UInt32),
+        ('uPhyTypeInfosOffset', UInt32),
+        ('uNumOfPhyTypeInfos', UInt32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_SCAN_REQUEST_V2
+DOT11_SCAN_TYPE = Int32
+dot11_scan_type_active = 1
+dot11_scan_type_passive = 2
+dot11_scan_type_auto = 3
+dot11_scan_type_forced = -2147483648
+def _define_DOT11_SECURITY_PACKET_HEADER_head():
+    class DOT11_SECURITY_PACKET_HEADER(Structure):
+        pass
+    return DOT11_SECURITY_PACKET_HEADER
+def _define_DOT11_SECURITY_PACKET_HEADER():
+    DOT11_SECURITY_PACKET_HEADER = win32more.NetworkManagement.WiFi.DOT11_SECURITY_PACKET_HEADER_head
+    DOT11_SECURITY_PACKET_HEADER._pack_ = 1
+    DOT11_SECURITY_PACKET_HEADER._fields_ = [
+        ('PeerMac', Byte * 6),
+        ('usEtherType', UInt16),
+        ('Data', Byte * 1),
+    ]
+    return DOT11_SECURITY_PACKET_HEADER
+def _define_DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head():
+    class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
+def _define_DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS():
+    DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head
+    DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('ResponseContext', c_void_p),
+        ('uSendTimeout', UInt32),
+        ('Status', Byte),
+        ('GroupCapability', Byte),
+        ('GroupID', win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
+        ('bUseGroupID', win32more.Foundation.BOOLEAN),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
+def _define_DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS_head():
+    class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS
+def _define_DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS():
+    DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS_head
+    DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('uSendTimeout', UInt32),
+        ('GroupOwnerIntent', win32more.NetworkManagement.WiFi.DOT11_WFD_GO_INTENT),
+        ('MinimumConfigTimeout', win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
+        ('IntendedInterfaceAddress', Byte * 6),
+        ('GroupCapability', Byte),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS
+def _define_DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS_head():
+    class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS
+def _define_DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS():
+    DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS_head
+    DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('PeerDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('RequestContext', c_void_p),
+        ('uSendTimeout', UInt32),
+        ('Status', Byte),
+        ('GroupOwnerIntent', win32more.NetworkManagement.WiFi.DOT11_WFD_GO_INTENT),
+        ('MinimumConfigTimeout', win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
+        ('IntendedInterfaceAddress', Byte * 6),
+        ('GroupCapability', Byte),
+        ('GroupID', win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
+        ('bUseGroupID', win32more.Foundation.BOOLEAN),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS
+def _define_DOT11_SEND_INVITATION_REQUEST_PARAMETERS_head():
+    class DOT11_SEND_INVITATION_REQUEST_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_INVITATION_REQUEST_PARAMETERS
+def _define_DOT11_SEND_INVITATION_REQUEST_PARAMETERS():
+    DOT11_SEND_INVITATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_INVITATION_REQUEST_PARAMETERS_head
+    DOT11_SEND_INVITATION_REQUEST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('DialogToken', Byte),
+        ('PeerDeviceAddress', Byte * 6),
+        ('uSendTimeout', UInt32),
+        ('MinimumConfigTimeout', win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
+        ('InvitationFlags', win32more.NetworkManagement.WiFi.DOT11_WFD_INVITATION_FLAGS),
+        ('GroupBSSID', Byte * 6),
+        ('bUseGroupBSSID', win32more.Foundation.BOOLEAN),
+        ('OperatingChannel', win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
+        ('bUseSpecifiedOperatingChannel', win32more.Foundation.BOOLEAN),
+        ('GroupID', win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
+        ('bLocalGO', win32more.Foundation.BOOLEAN),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_INVITATION_REQUEST_PARAMETERS
+def _define_DOT11_SEND_INVITATION_RESPONSE_PARAMETERS_head():
+    class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_INVITATION_RESPONSE_PARAMETERS
+def _define_DOT11_SEND_INVITATION_RESPONSE_PARAMETERS():
+    DOT11_SEND_INVITATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_INVITATION_RESPONSE_PARAMETERS_head
+    DOT11_SEND_INVITATION_RESPONSE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ReceiverDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('RequestContext', c_void_p),
+        ('uSendTimeout', UInt32),
+        ('Status', Byte),
+        ('MinimumConfigTimeout', win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
+        ('GroupBSSID', Byte * 6),
+        ('bUseGroupBSSID', win32more.Foundation.BOOLEAN),
+        ('OperatingChannel', win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
+        ('bUseSpecifiedOperatingChannel', win32more.Foundation.BOOLEAN),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_INVITATION_RESPONSE_PARAMETERS
+def _define_DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head():
+    class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS
+def _define_DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS():
+    DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head
+    DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('DialogToken', Byte),
+        ('PeerDeviceAddress', Byte * 6),
+        ('uSendTimeout', UInt32),
+        ('GroupCapability', Byte),
+        ('GroupID', win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
+        ('bUseGroupID', win32more.Foundation.BOOLEAN),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS
+def _define_DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head():
+    class DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(Structure):
+        pass
+    return DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
+def _define_DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS():
+    DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head
+    DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ReceiverDeviceAddress', Byte * 6),
+        ('DialogToken', Byte),
+        ('RequestContext', c_void_p),
+        ('uSendTimeout', UInt32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+    ]
+    return DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
+def _define_DOT11_SSID_head():
+    class DOT11_SSID(Structure):
+        pass
+    return DOT11_SSID
+def _define_DOT11_SSID():
+    DOT11_SSID = win32more.NetworkManagement.WiFi.DOT11_SSID_head
+    DOT11_SSID._fields_ = [
+        ('uSSIDLength', UInt32),
+        ('ucSSID', Byte * 32),
+    ]
+    return DOT11_SSID
+def _define_DOT11_SSID_LIST_head():
+    class DOT11_SSID_LIST(Structure):
+        pass
+    return DOT11_SSID_LIST
+def _define_DOT11_SSID_LIST():
+    DOT11_SSID_LIST = win32more.NetworkManagement.WiFi.DOT11_SSID_LIST_head
+    DOT11_SSID_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('SSIDs', win32more.NetworkManagement.WiFi.DOT11_SSID * 1),
+    ]
+    return DOT11_SSID_LIST
+def _define_DOT11_START_REQUEST_head():
+    class DOT11_START_REQUEST(Structure):
+        pass
+    return DOT11_START_REQUEST
+def _define_DOT11_START_REQUEST():
+    DOT11_START_REQUEST = win32more.NetworkManagement.WiFi.DOT11_START_REQUEST_head
+    DOT11_START_REQUEST._fields_ = [
+        ('uStartFailureTimeout', UInt32),
+        ('OperationalRateSet', win32more.NetworkManagement.WiFi.DOT11_RATE_SET),
+        ('uChCenterFrequency', UInt32),
+        ('dot11BSSDescription', win32more.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION),
+    ]
+    return DOT11_START_REQUEST
+def _define_DOT11_STATISTICS_head():
+    class DOT11_STATISTICS(Structure):
+        pass
+    return DOT11_STATISTICS
+def _define_DOT11_STATISTICS():
+    DOT11_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_STATISTICS_head
+    DOT11_STATISTICS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ullFourWayHandshakeFailures', UInt64),
+        ('ullTKIPCounterMeasuresInvoked', UInt64),
+        ('ullReserved', UInt64),
+        ('MacUcastCounters', win32more.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS),
+        ('MacMcastCounters', win32more.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS),
+        ('PhyCounters', win32more.NetworkManagement.WiFi.DOT11_PHY_FRAME_STATISTICS * 1),
+    ]
+    return DOT11_STATISTICS
+def _define_DOT11_STATUS_INDICATION_head():
+    class DOT11_STATUS_INDICATION(Structure):
+        pass
+    return DOT11_STATUS_INDICATION
+def _define_DOT11_STATUS_INDICATION():
+    DOT11_STATUS_INDICATION = win32more.NetworkManagement.WiFi.DOT11_STATUS_INDICATION_head
+    DOT11_STATUS_INDICATION._fields_ = [
+        ('uStatusType', UInt32),
+        ('ndisStatus', Int32),
+    ]
+    return DOT11_STATUS_INDICATION
+def _define_DOT11_STOP_AP_PARAMETERS_head():
+    class DOT11_STOP_AP_PARAMETERS(Structure):
+        pass
+    return DOT11_STOP_AP_PARAMETERS
+def _define_DOT11_STOP_AP_PARAMETERS():
+    DOT11_STOP_AP_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_STOP_AP_PARAMETERS_head
+    DOT11_STOP_AP_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ulReason', UInt32),
+    ]
+    return DOT11_STOP_AP_PARAMETERS
+def _define_DOT11_SUPPORTED_ANTENNA_head():
+    class DOT11_SUPPORTED_ANTENNA(Structure):
+        pass
+    return DOT11_SUPPORTED_ANTENNA
+def _define_DOT11_SUPPORTED_ANTENNA():
+    DOT11_SUPPORTED_ANTENNA = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA_head
+    DOT11_SUPPORTED_ANTENNA._fields_ = [
+        ('uAntennaListIndex', UInt32),
+        ('bSupportedAntenna', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_SUPPORTED_ANTENNA
+def _define_DOT11_SUPPORTED_ANTENNA_LIST_head():
+    class DOT11_SUPPORTED_ANTENNA_LIST(Structure):
+        pass
+    return DOT11_SUPPORTED_ANTENNA_LIST
+def _define_DOT11_SUPPORTED_ANTENNA_LIST():
+    DOT11_SUPPORTED_ANTENNA_LIST = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA_LIST_head
+    DOT11_SUPPORTED_ANTENNA_LIST._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11SupportedAntenna', win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA * 1),
+    ]
+    return DOT11_SUPPORTED_ANTENNA_LIST
+def _define_DOT11_SUPPORTED_DATA_RATES_VALUE_head():
+    class DOT11_SUPPORTED_DATA_RATES_VALUE(Structure):
+        pass
+    return DOT11_SUPPORTED_DATA_RATES_VALUE
+def _define_DOT11_SUPPORTED_DATA_RATES_VALUE():
+    DOT11_SUPPORTED_DATA_RATES_VALUE = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_head
+    DOT11_SUPPORTED_DATA_RATES_VALUE._fields_ = [
+        ('ucSupportedTxDataRatesValue', Byte * 8),
+        ('ucSupportedRxDataRatesValue', Byte * 8),
+    ]
+    return DOT11_SUPPORTED_DATA_RATES_VALUE
+def _define_DOT11_SUPPORTED_DATA_RATES_VALUE_V2_head():
+    class DOT11_SUPPORTED_DATA_RATES_VALUE_V2(Structure):
+        pass
+    return DOT11_SUPPORTED_DATA_RATES_VALUE_V2
+def _define_DOT11_SUPPORTED_DATA_RATES_VALUE_V2():
+    DOT11_SUPPORTED_DATA_RATES_VALUE_V2 = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_V2_head
+    DOT11_SUPPORTED_DATA_RATES_VALUE_V2._fields_ = [
+        ('ucSupportedTxDataRatesValue', Byte * 255),
+        ('ucSupportedRxDataRatesValue', Byte * 255),
+    ]
+    return DOT11_SUPPORTED_DATA_RATES_VALUE_V2
 def _define_DOT11_SUPPORTED_DSSS_CHANNEL_head():
     class DOT11_SUPPORTED_DSSS_CHANNEL(Structure):
         pass
@@ -1696,7 +3852,7 @@ def _define_DOT11_SUPPORTED_DSSS_CHANNEL_head():
 def _define_DOT11_SUPPORTED_DSSS_CHANNEL():
     DOT11_SUPPORTED_DSSS_CHANNEL = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DSSS_CHANNEL_head
     DOT11_SUPPORTED_DSSS_CHANNEL._fields_ = [
-        ("uChannel", UInt32),
+        ('uChannel', UInt32),
     ]
     return DOT11_SUPPORTED_DSSS_CHANNEL
 def _define_DOT11_SUPPORTED_DSSS_CHANNEL_LIST_head():
@@ -1706,859 +3862,60 @@ def _define_DOT11_SUPPORTED_DSSS_CHANNEL_LIST_head():
 def _define_DOT11_SUPPORTED_DSSS_CHANNEL_LIST():
     DOT11_SUPPORTED_DSSS_CHANNEL_LIST = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DSSS_CHANNEL_LIST_head
     DOT11_SUPPORTED_DSSS_CHANNEL_LIST._fields_ = [
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11SupportedDSSSChannel", win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DSSS_CHANNEL * 0),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11SupportedDSSSChannel', win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DSSS_CHANNEL * 1),
     ]
     return DOT11_SUPPORTED_DSSS_CHANNEL_LIST
-def _define_DOT11_BYTE_ARRAY_head():
-    class DOT11_BYTE_ARRAY(Structure):
+def _define_DOT11_SUPPORTED_OFDM_FREQUENCY_head():
+    class DOT11_SUPPORTED_OFDM_FREQUENCY(Structure):
         pass
-    return DOT11_BYTE_ARRAY
-def _define_DOT11_BYTE_ARRAY():
-    DOT11_BYTE_ARRAY = win32more.NetworkManagement.WiFi.DOT11_BYTE_ARRAY_head
-    DOT11_BYTE_ARRAY._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfBytes", UInt32),
-        ("uTotalNumOfBytes", UInt32),
-        ("ucBuffer", Byte * 0),
+    return DOT11_SUPPORTED_OFDM_FREQUENCY
+def _define_DOT11_SUPPORTED_OFDM_FREQUENCY():
+    DOT11_SUPPORTED_OFDM_FREQUENCY = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY_head
+    DOT11_SUPPORTED_OFDM_FREQUENCY._fields_ = [
+        ('uCenterFrequency', UInt32),
     ]
-    return DOT11_BYTE_ARRAY
-def _define_DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO_head():
-    class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(Union):
+    return DOT11_SUPPORTED_OFDM_FREQUENCY
+def _define_DOT11_SUPPORTED_OFDM_FREQUENCY_LIST_head():
+    class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST(Structure):
         pass
-    return DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
-def _define_DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO():
-    DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO = win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO_head
-    class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO__FHSS_e__Struct(Structure):
+    return DOT11_SUPPORTED_OFDM_FREQUENCY_LIST
+def _define_DOT11_SUPPORTED_OFDM_FREQUENCY_LIST():
+    DOT11_SUPPORTED_OFDM_FREQUENCY_LIST = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY_LIST_head
+    DOT11_SUPPORTED_OFDM_FREQUENCY_LIST._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11SupportedOFDMFrequency', win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY * 1),
+    ]
+    return DOT11_SUPPORTED_OFDM_FREQUENCY_LIST
+def _define_DOT11_SUPPORTED_PHY_TYPES_head():
+    class DOT11_SUPPORTED_PHY_TYPES(Structure):
         pass
-    DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO__FHSS_e__Struct._fields_ = [
-        ("uHopPattern", UInt32),
-        ("uHopSet", UInt32),
-        ("uDwellTime", UInt32),
+    return DOT11_SUPPORTED_PHY_TYPES
+def _define_DOT11_SUPPORTED_PHY_TYPES():
+    DOT11_SUPPORTED_PHY_TYPES = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_PHY_TYPES_head
+    DOT11_SUPPORTED_PHY_TYPES._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11PHYType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 1),
     ]
-    DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO._fields_ = [
-        ("uChCenterFrequency", UInt32),
-        ("FHSS", DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO__FHSS_e__Struct),
-    ]
-    return DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
-def _define_DOT11_BSS_ENTRY_head():
-    class DOT11_BSS_ENTRY(Structure):
+    return DOT11_SUPPORTED_PHY_TYPES
+def _define_DOT11_SUPPORTED_POWER_LEVELS_head():
+    class DOT11_SUPPORTED_POWER_LEVELS(Structure):
         pass
-    return DOT11_BSS_ENTRY
-def _define_DOT11_BSS_ENTRY():
-    DOT11_BSS_ENTRY = win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_head
-    DOT11_BSS_ENTRY._fields_ = [
-        ("uPhyId", UInt32),
-        ("PhySpecificInfo", win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO),
-        ("dot11BSSID", Byte * 6),
-        ("dot11BSSType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("lRSSI", Int32),
-        ("uLinkQuality", UInt32),
-        ("bInRegDomain", win32more.Foundation.BOOLEAN),
-        ("usBeaconPeriod", UInt16),
-        ("ullTimestamp", UInt64),
-        ("ullHostTimestamp", UInt64),
-        ("usCapabilityInformation", UInt16),
-        ("uBufferLength", UInt32),
-        ("ucBuffer", Byte * 0),
+    return DOT11_SUPPORTED_POWER_LEVELS
+def _define_DOT11_SUPPORTED_POWER_LEVELS():
+    DOT11_SUPPORTED_POWER_LEVELS = win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_POWER_LEVELS_head
+    DOT11_SUPPORTED_POWER_LEVELS._fields_ = [
+        ('uNumOfSupportedPowerLevels', UInt32),
+        ('uTxPowerLevelValues', UInt32 * 8),
     ]
-    return DOT11_BSS_ENTRY
-def _define_DOT11_SSID_LIST_head():
-    class DOT11_SSID_LIST(Structure):
-        pass
-    return DOT11_SSID_LIST
-def _define_DOT11_SSID_LIST():
-    DOT11_SSID_LIST = win32more.NetworkManagement.WiFi.DOT11_SSID_LIST_head
-    DOT11_SSID_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("SSIDs", win32more.NetworkManagement.WiFi.DOT11_SSID * 0),
-    ]
-    return DOT11_SSID_LIST
-def _define_DOT11_MAC_ADDRESS_LIST_head():
-    class DOT11_MAC_ADDRESS_LIST(Structure):
-        pass
-    return DOT11_MAC_ADDRESS_LIST
-def _define_DOT11_MAC_ADDRESS_LIST():
-    DOT11_MAC_ADDRESS_LIST = win32more.NetworkManagement.WiFi.DOT11_MAC_ADDRESS_LIST_head
-    DOT11_MAC_ADDRESS_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("MacAddrs", Byte * 6),
-    ]
-    return DOT11_MAC_ADDRESS_LIST
-def _define_DOT11_PMKID_ENTRY_head():
-    class DOT11_PMKID_ENTRY(Structure):
-        pass
-    return DOT11_PMKID_ENTRY
-def _define_DOT11_PMKID_ENTRY():
-    DOT11_PMKID_ENTRY = win32more.NetworkManagement.WiFi.DOT11_PMKID_ENTRY_head
-    DOT11_PMKID_ENTRY._fields_ = [
-        ("BSSID", Byte * 6),
-        ("PMKID", Byte * 16),
-        ("uFlags", UInt32),
-    ]
-    return DOT11_PMKID_ENTRY
-def _define_DOT11_PMKID_LIST_head():
-    class DOT11_PMKID_LIST(Structure):
-        pass
-    return DOT11_PMKID_LIST
-def _define_DOT11_PMKID_LIST():
-    DOT11_PMKID_LIST = win32more.NetworkManagement.WiFi.DOT11_PMKID_LIST_head
-    DOT11_PMKID_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("PMKIDs", win32more.NetworkManagement.WiFi.DOT11_PMKID_ENTRY * 0),
-    ]
-    return DOT11_PMKID_LIST
-def _define_DOT11_PHY_FRAME_STATISTICS_head():
-    class DOT11_PHY_FRAME_STATISTICS(Structure):
-        pass
-    return DOT11_PHY_FRAME_STATISTICS
-def _define_DOT11_PHY_FRAME_STATISTICS():
-    DOT11_PHY_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_PHY_FRAME_STATISTICS_head
-    DOT11_PHY_FRAME_STATISTICS._fields_ = [
-        ("ullTransmittedFrameCount", UInt64),
-        ("ullMulticastTransmittedFrameCount", UInt64),
-        ("ullFailedCount", UInt64),
-        ("ullRetryCount", UInt64),
-        ("ullMultipleRetryCount", UInt64),
-        ("ullMaxTXLifetimeExceededCount", UInt64),
-        ("ullTransmittedFragmentCount", UInt64),
-        ("ullRTSSuccessCount", UInt64),
-        ("ullRTSFailureCount", UInt64),
-        ("ullACKFailureCount", UInt64),
-        ("ullReceivedFrameCount", UInt64),
-        ("ullMulticastReceivedFrameCount", UInt64),
-        ("ullPromiscuousReceivedFrameCount", UInt64),
-        ("ullMaxRXLifetimeExceededCount", UInt64),
-        ("ullFrameDuplicateCount", UInt64),
-        ("ullReceivedFragmentCount", UInt64),
-        ("ullPromiscuousReceivedFragmentCount", UInt64),
-        ("ullFCSErrorCount", UInt64),
-    ]
-    return DOT11_PHY_FRAME_STATISTICS
-def _define_DOT11_MAC_FRAME_STATISTICS_head():
-    class DOT11_MAC_FRAME_STATISTICS(Structure):
-        pass
-    return DOT11_MAC_FRAME_STATISTICS
-def _define_DOT11_MAC_FRAME_STATISTICS():
-    DOT11_MAC_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS_head
-    DOT11_MAC_FRAME_STATISTICS._fields_ = [
-        ("ullTransmittedFrameCount", UInt64),
-        ("ullReceivedFrameCount", UInt64),
-        ("ullTransmittedFailureFrameCount", UInt64),
-        ("ullReceivedFailureFrameCount", UInt64),
-        ("ullWEPExcludedCount", UInt64),
-        ("ullTKIPLocalMICFailures", UInt64),
-        ("ullTKIPReplays", UInt64),
-        ("ullTKIPICVErrorCount", UInt64),
-        ("ullCCMPReplays", UInt64),
-        ("ullCCMPDecryptErrors", UInt64),
-        ("ullWEPUndecryptableCount", UInt64),
-        ("ullWEPICVErrorCount", UInt64),
-        ("ullDecryptSuccessCount", UInt64),
-        ("ullDecryptFailureCount", UInt64),
-    ]
-    return DOT11_MAC_FRAME_STATISTICS
-def _define_DOT11_STATISTICS_head():
-    class DOT11_STATISTICS(Structure):
-        pass
-    return DOT11_STATISTICS
-def _define_DOT11_STATISTICS():
-    DOT11_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_STATISTICS_head
-    DOT11_STATISTICS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ullFourWayHandshakeFailures", UInt64),
-        ("ullTKIPCounterMeasuresInvoked", UInt64),
-        ("ullReserved", UInt64),
-        ("MacUcastCounters", win32more.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS),
-        ("MacMcastCounters", win32more.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS),
-        ("PhyCounters", win32more.NetworkManagement.WiFi.DOT11_PHY_FRAME_STATISTICS * 0),
-    ]
-    return DOT11_STATISTICS
-def _define_DOT11_PRIVACY_EXEMPTION_head():
-    class DOT11_PRIVACY_EXEMPTION(Structure):
-        pass
-    return DOT11_PRIVACY_EXEMPTION
-def _define_DOT11_PRIVACY_EXEMPTION():
-    DOT11_PRIVACY_EXEMPTION = win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_head
-    DOT11_PRIVACY_EXEMPTION._fields_ = [
-        ("usEtherType", UInt16),
-        ("usExemptionActionType", UInt16),
-        ("usExemptionPacketType", UInt16),
-    ]
-    return DOT11_PRIVACY_EXEMPTION
-def _define_DOT11_PRIVACY_EXEMPTION_LIST_head():
-    class DOT11_PRIVACY_EXEMPTION_LIST(Structure):
-        pass
-    return DOT11_PRIVACY_EXEMPTION_LIST
-def _define_DOT11_PRIVACY_EXEMPTION_LIST():
-    DOT11_PRIVACY_EXEMPTION_LIST = win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_LIST_head
-    DOT11_PRIVACY_EXEMPTION_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("PrivacyExemptionEntries", win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION * 0),
-    ]
-    return DOT11_PRIVACY_EXEMPTION_LIST
-def _define_DOT11_AUTH_ALGORITHM_LIST_head():
-    class DOT11_AUTH_ALGORITHM_LIST(Structure):
-        pass
-    return DOT11_AUTH_ALGORITHM_LIST
-def _define_DOT11_AUTH_ALGORITHM_LIST():
-    DOT11_AUTH_ALGORITHM_LIST = win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM_LIST_head
-    DOT11_AUTH_ALGORITHM_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("AlgorithmIds", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM * 0),
-    ]
-    return DOT11_AUTH_ALGORITHM_LIST
-def _define_DOT11_AUTH_CIPHER_PAIR_LIST_head():
-    class DOT11_AUTH_CIPHER_PAIR_LIST(Structure):
-        pass
-    return DOT11_AUTH_CIPHER_PAIR_LIST
-def _define_DOT11_AUTH_CIPHER_PAIR_LIST():
-    DOT11_AUTH_CIPHER_PAIR_LIST = win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_LIST_head
-    DOT11_AUTH_CIPHER_PAIR_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("AuthCipherPairs", win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 0),
-    ]
-    return DOT11_AUTH_CIPHER_PAIR_LIST
-def _define_DOT11_CIPHER_ALGORITHM_LIST_head():
-    class DOT11_CIPHER_ALGORITHM_LIST(Structure):
-        pass
-    return DOT11_CIPHER_ALGORITHM_LIST
-def _define_DOT11_CIPHER_ALGORITHM_LIST():
-    DOT11_CIPHER_ALGORITHM_LIST = win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM_LIST_head
-    DOT11_CIPHER_ALGORITHM_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("AlgorithmIds", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM * 0),
-    ]
-    return DOT11_CIPHER_ALGORITHM_LIST
-def _define_DOT11_CIPHER_DEFAULT_KEY_VALUE_head():
-    class DOT11_CIPHER_DEFAULT_KEY_VALUE(Structure):
-        pass
-    return DOT11_CIPHER_DEFAULT_KEY_VALUE
-def _define_DOT11_CIPHER_DEFAULT_KEY_VALUE():
-    DOT11_CIPHER_DEFAULT_KEY_VALUE = win32more.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE_head
-    DOT11_CIPHER_DEFAULT_KEY_VALUE._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uKeyIndex", UInt32),
-        ("AlgorithmId", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("MacAddr", Byte * 6),
-        ("bDelete", win32more.Foundation.BOOLEAN),
-        ("bStatic", win32more.Foundation.BOOLEAN),
-        ("usKeyLength", UInt16),
-        ("ucKey", Byte * 0),
-    ]
-    return DOT11_CIPHER_DEFAULT_KEY_VALUE
-def _define_DOT11_KEY_ALGO_TKIP_MIC_head():
-    class DOT11_KEY_ALGO_TKIP_MIC(Structure):
-        pass
-    return DOT11_KEY_ALGO_TKIP_MIC
-def _define_DOT11_KEY_ALGO_TKIP_MIC():
-    DOT11_KEY_ALGO_TKIP_MIC = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_TKIP_MIC_head
-    DOT11_KEY_ALGO_TKIP_MIC._fields_ = [
-        ("ucIV48Counter", Byte * 6),
-        ("ulTKIPKeyLength", UInt32),
-        ("ulMICKeyLength", UInt32),
-        ("ucTKIPMICKeys", Byte * 0),
-    ]
-    return DOT11_KEY_ALGO_TKIP_MIC
-def _define_DOT11_KEY_ALGO_CCMP_head():
-    class DOT11_KEY_ALGO_CCMP(Structure):
-        pass
-    return DOT11_KEY_ALGO_CCMP
-def _define_DOT11_KEY_ALGO_CCMP():
-    DOT11_KEY_ALGO_CCMP = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_CCMP_head
-    DOT11_KEY_ALGO_CCMP._fields_ = [
-        ("ucIV48Counter", Byte * 6),
-        ("ulCCMPKeyLength", UInt32),
-        ("ucCCMPKey", Byte * 0),
-    ]
-    return DOT11_KEY_ALGO_CCMP
-def _define_DOT11_KEY_ALGO_GCMP_head():
-    class DOT11_KEY_ALGO_GCMP(Structure):
-        pass
-    return DOT11_KEY_ALGO_GCMP
-def _define_DOT11_KEY_ALGO_GCMP():
-    DOT11_KEY_ALGO_GCMP = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_GCMP_head
-    DOT11_KEY_ALGO_GCMP._fields_ = [
-        ("ucIV48Counter", Byte * 6),
-        ("ulGCMPKeyLength", UInt32),
-        ("ucGCMPKey", Byte * 0),
-    ]
-    return DOT11_KEY_ALGO_GCMP
-def _define_DOT11_KEY_ALGO_GCMP_256_head():
-    class DOT11_KEY_ALGO_GCMP_256(Structure):
-        pass
-    return DOT11_KEY_ALGO_GCMP_256
-def _define_DOT11_KEY_ALGO_GCMP_256():
-    DOT11_KEY_ALGO_GCMP_256 = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_GCMP_256_head
-    DOT11_KEY_ALGO_GCMP_256._fields_ = [
-        ("ucIV48Counter", Byte * 6),
-        ("ulGCMP256KeyLength", UInt32),
-        ("ucGCMP256Key", Byte * 0),
-    ]
-    return DOT11_KEY_ALGO_GCMP_256
-def _define_DOT11_KEY_ALGO_BIP_head():
-    class DOT11_KEY_ALGO_BIP(Structure):
-        pass
-    return DOT11_KEY_ALGO_BIP
-def _define_DOT11_KEY_ALGO_BIP():
-    DOT11_KEY_ALGO_BIP = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_BIP_head
-    DOT11_KEY_ALGO_BIP._fields_ = [
-        ("ucIPN", Byte * 6),
-        ("ulBIPKeyLength", UInt32),
-        ("ucBIPKey", Byte * 0),
-    ]
-    return DOT11_KEY_ALGO_BIP
-def _define_DOT11_KEY_ALGO_BIP_GMAC_256_head():
-    class DOT11_KEY_ALGO_BIP_GMAC_256(Structure):
-        pass
-    return DOT11_KEY_ALGO_BIP_GMAC_256
-def _define_DOT11_KEY_ALGO_BIP_GMAC_256():
-    DOT11_KEY_ALGO_BIP_GMAC_256 = win32more.NetworkManagement.WiFi.DOT11_KEY_ALGO_BIP_GMAC_256_head
-    DOT11_KEY_ALGO_BIP_GMAC_256._fields_ = [
-        ("ucIPN", Byte * 6),
-        ("ulBIPGmac256KeyLength", UInt32),
-        ("ucBIPGmac256Key", Byte * 0),
-    ]
-    return DOT11_KEY_ALGO_BIP_GMAC_256
-DOT11_DIRECTION = Int32
-DOT11_DIR_INBOUND = 1
-DOT11_DIR_OUTBOUND = 2
-DOT11_DIR_BOTH = 3
-def _define_DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head():
-    class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE(Structure):
-        pass
-    return DOT11_CIPHER_KEY_MAPPING_KEY_VALUE
-def _define_DOT11_CIPHER_KEY_MAPPING_KEY_VALUE():
-    DOT11_CIPHER_KEY_MAPPING_KEY_VALUE = win32more.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head
-    DOT11_CIPHER_KEY_MAPPING_KEY_VALUE._fields_ = [
-        ("PeerMacAddr", Byte * 6),
-        ("AlgorithmId", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("Direction", win32more.NetworkManagement.WiFi.DOT11_DIRECTION),
-        ("bDelete", win32more.Foundation.BOOLEAN),
-        ("bStatic", win32more.Foundation.BOOLEAN),
-        ("usKeyLength", UInt16),
-        ("ucKey", Byte * 0),
-    ]
-    return DOT11_CIPHER_KEY_MAPPING_KEY_VALUE
-DOT11_ASSOCIATION_STATE = Int32
-dot11_assoc_state_zero = 0
-dot11_assoc_state_unauth_unassoc = 1
-dot11_assoc_state_auth_unassoc = 2
-dot11_assoc_state_auth_assoc = 3
-def _define_DOT11_ASSOCIATION_INFO_EX_head():
-    class DOT11_ASSOCIATION_INFO_EX(Structure):
-        pass
-    return DOT11_ASSOCIATION_INFO_EX
-def _define_DOT11_ASSOCIATION_INFO_EX():
-    DOT11_ASSOCIATION_INFO_EX = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_EX_head
-    DOT11_ASSOCIATION_INFO_EX._fields_ = [
-        ("PeerMacAddress", Byte * 6),
-        ("BSSID", Byte * 6),
-        ("usCapabilityInformation", UInt16),
-        ("usListenInterval", UInt16),
-        ("ucPeerSupportedRates", Byte * 255),
-        ("usAssociationID", UInt16),
-        ("dot11AssociationState", win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE),
-        ("dot11PowerMode", win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
-        ("liAssociationUpTime", win32more.Foundation.LARGE_INTEGER),
-        ("ullNumOfTxPacketSuccesses", UInt64),
-        ("ullNumOfTxPacketFailures", UInt64),
-        ("ullNumOfRxPacketSuccesses", UInt64),
-        ("ullNumOfRxPacketFailures", UInt64),
-    ]
-    return DOT11_ASSOCIATION_INFO_EX
-def _define_DOT11_ASSOCIATION_INFO_LIST_head():
-    class DOT11_ASSOCIATION_INFO_LIST(Structure):
-        pass
-    return DOT11_ASSOCIATION_INFO_LIST
-def _define_DOT11_ASSOCIATION_INFO_LIST():
-    DOT11_ASSOCIATION_INFO_LIST = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_LIST_head
-    DOT11_ASSOCIATION_INFO_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11AssocInfo", win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_EX * 0),
-    ]
-    return DOT11_ASSOCIATION_INFO_LIST
-def _define_DOT11_PHY_ID_LIST_head():
-    class DOT11_PHY_ID_LIST(Structure):
-        pass
-    return DOT11_PHY_ID_LIST
-def _define_DOT11_PHY_ID_LIST():
-    DOT11_PHY_ID_LIST = win32more.NetworkManagement.WiFi.DOT11_PHY_ID_LIST_head
-    DOT11_PHY_ID_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("dot11PhyId", UInt32 * 0),
-    ]
-    return DOT11_PHY_ID_LIST
-def _define_DOT11_EXTSTA_CAPABILITY_head():
-    class DOT11_EXTSTA_CAPABILITY(Structure):
-        pass
-    return DOT11_EXTSTA_CAPABILITY
-def _define_DOT11_EXTSTA_CAPABILITY():
-    DOT11_EXTSTA_CAPABILITY = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_CAPABILITY_head
-    DOT11_EXTSTA_CAPABILITY._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uScanSSIDListSize", UInt32),
-        ("uDesiredBSSIDListSize", UInt32),
-        ("uDesiredSSIDListSize", UInt32),
-        ("uExcludedMacAddressListSize", UInt32),
-        ("uPrivacyExemptionListSize", UInt32),
-        ("uKeyMappingTableSize", UInt32),
-        ("uDefaultKeyTableSize", UInt32),
-        ("uWEPKeyValueMaxLength", UInt32),
-        ("uPMKIDCacheSize", UInt32),
-        ("uMaxNumPerSTADefaultKeyTables", UInt32),
-    ]
-    return DOT11_EXTSTA_CAPABILITY
-def _define_DOT11_DATA_RATE_MAPPING_ENTRY_head():
-    class DOT11_DATA_RATE_MAPPING_ENTRY(Structure):
-        pass
-    return DOT11_DATA_RATE_MAPPING_ENTRY
-def _define_DOT11_DATA_RATE_MAPPING_ENTRY():
-    DOT11_DATA_RATE_MAPPING_ENTRY = win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY_head
-    DOT11_DATA_RATE_MAPPING_ENTRY._fields_ = [
-        ("ucDataRateIndex", Byte),
-        ("ucDataRateFlag", Byte),
-        ("usDataRateValue", UInt16),
-    ]
-    return DOT11_DATA_RATE_MAPPING_ENTRY
-def _define_DOT11_DATA_RATE_MAPPING_TABLE_head():
-    class DOT11_DATA_RATE_MAPPING_TABLE(Structure):
-        pass
-    return DOT11_DATA_RATE_MAPPING_TABLE
-def _define_DOT11_DATA_RATE_MAPPING_TABLE():
-    DOT11_DATA_RATE_MAPPING_TABLE = win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_TABLE_head
-    DOT11_DATA_RATE_MAPPING_TABLE._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uDataRateMappingLength", UInt32),
-        ("DataRateMappingEntries", win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY * 126),
-    ]
-    return DOT11_DATA_RATE_MAPPING_TABLE
-def _define_DOT11_COUNTRY_OR_REGION_STRING_LIST_head():
-    class DOT11_COUNTRY_OR_REGION_STRING_LIST(Structure):
-        pass
-    return DOT11_COUNTRY_OR_REGION_STRING_LIST
-def _define_DOT11_COUNTRY_OR_REGION_STRING_LIST():
-    DOT11_COUNTRY_OR_REGION_STRING_LIST = win32more.NetworkManagement.WiFi.DOT11_COUNTRY_OR_REGION_STRING_LIST_head
-    DOT11_COUNTRY_OR_REGION_STRING_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("CountryOrRegionStrings", Byte * 3),
-    ]
-    return DOT11_COUNTRY_OR_REGION_STRING_LIST
-def _define_DOT11_PORT_STATE_NOTIFICATION_head():
-    class DOT11_PORT_STATE_NOTIFICATION(Structure):
-        pass
-    return DOT11_PORT_STATE_NOTIFICATION
-def _define_DOT11_PORT_STATE_NOTIFICATION():
-    DOT11_PORT_STATE_NOTIFICATION = win32more.NetworkManagement.WiFi.DOT11_PORT_STATE_NOTIFICATION_head
-    DOT11_PORT_STATE_NOTIFICATION._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMac", Byte * 6),
-        ("bOpen", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_PORT_STATE_NOTIFICATION
-def _define_DOT11_IBSS_PARAMS_head():
-    class DOT11_IBSS_PARAMS(Structure):
-        pass
-    return DOT11_IBSS_PARAMS
-def _define_DOT11_IBSS_PARAMS():
-    DOT11_IBSS_PARAMS = win32more.NetworkManagement.WiFi.DOT11_IBSS_PARAMS_head
-    DOT11_IBSS_PARAMS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("bJoinOnly", win32more.Foundation.BOOLEAN),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_IBSS_PARAMS
-def _define_DOT11_QOS_PARAMS_head():
-    class DOT11_QOS_PARAMS(Structure):
-        pass
-    return DOT11_QOS_PARAMS
-def _define_DOT11_QOS_PARAMS():
-    DOT11_QOS_PARAMS = win32more.NetworkManagement.WiFi.DOT11_QOS_PARAMS_head
-    DOT11_QOS_PARAMS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ucEnabledQoSProtocolFlags", Byte),
-    ]
-    return DOT11_QOS_PARAMS
-def _define_DOT11_ASSOCIATION_PARAMS_head():
-    class DOT11_ASSOCIATION_PARAMS(Structure):
-        pass
-    return DOT11_ASSOCIATION_PARAMS
-def _define_DOT11_ASSOCIATION_PARAMS():
-    DOT11_ASSOCIATION_PARAMS = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_PARAMS_head
-    DOT11_ASSOCIATION_PARAMS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("BSSID", Byte * 6),
-        ("uAssocRequestIEsOffset", UInt32),
-        ("uAssocRequestIEsLength", UInt32),
-    ]
-    return DOT11_ASSOCIATION_PARAMS
-def _define_DOT11_FRAGMENT_DESCRIPTOR_head():
-    class DOT11_FRAGMENT_DESCRIPTOR(Structure):
-        pass
-    return DOT11_FRAGMENT_DESCRIPTOR
-def _define_DOT11_FRAGMENT_DESCRIPTOR():
-    DOT11_FRAGMENT_DESCRIPTOR = win32more.NetworkManagement.WiFi.DOT11_FRAGMENT_DESCRIPTOR_head
-    DOT11_FRAGMENT_DESCRIPTOR._fields_ = [
-        ("uOffset", UInt32),
-        ("uLength", UInt32),
-    ]
-    return DOT11_FRAGMENT_DESCRIPTOR
-def _define_DOT11_PER_MSDU_COUNTERS_head():
-    class DOT11_PER_MSDU_COUNTERS(Structure):
-        pass
-    return DOT11_PER_MSDU_COUNTERS
-def _define_DOT11_PER_MSDU_COUNTERS():
-    DOT11_PER_MSDU_COUNTERS = win32more.NetworkManagement.WiFi.DOT11_PER_MSDU_COUNTERS_head
-    DOT11_PER_MSDU_COUNTERS._fields_ = [
-        ("uTransmittedFragmentCount", UInt32),
-        ("uRetryCount", UInt32),
-        ("uRTSSuccessCount", UInt32),
-        ("uRTSFailureCount", UInt32),
-        ("uACKFailureCount", UInt32),
-    ]
-    return DOT11_PER_MSDU_COUNTERS
-def _define_DOT11_HRDSSS_PHY_ATTRIBUTES_head():
-    class DOT11_HRDSSS_PHY_ATTRIBUTES(Structure):
-        pass
-    return DOT11_HRDSSS_PHY_ATTRIBUTES
-def _define_DOT11_HRDSSS_PHY_ATTRIBUTES():
-    DOT11_HRDSSS_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES_head
-    DOT11_HRDSSS_PHY_ATTRIBUTES._fields_ = [
-        ("bShortPreambleOptionImplemented", win32more.Foundation.BOOLEAN),
-        ("bPBCCOptionImplemented", win32more.Foundation.BOOLEAN),
-        ("bChannelAgilityPresent", win32more.Foundation.BOOLEAN),
-        ("uHRCCAModeSupported", UInt32),
-    ]
-    return DOT11_HRDSSS_PHY_ATTRIBUTES
-def _define_DOT11_OFDM_PHY_ATTRIBUTES_head():
-    class DOT11_OFDM_PHY_ATTRIBUTES(Structure):
-        pass
-    return DOT11_OFDM_PHY_ATTRIBUTES
-def _define_DOT11_OFDM_PHY_ATTRIBUTES():
-    DOT11_OFDM_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_OFDM_PHY_ATTRIBUTES_head
-    DOT11_OFDM_PHY_ATTRIBUTES._fields_ = [
-        ("uFrequencyBandsSupported", UInt32),
-    ]
-    return DOT11_OFDM_PHY_ATTRIBUTES
-def _define_DOT11_ERP_PHY_ATTRIBUTES_head():
-    class DOT11_ERP_PHY_ATTRIBUTES(Structure):
-        pass
-    return DOT11_ERP_PHY_ATTRIBUTES
-def _define_DOT11_ERP_PHY_ATTRIBUTES():
-    DOT11_ERP_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_ERP_PHY_ATTRIBUTES_head
-    DOT11_ERP_PHY_ATTRIBUTES._fields_ = [
-        ("HRDSSSAttributes", win32more.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES),
-        ("bERPPBCCOptionImplemented", win32more.Foundation.BOOLEAN),
-        ("bDSSSOFDMOptionImplemented", win32more.Foundation.BOOLEAN),
-        ("bShortSlotTimeOptionImplemented", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_ERP_PHY_ATTRIBUTES
-def _define_DOT11_PHY_ATTRIBUTES_head():
-    class DOT11_PHY_ATTRIBUTES(Structure):
-        pass
-    return DOT11_PHY_ATTRIBUTES
-def _define_DOT11_PHY_ATTRIBUTES():
-    DOT11_PHY_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_PHY_ATTRIBUTES_head
-    class DOT11_PHY_ATTRIBUTES__PhySpecificAttributes_e__Union(Union):
-        pass
-    DOT11_PHY_ATTRIBUTES__PhySpecificAttributes_e__Union._fields_ = [
-        ("HRDSSSAttributes", win32more.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES),
-        ("OFDMAttributes", win32more.NetworkManagement.WiFi.DOT11_OFDM_PHY_ATTRIBUTES),
-        ("ERPAttributes", win32more.NetworkManagement.WiFi.DOT11_ERP_PHY_ATTRIBUTES),
-    ]
-    DOT11_PHY_ATTRIBUTES._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("bHardwarePhyState", win32more.Foundation.BOOLEAN),
-        ("bSoftwarePhyState", win32more.Foundation.BOOLEAN),
-        ("bCFPollable", win32more.Foundation.BOOLEAN),
-        ("uMPDUMaxLength", UInt32),
-        ("TempType", win32more.NetworkManagement.WiFi.DOT11_TEMP_TYPE),
-        ("DiversitySupport", win32more.NetworkManagement.WiFi.DOT11_DIVERSITY_SUPPORT),
-        ("PhySpecificAttributes", DOT11_PHY_ATTRIBUTES__PhySpecificAttributes_e__Union),
-        ("uNumberSupportedPowerLevels", UInt32),
-        ("TxPowerLevels", UInt32 * 8),
-        ("uNumDataRateMappingEntries", UInt32),
-        ("DataRateMappingEntries", win32more.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY * 126),
-        ("SupportedDataRatesValue", win32more.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_V2),
-    ]
-    return DOT11_PHY_ATTRIBUTES
-def _define_DOT11_EXTSTA_ATTRIBUTES_head():
-    class DOT11_EXTSTA_ATTRIBUTES(Structure):
-        pass
-    return DOT11_EXTSTA_ATTRIBUTES
-def _define_DOT11_EXTSTA_ATTRIBUTES():
-    DOT11_EXTSTA_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_ATTRIBUTES_head
-    DOT11_EXTSTA_ATTRIBUTES._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uScanSSIDListSize", UInt32),
-        ("uDesiredBSSIDListSize", UInt32),
-        ("uDesiredSSIDListSize", UInt32),
-        ("uExcludedMacAddressListSize", UInt32),
-        ("uPrivacyExemptionListSize", UInt32),
-        ("uKeyMappingTableSize", UInt32),
-        ("uDefaultKeyTableSize", UInt32),
-        ("uWEPKeyValueMaxLength", UInt32),
-        ("uPMKIDCacheSize", UInt32),
-        ("uMaxNumPerSTADefaultKeyTables", UInt32),
-        ("bStrictlyOrderedServiceClassImplemented", win32more.Foundation.BOOLEAN),
-        ("ucSupportedQoSProtocolFlags", Byte),
-        ("bSafeModeImplemented", win32more.Foundation.BOOLEAN),
-        ("uNumSupportedCountryOrRegionStrings", UInt32),
-        ("pSupportedCountryOrRegionStrings", c_char_p_no),
-        ("uInfraNumSupportedUcastAlgoPairs", UInt32),
-        ("pInfraSupportedUcastAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-        ("uInfraNumSupportedMcastAlgoPairs", UInt32),
-        ("pInfraSupportedMcastAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-        ("uAdhocNumSupportedUcastAlgoPairs", UInt32),
-        ("pAdhocSupportedUcastAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-        ("uAdhocNumSupportedMcastAlgoPairs", UInt32),
-        ("pAdhocSupportedMcastAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-        ("bAutoPowerSaveMode", win32more.Foundation.BOOLEAN),
-        ("uMaxNetworkOffloadListSize", UInt32),
-        ("bMFPCapable", win32more.Foundation.BOOLEAN),
-        ("uInfraNumSupportedMcastMgmtAlgoPairs", UInt32),
-        ("pInfraSupportedMcastMgmtAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-        ("bNeighborReportSupported", win32more.Foundation.BOOLEAN),
-        ("bAPChannelReportSupported", win32more.Foundation.BOOLEAN),
-        ("bActionFramesSupported", win32more.Foundation.BOOLEAN),
-        ("bANQPQueryOffloadSupported", win32more.Foundation.BOOLEAN),
-        ("bHESSIDConnectionSupported", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_EXTSTA_ATTRIBUTES
-def _define_DOT11_RECV_EXTENSION_INFO_head():
-    class DOT11_RECV_EXTENSION_INFO(Structure):
-        pass
-    return DOT11_RECV_EXTENSION_INFO
-def _define_DOT11_RECV_EXTENSION_INFO():
-    DOT11_RECV_EXTENSION_INFO = win32more.NetworkManagement.WiFi.DOT11_RECV_EXTENSION_INFO_head
-    DOT11_RECV_EXTENSION_INFO._fields_ = [
-        ("uVersion", UInt32),
-        ("pvReserved", c_void_p),
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("uChCenterFrequency", UInt32),
-        ("lRSSI", Int32),
-        ("lRSSIMin", Int32),
-        ("lRSSIMax", Int32),
-        ("uRSSI", UInt32),
-        ("ucPriority", Byte),
-        ("ucDataRate", Byte),
-        ("ucPeerMacAddress", Byte * 6),
-        ("dwExtendedStatus", UInt32),
-        ("hWEPOffloadContext", win32more.Foundation.HANDLE),
-        ("hAuthOffloadContext", win32more.Foundation.HANDLE),
-        ("usWEPAppliedMask", UInt16),
-        ("usWPAMSDUPriority", UInt16),
-        ("dot11LowestIV48Counter", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
-        ("usDot11LeftRWBitMap", UInt16),
-        ("dot11HighestIV48Counter", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
-        ("usDot11RightRWBitMap", UInt16),
-        ("usNumberOfMPDUsReceived", UInt16),
-        ("usNumberOfFragments", UInt16),
-        ("pNdisPackets", c_void_p * 0),
-    ]
-    return DOT11_RECV_EXTENSION_INFO
-def _define_DOT11_RECV_EXTENSION_INFO_V2_head():
-    class DOT11_RECV_EXTENSION_INFO_V2(Structure):
-        pass
-    return DOT11_RECV_EXTENSION_INFO_V2
-def _define_DOT11_RECV_EXTENSION_INFO_V2():
-    DOT11_RECV_EXTENSION_INFO_V2 = win32more.NetworkManagement.WiFi.DOT11_RECV_EXTENSION_INFO_V2_head
-    DOT11_RECV_EXTENSION_INFO_V2._fields_ = [
-        ("uVersion", UInt32),
-        ("pvReserved", c_void_p),
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("uChCenterFrequency", UInt32),
-        ("lRSSI", Int32),
-        ("uRSSI", UInt32),
-        ("ucPriority", Byte),
-        ("ucDataRate", Byte),
-        ("ucPeerMacAddress", Byte * 6),
-        ("dwExtendedStatus", UInt32),
-        ("hWEPOffloadContext", win32more.Foundation.HANDLE),
-        ("hAuthOffloadContext", win32more.Foundation.HANDLE),
-        ("usWEPAppliedMask", UInt16),
-        ("usWPAMSDUPriority", UInt16),
-        ("dot11LowestIV48Counter", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
-        ("usDot11LeftRWBitMap", UInt16),
-        ("dot11HighestIV48Counter", win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
-        ("usDot11RightRWBitMap", UInt16),
-        ("usNumberOfMPDUsReceived", UInt16),
-        ("usNumberOfFragments", UInt16),
-        ("pNdisPackets", c_void_p * 0),
-    ]
-    return DOT11_RECV_EXTENSION_INFO_V2
-def _define_DOT11_STATUS_INDICATION_head():
-    class DOT11_STATUS_INDICATION(Structure):
-        pass
-    return DOT11_STATUS_INDICATION
-def _define_DOT11_STATUS_INDICATION():
-    DOT11_STATUS_INDICATION = win32more.NetworkManagement.WiFi.DOT11_STATUS_INDICATION_head
-    DOT11_STATUS_INDICATION._fields_ = [
-        ("uStatusType", UInt32),
-        ("ndisStatus", Int32),
-    ]
-    return DOT11_STATUS_INDICATION
-def _define_DOT11_MPDU_MAX_LENGTH_INDICATION_head():
-    class DOT11_MPDU_MAX_LENGTH_INDICATION(Structure):
-        pass
-    return DOT11_MPDU_MAX_LENGTH_INDICATION
-def _define_DOT11_MPDU_MAX_LENGTH_INDICATION():
-    DOT11_MPDU_MAX_LENGTH_INDICATION = win32more.NetworkManagement.WiFi.DOT11_MPDU_MAX_LENGTH_INDICATION_head
-    DOT11_MPDU_MAX_LENGTH_INDICATION._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uPhyId", UInt32),
-        ("uMPDUMaxLength", UInt32),
-    ]
-    return DOT11_MPDU_MAX_LENGTH_INDICATION
-def _define_DOT11_ASSOCIATION_START_PARAMETERS_head():
-    class DOT11_ASSOCIATION_START_PARAMETERS(Structure):
-        pass
-    return DOT11_ASSOCIATION_START_PARAMETERS
-def _define_DOT11_ASSOCIATION_START_PARAMETERS():
-    DOT11_ASSOCIATION_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_START_PARAMETERS_head
-    DOT11_ASSOCIATION_START_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("MacAddr", Byte * 6),
-        ("SSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("uIHVDataOffset", UInt32),
-        ("uIHVDataSize", UInt32),
-    ]
-    return DOT11_ASSOCIATION_START_PARAMETERS
-def _define_DOT11_ENCAP_ENTRY_head():
-    class DOT11_ENCAP_ENTRY(Structure):
-        pass
-    return DOT11_ENCAP_ENTRY
-def _define_DOT11_ENCAP_ENTRY():
-    DOT11_ENCAP_ENTRY = win32more.NetworkManagement.WiFi.DOT11_ENCAP_ENTRY_head
-    DOT11_ENCAP_ENTRY._fields_ = [
-        ("usEtherType", UInt16),
-        ("usEncapType", UInt16),
-    ]
-    return DOT11_ENCAP_ENTRY
-DOT11_DS_INFO = Int32
-DOT11_DS_CHANGED = 0
-DOT11_DS_UNCHANGED = 1
-DOT11_DS_UNKNOWN = 2
-def _define_DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head():
-    class DOT11_ASSOCIATION_COMPLETION_PARAMETERS(Structure):
-        pass
-    return DOT11_ASSOCIATION_COMPLETION_PARAMETERS
-def _define_DOT11_ASSOCIATION_COMPLETION_PARAMETERS():
-    DOT11_ASSOCIATION_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head
-    DOT11_ASSOCIATION_COMPLETION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("MacAddr", Byte * 6),
-        ("uStatus", UInt32),
-        ("bReAssocReq", win32more.Foundation.BOOLEAN),
-        ("bReAssocResp", win32more.Foundation.BOOLEAN),
-        ("uAssocReqOffset", UInt32),
-        ("uAssocReqSize", UInt32),
-        ("uAssocRespOffset", UInt32),
-        ("uAssocRespSize", UInt32),
-        ("uBeaconOffset", UInt32),
-        ("uBeaconSize", UInt32),
-        ("uIHVDataOffset", UInt32),
-        ("uIHVDataSize", UInt32),
-        ("AuthAlgo", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("UnicastCipher", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("MulticastCipher", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("uActivePhyListOffset", UInt32),
-        ("uActivePhyListSize", UInt32),
-        ("bFourAddressSupported", win32more.Foundation.BOOLEAN),
-        ("bPortAuthorized", win32more.Foundation.BOOLEAN),
-        ("ucActiveQoSProtocol", Byte),
-        ("DSInfo", win32more.NetworkManagement.WiFi.DOT11_DS_INFO),
-        ("uEncapTableOffset", UInt32),
-        ("uEncapTableSize", UInt32),
-        ("MulticastMgmtCipher", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("uAssocComebackTime", UInt32),
-    ]
-    return DOT11_ASSOCIATION_COMPLETION_PARAMETERS
-def _define_DOT11_CONNECTION_START_PARAMETERS_head():
-    class DOT11_CONNECTION_START_PARAMETERS(Structure):
-        pass
-    return DOT11_CONNECTION_START_PARAMETERS
-def _define_DOT11_CONNECTION_START_PARAMETERS():
-    DOT11_CONNECTION_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_CONNECTION_START_PARAMETERS_head
-    DOT11_CONNECTION_START_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("BSSType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("AdhocBSSID", Byte * 6),
-        ("AdhocSSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-    ]
-    return DOT11_CONNECTION_START_PARAMETERS
-def _define_DOT11_CONNECTION_COMPLETION_PARAMETERS_head():
-    class DOT11_CONNECTION_COMPLETION_PARAMETERS(Structure):
-        pass
-    return DOT11_CONNECTION_COMPLETION_PARAMETERS
-def _define_DOT11_CONNECTION_COMPLETION_PARAMETERS():
-    DOT11_CONNECTION_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_CONNECTION_COMPLETION_PARAMETERS_head
-    DOT11_CONNECTION_COMPLETION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uStatus", UInt32),
-    ]
-    return DOT11_CONNECTION_COMPLETION_PARAMETERS
-def _define_DOT11_ROAMING_START_PARAMETERS_head():
-    class DOT11_ROAMING_START_PARAMETERS(Structure):
-        pass
-    return DOT11_ROAMING_START_PARAMETERS
-def _define_DOT11_ROAMING_START_PARAMETERS():
-    DOT11_ROAMING_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ROAMING_START_PARAMETERS_head
-    DOT11_ROAMING_START_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("AdhocBSSID", Byte * 6),
-        ("AdhocSSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("uRoamingReason", UInt32),
-    ]
-    return DOT11_ROAMING_START_PARAMETERS
-def _define_DOT11_ROAMING_COMPLETION_PARAMETERS_head():
-    class DOT11_ROAMING_COMPLETION_PARAMETERS(Structure):
-        pass
-    return DOT11_ROAMING_COMPLETION_PARAMETERS
-def _define_DOT11_ROAMING_COMPLETION_PARAMETERS():
-    DOT11_ROAMING_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ROAMING_COMPLETION_PARAMETERS_head
-    DOT11_ROAMING_COMPLETION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uStatus", UInt32),
-    ]
-    return DOT11_ROAMING_COMPLETION_PARAMETERS
-def _define_DOT11_DISASSOCIATION_PARAMETERS_head():
-    class DOT11_DISASSOCIATION_PARAMETERS(Structure):
-        pass
-    return DOT11_DISASSOCIATION_PARAMETERS
-def _define_DOT11_DISASSOCIATION_PARAMETERS():
-    DOT11_DISASSOCIATION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_DISASSOCIATION_PARAMETERS_head
-    DOT11_DISASSOCIATION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("MacAddr", Byte * 6),
-        ("uReason", UInt32),
-        ("uIHVDataOffset", UInt32),
-        ("uIHVDataSize", UInt32),
-    ]
-    return DOT11_DISASSOCIATION_PARAMETERS
+    return DOT11_SUPPORTED_POWER_LEVELS
+DOT11_TEMP_TYPE = Int32
+dot11_temp_type_unknown = 0
+dot11_temp_type_1 = 1
+dot11_temp_type_2 = 2
 def _define_DOT11_TKIPMIC_FAILURE_PARAMETERS_head():
     class DOT11_TKIPMIC_FAILURE_PARAMETERS(Structure):
         pass
@@ -2566,355 +3923,50 @@ def _define_DOT11_TKIPMIC_FAILURE_PARAMETERS_head():
 def _define_DOT11_TKIPMIC_FAILURE_PARAMETERS():
     DOT11_TKIPMIC_FAILURE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_TKIPMIC_FAILURE_PARAMETERS_head
     DOT11_TKIPMIC_FAILURE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("bDefaultKeyFailure", win32more.Foundation.BOOLEAN),
-        ("uKeyIndex", UInt32),
-        ("PeerMac", Byte * 6),
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('bDefaultKeyFailure', win32more.Foundation.BOOLEAN),
+        ('uKeyIndex', UInt32),
+        ('PeerMac', Byte * 6),
     ]
     return DOT11_TKIPMIC_FAILURE_PARAMETERS
-def _define_DOT11_PMKID_CANDIDATE_LIST_PARAMETERS_head():
-    class DOT11_PMKID_CANDIDATE_LIST_PARAMETERS(Structure):
+def _define_DOT11_UPDATE_IE_head():
+    class DOT11_UPDATE_IE(Structure):
         pass
-    return DOT11_PMKID_CANDIDATE_LIST_PARAMETERS
-def _define_DOT11_PMKID_CANDIDATE_LIST_PARAMETERS():
-    DOT11_PMKID_CANDIDATE_LIST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PMKID_CANDIDATE_LIST_PARAMETERS_head
-    DOT11_PMKID_CANDIDATE_LIST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uCandidateListSize", UInt32),
-        ("uCandidateListOffset", UInt32),
+    return DOT11_UPDATE_IE
+def _define_DOT11_UPDATE_IE():
+    DOT11_UPDATE_IE = win32more.NetworkManagement.WiFi.DOT11_UPDATE_IE_head
+    DOT11_UPDATE_IE._fields_ = [
+        ('dot11UpdateIEOp', win32more.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP),
+        ('uBufferLength', UInt32),
+        ('ucBuffer', Byte * 1),
     ]
-    return DOT11_PMKID_CANDIDATE_LIST_PARAMETERS
-def _define_DOT11_BSSID_CANDIDATE_head():
-    class DOT11_BSSID_CANDIDATE(Structure):
+    return DOT11_UPDATE_IE
+DOT11_UPDATE_IE_OP = Int32
+dot11_update_ie_op_create_replace = 1
+dot11_update_ie_op_delete = 2
+def _define_DOT11_VENUEINFO_head():
+    class DOT11_VENUEINFO(Structure):
         pass
-    return DOT11_BSSID_CANDIDATE
-def _define_DOT11_BSSID_CANDIDATE():
-    DOT11_BSSID_CANDIDATE = win32more.NetworkManagement.WiFi.DOT11_BSSID_CANDIDATE_head
-    DOT11_BSSID_CANDIDATE._fields_ = [
-        ("BSSID", Byte * 6),
-        ("uFlags", UInt32),
+    return DOT11_VENUEINFO
+def _define_DOT11_VENUEINFO():
+    DOT11_VENUEINFO = win32more.NetworkManagement.WiFi.DOT11_VENUEINFO_head
+    DOT11_VENUEINFO._fields_ = [
+        ('VenueGroup', Byte),
+        ('VenueType', Byte),
     ]
-    return DOT11_BSSID_CANDIDATE
-def _define_DOT11_PHY_STATE_PARAMETERS_head():
-    class DOT11_PHY_STATE_PARAMETERS(Structure):
+    return DOT11_VENUEINFO
+def _define_DOT11_VWIFI_ATTRIBUTES_head():
+    class DOT11_VWIFI_ATTRIBUTES(Structure):
         pass
-    return DOT11_PHY_STATE_PARAMETERS
-def _define_DOT11_PHY_STATE_PARAMETERS():
-    DOT11_PHY_STATE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PHY_STATE_PARAMETERS_head
-    DOT11_PHY_STATE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uPhyId", UInt32),
-        ("bHardwarePhyState", win32more.Foundation.BOOLEAN),
-        ("bSoftwarePhyState", win32more.Foundation.BOOLEAN),
+    return DOT11_VWIFI_ATTRIBUTES
+def _define_DOT11_VWIFI_ATTRIBUTES():
+    DOT11_VWIFI_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_VWIFI_ATTRIBUTES_head
+    DOT11_VWIFI_ATTRIBUTES._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uTotalNumOfEntries', UInt32),
+        ('Combinations', win32more.NetworkManagement.WiFi.DOT11_VWIFI_COMBINATION * 1),
     ]
-    return DOT11_PHY_STATE_PARAMETERS
-def _define_DOT11_LINK_QUALITY_ENTRY_head():
-    class DOT11_LINK_QUALITY_ENTRY(Structure):
-        pass
-    return DOT11_LINK_QUALITY_ENTRY
-def _define_DOT11_LINK_QUALITY_ENTRY():
-    DOT11_LINK_QUALITY_ENTRY = win32more.NetworkManagement.WiFi.DOT11_LINK_QUALITY_ENTRY_head
-    DOT11_LINK_QUALITY_ENTRY._fields_ = [
-        ("PeerMacAddr", Byte * 6),
-        ("ucLinkQuality", Byte),
-    ]
-    return DOT11_LINK_QUALITY_ENTRY
-def _define_DOT11_LINK_QUALITY_PARAMETERS_head():
-    class DOT11_LINK_QUALITY_PARAMETERS(Structure):
-        pass
-    return DOT11_LINK_QUALITY_PARAMETERS
-def _define_DOT11_LINK_QUALITY_PARAMETERS():
-    DOT11_LINK_QUALITY_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_LINK_QUALITY_PARAMETERS_head
-    DOT11_LINK_QUALITY_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uLinkQualityListSize", UInt32),
-        ("uLinkQualityListOffset", UInt32),
-    ]
-    return DOT11_LINK_QUALITY_PARAMETERS
-def _define_DOT11_EXTSTA_SEND_CONTEXT_head():
-    class DOT11_EXTSTA_SEND_CONTEXT(Structure):
-        pass
-    return DOT11_EXTSTA_SEND_CONTEXT
-def _define_DOT11_EXTSTA_SEND_CONTEXT():
-    DOT11_EXTSTA_SEND_CONTEXT = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_SEND_CONTEXT_head
-    DOT11_EXTSTA_SEND_CONTEXT._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("usExemptionActionType", UInt16),
-        ("uPhyId", UInt32),
-        ("uDelayedSleepValue", UInt32),
-        ("pvMediaSpecificInfo", c_void_p),
-        ("uSendFlags", UInt32),
-    ]
-    return DOT11_EXTSTA_SEND_CONTEXT
-def _define_DOT11_EXTSTA_RECV_CONTEXT_head():
-    class DOT11_EXTSTA_RECV_CONTEXT(Structure):
-        pass
-    return DOT11_EXTSTA_RECV_CONTEXT
-def _define_DOT11_EXTSTA_RECV_CONTEXT():
-    DOT11_EXTSTA_RECV_CONTEXT = win32more.NetworkManagement.WiFi.DOT11_EXTSTA_RECV_CONTEXT_head
-    DOT11_EXTSTA_RECV_CONTEXT._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uReceiveFlags", UInt32),
-        ("uPhyId", UInt32),
-        ("uChCenterFrequency", UInt32),
-        ("usNumberOfMPDUsReceived", UInt16),
-        ("lRSSI", Int32),
-        ("ucDataRate", Byte),
-        ("uSizeMediaSpecificInfo", UInt32),
-        ("pvMediaSpecificInfo", c_void_p),
-        ("ullTimestamp", UInt64),
-    ]
-    return DOT11_EXTSTA_RECV_CONTEXT
-def _define_DOT11_EXTAP_ATTRIBUTES_head():
-    class DOT11_EXTAP_ATTRIBUTES(Structure):
-        pass
-    return DOT11_EXTAP_ATTRIBUTES
-def _define_DOT11_EXTAP_ATTRIBUTES():
-    DOT11_EXTAP_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_EXTAP_ATTRIBUTES_head
-    DOT11_EXTAP_ATTRIBUTES._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uScanSSIDListSize", UInt32),
-        ("uDesiredSSIDListSize", UInt32),
-        ("uPrivacyExemptionListSize", UInt32),
-        ("uAssociationTableSize", UInt32),
-        ("uDefaultKeyTableSize", UInt32),
-        ("uWEPKeyValueMaxLength", UInt32),
-        ("bStrictlyOrderedServiceClassImplemented", win32more.Foundation.BOOLEAN),
-        ("uNumSupportedCountryOrRegionStrings", UInt32),
-        ("pSupportedCountryOrRegionStrings", c_char_p_no),
-        ("uInfraNumSupportedUcastAlgoPairs", UInt32),
-        ("pInfraSupportedUcastAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-        ("uInfraNumSupportedMcastAlgoPairs", UInt32),
-        ("pInfraSupportedMcastAlgoPairs", POINTER(win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)),
-    ]
-    return DOT11_EXTAP_ATTRIBUTES
-def _define_DOT11_INCOMING_ASSOC_STARTED_PARAMETERS_head():
-    class DOT11_INCOMING_ASSOC_STARTED_PARAMETERS(Structure):
-        pass
-    return DOT11_INCOMING_ASSOC_STARTED_PARAMETERS
-def _define_DOT11_INCOMING_ASSOC_STARTED_PARAMETERS():
-    DOT11_INCOMING_ASSOC_STARTED_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_STARTED_PARAMETERS_head
-    DOT11_INCOMING_ASSOC_STARTED_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMacAddr", Byte * 6),
-    ]
-    return DOT11_INCOMING_ASSOC_STARTED_PARAMETERS
-def _define_DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS_head():
-    class DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS(Structure):
-        pass
-    return DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS
-def _define_DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS():
-    DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS_head
-    DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMacAddr", Byte * 6),
-        ("bReAssocReq", win32more.Foundation.BOOLEAN),
-        ("uAssocReqOffset", UInt32),
-        ("uAssocReqSize", UInt32),
-    ]
-    return DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS
-def _define_DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS_head():
-    class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS(Structure):
-        pass
-    return DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS
-def _define_DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS():
-    DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS_head
-    DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMacAddr", Byte * 6),
-        ("uStatus", UInt32),
-        ("ucErrorSource", Byte),
-        ("bReAssocReq", win32more.Foundation.BOOLEAN),
-        ("bReAssocResp", win32more.Foundation.BOOLEAN),
-        ("uAssocReqOffset", UInt32),
-        ("uAssocReqSize", UInt32),
-        ("uAssocRespOffset", UInt32),
-        ("uAssocRespSize", UInt32),
-        ("AuthAlgo", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("UnicastCipher", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("MulticastCipher", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("uActivePhyListOffset", UInt32),
-        ("uActivePhyListSize", UInt32),
-        ("uBeaconOffset", UInt32),
-        ("uBeaconSize", UInt32),
-    ]
-    return DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS
-def _define_DOT11_STOP_AP_PARAMETERS_head():
-    class DOT11_STOP_AP_PARAMETERS(Structure):
-        pass
-    return DOT11_STOP_AP_PARAMETERS
-def _define_DOT11_STOP_AP_PARAMETERS():
-    DOT11_STOP_AP_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_STOP_AP_PARAMETERS_head
-    DOT11_STOP_AP_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ulReason", UInt32),
-    ]
-    return DOT11_STOP_AP_PARAMETERS
-def _define_DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS_head():
-    class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS(Structure):
-        pass
-    return DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS
-def _define_DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS():
-    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS_head
-    class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS__Anonymous_e__Union(Union):
-        pass
-    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS__Anonymous_e__Union._fields_ = [
-        ("ulChannel", UInt32),
-        ("ulFrequency", UInt32),
-    ]
-    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS._anonymous_ = [
-        'Anonymous',
-    ]
-    DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ulPhyId", UInt32),
-        ("Anonymous", DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS__Anonymous_e__Union),
-    ]
-    return DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS
-def _define_DOT11_CAN_SUSTAIN_AP_PARAMETERS_head():
-    class DOT11_CAN_SUSTAIN_AP_PARAMETERS(Structure):
-        pass
-    return DOT11_CAN_SUSTAIN_AP_PARAMETERS
-def _define_DOT11_CAN_SUSTAIN_AP_PARAMETERS():
-    DOT11_CAN_SUSTAIN_AP_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_CAN_SUSTAIN_AP_PARAMETERS_head
-    DOT11_CAN_SUSTAIN_AP_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ulReason", UInt32),
-    ]
-    return DOT11_CAN_SUSTAIN_AP_PARAMETERS
-def _define_DOT11_AVAILABLE_CHANNEL_LIST_head():
-    class DOT11_AVAILABLE_CHANNEL_LIST(Structure):
-        pass
-    return DOT11_AVAILABLE_CHANNEL_LIST
-def _define_DOT11_AVAILABLE_CHANNEL_LIST():
-    DOT11_AVAILABLE_CHANNEL_LIST = win32more.NetworkManagement.WiFi.DOT11_AVAILABLE_CHANNEL_LIST_head
-    DOT11_AVAILABLE_CHANNEL_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("uChannelNumber", UInt32 * 0),
-    ]
-    return DOT11_AVAILABLE_CHANNEL_LIST
-def _define_DOT11_AVAILABLE_FREQUENCY_LIST_head():
-    class DOT11_AVAILABLE_FREQUENCY_LIST(Structure):
-        pass
-    return DOT11_AVAILABLE_FREQUENCY_LIST
-def _define_DOT11_AVAILABLE_FREQUENCY_LIST():
-    DOT11_AVAILABLE_FREQUENCY_LIST = win32more.NetworkManagement.WiFi.DOT11_AVAILABLE_FREQUENCY_LIST_head
-    DOT11_AVAILABLE_FREQUENCY_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("uFrequencyValue", UInt32 * 0),
-    ]
-    return DOT11_AVAILABLE_FREQUENCY_LIST
-def _define_DOT11_DISASSOCIATE_PEER_REQUEST_head():
-    class DOT11_DISASSOCIATE_PEER_REQUEST(Structure):
-        pass
-    return DOT11_DISASSOCIATE_PEER_REQUEST
-def _define_DOT11_DISASSOCIATE_PEER_REQUEST():
-    DOT11_DISASSOCIATE_PEER_REQUEST = win32more.NetworkManagement.WiFi.DOT11_DISASSOCIATE_PEER_REQUEST_head
-    DOT11_DISASSOCIATE_PEER_REQUEST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMacAddr", Byte * 6),
-        ("usReason", UInt16),
-    ]
-    return DOT11_DISASSOCIATE_PEER_REQUEST
-def _define_DOT11_INCOMING_ASSOC_DECISION_head():
-    class DOT11_INCOMING_ASSOC_DECISION(Structure):
-        pass
-    return DOT11_INCOMING_ASSOC_DECISION
-def _define_DOT11_INCOMING_ASSOC_DECISION():
-    DOT11_INCOMING_ASSOC_DECISION = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_DECISION_head
-    DOT11_INCOMING_ASSOC_DECISION._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMacAddr", Byte * 6),
-        ("bAccept", win32more.Foundation.BOOLEAN),
-        ("usReasonCode", UInt16),
-        ("uAssocResponseIEsOffset", UInt32),
-        ("uAssocResponseIEsLength", UInt32),
-    ]
-    return DOT11_INCOMING_ASSOC_DECISION
-def _define_DOT11_INCOMING_ASSOC_DECISION_V2_head():
-    class DOT11_INCOMING_ASSOC_DECISION_V2(Structure):
-        pass
-    return DOT11_INCOMING_ASSOC_DECISION_V2
-def _define_DOT11_INCOMING_ASSOC_DECISION_V2():
-    DOT11_INCOMING_ASSOC_DECISION_V2 = win32more.NetworkManagement.WiFi.DOT11_INCOMING_ASSOC_DECISION_V2_head
-    DOT11_INCOMING_ASSOC_DECISION_V2._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerMacAddr", Byte * 6),
-        ("bAccept", win32more.Foundation.BOOLEAN),
-        ("usReasonCode", UInt16),
-        ("uAssocResponseIEsOffset", UInt32),
-        ("uAssocResponseIEsLength", UInt32),
-        ("WFDStatus", Byte),
-    ]
-    return DOT11_INCOMING_ASSOC_DECISION_V2
-def _define_DOT11_ADDITIONAL_IE_head():
-    class DOT11_ADDITIONAL_IE(Structure):
-        pass
-    return DOT11_ADDITIONAL_IE
-def _define_DOT11_ADDITIONAL_IE():
-    DOT11_ADDITIONAL_IE = win32more.NetworkManagement.WiFi.DOT11_ADDITIONAL_IE_head
-    DOT11_ADDITIONAL_IE._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uBeaconIEsOffset", UInt32),
-        ("uBeaconIEsLength", UInt32),
-        ("uResponseIEsOffset", UInt32),
-        ("uResponseIEsLength", UInt32),
-    ]
-    return DOT11_ADDITIONAL_IE
-def _define_DOT11_PEER_STATISTICS_head():
-    class DOT11_PEER_STATISTICS(Structure):
-        pass
-    return DOT11_PEER_STATISTICS
-def _define_DOT11_PEER_STATISTICS():
-    DOT11_PEER_STATISTICS = win32more.NetworkManagement.WiFi.DOT11_PEER_STATISTICS_head
-    DOT11_PEER_STATISTICS._fields_ = [
-        ("ullDecryptSuccessCount", UInt64),
-        ("ullDecryptFailureCount", UInt64),
-        ("ullTxPacketSuccessCount", UInt64),
-        ("ullTxPacketFailureCount", UInt64),
-        ("ullRxPacketSuccessCount", UInt64),
-        ("ullRxPacketFailureCount", UInt64),
-    ]
-    return DOT11_PEER_STATISTICS
-def _define_DOT11_PEER_INFO_head():
-    class DOT11_PEER_INFO(Structure):
-        pass
-    return DOT11_PEER_INFO
-def _define_DOT11_PEER_INFO():
-    DOT11_PEER_INFO = win32more.NetworkManagement.WiFi.DOT11_PEER_INFO_head
-    DOT11_PEER_INFO._fields_ = [
-        ("MacAddress", Byte * 6),
-        ("usCapabilityInformation", UInt16),
-        ("AuthAlgo", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("UnicastCipherAlgo", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("MulticastCipherAlgo", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("bWpsEnabled", win32more.Foundation.BOOLEAN),
-        ("usListenInterval", UInt16),
-        ("ucSupportedRates", Byte * 255),
-        ("usAssociationID", UInt16),
-        ("AssociationState", win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE),
-        ("PowerMode", win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
-        ("liAssociationUpTime", win32more.Foundation.LARGE_INTEGER),
-        ("Statistics", win32more.NetworkManagement.WiFi.DOT11_PEER_STATISTICS),
-    ]
-    return DOT11_PEER_INFO
-def _define_DOT11_PEER_INFO_LIST_head():
-    class DOT11_PEER_INFO_LIST(Structure):
-        pass
-    return DOT11_PEER_INFO_LIST
-def _define_DOT11_PEER_INFO_LIST():
-    DOT11_PEER_INFO_LIST = win32more.NetworkManagement.WiFi.DOT11_PEER_INFO_LIST_head
-    DOT11_PEER_INFO_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("PeerInfo", win32more.NetworkManagement.WiFi.DOT11_PEER_INFO * 0),
-    ]
-    return DOT11_PEER_INFO_LIST
+    return DOT11_VWIFI_ATTRIBUTES
 def _define_DOT11_VWIFI_COMBINATION_head():
     class DOT11_VWIFI_COMBINATION(Structure):
         pass
@@ -2922,10 +3974,10 @@ def _define_DOT11_VWIFI_COMBINATION_head():
 def _define_DOT11_VWIFI_COMBINATION():
     DOT11_VWIFI_COMBINATION = win32more.NetworkManagement.WiFi.DOT11_VWIFI_COMBINATION_head
     DOT11_VWIFI_COMBINATION._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumInfrastructure", UInt32),
-        ("uNumAdhoc", UInt32),
-        ("uNumSoftAP", UInt32),
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumInfrastructure', UInt32),
+        ('uNumAdhoc', UInt32),
+        ('uNumSoftAP', UInt32),
     ]
     return DOT11_VWIFI_COMBINATION
 def _define_DOT11_VWIFI_COMBINATION_V2_head():
@@ -2935,11 +3987,11 @@ def _define_DOT11_VWIFI_COMBINATION_V2_head():
 def _define_DOT11_VWIFI_COMBINATION_V2():
     DOT11_VWIFI_COMBINATION_V2 = win32more.NetworkManagement.WiFi.DOT11_VWIFI_COMBINATION_V2_head
     DOT11_VWIFI_COMBINATION_V2._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumInfrastructure", UInt32),
-        ("uNumAdhoc", UInt32),
-        ("uNumSoftAP", UInt32),
-        ("uNumVirtualStation", UInt32),
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumInfrastructure', UInt32),
+        ('uNumAdhoc', UInt32),
+        ('uNumSoftAP', UInt32),
+        ('uNumVirtualStation', UInt32),
     ]
     return DOT11_VWIFI_COMBINATION_V2
 def _define_DOT11_VWIFI_COMBINATION_V3_head():
@@ -2949,49 +4001,104 @@ def _define_DOT11_VWIFI_COMBINATION_V3_head():
 def _define_DOT11_VWIFI_COMBINATION_V3():
     DOT11_VWIFI_COMBINATION_V3 = win32more.NetworkManagement.WiFi.DOT11_VWIFI_COMBINATION_V3_head
     DOT11_VWIFI_COMBINATION_V3._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumInfrastructure", UInt32),
-        ("uNumAdhoc", UInt32),
-        ("uNumSoftAP", UInt32),
-        ("uNumVirtualStation", UInt32),
-        ("uNumWFDGroup", UInt32),
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumInfrastructure', UInt32),
+        ('uNumAdhoc', UInt32),
+        ('uNumSoftAP', UInt32),
+        ('uNumVirtualStation', UInt32),
+        ('uNumWFDGroup', UInt32),
     ]
     return DOT11_VWIFI_COMBINATION_V3
-def _define_DOT11_VWIFI_ATTRIBUTES_head():
-    class DOT11_VWIFI_ATTRIBUTES(Structure):
+def _define_DOT11_WEP_OFFLOAD_head():
+    class DOT11_WEP_OFFLOAD(Structure):
         pass
-    return DOT11_VWIFI_ATTRIBUTES
-def _define_DOT11_VWIFI_ATTRIBUTES():
-    DOT11_VWIFI_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_VWIFI_ATTRIBUTES_head
-    DOT11_VWIFI_ATTRIBUTES._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uTotalNumOfEntries", UInt32),
-        ("Combinations", win32more.NetworkManagement.WiFi.DOT11_VWIFI_COMBINATION * 0),
+    return DOT11_WEP_OFFLOAD
+def _define_DOT11_WEP_OFFLOAD():
+    DOT11_WEP_OFFLOAD = win32more.NetworkManagement.WiFi.DOT11_WEP_OFFLOAD_head
+    DOT11_WEP_OFFLOAD._fields_ = [
+        ('uReserved', UInt32),
+        ('hOffloadContext', win32more.Foundation.HANDLE),
+        ('hOffload', win32more.Foundation.HANDLE),
+        ('dot11OffloadType', win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
+        ('dwAlgorithm', UInt32),
+        ('bRowIsOutbound', win32more.Foundation.BOOLEAN),
+        ('bUseDefault', win32more.Foundation.BOOLEAN),
+        ('uFlags', UInt32),
+        ('ucMacAddress', Byte * 6),
+        ('uNumOfRWsOnPeer', UInt32),
+        ('uNumOfRWsOnMe', UInt32),
+        ('dot11IV48Counters', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
+        ('usDot11RWBitMaps', UInt16 * 16),
+        ('usKeyLength', UInt16),
+        ('ucKey', Byte * 1),
     ]
-    return DOT11_VWIFI_ATTRIBUTES
-def _define_DOT11_MAC_PARAMETERS_head():
-    class DOT11_MAC_PARAMETERS(Structure):
+    return DOT11_WEP_OFFLOAD
+def _define_DOT11_WEP_UPLOAD_head():
+    class DOT11_WEP_UPLOAD(Structure):
         pass
-    return DOT11_MAC_PARAMETERS
-def _define_DOT11_MAC_PARAMETERS():
-    DOT11_MAC_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_MAC_PARAMETERS_head
-    DOT11_MAC_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uOpmodeMask", UInt32),
+    return DOT11_WEP_UPLOAD
+def _define_DOT11_WEP_UPLOAD():
+    DOT11_WEP_UPLOAD = win32more.NetworkManagement.WiFi.DOT11_WEP_UPLOAD_head
+    DOT11_WEP_UPLOAD._fields_ = [
+        ('uReserved', UInt32),
+        ('dot11OffloadType', win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
+        ('hOffload', win32more.Foundation.HANDLE),
+        ('uNumOfRWsUsed', UInt32),
+        ('dot11IV48Counters', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16),
+        ('usDot11RWBitMaps', UInt16 * 16),
     ]
-    return DOT11_MAC_PARAMETERS
-def _define_DOT11_MAC_INFO_head():
-    class DOT11_MAC_INFO(Structure):
+    return DOT11_WEP_UPLOAD
+def _define_DOT11_WFD_ADDITIONAL_IE_head():
+    class DOT11_WFD_ADDITIONAL_IE(Structure):
         pass
-    return DOT11_MAC_INFO
-def _define_DOT11_MAC_INFO():
-    DOT11_MAC_INFO = win32more.NetworkManagement.WiFi.DOT11_MAC_INFO_head
-    DOT11_MAC_INFO._fields_ = [
-        ("uReserved", UInt32),
-        ("uNdisPortNumber", UInt32),
-        ("MacAddr", Byte * 6),
+    return DOT11_WFD_ADDITIONAL_IE
+def _define_DOT11_WFD_ADDITIONAL_IE():
+    DOT11_WFD_ADDITIONAL_IE = win32more.NetworkManagement.WiFi.DOT11_WFD_ADDITIONAL_IE_head
+    DOT11_WFD_ADDITIONAL_IE._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uBeaconIEsOffset', UInt32),
+        ('uBeaconIEsLength', UInt32),
+        ('uProbeResponseIEsOffset', UInt32),
+        ('uProbeResponseIEsLength', UInt32),
+        ('uDefaultRequestIEsOffset', UInt32),
+        ('uDefaultRequestIEsLength', UInt32),
     ]
-    return DOT11_MAC_INFO
+    return DOT11_WFD_ADDITIONAL_IE
+def _define_DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR_head():
+    class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR(Structure):
+        pass
+    return DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR
+def _define_DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR():
+    DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR = win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR_head
+    DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR._fields_ = [
+        ('AdvertisementID', UInt32),
+        ('ConfigMethods', UInt16),
+        ('ServiceNameLength', Byte),
+        ('ServiceName', Byte * 255),
+    ]
+    return DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR
+def _define_DOT11_WFD_ADVERTISED_SERVICE_LIST_head():
+    class DOT11_WFD_ADVERTISED_SERVICE_LIST(Structure):
+        pass
+    return DOT11_WFD_ADVERTISED_SERVICE_LIST
+def _define_DOT11_WFD_ADVERTISED_SERVICE_LIST():
+    DOT11_WFD_ADVERTISED_SERVICE_LIST = win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_LIST_head
+    DOT11_WFD_ADVERTISED_SERVICE_LIST._fields_ = [
+        ('ServiceCount', UInt16),
+        ('AdvertisedService', win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR * 1),
+    ]
+    return DOT11_WFD_ADVERTISED_SERVICE_LIST
+def _define_DOT11_WFD_ADVERTISEMENT_ID_head():
+    class DOT11_WFD_ADVERTISEMENT_ID(Structure):
+        pass
+    return DOT11_WFD_ADVERTISEMENT_ID
+def _define_DOT11_WFD_ADVERTISEMENT_ID():
+    DOT11_WFD_ADVERTISEMENT_ID = win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISEMENT_ID_head
+    DOT11_WFD_ADVERTISEMENT_ID._fields_ = [
+        ('AdvertisementID', UInt32),
+        ('ServiceAddress', Byte * 6),
+    ]
+    return DOT11_WFD_ADVERTISEMENT_ID
 def _define_DOT11_WFD_ATTRIBUTES_head():
     class DOT11_WFD_ATTRIBUTES(Structure):
         pass
@@ -2999,78 +4106,23 @@ def _define_DOT11_WFD_ATTRIBUTES_head():
 def _define_DOT11_WFD_ATTRIBUTES():
     DOT11_WFD_ATTRIBUTES = win32more.NetworkManagement.WiFi.DOT11_WFD_ATTRIBUTES_head
     DOT11_WFD_ATTRIBUTES._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumConcurrentGORole", UInt32),
-        ("uNumConcurrentClientRole", UInt32),
-        ("WPSVersionsSupported", UInt32),
-        ("bServiceDiscoverySupported", win32more.Foundation.BOOLEAN),
-        ("bClientDiscoverabilitySupported", win32more.Foundation.BOOLEAN),
-        ("bInfrastructureManagementSupported", win32more.Foundation.BOOLEAN),
-        ("uMaxSecondaryDeviceTypeListSize", UInt32),
-        ("DeviceAddress", Byte * 6),
-        ("uInterfaceAddressListCount", UInt32),
-        ("pInterfaceAddressList", c_char_p_no),
-        ("uNumSupportedCountryOrRegionStrings", UInt32),
-        ("pSupportedCountryOrRegionStrings", c_char_p_no),
-        ("uDiscoveryFilterListSize", UInt32),
-        ("uGORoleClientTableSize", UInt32),
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumConcurrentGORole', UInt32),
+        ('uNumConcurrentClientRole', UInt32),
+        ('WPSVersionsSupported', UInt32),
+        ('bServiceDiscoverySupported', win32more.Foundation.BOOLEAN),
+        ('bClientDiscoverabilitySupported', win32more.Foundation.BOOLEAN),
+        ('bInfrastructureManagementSupported', win32more.Foundation.BOOLEAN),
+        ('uMaxSecondaryDeviceTypeListSize', UInt32),
+        ('DeviceAddress', Byte * 6),
+        ('uInterfaceAddressListCount', UInt32),
+        ('pInterfaceAddressList', c_char_p_no),
+        ('uNumSupportedCountryOrRegionStrings', UInt32),
+        ('pSupportedCountryOrRegionStrings', c_char_p_no),
+        ('uDiscoveryFilterListSize', UInt32),
+        ('uGORoleClientTableSize', UInt32),
     ]
     return DOT11_WFD_ATTRIBUTES
-def _define_DOT11_WFD_DEVICE_TYPE_head():
-    class DOT11_WFD_DEVICE_TYPE(Structure):
-        pass
-    return DOT11_WFD_DEVICE_TYPE
-def _define_DOT11_WFD_DEVICE_TYPE():
-    DOT11_WFD_DEVICE_TYPE = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE_head
-    DOT11_WFD_DEVICE_TYPE._fields_ = [
-        ("CategoryID", UInt16),
-        ("SubCategoryID", UInt16),
-        ("OUI", Byte * 4),
-    ]
-    return DOT11_WFD_DEVICE_TYPE
-def _define_DOT11_WPS_DEVICE_NAME_head():
-    class DOT11_WPS_DEVICE_NAME(Structure):
-        pass
-    return DOT11_WPS_DEVICE_NAME
-def _define_DOT11_WPS_DEVICE_NAME():
-    DOT11_WPS_DEVICE_NAME = win32more.NetworkManagement.WiFi.DOT11_WPS_DEVICE_NAME_head
-    DOT11_WPS_DEVICE_NAME._fields_ = [
-        ("uDeviceNameLength", UInt32),
-        ("ucDeviceName", Byte * 32),
-    ]
-    return DOT11_WPS_DEVICE_NAME
-def _define_DOT11_WFD_CONFIGURATION_TIMEOUT_head():
-    class DOT11_WFD_CONFIGURATION_TIMEOUT(Structure):
-        pass
-    return DOT11_WFD_CONFIGURATION_TIMEOUT
-def _define_DOT11_WFD_CONFIGURATION_TIMEOUT():
-    DOT11_WFD_CONFIGURATION_TIMEOUT = win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT_head
-    DOT11_WFD_CONFIGURATION_TIMEOUT._fields_ = [
-        ("GOTimeout", Byte),
-        ("ClientTimeout", Byte),
-    ]
-    return DOT11_WFD_CONFIGURATION_TIMEOUT
-def _define_DOT11_WFD_GROUP_ID_head():
-    class DOT11_WFD_GROUP_ID(Structure):
-        pass
-    return DOT11_WFD_GROUP_ID
-def _define_DOT11_WFD_GROUP_ID():
-    DOT11_WFD_GROUP_ID = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID_head
-    DOT11_WFD_GROUP_ID._fields_ = [
-        ("DeviceAddress", Byte * 6),
-        ("SSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-    ]
-    return DOT11_WFD_GROUP_ID
-def _define_DOT11_WFD_GO_INTENT_head():
-    class DOT11_WFD_GO_INTENT(Structure):
-        pass
-    return DOT11_WFD_GO_INTENT
-def _define_DOT11_WFD_GO_INTENT():
-    DOT11_WFD_GO_INTENT = win32more.NetworkManagement.WiFi.DOT11_WFD_GO_INTENT_head
-    DOT11_WFD_GO_INTENT._fields_ = [
-        ("_bitfield", Byte),
-    ]
-    return DOT11_WFD_GO_INTENT
 def _define_DOT11_WFD_CHANNEL_head():
     class DOT11_WFD_CHANNEL(Structure):
         pass
@@ -3078,11 +4130,345 @@ def _define_DOT11_WFD_CHANNEL_head():
 def _define_DOT11_WFD_CHANNEL():
     DOT11_WFD_CHANNEL = win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL_head
     DOT11_WFD_CHANNEL._fields_ = [
-        ("CountryRegionString", Byte * 3),
-        ("OperatingClass", Byte),
-        ("ChannelNumber", Byte),
+        ('CountryRegionString', Byte * 3),
+        ('OperatingClass', Byte),
+        ('ChannelNumber', Byte),
     ]
     return DOT11_WFD_CHANNEL
+def _define_DOT11_WFD_CONFIGURATION_TIMEOUT_head():
+    class DOT11_WFD_CONFIGURATION_TIMEOUT(Structure):
+        pass
+    return DOT11_WFD_CONFIGURATION_TIMEOUT
+def _define_DOT11_WFD_CONFIGURATION_TIMEOUT():
+    DOT11_WFD_CONFIGURATION_TIMEOUT = win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT_head
+    DOT11_WFD_CONFIGURATION_TIMEOUT._fields_ = [
+        ('GOTimeout', Byte),
+        ('ClientTimeout', Byte),
+    ]
+    return DOT11_WFD_CONFIGURATION_TIMEOUT
+def _define_DOT11_WFD_DEVICE_CAPABILITY_CONFIG_head():
+    class DOT11_WFD_DEVICE_CAPABILITY_CONFIG(Structure):
+        pass
+    return DOT11_WFD_DEVICE_CAPABILITY_CONFIG
+def _define_DOT11_WFD_DEVICE_CAPABILITY_CONFIG():
+    DOT11_WFD_DEVICE_CAPABILITY_CONFIG = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_CAPABILITY_CONFIG_head
+    DOT11_WFD_DEVICE_CAPABILITY_CONFIG._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('bServiceDiscoveryEnabled', win32more.Foundation.BOOLEAN),
+        ('bClientDiscoverabilityEnabled', win32more.Foundation.BOOLEAN),
+        ('bConcurrentOperationSupported', win32more.Foundation.BOOLEAN),
+        ('bInfrastructureManagementEnabled', win32more.Foundation.BOOLEAN),
+        ('bDeviceLimitReached', win32more.Foundation.BOOLEAN),
+        ('bInvitationProcedureEnabled', win32more.Foundation.BOOLEAN),
+        ('WPSVersionsEnabled', UInt32),
+    ]
+    return DOT11_WFD_DEVICE_CAPABILITY_CONFIG
+def _define_DOT11_WFD_DEVICE_ENTRY_head():
+    class DOT11_WFD_DEVICE_ENTRY(Structure):
+        pass
+    return DOT11_WFD_DEVICE_ENTRY
+def _define_DOT11_WFD_DEVICE_ENTRY():
+    DOT11_WFD_DEVICE_ENTRY = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_ENTRY_head
+    DOT11_WFD_DEVICE_ENTRY._fields_ = [
+        ('uPhyId', UInt32),
+        ('PhySpecificInfo', win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO),
+        ('dot11BSSID', Byte * 6),
+        ('dot11BSSType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('TransmitterAddress', Byte * 6),
+        ('lRSSI', Int32),
+        ('uLinkQuality', UInt32),
+        ('usBeaconPeriod', UInt16),
+        ('ullTimestamp', UInt64),
+        ('ullBeaconHostTimestamp', UInt64),
+        ('ullProbeResponseHostTimestamp', UInt64),
+        ('usCapabilityInformation', UInt16),
+        ('uBeaconIEsOffset', UInt32),
+        ('uBeaconIEsLength', UInt32),
+        ('uProbeResponseIEsOffset', UInt32),
+        ('uProbeResponseIEsLength', UInt32),
+    ]
+    return DOT11_WFD_DEVICE_ENTRY
+def _define_DOT11_WFD_DEVICE_INFO_head():
+    class DOT11_WFD_DEVICE_INFO(Structure):
+        pass
+    return DOT11_WFD_DEVICE_INFO
+def _define_DOT11_WFD_DEVICE_INFO():
+    DOT11_WFD_DEVICE_INFO = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_INFO_head
+    DOT11_WFD_DEVICE_INFO._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('DeviceAddress', Byte * 6),
+        ('ConfigMethods', UInt16),
+        ('PrimaryDeviceType', win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE),
+        ('DeviceName', win32more.NetworkManagement.WiFi.DOT11_WPS_DEVICE_NAME),
+    ]
+    return DOT11_WFD_DEVICE_INFO
+def _define_DOT11_WFD_DEVICE_LISTEN_CHANNEL_head():
+    class DOT11_WFD_DEVICE_LISTEN_CHANNEL(Structure):
+        pass
+    return DOT11_WFD_DEVICE_LISTEN_CHANNEL
+def _define_DOT11_WFD_DEVICE_LISTEN_CHANNEL():
+    DOT11_WFD_DEVICE_LISTEN_CHANNEL = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_LISTEN_CHANNEL_head
+    DOT11_WFD_DEVICE_LISTEN_CHANNEL._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('ChannelNumber', Byte),
+    ]
+    return DOT11_WFD_DEVICE_LISTEN_CHANNEL
+def _define_DOT11_WFD_DEVICE_TYPE_head():
+    class DOT11_WFD_DEVICE_TYPE(Structure):
+        pass
+    return DOT11_WFD_DEVICE_TYPE
+def _define_DOT11_WFD_DEVICE_TYPE():
+    DOT11_WFD_DEVICE_TYPE = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE_head
+    DOT11_WFD_DEVICE_TYPE._fields_ = [
+        ('CategoryID', UInt16),
+        ('SubCategoryID', UInt16),
+        ('OUI', Byte * 4),
+    ]
+    return DOT11_WFD_DEVICE_TYPE
+def _define_DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS_head():
+    class DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS(Structure):
+        pass
+    return DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS
+def _define_DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS():
+    DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS_head
+    DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('Status', Int32),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('uListOffset', UInt32),
+        ('uListLength', UInt32),
+    ]
+    return DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS
+def _define_DOT11_WFD_DISCOVER_DEVICE_FILTER_head():
+    class DOT11_WFD_DISCOVER_DEVICE_FILTER(Structure):
+        pass
+    return DOT11_WFD_DISCOVER_DEVICE_FILTER
+def _define_DOT11_WFD_DISCOVER_DEVICE_FILTER():
+    DOT11_WFD_DISCOVER_DEVICE_FILTER = win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_DEVICE_FILTER_head
+    DOT11_WFD_DISCOVER_DEVICE_FILTER._fields_ = [
+        ('DeviceID', Byte * 6),
+        ('ucBitmask', Byte),
+        ('GroupSSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+    ]
+    return DOT11_WFD_DISCOVER_DEVICE_FILTER
+def _define_DOT11_WFD_DISCOVER_REQUEST_head():
+    class DOT11_WFD_DISCOVER_REQUEST(Structure):
+        pass
+    return DOT11_WFD_DISCOVER_REQUEST
+def _define_DOT11_WFD_DISCOVER_REQUEST():
+    DOT11_WFD_DISCOVER_REQUEST = win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_REQUEST_head
+    DOT11_WFD_DISCOVER_REQUEST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('DiscoverType', win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE),
+        ('ScanType', win32more.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE),
+        ('uDiscoverTimeout', UInt32),
+        ('uDeviceFilterListOffset', UInt32),
+        ('uNumDeviceFilters', UInt32),
+        ('uIEsOffset', UInt32),
+        ('uIEsLength', UInt32),
+        ('bForceScanLegacyNetworks', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_WFD_DISCOVER_REQUEST
+DOT11_WFD_DISCOVER_TYPE = Int32
+dot11_wfd_discover_type_scan_only = 1
+dot11_wfd_discover_type_find_only = 2
+dot11_wfd_discover_type_auto = 3
+dot11_wfd_discover_type_scan_social_channels = 4
+dot11_wfd_discover_type_forced = -2147483648
+def _define_DOT11_WFD_GO_INTENT_head():
+    class DOT11_WFD_GO_INTENT(Structure):
+        pass
+    return DOT11_WFD_GO_INTENT
+def _define_DOT11_WFD_GO_INTENT():
+    DOT11_WFD_GO_INTENT = win32more.NetworkManagement.WiFi.DOT11_WFD_GO_INTENT_head
+    DOT11_WFD_GO_INTENT._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    return DOT11_WFD_GO_INTENT
+def _define_DOT11_WFD_GROUP_ID_head():
+    class DOT11_WFD_GROUP_ID(Structure):
+        pass
+    return DOT11_WFD_GROUP_ID
+def _define_DOT11_WFD_GROUP_ID():
+    DOT11_WFD_GROUP_ID = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID_head
+    DOT11_WFD_GROUP_ID._fields_ = [
+        ('DeviceAddress', Byte * 6),
+        ('SSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+    ]
+    return DOT11_WFD_GROUP_ID
+def _define_DOT11_WFD_GROUP_JOIN_PARAMETERS_head():
+    class DOT11_WFD_GROUP_JOIN_PARAMETERS(Structure):
+        pass
+    return DOT11_WFD_GROUP_JOIN_PARAMETERS
+def _define_DOT11_WFD_GROUP_JOIN_PARAMETERS():
+    DOT11_WFD_GROUP_JOIN_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_JOIN_PARAMETERS_head
+    DOT11_WFD_GROUP_JOIN_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('GOOperatingChannel', win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
+        ('GOConfigTime', UInt32),
+        ('bInGroupFormation', win32more.Foundation.BOOLEAN),
+        ('bWaitForWPSReady', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_WFD_GROUP_JOIN_PARAMETERS
+def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_head():
+    class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG(Structure):
+        pass
+    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG
+def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG():
+    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_head
+    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('bPersistentGroupEnabled', win32more.Foundation.BOOLEAN),
+        ('bIntraBSSDistributionSupported', win32more.Foundation.BOOLEAN),
+        ('bCrossConnectionSupported', win32more.Foundation.BOOLEAN),
+        ('bPersistentReconnectSupported', win32more.Foundation.BOOLEAN),
+        ('bGroupFormationEnabled', win32more.Foundation.BOOLEAN),
+        ('uMaximumGroupLimit', UInt32),
+    ]
+    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG
+def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2_head():
+    class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2(Structure):
+        pass
+    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2
+def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2():
+    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2_head
+    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('bPersistentGroupEnabled', win32more.Foundation.BOOLEAN),
+        ('bIntraBSSDistributionSupported', win32more.Foundation.BOOLEAN),
+        ('bCrossConnectionSupported', win32more.Foundation.BOOLEAN),
+        ('bPersistentReconnectSupported', win32more.Foundation.BOOLEAN),
+        ('bGroupFormationEnabled', win32more.Foundation.BOOLEAN),
+        ('uMaximumGroupLimit', UInt32),
+        ('bEapolKeyIpAddressAllocationSupported', win32more.Foundation.BOOLEAN),
+    ]
+    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2
+def _define_DOT11_WFD_GROUP_START_PARAMETERS_head():
+    class DOT11_WFD_GROUP_START_PARAMETERS(Structure):
+        pass
+    return DOT11_WFD_GROUP_START_PARAMETERS
+def _define_DOT11_WFD_GROUP_START_PARAMETERS():
+    DOT11_WFD_GROUP_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_START_PARAMETERS_head
+    DOT11_WFD_GROUP_START_PARAMETERS._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('AdvertisedOperatingChannel', win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
+    ]
+    return DOT11_WFD_GROUP_START_PARAMETERS
+def _define_DOT11_WFD_INVITATION_FLAGS_head():
+    class DOT11_WFD_INVITATION_FLAGS(Structure):
+        pass
+    return DOT11_WFD_INVITATION_FLAGS
+def _define_DOT11_WFD_INVITATION_FLAGS():
+    DOT11_WFD_INVITATION_FLAGS = win32more.NetworkManagement.WiFi.DOT11_WFD_INVITATION_FLAGS_head
+    DOT11_WFD_INVITATION_FLAGS._fields_ = [
+        ('_bitfield', Byte),
+    ]
+    return DOT11_WFD_INVITATION_FLAGS
+DOT11_WFD_SCAN_TYPE = Int32
+dot11_wfd_scan_type_active = 1
+dot11_wfd_scan_type_passive = 2
+dot11_wfd_scan_type_auto = 3
+def _define_DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST_head():
+    class DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST(Structure):
+        pass
+    return DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST
+def _define_DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST():
+    DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST = win32more.NetworkManagement.WiFi.DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST_head
+    DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST._fields_ = [
+        ('Header', win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('SecondaryDeviceTypes', win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE * 1),
+    ]
+    return DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST
+def _define_DOT11_WFD_SERVICE_HASH_LIST_head():
+    class DOT11_WFD_SERVICE_HASH_LIST(Structure):
+        pass
+    return DOT11_WFD_SERVICE_HASH_LIST
+def _define_DOT11_WFD_SERVICE_HASH_LIST():
+    DOT11_WFD_SERVICE_HASH_LIST = win32more.NetworkManagement.WiFi.DOT11_WFD_SERVICE_HASH_LIST_head
+    DOT11_WFD_SERVICE_HASH_LIST._fields_ = [
+        ('ServiceHashCount', UInt16),
+        ('ServiceHash', Byte * 6),
+    ]
+    return DOT11_WFD_SERVICE_HASH_LIST
+def _define_DOT11_WFD_SESSION_ID_head():
+    class DOT11_WFD_SESSION_ID(Structure):
+        pass
+    return DOT11_WFD_SESSION_ID
+def _define_DOT11_WFD_SESSION_ID():
+    DOT11_WFD_SESSION_ID = win32more.NetworkManagement.WiFi.DOT11_WFD_SESSION_ID_head
+    DOT11_WFD_SESSION_ID._fields_ = [
+        ('SessionID', UInt32),
+        ('SessionAddress', Byte * 6),
+    ]
+    return DOT11_WFD_SESSION_ID
+def _define_DOT11_WFD_SESSION_INFO_head():
+    class DOT11_WFD_SESSION_INFO(Structure):
+        pass
+    return DOT11_WFD_SESSION_INFO
+def _define_DOT11_WFD_SESSION_INFO():
+    DOT11_WFD_SESSION_INFO = win32more.NetworkManagement.WiFi.DOT11_WFD_SESSION_INFO_head
+    DOT11_WFD_SESSION_INFO._fields_ = [
+        ('uSessionInfoLength', UInt16),
+        ('ucSessionInfo', Byte * 144),
+    ]
+    return DOT11_WFD_SESSION_INFO
+def _define_DOT11_WME_AC_PARAMETERS_head():
+    class DOT11_WME_AC_PARAMETERS(Structure):
+        pass
+    return DOT11_WME_AC_PARAMETERS
+def _define_DOT11_WME_AC_PARAMETERS():
+    DOT11_WME_AC_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WME_AC_PARAMETERS_head
+    DOT11_WME_AC_PARAMETERS._fields_ = [
+        ('ucAccessCategoryIndex', Byte),
+        ('ucAIFSN', Byte),
+        ('ucECWmin', Byte),
+        ('ucECWmax', Byte),
+        ('usTXOPLimit', UInt16),
+    ]
+    return DOT11_WME_AC_PARAMETERS
+def _define_DOT11_WME_AC_PARAMETERS_LIST_head():
+    class DOT11_WME_AC_PARAMETERS_LIST(Structure):
+        pass
+    return DOT11_WME_AC_PARAMETERS_LIST
+def _define_DOT11_WME_AC_PARAMETERS_LIST():
+    DOT11_WME_AC_PARAMETERS_LIST = win32more.NetworkManagement.WiFi.DOT11_WME_AC_PARAMETERS_LIST_head
+    DOT11_WME_AC_PARAMETERS_LIST._fields_ = [
+        ('uNumOfEntries', UInt32),
+        ('uTotalNumOfEntries', UInt32),
+        ('dot11WMEACParameters', win32more.NetworkManagement.WiFi.DOT11_WME_AC_PARAMETERS * 1),
+    ]
+    return DOT11_WME_AC_PARAMETERS_LIST
+def _define_DOT11_WME_UPDATE_IE_head():
+    class DOT11_WME_UPDATE_IE(Structure):
+        pass
+    return DOT11_WME_UPDATE_IE
+def _define_DOT11_WME_UPDATE_IE():
+    DOT11_WME_UPDATE_IE = win32more.NetworkManagement.WiFi.DOT11_WME_UPDATE_IE_head
+    DOT11_WME_UPDATE_IE._fields_ = [
+        ('uParamElemMinBeaconIntervals', UInt32),
+        ('uWMEInfoElemOffset', UInt32),
+        ('uWMEInfoElemLength', UInt32),
+        ('uWMEParamElemOffset', UInt32),
+        ('uWMEParamElemLength', UInt32),
+        ('ucBuffer', Byte * 1),
+    ]
+    return DOT11_WME_UPDATE_IE
+def _define_DOT11_WPA_TSC_head():
+    class DOT11_WPA_TSC(Structure):
+        pass
+    return DOT11_WPA_TSC
+def _define_DOT11_WPA_TSC():
+    DOT11_WPA_TSC = win32more.NetworkManagement.WiFi.DOT11_WPA_TSC_head
+    DOT11_WPA_TSC._fields_ = [
+        ('uReserved', UInt32),
+        ('dot11OffloadType', win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE),
+        ('hOffload', win32more.Foundation.HANDLE),
+        ('dot11IV48Counter', win32more.NetworkManagement.WiFi.DOT11_IV48_COUNTER),
+    ]
+    return DOT11_WPA_TSC
 DOT11_WPS_CONFIG_METHOD = Int32
 DOT11_WPS_CONFIG_METHOD_NULL = 0
 DOT11_WPS_CONFIG_METHOD_DISPLAY = 8
@@ -3091,6 +4477,17 @@ DOT11_WPS_CONFIG_METHOD_NFC_INTERFACE = 64
 DOT11_WPS_CONFIG_METHOD_PUSHBUTTON = 128
 DOT11_WPS_CONFIG_METHOD_KEYPAD = 256
 DOT11_WPS_CONFIG_METHOD_WFDS_DEFAULT = 4096
+def _define_DOT11_WPS_DEVICE_NAME_head():
+    class DOT11_WPS_DEVICE_NAME(Structure):
+        pass
+    return DOT11_WPS_DEVICE_NAME
+def _define_DOT11_WPS_DEVICE_NAME():
+    DOT11_WPS_DEVICE_NAME = win32more.NetworkManagement.WiFi.DOT11_WPS_DEVICE_NAME_head
+    DOT11_WPS_DEVICE_NAME._fields_ = [
+        ('uDeviceNameLength', UInt32),
+        ('ucDeviceName', Byte * 32),
+    ]
+    return DOT11_WPS_DEVICE_NAME
 DOT11_WPS_DEVICE_PASSWORD_ID = Int32
 DOT11_WPS_PASSWORD_ID_DEFAULT = 0
 DOT11_WPS_PASSWORD_ID_USER_SPECIFIED = 1
@@ -3102,913 +4499,420 @@ DOT11_WPS_PASSWORD_ID_NFC_CONNECTION_HANDOVER = 7
 DOT11_WPS_PASSWORD_ID_WFD_SERVICES = 8
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN = 16
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX = 65535
-def _define_WFDSVC_CONNECTION_CAPABILITY_head():
-    class WFDSVC_CONNECTION_CAPABILITY(Structure):
+Dot11AdHocManager = Guid('dd06a84f-83bd-4d01-8a-b9-23-89-fe-a0-86-9e')
+def _define_DOT11EXT_ALLOCATE_BUFFER():
+    return WINFUNCTYPE(UInt32,UInt32,POINTER(c_void_p))
+def _define_DOT11EXT_APIS_head():
+    class DOT11EXT_APIS(Structure):
         pass
-    return WFDSVC_CONNECTION_CAPABILITY
-def _define_WFDSVC_CONNECTION_CAPABILITY():
-    WFDSVC_CONNECTION_CAPABILITY = win32more.NetworkManagement.WiFi.WFDSVC_CONNECTION_CAPABILITY_head
-    WFDSVC_CONNECTION_CAPABILITY._fields_ = [
-        ("bNew", win32more.Foundation.BOOLEAN),
-        ("bClient", win32more.Foundation.BOOLEAN),
-        ("bGO", win32more.Foundation.BOOLEAN),
+    return DOT11EXT_APIS
+def _define_DOT11EXT_APIS():
+    DOT11EXT_APIS = win32more.NetworkManagement.WiFi.DOT11EXT_APIS_head
+    DOT11EXT_APIS._fields_ = [
+        ('Dot11ExtAllocateBuffer', win32more.NetworkManagement.WiFi.DOT11EXT_ALLOCATE_BUFFER),
+        ('Dot11ExtFreeBuffer', win32more.NetworkManagement.WiFi.DOT11EXT_FREE_BUFFER),
+        ('Dot11ExtSetProfileCustomUserData', win32more.NetworkManagement.WiFi.DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA),
+        ('Dot11ExtGetProfileCustomUserData', win32more.NetworkManagement.WiFi.DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA),
+        ('Dot11ExtSetCurrentProfile', win32more.NetworkManagement.WiFi.DOT11EXT_SET_CURRENT_PROFILE),
+        ('Dot11ExtSendUIRequest', win32more.NetworkManagement.WiFi.DOT11EXT_SEND_UI_REQUEST),
+        ('Dot11ExtPreAssociateCompletion', win32more.NetworkManagement.WiFi.DOT11EXT_PRE_ASSOCIATE_COMPLETION),
+        ('Dot11ExtPostAssociateCompletion', win32more.NetworkManagement.WiFi.DOT11EXT_POST_ASSOCIATE_COMPLETION),
+        ('Dot11ExtSendNotification', win32more.NetworkManagement.WiFi.DOT11EXT_SEND_NOTIFICATION),
+        ('Dot11ExtSendPacket', win32more.NetworkManagement.WiFi.DOT11EXT_SEND_PACKET),
+        ('Dot11ExtSetEtherTypeHandling', win32more.NetworkManagement.WiFi.DOT11EXT_SET_ETHERTYPE_HANDLING),
+        ('Dot11ExtSetAuthAlgorithm', win32more.NetworkManagement.WiFi.DOT11EXT_SET_AUTH_ALGORITHM),
+        ('Dot11ExtSetUnicastCipherAlgorithm', win32more.NetworkManagement.WiFi.DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM),
+        ('Dot11ExtSetMulticastCipherAlgorithm', win32more.NetworkManagement.WiFi.DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM),
+        ('Dot11ExtSetDefaultKey', win32more.NetworkManagement.WiFi.DOT11EXT_SET_DEFAULT_KEY),
+        ('Dot11ExtSetKeyMappingKey', win32more.NetworkManagement.WiFi.DOT11EXT_SET_KEY_MAPPING_KEY),
+        ('Dot11ExtSetDefaultKeyId', win32more.NetworkManagement.WiFi.DOT11EXT_SET_DEFAULT_KEY_ID),
+        ('Dot11ExtNicSpecificExtension', win32more.NetworkManagement.WiFi.DOT11EXT_NIC_SPECIFIC_EXTENSION),
+        ('Dot11ExtSetExcludeUnencrypted', win32more.NetworkManagement.WiFi.DOT11EXT_SET_EXCLUDE_UNENCRYPTED),
+        ('Dot11ExtStartOneX', win32more.NetworkManagement.WiFi.DOT11EXT_ONEX_START),
+        ('Dot11ExtStopOneX', win32more.NetworkManagement.WiFi.DOT11EXT_ONEX_STOP),
+        ('Dot11ExtProcessSecurityPacket', win32more.NetworkManagement.WiFi.DOT11EXT_PROCESS_ONEX_PACKET),
     ]
-    return WFDSVC_CONNECTION_CAPABILITY
-def _define_DOT11_WFD_SERVICE_HASH_LIST_head():
-    class DOT11_WFD_SERVICE_HASH_LIST(Structure):
+    return DOT11EXT_APIS
+def _define_DOT11EXT_FREE_BUFFER():
+    return WINFUNCTYPE(Void,c_void_p)
+def _define_DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32),POINTER(c_void_p))
+DOT11EXT_IHV_CONNECTION_PHASE = Int32
+connection_phase_any = 0
+connection_phase_initial_connection = 1
+connection_phase_post_l3_connection = 2
+def _define_DOT11EXT_IHV_CONNECTIVITY_PROFILE_head():
+    class DOT11EXT_IHV_CONNECTIVITY_PROFILE(Structure):
         pass
-    return DOT11_WFD_SERVICE_HASH_LIST
-def _define_DOT11_WFD_SERVICE_HASH_LIST():
-    DOT11_WFD_SERVICE_HASH_LIST = win32more.NetworkManagement.WiFi.DOT11_WFD_SERVICE_HASH_LIST_head
-    DOT11_WFD_SERVICE_HASH_LIST._fields_ = [
-        ("ServiceHashCount", UInt16),
-        ("ServiceHash", Byte * 6),
+    return DOT11EXT_IHV_CONNECTIVITY_PROFILE
+def _define_DOT11EXT_IHV_CONNECTIVITY_PROFILE():
+    DOT11EXT_IHV_CONNECTIVITY_PROFILE = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head
+    DOT11EXT_IHV_CONNECTIVITY_PROFILE._fields_ = [
+        ('pszXmlFragmentIhvConnectivity', win32more.Foundation.PWSTR),
     ]
-    return DOT11_WFD_SERVICE_HASH_LIST
-def _define_DOT11_WFD_ADVERTISEMENT_ID_head():
-    class DOT11_WFD_ADVERTISEMENT_ID(Structure):
+    return DOT11EXT_IHV_CONNECTIVITY_PROFILE
+def _define_DOT11EXT_IHV_DISCOVERY_PROFILE_head():
+    class DOT11EXT_IHV_DISCOVERY_PROFILE(Structure):
         pass
-    return DOT11_WFD_ADVERTISEMENT_ID
-def _define_DOT11_WFD_ADVERTISEMENT_ID():
-    DOT11_WFD_ADVERTISEMENT_ID = win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISEMENT_ID_head
-    DOT11_WFD_ADVERTISEMENT_ID._fields_ = [
-        ("AdvertisementID", UInt32),
-        ("ServiceAddress", Byte * 6),
+    return DOT11EXT_IHV_DISCOVERY_PROFILE
+def _define_DOT11EXT_IHV_DISCOVERY_PROFILE():
+    DOT11EXT_IHV_DISCOVERY_PROFILE = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_head
+    DOT11EXT_IHV_DISCOVERY_PROFILE._fields_ = [
+        ('IhvConnectivityProfile', win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE),
+        ('IhvSecurityProfile', win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE),
     ]
-    return DOT11_WFD_ADVERTISEMENT_ID
-def _define_DOT11_WFD_SESSION_ID_head():
-    class DOT11_WFD_SESSION_ID(Structure):
+    return DOT11EXT_IHV_DISCOVERY_PROFILE
+def _define_DOT11EXT_IHV_DISCOVERY_PROFILE_LIST_head():
+    class DOT11EXT_IHV_DISCOVERY_PROFILE_LIST(Structure):
         pass
-    return DOT11_WFD_SESSION_ID
-def _define_DOT11_WFD_SESSION_ID():
-    DOT11_WFD_SESSION_ID = win32more.NetworkManagement.WiFi.DOT11_WFD_SESSION_ID_head
-    DOT11_WFD_SESSION_ID._fields_ = [
-        ("SessionID", UInt32),
-        ("SessionAddress", Byte * 6),
+    return DOT11EXT_IHV_DISCOVERY_PROFILE_LIST
+def _define_DOT11EXT_IHV_DISCOVERY_PROFILE_LIST():
+    DOT11EXT_IHV_DISCOVERY_PROFILE_LIST = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_LIST_head
+    DOT11EXT_IHV_DISCOVERY_PROFILE_LIST._fields_ = [
+        ('dwCount', UInt32),
+        ('pIhvDiscoveryProfiles', POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_head)),
     ]
-    return DOT11_WFD_SESSION_ID
-def _define_DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR_head():
-    class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR(Structure):
+    return DOT11EXT_IHV_DISCOVERY_PROFILE_LIST
+def _define_DOT11EXT_IHV_HANDLERS_head():
+    class DOT11EXT_IHV_HANDLERS(Structure):
         pass
-    return DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR
-def _define_DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR():
-    DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR = win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR_head
-    DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR._fields_ = [
-        ("AdvertisementID", UInt32),
-        ("ConfigMethods", UInt16),
-        ("ServiceNameLength", Byte),
-        ("ServiceName", Byte * 255),
+    return DOT11EXT_IHV_HANDLERS
+def _define_DOT11EXT_IHV_HANDLERS():
+    DOT11EXT_IHV_HANDLERS = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_HANDLERS_head
+    DOT11EXT_IHV_HANDLERS._fields_ = [
+        ('Dot11ExtIhvDeinitService', win32more.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_SERVICE),
+        ('Dot11ExtIhvInitAdapter', win32more.NetworkManagement.WiFi.DOT11EXTIHV_INIT_ADAPTER),
+        ('Dot11ExtIhvDeinitAdapter', win32more.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_ADAPTER),
+        ('Dot11ExtIhvPerformPreAssociate', win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_PRE_ASSOCIATE),
+        ('Dot11ExtIhvAdapterReset', win32more.NetworkManagement.WiFi.DOT11EXTIHV_ADAPTER_RESET),
+        ('Dot11ExtIhvPerformPostAssociate', win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_POST_ASSOCIATE),
+        ('Dot11ExtIhvStopPostAssociate', win32more.NetworkManagement.WiFi.DOT11EXTIHV_STOP_POST_ASSOCIATE),
+        ('Dot11ExtIhvValidateProfile', win32more.NetworkManagement.WiFi.DOT11EXTIHV_VALIDATE_PROFILE),
+        ('Dot11ExtIhvPerformCapabilityMatch', win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_CAPABILITY_MATCH),
+        ('Dot11ExtIhvCreateDiscoveryProfiles', win32more.NetworkManagement.WiFi.DOT11EXTIHV_CREATE_DISCOVERY_PROFILES),
+        ('Dot11ExtIhvProcessSessionChange', win32more.NetworkManagement.WiFi.DOT11EXTIHV_PROCESS_SESSION_CHANGE),
+        ('Dot11ExtIhvReceiveIndication', win32more.NetworkManagement.WiFi.DOT11EXTIHV_RECEIVE_INDICATION),
+        ('Dot11ExtIhvReceivePacket', win32more.NetworkManagement.WiFi.DOT11EXTIHV_RECEIVE_PACKET),
+        ('Dot11ExtIhvSendPacketCompletion', win32more.NetworkManagement.WiFi.DOT11EXTIHV_SEND_PACKET_COMPLETION),
+        ('Dot11ExtIhvIsUIRequestPending', win32more.NetworkManagement.WiFi.DOT11EXTIHV_IS_UI_REQUEST_PENDING),
+        ('Dot11ExtIhvProcessUIResponse', win32more.NetworkManagement.WiFi.DOT11EXTIHV_PROCESS_UI_RESPONSE),
+        ('Dot11ExtIhvQueryUIRequest', win32more.NetworkManagement.WiFi.DOT11EXTIHV_QUERY_UI_REQUEST),
+        ('Dot11ExtIhvOnexIndicateResult', win32more.NetworkManagement.WiFi.DOT11EXTIHV_ONEX_INDICATE_RESULT),
+        ('Dot11ExtIhvControl', win32more.NetworkManagement.WiFi.DOT11EXTIHV_CONTROL),
     ]
-    return DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR
-def _define_DOT11_WFD_ADVERTISED_SERVICE_LIST_head():
-    class DOT11_WFD_ADVERTISED_SERVICE_LIST(Structure):
+    return DOT11EXT_IHV_HANDLERS
+DOT11EXT_IHV_INDICATION_TYPE = Int32
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification = 0
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList = 1
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure = 2
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange = 3
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality = 4
+def _define_DOT11EXT_IHV_PARAMS_head():
+    class DOT11EXT_IHV_PARAMS(Structure):
         pass
-    return DOT11_WFD_ADVERTISED_SERVICE_LIST
-def _define_DOT11_WFD_ADVERTISED_SERVICE_LIST():
-    DOT11_WFD_ADVERTISED_SERVICE_LIST = win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_LIST_head
-    DOT11_WFD_ADVERTISED_SERVICE_LIST._fields_ = [
-        ("ServiceCount", UInt16),
-        ("AdvertisedService", win32more.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR * 0),
+    return DOT11EXT_IHV_PARAMS
+def _define_DOT11EXT_IHV_PARAMS():
+    DOT11EXT_IHV_PARAMS = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PARAMS_head
+    DOT11EXT_IHV_PARAMS._fields_ = [
+        ('dot11ExtIhvProfileParams', win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS),
+        ('wstrProfileName', Char * 256),
+        ('dwProfileTypeFlags', UInt32),
+        ('interfaceGuid', Guid),
     ]
-    return DOT11_WFD_ADVERTISED_SERVICE_LIST
-def _define_DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS_head():
-    class DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS(Structure):
+    return DOT11EXT_IHV_PARAMS
+def _define_DOT11EXT_IHV_PROFILE_PARAMS_head():
+    class DOT11EXT_IHV_PROFILE_PARAMS(Structure):
         pass
-    return DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS
-def _define_DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS():
-    DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS_head
-    DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("Status", Int32),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("uListOffset", UInt32),
-        ("uListLength", UInt32),
+    return DOT11EXT_IHV_PROFILE_PARAMS
+def _define_DOT11EXT_IHV_PROFILE_PARAMS():
+    DOT11EXT_IHV_PROFILE_PARAMS = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head
+    DOT11EXT_IHV_PROFILE_PARAMS._fields_ = [
+        ('pSsidList', POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST_head)),
+        ('BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('pMSSecuritySettings', POINTER(win32more.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS_head)),
     ]
-    return DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS
-def _define_DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
+    return DOT11EXT_IHV_PROFILE_PARAMS
+def _define_DOT11EXT_IHV_SECURITY_PROFILE_head():
+    class DOT11EXT_IHV_SECURITY_PROFILE(Structure):
         pass
-    return DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS():
-    DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS_head
-    DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
+    return DOT11EXT_IHV_SECURITY_PROFILE
+def _define_DOT11EXT_IHV_SECURITY_PROFILE():
+    DOT11EXT_IHV_SECURITY_PROFILE = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head
+    DOT11EXT_IHV_SECURITY_PROFILE._fields_ = [
+        ('pszXmlFragmentIhvSecurity', win32more.Foundation.PWSTR),
+        ('bUseMSOnex', win32more.Foundation.BOOL),
     ]
-    return DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS_head():
-    class DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS(Structure):
+    return DOT11EXT_IHV_SECURITY_PROFILE
+def _define_DOT11EXT_IHV_SSID_LIST_head():
+    class DOT11EXT_IHV_SSID_LIST(Structure):
         pass
-    return DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS
-def _define_DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS():
-    DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS_head
-    DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("RequestContext", c_void_p),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
+    return DOT11EXT_IHV_SSID_LIST
+def _define_DOT11EXT_IHV_SSID_LIST():
+    DOT11EXT_IHV_SSID_LIST = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST_head
+    DOT11EXT_IHV_SSID_LIST._fields_ = [
+        ('ulCount', UInt32),
+        ('SSIDs', win32more.NetworkManagement.WiFi.DOT11_SSID * 1),
     ]
-    return DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS
-def _define_DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
+    return DOT11EXT_IHV_SSID_LIST
+def _define_DOT11EXT_IHV_UI_REQUEST_head():
+    class DOT11EXT_IHV_UI_REQUEST(Structure):
         pass
-    return DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS():
-    DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head
-    DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
+    return DOT11EXT_IHV_UI_REQUEST
+def _define_DOT11EXT_IHV_UI_REQUEST():
+    DOT11EXT_IHV_UI_REQUEST = win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head
+    DOT11EXT_IHV_UI_REQUEST._fields_ = [
+        ('dwSessionId', UInt32),
+        ('guidUIRequest', Guid),
+        ('UIPageClsid', Guid),
+        ('dwByteCount', UInt32),
+        ('pvUIRequest', c_char_p_no),
     ]
-    return DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS_head():
-    class DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS(Structure):
+    return DOT11EXT_IHV_UI_REQUEST
+def _define_DOT11EXT_NIC_SPECIFIC_EXTENSION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_void_p,POINTER(UInt32),c_void_p)
+def _define_DOT11EXT_ONEX_START():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head))
+def _define_DOT11EXT_ONEX_STOP():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)
+def _define_DOT11EXT_POST_ASSOCIATE_COMPLETION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(c_char_p_no),UInt32,UInt32)
+def _define_DOT11EXT_PRE_ASSOCIATE_COMPLETION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,UInt32)
+def _define_DOT11EXT_PROCESS_ONEX_PACKET():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_void_p)
+def _define_DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL),POINTER(Guid),c_void_p)
+def _define_DOT11EXT_RELEASE_VIRTUAL_STATION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_void_p)
+def _define_DOT11EXT_REQUEST_VIRTUAL_STATION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_void_p)
+def _define_DOT11EXT_SEND_NOTIFICATION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head))
+def _define_DOT11EXT_SEND_PACKET():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_void_p,win32more.Foundation.HANDLE)
+def _define_DOT11EXT_SEND_UI_REQUEST():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head))
+def _define_DOT11EXT_SET_AUTH_ALGORITHM():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32)
+def _define_DOT11EXT_SET_CURRENT_PROFILE():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head))
+def _define_DOT11EXT_SET_DEFAULT_KEY():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE_head),win32more.NetworkManagement.WiFi.DOT11_DIRECTION)
+def _define_DOT11EXT_SET_DEFAULT_KEY_ID():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32)
+def _define_DOT11EXT_SET_ETHERTYPE_HANDLING():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_head),UInt32,POINTER(UInt16))
+def _define_DOT11EXT_SET_EXCLUDE_UNENCRYPTED():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)
+def _define_DOT11EXT_SET_KEY_MAPPING_KEY():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head))
+def _define_DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32)
+def _define_DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,UInt32,c_void_p)
+def _define_DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32)
+def _define_DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY_head),c_void_p)
+def _define_DOT11EXT_VIRTUAL_STATION_AP_PROPERTY_head():
+    class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY(Structure):
         pass
-    return DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS
-def _define_DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS():
-    DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS_head
-    DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("ResponseContext", c_void_p),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
+    return DOT11EXT_VIRTUAL_STATION_AP_PROPERTY
+def _define_DOT11EXT_VIRTUAL_STATION_AP_PROPERTY():
+    DOT11EXT_VIRTUAL_STATION_AP_PROPERTY = win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY_head
+    DOT11EXT_VIRTUAL_STATION_AP_PROPERTY._fields_ = [
+        ('dot11SSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11AuthAlgo', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('dot11CipherAlgo', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('bIsPassPhrase', win32more.Foundation.BOOL),
+        ('dwKeyLength', UInt32),
+        ('ucKeyData', Byte * 64),
     ]
-    return DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS
-def _define_DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS(Structure):
+    return DOT11EXT_VIRTUAL_STATION_AP_PROPERTY
+def _define_DOT11EXT_VIRTUAL_STATION_APIS_head():
+    class DOT11EXT_VIRTUAL_STATION_APIS(Structure):
         pass
-    return DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS():
-    DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS_head
-    DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
+    return DOT11EXT_VIRTUAL_STATION_APIS
+def _define_DOT11EXT_VIRTUAL_STATION_APIS():
+    DOT11EXT_VIRTUAL_STATION_APIS = win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_APIS_head
+    DOT11EXT_VIRTUAL_STATION_APIS._fields_ = [
+        ('Dot11ExtRequestVirtualStation', win32more.NetworkManagement.WiFi.DOT11EXT_REQUEST_VIRTUAL_STATION),
+        ('Dot11ExtReleaseVirtualStation', win32more.NetworkManagement.WiFi.DOT11EXT_RELEASE_VIRTUAL_STATION),
+        ('Dot11ExtQueryVirtualStationProperties', win32more.NetworkManagement.WiFi.DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES),
+        ('Dot11ExtSetVirtualStationAPProperties', win32more.NetworkManagement.WiFi.DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES),
     ]
-    return DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head():
-    class DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(Structure):
-        pass
-    return DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
-def _define_DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS():
-    DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head
-    DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
-def _define_DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
-        pass
-    return DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS():
-    DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS_head
-    DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("ReceiverAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS_head():
-    class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS(Structure):
-        pass
-    return DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS
-def _define_DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS():
-    DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS_head
-    DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("TransmitterDeviceAddress", Byte * 6),
-        ("BSSID", Byte * 6),
-        ("DialogToken", Byte),
-        ("RequestContext", c_void_p),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS
-def _define_DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
-        pass
-    return DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS():
-    DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS_head
-    DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ReceiverDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS_head():
-    class DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS(Structure):
-        pass
-    return DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS
-def _define_DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS():
-    DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS_head
-    DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("TransmitterDeviceAddress", Byte * 6),
-        ("BSSID", Byte * 6),
-        ("DialogToken", Byte),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS
-def _define_DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
-        pass
-    return DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS():
-    DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS_head
-    DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("ReceiverAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head():
-    class DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS(Structure):
-        pass
-    return DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS
-def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS():
-    DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head
-    DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("TransmitterDeviceAddress", Byte * 6),
-        ("BSSID", Byte * 6),
-        ("DialogToken", Byte),
-        ("RequestContext", c_void_p),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS
-def _define_DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS_head():
-    class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
-        pass
-    return DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS():
-    DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS_head
-    DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ReceiverDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("Status", Int32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS
-def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head():
-    class DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(Structure):
-        pass
-    return DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
-def _define_DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS():
-    DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head
-    DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("TransmitterDeviceAddress", Byte * 6),
-        ("BSSID", Byte * 6),
-        ("DialogToken", Byte),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
-DOT11_ANQP_QUERY_RESULT = Int32
-dot11_ANQP_query_result_success = 0
-dot11_ANQP_query_result_failure = 1
-dot11_ANQP_query_result_timed_out = 2
-dot11_ANQP_query_result_resources = 3
-dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote = 4
-dot11_ANQP_query_result_gas_protocol_failure = 5
-dot11_ANQP_query_result_advertisement_server_not_responding = 6
-dot11_ANQP_query_result_access_issues = 7
-def _define_DOT11_ANQP_QUERY_COMPLETE_PARAMETERS_head():
-    class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS(Structure):
-        pass
-    return DOT11_ANQP_QUERY_COMPLETE_PARAMETERS
-def _define_DOT11_ANQP_QUERY_COMPLETE_PARAMETERS():
-    DOT11_ANQP_QUERY_COMPLETE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_ANQP_QUERY_COMPLETE_PARAMETERS_head
-    DOT11_ANQP_QUERY_COMPLETE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("Status", win32more.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT),
-        ("hContext", win32more.Foundation.HANDLE),
-        ("uResponseLength", UInt32),
-    ]
-    return DOT11_ANQP_QUERY_COMPLETE_PARAMETERS
-def _define_DOT11_WFD_DEVICE_CAPABILITY_CONFIG_head():
-    class DOT11_WFD_DEVICE_CAPABILITY_CONFIG(Structure):
-        pass
-    return DOT11_WFD_DEVICE_CAPABILITY_CONFIG
-def _define_DOT11_WFD_DEVICE_CAPABILITY_CONFIG():
-    DOT11_WFD_DEVICE_CAPABILITY_CONFIG = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_CAPABILITY_CONFIG_head
-    DOT11_WFD_DEVICE_CAPABILITY_CONFIG._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("bServiceDiscoveryEnabled", win32more.Foundation.BOOLEAN),
-        ("bClientDiscoverabilityEnabled", win32more.Foundation.BOOLEAN),
-        ("bConcurrentOperationSupported", win32more.Foundation.BOOLEAN),
-        ("bInfrastructureManagementEnabled", win32more.Foundation.BOOLEAN),
-        ("bDeviceLimitReached", win32more.Foundation.BOOLEAN),
-        ("bInvitationProcedureEnabled", win32more.Foundation.BOOLEAN),
-        ("WPSVersionsEnabled", UInt32),
-    ]
-    return DOT11_WFD_DEVICE_CAPABILITY_CONFIG
-def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_head():
-    class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG(Structure):
-        pass
-    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG
-def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG():
-    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_head
-    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("bPersistentGroupEnabled", win32more.Foundation.BOOLEAN),
-        ("bIntraBSSDistributionSupported", win32more.Foundation.BOOLEAN),
-        ("bCrossConnectionSupported", win32more.Foundation.BOOLEAN),
-        ("bPersistentReconnectSupported", win32more.Foundation.BOOLEAN),
-        ("bGroupFormationEnabled", win32more.Foundation.BOOLEAN),
-        ("uMaximumGroupLimit", UInt32),
-    ]
-    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG
-def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2_head():
-    class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2(Structure):
-        pass
-    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2
-def _define_DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2():
-    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2_head
-    DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("bPersistentGroupEnabled", win32more.Foundation.BOOLEAN),
-        ("bIntraBSSDistributionSupported", win32more.Foundation.BOOLEAN),
-        ("bCrossConnectionSupported", win32more.Foundation.BOOLEAN),
-        ("bPersistentReconnectSupported", win32more.Foundation.BOOLEAN),
-        ("bGroupFormationEnabled", win32more.Foundation.BOOLEAN),
-        ("uMaximumGroupLimit", UInt32),
-        ("bEapolKeyIpAddressAllocationSupported", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2
-def _define_DOT11_WFD_DEVICE_INFO_head():
-    class DOT11_WFD_DEVICE_INFO(Structure):
-        pass
-    return DOT11_WFD_DEVICE_INFO
-def _define_DOT11_WFD_DEVICE_INFO():
-    DOT11_WFD_DEVICE_INFO = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_INFO_head
-    DOT11_WFD_DEVICE_INFO._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("DeviceAddress", Byte * 6),
-        ("ConfigMethods", UInt16),
-        ("PrimaryDeviceType", win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE),
-        ("DeviceName", win32more.NetworkManagement.WiFi.DOT11_WPS_DEVICE_NAME),
-    ]
-    return DOT11_WFD_DEVICE_INFO
-def _define_DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST_head():
-    class DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST(Structure):
-        pass
-    return DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST
-def _define_DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST():
-    DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST = win32more.NetworkManagement.WiFi.DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST_head
-    DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uNumOfEntries", UInt32),
-        ("uTotalNumOfEntries", UInt32),
-        ("SecondaryDeviceTypes", win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE * 0),
-    ]
-    return DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST
-DOT11_WFD_DISCOVER_TYPE = Int32
-dot11_wfd_discover_type_scan_only = 1
-dot11_wfd_discover_type_find_only = 2
-dot11_wfd_discover_type_auto = 3
-dot11_wfd_discover_type_scan_social_channels = 4
-dot11_wfd_discover_type_forced = -2147483648
-DOT11_WFD_SCAN_TYPE = Int32
-dot11_wfd_scan_type_active = 1
-dot11_wfd_scan_type_passive = 2
-dot11_wfd_scan_type_auto = 3
-def _define_DOT11_WFD_DISCOVER_DEVICE_FILTER_head():
-    class DOT11_WFD_DISCOVER_DEVICE_FILTER(Structure):
-        pass
-    return DOT11_WFD_DISCOVER_DEVICE_FILTER
-def _define_DOT11_WFD_DISCOVER_DEVICE_FILTER():
-    DOT11_WFD_DISCOVER_DEVICE_FILTER = win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_DEVICE_FILTER_head
-    DOT11_WFD_DISCOVER_DEVICE_FILTER._fields_ = [
-        ("DeviceID", Byte * 6),
-        ("ucBitmask", Byte),
-        ("GroupSSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-    ]
-    return DOT11_WFD_DISCOVER_DEVICE_FILTER
-def _define_DOT11_WFD_DISCOVER_REQUEST_head():
-    class DOT11_WFD_DISCOVER_REQUEST(Structure):
-        pass
-    return DOT11_WFD_DISCOVER_REQUEST
-def _define_DOT11_WFD_DISCOVER_REQUEST():
-    DOT11_WFD_DISCOVER_REQUEST = win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_REQUEST_head
-    DOT11_WFD_DISCOVER_REQUEST._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("DiscoverType", win32more.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE),
-        ("ScanType", win32more.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE),
-        ("uDiscoverTimeout", UInt32),
-        ("uDeviceFilterListOffset", UInt32),
-        ("uNumDeviceFilters", UInt32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-        ("bForceScanLegacyNetworks", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_WFD_DISCOVER_REQUEST
-def _define_DOT11_WFD_DEVICE_ENTRY_head():
-    class DOT11_WFD_DEVICE_ENTRY(Structure):
-        pass
-    return DOT11_WFD_DEVICE_ENTRY
-def _define_DOT11_WFD_DEVICE_ENTRY():
-    DOT11_WFD_DEVICE_ENTRY = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_ENTRY_head
-    DOT11_WFD_DEVICE_ENTRY._fields_ = [
-        ("uPhyId", UInt32),
-        ("PhySpecificInfo", win32more.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO),
-        ("dot11BSSID", Byte * 6),
-        ("dot11BSSType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("TransmitterAddress", Byte * 6),
-        ("lRSSI", Int32),
-        ("uLinkQuality", UInt32),
-        ("usBeaconPeriod", UInt16),
-        ("ullTimestamp", UInt64),
-        ("ullBeaconHostTimestamp", UInt64),
-        ("ullProbeResponseHostTimestamp", UInt64),
-        ("usCapabilityInformation", UInt16),
-        ("uBeaconIEsOffset", UInt32),
-        ("uBeaconIEsLength", UInt32),
-        ("uProbeResponseIEsOffset", UInt32),
-        ("uProbeResponseIEsLength", UInt32),
-    ]
-    return DOT11_WFD_DEVICE_ENTRY
-def _define_DOT11_WFD_ADDITIONAL_IE_head():
-    class DOT11_WFD_ADDITIONAL_IE(Structure):
-        pass
-    return DOT11_WFD_ADDITIONAL_IE
-def _define_DOT11_WFD_ADDITIONAL_IE():
-    DOT11_WFD_ADDITIONAL_IE = win32more.NetworkManagement.WiFi.DOT11_WFD_ADDITIONAL_IE_head
-    DOT11_WFD_ADDITIONAL_IE._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("uBeaconIEsOffset", UInt32),
-        ("uBeaconIEsLength", UInt32),
-        ("uProbeResponseIEsOffset", UInt32),
-        ("uProbeResponseIEsLength", UInt32),
-        ("uDefaultRequestIEsOffset", UInt32),
-        ("uDefaultRequestIEsLength", UInt32),
-    ]
-    return DOT11_WFD_ADDITIONAL_IE
-def _define_DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS_head():
-    class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS
-def _define_DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS():
-    DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS_head
-    DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("uSendTimeout", UInt32),
-        ("GroupOwnerIntent", win32more.NetworkManagement.WiFi.DOT11_WFD_GO_INTENT),
-        ("MinimumConfigTimeout", win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
-        ("IntendedInterfaceAddress", Byte * 6),
-        ("GroupCapability", Byte),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS
-def _define_DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS_head():
-    class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS
-def _define_DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS():
-    DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS_head
-    DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("RequestContext", c_void_p),
-        ("uSendTimeout", UInt32),
-        ("Status", Byte),
-        ("GroupOwnerIntent", win32more.NetworkManagement.WiFi.DOT11_WFD_GO_INTENT),
-        ("MinimumConfigTimeout", win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
-        ("IntendedInterfaceAddress", Byte * 6),
-        ("GroupCapability", Byte),
-        ("GroupID", win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
-        ("bUseGroupID", win32more.Foundation.BOOLEAN),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS
-def _define_DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head():
-    class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
-def _define_DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS():
-    DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_head
-    DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PeerDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("ResponseContext", c_void_p),
-        ("uSendTimeout", UInt32),
-        ("Status", Byte),
-        ("GroupCapability", Byte),
-        ("GroupID", win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
-        ("bUseGroupID", win32more.Foundation.BOOLEAN),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS
-def _define_DOT11_WFD_INVITATION_FLAGS_head():
-    class DOT11_WFD_INVITATION_FLAGS(Structure):
-        pass
-    return DOT11_WFD_INVITATION_FLAGS
-def _define_DOT11_WFD_INVITATION_FLAGS():
-    DOT11_WFD_INVITATION_FLAGS = win32more.NetworkManagement.WiFi.DOT11_WFD_INVITATION_FLAGS_head
-    DOT11_WFD_INVITATION_FLAGS._fields_ = [
-        ("_bitfield", Byte),
-    ]
-    return DOT11_WFD_INVITATION_FLAGS
-def _define_DOT11_SEND_INVITATION_REQUEST_PARAMETERS_head():
-    class DOT11_SEND_INVITATION_REQUEST_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_INVITATION_REQUEST_PARAMETERS
-def _define_DOT11_SEND_INVITATION_REQUEST_PARAMETERS():
-    DOT11_SEND_INVITATION_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_INVITATION_REQUEST_PARAMETERS_head
-    DOT11_SEND_INVITATION_REQUEST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("DialogToken", Byte),
-        ("PeerDeviceAddress", Byte * 6),
-        ("uSendTimeout", UInt32),
-        ("MinimumConfigTimeout", win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
-        ("InvitationFlags", win32more.NetworkManagement.WiFi.DOT11_WFD_INVITATION_FLAGS),
-        ("GroupBSSID", Byte * 6),
-        ("bUseGroupBSSID", win32more.Foundation.BOOLEAN),
-        ("OperatingChannel", win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
-        ("bUseSpecifiedOperatingChannel", win32more.Foundation.BOOLEAN),
-        ("GroupID", win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
-        ("bLocalGO", win32more.Foundation.BOOLEAN),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_INVITATION_REQUEST_PARAMETERS
-def _define_DOT11_SEND_INVITATION_RESPONSE_PARAMETERS_head():
-    class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_INVITATION_RESPONSE_PARAMETERS
-def _define_DOT11_SEND_INVITATION_RESPONSE_PARAMETERS():
-    DOT11_SEND_INVITATION_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_INVITATION_RESPONSE_PARAMETERS_head
-    DOT11_SEND_INVITATION_RESPONSE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ReceiverDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("RequestContext", c_void_p),
-        ("uSendTimeout", UInt32),
-        ("Status", Byte),
-        ("MinimumConfigTimeout", win32more.NetworkManagement.WiFi.DOT11_WFD_CONFIGURATION_TIMEOUT),
-        ("GroupBSSID", Byte * 6),
-        ("bUseGroupBSSID", win32more.Foundation.BOOLEAN),
-        ("OperatingChannel", win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
-        ("bUseSpecifiedOperatingChannel", win32more.Foundation.BOOLEAN),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_INVITATION_RESPONSE_PARAMETERS
-def _define_DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head():
-    class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS
-def _define_DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS():
-    DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS_head
-    DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("DialogToken", Byte),
-        ("PeerDeviceAddress", Byte * 6),
-        ("uSendTimeout", UInt32),
-        ("GroupCapability", Byte),
-        ("GroupID", win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_ID),
-        ("bUseGroupID", win32more.Foundation.BOOLEAN),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS
-def _define_DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head():
-    class DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(Structure):
-        pass
-    return DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
-def _define_DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS():
-    DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_head
-    DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ReceiverDeviceAddress", Byte * 6),
-        ("DialogToken", Byte),
-        ("RequestContext", c_void_p),
-        ("uSendTimeout", UInt32),
-        ("uIEsOffset", UInt32),
-        ("uIEsLength", UInt32),
-    ]
-    return DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS
-def _define_DOT11_WFD_DEVICE_LISTEN_CHANNEL_head():
-    class DOT11_WFD_DEVICE_LISTEN_CHANNEL(Structure):
-        pass
-    return DOT11_WFD_DEVICE_LISTEN_CHANNEL
-def _define_DOT11_WFD_DEVICE_LISTEN_CHANNEL():
-    DOT11_WFD_DEVICE_LISTEN_CHANNEL = win32more.NetworkManagement.WiFi.DOT11_WFD_DEVICE_LISTEN_CHANNEL_head
-    DOT11_WFD_DEVICE_LISTEN_CHANNEL._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ChannelNumber", Byte),
-    ]
-    return DOT11_WFD_DEVICE_LISTEN_CHANNEL
-def _define_DOT11_WFD_GROUP_START_PARAMETERS_head():
-    class DOT11_WFD_GROUP_START_PARAMETERS(Structure):
-        pass
-    return DOT11_WFD_GROUP_START_PARAMETERS
-def _define_DOT11_WFD_GROUP_START_PARAMETERS():
-    DOT11_WFD_GROUP_START_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_START_PARAMETERS_head
-    DOT11_WFD_GROUP_START_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("AdvertisedOperatingChannel", win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
-    ]
-    return DOT11_WFD_GROUP_START_PARAMETERS
-def _define_DOT11_WFD_GROUP_JOIN_PARAMETERS_head():
-    class DOT11_WFD_GROUP_JOIN_PARAMETERS(Structure):
-        pass
-    return DOT11_WFD_GROUP_JOIN_PARAMETERS
-def _define_DOT11_WFD_GROUP_JOIN_PARAMETERS():
-    DOT11_WFD_GROUP_JOIN_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_WFD_GROUP_JOIN_PARAMETERS_head
-    DOT11_WFD_GROUP_JOIN_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("GOOperatingChannel", win32more.NetworkManagement.WiFi.DOT11_WFD_CHANNEL),
-        ("GOConfigTime", UInt32),
-        ("bInGroupFormation", win32more.Foundation.BOOLEAN),
-        ("bWaitForWPSReady", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_WFD_GROUP_JOIN_PARAMETERS
-def _define_DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO_head():
-    class DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO(Structure):
-        pass
-    return DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO
-def _define_DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO():
-    DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO = win32more.NetworkManagement.WiFi.DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO_head
-    DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("bEnabled", win32more.Foundation.BOOLEAN),
-    ]
-    return DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO
-DOT11_POWER_MODE_REASON = Int32
-dot11_power_mode_reason_no_change = 0
-dot11_power_mode_reason_noncompliant_AP = 1
-dot11_power_mode_reason_legacy_WFD_device = 2
-dot11_power_mode_reason_compliant_AP = 3
-dot11_power_mode_reason_compliant_WFD_device = 4
-dot11_power_mode_reason_others = 5
-def _define_DOT11_POWER_MGMT_MODE_STATUS_INFO_head():
-    class DOT11_POWER_MGMT_MODE_STATUS_INFO(Structure):
-        pass
-    return DOT11_POWER_MGMT_MODE_STATUS_INFO
-def _define_DOT11_POWER_MGMT_MODE_STATUS_INFO():
-    DOT11_POWER_MGMT_MODE_STATUS_INFO = win32more.NetworkManagement.WiFi.DOT11_POWER_MGMT_MODE_STATUS_INFO_head
-    DOT11_POWER_MGMT_MODE_STATUS_INFO._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("PowerSaveMode", win32more.NetworkManagement.WiFi.DOT11_POWER_MODE),
-        ("uPowerSaveLevel", UInt32),
-        ("Reason", win32more.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON),
-    ]
-    return DOT11_POWER_MGMT_MODE_STATUS_INFO
-def _define_DOT11_CHANNEL_HINT_head():
-    class DOT11_CHANNEL_HINT(Structure):
-        pass
-    return DOT11_CHANNEL_HINT
-def _define_DOT11_CHANNEL_HINT():
-    DOT11_CHANNEL_HINT = win32more.NetworkManagement.WiFi.DOT11_CHANNEL_HINT_head
-    DOT11_CHANNEL_HINT._fields_ = [
-        ("Dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("uChannelNumber", UInt32),
-    ]
-    return DOT11_CHANNEL_HINT
-def _define_DOT11_OFFLOAD_NETWORK_head():
-    class DOT11_OFFLOAD_NETWORK(Structure):
-        pass
-    return DOT11_OFFLOAD_NETWORK
-def _define_DOT11_OFFLOAD_NETWORK():
-    DOT11_OFFLOAD_NETWORK = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK_head
-    DOT11_OFFLOAD_NETWORK._fields_ = [
-        ("Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("UnicastCipher", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("AuthAlgo", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("Dot11ChannelHints", win32more.NetworkManagement.WiFi.DOT11_CHANNEL_HINT * 4),
-    ]
-    return DOT11_OFFLOAD_NETWORK
-def _define_DOT11_OFFLOAD_NETWORK_LIST_INFO_head():
-    class DOT11_OFFLOAD_NETWORK_LIST_INFO(Structure):
-        pass
-    return DOT11_OFFLOAD_NETWORK_LIST_INFO
-def _define_DOT11_OFFLOAD_NETWORK_LIST_INFO():
-    DOT11_OFFLOAD_NETWORK_LIST_INFO = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK_LIST_INFO_head
-    DOT11_OFFLOAD_NETWORK_LIST_INFO._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("ulFlags", UInt32),
-        ("FastScanPeriod", UInt32),
-        ("FastScanIterations", UInt32),
-        ("SlowScanPeriod", UInt32),
-        ("uNumOfEntries", UInt32),
-        ("offloadNetworkList", win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK * 0),
-    ]
-    return DOT11_OFFLOAD_NETWORK_LIST_INFO
-def _define_DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS_head():
-    class DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS(Structure):
-        pass
-    return DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS
-def _define_DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS():
-    DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS_head
-    DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("Status", Int32),
-    ]
-    return DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS
-DOT11_MANUFACTURING_TEST_TYPE = Int32
-dot11_manufacturing_test_unknown = 0
-dot11_manufacturing_test_self_start = 1
-dot11_manufacturing_test_self_query_result = 2
-dot11_manufacturing_test_rx = 3
-dot11_manufacturing_test_tx = 4
-dot11_manufacturing_test_query_adc = 5
-dot11_manufacturing_test_set_data = 6
-dot11_manufacturing_test_query_data = 7
-dot11_manufacturing_test_sleep = 8
-dot11_manufacturing_test_awake = 9
-dot11_manufacturing_test_IHV_start = -2147483648
-dot11_manufacturing_test_IHV_end = -1
-def _define_DOT11_MANUFACTURING_TEST_head():
-    class DOT11_MANUFACTURING_TEST(Structure):
-        pass
-    return DOT11_MANUFACTURING_TEST
-def _define_DOT11_MANUFACTURING_TEST():
-    DOT11_MANUFACTURING_TEST = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_head
-    DOT11_MANUFACTURING_TEST._fields_ = [
-        ("dot11ManufacturingTestType", win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE),
-        ("uBufferLength", UInt32),
-        ("ucBuffer", Byte * 0),
-    ]
-    return DOT11_MANUFACTURING_TEST
-DOT11_MANUFACTURING_SELF_TEST_TYPE = Int32
-DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE = 1
-DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE = 2
-DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE = 3
-def _define_DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS_head():
-    class DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS(Structure):
-        pass
-    return DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS
-def _define_DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS():
-    DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS_head
-    DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS._fields_ = [
-        ("SelfTestType", win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE),
-        ("uTestID", UInt32),
-        ("uPinBitMask", UInt32),
-        ("pvContext", c_void_p),
-        ("uBufferLength", UInt32),
-        ("ucBufferIn", Byte * 0),
-    ]
-    return DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS
-def _define_DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS_head():
-    class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS(Structure):
-        pass
-    return DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS
-def _define_DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS():
-    DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS_head
-    DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS._fields_ = [
-        ("SelfTestType", win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE),
-        ("uTestID", UInt32),
-        ("bResult", win32more.Foundation.BOOLEAN),
-        ("uPinFailedBitMask", UInt32),
-        ("pvContext", c_void_p),
-        ("uBytesWrittenOut", UInt32),
-        ("ucBufferOut", Byte * 0),
-    ]
-    return DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS
-DOT11_BAND = Int32
-dot11_band_2p4g = 1
-dot11_band_4p9g = 2
-dot11_band_5g = 3
-def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX_head():
-    class DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX(Structure):
-        pass
-    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX
-def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX():
-    DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX_head
-    DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX._fields_ = [
-        ("bEnabled", win32more.Foundation.BOOLEAN),
-        ("Dot11Band", win32more.NetworkManagement.WiFi.DOT11_BAND),
-        ("uChannel", UInt32),
-        ("PowerLevel", Int32),
-    ]
-    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX
-def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX_head():
-    class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX(Structure):
-        pass
-    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX
-def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX():
-    DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX_head
-    DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX._fields_ = [
-        ("bEnable", win32more.Foundation.BOOLEAN),
-        ("bOpenLoop", win32more.Foundation.BOOLEAN),
-        ("Dot11Band", win32more.NetworkManagement.WiFi.DOT11_BAND),
-        ("uChannel", UInt32),
-        ("uSetPowerLevel", UInt32),
-        ("ADCPowerLevel", Int32),
-    ]
-    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX
-def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC_head():
-    class DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC(Structure):
-        pass
-    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC
-def _define_DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC():
-    DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC_head
-    DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC._fields_ = [
-        ("Dot11Band", win32more.NetworkManagement.WiFi.DOT11_BAND),
-        ("uChannel", UInt32),
-        ("ADCPowerLevel", Int32),
-    ]
-    return DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC
-def _define_DOT11_MANUFACTURING_TEST_SET_DATA_head():
-    class DOT11_MANUFACTURING_TEST_SET_DATA(Structure):
-        pass
-    return DOT11_MANUFACTURING_TEST_SET_DATA
-def _define_DOT11_MANUFACTURING_TEST_SET_DATA():
-    DOT11_MANUFACTURING_TEST_SET_DATA = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_SET_DATA_head
-    DOT11_MANUFACTURING_TEST_SET_DATA._fields_ = [
-        ("uKey", UInt32),
-        ("uOffset", UInt32),
-        ("uBufferLength", UInt32),
-        ("ucBufferIn", Byte * 0),
-    ]
-    return DOT11_MANUFACTURING_TEST_SET_DATA
-def _define_DOT11_MANUFACTURING_TEST_QUERY_DATA_head():
-    class DOT11_MANUFACTURING_TEST_QUERY_DATA(Structure):
-        pass
-    return DOT11_MANUFACTURING_TEST_QUERY_DATA
-def _define_DOT11_MANUFACTURING_TEST_QUERY_DATA():
-    DOT11_MANUFACTURING_TEST_QUERY_DATA = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_QUERY_DATA_head
-    DOT11_MANUFACTURING_TEST_QUERY_DATA._fields_ = [
-        ("uKey", UInt32),
-        ("uOffset", UInt32),
-        ("uBufferLength", UInt32),
-        ("uBytesRead", UInt32),
-        ("ucBufferOut", Byte * 0),
-    ]
-    return DOT11_MANUFACTURING_TEST_QUERY_DATA
-def _define_DOT11_MANUFACTURING_TEST_SLEEP_head():
-    class DOT11_MANUFACTURING_TEST_SLEEP(Structure):
-        pass
-    return DOT11_MANUFACTURING_TEST_SLEEP
-def _define_DOT11_MANUFACTURING_TEST_SLEEP():
-    DOT11_MANUFACTURING_TEST_SLEEP = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_SLEEP_head
-    DOT11_MANUFACTURING_TEST_SLEEP._fields_ = [
-        ("uSleepTime", UInt32),
-        ("pvContext", c_void_p),
-    ]
-    return DOT11_MANUFACTURING_TEST_SLEEP
-DOT11_MANUFACTURING_CALLBACK_TYPE = Int32
-dot11_manufacturing_callback_unknown = 0
-dot11_manufacturing_callback_self_test_complete = 1
-dot11_manufacturing_callback_sleep_complete = 2
-dot11_manufacturing_callback_IHV_start = -2147483648
-dot11_manufacturing_callback_IHV_end = -1
-def _define_DOT11_MANUFACTURING_CALLBACK_PARAMETERS_head():
-    class DOT11_MANUFACTURING_CALLBACK_PARAMETERS(Structure):
-        pass
-    return DOT11_MANUFACTURING_CALLBACK_PARAMETERS
-def _define_DOT11_MANUFACTURING_CALLBACK_PARAMETERS():
-    DOT11_MANUFACTURING_CALLBACK_PARAMETERS = win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_PARAMETERS_head
-    DOT11_MANUFACTURING_CALLBACK_PARAMETERS._fields_ = [
-        ("Header", win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER),
-        ("dot11ManufacturingCallbackType", win32more.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE),
-        ("uStatus", UInt32),
-        ("pvContext", c_void_p),
-    ]
-    return DOT11_MANUFACTURING_CALLBACK_PARAMETERS
+    return DOT11EXT_VIRTUAL_STATION_APIS
+def _define_DOT11EXTIHV_ADAPTER_RESET():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)
+def _define_DOT11EXTIHV_CONTROL():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_char_p_no,UInt32,c_char_p_no,POINTER(UInt32))
+def _define_DOT11EXTIHV_CREATE_DISCOVERY_PROFILES():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head),POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_LIST_head),POINTER(UInt32))
+def _define_DOT11EXTIHV_DEINIT_ADAPTER():
+    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)
+def _define_DOT11EXTIHV_DEINIT_SERVICE():
+    return WINFUNCTYPE(Void,)
+def _define_DOT11EXTIHV_GET_VERSION_INFO():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11_IHV_VERSION_INFO_head))
+def _define_DOT11EXTIHV_INIT_ADAPTER():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADAPTER_head),win32more.Foundation.HANDLE,POINTER(win32more.Foundation.HANDLE))
+def _define_DOT11EXTIHV_INIT_SERVICE():
+    return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_APIS_head),c_void_p,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_HANDLERS_head))
+def _define_DOT11EXTIHV_INIT_VIRTUAL_STATION():
+    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_APIS_head),c_void_p)
+def _define_DOT11EXTIHV_IS_UI_REQUEST_PENDING():
+    return WINFUNCTYPE(UInt32,Guid,POINTER(win32more.Foundation.BOOL))
+def _define_DOT11EXTIHV_ONEX_INDICATE_RESULT():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT_PARAMS_head))
+def _define_DOT11EXTIHV_PERFORM_CAPABILITY_MATCH():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head),POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head),POINTER(UInt32))
+def _define_DOT11EXTIHV_PERFORM_POST_ASSOCIATE():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11_PORT_STATE_head),UInt32,POINTER(win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head))
+def _define_DOT11EXTIHV_PERFORM_PRE_ASSOCIATE():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head),POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head),POINTER(UInt32))
+def _define_DOT11EXTIHV_PROCESS_SESSION_CHANGE():
+    return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.System.RemoteDesktop.WTSSESSION_NOTIFICATION_head))
+def _define_DOT11EXTIHV_PROCESS_UI_RESPONSE():
+    return WINFUNCTYPE(UInt32,Guid,UInt32,c_void_p)
+def _define_DOT11EXTIHV_QUERY_UI_REQUEST():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE,POINTER(POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head)))
+def _define_DOT11EXTIHV_RECEIVE_INDICATION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE,UInt32,c_void_p)
+def _define_DOT11EXTIHV_RECEIVE_PACKET():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_void_p)
+def _define_DOT11EXTIHV_SEND_PACKET_COMPLETION():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)
+def _define_DOT11EXTIHV_STOP_POST_ASSOCIATE():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no),UInt32)
+def _define_DOT11EXTIHV_VALIDATE_PROFILE():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head),POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head),POINTER(UInt32))
+def _define_IDot11AdHocInterface_head():
+    class IDot11AdHocInterface(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc2b-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocInterface
+def _define_IDot11AdHocInterface():
+    IDot11AdHocInterface = win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head
+    IDot11AdHocInterface.GetDeviceSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'GetDeviceSignature', ((1, 'pSignature'),)))
+    IDot11AdHocInterface.GetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'GetFriendlyName', ((1, 'ppszName'),)))
+    IDot11AdHocInterface.IsDot11d = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(5, 'IsDot11d', ((1, 'pf11d'),)))
+    IDot11AdHocInterface.IsAdHocCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(6, 'IsAdHocCapable', ((1, 'pfAdHocCapable'),)))
+    IDot11AdHocInterface.IsRadioOn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(7, 'IsRadioOn', ((1, 'pfIsRadioOn'),)))
+    IDot11AdHocInterface.GetActiveNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head))(8, 'GetActiveNetwork', ((1, 'ppNetwork'),)))
+    IDot11AdHocInterface.GetIEnumSecuritySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head))(9, 'GetIEnumSecuritySettings', ((1, 'ppEnum'),)))
+    IDot11AdHocInterface.GetIEnumDot11AdHocNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head))(10, 'GetIEnumDot11AdHocNetworks', ((1, 'pFilterGuid'),(1, 'ppEnum'),)))
+    IDot11AdHocInterface.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS))(11, 'GetStatus', ((1, 'pState'),)))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocInterface
+def _define_IDot11AdHocInterfaceNotificationSink_head():
+    class IDot11AdHocInterfaceNotificationSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc2f-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocInterfaceNotificationSink
+def _define_IDot11AdHocInterfaceNotificationSink():
+    IDot11AdHocInterfaceNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocInterfaceNotificationSink_head
+    IDot11AdHocInterfaceNotificationSink.OnConnectionStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)(3, 'OnConnectionStatusChange', ((1, 'eStatus'),)))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocInterfaceNotificationSink
+def _define_IDot11AdHocManager_head():
+    class IDot11AdHocManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc26-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocManager
+def _define_IDot11AdHocManager():
+    IDot11AdHocManager = win32more.NetworkManagement.WiFi.IDot11AdHocManager_head
+    IDot11AdHocManager.CreateNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head,win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head))(3, 'CreateNetwork', ((1, 'Name'),(1, 'Password'),(1, 'GeographicalId'),(1, 'pInterface'),(1, 'pSecurity'),(1, 'pContextGuid'),(1, 'pIAdHoc'),)))
+    IDot11AdHocManager.CommitCreatedNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head,win32more.Foundation.BOOLEAN,win32more.Foundation.BOOLEAN)(4, 'CommitCreatedNetwork', ((1, 'pIAdHoc'),(1, 'fSaveProfile'),(1, 'fMakeSavedProfileUserSpecific'),)))
+    IDot11AdHocManager.GetIEnumDot11AdHocNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head))(5, 'GetIEnumDot11AdHocNetworks', ((1, 'pContextGuid'),(1, 'ppEnum'),)))
+    IDot11AdHocManager.GetIEnumDot11AdHocInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head))(6, 'GetIEnumDot11AdHocInterfaces', ((1, 'ppEnum'),)))
+    IDot11AdHocManager.GetNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head))(7, 'GetNetwork', ((1, 'NetworkSignature'),(1, 'pNetwork'),)))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocManager
+def _define_IDot11AdHocManagerNotificationSink_head():
+    class IDot11AdHocManagerNotificationSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc27-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocManagerNotificationSink
+def _define_IDot11AdHocManagerNotificationSink():
+    IDot11AdHocManagerNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocManagerNotificationSink_head
+    IDot11AdHocManagerNotificationSink.OnNetworkAdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head)(3, 'OnNetworkAdd', ((1, 'pIAdHocNetwork'),)))
+    IDot11AdHocManagerNotificationSink.OnNetworkRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(4, 'OnNetworkRemove', ((1, 'Signature'),)))
+    IDot11AdHocManagerNotificationSink.OnInterfaceAdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head)(5, 'OnInterfaceAdd', ((1, 'pIAdHocInterface'),)))
+    IDot11AdHocManagerNotificationSink.OnInterfaceRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(6, 'OnInterfaceRemove', ((1, 'Signature'),)))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocManagerNotificationSink
+def _define_IDot11AdHocNetwork_head():
+    class IDot11AdHocNetwork(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc29-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocNetwork
+def _define_IDot11AdHocNetwork():
+    IDot11AdHocNetwork = win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head
+    IDot11AdHocNetwork.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS))(3, 'GetStatus', ((1, 'eStatus'),)))
+    IDot11AdHocNetwork.GetSSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'GetSSID', ((1, 'ppszwSSID'),)))
+    IDot11AdHocNetwork.HasProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(5, 'HasProfile', ((1, 'pf11d'),)))
+    IDot11AdHocNetwork.GetProfileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'GetProfileName', ((1, 'ppszwProfileName'),)))
+    IDot11AdHocNetwork.DeleteProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'DeleteProfile', ()))
+    IDot11AdHocNetwork.GetSignalQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(8, 'GetSignalQuality', ((1, 'puStrengthValue'),(1, 'puStrengthMax'),)))
+    IDot11AdHocNetwork.GetSecuritySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head))(9, 'GetSecuritySetting', ((1, 'pAdHocSecuritySetting'),)))
+    IDot11AdHocNetwork.GetContextGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(10, 'GetContextGuid', ((1, 'pContextGuid'),)))
+    IDot11AdHocNetwork.GetSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(11, 'GetSignature', ((1, 'pSignature'),)))
+    IDot11AdHocNetwork.GetInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head))(12, 'GetInterface', ((1, 'pAdHocInterface'),)))
+    IDot11AdHocNetwork.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.BOOLEAN,win32more.Foundation.BOOLEAN)(13, 'Connect', ((1, 'Passphrase'),(1, 'GeographicalId'),(1, 'fSaveProfile'),(1, 'fMakeSavedProfileUserSpecific'),)))
+    IDot11AdHocNetwork.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'Disconnect', ()))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocNetwork
+def _define_IDot11AdHocNetworkNotificationSink_head():
+    class IDot11AdHocNetworkNotificationSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc2a-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocNetworkNotificationSink
+def _define_IDot11AdHocNetworkNotificationSink():
+    IDot11AdHocNetworkNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocNetworkNotificationSink_head
+    IDot11AdHocNetworkNotificationSink.OnStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)(3, 'OnStatusChange', ((1, 'eStatus'),)))
+    IDot11AdHocNetworkNotificationSink.OnConnectFail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON)(4, 'OnConnectFail', ((1, 'eFailReason'),)))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocNetworkNotificationSink
+def _define_IDot11AdHocSecuritySettings_head():
+    class IDot11AdHocSecuritySettings(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc2e-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IDot11AdHocSecuritySettings
+def _define_IDot11AdHocSecuritySettings():
+    IDot11AdHocSecuritySettings = win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head
+    IDot11AdHocSecuritySettings.GetDot11AuthAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM))(3, 'GetDot11AuthAlgorithm', ((1, 'pAuth'),)))
+    IDot11AdHocSecuritySettings.GetDot11CipherAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM))(4, 'GetDot11CipherAlgorithm', ((1, 'pCipher'),)))
+    win32more.System.Com.IUnknown
+    return IDot11AdHocSecuritySettings
+def _define_IEnumDot11AdHocInterfaces_head():
+    class IEnumDot11AdHocInterfaces(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc2c-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IEnumDot11AdHocInterfaces
+def _define_IEnumDot11AdHocInterfaces():
+    IEnumDot11AdHocInterfaces = win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head
+    IEnumDot11AdHocInterfaces.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head),POINTER(UInt32))(3, 'Next', ((1, 'cElt'),(1, 'rgElt'),(1, 'pcEltFetched'),)))
+    IEnumDot11AdHocInterfaces.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'cElt'),)))
+    IEnumDot11AdHocInterfaces.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumDot11AdHocInterfaces.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumDot11AdHocInterfaces
+def _define_IEnumDot11AdHocNetworks_head():
+    class IEnumDot11AdHocNetworks(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc28-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IEnumDot11AdHocNetworks
+def _define_IEnumDot11AdHocNetworks():
+    IEnumDot11AdHocNetworks = win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head
+    IEnumDot11AdHocNetworks.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head),POINTER(UInt32))(3, 'Next', ((1, 'cElt'),(1, 'rgElt'),(1, 'pcEltFetched'),)))
+    IEnumDot11AdHocNetworks.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'cElt'),)))
+    IEnumDot11AdHocNetworks.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumDot11AdHocNetworks.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumDot11AdHocNetworks
+def _define_IEnumDot11AdHocSecuritySettings_head():
+    class IEnumDot11AdHocSecuritySettings(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8f10cc2d-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    return IEnumDot11AdHocSecuritySettings
+def _define_IEnumDot11AdHocSecuritySettings():
+    IEnumDot11AdHocSecuritySettings = win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head
+    IEnumDot11AdHocSecuritySettings.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head),POINTER(UInt32))(3, 'Next', ((1, 'cElt'),(1, 'rgElt'),(1, 'pcEltFetched'),)))
+    IEnumDot11AdHocSecuritySettings.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'cElt'),)))
+    IEnumDot11AdHocSecuritySettings.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumDot11AdHocSecuritySettings.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head))(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumDot11AdHocSecuritySettings
 def _define_L2_NOTIFICATION_DATA_head():
     class L2_NOTIFICATION_DATA(Structure):
         pass
@@ -4016,194 +4920,211 @@ def _define_L2_NOTIFICATION_DATA_head():
 def _define_L2_NOTIFICATION_DATA():
     L2_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head
     L2_NOTIFICATION_DATA._fields_ = [
-        ("NotificationSource", UInt32),
-        ("NotificationCode", UInt32),
-        ("InterfaceGuid", Guid),
-        ("dwDataSize", UInt32),
-        ("pData", c_void_p),
+        ('NotificationSource', UInt32),
+        ('NotificationCode', UInt32),
+        ('InterfaceGuid', Guid),
+        ('dwDataSize', UInt32),
+        ('pData', c_void_p),
     ]
     return L2_NOTIFICATION_DATA
-def _define_WLAN_PROFILE_INFO_head():
-    class WLAN_PROFILE_INFO(Structure):
+ONEX_AUTH_IDENTITY = Int32
+ONEX_AUTH_IDENTITY_OneXAuthIdentityNone = 0
+ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine = 1
+ONEX_AUTH_IDENTITY_OneXAuthIdentityUser = 2
+ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser = 3
+ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest = 4
+ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid = 5
+def _define_ONEX_AUTH_PARAMS_head():
+    class ONEX_AUTH_PARAMS(Structure):
         pass
-    return WLAN_PROFILE_INFO
-def _define_WLAN_PROFILE_INFO():
-    WLAN_PROFILE_INFO = win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO_head
-    WLAN_PROFILE_INFO._fields_ = [
-        ("strProfileName", Char * 256),
-        ("dwFlags", UInt32),
+    return ONEX_AUTH_PARAMS
+def _define_ONEX_AUTH_PARAMS():
+    ONEX_AUTH_PARAMS = win32more.NetworkManagement.WiFi.ONEX_AUTH_PARAMS_head
+    ONEX_AUTH_PARAMS._fields_ = [
+        ('fUpdatePending', win32more.Foundation.BOOL),
+        ('oneXConnProfile', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('authIdentity', win32more.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY),
+        ('dwQuarantineState', UInt32),
+        ('_bitfield', UInt32),
+        ('dwSessionId', UInt32),
+        ('hUserToken', win32more.Foundation.HANDLE),
+        ('OneXUserProfile', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('Identity', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('UserName', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('Domain', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
     ]
-    return WLAN_PROFILE_INFO
-def _define_DOT11_NETWORK_head():
-    class DOT11_NETWORK(Structure):
+    return ONEX_AUTH_PARAMS
+ONEX_AUTH_RESTART_REASON = Int32
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated = 0
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated = 1
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout = 2
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout = 3
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged = 4
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged = 5
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged = 6
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial = 7
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid = 8
+ONEX_AUTH_STATUS = Int32
+ONEX_AUTH_STATUS_OneXAuthNotStarted = 0
+ONEX_AUTH_STATUS_OneXAuthInProgress = 1
+ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound = 2
+ONEX_AUTH_STATUS_OneXAuthSuccess = 3
+ONEX_AUTH_STATUS_OneXAuthFailure = 4
+ONEX_AUTH_STATUS_OneXAuthInvalid = 5
+def _define_ONEX_EAP_ERROR_head():
+    class ONEX_EAP_ERROR(Structure):
         pass
-    return DOT11_NETWORK
-def _define_DOT11_NETWORK():
-    DOT11_NETWORK = win32more.NetworkManagement.WiFi.DOT11_NETWORK_head
-    DOT11_NETWORK._fields_ = [
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+    return ONEX_EAP_ERROR
+def _define_ONEX_EAP_ERROR():
+    ONEX_EAP_ERROR = win32more.NetworkManagement.WiFi.ONEX_EAP_ERROR_head
+    ONEX_EAP_ERROR._fields_ = [
+        ('dwWinError', UInt32),
+        ('type', win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE),
+        ('dwReasonCode', UInt32),
+        ('rootCauseGuid', Guid),
+        ('repairGuid', Guid),
+        ('helpLinkGuid', Guid),
+        ('_bitfield', UInt32),
+        ('RootCauseString', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('RepairString', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
     ]
-    return DOT11_NETWORK
-def _define_WLAN_RAW_DATA_head():
-    class WLAN_RAW_DATA(Structure):
+    return ONEX_EAP_ERROR
+ONEX_EAP_METHOD_BACKEND_SUPPORT = Int32
+ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown = 0
+ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported = 1
+ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported = 2
+ONEX_NOTIFICATION_TYPE = Int32
+ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase = 0
+ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate = 1
+ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted = 2
+ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid = 3
+ONEX_NOTIFICATION_TYPE_OneXNumNotifications = 3
+ONEX_REASON_CODE = Int32
+ONEX_REASON_CODE_SUCCESS = 0
+ONEX_REASON_START = 327680
+ONEX_UNABLE_TO_IDENTIFY_USER = 327681
+ONEX_IDENTITY_NOT_FOUND = 327682
+ONEX_UI_DISABLED = 327683
+ONEX_UI_FAILURE = 327684
+ONEX_EAP_FAILURE_RECEIVED = 327685
+ONEX_AUTHENTICATOR_NO_LONGER_PRESENT = 327686
+ONEX_NO_RESPONSE_TO_IDENTITY = 327687
+ONEX_PROFILE_VERSION_NOT_SUPPORTED = 327688
+ONEX_PROFILE_INVALID_LENGTH = 327689
+ONEX_PROFILE_DISALLOWED_EAP_TYPE = 327690
+ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG = 327691
+ONEX_PROFILE_INVALID_ONEX_FLAGS = 327692
+ONEX_PROFILE_INVALID_TIMER_VALUE = 327693
+ONEX_PROFILE_INVALID_SUPPLICANT_MODE = 327694
+ONEX_PROFILE_INVALID_AUTH_MODE = 327695
+ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES = 327696
+ONEX_UI_CANCELLED = 327697
+ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS = 327698
+ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS = 327699
+ONEX_UI_NOT_PERMITTED = 327700
+def _define_ONEX_RESULT_UPDATE_DATA_head():
+    class ONEX_RESULT_UPDATE_DATA(Structure):
         pass
-    return WLAN_RAW_DATA
-def _define_WLAN_RAW_DATA():
-    WLAN_RAW_DATA = win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_head
-    WLAN_RAW_DATA._fields_ = [
-        ("dwDataSize", UInt32),
-        ("DataBlob", Byte * 0),
+    return ONEX_RESULT_UPDATE_DATA
+def _define_ONEX_RESULT_UPDATE_DATA():
+    ONEX_RESULT_UPDATE_DATA = win32more.NetworkManagement.WiFi.ONEX_RESULT_UPDATE_DATA_head
+    ONEX_RESULT_UPDATE_DATA._fields_ = [
+        ('oneXStatus', win32more.NetworkManagement.WiFi.ONEX_STATUS),
+        ('BackendSupport', win32more.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT),
+        ('fBackendEngaged', win32more.Foundation.BOOL),
+        ('_bitfield', UInt32),
+        ('authParams', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('eapError', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
     ]
-    return WLAN_RAW_DATA
-def _define_WLAN_RAW_DATA_LIST_head():
-    class WLAN_RAW_DATA_LIST(Structure):
+    return ONEX_RESULT_UPDATE_DATA
+def _define_ONEX_STATUS_head():
+    class ONEX_STATUS(Structure):
         pass
-    return WLAN_RAW_DATA_LIST
-def _define_WLAN_RAW_DATA_LIST():
-    WLAN_RAW_DATA_LIST = win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head
-    class WLAN_RAW_DATA_LIST__Anonymous_e__Struct(Structure):
+    return ONEX_STATUS
+def _define_ONEX_STATUS():
+    ONEX_STATUS = win32more.NetworkManagement.WiFi.ONEX_STATUS_head
+    ONEX_STATUS._fields_ = [
+        ('authStatus', win32more.NetworkManagement.WiFi.ONEX_AUTH_STATUS),
+        ('dwReason', UInt32),
+        ('dwError', UInt32),
+    ]
+    return ONEX_STATUS
+def _define_ONEX_USER_INFO_head():
+    class ONEX_USER_INFO(Structure):
         pass
-    WLAN_RAW_DATA_LIST__Anonymous_e__Struct._fields_ = [
-        ("dwDataOffset", UInt32),
-        ("dwDataSize", UInt32),
+    return ONEX_USER_INFO
+def _define_ONEX_USER_INFO():
+    ONEX_USER_INFO = win32more.NetworkManagement.WiFi.ONEX_USER_INFO_head
+    ONEX_USER_INFO._fields_ = [
+        ('authIdentity', win32more.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY),
+        ('_bitfield', UInt32),
+        ('UserName', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+        ('DomainName', win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
     ]
-    WLAN_RAW_DATA_LIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNumberOfItems", UInt32),
-        ("DataList", WLAN_RAW_DATA_LIST__Anonymous_e__Struct * 0),
-    ]
-    return WLAN_RAW_DATA_LIST
-WLAN_CONNECTION_MODE = Int32
-wlan_connection_mode_profile = 0
-wlan_connection_mode_temporary_profile = 1
-wlan_connection_mode_discovery_secure = 2
-wlan_connection_mode_discovery_unsecure = 3
-wlan_connection_mode_auto = 4
-wlan_connection_mode_invalid = 5
-def _define_WLAN_RATE_SET_head():
-    class WLAN_RATE_SET(Structure):
+    return ONEX_USER_INFO
+def _define_ONEX_VARIABLE_BLOB_head():
+    class ONEX_VARIABLE_BLOB(Structure):
         pass
-    return WLAN_RATE_SET
-def _define_WLAN_RATE_SET():
-    WLAN_RATE_SET = win32more.NetworkManagement.WiFi.WLAN_RATE_SET_head
-    WLAN_RATE_SET._fields_ = [
-        ("uRateSetLength", UInt32),
-        ("usRateSet", UInt16 * 126),
+    return ONEX_VARIABLE_BLOB
+def _define_ONEX_VARIABLE_BLOB():
+    ONEX_VARIABLE_BLOB = win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB_head
+    ONEX_VARIABLE_BLOB._fields_ = [
+        ('dwSize', UInt32),
+        ('dwOffset', UInt32),
     ]
-    return WLAN_RATE_SET
-def _define_WLAN_AVAILABLE_NETWORK_head():
-    class WLAN_AVAILABLE_NETWORK(Structure):
+    return ONEX_VARIABLE_BLOB
+def _define_WDIAG_IHV_WLAN_ID_head():
+    class WDIAG_IHV_WLAN_ID(Structure):
         pass
-    return WLAN_AVAILABLE_NETWORK
-def _define_WLAN_AVAILABLE_NETWORK():
-    WLAN_AVAILABLE_NETWORK = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_head
-    WLAN_AVAILABLE_NETWORK._fields_ = [
-        ("strProfileName", Char * 256),
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("uNumberOfBssids", UInt32),
-        ("bNetworkConnectable", win32more.Foundation.BOOL),
-        ("wlanNotConnectableReason", UInt32),
-        ("uNumberOfPhyTypes", UInt32),
-        ("dot11PhyTypes", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 8),
-        ("bMorePhyTypes", win32more.Foundation.BOOL),
-        ("wlanSignalQuality", UInt32),
-        ("bSecurityEnabled", win32more.Foundation.BOOL),
-        ("dot11DefaultAuthAlgorithm", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("dot11DefaultCipherAlgorithm", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("dwFlags", UInt32),
-        ("dwReserved", UInt32),
+    return WDIAG_IHV_WLAN_ID
+def _define_WDIAG_IHV_WLAN_ID():
+    WDIAG_IHV_WLAN_ID = win32more.NetworkManagement.WiFi.WDIAG_IHV_WLAN_ID_head
+    WDIAG_IHV_WLAN_ID._fields_ = [
+        ('strProfileName', Char * 256),
+        ('Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dwFlags', UInt32),
+        ('dwReasonCode', UInt32),
     ]
-    return WLAN_AVAILABLE_NETWORK
-def _define_WLAN_AVAILABLE_NETWORK_V2_head():
-    class WLAN_AVAILABLE_NETWORK_V2(Structure):
+    return WDIAG_IHV_WLAN_ID
+def _define_WFD_GROUP_ID_head():
+    class WFD_GROUP_ID(Structure):
         pass
-    return WLAN_AVAILABLE_NETWORK_V2
-def _define_WLAN_AVAILABLE_NETWORK_V2():
-    WLAN_AVAILABLE_NETWORK_V2 = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_V2_head
-    WLAN_AVAILABLE_NETWORK_V2._fields_ = [
-        ("strProfileName", Char * 256),
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("uNumberOfBssids", UInt32),
-        ("bNetworkConnectable", win32more.Foundation.BOOL),
-        ("wlanNotConnectableReason", UInt32),
-        ("uNumberOfPhyTypes", UInt32),
-        ("dot11PhyTypes", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 8),
-        ("bMorePhyTypes", win32more.Foundation.BOOL),
-        ("wlanSignalQuality", UInt32),
-        ("bSecurityEnabled", win32more.Foundation.BOOL),
-        ("dot11DefaultAuthAlgorithm", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("dot11DefaultCipherAlgorithm", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-        ("dwFlags", UInt32),
-        ("AccessNetworkOptions", win32more.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS),
-        ("dot11HESSID", Byte * 6),
-        ("VenueInfo", win32more.NetworkManagement.WiFi.DOT11_VENUEINFO),
-        ("dwReserved", UInt32),
+    return WFD_GROUP_ID
+def _define_WFD_GROUP_ID():
+    WFD_GROUP_ID = win32more.NetworkManagement.WiFi.WFD_GROUP_ID_head
+    WFD_GROUP_ID._fields_ = [
+        ('DeviceAddress', Byte * 6),
+        ('GroupSSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
     ]
-    return WLAN_AVAILABLE_NETWORK_V2
-def _define_WLAN_BSS_ENTRY_head():
-    class WLAN_BSS_ENTRY(Structure):
+    return WFD_GROUP_ID
+def _define_WFD_OPEN_SESSION_COMPLETE_CALLBACK():
+    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE,c_void_p,Guid,UInt32,UInt32)
+WFD_ROLE_TYPE = Int32
+WFD_ROLE_TYPE_NONE = 0
+WFD_ROLE_TYPE_DEVICE = 1
+WFD_ROLE_TYPE_GROUP_OWNER = 2
+WFD_ROLE_TYPE_CLIENT = 4
+WFD_ROLE_TYPE_MAX = 5
+def _define_WFDSVC_CONNECTION_CAPABILITY_head():
+    class WFDSVC_CONNECTION_CAPABILITY(Structure):
         pass
-    return WLAN_BSS_ENTRY
-def _define_WLAN_BSS_ENTRY():
-    WLAN_BSS_ENTRY = win32more.NetworkManagement.WiFi.WLAN_BSS_ENTRY_head
-    WLAN_BSS_ENTRY._fields_ = [
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("uPhyId", UInt32),
-        ("dot11Bssid", Byte * 6),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dot11BssPhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("lRssi", Int32),
-        ("uLinkQuality", UInt32),
-        ("bInRegDomain", win32more.Foundation.BOOLEAN),
-        ("usBeaconPeriod", UInt16),
-        ("ullTimestamp", UInt64),
-        ("ullHostTimestamp", UInt64),
-        ("usCapabilityInformation", UInt16),
-        ("ulChCenterFrequency", UInt32),
-        ("wlanRateSet", win32more.NetworkManagement.WiFi.WLAN_RATE_SET),
-        ("ulIeOffset", UInt32),
-        ("ulIeSize", UInt32),
+    return WFDSVC_CONNECTION_CAPABILITY
+def _define_WFDSVC_CONNECTION_CAPABILITY():
+    WFDSVC_CONNECTION_CAPABILITY = win32more.NetworkManagement.WiFi.WFDSVC_CONNECTION_CAPABILITY_head
+    WFDSVC_CONNECTION_CAPABILITY._fields_ = [
+        ('bNew', win32more.Foundation.BOOLEAN),
+        ('bClient', win32more.Foundation.BOOLEAN),
+        ('bGO', win32more.Foundation.BOOLEAN),
     ]
-    return WLAN_BSS_ENTRY
-def _define_WLAN_BSS_LIST_head():
-    class WLAN_BSS_LIST(Structure):
-        pass
-    return WLAN_BSS_LIST
-def _define_WLAN_BSS_LIST():
-    WLAN_BSS_LIST = win32more.NetworkManagement.WiFi.WLAN_BSS_LIST_head
-    WLAN_BSS_LIST._fields_ = [
-        ("dwTotalSize", UInt32),
-        ("dwNumberOfItems", UInt32),
-        ("wlanBssEntries", win32more.NetworkManagement.WiFi.WLAN_BSS_ENTRY * 0),
-    ]
-    return WLAN_BSS_LIST
-WLAN_INTERFACE_STATE = Int32
-wlan_interface_state_not_ready = 0
-wlan_interface_state_connected = 1
-wlan_interface_state_ad_hoc_network_formed = 2
-wlan_interface_state_disconnecting = 3
-wlan_interface_state_disconnected = 4
-wlan_interface_state_associating = 5
-wlan_interface_state_discovering = 6
-wlan_interface_state_authenticating = 7
+    return WFDSVC_CONNECTION_CAPABILITY
+WL_DISPLAY_PAGES = Int32
+WL_DISPLAY_PAGES_WLConnectionPage = 0
+WL_DISPLAY_PAGES_WLSecurityPage = 1
+WL_DISPLAY_PAGES_WLAdvPage = 2
 WLAN_ADHOC_NETWORK_STATE = Int32
 wlan_adhoc_network_state_formed = 0
 wlan_adhoc_network_state_connected = 1
-def _define_WLAN_INTERFACE_INFO_head():
-    class WLAN_INTERFACE_INFO(Structure):
-        pass
-    return WLAN_INTERFACE_INFO
-def _define_WLAN_INTERFACE_INFO():
-    WLAN_INTERFACE_INFO = win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_head
-    WLAN_INTERFACE_INFO._fields_ = [
-        ("InterfaceGuid", Guid),
-        ("strInterfaceDescription", Char * 256),
-        ("isState", win32more.NetworkManagement.WiFi.WLAN_INTERFACE_STATE),
-    ]
-    return WLAN_INTERFACE_INFO
 def _define_WLAN_ASSOCIATION_ATTRIBUTES_head():
     class WLAN_ASSOCIATION_ATTRIBUTES(Structure):
         pass
@@ -4211,95 +5132,16 @@ def _define_WLAN_ASSOCIATION_ATTRIBUTES_head():
 def _define_WLAN_ASSOCIATION_ATTRIBUTES():
     WLAN_ASSOCIATION_ATTRIBUTES = win32more.NetworkManagement.WiFi.WLAN_ASSOCIATION_ATTRIBUTES_head
     WLAN_ASSOCIATION_ATTRIBUTES._fields_ = [
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dot11Bssid", Byte * 6),
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("uDot11PhyIndex", UInt32),
-        ("wlanSignalQuality", UInt32),
-        ("ulRxRate", UInt32),
-        ("ulTxRate", UInt32),
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dot11Bssid', Byte * 6),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('uDot11PhyIndex', UInt32),
+        ('wlanSignalQuality', UInt32),
+        ('ulRxRate', UInt32),
+        ('ulTxRate', UInt32),
     ]
     return WLAN_ASSOCIATION_ATTRIBUTES
-def _define_WLAN_SECURITY_ATTRIBUTES_head():
-    class WLAN_SECURITY_ATTRIBUTES(Structure):
-        pass
-    return WLAN_SECURITY_ATTRIBUTES
-def _define_WLAN_SECURITY_ATTRIBUTES():
-    WLAN_SECURITY_ATTRIBUTES = win32more.NetworkManagement.WiFi.WLAN_SECURITY_ATTRIBUTES_head
-    WLAN_SECURITY_ATTRIBUTES._fields_ = [
-        ("bSecurityEnabled", win32more.Foundation.BOOL),
-        ("bOneXEnabled", win32more.Foundation.BOOL),
-        ("dot11AuthAlgorithm", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("dot11CipherAlgorithm", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
-    ]
-    return WLAN_SECURITY_ATTRIBUTES
-def _define_WLAN_CONNECTION_ATTRIBUTES_head():
-    class WLAN_CONNECTION_ATTRIBUTES(Structure):
-        pass
-    return WLAN_CONNECTION_ATTRIBUTES
-def _define_WLAN_CONNECTION_ATTRIBUTES():
-    WLAN_CONNECTION_ATTRIBUTES = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_ATTRIBUTES_head
-    WLAN_CONNECTION_ATTRIBUTES._fields_ = [
-        ("isState", win32more.NetworkManagement.WiFi.WLAN_INTERFACE_STATE),
-        ("wlanConnectionMode", win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
-        ("strProfileName", Char * 256),
-        ("wlanAssociationAttributes", win32more.NetworkManagement.WiFi.WLAN_ASSOCIATION_ATTRIBUTES),
-        ("wlanSecurityAttributes", win32more.NetworkManagement.WiFi.WLAN_SECURITY_ATTRIBUTES),
-    ]
-    return WLAN_CONNECTION_ATTRIBUTES
-DOT11_RADIO_STATE = Int32
-dot11_radio_state_unknown = 0
-dot11_radio_state_on = 1
-dot11_radio_state_off = 2
-def _define_WLAN_PHY_RADIO_STATE_head():
-    class WLAN_PHY_RADIO_STATE(Structure):
-        pass
-    return WLAN_PHY_RADIO_STATE
-def _define_WLAN_PHY_RADIO_STATE():
-    WLAN_PHY_RADIO_STATE = win32more.NetworkManagement.WiFi.WLAN_PHY_RADIO_STATE_head
-    WLAN_PHY_RADIO_STATE._fields_ = [
-        ("dwPhyIndex", UInt32),
-        ("dot11SoftwareRadioState", win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
-        ("dot11HardwareRadioState", win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
-    ]
-    return WLAN_PHY_RADIO_STATE
-def _define_WLAN_RADIO_STATE_head():
-    class WLAN_RADIO_STATE(Structure):
-        pass
-    return WLAN_RADIO_STATE
-def _define_WLAN_RADIO_STATE():
-    WLAN_RADIO_STATE = win32more.NetworkManagement.WiFi.WLAN_RADIO_STATE_head
-    WLAN_RADIO_STATE._fields_ = [
-        ("dwNumberOfPhys", UInt32),
-        ("PhyRadioState", win32more.NetworkManagement.WiFi.WLAN_PHY_RADIO_STATE * 64),
-    ]
-    return WLAN_RADIO_STATE
-WLAN_OPERATIONAL_STATE = Int32
-wlan_operational_state_unknown = 0
-wlan_operational_state_off = 1
-wlan_operational_state_on = 2
-wlan_operational_state_going_off = 3
-wlan_operational_state_going_on = 4
-WLAN_INTERFACE_TYPE = Int32
-wlan_interface_type_emulated_802_11 = 0
-wlan_interface_type_native_802_11 = 1
-wlan_interface_type_invalid = 2
-def _define_WLAN_INTERFACE_CAPABILITY_head():
-    class WLAN_INTERFACE_CAPABILITY(Structure):
-        pass
-    return WLAN_INTERFACE_CAPABILITY
-def _define_WLAN_INTERFACE_CAPABILITY():
-    WLAN_INTERFACE_CAPABILITY = win32more.NetworkManagement.WiFi.WLAN_INTERFACE_CAPABILITY_head
-    WLAN_INTERFACE_CAPABILITY._fields_ = [
-        ("interfaceType", win32more.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE),
-        ("bDot11DSupported", win32more.Foundation.BOOL),
-        ("dwMaxDesiredSsidListSize", UInt32),
-        ("dwMaxDesiredBssidListSize", UInt32),
-        ("dwNumberOfSupportedPhys", UInt32),
-        ("dot11PhyTypes", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 64),
-    ]
-    return WLAN_INTERFACE_CAPABILITY
 def _define_WLAN_AUTH_CIPHER_PAIR_LIST_head():
     class WLAN_AUTH_CIPHER_PAIR_LIST(Structure):
         pass
@@ -4307,255 +5149,10 @@ def _define_WLAN_AUTH_CIPHER_PAIR_LIST_head():
 def _define_WLAN_AUTH_CIPHER_PAIR_LIST():
     WLAN_AUTH_CIPHER_PAIR_LIST = win32more.NetworkManagement.WiFi.WLAN_AUTH_CIPHER_PAIR_LIST_head
     WLAN_AUTH_CIPHER_PAIR_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("pAuthCipherPairList", win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 0),
+        ('dwNumberOfItems', UInt32),
+        ('pAuthCipherPairList', win32more.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 1),
     ]
     return WLAN_AUTH_CIPHER_PAIR_LIST
-def _define_WLAN_COUNTRY_OR_REGION_STRING_LIST_head():
-    class WLAN_COUNTRY_OR_REGION_STRING_LIST(Structure):
-        pass
-    return WLAN_COUNTRY_OR_REGION_STRING_LIST
-def _define_WLAN_COUNTRY_OR_REGION_STRING_LIST():
-    WLAN_COUNTRY_OR_REGION_STRING_LIST = win32more.NetworkManagement.WiFi.WLAN_COUNTRY_OR_REGION_STRING_LIST_head
-    WLAN_COUNTRY_OR_REGION_STRING_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("pCountryOrRegionStringList", Byte * 3),
-    ]
-    return WLAN_COUNTRY_OR_REGION_STRING_LIST
-def _define_WLAN_PROFILE_INFO_LIST_head():
-    class WLAN_PROFILE_INFO_LIST(Structure):
-        pass
-    return WLAN_PROFILE_INFO_LIST
-def _define_WLAN_PROFILE_INFO_LIST():
-    WLAN_PROFILE_INFO_LIST = win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO_LIST_head
-    WLAN_PROFILE_INFO_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("dwIndex", UInt32),
-        ("ProfileInfo", win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO * 0),
-    ]
-    return WLAN_PROFILE_INFO_LIST
-def _define_WLAN_AVAILABLE_NETWORK_LIST_head():
-    class WLAN_AVAILABLE_NETWORK_LIST(Structure):
-        pass
-    return WLAN_AVAILABLE_NETWORK_LIST
-def _define_WLAN_AVAILABLE_NETWORK_LIST():
-    WLAN_AVAILABLE_NETWORK_LIST = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_head
-    WLAN_AVAILABLE_NETWORK_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("dwIndex", UInt32),
-        ("Network", win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK * 0),
-    ]
-    return WLAN_AVAILABLE_NETWORK_LIST
-def _define_WLAN_AVAILABLE_NETWORK_LIST_V2_head():
-    class WLAN_AVAILABLE_NETWORK_LIST_V2(Structure):
-        pass
-    return WLAN_AVAILABLE_NETWORK_LIST_V2
-def _define_WLAN_AVAILABLE_NETWORK_LIST_V2():
-    WLAN_AVAILABLE_NETWORK_LIST_V2 = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_V2_head
-    WLAN_AVAILABLE_NETWORK_LIST_V2._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("dwIndex", UInt32),
-        ("Network", win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_V2 * 0),
-    ]
-    return WLAN_AVAILABLE_NETWORK_LIST_V2
-def _define_WLAN_INTERFACE_INFO_LIST_head():
-    class WLAN_INTERFACE_INFO_LIST(Structure):
-        pass
-    return WLAN_INTERFACE_INFO_LIST
-def _define_WLAN_INTERFACE_INFO_LIST():
-    WLAN_INTERFACE_INFO_LIST = win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_LIST_head
-    WLAN_INTERFACE_INFO_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("dwIndex", UInt32),
-        ("InterfaceInfo", win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO * 0),
-    ]
-    return WLAN_INTERFACE_INFO_LIST
-def _define_DOT11_NETWORK_LIST_head():
-    class DOT11_NETWORK_LIST(Structure):
-        pass
-    return DOT11_NETWORK_LIST
-def _define_DOT11_NETWORK_LIST():
-    DOT11_NETWORK_LIST = win32more.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head
-    DOT11_NETWORK_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("dwIndex", UInt32),
-        ("Network", win32more.NetworkManagement.WiFi.DOT11_NETWORK * 0),
-    ]
-    return DOT11_NETWORK_LIST
-WLAN_POWER_SETTING = Int32
-wlan_power_setting_no_saving = 0
-wlan_power_setting_low_saving = 1
-wlan_power_setting_medium_saving = 2
-wlan_power_setting_maximum_saving = 3
-wlan_power_setting_invalid = 4
-def _define_WLAN_CONNECTION_PARAMETERS_head():
-    class WLAN_CONNECTION_PARAMETERS(Structure):
-        pass
-    return WLAN_CONNECTION_PARAMETERS
-def _define_WLAN_CONNECTION_PARAMETERS():
-    WLAN_CONNECTION_PARAMETERS = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_head
-    WLAN_CONNECTION_PARAMETERS._fields_ = [
-        ("wlanConnectionMode", win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
-        ("strProfile", win32more.Foundation.PWSTR),
-        ("pDot11Ssid", POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head)),
-        ("pDesiredBssidList", POINTER(win32more.NetworkManagement.WiFi.DOT11_BSSID_LIST_head)),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dwFlags", UInt32),
-    ]
-    return WLAN_CONNECTION_PARAMETERS
-def _define_WLAN_CONNECTION_PARAMETERS_V2_head():
-    class WLAN_CONNECTION_PARAMETERS_V2(Structure):
-        pass
-    return WLAN_CONNECTION_PARAMETERS_V2
-def _define_WLAN_CONNECTION_PARAMETERS_V2():
-    WLAN_CONNECTION_PARAMETERS_V2 = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_V2_head
-    WLAN_CONNECTION_PARAMETERS_V2._fields_ = [
-        ("wlanConnectionMode", win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
-        ("strProfile", win32more.Foundation.PWSTR),
-        ("pDot11Ssid", POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head)),
-        ("pDot11Hessid", c_char_p_no),
-        ("pDesiredBssidList", POINTER(win32more.NetworkManagement.WiFi.DOT11_BSSID_LIST_head)),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dwFlags", UInt32),
-        ("pDot11AccessNetworkOptions", POINTER(win32more.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS_head)),
-    ]
-    return WLAN_CONNECTION_PARAMETERS_V2
-def _define_WLAN_MSM_NOTIFICATION_DATA_head():
-    class WLAN_MSM_NOTIFICATION_DATA(Structure):
-        pass
-    return WLAN_MSM_NOTIFICATION_DATA
-def _define_WLAN_MSM_NOTIFICATION_DATA():
-    WLAN_MSM_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.WLAN_MSM_NOTIFICATION_DATA_head
-    WLAN_MSM_NOTIFICATION_DATA._fields_ = [
-        ("wlanConnectionMode", win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
-        ("strProfileName", Char * 256),
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("dot11MacAddr", Byte * 6),
-        ("bSecurityEnabled", win32more.Foundation.BOOL),
-        ("bFirstPeer", win32more.Foundation.BOOL),
-        ("bLastPeer", win32more.Foundation.BOOL),
-        ("wlanReasonCode", UInt32),
-    ]
-    return WLAN_MSM_NOTIFICATION_DATA
-def _define_WLAN_CONNECTION_NOTIFICATION_DATA_head():
-    class WLAN_CONNECTION_NOTIFICATION_DATA(Structure):
-        pass
-    return WLAN_CONNECTION_NOTIFICATION_DATA
-def _define_WLAN_CONNECTION_NOTIFICATION_DATA():
-    WLAN_CONNECTION_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_DATA_head
-    WLAN_CONNECTION_NOTIFICATION_DATA._fields_ = [
-        ("wlanConnectionMode", win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
-        ("strProfileName", Char * 256),
-        ("dot11Ssid", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dot11BssType", win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
-        ("bSecurityEnabled", win32more.Foundation.BOOL),
-        ("wlanReasonCode", UInt32),
-        ("dwFlags", win32more.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS),
-        ("strProfileXml", Char * 0),
-    ]
-    return WLAN_CONNECTION_NOTIFICATION_DATA
-def _define_WLAN_DEVICE_SERVICE_NOTIFICATION_DATA_head():
-    class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA(Structure):
-        pass
-    return WLAN_DEVICE_SERVICE_NOTIFICATION_DATA
-def _define_WLAN_DEVICE_SERVICE_NOTIFICATION_DATA():
-    WLAN_DEVICE_SERVICE_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_NOTIFICATION_DATA_head
-    WLAN_DEVICE_SERVICE_NOTIFICATION_DATA._fields_ = [
-        ("DeviceService", Guid),
-        ("dwOpCode", UInt32),
-        ("dwDataSize", UInt32),
-        ("DataBlob", Byte * 0),
-    ]
-    return WLAN_DEVICE_SERVICE_NOTIFICATION_DATA
-WLAN_NOTIFICATION_ACM = Int32
-wlan_notification_acm_start = 0
-wlan_notification_acm_autoconf_enabled = 1
-wlan_notification_acm_autoconf_disabled = 2
-wlan_notification_acm_background_scan_enabled = 3
-wlan_notification_acm_background_scan_disabled = 4
-wlan_notification_acm_bss_type_change = 5
-wlan_notification_acm_power_setting_change = 6
-wlan_notification_acm_scan_complete = 7
-wlan_notification_acm_scan_fail = 8
-wlan_notification_acm_connection_start = 9
-wlan_notification_acm_connection_complete = 10
-wlan_notification_acm_connection_attempt_fail = 11
-wlan_notification_acm_filter_list_change = 12
-wlan_notification_acm_interface_arrival = 13
-wlan_notification_acm_interface_removal = 14
-wlan_notification_acm_profile_change = 15
-wlan_notification_acm_profile_name_change = 16
-wlan_notification_acm_profiles_exhausted = 17
-wlan_notification_acm_network_not_available = 18
-wlan_notification_acm_network_available = 19
-wlan_notification_acm_disconnecting = 20
-wlan_notification_acm_disconnected = 21
-wlan_notification_acm_adhoc_network_state_change = 22
-wlan_notification_acm_profile_unblocked = 23
-wlan_notification_acm_screen_power_change = 24
-wlan_notification_acm_profile_blocked = 25
-wlan_notification_acm_scan_list_refresh = 26
-wlan_notification_acm_operational_state_change = 27
-wlan_notification_acm_end = 28
-WLAN_NOTIFICATION_MSM = Int32
-wlan_notification_msm_start = 0
-wlan_notification_msm_associating = 1
-wlan_notification_msm_associated = 2
-wlan_notification_msm_authenticating = 3
-wlan_notification_msm_connected = 4
-wlan_notification_msm_roaming_start = 5
-wlan_notification_msm_roaming_end = 6
-wlan_notification_msm_radio_state_change = 7
-wlan_notification_msm_signal_quality_change = 8
-wlan_notification_msm_disassociating = 9
-wlan_notification_msm_disconnected = 10
-wlan_notification_msm_peer_join = 11
-wlan_notification_msm_peer_leave = 12
-wlan_notification_msm_adapter_removal = 13
-wlan_notification_msm_adapter_operation_mode_change = 14
-wlan_notification_msm_link_degraded = 15
-wlan_notification_msm_link_improved = 16
-wlan_notification_msm_end = 17
-WLAN_NOTIFICATION_SECURITY = Int32
-wlan_notification_security_start = 0
-wlan_notification_security_end = 1
-def _define_WLAN_NOTIFICATION_CALLBACK():
-    return CFUNCTYPE(Void,POINTER(win32more.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head),c_void_p, use_last_error=False)
-WLAN_OPCODE_VALUE_TYPE = Int32
-wlan_opcode_value_type_query_only = 0
-wlan_opcode_value_type_set_by_group_policy = 1
-wlan_opcode_value_type_set_by_user = 2
-wlan_opcode_value_type_invalid = 3
-WLAN_INTF_OPCODE = Int32
-wlan_intf_opcode_autoconf_start = 0
-wlan_intf_opcode_autoconf_enabled = 1
-wlan_intf_opcode_background_scan_enabled = 2
-wlan_intf_opcode_media_streaming_mode = 3
-wlan_intf_opcode_radio_state = 4
-wlan_intf_opcode_bss_type = 5
-wlan_intf_opcode_interface_state = 6
-wlan_intf_opcode_current_connection = 7
-wlan_intf_opcode_channel_number = 8
-wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs = 9
-wlan_intf_opcode_supported_adhoc_auth_cipher_pairs = 10
-wlan_intf_opcode_supported_country_or_region_string_list = 11
-wlan_intf_opcode_current_operation_mode = 12
-wlan_intf_opcode_supported_safe_mode = 13
-wlan_intf_opcode_certified_safe_mode = 14
-wlan_intf_opcode_hosted_network_capable = 15
-wlan_intf_opcode_management_frame_protection_capable = 16
-wlan_intf_opcode_secondary_sta_interfaces = 17
-wlan_intf_opcode_secondary_sta_synchronized_connections = 18
-wlan_intf_opcode_autoconf_end = 268435455
-wlan_intf_opcode_msm_start = 268435712
-wlan_intf_opcode_statistics = 268435713
-wlan_intf_opcode_rssi = 268435714
-wlan_intf_opcode_msm_end = 536870911
-wlan_intf_opcode_security_start = 536936448
-wlan_intf_opcode_security_end = 805306367
-wlan_intf_opcode_ihv_start = 805306368
-wlan_intf_opcode_ihv_end = 1073741823
 WLAN_AUTOCONF_OPCODE = Int32
 wlan_autoconf_opcode_start = 0
 wlan_autoconf_opcode_show_denied_networks = 1
@@ -4565,97 +5162,202 @@ wlan_autoconf_opcode_allow_explicit_creds = 4
 wlan_autoconf_opcode_block_period = 5
 wlan_autoconf_opcode_allow_virtual_station_extensibility = 6
 wlan_autoconf_opcode_end = 7
-WLAN_IHV_CONTROL_TYPE = Int32
-wlan_ihv_control_type_service = 0
-wlan_ihv_control_type_driver = 1
-WLAN_FILTER_LIST_TYPE = Int32
-wlan_filter_list_type_gp_permit = 0
-wlan_filter_list_type_gp_deny = 1
-wlan_filter_list_type_user_permit = 2
-wlan_filter_list_type_user_deny = 3
-def _define_WLAN_PHY_FRAME_STATISTICS_head():
-    class WLAN_PHY_FRAME_STATISTICS(Structure):
+def _define_WLAN_AVAILABLE_NETWORK_head():
+    class WLAN_AVAILABLE_NETWORK(Structure):
         pass
-    return WLAN_PHY_FRAME_STATISTICS
-def _define_WLAN_PHY_FRAME_STATISTICS():
-    WLAN_PHY_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS_head
-    WLAN_PHY_FRAME_STATISTICS._fields_ = [
-        ("ullTransmittedFrameCount", UInt64),
-        ("ullMulticastTransmittedFrameCount", UInt64),
-        ("ullFailedCount", UInt64),
-        ("ullRetryCount", UInt64),
-        ("ullMultipleRetryCount", UInt64),
-        ("ullMaxTXLifetimeExceededCount", UInt64),
-        ("ullTransmittedFragmentCount", UInt64),
-        ("ullRTSSuccessCount", UInt64),
-        ("ullRTSFailureCount", UInt64),
-        ("ullACKFailureCount", UInt64),
-        ("ullReceivedFrameCount", UInt64),
-        ("ullMulticastReceivedFrameCount", UInt64),
-        ("ullPromiscuousReceivedFrameCount", UInt64),
-        ("ullMaxRXLifetimeExceededCount", UInt64),
-        ("ullFrameDuplicateCount", UInt64),
-        ("ullReceivedFragmentCount", UInt64),
-        ("ullPromiscuousReceivedFragmentCount", UInt64),
-        ("ullFCSErrorCount", UInt64),
+    return WLAN_AVAILABLE_NETWORK
+def _define_WLAN_AVAILABLE_NETWORK():
+    WLAN_AVAILABLE_NETWORK = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_head
+    WLAN_AVAILABLE_NETWORK._fields_ = [
+        ('strProfileName', Char * 256),
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('uNumberOfBssids', UInt32),
+        ('bNetworkConnectable', win32more.Foundation.BOOL),
+        ('wlanNotConnectableReason', UInt32),
+        ('uNumberOfPhyTypes', UInt32),
+        ('dot11PhyTypes', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 8),
+        ('bMorePhyTypes', win32more.Foundation.BOOL),
+        ('wlanSignalQuality', UInt32),
+        ('bSecurityEnabled', win32more.Foundation.BOOL),
+        ('dot11DefaultAuthAlgorithm', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('dot11DefaultCipherAlgorithm', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('dwFlags', UInt32),
+        ('dwReserved', UInt32),
     ]
-    return WLAN_PHY_FRAME_STATISTICS
-def _define_WLAN_MAC_FRAME_STATISTICS_head():
-    class WLAN_MAC_FRAME_STATISTICS(Structure):
+    return WLAN_AVAILABLE_NETWORK
+def _define_WLAN_AVAILABLE_NETWORK_LIST_head():
+    class WLAN_AVAILABLE_NETWORK_LIST(Structure):
         pass
-    return WLAN_MAC_FRAME_STATISTICS
-def _define_WLAN_MAC_FRAME_STATISTICS():
-    WLAN_MAC_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS_head
-    WLAN_MAC_FRAME_STATISTICS._fields_ = [
-        ("ullTransmittedFrameCount", UInt64),
-        ("ullReceivedFrameCount", UInt64),
-        ("ullWEPExcludedCount", UInt64),
-        ("ullTKIPLocalMICFailures", UInt64),
-        ("ullTKIPReplays", UInt64),
-        ("ullTKIPICVErrorCount", UInt64),
-        ("ullCCMPReplays", UInt64),
-        ("ullCCMPDecryptErrors", UInt64),
-        ("ullWEPUndecryptableCount", UInt64),
-        ("ullWEPICVErrorCount", UInt64),
-        ("ullDecryptSuccessCount", UInt64),
-        ("ullDecryptFailureCount", UInt64),
+    return WLAN_AVAILABLE_NETWORK_LIST
+def _define_WLAN_AVAILABLE_NETWORK_LIST():
+    WLAN_AVAILABLE_NETWORK_LIST = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_head
+    WLAN_AVAILABLE_NETWORK_LIST._fields_ = [
+        ('dwNumberOfItems', UInt32),
+        ('dwIndex', UInt32),
+        ('Network', win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK * 1),
     ]
-    return WLAN_MAC_FRAME_STATISTICS
-def _define_WLAN_STATISTICS_head():
-    class WLAN_STATISTICS(Structure):
+    return WLAN_AVAILABLE_NETWORK_LIST
+def _define_WLAN_AVAILABLE_NETWORK_LIST_V2_head():
+    class WLAN_AVAILABLE_NETWORK_LIST_V2(Structure):
         pass
-    return WLAN_STATISTICS
-def _define_WLAN_STATISTICS():
-    WLAN_STATISTICS = win32more.NetworkManagement.WiFi.WLAN_STATISTICS_head
-    WLAN_STATISTICS._fields_ = [
-        ("ullFourWayHandshakeFailures", UInt64),
-        ("ullTKIPCounterMeasuresInvoked", UInt64),
-        ("ullReserved", UInt64),
-        ("MacUcastCounters", win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS),
-        ("MacMcastCounters", win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS),
-        ("dwNumberOfPhys", UInt32),
-        ("PhyCounters", win32more.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS * 0),
+    return WLAN_AVAILABLE_NETWORK_LIST_V2
+def _define_WLAN_AVAILABLE_NETWORK_LIST_V2():
+    WLAN_AVAILABLE_NETWORK_LIST_V2 = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_V2_head
+    WLAN_AVAILABLE_NETWORK_LIST_V2._fields_ = [
+        ('dwNumberOfItems', UInt32),
+        ('dwIndex', UInt32),
+        ('Network', win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_V2 * 1),
     ]
-    return WLAN_STATISTICS
-WLAN_SECURABLE_OBJECT = Int32
-wlan_secure_permit_list = 0
-wlan_secure_deny_list = 1
-wlan_secure_ac_enabled = 2
-wlan_secure_bc_scan_enabled = 3
-wlan_secure_bss_type = 4
-wlan_secure_show_denied = 5
-wlan_secure_interface_properties = 6
-wlan_secure_ihv_control = 7
-wlan_secure_all_user_profiles_order = 8
-wlan_secure_add_new_all_user_profiles = 9
-wlan_secure_add_new_per_user_profiles = 10
-wlan_secure_media_streaming_mode_enabled = 11
-wlan_secure_current_operation_mode = 12
-wlan_secure_get_plaintext_key = 13
-wlan_secure_hosted_network_elevated_access = 14
-wlan_secure_virtual_station_extensibility = 15
-wlan_secure_wfd_elevated_access = 16
-WLAN_SECURABLE_OBJECT_COUNT = 17
+    return WLAN_AVAILABLE_NETWORK_LIST_V2
+def _define_WLAN_AVAILABLE_NETWORK_V2_head():
+    class WLAN_AVAILABLE_NETWORK_V2(Structure):
+        pass
+    return WLAN_AVAILABLE_NETWORK_V2
+def _define_WLAN_AVAILABLE_NETWORK_V2():
+    WLAN_AVAILABLE_NETWORK_V2 = win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_V2_head
+    WLAN_AVAILABLE_NETWORK_V2._fields_ = [
+        ('strProfileName', Char * 256),
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('uNumberOfBssids', UInt32),
+        ('bNetworkConnectable', win32more.Foundation.BOOL),
+        ('wlanNotConnectableReason', UInt32),
+        ('uNumberOfPhyTypes', UInt32),
+        ('dot11PhyTypes', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 8),
+        ('bMorePhyTypes', win32more.Foundation.BOOL),
+        ('wlanSignalQuality', UInt32),
+        ('bSecurityEnabled', win32more.Foundation.BOOL),
+        ('dot11DefaultAuthAlgorithm', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('dot11DefaultCipherAlgorithm', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('dwFlags', UInt32),
+        ('AccessNetworkOptions', win32more.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS),
+        ('dot11HESSID', Byte * 6),
+        ('VenueInfo', win32more.NetworkManagement.WiFi.DOT11_VENUEINFO),
+        ('dwReserved', UInt32),
+    ]
+    return WLAN_AVAILABLE_NETWORK_V2
+def _define_WLAN_BSS_ENTRY_head():
+    class WLAN_BSS_ENTRY(Structure):
+        pass
+    return WLAN_BSS_ENTRY
+def _define_WLAN_BSS_ENTRY():
+    WLAN_BSS_ENTRY = win32more.NetworkManagement.WiFi.WLAN_BSS_ENTRY_head
+    WLAN_BSS_ENTRY._fields_ = [
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('uPhyId', UInt32),
+        ('dot11Bssid', Byte * 6),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dot11BssPhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('lRssi', Int32),
+        ('uLinkQuality', UInt32),
+        ('bInRegDomain', win32more.Foundation.BOOLEAN),
+        ('usBeaconPeriod', UInt16),
+        ('ullTimestamp', UInt64),
+        ('ullHostTimestamp', UInt64),
+        ('usCapabilityInformation', UInt16),
+        ('ulChCenterFrequency', UInt32),
+        ('wlanRateSet', win32more.NetworkManagement.WiFi.WLAN_RATE_SET),
+        ('ulIeOffset', UInt32),
+        ('ulIeSize', UInt32),
+    ]
+    return WLAN_BSS_ENTRY
+def _define_WLAN_BSS_LIST_head():
+    class WLAN_BSS_LIST(Structure):
+        pass
+    return WLAN_BSS_LIST
+def _define_WLAN_BSS_LIST():
+    WLAN_BSS_LIST = win32more.NetworkManagement.WiFi.WLAN_BSS_LIST_head
+    WLAN_BSS_LIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNumberOfItems', UInt32),
+        ('wlanBssEntries', win32more.NetworkManagement.WiFi.WLAN_BSS_ENTRY * 1),
+    ]
+    return WLAN_BSS_LIST
+def _define_WLAN_CONNECTION_ATTRIBUTES_head():
+    class WLAN_CONNECTION_ATTRIBUTES(Structure):
+        pass
+    return WLAN_CONNECTION_ATTRIBUTES
+def _define_WLAN_CONNECTION_ATTRIBUTES():
+    WLAN_CONNECTION_ATTRIBUTES = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_ATTRIBUTES_head
+    WLAN_CONNECTION_ATTRIBUTES._fields_ = [
+        ('isState', win32more.NetworkManagement.WiFi.WLAN_INTERFACE_STATE),
+        ('wlanConnectionMode', win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
+        ('strProfileName', Char * 256),
+        ('wlanAssociationAttributes', win32more.NetworkManagement.WiFi.WLAN_ASSOCIATION_ATTRIBUTES),
+        ('wlanSecurityAttributes', win32more.NetworkManagement.WiFi.WLAN_SECURITY_ATTRIBUTES),
+    ]
+    return WLAN_CONNECTION_ATTRIBUTES
+WLAN_CONNECTION_MODE = Int32
+wlan_connection_mode_profile = 0
+wlan_connection_mode_temporary_profile = 1
+wlan_connection_mode_discovery_secure = 2
+wlan_connection_mode_discovery_unsecure = 3
+wlan_connection_mode_auto = 4
+wlan_connection_mode_invalid = 5
+def _define_WLAN_CONNECTION_NOTIFICATION_DATA_head():
+    class WLAN_CONNECTION_NOTIFICATION_DATA(Structure):
+        pass
+    return WLAN_CONNECTION_NOTIFICATION_DATA
+def _define_WLAN_CONNECTION_NOTIFICATION_DATA():
+    WLAN_CONNECTION_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_DATA_head
+    WLAN_CONNECTION_NOTIFICATION_DATA._fields_ = [
+        ('wlanConnectionMode', win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
+        ('strProfileName', Char * 256),
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('bSecurityEnabled', win32more.Foundation.BOOL),
+        ('wlanReasonCode', UInt32),
+        ('dwFlags', win32more.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS),
+        ('strProfileXml', Char * 1),
+    ]
+    return WLAN_CONNECTION_NOTIFICATION_DATA
+WLAN_CONNECTION_NOTIFICATION_FLAGS = UInt32
+WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED = 1
+WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE = 4
+def _define_WLAN_CONNECTION_PARAMETERS_head():
+    class WLAN_CONNECTION_PARAMETERS(Structure):
+        pass
+    return WLAN_CONNECTION_PARAMETERS
+def _define_WLAN_CONNECTION_PARAMETERS():
+    WLAN_CONNECTION_PARAMETERS = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_head
+    WLAN_CONNECTION_PARAMETERS._fields_ = [
+        ('wlanConnectionMode', win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
+        ('strProfile', win32more.Foundation.PWSTR),
+        ('pDot11Ssid', POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head)),
+        ('pDesiredBssidList', POINTER(win32more.NetworkManagement.WiFi.DOT11_BSSID_LIST_head)),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dwFlags', UInt32),
+    ]
+    return WLAN_CONNECTION_PARAMETERS
+def _define_WLAN_CONNECTION_PARAMETERS_V2_head():
+    class WLAN_CONNECTION_PARAMETERS_V2(Structure):
+        pass
+    return WLAN_CONNECTION_PARAMETERS_V2
+def _define_WLAN_CONNECTION_PARAMETERS_V2():
+    WLAN_CONNECTION_PARAMETERS_V2 = win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_V2_head
+    WLAN_CONNECTION_PARAMETERS_V2._fields_ = [
+        ('wlanConnectionMode', win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
+        ('strProfile', win32more.Foundation.PWSTR),
+        ('pDot11Ssid', POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head)),
+        ('pDot11Hessid', c_char_p_no),
+        ('pDesiredBssidList', POINTER(win32more.NetworkManagement.WiFi.DOT11_BSSID_LIST_head)),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dwFlags', UInt32),
+        ('pDot11AccessNetworkOptions', POINTER(win32more.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS_head)),
+    ]
+    return WLAN_CONNECTION_PARAMETERS_V2
+def _define_WLAN_COUNTRY_OR_REGION_STRING_LIST_head():
+    class WLAN_COUNTRY_OR_REGION_STRING_LIST(Structure):
+        pass
+    return WLAN_COUNTRY_OR_REGION_STRING_LIST
+def _define_WLAN_COUNTRY_OR_REGION_STRING_LIST():
+    WLAN_COUNTRY_OR_REGION_STRING_LIST = win32more.NetworkManagement.WiFi.WLAN_COUNTRY_OR_REGION_STRING_LIST_head
+    WLAN_COUNTRY_OR_REGION_STRING_LIST._fields_ = [
+        ('dwNumberOfItems', UInt32),
+        ('pCountryOrRegionStringList', Byte * 3),
+    ]
+    return WLAN_COUNTRY_OR_REGION_STRING_LIST
 def _define_WLAN_DEVICE_SERVICE_GUID_LIST_head():
     class WLAN_DEVICE_SERVICE_GUID_LIST(Structure):
         pass
@@ -4663,36 +5365,86 @@ def _define_WLAN_DEVICE_SERVICE_GUID_LIST_head():
 def _define_WLAN_DEVICE_SERVICE_GUID_LIST():
     WLAN_DEVICE_SERVICE_GUID_LIST = win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head
     WLAN_DEVICE_SERVICE_GUID_LIST._fields_ = [
-        ("dwNumberOfItems", UInt32),
-        ("dwIndex", UInt32),
-        ("DeviceService", Guid * 0),
+        ('dwNumberOfItems', UInt32),
+        ('dwIndex', UInt32),
+        ('DeviceService', Guid * 1),
     ]
     return WLAN_DEVICE_SERVICE_GUID_LIST
-WFD_ROLE_TYPE = Int32
-WFD_ROLE_TYPE_NONE = 0
-WFD_ROLE_TYPE_DEVICE = 1
-WFD_ROLE_TYPE_GROUP_OWNER = 2
-WFD_ROLE_TYPE_CLIENT = 4
-WFD_ROLE_TYPE_MAX = 5
-def _define_WFD_GROUP_ID_head():
-    class WFD_GROUP_ID(Structure):
+def _define_WLAN_DEVICE_SERVICE_NOTIFICATION_DATA_head():
+    class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA(Structure):
         pass
-    return WFD_GROUP_ID
-def _define_WFD_GROUP_ID():
-    WFD_GROUP_ID = win32more.NetworkManagement.WiFi.WFD_GROUP_ID_head
-    WFD_GROUP_ID._fields_ = [
-        ("DeviceAddress", Byte * 6),
-        ("GroupSSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
+    return WLAN_DEVICE_SERVICE_NOTIFICATION_DATA
+def _define_WLAN_DEVICE_SERVICE_NOTIFICATION_DATA():
+    WLAN_DEVICE_SERVICE_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_NOTIFICATION_DATA_head
+    WLAN_DEVICE_SERVICE_NOTIFICATION_DATA._fields_ = [
+        ('DeviceService', Guid),
+        ('dwOpCode', UInt32),
+        ('dwDataSize', UInt32),
+        ('DataBlob', Byte * 1),
     ]
-    return WFD_GROUP_ID
-WL_DISPLAY_PAGES = Int32
-WL_DISPLAY_PAGES_WLConnectionPage = 0
-WL_DISPLAY_PAGES_WLSecurityPage = 1
-WL_DISPLAY_PAGES_WLAdvPage = 2
-WLAN_HOSTED_NETWORK_STATE = Int32
-wlan_hosted_network_unavailable = 0
-wlan_hosted_network_idle = 1
-wlan_hosted_network_active = 2
+    return WLAN_DEVICE_SERVICE_NOTIFICATION_DATA
+WLAN_FILTER_LIST_TYPE = Int32
+wlan_filter_list_type_gp_permit = 0
+wlan_filter_list_type_gp_deny = 1
+wlan_filter_list_type_user_permit = 2
+wlan_filter_list_type_user_deny = 3
+def _define_WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS_head():
+    class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS(Structure):
+        pass
+    return WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS
+def _define_WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS():
+    WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS_head
+    WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS._fields_ = [
+        ('hostedNetworkSSID', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dwMaxNumberOfPeers', UInt32),
+    ]
+    return WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS
+def _define_WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE_head():
+    class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE(Structure):
+        pass
+    return WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE
+def _define_WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE():
+    WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE_head
+    WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE._fields_ = [
+        ('OldState', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE),
+        ('NewState', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE),
+        ('PeerStateChangeReason', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),
+    ]
+    return WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE
+WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = Int32
+wlan_hosted_network_state_change = 4096
+wlan_hosted_network_peer_state_change = 4097
+wlan_hosted_network_radio_state_change = 4098
+WLAN_HOSTED_NETWORK_OPCODE = Int32
+wlan_hosted_network_opcode_connection_settings = 0
+wlan_hosted_network_opcode_security_settings = 1
+wlan_hosted_network_opcode_station_profile = 2
+wlan_hosted_network_opcode_enable = 3
+WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = Int32
+wlan_hosted_network_peer_state_invalid = 0
+wlan_hosted_network_peer_state_authenticated = 1
+def _define_WLAN_HOSTED_NETWORK_PEER_STATE_head():
+    class WLAN_HOSTED_NETWORK_PEER_STATE(Structure):
+        pass
+    return WLAN_HOSTED_NETWORK_PEER_STATE
+def _define_WLAN_HOSTED_NETWORK_PEER_STATE():
+    WLAN_HOSTED_NETWORK_PEER_STATE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE_head
+    WLAN_HOSTED_NETWORK_PEER_STATE._fields_ = [
+        ('PeerMacAddress', Byte * 6),
+        ('PeerAuthState', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE),
+    ]
+    return WLAN_HOSTED_NETWORK_PEER_STATE
+def _define_WLAN_HOSTED_NETWORK_RADIO_STATE_head():
+    class WLAN_HOSTED_NETWORK_RADIO_STATE(Structure):
+        pass
+    return WLAN_HOSTED_NETWORK_RADIO_STATE
+def _define_WLAN_HOSTED_NETWORK_RADIO_STATE():
+    WLAN_HOSTED_NETWORK_RADIO_STATE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_RADIO_STATE_head
+    WLAN_HOSTED_NETWORK_RADIO_STATE._fields_ = [
+        ('dot11SoftwareRadioState', win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
+        ('dot11HardwareRadioState', win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
+    ]
+    return WLAN_HOSTED_NETWORK_RADIO_STATE
 WLAN_HOSTED_NETWORK_REASON = Int32
 wlan_hosted_network_reason_success = 0
 wlan_hosted_network_reason_unspecified = 1
@@ -4723,75 +5475,6 @@ wlan_hosted_network_reason_device_change = 25
 wlan_hosted_network_reason_properties_change = 26
 wlan_hosted_network_reason_virtual_station_blocking_use = 27
 wlan_hosted_network_reason_service_available_on_virtual_station = 28
-WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = Int32
-wlan_hosted_network_peer_state_invalid = 0
-wlan_hosted_network_peer_state_authenticated = 1
-def _define_WLAN_HOSTED_NETWORK_PEER_STATE_head():
-    class WLAN_HOSTED_NETWORK_PEER_STATE(Structure):
-        pass
-    return WLAN_HOSTED_NETWORK_PEER_STATE
-def _define_WLAN_HOSTED_NETWORK_PEER_STATE():
-    WLAN_HOSTED_NETWORK_PEER_STATE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE_head
-    WLAN_HOSTED_NETWORK_PEER_STATE._fields_ = [
-        ("PeerMacAddress", Byte * 6),
-        ("PeerAuthState", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE),
-    ]
-    return WLAN_HOSTED_NETWORK_PEER_STATE
-def _define_WLAN_HOSTED_NETWORK_RADIO_STATE_head():
-    class WLAN_HOSTED_NETWORK_RADIO_STATE(Structure):
-        pass
-    return WLAN_HOSTED_NETWORK_RADIO_STATE
-def _define_WLAN_HOSTED_NETWORK_RADIO_STATE():
-    WLAN_HOSTED_NETWORK_RADIO_STATE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_RADIO_STATE_head
-    WLAN_HOSTED_NETWORK_RADIO_STATE._fields_ = [
-        ("dot11SoftwareRadioState", win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
-        ("dot11HardwareRadioState", win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
-    ]
-    return WLAN_HOSTED_NETWORK_RADIO_STATE
-WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = Int32
-wlan_hosted_network_state_change = 4096
-wlan_hosted_network_peer_state_change = 4097
-wlan_hosted_network_radio_state_change = 4098
-def _define_WLAN_HOSTED_NETWORK_STATE_CHANGE_head():
-    class WLAN_HOSTED_NETWORK_STATE_CHANGE(Structure):
-        pass
-    return WLAN_HOSTED_NETWORK_STATE_CHANGE
-def _define_WLAN_HOSTED_NETWORK_STATE_CHANGE():
-    WLAN_HOSTED_NETWORK_STATE_CHANGE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE_CHANGE_head
-    WLAN_HOSTED_NETWORK_STATE_CHANGE._fields_ = [
-        ("OldState", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE),
-        ("NewState", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE),
-        ("StateChangeReason", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),
-    ]
-    return WLAN_HOSTED_NETWORK_STATE_CHANGE
-def _define_WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE_head():
-    class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE(Structure):
-        pass
-    return WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE
-def _define_WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE():
-    WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE_head
-    WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE._fields_ = [
-        ("OldState", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE),
-        ("NewState", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE),
-        ("PeerStateChangeReason", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),
-    ]
-    return WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE
-WLAN_HOSTED_NETWORK_OPCODE = Int32
-wlan_hosted_network_opcode_connection_settings = 0
-wlan_hosted_network_opcode_security_settings = 1
-wlan_hosted_network_opcode_station_profile = 2
-wlan_hosted_network_opcode_enable = 3
-def _define_WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS_head():
-    class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS(Structure):
-        pass
-    return WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS
-def _define_WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS():
-    WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS_head
-    WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS._fields_ = [
-        ("hostedNetworkSSID", win32more.NetworkManagement.WiFi.DOT11_SSID),
-        ("dwMaxNumberOfPeers", UInt32),
-    ]
-    return WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS
 def _define_WLAN_HOSTED_NETWORK_SECURITY_SETTINGS_head():
     class WLAN_HOSTED_NETWORK_SECURITY_SETTINGS(Structure):
         pass
@@ -4799,10 +5482,26 @@ def _define_WLAN_HOSTED_NETWORK_SECURITY_SETTINGS_head():
 def _define_WLAN_HOSTED_NETWORK_SECURITY_SETTINGS():
     WLAN_HOSTED_NETWORK_SECURITY_SETTINGS = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_SECURITY_SETTINGS_head
     WLAN_HOSTED_NETWORK_SECURITY_SETTINGS._fields_ = [
-        ("dot11AuthAlgo", win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
-        ("dot11CipherAlgo", win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+        ('dot11AuthAlgo', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('dot11CipherAlgo', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
     ]
     return WLAN_HOSTED_NETWORK_SECURITY_SETTINGS
+WLAN_HOSTED_NETWORK_STATE = Int32
+wlan_hosted_network_unavailable = 0
+wlan_hosted_network_idle = 1
+wlan_hosted_network_active = 2
+def _define_WLAN_HOSTED_NETWORK_STATE_CHANGE_head():
+    class WLAN_HOSTED_NETWORK_STATE_CHANGE(Structure):
+        pass
+    return WLAN_HOSTED_NETWORK_STATE_CHANGE
+def _define_WLAN_HOSTED_NETWORK_STATE_CHANGE():
+    WLAN_HOSTED_NETWORK_STATE_CHANGE = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE_CHANGE_head
+    WLAN_HOSTED_NETWORK_STATE_CHANGE._fields_ = [
+        ('OldState', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE),
+        ('NewState', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE),
+        ('StateChangeReason', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),
+    ]
+    return WLAN_HOSTED_NETWORK_STATE_CHANGE
 def _define_WLAN_HOSTED_NETWORK_STATUS_head():
     class WLAN_HOSTED_NETWORK_STATUS(Structure):
         pass
@@ -4810,2219 +5509,2067 @@ def _define_WLAN_HOSTED_NETWORK_STATUS_head():
 def _define_WLAN_HOSTED_NETWORK_STATUS():
     WLAN_HOSTED_NETWORK_STATUS = win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATUS_head
     WLAN_HOSTED_NETWORK_STATUS._fields_ = [
-        ("HostedNetworkState", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE),
-        ("IPDeviceID", Guid),
-        ("wlanHostedNetworkBSSID", Byte * 6),
-        ("dot11PhyType", win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
-        ("ulChannelFrequency", UInt32),
-        ("dwNumberOfPeers", UInt32),
-        ("PeerList", win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE * 0),
+        ('HostedNetworkState', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE),
+        ('IPDeviceID', Guid),
+        ('wlanHostedNetworkBSSID', Byte * 6),
+        ('dot11PhyType', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE),
+        ('ulChannelFrequency', UInt32),
+        ('dwNumberOfPeers', UInt32),
+        ('PeerList', win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE * 1),
     ]
     return WLAN_HOSTED_NETWORK_STATUS
-def _define_WFD_OPEN_SESSION_COMPLETE_CALLBACK():
-    return CFUNCTYPE(Void,win32more.Foundation.HANDLE,c_void_p,Guid,UInt32,UInt32, use_last_error=False)
-ONEX_AUTH_IDENTITY = Int32
-ONEX_AUTH_IDENTITY_OneXAuthIdentityNone = 0
-ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine = 1
-ONEX_AUTH_IDENTITY_OneXAuthIdentityUser = 2
-ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser = 3
-ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest = 4
-ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid = 5
-ONEX_AUTH_STATUS = Int32
-ONEX_AUTH_STATUS_OneXAuthNotStarted = 0
-ONEX_AUTH_STATUS_OneXAuthInProgress = 1
-ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound = 2
-ONEX_AUTH_STATUS_OneXAuthSuccess = 3
-ONEX_AUTH_STATUS_OneXAuthFailure = 4
-ONEX_AUTH_STATUS_OneXAuthInvalid = 5
-ONEX_REASON_CODE = Int32
-ONEX_REASON_CODE_SUCCESS = 0
-ONEX_REASON_START = 327680
-ONEX_UNABLE_TO_IDENTIFY_USER = 327681
-ONEX_IDENTITY_NOT_FOUND = 327682
-ONEX_UI_DISABLED = 327683
-ONEX_UI_FAILURE = 327684
-ONEX_EAP_FAILURE_RECEIVED = 327685
-ONEX_AUTHENTICATOR_NO_LONGER_PRESENT = 327686
-ONEX_NO_RESPONSE_TO_IDENTITY = 327687
-ONEX_PROFILE_VERSION_NOT_SUPPORTED = 327688
-ONEX_PROFILE_INVALID_LENGTH = 327689
-ONEX_PROFILE_DISALLOWED_EAP_TYPE = 327690
-ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG = 327691
-ONEX_PROFILE_INVALID_ONEX_FLAGS = 327692
-ONEX_PROFILE_INVALID_TIMER_VALUE = 327693
-ONEX_PROFILE_INVALID_SUPPLICANT_MODE = 327694
-ONEX_PROFILE_INVALID_AUTH_MODE = 327695
-ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES = 327696
-ONEX_UI_CANCELLED = 327697
-ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS = 327698
-ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS = 327699
-ONEX_UI_NOT_PERMITTED = 327700
-ONEX_NOTIFICATION_TYPE = Int32
-ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase = 0
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate = 1
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted = 2
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid = 3
-ONEX_NOTIFICATION_TYPE_OneXNumNotifications = 3
-ONEX_AUTH_RESTART_REASON = Int32
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated = 0
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated = 1
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout = 2
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout = 3
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged = 4
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged = 5
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged = 6
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial = 7
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid = 8
-def _define_ONEX_VARIABLE_BLOB_head():
-    class ONEX_VARIABLE_BLOB(Structure):
+WLAN_IHV_CONTROL_TYPE = Int32
+wlan_ihv_control_type_service = 0
+wlan_ihv_control_type_driver = 1
+def _define_WLAN_INTERFACE_CAPABILITY_head():
+    class WLAN_INTERFACE_CAPABILITY(Structure):
         pass
-    return ONEX_VARIABLE_BLOB
-def _define_ONEX_VARIABLE_BLOB():
-    ONEX_VARIABLE_BLOB = win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB_head
-    ONEX_VARIABLE_BLOB._fields_ = [
-        ("dwSize", UInt32),
-        ("dwOffset", UInt32),
+    return WLAN_INTERFACE_CAPABILITY
+def _define_WLAN_INTERFACE_CAPABILITY():
+    WLAN_INTERFACE_CAPABILITY = win32more.NetworkManagement.WiFi.WLAN_INTERFACE_CAPABILITY_head
+    WLAN_INTERFACE_CAPABILITY._fields_ = [
+        ('interfaceType', win32more.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE),
+        ('bDot11DSupported', win32more.Foundation.BOOL),
+        ('dwMaxDesiredSsidListSize', UInt32),
+        ('dwMaxDesiredBssidListSize', UInt32),
+        ('dwNumberOfSupportedPhys', UInt32),
+        ('dot11PhyTypes', win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE * 64),
     ]
-    return ONEX_VARIABLE_BLOB
-def _define_ONEX_AUTH_PARAMS_head():
-    class ONEX_AUTH_PARAMS(Structure):
+    return WLAN_INTERFACE_CAPABILITY
+def _define_WLAN_INTERFACE_INFO_head():
+    class WLAN_INTERFACE_INFO(Structure):
         pass
-    return ONEX_AUTH_PARAMS
-def _define_ONEX_AUTH_PARAMS():
-    ONEX_AUTH_PARAMS = win32more.NetworkManagement.WiFi.ONEX_AUTH_PARAMS_head
-    ONEX_AUTH_PARAMS._fields_ = [
-        ("fUpdatePending", win32more.Foundation.BOOL),
-        ("oneXConnProfile", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("authIdentity", win32more.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY),
-        ("dwQuarantineState", UInt32),
-        ("_bitfield", UInt32),
-        ("dwSessionId", UInt32),
-        ("hUserToken", win32more.Foundation.HANDLE),
-        ("OneXUserProfile", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("Identity", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("UserName", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("Domain", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+    return WLAN_INTERFACE_INFO
+def _define_WLAN_INTERFACE_INFO():
+    WLAN_INTERFACE_INFO = win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_head
+    WLAN_INTERFACE_INFO._fields_ = [
+        ('InterfaceGuid', Guid),
+        ('strInterfaceDescription', Char * 256),
+        ('isState', win32more.NetworkManagement.WiFi.WLAN_INTERFACE_STATE),
     ]
-    return ONEX_AUTH_PARAMS
-def _define_ONEX_EAP_ERROR_head():
-    class ONEX_EAP_ERROR(Structure):
+    return WLAN_INTERFACE_INFO
+def _define_WLAN_INTERFACE_INFO_LIST_head():
+    class WLAN_INTERFACE_INFO_LIST(Structure):
         pass
-    return ONEX_EAP_ERROR
-def _define_ONEX_EAP_ERROR():
-    ONEX_EAP_ERROR = win32more.NetworkManagement.WiFi.ONEX_EAP_ERROR_head
-    ONEX_EAP_ERROR._fields_ = [
-        ("dwWinError", UInt32),
-        ("type", win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE),
-        ("dwReasonCode", UInt32),
-        ("rootCauseGuid", Guid),
-        ("repairGuid", Guid),
-        ("helpLinkGuid", Guid),
-        ("_bitfield", UInt32),
-        ("RootCauseString", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("RepairString", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+    return WLAN_INTERFACE_INFO_LIST
+def _define_WLAN_INTERFACE_INFO_LIST():
+    WLAN_INTERFACE_INFO_LIST = win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_LIST_head
+    WLAN_INTERFACE_INFO_LIST._fields_ = [
+        ('dwNumberOfItems', UInt32),
+        ('dwIndex', UInt32),
+        ('InterfaceInfo', win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO * 1),
     ]
-    return ONEX_EAP_ERROR
-def _define_ONEX_STATUS_head():
-    class ONEX_STATUS(Structure):
+    return WLAN_INTERFACE_INFO_LIST
+WLAN_INTERFACE_STATE = Int32
+wlan_interface_state_not_ready = 0
+wlan_interface_state_connected = 1
+wlan_interface_state_ad_hoc_network_formed = 2
+wlan_interface_state_disconnecting = 3
+wlan_interface_state_disconnected = 4
+wlan_interface_state_associating = 5
+wlan_interface_state_discovering = 6
+wlan_interface_state_authenticating = 7
+WLAN_INTERFACE_TYPE = Int32
+wlan_interface_type_emulated_802_11 = 0
+wlan_interface_type_native_802_11 = 1
+wlan_interface_type_invalid = 2
+WLAN_INTF_OPCODE = Int32
+wlan_intf_opcode_autoconf_start = 0
+wlan_intf_opcode_autoconf_enabled = 1
+wlan_intf_opcode_background_scan_enabled = 2
+wlan_intf_opcode_media_streaming_mode = 3
+wlan_intf_opcode_radio_state = 4
+wlan_intf_opcode_bss_type = 5
+wlan_intf_opcode_interface_state = 6
+wlan_intf_opcode_current_connection = 7
+wlan_intf_opcode_channel_number = 8
+wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs = 9
+wlan_intf_opcode_supported_adhoc_auth_cipher_pairs = 10
+wlan_intf_opcode_supported_country_or_region_string_list = 11
+wlan_intf_opcode_current_operation_mode = 12
+wlan_intf_opcode_supported_safe_mode = 13
+wlan_intf_opcode_certified_safe_mode = 14
+wlan_intf_opcode_hosted_network_capable = 15
+wlan_intf_opcode_management_frame_protection_capable = 16
+wlan_intf_opcode_secondary_sta_interfaces = 17
+wlan_intf_opcode_secondary_sta_synchronized_connections = 18
+wlan_intf_opcode_autoconf_end = 268435455
+wlan_intf_opcode_msm_start = 268435712
+wlan_intf_opcode_statistics = 268435713
+wlan_intf_opcode_rssi = 268435714
+wlan_intf_opcode_msm_end = 536870911
+wlan_intf_opcode_security_start = 536936448
+wlan_intf_opcode_security_end = 805306367
+wlan_intf_opcode_ihv_start = 805306368
+wlan_intf_opcode_ihv_end = 1073741823
+def _define_WLAN_MAC_FRAME_STATISTICS_head():
+    class WLAN_MAC_FRAME_STATISTICS(Structure):
         pass
-    return ONEX_STATUS
-def _define_ONEX_STATUS():
-    ONEX_STATUS = win32more.NetworkManagement.WiFi.ONEX_STATUS_head
-    ONEX_STATUS._fields_ = [
-        ("authStatus", win32more.NetworkManagement.WiFi.ONEX_AUTH_STATUS),
-        ("dwReason", UInt32),
-        ("dwError", UInt32),
+    return WLAN_MAC_FRAME_STATISTICS
+def _define_WLAN_MAC_FRAME_STATISTICS():
+    WLAN_MAC_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS_head
+    WLAN_MAC_FRAME_STATISTICS._fields_ = [
+        ('ullTransmittedFrameCount', UInt64),
+        ('ullReceivedFrameCount', UInt64),
+        ('ullWEPExcludedCount', UInt64),
+        ('ullTKIPLocalMICFailures', UInt64),
+        ('ullTKIPReplays', UInt64),
+        ('ullTKIPICVErrorCount', UInt64),
+        ('ullCCMPReplays', UInt64),
+        ('ullCCMPDecryptErrors', UInt64),
+        ('ullWEPUndecryptableCount', UInt64),
+        ('ullWEPICVErrorCount', UInt64),
+        ('ullDecryptSuccessCount', UInt64),
+        ('ullDecryptFailureCount', UInt64),
     ]
-    return ONEX_STATUS
-ONEX_EAP_METHOD_BACKEND_SUPPORT = Int32
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown = 0
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported = 1
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported = 2
-def _define_ONEX_RESULT_UPDATE_DATA_head():
-    class ONEX_RESULT_UPDATE_DATA(Structure):
+    return WLAN_MAC_FRAME_STATISTICS
+def _define_WLAN_MSM_NOTIFICATION_DATA_head():
+    class WLAN_MSM_NOTIFICATION_DATA(Structure):
         pass
-    return ONEX_RESULT_UPDATE_DATA
-def _define_ONEX_RESULT_UPDATE_DATA():
-    ONEX_RESULT_UPDATE_DATA = win32more.NetworkManagement.WiFi.ONEX_RESULT_UPDATE_DATA_head
-    ONEX_RESULT_UPDATE_DATA._fields_ = [
-        ("oneXStatus", win32more.NetworkManagement.WiFi.ONEX_STATUS),
-        ("BackendSupport", win32more.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT),
-        ("fBackendEngaged", win32more.Foundation.BOOL),
-        ("_bitfield", UInt32),
-        ("authParams", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("eapError", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+    return WLAN_MSM_NOTIFICATION_DATA
+def _define_WLAN_MSM_NOTIFICATION_DATA():
+    WLAN_MSM_NOTIFICATION_DATA = win32more.NetworkManagement.WiFi.WLAN_MSM_NOTIFICATION_DATA_head
+    WLAN_MSM_NOTIFICATION_DATA._fields_ = [
+        ('wlanConnectionMode', win32more.NetworkManagement.WiFi.WLAN_CONNECTION_MODE),
+        ('strProfileName', Char * 256),
+        ('dot11Ssid', win32more.NetworkManagement.WiFi.DOT11_SSID),
+        ('dot11BssType', win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE),
+        ('dot11MacAddr', Byte * 6),
+        ('bSecurityEnabled', win32more.Foundation.BOOL),
+        ('bFirstPeer', win32more.Foundation.BOOL),
+        ('bLastPeer', win32more.Foundation.BOOL),
+        ('wlanReasonCode', UInt32),
     ]
-    return ONEX_RESULT_UPDATE_DATA
-def _define_ONEX_USER_INFO_head():
-    class ONEX_USER_INFO(Structure):
+    return WLAN_MSM_NOTIFICATION_DATA
+WLAN_NOTIFICATION_ACM = Int32
+wlan_notification_acm_start = 0
+wlan_notification_acm_autoconf_enabled = 1
+wlan_notification_acm_autoconf_disabled = 2
+wlan_notification_acm_background_scan_enabled = 3
+wlan_notification_acm_background_scan_disabled = 4
+wlan_notification_acm_bss_type_change = 5
+wlan_notification_acm_power_setting_change = 6
+wlan_notification_acm_scan_complete = 7
+wlan_notification_acm_scan_fail = 8
+wlan_notification_acm_connection_start = 9
+wlan_notification_acm_connection_complete = 10
+wlan_notification_acm_connection_attempt_fail = 11
+wlan_notification_acm_filter_list_change = 12
+wlan_notification_acm_interface_arrival = 13
+wlan_notification_acm_interface_removal = 14
+wlan_notification_acm_profile_change = 15
+wlan_notification_acm_profile_name_change = 16
+wlan_notification_acm_profiles_exhausted = 17
+wlan_notification_acm_network_not_available = 18
+wlan_notification_acm_network_available = 19
+wlan_notification_acm_disconnecting = 20
+wlan_notification_acm_disconnected = 21
+wlan_notification_acm_adhoc_network_state_change = 22
+wlan_notification_acm_profile_unblocked = 23
+wlan_notification_acm_screen_power_change = 24
+wlan_notification_acm_profile_blocked = 25
+wlan_notification_acm_scan_list_refresh = 26
+wlan_notification_acm_operational_state_change = 27
+wlan_notification_acm_end = 28
+def _define_WLAN_NOTIFICATION_CALLBACK():
+    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head),c_void_p)
+WLAN_NOTIFICATION_MSM = Int32
+wlan_notification_msm_start = 0
+wlan_notification_msm_associating = 1
+wlan_notification_msm_associated = 2
+wlan_notification_msm_authenticating = 3
+wlan_notification_msm_connected = 4
+wlan_notification_msm_roaming_start = 5
+wlan_notification_msm_roaming_end = 6
+wlan_notification_msm_radio_state_change = 7
+wlan_notification_msm_signal_quality_change = 8
+wlan_notification_msm_disassociating = 9
+wlan_notification_msm_disconnected = 10
+wlan_notification_msm_peer_join = 11
+wlan_notification_msm_peer_leave = 12
+wlan_notification_msm_adapter_removal = 13
+wlan_notification_msm_adapter_operation_mode_change = 14
+wlan_notification_msm_link_degraded = 15
+wlan_notification_msm_link_improved = 16
+wlan_notification_msm_end = 17
+WLAN_NOTIFICATION_SECURITY = Int32
+wlan_notification_security_start = 0
+wlan_notification_security_end = 1
+WLAN_OPCODE_VALUE_TYPE = Int32
+wlan_opcode_value_type_query_only = 0
+wlan_opcode_value_type_set_by_group_policy = 1
+wlan_opcode_value_type_set_by_user = 2
+wlan_opcode_value_type_invalid = 3
+WLAN_OPERATIONAL_STATE = Int32
+wlan_operational_state_unknown = 0
+wlan_operational_state_off = 1
+wlan_operational_state_on = 2
+wlan_operational_state_going_off = 3
+wlan_operational_state_going_on = 4
+def _define_WLAN_PHY_FRAME_STATISTICS_head():
+    class WLAN_PHY_FRAME_STATISTICS(Structure):
         pass
-    return ONEX_USER_INFO
-def _define_ONEX_USER_INFO():
-    ONEX_USER_INFO = win32more.NetworkManagement.WiFi.ONEX_USER_INFO_head
-    ONEX_USER_INFO._fields_ = [
-        ("authIdentity", win32more.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY),
-        ("_bitfield", UInt32),
-        ("UserName", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
-        ("DomainName", win32more.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB),
+    return WLAN_PHY_FRAME_STATISTICS
+def _define_WLAN_PHY_FRAME_STATISTICS():
+    WLAN_PHY_FRAME_STATISTICS = win32more.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS_head
+    WLAN_PHY_FRAME_STATISTICS._fields_ = [
+        ('ullTransmittedFrameCount', UInt64),
+        ('ullMulticastTransmittedFrameCount', UInt64),
+        ('ullFailedCount', UInt64),
+        ('ullRetryCount', UInt64),
+        ('ullMultipleRetryCount', UInt64),
+        ('ullMaxTXLifetimeExceededCount', UInt64),
+        ('ullTransmittedFragmentCount', UInt64),
+        ('ullRTSSuccessCount', UInt64),
+        ('ullRTSFailureCount', UInt64),
+        ('ullACKFailureCount', UInt64),
+        ('ullReceivedFrameCount', UInt64),
+        ('ullMulticastReceivedFrameCount', UInt64),
+        ('ullPromiscuousReceivedFrameCount', UInt64),
+        ('ullMaxRXLifetimeExceededCount', UInt64),
+        ('ullFrameDuplicateCount', UInt64),
+        ('ullReceivedFragmentCount', UInt64),
+        ('ullPromiscuousReceivedFragmentCount', UInt64),
+        ('ullFCSErrorCount', UInt64),
     ]
-    return ONEX_USER_INFO
-Dot11AdHocManager = Guid('dd06a84f-83bd-4d01-8ab9-2389fea0869e')
-DOT11_ADHOC_CIPHER_ALGORITHM = Int32
-DOT11_ADHOC_CIPHER_ALGO_INVALID = -1
-DOT11_ADHOC_CIPHER_ALGO_NONE = 0
-DOT11_ADHOC_CIPHER_ALGO_CCMP = 4
-DOT11_ADHOC_CIPHER_ALGO_WEP = 257
-DOT11_ADHOC_AUTH_ALGORITHM = Int32
-DOT11_ADHOC_AUTH_ALGO_INVALID = -1
-DOT11_ADHOC_AUTH_ALGO_80211_OPEN = 1
-DOT11_ADHOC_AUTH_ALGO_RSNA_PSK = 7
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS = Int32
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_INVALID = 0
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED = 11
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING = 12
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED = 13
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED = 14
-DOT11_ADHOC_CONNECT_FAIL_REASON = Int32
-DOT11_ADHOC_CONNECT_FAIL_DOMAIN_MISMATCH = 0
-DOT11_ADHOC_CONNECT_FAIL_PASSPHRASE_MISMATCH = 1
-DOT11_ADHOC_CONNECT_FAIL_OTHER = 2
-def _define_IDot11AdHocManager_head():
-    class IDot11AdHocManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc26-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocManager
-def _define_IDot11AdHocManager():
-    IDot11AdHocManager = win32more.NetworkManagement.WiFi.IDot11AdHocManager_head
-    IDot11AdHocManager.CreateNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head,win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head), use_last_error=False)(3, 'CreateNetwork', ((1, 'Name'),(1, 'Password'),(1, 'GeographicalId'),(1, 'pInterface'),(1, 'pSecurity'),(1, 'pContextGuid'),(1, 'pIAdHoc'),)))
-    IDot11AdHocManager.CommitCreatedNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head,win32more.Foundation.BOOLEAN,win32more.Foundation.BOOLEAN, use_last_error=False)(4, 'CommitCreatedNetwork', ((1, 'pIAdHoc'),(1, 'fSaveProfile'),(1, 'fMakeSavedProfileUserSpecific'),)))
-    IDot11AdHocManager.GetIEnumDot11AdHocNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head), use_last_error=False)(5, 'GetIEnumDot11AdHocNetworks', ((1, 'pContextGuid'),(1, 'ppEnum'),)))
-    IDot11AdHocManager.GetIEnumDot11AdHocInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head), use_last_error=False)(6, 'GetIEnumDot11AdHocInterfaces', ((1, 'ppEnum'),)))
-    IDot11AdHocManager.GetNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head), use_last_error=False)(7, 'GetNetwork', ((1, 'NetworkSignature'),(1, 'pNetwork'),)))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocManager
-def _define_IDot11AdHocManagerNotificationSink_head():
-    class IDot11AdHocManagerNotificationSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc27-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocManagerNotificationSink
-def _define_IDot11AdHocManagerNotificationSink():
-    IDot11AdHocManagerNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocManagerNotificationSink_head
-    IDot11AdHocManagerNotificationSink.OnNetworkAdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head, use_last_error=False)(3, 'OnNetworkAdd', ((1, 'pIAdHocNetwork'),)))
-    IDot11AdHocManagerNotificationSink.OnNetworkRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'OnNetworkRemove', ((1, 'Signature'),)))
-    IDot11AdHocManagerNotificationSink.OnInterfaceAdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head, use_last_error=False)(5, 'OnInterfaceAdd', ((1, 'pIAdHocInterface'),)))
-    IDot11AdHocManagerNotificationSink.OnInterfaceRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'OnInterfaceRemove', ((1, 'Signature'),)))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocManagerNotificationSink
-def _define_IEnumDot11AdHocNetworks_head():
-    class IEnumDot11AdHocNetworks(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc28-cf0d-42a0-acbe-e2de7007384d')
-    return IEnumDot11AdHocNetworks
-def _define_IEnumDot11AdHocNetworks():
-    IEnumDot11AdHocNetworks = win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head
-    IEnumDot11AdHocNetworks.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cElt'),(1, 'rgElt'),(1, 'pcEltFetched'),)))
-    IEnumDot11AdHocNetworks.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
-    IEnumDot11AdHocNetworks.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumDot11AdHocNetworks.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumDot11AdHocNetworks
-def _define_IDot11AdHocNetwork_head():
-    class IDot11AdHocNetwork(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc29-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocNetwork
-def _define_IDot11AdHocNetwork():
-    IDot11AdHocNetwork = win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head
-    IDot11AdHocNetwork.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS), use_last_error=False)(3, 'GetStatus', ((1, 'eStatus'),)))
-    IDot11AdHocNetwork.GetSSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetSSID', ((1, 'ppszwSSID'),)))
-    IDot11AdHocNetwork.HasProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(5, 'HasProfile', ((1, 'pf11d'),)))
-    IDot11AdHocNetwork.GetProfileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetProfileName', ((1, 'ppszwProfileName'),)))
-    IDot11AdHocNetwork.DeleteProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'DeleteProfile', ()))
-    IDot11AdHocNetwork.GetSignalQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(8, 'GetSignalQuality', ((1, 'puStrengthValue'),(1, 'puStrengthMax'),)))
-    IDot11AdHocNetwork.GetSecuritySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head), use_last_error=False)(9, 'GetSecuritySetting', ((1, 'pAdHocSecuritySetting'),)))
-    IDot11AdHocNetwork.GetContextGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(10, 'GetContextGuid', ((1, 'pContextGuid'),)))
-    IDot11AdHocNetwork.GetSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(11, 'GetSignature', ((1, 'pSignature'),)))
-    IDot11AdHocNetwork.GetInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head), use_last_error=False)(12, 'GetInterface', ((1, 'pAdHocInterface'),)))
-    IDot11AdHocNetwork.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.BOOLEAN,win32more.Foundation.BOOLEAN, use_last_error=False)(13, 'Connect', ((1, 'Passphrase'),(1, 'GeographicalId'),(1, 'fSaveProfile'),(1, 'fMakeSavedProfileUserSpecific'),)))
-    IDot11AdHocNetwork.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Disconnect', ()))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocNetwork
-def _define_IDot11AdHocNetworkNotificationSink_head():
-    class IDot11AdHocNetworkNotificationSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc2a-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocNetworkNotificationSink
-def _define_IDot11AdHocNetworkNotificationSink():
-    IDot11AdHocNetworkNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocNetworkNotificationSink_head
-    IDot11AdHocNetworkNotificationSink.OnStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS, use_last_error=False)(3, 'OnStatusChange', ((1, 'eStatus'),)))
-    IDot11AdHocNetworkNotificationSink.OnConnectFail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON, use_last_error=False)(4, 'OnConnectFail', ((1, 'eFailReason'),)))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocNetworkNotificationSink
-def _define_IDot11AdHocInterface_head():
-    class IDot11AdHocInterface(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc2b-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocInterface
-def _define_IDot11AdHocInterface():
-    IDot11AdHocInterface = win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head
-    IDot11AdHocInterface.GetDeviceSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetDeviceSignature', ((1, 'pSignature'),)))
-    IDot11AdHocInterface.GetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetFriendlyName', ((1, 'ppszName'),)))
-    IDot11AdHocInterface.IsDot11d = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(5, 'IsDot11d', ((1, 'pf11d'),)))
-    IDot11AdHocInterface.IsAdHocCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(6, 'IsAdHocCapable', ((1, 'pfAdHocCapable'),)))
-    IDot11AdHocInterface.IsRadioOn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(7, 'IsRadioOn', ((1, 'pfIsRadioOn'),)))
-    IDot11AdHocInterface.GetActiveNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head), use_last_error=False)(8, 'GetActiveNetwork', ((1, 'ppNetwork'),)))
-    IDot11AdHocInterface.GetIEnumSecuritySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head), use_last_error=False)(9, 'GetIEnumSecuritySettings', ((1, 'ppEnum'),)))
-    IDot11AdHocInterface.GetIEnumDot11AdHocNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head), use_last_error=False)(10, 'GetIEnumDot11AdHocNetworks', ((1, 'pFilterGuid'),(1, 'ppEnum'),)))
-    IDot11AdHocInterface.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS), use_last_error=False)(11, 'GetStatus', ((1, 'pState'),)))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocInterface
-def _define_IEnumDot11AdHocInterfaces_head():
-    class IEnumDot11AdHocInterfaces(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc2c-cf0d-42a0-acbe-e2de7007384d')
-    return IEnumDot11AdHocInterfaces
-def _define_IEnumDot11AdHocInterfaces():
-    IEnumDot11AdHocInterfaces = win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head
-    IEnumDot11AdHocInterfaces.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cElt'),(1, 'rgElt'),(1, 'pcEltFetched'),)))
-    IEnumDot11AdHocInterfaces.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
-    IEnumDot11AdHocInterfaces.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumDot11AdHocInterfaces.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumDot11AdHocInterfaces
-def _define_IEnumDot11AdHocSecuritySettings_head():
-    class IEnumDot11AdHocSecuritySettings(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc2d-cf0d-42a0-acbe-e2de7007384d')
-    return IEnumDot11AdHocSecuritySettings
-def _define_IEnumDot11AdHocSecuritySettings():
-    IEnumDot11AdHocSecuritySettings = win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head
-    IEnumDot11AdHocSecuritySettings.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cElt'),(1, 'rgElt'),(1, 'pcEltFetched'),)))
-    IEnumDot11AdHocSecuritySettings.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
-    IEnumDot11AdHocSecuritySettings.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumDot11AdHocSecuritySettings.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumDot11AdHocSecuritySettings
-def _define_IDot11AdHocSecuritySettings_head():
-    class IDot11AdHocSecuritySettings(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc2e-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocSecuritySettings
-def _define_IDot11AdHocSecuritySettings():
-    IDot11AdHocSecuritySettings = win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head
-    IDot11AdHocSecuritySettings.GetDot11AuthAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM), use_last_error=False)(3, 'GetDot11AuthAlgorithm', ((1, 'pAuth'),)))
-    IDot11AdHocSecuritySettings.GetDot11CipherAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM), use_last_error=False)(4, 'GetDot11CipherAlgorithm', ((1, 'pCipher'),)))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocSecuritySettings
-def _define_IDot11AdHocInterfaceNotificationSink_head():
-    class IDot11AdHocInterfaceNotificationSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8f10cc2f-cf0d-42a0-acbe-e2de7007384d')
-    return IDot11AdHocInterfaceNotificationSink
-def _define_IDot11AdHocInterfaceNotificationSink():
-    IDot11AdHocInterfaceNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocInterfaceNotificationSink_head
-    IDot11AdHocInterfaceNotificationSink.OnConnectionStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS, use_last_error=False)(3, 'OnConnectionStatusChange', ((1, 'eStatus'),)))
-    win32more.System.Com.IUnknown
-    return IDot11AdHocInterfaceNotificationSink
-def _define_WlanOpenHandle():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("WlanOpenHandle", windll["wlanapi"]), ((1, 'dwClientVersion'),(1, 'pReserved'),(1, 'pdwNegotiatedVersion'),(1, 'phClientHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanCloseHandle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_void_p, use_last_error=False)(("WlanCloseHandle", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanEnumInterfaces():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_LIST_head)), use_last_error=False)(("WlanEnumInterfaces", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pReserved'),(1, 'ppInterfaceList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetAutoConfigParameter():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE,UInt32,c_void_p,c_void_p, use_last_error=False)(("WlanSetAutoConfigParameter", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'dwDataSize'),(1, 'pData'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanQueryAutoConfigParameter():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE,c_void_p,POINTER(UInt32),POINTER(c_void_p),POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE), use_last_error=False)(("WlanQueryAutoConfigParameter", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'pReserved'),(1, 'pdwDataSize'),(1, 'ppData'),(1, 'pWlanOpcodeValueType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetInterfaceCapability():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_INTERFACE_CAPABILITY_head)), use_last_error=False)(("WlanGetInterfaceCapability", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pReserved'),(1, 'ppCapability'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetInterface():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.NetworkManagement.WiFi.WLAN_INTF_OPCODE,UInt32,c_void_p,c_void_p, use_last_error=False)(("WlanSetInterface", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'OpCode'),(1, 'dwDataSize'),(1, 'pData'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanQueryInterface():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.NetworkManagement.WiFi.WLAN_INTF_OPCODE,c_void_p,POINTER(UInt32),POINTER(c_void_p),POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE), use_last_error=False)(("WlanQueryInterface", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'OpCode'),(1, 'pReserved'),(1, 'pdwDataSize'),(1, 'ppData'),(1, 'pWlanOpcodeValueType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanIhvControl():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE,UInt32,c_void_p,UInt32,c_void_p,POINTER(UInt32), use_last_error=False)(("WlanIhvControl", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'Type'),(1, 'dwInBufferSize'),(1, 'pInBuffer'),(1, 'dwOutBufferSize'),(1, 'pOutBuffer'),(1, 'pdwBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanScan():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head),POINTER(win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_head),c_void_p, use_last_error=False)(("WlanScan", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pDot11Ssid'),(1, 'pIeData'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetAvailableNetworkList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_head)), use_last_error=False)(("WlanGetAvailableNetworkList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwFlags'),(1, 'pReserved'),(1, 'ppAvailableNetworkList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetAvailableNetworkList2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_V2_head)), use_last_error=False)(("WlanGetAvailableNetworkList2", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwFlags'),(1, 'pReserved'),(1, 'ppAvailableNetworkList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetNetworkBssList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.DOT11_SSID_head),win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE,win32more.Foundation.BOOL,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_BSS_LIST_head)), use_last_error=False)(("WlanGetNetworkBssList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pDot11Ssid'),(1, 'dot11BssType'),(1, 'bSecurityEnabled'),(1, 'pReserved'),(1, 'ppWlanBssList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanConnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_head),c_void_p, use_last_error=False)(("WlanConnect", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pConnectionParameters'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanConnect2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_V2_head),c_void_p, use_last_error=False)(("WlanConnect2", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pConnectionParameters'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanDisconnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),c_void_p, use_last_error=False)(("WlanDisconnect", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanRegisterNotification():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.NetworkManagement.WiFi.WLAN_NOTIFICATION_CALLBACK,c_void_p,c_void_p,POINTER(UInt32), use_last_error=False)(("WlanRegisterNotification", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'dwNotifSource'),(1, 'bIgnoreDuplicate'),(1, 'funcCallback'),(1, 'pCallbackContext'),(1, 'pReserved'),(1, 'pdwPrevNotifSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetProfile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(("WlanGetProfile", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'pReserved'),(1, 'pstrProfileXml'),(1, 'pdwFlags'),(1, 'pdwGrantedAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetProfileEapUserData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE,win32more.NetworkManagement.WiFi.WLAN_SET_EAPHOST_FLAGS,UInt32,c_char_p_no,c_void_p, use_last_error=False)(("WlanSetProfileEapUserData", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'eapType'),(1, 'dwFlags'),(1, 'dwEapUserDataSize'),(1, 'pbEapUserData'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetProfileEapXmlUserData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.NetworkManagement.WiFi.WLAN_SET_EAPHOST_FLAGS,win32more.Foundation.PWSTR,c_void_p, use_last_error=False)(("WlanSetProfileEapXmlUserData", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'dwFlags'),(1, 'strEapXmlUserData'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetProfile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,c_void_p,POINTER(UInt32), use_last_error=False)(("WlanSetProfile", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwFlags'),(1, 'strProfileXml'),(1, 'strAllUserProfileSecurity'),(1, 'bOverwrite'),(1, 'pReserved'),(1, 'pdwReasonCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanDeleteProfile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,c_void_p, use_last_error=False)(("WlanDeleteProfile", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanRenameProfile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p, use_last_error=False)(("WlanRenameProfile", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strOldProfileName'),(1, 'strNewProfileName'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetProfileList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO_LIST_head)), use_last_error=False)(("WlanGetProfileList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pReserved'),(1, 'ppProfileList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetProfileList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,POINTER(win32more.Foundation.PWSTR),c_void_p, use_last_error=False)(("WlanSetProfileList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'dwItems'),(1, 'strProfileNames'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetProfilePosition():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,c_void_p, use_last_error=False)(("WlanSetProfilePosition", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'dwPosition'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetProfileCustomUserData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,c_char_p_no,c_void_p, use_last_error=False)(("WlanSetProfileCustomUserData", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'dwDataSize'),(1, 'pData'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetProfileCustomUserData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,c_void_p,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(("WlanGetProfileCustomUserData", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'pReserved'),(1, 'pdwDataSize'),(1, 'ppData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetFilterList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE,POINTER(win32more.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head),c_void_p, use_last_error=False)(("WlanSetFilterList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'wlanFilterListType'),(1, 'pNetworkList'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetFilterList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head)), use_last_error=False)(("WlanGetFilterList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'wlanFilterListType'),(1, 'pReserved'),(1, 'ppNetworkList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetPsdIEDataList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head),c_void_p, use_last_error=False)(("WlanSetPsdIEDataList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'strFormat'),(1, 'pPsdIEDataList'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSaveTemporaryProfile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,c_void_p, use_last_error=False)(("WlanSaveTemporaryProfile", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'strProfileName'),(1, 'strAllUserProfileSecurity'),(1, 'dwFlags'),(1, 'bOverWrite'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanDeviceServiceCommand():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(Guid),UInt32,UInt32,c_void_p,UInt32,c_void_p,POINTER(UInt32), use_last_error=False)(("WlanDeviceServiceCommand", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'pDeviceServiceGuid'),(1, 'dwOpCode'),(1, 'dwInBufferSize'),(1, 'pInBuffer'),(1, 'dwOutBufferSize'),(1, 'pOutBuffer'),(1, 'pdwBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetSupportedDeviceServices():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head)), use_last_error=False)(("WlanGetSupportedDeviceServices", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pInterfaceGuid'),(1, 'ppDevSvcGuidList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanRegisterDeviceServiceNotification():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head), use_last_error=False)(("WlanRegisterDeviceServiceNotification", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pDevSvcGuidList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanExtractPsdIEDataList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_char_p_no,win32more.Foundation.PWSTR,c_void_p,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head)), use_last_error=False)(("WlanExtractPsdIEDataList", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'dwIeDataSize'),(1, 'pRawIeData'),(1, 'strFormat'),(1, 'pReserved'),(1, 'ppPsdIEDataList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanReasonCodeToString():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,POINTER(Char),c_void_p, use_last_error=False)(("WlanReasonCodeToString", windll["wlanapi"]), ((1, 'dwReasonCode'),(1, 'dwBufferSize'),(1, 'pStringBuffer'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanAllocateMemory():
-    try:
-        return WINFUNCTYPE(c_void_p,UInt32, use_last_error=True)(("WlanAllocateMemory", windll["wlanapi"]), ((1, 'dwMemorySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanFreeMemory():
-    try:
-        return WINFUNCTYPE(Void,c_void_p, use_last_error=False)(("WlanFreeMemory", windll["wlanapi"]), ((1, 'pMemory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanSetSecuritySettings():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT,win32more.Foundation.PWSTR, use_last_error=False)(("WlanSetSecuritySettings", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'SecurableObject'),(1, 'strModifiedSDDL'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanGetSecuritySettings():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT,POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE),POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(("WlanGetSecuritySettings", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'SecurableObject'),(1, 'pValueType'),(1, 'pstrCurrentSDDL'),(1, 'pdwGrantedAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanUIEditProfile():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),win32more.Foundation.HWND,win32more.NetworkManagement.WiFi.WL_DISPLAY_PAGES,c_void_p,POINTER(UInt32), use_last_error=False)(("WlanUIEditProfile", windll["wlanui"]), ((1, 'dwClientVersion'),(1, 'wstrProfileName'),(1, 'pInterfaceGuid'),(1, 'hWnd'),(1, 'wlStartPage'),(1, 'pReserved'),(1, 'pWlanReasonCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkStartUsing():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkStartUsing", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkStopUsing():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkStopUsing", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkForceStart():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkForceStart", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkForceStop():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkForceStop", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkQueryProperty():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE,POINTER(UInt32),POINTER(c_void_p),POINTER(win32more.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE),c_void_p, use_last_error=False)(("WlanHostedNetworkQueryProperty", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'pdwDataSize'),(1, 'ppvData'),(1, 'pWlanOpcodeValueType'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkSetProperty():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE,UInt32,c_void_p,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkSetProperty", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'OpCode'),(1, 'dwDataSize'),(1, 'pvData'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkInitSettings():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkInitSettings", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkRefreshSecuritySettings():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkRefreshSecuritySettings", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkQueryStatus():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATUS_head)),c_void_p, use_last_error=False)(("WlanHostedNetworkQueryStatus", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'ppWlanHostedNetworkStatus'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkSetSecondaryKey():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_char_p_no,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkSetSecondaryKey", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'dwKeyLength'),(1, 'pucKeyData'),(1, 'bIsPassPhrase'),(1, 'bPersistent'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanHostedNetworkQuerySecondaryKey():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(c_char_p_no),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL),POINTER(win32more.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON),c_void_p, use_last_error=False)(("WlanHostedNetworkQuerySecondaryKey", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pdwKeyLength'),(1, 'ppucKeyData'),(1, 'pbIsPassPhrase'),(1, 'pbPersistent'),(1, 'pFailReason'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WlanRegisterVirtualStationNotification():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,c_void_p, use_last_error=False)(("WlanRegisterVirtualStationNotification", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'bRegister'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDOpenHandle():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("WFDOpenHandle", windll["wlanapi"]), ((1, 'dwClientVersion'),(1, 'pdwNegotiatedVersion'),(1, 'phClientHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDCloseHandle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE, use_last_error=False)(("WFDCloseHandle", windll["wlanapi"]), ((1, 'hClientHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDStartOpenSession():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no),c_void_p,win32more.NetworkManagement.WiFi.WFD_OPEN_SESSION_COMPLETE_CALLBACK,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("WFDStartOpenSession", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pDeviceAddress'),(1, 'pvContext'),(1, 'pfnCallback'),(1, 'phSessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDCancelOpenSession():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE, use_last_error=False)(("WFDCancelOpenSession", windll["wlanapi"]), ((1, 'hSessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDOpenLegacySession():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no),POINTER(win32more.Foundation.HANDLE),POINTER(Guid), use_last_error=False)(("WFDOpenLegacySession", windll["wlanapi"]), ((1, 'hClientHandle'),(1, 'pLegacyMacAddress'),(1, 'phSessionHandle'),(1, 'pGuidSessionInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDCloseSession():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE, use_last_error=False)(("WFDCloseSession", windll["wlanapi"]), ((1, 'hSessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WFDUpdateDeviceVisibility():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(c_char_p_no), use_last_error=False)(("WFDUpdateDeviceVisibility", windll["wlanapi"]), ((1, 'pDeviceAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+    return WLAN_PHY_FRAME_STATISTICS
+def _define_WLAN_PHY_RADIO_STATE_head():
+    class WLAN_PHY_RADIO_STATE(Structure):
+        pass
+    return WLAN_PHY_RADIO_STATE
+def _define_WLAN_PHY_RADIO_STATE():
+    WLAN_PHY_RADIO_STATE = win32more.NetworkManagement.WiFi.WLAN_PHY_RADIO_STATE_head
+    WLAN_PHY_RADIO_STATE._fields_ = [
+        ('dwPhyIndex', UInt32),
+        ('dot11SoftwareRadioState', win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
+        ('dot11HardwareRadioState', win32more.NetworkManagement.WiFi.DOT11_RADIO_STATE),
+    ]
+    return WLAN_PHY_RADIO_STATE
+WLAN_POWER_SETTING = Int32
+wlan_power_setting_no_saving = 0
+wlan_power_setting_low_saving = 1
+wlan_power_setting_medium_saving = 2
+wlan_power_setting_maximum_saving = 3
+wlan_power_setting_invalid = 4
+def _define_WLAN_PROFILE_INFO_head():
+    class WLAN_PROFILE_INFO(Structure):
+        pass
+    return WLAN_PROFILE_INFO
+def _define_WLAN_PROFILE_INFO():
+    WLAN_PROFILE_INFO = win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO_head
+    WLAN_PROFILE_INFO._fields_ = [
+        ('strProfileName', Char * 256),
+        ('dwFlags', UInt32),
+    ]
+    return WLAN_PROFILE_INFO
+def _define_WLAN_PROFILE_INFO_LIST_head():
+    class WLAN_PROFILE_INFO_LIST(Structure):
+        pass
+    return WLAN_PROFILE_INFO_LIST
+def _define_WLAN_PROFILE_INFO_LIST():
+    WLAN_PROFILE_INFO_LIST = win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO_LIST_head
+    WLAN_PROFILE_INFO_LIST._fields_ = [
+        ('dwNumberOfItems', UInt32),
+        ('dwIndex', UInt32),
+        ('ProfileInfo', win32more.NetworkManagement.WiFi.WLAN_PROFILE_INFO * 1),
+    ]
+    return WLAN_PROFILE_INFO_LIST
+def _define_WLAN_RADIO_STATE_head():
+    class WLAN_RADIO_STATE(Structure):
+        pass
+    return WLAN_RADIO_STATE
+def _define_WLAN_RADIO_STATE():
+    WLAN_RADIO_STATE = win32more.NetworkManagement.WiFi.WLAN_RADIO_STATE_head
+    WLAN_RADIO_STATE._fields_ = [
+        ('dwNumberOfPhys', UInt32),
+        ('PhyRadioState', win32more.NetworkManagement.WiFi.WLAN_PHY_RADIO_STATE * 64),
+    ]
+    return WLAN_RADIO_STATE
+def _define_WLAN_RATE_SET_head():
+    class WLAN_RATE_SET(Structure):
+        pass
+    return WLAN_RATE_SET
+def _define_WLAN_RATE_SET():
+    WLAN_RATE_SET = win32more.NetworkManagement.WiFi.WLAN_RATE_SET_head
+    WLAN_RATE_SET._fields_ = [
+        ('uRateSetLength', UInt32),
+        ('usRateSet', UInt16 * 126),
+    ]
+    return WLAN_RATE_SET
+def _define_WLAN_RAW_DATA_head():
+    class WLAN_RAW_DATA(Structure):
+        pass
+    return WLAN_RAW_DATA
+def _define_WLAN_RAW_DATA():
+    WLAN_RAW_DATA = win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_head
+    WLAN_RAW_DATA._fields_ = [
+        ('dwDataSize', UInt32),
+        ('DataBlob', Byte * 1),
+    ]
+    return WLAN_RAW_DATA
+def _define_WLAN_RAW_DATA_LIST_head():
+    class WLAN_RAW_DATA_LIST(Structure):
+        pass
+    return WLAN_RAW_DATA_LIST
+def _define_WLAN_RAW_DATA_LIST():
+    WLAN_RAW_DATA_LIST = win32more.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head
+    class WLAN_RAW_DATA_LIST__Anonymous_e__Struct(Structure):
+        pass
+    WLAN_RAW_DATA_LIST__Anonymous_e__Struct._fields_ = [
+        ('dwDataOffset', UInt32),
+        ('dwDataSize', UInt32),
+    ]
+    WLAN_RAW_DATA_LIST._fields_ = [
+        ('dwTotalSize', UInt32),
+        ('dwNumberOfItems', UInt32),
+        ('DataList', WLAN_RAW_DATA_LIST__Anonymous_e__Struct * 1),
+    ]
+    return WLAN_RAW_DATA_LIST
+WLAN_SECURABLE_OBJECT = Int32
+wlan_secure_permit_list = 0
+wlan_secure_deny_list = 1
+wlan_secure_ac_enabled = 2
+wlan_secure_bc_scan_enabled = 3
+wlan_secure_bss_type = 4
+wlan_secure_show_denied = 5
+wlan_secure_interface_properties = 6
+wlan_secure_ihv_control = 7
+wlan_secure_all_user_profiles_order = 8
+wlan_secure_add_new_all_user_profiles = 9
+wlan_secure_add_new_per_user_profiles = 10
+wlan_secure_media_streaming_mode_enabled = 11
+wlan_secure_current_operation_mode = 12
+wlan_secure_get_plaintext_key = 13
+wlan_secure_hosted_network_elevated_access = 14
+wlan_secure_virtual_station_extensibility = 15
+wlan_secure_wfd_elevated_access = 16
+WLAN_SECURABLE_OBJECT_COUNT = 17
+def _define_WLAN_SECURITY_ATTRIBUTES_head():
+    class WLAN_SECURITY_ATTRIBUTES(Structure):
+        pass
+    return WLAN_SECURITY_ATTRIBUTES
+def _define_WLAN_SECURITY_ATTRIBUTES():
+    WLAN_SECURITY_ATTRIBUTES = win32more.NetworkManagement.WiFi.WLAN_SECURITY_ATTRIBUTES_head
+    WLAN_SECURITY_ATTRIBUTES._fields_ = [
+        ('bSecurityEnabled', win32more.Foundation.BOOL),
+        ('bOneXEnabled', win32more.Foundation.BOOL),
+        ('dot11AuthAlgorithm', win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM),
+        ('dot11CipherAlgorithm', win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM),
+    ]
+    return WLAN_SECURITY_ATTRIBUTES
+WLAN_SET_EAPHOST_FLAGS = UInt32
+WLAN_SET_EAPHOST_DATA_ALL_USERS = 1
+def _define_WLAN_STATISTICS_head():
+    class WLAN_STATISTICS(Structure):
+        pass
+    return WLAN_STATISTICS
+def _define_WLAN_STATISTICS():
+    WLAN_STATISTICS = win32more.NetworkManagement.WiFi.WLAN_STATISTICS_head
+    WLAN_STATISTICS._fields_ = [
+        ('ullFourWayHandshakeFailures', UInt64),
+        ('ullTKIPCounterMeasuresInvoked', UInt64),
+        ('ullReserved', UInt64),
+        ('MacUcastCounters', win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS),
+        ('MacMcastCounters', win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS),
+        ('dwNumberOfPhys', UInt32),
+        ('PhyCounters', win32more.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS * 1),
+    ]
+    return WLAN_STATISTICS
 __all__ = [
-    "L2_REASON_CODE_DOT11_AC_BASE",
-    "L2_REASON_CODE_DOT11_MSM_BASE",
-    "L2_REASON_CODE_DOT11_SECURITY_BASE",
-    "L2_REASON_CODE_ONEX_BASE",
-    "L2_REASON_CODE_DOT3_AC_BASE",
-    "L2_REASON_CODE_DOT3_MSM_BASE",
-    "L2_REASON_CODE_PROFILE_BASE",
-    "L2_REASON_CODE_IHV_BASE",
-    "L2_REASON_CODE_WIMAX_BASE",
-    "L2_REASON_CODE_RESERVED_BASE",
-    "WLAN_REASON_CODE_SUCCESS",
-    "WLAN_REASON_CODE_UNKNOWN",
-    "WLAN_REASON_CODE_RANGE_SIZE",
-    "WLAN_REASON_CODE_BASE",
-    "WLAN_REASON_CODE_AC_BASE",
-    "WLAN_REASON_CODE_AC_CONNECT_BASE",
-    "WLAN_REASON_CODE_AC_END",
-    "WLAN_REASON_CODE_PROFILE_BASE",
-    "WLAN_REASON_CODE_PROFILE_CONNECT_BASE",
-    "WLAN_REASON_CODE_PROFILE_END",
-    "WLAN_REASON_CODE_MSM_BASE",
-    "WLAN_REASON_CODE_MSM_CONNECT_BASE",
-    "WLAN_REASON_CODE_MSM_END",
-    "WLAN_REASON_CODE_MSMSEC_BASE",
-    "WLAN_REASON_CODE_MSMSEC_CONNECT_BASE",
-    "WLAN_REASON_CODE_MSMSEC_END",
-    "WLAN_REASON_CODE_RESERVED_BASE",
-    "WLAN_REASON_CODE_RESERVED_END",
-    "L2_PROFILE_MAX_NAME_LENGTH",
-    "L2_NOTIFICATION_SOURCE_NONE",
-    "L2_NOTIFICATION_SOURCE_DOT3_AUTO_CONFIG",
-    "L2_NOTIFICATION_SOURCE_SECURITY",
-    "L2_NOTIFICATION_SOURCE_ONEX",
-    "L2_NOTIFICATION_SOURCE_WLAN_ACM",
-    "L2_NOTIFICATION_SOURCE_WLAN_MSM",
-    "L2_NOTIFICATION_SOURCE_WLAN_SECURITY",
-    "L2_NOTIFICATION_SOURCE_WLAN_IHV",
-    "L2_NOTIFICATION_SOURCE_WLAN_HNWK",
-    "L2_NOTIFICATION_SOURCE_WCM",
-    "L2_NOTIFICATION_SOURCE_WCM_CSP",
-    "L2_NOTIFICATION_SOURCE_WFD",
-    "L2_NOTIFICATION_SOURCE_WLAN_DEVICE_SERVICE",
-    "L2_NOTIFICATION_SOURCE_ALL",
-    "L2_NOTIFICATION_CODE_PUBLIC_BEGIN",
-    "L2_NOTIFICATION_CODE_GROUP_SIZE",
-    "L2_REASON_CODE_GROUP_SIZE",
-    "L2_REASON_CODE_GEN_BASE",
-    "L2_REASON_CODE_SUCCESS",
-    "L2_REASON_CODE_UNKNOWN",
-    "L2_REASON_CODE_PROFILE_MISSING",
-    "DOT11_BSSID_LIST_REVISION_1",
-    "DOT11_HESSID_LENGTH",
-    "DOT11_RATE_SET_MAX_LENGTH",
-    "DOT11_WFD_SERVICE_NAME_MAX_LENGTH",
-    "DOT11_WFD_APS2_SERVICE_TYPE_MAX_LENGTH",
-    "DOT11_WFD_ASP2_INSTANCE_NAME_MAX_LENGTH",
-    "DOT11_WFD_SERVICE_INFORMATION_MAX_LENGTH",
-    "DOT11_MAX_REQUESTED_SERVICE_INFORMATION_LENGTH",
-    "DOT11_WFD_SESSION_INFO_MAX_LENGTH",
-    "NDIS_PACKET_TYPE_802_11_DIRECTED_DATA",
-    "NDIS_PACKET_TYPE_802_11_BROADCAST_DATA",
-    "NDIS_PACKET_TYPE_802_11_MULTICAST_DATA",
-    "NDIS_PACKET_TYPE_802_11_ALL_MULTICAST_DATA",
-    "NDIS_PACKET_TYPE_802_11_PROMISCUOUS_DATA",
-    "DOT11_MAX_PDU_SIZE",
-    "DOT11_MIN_PDU_SIZE",
-    "DOT11_MAX_NUM_DEFAULT_KEY",
-    "DOT11_MAX_NUM_DEFAULT_KEY_MFP",
-    "OID_DOT11_NDIS_START",
-    "OID_DOT11_OFFLOAD_CAPABILITY",
-    "DOT11_HW_WEP_SUPPORTED_TX",
-    "DOT11_HW_WEP_SUPPORTED_RX",
-    "DOT11_HW_FRAGMENTATION_SUPPORTED",
-    "DOT11_HW_DEFRAGMENTATION_SUPPORTED",
-    "DOT11_HW_MSDU_AUTH_SUPPORTED_TX",
-    "DOT11_HW_MSDU_AUTH_SUPPORTED_RX",
-    "DOT11_CONF_ALGO_WEP_RC4",
-    "DOT11_CONF_ALGO_TKIP",
+    "CH_DESCRIPTION_TYPE",
+    "DEVPKEY_InfraCast_AccessPointBssid",
+    "DEVPKEY_InfraCast_ChallengeAep",
+    "DEVPKEY_InfraCast_DevnodeAep",
+    "DEVPKEY_InfraCast_HostName_ResolutionMode",
+    "DEVPKEY_InfraCast_PinSupported",
+    "DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported",
+    "DEVPKEY_InfraCast_SinkHostName",
+    "DEVPKEY_InfraCast_SinkIpAddress",
+    "DEVPKEY_InfraCast_StreamSecuritySupported",
+    "DEVPKEY_InfraCast_Supported",
+    "DEVPKEY_WiFiDirectServices_AdvertisementId",
+    "DEVPKEY_WiFiDirectServices_RequestServiceInformation",
+    "DEVPKEY_WiFiDirectServices_ServiceAddress",
+    "DEVPKEY_WiFiDirectServices_ServiceConfigMethods",
+    "DEVPKEY_WiFiDirectServices_ServiceInformation",
+    "DEVPKEY_WiFiDirectServices_ServiceName",
+    "DEVPKEY_WiFiDirect_DeviceAddress",
+    "DEVPKEY_WiFiDirect_DeviceAddressCopy",
+    "DEVPKEY_WiFiDirect_FoundWsbService",
+    "DEVPKEY_WiFiDirect_GroupId",
+    "DEVPKEY_WiFiDirect_InformationElements",
+    "DEVPKEY_WiFiDirect_InterfaceAddress",
+    "DEVPKEY_WiFiDirect_InterfaceGuid",
+    "DEVPKEY_WiFiDirect_IsConnected",
+    "DEVPKEY_WiFiDirect_IsDMGCapable",
+    "DEVPKEY_WiFiDirect_IsLegacyDevice",
+    "DEVPKEY_WiFiDirect_IsMiracastLCPSupported",
+    "DEVPKEY_WiFiDirect_IsRecentlyAssociated",
+    "DEVPKEY_WiFiDirect_IsVisible",
+    "DEVPKEY_WiFiDirect_LinkQuality",
+    "DEVPKEY_WiFiDirect_MiracastVersion",
+    "DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort",
+    "DEVPKEY_WiFiDirect_NoMiracastAutoProject",
+    "DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported",
+    "DEVPKEY_WiFiDirect_Service_Aeps",
+    "DEVPKEY_WiFiDirect_Services",
+    "DEVPKEY_WiFiDirect_SupportedChannelList",
+    "DEVPKEY_WiFiDirect_TransientAssociation",
+    "DEVPKEY_WiFi_InterfaceGuid",
+    "DISCOVERY_FILTER_BITMASK_ANY",
+    "DISCOVERY_FILTER_BITMASK_DEVICE",
+    "DISCOVERY_FILTER_BITMASK_GO",
+    "DOT11EXTIHV_ADAPTER_RESET",
+    "DOT11EXTIHV_CONTROL",
+    "DOT11EXTIHV_CREATE_DISCOVERY_PROFILES",
+    "DOT11EXTIHV_DEINIT_ADAPTER",
+    "DOT11EXTIHV_DEINIT_SERVICE",
+    "DOT11EXTIHV_GET_VERSION_INFO",
+    "DOT11EXTIHV_INIT_ADAPTER",
+    "DOT11EXTIHV_INIT_SERVICE",
+    "DOT11EXTIHV_INIT_VIRTUAL_STATION",
+    "DOT11EXTIHV_IS_UI_REQUEST_PENDING",
+    "DOT11EXTIHV_ONEX_INDICATE_RESULT",
+    "DOT11EXTIHV_PERFORM_CAPABILITY_MATCH",
+    "DOT11EXTIHV_PERFORM_POST_ASSOCIATE",
+    "DOT11EXTIHV_PERFORM_PRE_ASSOCIATE",
+    "DOT11EXTIHV_PROCESS_SESSION_CHANGE",
+    "DOT11EXTIHV_PROCESS_UI_RESPONSE",
+    "DOT11EXTIHV_QUERY_UI_REQUEST",
+    "DOT11EXTIHV_RECEIVE_INDICATION",
+    "DOT11EXTIHV_RECEIVE_PACKET",
+    "DOT11EXTIHV_SEND_PACKET_COMPLETION",
+    "DOT11EXTIHV_STOP_POST_ASSOCIATE",
+    "DOT11EXTIHV_VALIDATE_PROFILE",
+    "DOT11EXT_ALLOCATE_BUFFER",
+    "DOT11EXT_APIS",
+    "DOT11EXT_FREE_BUFFER",
+    "DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA",
+    "DOT11EXT_IHV_CONNECTION_PHASE",
+    "DOT11EXT_IHV_CONNECTIVITY_PROFILE",
+    "DOT11EXT_IHV_DISCOVERY_PROFILE",
+    "DOT11EXT_IHV_DISCOVERY_PROFILE_LIST",
+    "DOT11EXT_IHV_HANDLERS",
+    "DOT11EXT_IHV_INDICATION_TYPE",
+    "DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality",
+    "DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification",
+    "DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange",
+    "DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList",
+    "DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure",
+    "DOT11EXT_IHV_PARAMS",
+    "DOT11EXT_IHV_PROFILE_PARAMS",
+    "DOT11EXT_IHV_SECURITY_PROFILE",
+    "DOT11EXT_IHV_SSID_LIST",
+    "DOT11EXT_IHV_UI_REQUEST",
+    "DOT11EXT_NIC_SPECIFIC_EXTENSION",
+    "DOT11EXT_ONEX_START",
+    "DOT11EXT_ONEX_STOP",
+    "DOT11EXT_POST_ASSOCIATE_COMPLETION",
+    "DOT11EXT_PRE_ASSOCIATE_COMPLETION",
+    "DOT11EXT_PROCESS_ONEX_PACKET",
+    "DOT11EXT_PSK_MAX_LENGTH",
+    "DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES",
+    "DOT11EXT_RELEASE_VIRTUAL_STATION",
+    "DOT11EXT_REQUEST_VIRTUAL_STATION",
+    "DOT11EXT_SEND_NOTIFICATION",
+    "DOT11EXT_SEND_PACKET",
+    "DOT11EXT_SEND_UI_REQUEST",
+    "DOT11EXT_SET_AUTH_ALGORITHM",
+    "DOT11EXT_SET_CURRENT_PROFILE",
+    "DOT11EXT_SET_DEFAULT_KEY",
+    "DOT11EXT_SET_DEFAULT_KEY_ID",
+    "DOT11EXT_SET_ETHERTYPE_HANDLING",
+    "DOT11EXT_SET_EXCLUDE_UNENCRYPTED",
+    "DOT11EXT_SET_KEY_MAPPING_KEY",
+    "DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM",
+    "DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA",
+    "DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM",
+    "DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES",
+    "DOT11EXT_VIRTUAL_STATION_APIS",
+    "DOT11EXT_VIRTUAL_STATION_AP_PROPERTY",
+    "DOT11_ACCESSNETWORKOPTIONS",
+    "DOT11_AC_PARAM",
+    "DOT11_ADAPTER",
+    "DOT11_ADDITIONAL_IE",
+    "DOT11_ADDITIONAL_IE_REVISION_1",
+    "DOT11_ADHOC_AUTH_ALGORITHM",
+    "DOT11_ADHOC_AUTH_ALGO_80211_OPEN",
+    "DOT11_ADHOC_AUTH_ALGO_INVALID",
+    "DOT11_ADHOC_AUTH_ALGO_RSNA_PSK",
+    "DOT11_ADHOC_CIPHER_ALGORITHM",
+    "DOT11_ADHOC_CIPHER_ALGO_CCMP",
+    "DOT11_ADHOC_CIPHER_ALGO_INVALID",
+    "DOT11_ADHOC_CIPHER_ALGO_NONE",
+    "DOT11_ADHOC_CIPHER_ALGO_WEP",
+    "DOT11_ADHOC_CONNECT_FAIL_DOMAIN_MISMATCH",
+    "DOT11_ADHOC_CONNECT_FAIL_OTHER",
+    "DOT11_ADHOC_CONNECT_FAIL_PASSPHRASE_MISMATCH",
+    "DOT11_ADHOC_CONNECT_FAIL_REASON",
+    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS",
+    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED",
+    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING",
+    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED",
+    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED",
+    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_INVALID",
+    "DOT11_ANQP_QUERY_COMPLETE_PARAMETERS",
+    "DOT11_ANQP_QUERY_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_ANQP_QUERY_RESULT",
+    "DOT11_AP_JOIN_REQUEST",
+    "DOT11_ASSOCIATION_COMPLETION_PARAMETERS",
+    "DOT11_ASSOCIATION_COMPLETION_PARAMETERS_REVISION_1",
+    "DOT11_ASSOCIATION_COMPLETION_PARAMETERS_REVISION_2",
+    "DOT11_ASSOCIATION_INFO_EX",
+    "DOT11_ASSOCIATION_INFO_LIST",
+    "DOT11_ASSOCIATION_INFO_LIST_REVISION_1",
+    "DOT11_ASSOCIATION_PARAMS",
+    "DOT11_ASSOCIATION_PARAMS_REVISION_1",
+    "DOT11_ASSOCIATION_START_PARAMETERS",
+    "DOT11_ASSOCIATION_START_PARAMETERS_REVISION_1",
+    "DOT11_ASSOCIATION_STATE",
+    "DOT11_ASSOC_ERROR_SOURCE_OS",
+    "DOT11_ASSOC_ERROR_SOURCE_OTHER",
+    "DOT11_ASSOC_ERROR_SOURCE_REMOTE",
+    "DOT11_ASSOC_STATUS_SUCCESS",
+    "DOT11_AUTH_ALGORITHM",
+    "DOT11_AUTH_ALGORITHM_LIST",
+    "DOT11_AUTH_ALGORITHM_LIST_REVISION_1",
+    "DOT11_AUTH_ALGO_80211_OPEN",
+    "DOT11_AUTH_ALGO_80211_SHARED_KEY",
+    "DOT11_AUTH_ALGO_IHV_END",
+    "DOT11_AUTH_ALGO_IHV_START",
     "DOT11_AUTH_ALGO_MICHAEL",
-    "OID_DOT11_CURRENT_OFFLOAD_CAPABILITY",
-    "OID_DOT11_WEP_OFFLOAD",
-    "OID_DOT11_WEP_UPLOAD",
-    "OID_DOT11_DEFAULT_WEP_OFFLOAD",
-    "OID_DOT11_DEFAULT_WEP_UPLOAD",
-    "OID_DOT11_MPDU_MAX_LENGTH",
-    "OID_DOT11_OPERATION_MODE_CAPABILITY",
-    "DOT11_OPERATION_MODE_UNKNOWN",
-    "DOT11_OPERATION_MODE_STATION",
-    "DOT11_OPERATION_MODE_AP",
-    "DOT11_OPERATION_MODE_EXTENSIBLE_STATION",
-    "DOT11_OPERATION_MODE_EXTENSIBLE_AP",
-    "DOT11_OPERATION_MODE_WFD_DEVICE",
-    "DOT11_OPERATION_MODE_WFD_GROUP_OWNER",
-    "DOT11_OPERATION_MODE_WFD_CLIENT",
-    "DOT11_OPERATION_MODE_MANUFACTURING",
-    "DOT11_OPERATION_MODE_NETWORK_MONITOR",
-    "OID_DOT11_CURRENT_OPERATION_MODE",
-    "OID_DOT11_CURRENT_PACKET_FILTER",
-    "DOT11_PACKET_TYPE_DIRECTED_CTRL",
-    "DOT11_PACKET_TYPE_DIRECTED_MGMT",
-    "DOT11_PACKET_TYPE_DIRECTED_DATA",
-    "DOT11_PACKET_TYPE_MULTICAST_CTRL",
-    "DOT11_PACKET_TYPE_MULTICAST_MGMT",
-    "DOT11_PACKET_TYPE_MULTICAST_DATA",
-    "DOT11_PACKET_TYPE_BROADCAST_CTRL",
-    "DOT11_PACKET_TYPE_BROADCAST_MGMT",
-    "DOT11_PACKET_TYPE_BROADCAST_DATA",
-    "DOT11_PACKET_TYPE_PROMISCUOUS_CTRL",
-    "DOT11_PACKET_TYPE_PROMISCUOUS_MGMT",
-    "DOT11_PACKET_TYPE_PROMISCUOUS_DATA",
-    "DOT11_PACKET_TYPE_ALL_MULTICAST_CTRL",
-    "DOT11_PACKET_TYPE_ALL_MULTICAST_MGMT",
-    "DOT11_PACKET_TYPE_ALL_MULTICAST_DATA",
-    "OID_DOT11_ATIM_WINDOW",
-    "OID_DOT11_SCAN_REQUEST",
-    "OID_DOT11_CURRENT_PHY_TYPE",
-    "DOT11_PHY_TYPE_LIST_REVISION_1",
-    "OID_DOT11_JOIN_REQUEST",
-    "DOT11_CAPABILITY_INFO_ESS",
-    "DOT11_CAPABILITY_INFO_IBSS",
+    "DOT11_AUTH_ALGO_OWE",
+    "DOT11_AUTH_ALGO_RSNA",
+    "DOT11_AUTH_ALGO_RSNA_PSK",
+    "DOT11_AUTH_ALGO_WPA",
+    "DOT11_AUTH_ALGO_WPA3",
+    "DOT11_AUTH_ALGO_WPA3_ENT",
+    "DOT11_AUTH_ALGO_WPA3_ENT_192",
+    "DOT11_AUTH_ALGO_WPA3_SAE",
+    "DOT11_AUTH_ALGO_WPA_NONE",
+    "DOT11_AUTH_ALGO_WPA_PSK",
+    "DOT11_AUTH_CIPHER_PAIR",
+    "DOT11_AUTH_CIPHER_PAIR_LIST",
+    "DOT11_AUTH_CIPHER_PAIR_LIST_REVISION_1",
+    "DOT11_AVAILABLE_CHANNEL_LIST",
+    "DOT11_AVAILABLE_CHANNEL_LIST_REVISION_1",
+    "DOT11_AVAILABLE_FREQUENCY_LIST",
+    "DOT11_AVAILABLE_FREQUENCY_LIST_REVISION_1",
+    "DOT11_BAND",
+    "DOT11_BSSID_CANDIDATE",
+    "DOT11_BSSID_LIST",
+    "DOT11_BSSID_LIST_REVISION_1",
+    "DOT11_BSS_DESCRIPTION",
+    "DOT11_BSS_ENTRY",
+    "DOT11_BSS_ENTRY_BYTE_ARRAY_REVISION_1",
+    "DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO",
+    "DOT11_BSS_LIST",
+    "DOT11_BSS_TYPE",
+    "DOT11_BYTE_ARRAY",
+    "DOT11_CAN_SUSTAIN_AP_PARAMETERS",
+    "DOT11_CAN_SUSTAIN_AP_PARAMETERS_REVISION_1",
+    "DOT11_CAN_SUSTAIN_AP_REASON_IHV_END",
+    "DOT11_CAN_SUSTAIN_AP_REASON_IHV_START",
+    "DOT11_CAPABILITY_CHANNEL_AGILITY",
+    "DOT11_CAPABILITY_DSSSOFDM",
     "DOT11_CAPABILITY_INFO_CF_POLLABLE",
     "DOT11_CAPABILITY_INFO_CF_POLL_REQ",
+    "DOT11_CAPABILITY_INFO_ESS",
+    "DOT11_CAPABILITY_INFO_IBSS",
     "DOT11_CAPABILITY_INFO_PRIVACY",
-    "DOT11_CAPABILITY_SHORT_PREAMBLE",
     "DOT11_CAPABILITY_PBCC",
-    "DOT11_CAPABILITY_CHANNEL_AGILITY",
+    "DOT11_CAPABILITY_SHORT_PREAMBLE",
     "DOT11_CAPABILITY_SHORT_SLOT_TIME",
-    "DOT11_CAPABILITY_DSSSOFDM",
-    "OID_DOT11_START_REQUEST",
-    "OID_DOT11_UPDATE_IE",
-    "OID_DOT11_RESET_REQUEST",
-    "OID_DOT11_NIC_POWER_STATE",
-    "OID_DOT11_OPTIONAL_CAPABILITY",
-    "OID_DOT11_CURRENT_OPTIONAL_CAPABILITY",
-    "OID_DOT11_STATION_ID",
-    "OID_DOT11_MEDIUM_OCCUPANCY_LIMIT",
-    "OID_DOT11_CF_POLLABLE",
-    "OID_DOT11_CFP_PERIOD",
-    "OID_DOT11_CFP_MAX_DURATION",
-    "OID_DOT11_POWER_MGMT_MODE",
-    "DOT11_POWER_SAVE_LEVEL_MAX_PSP",
-    "DOT11_POWER_SAVE_LEVEL_FAST_PSP",
-    "OID_DOT11_OPERATIONAL_RATE_SET",
-    "OID_DOT11_BEACON_PERIOD",
-    "OID_DOT11_DTIM_PERIOD",
-    "OID_DOT11_WEP_ICV_ERROR_COUNT",
-    "OID_DOT11_MAC_ADDRESS",
-    "OID_DOT11_RTS_THRESHOLD",
-    "OID_DOT11_SHORT_RETRY_LIMIT",
-    "OID_DOT11_LONG_RETRY_LIMIT",
-    "OID_DOT11_FRAGMENTATION_THRESHOLD",
-    "OID_DOT11_MAX_TRANSMIT_MSDU_LIFETIME",
-    "OID_DOT11_MAX_RECEIVE_LIFETIME",
-    "OID_DOT11_COUNTERS_ENTRY",
-    "OID_DOT11_SUPPORTED_PHY_TYPES",
-    "OID_DOT11_CURRENT_REG_DOMAIN",
-    "DOT11_REG_DOMAIN_OTHER",
-    "DOT11_REG_DOMAIN_FCC",
-    "DOT11_REG_DOMAIN_DOC",
-    "DOT11_REG_DOMAIN_ETSI",
-    "DOT11_REG_DOMAIN_SPAIN",
-    "DOT11_REG_DOMAIN_FRANCE",
-    "DOT11_REG_DOMAIN_MKK",
-    "OID_DOT11_TEMP_TYPE",
-    "OID_DOT11_CURRENT_TX_ANTENNA",
-    "OID_DOT11_DIVERSITY_SUPPORT",
-    "OID_DOT11_CURRENT_RX_ANTENNA",
-    "OID_DOT11_SUPPORTED_POWER_LEVELS",
-    "OID_DOT11_CURRENT_TX_POWER_LEVEL",
-    "OID_DOT11_HOP_TIME",
-    "OID_DOT11_CURRENT_CHANNEL_NUMBER",
-    "OID_DOT11_MAX_DWELL_TIME",
-    "OID_DOT11_CURRENT_DWELL_TIME",
-    "OID_DOT11_CURRENT_SET",
-    "OID_DOT11_CURRENT_PATTERN",
-    "OID_DOT11_CURRENT_INDEX",
-    "OID_DOT11_CURRENT_CHANNEL",
-    "OID_DOT11_CCA_MODE_SUPPORTED",
-    "DOT11_CCA_MODE_ED_ONLY",
     "DOT11_CCA_MODE_CS_ONLY",
-    "DOT11_CCA_MODE_ED_and_CS",
     "DOT11_CCA_MODE_CS_WITH_TIMER",
+    "DOT11_CCA_MODE_ED_ONLY",
+    "DOT11_CCA_MODE_ED_and_CS",
     "DOT11_CCA_MODE_HRCS_AND_ED",
-    "OID_DOT11_CURRENT_CCA_MODE",
-    "OID_DOT11_ED_THRESHOLD",
-    "OID_DOT11_CCA_WATCHDOG_TIMER_MAX",
-    "OID_DOT11_CCA_WATCHDOG_COUNT_MAX",
-    "OID_DOT11_CCA_WATCHDOG_TIMER_MIN",
-    "OID_DOT11_CCA_WATCHDOG_COUNT_MIN",
-    "OID_DOT11_REG_DOMAINS_SUPPORT_VALUE",
-    "OID_DOT11_SUPPORTED_TX_ANTENNA",
-    "OID_DOT11_SUPPORTED_RX_ANTENNA",
-    "OID_DOT11_DIVERSITY_SELECTION_RX",
-    "OID_DOT11_SUPPORTED_DATA_RATES_VALUE",
-    "MAX_NUM_SUPPORTED_RATES",
-    "MAX_NUM_SUPPORTED_RATES_V2",
-    "OID_DOT11_CURRENT_FREQUENCY",
-    "OID_DOT11_TI_THRESHOLD",
-    "OID_DOT11_FREQUENCY_BANDS_SUPPORTED",
-    "DOT11_FREQUENCY_BANDS_LOWER",
-    "DOT11_FREQUENCY_BANDS_MIDDLE",
-    "DOT11_FREQUENCY_BANDS_UPPER",
-    "OID_DOT11_SHORT_PREAMBLE_OPTION_IMPLEMENTED",
-    "OID_DOT11_PBCC_OPTION_IMPLEMENTED",
-    "OID_DOT11_CHANNEL_AGILITY_PRESENT",
-    "OID_DOT11_CHANNEL_AGILITY_ENABLED",
-    "OID_DOT11_HR_CCA_MODE_SUPPORTED",
-    "DOT11_HR_CCA_MODE_ED_ONLY",
-    "DOT11_HR_CCA_MODE_CS_ONLY",
-    "DOT11_HR_CCA_MODE_CS_AND_ED",
-    "DOT11_HR_CCA_MODE_CS_WITH_TIMER",
-    "DOT11_HR_CCA_MODE_HRCS_AND_ED",
-    "OID_DOT11_MULTI_DOMAIN_CAPABILITY_IMPLEMENTED",
-    "OID_DOT11_MULTI_DOMAIN_CAPABILITY_ENABLED",
-    "OID_DOT11_COUNTRY_STRING",
-    "OID_DOT11_MULTI_DOMAIN_CAPABILITY",
-    "OID_DOT11_EHCC_PRIME_RADIX",
-    "OID_DOT11_EHCC_NUMBER_OF_CHANNELS_FAMILY_INDEX",
-    "OID_DOT11_EHCC_CAPABILITY_IMPLEMENTED",
-    "OID_DOT11_EHCC_CAPABILITY_ENABLED",
-    "OID_DOT11_HOP_ALGORITHM_ADOPTED",
-    "OID_DOT11_RANDOM_TABLE_FLAG",
-    "OID_DOT11_NUMBER_OF_HOPPING_SETS",
-    "OID_DOT11_HOP_MODULUS",
-    "OID_DOT11_HOP_OFFSET",
-    "OID_DOT11_HOPPING_PATTERN",
-    "OID_DOT11_RANDOM_TABLE_FIELD_NUMBER",
-    "OID_DOT11_WPA_TSC",
-    "OID_DOT11_RSSI_RANGE",
-    "OID_DOT11_RF_USAGE",
-    "OID_DOT11_NIC_SPECIFIC_EXTENSION",
-    "OID_DOT11_AP_JOIN_REQUEST",
-    "OID_DOT11_ERP_PBCC_OPTION_IMPLEMENTED",
-    "OID_DOT11_ERP_PBCC_OPTION_ENABLED",
-    "OID_DOT11_DSSS_OFDM_OPTION_IMPLEMENTED",
-    "OID_DOT11_DSSS_OFDM_OPTION_ENABLED",
-    "OID_DOT11_SHORT_SLOT_TIME_OPTION_IMPLEMENTED",
-    "OID_DOT11_SHORT_SLOT_TIME_OPTION_ENABLED",
-    "OID_DOT11_MAX_MAC_ADDRESS_STATES",
-    "OID_DOT11_RECV_SENSITIVITY_LIST",
-    "OID_DOT11_WME_IMPLEMENTED",
-    "OID_DOT11_WME_ENABLED",
-    "OID_DOT11_WME_AC_PARAMETERS",
-    "OID_DOT11_WME_UPDATE_IE",
-    "OID_DOT11_QOS_TX_QUEUES_SUPPORTED",
-    "OID_DOT11_QOS_TX_DURATION",
-    "OID_DOT11_QOS_TX_MEDIUM_TIME",
-    "OID_DOT11_SUPPORTED_OFDM_FREQUENCY_LIST",
-    "OID_DOT11_SUPPORTED_DSSS_CHANNEL_LIST",
-    "DOT11_BSS_ENTRY_BYTE_ARRAY_REVISION_1",
-    "DOT11_POWER_SAVING_NO_POWER_SAVING",
-    "DOT11_POWER_SAVING_FAST_PSP",
-    "DOT11_POWER_SAVING_MAX_PSP",
-    "DOT11_POWER_SAVING_MAXIMUM_LEVEL",
-    "DOT11_SSID_LIST_REVISION_1",
-    "DOT11_MAC_ADDRESS_LIST_REVISION_1",
-    "DOT11_PMKID_LIST_REVISION_1",
-    "DOT11_STATISTICS_REVISION_1",
-    "DOT11_EXEMPT_NO_EXEMPTION",
+    "DOT11_CHANNEL_HINT",
+    "DOT11_CIPHER_ALGORITHM",
+    "DOT11_CIPHER_ALGORITHM_LIST",
+    "DOT11_CIPHER_ALGORITHM_LIST_REVISION_1",
+    "DOT11_CIPHER_ALGO_BIP",
+    "DOT11_CIPHER_ALGO_BIP_CMAC_256",
+    "DOT11_CIPHER_ALGO_BIP_GMAC_128",
+    "DOT11_CIPHER_ALGO_BIP_GMAC_256",
+    "DOT11_CIPHER_ALGO_CCMP",
+    "DOT11_CIPHER_ALGO_CCMP_256",
+    "DOT11_CIPHER_ALGO_GCMP",
+    "DOT11_CIPHER_ALGO_GCMP_256",
+    "DOT11_CIPHER_ALGO_IHV_END",
+    "DOT11_CIPHER_ALGO_IHV_START",
+    "DOT11_CIPHER_ALGO_NONE",
+    "DOT11_CIPHER_ALGO_RSN_USE_GROUP",
+    "DOT11_CIPHER_ALGO_TKIP",
+    "DOT11_CIPHER_ALGO_WEP",
+    "DOT11_CIPHER_ALGO_WEP104",
+    "DOT11_CIPHER_ALGO_WEP40",
+    "DOT11_CIPHER_ALGO_WPA_USE_GROUP",
+    "DOT11_CIPHER_DEFAULT_KEY_VALUE",
+    "DOT11_CIPHER_DEFAULT_KEY_VALUE_REVISION_1",
+    "DOT11_CIPHER_KEY_MAPPING_KEY_VALUE",
+    "DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_BYTE_ARRAY_REVISION_1",
+    "DOT11_CONF_ALGO_TKIP",
+    "DOT11_CONF_ALGO_WEP_RC4",
+    "DOT11_CONNECTION_COMPLETION_PARAMETERS",
+    "DOT11_CONNECTION_COMPLETION_PARAMETERS_REVISION_1",
+    "DOT11_CONNECTION_START_PARAMETERS",
+    "DOT11_CONNECTION_START_PARAMETERS_REVISION_1",
+    "DOT11_CONNECTION_STATUS_SUCCESS",
+    "DOT11_COUNTERS_ENTRY",
+    "DOT11_COUNTRY_OR_REGION_STRING_LIST",
+    "DOT11_COUNTRY_OR_REGION_STRING_LIST_REVISION_1",
+    "DOT11_CURRENT_OFFLOAD_CAPABILITY",
+    "DOT11_CURRENT_OPERATION_MODE",
+    "DOT11_CURRENT_OPTIONAL_CAPABILITY",
+    "DOT11_DATA_RATE_MAPPING_ENTRY",
+    "DOT11_DATA_RATE_MAPPING_TABLE",
+    "DOT11_DATA_RATE_MAPPING_TABLE_REVISION_1",
+    "DOT11_DEFAULT_WEP_OFFLOAD",
+    "DOT11_DEFAULT_WEP_UPLOAD",
+    "DOT11_DEVICE_ENTRY_BYTE_ARRAY_REVISION_1",
+    "DOT11_DIRECTION",
+    "DOT11_DIR_BOTH",
+    "DOT11_DIR_INBOUND",
+    "DOT11_DIR_OUTBOUND",
+    "DOT11_DISASSOCIATE_PEER_REQUEST",
+    "DOT11_DISASSOCIATE_PEER_REQUEST_REVISION_1",
+    "DOT11_DISASSOCIATION_PARAMETERS",
+    "DOT11_DISASSOCIATION_PARAMETERS_REVISION_1",
+    "DOT11_DIVERSITY_SELECTION_RX",
+    "DOT11_DIVERSITY_SELECTION_RX_LIST",
+    "DOT11_DIVERSITY_SUPPORT",
+    "DOT11_DS_CHANGED",
+    "DOT11_DS_INFO",
+    "DOT11_DS_UNCHANGED",
+    "DOT11_DS_UNKNOWN",
+    "DOT11_EAP_RESULT",
+    "DOT11_ENCAP_802_1H",
+    "DOT11_ENCAP_ENTRY",
+    "DOT11_ENCAP_RFC_1042",
+    "DOT11_ERP_PHY_ATTRIBUTES",
     "DOT11_EXEMPT_ALWAYS",
+    "DOT11_EXEMPT_BOTH",
+    "DOT11_EXEMPT_MULTICAST",
+    "DOT11_EXEMPT_NO_EXEMPTION",
     "DOT11_EXEMPT_ON_KEY_MAPPING_KEY_UNAVAILABLE",
     "DOT11_EXEMPT_UNICAST",
-    "DOT11_EXEMPT_MULTICAST",
-    "DOT11_EXEMPT_BOTH",
-    "DOT11_PRIVACY_EXEMPTION_LIST_REVISION_1",
-    "DOT11_AUTH_ALGORITHM_LIST_REVISION_1",
-    "DOT11_AUTH_CIPHER_PAIR_LIST_REVISION_1",
-    "DOT11_CIPHER_ALGORITHM_LIST_REVISION_1",
-    "DOT11_CIPHER_DEFAULT_KEY_VALUE_REVISION_1",
-    "DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_BYTE_ARRAY_REVISION_1",
-    "DOT11_ASSOCIATION_INFO_LIST_REVISION_1",
-    "DOT11_PHY_ID_LIST_REVISION_1",
-    "DOT11_EXTSTA_CAPABILITY_REVISION_1",
-    "DOT11_DATA_RATE_MAPPING_TABLE_REVISION_1",
-    "DOT11_COUNTRY_OR_REGION_STRING_LIST_REVISION_1",
-    "DOT11_PORT_STATE_NOTIFICATION_REVISION_1",
-    "DOT11_IBSS_PARAMS_REVISION_1",
-    "DOT11_QOS_PARAMS_REVISION_1",
-    "DOT11_ASSOCIATION_PARAMS_REVISION_1",
-    "DOT11_MAX_NUM_OF_FRAGMENTS",
-    "DOT11_PRIORITY_CONTENTION",
-    "DOT11_PRIORITY_CONTENTION_FREE",
-    "DOT11_SERVICE_CLASS_REORDERABLE_MULTICAST",
-    "DOT11_SERVICE_CLASS_STRICTLY_ORDERED",
-    "DOT11_FLAGS_80211B_SHORT_PREAMBLE",
-    "DOT11_FLAGS_80211B_PBCC",
-    "DOT11_FLAGS_80211B_CHANNEL_AGILITY",
-    "DOT11_FLAGS_PS_ON",
-    "DOT11_FLAGS_80211G_DSSS_OFDM",
-    "DOT11_FLAGS_80211G_USE_PROTECTION",
-    "DOT11_FLAGS_80211G_NON_ERP_PRESENT",
-    "DOT11_FLAGS_80211G_BARKER_PREAMBLE_MODE",
-    "DOT11_WME_PACKET",
-    "DOT11_PHY_ATTRIBUTES_REVISION_1",
-    "DOT11_EXTSTA_ATTRIBUTES_SAFEMODE_OID_SUPPORTED",
-    "DOT11_EXTSTA_ATTRIBUTES_SAFEMODE_CERTIFIED",
-    "DOT11_EXTSTA_ATTRIBUTES_SAFEMODE_RESERVED",
+    "DOT11_EXTAP_ATTRIBUTES",
+    "DOT11_EXTAP_ATTRIBUTES_REVISION_1",
+    "DOT11_EXTAP_RECV_CONTEXT_REVISION_1",
+    "DOT11_EXTAP_SEND_CONTEXT_REVISION_1",
+    "DOT11_EXTSTA_ATTRIBUTES",
     "DOT11_EXTSTA_ATTRIBUTES_REVISION_1",
     "DOT11_EXTSTA_ATTRIBUTES_REVISION_2",
     "DOT11_EXTSTA_ATTRIBUTES_REVISION_3",
     "DOT11_EXTSTA_ATTRIBUTES_REVISION_4",
-    "DOT11_SEND_CONTEXT_REVISION_1",
-    "DOT11_RECV_CONTEXT_REVISION_1",
-    "DOT11_STATUS_SUCCESS",
-    "DOT11_STATUS_RETRY_LIMIT_EXCEEDED",
-    "DOT11_STATUS_UNSUPPORTED_PRIORITY",
-    "DOT11_STATUS_UNSUPPORTED_SERVICE_CLASS",
-    "DOT11_STATUS_UNAVAILABLE_PRIORITY",
-    "DOT11_STATUS_UNAVAILABLE_SERVICE_CLASS",
-    "DOT11_STATUS_XMIT_MSDU_TIMER_EXPIRED",
-    "DOT11_STATUS_UNAVAILABLE_BSS",
-    "DOT11_STATUS_EXCESSIVE_DATA_LENGTH",
-    "DOT11_STATUS_ENCRYPTION_FAILED",
-    "DOT11_STATUS_WEP_KEY_UNAVAILABLE",
-    "DOT11_STATUS_ICV_VERIFIED",
-    "DOT11_STATUS_PACKET_REASSEMBLED",
-    "DOT11_STATUS_PACKET_NOT_REASSEMBLED",
-    "DOT11_STATUS_GENERATE_AUTH_FAILED",
-    "DOT11_STATUS_AUTH_NOT_VERIFIED",
-    "DOT11_STATUS_AUTH_VERIFIED",
-    "DOT11_STATUS_AUTH_FAILED",
-    "DOT11_STATUS_PS_LIFETIME_EXPIRED",
-    "DOT11_STATUS_RESET_CONFIRM",
-    "DOT11_STATUS_SCAN_CONFIRM",
-    "DOT11_STATUS_JOIN_CONFIRM",
-    "DOT11_STATUS_START_CONFIRM",
-    "DOT11_STATUS_AP_JOIN_CONFIRM",
-    "DOT11_STATUS_MPDU_MAX_LENGTH_CHANGED",
-    "DOT11_MPDU_MAX_LENGTH_INDICATION_REVISION_1",
-    "DOT11_ASSOCIATION_START_PARAMETERS_REVISION_1",
-    "DOT11_ENCAP_RFC_1042",
-    "DOT11_ENCAP_802_1H",
-    "DOT11_ASSOC_STATUS_SUCCESS",
-    "DOT11_ASSOCIATION_COMPLETION_PARAMETERS_REVISION_1",
-    "DOT11_ASSOCIATION_COMPLETION_PARAMETERS_REVISION_2",
-    "DOT11_CONNECTION_START_PARAMETERS_REVISION_1",
-    "DOT11_CONNECTION_STATUS_SUCCESS",
-    "DOT11_CONNECTION_COMPLETION_PARAMETERS_REVISION_1",
-    "DOT11_ROAMING_START_PARAMETERS_REVISION_1",
-    "DOT11_ROAMING_COMPLETION_PARAMETERS_REVISION_1",
-    "DOT11_DISASSOCIATION_PARAMETERS_REVISION_1",
-    "DOT11_TKIPMIC_FAILURE_PARAMETERS_REVISION_1",
-    "DOT11_PMKID_CANDIDATE_LIST_PARAMETERS_REVISION_1",
-    "DOT11_PHY_STATE_PARAMETERS_REVISION_1",
-    "DOT11_LINK_QUALITY_PARAMETERS_REVISION_1",
-    "DOT11_EXTSTA_SEND_CONTEXT_REVISION_1",
+    "DOT11_EXTSTA_ATTRIBUTES_SAFEMODE_CERTIFIED",
+    "DOT11_EXTSTA_ATTRIBUTES_SAFEMODE_OID_SUPPORTED",
+    "DOT11_EXTSTA_ATTRIBUTES_SAFEMODE_RESERVED",
+    "DOT11_EXTSTA_CAPABILITY",
+    "DOT11_EXTSTA_CAPABILITY_REVISION_1",
+    "DOT11_EXTSTA_RECV_CONTEXT",
     "DOT11_EXTSTA_RECV_CONTEXT_REVISION_1",
-    "OID_DOT11_PRIVATE_OIDS_START",
-    "OID_DOT11_CURRENT_ADDRESS",
-    "OID_DOT11_PERMANENT_ADDRESS",
-    "OID_DOT11_MULTICAST_LIST",
-    "OID_DOT11_MAXIMUM_LIST_SIZE",
-    "DOT11_EXTAP_ATTRIBUTES_REVISION_1",
-    "DOT11_INCOMING_ASSOC_STARTED_PARAMETERS_REVISION_1",
-    "DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS_REVISION_1",
-    "DOT11_ASSOC_ERROR_SOURCE_OS",
-    "DOT11_ASSOC_ERROR_SOURCE_REMOTE",
-    "DOT11_ASSOC_ERROR_SOURCE_OTHER",
+    "DOT11_EXTSTA_SEND_CONTEXT",
+    "DOT11_EXTSTA_SEND_CONTEXT_REVISION_1",
+    "DOT11_FLAGS_80211B_CHANNEL_AGILITY",
+    "DOT11_FLAGS_80211B_PBCC",
+    "DOT11_FLAGS_80211B_SHORT_PREAMBLE",
+    "DOT11_FLAGS_80211G_BARKER_PREAMBLE_MODE",
+    "DOT11_FLAGS_80211G_DSSS_OFDM",
+    "DOT11_FLAGS_80211G_NON_ERP_PRESENT",
+    "DOT11_FLAGS_80211G_USE_PROTECTION",
+    "DOT11_FLAGS_PS_ON",
+    "DOT11_FRAGMENT_DESCRIPTOR",
+    "DOT11_FREQUENCY_BANDS_LOWER",
+    "DOT11_FREQUENCY_BANDS_MIDDLE",
+    "DOT11_FREQUENCY_BANDS_UPPER",
+    "DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS",
+    "DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS",
+    "DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS",
+    "DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_HESSID_LENGTH",
+    "DOT11_HOPPING_PATTERN_ENTRY",
+    "DOT11_HOPPING_PATTERN_ENTRY_LIST",
+    "DOT11_HOP_ALGO_ADOPTED",
+    "DOT11_HRDSSS_PHY_ATTRIBUTES",
+    "DOT11_HR_CCA_MODE_CS_AND_ED",
+    "DOT11_HR_CCA_MODE_CS_ONLY",
+    "DOT11_HR_CCA_MODE_CS_WITH_TIMER",
+    "DOT11_HR_CCA_MODE_ED_ONLY",
+    "DOT11_HR_CCA_MODE_HRCS_AND_ED",
+    "DOT11_HW_DEFRAGMENTATION_SUPPORTED",
+    "DOT11_HW_FRAGMENTATION_SUPPORTED",
+    "DOT11_HW_MSDU_AUTH_SUPPORTED_RX",
+    "DOT11_HW_MSDU_AUTH_SUPPORTED_TX",
+    "DOT11_HW_WEP_SUPPORTED_RX",
+    "DOT11_HW_WEP_SUPPORTED_TX",
+    "DOT11_IBSS_PARAMS",
+    "DOT11_IBSS_PARAMS_REVISION_1",
+    "DOT11_IHV_VERSION_INFO",
+    "DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS",
     "DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS_REVISION_1",
-    "DOT11_STOP_AP_PARAMETERS_REVISION_1",
-    "DOT11_STOP_AP_REASON_FREQUENCY_NOT_AVAILABLE",
-    "DOT11_STOP_AP_REASON_CHANNEL_NOT_AVAILABLE",
-    "DOT11_STOP_AP_REASON_AP_ACTIVE",
-    "DOT11_STOP_AP_REASON_IHV_START",
-    "DOT11_STOP_AP_REASON_IHV_END",
-    "DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS_REVISION_1",
-    "DOT11_CAN_SUSTAIN_AP_PARAMETERS_REVISION_1",
-    "DOT11_CAN_SUSTAIN_AP_REASON_IHV_START",
-    "DOT11_CAN_SUSTAIN_AP_REASON_IHV_END",
-    "DOT11_AVAILABLE_CHANNEL_LIST_REVISION_1",
-    "DOT11_AVAILABLE_FREQUENCY_LIST_REVISION_1",
-    "DOT11_DISASSOCIATE_PEER_REQUEST_REVISION_1",
+    "DOT11_INCOMING_ASSOC_DECISION",
     "DOT11_INCOMING_ASSOC_DECISION_REVISION_1",
     "DOT11_INCOMING_ASSOC_DECISION_REVISION_2",
-    "DOT11_ADDITIONAL_IE_REVISION_1",
-    "DOT11_EXTAP_SEND_CONTEXT_REVISION_1",
-    "DOT11_EXTAP_RECV_CONTEXT_REVISION_1",
+    "DOT11_INCOMING_ASSOC_DECISION_V2",
+    "DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS",
+    "DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS_REVISION_1",
+    "DOT11_INCOMING_ASSOC_STARTED_PARAMETERS",
+    "DOT11_INCOMING_ASSOC_STARTED_PARAMETERS_REVISION_1",
+    "DOT11_INVALID_CHANNEL_NUMBER",
+    "DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS",
+    "DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS",
+    "DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_IV48_COUNTER",
+    "DOT11_JOIN_REQUEST",
+    "DOT11_KEY_ALGO_BIP",
+    "DOT11_KEY_ALGO_BIP_GMAC_256",
+    "DOT11_KEY_ALGO_CCMP",
+    "DOT11_KEY_ALGO_GCMP",
+    "DOT11_KEY_ALGO_GCMP_256",
+    "DOT11_KEY_ALGO_TKIP_MIC",
+    "DOT11_KEY_DIRECTION",
+    "DOT11_LINK_QUALITY_ENTRY",
+    "DOT11_LINK_QUALITY_PARAMETERS",
+    "DOT11_LINK_QUALITY_PARAMETERS_REVISION_1",
+    "DOT11_MAC_ADDRESS_LIST",
+    "DOT11_MAC_ADDRESS_LIST_REVISION_1",
+    "DOT11_MAC_FRAME_STATISTICS",
+    "DOT11_MAC_INFO",
+    "DOT11_MAC_PARAMETERS",
+    "DOT11_MAC_PARAMETERS_REVISION_1",
+    "DOT11_MANUFACTURING_CALLBACK_PARAMETERS",
+    "DOT11_MANUFACTURING_CALLBACK_REVISION_1",
+    "DOT11_MANUFACTURING_CALLBACK_TYPE",
+    "DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC",
+    "DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX",
+    "DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX",
+    "DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS",
+    "DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS",
+    "DOT11_MANUFACTURING_SELF_TEST_TYPE",
+    "DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE",
+    "DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE",
+    "DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE",
+    "DOT11_MANUFACTURING_TEST",
+    "DOT11_MANUFACTURING_TEST_QUERY_DATA",
+    "DOT11_MANUFACTURING_TEST_REVISION_1",
+    "DOT11_MANUFACTURING_TEST_SET_DATA",
+    "DOT11_MANUFACTURING_TEST_SLEEP",
+    "DOT11_MANUFACTURING_TEST_TYPE",
+    "DOT11_MAX_CHANNEL_HINTS",
+    "DOT11_MAX_NUM_DEFAULT_KEY",
+    "DOT11_MAX_NUM_DEFAULT_KEY_MFP",
+    "DOT11_MAX_NUM_OF_FRAGMENTS",
+    "DOT11_MAX_PDU_SIZE",
+    "DOT11_MAX_REQUESTED_SERVICE_INFORMATION_LENGTH",
+    "DOT11_MD_CAPABILITY_ENTRY_LIST",
+    "DOT11_MIN_PDU_SIZE",
+    "DOT11_MPDU_MAX_LENGTH_INDICATION",
+    "DOT11_MPDU_MAX_LENGTH_INDICATION_REVISION_1",
+    "DOT11_MSONEX_FAILURE",
+    "DOT11_MSONEX_IN_PROGRESS",
+    "DOT11_MSONEX_RESULT",
+    "DOT11_MSONEX_RESULT_PARAMS",
+    "DOT11_MSONEX_SUCCESS",
+    "DOT11_MSSECURITY_SETTINGS",
+    "DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY",
+    "DOT11_NETWORK",
+    "DOT11_NETWORK_LIST",
+    "DOT11_NIC_SPECIFIC_EXTENSION",
+    "DOT11_NLO_FLAG_SCAN_AT_SYSTEM_RESUME",
+    "DOT11_NLO_FLAG_SCAN_ON_AOAC_PLATFORM",
+    "DOT11_NLO_FLAG_STOP_NLO_INDICATION",
+    "DOT11_OFDM_PHY_ATTRIBUTES",
+    "DOT11_OFFLOAD_CAPABILITY",
+    "DOT11_OFFLOAD_NETWORK",
+    "DOT11_OFFLOAD_NETWORK_LIST_INFO",
+    "DOT11_OFFLOAD_NETWORK_LIST_REVISION_1",
+    "DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS",
+    "DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS_REVISION_1",
+    "DOT11_OFFLOAD_TYPE",
+    "DOT11_OI",
+    "DOT11_OI_MAX_LENGTH",
+    "DOT11_OI_MIN_LENGTH",
+    "DOT11_OPERATION_MODE_AP",
+    "DOT11_OPERATION_MODE_CAPABILITY",
+    "DOT11_OPERATION_MODE_EXTENSIBLE_AP",
+    "DOT11_OPERATION_MODE_EXTENSIBLE_STATION",
+    "DOT11_OPERATION_MODE_MANUFACTURING",
+    "DOT11_OPERATION_MODE_NETWORK_MONITOR",
+    "DOT11_OPERATION_MODE_STATION",
+    "DOT11_OPERATION_MODE_UNKNOWN",
+    "DOT11_OPERATION_MODE_WFD_CLIENT",
+    "DOT11_OPERATION_MODE_WFD_DEVICE",
+    "DOT11_OPERATION_MODE_WFD_GROUP_OWNER",
+    "DOT11_OPTIONAL_CAPABILITY",
+    "DOT11_PACKET_TYPE_ALL_MULTICAST_CTRL",
+    "DOT11_PACKET_TYPE_ALL_MULTICAST_DATA",
+    "DOT11_PACKET_TYPE_ALL_MULTICAST_MGMT",
+    "DOT11_PACKET_TYPE_BROADCAST_CTRL",
+    "DOT11_PACKET_TYPE_BROADCAST_DATA",
+    "DOT11_PACKET_TYPE_BROADCAST_MGMT",
+    "DOT11_PACKET_TYPE_DIRECTED_CTRL",
+    "DOT11_PACKET_TYPE_DIRECTED_DATA",
+    "DOT11_PACKET_TYPE_DIRECTED_MGMT",
+    "DOT11_PACKET_TYPE_MULTICAST_CTRL",
+    "DOT11_PACKET_TYPE_MULTICAST_DATA",
+    "DOT11_PACKET_TYPE_MULTICAST_MGMT",
+    "DOT11_PACKET_TYPE_PROMISCUOUS_CTRL",
+    "DOT11_PACKET_TYPE_PROMISCUOUS_DATA",
+    "DOT11_PACKET_TYPE_PROMISCUOUS_MGMT",
+    "DOT11_PEER_INFO",
+    "DOT11_PEER_INFO_LIST",
     "DOT11_PEER_INFO_LIST_REVISION_1",
+    "DOT11_PEER_STATISTICS",
+    "DOT11_PER_MSDU_COUNTERS",
+    "DOT11_PHY_ATTRIBUTES",
+    "DOT11_PHY_ATTRIBUTES_REVISION_1",
+    "DOT11_PHY_FRAME_STATISTICS",
+    "DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS",
+    "DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS_REVISION_1",
+    "DOT11_PHY_ID_LIST",
+    "DOT11_PHY_ID_LIST_REVISION_1",
+    "DOT11_PHY_STATE_PARAMETERS",
+    "DOT11_PHY_STATE_PARAMETERS_REVISION_1",
+    "DOT11_PHY_TYPE",
+    "DOT11_PHY_TYPE_INFO",
+    "DOT11_PHY_TYPE_LIST",
+    "DOT11_PHY_TYPE_LIST_REVISION_1",
+    "DOT11_PMKID_CANDIDATE_LIST_PARAMETERS",
+    "DOT11_PMKID_CANDIDATE_LIST_PARAMETERS_REVISION_1",
+    "DOT11_PMKID_ENTRY",
+    "DOT11_PMKID_LIST",
+    "DOT11_PMKID_LIST_REVISION_1",
+    "DOT11_PORT_STATE",
+    "DOT11_PORT_STATE_NOTIFICATION",
+    "DOT11_PORT_STATE_NOTIFICATION_REVISION_1",
+    "DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO",
+    "DOT11_POWER_MGMT_AUTO_MODE_ENABLED_REVISION_1",
+    "DOT11_POWER_MGMT_MODE",
+    "DOT11_POWER_MGMT_MODE_STATUS_INFO",
+    "DOT11_POWER_MGMT_MODE_STATUS_INFO_REVISION_1",
+    "DOT11_POWER_MODE",
+    "DOT11_POWER_MODE_REASON",
+    "DOT11_POWER_SAVE_LEVEL_FAST_PSP",
+    "DOT11_POWER_SAVE_LEVEL_MAX_PSP",
+    "DOT11_POWER_SAVING_FAST_PSP",
+    "DOT11_POWER_SAVING_MAXIMUM_LEVEL",
+    "DOT11_POWER_SAVING_MAX_PSP",
+    "DOT11_POWER_SAVING_NO_POWER_SAVING",
+    "DOT11_PRIORITY_CONTENTION",
+    "DOT11_PRIORITY_CONTENTION_FREE",
+    "DOT11_PRIVACY_EXEMPTION",
+    "DOT11_PRIVACY_EXEMPTION_LIST",
+    "DOT11_PRIVACY_EXEMPTION_LIST_REVISION_1",
+    "DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS",
+    "DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS",
+    "DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_PSD_IE_MAX_DATA_SIZE",
+    "DOT11_PSD_IE_MAX_ENTRY_NUMBER",
+    "DOT11_QOS_PARAMS",
+    "DOT11_QOS_PARAMS_REVISION_1",
+    "DOT11_QOS_TX_DURATION",
+    "DOT11_QOS_TX_MEDIUM_TIME",
+    "DOT11_RADIO_STATE",
+    "DOT11_RATE_SET",
+    "DOT11_RATE_SET_MAX_LENGTH",
+    "DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS",
+    "DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_REVISION_1",
+    "DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS",
+    "DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS_REVISION_1",
+    "DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS",
+    "DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS_REVISION_1",
+    "DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS",
+    "DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS_REVISION_1",
+    "DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS",
+    "DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS_REVISION_1",
+    "DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS",
+    "DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS_REVISION_1",
+    "DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS",
+    "DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_REVISION_1",
+    "DOT11_RECV_CONTEXT_REVISION_1",
+    "DOT11_RECV_EXTENSION_INFO",
+    "DOT11_RECV_EXTENSION_INFO_V2",
+    "DOT11_RECV_SENSITIVITY",
+    "DOT11_RECV_SENSITIVITY_LIST",
+    "DOT11_REG_DOMAINS_SUPPORT_VALUE",
+    "DOT11_REG_DOMAIN_DOC",
+    "DOT11_REG_DOMAIN_ETSI",
+    "DOT11_REG_DOMAIN_FCC",
+    "DOT11_REG_DOMAIN_FRANCE",
+    "DOT11_REG_DOMAIN_MKK",
+    "DOT11_REG_DOMAIN_OTHER",
+    "DOT11_REG_DOMAIN_SPAIN",
+    "DOT11_REG_DOMAIN_VALUE",
+    "DOT11_RESET_REQUEST",
+    "DOT11_RESET_TYPE",
+    "DOT11_ROAMING_COMPLETION_PARAMETERS",
+    "DOT11_ROAMING_COMPLETION_PARAMETERS_REVISION_1",
+    "DOT11_ROAMING_START_PARAMETERS",
+    "DOT11_ROAMING_START_PARAMETERS_REVISION_1",
+    "DOT11_RSSI_RANGE",
+    "DOT11_SCAN_REQUEST",
+    "DOT11_SCAN_REQUEST_V2",
+    "DOT11_SCAN_TYPE",
+    "DOT11_SECURITY_PACKET_HEADER",
+    "DOT11_SEND_CONTEXT_REVISION_1",
+    "DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS",
+    "DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_REVISION_1",
+    "DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS",
+    "DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS_REVISION_1",
+    "DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS",
+    "DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS_REVISION_1",
+    "DOT11_SEND_INVITATION_REQUEST_PARAMETERS",
+    "DOT11_SEND_INVITATION_REQUEST_PARAMETERS_REVISION_1",
+    "DOT11_SEND_INVITATION_RESPONSE_PARAMETERS",
+    "DOT11_SEND_INVITATION_RESPONSE_PARAMETERS_REVISION_1",
+    "DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS",
+    "DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS_REVISION_1",
+    "DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS",
+    "DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_REVISION_1",
+    "DOT11_SERVICE_CLASS_REORDERABLE_MULTICAST",
+    "DOT11_SERVICE_CLASS_STRICTLY_ORDERED",
+    "DOT11_SSID",
+    "DOT11_SSID_LIST",
+    "DOT11_SSID_LIST_REVISION_1",
+    "DOT11_SSID_MAX_LENGTH",
+    "DOT11_START_REQUEST",
+    "DOT11_STATISTICS",
+    "DOT11_STATISTICS_REVISION_1",
+    "DOT11_STATUS_AP_JOIN_CONFIRM",
+    "DOT11_STATUS_AUTH_FAILED",
+    "DOT11_STATUS_AUTH_NOT_VERIFIED",
+    "DOT11_STATUS_AUTH_VERIFIED",
+    "DOT11_STATUS_ENCRYPTION_FAILED",
+    "DOT11_STATUS_EXCESSIVE_DATA_LENGTH",
+    "DOT11_STATUS_GENERATE_AUTH_FAILED",
+    "DOT11_STATUS_ICV_VERIFIED",
+    "DOT11_STATUS_INDICATION",
+    "DOT11_STATUS_JOIN_CONFIRM",
+    "DOT11_STATUS_MPDU_MAX_LENGTH_CHANGED",
+    "DOT11_STATUS_PACKET_NOT_REASSEMBLED",
+    "DOT11_STATUS_PACKET_REASSEMBLED",
+    "DOT11_STATUS_PS_LIFETIME_EXPIRED",
+    "DOT11_STATUS_RESET_CONFIRM",
+    "DOT11_STATUS_RETRY_LIMIT_EXCEEDED",
+    "DOT11_STATUS_SCAN_CONFIRM",
+    "DOT11_STATUS_START_CONFIRM",
+    "DOT11_STATUS_SUCCESS",
+    "DOT11_STATUS_UNAVAILABLE_BSS",
+    "DOT11_STATUS_UNAVAILABLE_PRIORITY",
+    "DOT11_STATUS_UNAVAILABLE_SERVICE_CLASS",
+    "DOT11_STATUS_UNSUPPORTED_PRIORITY",
+    "DOT11_STATUS_UNSUPPORTED_SERVICE_CLASS",
+    "DOT11_STATUS_WEP_KEY_UNAVAILABLE",
+    "DOT11_STATUS_XMIT_MSDU_TIMER_EXPIRED",
+    "DOT11_STOP_AP_PARAMETERS",
+    "DOT11_STOP_AP_PARAMETERS_REVISION_1",
+    "DOT11_STOP_AP_REASON_AP_ACTIVE",
+    "DOT11_STOP_AP_REASON_CHANNEL_NOT_AVAILABLE",
+    "DOT11_STOP_AP_REASON_FREQUENCY_NOT_AVAILABLE",
+    "DOT11_STOP_AP_REASON_IHV_END",
+    "DOT11_STOP_AP_REASON_IHV_START",
+    "DOT11_SUPPORTED_ANTENNA",
+    "DOT11_SUPPORTED_ANTENNA_LIST",
+    "DOT11_SUPPORTED_DATA_RATES_VALUE",
+    "DOT11_SUPPORTED_DATA_RATES_VALUE_V2",
+    "DOT11_SUPPORTED_DSSS_CHANNEL",
+    "DOT11_SUPPORTED_DSSS_CHANNEL_LIST",
+    "DOT11_SUPPORTED_OFDM_FREQUENCY",
+    "DOT11_SUPPORTED_OFDM_FREQUENCY_LIST",
+    "DOT11_SUPPORTED_PHY_TYPES",
+    "DOT11_SUPPORTED_POWER_LEVELS",
+    "DOT11_TEMP_TYPE",
+    "DOT11_TKIPMIC_FAILURE_PARAMETERS",
+    "DOT11_TKIPMIC_FAILURE_PARAMETERS_REVISION_1",
+    "DOT11_UPDATE_IE",
+    "DOT11_UPDATE_IE_OP",
+    "DOT11_VENUEINFO",
+    "DOT11_VWIFI_ATTRIBUTES",
+    "DOT11_VWIFI_ATTRIBUTES_REVISION_1",
+    "DOT11_VWIFI_COMBINATION",
     "DOT11_VWIFI_COMBINATION_REVISION_1",
     "DOT11_VWIFI_COMBINATION_REVISION_2",
     "DOT11_VWIFI_COMBINATION_REVISION_3",
-    "DOT11_VWIFI_ATTRIBUTES_REVISION_1",
-    "DOT11_MAC_PARAMETERS_REVISION_1",
+    "DOT11_VWIFI_COMBINATION_V2",
+    "DOT11_VWIFI_COMBINATION_V3",
+    "DOT11_WEP_OFFLOAD",
+    "DOT11_WEP_UPLOAD",
+    "DOT11_WFD_ADDITIONAL_IE",
+    "DOT11_WFD_ADDITIONAL_IE_REVISION_1",
+    "DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR",
+    "DOT11_WFD_ADVERTISED_SERVICE_LIST",
+    "DOT11_WFD_ADVERTISEMENT_ID",
+    "DOT11_WFD_APS2_SERVICE_TYPE_MAX_LENGTH",
+    "DOT11_WFD_ASP2_INSTANCE_NAME_MAX_LENGTH",
+    "DOT11_WFD_ATTRIBUTES",
     "DOT11_WFD_ATTRIBUTES_REVISION_1",
-    "DOT11_WFD_STATUS_SUCCESS",
-    "DOT11_WFD_STATUS_FAILED_INFORMATION_IS_UNAVAILABLE",
-    "DOT11_WFD_STATUS_FAILED_INCOMPATIBLE_PARAMETERS",
-    "DOT11_WFD_STATUS_FAILED_LIMIT_REACHED",
-    "DOT11_WFD_STATUS_FAILED_INVALID_PARAMETERS",
-    "DOT11_WFD_STATUS_FAILED_UNABLE_TO_ACCOMODATE_REQUEST",
-    "DOT11_WFD_STATUS_FAILED_PREVIOUS_PROTOCOL_ERROR",
-    "DOT11_WFD_STATUS_FAILED_NO_COMMON_CHANNELS",
-    "DOT11_WFD_STATUS_FAILED_UNKNOWN_WFD_GROUP",
-    "DOT11_WFD_STATUS_FAILED_MATCHING_MAX_INTENT",
-    "DOT11_WFD_STATUS_FAILED_INCOMPATIBLE_PROVISIONING_METHOD",
-    "DOT11_WFD_STATUS_FAILED_REJECTED_BY_USER",
-    "DOT11_WFD_STATUS_SUCCESS_ACCEPTED_BY_USER",
-    "DOT11_WFD_MINOR_REASON_SUCCESS",
-    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_FROM_WLAN_CROSS_CONNECTION_POLICY",
-    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_NOT_MANAGED_INFRASTRUCTURE_CAPABLE",
-    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_WFD_COEXISTENCE_POLICY",
-    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_INFRASTRUCTURE_MANAGED_POLICY",
-    "DOT11_WPS_VERSION_1_0",
-    "DOT11_WPS_VERSION_2_0",
-    "DOT11_WFD_DEVICE_CAPABILITY_SERVICE_DISCOVERY",
-    "DOT11_WFD_DEVICE_CAPABILITY_P2P_CLIENT_DISCOVERABILITY",
+    "DOT11_WFD_CHANNEL",
+    "DOT11_WFD_CONFIGURATION_TIMEOUT",
+    "DOT11_WFD_DEVICE_AUTO_AVAILABILITY",
     "DOT11_WFD_DEVICE_CAPABILITY_CONCURRENT_OPERATION",
-    "DOT11_WFD_DEVICE_CAPABILITY_P2P_INFRASTRUCTURE_MANAGED",
+    "DOT11_WFD_DEVICE_CAPABILITY_CONFIG",
+    "DOT11_WFD_DEVICE_CAPABILITY_CONFIG_REVISION_1",
+    "DOT11_WFD_DEVICE_CAPABILITY_P2P_CLIENT_DISCOVERABILITY",
     "DOT11_WFD_DEVICE_CAPABILITY_P2P_DEVICE_LIMIT",
+    "DOT11_WFD_DEVICE_CAPABILITY_P2P_INFRASTRUCTURE_MANAGED",
     "DOT11_WFD_DEVICE_CAPABILITY_P2P_INVITATION_PROCEDURE",
     "DOT11_WFD_DEVICE_CAPABILITY_RESERVED_6",
     "DOT11_WFD_DEVICE_CAPABILITY_RESERVED_7",
-    "DOT11_WFD_GROUP_CAPABILITY_NONE",
-    "DOT11_WFD_GROUP_CAPABILITY_GROUP_OWNER",
-    "DOT11_WFD_GROUP_CAPABILITY_PERSISTENT_GROUP",
-    "DOT11_WFD_GROUP_CAPABILITY_GROUP_LIMIT_REACHED",
-    "DOT11_WFD_GROUP_CAPABILITY_INTRABSS_DISTRIBUTION_SUPPORTED",
-    "DOT11_WFD_GROUP_CAPABILITY_CROSS_CONNECTION_SUPPORTED",
-    "DOT11_WFD_GROUP_CAPABILITY_PERSISTENT_RECONNECT_SUPPORTED",
-    "DOT11_WFD_GROUP_CAPABILITY_IN_GROUP_FORMATION",
-    "DOT11_WFD_GROUP_CAPABILITY_RESERVED_7",
-    "DOT11_WFD_GROUP_CAPABILITY_EAPOL_KEY_IP_ADDRESS_ALLOCATION_SUPPORTED",
-    "DOT11_WPS_DEVICE_NAME_MAX_LENGTH",
-    "DOT11_WPS_MAX_PASSKEY_LENGTH",
-    "DOT11_WPS_MAX_MODEL_NAME_LENGTH",
-    "DOT11_WPS_MAX_MODEL_NUMBER_LENGTH",
-    "WFDSVC_CONNECTION_CAPABILITY_NEW",
-    "WFDSVC_CONNECTION_CAPABILITY_CLIENT",
-    "WFDSVC_CONNECTION_CAPABILITY_GO",
-    "DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_WFD_DEVICE_CAPABILITY_SERVICE_DISCOVERY",
+    "DOT11_WFD_DEVICE_ENTRY",
+    "DOT11_WFD_DEVICE_HIGH_AVAILABILITY",
+    "DOT11_WFD_DEVICE_INFO",
+    "DOT11_WFD_DEVICE_INFO_REVISION_1",
+    "DOT11_WFD_DEVICE_LISTEN_CHANNEL",
+    "DOT11_WFD_DEVICE_LISTEN_CHANNEL_REVISION_1",
+    "DOT11_WFD_DEVICE_NOT_DISCOVERABLE",
+    "DOT11_WFD_DEVICE_TYPE",
     "DOT11_WFD_DISCOVER_COMPLETE_MAX_LIST_SIZE",
-    "DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS_REVISION_1",
-    "DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS_REVISION_1",
-    "DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_REVISION_1",
-    "DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS_REVISION_1",
-    "DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS_REVISION_1",
-    "DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS_REVISION_1",
-    "DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_REVISION_1",
-    "DOT11_ANQP_QUERY_COMPLETE_PARAMETERS_REVISION_1",
-    "DOT11_WFD_DEVICE_CAPABILITY_CONFIG_REVISION_1",
+    "DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS",
+    "DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS_REVISION_1",
+    "DOT11_WFD_DISCOVER_DEVICE_FILTER",
+    "DOT11_WFD_DISCOVER_REQUEST",
+    "DOT11_WFD_DISCOVER_REQUEST_REVISION_1",
+    "DOT11_WFD_DISCOVER_TYPE",
+    "DOT11_WFD_GO_INTENT",
+    "DOT11_WFD_GROUP_CAPABILITY_CROSS_CONNECTION_SUPPORTED",
+    "DOT11_WFD_GROUP_CAPABILITY_EAPOL_KEY_IP_ADDRESS_ALLOCATION_SUPPORTED",
+    "DOT11_WFD_GROUP_CAPABILITY_GROUP_LIMIT_REACHED",
+    "DOT11_WFD_GROUP_CAPABILITY_GROUP_OWNER",
+    "DOT11_WFD_GROUP_CAPABILITY_INTRABSS_DISTRIBUTION_SUPPORTED",
+    "DOT11_WFD_GROUP_CAPABILITY_IN_GROUP_FORMATION",
+    "DOT11_WFD_GROUP_CAPABILITY_NONE",
+    "DOT11_WFD_GROUP_CAPABILITY_PERSISTENT_GROUP",
+    "DOT11_WFD_GROUP_CAPABILITY_PERSISTENT_RECONNECT_SUPPORTED",
+    "DOT11_WFD_GROUP_CAPABILITY_RESERVED_7",
+    "DOT11_WFD_GROUP_ID",
+    "DOT11_WFD_GROUP_JOIN_PARAMETERS",
+    "DOT11_WFD_GROUP_JOIN_PARAMETERS_REVISION_1",
+    "DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG",
     "DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_REVISION_1",
     "DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_REVISION_2",
-    "DOT11_WFD_DEVICE_INFO_REVISION_1",
-    "DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST_REVISION_1",
-    "DISCOVERY_FILTER_BITMASK_DEVICE",
-    "DISCOVERY_FILTER_BITMASK_GO",
-    "DISCOVERY_FILTER_BITMASK_ANY",
-    "DOT11_WFD_DISCOVER_REQUEST_REVISION_1",
-    "DOT11_DEVICE_ENTRY_BYTE_ARRAY_REVISION_1",
-    "DOT11_WFD_DEVICE_NOT_DISCOVERABLE",
-    "DOT11_WFD_DEVICE_AUTO_AVAILABILITY",
-    "DOT11_WFD_DEVICE_HIGH_AVAILABILITY",
-    "DOT11_WFD_ADDITIONAL_IE_REVISION_1",
-    "DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS_REVISION_1",
-    "DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS_REVISION_1",
-    "DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS_REVISION_1",
-    "DOT11_SEND_INVITATION_REQUEST_PARAMETERS_REVISION_1",
-    "DOT11_SEND_INVITATION_RESPONSE_PARAMETERS_REVISION_1",
-    "DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS_REVISION_1",
-    "DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS_REVISION_1",
-    "DOT11_WFD_DEVICE_LISTEN_CHANNEL_REVISION_1",
+    "DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2",
+    "DOT11_WFD_GROUP_START_PARAMETERS",
     "DOT11_WFD_GROUP_START_PARAMETERS_REVISION_1",
-    "DOT11_WFD_GROUP_JOIN_PARAMETERS_REVISION_1",
-    "DOT11_POWER_MGMT_AUTO_MODE_ENABLED_REVISION_1",
-    "DOT11_POWER_MGMT_MODE_STATUS_INFO_REVISION_1",
-    "DOT11_MAX_CHANNEL_HINTS",
-    "DOT11_INVALID_CHANNEL_NUMBER",
-    "DOT11_NLO_FLAG_STOP_NLO_INDICATION",
-    "DOT11_NLO_FLAG_SCAN_ON_AOAC_PLATFORM",
-    "DOT11_NLO_FLAG_SCAN_AT_SYSTEM_RESUME",
-    "DOT11_OFFLOAD_NETWORK_LIST_REVISION_1",
-    "DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS_REVISION_1",
-    "DOT11_MANUFACTURING_TEST_REVISION_1",
-    "DOT11_MANUFACTURING_CALLBACK_REVISION_1",
-    "DOT11_SSID_MAX_LENGTH",
-    "DOT11_OI_MAX_LENGTH",
-    "DOT11_OI_MIN_LENGTH",
-    "DevProp_PciRootBus_SecondaryInterface_PciConventional",
-    "DevProp_PciRootBus_SecondaryInterface_PciXMode1",
-    "DevProp_PciRootBus_SecondaryInterface_PciXMode2",
-    "DevProp_PciRootBus_SecondaryInterface_PciExpress",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_100Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_133Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_66Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_100Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_133Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_66Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_100Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz",
-    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz",
-    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz",
-    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz",
-    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz",
-    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz",
-    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz",
-    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz",
-    "DevProp_PciRootBus_BusWidth_32Bits",
-    "DevProp_PciRootBus_BusWidth_64Bits",
+    "DOT11_WFD_INVITATION_FLAGS",
+    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_FROM_WLAN_CROSS_CONNECTION_POLICY",
+    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_INFRASTRUCTURE_MANAGED_POLICY",
+    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_NOT_MANAGED_INFRASTRUCTURE_CAPABLE",
+    "DOT11_WFD_MINOR_REASON_DISASSOCIATED_WFD_COEXISTENCE_POLICY",
+    "DOT11_WFD_MINOR_REASON_SUCCESS",
+    "DOT11_WFD_SCAN_TYPE",
+    "DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST",
+    "DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST_REVISION_1",
+    "DOT11_WFD_SERVICE_HASH_LIST",
+    "DOT11_WFD_SERVICE_INFORMATION_MAX_LENGTH",
+    "DOT11_WFD_SERVICE_NAME_MAX_LENGTH",
+    "DOT11_WFD_SESSION_ID",
+    "DOT11_WFD_SESSION_INFO",
+    "DOT11_WFD_SESSION_INFO_MAX_LENGTH",
+    "DOT11_WFD_STATUS_FAILED_INCOMPATIBLE_PARAMETERS",
+    "DOT11_WFD_STATUS_FAILED_INCOMPATIBLE_PROVISIONING_METHOD",
+    "DOT11_WFD_STATUS_FAILED_INFORMATION_IS_UNAVAILABLE",
+    "DOT11_WFD_STATUS_FAILED_INVALID_PARAMETERS",
+    "DOT11_WFD_STATUS_FAILED_LIMIT_REACHED",
+    "DOT11_WFD_STATUS_FAILED_MATCHING_MAX_INTENT",
+    "DOT11_WFD_STATUS_FAILED_NO_COMMON_CHANNELS",
+    "DOT11_WFD_STATUS_FAILED_PREVIOUS_PROTOCOL_ERROR",
+    "DOT11_WFD_STATUS_FAILED_REJECTED_BY_USER",
+    "DOT11_WFD_STATUS_FAILED_UNABLE_TO_ACCOMODATE_REQUEST",
+    "DOT11_WFD_STATUS_FAILED_UNKNOWN_WFD_GROUP",
+    "DOT11_WFD_STATUS_SUCCESS",
+    "DOT11_WFD_STATUS_SUCCESS_ACCEPTED_BY_USER",
+    "DOT11_WME_AC_PARAMETERS",
+    "DOT11_WME_AC_PARAMETERS_LIST",
+    "DOT11_WME_PACKET",
+    "DOT11_WME_UPDATE_IE",
+    "DOT11_WPA_TSC",
+    "DOT11_WPS_CONFIG_METHOD",
+    "DOT11_WPS_CONFIG_METHOD_DISPLAY",
+    "DOT11_WPS_CONFIG_METHOD_KEYPAD",
+    "DOT11_WPS_CONFIG_METHOD_NFC_INTERFACE",
+    "DOT11_WPS_CONFIG_METHOD_NFC_TAG",
+    "DOT11_WPS_CONFIG_METHOD_NULL",
+    "DOT11_WPS_CONFIG_METHOD_PUSHBUTTON",
+    "DOT11_WPS_CONFIG_METHOD_WFDS_DEFAULT",
+    "DOT11_WPS_DEVICE_NAME",
+    "DOT11_WPS_DEVICE_NAME_MAX_LENGTH",
+    "DOT11_WPS_DEVICE_PASSWORD_ID",
+    "DOT11_WPS_MAX_MODEL_NAME_LENGTH",
+    "DOT11_WPS_MAX_MODEL_NUMBER_LENGTH",
+    "DOT11_WPS_MAX_PASSKEY_LENGTH",
+    "DOT11_WPS_PASSWORD_ID_DEFAULT",
+    "DOT11_WPS_PASSWORD_ID_MACHINE_SPECIFIED",
+    "DOT11_WPS_PASSWORD_ID_NFC_CONNECTION_HANDOVER",
+    "DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX",
+    "DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN",
+    "DOT11_WPS_PASSWORD_ID_PUSHBUTTON",
+    "DOT11_WPS_PASSWORD_ID_REGISTRAR_SPECIFIED",
+    "DOT11_WPS_PASSWORD_ID_REKEY",
+    "DOT11_WPS_PASSWORD_ID_USER_SPECIFIED",
+    "DOT11_WPS_PASSWORD_ID_WFD_SERVICES",
+    "DOT11_WPS_VERSION_1_0",
+    "DOT11_WPS_VERSION_2_0",
+    "DevProp_PciDevice_AcsCompatibleUpHierarchy_Enhanced",
+    "DevProp_PciDevice_AcsCompatibleUpHierarchy_NoP2PSupported",
+    "DevProp_PciDevice_AcsCompatibleUpHierarchy_NotSupported",
+    "DevProp_PciDevice_AcsCompatibleUpHierarchy_SingleFunctionSupported",
+    "DevProp_PciDevice_AcsCompatibleUpHierarchy_Supported",
+    "DevProp_PciDevice_AcsSupport_Missing",
+    "DevProp_PciDevice_AcsSupport_NotNeeded",
+    "DevProp_PciDevice_AcsSupport_Present",
+    "DevProp_PciDevice_BridgeType_PciConventional",
+    "DevProp_PciDevice_BridgeType_PciExpressDownstreamSwitchPort",
+    "DevProp_PciDevice_BridgeType_PciExpressEventCollector",
+    "DevProp_PciDevice_BridgeType_PciExpressRootPort",
+    "DevProp_PciDevice_BridgeType_PciExpressToPciXBridge",
+    "DevProp_PciDevice_BridgeType_PciExpressTreatedAsPci",
+    "DevProp_PciDevice_BridgeType_PciExpressUpstreamSwitchPort",
+    "DevProp_PciDevice_BridgeType_PciX",
+    "DevProp_PciDevice_BridgeType_PciXToExpressBridge",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_100Mhz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_133MHZ",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_66Mhz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_100Mhz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_133Mhz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_66Mhz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_100MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_133MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_66MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_100MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_133MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_66MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode_Conventional_Pci",
+    "DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_33MHz",
+    "DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_66MHz",
     "DevProp_PciDevice_DeviceType_PciConventional",
-    "DevProp_PciDevice_DeviceType_PciX",
     "DevProp_PciDevice_DeviceType_PciExpressEndpoint",
     "DevProp_PciDevice_DeviceType_PciExpressLegacyEndpoint",
     "DevProp_PciDevice_DeviceType_PciExpressRootComplexIntegratedEndpoint",
     "DevProp_PciDevice_DeviceType_PciExpressTreatedAsPci",
-    "DevProp_PciDevice_BridgeType_PciConventional",
-    "DevProp_PciDevice_BridgeType_PciX",
-    "DevProp_PciDevice_BridgeType_PciExpressRootPort",
-    "DevProp_PciDevice_BridgeType_PciExpressUpstreamSwitchPort",
-    "DevProp_PciDevice_BridgeType_PciExpressDownstreamSwitchPort",
-    "DevProp_PciDevice_BridgeType_PciExpressToPciXBridge",
-    "DevProp_PciDevice_BridgeType_PciXToExpressBridge",
-    "DevProp_PciDevice_BridgeType_PciExpressTreatedAsPci",
-    "DevProp_PciDevice_BridgeType_PciExpressEventCollector",
-    "DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_33MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_66MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode_Conventional_Pci",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_66Mhz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_100Mhz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_133MHZ",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_66Mhz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_100Mhz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_133Mhz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_66MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_100MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_133MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_66MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_100MHz",
-    "DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_133MHz",
-    "DevProp_PciExpressDevice_PayloadOrRequestSize_128Bytes",
-    "DevProp_PciExpressDevice_PayloadOrRequestSize_256Bytes",
-    "DevProp_PciExpressDevice_PayloadOrRequestSize_512Bytes",
-    "DevProp_PciExpressDevice_PayloadOrRequestSize_1024Bytes",
-    "DevProp_PciExpressDevice_PayloadOrRequestSize_2048Bytes",
-    "DevProp_PciExpressDevice_PayloadOrRequestSize_4096Bytes",
-    "DevProp_PciExpressDevice_LinkSpeed_TwoAndHalf_Gbps",
-    "DevProp_PciExpressDevice_LinkSpeed_Five_Gbps",
-    "DevProp_PciExpressDevice_LinkWidth_By_1",
-    "DevProp_PciExpressDevice_LinkWidth_By_2",
-    "DevProp_PciExpressDevice_LinkWidth_By_4",
-    "DevProp_PciExpressDevice_LinkWidth_By_8",
-    "DevProp_PciExpressDevice_LinkWidth_By_12",
-    "DevProp_PciExpressDevice_LinkWidth_By_16",
-    "DevProp_PciExpressDevice_LinkWidth_By_32",
-    "DevProp_PciExpressDevice_Spec_Version_10",
-    "DevProp_PciExpressDevice_Spec_Version_11",
+    "DevProp_PciDevice_DeviceType_PciX",
     "DevProp_PciDevice_InterruptType_LineBased",
     "DevProp_PciDevice_InterruptType_Msi",
     "DevProp_PciDevice_InterruptType_MsiX",
-    "DevProp_PciDevice_SriovSupport_Ok",
+    "DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace",
     "DevProp_PciDevice_SriovSupport_MissingAcs",
     "DevProp_PciDevice_SriovSupport_MissingPfDriver",
     "DevProp_PciDevice_SriovSupport_NoBusResource",
-    "DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace",
-    "DevProp_PciDevice_AcsSupport_Present",
-    "DevProp_PciDevice_AcsSupport_NotNeeded",
-    "DevProp_PciDevice_AcsSupport_Missing",
-    "DevProp_PciDevice_AcsCompatibleUpHierarchy_NotSupported",
-    "DevProp_PciDevice_AcsCompatibleUpHierarchy_SingleFunctionSupported",
-    "DevProp_PciDevice_AcsCompatibleUpHierarchy_NoP2PSupported",
-    "DevProp_PciDevice_AcsCompatibleUpHierarchy_Supported",
-    "DevProp_PciDevice_AcsCompatibleUpHierarchy_Enhanced",
+    "DevProp_PciDevice_SriovSupport_Ok",
+    "DevProp_PciExpressDevice_LinkSpeed_Five_Gbps",
+    "DevProp_PciExpressDevice_LinkSpeed_TwoAndHalf_Gbps",
+    "DevProp_PciExpressDevice_LinkWidth_By_1",
+    "DevProp_PciExpressDevice_LinkWidth_By_12",
+    "DevProp_PciExpressDevice_LinkWidth_By_16",
+    "DevProp_PciExpressDevice_LinkWidth_By_2",
+    "DevProp_PciExpressDevice_LinkWidth_By_32",
+    "DevProp_PciExpressDevice_LinkWidth_By_4",
+    "DevProp_PciExpressDevice_LinkWidth_By_8",
+    "DevProp_PciExpressDevice_PayloadOrRequestSize_1024Bytes",
+    "DevProp_PciExpressDevice_PayloadOrRequestSize_128Bytes",
+    "DevProp_PciExpressDevice_PayloadOrRequestSize_2048Bytes",
+    "DevProp_PciExpressDevice_PayloadOrRequestSize_256Bytes",
+    "DevProp_PciExpressDevice_PayloadOrRequestSize_4096Bytes",
+    "DevProp_PciExpressDevice_PayloadOrRequestSize_512Bytes",
+    "DevProp_PciExpressDevice_Spec_Version_10",
+    "DevProp_PciExpressDevice_Spec_Version_11",
+    "DevProp_PciRootBus_BusWidth_32Bits",
+    "DevProp_PciRootBus_BusWidth_64Bits",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_100Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_66Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_100Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_133Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_100Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_133Mhz",
+    "DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_66Mhz",
+    "DevProp_PciRootBus_SecondaryInterface_PciConventional",
+    "DevProp_PciRootBus_SecondaryInterface_PciExpress",
+    "DevProp_PciRootBus_SecondaryInterface_PciXMode1",
+    "DevProp_PciRootBus_SecondaryInterface_PciXMode2",
+    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz",
+    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz",
+    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz",
+    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz",
+    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz",
+    "DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz",
+    "Dot11AdHocManager",
+    "GUID_AEPSERVICE_WIFIDIRECT_DEVICE",
+    "GUID_DEVINTERFACE_ASP_INFRA_DEVICE",
+    "GUID_DEVINTERFACE_WIFIDIRECT_DEVICE",
+    "IDot11AdHocInterface",
+    "IDot11AdHocInterfaceNotificationSink",
+    "IDot11AdHocManager",
+    "IDot11AdHocManagerNotificationSink",
+    "IDot11AdHocNetwork",
+    "IDot11AdHocNetworkNotificationSink",
+    "IDot11AdHocSecuritySettings",
+    "IEnumDot11AdHocInterfaces",
+    "IEnumDot11AdHocNetworks",
+    "IEnumDot11AdHocSecuritySettings",
+    "IHV_INIT_FUNCTION_NAME",
+    "IHV_INIT_VS_FUNCTION_NAME",
+    "IHV_VERSION_FUNCTION_NAME",
+    "L2_NOTIFICATION_CODE_GROUP_SIZE",
+    "L2_NOTIFICATION_CODE_PUBLIC_BEGIN",
+    "L2_NOTIFICATION_DATA",
+    "L2_NOTIFICATION_SOURCE_ALL",
+    "L2_NOTIFICATION_SOURCE_DOT3_AUTO_CONFIG",
+    "L2_NOTIFICATION_SOURCE_NONE",
+    "L2_NOTIFICATION_SOURCE_ONEX",
+    "L2_NOTIFICATION_SOURCE_SECURITY",
+    "L2_NOTIFICATION_SOURCE_WCM",
+    "L2_NOTIFICATION_SOURCE_WCM_CSP",
+    "L2_NOTIFICATION_SOURCE_WFD",
+    "L2_NOTIFICATION_SOURCE_WLAN_ACM",
+    "L2_NOTIFICATION_SOURCE_WLAN_DEVICE_SERVICE",
+    "L2_NOTIFICATION_SOURCE_WLAN_HNWK",
+    "L2_NOTIFICATION_SOURCE_WLAN_IHV",
+    "L2_NOTIFICATION_SOURCE_WLAN_MSM",
+    "L2_NOTIFICATION_SOURCE_WLAN_SECURITY",
+    "L2_PROFILE_MAX_NAME_LENGTH",
+    "L2_REASON_CODE_DOT11_AC_BASE",
+    "L2_REASON_CODE_DOT11_MSM_BASE",
+    "L2_REASON_CODE_DOT11_SECURITY_BASE",
+    "L2_REASON_CODE_DOT3_AC_BASE",
+    "L2_REASON_CODE_DOT3_MSM_BASE",
+    "L2_REASON_CODE_GEN_BASE",
+    "L2_REASON_CODE_GROUP_SIZE",
+    "L2_REASON_CODE_IHV_BASE",
+    "L2_REASON_CODE_ONEX_BASE",
+    "L2_REASON_CODE_PROFILE_BASE",
+    "L2_REASON_CODE_PROFILE_MISSING",
+    "L2_REASON_CODE_RESERVED_BASE",
+    "L2_REASON_CODE_SUCCESS",
+    "L2_REASON_CODE_UNKNOWN",
+    "L2_REASON_CODE_WIMAX_BASE",
+    "MAX_NUM_SUPPORTED_RATES",
+    "MAX_NUM_SUPPORTED_RATES_V2",
+    "MS_MAX_PROFILE_NAME_LENGTH",
+    "MS_PROFILE_GROUP_POLICY",
+    "MS_PROFILE_USER",
+    "NDIS_PACKET_TYPE_802_11_ALL_MULTICAST_DATA",
+    "NDIS_PACKET_TYPE_802_11_BROADCAST_DATA",
+    "NDIS_PACKET_TYPE_802_11_DIRECTED_DATA",
+    "NDIS_PACKET_TYPE_802_11_MULTICAST_DATA",
+    "NDIS_PACKET_TYPE_802_11_PROMISCUOUS_DATA",
+    "OID_DOT11_AP_JOIN_REQUEST",
+    "OID_DOT11_ATIM_WINDOW",
+    "OID_DOT11_BEACON_PERIOD",
+    "OID_DOT11_CCA_MODE_SUPPORTED",
+    "OID_DOT11_CCA_WATCHDOG_COUNT_MAX",
+    "OID_DOT11_CCA_WATCHDOG_COUNT_MIN",
+    "OID_DOT11_CCA_WATCHDOG_TIMER_MAX",
+    "OID_DOT11_CCA_WATCHDOG_TIMER_MIN",
+    "OID_DOT11_CFP_MAX_DURATION",
+    "OID_DOT11_CFP_PERIOD",
+    "OID_DOT11_CF_POLLABLE",
+    "OID_DOT11_CHANNEL_AGILITY_ENABLED",
+    "OID_DOT11_CHANNEL_AGILITY_PRESENT",
+    "OID_DOT11_COUNTERS_ENTRY",
+    "OID_DOT11_COUNTRY_STRING",
+    "OID_DOT11_CURRENT_ADDRESS",
+    "OID_DOT11_CURRENT_CCA_MODE",
+    "OID_DOT11_CURRENT_CHANNEL",
+    "OID_DOT11_CURRENT_CHANNEL_NUMBER",
+    "OID_DOT11_CURRENT_DWELL_TIME",
+    "OID_DOT11_CURRENT_FREQUENCY",
+    "OID_DOT11_CURRENT_INDEX",
+    "OID_DOT11_CURRENT_OFFLOAD_CAPABILITY",
+    "OID_DOT11_CURRENT_OPERATION_MODE",
+    "OID_DOT11_CURRENT_OPTIONAL_CAPABILITY",
+    "OID_DOT11_CURRENT_PACKET_FILTER",
+    "OID_DOT11_CURRENT_PATTERN",
+    "OID_DOT11_CURRENT_PHY_TYPE",
+    "OID_DOT11_CURRENT_REG_DOMAIN",
+    "OID_DOT11_CURRENT_RX_ANTENNA",
+    "OID_DOT11_CURRENT_SET",
+    "OID_DOT11_CURRENT_TX_ANTENNA",
+    "OID_DOT11_CURRENT_TX_POWER_LEVEL",
+    "OID_DOT11_DEFAULT_WEP_OFFLOAD",
+    "OID_DOT11_DEFAULT_WEP_UPLOAD",
+    "OID_DOT11_DIVERSITY_SELECTION_RX",
+    "OID_DOT11_DIVERSITY_SUPPORT",
+    "OID_DOT11_DSSS_OFDM_OPTION_ENABLED",
+    "OID_DOT11_DSSS_OFDM_OPTION_IMPLEMENTED",
+    "OID_DOT11_DTIM_PERIOD",
+    "OID_DOT11_ED_THRESHOLD",
+    "OID_DOT11_EHCC_CAPABILITY_ENABLED",
+    "OID_DOT11_EHCC_CAPABILITY_IMPLEMENTED",
+    "OID_DOT11_EHCC_NUMBER_OF_CHANNELS_FAMILY_INDEX",
+    "OID_DOT11_EHCC_PRIME_RADIX",
+    "OID_DOT11_ERP_PBCC_OPTION_ENABLED",
+    "OID_DOT11_ERP_PBCC_OPTION_IMPLEMENTED",
+    "OID_DOT11_FRAGMENTATION_THRESHOLD",
+    "OID_DOT11_FREQUENCY_BANDS_SUPPORTED",
+    "OID_DOT11_HOPPING_PATTERN",
+    "OID_DOT11_HOP_ALGORITHM_ADOPTED",
+    "OID_DOT11_HOP_MODULUS",
+    "OID_DOT11_HOP_OFFSET",
+    "OID_DOT11_HOP_TIME",
+    "OID_DOT11_HR_CCA_MODE_SUPPORTED",
+    "OID_DOT11_JOIN_REQUEST",
+    "OID_DOT11_LONG_RETRY_LIMIT",
+    "OID_DOT11_MAC_ADDRESS",
+    "OID_DOT11_MAXIMUM_LIST_SIZE",
+    "OID_DOT11_MAX_DWELL_TIME",
+    "OID_DOT11_MAX_MAC_ADDRESS_STATES",
+    "OID_DOT11_MAX_RECEIVE_LIFETIME",
+    "OID_DOT11_MAX_TRANSMIT_MSDU_LIFETIME",
+    "OID_DOT11_MEDIUM_OCCUPANCY_LIMIT",
+    "OID_DOT11_MPDU_MAX_LENGTH",
+    "OID_DOT11_MULTICAST_LIST",
+    "OID_DOT11_MULTI_DOMAIN_CAPABILITY",
+    "OID_DOT11_MULTI_DOMAIN_CAPABILITY_ENABLED",
+    "OID_DOT11_MULTI_DOMAIN_CAPABILITY_IMPLEMENTED",
+    "OID_DOT11_NDIS_START",
+    "OID_DOT11_NIC_POWER_STATE",
+    "OID_DOT11_NIC_SPECIFIC_EXTENSION",
+    "OID_DOT11_NUMBER_OF_HOPPING_SETS",
+    "OID_DOT11_OFFLOAD_CAPABILITY",
+    "OID_DOT11_OPERATIONAL_RATE_SET",
+    "OID_DOT11_OPERATION_MODE_CAPABILITY",
+    "OID_DOT11_OPTIONAL_CAPABILITY",
+    "OID_DOT11_PBCC_OPTION_IMPLEMENTED",
+    "OID_DOT11_PERMANENT_ADDRESS",
+    "OID_DOT11_POWER_MGMT_MODE",
+    "OID_DOT11_PRIVATE_OIDS_START",
+    "OID_DOT11_QOS_TX_DURATION",
+    "OID_DOT11_QOS_TX_MEDIUM_TIME",
+    "OID_DOT11_QOS_TX_QUEUES_SUPPORTED",
+    "OID_DOT11_RANDOM_TABLE_FIELD_NUMBER",
+    "OID_DOT11_RANDOM_TABLE_FLAG",
+    "OID_DOT11_RECV_SENSITIVITY_LIST",
+    "OID_DOT11_REG_DOMAINS_SUPPORT_VALUE",
+    "OID_DOT11_RESET_REQUEST",
+    "OID_DOT11_RF_USAGE",
+    "OID_DOT11_RSSI_RANGE",
+    "OID_DOT11_RTS_THRESHOLD",
+    "OID_DOT11_SCAN_REQUEST",
+    "OID_DOT11_SHORT_PREAMBLE_OPTION_IMPLEMENTED",
+    "OID_DOT11_SHORT_RETRY_LIMIT",
+    "OID_DOT11_SHORT_SLOT_TIME_OPTION_ENABLED",
+    "OID_DOT11_SHORT_SLOT_TIME_OPTION_IMPLEMENTED",
+    "OID_DOT11_START_REQUEST",
+    "OID_DOT11_STATION_ID",
+    "OID_DOT11_SUPPORTED_DATA_RATES_VALUE",
+    "OID_DOT11_SUPPORTED_DSSS_CHANNEL_LIST",
+    "OID_DOT11_SUPPORTED_OFDM_FREQUENCY_LIST",
+    "OID_DOT11_SUPPORTED_PHY_TYPES",
+    "OID_DOT11_SUPPORTED_POWER_LEVELS",
+    "OID_DOT11_SUPPORTED_RX_ANTENNA",
+    "OID_DOT11_SUPPORTED_TX_ANTENNA",
+    "OID_DOT11_TEMP_TYPE",
+    "OID_DOT11_TI_THRESHOLD",
+    "OID_DOT11_UPDATE_IE",
+    "OID_DOT11_WEP_ICV_ERROR_COUNT",
+    "OID_DOT11_WEP_OFFLOAD",
+    "OID_DOT11_WEP_UPLOAD",
+    "OID_DOT11_WME_AC_PARAMETERS",
+    "OID_DOT11_WME_ENABLED",
+    "OID_DOT11_WME_IMPLEMENTED",
+    "OID_DOT11_WME_UPDATE_IE",
+    "OID_DOT11_WPA_TSC",
+    "ONEX_AUTHENTICATOR_NO_LONGER_PRESENT",
+    "ONEX_AUTH_IDENTITY",
+    "ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser",
+    "ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest",
+    "ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid",
+    "ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine",
+    "ONEX_AUTH_IDENTITY_OneXAuthIdentityNone",
+    "ONEX_AUTH_IDENTITY_OneXAuthIdentityUser",
+    "ONEX_AUTH_PARAMS",
+    "ONEX_AUTH_RESTART_REASON",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated",
+    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged",
+    "ONEX_AUTH_STATUS",
+    "ONEX_AUTH_STATUS_OneXAuthFailure",
+    "ONEX_AUTH_STATUS_OneXAuthInProgress",
+    "ONEX_AUTH_STATUS_OneXAuthInvalid",
+    "ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound",
+    "ONEX_AUTH_STATUS_OneXAuthNotStarted",
+    "ONEX_AUTH_STATUS_OneXAuthSuccess",
+    "ONEX_EAP_ERROR",
+    "ONEX_EAP_FAILURE_RECEIVED",
+    "ONEX_EAP_METHOD_BACKEND_SUPPORT",
+    "ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown",
+    "ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported",
+    "ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported",
+    "ONEX_IDENTITY_NOT_FOUND",
+    "ONEX_NOTIFICATION_TYPE",
+    "ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted",
+    "ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid",
+    "ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate",
+    "ONEX_NOTIFICATION_TYPE_OneXNumNotifications",
+    "ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase",
+    "ONEX_NO_RESPONSE_TO_IDENTITY",
+    "ONEX_PROFILE_DISALLOWED_EAP_TYPE",
+    "ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS",
+    "ONEX_PROFILE_INVALID_AUTH_MODE",
+    "ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES",
+    "ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG",
+    "ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS",
+    "ONEX_PROFILE_INVALID_LENGTH",
+    "ONEX_PROFILE_INVALID_ONEX_FLAGS",
+    "ONEX_PROFILE_INVALID_SUPPLICANT_MODE",
+    "ONEX_PROFILE_INVALID_TIMER_VALUE",
+    "ONEX_PROFILE_VERSION_NOT_SUPPORTED",
+    "ONEX_REASON_CODE",
+    "ONEX_REASON_CODE_SUCCESS",
+    "ONEX_REASON_START",
+    "ONEX_RESULT_UPDATE_DATA",
+    "ONEX_STATUS",
+    "ONEX_UI_CANCELLED",
+    "ONEX_UI_DISABLED",
+    "ONEX_UI_FAILURE",
+    "ONEX_UI_NOT_PERMITTED",
+    "ONEX_UNABLE_TO_IDENTIFY_USER",
+    "ONEX_USER_INFO",
+    "ONEX_VARIABLE_BLOB",
+    "WDIAG_IHV_WLAN_ID",
+    "WDIAG_IHV_WLAN_ID_FLAG_SECURITY_ENABLED",
+    "WFDCancelOpenSession",
+    "WFDCloseHandle",
+    "WFDCloseSession",
+    "WFDOpenHandle",
+    "WFDOpenLegacySession",
+    "WFDSVC_CONNECTION_CAPABILITY",
+    "WFDSVC_CONNECTION_CAPABILITY_CLIENT",
+    "WFDSVC_CONNECTION_CAPABILITY_GO",
+    "WFDSVC_CONNECTION_CAPABILITY_NEW",
+    "WFDStartOpenSession",
+    "WFDUpdateDeviceVisibility",
+    "WFD_API_VERSION",
+    "WFD_API_VERSION_1_0",
+    "WFD_GROUP_ID",
+    "WFD_OPEN_SESSION_COMPLETE_CALLBACK",
+    "WFD_ROLE_TYPE",
+    "WFD_ROLE_TYPE_CLIENT",
+    "WFD_ROLE_TYPE_DEVICE",
+    "WFD_ROLE_TYPE_GROUP_OWNER",
+    "WFD_ROLE_TYPE_MAX",
+    "WFD_ROLE_TYPE_NONE",
+    "WLAN_ADHOC_NETWORK_STATE",
+    "WLAN_API_VERSION",
     "WLAN_API_VERSION_1_0",
     "WLAN_API_VERSION_2_0",
-    "WLAN_API_VERSION",
+    "WLAN_ASSOCIATION_ATTRIBUTES",
+    "WLAN_AUTH_CIPHER_PAIR_LIST",
+    "WLAN_AUTOCONF_OPCODE",
+    "WLAN_AVAILABLE_NETWORK",
+    "WLAN_AVAILABLE_NETWORK_ANQP_SUPPORTED",
+    "WLAN_AVAILABLE_NETWORK_AUTO_CONNECT_FAILED",
+    "WLAN_AVAILABLE_NETWORK_CONNECTED",
+    "WLAN_AVAILABLE_NETWORK_CONSOLE_USER_PROFILE",
+    "WLAN_AVAILABLE_NETWORK_HAS_PROFILE",
+    "WLAN_AVAILABLE_NETWORK_HOTSPOT2_DOMAIN",
+    "WLAN_AVAILABLE_NETWORK_HOTSPOT2_ENABLED",
+    "WLAN_AVAILABLE_NETWORK_HOTSPOT2_ROAMING",
+    "WLAN_AVAILABLE_NETWORK_INCLUDE_ALL_ADHOC_PROFILES",
+    "WLAN_AVAILABLE_NETWORK_INCLUDE_ALL_MANUAL_HIDDEN_PROFILES",
+    "WLAN_AVAILABLE_NETWORK_INTERWORKING_SUPPORTED",
+    "WLAN_AVAILABLE_NETWORK_LIST",
+    "WLAN_AVAILABLE_NETWORK_LIST_V2",
+    "WLAN_AVAILABLE_NETWORK_V2",
+    "WLAN_BSS_ENTRY",
+    "WLAN_BSS_LIST",
+    "WLAN_CONNECTION_ADHOC_JOIN_ONLY",
+    "WLAN_CONNECTION_ATTRIBUTES",
+    "WLAN_CONNECTION_EAPOL_PASSTHROUGH",
+    "WLAN_CONNECTION_HIDDEN_NETWORK",
+    "WLAN_CONNECTION_IGNORE_PRIVACY_BIT",
+    "WLAN_CONNECTION_MODE",
+    "WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED",
+    "WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE",
+    "WLAN_CONNECTION_NOTIFICATION_DATA",
+    "WLAN_CONNECTION_NOTIFICATION_FLAGS",
+    "WLAN_CONNECTION_PARAMETERS",
+    "WLAN_CONNECTION_PARAMETERS_V2",
+    "WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE",
+    "WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE_CONNECTION_MODE_AUTO",
+    "WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE_OVERWRITE_EXISTING",
+    "WLAN_COUNTRY_OR_REGION_STRING_LIST",
+    "WLAN_DEVICE_SERVICE_GUID_LIST",
+    "WLAN_DEVICE_SERVICE_NOTIFICATION_DATA",
+    "WLAN_FILTER_LIST_TYPE",
+    "WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS",
+    "WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE",
+    "WLAN_HOSTED_NETWORK_NOTIFICATION_CODE",
+    "WLAN_HOSTED_NETWORK_OPCODE",
+    "WLAN_HOSTED_NETWORK_PEER_AUTH_STATE",
+    "WLAN_HOSTED_NETWORK_PEER_STATE",
+    "WLAN_HOSTED_NETWORK_RADIO_STATE",
+    "WLAN_HOSTED_NETWORK_REASON",
+    "WLAN_HOSTED_NETWORK_SECURITY_SETTINGS",
+    "WLAN_HOSTED_NETWORK_STATE",
+    "WLAN_HOSTED_NETWORK_STATE_CHANGE",
+    "WLAN_HOSTED_NETWORK_STATUS",
+    "WLAN_IHV_CONTROL_TYPE",
+    "WLAN_INTERFACE_CAPABILITY",
+    "WLAN_INTERFACE_INFO",
+    "WLAN_INTERFACE_INFO_LIST",
+    "WLAN_INTERFACE_STATE",
+    "WLAN_INTERFACE_TYPE",
+    "WLAN_INTF_OPCODE",
+    "WLAN_MAC_FRAME_STATISTICS",
     "WLAN_MAX_NAME_LENGTH",
-    "WLAN_PROFILE_GROUP_POLICY",
-    "WLAN_PROFILE_USER",
-    "WLAN_PROFILE_GET_PLAINTEXT_KEY",
-    "WLAN_PROFILE_CONNECTION_MODE_SET_BY_CLIENT",
+    "WLAN_MAX_PHY_INDEX",
+    "WLAN_MAX_PHY_TYPE_NUMBER",
+    "WLAN_MSM_NOTIFICATION_DATA",
+    "WLAN_NOTIFICATION_ACM",
+    "WLAN_NOTIFICATION_CALLBACK",
+    "WLAN_NOTIFICATION_MSM",
+    "WLAN_NOTIFICATION_SECURITY",
+    "WLAN_NOTIFICATION_SOURCE_ACM",
+    "WLAN_NOTIFICATION_SOURCE_ALL",
+    "WLAN_NOTIFICATION_SOURCE_DEVICE_SERVICE",
+    "WLAN_NOTIFICATION_SOURCE_HNWK",
+    "WLAN_NOTIFICATION_SOURCE_IHV",
+    "WLAN_NOTIFICATION_SOURCE_MSM",
+    "WLAN_NOTIFICATION_SOURCE_NONE",
+    "WLAN_NOTIFICATION_SOURCE_ONEX",
+    "WLAN_NOTIFICATION_SOURCE_SECURITY",
+    "WLAN_OPCODE_VALUE_TYPE",
+    "WLAN_OPERATIONAL_STATE",
+    "WLAN_PHY_FRAME_STATISTICS",
+    "WLAN_PHY_RADIO_STATE",
+    "WLAN_POWER_SETTING",
     "WLAN_PROFILE_CONNECTION_MODE_AUTO",
-    "DOT11_PSD_IE_MAX_DATA_SIZE",
-    "DOT11_PSD_IE_MAX_ENTRY_NUMBER",
-    "WLAN_REASON_CODE_NETWORK_NOT_COMPATIBLE",
-    "WLAN_REASON_CODE_PROFILE_NOT_COMPATIBLE",
-    "WLAN_REASON_CODE_NO_AUTO_CONNECTION",
-    "WLAN_REASON_CODE_NOT_VISIBLE",
-    "WLAN_REASON_CODE_GP_DENIED",
-    "WLAN_REASON_CODE_USER_DENIED",
-    "WLAN_REASON_CODE_BSS_TYPE_NOT_ALLOWED",
-    "WLAN_REASON_CODE_IN_FAILED_LIST",
-    "WLAN_REASON_CODE_IN_BLOCKED_LIST",
-    "WLAN_REASON_CODE_SSID_LIST_TOO_LONG",
-    "WLAN_REASON_CODE_CONNECT_CALL_FAIL",
-    "WLAN_REASON_CODE_SCAN_CALL_FAIL",
-    "WLAN_REASON_CODE_NETWORK_NOT_AVAILABLE",
-    "WLAN_REASON_CODE_PROFILE_CHANGED_OR_DELETED",
-    "WLAN_REASON_CODE_KEY_MISMATCH",
-    "WLAN_REASON_CODE_USER_NOT_RESPOND",
-    "WLAN_REASON_CODE_AP_PROFILE_NOT_ALLOWED_FOR_CLIENT",
+    "WLAN_PROFILE_CONNECTION_MODE_SET_BY_CLIENT",
+    "WLAN_PROFILE_GET_PLAINTEXT_KEY",
+    "WLAN_PROFILE_GROUP_POLICY",
+    "WLAN_PROFILE_INFO",
+    "WLAN_PROFILE_INFO_LIST",
+    "WLAN_PROFILE_USER",
+    "WLAN_RADIO_STATE",
+    "WLAN_RATE_SET",
+    "WLAN_RAW_DATA",
+    "WLAN_RAW_DATA_LIST",
+    "WLAN_REASON_CODE_AC_BASE",
+    "WLAN_REASON_CODE_AC_CONNECT_BASE",
+    "WLAN_REASON_CODE_AC_END",
+    "WLAN_REASON_CODE_ADHOC_SECURITY_FAILURE",
     "WLAN_REASON_CODE_AP_PROFILE_NOT_ALLOWED",
-    "WLAN_REASON_CODE_HOTSPOT2_PROFILE_DENIED",
-    "WLAN_REASON_CODE_INVALID_PROFILE_SCHEMA",
-    "WLAN_REASON_CODE_PROFILE_MISSING",
-    "WLAN_REASON_CODE_INVALID_PROFILE_NAME",
-    "WLAN_REASON_CODE_INVALID_PROFILE_TYPE",
-    "WLAN_REASON_CODE_INVALID_PHY_TYPE",
-    "WLAN_REASON_CODE_MSM_SECURITY_MISSING",
-    "WLAN_REASON_CODE_IHV_SECURITY_NOT_SUPPORTED",
-    "WLAN_REASON_CODE_IHV_OUI_MISMATCH",
-    "WLAN_REASON_CODE_IHV_OUI_MISSING",
-    "WLAN_REASON_CODE_IHV_SETTINGS_MISSING",
-    "WLAN_REASON_CODE_CONFLICT_SECURITY",
-    "WLAN_REASON_CODE_SECURITY_MISSING",
-    "WLAN_REASON_CODE_INVALID_BSS_TYPE",
-    "WLAN_REASON_CODE_INVALID_ADHOC_CONNECTION_MODE",
-    "WLAN_REASON_CODE_NON_BROADCAST_SET_FOR_ADHOC",
-    "WLAN_REASON_CODE_AUTO_SWITCH_SET_FOR_ADHOC",
-    "WLAN_REASON_CODE_AUTO_SWITCH_SET_FOR_MANUAL_CONNECTION",
-    "WLAN_REASON_CODE_IHV_SECURITY_ONEX_MISSING",
-    "WLAN_REASON_CODE_PROFILE_SSID_INVALID",
-    "WLAN_REASON_CODE_TOO_MANY_SSID",
-    "WLAN_REASON_CODE_IHV_CONNECTIVITY_NOT_SUPPORTED",
-    "WLAN_REASON_CODE_BAD_MAX_NUMBER_OF_CLIENTS_FOR_AP",
-    "WLAN_REASON_CODE_INVALID_CHANNEL",
-    "WLAN_REASON_CODE_OPERATION_MODE_NOT_SUPPORTED",
-    "WLAN_REASON_CODE_AUTO_AP_PROFILE_NOT_ALLOWED",
-    "WLAN_REASON_CODE_AUTO_CONNECTION_NOT_ALLOWED",
-    "WLAN_REASON_CODE_HOTSPOT2_PROFILE_NOT_ALLOWED",
-    "WLAN_REASON_CODE_UNSUPPORTED_SECURITY_SET_BY_OS",
-    "WLAN_REASON_CODE_UNSUPPORTED_SECURITY_SET",
-    "WLAN_REASON_CODE_BSS_TYPE_UNMATCH",
-    "WLAN_REASON_CODE_PHY_TYPE_UNMATCH",
-    "WLAN_REASON_CODE_DATARATE_UNMATCH",
-    "WLAN_REASON_CODE_USER_CANCELLED",
+    "WLAN_REASON_CODE_AP_PROFILE_NOT_ALLOWED_FOR_CLIENT",
+    "WLAN_REASON_CODE_AP_STARTING_FAILURE",
     "WLAN_REASON_CODE_ASSOCIATION_FAILURE",
     "WLAN_REASON_CODE_ASSOCIATION_TIMEOUT",
-    "WLAN_REASON_CODE_PRE_SECURITY_FAILURE",
-    "WLAN_REASON_CODE_START_SECURITY_FAILURE",
-    "WLAN_REASON_CODE_SECURITY_FAILURE",
-    "WLAN_REASON_CODE_SECURITY_TIMEOUT",
-    "WLAN_REASON_CODE_ROAMING_FAILURE",
-    "WLAN_REASON_CODE_ROAMING_SECURITY_FAILURE",
-    "WLAN_REASON_CODE_ADHOC_SECURITY_FAILURE",
+    "WLAN_REASON_CODE_AUTO_AP_PROFILE_NOT_ALLOWED",
+    "WLAN_REASON_CODE_AUTO_CONNECTION_NOT_ALLOWED",
+    "WLAN_REASON_CODE_AUTO_SWITCH_SET_FOR_ADHOC",
+    "WLAN_REASON_CODE_AUTO_SWITCH_SET_FOR_MANUAL_CONNECTION",
+    "WLAN_REASON_CODE_BAD_MAX_NUMBER_OF_CLIENTS_FOR_AP",
+    "WLAN_REASON_CODE_BASE",
+    "WLAN_REASON_CODE_BSS_TYPE_NOT_ALLOWED",
+    "WLAN_REASON_CODE_BSS_TYPE_UNMATCH",
+    "WLAN_REASON_CODE_CONFLICT_SECURITY",
+    "WLAN_REASON_CODE_CONNECT_CALL_FAIL",
+    "WLAN_REASON_CODE_DATARATE_UNMATCH",
+    "WLAN_REASON_CODE_DISCONNECT_TIMEOUT",
     "WLAN_REASON_CODE_DRIVER_DISCONNECTED",
     "WLAN_REASON_CODE_DRIVER_OPERATION_FAILURE",
+    "WLAN_REASON_CODE_GP_DENIED",
+    "WLAN_REASON_CODE_HOTSPOT2_PROFILE_DENIED",
+    "WLAN_REASON_CODE_HOTSPOT2_PROFILE_NOT_ALLOWED",
+    "WLAN_REASON_CODE_IHV_CONNECTIVITY_NOT_SUPPORTED",
     "WLAN_REASON_CODE_IHV_NOT_AVAILABLE",
     "WLAN_REASON_CODE_IHV_NOT_RESPONDING",
-    "WLAN_REASON_CODE_DISCONNECT_TIMEOUT",
+    "WLAN_REASON_CODE_IHV_OUI_MISMATCH",
+    "WLAN_REASON_CODE_IHV_OUI_MISSING",
+    "WLAN_REASON_CODE_IHV_SECURITY_NOT_SUPPORTED",
+    "WLAN_REASON_CODE_IHV_SECURITY_ONEX_MISSING",
+    "WLAN_REASON_CODE_IHV_SETTINGS_MISSING",
     "WLAN_REASON_CODE_INTERNAL_FAILURE",
-    "WLAN_REASON_CODE_UI_REQUEST_TIMEOUT",
-    "WLAN_REASON_CODE_TOO_MANY_SECURITY_ATTEMPTS",
-    "WLAN_REASON_CODE_AP_STARTING_FAILURE",
-    "WLAN_REASON_CODE_NO_VISIBLE_AP",
+    "WLAN_REASON_CODE_INVALID_ADHOC_CONNECTION_MODE",
+    "WLAN_REASON_CODE_INVALID_BSS_TYPE",
+    "WLAN_REASON_CODE_INVALID_CHANNEL",
+    "WLAN_REASON_CODE_INVALID_PHY_TYPE",
+    "WLAN_REASON_CODE_INVALID_PROFILE_NAME",
+    "WLAN_REASON_CODE_INVALID_PROFILE_SCHEMA",
+    "WLAN_REASON_CODE_INVALID_PROFILE_TYPE",
+    "WLAN_REASON_CODE_IN_BLOCKED_LIST",
+    "WLAN_REASON_CODE_IN_FAILED_LIST",
+    "WLAN_REASON_CODE_KEY_MISMATCH",
+    "WLAN_REASON_CODE_MSMSEC_AUTH_START_TIMEOUT",
+    "WLAN_REASON_CODE_MSMSEC_AUTH_SUCCESS_TIMEOUT",
+    "WLAN_REASON_CODE_MSMSEC_AUTH_WCN_COMPLETED",
+    "WLAN_REASON_CODE_MSMSEC_BASE",
+    "WLAN_REASON_CODE_MSMSEC_CANCELLED",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_DISCOVERY",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_MFP_NW_NIC",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_NETWORK",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_NIC",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_AUTH",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_CIPHER",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_SAFE_MODE_NIC",
+    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_SAFE_MODE_NW",
+    "WLAN_REASON_CODE_MSMSEC_CONNECT_BASE",
+    "WLAN_REASON_CODE_MSMSEC_DOWNGRADE_DETECTED",
+    "WLAN_REASON_CODE_MSMSEC_END",
+    "WLAN_REASON_CODE_MSMSEC_FORCED_FAILURE",
+    "WLAN_REASON_CODE_MSMSEC_G1_MISSING_GRP_KEY",
+    "WLAN_REASON_CODE_MSMSEC_G1_MISSING_KEY_DATA",
+    "WLAN_REASON_CODE_MSMSEC_G1_MISSING_MGMT_GRP_KEY",
+    "WLAN_REASON_CODE_MSMSEC_KEY_FORMAT",
+    "WLAN_REASON_CODE_MSMSEC_KEY_START_TIMEOUT",
+    "WLAN_REASON_CODE_MSMSEC_KEY_SUCCESS_TIMEOUT",
+    "WLAN_REASON_CODE_MSMSEC_M2_MISSING_IE",
+    "WLAN_REASON_CODE_MSMSEC_M2_MISSING_KEY_DATA",
+    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_GRP_KEY",
+    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_IE",
+    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_KEY_DATA",
+    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_MGMT_GRP_KEY",
+    "WLAN_REASON_CODE_MSMSEC_M3_TOO_MANY_RSNIE",
+    "WLAN_REASON_CODE_MSMSEC_MAX",
     "WLAN_REASON_CODE_MSMSEC_MIN",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_KEY_INDEX",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_PSK_PRESENT",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_KEY_LENGTH",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_PSK_LENGTH",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_NO_AUTH_CIPHER_SPECIFIED",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_TOO_MANY_AUTH_CIPHER_SPECIFIED",
+    "WLAN_REASON_CODE_MSMSEC_MIXED_CELL",
+    "WLAN_REASON_CODE_MSMSEC_NIC_FAILURE",
+    "WLAN_REASON_CODE_MSMSEC_NO_AUTHENTICATOR",
+    "WLAN_REASON_CODE_MSMSEC_NO_PAIRWISE_KEY",
+    "WLAN_REASON_CODE_MSMSEC_PEER_INDICATED_INSECURE",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_AUTH_TIMERS_INVALID",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_DUPLICATE_AUTH_CIPHER",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_RAWDATA_INVALID",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_AUTH_CIPHER",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_ONEX_DISABLED",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_ONEX_ENABLED",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_GKEY_INTV",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_KEY_INDEX",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_PMKCACHE_MODE",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_PMKCACHE_SIZE",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_PMKCACHE_TTL",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_PREAUTH_MODE",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_PREAUTH_THROTTLE",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_PREAUTH_ONLY_ENABLED",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_NETWORK",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_NIC",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_DISCOVERY",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_PASSPHRASE_CHAR",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_KEYMATERIAL_CHAR",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_WRONG_KEYTYPE",
-    "WLAN_REASON_CODE_MSMSEC_MIXED_CELL",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_AUTH_TIMERS_INVALID",
-    "WLAN_REASON_CODE_MSMSEC_PROFILE_INVALID_GKEY_INTV",
-    "WLAN_REASON_CODE_MSMSEC_TRANSITION_NETWORK",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_KEY_LENGTH",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_KEY_UNMAPPED_CHAR",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_AUTH",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_CIPHER",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_NO_AUTH_CIPHER_SPECIFIED",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_ONEX_DISABLED",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_ONEX_ENABLED",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_PASSPHRASE_CHAR",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_PREAUTH_ONLY_ENABLED",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_PSK_LENGTH",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_PSK_PRESENT",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_RAWDATA_INVALID",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_SAFE_MODE",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_SAFE_MODE_NIC",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_PROFILE_SAFE_MODE_NW",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_TOO_MANY_AUTH_CIPHER_SPECIFIED",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_UNSUPPORTED_AUTH",
     "WLAN_REASON_CODE_MSMSEC_PROFILE_UNSUPPORTED_CIPHER",
-    "WLAN_REASON_CODE_MSMSEC_CAPABILITY_MFP_NW_NIC",
-    "WLAN_REASON_CODE_MSMSEC_UI_REQUEST_FAILURE",
-    "WLAN_REASON_CODE_MSMSEC_AUTH_START_TIMEOUT",
-    "WLAN_REASON_CODE_MSMSEC_AUTH_SUCCESS_TIMEOUT",
-    "WLAN_REASON_CODE_MSMSEC_KEY_START_TIMEOUT",
-    "WLAN_REASON_CODE_MSMSEC_KEY_SUCCESS_TIMEOUT",
-    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_KEY_DATA",
-    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_IE",
-    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_GRP_KEY",
+    "WLAN_REASON_CODE_MSMSEC_PROFILE_WRONG_KEYTYPE",
     "WLAN_REASON_CODE_MSMSEC_PR_IE_MATCHING",
-    "WLAN_REASON_CODE_MSMSEC_SEC_IE_MATCHING",
-    "WLAN_REASON_CODE_MSMSEC_NO_PAIRWISE_KEY",
-    "WLAN_REASON_CODE_MSMSEC_G1_MISSING_KEY_DATA",
-    "WLAN_REASON_CODE_MSMSEC_G1_MISSING_GRP_KEY",
-    "WLAN_REASON_CODE_MSMSEC_PEER_INDICATED_INSECURE",
-    "WLAN_REASON_CODE_MSMSEC_NO_AUTHENTICATOR",
-    "WLAN_REASON_CODE_MSMSEC_NIC_FAILURE",
-    "WLAN_REASON_CODE_MSMSEC_CANCELLED",
-    "WLAN_REASON_CODE_MSMSEC_KEY_FORMAT",
-    "WLAN_REASON_CODE_MSMSEC_DOWNGRADE_DETECTED",
     "WLAN_REASON_CODE_MSMSEC_PSK_MISMATCH_SUSPECTED",
-    "WLAN_REASON_CODE_MSMSEC_FORCED_FAILURE",
-    "WLAN_REASON_CODE_MSMSEC_M3_TOO_MANY_RSNIE",
-    "WLAN_REASON_CODE_MSMSEC_M2_MISSING_KEY_DATA",
-    "WLAN_REASON_CODE_MSMSEC_M2_MISSING_IE",
-    "WLAN_REASON_CODE_MSMSEC_AUTH_WCN_COMPLETED",
-    "WLAN_REASON_CODE_MSMSEC_M3_MISSING_MGMT_GRP_KEY",
-    "WLAN_REASON_CODE_MSMSEC_G1_MISSING_MGMT_GRP_KEY",
-    "WLAN_REASON_CODE_MSMSEC_MAX",
-    "WLAN_AVAILABLE_NETWORK_CONNECTED",
-    "WLAN_AVAILABLE_NETWORK_HAS_PROFILE",
-    "WLAN_AVAILABLE_NETWORK_CONSOLE_USER_PROFILE",
-    "WLAN_AVAILABLE_NETWORK_INTERWORKING_SUPPORTED",
-    "WLAN_AVAILABLE_NETWORK_HOTSPOT2_ENABLED",
-    "WLAN_AVAILABLE_NETWORK_ANQP_SUPPORTED",
-    "WLAN_AVAILABLE_NETWORK_HOTSPOT2_DOMAIN",
-    "WLAN_AVAILABLE_NETWORK_HOTSPOT2_ROAMING",
-    "WLAN_AVAILABLE_NETWORK_AUTO_CONNECT_FAILED",
-    "WLAN_AVAILABLE_NETWORK_INCLUDE_ALL_ADHOC_PROFILES",
-    "WLAN_AVAILABLE_NETWORK_INCLUDE_ALL_MANUAL_HIDDEN_PROFILES",
-    "WLAN_MAX_PHY_TYPE_NUMBER",
-    "WLAN_MAX_PHY_INDEX",
-    "WLAN_CONNECTION_HIDDEN_NETWORK",
-    "WLAN_CONNECTION_ADHOC_JOIN_ONLY",
-    "WLAN_CONNECTION_IGNORE_PRIVACY_BIT",
-    "WLAN_CONNECTION_EAPOL_PASSTHROUGH",
-    "WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE",
-    "WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE_CONNECTION_MODE_AUTO",
-    "WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE_OVERWRITE_EXISTING",
-    "WLAN_NOTIFICATION_SOURCE_NONE",
-    "WLAN_NOTIFICATION_SOURCE_ALL",
-    "WLAN_NOTIFICATION_SOURCE_ACM",
-    "WLAN_NOTIFICATION_SOURCE_MSM",
-    "WLAN_NOTIFICATION_SOURCE_SECURITY",
-    "WLAN_NOTIFICATION_SOURCE_IHV",
-    "WLAN_NOTIFICATION_SOURCE_HNWK",
-    "WLAN_NOTIFICATION_SOURCE_ONEX",
-    "WLAN_NOTIFICATION_SOURCE_DEVICE_SERVICE",
-    "WFD_API_VERSION_1_0",
-    "WFD_API_VERSION",
-    "WLAN_UI_API_VERSION",
-    "WLAN_UI_API_INITIAL_VERSION",
-    "GUID_DEVINTERFACE_WIFIDIRECT_DEVICE",
-    "GUID_AEPSERVICE_WIFIDIRECT_DEVICE",
-    "GUID_DEVINTERFACE_ASP_INFRA_DEVICE",
-    "DEVPKEY_WiFiDirect_DeviceAddress",
-    "DEVPKEY_WiFiDirect_InterfaceAddress",
-    "DEVPKEY_WiFiDirect_InterfaceGuid",
-    "DEVPKEY_WiFiDirect_GroupId",
-    "DEVPKEY_WiFiDirect_IsConnected",
-    "DEVPKEY_WiFiDirect_IsVisible",
-    "DEVPKEY_WiFiDirect_IsLegacyDevice",
-    "DEVPKEY_WiFiDirect_MiracastVersion",
-    "DEVPKEY_WiFiDirect_IsMiracastLCPSupported",
-    "DEVPKEY_WiFiDirect_Services",
-    "DEVPKEY_WiFiDirect_SupportedChannelList",
-    "DEVPKEY_WiFiDirect_InformationElements",
-    "DEVPKEY_WiFiDirect_DeviceAddressCopy",
-    "DEVPKEY_WiFiDirect_IsRecentlyAssociated",
-    "DEVPKEY_WiFiDirect_Service_Aeps",
-    "DEVPKEY_WiFiDirect_NoMiracastAutoProject",
-    "DEVPKEY_InfraCast_Supported",
-    "DEVPKEY_InfraCast_StreamSecuritySupported",
-    "DEVPKEY_InfraCast_AccessPointBssid",
-    "DEVPKEY_InfraCast_SinkHostName",
-    "DEVPKEY_InfraCast_ChallengeAep",
-    "DEVPKEY_WiFiDirect_IsDMGCapable",
-    "DEVPKEY_InfraCast_DevnodeAep",
-    "DEVPKEY_WiFiDirect_FoundWsbService",
-    "DEVPKEY_InfraCast_HostName_ResolutionMode",
-    "DEVPKEY_InfraCast_SinkIpAddress",
-    "DEVPKEY_WiFiDirect_TransientAssociation",
-    "DEVPKEY_WiFiDirect_LinkQuality",
-    "DEVPKEY_InfraCast_PinSupported",
-    "DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported",
-    "DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort",
-    "DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported",
-    "DEVPKEY_WiFiDirectServices_ServiceAddress",
-    "DEVPKEY_WiFiDirectServices_ServiceName",
-    "DEVPKEY_WiFiDirectServices_ServiceInformation",
-    "DEVPKEY_WiFiDirectServices_AdvertisementId",
-    "DEVPKEY_WiFiDirectServices_ServiceConfigMethods",
-    "DEVPKEY_WiFiDirectServices_RequestServiceInformation",
-    "DEVPKEY_WiFi_InterfaceGuid",
-    "WLAN_SET_EAPHOST_FLAGS",
+    "WLAN_REASON_CODE_MSMSEC_SEC_IE_MATCHING",
+    "WLAN_REASON_CODE_MSMSEC_TRANSITION_NETWORK",
+    "WLAN_REASON_CODE_MSMSEC_UI_REQUEST_FAILURE",
+    "WLAN_REASON_CODE_MSM_BASE",
+    "WLAN_REASON_CODE_MSM_CONNECT_BASE",
+    "WLAN_REASON_CODE_MSM_END",
+    "WLAN_REASON_CODE_MSM_SECURITY_MISSING",
+    "WLAN_REASON_CODE_NETWORK_NOT_AVAILABLE",
+    "WLAN_REASON_CODE_NETWORK_NOT_COMPATIBLE",
+    "WLAN_REASON_CODE_NON_BROADCAST_SET_FOR_ADHOC",
+    "WLAN_REASON_CODE_NOT_VISIBLE",
+    "WLAN_REASON_CODE_NO_AUTO_CONNECTION",
+    "WLAN_REASON_CODE_NO_VISIBLE_AP",
+    "WLAN_REASON_CODE_OPERATION_MODE_NOT_SUPPORTED",
+    "WLAN_REASON_CODE_PHY_TYPE_UNMATCH",
+    "WLAN_REASON_CODE_PRE_SECURITY_FAILURE",
+    "WLAN_REASON_CODE_PROFILE_BASE",
+    "WLAN_REASON_CODE_PROFILE_CHANGED_OR_DELETED",
+    "WLAN_REASON_CODE_PROFILE_CONNECT_BASE",
+    "WLAN_REASON_CODE_PROFILE_END",
+    "WLAN_REASON_CODE_PROFILE_MISSING",
+    "WLAN_REASON_CODE_PROFILE_NOT_COMPATIBLE",
+    "WLAN_REASON_CODE_PROFILE_SSID_INVALID",
+    "WLAN_REASON_CODE_RANGE_SIZE",
+    "WLAN_REASON_CODE_RESERVED_BASE",
+    "WLAN_REASON_CODE_RESERVED_END",
+    "WLAN_REASON_CODE_ROAMING_FAILURE",
+    "WLAN_REASON_CODE_ROAMING_SECURITY_FAILURE",
+    "WLAN_REASON_CODE_SCAN_CALL_FAIL",
+    "WLAN_REASON_CODE_SECURITY_FAILURE",
+    "WLAN_REASON_CODE_SECURITY_MISSING",
+    "WLAN_REASON_CODE_SECURITY_TIMEOUT",
+    "WLAN_REASON_CODE_SSID_LIST_TOO_LONG",
+    "WLAN_REASON_CODE_START_SECURITY_FAILURE",
+    "WLAN_REASON_CODE_SUCCESS",
+    "WLAN_REASON_CODE_TOO_MANY_SECURITY_ATTEMPTS",
+    "WLAN_REASON_CODE_TOO_MANY_SSID",
+    "WLAN_REASON_CODE_UI_REQUEST_TIMEOUT",
+    "WLAN_REASON_CODE_UNKNOWN",
+    "WLAN_REASON_CODE_UNSUPPORTED_SECURITY_SET",
+    "WLAN_REASON_CODE_UNSUPPORTED_SECURITY_SET_BY_OS",
+    "WLAN_REASON_CODE_USER_CANCELLED",
+    "WLAN_REASON_CODE_USER_DENIED",
+    "WLAN_REASON_CODE_USER_NOT_RESPOND",
+    "WLAN_SECURABLE_OBJECT",
+    "WLAN_SECURABLE_OBJECT_COUNT",
+    "WLAN_SECURITY_ATTRIBUTES",
     "WLAN_SET_EAPHOST_DATA_ALL_USERS",
-    "WLAN_CONNECTION_NOTIFICATION_FLAGS",
-    "WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED",
-    "WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE",
-    "DOT11_BSS_TYPE",
-    "dot11_BSS_type_infrastructure",
-    "dot11_BSS_type_independent",
-    "dot11_BSS_type_any",
-    "DOT11_SSID",
-    "DOT11_AUTH_ALGORITHM",
-    "DOT11_AUTH_ALGO_80211_OPEN",
-    "DOT11_AUTH_ALGO_80211_SHARED_KEY",
-    "DOT11_AUTH_ALGO_WPA",
-    "DOT11_AUTH_ALGO_WPA_PSK",
-    "DOT11_AUTH_ALGO_WPA_NONE",
-    "DOT11_AUTH_ALGO_RSNA",
-    "DOT11_AUTH_ALGO_RSNA_PSK",
-    "DOT11_AUTH_ALGO_WPA3",
-    "DOT11_AUTH_ALGO_WPA3_ENT_192",
-    "DOT11_AUTH_ALGO_WPA3_SAE",
-    "DOT11_AUTH_ALGO_OWE",
-    "DOT11_AUTH_ALGO_WPA3_ENT",
-    "DOT11_AUTH_ALGO_IHV_START",
-    "DOT11_AUTH_ALGO_IHV_END",
-    "DOT11_CIPHER_ALGORITHM",
-    "DOT11_CIPHER_ALGO_NONE",
-    "DOT11_CIPHER_ALGO_WEP40",
-    "DOT11_CIPHER_ALGO_TKIP",
-    "DOT11_CIPHER_ALGO_CCMP",
-    "DOT11_CIPHER_ALGO_WEP104",
-    "DOT11_CIPHER_ALGO_BIP",
-    "DOT11_CIPHER_ALGO_GCMP",
-    "DOT11_CIPHER_ALGO_GCMP_256",
-    "DOT11_CIPHER_ALGO_CCMP_256",
-    "DOT11_CIPHER_ALGO_BIP_GMAC_128",
-    "DOT11_CIPHER_ALGO_BIP_GMAC_256",
-    "DOT11_CIPHER_ALGO_BIP_CMAC_256",
-    "DOT11_CIPHER_ALGO_WPA_USE_GROUP",
-    "DOT11_CIPHER_ALGO_RSN_USE_GROUP",
-    "DOT11_CIPHER_ALGO_WEP",
-    "DOT11_CIPHER_ALGO_IHV_START",
-    "DOT11_CIPHER_ALGO_IHV_END",
-    "DOT11_AUTH_CIPHER_PAIR",
-    "DOT11_OI",
-    "DOT11_ACCESSNETWORKOPTIONS",
-    "DOT11_VENUEINFO",
-    "DOT11_BSSID_LIST",
-    "DOT11_PHY_TYPE",
-    "dot11_phy_type_unknown",
-    "dot11_phy_type_any",
-    "dot11_phy_type_fhss",
-    "dot11_phy_type_dsss",
-    "dot11_phy_type_irbaseband",
-    "dot11_phy_type_ofdm",
-    "dot11_phy_type_hrdsss",
-    "dot11_phy_type_erp",
-    "dot11_phy_type_ht",
-    "dot11_phy_type_vht",
-    "dot11_phy_type_dmg",
-    "dot11_phy_type_he",
-    "dot11_phy_type_IHV_start",
-    "dot11_phy_type_IHV_end",
-    "DOT11_RATE_SET",
-    "DOT11_WFD_SESSION_INFO",
-    "DOT11_OFFLOAD_CAPABILITY",
-    "DOT11_CURRENT_OFFLOAD_CAPABILITY",
-    "DOT11_OFFLOAD_TYPE",
-    "dot11_offload_type_wep",
-    "dot11_offload_type_auth",
-    "DOT11_IV48_COUNTER",
-    "DOT11_WEP_OFFLOAD",
-    "DOT11_WEP_UPLOAD",
-    "DOT11_KEY_DIRECTION",
-    "dot11_key_direction_both",
-    "dot11_key_direction_inbound",
-    "dot11_key_direction_outbound",
-    "DOT11_DEFAULT_WEP_OFFLOAD",
-    "DOT11_DEFAULT_WEP_UPLOAD",
-    "DOT11_OPERATION_MODE_CAPABILITY",
-    "DOT11_CURRENT_OPERATION_MODE",
-    "DOT11_SCAN_TYPE",
-    "dot11_scan_type_active",
-    "dot11_scan_type_passive",
-    "dot11_scan_type_auto",
-    "dot11_scan_type_forced",
-    "DOT11_SCAN_REQUEST",
-    "CH_DESCRIPTION_TYPE",
-    "ch_description_type_logical",
+    "WLAN_SET_EAPHOST_FLAGS",
+    "WLAN_STATISTICS",
+    "WLAN_UI_API_INITIAL_VERSION",
+    "WLAN_UI_API_VERSION",
+    "WL_DISPLAY_PAGES",
+    "WL_DISPLAY_PAGES_WLAdvPage",
+    "WL_DISPLAY_PAGES_WLConnectionPage",
+    "WL_DISPLAY_PAGES_WLSecurityPage",
+    "WlanAllocateMemory",
+    "WlanCloseHandle",
+    "WlanConnect",
+    "WlanConnect2",
+    "WlanDeleteProfile",
+    "WlanDeviceServiceCommand",
+    "WlanDisconnect",
+    "WlanEnumInterfaces",
+    "WlanExtractPsdIEDataList",
+    "WlanFreeMemory",
+    "WlanGetAvailableNetworkList",
+    "WlanGetAvailableNetworkList2",
+    "WlanGetFilterList",
+    "WlanGetInterfaceCapability",
+    "WlanGetNetworkBssList",
+    "WlanGetProfile",
+    "WlanGetProfileCustomUserData",
+    "WlanGetProfileList",
+    "WlanGetSecuritySettings",
+    "WlanGetSupportedDeviceServices",
+    "WlanHostedNetworkForceStart",
+    "WlanHostedNetworkForceStop",
+    "WlanHostedNetworkInitSettings",
+    "WlanHostedNetworkQueryProperty",
+    "WlanHostedNetworkQuerySecondaryKey",
+    "WlanHostedNetworkQueryStatus",
+    "WlanHostedNetworkRefreshSecuritySettings",
+    "WlanHostedNetworkSetProperty",
+    "WlanHostedNetworkSetSecondaryKey",
+    "WlanHostedNetworkStartUsing",
+    "WlanHostedNetworkStopUsing",
+    "WlanIhvControl",
+    "WlanOpenHandle",
+    "WlanQueryAutoConfigParameter",
+    "WlanQueryInterface",
+    "WlanReasonCodeToString",
+    "WlanRegisterDeviceServiceNotification",
+    "WlanRegisterNotification",
+    "WlanRegisterVirtualStationNotification",
+    "WlanRenameProfile",
+    "WlanSaveTemporaryProfile",
+    "WlanScan",
+    "WlanSetAutoConfigParameter",
+    "WlanSetFilterList",
+    "WlanSetInterface",
+    "WlanSetProfile",
+    "WlanSetProfileCustomUserData",
+    "WlanSetProfileEapUserData",
+    "WlanSetProfileEapXmlUserData",
+    "WlanSetProfileList",
+    "WlanSetProfilePosition",
+    "WlanSetPsdIEDataList",
+    "WlanSetSecuritySettings",
+    "WlanUIEditProfile",
     "ch_description_type_center_frequency",
+    "ch_description_type_logical",
     "ch_description_type_phy_specific",
-    "DOT11_PHY_TYPE_INFO",
-    "DOT11_SCAN_REQUEST_V2",
-    "DOT11_PHY_TYPE_LIST",
-    "DOT11_BSS_DESCRIPTION",
-    "DOT11_JOIN_REQUEST",
-    "DOT11_START_REQUEST",
-    "DOT11_UPDATE_IE_OP",
-    "dot11_update_ie_op_create_replace",
-    "dot11_update_ie_op_delete",
-    "DOT11_UPDATE_IE",
-    "DOT11_RESET_TYPE",
-    "dot11_reset_type_phy",
-    "dot11_reset_type_mac",
-    "dot11_reset_type_phy_and_mac",
-    "DOT11_RESET_REQUEST",
-    "DOT11_OPTIONAL_CAPABILITY",
-    "DOT11_CURRENT_OPTIONAL_CAPABILITY",
-    "DOT11_POWER_MODE",
-    "dot11_power_mode_unknown",
-    "dot11_power_mode_active",
-    "dot11_power_mode_powersave",
-    "DOT11_POWER_MGMT_MODE",
-    "DOT11_COUNTERS_ENTRY",
-    "DOT11_SUPPORTED_PHY_TYPES",
-    "DOT11_TEMP_TYPE",
-    "dot11_temp_type_unknown",
-    "dot11_temp_type_1",
-    "dot11_temp_type_2",
-    "DOT11_DIVERSITY_SUPPORT",
-    "dot11_diversity_support_unknown",
-    "dot11_diversity_support_fixedlist",
-    "dot11_diversity_support_notsupported",
-    "dot11_diversity_support_dynamic",
-    "DOT11_SUPPORTED_POWER_LEVELS",
-    "DOT11_REG_DOMAIN_VALUE",
-    "DOT11_REG_DOMAINS_SUPPORT_VALUE",
-    "DOT11_SUPPORTED_ANTENNA",
-    "DOT11_SUPPORTED_ANTENNA_LIST",
-    "DOT11_DIVERSITY_SELECTION_RX",
-    "DOT11_DIVERSITY_SELECTION_RX_LIST",
-    "DOT11_SUPPORTED_DATA_RATES_VALUE",
-    "DOT11_SUPPORTED_DATA_RATES_VALUE_V2",
-    "DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY",
-    "DOT11_MD_CAPABILITY_ENTRY_LIST",
-    "DOT11_HOP_ALGO_ADOPTED",
-    "dot11_hop_algo_current",
-    "dot11_hop_algo_hop_index",
-    "dot11_hop_algo_hcc",
-    "DOT11_HOPPING_PATTERN_ENTRY",
-    "DOT11_HOPPING_PATTERN_ENTRY_LIST",
-    "DOT11_WPA_TSC",
-    "DOT11_RSSI_RANGE",
-    "DOT11_NIC_SPECIFIC_EXTENSION",
-    "DOT11_AP_JOIN_REQUEST",
-    "DOT11_RECV_SENSITIVITY",
-    "DOT11_RECV_SENSITIVITY_LIST",
-    "DOT11_AC_PARAM",
+    "connection_phase_any",
+    "connection_phase_initial_connection",
+    "connection_phase_post_l3_connection",
     "dot11_AC_param_BE",
     "dot11_AC_param_BK",
     "dot11_AC_param_VI",
     "dot11_AC_param_VO",
     "dot11_AC_param_max",
-    "DOT11_WME_AC_PARAMETERS",
-    "_DOT11_WME_AC_PARAMTERS_LIST",
-    "DOT11_WME_UPDATE_IE",
-    "DOT11_QOS_TX_DURATION",
-    "DOT11_QOS_TX_MEDIUM_TIME",
-    "DOT11_SUPPORTED_OFDM_FREQUENCY",
-    "DOT11_SUPPORTED_OFDM_FREQUENCY_LIST",
-    "DOT11_SUPPORTED_DSSS_CHANNEL",
-    "DOT11_SUPPORTED_DSSS_CHANNEL_LIST",
-    "DOT11_BYTE_ARRAY",
-    "DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO",
-    "DOT11_BSS_ENTRY",
-    "DOT11_SSID_LIST",
-    "DOT11_MAC_ADDRESS_LIST",
-    "DOT11_PMKID_ENTRY",
-    "DOT11_PMKID_LIST",
-    "DOT11_PHY_FRAME_STATISTICS",
-    "DOT11_MAC_FRAME_STATISTICS",
-    "DOT11_STATISTICS",
-    "DOT11_PRIVACY_EXEMPTION",
-    "DOT11_PRIVACY_EXEMPTION_LIST",
-    "DOT11_AUTH_ALGORITHM_LIST",
-    "DOT11_AUTH_CIPHER_PAIR_LIST",
-    "DOT11_CIPHER_ALGORITHM_LIST",
-    "DOT11_CIPHER_DEFAULT_KEY_VALUE",
-    "DOT11_KEY_ALGO_TKIP_MIC",
-    "DOT11_KEY_ALGO_CCMP",
-    "DOT11_KEY_ALGO_GCMP",
-    "DOT11_KEY_ALGO_GCMP_256",
-    "DOT11_KEY_ALGO_BIP",
-    "DOT11_KEY_ALGO_BIP_GMAC_256",
-    "DOT11_DIRECTION",
-    "DOT11_DIR_INBOUND",
-    "DOT11_DIR_OUTBOUND",
-    "DOT11_DIR_BOTH",
-    "DOT11_CIPHER_KEY_MAPPING_KEY_VALUE",
-    "DOT11_ASSOCIATION_STATE",
-    "dot11_assoc_state_zero",
-    "dot11_assoc_state_unauth_unassoc",
-    "dot11_assoc_state_auth_unassoc",
-    "dot11_assoc_state_auth_assoc",
-    "DOT11_ASSOCIATION_INFO_EX",
-    "DOT11_ASSOCIATION_INFO_LIST",
-    "DOT11_PHY_ID_LIST",
-    "DOT11_EXTSTA_CAPABILITY",
-    "DOT11_DATA_RATE_MAPPING_ENTRY",
-    "DOT11_DATA_RATE_MAPPING_TABLE",
-    "DOT11_COUNTRY_OR_REGION_STRING_LIST",
-    "DOT11_PORT_STATE_NOTIFICATION",
-    "DOT11_IBSS_PARAMS",
-    "DOT11_QOS_PARAMS",
-    "DOT11_ASSOCIATION_PARAMS",
-    "DOT11_FRAGMENT_DESCRIPTOR",
-    "DOT11_PER_MSDU_COUNTERS",
-    "DOT11_HRDSSS_PHY_ATTRIBUTES",
-    "DOT11_OFDM_PHY_ATTRIBUTES",
-    "DOT11_ERP_PHY_ATTRIBUTES",
-    "DOT11_PHY_ATTRIBUTES",
-    "DOT11_EXTSTA_ATTRIBUTES",
-    "DOT11_RECV_EXTENSION_INFO",
-    "DOT11_RECV_EXTENSION_INFO_V2",
-    "DOT11_STATUS_INDICATION",
-    "DOT11_MPDU_MAX_LENGTH_INDICATION",
-    "DOT11_ASSOCIATION_START_PARAMETERS",
-    "DOT11_ENCAP_ENTRY",
-    "DOT11_DS_INFO",
-    "DOT11_DS_CHANGED",
-    "DOT11_DS_UNCHANGED",
-    "DOT11_DS_UNKNOWN",
-    "DOT11_ASSOCIATION_COMPLETION_PARAMETERS",
-    "DOT11_CONNECTION_START_PARAMETERS",
-    "DOT11_CONNECTION_COMPLETION_PARAMETERS",
-    "DOT11_ROAMING_START_PARAMETERS",
-    "DOT11_ROAMING_COMPLETION_PARAMETERS",
-    "DOT11_DISASSOCIATION_PARAMETERS",
-    "DOT11_TKIPMIC_FAILURE_PARAMETERS",
-    "DOT11_PMKID_CANDIDATE_LIST_PARAMETERS",
-    "DOT11_BSSID_CANDIDATE",
-    "DOT11_PHY_STATE_PARAMETERS",
-    "DOT11_LINK_QUALITY_ENTRY",
-    "DOT11_LINK_QUALITY_PARAMETERS",
-    "DOT11_EXTSTA_SEND_CONTEXT",
-    "DOT11_EXTSTA_RECV_CONTEXT",
-    "DOT11_EXTAP_ATTRIBUTES",
-    "DOT11_INCOMING_ASSOC_STARTED_PARAMETERS",
-    "DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS",
-    "DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS",
-    "DOT11_STOP_AP_PARAMETERS",
-    "DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS",
-    "DOT11_CAN_SUSTAIN_AP_PARAMETERS",
-    "DOT11_AVAILABLE_CHANNEL_LIST",
-    "DOT11_AVAILABLE_FREQUENCY_LIST",
-    "DOT11_DISASSOCIATE_PEER_REQUEST",
-    "DOT11_INCOMING_ASSOC_DECISION",
-    "DOT11_INCOMING_ASSOC_DECISION_V2",
-    "DOT11_ADDITIONAL_IE",
-    "DOT11_PEER_STATISTICS",
-    "DOT11_PEER_INFO",
-    "DOT11_PEER_INFO_LIST",
-    "DOT11_VWIFI_COMBINATION",
-    "DOT11_VWIFI_COMBINATION_V2",
-    "DOT11_VWIFI_COMBINATION_V3",
-    "DOT11_VWIFI_ATTRIBUTES",
-    "DOT11_MAC_PARAMETERS",
-    "DOT11_MAC_INFO",
-    "DOT11_WFD_ATTRIBUTES",
-    "DOT11_WFD_DEVICE_TYPE",
-    "DOT11_WPS_DEVICE_NAME",
-    "DOT11_WFD_CONFIGURATION_TIMEOUT",
-    "DOT11_WFD_GROUP_ID",
-    "DOT11_WFD_GO_INTENT",
-    "DOT11_WFD_CHANNEL",
-    "DOT11_WPS_CONFIG_METHOD",
-    "DOT11_WPS_CONFIG_METHOD_NULL",
-    "DOT11_WPS_CONFIG_METHOD_DISPLAY",
-    "DOT11_WPS_CONFIG_METHOD_NFC_TAG",
-    "DOT11_WPS_CONFIG_METHOD_NFC_INTERFACE",
-    "DOT11_WPS_CONFIG_METHOD_PUSHBUTTON",
-    "DOT11_WPS_CONFIG_METHOD_KEYPAD",
-    "DOT11_WPS_CONFIG_METHOD_WFDS_DEFAULT",
-    "DOT11_WPS_DEVICE_PASSWORD_ID",
-    "DOT11_WPS_PASSWORD_ID_DEFAULT",
-    "DOT11_WPS_PASSWORD_ID_USER_SPECIFIED",
-    "DOT11_WPS_PASSWORD_ID_MACHINE_SPECIFIED",
-    "DOT11_WPS_PASSWORD_ID_REKEY",
-    "DOT11_WPS_PASSWORD_ID_PUSHBUTTON",
-    "DOT11_WPS_PASSWORD_ID_REGISTRAR_SPECIFIED",
-    "DOT11_WPS_PASSWORD_ID_NFC_CONNECTION_HANDOVER",
-    "DOT11_WPS_PASSWORD_ID_WFD_SERVICES",
-    "DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN",
-    "DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX",
-    "WFDSVC_CONNECTION_CAPABILITY",
-    "DOT11_WFD_SERVICE_HASH_LIST",
-    "DOT11_WFD_ADVERTISEMENT_ID",
-    "DOT11_WFD_SESSION_ID",
-    "DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR",
-    "DOT11_WFD_ADVERTISED_SERVICE_LIST",
-    "DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS",
-    "DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS",
-    "DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS",
-    "DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS",
-    "DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS",
-    "DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS",
-    "DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS",
-    "DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS",
-    "DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS",
-    "DOT11_ANQP_QUERY_RESULT",
-    "dot11_ANQP_query_result_success",
-    "dot11_ANQP_query_result_failure",
-    "dot11_ANQP_query_result_timed_out",
-    "dot11_ANQP_query_result_resources",
-    "dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote",
-    "dot11_ANQP_query_result_gas_protocol_failure",
-    "dot11_ANQP_query_result_advertisement_server_not_responding",
     "dot11_ANQP_query_result_access_issues",
-    "DOT11_ANQP_QUERY_COMPLETE_PARAMETERS",
-    "DOT11_WFD_DEVICE_CAPABILITY_CONFIG",
-    "DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG",
-    "DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2",
-    "DOT11_WFD_DEVICE_INFO",
-    "DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST",
-    "DOT11_WFD_DISCOVER_TYPE",
-    "dot11_wfd_discover_type_scan_only",
-    "dot11_wfd_discover_type_find_only",
-    "dot11_wfd_discover_type_auto",
-    "dot11_wfd_discover_type_scan_social_channels",
-    "dot11_wfd_discover_type_forced",
-    "DOT11_WFD_SCAN_TYPE",
-    "dot11_wfd_scan_type_active",
-    "dot11_wfd_scan_type_passive",
-    "dot11_wfd_scan_type_auto",
-    "DOT11_WFD_DISCOVER_DEVICE_FILTER",
-    "DOT11_WFD_DISCOVER_REQUEST",
-    "DOT11_WFD_DEVICE_ENTRY",
-    "DOT11_WFD_ADDITIONAL_IE",
-    "DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS",
-    "DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS",
-    "DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS",
-    "DOT11_WFD_INVITATION_FLAGS",
-    "DOT11_SEND_INVITATION_REQUEST_PARAMETERS",
-    "DOT11_SEND_INVITATION_RESPONSE_PARAMETERS",
-    "DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS",
-    "DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS",
-    "DOT11_WFD_DEVICE_LISTEN_CHANNEL",
-    "DOT11_WFD_GROUP_START_PARAMETERS",
-    "DOT11_WFD_GROUP_JOIN_PARAMETERS",
-    "DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO",
-    "DOT11_POWER_MODE_REASON",
-    "dot11_power_mode_reason_no_change",
-    "dot11_power_mode_reason_noncompliant_AP",
-    "dot11_power_mode_reason_legacy_WFD_device",
-    "dot11_power_mode_reason_compliant_AP",
-    "dot11_power_mode_reason_compliant_WFD_device",
-    "dot11_power_mode_reason_others",
-    "DOT11_POWER_MGMT_MODE_STATUS_INFO",
-    "DOT11_CHANNEL_HINT",
-    "DOT11_OFFLOAD_NETWORK",
-    "DOT11_OFFLOAD_NETWORK_LIST_INFO",
-    "DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS",
-    "DOT11_MANUFACTURING_TEST_TYPE",
-    "dot11_manufacturing_test_unknown",
-    "dot11_manufacturing_test_self_start",
-    "dot11_manufacturing_test_self_query_result",
-    "dot11_manufacturing_test_rx",
-    "dot11_manufacturing_test_tx",
-    "dot11_manufacturing_test_query_adc",
-    "dot11_manufacturing_test_set_data",
-    "dot11_manufacturing_test_query_data",
-    "dot11_manufacturing_test_sleep",
-    "dot11_manufacturing_test_awake",
-    "dot11_manufacturing_test_IHV_start",
-    "dot11_manufacturing_test_IHV_end",
-    "DOT11_MANUFACTURING_TEST",
-    "DOT11_MANUFACTURING_SELF_TEST_TYPE",
-    "DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE",
-    "DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE",
-    "DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE",
-    "DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS",
-    "DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS",
-    "DOT11_BAND",
+    "dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote",
+    "dot11_ANQP_query_result_advertisement_server_not_responding",
+    "dot11_ANQP_query_result_failure",
+    "dot11_ANQP_query_result_gas_protocol_failure",
+    "dot11_ANQP_query_result_resources",
+    "dot11_ANQP_query_result_success",
+    "dot11_ANQP_query_result_timed_out",
+    "dot11_BSS_type_any",
+    "dot11_BSS_type_independent",
+    "dot11_BSS_type_infrastructure",
+    "dot11_assoc_state_auth_assoc",
+    "dot11_assoc_state_auth_unassoc",
+    "dot11_assoc_state_unauth_unassoc",
+    "dot11_assoc_state_zero",
     "dot11_band_2p4g",
     "dot11_band_4p9g",
     "dot11_band_5g",
-    "DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX",
-    "DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX",
-    "DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC",
-    "DOT11_MANUFACTURING_TEST_SET_DATA",
-    "DOT11_MANUFACTURING_TEST_QUERY_DATA",
-    "DOT11_MANUFACTURING_TEST_SLEEP",
-    "DOT11_MANUFACTURING_CALLBACK_TYPE",
-    "dot11_manufacturing_callback_unknown",
+    "dot11_diversity_support_dynamic",
+    "dot11_diversity_support_fixedlist",
+    "dot11_diversity_support_notsupported",
+    "dot11_diversity_support_unknown",
+    "dot11_hop_algo_current",
+    "dot11_hop_algo_hcc",
+    "dot11_hop_algo_hop_index",
+    "dot11_key_direction_both",
+    "dot11_key_direction_inbound",
+    "dot11_key_direction_outbound",
+    "dot11_manufacturing_callback_IHV_end",
+    "dot11_manufacturing_callback_IHV_start",
     "dot11_manufacturing_callback_self_test_complete",
     "dot11_manufacturing_callback_sleep_complete",
-    "dot11_manufacturing_callback_IHV_start",
-    "dot11_manufacturing_callback_IHV_end",
-    "DOT11_MANUFACTURING_CALLBACK_PARAMETERS",
-    "L2_NOTIFICATION_DATA",
-    "WLAN_PROFILE_INFO",
-    "DOT11_NETWORK",
-    "WLAN_RAW_DATA",
-    "WLAN_RAW_DATA_LIST",
-    "WLAN_CONNECTION_MODE",
-    "wlan_connection_mode_profile",
-    "wlan_connection_mode_temporary_profile",
+    "dot11_manufacturing_callback_unknown",
+    "dot11_manufacturing_test_IHV_end",
+    "dot11_manufacturing_test_IHV_start",
+    "dot11_manufacturing_test_awake",
+    "dot11_manufacturing_test_query_adc",
+    "dot11_manufacturing_test_query_data",
+    "dot11_manufacturing_test_rx",
+    "dot11_manufacturing_test_self_query_result",
+    "dot11_manufacturing_test_self_start",
+    "dot11_manufacturing_test_set_data",
+    "dot11_manufacturing_test_sleep",
+    "dot11_manufacturing_test_tx",
+    "dot11_manufacturing_test_unknown",
+    "dot11_offload_type_auth",
+    "dot11_offload_type_wep",
+    "dot11_phy_type_IHV_end",
+    "dot11_phy_type_IHV_start",
+    "dot11_phy_type_any",
+    "dot11_phy_type_dmg",
+    "dot11_phy_type_dsss",
+    "dot11_phy_type_erp",
+    "dot11_phy_type_fhss",
+    "dot11_phy_type_he",
+    "dot11_phy_type_hrdsss",
+    "dot11_phy_type_ht",
+    "dot11_phy_type_irbaseband",
+    "dot11_phy_type_ofdm",
+    "dot11_phy_type_unknown",
+    "dot11_phy_type_vht",
+    "dot11_power_mode_active",
+    "dot11_power_mode_powersave",
+    "dot11_power_mode_reason_compliant_AP",
+    "dot11_power_mode_reason_compliant_WFD_device",
+    "dot11_power_mode_reason_legacy_WFD_device",
+    "dot11_power_mode_reason_no_change",
+    "dot11_power_mode_reason_noncompliant_AP",
+    "dot11_power_mode_reason_others",
+    "dot11_power_mode_unknown",
+    "dot11_radio_state_off",
+    "dot11_radio_state_on",
+    "dot11_radio_state_unknown",
+    "dot11_reset_type_mac",
+    "dot11_reset_type_phy",
+    "dot11_reset_type_phy_and_mac",
+    "dot11_scan_type_active",
+    "dot11_scan_type_auto",
+    "dot11_scan_type_forced",
+    "dot11_scan_type_passive",
+    "dot11_temp_type_1",
+    "dot11_temp_type_2",
+    "dot11_temp_type_unknown",
+    "dot11_update_ie_op_create_replace",
+    "dot11_update_ie_op_delete",
+    "dot11_wfd_discover_type_auto",
+    "dot11_wfd_discover_type_find_only",
+    "dot11_wfd_discover_type_forced",
+    "dot11_wfd_discover_type_scan_only",
+    "dot11_wfd_discover_type_scan_social_channels",
+    "dot11_wfd_scan_type_active",
+    "dot11_wfd_scan_type_auto",
+    "dot11_wfd_scan_type_passive",
+    "wlan_adhoc_network_state_connected",
+    "wlan_adhoc_network_state_formed",
+    "wlan_autoconf_opcode_allow_explicit_creds",
+    "wlan_autoconf_opcode_allow_virtual_station_extensibility",
+    "wlan_autoconf_opcode_block_period",
+    "wlan_autoconf_opcode_end",
+    "wlan_autoconf_opcode_only_use_gp_profiles_for_allowed_networks",
+    "wlan_autoconf_opcode_power_setting",
+    "wlan_autoconf_opcode_show_denied_networks",
+    "wlan_autoconf_opcode_start",
+    "wlan_connection_mode_auto",
     "wlan_connection_mode_discovery_secure",
     "wlan_connection_mode_discovery_unsecure",
-    "wlan_connection_mode_auto",
     "wlan_connection_mode_invalid",
-    "WLAN_RATE_SET",
-    "WLAN_AVAILABLE_NETWORK",
-    "WLAN_AVAILABLE_NETWORK_V2",
-    "WLAN_BSS_ENTRY",
-    "WLAN_BSS_LIST",
-    "WLAN_INTERFACE_STATE",
-    "wlan_interface_state_not_ready",
-    "wlan_interface_state_connected",
-    "wlan_interface_state_ad_hoc_network_formed",
-    "wlan_interface_state_disconnecting",
-    "wlan_interface_state_disconnected",
-    "wlan_interface_state_associating",
-    "wlan_interface_state_discovering",
-    "wlan_interface_state_authenticating",
-    "WLAN_ADHOC_NETWORK_STATE",
-    "wlan_adhoc_network_state_formed",
-    "wlan_adhoc_network_state_connected",
-    "WLAN_INTERFACE_INFO",
-    "WLAN_ASSOCIATION_ATTRIBUTES",
-    "WLAN_SECURITY_ATTRIBUTES",
-    "WLAN_CONNECTION_ATTRIBUTES",
-    "DOT11_RADIO_STATE",
-    "dot11_radio_state_unknown",
-    "dot11_radio_state_on",
-    "dot11_radio_state_off",
-    "WLAN_PHY_RADIO_STATE",
-    "WLAN_RADIO_STATE",
-    "WLAN_OPERATIONAL_STATE",
-    "wlan_operational_state_unknown",
-    "wlan_operational_state_off",
-    "wlan_operational_state_on",
-    "wlan_operational_state_going_off",
-    "wlan_operational_state_going_on",
-    "WLAN_INTERFACE_TYPE",
-    "wlan_interface_type_emulated_802_11",
-    "wlan_interface_type_native_802_11",
-    "wlan_interface_type_invalid",
-    "WLAN_INTERFACE_CAPABILITY",
-    "WLAN_AUTH_CIPHER_PAIR_LIST",
-    "WLAN_COUNTRY_OR_REGION_STRING_LIST",
-    "WLAN_PROFILE_INFO_LIST",
-    "WLAN_AVAILABLE_NETWORK_LIST",
-    "WLAN_AVAILABLE_NETWORK_LIST_V2",
-    "WLAN_INTERFACE_INFO_LIST",
-    "DOT11_NETWORK_LIST",
-    "WLAN_POWER_SETTING",
-    "wlan_power_setting_no_saving",
-    "wlan_power_setting_low_saving",
-    "wlan_power_setting_medium_saving",
-    "wlan_power_setting_maximum_saving",
-    "wlan_power_setting_invalid",
-    "WLAN_CONNECTION_PARAMETERS",
-    "WLAN_CONNECTION_PARAMETERS_V2",
-    "WLAN_MSM_NOTIFICATION_DATA",
-    "WLAN_CONNECTION_NOTIFICATION_DATA",
-    "WLAN_DEVICE_SERVICE_NOTIFICATION_DATA",
-    "WLAN_NOTIFICATION_ACM",
-    "wlan_notification_acm_start",
-    "wlan_notification_acm_autoconf_enabled",
-    "wlan_notification_acm_autoconf_disabled",
-    "wlan_notification_acm_background_scan_enabled",
-    "wlan_notification_acm_background_scan_disabled",
-    "wlan_notification_acm_bss_type_change",
-    "wlan_notification_acm_power_setting_change",
-    "wlan_notification_acm_scan_complete",
-    "wlan_notification_acm_scan_fail",
-    "wlan_notification_acm_connection_start",
-    "wlan_notification_acm_connection_complete",
-    "wlan_notification_acm_connection_attempt_fail",
-    "wlan_notification_acm_filter_list_change",
-    "wlan_notification_acm_interface_arrival",
-    "wlan_notification_acm_interface_removal",
-    "wlan_notification_acm_profile_change",
-    "wlan_notification_acm_profile_name_change",
-    "wlan_notification_acm_profiles_exhausted",
-    "wlan_notification_acm_network_not_available",
-    "wlan_notification_acm_network_available",
-    "wlan_notification_acm_disconnecting",
-    "wlan_notification_acm_disconnected",
-    "wlan_notification_acm_adhoc_network_state_change",
-    "wlan_notification_acm_profile_unblocked",
-    "wlan_notification_acm_screen_power_change",
-    "wlan_notification_acm_profile_blocked",
-    "wlan_notification_acm_scan_list_refresh",
-    "wlan_notification_acm_operational_state_change",
-    "wlan_notification_acm_end",
-    "WLAN_NOTIFICATION_MSM",
-    "wlan_notification_msm_start",
-    "wlan_notification_msm_associating",
-    "wlan_notification_msm_associated",
-    "wlan_notification_msm_authenticating",
-    "wlan_notification_msm_connected",
-    "wlan_notification_msm_roaming_start",
-    "wlan_notification_msm_roaming_end",
-    "wlan_notification_msm_radio_state_change",
-    "wlan_notification_msm_signal_quality_change",
-    "wlan_notification_msm_disassociating",
-    "wlan_notification_msm_disconnected",
-    "wlan_notification_msm_peer_join",
-    "wlan_notification_msm_peer_leave",
-    "wlan_notification_msm_adapter_removal",
-    "wlan_notification_msm_adapter_operation_mode_change",
-    "wlan_notification_msm_link_degraded",
-    "wlan_notification_msm_link_improved",
-    "wlan_notification_msm_end",
-    "WLAN_NOTIFICATION_SECURITY",
-    "wlan_notification_security_start",
-    "wlan_notification_security_end",
-    "WLAN_NOTIFICATION_CALLBACK",
-    "WLAN_OPCODE_VALUE_TYPE",
-    "wlan_opcode_value_type_query_only",
-    "wlan_opcode_value_type_set_by_group_policy",
-    "wlan_opcode_value_type_set_by_user",
-    "wlan_opcode_value_type_invalid",
-    "WLAN_INTF_OPCODE",
-    "wlan_intf_opcode_autoconf_start",
-    "wlan_intf_opcode_autoconf_enabled",
-    "wlan_intf_opcode_background_scan_enabled",
-    "wlan_intf_opcode_media_streaming_mode",
-    "wlan_intf_opcode_radio_state",
-    "wlan_intf_opcode_bss_type",
-    "wlan_intf_opcode_interface_state",
-    "wlan_intf_opcode_current_connection",
-    "wlan_intf_opcode_channel_number",
-    "wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs",
-    "wlan_intf_opcode_supported_adhoc_auth_cipher_pairs",
-    "wlan_intf_opcode_supported_country_or_region_string_list",
-    "wlan_intf_opcode_current_operation_mode",
-    "wlan_intf_opcode_supported_safe_mode",
-    "wlan_intf_opcode_certified_safe_mode",
-    "wlan_intf_opcode_hosted_network_capable",
-    "wlan_intf_opcode_management_frame_protection_capable",
-    "wlan_intf_opcode_secondary_sta_interfaces",
-    "wlan_intf_opcode_secondary_sta_synchronized_connections",
-    "wlan_intf_opcode_autoconf_end",
-    "wlan_intf_opcode_msm_start",
-    "wlan_intf_opcode_statistics",
-    "wlan_intf_opcode_rssi",
-    "wlan_intf_opcode_msm_end",
-    "wlan_intf_opcode_security_start",
-    "wlan_intf_opcode_security_end",
-    "wlan_intf_opcode_ihv_start",
-    "wlan_intf_opcode_ihv_end",
-    "WLAN_AUTOCONF_OPCODE",
-    "wlan_autoconf_opcode_start",
-    "wlan_autoconf_opcode_show_denied_networks",
-    "wlan_autoconf_opcode_power_setting",
-    "wlan_autoconf_opcode_only_use_gp_profiles_for_allowed_networks",
-    "wlan_autoconf_opcode_allow_explicit_creds",
-    "wlan_autoconf_opcode_block_period",
-    "wlan_autoconf_opcode_allow_virtual_station_extensibility",
-    "wlan_autoconf_opcode_end",
-    "WLAN_IHV_CONTROL_TYPE",
-    "wlan_ihv_control_type_service",
-    "wlan_ihv_control_type_driver",
-    "WLAN_FILTER_LIST_TYPE",
-    "wlan_filter_list_type_gp_permit",
+    "wlan_connection_mode_profile",
+    "wlan_connection_mode_temporary_profile",
     "wlan_filter_list_type_gp_deny",
-    "wlan_filter_list_type_user_permit",
+    "wlan_filter_list_type_gp_permit",
     "wlan_filter_list_type_user_deny",
-    "WLAN_PHY_FRAME_STATISTICS",
-    "WLAN_MAC_FRAME_STATISTICS",
-    "WLAN_STATISTICS",
-    "WLAN_SECURABLE_OBJECT",
-    "wlan_secure_permit_list",
-    "wlan_secure_deny_list",
-    "wlan_secure_ac_enabled",
-    "wlan_secure_bc_scan_enabled",
-    "wlan_secure_bss_type",
-    "wlan_secure_show_denied",
-    "wlan_secure_interface_properties",
-    "wlan_secure_ihv_control",
-    "wlan_secure_all_user_profiles_order",
-    "wlan_secure_add_new_all_user_profiles",
-    "wlan_secure_add_new_per_user_profiles",
-    "wlan_secure_media_streaming_mode_enabled",
-    "wlan_secure_current_operation_mode",
-    "wlan_secure_get_plaintext_key",
-    "wlan_secure_hosted_network_elevated_access",
-    "wlan_secure_virtual_station_extensibility",
-    "wlan_secure_wfd_elevated_access",
-    "WLAN_SECURABLE_OBJECT_COUNT",
-    "WLAN_DEVICE_SERVICE_GUID_LIST",
-    "WFD_ROLE_TYPE",
-    "WFD_ROLE_TYPE_NONE",
-    "WFD_ROLE_TYPE_DEVICE",
-    "WFD_ROLE_TYPE_GROUP_OWNER",
-    "WFD_ROLE_TYPE_CLIENT",
-    "WFD_ROLE_TYPE_MAX",
-    "WFD_GROUP_ID",
-    "WL_DISPLAY_PAGES",
-    "WL_DISPLAY_PAGES_WLConnectionPage",
-    "WL_DISPLAY_PAGES_WLSecurityPage",
-    "WL_DISPLAY_PAGES_WLAdvPage",
-    "WLAN_HOSTED_NETWORK_STATE",
-    "wlan_hosted_network_unavailable",
-    "wlan_hosted_network_idle",
+    "wlan_filter_list_type_user_permit",
     "wlan_hosted_network_active",
-    "WLAN_HOSTED_NETWORK_REASON",
-    "wlan_hosted_network_reason_success",
-    "wlan_hosted_network_reason_unspecified",
+    "wlan_hosted_network_idle",
+    "wlan_hosted_network_opcode_connection_settings",
+    "wlan_hosted_network_opcode_enable",
+    "wlan_hosted_network_opcode_security_settings",
+    "wlan_hosted_network_opcode_station_profile",
+    "wlan_hosted_network_peer_state_authenticated",
+    "wlan_hosted_network_peer_state_change",
+    "wlan_hosted_network_peer_state_invalid",
+    "wlan_hosted_network_radio_state_change",
+    "wlan_hosted_network_reason_ap_start_failed",
     "wlan_hosted_network_reason_bad_parameters",
-    "wlan_hosted_network_reason_service_shutting_down",
-    "wlan_hosted_network_reason_insufficient_resources",
-    "wlan_hosted_network_reason_elevation_required",
-    "wlan_hosted_network_reason_read_only",
-    "wlan_hosted_network_reason_persistence_failed",
+    "wlan_hosted_network_reason_client_abort",
     "wlan_hosted_network_reason_crypt_error",
+    "wlan_hosted_network_reason_device_change",
+    "wlan_hosted_network_reason_elevation_required",
+    "wlan_hosted_network_reason_gp_denied",
     "wlan_hosted_network_reason_impersonation",
-    "wlan_hosted_network_reason_stop_before_start",
-    "wlan_hosted_network_reason_interface_available",
-    "wlan_hosted_network_reason_interface_unavailable",
-    "wlan_hosted_network_reason_miniport_stopped",
-    "wlan_hosted_network_reason_miniport_started",
     "wlan_hosted_network_reason_incompatible_connection_started",
     "wlan_hosted_network_reason_incompatible_connection_stopped",
-    "wlan_hosted_network_reason_user_action",
-    "wlan_hosted_network_reason_client_abort",
-    "wlan_hosted_network_reason_ap_start_failed",
+    "wlan_hosted_network_reason_insufficient_resources",
+    "wlan_hosted_network_reason_interface_available",
+    "wlan_hosted_network_reason_interface_unavailable",
+    "wlan_hosted_network_reason_miniport_started",
+    "wlan_hosted_network_reason_miniport_stopped",
     "wlan_hosted_network_reason_peer_arrived",
     "wlan_hosted_network_reason_peer_departed",
     "wlan_hosted_network_reason_peer_timeout",
-    "wlan_hosted_network_reason_gp_denied",
-    "wlan_hosted_network_reason_service_unavailable",
-    "wlan_hosted_network_reason_device_change",
+    "wlan_hosted_network_reason_persistence_failed",
     "wlan_hosted_network_reason_properties_change",
-    "wlan_hosted_network_reason_virtual_station_blocking_use",
+    "wlan_hosted_network_reason_read_only",
     "wlan_hosted_network_reason_service_available_on_virtual_station",
-    "WLAN_HOSTED_NETWORK_PEER_AUTH_STATE",
-    "wlan_hosted_network_peer_state_invalid",
-    "wlan_hosted_network_peer_state_authenticated",
-    "WLAN_HOSTED_NETWORK_PEER_STATE",
-    "WLAN_HOSTED_NETWORK_RADIO_STATE",
-    "WLAN_HOSTED_NETWORK_NOTIFICATION_CODE",
+    "wlan_hosted_network_reason_service_shutting_down",
+    "wlan_hosted_network_reason_service_unavailable",
+    "wlan_hosted_network_reason_stop_before_start",
+    "wlan_hosted_network_reason_success",
+    "wlan_hosted_network_reason_unspecified",
+    "wlan_hosted_network_reason_user_action",
+    "wlan_hosted_network_reason_virtual_station_blocking_use",
     "wlan_hosted_network_state_change",
-    "wlan_hosted_network_peer_state_change",
-    "wlan_hosted_network_radio_state_change",
-    "WLAN_HOSTED_NETWORK_STATE_CHANGE",
-    "WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE",
-    "WLAN_HOSTED_NETWORK_OPCODE",
-    "wlan_hosted_network_opcode_connection_settings",
-    "wlan_hosted_network_opcode_security_settings",
-    "wlan_hosted_network_opcode_station_profile",
-    "wlan_hosted_network_opcode_enable",
-    "WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS",
-    "WLAN_HOSTED_NETWORK_SECURITY_SETTINGS",
-    "WLAN_HOSTED_NETWORK_STATUS",
-    "WFD_OPEN_SESSION_COMPLETE_CALLBACK",
-    "ONEX_AUTH_IDENTITY",
-    "ONEX_AUTH_IDENTITY_OneXAuthIdentityNone",
-    "ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine",
-    "ONEX_AUTH_IDENTITY_OneXAuthIdentityUser",
-    "ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser",
-    "ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest",
-    "ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid",
-    "ONEX_AUTH_STATUS",
-    "ONEX_AUTH_STATUS_OneXAuthNotStarted",
-    "ONEX_AUTH_STATUS_OneXAuthInProgress",
-    "ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound",
-    "ONEX_AUTH_STATUS_OneXAuthSuccess",
-    "ONEX_AUTH_STATUS_OneXAuthFailure",
-    "ONEX_AUTH_STATUS_OneXAuthInvalid",
-    "ONEX_REASON_CODE",
-    "ONEX_REASON_CODE_SUCCESS",
-    "ONEX_REASON_START",
-    "ONEX_UNABLE_TO_IDENTIFY_USER",
-    "ONEX_IDENTITY_NOT_FOUND",
-    "ONEX_UI_DISABLED",
-    "ONEX_UI_FAILURE",
-    "ONEX_EAP_FAILURE_RECEIVED",
-    "ONEX_AUTHENTICATOR_NO_LONGER_PRESENT",
-    "ONEX_NO_RESPONSE_TO_IDENTITY",
-    "ONEX_PROFILE_VERSION_NOT_SUPPORTED",
-    "ONEX_PROFILE_INVALID_LENGTH",
-    "ONEX_PROFILE_DISALLOWED_EAP_TYPE",
-    "ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG",
-    "ONEX_PROFILE_INVALID_ONEX_FLAGS",
-    "ONEX_PROFILE_INVALID_TIMER_VALUE",
-    "ONEX_PROFILE_INVALID_SUPPLICANT_MODE",
-    "ONEX_PROFILE_INVALID_AUTH_MODE",
-    "ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES",
-    "ONEX_UI_CANCELLED",
-    "ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS",
-    "ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS",
-    "ONEX_UI_NOT_PERMITTED",
-    "ONEX_NOTIFICATION_TYPE",
-    "ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase",
-    "ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate",
-    "ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted",
-    "ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid",
-    "ONEX_NOTIFICATION_TYPE_OneXNumNotifications",
-    "ONEX_AUTH_RESTART_REASON",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial",
-    "ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid",
-    "ONEX_VARIABLE_BLOB",
-    "ONEX_AUTH_PARAMS",
-    "ONEX_EAP_ERROR",
-    "ONEX_STATUS",
-    "ONEX_EAP_METHOD_BACKEND_SUPPORT",
-    "ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown",
-    "ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported",
-    "ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported",
-    "ONEX_RESULT_UPDATE_DATA",
-    "ONEX_USER_INFO",
-    "Dot11AdHocManager",
-    "DOT11_ADHOC_CIPHER_ALGORITHM",
-    "DOT11_ADHOC_CIPHER_ALGO_INVALID",
-    "DOT11_ADHOC_CIPHER_ALGO_NONE",
-    "DOT11_ADHOC_CIPHER_ALGO_CCMP",
-    "DOT11_ADHOC_CIPHER_ALGO_WEP",
-    "DOT11_ADHOC_AUTH_ALGORITHM",
-    "DOT11_ADHOC_AUTH_ALGO_INVALID",
-    "DOT11_ADHOC_AUTH_ALGO_80211_OPEN",
-    "DOT11_ADHOC_AUTH_ALGO_RSNA_PSK",
-    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS",
-    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_INVALID",
-    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED",
-    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING",
-    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED",
-    "DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED",
-    "DOT11_ADHOC_CONNECT_FAIL_REASON",
-    "DOT11_ADHOC_CONNECT_FAIL_DOMAIN_MISMATCH",
-    "DOT11_ADHOC_CONNECT_FAIL_PASSPHRASE_MISMATCH",
-    "DOT11_ADHOC_CONNECT_FAIL_OTHER",
-    "IDot11AdHocManager",
-    "IDot11AdHocManagerNotificationSink",
-    "IEnumDot11AdHocNetworks",
-    "IDot11AdHocNetwork",
-    "IDot11AdHocNetworkNotificationSink",
-    "IDot11AdHocInterface",
-    "IEnumDot11AdHocInterfaces",
-    "IEnumDot11AdHocSecuritySettings",
-    "IDot11AdHocSecuritySettings",
-    "IDot11AdHocInterfaceNotificationSink",
-    "WlanOpenHandle",
-    "WlanCloseHandle",
-    "WlanEnumInterfaces",
-    "WlanSetAutoConfigParameter",
-    "WlanQueryAutoConfigParameter",
-    "WlanGetInterfaceCapability",
-    "WlanSetInterface",
-    "WlanQueryInterface",
-    "WlanIhvControl",
-    "WlanScan",
-    "WlanGetAvailableNetworkList",
-    "WlanGetAvailableNetworkList2",
-    "WlanGetNetworkBssList",
-    "WlanConnect",
-    "WlanConnect2",
-    "WlanDisconnect",
-    "WlanRegisterNotification",
-    "WlanGetProfile",
-    "WlanSetProfileEapUserData",
-    "WlanSetProfileEapXmlUserData",
-    "WlanSetProfile",
-    "WlanDeleteProfile",
-    "WlanRenameProfile",
-    "WlanGetProfileList",
-    "WlanSetProfileList",
-    "WlanSetProfilePosition",
-    "WlanSetProfileCustomUserData",
-    "WlanGetProfileCustomUserData",
-    "WlanSetFilterList",
-    "WlanGetFilterList",
-    "WlanSetPsdIEDataList",
-    "WlanSaveTemporaryProfile",
-    "WlanDeviceServiceCommand",
-    "WlanGetSupportedDeviceServices",
-    "WlanRegisterDeviceServiceNotification",
-    "WlanExtractPsdIEDataList",
-    "WlanReasonCodeToString",
-    "WlanAllocateMemory",
-    "WlanFreeMemory",
-    "WlanSetSecuritySettings",
-    "WlanGetSecuritySettings",
-    "WlanUIEditProfile",
-    "WlanHostedNetworkStartUsing",
-    "WlanHostedNetworkStopUsing",
-    "WlanHostedNetworkForceStart",
-    "WlanHostedNetworkForceStop",
-    "WlanHostedNetworkQueryProperty",
-    "WlanHostedNetworkSetProperty",
-    "WlanHostedNetworkInitSettings",
-    "WlanHostedNetworkRefreshSecuritySettings",
-    "WlanHostedNetworkQueryStatus",
-    "WlanHostedNetworkSetSecondaryKey",
-    "WlanHostedNetworkQuerySecondaryKey",
-    "WlanRegisterVirtualStationNotification",
-    "WFDOpenHandle",
-    "WFDCloseHandle",
-    "WFDStartOpenSession",
-    "WFDCancelOpenSession",
-    "WFDOpenLegacySession",
-    "WFDCloseSession",
-    "WFDUpdateDeviceVisibility",
+    "wlan_hosted_network_unavailable",
+    "wlan_ihv_control_type_driver",
+    "wlan_ihv_control_type_service",
+    "wlan_interface_state_ad_hoc_network_formed",
+    "wlan_interface_state_associating",
+    "wlan_interface_state_authenticating",
+    "wlan_interface_state_connected",
+    "wlan_interface_state_disconnected",
+    "wlan_interface_state_disconnecting",
+    "wlan_interface_state_discovering",
+    "wlan_interface_state_not_ready",
+    "wlan_interface_type_emulated_802_11",
+    "wlan_interface_type_invalid",
+    "wlan_interface_type_native_802_11",
+    "wlan_intf_opcode_autoconf_enabled",
+    "wlan_intf_opcode_autoconf_end",
+    "wlan_intf_opcode_autoconf_start",
+    "wlan_intf_opcode_background_scan_enabled",
+    "wlan_intf_opcode_bss_type",
+    "wlan_intf_opcode_certified_safe_mode",
+    "wlan_intf_opcode_channel_number",
+    "wlan_intf_opcode_current_connection",
+    "wlan_intf_opcode_current_operation_mode",
+    "wlan_intf_opcode_hosted_network_capable",
+    "wlan_intf_opcode_ihv_end",
+    "wlan_intf_opcode_ihv_start",
+    "wlan_intf_opcode_interface_state",
+    "wlan_intf_opcode_management_frame_protection_capable",
+    "wlan_intf_opcode_media_streaming_mode",
+    "wlan_intf_opcode_msm_end",
+    "wlan_intf_opcode_msm_start",
+    "wlan_intf_opcode_radio_state",
+    "wlan_intf_opcode_rssi",
+    "wlan_intf_opcode_secondary_sta_interfaces",
+    "wlan_intf_opcode_secondary_sta_synchronized_connections",
+    "wlan_intf_opcode_security_end",
+    "wlan_intf_opcode_security_start",
+    "wlan_intf_opcode_statistics",
+    "wlan_intf_opcode_supported_adhoc_auth_cipher_pairs",
+    "wlan_intf_opcode_supported_country_or_region_string_list",
+    "wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs",
+    "wlan_intf_opcode_supported_safe_mode",
+    "wlan_notification_acm_adhoc_network_state_change",
+    "wlan_notification_acm_autoconf_disabled",
+    "wlan_notification_acm_autoconf_enabled",
+    "wlan_notification_acm_background_scan_disabled",
+    "wlan_notification_acm_background_scan_enabled",
+    "wlan_notification_acm_bss_type_change",
+    "wlan_notification_acm_connection_attempt_fail",
+    "wlan_notification_acm_connection_complete",
+    "wlan_notification_acm_connection_start",
+    "wlan_notification_acm_disconnected",
+    "wlan_notification_acm_disconnecting",
+    "wlan_notification_acm_end",
+    "wlan_notification_acm_filter_list_change",
+    "wlan_notification_acm_interface_arrival",
+    "wlan_notification_acm_interface_removal",
+    "wlan_notification_acm_network_available",
+    "wlan_notification_acm_network_not_available",
+    "wlan_notification_acm_operational_state_change",
+    "wlan_notification_acm_power_setting_change",
+    "wlan_notification_acm_profile_blocked",
+    "wlan_notification_acm_profile_change",
+    "wlan_notification_acm_profile_name_change",
+    "wlan_notification_acm_profile_unblocked",
+    "wlan_notification_acm_profiles_exhausted",
+    "wlan_notification_acm_scan_complete",
+    "wlan_notification_acm_scan_fail",
+    "wlan_notification_acm_scan_list_refresh",
+    "wlan_notification_acm_screen_power_change",
+    "wlan_notification_acm_start",
+    "wlan_notification_msm_adapter_operation_mode_change",
+    "wlan_notification_msm_adapter_removal",
+    "wlan_notification_msm_associated",
+    "wlan_notification_msm_associating",
+    "wlan_notification_msm_authenticating",
+    "wlan_notification_msm_connected",
+    "wlan_notification_msm_disassociating",
+    "wlan_notification_msm_disconnected",
+    "wlan_notification_msm_end",
+    "wlan_notification_msm_link_degraded",
+    "wlan_notification_msm_link_improved",
+    "wlan_notification_msm_peer_join",
+    "wlan_notification_msm_peer_leave",
+    "wlan_notification_msm_radio_state_change",
+    "wlan_notification_msm_roaming_end",
+    "wlan_notification_msm_roaming_start",
+    "wlan_notification_msm_signal_quality_change",
+    "wlan_notification_msm_start",
+    "wlan_notification_security_end",
+    "wlan_notification_security_start",
+    "wlan_opcode_value_type_invalid",
+    "wlan_opcode_value_type_query_only",
+    "wlan_opcode_value_type_set_by_group_policy",
+    "wlan_opcode_value_type_set_by_user",
+    "wlan_operational_state_going_off",
+    "wlan_operational_state_going_on",
+    "wlan_operational_state_off",
+    "wlan_operational_state_on",
+    "wlan_operational_state_unknown",
+    "wlan_power_setting_invalid",
+    "wlan_power_setting_low_saving",
+    "wlan_power_setting_maximum_saving",
+    "wlan_power_setting_medium_saving",
+    "wlan_power_setting_no_saving",
+    "wlan_secure_ac_enabled",
+    "wlan_secure_add_new_all_user_profiles",
+    "wlan_secure_add_new_per_user_profiles",
+    "wlan_secure_all_user_profiles_order",
+    "wlan_secure_bc_scan_enabled",
+    "wlan_secure_bss_type",
+    "wlan_secure_current_operation_mode",
+    "wlan_secure_deny_list",
+    "wlan_secure_get_plaintext_key",
+    "wlan_secure_hosted_network_elevated_access",
+    "wlan_secure_ihv_control",
+    "wlan_secure_interface_properties",
+    "wlan_secure_media_streaming_mode_enabled",
+    "wlan_secure_permit_list",
+    "wlan_secure_show_denied",
+    "wlan_secure_virtual_station_extensibility",
+    "wlan_secure_wfd_elevated_access",
 ]

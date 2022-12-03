@@ -1,5 +1,5 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Media.MediaFoundation
@@ -7,19 +7,27 @@ import win32more.Media.MediaPlayer
 import win32more.System.Com
 import win32more.System.Ole
 import win32more.UI.WindowsAndMessaging
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
-CLSID_XFeedsManager = 'fe6b11c3-c72e-4061-86c6-9d163121f229'
+def _define__WMPOCXEvents_head():
+    class _WMPOCXEvents(win32more.System.Com.IDispatch_head):
+        Guid = Guid('6bf52a51-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+    return _WMPOCXEvents
+def _define__WMPOCXEvents():
+    _WMPOCXEvents = win32more.Media.MediaPlayer._WMPOCXEvents_head
+    win32more.System.Com.IDispatch
+    return _WMPOCXEvents
+def _define_CLSID_XFeedsManager():
+    return Guid('fe6b11c3-c72e-4061-86-c6-9d-16-31-21-f2-29')
 WMPGC_FLAGS_ALLOW_PREROLL = 1
 WMPGC_FLAGS_SUPPRESS_DIALOGS = 2
 WMPGC_FLAGS_IGNORE_AV_SYNC = 4
@@ -36,6 +44,11 @@ EFFECT_VARIABLEFREQSTEP = 4
 EFFECT_WINDOWEDONLY = 8
 EFFECT2_FULLSCREENEXCLUSIVE = 16
 SA_BUFFER_SIZE = 1024
+PLUGIN_INSTALLREGKEY = 'Software\\Microsoft\\MediaPlayer\\UIPlugins'
+PLUGIN_INSTALLREGKEY_FRIENDLYNAME = 'FriendlyName'
+PLUGIN_INSTALLREGKEY_DESCRIPTION = 'Description'
+PLUGIN_INSTALLREGKEY_CAPABILITIES = 'Capabilities'
+PLUGIN_INSTALLREGKEY_UNINSTALL = 'UninstallPath'
 PLUGIN_TYPE_BACKGROUND = 1
 PLUGIN_TYPE_SEPARATEWINDOW = 2
 PLUGIN_TYPE_DISPLAYAREA = 3
@@ -48,6 +61,19 @@ PLUGIN_FLAGS_ACCEPTSMEDIA = 268435456
 PLUGIN_FLAGS_ACCEPTSPLAYLISTS = 134217728
 PLUGIN_FLAGS_HASPRESETS = 67108864
 PLUGIN_FLAGS_HIDDEN = 33554432
+PLUGIN_MISC_PRESETCOUNT = 'PresetCount'
+PLUGIN_MISC_PRESETNAMES = 'PresetNames'
+PLUGIN_MISC_CURRENTPRESET = 'CurrentPreset'
+PLUGIN_SEPARATEWINDOW_RESIZABLE = 'Resizable'
+PLUGIN_SEPARATEWINDOW_DEFAULTWIDTH = 'DefaultWidth'
+PLUGIN_SEPARATEWINDOW_DEFAULTHEIGHT = 'DefaultHeight'
+PLUGIN_SEPARATEWINDOW_MINWIDTH = 'MinWidth'
+PLUGIN_SEPARATEWINDOW_MINHEIGHT = 'MinHeight'
+PLUGIN_SEPARATEWINDOW_MAXWIDTH = 'MaxWidth'
+PLUGIN_SEPARATEWINDOW_MAXHEIGHT = 'MaxHeight'
+PLUGIN_MISC_QUERYDESTROY = 'QueryDestroy'
+PLUGIN_ALL_MEDIASENDTO = 'MediaSendTo'
+PLUGIN_ALL_PLAYLISTSENDTO = 'PlaylistSendTo'
 SUBSCRIPTION_CAP_DEVICEAVAILABLE = 16
 SUBSCRIPTION_CAP_BACKGROUNDPROCESSING = 8
 SUBSCRIPTION_CAP_IS_CONTENTPARTNER = 64
@@ -58,6 +84,8 @@ SUBSCRIPTION_CAP_ALLOWPDATRANSFER = 4
 SUBSCRIPTION_CAP_PREPAREFORSYNC = 32
 SUBSCRIPTION_V1_CAPS = 15
 SUBSCRIPTION_CAP_UILESSMODE_ALLOWPLAY = 256
+WMP_SUBSCR_DL_TYPE_BACKGROUND = 'background'
+WMP_SUBSCR_DL_TYPE_REALTIME = 'real time'
 DISPID_FEEDS_RootFolder = 4096
 DISPID_FEEDS_IsSubscribed = 4097
 DISPID_FEEDS_ExistsFeed = 4098
@@ -541,11 +569,16 @@ DISPID_WMPDOWNLOADITEM2_BASE = 1300
 DISPID_WMPQUERY_BASE = 1350
 DISPID_WMPMEDIACOLLECTION2_BASE = 1400
 DISPID_WMPSTRINGCOLLECTION2_BASE = 1450
-CLSID_WMPSkinManager = 'b2a7fd52-301f-4348-b93a-638c6de49229'
-CLSID_WMPMediaPluginRegistrar = '5569e7f5-424b-4b93-89ca-79d17924689a'
-WMP_PLUGINTYPE_DSP = '6434baea-4954-498d-abd5-2b07123e1f04'
-WMP_PLUGINTYPE_DSP_OUTOFPROC = 'ef29b174-c347-44cc-9a4f-2399118ff38c'
-WMP_PLUGINTYPE_RENDERING = 'a8554541-115d-406a-a4c7-51111c330183'
+def _define_CLSID_WMPSkinManager():
+    return Guid('b2a7fd52-301f-4348-b9-3a-63-8c-6d-e4-92-29')
+def _define_CLSID_WMPMediaPluginRegistrar():
+    return Guid('5569e7f5-424b-4b93-89-ca-79-d1-79-24-68-9a')
+def _define_WMP_PLUGINTYPE_DSP():
+    return Guid('6434baea-4954-498d-ab-d5-2b-07-12-3e-1f-04')
+def _define_WMP_PLUGINTYPE_DSP_OUTOFPROC():
+    return Guid('ef29b174-c347-44cc-9a-4f-23-99-11-8f-f3-8c')
+def _define_WMP_PLUGINTYPE_RENDERING():
+    return Guid('a8554541-115d-406a-a4-c7-51-11-1c-33-01-83')
 kfltTimedLevelMaximumFrequency = 22050
 kfltTimedLevelMinimumFrequency = 20
 g_szContentPartnerInfo_LoginState = 'LoginState'
@@ -623,81 +656,1987 @@ g_szVerifyPermissionSync = 'VerifyPermissionSync'
 g_szStationEvent_Started = 'TrackStarted'
 g_szStationEvent_Complete = 'TrackComplete'
 g_szStationEvent_Skipped = 'TrackSkipped'
-WMProfile_V40_DialUpMBR = 'fd7f47f1-72a6-45a4-80f0-3aecefc32c07'
-WMProfile_V40_IntranetMBR = '82cd3321-a94a-4ffc-9c2b-092c10ca16e7'
-WMProfile_V40_2856100MBR = '5a1c2206-dc5e-4186-beb2-4c5a994b132e'
-WMProfile_V40_6VoiceAudio = 'd508978a-11a0-4d15-b0da-acdc99d4f890'
-WMProfile_V40_16AMRadio = '0f4be81f-d57d-41e1-b2e3-2fad986bfec2'
-WMProfile_V40_288FMRadioMono = '7fa57fc8-6ea4-4645-8abf-b6e5a8f814a1'
-WMProfile_V40_288FMRadioStereo = '22fcf466-aa40-431f-a289-06d0ea1a1e40'
-WMProfile_V40_56DialUpStereo = 'e8026f87-e905-4594-a3c7-00d00041d1d9'
-WMProfile_V40_64Audio = '4820b3f7-cbec-41dc-9391-78598714c8e5'
-WMProfile_V40_96Audio = '0efa0ee3-9e64-41e2-837f-3c0038f327ba'
-WMProfile_V40_128Audio = '93ddbe12-13dc-4e32-a35e-40378e34279a'
-WMProfile_V40_288VideoVoice = 'bb2bc274-0eb6-4da9-b550-ecf7f2b9948f'
-WMProfile_V40_288VideoAudio = 'ac617f2d-6cbe-4e84-8e9a-ce151a12a354'
-WMProfile_V40_288VideoWebServer = 'abf2f00d-d555-4815-94ce-8275f3a70bfe'
-WMProfile_V40_56DialUpVideo = 'e21713bb-652f-4dab-99de-71e04400270f'
-WMProfile_V40_56DialUpVideoWebServer = 'b756ff10-520f-4749-a399-b780e2fc9250'
-WMProfile_V40_100Video = '8f99ddd8-6684-456b-a0a3-33e1316895f0'
-WMProfile_V40_250Video = '541841c3-9339-4f7b-9a22-b11540894e42'
-WMProfile_V40_512Video = '70440e6d-c4ef-4f84-8cd0-d5c28686e784'
-WMProfile_V40_1MBVideo = 'b4482a4c-cc17-4b07-a94e-9818d5e0f13f'
-WMProfile_V40_3MBVideo = '55374ac0-309b-4396-b88f-e6e292113f28'
-WMProfile_V70_DialUpMBR = '5b16e74b-4068-45b5-b80e-7bf8c80d2c2f'
-WMProfile_V70_IntranetMBR = '045880dc-34b6-4ca9-a326-73557ed143f3'
-WMProfile_V70_2856100MBR = '07df7a25-3fe2-4a5b-8b1e-348b0721ca70'
-WMProfile_V70_288VideoVoice = 'b952f38e-7dbc-4533-a9ca-b00b1c6e9800'
-WMProfile_V70_288VideoAudio = '58bba0ee-896a-4948-9953-85b736f83947'
-WMProfile_V70_288VideoWebServer = '70a32e2b-e2df-4ebd-9105-d9ca194a2d50'
-WMProfile_V70_56VideoWebServer = 'def99e40-57bc-4ab3-b2d1-b6e3caf64257'
-WMProfile_V70_64VideoISDN = 'c2b7a7e9-7b8e-4992-a1a1-068217a3b311'
-WMProfile_V70_100Video = 'd9f3c932-5ea9-4c6d-89b4-2686e515426e'
-WMProfile_V70_256Video = 'afe69b3a-403f-4a1b-8007-0e21cfb3df84'
-WMProfile_V70_384Video = 'f3d45fbb-8782-44df-97c6-8678e2f9b13d'
-WMProfile_V70_768Video = '0326ebb6-f76e-4964-b0db-e729978d35ee'
-WMProfile_V70_1500Video = '0b89164a-5490-4686-9e37-5a80884e5146'
-WMProfile_V70_2000Video = 'aa980124-bf10-4e4f-9afd-4329a7395cff'
-WMProfile_V70_700FilmContentVideo = '7a747920-2449-4d76-99cb-fdb0c90484d4'
-WMProfile_V70_1500FilmContentVideo = 'f6a5f6df-ee3f-434c-a433-523ce55f516b'
-WMProfile_V70_6VoiceAudio = 'eaba9fbf-b64f-49b3-aa0c-73fbdd150ad0'
-WMProfile_V70_288FMRadioMono = 'c012a833-a03b-44a5-96dc-ed95cc65582d'
-WMProfile_V70_288FMRadioStereo = 'e96d67c9-1a39-4dc4-b900-b1184dc83620'
-WMProfile_V70_56DialUpStereo = '674ee767-0949-4fac-875e-f4c9c292013b'
-WMProfile_V70_64AudioISDN = '91dea458-9d60-4212-9c59-d40919c939e4'
-WMProfile_V70_64Audio = 'b29cffc6-f131-41db-b5e8-99d8b0b945f4'
-WMProfile_V70_96Audio = 'a9d4b819-16cc-4a59-9f37-693dbb0302d6'
-WMProfile_V70_128Audio = 'c64cf5da-df45-40d3-8027-de698d68dc66'
-WMProfile_V70_225VideoPDA = 'f55ea573-4c02-42b5-9026-a8260c438a9f'
-WMProfile_V70_150VideoPDA = '0f472967-e3c6-4797-9694-f0304c5e2f17'
-WMProfile_V80_255VideoPDA = 'feedbcdf-3fac-4c93-ac0d-47941ec72c0b'
-WMProfile_V80_150VideoPDA = 'aee16dfa-2c14-4a2f-ad3f-a3034031784f'
-WMProfile_V80_28856VideoMBR = 'd66920c4-c21f-4ec8-a0b4-95cf2bd57fc4'
-WMProfile_V80_100768VideoMBR = '5bdb5a0e-979e-47d3-9596-73b386392a55'
-WMProfile_V80_288100VideoMBR = 'd8722c69-2419-4b36-b4e0-6e17b60564e5'
-WMProfile_V80_288Video = '3df678d9-1352-4186-bbf8-74f0c19b6ae2'
-WMProfile_V80_56Video = '254e8a96-2612-405c-8039-f0bf725ced7d'
-WMProfile_V80_100Video = 'a2e300b4-c2d4-4fc0-b5dd-ecbd948dc0df'
-WMProfile_V80_256Video = 'bbc75500-33d2-4466-b86b-122b201cc9ae'
-WMProfile_V80_384Video = '29b00c2b-09a9-48bd-ad09-cdae117d1da7'
-WMProfile_V80_768Video = '74d01102-e71a-4820-8f0d-13d2ec1e4872'
-WMProfile_V80_700NTSCVideo = 'c8c2985f-e5d9-4538-9e23-9b21bf78f745'
-WMProfile_V80_1400NTSCVideo = '931d1bee-617a-4bcd-9905-ccd0786683ee'
-WMProfile_V80_384PALVideo = '9227c692-ae62-4f72-a7ea-736062d0e21e'
-WMProfile_V80_700PALVideo = 'ec298949-639b-45e2-96fd-4ab32d5919c2'
-WMProfile_V80_288MonoAudio = '7ea3126d-e1ba-4716-89af-f65cee0c0c67'
-WMProfile_V80_288StereoAudio = '7e4cab5c-35dc-45bb-a7c0-19b28070d0cc'
-WMProfile_V80_32StereoAudio = '60907f9f-b352-47e5-b210-0ef1f47e9f9d'
-WMProfile_V80_48StereoAudio = '5ee06be5-492b-480a-8a8f-12f373ecf9d4'
-WMProfile_V80_64StereoAudio = '09bb5bc4-3176-457f-8dd6-3cd919123e2d'
-WMProfile_V80_96StereoAudio = '1fc81930-61f2-436f-9d33-349f2a1c0f10'
-WMProfile_V80_128StereoAudio = '407b9450-8bdc-4ee5-88b8-6f527bd941f2'
-WMProfile_V80_288VideoOnly = '8c45b4c7-4aeb-4f78-a5ec-88420b9dadef'
-WMProfile_V80_56VideoOnly = '6e2a6955-81df-4943-ba50-68a986a708f6'
-WMProfile_V80_FAIRVBRVideo = '3510a862-5850-4886-835f-d78ec6a64042'
-WMProfile_V80_HIGHVBRVideo = '0f10d9d3-3b04-4fb0-a3d3-88d4ac854acc'
-WMProfile_V80_BESTVBRVideo = '048439ba-309c-440e-9cb4-3dcca3756423'
-WindowsMediaPlayer = Guid('6bf52a52-394a-11d3-b153-00c04f79faa6')
+def _define_WMProfile_V40_DialUpMBR():
+    return Guid('fd7f47f1-72a6-45a4-80-f0-3a-ec-ef-c3-2c-07')
+def _define_WMProfile_V40_IntranetMBR():
+    return Guid('82cd3321-a94a-4ffc-9c-2b-09-2c-10-ca-16-e7')
+def _define_WMProfile_V40_2856100MBR():
+    return Guid('5a1c2206-dc5e-4186-be-b2-4c-5a-99-4b-13-2e')
+def _define_WMProfile_V40_6VoiceAudio():
+    return Guid('d508978a-11a0-4d15-b0-da-ac-dc-99-d4-f8-90')
+def _define_WMProfile_V40_16AMRadio():
+    return Guid('0f4be81f-d57d-41e1-b2-e3-2f-ad-98-6b-fe-c2')
+def _define_WMProfile_V40_288FMRadioMono():
+    return Guid('7fa57fc8-6ea4-4645-8a-bf-b6-e5-a8-f8-14-a1')
+def _define_WMProfile_V40_288FMRadioStereo():
+    return Guid('22fcf466-aa40-431f-a2-89-06-d0-ea-1a-1e-40')
+def _define_WMProfile_V40_56DialUpStereo():
+    return Guid('e8026f87-e905-4594-a3-c7-00-d0-00-41-d1-d9')
+def _define_WMProfile_V40_64Audio():
+    return Guid('4820b3f7-cbec-41dc-93-91-78-59-87-14-c8-e5')
+def _define_WMProfile_V40_96Audio():
+    return Guid('0efa0ee3-9e64-41e2-83-7f-3c-00-38-f3-27-ba')
+def _define_WMProfile_V40_128Audio():
+    return Guid('93ddbe12-13dc-4e32-a3-5e-40-37-8e-34-27-9a')
+def _define_WMProfile_V40_288VideoVoice():
+    return Guid('bb2bc274-0eb6-4da9-b5-50-ec-f7-f2-b9-94-8f')
+def _define_WMProfile_V40_288VideoAudio():
+    return Guid('ac617f2d-6cbe-4e84-8e-9a-ce-15-1a-12-a3-54')
+def _define_WMProfile_V40_288VideoWebServer():
+    return Guid('abf2f00d-d555-4815-94-ce-82-75-f3-a7-0b-fe')
+def _define_WMProfile_V40_56DialUpVideo():
+    return Guid('e21713bb-652f-4dab-99-de-71-e0-44-00-27-0f')
+def _define_WMProfile_V40_56DialUpVideoWebServer():
+    return Guid('b756ff10-520f-4749-a3-99-b7-80-e2-fc-92-50')
+def _define_WMProfile_V40_100Video():
+    return Guid('8f99ddd8-6684-456b-a0-a3-33-e1-31-68-95-f0')
+def _define_WMProfile_V40_250Video():
+    return Guid('541841c3-9339-4f7b-9a-22-b1-15-40-89-4e-42')
+def _define_WMProfile_V40_512Video():
+    return Guid('70440e6d-c4ef-4f84-8c-d0-d5-c2-86-86-e7-84')
+def _define_WMProfile_V40_1MBVideo():
+    return Guid('b4482a4c-cc17-4b07-a9-4e-98-18-d5-e0-f1-3f')
+def _define_WMProfile_V40_3MBVideo():
+    return Guid('55374ac0-309b-4396-b8-8f-e6-e2-92-11-3f-28')
+def _define_WMProfile_V70_DialUpMBR():
+    return Guid('5b16e74b-4068-45b5-b8-0e-7b-f8-c8-0d-2c-2f')
+def _define_WMProfile_V70_IntranetMBR():
+    return Guid('045880dc-34b6-4ca9-a3-26-73-55-7e-d1-43-f3')
+def _define_WMProfile_V70_2856100MBR():
+    return Guid('07df7a25-3fe2-4a5b-8b-1e-34-8b-07-21-ca-70')
+def _define_WMProfile_V70_288VideoVoice():
+    return Guid('b952f38e-7dbc-4533-a9-ca-b0-0b-1c-6e-98-00')
+def _define_WMProfile_V70_288VideoAudio():
+    return Guid('58bba0ee-896a-4948-99-53-85-b7-36-f8-39-47')
+def _define_WMProfile_V70_288VideoWebServer():
+    return Guid('70a32e2b-e2df-4ebd-91-05-d9-ca-19-4a-2d-50')
+def _define_WMProfile_V70_56VideoWebServer():
+    return Guid('def99e40-57bc-4ab3-b2-d1-b6-e3-ca-f6-42-57')
+def _define_WMProfile_V70_64VideoISDN():
+    return Guid('c2b7a7e9-7b8e-4992-a1-a1-06-82-17-a3-b3-11')
+def _define_WMProfile_V70_100Video():
+    return Guid('d9f3c932-5ea9-4c6d-89-b4-26-86-e5-15-42-6e')
+def _define_WMProfile_V70_256Video():
+    return Guid('afe69b3a-403f-4a1b-80-07-0e-21-cf-b3-df-84')
+def _define_WMProfile_V70_384Video():
+    return Guid('f3d45fbb-8782-44df-97-c6-86-78-e2-f9-b1-3d')
+def _define_WMProfile_V70_768Video():
+    return Guid('0326ebb6-f76e-4964-b0-db-e7-29-97-8d-35-ee')
+def _define_WMProfile_V70_1500Video():
+    return Guid('0b89164a-5490-4686-9e-37-5a-80-88-4e-51-46')
+def _define_WMProfile_V70_2000Video():
+    return Guid('aa980124-bf10-4e4f-9a-fd-43-29-a7-39-5c-ff')
+def _define_WMProfile_V70_700FilmContentVideo():
+    return Guid('7a747920-2449-4d76-99-cb-fd-b0-c9-04-84-d4')
+def _define_WMProfile_V70_1500FilmContentVideo():
+    return Guid('f6a5f6df-ee3f-434c-a4-33-52-3c-e5-5f-51-6b')
+def _define_WMProfile_V70_6VoiceAudio():
+    return Guid('eaba9fbf-b64f-49b3-aa-0c-73-fb-dd-15-0a-d0')
+def _define_WMProfile_V70_288FMRadioMono():
+    return Guid('c012a833-a03b-44a5-96-dc-ed-95-cc-65-58-2d')
+def _define_WMProfile_V70_288FMRadioStereo():
+    return Guid('e96d67c9-1a39-4dc4-b9-00-b1-18-4d-c8-36-20')
+def _define_WMProfile_V70_56DialUpStereo():
+    return Guid('674ee767-0949-4fac-87-5e-f4-c9-c2-92-01-3b')
+def _define_WMProfile_V70_64AudioISDN():
+    return Guid('91dea458-9d60-4212-9c-59-d4-09-19-c9-39-e4')
+def _define_WMProfile_V70_64Audio():
+    return Guid('b29cffc6-f131-41db-b5-e8-99-d8-b0-b9-45-f4')
+def _define_WMProfile_V70_96Audio():
+    return Guid('a9d4b819-16cc-4a59-9f-37-69-3d-bb-03-02-d6')
+def _define_WMProfile_V70_128Audio():
+    return Guid('c64cf5da-df45-40d3-80-27-de-69-8d-68-dc-66')
+def _define_WMProfile_V70_225VideoPDA():
+    return Guid('f55ea573-4c02-42b5-90-26-a8-26-0c-43-8a-9f')
+def _define_WMProfile_V70_150VideoPDA():
+    return Guid('0f472967-e3c6-4797-96-94-f0-30-4c-5e-2f-17')
+def _define_WMProfile_V80_255VideoPDA():
+    return Guid('feedbcdf-3fac-4c93-ac-0d-47-94-1e-c7-2c-0b')
+def _define_WMProfile_V80_150VideoPDA():
+    return Guid('aee16dfa-2c14-4a2f-ad-3f-a3-03-40-31-78-4f')
+def _define_WMProfile_V80_28856VideoMBR():
+    return Guid('d66920c4-c21f-4ec8-a0-b4-95-cf-2b-d5-7f-c4')
+def _define_WMProfile_V80_100768VideoMBR():
+    return Guid('5bdb5a0e-979e-47d3-95-96-73-b3-86-39-2a-55')
+def _define_WMProfile_V80_288100VideoMBR():
+    return Guid('d8722c69-2419-4b36-b4-e0-6e-17-b6-05-64-e5')
+def _define_WMProfile_V80_288Video():
+    return Guid('3df678d9-1352-4186-bb-f8-74-f0-c1-9b-6a-e2')
+def _define_WMProfile_V80_56Video():
+    return Guid('254e8a96-2612-405c-80-39-f0-bf-72-5c-ed-7d')
+def _define_WMProfile_V80_100Video():
+    return Guid('a2e300b4-c2d4-4fc0-b5-dd-ec-bd-94-8d-c0-df')
+def _define_WMProfile_V80_256Video():
+    return Guid('bbc75500-33d2-4466-b8-6b-12-2b-20-1c-c9-ae')
+def _define_WMProfile_V80_384Video():
+    return Guid('29b00c2b-09a9-48bd-ad-09-cd-ae-11-7d-1d-a7')
+def _define_WMProfile_V80_768Video():
+    return Guid('74d01102-e71a-4820-8f-0d-13-d2-ec-1e-48-72')
+def _define_WMProfile_V80_700NTSCVideo():
+    return Guid('c8c2985f-e5d9-4538-9e-23-9b-21-bf-78-f7-45')
+def _define_WMProfile_V80_1400NTSCVideo():
+    return Guid('931d1bee-617a-4bcd-99-05-cc-d0-78-66-83-ee')
+def _define_WMProfile_V80_384PALVideo():
+    return Guid('9227c692-ae62-4f72-a7-ea-73-60-62-d0-e2-1e')
+def _define_WMProfile_V80_700PALVideo():
+    return Guid('ec298949-639b-45e2-96-fd-4a-b3-2d-59-19-c2')
+def _define_WMProfile_V80_288MonoAudio():
+    return Guid('7ea3126d-e1ba-4716-89-af-f6-5c-ee-0c-0c-67')
+def _define_WMProfile_V80_288StereoAudio():
+    return Guid('7e4cab5c-35dc-45bb-a7-c0-19-b2-80-70-d0-cc')
+def _define_WMProfile_V80_32StereoAudio():
+    return Guid('60907f9f-b352-47e5-b2-10-0e-f1-f4-7e-9f-9d')
+def _define_WMProfile_V80_48StereoAudio():
+    return Guid('5ee06be5-492b-480a-8a-8f-12-f3-73-ec-f9-d4')
+def _define_WMProfile_V80_64StereoAudio():
+    return Guid('09bb5bc4-3176-457f-8d-d6-3c-d9-19-12-3e-2d')
+def _define_WMProfile_V80_96StereoAudio():
+    return Guid('1fc81930-61f2-436f-9d-33-34-9f-2a-1c-0f-10')
+def _define_WMProfile_V80_128StereoAudio():
+    return Guid('407b9450-8bdc-4ee5-88-b8-6f-52-7b-d9-41-f2')
+def _define_WMProfile_V80_288VideoOnly():
+    return Guid('8c45b4c7-4aeb-4f78-a5-ec-88-42-0b-9d-ad-ef')
+def _define_WMProfile_V80_56VideoOnly():
+    return Guid('6e2a6955-81df-4943-ba-50-68-a9-86-a7-08-f6')
+def _define_WMProfile_V80_FAIRVBRVideo():
+    return Guid('3510a862-5850-4886-83-5f-d7-8e-c6-a6-40-42')
+def _define_WMProfile_V80_HIGHVBRVideo():
+    return Guid('0f10d9d3-3b04-4fb0-a3-d3-88-d4-ac-85-4a-cc')
+def _define_WMProfile_V80_BESTVBRVideo():
+    return Guid('048439ba-309c-440e-9c-b4-3d-cc-a3-75-64-23')
+FeedFolderWatcher = Guid('281001ed-7765-4cb0-84-af-e9-b3-87-af-01-ff')
+FEEDS_BACKGROUNDSYNC_ACTION = Int32
+FBSA_DISABLE = 0
+FBSA_ENABLE = 1
+FBSA_RUNNOW = 2
+FEEDS_BACKGROUNDSYNC_STATUS = Int32
+FBSS_DISABLED = 0
+FBSS_ENABLED = 1
+FEEDS_DOWNLOAD_ERROR = Int32
+FDE_NONE = 0
+FDE_DOWNLOAD_FAILED = 1
+FDE_INVALID_FEED_FORMAT = 2
+FDE_NORMALIZATION_FAILED = 3
+FDE_PERSISTENCE_FAILED = 4
+FDE_DOWNLOAD_BLOCKED = 5
+FDE_CANCELED = 6
+FDE_UNSUPPORTED_AUTH = 7
+FDE_BACKGROUND_DOWNLOAD_DISABLED = 8
+FDE_NOT_EXIST = 9
+FDE_UNSUPPORTED_MSXML = 10
+FDE_UNSUPPORTED_DTD = 11
+FDE_DOWNLOAD_SIZE_LIMIT_EXCEEDED = 12
+FDE_ACCESS_DENIED = 13
+FDE_AUTH_FAILED = 14
+FDE_INVALID_AUTH = 15
+FEEDS_DOWNLOAD_STATUS = Int32
+FDS_NONE = 0
+FDS_PENDING = 1
+FDS_DOWNLOADING = 2
+FDS_DOWNLOADED = 3
+FDS_DOWNLOAD_FAILED = 4
+FEEDS_ERROR_CODE = Int32
+FEC_E_ERRORBASE = -1073479168
+FEC_E_INVALIDMSXMLPROPERTY = -1073479168
+FEC_E_DOWNLOADSIZELIMITEXCEEDED = -1073479167
+FEEDS_EVENTS_ITEM_COUNT_FLAGS = Int32
+FEICF_READ_ITEM_COUNT_CHANGED = 1
+FEICF_UNREAD_ITEM_COUNT_CHANGED = 2
+FEEDS_EVENTS_MASK = Int32
+FEM_FOLDEREVENTS = 1
+FEM_FEEDEVENTS = 2
+FEEDS_EVENTS_SCOPE = Int32
+FES_ALL = 0
+FES_SELF_ONLY = 1
+FES_SELF_AND_CHILDREN_ONLY = 2
+FEEDS_SYNC_SETTING = Int32
+FSS_DEFAULT = 0
+FSS_INTERVAL = 1
+FSS_MANUAL = 2
+FSS_SUGGESTED = 3
+FEEDS_XML_FILTER_FLAGS = Int32
+FXFF_ALL = 0
+FXFF_UNREAD = 1
+FXFF_READ = 2
+FEEDS_XML_INCLUDE_FLAGS = Int32
+FXIF_NONE = 0
+FXIF_CF_EXTENSIONS = 1
+FEEDS_XML_SORT_ORDER = Int32
+FXSO_NONE = 0
+FXSO_ASCENDING = 1
+FXSO_DESCENDING = 2
+FEEDS_XML_SORT_PROPERTY = Int32
+FXSP_NONE = 0
+FXSP_PUBDATE = 1
+FXSP_DOWNLOADTIME = 2
+FeedsManager = Guid('faeb54c4-f66f-4806-83-a0-80-52-99-f5-e3-ad')
+FeedWatcher = Guid('18a6737b-f433-4687-89-bc-a1-b4-df-b9-f1-23')
+def _define_IFeed_head():
+    class IFeed(win32more.System.Com.IDispatch_head):
+        Guid = Guid('f7f915d8-2ede-42bc-98-e7-a5-d0-50-63-a7-57')
+    return IFeed
+def _define_IFeed():
+    IFeed = win32more.Media.MediaPlayer.IFeed_head
+    IFeed.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Media.MediaPlayer.FEEDS_XML_SORT_PROPERTY,win32more.Media.MediaPlayer.FEEDS_XML_SORT_ORDER,win32more.Media.MediaPlayer.FEEDS_XML_FILTER_FLAGS,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.Foundation.BSTR))(7, 'Xml', ((1, 'count'),(1, 'sortProperty'),(1, 'sortOrder'),(1, 'filterFlags'),(1, 'includeFlags'),(1, 'xml'),)))
+    IFeed.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Name', ((1, 'name'),)))
+    IFeed.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'Rename', ((1, 'name'),)))
+    IFeed.get_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Url', ((1, 'feedUrl'),)))
+    IFeed.put_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'put_Url', ((1, 'feedUrl'),)))
+    IFeed.get_LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_LocalId', ((1, 'feedGuid'),)))
+    IFeed.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_Path', ((1, 'path'),)))
+    IFeed.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'Move', ((1, 'newParentPath'),)))
+    IFeed.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(15, 'get_Parent', ((1, 'disp'),)))
+    IFeed.get_LastWriteTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(16, 'get_LastWriteTime', ((1, 'lastWrite'),)))
+    IFeed.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'Delete', ()))
+    IFeed.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'Download', ()))
+    IFeed.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(19, 'AsyncDownload', ()))
+    IFeed.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'CancelAsyncDownload', ()))
+    IFeed.get_SyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING))(21, 'get_SyncSetting', ((1, 'syncSetting'),)))
+    IFeed.put_SyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING)(22, 'put_SyncSetting', ((1, 'syncSetting'),)))
+    IFeed.get_Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(23, 'get_Interval', ((1, 'minutes'),)))
+    IFeed.put_Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(24, 'put_Interval', ((1, 'minutes'),)))
+    IFeed.get_LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(25, 'get_LastDownloadTime', ((1, 'lastDownload'),)))
+    IFeed.get_LocalEnclosurePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(26, 'get_LocalEnclosurePath', ((1, 'path'),)))
+    IFeed.get_Items = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(27, 'get_Items', ((1, 'disp'),)))
+    IFeed.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head))(28, 'GetItem', ((1, 'itemId'),(1, 'disp'),)))
+    IFeed.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(29, 'get_Title', ((1, 'title'),)))
+    IFeed.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(30, 'get_Description', ((1, 'description'),)))
+    IFeed.get_Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(31, 'get_Link', ((1, 'homePage'),)))
+    IFeed.get_Image = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(32, 'get_Image', ((1, 'imageUrl'),)))
+    IFeed.get_LastBuildDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(33, 'get_LastBuildDate', ((1, 'lastBuildDate'),)))
+    IFeed.get_PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(34, 'get_PubDate', ((1, 'lastPopulateDate'),)))
+    IFeed.get_Ttl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(35, 'get_Ttl', ((1, 'ttl'),)))
+    IFeed.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(36, 'get_Language', ((1, 'language'),)))
+    IFeed.get_Copyright = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(37, 'get_Copyright', ((1, 'copyright'),)))
+    IFeed.get_MaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(38, 'get_MaxItemCount', ((1, 'count'),)))
+    IFeed.put_MaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(39, 'put_MaxItemCount', ((1, 'count'),)))
+    IFeed.get_DownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(40, 'get_DownloadEnclosuresAutomatically', ((1, 'downloadEnclosuresAutomatically'),)))
+    IFeed.put_DownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(41, 'put_DownloadEnclosuresAutomatically', ((1, 'downloadEnclosuresAutomatically'),)))
+    IFeed.get_DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS))(42, 'get_DownloadStatus', ((1, 'status'),)))
+    IFeed.get_LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR))(43, 'get_LastDownloadError', ((1, 'error'),)))
+    IFeed.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(44, 'Merge', ((1, 'feedXml'),(1, 'feedUrl'),)))
+    IFeed.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(45, 'get_DownloadUrl', ((1, 'feedUrl'),)))
+    IFeed.get_IsList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(46, 'get_IsList', ((1, 'isList'),)))
+    IFeed.MarkAllItemsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(47, 'MarkAllItemsRead', ()))
+    IFeed.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(win32more.System.Com.IDispatch_head))(48, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'disp'),)))
+    IFeed.get_UnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(49, 'get_UnreadItemCount', ((1, 'count'),)))
+    IFeed.get_ItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(50, 'get_ItemCount', ((1, 'count'),)))
+    win32more.System.Com.IDispatch
+    return IFeed
+def _define_IFeed2_head():
+    class IFeed2(win32more.Media.MediaPlayer.IFeed_head):
+        Guid = Guid('33f2ea09-1398-4ab9-b6-a4-f9-4b-49-d0-a4-2e')
+    return IFeed2
+def _define_IFeed2():
+    IFeed2 = win32more.Media.MediaPlayer.IFeed2_head
+    IFeed2.GetItemByEffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head))(51, 'GetItemByEffectiveId', ((1, 'itemEffectiveId'),(1, 'disp'),)))
+    IFeed2.get_LastItemDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(52, 'get_LastItemDownloadTime', ((1, 'lastItemDownloadTime'),)))
+    IFeed2.get_Username = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(53, 'get_Username', ((1, 'username'),)))
+    IFeed2.get_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(54, 'get_Password', ((1, 'password'),)))
+    IFeed2.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(55, 'SetCredentials', ((1, 'username'),(1, 'password'),)))
+    IFeed2.ClearCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(56, 'ClearCredentials', ()))
+    win32more.Media.MediaPlayer.IFeed
+    return IFeed2
+def _define_IFeedEnclosure_head():
+    class IFeedEnclosure(win32more.System.Com.IDispatch_head):
+        Guid = Guid('361c26f7-90a4-4e67-ae-09-3a-36-a5-46-43-6a')
+    return IFeedEnclosure
+def _define_IFeedEnclosure():
+    IFeedEnclosure = win32more.Media.MediaPlayer.IFeedEnclosure_head
+    IFeedEnclosure.get_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Url', ((1, 'enclosureUrl'),)))
+    IFeedEnclosure.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Type', ((1, 'mimeType'),)))
+    IFeedEnclosure.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Length', ((1, 'length'),)))
+    IFeedEnclosure.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'AsyncDownload', ()))
+    IFeedEnclosure.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'CancelAsyncDownload', ()))
+    IFeedEnclosure.get_DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS))(12, 'get_DownloadStatus', ((1, 'status'),)))
+    IFeedEnclosure.get_LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR))(13, 'get_LastDownloadError', ((1, 'error'),)))
+    IFeedEnclosure.get_LocalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_LocalPath', ((1, 'localPath'),)))
+    IFeedEnclosure.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(15, 'get_Parent', ((1, 'disp'),)))
+    IFeedEnclosure.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_DownloadUrl', ((1, 'enclosureUrl'),)))
+    IFeedEnclosure.get_DownloadMimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_DownloadMimeType', ((1, 'mimeType'),)))
+    IFeedEnclosure.RemoveFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'RemoveFile', ()))
+    IFeedEnclosure.SetFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(19, 'SetFile', ((1, 'downloadUrl'),(1, 'downloadFilePath'),(1, 'downloadMimeType'),(1, 'enclosureFilename'),)))
+    win32more.System.Com.IDispatch
+    return IFeedEnclosure
+def _define_IFeedEvents_head():
+    class IFeedEvents(win32more.System.Com.IDispatch_head):
+        Guid = Guid('abf35c99-0681-47ea-9a-8c-14-36-a3-75-a9-9e')
+    return IFeedEvents
+def _define_IFeedEvents():
+    IFeedEvents = win32more.Media.MediaPlayer.IFeedEvents_head
+    IFeedEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Error', ()))
+    IFeedEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'FeedDeleted', ((1, 'path'),)))
+    IFeedEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(9, 'FeedRenamed', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'FeedUrlChanged', ((1, 'path'),)))
+    IFeedEvents.FeedMoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(11, 'FeedMoved', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'FeedDownloading', ((1, 'path'),)))
+    IFeedEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR)(13, 'FeedDownloadCompleted', ((1, 'path'),(1, 'error'),)))
+    IFeedEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(14, 'FeedItemCountChanged', ((1, 'path'),(1, 'itemCountType'),)))
+    win32more.System.Com.IDispatch
+    return IFeedEvents
+def _define_IFeedFolder_head():
+    class IFeedFolder(win32more.System.Com.IDispatch_head):
+        Guid = Guid('81f04ad1-4194-4d7d-86-d6-11-81-3c-ec-16-3c')
+    return IFeedFolder
+def _define_IFeedFolder():
+    IFeedFolder = win32more.Media.MediaPlayer.IFeedFolder_head
+    IFeedFolder.get_Feeds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(7, 'get_Feeds', ((1, 'disp'),)))
+    IFeedFolder.get_Subfolders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(8, 'get_Subfolders', ((1, 'disp'),)))
+    IFeedFolder.CreateFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(9, 'CreateFeed', ((1, 'feedName'),(1, 'feedUrl'),(1, 'disp'),)))
+    IFeedFolder.CreateSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(10, 'CreateSubfolder', ((1, 'folderName'),(1, 'disp'),)))
+    IFeedFolder.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(11, 'ExistsFeed', ((1, 'feedName'),(1, 'exists'),)))
+    IFeedFolder.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(12, 'GetFeed', ((1, 'feedName'),(1, 'disp'),)))
+    IFeedFolder.ExistsSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'ExistsSubfolder', ((1, 'folderName'),(1, 'exists'),)))
+    IFeedFolder.GetSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(14, 'GetSubfolder', ((1, 'folderName'),(1, 'disp'),)))
+    IFeedFolder.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Delete', ()))
+    IFeedFolder.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_Name', ((1, 'folderName'),)))
+    IFeedFolder.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'Rename', ((1, 'folderName'),)))
+    IFeedFolder.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_Path', ((1, 'folderPath'),)))
+    IFeedFolder.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'Move', ((1, 'newParentPath'),)))
+    IFeedFolder.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(20, 'get_Parent', ((1, 'disp'),)))
+    IFeedFolder.get_IsRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(21, 'get_IsRoot', ((1, 'isRoot'),)))
+    IFeedFolder.get_TotalUnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_TotalUnreadItemCount', ((1, 'count'),)))
+    IFeedFolder.get_TotalItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(23, 'get_TotalItemCount', ((1, 'count'),)))
+    IFeedFolder.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(win32more.System.Com.IDispatch_head))(24, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'disp'),)))
+    win32more.System.Com.IDispatch
+    return IFeedFolder
+def _define_IFeedFolderEvents_head():
+    class IFeedFolderEvents(win32more.System.Com.IDispatch_head):
+        Guid = Guid('20a59fa6-a844-4630-9e-98-17-5f-70-b4-d5-5b')
+    return IFeedFolderEvents
+def _define_IFeedFolderEvents():
+    IFeedFolderEvents = win32more.Media.MediaPlayer.IFeedFolderEvents_head
+    IFeedFolderEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Error', ()))
+    IFeedFolderEvents.FolderAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'FolderAdded', ((1, 'path'),)))
+    IFeedFolderEvents.FolderDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'FolderDeleted', ((1, 'path'),)))
+    IFeedFolderEvents.FolderRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(10, 'FolderRenamed', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedFolderEvents.FolderMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(11, 'FolderMovedFrom', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedFolderEvents.FolderMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(12, 'FolderMovedTo', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedFolderEvents.FolderItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(13, 'FolderItemCountChanged', ((1, 'path'),(1, 'itemCountType'),)))
+    IFeedFolderEvents.FeedAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'FeedAdded', ((1, 'path'),)))
+    IFeedFolderEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'FeedDeleted', ((1, 'path'),)))
+    IFeedFolderEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(16, 'FeedRenamed', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedFolderEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'FeedUrlChanged', ((1, 'path'),)))
+    IFeedFolderEvents.FeedMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(18, 'FeedMovedFrom', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedFolderEvents.FeedMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(19, 'FeedMovedTo', ((1, 'path'),(1, 'oldPath'),)))
+    IFeedFolderEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(20, 'FeedDownloading', ((1, 'path'),)))
+    IFeedFolderEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR)(21, 'FeedDownloadCompleted', ((1, 'path'),(1, 'error'),)))
+    IFeedFolderEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(22, 'FeedItemCountChanged', ((1, 'path'),(1, 'itemCountType'),)))
+    win32more.System.Com.IDispatch
+    return IFeedFolderEvents
+def _define_IFeedItem_head():
+    class IFeedItem(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0a1e6cad-0a47-4da2-a1-3d-5b-aa-a5-c8-bd-4f')
+    return IFeedItem
+def _define_IFeedItem():
+    IFeedItem = win32more.Media.MediaPlayer.IFeedItem_head
+    IFeedItem.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.Foundation.BSTR))(7, 'Xml', ((1, 'includeFlags'),(1, 'xml'),)))
+    IFeedItem.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Title', ((1, 'title'),)))
+    IFeedItem.get_Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Link', ((1, 'linkUrl'),)))
+    IFeedItem.get_Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Guid', ((1, 'itemGuid'),)))
+    IFeedItem.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_Description', ((1, 'description'),)))
+    IFeedItem.get_PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'get_PubDate', ((1, 'pubDate'),)))
+    IFeedItem.get_Comments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_Comments', ((1, 'comments'),)))
+    IFeedItem.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Author', ((1, 'author'),)))
+    IFeedItem.get_Enclosure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(15, 'get_Enclosure', ((1, 'disp'),)))
+    IFeedItem.get_IsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_IsRead', ((1, 'isRead'),)))
+    IFeedItem.put_IsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(17, 'put_IsRead', ((1, 'isRead'),)))
+    IFeedItem.get_LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_LocalId', ((1, 'itemId'),)))
+    IFeedItem.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(19, 'get_Parent', ((1, 'disp'),)))
+    IFeedItem.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'Delete', ()))
+    IFeedItem.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(21, 'get_DownloadUrl', ((1, 'itemUrl'),)))
+    IFeedItem.get_LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(22, 'get_LastDownloadTime', ((1, 'lastDownload'),)))
+    IFeedItem.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(23, 'get_Modified', ((1, 'modified'),)))
+    win32more.System.Com.IDispatch
+    return IFeedItem
+def _define_IFeedItem2_head():
+    class IFeedItem2(win32more.Media.MediaPlayer.IFeedItem_head):
+        Guid = Guid('79ac9ef4-f9c1-4d2b-a5-0b-a7-ff-ba-4d-cf-37')
+    return IFeedItem2
+def _define_IFeedItem2():
+    IFeedItem2 = win32more.Media.MediaPlayer.IFeedItem2_head
+    IFeedItem2.get_EffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(24, 'get_EffectiveId', ((1, 'effectiveId'),)))
+    win32more.Media.MediaPlayer.IFeedItem
+    return IFeedItem2
+def _define_IFeedsEnum_head():
+    class IFeedsEnum(win32more.System.Com.IDispatch_head):
+        Guid = Guid('e3cd0028-2eed-4c60-8f-ae-a3-22-53-09-a8-36')
+    return IFeedsEnum
+def _define_IFeedsEnum():
+    IFeedsEnum = win32more.Media.MediaPlayer.IFeedsEnum_head
+    IFeedsEnum.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'count'),)))
+    IFeedsEnum.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head))(8, 'Item', ((1, 'index'),(1, 'disp'),)))
+    IFeedsEnum.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'enumVar'),)))
+    win32more.System.Com.IDispatch
+    return IFeedsEnum
+def _define_IFeedsManager_head():
+    class IFeedsManager(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a74029cc-1f1a-4906-88-f0-81-06-38-d8-65-91')
+    return IFeedsManager
+def _define_IFeedsManager():
+    IFeedsManager = win32more.Media.MediaPlayer.IFeedsManager_head
+    IFeedsManager.get_RootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(7, 'get_RootFolder', ((1, 'disp'),)))
+    IFeedsManager.IsSubscribed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'IsSubscribed', ((1, 'feedUrl'),(1, 'subscribed'),)))
+    IFeedsManager.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'ExistsFeed', ((1, 'feedPath'),(1, 'exists'),)))
+    IFeedsManager.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(10, 'GetFeed', ((1, 'feedPath'),(1, 'disp'),)))
+    IFeedsManager.GetFeedByUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(11, 'GetFeedByUrl', ((1, 'feedUrl'),(1, 'disp'),)))
+    IFeedsManager.ExistsFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'ExistsFolder', ((1, 'folderPath'),(1, 'exists'),)))
+    IFeedsManager.GetFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(13, 'GetFolder', ((1, 'folderPath'),(1, 'disp'),)))
+    IFeedsManager.DeleteFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'DeleteFeed', ((1, 'feedPath'),)))
+    IFeedsManager.DeleteFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'DeleteFolder', ((1, 'folderPath'),)))
+    IFeedsManager.BackgroundSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_ACTION)(16, 'BackgroundSync', ((1, 'action'),)))
+    IFeedsManager.get_BackgroundSyncStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_STATUS))(17, 'get_BackgroundSyncStatus', ((1, 'status'),)))
+    IFeedsManager.get_DefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_DefaultInterval', ((1, 'minutes'),)))
+    IFeedsManager.put_DefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(19, 'put_DefaultInterval', ((1, 'minutes'),)))
+    IFeedsManager.AsyncSyncAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'AsyncSyncAll', ()))
+    IFeedsManager.Normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(21, 'Normalize', ((1, 'feedXmlIn'),(1, 'feedXmlOut'),)))
+    IFeedsManager.get_ItemCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_ItemCountLimit', ((1, 'itemCountLimit'),)))
+    win32more.System.Com.IDispatch
+    return IFeedsManager
+def _define_IWMPAudioRenderConfig_head():
+    class IWMPAudioRenderConfig(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e79c6349-5997-4ce4-91-7c-22-a3-39-1e-c5-64')
+    return IWMPAudioRenderConfig
+def _define_IWMPAudioRenderConfig():
+    IWMPAudioRenderConfig = win32more.Media.MediaPlayer.IWMPAudioRenderConfig_head
+    IWMPAudioRenderConfig.get_audioOutputDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_audioOutputDevice', ((1, 'pbstrOutputDevice'),)))
+    IWMPAudioRenderConfig.put_audioOutputDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'put_audioOutputDevice', ((1, 'bstrOutputDevice'),)))
+    win32more.System.Com.IUnknown
+    return IWMPAudioRenderConfig
+def _define_IWMPCdrom_head():
+    class IWMPCdrom(win32more.System.Com.IDispatch_head):
+        Guid = Guid('cfab6e98-8730-11d3-b3-88-00-c0-4f-68-57-4b')
+    return IWMPCdrom
+def _define_IWMPCdrom():
+    IWMPCdrom = win32more.Media.MediaPlayer.IWMPCdrom_head
+    IWMPCdrom.get_driveSpecifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_driveSpecifier', ((1, 'pbstrDrive'),)))
+    IWMPCdrom.get_playlist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(8, 'get_playlist', ((1, 'ppPlaylist'),)))
+    IWMPCdrom.eject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'eject', ()))
+    win32more.System.Com.IDispatch
+    return IWMPCdrom
+def _define_IWMPCdromBurn_head():
+    class IWMPCdromBurn(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bd94dbeb-417f-4928-aa-06-08-7d-56-ed-9b-59')
+    return IWMPCdromBurn
+def _define_IWMPCdromBurn():
+    IWMPCdromBurn = win32more.Media.MediaPlayer.IWMPCdromBurn_head
+    IWMPCdromBurn.isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(3, 'isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
+    IWMPCdromBurn.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(4, 'getItemInfo', ((1, 'bstrItem'),(1, 'pbstrVal'),)))
+    IWMPCdromBurn.get_label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_label', ((1, 'pbstrLabel'),)))
+    IWMPCdromBurn.put_label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(6, 'put_label', ((1, 'bstrLabel'),)))
+    IWMPCdromBurn.get_burnFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPBurnFormat))(7, 'get_burnFormat', ((1, 'pwmpbf'),)))
+    IWMPCdromBurn.put_burnFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPBurnFormat)(8, 'put_burnFormat', ((1, 'wmpbf'),)))
+    IWMPCdromBurn.get_burnPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(9, 'get_burnPlaylist', ((1, 'ppPlaylist'),)))
+    IWMPCdromBurn.put_burnPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head)(10, 'put_burnPlaylist', ((1, 'pPlaylist'),)))
+    IWMPCdromBurn.refreshStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'refreshStatus', ()))
+    IWMPCdromBurn.get_burnState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPBurnState))(12, 'get_burnState', ((1, 'pwmpbs'),)))
+    IWMPCdromBurn.get_burnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_burnProgress', ((1, 'plProgress'),)))
+    IWMPCdromBurn.startBurn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'startBurn', ()))
+    IWMPCdromBurn.stopBurn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'stopBurn', ()))
+    IWMPCdromBurn.erase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'erase', ()))
+    win32more.System.Com.IUnknown
+    return IWMPCdromBurn
+def _define_IWMPCdromCollection_head():
+    class IWMPCdromCollection(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ee4c8fe2-34b2-11d3-a3-bf-00-60-97-c9-b3-44')
+    return IWMPCdromCollection
+def _define_IWMPCdromCollection():
+    IWMPCdromCollection = win32more.Media.MediaPlayer.IWMPCdromCollection_head
+    IWMPCdromCollection.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_count', ((1, 'plCount'),)))
+    IWMPCdromCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPCdrom_head))(8, 'item', ((1, 'lIndex'),(1, 'ppItem'),)))
+    IWMPCdromCollection.getByDriveSpecifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPCdrom_head))(9, 'getByDriveSpecifier', ((1, 'bstrDriveSpecifier'),(1, 'ppCdrom'),)))
+    win32more.System.Com.IDispatch
+    return IWMPCdromCollection
+def _define_IWMPCdromRip_head():
+    class IWMPCdromRip(win32more.System.Com.IUnknown_head):
+        Guid = Guid('56e2294f-69ed-4629-a8-69-ae-a7-2c-0d-cc-2c')
+    return IWMPCdromRip
+def _define_IWMPCdromRip():
+    IWMPCdromRip = win32more.Media.MediaPlayer.IWMPCdromRip_head
+    IWMPCdromRip.get_ripState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPRipState))(3, 'get_ripState', ((1, 'pwmprs'),)))
+    IWMPCdromRip.get_ripProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'get_ripProgress', ((1, 'plProgress'),)))
+    IWMPCdromRip.startRip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'startRip', ()))
+    IWMPCdromRip.stopRip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'stopRip', ()))
+    win32more.System.Com.IUnknown
+    return IWMPCdromRip
+def _define_IWMPClosedCaption_head():
+    class IWMPClosedCaption(win32more.System.Com.IDispatch_head):
+        Guid = Guid('4f2df574-c588-11d3-9e-d0-00-c0-4f-b6-e9-37')
+    return IWMPClosedCaption
+def _define_IWMPClosedCaption():
+    IWMPClosedCaption = win32more.Media.MediaPlayer.IWMPClosedCaption_head
+    IWMPClosedCaption.get_SAMIStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_SAMIStyle', ((1, 'pbstrSAMIStyle'),)))
+    IWMPClosedCaption.put_SAMIStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_SAMIStyle', ((1, 'bstrSAMIStyle'),)))
+    IWMPClosedCaption.get_SAMILang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_SAMILang', ((1, 'pbstrSAMILang'),)))
+    IWMPClosedCaption.put_SAMILang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_SAMILang', ((1, 'bstrSAMILang'),)))
+    IWMPClosedCaption.get_SAMIFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_SAMIFileName', ((1, 'pbstrSAMIFileName'),)))
+    IWMPClosedCaption.put_SAMIFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_SAMIFileName', ((1, 'bstrSAMIFileName'),)))
+    IWMPClosedCaption.get_captioningId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_captioningId', ((1, 'pbstrCaptioningID'),)))
+    IWMPClosedCaption.put_captioningId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'put_captioningId', ((1, 'bstrCaptioningID'),)))
+    win32more.System.Com.IDispatch
+    return IWMPClosedCaption
+def _define_IWMPClosedCaption2_head():
+    class IWMPClosedCaption2(win32more.Media.MediaPlayer.IWMPClosedCaption_head):
+        Guid = Guid('350ba78b-6bc8-4113-a5-f5-31-20-56-93-4e-b6')
+    return IWMPClosedCaption2
+def _define_IWMPClosedCaption2():
+    IWMPClosedCaption2 = win32more.Media.MediaPlayer.IWMPClosedCaption2_head
+    IWMPClosedCaption2.get_SAMILangCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_SAMILangCount', ((1, 'plCount'),)))
+    IWMPClosedCaption2.getSAMILangName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(16, 'getSAMILangName', ((1, 'nIndex'),(1, 'pbstrName'),)))
+    IWMPClosedCaption2.getSAMILangID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32))(17, 'getSAMILangID', ((1, 'nIndex'),(1, 'plLangID'),)))
+    IWMPClosedCaption2.get_SAMIStyleCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_SAMIStyleCount', ((1, 'plCount'),)))
+    IWMPClosedCaption2.getSAMIStyleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(19, 'getSAMIStyleName', ((1, 'nIndex'),(1, 'pbstrName'),)))
+    win32more.Media.MediaPlayer.IWMPClosedCaption
+    return IWMPClosedCaption2
+def _define_IWMPContentContainer_head():
+    class IWMPContentContainer(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ad7f4d9c-1a9f-4ed2-98-15-ec-c0-b5-8c-b6-16')
+    return IWMPContentContainer
+def _define_IWMPContentContainer():
+    IWMPContentContainer = win32more.Media.MediaPlayer.IWMPContentContainer_head
+    IWMPContentContainer.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetID', ((1, 'pContentID'),)))
+    IWMPContentContainer.GetPrice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'GetPrice', ((1, 'pbstrPrice'),)))
+    IWMPContentContainer.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'GetType', ((1, 'pbstrType'),)))
+    IWMPContentContainer.GetContentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetContentCount', ((1, 'pcContent'),)))
+    IWMPContentContainer.GetContentPrice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR))(7, 'GetContentPrice', ((1, 'idxContent'),(1, 'pbstrPrice'),)))
+    IWMPContentContainer.GetContentID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32))(8, 'GetContentID', ((1, 'idxContent'),(1, 'pContentID'),)))
+    win32more.System.Com.IUnknown
+    return IWMPContentContainer
+def _define_IWMPContentContainerList_head():
+    class IWMPContentContainerList(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a9937f78-0802-4af8-8b-8d-e3-f0-45-bc-8a-b5')
+    return IWMPContentContainerList
+def _define_IWMPContentContainerList():
+    IWMPContentContainerList = win32more.Media.MediaPlayer.IWMPContentContainerList_head
+    IWMPContentContainerList.GetTransactionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPTransactionType))(3, 'GetTransactionType', ((1, 'pwmptt'),)))
+    IWMPContentContainerList.GetContainerCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetContainerCount', ((1, 'pcContainer'),)))
+    IWMPContentContainerList.GetContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaPlayer.IWMPContentContainer_head))(5, 'GetContainer', ((1, 'idxContainer'),(1, 'ppContent'),)))
+    win32more.System.Com.IUnknown
+    return IWMPContentContainerList
+def _define_IWMPContentPartner_head():
+    class IWMPContentPartner(win32more.System.Com.IUnknown_head):
+        Guid = Guid('55455073-41b5-4e75-87-b8-f1-3b-db-29-1d-08')
+    return IWMPContentPartner
+def _define_IWMPContentPartner():
+    IWMPContentPartner = win32more.Media.MediaPlayer.IWMPContentPartner_head
+    IWMPContentPartner.SetCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentPartnerCallback_head)(3, 'SetCallback', ((1, 'pCallback'),)))
+    IWMPContentPartner.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPPartnerNotification,POINTER(win32more.System.Com.VARIANT_head))(4, 'Notify', ((1, 'type'),(1, 'pContext'),)))
+    IWMPContentPartner.GetItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(5, 'GetItemInfo', ((1, 'bstrInfoName'),(1, 'pContext'),(1, 'pData'),)))
+    IWMPContentPartner.GetContentPartnerInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(6, 'GetContentPartnerInfo', ((1, 'bstrInfoName'),(1, 'pData'),)))
+    IWMPContentPartner.GetCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(POINTER(win32more.Media.MediaPlayer.WMPContextMenuInfo_head)))(7, 'GetCommands', ((1, 'location'),(1, 'pLocationContext'),(1, 'itemLocation'),(1, 'cItemIDs'),(1, 'prgItemIDs'),(1, 'pcItemIDs'),(1, 'pprgItems'),)))
+    IWMPContentPartner.InvokeCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,UInt32,POINTER(UInt32))(8, 'InvokeCommand', ((1, 'dwCommandID'),(1, 'location'),(1, 'pLocationContext'),(1, 'itemLocation'),(1, 'cItemIDs'),(1, 'rgItemIDs'),)))
+    IWMPContentPartner.CanBuySilent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'CanBuySilent', ((1, 'pInfo'),(1, 'pbstrTotalPrice'),(1, 'pSilentOK'),)))
+    IWMPContentPartner.Buy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,UInt32)(10, 'Buy', ((1, 'pInfo'),(1, 'cookie'),)))
+    IWMPContentPartner.GetStreamingURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPStreamingType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR))(11, 'GetStreamingURL', ((1, 'st'),(1, 'pStreamContext'),(1, 'pbstrURL'),)))
+    IWMPContentPartner.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,UInt32)(12, 'Download', ((1, 'pInfo'),(1, 'cookie'),)))
+    IWMPContentPartner.DownloadTrackComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR)(13, 'DownloadTrackComplete', ((1, 'hrResult'),(1, 'contentID'),(1, 'downloadTrackParam'),)))
+    IWMPContentPartner.RefreshLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.WMPStreamingType,UInt32,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(14, 'RefreshLicense', ((1, 'dwCookie'),(1, 'fLocal'),(1, 'bstrURL'),(1, 'type'),(1, 'contentID'),(1, 'bstrRefreshReason'),(1, 'pReasonContext'),)))
+    IWMPContentPartner.GetCatalogURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.VARIANT_head))(15, 'GetCatalogURL', ((1, 'dwCatalogVersion'),(1, 'dwCatalogSchemaVersion'),(1, 'catalogLCID'),(1, 'pdwNewCatalogVersion'),(1, 'pbstrCatalogURL'),(1, 'pExpirationDate'),)))
+    IWMPContentPartner.GetTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPTaskType,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Media.MediaPlayer.WMPTemplateSize))(16, 'GetTemplate', ((1, 'task'),(1, 'location'),(1, 'pContext'),(1, 'clickLocation'),(1, 'pClickContext'),(1, 'bstrFilter'),(1, 'bstrViewParams'),(1, 'pbstrTemplateURL'),(1, 'pTemplateSize'),)))
+    IWMPContentPartner.UpdateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'UpdateDevice', ((1, 'bstrDeviceName'),)))
+    IWMPContentPartner.GetListContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32)(18, 'GetListContents', ((1, 'location'),(1, 'pContext'),(1, 'bstrListType'),(1, 'bstrParams'),(1, 'dwListCookie'),)))
+    IWMPContentPartner.Login = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.BLOB,win32more.System.Com.BLOB,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL)(19, 'Login', ((1, 'userInfo'),(1, 'pwdInfo'),(1, 'fUsedCachedCreds'),(1, 'fOkToCache'),)))
+    IWMPContentPartner.Authenticate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.BLOB,win32more.System.Com.BLOB)(20, 'Authenticate', ((1, 'userInfo'),(1, 'pwdInfo'),)))
+    IWMPContentPartner.Logout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(21, 'Logout', ()))
+    IWMPContentPartner.SendMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(22, 'SendMessage', ((1, 'bstrMsg'),(1, 'bstrParam'),)))
+    IWMPContentPartner.StationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,UInt32,UInt32,win32more.Foundation.BSTR,UInt32)(23, 'StationEvent', ((1, 'bstrStationEventType'),(1, 'StationId'),(1, 'PlaylistIndex'),(1, 'TrackID'),(1, 'TrackData'),(1, 'dwSecondsPlayed'),)))
+    IWMPContentPartner.CompareContainerListPrices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,win32more.Media.MediaPlayer.IWMPContentContainerList_head,POINTER(Int32))(24, 'CompareContainerListPrices', ((1, 'pListBase'),(1, 'pListCompare'),(1, 'pResult'),)))
+    IWMPContentPartner.VerifyPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(25, 'VerifyPermission', ((1, 'bstrPermission'),(1, 'pContext'),)))
+    win32more.System.Com.IUnknown
+    return IWMPContentPartner
+def _define_IWMPContentPartnerCallback_head():
+    class IWMPContentPartnerCallback(win32more.System.Com.IUnknown_head):
+        Guid = Guid('9e8f7da2-0695-403c-b6-97-da-10-fa-fa-a6-76')
+    return IWMPContentPartnerCallback
+def _define_IWMPContentPartnerCallback():
+    IWMPContentPartnerCallback = win32more.Media.MediaPlayer.IWMPContentPartnerCallback_head
+    IWMPContentPartnerCallback.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPCallbackNotification,POINTER(win32more.System.Com.VARIANT_head))(3, 'Notify', ((1, 'type'),(1, 'pContext'),)))
+    IWMPContentPartnerCallback.BuyComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32)(4, 'BuyComplete', ((1, 'hrResult'),(1, 'dwBuyCookie'),)))
+    IWMPContentPartnerCallback.DownloadTrack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,win32more.Foundation.HRESULT)(5, 'DownloadTrack', ((1, 'cookie'),(1, 'bstrTrackURL'),(1, 'dwServiceTrackID'),(1, 'bstrDownloadParams'),(1, 'hrDownload'),)))
+    IWMPContentPartnerCallback.GetCatalogVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(6, 'GetCatalogVersion', ((1, 'pdwVersion'),(1, 'pdwSchemaVersion'),(1, 'plcid'),)))
+    IWMPContentPartnerCallback.UpdateDeviceComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'UpdateDeviceComplete', ((1, 'bstrDeviceName'),)))
+    IWMPContentPartnerCallback.ChangeView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(8, 'ChangeView', ((1, 'bstrType'),(1, 'bstrID'),(1, 'bstrFilter'),)))
+    IWMPContentPartnerCallback.AddListContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32))(9, 'AddListContents', ((1, 'dwListCookie'),(1, 'cItems'),(1, 'prgItems'),)))
+    IWMPContentPartnerCallback.ListContentsComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HRESULT)(10, 'ListContentsComplete', ((1, 'dwListCookie'),(1, 'hrSuccess'),)))
+    IWMPContentPartnerCallback.SendMessageComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(11, 'SendMessageComplete', ((1, 'bstrMsg'),(1, 'bstrParam'),(1, 'bstrResult'),)))
+    IWMPContentPartnerCallback.GetContentIDsInLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(UInt32)))(12, 'GetContentIDsInLibrary', ((1, 'pcContentIDs'),(1, 'pprgIDs'),)))
+    IWMPContentPartnerCallback.RefreshLicenseComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.HRESULT)(13, 'RefreshLicenseComplete', ((1, 'dwCookie'),(1, 'contentID'),(1, 'hrRefresh'),)))
+    IWMPContentPartnerCallback.ShowPopup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR)(14, 'ShowPopup', ((1, 'lIndex'),(1, 'bstrParameters'),)))
+    IWMPContentPartnerCallback.VerifyPermissionComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.HRESULT)(15, 'VerifyPermissionComplete', ((1, 'bstrPermission'),(1, 'pContext'),(1, 'hrPermission'),)))
+    win32more.System.Com.IUnknown
+    return IWMPContentPartnerCallback
+def _define_IWMPControls_head():
+    class IWMPControls(win32more.System.Com.IDispatch_head):
+        Guid = Guid('74c09e02-f828-11d2-a7-4b-00-a0-c9-05-f3-6e')
+    return IWMPControls
+def _define_IWMPControls():
+    IWMPControls = win32more.Media.MediaPlayer.IWMPControls_head
+    IWMPControls.get_isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
+    IWMPControls.play = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'play', ()))
+    IWMPControls.stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'stop', ()))
+    IWMPControls.pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'pause', ()))
+    IWMPControls.fastForward = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'fastForward', ()))
+    IWMPControls.fastReverse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'fastReverse', ()))
+    IWMPControls.get_currentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_currentPosition', ((1, 'pdCurrentPosition'),)))
+    IWMPControls.put_currentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(14, 'put_currentPosition', ((1, 'dCurrentPosition'),)))
+    IWMPControls.get_currentPositionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_currentPositionString', ((1, 'pbstrCurrentPosition'),)))
+    IWMPControls.next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'next', ()))
+    IWMPControls.previous = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'previous', ()))
+    IWMPControls.get_currentItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head))(18, 'get_currentItem', ((1, 'ppIWMPMedia'),)))
+    IWMPControls.put_currentItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head)(19, 'put_currentItem', ((1, 'pIWMPMedia'),)))
+    IWMPControls.get_currentMarker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(20, 'get_currentMarker', ((1, 'plMarker'),)))
+    IWMPControls.put_currentMarker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(21, 'put_currentMarker', ((1, 'lMarker'),)))
+    IWMPControls.playItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head)(22, 'playItem', ((1, 'pIWMPMedia'),)))
+    win32more.System.Com.IDispatch
+    return IWMPControls
+def _define_IWMPControls2_head():
+    class IWMPControls2(win32more.Media.MediaPlayer.IWMPControls_head):
+        Guid = Guid('6f030d25-0890-480f-97-75-1f-7e-40-ab-5b-8e')
+    return IWMPControls2
+def _define_IWMPControls2():
+    IWMPControls2 = win32more.Media.MediaPlayer.IWMPControls2_head
+    IWMPControls2.step = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(23, 'step', ((1, 'lStep'),)))
+    win32more.Media.MediaPlayer.IWMPControls
+    return IWMPControls2
+def _define_IWMPControls3_head():
+    class IWMPControls3(win32more.Media.MediaPlayer.IWMPControls2_head):
+        Guid = Guid('a1d1110e-d545-476a-9a-78-ac-3e-4c-b1-e6-bd')
+    return IWMPControls3
+def _define_IWMPControls3():
+    IWMPControls3 = win32more.Media.MediaPlayer.IWMPControls3_head
+    IWMPControls3.get_audioLanguageCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(24, 'get_audioLanguageCount', ((1, 'plCount'),)))
+    IWMPControls3.getAudioLanguageID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32))(25, 'getAudioLanguageID', ((1, 'lIndex'),(1, 'plLangID'),)))
+    IWMPControls3.getAudioLanguageDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(26, 'getAudioLanguageDescription', ((1, 'lIndex'),(1, 'pbstrLangDesc'),)))
+    IWMPControls3.get_currentAudioLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(27, 'get_currentAudioLanguage', ((1, 'plLangID'),)))
+    IWMPControls3.put_currentAudioLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(28, 'put_currentAudioLanguage', ((1, 'lLangID'),)))
+    IWMPControls3.get_currentAudioLanguageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(29, 'get_currentAudioLanguageIndex', ((1, 'plIndex'),)))
+    IWMPControls3.put_currentAudioLanguageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(30, 'put_currentAudioLanguageIndex', ((1, 'lIndex'),)))
+    IWMPControls3.getLanguageName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(31, 'getLanguageName', ((1, 'lLangID'),(1, 'pbstrLangName'),)))
+    IWMPControls3.get_currentPositionTimecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(32, 'get_currentPositionTimecode', ((1, 'bstrTimecode'),)))
+    IWMPControls3.put_currentPositionTimecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(33, 'put_currentPositionTimecode', ((1, 'bstrTimecode'),)))
+    win32more.Media.MediaPlayer.IWMPControls2
+    return IWMPControls3
+def _define_IWMPConvert_head():
+    class IWMPConvert(win32more.System.Com.IUnknown_head):
+        Guid = Guid('d683162f-57d4-4108-83-73-4a-96-76-d1-c2-e9')
+    return IWMPConvert
+def _define_IWMPConvert():
+    IWMPConvert = win32more.Media.MediaPlayer.IWMPConvert_head
+    IWMPConvert.ConvertFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(3, 'ConvertFile', ((1, 'bstrInputFile'),(1, 'bstrDestinationFolder'),(1, 'pbstrOutputFile'),)))
+    IWMPConvert.GetErrorURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'GetErrorURL', ((1, 'pbstrURL'),)))
+    win32more.System.Com.IUnknown
+    return IWMPConvert
+def _define_IWMPCore_head():
+    class IWMPCore(win32more.System.Com.IDispatch_head):
+        Guid = Guid('d84cca99-cce2-11d2-9e-cc-00-00-f8-08-59-81')
+    return IWMPCore
+def _define_IWMPCore():
+    IWMPCore = win32more.Media.MediaPlayer.IWMPCore_head
+    IWMPCore.close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'close', ()))
+    IWMPCore.get_URL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_URL', ((1, 'pbstrURL'),)))
+    IWMPCore.put_URL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_URL', ((1, 'bstrURL'),)))
+    IWMPCore.get_openState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPOpenState))(10, 'get_openState', ((1, 'pwmpos'),)))
+    IWMPCore.get_playState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPPlayState))(11, 'get_playState', ((1, 'pwmpps'),)))
+    IWMPCore.get_controls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPControls_head))(12, 'get_controls', ((1, 'ppControl'),)))
+    IWMPCore.get_settings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPSettings_head))(13, 'get_settings', ((1, 'ppSettings'),)))
+    IWMPCore.get_currentMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head))(14, 'get_currentMedia', ((1, 'ppMedia'),)))
+    IWMPCore.put_currentMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head)(15, 'put_currentMedia', ((1, 'pMedia'),)))
+    IWMPCore.get_mediaCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMediaCollection_head))(16, 'get_mediaCollection', ((1, 'ppMediaCollection'),)))
+    IWMPCore.get_playlistCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylistCollection_head))(17, 'get_playlistCollection', ((1, 'ppPlaylistCollection'),)))
+    IWMPCore.get_versionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_versionInfo', ((1, 'pbstrVersionInfo'),)))
+    IWMPCore.launchURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'launchURL', ((1, 'bstrURL'),)))
+    IWMPCore.get_network = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPNetwork_head))(20, 'get_network', ((1, 'ppQNI'),)))
+    IWMPCore.get_currentPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(21, 'get_currentPlaylist', ((1, 'ppPL'),)))
+    IWMPCore.put_currentPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head)(22, 'put_currentPlaylist', ((1, 'pPL'),)))
+    IWMPCore.get_cdromCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPCdromCollection_head))(23, 'get_cdromCollection', ((1, 'ppCdromCollection'),)))
+    IWMPCore.get_closedCaption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPClosedCaption_head))(24, 'get_closedCaption', ((1, 'ppClosedCaption'),)))
+    IWMPCore.get_isOnline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(25, 'get_isOnline', ((1, 'pfOnline'),)))
+    IWMPCore.get_error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPError_head))(26, 'get_error', ((1, 'ppError'),)))
+    IWMPCore.get_status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(27, 'get_status', ((1, 'pbstrStatus'),)))
+    win32more.System.Com.IDispatch
+    return IWMPCore
+def _define_IWMPCore2_head():
+    class IWMPCore2(win32more.Media.MediaPlayer.IWMPCore_head):
+        Guid = Guid('bc17e5b7-7561-4c18-bb-90-17-d4-85-77-56-59')
+    return IWMPCore2
+def _define_IWMPCore2():
+    IWMPCore2 = win32more.Media.MediaPlayer.IWMPCore2_head
+    IWMPCore2.get_dvd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPDVD_head))(28, 'get_dvd', ((1, 'ppDVD'),)))
+    win32more.Media.MediaPlayer.IWMPCore
+    return IWMPCore2
+def _define_IWMPCore3_head():
+    class IWMPCore3(win32more.Media.MediaPlayer.IWMPCore2_head):
+        Guid = Guid('7587c667-628f-499f-88-e7-6a-6f-4e-88-84-64')
+    return IWMPCore3
+def _define_IWMPCore3():
+    IWMPCore3 = win32more.Media.MediaPlayer.IWMPCore3_head
+    IWMPCore3.newPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(29, 'newPlaylist', ((1, 'bstrName'),(1, 'bstrURL'),(1, 'ppPlaylist'),)))
+    IWMPCore3.newMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head))(30, 'newMedia', ((1, 'bstrURL'),(1, 'ppMedia'),)))
+    win32more.Media.MediaPlayer.IWMPCore2
+    return IWMPCore3
+def _define_IWMPDownloadCollection_head():
+    class IWMPDownloadCollection(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0a319c7f-85f9-436c-b8-8e-82-fd-88-00-0e-1c')
+    return IWMPDownloadCollection
+def _define_IWMPDownloadCollection():
+    IWMPDownloadCollection = win32more.Media.MediaPlayer.IWMPDownloadCollection_head
+    IWMPDownloadCollection.get_id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_id', ((1, 'plId'),)))
+    IWMPDownloadCollection.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_count', ((1, 'plCount'),)))
+    IWMPDownloadCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPDownloadItem2_head))(9, 'item', ((1, 'lItem'),(1, 'ppDownload'),)))
+    IWMPDownloadCollection.startDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPDownloadItem2_head))(10, 'startDownload', ((1, 'bstrSourceURL'),(1, 'bstrType'),(1, 'ppDownload'),)))
+    IWMPDownloadCollection.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(11, 'removeItem', ((1, 'lItem'),)))
+    IWMPDownloadCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
+    return IWMPDownloadCollection
+def _define_IWMPDownloadItem_head():
+    class IWMPDownloadItem(win32more.System.Com.IDispatch_head):
+        Guid = Guid('c9470e8e-3f6b-46a9-a0-a9-45-28-15-c3-42-97')
+    return IWMPDownloadItem
+def _define_IWMPDownloadItem():
+    IWMPDownloadItem = win32more.Media.MediaPlayer.IWMPDownloadItem_head
+    IWMPDownloadItem.get_sourceURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_sourceURL', ((1, 'pbstrURL'),)))
+    IWMPDownloadItem.get_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_size', ((1, 'plSize'),)))
+    IWMPDownloadItem.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_type', ((1, 'pbstrType'),)))
+    IWMPDownloadItem.get_progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_progress', ((1, 'plProgress'),)))
+    IWMPDownloadItem.get_downloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPSubscriptionDownloadState))(11, 'get_downloadState', ((1, 'pwmpsdls'),)))
+    IWMPDownloadItem.pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'pause', ()))
+    IWMPDownloadItem.resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'resume', ()))
+    IWMPDownloadItem.cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'cancel', ()))
+    win32more.System.Com.IDispatch
+    return IWMPDownloadItem
+def _define_IWMPDownloadItem2_head():
+    class IWMPDownloadItem2(win32more.Media.MediaPlayer.IWMPDownloadItem_head):
+        Guid = Guid('9fbb3336-6da3-479d-b8-ff-67-d4-6e-20-a9-87')
+    return IWMPDownloadItem2
+def _define_IWMPDownloadItem2():
+    IWMPDownloadItem2 = win32more.Media.MediaPlayer.IWMPDownloadItem2_head
+    IWMPDownloadItem2.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(15, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
+    win32more.Media.MediaPlayer.IWMPDownloadItem
+    return IWMPDownloadItem2
+def _define_IWMPDownloadManager_head():
+    class IWMPDownloadManager(win32more.System.Com.IDispatch_head):
+        Guid = Guid('e15e9ad1-8f20-4cc4-9e-c7-1a-32-8c-a8-6a-0d')
+    return IWMPDownloadManager
+def _define_IWMPDownloadManager():
+    IWMPDownloadManager = win32more.Media.MediaPlayer.IWMPDownloadManager_head
+    IWMPDownloadManager.getDownloadCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPDownloadCollection_head))(7, 'getDownloadCollection', ((1, 'lCollectionId'),(1, 'ppCollection'),)))
+    IWMPDownloadManager.createDownloadCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPDownloadCollection_head))(8, 'createDownloadCollection', ((1, 'ppCollection'),)))
+    win32more.System.Com.IDispatch
+    return IWMPDownloadManager
+def _define_IWMPDVD_head():
+    class IWMPDVD(win32more.System.Com.IDispatch_head):
+        Guid = Guid('8da61686-4668-4a5c-ae-5d-80-31-93-29-3d-be')
+    return IWMPDVD
+def _define_IWMPDVD():
+    IWMPDVD = win32more.Media.MediaPlayer.IWMPDVD_head
+    IWMPDVD.get_isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
+    IWMPDVD.get_domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_domain', ((1, 'strDomain'),)))
+    IWMPDVD.topMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'topMenu', ()))
+    IWMPDVD.titleMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'titleMenu', ()))
+    IWMPDVD.back = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'back', ()))
+    IWMPDVD.resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'resume', ()))
+    win32more.System.Com.IDispatch
+    return IWMPDVD
+def _define_IWMPEffects_head():
+    class IWMPEffects(win32more.System.Com.IUnknown_head):
+        Guid = Guid('d3984c13-c3cb-48e2-8b-e5-51-68-34-0b-4f-35')
+    return IWMPEffects
+def _define_IWMPEffects():
+    IWMPEffects = win32more.Media.MediaPlayer.IWMPEffects_head
+    IWMPEffects.Render = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.TimedLevel_head),win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head))(3, 'Render', ((1, 'pLevels'),(1, 'hdc'),(1, 'prc'),)))
+    IWMPEffects.MediaInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR)(4, 'MediaInfo', ((1, 'lChannelCount'),(1, 'lSampleRate'),(1, 'bstrTitle'),)))
+    IWMPEffects.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetCapabilities', ((1, 'pdwCapabilities'),)))
+    IWMPEffects.GetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'GetTitle', ((1, 'bstrTitle'),)))
+    IWMPEffects.GetPresetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(7, 'GetPresetTitle', ((1, 'nPreset'),(1, 'bstrPresetTitle'),)))
+    IWMPEffects.GetPresetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'GetPresetCount', ((1, 'pnPresetCount'),)))
+    IWMPEffects.SetCurrentPreset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(9, 'SetCurrentPreset', ((1, 'nPreset'),)))
+    IWMPEffects.GetCurrentPreset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'GetCurrentPreset', ((1, 'pnPreset'),)))
+    IWMPEffects.DisplayPropertyPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(11, 'DisplayPropertyPage', ((1, 'hwndOwner'),)))
+    IWMPEffects.GoFullscreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(12, 'GoFullscreen', ((1, 'fFullScreen'),)))
+    IWMPEffects.RenderFullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.TimedLevel_head))(13, 'RenderFullScreen', ((1, 'pLevels'),)))
+    win32more.System.Com.IUnknown
+    return IWMPEffects
+def _define_IWMPEffects2_head():
+    class IWMPEffects2(win32more.Media.MediaPlayer.IWMPEffects_head):
+        Guid = Guid('695386ec-aa3c-4618-a5-e1-dd-9a-8b-98-76-32')
+    return IWMPEffects2
+def _define_IWMPEffects2():
+    IWMPEffects2 = win32more.Media.MediaPlayer.IWMPEffects2_head
+    IWMPEffects2.SetCore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPCore_head)(14, 'SetCore', ((1, 'pPlayer'),)))
+    IWMPEffects2.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(15, 'Create', ((1, 'hwndParent'),)))
+    IWMPEffects2.Destroy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'Destroy', ()))
+    IWMPEffects2.NotifyNewMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head)(17, 'NotifyNewMedia', ((1, 'pMedia'),)))
+    IWMPEffects2.OnWindowMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT))(18, 'OnWindowMessage', ((1, 'msg'),(1, 'WParam'),(1, 'LParam'),(1, 'plResultParam'),)))
+    IWMPEffects2.RenderWindowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.TimedLevel_head),win32more.Foundation.BOOL)(19, 'RenderWindowed', ((1, 'pData'),(1, 'fRequiredRender'),)))
+    win32more.Media.MediaPlayer.IWMPEffects
+    return IWMPEffects2
+def _define_IWMPError_head():
+    class IWMPError(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a12dcf7d-14ab-4c1b-a8-cd-63-90-9f-06-02-5b')
+    return IWMPError
+def _define_IWMPError():
+    IWMPError = win32more.Media.MediaPlayer.IWMPError_head
+    IWMPError.clearErrorQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'clearErrorQueue', ()))
+    IWMPError.get_errorCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_errorCount', ((1, 'plNumErrors'),)))
+    IWMPError.get_item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPErrorItem_head))(9, 'get_item', ((1, 'dwIndex'),(1, 'ppErrorItem'),)))
+    IWMPError.webHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'webHelp', ()))
+    win32more.System.Com.IDispatch
+    return IWMPError
+def _define_IWMPErrorItem_head():
+    class IWMPErrorItem(win32more.System.Com.IDispatch_head):
+        Guid = Guid('3614c646-3b3b-4de7-a8-1e-93-0e-3f-21-27-b3')
+    return IWMPErrorItem
+def _define_IWMPErrorItem():
+    IWMPErrorItem = win32more.Media.MediaPlayer.IWMPErrorItem_head
+    IWMPErrorItem.get_errorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_errorCode', ((1, 'phr'),)))
+    IWMPErrorItem.get_errorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_errorDescription', ((1, 'pbstrDescription'),)))
+    IWMPErrorItem.get_errorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_errorContext', ((1, 'pvarContext'),)))
+    IWMPErrorItem.get_remedy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_remedy', ((1, 'plRemedy'),)))
+    IWMPErrorItem.get_customUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_customUrl', ((1, 'pbstrCustomUrl'),)))
+    win32more.System.Com.IDispatch
+    return IWMPErrorItem
+def _define_IWMPErrorItem2_head():
+    class IWMPErrorItem2(win32more.Media.MediaPlayer.IWMPErrorItem_head):
+        Guid = Guid('f75ccec0-c67c-475c-93-1e-87-19-87-0b-ee-7d')
+    return IWMPErrorItem2
+def _define_IWMPErrorItem2():
+    IWMPErrorItem2 = win32more.Media.MediaPlayer.IWMPErrorItem2_head
+    IWMPErrorItem2.get_condition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_condition', ((1, 'plCondition'),)))
+    win32more.Media.MediaPlayer.IWMPErrorItem
+    return IWMPErrorItem2
+def _define_IWMPEvents_head():
+    class IWMPEvents(win32more.System.Com.IUnknown_head):
+        Guid = Guid('19a6627b-da9e-47c1-bb-23-00-b5-e6-68-23-6a')
+    return IWMPEvents
+def _define_IWMPEvents():
+    IWMPEvents = win32more.Media.MediaPlayer.IWMPEvents_head
+    IWMPEvents.OpenStateChange = COMMETHOD(WINFUNCTYPE(Void,Int32)(3, 'OpenStateChange', ((1, 'NewState'),)))
+    IWMPEvents.PlayStateChange = COMMETHOD(WINFUNCTYPE(Void,Int32)(4, 'PlayStateChange', ((1, 'NewState'),)))
+    IWMPEvents.AudioLanguageChange = COMMETHOD(WINFUNCTYPE(Void,Int32)(5, 'AudioLanguageChange', ((1, 'LangID'),)))
+    IWMPEvents.StatusChange = COMMETHOD(WINFUNCTYPE(Void,)(6, 'StatusChange', ()))
+    IWMPEvents.ScriptCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(7, 'ScriptCommand', ((1, 'scType'),(1, 'Param'),)))
+    IWMPEvents.NewStream = COMMETHOD(WINFUNCTYPE(Void,)(8, 'NewStream', ()))
+    IWMPEvents.Disconnect = COMMETHOD(WINFUNCTYPE(Void,Int32)(9, 'Disconnect', ((1, 'Result'),)))
+    IWMPEvents.Buffering = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.VARIANT_BOOL)(10, 'Buffering', ((1, 'Start'),)))
+    IWMPEvents.Error = COMMETHOD(WINFUNCTYPE(Void,)(11, 'Error', ()))
+    IWMPEvents.Warning = COMMETHOD(WINFUNCTYPE(Void,Int32,Int32,win32more.Foundation.BSTR)(12, 'Warning', ((1, 'WarningType'),(1, 'Param'),(1, 'Description'),)))
+    IWMPEvents.EndOfStream = COMMETHOD(WINFUNCTYPE(Void,Int32)(13, 'EndOfStream', ((1, 'Result'),)))
+    IWMPEvents.PositionChange = COMMETHOD(WINFUNCTYPE(Void,Double,Double)(14, 'PositionChange', ((1, 'oldPosition'),(1, 'newPosition'),)))
+    IWMPEvents.MarkerHit = COMMETHOD(WINFUNCTYPE(Void,Int32)(15, 'MarkerHit', ((1, 'MarkerNum'),)))
+    IWMPEvents.DurationUnitChange = COMMETHOD(WINFUNCTYPE(Void,Int32)(16, 'DurationUnitChange', ((1, 'NewDurationUnit'),)))
+    IWMPEvents.CdromMediaChange = COMMETHOD(WINFUNCTYPE(Void,Int32)(17, 'CdromMediaChange', ((1, 'CdromNum'),)))
+    IWMPEvents.PlaylistChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head,win32more.Media.MediaPlayer.WMPPlaylistChangeEventType)(18, 'PlaylistChange', ((1, 'Playlist'),(1, 'change'),)))
+    IWMPEvents.CurrentPlaylistChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.WMPPlaylistChangeEventType)(19, 'CurrentPlaylistChange', ((1, 'change'),)))
+    IWMPEvents.CurrentPlaylistItemAvailable = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR)(20, 'CurrentPlaylistItemAvailable', ((1, 'bstrItemName'),)))
+    IWMPEvents.MediaChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head)(21, 'MediaChange', ((1, 'Item'),)))
+    IWMPEvents.CurrentMediaItemAvailable = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR)(22, 'CurrentMediaItemAvailable', ((1, 'bstrItemName'),)))
+    IWMPEvents.CurrentItemChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head)(23, 'CurrentItemChange', ((1, 'pdispMedia'),)))
+    IWMPEvents.MediaCollectionChange = COMMETHOD(WINFUNCTYPE(Void,)(24, 'MediaCollectionChange', ()))
+    IWMPEvents.MediaCollectionAttributeStringAdded = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(25, 'MediaCollectionAttributeStringAdded', ((1, 'bstrAttribName'),(1, 'bstrAttribVal'),)))
+    IWMPEvents.MediaCollectionAttributeStringRemoved = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(26, 'MediaCollectionAttributeStringRemoved', ((1, 'bstrAttribName'),(1, 'bstrAttribVal'),)))
+    IWMPEvents.MediaCollectionAttributeStringChanged = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(27, 'MediaCollectionAttributeStringChanged', ((1, 'bstrAttribName'),(1, 'bstrOldAttribVal'),(1, 'bstrNewAttribVal'),)))
+    IWMPEvents.PlaylistCollectionChange = COMMETHOD(WINFUNCTYPE(Void,)(28, 'PlaylistCollectionChange', ()))
+    IWMPEvents.PlaylistCollectionPlaylistAdded = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR)(29, 'PlaylistCollectionPlaylistAdded', ((1, 'bstrPlaylistName'),)))
+    IWMPEvents.PlaylistCollectionPlaylistRemoved = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR)(30, 'PlaylistCollectionPlaylistRemoved', ((1, 'bstrPlaylistName'),)))
+    IWMPEvents.PlaylistCollectionPlaylistSetAsDeleted = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL)(31, 'PlaylistCollectionPlaylistSetAsDeleted', ((1, 'bstrPlaylistName'),(1, 'varfIsDeleted'),)))
+    IWMPEvents.ModeChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL)(32, 'ModeChange', ((1, 'ModeName'),(1, 'NewValue'),)))
+    IWMPEvents.MediaError = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head)(33, 'MediaError', ((1, 'pMediaObject'),)))
+    IWMPEvents.OpenPlaylistSwitch = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head)(34, 'OpenPlaylistSwitch', ((1, 'pItem'),)))
+    IWMPEvents.DomainChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR)(35, 'DomainChange', ((1, 'strDomain'),)))
+    IWMPEvents.SwitchedToPlayerApplication = COMMETHOD(WINFUNCTYPE(Void,)(36, 'SwitchedToPlayerApplication', ()))
+    IWMPEvents.SwitchedToControl = COMMETHOD(WINFUNCTYPE(Void,)(37, 'SwitchedToControl', ()))
+    IWMPEvents.PlayerDockedStateChange = COMMETHOD(WINFUNCTYPE(Void,)(38, 'PlayerDockedStateChange', ()))
+    IWMPEvents.PlayerReconnect = COMMETHOD(WINFUNCTYPE(Void,)(39, 'PlayerReconnect', ()))
+    IWMPEvents.Click = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32)(40, 'Click', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
+    IWMPEvents.DoubleClick = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32)(41, 'DoubleClick', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
+    IWMPEvents.KeyDown = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16)(42, 'KeyDown', ((1, 'nKeyCode'),(1, 'nShiftState'),)))
+    IWMPEvents.KeyPress = COMMETHOD(WINFUNCTYPE(Void,Int16)(43, 'KeyPress', ((1, 'nKeyAscii'),)))
+    IWMPEvents.KeyUp = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16)(44, 'KeyUp', ((1, 'nKeyCode'),(1, 'nShiftState'),)))
+    IWMPEvents.MouseDown = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32)(45, 'MouseDown', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
+    IWMPEvents.MouseMove = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32)(46, 'MouseMove', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
+    IWMPEvents.MouseUp = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32)(47, 'MouseUp', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
+    win32more.System.Com.IUnknown
+    return IWMPEvents
+def _define_IWMPEvents2_head():
+    class IWMPEvents2(win32more.Media.MediaPlayer.IWMPEvents_head):
+        Guid = Guid('1e7601fa-47ea-4107-9e-a9-90-04-ed-96-84-ff')
+    return IWMPEvents2
+def _define_IWMPEvents2():
+    IWMPEvents2 = win32more.Media.MediaPlayer.IWMPEvents2_head
+    IWMPEvents2.DeviceConnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head)(48, 'DeviceConnect', ((1, 'pDevice'),)))
+    IWMPEvents2.DeviceDisconnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head)(49, 'DeviceDisconnect', ((1, 'pDevice'),)))
+    IWMPEvents2.DeviceStatusChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Media.MediaPlayer.WMPDeviceStatus)(50, 'DeviceStatusChange', ((1, 'pDevice'),(1, 'NewStatus'),)))
+    IWMPEvents2.DeviceSyncStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Media.MediaPlayer.WMPSyncState)(51, 'DeviceSyncStateChange', ((1, 'pDevice'),(1, 'NewState'),)))
+    IWMPEvents2.DeviceSyncError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.System.Com.IDispatch_head)(52, 'DeviceSyncError', ((1, 'pDevice'),(1, 'pMedia'),)))
+    IWMPEvents2.CreatePartnershipComplete = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Foundation.HRESULT)(53, 'CreatePartnershipComplete', ((1, 'pDevice'),(1, 'hrResult'),)))
+    win32more.Media.MediaPlayer.IWMPEvents
+    return IWMPEvents2
+def _define_IWMPEvents3_head():
+    class IWMPEvents3(win32more.Media.MediaPlayer.IWMPEvents2_head):
+        Guid = Guid('1f504270-a66b-4223-8e-96-26-a0-6c-63-d6-9f')
+    return IWMPEvents3
+def _define_IWMPEvents3():
+    IWMPEvents3 = win32more.Media.MediaPlayer.IWMPEvents3_head
+    IWMPEvents3.CdromRipStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromRip_head,win32more.Media.MediaPlayer.WMPRipState)(54, 'CdromRipStateChange', ((1, 'pCdromRip'),(1, 'wmprs'),)))
+    IWMPEvents3.CdromRipMediaError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromRip_head,win32more.System.Com.IDispatch_head)(55, 'CdromRipMediaError', ((1, 'pCdromRip'),(1, 'pMedia'),)))
+    IWMPEvents3.CdromBurnStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromBurn_head,win32more.Media.MediaPlayer.WMPBurnState)(56, 'CdromBurnStateChange', ((1, 'pCdromBurn'),(1, 'wmpbs'),)))
+    IWMPEvents3.CdromBurnMediaError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromBurn_head,win32more.System.Com.IDispatch_head)(57, 'CdromBurnMediaError', ((1, 'pCdromBurn'),(1, 'pMedia'),)))
+    IWMPEvents3.CdromBurnError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromBurn_head,win32more.Foundation.HRESULT)(58, 'CdromBurnError', ((1, 'pCdromBurn'),(1, 'hrError'),)))
+    IWMPEvents3.LibraryConnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPLibrary_head)(59, 'LibraryConnect', ((1, 'pLibrary'),)))
+    IWMPEvents3.LibraryDisconnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPLibrary_head)(60, 'LibraryDisconnect', ((1, 'pLibrary'),)))
+    IWMPEvents3.FolderScanStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.WMPFolderScanState)(61, 'FolderScanStateChange', ((1, 'wmpfss'),)))
+    IWMPEvents3.StringCollectionChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head,win32more.Media.MediaPlayer.WMPStringCollectionChangeEventType,Int32)(62, 'StringCollectionChange', ((1, 'pdispStringCollection'),(1, 'change'),(1, 'lCollectionIndex'),)))
+    IWMPEvents3.MediaCollectionMediaAdded = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head)(63, 'MediaCollectionMediaAdded', ((1, 'pdispMedia'),)))
+    IWMPEvents3.MediaCollectionMediaRemoved = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head)(64, 'MediaCollectionMediaRemoved', ((1, 'pdispMedia'),)))
+    win32more.Media.MediaPlayer.IWMPEvents2
+    return IWMPEvents3
+def _define_IWMPEvents4_head():
+    class IWMPEvents4(win32more.Media.MediaPlayer.IWMPEvents3_head):
+        Guid = Guid('26dabcfa-306b-404d-9a-6f-63-0a-84-05-04-8d')
+    return IWMPEvents4
+def _define_IWMPEvents4():
+    IWMPEvents4 = win32more.Media.MediaPlayer.IWMPEvents4_head
+    IWMPEvents4.DeviceEstimation = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Foundation.HRESULT,Int64,Int64)(65, 'DeviceEstimation', ((1, 'pDevice'),(1, 'hrResult'),(1, 'qwEstimatedUsedSpace'),(1, 'qwEstimatedSpace'),)))
+    win32more.Media.MediaPlayer.IWMPEvents3
+    return IWMPEvents4
+def _define_IWMPFolderMonitorServices_head():
+    class IWMPFolderMonitorServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('788c8743-e57f-439d-a4-68-5b-c7-7f-2e-59-c6')
+    return IWMPFolderMonitorServices
+def _define_IWMPFolderMonitorServices():
+    IWMPFolderMonitorServices = win32more.Media.MediaPlayer.IWMPFolderMonitorServices_head
+    IWMPFolderMonitorServices.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_count', ((1, 'plCount'),)))
+    IWMPFolderMonitorServices.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(4, 'item', ((1, 'lIndex'),(1, 'pbstrFolder'),)))
+    IWMPFolderMonitorServices.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(5, 'add', ((1, 'bstrFolder'),)))
+    IWMPFolderMonitorServices.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(6, 'remove', ((1, 'lIndex'),)))
+    IWMPFolderMonitorServices.get_scanState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPFolderScanState))(7, 'get_scanState', ((1, 'pwmpfss'),)))
+    IWMPFolderMonitorServices.get_currentFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_currentFolder', ((1, 'pbstrFolder'),)))
+    IWMPFolderMonitorServices.get_scannedFilesCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_scannedFilesCount', ((1, 'plCount'),)))
+    IWMPFolderMonitorServices.get_addedFilesCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_addedFilesCount', ((1, 'plCount'),)))
+    IWMPFolderMonitorServices.get_updateProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_updateProgress', ((1, 'plProgress'),)))
+    IWMPFolderMonitorServices.startScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'startScan', ()))
+    IWMPFolderMonitorServices.stopScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'stopScan', ()))
+    win32more.System.Com.IUnknown
+    return IWMPFolderMonitorServices
+def _define_IWMPGraphCreation_head():
+    class IWMPGraphCreation(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bfb377e5-c594-4369-a9-70-de-89-6d-5e-ce-74')
+    return IWMPGraphCreation
+def _define_IWMPGraphCreation():
+    IWMPGraphCreation = win32more.Media.MediaPlayer.IWMPGraphCreation_head
+    IWMPGraphCreation.GraphCreationPreRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head)(3, 'GraphCreationPreRender', ((1, 'pFilterGraph'),(1, 'pReserved'),)))
+    IWMPGraphCreation.GraphCreationPostRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(4, 'GraphCreationPostRender', ((1, 'pFilterGraph'),)))
+    IWMPGraphCreation.GetGraphCreationFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetGraphCreationFlags', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
+    return IWMPGraphCreation
+def _define_IWMPLibrary_head():
+    class IWMPLibrary(win32more.System.Com.IUnknown_head):
+        Guid = Guid('3df47861-7df1-4c1f-a8-1b-4c-26-f0-f7-a7-c6')
+    return IWMPLibrary
+def _define_IWMPLibrary():
+    IWMPLibrary = win32more.Media.MediaPlayer.IWMPLibrary_head
+    IWMPLibrary.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_name', ((1, 'pbstrName'),)))
+    IWMPLibrary.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPLibraryType))(4, 'get_type', ((1, 'pwmplt'),)))
+    IWMPLibrary.get_mediaCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMediaCollection_head))(5, 'get_mediaCollection', ((1, 'ppIWMPMediaCollection'),)))
+    IWMPLibrary.isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPLibrary_head,POINTER(win32more.Foundation.VARIANT_BOOL))(6, 'isIdentical', ((1, 'pIWMPLibrary'),(1, 'pvbool'),)))
+    win32more.System.Com.IUnknown
+    return IWMPLibrary
+def _define_IWMPLibrary2_head():
+    class IWMPLibrary2(win32more.Media.MediaPlayer.IWMPLibrary_head):
+        Guid = Guid('dd578a4e-79b1-426c-bf-8f-3a-dd-90-72-50-0b')
+    return IWMPLibrary2
+def _define_IWMPLibrary2():
+    IWMPLibrary2 = win32more.Media.MediaPlayer.IWMPLibrary2_head
+    IWMPLibrary2.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(7, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
+    win32more.Media.MediaPlayer.IWMPLibrary
+    return IWMPLibrary2
+def _define_IWMPLibraryServices_head():
+    class IWMPLibraryServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('39c2f8d5-1cf2-4d5e-ae-09-d7-34-92-cf-9e-aa')
+    return IWMPLibraryServices
+def _define_IWMPLibraryServices():
+    IWMPLibraryServices = win32more.Media.MediaPlayer.IWMPLibraryServices_head
+    IWMPLibraryServices.getCountByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPLibraryType,POINTER(Int32))(3, 'getCountByType', ((1, 'wmplt'),(1, 'plCount'),)))
+    IWMPLibraryServices.getLibraryByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPLibraryType,Int32,POINTER(win32more.Media.MediaPlayer.IWMPLibrary_head))(4, 'getLibraryByType', ((1, 'wmplt'),(1, 'lIndex'),(1, 'ppIWMPLibrary'),)))
+    win32more.System.Com.IUnknown
+    return IWMPLibraryServices
+def _define_IWMPLibrarySharingServices_head():
+    class IWMPLibrarySharingServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('82cba86b-9f04-474b-a3-65-d6-dd-14-66-e5-41')
+    return IWMPLibrarySharingServices
+def _define_IWMPLibrarySharingServices():
+    IWMPLibrarySharingServices = win32more.Media.MediaPlayer.IWMPLibrarySharingServices_head
+    IWMPLibrarySharingServices.isLibraryShared = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(3, 'isLibraryShared', ((1, 'pvbShared'),)))
+    IWMPLibrarySharingServices.isLibrarySharingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(4, 'isLibrarySharingEnabled', ((1, 'pvbEnabled'),)))
+    IWMPLibrarySharingServices.showLibrarySharing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'showLibrarySharing', ()))
+    win32more.System.Com.IUnknown
+    return IWMPLibrarySharingServices
+def _define_IWMPMedia_head():
+    class IWMPMedia(win32more.System.Com.IDispatch_head):
+        Guid = Guid('94d55e95-3fac-11d3-b1-55-00-c0-4f-79-fa-a6')
+    return IWMPMedia
+def _define_IWMPMedia():
+    IWMPMedia = win32more.Media.MediaPlayer.IWMPMedia_head
+    IWMPMedia.get_isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_isIdentical', ((1, 'pIWMPMedia'),(1, 'pvbool'),)))
+    IWMPMedia.get_sourceURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_sourceURL', ((1, 'pbstrSourceURL'),)))
+    IWMPMedia.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_name', ((1, 'pbstrName'),)))
+    IWMPMedia.put_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_name', ((1, 'bstrName'),)))
+    IWMPMedia.get_imageSourceWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_imageSourceWidth', ((1, 'pWidth'),)))
+    IWMPMedia.get_imageSourceHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_imageSourceHeight', ((1, 'pHeight'),)))
+    IWMPMedia.get_markerCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_markerCount', ((1, 'pMarkerCount'),)))
+    IWMPMedia.getMarkerTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Double))(14, 'getMarkerTime', ((1, 'MarkerNum'),(1, 'pMarkerTime'),)))
+    IWMPMedia.getMarkerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(15, 'getMarkerName', ((1, 'MarkerNum'),(1, 'pbstrMarkerName'),)))
+    IWMPMedia.get_duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(16, 'get_duration', ((1, 'pDuration'),)))
+    IWMPMedia.get_durationString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_durationString', ((1, 'pbstrDuration'),)))
+    IWMPMedia.get_attributeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_attributeCount', ((1, 'plCount'),)))
+    IWMPMedia.getAttributeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(19, 'getAttributeName', ((1, 'lIndex'),(1, 'pbstrItemName'),)))
+    IWMPMedia.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(20, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
+    IWMPMedia.setItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(21, 'setItemInfo', ((1, 'bstrItemName'),(1, 'bstrVal'),)))
+    IWMPMedia.getItemInfoByAtom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(22, 'getItemInfoByAtom', ((1, 'lAtom'),(1, 'pbstrVal'),)))
+    IWMPMedia.isMemberOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.VARIANT_BOOL))(23, 'isMemberOf', ((1, 'pPlaylist'),(1, 'pvarfIsMemberOf'),)))
+    IWMPMedia.isReadOnlyItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(24, 'isReadOnlyItem', ((1, 'bstrItemName'),(1, 'pvarfIsReadOnly'),)))
+    win32more.System.Com.IDispatch
+    return IWMPMedia
+def _define_IWMPMedia2_head():
+    class IWMPMedia2(win32more.Media.MediaPlayer.IWMPMedia_head):
+        Guid = Guid('ab7c88bb-143e-4ea4-ac-c3-e4-35-0b-21-06-c3')
+    return IWMPMedia2
+def _define_IWMPMedia2():
+    IWMPMedia2 = win32more.Media.MediaPlayer.IWMPMedia2_head
+    IWMPMedia2.get_error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPErrorItem_head))(25, 'get_error', ((1, 'ppIWMPErrorItem'),)))
+    win32more.Media.MediaPlayer.IWMPMedia
+    return IWMPMedia2
+def _define_IWMPMedia3_head():
+    class IWMPMedia3(win32more.Media.MediaPlayer.IWMPMedia2_head):
+        Guid = Guid('f118efc7-f03a-4fb4-99-c9-1c-02-a5-c1-06-5b')
+    return IWMPMedia3
+def _define_IWMPMedia3():
+    IWMPMedia3 = win32more.Media.MediaPlayer.IWMPMedia3_head
+    IWMPMedia3.getAttributeCountByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32))(26, 'getAttributeCountByType', ((1, 'bstrType'),(1, 'bstrLanguage'),(1, 'plCount'),)))
+    IWMPMedia3.getItemInfoByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head))(27, 'getItemInfoByType', ((1, 'bstrType'),(1, 'bstrLanguage'),(1, 'lIndex'),(1, 'pvarValue'),)))
+    win32more.Media.MediaPlayer.IWMPMedia2
+    return IWMPMedia3
+def _define_IWMPMediaCollection_head():
+    class IWMPMediaCollection(win32more.System.Com.IDispatch_head):
+        Guid = Guid('8363bc22-b4b4-4b19-98-9d-1c-d7-65-74-9d-d1')
+    return IWMPMediaCollection
+def _define_IWMPMediaCollection():
+    IWMPMediaCollection = win32more.Media.MediaPlayer.IWMPMediaCollection_head
+    IWMPMediaCollection.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head))(7, 'add', ((1, 'bstrURL'),(1, 'ppItem'),)))
+    IWMPMediaCollection.getAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(8, 'getAll', ((1, 'ppMediaItems'),)))
+    IWMPMediaCollection.getByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(9, 'getByName', ((1, 'bstrName'),(1, 'ppMediaItems'),)))
+    IWMPMediaCollection.getByGenre = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(10, 'getByGenre', ((1, 'bstrGenre'),(1, 'ppMediaItems'),)))
+    IWMPMediaCollection.getByAuthor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(11, 'getByAuthor', ((1, 'bstrAuthor'),(1, 'ppMediaItems'),)))
+    IWMPMediaCollection.getByAlbum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(12, 'getByAlbum', ((1, 'bstrAlbum'),(1, 'ppMediaItems'),)))
+    IWMPMediaCollection.getByAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(13, 'getByAttribute', ((1, 'bstrAttribute'),(1, 'bstrValue'),(1, 'ppMediaItems'),)))
+    IWMPMediaCollection.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,win32more.Foundation.VARIANT_BOOL)(14, 'remove', ((1, 'pItem'),(1, 'varfDeleteFile'),)))
+    IWMPMediaCollection.getAttributeStringCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPStringCollection_head))(15, 'getAttributeStringCollection', ((1, 'bstrAttribute'),(1, 'bstrMediaType'),(1, 'ppStringCollection'),)))
+    IWMPMediaCollection.getMediaAtom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32))(16, 'getMediaAtom', ((1, 'bstrItemName'),(1, 'plAtom'),)))
+    IWMPMediaCollection.setDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,win32more.Foundation.VARIANT_BOOL)(17, 'setDeleted', ((1, 'pItem'),(1, 'varfIsDeleted'),)))
+    IWMPMediaCollection.isDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,POINTER(win32more.Foundation.VARIANT_BOOL))(18, 'isDeleted', ((1, 'pItem'),(1, 'pvarfIsDeleted'),)))
+    win32more.System.Com.IDispatch
+    return IWMPMediaCollection
+def _define_IWMPMediaCollection2_head():
+    class IWMPMediaCollection2(win32more.Media.MediaPlayer.IWMPMediaCollection_head):
+        Guid = Guid('8ba957f5-fd8c-4791-b8-2d-f8-40-40-1e-e4-74')
+    return IWMPMediaCollection2
+def _define_IWMPMediaCollection2():
+    IWMPMediaCollection2 = win32more.Media.MediaPlayer.IWMPMediaCollection2_head
+    IWMPMediaCollection2.createQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPQuery_head))(19, 'createQuery', ((1, 'ppQuery'),)))
+    IWMPMediaCollection2.getPlaylistByQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPQuery_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(20, 'getPlaylistByQuery', ((1, 'pQuery'),(1, 'bstrMediaType'),(1, 'bstrSortAttribute'),(1, 'fSortAscending'),(1, 'ppPlaylist'),)))
+    IWMPMediaCollection2.getStringCollectionByQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.IWMPQuery_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,POINTER(win32more.Media.MediaPlayer.IWMPStringCollection_head))(21, 'getStringCollectionByQuery', ((1, 'bstrAttribute'),(1, 'pQuery'),(1, 'bstrMediaType'),(1, 'bstrSortAttribute'),(1, 'fSortAscending'),(1, 'ppStringCollection'),)))
+    IWMPMediaCollection2.getByAttributeAndMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(22, 'getByAttributeAndMediaType', ((1, 'bstrAttribute'),(1, 'bstrValue'),(1, 'bstrMediaType'),(1, 'ppMediaItems'),)))
+    win32more.Media.MediaPlayer.IWMPMediaCollection
+    return IWMPMediaCollection2
+def _define_IWMPMediaPluginRegistrar_head():
+    class IWMPMediaPluginRegistrar(win32more.System.Com.IUnknown_head):
+        Guid = Guid('68e27045-05bd-40b2-97-20-23-08-8c-78-e3-90')
+    return IWMPMediaPluginRegistrar
+def _define_IWMPMediaPluginRegistrar():
+    IWMPMediaPluginRegistrar = win32more.Media.MediaPlayer.IWMPMediaPluginRegistrar_head
+    IWMPMediaPluginRegistrar.WMPRegisterPlayerPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,Guid,Guid,UInt32,c_void_p)(3, 'WMPRegisterPlayerPlugin', ((1, 'pwszFriendlyName'),(1, 'pwszDescription'),(1, 'pwszUninstallString'),(1, 'dwPriority'),(1, 'guidPluginType'),(1, 'clsid'),(1, 'cMediaTypes'),(1, 'pMediaTypes'),)))
+    IWMPMediaPluginRegistrar.WMPUnRegisterPlayerPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid)(4, 'WMPUnRegisterPlayerPlugin', ((1, 'guidPluginType'),(1, 'clsid'),)))
+    win32more.System.Com.IUnknown
+    return IWMPMediaPluginRegistrar
+def _define_IWMPMetadataPicture_head():
+    class IWMPMetadataPicture(win32more.System.Com.IDispatch_head):
+        Guid = Guid('5c29bbe0-f87d-4c45-aa-28-a7-0f-02-30-ff-a9')
+    return IWMPMetadataPicture
+def _define_IWMPMetadataPicture():
+    IWMPMetadataPicture = win32more.Media.MediaPlayer.IWMPMetadataPicture_head
+    IWMPMetadataPicture.get_mimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_mimeType', ((1, 'pbstrMimeType'),)))
+    IWMPMetadataPicture.get_pictureType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_pictureType', ((1, 'pbstrPictureType'),)))
+    IWMPMetadataPicture.get_description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_description', ((1, 'pbstrDescription'),)))
+    IWMPMetadataPicture.get_URL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_URL', ((1, 'pbstrURL'),)))
+    win32more.System.Com.IDispatch
+    return IWMPMetadataPicture
+def _define_IWMPMetadataText_head():
+    class IWMPMetadataText(win32more.System.Com.IDispatch_head):
+        Guid = Guid('769a72db-13d2-45e2-9c-48-53-ca-9d-5b-74-50')
+    return IWMPMetadataText
+def _define_IWMPMetadataText():
+    IWMPMetadataText = win32more.Media.MediaPlayer.IWMPMetadataText_head
+    IWMPMetadataText.get_description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_description', ((1, 'pbstrDescription'),)))
+    IWMPMetadataText.get_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_text', ((1, 'pbstrText'),)))
+    win32more.System.Com.IDispatch
+    return IWMPMetadataText
+def _define_IWMPNetwork_head():
+    class IWMPNetwork(win32more.System.Com.IDispatch_head):
+        Guid = Guid('ec21b779-edef-462d-bb-a4-ad-9d-de-2b-29-a7')
+    return IWMPNetwork
+def _define_IWMPNetwork():
+    IWMPNetwork = win32more.Media.MediaPlayer.IWMPNetwork_head
+    IWMPNetwork.get_bandWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_bandWidth', ((1, 'plBandwidth'),)))
+    IWMPNetwork.get_recoveredPackets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_recoveredPackets', ((1, 'plRecoveredPackets'),)))
+    IWMPNetwork.get_sourceProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_sourceProtocol', ((1, 'pbstrSourceProtocol'),)))
+    IWMPNetwork.get_receivedPackets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_receivedPackets', ((1, 'plReceivedPackets'),)))
+    IWMPNetwork.get_lostPackets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_lostPackets', ((1, 'plLostPackets'),)))
+    IWMPNetwork.get_receptionQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_receptionQuality', ((1, 'plReceptionQuality'),)))
+    IWMPNetwork.get_bufferingCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_bufferingCount', ((1, 'plBufferingCount'),)))
+    IWMPNetwork.get_bufferingProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_bufferingProgress', ((1, 'plBufferingProgress'),)))
+    IWMPNetwork.get_bufferingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_bufferingTime', ((1, 'plBufferingTime'),)))
+    IWMPNetwork.put_bufferingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(16, 'put_bufferingTime', ((1, 'lBufferingTime'),)))
+    IWMPNetwork.get_frameRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_frameRate', ((1, 'plFrameRate'),)))
+    IWMPNetwork.get_maxBitRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_maxBitRate', ((1, 'plBitRate'),)))
+    IWMPNetwork.get_bitRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'get_bitRate', ((1, 'plBitRate'),)))
+    IWMPNetwork.getProxySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32))(20, 'getProxySettings', ((1, 'bstrProtocol'),(1, 'plProxySetting'),)))
+    IWMPNetwork.setProxySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(21, 'setProxySettings', ((1, 'bstrProtocol'),(1, 'lProxySetting'),)))
+    IWMPNetwork.getProxyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(22, 'getProxyName', ((1, 'bstrProtocol'),(1, 'pbstrProxyName'),)))
+    IWMPNetwork.setProxyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(23, 'setProxyName', ((1, 'bstrProtocol'),(1, 'bstrProxyName'),)))
+    IWMPNetwork.getProxyPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32))(24, 'getProxyPort', ((1, 'bstrProtocol'),(1, 'lProxyPort'),)))
+    IWMPNetwork.setProxyPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(25, 'setProxyPort', ((1, 'bstrProtocol'),(1, 'lProxyPort'),)))
+    IWMPNetwork.getProxyExceptionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(26, 'getProxyExceptionList', ((1, 'bstrProtocol'),(1, 'pbstrExceptionList'),)))
+    IWMPNetwork.setProxyExceptionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(27, 'setProxyExceptionList', ((1, 'bstrProtocol'),(1, 'pbstrExceptionList'),)))
+    IWMPNetwork.getProxyBypassForLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(28, 'getProxyBypassForLocal', ((1, 'bstrProtocol'),(1, 'pfBypassForLocal'),)))
+    IWMPNetwork.setProxyBypassForLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL)(29, 'setProxyBypassForLocal', ((1, 'bstrProtocol'),(1, 'fBypassForLocal'),)))
+    IWMPNetwork.get_maxBandwidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(30, 'get_maxBandwidth', ((1, 'lMaxBandwidth'),)))
+    IWMPNetwork.put_maxBandwidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(31, 'put_maxBandwidth', ((1, 'lMaxBandwidth'),)))
+    IWMPNetwork.get_downloadProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(32, 'get_downloadProgress', ((1, 'plDownloadProgress'),)))
+    IWMPNetwork.get_encodedFrameRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(33, 'get_encodedFrameRate', ((1, 'plFrameRate'),)))
+    IWMPNetwork.get_framesSkipped = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(34, 'get_framesSkipped', ((1, 'plFrames'),)))
+    win32more.System.Com.IDispatch
+    return IWMPNetwork
+def _define_IWMPNodeRealEstate_head():
+    class IWMPNodeRealEstate(win32more.System.Com.IUnknown_head):
+        Guid = Guid('42751198-5a50-4460-bc-b4-70-9f-8b-dc-8e-59')
+    return IWMPNodeRealEstate
+def _define_IWMPNodeRealEstate():
+    IWMPNodeRealEstate = win32more.Media.MediaPlayer.IWMPNodeRealEstate_head
+    IWMPNodeRealEstate.GetDesiredSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head))(3, 'GetDesiredSize', ((1, 'pSize'),)))
+    IWMPNodeRealEstate.SetRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(4, 'SetRects', ((1, 'pSrc'),(1, 'pDest'),(1, 'pClip'),)))
+    IWMPNodeRealEstate.GetRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(5, 'GetRects', ((1, 'pSrc'),(1, 'pDest'),(1, 'pClip'),)))
+    IWMPNodeRealEstate.SetWindowless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(6, 'SetWindowless', ((1, 'fWindowless'),)))
+    IWMPNodeRealEstate.GetWindowless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'GetWindowless', ((1, 'pfWindowless'),)))
+    IWMPNodeRealEstate.SetFullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(8, 'SetFullScreen', ((1, 'fFullScreen'),)))
+    IWMPNodeRealEstate.GetFullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'GetFullScreen', ((1, 'pfFullScreen'),)))
+    win32more.System.Com.IUnknown
+    return IWMPNodeRealEstate
+def _define_IWMPNodeRealEstateHost_head():
+    class IWMPNodeRealEstateHost(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1491087d-2c6b-44c8-b0-19-b3-c9-29-d2-ad-a9')
+    return IWMPNodeRealEstateHost
+def _define_IWMPNodeRealEstateHost():
+    IWMPNodeRealEstateHost = win32more.Media.MediaPlayer.IWMPNodeRealEstateHost_head
+    IWMPNodeRealEstateHost.OnDesiredSizeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head))(3, 'OnDesiredSizeChange', ((1, 'pSize'),)))
+    IWMPNodeRealEstateHost.OnFullScreenTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(4, 'OnFullScreenTransition', ((1, 'fFullScreen'),)))
+    win32more.System.Com.IUnknown
+    return IWMPNodeRealEstateHost
+def _define_IWMPNodeWindowed_head():
+    class IWMPNodeWindowed(win32more.System.Com.IUnknown_head):
+        Guid = Guid('96740bfa-c56a-45d1-a3-a4-76-29-14-d4-ad-e9')
+    return IWMPNodeWindowed
+def _define_IWMPNodeWindowed():
+    IWMPNodeWindowed = win32more.Media.MediaPlayer.IWMPNodeWindowed_head
+    IWMPNodeWindowed.SetOwnerWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr)(3, 'SetOwnerWindow', ((1, 'hwnd'),)))
+    IWMPNodeWindowed.GetOwnerWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr))(4, 'GetOwnerWindow', ((1, 'phwnd'),)))
+    win32more.System.Com.IUnknown
+    return IWMPNodeWindowed
+def _define_IWMPNodeWindowedHost_head():
+    class IWMPNodeWindowedHost(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a300415a-54aa-4081-ad-bf-3b-13-61-0d-89-58')
+    return IWMPNodeWindowedHost
+def _define_IWMPNodeWindowedHost():
+    IWMPNodeWindowedHost = win32more.Media.MediaPlayer.IWMPNodeWindowedHost_head
+    IWMPNodeWindowedHost.OnWindowMessageFromRenderer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT),POINTER(win32more.Foundation.BOOL))(3, 'OnWindowMessageFromRenderer', ((1, 'uMsg'),(1, 'wparam'),(1, 'lparam'),(1, 'plRet'),(1, 'pfHandled'),)))
+    win32more.System.Com.IUnknown
+    return IWMPNodeWindowedHost
+def _define_IWMPNodeWindowless_head():
+    class IWMPNodeWindowless(win32more.Media.MediaPlayer.IWMPWindowMessageSink_head):
+        Guid = Guid('9b9199ad-780c-4eda-b8-16-26-1e-ba-5d-15-75')
+    return IWMPNodeWindowless
+def _define_IWMPNodeWindowless():
+    IWMPNodeWindowless = win32more.Media.MediaPlayer.IWMPNodeWindowless_head
+    IWMPNodeWindowless.OnDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(win32more.Foundation.RECT_head))(4, 'OnDraw', ((1, 'hdc'),(1, 'prcDraw'),)))
+    win32more.Media.MediaPlayer.IWMPWindowMessageSink
+    return IWMPNodeWindowless
+def _define_IWMPNodeWindowlessHost_head():
+    class IWMPNodeWindowlessHost(win32more.System.Com.IUnknown_head):
+        Guid = Guid('be7017c6-ce34-4901-81-06-77-03-81-aa-6e-3e')
+    return IWMPNodeWindowlessHost
+def _define_IWMPNodeWindowlessHost():
+    IWMPNodeWindowlessHost = win32more.Media.MediaPlayer.IWMPNodeWindowlessHost_head
+    IWMPNodeWindowlessHost.InvalidateRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL)(3, 'InvalidateRect', ((1, 'prc'),(1, 'fErase'),)))
+    win32more.System.Com.IUnknown
+    return IWMPNodeWindowlessHost
+def _define_IWMPPlayer_head():
+    class IWMPPlayer(win32more.Media.MediaPlayer.IWMPCore_head):
+        Guid = Guid('6bf52a4f-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+    return IWMPPlayer
+def _define_IWMPPlayer():
+    IWMPPlayer = win32more.Media.MediaPlayer.IWMPPlayer_head
+    IWMPPlayer.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(28, 'get_enabled', ((1, 'pbEnabled'),)))
+    IWMPPlayer.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(29, 'put_enabled', ((1, 'bEnabled'),)))
+    IWMPPlayer.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(30, 'get_fullScreen', ((1, 'pbFullScreen'),)))
+    IWMPPlayer.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(31, 'put_fullScreen', ((1, 'bFullScreen'),)))
+    IWMPPlayer.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(32, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
+    IWMPPlayer.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(33, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
+    IWMPPlayer.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(34, 'put_uiMode', ((1, 'bstrMode'),)))
+    IWMPPlayer.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(35, 'get_uiMode', ((1, 'pbstrMode'),)))
+    win32more.Media.MediaPlayer.IWMPCore
+    return IWMPPlayer
+def _define_IWMPPlayer2_head():
+    class IWMPPlayer2(win32more.Media.MediaPlayer.IWMPCore_head):
+        Guid = Guid('0e6b01d1-d407-4c85-bf-5f-1c-01-f6-15-02-80')
+    return IWMPPlayer2
+def _define_IWMPPlayer2():
+    IWMPPlayer2 = win32more.Media.MediaPlayer.IWMPPlayer2_head
+    IWMPPlayer2.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(28, 'get_enabled', ((1, 'pbEnabled'),)))
+    IWMPPlayer2.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(29, 'put_enabled', ((1, 'bEnabled'),)))
+    IWMPPlayer2.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(30, 'get_fullScreen', ((1, 'pbFullScreen'),)))
+    IWMPPlayer2.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(31, 'put_fullScreen', ((1, 'bFullScreen'),)))
+    IWMPPlayer2.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(32, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
+    IWMPPlayer2.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(33, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
+    IWMPPlayer2.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(34, 'put_uiMode', ((1, 'bstrMode'),)))
+    IWMPPlayer2.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(35, 'get_uiMode', ((1, 'pbstrMode'),)))
+    IWMPPlayer2.get_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(36, 'get_stretchToFit', ((1, 'pbEnabled'),)))
+    IWMPPlayer2.put_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(37, 'put_stretchToFit', ((1, 'bEnabled'),)))
+    IWMPPlayer2.get_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(38, 'get_windowlessVideo', ((1, 'pbEnabled'),)))
+    IWMPPlayer2.put_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(39, 'put_windowlessVideo', ((1, 'bEnabled'),)))
+    win32more.Media.MediaPlayer.IWMPCore
+    return IWMPPlayer2
+def _define_IWMPPlayer3_head():
+    class IWMPPlayer3(win32more.Media.MediaPlayer.IWMPCore2_head):
+        Guid = Guid('54062b68-052a-4c25-a3-9f-8b-63-34-65-11-d4')
+    return IWMPPlayer3
+def _define_IWMPPlayer3():
+    IWMPPlayer3 = win32more.Media.MediaPlayer.IWMPPlayer3_head
+    IWMPPlayer3.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(29, 'get_enabled', ((1, 'pbEnabled'),)))
+    IWMPPlayer3.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(30, 'put_enabled', ((1, 'bEnabled'),)))
+    IWMPPlayer3.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(31, 'get_fullScreen', ((1, 'pbFullScreen'),)))
+    IWMPPlayer3.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(32, 'put_fullScreen', ((1, 'bFullScreen'),)))
+    IWMPPlayer3.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(33, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
+    IWMPPlayer3.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(34, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
+    IWMPPlayer3.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(35, 'put_uiMode', ((1, 'bstrMode'),)))
+    IWMPPlayer3.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(36, 'get_uiMode', ((1, 'pbstrMode'),)))
+    IWMPPlayer3.get_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(37, 'get_stretchToFit', ((1, 'pbEnabled'),)))
+    IWMPPlayer3.put_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(38, 'put_stretchToFit', ((1, 'bEnabled'),)))
+    IWMPPlayer3.get_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(39, 'get_windowlessVideo', ((1, 'pbEnabled'),)))
+    IWMPPlayer3.put_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(40, 'put_windowlessVideo', ((1, 'bEnabled'),)))
+    win32more.Media.MediaPlayer.IWMPCore2
+    return IWMPPlayer3
+def _define_IWMPPlayer4_head():
+    class IWMPPlayer4(win32more.Media.MediaPlayer.IWMPCore3_head):
+        Guid = Guid('6c497d62-8919-413c-82-db-e9-35-fb-3e-c5-84')
+    return IWMPPlayer4
+def _define_IWMPPlayer4():
+    IWMPPlayer4 = win32more.Media.MediaPlayer.IWMPPlayer4_head
+    IWMPPlayer4.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(31, 'get_enabled', ((1, 'pbEnabled'),)))
+    IWMPPlayer4.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(32, 'put_enabled', ((1, 'bEnabled'),)))
+    IWMPPlayer4.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(33, 'get_fullScreen', ((1, 'pbFullScreen'),)))
+    IWMPPlayer4.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(34, 'put_fullScreen', ((1, 'bFullScreen'),)))
+    IWMPPlayer4.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(35, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
+    IWMPPlayer4.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(36, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
+    IWMPPlayer4.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(37, 'put_uiMode', ((1, 'bstrMode'),)))
+    IWMPPlayer4.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(38, 'get_uiMode', ((1, 'pbstrMode'),)))
+    IWMPPlayer4.get_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(39, 'get_stretchToFit', ((1, 'pbEnabled'),)))
+    IWMPPlayer4.put_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(40, 'put_stretchToFit', ((1, 'bEnabled'),)))
+    IWMPPlayer4.get_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(41, 'get_windowlessVideo', ((1, 'pbEnabled'),)))
+    IWMPPlayer4.put_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(42, 'put_windowlessVideo', ((1, 'bEnabled'),)))
+    IWMPPlayer4.get_isRemote = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(43, 'get_isRemote', ((1, 'pvarfIsRemote'),)))
+    IWMPPlayer4.get_playerApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlayerApplication_head))(44, 'get_playerApplication', ((1, 'ppIWMPPlayerApplication'),)))
+    IWMPPlayer4.openPlayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(45, 'openPlayer', ((1, 'bstrURL'),)))
+    win32more.Media.MediaPlayer.IWMPCore3
+    return IWMPPlayer4
+def _define_IWMPPlayerApplication_head():
+    class IWMPPlayerApplication(win32more.System.Com.IDispatch_head):
+        Guid = Guid('40897764-ceab-47be-ad-4a-8e-28-53-7f-9b-bf')
+    return IWMPPlayerApplication
+def _define_IWMPPlayerApplication():
+    IWMPPlayerApplication = win32more.Media.MediaPlayer.IWMPPlayerApplication_head
+    IWMPPlayerApplication.switchToPlayerApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'switchToPlayerApplication', ()))
+    IWMPPlayerApplication.switchToControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'switchToControl', ()))
+    IWMPPlayerApplication.get_playerDocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_playerDocked', ((1, 'pbPlayerDocked'),)))
+    IWMPPlayerApplication.get_hasDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'get_hasDisplay', ((1, 'pbHasDisplay'),)))
+    win32more.System.Com.IDispatch
+    return IWMPPlayerApplication
+def _define_IWMPPlayerServices_head():
+    class IWMPPlayerServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1d01fbdb-ade2-4c8d-98-42-c1-90-b9-5c-33-06')
+    return IWMPPlayerServices
+def _define_IWMPPlayerServices():
+    IWMPPlayerServices = win32more.Media.MediaPlayer.IWMPPlayerServices_head
+    IWMPPlayerServices.activateUIPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'activateUIPlugin', ((1, 'bstrPlugin'),)))
+    IWMPPlayerServices.setTaskPane = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'setTaskPane', ((1, 'bstrTaskPane'),)))
+    IWMPPlayerServices.setTaskPaneURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(5, 'setTaskPaneURL', ((1, 'bstrTaskPane'),(1, 'bstrURL'),(1, 'bstrFriendlyName'),)))
+    win32more.System.Com.IUnknown
+    return IWMPPlayerServices
+def _define_IWMPPlayerServices2_head():
+    class IWMPPlayerServices2(win32more.Media.MediaPlayer.IWMPPlayerServices_head):
+        Guid = Guid('1bb1592f-f040-418a-9f-71-17-c7-51-2b-4d-70')
+    return IWMPPlayerServices2
+def _define_IWMPPlayerServices2():
+    IWMPPlayerServices2 = win32more.Media.MediaPlayer.IWMPPlayerServices2_head
+    IWMPPlayerServices2.setBackgroundProcessingPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(6, 'setBackgroundProcessingPriority', ((1, 'bstrPriority'),)))
+    win32more.Media.MediaPlayer.IWMPPlayerServices
+    return IWMPPlayerServices2
+def _define_IWMPPlaylist_head():
+    class IWMPPlaylist(win32more.System.Com.IDispatch_head):
+        Guid = Guid('d5f0f4f1-130c-11d3-b1-4e-00-c0-4f-79-fa-a6')
+    return IWMPPlaylist
+def _define_IWMPPlaylist():
+    IWMPPlaylist = win32more.Media.MediaPlayer.IWMPPlaylist_head
+    IWMPPlaylist.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_count', ((1, 'plCount'),)))
+    IWMPPlaylist.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_name', ((1, 'pbstrName'),)))
+    IWMPPlaylist.put_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_name', ((1, 'bstrName'),)))
+    IWMPPlaylist.get_attributeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_attributeCount', ((1, 'plCount'),)))
+    IWMPPlaylist.get_attributeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(11, 'get_attributeName', ((1, 'lIndex'),(1, 'pbstrAttributeName'),)))
+    IWMPPlaylist.get_item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head))(12, 'get_item', ((1, 'lIndex'),(1, 'ppIWMPMedia'),)))
+    IWMPPlaylist.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(13, 'getItemInfo', ((1, 'bstrName'),(1, 'pbstrVal'),)))
+    IWMPPlaylist.setItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(14, 'setItemInfo', ((1, 'bstrName'),(1, 'bstrValue'),)))
+    IWMPPlaylist.get_isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.VARIANT_BOOL))(15, 'get_isIdentical', ((1, 'pIWMPPlaylist'),(1, 'pvbool'),)))
+    IWMPPlaylist.clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'clear', ()))
+    IWMPPlaylist.insertItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Media.MediaPlayer.IWMPMedia_head)(17, 'insertItem', ((1, 'lIndex'),(1, 'pIWMPMedia'),)))
+    IWMPPlaylist.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head)(18, 'appendItem', ((1, 'pIWMPMedia'),)))
+    IWMPPlaylist.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head)(19, 'removeItem', ((1, 'pIWMPMedia'),)))
+    IWMPPlaylist.moveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32)(20, 'moveItem', ((1, 'lIndexOld'),(1, 'lIndexNew'),)))
+    win32more.System.Com.IDispatch
+    return IWMPPlaylist
+def _define_IWMPPlaylistArray_head():
+    class IWMPPlaylistArray(win32more.System.Com.IDispatch_head):
+        Guid = Guid('679409c0-99f7-11d3-9f-b7-00-10-5a-a6-20-bb')
+    return IWMPPlaylistArray
+def _define_IWMPPlaylistArray():
+    IWMPPlaylistArray = win32more.Media.MediaPlayer.IWMPPlaylistArray_head
+    IWMPPlaylistArray.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_count', ((1, 'plCount'),)))
+    IWMPPlaylistArray.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(8, 'item', ((1, 'lIndex'),(1, 'ppItem'),)))
+    win32more.System.Com.IDispatch
+    return IWMPPlaylistArray
+def _define_IWMPPlaylistCollection_head():
+    class IWMPPlaylistCollection(win32more.System.Com.IDispatch_head):
+        Guid = Guid('10a13217-23a7-439b-b1-c0-d8-47-c7-9b-77-74')
+    return IWMPPlaylistCollection
+def _define_IWMPPlaylistCollection():
+    IWMPPlaylistCollection = win32more.Media.MediaPlayer.IWMPPlaylistCollection_head
+    IWMPPlaylistCollection.newPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(7, 'newPlaylist', ((1, 'bstrName'),(1, 'ppItem'),)))
+    IWMPPlaylistCollection.getAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylistArray_head))(8, 'getAll', ((1, 'ppPlaylistArray'),)))
+    IWMPPlaylistCollection.getByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylistArray_head))(9, 'getByName', ((1, 'bstrName'),(1, 'ppPlaylistArray'),)))
+    IWMPPlaylistCollection.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head)(10, 'remove', ((1, 'pItem'),)))
+    IWMPPlaylistCollection.setDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,win32more.Foundation.VARIANT_BOOL)(11, 'setDeleted', ((1, 'pItem'),(1, 'varfIsDeleted'),)))
+    IWMPPlaylistCollection.isDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'isDeleted', ((1, 'pItem'),(1, 'pvarfIsDeleted'),)))
+    IWMPPlaylistCollection.importPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head))(13, 'importPlaylist', ((1, 'pItem'),(1, 'ppImportedItem'),)))
+    win32more.System.Com.IDispatch
+    return IWMPPlaylistCollection
+def _define_IWMPPlugin_head():
+    class IWMPPlugin(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f1392a70-024c-42bb-a9-98-73-df-df-e7-d5-a7')
+    return IWMPPlugin
+def _define_IWMPPlugin():
+    IWMPPlugin = win32more.Media.MediaPlayer.IWMPPlugin_head
+    IWMPPlugin.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(3, 'Init', ((1, 'dwPlaybackContext'),)))
+    IWMPPlugin.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Shutdown', ()))
+    IWMPPlugin.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'GetID', ((1, 'pGUID'),)))
+    IWMPPlugin.GetCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetCaps', ((1, 'pdwFlags'),)))
+    IWMPPlugin.AdviseWMPServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPServices_head)(7, 'AdviseWMPServices', ((1, 'pWMPServices'),)))
+    IWMPPlugin.UnAdviseWMPServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'UnAdviseWMPServices', ()))
+    win32more.System.Com.IUnknown
+    return IWMPPlugin
+def _define_IWMPPluginEnable_head():
+    class IWMPPluginEnable(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5fca444c-7ad1-479d-a4-ef-40-56-6a-53-09-d6')
+    return IWMPPluginEnable
+def _define_IWMPPluginEnable():
+    IWMPPluginEnable = win32more.Media.MediaPlayer.IWMPPluginEnable_head
+    IWMPPluginEnable.SetEnable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(3, 'SetEnable', ((1, 'fEnable'),)))
+    IWMPPluginEnable.GetEnable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'GetEnable', ((1, 'pfEnable'),)))
+    win32more.System.Com.IUnknown
+    return IWMPPluginEnable
+def _define_IWMPPluginUI_head():
+    class IWMPPluginUI(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4c5e8f9f-ad3e-4bf9-97-53-fc-d3-0d-6d-38-dd')
+    return IWMPPluginUI
+def _define_IWMPPluginUI():
+    IWMPPluginUI = win32more.Media.MediaPlayer.IWMPPluginUI_head
+    IWMPPluginUI.SetCore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPCore_head)(3, 'SetCore', ((1, 'pCore'),)))
+    IWMPPluginUI.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.HWND))(4, 'Create', ((1, 'hwndParent'),(1, 'phwndWindow'),)))
+    IWMPPluginUI.Destroy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Destroy', ()))
+    IWMPPluginUI.DisplayPropertyPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(6, 'DisplayPropertyPage', ((1, 'hwndParent'),)))
+    IWMPPluginUI.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head))(7, 'GetProperty', ((1, 'pwszName'),(1, 'pvarProperty'),)))
+    IWMPPluginUI.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head))(8, 'SetProperty', ((1, 'pwszName'),(1, 'pvarProperty'),)))
+    IWMPPluginUI.TranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(9, 'TranslateAccelerator', ((1, 'lpmsg'),)))
+    win32more.System.Com.IUnknown
+    return IWMPPluginUI
+def _define_IWMPQuery_head():
+    class IWMPQuery(win32more.System.Com.IDispatch_head):
+        Guid = Guid('a00918f3-a6b0-4bfb-91-89-fd-83-4c-7b-c5-a5')
+    return IWMPQuery
+def _define_IWMPQuery():
+    IWMPQuery = win32more.Media.MediaPlayer.IWMPQuery_head
+    IWMPQuery.addCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(7, 'addCondition', ((1, 'bstrAttribute'),(1, 'bstrOperator'),(1, 'bstrValue'),)))
+    IWMPQuery.beginNextGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'beginNextGroup', ()))
+    win32more.System.Com.IDispatch
+    return IWMPQuery
+def _define_IWMPRemoteMediaServices_head():
+    class IWMPRemoteMediaServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cbb92747-741f-44fe-ab-5b-f1-a4-8f-3b-2a-59')
+    return IWMPRemoteMediaServices
+def _define_IWMPRemoteMediaServices():
+    IWMPRemoteMediaServices = win32more.Media.MediaPlayer.IWMPRemoteMediaServices_head
+    IWMPRemoteMediaServices.GetServiceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'GetServiceType', ((1, 'pbstrType'),)))
+    IWMPRemoteMediaServices.GetApplicationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'GetApplicationName', ((1, 'pbstrName'),)))
+    IWMPRemoteMediaServices.GetScriptableObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.IDispatch_head))(5, 'GetScriptableObject', ((1, 'pbstrName'),(1, 'ppDispatch'),)))
+    IWMPRemoteMediaServices.GetCustomUIMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'GetCustomUIMode', ((1, 'pbstrFile'),)))
+    win32more.System.Com.IUnknown
+    return IWMPRemoteMediaServices
+def _define_IWMPRenderConfig_head():
+    class IWMPRenderConfig(win32more.System.Com.IUnknown_head):
+        Guid = Guid('959506c1-0314-4ec5-9e-61-85-28-db-5e-54-78')
+    return IWMPRenderConfig
+def _define_IWMPRenderConfig():
+    IWMPRenderConfig = win32more.Media.MediaPlayer.IWMPRenderConfig_head
+    IWMPRenderConfig.put_inProcOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(3, 'put_inProcOnly', ((1, 'fInProc'),)))
+    IWMPRenderConfig.get_inProcOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_inProcOnly', ((1, 'pfInProc'),)))
+    win32more.System.Com.IUnknown
+    return IWMPRenderConfig
+def _define_IWMPServices_head():
+    class IWMPServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('afb6b76b-1e20-4198-83-b3-19-1d-b6-e0-b1-49')
+    return IWMPServices
+def _define_IWMPServices():
+    IWMPServices = win32more.Media.MediaPlayer.IWMPServices_head
+    IWMPServices.GetStreamTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(3, 'GetStreamTime', ((1, 'prt'),)))
+    IWMPServices.GetStreamState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPServices_StreamState))(4, 'GetStreamState', ((1, 'pState'),)))
+    win32more.System.Com.IUnknown
+    return IWMPServices
+def _define_IWMPSettings_head():
+    class IWMPSettings(win32more.System.Com.IDispatch_head):
+        Guid = Guid('9104d1ab-80c9-4fed-ab-f0-2e-64-17-a6-df-14')
+    return IWMPSettings
+def _define_IWMPSettings():
+    IWMPSettings = win32more.Media.MediaPlayer.IWMPSettings_head
+    IWMPSettings.get_isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
+    IWMPSettings.get_autoStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_autoStart', ((1, 'pfAutoStart'),)))
+    IWMPSettings.put_autoStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(9, 'put_autoStart', ((1, 'fAutoStart'),)))
+    IWMPSettings.get_baseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_baseURL', ((1, 'pbstrBaseURL'),)))
+    IWMPSettings.put_baseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'put_baseURL', ((1, 'bstrBaseURL'),)))
+    IWMPSettings.get_defaultFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_defaultFrame', ((1, 'pbstrDefaultFrame'),)))
+    IWMPSettings.put_defaultFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_defaultFrame', ((1, 'bstrDefaultFrame'),)))
+    IWMPSettings.get_invokeURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(14, 'get_invokeURLs', ((1, 'pfInvokeURLs'),)))
+    IWMPSettings.put_invokeURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(15, 'put_invokeURLs', ((1, 'fInvokeURLs'),)))
+    IWMPSettings.get_mute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_mute', ((1, 'pfMute'),)))
+    IWMPSettings.put_mute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(17, 'put_mute', ((1, 'fMute'),)))
+    IWMPSettings.get_playCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(18, 'get_playCount', ((1, 'plCount'),)))
+    IWMPSettings.put_playCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(19, 'put_playCount', ((1, 'lCount'),)))
+    IWMPSettings.get_rate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(20, 'get_rate', ((1, 'pdRate'),)))
+    IWMPSettings.put_rate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(21, 'put_rate', ((1, 'dRate'),)))
+    IWMPSettings.get_balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_balance', ((1, 'plBalance'),)))
+    IWMPSettings.put_balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(23, 'put_balance', ((1, 'lBalance'),)))
+    IWMPSettings.get_volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(24, 'get_volume', ((1, 'plVolume'),)))
+    IWMPSettings.put_volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(25, 'put_volume', ((1, 'lVolume'),)))
+    IWMPSettings.getMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(26, 'getMode', ((1, 'bstrMode'),(1, 'pvarfMode'),)))
+    IWMPSettings.setMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL)(27, 'setMode', ((1, 'bstrMode'),(1, 'varfMode'),)))
+    IWMPSettings.get_enableErrorDialogs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(28, 'get_enableErrorDialogs', ((1, 'pfEnableErrorDialogs'),)))
+    IWMPSettings.put_enableErrorDialogs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(29, 'put_enableErrorDialogs', ((1, 'fEnableErrorDialogs'),)))
+    win32more.System.Com.IDispatch
+    return IWMPSettings
+def _define_IWMPSettings2_head():
+    class IWMPSettings2(win32more.Media.MediaPlayer.IWMPSettings_head):
+        Guid = Guid('fda937a4-eece-4da5-a0-b6-39-bf-89-ad-e2-c2')
+    return IWMPSettings2
+def _define_IWMPSettings2():
+    IWMPSettings2 = win32more.Media.MediaPlayer.IWMPSettings2_head
+    IWMPSettings2.get_defaultAudioLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(30, 'get_defaultAudioLanguage', ((1, 'plLangID'),)))
+    IWMPSettings2.get_mediaAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(31, 'get_mediaAccessRights', ((1, 'pbstrRights'),)))
+    IWMPSettings2.requestMediaAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(32, 'requestMediaAccessRights', ((1, 'bstrDesiredAccess'),(1, 'pvbAccepted'),)))
+    win32more.Media.MediaPlayer.IWMPSettings
+    return IWMPSettings2
+def _define_IWMPSkinManager_head():
+    class IWMPSkinManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('076f2fa6-ed30-448b-8c-c5-3f-3e-f3-52-9c-7a')
+    return IWMPSkinManager
+def _define_IWMPSkinManager():
+    IWMPSkinManager = win32more.Media.MediaPlayer.IWMPSkinManager_head
+    IWMPSkinManager.SetVisualStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'SetVisualStyle', ((1, 'bstrPath'),)))
+    win32more.System.Com.IUnknown
+    return IWMPSkinManager
+def _define_IWMPStringCollection_head():
+    class IWMPStringCollection(win32more.System.Com.IDispatch_head):
+        Guid = Guid('4a976298-8c0d-11d3-b3-89-00-c0-4f-68-57-4b')
+    return IWMPStringCollection
+def _define_IWMPStringCollection():
+    IWMPStringCollection = win32more.Media.MediaPlayer.IWMPStringCollection_head
+    IWMPStringCollection.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_count', ((1, 'plCount'),)))
+    IWMPStringCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(8, 'item', ((1, 'lIndex'),(1, 'pbstrString'),)))
+    win32more.System.Com.IDispatch
+    return IWMPStringCollection
+def _define_IWMPStringCollection2_head():
+    class IWMPStringCollection2(win32more.Media.MediaPlayer.IWMPStringCollection_head):
+        Guid = Guid('46ad648d-53f1-4a74-92-e2-2a-1b-68-d6-3f-d4')
+    return IWMPStringCollection2
+def _define_IWMPStringCollection2():
+    IWMPStringCollection2 = win32more.Media.MediaPlayer.IWMPStringCollection2_head
+    IWMPStringCollection2.isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPStringCollection2_head,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'isIdentical', ((1, 'pIWMPStringCollection2'),(1, 'pvbool'),)))
+    IWMPStringCollection2.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(10, 'getItemInfo', ((1, 'lCollectionIndex'),(1, 'bstrItemName'),(1, 'pbstrValue'),)))
+    IWMPStringCollection2.getAttributeCountByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32))(11, 'getAttributeCountByType', ((1, 'lCollectionIndex'),(1, 'bstrType'),(1, 'bstrLanguage'),(1, 'plCount'),)))
+    IWMPStringCollection2.getItemInfoByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head))(12, 'getItemInfoByType', ((1, 'lCollectionIndex'),(1, 'bstrType'),(1, 'bstrLanguage'),(1, 'lAttributeIndex'),(1, 'pvarValue'),)))
+    win32more.Media.MediaPlayer.IWMPStringCollection
+    return IWMPStringCollection2
+def _define_IWMPSubscriptionService_head():
+    class IWMPSubscriptionService(win32more.System.Com.IUnknown_head):
+        Guid = Guid('376055f8-2a59-4a73-95-01-dc-a5-27-3a-7a-10')
+    return IWMPSubscriptionService
+def _define_IWMPSubscriptionService():
+    IWMPSubscriptionService = win32more.Media.MediaPlayer.IWMPSubscriptionService_head
+    IWMPSubscriptionService.allowPlay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Media.MediaPlayer.IWMPMedia_head,POINTER(win32more.Foundation.BOOL))(3, 'allowPlay', ((1, 'hwnd'),(1, 'pMedia'),(1, 'pfAllowPlay'),)))
+    IWMPSubscriptionService.allowCDBurn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.BOOL))(4, 'allowCDBurn', ((1, 'hwnd'),(1, 'pPlaylist'),(1, 'pfAllowBurn'),)))
+    IWMPSubscriptionService.allowPDATransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.BOOL))(5, 'allowPDATransfer', ((1, 'hwnd'),(1, 'pPlaylist'),(1, 'pfAllowTransfer'),)))
+    IWMPSubscriptionService.startBackgroundProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(6, 'startBackgroundProcessing', ((1, 'hwnd'),)))
+    win32more.System.Com.IUnknown
+    return IWMPSubscriptionService
+def _define_IWMPSubscriptionService2_head():
+    class IWMPSubscriptionService2(win32more.Media.MediaPlayer.IWMPSubscriptionService_head):
+        Guid = Guid('a94c120e-d600-4ec6-b0-5e-ec-9d-56-d8-4d-e0')
+    return IWMPSubscriptionService2
+def _define_IWMPSubscriptionService2():
+    IWMPSubscriptionService2 = win32more.Media.MediaPlayer.IWMPSubscriptionService2_head
+    IWMPSubscriptionService2.stopBackgroundProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'stopBackgroundProcessing', ()))
+    IWMPSubscriptionService2.serviceEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPSubscriptionServiceEvent)(8, 'serviceEvent', ((1, 'event'),)))
+    IWMPSubscriptionService2.deviceAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head)(9, 'deviceAvailable', ((1, 'bstrDeviceName'),(1, 'pCB'),)))
+    IWMPSubscriptionService2.prepareForSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head)(10, 'prepareForSync', ((1, 'bstrFilename'),(1, 'bstrDeviceName'),(1, 'pCB'),)))
+    win32more.Media.MediaPlayer.IWMPSubscriptionService
+    return IWMPSubscriptionService2
+def _define_IWMPSubscriptionServiceCallback_head():
+    class IWMPSubscriptionServiceCallback(win32more.System.Com.IUnknown_head):
+        Guid = Guid('dd01d127-2dc2-4c3a-87-6e-63-31-20-79-f9-b0')
+    return IWMPSubscriptionServiceCallback
+def _define_IWMPSubscriptionServiceCallback():
+    IWMPSubscriptionServiceCallback = win32more.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head
+    IWMPSubscriptionServiceCallback.onComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(3, 'onComplete', ((1, 'hrResult'),)))
+    win32more.System.Com.IUnknown
+    return IWMPSubscriptionServiceCallback
+def _define_IWMPSyncDevice_head():
+    class IWMPSyncDevice(win32more.System.Com.IUnknown_head):
+        Guid = Guid('82a2986c-0293-4fd0-b2-79-b2-1b-86-c0-58-be')
+    return IWMPSyncDevice
+def _define_IWMPSyncDevice():
+    IWMPSyncDevice = win32more.Media.MediaPlayer.IWMPSyncDevice_head
+    IWMPSyncDevice.get_friendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_friendlyName', ((1, 'pbstrName'),)))
+    IWMPSyncDevice.put_friendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'put_friendlyName', ((1, 'bstrName'),)))
+    IWMPSyncDevice.get_deviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_deviceName', ((1, 'pbstrName'),)))
+    IWMPSyncDevice.get_deviceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_deviceId', ((1, 'pbstrDeviceId'),)))
+    IWMPSyncDevice.get_partnershipIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_partnershipIndex', ((1, 'plIndex'),)))
+    IWMPSyncDevice.get_connected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_connected', ((1, 'pvbConnected'),)))
+    IWMPSyncDevice.get_status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPDeviceStatus))(9, 'get_status', ((1, 'pwmpds'),)))
+    IWMPSyncDevice.get_syncState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPSyncState))(10, 'get_syncState', ((1, 'pwmpss'),)))
+    IWMPSyncDevice.get_progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_progress', ((1, 'plProgress'),)))
+    IWMPSyncDevice.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(12, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
+    IWMPSyncDevice.createPartnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(13, 'createPartnership', ((1, 'vbShowUI'),)))
+    IWMPSyncDevice.deletePartnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'deletePartnership', ()))
+    IWMPSyncDevice.start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'start', ()))
+    IWMPSyncDevice.stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'stop', ()))
+    IWMPSyncDevice.showSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'showSettings', ()))
+    IWMPSyncDevice.isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPSyncDevice_head,POINTER(win32more.Foundation.VARIANT_BOOL))(18, 'isIdentical', ((1, 'pDevice'),(1, 'pvbool'),)))
+    win32more.System.Com.IUnknown
+    return IWMPSyncDevice
+def _define_IWMPSyncDevice2_head():
+    class IWMPSyncDevice2(win32more.Media.MediaPlayer.IWMPSyncDevice_head):
+        Guid = Guid('88afb4b2-140a-44d2-91-e6-45-43-da-46-7c-d1')
+    return IWMPSyncDevice2
+def _define_IWMPSyncDevice2():
+    IWMPSyncDevice2 = win32more.Media.MediaPlayer.IWMPSyncDevice2_head
+    IWMPSyncDevice2.setItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(19, 'setItemInfo', ((1, 'bstrItemName'),(1, 'bstrVal'),)))
+    win32more.Media.MediaPlayer.IWMPSyncDevice
+    return IWMPSyncDevice2
+def _define_IWMPSyncDevice3_head():
+    class IWMPSyncDevice3(win32more.Media.MediaPlayer.IWMPSyncDevice2_head):
+        Guid = Guid('b22c85f9-263c-4372-a0-da-b5-18-db-9b-40-98')
+    return IWMPSyncDevice3
+def _define_IWMPSyncDevice3():
+    IWMPSyncDevice3 = win32more.Media.MediaPlayer.IWMPSyncDevice3_head
+    IWMPSyncDevice3.estimateSyncSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,win32more.Media.MediaPlayer.IWMPPlaylist_head)(20, 'estimateSyncSize', ((1, 'pNonRulePlaylist'),(1, 'pRulesPlaylist'),)))
+    IWMPSyncDevice3.cancelEstimation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(21, 'cancelEstimation', ()))
+    win32more.Media.MediaPlayer.IWMPSyncDevice2
+    return IWMPSyncDevice3
+def _define_IWMPSyncServices_head():
+    class IWMPSyncServices(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8b5050ff-e0a4-4808-b3-a8-89-3a-9e-1e-d8-94')
+    return IWMPSyncServices
+def _define_IWMPSyncServices():
+    IWMPSyncServices = win32more.Media.MediaPlayer.IWMPSyncServices_head
+    IWMPSyncServices.get_deviceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_deviceCount', ((1, 'plCount'),)))
+    IWMPSyncServices.getDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPSyncDevice_head))(4, 'getDevice', ((1, 'lIndex'),(1, 'ppDevice'),)))
+    win32more.System.Com.IUnknown
+    return IWMPSyncServices
+def _define_IWMPTranscodePolicy_head():
+    class IWMPTranscodePolicy(win32more.System.Com.IUnknown_head):
+        Guid = Guid('b64cbac3-401c-4327-a3-e8-b9-fe-b3-a8-c2-5c')
+    return IWMPTranscodePolicy
+def _define_IWMPTranscodePolicy():
+    IWMPTranscodePolicy = win32more.Media.MediaPlayer.IWMPTranscodePolicy_head
+    IWMPTranscodePolicy.allowTranscode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(3, 'allowTranscode', ((1, 'pvbAllow'),)))
+    win32more.System.Com.IUnknown
+    return IWMPTranscodePolicy
+def _define_IWMPUserEventSink_head():
+    class IWMPUserEventSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cfccfa72-c343-48c3-a2-de-b7-a4-40-2e-39-f2')
+    return IWMPUserEventSink
+def _define_IWMPUserEventSink():
+    IWMPUserEventSink = win32more.Media.MediaPlayer.IWMPUserEventSink_head
+    IWMPUserEventSink.NotifyUserEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'NotifyUserEvent', ((1, 'EventCode'),)))
+    win32more.System.Com.IUnknown
+    return IWMPUserEventSink
+def _define_IWMPVideoRenderConfig_head():
+    class IWMPVideoRenderConfig(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6d6cf803-1ec0-4c8d-b3-ca-f1-8e-27-28-20-74')
+    return IWMPVideoRenderConfig
+def _define_IWMPVideoRenderConfig():
+    IWMPVideoRenderConfig = win32more.Media.MediaPlayer.IWMPVideoRenderConfig_head
+    IWMPVideoRenderConfig.put_presenterActivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFActivate_head)(3, 'put_presenterActivate', ((1, 'pActivate'),)))
+    win32more.System.Com.IUnknown
+    return IWMPVideoRenderConfig
+def _define_IWMPWindowMessageSink_head():
+    class IWMPWindowMessageSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('3a0daa30-908d-4789-ba-87-ae-d8-79-b5-c4-9b')
+    return IWMPWindowMessageSink
+def _define_IWMPWindowMessageSink():
+    IWMPWindowMessageSink = win32more.Media.MediaPlayer.IWMPWindowMessageSink_head
+    IWMPWindowMessageSink.OnWindowMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT),POINTER(win32more.Foundation.BOOL))(3, 'OnWindowMessage', ((1, 'uMsg'),(1, 'wparam'),(1, 'lparam'),(1, 'plRet'),(1, 'pfHandled'),)))
+    win32more.System.Com.IUnknown
+    return IWMPWindowMessageSink
+def _define_IXFeed_head():
+    class IXFeed(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a44179a4-e0f6-403b-af-8d-d0-80-f4-25-a4-51')
+    return IXFeed
+def _define_IXFeed():
+    IXFeed = win32more.Media.MediaPlayer.IXFeed_head
+    IXFeed.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaPlayer.FEEDS_XML_SORT_PROPERTY,win32more.Media.MediaPlayer.FEEDS_XML_SORT_ORDER,win32more.Media.MediaPlayer.FEEDS_XML_FILTER_FLAGS,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.System.Com.IStream_head))(3, 'Xml', ((1, 'uiItemCount'),(1, 'sortProperty'),(1, 'sortOrder'),(1, 'filterFlags'),(1, 'includeFlags'),(1, 'pps'),)))
+    IXFeed.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'Name', ((1, 'ppszName'),)))
+    IXFeed.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'Rename', ((1, 'pszName'),)))
+    IXFeed.Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'Url', ((1, 'ppszUrl'),)))
+    IXFeed.SetUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(7, 'SetUrl', ((1, 'pszUrl'),)))
+    IXFeed.LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(8, 'LocalId', ((1, 'pguid'),)))
+    IXFeed.Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(9, 'Path', ((1, 'ppszPath'),)))
+    IXFeed.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'Move', ((1, 'pszPath'),)))
+    IXFeed.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(11, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
+    IXFeed.LastWriteTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(12, 'LastWriteTime', ((1, 'pstLastWriteTime'),)))
+    IXFeed.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'Delete', ()))
+    IXFeed.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'Download', ()))
+    IXFeed.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'AsyncDownload', ()))
+    IXFeed.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'CancelAsyncDownload', ()))
+    IXFeed.SyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING))(17, 'SyncSetting', ((1, 'pfss'),)))
+    IXFeed.SetSyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING)(18, 'SetSyncSetting', ((1, 'fss'),)))
+    IXFeed.Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'Interval', ((1, 'puiInterval'),)))
+    IXFeed.SetInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(20, 'SetInterval', ((1, 'uiInterval'),)))
+    IXFeed.LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(21, 'LastDownloadTime', ((1, 'pstLastDownloadTime'),)))
+    IXFeed.LocalEnclosurePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(22, 'LocalEnclosurePath', ((1, 'ppszPath'),)))
+    IXFeed.Items = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IXFeedsEnum_head))(23, 'Items', ((1, 'ppfe'),)))
+    IXFeed.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(24, 'GetItem', ((1, 'uiId'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeed.MarkAllItemsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(25, 'MarkAllItemsRead', ()))
+    IXFeed.MaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(26, 'MaxItemCount', ((1, 'puiMaxItemCount'),)))
+    IXFeed.SetMaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(27, 'SetMaxItemCount', ((1, 'uiMaxItemCount'),)))
+    IXFeed.DownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(28, 'DownloadEnclosuresAutomatically', ((1, 'pbDownloadEnclosuresAutomatically'),)))
+    IXFeed.SetDownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(29, 'SetDownloadEnclosuresAutomatically', ((1, 'bDownloadEnclosuresAutomatically'),)))
+    IXFeed.DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS))(30, 'DownloadStatus', ((1, 'pfds'),)))
+    IXFeed.LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR))(31, 'LastDownloadError', ((1, 'pfde'),)))
+    IXFeed.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Foundation.PWSTR)(32, 'Merge', ((1, 'pStream'),(1, 'pszUrl'),)))
+    IXFeed.DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(33, 'DownloadUrl', ((1, 'ppszUrl'),)))
+    IXFeed.Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(34, 'Title', ((1, 'ppszTitle'),)))
+    IXFeed.Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(35, 'Description', ((1, 'ppszDescription'),)))
+    IXFeed.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(36, 'Link', ((1, 'ppszHomePage'),)))
+    IXFeed.Image = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(37, 'Image', ((1, 'ppszImageUrl'),)))
+    IXFeed.LastBuildDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(38, 'LastBuildDate', ((1, 'pstLastBuildDate'),)))
+    IXFeed.PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(39, 'PubDate', ((1, 'pstPubDate'),)))
+    IXFeed.Ttl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(40, 'Ttl', ((1, 'puiTtl'),)))
+    IXFeed.Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(41, 'Language', ((1, 'ppszLanguage'),)))
+    IXFeed.Copyright = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(42, 'Copyright', ((1, 'ppszCopyright'),)))
+    IXFeed.IsList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(43, 'IsList', ((1, 'pbIsList'),)))
+    IXFeed.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(Guid),POINTER(c_void_p))(44, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeed.UnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(45, 'UnreadItemCount', ((1, 'puiUnreadItemCount'),)))
+    IXFeed.ItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(46, 'ItemCount', ((1, 'puiItemCount'),)))
+    win32more.System.Com.IUnknown
+    return IXFeed
+def _define_IXFeed2_head():
+    class IXFeed2(win32more.Media.MediaPlayer.IXFeed_head):
+        Guid = Guid('ce528e77-3716-4eb7-95-6d-f5-e3-75-02-e1-2a')
+    return IXFeed2
+def _define_IXFeed2():
+    IXFeed2 = win32more.Media.MediaPlayer.IXFeed2_head
+    IXFeed2.GetItemByEffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(47, 'GetItemByEffectiveId', ((1, 'uiEffectiveId'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeed2.LastItemDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(48, 'LastItemDownloadTime', ((1, 'pstLastItemDownloadTime'),)))
+    IXFeed2.Username = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(49, 'Username', ((1, 'ppszUsername'),)))
+    IXFeed2.Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(50, 'Password', ((1, 'ppszPassword'),)))
+    IXFeed2.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(51, 'SetCredentials', ((1, 'pszUsername'),(1, 'pszPassword'),)))
+    IXFeed2.ClearCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(52, 'ClearCredentials', ()))
+    win32more.Media.MediaPlayer.IXFeed
+    return IXFeed2
+def _define_IXFeedEnclosure_head():
+    class IXFeedEnclosure(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bfbfb953-644f-4792-b6-9c-df-ac-a4-cb-f8-9a')
+    return IXFeedEnclosure
+def _define_IXFeedEnclosure():
+    IXFeedEnclosure = win32more.Media.MediaPlayer.IXFeedEnclosure_head
+    IXFeedEnclosure.Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'Url', ((1, 'ppszUrl'),)))
+    IXFeedEnclosure.Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'Type', ((1, 'ppszMimeType'),)))
+    IXFeedEnclosure.Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'Length', ((1, 'puiLength'),)))
+    IXFeedEnclosure.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'AsyncDownload', ()))
+    IXFeedEnclosure.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'CancelAsyncDownload', ()))
+    IXFeedEnclosure.DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS))(8, 'DownloadStatus', ((1, 'pfds'),)))
+    IXFeedEnclosure.LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR))(9, 'LastDownloadError', ((1, 'pfde'),)))
+    IXFeedEnclosure.LocalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'LocalPath', ((1, 'ppszPath'),)))
+    IXFeedEnclosure.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(11, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
+    IXFeedEnclosure.DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(12, 'DownloadUrl', ((1, 'ppszUrl'),)))
+    IXFeedEnclosure.DownloadMimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(13, 'DownloadMimeType', ((1, 'ppszMimeType'),)))
+    IXFeedEnclosure.RemoveFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'RemoveFile', ()))
+    IXFeedEnclosure.SetFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(15, 'SetFile', ((1, 'pszDownloadUrl'),(1, 'pszDownloadFilePath'),(1, 'pszDownloadMimeType'),(1, 'pszEnclosureFilename'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedEnclosure
+def _define_IXFeedEvents_head():
+    class IXFeedEvents(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1630852e-1263-465b-98-e5-fe-60-ff-ec-4a-c2')
+    return IXFeedEvents
+def _define_IXFeedEvents():
+    IXFeedEvents = win32more.Media.MediaPlayer.IXFeedEvents_head
+    IXFeedEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Error', ()))
+    IXFeedEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'FeedDeleted', ((1, 'pszPath'),)))
+    IXFeedEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(5, 'FeedRenamed', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(6, 'FeedUrlChanged', ((1, 'pszPath'),)))
+    IXFeedEvents.FeedMoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(7, 'FeedMoved', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(8, 'FeedDownloading', ((1, 'pszPath'),)))
+    IXFeedEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR)(9, 'FeedDownloadCompleted', ((1, 'pszPath'),(1, 'fde'),)))
+    IXFeedEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(10, 'FeedItemCountChanged', ((1, 'pszPath'),(1, 'feicfFlags'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedEvents
+def _define_IXFeedFolder_head():
+    class IXFeedFolder(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4c963678-3a51-4b88-85-31-98-b9-0b-65-08-f2')
+    return IXFeedFolder
+def _define_IXFeedFolder():
+    IXFeedFolder = win32more.Media.MediaPlayer.IXFeedFolder_head
+    IXFeedFolder.Feeds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IXFeedsEnum_head))(3, 'Feeds', ((1, 'ppfe'),)))
+    IXFeedFolder.Subfolders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IXFeedsEnum_head))(4, 'Subfolders', ((1, 'ppfe'),)))
+    IXFeedFolder.CreateFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(5, 'CreateFeed', ((1, 'pszName'),(1, 'pszUrl'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedFolder.CreateSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(6, 'CreateSubfolder', ((1, 'pszName'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedFolder.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(7, 'ExistsFeed', ((1, 'pszName'),(1, 'pbFeedExists'),)))
+    IXFeedFolder.ExistsSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(8, 'ExistsSubfolder', ((1, 'pszName'),(1, 'pbSubfolderExists'),)))
+    IXFeedFolder.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(9, 'GetFeed', ((1, 'pszName'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedFolder.GetSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(10, 'GetSubfolder', ((1, 'pszName'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedFolder.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Delete', ()))
+    IXFeedFolder.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(12, 'Name', ((1, 'ppszName'),)))
+    IXFeedFolder.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(13, 'Rename', ((1, 'pszName'),)))
+    IXFeedFolder.Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(14, 'Path', ((1, 'ppszPath'),)))
+    IXFeedFolder.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(15, 'Move', ((1, 'pszPath'),)))
+    IXFeedFolder.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(16, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
+    IXFeedFolder.IsRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(17, 'IsRoot', ((1, 'pbIsRootFeedFolder'),)))
+    IXFeedFolder.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(Guid),POINTER(c_void_p))(18, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedFolder.TotalUnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'TotalUnreadItemCount', ((1, 'puiTotalUnreadItemCount'),)))
+    IXFeedFolder.TotalItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(20, 'TotalItemCount', ((1, 'puiTotalItemCount'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedFolder
+def _define_IXFeedFolderEvents_head():
+    class IXFeedFolderEvents(win32more.System.Com.IUnknown_head):
+        Guid = Guid('7964b769-234a-4bb1-a5-f4-90-45-4c-8a-d0-7e')
+    return IXFeedFolderEvents
+def _define_IXFeedFolderEvents():
+    IXFeedFolderEvents = win32more.Media.MediaPlayer.IXFeedFolderEvents_head
+    IXFeedFolderEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Error', ()))
+    IXFeedFolderEvents.FolderAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'FolderAdded', ((1, 'pszPath'),)))
+    IXFeedFolderEvents.FolderDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'FolderDeleted', ((1, 'pszPath'),)))
+    IXFeedFolderEvents.FolderRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(6, 'FolderRenamed', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedFolderEvents.FolderMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(7, 'FolderMovedFrom', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedFolderEvents.FolderMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(8, 'FolderMovedTo', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedFolderEvents.FolderItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(9, 'FolderItemCountChanged', ((1, 'pszPath'),(1, 'feicfFlags'),)))
+    IXFeedFolderEvents.FeedAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'FeedAdded', ((1, 'pszPath'),)))
+    IXFeedFolderEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(11, 'FeedDeleted', ((1, 'pszPath'),)))
+    IXFeedFolderEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(12, 'FeedRenamed', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedFolderEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(13, 'FeedUrlChanged', ((1, 'pszPath'),)))
+    IXFeedFolderEvents.FeedMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(14, 'FeedMovedFrom', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedFolderEvents.FeedMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(15, 'FeedMovedTo', ((1, 'pszPath'),(1, 'pszOldPath'),)))
+    IXFeedFolderEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(16, 'FeedDownloading', ((1, 'pszPath'),)))
+    IXFeedFolderEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR)(17, 'FeedDownloadCompleted', ((1, 'pszPath'),(1, 'fde'),)))
+    IXFeedFolderEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(18, 'FeedItemCountChanged', ((1, 'pszPath'),(1, 'feicfFlags'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedFolderEvents
+def _define_IXFeedItem_head():
+    class IXFeedItem(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e757b2f5-e73e-434e-a1-bf-2b-d7-c3-e6-0f-cb')
+    return IXFeedItem
+def _define_IXFeedItem():
+    IXFeedItem = win32more.Media.MediaPlayer.IXFeedItem_head
+    IXFeedItem.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.System.Com.IStream_head))(3, 'Xml', ((1, 'fxif'),(1, 'pps'),)))
+    IXFeedItem.Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'Title', ((1, 'ppszTitle'),)))
+    IXFeedItem.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(5, 'Link', ((1, 'ppszUrl'),)))
+    IXFeedItem.Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'Guid', ((1, 'ppszGuid'),)))
+    IXFeedItem.Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'Description', ((1, 'ppszDescription'),)))
+    IXFeedItem.PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(8, 'PubDate', ((1, 'pstPubDate'),)))
+    IXFeedItem.Comments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(9, 'Comments', ((1, 'ppszUrl'),)))
+    IXFeedItem.Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'Author', ((1, 'ppszAuthor'),)))
+    IXFeedItem.Enclosure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(11, 'Enclosure', ((1, 'riid'),(1, 'ppv'),)))
+    IXFeedItem.IsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'IsRead', ((1, 'pbIsRead'),)))
+    IXFeedItem.SetIsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(13, 'SetIsRead', ((1, 'bIsRead'),)))
+    IXFeedItem.LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(14, 'LocalId', ((1, 'puiId'),)))
+    IXFeedItem.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(15, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
+    IXFeedItem.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'Delete', ()))
+    IXFeedItem.DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(17, 'DownloadUrl', ((1, 'ppszUrl'),)))
+    IXFeedItem.LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(18, 'LastDownloadTime', ((1, 'pstLastDownloadTime'),)))
+    IXFeedItem.Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head))(19, 'Modified', ((1, 'pstModifiedTime'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedItem
+def _define_IXFeedItem2_head():
+    class IXFeedItem2(win32more.Media.MediaPlayer.IXFeedItem_head):
+        Guid = Guid('6cda2dc7-9013-4522-99-70-2a-9d-d9-ea-d5-a3')
+    return IXFeedItem2
+def _define_IXFeedItem2():
+    IXFeedItem2 = win32more.Media.MediaPlayer.IXFeedItem2_head
+    IXFeedItem2.EffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(20, 'EffectiveId', ((1, 'puiEffectiveId'),)))
+    win32more.Media.MediaPlayer.IXFeedItem
+    return IXFeedItem2
+def _define_IXFeedsEnum_head():
+    class IXFeedsEnum(win32more.System.Com.IUnknown_head):
+        Guid = Guid('dc43a9d5-5015-4301-8c-96-a4-74-34-b4-d6-58')
+    return IXFeedsEnum
+def _define_IXFeedsEnum():
+    IXFeedsEnum = win32more.Media.MediaPlayer.IXFeedsEnum_head
+    IXFeedsEnum.Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'Count', ((1, 'puiCount'),)))
+    IXFeedsEnum.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(4, 'Item', ((1, 'uiIndex'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedsEnum
+def _define_IXFeedsManager_head():
+    class IXFeedsManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5357e238-fb12-4aca-a9-30-ca-b7-83-2b-84-bf')
+    return IXFeedsManager
+def _define_IXFeedsManager():
+    IXFeedsManager = win32more.Media.MediaPlayer.IXFeedsManager_head
+    IXFeedsManager.RootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(3, 'RootFolder', ((1, 'riid'),(1, 'ppv'),)))
+    IXFeedsManager.IsSubscribed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(4, 'IsSubscribed', ((1, 'pszUrl'),(1, 'pbSubscribed'),)))
+    IXFeedsManager.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(5, 'ExistsFeed', ((1, 'pszPath'),(1, 'pbFeedExists'),)))
+    IXFeedsManager.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(6, 'GetFeed', ((1, 'pszPath'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedsManager.GetFeedByUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(7, 'GetFeedByUrl', ((1, 'pszUrl'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedsManager.ExistsFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(8, 'ExistsFolder', ((1, 'pszPath'),(1, 'pbFolderExists'),)))
+    IXFeedsManager.GetFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(9, 'GetFolder', ((1, 'pszPath'),(1, 'riid'),(1, 'ppv'),)))
+    IXFeedsManager.DeleteFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'DeleteFeed', ((1, 'pszPath'),)))
+    IXFeedsManager.DeleteFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(11, 'DeleteFolder', ((1, 'pszPath'),)))
+    IXFeedsManager.BackgroundSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_ACTION)(12, 'BackgroundSync', ((1, 'fbsa'),)))
+    IXFeedsManager.BackgroundSyncStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_STATUS))(13, 'BackgroundSyncStatus', ((1, 'pfbss'),)))
+    IXFeedsManager.DefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(14, 'DefaultInterval', ((1, 'puiInterval'),)))
+    IXFeedsManager.SetDefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(15, 'SetDefaultInterval', ((1, 'uiInterval'),)))
+    IXFeedsManager.AsyncSyncAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'AsyncSyncAll', ()))
+    IXFeedsManager.Normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.System.Com.IStream_head))(17, 'Normalize', ((1, 'pStreamIn'),(1, 'ppStreamOut'),)))
+    IXFeedsManager.ItemCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(18, 'ItemCountLimit', ((1, 'puiItemCountLimit'),)))
+    win32more.System.Com.IUnknown
+    return IXFeedsManager
+PlayerState = Int32
+stop_state = 0
+pause_state = 1
+play_state = 2
+def _define_TimedLevel_head():
+    class TimedLevel(Structure):
+        pass
+    return TimedLevel
+def _define_TimedLevel():
+    TimedLevel = win32more.Media.MediaPlayer.TimedLevel_head
+    TimedLevel._fields_ = [
+        ('frequency', Byte * 2048),
+        ('waveform', Byte * 2048),
+        ('state', Int32),
+        ('timeStamp', Int64),
+    ]
+    return TimedLevel
+WindowsMediaPlayer = Guid('6bf52a52-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+def _define_WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC_head():
+    class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(Structure):
+        pass
+    return WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC
+def _define_WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC():
+    WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC = win32more.Media.MediaPlayer.WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC_head
+    WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC._pack_ = 1
+    WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC._fields_ = [
+        ('dwCurrentTransactionID', UInt32),
+        ('dwReturnedObjectCount', UInt32),
+        ('dwUnretrievedObjectCount', UInt32),
+        ('dwDeletedObjectStartingOffset', UInt32),
+        ('dwFlags', UInt32),
+        ('wsObjectPathnameList', Char * 1),
+    ]
+    return WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC
+def _define_WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE_head():
+    class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(Structure):
+        pass
+    return WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE
+def _define_WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE():
+    WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE = win32more.Media.MediaPlayer.WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE_head
+    WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE._pack_ = 1
+    WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE._fields_ = [
+        ('dwChangesSinceTransactionID', UInt32),
+        ('dwResultSetStartingIndex', UInt32),
+    ]
+    return WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE
+WMPAccountType = Int32
+WMPAccountType_wmpatBuyOnly = 1
+WMPAccountType_wmpatSubscription = 2
+WMPAccountType_wmpatJanus = 3
+WMPBurnFormat = Int32
+WMPBurnFormat_wmpbfAudioCD = 0
+WMPBurnFormat_wmpbfDataCD = 1
+WMPBurnState = Int32
+WMPBurnState_wmpbsUnknown = 0
+WMPBurnState_wmpbsBusy = 1
+WMPBurnState_wmpbsReady = 2
+WMPBurnState_wmpbsWaitingForDisc = 3
+WMPBurnState_wmpbsRefreshStatusPending = 4
+WMPBurnState_wmpbsPreparingToBurn = 5
+WMPBurnState_wmpbsBurning = 6
+WMPBurnState_wmpbsStopped = 7
+WMPBurnState_wmpbsErasing = 8
+WMPBurnState_wmpbsDownloading = 9
+WMPCallbackNotification = Int32
+WMPCallbackNotification_wmpcnLoginStateChange = 1
+WMPCallbackNotification_wmpcnAuthResult = 2
+WMPCallbackNotification_wmpcnLicenseUpdated = 3
+WMPCallbackNotification_wmpcnNewCatalogAvailable = 4
+WMPCallbackNotification_wmpcnNewPluginAvailable = 5
+WMPCallbackNotification_wmpcnDisableRadioSkipping = 6
+def _define_WMPContextMenuInfo_head():
+    class WMPContextMenuInfo(Structure):
+        pass
+    return WMPContextMenuInfo
+def _define_WMPContextMenuInfo():
+    WMPContextMenuInfo = win32more.Media.MediaPlayer.WMPContextMenuInfo_head
+    WMPContextMenuInfo._fields_ = [
+        ('dwID', UInt32),
+        ('bstrMenuText', win32more.Foundation.BSTR),
+        ('bstrHelpText', win32more.Foundation.BSTR),
+    ]
+    return WMPContextMenuInfo
+WMPDeviceStatus = Int32
+WMPDeviceStatus_wmpdsUnknown = 0
+WMPDeviceStatus_wmpdsPartnershipExists = 1
+WMPDeviceStatus_wmpdsPartnershipDeclined = 2
+WMPDeviceStatus_wmpdsPartnershipAnother = 3
+WMPDeviceStatus_wmpdsManualDevice = 4
+WMPDeviceStatus_wmpdsNewDevice = 5
+WMPDeviceStatus_wmpdsLast = 6
+WMPFolderScanState = Int32
+WMPFolderScanState_wmpfssUnknown = 0
+WMPFolderScanState_wmpfssScanning = 1
+WMPFolderScanState_wmpfssUpdating = 2
+WMPFolderScanState_wmpfssStopped = 3
+WMPLib = Guid('6bf52a50-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+WMPLibraryType = Int32
+WMPLibraryType_wmpltUnknown = 0
+WMPLibraryType_wmpltAll = 1
+WMPLibraryType_wmpltLocal = 2
+WMPLibraryType_wmpltRemote = 3
+WMPLibraryType_wmpltDisc = 4
+WMPLibraryType_wmpltPortableDevice = 5
 WMPOpenState = Int32
 WMPOpenState_wmposUndefined = 0
 WMPOpenState_wmposPlaylistChanging = 1
@@ -721,6 +2660,24 @@ WMPOpenState_wmposBeginIndividualization = 18
 WMPOpenState_wmposEndIndividualization = 19
 WMPOpenState_wmposMediaWaiting = 20
 WMPOpenState_wmposOpeningUnknownURL = 21
+WMPPartnerNotification = Int32
+WMPPartnerNotification_wmpsnBackgroundProcessingBegin = 1
+WMPPartnerNotification_wmpsnBackgroundProcessingEnd = 2
+WMPPartnerNotification_wmpsnCatalogDownloadFailure = 3
+WMPPartnerNotification_wmpsnCatalogDownloadComplete = 4
+WMPPlaylistChangeEventType = Int32
+WMPPlaylistChangeEventType_wmplcUnknown = 0
+WMPPlaylistChangeEventType_wmplcClear = 1
+WMPPlaylistChangeEventType_wmplcInfoChange = 2
+WMPPlaylistChangeEventType_wmplcMove = 3
+WMPPlaylistChangeEventType_wmplcDelete = 4
+WMPPlaylistChangeEventType_wmplcInsert = 5
+WMPPlaylistChangeEventType_wmplcAppend = 6
+WMPPlaylistChangeEventType_wmplcPrivate = 7
+WMPPlaylistChangeEventType_wmplcNameChange = 8
+WMPPlaylistChangeEventType_wmplcMorph = 9
+WMPPlaylistChangeEventType_wmplcSort = 10
+WMPPlaylistChangeEventType_wmplcLast = 11
 WMPPlayState = Int32
 WMPPlayState_wmppsUndefined = 0
 WMPPlayState_wmppsStopped = 1
@@ -735,637 +2692,22 @@ WMPPlayState_wmppsTransitioning = 9
 WMPPlayState_wmppsReady = 10
 WMPPlayState_wmppsReconnecting = 11
 WMPPlayState_wmppsLast = 12
-WMPPlaylistChangeEventType = Int32
-WMPPlaylistChangeEventType_wmplcUnknown = 0
-WMPPlaylistChangeEventType_wmplcClear = 1
-WMPPlaylistChangeEventType_wmplcInfoChange = 2
-WMPPlaylistChangeEventType_wmplcMove = 3
-WMPPlaylistChangeEventType_wmplcDelete = 4
-WMPPlaylistChangeEventType_wmplcInsert = 5
-WMPPlaylistChangeEventType_wmplcAppend = 6
-WMPPlaylistChangeEventType_wmplcPrivate = 7
-WMPPlaylistChangeEventType_wmplcNameChange = 8
-WMPPlaylistChangeEventType_wmplcMorph = 9
-WMPPlaylistChangeEventType_wmplcSort = 10
-WMPPlaylistChangeEventType_wmplcLast = 11
-def _define_IWMPErrorItem_head():
-    class IWMPErrorItem(win32more.System.Com.IDispatch_head):
-        Guid = Guid('3614c646-3b3b-4de7-a81e-930e3f2127b3')
-    return IWMPErrorItem
-def _define_IWMPErrorItem():
-    IWMPErrorItem = win32more.Media.MediaPlayer.IWMPErrorItem_head
-    IWMPErrorItem.get_errorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_errorCode', ((1, 'phr'),)))
-    IWMPErrorItem.get_errorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_errorDescription', ((1, 'pbstrDescription'),)))
-    IWMPErrorItem.get_errorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_errorContext', ((1, 'pvarContext'),)))
-    IWMPErrorItem.get_remedy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_remedy', ((1, 'plRemedy'),)))
-    IWMPErrorItem.get_customUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_customUrl', ((1, 'pbstrCustomUrl'),)))
-    win32more.System.Com.IDispatch
-    return IWMPErrorItem
-def _define_IWMPError_head():
-    class IWMPError(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a12dcf7d-14ab-4c1b-a8cd-63909f06025b')
-    return IWMPError
-def _define_IWMPError():
-    IWMPError = win32more.Media.MediaPlayer.IWMPError_head
-    IWMPError.clearErrorQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'clearErrorQueue', ()))
-    IWMPError.get_errorCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_errorCount', ((1, 'plNumErrors'),)))
-    IWMPError.get_item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPErrorItem_head), use_last_error=False)(9, 'get_item', ((1, 'dwIndex'),(1, 'ppErrorItem'),)))
-    IWMPError.webHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'webHelp', ()))
-    win32more.System.Com.IDispatch
-    return IWMPError
-def _define_IWMPMedia_head():
-    class IWMPMedia(win32more.System.Com.IDispatch_head):
-        Guid = Guid('94d55e95-3fac-11d3-b155-00c04f79faa6')
-    return IWMPMedia
-def _define_IWMPMedia():
-    IWMPMedia = win32more.Media.MediaPlayer.IWMPMedia_head
-    IWMPMedia.get_isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,POINTER(Int16), use_last_error=False)(7, 'get_isIdentical', ((1, 'pIWMPMedia'),(1, 'pvbool'),)))
-    IWMPMedia.get_sourceURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_sourceURL', ((1, 'pbstrSourceURL'),)))
-    IWMPMedia.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_name', ((1, 'pbstrName'),)))
-    IWMPMedia.put_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_name', ((1, 'bstrName'),)))
-    IWMPMedia.get_imageSourceWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_imageSourceWidth', ((1, 'pWidth'),)))
-    IWMPMedia.get_imageSourceHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_imageSourceHeight', ((1, 'pHeight'),)))
-    IWMPMedia.get_markerCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_markerCount', ((1, 'pMarkerCount'),)))
-    IWMPMedia.getMarkerTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Double), use_last_error=False)(14, 'getMarkerTime', ((1, 'MarkerNum'),(1, 'pMarkerTime'),)))
-    IWMPMedia.getMarkerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'getMarkerName', ((1, 'MarkerNum'),(1, 'pbstrMarkerName'),)))
-    IWMPMedia.get_duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(16, 'get_duration', ((1, 'pDuration'),)))
-    IWMPMedia.get_durationString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_durationString', ((1, 'pbstrDuration'),)))
-    IWMPMedia.get_attributeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_attributeCount', ((1, 'plCount'),)))
-    IWMPMedia.getAttributeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'getAttributeName', ((1, 'lIndex'),(1, 'pbstrItemName'),)))
-    IWMPMedia.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
-    IWMPMedia.setItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(21, 'setItemInfo', ((1, 'bstrItemName'),(1, 'bstrVal'),)))
-    IWMPMedia.getItemInfoByAtom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'getItemInfoByAtom', ((1, 'lAtom'),(1, 'pbstrVal'),)))
-    IWMPMedia.isMemberOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(Int16), use_last_error=False)(23, 'isMemberOf', ((1, 'pPlaylist'),(1, 'pvarfIsMemberOf'),)))
-    IWMPMedia.isReadOnlyItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(24, 'isReadOnlyItem', ((1, 'bstrItemName'),(1, 'pvarfIsReadOnly'),)))
-    win32more.System.Com.IDispatch
-    return IWMPMedia
-def _define_IWMPControls_head():
-    class IWMPControls(win32more.System.Com.IDispatch_head):
-        Guid = Guid('74c09e02-f828-11d2-a74b-00a0c905f36e')
-    return IWMPControls
-def _define_IWMPControls():
-    IWMPControls = win32more.Media.MediaPlayer.IWMPControls_head
-    IWMPControls.get_isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(7, 'get_isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
-    IWMPControls.play = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'play', ()))
-    IWMPControls.stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'stop', ()))
-    IWMPControls.pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'pause', ()))
-    IWMPControls.fastForward = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'fastForward', ()))
-    IWMPControls.fastReverse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'fastReverse', ()))
-    IWMPControls.get_currentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(13, 'get_currentPosition', ((1, 'pdCurrentPosition'),)))
-    IWMPControls.put_currentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(14, 'put_currentPosition', ((1, 'dCurrentPosition'),)))
-    IWMPControls.get_currentPositionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_currentPositionString', ((1, 'pbstrCurrentPosition'),)))
-    IWMPControls.next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'next', ()))
-    IWMPControls.previous = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'previous', ()))
-    IWMPControls.get_currentItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head), use_last_error=False)(18, 'get_currentItem', ((1, 'ppIWMPMedia'),)))
-    IWMPControls.put_currentItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(19, 'put_currentItem', ((1, 'pIWMPMedia'),)))
-    IWMPControls.get_currentMarker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(20, 'get_currentMarker', ((1, 'plMarker'),)))
-    IWMPControls.put_currentMarker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(21, 'put_currentMarker', ((1, 'lMarker'),)))
-    IWMPControls.playItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(22, 'playItem', ((1, 'pIWMPMedia'),)))
-    win32more.System.Com.IDispatch
-    return IWMPControls
-def _define_IWMPSettings_head():
-    class IWMPSettings(win32more.System.Com.IDispatch_head):
-        Guid = Guid('9104d1ab-80c9-4fed-abf0-2e6417a6df14')
-    return IWMPSettings
-def _define_IWMPSettings():
-    IWMPSettings = win32more.Media.MediaPlayer.IWMPSettings_head
-    IWMPSettings.get_isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(7, 'get_isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
-    IWMPSettings.get_autoStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_autoStart', ((1, 'pfAutoStart'),)))
-    IWMPSettings.put_autoStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'put_autoStart', ((1, 'fAutoStart'),)))
-    IWMPSettings.get_baseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_baseURL', ((1, 'pbstrBaseURL'),)))
-    IWMPSettings.put_baseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_baseURL', ((1, 'bstrBaseURL'),)))
-    IWMPSettings.get_defaultFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_defaultFrame', ((1, 'pbstrDefaultFrame'),)))
-    IWMPSettings.put_defaultFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_defaultFrame', ((1, 'bstrDefaultFrame'),)))
-    IWMPSettings.get_invokeURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_invokeURLs', ((1, 'pfInvokeURLs'),)))
-    IWMPSettings.put_invokeURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(15, 'put_invokeURLs', ((1, 'fInvokeURLs'),)))
-    IWMPSettings.get_mute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_mute', ((1, 'pfMute'),)))
-    IWMPSettings.put_mute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_mute', ((1, 'fMute'),)))
-    IWMPSettings.get_playCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_playCount', ((1, 'plCount'),)))
-    IWMPSettings.put_playCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(19, 'put_playCount', ((1, 'lCount'),)))
-    IWMPSettings.get_rate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(20, 'get_rate', ((1, 'pdRate'),)))
-    IWMPSettings.put_rate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(21, 'put_rate', ((1, 'dRate'),)))
-    IWMPSettings.get_balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_balance', ((1, 'plBalance'),)))
-    IWMPSettings.put_balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(23, 'put_balance', ((1, 'lBalance'),)))
-    IWMPSettings.get_volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_volume', ((1, 'plVolume'),)))
-    IWMPSettings.put_volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(25, 'put_volume', ((1, 'lVolume'),)))
-    IWMPSettings.getMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(26, 'getMode', ((1, 'bstrMode'),(1, 'pvarfMode'),)))
-    IWMPSettings.setMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(27, 'setMode', ((1, 'bstrMode'),(1, 'varfMode'),)))
-    IWMPSettings.get_enableErrorDialogs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_enableErrorDialogs', ((1, 'pfEnableErrorDialogs'),)))
-    IWMPSettings.put_enableErrorDialogs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(29, 'put_enableErrorDialogs', ((1, 'fEnableErrorDialogs'),)))
-    win32more.System.Com.IDispatch
-    return IWMPSettings
-def _define_IWMPClosedCaption_head():
-    class IWMPClosedCaption(win32more.System.Com.IDispatch_head):
-        Guid = Guid('4f2df574-c588-11d3-9ed0-00c04fb6e937')
-    return IWMPClosedCaption
-def _define_IWMPClosedCaption():
-    IWMPClosedCaption = win32more.Media.MediaPlayer.IWMPClosedCaption_head
-    IWMPClosedCaption.get_SAMIStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_SAMIStyle', ((1, 'pbstrSAMIStyle'),)))
-    IWMPClosedCaption.put_SAMIStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_SAMIStyle', ((1, 'bstrSAMIStyle'),)))
-    IWMPClosedCaption.get_SAMILang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_SAMILang', ((1, 'pbstrSAMILang'),)))
-    IWMPClosedCaption.put_SAMILang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_SAMILang', ((1, 'bstrSAMILang'),)))
-    IWMPClosedCaption.get_SAMIFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_SAMIFileName', ((1, 'pbstrSAMIFileName'),)))
-    IWMPClosedCaption.put_SAMIFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_SAMIFileName', ((1, 'bstrSAMIFileName'),)))
-    IWMPClosedCaption.get_captioningId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_captioningId', ((1, 'pbstrCaptioningID'),)))
-    IWMPClosedCaption.put_captioningId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'put_captioningId', ((1, 'bstrCaptioningID'),)))
-    win32more.System.Com.IDispatch
-    return IWMPClosedCaption
-def _define_IWMPPlaylist_head():
-    class IWMPPlaylist(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d5f0f4f1-130c-11d3-b14e-00c04f79faa6')
-    return IWMPPlaylist
-def _define_IWMPPlaylist():
-    IWMPPlaylist = win32more.Media.MediaPlayer.IWMPPlaylist_head
-    IWMPPlaylist.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_count', ((1, 'plCount'),)))
-    IWMPPlaylist.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_name', ((1, 'pbstrName'),)))
-    IWMPPlaylist.put_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_name', ((1, 'bstrName'),)))
-    IWMPPlaylist.get_attributeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_attributeCount', ((1, 'plCount'),)))
-    IWMPPlaylist.get_attributeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_attributeName', ((1, 'lIndex'),(1, 'pbstrAttributeName'),)))
-    IWMPPlaylist.get_item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head), use_last_error=False)(12, 'get_item', ((1, 'lIndex'),(1, 'ppIWMPMedia'),)))
-    IWMPPlaylist.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'getItemInfo', ((1, 'bstrName'),(1, 'pbstrVal'),)))
-    IWMPPlaylist.setItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(14, 'setItemInfo', ((1, 'bstrName'),(1, 'bstrValue'),)))
-    IWMPPlaylist.get_isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(Int16), use_last_error=False)(15, 'get_isIdentical', ((1, 'pIWMPPlaylist'),(1, 'pvbool'),)))
-    IWMPPlaylist.clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'clear', ()))
-    IWMPPlaylist.insertItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(17, 'insertItem', ((1, 'lIndex'),(1, 'pIWMPMedia'),)))
-    IWMPPlaylist.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(18, 'appendItem', ((1, 'pIWMPMedia'),)))
-    IWMPPlaylist.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(19, 'removeItem', ((1, 'pIWMPMedia'),)))
-    IWMPPlaylist.moveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(20, 'moveItem', ((1, 'lIndexOld'),(1, 'lIndexNew'),)))
-    win32more.System.Com.IDispatch
-    return IWMPPlaylist
-def _define_IWMPCdrom_head():
-    class IWMPCdrom(win32more.System.Com.IDispatch_head):
-        Guid = Guid('cfab6e98-8730-11d3-b388-00c04f68574b')
-    return IWMPCdrom
-def _define_IWMPCdrom():
-    IWMPCdrom = win32more.Media.MediaPlayer.IWMPCdrom_head
-    IWMPCdrom.get_driveSpecifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_driveSpecifier', ((1, 'pbstrDrive'),)))
-    IWMPCdrom.get_playlist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(8, 'get_playlist', ((1, 'ppPlaylist'),)))
-    IWMPCdrom.eject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'eject', ()))
-    win32more.System.Com.IDispatch
-    return IWMPCdrom
-def _define_IWMPCdromCollection_head():
-    class IWMPCdromCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee4c8fe2-34b2-11d3-a3bf-006097c9b344')
-    return IWMPCdromCollection
-def _define_IWMPCdromCollection():
-    IWMPCdromCollection = win32more.Media.MediaPlayer.IWMPCdromCollection_head
-    IWMPCdromCollection.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_count', ((1, 'plCount'),)))
-    IWMPCdromCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPCdrom_head), use_last_error=False)(8, 'item', ((1, 'lIndex'),(1, 'ppItem'),)))
-    IWMPCdromCollection.getByDriveSpecifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPCdrom_head), use_last_error=False)(9, 'getByDriveSpecifier', ((1, 'bstrDriveSpecifier'),(1, 'ppCdrom'),)))
-    win32more.System.Com.IDispatch
-    return IWMPCdromCollection
-def _define_IWMPStringCollection_head():
-    class IWMPStringCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('4a976298-8c0d-11d3-b389-00c04f68574b')
-    return IWMPStringCollection
-def _define_IWMPStringCollection():
-    IWMPStringCollection = win32more.Media.MediaPlayer.IWMPStringCollection_head
-    IWMPStringCollection.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_count', ((1, 'plCount'),)))
-    IWMPStringCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'item', ((1, 'lIndex'),(1, 'pbstrString'),)))
-    win32more.System.Com.IDispatch
-    return IWMPStringCollection
-def _define_IWMPMediaCollection_head():
-    class IWMPMediaCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8363bc22-b4b4-4b19-989d-1cd765749dd1')
-    return IWMPMediaCollection
-def _define_IWMPMediaCollection():
-    IWMPMediaCollection = win32more.Media.MediaPlayer.IWMPMediaCollection_head
-    IWMPMediaCollection.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head), use_last_error=False)(7, 'add', ((1, 'bstrURL'),(1, 'ppItem'),)))
-    IWMPMediaCollection.getAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(8, 'getAll', ((1, 'ppMediaItems'),)))
-    IWMPMediaCollection.getByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(9, 'getByName', ((1, 'bstrName'),(1, 'ppMediaItems'),)))
-    IWMPMediaCollection.getByGenre = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(10, 'getByGenre', ((1, 'bstrGenre'),(1, 'ppMediaItems'),)))
-    IWMPMediaCollection.getByAuthor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(11, 'getByAuthor', ((1, 'bstrAuthor'),(1, 'ppMediaItems'),)))
-    IWMPMediaCollection.getByAlbum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(12, 'getByAlbum', ((1, 'bstrAlbum'),(1, 'ppMediaItems'),)))
-    IWMPMediaCollection.getByAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(13, 'getByAttribute', ((1, 'bstrAttribute'),(1, 'bstrValue'),(1, 'ppMediaItems'),)))
-    IWMPMediaCollection.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,Int16, use_last_error=False)(14, 'remove', ((1, 'pItem'),(1, 'varfDeleteFile'),)))
-    IWMPMediaCollection.getAttributeStringCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPStringCollection_head), use_last_error=False)(15, 'getAttributeStringCollection', ((1, 'bstrAttribute'),(1, 'bstrMediaType'),(1, 'ppStringCollection'),)))
-    IWMPMediaCollection.getMediaAtom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(16, 'getMediaAtom', ((1, 'bstrItemName'),(1, 'plAtom'),)))
-    IWMPMediaCollection.setDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,Int16, use_last_error=False)(17, 'setDeleted', ((1, 'pItem'),(1, 'varfIsDeleted'),)))
-    IWMPMediaCollection.isDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head,POINTER(Int16), use_last_error=False)(18, 'isDeleted', ((1, 'pItem'),(1, 'pvarfIsDeleted'),)))
-    win32more.System.Com.IDispatch
-    return IWMPMediaCollection
-def _define_IWMPPlaylistArray_head():
-    class IWMPPlaylistArray(win32more.System.Com.IDispatch_head):
-        Guid = Guid('679409c0-99f7-11d3-9fb7-00105aa620bb')
-    return IWMPPlaylistArray
-def _define_IWMPPlaylistArray():
-    IWMPPlaylistArray = win32more.Media.MediaPlayer.IWMPPlaylistArray_head
-    IWMPPlaylistArray.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_count', ((1, 'plCount'),)))
-    IWMPPlaylistArray.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(8, 'item', ((1, 'lIndex'),(1, 'ppItem'),)))
-    win32more.System.Com.IDispatch
-    return IWMPPlaylistArray
-def _define_IWMPPlaylistCollection_head():
-    class IWMPPlaylistCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('10a13217-23a7-439b-b1c0-d847c79b7774')
-    return IWMPPlaylistCollection
-def _define_IWMPPlaylistCollection():
-    IWMPPlaylistCollection = win32more.Media.MediaPlayer.IWMPPlaylistCollection_head
-    IWMPPlaylistCollection.newPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(7, 'newPlaylist', ((1, 'bstrName'),(1, 'ppItem'),)))
-    IWMPPlaylistCollection.getAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylistArray_head), use_last_error=False)(8, 'getAll', ((1, 'ppPlaylistArray'),)))
-    IWMPPlaylistCollection.getByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylistArray_head), use_last_error=False)(9, 'getByName', ((1, 'bstrName'),(1, 'ppPlaylistArray'),)))
-    IWMPPlaylistCollection.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head, use_last_error=False)(10, 'remove', ((1, 'pItem'),)))
-    IWMPPlaylistCollection.setDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,Int16, use_last_error=False)(11, 'setDeleted', ((1, 'pItem'),(1, 'varfIsDeleted'),)))
-    IWMPPlaylistCollection.isDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(Int16), use_last_error=False)(12, 'isDeleted', ((1, 'pItem'),(1, 'pvarfIsDeleted'),)))
-    IWMPPlaylistCollection.importPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(13, 'importPlaylist', ((1, 'pItem'),(1, 'ppImportedItem'),)))
-    win32more.System.Com.IDispatch
-    return IWMPPlaylistCollection
-def _define_IWMPNetwork_head():
-    class IWMPNetwork(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ec21b779-edef-462d-bba4-ad9dde2b29a7')
-    return IWMPNetwork
-def _define_IWMPNetwork():
-    IWMPNetwork = win32more.Media.MediaPlayer.IWMPNetwork_head
-    IWMPNetwork.get_bandWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_bandWidth', ((1, 'plBandwidth'),)))
-    IWMPNetwork.get_recoveredPackets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_recoveredPackets', ((1, 'plRecoveredPackets'),)))
-    IWMPNetwork.get_sourceProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_sourceProtocol', ((1, 'pbstrSourceProtocol'),)))
-    IWMPNetwork.get_receivedPackets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_receivedPackets', ((1, 'plReceivedPackets'),)))
-    IWMPNetwork.get_lostPackets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_lostPackets', ((1, 'plLostPackets'),)))
-    IWMPNetwork.get_receptionQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_receptionQuality', ((1, 'plReceptionQuality'),)))
-    IWMPNetwork.get_bufferingCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_bufferingCount', ((1, 'plBufferingCount'),)))
-    IWMPNetwork.get_bufferingProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_bufferingProgress', ((1, 'plBufferingProgress'),)))
-    IWMPNetwork.get_bufferingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_bufferingTime', ((1, 'plBufferingTime'),)))
-    IWMPNetwork.put_bufferingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'put_bufferingTime', ((1, 'lBufferingTime'),)))
-    IWMPNetwork.get_frameRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_frameRate', ((1, 'plFrameRate'),)))
-    IWMPNetwork.get_maxBitRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_maxBitRate', ((1, 'plBitRate'),)))
-    IWMPNetwork.get_bitRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_bitRate', ((1, 'plBitRate'),)))
-    IWMPNetwork.getProxySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(20, 'getProxySettings', ((1, 'bstrProtocol'),(1, 'plProxySetting'),)))
-    IWMPNetwork.setProxySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(21, 'setProxySettings', ((1, 'bstrProtocol'),(1, 'lProxySetting'),)))
-    IWMPNetwork.getProxyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'getProxyName', ((1, 'bstrProtocol'),(1, 'pbstrProxyName'),)))
-    IWMPNetwork.setProxyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(23, 'setProxyName', ((1, 'bstrProtocol'),(1, 'bstrProxyName'),)))
-    IWMPNetwork.getProxyPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(24, 'getProxyPort', ((1, 'bstrProtocol'),(1, 'lProxyPort'),)))
-    IWMPNetwork.setProxyPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(25, 'setProxyPort', ((1, 'bstrProtocol'),(1, 'lProxyPort'),)))
-    IWMPNetwork.getProxyExceptionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'getProxyExceptionList', ((1, 'bstrProtocol'),(1, 'pbstrExceptionList'),)))
-    IWMPNetwork.setProxyExceptionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(27, 'setProxyExceptionList', ((1, 'bstrProtocol'),(1, 'pbstrExceptionList'),)))
-    IWMPNetwork.getProxyBypassForLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(28, 'getProxyBypassForLocal', ((1, 'bstrProtocol'),(1, 'pfBypassForLocal'),)))
-    IWMPNetwork.setProxyBypassForLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(29, 'setProxyBypassForLocal', ((1, 'bstrProtocol'),(1, 'fBypassForLocal'),)))
-    IWMPNetwork.get_maxBandwidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(30, 'get_maxBandwidth', ((1, 'lMaxBandwidth'),)))
-    IWMPNetwork.put_maxBandwidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(31, 'put_maxBandwidth', ((1, 'lMaxBandwidth'),)))
-    IWMPNetwork.get_downloadProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(32, 'get_downloadProgress', ((1, 'plDownloadProgress'),)))
-    IWMPNetwork.get_encodedFrameRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(33, 'get_encodedFrameRate', ((1, 'plFrameRate'),)))
-    IWMPNetwork.get_framesSkipped = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(34, 'get_framesSkipped', ((1, 'plFrames'),)))
-    win32more.System.Com.IDispatch
-    return IWMPNetwork
-def _define_IWMPCore_head():
-    class IWMPCore(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d84cca99-cce2-11d2-9ecc-0000f8085981')
-    return IWMPCore
-def _define_IWMPCore():
-    IWMPCore = win32more.Media.MediaPlayer.IWMPCore_head
-    IWMPCore.close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'close', ()))
-    IWMPCore.get_URL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_URL', ((1, 'pbstrURL'),)))
-    IWMPCore.put_URL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_URL', ((1, 'bstrURL'),)))
-    IWMPCore.get_openState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPOpenState), use_last_error=False)(10, 'get_openState', ((1, 'pwmpos'),)))
-    IWMPCore.get_playState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPPlayState), use_last_error=False)(11, 'get_playState', ((1, 'pwmpps'),)))
-    IWMPCore.get_controls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPControls_head), use_last_error=False)(12, 'get_controls', ((1, 'ppControl'),)))
-    IWMPCore.get_settings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPSettings_head), use_last_error=False)(13, 'get_settings', ((1, 'ppSettings'),)))
-    IWMPCore.get_currentMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head), use_last_error=False)(14, 'get_currentMedia', ((1, 'ppMedia'),)))
-    IWMPCore.put_currentMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(15, 'put_currentMedia', ((1, 'pMedia'),)))
-    IWMPCore.get_mediaCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMediaCollection_head), use_last_error=False)(16, 'get_mediaCollection', ((1, 'ppMediaCollection'),)))
-    IWMPCore.get_playlistCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylistCollection_head), use_last_error=False)(17, 'get_playlistCollection', ((1, 'ppPlaylistCollection'),)))
-    IWMPCore.get_versionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_versionInfo', ((1, 'pbstrVersionInfo'),)))
-    IWMPCore.launchURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'launchURL', ((1, 'bstrURL'),)))
-    IWMPCore.get_network = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPNetwork_head), use_last_error=False)(20, 'get_network', ((1, 'ppQNI'),)))
-    IWMPCore.get_currentPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(21, 'get_currentPlaylist', ((1, 'ppPL'),)))
-    IWMPCore.put_currentPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head, use_last_error=False)(22, 'put_currentPlaylist', ((1, 'pPL'),)))
-    IWMPCore.get_cdromCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPCdromCollection_head), use_last_error=False)(23, 'get_cdromCollection', ((1, 'ppCdromCollection'),)))
-    IWMPCore.get_closedCaption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPClosedCaption_head), use_last_error=False)(24, 'get_closedCaption', ((1, 'ppClosedCaption'),)))
-    IWMPCore.get_isOnline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_isOnline', ((1, 'pfOnline'),)))
-    IWMPCore.get_error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPError_head), use_last_error=False)(26, 'get_error', ((1, 'ppError'),)))
-    IWMPCore.get_status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(27, 'get_status', ((1, 'pbstrStatus'),)))
-    win32more.System.Com.IDispatch
-    return IWMPCore
-def _define_IWMPPlayer_head():
-    class IWMPPlayer(win32more.Media.MediaPlayer.IWMPCore_head):
-        Guid = Guid('6bf52a4f-394a-11d3-b153-00c04f79faa6')
-    return IWMPPlayer
-def _define_IWMPPlayer():
-    IWMPPlayer = win32more.Media.MediaPlayer.IWMPPlayer_head
-    IWMPPlayer.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_enabled', ((1, 'pbEnabled'),)))
-    IWMPPlayer.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(29, 'put_enabled', ((1, 'bEnabled'),)))
-    IWMPPlayer.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(30, 'get_fullScreen', ((1, 'pbFullScreen'),)))
-    IWMPPlayer.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(31, 'put_fullScreen', ((1, 'bFullScreen'),)))
-    IWMPPlayer.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(32, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
-    IWMPPlayer.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(33, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
-    IWMPPlayer.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(34, 'put_uiMode', ((1, 'bstrMode'),)))
-    IWMPPlayer.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(35, 'get_uiMode', ((1, 'pbstrMode'),)))
-    win32more.Media.MediaPlayer.IWMPCore
-    return IWMPPlayer
-def _define_IWMPPlayer2_head():
-    class IWMPPlayer2(win32more.Media.MediaPlayer.IWMPCore_head):
-        Guid = Guid('0e6b01d1-d407-4c85-bf5f-1c01f6150280')
-    return IWMPPlayer2
-def _define_IWMPPlayer2():
-    IWMPPlayer2 = win32more.Media.MediaPlayer.IWMPPlayer2_head
-    IWMPPlayer2.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_enabled', ((1, 'pbEnabled'),)))
-    IWMPPlayer2.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(29, 'put_enabled', ((1, 'bEnabled'),)))
-    IWMPPlayer2.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(30, 'get_fullScreen', ((1, 'pbFullScreen'),)))
-    IWMPPlayer2.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(31, 'put_fullScreen', ((1, 'bFullScreen'),)))
-    IWMPPlayer2.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(32, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
-    IWMPPlayer2.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(33, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
-    IWMPPlayer2.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(34, 'put_uiMode', ((1, 'bstrMode'),)))
-    IWMPPlayer2.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(35, 'get_uiMode', ((1, 'pbstrMode'),)))
-    IWMPPlayer2.get_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(36, 'get_stretchToFit', ((1, 'pbEnabled'),)))
-    IWMPPlayer2.put_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(37, 'put_stretchToFit', ((1, 'bEnabled'),)))
-    IWMPPlayer2.get_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(38, 'get_windowlessVideo', ((1, 'pbEnabled'),)))
-    IWMPPlayer2.put_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(39, 'put_windowlessVideo', ((1, 'bEnabled'),)))
-    win32more.Media.MediaPlayer.IWMPCore
-    return IWMPPlayer2
-def _define_IWMPMedia2_head():
-    class IWMPMedia2(win32more.Media.MediaPlayer.IWMPMedia_head):
-        Guid = Guid('ab7c88bb-143e-4ea4-acc3-e4350b2106c3')
-    return IWMPMedia2
-def _define_IWMPMedia2():
-    IWMPMedia2 = win32more.Media.MediaPlayer.IWMPMedia2_head
-    IWMPMedia2.get_error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPErrorItem_head), use_last_error=False)(25, 'get_error', ((1, 'ppIWMPErrorItem'),)))
-    win32more.Media.MediaPlayer.IWMPMedia
-    return IWMPMedia2
-def _define_IWMPControls2_head():
-    class IWMPControls2(win32more.Media.MediaPlayer.IWMPControls_head):
-        Guid = Guid('6f030d25-0890-480f-9775-1f7e40ab5b8e')
-    return IWMPControls2
-def _define_IWMPControls2():
-    IWMPControls2 = win32more.Media.MediaPlayer.IWMPControls2_head
-    IWMPControls2.step = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(23, 'step', ((1, 'lStep'),)))
-    win32more.Media.MediaPlayer.IWMPControls
-    return IWMPControls2
-def _define_IWMPDVD_head():
-    class IWMPDVD(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8da61686-4668-4a5c-ae5d-803193293dbe')
-    return IWMPDVD
-def _define_IWMPDVD():
-    IWMPDVD = win32more.Media.MediaPlayer.IWMPDVD_head
-    IWMPDVD.get_isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(7, 'get_isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
-    IWMPDVD.get_domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_domain', ((1, 'strDomain'),)))
-    IWMPDVD.topMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'topMenu', ()))
-    IWMPDVD.titleMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'titleMenu', ()))
-    IWMPDVD.back = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'back', ()))
-    IWMPDVD.resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'resume', ()))
-    win32more.System.Com.IDispatch
-    return IWMPDVD
-def _define_IWMPCore2_head():
-    class IWMPCore2(win32more.Media.MediaPlayer.IWMPCore_head):
-        Guid = Guid('bc17e5b7-7561-4c18-bb90-17d485775659')
-    return IWMPCore2
-def _define_IWMPCore2():
-    IWMPCore2 = win32more.Media.MediaPlayer.IWMPCore2_head
-    IWMPCore2.get_dvd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPDVD_head), use_last_error=False)(28, 'get_dvd', ((1, 'ppDVD'),)))
-    win32more.Media.MediaPlayer.IWMPCore
-    return IWMPCore2
-def _define_IWMPPlayer3_head():
-    class IWMPPlayer3(win32more.Media.MediaPlayer.IWMPCore2_head):
-        Guid = Guid('54062b68-052a-4c25-a39f-8b63346511d4')
-    return IWMPPlayer3
-def _define_IWMPPlayer3():
-    IWMPPlayer3 = win32more.Media.MediaPlayer.IWMPPlayer3_head
-    IWMPPlayer3.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(29, 'get_enabled', ((1, 'pbEnabled'),)))
-    IWMPPlayer3.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(30, 'put_enabled', ((1, 'bEnabled'),)))
-    IWMPPlayer3.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(31, 'get_fullScreen', ((1, 'pbFullScreen'),)))
-    IWMPPlayer3.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(32, 'put_fullScreen', ((1, 'bFullScreen'),)))
-    IWMPPlayer3.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(33, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
-    IWMPPlayer3.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(34, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
-    IWMPPlayer3.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'put_uiMode', ((1, 'bstrMode'),)))
-    IWMPPlayer3.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_uiMode', ((1, 'pbstrMode'),)))
-    IWMPPlayer3.get_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(37, 'get_stretchToFit', ((1, 'pbEnabled'),)))
-    IWMPPlayer3.put_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(38, 'put_stretchToFit', ((1, 'bEnabled'),)))
-    IWMPPlayer3.get_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(39, 'get_windowlessVideo', ((1, 'pbEnabled'),)))
-    IWMPPlayer3.put_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(40, 'put_windowlessVideo', ((1, 'bEnabled'),)))
-    win32more.Media.MediaPlayer.IWMPCore2
-    return IWMPPlayer3
-def _define_IWMPErrorItem2_head():
-    class IWMPErrorItem2(win32more.Media.MediaPlayer.IWMPErrorItem_head):
-        Guid = Guid('f75ccec0-c67c-475c-931e-8719870bee7d')
-    return IWMPErrorItem2
-def _define_IWMPErrorItem2():
-    IWMPErrorItem2 = win32more.Media.MediaPlayer.IWMPErrorItem2_head
-    IWMPErrorItem2.get_condition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_condition', ((1, 'plCondition'),)))
-    win32more.Media.MediaPlayer.IWMPErrorItem
-    return IWMPErrorItem2
-def _define_IWMPRemoteMediaServices_head():
-    class IWMPRemoteMediaServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cbb92747-741f-44fe-ab5b-f1a48f3b2a59')
-    return IWMPRemoteMediaServices
-def _define_IWMPRemoteMediaServices():
-    IWMPRemoteMediaServices = win32more.Media.MediaPlayer.IWMPRemoteMediaServices_head
-    IWMPRemoteMediaServices.GetServiceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetServiceType', ((1, 'pbstrType'),)))
-    IWMPRemoteMediaServices.GetApplicationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetApplicationName', ((1, 'pbstrName'),)))
-    IWMPRemoteMediaServices.GetScriptableObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(5, 'GetScriptableObject', ((1, 'pbstrName'),(1, 'ppDispatch'),)))
-    IWMPRemoteMediaServices.GetCustomUIMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetCustomUIMode', ((1, 'pbstrFile'),)))
-    win32more.System.Com.IUnknown
-    return IWMPRemoteMediaServices
-def _define_IWMPSkinManager_head():
-    class IWMPSkinManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('076f2fa6-ed30-448b-8cc5-3f3ef3529c7a')
-    return IWMPSkinManager
-def _define_IWMPSkinManager():
-    IWMPSkinManager = win32more.Media.MediaPlayer.IWMPSkinManager_head
-    IWMPSkinManager.SetVisualStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'SetVisualStyle', ((1, 'bstrPath'),)))
-    win32more.System.Com.IUnknown
-    return IWMPSkinManager
-def _define_IWMPMetadataPicture_head():
-    class IWMPMetadataPicture(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5c29bbe0-f87d-4c45-aa28-a70f0230ffa9')
-    return IWMPMetadataPicture
-def _define_IWMPMetadataPicture():
-    IWMPMetadataPicture = win32more.Media.MediaPlayer.IWMPMetadataPicture_head
-    IWMPMetadataPicture.get_mimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_mimeType', ((1, 'pbstrMimeType'),)))
-    IWMPMetadataPicture.get_pictureType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_pictureType', ((1, 'pbstrPictureType'),)))
-    IWMPMetadataPicture.get_description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_description', ((1, 'pbstrDescription'),)))
-    IWMPMetadataPicture.get_URL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_URL', ((1, 'pbstrURL'),)))
-    win32more.System.Com.IDispatch
-    return IWMPMetadataPicture
-def _define_IWMPMetadataText_head():
-    class IWMPMetadataText(win32more.System.Com.IDispatch_head):
-        Guid = Guid('769a72db-13d2-45e2-9c48-53ca9d5b7450')
-    return IWMPMetadataText
-def _define_IWMPMetadataText():
-    IWMPMetadataText = win32more.Media.MediaPlayer.IWMPMetadataText_head
-    IWMPMetadataText.get_description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_description', ((1, 'pbstrDescription'),)))
-    IWMPMetadataText.get_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_text', ((1, 'pbstrText'),)))
-    win32more.System.Com.IDispatch
-    return IWMPMetadataText
-def _define_IWMPMedia3_head():
-    class IWMPMedia3(win32more.Media.MediaPlayer.IWMPMedia2_head):
-        Guid = Guid('f118efc7-f03a-4fb4-99c9-1c02a5c1065b')
-    return IWMPMedia3
-def _define_IWMPMedia3():
-    IWMPMedia3 = win32more.Media.MediaPlayer.IWMPMedia3_head
-    IWMPMedia3.getAttributeCountByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(26, 'getAttributeCountByType', ((1, 'bstrType'),(1, 'bstrLanguage'),(1, 'plCount'),)))
-    IWMPMedia3.getItemInfoByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(27, 'getItemInfoByType', ((1, 'bstrType'),(1, 'bstrLanguage'),(1, 'lIndex'),(1, 'pvarValue'),)))
-    win32more.Media.MediaPlayer.IWMPMedia2
-    return IWMPMedia3
-def _define_IWMPSettings2_head():
-    class IWMPSettings2(win32more.Media.MediaPlayer.IWMPSettings_head):
-        Guid = Guid('fda937a4-eece-4da5-a0b6-39bf89ade2c2')
-    return IWMPSettings2
-def _define_IWMPSettings2():
-    IWMPSettings2 = win32more.Media.MediaPlayer.IWMPSettings2_head
-    IWMPSettings2.get_defaultAudioLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(30, 'get_defaultAudioLanguage', ((1, 'plLangID'),)))
-    IWMPSettings2.get_mediaAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'get_mediaAccessRights', ((1, 'pbstrRights'),)))
-    IWMPSettings2.requestMediaAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(32, 'requestMediaAccessRights', ((1, 'bstrDesiredAccess'),(1, 'pvbAccepted'),)))
-    win32more.Media.MediaPlayer.IWMPSettings
-    return IWMPSettings2
-def _define_IWMPControls3_head():
-    class IWMPControls3(win32more.Media.MediaPlayer.IWMPControls2_head):
-        Guid = Guid('a1d1110e-d545-476a-9a78-ac3e4cb1e6bd')
-    return IWMPControls3
-def _define_IWMPControls3():
-    IWMPControls3 = win32more.Media.MediaPlayer.IWMPControls3_head
-    IWMPControls3.get_audioLanguageCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_audioLanguageCount', ((1, 'plCount'),)))
-    IWMPControls3.getAudioLanguageID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(25, 'getAudioLanguageID', ((1, 'lIndex'),(1, 'plLangID'),)))
-    IWMPControls3.getAudioLanguageDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'getAudioLanguageDescription', ((1, 'lIndex'),(1, 'pbstrLangDesc'),)))
-    IWMPControls3.get_currentAudioLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(27, 'get_currentAudioLanguage', ((1, 'plLangID'),)))
-    IWMPControls3.put_currentAudioLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(28, 'put_currentAudioLanguage', ((1, 'lLangID'),)))
-    IWMPControls3.get_currentAudioLanguageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(29, 'get_currentAudioLanguageIndex', ((1, 'plIndex'),)))
-    IWMPControls3.put_currentAudioLanguageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(30, 'put_currentAudioLanguageIndex', ((1, 'lIndex'),)))
-    IWMPControls3.getLanguageName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'getLanguageName', ((1, 'lLangID'),(1, 'pbstrLangName'),)))
-    IWMPControls3.get_currentPositionTimecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(32, 'get_currentPositionTimecode', ((1, 'bstrTimecode'),)))
-    IWMPControls3.put_currentPositionTimecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(33, 'put_currentPositionTimecode', ((1, 'bstrTimecode'),)))
-    win32more.Media.MediaPlayer.IWMPControls2
-    return IWMPControls3
-def _define_IWMPClosedCaption2_head():
-    class IWMPClosedCaption2(win32more.Media.MediaPlayer.IWMPClosedCaption_head):
-        Guid = Guid('350ba78b-6bc8-4113-a5f5-312056934eb6')
-    return IWMPClosedCaption2
-def _define_IWMPClosedCaption2():
-    IWMPClosedCaption2 = win32more.Media.MediaPlayer.IWMPClosedCaption2_head
-    IWMPClosedCaption2.get_SAMILangCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_SAMILangCount', ((1, 'plCount'),)))
-    IWMPClosedCaption2.getSAMILangName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'getSAMILangName', ((1, 'nIndex'),(1, 'pbstrName'),)))
-    IWMPClosedCaption2.getSAMILangID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(17, 'getSAMILangID', ((1, 'nIndex'),(1, 'plLangID'),)))
-    IWMPClosedCaption2.get_SAMIStyleCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_SAMIStyleCount', ((1, 'plCount'),)))
-    IWMPClosedCaption2.getSAMIStyleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'getSAMIStyleName', ((1, 'nIndex'),(1, 'pbstrName'),)))
-    win32more.Media.MediaPlayer.IWMPClosedCaption
-    return IWMPClosedCaption2
-def _define_IWMPPlayerApplication_head():
-    class IWMPPlayerApplication(win32more.System.Com.IDispatch_head):
-        Guid = Guid('40897764-ceab-47be-ad4a-8e28537f9bbf')
-    return IWMPPlayerApplication
-def _define_IWMPPlayerApplication():
-    IWMPPlayerApplication = win32more.Media.MediaPlayer.IWMPPlayerApplication_head
-    IWMPPlayerApplication.switchToPlayerApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'switchToPlayerApplication', ()))
-    IWMPPlayerApplication.switchToControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'switchToControl', ()))
-    IWMPPlayerApplication.get_playerDocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_playerDocked', ((1, 'pbPlayerDocked'),)))
-    IWMPPlayerApplication.get_hasDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_hasDisplay', ((1, 'pbHasDisplay'),)))
-    win32more.System.Com.IDispatch
-    return IWMPPlayerApplication
-def _define_IWMPCore3_head():
-    class IWMPCore3(win32more.Media.MediaPlayer.IWMPCore2_head):
-        Guid = Guid('7587c667-628f-499f-88e7-6a6f4e888464')
-    return IWMPCore3
-def _define_IWMPCore3():
-    IWMPCore3 = win32more.Media.MediaPlayer.IWMPCore3_head
-    IWMPCore3.newPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(29, 'newPlaylist', ((1, 'bstrName'),(1, 'bstrURL'),(1, 'ppPlaylist'),)))
-    IWMPCore3.newMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPMedia_head), use_last_error=False)(30, 'newMedia', ((1, 'bstrURL'),(1, 'ppMedia'),)))
-    win32more.Media.MediaPlayer.IWMPCore2
-    return IWMPCore3
-def _define_IWMPPlayer4_head():
-    class IWMPPlayer4(win32more.Media.MediaPlayer.IWMPCore3_head):
-        Guid = Guid('6c497d62-8919-413c-82db-e935fb3ec584')
-    return IWMPPlayer4
-def _define_IWMPPlayer4():
-    IWMPPlayer4 = win32more.Media.MediaPlayer.IWMPPlayer4_head
-    IWMPPlayer4.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(31, 'get_enabled', ((1, 'pbEnabled'),)))
-    IWMPPlayer4.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(32, 'put_enabled', ((1, 'bEnabled'),)))
-    IWMPPlayer4.get_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(33, 'get_fullScreen', ((1, 'pbFullScreen'),)))
-    IWMPPlayer4.put_fullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(34, 'put_fullScreen', ((1, 'bFullScreen'),)))
-    IWMPPlayer4.get_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(35, 'get_enableContextMenu', ((1, 'pbEnableContextMenu'),)))
-    IWMPPlayer4.put_enableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(36, 'put_enableContextMenu', ((1, 'bEnableContextMenu'),)))
-    IWMPPlayer4.put_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(37, 'put_uiMode', ((1, 'bstrMode'),)))
-    IWMPPlayer4.get_uiMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(38, 'get_uiMode', ((1, 'pbstrMode'),)))
-    IWMPPlayer4.get_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(39, 'get_stretchToFit', ((1, 'pbEnabled'),)))
-    IWMPPlayer4.put_stretchToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(40, 'put_stretchToFit', ((1, 'bEnabled'),)))
-    IWMPPlayer4.get_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(41, 'get_windowlessVideo', ((1, 'pbEnabled'),)))
-    IWMPPlayer4.put_windowlessVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(42, 'put_windowlessVideo', ((1, 'bEnabled'),)))
-    IWMPPlayer4.get_isRemote = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(43, 'get_isRemote', ((1, 'pvarfIsRemote'),)))
-    IWMPPlayer4.get_playerApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlayerApplication_head), use_last_error=False)(44, 'get_playerApplication', ((1, 'ppIWMPPlayerApplication'),)))
-    IWMPPlayer4.openPlayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(45, 'openPlayer', ((1, 'bstrURL'),)))
-    win32more.Media.MediaPlayer.IWMPCore3
-    return IWMPPlayer4
-def _define_IWMPPlayerServices_head():
-    class IWMPPlayerServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1d01fbdb-ade2-4c8d-9842-c190b95c3306')
-    return IWMPPlayerServices
-def _define_IWMPPlayerServices():
-    IWMPPlayerServices = win32more.Media.MediaPlayer.IWMPPlayerServices_head
-    IWMPPlayerServices.activateUIPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'activateUIPlugin', ((1, 'bstrPlugin'),)))
-    IWMPPlayerServices.setTaskPane = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'setTaskPane', ((1, 'bstrTaskPane'),)))
-    IWMPPlayerServices.setTaskPaneURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(5, 'setTaskPaneURL', ((1, 'bstrTaskPane'),(1, 'bstrURL'),(1, 'bstrFriendlyName'),)))
-    win32more.System.Com.IUnknown
-    return IWMPPlayerServices
-WMPSyncState = Int32
-WMPSyncState_wmpssUnknown = 0
-WMPSyncState_wmpssSynchronizing = 1
-WMPSyncState_wmpssStopped = 2
-WMPSyncState_wmpssEstimating = 3
-WMPSyncState_wmpssLast = 4
-WMPDeviceStatus = Int32
-WMPDeviceStatus_wmpdsUnknown = 0
-WMPDeviceStatus_wmpdsPartnershipExists = 1
-WMPDeviceStatus_wmpdsPartnershipDeclined = 2
-WMPDeviceStatus_wmpdsPartnershipAnother = 3
-WMPDeviceStatus_wmpdsManualDevice = 4
-WMPDeviceStatus_wmpdsNewDevice = 5
-WMPDeviceStatus_wmpdsLast = 6
-def _define_IWMPSyncDevice_head():
-    class IWMPSyncDevice(win32more.System.Com.IUnknown_head):
-        Guid = Guid('82a2986c-0293-4fd0-b279-b21b86c058be')
-    return IWMPSyncDevice
-def _define_IWMPSyncDevice():
-    IWMPSyncDevice = win32more.Media.MediaPlayer.IWMPSyncDevice_head
-    IWMPSyncDevice.get_friendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_friendlyName', ((1, 'pbstrName'),)))
-    IWMPSyncDevice.put_friendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'put_friendlyName', ((1, 'bstrName'),)))
-    IWMPSyncDevice.get_deviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_deviceName', ((1, 'pbstrName'),)))
-    IWMPSyncDevice.get_deviceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_deviceId', ((1, 'pbstrDeviceId'),)))
-    IWMPSyncDevice.get_partnershipIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_partnershipIndex', ((1, 'plIndex'),)))
-    IWMPSyncDevice.get_connected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_connected', ((1, 'pvbConnected'),)))
-    IWMPSyncDevice.get_status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPDeviceStatus), use_last_error=False)(9, 'get_status', ((1, 'pwmpds'),)))
-    IWMPSyncDevice.get_syncState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPSyncState), use_last_error=False)(10, 'get_syncState', ((1, 'pwmpss'),)))
-    IWMPSyncDevice.get_progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_progress', ((1, 'plProgress'),)))
-    IWMPSyncDevice.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
-    IWMPSyncDevice.createPartnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(13, 'createPartnership', ((1, 'vbShowUI'),)))
-    IWMPSyncDevice.deletePartnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'deletePartnership', ()))
-    IWMPSyncDevice.start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'start', ()))
-    IWMPSyncDevice.stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'stop', ()))
-    IWMPSyncDevice.showSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'showSettings', ()))
-    IWMPSyncDevice.isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPSyncDevice_head,POINTER(Int16), use_last_error=False)(18, 'isIdentical', ((1, 'pDevice'),(1, 'pvbool'),)))
-    win32more.System.Com.IUnknown
-    return IWMPSyncDevice
-def _define_IWMPSyncServices_head():
-    class IWMPSyncServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8b5050ff-e0a4-4808-b3a8-893a9e1ed894')
-    return IWMPSyncServices
-def _define_IWMPSyncServices():
-    IWMPSyncServices = win32more.Media.MediaPlayer.IWMPSyncServices_head
-    IWMPSyncServices.get_deviceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_deviceCount', ((1, 'plCount'),)))
-    IWMPSyncServices.getDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPSyncDevice_head), use_last_error=False)(4, 'getDevice', ((1, 'lIndex'),(1, 'ppDevice'),)))
-    win32more.System.Com.IUnknown
-    return IWMPSyncServices
-def _define_IWMPPlayerServices2_head():
-    class IWMPPlayerServices2(win32more.Media.MediaPlayer.IWMPPlayerServices_head):
-        Guid = Guid('1bb1592f-f040-418a-9f71-17c7512b4d70')
-    return IWMPPlayerServices2
-def _define_IWMPPlayerServices2():
-    IWMPPlayerServices2 = win32more.Media.MediaPlayer.IWMPPlayerServices2_head
-    IWMPPlayerServices2.setBackgroundProcessingPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(6, 'setBackgroundProcessingPriority', ((1, 'bstrPriority'),)))
-    win32more.Media.MediaPlayer.IWMPPlayerServices
-    return IWMPPlayerServices2
+WMPPlugin_Caps = Int32
+WMPPlugin_Caps_CannotConvertFormats = 1
+WMPRemoteMediaServices = Guid('df333473-2cf7-4be2-90-7f-9a-ad-56-61-36-4f')
 WMPRipState = Int32
 WMPRipState_wmprsUnknown = 0
 WMPRipState_wmprsRipping = 1
 WMPRipState_wmprsStopped = 2
-WMPBurnFormat = Int32
-WMPBurnFormat_wmpbfAudioCD = 0
-WMPBurnFormat_wmpbfDataCD = 1
-WMPBurnState = Int32
-WMPBurnState_wmpbsUnknown = 0
-WMPBurnState_wmpbsBusy = 1
-WMPBurnState_wmpbsReady = 2
-WMPBurnState_wmpbsWaitingForDisc = 3
-WMPBurnState_wmpbsRefreshStatusPending = 4
-WMPBurnState_wmpbsPreparingToBurn = 5
-WMPBurnState_wmpbsBurning = 6
-WMPBurnState_wmpbsStopped = 7
-WMPBurnState_wmpbsErasing = 8
-WMPBurnState_wmpbsDownloading = 9
+WMPServices_StreamState = Int32
+WMPServices_StreamState_Stop = 0
+WMPServices_StreamState_Pause = 1
+WMPServices_StreamState_Play = 2
+WMPStreamingType = Int32
+WMPStreamingType_wmpstUnknown = 0
+WMPStreamingType_wmpstMusic = 1
+WMPStreamingType_wmpstVideo = 2
+WMPStreamingType_wmpstRadio = 3
 WMPStringCollectionChangeEventType = Int32
 WMPStringCollectionChangeEventType_wmpsccetUnknown = 0
 WMPStringCollectionChangeEventType_wmpsccetInsert = 1
@@ -1374,2294 +2716,1071 @@ WMPStringCollectionChangeEventType_wmpsccetDelete = 3
 WMPStringCollectionChangeEventType_wmpsccetClear = 4
 WMPStringCollectionChangeEventType_wmpsccetBeginUpdates = 5
 WMPStringCollectionChangeEventType_wmpsccetEndUpdates = 6
-def _define_IWMPCdromRip_head():
-    class IWMPCdromRip(win32more.System.Com.IUnknown_head):
-        Guid = Guid('56e2294f-69ed-4629-a869-aea72c0dcc2c')
-    return IWMPCdromRip
-def _define_IWMPCdromRip():
-    IWMPCdromRip = win32more.Media.MediaPlayer.IWMPCdromRip_head
-    IWMPCdromRip.get_ripState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPRipState), use_last_error=False)(3, 'get_ripState', ((1, 'pwmprs'),)))
-    IWMPCdromRip.get_ripProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'get_ripProgress', ((1, 'plProgress'),)))
-    IWMPCdromRip.startRip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'startRip', ()))
-    IWMPCdromRip.stopRip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'stopRip', ()))
-    win32more.System.Com.IUnknown
-    return IWMPCdromRip
-def _define_IWMPCdromBurn_head():
-    class IWMPCdromBurn(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bd94dbeb-417f-4928-aa06-087d56ed9b59')
-    return IWMPCdromBurn
-def _define_IWMPCdromBurn():
-    IWMPCdromBurn = win32more.Media.MediaPlayer.IWMPCdromBurn_head
-    IWMPCdromBurn.isAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(3, 'isAvailable', ((1, 'bstrItem'),(1, 'pIsAvailable'),)))
-    IWMPCdromBurn.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'getItemInfo', ((1, 'bstrItem'),(1, 'pbstrVal'),)))
-    IWMPCdromBurn.get_label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_label', ((1, 'pbstrLabel'),)))
-    IWMPCdromBurn.put_label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(6, 'put_label', ((1, 'bstrLabel'),)))
-    IWMPCdromBurn.get_burnFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPBurnFormat), use_last_error=False)(7, 'get_burnFormat', ((1, 'pwmpbf'),)))
-    IWMPCdromBurn.put_burnFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPBurnFormat, use_last_error=False)(8, 'put_burnFormat', ((1, 'wmpbf'),)))
-    IWMPCdromBurn.get_burnPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(9, 'get_burnPlaylist', ((1, 'ppPlaylist'),)))
-    IWMPCdromBurn.put_burnPlaylist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head, use_last_error=False)(10, 'put_burnPlaylist', ((1, 'pPlaylist'),)))
-    IWMPCdromBurn.refreshStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'refreshStatus', ()))
-    IWMPCdromBurn.get_burnState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPBurnState), use_last_error=False)(12, 'get_burnState', ((1, 'pwmpbs'),)))
-    IWMPCdromBurn.get_burnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_burnProgress', ((1, 'plProgress'),)))
-    IWMPCdromBurn.startBurn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'startBurn', ()))
-    IWMPCdromBurn.stopBurn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'stopBurn', ()))
-    IWMPCdromBurn.erase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'erase', ()))
-    win32more.System.Com.IUnknown
-    return IWMPCdromBurn
-def _define_IWMPQuery_head():
-    class IWMPQuery(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a00918f3-a6b0-4bfb-9189-fd834c7bc5a5')
-    return IWMPQuery
-def _define_IWMPQuery():
-    IWMPQuery = win32more.Media.MediaPlayer.IWMPQuery_head
-    IWMPQuery.addCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'addCondition', ((1, 'bstrAttribute'),(1, 'bstrOperator'),(1, 'bstrValue'),)))
-    IWMPQuery.beginNextGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'beginNextGroup', ()))
-    win32more.System.Com.IDispatch
-    return IWMPQuery
-def _define_IWMPMediaCollection2_head():
-    class IWMPMediaCollection2(win32more.Media.MediaPlayer.IWMPMediaCollection_head):
-        Guid = Guid('8ba957f5-fd8c-4791-b82d-f840401ee474')
-    return IWMPMediaCollection2
-def _define_IWMPMediaCollection2():
-    IWMPMediaCollection2 = win32more.Media.MediaPlayer.IWMPMediaCollection2_head
-    IWMPMediaCollection2.createQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPQuery_head), use_last_error=False)(19, 'createQuery', ((1, 'ppQuery'),)))
-    IWMPMediaCollection2.getPlaylistByQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPQuery_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int16,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(20, 'getPlaylistByQuery', ((1, 'pQuery'),(1, 'bstrMediaType'),(1, 'bstrSortAttribute'),(1, 'fSortAscending'),(1, 'ppPlaylist'),)))
-    IWMPMediaCollection2.getStringCollectionByQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.IWMPQuery_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int16,POINTER(win32more.Media.MediaPlayer.IWMPStringCollection_head), use_last_error=False)(21, 'getStringCollectionByQuery', ((1, 'bstrAttribute'),(1, 'pQuery'),(1, 'bstrMediaType'),(1, 'bstrSortAttribute'),(1, 'fSortAscending'),(1, 'ppStringCollection'),)))
-    IWMPMediaCollection2.getByAttributeAndMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head), use_last_error=False)(22, 'getByAttributeAndMediaType', ((1, 'bstrAttribute'),(1, 'bstrValue'),(1, 'bstrMediaType'),(1, 'ppMediaItems'),)))
-    win32more.Media.MediaPlayer.IWMPMediaCollection
-    return IWMPMediaCollection2
-def _define_IWMPStringCollection2_head():
-    class IWMPStringCollection2(win32more.Media.MediaPlayer.IWMPStringCollection_head):
-        Guid = Guid('46ad648d-53f1-4a74-92e2-2a1b68d63fd4')
-    return IWMPStringCollection2
-def _define_IWMPStringCollection2():
-    IWMPStringCollection2 = win32more.Media.MediaPlayer.IWMPStringCollection2_head
-    IWMPStringCollection2.isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPStringCollection2_head,POINTER(Int16), use_last_error=False)(9, 'isIdentical', ((1, 'pIWMPStringCollection2'),(1, 'pvbool'),)))
-    IWMPStringCollection2.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'getItemInfo', ((1, 'lCollectionIndex'),(1, 'bstrItemName'),(1, 'pbstrValue'),)))
-    IWMPStringCollection2.getAttributeCountByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(11, 'getAttributeCountByType', ((1, 'lCollectionIndex'),(1, 'bstrType'),(1, 'bstrLanguage'),(1, 'plCount'),)))
-    IWMPStringCollection2.getItemInfoByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'getItemInfoByType', ((1, 'lCollectionIndex'),(1, 'bstrType'),(1, 'bstrLanguage'),(1, 'lAttributeIndex'),(1, 'pvarValue'),)))
-    win32more.Media.MediaPlayer.IWMPStringCollection
-    return IWMPStringCollection2
-WMPLibraryType = Int32
-WMPLibraryType_wmpltUnknown = 0
-WMPLibraryType_wmpltAll = 1
-WMPLibraryType_wmpltLocal = 2
-WMPLibraryType_wmpltRemote = 3
-WMPLibraryType_wmpltDisc = 4
-WMPLibraryType_wmpltPortableDevice = 5
-def _define_IWMPLibrary_head():
-    class IWMPLibrary(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3df47861-7df1-4c1f-a81b-4c26f0f7a7c6')
-    return IWMPLibrary
-def _define_IWMPLibrary():
-    IWMPLibrary = win32more.Media.MediaPlayer.IWMPLibrary_head
-    IWMPLibrary.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_name', ((1, 'pbstrName'),)))
-    IWMPLibrary.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPLibraryType), use_last_error=False)(4, 'get_type', ((1, 'pwmplt'),)))
-    IWMPLibrary.get_mediaCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPMediaCollection_head), use_last_error=False)(5, 'get_mediaCollection', ((1, 'ppIWMPMediaCollection'),)))
-    IWMPLibrary.isIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPLibrary_head,POINTER(Int16), use_last_error=False)(6, 'isIdentical', ((1, 'pIWMPLibrary'),(1, 'pvbool'),)))
-    win32more.System.Com.IUnknown
-    return IWMPLibrary
-def _define_IWMPLibraryServices_head():
-    class IWMPLibraryServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('39c2f8d5-1cf2-4d5e-ae09-d73492cf9eaa')
-    return IWMPLibraryServices
-def _define_IWMPLibraryServices():
-    IWMPLibraryServices = win32more.Media.MediaPlayer.IWMPLibraryServices_head
-    IWMPLibraryServices.getCountByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPLibraryType,POINTER(Int32), use_last_error=False)(3, 'getCountByType', ((1, 'wmplt'),(1, 'plCount'),)))
-    IWMPLibraryServices.getLibraryByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPLibraryType,Int32,POINTER(win32more.Media.MediaPlayer.IWMPLibrary_head), use_last_error=False)(4, 'getLibraryByType', ((1, 'wmplt'),(1, 'lIndex'),(1, 'ppIWMPLibrary'),)))
-    win32more.System.Com.IUnknown
-    return IWMPLibraryServices
-def _define_IWMPLibrarySharingServices_head():
-    class IWMPLibrarySharingServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('82cba86b-9f04-474b-a365-d6dd1466e541')
-    return IWMPLibrarySharingServices
-def _define_IWMPLibrarySharingServices():
-    IWMPLibrarySharingServices = win32more.Media.MediaPlayer.IWMPLibrarySharingServices_head
-    IWMPLibrarySharingServices.isLibraryShared = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(3, 'isLibraryShared', ((1, 'pvbShared'),)))
-    IWMPLibrarySharingServices.isLibrarySharingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(4, 'isLibrarySharingEnabled', ((1, 'pvbEnabled'),)))
-    IWMPLibrarySharingServices.showLibrarySharing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'showLibrarySharing', ()))
-    win32more.System.Com.IUnknown
-    return IWMPLibrarySharingServices
-WMPFolderScanState = Int32
-WMPFolderScanState_wmpfssUnknown = 0
-WMPFolderScanState_wmpfssScanning = 1
-WMPFolderScanState_wmpfssUpdating = 2
-WMPFolderScanState_wmpfssStopped = 3
-def _define_IWMPFolderMonitorServices_head():
-    class IWMPFolderMonitorServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('788c8743-e57f-439d-a468-5bc77f2e59c6')
-    return IWMPFolderMonitorServices
-def _define_IWMPFolderMonitorServices():
-    IWMPFolderMonitorServices = win32more.Media.MediaPlayer.IWMPFolderMonitorServices_head
-    IWMPFolderMonitorServices.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_count', ((1, 'plCount'),)))
-    IWMPFolderMonitorServices.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'item', ((1, 'lIndex'),(1, 'pbstrFolder'),)))
-    IWMPFolderMonitorServices.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(5, 'add', ((1, 'bstrFolder'),)))
-    IWMPFolderMonitorServices.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(6, 'remove', ((1, 'lIndex'),)))
-    IWMPFolderMonitorServices.get_scanState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPFolderScanState), use_last_error=False)(7, 'get_scanState', ((1, 'pwmpfss'),)))
-    IWMPFolderMonitorServices.get_currentFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_currentFolder', ((1, 'pbstrFolder'),)))
-    IWMPFolderMonitorServices.get_scannedFilesCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_scannedFilesCount', ((1, 'plCount'),)))
-    IWMPFolderMonitorServices.get_addedFilesCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_addedFilesCount', ((1, 'plCount'),)))
-    IWMPFolderMonitorServices.get_updateProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_updateProgress', ((1, 'plProgress'),)))
-    IWMPFolderMonitorServices.startScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'startScan', ()))
-    IWMPFolderMonitorServices.stopScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'stopScan', ()))
-    win32more.System.Com.IUnknown
-    return IWMPFolderMonitorServices
-def _define_IWMPSyncDevice2_head():
-    class IWMPSyncDevice2(win32more.Media.MediaPlayer.IWMPSyncDevice_head):
-        Guid = Guid('88afb4b2-140a-44d2-91e6-4543da467cd1')
-    return IWMPSyncDevice2
-def _define_IWMPSyncDevice2():
-    IWMPSyncDevice2 = win32more.Media.MediaPlayer.IWMPSyncDevice2_head
-    IWMPSyncDevice2.setItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(19, 'setItemInfo', ((1, 'bstrItemName'),(1, 'bstrVal'),)))
-    win32more.Media.MediaPlayer.IWMPSyncDevice
-    return IWMPSyncDevice2
-def _define_IWMPSyncDevice3_head():
-    class IWMPSyncDevice3(win32more.Media.MediaPlayer.IWMPSyncDevice2_head):
-        Guid = Guid('b22c85f9-263c-4372-a0da-b518db9b4098')
-    return IWMPSyncDevice3
-def _define_IWMPSyncDevice3():
-    IWMPSyncDevice3 = win32more.Media.MediaPlayer.IWMPSyncDevice3_head
-    IWMPSyncDevice3.estimateSyncSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPPlaylist_head,win32more.Media.MediaPlayer.IWMPPlaylist_head, use_last_error=False)(20, 'estimateSyncSize', ((1, 'pNonRulePlaylist'),(1, 'pRulesPlaylist'),)))
-    IWMPSyncDevice3.cancelEstimation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'cancelEstimation', ()))
-    win32more.Media.MediaPlayer.IWMPSyncDevice2
-    return IWMPSyncDevice3
-def _define_IWMPLibrary2_head():
-    class IWMPLibrary2(win32more.Media.MediaPlayer.IWMPLibrary_head):
-        Guid = Guid('dd578a4e-79b1-426c-bf8f-3add9072500b')
-    return IWMPLibrary2
-def _define_IWMPLibrary2():
-    IWMPLibrary2 = win32more.Media.MediaPlayer.IWMPLibrary2_head
-    IWMPLibrary2.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
-    win32more.Media.MediaPlayer.IWMPLibrary
-    return IWMPLibrary2
-WMPLib = Guid('6bf52a50-394a-11d3-b153-00c04f79faa6')
-WMPRemoteMediaServices = Guid('df333473-2cf7-4be2-907f-9aad5661364f')
-def _define_IWMPEvents_head():
-    class IWMPEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('19a6627b-da9e-47c1-bb23-00b5e668236a')
-    return IWMPEvents
-def _define_IWMPEvents():
-    IWMPEvents = win32more.Media.MediaPlayer.IWMPEvents_head
-    IWMPEvents.OpenStateChange = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(3, 'OpenStateChange', ((1, 'NewState'),)))
-    IWMPEvents.PlayStateChange = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(4, 'PlayStateChange', ((1, 'NewState'),)))
-    IWMPEvents.AudioLanguageChange = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(5, 'AudioLanguageChange', ((1, 'LangID'),)))
-    IWMPEvents.StatusChange = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(6, 'StatusChange', ()))
-    IWMPEvents.ScriptCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'ScriptCommand', ((1, 'scType'),(1, 'Param'),)))
-    IWMPEvents.NewStream = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(8, 'NewStream', ()))
-    IWMPEvents.Disconnect = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(9, 'Disconnect', ((1, 'Result'),)))
-    IWMPEvents.Buffering = COMMETHOD(WINFUNCTYPE(Void,Int16, use_last_error=False)(10, 'Buffering', ((1, 'Start'),)))
-    IWMPEvents.Error = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(11, 'Error', ()))
-    IWMPEvents.Warning = COMMETHOD(WINFUNCTYPE(Void,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(12, 'Warning', ((1, 'WarningType'),(1, 'Param'),(1, 'Description'),)))
-    IWMPEvents.EndOfStream = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(13, 'EndOfStream', ((1, 'Result'),)))
-    IWMPEvents.PositionChange = COMMETHOD(WINFUNCTYPE(Void,Double,Double, use_last_error=False)(14, 'PositionChange', ((1, 'oldPosition'),(1, 'newPosition'),)))
-    IWMPEvents.MarkerHit = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(15, 'MarkerHit', ((1, 'MarkerNum'),)))
-    IWMPEvents.DurationUnitChange = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(16, 'DurationUnitChange', ((1, 'NewDurationUnit'),)))
-    IWMPEvents.CdromMediaChange = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(17, 'CdromMediaChange', ((1, 'CdromNum'),)))
-    IWMPEvents.PlaylistChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head,win32more.Media.MediaPlayer.WMPPlaylistChangeEventType, use_last_error=False)(18, 'PlaylistChange', ((1, 'Playlist'),(1, 'change'),)))
-    IWMPEvents.CurrentPlaylistChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.WMPPlaylistChangeEventType, use_last_error=False)(19, 'CurrentPlaylistChange', ((1, 'change'),)))
-    IWMPEvents.CurrentPlaylistItemAvailable = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR, use_last_error=False)(20, 'CurrentPlaylistItemAvailable', ((1, 'bstrItemName'),)))
-    IWMPEvents.MediaChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head, use_last_error=False)(21, 'MediaChange', ((1, 'Item'),)))
-    IWMPEvents.CurrentMediaItemAvailable = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR, use_last_error=False)(22, 'CurrentMediaItemAvailable', ((1, 'bstrItemName'),)))
-    IWMPEvents.CurrentItemChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head, use_last_error=False)(23, 'CurrentItemChange', ((1, 'pdispMedia'),)))
-    IWMPEvents.MediaCollectionChange = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(24, 'MediaCollectionChange', ()))
-    IWMPEvents.MediaCollectionAttributeStringAdded = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(25, 'MediaCollectionAttributeStringAdded', ((1, 'bstrAttribName'),(1, 'bstrAttribVal'),)))
-    IWMPEvents.MediaCollectionAttributeStringRemoved = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(26, 'MediaCollectionAttributeStringRemoved', ((1, 'bstrAttribName'),(1, 'bstrAttribVal'),)))
-    IWMPEvents.MediaCollectionAttributeStringChanged = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(27, 'MediaCollectionAttributeStringChanged', ((1, 'bstrAttribName'),(1, 'bstrOldAttribVal'),(1, 'bstrNewAttribVal'),)))
-    IWMPEvents.PlaylistCollectionChange = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(28, 'PlaylistCollectionChange', ()))
-    IWMPEvents.PlaylistCollectionPlaylistAdded = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR, use_last_error=False)(29, 'PlaylistCollectionPlaylistAdded', ((1, 'bstrPlaylistName'),)))
-    IWMPEvents.PlaylistCollectionPlaylistRemoved = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR, use_last_error=False)(30, 'PlaylistCollectionPlaylistRemoved', ((1, 'bstrPlaylistName'),)))
-    IWMPEvents.PlaylistCollectionPlaylistSetAsDeleted = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,Int16, use_last_error=False)(31, 'PlaylistCollectionPlaylistSetAsDeleted', ((1, 'bstrPlaylistName'),(1, 'varfIsDeleted'),)))
-    IWMPEvents.ModeChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,Int16, use_last_error=False)(32, 'ModeChange', ((1, 'ModeName'),(1, 'NewValue'),)))
-    IWMPEvents.MediaError = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head, use_last_error=False)(33, 'MediaError', ((1, 'pMediaObject'),)))
-    IWMPEvents.OpenPlaylistSwitch = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head, use_last_error=False)(34, 'OpenPlaylistSwitch', ((1, 'pItem'),)))
-    IWMPEvents.DomainChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR, use_last_error=False)(35, 'DomainChange', ((1, 'strDomain'),)))
-    IWMPEvents.SwitchedToPlayerApplication = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(36, 'SwitchedToPlayerApplication', ()))
-    IWMPEvents.SwitchedToControl = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(37, 'SwitchedToControl', ()))
-    IWMPEvents.PlayerDockedStateChange = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(38, 'PlayerDockedStateChange', ()))
-    IWMPEvents.PlayerReconnect = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(39, 'PlayerReconnect', ()))
-    IWMPEvents.Click = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32, use_last_error=False)(40, 'Click', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
-    IWMPEvents.DoubleClick = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32, use_last_error=False)(41, 'DoubleClick', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
-    IWMPEvents.KeyDown = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16, use_last_error=False)(42, 'KeyDown', ((1, 'nKeyCode'),(1, 'nShiftState'),)))
-    IWMPEvents.KeyPress = COMMETHOD(WINFUNCTYPE(Void,Int16, use_last_error=False)(43, 'KeyPress', ((1, 'nKeyAscii'),)))
-    IWMPEvents.KeyUp = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16, use_last_error=False)(44, 'KeyUp', ((1, 'nKeyCode'),(1, 'nShiftState'),)))
-    IWMPEvents.MouseDown = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32, use_last_error=False)(45, 'MouseDown', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
-    IWMPEvents.MouseMove = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32, use_last_error=False)(46, 'MouseMove', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
-    IWMPEvents.MouseUp = COMMETHOD(WINFUNCTYPE(Void,Int16,Int16,Int32,Int32, use_last_error=False)(47, 'MouseUp', ((1, 'nButton'),(1, 'nShiftState'),(1, 'fX'),(1, 'fY'),)))
-    win32more.System.Com.IUnknown
-    return IWMPEvents
-def _define_IWMPEvents2_head():
-    class IWMPEvents2(win32more.Media.MediaPlayer.IWMPEvents_head):
-        Guid = Guid('1e7601fa-47ea-4107-9ea9-9004ed9684ff')
-    return IWMPEvents2
-def _define_IWMPEvents2():
-    IWMPEvents2 = win32more.Media.MediaPlayer.IWMPEvents2_head
-    IWMPEvents2.DeviceConnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head, use_last_error=False)(48, 'DeviceConnect', ((1, 'pDevice'),)))
-    IWMPEvents2.DeviceDisconnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head, use_last_error=False)(49, 'DeviceDisconnect', ((1, 'pDevice'),)))
-    IWMPEvents2.DeviceStatusChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Media.MediaPlayer.WMPDeviceStatus, use_last_error=False)(50, 'DeviceStatusChange', ((1, 'pDevice'),(1, 'NewStatus'),)))
-    IWMPEvents2.DeviceSyncStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Media.MediaPlayer.WMPSyncState, use_last_error=False)(51, 'DeviceSyncStateChange', ((1, 'pDevice'),(1, 'NewState'),)))
-    IWMPEvents2.DeviceSyncError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.System.Com.IDispatch_head, use_last_error=False)(52, 'DeviceSyncError', ((1, 'pDevice'),(1, 'pMedia'),)))
-    IWMPEvents2.CreatePartnershipComplete = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Foundation.HRESULT, use_last_error=False)(53, 'CreatePartnershipComplete', ((1, 'pDevice'),(1, 'hrResult'),)))
-    win32more.Media.MediaPlayer.IWMPEvents
-    return IWMPEvents2
-def _define_IWMPEvents3_head():
-    class IWMPEvents3(win32more.Media.MediaPlayer.IWMPEvents2_head):
-        Guid = Guid('1f504270-a66b-4223-8e96-26a06c63d69f')
-    return IWMPEvents3
-def _define_IWMPEvents3():
-    IWMPEvents3 = win32more.Media.MediaPlayer.IWMPEvents3_head
-    IWMPEvents3.CdromRipStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromRip_head,win32more.Media.MediaPlayer.WMPRipState, use_last_error=False)(54, 'CdromRipStateChange', ((1, 'pCdromRip'),(1, 'wmprs'),)))
-    IWMPEvents3.CdromRipMediaError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromRip_head,win32more.System.Com.IDispatch_head, use_last_error=False)(55, 'CdromRipMediaError', ((1, 'pCdromRip'),(1, 'pMedia'),)))
-    IWMPEvents3.CdromBurnStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromBurn_head,win32more.Media.MediaPlayer.WMPBurnState, use_last_error=False)(56, 'CdromBurnStateChange', ((1, 'pCdromBurn'),(1, 'wmpbs'),)))
-    IWMPEvents3.CdromBurnMediaError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromBurn_head,win32more.System.Com.IDispatch_head, use_last_error=False)(57, 'CdromBurnMediaError', ((1, 'pCdromBurn'),(1, 'pMedia'),)))
-    IWMPEvents3.CdromBurnError = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPCdromBurn_head,win32more.Foundation.HRESULT, use_last_error=False)(58, 'CdromBurnError', ((1, 'pCdromBurn'),(1, 'hrError'),)))
-    IWMPEvents3.LibraryConnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPLibrary_head, use_last_error=False)(59, 'LibraryConnect', ((1, 'pLibrary'),)))
-    IWMPEvents3.LibraryDisconnect = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPLibrary_head, use_last_error=False)(60, 'LibraryDisconnect', ((1, 'pLibrary'),)))
-    IWMPEvents3.FolderScanStateChange = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.WMPFolderScanState, use_last_error=False)(61, 'FolderScanStateChange', ((1, 'wmpfss'),)))
-    IWMPEvents3.StringCollectionChange = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head,win32more.Media.MediaPlayer.WMPStringCollectionChangeEventType,Int32, use_last_error=False)(62, 'StringCollectionChange', ((1, 'pdispStringCollection'),(1, 'change'),(1, 'lCollectionIndex'),)))
-    IWMPEvents3.MediaCollectionMediaAdded = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head, use_last_error=False)(63, 'MediaCollectionMediaAdded', ((1, 'pdispMedia'),)))
-    IWMPEvents3.MediaCollectionMediaRemoved = COMMETHOD(WINFUNCTYPE(Void,win32more.System.Com.IDispatch_head, use_last_error=False)(64, 'MediaCollectionMediaRemoved', ((1, 'pdispMedia'),)))
-    win32more.Media.MediaPlayer.IWMPEvents2
-    return IWMPEvents3
-def _define_IWMPEvents4_head():
-    class IWMPEvents4(win32more.Media.MediaPlayer.IWMPEvents3_head):
-        Guid = Guid('26dabcfa-306b-404d-9a6f-630a8405048d')
-    return IWMPEvents4
-def _define_IWMPEvents4():
-    IWMPEvents4 = win32more.Media.MediaPlayer.IWMPEvents4_head
-    IWMPEvents4.DeviceEstimation = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaPlayer.IWMPSyncDevice_head,win32more.Foundation.HRESULT,Int64,Int64, use_last_error=False)(65, 'DeviceEstimation', ((1, 'pDevice'),(1, 'hrResult'),(1, 'qwEstimatedUsedSpace'),(1, 'qwEstimatedSpace'),)))
-    win32more.Media.MediaPlayer.IWMPEvents3
-    return IWMPEvents4
-def _define__WMPOCXEvents_head():
-    class _WMPOCXEvents(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6bf52a51-394a-11d3-b153-00c04f79faa6')
-    return _WMPOCXEvents
-def _define__WMPOCXEvents():
-    _WMPOCXEvents = win32more.Media.MediaPlayer._WMPOCXEvents_head
-    win32more.System.Com.IDispatch
-    return _WMPOCXEvents
-def _define_IWMPNodeRealEstate_head():
-    class IWMPNodeRealEstate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('42751198-5a50-4460-bcb4-709f8bdc8e59')
-    return IWMPNodeRealEstate
-def _define_IWMPNodeRealEstate():
-    IWMPNodeRealEstate = win32more.Media.MediaPlayer.IWMPNodeRealEstate_head
-    IWMPNodeRealEstate.GetDesiredSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(3, 'GetDesiredSize', ((1, 'pSize'),)))
-    IWMPNodeRealEstate.SetRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head), use_last_error=False)(4, 'SetRects', ((1, 'pSrc'),(1, 'pDest'),(1, 'pClip'),)))
-    IWMPNodeRealEstate.GetRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head), use_last_error=False)(5, 'GetRects', ((1, 'pSrc'),(1, 'pDest'),(1, 'pClip'),)))
-    IWMPNodeRealEstate.SetWindowless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(6, 'SetWindowless', ((1, 'fWindowless'),)))
-    IWMPNodeRealEstate.GetWindowless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'GetWindowless', ((1, 'pfWindowless'),)))
-    IWMPNodeRealEstate.SetFullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(8, 'SetFullScreen', ((1, 'fFullScreen'),)))
-    IWMPNodeRealEstate.GetFullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'GetFullScreen', ((1, 'pfFullScreen'),)))
-    win32more.System.Com.IUnknown
-    return IWMPNodeRealEstate
-def _define_IWMPNodeRealEstateHost_head():
-    class IWMPNodeRealEstateHost(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1491087d-2c6b-44c8-b019-b3c929d2ada9')
-    return IWMPNodeRealEstateHost
-def _define_IWMPNodeRealEstateHost():
-    IWMPNodeRealEstateHost = win32more.Media.MediaPlayer.IWMPNodeRealEstateHost_head
-    IWMPNodeRealEstateHost.OnDesiredSizeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(3, 'OnDesiredSizeChange', ((1, 'pSize'),)))
-    IWMPNodeRealEstateHost.OnFullScreenTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'OnFullScreenTransition', ((1, 'fFullScreen'),)))
-    win32more.System.Com.IUnknown
-    return IWMPNodeRealEstateHost
-def _define_IWMPNodeWindowed_head():
-    class IWMPNodeWindowed(win32more.System.Com.IUnknown_head):
-        Guid = Guid('96740bfa-c56a-45d1-a3a4-762914d4ade9')
-    return IWMPNodeWindowed
-def _define_IWMPNodeWindowed():
-    IWMPNodeWindowed = win32more.Media.MediaPlayer.IWMPNodeWindowed_head
-    IWMPNodeWindowed.SetOwnerWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(3, 'SetOwnerWindow', ((1, 'hwnd'),)))
-    IWMPNodeWindowed.GetOwnerWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(4, 'GetOwnerWindow', ((1, 'phwnd'),)))
-    win32more.System.Com.IUnknown
-    return IWMPNodeWindowed
-def _define_IWMPNodeWindowedHost_head():
-    class IWMPNodeWindowedHost(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a300415a-54aa-4081-adbf-3b13610d8958')
-    return IWMPNodeWindowedHost
-def _define_IWMPNodeWindowedHost():
-    IWMPNodeWindowedHost = win32more.Media.MediaPlayer.IWMPNodeWindowedHost_head
-    IWMPNodeWindowedHost.OnWindowMessageFromRenderer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnWindowMessageFromRenderer', ((1, 'uMsg'),(1, 'wparam'),(1, 'lparam'),(1, 'plRet'),(1, 'pfHandled'),)))
-    win32more.System.Com.IUnknown
-    return IWMPNodeWindowedHost
-def _define_IWMPWindowMessageSink_head():
-    class IWMPWindowMessageSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3a0daa30-908d-4789-ba87-aed879b5c49b')
-    return IWMPWindowMessageSink
-def _define_IWMPWindowMessageSink():
-    IWMPWindowMessageSink = win32more.Media.MediaPlayer.IWMPWindowMessageSink_head
-    IWMPWindowMessageSink.OnWindowMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnWindowMessage', ((1, 'uMsg'),(1, 'wparam'),(1, 'lparam'),(1, 'plRet'),(1, 'pfHandled'),)))
-    win32more.System.Com.IUnknown
-    return IWMPWindowMessageSink
-def _define_IWMPNodeWindowless_head():
-    class IWMPNodeWindowless(win32more.Media.MediaPlayer.IWMPWindowMessageSink_head):
-        Guid = Guid('9b9199ad-780c-4eda-b816-261eba5d1575')
-    return IWMPNodeWindowless
-def _define_IWMPNodeWindowless():
-    IWMPNodeWindowless = win32more.Media.MediaPlayer.IWMPNodeWindowless_head
-    IWMPNodeWindowless.OnDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(4, 'OnDraw', ((1, 'hdc'),(1, 'prcDraw'),)))
-    win32more.Media.MediaPlayer.IWMPWindowMessageSink
-    return IWMPNodeWindowless
-def _define_IWMPNodeWindowlessHost_head():
-    class IWMPNodeWindowlessHost(win32more.System.Com.IUnknown_head):
-        Guid = Guid('be7017c6-ce34-4901-8106-770381aa6e3e')
-    return IWMPNodeWindowlessHost
-def _define_IWMPNodeWindowlessHost():
-    IWMPNodeWindowlessHost = win32more.Media.MediaPlayer.IWMPNodeWindowlessHost_head
-    IWMPNodeWindowlessHost.InvalidateRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL, use_last_error=False)(3, 'InvalidateRect', ((1, 'prc'),(1, 'fErase'),)))
-    win32more.System.Com.IUnknown
-    return IWMPNodeWindowlessHost
-def _define_IWMPVideoRenderConfig_head():
-    class IWMPVideoRenderConfig(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6d6cf803-1ec0-4c8d-b3ca-f18e27282074')
-    return IWMPVideoRenderConfig
-def _define_IWMPVideoRenderConfig():
-    IWMPVideoRenderConfig = win32more.Media.MediaPlayer.IWMPVideoRenderConfig_head
-    IWMPVideoRenderConfig.put_presenterActivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFActivate_head, use_last_error=False)(3, 'put_presenterActivate', ((1, 'pActivate'),)))
-    win32more.System.Com.IUnknown
-    return IWMPVideoRenderConfig
-def _define_IWMPAudioRenderConfig_head():
-    class IWMPAudioRenderConfig(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e79c6349-5997-4ce4-917c-22a3391ec564')
-    return IWMPAudioRenderConfig
-def _define_IWMPAudioRenderConfig():
-    IWMPAudioRenderConfig = win32more.Media.MediaPlayer.IWMPAudioRenderConfig_head
-    IWMPAudioRenderConfig.get_audioOutputDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_audioOutputDevice', ((1, 'pbstrOutputDevice'),)))
-    IWMPAudioRenderConfig.put_audioOutputDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'put_audioOutputDevice', ((1, 'bstrOutputDevice'),)))
-    win32more.System.Com.IUnknown
-    return IWMPAudioRenderConfig
-def _define_IWMPRenderConfig_head():
-    class IWMPRenderConfig(win32more.System.Com.IUnknown_head):
-        Guid = Guid('959506c1-0314-4ec5-9e61-8528db5e5478')
-    return IWMPRenderConfig
-def _define_IWMPRenderConfig():
-    IWMPRenderConfig = win32more.Media.MediaPlayer.IWMPRenderConfig_head
-    IWMPRenderConfig.put_inProcOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'put_inProcOnly', ((1, 'fInProc'),)))
-    IWMPRenderConfig.get_inProcOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_inProcOnly', ((1, 'pfInProc'),)))
-    win32more.System.Com.IUnknown
-    return IWMPRenderConfig
-WMPServices_StreamState = Int32
-WMPServices_StreamState_Stop = 0
-WMPServices_StreamState_Pause = 1
-WMPServices_StreamState_Play = 2
-def _define_IWMPServices_head():
-    class IWMPServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('afb6b76b-1e20-4198-83b3-191db6e0b149')
-    return IWMPServices
-def _define_IWMPServices():
-    IWMPServices = win32more.Media.MediaPlayer.IWMPServices_head
-    IWMPServices.GetStreamTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(3, 'GetStreamTime', ((1, 'prt'),)))
-    IWMPServices.GetStreamState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPServices_StreamState), use_last_error=False)(4, 'GetStreamState', ((1, 'pState'),)))
-    win32more.System.Com.IUnknown
-    return IWMPServices
-def _define_IWMPMediaPluginRegistrar_head():
-    class IWMPMediaPluginRegistrar(win32more.System.Com.IUnknown_head):
-        Guid = Guid('68e27045-05bd-40b2-9720-23088c78e390')
-    return IWMPMediaPluginRegistrar
-def _define_IWMPMediaPluginRegistrar():
-    IWMPMediaPluginRegistrar = win32more.Media.MediaPlayer.IWMPMediaPluginRegistrar_head
-    IWMPMediaPluginRegistrar.WMPRegisterPlayerPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,Guid,Guid,UInt32,c_void_p, use_last_error=False)(3, 'WMPRegisterPlayerPlugin', ((1, 'pwszFriendlyName'),(1, 'pwszDescription'),(1, 'pwszUninstallString'),(1, 'dwPriority'),(1, 'guidPluginType'),(1, 'clsid'),(1, 'cMediaTypes'),(1, 'pMediaTypes'),)))
-    IWMPMediaPluginRegistrar.WMPUnRegisterPlayerPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid, use_last_error=False)(4, 'WMPUnRegisterPlayerPlugin', ((1, 'guidPluginType'),(1, 'clsid'),)))
-    win32more.System.Com.IUnknown
-    return IWMPMediaPluginRegistrar
-WMPPlugin_Caps = Int32
-WMPPlugin_Caps_CannotConvertFormats = 1
-def _define_IWMPPlugin_head():
-    class IWMPPlugin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f1392a70-024c-42bb-a998-73dfdfe7d5a7')
-    return IWMPPlugin
-def _define_IWMPPlugin():
-    IWMPPlugin = win32more.Media.MediaPlayer.IWMPPlugin_head
-    IWMPPlugin.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(3, 'Init', ((1, 'dwPlaybackContext'),)))
-    IWMPPlugin.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Shutdown', ()))
-    IWMPPlugin.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetID', ((1, 'pGUID'),)))
-    IWMPPlugin.GetCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetCaps', ((1, 'pdwFlags'),)))
-    IWMPPlugin.AdviseWMPServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPServices_head, use_last_error=False)(7, 'AdviseWMPServices', ((1, 'pWMPServices'),)))
-    IWMPPlugin.UnAdviseWMPServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'UnAdviseWMPServices', ()))
-    win32more.System.Com.IUnknown
-    return IWMPPlugin
-def _define_IWMPPluginEnable_head():
-    class IWMPPluginEnable(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5fca444c-7ad1-479d-a4ef-40566a5309d6')
-    return IWMPPluginEnable
-def _define_IWMPPluginEnable():
-    IWMPPluginEnable = win32more.Media.MediaPlayer.IWMPPluginEnable_head
-    IWMPPluginEnable.SetEnable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetEnable', ((1, 'fEnable'),)))
-    IWMPPluginEnable.GetEnable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetEnable', ((1, 'pfEnable'),)))
-    win32more.System.Com.IUnknown
-    return IWMPPluginEnable
-def _define_IWMPGraphCreation_head():
-    class IWMPGraphCreation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bfb377e5-c594-4369-a970-de896d5ece74')
-    return IWMPGraphCreation
-def _define_IWMPGraphCreation():
-    IWMPGraphCreation = win32more.Media.MediaPlayer.IWMPGraphCreation_head
-    IWMPGraphCreation.GraphCreationPreRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'GraphCreationPreRender', ((1, 'pFilterGraph'),(1, 'pReserved'),)))
-    IWMPGraphCreation.GraphCreationPostRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'GraphCreationPostRender', ((1, 'pFilterGraph'),)))
-    IWMPGraphCreation.GetGraphCreationFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetGraphCreationFlags', ((1, 'pdwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IWMPGraphCreation
-def _define_IWMPConvert_head():
-    class IWMPConvert(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d683162f-57d4-4108-8373-4a9676d1c2e9')
-    return IWMPConvert
-def _define_IWMPConvert():
-    IWMPConvert = win32more.Media.MediaPlayer.IWMPConvert_head
-    IWMPConvert.ConvertFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'ConvertFile', ((1, 'bstrInputFile'),(1, 'bstrDestinationFolder'),(1, 'pbstrOutputFile'),)))
-    IWMPConvert.GetErrorURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetErrorURL', ((1, 'pbstrURL'),)))
-    win32more.System.Com.IUnknown
-    return IWMPConvert
-def _define_IWMPTranscodePolicy_head():
-    class IWMPTranscodePolicy(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b64cbac3-401c-4327-a3e8-b9feb3a8c25c')
-    return IWMPTranscodePolicy
-def _define_IWMPTranscodePolicy():
-    IWMPTranscodePolicy = win32more.Media.MediaPlayer.IWMPTranscodePolicy_head
-    IWMPTranscodePolicy.allowTranscode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(3, 'allowTranscode', ((1, 'pvbAllow'),)))
-    win32more.System.Com.IUnknown
-    return IWMPTranscodePolicy
-def _define_IWMPUserEventSink_head():
-    class IWMPUserEventSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cfccfa72-c343-48c3-a2de-b7a4402e39f2')
-    return IWMPUserEventSink
-def _define_IWMPUserEventSink():
-    IWMPUserEventSink = win32more.Media.MediaPlayer.IWMPUserEventSink_head
-    IWMPUserEventSink.NotifyUserEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'NotifyUserEvent', ((1, 'EventCode'),)))
-    win32more.System.Com.IUnknown
-    return IWMPUserEventSink
-FeedsManager = Guid('faeb54c4-f66f-4806-83a0-805299f5e3ad')
-FeedFolderWatcher = Guid('281001ed-7765-4cb0-84af-e9b387af01ff')
-FeedWatcher = Guid('18a6737b-f433-4687-89bc-a1b4dfb9f123')
-FEEDS_BACKGROUNDSYNC_ACTION = Int32
-FBSA_DISABLE = 0
-FBSA_ENABLE = 1
-FBSA_RUNNOW = 2
-FEEDS_BACKGROUNDSYNC_STATUS = Int32
-FBSS_DISABLED = 0
-FBSS_ENABLED = 1
-FEEDS_EVENTS_SCOPE = Int32
-FES_ALL = 0
-FES_SELF_ONLY = 1
-FES_SELF_AND_CHILDREN_ONLY = 2
-FEEDS_EVENTS_MASK = Int32
-FEM_FOLDEREVENTS = 1
-FEM_FEEDEVENTS = 2
-FEEDS_XML_SORT_PROPERTY = Int32
-FXSP_NONE = 0
-FXSP_PUBDATE = 1
-FXSP_DOWNLOADTIME = 2
-FEEDS_XML_SORT_ORDER = Int32
-FXSO_NONE = 0
-FXSO_ASCENDING = 1
-FXSO_DESCENDING = 2
-FEEDS_XML_FILTER_FLAGS = Int32
-FXFF_ALL = 0
-FXFF_UNREAD = 1
-FXFF_READ = 2
-FEEDS_XML_INCLUDE_FLAGS = Int32
-FXIF_NONE = 0
-FXIF_CF_EXTENSIONS = 1
-FEEDS_DOWNLOAD_STATUS = Int32
-FDS_NONE = 0
-FDS_PENDING = 1
-FDS_DOWNLOADING = 2
-FDS_DOWNLOADED = 3
-FDS_DOWNLOAD_FAILED = 4
-FEEDS_SYNC_SETTING = Int32
-FSS_DEFAULT = 0
-FSS_INTERVAL = 1
-FSS_MANUAL = 2
-FSS_SUGGESTED = 3
-FEEDS_DOWNLOAD_ERROR = Int32
-FDE_NONE = 0
-FDE_DOWNLOAD_FAILED = 1
-FDE_INVALID_FEED_FORMAT = 2
-FDE_NORMALIZATION_FAILED = 3
-FDE_PERSISTENCE_FAILED = 4
-FDE_DOWNLOAD_BLOCKED = 5
-FDE_CANCELED = 6
-FDE_UNSUPPORTED_AUTH = 7
-FDE_BACKGROUND_DOWNLOAD_DISABLED = 8
-FDE_NOT_EXIST = 9
-FDE_UNSUPPORTED_MSXML = 10
-FDE_UNSUPPORTED_DTD = 11
-FDE_DOWNLOAD_SIZE_LIMIT_EXCEEDED = 12
-FDE_ACCESS_DENIED = 13
-FDE_AUTH_FAILED = 14
-FDE_INVALID_AUTH = 15
-FEEDS_EVENTS_ITEM_COUNT_FLAGS = Int32
-FEICF_READ_ITEM_COUNT_CHANGED = 1
-FEICF_UNREAD_ITEM_COUNT_CHANGED = 2
-FEEDS_ERROR_CODE = Int32
-FEC_E_ERRORBASE = -1073479168
-FEC_E_INVALIDMSXMLPROPERTY = -1073479168
-FEC_E_DOWNLOADSIZELIMITEXCEEDED = -1073479167
-def _define_IXFeedsManager_head():
-    class IXFeedsManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5357e238-fb12-4aca-a930-cab7832b84bf')
-    return IXFeedsManager
-def _define_IXFeedsManager():
-    IXFeedsManager = win32more.Media.MediaPlayer.IXFeedsManager_head
-    IXFeedsManager.RootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'RootFolder', ((1, 'riid'),(1, 'ppv'),)))
-    IXFeedsManager.IsSubscribed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsSubscribed', ((1, 'pszUrl'),(1, 'pbSubscribed'),)))
-    IXFeedsManager.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'ExistsFeed', ((1, 'pszPath'),(1, 'pbFeedExists'),)))
-    IXFeedsManager.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetFeed', ((1, 'pszPath'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedsManager.GetFeedByUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetFeedByUrl', ((1, 'pszUrl'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedsManager.ExistsFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'ExistsFolder', ((1, 'pszPath'),(1, 'pbFolderExists'),)))
-    IXFeedsManager.GetFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetFolder', ((1, 'pszPath'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedsManager.DeleteFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'DeleteFeed', ((1, 'pszPath'),)))
-    IXFeedsManager.DeleteFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(11, 'DeleteFolder', ((1, 'pszPath'),)))
-    IXFeedsManager.BackgroundSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_ACTION, use_last_error=False)(12, 'BackgroundSync', ((1, 'fbsa'),)))
-    IXFeedsManager.BackgroundSyncStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_STATUS), use_last_error=False)(13, 'BackgroundSyncStatus', ((1, 'pfbss'),)))
-    IXFeedsManager.DefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'DefaultInterval', ((1, 'puiInterval'),)))
-    IXFeedsManager.SetDefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'SetDefaultInterval', ((1, 'uiInterval'),)))
-    IXFeedsManager.AsyncSyncAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'AsyncSyncAll', ()))
-    IXFeedsManager.Normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(17, 'Normalize', ((1, 'pStreamIn'),(1, 'ppStreamOut'),)))
-    IXFeedsManager.ItemCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(18, 'ItemCountLimit', ((1, 'puiItemCountLimit'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedsManager
-def _define_IXFeedsEnum_head():
-    class IXFeedsEnum(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dc43a9d5-5015-4301-8c96-a47434b4d658')
-    return IXFeedsEnum
-def _define_IXFeedsEnum():
-    IXFeedsEnum = win32more.Media.MediaPlayer.IXFeedsEnum_head
-    IXFeedsEnum.Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'Count', ((1, 'puiCount'),)))
-    IXFeedsEnum.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'Item', ((1, 'uiIndex'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedsEnum
-def _define_IXFeedFolder_head():
-    class IXFeedFolder(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4c963678-3a51-4b88-8531-98b90b6508f2')
-    return IXFeedFolder
-def _define_IXFeedFolder():
-    IXFeedFolder = win32more.Media.MediaPlayer.IXFeedFolder_head
-    IXFeedFolder.Feeds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IXFeedsEnum_head), use_last_error=False)(3, 'Feeds', ((1, 'ppfe'),)))
-    IXFeedFolder.Subfolders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IXFeedsEnum_head), use_last_error=False)(4, 'Subfolders', ((1, 'ppfe'),)))
-    IXFeedFolder.CreateFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateFeed', ((1, 'pszName'),(1, 'pszUrl'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedFolder.CreateSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateSubfolder', ((1, 'pszName'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedFolder.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'ExistsFeed', ((1, 'pszName'),(1, 'pbFeedExists'),)))
-    IXFeedFolder.ExistsSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'ExistsSubfolder', ((1, 'pszName'),(1, 'pbSubfolderExists'),)))
-    IXFeedFolder.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetFeed', ((1, 'pszName'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedFolder.GetSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'GetSubfolder', ((1, 'pszName'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedFolder.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Delete', ()))
-    IXFeedFolder.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'Name', ((1, 'ppszName'),)))
-    IXFeedFolder.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(13, 'Rename', ((1, 'pszName'),)))
-    IXFeedFolder.Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(14, 'Path', ((1, 'ppszPath'),)))
-    IXFeedFolder.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(15, 'Move', ((1, 'pszPath'),)))
-    IXFeedFolder.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(16, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
-    IXFeedFolder.IsRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(17, 'IsRoot', ((1, 'pbIsRootFeedFolder'),)))
-    IXFeedFolder.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(18, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeedFolder.TotalUnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'TotalUnreadItemCount', ((1, 'puiTotalUnreadItemCount'),)))
-    IXFeedFolder.TotalItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(20, 'TotalItemCount', ((1, 'puiTotalItemCount'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedFolder
-def _define_IXFeedFolderEvents_head():
-    class IXFeedFolderEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7964b769-234a-4bb1-a5f4-90454c8ad07e')
-    return IXFeedFolderEvents
-def _define_IXFeedFolderEvents():
-    IXFeedFolderEvents = win32more.Media.MediaPlayer.IXFeedFolderEvents_head
-    IXFeedFolderEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Error', ()))
-    IXFeedFolderEvents.FolderAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'FolderAdded', ((1, 'pszPath'),)))
-    IXFeedFolderEvents.FolderDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'FolderDeleted', ((1, 'pszPath'),)))
-    IXFeedFolderEvents.FolderRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(6, 'FolderRenamed', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedFolderEvents.FolderMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'FolderMovedFrom', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedFolderEvents.FolderMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(8, 'FolderMovedTo', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedFolderEvents.FolderItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(9, 'FolderItemCountChanged', ((1, 'pszPath'),(1, 'feicfFlags'),)))
-    IXFeedFolderEvents.FeedAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'FeedAdded', ((1, 'pszPath'),)))
-    IXFeedFolderEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(11, 'FeedDeleted', ((1, 'pszPath'),)))
-    IXFeedFolderEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(12, 'FeedRenamed', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedFolderEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(13, 'FeedUrlChanged', ((1, 'pszPath'),)))
-    IXFeedFolderEvents.FeedMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(14, 'FeedMovedFrom', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedFolderEvents.FeedMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(15, 'FeedMovedTo', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedFolderEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(16, 'FeedDownloading', ((1, 'pszPath'),)))
-    IXFeedFolderEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR, use_last_error=False)(17, 'FeedDownloadCompleted', ((1, 'pszPath'),(1, 'fde'),)))
-    IXFeedFolderEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(18, 'FeedItemCountChanged', ((1, 'pszPath'),(1, 'feicfFlags'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedFolderEvents
-def _define_IXFeed_head():
-    class IXFeed(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a44179a4-e0f6-403b-af8d-d080f425a451')
-    return IXFeed
-def _define_IXFeed():
-    IXFeed = win32more.Media.MediaPlayer.IXFeed_head
-    IXFeed.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaPlayer.FEEDS_XML_SORT_PROPERTY,win32more.Media.MediaPlayer.FEEDS_XML_SORT_ORDER,win32more.Media.MediaPlayer.FEEDS_XML_FILTER_FLAGS,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'Xml', ((1, 'uiItemCount'),(1, 'sortProperty'),(1, 'sortOrder'),(1, 'filterFlags'),(1, 'includeFlags'),(1, 'pps'),)))
-    IXFeed.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'Name', ((1, 'ppszName'),)))
-    IXFeed.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'Rename', ((1, 'pszName'),)))
-    IXFeed.Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'Url', ((1, 'ppszUrl'),)))
-    IXFeed.SetUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetUrl', ((1, 'pszUrl'),)))
-    IXFeed.LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(8, 'LocalId', ((1, 'pguid'),)))
-    IXFeed.Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'Path', ((1, 'ppszPath'),)))
-    IXFeed.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'Move', ((1, 'pszPath'),)))
-    IXFeed.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
-    IXFeed.LastWriteTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(12, 'LastWriteTime', ((1, 'pstLastWriteTime'),)))
-    IXFeed.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Delete', ()))
-    IXFeed.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Download', ()))
-    IXFeed.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'AsyncDownload', ()))
-    IXFeed.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'CancelAsyncDownload', ()))
-    IXFeed.SyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING), use_last_error=False)(17, 'SyncSetting', ((1, 'pfss'),)))
-    IXFeed.SetSyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING, use_last_error=False)(18, 'SetSyncSetting', ((1, 'fss'),)))
-    IXFeed.Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'Interval', ((1, 'puiInterval'),)))
-    IXFeed.SetInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(20, 'SetInterval', ((1, 'uiInterval'),)))
-    IXFeed.LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(21, 'LastDownloadTime', ((1, 'pstLastDownloadTime'),)))
-    IXFeed.LocalEnclosurePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(22, 'LocalEnclosurePath', ((1, 'ppszPath'),)))
-    IXFeed.Items = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IXFeedsEnum_head), use_last_error=False)(23, 'Items', ((1, 'ppfe'),)))
-    IXFeed.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(24, 'GetItem', ((1, 'uiId'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeed.MarkAllItemsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'MarkAllItemsRead', ()))
-    IXFeed.MaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(26, 'MaxItemCount', ((1, 'puiMaxItemCount'),)))
-    IXFeed.SetMaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(27, 'SetMaxItemCount', ((1, 'uiMaxItemCount'),)))
-    IXFeed.DownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(28, 'DownloadEnclosuresAutomatically', ((1, 'pbDownloadEnclosuresAutomatically'),)))
-    IXFeed.SetDownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(29, 'SetDownloadEnclosuresAutomatically', ((1, 'bDownloadEnclosuresAutomatically'),)))
-    IXFeed.DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS), use_last_error=False)(30, 'DownloadStatus', ((1, 'pfds'),)))
-    IXFeed.LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR), use_last_error=False)(31, 'LastDownloadError', ((1, 'pfde'),)))
-    IXFeed.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Foundation.PWSTR, use_last_error=False)(32, 'Merge', ((1, 'pStream'),(1, 'pszUrl'),)))
-    IXFeed.DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(33, 'DownloadUrl', ((1, 'ppszUrl'),)))
-    IXFeed.Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(34, 'Title', ((1, 'ppszTitle'),)))
-    IXFeed.Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(35, 'Description', ((1, 'ppszDescription'),)))
-    IXFeed.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(36, 'Link', ((1, 'ppszHomePage'),)))
-    IXFeed.Image = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(37, 'Image', ((1, 'ppszImageUrl'),)))
-    IXFeed.LastBuildDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(38, 'LastBuildDate', ((1, 'pstLastBuildDate'),)))
-    IXFeed.PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(39, 'PubDate', ((1, 'pstPubDate'),)))
-    IXFeed.Ttl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(40, 'Ttl', ((1, 'puiTtl'),)))
-    IXFeed.Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(41, 'Language', ((1, 'ppszLanguage'),)))
-    IXFeed.Copyright = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(42, 'Copyright', ((1, 'ppszCopyright'),)))
-    IXFeed.IsList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(43, 'IsList', ((1, 'pbIsList'),)))
-    IXFeed.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(44, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeed.UnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(45, 'UnreadItemCount', ((1, 'puiUnreadItemCount'),)))
-    IXFeed.ItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(46, 'ItemCount', ((1, 'puiItemCount'),)))
-    win32more.System.Com.IUnknown
-    return IXFeed
-def _define_IXFeed2_head():
-    class IXFeed2(win32more.Media.MediaPlayer.IXFeed_head):
-        Guid = Guid('ce528e77-3716-4eb7-956d-f5e37502e12a')
-    return IXFeed2
-def _define_IXFeed2():
-    IXFeed2 = win32more.Media.MediaPlayer.IXFeed2_head
-    IXFeed2.GetItemByEffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(47, 'GetItemByEffectiveId', ((1, 'uiEffectiveId'),(1, 'riid'),(1, 'ppv'),)))
-    IXFeed2.LastItemDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(48, 'LastItemDownloadTime', ((1, 'pstLastItemDownloadTime'),)))
-    IXFeed2.Username = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(49, 'Username', ((1, 'ppszUsername'),)))
-    IXFeed2.Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(50, 'Password', ((1, 'ppszPassword'),)))
-    IXFeed2.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(51, 'SetCredentials', ((1, 'pszUsername'),(1, 'pszPassword'),)))
-    IXFeed2.ClearCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(52, 'ClearCredentials', ()))
-    win32more.Media.MediaPlayer.IXFeed
-    return IXFeed2
-def _define_IXFeedEvents_head():
-    class IXFeedEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1630852e-1263-465b-98e5-fe60ffec4ac2')
-    return IXFeedEvents
-def _define_IXFeedEvents():
-    IXFeedEvents = win32more.Media.MediaPlayer.IXFeedEvents_head
-    IXFeedEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Error', ()))
-    IXFeedEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'FeedDeleted', ((1, 'pszPath'),)))
-    IXFeedEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(5, 'FeedRenamed', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'FeedUrlChanged', ((1, 'pszPath'),)))
-    IXFeedEvents.FeedMoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'FeedMoved', ((1, 'pszPath'),(1, 'pszOldPath'),)))
-    IXFeedEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'FeedDownloading', ((1, 'pszPath'),)))
-    IXFeedEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR, use_last_error=False)(9, 'FeedDownloadCompleted', ((1, 'pszPath'),(1, 'fde'),)))
-    IXFeedEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(10, 'FeedItemCountChanged', ((1, 'pszPath'),(1, 'feicfFlags'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedEvents
-def _define_IXFeedItem_head():
-    class IXFeedItem(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e757b2f5-e73e-434e-a1bf-2bd7c3e60fcb')
-    return IXFeedItem
-def _define_IXFeedItem():
-    IXFeedItem = win32more.Media.MediaPlayer.IXFeedItem_head
-    IXFeedItem.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'Xml', ((1, 'fxif'),(1, 'pps'),)))
-    IXFeedItem.Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'Title', ((1, 'ppszTitle'),)))
-    IXFeedItem.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'Link', ((1, 'ppszUrl'),)))
-    IXFeedItem.Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'Guid', ((1, 'ppszGuid'),)))
-    IXFeedItem.Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'Description', ((1, 'ppszDescription'),)))
-    IXFeedItem.PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(8, 'PubDate', ((1, 'pstPubDate'),)))
-    IXFeedItem.Comments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'Comments', ((1, 'ppszUrl'),)))
-    IXFeedItem.Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'Author', ((1, 'ppszAuthor'),)))
-    IXFeedItem.Enclosure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'Enclosure', ((1, 'riid'),(1, 'ppv'),)))
-    IXFeedItem.IsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'IsRead', ((1, 'pbIsRead'),)))
-    IXFeedItem.SetIsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(13, 'SetIsRead', ((1, 'bIsRead'),)))
-    IXFeedItem.LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'LocalId', ((1, 'puiId'),)))
-    IXFeedItem.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
-    IXFeedItem.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Delete', ()))
-    IXFeedItem.DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(17, 'DownloadUrl', ((1, 'ppszUrl'),)))
-    IXFeedItem.LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(18, 'LastDownloadTime', ((1, 'pstLastDownloadTime'),)))
-    IXFeedItem.Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(19, 'Modified', ((1, 'pstModifiedTime'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedItem
-def _define_IXFeedItem2_head():
-    class IXFeedItem2(win32more.Media.MediaPlayer.IXFeedItem_head):
-        Guid = Guid('6cda2dc7-9013-4522-9970-2a9dd9ead5a3')
-    return IXFeedItem2
-def _define_IXFeedItem2():
-    IXFeedItem2 = win32more.Media.MediaPlayer.IXFeedItem2_head
-    IXFeedItem2.EffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(20, 'EffectiveId', ((1, 'puiEffectiveId'),)))
-    win32more.Media.MediaPlayer.IXFeedItem
-    return IXFeedItem2
-def _define_IXFeedEnclosure_head():
-    class IXFeedEnclosure(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bfbfb953-644f-4792-b69c-dfaca4cbf89a')
-    return IXFeedEnclosure
-def _define_IXFeedEnclosure():
-    IXFeedEnclosure = win32more.Media.MediaPlayer.IXFeedEnclosure_head
-    IXFeedEnclosure.Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'Url', ((1, 'ppszUrl'),)))
-    IXFeedEnclosure.Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'Type', ((1, 'ppszMimeType'),)))
-    IXFeedEnclosure.Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'Length', ((1, 'puiLength'),)))
-    IXFeedEnclosure.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'AsyncDownload', ()))
-    IXFeedEnclosure.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'CancelAsyncDownload', ()))
-    IXFeedEnclosure.DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS), use_last_error=False)(8, 'DownloadStatus', ((1, 'pfds'),)))
-    IXFeedEnclosure.LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR), use_last_error=False)(9, 'LastDownloadError', ((1, 'pfde'),)))
-    IXFeedEnclosure.LocalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'LocalPath', ((1, 'ppszPath'),)))
-    IXFeedEnclosure.Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'Parent', ((1, 'riid'),(1, 'ppv'),)))
-    IXFeedEnclosure.DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'DownloadUrl', ((1, 'ppszUrl'),)))
-    IXFeedEnclosure.DownloadMimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(13, 'DownloadMimeType', ((1, 'ppszMimeType'),)))
-    IXFeedEnclosure.RemoveFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'RemoveFile', ()))
-    IXFeedEnclosure.SetFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(15, 'SetFile', ((1, 'pszDownloadUrl'),(1, 'pszDownloadFilePath'),(1, 'pszDownloadMimeType'),(1, 'pszEnclosureFilename'),)))
-    win32more.System.Com.IUnknown
-    return IXFeedEnclosure
-def _define_IFeedsManager_head():
-    class IFeedsManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a74029cc-1f1a-4906-88f0-810638d86591')
-    return IFeedsManager
-def _define_IFeedsManager():
-    IFeedsManager = win32more.Media.MediaPlayer.IFeedsManager_head
-    IFeedsManager.get_RootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'get_RootFolder', ((1, 'disp'),)))
-    IFeedsManager.IsSubscribed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(8, 'IsSubscribed', ((1, 'feedUrl'),(1, 'subscribed'),)))
-    IFeedsManager.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(9, 'ExistsFeed', ((1, 'feedPath'),(1, 'exists'),)))
-    IFeedsManager.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'GetFeed', ((1, 'feedPath'),(1, 'disp'),)))
-    IFeedsManager.GetFeedByUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'GetFeedByUrl', ((1, 'feedUrl'),(1, 'disp'),)))
-    IFeedsManager.ExistsFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(12, 'ExistsFolder', ((1, 'folderPath'),(1, 'exists'),)))
-    IFeedsManager.GetFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'GetFolder', ((1, 'folderPath'),(1, 'disp'),)))
-    IFeedsManager.DeleteFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'DeleteFeed', ((1, 'feedPath'),)))
-    IFeedsManager.DeleteFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'DeleteFolder', ((1, 'folderPath'),)))
-    IFeedsManager.BackgroundSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_ACTION, use_last_error=False)(16, 'BackgroundSync', ((1, 'action'),)))
-    IFeedsManager.get_BackgroundSyncStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_BACKGROUNDSYNC_STATUS), use_last_error=False)(17, 'get_BackgroundSyncStatus', ((1, 'status'),)))
-    IFeedsManager.get_DefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_DefaultInterval', ((1, 'minutes'),)))
-    IFeedsManager.put_DefaultInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(19, 'put_DefaultInterval', ((1, 'minutes'),)))
-    IFeedsManager.AsyncSyncAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'AsyncSyncAll', ()))
-    IFeedsManager.Normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'Normalize', ((1, 'feedXmlIn'),(1, 'feedXmlOut'),)))
-    IFeedsManager.get_ItemCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_ItemCountLimit', ((1, 'itemCountLimit'),)))
-    win32more.System.Com.IDispatch
-    return IFeedsManager
-def _define_IFeedsEnum_head():
-    class IFeedsEnum(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e3cd0028-2eed-4c60-8fae-a3225309a836')
-    return IFeedsEnum
-def _define_IFeedsEnum():
-    IFeedsEnum = win32more.Media.MediaPlayer.IFeedsEnum_head
-    IFeedsEnum.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'count'),)))
-    IFeedsEnum.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'Item', ((1, 'index'),(1, 'disp'),)))
-    IFeedsEnum.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'enumVar'),)))
-    win32more.System.Com.IDispatch
-    return IFeedsEnum
-def _define_IFeedFolder_head():
-    class IFeedFolder(win32more.System.Com.IDispatch_head):
-        Guid = Guid('81f04ad1-4194-4d7d-86d6-11813cec163c')
-    return IFeedFolder
-def _define_IFeedFolder():
-    IFeedFolder = win32more.Media.MediaPlayer.IFeedFolder_head
-    IFeedFolder.get_Feeds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'get_Feeds', ((1, 'disp'),)))
-    IFeedFolder.get_Subfolders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Subfolders', ((1, 'disp'),)))
-    IFeedFolder.CreateFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'CreateFeed', ((1, 'feedName'),(1, 'feedUrl'),(1, 'disp'),)))
-    IFeedFolder.CreateSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'CreateSubfolder', ((1, 'folderName'),(1, 'disp'),)))
-    IFeedFolder.ExistsFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(11, 'ExistsFeed', ((1, 'feedName'),(1, 'exists'),)))
-    IFeedFolder.GetFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(12, 'GetFeed', ((1, 'feedName'),(1, 'disp'),)))
-    IFeedFolder.ExistsSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(13, 'ExistsSubfolder', ((1, 'folderName'),(1, 'exists'),)))
-    IFeedFolder.GetSubfolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(14, 'GetSubfolder', ((1, 'folderName'),(1, 'disp'),)))
-    IFeedFolder.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Delete', ()))
-    IFeedFolder.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_Name', ((1, 'folderName'),)))
-    IFeedFolder.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'Rename', ((1, 'folderName'),)))
-    IFeedFolder.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_Path', ((1, 'folderPath'),)))
-    IFeedFolder.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'Move', ((1, 'newParentPath'),)))
-    IFeedFolder.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(20, 'get_Parent', ((1, 'disp'),)))
-    IFeedFolder.get_IsRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(21, 'get_IsRoot', ((1, 'isRoot'),)))
-    IFeedFolder.get_TotalUnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_TotalUnreadItemCount', ((1, 'count'),)))
-    IFeedFolder.get_TotalItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_TotalItemCount', ((1, 'count'),)))
-    IFeedFolder.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(24, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'disp'),)))
-    win32more.System.Com.IDispatch
-    return IFeedFolder
-def _define_IFeedFolderEvents_head():
-    class IFeedFolderEvents(win32more.System.Com.IDispatch_head):
-        Guid = Guid('20a59fa6-a844-4630-9e98-175f70b4d55b')
-    return IFeedFolderEvents
-def _define_IFeedFolderEvents():
-    IFeedFolderEvents = win32more.Media.MediaPlayer.IFeedFolderEvents_head
-    IFeedFolderEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Error', ()))
-    IFeedFolderEvents.FolderAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'FolderAdded', ((1, 'path'),)))
-    IFeedFolderEvents.FolderDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'FolderDeleted', ((1, 'path'),)))
-    IFeedFolderEvents.FolderRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(10, 'FolderRenamed', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedFolderEvents.FolderMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(11, 'FolderMovedFrom', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedFolderEvents.FolderMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(12, 'FolderMovedTo', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedFolderEvents.FolderItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(13, 'FolderItemCountChanged', ((1, 'path'),(1, 'itemCountType'),)))
-    IFeedFolderEvents.FeedAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'FeedAdded', ((1, 'path'),)))
-    IFeedFolderEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'FeedDeleted', ((1, 'path'),)))
-    IFeedFolderEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(16, 'FeedRenamed', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedFolderEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'FeedUrlChanged', ((1, 'path'),)))
-    IFeedFolderEvents.FeedMovedFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(18, 'FeedMovedFrom', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedFolderEvents.FeedMovedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(19, 'FeedMovedTo', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedFolderEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(20, 'FeedDownloading', ((1, 'path'),)))
-    IFeedFolderEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR, use_last_error=False)(21, 'FeedDownloadCompleted', ((1, 'path'),(1, 'error'),)))
-    IFeedFolderEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(22, 'FeedItemCountChanged', ((1, 'path'),(1, 'itemCountType'),)))
-    win32more.System.Com.IDispatch
-    return IFeedFolderEvents
-def _define_IFeed_head():
-    class IFeed(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f7f915d8-2ede-42bc-98e7-a5d05063a757')
-    return IFeed
-def _define_IFeed():
-    IFeed = win32more.Media.MediaPlayer.IFeed_head
-    IFeed.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Media.MediaPlayer.FEEDS_XML_SORT_PROPERTY,win32more.Media.MediaPlayer.FEEDS_XML_SORT_ORDER,win32more.Media.MediaPlayer.FEEDS_XML_FILTER_FLAGS,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'Xml', ((1, 'count'),(1, 'sortProperty'),(1, 'sortOrder'),(1, 'filterFlags'),(1, 'includeFlags'),(1, 'xml'),)))
-    IFeed.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Name', ((1, 'name'),)))
-    IFeed.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'Rename', ((1, 'name'),)))
-    IFeed.get_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Url', ((1, 'feedUrl'),)))
-    IFeed.put_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_Url', ((1, 'feedUrl'),)))
-    IFeed.get_LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_LocalId', ((1, 'feedGuid'),)))
-    IFeed.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_Path', ((1, 'path'),)))
-    IFeed.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'Move', ((1, 'newParentPath'),)))
-    IFeed.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'get_Parent', ((1, 'disp'),)))
-    IFeed.get_LastWriteTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(16, 'get_LastWriteTime', ((1, 'lastWrite'),)))
-    IFeed.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Delete', ()))
-    IFeed.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Download', ()))
-    IFeed.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'AsyncDownload', ()))
-    IFeed.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'CancelAsyncDownload', ()))
-    IFeed.get_SyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING), use_last_error=False)(21, 'get_SyncSetting', ((1, 'syncSetting'),)))
-    IFeed.put_SyncSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_SYNC_SETTING, use_last_error=False)(22, 'put_SyncSetting', ((1, 'syncSetting'),)))
-    IFeed.get_Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_Interval', ((1, 'minutes'),)))
-    IFeed.put_Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(24, 'put_Interval', ((1, 'minutes'),)))
-    IFeed.get_LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(25, 'get_LastDownloadTime', ((1, 'lastDownload'),)))
-    IFeed.get_LocalEnclosurePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'get_LocalEnclosurePath', ((1, 'path'),)))
-    IFeed.get_Items = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(27, 'get_Items', ((1, 'disp'),)))
-    IFeed.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(28, 'GetItem', ((1, 'itemId'),(1, 'disp'),)))
-    IFeed.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(29, 'get_Title', ((1, 'title'),)))
-    IFeed.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(30, 'get_Description', ((1, 'description'),)))
-    IFeed.get_Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'get_Link', ((1, 'homePage'),)))
-    IFeed.get_Image = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(32, 'get_Image', ((1, 'imageUrl'),)))
-    IFeed.get_LastBuildDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(33, 'get_LastBuildDate', ((1, 'lastBuildDate'),)))
-    IFeed.get_PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(34, 'get_PubDate', ((1, 'lastPopulateDate'),)))
-    IFeed.get_Ttl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(35, 'get_Ttl', ((1, 'ttl'),)))
-    IFeed.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_Language', ((1, 'language'),)))
-    IFeed.get_Copyright = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(37, 'get_Copyright', ((1, 'copyright'),)))
-    IFeed.get_MaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(38, 'get_MaxItemCount', ((1, 'count'),)))
-    IFeed.put_MaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(39, 'put_MaxItemCount', ((1, 'count'),)))
-    IFeed.get_DownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(40, 'get_DownloadEnclosuresAutomatically', ((1, 'downloadEnclosuresAutomatically'),)))
-    IFeed.put_DownloadEnclosuresAutomatically = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(41, 'put_DownloadEnclosuresAutomatically', ((1, 'downloadEnclosuresAutomatically'),)))
-    IFeed.get_DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS), use_last_error=False)(42, 'get_DownloadStatus', ((1, 'status'),)))
-    IFeed.get_LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR), use_last_error=False)(43, 'get_LastDownloadError', ((1, 'error'),)))
-    IFeed.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(44, 'Merge', ((1, 'feedXml'),(1, 'feedUrl'),)))
-    IFeed.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(45, 'get_DownloadUrl', ((1, 'feedUrl'),)))
-    IFeed.get_IsList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(46, 'get_IsList', ((1, 'isList'),)))
-    IFeed.MarkAllItemsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(47, 'MarkAllItemsRead', ()))
-    IFeed.GetWatcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_EVENTS_SCOPE,win32more.Media.MediaPlayer.FEEDS_EVENTS_MASK,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(48, 'GetWatcher', ((1, 'scope'),(1, 'mask'),(1, 'disp'),)))
-    IFeed.get_UnreadItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(49, 'get_UnreadItemCount', ((1, 'count'),)))
-    IFeed.get_ItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(50, 'get_ItemCount', ((1, 'count'),)))
-    win32more.System.Com.IDispatch
-    return IFeed
-def _define_IFeed2_head():
-    class IFeed2(win32more.Media.MediaPlayer.IFeed_head):
-        Guid = Guid('33f2ea09-1398-4ab9-b6a4-f94b49d0a42e')
-    return IFeed2
-def _define_IFeed2():
-    IFeed2 = win32more.Media.MediaPlayer.IFeed2_head
-    IFeed2.GetItemByEffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(51, 'GetItemByEffectiveId', ((1, 'itemEffectiveId'),(1, 'disp'),)))
-    IFeed2.get_LastItemDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(52, 'get_LastItemDownloadTime', ((1, 'lastItemDownloadTime'),)))
-    IFeed2.get_Username = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(53, 'get_Username', ((1, 'username'),)))
-    IFeed2.get_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(54, 'get_Password', ((1, 'password'),)))
-    IFeed2.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(55, 'SetCredentials', ((1, 'username'),(1, 'password'),)))
-    IFeed2.ClearCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(56, 'ClearCredentials', ()))
-    win32more.Media.MediaPlayer.IFeed
-    return IFeed2
-def _define_IFeedEvents_head():
-    class IFeedEvents(win32more.System.Com.IDispatch_head):
-        Guid = Guid('abf35c99-0681-47ea-9a8c-1436a375a99e')
-    return IFeedEvents
-def _define_IFeedEvents():
-    IFeedEvents = win32more.Media.MediaPlayer.IFeedEvents_head
-    IFeedEvents.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Error', ()))
-    IFeedEvents.FeedDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'FeedDeleted', ((1, 'path'),)))
-    IFeedEvents.FeedRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(9, 'FeedRenamed', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedEvents.FeedUrlChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'FeedUrlChanged', ((1, 'path'),)))
-    IFeedEvents.FeedMoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(11, 'FeedMoved', ((1, 'path'),(1, 'oldPath'),)))
-    IFeedEvents.FeedDownloading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'FeedDownloading', ((1, 'path'),)))
-    IFeedEvents.FeedDownloadCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR, use_last_error=False)(13, 'FeedDownloadCompleted', ((1, 'path'),(1, 'error'),)))
-    IFeedEvents.FeedItemCountChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(14, 'FeedItemCountChanged', ((1, 'path'),(1, 'itemCountType'),)))
-    win32more.System.Com.IDispatch
-    return IFeedEvents
-def _define_IFeedItem_head():
-    class IFeedItem(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0a1e6cad-0a47-4da2-a13d-5baaa5c8bd4f')
-    return IFeedItem
-def _define_IFeedItem():
-    IFeedItem = win32more.Media.MediaPlayer.IFeedItem_head
-    IFeedItem.Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'Xml', ((1, 'includeFlags'),(1, 'xml'),)))
-    IFeedItem.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Title', ((1, 'title'),)))
-    IFeedItem.get_Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Link', ((1, 'linkUrl'),)))
-    IFeedItem.get_Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Guid', ((1, 'itemGuid'),)))
-    IFeedItem.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_Description', ((1, 'description'),)))
-    IFeedItem.get_PubDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(12, 'get_PubDate', ((1, 'pubDate'),)))
-    IFeedItem.get_Comments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_Comments', ((1, 'comments'),)))
-    IFeedItem.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_Author', ((1, 'author'),)))
-    IFeedItem.get_Enclosure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'get_Enclosure', ((1, 'disp'),)))
-    IFeedItem.get_IsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_IsRead', ((1, 'isRead'),)))
-    IFeedItem.put_IsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_IsRead', ((1, 'isRead'),)))
-    IFeedItem.get_LocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_LocalId', ((1, 'itemId'),)))
-    IFeedItem.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(19, 'get_Parent', ((1, 'disp'),)))
-    IFeedItem.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Delete', ()))
-    IFeedItem.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'get_DownloadUrl', ((1, 'itemUrl'),)))
-    IFeedItem.get_LastDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(22, 'get_LastDownloadTime', ((1, 'lastDownload'),)))
-    IFeedItem.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(23, 'get_Modified', ((1, 'modified'),)))
-    win32more.System.Com.IDispatch
-    return IFeedItem
-def _define_IFeedItem2_head():
-    class IFeedItem2(win32more.Media.MediaPlayer.IFeedItem_head):
-        Guid = Guid('79ac9ef4-f9c1-4d2b-a50b-a7ffba4dcf37')
-    return IFeedItem2
-def _define_IFeedItem2():
-    IFeedItem2 = win32more.Media.MediaPlayer.IFeedItem2_head
-    IFeedItem2.get_EffectiveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_EffectiveId', ((1, 'effectiveId'),)))
-    win32more.Media.MediaPlayer.IFeedItem
-    return IFeedItem2
-def _define_IFeedEnclosure_head():
-    class IFeedEnclosure(win32more.System.Com.IDispatch_head):
-        Guid = Guid('361c26f7-90a4-4e67-ae09-3a36a546436a')
-    return IFeedEnclosure
-def _define_IFeedEnclosure():
-    IFeedEnclosure = win32more.Media.MediaPlayer.IFeedEnclosure_head
-    IFeedEnclosure.get_Url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Url', ((1, 'enclosureUrl'),)))
-    IFeedEnclosure.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Type', ((1, 'mimeType'),)))
-    IFeedEnclosure.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Length', ((1, 'length'),)))
-    IFeedEnclosure.AsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'AsyncDownload', ()))
-    IFeedEnclosure.CancelAsyncDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'CancelAsyncDownload', ()))
-    IFeedEnclosure.get_DownloadStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_STATUS), use_last_error=False)(12, 'get_DownloadStatus', ((1, 'status'),)))
-    IFeedEnclosure.get_LastDownloadError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.FEEDS_DOWNLOAD_ERROR), use_last_error=False)(13, 'get_LastDownloadError', ((1, 'error'),)))
-    IFeedEnclosure.get_LocalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_LocalPath', ((1, 'localPath'),)))
-    IFeedEnclosure.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'get_Parent', ((1, 'disp'),)))
-    IFeedEnclosure.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_DownloadUrl', ((1, 'enclosureUrl'),)))
-    IFeedEnclosure.get_DownloadMimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_DownloadMimeType', ((1, 'mimeType'),)))
-    IFeedEnclosure.RemoveFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'RemoveFile', ()))
-    IFeedEnclosure.SetFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(19, 'SetFile', ((1, 'downloadUrl'),(1, 'downloadFilePath'),(1, 'downloadMimeType'),(1, 'enclosureFilename'),)))
-    win32more.System.Com.IDispatch
-    return IFeedEnclosure
-PlayerState = Int32
-stop_state = 0
-pause_state = 1
-play_state = 2
-def _define_TimedLevel_head():
-    class TimedLevel(Structure):
-        pass
-    return TimedLevel
-def _define_TimedLevel():
-    TimedLevel = win32more.Media.MediaPlayer.TimedLevel_head
-    TimedLevel._fields_ = [
-        ("frequency", Byte * 2048),
-        ("waveform", Byte * 2048),
-        ("state", Int32),
-        ("timeStamp", Int64),
-    ]
-    return TimedLevel
-def _define_IWMPEffects_head():
-    class IWMPEffects(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d3984c13-c3cb-48e2-8be5-5168340b4f35')
-    return IWMPEffects
-def _define_IWMPEffects():
-    IWMPEffects = win32more.Media.MediaPlayer.IWMPEffects_head
-    IWMPEffects.Render = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.TimedLevel_head),win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(3, 'Render', ((1, 'pLevels'),(1, 'hdc'),(1, 'prc'),)))
-    IWMPEffects.MediaInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(4, 'MediaInfo', ((1, 'lChannelCount'),(1, 'lSampleRate'),(1, 'bstrTitle'),)))
-    IWMPEffects.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetCapabilities', ((1, 'pdwCapabilities'),)))
-    IWMPEffects.GetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetTitle', ((1, 'bstrTitle'),)))
-    IWMPEffects.GetPresetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetPresetTitle', ((1, 'nPreset'),(1, 'bstrPresetTitle'),)))
-    IWMPEffects.GetPresetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'GetPresetCount', ((1, 'pnPresetCount'),)))
-    IWMPEffects.SetCurrentPreset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'SetCurrentPreset', ((1, 'nPreset'),)))
-    IWMPEffects.GetCurrentPreset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'GetCurrentPreset', ((1, 'pnPreset'),)))
-    IWMPEffects.DisplayPropertyPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(11, 'DisplayPropertyPage', ((1, 'hwndOwner'),)))
-    IWMPEffects.GoFullscreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(12, 'GoFullscreen', ((1, 'fFullScreen'),)))
-    IWMPEffects.RenderFullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.TimedLevel_head), use_last_error=False)(13, 'RenderFullScreen', ((1, 'pLevels'),)))
-    win32more.System.Com.IUnknown
-    return IWMPEffects
-def _define_IWMPEffects2_head():
-    class IWMPEffects2(win32more.Media.MediaPlayer.IWMPEffects_head):
-        Guid = Guid('695386ec-aa3c-4618-a5e1-dd9a8b987632')
-    return IWMPEffects2
-def _define_IWMPEffects2():
-    IWMPEffects2 = win32more.Media.MediaPlayer.IWMPEffects2_head
-    IWMPEffects2.SetCore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPCore_head, use_last_error=False)(14, 'SetCore', ((1, 'pPlayer'),)))
-    IWMPEffects2.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(15, 'Create', ((1, 'hwndParent'),)))
-    IWMPEffects2.Destroy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Destroy', ()))
-    IWMPEffects2.NotifyNewMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPMedia_head, use_last_error=False)(17, 'NotifyNewMedia', ((1, 'pMedia'),)))
-    IWMPEffects2.OnWindowMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(18, 'OnWindowMessage', ((1, 'msg'),(1, 'WParam'),(1, 'LParam'),(1, 'plResultParam'),)))
-    IWMPEffects2.RenderWindowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.TimedLevel_head),win32more.Foundation.BOOL, use_last_error=False)(19, 'RenderWindowed', ((1, 'pData'),(1, 'fRequiredRender'),)))
-    win32more.Media.MediaPlayer.IWMPEffects
-    return IWMPEffects2
-def _define_IWMPPluginUI_head():
-    class IWMPPluginUI(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4c5e8f9f-ad3e-4bf9-9753-fcd30d6d38dd')
-    return IWMPPluginUI
-def _define_IWMPPluginUI():
-    IWMPPluginUI = win32more.Media.MediaPlayer.IWMPPluginUI_head
-    IWMPPluginUI.SetCore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPCore_head, use_last_error=False)(3, 'SetCore', ((1, 'pCore'),)))
-    IWMPPluginUI.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.HWND), use_last_error=False)(4, 'Create', ((1, 'hwndParent'),(1, 'phwndWindow'),)))
-    IWMPPluginUI.Destroy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Destroy', ()))
-    IWMPPluginUI.DisplayPropertyPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'DisplayPropertyPage', ((1, 'hwndParent'),)))
-    IWMPPluginUI.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'GetProperty', ((1, 'pwszName'),(1, 'pvarProperty'),)))
-    IWMPPluginUI.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'SetProperty', ((1, 'pwszName'),(1, 'pvarProperty'),)))
-    IWMPPluginUI.TranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(9, 'TranslateAccelerator', ((1, 'lpmsg'),)))
-    win32more.System.Com.IUnknown
-    return IWMPPluginUI
-WMPPartnerNotification = Int32
-WMPPartnerNotification_wmpsnBackgroundProcessingBegin = 1
-WMPPartnerNotification_wmpsnBackgroundProcessingEnd = 2
-WMPPartnerNotification_wmpsnCatalogDownloadFailure = 3
-WMPPartnerNotification_wmpsnCatalogDownloadComplete = 4
-WMPCallbackNotification = Int32
-WMPCallbackNotification_wmpcnLoginStateChange = 1
-WMPCallbackNotification_wmpcnAuthResult = 2
-WMPCallbackNotification_wmpcnLicenseUpdated = 3
-WMPCallbackNotification_wmpcnNewCatalogAvailable = 4
-WMPCallbackNotification_wmpcnNewPluginAvailable = 5
-WMPCallbackNotification_wmpcnDisableRadioSkipping = 6
-WMPTaskType = Int32
-WMPTaskType_wmpttBrowse = 1
-WMPTaskType_wmpttSync = 2
-WMPTaskType_wmpttBurn = 3
-WMPTaskType_wmpttCurrent = 4
-def _define_WMPContextMenuInfo_head():
-    class WMPContextMenuInfo(Structure):
-        pass
-    return WMPContextMenuInfo
-def _define_WMPContextMenuInfo():
-    WMPContextMenuInfo = win32more.Media.MediaPlayer.WMPContextMenuInfo_head
-    WMPContextMenuInfo._fields_ = [
-        ("dwID", UInt32),
-        ("bstrMenuText", win32more.Foundation.BSTR),
-        ("bstrHelpText", win32more.Foundation.BSTR),
-    ]
-    return WMPContextMenuInfo
-def _define_IWMPContentContainer_head():
-    class IWMPContentContainer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ad7f4d9c-1a9f-4ed2-9815-ecc0b58cb616')
-    return IWMPContentContainer
-def _define_IWMPContentContainer():
-    IWMPContentContainer = win32more.Media.MediaPlayer.IWMPContentContainer_head
-    IWMPContentContainer.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetID', ((1, 'pContentID'),)))
-    IWMPContentContainer.GetPrice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetPrice', ((1, 'pbstrPrice'),)))
-    IWMPContentContainer.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetType', ((1, 'pbstrType'),)))
-    IWMPContentContainer.GetContentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetContentCount', ((1, 'pcContent'),)))
-    IWMPContentContainer.GetContentPrice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetContentPrice', ((1, 'idxContent'),(1, 'pbstrPrice'),)))
-    IWMPContentContainer.GetContentID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(8, 'GetContentID', ((1, 'idxContent'),(1, 'pContentID'),)))
-    win32more.System.Com.IUnknown
-    return IWMPContentContainer
-WMPTransactionType = Int32
-WMPTransactionType_wmpttNoTransaction = 0
-WMPTransactionType_wmpttDownload = 1
-WMPTransactionType_wmpttBuy = 2
-def _define_IWMPContentContainerList_head():
-    class IWMPContentContainerList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9937f78-0802-4af8-8b8d-e3f045bc8ab5')
-    return IWMPContentContainerList
-def _define_IWMPContentContainerList():
-    IWMPContentContainerList = win32more.Media.MediaPlayer.IWMPContentContainerList_head
-    IWMPContentContainerList.GetTransactionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPTransactionType), use_last_error=False)(3, 'GetTransactionType', ((1, 'pwmptt'),)))
-    IWMPContentContainerList.GetContainerCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetContainerCount', ((1, 'pcContainer'),)))
-    IWMPContentContainerList.GetContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaPlayer.IWMPContentContainer_head), use_last_error=False)(5, 'GetContainer', ((1, 'idxContainer'),(1, 'ppContent'),)))
-    win32more.System.Com.IUnknown
-    return IWMPContentContainerList
-WMPTemplateSize = Int32
-WMPTemplateSize_wmptsSmall = 0
-WMPTemplateSize_wmptsMedium = 1
-WMPTemplateSize_wmptsLarge = 2
-WMPStreamingType = Int32
-WMPStreamingType_wmpstUnknown = 0
-WMPStreamingType_wmpstMusic = 1
-WMPStreamingType_wmpstVideo = 2
-WMPStreamingType_wmpstRadio = 3
-WMPAccountType = Int32
-WMPAccountType_wmpatBuyOnly = 1
-WMPAccountType_wmpatSubscription = 2
-WMPAccountType_wmpatJanus = 3
-def _define_IWMPContentPartnerCallback_head():
-    class IWMPContentPartnerCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9e8f7da2-0695-403c-b697-da10fafaa676')
-    return IWMPContentPartnerCallback
-def _define_IWMPContentPartnerCallback():
-    IWMPContentPartnerCallback = win32more.Media.MediaPlayer.IWMPContentPartnerCallback_head
-    IWMPContentPartnerCallback.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPCallbackNotification,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'Notify', ((1, 'type'),(1, 'pContext'),)))
-    IWMPContentPartnerCallback.BuyComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'BuyComplete', ((1, 'hrResult'),(1, 'dwBuyCookie'),)))
-    IWMPContentPartnerCallback.DownloadTrack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,win32more.Foundation.HRESULT, use_last_error=False)(5, 'DownloadTrack', ((1, 'cookie'),(1, 'bstrTrackURL'),(1, 'dwServiceTrackID'),(1, 'bstrDownloadParams'),(1, 'hrDownload'),)))
-    IWMPContentPartnerCallback.GetCatalogVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(6, 'GetCatalogVersion', ((1, 'pdwVersion'),(1, 'pdwSchemaVersion'),(1, 'plcid'),)))
-    IWMPContentPartnerCallback.UpdateDeviceComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'UpdateDeviceComplete', ((1, 'bstrDeviceName'),)))
-    IWMPContentPartnerCallback.ChangeView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(8, 'ChangeView', ((1, 'bstrType'),(1, 'bstrID'),(1, 'bstrFilter'),)))
-    IWMPContentPartnerCallback.AddListContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(9, 'AddListContents', ((1, 'dwListCookie'),(1, 'cItems'),(1, 'prgItems'),)))
-    IWMPContentPartnerCallback.ListContentsComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(10, 'ListContentsComplete', ((1, 'dwListCookie'),(1, 'hrSuccess'),)))
-    IWMPContentPartnerCallback.SendMessageComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(11, 'SendMessageComplete', ((1, 'bstrMsg'),(1, 'bstrParam'),(1, 'bstrResult'),)))
-    IWMPContentPartnerCallback.GetContentIDsInLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(UInt32)), use_last_error=False)(12, 'GetContentIDsInLibrary', ((1, 'pcContentIDs'),(1, 'pprgIDs'),)))
-    IWMPContentPartnerCallback.RefreshLicenseComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(13, 'RefreshLicenseComplete', ((1, 'dwCookie'),(1, 'contentID'),(1, 'hrRefresh'),)))
-    IWMPContentPartnerCallback.ShowPopup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(14, 'ShowPopup', ((1, 'lIndex'),(1, 'bstrParameters'),)))
-    IWMPContentPartnerCallback.VerifyPermissionComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.HRESULT, use_last_error=False)(15, 'VerifyPermissionComplete', ((1, 'bstrPermission'),(1, 'pContext'),(1, 'hrPermission'),)))
-    win32more.System.Com.IUnknown
-    return IWMPContentPartnerCallback
-def _define_IWMPContentPartner_head():
-    class IWMPContentPartner(win32more.System.Com.IUnknown_head):
-        Guid = Guid('55455073-41b5-4e75-87b8-f13bdb291d08')
-    return IWMPContentPartner
-def _define_IWMPContentPartner():
-    IWMPContentPartner = win32more.Media.MediaPlayer.IWMPContentPartner_head
-    IWMPContentPartner.SetCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentPartnerCallback_head, use_last_error=False)(3, 'SetCallback', ((1, 'pCallback'),)))
-    IWMPContentPartner.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPPartnerNotification,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'Notify', ((1, 'type'),(1, 'pContext'),)))
-    IWMPContentPartner.GetItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(5, 'GetItemInfo', ((1, 'bstrInfoName'),(1, 'pContext'),(1, 'pData'),)))
-    IWMPContentPartner.GetContentPartnerInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(6, 'GetContentPartnerInfo', ((1, 'bstrInfoName'),(1, 'pData'),)))
-    IWMPContentPartner.GetCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(POINTER(win32more.Media.MediaPlayer.WMPContextMenuInfo_head)), use_last_error=False)(7, 'GetCommands', ((1, 'location'),(1, 'pLocationContext'),(1, 'itemLocation'),(1, 'cItemIDs'),(1, 'prgItemIDs'),(1, 'pcItemIDs'),(1, 'pprgItems'),)))
-    IWMPContentPartner.InvokeCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,UInt32,POINTER(UInt32), use_last_error=False)(8, 'InvokeCommand', ((1, 'dwCommandID'),(1, 'location'),(1, 'pLocationContext'),(1, 'itemLocation'),(1, 'cItemIDs'),(1, 'rgItemIDs'),)))
-    IWMPContentPartner.CanBuySilent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,POINTER(win32more.Foundation.BSTR),POINTER(Int16), use_last_error=False)(9, 'CanBuySilent', ((1, 'pInfo'),(1, 'pbstrTotalPrice'),(1, 'pSilentOK'),)))
-    IWMPContentPartner.Buy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,UInt32, use_last_error=False)(10, 'Buy', ((1, 'pInfo'),(1, 'cookie'),)))
-    IWMPContentPartner.GetStreamingURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPStreamingType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetStreamingURL', ((1, 'st'),(1, 'pStreamContext'),(1, 'pbstrURL'),)))
-    IWMPContentPartner.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,UInt32, use_last_error=False)(12, 'Download', ((1, 'pInfo'),(1, 'cookie'),)))
-    IWMPContentPartner.DownloadTrackComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR, use_last_error=False)(13, 'DownloadTrackComplete', ((1, 'hrResult'),(1, 'contentID'),(1, 'downloadTrackParam'),)))
-    IWMPContentPartner.RefreshLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int16,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.WMPStreamingType,UInt32,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'RefreshLicense', ((1, 'dwCookie'),(1, 'fLocal'),(1, 'bstrURL'),(1, 'type'),(1, 'contentID'),(1, 'bstrRefreshReason'),(1, 'pReasonContext'),)))
-    IWMPContentPartner.GetCatalogURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'GetCatalogURL', ((1, 'dwCatalogVersion'),(1, 'dwCatalogSchemaVersion'),(1, 'catalogLCID'),(1, 'pdwNewCatalogVersion'),(1, 'pbstrCatalogURL'),(1, 'pExpirationDate'),)))
-    IWMPContentPartner.GetTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPTaskType,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Media.MediaPlayer.WMPTemplateSize), use_last_error=False)(16, 'GetTemplate', ((1, 'task'),(1, 'location'),(1, 'pContext'),(1, 'clickLocation'),(1, 'pClickContext'),(1, 'bstrFilter'),(1, 'bstrViewParams'),(1, 'pbstrTemplateURL'),(1, 'pTemplateSize'),)))
-    IWMPContentPartner.UpdateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'UpdateDevice', ((1, 'bstrDeviceName'),)))
-    IWMPContentPartner.GetListContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32, use_last_error=False)(18, 'GetListContents', ((1, 'location'),(1, 'pContext'),(1, 'bstrListType'),(1, 'bstrParams'),(1, 'dwListCookie'),)))
-    IWMPContentPartner.Login = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.BLOB,win32more.System.Com.BLOB,Int16,Int16, use_last_error=False)(19, 'Login', ((1, 'userInfo'),(1, 'pwdInfo'),(1, 'fUsedCachedCreds'),(1, 'fOkToCache'),)))
-    IWMPContentPartner.Authenticate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.BLOB,win32more.System.Com.BLOB, use_last_error=False)(20, 'Authenticate', ((1, 'userInfo'),(1, 'pwdInfo'),)))
-    IWMPContentPartner.Logout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'Logout', ()))
-    IWMPContentPartner.SendMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(22, 'SendMessage', ((1, 'bstrMsg'),(1, 'bstrParam'),)))
-    IWMPContentPartner.StationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,UInt32,UInt32,win32more.Foundation.BSTR,UInt32, use_last_error=False)(23, 'StationEvent', ((1, 'bstrStationEventType'),(1, 'StationId'),(1, 'PlaylistIndex'),(1, 'TrackID'),(1, 'TrackData'),(1, 'dwSecondsPlayed'),)))
-    IWMPContentPartner.CompareContainerListPrices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.IWMPContentContainerList_head,win32more.Media.MediaPlayer.IWMPContentContainerList_head,POINTER(Int32), use_last_error=False)(24, 'CompareContainerListPrices', ((1, 'pListBase'),(1, 'pListCompare'),(1, 'pResult'),)))
-    IWMPContentPartner.VerifyPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(25, 'VerifyPermission', ((1, 'bstrPermission'),(1, 'pContext'),)))
-    win32more.System.Com.IUnknown
-    return IWMPContentPartner
-WMPSubscriptionServiceEvent = Int32
-WMPSubscriptionServiceEvent_wmpsseCurrentBegin = 1
-WMPSubscriptionServiceEvent_wmpsseCurrentEnd = 2
-WMPSubscriptionServiceEvent_wmpsseFullBegin = 3
-WMPSubscriptionServiceEvent_wmpsseFullEnd = 4
-def _define_IWMPSubscriptionService_head():
-    class IWMPSubscriptionService(win32more.System.Com.IUnknown_head):
-        Guid = Guid('376055f8-2a59-4a73-9501-dca5273a7a10')
-    return IWMPSubscriptionService
-def _define_IWMPSubscriptionService():
-    IWMPSubscriptionService = win32more.Media.MediaPlayer.IWMPSubscriptionService_head
-    IWMPSubscriptionService.allowPlay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Media.MediaPlayer.IWMPMedia_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'allowPlay', ((1, 'hwnd'),(1, 'pMedia'),(1, 'pfAllowPlay'),)))
-    IWMPSubscriptionService.allowCDBurn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'allowCDBurn', ((1, 'hwnd'),(1, 'pPlaylist'),(1, 'pfAllowBurn'),)))
-    IWMPSubscriptionService.allowPDATransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Media.MediaPlayer.IWMPPlaylist_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'allowPDATransfer', ((1, 'hwnd'),(1, 'pPlaylist'),(1, 'pfAllowTransfer'),)))
-    IWMPSubscriptionService.startBackgroundProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'startBackgroundProcessing', ((1, 'hwnd'),)))
-    win32more.System.Com.IUnknown
-    return IWMPSubscriptionService
-def _define_IWMPSubscriptionServiceCallback_head():
-    class IWMPSubscriptionServiceCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dd01d127-2dc2-4c3a-876e-63312079f9b0')
-    return IWMPSubscriptionServiceCallback
-def _define_IWMPSubscriptionServiceCallback():
-    IWMPSubscriptionServiceCallback = win32more.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head
-    IWMPSubscriptionServiceCallback.onComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'onComplete', ((1, 'hrResult'),)))
-    win32more.System.Com.IUnknown
-    return IWMPSubscriptionServiceCallback
-def _define_IWMPSubscriptionService2_head():
-    class IWMPSubscriptionService2(win32more.Media.MediaPlayer.IWMPSubscriptionService_head):
-        Guid = Guid('a94c120e-d600-4ec6-b05e-ec9d56d84de0')
-    return IWMPSubscriptionService2
-def _define_IWMPSubscriptionService2():
-    IWMPSubscriptionService2 = win32more.Media.MediaPlayer.IWMPSubscriptionService2_head
-    IWMPSubscriptionService2.stopBackgroundProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'stopBackgroundProcessing', ()))
-    IWMPSubscriptionService2.serviceEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaPlayer.WMPSubscriptionServiceEvent, use_last_error=False)(8, 'serviceEvent', ((1, 'event'),)))
-    IWMPSubscriptionService2.deviceAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head, use_last_error=False)(9, 'deviceAvailable', ((1, 'bstrDeviceName'),(1, 'pCB'),)))
-    IWMPSubscriptionService2.prepareForSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head, use_last_error=False)(10, 'prepareForSync', ((1, 'bstrFilename'),(1, 'bstrDeviceName'),(1, 'pCB'),)))
-    win32more.Media.MediaPlayer.IWMPSubscriptionService
-    return IWMPSubscriptionService2
 WMPSubscriptionDownloadState = Int32
 WMPSubscriptionDownloadState_wmpsdlsDownloading = 0
 WMPSubscriptionDownloadState_wmpsdlsPaused = 1
 WMPSubscriptionDownloadState_wmpsdlsProcessing = 2
 WMPSubscriptionDownloadState_wmpsdlsCompleted = 3
 WMPSubscriptionDownloadState_wmpsdlsCancelled = 4
-def _define_IWMPDownloadItem_head():
-    class IWMPDownloadItem(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c9470e8e-3f6b-46a9-a0a9-452815c34297')
-    return IWMPDownloadItem
-def _define_IWMPDownloadItem():
-    IWMPDownloadItem = win32more.Media.MediaPlayer.IWMPDownloadItem_head
-    IWMPDownloadItem.get_sourceURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_sourceURL', ((1, 'pbstrURL'),)))
-    IWMPDownloadItem.get_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_size', ((1, 'plSize'),)))
-    IWMPDownloadItem.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_type', ((1, 'pbstrType'),)))
-    IWMPDownloadItem.get_progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_progress', ((1, 'plProgress'),)))
-    IWMPDownloadItem.get_downloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.WMPSubscriptionDownloadState), use_last_error=False)(11, 'get_downloadState', ((1, 'pwmpsdls'),)))
-    IWMPDownloadItem.pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'pause', ()))
-    IWMPDownloadItem.resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'resume', ()))
-    IWMPDownloadItem.cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'cancel', ()))
-    win32more.System.Com.IDispatch
-    return IWMPDownloadItem
-def _define_IWMPDownloadItem2_head():
-    class IWMPDownloadItem2(win32more.Media.MediaPlayer.IWMPDownloadItem_head):
-        Guid = Guid('9fbb3336-6da3-479d-b8ff-67d46e20a987')
-    return IWMPDownloadItem2
-def _define_IWMPDownloadItem2():
-    IWMPDownloadItem2 = win32more.Media.MediaPlayer.IWMPDownloadItem2_head
-    IWMPDownloadItem2.getItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'getItemInfo', ((1, 'bstrItemName'),(1, 'pbstrVal'),)))
-    win32more.Media.MediaPlayer.IWMPDownloadItem
-    return IWMPDownloadItem2
-def _define_IWMPDownloadCollection_head():
-    class IWMPDownloadCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0a319c7f-85f9-436c-b88e-82fd88000e1c')
-    return IWMPDownloadCollection
-def _define_IWMPDownloadCollection():
-    IWMPDownloadCollection = win32more.Media.MediaPlayer.IWMPDownloadCollection_head
-    IWMPDownloadCollection.get_id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_id', ((1, 'plId'),)))
-    IWMPDownloadCollection.get_count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_count', ((1, 'plCount'),)))
-    IWMPDownloadCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPDownloadItem2_head), use_last_error=False)(9, 'item', ((1, 'lItem'),(1, 'ppDownload'),)))
-    IWMPDownloadCollection.startDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaPlayer.IWMPDownloadItem2_head), use_last_error=False)(10, 'startDownload', ((1, 'bstrSourceURL'),(1, 'bstrType'),(1, 'ppDownload'),)))
-    IWMPDownloadCollection.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'removeItem', ((1, 'lItem'),)))
-    IWMPDownloadCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
-    win32more.System.Com.IDispatch
-    return IWMPDownloadCollection
-def _define_IWMPDownloadManager_head():
-    class IWMPDownloadManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e15e9ad1-8f20-4cc4-9ec7-1a328ca86a0d')
-    return IWMPDownloadManager
-def _define_IWMPDownloadManager():
-    IWMPDownloadManager = win32more.Media.MediaPlayer.IWMPDownloadManager_head
-    IWMPDownloadManager.getDownloadCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.MediaPlayer.IWMPDownloadCollection_head), use_last_error=False)(7, 'getDownloadCollection', ((1, 'lCollectionId'),(1, 'ppCollection'),)))
-    IWMPDownloadManager.createDownloadCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaPlayer.IWMPDownloadCollection_head), use_last_error=False)(8, 'createDownloadCollection', ((1, 'ppCollection'),)))
-    win32more.System.Com.IDispatch
-    return IWMPDownloadManager
-def _define_WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE_head():
-    class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(Structure):
-        pass
-    return WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE
-def _define_WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE():
-    WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE = win32more.Media.MediaPlayer.WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE_head
-    WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE._pack_ = 1
-    WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE._fields_ = [
-        ("dwChangesSinceTransactionID", UInt32),
-        ("dwResultSetStartingIndex", UInt32),
-    ]
-    return WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE
-def _define_WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC_head():
-    class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(Structure):
-        pass
-    return WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC
-def _define_WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC():
-    WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC = win32more.Media.MediaPlayer.WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC_head
-    WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC._pack_ = 1
-    WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC._fields_ = [
-        ("dwCurrentTransactionID", UInt32),
-        ("dwReturnedObjectCount", UInt32),
-        ("dwUnretrievedObjectCount", UInt32),
-        ("dwDeletedObjectStartingOffset", UInt32),
-        ("dwFlags", UInt32),
-        ("wsObjectPathnameList", Char * 0),
-    ]
-    return WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC
+WMPSubscriptionServiceEvent = Int32
+WMPSubscriptionServiceEvent_wmpsseCurrentBegin = 1
+WMPSubscriptionServiceEvent_wmpsseCurrentEnd = 2
+WMPSubscriptionServiceEvent_wmpsseFullBegin = 3
+WMPSubscriptionServiceEvent_wmpsseFullEnd = 4
+WMPSyncState = Int32
+WMPSyncState_wmpssUnknown = 0
+WMPSyncState_wmpssSynchronizing = 1
+WMPSyncState_wmpssStopped = 2
+WMPSyncState_wmpssEstimating = 3
+WMPSyncState_wmpssLast = 4
+WMPTaskType = Int32
+WMPTaskType_wmpttBrowse = 1
+WMPTaskType_wmpttSync = 2
+WMPTaskType_wmpttBurn = 3
+WMPTaskType_wmpttCurrent = 4
+WMPTemplateSize = Int32
+WMPTemplateSize_wmptsSmall = 0
+WMPTemplateSize_wmptsMedium = 1
+WMPTemplateSize_wmptsLarge = 2
+WMPTransactionType = Int32
+WMPTransactionType_wmpttNoTransaction = 0
+WMPTransactionType_wmpttDownload = 1
+WMPTransactionType_wmpttBuy = 2
 __all__ = [
+    "CLSID_WMPMediaPluginRegistrar",
+    "CLSID_WMPSkinManager",
     "CLSID_XFeedsManager",
-    "WMPGC_FLAGS_ALLOW_PREROLL",
-    "WMPGC_FLAGS_SUPPRESS_DIALOGS",
-    "WMPGC_FLAGS_IGNORE_AV_SYNC",
-    "WMPGC_FLAGS_DISABLE_PLUGINS",
-    "WMPGC_FLAGS_USE_CUSTOM_GRAPH",
-    "WMPUE_EC_USER",
-    "WMP_MDRT_FLAGS_UNREPORTED_DELETED_ITEMS",
-    "WMP_MDRT_FLAGS_UNREPORTED_ADDED_ITEMS",
-    "IOCTL_WMP_METADATA_ROUND_TRIP",
-    "IOCTL_WMP_DEVICE_CAN_SYNC",
-    "EFFECT_CANGOFULLSCREEN",
-    "EFFECT_HASPROPERTYPAGE",
-    "EFFECT_VARIABLEFREQSTEP",
-    "EFFECT_WINDOWEDONLY",
-    "EFFECT2_FULLSCREENEXCLUSIVE",
-    "SA_BUFFER_SIZE",
-    "PLUGIN_TYPE_BACKGROUND",
-    "PLUGIN_TYPE_SEPARATEWINDOW",
-    "PLUGIN_TYPE_DISPLAYAREA",
-    "PLUGIN_TYPE_SETTINGSAREA",
-    "PLUGIN_TYPE_METADATAAREA",
-    "PLUGIN_FLAGS_HASPROPERTYPAGE",
-    "PLUGIN_FLAGS_INSTALLAUTORUN",
-    "PLUGIN_FLAGS_LAUNCHPROPERTYPAGE",
-    "PLUGIN_FLAGS_ACCEPTSMEDIA",
-    "PLUGIN_FLAGS_ACCEPTSPLAYLISTS",
-    "PLUGIN_FLAGS_HASPRESETS",
-    "PLUGIN_FLAGS_HIDDEN",
-    "SUBSCRIPTION_CAP_DEVICEAVAILABLE",
-    "SUBSCRIPTION_CAP_BACKGROUNDPROCESSING",
-    "SUBSCRIPTION_CAP_IS_CONTENTPARTNER",
-    "SUBSCRIPTION_CAP_ALTLOGIN",
-    "SUBSCRIPTION_CAP_ALLOWPLAY",
-    "SUBSCRIPTION_CAP_ALLOWCDBURN",
-    "SUBSCRIPTION_CAP_ALLOWPDATRANSFER",
-    "SUBSCRIPTION_CAP_PREPAREFORSYNC",
-    "SUBSCRIPTION_V1_CAPS",
-    "SUBSCRIPTION_CAP_UILESSMODE_ALLOWPLAY",
-    "DISPID_FEEDS_RootFolder",
-    "DISPID_FEEDS_IsSubscribed",
-    "DISPID_FEEDS_ExistsFeed",
-    "DISPID_FEEDS_GetFeed",
-    "DISPID_FEEDS_ExistsFolder",
-    "DISPID_FEEDS_GetFolder",
-    "DISPID_FEEDS_DeleteFeed",
-    "DISPID_FEEDS_DeleteFolder",
-    "DISPID_FEEDS_GetFeedByUrl",
+    "DISPID_DELTA",
+    "DISPID_FEEDENCLOSURE_AsyncDownload",
+    "DISPID_FEEDENCLOSURE_CancelAsyncDownload",
+    "DISPID_FEEDENCLOSURE_DownloadMimeType",
+    "DISPID_FEEDENCLOSURE_DownloadStatus",
+    "DISPID_FEEDENCLOSURE_DownloadUrl",
+    "DISPID_FEEDENCLOSURE_LastDownloadError",
+    "DISPID_FEEDENCLOSURE_Length",
+    "DISPID_FEEDENCLOSURE_LocalPath",
+    "DISPID_FEEDENCLOSURE_Parent",
+    "DISPID_FEEDENCLOSURE_RemoveFile",
+    "DISPID_FEEDENCLOSURE_SetFile",
+    "DISPID_FEEDENCLOSURE_Type",
+    "DISPID_FEEDENCLOSURE_Url",
+    "DISPID_FEEDEVENTS_Error",
+    "DISPID_FEEDEVENTS_FeedDeleted",
+    "DISPID_FEEDEVENTS_FeedDownloadCompleted",
+    "DISPID_FEEDEVENTS_FeedDownloading",
+    "DISPID_FEEDEVENTS_FeedItemCountChanged",
+    "DISPID_FEEDEVENTS_FeedMoved",
+    "DISPID_FEEDEVENTS_FeedRenamed",
+    "DISPID_FEEDEVENTS_FeedUrlChanged",
+    "DISPID_FEEDFOLDEREVENTS_Error",
+    "DISPID_FEEDFOLDEREVENTS_FeedAdded",
+    "DISPID_FEEDFOLDEREVENTS_FeedDeleted",
+    "DISPID_FEEDFOLDEREVENTS_FeedDownloadCompleted",
+    "DISPID_FEEDFOLDEREVENTS_FeedDownloading",
+    "DISPID_FEEDFOLDEREVENTS_FeedItemCountChanged",
+    "DISPID_FEEDFOLDEREVENTS_FeedMovedFrom",
+    "DISPID_FEEDFOLDEREVENTS_FeedMovedTo",
+    "DISPID_FEEDFOLDEREVENTS_FeedRenamed",
+    "DISPID_FEEDFOLDEREVENTS_FeedUrlChanged",
+    "DISPID_FEEDFOLDEREVENTS_FolderAdded",
+    "DISPID_FEEDFOLDEREVENTS_FolderDeleted",
+    "DISPID_FEEDFOLDEREVENTS_FolderItemCountChanged",
+    "DISPID_FEEDFOLDEREVENTS_FolderMovedFrom",
+    "DISPID_FEEDFOLDEREVENTS_FolderMovedTo",
+    "DISPID_FEEDFOLDEREVENTS_FolderRenamed",
+    "DISPID_FEEDFOLDER_CreateFeed",
+    "DISPID_FEEDFOLDER_CreateSubfolder",
+    "DISPID_FEEDFOLDER_Delete",
+    "DISPID_FEEDFOLDER_ExistsFeed",
+    "DISPID_FEEDFOLDER_ExistsSubfolder",
+    "DISPID_FEEDFOLDER_Feeds",
+    "DISPID_FEEDFOLDER_GetFeed",
+    "DISPID_FEEDFOLDER_GetSubfolder",
+    "DISPID_FEEDFOLDER_GetWatcher",
+    "DISPID_FEEDFOLDER_IsRoot",
+    "DISPID_FEEDFOLDER_Move",
+    "DISPID_FEEDFOLDER_Name",
+    "DISPID_FEEDFOLDER_Parent",
+    "DISPID_FEEDFOLDER_Path",
+    "DISPID_FEEDFOLDER_Rename",
+    "DISPID_FEEDFOLDER_Subfolders",
+    "DISPID_FEEDFOLDER_TotalItemCount",
+    "DISPID_FEEDFOLDER_TotalUnreadItemCount",
+    "DISPID_FEEDITEM_Author",
+    "DISPID_FEEDITEM_Comments",
+    "DISPID_FEEDITEM_Delete",
+    "DISPID_FEEDITEM_Description",
+    "DISPID_FEEDITEM_DownloadUrl",
+    "DISPID_FEEDITEM_EffectiveId",
+    "DISPID_FEEDITEM_Enclosure",
+    "DISPID_FEEDITEM_Guid",
+    "DISPID_FEEDITEM_IsRead",
+    "DISPID_FEEDITEM_LastDownloadTime",
+    "DISPID_FEEDITEM_Link",
+    "DISPID_FEEDITEM_LocalId",
+    "DISPID_FEEDITEM_Modified",
+    "DISPID_FEEDITEM_Parent",
+    "DISPID_FEEDITEM_PubDate",
+    "DISPID_FEEDITEM_Title",
+    "DISPID_FEEDITEM_Xml",
+    "DISPID_FEEDSENUM_Count",
+    "DISPID_FEEDSENUM_Item",
+    "DISPID_FEEDS_AsyncSyncAll",
     "DISPID_FEEDS_BackgroundSync",
     "DISPID_FEEDS_BackgroundSyncStatus",
     "DISPID_FEEDS_DefaultInterval",
-    "DISPID_FEEDS_AsyncSyncAll",
-    "DISPID_FEEDS_Normalize",
+    "DISPID_FEEDS_DeleteFeed",
+    "DISPID_FEEDS_DeleteFolder",
+    "DISPID_FEEDS_ExistsFeed",
+    "DISPID_FEEDS_ExistsFolder",
+    "DISPID_FEEDS_GetFeed",
+    "DISPID_FEEDS_GetFeedByUrl",
+    "DISPID_FEEDS_GetFolder",
+    "DISPID_FEEDS_IsSubscribed",
     "DISPID_FEEDS_ItemCountLimit",
-    "DISPID_FEEDSENUM_Count",
-    "DISPID_FEEDSENUM_Item",
-    "DISPID_FEEDFOLDER_Feeds",
-    "DISPID_FEEDFOLDER_Subfolders",
-    "DISPID_FEEDFOLDER_CreateFeed",
-    "DISPID_FEEDFOLDER_CreateSubfolder",
-    "DISPID_FEEDFOLDER_ExistsFeed",
-    "DISPID_FEEDFOLDER_GetFeed",
-    "DISPID_FEEDFOLDER_ExistsSubfolder",
-    "DISPID_FEEDFOLDER_GetSubfolder",
-    "DISPID_FEEDFOLDER_Delete",
-    "DISPID_FEEDFOLDER_Name",
-    "DISPID_FEEDFOLDER_Rename",
-    "DISPID_FEEDFOLDER_Path",
-    "DISPID_FEEDFOLDER_Move",
-    "DISPID_FEEDFOLDER_Parent",
-    "DISPID_FEEDFOLDER_IsRoot",
-    "DISPID_FEEDFOLDER_TotalUnreadItemCount",
-    "DISPID_FEEDFOLDER_TotalItemCount",
-    "DISPID_FEEDFOLDER_GetWatcher",
-    "DISPID_FEED_Xml",
-    "DISPID_FEED_Name",
-    "DISPID_FEED_Rename",
-    "DISPID_FEED_Url",
-    "DISPID_FEED_LocalId",
-    "DISPID_FEED_Path",
-    "DISPID_FEED_Move",
-    "DISPID_FEED_Parent",
-    "DISPID_FEED_LastWriteTime",
-    "DISPID_FEED_Delete",
-    "DISPID_FEED_Download",
+    "DISPID_FEEDS_Normalize",
+    "DISPID_FEEDS_RootFolder",
     "DISPID_FEED_AsyncDownload",
     "DISPID_FEED_CancelAsyncDownload",
-    "DISPID_FEED_Interval",
-    "DISPID_FEED_SyncSetting",
-    "DISPID_FEED_LastDownloadTime",
-    "DISPID_FEED_LocalEnclosurePath",
-    "DISPID_FEED_Items",
-    "DISPID_FEED_GetItem",
-    "DISPID_FEED_Title",
-    "DISPID_FEED_Description",
-    "DISPID_FEED_Link",
-    "DISPID_FEED_Image",
-    "DISPID_FEED_LastBuildDate",
-    "DISPID_FEED_PubDate",
-    "DISPID_FEED_Ttl",
-    "DISPID_FEED_Language",
+    "DISPID_FEED_ClearCredentials",
     "DISPID_FEED_Copyright",
+    "DISPID_FEED_Delete",
+    "DISPID_FEED_Description",
+    "DISPID_FEED_Download",
     "DISPID_FEED_DownloadEnclosuresAutomatically",
     "DISPID_FEED_DownloadStatus",
-    "DISPID_FEED_LastDownloadError",
-    "DISPID_FEED_Merge",
     "DISPID_FEED_DownloadUrl",
-    "DISPID_FEED_IsList",
-    "DISPID_FEED_MarkAllItemsRead",
-    "DISPID_FEED_GetWatcher",
-    "DISPID_FEED_UnreadItemCount",
-    "DISPID_FEED_ItemCount",
-    "DISPID_FEED_MaxItemCount",
+    "DISPID_FEED_GetItem",
     "DISPID_FEED_GetItemByEffectiveId",
+    "DISPID_FEED_GetWatcher",
+    "DISPID_FEED_Image",
+    "DISPID_FEED_Interval",
+    "DISPID_FEED_IsList",
+    "DISPID_FEED_ItemCount",
+    "DISPID_FEED_Items",
+    "DISPID_FEED_Language",
+    "DISPID_FEED_LastBuildDate",
+    "DISPID_FEED_LastDownloadError",
+    "DISPID_FEED_LastDownloadTime",
     "DISPID_FEED_LastItemDownloadTime",
-    "DISPID_FEED_Username",
+    "DISPID_FEED_LastWriteTime",
+    "DISPID_FEED_Link",
+    "DISPID_FEED_LocalEnclosurePath",
+    "DISPID_FEED_LocalId",
+    "DISPID_FEED_MarkAllItemsRead",
+    "DISPID_FEED_MaxItemCount",
+    "DISPID_FEED_Merge",
+    "DISPID_FEED_Move",
+    "DISPID_FEED_Name",
+    "DISPID_FEED_Parent",
     "DISPID_FEED_Password",
+    "DISPID_FEED_Path",
+    "DISPID_FEED_PubDate",
+    "DISPID_FEED_Rename",
     "DISPID_FEED_SetCredentials",
-    "DISPID_FEED_ClearCredentials",
-    "DISPID_FEEDITEM_Xml",
-    "DISPID_FEEDITEM_Title",
-    "DISPID_FEEDITEM_Link",
-    "DISPID_FEEDITEM_Guid",
-    "DISPID_FEEDITEM_Description",
-    "DISPID_FEEDITEM_PubDate",
-    "DISPID_FEEDITEM_Comments",
-    "DISPID_FEEDITEM_Author",
-    "DISPID_FEEDITEM_Enclosure",
-    "DISPID_FEEDITEM_IsRead",
-    "DISPID_FEEDITEM_LocalId",
-    "DISPID_FEEDITEM_Parent",
-    "DISPID_FEEDITEM_Delete",
-    "DISPID_FEEDITEM_DownloadUrl",
-    "DISPID_FEEDITEM_LastDownloadTime",
-    "DISPID_FEEDITEM_Modified",
-    "DISPID_FEEDITEM_EffectiveId",
-    "DISPID_FEEDENCLOSURE_Url",
-    "DISPID_FEEDENCLOSURE_Type",
-    "DISPID_FEEDENCLOSURE_Length",
-    "DISPID_FEEDENCLOSURE_AsyncDownload",
-    "DISPID_FEEDENCLOSURE_CancelAsyncDownload",
-    "DISPID_FEEDENCLOSURE_DownloadStatus",
-    "DISPID_FEEDENCLOSURE_LastDownloadError",
-    "DISPID_FEEDENCLOSURE_LocalPath",
-    "DISPID_FEEDENCLOSURE_Parent",
-    "DISPID_FEEDENCLOSURE_DownloadUrl",
-    "DISPID_FEEDENCLOSURE_DownloadMimeType",
-    "DISPID_FEEDENCLOSURE_RemoveFile",
-    "DISPID_FEEDENCLOSURE_SetFile",
-    "DISPID_FEEDFOLDEREVENTS_Error",
-    "DISPID_FEEDFOLDEREVENTS_FolderAdded",
-    "DISPID_FEEDFOLDEREVENTS_FolderDeleted",
-    "DISPID_FEEDFOLDEREVENTS_FolderRenamed",
-    "DISPID_FEEDFOLDEREVENTS_FolderMovedFrom",
-    "DISPID_FEEDFOLDEREVENTS_FolderMovedTo",
-    "DISPID_FEEDFOLDEREVENTS_FolderItemCountChanged",
-    "DISPID_FEEDFOLDEREVENTS_FeedAdded",
-    "DISPID_FEEDFOLDEREVENTS_FeedDeleted",
-    "DISPID_FEEDFOLDEREVENTS_FeedRenamed",
-    "DISPID_FEEDFOLDEREVENTS_FeedUrlChanged",
-    "DISPID_FEEDFOLDEREVENTS_FeedMovedFrom",
-    "DISPID_FEEDFOLDEREVENTS_FeedMovedTo",
-    "DISPID_FEEDFOLDEREVENTS_FeedDownloading",
-    "DISPID_FEEDFOLDEREVENTS_FeedDownloadCompleted",
-    "DISPID_FEEDFOLDEREVENTS_FeedItemCountChanged",
-    "DISPID_FEEDEVENTS_Error",
-    "DISPID_FEEDEVENTS_FeedDeleted",
-    "DISPID_FEEDEVENTS_FeedRenamed",
-    "DISPID_FEEDEVENTS_FeedUrlChanged",
-    "DISPID_FEEDEVENTS_FeedMoved",
-    "DISPID_FEEDEVENTS_FeedDownloading",
-    "DISPID_FEEDEVENTS_FeedDownloadCompleted",
-    "DISPID_FEEDEVENTS_FeedItemCountChanged",
-    "DISPID_DELTA",
-    "DISPID_WMPCORE_BASE",
-    "DISPID_WMPCORE_URL",
-    "DISPID_WMPCORE_OPENSTATE",
-    "DISPID_WMPCORE_CLOSE",
-    "DISPID_WMPCORE_CONTROLS",
-    "DISPID_WMPCORE_SETTINGS",
-    "DISPID_WMPCORE_CURRENTMEDIA",
-    "DISPID_WMPCORE_NETWORK",
-    "DISPID_WMPCORE_MEDIACOLLECTION",
-    "DISPID_WMPCORE_PLAYLISTCOLLECTION",
-    "DISPID_WMPCORE_PLAYSTATE",
-    "DISPID_WMPCORE_VERSIONINFO",
-    "DISPID_WMPCORE_LAUNCHURL",
-    "DISPID_WMPCORE_CURRENTPLAYLIST",
-    "DISPID_WMPCORE_CDROMCOLLECTION",
-    "DISPID_WMPCORE_CLOSEDCAPTION",
-    "DISPID_WMPCORE_ISONLINE",
-    "DISPID_WMPCORE_ERROR",
-    "DISPID_WMPCORE_STATUS",
-    "DISPID_WMPCORE_LAST",
-    "DISPID_WMPOCX_BASE",
-    "DISPID_WMPOCX_ENABLED",
-    "DISPID_WMPOCX_TRANSPARENTATSTART",
-    "DISPID_WMPOCX_FULLSCREEN",
-    "DISPID_WMPOCX_ENABLECONTEXTMENU",
-    "DISPID_WMPOCX_UIMODE",
-    "DISPID_WMPOCX_LAST",
-    "DISPID_WMPOCX2_BASE",
-    "DISPID_WMPOCX2_STRETCHTOFIT",
-    "DISPID_WMPOCX2_WINDOWLESSVIDEO",
-    "DISPID_WMPOCX4_ISREMOTE",
-    "DISPID_WMPOCX4_PLAYERAPPLICATION",
-    "DISPID_WMPOCX4_OPENPLAYER",
-    "DISPID_WMPCORE2_BASE",
-    "DISPID_WMPCORE2_DVD",
-    "DISPID_WMPCORE3_NEWPLAYLIST",
-    "DISPID_WMPCORE3_NEWMEDIA",
-    "DISPID_WMPCONTROLS_PLAY",
-    "DISPID_WMPCONTROLS_STOP",
-    "DISPID_WMPCONTROLS_PAUSE",
-    "DISPID_WMPCONTROLS_FASTFORWARD",
-    "DISPID_WMPCONTROLS_FASTREVERSE",
-    "DISPID_WMPCONTROLS_CURRENTPOSITION",
-    "DISPID_WMPCONTROLS_CURRENTPOSITIONSTRING",
-    "DISPID_WMPCONTROLS_NEXT",
-    "DISPID_WMPCONTROLS_PREVIOUS",
-    "DISPID_WMPCONTROLS_CURRENTITEM",
-    "DISPID_WMPCONTROLS_CURRENTMARKER",
-    "DISPID_WMPCONTROLS_ISAVAILABLE",
-    "DISPID_WMPCONTROLS_PLAYITEM",
-    "DISPID_WMPCONTROLS2_STEP",
-    "DISPID_WMPCONTROLS3_AUDIOLANGUAGECOUNT",
-    "DISPID_WMPCONTROLS3_GETAUDIOLANGUAGEID",
-    "DISPID_WMPCONTROLS3_GETAUDIOLANGUAGEDESC",
-    "DISPID_WMPCONTROLS3_CURRENTAUDIOLANGUAGE",
-    "DISPID_WMPCONTROLS3_CURRENTAUDIOLANGUAGEINDEX",
-    "DISPID_WMPCONTROLS3_GETLANGUAGENAME",
-    "DISPID_WMPCONTROLS3_CURRENTPOSITIONTIMECODE",
-    "DISPID_WMPCONTROLSFAKE_TIMECOMPRESSION",
-    "DISPID_WMPSETTINGS_AUTOSTART",
-    "DISPID_WMPSETTINGS_BALANCE",
-    "DISPID_WMPSETTINGS_INVOKEURLS",
-    "DISPID_WMPSETTINGS_MUTE",
-    "DISPID_WMPSETTINGS_PLAYCOUNT",
-    "DISPID_WMPSETTINGS_RATE",
-    "DISPID_WMPSETTINGS_VOLUME",
-    "DISPID_WMPSETTINGS_BASEURL",
-    "DISPID_WMPSETTINGS_DEFAULTFRAME",
-    "DISPID_WMPSETTINGS_GETMODE",
-    "DISPID_WMPSETTINGS_SETMODE",
-    "DISPID_WMPSETTINGS_ENABLEERRORDIALOGS",
-    "DISPID_WMPSETTINGS_ISAVAILABLE",
-    "DISPID_WMPSETTINGS2_DEFAULTAUDIOLANGUAGE",
-    "DISPID_WMPSETTINGS2_LIBRARYACCESSRIGHTS",
-    "DISPID_WMPSETTINGS2_REQUESTLIBRARYACCESSRIGHTS",
-    "DISPID_WMPPLAYLIST_COUNT",
-    "DISPID_WMPPLAYLIST_NAME",
-    "DISPID_WMPPLAYLIST_GETITEMINFO",
-    "DISPID_WMPPLAYLIST_SETITEMINFO",
-    "DISPID_WMPPLAYLIST_CLEAR",
-    "DISPID_WMPPLAYLIST_INSERTITEM",
-    "DISPID_WMPPLAYLIST_APPENDITEM",
-    "DISPID_WMPPLAYLIST_REMOVEITEM",
-    "DISPID_WMPPLAYLIST_MOVEITEM",
-    "DISPID_WMPPLAYLIST_ATTRIBUTECOUNT",
-    "DISPID_WMPPLAYLIST_ATTRIBUTENAME",
-    "DISPID_WMPPLAYLIST_ITEM",
-    "DISPID_WMPPLAYLIST_ISIDENTICAL",
-    "DISPID_WMPCDROM_DRIVESPECIFIER",
-    "DISPID_WMPCDROM_PLAYLIST",
-    "DISPID_WMPCDROM_EJECT",
+    "DISPID_FEED_SyncSetting",
+    "DISPID_FEED_Title",
+    "DISPID_FEED_Ttl",
+    "DISPID_FEED_UnreadItemCount",
+    "DISPID_FEED_Url",
+    "DISPID_FEED_Username",
+    "DISPID_FEED_Xml",
+    "DISPID_WMPCDROMCOLLECTION_BASE",
     "DISPID_WMPCDROMCOLLECTION_COUNT",
-    "DISPID_WMPCDROMCOLLECTION_ITEM",
     "DISPID_WMPCDROMCOLLECTION_GETBYDRIVESPECIFIER",
+    "DISPID_WMPCDROMCOLLECTION_ITEM",
     "DISPID_WMPCDROMCOLLECTION_STARTMONITORINGCDROMS",
     "DISPID_WMPCDROMCOLLECTION_STOPMONITORINGCDROMS",
-    "DISPID_WMPSTRINGCOLLECTION_COUNT",
-    "DISPID_WMPSTRINGCOLLECTION_ITEM",
-    "DISPID_WMPMEDIACOLLECTION_ADD",
-    "DISPID_WMPMEDIACOLLECTION_GETALL",
-    "DISPID_WMPMEDIACOLLECTION_GETBYNAME",
-    "DISPID_WMPMEDIACOLLECTION_GETBYGENRE",
-    "DISPID_WMPMEDIACOLLECTION_GETBYAUTHOR",
-    "DISPID_WMPMEDIACOLLECTION_GETBYALBUM",
-    "DISPID_WMPMEDIACOLLECTION_GETBYATTRIBUTE",
-    "DISPID_WMPMEDIACOLLECTION_REMOVE",
-    "DISPID_WMPMEDIACOLLECTION_GETATTRIBUTESTRINGCOLLECTION",
-    "DISPID_WMPMEDIACOLLECTION_NEWQUERY",
-    "DISPID_WMPMEDIACOLLECTION_STARTMONITORING",
-    "DISPID_WMPMEDIACOLLECTION_STOPMONITORING",
-    "DISPID_WMPMEDIACOLLECTION_STARTCONTENTSCAN",
-    "DISPID_WMPMEDIACOLLECTION_STOPCONTENTSCAN",
-    "DISPID_WMPMEDIACOLLECTION_STARTSEARCH",
-    "DISPID_WMPMEDIACOLLECTION_STOPSEARCH",
-    "DISPID_WMPMEDIACOLLECTION_UPDATEMETADATA",
-    "DISPID_WMPMEDIACOLLECTION_GETMEDIAATOM",
-    "DISPID_WMPMEDIACOLLECTION_SETDELETED",
-    "DISPID_WMPMEDIACOLLECTION_ISDELETED",
-    "DISPID_WMPMEDIACOLLECTION_GETBYQUERYDESCRIPTION",
-    "DISPID_WMPMEDIACOLLECTION_FREEZECOLLECTIONCHANGE",
-    "DISPID_WMPMEDIACOLLECTION_UNFREEZECOLLECTIONCHANGE",
-    "DISPID_WMPMEDIACOLLECTION_POSTCOLLECTIONCHANGE",
-    "DISPID_WMPPLAYLISTARRAY_COUNT",
-    "DISPID_WMPPLAYLISTARRAY_ITEM",
-    "DISPID_WMPPLAYLISTCOLLECTION_NEWPLAYLIST",
-    "DISPID_WMPPLAYLISTCOLLECTION_GETALL",
-    "DISPID_WMPPLAYLISTCOLLECTION_GETBYNAME",
-    "DISPID_WMPPLAYLISTCOLLECTION_GETBYQUERYDESCRIPTION",
-    "DISPID_WMPPLAYLISTCOLLECTION_REMOVE",
-    "DISPID_WMPPLAYLISTCOLLECTION_NEWQUERY",
-    "DISPID_WMPPLAYLISTCOLLECTION_STARTMONITORING",
-    "DISPID_WMPPLAYLISTCOLLECTION_STOPMONITORING",
-    "DISPID_WMPPLAYLISTCOLLECTION_SETDELETED",
-    "DISPID_WMPPLAYLISTCOLLECTION_ISDELETED",
-    "DISPID_WMPPLAYLISTCOLLECTION_IMPORTPLAYLIST",
-    "DISPID_WMPMEDIA_SOURCEURL",
-    "DISPID_WMPMEDIA_IMAGESOURCEWIDTH",
-    "DISPID_WMPMEDIA_IMAGESOURCEHEIGHT",
-    "DISPID_WMPMEDIA_MARKERCOUNT",
-    "DISPID_WMPMEDIA_GETMARKERTIME",
-    "DISPID_WMPMEDIA_GETMARKERNAME",
-    "DISPID_WMPMEDIA_DURATION",
-    "DISPID_WMPMEDIA_DURATIONSTRING",
-    "DISPID_WMPMEDIA_ATTRIBUTECOUNT",
-    "DISPID_WMPMEDIA_GETATTRIBUTENAME",
-    "DISPID_WMPMEDIA_GETITEMINFO",
-    "DISPID_WMPMEDIA_SETITEMINFO",
-    "DISPID_WMPMEDIA_ISIDENTICAL",
-    "DISPID_WMPMEDIA_NAME",
-    "DISPID_WMPMEDIA_GETITEMINFOBYATOM",
-    "DISPID_WMPMEDIA_ISMEMBEROF",
-    "DISPID_WMPMEDIA_ISREADONLYITEM",
-    "DISPID_WMPMEDIA2_ERROR",
-    "DISPID_WMPMEDIA3_GETATTRIBUTECOUNTBYTYPE",
-    "DISPID_WMPMEDIA3_GETITEMINFOBYTYPE",
-    "DISPID_WMPNETWORK_BANDWIDTH",
-    "DISPID_WMPNETWORK_RECOVEREDPACKETS",
-    "DISPID_WMPNETWORK_SOURCEPROTOCOL",
-    "DISPID_WMPNETWORK_RECEIVEDPACKETS",
-    "DISPID_WMPNETWORK_LOSTPACKETS",
-    "DISPID_WMPNETWORK_RECEPTIONQUALITY",
-    "DISPID_WMPNETWORK_BUFFERINGCOUNT",
-    "DISPID_WMPNETWORK_BUFFERINGPROGRESS",
-    "DISPID_WMPNETWORK_BUFFERINGTIME",
-    "DISPID_WMPNETWORK_FRAMERATE",
-    "DISPID_WMPNETWORK_MAXBITRATE",
-    "DISPID_WMPNETWORK_BITRATE",
-    "DISPID_WMPNETWORK_GETPROXYSETTINGS",
-    "DISPID_WMPNETWORK_SETPROXYSETTINGS",
-    "DISPID_WMPNETWORK_GETPROXYNAME",
-    "DISPID_WMPNETWORK_SETPROXYNAME",
-    "DISPID_WMPNETWORK_GETPROXYPORT",
-    "DISPID_WMPNETWORK_SETPROXYPORT",
-    "DISPID_WMPNETWORK_GETPROXYEXCEPTIONLIST",
-    "DISPID_WMPNETWORK_SETPROXYEXCEPTIONLIST",
-    "DISPID_WMPNETWORK_GETPROXYBYPASSFORLOCAL",
-    "DISPID_WMPNETWORK_SETPROXYBYPASSFORLOCAL",
-    "DISPID_WMPNETWORK_MAXBANDWIDTH",
-    "DISPID_WMPNETWORK_DOWNLOADPROGRESS",
-    "DISPID_WMPNETWORK_ENCODEDFRAMERATE",
-    "DISPID_WMPNETWORK_FRAMESSKIPPED",
+    "DISPID_WMPCDROM_BASE",
+    "DISPID_WMPCDROM_DRIVESPECIFIER",
+    "DISPID_WMPCDROM_EJECT",
+    "DISPID_WMPCDROM_PLAYLIST",
+    "DISPID_WMPCLOSEDCAPTION2_GETLANGCOUNT",
+    "DISPID_WMPCLOSEDCAPTION2_GETLANGID",
+    "DISPID_WMPCLOSEDCAPTION2_GETLANGNAME",
+    "DISPID_WMPCLOSEDCAPTION2_GETSTYLECOUNT",
+    "DISPID_WMPCLOSEDCAPTION2_GETSTYLENAME",
+    "DISPID_WMPCLOSEDCAPTION_BASE",
+    "DISPID_WMPCLOSEDCAPTION_CAPTIONINGID",
+    "DISPID_WMPCLOSEDCAPTION_SAMIFILENAME",
+    "DISPID_WMPCLOSEDCAPTION_SAMILANG",
+    "DISPID_WMPCLOSEDCAPTION_SAMISTYLE",
+    "DISPID_WMPCONTROLS2_STEP",
+    "DISPID_WMPCONTROLS3_AUDIOLANGUAGECOUNT",
+    "DISPID_WMPCONTROLS3_CURRENTAUDIOLANGUAGE",
+    "DISPID_WMPCONTROLS3_CURRENTAUDIOLANGUAGEINDEX",
+    "DISPID_WMPCONTROLS3_CURRENTPOSITIONTIMECODE",
+    "DISPID_WMPCONTROLS3_GETAUDIOLANGUAGEDESC",
+    "DISPID_WMPCONTROLS3_GETAUDIOLANGUAGEID",
+    "DISPID_WMPCONTROLS3_GETLANGUAGENAME",
+    "DISPID_WMPCONTROLSFAKE_TIMECOMPRESSION",
+    "DISPID_WMPCONTROLS_BASE",
+    "DISPID_WMPCONTROLS_CURRENTITEM",
+    "DISPID_WMPCONTROLS_CURRENTMARKER",
+    "DISPID_WMPCONTROLS_CURRENTPOSITION",
+    "DISPID_WMPCONTROLS_CURRENTPOSITIONSTRING",
+    "DISPID_WMPCONTROLS_FASTFORWARD",
+    "DISPID_WMPCONTROLS_FASTREVERSE",
+    "DISPID_WMPCONTROLS_ISAVAILABLE",
+    "DISPID_WMPCONTROLS_NEXT",
+    "DISPID_WMPCONTROLS_PAUSE",
+    "DISPID_WMPCONTROLS_PLAY",
+    "DISPID_WMPCONTROLS_PLAYITEM",
+    "DISPID_WMPCONTROLS_PREVIOUS",
+    "DISPID_WMPCONTROLS_STOP",
+    "DISPID_WMPCORE2_BASE",
+    "DISPID_WMPCORE2_DVD",
+    "DISPID_WMPCORE3_NEWMEDIA",
+    "DISPID_WMPCORE3_NEWPLAYLIST",
+    "DISPID_WMPCOREEVENT_AUDIOLANGUAGECHANGE",
+    "DISPID_WMPCOREEVENT_BUFFERING",
+    "DISPID_WMPCOREEVENT_CDROMMEDIACHANGE",
+    "DISPID_WMPCOREEVENT_CURRENTITEMCHANGE",
+    "DISPID_WMPCOREEVENT_CURRENTMEDIAITEMAVAILABLE",
+    "DISPID_WMPCOREEVENT_CURRENTPLAYLISTCHANGE",
+    "DISPID_WMPCOREEVENT_CURRENTPLAYLISTITEMAVAILABLE",
+    "DISPID_WMPCOREEVENT_DISCONNECT",
+    "DISPID_WMPCOREEVENT_DOMAINCHANGE",
+    "DISPID_WMPCOREEVENT_DURATIONUNITCHANGE",
+    "DISPID_WMPCOREEVENT_ENDOFSTREAM",
+    "DISPID_WMPCOREEVENT_ERROR",
+    "DISPID_WMPCOREEVENT_MARKERHIT",
+    "DISPID_WMPCOREEVENT_MEDIACHANGE",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONATTRIBUTESTRINGADDED",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONATTRIBUTESTRINGCHANGED",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONATTRIBUTESTRINGREMOVED",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONCHANGE",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONCONTENTSCANADDEDITEM",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONCONTENTSCANPROGRESS",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONMEDIAADDED",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONMEDIAREMOVED",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONSEARCHCOMPLETE",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONSEARCHFOUNDITEM",
+    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONSEARCHPROGRESS",
+    "DISPID_WMPCOREEVENT_MEDIAERROR",
+    "DISPID_WMPCOREEVENT_MODECHANGE",
+    "DISPID_WMPCOREEVENT_NEWSTREAM",
+    "DISPID_WMPCOREEVENT_OPENPLAYLISTSWITCH",
+    "DISPID_WMPCOREEVENT_OPENSTATECHANGE",
+    "DISPID_WMPCOREEVENT_PLAYLISTCHANGE",
+    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONCHANGE",
+    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONPLAYLISTADDED",
+    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONPLAYLISTREMOVED",
+    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONPLAYLISTSETASDELETED",
+    "DISPID_WMPCOREEVENT_PLAYSTATECHANGE",
+    "DISPID_WMPCOREEVENT_POSITIONCHANGE",
+    "DISPID_WMPCOREEVENT_SCRIPTCOMMAND",
+    "DISPID_WMPCOREEVENT_STATUSCHANGE",
+    "DISPID_WMPCOREEVENT_STRINGCOLLECTIONCHANGE",
+    "DISPID_WMPCOREEVENT_WARNING",
+    "DISPID_WMPCORE_BASE",
+    "DISPID_WMPCORE_CDROMCOLLECTION",
+    "DISPID_WMPCORE_CLOSE",
+    "DISPID_WMPCORE_CLOSEDCAPTION",
+    "DISPID_WMPCORE_CONTROLS",
+    "DISPID_WMPCORE_CURRENTMEDIA",
+    "DISPID_WMPCORE_CURRENTPLAYLIST",
+    "DISPID_WMPCORE_ERROR",
+    "DISPID_WMPCORE_ISONLINE",
+    "DISPID_WMPCORE_LAST",
+    "DISPID_WMPCORE_LAUNCHURL",
+    "DISPID_WMPCORE_MAX",
+    "DISPID_WMPCORE_MEDIACOLLECTION",
+    "DISPID_WMPCORE_MIN",
+    "DISPID_WMPCORE_NETWORK",
+    "DISPID_WMPCORE_OPENSTATE",
+    "DISPID_WMPCORE_PLAYLISTCOLLECTION",
+    "DISPID_WMPCORE_PLAYSTATE",
+    "DISPID_WMPCORE_SETTINGS",
+    "DISPID_WMPCORE_STATUS",
+    "DISPID_WMPCORE_URL",
+    "DISPID_WMPCORE_VERSIONINFO",
+    "DISPID_WMPDOWNLOADCOLLECTION_BASE",
+    "DISPID_WMPDOWNLOADCOLLECTION_CLEAR",
+    "DISPID_WMPDOWNLOADCOLLECTION_COUNT",
+    "DISPID_WMPDOWNLOADCOLLECTION_ID",
+    "DISPID_WMPDOWNLOADCOLLECTION_ITEM",
+    "DISPID_WMPDOWNLOADCOLLECTION_REMOVEITEM",
+    "DISPID_WMPDOWNLOADCOLLECTION_STARTDOWNLOAD",
+    "DISPID_WMPDOWNLOADITEM2_BASE",
+    "DISPID_WMPDOWNLOADITEM2_GETITEMINFO",
+    "DISPID_WMPDOWNLOADITEM_BASE",
+    "DISPID_WMPDOWNLOADITEM_CANCEL",
+    "DISPID_WMPDOWNLOADITEM_DOWNLOADSTATE",
+    "DISPID_WMPDOWNLOADITEM_PAUSE",
+    "DISPID_WMPDOWNLOADITEM_PROGRESS",
+    "DISPID_WMPDOWNLOADITEM_RESUME",
+    "DISPID_WMPDOWNLOADITEM_SIZE",
+    "DISPID_WMPDOWNLOADITEM_SOURCEURL",
+    "DISPID_WMPDOWNLOADITEM_TYPE",
+    "DISPID_WMPDOWNLOADMANAGER_BASE",
+    "DISPID_WMPDOWNLOADMANAGER_CREATEDOWNLOADCOLLECTION",
+    "DISPID_WMPDOWNLOADMANAGER_GETDOWNLOADCOLLECTION",
+    "DISPID_WMPDVD_BACK",
+    "DISPID_WMPDVD_BASE",
+    "DISPID_WMPDVD_DOMAIN",
+    "DISPID_WMPDVD_ISAVAILABLE",
+    "DISPID_WMPDVD_RESUME",
+    "DISPID_WMPDVD_TITLEMENU",
+    "DISPID_WMPDVD_TOPMENU",
+    "DISPID_WMPERRORITEM2_CONDITION",
+    "DISPID_WMPERRORITEM_BASE",
+    "DISPID_WMPERRORITEM_CUSTOMURL",
+    "DISPID_WMPERRORITEM_ERRORCODE",
+    "DISPID_WMPERRORITEM_ERRORCONTEXT",
+    "DISPID_WMPERRORITEM_ERRORDESCRIPTION",
+    "DISPID_WMPERRORITEM_REMEDY",
+    "DISPID_WMPERROR_BASE",
     "DISPID_WMPERROR_CLEARERRORQUEUE",
     "DISPID_WMPERROR_ERRORCOUNT",
     "DISPID_WMPERROR_ITEM",
     "DISPID_WMPERROR_WEBHELP",
-    "DISPID_WMPERRORITEM_ERRORCODE",
-    "DISPID_WMPERRORITEM_ERRORDESCRIPTION",
-    "DISPID_WMPERRORITEM_ERRORCONTEXT",
-    "DISPID_WMPERRORITEM_REMEDY",
-    "DISPID_WMPERRORITEM_CUSTOMURL",
-    "DISPID_WMPERRORITEM2_CONDITION",
-    "DISPID_WMPCLOSEDCAPTION_SAMISTYLE",
-    "DISPID_WMPCLOSEDCAPTION_SAMILANG",
-    "DISPID_WMPCLOSEDCAPTION_SAMIFILENAME",
-    "DISPID_WMPCLOSEDCAPTION_CAPTIONINGID",
-    "DISPID_WMPCLOSEDCAPTION2_GETLANGCOUNT",
-    "DISPID_WMPCLOSEDCAPTION2_GETLANGNAME",
-    "DISPID_WMPCLOSEDCAPTION2_GETLANGID",
-    "DISPID_WMPCLOSEDCAPTION2_GETSTYLECOUNT",
-    "DISPID_WMPCLOSEDCAPTION2_GETSTYLENAME",
-    "DISPID_WMPDVD_ISAVAILABLE",
-    "DISPID_WMPDVD_DOMAIN",
-    "DISPID_WMPDVD_TOPMENU",
-    "DISPID_WMPDVD_TITLEMENU",
-    "DISPID_WMPDVD_BACK",
-    "DISPID_WMPDVD_RESUME",
-    "DISPID_WMPMETADATA_PICTURE_MIMETYPE",
-    "DISPID_WMPMETADATA_PICTURE_PICTURETYPE",
-    "DISPID_WMPMETADATA_PICTURE_DESCRIPTION",
-    "DISPID_WMPMETADATA_PICTURE_URL",
-    "DISPID_WMPMETADATA_TEXT_TEXT",
-    "DISPID_WMPMETADATA_TEXT_DESCRIPTION",
-    "DISPID_WMPPLAYERAPP_SWITCHTOPLAYERAPPLICATION",
-    "DISPID_WMPPLAYERAPP_SWITCHTOCONTROL",
-    "DISPID_WMPPLAYERAPP_PLAYERDOCKED",
-    "DISPID_WMPPLAYERAPP_HASDISPLAY",
-    "DISPID_WMPPLAYERAPP_REMOTESTATUS",
-    "DISPID_WMPDOWNLOADMANAGER_GETDOWNLOADCOLLECTION",
-    "DISPID_WMPDOWNLOADMANAGER_CREATEDOWNLOADCOLLECTION",
-    "DISPID_WMPDOWNLOADCOLLECTION_ID",
-    "DISPID_WMPDOWNLOADCOLLECTION_COUNT",
-    "DISPID_WMPDOWNLOADCOLLECTION_ITEM",
-    "DISPID_WMPDOWNLOADCOLLECTION_STARTDOWNLOAD",
-    "DISPID_WMPDOWNLOADCOLLECTION_REMOVEITEM",
-    "DISPID_WMPDOWNLOADCOLLECTION_CLEAR",
-    "DISPID_WMPDOWNLOADITEM_SOURCEURL",
-    "DISPID_WMPDOWNLOADITEM_SIZE",
-    "DISPID_WMPDOWNLOADITEM_TYPE",
-    "DISPID_WMPDOWNLOADITEM_PROGRESS",
-    "DISPID_WMPDOWNLOADITEM_DOWNLOADSTATE",
-    "DISPID_WMPDOWNLOADITEM_PAUSE",
-    "DISPID_WMPDOWNLOADITEM_RESUME",
-    "DISPID_WMPDOWNLOADITEM_CANCEL",
-    "DISPID_WMPDOWNLOADITEM2_GETITEMINFO",
-    "DISPID_WMPQUERY_ADDCONDITION",
-    "DISPID_WMPQUERY_BEGINNEXTGROUP",
+    "DISPID_WMPMEDIA2_ERROR",
+    "DISPID_WMPMEDIA3_GETATTRIBUTECOUNTBYTYPE",
+    "DISPID_WMPMEDIA3_GETITEMINFOBYTYPE",
+    "DISPID_WMPMEDIACOLLECTION2_BASE",
     "DISPID_WMPMEDIACOLLECTION2_CREATEQUERY",
+    "DISPID_WMPMEDIACOLLECTION2_GETBYATTRANDMEDIATYPE",
     "DISPID_WMPMEDIACOLLECTION2_GETPLAYLISTBYQUERY",
     "DISPID_WMPMEDIACOLLECTION2_GETSTRINGCOLLBYQUERY",
-    "DISPID_WMPMEDIACOLLECTION2_GETBYATTRANDMEDIATYPE",
-    "DISPID_WMPSTRINGCOLLECTION2_ISIDENTICAL",
-    "DISPID_WMPSTRINGCOLLECTION2_GETITEMINFO",
-    "DISPID_WMPSTRINGCOLLECTION2_GETATTRCOUNTBYTYPE",
-    "DISPID_WMPSTRINGCOLLECTION2_GETITEMINFOBYTYPE",
-    "DISPID_WMPCORE_MIN",
-    "DISPID_WMPCORE_MAX",
-    "WMPCOREEVENT_BASE",
-    "DISPID_WMPCOREEVENT_OPENSTATECHANGE",
-    "DISPID_WMPCOREEVENT_STATUSCHANGE",
-    "WMPCOREEVENT_CONTROL_BASE",
-    "DISPID_WMPCOREEVENT_PLAYSTATECHANGE",
-    "DISPID_WMPCOREEVENT_AUDIOLANGUAGECHANGE",
-    "WMPCOREEVENT_SEEK_BASE",
-    "DISPID_WMPCOREEVENT_ENDOFSTREAM",
-    "DISPID_WMPCOREEVENT_POSITIONCHANGE",
-    "DISPID_WMPCOREEVENT_MARKERHIT",
-    "DISPID_WMPCOREEVENT_DURATIONUNITCHANGE",
-    "WMPCOREEVENT_CONTENT_BASE",
-    "DISPID_WMPCOREEVENT_SCRIPTCOMMAND",
-    "WMPCOREEVENT_NETWORK_BASE",
-    "DISPID_WMPCOREEVENT_DISCONNECT",
-    "DISPID_WMPCOREEVENT_BUFFERING",
-    "DISPID_WMPCOREEVENT_NEWSTREAM",
-    "WMPCOREEVENT_ERROR_BASE",
-    "DISPID_WMPCOREEVENT_ERROR",
-    "WMPCOREEVENT_WARNING_BASE",
-    "DISPID_WMPCOREEVENT_WARNING",
-    "WMPCOREEVENT_CDROM_BASE",
-    "DISPID_WMPCOREEVENT_CDROMMEDIACHANGE",
-    "WMPCOREEVENT_PLAYLIST_BASE",
-    "DISPID_WMPCOREEVENT_PLAYLISTCHANGE",
-    "DISPID_WMPCOREEVENT_MEDIACHANGE",
-    "DISPID_WMPCOREEVENT_CURRENTMEDIAITEMAVAILABLE",
-    "DISPID_WMPCOREEVENT_CURRENTPLAYLISTCHANGE",
-    "DISPID_WMPCOREEVENT_CURRENTPLAYLISTITEMAVAILABLE",
-    "DISPID_WMPCOREEVENT_CURRENTITEMCHANGE",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONCHANGE",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONATTRIBUTESTRINGADDED",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONATTRIBUTESTRINGREMOVED",
-    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONCHANGE",
-    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONPLAYLISTADDED",
-    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONPLAYLISTREMOVED",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONCONTENTSCANADDEDITEM",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONCONTENTSCANPROGRESS",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONSEARCHFOUNDITEM",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONSEARCHPROGRESS",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONSEARCHCOMPLETE",
-    "DISPID_WMPCOREEVENT_PLAYLISTCOLLECTIONPLAYLISTSETASDELETED",
-    "DISPID_WMPCOREEVENT_MODECHANGE",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONATTRIBUTESTRINGCHANGED",
-    "DISPID_WMPCOREEVENT_MEDIAERROR",
-    "DISPID_WMPCOREEVENT_DOMAINCHANGE",
-    "DISPID_WMPCOREEVENT_OPENPLAYLISTSWITCH",
-    "DISPID_WMPCOREEVENT_STRINGCOLLECTIONCHANGE",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONMEDIAADDED",
-    "DISPID_WMPCOREEVENT_MEDIACOLLECTIONMEDIAREMOVED",
-    "WMPOCXEVENT_BASE",
-    "DISPID_WMPOCXEVENT_SWITCHEDTOPLAYERAPPLICATION",
-    "DISPID_WMPOCXEVENT_SWITCHEDTOCONTROL",
-    "DISPID_WMPOCXEVENT_PLAYERDOCKEDSTATECHANGE",
-    "DISPID_WMPOCXEVENT_PLAYERRECONNECT",
+    "DISPID_WMPMEDIACOLLECTION_ADD",
+    "DISPID_WMPMEDIACOLLECTION_BASE",
+    "DISPID_WMPMEDIACOLLECTION_FREEZECOLLECTIONCHANGE",
+    "DISPID_WMPMEDIACOLLECTION_GETALL",
+    "DISPID_WMPMEDIACOLLECTION_GETATTRIBUTESTRINGCOLLECTION",
+    "DISPID_WMPMEDIACOLLECTION_GETBYALBUM",
+    "DISPID_WMPMEDIACOLLECTION_GETBYATTRIBUTE",
+    "DISPID_WMPMEDIACOLLECTION_GETBYAUTHOR",
+    "DISPID_WMPMEDIACOLLECTION_GETBYGENRE",
+    "DISPID_WMPMEDIACOLLECTION_GETBYNAME",
+    "DISPID_WMPMEDIACOLLECTION_GETBYQUERYDESCRIPTION",
+    "DISPID_WMPMEDIACOLLECTION_GETMEDIAATOM",
+    "DISPID_WMPMEDIACOLLECTION_ISDELETED",
+    "DISPID_WMPMEDIACOLLECTION_NEWQUERY",
+    "DISPID_WMPMEDIACOLLECTION_POSTCOLLECTIONCHANGE",
+    "DISPID_WMPMEDIACOLLECTION_REMOVE",
+    "DISPID_WMPMEDIACOLLECTION_SETDELETED",
+    "DISPID_WMPMEDIACOLLECTION_STARTCONTENTSCAN",
+    "DISPID_WMPMEDIACOLLECTION_STARTMONITORING",
+    "DISPID_WMPMEDIACOLLECTION_STARTSEARCH",
+    "DISPID_WMPMEDIACOLLECTION_STOPCONTENTSCAN",
+    "DISPID_WMPMEDIACOLLECTION_STOPMONITORING",
+    "DISPID_WMPMEDIACOLLECTION_STOPSEARCH",
+    "DISPID_WMPMEDIACOLLECTION_UNFREEZECOLLECTIONCHANGE",
+    "DISPID_WMPMEDIACOLLECTION_UPDATEMETADATA",
+    "DISPID_WMPMEDIA_ATTRIBUTECOUNT",
+    "DISPID_WMPMEDIA_BASE",
+    "DISPID_WMPMEDIA_DURATION",
+    "DISPID_WMPMEDIA_DURATIONSTRING",
+    "DISPID_WMPMEDIA_GETATTRIBUTENAME",
+    "DISPID_WMPMEDIA_GETITEMINFO",
+    "DISPID_WMPMEDIA_GETITEMINFOBYATOM",
+    "DISPID_WMPMEDIA_GETMARKERNAME",
+    "DISPID_WMPMEDIA_GETMARKERTIME",
+    "DISPID_WMPMEDIA_IMAGESOURCEHEIGHT",
+    "DISPID_WMPMEDIA_IMAGESOURCEWIDTH",
+    "DISPID_WMPMEDIA_ISIDENTICAL",
+    "DISPID_WMPMEDIA_ISMEMBEROF",
+    "DISPID_WMPMEDIA_ISREADONLYITEM",
+    "DISPID_WMPMEDIA_MARKERCOUNT",
+    "DISPID_WMPMEDIA_NAME",
+    "DISPID_WMPMEDIA_SETITEMINFO",
+    "DISPID_WMPMEDIA_SOURCEURL",
+    "DISPID_WMPMETADATA_BASE",
+    "DISPID_WMPMETADATA_PICTURE_DESCRIPTION",
+    "DISPID_WMPMETADATA_PICTURE_MIMETYPE",
+    "DISPID_WMPMETADATA_PICTURE_PICTURETYPE",
+    "DISPID_WMPMETADATA_PICTURE_URL",
+    "DISPID_WMPMETADATA_TEXT_DESCRIPTION",
+    "DISPID_WMPMETADATA_TEXT_TEXT",
+    "DISPID_WMPNETWORK_BANDWIDTH",
+    "DISPID_WMPNETWORK_BASE",
+    "DISPID_WMPNETWORK_BITRATE",
+    "DISPID_WMPNETWORK_BUFFERINGCOUNT",
+    "DISPID_WMPNETWORK_BUFFERINGPROGRESS",
+    "DISPID_WMPNETWORK_BUFFERINGTIME",
+    "DISPID_WMPNETWORK_DOWNLOADPROGRESS",
+    "DISPID_WMPNETWORK_ENCODEDFRAMERATE",
+    "DISPID_WMPNETWORK_FRAMERATE",
+    "DISPID_WMPNETWORK_FRAMESSKIPPED",
+    "DISPID_WMPNETWORK_GETPROXYBYPASSFORLOCAL",
+    "DISPID_WMPNETWORK_GETPROXYEXCEPTIONLIST",
+    "DISPID_WMPNETWORK_GETPROXYNAME",
+    "DISPID_WMPNETWORK_GETPROXYPORT",
+    "DISPID_WMPNETWORK_GETPROXYSETTINGS",
+    "DISPID_WMPNETWORK_LOSTPACKETS",
+    "DISPID_WMPNETWORK_MAXBANDWIDTH",
+    "DISPID_WMPNETWORK_MAXBITRATE",
+    "DISPID_WMPNETWORK_RECEIVEDPACKETS",
+    "DISPID_WMPNETWORK_RECEPTIONQUALITY",
+    "DISPID_WMPNETWORK_RECOVEREDPACKETS",
+    "DISPID_WMPNETWORK_SETPROXYBYPASSFORLOCAL",
+    "DISPID_WMPNETWORK_SETPROXYEXCEPTIONLIST",
+    "DISPID_WMPNETWORK_SETPROXYNAME",
+    "DISPID_WMPNETWORK_SETPROXYPORT",
+    "DISPID_WMPNETWORK_SETPROXYSETTINGS",
+    "DISPID_WMPNETWORK_SOURCEPROTOCOL",
+    "DISPID_WMPOCX2_BASE",
+    "DISPID_WMPOCX2_STRETCHTOFIT",
+    "DISPID_WMPOCX2_WINDOWLESSVIDEO",
+    "DISPID_WMPOCX4_ISREMOTE",
+    "DISPID_WMPOCX4_OPENPLAYER",
+    "DISPID_WMPOCX4_PLAYERAPPLICATION",
+    "DISPID_WMPOCXEVENT_CDROMBURNERROR",
+    "DISPID_WMPOCXEVENT_CDROMBURNMEDIAERROR",
+    "DISPID_WMPOCXEVENT_CDROMBURNSTATECHANGE",
+    "DISPID_WMPOCXEVENT_CDROMRIPMEDIAERROR",
+    "DISPID_WMPOCXEVENT_CDROMRIPSTATECHANGE",
     "DISPID_WMPOCXEVENT_CLICK",
+    "DISPID_WMPOCXEVENT_CREATEPARTNERSHIPCOMPLETE",
+    "DISPID_WMPOCXEVENT_DEVICECONNECT",
+    "DISPID_WMPOCXEVENT_DEVICEDISCONNECT",
+    "DISPID_WMPOCXEVENT_DEVICEESTIMATION",
+    "DISPID_WMPOCXEVENT_DEVICESTATUSCHANGE",
+    "DISPID_WMPOCXEVENT_DEVICESYNCERROR",
+    "DISPID_WMPOCXEVENT_DEVICESYNCSTATECHANGE",
     "DISPID_WMPOCXEVENT_DOUBLECLICK",
+    "DISPID_WMPOCXEVENT_FOLDERSCANSTATECHANGE",
     "DISPID_WMPOCXEVENT_KEYDOWN",
     "DISPID_WMPOCXEVENT_KEYPRESS",
     "DISPID_WMPOCXEVENT_KEYUP",
+    "DISPID_WMPOCXEVENT_LIBRARYCONNECT",
+    "DISPID_WMPOCXEVENT_LIBRARYDISCONNECT",
     "DISPID_WMPOCXEVENT_MOUSEDOWN",
     "DISPID_WMPOCXEVENT_MOUSEMOVE",
     "DISPID_WMPOCXEVENT_MOUSEUP",
-    "DISPID_WMPOCXEVENT_DEVICECONNECT",
-    "DISPID_WMPOCXEVENT_DEVICEDISCONNECT",
-    "DISPID_WMPOCXEVENT_DEVICESTATUSCHANGE",
-    "DISPID_WMPOCXEVENT_DEVICESYNCSTATECHANGE",
-    "DISPID_WMPOCXEVENT_DEVICESYNCERROR",
-    "DISPID_WMPOCXEVENT_CREATEPARTNERSHIPCOMPLETE",
-    "DISPID_WMPOCXEVENT_CDROMRIPSTATECHANGE",
-    "DISPID_WMPOCXEVENT_CDROMRIPMEDIAERROR",
-    "DISPID_WMPOCXEVENT_CDROMBURNSTATECHANGE",
-    "DISPID_WMPOCXEVENT_CDROMBURNMEDIAERROR",
-    "DISPID_WMPOCXEVENT_CDROMBURNERROR",
-    "DISPID_WMPOCXEVENT_LIBRARYCONNECT",
-    "DISPID_WMPOCXEVENT_LIBRARYDISCONNECT",
-    "DISPID_WMPOCXEVENT_FOLDERSCANSTATECHANGE",
-    "DISPID_WMPOCXEVENT_DEVICEESTIMATION",
-    "DISPID_WMPCONTROLS_BASE",
-    "DISPID_WMPSETTINGS_BASE",
-    "DISPID_WMPPLAYLIST_BASE",
-    "DISPID_WMPCDROM_BASE",
-    "DISPID_WMPCDROMCOLLECTION_BASE",
-    "DISPID_WMPSTRINGCOLLECTION_BASE",
-    "DISPID_WMPMEDIACOLLECTION_BASE",
-    "DISPID_WMPPLAYLISTARRAY_BASE",
-    "DISPID_WMPPLAYLISTCOLLECTION_BASE",
-    "DISPID_WMPMEDIA_BASE",
-    "DISPID_WMPNETWORK_BASE",
-    "DISPID_WMPERROR_BASE",
-    "DISPID_WMPERRORITEM_BASE",
-    "DISPID_WMPCLOSEDCAPTION_BASE",
-    "DISPID_WMPDVD_BASE",
-    "DISPID_WMPMETADATA_BASE",
+    "DISPID_WMPOCXEVENT_PLAYERDOCKEDSTATECHANGE",
+    "DISPID_WMPOCXEVENT_PLAYERRECONNECT",
+    "DISPID_WMPOCXEVENT_SWITCHEDTOCONTROL",
+    "DISPID_WMPOCXEVENT_SWITCHEDTOPLAYERAPPLICATION",
+    "DISPID_WMPOCX_BASE",
+    "DISPID_WMPOCX_ENABLECONTEXTMENU",
+    "DISPID_WMPOCX_ENABLED",
+    "DISPID_WMPOCX_FULLSCREEN",
+    "DISPID_WMPOCX_LAST",
+    "DISPID_WMPOCX_TRANSPARENTATSTART",
+    "DISPID_WMPOCX_UIMODE",
     "DISPID_WMPPLAYERAPP_BASE",
-    "DISPID_WMPDOWNLOADMANAGER_BASE",
-    "DISPID_WMPDOWNLOADCOLLECTION_BASE",
-    "DISPID_WMPDOWNLOADITEM_BASE",
-    "DISPID_WMPDOWNLOADITEM2_BASE",
+    "DISPID_WMPPLAYERAPP_HASDISPLAY",
+    "DISPID_WMPPLAYERAPP_PLAYERDOCKED",
+    "DISPID_WMPPLAYERAPP_REMOTESTATUS",
+    "DISPID_WMPPLAYERAPP_SWITCHTOCONTROL",
+    "DISPID_WMPPLAYERAPP_SWITCHTOPLAYERAPPLICATION",
+    "DISPID_WMPPLAYLISTARRAY_BASE",
+    "DISPID_WMPPLAYLISTARRAY_COUNT",
+    "DISPID_WMPPLAYLISTARRAY_ITEM",
+    "DISPID_WMPPLAYLISTCOLLECTION_BASE",
+    "DISPID_WMPPLAYLISTCOLLECTION_GETALL",
+    "DISPID_WMPPLAYLISTCOLLECTION_GETBYNAME",
+    "DISPID_WMPPLAYLISTCOLLECTION_GETBYQUERYDESCRIPTION",
+    "DISPID_WMPPLAYLISTCOLLECTION_IMPORTPLAYLIST",
+    "DISPID_WMPPLAYLISTCOLLECTION_ISDELETED",
+    "DISPID_WMPPLAYLISTCOLLECTION_NEWPLAYLIST",
+    "DISPID_WMPPLAYLISTCOLLECTION_NEWQUERY",
+    "DISPID_WMPPLAYLISTCOLLECTION_REMOVE",
+    "DISPID_WMPPLAYLISTCOLLECTION_SETDELETED",
+    "DISPID_WMPPLAYLISTCOLLECTION_STARTMONITORING",
+    "DISPID_WMPPLAYLISTCOLLECTION_STOPMONITORING",
+    "DISPID_WMPPLAYLIST_APPENDITEM",
+    "DISPID_WMPPLAYLIST_ATTRIBUTECOUNT",
+    "DISPID_WMPPLAYLIST_ATTRIBUTENAME",
+    "DISPID_WMPPLAYLIST_BASE",
+    "DISPID_WMPPLAYLIST_CLEAR",
+    "DISPID_WMPPLAYLIST_COUNT",
+    "DISPID_WMPPLAYLIST_GETITEMINFO",
+    "DISPID_WMPPLAYLIST_INSERTITEM",
+    "DISPID_WMPPLAYLIST_ISIDENTICAL",
+    "DISPID_WMPPLAYLIST_ITEM",
+    "DISPID_WMPPLAYLIST_MOVEITEM",
+    "DISPID_WMPPLAYLIST_NAME",
+    "DISPID_WMPPLAYLIST_REMOVEITEM",
+    "DISPID_WMPPLAYLIST_SETITEMINFO",
+    "DISPID_WMPQUERY_ADDCONDITION",
     "DISPID_WMPQUERY_BASE",
-    "DISPID_WMPMEDIACOLLECTION2_BASE",
+    "DISPID_WMPQUERY_BEGINNEXTGROUP",
+    "DISPID_WMPSETTINGS2_DEFAULTAUDIOLANGUAGE",
+    "DISPID_WMPSETTINGS2_LIBRARYACCESSRIGHTS",
+    "DISPID_WMPSETTINGS2_REQUESTLIBRARYACCESSRIGHTS",
+    "DISPID_WMPSETTINGS_AUTOSTART",
+    "DISPID_WMPSETTINGS_BALANCE",
+    "DISPID_WMPSETTINGS_BASE",
+    "DISPID_WMPSETTINGS_BASEURL",
+    "DISPID_WMPSETTINGS_DEFAULTFRAME",
+    "DISPID_WMPSETTINGS_ENABLEERRORDIALOGS",
+    "DISPID_WMPSETTINGS_GETMODE",
+    "DISPID_WMPSETTINGS_INVOKEURLS",
+    "DISPID_WMPSETTINGS_ISAVAILABLE",
+    "DISPID_WMPSETTINGS_MUTE",
+    "DISPID_WMPSETTINGS_PLAYCOUNT",
+    "DISPID_WMPSETTINGS_RATE",
+    "DISPID_WMPSETTINGS_SETMODE",
+    "DISPID_WMPSETTINGS_VOLUME",
     "DISPID_WMPSTRINGCOLLECTION2_BASE",
-    "CLSID_WMPSkinManager",
-    "CLSID_WMPMediaPluginRegistrar",
-    "WMP_PLUGINTYPE_DSP",
-    "WMP_PLUGINTYPE_DSP_OUTOFPROC",
-    "WMP_PLUGINTYPE_RENDERING",
-    "kfltTimedLevelMaximumFrequency",
-    "kfltTimedLevelMinimumFrequency",
-    "g_szContentPartnerInfo_LoginState",
-    "g_szContentPartnerInfo_MediaPlayerAccountType",
-    "g_szContentPartnerInfo_AccountType",
-    "g_szContentPartnerInfo_HasCachedCredentials",
-    "g_szContentPartnerInfo_LicenseRefreshAdvanceWarning",
-    "g_szContentPartnerInfo_PurchasedTrackRequiresReDownload",
-    "g_szContentPartnerInfo_MaximumTrackPurchasePerPurchase",
-    "g_szContentPartnerInfo_AccountBalance",
-    "g_szContentPartnerInfo_UserName",
-    "g_szMediaPlayerTask_Burn",
-    "g_szMediaPlayerTask_Browse",
-    "g_szMediaPlayerTask_Sync",
-    "g_szItemInfo_PopupURL",
-    "g_szItemInfo_AuthenticationSuccessURL",
-    "g_szItemInfo_LoginFailureURL",
-    "g_szItemInfo_HTMLViewURL",
-    "g_szItemInfo_PopupCaption",
-    "g_szItemInfo_ALTLoginURL",
-    "g_szItemInfo_ALTLoginCaption",
-    "g_szItemInfo_ForgetPasswordURL",
-    "g_szItemInfo_CreateAccountURL",
-    "g_szItemInfo_ArtistArtURL",
-    "g_szItemInfo_AlbumArtURL",
-    "g_szItemInfo_ListArtURL",
-    "g_szItemInfo_GenreArtURL",
-    "g_szItemInfo_SubGenreArtURL",
-    "g_szItemInfo_RadioArtURL",
-    "g_szItemInfo_TreeListIconURL",
-    "g_szItemInfo_ErrorDescription",
-    "g_szItemInfo_ErrorURL",
-    "g_szItemInfo_ErrorURLLinkText",
-    "g_szUnknownLocation",
-    "g_szRootLocation",
-    "g_szFlyoutMenu",
-    "g_szOnlineStore",
-    "g_szVideoRecent",
-    "g_szVideoRoot",
-    "g_szCPListID",
-    "g_szAllCPListIDs",
-    "g_szCPTrackID",
-    "g_szAllCPTrackIDs",
-    "g_szCPArtistID",
-    "g_szAllCPArtistIDs",
-    "g_szCPAlbumID",
-    "g_szAllCPAlbumIDs",
-    "g_szCPGenreID",
-    "g_szAllCPGenreIDs",
-    "g_szCPAlbumSubGenreID",
-    "g_szAllCPAlbumSubGenreIDs",
-    "g_szReleaseDateYear",
-    "g_szAllReleaseDateYears",
-    "g_szCPRadioID",
-    "g_szAllCPRadioIDs",
-    "g_szAuthor",
-    "g_szAllAuthors",
-    "g_szWMParentalRating",
-    "g_szAllWMParentalRatings",
-    "g_szAllUserEffectiveRatingStarss",
-    "g_szUserEffectiveRatingStars",
-    "g_szUserPlaylist",
-    "g_szViewMode_Report",
-    "g_szViewMode_Details",
-    "g_szViewMode_Icon",
-    "g_szViewMode_Tile",
-    "g_szViewMode_OrderedList",
-    "g_szContentPrice_Unknown",
-    "g_szContentPrice_CannotBuy",
-    "g_szContentPrice_Free",
-    "g_szRefreshLicensePlay",
-    "g_szRefreshLicenseBurn",
-    "g_szRefreshLicenseSync",
-    "g_szVerifyPermissionSync",
-    "g_szStationEvent_Started",
-    "g_szStationEvent_Complete",
-    "g_szStationEvent_Skipped",
-    "WMProfile_V40_DialUpMBR",
-    "WMProfile_V40_IntranetMBR",
-    "WMProfile_V40_2856100MBR",
-    "WMProfile_V40_6VoiceAudio",
-    "WMProfile_V40_16AMRadio",
-    "WMProfile_V40_288FMRadioMono",
-    "WMProfile_V40_288FMRadioStereo",
-    "WMProfile_V40_56DialUpStereo",
-    "WMProfile_V40_64Audio",
-    "WMProfile_V40_96Audio",
-    "WMProfile_V40_128Audio",
-    "WMProfile_V40_288VideoVoice",
-    "WMProfile_V40_288VideoAudio",
-    "WMProfile_V40_288VideoWebServer",
-    "WMProfile_V40_56DialUpVideo",
-    "WMProfile_V40_56DialUpVideoWebServer",
-    "WMProfile_V40_100Video",
-    "WMProfile_V40_250Video",
-    "WMProfile_V40_512Video",
-    "WMProfile_V40_1MBVideo",
-    "WMProfile_V40_3MBVideo",
-    "WMProfile_V70_DialUpMBR",
-    "WMProfile_V70_IntranetMBR",
-    "WMProfile_V70_2856100MBR",
-    "WMProfile_V70_288VideoVoice",
-    "WMProfile_V70_288VideoAudio",
-    "WMProfile_V70_288VideoWebServer",
-    "WMProfile_V70_56VideoWebServer",
-    "WMProfile_V70_64VideoISDN",
-    "WMProfile_V70_100Video",
-    "WMProfile_V70_256Video",
-    "WMProfile_V70_384Video",
-    "WMProfile_V70_768Video",
-    "WMProfile_V70_1500Video",
-    "WMProfile_V70_2000Video",
-    "WMProfile_V70_700FilmContentVideo",
-    "WMProfile_V70_1500FilmContentVideo",
-    "WMProfile_V70_6VoiceAudio",
-    "WMProfile_V70_288FMRadioMono",
-    "WMProfile_V70_288FMRadioStereo",
-    "WMProfile_V70_56DialUpStereo",
-    "WMProfile_V70_64AudioISDN",
-    "WMProfile_V70_64Audio",
-    "WMProfile_V70_96Audio",
-    "WMProfile_V70_128Audio",
-    "WMProfile_V70_225VideoPDA",
-    "WMProfile_V70_150VideoPDA",
-    "WMProfile_V80_255VideoPDA",
-    "WMProfile_V80_150VideoPDA",
-    "WMProfile_V80_28856VideoMBR",
-    "WMProfile_V80_100768VideoMBR",
-    "WMProfile_V80_288100VideoMBR",
-    "WMProfile_V80_288Video",
-    "WMProfile_V80_56Video",
-    "WMProfile_V80_100Video",
-    "WMProfile_V80_256Video",
-    "WMProfile_V80_384Video",
-    "WMProfile_V80_768Video",
-    "WMProfile_V80_700NTSCVideo",
-    "WMProfile_V80_1400NTSCVideo",
-    "WMProfile_V80_384PALVideo",
-    "WMProfile_V80_700PALVideo",
-    "WMProfile_V80_288MonoAudio",
-    "WMProfile_V80_288StereoAudio",
-    "WMProfile_V80_32StereoAudio",
-    "WMProfile_V80_48StereoAudio",
-    "WMProfile_V80_64StereoAudio",
-    "WMProfile_V80_96StereoAudio",
-    "WMProfile_V80_128StereoAudio",
-    "WMProfile_V80_288VideoOnly",
-    "WMProfile_V80_56VideoOnly",
-    "WMProfile_V80_FAIRVBRVideo",
-    "WMProfile_V80_HIGHVBRVideo",
-    "WMProfile_V80_BESTVBRVideo",
-    "WindowsMediaPlayer",
-    "WMPOpenState",
-    "WMPOpenState_wmposUndefined",
-    "WMPOpenState_wmposPlaylistChanging",
-    "WMPOpenState_wmposPlaylistLocating",
-    "WMPOpenState_wmposPlaylistConnecting",
-    "WMPOpenState_wmposPlaylistLoading",
-    "WMPOpenState_wmposPlaylistOpening",
-    "WMPOpenState_wmposPlaylistOpenNoMedia",
-    "WMPOpenState_wmposPlaylistChanged",
-    "WMPOpenState_wmposMediaChanging",
-    "WMPOpenState_wmposMediaLocating",
-    "WMPOpenState_wmposMediaConnecting",
-    "WMPOpenState_wmposMediaLoading",
-    "WMPOpenState_wmposMediaOpening",
-    "WMPOpenState_wmposMediaOpen",
-    "WMPOpenState_wmposBeginCodecAcquisition",
-    "WMPOpenState_wmposEndCodecAcquisition",
-    "WMPOpenState_wmposBeginLicenseAcquisition",
-    "WMPOpenState_wmposEndLicenseAcquisition",
-    "WMPOpenState_wmposBeginIndividualization",
-    "WMPOpenState_wmposEndIndividualization",
-    "WMPOpenState_wmposMediaWaiting",
-    "WMPOpenState_wmposOpeningUnknownURL",
-    "WMPPlayState",
-    "WMPPlayState_wmppsUndefined",
-    "WMPPlayState_wmppsStopped",
-    "WMPPlayState_wmppsPaused",
-    "WMPPlayState_wmppsPlaying",
-    "WMPPlayState_wmppsScanForward",
-    "WMPPlayState_wmppsScanReverse",
-    "WMPPlayState_wmppsBuffering",
-    "WMPPlayState_wmppsWaiting",
-    "WMPPlayState_wmppsMediaEnded",
-    "WMPPlayState_wmppsTransitioning",
-    "WMPPlayState_wmppsReady",
-    "WMPPlayState_wmppsReconnecting",
-    "WMPPlayState_wmppsLast",
-    "WMPPlaylistChangeEventType",
-    "WMPPlaylistChangeEventType_wmplcUnknown",
-    "WMPPlaylistChangeEventType_wmplcClear",
-    "WMPPlaylistChangeEventType_wmplcInfoChange",
-    "WMPPlaylistChangeEventType_wmplcMove",
-    "WMPPlaylistChangeEventType_wmplcDelete",
-    "WMPPlaylistChangeEventType_wmplcInsert",
-    "WMPPlaylistChangeEventType_wmplcAppend",
-    "WMPPlaylistChangeEventType_wmplcPrivate",
-    "WMPPlaylistChangeEventType_wmplcNameChange",
-    "WMPPlaylistChangeEventType_wmplcMorph",
-    "WMPPlaylistChangeEventType_wmplcSort",
-    "WMPPlaylistChangeEventType_wmplcLast",
-    "IWMPErrorItem",
-    "IWMPError",
-    "IWMPMedia",
-    "IWMPControls",
-    "IWMPSettings",
-    "IWMPClosedCaption",
-    "IWMPPlaylist",
-    "IWMPCdrom",
-    "IWMPCdromCollection",
-    "IWMPStringCollection",
-    "IWMPMediaCollection",
-    "IWMPPlaylistArray",
-    "IWMPPlaylistCollection",
-    "IWMPNetwork",
-    "IWMPCore",
-    "IWMPPlayer",
-    "IWMPPlayer2",
-    "IWMPMedia2",
-    "IWMPControls2",
-    "IWMPDVD",
-    "IWMPCore2",
-    "IWMPPlayer3",
-    "IWMPErrorItem2",
-    "IWMPRemoteMediaServices",
-    "IWMPSkinManager",
-    "IWMPMetadataPicture",
-    "IWMPMetadataText",
-    "IWMPMedia3",
-    "IWMPSettings2",
-    "IWMPControls3",
-    "IWMPClosedCaption2",
-    "IWMPPlayerApplication",
-    "IWMPCore3",
-    "IWMPPlayer4",
-    "IWMPPlayerServices",
-    "WMPSyncState",
-    "WMPSyncState_wmpssUnknown",
-    "WMPSyncState_wmpssSynchronizing",
-    "WMPSyncState_wmpssStopped",
-    "WMPSyncState_wmpssEstimating",
-    "WMPSyncState_wmpssLast",
-    "WMPDeviceStatus",
-    "WMPDeviceStatus_wmpdsUnknown",
-    "WMPDeviceStatus_wmpdsPartnershipExists",
-    "WMPDeviceStatus_wmpdsPartnershipDeclined",
-    "WMPDeviceStatus_wmpdsPartnershipAnother",
-    "WMPDeviceStatus_wmpdsManualDevice",
-    "WMPDeviceStatus_wmpdsNewDevice",
-    "WMPDeviceStatus_wmpdsLast",
-    "IWMPSyncDevice",
-    "IWMPSyncServices",
-    "IWMPPlayerServices2",
-    "WMPRipState",
-    "WMPRipState_wmprsUnknown",
-    "WMPRipState_wmprsRipping",
-    "WMPRipState_wmprsStopped",
-    "WMPBurnFormat",
-    "WMPBurnFormat_wmpbfAudioCD",
-    "WMPBurnFormat_wmpbfDataCD",
-    "WMPBurnState",
-    "WMPBurnState_wmpbsUnknown",
-    "WMPBurnState_wmpbsBusy",
-    "WMPBurnState_wmpbsReady",
-    "WMPBurnState_wmpbsWaitingForDisc",
-    "WMPBurnState_wmpbsRefreshStatusPending",
-    "WMPBurnState_wmpbsPreparingToBurn",
-    "WMPBurnState_wmpbsBurning",
-    "WMPBurnState_wmpbsStopped",
-    "WMPBurnState_wmpbsErasing",
-    "WMPBurnState_wmpbsDownloading",
-    "WMPStringCollectionChangeEventType",
-    "WMPStringCollectionChangeEventType_wmpsccetUnknown",
-    "WMPStringCollectionChangeEventType_wmpsccetInsert",
-    "WMPStringCollectionChangeEventType_wmpsccetChange",
-    "WMPStringCollectionChangeEventType_wmpsccetDelete",
-    "WMPStringCollectionChangeEventType_wmpsccetClear",
-    "WMPStringCollectionChangeEventType_wmpsccetBeginUpdates",
-    "WMPStringCollectionChangeEventType_wmpsccetEndUpdates",
-    "IWMPCdromRip",
-    "IWMPCdromBurn",
-    "IWMPQuery",
-    "IWMPMediaCollection2",
-    "IWMPStringCollection2",
-    "WMPLibraryType",
-    "WMPLibraryType_wmpltUnknown",
-    "WMPLibraryType_wmpltAll",
-    "WMPLibraryType_wmpltLocal",
-    "WMPLibraryType_wmpltRemote",
-    "WMPLibraryType_wmpltDisc",
-    "WMPLibraryType_wmpltPortableDevice",
-    "IWMPLibrary",
-    "IWMPLibraryServices",
-    "IWMPLibrarySharingServices",
-    "WMPFolderScanState",
-    "WMPFolderScanState_wmpfssUnknown",
-    "WMPFolderScanState_wmpfssScanning",
-    "WMPFolderScanState_wmpfssUpdating",
-    "WMPFolderScanState_wmpfssStopped",
-    "IWMPFolderMonitorServices",
-    "IWMPSyncDevice2",
-    "IWMPSyncDevice3",
-    "IWMPLibrary2",
-    "WMPLib",
-    "WMPRemoteMediaServices",
-    "IWMPEvents",
-    "IWMPEvents2",
-    "IWMPEvents3",
-    "IWMPEvents4",
-    "_WMPOCXEvents",
-    "IWMPNodeRealEstate",
-    "IWMPNodeRealEstateHost",
-    "IWMPNodeWindowed",
-    "IWMPNodeWindowedHost",
-    "IWMPWindowMessageSink",
-    "IWMPNodeWindowless",
-    "IWMPNodeWindowlessHost",
-    "IWMPVideoRenderConfig",
-    "IWMPAudioRenderConfig",
-    "IWMPRenderConfig",
-    "WMPServices_StreamState",
-    "WMPServices_StreamState_Stop",
-    "WMPServices_StreamState_Pause",
-    "WMPServices_StreamState_Play",
-    "IWMPServices",
-    "IWMPMediaPluginRegistrar",
-    "WMPPlugin_Caps",
-    "WMPPlugin_Caps_CannotConvertFormats",
-    "IWMPPlugin",
-    "IWMPPluginEnable",
-    "IWMPGraphCreation",
-    "IWMPConvert",
-    "IWMPTranscodePolicy",
-    "IWMPUserEventSink",
-    "FeedsManager",
-    "FeedFolderWatcher",
-    "FeedWatcher",
-    "FEEDS_BACKGROUNDSYNC_ACTION",
+    "DISPID_WMPSTRINGCOLLECTION2_GETATTRCOUNTBYTYPE",
+    "DISPID_WMPSTRINGCOLLECTION2_GETITEMINFO",
+    "DISPID_WMPSTRINGCOLLECTION2_GETITEMINFOBYTYPE",
+    "DISPID_WMPSTRINGCOLLECTION2_ISIDENTICAL",
+    "DISPID_WMPSTRINGCOLLECTION_BASE",
+    "DISPID_WMPSTRINGCOLLECTION_COUNT",
+    "DISPID_WMPSTRINGCOLLECTION_ITEM",
+    "EFFECT2_FULLSCREENEXCLUSIVE",
+    "EFFECT_CANGOFULLSCREEN",
+    "EFFECT_HASPROPERTYPAGE",
+    "EFFECT_VARIABLEFREQSTEP",
+    "EFFECT_WINDOWEDONLY",
     "FBSA_DISABLE",
     "FBSA_ENABLE",
     "FBSA_RUNNOW",
-    "FEEDS_BACKGROUNDSYNC_STATUS",
     "FBSS_DISABLED",
     "FBSS_ENABLED",
-    "FEEDS_EVENTS_SCOPE",
-    "FES_ALL",
-    "FES_SELF_ONLY",
-    "FES_SELF_AND_CHILDREN_ONLY",
-    "FEEDS_EVENTS_MASK",
-    "FEM_FOLDEREVENTS",
-    "FEM_FEEDEVENTS",
-    "FEEDS_XML_SORT_PROPERTY",
-    "FXSP_NONE",
-    "FXSP_PUBDATE",
-    "FXSP_DOWNLOADTIME",
-    "FEEDS_XML_SORT_ORDER",
-    "FXSO_NONE",
-    "FXSO_ASCENDING",
-    "FXSO_DESCENDING",
-    "FEEDS_XML_FILTER_FLAGS",
-    "FXFF_ALL",
-    "FXFF_UNREAD",
-    "FXFF_READ",
-    "FEEDS_XML_INCLUDE_FLAGS",
-    "FXIF_NONE",
-    "FXIF_CF_EXTENSIONS",
-    "FEEDS_DOWNLOAD_STATUS",
+    "FDE_ACCESS_DENIED",
+    "FDE_AUTH_FAILED",
+    "FDE_BACKGROUND_DOWNLOAD_DISABLED",
+    "FDE_CANCELED",
+    "FDE_DOWNLOAD_BLOCKED",
+    "FDE_DOWNLOAD_FAILED",
+    "FDE_DOWNLOAD_SIZE_LIMIT_EXCEEDED",
+    "FDE_INVALID_AUTH",
+    "FDE_INVALID_FEED_FORMAT",
+    "FDE_NONE",
+    "FDE_NORMALIZATION_FAILED",
+    "FDE_NOT_EXIST",
+    "FDE_PERSISTENCE_FAILED",
+    "FDE_UNSUPPORTED_AUTH",
+    "FDE_UNSUPPORTED_DTD",
+    "FDE_UNSUPPORTED_MSXML",
+    "FDS_DOWNLOADED",
+    "FDS_DOWNLOADING",
+    "FDS_DOWNLOAD_FAILED",
     "FDS_NONE",
     "FDS_PENDING",
-    "FDS_DOWNLOADING",
-    "FDS_DOWNLOADED",
-    "FDS_DOWNLOAD_FAILED",
+    "FEC_E_DOWNLOADSIZELIMITEXCEEDED",
+    "FEC_E_ERRORBASE",
+    "FEC_E_INVALIDMSXMLPROPERTY",
+    "FEEDS_BACKGROUNDSYNC_ACTION",
+    "FEEDS_BACKGROUNDSYNC_STATUS",
+    "FEEDS_DOWNLOAD_ERROR",
+    "FEEDS_DOWNLOAD_STATUS",
+    "FEEDS_ERROR_CODE",
+    "FEEDS_EVENTS_ITEM_COUNT_FLAGS",
+    "FEEDS_EVENTS_MASK",
+    "FEEDS_EVENTS_SCOPE",
     "FEEDS_SYNC_SETTING",
+    "FEEDS_XML_FILTER_FLAGS",
+    "FEEDS_XML_INCLUDE_FLAGS",
+    "FEEDS_XML_SORT_ORDER",
+    "FEEDS_XML_SORT_PROPERTY",
+    "FEICF_READ_ITEM_COUNT_CHANGED",
+    "FEICF_UNREAD_ITEM_COUNT_CHANGED",
+    "FEM_FEEDEVENTS",
+    "FEM_FOLDEREVENTS",
+    "FES_ALL",
+    "FES_SELF_AND_CHILDREN_ONLY",
+    "FES_SELF_ONLY",
     "FSS_DEFAULT",
     "FSS_INTERVAL",
     "FSS_MANUAL",
     "FSS_SUGGESTED",
-    "FEEDS_DOWNLOAD_ERROR",
-    "FDE_NONE",
-    "FDE_DOWNLOAD_FAILED",
-    "FDE_INVALID_FEED_FORMAT",
-    "FDE_NORMALIZATION_FAILED",
-    "FDE_PERSISTENCE_FAILED",
-    "FDE_DOWNLOAD_BLOCKED",
-    "FDE_CANCELED",
-    "FDE_UNSUPPORTED_AUTH",
-    "FDE_BACKGROUND_DOWNLOAD_DISABLED",
-    "FDE_NOT_EXIST",
-    "FDE_UNSUPPORTED_MSXML",
-    "FDE_UNSUPPORTED_DTD",
-    "FDE_DOWNLOAD_SIZE_LIMIT_EXCEEDED",
-    "FDE_ACCESS_DENIED",
-    "FDE_AUTH_FAILED",
-    "FDE_INVALID_AUTH",
-    "FEEDS_EVENTS_ITEM_COUNT_FLAGS",
-    "FEICF_READ_ITEM_COUNT_CHANGED",
-    "FEICF_UNREAD_ITEM_COUNT_CHANGED",
-    "FEEDS_ERROR_CODE",
-    "FEC_E_ERRORBASE",
-    "FEC_E_INVALIDMSXMLPROPERTY",
-    "FEC_E_DOWNLOADSIZELIMITEXCEEDED",
-    "IXFeedsManager",
-    "IXFeedsEnum",
-    "IXFeedFolder",
-    "IXFeedFolderEvents",
-    "IXFeed",
-    "IXFeed2",
-    "IXFeedEvents",
-    "IXFeedItem",
-    "IXFeedItem2",
-    "IXFeedEnclosure",
-    "IFeedsManager",
-    "IFeedsEnum",
-    "IFeedFolder",
-    "IFeedFolderEvents",
+    "FXFF_ALL",
+    "FXFF_READ",
+    "FXFF_UNREAD",
+    "FXIF_CF_EXTENSIONS",
+    "FXIF_NONE",
+    "FXSO_ASCENDING",
+    "FXSO_DESCENDING",
+    "FXSO_NONE",
+    "FXSP_DOWNLOADTIME",
+    "FXSP_NONE",
+    "FXSP_PUBDATE",
+    "FeedFolderWatcher",
+    "FeedWatcher",
+    "FeedsManager",
     "IFeed",
     "IFeed2",
+    "IFeedEnclosure",
     "IFeedEvents",
+    "IFeedFolder",
+    "IFeedFolderEvents",
     "IFeedItem",
     "IFeedItem2",
-    "IFeedEnclosure",
-    "PlayerState",
-    "stop_state",
-    "pause_state",
-    "play_state",
-    "TimedLevel",
+    "IFeedsEnum",
+    "IFeedsManager",
+    "IOCTL_WMP_DEVICE_CAN_SYNC",
+    "IOCTL_WMP_METADATA_ROUND_TRIP",
+    "IWMPAudioRenderConfig",
+    "IWMPCdrom",
+    "IWMPCdromBurn",
+    "IWMPCdromCollection",
+    "IWMPCdromRip",
+    "IWMPClosedCaption",
+    "IWMPClosedCaption2",
+    "IWMPContentContainer",
+    "IWMPContentContainerList",
+    "IWMPContentPartner",
+    "IWMPContentPartnerCallback",
+    "IWMPControls",
+    "IWMPControls2",
+    "IWMPControls3",
+    "IWMPConvert",
+    "IWMPCore",
+    "IWMPCore2",
+    "IWMPCore3",
+    "IWMPDVD",
+    "IWMPDownloadCollection",
+    "IWMPDownloadItem",
+    "IWMPDownloadItem2",
+    "IWMPDownloadManager",
     "IWMPEffects",
     "IWMPEffects2",
+    "IWMPError",
+    "IWMPErrorItem",
+    "IWMPErrorItem2",
+    "IWMPEvents",
+    "IWMPEvents2",
+    "IWMPEvents3",
+    "IWMPEvents4",
+    "IWMPFolderMonitorServices",
+    "IWMPGraphCreation",
+    "IWMPLibrary",
+    "IWMPLibrary2",
+    "IWMPLibraryServices",
+    "IWMPLibrarySharingServices",
+    "IWMPMedia",
+    "IWMPMedia2",
+    "IWMPMedia3",
+    "IWMPMediaCollection",
+    "IWMPMediaCollection2",
+    "IWMPMediaPluginRegistrar",
+    "IWMPMetadataPicture",
+    "IWMPMetadataText",
+    "IWMPNetwork",
+    "IWMPNodeRealEstate",
+    "IWMPNodeRealEstateHost",
+    "IWMPNodeWindowed",
+    "IWMPNodeWindowedHost",
+    "IWMPNodeWindowless",
+    "IWMPNodeWindowlessHost",
+    "IWMPPlayer",
+    "IWMPPlayer2",
+    "IWMPPlayer3",
+    "IWMPPlayer4",
+    "IWMPPlayerApplication",
+    "IWMPPlayerServices",
+    "IWMPPlayerServices2",
+    "IWMPPlaylist",
+    "IWMPPlaylistArray",
+    "IWMPPlaylistCollection",
+    "IWMPPlugin",
+    "IWMPPluginEnable",
     "IWMPPluginUI",
+    "IWMPQuery",
+    "IWMPRemoteMediaServices",
+    "IWMPRenderConfig",
+    "IWMPServices",
+    "IWMPSettings",
+    "IWMPSettings2",
+    "IWMPSkinManager",
+    "IWMPStringCollection",
+    "IWMPStringCollection2",
+    "IWMPSubscriptionService",
+    "IWMPSubscriptionService2",
+    "IWMPSubscriptionServiceCallback",
+    "IWMPSyncDevice",
+    "IWMPSyncDevice2",
+    "IWMPSyncDevice3",
+    "IWMPSyncServices",
+    "IWMPTranscodePolicy",
+    "IWMPUserEventSink",
+    "IWMPVideoRenderConfig",
+    "IWMPWindowMessageSink",
+    "IXFeed",
+    "IXFeed2",
+    "IXFeedEnclosure",
+    "IXFeedEvents",
+    "IXFeedFolder",
+    "IXFeedFolderEvents",
+    "IXFeedItem",
+    "IXFeedItem2",
+    "IXFeedsEnum",
+    "IXFeedsManager",
+    "PLUGIN_ALL_MEDIASENDTO",
+    "PLUGIN_ALL_PLAYLISTSENDTO",
+    "PLUGIN_FLAGS_ACCEPTSMEDIA",
+    "PLUGIN_FLAGS_ACCEPTSPLAYLISTS",
+    "PLUGIN_FLAGS_HASPRESETS",
+    "PLUGIN_FLAGS_HASPROPERTYPAGE",
+    "PLUGIN_FLAGS_HIDDEN",
+    "PLUGIN_FLAGS_INSTALLAUTORUN",
+    "PLUGIN_FLAGS_LAUNCHPROPERTYPAGE",
+    "PLUGIN_INSTALLREGKEY",
+    "PLUGIN_INSTALLREGKEY_CAPABILITIES",
+    "PLUGIN_INSTALLREGKEY_DESCRIPTION",
+    "PLUGIN_INSTALLREGKEY_FRIENDLYNAME",
+    "PLUGIN_INSTALLREGKEY_UNINSTALL",
+    "PLUGIN_MISC_CURRENTPRESET",
+    "PLUGIN_MISC_PRESETCOUNT",
+    "PLUGIN_MISC_PRESETNAMES",
+    "PLUGIN_MISC_QUERYDESTROY",
+    "PLUGIN_SEPARATEWINDOW_DEFAULTHEIGHT",
+    "PLUGIN_SEPARATEWINDOW_DEFAULTWIDTH",
+    "PLUGIN_SEPARATEWINDOW_MAXHEIGHT",
+    "PLUGIN_SEPARATEWINDOW_MAXWIDTH",
+    "PLUGIN_SEPARATEWINDOW_MINHEIGHT",
+    "PLUGIN_SEPARATEWINDOW_MINWIDTH",
+    "PLUGIN_SEPARATEWINDOW_RESIZABLE",
+    "PLUGIN_TYPE_BACKGROUND",
+    "PLUGIN_TYPE_DISPLAYAREA",
+    "PLUGIN_TYPE_METADATAAREA",
+    "PLUGIN_TYPE_SEPARATEWINDOW",
+    "PLUGIN_TYPE_SETTINGSAREA",
+    "PlayerState",
+    "SA_BUFFER_SIZE",
+    "SUBSCRIPTION_CAP_ALLOWCDBURN",
+    "SUBSCRIPTION_CAP_ALLOWPDATRANSFER",
+    "SUBSCRIPTION_CAP_ALLOWPLAY",
+    "SUBSCRIPTION_CAP_ALTLOGIN",
+    "SUBSCRIPTION_CAP_BACKGROUNDPROCESSING",
+    "SUBSCRIPTION_CAP_DEVICEAVAILABLE",
+    "SUBSCRIPTION_CAP_IS_CONTENTPARTNER",
+    "SUBSCRIPTION_CAP_PREPAREFORSYNC",
+    "SUBSCRIPTION_CAP_UILESSMODE_ALLOWPLAY",
+    "SUBSCRIPTION_V1_CAPS",
+    "TimedLevel",
+    "WMPAccountType",
+    "WMPAccountType_wmpatBuyOnly",
+    "WMPAccountType_wmpatJanus",
+    "WMPAccountType_wmpatSubscription",
+    "WMPBurnFormat",
+    "WMPBurnFormat_wmpbfAudioCD",
+    "WMPBurnFormat_wmpbfDataCD",
+    "WMPBurnState",
+    "WMPBurnState_wmpbsBurning",
+    "WMPBurnState_wmpbsBusy",
+    "WMPBurnState_wmpbsDownloading",
+    "WMPBurnState_wmpbsErasing",
+    "WMPBurnState_wmpbsPreparingToBurn",
+    "WMPBurnState_wmpbsReady",
+    "WMPBurnState_wmpbsRefreshStatusPending",
+    "WMPBurnState_wmpbsStopped",
+    "WMPBurnState_wmpbsUnknown",
+    "WMPBurnState_wmpbsWaitingForDisc",
+    "WMPCOREEVENT_BASE",
+    "WMPCOREEVENT_CDROM_BASE",
+    "WMPCOREEVENT_CONTENT_BASE",
+    "WMPCOREEVENT_CONTROL_BASE",
+    "WMPCOREEVENT_ERROR_BASE",
+    "WMPCOREEVENT_NETWORK_BASE",
+    "WMPCOREEVENT_PLAYLIST_BASE",
+    "WMPCOREEVENT_SEEK_BASE",
+    "WMPCOREEVENT_WARNING_BASE",
+    "WMPCallbackNotification",
+    "WMPCallbackNotification_wmpcnAuthResult",
+    "WMPCallbackNotification_wmpcnDisableRadioSkipping",
+    "WMPCallbackNotification_wmpcnLicenseUpdated",
+    "WMPCallbackNotification_wmpcnLoginStateChange",
+    "WMPCallbackNotification_wmpcnNewCatalogAvailable",
+    "WMPCallbackNotification_wmpcnNewPluginAvailable",
+    "WMPContextMenuInfo",
+    "WMPDeviceStatus",
+    "WMPDeviceStatus_wmpdsLast",
+    "WMPDeviceStatus_wmpdsManualDevice",
+    "WMPDeviceStatus_wmpdsNewDevice",
+    "WMPDeviceStatus_wmpdsPartnershipAnother",
+    "WMPDeviceStatus_wmpdsPartnershipDeclined",
+    "WMPDeviceStatus_wmpdsPartnershipExists",
+    "WMPDeviceStatus_wmpdsUnknown",
+    "WMPFolderScanState",
+    "WMPFolderScanState_wmpfssScanning",
+    "WMPFolderScanState_wmpfssStopped",
+    "WMPFolderScanState_wmpfssUnknown",
+    "WMPFolderScanState_wmpfssUpdating",
+    "WMPGC_FLAGS_ALLOW_PREROLL",
+    "WMPGC_FLAGS_DISABLE_PLUGINS",
+    "WMPGC_FLAGS_IGNORE_AV_SYNC",
+    "WMPGC_FLAGS_SUPPRESS_DIALOGS",
+    "WMPGC_FLAGS_USE_CUSTOM_GRAPH",
+    "WMPLib",
+    "WMPLibraryType",
+    "WMPLibraryType_wmpltAll",
+    "WMPLibraryType_wmpltDisc",
+    "WMPLibraryType_wmpltLocal",
+    "WMPLibraryType_wmpltPortableDevice",
+    "WMPLibraryType_wmpltRemote",
+    "WMPLibraryType_wmpltUnknown",
+    "WMPOCXEVENT_BASE",
+    "WMPOpenState",
+    "WMPOpenState_wmposBeginCodecAcquisition",
+    "WMPOpenState_wmposBeginIndividualization",
+    "WMPOpenState_wmposBeginLicenseAcquisition",
+    "WMPOpenState_wmposEndCodecAcquisition",
+    "WMPOpenState_wmposEndIndividualization",
+    "WMPOpenState_wmposEndLicenseAcquisition",
+    "WMPOpenState_wmposMediaChanging",
+    "WMPOpenState_wmposMediaConnecting",
+    "WMPOpenState_wmposMediaLoading",
+    "WMPOpenState_wmposMediaLocating",
+    "WMPOpenState_wmposMediaOpen",
+    "WMPOpenState_wmposMediaOpening",
+    "WMPOpenState_wmposMediaWaiting",
+    "WMPOpenState_wmposOpeningUnknownURL",
+    "WMPOpenState_wmposPlaylistChanged",
+    "WMPOpenState_wmposPlaylistChanging",
+    "WMPOpenState_wmposPlaylistConnecting",
+    "WMPOpenState_wmposPlaylistLoading",
+    "WMPOpenState_wmposPlaylistLocating",
+    "WMPOpenState_wmposPlaylistOpenNoMedia",
+    "WMPOpenState_wmposPlaylistOpening",
+    "WMPOpenState_wmposUndefined",
     "WMPPartnerNotification",
     "WMPPartnerNotification_wmpsnBackgroundProcessingBegin",
     "WMPPartnerNotification_wmpsnBackgroundProcessingEnd",
-    "WMPPartnerNotification_wmpsnCatalogDownloadFailure",
     "WMPPartnerNotification_wmpsnCatalogDownloadComplete",
-    "WMPCallbackNotification",
-    "WMPCallbackNotification_wmpcnLoginStateChange",
-    "WMPCallbackNotification_wmpcnAuthResult",
-    "WMPCallbackNotification_wmpcnLicenseUpdated",
-    "WMPCallbackNotification_wmpcnNewCatalogAvailable",
-    "WMPCallbackNotification_wmpcnNewPluginAvailable",
-    "WMPCallbackNotification_wmpcnDisableRadioSkipping",
-    "WMPTaskType",
-    "WMPTaskType_wmpttBrowse",
-    "WMPTaskType_wmpttSync",
-    "WMPTaskType_wmpttBurn",
-    "WMPTaskType_wmpttCurrent",
-    "WMPContextMenuInfo",
-    "IWMPContentContainer",
-    "WMPTransactionType",
-    "WMPTransactionType_wmpttNoTransaction",
-    "WMPTransactionType_wmpttDownload",
-    "WMPTransactionType_wmpttBuy",
-    "IWMPContentContainerList",
-    "WMPTemplateSize",
-    "WMPTemplateSize_wmptsSmall",
-    "WMPTemplateSize_wmptsMedium",
-    "WMPTemplateSize_wmptsLarge",
+    "WMPPartnerNotification_wmpsnCatalogDownloadFailure",
+    "WMPPlayState",
+    "WMPPlayState_wmppsBuffering",
+    "WMPPlayState_wmppsLast",
+    "WMPPlayState_wmppsMediaEnded",
+    "WMPPlayState_wmppsPaused",
+    "WMPPlayState_wmppsPlaying",
+    "WMPPlayState_wmppsReady",
+    "WMPPlayState_wmppsReconnecting",
+    "WMPPlayState_wmppsScanForward",
+    "WMPPlayState_wmppsScanReverse",
+    "WMPPlayState_wmppsStopped",
+    "WMPPlayState_wmppsTransitioning",
+    "WMPPlayState_wmppsUndefined",
+    "WMPPlayState_wmppsWaiting",
+    "WMPPlaylistChangeEventType",
+    "WMPPlaylistChangeEventType_wmplcAppend",
+    "WMPPlaylistChangeEventType_wmplcClear",
+    "WMPPlaylistChangeEventType_wmplcDelete",
+    "WMPPlaylistChangeEventType_wmplcInfoChange",
+    "WMPPlaylistChangeEventType_wmplcInsert",
+    "WMPPlaylistChangeEventType_wmplcLast",
+    "WMPPlaylistChangeEventType_wmplcMorph",
+    "WMPPlaylistChangeEventType_wmplcMove",
+    "WMPPlaylistChangeEventType_wmplcNameChange",
+    "WMPPlaylistChangeEventType_wmplcPrivate",
+    "WMPPlaylistChangeEventType_wmplcSort",
+    "WMPPlaylistChangeEventType_wmplcUnknown",
+    "WMPPlugin_Caps",
+    "WMPPlugin_Caps_CannotConvertFormats",
+    "WMPRemoteMediaServices",
+    "WMPRipState",
+    "WMPRipState_wmprsRipping",
+    "WMPRipState_wmprsStopped",
+    "WMPRipState_wmprsUnknown",
+    "WMPServices_StreamState",
+    "WMPServices_StreamState_Pause",
+    "WMPServices_StreamState_Play",
+    "WMPServices_StreamState_Stop",
     "WMPStreamingType",
-    "WMPStreamingType_wmpstUnknown",
     "WMPStreamingType_wmpstMusic",
-    "WMPStreamingType_wmpstVideo",
     "WMPStreamingType_wmpstRadio",
-    "WMPAccountType",
-    "WMPAccountType_wmpatBuyOnly",
-    "WMPAccountType_wmpatSubscription",
-    "WMPAccountType_wmpatJanus",
-    "IWMPContentPartnerCallback",
-    "IWMPContentPartner",
+    "WMPStreamingType_wmpstUnknown",
+    "WMPStreamingType_wmpstVideo",
+    "WMPStringCollectionChangeEventType",
+    "WMPStringCollectionChangeEventType_wmpsccetBeginUpdates",
+    "WMPStringCollectionChangeEventType_wmpsccetChange",
+    "WMPStringCollectionChangeEventType_wmpsccetClear",
+    "WMPStringCollectionChangeEventType_wmpsccetDelete",
+    "WMPStringCollectionChangeEventType_wmpsccetEndUpdates",
+    "WMPStringCollectionChangeEventType_wmpsccetInsert",
+    "WMPStringCollectionChangeEventType_wmpsccetUnknown",
+    "WMPSubscriptionDownloadState",
+    "WMPSubscriptionDownloadState_wmpsdlsCancelled",
+    "WMPSubscriptionDownloadState_wmpsdlsCompleted",
+    "WMPSubscriptionDownloadState_wmpsdlsDownloading",
+    "WMPSubscriptionDownloadState_wmpsdlsPaused",
+    "WMPSubscriptionDownloadState_wmpsdlsProcessing",
     "WMPSubscriptionServiceEvent",
     "WMPSubscriptionServiceEvent_wmpsseCurrentBegin",
     "WMPSubscriptionServiceEvent_wmpsseCurrentEnd",
     "WMPSubscriptionServiceEvent_wmpsseFullBegin",
     "WMPSubscriptionServiceEvent_wmpsseFullEnd",
-    "IWMPSubscriptionService",
-    "IWMPSubscriptionServiceCallback",
-    "IWMPSubscriptionService2",
-    "WMPSubscriptionDownloadState",
-    "WMPSubscriptionDownloadState_wmpsdlsDownloading",
-    "WMPSubscriptionDownloadState_wmpsdlsPaused",
-    "WMPSubscriptionDownloadState_wmpsdlsProcessing",
-    "WMPSubscriptionDownloadState_wmpsdlsCompleted",
-    "WMPSubscriptionDownloadState_wmpsdlsCancelled",
-    "IWMPDownloadItem",
-    "IWMPDownloadItem2",
-    "IWMPDownloadCollection",
-    "IWMPDownloadManager",
-    "WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE",
+    "WMPSyncState",
+    "WMPSyncState_wmpssEstimating",
+    "WMPSyncState_wmpssLast",
+    "WMPSyncState_wmpssStopped",
+    "WMPSyncState_wmpssSynchronizing",
+    "WMPSyncState_wmpssUnknown",
+    "WMPTaskType",
+    "WMPTaskType_wmpttBrowse",
+    "WMPTaskType_wmpttBurn",
+    "WMPTaskType_wmpttCurrent",
+    "WMPTaskType_wmpttSync",
+    "WMPTemplateSize",
+    "WMPTemplateSize_wmptsLarge",
+    "WMPTemplateSize_wmptsMedium",
+    "WMPTemplateSize_wmptsSmall",
+    "WMPTransactionType",
+    "WMPTransactionType_wmpttBuy",
+    "WMPTransactionType_wmpttDownload",
+    "WMPTransactionType_wmpttNoTransaction",
+    "WMPUE_EC_USER",
+    "WMP_MDRT_FLAGS_UNREPORTED_ADDED_ITEMS",
+    "WMP_MDRT_FLAGS_UNREPORTED_DELETED_ITEMS",
+    "WMP_PLUGINTYPE_DSP",
+    "WMP_PLUGINTYPE_DSP_OUTOFPROC",
+    "WMP_PLUGINTYPE_RENDERING",
+    "WMP_SUBSCR_DL_TYPE_BACKGROUND",
+    "WMP_SUBSCR_DL_TYPE_REALTIME",
     "WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC",
+    "WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE",
+    "WMProfile_V40_100Video",
+    "WMProfile_V40_128Audio",
+    "WMProfile_V40_16AMRadio",
+    "WMProfile_V40_1MBVideo",
+    "WMProfile_V40_250Video",
+    "WMProfile_V40_2856100MBR",
+    "WMProfile_V40_288FMRadioMono",
+    "WMProfile_V40_288FMRadioStereo",
+    "WMProfile_V40_288VideoAudio",
+    "WMProfile_V40_288VideoVoice",
+    "WMProfile_V40_288VideoWebServer",
+    "WMProfile_V40_3MBVideo",
+    "WMProfile_V40_512Video",
+    "WMProfile_V40_56DialUpStereo",
+    "WMProfile_V40_56DialUpVideo",
+    "WMProfile_V40_56DialUpVideoWebServer",
+    "WMProfile_V40_64Audio",
+    "WMProfile_V40_6VoiceAudio",
+    "WMProfile_V40_96Audio",
+    "WMProfile_V40_DialUpMBR",
+    "WMProfile_V40_IntranetMBR",
+    "WMProfile_V70_100Video",
+    "WMProfile_V70_128Audio",
+    "WMProfile_V70_1500FilmContentVideo",
+    "WMProfile_V70_1500Video",
+    "WMProfile_V70_150VideoPDA",
+    "WMProfile_V70_2000Video",
+    "WMProfile_V70_225VideoPDA",
+    "WMProfile_V70_256Video",
+    "WMProfile_V70_2856100MBR",
+    "WMProfile_V70_288FMRadioMono",
+    "WMProfile_V70_288FMRadioStereo",
+    "WMProfile_V70_288VideoAudio",
+    "WMProfile_V70_288VideoVoice",
+    "WMProfile_V70_288VideoWebServer",
+    "WMProfile_V70_384Video",
+    "WMProfile_V70_56DialUpStereo",
+    "WMProfile_V70_56VideoWebServer",
+    "WMProfile_V70_64Audio",
+    "WMProfile_V70_64AudioISDN",
+    "WMProfile_V70_64VideoISDN",
+    "WMProfile_V70_6VoiceAudio",
+    "WMProfile_V70_700FilmContentVideo",
+    "WMProfile_V70_768Video",
+    "WMProfile_V70_96Audio",
+    "WMProfile_V70_DialUpMBR",
+    "WMProfile_V70_IntranetMBR",
+    "WMProfile_V80_100768VideoMBR",
+    "WMProfile_V80_100Video",
+    "WMProfile_V80_128StereoAudio",
+    "WMProfile_V80_1400NTSCVideo",
+    "WMProfile_V80_150VideoPDA",
+    "WMProfile_V80_255VideoPDA",
+    "WMProfile_V80_256Video",
+    "WMProfile_V80_288100VideoMBR",
+    "WMProfile_V80_28856VideoMBR",
+    "WMProfile_V80_288MonoAudio",
+    "WMProfile_V80_288StereoAudio",
+    "WMProfile_V80_288Video",
+    "WMProfile_V80_288VideoOnly",
+    "WMProfile_V80_32StereoAudio",
+    "WMProfile_V80_384PALVideo",
+    "WMProfile_V80_384Video",
+    "WMProfile_V80_48StereoAudio",
+    "WMProfile_V80_56Video",
+    "WMProfile_V80_56VideoOnly",
+    "WMProfile_V80_64StereoAudio",
+    "WMProfile_V80_700NTSCVideo",
+    "WMProfile_V80_700PALVideo",
+    "WMProfile_V80_768Video",
+    "WMProfile_V80_96StereoAudio",
+    "WMProfile_V80_BESTVBRVideo",
+    "WMProfile_V80_FAIRVBRVideo",
+    "WMProfile_V80_HIGHVBRVideo",
+    "WindowsMediaPlayer",
+    "_WMPOCXEvents",
+    "g_szAllAuthors",
+    "g_szAllCPAlbumIDs",
+    "g_szAllCPAlbumSubGenreIDs",
+    "g_szAllCPArtistIDs",
+    "g_szAllCPGenreIDs",
+    "g_szAllCPListIDs",
+    "g_szAllCPRadioIDs",
+    "g_szAllCPTrackIDs",
+    "g_szAllReleaseDateYears",
+    "g_szAllUserEffectiveRatingStarss",
+    "g_szAllWMParentalRatings",
+    "g_szAuthor",
+    "g_szCPAlbumID",
+    "g_szCPAlbumSubGenreID",
+    "g_szCPArtistID",
+    "g_szCPGenreID",
+    "g_szCPListID",
+    "g_szCPRadioID",
+    "g_szCPTrackID",
+    "g_szContentPartnerInfo_AccountBalance",
+    "g_szContentPartnerInfo_AccountType",
+    "g_szContentPartnerInfo_HasCachedCredentials",
+    "g_szContentPartnerInfo_LicenseRefreshAdvanceWarning",
+    "g_szContentPartnerInfo_LoginState",
+    "g_szContentPartnerInfo_MaximumTrackPurchasePerPurchase",
+    "g_szContentPartnerInfo_MediaPlayerAccountType",
+    "g_szContentPartnerInfo_PurchasedTrackRequiresReDownload",
+    "g_szContentPartnerInfo_UserName",
+    "g_szContentPrice_CannotBuy",
+    "g_szContentPrice_Free",
+    "g_szContentPrice_Unknown",
+    "g_szFlyoutMenu",
+    "g_szItemInfo_ALTLoginCaption",
+    "g_szItemInfo_ALTLoginURL",
+    "g_szItemInfo_AlbumArtURL",
+    "g_szItemInfo_ArtistArtURL",
+    "g_szItemInfo_AuthenticationSuccessURL",
+    "g_szItemInfo_CreateAccountURL",
+    "g_szItemInfo_ErrorDescription",
+    "g_szItemInfo_ErrorURL",
+    "g_szItemInfo_ErrorURLLinkText",
+    "g_szItemInfo_ForgetPasswordURL",
+    "g_szItemInfo_GenreArtURL",
+    "g_szItemInfo_HTMLViewURL",
+    "g_szItemInfo_ListArtURL",
+    "g_szItemInfo_LoginFailureURL",
+    "g_szItemInfo_PopupCaption",
+    "g_szItemInfo_PopupURL",
+    "g_szItemInfo_RadioArtURL",
+    "g_szItemInfo_SubGenreArtURL",
+    "g_szItemInfo_TreeListIconURL",
+    "g_szMediaPlayerTask_Browse",
+    "g_szMediaPlayerTask_Burn",
+    "g_szMediaPlayerTask_Sync",
+    "g_szOnlineStore",
+    "g_szRefreshLicenseBurn",
+    "g_szRefreshLicensePlay",
+    "g_szRefreshLicenseSync",
+    "g_szReleaseDateYear",
+    "g_szRootLocation",
+    "g_szStationEvent_Complete",
+    "g_szStationEvent_Skipped",
+    "g_szStationEvent_Started",
+    "g_szUnknownLocation",
+    "g_szUserEffectiveRatingStars",
+    "g_szUserPlaylist",
+    "g_szVerifyPermissionSync",
+    "g_szVideoRecent",
+    "g_szVideoRoot",
+    "g_szViewMode_Details",
+    "g_szViewMode_Icon",
+    "g_szViewMode_OrderedList",
+    "g_szViewMode_Report",
+    "g_szViewMode_Tile",
+    "g_szWMParentalRating",
+    "kfltTimedLevelMaximumFrequency",
+    "kfltTimedLevelMinimumFrequency",
+    "pause_state",
+    "play_state",
+    "stop_state",
 ]

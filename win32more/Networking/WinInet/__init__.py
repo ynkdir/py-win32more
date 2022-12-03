@@ -1,5 +1,5 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Networking.WinHttp
@@ -9,18 +9,26 @@ import win32more.Security.Cryptography
 import win32more.Storage.FileSystem
 import win32more.System.Com
 import win32more.System.WinRT
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+DIALPROP_USERNAME = 'UserName'
+DIALPROP_PASSWORD = 'Password'
+DIALPROP_DOMAIN = 'Domain'
+DIALPROP_SAVEPASSWORD = 'SavePassword'
+DIALPROP_REDIALCOUNT = 'RedialCount'
+DIALPROP_REDIALINTERVAL = 'RedialInterval'
+DIALPROP_PHONENUMBER = 'PhoneNumber'
+DIALPROP_LASTERROR = 'LastError'
+DIALPROP_RESOLVEDPHONE = 'ResolvedPhone'
 DIALENG_OperationComplete = 65536
 DIALENG_RedialAttempt = 65537
 DIALENG_RedialWait = 65538
@@ -297,6 +305,26 @@ MAX_GOPHER_HOST_NAME = 256
 MAX_GOPHER_CATEGORY_NAME = 128
 MAX_GOPHER_ATTRIBUTE_NAME = 128
 MIN_GOPHER_ATTRIBUTE_LENGTH = 256
+GOPHER_INFO_CATEGORY = '+INFO'
+GOPHER_ADMIN_CATEGORY = '+ADMIN'
+GOPHER_VIEWS_CATEGORY = '+VIEWS'
+GOPHER_ABSTRACT_CATEGORY = '+ABSTRACT'
+GOPHER_VERONICA_CATEGORY = '+VERONICA'
+GOPHER_ADMIN_ATTRIBUTE = 'Admin'
+GOPHER_MOD_DATE_ATTRIBUTE = 'Mod-Date'
+GOPHER_TTL_ATTRIBUTE = 'TTL'
+GOPHER_SCORE_ATTRIBUTE = 'Score'
+GOPHER_RANGE_ATTRIBUTE = 'Score-range'
+GOPHER_SITE_ATTRIBUTE = 'Site'
+GOPHER_ORG_ATTRIBUTE = 'Org'
+GOPHER_LOCATION_ATTRIBUTE = 'Loc'
+GOPHER_GEOG_ATTRIBUTE = 'Geog'
+GOPHER_TIMEZONE_ATTRIBUTE = 'TZ'
+GOPHER_PROVIDER_ATTRIBUTE = 'Provider'
+GOPHER_VERSION_ATTRIBUTE = 'Version'
+GOPHER_ABSTRACT_ATTRIBUTE = 'Abstract'
+GOPHER_VIEW_ATTRIBUTE = 'View'
+GOPHER_TREEWALK_ATTRIBUTE = 'treewalk'
 GOPHER_ATTRIBUTE_ID_BASE = 2882325504
 GOPHER_CATEGORY_ID_ALL = 2882325505
 GOPHER_CATEGORY_ID_INFO = 2882325506
@@ -325,6 +353,8 @@ GOPHER_ATTRIBUTE_ID_TREEWALK = 2882325528
 GOPHER_ATTRIBUTE_ID_UNKNOWN = 2882325529
 HTTP_MAJOR_VERSION = 1
 HTTP_MINOR_VERSION = 0
+HTTP_VERSIONA = 'HTTP/1.0'
+HTTP_VERSIONW = 'HTTP/1.0'
 HTTP_QUERY_MIME_VERSION = 0
 HTTP_QUERY_CONTENT_TYPE = 1
 HTTP_QUERY_CONTENT_TRANSFER_ENCODING = 2
@@ -602,8 +632,6 @@ INTERNET_DIAL_UNATTENDED = 32768
 INTERENT_GOONLINE_REFRESH = 1
 INTERENT_GOONLINE_NOPROMPT = 2
 INTERENT_GOONLINE_MASK = 3
-INTERNET_CONNECTION_LAN = 2
-INTERNET_CONNECTION_OFFLINE = 32
 INTERNET_CUSTOMDIAL_CONNECT = 0
 INTERNET_CUSTOMDIAL_UNATTENDED = 1
 INTERNET_CUSTOMDIAL_DISCONNECT = 2
@@ -902,11 +930,1589 @@ INTERNET_AUTOPROXY_INIT_DEFAULT = 1
 INTERNET_AUTOPROXY_INIT_DOWNLOADSYNC = 2
 INTERNET_AUTOPROXY_INIT_QUERYSTATE = 4
 INTERNET_AUTOPROXY_INIT_ONLYQUERY = 8
+REGSTR_DIAL_AUTOCONNECT = 'AutoConnect'
+REGSTR_LEASH_LEGACY_COOKIES = 'LeashLegacyCookies'
+LOCAL_NAMESPACE_PREFIX = 'Local\\'
+LOCAL_NAMESPACE_PREFIX_W = 'Local\\'
 INTERNET_SUPPRESS_COOKIE_PERSIST = 3
 INTERNET_SUPPRESS_COOKIE_PERSIST_RESET = 4
 HTTP_WEB_SOCKET_MAX_CLOSE_REASON_LENGTH = 123
 HTTP_WEB_SOCKET_MIN_KEEPALIVE_VALUE = 10000
 INTERNET_GLOBAL_CALLBACK_SENDING_HTTP_HEADERS = 1
+def _define_InternetTimeFromSystemTimeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32,win32more.Foundation.PSTR,UInt32)(('InternetTimeFromSystemTimeA', windll['WININET.dll']), ((1, 'pst'),(1, 'dwRFC'),(1, 'lpszTime'),(1, 'cbTime'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetTimeFromSystemTimeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32,win32more.Foundation.PWSTR,UInt32)(('InternetTimeFromSystemTimeW', windll['WININET.dll']), ((1, 'pst'),(1, 'dwRFC'),(1, 'lpszTime'),(1, 'cbTime'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetTimeFromSystemTime():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32,win32more.Foundation.PSTR,UInt32)(('InternetTimeFromSystemTime', windll['WININET.dll']), ((1, 'pst'),(1, 'dwRFC'),(1, 'lpszTime'),(1, 'cbTime'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetTimeToSystemTimeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32)(('InternetTimeToSystemTimeA', windll['WININET.dll']), ((1, 'lpszTime'),(1, 'pst'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetTimeToSystemTimeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32)(('InternetTimeToSystemTimeW', windll['WININET.dll']), ((1, 'lpszTime'),(1, 'pst'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetTimeToSystemTime():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32)(('InternetTimeToSystemTime', windll['WININET.dll']), ((1, 'lpszTime'),(1, 'pst'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCrackUrlA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS,POINTER(win32more.Networking.WinInet.URL_COMPONENTSA_head))(('InternetCrackUrlA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'dwUrlLength'),(1, 'dwFlags'),(1, 'lpUrlComponents'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCrackUrlW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS,POINTER(win32more.Networking.WinInet.URL_COMPONENTSW_head))(('InternetCrackUrlW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'dwUrlLength'),(1, 'dwFlags'),(1, 'lpUrlComponents'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCreateUrlA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.URL_COMPONENTSA_head),UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('InternetCreateUrlA', windll['WININET.dll']), ((1, 'lpUrlComponents'),(1, 'dwFlags'),(1, 'lpszUrl'),(1, 'lpdwUrlLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCreateUrlW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.URL_COMPONENTSW_head),UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('InternetCreateUrlW', windll['WININET.dll']), ((1, 'lpUrlComponents'),(1, 'dwFlags'),(1, 'lpszUrl'),(1, 'lpdwUrlLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCanonicalizeUrlA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),UInt32)(('InternetCanonicalizeUrlA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCanonicalizeUrlW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(('InternetCanonicalizeUrlW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCombineUrlA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),UInt32)(('InternetCombineUrlA', windll['WININET.dll']), ((1, 'lpszBaseUrl'),(1, 'lpszRelativeUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCombineUrlW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(('InternetCombineUrlW', windll['WININET.dll']), ((1, 'lpszBaseUrl'),(1, 'lpszRelativeUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetOpenA():
+    try:
+        return WINFUNCTYPE(c_void_p,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('InternetOpenA', windll['WININET.dll']), ((1, 'lpszAgent'),(1, 'dwAccessType'),(1, 'lpszProxy'),(1, 'lpszProxyBypass'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetOpenW():
+    try:
+        return WINFUNCTYPE(c_void_p,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('InternetOpenW', windll['WININET.dll']), ((1, 'lpszAgent'),(1, 'dwAccessType'),(1, 'lpszProxy'),(1, 'lpszProxyBypass'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCloseHandle():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('InternetCloseHandle', windll['WININET.dll']), ((1, 'hInternet'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetConnectA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UIntPtr)(('InternetConnectA', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpszServerName'),(1, 'nServerPort'),(1, 'lpszUserName'),(1, 'lpszPassword'),(1, 'dwService'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetConnectW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,UInt16,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UIntPtr)(('InternetConnectW', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpszServerName'),(1, 'nServerPort'),(1, 'lpszUserName'),(1, 'lpszPassword'),(1, 'dwService'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetOpenUrlA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UIntPtr)(('InternetOpenUrlA', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpszUrl'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetOpenUrlW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UIntPtr)(('InternetOpenUrlW', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpszUrl'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetReadFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32))(('InternetReadFile', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToRead'),(1, 'lpdwNumberOfBytesRead'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetReadFileExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr)(('InternetReadFileExA', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetReadFileExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr)(('InternetReadFileExW', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetFilePointer():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,Int32,POINTER(Int32),UInt32,UIntPtr)(('InternetSetFilePointer', windll['WININET.dll']), ((1, 'hFile'),(1, 'lDistanceToMove'),(1, 'lpDistanceToMoveHigh'),(1, 'dwMoveMethod'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetWriteFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32))(('InternetWriteFile', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToWrite'),(1, 'lpdwNumberOfBytesWritten'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetQueryDataAvailable():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(UInt32),UInt32,UIntPtr)(('InternetQueryDataAvailable', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpdwNumberOfBytesAvailable'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetFindNextFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p)(('InternetFindNextFileA', windll['WININET.dll']), ((1, 'hFind'),(1, 'lpvFindData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetFindNextFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p)(('InternetFindNextFileW', windll['WININET.dll']), ((1, 'hFind'),(1, 'lpvFindData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetQueryOptionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32))(('InternetQueryOptionA', windll['WININET.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetQueryOptionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32))(('InternetQueryOptionW', windll['WININET.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetOptionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32)(('InternetSetOptionA', windll['WININET.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetOptionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32)(('InternetSetOptionW', windll['WININET.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetOptionExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32,UInt32)(('InternetSetOptionExA', windll['WININET.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetOptionExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32,UInt32)(('InternetSetOptionExW', windll['WININET.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetLockRequestFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Foundation.HANDLE))(('InternetLockRequestFile', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lphLockRequestInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetUnlockRequestFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('InternetUnlockRequestFile', windll['WININET.dll']), ((1, 'hLockRequestInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetLastResponseInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('InternetGetLastResponseInfoA', windll['WININET.dll']), ((1, 'lpdwError'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetLastResponseInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('InternetGetLastResponseInfoW', windll['WININET.dll']), ((1, 'lpdwError'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetStatusCallbackA():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK,c_void_p,win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK)(('InternetSetStatusCallbackA', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetStatusCallbackW():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK,c_void_p,win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK)(('InternetSetStatusCallbackW', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetStatusCallback():
+    try:
+        return WINFUNCTYPE(win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK,c_void_p,win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK)(('InternetSetStatusCallback', windll['WININET.dll']), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpFindFirstFileA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,POINTER(win32more.Storage.FileSystem.WIN32_FIND_DATAA_head),UInt32,UIntPtr)(('FtpFindFirstFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszSearchFile'),(1, 'lpFindFileData'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpFindFirstFileW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Storage.FileSystem.WIN32_FIND_DATAW_head),UInt32,UIntPtr)(('FtpFindFirstFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszSearchFile'),(1, 'lpFindFileData'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpGetFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL,UInt32,UInt32,UIntPtr)(('FtpGetFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszRemoteFile'),(1, 'lpszNewFile'),(1, 'fFailIfExists'),(1, 'dwFlagsAndAttributes'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpGetFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32,UIntPtr)(('FtpGetFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszRemoteFile'),(1, 'lpszNewFile'),(1, 'fFailIfExists'),(1, 'dwFlagsAndAttributes'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpPutFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr)(('FtpPutFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocalFile'),(1, 'lpszNewRemoteFile'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpPutFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr)(('FtpPutFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocalFile'),(1, 'lpszNewRemoteFile'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpGetFileEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32,UIntPtr)(('FtpGetFileEx', windll['WININET.dll']), ((1, 'hFtpSession'),(1, 'lpszRemoteFile'),(1, 'lpszNewFile'),(1, 'fFailIfExists'),(1, 'dwFlagsAndAttributes'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpPutFileEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PSTR,UInt32,UIntPtr)(('FtpPutFileEx', windll['WININET.dll']), ((1, 'hFtpSession'),(1, 'lpszLocalFile'),(1, 'lpszNewRemoteFile'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpDeleteFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR)(('FtpDeleteFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpDeleteFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR)(('FtpDeleteFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpRenameFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('FtpRenameFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszExisting'),(1, 'lpszNew'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpRenameFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('FtpRenameFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszExisting'),(1, 'lpszNew'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpOpenFileA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,UInt32,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr)(('FtpOpenFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszFileName'),(1, 'dwAccess'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpOpenFileW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,UInt32,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr)(('FtpOpenFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszFileName'),(1, 'dwAccess'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpCreateDirectoryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR)(('FtpCreateDirectoryA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpCreateDirectoryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR)(('FtpCreateDirectoryW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpRemoveDirectoryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR)(('FtpRemoveDirectoryA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpRemoveDirectoryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR)(('FtpRemoveDirectoryW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpSetCurrentDirectoryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR)(('FtpSetCurrentDirectoryA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpSetCurrentDirectoryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR)(('FtpSetCurrentDirectoryW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpGetCurrentDirectoryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,POINTER(UInt32))(('FtpGetCurrentDirectoryA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszCurrentDirectory'),(1, 'lpdwCurrentDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpGetCurrentDirectoryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,POINTER(UInt32))(('FtpGetCurrentDirectoryW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszCurrentDirectory'),(1, 'lpdwCurrentDirectory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpCommandA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.BOOL,win32more.Networking.WinInet.FTP_FLAGS,win32more.Foundation.PSTR,UIntPtr,POINTER(c_void_p))(('FtpCommandA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'fExpectResponse'),(1, 'dwFlags'),(1, 'lpszCommand'),(1, 'dwContext'),(1, 'phFtpCommand'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpCommandW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.BOOL,win32more.Networking.WinInet.FTP_FLAGS,win32more.Foundation.PWSTR,UIntPtr,POINTER(c_void_p))(('FtpCommandW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'fExpectResponse'),(1, 'dwFlags'),(1, 'lpszCommand'),(1, 'dwContext'),(1, 'phFtpCommand'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FtpGetFileSize():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt32))(('FtpGetFileSize', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpdwFileSizeHigh'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherCreateLocatorA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('GopherCreateLocatorA', windll['WININET.dll']), ((1, 'lpszHost'),(1, 'nServerPort'),(1, 'lpszDisplayString'),(1, 'lpszSelectorString'),(1, 'dwGopherType'),(1, 'lpszLocator'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherCreateLocatorW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt16,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('GopherCreateLocatorW', windll['WININET.dll']), ((1, 'lpszHost'),(1, 'nServerPort'),(1, 'lpszDisplayString'),(1, 'lpszSelectorString'),(1, 'dwGopherType'),(1, 'lpszLocator'),(1, 'lpdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherGetLocatorTypeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32))(('GopherGetLocatorTypeA', windll['WININET.dll']), ((1, 'lpszLocator'),(1, 'lpdwGopherType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherGetLocatorTypeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32))(('GopherGetLocatorTypeW', windll['WININET.dll']), ((1, 'lpszLocator'),(1, 'lpdwGopherType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherFindFirstFileA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.GOPHER_FIND_DATAA_head),UInt32,UIntPtr)(('GopherFindFirstFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszSearchString'),(1, 'lpFindData'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherFindFirstFileW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.GOPHER_FIND_DATAW_head),UInt32,UIntPtr)(('GopherFindFirstFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszSearchString'),(1, 'lpFindData'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherOpenFileA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UIntPtr)(('GopherOpenFileA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszView'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherOpenFileW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UIntPtr)(('GopherOpenFileW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszView'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherGetAttributeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_char_p_no,UInt32,POINTER(UInt32),win32more.Networking.WinInet.GOPHER_ATTRIBUTE_ENUMERATOR,UIntPtr)(('GopherGetAttributeA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszAttributeName'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'lpdwCharactersReturned'),(1, 'lpfnEnumerator'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GopherGetAttributeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(UInt32),win32more.Networking.WinInet.GOPHER_ATTRIBUTE_ENUMERATOR,UIntPtr)(('GopherGetAttributeW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszAttributeName'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'lpdwCharactersReturned'),(1, 'lpfnEnumerator'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpOpenRequestA():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Foundation.PSTR),UInt32,UIntPtr)(('HttpOpenRequestA', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszVerb'),(1, 'lpszObjectName'),(1, 'lpszVersion'),(1, 'lpszReferrer'),(1, 'lplpszAcceptTypes'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpOpenRequestW():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,UIntPtr)(('HttpOpenRequestW', windll['WININET.dll']), ((1, 'hConnect'),(1, 'lpszVerb'),(1, 'lpszObjectName'),(1, 'lpszVersion'),(1, 'lpszReferrer'),(1, 'lplpszAcceptTypes'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpAddRequestHeadersA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,UInt32,win32more.Networking.WinInet.HTTP_ADDREQ_FLAG)(('HttpAddRequestHeadersA', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwModifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpAddRequestHeadersW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,UInt32,win32more.Networking.WinInet.HTTP_ADDREQ_FLAG)(('HttpAddRequestHeadersW', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwModifiers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpSendRequestA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,UInt32,c_void_p,UInt32)(('HttpSendRequestA', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'lpOptional'),(1, 'dwOptionalLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpSendRequestW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,UInt32,c_void_p,UInt32)(('HttpSendRequestW', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'lpOptional'),(1, 'dwOptionalLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpSendRequestExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr)(('HttpSendRequestExA', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpBuffersIn'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpSendRequestExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr)(('HttpSendRequestExW', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpBuffersIn'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpEndRequestA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr)(('HttpEndRequestA', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpEndRequestW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr)(('HttpEndRequestW', windll['WININET.dll']), ((1, 'hRequest'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpQueryInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32),POINTER(UInt32))(('HttpQueryInfoA', windll['WININET.dll']), ((1, 'hRequest'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),(1, 'lpdwIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpQueryInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32),POINTER(UInt32))(('HttpQueryInfoW', windll['WININET.dll']), ((1, 'hRequest'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),(1, 'lpdwIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetCookieA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('InternetSetCookieA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetCookieW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('InternetSetCookieW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetCookieA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('InternetGetCookieA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetCookieW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('InternetGetCookieW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetCookieExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UIntPtr)(('InternetSetCookieExA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'dwFlags'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetCookieExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UIntPtr)(('InternetSetCookieExW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'dwFlags'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetCookieExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),win32more.Networking.WinInet.INTERNET_COOKIE_FLAGS,c_void_p)(('InternetGetCookieExA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),(1, 'dwFlags'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetCookieExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Networking.WinInet.INTERNET_COOKIE_FLAGS,c_void_p)(('InternetGetCookieExW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),(1, 'dwFlags'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetFreeCookies():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.INTERNET_COOKIE2_head),UInt32)(('InternetFreeCookies', windll['WININET.dll']), ((1, 'pCookies'),(1, 'dwCookieCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetCookieEx2():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.Networking.WinInet.INTERNET_COOKIE2_head)),POINTER(UInt32))(('InternetGetCookieEx2', windll['WININET.dll']), ((1, 'pcwszUrl'),(1, 'pcwszCookieName'),(1, 'dwFlags'),(1, 'ppCookies'),(1, 'pdwCookieCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetCookieEx2():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_COOKIE2_head),win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(('InternetSetCookieEx2', windll['WININET.dll']), ((1, 'pcwszUrl'),(1, 'pCookie'),(1, 'pcwszP3PPolicy'),(1, 'dwFlags'),(1, 'pdwCookieState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetAttemptConnect():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('InternetAttemptConnect', windll['WININET.dll']), ((1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCheckConnectionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32)(('InternetCheckConnectionA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'dwFlags'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetCheckConnectionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32)(('InternetCheckConnectionW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'dwFlags'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ResumeSuspendedDownload():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32)(('ResumeSuspendedDownload', windll['WININET.dll']), ((1, 'hRequest'),(1, 'dwResultCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetErrorDlg():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,c_void_p,UInt32,UInt32,POINTER(c_void_p))(('InternetErrorDlg', windll['WININET.dll']), ((1, 'hWnd'),(1, 'hRequest'),(1, 'dwError'),(1, 'dwFlags'),(1, 'lppvData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetConfirmZoneCrossingA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('InternetConfirmZoneCrossingA', windll['WININET.dll']), ((1, 'hWnd'),(1, 'szUrlPrev'),(1, 'szUrlNew'),(1, 'bPost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetConfirmZoneCrossingW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('InternetConfirmZoneCrossingW', windll['WININET.dll']), ((1, 'hWnd'),(1, 'szUrlPrev'),(1, 'szUrlNew'),(1, 'bPost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetConfirmZoneCrossing():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('InternetConfirmZoneCrossing', windll['WININET.dll']), ((1, 'hWnd'),(1, 'szUrlPrev'),(1, 'szUrlNew'),(1, 'bPost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateUrlCacheEntryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('CreateUrlCacheEntryA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwExpectedFileSize'),(1, 'lpszFileExtension'),(1, 'lpszFileName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateUrlCacheEntryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('CreateUrlCacheEntryW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwExpectedFileSize'),(1, 'lpszFileExtension'),(1, 'lpszFileName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CommitUrlCacheEntryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,UInt32,c_char_p_no,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CommitUrlCacheEntryA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpszLocalFileName'),(1, 'ExpireTime'),(1, 'LastModifiedTime'),(1, 'CacheEntryType'),(1, 'lpHeaderInfo'),(1, 'cchHeaderInfo'),(1, 'lpszFileExtension'),(1, 'lpszOriginalUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CommitUrlCacheEntryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('CommitUrlCacheEntryW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpszLocalFileName'),(1, 'ExpireTime'),(1, 'LastModifiedTime'),(1, 'CacheEntryType'),(1, 'lpszHeaderInfo'),(1, 'cchHeaderInfo'),(1, 'lpszFileExtension'),(1, 'lpszOriginalUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RetrieveUrlCacheEntryFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),UInt32)(('RetrieveUrlCacheEntryFileA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RetrieveUrlCacheEntryFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),UInt32)(('RetrieveUrlCacheEntryFileW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnlockUrlCacheEntryFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)(('UnlockUrlCacheEntryFileA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnlockUrlCacheEntryFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32)(('UnlockUrlCacheEntryFileW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnlockUrlCacheEntryFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)(('UnlockUrlCacheEntryFile', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RetrieveUrlCacheEntryStreamA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),win32more.Foundation.BOOL,UInt32)(('RetrieveUrlCacheEntryStreamA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'fRandomRead'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RetrieveUrlCacheEntryStreamW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),win32more.Foundation.BOOL,UInt32)(('RetrieveUrlCacheEntryStreamW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'fRandomRead'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ReadUrlCacheEntryStream():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,c_void_p,POINTER(UInt32),UInt32)(('ReadUrlCacheEntryStream', windll['WININET.dll']), ((1, 'hUrlCacheStream'),(1, 'dwLocation'),(1, 'lpBuffer'),(1, 'lpdwLen'),(1, 'Reserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ReadUrlCacheEntryStreamEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt64,c_void_p,POINTER(UInt32))(('ReadUrlCacheEntryStreamEx', windll['WININET.dll']), ((1, 'hUrlCacheStream'),(1, 'qwLocation'),(1, 'lpBuffer'),(1, 'lpdwLen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UnlockUrlCacheEntryStream():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)(('UnlockUrlCacheEntryStream', windll['WININET.dll']), ((1, 'hUrlCacheStream'),(1, 'Reserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheEntryInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32))(('GetUrlCacheEntryInfoA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheEntryInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32))(('GetUrlCacheEntryInfoW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheGroup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,UInt32,c_void_p,UInt32,POINTER(Int64),c_void_p)(('FindFirstUrlCacheGroup', windll['WININET.dll']), ((1, 'dwFlags'),(1, 'dwFilter'),(1, 'lpSearchCondition'),(1, 'dwSearchCondition'),(1, 'lpGroupId'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheGroup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int64),c_void_p)(('FindNextUrlCacheGroup', windll['WININET.dll']), ((1, 'hFind'),(1, 'lpGroupId'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheGroupAttributeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOA_head),POINTER(UInt32),c_void_p)(('GetUrlCacheGroupAttributeA', windll['WININET.dll']), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpcbGroupInfo'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheGroupAttributeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOW_head),POINTER(UInt32),c_void_p)(('GetUrlCacheGroupAttributeW', windll['WININET.dll']), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpcbGroupInfo'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheGroupAttributeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOA_head),c_void_p)(('SetUrlCacheGroupAttributeA', windll['WININET.dll']), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheGroupAttributeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOW_head),c_void_p)(('SetUrlCacheGroupAttributeW', windll['WININET.dll']), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheEntryInfoExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),c_void_p,UInt32)(('GetUrlCacheEntryInfoExA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpszRedirectUrl'),(1, 'lpcbRedirectUrl'),(1, 'lpReserved'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheEntryInfoExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),c_void_p,UInt32)(('GetUrlCacheEntryInfoExW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpszRedirectUrl'),(1, 'lpcbRedirectUrl'),(1, 'lpReserved'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheEntryInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),UInt32)(('SetUrlCacheEntryInfoA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'dwFieldControl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheEntryInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),UInt32)(('SetUrlCacheEntryInfoW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'dwFieldControl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateUrlCacheGroup():
+    try:
+        return WINFUNCTYPE(Int64,UInt32,c_void_p)(('CreateUrlCacheGroup', windll['WININET.dll']), ((1, 'dwFlags'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteUrlCacheGroup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,c_void_p)(('DeleteUrlCacheGroup', windll['WININET.dll']), ((1, 'GroupId'),(1, 'dwFlags'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheEntryGroupA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,Int64,c_char_p_no,UInt32,c_void_p)(('SetUrlCacheEntryGroupA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'GroupId'),(1, 'pbGroupAttributes'),(1, 'cbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheEntryGroupW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,Int64,c_char_p_no,UInt32,c_void_p)(('SetUrlCacheEntryGroupW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'GroupId'),(1, 'pbGroupAttributes'),(1, 'cbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheEntryGroup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,Int64,c_char_p_no,UInt32,c_void_p)(('SetUrlCacheEntryGroup', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'GroupId'),(1, 'pbGroupAttributes'),(1, 'cbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheEntryExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,UInt32,UInt32,Int64,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p)(('FindFirstUrlCacheEntryExA', windll['WININET.dll']), ((1, 'lpszUrlSearchPattern'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheEntryExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,UInt32,UInt32,Int64,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p)(('FindFirstUrlCacheEntryExW', windll['WININET.dll']), ((1, 'lpszUrlSearchPattern'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheEntryExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p)(('FindNextUrlCacheEntryExA', windll['WININET.dll']), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheEntryExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p)(('FindNextUrlCacheEntryExW', windll['WININET.dll']), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheEntryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32))(('FindFirstUrlCacheEntryA', windll['WININET.dll']), ((1, 'lpszUrlSearchPattern'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheEntryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32))(('FindFirstUrlCacheEntryW', windll['WININET.dll']), ((1, 'lpszUrlSearchPattern'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheEntryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32))(('FindNextUrlCacheEntryA', windll['WININET.dll']), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheEntryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32))(('FindNextUrlCacheEntryW', windll['WININET.dll']), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindCloseUrlCache():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('FindCloseUrlCache', windll['WININET.dll']), ((1, 'hEnumHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteUrlCacheEntryA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('DeleteUrlCacheEntryA', windll['WININET.dll']), ((1, 'lpszUrlName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteUrlCacheEntryW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('DeleteUrlCacheEntryW', windll['WININET.dll']), ((1, 'lpszUrlName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteUrlCacheEntry():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('DeleteUrlCacheEntry', windll['WININET.dll']), ((1, 'lpszUrlName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetDialA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UIntPtr),UInt32)(('InternetDialA', windll['WININET.dll']), ((1, 'hwndParent'),(1, 'lpszConnectoid'),(1, 'dwFlags'),(1, 'lpdwConnection'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetDialW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,POINTER(UIntPtr),UInt32)(('InternetDialW', windll['WININET.dll']), ((1, 'hwndParent'),(1, 'lpszConnectoid'),(1, 'dwFlags'),(1, 'lpdwConnection'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetDial():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UInt32),UInt32)(('InternetDial', windll['WININET.dll']), ((1, 'hwndParent'),(1, 'lpszConnectoid'),(1, 'dwFlags'),(1, 'lpdwConnection'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetHangUp():
+    try:
+        return WINFUNCTYPE(UInt32,UIntPtr,UInt32)(('InternetHangUp', windll['WININET.dll']), ((1, 'dwConnection'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGoOnlineA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND,UInt32)(('InternetGoOnlineA', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'hwndParent'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGoOnlineW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HWND,UInt32)(('InternetGoOnlineW', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'hwndParent'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGoOnline():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND,UInt32)(('InternetGoOnline', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'hwndParent'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetAutodial():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinInet.INTERNET_AUTODIAL,win32more.Foundation.HWND)(('InternetAutodial', windll['WININET.dll']), ((1, 'dwFlags'),(1, 'hwndParent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetAutodialHangup():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('InternetAutodialHangup', windll['WININET.dll']), ((1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetConnectedState():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),UInt32)(('InternetGetConnectedState', windll['WININET.dll']), ((1, 'lpdwFlags'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetConnectedStateExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),win32more.Foundation.PSTR,UInt32,UInt32)(('InternetGetConnectedStateExA', windll['WININET.dll']), ((1, 'lpdwFlags'),(1, 'lpszConnectionName'),(1, 'cchNameLen'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetConnectedStateExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),win32more.Foundation.PWSTR,UInt32,UInt32)(('InternetGetConnectedStateExW', windll['WININET.dll']), ((1, 'lpdwFlags'),(1, 'lpszConnectionName'),(1, 'cchNameLen'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteWpadCacheForNetworks():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinInet.WPAD_CACHE_DELETE)(('DeleteWpadCacheForNetworks', windll['WININET.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetInitializeAutoProxyDll():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('InternetInitializeAutoProxyDll', windll['WININET.dll']), ((1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DetectAutoProxyUrl():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Networking.WinInet.PROXY_AUTO_DETECT_TYPE)(('DetectAutoProxyUrl', windll['WININET.dll']), ((1, 'pszAutoProxyUrl'),(1, 'cchAutoProxyUrl'),(1, 'dwDetectFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateMD5SSOHash():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no)(('CreateMD5SSOHash', windll['WININET.dll']), ((1, 'pszChallengeInfo'),(1, 'pwszRealm'),(1, 'pwszTarget'),(1, 'pbHexHash'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetConnectedStateEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),win32more.Foundation.PSTR,UInt32,UInt32)(('InternetGetConnectedStateEx', windll['WININET.dll']), ((1, 'lpdwFlags'),(1, 'lpszConnectionName'),(1, 'dwNameLen'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetDialStateA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32)(('InternetSetDialStateA', windll['WININET.dll']), ((1, 'lpszConnectoid'),(1, 'dwState'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetDialStateW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32)(('InternetSetDialStateW', windll['WININET.dll']), ((1, 'lpszConnectoid'),(1, 'dwState'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetDialState():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32)(('InternetSetDialState', windll['WININET.dll']), ((1, 'lpszConnectoid'),(1, 'dwState'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetPerSiteCookieDecisionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)(('InternetSetPerSiteCookieDecisionA', windll['WININET.dll']), ((1, 'pchHostName'),(1, 'dwDecision'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSetPerSiteCookieDecisionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32)(('InternetSetPerSiteCookieDecisionW', windll['WININET.dll']), ((1, 'pchHostName'),(1, 'dwDecision'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetPerSiteCookieDecisionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32))(('InternetGetPerSiteCookieDecisionA', windll['WININET.dll']), ((1, 'pchHostName'),(1, 'pResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetPerSiteCookieDecisionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32))(('InternetGetPerSiteCookieDecisionW', windll['WININET.dll']), ((1, 'pchHostName'),(1, 'pResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetClearAllPerSiteCookieDecisions():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('InternetClearAllPerSiteCookieDecisions', windll['WININET.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetEnumPerSiteCookieDecisionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),UInt32)(('InternetEnumPerSiteCookieDecisionA', windll['WININET.dll']), ((1, 'pszSiteName'),(1, 'pcSiteNameSize'),(1, 'pdwDecision'),(1, 'dwIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetEnumPerSiteCookieDecisionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),UInt32)(('InternetEnumPerSiteCookieDecisionW', windll['WININET.dll']), ((1, 'pszSiteName'),(1, 'pcSiteNameSize'),(1, 'pdwDecision'),(1, 'dwIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PrivacySetZonePreferenceW():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR)(('PrivacySetZonePreferenceW', windll['WININET.dll']), ((1, 'dwZone'),(1, 'dwType'),(1, 'dwTemplate'),(1, 'pszPreference'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PrivacyGetZonePreferenceW():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('PrivacyGetZonePreferenceW', windll['WININET.dll']), ((1, 'dwZone'),(1, 'dwType'),(1, 'pdwTemplate'),(1, 'pszBuffer'),(1, 'pdwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpIsHostHstsEnabled():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(('HttpIsHostHstsEnabled', windll['WININET.dll']), ((1, 'pcwszUrl'),(1, 'pfIsHsts'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetAlgIdToStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,POINTER(UInt32),UInt32)(('InternetAlgIdToStringA', windll['WININET.dll']), ((1, 'ai'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetAlgIdToStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(('InternetAlgIdToStringW', windll['WININET.dll']), ((1, 'ai'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSecurityProtocolToStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,POINTER(UInt32),UInt32)(('InternetSecurityProtocolToStringA', windll['WININET.dll']), ((1, 'dwProtocol'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetSecurityProtocolToStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(('InternetSecurityProtocolToStringW', windll['WININET.dll']), ((1, 'dwProtocol'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetSecurityInfoByURLA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),POINTER(UInt32))(('InternetGetSecurityInfoByURLA', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'ppCertChain'),(1, 'pdwSecureFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetSecurityInfoByURLW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),POINTER(UInt32))(('InternetGetSecurityInfoByURLW', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'ppCertChain'),(1, 'pdwSecureFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetSecurityInfoByURL():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),POINTER(UInt32))(('InternetGetSecurityInfoByURL', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'ppCertChain'),(1, 'pdwSecureFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowSecurityInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.Networking.WinInet.INTERNET_SECURITY_INFO_head))(('ShowSecurityInfo', windll['WININET.dll']), ((1, 'hWndParent'),(1, 'pSecurityInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowX509EncodedCertificate():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,c_char_p_no,UInt32)(('ShowX509EncodedCertificate', windll['WININET.dll']), ((1, 'hWndParent'),(1, 'lpCert'),(1, 'cbCert'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ShowClientAuthCerts():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND)(('ShowClientAuthCerts', windll['WININET.dll']), ((1, 'hWndParent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ParseX509EncodedCertificateForListBoxEntry():
+    try:
+        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('ParseX509EncodedCertificateForListBoxEntry', windll['WININET.dll']), ((1, 'lpCert'),(1, 'cbCert'),(1, 'lpszListBoxEntry'),(1, 'lpdwListBoxEntry'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetShowSecurityInfoByURLA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND)(('InternetShowSecurityInfoByURLA', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'hwndParent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetShowSecurityInfoByURLW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HWND)(('InternetShowSecurityInfoByURLW', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'hwndParent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetShowSecurityInfoByURL():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND)(('InternetShowSecurityInfoByURL', windll['WININET.dll']), ((1, 'lpszURL'),(1, 'hwndParent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetFortezzaCommand():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HWND,UIntPtr)(('InternetFortezzaCommand', windll['WININET.dll']), ((1, 'dwCommand'),(1, 'hwnd'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetQueryFortezzaStatus():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),UIntPtr)(('InternetQueryFortezzaStatus', windll['WININET.dll']), ((1, 'pdwStatus'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetWriteFileExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr)(('InternetWriteFileExA', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpBuffersIn'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetWriteFileExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr)(('InternetWriteFileExW', windll['WININET.dll']), ((1, 'hFile'),(1, 'lpBuffersIn'),(1, 'dwFlags'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindP3PPolicySymbol():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR)(('FindP3PPolicySymbol', windll['WININET.dll']), ((1, 'pszSymbol'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpGetServerCredentials():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR))(('HttpGetServerCredentials', windll['WININET.dll']), ((1, 'pwszUrl'),(1, 'ppwszUserName'),(1, 'ppwszPassword'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpPushEnable():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinInet.HTTP_PUSH_TRANSPORT_SETTING_head),POINTER(win32more.Networking.WinInet.HTTP_PUSH_WAIT_HANDLE))(('HttpPushEnable', windll['WININET.dll']), ((1, 'hRequest'),(1, 'pTransportSetting'),(1, 'phWait'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpPushWait():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.HTTP_PUSH_WAIT_HANDLE,win32more.Networking.WinInet.HTTP_PUSH_WAIT_TYPE,POINTER(win32more.Networking.WinInet.HTTP_PUSH_NOTIFICATION_STATUS_head))(('HttpPushWait', windll['WININET.dll']), ((1, 'hWait'),(1, 'eType'),(1, 'pNotificationStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpPushClose():
+    try:
+        return WINFUNCTYPE(Void,win32more.Networking.WinInet.HTTP_PUSH_WAIT_HANDLE)(('HttpPushClose', windll['WININET.dll']), ((1, 'hWait'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpCheckDavComplianceA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Int32),win32more.Foundation.HWND,c_void_p)(('HttpCheckDavComplianceA', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszComplianceToken'),(1, 'lpfFound'),(1, 'hWnd'),(1, 'lpvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpCheckDavComplianceW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Int32),win32more.Foundation.HWND,c_void_p)(('HttpCheckDavComplianceW', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszComplianceToken'),(1, 'lpfFound'),(1, 'hWnd'),(1, 'lpvReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsUrlCacheEntryExpiredA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Foundation.FILETIME_head))(('IsUrlCacheEntryExpiredA', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'pftLastModified'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsUrlCacheEntryExpiredW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.FILETIME_head))(('IsUrlCacheEntryExpiredW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'pftLastModified'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateUrlCacheEntryExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL)(('CreateUrlCacheEntryExW', windll['WININET.dll']), ((1, 'lpszUrlName'),(1, 'dwExpectedFileSize'),(1, 'lpszFileExtension'),(1, 'lpszFileName'),(1, 'dwReserved'),(1, 'fPreserveIncomingFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheEntryBinaryBlob():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(c_char_p_no),POINTER(UInt32))(('GetUrlCacheEntryBinaryBlob', windll['WININET.dll']), ((1, 'pwszUrlName'),(1, 'dwType'),(1, 'pftExpireTime'),(1, 'pftAccessTime'),(1, 'pftModifiedTime'),(1, 'ppbBlob'),(1, 'pcbBlob'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CommitUrlCacheEntryBinaryBlob():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,c_char_p_no,UInt32)(('CommitUrlCacheEntryBinaryBlob', windll['WININET.dll']), ((1, 'pwszUrlName'),(1, 'dwType'),(1, 'ftExpireTime'),(1, 'ftModifiedTime'),(1, 'pbBlob'),(1, 'cbBlob'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateUrlCacheContainerA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,c_void_p,POINTER(UInt32))(('CreateUrlCacheContainerA', windll['WININET.dll']), ((1, 'Name'),(1, 'lpCachePrefix'),(1, 'lpszCachePath'),(1, 'KBCacheLimit'),(1, 'dwContainerType'),(1, 'dwOptions'),(1, 'pvBuffer'),(1, 'cbBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateUrlCacheContainerW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,c_void_p,POINTER(UInt32))(('CreateUrlCacheContainerW', windll['WININET.dll']), ((1, 'Name'),(1, 'lpCachePrefix'),(1, 'lpszCachePath'),(1, 'KBCacheLimit'),(1, 'dwContainerType'),(1, 'dwOptions'),(1, 'pvBuffer'),(1, 'cbBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteUrlCacheContainerA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)(('DeleteUrlCacheContainerA', windll['WININET.dll']), ((1, 'Name'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteUrlCacheContainerW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32)(('DeleteUrlCacheContainerW', windll['WININET.dll']), ((1, 'Name'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheContainerA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOA_head),POINTER(UInt32),UInt32)(('FindFirstUrlCacheContainerA', windll['WININET.dll']), ((1, 'pdwModified'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindFirstUrlCacheContainerW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOW_head),POINTER(UInt32),UInt32)(('FindFirstUrlCacheContainerW', windll['WININET.dll']), ((1, 'pdwModified'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheContainerA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOA_head),POINTER(UInt32))(('FindNextUrlCacheContainerA', windll['WININET.dll']), ((1, 'hEnumHandle'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindNextUrlCacheContainerW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOW_head),POINTER(UInt32))(('FindNextUrlCacheContainerW', windll['WININET.dll']), ((1, 'hEnumHandle'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FreeUrlCacheSpaceA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32)(('FreeUrlCacheSpaceA', windll['WININET.dll']), ((1, 'lpszCachePath'),(1, 'dwSize'),(1, 'dwFilter'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FreeUrlCacheSpaceW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32)(('FreeUrlCacheSpaceW', windll['WININET.dll']), ((1, 'lpszCachePath'),(1, 'dwSize'),(1, 'dwFilter'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheFreeGlobalSpace():
+    try:
+        return WINFUNCTYPE(UInt32,UInt64,UInt32)(('UrlCacheFreeGlobalSpace', windll['WININET.dll']), ((1, 'ullTargetSize'),(1, 'dwFilter'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheGetGlobalCacheSize():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt64),POINTER(UInt64))(('UrlCacheGetGlobalCacheSize', windll['WININET.dll']), ((1, 'dwFilter'),(1, 'pullSize'),(1, 'pullLimit'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheConfigInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOA_head),POINTER(UInt32),win32more.Networking.WinInet.CACHE_CONFIG)(('GetUrlCacheConfigInfoA', windll['WININET.dll']), ((1, 'lpCacheConfigInfo'),(1, 'lpcbCacheConfigInfo'),(1, 'dwFieldControl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheConfigInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOW_head),POINTER(UInt32),win32more.Networking.WinInet.CACHE_CONFIG)(('GetUrlCacheConfigInfoW', windll['WININET.dll']), ((1, 'lpCacheConfigInfo'),(1, 'lpcbCacheConfigInfo'),(1, 'dwFieldControl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheConfigInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOA_head),UInt32)(('SetUrlCacheConfigInfoA', windll['WININET.dll']), ((1, 'lpCacheConfigInfo'),(1, 'dwFieldControl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheConfigInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOW_head),UInt32)(('SetUrlCacheConfigInfoW', windll['WININET.dll']), ((1, 'lpCacheConfigInfo'),(1, 'dwFieldControl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RunOnceUrlCache():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,Int32)(('RunOnceUrlCache', windll['WININET.dll']), ((1, 'hwnd'),(1, 'hinst'),(1, 'lpszCmd'),(1, 'nCmdShow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeleteIE3Cache():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,Int32)(('DeleteIE3Cache', windll['WININET.dll']), ((1, 'hwnd'),(1, 'hinst'),(1, 'lpszCmd'),(1, 'nCmdShow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UpdateUrlCacheContentPath():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('UpdateUrlCacheContentPath', windll['WININET.dll']), ((1, 'szNewPath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_RegisterUrlCacheNotification():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,Int64,UInt32,UInt32)(('RegisterUrlCacheNotification', windll['WININET.dll']), ((1, 'hWnd'),(1, 'uMsg'),(1, 'gid'),(1, 'dwOpsFilter'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetUrlCacheHeaderData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32))(('GetUrlCacheHeaderData', windll['WININET.dll']), ((1, 'nIdx'),(1, 'lpdwData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SetUrlCacheHeaderData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32)(('SetUrlCacheHeaderData', windll['WININET.dll']), ((1, 'nIdx'),(1, 'dwData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IncrementUrlCacheHeaderData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32))(('IncrementUrlCacheHeaderData', windll['WININET.dll']), ((1, 'nIdx'),(1, 'lpdwData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_LoadUrlCacheContent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('LoadUrlCacheContent', windll['WININET.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheLookup():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(c_void_p))(('AppCacheLookup', windll['WININET.dll']), ((1, 'pwszUrl'),(1, 'dwFlags'),(1, 'phAppCache'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheCheckManifest():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_STATE),POINTER(c_void_p))(('AppCacheCheckManifest', windll['WININET.dll']), ((1, 'pwszMasterUrl'),(1, 'pwszManifestUrl'),(1, 'pbManifestData'),(1, 'dwManifestDataSize'),(1, 'pbManifestResponseHeaders'),(1, 'dwManifestResponseHeadersSize'),(1, 'peState'),(1, 'phNewAppCache'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheGetDownloadList():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_LIST_head))(('AppCacheGetDownloadList', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pDownloadList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheFreeDownloadList():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_LIST_head))(('AppCacheFreeDownloadList', windll['WININET.dll']), ((1, 'pDownloadList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheFinalize():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,c_char_p_no,UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_FINALIZE_STATE))(('AppCacheFinalize', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pbManifestData'),(1, 'dwManifestDataSize'),(1, 'peState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheGetFallbackUrl():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('AppCacheGetFallbackUrl', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pwszUrl'),(1, 'ppwszFallbackUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheGetManifestUrl():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Foundation.PWSTR))(('AppCacheGetManifestUrl', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'ppwszManifestUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheDuplicateHandle():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p))(('AppCacheDuplicateHandle', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'phDuplicatedAppCache'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheCloseHandle():
+    try:
+        return WINFUNCTYPE(Void,c_void_p)(('AppCacheCloseHandle', windll['WININET.dll']), ((1, 'hAppCache'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheFreeGroupList():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head))(('AppCacheFreeGroupList', windll['WININET.dll']), ((1, 'pAppCacheGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheGetGroupList():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head))(('AppCacheGetGroupList', windll['WININET.dll']), ((1, 'pAppCacheGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheGetInfo():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head))(('AppCacheGetInfo', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pAppCacheInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheDeleteGroup():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('AppCacheDeleteGroup', windll['WININET.dll']), ((1, 'pwszManifestUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheFreeSpace():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.FILETIME)(('AppCacheFreeSpace', windll['WININET.dll']), ((1, 'ftCutOff'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheGetIEGroupList():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head))(('AppCacheGetIEGroupList', windll['WININET.dll']), ((1, 'pAppCacheGroupList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheDeleteIEGroup():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('AppCacheDeleteIEGroup', windll['WININET.dll']), ((1, 'pwszManifestUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheFreeIESpace():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.FILETIME)(('AppCacheFreeIESpace', windll['WININET.dll']), ((1, 'ftCutOff'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AppCacheCreateAndCommitFile():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32)(('AppCacheCreateAndCommitFile', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pwszSourceFilePath'),(1, 'pwszUrl'),(1, 'pbResponseHeaders'),(1, 'dwResponseHeadersSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpOpenDependencyHandle():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.BOOL,POINTER(c_void_p))(('HttpOpenDependencyHandle', windll['WININET.dll']), ((1, 'hRequestHandle'),(1, 'fBackground'),(1, 'phDependencyHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpCloseDependencyHandle():
+    try:
+        return WINFUNCTYPE(Void,c_void_p)(('HttpCloseDependencyHandle', windll['WININET.dll']), ((1, 'hDependencyHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpDuplicateDependencyHandle():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p))(('HttpDuplicateDependencyHandle', windll['WININET.dll']), ((1, 'hDependencyHandle'),(1, 'phDuplicatedDependencyHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpIndicatePageLoadComplete():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p)(('HttpIndicatePageLoadComplete', windll['WININET.dll']), ((1, 'hDependencyHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheFreeEntryInfo():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head))(('UrlCacheFreeEntryInfo', windll['WININET.dll']), ((1, 'pCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheGetEntryInfo():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head))(('UrlCacheGetEntryInfo', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'pCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheCloseEntryHandle():
+    try:
+        return WINFUNCTYPE(Void,c_void_p)(('UrlCacheCloseEntryHandle', windll['WININET.dll']), ((1, 'hEntryFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheRetrieveEntryFile():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head),POINTER(c_void_p))(('UrlCacheRetrieveEntryFile', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'pCacheEntryInfo'),(1, 'phEntryFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheReadEntryStream():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,UInt64,c_void_p,UInt32,POINTER(UInt32))(('UrlCacheReadEntryStream', windll['WININET.dll']), ((1, 'hUrlCacheStream'),(1, 'ullLocation'),(1, 'pBuffer'),(1, 'dwBufferLen'),(1, 'pdwBufferLen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheRetrieveEntryStream():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head),POINTER(c_void_p))(('UrlCacheRetrieveEntryStream', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'fRandomRead'),(1, 'pCacheEntryInfo'),(1, 'phEntryStream'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheUpdateEntryExtraData():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,c_char_p_no,UInt32)(('UrlCacheUpdateEntryExtraData', windll['WININET.dll']), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'pbExtraData'),(1, 'cbExtraData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheCreateContainer():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt64,UInt32)(('UrlCacheCreateContainer', windll['WININET.dll']), ((1, 'pwszName'),(1, 'pwszPrefix'),(1, 'pwszDirectory'),(1, 'ullLimit'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheCheckEntriesExist():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Foundation.BOOL))(('UrlCacheCheckEntriesExist', windll['WININET.dll']), ((1, 'rgpwszUrls'),(1, 'cEntries'),(1, 'rgfExist'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheGetContentPaths():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32))(('UrlCacheGetContentPaths', windll['WININET.dll']), ((1, 'pppwszDirectories'),(1, 'pcDirectories'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheGetGlobalLimit():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.URL_CACHE_LIMIT_TYPE,POINTER(UInt64))(('UrlCacheGetGlobalLimit', windll['WININET.dll']), ((1, 'limitType'),(1, 'pullLimit'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheSetGlobalLimit():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.URL_CACHE_LIMIT_TYPE,UInt64)(('UrlCacheSetGlobalLimit', windll['WININET.dll']), ((1, 'limitType'),(1, 'ullLimit'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheReloadSettings():
+    try:
+        return WINFUNCTYPE(UInt32,)(('UrlCacheReloadSettings', windll['WININET.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheContainerSetEntryMaximumAge():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('UrlCacheContainerSetEntryMaximumAge', windll['WININET.dll']), ((1, 'pwszPrefix'),(1, 'dwEntryMaxAge'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheFindFirstEntry():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,Int64,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head),POINTER(win32more.Foundation.HANDLE))(('UrlCacheFindFirstEntry', windll['WININET.dll']), ((1, 'pwszPrefix'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'pCacheEntryInfo'),(1, 'phFind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheFindNextEntry():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head))(('UrlCacheFindNextEntry', windll['WININET.dll']), ((1, 'hFind'),(1, 'pCacheEntryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UrlCacheServer():
+    try:
+        return WINFUNCTYPE(UInt32,)(('UrlCacheServer', windll['WININET.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ReadGuidsForConnectedNetworks():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(POINTER(win32more.Foundation.BSTR)),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32),POINTER(UInt32))(('ReadGuidsForConnectedNetworks', windll['WININET.dll']), ((1, 'pcNetworks'),(1, 'pppwszNetworkGuids'),(1, 'pppbstrNetworkNames'),(1, 'pppwszGWMacs'),(1, 'pcGatewayMacs'),(1, 'pdwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsHostInProxyBypassList():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinInet.INTERNET_SCHEME,win32more.Foundation.PSTR,UInt32)(('IsHostInProxyBypassList', windll['WININET.dll']), ((1, 'tScheme'),(1, 'lpszHost'),(1, 'cchHost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetFreeProxyInfoList():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.WININET_PROXY_INFO_LIST_head))(('InternetFreeProxyInfoList', windll['WININET.dll']), ((1, 'pProxyInfoList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetGetProxyForUrl():
+    try:
+        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.WININET_PROXY_INFO_LIST_head))(('InternetGetProxyForUrl', windll['WININET.dll']), ((1, 'hInternet'),(1, 'pcwszUrl'),(1, 'pProxyInfoList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DoConnectoidsExist():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('DoConnectoidsExist', windll['WININET.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDiskInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt64),POINTER(UInt64))(('GetDiskInfoA', windll['WININET.dll']), ((1, 'pszPath'),(1, 'pdwClusterSize'),(1, 'pdlAvail'),(1, 'pdlTotal'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_PerformOperationOverUrlCacheA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32,Int64,c_void_p,POINTER(UInt32),c_void_p,win32more.Networking.WinInet.CACHE_OPERATOR,c_void_p)(('PerformOperationOverUrlCacheA', windll['WININET.dll']), ((1, 'pszUrlSearchPattern'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'pReserved1'),(1, 'pdwReserved2'),(1, 'pReserved3'),(1, 'op'),(1, 'pOperatorData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsProfilesEnabled():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('IsProfilesEnabled', windll['WININET.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternalInternetGetCookie():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('InternalInternetGetCookie', windll['WININET.dll']), ((1, 'lpszUrl'),(1, 'lpszCookieData'),(1, 'lpdwDataSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ImportCookieFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('ImportCookieFileA', windll['WININET.dll']), ((1, 'szFilename'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ImportCookieFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('ImportCookieFileW', windll['WININET.dll']), ((1, 'szFilename'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ExportCookieFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('ExportCookieFileA', windll['WININET.dll']), ((1, 'szFilename'),(1, 'fAppend'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ExportCookieFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('ExportCookieFileW', windll['WININET.dll']), ((1, 'szFilename'),(1, 'fAppend'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsDomainLegalCookieDomainA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('IsDomainLegalCookieDomainA', windll['WININET.dll']), ((1, 'pchDomain'),(1, 'pchFullDomain'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_IsDomainLegalCookieDomainW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('IsDomainLegalCookieDomainW', windll['WININET.dll']), ((1, 'pchDomain'),(1, 'pchFullDomain'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpWebSocketCompleteUpgrade():
+    try:
+        return WINFUNCTYPE(c_void_p,c_void_p,UIntPtr)(('HttpWebSocketCompleteUpgrade', windll['WININET.dll']), ((1, 'hRequest'),(1, 'dwContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpWebSocketSend():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE,c_void_p,UInt32)(('HttpWebSocketSend', windll['WININET.dll']), ((1, 'hWebSocket'),(1, 'BufferType'),(1, 'pvBuffer'),(1, 'dwBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpWebSocketReceive():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE))(('HttpWebSocketReceive', windll['WININET.dll']), ((1, 'hWebSocket'),(1, 'pvBuffer'),(1, 'dwBufferLength'),(1, 'pdwBytesRead'),(1, 'pBufferType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpWebSocketClose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt16,c_void_p,UInt32)(('HttpWebSocketClose', windll['WININET.dll']), ((1, 'hWebSocket'),(1, 'usStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpWebSocketShutdown():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt16,c_void_p,UInt32)(('HttpWebSocketShutdown', windll['WININET.dll']), ((1, 'hWebSocket'),(1, 'usStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HttpWebSocketQueryCloseStatus():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(UInt16),c_void_p,UInt32,POINTER(UInt32))(('HttpWebSocketQueryCloseStatus', windll['WININET.dll']), ((1, 'hWebSocket'),(1, 'pusStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),(1, 'pdwReasonLengthConsumed'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_InternetConvertUrlFromWireToWideChar():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.PWSTR))(('InternetConvertUrlFromWireToWideChar', windll['WININET.dll']), ((1, 'pcszUrl'),(1, 'cchUrl'),(1, 'pcwszBaseUrl'),(1, 'dwCodePageHost'),(1, 'dwCodePagePath'),(1, 'fEncodePathExtra'),(1, 'dwCodePageExtra'),(1, 'ppwszConvertedUrl'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_APP_CACHE_DOWNLOAD_ENTRY_head():
+    class APP_CACHE_DOWNLOAD_ENTRY(Structure):
+        pass
+    return APP_CACHE_DOWNLOAD_ENTRY
+def _define_APP_CACHE_DOWNLOAD_ENTRY():
+    APP_CACHE_DOWNLOAD_ENTRY = win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY_head
+    APP_CACHE_DOWNLOAD_ENTRY._fields_ = [
+        ('pwszUrl', win32more.Foundation.PWSTR),
+        ('dwEntryType', UInt32),
+    ]
+    return APP_CACHE_DOWNLOAD_ENTRY
+def _define_APP_CACHE_DOWNLOAD_LIST_head():
+    class APP_CACHE_DOWNLOAD_LIST(Structure):
+        pass
+    return APP_CACHE_DOWNLOAD_LIST
+def _define_APP_CACHE_DOWNLOAD_LIST():
+    APP_CACHE_DOWNLOAD_LIST = win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_LIST_head
+    APP_CACHE_DOWNLOAD_LIST._fields_ = [
+        ('dwEntryCount', UInt32),
+        ('pEntries', POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY_head)),
+    ]
+    return APP_CACHE_DOWNLOAD_LIST
+APP_CACHE_FINALIZE_STATE = Int32
+APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete = 0
+APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange = 1
+APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete = 2
+def _define_APP_CACHE_GROUP_INFO_head():
+    class APP_CACHE_GROUP_INFO(Structure):
+        pass
+    return APP_CACHE_GROUP_INFO
+def _define_APP_CACHE_GROUP_INFO():
+    APP_CACHE_GROUP_INFO = win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head
+    APP_CACHE_GROUP_INFO._fields_ = [
+        ('pwszManifestUrl', win32more.Foundation.PWSTR),
+        ('ftLastAccessTime', win32more.Foundation.FILETIME),
+        ('ullSize', UInt64),
+    ]
+    return APP_CACHE_GROUP_INFO
+def _define_APP_CACHE_GROUP_LIST_head():
+    class APP_CACHE_GROUP_LIST(Structure):
+        pass
+    return APP_CACHE_GROUP_LIST
+def _define_APP_CACHE_GROUP_LIST():
+    APP_CACHE_GROUP_LIST = win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head
+    APP_CACHE_GROUP_LIST._fields_ = [
+        ('dwAppCacheGroupCount', UInt32),
+        ('pAppCacheGroups', POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head)),
+    ]
+    return APP_CACHE_GROUP_LIST
+APP_CACHE_STATE = Int32
+APP_CACHE_STATE_AppCacheStateNoUpdateNeeded = 0
+APP_CACHE_STATE_AppCacheStateUpdateNeeded = 1
+APP_CACHE_STATE_AppCacheStateUpdateNeededNew = 2
+APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly = 3
+def _define_AUTO_PROXY_SCRIPT_BUFFER_head():
+    class AUTO_PROXY_SCRIPT_BUFFER(Structure):
+        pass
+    return AUTO_PROXY_SCRIPT_BUFFER
+def _define_AUTO_PROXY_SCRIPT_BUFFER():
+    AUTO_PROXY_SCRIPT_BUFFER = win32more.Networking.WinInet.AUTO_PROXY_SCRIPT_BUFFER_head
+    AUTO_PROXY_SCRIPT_BUFFER._fields_ = [
+        ('dwStructSize', UInt32),
+        ('lpszScriptBuffer', win32more.Foundation.PSTR),
+        ('dwScriptBufferSize', UInt32),
+    ]
+    return AUTO_PROXY_SCRIPT_BUFFER
+def _define_AutoProxyHelperFunctions_head():
+    class AutoProxyHelperFunctions(Structure):
+        pass
+    return AutoProxyHelperFunctions
+def _define_AutoProxyHelperFunctions():
+    AutoProxyHelperFunctions = win32more.Networking.WinInet.AutoProxyHelperFunctions_head
+    AutoProxyHelperFunctions._fields_ = [
+        ('lpVtbl', POINTER(win32more.Networking.WinInet.AutoProxyHelperVtbl_head)),
+    ]
+    return AutoProxyHelperFunctions
+def _define_AutoProxyHelperVtbl_head():
+    class AutoProxyHelperVtbl(Structure):
+        pass
+    return AutoProxyHelperVtbl
+def _define_AutoProxyHelperVtbl():
+    AutoProxyHelperVtbl = win32more.Networking.WinInet.AutoProxyHelperVtbl_head
+    AutoProxyHelperVtbl._fields_ = [
+        ('IsResolvable', IntPtr),
+        ('GetIPAddress', IntPtr),
+        ('ResolveHostName', IntPtr),
+        ('IsInNet', IntPtr),
+        ('IsResolvableEx', IntPtr),
+        ('GetIPAddressEx', IntPtr),
+        ('ResolveHostNameEx', IntPtr),
+        ('IsInNetEx', IntPtr),
+        ('SortIpList', IntPtr),
+    ]
+    return AutoProxyHelperVtbl
 CACHE_CONFIG = UInt32
 CACHE_CONFIG_FORCE_CLEANUP_FC = 32
 CACHE_CONFIG_DISK_CACHE_PATHS_FC = 64
@@ -918,39 +2524,252 @@ CACHE_CONFIG_QUOTA_FC = 2048
 CACHE_CONFIG_USER_MODE_FC = 4096
 CACHE_CONFIG_CONTENT_USAGE_FC = 8192
 CACHE_CONFIG_STICKY_CONTENT_USAGE_FC = 16384
+def _define_CACHE_OPERATOR():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),c_void_p)
+def _define_COOKIE_DLG_INFO_head():
+    class COOKIE_DLG_INFO(Structure):
+        pass
+    return COOKIE_DLG_INFO
+def _define_COOKIE_DLG_INFO():
+    COOKIE_DLG_INFO = win32more.Networking.WinInet.COOKIE_DLG_INFO_head
+    COOKIE_DLG_INFO._fields_ = [
+        ('pszServer', win32more.Foundation.PWSTR),
+        ('pic', POINTER(win32more.Networking.WinInet.INTERNET_COOKIE_head)),
+        ('dwStopWarning', UInt32),
+        ('cx', Int32),
+        ('cy', Int32),
+        ('pszHeader', win32more.Foundation.PWSTR),
+        ('dwOperation', UInt32),
+    ]
+    return COOKIE_DLG_INFO
+def _define_CookieDecision_head():
+    class CookieDecision(Structure):
+        pass
+    return CookieDecision
+def _define_CookieDecision():
+    CookieDecision = win32more.Networking.WinInet.CookieDecision_head
+    CookieDecision._fields_ = [
+        ('dwCookieState', UInt32),
+        ('fAllowSession', win32more.Foundation.BOOL),
+    ]
+    return CookieDecision
+FORTCMD = Int32
+FORTCMD_LOGON = 1
+FORTCMD_LOGOFF = 2
+FORTCMD_CHG_PERSONALITY = 3
+FORTSTAT = Int32
+FORTSTAT_INSTALLED = 1
+FORTSTAT_LOGGEDON = 2
 FTP_FLAGS = UInt32
 FTP_TRANSFER_TYPE_ASCII = 1
 FTP_TRANSFER_TYPE_BINARY = 2
 FTP_TRANSFER_TYPE_UNKNOWN = 0
 INTERNET_FLAG_TRANSFER_ASCII = 1
 INTERNET_FLAG_TRANSFER_BINARY = 2
-INTERNET_CONNECTION = UInt32
-INTERNET_CONNECTION_CONFIGURED = 64
-INTERNET_CONNECTION_LAN_ = 2
-INTERNET_CONNECTION_MODEM = 1
-INTERNET_CONNECTION_MODEM_BUSY = 8
-INTERNET_CONNECTION_OFFLINE_ = 32
-INTERNET_CONNECTION_PROXY = 4
-INTERNET_RAS_INSTALLED = 16
-HTTP_ADDREQ_FLAG = UInt32
-HTTP_ADDREQ_FLAG_ADD = 536870912
-HTTP_ADDREQ_FLAG_ADD_IF_NEW = 268435456
-HTTP_ADDREQ_FLAG_COALESCE = 1073741824
-HTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA = 1073741824
-HTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON = 16777216
-HTTP_ADDREQ_FLAG_REPLACE = 2147483648
-INTERNET_COOKIE_FLAGS = UInt32
-INTERNET_COOKIE_HTTPONLY = 8192
-INTERNET_COOKIE_THIRD_PARTY = 16
-INTERNET_FLAG_RESTRICTED_ZONE = 131072
-PROXY_AUTO_DETECT_TYPE = UInt32
-PROXY_AUTO_DETECT_TYPE_DHCP = 1
-PROXY_AUTO_DETECT_TYPE_DNS_A = 2
-INTERNET_AUTODIAL = UInt32
-INTERNET_AUTODIAL_FAILIFSECURITYCHECK = 4
-INTERNET_AUTODIAL_FORCE_ONLINE = 1
-INTERNET_AUTODIAL_FORCE_UNATTENDED = 2
-INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT = 8
+def _define_GOPHER_ABSTRACT_ATTRIBUTE_TYPE_head():
+    class GOPHER_ABSTRACT_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_ABSTRACT_ATTRIBUTE_TYPE
+def _define_GOPHER_ABSTRACT_ATTRIBUTE_TYPE():
+    GOPHER_ABSTRACT_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ABSTRACT_ATTRIBUTE_TYPE_head
+    GOPHER_ABSTRACT_ATTRIBUTE_TYPE._fields_ = [
+        ('ShortAbstract', POINTER(SByte)),
+        ('AbstractFile', POINTER(SByte)),
+    ]
+    return GOPHER_ABSTRACT_ATTRIBUTE_TYPE
+def _define_GOPHER_ADMIN_ATTRIBUTE_TYPE_head():
+    class GOPHER_ADMIN_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_ADMIN_ATTRIBUTE_TYPE
+def _define_GOPHER_ADMIN_ATTRIBUTE_TYPE():
+    GOPHER_ADMIN_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ADMIN_ATTRIBUTE_TYPE_head
+    GOPHER_ADMIN_ATTRIBUTE_TYPE._fields_ = [
+        ('Comment', POINTER(SByte)),
+        ('EmailAddress', POINTER(SByte)),
+    ]
+    return GOPHER_ADMIN_ATTRIBUTE_TYPE
+def _define_GOPHER_ASK_ATTRIBUTE_TYPE_head():
+    class GOPHER_ASK_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_ASK_ATTRIBUTE_TYPE
+def _define_GOPHER_ASK_ATTRIBUTE_TYPE():
+    GOPHER_ASK_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ASK_ATTRIBUTE_TYPE_head
+    GOPHER_ASK_ATTRIBUTE_TYPE._fields_ = [
+        ('QuestionType', POINTER(SByte)),
+        ('QuestionText', POINTER(SByte)),
+    ]
+    return GOPHER_ASK_ATTRIBUTE_TYPE
+def _define_GOPHER_ATTRIBUTE_ENUMERATOR():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.GOPHER_ATTRIBUTE_TYPE_head),UInt32)
+def _define_GOPHER_ATTRIBUTE_TYPE_head():
+    class GOPHER_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_ATTRIBUTE_TYPE
+def _define_GOPHER_ATTRIBUTE_TYPE():
+    GOPHER_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ATTRIBUTE_TYPE_head
+    class GOPHER_ATTRIBUTE_TYPE__AttributeType_e__Union(Union):
+        pass
+    GOPHER_ATTRIBUTE_TYPE__AttributeType_e__Union._fields_ = [
+        ('Admin', win32more.Networking.WinInet.GOPHER_ADMIN_ATTRIBUTE_TYPE),
+        ('ModDate', win32more.Networking.WinInet.GOPHER_MOD_DATE_ATTRIBUTE_TYPE),
+        ('Ttl', win32more.Networking.WinInet.GOPHER_TTL_ATTRIBUTE_TYPE),
+        ('Score', win32more.Networking.WinInet.GOPHER_SCORE_ATTRIBUTE_TYPE),
+        ('ScoreRange', win32more.Networking.WinInet.GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE),
+        ('Site', win32more.Networking.WinInet.GOPHER_SITE_ATTRIBUTE_TYPE),
+        ('Organization', win32more.Networking.WinInet.GOPHER_ORGANIZATION_ATTRIBUTE_TYPE),
+        ('Location', win32more.Networking.WinInet.GOPHER_LOCATION_ATTRIBUTE_TYPE),
+        ('GeographicalLocation', win32more.Networking.WinInet.GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE),
+        ('TimeZone', win32more.Networking.WinInet.GOPHER_TIMEZONE_ATTRIBUTE_TYPE),
+        ('Provider', win32more.Networking.WinInet.GOPHER_PROVIDER_ATTRIBUTE_TYPE),
+        ('Version', win32more.Networking.WinInet.GOPHER_VERSION_ATTRIBUTE_TYPE),
+        ('Abstract', win32more.Networking.WinInet.GOPHER_ABSTRACT_ATTRIBUTE_TYPE),
+        ('View', win32more.Networking.WinInet.GOPHER_VIEW_ATTRIBUTE_TYPE),
+        ('Veronica', win32more.Networking.WinInet.GOPHER_VERONICA_ATTRIBUTE_TYPE),
+        ('Ask', win32more.Networking.WinInet.GOPHER_ASK_ATTRIBUTE_TYPE),
+        ('Unknown', win32more.Networking.WinInet.GOPHER_UNKNOWN_ATTRIBUTE_TYPE),
+    ]
+    GOPHER_ATTRIBUTE_TYPE._fields_ = [
+        ('CategoryId', UInt32),
+        ('AttributeId', UInt32),
+        ('AttributeType', GOPHER_ATTRIBUTE_TYPE__AttributeType_e__Union),
+    ]
+    return GOPHER_ATTRIBUTE_TYPE
+def _define_GOPHER_FIND_DATAA_head():
+    class GOPHER_FIND_DATAA(Structure):
+        pass
+    return GOPHER_FIND_DATAA
+def _define_GOPHER_FIND_DATAA():
+    GOPHER_FIND_DATAA = win32more.Networking.WinInet.GOPHER_FIND_DATAA_head
+    GOPHER_FIND_DATAA._fields_ = [
+        ('DisplayString', win32more.Foundation.CHAR * 129),
+        ('GopherType', win32more.Networking.WinInet.GOPHER_TYPE),
+        ('SizeLow', UInt32),
+        ('SizeHigh', UInt32),
+        ('LastModificationTime', win32more.Foundation.FILETIME),
+        ('Locator', win32more.Foundation.CHAR * 654),
+    ]
+    return GOPHER_FIND_DATAA
+def _define_GOPHER_FIND_DATAW_head():
+    class GOPHER_FIND_DATAW(Structure):
+        pass
+    return GOPHER_FIND_DATAW
+def _define_GOPHER_FIND_DATAW():
+    GOPHER_FIND_DATAW = win32more.Networking.WinInet.GOPHER_FIND_DATAW_head
+    GOPHER_FIND_DATAW._fields_ = [
+        ('DisplayString', Char * 129),
+        ('GopherType', win32more.Networking.WinInet.GOPHER_TYPE),
+        ('SizeLow', UInt32),
+        ('SizeHigh', UInt32),
+        ('LastModificationTime', win32more.Foundation.FILETIME),
+        ('Locator', Char * 654),
+    ]
+    return GOPHER_FIND_DATAW
+def _define_GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE_head():
+    class GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
+def _define_GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE():
+    GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE_head
+    GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE._fields_ = [
+        ('DegreesNorth', Int32),
+        ('MinutesNorth', Int32),
+        ('SecondsNorth', Int32),
+        ('DegreesEast', Int32),
+        ('MinutesEast', Int32),
+        ('SecondsEast', Int32),
+    ]
+    return GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
+def _define_GOPHER_LOCATION_ATTRIBUTE_TYPE_head():
+    class GOPHER_LOCATION_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_LOCATION_ATTRIBUTE_TYPE
+def _define_GOPHER_LOCATION_ATTRIBUTE_TYPE():
+    GOPHER_LOCATION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_LOCATION_ATTRIBUTE_TYPE_head
+    GOPHER_LOCATION_ATTRIBUTE_TYPE._fields_ = [
+        ('Location', POINTER(SByte)),
+    ]
+    return GOPHER_LOCATION_ATTRIBUTE_TYPE
+def _define_GOPHER_MOD_DATE_ATTRIBUTE_TYPE_head():
+    class GOPHER_MOD_DATE_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_MOD_DATE_ATTRIBUTE_TYPE
+def _define_GOPHER_MOD_DATE_ATTRIBUTE_TYPE():
+    GOPHER_MOD_DATE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_MOD_DATE_ATTRIBUTE_TYPE_head
+    GOPHER_MOD_DATE_ATTRIBUTE_TYPE._fields_ = [
+        ('DateAndTime', win32more.Foundation.FILETIME),
+    ]
+    return GOPHER_MOD_DATE_ATTRIBUTE_TYPE
+def _define_GOPHER_ORGANIZATION_ATTRIBUTE_TYPE_head():
+    class GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_ORGANIZATION_ATTRIBUTE_TYPE
+def _define_GOPHER_ORGANIZATION_ATTRIBUTE_TYPE():
+    GOPHER_ORGANIZATION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ORGANIZATION_ATTRIBUTE_TYPE_head
+    GOPHER_ORGANIZATION_ATTRIBUTE_TYPE._fields_ = [
+        ('Organization', POINTER(SByte)),
+    ]
+    return GOPHER_ORGANIZATION_ATTRIBUTE_TYPE
+def _define_GOPHER_PROVIDER_ATTRIBUTE_TYPE_head():
+    class GOPHER_PROVIDER_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_PROVIDER_ATTRIBUTE_TYPE
+def _define_GOPHER_PROVIDER_ATTRIBUTE_TYPE():
+    GOPHER_PROVIDER_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_PROVIDER_ATTRIBUTE_TYPE_head
+    GOPHER_PROVIDER_ATTRIBUTE_TYPE._fields_ = [
+        ('Provider', POINTER(SByte)),
+    ]
+    return GOPHER_PROVIDER_ATTRIBUTE_TYPE
+def _define_GOPHER_SCORE_ATTRIBUTE_TYPE_head():
+    class GOPHER_SCORE_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_SCORE_ATTRIBUTE_TYPE
+def _define_GOPHER_SCORE_ATTRIBUTE_TYPE():
+    GOPHER_SCORE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_SCORE_ATTRIBUTE_TYPE_head
+    GOPHER_SCORE_ATTRIBUTE_TYPE._fields_ = [
+        ('Score', Int32),
+    ]
+    return GOPHER_SCORE_ATTRIBUTE_TYPE
+def _define_GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE_head():
+    class GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
+def _define_GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE():
+    GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE_head
+    GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE._fields_ = [
+        ('LowerBound', Int32),
+        ('UpperBound', Int32),
+    ]
+    return GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
+def _define_GOPHER_SITE_ATTRIBUTE_TYPE_head():
+    class GOPHER_SITE_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_SITE_ATTRIBUTE_TYPE
+def _define_GOPHER_SITE_ATTRIBUTE_TYPE():
+    GOPHER_SITE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_SITE_ATTRIBUTE_TYPE_head
+    GOPHER_SITE_ATTRIBUTE_TYPE._fields_ = [
+        ('Site', POINTER(SByte)),
+    ]
+    return GOPHER_SITE_ATTRIBUTE_TYPE
+def _define_GOPHER_TIMEZONE_ATTRIBUTE_TYPE_head():
+    class GOPHER_TIMEZONE_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_TIMEZONE_ATTRIBUTE_TYPE
+def _define_GOPHER_TIMEZONE_ATTRIBUTE_TYPE():
+    GOPHER_TIMEZONE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_TIMEZONE_ATTRIBUTE_TYPE_head
+    GOPHER_TIMEZONE_ATTRIBUTE_TYPE._fields_ = [
+        ('Zone', Int32),
+    ]
+    return GOPHER_TIMEZONE_ATTRIBUTE_TYPE
+def _define_GOPHER_TTL_ATTRIBUTE_TYPE_head():
+    class GOPHER_TTL_ATTRIBUTE_TYPE(Structure):
+        pass
+    return GOPHER_TTL_ATTRIBUTE_TYPE
+def _define_GOPHER_TTL_ATTRIBUTE_TYPE():
+    GOPHER_TTL_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_TTL_ATTRIBUTE_TYPE_head
+    GOPHER_TTL_ATTRIBUTE_TYPE._fields_ = [
+        ('Ttl', UInt32),
+    ]
+    return GOPHER_TTL_ATTRIBUTE_TYPE
 GOPHER_TYPE = UInt32
 GOPHER_TYPE_ASK = 1073741824
 GOPHER_TYPE_BINARY = 512
@@ -976,532 +2795,6 @@ GOPHER_TYPE_TEXT_FILE = 1
 GOPHER_TYPE_TN3270 = 2048
 GOPHER_TYPE_UNIX_UUENCODED = 64
 GOPHER_TYPE_UNKNOWN = 536870912
-INTERNET_PER_CONN = UInt32
-INTERNET_PER_CONN_AUTOCONFIG_URL = 4
-INTERNET_PER_CONN_AUTODISCOVERY_FLAGS = 5
-INTERNET_PER_CONN_FLAGS = 1
-INTERNET_PER_CONN_PROXY_BYPASS = 3
-INTERNET_PER_CONN_PROXY_SERVER = 2
-INTERNET_PER_CONN_AUTOCONFIG_SECONDARY_URL = 6
-INTERNET_PER_CONN_AUTOCONFIG_RELOAD_DELAY_MINS = 7
-INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_TIME = 8
-INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_URL = 9
-INTERNET_ACCESS_TYPE = UInt32
-INTERNET_OPEN_TYPE_DIRECT = 1
-INTERNET_OPEN_TYPE_PRECONFIG = 0
-INTERNET_OPEN_TYPE_PROXY = 3
-INTERNET_STATE = UInt32
-INTERNET_STATE_CONNECTED = 1
-INTERNET_STATE_DISCONNECTED = 2
-INTERNET_STATE_DISCONNECTED_BY_USER = 16
-INTERNET_STATE_IDLE = 256
-INTERNET_STATE_BUSY = 512
-HTTP_PUSH_WAIT_HANDLE = IntPtr
-INTERNET_SCHEME = Int32
-INTERNET_SCHEME_PARTIAL = -2
-INTERNET_SCHEME_UNKNOWN = -1
-INTERNET_SCHEME_DEFAULT = 0
-INTERNET_SCHEME_FTP = 1
-INTERNET_SCHEME_GOPHER = 2
-INTERNET_SCHEME_HTTP = 3
-INTERNET_SCHEME_HTTPS = 4
-INTERNET_SCHEME_FILE = 5
-INTERNET_SCHEME_NEWS = 6
-INTERNET_SCHEME_MAILTO = 7
-INTERNET_SCHEME_SOCKS = 8
-INTERNET_SCHEME_JAVASCRIPT = 9
-INTERNET_SCHEME_VBSCRIPT = 10
-INTERNET_SCHEME_RES = 11
-INTERNET_SCHEME_FIRST = 1
-INTERNET_SCHEME_LAST = 11
-def _define_INTERNET_ASYNC_RESULT_head():
-    class INTERNET_ASYNC_RESULT(Structure):
-        pass
-    return INTERNET_ASYNC_RESULT
-def _define_INTERNET_ASYNC_RESULT():
-    INTERNET_ASYNC_RESULT = win32more.Networking.WinInet.INTERNET_ASYNC_RESULT_head
-    INTERNET_ASYNC_RESULT._fields_ = [
-        ("dwResult", UIntPtr),
-        ("dwError", UInt32),
-    ]
-    return INTERNET_ASYNC_RESULT
-def _define_INTERNET_DIAGNOSTIC_SOCKET_INFO_head():
-    class INTERNET_DIAGNOSTIC_SOCKET_INFO(Structure):
-        pass
-    return INTERNET_DIAGNOSTIC_SOCKET_INFO
-def _define_INTERNET_DIAGNOSTIC_SOCKET_INFO():
-    INTERNET_DIAGNOSTIC_SOCKET_INFO = win32more.Networking.WinInet.INTERNET_DIAGNOSTIC_SOCKET_INFO_head
-    INTERNET_DIAGNOSTIC_SOCKET_INFO._fields_ = [
-        ("Socket", UIntPtr),
-        ("SourcePort", UInt32),
-        ("DestPort", UInt32),
-        ("Flags", UInt32),
-    ]
-    return INTERNET_DIAGNOSTIC_SOCKET_INFO
-def _define_INTERNET_PROXY_INFO_head():
-    class INTERNET_PROXY_INFO(Structure):
-        pass
-    return INTERNET_PROXY_INFO
-def _define_INTERNET_PROXY_INFO():
-    INTERNET_PROXY_INFO = win32more.Networking.WinInet.INTERNET_PROXY_INFO_head
-    INTERNET_PROXY_INFO._fields_ = [
-        ("dwAccessType", win32more.Networking.WinInet.INTERNET_ACCESS_TYPE),
-        ("lpszProxy", POINTER(SByte)),
-        ("lpszProxyBypass", POINTER(SByte)),
-    ]
-    return INTERNET_PROXY_INFO
-def _define_INTERNET_PER_CONN_OPTIONA_head():
-    class INTERNET_PER_CONN_OPTIONA(Structure):
-        pass
-    return INTERNET_PER_CONN_OPTIONA
-def _define_INTERNET_PER_CONN_OPTIONA():
-    INTERNET_PER_CONN_OPTIONA = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONA_head
-    class INTERNET_PER_CONN_OPTIONA__Value_e__Union(Union):
-        pass
-    INTERNET_PER_CONN_OPTIONA__Value_e__Union._fields_ = [
-        ("dwValue", UInt32),
-        ("pszValue", win32more.Foundation.PSTR),
-        ("ftValue", win32more.Foundation.FILETIME),
-    ]
-    INTERNET_PER_CONN_OPTIONA._fields_ = [
-        ("dwOption", win32more.Networking.WinInet.INTERNET_PER_CONN),
-        ("Value", INTERNET_PER_CONN_OPTIONA__Value_e__Union),
-    ]
-    return INTERNET_PER_CONN_OPTIONA
-def _define_INTERNET_PER_CONN_OPTIONW_head():
-    class INTERNET_PER_CONN_OPTIONW(Structure):
-        pass
-    return INTERNET_PER_CONN_OPTIONW
-def _define_INTERNET_PER_CONN_OPTIONW():
-    INTERNET_PER_CONN_OPTIONW = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONW_head
-    class INTERNET_PER_CONN_OPTIONW__Value_e__Union(Union):
-        pass
-    INTERNET_PER_CONN_OPTIONW__Value_e__Union._fields_ = [
-        ("dwValue", UInt32),
-        ("pszValue", win32more.Foundation.PWSTR),
-        ("ftValue", win32more.Foundation.FILETIME),
-    ]
-    INTERNET_PER_CONN_OPTIONW._fields_ = [
-        ("dwOption", win32more.Networking.WinInet.INTERNET_PER_CONN),
-        ("Value", INTERNET_PER_CONN_OPTIONW__Value_e__Union),
-    ]
-    return INTERNET_PER_CONN_OPTIONW
-def _define_INTERNET_PER_CONN_OPTION_LISTA_head():
-    class INTERNET_PER_CONN_OPTION_LISTA(Structure):
-        pass
-    return INTERNET_PER_CONN_OPTION_LISTA
-def _define_INTERNET_PER_CONN_OPTION_LISTA():
-    INTERNET_PER_CONN_OPTION_LISTA = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTION_LISTA_head
-    INTERNET_PER_CONN_OPTION_LISTA._fields_ = [
-        ("dwSize", UInt32),
-        ("pszConnection", win32more.Foundation.PSTR),
-        ("dwOptionCount", UInt32),
-        ("dwOptionError", UInt32),
-        ("pOptions", POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONA_head)),
-    ]
-    return INTERNET_PER_CONN_OPTION_LISTA
-def _define_INTERNET_PER_CONN_OPTION_LISTW_head():
-    class INTERNET_PER_CONN_OPTION_LISTW(Structure):
-        pass
-    return INTERNET_PER_CONN_OPTION_LISTW
-def _define_INTERNET_PER_CONN_OPTION_LISTW():
-    INTERNET_PER_CONN_OPTION_LISTW = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTION_LISTW_head
-    INTERNET_PER_CONN_OPTION_LISTW._fields_ = [
-        ("dwSize", UInt32),
-        ("pszConnection", win32more.Foundation.PWSTR),
-        ("dwOptionCount", UInt32),
-        ("dwOptionError", UInt32),
-        ("pOptions", POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONW_head)),
-    ]
-    return INTERNET_PER_CONN_OPTION_LISTW
-def _define_INTERNET_VERSION_INFO_head():
-    class INTERNET_VERSION_INFO(Structure):
-        pass
-    return INTERNET_VERSION_INFO
-def _define_INTERNET_VERSION_INFO():
-    INTERNET_VERSION_INFO = win32more.Networking.WinInet.INTERNET_VERSION_INFO_head
-    INTERNET_VERSION_INFO._fields_ = [
-        ("dwMajorVersion", UInt32),
-        ("dwMinorVersion", UInt32),
-    ]
-    return INTERNET_VERSION_INFO
-def _define_INTERNET_CONNECTED_INFO_head():
-    class INTERNET_CONNECTED_INFO(Structure):
-        pass
-    return INTERNET_CONNECTED_INFO
-def _define_INTERNET_CONNECTED_INFO():
-    INTERNET_CONNECTED_INFO = win32more.Networking.WinInet.INTERNET_CONNECTED_INFO_head
-    INTERNET_CONNECTED_INFO._fields_ = [
-        ("dwConnectedState", win32more.Networking.WinInet.INTERNET_STATE),
-        ("dwFlags", UInt32),
-    ]
-    return INTERNET_CONNECTED_INFO
-def _define_URL_COMPONENTSA_head():
-    class URL_COMPONENTSA(Structure):
-        pass
-    return URL_COMPONENTSA
-def _define_URL_COMPONENTSA():
-    URL_COMPONENTSA = win32more.Networking.WinInet.URL_COMPONENTSA_head
-    URL_COMPONENTSA._fields_ = [
-        ("dwStructSize", UInt32),
-        ("lpszScheme", win32more.Foundation.PSTR),
-        ("dwSchemeLength", UInt32),
-        ("nScheme", win32more.Networking.WinInet.INTERNET_SCHEME),
-        ("lpszHostName", win32more.Foundation.PSTR),
-        ("dwHostNameLength", UInt32),
-        ("nPort", UInt16),
-        ("lpszUserName", win32more.Foundation.PSTR),
-        ("dwUserNameLength", UInt32),
-        ("lpszPassword", win32more.Foundation.PSTR),
-        ("dwPasswordLength", UInt32),
-        ("lpszUrlPath", win32more.Foundation.PSTR),
-        ("dwUrlPathLength", UInt32),
-        ("lpszExtraInfo", win32more.Foundation.PSTR),
-        ("dwExtraInfoLength", UInt32),
-    ]
-    return URL_COMPONENTSA
-def _define_URL_COMPONENTSW_head():
-    class URL_COMPONENTSW(Structure):
-        pass
-    return URL_COMPONENTSW
-def _define_URL_COMPONENTSW():
-    URL_COMPONENTSW = win32more.Networking.WinInet.URL_COMPONENTSW_head
-    URL_COMPONENTSW._fields_ = [
-        ("dwStructSize", UInt32),
-        ("lpszScheme", win32more.Foundation.PWSTR),
-        ("dwSchemeLength", UInt32),
-        ("nScheme", win32more.Networking.WinInet.INTERNET_SCHEME),
-        ("lpszHostName", win32more.Foundation.PWSTR),
-        ("dwHostNameLength", UInt32),
-        ("nPort", UInt16),
-        ("lpszUserName", win32more.Foundation.PWSTR),
-        ("dwUserNameLength", UInt32),
-        ("lpszPassword", win32more.Foundation.PWSTR),
-        ("dwPasswordLength", UInt32),
-        ("lpszUrlPath", win32more.Foundation.PWSTR),
-        ("dwUrlPathLength", UInt32),
-        ("lpszExtraInfo", win32more.Foundation.PWSTR),
-        ("dwExtraInfoLength", UInt32),
-    ]
-    return URL_COMPONENTSW
-def _define_INTERNET_CERTIFICATE_INFO_head():
-    class INTERNET_CERTIFICATE_INFO(Structure):
-        pass
-    return INTERNET_CERTIFICATE_INFO
-def _define_INTERNET_CERTIFICATE_INFO():
-    INTERNET_CERTIFICATE_INFO = win32more.Networking.WinInet.INTERNET_CERTIFICATE_INFO_head
-    INTERNET_CERTIFICATE_INFO._fields_ = [
-        ("ftExpiry", win32more.Foundation.FILETIME),
-        ("ftStart", win32more.Foundation.FILETIME),
-        ("lpszSubjectInfo", POINTER(SByte)),
-        ("lpszIssuerInfo", POINTER(SByte)),
-        ("lpszProtocolName", POINTER(SByte)),
-        ("lpszSignatureAlgName", POINTER(SByte)),
-        ("lpszEncryptionAlgName", POINTER(SByte)),
-        ("dwKeySize", UInt32),
-    ]
-    return INTERNET_CERTIFICATE_INFO
-def _define_INTERNET_BUFFERSA_head():
-    class INTERNET_BUFFERSA(Structure):
-        pass
-    return INTERNET_BUFFERSA
-def _define_INTERNET_BUFFERSA():
-    INTERNET_BUFFERSA = win32more.Networking.WinInet.INTERNET_BUFFERSA_head
-    INTERNET_BUFFERSA._fields_ = [
-        ("dwStructSize", UInt32),
-        ("Next", POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head)),
-        ("lpcszHeader", win32more.Foundation.PSTR),
-        ("dwHeadersLength", UInt32),
-        ("dwHeadersTotal", UInt32),
-        ("lpvBuffer", c_void_p),
-        ("dwBufferLength", UInt32),
-        ("dwBufferTotal", UInt32),
-        ("dwOffsetLow", UInt32),
-        ("dwOffsetHigh", UInt32),
-    ]
-    return INTERNET_BUFFERSA
-def _define_INTERNET_BUFFERSW_head():
-    class INTERNET_BUFFERSW(Structure):
-        pass
-    return INTERNET_BUFFERSW
-def _define_INTERNET_BUFFERSW():
-    INTERNET_BUFFERSW = win32more.Networking.WinInet.INTERNET_BUFFERSW_head
-    INTERNET_BUFFERSW._fields_ = [
-        ("dwStructSize", UInt32),
-        ("Next", POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head)),
-        ("lpcszHeader", win32more.Foundation.PWSTR),
-        ("dwHeadersLength", UInt32),
-        ("dwHeadersTotal", UInt32),
-        ("lpvBuffer", c_void_p),
-        ("dwBufferLength", UInt32),
-        ("dwBufferTotal", UInt32),
-        ("dwOffsetLow", UInt32),
-        ("dwOffsetHigh", UInt32),
-    ]
-    return INTERNET_BUFFERSW
-def _define_LPINTERNET_STATUS_CALLBACK():
-    return CFUNCTYPE(Void,c_void_p,UIntPtr,UInt32,c_void_p,UInt32, use_last_error=False)
-InternetCookieState = Int32
-COOKIE_STATE_UNKNOWN = 0
-COOKIE_STATE_ACCEPT = 1
-COOKIE_STATE_PROMPT = 2
-COOKIE_STATE_LEASH = 3
-COOKIE_STATE_DOWNGRADE = 4
-COOKIE_STATE_REJECT = 5
-COOKIE_STATE_MAX = 5
-def _define_IncomingCookieState_head():
-    class IncomingCookieState(Structure):
-        pass
-    return IncomingCookieState
-def _define_IncomingCookieState():
-    IncomingCookieState = win32more.Networking.WinInet.IncomingCookieState_head
-    IncomingCookieState._fields_ = [
-        ("cSession", Int32),
-        ("cPersistent", Int32),
-        ("cAccepted", Int32),
-        ("cLeashed", Int32),
-        ("cDowngraded", Int32),
-        ("cBlocked", Int32),
-        ("pszLocation", win32more.Foundation.PSTR),
-    ]
-    return IncomingCookieState
-def _define_OutgoingCookieState_head():
-    class OutgoingCookieState(Structure):
-        pass
-    return OutgoingCookieState
-def _define_OutgoingCookieState():
-    OutgoingCookieState = win32more.Networking.WinInet.OutgoingCookieState_head
-    OutgoingCookieState._fields_ = [
-        ("cSent", Int32),
-        ("cSuppressed", Int32),
-        ("pszLocation", win32more.Foundation.PSTR),
-    ]
-    return OutgoingCookieState
-def _define_InternetCookieHistory_head():
-    class InternetCookieHistory(Structure):
-        pass
-    return InternetCookieHistory
-def _define_InternetCookieHistory():
-    InternetCookieHistory = win32more.Networking.WinInet.InternetCookieHistory_head
-    InternetCookieHistory._fields_ = [
-        ("fAccepted", win32more.Foundation.BOOL),
-        ("fLeashed", win32more.Foundation.BOOL),
-        ("fDowngraded", win32more.Foundation.BOOL),
-        ("fRejected", win32more.Foundation.BOOL),
-    ]
-    return InternetCookieHistory
-def _define_CookieDecision_head():
-    class CookieDecision(Structure):
-        pass
-    return CookieDecision
-def _define_CookieDecision():
-    CookieDecision = win32more.Networking.WinInet.CookieDecision_head
-    CookieDecision._fields_ = [
-        ("dwCookieState", UInt32),
-        ("fAllowSession", win32more.Foundation.BOOL),
-    ]
-    return CookieDecision
-def _define_GOPHER_FIND_DATAA_head():
-    class GOPHER_FIND_DATAA(Structure):
-        pass
-    return GOPHER_FIND_DATAA
-def _define_GOPHER_FIND_DATAA():
-    GOPHER_FIND_DATAA = win32more.Networking.WinInet.GOPHER_FIND_DATAA_head
-    GOPHER_FIND_DATAA._fields_ = [
-        ("DisplayString", win32more.Foundation.CHAR * 129),
-        ("GopherType", win32more.Networking.WinInet.GOPHER_TYPE),
-        ("SizeLow", UInt32),
-        ("SizeHigh", UInt32),
-        ("LastModificationTime", win32more.Foundation.FILETIME),
-        ("Locator", win32more.Foundation.CHAR * 654),
-    ]
-    return GOPHER_FIND_DATAA
-def _define_GOPHER_FIND_DATAW_head():
-    class GOPHER_FIND_DATAW(Structure):
-        pass
-    return GOPHER_FIND_DATAW
-def _define_GOPHER_FIND_DATAW():
-    GOPHER_FIND_DATAW = win32more.Networking.WinInet.GOPHER_FIND_DATAW_head
-    GOPHER_FIND_DATAW._fields_ = [
-        ("DisplayString", Char * 129),
-        ("GopherType", win32more.Networking.WinInet.GOPHER_TYPE),
-        ("SizeLow", UInt32),
-        ("SizeHigh", UInt32),
-        ("LastModificationTime", win32more.Foundation.FILETIME),
-        ("Locator", Char * 654),
-    ]
-    return GOPHER_FIND_DATAW
-def _define_GOPHER_ADMIN_ATTRIBUTE_TYPE_head():
-    class GOPHER_ADMIN_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_ADMIN_ATTRIBUTE_TYPE
-def _define_GOPHER_ADMIN_ATTRIBUTE_TYPE():
-    GOPHER_ADMIN_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ADMIN_ATTRIBUTE_TYPE_head
-    GOPHER_ADMIN_ATTRIBUTE_TYPE._fields_ = [
-        ("Comment", POINTER(SByte)),
-        ("EmailAddress", POINTER(SByte)),
-    ]
-    return GOPHER_ADMIN_ATTRIBUTE_TYPE
-def _define_GOPHER_MOD_DATE_ATTRIBUTE_TYPE_head():
-    class GOPHER_MOD_DATE_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_MOD_DATE_ATTRIBUTE_TYPE
-def _define_GOPHER_MOD_DATE_ATTRIBUTE_TYPE():
-    GOPHER_MOD_DATE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_MOD_DATE_ATTRIBUTE_TYPE_head
-    GOPHER_MOD_DATE_ATTRIBUTE_TYPE._fields_ = [
-        ("DateAndTime", win32more.Foundation.FILETIME),
-    ]
-    return GOPHER_MOD_DATE_ATTRIBUTE_TYPE
-def _define_GOPHER_TTL_ATTRIBUTE_TYPE_head():
-    class GOPHER_TTL_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_TTL_ATTRIBUTE_TYPE
-def _define_GOPHER_TTL_ATTRIBUTE_TYPE():
-    GOPHER_TTL_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_TTL_ATTRIBUTE_TYPE_head
-    GOPHER_TTL_ATTRIBUTE_TYPE._fields_ = [
-        ("Ttl", UInt32),
-    ]
-    return GOPHER_TTL_ATTRIBUTE_TYPE
-def _define_GOPHER_SCORE_ATTRIBUTE_TYPE_head():
-    class GOPHER_SCORE_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_SCORE_ATTRIBUTE_TYPE
-def _define_GOPHER_SCORE_ATTRIBUTE_TYPE():
-    GOPHER_SCORE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_SCORE_ATTRIBUTE_TYPE_head
-    GOPHER_SCORE_ATTRIBUTE_TYPE._fields_ = [
-        ("Score", Int32),
-    ]
-    return GOPHER_SCORE_ATTRIBUTE_TYPE
-def _define_GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE_head():
-    class GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
-def _define_GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE():
-    GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE_head
-    GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE._fields_ = [
-        ("LowerBound", Int32),
-        ("UpperBound", Int32),
-    ]
-    return GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
-def _define_GOPHER_SITE_ATTRIBUTE_TYPE_head():
-    class GOPHER_SITE_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_SITE_ATTRIBUTE_TYPE
-def _define_GOPHER_SITE_ATTRIBUTE_TYPE():
-    GOPHER_SITE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_SITE_ATTRIBUTE_TYPE_head
-    GOPHER_SITE_ATTRIBUTE_TYPE._fields_ = [
-        ("Site", POINTER(SByte)),
-    ]
-    return GOPHER_SITE_ATTRIBUTE_TYPE
-def _define_GOPHER_ORGANIZATION_ATTRIBUTE_TYPE_head():
-    class GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_ORGANIZATION_ATTRIBUTE_TYPE
-def _define_GOPHER_ORGANIZATION_ATTRIBUTE_TYPE():
-    GOPHER_ORGANIZATION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ORGANIZATION_ATTRIBUTE_TYPE_head
-    GOPHER_ORGANIZATION_ATTRIBUTE_TYPE._fields_ = [
-        ("Organization", POINTER(SByte)),
-    ]
-    return GOPHER_ORGANIZATION_ATTRIBUTE_TYPE
-def _define_GOPHER_LOCATION_ATTRIBUTE_TYPE_head():
-    class GOPHER_LOCATION_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_LOCATION_ATTRIBUTE_TYPE
-def _define_GOPHER_LOCATION_ATTRIBUTE_TYPE():
-    GOPHER_LOCATION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_LOCATION_ATTRIBUTE_TYPE_head
-    GOPHER_LOCATION_ATTRIBUTE_TYPE._fields_ = [
-        ("Location", POINTER(SByte)),
-    ]
-    return GOPHER_LOCATION_ATTRIBUTE_TYPE
-def _define_GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE_head():
-    class GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
-def _define_GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE():
-    GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE_head
-    GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE._fields_ = [
-        ("DegreesNorth", Int32),
-        ("MinutesNorth", Int32),
-        ("SecondsNorth", Int32),
-        ("DegreesEast", Int32),
-        ("MinutesEast", Int32),
-        ("SecondsEast", Int32),
-    ]
-    return GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
-def _define_GOPHER_TIMEZONE_ATTRIBUTE_TYPE_head():
-    class GOPHER_TIMEZONE_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_TIMEZONE_ATTRIBUTE_TYPE
-def _define_GOPHER_TIMEZONE_ATTRIBUTE_TYPE():
-    GOPHER_TIMEZONE_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_TIMEZONE_ATTRIBUTE_TYPE_head
-    GOPHER_TIMEZONE_ATTRIBUTE_TYPE._fields_ = [
-        ("Zone", Int32),
-    ]
-    return GOPHER_TIMEZONE_ATTRIBUTE_TYPE
-def _define_GOPHER_PROVIDER_ATTRIBUTE_TYPE_head():
-    class GOPHER_PROVIDER_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_PROVIDER_ATTRIBUTE_TYPE
-def _define_GOPHER_PROVIDER_ATTRIBUTE_TYPE():
-    GOPHER_PROVIDER_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_PROVIDER_ATTRIBUTE_TYPE_head
-    GOPHER_PROVIDER_ATTRIBUTE_TYPE._fields_ = [
-        ("Provider", POINTER(SByte)),
-    ]
-    return GOPHER_PROVIDER_ATTRIBUTE_TYPE
-def _define_GOPHER_VERSION_ATTRIBUTE_TYPE_head():
-    class GOPHER_VERSION_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_VERSION_ATTRIBUTE_TYPE
-def _define_GOPHER_VERSION_ATTRIBUTE_TYPE():
-    GOPHER_VERSION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_VERSION_ATTRIBUTE_TYPE_head
-    GOPHER_VERSION_ATTRIBUTE_TYPE._fields_ = [
-        ("Version", POINTER(SByte)),
-    ]
-    return GOPHER_VERSION_ATTRIBUTE_TYPE
-def _define_GOPHER_ABSTRACT_ATTRIBUTE_TYPE_head():
-    class GOPHER_ABSTRACT_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_ABSTRACT_ATTRIBUTE_TYPE
-def _define_GOPHER_ABSTRACT_ATTRIBUTE_TYPE():
-    GOPHER_ABSTRACT_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ABSTRACT_ATTRIBUTE_TYPE_head
-    GOPHER_ABSTRACT_ATTRIBUTE_TYPE._fields_ = [
-        ("ShortAbstract", POINTER(SByte)),
-        ("AbstractFile", POINTER(SByte)),
-    ]
-    return GOPHER_ABSTRACT_ATTRIBUTE_TYPE
-def _define_GOPHER_VIEW_ATTRIBUTE_TYPE_head():
-    class GOPHER_VIEW_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_VIEW_ATTRIBUTE_TYPE
-def _define_GOPHER_VIEW_ATTRIBUTE_TYPE():
-    GOPHER_VIEW_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_VIEW_ATTRIBUTE_TYPE_head
-    GOPHER_VIEW_ATTRIBUTE_TYPE._fields_ = [
-        ("ContentType", POINTER(SByte)),
-        ("Language", POINTER(SByte)),
-        ("Size", UInt32),
-    ]
-    return GOPHER_VIEW_ATTRIBUTE_TYPE
-def _define_GOPHER_VERONICA_ATTRIBUTE_TYPE_head():
-    class GOPHER_VERONICA_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_VERONICA_ATTRIBUTE_TYPE
-def _define_GOPHER_VERONICA_ATTRIBUTE_TYPE():
-    GOPHER_VERONICA_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_VERONICA_ATTRIBUTE_TYPE_head
-    GOPHER_VERONICA_ATTRIBUTE_TYPE._fields_ = [
-        ("TreeWalk", win32more.Foundation.BOOL),
-    ]
-    return GOPHER_VERONICA_ATTRIBUTE_TYPE
-def _define_GOPHER_ASK_ATTRIBUTE_TYPE_head():
-    class GOPHER_ASK_ATTRIBUTE_TYPE(Structure):
-        pass
-    return GOPHER_ASK_ATTRIBUTE_TYPE
-def _define_GOPHER_ASK_ATTRIBUTE_TYPE():
-    GOPHER_ASK_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ASK_ATTRIBUTE_TYPE_head
-    GOPHER_ASK_ATTRIBUTE_TYPE._fields_ = [
-        ("QuestionType", POINTER(SByte)),
-        ("QuestionText", POINTER(SByte)),
-    ]
-    return GOPHER_ASK_ATTRIBUTE_TYPE
 def _define_GOPHER_UNKNOWN_ATTRIBUTE_TYPE_head():
     class GOPHER_UNKNOWN_ATTRIBUTE_TYPE(Structure):
         pass
@@ -1509,436 +2802,58 @@ def _define_GOPHER_UNKNOWN_ATTRIBUTE_TYPE_head():
 def _define_GOPHER_UNKNOWN_ATTRIBUTE_TYPE():
     GOPHER_UNKNOWN_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_UNKNOWN_ATTRIBUTE_TYPE_head
     GOPHER_UNKNOWN_ATTRIBUTE_TYPE._fields_ = [
-        ("Text", POINTER(SByte)),
+        ('Text', POINTER(SByte)),
     ]
     return GOPHER_UNKNOWN_ATTRIBUTE_TYPE
-def _define_GOPHER_ATTRIBUTE_TYPE_head():
-    class GOPHER_ATTRIBUTE_TYPE(Structure):
+def _define_GOPHER_VERONICA_ATTRIBUTE_TYPE_head():
+    class GOPHER_VERONICA_ATTRIBUTE_TYPE(Structure):
         pass
-    return GOPHER_ATTRIBUTE_TYPE
-def _define_GOPHER_ATTRIBUTE_TYPE():
-    GOPHER_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_ATTRIBUTE_TYPE_head
-    class GOPHER_ATTRIBUTE_TYPE__AttributeType_e__Union(Union):
+    return GOPHER_VERONICA_ATTRIBUTE_TYPE
+def _define_GOPHER_VERONICA_ATTRIBUTE_TYPE():
+    GOPHER_VERONICA_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_VERONICA_ATTRIBUTE_TYPE_head
+    GOPHER_VERONICA_ATTRIBUTE_TYPE._fields_ = [
+        ('TreeWalk', win32more.Foundation.BOOL),
+    ]
+    return GOPHER_VERONICA_ATTRIBUTE_TYPE
+def _define_GOPHER_VERSION_ATTRIBUTE_TYPE_head():
+    class GOPHER_VERSION_ATTRIBUTE_TYPE(Structure):
         pass
-    GOPHER_ATTRIBUTE_TYPE__AttributeType_e__Union._fields_ = [
-        ("Admin", win32more.Networking.WinInet.GOPHER_ADMIN_ATTRIBUTE_TYPE),
-        ("ModDate", win32more.Networking.WinInet.GOPHER_MOD_DATE_ATTRIBUTE_TYPE),
-        ("Ttl", win32more.Networking.WinInet.GOPHER_TTL_ATTRIBUTE_TYPE),
-        ("Score", win32more.Networking.WinInet.GOPHER_SCORE_ATTRIBUTE_TYPE),
-        ("ScoreRange", win32more.Networking.WinInet.GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE),
-        ("Site", win32more.Networking.WinInet.GOPHER_SITE_ATTRIBUTE_TYPE),
-        ("Organization", win32more.Networking.WinInet.GOPHER_ORGANIZATION_ATTRIBUTE_TYPE),
-        ("Location", win32more.Networking.WinInet.GOPHER_LOCATION_ATTRIBUTE_TYPE),
-        ("GeographicalLocation", win32more.Networking.WinInet.GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE),
-        ("TimeZone", win32more.Networking.WinInet.GOPHER_TIMEZONE_ATTRIBUTE_TYPE),
-        ("Provider", win32more.Networking.WinInet.GOPHER_PROVIDER_ATTRIBUTE_TYPE),
-        ("Version", win32more.Networking.WinInet.GOPHER_VERSION_ATTRIBUTE_TYPE),
-        ("Abstract", win32more.Networking.WinInet.GOPHER_ABSTRACT_ATTRIBUTE_TYPE),
-        ("View", win32more.Networking.WinInet.GOPHER_VIEW_ATTRIBUTE_TYPE),
-        ("Veronica", win32more.Networking.WinInet.GOPHER_VERONICA_ATTRIBUTE_TYPE),
-        ("Ask", win32more.Networking.WinInet.GOPHER_ASK_ATTRIBUTE_TYPE),
-        ("Unknown", win32more.Networking.WinInet.GOPHER_UNKNOWN_ATTRIBUTE_TYPE),
+    return GOPHER_VERSION_ATTRIBUTE_TYPE
+def _define_GOPHER_VERSION_ATTRIBUTE_TYPE():
+    GOPHER_VERSION_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_VERSION_ATTRIBUTE_TYPE_head
+    GOPHER_VERSION_ATTRIBUTE_TYPE._fields_ = [
+        ('Version', POINTER(SByte)),
     ]
-    GOPHER_ATTRIBUTE_TYPE._fields_ = [
-        ("CategoryId", UInt32),
-        ("AttributeId", UInt32),
-        ("AttributeType", GOPHER_ATTRIBUTE_TYPE__AttributeType_e__Union),
-    ]
-    return GOPHER_ATTRIBUTE_TYPE
-def _define_GOPHER_ATTRIBUTE_ENUMERATOR():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.GOPHER_ATTRIBUTE_TYPE_head),UInt32, use_last_error=False)
-def _define_INTERNET_COOKIE2_head():
-    class INTERNET_COOKIE2(Structure):
+    return GOPHER_VERSION_ATTRIBUTE_TYPE
+def _define_GOPHER_VIEW_ATTRIBUTE_TYPE_head():
+    class GOPHER_VIEW_ATTRIBUTE_TYPE(Structure):
         pass
-    return INTERNET_COOKIE2
-def _define_INTERNET_COOKIE2():
-    INTERNET_COOKIE2 = win32more.Networking.WinInet.INTERNET_COOKIE2_head
-    INTERNET_COOKIE2._fields_ = [
-        ("pwszName", win32more.Foundation.PWSTR),
-        ("pwszValue", win32more.Foundation.PWSTR),
-        ("pwszDomain", win32more.Foundation.PWSTR),
-        ("pwszPath", win32more.Foundation.PWSTR),
-        ("dwFlags", UInt32),
-        ("ftExpires", win32more.Foundation.FILETIME),
-        ("fExpiresSet", win32more.Foundation.BOOL),
+    return GOPHER_VIEW_ATTRIBUTE_TYPE
+def _define_GOPHER_VIEW_ATTRIBUTE_TYPE():
+    GOPHER_VIEW_ATTRIBUTE_TYPE = win32more.Networking.WinInet.GOPHER_VIEW_ATTRIBUTE_TYPE_head
+    GOPHER_VIEW_ATTRIBUTE_TYPE._fields_ = [
+        ('ContentType', POINTER(SByte)),
+        ('Language', POINTER(SByte)),
+        ('Size', UInt32),
     ]
-    return INTERNET_COOKIE2
-def _define_PFN_AUTH_NOTIFY():
-    return CFUNCTYPE(UInt32,UIntPtr,UInt32,c_void_p, use_last_error=False)
-def _define_INTERNET_AUTH_NOTIFY_DATA_head():
-    class INTERNET_AUTH_NOTIFY_DATA(Structure):
-        pass
-    return INTERNET_AUTH_NOTIFY_DATA
-def _define_INTERNET_AUTH_NOTIFY_DATA():
-    INTERNET_AUTH_NOTIFY_DATA = win32more.Networking.WinInet.INTERNET_AUTH_NOTIFY_DATA_head
-    INTERNET_AUTH_NOTIFY_DATA._fields_ = [
-        ("cbStruct", UInt32),
-        ("dwOptions", UInt32),
-        ("pfnNotify", win32more.Networking.WinInet.PFN_AUTH_NOTIFY),
-        ("dwContext", UIntPtr),
-    ]
-    return INTERNET_AUTH_NOTIFY_DATA
-def _define_INTERNET_CACHE_ENTRY_INFOA_head():
-    class INTERNET_CACHE_ENTRY_INFOA(Structure):
-        pass
-    return INTERNET_CACHE_ENTRY_INFOA
-def _define_INTERNET_CACHE_ENTRY_INFOA():
-    INTERNET_CACHE_ENTRY_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head
-    class INTERNET_CACHE_ENTRY_INFOA__Anonymous_e__Union(Union):
-        pass
-    INTERNET_CACHE_ENTRY_INFOA__Anonymous_e__Union._fields_ = [
-        ("dwReserved", UInt32),
-        ("dwExemptDelta", UInt32),
-    ]
-    INTERNET_CACHE_ENTRY_INFOA._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CACHE_ENTRY_INFOA._fields_ = [
-        ("dwStructSize", UInt32),
-        ("lpszSourceUrlName", win32more.Foundation.PSTR),
-        ("lpszLocalFileName", win32more.Foundation.PSTR),
-        ("CacheEntryType", UInt32),
-        ("dwUseCount", UInt32),
-        ("dwHitRate", UInt32),
-        ("dwSizeLow", UInt32),
-        ("dwSizeHigh", UInt32),
-        ("LastModifiedTime", win32more.Foundation.FILETIME),
-        ("ExpireTime", win32more.Foundation.FILETIME),
-        ("LastAccessTime", win32more.Foundation.FILETIME),
-        ("LastSyncTime", win32more.Foundation.FILETIME),
-        ("lpHeaderInfo", win32more.Foundation.PSTR),
-        ("dwHeaderInfoSize", UInt32),
-        ("lpszFileExtension", win32more.Foundation.PSTR),
-        ("Anonymous", INTERNET_CACHE_ENTRY_INFOA__Anonymous_e__Union),
-    ]
-    return INTERNET_CACHE_ENTRY_INFOA
-def _define_INTERNET_CACHE_ENTRY_INFOW_head():
-    class INTERNET_CACHE_ENTRY_INFOW(Structure):
-        pass
-    return INTERNET_CACHE_ENTRY_INFOW
-def _define_INTERNET_CACHE_ENTRY_INFOW():
-    INTERNET_CACHE_ENTRY_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head
-    class INTERNET_CACHE_ENTRY_INFOW__Anonymous_e__Union(Union):
-        pass
-    INTERNET_CACHE_ENTRY_INFOW__Anonymous_e__Union._fields_ = [
-        ("dwReserved", UInt32),
-        ("dwExemptDelta", UInt32),
-    ]
-    INTERNET_CACHE_ENTRY_INFOW._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CACHE_ENTRY_INFOW._fields_ = [
-        ("dwStructSize", UInt32),
-        ("lpszSourceUrlName", win32more.Foundation.PWSTR),
-        ("lpszLocalFileName", win32more.Foundation.PWSTR),
-        ("CacheEntryType", UInt32),
-        ("dwUseCount", UInt32),
-        ("dwHitRate", UInt32),
-        ("dwSizeLow", UInt32),
-        ("dwSizeHigh", UInt32),
-        ("LastModifiedTime", win32more.Foundation.FILETIME),
-        ("ExpireTime", win32more.Foundation.FILETIME),
-        ("LastAccessTime", win32more.Foundation.FILETIME),
-        ("LastSyncTime", win32more.Foundation.FILETIME),
-        ("lpHeaderInfo", win32more.Foundation.PWSTR),
-        ("dwHeaderInfoSize", UInt32),
-        ("lpszFileExtension", win32more.Foundation.PWSTR),
-        ("Anonymous", INTERNET_CACHE_ENTRY_INFOW__Anonymous_e__Union),
-    ]
-    return INTERNET_CACHE_ENTRY_INFOW
-def _define_INTERNET_CACHE_TIMESTAMPS_head():
-    class INTERNET_CACHE_TIMESTAMPS(Structure):
-        pass
-    return INTERNET_CACHE_TIMESTAMPS
-def _define_INTERNET_CACHE_TIMESTAMPS():
-    INTERNET_CACHE_TIMESTAMPS = win32more.Networking.WinInet.INTERNET_CACHE_TIMESTAMPS_head
-    INTERNET_CACHE_TIMESTAMPS._fields_ = [
-        ("ftExpires", win32more.Foundation.FILETIME),
-        ("ftLastModified", win32more.Foundation.FILETIME),
-    ]
-    return INTERNET_CACHE_TIMESTAMPS
-def _define_INTERNET_CACHE_GROUP_INFOA_head():
-    class INTERNET_CACHE_GROUP_INFOA(Structure):
-        pass
-    return INTERNET_CACHE_GROUP_INFOA
-def _define_INTERNET_CACHE_GROUP_INFOA():
-    INTERNET_CACHE_GROUP_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOA_head
-    INTERNET_CACHE_GROUP_INFOA._fields_ = [
-        ("dwGroupSize", UInt32),
-        ("dwGroupFlags", UInt32),
-        ("dwGroupType", UInt32),
-        ("dwDiskUsage", UInt32),
-        ("dwDiskQuota", UInt32),
-        ("dwOwnerStorage", UInt32 * 4),
-        ("szGroupName", win32more.Foundation.CHAR * 120),
-    ]
-    return INTERNET_CACHE_GROUP_INFOA
-def _define_INTERNET_CACHE_GROUP_INFOW_head():
-    class INTERNET_CACHE_GROUP_INFOW(Structure):
-        pass
-    return INTERNET_CACHE_GROUP_INFOW
-def _define_INTERNET_CACHE_GROUP_INFOW():
-    INTERNET_CACHE_GROUP_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOW_head
-    INTERNET_CACHE_GROUP_INFOW._fields_ = [
-        ("dwGroupSize", UInt32),
-        ("dwGroupFlags", UInt32),
-        ("dwGroupType", UInt32),
-        ("dwDiskUsage", UInt32),
-        ("dwDiskQuota", UInt32),
-        ("dwOwnerStorage", UInt32 * 4),
-        ("szGroupName", Char * 120),
-    ]
-    return INTERNET_CACHE_GROUP_INFOW
-def _define_AutoProxyHelperVtbl_head():
-    class AutoProxyHelperVtbl(Structure):
-        pass
-    return AutoProxyHelperVtbl
-def _define_AutoProxyHelperVtbl():
-    AutoProxyHelperVtbl = win32more.Networking.WinInet.AutoProxyHelperVtbl_head
-    AutoProxyHelperVtbl._fields_ = [
-        ("IsResolvable", IntPtr),
-        ("GetIPAddress", IntPtr),
-        ("ResolveHostName", IntPtr),
-        ("IsInNet", IntPtr),
-        ("IsResolvableEx", IntPtr),
-        ("GetIPAddressEx", IntPtr),
-        ("ResolveHostNameEx", IntPtr),
-        ("IsInNetEx", IntPtr),
-        ("SortIpList", IntPtr),
-    ]
-    return AutoProxyHelperVtbl
-def _define_AUTO_PROXY_SCRIPT_BUFFER_head():
-    class AUTO_PROXY_SCRIPT_BUFFER(Structure):
-        pass
-    return AUTO_PROXY_SCRIPT_BUFFER
-def _define_AUTO_PROXY_SCRIPT_BUFFER():
-    AUTO_PROXY_SCRIPT_BUFFER = win32more.Networking.WinInet.AUTO_PROXY_SCRIPT_BUFFER_head
-    AUTO_PROXY_SCRIPT_BUFFER._fields_ = [
-        ("dwStructSize", UInt32),
-        ("lpszScriptBuffer", win32more.Foundation.PSTR),
-        ("dwScriptBufferSize", UInt32),
-    ]
-    return AUTO_PROXY_SCRIPT_BUFFER
-def _define_AutoProxyHelperFunctions_head():
-    class AutoProxyHelperFunctions(Structure):
-        pass
-    return AutoProxyHelperFunctions
-def _define_AutoProxyHelperFunctions():
-    AutoProxyHelperFunctions = win32more.Networking.WinInet.AutoProxyHelperFunctions_head
-    AutoProxyHelperFunctions._fields_ = [
-        ("lpVtbl", POINTER(win32more.Networking.WinInet.AutoProxyHelperVtbl_head)),
-    ]
-    return AutoProxyHelperFunctions
-def _define_pfnInternetInitializeAutoProxyDll():
-    return CFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.AutoProxyHelperFunctions_head),POINTER(win32more.Networking.WinInet.AUTO_PROXY_SCRIPT_BUFFER_head), use_last_error=False)
-def _define_pfnInternetDeInitializeAutoProxyDll():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32, use_last_error=False)
-def _define_pfnInternetGetProxyInfo():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Foundation.PSTR),POINTER(UInt32), use_last_error=False)
-WPAD_CACHE_DELETE = Int32
-WPAD_CACHE_DELETE_CURRENT = 0
-WPAD_CACHE_DELETE_ALL = 1
-def _define_PFN_DIAL_HANDLER():
-    return CFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UInt32), use_last_error=False)
-def _define_IDialEventSink_head():
-    class IDialEventSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2d86f4ff-6e2d-4488-b2e9-6934afd41bea')
-    return IDialEventSink
-def _define_IDialEventSink():
-    IDialEventSink = win32more.Networking.WinInet.IDialEventSink_head
-    IDialEventSink.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'OnEvent', ((1, 'dwEvent'),(1, 'dwStatus'),)))
-    win32more.System.Com.IUnknown
-    return IDialEventSink
-def _define_IDialEngine_head():
-    class IDialEngine(win32more.System.Com.IUnknown_head):
-        Guid = Guid('39fd782b-7905-40d5-9148-3c9b190423d5')
-    return IDialEngine
-def _define_IDialEngine():
-    IDialEngine = win32more.Networking.WinInet.IDialEngine_head
-    IDialEngine.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Networking.WinInet.IDialEventSink_head, use_last_error=False)(3, 'Initialize', ((1, 'pwzConnectoid'),(1, 'pIDES'),)))
-    IDialEngine.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'GetProperty', ((1, 'pwzProperty'),(1, 'pwzValue'),(1, 'dwBufSize'),)))
-    IDialEngine.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetProperty', ((1, 'pwzProperty'),(1, 'pwzValue'),)))
-    IDialEngine.Dial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Dial', ()))
-    IDialEngine.HangUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'HangUp', ()))
-    IDialEngine.GetConnectedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetConnectedState', ((1, 'pdwState'),)))
-    IDialEngine.GetConnectHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr), use_last_error=False)(9, 'GetConnectHandle', ((1, 'pdwHandle'),)))
-    win32more.System.Com.IUnknown
-    return IDialEngine
-def _define_IDialBranding_head():
-    class IDialBranding(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8aecafa9-4306-43cc-8c5a-765f2979cc16')
-    return IDialBranding
-def _define_IDialBranding():
-    IDialBranding = win32more.Networking.WinInet.IDialBranding_head
-    IDialBranding.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'pwzConnectoid'),)))
-    IDialBranding.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(4, 'GetBitmap', ((1, 'dwIndex'),(1, 'phBitmap'),)))
-    win32more.System.Com.IUnknown
-    return IDialBranding
-def _define_INTERNET_PREFETCH_STATUS_head():
-    class INTERNET_PREFETCH_STATUS(Structure):
-        pass
-    return INTERNET_PREFETCH_STATUS
-def _define_INTERNET_PREFETCH_STATUS():
-    INTERNET_PREFETCH_STATUS = win32more.Networking.WinInet.INTERNET_PREFETCH_STATUS_head
-    INTERNET_PREFETCH_STATUS._fields_ = [
-        ("dwStatus", UInt32),
-        ("dwSize", UInt32),
-    ]
-    return INTERNET_PREFETCH_STATUS
-def _define_INTERNET_SECURITY_INFO_head():
-    class INTERNET_SECURITY_INFO(Structure):
-        pass
-    return INTERNET_SECURITY_INFO
-def _define_INTERNET_SECURITY_INFO():
-    INTERNET_SECURITY_INFO = win32more.Networking.WinInet.INTERNET_SECURITY_INFO_head
-    INTERNET_SECURITY_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("pCertificate", POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)),
-        ("pcCertChain", POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),
-        ("connectionInfo", win32more.Security.Authentication.Identity.SecPkgContext_ConnectionInfo),
-        ("cipherInfo", win32more.Security.Authentication.Identity.SecPkgContext_CipherInfo),
-        ("pcUnverifiedCertChain", POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),
-        ("channelBindingToken", win32more.Security.Authentication.Identity.SecPkgContext_Bindings),
-    ]
-    return INTERNET_SECURITY_INFO
-def _define_INTERNET_SECURITY_CONNECTION_INFO_head():
-    class INTERNET_SECURITY_CONNECTION_INFO(Structure):
-        pass
-    return INTERNET_SECURITY_CONNECTION_INFO
-def _define_INTERNET_SECURITY_CONNECTION_INFO():
-    INTERNET_SECURITY_CONNECTION_INFO = win32more.Networking.WinInet.INTERNET_SECURITY_CONNECTION_INFO_head
-    INTERNET_SECURITY_CONNECTION_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("fSecure", win32more.Foundation.BOOL),
-        ("connectionInfo", win32more.Security.Authentication.Identity.SecPkgContext_ConnectionInfo),
-        ("cipherInfo", win32more.Security.Authentication.Identity.SecPkgContext_CipherInfo),
-    ]
-    return INTERNET_SECURITY_CONNECTION_INFO
-FORTCMD = Int32
-FORTCMD_LOGON = 1
-FORTCMD_LOGOFF = 2
-FORTCMD_CHG_PERSONALITY = 3
-FORTSTAT = Int32
-FORTSTAT_INSTALLED = 1
-FORTSTAT_LOGGEDON = 2
-def _define_INTERNET_DOWNLOAD_MODE_HANDLE_head():
-    class INTERNET_DOWNLOAD_MODE_HANDLE(Structure):
-        pass
-    return INTERNET_DOWNLOAD_MODE_HANDLE
-def _define_INTERNET_DOWNLOAD_MODE_HANDLE():
-    INTERNET_DOWNLOAD_MODE_HANDLE = win32more.Networking.WinInet.INTERNET_DOWNLOAD_MODE_HANDLE_head
-    INTERNET_DOWNLOAD_MODE_HANDLE._fields_ = [
-        ("pcwszFileName", win32more.Foundation.PWSTR),
-        ("phFile", POINTER(win32more.Foundation.HANDLE)),
-    ]
-    return INTERNET_DOWNLOAD_MODE_HANDLE
-REQUEST_TIMES = Int32
-REQUEST_TIMES_NameResolutionStart = 0
-REQUEST_TIMES_NameResolutionEnd = 1
-REQUEST_TIMES_ConnectionEstablishmentStart = 2
-REQUEST_TIMES_ConnectionEstablishmentEnd = 3
-REQUEST_TIMES_TLSHandshakeStart = 4
-REQUEST_TIMES_TLSHandshakeEnd = 5
-REQUEST_TIMES_HttpRequestTimeMax = 32
-def _define_HTTP_REQUEST_TIMES_head():
-    class HTTP_REQUEST_TIMES(Structure):
-        pass
-    return HTTP_REQUEST_TIMES
-def _define_HTTP_REQUEST_TIMES():
-    HTTP_REQUEST_TIMES = win32more.Networking.WinInet.HTTP_REQUEST_TIMES_head
-    HTTP_REQUEST_TIMES._fields_ = [
-        ("cTimes", UInt32),
-        ("rgTimes", UInt64 * 32),
-    ]
-    return HTTP_REQUEST_TIMES
-def _define_INTERNET_SERVER_CONNECTION_STATE_head():
-    class INTERNET_SERVER_CONNECTION_STATE(Structure):
-        pass
-    return INTERNET_SERVER_CONNECTION_STATE
-def _define_INTERNET_SERVER_CONNECTION_STATE():
-    INTERNET_SERVER_CONNECTION_STATE = win32more.Networking.WinInet.INTERNET_SERVER_CONNECTION_STATE_head
-    INTERNET_SERVER_CONNECTION_STATE._fields_ = [
-        ("lpcwszHostName", win32more.Foundation.PWSTR),
-        ("fProxy", win32more.Foundation.BOOL),
-        ("dwCounter", UInt32),
-        ("dwConnectionLimit", UInt32),
-        ("dwAvailableCreates", UInt32),
-        ("dwAvailableKeepAlives", UInt32),
-        ("dwActiveConnections", UInt32),
-        ("dwWaiters", UInt32),
-    ]
-    return INTERNET_SERVER_CONNECTION_STATE
-def _define_INTERNET_END_BROWSER_SESSION_DATA_head():
-    class INTERNET_END_BROWSER_SESSION_DATA(Structure):
-        pass
-    return INTERNET_END_BROWSER_SESSION_DATA
-def _define_INTERNET_END_BROWSER_SESSION_DATA():
-    INTERNET_END_BROWSER_SESSION_DATA = win32more.Networking.WinInet.INTERNET_END_BROWSER_SESSION_DATA_head
-    INTERNET_END_BROWSER_SESSION_DATA._fields_ = [
-        ("lpBuffer", c_void_p),
-        ("dwBufferLength", UInt32),
-    ]
-    return INTERNET_END_BROWSER_SESSION_DATA
-def _define_INTERNET_CALLBACK_COOKIE_head():
-    class INTERNET_CALLBACK_COOKIE(Structure):
-        pass
-    return INTERNET_CALLBACK_COOKIE
-def _define_INTERNET_CALLBACK_COOKIE():
-    INTERNET_CALLBACK_COOKIE = win32more.Networking.WinInet.INTERNET_CALLBACK_COOKIE_head
-    INTERNET_CALLBACK_COOKIE._fields_ = [
-        ("pcwszName", win32more.Foundation.PWSTR),
-        ("pcwszValue", win32more.Foundation.PWSTR),
-        ("pcwszDomain", win32more.Foundation.PWSTR),
-        ("pcwszPath", win32more.Foundation.PWSTR),
-        ("ftExpires", win32more.Foundation.FILETIME),
-        ("dwFlags", UInt32),
-    ]
-    return INTERNET_CALLBACK_COOKIE
-def _define_INTERNET_CREDENTIALS_head():
-    class INTERNET_CREDENTIALS(Structure):
-        pass
-    return INTERNET_CREDENTIALS
-def _define_INTERNET_CREDENTIALS():
-    INTERNET_CREDENTIALS = win32more.Networking.WinInet.INTERNET_CREDENTIALS_head
-    class INTERNET_CREDENTIALS__Anonymous_e__Union(Union):
-        pass
-    class INTERNET_CREDENTIALS__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    INTERNET_CREDENTIALS__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("lpcwszUserName", win32more.Foundation.PWSTR),
-        ("lpcwszPassword", win32more.Foundation.PWSTR),
-    ]
-    INTERNET_CREDENTIALS__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CREDENTIALS__Anonymous_e__Union._fields_ = [
-        ("Anonymous", INTERNET_CREDENTIALS__Anonymous_e__Union__Anonymous_e__Struct),
-        ("pAuthIdentityOpaque", c_void_p),
-    ]
-    INTERNET_CREDENTIALS._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CREDENTIALS._fields_ = [
-        ("lpcwszHostName", win32more.Foundation.PWSTR),
-        ("dwPort", UInt32),
-        ("dwScheme", UInt32),
-        ("lpcwszUrl", win32more.Foundation.PWSTR),
-        ("lpcwszRealm", win32more.Foundation.PWSTR),
-        ("fAuthIdentity", win32more.Foundation.BOOL),
-        ("Anonymous", INTERNET_CREDENTIALS__Anonymous_e__Union),
-    ]
-    return INTERNET_CREDENTIALS
-def _define_HTTP_PUSH_TRANSPORT_SETTING_head():
-    class HTTP_PUSH_TRANSPORT_SETTING(Structure):
-        pass
-    return HTTP_PUSH_TRANSPORT_SETTING
-def _define_HTTP_PUSH_TRANSPORT_SETTING():
-    HTTP_PUSH_TRANSPORT_SETTING = win32more.Networking.WinInet.HTTP_PUSH_TRANSPORT_SETTING_head
-    HTTP_PUSH_TRANSPORT_SETTING._fields_ = [
-        ("TransportSettingId", Guid),
-        ("BrokerEventId", Guid),
-    ]
-    return HTTP_PUSH_TRANSPORT_SETTING
+    return GOPHER_VIEW_ATTRIBUTE_TYPE
+HTTP_ADDREQ_FLAG = UInt32
+HTTP_ADDREQ_FLAG_ADD = 536870912
+HTTP_ADDREQ_FLAG_ADD_IF_NEW = 268435456
+HTTP_ADDREQ_FLAG_COALESCE = 1073741824
+HTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA = 1073741824
+HTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON = 16777216
+HTTP_ADDREQ_FLAG_REPLACE = 2147483648
+def _define_HTTP_POLICY_EXTENSION_INIT():
+    return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.HTTP_POLICY_EXTENSION_VERSION,win32more.Networking.WinInet.HTTP_POLICY_EXTENSION_TYPE,c_void_p,UInt32)
+def _define_HTTP_POLICY_EXTENSION_SHUTDOWN():
+    return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.HTTP_POLICY_EXTENSION_TYPE)
+HTTP_POLICY_EXTENSION_TYPE = Int32
+POLICY_EXTENSION_TYPE_NONE = 0
+POLICY_EXTENSION_TYPE_WINHTTP = 1
+POLICY_EXTENSION_TYPE_WININET = 2
+HTTP_POLICY_EXTENSION_VERSION = Int32
+POLICY_EXTENSION_VERSION1 = 1
 def _define_HTTP_PUSH_NOTIFICATION_STATUS_head():
     class HTTP_PUSH_NOTIFICATION_STATUS(Structure):
         pass
@@ -1946,295 +2861,50 @@ def _define_HTTP_PUSH_NOTIFICATION_STATUS_head():
 def _define_HTTP_PUSH_NOTIFICATION_STATUS():
     HTTP_PUSH_NOTIFICATION_STATUS = win32more.Networking.WinInet.HTTP_PUSH_NOTIFICATION_STATUS_head
     HTTP_PUSH_NOTIFICATION_STATUS._fields_ = [
-        ("ChannelStatusValid", win32more.Foundation.BOOL),
-        ("ChannelStatus", UInt32),
+        ('ChannelStatusValid', win32more.Foundation.BOOL),
+        ('ChannelStatus', UInt32),
     ]
     return HTTP_PUSH_NOTIFICATION_STATUS
+def _define_HTTP_PUSH_TRANSPORT_SETTING_head():
+    class HTTP_PUSH_TRANSPORT_SETTING(Structure):
+        pass
+    return HTTP_PUSH_TRANSPORT_SETTING
+def _define_HTTP_PUSH_TRANSPORT_SETTING():
+    HTTP_PUSH_TRANSPORT_SETTING = win32more.Networking.WinInet.HTTP_PUSH_TRANSPORT_SETTING_head
+    HTTP_PUSH_TRANSPORT_SETTING._fields_ = [
+        ('TransportSettingId', Guid),
+        ('BrokerEventId', Guid),
+    ]
+    return HTTP_PUSH_TRANSPORT_SETTING
+HTTP_PUSH_WAIT_HANDLE = IntPtr
 HTTP_PUSH_WAIT_TYPE = Int32
 HTTP_PUSH_WAIT_TYPE_HttpPushWaitEnableComplete = 0
 HTTP_PUSH_WAIT_TYPE_HttpPushWaitReceiveComplete = 1
 HTTP_PUSH_WAIT_TYPE_HttpPushWaitSendComplete = 2
-def _define_INTERNET_COOKIE_head():
-    class INTERNET_COOKIE(Structure):
+def _define_HTTP_REQUEST_TIMES_head():
+    class HTTP_REQUEST_TIMES(Structure):
         pass
-    return INTERNET_COOKIE
-def _define_INTERNET_COOKIE():
-    INTERNET_COOKIE = win32more.Networking.WinInet.INTERNET_COOKIE_head
-    INTERNET_COOKIE._fields_ = [
-        ("cbSize", UInt32),
-        ("pszName", win32more.Foundation.PSTR),
-        ("pszData", win32more.Foundation.PSTR),
-        ("pszDomain", win32more.Foundation.PSTR),
-        ("pszPath", win32more.Foundation.PSTR),
-        ("pftExpires", POINTER(win32more.Foundation.FILETIME_head)),
-        ("dwFlags", UInt32),
-        ("pszUrl", win32more.Foundation.PSTR),
-        ("pszP3PPolicy", win32more.Foundation.PSTR),
+    return HTTP_REQUEST_TIMES
+def _define_HTTP_REQUEST_TIMES():
+    HTTP_REQUEST_TIMES = win32more.Networking.WinInet.HTTP_REQUEST_TIMES_head
+    HTTP_REQUEST_TIMES._fields_ = [
+        ('cTimes', UInt32),
+        ('rgTimes', UInt64 * 32),
     ]
-    return INTERNET_COOKIE
-def _define_COOKIE_DLG_INFO_head():
-    class COOKIE_DLG_INFO(Structure):
+    return HTTP_REQUEST_TIMES
+def _define_HTTP_WEB_SOCKET_ASYNC_RESULT_head():
+    class HTTP_WEB_SOCKET_ASYNC_RESULT(Structure):
         pass
-    return COOKIE_DLG_INFO
-def _define_COOKIE_DLG_INFO():
-    COOKIE_DLG_INFO = win32more.Networking.WinInet.COOKIE_DLG_INFO_head
-    COOKIE_DLG_INFO._fields_ = [
-        ("pszServer", win32more.Foundation.PWSTR),
-        ("pic", POINTER(win32more.Networking.WinInet.INTERNET_COOKIE_head)),
-        ("dwStopWarning", UInt32),
-        ("cx", Int32),
-        ("cy", Int32),
-        ("pszHeader", win32more.Foundation.PWSTR),
-        ("dwOperation", UInt32),
+    return HTTP_WEB_SOCKET_ASYNC_RESULT
+def _define_HTTP_WEB_SOCKET_ASYNC_RESULT():
+    HTTP_WEB_SOCKET_ASYNC_RESULT = win32more.Networking.WinInet.HTTP_WEB_SOCKET_ASYNC_RESULT_head
+    HTTP_WEB_SOCKET_ASYNC_RESULT._fields_ = [
+        ('AsyncResult', win32more.Networking.WinInet.INTERNET_ASYNC_RESULT),
+        ('Operation', win32more.Networking.WinInet.HTTP_WEB_SOCKET_OPERATION),
+        ('BufferType', win32more.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE),
+        ('dwBytesTransferred', UInt32),
     ]
-    return COOKIE_DLG_INFO
-def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYA_head():
-    class INTERNET_CACHE_CONFIG_PATH_ENTRYA(Structure):
-        pass
-    return INTERNET_CACHE_CONFIG_PATH_ENTRYA
-def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYA():
-    INTERNET_CACHE_CONFIG_PATH_ENTRYA = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA_head
-    INTERNET_CACHE_CONFIG_PATH_ENTRYA._fields_ = [
-        ("CachePath", win32more.Foundation.CHAR * 260),
-        ("dwCacheSize", UInt32),
-    ]
-    return INTERNET_CACHE_CONFIG_PATH_ENTRYA
-def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYW_head():
-    class INTERNET_CACHE_CONFIG_PATH_ENTRYW(Structure):
-        pass
-    return INTERNET_CACHE_CONFIG_PATH_ENTRYW
-def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYW():
-    INTERNET_CACHE_CONFIG_PATH_ENTRYW = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW_head
-    INTERNET_CACHE_CONFIG_PATH_ENTRYW._fields_ = [
-        ("CachePath", Char * 260),
-        ("dwCacheSize", UInt32),
-    ]
-    return INTERNET_CACHE_CONFIG_PATH_ENTRYW
-def _define_INTERNET_CACHE_CONFIG_INFOA_head():
-    class INTERNET_CACHE_CONFIG_INFOA(Structure):
-        pass
-    return INTERNET_CACHE_CONFIG_INFOA
-def _define_INTERNET_CACHE_CONFIG_INFOA():
-    INTERNET_CACHE_CONFIG_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOA_head
-    class INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union(Union):
-        pass
-    class INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("CachePath", win32more.Foundation.CHAR * 260),
-        ("dwCacheSize", UInt32),
-    ]
-    INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union._fields_ = [
-        ("Anonymous", INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union__Anonymous_e__Struct),
-        ("CachePaths", win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA * 0),
-    ]
-    INTERNET_CACHE_CONFIG_INFOA._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CACHE_CONFIG_INFOA._fields_ = [
-        ("dwStructSize", UInt32),
-        ("dwContainer", UInt32),
-        ("dwQuota", UInt32),
-        ("dwReserved4", UInt32),
-        ("fPerUser", win32more.Foundation.BOOL),
-        ("dwSyncMode", UInt32),
-        ("dwNumCachePaths", UInt32),
-        ("Anonymous", INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union),
-        ("dwNormalUsage", UInt32),
-        ("dwExemptUsage", UInt32),
-    ]
-    return INTERNET_CACHE_CONFIG_INFOA
-def _define_INTERNET_CACHE_CONFIG_INFOW_head():
-    class INTERNET_CACHE_CONFIG_INFOW(Structure):
-        pass
-    return INTERNET_CACHE_CONFIG_INFOW
-def _define_INTERNET_CACHE_CONFIG_INFOW():
-    INTERNET_CACHE_CONFIG_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOW_head
-    class INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union(Union):
-        pass
-    class INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("CachePath", Char * 260),
-        ("dwCacheSize", UInt32),
-    ]
-    INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union._fields_ = [
-        ("Anonymous", INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union__Anonymous_e__Struct),
-        ("CachePaths", win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW * 0),
-    ]
-    INTERNET_CACHE_CONFIG_INFOW._anonymous_ = [
-        'Anonymous',
-    ]
-    INTERNET_CACHE_CONFIG_INFOW._fields_ = [
-        ("dwStructSize", UInt32),
-        ("dwContainer", UInt32),
-        ("dwQuota", UInt32),
-        ("dwReserved4", UInt32),
-        ("fPerUser", win32more.Foundation.BOOL),
-        ("dwSyncMode", UInt32),
-        ("dwNumCachePaths", UInt32),
-        ("Anonymous", INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union),
-        ("dwNormalUsage", UInt32),
-        ("dwExemptUsage", UInt32),
-    ]
-    return INTERNET_CACHE_CONFIG_INFOW
-def _define_INTERNET_CACHE_CONTAINER_INFOA_head():
-    class INTERNET_CACHE_CONTAINER_INFOA(Structure):
-        pass
-    return INTERNET_CACHE_CONTAINER_INFOA
-def _define_INTERNET_CACHE_CONTAINER_INFOA():
-    INTERNET_CACHE_CONTAINER_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOA_head
-    INTERNET_CACHE_CONTAINER_INFOA._fields_ = [
-        ("dwCacheVersion", UInt32),
-        ("lpszName", win32more.Foundation.PSTR),
-        ("lpszCachePrefix", win32more.Foundation.PSTR),
-        ("lpszVolumeLabel", win32more.Foundation.PSTR),
-        ("lpszVolumeTitle", win32more.Foundation.PSTR),
-    ]
-    return INTERNET_CACHE_CONTAINER_INFOA
-def _define_INTERNET_CACHE_CONTAINER_INFOW_head():
-    class INTERNET_CACHE_CONTAINER_INFOW(Structure):
-        pass
-    return INTERNET_CACHE_CONTAINER_INFOW
-def _define_INTERNET_CACHE_CONTAINER_INFOW():
-    INTERNET_CACHE_CONTAINER_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOW_head
-    INTERNET_CACHE_CONTAINER_INFOW._fields_ = [
-        ("dwCacheVersion", UInt32),
-        ("lpszName", win32more.Foundation.PWSTR),
-        ("lpszCachePrefix", win32more.Foundation.PWSTR),
-        ("lpszVolumeLabel", win32more.Foundation.PWSTR),
-        ("lpszVolumeTitle", win32more.Foundation.PWSTR),
-    ]
-    return INTERNET_CACHE_CONTAINER_INFOW
-WININET_SYNC_MODE = Int32
-WININET_SYNC_MODE_NEVER = 0
-WININET_SYNC_MODE_ON_EXPIRY = 1
-WININET_SYNC_MODE_ONCE_PER_SESSION = 2
-WININET_SYNC_MODE_ALWAYS = 3
-WININET_SYNC_MODE_AUTOMATIC = 4
-WININET_SYNC_MODE_DEFAULT = 4
-APP_CACHE_STATE = Int32
-APP_CACHE_STATE_AppCacheStateNoUpdateNeeded = 0
-APP_CACHE_STATE_AppCacheStateUpdateNeeded = 1
-APP_CACHE_STATE_AppCacheStateUpdateNeededNew = 2
-APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly = 3
-def _define_APP_CACHE_DOWNLOAD_ENTRY_head():
-    class APP_CACHE_DOWNLOAD_ENTRY(Structure):
-        pass
-    return APP_CACHE_DOWNLOAD_ENTRY
-def _define_APP_CACHE_DOWNLOAD_ENTRY():
-    APP_CACHE_DOWNLOAD_ENTRY = win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY_head
-    APP_CACHE_DOWNLOAD_ENTRY._fields_ = [
-        ("pwszUrl", win32more.Foundation.PWSTR),
-        ("dwEntryType", UInt32),
-    ]
-    return APP_CACHE_DOWNLOAD_ENTRY
-def _define_APP_CACHE_DOWNLOAD_LIST_head():
-    class APP_CACHE_DOWNLOAD_LIST(Structure):
-        pass
-    return APP_CACHE_DOWNLOAD_LIST
-def _define_APP_CACHE_DOWNLOAD_LIST():
-    APP_CACHE_DOWNLOAD_LIST = win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_LIST_head
-    APP_CACHE_DOWNLOAD_LIST._fields_ = [
-        ("dwEntryCount", UInt32),
-        ("pEntries", POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY_head)),
-    ]
-    return APP_CACHE_DOWNLOAD_LIST
-APP_CACHE_FINALIZE_STATE = Int32
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete = 0
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange = 1
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete = 2
-def _define_APP_CACHE_GROUP_INFO_head():
-    class APP_CACHE_GROUP_INFO(Structure):
-        pass
-    return APP_CACHE_GROUP_INFO
-def _define_APP_CACHE_GROUP_INFO():
-    APP_CACHE_GROUP_INFO = win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head
-    APP_CACHE_GROUP_INFO._fields_ = [
-        ("pwszManifestUrl", win32more.Foundation.PWSTR),
-        ("ftLastAccessTime", win32more.Foundation.FILETIME),
-        ("ullSize", UInt64),
-    ]
-    return APP_CACHE_GROUP_INFO
-def _define_APP_CACHE_GROUP_LIST_head():
-    class APP_CACHE_GROUP_LIST(Structure):
-        pass
-    return APP_CACHE_GROUP_LIST
-def _define_APP_CACHE_GROUP_LIST():
-    APP_CACHE_GROUP_LIST = win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head
-    APP_CACHE_GROUP_LIST._fields_ = [
-        ("dwAppCacheGroupCount", UInt32),
-        ("pAppCacheGroups", POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head)),
-    ]
-    return APP_CACHE_GROUP_LIST
-def _define_URLCACHE_ENTRY_INFO_head():
-    class URLCACHE_ENTRY_INFO(Structure):
-        pass
-    return URLCACHE_ENTRY_INFO
-def _define_URLCACHE_ENTRY_INFO():
-    URLCACHE_ENTRY_INFO = win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head
-    URLCACHE_ENTRY_INFO._fields_ = [
-        ("pwszSourceUrlName", win32more.Foundation.PWSTR),
-        ("pwszLocalFileName", win32more.Foundation.PWSTR),
-        ("dwCacheEntryType", UInt32),
-        ("dwUseCount", UInt32),
-        ("dwHitRate", UInt32),
-        ("dwSizeLow", UInt32),
-        ("dwSizeHigh", UInt32),
-        ("ftLastModifiedTime", win32more.Foundation.FILETIME),
-        ("ftExpireTime", win32more.Foundation.FILETIME),
-        ("ftLastAccessTime", win32more.Foundation.FILETIME),
-        ("ftLastSyncTime", win32more.Foundation.FILETIME),
-        ("pbHeaderInfo", c_char_p_no),
-        ("cbHeaderInfoSize", UInt32),
-        ("pbExtraData", c_char_p_no),
-        ("cbExtraDataSize", UInt32),
-    ]
-    return URLCACHE_ENTRY_INFO
-URL_CACHE_LIMIT_TYPE = Int32
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIE = 0
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIETotal = 1
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainer = 2
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainerTotal = 3
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeNum = 4
-def _define_WININET_PROXY_INFO_head():
-    class WININET_PROXY_INFO(Structure):
-        pass
-    return WININET_PROXY_INFO
-def _define_WININET_PROXY_INFO():
-    WININET_PROXY_INFO = win32more.Networking.WinInet.WININET_PROXY_INFO_head
-    WININET_PROXY_INFO._fields_ = [
-        ("fProxy", win32more.Foundation.BOOL),
-        ("fBypass", win32more.Foundation.BOOL),
-        ("ProxyScheme", win32more.Networking.WinInet.INTERNET_SCHEME),
-        ("pwszProxy", win32more.Foundation.PWSTR),
-        ("ProxyPort", UInt16),
-    ]
-    return WININET_PROXY_INFO
-def _define_WININET_PROXY_INFO_LIST_head():
-    class WININET_PROXY_INFO_LIST(Structure):
-        pass
-    return WININET_PROXY_INFO_LIST
-def _define_WININET_PROXY_INFO_LIST():
-    WININET_PROXY_INFO_LIST = win32more.Networking.WinInet.WININET_PROXY_INFO_LIST_head
-    WININET_PROXY_INFO_LIST._fields_ = [
-        ("dwProxyInfoCount", UInt32),
-        ("pProxyInfo", POINTER(win32more.Networking.WinInet.WININET_PROXY_INFO_head)),
-    ]
-    return WININET_PROXY_INFO_LIST
-def _define_CACHE_OPERATOR():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),c_void_p, use_last_error=False)
-HTTP_WEB_SOCKET_OPERATION = Int32
-HTTP_WEB_SOCKET_SEND_OPERATION = 0
-HTTP_WEB_SOCKET_RECEIVE_OPERATION = 1
-HTTP_WEB_SOCKET_CLOSE_OPERATION = 2
-HTTP_WEB_SOCKET_SHUTDOWN_OPERATION = 3
+    return HTTP_WEB_SOCKET_ASYNC_RESULT
 HTTP_WEB_SOCKET_BUFFER_TYPE = Int32
 HTTP_WEB_SOCKET_BINARY_MESSAGE_TYPE = 0
 HTTP_WEB_SOCKET_BINARY_FRAGMENT_TYPE = 1
@@ -2255,30 +2925,765 @@ HTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS = 1009
 HTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS = 1010
 HTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS = 1011
 HTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS = 1015
-def _define_HTTP_WEB_SOCKET_ASYNC_RESULT_head():
-    class HTTP_WEB_SOCKET_ASYNC_RESULT(Structure):
+HTTP_WEB_SOCKET_OPERATION = Int32
+HTTP_WEB_SOCKET_SEND_OPERATION = 0
+HTTP_WEB_SOCKET_RECEIVE_OPERATION = 1
+HTTP_WEB_SOCKET_CLOSE_OPERATION = 2
+HTTP_WEB_SOCKET_SHUTDOWN_OPERATION = 3
+def _define_IDialBranding_head():
+    class IDialBranding(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8aecafa9-4306-43cc-8c-5a-76-5f-29-79-cc-16')
+    return IDialBranding
+def _define_IDialBranding():
+    IDialBranding = win32more.Networking.WinInet.IDialBranding_head
+    IDialBranding.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'Initialize', ((1, 'pwzConnectoid'),)))
+    IDialBranding.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP))(4, 'GetBitmap', ((1, 'dwIndex'),(1, 'phBitmap'),)))
+    win32more.System.Com.IUnknown
+    return IDialBranding
+def _define_IDialEngine_head():
+    class IDialEngine(win32more.System.Com.IUnknown_head):
+        Guid = Guid('39fd782b-7905-40d5-91-48-3c-9b-19-04-23-d5')
+    return IDialEngine
+def _define_IDialEngine():
+    IDialEngine = win32more.Networking.WinInet.IDialEngine_head
+    IDialEngine.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Networking.WinInet.IDialEventSink_head)(3, 'Initialize', ((1, 'pwzConnectoid'),(1, 'pIDES'),)))
+    IDialEngine.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(4, 'GetProperty', ((1, 'pwzProperty'),(1, 'pwzValue'),(1, 'dwBufSize'),)))
+    IDialEngine.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(5, 'SetProperty', ((1, 'pwzProperty'),(1, 'pwzValue'),)))
+    IDialEngine.Dial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Dial', ()))
+    IDialEngine.HangUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'HangUp', ()))
+    IDialEngine.GetConnectedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(8, 'GetConnectedState', ((1, 'pdwState'),)))
+    IDialEngine.GetConnectHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr))(9, 'GetConnectHandle', ((1, 'pdwHandle'),)))
+    win32more.System.Com.IUnknown
+    return IDialEngine
+def _define_IDialEventSink_head():
+    class IDialEventSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('2d86f4ff-6e2d-4488-b2-e9-69-34-af-d4-1b-ea')
+    return IDialEventSink
+def _define_IDialEventSink():
+    IDialEventSink = win32more.Networking.WinInet.IDialEventSink_head
+    IDialEventSink.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(3, 'OnEvent', ((1, 'dwEvent'),(1, 'dwStatus'),)))
+    win32more.System.Com.IUnknown
+    return IDialEventSink
+def _define_IncomingCookieState_head():
+    class IncomingCookieState(Structure):
         pass
-    return HTTP_WEB_SOCKET_ASYNC_RESULT
-def _define_HTTP_WEB_SOCKET_ASYNC_RESULT():
-    HTTP_WEB_SOCKET_ASYNC_RESULT = win32more.Networking.WinInet.HTTP_WEB_SOCKET_ASYNC_RESULT_head
-    HTTP_WEB_SOCKET_ASYNC_RESULT._fields_ = [
-        ("AsyncResult", win32more.Networking.WinInet.INTERNET_ASYNC_RESULT),
-        ("Operation", win32more.Networking.WinInet.HTTP_WEB_SOCKET_OPERATION),
-        ("BufferType", win32more.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE),
-        ("dwBytesTransferred", UInt32),
+    return IncomingCookieState
+def _define_IncomingCookieState():
+    IncomingCookieState = win32more.Networking.WinInet.IncomingCookieState_head
+    IncomingCookieState._fields_ = [
+        ('cSession', Int32),
+        ('cPersistent', Int32),
+        ('cAccepted', Int32),
+        ('cLeashed', Int32),
+        ('cDowngraded', Int32),
+        ('cBlocked', Int32),
+        ('pszLocation', win32more.Foundation.PSTR),
     ]
-    return HTTP_WEB_SOCKET_ASYNC_RESULT
-HTTP_POLICY_EXTENSION_TYPE = Int32
-POLICY_EXTENSION_TYPE_NONE = 0
-POLICY_EXTENSION_TYPE_WINHTTP = 1
-POLICY_EXTENSION_TYPE_WININET = 2
-HTTP_POLICY_EXTENSION_VERSION = Int32
-POLICY_EXTENSION_VERSION1 = 1
-def _define_HTTP_POLICY_EXTENSION_INIT():
-    return CFUNCTYPE(UInt32,win32more.Networking.WinInet.HTTP_POLICY_EXTENSION_VERSION,win32more.Networking.WinInet.HTTP_POLICY_EXTENSION_TYPE,c_void_p,UInt32, use_last_error=False)
-def _define_HTTP_POLICY_EXTENSION_SHUTDOWN():
-    return CFUNCTYPE(UInt32,win32more.Networking.WinInet.HTTP_POLICY_EXTENSION_TYPE, use_last_error=False)
-ProofOfPossessionCookieInfoManager = Guid('a9927f85-a304-4390-8b23-a75f1c668600')
+    return IncomingCookieState
+INTERNET_ACCESS_TYPE = UInt32
+INTERNET_OPEN_TYPE_DIRECT = 1
+INTERNET_OPEN_TYPE_PRECONFIG = 0
+INTERNET_OPEN_TYPE_PROXY = 3
+def _define_INTERNET_ASYNC_RESULT_head():
+    class INTERNET_ASYNC_RESULT(Structure):
+        pass
+    return INTERNET_ASYNC_RESULT
+def _define_INTERNET_ASYNC_RESULT():
+    INTERNET_ASYNC_RESULT = win32more.Networking.WinInet.INTERNET_ASYNC_RESULT_head
+    INTERNET_ASYNC_RESULT._fields_ = [
+        ('dwResult', UIntPtr),
+        ('dwError', UInt32),
+    ]
+    return INTERNET_ASYNC_RESULT
+def _define_INTERNET_AUTH_NOTIFY_DATA_head():
+    class INTERNET_AUTH_NOTIFY_DATA(Structure):
+        pass
+    return INTERNET_AUTH_NOTIFY_DATA
+def _define_INTERNET_AUTH_NOTIFY_DATA():
+    INTERNET_AUTH_NOTIFY_DATA = win32more.Networking.WinInet.INTERNET_AUTH_NOTIFY_DATA_head
+    INTERNET_AUTH_NOTIFY_DATA._fields_ = [
+        ('cbStruct', UInt32),
+        ('dwOptions', UInt32),
+        ('pfnNotify', win32more.Networking.WinInet.PFN_AUTH_NOTIFY),
+        ('dwContext', UIntPtr),
+    ]
+    return INTERNET_AUTH_NOTIFY_DATA
+INTERNET_AUTODIAL = UInt32
+INTERNET_AUTODIAL_FAILIFSECURITYCHECK = 4
+INTERNET_AUTODIAL_FORCE_ONLINE = 1
+INTERNET_AUTODIAL_FORCE_UNATTENDED = 2
+INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT = 8
+def _define_INTERNET_BUFFERSA_head():
+    class INTERNET_BUFFERSA(Structure):
+        pass
+    return INTERNET_BUFFERSA
+def _define_INTERNET_BUFFERSA():
+    INTERNET_BUFFERSA = win32more.Networking.WinInet.INTERNET_BUFFERSA_head
+    INTERNET_BUFFERSA._fields_ = [
+        ('dwStructSize', UInt32),
+        ('Next', POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head)),
+        ('lpcszHeader', win32more.Foundation.PSTR),
+        ('dwHeadersLength', UInt32),
+        ('dwHeadersTotal', UInt32),
+        ('lpvBuffer', c_void_p),
+        ('dwBufferLength', UInt32),
+        ('dwBufferTotal', UInt32),
+        ('dwOffsetLow', UInt32),
+        ('dwOffsetHigh', UInt32),
+    ]
+    return INTERNET_BUFFERSA
+def _define_INTERNET_BUFFERSW_head():
+    class INTERNET_BUFFERSW(Structure):
+        pass
+    return INTERNET_BUFFERSW
+def _define_INTERNET_BUFFERSW():
+    INTERNET_BUFFERSW = win32more.Networking.WinInet.INTERNET_BUFFERSW_head
+    INTERNET_BUFFERSW._fields_ = [
+        ('dwStructSize', UInt32),
+        ('Next', POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head)),
+        ('lpcszHeader', win32more.Foundation.PWSTR),
+        ('dwHeadersLength', UInt32),
+        ('dwHeadersTotal', UInt32),
+        ('lpvBuffer', c_void_p),
+        ('dwBufferLength', UInt32),
+        ('dwBufferTotal', UInt32),
+        ('dwOffsetLow', UInt32),
+        ('dwOffsetHigh', UInt32),
+    ]
+    return INTERNET_BUFFERSW
+def _define_INTERNET_CACHE_CONFIG_INFOA_head():
+    class INTERNET_CACHE_CONFIG_INFOA(Structure):
+        pass
+    return INTERNET_CACHE_CONFIG_INFOA
+def _define_INTERNET_CACHE_CONFIG_INFOA():
+    INTERNET_CACHE_CONFIG_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOA_head
+    class INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union(Union):
+        pass
+    class INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('CachePath', win32more.Foundation.CHAR * 260),
+        ('dwCacheSize', UInt32),
+    ]
+    INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union._fields_ = [
+        ('Anonymous', INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union__Anonymous_e__Struct),
+        ('CachePaths', win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA * 1),
+    ]
+    INTERNET_CACHE_CONFIG_INFOA._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CACHE_CONFIG_INFOA._fields_ = [
+        ('dwStructSize', UInt32),
+        ('dwContainer', UInt32),
+        ('dwQuota', UInt32),
+        ('dwReserved4', UInt32),
+        ('fPerUser', win32more.Foundation.BOOL),
+        ('dwSyncMode', UInt32),
+        ('dwNumCachePaths', UInt32),
+        ('Anonymous', INTERNET_CACHE_CONFIG_INFOA__Anonymous_e__Union),
+        ('dwNormalUsage', UInt32),
+        ('dwExemptUsage', UInt32),
+    ]
+    return INTERNET_CACHE_CONFIG_INFOA
+def _define_INTERNET_CACHE_CONFIG_INFOW_head():
+    class INTERNET_CACHE_CONFIG_INFOW(Structure):
+        pass
+    return INTERNET_CACHE_CONFIG_INFOW
+def _define_INTERNET_CACHE_CONFIG_INFOW():
+    INTERNET_CACHE_CONFIG_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOW_head
+    class INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union(Union):
+        pass
+    class INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('CachePath', Char * 260),
+        ('dwCacheSize', UInt32),
+    ]
+    INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union._fields_ = [
+        ('Anonymous', INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union__Anonymous_e__Struct),
+        ('CachePaths', win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW * 1),
+    ]
+    INTERNET_CACHE_CONFIG_INFOW._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CACHE_CONFIG_INFOW._fields_ = [
+        ('dwStructSize', UInt32),
+        ('dwContainer', UInt32),
+        ('dwQuota', UInt32),
+        ('dwReserved4', UInt32),
+        ('fPerUser', win32more.Foundation.BOOL),
+        ('dwSyncMode', UInt32),
+        ('dwNumCachePaths', UInt32),
+        ('Anonymous', INTERNET_CACHE_CONFIG_INFOW__Anonymous_e__Union),
+        ('dwNormalUsage', UInt32),
+        ('dwExemptUsage', UInt32),
+    ]
+    return INTERNET_CACHE_CONFIG_INFOW
+def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYA_head():
+    class INTERNET_CACHE_CONFIG_PATH_ENTRYA(Structure):
+        pass
+    return INTERNET_CACHE_CONFIG_PATH_ENTRYA
+def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYA():
+    INTERNET_CACHE_CONFIG_PATH_ENTRYA = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA_head
+    INTERNET_CACHE_CONFIG_PATH_ENTRYA._fields_ = [
+        ('CachePath', win32more.Foundation.CHAR * 260),
+        ('dwCacheSize', UInt32),
+    ]
+    return INTERNET_CACHE_CONFIG_PATH_ENTRYA
+def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYW_head():
+    class INTERNET_CACHE_CONFIG_PATH_ENTRYW(Structure):
+        pass
+    return INTERNET_CACHE_CONFIG_PATH_ENTRYW
+def _define_INTERNET_CACHE_CONFIG_PATH_ENTRYW():
+    INTERNET_CACHE_CONFIG_PATH_ENTRYW = win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW_head
+    INTERNET_CACHE_CONFIG_PATH_ENTRYW._fields_ = [
+        ('CachePath', Char * 260),
+        ('dwCacheSize', UInt32),
+    ]
+    return INTERNET_CACHE_CONFIG_PATH_ENTRYW
+def _define_INTERNET_CACHE_CONTAINER_INFOA_head():
+    class INTERNET_CACHE_CONTAINER_INFOA(Structure):
+        pass
+    return INTERNET_CACHE_CONTAINER_INFOA
+def _define_INTERNET_CACHE_CONTAINER_INFOA():
+    INTERNET_CACHE_CONTAINER_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOA_head
+    INTERNET_CACHE_CONTAINER_INFOA._fields_ = [
+        ('dwCacheVersion', UInt32),
+        ('lpszName', win32more.Foundation.PSTR),
+        ('lpszCachePrefix', win32more.Foundation.PSTR),
+        ('lpszVolumeLabel', win32more.Foundation.PSTR),
+        ('lpszVolumeTitle', win32more.Foundation.PSTR),
+    ]
+    return INTERNET_CACHE_CONTAINER_INFOA
+def _define_INTERNET_CACHE_CONTAINER_INFOW_head():
+    class INTERNET_CACHE_CONTAINER_INFOW(Structure):
+        pass
+    return INTERNET_CACHE_CONTAINER_INFOW
+def _define_INTERNET_CACHE_CONTAINER_INFOW():
+    INTERNET_CACHE_CONTAINER_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOW_head
+    INTERNET_CACHE_CONTAINER_INFOW._fields_ = [
+        ('dwCacheVersion', UInt32),
+        ('lpszName', win32more.Foundation.PWSTR),
+        ('lpszCachePrefix', win32more.Foundation.PWSTR),
+        ('lpszVolumeLabel', win32more.Foundation.PWSTR),
+        ('lpszVolumeTitle', win32more.Foundation.PWSTR),
+    ]
+    return INTERNET_CACHE_CONTAINER_INFOW
+def _define_INTERNET_CACHE_ENTRY_INFOA_head():
+    class INTERNET_CACHE_ENTRY_INFOA(Structure):
+        pass
+    return INTERNET_CACHE_ENTRY_INFOA
+def _define_INTERNET_CACHE_ENTRY_INFOA():
+    INTERNET_CACHE_ENTRY_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head
+    class INTERNET_CACHE_ENTRY_INFOA__Anonymous_e__Union(Union):
+        pass
+    INTERNET_CACHE_ENTRY_INFOA__Anonymous_e__Union._fields_ = [
+        ('dwReserved', UInt32),
+        ('dwExemptDelta', UInt32),
+    ]
+    INTERNET_CACHE_ENTRY_INFOA._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CACHE_ENTRY_INFOA._fields_ = [
+        ('dwStructSize', UInt32),
+        ('lpszSourceUrlName', win32more.Foundation.PSTR),
+        ('lpszLocalFileName', win32more.Foundation.PSTR),
+        ('CacheEntryType', UInt32),
+        ('dwUseCount', UInt32),
+        ('dwHitRate', UInt32),
+        ('dwSizeLow', UInt32),
+        ('dwSizeHigh', UInt32),
+        ('LastModifiedTime', win32more.Foundation.FILETIME),
+        ('ExpireTime', win32more.Foundation.FILETIME),
+        ('LastAccessTime', win32more.Foundation.FILETIME),
+        ('LastSyncTime', win32more.Foundation.FILETIME),
+        ('lpHeaderInfo', win32more.Foundation.PSTR),
+        ('dwHeaderInfoSize', UInt32),
+        ('lpszFileExtension', win32more.Foundation.PSTR),
+        ('Anonymous', INTERNET_CACHE_ENTRY_INFOA__Anonymous_e__Union),
+    ]
+    return INTERNET_CACHE_ENTRY_INFOA
+def _define_INTERNET_CACHE_ENTRY_INFOW_head():
+    class INTERNET_CACHE_ENTRY_INFOW(Structure):
+        pass
+    return INTERNET_CACHE_ENTRY_INFOW
+def _define_INTERNET_CACHE_ENTRY_INFOW():
+    INTERNET_CACHE_ENTRY_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head
+    class INTERNET_CACHE_ENTRY_INFOW__Anonymous_e__Union(Union):
+        pass
+    INTERNET_CACHE_ENTRY_INFOW__Anonymous_e__Union._fields_ = [
+        ('dwReserved', UInt32),
+        ('dwExemptDelta', UInt32),
+    ]
+    INTERNET_CACHE_ENTRY_INFOW._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CACHE_ENTRY_INFOW._fields_ = [
+        ('dwStructSize', UInt32),
+        ('lpszSourceUrlName', win32more.Foundation.PWSTR),
+        ('lpszLocalFileName', win32more.Foundation.PWSTR),
+        ('CacheEntryType', UInt32),
+        ('dwUseCount', UInt32),
+        ('dwHitRate', UInt32),
+        ('dwSizeLow', UInt32),
+        ('dwSizeHigh', UInt32),
+        ('LastModifiedTime', win32more.Foundation.FILETIME),
+        ('ExpireTime', win32more.Foundation.FILETIME),
+        ('LastAccessTime', win32more.Foundation.FILETIME),
+        ('LastSyncTime', win32more.Foundation.FILETIME),
+        ('lpHeaderInfo', win32more.Foundation.PWSTR),
+        ('dwHeaderInfoSize', UInt32),
+        ('lpszFileExtension', win32more.Foundation.PWSTR),
+        ('Anonymous', INTERNET_CACHE_ENTRY_INFOW__Anonymous_e__Union),
+    ]
+    return INTERNET_CACHE_ENTRY_INFOW
+def _define_INTERNET_CACHE_GROUP_INFOA_head():
+    class INTERNET_CACHE_GROUP_INFOA(Structure):
+        pass
+    return INTERNET_CACHE_GROUP_INFOA
+def _define_INTERNET_CACHE_GROUP_INFOA():
+    INTERNET_CACHE_GROUP_INFOA = win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOA_head
+    INTERNET_CACHE_GROUP_INFOA._fields_ = [
+        ('dwGroupSize', UInt32),
+        ('dwGroupFlags', UInt32),
+        ('dwGroupType', UInt32),
+        ('dwDiskUsage', UInt32),
+        ('dwDiskQuota', UInt32),
+        ('dwOwnerStorage', UInt32 * 4),
+        ('szGroupName', win32more.Foundation.CHAR * 120),
+    ]
+    return INTERNET_CACHE_GROUP_INFOA
+def _define_INTERNET_CACHE_GROUP_INFOW_head():
+    class INTERNET_CACHE_GROUP_INFOW(Structure):
+        pass
+    return INTERNET_CACHE_GROUP_INFOW
+def _define_INTERNET_CACHE_GROUP_INFOW():
+    INTERNET_CACHE_GROUP_INFOW = win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOW_head
+    INTERNET_CACHE_GROUP_INFOW._fields_ = [
+        ('dwGroupSize', UInt32),
+        ('dwGroupFlags', UInt32),
+        ('dwGroupType', UInt32),
+        ('dwDiskUsage', UInt32),
+        ('dwDiskQuota', UInt32),
+        ('dwOwnerStorage', UInt32 * 4),
+        ('szGroupName', Char * 120),
+    ]
+    return INTERNET_CACHE_GROUP_INFOW
+def _define_INTERNET_CACHE_TIMESTAMPS_head():
+    class INTERNET_CACHE_TIMESTAMPS(Structure):
+        pass
+    return INTERNET_CACHE_TIMESTAMPS
+def _define_INTERNET_CACHE_TIMESTAMPS():
+    INTERNET_CACHE_TIMESTAMPS = win32more.Networking.WinInet.INTERNET_CACHE_TIMESTAMPS_head
+    INTERNET_CACHE_TIMESTAMPS._fields_ = [
+        ('ftExpires', win32more.Foundation.FILETIME),
+        ('ftLastModified', win32more.Foundation.FILETIME),
+    ]
+    return INTERNET_CACHE_TIMESTAMPS
+def _define_INTERNET_CALLBACK_COOKIE_head():
+    class INTERNET_CALLBACK_COOKIE(Structure):
+        pass
+    return INTERNET_CALLBACK_COOKIE
+def _define_INTERNET_CALLBACK_COOKIE():
+    INTERNET_CALLBACK_COOKIE = win32more.Networking.WinInet.INTERNET_CALLBACK_COOKIE_head
+    INTERNET_CALLBACK_COOKIE._fields_ = [
+        ('pcwszName', win32more.Foundation.PWSTR),
+        ('pcwszValue', win32more.Foundation.PWSTR),
+        ('pcwszDomain', win32more.Foundation.PWSTR),
+        ('pcwszPath', win32more.Foundation.PWSTR),
+        ('ftExpires', win32more.Foundation.FILETIME),
+        ('dwFlags', UInt32),
+    ]
+    return INTERNET_CALLBACK_COOKIE
+def _define_INTERNET_CERTIFICATE_INFO_head():
+    class INTERNET_CERTIFICATE_INFO(Structure):
+        pass
+    return INTERNET_CERTIFICATE_INFO
+def _define_INTERNET_CERTIFICATE_INFO():
+    INTERNET_CERTIFICATE_INFO = win32more.Networking.WinInet.INTERNET_CERTIFICATE_INFO_head
+    INTERNET_CERTIFICATE_INFO._fields_ = [
+        ('ftExpiry', win32more.Foundation.FILETIME),
+        ('ftStart', win32more.Foundation.FILETIME),
+        ('lpszSubjectInfo', POINTER(SByte)),
+        ('lpszIssuerInfo', POINTER(SByte)),
+        ('lpszProtocolName', POINTER(SByte)),
+        ('lpszSignatureAlgName', POINTER(SByte)),
+        ('lpszEncryptionAlgName', POINTER(SByte)),
+        ('dwKeySize', UInt32),
+    ]
+    return INTERNET_CERTIFICATE_INFO
+def _define_INTERNET_CONNECTED_INFO_head():
+    class INTERNET_CONNECTED_INFO(Structure):
+        pass
+    return INTERNET_CONNECTED_INFO
+def _define_INTERNET_CONNECTED_INFO():
+    INTERNET_CONNECTED_INFO = win32more.Networking.WinInet.INTERNET_CONNECTED_INFO_head
+    INTERNET_CONNECTED_INFO._fields_ = [
+        ('dwConnectedState', win32more.Networking.WinInet.INTERNET_STATE),
+        ('dwFlags', UInt32),
+    ]
+    return INTERNET_CONNECTED_INFO
+INTERNET_CONNECTION = UInt32
+INTERNET_CONNECTION_CONFIGURED = 64
+INTERNET_CONNECTION_LAN = 2
+INTERNET_CONNECTION_MODEM = 1
+INTERNET_CONNECTION_MODEM_BUSY = 8
+INTERNET_CONNECTION_OFFLINE = 32
+INTERNET_CONNECTION_PROXY = 4
+INTERNET_RAS_INSTALLED = 16
+def _define_INTERNET_COOKIE_head():
+    class INTERNET_COOKIE(Structure):
+        pass
+    return INTERNET_COOKIE
+def _define_INTERNET_COOKIE():
+    INTERNET_COOKIE = win32more.Networking.WinInet.INTERNET_COOKIE_head
+    INTERNET_COOKIE._fields_ = [
+        ('cbSize', UInt32),
+        ('pszName', win32more.Foundation.PSTR),
+        ('pszData', win32more.Foundation.PSTR),
+        ('pszDomain', win32more.Foundation.PSTR),
+        ('pszPath', win32more.Foundation.PSTR),
+        ('pftExpires', POINTER(win32more.Foundation.FILETIME_head)),
+        ('dwFlags', UInt32),
+        ('pszUrl', win32more.Foundation.PSTR),
+        ('pszP3PPolicy', win32more.Foundation.PSTR),
+    ]
+    return INTERNET_COOKIE
+INTERNET_COOKIE_FLAGS = UInt32
+INTERNET_COOKIE_HTTPONLY = 8192
+INTERNET_COOKIE_THIRD_PARTY = 16
+INTERNET_FLAG_RESTRICTED_ZONE = 131072
+def _define_INTERNET_COOKIE2_head():
+    class INTERNET_COOKIE2(Structure):
+        pass
+    return INTERNET_COOKIE2
+def _define_INTERNET_COOKIE2():
+    INTERNET_COOKIE2 = win32more.Networking.WinInet.INTERNET_COOKIE2_head
+    INTERNET_COOKIE2._fields_ = [
+        ('pwszName', win32more.Foundation.PWSTR),
+        ('pwszValue', win32more.Foundation.PWSTR),
+        ('pwszDomain', win32more.Foundation.PWSTR),
+        ('pwszPath', win32more.Foundation.PWSTR),
+        ('dwFlags', UInt32),
+        ('ftExpires', win32more.Foundation.FILETIME),
+        ('fExpiresSet', win32more.Foundation.BOOL),
+    ]
+    return INTERNET_COOKIE2
+def _define_INTERNET_CREDENTIALS_head():
+    class INTERNET_CREDENTIALS(Structure):
+        pass
+    return INTERNET_CREDENTIALS
+def _define_INTERNET_CREDENTIALS():
+    INTERNET_CREDENTIALS = win32more.Networking.WinInet.INTERNET_CREDENTIALS_head
+    class INTERNET_CREDENTIALS__Anonymous_e__Union(Union):
+        pass
+    class INTERNET_CREDENTIALS__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    INTERNET_CREDENTIALS__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('lpcwszUserName', win32more.Foundation.PWSTR),
+        ('lpcwszPassword', win32more.Foundation.PWSTR),
+    ]
+    INTERNET_CREDENTIALS__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CREDENTIALS__Anonymous_e__Union._fields_ = [
+        ('Anonymous', INTERNET_CREDENTIALS__Anonymous_e__Union__Anonymous_e__Struct),
+        ('pAuthIdentityOpaque', c_void_p),
+    ]
+    INTERNET_CREDENTIALS._anonymous_ = [
+        'Anonymous',
+    ]
+    INTERNET_CREDENTIALS._fields_ = [
+        ('lpcwszHostName', win32more.Foundation.PWSTR),
+        ('dwPort', UInt32),
+        ('dwScheme', UInt32),
+        ('lpcwszUrl', win32more.Foundation.PWSTR),
+        ('lpcwszRealm', win32more.Foundation.PWSTR),
+        ('fAuthIdentity', win32more.Foundation.BOOL),
+        ('Anonymous', INTERNET_CREDENTIALS__Anonymous_e__Union),
+    ]
+    return INTERNET_CREDENTIALS
+def _define_INTERNET_DIAGNOSTIC_SOCKET_INFO_head():
+    class INTERNET_DIAGNOSTIC_SOCKET_INFO(Structure):
+        pass
+    return INTERNET_DIAGNOSTIC_SOCKET_INFO
+def _define_INTERNET_DIAGNOSTIC_SOCKET_INFO():
+    INTERNET_DIAGNOSTIC_SOCKET_INFO = win32more.Networking.WinInet.INTERNET_DIAGNOSTIC_SOCKET_INFO_head
+    INTERNET_DIAGNOSTIC_SOCKET_INFO._fields_ = [
+        ('Socket', UIntPtr),
+        ('SourcePort', UInt32),
+        ('DestPort', UInt32),
+        ('Flags', UInt32),
+    ]
+    return INTERNET_DIAGNOSTIC_SOCKET_INFO
+def _define_INTERNET_DOWNLOAD_MODE_HANDLE_head():
+    class INTERNET_DOWNLOAD_MODE_HANDLE(Structure):
+        pass
+    return INTERNET_DOWNLOAD_MODE_HANDLE
+def _define_INTERNET_DOWNLOAD_MODE_HANDLE():
+    INTERNET_DOWNLOAD_MODE_HANDLE = win32more.Networking.WinInet.INTERNET_DOWNLOAD_MODE_HANDLE_head
+    INTERNET_DOWNLOAD_MODE_HANDLE._fields_ = [
+        ('pcwszFileName', win32more.Foundation.PWSTR),
+        ('phFile', POINTER(win32more.Foundation.HANDLE)),
+    ]
+    return INTERNET_DOWNLOAD_MODE_HANDLE
+def _define_INTERNET_END_BROWSER_SESSION_DATA_head():
+    class INTERNET_END_BROWSER_SESSION_DATA(Structure):
+        pass
+    return INTERNET_END_BROWSER_SESSION_DATA
+def _define_INTERNET_END_BROWSER_SESSION_DATA():
+    INTERNET_END_BROWSER_SESSION_DATA = win32more.Networking.WinInet.INTERNET_END_BROWSER_SESSION_DATA_head
+    INTERNET_END_BROWSER_SESSION_DATA._fields_ = [
+        ('lpBuffer', c_void_p),
+        ('dwBufferLength', UInt32),
+    ]
+    return INTERNET_END_BROWSER_SESSION_DATA
+INTERNET_PER_CONN = UInt32
+INTERNET_PER_CONN_AUTOCONFIG_URL = 4
+INTERNET_PER_CONN_AUTODISCOVERY_FLAGS = 5
+INTERNET_PER_CONN_FLAGS = 1
+INTERNET_PER_CONN_PROXY_BYPASS = 3
+INTERNET_PER_CONN_PROXY_SERVER = 2
+INTERNET_PER_CONN_AUTOCONFIG_SECONDARY_URL = 6
+INTERNET_PER_CONN_AUTOCONFIG_RELOAD_DELAY_MINS = 7
+INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_TIME = 8
+INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_URL = 9
+def _define_INTERNET_PER_CONN_OPTION_LISTA_head():
+    class INTERNET_PER_CONN_OPTION_LISTA(Structure):
+        pass
+    return INTERNET_PER_CONN_OPTION_LISTA
+def _define_INTERNET_PER_CONN_OPTION_LISTA():
+    INTERNET_PER_CONN_OPTION_LISTA = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTION_LISTA_head
+    INTERNET_PER_CONN_OPTION_LISTA._fields_ = [
+        ('dwSize', UInt32),
+        ('pszConnection', win32more.Foundation.PSTR),
+        ('dwOptionCount', UInt32),
+        ('dwOptionError', UInt32),
+        ('pOptions', POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONA_head)),
+    ]
+    return INTERNET_PER_CONN_OPTION_LISTA
+def _define_INTERNET_PER_CONN_OPTION_LISTW_head():
+    class INTERNET_PER_CONN_OPTION_LISTW(Structure):
+        pass
+    return INTERNET_PER_CONN_OPTION_LISTW
+def _define_INTERNET_PER_CONN_OPTION_LISTW():
+    INTERNET_PER_CONN_OPTION_LISTW = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTION_LISTW_head
+    INTERNET_PER_CONN_OPTION_LISTW._fields_ = [
+        ('dwSize', UInt32),
+        ('pszConnection', win32more.Foundation.PWSTR),
+        ('dwOptionCount', UInt32),
+        ('dwOptionError', UInt32),
+        ('pOptions', POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONW_head)),
+    ]
+    return INTERNET_PER_CONN_OPTION_LISTW
+def _define_INTERNET_PER_CONN_OPTIONA_head():
+    class INTERNET_PER_CONN_OPTIONA(Structure):
+        pass
+    return INTERNET_PER_CONN_OPTIONA
+def _define_INTERNET_PER_CONN_OPTIONA():
+    INTERNET_PER_CONN_OPTIONA = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONA_head
+    class INTERNET_PER_CONN_OPTIONA__Value_e__Union(Union):
+        pass
+    INTERNET_PER_CONN_OPTIONA__Value_e__Union._fields_ = [
+        ('dwValue', UInt32),
+        ('pszValue', win32more.Foundation.PSTR),
+        ('ftValue', win32more.Foundation.FILETIME),
+    ]
+    INTERNET_PER_CONN_OPTIONA._fields_ = [
+        ('dwOption', win32more.Networking.WinInet.INTERNET_PER_CONN),
+        ('Value', INTERNET_PER_CONN_OPTIONA__Value_e__Union),
+    ]
+    return INTERNET_PER_CONN_OPTIONA
+def _define_INTERNET_PER_CONN_OPTIONW_head():
+    class INTERNET_PER_CONN_OPTIONW(Structure):
+        pass
+    return INTERNET_PER_CONN_OPTIONW
+def _define_INTERNET_PER_CONN_OPTIONW():
+    INTERNET_PER_CONN_OPTIONW = win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONW_head
+    class INTERNET_PER_CONN_OPTIONW__Value_e__Union(Union):
+        pass
+    INTERNET_PER_CONN_OPTIONW__Value_e__Union._fields_ = [
+        ('dwValue', UInt32),
+        ('pszValue', win32more.Foundation.PWSTR),
+        ('ftValue', win32more.Foundation.FILETIME),
+    ]
+    INTERNET_PER_CONN_OPTIONW._fields_ = [
+        ('dwOption', win32more.Networking.WinInet.INTERNET_PER_CONN),
+        ('Value', INTERNET_PER_CONN_OPTIONW__Value_e__Union),
+    ]
+    return INTERNET_PER_CONN_OPTIONW
+def _define_INTERNET_PREFETCH_STATUS_head():
+    class INTERNET_PREFETCH_STATUS(Structure):
+        pass
+    return INTERNET_PREFETCH_STATUS
+def _define_INTERNET_PREFETCH_STATUS():
+    INTERNET_PREFETCH_STATUS = win32more.Networking.WinInet.INTERNET_PREFETCH_STATUS_head
+    INTERNET_PREFETCH_STATUS._fields_ = [
+        ('dwStatus', UInt32),
+        ('dwSize', UInt32),
+    ]
+    return INTERNET_PREFETCH_STATUS
+def _define_INTERNET_PROXY_INFO_head():
+    class INTERNET_PROXY_INFO(Structure):
+        pass
+    return INTERNET_PROXY_INFO
+def _define_INTERNET_PROXY_INFO():
+    INTERNET_PROXY_INFO = win32more.Networking.WinInet.INTERNET_PROXY_INFO_head
+    INTERNET_PROXY_INFO._fields_ = [
+        ('dwAccessType', win32more.Networking.WinInet.INTERNET_ACCESS_TYPE),
+        ('lpszProxy', POINTER(SByte)),
+        ('lpszProxyBypass', POINTER(SByte)),
+    ]
+    return INTERNET_PROXY_INFO
+INTERNET_SCHEME = Int32
+INTERNET_SCHEME_PARTIAL = -2
+INTERNET_SCHEME_UNKNOWN = -1
+INTERNET_SCHEME_DEFAULT = 0
+INTERNET_SCHEME_FTP = 1
+INTERNET_SCHEME_GOPHER = 2
+INTERNET_SCHEME_HTTP = 3
+INTERNET_SCHEME_HTTPS = 4
+INTERNET_SCHEME_FILE = 5
+INTERNET_SCHEME_NEWS = 6
+INTERNET_SCHEME_MAILTO = 7
+INTERNET_SCHEME_SOCKS = 8
+INTERNET_SCHEME_JAVASCRIPT = 9
+INTERNET_SCHEME_VBSCRIPT = 10
+INTERNET_SCHEME_RES = 11
+INTERNET_SCHEME_FIRST = 1
+INTERNET_SCHEME_LAST = 11
+def _define_INTERNET_SECURITY_CONNECTION_INFO_head():
+    class INTERNET_SECURITY_CONNECTION_INFO(Structure):
+        pass
+    return INTERNET_SECURITY_CONNECTION_INFO
+def _define_INTERNET_SECURITY_CONNECTION_INFO():
+    INTERNET_SECURITY_CONNECTION_INFO = win32more.Networking.WinInet.INTERNET_SECURITY_CONNECTION_INFO_head
+    INTERNET_SECURITY_CONNECTION_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('fSecure', win32more.Foundation.BOOL),
+        ('connectionInfo', win32more.Security.Authentication.Identity.SecPkgContext_ConnectionInfo),
+        ('cipherInfo', win32more.Security.Authentication.Identity.SecPkgContext_CipherInfo),
+    ]
+    return INTERNET_SECURITY_CONNECTION_INFO
+def _define_INTERNET_SECURITY_INFO_head():
+    class INTERNET_SECURITY_INFO(Structure):
+        pass
+    return INTERNET_SECURITY_INFO
+def _define_INTERNET_SECURITY_INFO():
+    INTERNET_SECURITY_INFO = win32more.Networking.WinInet.INTERNET_SECURITY_INFO_head
+    INTERNET_SECURITY_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('pCertificate', POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)),
+        ('pcCertChain', POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),
+        ('connectionInfo', win32more.Security.Authentication.Identity.SecPkgContext_ConnectionInfo),
+        ('cipherInfo', win32more.Security.Authentication.Identity.SecPkgContext_CipherInfo),
+        ('pcUnverifiedCertChain', POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),
+        ('channelBindingToken', win32more.Security.Authentication.Identity.SecPkgContext_Bindings),
+    ]
+    return INTERNET_SECURITY_INFO
+def _define_INTERNET_SERVER_CONNECTION_STATE_head():
+    class INTERNET_SERVER_CONNECTION_STATE(Structure):
+        pass
+    return INTERNET_SERVER_CONNECTION_STATE
+def _define_INTERNET_SERVER_CONNECTION_STATE():
+    INTERNET_SERVER_CONNECTION_STATE = win32more.Networking.WinInet.INTERNET_SERVER_CONNECTION_STATE_head
+    INTERNET_SERVER_CONNECTION_STATE._fields_ = [
+        ('lpcwszHostName', win32more.Foundation.PWSTR),
+        ('fProxy', win32more.Foundation.BOOL),
+        ('dwCounter', UInt32),
+        ('dwConnectionLimit', UInt32),
+        ('dwAvailableCreates', UInt32),
+        ('dwAvailableKeepAlives', UInt32),
+        ('dwActiveConnections', UInt32),
+        ('dwWaiters', UInt32),
+    ]
+    return INTERNET_SERVER_CONNECTION_STATE
+INTERNET_STATE = UInt32
+INTERNET_STATE_CONNECTED = 1
+INTERNET_STATE_DISCONNECTED = 2
+INTERNET_STATE_DISCONNECTED_BY_USER = 16
+INTERNET_STATE_IDLE = 256
+INTERNET_STATE_BUSY = 512
+def _define_INTERNET_VERSION_INFO_head():
+    class INTERNET_VERSION_INFO(Structure):
+        pass
+    return INTERNET_VERSION_INFO
+def _define_INTERNET_VERSION_INFO():
+    INTERNET_VERSION_INFO = win32more.Networking.WinInet.INTERNET_VERSION_INFO_head
+    INTERNET_VERSION_INFO._fields_ = [
+        ('dwMajorVersion', UInt32),
+        ('dwMinorVersion', UInt32),
+    ]
+    return INTERNET_VERSION_INFO
+def _define_InternetCookieHistory_head():
+    class InternetCookieHistory(Structure):
+        pass
+    return InternetCookieHistory
+def _define_InternetCookieHistory():
+    InternetCookieHistory = win32more.Networking.WinInet.InternetCookieHistory_head
+    InternetCookieHistory._fields_ = [
+        ('fAccepted', win32more.Foundation.BOOL),
+        ('fLeashed', win32more.Foundation.BOOL),
+        ('fDowngraded', win32more.Foundation.BOOL),
+        ('fRejected', win32more.Foundation.BOOL),
+    ]
+    return InternetCookieHistory
+InternetCookieState = Int32
+COOKIE_STATE_UNKNOWN = 0
+COOKIE_STATE_ACCEPT = 1
+COOKIE_STATE_PROMPT = 2
+COOKIE_STATE_LEASH = 3
+COOKIE_STATE_DOWNGRADE = 4
+COOKIE_STATE_REJECT = 5
+COOKIE_STATE_MAX = 5
+def _define_IProofOfPossessionCookieInfoManager_head():
+    class IProofOfPossessionCookieInfoManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cdaece56-4edf-43df-b1-13-88-e4-55-6f-a1-bb')
+    return IProofOfPossessionCookieInfoManager
+def _define_IProofOfPossessionCookieInfoManager():
+    IProofOfPossessionCookieInfoManager = win32more.Networking.WinInet.IProofOfPossessionCookieInfoManager_head
+    IProofOfPossessionCookieInfoManager.GetCookieInfoForUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head)))(3, 'GetCookieInfoForUri', ((1, 'uri'),(1, 'cookieInfoCount'),(1, 'cookieInfo'),)))
+    win32more.System.Com.IUnknown
+    return IProofOfPossessionCookieInfoManager
+def _define_IProofOfPossessionCookieInfoManager2_head():
+    class IProofOfPossessionCookieInfoManager2(win32more.System.Com.IUnknown_head):
+        Guid = Guid('15e41407-b42f-4ae7-99-66-34-a0-87-b2-d7-13')
+    return IProofOfPossessionCookieInfoManager2
+def _define_IProofOfPossessionCookieInfoManager2():
+    IProofOfPossessionCookieInfoManager2 = win32more.Networking.WinInet.IProofOfPossessionCookieInfoManager2_head
+    IProofOfPossessionCookieInfoManager2.GetCookieInfoWithUriForAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.IInspectable_head,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head)))(3, 'GetCookieInfoWithUriForAccount', ((1, 'webAccount'),(1, 'uri'),(1, 'cookieInfoCount'),(1, 'cookieInfo'),)))
+    win32more.System.Com.IUnknown
+    return IProofOfPossessionCookieInfoManager2
+def _define_LPINTERNET_STATUS_CALLBACK():
+    return WINFUNCTYPE(Void,c_void_p,UIntPtr,UInt32,c_void_p,UInt32)
+def _define_OutgoingCookieState_head():
+    class OutgoingCookieState(Structure):
+        pass
+    return OutgoingCookieState
+def _define_OutgoingCookieState():
+    OutgoingCookieState = win32more.Networking.WinInet.OutgoingCookieState_head
+    OutgoingCookieState._fields_ = [
+        ('cSent', Int32),
+        ('cSuppressed', Int32),
+        ('pszLocation', win32more.Foundation.PSTR),
+    ]
+    return OutgoingCookieState
+def _define_PFN_AUTH_NOTIFY():
+    return WINFUNCTYPE(UInt32,UIntPtr,UInt32,c_void_p)
+def _define_PFN_DIAL_HANDLER():
+    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UInt32))
+def _define_pfnInternetDeInitializeAutoProxyDll():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)
+def _define_pfnInternetGetProxyInfo():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Foundation.PSTR),POINTER(UInt32))
+def _define_pfnInternetInitializeAutoProxyDll():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.AutoProxyHelperFunctions_head),POINTER(win32more.Networking.WinInet.AUTO_PROXY_SCRIPT_BUFFER_head))
 def _define_ProofOfPossessionCookieInfo_head():
     class ProofOfPossessionCookieInfo(Structure):
         pass
@@ -2286,2583 +3691,586 @@ def _define_ProofOfPossessionCookieInfo_head():
 def _define_ProofOfPossessionCookieInfo():
     ProofOfPossessionCookieInfo = win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head
     ProofOfPossessionCookieInfo._fields_ = [
-        ("name", win32more.Foundation.PWSTR),
-        ("data", win32more.Foundation.PWSTR),
-        ("flags", UInt32),
-        ("p3pHeader", win32more.Foundation.PWSTR),
+        ('name', win32more.Foundation.PWSTR),
+        ('data', win32more.Foundation.PWSTR),
+        ('flags', UInt32),
+        ('p3pHeader', win32more.Foundation.PWSTR),
     ]
     return ProofOfPossessionCookieInfo
-def _define_IProofOfPossessionCookieInfoManager_head():
-    class IProofOfPossessionCookieInfoManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cdaece56-4edf-43df-b113-88e4556fa1bb')
-    return IProofOfPossessionCookieInfoManager
-def _define_IProofOfPossessionCookieInfoManager():
-    IProofOfPossessionCookieInfoManager = win32more.Networking.WinInet.IProofOfPossessionCookieInfoManager_head
-    IProofOfPossessionCookieInfoManager.GetCookieInfoForUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head)), use_last_error=False)(3, 'GetCookieInfoForUri', ((1, 'uri'),(1, 'cookieInfoCount'),(1, 'cookieInfo'),)))
-    win32more.System.Com.IUnknown
-    return IProofOfPossessionCookieInfoManager
-def _define_IProofOfPossessionCookieInfoManager2_head():
-    class IProofOfPossessionCookieInfoManager2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('15e41407-b42f-4ae7-9966-34a087b2d713')
-    return IProofOfPossessionCookieInfoManager2
-def _define_IProofOfPossessionCookieInfoManager2():
-    IProofOfPossessionCookieInfoManager2 = win32more.Networking.WinInet.IProofOfPossessionCookieInfoManager2_head
-    IProofOfPossessionCookieInfoManager2.GetCookieInfoWithUriForAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.IInspectable_head,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head)), use_last_error=False)(3, 'GetCookieInfoWithUriForAccount', ((1, 'webAccount'),(1, 'uri'),(1, 'cookieInfoCount'),(1, 'cookieInfo'),)))
-    win32more.System.Com.IUnknown
-    return IProofOfPossessionCookieInfoManager2
-def _define_InternetTimeFromSystemTimeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=True)(("InternetTimeFromSystemTimeA", windll["WININET"]), ((1, 'pst'),(1, 'dwRFC'),(1, 'lpszTime'),(1, 'cbTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetTimeFromSystemTimeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=True)(("InternetTimeFromSystemTimeW", windll["WININET"]), ((1, 'pst'),(1, 'dwRFC'),(1, 'lpszTime'),(1, 'cbTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetTimeFromSystemTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=True)(("InternetTimeFromSystemTime", windll["WININET"]), ((1, 'pst'),(1, 'dwRFC'),(1, 'lpszTime'),(1, 'cbTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetTimeToSystemTimeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32, use_last_error=True)(("InternetTimeToSystemTimeA", windll["WININET"]), ((1, 'lpszTime'),(1, 'pst'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetTimeToSystemTimeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32, use_last_error=True)(("InternetTimeToSystemTimeW", windll["WININET"]), ((1, 'lpszTime'),(1, 'pst'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetTimeToSystemTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Foundation.SYSTEMTIME_head),UInt32, use_last_error=True)(("InternetTimeToSystemTime", windll["WININET"]), ((1, 'lpszTime'),(1, 'pst'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCrackUrlA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Byte),UInt32,win32more.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS,POINTER(win32more.Networking.WinInet.URL_COMPONENTSA_head), use_last_error=True)(("InternetCrackUrlA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'dwUrlLength'),(1, 'dwFlags'),(1, 'lpUrlComponents'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCrackUrlW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Char),UInt32,win32more.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS,POINTER(win32more.Networking.WinInet.URL_COMPONENTSW_head), use_last_error=True)(("InternetCrackUrlW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'dwUrlLength'),(1, 'dwFlags'),(1, 'lpUrlComponents'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCrackUrl():
-    return win32more.Networking.WinInet.InternetCrackUrlW
-def _define_InternetCreateUrlA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.URL_COMPONENTSA_head),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=True)(("InternetCreateUrlA", windll["WININET"]), ((1, 'lpUrlComponents'),(1, 'dwFlags'),(1, 'lpszUrl'),(1, 'lpdwUrlLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCreateUrlW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.URL_COMPONENTSW_head),UInt32,POINTER(Char),POINTER(UInt32), use_last_error=True)(("InternetCreateUrlW", windll["WININET"]), ((1, 'lpUrlComponents'),(1, 'dwFlags'),(1, 'lpszUrl'),(1, 'lpdwUrlLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCreateUrl():
-    return win32more.Networking.WinInet.InternetCreateUrlW
-def _define_InternetCanonicalizeUrlA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32),UInt32, use_last_error=True)(("InternetCanonicalizeUrlA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCanonicalizeUrlW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32),UInt32, use_last_error=True)(("InternetCanonicalizeUrlW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCanonicalizeUrl():
-    return win32more.Networking.WinInet.InternetCanonicalizeUrlW
-def _define_InternetCombineUrlA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32),UInt32, use_last_error=True)(("InternetCombineUrlA", windll["WININET"]), ((1, 'lpszBaseUrl'),(1, 'lpszRelativeUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCombineUrlW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32),UInt32, use_last_error=True)(("InternetCombineUrlW", windll["WININET"]), ((1, 'lpszBaseUrl'),(1, 'lpszRelativeUrl'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCombineUrl():
-    return win32more.Networking.WinInet.InternetCombineUrlW
-def _define_InternetOpenA():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32, use_last_error=True)(("InternetOpenA", windll["WININET"]), ((1, 'lpszAgent'),(1, 'dwAccessType'),(1, 'lpszProxy'),(1, 'lpszProxyBypass'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetOpenW():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=True)(("InternetOpenW", windll["WININET"]), ((1, 'lpszAgent'),(1, 'dwAccessType'),(1, 'lpszProxy'),(1, 'lpszProxyBypass'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetOpen():
-    return win32more.Networking.WinInet.InternetOpenW
-def _define_InternetCloseHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p, use_last_error=True)(("InternetCloseHandle", windll["WININET"]), ((1, 'hInternet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConnectA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UIntPtr, use_last_error=True)(("InternetConnectA", windll["WININET"]), ((1, 'hInternet'),(1, 'lpszServerName'),(1, 'nServerPort'),(1, 'lpszUserName'),(1, 'lpszPassword'),(1, 'dwService'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConnectW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,UInt16,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UIntPtr, use_last_error=True)(("InternetConnectW", windll["WININET"]), ((1, 'hInternet'),(1, 'lpszServerName'),(1, 'nServerPort'),(1, 'lpszUserName'),(1, 'lpszPassword'),(1, 'dwService'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConnect():
-    return win32more.Networking.WinInet.InternetConnectW
-def _define_InternetOpenUrlA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,POINTER(Byte),UInt32,UInt32,UIntPtr, use_last_error=True)(("InternetOpenUrlA", windll["WININET"]), ((1, 'hInternet'),(1, 'lpszUrl'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetOpenUrlW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,POINTER(Char),UInt32,UInt32,UIntPtr, use_last_error=True)(("InternetOpenUrlW", windll["WININET"]), ((1, 'hInternet'),(1, 'lpszUrl'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetOpenUrl():
-    return win32more.Networking.WinInet.InternetOpenUrlW
-def _define_InternetReadFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32), use_last_error=True)(("InternetReadFile", windll["WININET"]), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToRead'),(1, 'lpdwNumberOfBytesRead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetReadFileExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr, use_last_error=True)(("InternetReadFileExA", windll["WININET"]), ((1, 'hFile'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetReadFileExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr, use_last_error=True)(("InternetReadFileExW", windll["WININET"]), ((1, 'hFile'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetReadFileEx():
-    return win32more.Networking.WinInet.InternetReadFileExW
-def _define_InternetSetFilePointer():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,Int32,POINTER(Int32),UInt32,UIntPtr, use_last_error=True)(("InternetSetFilePointer", windll["WININET"]), ((1, 'hFile'),(1, 'lDistanceToMove'),(1, 'lpDistanceToMoveHigh'),(1, 'dwMoveMethod'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetWriteFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32), use_last_error=True)(("InternetWriteFile", windll["WININET"]), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToWrite'),(1, 'lpdwNumberOfBytesWritten'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetQueryDataAvailable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(UInt32),UInt32,UIntPtr, use_last_error=True)(("InternetQueryDataAvailable", windll["WININET"]), ((1, 'hFile'),(1, 'lpdwNumberOfBytesAvailable'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetFindNextFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p, use_last_error=True)(("InternetFindNextFileA", windll["WININET"]), ((1, 'hFind'),(1, 'lpvFindData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetFindNextFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p, use_last_error=True)(("InternetFindNextFileW", windll["WININET"]), ((1, 'hFind'),(1, 'lpvFindData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetFindNextFile():
-    return win32more.Networking.WinInet.InternetFindNextFileW
-def _define_InternetQueryOptionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32), use_last_error=True)(("InternetQueryOptionA", windll["WININET"]), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetQueryOptionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32), use_last_error=True)(("InternetQueryOptionW", windll["WININET"]), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetQueryOption():
-    return win32more.Networking.WinInet.InternetQueryOptionW
-def _define_InternetSetOptionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32, use_last_error=True)(("InternetSetOptionA", windll["WININET"]), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetOptionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32, use_last_error=True)(("InternetSetOptionW", windll["WININET"]), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetOption():
-    return win32more.Networking.WinInet.InternetSetOptionW
-def _define_InternetSetOptionExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32,UInt32, use_last_error=False)(("InternetSetOptionExA", windll["WININET"]), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetOptionExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32,UInt32, use_last_error=False)(("InternetSetOptionExW", windll["WININET"]), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetOptionEx():
-    return win32more.Networking.WinInet.InternetSetOptionExW
-def _define_InternetLockRequestFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Foundation.HANDLE), use_last_error=True)(("InternetLockRequestFile", windll["WININET"]), ((1, 'hInternet'),(1, 'lphLockRequestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetUnlockRequestFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=True)(("InternetUnlockRequestFile", windll["WININET"]), ((1, 'hLockRequestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetLastResponseInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=True)(("InternetGetLastResponseInfoA", windll["WININET"]), ((1, 'lpdwError'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetLastResponseInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=True)(("InternetGetLastResponseInfoW", windll["WININET"]), ((1, 'lpdwError'),(1, 'lpszBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetLastResponseInfo():
-    return win32more.Networking.WinInet.InternetGetLastResponseInfoW
-def _define_InternetSetStatusCallbackA():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK,c_void_p,win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK, use_last_error=False)(("InternetSetStatusCallbackA", windll["WININET"]), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetStatusCallbackW():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK,c_void_p,win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK, use_last_error=False)(("InternetSetStatusCallbackW", windll["WININET"]), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetStatusCallback():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK,c_void_p,win32more.Networking.WinInet.LPINTERNET_STATUS_CALLBACK, use_last_error=False)(("InternetSetStatusCallback", windll["WININET"]), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpFindFirstFileA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,POINTER(win32more.Storage.FileSystem.WIN32_FIND_DATAA_head),UInt32,UIntPtr, use_last_error=True)(("FtpFindFirstFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszSearchFile'),(1, 'lpFindFileData'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpFindFirstFileW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Storage.FileSystem.WIN32_FIND_DATAW_head),UInt32,UIntPtr, use_last_error=True)(("FtpFindFirstFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszSearchFile'),(1, 'lpFindFileData'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpFindFirstFile():
-    return win32more.Networking.WinInet.FtpFindFirstFileW
-def _define_FtpGetFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL,UInt32,UInt32,UIntPtr, use_last_error=True)(("FtpGetFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszRemoteFile'),(1, 'lpszNewFile'),(1, 'fFailIfExists'),(1, 'dwFlagsAndAttributes'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpGetFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32,UIntPtr, use_last_error=True)(("FtpGetFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszRemoteFile'),(1, 'lpszNewFile'),(1, 'fFailIfExists'),(1, 'dwFlagsAndAttributes'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpGetFile():
-    return win32more.Networking.WinInet.FtpGetFileW
-def _define_FtpPutFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr, use_last_error=True)(("FtpPutFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocalFile'),(1, 'lpszNewRemoteFile'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpPutFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr, use_last_error=True)(("FtpPutFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocalFile'),(1, 'lpszNewRemoteFile'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpPutFile():
-    return win32more.Networking.WinInet.FtpPutFileW
-def _define_FtpGetFileEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32,UIntPtr, use_last_error=False)(("FtpGetFileEx", windll["WININET"]), ((1, 'hFtpSession'),(1, 'lpszRemoteFile'),(1, 'lpszNewFile'),(1, 'fFailIfExists'),(1, 'dwFlagsAndAttributes'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpPutFileEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PSTR,UInt32,UIntPtr, use_last_error=False)(("FtpPutFileEx", windll["WININET"]), ((1, 'hFtpSession'),(1, 'lpszLocalFile'),(1, 'lpszNewRemoteFile'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpDeleteFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR, use_last_error=True)(("FtpDeleteFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpDeleteFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR, use_last_error=True)(("FtpDeleteFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpDeleteFile():
-    return win32more.Networking.WinInet.FtpDeleteFileW
-def _define_FtpRenameFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("FtpRenameFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszExisting'),(1, 'lpszNew'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpRenameFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("FtpRenameFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszExisting'),(1, 'lpszNew'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpRenameFile():
-    return win32more.Networking.WinInet.FtpRenameFileW
-def _define_FtpOpenFileA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,UInt32,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr, use_last_error=True)(("FtpOpenFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszFileName'),(1, 'dwAccess'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpOpenFileW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,UInt32,win32more.Networking.WinInet.FTP_FLAGS,UIntPtr, use_last_error=True)(("FtpOpenFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszFileName'),(1, 'dwAccess'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpOpenFile():
-    return win32more.Networking.WinInet.FtpOpenFileW
-def _define_FtpCreateDirectoryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR, use_last_error=True)(("FtpCreateDirectoryA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpCreateDirectoryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR, use_last_error=True)(("FtpCreateDirectoryW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpCreateDirectory():
-    return win32more.Networking.WinInet.FtpCreateDirectoryW
-def _define_FtpRemoveDirectoryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR, use_last_error=True)(("FtpRemoveDirectoryA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpRemoveDirectoryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR, use_last_error=True)(("FtpRemoveDirectoryW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpRemoveDirectory():
-    return win32more.Networking.WinInet.FtpRemoveDirectoryW
-def _define_FtpSetCurrentDirectoryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR, use_last_error=True)(("FtpSetCurrentDirectoryA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpSetCurrentDirectoryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR, use_last_error=True)(("FtpSetCurrentDirectoryW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpSetCurrentDirectory():
-    return win32more.Networking.WinInet.FtpSetCurrentDirectoryW
-def _define_FtpGetCurrentDirectoryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(Byte),POINTER(UInt32), use_last_error=True)(("FtpGetCurrentDirectoryA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszCurrentDirectory'),(1, 'lpdwCurrentDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpGetCurrentDirectoryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(Char),POINTER(UInt32), use_last_error=True)(("FtpGetCurrentDirectoryW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszCurrentDirectory'),(1, 'lpdwCurrentDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpGetCurrentDirectory():
-    return win32more.Networking.WinInet.FtpGetCurrentDirectoryW
-def _define_FtpCommandA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.BOOL,win32more.Networking.WinInet.FTP_FLAGS,win32more.Foundation.PSTR,UIntPtr,POINTER(c_void_p), use_last_error=True)(("FtpCommandA", windll["WININET"]), ((1, 'hConnect'),(1, 'fExpectResponse'),(1, 'dwFlags'),(1, 'lpszCommand'),(1, 'dwContext'),(1, 'phFtpCommand'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpCommandW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.BOOL,win32more.Networking.WinInet.FTP_FLAGS,win32more.Foundation.PWSTR,UIntPtr,POINTER(c_void_p), use_last_error=True)(("FtpCommandW", windll["WININET"]), ((1, 'hConnect'),(1, 'fExpectResponse'),(1, 'dwFlags'),(1, 'lpszCommand'),(1, 'dwContext'),(1, 'phFtpCommand'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FtpCommand():
-    return win32more.Networking.WinInet.FtpCommandW
-def _define_FtpGetFileSize():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt32), use_last_error=False)(("FtpGetFileSize", windll["WININET"]), ((1, 'hFile'),(1, 'lpdwFileSizeHigh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherCreateLocatorA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt16,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=True)(("GopherCreateLocatorA", windll["WININET"]), ((1, 'lpszHost'),(1, 'nServerPort'),(1, 'lpszDisplayString'),(1, 'lpszSelectorString'),(1, 'dwGopherType'),(1, 'lpszLocator'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherCreateLocatorW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt16,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=True)(("GopherCreateLocatorW", windll["WININET"]), ((1, 'lpszHost'),(1, 'nServerPort'),(1, 'lpszDisplayString'),(1, 'lpszSelectorString'),(1, 'dwGopherType'),(1, 'lpszLocator'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherCreateLocator():
-    return win32more.Networking.WinInet.GopherCreateLocatorW
-def _define_GopherGetLocatorTypeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=True)(("GopherGetLocatorTypeA", windll["WININET"]), ((1, 'lpszLocator'),(1, 'lpdwGopherType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherGetLocatorTypeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=True)(("GopherGetLocatorTypeW", windll["WININET"]), ((1, 'lpszLocator'),(1, 'lpdwGopherType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherGetLocatorType():
-    return win32more.Networking.WinInet.GopherGetLocatorTypeW
-def _define_GopherFindFirstFileA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.GOPHER_FIND_DATAA_head),UInt32,UIntPtr, use_last_error=True)(("GopherFindFirstFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszSearchString'),(1, 'lpFindData'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherFindFirstFileW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.GOPHER_FIND_DATAW_head),UInt32,UIntPtr, use_last_error=True)(("GopherFindFirstFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszSearchString'),(1, 'lpFindData'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherFindFirstFile():
-    return win32more.Networking.WinInet.GopherFindFirstFileW
-def _define_GopherOpenFileA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UIntPtr, use_last_error=True)(("GopherOpenFileA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszView'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherOpenFileW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UIntPtr, use_last_error=True)(("GopherOpenFileW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszView'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherOpenFile():
-    return win32more.Networking.WinInet.GopherOpenFileW
-def _define_GopherGetAttributeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),UInt32,POINTER(UInt32),win32more.Networking.WinInet.GOPHER_ATTRIBUTE_ENUMERATOR,UIntPtr, use_last_error=True)(("GopherGetAttributeA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszAttributeName'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'lpdwCharactersReturned'),(1, 'lpfnEnumerator'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherGetAttributeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Byte),UInt32,POINTER(UInt32),win32more.Networking.WinInet.GOPHER_ATTRIBUTE_ENUMERATOR,UIntPtr, use_last_error=True)(("GopherGetAttributeW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszLocator'),(1, 'lpszAttributeName'),(1, 'lpBuffer'),(1, 'dwBufferLength'),(1, 'lpdwCharactersReturned'),(1, 'lpfnEnumerator'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GopherGetAttribute():
-    return win32more.Networking.WinInet.GopherGetAttributeW
-def _define_HttpOpenRequestA():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Foundation.PSTR),UInt32,UIntPtr, use_last_error=True)(("HttpOpenRequestA", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszVerb'),(1, 'lpszObjectName'),(1, 'lpszVersion'),(1, 'lpszReferrer'),(1, 'lplpszAcceptTypes'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpOpenRequestW():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,UIntPtr, use_last_error=True)(("HttpOpenRequestW", windll["WININET"]), ((1, 'hConnect'),(1, 'lpszVerb'),(1, 'lpszObjectName'),(1, 'lpszVersion'),(1, 'lpszReferrer'),(1, 'lplpszAcceptTypes'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpOpenRequest():
-    return win32more.Networking.WinInet.HttpOpenRequestW
-def _define_HttpAddRequestHeadersA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(Byte),UInt32,win32more.Networking.WinInet.HTTP_ADDREQ_FLAG, use_last_error=True)(("HttpAddRequestHeadersA", windll["WININET"]), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwModifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpAddRequestHeadersW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(Char),UInt32,win32more.Networking.WinInet.HTTP_ADDREQ_FLAG, use_last_error=True)(("HttpAddRequestHeadersW", windll["WININET"]), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwModifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpAddRequestHeaders():
-    return win32more.Networking.WinInet.HttpAddRequestHeadersW
-def _define_HttpSendRequestA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(Byte),UInt32,c_void_p,UInt32, use_last_error=True)(("HttpSendRequestA", windll["WININET"]), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'lpOptional'),(1, 'dwOptionalLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpSendRequestW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(Char),UInt32,c_void_p,UInt32, use_last_error=True)(("HttpSendRequestW", windll["WININET"]), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'lpOptional'),(1, 'dwOptionalLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpSendRequest():
-    return win32more.Networking.WinInet.HttpSendRequestW
-def _define_HttpSendRequestExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr, use_last_error=True)(("HttpSendRequestExA", windll["WININET"]), ((1, 'hRequest'),(1, 'lpBuffersIn'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpSendRequestExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr, use_last_error=True)(("HttpSendRequestExW", windll["WININET"]), ((1, 'hRequest'),(1, 'lpBuffersIn'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpSendRequestEx():
-    return win32more.Networking.WinInet.HttpSendRequestExW
-def _define_HttpEndRequestA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr, use_last_error=True)(("HttpEndRequestA", windll["WININET"]), ((1, 'hRequest'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpEndRequestW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr, use_last_error=True)(("HttpEndRequestW", windll["WININET"]), ((1, 'hRequest'),(1, 'lpBuffersOut'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpEndRequest():
-    return win32more.Networking.WinInet.HttpEndRequestW
-def _define_HttpQueryInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32),POINTER(UInt32), use_last_error=True)(("HttpQueryInfoA", windll["WININET"]), ((1, 'hRequest'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),(1, 'lpdwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpQueryInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32),POINTER(UInt32), use_last_error=True)(("HttpQueryInfoW", windll["WININET"]), ((1, 'hRequest'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),(1, 'lpdwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpQueryInfo():
-    return win32more.Networking.WinInet.HttpQueryInfoW
-def _define_InternetSetCookieA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("InternetSetCookieA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetCookieW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("InternetSetCookieW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetCookie():
-    return win32more.Networking.WinInet.InternetSetCookieW
-def _define_InternetGetCookieA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=True)(("InternetGetCookieA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetCookieW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=True)(("InternetGetCookieW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetCookie():
-    return win32more.Networking.WinInet.InternetGetCookieW
-def _define_InternetSetCookieExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UIntPtr, use_last_error=True)(("InternetSetCookieExA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'dwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetCookieExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UIntPtr, use_last_error=True)(("InternetSetCookieExW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'dwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetCookieEx():
-    return win32more.Networking.WinInet.InternetSetCookieExW
-def _define_InternetGetCookieExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32),win32more.Networking.WinInet.INTERNET_COOKIE_FLAGS,c_void_p, use_last_error=True)(("InternetGetCookieExA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),(1, 'dwFlags'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetCookieExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32),win32more.Networking.WinInet.INTERNET_COOKIE_FLAGS,c_void_p, use_last_error=True)(("InternetGetCookieExW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieName'),(1, 'lpszCookieData'),(1, 'lpdwSize'),(1, 'dwFlags'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetCookieEx():
-    return win32more.Networking.WinInet.InternetGetCookieExW
-def _define_InternetFreeCookies():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.INTERNET_COOKIE2_head),UInt32, use_last_error=False)(("InternetFreeCookies", windll["WININET"]), ((1, 'pCookies'),(1, 'dwCookieCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetCookieEx2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.Networking.WinInet.INTERNET_COOKIE2_head)),POINTER(UInt32), use_last_error=False)(("InternetGetCookieEx2", windll["WININET"]), ((1, 'pcwszUrl'),(1, 'pcwszCookieName'),(1, 'dwFlags'),(1, 'ppCookies'),(1, 'pdwCookieCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetCookieEx2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_COOKIE2_head),win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(("InternetSetCookieEx2", windll["WININET"]), ((1, 'pcwszUrl'),(1, 'pCookie'),(1, 'pcwszP3PPolicy'),(1, 'dwFlags'),(1, 'pdwCookieState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetAttemptConnect():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("InternetAttemptConnect", windll["WININET"]), ((1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCheckConnectionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=True)(("InternetCheckConnectionA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'dwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCheckConnectionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=True)(("InternetCheckConnectionW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'dwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetCheckConnection():
-    return win32more.Networking.WinInet.InternetCheckConnectionW
-def _define_ResumeSuspendedDownload():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32, use_last_error=True)(("ResumeSuspendedDownload", windll["WININET"]), ((1, 'hRequest'),(1, 'dwResultCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetErrorDlg():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,c_void_p,UInt32,UInt32,POINTER(c_void_p), use_last_error=False)(("InternetErrorDlg", windll["WININET"]), ((1, 'hWnd'),(1, 'hRequest'),(1, 'dwError'),(1, 'dwFlags'),(1, 'lppvData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConfirmZoneCrossingA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL, use_last_error=False)(("InternetConfirmZoneCrossingA", windll["WININET"]), ((1, 'hWnd'),(1, 'szUrlPrev'),(1, 'szUrlNew'),(1, 'bPost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConfirmZoneCrossingW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(("InternetConfirmZoneCrossingW", windll["WININET"]), ((1, 'hWnd'),(1, 'szUrlPrev'),(1, 'szUrlNew'),(1, 'bPost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConfirmZoneCrossing():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL, use_last_error=False)(("InternetConfirmZoneCrossing", windll["WININET"]), ((1, 'hWnd'),(1, 'szUrlPrev'),(1, 'szUrlNew'),(1, 'bPost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUrlCacheEntryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(Byte),UInt32, use_last_error=True)(("CreateUrlCacheEntryA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwExpectedFileSize'),(1, 'lpszFileExtension'),(1, 'lpszFileName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUrlCacheEntryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(Char),UInt32, use_last_error=True)(("CreateUrlCacheEntryW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwExpectedFileSize'),(1, 'lpszFileExtension'),(1, 'lpszFileName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUrlCacheEntry():
-    return win32more.Networking.WinInet.CreateUrlCacheEntryW
-def _define_CommitUrlCacheEntryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,UInt32,POINTER(Byte),UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=True)(("CommitUrlCacheEntryA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpszLocalFileName'),(1, 'ExpireTime'),(1, 'LastModifiedTime'),(1, 'CacheEntryType'),(1, 'lpHeaderInfo'),(1, 'cchHeaderInfo'),(1, 'lpszFileExtension'),(1, 'lpszOriginalUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CommitUrlCacheEntryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,UInt32,POINTER(Char),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=True)(("CommitUrlCacheEntryW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpszLocalFileName'),(1, 'ExpireTime'),(1, 'LastModifiedTime'),(1, 'CacheEntryType'),(1, 'lpszHeaderInfo'),(1, 'cchHeaderInfo'),(1, 'lpszFileExtension'),(1, 'lpszOriginalUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CommitUrlCacheEntry():
-    return win32more.Networking.WinInet.CommitUrlCacheEntryW
-def _define_RetrieveUrlCacheEntryFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),UInt32, use_last_error=True)(("RetrieveUrlCacheEntryFileA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RetrieveUrlCacheEntryFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),UInt32, use_last_error=True)(("RetrieveUrlCacheEntryFileW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RetrieveUrlCacheEntryFile():
-    return win32more.Networking.WinInet.RetrieveUrlCacheEntryFileW
-def _define_UnlockUrlCacheEntryFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32, use_last_error=True)(("UnlockUrlCacheEntryFileA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnlockUrlCacheEntryFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32, use_last_error=True)(("UnlockUrlCacheEntryFileW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnlockUrlCacheEntryFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32, use_last_error=True)(("UnlockUrlCacheEntryFile", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RetrieveUrlCacheEntryStreamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),win32more.Foundation.BOOL,UInt32, use_last_error=True)(("RetrieveUrlCacheEntryStreamA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'fRandomRead'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RetrieveUrlCacheEntryStreamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),win32more.Foundation.BOOL,UInt32, use_last_error=True)(("RetrieveUrlCacheEntryStreamW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'fRandomRead'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RetrieveUrlCacheEntryStream():
-    return win32more.Networking.WinInet.RetrieveUrlCacheEntryStreamW
-def _define_ReadUrlCacheEntryStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,c_void_p,POINTER(UInt32),UInt32, use_last_error=True)(("ReadUrlCacheEntryStream", windll["WININET"]), ((1, 'hUrlCacheStream'),(1, 'dwLocation'),(1, 'lpBuffer'),(1, 'lpdwLen'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReadUrlCacheEntryStreamEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt64,c_void_p,POINTER(UInt32), use_last_error=False)(("ReadUrlCacheEntryStreamEx", windll["WININET"]), ((1, 'hUrlCacheStream'),(1, 'qwLocation'),(1, 'lpBuffer'),(1, 'lpdwLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnlockUrlCacheEntryStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32, use_last_error=True)(("UnlockUrlCacheEntryStream", windll["WININET"]), ((1, 'hUrlCacheStream'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheEntryInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32), use_last_error=True)(("GetUrlCacheEntryInfoA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheEntryInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32), use_last_error=True)(("GetUrlCacheEntryInfoW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheEntryInfo():
-    return win32more.Networking.WinInet.GetUrlCacheEntryInfoW
-def _define_FindFirstUrlCacheGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,UInt32,c_void_p,UInt32,POINTER(Int64),c_void_p, use_last_error=True)(("FindFirstUrlCacheGroup", windll["WININET"]), ((1, 'dwFlags'),(1, 'dwFilter'),(1, 'lpSearchCondition'),(1, 'dwSearchCondition'),(1, 'lpGroupId'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(Int64),c_void_p, use_last_error=True)(("FindNextUrlCacheGroup", windll["WININET"]), ((1, 'hFind'),(1, 'lpGroupId'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheGroupAttributeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOA_head),POINTER(UInt32),c_void_p, use_last_error=True)(("GetUrlCacheGroupAttributeA", windll["WININET"]), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpcbGroupInfo'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheGroupAttributeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOW_head),POINTER(UInt32),c_void_p, use_last_error=True)(("GetUrlCacheGroupAttributeW", windll["WININET"]), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpcbGroupInfo'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheGroupAttribute():
-    return win32more.Networking.WinInet.GetUrlCacheGroupAttributeW
-def _define_SetUrlCacheGroupAttributeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOA_head),c_void_p, use_last_error=True)(("SetUrlCacheGroupAttributeA", windll["WININET"]), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheGroupAttributeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,UInt32,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_GROUP_INFOW_head),c_void_p, use_last_error=True)(("SetUrlCacheGroupAttributeW", windll["WININET"]), ((1, 'gid'),(1, 'dwFlags'),(1, 'dwAttributes'),(1, 'lpGroupInfo'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheGroupAttribute():
-    return win32more.Networking.WinInet.SetUrlCacheGroupAttributeW
-def _define_GetUrlCacheEntryInfoExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),c_void_p,UInt32, use_last_error=True)(("GetUrlCacheEntryInfoExA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpszRedirectUrl'),(1, 'lpcbRedirectUrl'),(1, 'lpReserved'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheEntryInfoExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),c_void_p,UInt32, use_last_error=True)(("GetUrlCacheEntryInfoExW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpszRedirectUrl'),(1, 'lpcbRedirectUrl'),(1, 'lpReserved'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheEntryInfoEx():
-    return win32more.Networking.WinInet.GetUrlCacheEntryInfoExW
-def _define_SetUrlCacheEntryInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),UInt32, use_last_error=True)(("SetUrlCacheEntryInfoA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'dwFieldControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheEntryInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),UInt32, use_last_error=True)(("SetUrlCacheEntryInfoW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'lpCacheEntryInfo'),(1, 'dwFieldControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheEntryInfo():
-    return win32more.Networking.WinInet.SetUrlCacheEntryInfoW
-def _define_CreateUrlCacheGroup():
-    try:
-        return WINFUNCTYPE(Int64,UInt32,c_void_p, use_last_error=True)(("CreateUrlCacheGroup", windll["WININET"]), ((1, 'dwFlags'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUrlCacheGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,c_void_p, use_last_error=True)(("DeleteUrlCacheGroup", windll["WININET"]), ((1, 'GroupId'),(1, 'dwFlags'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheEntryGroupA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,Int64,c_char_p_no,UInt32,c_void_p, use_last_error=False)(("SetUrlCacheEntryGroupA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'GroupId'),(1, 'pbGroupAttributes'),(1, 'cbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheEntryGroupW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,Int64,c_char_p_no,UInt32,c_void_p, use_last_error=False)(("SetUrlCacheEntryGroupW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'GroupId'),(1, 'pbGroupAttributes'),(1, 'cbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheEntryGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,Int64,c_char_p_no,UInt32,c_void_p, use_last_error=False)(("SetUrlCacheEntryGroup", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'GroupId'),(1, 'pbGroupAttributes'),(1, 'cbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheEntryExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,UInt32,UInt32,Int64,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p, use_last_error=True)(("FindFirstUrlCacheEntryExA", windll["WININET"]), ((1, 'lpszUrlSearchPattern'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheEntryExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,UInt32,UInt32,Int64,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p, use_last_error=True)(("FindFirstUrlCacheEntryExW", windll["WININET"]), ((1, 'lpszUrlSearchPattern'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheEntryEx():
-    return win32more.Networking.WinInet.FindFirstUrlCacheEntryExW
-def _define_FindNextUrlCacheEntryExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p, use_last_error=True)(("FindNextUrlCacheEntryExA", windll["WININET"]), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheEntryExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32),c_void_p,POINTER(UInt32),c_void_p, use_last_error=True)(("FindNextUrlCacheEntryExW", windll["WININET"]), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),(1, 'lpGroupAttributes'),(1, 'lpcbGroupAttributes'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheEntryEx():
-    return win32more.Networking.WinInet.FindNextUrlCacheEntryExW
-def _define_FindFirstUrlCacheEntryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32), use_last_error=True)(("FindFirstUrlCacheEntryA", windll["WININET"]), ((1, 'lpszUrlSearchPattern'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheEntryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32), use_last_error=True)(("FindFirstUrlCacheEntryW", windll["WININET"]), ((1, 'lpszUrlSearchPattern'),(1, 'lpFirstCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheEntry():
-    return win32more.Networking.WinInet.FindFirstUrlCacheEntryW
-def _define_FindNextUrlCacheEntryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA_head),POINTER(UInt32), use_last_error=True)(("FindNextUrlCacheEntryA", windll["WININET"]), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheEntryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOW_head),POINTER(UInt32), use_last_error=True)(("FindNextUrlCacheEntryW", windll["WININET"]), ((1, 'hEnumHandle'),(1, 'lpNextCacheEntryInfo'),(1, 'lpcbCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheEntry():
-    return win32more.Networking.WinInet.FindNextUrlCacheEntryW
-def _define_FindCloseUrlCache():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=True)(("FindCloseUrlCache", windll["WININET"]), ((1, 'hEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUrlCacheEntryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR, use_last_error=True)(("DeleteUrlCacheEntryA", windll["WININET"]), ((1, 'lpszUrlName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUrlCacheEntryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR, use_last_error=True)(("DeleteUrlCacheEntryW", windll["WININET"]), ((1, 'lpszUrlName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUrlCacheEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR, use_last_error=True)(("DeleteUrlCacheEntry", windll["WININET"]), ((1, 'lpszUrlName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetDialA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UIntPtr),UInt32, use_last_error=False)(("InternetDialA", windll["WININET"]), ((1, 'hwndParent'),(1, 'lpszConnectoid'),(1, 'dwFlags'),(1, 'lpdwConnection'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetDialW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,POINTER(UIntPtr),UInt32, use_last_error=False)(("InternetDialW", windll["WININET"]), ((1, 'hwndParent'),(1, 'lpszConnectoid'),(1, 'dwFlags'),(1, 'lpdwConnection'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetDial():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UInt32),UInt32, use_last_error=False)(("InternetDial", windll["WININET"]), ((1, 'hwndParent'),(1, 'lpszConnectoid'),(1, 'dwFlags'),(1, 'lpdwConnection'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetHangUp():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,UInt32, use_last_error=False)(("InternetHangUp", windll["WININET"]), ((1, 'dwConnection'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGoOnlineA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND,UInt32, use_last_error=True)(("InternetGoOnlineA", windll["WININET"]), ((1, 'lpszURL'),(1, 'hwndParent'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGoOnlineW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HWND,UInt32, use_last_error=True)(("InternetGoOnlineW", windll["WININET"]), ((1, 'lpszURL'),(1, 'hwndParent'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGoOnline():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND,UInt32, use_last_error=True)(("InternetGoOnline", windll["WININET"]), ((1, 'lpszURL'),(1, 'hwndParent'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetAutodial():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinInet.INTERNET_AUTODIAL,win32more.Foundation.HWND, use_last_error=True)(("InternetAutodial", windll["WININET"]), ((1, 'dwFlags'),(1, 'hwndParent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetAutodialHangup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=True)(("InternetAutodialHangup", windll["WININET"]), ((1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetConnectedState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),UInt32, use_last_error=True)(("InternetGetConnectedState", windll["WININET"]), ((1, 'lpdwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetConnectedStateExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),POINTER(Byte),UInt32,UInt32, use_last_error=True)(("InternetGetConnectedStateExA", windll["WININET"]), ((1, 'lpdwFlags'),(1, 'lpszConnectionName'),(1, 'cchNameLen'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetConnectedStateExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),POINTER(Char),UInt32,UInt32, use_last_error=True)(("InternetGetConnectedStateExW", windll["WININET"]), ((1, 'lpdwFlags'),(1, 'lpszConnectionName'),(1, 'cchNameLen'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteWpadCacheForNetworks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinInet.WPAD_CACHE_DELETE, use_last_error=False)(("DeleteWpadCacheForNetworks", windll["WININET"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetInitializeAutoProxyDll():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=True)(("InternetInitializeAutoProxyDll", windll["WININET"]), ((1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DetectAutoProxyUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Byte),UInt32,win32more.Networking.WinInet.PROXY_AUTO_DETECT_TYPE, use_last_error=True)(("DetectAutoProxyUrl", windll["WININET"]), ((1, 'pszAutoProxyUrl'),(1, 'cchAutoProxyUrl'),(1, 'dwDetectFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMD5SSOHash():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no, use_last_error=False)(("CreateMD5SSOHash", windll["WININET"]), ((1, 'pszChallengeInfo'),(1, 'pwszRealm'),(1, 'pwszTarget'),(1, 'pbHexHash'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetConnectedStateEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CONNECTION),POINTER(Byte),UInt32,UInt32, use_last_error=True)(("InternetGetConnectedStateEx", windll["WININET"]), ((1, 'lpdwFlags'),(1, 'lpszConnectionName'),(1, 'dwNameLen'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetDialStateA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(("InternetSetDialStateA", windll["WININET"]), ((1, 'lpszConnectoid'),(1, 'dwState'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetDialStateW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(("InternetSetDialStateW", windll["WININET"]), ((1, 'lpszConnectoid'),(1, 'dwState'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetDialState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(("InternetSetDialState", windll["WININET"]), ((1, 'lpszConnectoid'),(1, 'dwState'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetPerSiteCookieDecisionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("InternetSetPerSiteCookieDecisionA", windll["WININET"]), ((1, 'pchHostName'),(1, 'dwDecision'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetPerSiteCookieDecisionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("InternetSetPerSiteCookieDecisionW", windll["WININET"]), ((1, 'pchHostName'),(1, 'dwDecision'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSetPerSiteCookieDecision():
-    return win32more.Networking.WinInet.InternetSetPerSiteCookieDecisionW
-def _define_InternetGetPerSiteCookieDecisionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("InternetGetPerSiteCookieDecisionA", windll["WININET"]), ((1, 'pchHostName'),(1, 'pResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetPerSiteCookieDecisionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(("InternetGetPerSiteCookieDecisionW", windll["WININET"]), ((1, 'pchHostName'),(1, 'pResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetPerSiteCookieDecision():
-    return win32more.Networking.WinInet.InternetGetPerSiteCookieDecisionW
-def _define_InternetClearAllPerSiteCookieDecisions():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("InternetClearAllPerSiteCookieDecisions", windll["WININET"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetEnumPerSiteCookieDecisionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Byte),POINTER(UInt32),POINTER(UInt32),UInt32, use_last_error=False)(("InternetEnumPerSiteCookieDecisionA", windll["WININET"]), ((1, 'pszSiteName'),(1, 'pcSiteNameSize'),(1, 'pdwDecision'),(1, 'dwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetEnumPerSiteCookieDecisionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Char),POINTER(UInt32),POINTER(UInt32),UInt32, use_last_error=False)(("InternetEnumPerSiteCookieDecisionW", windll["WININET"]), ((1, 'pszSiteName'),(1, 'pcSiteNameSize'),(1, 'pdwDecision'),(1, 'dwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetEnumPerSiteCookieDecision():
-    return win32more.Networking.WinInet.InternetEnumPerSiteCookieDecisionW
-def _define_PrivacySetZonePreferenceW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("PrivacySetZonePreferenceW", windll["WININET"]), ((1, 'dwZone'),(1, 'dwType'),(1, 'dwTemplate'),(1, 'pszPreference'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrivacyGetZonePreferenceW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("PrivacyGetZonePreferenceW", windll["WININET"]), ((1, 'dwZone'),(1, 'dwType'),(1, 'pdwTemplate'),(1, 'pszBuffer'),(1, 'pdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpIsHostHstsEnabled():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(("HttpIsHostHstsEnabled", windll["WININET"]), ((1, 'pcwszUrl'),(1, 'pfIsHsts'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetAlgIdToStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Byte),POINTER(UInt32),UInt32, use_last_error=False)(("InternetAlgIdToStringA", windll["WININET"]), ((1, 'ai'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetAlgIdToStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Char),POINTER(UInt32),UInt32, use_last_error=False)(("InternetAlgIdToStringW", windll["WININET"]), ((1, 'ai'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetAlgIdToString():
-    return win32more.Networking.WinInet.InternetAlgIdToStringW
-def _define_InternetSecurityProtocolToStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Byte),POINTER(UInt32),UInt32, use_last_error=False)(("InternetSecurityProtocolToStringA", windll["WININET"]), ((1, 'dwProtocol'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSecurityProtocolToStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Char),POINTER(UInt32),UInt32, use_last_error=False)(("InternetSecurityProtocolToStringW", windll["WININET"]), ((1, 'dwProtocol'),(1, 'lpstr'),(1, 'lpdwstrLength'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetSecurityProtocolToString():
-    return win32more.Networking.WinInet.InternetSecurityProtocolToStringW
-def _define_InternetGetSecurityInfoByURLA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),POINTER(UInt32), use_last_error=False)(("InternetGetSecurityInfoByURLA", windll["WININET"]), ((1, 'lpszURL'),(1, 'ppCertChain'),(1, 'pdwSecureFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetSecurityInfoByURLW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),POINTER(UInt32), use_last_error=False)(("InternetGetSecurityInfoByURLW", windll["WININET"]), ((1, 'lpszURL'),(1, 'ppCertChain'),(1, 'pdwSecureFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetSecurityInfoByURL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head)),POINTER(UInt32), use_last_error=False)(("InternetGetSecurityInfoByURL", windll["WININET"]), ((1, 'lpszURL'),(1, 'ppCertChain'),(1, 'pdwSecureFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowSecurityInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.Networking.WinInet.INTERNET_SECURITY_INFO_head), use_last_error=False)(("ShowSecurityInfo", windll["WININET"]), ((1, 'hWndParent'),(1, 'pSecurityInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowX509EncodedCertificate():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,c_char_p_no,UInt32, use_last_error=False)(("ShowX509EncodedCertificate", windll["WININET"]), ((1, 'hWndParent'),(1, 'lpCert'),(1, 'cbCert'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShowClientAuthCerts():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND, use_last_error=False)(("ShowClientAuthCerts", windll["WININET"]), ((1, 'hWndParent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ParseX509EncodedCertificateForListBoxEntry():
-    try:
-        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("ParseX509EncodedCertificateForListBoxEntry", windll["WININET"]), ((1, 'lpCert'),(1, 'cbCert'),(1, 'lpszListBoxEntry'),(1, 'lpdwListBoxEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetShowSecurityInfoByURLA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND, use_last_error=False)(("InternetShowSecurityInfoByURLA", windll["WININET"]), ((1, 'lpszURL'),(1, 'hwndParent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetShowSecurityInfoByURLW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HWND, use_last_error=False)(("InternetShowSecurityInfoByURLW", windll["WININET"]), ((1, 'lpszURL'),(1, 'hwndParent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetShowSecurityInfoByURL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HWND, use_last_error=False)(("InternetShowSecurityInfoByURL", windll["WININET"]), ((1, 'lpszURL'),(1, 'hwndParent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetFortezzaCommand():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HWND,UIntPtr, use_last_error=False)(("InternetFortezzaCommand", windll["WININET"]), ((1, 'dwCommand'),(1, 'hwnd'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetQueryFortezzaStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),UIntPtr, use_last_error=False)(("InternetQueryFortezzaStatus", windll["WININET"]), ((1, 'pdwStatus'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetWriteFileExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSA_head),UInt32,UIntPtr, use_last_error=False)(("InternetWriteFileExA", windll["WININET"]), ((1, 'hFile'),(1, 'lpBuffersIn'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetWriteFileExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Networking.WinInet.INTERNET_BUFFERSW_head),UInt32,UIntPtr, use_last_error=False)(("InternetWriteFileExW", windll["WININET"]), ((1, 'hFile'),(1, 'lpBuffersIn'),(1, 'dwFlags'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetWriteFileEx():
-    return win32more.Networking.WinInet.InternetWriteFileExW
-def _define_FindP3PPolicySymbol():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR, use_last_error=False)(("FindP3PPolicySymbol", windll["WININET"]), ((1, 'pszSymbol'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpGetServerCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(("HttpGetServerCredentials", windll["WININET"]), ((1, 'pwszUrl'),(1, 'ppwszUserName'),(1, 'ppwszPassword'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpPushEnable():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinInet.HTTP_PUSH_TRANSPORT_SETTING_head),POINTER(win32more.Networking.WinInet.HTTP_PUSH_WAIT_HANDLE), use_last_error=False)(("HttpPushEnable", windll["WININET"]), ((1, 'hRequest'),(1, 'pTransportSetting'),(1, 'phWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpPushWait():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.HTTP_PUSH_WAIT_HANDLE,win32more.Networking.WinInet.HTTP_PUSH_WAIT_TYPE,POINTER(win32more.Networking.WinInet.HTTP_PUSH_NOTIFICATION_STATUS_head), use_last_error=False)(("HttpPushWait", windll["WININET"]), ((1, 'hWait'),(1, 'eType'),(1, 'pNotificationStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpPushClose():
-    try:
-        return WINFUNCTYPE(Void,win32more.Networking.WinInet.HTTP_PUSH_WAIT_HANDLE, use_last_error=False)(("HttpPushClose", windll["WININET"]), ((1, 'hWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpCheckDavComplianceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Int32),win32more.Foundation.HWND,c_void_p, use_last_error=False)(("HttpCheckDavComplianceA", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszComplianceToken'),(1, 'lpfFound'),(1, 'hWnd'),(1, 'lpvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpCheckDavComplianceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Int32),win32more.Foundation.HWND,c_void_p, use_last_error=False)(("HttpCheckDavComplianceW", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszComplianceToken'),(1, 'lpfFound'),(1, 'hWnd'),(1, 'lpvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpCheckDavCompliance():
-    return win32more.Networking.WinInet.HttpCheckDavComplianceW
-def _define_IsUrlCacheEntryExpiredA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(("IsUrlCacheEntryExpiredA", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'pftLastModified'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsUrlCacheEntryExpiredW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(("IsUrlCacheEntryExpiredW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwFlags'),(1, 'pftLastModified'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsUrlCacheEntryExpired():
-    return win32more.Networking.WinInet.IsUrlCacheEntryExpiredW
-def _define_CreateUrlCacheEntryExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(Char),UInt32,win32more.Foundation.BOOL, use_last_error=False)(("CreateUrlCacheEntryExW", windll["WININET"]), ((1, 'lpszUrlName'),(1, 'dwExpectedFileSize'),(1, 'lpszFileExtension'),(1, 'lpszFileName'),(1, 'dwReserved'),(1, 'fPreserveIncomingFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheEntryBinaryBlob():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(("GetUrlCacheEntryBinaryBlob", windll["WININET"]), ((1, 'pwszUrlName'),(1, 'dwType'),(1, 'pftExpireTime'),(1, 'pftAccessTime'),(1, 'pftModifiedTime'),(1, 'ppbBlob'),(1, 'pcbBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CommitUrlCacheEntryBinaryBlob():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,POINTER(Byte),UInt32, use_last_error=False)(("CommitUrlCacheEntryBinaryBlob", windll["WININET"]), ((1, 'pwszUrlName'),(1, 'dwType'),(1, 'ftExpireTime'),(1, 'ftModifiedTime'),(1, 'pbBlob'),(1, 'cbBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUrlCacheContainerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,c_void_p,POINTER(UInt32), use_last_error=True)(("CreateUrlCacheContainerA", windll["WININET"]), ((1, 'Name'),(1, 'lpCachePrefix'),(1, 'lpszCachePath'),(1, 'KBCacheLimit'),(1, 'dwContainerType'),(1, 'dwOptions'),(1, 'pvBuffer'),(1, 'cbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUrlCacheContainerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,c_void_p,POINTER(UInt32), use_last_error=True)(("CreateUrlCacheContainerW", windll["WININET"]), ((1, 'Name'),(1, 'lpCachePrefix'),(1, 'lpszCachePath'),(1, 'KBCacheLimit'),(1, 'dwContainerType'),(1, 'dwOptions'),(1, 'pvBuffer'),(1, 'cbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUrlCacheContainer():
-    return win32more.Networking.WinInet.CreateUrlCacheContainerW
-def _define_DeleteUrlCacheContainerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32, use_last_error=True)(("DeleteUrlCacheContainerA", windll["WININET"]), ((1, 'Name'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUrlCacheContainerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32, use_last_error=True)(("DeleteUrlCacheContainerW", windll["WININET"]), ((1, 'Name'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUrlCacheContainer():
-    return win32more.Networking.WinInet.DeleteUrlCacheContainerW
-def _define_FindFirstUrlCacheContainerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOA_head),POINTER(UInt32),UInt32, use_last_error=False)(("FindFirstUrlCacheContainerA", windll["WININET"]), ((1, 'pdwModified'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheContainerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOW_head),POINTER(UInt32),UInt32, use_last_error=False)(("FindFirstUrlCacheContainerW", windll["WININET"]), ((1, 'pdwModified'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstUrlCacheContainer():
-    return win32more.Networking.WinInet.FindFirstUrlCacheContainerW
-def _define_FindNextUrlCacheContainerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOA_head),POINTER(UInt32), use_last_error=False)(("FindNextUrlCacheContainerA", windll["WININET"]), ((1, 'hEnumHandle'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheContainerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONTAINER_INFOW_head),POINTER(UInt32), use_last_error=False)(("FindNextUrlCacheContainerW", windll["WININET"]), ((1, 'hEnumHandle'),(1, 'lpContainerInfo'),(1, 'lpcbContainerInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindNextUrlCacheContainer():
-    return win32more.Networking.WinInet.FindNextUrlCacheContainerW
-def _define_FreeUrlCacheSpaceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=True)(("FreeUrlCacheSpaceA", windll["WININET"]), ((1, 'lpszCachePath'),(1, 'dwSize'),(1, 'dwFilter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeUrlCacheSpaceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=True)(("FreeUrlCacheSpaceW", windll["WININET"]), ((1, 'lpszCachePath'),(1, 'dwSize'),(1, 'dwFilter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeUrlCacheSpace():
-    return win32more.Networking.WinInet.FreeUrlCacheSpaceW
-def _define_UrlCacheFreeGlobalSpace():
-    try:
-        return WINFUNCTYPE(UInt32,UInt64,UInt32, use_last_error=False)(("UrlCacheFreeGlobalSpace", windll["WININET"]), ((1, 'ullTargetSize'),(1, 'dwFilter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheGetGlobalCacheSize():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(("UrlCacheGetGlobalCacheSize", windll["WININET"]), ((1, 'dwFilter'),(1, 'pullSize'),(1, 'pullLimit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheConfigInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOA_head),POINTER(UInt32),win32more.Networking.WinInet.CACHE_CONFIG, use_last_error=True)(("GetUrlCacheConfigInfoA", windll["WININET"]), ((1, 'lpCacheConfigInfo'),(1, 'lpcbCacheConfigInfo'),(1, 'dwFieldControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheConfigInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOW_head),POINTER(UInt32),win32more.Networking.WinInet.CACHE_CONFIG, use_last_error=True)(("GetUrlCacheConfigInfoW", windll["WININET"]), ((1, 'lpCacheConfigInfo'),(1, 'lpcbCacheConfigInfo'),(1, 'dwFieldControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheConfigInfo():
-    return win32more.Networking.WinInet.GetUrlCacheConfigInfoW
-def _define_SetUrlCacheConfigInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOA_head),UInt32, use_last_error=False)(("SetUrlCacheConfigInfoA", windll["WININET"]), ((1, 'lpCacheConfigInfo'),(1, 'dwFieldControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheConfigInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.INTERNET_CACHE_CONFIG_INFOW_head),UInt32, use_last_error=False)(("SetUrlCacheConfigInfoW", windll["WININET"]), ((1, 'lpCacheConfigInfo'),(1, 'dwFieldControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheConfigInfo():
-    return win32more.Networking.WinInet.SetUrlCacheConfigInfoW
-def _define_RunOnceUrlCache():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,Int32, use_last_error=False)(("RunOnceUrlCache", windll["WININET"]), ((1, 'hwnd'),(1, 'hinst'),(1, 'lpszCmd'),(1, 'nCmdShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteIE3Cache():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,Int32, use_last_error=False)(("DeleteIE3Cache", windll["WININET"]), ((1, 'hwnd'),(1, 'hinst'),(1, 'lpszCmd'),(1, 'nCmdShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateUrlCacheContentPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR, use_last_error=False)(("UpdateUrlCacheContentPath", windll["WININET"]), ((1, 'szNewPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterUrlCacheNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,Int64,UInt32,UInt32, use_last_error=False)(("RegisterUrlCacheNotification", windll["WININET"]), ((1, 'hWnd'),(1, 'uMsg'),(1, 'gid'),(1, 'dwOpsFilter'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUrlCacheHeaderData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32), use_last_error=False)(("GetUrlCacheHeaderData", windll["WININET"]), ((1, 'nIdx'),(1, 'lpdwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUrlCacheHeaderData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32, use_last_error=False)(("SetUrlCacheHeaderData", windll["WININET"]), ((1, 'nIdx'),(1, 'dwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IncrementUrlCacheHeaderData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32), use_last_error=False)(("IncrementUrlCacheHeaderData", windll["WININET"]), ((1, 'nIdx'),(1, 'lpdwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadUrlCacheContent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("LoadUrlCacheContent", windll["WININET"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheLookup():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(c_void_p), use_last_error=False)(("AppCacheLookup", windll["WININET"]), ((1, 'pwszUrl'),(1, 'dwFlags'),(1, 'phAppCache'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheCheckManifest():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_STATE),POINTER(c_void_p), use_last_error=False)(("AppCacheCheckManifest", windll["WININET"]), ((1, 'pwszMasterUrl'),(1, 'pwszManifestUrl'),(1, 'pbManifestData'),(1, 'dwManifestDataSize'),(1, 'pbManifestResponseHeaders'),(1, 'dwManifestResponseHeadersSize'),(1, 'peState'),(1, 'phNewAppCache'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheGetDownloadList():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_LIST_head), use_last_error=False)(("AppCacheGetDownloadList", windll["WININET"]), ((1, 'hAppCache'),(1, 'pDownloadList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheFreeDownloadList():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_LIST_head), use_last_error=False)(("AppCacheFreeDownloadList", windll["WININET"]), ((1, 'pDownloadList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheFinalize():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,c_char_p_no,UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_FINALIZE_STATE), use_last_error=False)(("AppCacheFinalize", windll["WININET"]), ((1, 'hAppCache'),(1, 'pbManifestData'),(1, 'dwManifestDataSize'),(1, 'peState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheGetFallbackUrl():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(("AppCacheGetFallbackUrl", windll["WININET"]), ((1, 'hAppCache'),(1, 'pwszUrl'),(1, 'ppwszFallbackUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheGetManifestUrl():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(("AppCacheGetManifestUrl", windll["WININET"]), ((1, 'hAppCache'),(1, 'ppwszManifestUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheDuplicateHandle():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p), use_last_error=False)(("AppCacheDuplicateHandle", windll["WININET"]), ((1, 'hAppCache'),(1, 'phDuplicatedAppCache'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheCloseHandle():
-    try:
-        return WINFUNCTYPE(Void,c_void_p, use_last_error=False)(("AppCacheCloseHandle", windll["WININET"]), ((1, 'hAppCache'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheFreeGroupList():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head), use_last_error=False)(("AppCacheFreeGroupList", windll["WININET"]), ((1, 'pAppCacheGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheGetGroupList():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head), use_last_error=False)(("AppCacheGetGroupList", windll["WININET"]), ((1, 'pAppCacheGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head), use_last_error=False)(("AppCacheGetInfo", windll["WININET"]), ((1, 'hAppCache'),(1, 'pAppCacheInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheDeleteGroup():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("AppCacheDeleteGroup", windll["WININET"]), ((1, 'pwszManifestUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheFreeSpace():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.FILETIME, use_last_error=False)(("AppCacheFreeSpace", windll["WININET"]), ((1, 'ftCutOff'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheGetIEGroupList():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_LIST_head), use_last_error=False)(("AppCacheGetIEGroupList", windll["WININET"]), ((1, 'pAppCacheGroupList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheDeleteIEGroup():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("AppCacheDeleteIEGroup", windll["WININET"]), ((1, 'pwszManifestUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheFreeIESpace():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.FILETIME, use_last_error=False)(("AppCacheFreeIESpace", windll["WININET"]), ((1, 'ftCutOff'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AppCacheCreateAndCommitFile():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32, use_last_error=False)(("AppCacheCreateAndCommitFile", windll["WININET"]), ((1, 'hAppCache'),(1, 'pwszSourceFilePath'),(1, 'pwszUrl'),(1, 'pbResponseHeaders'),(1, 'dwResponseHeadersSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpOpenDependencyHandle():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.BOOL,POINTER(c_void_p), use_last_error=False)(("HttpOpenDependencyHandle", windll["WININET"]), ((1, 'hRequestHandle'),(1, 'fBackground'),(1, 'phDependencyHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpCloseDependencyHandle():
-    try:
-        return WINFUNCTYPE(Void,c_void_p, use_last_error=False)(("HttpCloseDependencyHandle", windll["WININET"]), ((1, 'hDependencyHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpDuplicateDependencyHandle():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p), use_last_error=False)(("HttpDuplicateDependencyHandle", windll["WININET"]), ((1, 'hDependencyHandle'),(1, 'phDuplicatedDependencyHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpIndicatePageLoadComplete():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p, use_last_error=False)(("HttpIndicatePageLoadComplete", windll["WININET"]), ((1, 'hDependencyHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheFreeEntryInfo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head), use_last_error=False)(("UrlCacheFreeEntryInfo", windll["WININET"]), ((1, 'pCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheGetEntryInfo():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head), use_last_error=False)(("UrlCacheGetEntryInfo", windll["WININET"]), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'pCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheCloseEntryHandle():
-    try:
-        return WINFUNCTYPE(Void,c_void_p, use_last_error=False)(("UrlCacheCloseEntryHandle", windll["WININET"]), ((1, 'hEntryFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheRetrieveEntryFile():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head),POINTER(c_void_p), use_last_error=False)(("UrlCacheRetrieveEntryFile", windll["WININET"]), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'pCacheEntryInfo'),(1, 'phEntryFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheReadEntryStream():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt64,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(("UrlCacheReadEntryStream", windll["WININET"]), ((1, 'hUrlCacheStream'),(1, 'ullLocation'),(1, 'pBuffer'),(1, 'dwBufferLen'),(1, 'pdwBufferLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheRetrieveEntryStream():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head),POINTER(c_void_p), use_last_error=False)(("UrlCacheRetrieveEntryStream", windll["WININET"]), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'fRandomRead'),(1, 'pCacheEntryInfo'),(1, 'phEntryStream'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheUpdateEntryExtraData():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,c_char_p_no,UInt32, use_last_error=False)(("UrlCacheUpdateEntryExtraData", windll["WININET"]), ((1, 'hAppCache'),(1, 'pcwszUrl'),(1, 'pbExtraData'),(1, 'cbExtraData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheCreateContainer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt64,UInt32, use_last_error=False)(("UrlCacheCreateContainer", windll["WININET"]), ((1, 'pwszName'),(1, 'pwszPrefix'),(1, 'pwszDirectory'),(1, 'ullLimit'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheCheckEntriesExist():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(("UrlCacheCheckEntriesExist", windll["WININET"]), ((1, 'rgpwszUrls'),(1, 'cEntries'),(1, 'rgfExist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheGetContentPaths():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32), use_last_error=False)(("UrlCacheGetContentPaths", windll["WININET"]), ((1, 'pppwszDirectories'),(1, 'pcDirectories'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheGetGlobalLimit():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.URL_CACHE_LIMIT_TYPE,POINTER(UInt64), use_last_error=False)(("UrlCacheGetGlobalLimit", windll["WININET"]), ((1, 'limitType'),(1, 'pullLimit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheSetGlobalLimit():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Networking.WinInet.URL_CACHE_LIMIT_TYPE,UInt64, use_last_error=False)(("UrlCacheSetGlobalLimit", windll["WININET"]), ((1, 'limitType'),(1, 'ullLimit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheReloadSettings():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("UrlCacheReloadSettings", windll["WININET"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheContainerSetEntryMaximumAge():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("UrlCacheContainerSetEntryMaximumAge", windll["WININET"]), ((1, 'pwszPrefix'),(1, 'dwEntryMaxAge'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheFindFirstEntry():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,Int64,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("UrlCacheFindFirstEntry", windll["WININET"]), ((1, 'pwszPrefix'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'pCacheEntryInfo'),(1, 'phFind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheFindNextEntry():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head), use_last_error=False)(("UrlCacheFindNextEntry", windll["WININET"]), ((1, 'hFind'),(1, 'pCacheEntryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlCacheServer():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("UrlCacheServer", windll["WININET"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReadGuidsForConnectedNetworks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(POINTER(win32more.Foundation.BSTR)),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(("ReadGuidsForConnectedNetworks", windll["WININET"]), ((1, 'pcNetworks'),(1, 'pppwszNetworkGuids'),(1, 'pppbstrNetworkNames'),(1, 'pppwszGWMacs'),(1, 'pcGatewayMacs'),(1, 'pdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsHostInProxyBypassList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Networking.WinInet.INTERNET_SCHEME,POINTER(Byte),UInt32, use_last_error=False)(("IsHostInProxyBypassList", windll["WININET"]), ((1, 'tScheme'),(1, 'lpszHost'),(1, 'cchHost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetFreeProxyInfoList():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinInet.WININET_PROXY_INFO_LIST_head), use_last_error=False)(("InternetFreeProxyInfoList", windll["WININET"]), ((1, 'pProxyInfoList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetGetProxyForUrl():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinInet.WININET_PROXY_INFO_LIST_head), use_last_error=False)(("InternetGetProxyForUrl", windll["WININET"]), ((1, 'hInternet'),(1, 'pcwszUrl'),(1, 'pProxyInfoList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DoConnectoidsExist():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("DoConnectoidsExist", windll["WININET"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDiskInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(("GetDiskInfoA", windll["WININET"]), ((1, 'pszPath'),(1, 'pdwClusterSize'),(1, 'pdlAvail'),(1, 'pdlTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PerformOperationOverUrlCacheA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32,Int64,c_void_p,POINTER(UInt32),c_void_p,win32more.Networking.WinInet.CACHE_OPERATOR,c_void_p, use_last_error=False)(("PerformOperationOverUrlCacheA", windll["WININET"]), ((1, 'pszUrlSearchPattern'),(1, 'dwFlags'),(1, 'dwFilter'),(1, 'GroupId'),(1, 'pReserved1'),(1, 'pdwReserved2'),(1, 'pReserved3'),(1, 'op'),(1, 'pOperatorData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsProfilesEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("IsProfilesEnabled", windll["WININET"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternalInternetGetCookie():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("InternalInternetGetCookie", windll["WININET"]), ((1, 'lpszUrl'),(1, 'lpszCookieData'),(1, 'lpdwDataSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImportCookieFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR, use_last_error=False)(("ImportCookieFileA", windll["WININET"]), ((1, 'szFilename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImportCookieFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR, use_last_error=False)(("ImportCookieFileW", windll["WININET"]), ((1, 'szFilename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImportCookieFile():
-    return win32more.Networking.WinInet.ImportCookieFileW
-def _define_ExportCookieFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.BOOL, use_last_error=False)(("ExportCookieFileA", windll["WININET"]), ((1, 'szFilename'),(1, 'fAppend'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExportCookieFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(("ExportCookieFileW", windll["WININET"]), ((1, 'szFilename'),(1, 'fAppend'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExportCookieFile():
-    return win32more.Networking.WinInet.ExportCookieFileW
-def _define_IsDomainLegalCookieDomainA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("IsDomainLegalCookieDomainA", windll["WININET"]), ((1, 'pchDomain'),(1, 'pchFullDomain'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsDomainLegalCookieDomainW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("IsDomainLegalCookieDomainW", windll["WININET"]), ((1, 'pchDomain'),(1, 'pchFullDomain'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsDomainLegalCookieDomain():
-    return win32more.Networking.WinInet.IsDomainLegalCookieDomainW
-def _define_HttpWebSocketCompleteUpgrade():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,UIntPtr, use_last_error=False)(("HttpWebSocketCompleteUpgrade", windll["WININET"]), ((1, 'hRequest'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpWebSocketSend():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE,c_void_p,UInt32, use_last_error=False)(("HttpWebSocketSend", windll["WININET"]), ((1, 'hWebSocket'),(1, 'BufferType'),(1, 'pvBuffer'),(1, 'dwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpWebSocketReceive():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE), use_last_error=False)(("HttpWebSocketReceive", windll["WININET"]), ((1, 'hWebSocket'),(1, 'pvBuffer'),(1, 'dwBufferLength'),(1, 'pdwBytesRead'),(1, 'pBufferType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpWebSocketClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt16,c_void_p,UInt32, use_last_error=False)(("HttpWebSocketClose", windll["WININET"]), ((1, 'hWebSocket'),(1, 'usStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpWebSocketShutdown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt16,c_void_p,UInt32, use_last_error=False)(("HttpWebSocketShutdown", windll["WININET"]), ((1, 'hWebSocket'),(1, 'usStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HttpWebSocketQueryCloseStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(UInt16),c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(("HttpWebSocketQueryCloseStatus", windll["WININET"]), ((1, 'hWebSocket'),(1, 'pusStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),(1, 'pdwReasonLengthConsumed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InternetConvertUrlFromWireToWideChar():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Byte),UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(("InternetConvertUrlFromWireToWideChar", windll["WININET"]), ((1, 'pcszUrl'),(1, 'cchUrl'),(1, 'pcwszBaseUrl'),(1, 'dwCodePageHost'),(1, 'dwCodePagePath'),(1, 'fEncodePathExtra'),(1, 'dwCodePageExtra'),(1, 'ppwszConvertedUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+ProofOfPossessionCookieInfoManager = Guid('a9927f85-a304-4390-8b-23-a7-5f-1c-66-86-00')
+PROXY_AUTO_DETECT_TYPE = UInt32
+PROXY_AUTO_DETECT_TYPE_DHCP = 1
+PROXY_AUTO_DETECT_TYPE_DNS_A = 2
+REQUEST_TIMES = Int32
+REQUEST_TIMES_NameResolutionStart = 0
+REQUEST_TIMES_NameResolutionEnd = 1
+REQUEST_TIMES_ConnectionEstablishmentStart = 2
+REQUEST_TIMES_ConnectionEstablishmentEnd = 3
+REQUEST_TIMES_TLSHandshakeStart = 4
+REQUEST_TIMES_TLSHandshakeEnd = 5
+REQUEST_TIMES_HttpRequestTimeMax = 32
+URL_CACHE_LIMIT_TYPE = Int32
+URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIE = 0
+URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIETotal = 1
+URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainer = 2
+URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainerTotal = 3
+URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeNum = 4
+def _define_URL_COMPONENTSA_head():
+    class URL_COMPONENTSA(Structure):
+        pass
+    return URL_COMPONENTSA
+def _define_URL_COMPONENTSA():
+    URL_COMPONENTSA = win32more.Networking.WinInet.URL_COMPONENTSA_head
+    URL_COMPONENTSA._fields_ = [
+        ('dwStructSize', UInt32),
+        ('lpszScheme', win32more.Foundation.PSTR),
+        ('dwSchemeLength', UInt32),
+        ('nScheme', win32more.Networking.WinInet.INTERNET_SCHEME),
+        ('lpszHostName', win32more.Foundation.PSTR),
+        ('dwHostNameLength', UInt32),
+        ('nPort', UInt16),
+        ('lpszUserName', win32more.Foundation.PSTR),
+        ('dwUserNameLength', UInt32),
+        ('lpszPassword', win32more.Foundation.PSTR),
+        ('dwPasswordLength', UInt32),
+        ('lpszUrlPath', win32more.Foundation.PSTR),
+        ('dwUrlPathLength', UInt32),
+        ('lpszExtraInfo', win32more.Foundation.PSTR),
+        ('dwExtraInfoLength', UInt32),
+    ]
+    return URL_COMPONENTSA
+def _define_URL_COMPONENTSW_head():
+    class URL_COMPONENTSW(Structure):
+        pass
+    return URL_COMPONENTSW
+def _define_URL_COMPONENTSW():
+    URL_COMPONENTSW = win32more.Networking.WinInet.URL_COMPONENTSW_head
+    URL_COMPONENTSW._fields_ = [
+        ('dwStructSize', UInt32),
+        ('lpszScheme', win32more.Foundation.PWSTR),
+        ('dwSchemeLength', UInt32),
+        ('nScheme', win32more.Networking.WinInet.INTERNET_SCHEME),
+        ('lpszHostName', win32more.Foundation.PWSTR),
+        ('dwHostNameLength', UInt32),
+        ('nPort', UInt16),
+        ('lpszUserName', win32more.Foundation.PWSTR),
+        ('dwUserNameLength', UInt32),
+        ('lpszPassword', win32more.Foundation.PWSTR),
+        ('dwPasswordLength', UInt32),
+        ('lpszUrlPath', win32more.Foundation.PWSTR),
+        ('dwUrlPathLength', UInt32),
+        ('lpszExtraInfo', win32more.Foundation.PWSTR),
+        ('dwExtraInfoLength', UInt32),
+    ]
+    return URL_COMPONENTSW
+def _define_URLCACHE_ENTRY_INFO_head():
+    class URLCACHE_ENTRY_INFO(Structure):
+        pass
+    return URLCACHE_ENTRY_INFO
+def _define_URLCACHE_ENTRY_INFO():
+    URLCACHE_ENTRY_INFO = win32more.Networking.WinInet.URLCACHE_ENTRY_INFO_head
+    URLCACHE_ENTRY_INFO._fields_ = [
+        ('pwszSourceUrlName', win32more.Foundation.PWSTR),
+        ('pwszLocalFileName', win32more.Foundation.PWSTR),
+        ('dwCacheEntryType', UInt32),
+        ('dwUseCount', UInt32),
+        ('dwHitRate', UInt32),
+        ('dwSizeLow', UInt32),
+        ('dwSizeHigh', UInt32),
+        ('ftLastModifiedTime', win32more.Foundation.FILETIME),
+        ('ftExpireTime', win32more.Foundation.FILETIME),
+        ('ftLastAccessTime', win32more.Foundation.FILETIME),
+        ('ftLastSyncTime', win32more.Foundation.FILETIME),
+        ('pbHeaderInfo', c_char_p_no),
+        ('cbHeaderInfoSize', UInt32),
+        ('pbExtraData', c_char_p_no),
+        ('cbExtraDataSize', UInt32),
+    ]
+    return URLCACHE_ENTRY_INFO
+def _define_WININET_PROXY_INFO_head():
+    class WININET_PROXY_INFO(Structure):
+        pass
+    return WININET_PROXY_INFO
+def _define_WININET_PROXY_INFO():
+    WININET_PROXY_INFO = win32more.Networking.WinInet.WININET_PROXY_INFO_head
+    WININET_PROXY_INFO._fields_ = [
+        ('fProxy', win32more.Foundation.BOOL),
+        ('fBypass', win32more.Foundation.BOOL),
+        ('ProxyScheme', win32more.Networking.WinInet.INTERNET_SCHEME),
+        ('pwszProxy', win32more.Foundation.PWSTR),
+        ('ProxyPort', UInt16),
+    ]
+    return WININET_PROXY_INFO
+def _define_WININET_PROXY_INFO_LIST_head():
+    class WININET_PROXY_INFO_LIST(Structure):
+        pass
+    return WININET_PROXY_INFO_LIST
+def _define_WININET_PROXY_INFO_LIST():
+    WININET_PROXY_INFO_LIST = win32more.Networking.WinInet.WININET_PROXY_INFO_LIST_head
+    WININET_PROXY_INFO_LIST._fields_ = [
+        ('dwProxyInfoCount', UInt32),
+        ('pProxyInfo', POINTER(win32more.Networking.WinInet.WININET_PROXY_INFO_head)),
+    ]
+    return WININET_PROXY_INFO_LIST
+WININET_SYNC_MODE = Int32
+WININET_SYNC_MODE_NEVER = 0
+WININET_SYNC_MODE_ON_EXPIRY = 1
+WININET_SYNC_MODE_ONCE_PER_SESSION = 2
+WININET_SYNC_MODE_ALWAYS = 3
+WININET_SYNC_MODE_AUTOMATIC = 4
+WININET_SYNC_MODE_DEFAULT = 4
+WPAD_CACHE_DELETE = Int32
+WPAD_CACHE_DELETE_CURRENT = 0
+WPAD_CACHE_DELETE_ALL = 1
 __all__ = [
-    "DIALENG_OperationComplete",
-    "DIALENG_RedialAttempt",
-    "DIALENG_RedialWait",
-    "INTERNET_INVALID_PORT_NUMBER",
-    "INTERNET_DEFAULT_FTP_PORT",
-    "INTERNET_DEFAULT_GOPHER_PORT",
-    "INTERNET_DEFAULT_SOCKS_PORT",
-    "INTERNET_MAX_HOST_NAME_LENGTH",
-    "INTERNET_MAX_USER_NAME_LENGTH",
-    "INTERNET_MAX_PASSWORD_LENGTH",
-    "INTERNET_MAX_PORT_NUMBER_LENGTH",
-    "INTERNET_MAX_PORT_NUMBER_VALUE",
-    "INTERNET_KEEP_ALIVE_UNKNOWN",
-    "INTERNET_KEEP_ALIVE_ENABLED",
-    "INTERNET_KEEP_ALIVE_DISABLED",
-    "INTERNET_REQFLAG_FROM_CACHE",
-    "INTERNET_REQFLAG_ASYNC",
-    "INTERNET_REQFLAG_VIA_PROXY",
-    "INTERNET_REQFLAG_NO_HEADERS",
-    "INTERNET_REQFLAG_PASSIVE",
-    "INTERNET_REQFLAG_CACHE_WRITE_DISABLED",
-    "INTERNET_REQFLAG_NET_TIMEOUT",
-    "INTERNET_FLAG_IDN_DIRECT",
-    "INTERNET_FLAG_IDN_PROXY",
-    "INTERNET_FLAG_RELOAD",
-    "INTERNET_FLAG_RAW_DATA",
-    "INTERNET_FLAG_EXISTING_CONNECT",
-    "INTERNET_FLAG_ASYNC",
-    "INTERNET_FLAG_PASSIVE",
-    "INTERNET_FLAG_NO_CACHE_WRITE",
-    "INTERNET_FLAG_DONT_CACHE",
-    "INTERNET_FLAG_MAKE_PERSISTENT",
-    "INTERNET_FLAG_FROM_CACHE",
-    "INTERNET_FLAG_OFFLINE",
-    "INTERNET_FLAG_SECURE",
-    "INTERNET_FLAG_KEEP_CONNECTION",
-    "INTERNET_FLAG_NO_AUTO_REDIRECT",
-    "INTERNET_FLAG_READ_PREFETCH",
-    "INTERNET_FLAG_NO_COOKIES",
-    "INTERNET_FLAG_NO_AUTH",
-    "INTERNET_FLAG_CACHE_IF_NET_FAIL",
-    "INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP",
-    "INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTPS",
-    "INTERNET_FLAG_IGNORE_CERT_DATE_INVALID",
-    "INTERNET_FLAG_IGNORE_CERT_CN_INVALID",
-    "INTERNET_FLAG_RESYNCHRONIZE",
-    "INTERNET_FLAG_HYPERLINK",
-    "INTERNET_FLAG_NO_UI",
-    "INTERNET_FLAG_PRAGMA_NOCACHE",
-    "INTERNET_FLAG_CACHE_ASYNC",
-    "INTERNET_FLAG_FORMS_SUBMIT",
-    "INTERNET_FLAG_FWD_BACK",
-    "INTERNET_FLAG_NEED_FILE",
-    "INTERNET_FLAG_MUST_CACHE_REQUEST",
-    "INTERNET_ERROR_MASK_INSERT_CDROM",
-    "INTERNET_ERROR_MASK_COMBINED_SEC_CERT",
-    "INTERNET_ERROR_MASK_NEED_MSN_SSPI_PKG",
-    "INTERNET_ERROR_MASK_LOGIN_FAILURE_DISPLAY_ENTITY_BODY",
-    "WININET_API_FLAG_ASYNC",
-    "WININET_API_FLAG_SYNC",
-    "WININET_API_FLAG_USE_CONTEXT",
-    "INTERNET_NO_CALLBACK",
-    "IDSI_FLAG_KEEP_ALIVE",
-    "IDSI_FLAG_SECURE",
-    "IDSI_FLAG_PROXY",
-    "IDSI_FLAG_TUNNEL",
-    "INTERNET_PER_CONN_FLAGS_UI",
-    "PROXY_TYPE_DIRECT",
-    "PROXY_TYPE_PROXY",
-    "PROXY_TYPE_AUTO_PROXY_URL",
-    "PROXY_TYPE_AUTO_DETECT",
-    "AUTO_PROXY_FLAG_USER_SET",
-    "AUTO_PROXY_FLAG_ALWAYS_DETECT",
-    "AUTO_PROXY_FLAG_DETECTION_RUN",
-    "AUTO_PROXY_FLAG_MIGRATED",
-    "AUTO_PROXY_FLAG_DONT_CACHE_PROXY_RESULT",
-    "AUTO_PROXY_FLAG_CACHE_INIT_RUN",
-    "AUTO_PROXY_FLAG_DETECTION_SUSPECT",
-    "ISO_FORCE_DISCONNECTED",
-    "INTERNET_RFC1123_FORMAT",
-    "INTERNET_RFC1123_BUFSIZE",
-    "ICU_USERNAME",
-    "INTERNET_OPEN_TYPE_PRECONFIG_WITH_NO_AUTOPROXY",
-    "INTERNET_SERVICE_FTP",
-    "INTERNET_SERVICE_GOPHER",
-    "INTERNET_SERVICE_HTTP",
-    "IRF_ASYNC",
-    "IRF_SYNC",
-    "IRF_USE_CONTEXT",
-    "IRF_NO_WAIT",
-    "ISO_GLOBAL",
-    "ISO_REGISTRY",
-    "INTERNET_OPTION_CALLBACK",
-    "INTERNET_OPTION_CONNECT_TIMEOUT",
-    "INTERNET_OPTION_CONNECT_RETRIES",
-    "INTERNET_OPTION_CONNECT_BACKOFF",
-    "INTERNET_OPTION_SEND_TIMEOUT",
-    "INTERNET_OPTION_CONTROL_SEND_TIMEOUT",
-    "INTERNET_OPTION_RECEIVE_TIMEOUT",
-    "INTERNET_OPTION_CONTROL_RECEIVE_TIMEOUT",
-    "INTERNET_OPTION_DATA_SEND_TIMEOUT",
-    "INTERNET_OPTION_DATA_RECEIVE_TIMEOUT",
-    "INTERNET_OPTION_HANDLE_TYPE",
-    "INTERNET_OPTION_LISTEN_TIMEOUT",
-    "INTERNET_OPTION_READ_BUFFER_SIZE",
-    "INTERNET_OPTION_WRITE_BUFFER_SIZE",
-    "INTERNET_OPTION_ASYNC_ID",
-    "INTERNET_OPTION_ASYNC_PRIORITY",
-    "INTERNET_OPTION_PARENT_HANDLE",
-    "INTERNET_OPTION_KEEP_CONNECTION",
-    "INTERNET_OPTION_REQUEST_FLAGS",
-    "INTERNET_OPTION_EXTENDED_ERROR",
-    "INTERNET_OPTION_OFFLINE_MODE",
-    "INTERNET_OPTION_CACHE_STREAM_HANDLE",
-    "INTERNET_OPTION_USERNAME",
-    "INTERNET_OPTION_PASSWORD",
-    "INTERNET_OPTION_ASYNC",
-    "INTERNET_OPTION_SECURITY_FLAGS",
-    "INTERNET_OPTION_SECURITY_CERTIFICATE_STRUCT",
-    "INTERNET_OPTION_DATAFILE_NAME",
-    "INTERNET_OPTION_URL",
-    "INTERNET_OPTION_SECURITY_CERTIFICATE",
-    "INTERNET_OPTION_SECURITY_KEY_BITNESS",
-    "INTERNET_OPTION_REFRESH",
-    "INTERNET_OPTION_PROXY",
-    "INTERNET_OPTION_SETTINGS_CHANGED",
-    "INTERNET_OPTION_VERSION",
-    "INTERNET_OPTION_USER_AGENT",
-    "INTERNET_OPTION_END_BROWSER_SESSION",
-    "INTERNET_OPTION_PROXY_USERNAME",
-    "INTERNET_OPTION_PROXY_PASSWORD",
-    "INTERNET_OPTION_CONTEXT_VALUE",
-    "INTERNET_OPTION_CONNECT_LIMIT",
-    "INTERNET_OPTION_SECURITY_SELECT_CLIENT_CERT",
-    "INTERNET_OPTION_POLICY",
-    "INTERNET_OPTION_DISCONNECTED_TIMEOUT",
-    "INTERNET_OPTION_CONNECTED_STATE",
-    "INTERNET_OPTION_IDLE_STATE",
-    "INTERNET_OPTION_OFFLINE_SEMANTICS",
-    "INTERNET_OPTION_SECONDARY_CACHE_KEY",
-    "INTERNET_OPTION_CALLBACK_FILTER",
-    "INTERNET_OPTION_CONNECT_TIME",
-    "INTERNET_OPTION_SEND_THROUGHPUT",
-    "INTERNET_OPTION_RECEIVE_THROUGHPUT",
-    "INTERNET_OPTION_REQUEST_PRIORITY",
-    "INTERNET_OPTION_HTTP_VERSION",
-    "INTERNET_OPTION_RESET_URLCACHE_SESSION",
-    "INTERNET_OPTION_ERROR_MASK",
-    "INTERNET_OPTION_FROM_CACHE_TIMEOUT",
-    "INTERNET_OPTION_BYPASS_EDITED_ENTRY",
-    "INTERNET_OPTION_HTTP_DECODING",
-    "INTERNET_OPTION_DIAGNOSTIC_SOCKET_INFO",
-    "INTERNET_OPTION_CODEPAGE",
-    "INTERNET_OPTION_CACHE_TIMESTAMPS",
-    "INTERNET_OPTION_DISABLE_AUTODIAL",
-    "INTERNET_OPTION_MAX_CONNS_PER_SERVER",
-    "INTERNET_OPTION_MAX_CONNS_PER_1_0_SERVER",
-    "INTERNET_OPTION_PER_CONNECTION_OPTION",
-    "INTERNET_OPTION_DIGEST_AUTH_UNLOAD",
-    "INTERNET_OPTION_IGNORE_OFFLINE",
-    "INTERNET_OPTION_IDENTITY",
-    "INTERNET_OPTION_REMOVE_IDENTITY",
-    "INTERNET_OPTION_ALTER_IDENTITY",
-    "INTERNET_OPTION_SUPPRESS_BEHAVIOR",
-    "INTERNET_OPTION_AUTODIAL_MODE",
-    "INTERNET_OPTION_AUTODIAL_CONNECTION",
-    "INTERNET_OPTION_CLIENT_CERT_CONTEXT",
-    "INTERNET_OPTION_AUTH_FLAGS",
-    "INTERNET_OPTION_COOKIES_3RD_PARTY",
-    "INTERNET_OPTION_DISABLE_PASSPORT_AUTH",
-    "INTERNET_OPTION_SEND_UTF8_SERVERNAME_TO_PROXY",
-    "INTERNET_OPTION_EXEMPT_CONNECTION_LIMIT",
-    "INTERNET_OPTION_ENABLE_PASSPORT_AUTH",
-    "INTERNET_OPTION_HIBERNATE_INACTIVE_WORKER_THREADS",
-    "INTERNET_OPTION_ACTIVATE_WORKER_THREADS",
-    "INTERNET_OPTION_RESTORE_WORKER_THREAD_DEFAULTS",
-    "INTERNET_OPTION_SOCKET_SEND_BUFFER_LENGTH",
-    "INTERNET_OPTION_PROXY_SETTINGS_CHANGED",
-    "INTERNET_OPTION_DATAFILE_EXT",
-    "INTERNET_OPTION_CODEPAGE_PATH",
-    "INTERNET_OPTION_CODEPAGE_EXTRA",
-    "INTERNET_OPTION_IDN",
-    "INTERNET_OPTION_MAX_CONNS_PER_PROXY",
-    "INTERNET_OPTION_SUPPRESS_SERVER_AUTH",
-    "INTERNET_OPTION_SERVER_CERT_CHAIN_CONTEXT",
-    "INTERNET_OPTION_ENABLE_REDIRECT_CACHE_READ",
-    "INTERNET_OPTION_COMPRESSED_CONTENT_LENGTH",
-    "INTERNET_OPTION_ENABLE_HTTP_PROTOCOL",
-    "INTERNET_OPTION_HTTP_PROTOCOL_USED",
-    "INTERNET_OPTION_ENCODE_EXTRA",
-    "INTERNET_OPTION_HSTS",
-    "INTERNET_OPTION_ENTERPRISE_CONTEXT",
-    "INTERNET_OPTION_CONNECTION_FILTER",
-    "INTERNET_OPTION_REFERER_TOKEN_BINDING_HOSTNAME",
-    "INTERNET_OPTION_TOKEN_BINDING_PUBLIC_KEY",
-    "INTERNET_OPTION_COOKIES_SAME_SITE_LEVEL",
-    "INTERNET_FIRST_OPTION",
-    "INTERNET_LAST_OPTION",
-    "INTERNET_PRIORITY_FOREGROUND",
-    "HTTP_COOKIES_SAME_SITE_LEVEL_UNKNOWN",
-    "HTTP_COOKIES_SAME_SITE_LEVEL_SAME_SITE",
-    "HTTP_COOKIES_SAME_SITE_LEVEL_CROSS_SITE_LAX",
-    "HTTP_COOKIES_SAME_SITE_LEVEL_CROSS_SITE",
-    "HTTP_COOKIES_SAME_SITE_LEVEL_MAX",
-    "HTTP_PROTOCOL_FLAG_HTTP2",
-    "HTTP_PROTOCOL_MASK",
-    "INTERNET_HANDLE_TYPE_INTERNET",
-    "INTERNET_HANDLE_TYPE_CONNECT_FTP",
-    "INTERNET_HANDLE_TYPE_CONNECT_GOPHER",
-    "INTERNET_HANDLE_TYPE_CONNECT_HTTP",
-    "INTERNET_HANDLE_TYPE_FTP_FIND",
-    "INTERNET_HANDLE_TYPE_FTP_FIND_HTML",
-    "INTERNET_HANDLE_TYPE_FTP_FILE",
-    "INTERNET_HANDLE_TYPE_FTP_FILE_HTML",
-    "INTERNET_HANDLE_TYPE_GOPHER_FIND",
-    "INTERNET_HANDLE_TYPE_GOPHER_FIND_HTML",
-    "INTERNET_HANDLE_TYPE_GOPHER_FILE",
-    "INTERNET_HANDLE_TYPE_GOPHER_FILE_HTML",
-    "INTERNET_HANDLE_TYPE_HTTP_REQUEST",
-    "INTERNET_HANDLE_TYPE_FILE_REQUEST",
-    "AUTH_FLAG_DISABLE_NEGOTIATE",
-    "AUTH_FLAG_ENABLE_NEGOTIATE",
+    "ANY_CACHE_ENTRY",
+    "APP_CACHE_DOWNLOAD_ENTRY",
+    "APP_CACHE_DOWNLOAD_LIST",
+    "APP_CACHE_ENTRY_TYPE_EXPLICIT",
+    "APP_CACHE_ENTRY_TYPE_FALLBACK",
+    "APP_CACHE_ENTRY_TYPE_FOREIGN",
+    "APP_CACHE_ENTRY_TYPE_MANIFEST",
+    "APP_CACHE_ENTRY_TYPE_MASTER",
+    "APP_CACHE_FINALIZE_STATE",
+    "APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete",
+    "APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete",
+    "APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange",
+    "APP_CACHE_GROUP_INFO",
+    "APP_CACHE_GROUP_LIST",
+    "APP_CACHE_LOOKUP_NO_MASTER_ONLY",
+    "APP_CACHE_STATE",
+    "APP_CACHE_STATE_AppCacheStateNoUpdateNeeded",
+    "APP_CACHE_STATE_AppCacheStateUpdateNeeded",
+    "APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly",
+    "APP_CACHE_STATE_AppCacheStateUpdateNeededNew",
     "AUTH_FLAG_DISABLE_BASIC_CLEARCHANNEL",
+    "AUTH_FLAG_DISABLE_NEGOTIATE",
     "AUTH_FLAG_DISABLE_SERVER_AUTH",
-    "SECURITY_FLAG_UNKNOWNBIT",
-    "SECURITY_FLAG_FORTEZZA",
-    "SECURITY_FLAG_NORMALBITNESS",
-    "SECURITY_FLAG_SSL",
-    "SECURITY_FLAG_SSL3",
-    "SECURITY_FLAG_PCT",
-    "SECURITY_FLAG_PCT4",
-    "SECURITY_FLAG_IETFSSL4",
-    "SECURITY_FLAG_40BIT",
-    "SECURITY_FLAG_128BIT",
-    "SECURITY_FLAG_56BIT",
-    "SECURITY_FLAG_IGNORE_REVOCATION",
-    "SECURITY_FLAG_IGNORE_WRONG_USAGE",
-    "SECURITY_FLAG_IGNORE_WEAK_SIGNATURE",
-    "SECURITY_FLAG_IGNORE_REDIRECT_TO_HTTPS",
-    "SECURITY_FLAG_IGNORE_REDIRECT_TO_HTTP",
-    "SECURITY_FLAG_OPT_IN_WEAK_SIGNATURE",
-    "AUTODIAL_MODE_NEVER",
+    "AUTH_FLAG_ENABLE_NEGOTIATE",
+    "AUTH_FLAG_RESET",
     "AUTODIAL_MODE_ALWAYS",
+    "AUTODIAL_MODE_NEVER",
     "AUTODIAL_MODE_NO_NETWORK_PRESENT",
-    "INTERNET_STATUS_RESOLVING_NAME",
-    "INTERNET_STATUS_NAME_RESOLVED",
-    "INTERNET_STATUS_CONNECTING_TO_SERVER",
-    "INTERNET_STATUS_CONNECTED_TO_SERVER",
-    "INTERNET_STATUS_SENDING_REQUEST",
-    "INTERNET_STATUS_REQUEST_SENT",
-    "INTERNET_STATUS_RECEIVING_RESPONSE",
-    "INTERNET_STATUS_RESPONSE_RECEIVED",
-    "INTERNET_STATUS_CTL_RESPONSE_RECEIVED",
-    "INTERNET_STATUS_PREFETCH",
-    "INTERNET_STATUS_CLOSING_CONNECTION",
-    "INTERNET_STATUS_CONNECTION_CLOSED",
-    "INTERNET_STATUS_HANDLE_CREATED",
-    "INTERNET_STATUS_HANDLE_CLOSING",
-    "INTERNET_STATUS_DETECTING_PROXY",
-    "INTERNET_STATUS_REQUEST_COMPLETE",
-    "INTERNET_STATUS_REDIRECT",
-    "INTERNET_STATUS_INTERMEDIATE_RESPONSE",
-    "INTERNET_STATUS_USER_INPUT_REQUIRED",
-    "INTERNET_STATUS_STATE_CHANGE",
-    "INTERNET_STATUS_COOKIE_SENT",
-    "INTERNET_STATUS_COOKIE_RECEIVED",
-    "INTERNET_STATUS_PRIVACY_IMPACTED",
-    "INTERNET_STATUS_P3P_HEADER",
-    "INTERNET_STATUS_P3P_POLICYREF",
-    "INTERNET_STATUS_COOKIE_HISTORY",
-    "MAX_GOPHER_DISPLAY_TEXT",
-    "MAX_GOPHER_SELECTOR_TEXT",
-    "MAX_GOPHER_HOST_NAME",
-    "MAX_GOPHER_CATEGORY_NAME",
-    "MAX_GOPHER_ATTRIBUTE_NAME",
-    "MIN_GOPHER_ATTRIBUTE_LENGTH",
-    "GOPHER_ATTRIBUTE_ID_BASE",
-    "GOPHER_CATEGORY_ID_ALL",
-    "GOPHER_CATEGORY_ID_INFO",
-    "GOPHER_CATEGORY_ID_ADMIN",
-    "GOPHER_CATEGORY_ID_VIEWS",
-    "GOPHER_CATEGORY_ID_ABSTRACT",
-    "GOPHER_CATEGORY_ID_VERONICA",
-    "GOPHER_CATEGORY_ID_ASK",
-    "GOPHER_CATEGORY_ID_UNKNOWN",
-    "GOPHER_ATTRIBUTE_ID_ALL",
-    "GOPHER_ATTRIBUTE_ID_ADMIN",
-    "GOPHER_ATTRIBUTE_ID_MOD_DATE",
-    "GOPHER_ATTRIBUTE_ID_TTL",
-    "GOPHER_ATTRIBUTE_ID_SCORE",
-    "GOPHER_ATTRIBUTE_ID_RANGE",
-    "GOPHER_ATTRIBUTE_ID_SITE",
-    "GOPHER_ATTRIBUTE_ID_ORG",
-    "GOPHER_ATTRIBUTE_ID_LOCATION",
-    "GOPHER_ATTRIBUTE_ID_GEOG",
-    "GOPHER_ATTRIBUTE_ID_TIMEZONE",
-    "GOPHER_ATTRIBUTE_ID_PROVIDER",
-    "GOPHER_ATTRIBUTE_ID_VERSION",
-    "GOPHER_ATTRIBUTE_ID_ABSTRACT",
-    "GOPHER_ATTRIBUTE_ID_VIEW",
-    "GOPHER_ATTRIBUTE_ID_TREEWALK",
-    "GOPHER_ATTRIBUTE_ID_UNKNOWN",
-    "HTTP_MAJOR_VERSION",
-    "HTTP_MINOR_VERSION",
-    "HTTP_QUERY_MIME_VERSION",
-    "HTTP_QUERY_CONTENT_TYPE",
-    "HTTP_QUERY_CONTENT_TRANSFER_ENCODING",
-    "HTTP_QUERY_CONTENT_ID",
-    "HTTP_QUERY_CONTENT_DESCRIPTION",
-    "HTTP_QUERY_CONTENT_LENGTH",
-    "HTTP_QUERY_CONTENT_LANGUAGE",
-    "HTTP_QUERY_ALLOW",
-    "HTTP_QUERY_PUBLIC",
-    "HTTP_QUERY_DATE",
-    "HTTP_QUERY_EXPIRES",
-    "HTTP_QUERY_LAST_MODIFIED",
-    "HTTP_QUERY_MESSAGE_ID",
-    "HTTP_QUERY_URI",
-    "HTTP_QUERY_DERIVED_FROM",
-    "HTTP_QUERY_COST",
-    "HTTP_QUERY_LINK",
-    "HTTP_QUERY_PRAGMA",
-    "HTTP_QUERY_VERSION",
-    "HTTP_QUERY_STATUS_CODE",
-    "HTTP_QUERY_STATUS_TEXT",
-    "HTTP_QUERY_RAW_HEADERS",
-    "HTTP_QUERY_RAW_HEADERS_CRLF",
-    "HTTP_QUERY_CONNECTION",
-    "HTTP_QUERY_ACCEPT",
-    "HTTP_QUERY_ACCEPT_CHARSET",
-    "HTTP_QUERY_ACCEPT_ENCODING",
-    "HTTP_QUERY_ACCEPT_LANGUAGE",
-    "HTTP_QUERY_AUTHORIZATION",
-    "HTTP_QUERY_CONTENT_ENCODING",
-    "HTTP_QUERY_FORWARDED",
-    "HTTP_QUERY_FROM",
-    "HTTP_QUERY_IF_MODIFIED_SINCE",
-    "HTTP_QUERY_LOCATION",
-    "HTTP_QUERY_ORIG_URI",
-    "HTTP_QUERY_REFERER",
-    "HTTP_QUERY_RETRY_AFTER",
-    "HTTP_QUERY_SERVER",
-    "HTTP_QUERY_TITLE",
-    "HTTP_QUERY_USER_AGENT",
-    "HTTP_QUERY_WWW_AUTHENTICATE",
-    "HTTP_QUERY_PROXY_AUTHENTICATE",
-    "HTTP_QUERY_ACCEPT_RANGES",
-    "HTTP_QUERY_SET_COOKIE",
-    "HTTP_QUERY_COOKIE",
-    "HTTP_QUERY_REQUEST_METHOD",
-    "HTTP_QUERY_REFRESH",
-    "HTTP_QUERY_CONTENT_DISPOSITION",
-    "HTTP_QUERY_AGE",
-    "HTTP_QUERY_CACHE_CONTROL",
-    "HTTP_QUERY_CONTENT_BASE",
-    "HTTP_QUERY_CONTENT_LOCATION",
-    "HTTP_QUERY_CONTENT_MD5",
-    "HTTP_QUERY_CONTENT_RANGE",
-    "HTTP_QUERY_ETAG",
-    "HTTP_QUERY_HOST",
-    "HTTP_QUERY_IF_MATCH",
-    "HTTP_QUERY_IF_NONE_MATCH",
-    "HTTP_QUERY_IF_RANGE",
-    "HTTP_QUERY_IF_UNMODIFIED_SINCE",
-    "HTTP_QUERY_MAX_FORWARDS",
-    "HTTP_QUERY_PROXY_AUTHORIZATION",
-    "HTTP_QUERY_RANGE",
-    "HTTP_QUERY_TRANSFER_ENCODING",
-    "HTTP_QUERY_UPGRADE",
-    "HTTP_QUERY_VARY",
-    "HTTP_QUERY_VIA",
-    "HTTP_QUERY_WARNING",
-    "HTTP_QUERY_EXPECT",
-    "HTTP_QUERY_PROXY_CONNECTION",
-    "HTTP_QUERY_UNLESS_MODIFIED_SINCE",
-    "HTTP_QUERY_ECHO_REQUEST",
-    "HTTP_QUERY_ECHO_REPLY",
-    "HTTP_QUERY_ECHO_HEADERS",
-    "HTTP_QUERY_ECHO_HEADERS_CRLF",
-    "HTTP_QUERY_PROXY_SUPPORT",
-    "HTTP_QUERY_AUTHENTICATION_INFO",
-    "HTTP_QUERY_PASSPORT_URLS",
-    "HTTP_QUERY_PASSPORT_CONFIG",
-    "HTTP_QUERY_X_CONTENT_TYPE_OPTIONS",
-    "HTTP_QUERY_P3P",
-    "HTTP_QUERY_X_P2P_PEERDIST",
-    "HTTP_QUERY_TRANSLATE",
-    "HTTP_QUERY_X_UA_COMPATIBLE",
-    "HTTP_QUERY_DEFAULT_STYLE",
-    "HTTP_QUERY_X_FRAME_OPTIONS",
-    "HTTP_QUERY_X_XSS_PROTECTION",
-    "HTTP_QUERY_SET_COOKIE2",
-    "HTTP_QUERY_DO_NOT_TRACK",
-    "HTTP_QUERY_KEEP_ALIVE",
-    "HTTP_QUERY_HTTP2_SETTINGS",
-    "HTTP_QUERY_STRICT_TRANSPORT_SECURITY",
-    "HTTP_QUERY_TOKEN_BINDING",
-    "HTTP_QUERY_INCLUDE_REFERRED_TOKEN_BINDING_ID",
-    "HTTP_QUERY_INCLUDE_REFERER_TOKEN_BINDING_ID",
-    "HTTP_QUERY_PUBLIC_KEY_PINS",
-    "HTTP_QUERY_PUBLIC_KEY_PINS_REPORT_ONLY",
-    "HTTP_QUERY_MAX",
-    "HTTP_QUERY_CUSTOM",
-    "HTTP_QUERY_FLAG_REQUEST_HEADERS",
-    "HTTP_QUERY_FLAG_SYSTEMTIME",
-    "HTTP_QUERY_FLAG_NUMBER",
-    "HTTP_QUERY_FLAG_COALESCE",
-    "HTTP_QUERY_FLAG_NUMBER64",
-    "HTTP_QUERY_FLAG_COALESCE_WITH_COMMA",
-    "HTTP_STATUS_MISDIRECTED_REQUEST",
-    "HTTP_ADDREQ_INDEX_MASK",
-    "HTTP_ADDREQ_FLAGS_MASK",
-    "HSR_ASYNC",
-    "HSR_SYNC",
-    "HSR_USE_CONTEXT",
-    "HSR_INITIATE",
-    "HSR_DOWNLOAD",
-    "HSR_CHUNKED",
-    "INTERNET_COOKIE_IS_SECURE",
-    "INTERNET_COOKIE_IS_SESSION",
-    "INTERNET_COOKIE_PROMPT_REQUIRED",
-    "INTERNET_COOKIE_EVALUATE_P3P",
-    "INTERNET_COOKIE_APPLY_P3P",
-    "INTERNET_COOKIE_P3P_ENABLED",
-    "INTERNET_COOKIE_IS_RESTRICTED",
-    "INTERNET_COOKIE_IE6",
-    "INTERNET_COOKIE_IS_LEGACY",
-    "INTERNET_COOKIE_NON_SCRIPT",
-    "INTERNET_COOKIE_HOST_ONLY",
-    "INTERNET_COOKIE_APPLY_HOST_ONLY",
-    "INTERNET_COOKIE_HOST_ONLY_APPLIED",
-    "INTERNET_COOKIE_SAME_SITE_STRICT",
-    "INTERNET_COOKIE_SAME_SITE_LAX",
-    "INTERNET_COOKIE_SAME_SITE_LEVEL_CROSS_SITE",
-    "FLAG_ICC_FORCE_CONNECTION",
-    "FLAGS_ERROR_UI_FILTER_FOR_ERRORS",
-    "FLAGS_ERROR_UI_FLAGS_CHANGE_OPTIONS",
-    "FLAGS_ERROR_UI_FLAGS_GENERATE_DATA",
-    "FLAGS_ERROR_UI_FLAGS_NO_UI",
-    "FLAGS_ERROR_UI_SERIALIZE_DIALOGS",
-    "INTERNET_ERROR_BASE",
-    "ERROR_INTERNET_OUT_OF_HANDLES",
-    "ERROR_INTERNET_TIMEOUT",
-    "ERROR_INTERNET_EXTENDED_ERROR",
-    "ERROR_INTERNET_INTERNAL_ERROR",
-    "ERROR_INTERNET_INVALID_URL",
-    "ERROR_INTERNET_UNRECOGNIZED_SCHEME",
-    "ERROR_INTERNET_NAME_NOT_RESOLVED",
-    "ERROR_INTERNET_PROTOCOL_NOT_FOUND",
-    "ERROR_INTERNET_INVALID_OPTION",
-    "ERROR_INTERNET_BAD_OPTION_LENGTH",
-    "ERROR_INTERNET_OPTION_NOT_SETTABLE",
-    "ERROR_INTERNET_SHUTDOWN",
-    "ERROR_INTERNET_INCORRECT_USER_NAME",
-    "ERROR_INTERNET_INCORRECT_PASSWORD",
-    "ERROR_INTERNET_LOGIN_FAILURE",
-    "ERROR_INTERNET_INVALID_OPERATION",
-    "ERROR_INTERNET_OPERATION_CANCELLED",
-    "ERROR_INTERNET_INCORRECT_HANDLE_TYPE",
-    "ERROR_INTERNET_INCORRECT_HANDLE_STATE",
-    "ERROR_INTERNET_NOT_PROXY_REQUEST",
-    "ERROR_INTERNET_REGISTRY_VALUE_NOT_FOUND",
-    "ERROR_INTERNET_BAD_REGISTRY_PARAMETER",
-    "ERROR_INTERNET_NO_DIRECT_ACCESS",
-    "ERROR_INTERNET_NO_CONTEXT",
-    "ERROR_INTERNET_NO_CALLBACK",
-    "ERROR_INTERNET_REQUEST_PENDING",
-    "ERROR_INTERNET_INCORRECT_FORMAT",
-    "ERROR_INTERNET_ITEM_NOT_FOUND",
-    "ERROR_INTERNET_CANNOT_CONNECT",
-    "ERROR_INTERNET_CONNECTION_ABORTED",
-    "ERROR_INTERNET_CONNECTION_RESET",
-    "ERROR_INTERNET_FORCE_RETRY",
-    "ERROR_INTERNET_INVALID_PROXY_REQUEST",
-    "ERROR_INTERNET_NEED_UI",
-    "ERROR_INTERNET_HANDLE_EXISTS",
-    "ERROR_INTERNET_SEC_CERT_DATE_INVALID",
-    "ERROR_INTERNET_SEC_CERT_CN_INVALID",
-    "ERROR_INTERNET_HTTP_TO_HTTPS_ON_REDIR",
-    "ERROR_INTERNET_HTTPS_TO_HTTP_ON_REDIR",
-    "ERROR_INTERNET_MIXED_SECURITY",
-    "ERROR_INTERNET_CHG_POST_IS_NON_SECURE",
-    "ERROR_INTERNET_POST_IS_NON_SECURE",
-    "ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED",
-    "ERROR_INTERNET_INVALID_CA",
-    "ERROR_INTERNET_CLIENT_AUTH_NOT_SETUP",
-    "ERROR_INTERNET_ASYNC_THREAD_FAILED",
-    "ERROR_INTERNET_REDIRECT_SCHEME_CHANGE",
-    "ERROR_INTERNET_DIALOG_PENDING",
-    "ERROR_INTERNET_RETRY_DIALOG",
-    "ERROR_INTERNET_HTTPS_HTTP_SUBMIT_REDIR",
-    "ERROR_INTERNET_INSERT_CDROM",
-    "ERROR_INTERNET_FORTEZZA_LOGIN_NEEDED",
-    "ERROR_INTERNET_SEC_CERT_ERRORS",
-    "ERROR_INTERNET_SEC_CERT_NO_REV",
-    "ERROR_INTERNET_SEC_CERT_REV_FAILED",
-    "ERROR_HTTP_HSTS_REDIRECT_REQUIRED",
-    "ERROR_INTERNET_SEC_CERT_WEAK_SIGNATURE",
-    "ERROR_FTP_TRANSFER_IN_PROGRESS",
-    "ERROR_FTP_DROPPED",
-    "ERROR_FTP_NO_PASSIVE_MODE",
-    "ERROR_GOPHER_PROTOCOL_ERROR",
-    "ERROR_GOPHER_NOT_FILE",
-    "ERROR_GOPHER_DATA_ERROR",
-    "ERROR_GOPHER_END_OF_DATA",
-    "ERROR_GOPHER_INVALID_LOCATOR",
-    "ERROR_GOPHER_INCORRECT_LOCATOR_TYPE",
-    "ERROR_GOPHER_NOT_GOPHER_PLUS",
-    "ERROR_GOPHER_ATTRIBUTE_NOT_FOUND",
-    "ERROR_GOPHER_UNKNOWN_LOCATOR",
-    "ERROR_HTTP_HEADER_NOT_FOUND",
-    "ERROR_HTTP_DOWNLEVEL_SERVER",
-    "ERROR_HTTP_INVALID_SERVER_RESPONSE",
-    "ERROR_HTTP_INVALID_HEADER",
-    "ERROR_HTTP_INVALID_QUERY_REQUEST",
-    "ERROR_HTTP_HEADER_ALREADY_EXISTS",
-    "ERROR_HTTP_REDIRECT_FAILED",
-    "ERROR_HTTP_NOT_REDIRECTED",
-    "ERROR_HTTP_COOKIE_NEEDS_CONFIRMATION",
-    "ERROR_HTTP_COOKIE_DECLINED",
-    "ERROR_HTTP_REDIRECT_NEEDS_CONFIRMATION",
-    "ERROR_INTERNET_SECURITY_CHANNEL_ERROR",
-    "ERROR_INTERNET_UNABLE_TO_CACHE_FILE",
-    "ERROR_INTERNET_TCPIP_NOT_INSTALLED",
-    "ERROR_INTERNET_DISCONNECTED",
-    "ERROR_INTERNET_SERVER_UNREACHABLE",
-    "ERROR_INTERNET_PROXY_SERVER_UNREACHABLE",
-    "ERROR_INTERNET_BAD_AUTO_PROXY_SCRIPT",
-    "ERROR_INTERNET_UNABLE_TO_DOWNLOAD_SCRIPT",
-    "ERROR_INTERNET_SEC_INVALID_CERT",
-    "ERROR_INTERNET_SEC_CERT_REVOKED",
-    "ERROR_INTERNET_FAILED_DUETOSECURITYCHECK",
-    "ERROR_INTERNET_NOT_INITIALIZED",
-    "ERROR_INTERNET_NEED_MSN_SSPI_PKG",
-    "ERROR_INTERNET_LOGIN_FAILURE_DISPLAY_ENTITY_BODY",
-    "ERROR_INTERNET_DECODING_FAILED",
-    "ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED_PROXY",
-    "ERROR_INTERNET_SECURE_FAILURE_PROXY",
-    "ERROR_INTERNET_HTTP_PROTOCOL_MISMATCH",
-    "ERROR_INTERNET_GLOBAL_CALLBACK_FAILED",
-    "ERROR_INTERNET_FEATURE_DISABLED",
-    "INTERNET_ERROR_LAST",
-    "NORMAL_CACHE_ENTRY",
-    "STICKY_CACHE_ENTRY",
-    "EDITED_CACHE_ENTRY",
-    "TRACK_OFFLINE_CACHE_ENTRY",
-    "TRACK_ONLINE_CACHE_ENTRY",
-    "SPARSE_CACHE_ENTRY",
-    "COOKIE_CACHE_ENTRY",
-    "URLHISTORY_CACHE_ENTRY",
-    "CACHEGROUP_ATTRIBUTE_GET_ALL",
+    "AUTO_PROXY_FLAG_ALWAYS_DETECT",
+    "AUTO_PROXY_FLAG_CACHE_INIT_RUN",
+    "AUTO_PROXY_FLAG_DETECTION_RUN",
+    "AUTO_PROXY_FLAG_DETECTION_SUSPECT",
+    "AUTO_PROXY_FLAG_DONT_CACHE_PROXY_RESULT",
+    "AUTO_PROXY_FLAG_MIGRATED",
+    "AUTO_PROXY_FLAG_USER_SET",
+    "AUTO_PROXY_SCRIPT_BUFFER",
+    "AppCacheCheckManifest",
+    "AppCacheCloseHandle",
+    "AppCacheCreateAndCommitFile",
+    "AppCacheDeleteGroup",
+    "AppCacheDeleteIEGroup",
+    "AppCacheDuplicateHandle",
+    "AppCacheFinalize",
+    "AppCacheFreeDownloadList",
+    "AppCacheFreeGroupList",
+    "AppCacheFreeIESpace",
+    "AppCacheFreeSpace",
+    "AppCacheGetDownloadList",
+    "AppCacheGetFallbackUrl",
+    "AppCacheGetGroupList",
+    "AppCacheGetIEGroupList",
+    "AppCacheGetInfo",
+    "AppCacheGetManifestUrl",
+    "AppCacheLookup",
+    "AutoProxyHelperFunctions",
+    "AutoProxyHelperVtbl",
     "CACHEGROUP_ATTRIBUTE_BASIC",
     "CACHEGROUP_ATTRIBUTE_FLAG",
-    "CACHEGROUP_ATTRIBUTE_TYPE",
-    "CACHEGROUP_ATTRIBUTE_QUOTA",
+    "CACHEGROUP_ATTRIBUTE_GET_ALL",
     "CACHEGROUP_ATTRIBUTE_GROUPNAME",
+    "CACHEGROUP_ATTRIBUTE_QUOTA",
     "CACHEGROUP_ATTRIBUTE_STORAGE",
-    "CACHEGROUP_FLAG_NONPURGEABLE",
-    "CACHEGROUP_FLAG_GIDONLY",
+    "CACHEGROUP_ATTRIBUTE_TYPE",
     "CACHEGROUP_FLAG_FLUSHURL_ONDELETE",
+    "CACHEGROUP_FLAG_GIDONLY",
+    "CACHEGROUP_FLAG_NONPURGEABLE",
+    "CACHEGROUP_FLAG_VALID",
+    "CACHEGROUP_ID_BUILTIN_STICKY",
     "CACHEGROUP_SEARCH_ALL",
     "CACHEGROUP_SEARCH_BYURL",
     "CACHEGROUP_TYPE_INVALID",
-    "GROUPNAME_MAX_LENGTH",
-    "GROUP_OWNER_STORAGE_SIZE",
-    "CACHE_ENTRY_ATTRIBUTE_FC",
-    "CACHE_ENTRY_HITRATE_FC",
-    "CACHE_ENTRY_MODTIME_FC",
-    "CACHE_ENTRY_EXPTIME_FC",
+    "CACHE_CONFIG",
+    "CACHE_CONFIG_APPCONTAINER_CONTENT_QUOTA_FC",
+    "CACHE_CONFIG_APPCONTAINER_TOTAL_CONTENT_QUOTA_FC",
+    "CACHE_CONFIG_CONTENT_PATHS_FC",
+    "CACHE_CONFIG_CONTENT_QUOTA_FC",
+    "CACHE_CONFIG_CONTENT_USAGE_FC",
+    "CACHE_CONFIG_COOKIES_PATHS_FC",
+    "CACHE_CONFIG_DISK_CACHE_PATHS_FC",
+    "CACHE_CONFIG_FORCE_CLEANUP_FC",
+    "CACHE_CONFIG_HISTORY_PATHS_FC",
+    "CACHE_CONFIG_QUOTA_FC",
+    "CACHE_CONFIG_STICKY_CONTENT_USAGE_FC",
+    "CACHE_CONFIG_SYNC_MODE_FC",
+    "CACHE_CONFIG_TOTAL_CONTENT_QUOTA_FC",
+    "CACHE_CONFIG_USER_MODE_FC",
     "CACHE_ENTRY_ACCTIME_FC",
-    "CACHE_ENTRY_SYNCTIME_FC",
-    "CACHE_ENTRY_HEADERINFO_FC",
+    "CACHE_ENTRY_ATTRIBUTE_FC",
     "CACHE_ENTRY_EXEMPT_DELTA_FC",
-    "INTERNET_CACHE_GROUP_ADD",
-    "INTERNET_CACHE_GROUP_REMOVE",
-    "INTERNET_DIAL_FORCE_PROMPT",
-    "INTERNET_DIAL_SHOW_OFFLINE",
-    "INTERNET_DIAL_UNATTENDED",
-    "INTERENT_GOONLINE_REFRESH",
-    "INTERENT_GOONLINE_NOPROMPT",
-    "INTERENT_GOONLINE_MASK",
-    "INTERNET_CONNECTION_LAN",
-    "INTERNET_CONNECTION_OFFLINE",
-    "INTERNET_CUSTOMDIAL_CONNECT",
-    "INTERNET_CUSTOMDIAL_UNATTENDED",
-    "INTERNET_CUSTOMDIAL_DISCONNECT",
-    "INTERNET_CUSTOMDIAL_SHOWOFFLINE",
-    "INTERNET_CUSTOMDIAL_SAFE_FOR_UNATTENDED",
-    "INTERNET_CUSTOMDIAL_WILL_SUPPLY_STATE",
-    "INTERNET_CUSTOMDIAL_CAN_HANGUP",
-    "INTERNET_DIALSTATE_DISCONNECTED",
-    "INTERNET_IDENTITY_FLAG_PRIVATE_CACHE",
-    "INTERNET_IDENTITY_FLAG_SHARED_CACHE",
-    "INTERNET_IDENTITY_FLAG_CLEAR_DATA",
-    "INTERNET_IDENTITY_FLAG_CLEAR_COOKIES",
-    "INTERNET_IDENTITY_FLAG_CLEAR_HISTORY",
-    "INTERNET_IDENTITY_FLAG_CLEAR_CONTENT",
-    "INTERNET_SUPPRESS_RESET_ALL",
-    "INTERNET_SUPPRESS_COOKIE_POLICY",
-    "INTERNET_SUPPRESS_COOKIE_POLICY_RESET",
-    "PRIVACY_TEMPLATE_NO_COOKIES",
-    "PRIVACY_TEMPLATE_HIGH",
-    "PRIVACY_TEMPLATE_MEDIUM_HIGH",
-    "PRIVACY_TEMPLATE_MEDIUM",
-    "PRIVACY_TEMPLATE_MEDIUM_LOW",
-    "PRIVACY_TEMPLATE_LOW",
-    "PRIVACY_TEMPLATE_CUSTOM",
-    "PRIVACY_TEMPLATE_ADVANCED",
-    "PRIVACY_TEMPLATE_MAX",
-    "PRIVACY_TYPE_FIRST_PARTY",
-    "PRIVACY_TYPE_THIRD_PARTY",
-    "MAX_CACHE_ENTRY_INFO_SIZE",
-    "INTERNET_REQFLAG_FROM_APP_CACHE",
-    "INTERNET_FLAG_BGUPDATE",
-    "INTERNET_FLAG_FTP_FOLDER_VIEW",
-    "INTERNET_PREFETCH_PROGRESS",
-    "INTERNET_PREFETCH_COMPLETE",
-    "INTERNET_PREFETCH_ABORTED",
-    "ISO_FORCE_OFFLINE",
-    "DLG_FLAGS_INVALID_CA",
-    "DLG_FLAGS_SEC_CERT_CN_INVALID",
-    "DLG_FLAGS_SEC_CERT_DATE_INVALID",
-    "DLG_FLAGS_WEAK_SIGNATURE",
-    "DLG_FLAGS_INSECURE_FALLBACK",
-    "DLG_FLAGS_SEC_CERT_REV_FAILED",
-    "INTERNET_SERVICE_URL",
-    "INTERNET_OPTION_CONTEXT_VALUE_OLD",
-    "INTERNET_OPTION_NET_SPEED",
-    "INTERNET_OPTION_SECURITY_CONNECTION_INFO",
-    "INTERNET_OPTION_DETECT_POST_SEND",
-    "INTERNET_OPTION_DISABLE_NTLM_PREAUTH",
-    "INTERNET_OPTION_ORIGINAL_CONNECT_FLAGS",
-    "INTERNET_OPTION_CERT_ERROR_FLAGS",
-    "INTERNET_OPTION_IGNORE_CERT_ERROR_FLAGS",
-    "INTERNET_OPTION_SESSION_START_TIME",
-    "INTERNET_OPTION_PROXY_CREDENTIALS",
-    "INTERNET_OPTION_EXTENDED_CALLBACKS",
-    "INTERNET_OPTION_PROXY_FROM_REQUEST",
-    "INTERNET_OPTION_ALLOW_FAILED_CONNECT_CONTENT",
-    "INTERNET_OPTION_CACHE_PARTITION",
-    "INTERNET_OPTION_AUTODIAL_HWND",
-    "INTERNET_OPTION_SERVER_CREDENTIALS",
-    "INTERNET_OPTION_WPAD_SLEEP",
-    "INTERNET_OPTION_FAIL_ON_CACHE_WRITE_ERROR",
-    "INTERNET_OPTION_DOWNLOAD_MODE",
-    "INTERNET_OPTION_RESPONSE_RESUMABLE",
-    "INTERNET_OPTION_CM_HANDLE_COPY_REF",
-    "INTERNET_OPTION_CONNECTION_INFO",
-    "INTERNET_OPTION_BACKGROUND_CONNECTIONS",
-    "INTERNET_OPTION_DO_NOT_TRACK",
-    "INTERNET_OPTION_USE_MODIFIED_HEADER_FILTER",
-    "INTERNET_OPTION_WWA_MODE",
-    "INTERNET_OPTION_UPGRADE_TO_WEB_SOCKET",
-    "INTERNET_OPTION_WEB_SOCKET_KEEPALIVE_INTERVAL",
-    "INTERNET_OPTION_UNLOAD_NOTIFY_EVENT",
-    "INTERNET_OPTION_SOCKET_NODELAY",
-    "INTERNET_OPTION_APP_CACHE",
-    "INTERNET_OPTION_DEPENDENCY_HANDLE",
-    "INTERNET_OPTION_USE_FIRST_AVAILABLE_CONNECTION",
-    "INTERNET_OPTION_TIMED_CONNECTION_LIMIT_BYPASS",
-    "INTERNET_OPTION_WEB_SOCKET_CLOSE_TIMEOUT",
-    "INTERNET_OPTION_FLUSH_STATE",
-    "INTERNET_OPTION_DISALLOW_PREMATURE_EOF",
-    "INTERNET_OPTION_SOCKET_NOTIFICATION_IOCTL",
-    "INTERNET_OPTION_CACHE_ENTRY_EXTRA_DATA",
-    "INTERNET_OPTION_MAX_QUERY_BUFFER_SIZE",
-    "INTERNET_OPTION_FALSE_START",
-    "INTERNET_OPTION_USER_PASS_SERVER_ONLY",
-    "INTERNET_OPTION_SERVER_AUTH_SCHEME",
-    "INTERNET_OPTION_PROXY_AUTH_SCHEME",
-    "INTERNET_OPTION_TUNNEL_ONLY",
-    "INTERNET_OPTION_SOURCE_PORT",
-    "INTERNET_OPTION_ENABLE_DUO",
-    "INTERNET_OPTION_DUO_USED",
-    "INTERNET_OPTION_CHUNK_ENCODE_REQUEST",
-    "INTERNET_OPTION_SECURE_FAILURE",
-    "INTERNET_OPTION_NOTIFY_SENDING_COOKIE",
-    "INTERNET_OPTION_CLIENT_CERT_ISSUER_LIST",
-    "INTERNET_OPTION_RESET",
-    "INTERNET_OPTION_SERVER_ADDRESS_INFO",
-    "INTERNET_OPTION_ENABLE_WBOEXT",
-    "INTERNET_OPTION_DISABLE_INSECURE_FALLBACK",
-    "INTERNET_OPTION_ALLOW_INSECURE_FALLBACK",
-    "INTERNET_OPTION_SET_IN_PRIVATE",
-    "INTERNET_OPTION_DOWNLOAD_MODE_HANDLE",
-    "INTERNET_OPTION_EDGE_COOKIES",
-    "INTERNET_OPTION_NO_HTTP_SERVER_AUTH",
-    "INTERNET_OPTION_ENABLE_HEADER_CALLBACKS",
-    "INTERNET_OPTION_PRESERVE_REQUEST_SERVER_CREDENTIALS_ON_REDIRECT",
-    "INTERNET_OPTION_PRESERVE_REFERER_ON_HTTPS_TO_HTTP_REDIRECT",
-    "INTERNET_OPTION_TCP_FAST_OPEN",
-    "INTERNET_OPTION_SYNC_MODE_AUTOMATIC_SESSION_DISABLED",
-    "INTERNET_OPTION_ENABLE_ZLIB_DEFLATE",
-    "INTERNET_OPTION_ENCODE_FALLBACK_FOR_REDIRECT_URI",
-    "INTERNET_OPTION_EDGE_COOKIES_TEMP",
-    "INTERNET_OPTION_OPT_IN_WEAK_SIGNATURE",
-    "INTERNET_OPTION_PARSE_LINE_FOLDING",
-    "INTERNET_OPTION_FORCE_DECODE",
-    "INTERNET_OPTION_COOKIES_APPLY_HOST_ONLY",
-    "INTERNET_OPTION_EDGE_MODE",
-    "INTERNET_OPTION_CANCEL_CACHE_WRITE",
-    "INTERNET_OPTION_AUTH_SCHEME_SELECTED",
-    "INTERNET_OPTION_NOCACHE_WRITE_IN_PRIVATE",
-    "INTERNET_OPTION_ACTIVITY_ID",
-    "INTERNET_OPTION_REQUEST_TIMES",
-    "INTERNET_OPTION_GLOBAL_CALLBACK",
-    "INTERNET_OPTION_ENABLE_TEST_SIGNING",
-    "INTERNET_OPTION_DISABLE_PROXY_LINK_LOCAL_NAME_RESOLUTION",
-    "INTERNET_OPTION_HTTP_09",
-    "INTERNET_LAST_OPTION_INTERNAL",
-    "INTERNET_OPTION_OFFLINE_TIMEOUT",
-    "INTERNET_OPTION_LINE_STATE",
-    "DUO_PROTOCOL_FLAG_SPDY3",
-    "DUO_PROTOCOL_MASK",
-    "AUTH_FLAG_RESET",
-    "INTERNET_AUTH_SCHEME_BASIC",
-    "INTERNET_AUTH_SCHEME_DIGEST",
-    "INTERNET_AUTH_SCHEME_NTLM",
-    "INTERNET_AUTH_SCHEME_KERBEROS",
-    "INTERNET_AUTH_SCHEME_NEGOTIATE",
-    "INTERNET_AUTH_SCHEME_PASSPORT",
-    "INTERNET_AUTH_SCHEME_UNKNOWN",
-    "INTERNET_STATUS_SENDING_COOKIE",
-    "INTERNET_STATUS_REQUEST_HEADERS_SET",
-    "INTERNET_STATUS_RESPONSE_HEADERS_SET",
-    "INTERNET_STATUS_PROXY_CREDENTIALS",
-    "INTERNET_STATUS_SERVER_CREDENTIALS",
-    "INTERNET_STATUS_SERVER_CONNECTION_STATE",
-    "INTERNET_STATUS_END_BROWSER_SESSION",
-    "INTERNET_STATUS_COOKIE",
-    "COOKIE_STATE_LB",
-    "COOKIE_STATE_UB",
-    "MaxPrivacySettings",
-    "INTERNET_STATUS_FILTER_RESOLVING",
-    "INTERNET_STATUS_FILTER_RESOLVED",
-    "INTERNET_STATUS_FILTER_CONNECTING",
-    "INTERNET_STATUS_FILTER_CONNECTED",
-    "INTERNET_STATUS_FILTER_SENDING",
-    "INTERNET_STATUS_FILTER_SENT",
-    "INTERNET_STATUS_FILTER_RECEIVING",
-    "INTERNET_STATUS_FILTER_RECEIVED",
-    "INTERNET_STATUS_FILTER_CLOSING",
-    "INTERNET_STATUS_FILTER_CLOSED",
-    "INTERNET_STATUS_FILTER_HANDLE_CREATED",
-    "INTERNET_STATUS_FILTER_HANDLE_CLOSING",
-    "INTERNET_STATUS_FILTER_PREFETCH",
-    "INTERNET_STATUS_FILTER_REDIRECT",
-    "INTERNET_STATUS_FILTER_STATE_CHANGE",
-    "HTTP_ADDREQ_FLAG_RESPONSE_HEADERS",
-    "HTTP_ADDREQ_FLAG_ALLOW_EMPTY_VALUES",
-    "COOKIE_DONT_ALLOW",
-    "COOKIE_ALLOW",
-    "COOKIE_ALLOW_ALL",
-    "COOKIE_DONT_ALLOW_ALL",
-    "COOKIE_OP_SET",
-    "COOKIE_OP_MODIFY",
-    "COOKIE_OP_GET",
-    "COOKIE_OP_SESSION",
-    "COOKIE_OP_PERSISTENT",
-    "COOKIE_OP_3RD_PARTY",
-    "INTERNET_COOKIE_PERSISTENT_HOST_ONLY",
-    "INTERNET_COOKIE_RESTRICTED_ZONE",
-    "INTERNET_COOKIE_EDGE_COOKIES",
-    "INTERNET_COOKIE_ALL_COOKIES",
-    "INTERNET_COOKIE_NO_CALLBACK",
-    "INTERNET_COOKIE_ECTX_3RDPARTY",
-    "FLAGS_ERROR_UI_SHOW_IDN_HOSTNAME",
-    "ERROR_INTERNET_NO_NEW_CONTAINERS",
-    "ERROR_INTERNET_SOURCE_PORT_IN_USE",
-    "ERROR_INTERNET_INSECURE_FALLBACK_REQUIRED",
-    "ERROR_INTERNET_PROXY_ALERT",
-    "ERROR_INTERNET_NO_CM_CONNECTION",
-    "ERROR_HTTP_PUSH_STATUS_CODE_NOT_SUPPORTED",
-    "ERROR_HTTP_PUSH_RETRY_NOT_SUPPORTED",
-    "ERROR_HTTP_PUSH_ENABLE_FAILED",
-    "ERROR_INTERNET_DISALLOW_INPRIVATE",
-    "ERROR_INTERNET_OFFLINE",
-    "INTERNET_INTERNAL_ERROR_BASE",
-    "ERROR_INTERNET_INTERNAL_SOCKET_ERROR",
-    "ERROR_INTERNET_CONNECTION_AVAILABLE",
-    "ERROR_INTERNET_NO_KNOWN_SERVERS",
-    "ERROR_INTERNET_PING_FAILED",
-    "ERROR_INTERNET_NO_PING_SUPPORT",
-    "ERROR_INTERNET_CACHE_SUCCESS",
-    "ERROR_HTTP_COOKIE_NEEDS_CONFIRMATION_EX",
-    "HTTP_1_1_CACHE_ENTRY",
-    "STATIC_CACHE_ENTRY",
-    "MUST_REVALIDATE_CACHE_ENTRY",
-    "SHORTPATH_CACHE_ENTRY",
-    "DOWNLOAD_CACHE_ENTRY",
-    "REDIRECT_CACHE_ENTRY",
-    "COOKIE_ACCEPTED_CACHE_ENTRY",
-    "COOKIE_LEASHED_CACHE_ENTRY",
-    "COOKIE_DOWNGRADED_CACHE_ENTRY",
-    "COOKIE_REJECTED_CACHE_ENTRY",
-    "PRIVACY_MODE_CACHE_ENTRY",
-    "XDR_CACHE_ENTRY",
-    "IMMUTABLE_CACHE_ENTRY",
-    "PENDING_DELETE_CACHE_ENTRY",
-    "OTHER_USER_CACHE_ENTRY",
-    "PRIVACY_IMPACTED_CACHE_ENTRY",
-    "POST_RESPONSE_CACHE_ENTRY",
-    "INSTALLED_CACHE_ENTRY",
-    "POST_CHECK_CACHE_ENTRY",
-    "IDENTITY_CACHE_ENTRY",
-    "ANY_CACHE_ENTRY",
-    "CACHEGROUP_FLAG_VALID",
-    "CACHEGROUP_ID_BUILTIN_STICKY",
-    "INTERNET_CACHE_FLAG_ALLOW_COLLISIONS",
-    "INTERNET_CACHE_FLAG_INSTALLED_ENTRY",
-    "INTERNET_CACHE_FLAG_ENTRY_OR_MAPPING",
-    "INTERNET_CACHE_FLAG_ADD_FILENAME_ONLY",
-    "INTERNET_CACHE_FLAG_GET_STRUCT_ONLY",
-    "CACHE_ENTRY_TYPE_FC",
+    "CACHE_ENTRY_EXPTIME_FC",
+    "CACHE_ENTRY_HEADERINFO_FC",
+    "CACHE_ENTRY_HITRATE_FC",
     "CACHE_ENTRY_MODIFY_DATA_FC",
-    "INTERNET_CACHE_CONTAINER_NOSUBDIRS",
-    "INTERNET_CACHE_CONTAINER_AUTODELETE",
-    "INTERNET_CACHE_CONTAINER_RESERVED1",
-    "INTERNET_CACHE_CONTAINER_NODESKTOPINIT",
-    "INTERNET_CACHE_CONTAINER_MAP_ENABLED",
-    "INTERNET_CACHE_CONTAINER_BLOOM_FILTER",
-    "INTERNET_CACHE_CONTAINER_SHARE_READ",
-    "INTERNET_CACHE_CONTAINER_SHARE_READ_WRITE",
+    "CACHE_ENTRY_MODTIME_FC",
+    "CACHE_ENTRY_SYNCTIME_FC",
+    "CACHE_ENTRY_TYPE_FC",
     "CACHE_FIND_CONTAINER_RETURN_NOCHANGE",
-    "CACHE_HEADER_DATA_CURRENT_SETTINGS_VERSION",
-    "CACHE_HEADER_DATA_CONLIST_CHANGE_COUNT",
-    "CACHE_HEADER_DATA_COOKIE_CHANGE_COUNT",
-    "CACHE_HEADER_DATA_NOTIFICATION_HWND",
-    "CACHE_HEADER_DATA_NOTIFICATION_MESG",
-    "CACHE_HEADER_DATA_ROOTGROUP_OFFSET",
-    "CACHE_HEADER_DATA_GID_LOW",
-    "CACHE_HEADER_DATA_GID_HIGH",
-    "CACHE_HEADER_DATA_LAST_SCAVENGE_TIMESTAMP",
     "CACHE_HEADER_DATA_CACHE_READ_COUNT_SINCE_LAST_SCAVENGE",
-    "CACHE_HEADER_DATA_CACHE_WRITE_COUNT_SINCE_LAST_SCAVENGE",
-    "CACHE_HEADER_DATA_HSTS_CHANGE_COUNT",
     "CACHE_HEADER_DATA_CACHE_RESERVED_12",
     "CACHE_HEADER_DATA_CACHE_RESERVED_13",
-    "CACHE_HEADER_DATA_SSL_STATE_COUNT",
-    "CACHE_HEADER_DATA_DOWNLOAD_PARTIAL",
     "CACHE_HEADER_DATA_CACHE_RESERVED_15",
     "CACHE_HEADER_DATA_CACHE_RESERVED_16",
     "CACHE_HEADER_DATA_CACHE_RESERVED_17",
     "CACHE_HEADER_DATA_CACHE_RESERVED_18",
     "CACHE_HEADER_DATA_CACHE_RESERVED_19",
     "CACHE_HEADER_DATA_CACHE_RESERVED_20",
-    "CACHE_HEADER_DATA_NOTIFICATION_FILTER",
-    "CACHE_HEADER_DATA_ROOT_LEAK_OFFSET",
     "CACHE_HEADER_DATA_CACHE_RESERVED_23",
     "CACHE_HEADER_DATA_CACHE_RESERVED_24",
     "CACHE_HEADER_DATA_CACHE_RESERVED_25",
     "CACHE_HEADER_DATA_CACHE_RESERVED_26",
-    "CACHE_HEADER_DATA_ROOT_GROUPLIST_OFFSET",
     "CACHE_HEADER_DATA_CACHE_RESERVED_28",
     "CACHE_HEADER_DATA_CACHE_RESERVED_29",
     "CACHE_HEADER_DATA_CACHE_RESERVED_30",
     "CACHE_HEADER_DATA_CACHE_RESERVED_31",
+    "CACHE_HEADER_DATA_CACHE_WRITE_COUNT_SINCE_LAST_SCAVENGE",
+    "CACHE_HEADER_DATA_CONLIST_CHANGE_COUNT",
+    "CACHE_HEADER_DATA_COOKIE_CHANGE_COUNT",
+    "CACHE_HEADER_DATA_CURRENT_SETTINGS_VERSION",
+    "CACHE_HEADER_DATA_DOWNLOAD_PARTIAL",
+    "CACHE_HEADER_DATA_GID_HIGH",
+    "CACHE_HEADER_DATA_GID_LOW",
+    "CACHE_HEADER_DATA_HSTS_CHANGE_COUNT",
     "CACHE_HEADER_DATA_LAST",
+    "CACHE_HEADER_DATA_LAST_SCAVENGE_TIMESTAMP",
+    "CACHE_HEADER_DATA_NOTIFICATION_FILTER",
+    "CACHE_HEADER_DATA_NOTIFICATION_HWND",
+    "CACHE_HEADER_DATA_NOTIFICATION_MESG",
+    "CACHE_HEADER_DATA_ROOTGROUP_OFFSET",
+    "CACHE_HEADER_DATA_ROOT_GROUPLIST_OFFSET",
+    "CACHE_HEADER_DATA_ROOT_LEAK_OFFSET",
+    "CACHE_HEADER_DATA_SSL_STATE_COUNT",
     "CACHE_NOTIFY_ADD_URL",
-    "CACHE_NOTIFY_DELETE_URL",
-    "CACHE_NOTIFY_UPDATE_URL",
     "CACHE_NOTIFY_DELETE_ALL",
+    "CACHE_NOTIFY_DELETE_URL",
+    "CACHE_NOTIFY_FILTER_CHANGED",
+    "CACHE_NOTIFY_SET_OFFLINE",
+    "CACHE_NOTIFY_SET_ONLINE",
+    "CACHE_NOTIFY_UPDATE_URL",
     "CACHE_NOTIFY_URL_SET_STICKY",
     "CACHE_NOTIFY_URL_UNSET_STICKY",
-    "CACHE_NOTIFY_SET_ONLINE",
-    "CACHE_NOTIFY_SET_OFFLINE",
-    "CACHE_NOTIFY_FILTER_CHANGED",
-    "APP_CACHE_LOOKUP_NO_MASTER_ONLY",
-    "APP_CACHE_ENTRY_TYPE_MASTER",
-    "APP_CACHE_ENTRY_TYPE_EXPLICIT",
-    "APP_CACHE_ENTRY_TYPE_FALLBACK",
-    "APP_CACHE_ENTRY_TYPE_FOREIGN",
-    "APP_CACHE_ENTRY_TYPE_MANIFEST",
-    "CACHE_CONFIG_CONTENT_QUOTA_FC",
-    "CACHE_CONFIG_TOTAL_CONTENT_QUOTA_FC",
-    "CACHE_CONFIG_APPCONTAINER_CONTENT_QUOTA_FC",
-    "CACHE_CONFIG_APPCONTAINER_TOTAL_CONTENT_QUOTA_FC",
-    "INTERNET_AUTOPROXY_INIT_DEFAULT",
-    "INTERNET_AUTOPROXY_INIT_DOWNLOADSYNC",
-    "INTERNET_AUTOPROXY_INIT_QUERYSTATE",
-    "INTERNET_AUTOPROXY_INIT_ONLYQUERY",
-    "INTERNET_SUPPRESS_COOKIE_PERSIST",
-    "INTERNET_SUPPRESS_COOKIE_PERSIST_RESET",
-    "HTTP_WEB_SOCKET_MAX_CLOSE_REASON_LENGTH",
-    "HTTP_WEB_SOCKET_MIN_KEEPALIVE_VALUE",
-    "INTERNET_GLOBAL_CALLBACK_SENDING_HTTP_HEADERS",
-    "CACHE_CONFIG",
-    "CACHE_CONFIG_FORCE_CLEANUP_FC",
-    "CACHE_CONFIG_DISK_CACHE_PATHS_FC",
-    "CACHE_CONFIG_SYNC_MODE_FC",
-    "CACHE_CONFIG_CONTENT_PATHS_FC",
-    "CACHE_CONFIG_HISTORY_PATHS_FC",
-    "CACHE_CONFIG_COOKIES_PATHS_FC",
-    "CACHE_CONFIG_QUOTA_FC",
-    "CACHE_CONFIG_USER_MODE_FC",
-    "CACHE_CONFIG_CONTENT_USAGE_FC",
-    "CACHE_CONFIG_STICKY_CONTENT_USAGE_FC",
+    "CACHE_OPERATOR",
+    "COOKIE_ACCEPTED_CACHE_ENTRY",
+    "COOKIE_ALLOW",
+    "COOKIE_ALLOW_ALL",
+    "COOKIE_CACHE_ENTRY",
+    "COOKIE_DLG_INFO",
+    "COOKIE_DONT_ALLOW",
+    "COOKIE_DONT_ALLOW_ALL",
+    "COOKIE_DOWNGRADED_CACHE_ENTRY",
+    "COOKIE_LEASHED_CACHE_ENTRY",
+    "COOKIE_OP_3RD_PARTY",
+    "COOKIE_OP_GET",
+    "COOKIE_OP_MODIFY",
+    "COOKIE_OP_PERSISTENT",
+    "COOKIE_OP_SESSION",
+    "COOKIE_OP_SET",
+    "COOKIE_REJECTED_CACHE_ENTRY",
+    "COOKIE_STATE_ACCEPT",
+    "COOKIE_STATE_DOWNGRADE",
+    "COOKIE_STATE_LB",
+    "COOKIE_STATE_LEASH",
+    "COOKIE_STATE_MAX",
+    "COOKIE_STATE_PROMPT",
+    "COOKIE_STATE_REJECT",
+    "COOKIE_STATE_UB",
+    "COOKIE_STATE_UNKNOWN",
+    "CommitUrlCacheEntryA",
+    "CommitUrlCacheEntryBinaryBlob",
+    "CommitUrlCacheEntryW",
+    "CookieDecision",
+    "CreateMD5SSOHash",
+    "CreateUrlCacheContainerA",
+    "CreateUrlCacheContainerW",
+    "CreateUrlCacheEntryA",
+    "CreateUrlCacheEntryExW",
+    "CreateUrlCacheEntryW",
+    "CreateUrlCacheGroup",
+    "DIALENG_OperationComplete",
+    "DIALENG_RedialAttempt",
+    "DIALENG_RedialWait",
+    "DIALPROP_DOMAIN",
+    "DIALPROP_LASTERROR",
+    "DIALPROP_PASSWORD",
+    "DIALPROP_PHONENUMBER",
+    "DIALPROP_REDIALCOUNT",
+    "DIALPROP_REDIALINTERVAL",
+    "DIALPROP_RESOLVEDPHONE",
+    "DIALPROP_SAVEPASSWORD",
+    "DIALPROP_USERNAME",
+    "DLG_FLAGS_INSECURE_FALLBACK",
+    "DLG_FLAGS_INVALID_CA",
+    "DLG_FLAGS_SEC_CERT_CN_INVALID",
+    "DLG_FLAGS_SEC_CERT_DATE_INVALID",
+    "DLG_FLAGS_SEC_CERT_REV_FAILED",
+    "DLG_FLAGS_WEAK_SIGNATURE",
+    "DOWNLOAD_CACHE_ENTRY",
+    "DUO_PROTOCOL_FLAG_SPDY3",
+    "DUO_PROTOCOL_MASK",
+    "DeleteIE3Cache",
+    "DeleteUrlCacheContainerA",
+    "DeleteUrlCacheContainerW",
+    "DeleteUrlCacheEntry",
+    "DeleteUrlCacheEntryA",
+    "DeleteUrlCacheEntryW",
+    "DeleteUrlCacheGroup",
+    "DeleteWpadCacheForNetworks",
+    "DetectAutoProxyUrl",
+    "DoConnectoidsExist",
+    "EDITED_CACHE_ENTRY",
+    "ERROR_FTP_DROPPED",
+    "ERROR_FTP_NO_PASSIVE_MODE",
+    "ERROR_FTP_TRANSFER_IN_PROGRESS",
+    "ERROR_GOPHER_ATTRIBUTE_NOT_FOUND",
+    "ERROR_GOPHER_DATA_ERROR",
+    "ERROR_GOPHER_END_OF_DATA",
+    "ERROR_GOPHER_INCORRECT_LOCATOR_TYPE",
+    "ERROR_GOPHER_INVALID_LOCATOR",
+    "ERROR_GOPHER_NOT_FILE",
+    "ERROR_GOPHER_NOT_GOPHER_PLUS",
+    "ERROR_GOPHER_PROTOCOL_ERROR",
+    "ERROR_GOPHER_UNKNOWN_LOCATOR",
+    "ERROR_HTTP_COOKIE_DECLINED",
+    "ERROR_HTTP_COOKIE_NEEDS_CONFIRMATION",
+    "ERROR_HTTP_COOKIE_NEEDS_CONFIRMATION_EX",
+    "ERROR_HTTP_DOWNLEVEL_SERVER",
+    "ERROR_HTTP_HEADER_ALREADY_EXISTS",
+    "ERROR_HTTP_HEADER_NOT_FOUND",
+    "ERROR_HTTP_HSTS_REDIRECT_REQUIRED",
+    "ERROR_HTTP_INVALID_HEADER",
+    "ERROR_HTTP_INVALID_QUERY_REQUEST",
+    "ERROR_HTTP_INVALID_SERVER_RESPONSE",
+    "ERROR_HTTP_NOT_REDIRECTED",
+    "ERROR_HTTP_PUSH_ENABLE_FAILED",
+    "ERROR_HTTP_PUSH_RETRY_NOT_SUPPORTED",
+    "ERROR_HTTP_PUSH_STATUS_CODE_NOT_SUPPORTED",
+    "ERROR_HTTP_REDIRECT_FAILED",
+    "ERROR_HTTP_REDIRECT_NEEDS_CONFIRMATION",
+    "ERROR_INTERNET_ASYNC_THREAD_FAILED",
+    "ERROR_INTERNET_BAD_AUTO_PROXY_SCRIPT",
+    "ERROR_INTERNET_BAD_OPTION_LENGTH",
+    "ERROR_INTERNET_BAD_REGISTRY_PARAMETER",
+    "ERROR_INTERNET_CACHE_SUCCESS",
+    "ERROR_INTERNET_CANNOT_CONNECT",
+    "ERROR_INTERNET_CHG_POST_IS_NON_SECURE",
+    "ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED",
+    "ERROR_INTERNET_CLIENT_AUTH_CERT_NEEDED_PROXY",
+    "ERROR_INTERNET_CLIENT_AUTH_NOT_SETUP",
+    "ERROR_INTERNET_CONNECTION_ABORTED",
+    "ERROR_INTERNET_CONNECTION_AVAILABLE",
+    "ERROR_INTERNET_CONNECTION_RESET",
+    "ERROR_INTERNET_DECODING_FAILED",
+    "ERROR_INTERNET_DIALOG_PENDING",
+    "ERROR_INTERNET_DISALLOW_INPRIVATE",
+    "ERROR_INTERNET_DISCONNECTED",
+    "ERROR_INTERNET_EXTENDED_ERROR",
+    "ERROR_INTERNET_FAILED_DUETOSECURITYCHECK",
+    "ERROR_INTERNET_FEATURE_DISABLED",
+    "ERROR_INTERNET_FORCE_RETRY",
+    "ERROR_INTERNET_FORTEZZA_LOGIN_NEEDED",
+    "ERROR_INTERNET_GLOBAL_CALLBACK_FAILED",
+    "ERROR_INTERNET_HANDLE_EXISTS",
+    "ERROR_INTERNET_HTTPS_HTTP_SUBMIT_REDIR",
+    "ERROR_INTERNET_HTTPS_TO_HTTP_ON_REDIR",
+    "ERROR_INTERNET_HTTP_PROTOCOL_MISMATCH",
+    "ERROR_INTERNET_HTTP_TO_HTTPS_ON_REDIR",
+    "ERROR_INTERNET_INCORRECT_FORMAT",
+    "ERROR_INTERNET_INCORRECT_HANDLE_STATE",
+    "ERROR_INTERNET_INCORRECT_HANDLE_TYPE",
+    "ERROR_INTERNET_INCORRECT_PASSWORD",
+    "ERROR_INTERNET_INCORRECT_USER_NAME",
+    "ERROR_INTERNET_INSECURE_FALLBACK_REQUIRED",
+    "ERROR_INTERNET_INSERT_CDROM",
+    "ERROR_INTERNET_INTERNAL_ERROR",
+    "ERROR_INTERNET_INTERNAL_SOCKET_ERROR",
+    "ERROR_INTERNET_INVALID_CA",
+    "ERROR_INTERNET_INVALID_OPERATION",
+    "ERROR_INTERNET_INVALID_OPTION",
+    "ERROR_INTERNET_INVALID_PROXY_REQUEST",
+    "ERROR_INTERNET_INVALID_URL",
+    "ERROR_INTERNET_ITEM_NOT_FOUND",
+    "ERROR_INTERNET_LOGIN_FAILURE",
+    "ERROR_INTERNET_LOGIN_FAILURE_DISPLAY_ENTITY_BODY",
+    "ERROR_INTERNET_MIXED_SECURITY",
+    "ERROR_INTERNET_NAME_NOT_RESOLVED",
+    "ERROR_INTERNET_NEED_MSN_SSPI_PKG",
+    "ERROR_INTERNET_NEED_UI",
+    "ERROR_INTERNET_NOT_INITIALIZED",
+    "ERROR_INTERNET_NOT_PROXY_REQUEST",
+    "ERROR_INTERNET_NO_CALLBACK",
+    "ERROR_INTERNET_NO_CM_CONNECTION",
+    "ERROR_INTERNET_NO_CONTEXT",
+    "ERROR_INTERNET_NO_DIRECT_ACCESS",
+    "ERROR_INTERNET_NO_KNOWN_SERVERS",
+    "ERROR_INTERNET_NO_NEW_CONTAINERS",
+    "ERROR_INTERNET_NO_PING_SUPPORT",
+    "ERROR_INTERNET_OFFLINE",
+    "ERROR_INTERNET_OPERATION_CANCELLED",
+    "ERROR_INTERNET_OPTION_NOT_SETTABLE",
+    "ERROR_INTERNET_OUT_OF_HANDLES",
+    "ERROR_INTERNET_PING_FAILED",
+    "ERROR_INTERNET_POST_IS_NON_SECURE",
+    "ERROR_INTERNET_PROTOCOL_NOT_FOUND",
+    "ERROR_INTERNET_PROXY_ALERT",
+    "ERROR_INTERNET_PROXY_SERVER_UNREACHABLE",
+    "ERROR_INTERNET_REDIRECT_SCHEME_CHANGE",
+    "ERROR_INTERNET_REGISTRY_VALUE_NOT_FOUND",
+    "ERROR_INTERNET_REQUEST_PENDING",
+    "ERROR_INTERNET_RETRY_DIALOG",
+    "ERROR_INTERNET_SECURE_FAILURE_PROXY",
+    "ERROR_INTERNET_SECURITY_CHANNEL_ERROR",
+    "ERROR_INTERNET_SEC_CERT_CN_INVALID",
+    "ERROR_INTERNET_SEC_CERT_DATE_INVALID",
+    "ERROR_INTERNET_SEC_CERT_ERRORS",
+    "ERROR_INTERNET_SEC_CERT_NO_REV",
+    "ERROR_INTERNET_SEC_CERT_REVOKED",
+    "ERROR_INTERNET_SEC_CERT_REV_FAILED",
+    "ERROR_INTERNET_SEC_CERT_WEAK_SIGNATURE",
+    "ERROR_INTERNET_SEC_INVALID_CERT",
+    "ERROR_INTERNET_SERVER_UNREACHABLE",
+    "ERROR_INTERNET_SHUTDOWN",
+    "ERROR_INTERNET_SOURCE_PORT_IN_USE",
+    "ERROR_INTERNET_TCPIP_NOT_INSTALLED",
+    "ERROR_INTERNET_TIMEOUT",
+    "ERROR_INTERNET_UNABLE_TO_CACHE_FILE",
+    "ERROR_INTERNET_UNABLE_TO_DOWNLOAD_SCRIPT",
+    "ERROR_INTERNET_UNRECOGNIZED_SCHEME",
+    "ExportCookieFileA",
+    "ExportCookieFileW",
+    "FLAGS_ERROR_UI_FILTER_FOR_ERRORS",
+    "FLAGS_ERROR_UI_FLAGS_CHANGE_OPTIONS",
+    "FLAGS_ERROR_UI_FLAGS_GENERATE_DATA",
+    "FLAGS_ERROR_UI_FLAGS_NO_UI",
+    "FLAGS_ERROR_UI_SERIALIZE_DIALOGS",
+    "FLAGS_ERROR_UI_SHOW_IDN_HOSTNAME",
+    "FLAG_ICC_FORCE_CONNECTION",
+    "FORTCMD",
+    "FORTCMD_CHG_PERSONALITY",
+    "FORTCMD_LOGOFF",
+    "FORTCMD_LOGON",
+    "FORTSTAT",
+    "FORTSTAT_INSTALLED",
+    "FORTSTAT_LOGGEDON",
     "FTP_FLAGS",
     "FTP_TRANSFER_TYPE_ASCII",
     "FTP_TRANSFER_TYPE_BINARY",
     "FTP_TRANSFER_TYPE_UNKNOWN",
-    "INTERNET_FLAG_TRANSFER_ASCII",
-    "INTERNET_FLAG_TRANSFER_BINARY",
-    "INTERNET_CONNECTION",
-    "INTERNET_CONNECTION_CONFIGURED",
-    "INTERNET_CONNECTION_LAN_",
-    "INTERNET_CONNECTION_MODEM",
-    "INTERNET_CONNECTION_MODEM_BUSY",
-    "INTERNET_CONNECTION_OFFLINE_",
-    "INTERNET_CONNECTION_PROXY",
-    "INTERNET_RAS_INSTALLED",
-    "HTTP_ADDREQ_FLAG",
-    "HTTP_ADDREQ_FLAG_ADD",
-    "HTTP_ADDREQ_FLAG_ADD_IF_NEW",
-    "HTTP_ADDREQ_FLAG_COALESCE",
-    "HTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA",
-    "HTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON",
-    "HTTP_ADDREQ_FLAG_REPLACE",
-    "INTERNET_COOKIE_FLAGS",
-    "INTERNET_COOKIE_HTTPONLY",
-    "INTERNET_COOKIE_THIRD_PARTY",
-    "INTERNET_FLAG_RESTRICTED_ZONE",
-    "PROXY_AUTO_DETECT_TYPE",
-    "PROXY_AUTO_DETECT_TYPE_DHCP",
-    "PROXY_AUTO_DETECT_TYPE_DNS_A",
-    "INTERNET_AUTODIAL",
-    "INTERNET_AUTODIAL_FAILIFSECURITYCHECK",
-    "INTERNET_AUTODIAL_FORCE_ONLINE",
-    "INTERNET_AUTODIAL_FORCE_UNATTENDED",
-    "INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT",
+    "FindCloseUrlCache",
+    "FindFirstUrlCacheContainerA",
+    "FindFirstUrlCacheContainerW",
+    "FindFirstUrlCacheEntryA",
+    "FindFirstUrlCacheEntryExA",
+    "FindFirstUrlCacheEntryExW",
+    "FindFirstUrlCacheEntryW",
+    "FindFirstUrlCacheGroup",
+    "FindNextUrlCacheContainerA",
+    "FindNextUrlCacheContainerW",
+    "FindNextUrlCacheEntryA",
+    "FindNextUrlCacheEntryExA",
+    "FindNextUrlCacheEntryExW",
+    "FindNextUrlCacheEntryW",
+    "FindNextUrlCacheGroup",
+    "FindP3PPolicySymbol",
+    "FreeUrlCacheSpaceA",
+    "FreeUrlCacheSpaceW",
+    "FtpCommandA",
+    "FtpCommandW",
+    "FtpCreateDirectoryA",
+    "FtpCreateDirectoryW",
+    "FtpDeleteFileA",
+    "FtpDeleteFileW",
+    "FtpFindFirstFileA",
+    "FtpFindFirstFileW",
+    "FtpGetCurrentDirectoryA",
+    "FtpGetCurrentDirectoryW",
+    "FtpGetFileA",
+    "FtpGetFileEx",
+    "FtpGetFileSize",
+    "FtpGetFileW",
+    "FtpOpenFileA",
+    "FtpOpenFileW",
+    "FtpPutFileA",
+    "FtpPutFileEx",
+    "FtpPutFileW",
+    "FtpRemoveDirectoryA",
+    "FtpRemoveDirectoryW",
+    "FtpRenameFileA",
+    "FtpRenameFileW",
+    "FtpSetCurrentDirectoryA",
+    "FtpSetCurrentDirectoryW",
+    "GOPHER_ABSTRACT_ATTRIBUTE",
+    "GOPHER_ABSTRACT_ATTRIBUTE_TYPE",
+    "GOPHER_ABSTRACT_CATEGORY",
+    "GOPHER_ADMIN_ATTRIBUTE",
+    "GOPHER_ADMIN_ATTRIBUTE_TYPE",
+    "GOPHER_ADMIN_CATEGORY",
+    "GOPHER_ASK_ATTRIBUTE_TYPE",
+    "GOPHER_ATTRIBUTE_ENUMERATOR",
+    "GOPHER_ATTRIBUTE_ID_ABSTRACT",
+    "GOPHER_ATTRIBUTE_ID_ADMIN",
+    "GOPHER_ATTRIBUTE_ID_ALL",
+    "GOPHER_ATTRIBUTE_ID_BASE",
+    "GOPHER_ATTRIBUTE_ID_GEOG",
+    "GOPHER_ATTRIBUTE_ID_LOCATION",
+    "GOPHER_ATTRIBUTE_ID_MOD_DATE",
+    "GOPHER_ATTRIBUTE_ID_ORG",
+    "GOPHER_ATTRIBUTE_ID_PROVIDER",
+    "GOPHER_ATTRIBUTE_ID_RANGE",
+    "GOPHER_ATTRIBUTE_ID_SCORE",
+    "GOPHER_ATTRIBUTE_ID_SITE",
+    "GOPHER_ATTRIBUTE_ID_TIMEZONE",
+    "GOPHER_ATTRIBUTE_ID_TREEWALK",
+    "GOPHER_ATTRIBUTE_ID_TTL",
+    "GOPHER_ATTRIBUTE_ID_UNKNOWN",
+    "GOPHER_ATTRIBUTE_ID_VERSION",
+    "GOPHER_ATTRIBUTE_ID_VIEW",
+    "GOPHER_ATTRIBUTE_TYPE",
+    "GOPHER_CATEGORY_ID_ABSTRACT",
+    "GOPHER_CATEGORY_ID_ADMIN",
+    "GOPHER_CATEGORY_ID_ALL",
+    "GOPHER_CATEGORY_ID_ASK",
+    "GOPHER_CATEGORY_ID_INFO",
+    "GOPHER_CATEGORY_ID_UNKNOWN",
+    "GOPHER_CATEGORY_ID_VERONICA",
+    "GOPHER_CATEGORY_ID_VIEWS",
+    "GOPHER_FIND_DATAA",
+    "GOPHER_FIND_DATAW",
+    "GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE",
+    "GOPHER_GEOG_ATTRIBUTE",
+    "GOPHER_INFO_CATEGORY",
+    "GOPHER_LOCATION_ATTRIBUTE",
+    "GOPHER_LOCATION_ATTRIBUTE_TYPE",
+    "GOPHER_MOD_DATE_ATTRIBUTE",
+    "GOPHER_MOD_DATE_ATTRIBUTE_TYPE",
+    "GOPHER_ORGANIZATION_ATTRIBUTE_TYPE",
+    "GOPHER_ORG_ATTRIBUTE",
+    "GOPHER_PROVIDER_ATTRIBUTE",
+    "GOPHER_PROVIDER_ATTRIBUTE_TYPE",
+    "GOPHER_RANGE_ATTRIBUTE",
+    "GOPHER_SCORE_ATTRIBUTE",
+    "GOPHER_SCORE_ATTRIBUTE_TYPE",
+    "GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE",
+    "GOPHER_SITE_ATTRIBUTE",
+    "GOPHER_SITE_ATTRIBUTE_TYPE",
+    "GOPHER_TIMEZONE_ATTRIBUTE",
+    "GOPHER_TIMEZONE_ATTRIBUTE_TYPE",
+    "GOPHER_TREEWALK_ATTRIBUTE",
+    "GOPHER_TTL_ATTRIBUTE",
+    "GOPHER_TTL_ATTRIBUTE_TYPE",
     "GOPHER_TYPE",
     "GOPHER_TYPE_ASK",
     "GOPHER_TYPE_BINARY",
@@ -4888,584 +4296,1028 @@ __all__ = [
     "GOPHER_TYPE_TN3270",
     "GOPHER_TYPE_UNIX_UUENCODED",
     "GOPHER_TYPE_UNKNOWN",
-    "INTERNET_PER_CONN",
-    "INTERNET_PER_CONN_AUTOCONFIG_URL",
-    "INTERNET_PER_CONN_AUTODISCOVERY_FLAGS",
-    "INTERNET_PER_CONN_FLAGS",
-    "INTERNET_PER_CONN_PROXY_BYPASS",
-    "INTERNET_PER_CONN_PROXY_SERVER",
-    "INTERNET_PER_CONN_AUTOCONFIG_SECONDARY_URL",
-    "INTERNET_PER_CONN_AUTOCONFIG_RELOAD_DELAY_MINS",
-    "INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_TIME",
-    "INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_URL",
-    "INTERNET_ACCESS_TYPE",
-    "INTERNET_OPEN_TYPE_DIRECT",
-    "INTERNET_OPEN_TYPE_PRECONFIG",
-    "INTERNET_OPEN_TYPE_PROXY",
-    "INTERNET_STATE",
-    "INTERNET_STATE_CONNECTED",
-    "INTERNET_STATE_DISCONNECTED",
-    "INTERNET_STATE_DISCONNECTED_BY_USER",
-    "INTERNET_STATE_IDLE",
-    "INTERNET_STATE_BUSY",
-    "HTTP_PUSH_WAIT_HANDLE",
-    "INTERNET_SCHEME",
-    "INTERNET_SCHEME_PARTIAL",
-    "INTERNET_SCHEME_UNKNOWN",
-    "INTERNET_SCHEME_DEFAULT",
-    "INTERNET_SCHEME_FTP",
-    "INTERNET_SCHEME_GOPHER",
-    "INTERNET_SCHEME_HTTP",
-    "INTERNET_SCHEME_HTTPS",
-    "INTERNET_SCHEME_FILE",
-    "INTERNET_SCHEME_NEWS",
-    "INTERNET_SCHEME_MAILTO",
-    "INTERNET_SCHEME_SOCKS",
-    "INTERNET_SCHEME_JAVASCRIPT",
-    "INTERNET_SCHEME_VBSCRIPT",
-    "INTERNET_SCHEME_RES",
-    "INTERNET_SCHEME_FIRST",
-    "INTERNET_SCHEME_LAST",
-    "INTERNET_ASYNC_RESULT",
-    "INTERNET_DIAGNOSTIC_SOCKET_INFO",
-    "INTERNET_PROXY_INFO",
-    "INTERNET_PER_CONN_OPTIONA",
-    "INTERNET_PER_CONN_OPTIONW",
-    "INTERNET_PER_CONN_OPTION_LISTA",
-    "INTERNET_PER_CONN_OPTION_LISTW",
-    "INTERNET_VERSION_INFO",
-    "INTERNET_CONNECTED_INFO",
-    "URL_COMPONENTSA",
-    "URL_COMPONENTSW",
-    "INTERNET_CERTIFICATE_INFO",
-    "INTERNET_BUFFERSA",
-    "INTERNET_BUFFERSW",
-    "LPINTERNET_STATUS_CALLBACK",
-    "InternetCookieState",
-    "COOKIE_STATE_UNKNOWN",
-    "COOKIE_STATE_ACCEPT",
-    "COOKIE_STATE_PROMPT",
-    "COOKIE_STATE_LEASH",
-    "COOKIE_STATE_DOWNGRADE",
-    "COOKIE_STATE_REJECT",
-    "COOKIE_STATE_MAX",
-    "IncomingCookieState",
-    "OutgoingCookieState",
-    "InternetCookieHistory",
-    "CookieDecision",
-    "GOPHER_FIND_DATAA",
-    "GOPHER_FIND_DATAW",
-    "GOPHER_ADMIN_ATTRIBUTE_TYPE",
-    "GOPHER_MOD_DATE_ATTRIBUTE_TYPE",
-    "GOPHER_TTL_ATTRIBUTE_TYPE",
-    "GOPHER_SCORE_ATTRIBUTE_TYPE",
-    "GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE",
-    "GOPHER_SITE_ATTRIBUTE_TYPE",
-    "GOPHER_ORGANIZATION_ATTRIBUTE_TYPE",
-    "GOPHER_LOCATION_ATTRIBUTE_TYPE",
-    "GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE",
-    "GOPHER_TIMEZONE_ATTRIBUTE_TYPE",
-    "GOPHER_PROVIDER_ATTRIBUTE_TYPE",
-    "GOPHER_VERSION_ATTRIBUTE_TYPE",
-    "GOPHER_ABSTRACT_ATTRIBUTE_TYPE",
-    "GOPHER_VIEW_ATTRIBUTE_TYPE",
-    "GOPHER_VERONICA_ATTRIBUTE_TYPE",
-    "GOPHER_ASK_ATTRIBUTE_TYPE",
     "GOPHER_UNKNOWN_ATTRIBUTE_TYPE",
-    "GOPHER_ATTRIBUTE_TYPE",
-    "GOPHER_ATTRIBUTE_ENUMERATOR",
-    "INTERNET_COOKIE2",
-    "PFN_AUTH_NOTIFY",
-    "INTERNET_AUTH_NOTIFY_DATA",
-    "INTERNET_CACHE_ENTRY_INFOA",
-    "INTERNET_CACHE_ENTRY_INFOW",
-    "INTERNET_CACHE_TIMESTAMPS",
-    "INTERNET_CACHE_GROUP_INFOA",
-    "INTERNET_CACHE_GROUP_INFOW",
-    "AutoProxyHelperVtbl",
-    "AUTO_PROXY_SCRIPT_BUFFER",
-    "AutoProxyHelperFunctions",
-    "pfnInternetInitializeAutoProxyDll",
-    "pfnInternetDeInitializeAutoProxyDll",
-    "pfnInternetGetProxyInfo",
-    "WPAD_CACHE_DELETE",
-    "WPAD_CACHE_DELETE_CURRENT",
-    "WPAD_CACHE_DELETE_ALL",
-    "PFN_DIAL_HANDLER",
-    "IDialEventSink",
-    "IDialEngine",
-    "IDialBranding",
-    "INTERNET_PREFETCH_STATUS",
-    "INTERNET_SECURITY_INFO",
-    "INTERNET_SECURITY_CONNECTION_INFO",
-    "FORTCMD",
-    "FORTCMD_LOGON",
-    "FORTCMD_LOGOFF",
-    "FORTCMD_CHG_PERSONALITY",
-    "FORTSTAT",
-    "FORTSTAT_INSTALLED",
-    "FORTSTAT_LOGGEDON",
-    "INTERNET_DOWNLOAD_MODE_HANDLE",
-    "REQUEST_TIMES",
-    "REQUEST_TIMES_NameResolutionStart",
-    "REQUEST_TIMES_NameResolutionEnd",
-    "REQUEST_TIMES_ConnectionEstablishmentStart",
-    "REQUEST_TIMES_ConnectionEstablishmentEnd",
-    "REQUEST_TIMES_TLSHandshakeStart",
-    "REQUEST_TIMES_TLSHandshakeEnd",
-    "REQUEST_TIMES_HttpRequestTimeMax",
-    "HTTP_REQUEST_TIMES",
-    "INTERNET_SERVER_CONNECTION_STATE",
-    "INTERNET_END_BROWSER_SESSION_DATA",
-    "INTERNET_CALLBACK_COOKIE",
-    "INTERNET_CREDENTIALS",
-    "HTTP_PUSH_TRANSPORT_SETTING",
+    "GOPHER_VERONICA_ATTRIBUTE_TYPE",
+    "GOPHER_VERONICA_CATEGORY",
+    "GOPHER_VERSION_ATTRIBUTE",
+    "GOPHER_VERSION_ATTRIBUTE_TYPE",
+    "GOPHER_VIEWS_CATEGORY",
+    "GOPHER_VIEW_ATTRIBUTE",
+    "GOPHER_VIEW_ATTRIBUTE_TYPE",
+    "GROUPNAME_MAX_LENGTH",
+    "GROUP_OWNER_STORAGE_SIZE",
+    "GetDiskInfoA",
+    "GetUrlCacheConfigInfoA",
+    "GetUrlCacheConfigInfoW",
+    "GetUrlCacheEntryBinaryBlob",
+    "GetUrlCacheEntryInfoA",
+    "GetUrlCacheEntryInfoExA",
+    "GetUrlCacheEntryInfoExW",
+    "GetUrlCacheEntryInfoW",
+    "GetUrlCacheGroupAttributeA",
+    "GetUrlCacheGroupAttributeW",
+    "GetUrlCacheHeaderData",
+    "GopherCreateLocatorA",
+    "GopherCreateLocatorW",
+    "GopherFindFirstFileA",
+    "GopherFindFirstFileW",
+    "GopherGetAttributeA",
+    "GopherGetAttributeW",
+    "GopherGetLocatorTypeA",
+    "GopherGetLocatorTypeW",
+    "GopherOpenFileA",
+    "GopherOpenFileW",
+    "HSR_ASYNC",
+    "HSR_CHUNKED",
+    "HSR_DOWNLOAD",
+    "HSR_INITIATE",
+    "HSR_SYNC",
+    "HSR_USE_CONTEXT",
+    "HTTP_1_1_CACHE_ENTRY",
+    "HTTP_ADDREQ_FLAG",
+    "HTTP_ADDREQ_FLAGS_MASK",
+    "HTTP_ADDREQ_FLAG_ADD",
+    "HTTP_ADDREQ_FLAG_ADD_IF_NEW",
+    "HTTP_ADDREQ_FLAG_ALLOW_EMPTY_VALUES",
+    "HTTP_ADDREQ_FLAG_COALESCE",
+    "HTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA",
+    "HTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON",
+    "HTTP_ADDREQ_FLAG_REPLACE",
+    "HTTP_ADDREQ_FLAG_RESPONSE_HEADERS",
+    "HTTP_ADDREQ_INDEX_MASK",
+    "HTTP_COOKIES_SAME_SITE_LEVEL_CROSS_SITE",
+    "HTTP_COOKIES_SAME_SITE_LEVEL_CROSS_SITE_LAX",
+    "HTTP_COOKIES_SAME_SITE_LEVEL_MAX",
+    "HTTP_COOKIES_SAME_SITE_LEVEL_SAME_SITE",
+    "HTTP_COOKIES_SAME_SITE_LEVEL_UNKNOWN",
+    "HTTP_MAJOR_VERSION",
+    "HTTP_MINOR_VERSION",
+    "HTTP_POLICY_EXTENSION_INIT",
+    "HTTP_POLICY_EXTENSION_SHUTDOWN",
+    "HTTP_POLICY_EXTENSION_TYPE",
+    "HTTP_POLICY_EXTENSION_VERSION",
+    "HTTP_PROTOCOL_FLAG_HTTP2",
+    "HTTP_PROTOCOL_MASK",
     "HTTP_PUSH_NOTIFICATION_STATUS",
+    "HTTP_PUSH_TRANSPORT_SETTING",
+    "HTTP_PUSH_WAIT_HANDLE",
     "HTTP_PUSH_WAIT_TYPE",
     "HTTP_PUSH_WAIT_TYPE_HttpPushWaitEnableComplete",
     "HTTP_PUSH_WAIT_TYPE_HttpPushWaitReceiveComplete",
     "HTTP_PUSH_WAIT_TYPE_HttpPushWaitSendComplete",
-    "INTERNET_COOKIE",
-    "COOKIE_DLG_INFO",
-    "INTERNET_CACHE_CONFIG_PATH_ENTRYA",
-    "INTERNET_CACHE_CONFIG_PATH_ENTRYW",
+    "HTTP_QUERY_ACCEPT",
+    "HTTP_QUERY_ACCEPT_CHARSET",
+    "HTTP_QUERY_ACCEPT_ENCODING",
+    "HTTP_QUERY_ACCEPT_LANGUAGE",
+    "HTTP_QUERY_ACCEPT_RANGES",
+    "HTTP_QUERY_AGE",
+    "HTTP_QUERY_ALLOW",
+    "HTTP_QUERY_AUTHENTICATION_INFO",
+    "HTTP_QUERY_AUTHORIZATION",
+    "HTTP_QUERY_CACHE_CONTROL",
+    "HTTP_QUERY_CONNECTION",
+    "HTTP_QUERY_CONTENT_BASE",
+    "HTTP_QUERY_CONTENT_DESCRIPTION",
+    "HTTP_QUERY_CONTENT_DISPOSITION",
+    "HTTP_QUERY_CONTENT_ENCODING",
+    "HTTP_QUERY_CONTENT_ID",
+    "HTTP_QUERY_CONTENT_LANGUAGE",
+    "HTTP_QUERY_CONTENT_LENGTH",
+    "HTTP_QUERY_CONTENT_LOCATION",
+    "HTTP_QUERY_CONTENT_MD5",
+    "HTTP_QUERY_CONTENT_RANGE",
+    "HTTP_QUERY_CONTENT_TRANSFER_ENCODING",
+    "HTTP_QUERY_CONTENT_TYPE",
+    "HTTP_QUERY_COOKIE",
+    "HTTP_QUERY_COST",
+    "HTTP_QUERY_CUSTOM",
+    "HTTP_QUERY_DATE",
+    "HTTP_QUERY_DEFAULT_STYLE",
+    "HTTP_QUERY_DERIVED_FROM",
+    "HTTP_QUERY_DO_NOT_TRACK",
+    "HTTP_QUERY_ECHO_HEADERS",
+    "HTTP_QUERY_ECHO_HEADERS_CRLF",
+    "HTTP_QUERY_ECHO_REPLY",
+    "HTTP_QUERY_ECHO_REQUEST",
+    "HTTP_QUERY_ETAG",
+    "HTTP_QUERY_EXPECT",
+    "HTTP_QUERY_EXPIRES",
+    "HTTP_QUERY_FLAG_COALESCE",
+    "HTTP_QUERY_FLAG_COALESCE_WITH_COMMA",
+    "HTTP_QUERY_FLAG_NUMBER",
+    "HTTP_QUERY_FLAG_NUMBER64",
+    "HTTP_QUERY_FLAG_REQUEST_HEADERS",
+    "HTTP_QUERY_FLAG_SYSTEMTIME",
+    "HTTP_QUERY_FORWARDED",
+    "HTTP_QUERY_FROM",
+    "HTTP_QUERY_HOST",
+    "HTTP_QUERY_HTTP2_SETTINGS",
+    "HTTP_QUERY_IF_MATCH",
+    "HTTP_QUERY_IF_MODIFIED_SINCE",
+    "HTTP_QUERY_IF_NONE_MATCH",
+    "HTTP_QUERY_IF_RANGE",
+    "HTTP_QUERY_IF_UNMODIFIED_SINCE",
+    "HTTP_QUERY_INCLUDE_REFERER_TOKEN_BINDING_ID",
+    "HTTP_QUERY_INCLUDE_REFERRED_TOKEN_BINDING_ID",
+    "HTTP_QUERY_KEEP_ALIVE",
+    "HTTP_QUERY_LAST_MODIFIED",
+    "HTTP_QUERY_LINK",
+    "HTTP_QUERY_LOCATION",
+    "HTTP_QUERY_MAX",
+    "HTTP_QUERY_MAX_FORWARDS",
+    "HTTP_QUERY_MESSAGE_ID",
+    "HTTP_QUERY_MIME_VERSION",
+    "HTTP_QUERY_ORIG_URI",
+    "HTTP_QUERY_P3P",
+    "HTTP_QUERY_PASSPORT_CONFIG",
+    "HTTP_QUERY_PASSPORT_URLS",
+    "HTTP_QUERY_PRAGMA",
+    "HTTP_QUERY_PROXY_AUTHENTICATE",
+    "HTTP_QUERY_PROXY_AUTHORIZATION",
+    "HTTP_QUERY_PROXY_CONNECTION",
+    "HTTP_QUERY_PROXY_SUPPORT",
+    "HTTP_QUERY_PUBLIC",
+    "HTTP_QUERY_PUBLIC_KEY_PINS",
+    "HTTP_QUERY_PUBLIC_KEY_PINS_REPORT_ONLY",
+    "HTTP_QUERY_RANGE",
+    "HTTP_QUERY_RAW_HEADERS",
+    "HTTP_QUERY_RAW_HEADERS_CRLF",
+    "HTTP_QUERY_REFERER",
+    "HTTP_QUERY_REFRESH",
+    "HTTP_QUERY_REQUEST_METHOD",
+    "HTTP_QUERY_RETRY_AFTER",
+    "HTTP_QUERY_SERVER",
+    "HTTP_QUERY_SET_COOKIE",
+    "HTTP_QUERY_SET_COOKIE2",
+    "HTTP_QUERY_STATUS_CODE",
+    "HTTP_QUERY_STATUS_TEXT",
+    "HTTP_QUERY_STRICT_TRANSPORT_SECURITY",
+    "HTTP_QUERY_TITLE",
+    "HTTP_QUERY_TOKEN_BINDING",
+    "HTTP_QUERY_TRANSFER_ENCODING",
+    "HTTP_QUERY_TRANSLATE",
+    "HTTP_QUERY_UNLESS_MODIFIED_SINCE",
+    "HTTP_QUERY_UPGRADE",
+    "HTTP_QUERY_URI",
+    "HTTP_QUERY_USER_AGENT",
+    "HTTP_QUERY_VARY",
+    "HTTP_QUERY_VERSION",
+    "HTTP_QUERY_VIA",
+    "HTTP_QUERY_WARNING",
+    "HTTP_QUERY_WWW_AUTHENTICATE",
+    "HTTP_QUERY_X_CONTENT_TYPE_OPTIONS",
+    "HTTP_QUERY_X_FRAME_OPTIONS",
+    "HTTP_QUERY_X_P2P_PEERDIST",
+    "HTTP_QUERY_X_UA_COMPATIBLE",
+    "HTTP_QUERY_X_XSS_PROTECTION",
+    "HTTP_REQUEST_TIMES",
+    "HTTP_STATUS_MISDIRECTED_REQUEST",
+    "HTTP_VERSIONA",
+    "HTTP_VERSIONW",
+    "HTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_ASYNC_RESULT",
+    "HTTP_WEB_SOCKET_BINARY_FRAGMENT_TYPE",
+    "HTTP_WEB_SOCKET_BINARY_MESSAGE_TYPE",
+    "HTTP_WEB_SOCKET_BUFFER_TYPE",
+    "HTTP_WEB_SOCKET_CLOSE_OPERATION",
+    "HTTP_WEB_SOCKET_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_CLOSE_TYPE",
+    "HTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_MAX_CLOSE_REASON_LENGTH",
+    "HTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_MIN_KEEPALIVE_VALUE",
+    "HTTP_WEB_SOCKET_OPERATION",
+    "HTTP_WEB_SOCKET_PING_TYPE",
+    "HTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_RECEIVE_OPERATION",
+    "HTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_SEND_OPERATION",
+    "HTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_SHUTDOWN_OPERATION",
+    "HTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS",
+    "HTTP_WEB_SOCKET_UTF8_FRAGMENT_TYPE",
+    "HTTP_WEB_SOCKET_UTF8_MESSAGE_TYPE",
+    "HttpAddRequestHeadersA",
+    "HttpAddRequestHeadersW",
+    "HttpCheckDavComplianceA",
+    "HttpCheckDavComplianceW",
+    "HttpCloseDependencyHandle",
+    "HttpDuplicateDependencyHandle",
+    "HttpEndRequestA",
+    "HttpEndRequestW",
+    "HttpGetServerCredentials",
+    "HttpIndicatePageLoadComplete",
+    "HttpIsHostHstsEnabled",
+    "HttpOpenDependencyHandle",
+    "HttpOpenRequestA",
+    "HttpOpenRequestW",
+    "HttpPushClose",
+    "HttpPushEnable",
+    "HttpPushWait",
+    "HttpQueryInfoA",
+    "HttpQueryInfoW",
+    "HttpSendRequestA",
+    "HttpSendRequestExA",
+    "HttpSendRequestExW",
+    "HttpSendRequestW",
+    "HttpWebSocketClose",
+    "HttpWebSocketCompleteUpgrade",
+    "HttpWebSocketQueryCloseStatus",
+    "HttpWebSocketReceive",
+    "HttpWebSocketSend",
+    "HttpWebSocketShutdown",
+    "ICU_USERNAME",
+    "IDENTITY_CACHE_ENTRY",
+    "IDSI_FLAG_KEEP_ALIVE",
+    "IDSI_FLAG_PROXY",
+    "IDSI_FLAG_SECURE",
+    "IDSI_FLAG_TUNNEL",
+    "IDialBranding",
+    "IDialEngine",
+    "IDialEventSink",
+    "IMMUTABLE_CACHE_ENTRY",
+    "INSTALLED_CACHE_ENTRY",
+    "INTERENT_GOONLINE_MASK",
+    "INTERENT_GOONLINE_NOPROMPT",
+    "INTERENT_GOONLINE_REFRESH",
+    "INTERNET_ACCESS_TYPE",
+    "INTERNET_ASYNC_RESULT",
+    "INTERNET_AUTH_NOTIFY_DATA",
+    "INTERNET_AUTH_SCHEME_BASIC",
+    "INTERNET_AUTH_SCHEME_DIGEST",
+    "INTERNET_AUTH_SCHEME_KERBEROS",
+    "INTERNET_AUTH_SCHEME_NEGOTIATE",
+    "INTERNET_AUTH_SCHEME_NTLM",
+    "INTERNET_AUTH_SCHEME_PASSPORT",
+    "INTERNET_AUTH_SCHEME_UNKNOWN",
+    "INTERNET_AUTODIAL",
+    "INTERNET_AUTODIAL_FAILIFSECURITYCHECK",
+    "INTERNET_AUTODIAL_FORCE_ONLINE",
+    "INTERNET_AUTODIAL_FORCE_UNATTENDED",
+    "INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT",
+    "INTERNET_AUTOPROXY_INIT_DEFAULT",
+    "INTERNET_AUTOPROXY_INIT_DOWNLOADSYNC",
+    "INTERNET_AUTOPROXY_INIT_ONLYQUERY",
+    "INTERNET_AUTOPROXY_INIT_QUERYSTATE",
+    "INTERNET_BUFFERSA",
+    "INTERNET_BUFFERSW",
     "INTERNET_CACHE_CONFIG_INFOA",
     "INTERNET_CACHE_CONFIG_INFOW",
+    "INTERNET_CACHE_CONFIG_PATH_ENTRYA",
+    "INTERNET_CACHE_CONFIG_PATH_ENTRYW",
+    "INTERNET_CACHE_CONTAINER_AUTODELETE",
+    "INTERNET_CACHE_CONTAINER_BLOOM_FILTER",
     "INTERNET_CACHE_CONTAINER_INFOA",
     "INTERNET_CACHE_CONTAINER_INFOW",
-    "WININET_SYNC_MODE",
-    "WININET_SYNC_MODE_NEVER",
-    "WININET_SYNC_MODE_ON_EXPIRY",
-    "WININET_SYNC_MODE_ONCE_PER_SESSION",
-    "WININET_SYNC_MODE_ALWAYS",
-    "WININET_SYNC_MODE_AUTOMATIC",
-    "WININET_SYNC_MODE_DEFAULT",
-    "APP_CACHE_STATE",
-    "APP_CACHE_STATE_AppCacheStateNoUpdateNeeded",
-    "APP_CACHE_STATE_AppCacheStateUpdateNeeded",
-    "APP_CACHE_STATE_AppCacheStateUpdateNeededNew",
-    "APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly",
-    "APP_CACHE_DOWNLOAD_ENTRY",
-    "APP_CACHE_DOWNLOAD_LIST",
-    "APP_CACHE_FINALIZE_STATE",
-    "APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete",
-    "APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange",
-    "APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete",
-    "APP_CACHE_GROUP_INFO",
-    "APP_CACHE_GROUP_LIST",
-    "URLCACHE_ENTRY_INFO",
-    "URL_CACHE_LIMIT_TYPE",
-    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIE",
-    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIETotal",
-    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainer",
-    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainerTotal",
-    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeNum",
-    "WININET_PROXY_INFO",
-    "WININET_PROXY_INFO_LIST",
-    "CACHE_OPERATOR",
-    "HTTP_WEB_SOCKET_OPERATION",
-    "HTTP_WEB_SOCKET_SEND_OPERATION",
-    "HTTP_WEB_SOCKET_RECEIVE_OPERATION",
-    "HTTP_WEB_SOCKET_CLOSE_OPERATION",
-    "HTTP_WEB_SOCKET_SHUTDOWN_OPERATION",
-    "HTTP_WEB_SOCKET_BUFFER_TYPE",
-    "HTTP_WEB_SOCKET_BINARY_MESSAGE_TYPE",
-    "HTTP_WEB_SOCKET_BINARY_FRAGMENT_TYPE",
-    "HTTP_WEB_SOCKET_UTF8_MESSAGE_TYPE",
-    "HTTP_WEB_SOCKET_UTF8_FRAGMENT_TYPE",
-    "HTTP_WEB_SOCKET_CLOSE_TYPE",
-    "HTTP_WEB_SOCKET_PING_TYPE",
-    "HTTP_WEB_SOCKET_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS",
-    "HTTP_WEB_SOCKET_ASYNC_RESULT",
-    "HTTP_POLICY_EXTENSION_TYPE",
-    "POLICY_EXTENSION_TYPE_NONE",
-    "POLICY_EXTENSION_TYPE_WINHTTP",
-    "POLICY_EXTENSION_TYPE_WININET",
-    "HTTP_POLICY_EXTENSION_VERSION",
-    "POLICY_EXTENSION_VERSION1",
-    "HTTP_POLICY_EXTENSION_INIT",
-    "HTTP_POLICY_EXTENSION_SHUTDOWN",
-    "ProofOfPossessionCookieInfoManager",
-    "ProofOfPossessionCookieInfo",
+    "INTERNET_CACHE_CONTAINER_MAP_ENABLED",
+    "INTERNET_CACHE_CONTAINER_NODESKTOPINIT",
+    "INTERNET_CACHE_CONTAINER_NOSUBDIRS",
+    "INTERNET_CACHE_CONTAINER_RESERVED1",
+    "INTERNET_CACHE_CONTAINER_SHARE_READ",
+    "INTERNET_CACHE_CONTAINER_SHARE_READ_WRITE",
+    "INTERNET_CACHE_ENTRY_INFOA",
+    "INTERNET_CACHE_ENTRY_INFOW",
+    "INTERNET_CACHE_FLAG_ADD_FILENAME_ONLY",
+    "INTERNET_CACHE_FLAG_ALLOW_COLLISIONS",
+    "INTERNET_CACHE_FLAG_ENTRY_OR_MAPPING",
+    "INTERNET_CACHE_FLAG_GET_STRUCT_ONLY",
+    "INTERNET_CACHE_FLAG_INSTALLED_ENTRY",
+    "INTERNET_CACHE_GROUP_ADD",
+    "INTERNET_CACHE_GROUP_INFOA",
+    "INTERNET_CACHE_GROUP_INFOW",
+    "INTERNET_CACHE_GROUP_REMOVE",
+    "INTERNET_CACHE_TIMESTAMPS",
+    "INTERNET_CALLBACK_COOKIE",
+    "INTERNET_CERTIFICATE_INFO",
+    "INTERNET_CONNECTED_INFO",
+    "INTERNET_CONNECTION",
+    "INTERNET_CONNECTION_CONFIGURED",
+    "INTERNET_CONNECTION_LAN",
+    "INTERNET_CONNECTION_MODEM",
+    "INTERNET_CONNECTION_MODEM_BUSY",
+    "INTERNET_CONNECTION_OFFLINE",
+    "INTERNET_CONNECTION_PROXY",
+    "INTERNET_COOKIE",
+    "INTERNET_COOKIE2",
+    "INTERNET_COOKIE_ALL_COOKIES",
+    "INTERNET_COOKIE_APPLY_HOST_ONLY",
+    "INTERNET_COOKIE_APPLY_P3P",
+    "INTERNET_COOKIE_ECTX_3RDPARTY",
+    "INTERNET_COOKIE_EDGE_COOKIES",
+    "INTERNET_COOKIE_EVALUATE_P3P",
+    "INTERNET_COOKIE_FLAGS",
+    "INTERNET_COOKIE_HOST_ONLY",
+    "INTERNET_COOKIE_HOST_ONLY_APPLIED",
+    "INTERNET_COOKIE_HTTPONLY",
+    "INTERNET_COOKIE_IE6",
+    "INTERNET_COOKIE_IS_LEGACY",
+    "INTERNET_COOKIE_IS_RESTRICTED",
+    "INTERNET_COOKIE_IS_SECURE",
+    "INTERNET_COOKIE_IS_SESSION",
+    "INTERNET_COOKIE_NON_SCRIPT",
+    "INTERNET_COOKIE_NO_CALLBACK",
+    "INTERNET_COOKIE_P3P_ENABLED",
+    "INTERNET_COOKIE_PERSISTENT_HOST_ONLY",
+    "INTERNET_COOKIE_PROMPT_REQUIRED",
+    "INTERNET_COOKIE_RESTRICTED_ZONE",
+    "INTERNET_COOKIE_SAME_SITE_LAX",
+    "INTERNET_COOKIE_SAME_SITE_LEVEL_CROSS_SITE",
+    "INTERNET_COOKIE_SAME_SITE_STRICT",
+    "INTERNET_COOKIE_THIRD_PARTY",
+    "INTERNET_CREDENTIALS",
+    "INTERNET_CUSTOMDIAL_CAN_HANGUP",
+    "INTERNET_CUSTOMDIAL_CONNECT",
+    "INTERNET_CUSTOMDIAL_DISCONNECT",
+    "INTERNET_CUSTOMDIAL_SAFE_FOR_UNATTENDED",
+    "INTERNET_CUSTOMDIAL_SHOWOFFLINE",
+    "INTERNET_CUSTOMDIAL_UNATTENDED",
+    "INTERNET_CUSTOMDIAL_WILL_SUPPLY_STATE",
+    "INTERNET_DEFAULT_FTP_PORT",
+    "INTERNET_DEFAULT_GOPHER_PORT",
+    "INTERNET_DEFAULT_SOCKS_PORT",
+    "INTERNET_DIAGNOSTIC_SOCKET_INFO",
+    "INTERNET_DIALSTATE_DISCONNECTED",
+    "INTERNET_DIAL_FORCE_PROMPT",
+    "INTERNET_DIAL_SHOW_OFFLINE",
+    "INTERNET_DIAL_UNATTENDED",
+    "INTERNET_DOWNLOAD_MODE_HANDLE",
+    "INTERNET_END_BROWSER_SESSION_DATA",
+    "INTERNET_ERROR_BASE",
+    "INTERNET_ERROR_LAST",
+    "INTERNET_ERROR_MASK_COMBINED_SEC_CERT",
+    "INTERNET_ERROR_MASK_INSERT_CDROM",
+    "INTERNET_ERROR_MASK_LOGIN_FAILURE_DISPLAY_ENTITY_BODY",
+    "INTERNET_ERROR_MASK_NEED_MSN_SSPI_PKG",
+    "INTERNET_FIRST_OPTION",
+    "INTERNET_FLAG_ASYNC",
+    "INTERNET_FLAG_BGUPDATE",
+    "INTERNET_FLAG_CACHE_ASYNC",
+    "INTERNET_FLAG_CACHE_IF_NET_FAIL",
+    "INTERNET_FLAG_DONT_CACHE",
+    "INTERNET_FLAG_EXISTING_CONNECT",
+    "INTERNET_FLAG_FORMS_SUBMIT",
+    "INTERNET_FLAG_FROM_CACHE",
+    "INTERNET_FLAG_FTP_FOLDER_VIEW",
+    "INTERNET_FLAG_FWD_BACK",
+    "INTERNET_FLAG_HYPERLINK",
+    "INTERNET_FLAG_IDN_DIRECT",
+    "INTERNET_FLAG_IDN_PROXY",
+    "INTERNET_FLAG_IGNORE_CERT_CN_INVALID",
+    "INTERNET_FLAG_IGNORE_CERT_DATE_INVALID",
+    "INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP",
+    "INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTPS",
+    "INTERNET_FLAG_KEEP_CONNECTION",
+    "INTERNET_FLAG_MAKE_PERSISTENT",
+    "INTERNET_FLAG_MUST_CACHE_REQUEST",
+    "INTERNET_FLAG_NEED_FILE",
+    "INTERNET_FLAG_NO_AUTH",
+    "INTERNET_FLAG_NO_AUTO_REDIRECT",
+    "INTERNET_FLAG_NO_CACHE_WRITE",
+    "INTERNET_FLAG_NO_COOKIES",
+    "INTERNET_FLAG_NO_UI",
+    "INTERNET_FLAG_OFFLINE",
+    "INTERNET_FLAG_PASSIVE",
+    "INTERNET_FLAG_PRAGMA_NOCACHE",
+    "INTERNET_FLAG_RAW_DATA",
+    "INTERNET_FLAG_READ_PREFETCH",
+    "INTERNET_FLAG_RELOAD",
+    "INTERNET_FLAG_RESTRICTED_ZONE",
+    "INTERNET_FLAG_RESYNCHRONIZE",
+    "INTERNET_FLAG_SECURE",
+    "INTERNET_FLAG_TRANSFER_ASCII",
+    "INTERNET_FLAG_TRANSFER_BINARY",
+    "INTERNET_GLOBAL_CALLBACK_SENDING_HTTP_HEADERS",
+    "INTERNET_HANDLE_TYPE_CONNECT_FTP",
+    "INTERNET_HANDLE_TYPE_CONNECT_GOPHER",
+    "INTERNET_HANDLE_TYPE_CONNECT_HTTP",
+    "INTERNET_HANDLE_TYPE_FILE_REQUEST",
+    "INTERNET_HANDLE_TYPE_FTP_FILE",
+    "INTERNET_HANDLE_TYPE_FTP_FILE_HTML",
+    "INTERNET_HANDLE_TYPE_FTP_FIND",
+    "INTERNET_HANDLE_TYPE_FTP_FIND_HTML",
+    "INTERNET_HANDLE_TYPE_GOPHER_FILE",
+    "INTERNET_HANDLE_TYPE_GOPHER_FILE_HTML",
+    "INTERNET_HANDLE_TYPE_GOPHER_FIND",
+    "INTERNET_HANDLE_TYPE_GOPHER_FIND_HTML",
+    "INTERNET_HANDLE_TYPE_HTTP_REQUEST",
+    "INTERNET_HANDLE_TYPE_INTERNET",
+    "INTERNET_IDENTITY_FLAG_CLEAR_CONTENT",
+    "INTERNET_IDENTITY_FLAG_CLEAR_COOKIES",
+    "INTERNET_IDENTITY_FLAG_CLEAR_DATA",
+    "INTERNET_IDENTITY_FLAG_CLEAR_HISTORY",
+    "INTERNET_IDENTITY_FLAG_PRIVATE_CACHE",
+    "INTERNET_IDENTITY_FLAG_SHARED_CACHE",
+    "INTERNET_INTERNAL_ERROR_BASE",
+    "INTERNET_INVALID_PORT_NUMBER",
+    "INTERNET_KEEP_ALIVE_DISABLED",
+    "INTERNET_KEEP_ALIVE_ENABLED",
+    "INTERNET_KEEP_ALIVE_UNKNOWN",
+    "INTERNET_LAST_OPTION",
+    "INTERNET_LAST_OPTION_INTERNAL",
+    "INTERNET_MAX_HOST_NAME_LENGTH",
+    "INTERNET_MAX_PASSWORD_LENGTH",
+    "INTERNET_MAX_PORT_NUMBER_LENGTH",
+    "INTERNET_MAX_PORT_NUMBER_VALUE",
+    "INTERNET_MAX_USER_NAME_LENGTH",
+    "INTERNET_NO_CALLBACK",
+    "INTERNET_OPEN_TYPE_DIRECT",
+    "INTERNET_OPEN_TYPE_PRECONFIG",
+    "INTERNET_OPEN_TYPE_PRECONFIG_WITH_NO_AUTOPROXY",
+    "INTERNET_OPEN_TYPE_PROXY",
+    "INTERNET_OPTION_ACTIVATE_WORKER_THREADS",
+    "INTERNET_OPTION_ACTIVITY_ID",
+    "INTERNET_OPTION_ALLOW_FAILED_CONNECT_CONTENT",
+    "INTERNET_OPTION_ALLOW_INSECURE_FALLBACK",
+    "INTERNET_OPTION_ALTER_IDENTITY",
+    "INTERNET_OPTION_APP_CACHE",
+    "INTERNET_OPTION_ASYNC",
+    "INTERNET_OPTION_ASYNC_ID",
+    "INTERNET_OPTION_ASYNC_PRIORITY",
+    "INTERNET_OPTION_AUTH_FLAGS",
+    "INTERNET_OPTION_AUTH_SCHEME_SELECTED",
+    "INTERNET_OPTION_AUTODIAL_CONNECTION",
+    "INTERNET_OPTION_AUTODIAL_HWND",
+    "INTERNET_OPTION_AUTODIAL_MODE",
+    "INTERNET_OPTION_BACKGROUND_CONNECTIONS",
+    "INTERNET_OPTION_BYPASS_EDITED_ENTRY",
+    "INTERNET_OPTION_CACHE_ENTRY_EXTRA_DATA",
+    "INTERNET_OPTION_CACHE_PARTITION",
+    "INTERNET_OPTION_CACHE_STREAM_HANDLE",
+    "INTERNET_OPTION_CACHE_TIMESTAMPS",
+    "INTERNET_OPTION_CALLBACK",
+    "INTERNET_OPTION_CALLBACK_FILTER",
+    "INTERNET_OPTION_CANCEL_CACHE_WRITE",
+    "INTERNET_OPTION_CERT_ERROR_FLAGS",
+    "INTERNET_OPTION_CHUNK_ENCODE_REQUEST",
+    "INTERNET_OPTION_CLIENT_CERT_CONTEXT",
+    "INTERNET_OPTION_CLIENT_CERT_ISSUER_LIST",
+    "INTERNET_OPTION_CM_HANDLE_COPY_REF",
+    "INTERNET_OPTION_CODEPAGE",
+    "INTERNET_OPTION_CODEPAGE_EXTRA",
+    "INTERNET_OPTION_CODEPAGE_PATH",
+    "INTERNET_OPTION_COMPRESSED_CONTENT_LENGTH",
+    "INTERNET_OPTION_CONNECTED_STATE",
+    "INTERNET_OPTION_CONNECTION_FILTER",
+    "INTERNET_OPTION_CONNECTION_INFO",
+    "INTERNET_OPTION_CONNECT_BACKOFF",
+    "INTERNET_OPTION_CONNECT_LIMIT",
+    "INTERNET_OPTION_CONNECT_RETRIES",
+    "INTERNET_OPTION_CONNECT_TIME",
+    "INTERNET_OPTION_CONNECT_TIMEOUT",
+    "INTERNET_OPTION_CONTEXT_VALUE",
+    "INTERNET_OPTION_CONTEXT_VALUE_OLD",
+    "INTERNET_OPTION_CONTROL_RECEIVE_TIMEOUT",
+    "INTERNET_OPTION_CONTROL_SEND_TIMEOUT",
+    "INTERNET_OPTION_COOKIES_3RD_PARTY",
+    "INTERNET_OPTION_COOKIES_APPLY_HOST_ONLY",
+    "INTERNET_OPTION_COOKIES_SAME_SITE_LEVEL",
+    "INTERNET_OPTION_DATAFILE_EXT",
+    "INTERNET_OPTION_DATAFILE_NAME",
+    "INTERNET_OPTION_DATA_RECEIVE_TIMEOUT",
+    "INTERNET_OPTION_DATA_SEND_TIMEOUT",
+    "INTERNET_OPTION_DEPENDENCY_HANDLE",
+    "INTERNET_OPTION_DETECT_POST_SEND",
+    "INTERNET_OPTION_DIAGNOSTIC_SOCKET_INFO",
+    "INTERNET_OPTION_DIGEST_AUTH_UNLOAD",
+    "INTERNET_OPTION_DISABLE_AUTODIAL",
+    "INTERNET_OPTION_DISABLE_INSECURE_FALLBACK",
+    "INTERNET_OPTION_DISABLE_NTLM_PREAUTH",
+    "INTERNET_OPTION_DISABLE_PASSPORT_AUTH",
+    "INTERNET_OPTION_DISABLE_PROXY_LINK_LOCAL_NAME_RESOLUTION",
+    "INTERNET_OPTION_DISALLOW_PREMATURE_EOF",
+    "INTERNET_OPTION_DISCONNECTED_TIMEOUT",
+    "INTERNET_OPTION_DOWNLOAD_MODE",
+    "INTERNET_OPTION_DOWNLOAD_MODE_HANDLE",
+    "INTERNET_OPTION_DO_NOT_TRACK",
+    "INTERNET_OPTION_DUO_USED",
+    "INTERNET_OPTION_EDGE_COOKIES",
+    "INTERNET_OPTION_EDGE_COOKIES_TEMP",
+    "INTERNET_OPTION_EDGE_MODE",
+    "INTERNET_OPTION_ENABLE_DUO",
+    "INTERNET_OPTION_ENABLE_HEADER_CALLBACKS",
+    "INTERNET_OPTION_ENABLE_HTTP_PROTOCOL",
+    "INTERNET_OPTION_ENABLE_PASSPORT_AUTH",
+    "INTERNET_OPTION_ENABLE_REDIRECT_CACHE_READ",
+    "INTERNET_OPTION_ENABLE_TEST_SIGNING",
+    "INTERNET_OPTION_ENABLE_WBOEXT",
+    "INTERNET_OPTION_ENABLE_ZLIB_DEFLATE",
+    "INTERNET_OPTION_ENCODE_EXTRA",
+    "INTERNET_OPTION_ENCODE_FALLBACK_FOR_REDIRECT_URI",
+    "INTERNET_OPTION_END_BROWSER_SESSION",
+    "INTERNET_OPTION_ENTERPRISE_CONTEXT",
+    "INTERNET_OPTION_ERROR_MASK",
+    "INTERNET_OPTION_EXEMPT_CONNECTION_LIMIT",
+    "INTERNET_OPTION_EXTENDED_CALLBACKS",
+    "INTERNET_OPTION_EXTENDED_ERROR",
+    "INTERNET_OPTION_FAIL_ON_CACHE_WRITE_ERROR",
+    "INTERNET_OPTION_FALSE_START",
+    "INTERNET_OPTION_FLUSH_STATE",
+    "INTERNET_OPTION_FORCE_DECODE",
+    "INTERNET_OPTION_FROM_CACHE_TIMEOUT",
+    "INTERNET_OPTION_GLOBAL_CALLBACK",
+    "INTERNET_OPTION_HANDLE_TYPE",
+    "INTERNET_OPTION_HIBERNATE_INACTIVE_WORKER_THREADS",
+    "INTERNET_OPTION_HSTS",
+    "INTERNET_OPTION_HTTP_09",
+    "INTERNET_OPTION_HTTP_DECODING",
+    "INTERNET_OPTION_HTTP_PROTOCOL_USED",
+    "INTERNET_OPTION_HTTP_VERSION",
+    "INTERNET_OPTION_IDENTITY",
+    "INTERNET_OPTION_IDLE_STATE",
+    "INTERNET_OPTION_IDN",
+    "INTERNET_OPTION_IGNORE_CERT_ERROR_FLAGS",
+    "INTERNET_OPTION_IGNORE_OFFLINE",
+    "INTERNET_OPTION_KEEP_CONNECTION",
+    "INTERNET_OPTION_LINE_STATE",
+    "INTERNET_OPTION_LISTEN_TIMEOUT",
+    "INTERNET_OPTION_MAX_CONNS_PER_1_0_SERVER",
+    "INTERNET_OPTION_MAX_CONNS_PER_PROXY",
+    "INTERNET_OPTION_MAX_CONNS_PER_SERVER",
+    "INTERNET_OPTION_MAX_QUERY_BUFFER_SIZE",
+    "INTERNET_OPTION_NET_SPEED",
+    "INTERNET_OPTION_NOCACHE_WRITE_IN_PRIVATE",
+    "INTERNET_OPTION_NOTIFY_SENDING_COOKIE",
+    "INTERNET_OPTION_NO_HTTP_SERVER_AUTH",
+    "INTERNET_OPTION_OFFLINE_MODE",
+    "INTERNET_OPTION_OFFLINE_SEMANTICS",
+    "INTERNET_OPTION_OFFLINE_TIMEOUT",
+    "INTERNET_OPTION_OPT_IN_WEAK_SIGNATURE",
+    "INTERNET_OPTION_ORIGINAL_CONNECT_FLAGS",
+    "INTERNET_OPTION_PARENT_HANDLE",
+    "INTERNET_OPTION_PARSE_LINE_FOLDING",
+    "INTERNET_OPTION_PASSWORD",
+    "INTERNET_OPTION_PER_CONNECTION_OPTION",
+    "INTERNET_OPTION_POLICY",
+    "INTERNET_OPTION_PRESERVE_REFERER_ON_HTTPS_TO_HTTP_REDIRECT",
+    "INTERNET_OPTION_PRESERVE_REQUEST_SERVER_CREDENTIALS_ON_REDIRECT",
+    "INTERNET_OPTION_PROXY",
+    "INTERNET_OPTION_PROXY_AUTH_SCHEME",
+    "INTERNET_OPTION_PROXY_CREDENTIALS",
+    "INTERNET_OPTION_PROXY_FROM_REQUEST",
+    "INTERNET_OPTION_PROXY_PASSWORD",
+    "INTERNET_OPTION_PROXY_SETTINGS_CHANGED",
+    "INTERNET_OPTION_PROXY_USERNAME",
+    "INTERNET_OPTION_READ_BUFFER_SIZE",
+    "INTERNET_OPTION_RECEIVE_THROUGHPUT",
+    "INTERNET_OPTION_RECEIVE_TIMEOUT",
+    "INTERNET_OPTION_REFERER_TOKEN_BINDING_HOSTNAME",
+    "INTERNET_OPTION_REFRESH",
+    "INTERNET_OPTION_REMOVE_IDENTITY",
+    "INTERNET_OPTION_REQUEST_FLAGS",
+    "INTERNET_OPTION_REQUEST_PRIORITY",
+    "INTERNET_OPTION_REQUEST_TIMES",
+    "INTERNET_OPTION_RESET",
+    "INTERNET_OPTION_RESET_URLCACHE_SESSION",
+    "INTERNET_OPTION_RESPONSE_RESUMABLE",
+    "INTERNET_OPTION_RESTORE_WORKER_THREAD_DEFAULTS",
+    "INTERNET_OPTION_SECONDARY_CACHE_KEY",
+    "INTERNET_OPTION_SECURE_FAILURE",
+    "INTERNET_OPTION_SECURITY_CERTIFICATE",
+    "INTERNET_OPTION_SECURITY_CERTIFICATE_STRUCT",
+    "INTERNET_OPTION_SECURITY_CONNECTION_INFO",
+    "INTERNET_OPTION_SECURITY_FLAGS",
+    "INTERNET_OPTION_SECURITY_KEY_BITNESS",
+    "INTERNET_OPTION_SECURITY_SELECT_CLIENT_CERT",
+    "INTERNET_OPTION_SEND_THROUGHPUT",
+    "INTERNET_OPTION_SEND_TIMEOUT",
+    "INTERNET_OPTION_SEND_UTF8_SERVERNAME_TO_PROXY",
+    "INTERNET_OPTION_SERVER_ADDRESS_INFO",
+    "INTERNET_OPTION_SERVER_AUTH_SCHEME",
+    "INTERNET_OPTION_SERVER_CERT_CHAIN_CONTEXT",
+    "INTERNET_OPTION_SERVER_CREDENTIALS",
+    "INTERNET_OPTION_SESSION_START_TIME",
+    "INTERNET_OPTION_SETTINGS_CHANGED",
+    "INTERNET_OPTION_SET_IN_PRIVATE",
+    "INTERNET_OPTION_SOCKET_NODELAY",
+    "INTERNET_OPTION_SOCKET_NOTIFICATION_IOCTL",
+    "INTERNET_OPTION_SOCKET_SEND_BUFFER_LENGTH",
+    "INTERNET_OPTION_SOURCE_PORT",
+    "INTERNET_OPTION_SUPPRESS_BEHAVIOR",
+    "INTERNET_OPTION_SUPPRESS_SERVER_AUTH",
+    "INTERNET_OPTION_SYNC_MODE_AUTOMATIC_SESSION_DISABLED",
+    "INTERNET_OPTION_TCP_FAST_OPEN",
+    "INTERNET_OPTION_TIMED_CONNECTION_LIMIT_BYPASS",
+    "INTERNET_OPTION_TOKEN_BINDING_PUBLIC_KEY",
+    "INTERNET_OPTION_TUNNEL_ONLY",
+    "INTERNET_OPTION_UNLOAD_NOTIFY_EVENT",
+    "INTERNET_OPTION_UPGRADE_TO_WEB_SOCKET",
+    "INTERNET_OPTION_URL",
+    "INTERNET_OPTION_USERNAME",
+    "INTERNET_OPTION_USER_AGENT",
+    "INTERNET_OPTION_USER_PASS_SERVER_ONLY",
+    "INTERNET_OPTION_USE_FIRST_AVAILABLE_CONNECTION",
+    "INTERNET_OPTION_USE_MODIFIED_HEADER_FILTER",
+    "INTERNET_OPTION_VERSION",
+    "INTERNET_OPTION_WEB_SOCKET_CLOSE_TIMEOUT",
+    "INTERNET_OPTION_WEB_SOCKET_KEEPALIVE_INTERVAL",
+    "INTERNET_OPTION_WPAD_SLEEP",
+    "INTERNET_OPTION_WRITE_BUFFER_SIZE",
+    "INTERNET_OPTION_WWA_MODE",
+    "INTERNET_PER_CONN",
+    "INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_TIME",
+    "INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_URL",
+    "INTERNET_PER_CONN_AUTOCONFIG_RELOAD_DELAY_MINS",
+    "INTERNET_PER_CONN_AUTOCONFIG_SECONDARY_URL",
+    "INTERNET_PER_CONN_AUTOCONFIG_URL",
+    "INTERNET_PER_CONN_AUTODISCOVERY_FLAGS",
+    "INTERNET_PER_CONN_FLAGS",
+    "INTERNET_PER_CONN_FLAGS_UI",
+    "INTERNET_PER_CONN_OPTIONA",
+    "INTERNET_PER_CONN_OPTIONW",
+    "INTERNET_PER_CONN_OPTION_LISTA",
+    "INTERNET_PER_CONN_OPTION_LISTW",
+    "INTERNET_PER_CONN_PROXY_BYPASS",
+    "INTERNET_PER_CONN_PROXY_SERVER",
+    "INTERNET_PREFETCH_ABORTED",
+    "INTERNET_PREFETCH_COMPLETE",
+    "INTERNET_PREFETCH_PROGRESS",
+    "INTERNET_PREFETCH_STATUS",
+    "INTERNET_PRIORITY_FOREGROUND",
+    "INTERNET_PROXY_INFO",
+    "INTERNET_RAS_INSTALLED",
+    "INTERNET_REQFLAG_ASYNC",
+    "INTERNET_REQFLAG_CACHE_WRITE_DISABLED",
+    "INTERNET_REQFLAG_FROM_APP_CACHE",
+    "INTERNET_REQFLAG_FROM_CACHE",
+    "INTERNET_REQFLAG_NET_TIMEOUT",
+    "INTERNET_REQFLAG_NO_HEADERS",
+    "INTERNET_REQFLAG_PASSIVE",
+    "INTERNET_REQFLAG_VIA_PROXY",
+    "INTERNET_RFC1123_BUFSIZE",
+    "INTERNET_RFC1123_FORMAT",
+    "INTERNET_SCHEME",
+    "INTERNET_SCHEME_DEFAULT",
+    "INTERNET_SCHEME_FILE",
+    "INTERNET_SCHEME_FIRST",
+    "INTERNET_SCHEME_FTP",
+    "INTERNET_SCHEME_GOPHER",
+    "INTERNET_SCHEME_HTTP",
+    "INTERNET_SCHEME_HTTPS",
+    "INTERNET_SCHEME_JAVASCRIPT",
+    "INTERNET_SCHEME_LAST",
+    "INTERNET_SCHEME_MAILTO",
+    "INTERNET_SCHEME_NEWS",
+    "INTERNET_SCHEME_PARTIAL",
+    "INTERNET_SCHEME_RES",
+    "INTERNET_SCHEME_SOCKS",
+    "INTERNET_SCHEME_UNKNOWN",
+    "INTERNET_SCHEME_VBSCRIPT",
+    "INTERNET_SECURITY_CONNECTION_INFO",
+    "INTERNET_SECURITY_INFO",
+    "INTERNET_SERVER_CONNECTION_STATE",
+    "INTERNET_SERVICE_FTP",
+    "INTERNET_SERVICE_GOPHER",
+    "INTERNET_SERVICE_HTTP",
+    "INTERNET_SERVICE_URL",
+    "INTERNET_STATE",
+    "INTERNET_STATE_BUSY",
+    "INTERNET_STATE_CONNECTED",
+    "INTERNET_STATE_DISCONNECTED",
+    "INTERNET_STATE_DISCONNECTED_BY_USER",
+    "INTERNET_STATE_IDLE",
+    "INTERNET_STATUS_CLOSING_CONNECTION",
+    "INTERNET_STATUS_CONNECTED_TO_SERVER",
+    "INTERNET_STATUS_CONNECTING_TO_SERVER",
+    "INTERNET_STATUS_CONNECTION_CLOSED",
+    "INTERNET_STATUS_COOKIE",
+    "INTERNET_STATUS_COOKIE_HISTORY",
+    "INTERNET_STATUS_COOKIE_RECEIVED",
+    "INTERNET_STATUS_COOKIE_SENT",
+    "INTERNET_STATUS_CTL_RESPONSE_RECEIVED",
+    "INTERNET_STATUS_DETECTING_PROXY",
+    "INTERNET_STATUS_END_BROWSER_SESSION",
+    "INTERNET_STATUS_FILTER_CLOSED",
+    "INTERNET_STATUS_FILTER_CLOSING",
+    "INTERNET_STATUS_FILTER_CONNECTED",
+    "INTERNET_STATUS_FILTER_CONNECTING",
+    "INTERNET_STATUS_FILTER_HANDLE_CLOSING",
+    "INTERNET_STATUS_FILTER_HANDLE_CREATED",
+    "INTERNET_STATUS_FILTER_PREFETCH",
+    "INTERNET_STATUS_FILTER_RECEIVED",
+    "INTERNET_STATUS_FILTER_RECEIVING",
+    "INTERNET_STATUS_FILTER_REDIRECT",
+    "INTERNET_STATUS_FILTER_RESOLVED",
+    "INTERNET_STATUS_FILTER_RESOLVING",
+    "INTERNET_STATUS_FILTER_SENDING",
+    "INTERNET_STATUS_FILTER_SENT",
+    "INTERNET_STATUS_FILTER_STATE_CHANGE",
+    "INTERNET_STATUS_HANDLE_CLOSING",
+    "INTERNET_STATUS_HANDLE_CREATED",
+    "INTERNET_STATUS_INTERMEDIATE_RESPONSE",
+    "INTERNET_STATUS_NAME_RESOLVED",
+    "INTERNET_STATUS_P3P_HEADER",
+    "INTERNET_STATUS_P3P_POLICYREF",
+    "INTERNET_STATUS_PREFETCH",
+    "INTERNET_STATUS_PRIVACY_IMPACTED",
+    "INTERNET_STATUS_PROXY_CREDENTIALS",
+    "INTERNET_STATUS_RECEIVING_RESPONSE",
+    "INTERNET_STATUS_REDIRECT",
+    "INTERNET_STATUS_REQUEST_COMPLETE",
+    "INTERNET_STATUS_REQUEST_HEADERS_SET",
+    "INTERNET_STATUS_REQUEST_SENT",
+    "INTERNET_STATUS_RESOLVING_NAME",
+    "INTERNET_STATUS_RESPONSE_HEADERS_SET",
+    "INTERNET_STATUS_RESPONSE_RECEIVED",
+    "INTERNET_STATUS_SENDING_COOKIE",
+    "INTERNET_STATUS_SENDING_REQUEST",
+    "INTERNET_STATUS_SERVER_CONNECTION_STATE",
+    "INTERNET_STATUS_SERVER_CREDENTIALS",
+    "INTERNET_STATUS_STATE_CHANGE",
+    "INTERNET_STATUS_USER_INPUT_REQUIRED",
+    "INTERNET_SUPPRESS_COOKIE_PERSIST",
+    "INTERNET_SUPPRESS_COOKIE_PERSIST_RESET",
+    "INTERNET_SUPPRESS_COOKIE_POLICY",
+    "INTERNET_SUPPRESS_COOKIE_POLICY_RESET",
+    "INTERNET_SUPPRESS_RESET_ALL",
+    "INTERNET_VERSION_INFO",
     "IProofOfPossessionCookieInfoManager",
     "IProofOfPossessionCookieInfoManager2",
-    "InternetTimeFromSystemTimeA",
-    "InternetTimeFromSystemTimeW",
-    "InternetTimeFromSystemTime",
-    "InternetTimeToSystemTimeA",
-    "InternetTimeToSystemTimeW",
-    "InternetTimeToSystemTime",
-    "InternetCrackUrlA",
-    "InternetCrackUrlW",
-    "InternetCrackUrl",
-    "InternetCreateUrlA",
-    "InternetCreateUrlW",
-    "InternetCreateUrl",
+    "IRF_ASYNC",
+    "IRF_NO_WAIT",
+    "IRF_SYNC",
+    "IRF_USE_CONTEXT",
+    "ISO_FORCE_DISCONNECTED",
+    "ISO_FORCE_OFFLINE",
+    "ISO_GLOBAL",
+    "ISO_REGISTRY",
+    "ImportCookieFileA",
+    "ImportCookieFileW",
+    "IncomingCookieState",
+    "IncrementUrlCacheHeaderData",
+    "InternalInternetGetCookie",
+    "InternetAlgIdToStringA",
+    "InternetAlgIdToStringW",
+    "InternetAttemptConnect",
+    "InternetAutodial",
+    "InternetAutodialHangup",
     "InternetCanonicalizeUrlA",
     "InternetCanonicalizeUrlW",
-    "InternetCanonicalizeUrl",
+    "InternetCheckConnectionA",
+    "InternetCheckConnectionW",
+    "InternetClearAllPerSiteCookieDecisions",
+    "InternetCloseHandle",
     "InternetCombineUrlA",
     "InternetCombineUrlW",
-    "InternetCombineUrl",
-    "InternetOpenA",
-    "InternetOpenW",
-    "InternetOpen",
-    "InternetCloseHandle",
+    "InternetConfirmZoneCrossing",
+    "InternetConfirmZoneCrossingA",
+    "InternetConfirmZoneCrossingW",
     "InternetConnectA",
     "InternetConnectW",
-    "InternetConnect",
+    "InternetConvertUrlFromWireToWideChar",
+    "InternetCookieHistory",
+    "InternetCookieState",
+    "InternetCrackUrlA",
+    "InternetCrackUrlW",
+    "InternetCreateUrlA",
+    "InternetCreateUrlW",
+    "InternetDial",
+    "InternetDialA",
+    "InternetDialW",
+    "InternetEnumPerSiteCookieDecisionA",
+    "InternetEnumPerSiteCookieDecisionW",
+    "InternetErrorDlg",
+    "InternetFindNextFileA",
+    "InternetFindNextFileW",
+    "InternetFortezzaCommand",
+    "InternetFreeCookies",
+    "InternetFreeProxyInfoList",
+    "InternetGetConnectedState",
+    "InternetGetConnectedStateEx",
+    "InternetGetConnectedStateExA",
+    "InternetGetConnectedStateExW",
+    "InternetGetCookieA",
+    "InternetGetCookieEx2",
+    "InternetGetCookieExA",
+    "InternetGetCookieExW",
+    "InternetGetCookieW",
+    "InternetGetLastResponseInfoA",
+    "InternetGetLastResponseInfoW",
+    "InternetGetPerSiteCookieDecisionA",
+    "InternetGetPerSiteCookieDecisionW",
+    "InternetGetProxyForUrl",
+    "InternetGetSecurityInfoByURL",
+    "InternetGetSecurityInfoByURLA",
+    "InternetGetSecurityInfoByURLW",
+    "InternetGoOnline",
+    "InternetGoOnlineA",
+    "InternetGoOnlineW",
+    "InternetHangUp",
+    "InternetInitializeAutoProxyDll",
+    "InternetLockRequestFile",
+    "InternetOpenA",
     "InternetOpenUrlA",
     "InternetOpenUrlW",
-    "InternetOpenUrl",
+    "InternetOpenW",
+    "InternetQueryDataAvailable",
+    "InternetQueryFortezzaStatus",
+    "InternetQueryOptionA",
+    "InternetQueryOptionW",
     "InternetReadFile",
     "InternetReadFileExA",
     "InternetReadFileExW",
-    "InternetReadFileEx",
-    "InternetSetFilePointer",
-    "InternetWriteFile",
-    "InternetQueryDataAvailable",
-    "InternetFindNextFileA",
-    "InternetFindNextFileW",
-    "InternetFindNextFile",
-    "InternetQueryOptionA",
-    "InternetQueryOptionW",
-    "InternetQueryOption",
-    "InternetSetOptionA",
-    "InternetSetOptionW",
-    "InternetSetOption",
-    "InternetSetOptionExA",
-    "InternetSetOptionExW",
-    "InternetSetOptionEx",
-    "InternetLockRequestFile",
-    "InternetUnlockRequestFile",
-    "InternetGetLastResponseInfoA",
-    "InternetGetLastResponseInfoW",
-    "InternetGetLastResponseInfo",
-    "InternetSetStatusCallbackA",
-    "InternetSetStatusCallbackW",
-    "InternetSetStatusCallback",
-    "FtpFindFirstFileA",
-    "FtpFindFirstFileW",
-    "FtpFindFirstFile",
-    "FtpGetFileA",
-    "FtpGetFileW",
-    "FtpGetFile",
-    "FtpPutFileA",
-    "FtpPutFileW",
-    "FtpPutFile",
-    "FtpGetFileEx",
-    "FtpPutFileEx",
-    "FtpDeleteFileA",
-    "FtpDeleteFileW",
-    "FtpDeleteFile",
-    "FtpRenameFileA",
-    "FtpRenameFileW",
-    "FtpRenameFile",
-    "FtpOpenFileA",
-    "FtpOpenFileW",
-    "FtpOpenFile",
-    "FtpCreateDirectoryA",
-    "FtpCreateDirectoryW",
-    "FtpCreateDirectory",
-    "FtpRemoveDirectoryA",
-    "FtpRemoveDirectoryW",
-    "FtpRemoveDirectory",
-    "FtpSetCurrentDirectoryA",
-    "FtpSetCurrentDirectoryW",
-    "FtpSetCurrentDirectory",
-    "FtpGetCurrentDirectoryA",
-    "FtpGetCurrentDirectoryW",
-    "FtpGetCurrentDirectory",
-    "FtpCommandA",
-    "FtpCommandW",
-    "FtpCommand",
-    "FtpGetFileSize",
-    "GopherCreateLocatorA",
-    "GopherCreateLocatorW",
-    "GopherCreateLocator",
-    "GopherGetLocatorTypeA",
-    "GopherGetLocatorTypeW",
-    "GopherGetLocatorType",
-    "GopherFindFirstFileA",
-    "GopherFindFirstFileW",
-    "GopherFindFirstFile",
-    "GopherOpenFileA",
-    "GopherOpenFileW",
-    "GopherOpenFile",
-    "GopherGetAttributeA",
-    "GopherGetAttributeW",
-    "GopherGetAttribute",
-    "HttpOpenRequestA",
-    "HttpOpenRequestW",
-    "HttpOpenRequest",
-    "HttpAddRequestHeadersA",
-    "HttpAddRequestHeadersW",
-    "HttpAddRequestHeaders",
-    "HttpSendRequestA",
-    "HttpSendRequestW",
-    "HttpSendRequest",
-    "HttpSendRequestExA",
-    "HttpSendRequestExW",
-    "HttpSendRequestEx",
-    "HttpEndRequestA",
-    "HttpEndRequestW",
-    "HttpEndRequest",
-    "HttpQueryInfoA",
-    "HttpQueryInfoW",
-    "HttpQueryInfo",
-    "InternetSetCookieA",
-    "InternetSetCookieW",
-    "InternetSetCookie",
-    "InternetGetCookieA",
-    "InternetGetCookieW",
-    "InternetGetCookie",
-    "InternetSetCookieExA",
-    "InternetSetCookieExW",
-    "InternetSetCookieEx",
-    "InternetGetCookieExA",
-    "InternetGetCookieExW",
-    "InternetGetCookieEx",
-    "InternetFreeCookies",
-    "InternetGetCookieEx2",
-    "InternetSetCookieEx2",
-    "InternetAttemptConnect",
-    "InternetCheckConnectionA",
-    "InternetCheckConnectionW",
-    "InternetCheckConnection",
-    "ResumeSuspendedDownload",
-    "InternetErrorDlg",
-    "InternetConfirmZoneCrossingA",
-    "InternetConfirmZoneCrossingW",
-    "InternetConfirmZoneCrossing",
-    "CreateUrlCacheEntryA",
-    "CreateUrlCacheEntryW",
-    "CreateUrlCacheEntry",
-    "CommitUrlCacheEntryA",
-    "CommitUrlCacheEntryW",
-    "CommitUrlCacheEntry",
-    "RetrieveUrlCacheEntryFileA",
-    "RetrieveUrlCacheEntryFileW",
-    "RetrieveUrlCacheEntryFile",
-    "UnlockUrlCacheEntryFileA",
-    "UnlockUrlCacheEntryFileW",
-    "UnlockUrlCacheEntryFile",
-    "RetrieveUrlCacheEntryStreamA",
-    "RetrieveUrlCacheEntryStreamW",
-    "RetrieveUrlCacheEntryStream",
-    "ReadUrlCacheEntryStream",
-    "ReadUrlCacheEntryStreamEx",
-    "UnlockUrlCacheEntryStream",
-    "GetUrlCacheEntryInfoA",
-    "GetUrlCacheEntryInfoW",
-    "GetUrlCacheEntryInfo",
-    "FindFirstUrlCacheGroup",
-    "FindNextUrlCacheGroup",
-    "GetUrlCacheGroupAttributeA",
-    "GetUrlCacheGroupAttributeW",
-    "GetUrlCacheGroupAttribute",
-    "SetUrlCacheGroupAttributeA",
-    "SetUrlCacheGroupAttributeW",
-    "SetUrlCacheGroupAttribute",
-    "GetUrlCacheEntryInfoExA",
-    "GetUrlCacheEntryInfoExW",
-    "GetUrlCacheEntryInfoEx",
-    "SetUrlCacheEntryInfoA",
-    "SetUrlCacheEntryInfoW",
-    "SetUrlCacheEntryInfo",
-    "CreateUrlCacheGroup",
-    "DeleteUrlCacheGroup",
-    "SetUrlCacheEntryGroupA",
-    "SetUrlCacheEntryGroupW",
-    "SetUrlCacheEntryGroup",
-    "FindFirstUrlCacheEntryExA",
-    "FindFirstUrlCacheEntryExW",
-    "FindFirstUrlCacheEntryEx",
-    "FindNextUrlCacheEntryExA",
-    "FindNextUrlCacheEntryExW",
-    "FindNextUrlCacheEntryEx",
-    "FindFirstUrlCacheEntryA",
-    "FindFirstUrlCacheEntryW",
-    "FindFirstUrlCacheEntry",
-    "FindNextUrlCacheEntryA",
-    "FindNextUrlCacheEntryW",
-    "FindNextUrlCacheEntry",
-    "FindCloseUrlCache",
-    "DeleteUrlCacheEntryA",
-    "DeleteUrlCacheEntryW",
-    "DeleteUrlCacheEntry",
-    "InternetDialA",
-    "InternetDialW",
-    "InternetDial",
-    "InternetHangUp",
-    "InternetGoOnlineA",
-    "InternetGoOnlineW",
-    "InternetGoOnline",
-    "InternetAutodial",
-    "InternetAutodialHangup",
-    "InternetGetConnectedState",
-    "InternetGetConnectedStateExA",
-    "InternetGetConnectedStateExW",
-    "DeleteWpadCacheForNetworks",
-    "InternetInitializeAutoProxyDll",
-    "DetectAutoProxyUrl",
-    "CreateMD5SSOHash",
-    "InternetGetConnectedStateEx",
-    "InternetSetDialStateA",
-    "InternetSetDialStateW",
-    "InternetSetDialState",
-    "InternetSetPerSiteCookieDecisionA",
-    "InternetSetPerSiteCookieDecisionW",
-    "InternetSetPerSiteCookieDecision",
-    "InternetGetPerSiteCookieDecisionA",
-    "InternetGetPerSiteCookieDecisionW",
-    "InternetGetPerSiteCookieDecision",
-    "InternetClearAllPerSiteCookieDecisions",
-    "InternetEnumPerSiteCookieDecisionA",
-    "InternetEnumPerSiteCookieDecisionW",
-    "InternetEnumPerSiteCookieDecision",
-    "PrivacySetZonePreferenceW",
-    "PrivacyGetZonePreferenceW",
-    "HttpIsHostHstsEnabled",
-    "InternetAlgIdToStringA",
-    "InternetAlgIdToStringW",
-    "InternetAlgIdToString",
     "InternetSecurityProtocolToStringA",
     "InternetSecurityProtocolToStringW",
-    "InternetSecurityProtocolToString",
-    "InternetGetSecurityInfoByURLA",
-    "InternetGetSecurityInfoByURLW",
-    "InternetGetSecurityInfoByURL",
-    "ShowSecurityInfo",
-    "ShowX509EncodedCertificate",
-    "ShowClientAuthCerts",
-    "ParseX509EncodedCertificateForListBoxEntry",
+    "InternetSetCookieA",
+    "InternetSetCookieEx2",
+    "InternetSetCookieExA",
+    "InternetSetCookieExW",
+    "InternetSetCookieW",
+    "InternetSetDialState",
+    "InternetSetDialStateA",
+    "InternetSetDialStateW",
+    "InternetSetFilePointer",
+    "InternetSetOptionA",
+    "InternetSetOptionExA",
+    "InternetSetOptionExW",
+    "InternetSetOptionW",
+    "InternetSetPerSiteCookieDecisionA",
+    "InternetSetPerSiteCookieDecisionW",
+    "InternetSetStatusCallback",
+    "InternetSetStatusCallbackA",
+    "InternetSetStatusCallbackW",
+    "InternetShowSecurityInfoByURL",
     "InternetShowSecurityInfoByURLA",
     "InternetShowSecurityInfoByURLW",
-    "InternetShowSecurityInfoByURL",
-    "InternetFortezzaCommand",
-    "InternetQueryFortezzaStatus",
+    "InternetTimeFromSystemTime",
+    "InternetTimeFromSystemTimeA",
+    "InternetTimeFromSystemTimeW",
+    "InternetTimeToSystemTime",
+    "InternetTimeToSystemTimeA",
+    "InternetTimeToSystemTimeW",
+    "InternetUnlockRequestFile",
+    "InternetWriteFile",
     "InternetWriteFileExA",
     "InternetWriteFileExW",
-    "InternetWriteFileEx",
-    "FindP3PPolicySymbol",
-    "HttpGetServerCredentials",
-    "HttpPushEnable",
-    "HttpPushWait",
-    "HttpPushClose",
-    "HttpCheckDavComplianceA",
-    "HttpCheckDavComplianceW",
-    "HttpCheckDavCompliance",
-    "IsUrlCacheEntryExpiredA",
-    "IsUrlCacheEntryExpiredW",
-    "IsUrlCacheEntryExpired",
-    "CreateUrlCacheEntryExW",
-    "GetUrlCacheEntryBinaryBlob",
-    "CommitUrlCacheEntryBinaryBlob",
-    "CreateUrlCacheContainerA",
-    "CreateUrlCacheContainerW",
-    "CreateUrlCacheContainer",
-    "DeleteUrlCacheContainerA",
-    "DeleteUrlCacheContainerW",
-    "DeleteUrlCacheContainer",
-    "FindFirstUrlCacheContainerA",
-    "FindFirstUrlCacheContainerW",
-    "FindFirstUrlCacheContainer",
-    "FindNextUrlCacheContainerA",
-    "FindNextUrlCacheContainerW",
-    "FindNextUrlCacheContainer",
-    "FreeUrlCacheSpaceA",
-    "FreeUrlCacheSpaceW",
-    "FreeUrlCacheSpace",
-    "UrlCacheFreeGlobalSpace",
-    "UrlCacheGetGlobalCacheSize",
-    "GetUrlCacheConfigInfoA",
-    "GetUrlCacheConfigInfoW",
-    "GetUrlCacheConfigInfo",
-    "SetUrlCacheConfigInfoA",
-    "SetUrlCacheConfigInfoW",
-    "SetUrlCacheConfigInfo",
-    "RunOnceUrlCache",
-    "DeleteIE3Cache",
-    "UpdateUrlCacheContentPath",
-    "RegisterUrlCacheNotification",
-    "GetUrlCacheHeaderData",
-    "SetUrlCacheHeaderData",
-    "IncrementUrlCacheHeaderData",
-    "LoadUrlCacheContent",
-    "AppCacheLookup",
-    "AppCacheCheckManifest",
-    "AppCacheGetDownloadList",
-    "AppCacheFreeDownloadList",
-    "AppCacheFinalize",
-    "AppCacheGetFallbackUrl",
-    "AppCacheGetManifestUrl",
-    "AppCacheDuplicateHandle",
-    "AppCacheCloseHandle",
-    "AppCacheFreeGroupList",
-    "AppCacheGetGroupList",
-    "AppCacheGetInfo",
-    "AppCacheDeleteGroup",
-    "AppCacheFreeSpace",
-    "AppCacheGetIEGroupList",
-    "AppCacheDeleteIEGroup",
-    "AppCacheFreeIESpace",
-    "AppCacheCreateAndCommitFile",
-    "HttpOpenDependencyHandle",
-    "HttpCloseDependencyHandle",
-    "HttpDuplicateDependencyHandle",
-    "HttpIndicatePageLoadComplete",
-    "UrlCacheFreeEntryInfo",
-    "UrlCacheGetEntryInfo",
-    "UrlCacheCloseEntryHandle",
-    "UrlCacheRetrieveEntryFile",
-    "UrlCacheReadEntryStream",
-    "UrlCacheRetrieveEntryStream",
-    "UrlCacheUpdateEntryExtraData",
-    "UrlCacheCreateContainer",
-    "UrlCacheCheckEntriesExist",
-    "UrlCacheGetContentPaths",
-    "UrlCacheGetGlobalLimit",
-    "UrlCacheSetGlobalLimit",
-    "UrlCacheReloadSettings",
-    "UrlCacheContainerSetEntryMaximumAge",
-    "UrlCacheFindFirstEntry",
-    "UrlCacheFindNextEntry",
-    "UrlCacheServer",
-    "ReadGuidsForConnectedNetworks",
-    "IsHostInProxyBypassList",
-    "InternetFreeProxyInfoList",
-    "InternetGetProxyForUrl",
-    "DoConnectoidsExist",
-    "GetDiskInfoA",
-    "PerformOperationOverUrlCacheA",
-    "IsProfilesEnabled",
-    "InternalInternetGetCookie",
-    "ImportCookieFileA",
-    "ImportCookieFileW",
-    "ImportCookieFile",
-    "ExportCookieFileA",
-    "ExportCookieFileW",
-    "ExportCookieFile",
     "IsDomainLegalCookieDomainA",
     "IsDomainLegalCookieDomainW",
-    "IsDomainLegalCookieDomain",
-    "HttpWebSocketCompleteUpgrade",
-    "HttpWebSocketSend",
-    "HttpWebSocketReceive",
-    "HttpWebSocketClose",
-    "HttpWebSocketShutdown",
-    "HttpWebSocketQueryCloseStatus",
-    "InternetConvertUrlFromWireToWideChar",
+    "IsHostInProxyBypassList",
+    "IsProfilesEnabled",
+    "IsUrlCacheEntryExpiredA",
+    "IsUrlCacheEntryExpiredW",
+    "LOCAL_NAMESPACE_PREFIX",
+    "LOCAL_NAMESPACE_PREFIX_W",
+    "LPINTERNET_STATUS_CALLBACK",
+    "LoadUrlCacheContent",
+    "MAX_CACHE_ENTRY_INFO_SIZE",
+    "MAX_GOPHER_ATTRIBUTE_NAME",
+    "MAX_GOPHER_CATEGORY_NAME",
+    "MAX_GOPHER_DISPLAY_TEXT",
+    "MAX_GOPHER_HOST_NAME",
+    "MAX_GOPHER_SELECTOR_TEXT",
+    "MIN_GOPHER_ATTRIBUTE_LENGTH",
+    "MUST_REVALIDATE_CACHE_ENTRY",
+    "MaxPrivacySettings",
+    "NORMAL_CACHE_ENTRY",
+    "OTHER_USER_CACHE_ENTRY",
+    "OutgoingCookieState",
+    "PENDING_DELETE_CACHE_ENTRY",
+    "PFN_AUTH_NOTIFY",
+    "PFN_DIAL_HANDLER",
+    "POLICY_EXTENSION_TYPE_NONE",
+    "POLICY_EXTENSION_TYPE_WINHTTP",
+    "POLICY_EXTENSION_TYPE_WININET",
+    "POLICY_EXTENSION_VERSION1",
+    "POST_CHECK_CACHE_ENTRY",
+    "POST_RESPONSE_CACHE_ENTRY",
+    "PRIVACY_IMPACTED_CACHE_ENTRY",
+    "PRIVACY_MODE_CACHE_ENTRY",
+    "PRIVACY_TEMPLATE_ADVANCED",
+    "PRIVACY_TEMPLATE_CUSTOM",
+    "PRIVACY_TEMPLATE_HIGH",
+    "PRIVACY_TEMPLATE_LOW",
+    "PRIVACY_TEMPLATE_MAX",
+    "PRIVACY_TEMPLATE_MEDIUM",
+    "PRIVACY_TEMPLATE_MEDIUM_HIGH",
+    "PRIVACY_TEMPLATE_MEDIUM_LOW",
+    "PRIVACY_TEMPLATE_NO_COOKIES",
+    "PRIVACY_TYPE_FIRST_PARTY",
+    "PRIVACY_TYPE_THIRD_PARTY",
+    "PROXY_AUTO_DETECT_TYPE",
+    "PROXY_AUTO_DETECT_TYPE_DHCP",
+    "PROXY_AUTO_DETECT_TYPE_DNS_A",
+    "PROXY_TYPE_AUTO_DETECT",
+    "PROXY_TYPE_AUTO_PROXY_URL",
+    "PROXY_TYPE_DIRECT",
+    "PROXY_TYPE_PROXY",
+    "ParseX509EncodedCertificateForListBoxEntry",
+    "PerformOperationOverUrlCacheA",
+    "PrivacyGetZonePreferenceW",
+    "PrivacySetZonePreferenceW",
+    "ProofOfPossessionCookieInfo",
+    "ProofOfPossessionCookieInfoManager",
+    "REDIRECT_CACHE_ENTRY",
+    "REGSTR_DIAL_AUTOCONNECT",
+    "REGSTR_LEASH_LEGACY_COOKIES",
+    "REQUEST_TIMES",
+    "REQUEST_TIMES_ConnectionEstablishmentEnd",
+    "REQUEST_TIMES_ConnectionEstablishmentStart",
+    "REQUEST_TIMES_HttpRequestTimeMax",
+    "REQUEST_TIMES_NameResolutionEnd",
+    "REQUEST_TIMES_NameResolutionStart",
+    "REQUEST_TIMES_TLSHandshakeEnd",
+    "REQUEST_TIMES_TLSHandshakeStart",
+    "ReadGuidsForConnectedNetworks",
+    "ReadUrlCacheEntryStream",
+    "ReadUrlCacheEntryStreamEx",
+    "RegisterUrlCacheNotification",
+    "ResumeSuspendedDownload",
+    "RetrieveUrlCacheEntryFileA",
+    "RetrieveUrlCacheEntryFileW",
+    "RetrieveUrlCacheEntryStreamA",
+    "RetrieveUrlCacheEntryStreamW",
+    "RunOnceUrlCache",
+    "SECURITY_FLAG_128BIT",
+    "SECURITY_FLAG_40BIT",
+    "SECURITY_FLAG_56BIT",
+    "SECURITY_FLAG_FORTEZZA",
+    "SECURITY_FLAG_IETFSSL4",
+    "SECURITY_FLAG_IGNORE_REDIRECT_TO_HTTP",
+    "SECURITY_FLAG_IGNORE_REDIRECT_TO_HTTPS",
+    "SECURITY_FLAG_IGNORE_REVOCATION",
+    "SECURITY_FLAG_IGNORE_WEAK_SIGNATURE",
+    "SECURITY_FLAG_IGNORE_WRONG_USAGE",
+    "SECURITY_FLAG_NORMALBITNESS",
+    "SECURITY_FLAG_OPT_IN_WEAK_SIGNATURE",
+    "SECURITY_FLAG_PCT",
+    "SECURITY_FLAG_PCT4",
+    "SECURITY_FLAG_SSL",
+    "SECURITY_FLAG_SSL3",
+    "SECURITY_FLAG_UNKNOWNBIT",
+    "SHORTPATH_CACHE_ENTRY",
+    "SPARSE_CACHE_ENTRY",
+    "STATIC_CACHE_ENTRY",
+    "STICKY_CACHE_ENTRY",
+    "SetUrlCacheConfigInfoA",
+    "SetUrlCacheConfigInfoW",
+    "SetUrlCacheEntryGroup",
+    "SetUrlCacheEntryGroupA",
+    "SetUrlCacheEntryGroupW",
+    "SetUrlCacheEntryInfoA",
+    "SetUrlCacheEntryInfoW",
+    "SetUrlCacheGroupAttributeA",
+    "SetUrlCacheGroupAttributeW",
+    "SetUrlCacheHeaderData",
+    "ShowClientAuthCerts",
+    "ShowSecurityInfo",
+    "ShowX509EncodedCertificate",
+    "TRACK_OFFLINE_CACHE_ENTRY",
+    "TRACK_ONLINE_CACHE_ENTRY",
+    "URLCACHE_ENTRY_INFO",
+    "URLHISTORY_CACHE_ENTRY",
+    "URL_CACHE_LIMIT_TYPE",
+    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainer",
+    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainerTotal",
+    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIE",
+    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIETotal",
+    "URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeNum",
+    "URL_COMPONENTSA",
+    "URL_COMPONENTSW",
+    "UnlockUrlCacheEntryFile",
+    "UnlockUrlCacheEntryFileA",
+    "UnlockUrlCacheEntryFileW",
+    "UnlockUrlCacheEntryStream",
+    "UpdateUrlCacheContentPath",
+    "UrlCacheCheckEntriesExist",
+    "UrlCacheCloseEntryHandle",
+    "UrlCacheContainerSetEntryMaximumAge",
+    "UrlCacheCreateContainer",
+    "UrlCacheFindFirstEntry",
+    "UrlCacheFindNextEntry",
+    "UrlCacheFreeEntryInfo",
+    "UrlCacheFreeGlobalSpace",
+    "UrlCacheGetContentPaths",
+    "UrlCacheGetEntryInfo",
+    "UrlCacheGetGlobalCacheSize",
+    "UrlCacheGetGlobalLimit",
+    "UrlCacheReadEntryStream",
+    "UrlCacheReloadSettings",
+    "UrlCacheRetrieveEntryFile",
+    "UrlCacheRetrieveEntryStream",
+    "UrlCacheServer",
+    "UrlCacheSetGlobalLimit",
+    "UrlCacheUpdateEntryExtraData",
+    "WININET_API_FLAG_ASYNC",
+    "WININET_API_FLAG_SYNC",
+    "WININET_API_FLAG_USE_CONTEXT",
+    "WININET_PROXY_INFO",
+    "WININET_PROXY_INFO_LIST",
+    "WININET_SYNC_MODE",
+    "WININET_SYNC_MODE_ALWAYS",
+    "WININET_SYNC_MODE_AUTOMATIC",
+    "WININET_SYNC_MODE_DEFAULT",
+    "WININET_SYNC_MODE_NEVER",
+    "WININET_SYNC_MODE_ONCE_PER_SESSION",
+    "WININET_SYNC_MODE_ON_EXPIRY",
+    "WPAD_CACHE_DELETE",
+    "WPAD_CACHE_DELETE_ALL",
+    "WPAD_CACHE_DELETE_CURRENT",
+    "XDR_CACHE_ENTRY",
+    "pfnInternetDeInitializeAutoProxyDll",
+    "pfnInternetGetProxyInfo",
+    "pfnInternetInitializeAutoProxyDll",
 ]

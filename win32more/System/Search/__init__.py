@@ -1,5 +1,5 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Security.Authorization
 import win32more.Storage.IndexServer
@@ -10,18 +10,35 @@ import win32more.System.Search
 import win32more.System.Search.Common
 import win32more.UI.Shell.Common
 import win32more.UI.Shell.PropertiesSystem
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+ACCESS_MASKENUM = Int32
+PERM_EXCLUSIVE = 512
+PERM_READDESIGN = 1024
+PERM_WRITEDESIGN = 2048
+PERM_WITHGRANT = 4096
+PERM_REFERENCE = 8192
+PERM_CREATE = 16384
+PERM_INSERT = 32768
+PERM_DELETE = 65536
+PERM_READCONTROL = 131072
+PERM_WRITEPERMISSIONS = 262144
+PERM_WRITEOWNER = 524288
+PERM_MAXIMUM_ALLOWED = 33554432
+PERM_ALL = 268435456
+PERM_EXECUTE = 536870912
+PERM_READ = -2147483648
+PERM_UPDATE = 1073741824
+PERM_DROP = 256
 SI_TEMPORARY = 2147483648
 SUBSINFO_ALLFLAGS = 61311
 RS_READY = 1
@@ -800,6 +817,8 @@ MAXNAME = 129
 MAXNUMERICLEN = 16
 SQL_PERF_START = 1
 SQL_PERF_STOP = 2
+SQL_SS_DL_DEFAULT = 'STATS.LOG'
+SQL_SS_QL_DEFAULT = 'QUERY.LOG'
 SQL_SS_QI_DEFAULT = 30000
 SUCCEED = 1
 FAIL = 0
@@ -1034,6 +1053,7 @@ DBPROP_HCHAPTER = 4
 DBPROP_MAINTAINPROPS = 5
 DBPROP_Unicode = 6
 DBPROP_INTERLEAVEDROWS = 8
+MS_PERSIST_PROGID = 'MSPersist'
 DISPID_QUERY_RANKVECTOR = 2
 DISPID_QUERY_RANK = 3
 DISPID_QUERY_HITCOUNT = 4
@@ -1415,6 +1435,7 @@ SQL_NC_HIGH = 0
 SQL_NC_LOW = 1
 SQL_SPEC_MAJOR = 3
 SQL_SPEC_MINOR = 80
+SQL_SPEC_STRING = '03.80'
 SQL_SQLSTATE_SIZE = 5
 SQL_MAX_DSN_LENGTH = 32
 SQL_MAX_OPTION_STRING_LENGTH = 256
@@ -1481,6 +1502,7 @@ SQL_LOGIN_TIMEOUT_DEFAULT = 15
 SQL_OPT_TRACE_OFF = 0
 SQL_OPT_TRACE_ON = 1
 SQL_OPT_TRACE_DEFAULT = 0
+SQL_OPT_TRACE_FILE_DEFAULT = '\\SQL.LOG'
 SQL_CUR_USE_IF_NEEDED = 0
 SQL_CUR_USE_ODBC = 1
 SQL_CUR_USE_DRIVER = 2
@@ -2415,6 +2437,9 @@ SQL_PC_NOT_PSEUDO = 1
 SQL_QUICK = 0
 SQL_ENSURE = 1
 SQL_TABLE_STAT = 0
+SQL_ALL_CATALOGS = '%'
+SQL_ALL_SCHEMAS = '%'
+SQL_ALL_TABLE_TYPES = '%'
 SQL_DRIVER_NOPROMPT = 0
 SQL_DRIVER_COMPLETE = 1
 SQL_DRIVER_PROMPT = 2
@@ -2455,6 +2480,7 @@ SQL_PARAM_OUTPUT_STREAM = 16
 SQL_PT_UNKNOWN = 0
 SQL_PT_PROCEDURE = 1
 SQL_PT_FUNCTION = 2
+SQL_ODBC_KEYWORDS = 'ABSOLUTE,ACTION,ADA,ADD,ALL,ALLOCATE,ALTER,AND,ANY,ARE,AS,ASC,ASSERTION,AT,AUTHORIZATION,AVG,BEGIN,BETWEEN,BIT,BIT_LENGTH,BOTH,BY,CASCADE,CASCADED,CASE,CAST,CATALOG,CHAR,CHAR_LENGTH,CHARACTER,CHARACTER_LENGTH,CHECK,CLOSE,COALESCE,COLLATE,COLLATION,COLUMN,COMMIT,CONNECT,CONNECTION,CONSTRAINT,CONSTRAINTS,CONTINUE,CONVERT,CORRESPONDING,COUNT,CREATE,CROSS,CURRENT,CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,CURRENT_USER,CURSOR,DATE,DAY,DEALLOCATE,DEC,DECIMAL,DECLARE,DEFAULT,DEFERRABLE,DEFERRED,DELETE,DESC,DESCRIBE,DESCRIPTOR,DIAGNOSTICS,DISCONNECT,DISTINCT,DOMAIN,DOUBLE,DROP,ELSE,END,END-EXEC,ESCAPE,EXCEPT,EXCEPTION,EXEC,EXECUTE,EXISTS,EXTERNAL,EXTRACT,FALSE,FETCH,FIRST,FLOAT,FOR,FOREIGN,FORTRAN,FOUND,FROM,FULL,GET,GLOBAL,GO,GOTO,GRANT,GROUP,HAVING,HOUR,IDENTITY,IMMEDIATE,IN,INCLUDE,INDEX,INDICATOR,INITIALLY,INNER,INPUT,INSENSITIVE,INSERT,INT,INTEGER,INTERSECT,INTERVAL,INTO,IS,ISOLATION,JOIN,KEY,LANGUAGE,LAST,LEADING,LEFT,LEVEL,LIKE,LOCAL,LOWER,MATCH,MAX,MIN,MINUTE,MODULE,MONTH,NAMES,NATIONAL,NATURAL,NCHAR,NEXT,NO,NONE,NOT,NULL,NULLIF,NUMERIC,OCTET_LENGTH,OF,ON,ONLY,OPEN,OPTION,OR,ORDER,OUTER,OUTPUT,OVERLAPS,PAD,PARTIAL,PASCAL,PLI,POSITION,PRECISION,PREPARE,PRESERVE,PRIMARY,PRIOR,PRIVILEGES,PROCEDURE,PUBLIC,READ,REAL,REFERENCES,RELATIVE,RESTRICT,REVOKE,RIGHT,ROLLBACK,ROWSSCHEMA,SCROLL,SECOND,SECTION,SELECT,SESSION,SESSION_USER,SET,SIZE,SMALLINT,SOME,SPACE,SQL,SQLCA,SQLCODE,SQLERROR,SQLSTATE,SQLWARNING,SUBSTRING,SUM,SYSTEM_USER,TABLE,TEMPORARY,THEN,TIME,TIMESTAMP,TIMEZONE_HOUR,TIMEZONE_MINUTE,TO,TRAILING,TRANSACTION,TRANSLATE,TRANSLATION,TRIM,TRUE,UNION,UNIQUE,UNKNOWN,UPDATE,UPPER,USAGE,USER,USING,VALUE,VALUES,VARCHAR,VARYING,VIEW,WHEN,WHENEVER,WHERE,WITH,WORK,WRITE,YEAR,ZONE'
 SQL_YEAR = 1
 SQL_MONTH = 2
 SQL_DAY = 3
@@ -3377,206 +3403,1150 @@ IDS_MON_INVALIDSELECT_COALESCE = 264517
 IDS_MON_CANNOT_CAST = 264518
 IDS_MON_DATE_OUT_OF_RANGE = 264519
 IDS_MON_INVALID_IN_GROUP_CLAUSE = 264520
-DBPROPSET_MSDAORA_ROWSET = 'e8cc4cbd-fdff-11d0-b865-00a0c9081c1d'
-DBPROPSET_MSDAORA8_ROWSET = '7f06a375-dd6a-43db-b4e0-1fc121e5e62b'
-CLSID_MSDASQL = 'c8b522cb-5cf3-11ce-ade5-00aa0044773d'
-CLSID_MSDASQL_ENUMERATOR = 'c8b522cd-5cf3-11ce-ade5-00aa0044773d'
-DBPROPSET_PROVIDERDATASOURCEINFO = '497c60e0-7123-11cf-b171-00aa0057599e'
-DBPROPSET_PROVIDERROWSET = '497c60e1-7123-11cf-b171-00aa0057599e'
-DBPROPSET_PROVIDERDBINIT = '497c60e2-7123-11cf-b171-00aa0057599e'
-DBPROPSET_PROVIDERSTMTATTR = '497c60e3-7123-11cf-b171-00aa0057599e'
-DBPROPSET_PROVIDERCONNATTR = '497c60e4-7123-11cf-b171-00aa0057599e'
-CLSID_DataShapeProvider = '3449a1c8-c56c-11d0-ad72-00c04fc29863'
-DBPROPSET_MSDSDBINIT = '55cb91a8-5c7a-11d1-adad-00c04fc29863'
-DBPROPSET_MSDSSESSION = 'edf17536-afbf-11d1-8847-0000f879f98c'
-CLSID_MSPersist = '7c07e0d0-4418-11d2-9212-00c04fbbbfb3'
-DBPROPSET_PERSIST = '4d7839a0-5b8e-11d1-a6b3-00a0c9138c66'
+def _define_DBPROPSET_MSDAORA_ROWSET():
+    return Guid('e8cc4cbd-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
+def _define_DBPROPSET_MSDAORA8_ROWSET():
+    return Guid('7f06a375-dd6a-43db-b4-e0-1f-c1-21-e5-e6-2b')
+def _define_CLSID_MSDASQL():
+    return Guid('c8b522cb-5cf3-11ce-ad-e5-00-aa-00-44-77-3d')
+def _define_CLSID_MSDASQL_ENUMERATOR():
+    return Guid('c8b522cd-5cf3-11ce-ad-e5-00-aa-00-44-77-3d')
+def _define_DBPROPSET_PROVIDERDATASOURCEINFO():
+    return Guid('497c60e0-7123-11cf-b1-71-00-aa-00-57-59-9e')
+def _define_DBPROPSET_PROVIDERROWSET():
+    return Guid('497c60e1-7123-11cf-b1-71-00-aa-00-57-59-9e')
+def _define_DBPROPSET_PROVIDERDBINIT():
+    return Guid('497c60e2-7123-11cf-b1-71-00-aa-00-57-59-9e')
+def _define_DBPROPSET_PROVIDERSTMTATTR():
+    return Guid('497c60e3-7123-11cf-b1-71-00-aa-00-57-59-9e')
+def _define_DBPROPSET_PROVIDERCONNATTR():
+    return Guid('497c60e4-7123-11cf-b1-71-00-aa-00-57-59-9e')
+def _define_CLSID_DataShapeProvider():
+    return Guid('3449a1c8-c56c-11d0-ad-72-00-c0-4f-c2-98-63')
+def _define_DBPROPSET_MSDSDBINIT():
+    return Guid('55cb91a8-5c7a-11d1-ad-ad-00-c0-4f-c2-98-63')
+def _define_DBPROPSET_MSDSSESSION():
+    return Guid('edf17536-afbf-11d1-88-47-00-00-f8-79-f9-8c')
+def _define_CLSID_MSPersist():
+    return Guid('7c07e0d0-4418-11d2-92-12-00-c0-4f-bb-bf-b3')
+def _define_DBPROPSET_PERSIST():
+    return Guid('4d7839a0-5b8e-11d1-a6-b3-00-a0-c9-13-8c-66')
 PROGID_MSPersist_W = 'MSPersist'
 PROGID_MSPersist_Version_W = 'MSPersist.1'
-CLSID_SQLOLEDB = '0c7ff16c-38e3-11d0-97ab-00c04fc2ad98'
-CLSID_SQLOLEDB_ERROR = 'c0932c62-38e5-11d0-97ab-00c04fc2ad98'
-CLSID_SQLOLEDB_ENUMERATOR = 'dfa22b8e-e68d-11d0-97e4-00c04fc2ad98'
-DBGUID_MSSQLXML = '5d531cb2-e6ed-11d2-b252-00c04f681b71'
-DBGUID_XPATH = 'ec2a4293-e898-11d2-b1b7-00c04f680c56'
-DBSCHEMA_LINKEDSERVERS = '9093caf4-2eac-11d1-9809-00c04fc2ad98'
-DBPROPSET_SQLSERVERDATASOURCE = '28efaee4-2d2c-11d1-9807-00c04fc2ad98'
-DBPROPSET_SQLSERVERDATASOURCEINFO = 'df10cb94-35f6-11d2-9c54-00c04f7971d3'
-DBPROPSET_SQLSERVERDBINIT = '5cf4ca10-ef21-11d0-97e7-00c04fc2ad98'
-DBPROPSET_SQLSERVERROWSET = '5cf4ca11-ef21-11d0-97e7-00c04fc2ad98'
-DBPROPSET_SQLSERVERSESSION = '28efaee5-2d2c-11d1-9807-00c04fc2ad98'
-DBPROPSET_SQLSERVERCOLUMN = '3b63fb5e-3fbb-11d3-9f29-00c04f8ee9dc'
-DBPROPSET_SQLSERVERSTREAM = '9f79c073-8a6d-4bca-a8a8-c9b79a9b962d'
-def _define_IRowsetExactScroll_head():
-    class IRowsetExactScroll(Structure):
+def _define_CLSID_SQLOLEDB():
+    return Guid('0c7ff16c-38e3-11d0-97-ab-00-c0-4f-c2-ad-98')
+def _define_CLSID_SQLOLEDB_ERROR():
+    return Guid('c0932c62-38e5-11d0-97-ab-00-c0-4f-c2-ad-98')
+def _define_CLSID_SQLOLEDB_ENUMERATOR():
+    return Guid('dfa22b8e-e68d-11d0-97-e4-00-c0-4f-c2-ad-98')
+def _define_DBGUID_MSSQLXML():
+    return Guid('5d531cb2-e6ed-11d2-b2-52-00-c0-4f-68-1b-71')
+def _define_DBGUID_XPATH():
+    return Guid('ec2a4293-e898-11d2-b1-b7-00-c0-4f-68-0c-56')
+def _define_DBSCHEMA_LINKEDSERVERS():
+    return Guid('9093caf4-2eac-11d1-98-09-00-c0-4f-c2-ad-98')
+def _define_DBPROPSET_SQLSERVERDATASOURCE():
+    return Guid('28efaee4-2d2c-11d1-98-07-00-c0-4f-c2-ad-98')
+def _define_DBPROPSET_SQLSERVERDATASOURCEINFO():
+    return Guid('df10cb94-35f6-11d2-9c-54-00-c0-4f-79-71-d3')
+def _define_DBPROPSET_SQLSERVERDBINIT():
+    return Guid('5cf4ca10-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
+def _define_DBPROPSET_SQLSERVERROWSET():
+    return Guid('5cf4ca11-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
+def _define_DBPROPSET_SQLSERVERSESSION():
+    return Guid('28efaee5-2d2c-11d1-98-07-00-c0-4f-c2-ad-98')
+def _define_DBPROPSET_SQLSERVERCOLUMN():
+    return Guid('3b63fb5e-3fbb-11d3-9f-29-00-c0-4f-8e-e9-dc')
+def _define_DBPROPSET_SQLSERVERSTREAM():
+    return Guid('9f79c073-8a6d-4bca-a8-a8-c9-b7-9a-9b-96-2d')
+def _define_SQLBindCol():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,c_void_p,Int64,POINTER(Int64))(('SQLBindCol', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'TargetType'),(1, 'TargetValue'),(1, 'BufferLength'),(1, 'StrLen_or_Ind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLBindParam():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,Int16,UInt64,Int16,c_void_p,POINTER(Int64))(('SQLBindParam', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ParameterNumber'),(1, 'ValueType'),(1, 'ParameterType'),(1, 'LengthPrecision'),(1, 'ParameterScale'),(1, 'ParameterValue'),(1, 'StrLen_or_Ind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColAttribute():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64))(('SQLColAttribute', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'FieldIdentifier'),(1, 'CharacterAttribute'),(1, 'BufferLength'),(1, 'StringLength'),(1, 'NumericAttribute'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDescribeCol():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,POINTER(Int16),POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16))(('SQLDescribeCol', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'ColumnName'),(1, 'BufferLength'),(1, 'NameLength'),(1, 'DataType'),(1, 'ColumnSize'),(1, 'DecimalDigits'),(1, 'Nullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLFetchScroll():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int64)(('SQLFetchScroll', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'FetchOrientation'),(1, 'FetchOffset'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetData():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,c_void_p,Int64,POINTER(Int64))(('SQLGetData', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'TargetType'),(1, 'TargetValue'),(1, 'BufferLength'),(1, 'StrLen_or_IndPtr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDescRec():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,c_char_p_no,Int16,POINTER(Int16),POINTER(Int16),POINTER(Int16),POINTER(Int64),POINTER(Int16),POINTER(Int16),POINTER(Int16))(('SQLGetDescRec', windll['ODBC32.dll']), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'Name'),(1, 'BufferLength'),(1, 'StringLengthPtr'),(1, 'TypePtr'),(1, 'SubTypePtr'),(1, 'LengthPtr'),(1, 'PrecisionPtr'),(1, 'ScalePtr'),(1, 'NullablePtr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPutData():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_void_p,Int64)(('SQLPutData', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Data'),(1, 'StrLen_or_Ind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLRowCount():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int64))(('SQLRowCount', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'RowCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetConnectOption():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64)(('SQLSetConnectOption', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'Option'),(1, 'Value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetDescRec():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,Int16,Int64,Int16,Int16,c_void_p,POINTER(Int64),POINTER(Int64))(('SQLSetDescRec', windll['ODBC32.dll']), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'Type'),(1, 'SubType'),(1, 'Length'),(1, 'Precision'),(1, 'Scale'),(1, 'Data'),(1, 'StringLength'),(1, 'Indicator'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetParam():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,Int16,UInt64,Int16,c_void_p,POINTER(Int64))(('SQLSetParam', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ParameterNumber'),(1, 'ValueType'),(1, 'ParameterType'),(1, 'LengthPrecision'),(1, 'ParameterScale'),(1, 'ParameterValue'),(1, 'StrLen_or_Ind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetStmtOption():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64)(('SQLSetStmtOption', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Option'),(1, 'Value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColAttributes():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64))(('SQLColAttributes', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'icol'),(1, 'fDescType'),(1, 'rgbDesc'),(1, 'cbDescMax'),(1, 'pcbDesc'),(1, 'pfDesc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDescribeParam():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16))(('SQLDescribeParam', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'ipar'),(1, 'pfSqlType'),(1, 'pcbParamDef'),(1, 'pibScale'),(1, 'pfNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLExtendedFetch():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int64,POINTER(UInt64),POINTER(UInt16))(('SQLExtendedFetch', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fFetchType'),(1, 'irow'),(1, 'pcrow'),(1, 'rgfRowStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLParamOptions():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt64,POINTER(UInt64))(('SQLParamOptions', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'crow'),(1, 'pirow'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetPos():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt64,UInt16,UInt16)(('SQLSetPos', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'irow'),(1, 'fOption'),(1, 'fLock'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLBindParameter():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,Int16,Int16,UInt64,Int16,c_void_p,Int64,POINTER(Int64))(('SQLBindParameter', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'ipar'),(1, 'fParamType'),(1, 'fCType'),(1, 'fSqlType'),(1, 'cbColDef'),(1, 'ibScale'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetScrollOptions():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int64,UInt16)(('SQLSetScrollOptions', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fConcurrency'),(1, 'crowKeyset'),(1, 'crowRowset'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColAttributeW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64))(('SQLColAttributeW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'iCol'),(1, 'iField'),(1, 'pCharAttr'),(1, 'cbDescMax'),(1, 'pcbCharAttr'),(1, 'pNumAttr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColAttributesW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64))(('SQLColAttributesW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'icol'),(1, 'fDescType'),(1, 'rgbDesc'),(1, 'cbDescMax'),(1, 'pcbDesc'),(1, 'pfDesc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDescribeColW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16))(('SQLDescribeColW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'icol'),(1, 'szColName'),(1, 'cchColNameMax'),(1, 'pcchColName'),(1, 'pfSqlType'),(1, 'pcbColDef'),(1, 'pibScale'),(1, 'pfNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDescRecW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(Int16),POINTER(Int16),POINTER(Int64),POINTER(Int16),POINTER(Int16),POINTER(Int16))(('SQLGetDescRecW', windll['ODBC32.dll']), ((1, 'hdesc'),(1, 'iRecord'),(1, 'szName'),(1, 'cchNameMax'),(1, 'pcchName'),(1, 'pfType'),(1, 'pfSubType'),(1, 'pLength'),(1, 'pPrecision'),(1, 'pScale'),(1, 'pNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetConnectOptionW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64)(('SQLSetConnectOptionW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fOption'),(1, 'vParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColAttributeA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16),POINTER(Int64))(('SQLColAttributeA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'iCol'),(1, 'iField'),(1, 'pCharAttr'),(1, 'cbCharAttrMax'),(1, 'pcbCharAttr'),(1, 'pNumAttr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColAttributesA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64))(('SQLColAttributesA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'icol'),(1, 'fDescType'),(1, 'rgbDesc'),(1, 'cbDescMax'),(1, 'pcbDesc'),(1, 'pfDesc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDescribeColA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,POINTER(Int16),POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16))(('SQLDescribeColA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'icol'),(1, 'szColName'),(1, 'cbColNameMax'),(1, 'pcbColName'),(1, 'pfSqlType'),(1, 'pcbColDef'),(1, 'pibScale'),(1, 'pfNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDescRecA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,c_char_p_no,Int16,POINTER(Int16),POINTER(Int16),POINTER(Int16),POINTER(Int64),POINTER(Int16),POINTER(Int16),POINTER(Int16))(('SQLGetDescRecA', windll['ODBC32.dll']), ((1, 'hdesc'),(1, 'iRecord'),(1, 'szName'),(1, 'cbNameMax'),(1, 'pcbName'),(1, 'pfType'),(1, 'pfSubType'),(1, 'pLength'),(1, 'pPrecision'),(1, 'pScale'),(1, 'pNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetConnectOptionA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64)(('SQLSetConnectOptionA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fOption'),(1, 'vParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLAllocConnect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(c_void_p))(('SQLAllocConnect', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),(1, 'ConnectionHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLAllocEnv():
+    try:
+        return WINFUNCTYPE(Int16,POINTER(c_void_p))(('SQLAllocEnv', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLAllocHandle():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,POINTER(c_void_p))(('SQLAllocHandle', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'InputHandle'),(1, 'OutputHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLAllocStmt():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(c_void_p))(('SQLAllocStmt', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'StatementHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLCancel():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLCancel', windll['ODBC32.dll']), ((1, 'StatementHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLCancelHandle():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p)(('SQLCancelHandle', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'InputHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLCloseCursor():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLCloseCursor', windll['ODBC32.dll']), ((1, 'StatementHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColumns():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLColumns', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'ColumnName'),(1, 'NameLength4'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLCompleteAsync():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,POINTER(Int16))(('SQLCompleteAsync', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'Handle'),(1, 'AsyncRetCodePtr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLConnect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLConnect', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'ServerName'),(1, 'NameLength1'),(1, 'UserName'),(1, 'NameLength2'),(1, 'Authentication'),(1, 'NameLength3'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLCopyDesc():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_void_p)(('SQLCopyDesc', windll['ODBC32.dll']), ((1, 'SourceDescHandle'),(1, 'TargetDescHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDataSources():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,POINTER(Int16),c_char_p_no,Int16,POINTER(Int16))(('SQLDataSources', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),(1, 'Direction'),(1, 'ServerName'),(1, 'BufferLength1'),(1, 'NameLength1Ptr'),(1, 'Description'),(1, 'BufferLength2'),(1, 'NameLength2Ptr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDisconnect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLDisconnect', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLEndTran():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16)(('SQLEndTran', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'Handle'),(1, 'CompletionType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLError():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_void_p,c_void_p,c_char_p_no,POINTER(Int32),c_char_p_no,Int16,POINTER(Int16))(('SQLError', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),(1, 'ConnectionHandle'),(1, 'StatementHandle'),(1, 'Sqlstate'),(1, 'NativeError'),(1, 'MessageText'),(1, 'BufferLength'),(1, 'TextLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLExecDirect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32)(('SQLExecDirect', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'StatementText'),(1, 'TextLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLExecute():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLExecute', windll['ODBC32.dll']), ((1, 'StatementHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLFetch():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLFetch', windll['ODBC32.dll']), ((1, 'StatementHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLFreeConnect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLFreeConnect', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLFreeEnv():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLFreeEnv', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLFreeHandle():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p)(('SQLFreeHandle', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'Handle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLFreeStmt():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16)(('SQLFreeStmt', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Option'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetConnectAttr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetConnectAttr', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLengthPtr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetConnectOption():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p)(('SQLGetConnectOption', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'Option'),(1, 'Value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetCursorName():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,POINTER(Int16))(('SQLGetCursorName', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'CursorName'),(1, 'BufferLength'),(1, 'NameLengthPtr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDescField():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32,POINTER(Int32))(('SQLGetDescField', windll['ODBC32.dll']), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'FieldIdentifier'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDiagField():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16))(('SQLGetDiagField', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'Handle'),(1, 'RecNumber'),(1, 'DiagIdentifier'),(1, 'DiagInfo'),(1, 'BufferLength'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDiagRec():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,c_char_p_no,POINTER(Int32),c_char_p_no,Int16,POINTER(Int16))(('SQLGetDiagRec', windll['ODBC32.dll']), ((1, 'HandleType'),(1, 'Handle'),(1, 'RecNumber'),(1, 'Sqlstate'),(1, 'NativeError'),(1, 'MessageText'),(1, 'BufferLength'),(1, 'TextLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetEnvAttr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetEnvAttr', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetFunctions():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16))(('SQLGetFunctions', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'FunctionId'),(1, 'Supported'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetInfo():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p,Int16,POINTER(Int16))(('SQLGetInfo', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'InfoType'),(1, 'InfoValue'),(1, 'BufferLength'),(1, 'StringLengthPtr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetStmtAttr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetStmtAttr', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetStmtOption():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p)(('SQLGetStmtOption', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Option'),(1, 'Value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetTypeInfo():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16)(('SQLGetTypeInfo', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'DataType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLNumResultCols():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int16))(('SQLNumResultCols', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'ColumnCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLParamData():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(c_void_p))(('SQLParamData', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Value'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPrepare():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32)(('SQLPrepare', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'StatementText'),(1, 'TextLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetConnectAttr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32)(('SQLSetConnectAttr', windll['ODBC32.dll']), ((1, 'ConnectionHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetCursorName():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16)(('SQLSetCursorName', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'CursorName'),(1, 'NameLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetDescField():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32)(('SQLSetDescField', windll['ODBC32.dll']), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'FieldIdentifier'),(1, 'Value'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetEnvAttr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32)(('SQLSetEnvAttr', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetStmtAttr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32)(('SQLSetStmtAttr', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSpecialColumns():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,UInt16,UInt16)(('SQLSpecialColumns', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'IdentifierType'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'Scope'),(1, 'Nullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLStatistics():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,UInt16,UInt16)(('SQLStatistics', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'Unique'),(1, 'Reserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTables():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLTables', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'TableType'),(1, 'NameLength4'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTransact():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_void_p,UInt16)(('SQLTransact', windll['ODBC32.dll']), ((1, 'EnvironmentHandle'),(1, 'ConnectionHandle'),(1, 'CompletionType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_batch():
+    try:
+        return WINFUNCTYPE(Int32,c_void_p)(('bcp_batch', windll['odbcbcp.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_bind():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32,Int32,c_char_p_no,Int32,Int32,Int32)(('bcp_bind', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),(1, 'param7'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_colfmt():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,Byte,Int32,Int32,c_char_p_no,Int32,Int32)(('bcp_colfmt', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),(1, 'param7'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_collen():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,Int32)(('bcp_collen', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_colptr():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32)(('bcp_colptr', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_columns():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32)(('bcp_columns', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_control():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p)(('bcp_control', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_done():
+    try:
+        return WINFUNCTYPE(Int32,c_void_p)(('bcp_done', windll['odbcbcp.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_exec():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int32))(('bcp_exec', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_getcolfmt():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,Int32,c_void_p,Int32,POINTER(Int32))(('bcp_getcolfmt', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_initA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32)(('bcp_initA', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_initW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32)(('bcp_initW', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_moretext():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_char_p_no)(('bcp_moretext', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_readfmtA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR)(('bcp_readfmtA', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_readfmtW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR)(('bcp_readfmtW', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_sendrow():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('bcp_sendrow', windll['odbcbcp.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_setcolfmt():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,Int32,c_void_p,Int32)(('bcp_setcolfmt', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_writefmtA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR)(('bcp_writefmtA', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_bcp_writefmtW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR)(('bcp_writefmtW', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_dbprtypeA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PSTR,Int32)(('dbprtypeA', windll['odbcbcp.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_dbprtypeW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.PWSTR,Int32)(('dbprtypeW', windll['odbcbcp.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLLinkedServers():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLLinkedServers', windll['odbcbcp.dll']), ((1, 'param0'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLLinkedCatalogsA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR,Int16)(('SQLLinkedCatalogsA', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLLinkedCatalogsW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR,Int16)(('SQLLinkedCatalogsW', windll['odbcbcp.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLInitEnumServers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('SQLInitEnumServers', windll['odbcbcp.dll']), ((1, 'pwchServerName'),(1, 'pwchInstanceName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetNextEnumeration():
+    try:
+        return WINFUNCTYPE(Int16,win32more.Foundation.HANDLE,c_char_p_no,POINTER(Int32))(('SQLGetNextEnumeration', windll['odbcbcp.dll']), ((1, 'hEnumHandle'),(1, 'prgEnumData'),(1, 'piEnumLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLCloseEnumServers():
+    try:
+        return WINFUNCTYPE(Int16,win32more.Foundation.HANDLE)(('SQLCloseEnumServers', windll['odbcbcp.dll']), ((1, 'hEnumHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDriverConnect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,IntPtr,c_char_p_no,Int16,c_char_p_no,Int16,POINTER(Int16),UInt16)(('SQLDriverConnect', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'hwnd'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),(1, 'fDriverCompletion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLBrowseConnect():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,POINTER(Int16))(('SQLBrowseConnect', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLBulkOperations():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16)(('SQLBulkOperations', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'Operation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColumnPrivileges():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLColumnPrivileges', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLForeignKeys():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLForeignKeys', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szPkCatalogName'),(1, 'cchPkCatalogName'),(1, 'szPkSchemaName'),(1, 'cchPkSchemaName'),(1, 'szPkTableName'),(1, 'cchPkTableName'),(1, 'szFkCatalogName'),(1, 'cchFkCatalogName'),(1, 'szFkSchemaName'),(1, 'cchFkSchemaName'),(1, 'szFkTableName'),(1, 'cchFkTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLMoreResults():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p)(('SQLMoreResults', windll['ODBC32.dll']), ((1, 'hstmt'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLNativeSql():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32,c_char_p_no,Int32,POINTER(Int32))(('SQLNativeSql', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szSqlStrIn'),(1, 'cchSqlStrIn'),(1, 'szSqlStr'),(1, 'cchSqlStrMax'),(1, 'pcbSqlStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLNumParams():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int16))(('SQLNumParams', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'pcpar'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPrimaryKeys():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLPrimaryKeys', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLProcedureColumns():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLProcedureColumns', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLProcedures():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLProcedures', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTablePrivileges():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLTablePrivileges', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDrivers():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,POINTER(Int16),c_char_p_no,Int16,POINTER(Int16))(('SQLDrivers', windll['ODBC32.dll']), ((1, 'henv'),(1, 'fDirection'),(1, 'szDriverDesc'),(1, 'cchDriverDescMax'),(1, 'pcchDriverDesc'),(1, 'szDriverAttributes'),(1, 'cchDrvrAttrMax'),(1, 'pcchDrvrAttr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLAllocHandleStd():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,POINTER(c_void_p))(('SQLAllocHandleStd', windll['ODBC32.dll']), ((1, 'fHandleType'),(1, 'hInput'),(1, 'phOutput'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ODBCSetTryWaitValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('ODBCSetTryWaitValue', windll['ODBC32.dll']), ((1, 'dwValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ODBCGetTryWaitValue():
+    try:
+        return WINFUNCTYPE(UInt32,)(('ODBCGetTryWaitValue', windll['ODBC32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLConnectW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLConnectW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szDSN'),(1, 'cchDSN'),(1, 'szUID'),(1, 'cchUID'),(1, 'szAuthStr'),(1, 'cchAuthStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLErrorW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_void_p,c_void_p,POINTER(UInt16),POINTER(Int32),POINTER(UInt16),Int16,POINTER(Int16))(('SQLErrorW', windll['ODBC32.dll']), ((1, 'henv'),(1, 'hdbc'),(1, 'hstmt'),(1, 'wszSqlState'),(1, 'pfNativeError'),(1, 'wszErrorMsg'),(1, 'cchErrorMsgMax'),(1, 'pcchErrorMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLExecDirectW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int32)(('SQLExecDirectW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'TextLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetConnectAttrW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetConnectAttrW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetCursorNameW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(Int16))(('SQLGetCursorNameW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cchCursorMax'),(1, 'pcchCursor'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetDescFieldW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32)(('SQLSetDescFieldW', windll['ODBC32.dll']), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'FieldIdentifier'),(1, 'Value'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDescFieldW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32,POINTER(Int32))(('SQLGetDescFieldW', windll['ODBC32.dll']), ((1, 'hdesc'),(1, 'iRecord'),(1, 'iField'),(1, 'rgbValue'),(1, 'cbBufferLength'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDiagFieldW():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16))(('SQLGetDiagFieldW', windll['ODBC32.dll']), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'fDiagField'),(1, 'rgbDiagInfo'),(1, 'cbBufferLength'),(1, 'pcbStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDiagRecW():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,POINTER(UInt16),POINTER(Int32),POINTER(UInt16),Int16,POINTER(Int16))(('SQLGetDiagRecW', windll['ODBC32.dll']), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'szSqlState'),(1, 'pfNativeError'),(1, 'szErrorMsg'),(1, 'cchErrorMsgMax'),(1, 'pcchErrorMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPrepareW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int32)(('SQLPrepareW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'cchSqlStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetConnectAttrW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32)(('SQLSetConnectAttrW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetCursorNameW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16)(('SQLSetCursorNameW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cchCursor'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColumnsW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLColumnsW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetConnectOptionW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p)(('SQLGetConnectOptionW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fOption'),(1, 'pvParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetInfoW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p,Int16,POINTER(Int16))(('SQLGetInfoW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fInfoType'),(1, 'rgbInfoValue'),(1, 'cbInfoValueMax'),(1, 'pcbInfoValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetTypeInfoW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16)(('SQLGetTypeInfoW', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'DataType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSpecialColumnsW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,UInt16,UInt16)(('SQLSpecialColumnsW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fColType'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'fScope'),(1, 'fNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLStatisticsW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,UInt16,UInt16)(('SQLStatisticsW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'fUnique'),(1, 'fAccuracy'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTablesW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLTablesW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szTableType'),(1, 'cchTableType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDataSourcesW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(UInt16),Int16,POINTER(Int16))(('SQLDataSourcesW', windll['ODBC32.dll']), ((1, 'henv'),(1, 'fDirection'),(1, 'szDSN'),(1, 'cchDSNMax'),(1, 'pcchDSN'),(1, 'wszDescription'),(1, 'cchDescriptionMax'),(1, 'pcchDescription'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDriverConnectW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,IntPtr,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(Int16),UInt16)(('SQLDriverConnectW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'hwnd'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),(1, 'fDriverCompletion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLBrowseConnectW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(Int16))(('SQLBrowseConnectW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColumnPrivilegesW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLColumnPrivilegesW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetStmtAttrW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetStmtAttrW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetStmtAttrW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32)(('SQLSetStmtAttrW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLForeignKeysW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLForeignKeysW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szPkCatalogName'),(1, 'cchPkCatalogName'),(1, 'szPkSchemaName'),(1, 'cchPkSchemaName'),(1, 'szPkTableName'),(1, 'cchPkTableName'),(1, 'szFkCatalogName'),(1, 'cchFkCatalogName'),(1, 'szFkSchemaName'),(1, 'cchFkSchemaName'),(1, 'szFkTableName'),(1, 'cchFkTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLNativeSqlW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int32,POINTER(UInt16),Int32,POINTER(Int32))(('SQLNativeSqlW', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szSqlStrIn'),(1, 'cchSqlStrIn'),(1, 'szSqlStr'),(1, 'cchSqlStrMax'),(1, 'pcchSqlStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPrimaryKeysW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLPrimaryKeysW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLProcedureColumnsW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLProcedureColumnsW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLProceduresW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLProceduresW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTablePrivilegesW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16)(('SQLTablePrivilegesW', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDriversW():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(UInt16),Int16,POINTER(Int16))(('SQLDriversW', windll['ODBC32.dll']), ((1, 'henv'),(1, 'fDirection'),(1, 'szDriverDesc'),(1, 'cchDriverDescMax'),(1, 'pcchDriverDesc'),(1, 'szDriverAttributes'),(1, 'cchDrvrAttrMax'),(1, 'pcchDrvrAttr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLConnectA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLConnectA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szDSN'),(1, 'cbDSN'),(1, 'szUID'),(1, 'cbUID'),(1, 'szAuthStr'),(1, 'cbAuthStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLErrorA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_void_p,c_void_p,c_char_p_no,POINTER(Int32),c_char_p_no,Int16,POINTER(Int16))(('SQLErrorA', windll['ODBC32.dll']), ((1, 'henv'),(1, 'hdbc'),(1, 'hstmt'),(1, 'szSqlState'),(1, 'pfNativeError'),(1, 'szErrorMsg'),(1, 'cbErrorMsgMax'),(1, 'pcbErrorMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLExecDirectA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32)(('SQLExecDirectA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'cbSqlStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetConnectAttrA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetConnectAttrA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetCursorNameA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,POINTER(Int16))(('SQLGetCursorNameA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cbCursorMax'),(1, 'pcbCursor'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDescFieldA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32,POINTER(Int32))(('SQLGetDescFieldA', windll['ODBC32.dll']), ((1, 'hdesc'),(1, 'iRecord'),(1, 'iField'),(1, 'rgbValue'),(1, 'cbBufferLength'),(1, 'StringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDiagFieldA():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16))(('SQLGetDiagFieldA', windll['ODBC32.dll']), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'fDiagField'),(1, 'rgbDiagInfo'),(1, 'cbDiagInfoMax'),(1, 'pcbDiagInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetDiagRecA():
+    try:
+        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,c_char_p_no,POINTER(Int32),c_char_p_no,Int16,POINTER(Int16))(('SQLGetDiagRecA', windll['ODBC32.dll']), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'szSqlState'),(1, 'pfNativeError'),(1, 'szErrorMsg'),(1, 'cbErrorMsgMax'),(1, 'pcbErrorMsg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetStmtAttrA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32))(('SQLGetStmtAttrA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetTypeInfoA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int16)(('SQLGetTypeInfoA', windll['ODBC32.dll']), ((1, 'StatementHandle'),(1, 'DataType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPrepareA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32)(('SQLPrepareA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'cbSqlStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetConnectAttrA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32)(('SQLSetConnectAttrA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSetCursorNameA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16)(('SQLSetCursorNameA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cbCursor'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColumnsA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLColumnsA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'szColumnName'),(1, 'cbColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetConnectOptionA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p)(('SQLGetConnectOptionA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fOption'),(1, 'pvParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLGetInfoA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p,Int16,POINTER(Int16))(('SQLGetInfoA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'fInfoType'),(1, 'rgbInfoValue'),(1, 'cbInfoValueMax'),(1, 'pcbInfoValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLSpecialColumnsA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,UInt16,UInt16)(('SQLSpecialColumnsA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'fColType'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'fScope'),(1, 'fNullable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLStatisticsA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,UInt16,UInt16)(('SQLStatisticsA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'fUnique'),(1, 'fAccuracy'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTablesA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLTablesA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'szTableType'),(1, 'cbTableType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDataSourcesA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,POINTER(Int16),c_char_p_no,Int16,POINTER(Int16))(('SQLDataSourcesA', windll['ODBC32.dll']), ((1, 'henv'),(1, 'fDirection'),(1, 'szDSN'),(1, 'cbDSNMax'),(1, 'pcbDSN'),(1, 'szDescription'),(1, 'cbDescriptionMax'),(1, 'pcbDescription'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDriverConnectA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,IntPtr,c_char_p_no,Int16,c_char_p_no,Int16,POINTER(Int16),UInt16)(('SQLDriverConnectA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'hwnd'),(1, 'szConnStrIn'),(1, 'cbConnStrIn'),(1, 'szConnStrOut'),(1, 'cbConnStrOutMax'),(1, 'pcbConnStrOut'),(1, 'fDriverCompletion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLBrowseConnectA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,POINTER(Int16))(('SQLBrowseConnectA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szConnStrIn'),(1, 'cbConnStrIn'),(1, 'szConnStrOut'),(1, 'cbConnStrOutMax'),(1, 'pcbConnStrOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLColumnPrivilegesA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLColumnPrivilegesA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'szColumnName'),(1, 'cbColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLForeignKeysA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLForeignKeysA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szPkCatalogName'),(1, 'cbPkCatalogName'),(1, 'szPkSchemaName'),(1, 'cbPkSchemaName'),(1, 'szPkTableName'),(1, 'cbPkTableName'),(1, 'szFkCatalogName'),(1, 'cbFkCatalogName'),(1, 'szFkSchemaName'),(1, 'cbFkSchemaName'),(1, 'szFkTableName'),(1, 'cbFkTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLNativeSqlA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32,c_char_p_no,Int32,POINTER(Int32))(('SQLNativeSqlA', windll['ODBC32.dll']), ((1, 'hdbc'),(1, 'szSqlStrIn'),(1, 'cbSqlStrIn'),(1, 'szSqlStr'),(1, 'cbSqlStrMax'),(1, 'pcbSqlStr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLPrimaryKeysA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLPrimaryKeysA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLProcedureColumnsA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLProcedureColumnsA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szProcName'),(1, 'cbProcName'),(1, 'szColumnName'),(1, 'cbColumnName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLProceduresA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLProceduresA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szProcName'),(1, 'cbProcName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLTablePrivilegesA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int16,c_char_p_no,Int16,c_char_p_no,Int16)(('SQLTablePrivilegesA', windll['ODBC32.dll']), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SQLDriversA():
+    try:
+        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_char_p_no,Int16,POINTER(Int16),c_char_p_no,Int16,POINTER(Int16))(('SQLDriversA', windll['ODBC32.dll']), ((1, 'henv'),(1, 'fDirection'),(1, 'szDriverDesc'),(1, 'cbDriverDescMax'),(1, 'pcbDriverDesc'),(1, 'szDriverAttributes'),(1, 'cbDrvrAttrMax'),(1, 'pcbDrvrAttr'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+AUTH_TYPE = Int32
+eAUTH_TYPE_ANONYMOUS = 0
+eAUTH_TYPE_NTLM = 1
+eAUTH_TYPE_BASIC = 2
+def _define_AUTHENTICATION_INFO_head():
+    class AUTHENTICATION_INFO(Structure):
         pass
-    return IRowsetExactScroll
-def _define_IRowsetExactScroll():
-    IRowsetExactScroll = win32more.System.Search.IRowsetExactScroll_head
-    return IRowsetExactScroll
-def _define_IWordSink_head():
-    class IWordSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cc907054-c058-101a-b554-08002b33b0e6')
-    return IWordSink
-def _define_IWordSink():
-    IWordSink = win32more.System.Search.IWordSink_head
-    IWordSink.PutWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(3, 'PutWord', ((1, 'cwc'),(1, 'pwcInBuf'),(1, 'cwcSrcLen'),(1, 'cwcSrcPos'),)))
-    IWordSink.PutAltWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(4, 'PutAltWord', ((1, 'cwc'),(1, 'pwcInBuf'),(1, 'cwcSrcLen'),(1, 'cwcSrcPos'),)))
-    IWordSink.StartAltPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StartAltPhrase', ()))
-    IWordSink.EndAltPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'EndAltPhrase', ()))
-    IWordSink.PutBreak = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.IndexServer.WORDREP_BREAK_TYPE, use_last_error=False)(7, 'PutBreak', ((1, 'breakType'),)))
-    win32more.System.Com.IUnknown
-    return IWordSink
-def _define_PFNFILLTEXTBUFFER():
-    return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TEXT_SOURCE_head), use_last_error=False)
-def _define_TEXT_SOURCE_head():
-    class TEXT_SOURCE(Structure):
-        pass
-    return TEXT_SOURCE
-def _define_TEXT_SOURCE():
-    TEXT_SOURCE = win32more.System.Search.TEXT_SOURCE_head
-    TEXT_SOURCE._fields_ = [
-        ("pfnFillTextBuffer", win32more.System.Search.PFNFILLTEXTBUFFER),
-        ("awcBuffer", win32more.Foundation.PWSTR),
-        ("iEnd", UInt32),
-        ("iCur", UInt32),
+    return AUTHENTICATION_INFO
+def _define_AUTHENTICATION_INFO():
+    AUTHENTICATION_INFO = win32more.System.Search.AUTHENTICATION_INFO_head
+    AUTHENTICATION_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('atAuthenticationType', win32more.System.Search.AUTH_TYPE),
+        ('pcwszUser', win32more.Foundation.PWSTR),
+        ('pcwszPassword', win32more.Foundation.PWSTR),
     ]
-    return TEXT_SOURCE
-def _define_IWordBreaker_head():
-    class IWordBreaker(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d53552c8-77e3-101a-b552-08002b33b0e6')
-    return IWordBreaker
-def _define_IWordBreaker():
-    IWordBreaker = win32more.System.Search.IWordBreaker_head
-    IWordBreaker.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'Init', ((1, 'fQuery'),(1, 'ulMaxTokenSize'),(1, 'pfLicense'),)))
-    IWordBreaker.BreakText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TEXT_SOURCE_head),win32more.System.Search.IWordSink_head,win32more.Storage.IndexServer.IPhraseSink_head, use_last_error=False)(4, 'BreakText', ((1, 'pTextSource'),(1, 'pWordSink'),(1, 'pPhraseSink'),)))
-    IWordBreaker.ComposePhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(5, 'ComposePhrase', ((1, 'pwcNoun'),(1, 'cwcNoun'),(1, 'pwcModifier'),(1, 'cwcModifier'),(1, 'ulAttachmentType'),(1, 'pwcPhrase'),(1, 'pcwcPhrase'),)))
-    IWordBreaker.GetLicenseToUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(6, 'GetLicenseToUse', ((1, 'ppwcsLicense'),)))
-    win32more.System.Com.IUnknown
-    return IWordBreaker
-def _define_IWordFormSink_head():
-    class IWordFormSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fe77c330-7f42-11ce-be57-00aa0051fe20')
-    return IWordFormSink
-def _define_IWordFormSink():
-    IWordFormSink = win32more.System.Search.IWordFormSink_head
-    IWordFormSink.PutAltWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'PutAltWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
-    IWordFormSink.PutWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'PutWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
-    win32more.System.Com.IUnknown
-    return IWordFormSink
-def _define_IStemmer_head():
-    class IStemmer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('efbaf140-7f42-11ce-be57-00aa0051fe20')
-    return IStemmer
-def _define_IStemmer():
-    IStemmer = win32more.System.Search.IStemmer_head
-    IStemmer.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'Init', ((1, 'ulMaxTokenSize'),(1, 'pfLicense'),)))
-    IStemmer.GenerateWordForms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.IWordFormSink_head, use_last_error=False)(4, 'GenerateWordForms', ((1, 'pwcInBuf'),(1, 'cwc'),(1, 'pStemSink'),)))
-    IStemmer.GetLicenseToUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetLicenseToUse', ((1, 'ppwcsLicense'),)))
-    win32more.System.Com.IUnknown
-    return IStemmer
-def _define_ISimpleCommandCreator_head():
-    class ISimpleCommandCreator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5e341ab7-02d0-11d1-900c-00a0c9063796')
-    return ISimpleCommandCreator
-def _define_ISimpleCommandCreator():
-    ISimpleCommandCreator = win32more.System.Search.ISimpleCommandCreator_head
-    ISimpleCommandCreator.CreateICommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateICommand', ((1, 'ppIUnknown'),(1, 'pOuterUnk'),)))
-    ISimpleCommandCreator.VerifyCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'VerifyCatalog', ((1, 'pwszMachine'),(1, 'pwszCatalogName'),)))
-    ISimpleCommandCreator.GetDefaultCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(5, 'GetDefaultCatalog', ((1, 'pwszCatalogName'),(1, 'cwcIn'),(1, 'pcwcOut'),)))
-    win32more.System.Com.IUnknown
-    return ISimpleCommandCreator
-def _define_IColumnMapper_head():
-    class IColumnMapper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0b63e37a-9ccc-11d0-bcdb-00805fccce04')
-    return IColumnMapper
-def _define_IColumnMapper():
-    IColumnMapper = win32more.System.Search.IColumnMapper_head
-    IColumnMapper.GetPropInfoFromName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(UInt16),POINTER(UInt32), use_last_error=False)(3, 'GetPropInfoFromName', ((1, 'wcsPropName'),(1, 'ppPropId'),(1, 'pPropType'),(1, 'puiWidth'),)))
-    IColumnMapper.GetPropInfoFromId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(POINTER(UInt16)),POINTER(UInt16),POINTER(UInt32), use_last_error=False)(4, 'GetPropInfoFromId', ((1, 'pPropId'),(1, 'pwcsName'),(1, 'pPropType'),(1, 'puiWidth'),)))
-    IColumnMapper.EnumPropInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(UInt16),POINTER(UInt32), use_last_error=False)(5, 'EnumPropInfo', ((1, 'iEntry'),(1, 'pwcsName'),(1, 'ppPropId'),(1, 'pPropType'),(1, 'puiWidth'),)))
-    IColumnMapper.IsMapUpToDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'IsMapUpToDate', ()))
-    win32more.System.Com.IUnknown
-    return IColumnMapper
-def _define_IColumnMapperCreator_head():
-    class IColumnMapperCreator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0b63e37b-9ccc-11d0-bcdb-00805fccce04')
-    return IColumnMapperCreator
-def _define_IColumnMapperCreator():
-    IColumnMapperCreator = win32more.System.Search.IColumnMapperCreator_head
-    IColumnMapperCreator.GetColumnMapper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IColumnMapper_head), use_last_error=False)(3, 'GetColumnMapper', ((1, 'wcsMachineName'),(1, 'wcsCatalogName'),(1, 'ppColumnMapper'),)))
-    win32more.System.Com.IUnknown
-    return IColumnMapperCreator
-CSearchManager = Guid('7d096c5f-ac08-4f1f-beb7-5c22c517ce39')
-CSearchRoot = Guid('30766bd2-ea1c-4f28-bf27-0b44e2f68db7')
-CSearchScopeRule = Guid('e63de750-3bd7-4be5-9c84-6b4281988c44')
-FilterRegistration = Guid('9e175b8d-f52a-11d8-b9a5-505054503030')
-def _define_FILTERED_DATA_SOURCES_head():
-    class FILTERED_DATA_SOURCES(Structure):
+    return AUTHENTICATION_INFO
+def _define_BUCKETCATEGORIZE_head():
+    class BUCKETCATEGORIZE(Structure):
         pass
-    return FILTERED_DATA_SOURCES
-def _define_FILTERED_DATA_SOURCES():
-    FILTERED_DATA_SOURCES = win32more.System.Search.FILTERED_DATA_SOURCES_head
-    FILTERED_DATA_SOURCES._fields_ = [
-        ("pwcsExtension", win32more.Foundation.PWSTR),
-        ("pwcsMime", win32more.Foundation.PWSTR),
-        ("pClsid", POINTER(Guid)),
-        ("pwcsOverride", win32more.Foundation.PWSTR),
+    return BUCKETCATEGORIZE
+def _define_BUCKETCATEGORIZE():
+    BUCKETCATEGORIZE = win32more.System.Search.BUCKETCATEGORIZE_head
+    BUCKETCATEGORIZE._fields_ = [
+        ('cBuckets', UInt32),
+        ('Distribution', UInt32),
     ]
-    return FILTERED_DATA_SOURCES
-def _define_ILoadFilter_head():
-    class ILoadFilter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c7310722-ac80-11d1-8df3-00c04fb6ef4f')
-    return ILoadFilter
-def _define_ILoadFilter():
-    ILoadFilter = win32more.System.Search.ILoadFilter_head
-    ILoadFilter.LoadIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(3, 'LoadIFilter', ((1, 'pwcsPath'),(1, 'pFilteredSources'),(1, 'pUnkOuter'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
-    ILoadFilter.LoadIFilterFromStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(4, 'LoadIFilterFromStorage', ((1, 'pStg'),(1, 'pUnkOuter'),(1, 'pwcsOverride'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
-    ILoadFilter.LoadIFilterFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(5, 'LoadIFilterFromStream', ((1, 'pStm'),(1, 'pFilteredSources'),(1, 'pUnkOuter'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
+    return BUCKETCATEGORIZE
+CASE_REQUIREMENT = Int32
+CASE_REQUIREMENT_ANY = 0
+CASE_REQUIREMENT_UPPER_IF_AQS = 1
+CatalogPausedReason = Int32
+CATALOG_PAUSED_REASON_NONE = 0
+CATALOG_PAUSED_REASON_HIGH_IO = 1
+CATALOG_PAUSED_REASON_HIGH_CPU = 2
+CATALOG_PAUSED_REASON_HIGH_NTF_RATE = 3
+CATALOG_PAUSED_REASON_LOW_BATTERY = 4
+CATALOG_PAUSED_REASON_LOW_MEMORY = 5
+CATALOG_PAUSED_REASON_LOW_DISK = 6
+CATALOG_PAUSED_REASON_DELAYED_RECOVERY = 7
+CATALOG_PAUSED_REASON_USER_ACTIVE = 8
+CATALOG_PAUSED_REASON_EXTERNAL = 9
+CATALOG_PAUSED_REASON_UPGRADING = 10
+CatalogStatus = Int32
+CATALOG_STATUS_IDLE = 0
+CATALOG_STATUS_PAUSED = 1
+CATALOG_STATUS_RECOVERING = 2
+CATALOG_STATUS_FULL_CRAWL = 3
+CATALOG_STATUS_INCREMENTAL_CRAWL = 4
+CATALOG_STATUS_PROCESSING_NOTIFICATIONS = 5
+CATALOG_STATUS_SHUTTING_DOWN = 6
+def _define_CATEGORIZATION_head():
+    class CATEGORIZATION(Structure):
+        pass
+    return CATEGORIZATION
+def _define_CATEGORIZATION():
+    CATEGORIZATION = win32more.System.Search.CATEGORIZATION_head
+    class CATEGORIZATION__Anonymous_e__Union(Union):
+        pass
+    CATEGORIZATION__Anonymous_e__Union._fields_ = [
+        ('cClusters', UInt32),
+        ('bucket', win32more.System.Search.BUCKETCATEGORIZE),
+        ('range', win32more.System.Search.RANGECATEGORIZE),
+    ]
+    CATEGORIZATION._anonymous_ = [
+        'Anonymous',
+    ]
+    CATEGORIZATION._fields_ = [
+        ('ulCatType', UInt32),
+        ('Anonymous', CATEGORIZATION__Anonymous_e__Union),
+        ('csColumns', win32more.System.Search.COLUMNSET),
+    ]
+    return CATEGORIZATION
+def _define_CATEGORIZATIONSET_head():
+    class CATEGORIZATIONSET(Structure):
+        pass
+    return CATEGORIZATIONSET
+def _define_CATEGORIZATIONSET():
+    CATEGORIZATIONSET = win32more.System.Search.CATEGORIZATIONSET_head
+    CATEGORIZATIONSET._fields_ = [
+        ('cCat', UInt32),
+        ('aCat', POINTER(win32more.System.Search.CATEGORIZATION_head)),
+    ]
+    return CATEGORIZATIONSET
+CHANNEL_AGENT_FLAGS = Int32
+CHANNEL_AGENT_DYNAMIC_SCHEDULE = 1
+CHANNEL_AGENT_PRECACHE_SOME = 2
+CHANNEL_AGENT_PRECACHE_ALL = 4
+CHANNEL_AGENT_PRECACHE_SCRNSAVER = 8
+CLUSION_REASON = Int32
+CLUSIONREASON_UNKNOWNSCOPE = 0
+CLUSIONREASON_DEFAULT = 1
+CLUSIONREASON_USER = 2
+CLUSIONREASON_GROUPPOLICY = 3
+def _define_COLUMNSET_head():
+    class COLUMNSET(Structure):
+        pass
+    return COLUMNSET
+def _define_COLUMNSET():
+    COLUMNSET = win32more.System.Search.COLUMNSET_head
+    COLUMNSET._fields_ = [
+        ('cCol', UInt32),
+        ('aCol', POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head)),
+    ]
+    return COLUMNSET
+CompoundCondition = Guid('116f8d13-101e-4fa5-84-d4-ff-82-79-38-19-35')
+CONDITION_CREATION_OPTIONS = UInt32
+CONDITION_CREATION_DEFAULT = 0
+CONDITION_CREATION_NONE = 0
+CONDITION_CREATION_SIMPLIFY = 1
+CONDITION_CREATION_VECTOR_AND = 2
+CONDITION_CREATION_VECTOR_OR = 4
+CONDITION_CREATION_VECTOR_LEAF = 8
+CONDITION_CREATION_USE_CONTENT_LOCALE = 16
+ConditionFactory = Guid('e03e85b0-7be3-4000-ba-98-6c-13-de-9f-a4-86')
+def _define_CONTENTRESTRICTION_head():
+    class CONTENTRESTRICTION(Structure):
+        pass
+    return CONTENTRESTRICTION
+def _define_CONTENTRESTRICTION():
+    CONTENTRESTRICTION = win32more.System.Search.CONTENTRESTRICTION_head
+    CONTENTRESTRICTION._fields_ = [
+        ('prop', win32more.Storage.IndexServer.FULLPROPSPEC),
+        ('pwcsPhrase', win32more.Foundation.PWSTR),
+        ('lcid', UInt32),
+        ('ulGenerateMethod', UInt32),
+    ]
+    return CONTENTRESTRICTION
+CREATESUBSCRIPTIONFLAGS = Int32
+CREATESUBS_ADDTOFAVORITES = 1
+CREATESUBS_FROMFAVORITES = 2
+CREATESUBS_NOUI = 4
+CREATESUBS_NOSAVE = 8
+CREATESUBS_SOFTWAREUPDATE = 16
+CSearchLanguageSupport = Guid('6a68cc80-4337-4dbc-bd-27-fb-fb-10-53-82-0b')
+CSearchManager = Guid('7d096c5f-ac08-4f1f-be-b7-5c-22-c5-17-ce-39')
+CSearchRoot = Guid('30766bd2-ea1c-4f28-bf-27-0b-44-e2-f6-8d-b7')
+CSearchScopeRule = Guid('e63de750-3bd7-4be5-9c-84-6b-42-81-98-8c-44')
+DataLinks = Guid('2206cdb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+def _define_DataSource_head():
+    class DataSource(win32more.System.Com.IUnknown_head):
+        Guid = Guid('7c0ffab3-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
+    return DataSource
+def _define_DataSource():
+    DataSource = win32more.System.Search.DataSource_head
+    DataSource.getDataMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'getDataMember', ((1, 'bstrDM'),(1, 'riid'),(1, 'ppunk'),)))
+    DataSource.getDataMemberName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(POINTER(UInt16)))(4, 'getDataMemberName', ((1, 'lIndex'),(1, 'pbstrDM'),)))
+    DataSource.getDataMemberCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'getDataMemberCount', ((1, 'plCount'),)))
+    DataSource.addDataSourceListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.DataSourceListener_head)(6, 'addDataSourceListener', ((1, 'pDSL'),)))
+    DataSource.removeDataSourceListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.DataSourceListener_head)(7, 'removeDataSourceListener', ((1, 'pDSL'),)))
     win32more.System.Com.IUnknown
-    return ILoadFilter
-def _define_ILoadFilterWithPrivateComActivation_head():
-    class ILoadFilterWithPrivateComActivation(win32more.System.Search.ILoadFilter_head):
-        Guid = Guid('40bdbd34-780b-48d3-9bb6-12ebd4ad2e75')
-    return ILoadFilterWithPrivateComActivation
-def _define_ILoadFilterWithPrivateComActivation():
-    ILoadFilterWithPrivateComActivation = win32more.System.Search.ILoadFilterWithPrivateComActivation_head
-    ILoadFilterWithPrivateComActivation.LoadIFilterWithPrivateComActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.Foundation.BOOL,POINTER(Guid),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(6, 'LoadIFilterWithPrivateComActivation', ((1, 'filteredSources'),(1, 'useDefault'),(1, 'filterClsid'),(1, 'isFilterPrivateComActivated'),(1, 'filterObj'),)))
-    win32more.System.Search.ILoadFilter
-    return ILoadFilterWithPrivateComActivation
-def _define_IRichChunk_head():
-    class IRichChunk(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4fdef69c-dbc9-454e-9910-b34f3c64b510')
-    return IRichChunk
-def _define_IRichChunk():
-    IRichChunk = win32more.System.Search.IRichChunk_head
-    IRichChunk.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetData', ((1, 'pFirstPos'),(1, 'pLength'),(1, 'ppsz'),(1, 'pValue'),)))
+    return DataSource
+def _define_DataSourceListener_head():
+    class DataSourceListener(win32more.System.Com.IUnknown_head):
+        Guid = Guid('7c0ffab2-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
+    return DataSourceListener
+def _define_DataSourceListener():
+    DataSourceListener = win32more.System.Search.DataSourceListener_head
+    DataSourceListener.dataMemberChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(3, 'dataMemberChanged', ((1, 'bstrDM'),)))
+    DataSourceListener.dataMemberAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(4, 'dataMemberAdded', ((1, 'bstrDM'),)))
+    DataSourceListener.dataMemberRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(5, 'dataMemberRemoved', ((1, 'bstrDM'),)))
     win32more.System.Com.IUnknown
-    return IRichChunk
-def _define_ICondition_head():
-    class ICondition(win32more.System.Com.IPersistStream_head):
-        Guid = Guid('0fc988d4-c935-4b97-a973-46282ea175c8')
-    return ICondition
-def _define_ICondition():
-    ICondition = win32more.System.Search.ICondition_head
-    ICondition.GetConditionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.Common.CONDITION_TYPE), use_last_error=False)(8, 'GetConditionType', ((1, 'pNodeType'),)))
-    ICondition.GetSubConditions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetSubConditions', ((1, 'riid'),(1, 'ppv'),)))
-    ICondition.GetComparisonInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Search.Common.CONDITION_OPERATION),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(10, 'GetComparisonInfo', ((1, 'ppszPropertyName'),(1, 'pcop'),(1, 'ppropvar'),)))
-    ICondition.GetValueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'GetValueType', ((1, 'ppszValueTypeName'),)))
-    ICondition.GetValueNormalization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'GetValueNormalization', ((1, 'ppszNormalization'),)))
-    ICondition.GetInputTerms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IRichChunk_head),POINTER(win32more.System.Search.IRichChunk_head),POINTER(win32more.System.Search.IRichChunk_head), use_last_error=False)(13, 'GetInputTerms', ((1, 'ppPropertyTerm'),(1, 'ppOperationTerm'),(1, 'ppValueTerm'),)))
-    ICondition.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(14, 'Clone', ((1, 'ppc'),)))
-    win32more.System.Com.IPersistStream
-    return ICondition
-def _define_ICondition2_head():
-    class ICondition2(win32more.System.Search.ICondition_head):
-        Guid = Guid('0db8851d-2e5b-47eb-9208-d28c325a01d7')
-    return ICondition2
-def _define_ICondition2():
-    ICondition2 = win32more.System.Search.ICondition2_head
-    ICondition2.GetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(15, 'GetLocale', ((1, 'ppszLocaleName'),)))
-    ICondition2.GetLeafConditionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Search.Common.CONDITION_OPERATION),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(16, 'GetLeafConditionInfo', ((1, 'ppropkey'),(1, 'pcop'),(1, 'ppropvar'),)))
-    win32more.System.Search.ICondition
-    return ICondition2
+    return DataSourceListener
+def _define_DataSourceObject_head():
+    class DataSourceObject(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0ae9a4e4-18d4-11d1-b3-b3-00-aa-00-c1-a9-24')
+    return DataSourceObject
+def _define_DataSourceObject():
+    DataSourceObject = win32more.System.Search.DataSourceObject_head
+    win32more.System.Com.IDispatch
+    return DataSourceObject
+def _define_DATE_STRUCT_head():
+    class DATE_STRUCT(Structure):
+        pass
+    return DATE_STRUCT
+def _define_DATE_STRUCT():
+    DATE_STRUCT = win32more.System.Search.DATE_STRUCT_head
+    DATE_STRUCT._fields_ = [
+        ('year', Int16),
+        ('month', UInt16),
+        ('day', UInt16),
+    ]
+    return DATE_STRUCT
 def _define_DB_NUMERIC_head():
     class DB_NUMERIC(Structure):
         pass
@@ -3584,63 +4554,12 @@ def _define_DB_NUMERIC_head():
 def _define_DB_NUMERIC():
     DB_NUMERIC = win32more.System.Search.DB_NUMERIC_head
     DB_NUMERIC._fields_ = [
-        ("precision", Byte),
-        ("scale", Byte),
-        ("sign", Byte),
-        ("val", Byte * 16),
+        ('precision', Byte),
+        ('scale', Byte),
+        ('sign', Byte),
+        ('val', Byte * 16),
     ]
     return DB_NUMERIC
-def _define_DBVECTOR_head():
-    class DBVECTOR(Structure):
-        pass
-    return DBVECTOR
-def _define_DBVECTOR():
-    DBVECTOR = win32more.System.Search.DBVECTOR_head
-    DBVECTOR._fields_ = [
-        ("size", UIntPtr),
-        ("ptr", c_void_p),
-    ]
-    return DBVECTOR
-def _define_DBDATE_head():
-    class DBDATE(Structure):
-        pass
-    return DBDATE
-def _define_DBDATE():
-    DBDATE = win32more.System.Search.DBDATE_head
-    DBDATE._fields_ = [
-        ("year", Int16),
-        ("month", UInt16),
-        ("day", UInt16),
-    ]
-    return DBDATE
-def _define_DBTIME_head():
-    class DBTIME(Structure):
-        pass
-    return DBTIME
-def _define_DBTIME():
-    DBTIME = win32more.System.Search.DBTIME_head
-    DBTIME._fields_ = [
-        ("hour", UInt16),
-        ("minute", UInt16),
-        ("second", UInt16),
-    ]
-    return DBTIME
-def _define_DBTIMESTAMP_head():
-    class DBTIMESTAMP(Structure):
-        pass
-    return DBTIMESTAMP
-def _define_DBTIMESTAMP():
-    DBTIMESTAMP = win32more.System.Search.DBTIMESTAMP_head
-    DBTIMESTAMP._fields_ = [
-        ("year", Int16),
-        ("month", UInt16),
-        ("day", UInt16),
-        ("hour", UInt16),
-        ("minute", UInt16),
-        ("second", UInt16),
-        ("fraction", UInt32),
-    ]
-    return DBTIMESTAMP
 def _define_DB_VARNUMERIC_head():
     class DB_VARNUMERIC(Structure):
         pass
@@ -3648,142 +4567,71 @@ def _define_DB_VARNUMERIC_head():
 def _define_DB_VARNUMERIC():
     DB_VARNUMERIC = win32more.System.Search.DB_VARNUMERIC_head
     DB_VARNUMERIC._fields_ = [
-        ("precision", Byte),
-        ("scale", SByte),
-        ("sign", Byte),
-        ("val", Byte * 0),
+        ('precision', Byte),
+        ('scale', SByte),
+        ('sign', Byte),
+        ('val', Byte * 1),
     ]
     return DB_VARNUMERIC
-def _define_SEC_OBJECT_ELEMENT_head():
-    class SEC_OBJECT_ELEMENT(Structure):
+DBACCESSORFLAGSENUM = Int32
+DBACCESSOR_INVALID = 0
+DBACCESSOR_PASSBYREF = 1
+DBACCESSOR_ROWDATA = 2
+DBACCESSOR_PARAMETERDATA = 4
+DBACCESSOR_OPTIMIZED = 8
+DBACCESSOR_INHERITED = 16
+DBASYNCHOPENUM = Int32
+DBASYNCHOP_OPEN = 0
+DBASYNCHPHASEENUM = Int32
+DBASYNCHPHASE_INITIALIZATION = 0
+DBASYNCHPHASE_POPULATION = 1
+DBASYNCHPHASE_COMPLETE = 2
+DBASYNCHPHASE_CANCELED = 3
+def _define_DBBINDEXT_head():
+    class DBBINDEXT(Structure):
         pass
-    return SEC_OBJECT_ELEMENT
-def _define_SEC_OBJECT_ELEMENT():
-    SEC_OBJECT_ELEMENT = win32more.System.Search.SEC_OBJECT_ELEMENT_head
-    SEC_OBJECT_ELEMENT._fields_ = [
-        ("guidObjectType", Guid),
-        ("ObjectID", win32more.Storage.IndexServer.DBID),
+    return DBBINDEXT
+def _define_DBBINDEXT():
+    DBBINDEXT = win32more.System.Search.DBBINDEXT_head
+    DBBINDEXT._fields_ = [
+        ('pExtension', c_char_p_no),
+        ('ulExtension', UIntPtr),
     ]
-    return SEC_OBJECT_ELEMENT
-def _define_SEC_OBJECT_head():
-    class SEC_OBJECT(Structure):
-        pass
-    return SEC_OBJECT
-def _define_SEC_OBJECT():
-    SEC_OBJECT = win32more.System.Search.SEC_OBJECT_head
-    SEC_OBJECT._fields_ = [
-        ("cObjects", UInt32),
-        ("prgObjects", POINTER(win32more.System.Search.SEC_OBJECT_ELEMENT_head)),
-    ]
-    return SEC_OBJECT
-def _define_DBIMPLICITSESSION_head():
-    class DBIMPLICITSESSION(Structure):
-        pass
-    return DBIMPLICITSESSION
-def _define_DBIMPLICITSESSION():
-    DBIMPLICITSESSION = win32more.System.Search.DBIMPLICITSESSION_head
-    DBIMPLICITSESSION._fields_ = [
-        ("pUnkOuter", win32more.System.Com.IUnknown_head),
-        ("piid", POINTER(Guid)),
-        ("pSession", win32more.System.Com.IUnknown_head),
-    ]
-    return DBIMPLICITSESSION
-DBTYPEENUM = Int32
-DBTYPE_EMPTY = 0
-DBTYPE_NULL = 1
-DBTYPE_I2 = 2
-DBTYPE_I4 = 3
-DBTYPE_R4 = 4
-DBTYPE_R8 = 5
-DBTYPE_CY = 6
-DBTYPE_DATE = 7
-DBTYPE_BSTR = 8
-DBTYPE_IDISPATCH = 9
-DBTYPE_ERROR = 10
-DBTYPE_BOOL = 11
-DBTYPE_VARIANT = 12
-DBTYPE_IUNKNOWN = 13
-DBTYPE_DECIMAL = 14
-DBTYPE_UI1 = 17
-DBTYPE_ARRAY = 8192
-DBTYPE_BYREF = 16384
-DBTYPE_I1 = 16
-DBTYPE_UI2 = 18
-DBTYPE_UI4 = 19
-DBTYPE_I8 = 20
-DBTYPE_UI8 = 21
-DBTYPE_GUID = 72
-DBTYPE_VECTOR = 4096
-DBTYPE_RESERVED = 32768
-DBTYPE_BYTES = 128
-DBTYPE_STR = 129
-DBTYPE_WSTR = 130
-DBTYPE_NUMERIC = 131
-DBTYPE_UDT = 132
-DBTYPE_DBDATE = 133
-DBTYPE_DBTIME = 134
-DBTYPE_DBTIMESTAMP = 135
-DBTYPEENUM15 = Int32
-DBTYPE_HCHAPTER = 136
-DBTYPEENUM20 = Int32
-DBTYPE_FILETIME = 64
-DBTYPE_PROPVARIANT = 138
-DBTYPE_VARNUMERIC = 139
-DBPARTENUM = Int32
-DBPART_INVALID = 0
-DBPART_VALUE = 1
-DBPART_LENGTH = 2
-DBPART_STATUS = 4
-DBPARAMIOENUM = Int32
-DBPARAMIO_NOTPARAM = 0
-DBPARAMIO_INPUT = 1
-DBPARAMIO_OUTPUT = 2
+    return DBBINDEXT
 DBBINDFLAGENUM = Int32
 DBBINDFLAG_HTML = 1
-DBMEMOWNERENUM = Int32
-DBMEMOWNER_CLIENTOWNED = 0
-DBMEMOWNER_PROVIDEROWNED = 1
-def _define_DBOBJECT_head():
-    class DBOBJECT(Structure):
+def _define_DBBINDING_head():
+    class DBBINDING(Structure):
         pass
-    return DBOBJECT
-def _define_DBOBJECT():
-    DBOBJECT = win32more.System.Search.DBOBJECT_head
-    DBOBJECT._fields_ = [
-        ("dwFlags", UInt32),
-        ("iid", Guid),
+    return DBBINDING
+def _define_DBBINDING():
+    DBBINDING = win32more.System.Search.DBBINDING_head
+    DBBINDING._fields_ = [
+        ('iOrdinal', UIntPtr),
+        ('obValue', UIntPtr),
+        ('obLength', UIntPtr),
+        ('obStatus', UIntPtr),
+        ('pTypeInfo', win32more.System.Com.ITypeInfo_head),
+        ('pObject', POINTER(win32more.System.Search.DBOBJECT_head)),
+        ('pBindExt', POINTER(win32more.System.Search.DBBINDEXT_head)),
+        ('dwPart', UInt32),
+        ('dwMemOwner', UInt32),
+        ('eParamIO', UInt32),
+        ('cbMaxLen', UIntPtr),
+        ('dwFlags', UInt32),
+        ('wType', UInt16),
+        ('bPrecision', Byte),
+        ('bScale', Byte),
     ]
-    return DBOBJECT
-DBSTATUSENUM = Int32
-DBSTATUS_S_OK = 0
-DBSTATUS_E_BADACCESSOR = 1
-DBSTATUS_E_CANTCONVERTVALUE = 2
-DBSTATUS_S_ISNULL = 3
-DBSTATUS_S_TRUNCATED = 4
-DBSTATUS_E_SIGNMISMATCH = 5
-DBSTATUS_E_DATAOVERFLOW = 6
-DBSTATUS_E_CANTCREATE = 7
-DBSTATUS_E_UNAVAILABLE = 8
-DBSTATUS_E_PERMISSIONDENIED = 9
-DBSTATUS_E_INTEGRITYVIOLATION = 10
-DBSTATUS_E_SCHEMAVIOLATION = 11
-DBSTATUS_E_BADSTATUS = 12
-DBSTATUS_S_DEFAULT = 13
-DBSTATUSENUM20 = Int32
-MDSTATUS_S_CELLEMPTY = 14
-DBSTATUS_S_IGNORE = 15
-DBSTATUSENUM21 = Int32
-DBSTATUS_E_DOESNOTEXIST = 16
-DBSTATUS_E_INVALIDURL = 17
-DBSTATUS_E_RESOURCELOCKED = 18
-DBSTATUS_E_RESOURCEEXISTS = 19
-DBSTATUS_E_CANNOTCOMPLETE = 20
-DBSTATUS_E_VOLUMENOTFOUND = 21
-DBSTATUS_E_OUTOFSPACE = 22
-DBSTATUS_S_CANNOTDELETESOURCE = 23
-DBSTATUS_E_READONLY = 24
-DBSTATUS_E_RESOURCEOUTOFSCOPE = 25
-DBSTATUS_S_ALREADYEXISTS = 26
+    return DBBINDING
+DBBINDSTATUSENUM = Int32
+DBBINDSTATUS_OK = 0
+DBBINDSTATUS_BADORDINAL = 1
+DBBINDSTATUS_UNSUPPORTEDCONVERSION = 2
+DBBINDSTATUS_BADBINDINFO = 3
+DBBINDSTATUS_BADSTORAGEFLAGS = 4
+DBBINDSTATUS_NOINTERFACE = 5
+DBBINDSTATUS_MULTIPLESTORAGE = 6
 DBBINDURLFLAGENUM = Int32
 DBBINDURLFLAG_READ = 1
 DBBINDURLFLAG_WRITE = 2
@@ -3807,79 +4655,59 @@ DBBINDURLSTATUS_S_OK = 0
 DBBINDURLSTATUS_S_DENYNOTSUPPORTED = 1
 DBBINDURLSTATUS_S_DENYTYPENOTSUPPORTED = 4
 DBBINDURLSTATUS_S_REDIRECTED = 8
-DBSTATUSENUM25 = Int32
-DBSTATUS_E_CANCELED = 27
-DBSTATUS_E_NOTCOLLECTION = 28
-def _define_DBBINDEXT_head():
-    class DBBINDEXT(Structure):
+DBBOOKMARK = Int32
+DBBMK_INVALID = 0
+DBBMK_FIRST = 1
+DBBMK_LAST = 2
+def _define_DBCOLUMNACCESS_head():
+    class DBCOLUMNACCESS(Structure):
         pass
-    return DBBINDEXT
-def _define_DBBINDEXT():
-    DBBINDEXT = win32more.System.Search.DBBINDEXT_head
-    DBBINDEXT._fields_ = [
-        ("pExtension", c_char_p_no),
-        ("ulExtension", UIntPtr),
+    return DBCOLUMNACCESS
+def _define_DBCOLUMNACCESS():
+    DBCOLUMNACCESS = win32more.System.Search.DBCOLUMNACCESS_head
+    DBCOLUMNACCESS._fields_ = [
+        ('pData', c_void_p),
+        ('columnid', win32more.Storage.IndexServer.DBID),
+        ('cbDataLen', UIntPtr),
+        ('dwStatus', UInt32),
+        ('cbMaxLen', UIntPtr),
+        ('dwReserved', UIntPtr),
+        ('wType', UInt16),
+        ('bPrecision', Byte),
+        ('bScale', Byte),
     ]
-    return DBBINDEXT
-def _define_DBBINDING_head():
-    class DBBINDING(Structure):
+    return DBCOLUMNACCESS
+def _define_DBCOLUMNDESC_head():
+    class DBCOLUMNDESC(Structure):
         pass
-    return DBBINDING
-def _define_DBBINDING():
-    DBBINDING = win32more.System.Search.DBBINDING_head
-    DBBINDING._fields_ = [
-        ("iOrdinal", UIntPtr),
-        ("obValue", UIntPtr),
-        ("obLength", UIntPtr),
-        ("obStatus", UIntPtr),
-        ("pTypeInfo", win32more.System.Com.ITypeInfo_head),
-        ("pObject", POINTER(win32more.System.Search.DBOBJECT_head)),
-        ("pBindExt", POINTER(win32more.System.Search.DBBINDEXT_head)),
-        ("dwPart", UInt32),
-        ("dwMemOwner", UInt32),
-        ("eParamIO", UInt32),
-        ("cbMaxLen", UIntPtr),
-        ("dwFlags", UInt32),
-        ("wType", UInt16),
-        ("bPrecision", Byte),
-        ("bScale", Byte),
+    return DBCOLUMNDESC
+def _define_DBCOLUMNDESC():
+    DBCOLUMNDESC = win32more.System.Search.DBCOLUMNDESC_head
+    DBCOLUMNDESC._fields_ = [
+        ('pwszTypeName', win32more.Foundation.PWSTR),
+        ('pTypeInfo', win32more.System.Com.ITypeInfo_head),
+        ('rgPropertySets', POINTER(win32more.System.Search.DBPROPSET_head)),
+        ('pclsid', POINTER(Guid)),
+        ('cPropertySets', UInt32),
+        ('ulColumnSize', UIntPtr),
+        ('dbcid', win32more.Storage.IndexServer.DBID),
+        ('wType', UInt16),
+        ('bPrecision', Byte),
+        ('bScale', Byte),
     ]
-    return DBBINDING
-DBROWSTATUSENUM = Int32
-DBROWSTATUS_S_OK = 0
-DBROWSTATUS_S_MULTIPLECHANGES = 2
-DBROWSTATUS_S_PENDINGCHANGES = 3
-DBROWSTATUS_E_CANCELED = 4
-DBROWSTATUS_E_CANTRELEASE = 6
-DBROWSTATUS_E_CONCURRENCYVIOLATION = 7
-DBROWSTATUS_E_DELETED = 8
-DBROWSTATUS_E_PENDINGINSERT = 9
-DBROWSTATUS_E_NEWLYINSERTED = 10
-DBROWSTATUS_E_INTEGRITYVIOLATION = 11
-DBROWSTATUS_E_INVALID = 12
-DBROWSTATUS_E_MAXPENDCHANGESEXCEEDED = 13
-DBROWSTATUS_E_OBJECTOPEN = 14
-DBROWSTATUS_E_OUTOFMEMORY = 15
-DBROWSTATUS_E_PERMISSIONDENIED = 16
-DBROWSTATUS_E_LIMITREACHED = 17
-DBROWSTATUS_E_SCHEMAVIOLATION = 18
-DBROWSTATUS_E_FAIL = 19
-DBROWSTATUSENUM20 = Int32
-DBROWSTATUS_S_NOCHANGE = 20
-DBSTATUSENUM26 = Int32
-DBSTATUS_S_ROWSETCOLUMN = 29
-def _define_DBFAILUREINFO_head():
-    class DBFAILUREINFO(Structure):
-        pass
-    return DBFAILUREINFO
-def _define_DBFAILUREINFO():
-    DBFAILUREINFO = win32more.System.Search.DBFAILUREINFO_head
-    DBFAILUREINFO._fields_ = [
-        ("hRow", UIntPtr),
-        ("iColumn", UIntPtr),
-        ("failure", win32more.Foundation.HRESULT),
-    ]
-    return DBFAILUREINFO
+    return DBCOLUMNDESC
+DBCOLUMNDESCFLAGSENUM = Int32
+DBCOLUMNDESCFLAGS_TYPENAME = 1
+DBCOLUMNDESCFLAGS_ITYPEINFO = 2
+DBCOLUMNDESCFLAGS_PROPERTIES = 4
+DBCOLUMNDESCFLAGS_CLSID = 8
+DBCOLUMNDESCFLAGS_COLSIZE = 16
+DBCOLUMNDESCFLAGS_DBCID = 32
+DBCOLUMNDESCFLAGS_WTYPE = 64
+DBCOLUMNDESCFLAGS_PRECISION = 128
+DBCOLUMNDESCFLAGS_SCALE = 256
+DBCOLUMNFLAGS15ENUM = Int32
+DBCOLUMNFLAGS_ISCHAPTER = 8192
 DBCOLUMNFLAGSENUM = Int32
 DBCOLUMNFLAGS_ISBOOKMARK = 1
 DBCOLUMNFLAGS_MAYDEFER = 2
@@ -3895,8 +4723,6 @@ DBCOLUMNFLAGS_CACHEDEFERRED = 4096
 DBCOLUMNFLAGSENUM20 = Int32
 DBCOLUMNFLAGS_SCALEISNEGATIVE = 16384
 DBCOLUMNFLAGS_RESERVED = 32768
-DBCOLUMNFLAGS15ENUM = Int32
-DBCOLUMNFLAGS_ISCHAPTER = 8192
 DBCOLUMNFLAGSENUM21 = Int32
 DBCOLUMNFLAGS_ISROWURL = 65536
 DBCOLUMNFLAGS_ISDEFAULTSTREAM = 131072
@@ -3906,10 +4732,6 @@ DBCOLUMNFLAGS_ISSTREAM = 524288
 DBCOLUMNFLAGS_ISROWSET = 1048576
 DBCOLUMNFLAGS_ISROW = 2097152
 DBCOLUMNFLAGS_ROWSPECIFICCOLUMN = 4194304
-DBTABLESTATISTICSTYPE26 = Int32
-DBSTAT_HISTOGRAM = 1
-DBSTAT_COLUMN_CARDINALITY = 2
-DBSTAT_TUPLE_CARDINALITY = 4
 def _define_DBCOLUMNINFO_head():
     class DBCOLUMNINFO(Structure):
         pass
@@ -3917,21 +4739,387 @@ def _define_DBCOLUMNINFO_head():
 def _define_DBCOLUMNINFO():
     DBCOLUMNINFO = win32more.System.Search.DBCOLUMNINFO_head
     DBCOLUMNINFO._fields_ = [
-        ("pwszName", win32more.Foundation.PWSTR),
-        ("pTypeInfo", win32more.System.Com.ITypeInfo_head),
-        ("iOrdinal", UIntPtr),
-        ("dwFlags", UInt32),
-        ("ulColumnSize", UIntPtr),
-        ("wType", UInt16),
-        ("bPrecision", Byte),
-        ("bScale", Byte),
-        ("columnid", win32more.Storage.IndexServer.DBID),
+        ('pwszName', win32more.Foundation.PWSTR),
+        ('pTypeInfo', win32more.System.Com.ITypeInfo_head),
+        ('iOrdinal', UIntPtr),
+        ('dwFlags', UInt32),
+        ('ulColumnSize', UIntPtr),
+        ('wType', UInt16),
+        ('bPrecision', Byte),
+        ('bScale', Byte),
+        ('columnid', win32more.Storage.IndexServer.DBID),
     ]
     return DBCOLUMNINFO
-DBBOOKMARK = Int32
-DBBMK_INVALID = 0
-DBBMK_FIRST = 1
-DBBMK_LAST = 2
+DBCOMMANDPERSISTFLAGENUM = Int32
+DBCOMMANDPERSISTFLAG_NOSAVE = 1
+DBCOMMANDPERSISTFLAGENUM21 = Int32
+DBCOMMANDPERSISTFLAG_DEFAULT = 0
+DBCOMMANDPERSISTFLAG_PERSISTVIEW = 2
+DBCOMMANDPERSISTFLAG_PERSISTPROCEDURE = 4
+DBCOMPAREENUM = Int32
+DBCOMPARE_LT = 0
+DBCOMPARE_EQ = 1
+DBCOMPARE_GT = 2
+DBCOMPARE_NE = 3
+DBCOMPARE_NOTCOMPARABLE = 4
+DBCOMPAREOPSENUM = Int32
+DBCOMPAREOPS_LT = 0
+DBCOMPAREOPS_LE = 1
+DBCOMPAREOPS_EQ = 2
+DBCOMPAREOPS_GE = 3
+DBCOMPAREOPS_GT = 4
+DBCOMPAREOPS_BEGINSWITH = 5
+DBCOMPAREOPS_CONTAINS = 6
+DBCOMPAREOPS_NE = 7
+DBCOMPAREOPS_IGNORE = 8
+DBCOMPAREOPS_CASESENSITIVE = 4096
+DBCOMPAREOPS_CASEINSENSITIVE = 8192
+DBCOMPAREOPSENUM20 = Int32
+DBCOMPAREOPS_NOTBEGINSWITH = 9
+DBCOMPAREOPS_NOTCONTAINS = 10
+def _define_DBCONSTRAINTDESC_head():
+    class DBCONSTRAINTDESC(Structure):
+        pass
+    return DBCONSTRAINTDESC
+def _define_DBCONSTRAINTDESC():
+    DBCONSTRAINTDESC = win32more.System.Search.DBCONSTRAINTDESC_head
+    DBCONSTRAINTDESC._fields_ = [
+        ('pConstraintID', POINTER(win32more.Storage.IndexServer.DBID_head)),
+        ('ConstraintType', UInt32),
+        ('cColumns', UIntPtr),
+        ('rgColumnList', POINTER(win32more.Storage.IndexServer.DBID_head)),
+        ('pReferencedTableID', POINTER(win32more.Storage.IndexServer.DBID_head)),
+        ('cForeignKeyColumns', UIntPtr),
+        ('rgForeignKeyColumnList', POINTER(win32more.Storage.IndexServer.DBID_head)),
+        ('pwszConstraintText', win32more.Foundation.PWSTR),
+        ('UpdateRule', UInt32),
+        ('DeleteRule', UInt32),
+        ('MatchType', UInt32),
+        ('Deferrability', UInt32),
+        ('cReserved', UIntPtr),
+        ('rgReserved', POINTER(win32more.System.Search.DBPROPSET_head)),
+    ]
+    return DBCONSTRAINTDESC
+DBCONSTRAINTTYPEENUM = Int32
+DBCONSTRAINTTYPE_UNIQUE = 0
+DBCONSTRAINTTYPE_FOREIGNKEY = 1
+DBCONSTRAINTTYPE_PRIMARYKEY = 2
+DBCONSTRAINTTYPE_CHECK = 3
+DBCONVERTFLAGSENUM = Int32
+DBCONVERTFLAGS_COLUMN = 0
+DBCONVERTFLAGS_PARAMETER = 1
+DBCONVERTFLAGSENUM20 = Int32
+DBCONVERTFLAGS_ISLONG = 2
+DBCONVERTFLAGS_ISFIXEDLENGTH = 4
+DBCONVERTFLAGS_FROMVARIANT = 8
+DBCOPYFLAGSENUM = Int32
+DBCOPY_ASYNC = 256
+DBCOPY_REPLACE_EXISTING = 512
+DBCOPY_ALLOW_EMULATION = 1024
+DBCOPY_NON_RECURSIVE = 2048
+DBCOPY_ATOMIC = 4096
+def _define_DBCOST_head():
+    class DBCOST(Structure):
+        pass
+    return DBCOST
+def _define_DBCOST():
+    DBCOST = win32more.System.Search.DBCOST_head
+    DBCOST._fields_ = [
+        ('eKind', UInt32),
+        ('dwUnits', UInt32),
+        ('lValue', Int32),
+    ]
+    return DBCOST
+DBCOSTUNITENUM = Int32
+DBUNIT_INVALID = 0
+DBUNIT_WEIGHT = 1
+DBUNIT_PERCENT = 2
+DBUNIT_MAXIMUM = 4
+DBUNIT_MINIMUM = 8
+DBUNIT_MICRO_SECOND = 16
+DBUNIT_MILLI_SECOND = 32
+DBUNIT_SECOND = 64
+DBUNIT_MINUTE = 128
+DBUNIT_HOUR = 256
+DBUNIT_BYTE = 512
+DBUNIT_KILO_BYTE = 1024
+DBUNIT_MEGA_BYTE = 2048
+DBUNIT_GIGA_BYTE = 4096
+DBUNIT_NUM_MSGS = 8192
+DBUNIT_NUM_LOCKS = 16384
+DBUNIT_NUM_ROWS = 32768
+DBUNIT_OTHER = 65536
+DBDATACONVERTENUM = Int32
+DBDATACONVERT_DEFAULT = 0
+DBDATACONVERT_SETDATABEHAVIOR = 1
+DBDATACONVERT_LENGTHFROMNTS = 2
+DBDATACONVERT_DSTISFIXEDLENGTH = 4
+DBDATACONVERT_DECIMALSCALE = 8
+def _define_DBDATE_head():
+    class DBDATE(Structure):
+        pass
+    return DBDATE
+def _define_DBDATE():
+    DBDATE = win32more.System.Search.DBDATE_head
+    DBDATE._fields_ = [
+        ('year', Int16),
+        ('month', UInt16),
+        ('day', UInt16),
+    ]
+    return DBDATE
+def _define_DBDATETIM4_head():
+    class DBDATETIM4(Structure):
+        pass
+    return DBDATETIM4
+def _define_DBDATETIM4():
+    DBDATETIM4 = win32more.System.Search.DBDATETIM4_head
+    DBDATETIM4._fields_ = [
+        ('numdays', UInt16),
+        ('nummins', UInt16),
+    ]
+    return DBDATETIM4
+def _define_DBDATETIME_head():
+    class DBDATETIME(Structure):
+        pass
+    return DBDATETIME
+def _define_DBDATETIME():
+    DBDATETIME = win32more.System.Search.DBDATETIME_head
+    DBDATETIME._fields_ = [
+        ('dtdays', Int32),
+        ('dttime', UInt32),
+    ]
+    return DBDATETIME
+DBDEFERRABILITYENUM = Int32
+DBDEFERRABILITY_DEFERRED = 1
+DBDEFERRABILITY_DEFERRABLE = 2
+DBDELETEFLAGSENUM = Int32
+DBDELETE_ASYNC = 256
+DBDELETE_ATOMIC = 4096
+DBEVENTPHASEENUM = Int32
+DBEVENTPHASE_OKTODO = 0
+DBEVENTPHASE_ABOUTTODO = 1
+DBEVENTPHASE_SYNCHAFTER = 2
+DBEVENTPHASE_FAILEDTODO = 3
+DBEVENTPHASE_DIDEVENT = 4
+DBEXECLIMITSENUM = Int32
+DBEXECLIMITS_ABORT = 1
+DBEXECLIMITS_STOP = 2
+DBEXECLIMITS_SUSPEND = 3
+def _define_DBFAILUREINFO_head():
+    class DBFAILUREINFO(Structure):
+        pass
+    return DBFAILUREINFO
+def _define_DBFAILUREINFO():
+    DBFAILUREINFO = win32more.System.Search.DBFAILUREINFO_head
+    DBFAILUREINFO._fields_ = [
+        ('hRow', UIntPtr),
+        ('iColumn', UIntPtr),
+        ('failure', win32more.Foundation.HRESULT),
+    ]
+    return DBFAILUREINFO
+def _define_DBIMPLICITSESSION_head():
+    class DBIMPLICITSESSION(Structure):
+        pass
+    return DBIMPLICITSESSION
+def _define_DBIMPLICITSESSION():
+    DBIMPLICITSESSION = win32more.System.Search.DBIMPLICITSESSION_head
+    DBIMPLICITSESSION._fields_ = [
+        ('pUnkOuter', win32more.System.Com.IUnknown_head),
+        ('piid', POINTER(Guid)),
+        ('pSession', win32more.System.Com.IUnknown_head),
+    ]
+    return DBIMPLICITSESSION
+DBINDEX_COL_ORDERENUM = Int32
+DBINDEX_COL_ORDER_ASC = 0
+DBINDEX_COL_ORDER_DESC = 1
+def _define_DBINDEXCOLUMNDESC_head():
+    class DBINDEXCOLUMNDESC(Structure):
+        pass
+    return DBINDEXCOLUMNDESC
+def _define_DBINDEXCOLUMNDESC():
+    DBINDEXCOLUMNDESC = win32more.System.Search.DBINDEXCOLUMNDESC_head
+    DBINDEXCOLUMNDESC._fields_ = [
+        ('pColumnID', POINTER(win32more.Storage.IndexServer.DBID_head)),
+        ('eIndexColOrder', UInt32),
+    ]
+    return DBINDEXCOLUMNDESC
+DBLITERALENUM = Int32
+DBLITERAL_INVALID = 0
+DBLITERAL_BINARY_LITERAL = 1
+DBLITERAL_CATALOG_NAME = 2
+DBLITERAL_CATALOG_SEPARATOR = 3
+DBLITERAL_CHAR_LITERAL = 4
+DBLITERAL_COLUMN_ALIAS = 5
+DBLITERAL_COLUMN_NAME = 6
+DBLITERAL_CORRELATION_NAME = 7
+DBLITERAL_CURSOR_NAME = 8
+DBLITERAL_ESCAPE_PERCENT = 9
+DBLITERAL_ESCAPE_UNDERSCORE = 10
+DBLITERAL_INDEX_NAME = 11
+DBLITERAL_LIKE_PERCENT = 12
+DBLITERAL_LIKE_UNDERSCORE = 13
+DBLITERAL_PROCEDURE_NAME = 14
+DBLITERAL_QUOTE = 15
+DBLITERAL_SCHEMA_NAME = 16
+DBLITERAL_TABLE_NAME = 17
+DBLITERAL_TEXT_COMMAND = 18
+DBLITERAL_USER_NAME = 19
+DBLITERAL_VIEW_NAME = 20
+DBLITERALENUM20 = Int32
+DBLITERAL_CUBE_NAME = 21
+DBLITERAL_DIMENSION_NAME = 22
+DBLITERAL_HIERARCHY_NAME = 23
+DBLITERAL_LEVEL_NAME = 24
+DBLITERAL_MEMBER_NAME = 25
+DBLITERAL_PROPERTY_NAME = 26
+DBLITERAL_SCHEMA_SEPARATOR = 27
+DBLITERAL_QUOTE_SUFFIX = 28
+DBLITERALENUM21 = Int32
+DBLITERAL_ESCAPE_PERCENT_SUFFIX = 29
+DBLITERAL_ESCAPE_UNDERSCORE_SUFFIX = 30
+def _define_DBLITERALINFO_head():
+    class DBLITERALINFO(Structure):
+        pass
+    return DBLITERALINFO
+def _define_DBLITERALINFO():
+    DBLITERALINFO = win32more.System.Search.DBLITERALINFO_head
+    DBLITERALINFO._fields_ = [
+        ('pwszLiteralValue', win32more.Foundation.PWSTR),
+        ('pwszInvalidChars', win32more.Foundation.PWSTR),
+        ('pwszInvalidStartingChars', win32more.Foundation.PWSTR),
+        ('lt', UInt32),
+        ('fSupported', win32more.Foundation.BOOL),
+        ('cchMaxLen', UInt32),
+    ]
+    return DBLITERALINFO
+DBMATCHTYPEENUM = Int32
+DBMATCHTYPE_FULL = 0
+DBMATCHTYPE_NONE = 1
+DBMATCHTYPE_PARTIAL = 2
+DBMEMOWNERENUM = Int32
+DBMEMOWNER_CLIENTOWNED = 0
+DBMEMOWNER_PROVIDEROWNED = 1
+def _define_DBMONEY_head():
+    class DBMONEY(Structure):
+        pass
+    return DBMONEY
+def _define_DBMONEY():
+    DBMONEY = win32more.System.Search.DBMONEY_head
+    DBMONEY._fields_ = [
+        ('mnyhigh', Int32),
+        ('mnylow', UInt32),
+    ]
+    return DBMONEY
+DBMOVEFLAGSENUM = Int32
+DBMOVE_REPLACE_EXISTING = 1
+DBMOVE_ASYNC = 256
+DBMOVE_DONT_UPDATE_LINKS = 512
+DBMOVE_ALLOW_EMULATION = 1024
+DBMOVE_ATOMIC = 4096
+def _define_DBOBJECT_head():
+    class DBOBJECT(Structure):
+        pass
+    return DBOBJECT
+def _define_DBOBJECT():
+    DBOBJECT = win32more.System.Search.DBOBJECT_head
+    DBOBJECT._fields_ = [
+        ('dwFlags', UInt32),
+        ('iid', Guid),
+    ]
+    return DBOBJECT
+def _define_DBPARAMBINDINFO_head():
+    class DBPARAMBINDINFO(Structure):
+        pass
+    return DBPARAMBINDINFO
+def _define_DBPARAMBINDINFO():
+    DBPARAMBINDINFO = win32more.System.Search.DBPARAMBINDINFO_head
+    DBPARAMBINDINFO._fields_ = [
+        ('pwszDataSourceType', win32more.Foundation.PWSTR),
+        ('pwszName', win32more.Foundation.PWSTR),
+        ('ulParamSize', UIntPtr),
+        ('dwFlags', UInt32),
+        ('bPrecision', Byte),
+        ('bScale', Byte),
+    ]
+    return DBPARAMBINDINFO
+DBPARAMFLAGSENUM = Int32
+DBPARAMFLAGS_ISINPUT = 1
+DBPARAMFLAGS_ISOUTPUT = 2
+DBPARAMFLAGS_ISSIGNED = 16
+DBPARAMFLAGS_ISNULLABLE = 64
+DBPARAMFLAGS_ISLONG = 128
+DBPARAMFLAGSENUM20 = Int32
+DBPARAMFLAGS_SCALEISNEGATIVE = 256
+def _define_DBPARAMINFO_head():
+    class DBPARAMINFO(Structure):
+        pass
+    return DBPARAMINFO
+def _define_DBPARAMINFO():
+    DBPARAMINFO = win32more.System.Search.DBPARAMINFO_head
+    DBPARAMINFO._fields_ = [
+        ('dwFlags', UInt32),
+        ('iOrdinal', UIntPtr),
+        ('pwszName', win32more.Foundation.PWSTR),
+        ('pTypeInfo', win32more.System.Com.ITypeInfo_head),
+        ('ulParamSize', UIntPtr),
+        ('wType', UInt16),
+        ('bPrecision', Byte),
+        ('bScale', Byte),
+    ]
+    return DBPARAMINFO
+DBPARAMIOENUM = Int32
+DBPARAMIO_NOTPARAM = 0
+DBPARAMIO_INPUT = 1
+DBPARAMIO_OUTPUT = 2
+def _define_DBPARAMS_head():
+    class DBPARAMS(Structure):
+        pass
+    return DBPARAMS
+def _define_DBPARAMS():
+    DBPARAMS = win32more.System.Search.DBPARAMS_head
+    DBPARAMS._fields_ = [
+        ('pData', c_void_p),
+        ('cParamSets', UIntPtr),
+        ('hAccessor', win32more.System.Search.HACCESSOR),
+    ]
+    return DBPARAMS
+DBPARTENUM = Int32
+DBPART_INVALID = 0
+DBPART_VALUE = 1
+DBPART_LENGTH = 2
+DBPART_STATUS = 4
+DBPENDINGSTATUSENUM = Int32
+DBPENDINGSTATUS_NEW = 1
+DBPENDINGSTATUS_CHANGED = 2
+DBPENDINGSTATUS_DELETED = 4
+DBPENDINGSTATUS_UNCHANGED = 8
+DBPENDINGSTATUS_INVALIDROW = 16
+DBPOSITIONFLAGSENUM = Int32
+DBPOSITION_OK = 0
+DBPOSITION_NOROW = 1
+DBPOSITION_BOF = 2
+DBPOSITION_EOF = 3
+DBPROMPTOPTIONSENUM = Int32
+DBPROMPTOPTIONS_NONE = 0
+DBPROMPTOPTIONS_WIZARDSHEET = 1
+DBPROMPTOPTIONS_PROPERTYSHEET = 2
+DBPROMPTOPTIONS_BROWSEONLY = 8
+DBPROMPTOPTIONS_DISABLE_PROVIDER_SELECTION = 16
+DBPROMPTOPTIONS_DISABLESAVEPASSWORD = 32
+def _define_DBPROP_head():
+    class DBPROP(Structure):
+        pass
+    return DBPROP
+def _define_DBPROP():
+    DBPROP = win32more.System.Search.DBPROP_head
+    DBPROP._fields_ = [
+        ('dwPropertyID', UInt32),
+        ('dwOptions', UInt32),
+        ('dwStatus', UInt32),
+        ('colid', win32more.Storage.IndexServer.DBID),
+        ('vValue', win32more.System.Com.VARIANT),
+    ]
+    return DBPROP
 DBPROPENUM = Int32
 DBPROP_ABORTPRESERVE = 2
 DBPROP_ACTIVESESSIONS = 3
@@ -4181,6 +5369,23 @@ DBPROP_COL_SEED = 282
 DBPROP_COL_INCREMENT = 283
 DBPROP_INIT_GENERALTIMEOUT = 284
 DBPROP_COMSERVICES = 285
+DBPROPENUM25_DEPRECATED = Int32
+DBPROP_ICommandCost = 141
+DBPROP_ICommandTree = 142
+DBPROP_ICommandValidate = 143
+DBPROP_IDBSchemaCommand = 144
+DBPROP_IProvideMoniker = 125
+DBPROP_IQuery = 146
+DBPROP_IReadData = 147
+DBPROP_IRowsetAsynch = 148
+DBPROP_IRowsetCopyRows = 149
+DBPROP_IRowsetKeys = 151
+DBPROP_IRowsetNewRowAfter = 152
+DBPROP_IRowsetNextRowset = 153
+DBPROP_IRowsetWatchAll = 155
+DBPROP_IRowsetWatchNotify = 156
+DBPROP_IRowsetWatchRegion = 157
+DBPROP_IRowsetWithParameters = 158
 DBPROPENUM26 = Int32
 DBPROP_OUTPUTSTREAM = 286
 DBPROP_OUTPUTENCODING = 287
@@ -4188,55 +5393,6 @@ DBPROP_TABLESTATISTICS = 288
 DBPROP_SKIPROWCOUNTRESULTS = 291
 DBPROP_IRowsetBookmark = 292
 MDPROP_VISUALMODE = 293
-def _define_DBPARAMS_head():
-    class DBPARAMS(Structure):
-        pass
-    return DBPARAMS
-def _define_DBPARAMS():
-    DBPARAMS = win32more.System.Search.DBPARAMS_head
-    DBPARAMS._fields_ = [
-        ("pData", c_void_p),
-        ("cParamSets", UIntPtr),
-        ("hAccessor", UIntPtr),
-    ]
-    return DBPARAMS
-DBPARAMFLAGSENUM = Int32
-DBPARAMFLAGS_ISINPUT = 1
-DBPARAMFLAGS_ISOUTPUT = 2
-DBPARAMFLAGS_ISSIGNED = 16
-DBPARAMFLAGS_ISNULLABLE = 64
-DBPARAMFLAGS_ISLONG = 128
-DBPARAMFLAGSENUM20 = Int32
-DBPARAMFLAGS_SCALEISNEGATIVE = 256
-def _define_DBPARAMINFO_head():
-    class DBPARAMINFO(Structure):
-        pass
-    return DBPARAMINFO
-def _define_DBPARAMINFO():
-    DBPARAMINFO = win32more.System.Search.DBPARAMINFO_head
-    DBPARAMINFO._fields_ = [
-        ("dwFlags", UInt32),
-        ("iOrdinal", UIntPtr),
-        ("pwszName", win32more.Foundation.PWSTR),
-        ("pTypeInfo", win32more.System.Com.ITypeInfo_head),
-        ("ulParamSize", UIntPtr),
-        ("wType", UInt16),
-        ("bPrecision", Byte),
-        ("bScale", Byte),
-    ]
-    return DBPARAMINFO
-def _define_DBPROPIDSET_head():
-    class DBPROPIDSET(Structure):
-        pass
-    return DBPROPIDSET
-def _define_DBPROPIDSET():
-    DBPROPIDSET = win32more.System.Search.DBPROPIDSET_head
-    DBPROPIDSET._fields_ = [
-        ("rgPropertyIDs", POINTER(UInt32)),
-        ("cPropertyIDs", UInt32),
-        ("guidPropertySet", Guid),
-    ]
-    return DBPROPIDSET
 DBPROPFLAGSENUM = Int32
 DBPROPFLAGS_NOTSUPPORTED = 0
 DBPROPFLAGS_COLUMN = 1
@@ -4258,6 +5414,18 @@ DBPROPFLAGSENUM25 = Int32
 DBPROPFLAGS_VIEW = 16384
 DBPROPFLAGSENUM26 = Int32
 DBPROPFLAGS_STREAM = 32768
+def _define_DBPROPIDSET_head():
+    class DBPROPIDSET(Structure):
+        pass
+    return DBPROPIDSET
+def _define_DBPROPIDSET():
+    DBPROPIDSET = win32more.System.Search.DBPROPIDSET_head
+    DBPROPIDSET._fields_ = [
+        ('rgPropertyIDs', POINTER(UInt32)),
+        ('cPropertyIDs', UInt32),
+        ('guidPropertySet', Guid),
+    ]
+    return DBPROPIDSET
 def _define_DBPROPINFO_head():
     class DBPROPINFO(Structure):
         pass
@@ -4265,11 +5433,11 @@ def _define_DBPROPINFO_head():
 def _define_DBPROPINFO():
     DBPROPINFO = win32more.System.Search.DBPROPINFO_head
     DBPROPINFO._fields_ = [
-        ("pwszDescription", win32more.Foundation.PWSTR),
-        ("dwPropertyID", UInt32),
-        ("dwFlags", UInt32),
-        ("vtType", UInt16),
-        ("vValues", win32more.System.Com.VARIANT),
+        ('pwszDescription', win32more.Foundation.PWSTR),
+        ('dwPropertyID', UInt32),
+        ('dwFlags', UInt32),
+        ('vtType', win32more.System.Com.VARENUM),
+        ('vValues', win32more.System.Com.VARIANT),
     ]
     return DBPROPINFO
 def _define_DBPROPINFOSET_head():
@@ -4279,15 +5447,27 @@ def _define_DBPROPINFOSET_head():
 def _define_DBPROPINFOSET():
     DBPROPINFOSET = win32more.System.Search.DBPROPINFOSET_head
     DBPROPINFOSET._fields_ = [
-        ("rgPropertyInfos", POINTER(win32more.System.Search.DBPROPINFO_head)),
-        ("cPropertyInfos", UInt32),
-        ("guidPropertySet", Guid),
+        ('rgPropertyInfos', POINTER(win32more.System.Search.DBPROPINFO_head)),
+        ('cPropertyInfos', UInt32),
+        ('guidPropertySet', Guid),
     ]
     return DBPROPINFOSET
 DBPROPOPTIONSENUM = Int32
 DBPROPOPTIONS_REQUIRED = 0
 DBPROPOPTIONS_SETIFCHEAP = 1
 DBPROPOPTIONS_OPTIONAL = 1
+def _define_DBPROPSET_head():
+    class DBPROPSET(Structure):
+        pass
+    return DBPROPSET
+def _define_DBPROPSET():
+    DBPROPSET = win32more.System.Search.DBPROPSET_head
+    DBPROPSET._fields_ = [
+        ('rgProperties', POINTER(win32more.System.Search.DBPROP_head)),
+        ('cProperties', UInt32),
+        ('guidPropertySet', Guid),
+    ]
+    return DBPROPSET
 DBPROPSTATUSENUM = Int32
 DBPROPSTATUS_OK = 0
 DBPROPSTATUS_NOTSUPPORTED = 1
@@ -4300,99 +5480,17 @@ DBPROPSTATUS_NOTSET = 7
 DBPROPSTATUS_CONFLICTING = 8
 DBPROPSTATUSENUM21 = Int32
 DBPROPSTATUS_NOTAVAILABLE = 9
-def _define_DBPROP_head():
-    class DBPROP(Structure):
-        pass
-    return DBPROP
-def _define_DBPROP():
-    DBPROP = win32more.System.Search.DBPROP_head
-    DBPROP._fields_ = [
-        ("dwPropertyID", UInt32),
-        ("dwOptions", UInt32),
-        ("dwStatus", UInt32),
-        ("colid", win32more.Storage.IndexServer.DBID),
-        ("vValue", win32more.System.Com.VARIANT),
-    ]
-    return DBPROP
-def _define_DBPROPSET_head():
-    class DBPROPSET(Structure):
-        pass
-    return DBPROPSET
-def _define_DBPROPSET():
-    DBPROPSET = win32more.System.Search.DBPROPSET_head
-    DBPROPSET._fields_ = [
-        ("rgProperties", POINTER(win32more.System.Search.DBPROP_head)),
-        ("cProperties", UInt32),
-        ("guidPropertySet", Guid),
-    ]
-    return DBPROPSET
-DBINDEX_COL_ORDERENUM = Int32
-DBINDEX_COL_ORDER_ASC = 0
-DBINDEX_COL_ORDER_DESC = 1
-def _define_DBINDEXCOLUMNDESC_head():
-    class DBINDEXCOLUMNDESC(Structure):
-        pass
-    return DBINDEXCOLUMNDESC
-def _define_DBINDEXCOLUMNDESC():
-    DBINDEXCOLUMNDESC = win32more.System.Search.DBINDEXCOLUMNDESC_head
-    DBINDEXCOLUMNDESC._fields_ = [
-        ("pColumnID", POINTER(win32more.Storage.IndexServer.DBID_head)),
-        ("eIndexColOrder", UInt32),
-    ]
-    return DBINDEXCOLUMNDESC
-def _define_DBCOLUMNDESC_head():
-    class DBCOLUMNDESC(Structure):
-        pass
-    return DBCOLUMNDESC
-def _define_DBCOLUMNDESC():
-    DBCOLUMNDESC = win32more.System.Search.DBCOLUMNDESC_head
-    DBCOLUMNDESC._fields_ = [
-        ("pwszTypeName", win32more.Foundation.PWSTR),
-        ("pTypeInfo", win32more.System.Com.ITypeInfo_head),
-        ("rgPropertySets", POINTER(win32more.System.Search.DBPROPSET_head)),
-        ("pclsid", POINTER(Guid)),
-        ("cPropertySets", UInt32),
-        ("ulColumnSize", UIntPtr),
-        ("dbcid", win32more.Storage.IndexServer.DBID),
-        ("wType", UInt16),
-        ("bPrecision", Byte),
-        ("bScale", Byte),
-    ]
-    return DBCOLUMNDESC
-def _define_DBCOLUMNACCESS_head():
-    class DBCOLUMNACCESS(Structure):
-        pass
-    return DBCOLUMNACCESS
-def _define_DBCOLUMNACCESS():
-    DBCOLUMNACCESS = win32more.System.Search.DBCOLUMNACCESS_head
-    DBCOLUMNACCESS._fields_ = [
-        ("pData", c_void_p),
-        ("columnid", win32more.Storage.IndexServer.DBID),
-        ("cbDataLen", UIntPtr),
-        ("dwStatus", UInt32),
-        ("cbMaxLen", UIntPtr),
-        ("dwReserved", UIntPtr),
-        ("wType", UInt16),
-        ("bPrecision", Byte),
-        ("bScale", Byte),
-    ]
-    return DBCOLUMNACCESS
-DBCOLUMNDESCFLAGSENUM = Int32
-DBCOLUMNDESCFLAGS_TYPENAME = 1
-DBCOLUMNDESCFLAGS_ITYPEINFO = 2
-DBCOLUMNDESCFLAGS_PROPERTIES = 4
-DBCOLUMNDESCFLAGS_CLSID = 8
-DBCOLUMNDESCFLAGS_COLSIZE = 16
-DBCOLUMNDESCFLAGS_DBCID = 32
-DBCOLUMNDESCFLAGS_WTYPE = 64
-DBCOLUMNDESCFLAGS_PRECISION = 128
-DBCOLUMNDESCFLAGS_SCALE = 256
-DBEVENTPHASEENUM = Int32
-DBEVENTPHASE_OKTODO = 0
-DBEVENTPHASE_ABOUTTODO = 1
-DBEVENTPHASE_SYNCHAFTER = 2
-DBEVENTPHASE_FAILEDTODO = 3
-DBEVENTPHASE_DIDEVENT = 4
+DBRANGEENUM = Int32
+DBRANGE_INCLUSIVESTART = 0
+DBRANGE_INCLUSIVEEND = 0
+DBRANGE_EXCLUSIVESTART = 1
+DBRANGE_EXCLUSIVEEND = 2
+DBRANGE_EXCLUDENULLS = 4
+DBRANGE_PREFIX = 8
+DBRANGE_MATCH = 16
+DBRANGEENUM20 = Int32
+DBRANGE_MATCH_N_SHIFT = 24
+DBRANGE_MATCH_N_MASK = 255
 DBREASONENUM = Int32
 DBREASON_ROWSET_FETCHPOSITIONCHANGE = 0
 DBREASON_ROWSET_RELEASE = 1
@@ -4414,351 +5512,63 @@ DBREASON_ROWPOSITION_CHANGED = 15
 DBREASON_ROWPOSITION_CHAPTERCHANGED = 16
 DBREASON_ROWPOSITION_CLEARED = 17
 DBREASON_ROW_ASYNCHINSERT = 18
-DBCOMPAREOPSENUM = Int32
-DBCOMPAREOPS_LT = 0
-DBCOMPAREOPS_LE = 1
-DBCOMPAREOPS_EQ = 2
-DBCOMPAREOPS_GE = 3
-DBCOMPAREOPS_GT = 4
-DBCOMPAREOPS_BEGINSWITH = 5
-DBCOMPAREOPS_CONTAINS = 6
-DBCOMPAREOPS_NE = 7
-DBCOMPAREOPS_IGNORE = 8
-DBCOMPAREOPS_CASESENSITIVE = 4096
-DBCOMPAREOPS_CASEINSENSITIVE = 8192
-DBCOMPAREOPSENUM20 = Int32
-DBCOMPAREOPS_NOTBEGINSWITH = 9
-DBCOMPAREOPS_NOTCONTAINS = 10
-DBASYNCHOPENUM = Int32
-DBASYNCHOP_OPEN = 0
-DBASYNCHPHASEENUM = Int32
-DBASYNCHPHASE_INITIALIZATION = 0
-DBASYNCHPHASE_POPULATION = 1
-DBASYNCHPHASE_COMPLETE = 2
-DBASYNCHPHASE_CANCELED = 3
-DBSORTENUM = Int32
-DBSORT_ASCENDING = 0
-DBSORT_DESCENDING = 1
-DBCOMMANDPERSISTFLAGENUM = Int32
-DBCOMMANDPERSISTFLAG_NOSAVE = 1
-DBCOMMANDPERSISTFLAGENUM21 = Int32
-DBCOMMANDPERSISTFLAG_DEFAULT = 0
-DBCOMMANDPERSISTFLAG_PERSISTVIEW = 2
-DBCOMMANDPERSISTFLAG_PERSISTPROCEDURE = 4
-DBCONSTRAINTTYPEENUM = Int32
-DBCONSTRAINTTYPE_UNIQUE = 0
-DBCONSTRAINTTYPE_FOREIGNKEY = 1
-DBCONSTRAINTTYPE_PRIMARYKEY = 2
-DBCONSTRAINTTYPE_CHECK = 3
-DBUPDELRULEENUM = Int32
-DBUPDELRULE_NOACTION = 0
-DBUPDELRULE_CASCADE = 1
-DBUPDELRULE_SETNULL = 2
-DBUPDELRULE_SETDEFAULT = 3
-DBMATCHTYPEENUM = Int32
-DBMATCHTYPE_FULL = 0
-DBMATCHTYPE_NONE = 1
-DBMATCHTYPE_PARTIAL = 2
-DBDEFERRABILITYENUM = Int32
-DBDEFERRABILITY_DEFERRED = 1
-DBDEFERRABILITY_DEFERRABLE = 2
-def _define_DBCONSTRAINTDESC_head():
-    class DBCONSTRAINTDESC(Structure):
+DBREASONENUM25 = Int32
+DBREASON_ROWSET_ROWSADDED = 19
+DBREASON_ROWSET_POPULATIONCOMPLETE = 20
+DBREASON_ROWSET_POPULATIONSTOPPED = 21
+DBRESOURCEKINDENUM = Int32
+DBRESOURCE_INVALID = 0
+DBRESOURCE_TOTAL = 1
+DBRESOURCE_CPU = 2
+DBRESOURCE_MEMORY = 3
+DBRESOURCE_DISK = 4
+DBRESOURCE_NETWORK = 5
+DBRESOURCE_RESPONSE = 6
+DBRESOURCE_ROWS = 7
+DBRESOURCE_OTHER = 8
+DBRESULTFLAGENUM = Int32
+DBRESULTFLAG_DEFAULT = 0
+DBRESULTFLAG_ROWSET = 1
+DBRESULTFLAG_ROW = 2
+DBROWCHANGEKINDENUM = Int32
+DBROWCHANGEKIND_INSERT = 0
+DBROWCHANGEKIND_DELETE = 1
+DBROWCHANGEKIND_UPDATE = 2
+DBROWCHANGEKIND_COUNT = 3
+DBROWSTATUSENUM = Int32
+DBROWSTATUS_S_OK = 0
+DBROWSTATUS_S_MULTIPLECHANGES = 2
+DBROWSTATUS_S_PENDINGCHANGES = 3
+DBROWSTATUS_E_CANCELED = 4
+DBROWSTATUS_E_CANTRELEASE = 6
+DBROWSTATUS_E_CONCURRENCYVIOLATION = 7
+DBROWSTATUS_E_DELETED = 8
+DBROWSTATUS_E_PENDINGINSERT = 9
+DBROWSTATUS_E_NEWLYINSERTED = 10
+DBROWSTATUS_E_INTEGRITYVIOLATION = 11
+DBROWSTATUS_E_INVALID = 12
+DBROWSTATUS_E_MAXPENDCHANGESEXCEEDED = 13
+DBROWSTATUS_E_OBJECTOPEN = 14
+DBROWSTATUS_E_OUTOFMEMORY = 15
+DBROWSTATUS_E_PERMISSIONDENIED = 16
+DBROWSTATUS_E_LIMITREACHED = 17
+DBROWSTATUS_E_SCHEMAVIOLATION = 18
+DBROWSTATUS_E_FAIL = 19
+DBROWSTATUSENUM20 = Int32
+DBROWSTATUS_S_NOCHANGE = 20
+def _define_DBROWWATCHCHANGE_head():
+    class DBROWWATCHCHANGE(Structure):
         pass
-    return DBCONSTRAINTDESC
-def _define_DBCONSTRAINTDESC():
-    DBCONSTRAINTDESC = win32more.System.Search.DBCONSTRAINTDESC_head
-    DBCONSTRAINTDESC._fields_ = [
-        ("pConstraintID", POINTER(win32more.Storage.IndexServer.DBID_head)),
-        ("ConstraintType", UInt32),
-        ("cColumns", UIntPtr),
-        ("rgColumnList", POINTER(win32more.Storage.IndexServer.DBID_head)),
-        ("pReferencedTableID", POINTER(win32more.Storage.IndexServer.DBID_head)),
-        ("cForeignKeyColumns", UIntPtr),
-        ("rgForeignKeyColumnList", POINTER(win32more.Storage.IndexServer.DBID_head)),
-        ("pwszConstraintText", win32more.Foundation.PWSTR),
-        ("UpdateRule", UInt32),
-        ("DeleteRule", UInt32),
-        ("MatchType", UInt32),
-        ("Deferrability", UInt32),
-        ("cReserved", UIntPtr),
-        ("rgReserved", POINTER(win32more.System.Search.DBPROPSET_head)),
+    return DBROWWATCHCHANGE
+def _define_DBROWWATCHCHANGE():
+    DBROWWATCHCHANGE = win32more.System.Search.DBROWWATCHCHANGE_head
+    DBROWWATCHCHANGE._fields_ = [
+        ('hRegion', UIntPtr),
+        ('eChangeKind', UInt32),
+        ('hRow', UIntPtr),
+        ('iRow', UIntPtr),
     ]
-    return DBCONSTRAINTDESC
-def _define_MDAXISINFO_head():
-    class MDAXISINFO(Structure):
-        pass
-    return MDAXISINFO
-def _define_MDAXISINFO():
-    MDAXISINFO = win32more.System.Search.MDAXISINFO_head
-    MDAXISINFO._fields_ = [
-        ("cbSize", UIntPtr),
-        ("iAxis", UIntPtr),
-        ("cDimensions", UIntPtr),
-        ("cCoordinates", UIntPtr),
-        ("rgcColumns", POINTER(UIntPtr)),
-        ("rgpwszDimensionNames", POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return MDAXISINFO
-def _define_RMTPACK_head():
-    class RMTPACK(Structure):
-        pass
-    return RMTPACK
-def _define_RMTPACK():
-    RMTPACK = win32more.System.Search.RMTPACK_head
-    RMTPACK._fields_ = [
-        ("pISeqStream", win32more.System.Com.ISequentialStream_head),
-        ("cbData", UInt32),
-        ("cBSTR", UInt32),
-        ("rgBSTR", POINTER(win32more.Foundation.BSTR)),
-        ("cVARIANT", UInt32),
-        ("rgVARIANT", POINTER(win32more.System.Com.VARIANT_head)),
-        ("cIDISPATCH", UInt32),
-        ("rgIDISPATCH", POINTER(win32more.System.Com.IDispatch_head)),
-        ("cIUNKNOWN", UInt32),
-        ("rgIUNKNOWN", POINTER(win32more.System.Com.IUnknown_head)),
-        ("cPROPVARIANT", UInt32),
-        ("rgPROPVARIANT", POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
-        ("cArray", UInt32),
-        ("rgArray", POINTER(win32more.System.Com.VARIANT_head)),
-    ]
-    return RMTPACK
-DBACCESSORFLAGSENUM = Int32
-DBACCESSOR_INVALID = 0
-DBACCESSOR_PASSBYREF = 1
-DBACCESSOR_ROWDATA = 2
-DBACCESSOR_PARAMETERDATA = 4
-DBACCESSOR_OPTIMIZED = 8
-DBACCESSOR_INHERITED = 16
-DBBINDSTATUSENUM = Int32
-DBBINDSTATUS_OK = 0
-DBBINDSTATUS_BADORDINAL = 1
-DBBINDSTATUS_UNSUPPORTEDCONVERSION = 2
-DBBINDSTATUS_BADBINDINFO = 3
-DBBINDSTATUS_BADSTORAGEFLAGS = 4
-DBBINDSTATUS_NOINTERFACE = 5
-DBBINDSTATUS_MULTIPLESTORAGE = 6
-def _define_IAccessor_head():
-    class IAccessor(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a8c-2a1c-11ce-ade5-00aa0044773d')
-    return IAccessor
-def _define_IAccessor():
-    IAccessor = win32more.System.Search.IAccessor_head
-    IAccessor.AddRefAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(3, 'AddRefAccessor', ((1, 'hAccessor'),(1, 'pcRefCount'),)))
-    IAccessor.CreateAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Search.DBBINDING),UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(4, 'CreateAccessor', ((1, 'dwAccessorFlags'),(1, 'cBindings'),(1, 'rgBindings'),(1, 'cbRowSize'),(1, 'phAccessor'),(1, 'rgStatus'),)))
-    IAccessor.GetBindings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32),POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBBINDING_head)), use_last_error=False)(5, 'GetBindings', ((1, 'hAccessor'),(1, 'pdwAccessorFlags'),(1, 'pcBindings'),(1, 'prgBindings'),)))
-    IAccessor.ReleaseAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(6, 'ReleaseAccessor', ((1, 'hAccessor'),(1, 'pcRefCount'),)))
-    win32more.System.Com.IUnknown
-    return IAccessor
-def _define_IRowset_head():
-    class IRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a7c-2a1c-11ce-ade5-00aa0044773d')
-    return IRowset
-def _define_IRowset():
-    IRowset = win32more.System.Search.IRowset_head
-    IRowset.AddRefRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'AddRefRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'rgRefCounts'),(1, 'rgRowStatus'),)))
-    IRowset.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(4, 'GetData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
-    IRowset.GetNextRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(5, 'GetNextRows', ((1, 'hReserved'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
-    IRowset.ReleaseRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(6, 'ReleaseRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'rgRowOptions'),(1, 'rgRefCounts'),(1, 'rgRowStatus'),)))
-    IRowset.RestartPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(7, 'RestartPosition', ((1, 'hReserved'),)))
-    win32more.System.Com.IUnknown
-    return IRowset
-def _define_IRowsetInfo_head():
-    class IRowsetInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a55-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetInfo
-def _define_IRowsetInfo():
-    IRowsetInfo = win32more.System.Search.IRowsetInfo_head
-    IRowsetInfo.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
-    IRowsetInfo.GetReferencedRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetReferencedRowset', ((1, 'iOrdinal'),(1, 'riid'),(1, 'ppReferencedRowset'),)))
-    IRowsetInfo.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetSpecification', ((1, 'riid'),(1, 'ppSpecification'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetInfo
-DBCOMPAREENUM = Int32
-DBCOMPARE_LT = 0
-DBCOMPARE_EQ = 1
-DBCOMPARE_GT = 2
-DBCOMPARE_NE = 3
-DBCOMPARE_NOTCOMPARABLE = 4
-def _define_IRowsetLocate_head():
-    class IRowsetLocate(win32more.System.Search.IRowset_head):
-        Guid = Guid('0c733a7d-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetLocate
-def _define_IRowsetLocate():
-    IRowsetLocate = win32more.System.Search.IRowsetLocate_head
-    IRowsetLocate.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,UIntPtr,c_char_p_no,POINTER(UInt32), use_last_error=False)(8, 'Compare', ((1, 'hReserved'),(1, 'cbBookmark1'),(1, 'pBookmark1'),(1, 'cbBookmark2'),(1, 'pBookmark2'),(1, 'pComparison'),)))
-    IRowsetLocate.GetRowsAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_char_p_no,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(9, 'GetRowsAt', ((1, 'hReserved1'),(1, 'hReserved2'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
-    IRowsetLocate.GetRowsByBookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(10, 'GetRowsByBookmark', ((1, 'hReserved'),(1, 'cRows'),(1, 'rgcbBookmarks'),(1, 'rgpBookmarks'),(1, 'rghRows'),(1, 'rgRowStatus'),)))
-    IRowsetLocate.Hash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(11, 'Hash', ((1, 'hReserved'),(1, 'cBookmarks'),(1, 'rgcbBookmarks'),(1, 'rgpBookmarks'),(1, 'rgHashedValues'),(1, 'rgBookmarkStatus'),)))
-    win32more.System.Search.IRowset
-    return IRowsetLocate
-def _define_IRowsetResynch_head():
-    class IRowsetResynch(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a84-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetResynch
-def _define_IRowsetResynch():
-    IRowsetResynch = win32more.System.Search.IRowsetResynch_head
-    IRowsetResynch.GetVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(3, 'GetVisibleData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
-    IRowsetResynch.ResynchRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(4, 'ResynchRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'pcRowsResynched'),(1, 'prghRowsResynched'),(1, 'prgRowStatus'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetResynch
-def _define_IRowsetScroll_head():
-    class IRowsetScroll(win32more.System.Search.IRowsetLocate_head):
-        Guid = Guid('0c733a7e-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetScroll
-def _define_IRowsetScroll():
-    IRowsetScroll = win32more.System.Search.IRowsetScroll_head
-    IRowsetScroll.GetApproximatePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,POINTER(UIntPtr),POINTER(UIntPtr), use_last_error=False)(12, 'GetApproximatePosition', ((1, 'hReserved'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'pulPosition'),(1, 'pcRows'),)))
-    IRowsetScroll.GetRowsAtRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,UIntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(13, 'GetRowsAtRatio', ((1, 'hReserved1'),(1, 'hReserved2'),(1, 'ulNumerator'),(1, 'ulDenominator'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
-    win32more.System.Search.IRowsetLocate
-    return IRowsetScroll
-def _define_IChapteredRowset_head():
-    class IChapteredRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a93-2a1c-11ce-ade5-00aa0044773d')
-    return IChapteredRowset
-def _define_IChapteredRowset():
-    IChapteredRowset = win32more.System.Search.IChapteredRowset_head
-    IChapteredRowset.AddRefChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(3, 'AddRefChapter', ((1, 'hChapter'),(1, 'pcRefCount'),)))
-    IChapteredRowset.ReleaseChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(4, 'ReleaseChapter', ((1, 'hChapter'),(1, 'pcRefCount'),)))
-    win32more.System.Com.IUnknown
-    return IChapteredRowset
-def _define_IRowsetFind_head():
-    class IRowsetFind(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a9d-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetFind
-def _define_IRowsetFind():
-    IRowsetFind = win32more.System.Search.IRowsetFind_head
-    IRowsetFind.FindNextRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,UInt32,UIntPtr,c_char_p_no,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(3, 'FindNextRow', ((1, 'hChapter'),(1, 'hAccessor'),(1, 'pFindValue'),(1, 'CompareOp'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetFind
-DBPOSITIONFLAGSENUM = Int32
-DBPOSITION_OK = 0
-DBPOSITION_NOROW = 1
-DBPOSITION_BOF = 2
-DBPOSITION_EOF = 3
-def _define_IRowPosition_head():
-    class IRowPosition(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a94-2a1c-11ce-ade5-00aa0044773d')
-    return IRowPosition
-def _define_IRowPosition():
-    IRowPosition = win32more.System.Search.IRowPosition_head
-    IRowPosition.ClearRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ClearRowPosition', ()))
-    IRowPosition.GetRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(4, 'GetRowPosition', ((1, 'phChapter'),(1, 'phRow'),(1, 'pdwPositionFlags'),)))
-    IRowPosition.GetRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetRowset', ((1, 'riid'),(1, 'ppRowset'),)))
-    IRowPosition.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'Initialize', ((1, 'pRowset'),)))
-    IRowPosition.SetRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UInt32, use_last_error=False)(7, 'SetRowPosition', ((1, 'hChapter'),(1, 'hRow'),(1, 'dwPositionFlags'),)))
-    win32more.System.Com.IUnknown
-    return IRowPosition
-def _define_IRowPositionChange_head():
-    class IRowPositionChange(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0997a571-126e-11d0-9f8a-00a0c9a0631e')
-    return IRowPositionChange
-def _define_IRowPositionChange():
-    IRowPositionChange = win32more.System.Search.IRowPositionChange_head
-    IRowPositionChange.OnRowPositionChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'OnRowPositionChange', ((1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
-    win32more.System.Com.IUnknown
-    return IRowPositionChange
-def _define_IViewRowset_head():
-    class IViewRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a97-2a1c-11ce-ade5-00aa0044773d')
-    return IViewRowset
-def _define_IViewRowset():
-    IViewRowset = win32more.System.Search.IViewRowset_head
-    IViewRowset.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSpecification', ((1, 'riid'),(1, 'ppObject'),)))
-    IViewRowset.OpenViewRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'OpenViewRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppRowset'),)))
-    win32more.System.Com.IUnknown
-    return IViewRowset
-def _define_IViewChapter_head():
-    class IViewChapter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a98-2a1c-11ce-ade5-00aa0044773d')
-    return IViewChapter
-def _define_IViewChapter():
-    IViewChapter = win32more.System.Search.IViewChapter_head
-    IViewChapter.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSpecification', ((1, 'riid'),(1, 'ppRowset'),)))
-    IViewChapter.OpenViewChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr), use_last_error=False)(4, 'OpenViewChapter', ((1, 'hSource'),(1, 'phViewChapter'),)))
-    win32more.System.Com.IUnknown
-    return IViewChapter
-def _define_IViewSort_head():
-    class IViewSort(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a9a-2a1c-11ce-ade5-00aa0044773d')
-    return IViewSort
-def _define_IViewSort():
-    IViewSort = win32more.System.Search.IViewSort_head
-    IViewSort.GetSortOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(3, 'GetSortOrder', ((1, 'pcValues'),(1, 'prgColumns'),(1, 'prgOrders'),)))
-    IViewSort.SetSortOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(4, 'SetSortOrder', ((1, 'cValues'),(1, 'rgColumns'),(1, 'rgOrders'),)))
-    win32more.System.Com.IUnknown
-    return IViewSort
-def _define_IViewFilter_head():
-    class IViewFilter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a9b-2a1c-11ce-ade5-00aa0044773d')
-    return IViewFilter
-def _define_IViewFilter():
-    IViewFilter = win32more.System.Search.IViewFilter_head
-    IViewFilter.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(POINTER(UInt32)),c_void_p, use_last_error=False)(3, 'GetFilter', ((1, 'hAccessor'),(1, 'pcRows'),(1, 'pCompareOps'),(1, 'pCriteriaData'),)))
-    IViewFilter.GetFilterBindings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBBINDING_head)), use_last_error=False)(4, 'GetFilterBindings', ((1, 'pcBindings'),(1, 'prgBindings'),)))
-    IViewFilter.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UInt32),c_void_p, use_last_error=False)(5, 'SetFilter', ((1, 'hAccessor'),(1, 'cRows'),(1, 'CompareOps'),(1, 'pCriteriaData'),)))
-    win32more.System.Com.IUnknown
-    return IViewFilter
-def _define_IRowsetView_head():
-    class IRowsetView(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a99-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetView
-def _define_IRowsetView():
-    IRowsetView = win32more.System.Search.IRowsetView_head
-    IRowsetView.CreateView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateView', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppView'),)))
-    IRowsetView.GetView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(Guid),POINTER(UIntPtr),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetView', ((1, 'hChapter'),(1, 'riid'),(1, 'phChapterSource'),(1, 'ppView'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetView
-def _define_IRowsetChange_head():
-    class IRowsetChange(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a05-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetChange
-def _define_IRowsetChange():
-    IRowsetChange = win32more.System.Search.IRowsetChange_head
-    IRowsetChange.DeleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(3, 'DeleteRows', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'rgRowStatus'),)))
-    IRowsetChange.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(4, 'SetData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
-    IRowsetChange.InsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,POINTER(UIntPtr), use_last_error=False)(5, 'InsertRow', ((1, 'hReserved'),(1, 'hAccessor'),(1, 'pData'),(1, 'phRow'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetChange
-DBPENDINGSTATUSENUM = Int32
-DBPENDINGSTATUS_NEW = 1
-DBPENDINGSTATUS_CHANGED = 2
-DBPENDINGSTATUS_DELETED = 4
-DBPENDINGSTATUS_UNCHANGED = 8
-DBPENDINGSTATUS_INVALIDROW = 16
-def _define_IRowsetUpdate_head():
-    class IRowsetUpdate(win32more.System.Search.IRowsetChange_head):
-        Guid = Guid('0c733a6d-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetUpdate
-def _define_IRowsetUpdate():
-    IRowsetUpdate = win32more.System.Search.IRowsetUpdate_head
-    IRowsetUpdate.GetOriginalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(6, 'GetOriginalData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
-    IRowsetUpdate.GetPendingRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(7, 'GetPendingRows', ((1, 'hReserved'),(1, 'dwRowStatus'),(1, 'pcPendingRows'),(1, 'prgPendingRows'),(1, 'prgPendingStatus'),)))
-    IRowsetUpdate.GetRowStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(8, 'GetRowStatus', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'rgPendingStatus'),)))
-    IRowsetUpdate.Undo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(9, 'Undo', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'pcRowsUndone'),(1, 'prgRowsUndone'),(1, 'prgRowStatus'),)))
-    IRowsetUpdate.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(10, 'Update', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'pcRows'),(1, 'prgRows'),(1, 'prgRowStatus'),)))
-    win32more.System.Search.IRowsetChange
-    return IRowsetUpdate
-def _define_IRowsetIdentity_head():
-    class IRowsetIdentity(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a09-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetIdentity
-def _define_IRowsetIdentity():
-    IRowsetIdentity = win32more.System.Search.IRowsetIdentity_head
-    IRowsetIdentity.IsSameRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr, use_last_error=False)(3, 'IsSameRow', ((1, 'hThisRow'),(1, 'hThatRow'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetIdentity
-def _define_IRowsetNotify_head():
-    class IRowsetNotify(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a83-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetNotify
-def _define_IRowsetNotify():
-    IRowsetNotify = win32more.System.Search.IRowsetNotify_head
-    IRowsetNotify.OnFieldChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,UIntPtr,POINTER(UIntPtr),UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'OnFieldChange', ((1, 'pRowset'),(1, 'hRow'),(1, 'cColumns'),(1, 'rgColumns'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
-    IRowsetNotify.OnRowChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,POINTER(UIntPtr),UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(4, 'OnRowChange', ((1, 'pRowset'),(1, 'cRows'),(1, 'rghRows'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
-    IRowsetNotify.OnRowsetChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(5, 'OnRowsetChange', ((1, 'pRowset'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetNotify
+    return DBROWWATCHCHANGE
 DBSEEKENUM = Int32
 DBSEEK_INVALID = 0
 DBSEEK_FIRSTEQ = 1
@@ -4767,162 +5577,9 @@ DBSEEK_AFTEREQ = 4
 DBSEEK_AFTER = 8
 DBSEEK_BEFOREEQ = 16
 DBSEEK_BEFORE = 32
-DBRANGEENUM = Int32
-DBRANGE_INCLUSIVESTART = 0
-DBRANGE_INCLUSIVEEND = 0
-DBRANGE_EXCLUSIVESTART = 1
-DBRANGE_EXCLUSIVEEND = 2
-DBRANGE_EXCLUDENULLS = 4
-DBRANGE_PREFIX = 8
-DBRANGE_MATCH = 16
-DBRANGEENUM20 = Int32
-DBRANGE_MATCH_N_SHIFT = 24
-DBRANGE_MATCH_N_MASK = 255
-def _define_IRowsetIndex_head():
-    class IRowsetIndex(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a82-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetIndex
-def _define_IRowsetIndex():
-    IRowsetIndex = win32more.System.Search.IRowsetIndex_head
-    IRowsetIndex.GetIndexInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBINDEXCOLUMNDESC_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetIndexInfo', ((1, 'pcKeyColumns'),(1, 'prgIndexColumnDesc'),(1, 'pcIndexPropertySets'),(1, 'prgIndexPropertySets'),)))
-    IRowsetIndex.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,UInt32, use_last_error=False)(4, 'Seek', ((1, 'hAccessor'),(1, 'cKeyValues'),(1, 'pData'),(1, 'dwSeekOptions'),)))
-    IRowsetIndex.SetRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,UIntPtr,c_void_p,UInt32, use_last_error=False)(5, 'SetRange', ((1, 'hAccessor'),(1, 'cStartKeyColumns'),(1, 'pStartData'),(1, 'cEndKeyColumns'),(1, 'pEndData'),(1, 'dwRangeOptions'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetIndex
-def _define_ICommand_head():
-    class ICommand(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a63-2a1c-11ce-ade5-00aa0044773d')
-    return ICommand
-def _define_ICommand():
-    ICommand = win32more.System.Search.ICommand_head
-    ICommand.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Cancel', ()))
-    ICommand.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Search.DBPARAMS_head),POINTER(IntPtr),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'Execute', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'pParams'),(1, 'pcRowsAffected'),(1, 'ppRowset'),)))
-    ICommand.GetDBSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetDBSession', ((1, 'riid'),(1, 'ppSession'),)))
-    win32more.System.Com.IUnknown
-    return ICommand
-DBRESULTFLAGENUM = Int32
-DBRESULTFLAG_DEFAULT = 0
-DBRESULTFLAG_ROWSET = 1
-DBRESULTFLAG_ROW = 2
-def _define_IMultipleResults_head():
-    class IMultipleResults(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a90-2a1c-11ce-ade5-00aa0044773d')
-    return IMultipleResults
-def _define_IMultipleResults():
-    IMultipleResults = win32more.System.Search.IMultipleResults_head
-    IMultipleResults.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,IntPtr,POINTER(Guid),POINTER(IntPtr),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetResult', ((1, 'pUnkOuter'),(1, 'lResultFlag'),(1, 'riid'),(1, 'pcRowsAffected'),(1, 'ppRowset'),)))
-    win32more.System.Com.IUnknown
-    return IMultipleResults
-DBCONVERTFLAGSENUM = Int32
-DBCONVERTFLAGS_COLUMN = 0
-DBCONVERTFLAGS_PARAMETER = 1
-DBCONVERTFLAGSENUM20 = Int32
-DBCONVERTFLAGS_ISLONG = 2
-DBCONVERTFLAGS_ISFIXEDLENGTH = 4
-DBCONVERTFLAGS_FROMVARIANT = 8
-def _define_IConvertType_head():
-    class IConvertType(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a88-2a1c-11ce-ade5-00aa0044773d')
-    return IConvertType
-def _define_IConvertType():
-    IConvertType = win32more.System.Search.IConvertType_head
-    IConvertType.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,UInt32, use_last_error=False)(3, 'CanConvert', ((1, 'wFromType'),(1, 'wToType'),(1, 'dwConvertFlags'),)))
-    win32more.System.Com.IUnknown
-    return IConvertType
-def _define_ICommandPrepare_head():
-    class ICommandPrepare(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a26-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandPrepare
-def _define_ICommandPrepare():
-    ICommandPrepare = win32more.System.Search.ICommandPrepare_head
-    ICommandPrepare.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'Prepare', ((1, 'cExpectedRuns'),)))
-    ICommandPrepare.Unprepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unprepare', ()))
-    win32more.System.Com.IUnknown
-    return ICommandPrepare
-def _define_ICommandProperties_head():
-    class ICommandProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a79-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandProperties
-def _define_ICommandProperties():
-    ICommandProperties = win32more.System.Search.ICommandProperties_head
-    ICommandProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
-    ICommandProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(4, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return ICommandProperties
-def _define_ICommandText_head():
-    class ICommandText(win32more.System.Search.ICommand_head):
-        Guid = Guid('0c733a27-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandText
-def _define_ICommandText():
-    ICommandText = win32more.System.Search.ICommandText_head
-    ICommandText.GetCommandText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetCommandText', ((1, 'pguidDialect'),(1, 'ppwszCommand'),)))
-    ICommandText.SetCommandText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetCommandText', ((1, 'rguidDialect'),(1, 'pwszCommand'),)))
-    win32more.System.Search.ICommand
-    return ICommandText
-def _define_DBPARAMBINDINFO_head():
-    class DBPARAMBINDINFO(Structure):
-        pass
-    return DBPARAMBINDINFO
-def _define_DBPARAMBINDINFO():
-    DBPARAMBINDINFO = win32more.System.Search.DBPARAMBINDINFO_head
-    DBPARAMBINDINFO._fields_ = [
-        ("pwszDataSourceType", win32more.Foundation.PWSTR),
-        ("pwszName", win32more.Foundation.PWSTR),
-        ("ulParamSize", UIntPtr),
-        ("dwFlags", UInt32),
-        ("bPrecision", Byte),
-        ("bScale", Byte),
-    ]
-    return DBPARAMBINDINFO
-def _define_ICommandWithParameters_head():
-    class ICommandWithParameters(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a64-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandWithParameters
-def _define_ICommandWithParameters():
-    ICommandWithParameters = win32more.System.Search.ICommandWithParameters_head
-    ICommandWithParameters.GetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetParameterInfo', ((1, 'pcParams'),(1, 'prgParamInfo'),(1, 'ppNamesBuffer'),)))
-    ICommandWithParameters.MapParameterNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(IntPtr), use_last_error=False)(4, 'MapParameterNames', ((1, 'cParamNames'),(1, 'rgParamNames'),(1, 'rgParamOrdinals'),)))
-    ICommandWithParameters.SetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(win32more.System.Search.DBPARAMBINDINFO), use_last_error=False)(5, 'SetParameterInfo', ((1, 'cParams'),(1, 'rgParamOrdinals'),(1, 'rgParamBindInfo'),)))
-    win32more.System.Com.IUnknown
-    return ICommandWithParameters
-def _define_IColumnsRowset_head():
-    class IColumnsRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a10-2a1c-11ce-ade5-00aa0044773d')
-    return IColumnsRowset
-def _define_IColumnsRowset():
-    IColumnsRowset = win32more.System.Search.IColumnsRowset_head
-    IColumnsRowset.GetAvailableColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(3, 'GetAvailableColumns', ((1, 'pcOptColumns'),(1, 'prgOptColumns'),)))
-    IColumnsRowset.GetColumnsRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetColumnsRowset', ((1, 'pUnkOuter'),(1, 'cOptColumns'),(1, 'rgOptColumns'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppColRowset'),)))
-    win32more.System.Com.IUnknown
-    return IColumnsRowset
-def _define_IColumnsInfo_head():
-    class IColumnsInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a11-2a1c-11ce-ade5-00aa0044773d')
-    return IColumnsInfo
-def _define_IColumnsInfo():
-    IColumnsInfo = win32more.System.Search.IColumnsInfo_head
-    IColumnsInfo.GetColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBCOLUMNINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetColumnInfo', ((1, 'pcColumns'),(1, 'prgInfo'),(1, 'ppStringsBuffer'),)))
-    IColumnsInfo.MapColumnIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID),POINTER(UIntPtr), use_last_error=False)(4, 'MapColumnIDs', ((1, 'cColumnIDs'),(1, 'rgColumnIDs'),(1, 'rgColumns'),)))
-    win32more.System.Com.IUnknown
-    return IColumnsInfo
-def _define_IDBCreateCommand_head():
-    class IDBCreateCommand(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a1d-2a1c-11ce-ade5-00aa0044773d')
-    return IDBCreateCommand
-def _define_IDBCreateCommand():
-    IDBCreateCommand = win32more.System.Search.IDBCreateCommand_head
-    IDBCreateCommand.CreateCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateCommand', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppCommand'),)))
-    win32more.System.Com.IUnknown
-    return IDBCreateCommand
-def _define_IDBCreateSession_head():
-    class IDBCreateSession(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a5d-2a1c-11ce-ade5-00aa0044773d')
-    return IDBCreateSession
-def _define_IDBCreateSession():
-    IDBCreateSession = win32more.System.Search.IDBCreateSession_head
-    IDBCreateSession.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateSession', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppDBSession'),)))
-    win32more.System.Com.IUnknown
-    return IDBCreateSession
+DBSORTENUM = Int32
+DBSORT_ASCENDING = 0
+DBSORT_DESCENDING = 1
 DBSOURCETYPEENUM = Int32
 DBSOURCETYPE_DATASOURCE = 1
 DBSOURCETYPE_ENUMERATOR = 2
@@ -4931,270 +5588,180 @@ DBSOURCETYPE_DATASOURCE_TDP = 1
 DBSOURCETYPE_DATASOURCE_MDP = 3
 DBSOURCETYPEENUM25 = Int32
 DBSOURCETYPE_BINDER = 4
-def _define_ISourcesRowset_head():
-    class ISourcesRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a1e-2a1c-11ce-ade5-00aa0044773d')
-    return ISourcesRowset
-def _define_ISourcesRowset():
-    ISourcesRowset = win32more.System.Search.ISourcesRowset_head
-    ISourcesRowset.GetSourcesRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSourcesRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgProperties'),(1, 'ppSourcesRowset'),)))
-    win32more.System.Com.IUnknown
-    return ISourcesRowset
-def _define_IDBProperties_head():
-    class IDBProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a8a-2a1c-11ce-ade5-00aa0044773d')
-    return IDBProperties
-def _define_IDBProperties():
-    IDBProperties = win32more.System.Search.IDBProperties_head
-    IDBProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
-    IDBProperties.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPINFOSET_head)),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'GetPropertyInfo', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertyInfoSets'),(1, 'prgPropertyInfoSets'),(1, 'ppDescBuffer'),)))
-    IDBProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(5, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return IDBProperties
-def _define_IDBInitialize_head():
-    class IDBInitialize(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a8b-2a1c-11ce-ade5-00aa0044773d')
-    return IDBInitialize
-def _define_IDBInitialize():
-    IDBInitialize = win32more.System.Search.IDBInitialize_head
-    IDBInitialize.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
-    IDBInitialize.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Uninitialize', ()))
-    win32more.System.Com.IUnknown
-    return IDBInitialize
-DBLITERALENUM = Int32
-DBLITERAL_INVALID = 0
-DBLITERAL_BINARY_LITERAL = 1
-DBLITERAL_CATALOG_NAME = 2
-DBLITERAL_CATALOG_SEPARATOR = 3
-DBLITERAL_CHAR_LITERAL = 4
-DBLITERAL_COLUMN_ALIAS = 5
-DBLITERAL_COLUMN_NAME = 6
-DBLITERAL_CORRELATION_NAME = 7
-DBLITERAL_CURSOR_NAME = 8
-DBLITERAL_ESCAPE_PERCENT = 9
-DBLITERAL_ESCAPE_UNDERSCORE = 10
-DBLITERAL_INDEX_NAME = 11
-DBLITERAL_LIKE_PERCENT = 12
-DBLITERAL_LIKE_UNDERSCORE = 13
-DBLITERAL_PROCEDURE_NAME = 14
-DBLITERAL_QUOTE = 15
-DBLITERAL_SCHEMA_NAME = 16
-DBLITERAL_TABLE_NAME = 17
-DBLITERAL_TEXT_COMMAND = 18
-DBLITERAL_USER_NAME = 19
-DBLITERAL_VIEW_NAME = 20
-DBLITERALENUM20 = Int32
-DBLITERAL_CUBE_NAME = 21
-DBLITERAL_DIMENSION_NAME = 22
-DBLITERAL_HIERARCHY_NAME = 23
-DBLITERAL_LEVEL_NAME = 24
-DBLITERAL_MEMBER_NAME = 25
-DBLITERAL_PROPERTY_NAME = 26
-DBLITERAL_SCHEMA_SEPARATOR = 27
-DBLITERAL_QUOTE_SUFFIX = 28
-DBLITERALENUM21 = Int32
-DBLITERAL_ESCAPE_PERCENT_SUFFIX = 29
-DBLITERAL_ESCAPE_UNDERSCORE_SUFFIX = 30
-def _define_DBLITERALINFO_head():
-    class DBLITERALINFO(Structure):
+DBSTATUSENUM = Int32
+DBSTATUS_S_OK = 0
+DBSTATUS_E_BADACCESSOR = 1
+DBSTATUS_E_CANTCONVERTVALUE = 2
+DBSTATUS_S_ISNULL = 3
+DBSTATUS_S_TRUNCATED = 4
+DBSTATUS_E_SIGNMISMATCH = 5
+DBSTATUS_E_DATAOVERFLOW = 6
+DBSTATUS_E_CANTCREATE = 7
+DBSTATUS_E_UNAVAILABLE = 8
+DBSTATUS_E_PERMISSIONDENIED = 9
+DBSTATUS_E_INTEGRITYVIOLATION = 10
+DBSTATUS_E_SCHEMAVIOLATION = 11
+DBSTATUS_E_BADSTATUS = 12
+DBSTATUS_S_DEFAULT = 13
+DBSTATUSENUM20 = Int32
+MDSTATUS_S_CELLEMPTY = 14
+DBSTATUS_S_IGNORE = 15
+DBSTATUSENUM21 = Int32
+DBSTATUS_E_DOESNOTEXIST = 16
+DBSTATUS_E_INVALIDURL = 17
+DBSTATUS_E_RESOURCELOCKED = 18
+DBSTATUS_E_RESOURCEEXISTS = 19
+DBSTATUS_E_CANNOTCOMPLETE = 20
+DBSTATUS_E_VOLUMENOTFOUND = 21
+DBSTATUS_E_OUTOFSPACE = 22
+DBSTATUS_S_CANNOTDELETESOURCE = 23
+DBSTATUS_E_READONLY = 24
+DBSTATUS_E_RESOURCEOUTOFSCOPE = 25
+DBSTATUS_S_ALREADYEXISTS = 26
+DBSTATUSENUM25 = Int32
+DBSTATUS_E_CANCELED = 27
+DBSTATUS_E_NOTCOLLECTION = 28
+DBSTATUSENUM26 = Int32
+DBSTATUS_S_ROWSETCOLUMN = 29
+DBTABLESTATISTICSTYPE26 = Int32
+DBSTAT_HISTOGRAM = 1
+DBSTAT_COLUMN_CARDINALITY = 2
+DBSTAT_TUPLE_CARDINALITY = 4
+def _define_DBTIME_head():
+    class DBTIME(Structure):
         pass
-    return DBLITERALINFO
-def _define_DBLITERALINFO():
-    DBLITERALINFO = win32more.System.Search.DBLITERALINFO_head
-    DBLITERALINFO._fields_ = [
-        ("pwszLiteralValue", win32more.Foundation.PWSTR),
-        ("pwszInvalidChars", win32more.Foundation.PWSTR),
-        ("pwszInvalidStartingChars", win32more.Foundation.PWSTR),
-        ("lt", UInt32),
-        ("fSupported", win32more.Foundation.BOOL),
-        ("cchMaxLen", UInt32),
+    return DBTIME
+def _define_DBTIME():
+    DBTIME = win32more.System.Search.DBTIME_head
+    DBTIME._fields_ = [
+        ('hour', UInt16),
+        ('minute', UInt16),
+        ('second', UInt16),
     ]
-    return DBLITERALINFO
-def _define_IDBInfo_head():
-    class IDBInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a89-2a1c-11ce-ade5-00aa0044773d')
-    return IDBInfo
-def _define_IDBInfo():
-    IDBInfo = win32more.System.Search.IDBInfo_head
-    IDBInfo.GetKeywords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetKeywords', ((1, 'ppwszKeywords'),)))
-    IDBInfo.GetLiteralInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBLITERALINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'GetLiteralInfo', ((1, 'cLiterals'),(1, 'rgLiterals'),(1, 'pcLiteralInfo'),(1, 'prgLiteralInfo'),(1, 'ppCharBuffer'),)))
-    win32more.System.Com.IUnknown
-    return IDBInfo
-def _define_IDBDataSourceAdmin_head():
-    class IDBDataSourceAdmin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a7a-2a1c-11ce-ade5-00aa0044773d')
-    return IDBDataSourceAdmin
-def _define_IDBDataSourceAdmin():
-    IDBDataSourceAdmin = win32more.System.Search.IDBDataSourceAdmin_head
-    IDBDataSourceAdmin.CreateDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET),win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateDataSource', ((1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'pUnkOuter'),(1, 'riid'),(1, 'ppDBSession'),)))
-    IDBDataSourceAdmin.DestroyDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'DestroyDataSource', ()))
-    IDBDataSourceAdmin.GetCreationProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPINFOSET_head)),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetCreationProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertyInfoSets'),(1, 'prgPropertyInfoSets'),(1, 'ppDescBuffer'),)))
-    IDBDataSourceAdmin.ModifyDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(6, 'ModifyDataSource', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return IDBDataSourceAdmin
-def _define_IDBAsynchNotify_head():
-    class IDBAsynchNotify(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a96-2a1c-11ce-ade5-00aa0044773d')
-    return IDBAsynchNotify
-def _define_IDBAsynchNotify():
-    IDBAsynchNotify = win32more.System.Search.IDBAsynchNotify_head
-    IDBAsynchNotify.OnLowResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(3, 'OnLowResource', ((1, 'dwReserved'),)))
-    IDBAsynchNotify.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,UIntPtr,UIntPtr,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnProgress', ((1, 'hChapter'),(1, 'eOperation'),(1, 'ulProgress'),(1, 'ulProgressMax'),(1, 'eAsynchPhase'),(1, 'pwszStatusText'),)))
-    IDBAsynchNotify.OnStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnStop', ((1, 'hChapter'),(1, 'eOperation'),(1, 'hrStatus'),(1, 'pwszStatusText'),)))
-    win32more.System.Com.IUnknown
-    return IDBAsynchNotify
-def _define_IDBAsynchStatus_head():
-    class IDBAsynchStatus(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a95-2a1c-11ce-ade5-00aa0044773d')
-    return IDBAsynchStatus
-def _define_IDBAsynchStatus():
-    IDBAsynchStatus = win32more.System.Search.IDBAsynchStatus_head
-    IDBAsynchStatus.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32, use_last_error=False)(3, 'Abort', ((1, 'hChapter'),(1, 'eOperation'),)))
-    IDBAsynchStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetStatus', ((1, 'hChapter'),(1, 'eOperation'),(1, 'pulProgress'),(1, 'pulProgressMax'),(1, 'peAsynchPhase'),(1, 'ppwszStatusText'),)))
-    win32more.System.Com.IUnknown
-    return IDBAsynchStatus
-def _define_ISessionProperties_head():
-    class ISessionProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a85-2a1c-11ce-ade5-00aa0044773d')
-    return ISessionProperties
-def _define_ISessionProperties():
-    ISessionProperties = win32more.System.Search.ISessionProperties_head
-    ISessionProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
-    ISessionProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(4, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return ISessionProperties
-def _define_IIndexDefinition_head():
-    class IIndexDefinition(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a68-2a1c-11ce-ade5-00aa0044773d')
-    return IIndexDefinition
-def _define_IIndexDefinition():
-    IIndexDefinition = win32more.System.Search.IIndexDefinition_head
-    IIndexDefinition.CreateIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBINDEXCOLUMNDESC),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(3, 'CreateIndex', ((1, 'pTableID'),(1, 'pIndexID'),(1, 'cIndexColumnDescs'),(1, 'rgIndexColumnDescs'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppIndexID'),)))
-    IIndexDefinition.DropIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(4, 'DropIndex', ((1, 'pTableID'),(1, 'pIndexID'),)))
-    win32more.System.Com.IUnknown
-    return IIndexDefinition
-def _define_ITableDefinition_head():
-    class ITableDefinition(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a86-2a1c-11ce-ade5-00aa0044773d')
-    return ITableDefinition
-def _define_ITableDefinition():
-    ITableDefinition = win32more.System.Search.ITableDefinition_head
-    ITableDefinition.CreateTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBCOLUMNDESC),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateTable', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'cColumnDescs'),(1, 'rgColumnDescs'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppTableID'),(1, 'ppRowset'),)))
-    ITableDefinition.DropTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(4, 'DropTable', ((1, 'pTableID'),)))
-    ITableDefinition.AddColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.System.Search.DBCOLUMNDESC_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(5, 'AddColumn', ((1, 'pTableID'),(1, 'pColumnDesc'),(1, 'ppColumnID'),)))
-    ITableDefinition.DropColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(6, 'DropColumn', ((1, 'pTableID'),(1, 'pColumnID'),)))
-    win32more.System.Com.IUnknown
-    return ITableDefinition
-def _define_IOpenRowset_head():
-    class IOpenRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a69-2a1c-11ce-ade5-00aa0044773d')
-    return IOpenRowset
-def _define_IOpenRowset():
-    IOpenRowset = win32more.System.Search.IOpenRowset_head
-    IOpenRowset.OpenRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'OpenRowset', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'pIndexID'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
-    win32more.System.Com.IUnknown
-    return IOpenRowset
-def _define_IDBSchemaRowset_head():
-    class IDBSchemaRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a7b-2a1c-11ce-ade5-00aa0044773d')
-    return IDBSchemaRowset
-def _define_IDBSchemaRowset():
-    IDBSchemaRowset = win32more.System.Search.IDBSchemaRowset_head
-    IDBSchemaRowset.GetRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,POINTER(win32more.System.Com.VARIANT),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRowset', ((1, 'pUnkOuter'),(1, 'rguidSchema'),(1, 'cRestrictions'),(1, 'rgRestrictions'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
-    IDBSchemaRowset.GetSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)),POINTER(POINTER(UInt32)), use_last_error=False)(4, 'GetSchemas', ((1, 'pcSchemas'),(1, 'prgSchemas'),(1, 'prgRestrictionSupport'),)))
-    win32more.System.Com.IUnknown
-    return IDBSchemaRowset
-def _define_IMDDataset_head():
-    class IMDDataset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a07cccd1-8148-11d0-87bb-00c04fc33942')
-    return IMDDataset
-def _define_IMDDataset():
-    IMDDataset = win32more.System.Search.IMDDataset_head
-    IMDDataset.FreeAxisInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.MDAXISINFO_head), use_last_error=False)(3, 'FreeAxisInfo', ((1, 'cAxes'),(1, 'rgAxisInfo'),)))
-    IMDDataset.GetAxisInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.MDAXISINFO_head)), use_last_error=False)(4, 'GetAxisInfo', ((1, 'pcAxes'),(1, 'prgAxisInfo'),)))
-    IMDDataset.GetAxisRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetAxisRowset', ((1, 'pUnkOuter'),(1, 'iAxis'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
-    IMDDataset.GetCellData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(6, 'GetCellData', ((1, 'hAccessor'),(1, 'ulStartCell'),(1, 'ulEndCell'),(1, 'pData'),)))
-    IMDDataset.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'GetSpecification', ((1, 'riid'),(1, 'ppSpecification'),)))
-    win32more.System.Com.IUnknown
-    return IMDDataset
-def _define_IMDFind_head():
-    class IMDFind(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a07cccd2-8148-11d0-87bb-00c04fc33942')
-    return IMDFind
-def _define_IMDFind():
-    IMDFind = win32more.System.Search.IMDFind_head
-    IMDFind.FindCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(UIntPtr), use_last_error=False)(3, 'FindCell', ((1, 'ulStartingOrdinal'),(1, 'cMembers'),(1, 'rgpwszMember'),(1, 'pulCellOrdinal'),)))
-    IMDFind.FindTuple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(4, 'FindTuple', ((1, 'ulAxisIdentifier'),(1, 'ulStartingOrdinal'),(1, 'cMembers'),(1, 'rgpwszMember'),(1, 'pulTupleOrdinal'),)))
-    win32more.System.Com.IUnknown
-    return IMDFind
-def _define_IMDRangeRowset_head():
-    class IMDRangeRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa0-2a1c-11ce-ade5-00aa0044773d')
-    return IMDRangeRowset
-def _define_IMDRangeRowset():
-    IMDRangeRowset = win32more.System.Search.IMDRangeRowset_head
-    IMDRangeRowset.GetRangeRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,UIntPtr,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRangeRowset', ((1, 'pUnkOuter'),(1, 'ulStartCell'),(1, 'ulEndCell'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
-    win32more.System.Com.IUnknown
-    return IMDRangeRowset
-def _define_IAlterTable_head():
-    class IAlterTable(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa5-2a1c-11ce-ade5-00aa0044773d')
-    return IAlterTable
-def _define_IAlterTable():
-    IAlterTable = win32more.System.Search.IAlterTable_head
-    IAlterTable.AlterColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBCOLUMNDESC_head), use_last_error=False)(3, 'AlterColumn', ((1, 'pTableId'),(1, 'pColumnId'),(1, 'dwColumnDescFlags'),(1, 'pColumnDesc'),)))
-    IAlterTable.AlterTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(4, 'AlterTable', ((1, 'pTableId'),(1, 'pNewTableId'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return IAlterTable
-def _define_IAlterIndex_head():
-    class IAlterIndex(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa6-2a1c-11ce-ade5-00aa0044773d')
-    return IAlterIndex
-def _define_IAlterIndex():
-    IAlterIndex = win32more.System.Search.IAlterIndex_head
-    IAlterIndex.AlterIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(3, 'AlterIndex', ((1, 'pTableId'),(1, 'pIndexId'),(1, 'pNewIndexId'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return IAlterIndex
-def _define_IRowsetChapterMember_head():
-    class IRowsetChapterMember(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa8-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetChapterMember
-def _define_IRowsetChapterMember():
-    IRowsetChapterMember = win32more.System.Search.IRowsetChapterMember_head
-    IRowsetChapterMember.IsRowInChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr, use_last_error=False)(3, 'IsRowInChapter', ((1, 'hChapter'),(1, 'hRow'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetChapterMember
-def _define_ICommandPersist_head():
-    class ICommandPersist(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa7-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandPersist
-def _define_ICommandPersist():
-    ICommandPersist = win32more.System.Search.ICommandPersist_head
-    ICommandPersist.DeleteCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(3, 'DeleteCommand', ((1, 'pCommandID'),)))
-    ICommandPersist.GetCurrentCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(4, 'GetCurrentCommand', ((1, 'ppCommandID'),)))
-    ICommandPersist.LoadCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32, use_last_error=False)(5, 'LoadCommand', ((1, 'pCommandID'),(1, 'dwFlags'),)))
-    ICommandPersist.SaveCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32, use_last_error=False)(6, 'SaveCommand', ((1, 'pCommandID'),(1, 'dwFlags'),)))
-    win32more.System.Com.IUnknown
-    return ICommandPersist
-def _define_IRowsetRefresh_head():
-    class IRowsetRefresh(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa9-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetRefresh
-def _define_IRowsetRefresh():
-    IRowsetRefresh = win32more.System.Search.IRowsetRefresh_head
-    IRowsetRefresh.RefreshVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),win32more.Foundation.BOOL,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(3, 'RefreshVisibleData', ((1, 'hChapter'),(1, 'cRows'),(1, 'rghRows'),(1, 'fOverWrite'),(1, 'pcRowsRefreshed'),(1, 'prghRowsRefreshed'),(1, 'prgRowStatus'),)))
-    IRowsetRefresh.GetLastVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(4, 'GetLastVisibleData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetRefresh
-def _define_IParentRowset_head():
-    class IParentRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aaa-2a1c-11ce-ade5-00aa0044773d')
-    return IParentRowset
-def _define_IParentRowset():
-    IParentRowset = win32more.System.Search.IParentRowset_head
-    IParentRowset.GetChildRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetChildRowset', ((1, 'pUnkOuter'),(1, 'iOrdinal'),(1, 'riid'),(1, 'ppRowset'),)))
-    win32more.System.Com.IUnknown
-    return IParentRowset
+    return DBTIME
+def _define_DBTIMESTAMP_head():
+    class DBTIMESTAMP(Structure):
+        pass
+    return DBTIMESTAMP
+def _define_DBTIMESTAMP():
+    DBTIMESTAMP = win32more.System.Search.DBTIMESTAMP_head
+    DBTIMESTAMP._fields_ = [
+        ('year', Int16),
+        ('month', UInt16),
+        ('day', UInt16),
+        ('hour', UInt16),
+        ('minute', UInt16),
+        ('second', UInt16),
+        ('fraction', UInt32),
+    ]
+    return DBTIMESTAMP
+DBTYPEENUM = Int32
+DBTYPE_EMPTY = 0
+DBTYPE_NULL = 1
+DBTYPE_I2 = 2
+DBTYPE_I4 = 3
+DBTYPE_R4 = 4
+DBTYPE_R8 = 5
+DBTYPE_CY = 6
+DBTYPE_DATE = 7
+DBTYPE_BSTR = 8
+DBTYPE_IDISPATCH = 9
+DBTYPE_ERROR = 10
+DBTYPE_BOOL = 11
+DBTYPE_VARIANT = 12
+DBTYPE_IUNKNOWN = 13
+DBTYPE_DECIMAL = 14
+DBTYPE_UI1 = 17
+DBTYPE_ARRAY = 8192
+DBTYPE_BYREF = 16384
+DBTYPE_I1 = 16
+DBTYPE_UI2 = 18
+DBTYPE_UI4 = 19
+DBTYPE_I8 = 20
+DBTYPE_UI8 = 21
+DBTYPE_GUID = 72
+DBTYPE_VECTOR = 4096
+DBTYPE_RESERVED = 32768
+DBTYPE_BYTES = 128
+DBTYPE_STR = 129
+DBTYPE_WSTR = 130
+DBTYPE_NUMERIC = 131
+DBTYPE_UDT = 132
+DBTYPE_DBDATE = 133
+DBTYPE_DBTIME = 134
+DBTYPE_DBTIMESTAMP = 135
+DBTYPEENUM15 = Int32
+DBTYPE_HCHAPTER = 136
+DBTYPEENUM20 = Int32
+DBTYPE_FILETIME = 64
+DBTYPE_PROPVARIANT = 138
+DBTYPE_VARNUMERIC = 139
+DBUPDELRULEENUM = Int32
+DBUPDELRULE_NOACTION = 0
+DBUPDELRULE_CASCADE = 1
+DBUPDELRULE_SETNULL = 2
+DBUPDELRULE_SETDEFAULT = 3
+def _define_DBVARYBIN_head():
+    class DBVARYBIN(Structure):
+        pass
+    return DBVARYBIN
+def _define_DBVARYBIN():
+    DBVARYBIN = win32more.System.Search.DBVARYBIN_head
+    DBVARYBIN._fields_ = [
+        ('len', Int16),
+        ('array', Byte * 8001),
+    ]
+    return DBVARYBIN
+def _define_DBVARYCHAR_head():
+    class DBVARYCHAR(Structure):
+        pass
+    return DBVARYCHAR
+def _define_DBVARYCHAR():
+    DBVARYCHAR = win32more.System.Search.DBVARYCHAR_head
+    DBVARYCHAR._fields_ = [
+        ('len', Int16),
+        ('str', SByte * 8001),
+    ]
+    return DBVARYCHAR
+def _define_DBVECTOR_head():
+    class DBVECTOR(Structure):
+        pass
+    return DBVECTOR
+def _define_DBVECTOR():
+    DBVECTOR = win32more.System.Search.DBVECTOR_head
+    DBVECTOR._fields_ = [
+        ('size', UIntPtr),
+        ('ptr', c_void_p),
+    ]
+    return DBVECTOR
+DBWATCHMODEENUM = Int32
+DBWATCHMODE_ALL = 1
+DBWATCHMODE_EXTEND = 2
+DBWATCHMODE_MOVE = 4
+DBWATCHMODE_COUNT = 8
+DBWATCHNOTIFYENUM = Int32
+DBWATCHNOTIFY_ROWSCHANGED = 1
+DBWATCHNOTIFY_QUERYDONE = 2
+DBWATCHNOTIFY_QUERYREEXECUTED = 3
+def _define_DCINFO_head():
+    class DCINFO(Structure):
+        pass
+    return DCINFO
+def _define_DCINFO():
+    DCINFO = win32more.System.Search.DCINFO_head
+    DCINFO._fields_ = [
+        ('eInfoType', UInt32),
+        ('vData', win32more.System.Com.VARIANT),
+    ]
+    return DCINFO
+DCINFOTYPEENUM = Int32
+DCINFOTYPE_VERSION = 1
+DELIVERY_AGENT_FLAGS = Int32
+DELIVERY_AGENT_FLAG_NO_BROADCAST = 4
+DELIVERY_AGENT_FLAG_NO_RESTRICTIONS = 8
+DELIVERY_AGENT_FLAG_SILENT_DIAL = 16
+EBindInfoOptions = Int32
+BIO_BINDER = 1
 def _define_ERRORINFO_head():
     class ERRORINFO(Structure):
         pass
@@ -5202,357 +5769,2660 @@ def _define_ERRORINFO_head():
 def _define_ERRORINFO():
     ERRORINFO = win32more.System.Search.ERRORINFO_head
     ERRORINFO._fields_ = [
-        ("hrError", win32more.Foundation.HRESULT),
-        ("dwMinor", UInt32),
-        ("clsid", Guid),
-        ("iid", Guid),
-        ("dispid", Int32),
+        ('hrError', win32more.Foundation.HRESULT),
+        ('dwMinor', UInt32),
+        ('clsid', Guid),
+        ('iid', Guid),
+        ('dispid', Int32),
     ]
     return ERRORINFO
-def _define_IErrorRecords_head():
-    class IErrorRecords(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a67-2a1c-11ce-ade5-00aa0044773d')
-    return IErrorRecords
-def _define_IErrorRecords():
-    IErrorRecords = win32more.System.Search.IErrorRecords_head
-    IErrorRecords.AddErrorRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ERRORINFO_head),UInt32,POINTER(win32more.System.Com.DISPPARAMS_head),win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(3, 'AddErrorRecord', ((1, 'pErrorInfo'),(1, 'dwLookupID'),(1, 'pdispparams'),(1, 'punkCustomError'),(1, 'dwDynamicErrorID'),)))
-    IErrorRecords.GetBasicErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ERRORINFO_head), use_last_error=False)(4, 'GetBasicErrorInfo', ((1, 'ulRecordNum'),(1, 'pErrorInfo'),)))
-    IErrorRecords.GetCustomErrorObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetCustomErrorObject', ((1, 'ulRecordNum'),(1, 'riid'),(1, 'ppObject'),)))
-    IErrorRecords.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Com.IErrorInfo_head), use_last_error=False)(6, 'GetErrorInfo', ((1, 'ulRecordNum'),(1, 'lcid'),(1, 'ppErrorInfo'),)))
-    IErrorRecords.GetErrorParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.DISPPARAMS_head), use_last_error=False)(7, 'GetErrorParameters', ((1, 'ulRecordNum'),(1, 'pdispparams'),)))
-    IErrorRecords.GetRecordCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetRecordCount', ((1, 'pcRecords'),)))
+def _define_FILTERED_DATA_SOURCES_head():
+    class FILTERED_DATA_SOURCES(Structure):
+        pass
+    return FILTERED_DATA_SOURCES
+def _define_FILTERED_DATA_SOURCES():
+    FILTERED_DATA_SOURCES = win32more.System.Search.FILTERED_DATA_SOURCES_head
+    FILTERED_DATA_SOURCES._fields_ = [
+        ('pwcsExtension', win32more.Foundation.PWSTR),
+        ('pwcsMime', win32more.Foundation.PWSTR),
+        ('pClsid', POINTER(Guid)),
+        ('pwcsOverride', win32more.Foundation.PWSTR),
+    ]
+    return FILTERED_DATA_SOURCES
+FilterRegistration = Guid('9e175b8d-f52a-11d8-b9-a5-50-50-54-50-30-30')
+FOLLOW_FLAGS = Int32
+FF_INDEXCOMPLEXURLS = 1
+FF_SUPPRESSINDEXING = 2
+HACCESSOR = UIntPtr
+def _define_HITRANGE_head():
+    class HITRANGE(Structure):
+        pass
+    return HITRANGE
+def _define_HITRANGE():
+    HITRANGE = win32more.System.Search.HITRANGE_head
+    HITRANGE._fields_ = [
+        ('iPosition', UInt32),
+        ('cLength', UInt32),
+    ]
+    return HITRANGE
+def _define_IAccessor_head():
+    class IAccessor(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a8c-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IAccessor
+def _define_IAccessor():
+    IAccessor = win32more.System.Search.IAccessor_head
+    IAccessor.AddRefAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,POINTER(UInt32))(3, 'AddRefAccessor', ((1, 'hAccessor'),(1, 'pcRefCount'),)))
+    IAccessor.CreateAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Search.DBBINDING_head),UIntPtr,POINTER(win32more.System.Search.HACCESSOR),POINTER(UInt32))(4, 'CreateAccessor', ((1, 'dwAccessorFlags'),(1, 'cBindings'),(1, 'rgBindings'),(1, 'cbRowSize'),(1, 'phAccessor'),(1, 'rgStatus'),)))
+    IAccessor.GetBindings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,POINTER(UInt32),POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBBINDING_head)))(5, 'GetBindings', ((1, 'hAccessor'),(1, 'pdwAccessorFlags'),(1, 'pcBindings'),(1, 'prgBindings'),)))
+    IAccessor.ReleaseAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,POINTER(UInt32))(6, 'ReleaseAccessor', ((1, 'hAccessor'),(1, 'pcRefCount'),)))
     win32more.System.Com.IUnknown
-    return IErrorRecords
-def _define_IErrorLookup_head():
-    class IErrorLookup(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a66-2a1c-11ce-ade5-00aa0044773d')
-    return IErrorLookup
-def _define_IErrorLookup():
-    IErrorLookup = win32more.System.Search.IErrorLookup_head
-    IErrorLookup.GetErrorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.DISPPARAMS_head),UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetErrorDescription', ((1, 'hrError'),(1, 'dwLookupID'),(1, 'pdispparams'),(1, 'lcid'),(1, 'pbstrSource'),(1, 'pbstrDescription'),)))
-    IErrorLookup.GetHelpInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(4, 'GetHelpInfo', ((1, 'hrError'),(1, 'dwLookupID'),(1, 'lcid'),(1, 'pbstrHelpFile'),(1, 'pdwHelpContext'),)))
-    IErrorLookup.ReleaseErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'ReleaseErrors', ((1, 'dwDynamicErrorID'),)))
+    return IAccessor
+def _define_IAlterIndex_head():
+    class IAlterIndex(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa6-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IAlterIndex
+def _define_IAlterIndex():
+    IAlterIndex = win32more.System.Search.IAlterIndex_head
+    IAlterIndex.AlterIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(3, 'AlterIndex', ((1, 'pTableId'),(1, 'pIndexId'),(1, 'pNewIndexId'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
     win32more.System.Com.IUnknown
-    return IErrorLookup
-def _define_ISQLErrorInfo_head():
-    class ISQLErrorInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a74-2a1c-11ce-ade5-00aa0044773d')
-    return ISQLErrorInfo
-def _define_ISQLErrorInfo():
-    ISQLErrorInfo = win32more.System.Search.ISQLErrorInfo_head
-    ISQLErrorInfo.GetSQLInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(3, 'GetSQLInfo', ((1, 'pbstrSQLState'),(1, 'plNativeError'),)))
+    return IAlterIndex
+def _define_IAlterTable_head():
+    class IAlterTable(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa5-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IAlterTable
+def _define_IAlterTable():
+    IAlterTable = win32more.System.Search.IAlterTable_head
+    IAlterTable.AlterColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBCOLUMNDESC_head))(3, 'AlterColumn', ((1, 'pTableId'),(1, 'pColumnId'),(1, 'dwColumnDescFlags'),(1, 'pColumnDesc'),)))
+    IAlterTable.AlterTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(4, 'AlterTable', ((1, 'pTableId'),(1, 'pNewTableId'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
     win32more.System.Com.IUnknown
-    return ISQLErrorInfo
-def _define_IGetDataSource_head():
-    class IGetDataSource(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a75-2a1c-11ce-ade5-00aa0044773d')
-    return IGetDataSource
-def _define_IGetDataSource():
-    IGetDataSource = win32more.System.Search.IGetDataSource_head
-    IGetDataSource.GetDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetDataSource', ((1, 'riid'),(1, 'ppDataSource'),)))
-    win32more.System.Com.IUnknown
-    return IGetDataSource
-def _define_ITransactionLocal_head():
-    class ITransactionLocal(win32more.System.DistributedTransactionCoordinator.ITransaction_head):
-        Guid = Guid('0c733a5f-2a1c-11ce-ade5-00aa0044773d')
-    return ITransactionLocal
-def _define_ITransactionLocal():
-    ITransactionLocal = win32more.System.Search.ITransactionLocal_head
-    ITransactionLocal.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head), use_last_error=False)(6, 'GetOptionsObject', ((1, 'ppOptions'),)))
-    ITransactionLocal.StartTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head,POINTER(UInt32), use_last_error=False)(7, 'StartTransaction', ((1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOtherOptions'),(1, 'pulTransactionLevel'),)))
-    win32more.System.DistributedTransactionCoordinator.ITransaction
-    return ITransactionLocal
-def _define_ITransactionJoin_head():
-    class ITransactionJoin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a5e-2a1c-11ce-ade5-00aa0044773d')
-    return ITransactionJoin
-def _define_ITransactionJoin():
-    ITransactionJoin = win32more.System.Search.ITransactionJoin_head
-    ITransactionJoin.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head), use_last_error=False)(3, 'GetOptionsObject', ((1, 'ppOptions'),)))
-    ITransactionJoin.JoinTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head, use_last_error=False)(4, 'JoinTransaction', ((1, 'punkTransactionCoord'),(1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOtherOptions'),)))
-    win32more.System.Com.IUnknown
-    return ITransactionJoin
-def _define_ITransactionObject_head():
-    class ITransactionObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a60-2a1c-11ce-ade5-00aa0044773d')
-    return ITransactionObject
-def _define_ITransactionObject():
-    ITransactionObject = win32more.System.Search.ITransactionObject_head
-    ITransactionObject.GetTransactionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(3, 'GetTransactionObject', ((1, 'ulTransactionLevel'),(1, 'ppTransactionObject'),)))
-    win32more.System.Com.IUnknown
-    return ITransactionObject
-def _define_ITrusteeAdmin_head():
-    class ITrusteeAdmin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa1-2a1c-11ce-ade5-00aa0044773d')
-    return ITrusteeAdmin
-def _define_ITrusteeAdmin():
-    ITrusteeAdmin = win32more.System.Search.ITrusteeAdmin_head
-    ITrusteeAdmin.CompareTrustees = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(3, 'CompareTrustees', ((1, 'pTrustee1'),(1, 'pTrustee2'),)))
-    ITrusteeAdmin.CreateTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(4, 'CreateTrustee', ((1, 'pTrustee'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    ITrusteeAdmin.DeleteTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(5, 'DeleteTrustee', ((1, 'pTrustee'),)))
-    ITrusteeAdmin.SetTrusteeProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(6, 'SetTrusteeProperties', ((1, 'pTrustee'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
-    ITrusteeAdmin.GetTrusteeProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(7, 'GetTrusteeProperties', ((1, 'pTrustee'),(1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
-    win32more.System.Com.IUnknown
-    return ITrusteeAdmin
-def _define_ITrusteeGroupAdmin_head():
-    class ITrusteeGroupAdmin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa2-2a1c-11ce-ade5-00aa0044773d')
-    return ITrusteeGroupAdmin
-def _define_ITrusteeGroupAdmin():
-    ITrusteeGroupAdmin = win32more.System.Search.ITrusteeGroupAdmin_head
-    ITrusteeGroupAdmin.AddMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(3, 'AddMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),)))
-    ITrusteeGroupAdmin.DeleteMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(4, 'DeleteMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),)))
-    ITrusteeGroupAdmin.IsMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),(1, 'pfStatus'),)))
-    ITrusteeGroupAdmin.GetMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(6, 'GetMembers', ((1, 'pMembershipTrustee'),(1, 'pcMembers'),(1, 'prgMembers'),)))
-    ITrusteeGroupAdmin.GetMemberships = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(7, 'GetMemberships', ((1, 'pTrustee'),(1, 'pcMemberships'),(1, 'prgMemberships'),)))
-    win32more.System.Com.IUnknown
-    return ITrusteeGroupAdmin
-def _define_IObjectAccessControl_head():
-    class IObjectAccessControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa3-2a1c-11ce-ade5-00aa0044773d')
-    return IObjectAccessControl
-def _define_IObjectAccessControl():
-    IObjectAccessControl = win32more.System.Search.IObjectAccessControl_head
-    IObjectAccessControl.GetObjectAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head)), use_last_error=False)(3, 'GetObjectAccessRights', ((1, 'pObject'),(1, 'pcAccessEntries'),(1, 'prgAccessEntries'),)))
-    IObjectAccessControl.GetObjectOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(4, 'GetObjectOwner', ((1, 'pObject'),(1, 'ppOwner'),)))
-    IObjectAccessControl.IsObjectAccessAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsObjectAccessAllowed', ((1, 'pObject'),(1, 'pAccessEntry'),(1, 'pfResult'),)))
-    IObjectAccessControl.SetObjectAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),UInt32,POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head), use_last_error=False)(6, 'SetObjectAccessRights', ((1, 'pObject'),(1, 'cAccessEntries'),(1, 'prgAccessEntries'),)))
-    IObjectAccessControl.SetObjectOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(7, 'SetObjectOwner', ((1, 'pObject'),(1, 'pOwner'),)))
-    win32more.System.Com.IUnknown
-    return IObjectAccessControl
-ACCESS_MASKENUM = Int32
-PERM_EXCLUSIVE = 512
-PERM_READDESIGN = 1024
-PERM_WRITEDESIGN = 2048
-PERM_WITHGRANT = 4096
-PERM_REFERENCE = 8192
-PERM_CREATE = 16384
-PERM_INSERT = 32768
-PERM_DELETE = 65536
-PERM_READCONTROL = 131072
-PERM_WRITEPERMISSIONS = 262144
-PERM_WRITEOWNER = 524288
-PERM_MAXIMUM_ALLOWED = 33554432
-PERM_ALL = 268435456
-PERM_EXECUTE = 536870912
-PERM_READ = -2147483648
-PERM_UPDATE = 1073741824
-PERM_DROP = 256
-def _define_ISecurityInfo_head():
-    class ISecurityInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aa4-2a1c-11ce-ade5-00aa0044773d')
-    return ISecurityInfo
-def _define_ISecurityInfo():
-    ISecurityInfo = win32more.System.Search.ISecurityInfo_head
-    ISecurityInfo.GetCurrentTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(3, 'GetCurrentTrustee', ((1, 'ppTrustee'),)))
-    ISecurityInfo.GetObjectTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(4, 'GetObjectTypes', ((1, 'cObjectTypes'),(1, 'rgObjectTypes'),)))
-    ISecurityInfo.GetPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(UInt32), use_last_error=False)(5, 'GetPermissions', ((1, 'ObjectType'),(1, 'pPermissions'),)))
-    win32more.System.Com.IUnknown
-    return ISecurityInfo
-def _define_ITableCreation_head():
-    class ITableCreation(win32more.System.Search.ITableDefinition_head):
-        Guid = Guid('0c733abc-2a1c-11ce-ade5-00aa0044773d')
-    return ITableCreation
-def _define_ITableCreation():
-    ITableCreation = win32more.System.Search.ITableCreation_head
-    ITableCreation.GetTableDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBCOLUMNDESC_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBCONSTRAINTDESC_head)),POINTER(POINTER(UInt16)), use_last_error=False)(7, 'GetTableDefinition', ((1, 'pTableID'),(1, 'pcColumnDescs'),(1, 'prgColumnDescs'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),(1, 'pcConstraintDescs'),(1, 'prgConstraintDescs'),(1, 'ppwszStringBuffer'),)))
-    win32more.System.Search.ITableDefinition
-    return ITableCreation
-def _define_ITableDefinitionWithConstraints_head():
-    class ITableDefinitionWithConstraints(win32more.System.Search.ITableCreation_head):
-        Guid = Guid('0c733aab-2a1c-11ce-ade5-00aa0044773d')
-    return ITableDefinitionWithConstraints
-def _define_ITableDefinitionWithConstraints():
-    ITableDefinitionWithConstraints = win32more.System.Search.ITableDefinitionWithConstraints_head
-    ITableDefinitionWithConstraints.AddConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.System.Search.DBCONSTRAINTDESC_head), use_last_error=False)(8, 'AddConstraint', ((1, 'pTableID'),(1, 'pConstraintDesc'),)))
-    ITableDefinitionWithConstraints.CreateTableWithConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBCOLUMNDESC_head),UInt32,POINTER(win32more.System.Search.DBCONSTRAINTDESC_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'CreateTableWithConstraints', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'cColumnDescs'),(1, 'rgColumnDescs'),(1, 'cConstraintDescs'),(1, 'rgConstraintDescs'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppTableID'),(1, 'ppRowset'),)))
-    ITableDefinitionWithConstraints.DropConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(10, 'DropConstraint', ((1, 'pTableID'),(1, 'pConstraintID'),)))
-    win32more.System.Search.ITableCreation
-    return ITableDefinitionWithConstraints
-def _define_IRow_head():
-    class IRow(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733ab4-2a1c-11ce-ade5-00aa0044773d')
-    return IRow
-def _define_IRow():
-    IRow = win32more.System.Search.IRow_head
-    IRow.GetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNACCESS), use_last_error=False)(3, 'GetColumns', ((1, 'cColumns'),(1, 'rgColumns'),)))
-    IRow.GetSourceRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head),POINTER(UIntPtr), use_last_error=False)(4, 'GetSourceRowset', ((1, 'riid'),(1, 'ppRowset'),(1, 'phRow'),)))
-    IRow.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'Open', ((1, 'pUnkOuter'),(1, 'pColumnID'),(1, 'rguidColumnType'),(1, 'dwBindFlags'),(1, 'riid'),(1, 'ppUnk'),)))
-    win32more.System.Com.IUnknown
-    return IRow
-def _define_IRowChange_head():
-    class IRowChange(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733ab5-2a1c-11ce-ade5-00aa0044773d')
-    return IRowChange
-def _define_IRowChange():
-    IRowChange = win32more.System.Search.IRowChange_head
-    IRowChange.SetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNACCESS), use_last_error=False)(3, 'SetColumns', ((1, 'cColumns'),(1, 'rgColumns'),)))
-    win32more.System.Com.IUnknown
-    return IRowChange
-def _define_IRowSchemaChange_head():
-    class IRowSchemaChange(win32more.System.Search.IRowChange_head):
-        Guid = Guid('0c733aae-2a1c-11ce-ade5-00aa0044773d')
-    return IRowSchemaChange
-def _define_IRowSchemaChange():
-    IRowSchemaChange = win32more.System.Search.IRowSchemaChange_head
-    IRowSchemaChange.DeleteColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UInt32), use_last_error=False)(4, 'DeleteColumns', ((1, 'cColumns'),(1, 'rgColumnIDs'),(1, 'rgdwStatus'),)))
-    IRowSchemaChange.AddColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNINFO_head),POINTER(win32more.System.Search.DBCOLUMNACCESS_head), use_last_error=False)(5, 'AddColumns', ((1, 'cColumns'),(1, 'rgNewColumnInfo'),(1, 'rgColumns'),)))
-    win32more.System.Search.IRowChange
-    return IRowSchemaChange
-def _define_IGetRow_head():
-    class IGetRow(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aaf-2a1c-11ce-ade5-00aa0044773d')
-    return IGetRow
-def _define_IGetRow():
-    IGetRow = win32more.System.Search.IGetRow_head
-    IGetRow.GetRowFromHROW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRowFromHROW', ((1, 'pUnkOuter'),(1, 'hRow'),(1, 'riid'),(1, 'ppUnk'),)))
-    IGetRow.GetURLFromHROW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetURLFromHROW', ((1, 'hRow'),(1, 'ppwszURL'),)))
-    win32more.System.Com.IUnknown
-    return IGetRow
+    return IAlterTable
 def _define_IBindResource_head():
     class IBindResource(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733ab1-2a1c-11ce-ade5-00aa0044773d')
+        Guid = Guid('0c733ab1-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     return IBindResource
 def _define_IBindResource():
     IBindResource = win32more.System.Search.IBindResource_head
-    IBindResource.Bind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(Guid),win32more.System.Com.IAuthenticate_head,POINTER(win32more.System.Search.DBIMPLICITSESSION_head),POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'Bind', ((1, 'pUnkOuter'),(1, 'pwszURL'),(1, 'dwBindURLFlags'),(1, 'rguid'),(1, 'riid'),(1, 'pAuthenticate'),(1, 'pImplSession'),(1, 'pdwBindStatus'),(1, 'ppUnk'),)))
+    IBindResource.Bind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(Guid),win32more.System.Com.IAuthenticate_head,POINTER(win32more.System.Search.DBIMPLICITSESSION_head),POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head))(3, 'Bind', ((1, 'pUnkOuter'),(1, 'pwszURL'),(1, 'dwBindURLFlags'),(1, 'rguid'),(1, 'riid'),(1, 'pAuthenticate'),(1, 'pImplSession'),(1, 'pdwBindStatus'),(1, 'ppUnk'),)))
     win32more.System.Com.IUnknown
     return IBindResource
-DBCOPYFLAGSENUM = Int32
-DBCOPY_ASYNC = 256
-DBCOPY_REPLACE_EXISTING = 512
-DBCOPY_ALLOW_EMULATION = 1024
-DBCOPY_NON_RECURSIVE = 2048
-DBCOPY_ATOMIC = 4096
-DBMOVEFLAGSENUM = Int32
-DBMOVE_REPLACE_EXISTING = 1
-DBMOVE_ASYNC = 256
-DBMOVE_DONT_UPDATE_LINKS = 512
-DBMOVE_ALLOW_EMULATION = 1024
-DBMOVE_ATOMIC = 4096
-DBDELETEFLAGSENUM = Int32
-DBDELETE_ASYNC = 256
-DBDELETE_ATOMIC = 4096
-def _define_IScopedOperations_head():
-    class IScopedOperations(win32more.System.Search.IBindResource_head):
-        Guid = Guid('0c733ab0-2a1c-11ce-ade5-00aa0044773d')
-    return IScopedOperations
-def _define_IScopedOperations():
-    IScopedOperations = win32more.System.Search.IScopedOperations_head
-    IScopedOperations.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),UInt32,win32more.System.Com.IAuthenticate_head,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'Copy', ((1, 'cRows'),(1, 'rgpwszSourceURLs'),(1, 'rgpwszDestURLs'),(1, 'dwCopyFlags'),(1, 'pAuthenticate'),(1, 'rgdwStatus'),(1, 'rgpwszNewURLs'),(1, 'ppStringsBuffer'),)))
-    IScopedOperations.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),UInt32,win32more.System.Com.IAuthenticate_head,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'Move', ((1, 'cRows'),(1, 'rgpwszSourceURLs'),(1, 'rgpwszDestURLs'),(1, 'dwMoveFlags'),(1, 'pAuthenticate'),(1, 'rgdwStatus'),(1, 'rgpwszNewURLs'),(1, 'ppStringsBuffer'),)))
-    IScopedOperations.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32), use_last_error=False)(6, 'Delete', ((1, 'cRows'),(1, 'rgpwszURLs'),(1, 'dwDeleteFlags'),(1, 'rgdwStatus'),)))
-    IScopedOperations.OpenRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'OpenRowset', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'pIndexID'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
-    win32more.System.Search.IBindResource
-    return IScopedOperations
-def _define_ICreateRow_head():
-    class ICreateRow(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733ab2-2a1c-11ce-ade5-00aa0044773d')
-    return ICreateRow
-def _define_ICreateRow():
-    ICreateRow = win32more.System.Search.ICreateRow_head
-    ICreateRow.CreateRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(Guid),win32more.System.Com.IAuthenticate_head,POINTER(win32more.System.Search.DBIMPLICITSESSION_head),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateRow', ((1, 'pUnkOuter'),(1, 'pwszURL'),(1, 'dwBindURLFlags'),(1, 'rguid'),(1, 'riid'),(1, 'pAuthenticate'),(1, 'pImplSession'),(1, 'pdwBindStatus'),(1, 'ppwszNewURL'),(1, 'ppUnk'),)))
+def _define_IChapteredRowset_head():
+    class IChapteredRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a93-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IChapteredRowset
+def _define_IChapteredRowset():
+    IChapteredRowset = win32more.System.Search.IChapteredRowset_head
+    IChapteredRowset.AddRefChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32))(3, 'AddRefChapter', ((1, 'hChapter'),(1, 'pcRefCount'),)))
+    IChapteredRowset.ReleaseChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32))(4, 'ReleaseChapter', ((1, 'hChapter'),(1, 'pcRefCount'),)))
     win32more.System.Com.IUnknown
-    return ICreateRow
-def _define_IDBBinderProperties_head():
-    class IDBBinderProperties(win32more.System.Search.IDBProperties_head):
-        Guid = Guid('0c733ab3-2a1c-11ce-ade5-00aa0044773d')
-    return IDBBinderProperties
-def _define_IDBBinderProperties():
-    IDBBinderProperties = win32more.System.Search.IDBBinderProperties_head
-    IDBBinderProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
-    win32more.System.Search.IDBProperties
-    return IDBBinderProperties
+    return IChapteredRowset
+def _define_IColumnMapper_head():
+    class IColumnMapper(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0b63e37a-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
+    return IColumnMapper
+def _define_IColumnMapper():
+    IColumnMapper = win32more.System.Search.IColumnMapper_head
+    IColumnMapper.GetPropInfoFromName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(UInt16),POINTER(UInt32))(3, 'GetPropInfoFromName', ((1, 'wcsPropName'),(1, 'ppPropId'),(1, 'pPropType'),(1, 'puiWidth'),)))
+    IColumnMapper.GetPropInfoFromId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(POINTER(UInt16)),POINTER(UInt16),POINTER(UInt32))(4, 'GetPropInfoFromId', ((1, 'pPropId'),(1, 'pwcsName'),(1, 'pPropType'),(1, 'puiWidth'),)))
+    IColumnMapper.EnumPropInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(UInt16),POINTER(UInt32))(5, 'EnumPropInfo', ((1, 'iEntry'),(1, 'pwcsName'),(1, 'ppPropId'),(1, 'pPropType'),(1, 'puiWidth'),)))
+    IColumnMapper.IsMapUpToDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'IsMapUpToDate', ()))
+    win32more.System.Com.IUnknown
+    return IColumnMapper
+def _define_IColumnMapperCreator_head():
+    class IColumnMapperCreator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0b63e37b-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
+    return IColumnMapperCreator
+def _define_IColumnMapperCreator():
+    IColumnMapperCreator = win32more.System.Search.IColumnMapperCreator_head
+    IColumnMapperCreator.GetColumnMapper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IColumnMapper_head))(3, 'GetColumnMapper', ((1, 'wcsMachineName'),(1, 'wcsCatalogName'),(1, 'ppColumnMapper'),)))
+    win32more.System.Com.IUnknown
+    return IColumnMapperCreator
+def _define_IColumnsInfo_head():
+    class IColumnsInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a11-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IColumnsInfo
+def _define_IColumnsInfo():
+    IColumnsInfo = win32more.System.Search.IColumnsInfo_head
+    IColumnsInfo.GetColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBCOLUMNINFO_head)),POINTER(POINTER(UInt16)))(3, 'GetColumnInfo', ((1, 'pcColumns'),(1, 'prgInfo'),(1, 'ppStringsBuffer'),)))
+    IColumnsInfo.MapColumnIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UIntPtr))(4, 'MapColumnIDs', ((1, 'cColumnIDs'),(1, 'rgColumnIDs'),(1, 'rgColumns'),)))
+    win32more.System.Com.IUnknown
+    return IColumnsInfo
 def _define_IColumnsInfo2_head():
     class IColumnsInfo2(win32more.System.Search.IColumnsInfo_head):
-        Guid = Guid('0c733ab8-2a1c-11ce-ade5-00aa0044773d')
+        Guid = Guid('0c733ab8-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     return IColumnsInfo2
 def _define_IColumnsInfo2():
     IColumnsInfo2 = win32more.System.Search.IColumnsInfo2_head
-    IColumnsInfo2.GetRestrictedColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID),UInt32,POINTER(UIntPtr),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(POINTER(win32more.System.Search.DBCOLUMNINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetRestrictedColumnInfo', ((1, 'cColumnIDMasks'),(1, 'rgColumnIDMasks'),(1, 'dwFlags'),(1, 'pcColumns'),(1, 'prgColumnIDs'),(1, 'prgColumnInfo'),(1, 'ppStringsBuffer'),)))
+    IColumnsInfo2.GetRestrictedColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(UIntPtr),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(POINTER(win32more.System.Search.DBCOLUMNINFO_head)),POINTER(POINTER(UInt16)))(5, 'GetRestrictedColumnInfo', ((1, 'cColumnIDMasks'),(1, 'rgColumnIDMasks'),(1, 'dwFlags'),(1, 'pcColumns'),(1, 'prgColumnIDs'),(1, 'prgColumnInfo'),(1, 'ppStringsBuffer'),)))
     win32more.System.Search.IColumnsInfo
     return IColumnsInfo2
-def _define_IRegisterProvider_head():
-    class IRegisterProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733ab9-2a1c-11ce-ade5-00aa0044773d')
-    return IRegisterProvider
-def _define_IRegisterProvider():
-    IRegisterProvider = win32more.System.Search.IRegisterProvider_head
-    IRegisterProvider.GetURLMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid), use_last_error=False)(3, 'GetURLMapping', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'pclsidProvider'),)))
-    IRegisterProvider.SetURLMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid), use_last_error=False)(4, 'SetURLMapping', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'rclsidProvider'),)))
-    IRegisterProvider.UnregisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid), use_last_error=False)(5, 'UnregisterProvider', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'rclsidProvider'),)))
+def _define_IColumnsRowset_head():
+    class IColumnsRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a10-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IColumnsRowset
+def _define_IColumnsRowset():
+    IColumnsRowset = win32more.System.Search.IColumnsRowset_head
+    IColumnsRowset.GetAvailableColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)))(3, 'GetAvailableColumns', ((1, 'pcOptColumns'),(1, 'prgOptColumns'),)))
+    IColumnsRowset.GetColumnsRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(4, 'GetColumnsRowset', ((1, 'pUnkOuter'),(1, 'cOptColumns'),(1, 'rgOptColumns'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppColRowset'),)))
     win32more.System.Com.IUnknown
-    return IRegisterProvider
+    return IColumnsRowset
+def _define_ICommand_head():
+    class ICommand(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a63-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommand
+def _define_ICommand():
+    ICommand = win32more.System.Search.ICommand_head
+    ICommand.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Cancel', ()))
+    ICommand.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Search.DBPARAMS_head),POINTER(IntPtr),POINTER(win32more.System.Com.IUnknown_head))(4, 'Execute', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'pParams'),(1, 'pcRowsAffected'),(1, 'ppRowset'),)))
+    ICommand.GetDBSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(5, 'GetDBSession', ((1, 'riid'),(1, 'ppSession'),)))
+    win32more.System.Com.IUnknown
+    return ICommand
+def _define_ICommandCost_head():
+    class ICommandCost(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a4e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandCost
+def _define_ICommandCost():
+    ICommandCost = win32more.System.Search.ICommandCost_head
+    ICommandCost.GetAccumulatedCost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBCOST_head)))(3, 'GetAccumulatedCost', ((1, 'pwszRowsetName'),(1, 'pcCostLimits'),(1, 'prgCostLimits'),)))
+    ICommandCost.GetCostEstimate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head))(4, 'GetCostEstimate', ((1, 'pwszRowsetName'),(1, 'pcCostEstimates'),(1, 'prgCostEstimates'),)))
+    ICommandCost.GetCostGoals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head))(5, 'GetCostGoals', ((1, 'pwszRowsetName'),(1, 'pcCostGoals'),(1, 'prgCostGoals'),)))
+    ICommandCost.GetCostLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head))(6, 'GetCostLimits', ((1, 'pwszRowsetName'),(1, 'pcCostLimits'),(1, 'prgCostLimits'),)))
+    ICommandCost.SetCostGoals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Search.DBCOST_head))(7, 'SetCostGoals', ((1, 'pwszRowsetName'),(1, 'cCostGoals'),(1, 'rgCostGoals'),)))
+    ICommandCost.SetCostLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Search.DBCOST_head),UInt32)(8, 'SetCostLimits', ((1, 'pwszRowsetName'),(1, 'cCostLimits'),(1, 'prgCostLimits'),(1, 'dwExecutionFlags'),)))
+    win32more.System.Com.IUnknown
+    return ICommandCost
+def _define_ICommandPersist_head():
+    class ICommandPersist(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa7-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandPersist
+def _define_ICommandPersist():
+    ICommandPersist = win32more.System.Search.ICommandPersist_head
+    ICommandPersist.DeleteCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head))(3, 'DeleteCommand', ((1, 'pCommandID'),)))
+    ICommandPersist.GetCurrentCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)))(4, 'GetCurrentCommand', ((1, 'ppCommandID'),)))
+    ICommandPersist.LoadCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32)(5, 'LoadCommand', ((1, 'pCommandID'),(1, 'dwFlags'),)))
+    ICommandPersist.SaveCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32)(6, 'SaveCommand', ((1, 'pCommandID'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
+    return ICommandPersist
+def _define_ICommandPrepare_head():
+    class ICommandPrepare(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a26-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandPrepare
+def _define_ICommandPrepare():
+    ICommandPrepare = win32more.System.Search.ICommandPrepare_head
+    ICommandPrepare.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(3, 'Prepare', ((1, 'cExpectedRuns'),)))
+    ICommandPrepare.Unprepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Unprepare', ()))
+    win32more.System.Com.IUnknown
+    return ICommandPrepare
+def _define_ICommandProperties_head():
+    class ICommandProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a79-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandProperties
+def _define_ICommandProperties():
+    ICommandProperties = win32more.System.Search.ICommandProperties_head
+    ICommandProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)))(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
+    ICommandProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(4, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
+    return ICommandProperties
+def _define_ICommandStream_head():
+    class ICommandStream(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733abf-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandStream
+def _define_ICommandStream():
+    ICommandStream = win32more.System.Search.ICommandStream_head
+    ICommandStream.GetCommandStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetCommandStream', ((1, 'piid'),(1, 'pguidDialect'),(1, 'ppCommandStream'),)))
+    ICommandStream.SetCommandStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),win32more.System.Com.IUnknown_head)(4, 'SetCommandStream', ((1, 'riid'),(1, 'rguidDialect'),(1, 'pCommandStream'),)))
+    win32more.System.Com.IUnknown
+    return ICommandStream
+def _define_ICommandText_head():
+    class ICommandText(win32more.System.Search.ICommand_head):
+        Guid = Guid('0c733a27-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandText
+def _define_ICommandText():
+    ICommandText = win32more.System.Search.ICommandText_head
+    ICommandText.GetCommandText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.PWSTR))(6, 'GetCommandText', ((1, 'pguidDialect'),(1, 'ppwszCommand'),)))
+    ICommandText.SetCommandText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR)(7, 'SetCommandText', ((1, 'rguidDialect'),(1, 'pwszCommand'),)))
+    win32more.System.Search.ICommand
+    return ICommandText
+def _define_ICommandValidate_head():
+    class ICommandValidate(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a18-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandValidate
+def _define_ICommandValidate():
+    ICommandValidate = win32more.System.Search.ICommandValidate_head
+    ICommandValidate.ValidateCompletely = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ValidateCompletely', ()))
+    ICommandValidate.ValidateSyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'ValidateSyntax', ()))
+    win32more.System.Com.IUnknown
+    return ICommandValidate
+def _define_ICommandWithParameters_head():
+    class ICommandWithParameters(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a64-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICommandWithParameters
+def _define_ICommandWithParameters():
+    ICommandWithParameters = win32more.System.Search.ICommandWithParameters_head
+    ICommandWithParameters.GetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)),POINTER(POINTER(UInt16)))(3, 'GetParameterInfo', ((1, 'pcParams'),(1, 'prgParamInfo'),(1, 'ppNamesBuffer'),)))
+    ICommandWithParameters.MapParameterNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(IntPtr))(4, 'MapParameterNames', ((1, 'cParamNames'),(1, 'rgParamNames'),(1, 'rgParamOrdinals'),)))
+    ICommandWithParameters.SetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(win32more.System.Search.DBPARAMBINDINFO_head))(5, 'SetParameterInfo', ((1, 'cParams'),(1, 'rgParamOrdinals'),(1, 'rgParamBindInfo'),)))
+    win32more.System.Com.IUnknown
+    return ICommandWithParameters
+def _define_ICondition_head():
+    class ICondition(win32more.System.Com.IPersistStream_head):
+        Guid = Guid('0fc988d4-c935-4b97-a9-73-46-28-2e-a1-75-c8')
+    return ICondition
+def _define_ICondition():
+    ICondition = win32more.System.Search.ICondition_head
+    ICondition.GetConditionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.Common.CONDITION_TYPE))(8, 'GetConditionType', ((1, 'pNodeType'),)))
+    ICondition.GetSubConditions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(9, 'GetSubConditions', ((1, 'riid'),(1, 'ppv'),)))
+    ICondition.GetComparisonInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Search.Common.CONDITION_OPERATION),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(10, 'GetComparisonInfo', ((1, 'ppszPropertyName'),(1, 'pcop'),(1, 'ppropvar'),)))
+    ICondition.GetValueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(11, 'GetValueType', ((1, 'ppszValueTypeName'),)))
+    ICondition.GetValueNormalization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(12, 'GetValueNormalization', ((1, 'ppszNormalization'),)))
+    ICondition.GetInputTerms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IRichChunk_head),POINTER(win32more.System.Search.IRichChunk_head),POINTER(win32more.System.Search.IRichChunk_head))(13, 'GetInputTerms', ((1, 'ppPropertyTerm'),(1, 'ppOperationTerm'),(1, 'ppValueTerm'),)))
+    ICondition.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ICondition_head))(14, 'Clone', ((1, 'ppc'),)))
+    win32more.System.Com.IPersistStream
+    return ICondition
+def _define_ICondition2_head():
+    class ICondition2(win32more.System.Search.ICondition_head):
+        Guid = Guid('0db8851d-2e5b-47eb-92-08-d2-8c-32-5a-01-d7')
+    return ICondition2
+def _define_ICondition2():
+    ICondition2 = win32more.System.Search.ICondition2_head
+    ICondition2.GetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(15, 'GetLocale', ((1, 'ppszLocaleName'),)))
+    ICondition2.GetLeafConditionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Search.Common.CONDITION_OPERATION),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(16, 'GetLeafConditionInfo', ((1, 'ppropkey'),(1, 'pcop'),(1, 'ppropvar'),)))
+    win32more.System.Search.ICondition
+    return ICondition2
+def _define_IConditionFactory_head():
+    class IConditionFactory(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a5efe073-b16f-474f-9f-3e-9f-8b-49-7a-3e-08')
+    return IConditionFactory
+def _define_IConditionFactory():
+    IConditionFactory = win32more.System.Search.IConditionFactory_head
+    IConditionFactory.MakeNot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head))(3, 'MakeNot', ((1, 'pcSub'),(1, 'fSimplify'),(1, 'ppcResult'),)))
+    IConditionFactory.MakeAndOr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,win32more.System.Com.IEnumUnknown_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head))(4, 'MakeAndOr', ((1, 'ct'),(1, 'peuSubs'),(1, 'fSimplify'),(1, 'ppcResult'),)))
+    IConditionFactory.MakeLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head))(5, 'MakeLeaf', ((1, 'pszPropertyName'),(1, 'cop'),(1, 'pszValueType'),(1, 'ppropvar'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'fExpand'),(1, 'ppcResult'),)))
+    IConditionFactory.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(win32more.System.Search.ICondition_head))(6, 'Resolve', ((1, 'pc'),(1, 'sqro'),(1, 'pstReferenceTime'),(1, 'ppcResolved'),)))
+    win32more.System.Com.IUnknown
+    return IConditionFactory
+def _define_IConditionFactory2_head():
+    class IConditionFactory2(win32more.System.Search.IConditionFactory_head):
+        Guid = Guid('71d222e1-432f-429e-8c-13-b6-da-fd-e5-07-7a')
+    return IConditionFactory2
+def _define_IConditionFactory2():
+    IConditionFactory2 = win32more.System.Search.IConditionFactory2_head
+    IConditionFactory2.CreateTrueFalse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(7, 'CreateTrueFalse', ((1, 'fVal'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateNegation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(8, 'CreateNegation', ((1, 'pcSub'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateCompoundFromObjectArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,win32more.UI.Shell.Common.IObjectArray_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(9, 'CreateCompoundFromObjectArray', ((1, 'ct'),(1, 'poaSubs'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateCompoundFromArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,POINTER(win32more.System.Search.ICondition_head),UInt32,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(10, 'CreateCompoundFromArray', ((1, 'ct'),(1, 'ppcondSubs'),(1, 'cSubs'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateStringLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(11, 'CreateStringLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'pszValue'),(1, 'pszLocaleName'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateIntegerLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,Int32,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(12, 'CreateIntegerLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'lValue'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateBooleanLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.BOOL,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(13, 'CreateBooleanLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'fValue'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.CreateLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p))(14, 'CreateLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'propvar'),(1, 'pszSemanticType'),(1, 'pszLocaleName'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
+    IConditionFactory2.ResolveCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(Guid),POINTER(c_void_p))(15, 'ResolveCondition', ((1, 'pc'),(1, 'sqro'),(1, 'pstReferenceTime'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Search.IConditionFactory
+    return IConditionFactory2
+def _define_IConditionGenerator_head():
+    class IConditionGenerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('92d2cc58-4386-45a3-b9-8c-7e-0c-e6-4a-41-17')
+    return IConditionGenerator
+def _define_IConditionGenerator():
+    IConditionGenerator = win32more.System.Search.IConditionGenerator_head
+    IConditionGenerator.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ISchemaProvider_head)(3, 'Initialize', ((1, 'pSchemaProvider'),)))
+    IConditionGenerator.RecognizeNamedEntities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.ITokenCollection_head,win32more.System.Search.INamedEntityCollector_head)(4, 'RecognizeNamedEntities', ((1, 'pszInputString'),(1, 'lcidUserLocale'),(1, 'pTokenCollection'),(1, 'pNamedEntities'),)))
+    IConditionGenerator.GenerateForLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IConditionFactory_head,win32more.Foundation.PWSTR,win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.Search.ICondition_head))(5, 'GenerateForLeaf', ((1, 'pConditionFactory'),(1, 'pszPropertyName'),(1, 'cop'),(1, 'pszValueType'),(1, 'pszValue'),(1, 'pszValue2'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'automaticWildcard'),(1, 'pNoStringQuery'),(1, 'ppQueryExpression'),)))
+    IConditionGenerator.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR))(6, 'DefaultPhrase', ((1, 'pszValueType'),(1, 'ppropvar'),(1, 'fUseEnglish'),(1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
+    return IConditionGenerator
+def _define_IConvertType_head():
+    class IConvertType(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a88-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IConvertType
+def _define_IConvertType():
+    IConvertType = win32more.System.Search.IConvertType_head
+    IConvertType.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,UInt32)(3, 'CanConvert', ((1, 'wFromType'),(1, 'wToType'),(1, 'dwConvertFlags'),)))
+    win32more.System.Com.IUnknown
+    return IConvertType
+def _define_ICreateRow_head():
+    class ICreateRow(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733ab2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ICreateRow
+def _define_ICreateRow():
+    ICreateRow = win32more.System.Search.ICreateRow_head
+    ICreateRow.CreateRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(Guid),win32more.System.Com.IAuthenticate_head,POINTER(win32more.System.Search.DBIMPLICITSESSION_head),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateRow', ((1, 'pUnkOuter'),(1, 'pwszURL'),(1, 'dwBindURLFlags'),(1, 'rguid'),(1, 'riid'),(1, 'pAuthenticate'),(1, 'pImplSession'),(1, 'pdwBindStatus'),(1, 'ppwszNewURL'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
+    return ICreateRow
+def _define_IDataConvert_head():
+    class IDataConvert(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a8d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDataConvert
+def _define_IDataConvert():
+    IDataConvert = win32more.System.Search.IDataConvert_head
+    IDataConvert.DataConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,UIntPtr,POINTER(UIntPtr),c_void_p,c_void_p,UIntPtr,UInt32,POINTER(UInt32),Byte,Byte,UInt32)(3, 'DataConvert', ((1, 'wSrcType'),(1, 'wDstType'),(1, 'cbSrcLength'),(1, 'pcbDstLength'),(1, 'pSrc'),(1, 'pDst'),(1, 'cbDstMaxLength'),(1, 'dbsSrcStatus'),(1, 'pdbsStatus'),(1, 'bPrecision'),(1, 'bScale'),(1, 'dwFlags'),)))
+    IDataConvert.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16)(4, 'CanConvert', ((1, 'wSrcType'),(1, 'wDstType'),)))
+    IDataConvert.GetConversionSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,POINTER(UIntPtr),POINTER(UIntPtr),c_void_p)(5, 'GetConversionSize', ((1, 'wSrcType'),(1, 'wDstType'),(1, 'pcbSrcLength'),(1, 'pcbDstLength'),(1, 'pSrc'),)))
+    win32more.System.Com.IUnknown
+    return IDataConvert
+def _define_IDataInitialize_head():
+    class IDataInitialize(win32more.System.Com.IUnknown_head):
+        Guid = Guid('2206ccb1-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+    return IDataInitialize
+def _define_IDataInitialize():
+    IDataInitialize = win32more.System.Search.IDataInitialize_head
+    IDataInitialize.GetDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetDataSource', ((1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszInitializationString'),(1, 'riid'),(1, 'ppDataSource'),)))
+    IDataInitialize.GetInitializationString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Byte,POINTER(win32more.Foundation.PWSTR))(4, 'GetInitializationString', ((1, 'pDataSource'),(1, 'fIncludePassword'),(1, 'ppwszInitString'),)))
+    IDataInitialize.CreateDBInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(5, 'CreateDBInstance', ((1, 'clsidProvider'),(1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszReserved'),(1, 'riid'),(1, 'ppDataSource'),)))
+    IDataInitialize.CreateDBInstanceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.COSERVERINFO_head),UInt32,POINTER(win32more.System.Com.MULTI_QI_head))(6, 'CreateDBInstanceEx', ((1, 'clsidProvider'),(1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszReserved'),(1, 'pServerInfo'),(1, 'cmq'),(1, 'rgmqResults'),)))
+    IDataInitialize.LoadStringFromStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(7, 'LoadStringFromStorage', ((1, 'pwszFileName'),(1, 'ppwszInitializationString'),)))
+    IDataInitialize.WriteStringToStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(8, 'WriteStringToStorage', ((1, 'pwszFileName'),(1, 'pwszInitializationString'),(1, 'dwCreationDisposition'),)))
+    win32more.System.Com.IUnknown
+    return IDataInitialize
+def _define_IDataSourceLocator_head():
+    class IDataSourceLocator(win32more.System.Com.IDispatch_head):
+        Guid = Guid('2206ccb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+    return IDataSourceLocator
+def _define_IDataSourceLocator():
+    IDataSourceLocator = win32more.System.Search.IDataSourceLocator_head
+    IDataSourceLocator.get_hWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND))(7, 'get_hWnd', ((1, 'phwndParent'),)))
+    IDataSourceLocator.put_hWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(8, 'put_hWnd', ((1, 'hwndParent'),)))
+    IDataSourceLocator.PromptNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(9, 'PromptNew', ((1, 'ppADOConnection'),)))
+    IDataSourceLocator.PromptEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head),POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'PromptEdit', ((1, 'ppADOConnection'),(1, 'pbSuccess'),)))
+    win32more.System.Com.IDispatch
+    return IDataSourceLocator
+def _define_IDBAsynchNotify_head():
+    class IDBAsynchNotify(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a96-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBAsynchNotify
+def _define_IDBAsynchNotify():
+    IDBAsynchNotify = win32more.System.Search.IDBAsynchNotify_head
+    IDBAsynchNotify.OnLowResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(3, 'OnLowResource', ((1, 'dwReserved'),)))
+    IDBAsynchNotify.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,UIntPtr,UIntPtr,UInt32,win32more.Foundation.PWSTR)(4, 'OnProgress', ((1, 'hChapter'),(1, 'eOperation'),(1, 'ulProgress'),(1, 'ulProgressMax'),(1, 'eAsynchPhase'),(1, 'pwszStatusText'),)))
+    IDBAsynchNotify.OnStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'OnStop', ((1, 'hChapter'),(1, 'eOperation'),(1, 'hrStatus'),(1, 'pwszStatusText'),)))
+    win32more.System.Com.IUnknown
+    return IDBAsynchNotify
+def _define_IDBAsynchStatus_head():
+    class IDBAsynchStatus(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a95-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBAsynchStatus
+def _define_IDBAsynchStatus():
+    IDBAsynchStatus = win32more.System.Search.IDBAsynchStatus_head
+    IDBAsynchStatus.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32)(3, 'Abort', ((1, 'hChapter'),(1, 'eOperation'),)))
+    IDBAsynchStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(4, 'GetStatus', ((1, 'hChapter'),(1, 'eOperation'),(1, 'pulProgress'),(1, 'pulProgressMax'),(1, 'peAsynchPhase'),(1, 'ppwszStatusText'),)))
+    win32more.System.Com.IUnknown
+    return IDBAsynchStatus
+def _define_IDBBinderProperties_head():
+    class IDBBinderProperties(win32more.System.Search.IDBProperties_head):
+        Guid = Guid('0c733ab3-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBBinderProperties
+def _define_IDBBinderProperties():
+    IDBBinderProperties = win32more.System.Search.IDBBinderProperties_head
+    IDBBinderProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Reset', ()))
+    win32more.System.Search.IDBProperties
+    return IDBBinderProperties
+def _define_IDBCreateCommand_head():
+    class IDBCreateCommand(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a1d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBCreateCommand
+def _define_IDBCreateCommand():
+    IDBCreateCommand = win32more.System.Search.IDBCreateCommand_head
+    IDBCreateCommand.CreateCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateCommand', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppCommand'),)))
+    win32more.System.Com.IUnknown
+    return IDBCreateCommand
+def _define_IDBCreateSession_head():
+    class IDBCreateSession(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a5d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBCreateSession
+def _define_IDBCreateSession():
+    IDBCreateSession = win32more.System.Search.IDBCreateSession_head
+    IDBCreateSession.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateSession', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppDBSession'),)))
+    win32more.System.Com.IUnknown
+    return IDBCreateSession
+def _define_IDBDataSourceAdmin_head():
+    class IDBDataSourceAdmin(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a7a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBDataSourceAdmin
+def _define_IDBDataSourceAdmin():
+    IDBDataSourceAdmin = win32more.System.Search.IDBDataSourceAdmin_head
+    IDBDataSourceAdmin.CreateDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET_head),win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateDataSource', ((1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'pUnkOuter'),(1, 'riid'),(1, 'ppDBSession'),)))
+    IDBDataSourceAdmin.DestroyDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'DestroyDataSource', ()))
+    IDBDataSourceAdmin.GetCreationProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPINFOSET_head)),POINTER(POINTER(UInt16)))(5, 'GetCreationProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertyInfoSets'),(1, 'prgPropertyInfoSets'),(1, 'ppDescBuffer'),)))
+    IDBDataSourceAdmin.ModifyDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(6, 'ModifyDataSource', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
+    return IDBDataSourceAdmin
+def _define_IDBInfo_head():
+    class IDBInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a89-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBInfo
+def _define_IDBInfo():
+    IDBInfo = win32more.System.Search.IDBInfo_head
+    IDBInfo.GetKeywords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'GetKeywords', ((1, 'ppwszKeywords'),)))
+    IDBInfo.GetLiteralInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBLITERALINFO_head)),POINTER(POINTER(UInt16)))(4, 'GetLiteralInfo', ((1, 'cLiterals'),(1, 'rgLiterals'),(1, 'pcLiteralInfo'),(1, 'prgLiteralInfo'),(1, 'ppCharBuffer'),)))
+    win32more.System.Com.IUnknown
+    return IDBInfo
+def _define_IDBInitialize_head():
+    class IDBInitialize(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a8b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBInitialize
+def _define_IDBInitialize():
+    IDBInitialize = win32more.System.Search.IDBInitialize_head
+    IDBInitialize.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Initialize', ()))
+    IDBInitialize.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Uninitialize', ()))
+    win32more.System.Com.IUnknown
+    return IDBInitialize
+def _define_IDBPromptInitialize_head():
+    class IDBPromptInitialize(win32more.System.Com.IUnknown_head):
+        Guid = Guid('2206ccb0-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+    return IDBPromptInitialize
+def _define_IDBPromptInitialize():
+    IDBPromptInitialize = win32more.System.Search.IDBPromptInitialize_head
+    IDBPromptInitialize.PromptDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HWND,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'PromptDataSource', ((1, 'pUnkOuter'),(1, 'hWndParent'),(1, 'dwPromptOptions'),(1, 'cSourceTypeFilter'),(1, 'rgSourceTypeFilter'),(1, 'pwszszzProviderFilter'),(1, 'riid'),(1, 'ppDataSource'),)))
+    IDBPromptInitialize.PromptFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(4, 'PromptFileName', ((1, 'hWndParent'),(1, 'dwPromptOptions'),(1, 'pwszInitialDirectory'),(1, 'pwszInitialFile'),(1, 'ppwszSelectedFile'),)))
+    win32more.System.Com.IUnknown
+    return IDBPromptInitialize
+def _define_IDBProperties_head():
+    class IDBProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a8a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBProperties
+def _define_IDBProperties():
+    IDBProperties = win32more.System.Search.IDBProperties_head
+    IDBProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)))(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
+    IDBProperties.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPINFOSET_head)),POINTER(POINTER(UInt16)))(4, 'GetPropertyInfo', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertyInfoSets'),(1, 'prgPropertyInfoSets'),(1, 'ppDescBuffer'),)))
+    IDBProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(5, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
+    return IDBProperties
+def _define_IDBSchemaCommand_head():
+    class IDBSchemaCommand(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a50-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBSchemaCommand
+def _define_IDBSchemaCommand():
+    IDBSchemaCommand = win32more.System.Search.IDBSchemaCommand_head
+    IDBSchemaCommand.GetCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Search.ICommand_head))(3, 'GetCommand', ((1, 'pUnkOuter'),(1, 'rguidSchema'),(1, 'ppCommand'),)))
+    IDBSchemaCommand.GetSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)))(4, 'GetSchemas', ((1, 'pcSchemas'),(1, 'prgSchemas'),)))
+    win32more.System.Com.IUnknown
+    return IDBSchemaCommand
+def _define_IDBSchemaRowset_head():
+    class IDBSchemaRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a7b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDBSchemaRowset
+def _define_IDBSchemaRowset():
+    IDBSchemaRowset = win32more.System.Search.IDBSchemaRowset_head
+    IDBSchemaRowset.GetRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetRowset', ((1, 'pUnkOuter'),(1, 'rguidSchema'),(1, 'cRestrictions'),(1, 'rgRestrictions'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    IDBSchemaRowset.GetSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)),POINTER(POINTER(UInt32)))(4, 'GetSchemas', ((1, 'pcSchemas'),(1, 'prgSchemas'),(1, 'prgRestrictionSupport'),)))
+    win32more.System.Com.IUnknown
+    return IDBSchemaRowset
+def _define_IDCInfo_head():
+    class IDCInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a9c-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IDCInfo
+def _define_IDCInfo():
+    IDCInfo = win32more.System.Search.IDCInfo_head
+    IDCInfo.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DCINFO_head)))(3, 'GetInfo', ((1, 'cInfo'),(1, 'rgeInfoType'),(1, 'prgInfo'),)))
+    IDCInfo.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DCINFO_head))(4, 'SetInfo', ((1, 'cInfo'),(1, 'rgInfo'),)))
+    win32more.System.Com.IUnknown
+    return IDCInfo
+def _define_IEntity_head():
+    class IEntity(win32more.System.Com.IUnknown_head):
+        Guid = Guid('24264891-e80b-4fd3-b7-ce-4f-f2-fa-e8-93-1f')
+    return IEntity
+def _define_IEntity():
+    IEntity = win32more.System.Search.IEntity_head
+    IEntity.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'Name', ((1, 'ppszName'),)))
+    IEntity.Base = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head))(4, 'Base', ((1, 'pBaseEntity'),)))
+    IEntity.Relationships = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(5, 'Relationships', ((1, 'riid'),(1, 'pRelationships'),)))
+    IEntity.GetRelationship = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IRelationship_head))(6, 'GetRelationship', ((1, 'pszRelationName'),(1, 'pRelationship'),)))
+    IEntity.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(7, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
+    IEntity.NamedEntities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(8, 'NamedEntities', ((1, 'riid'),(1, 'pNamedEntities'),)))
+    IEntity.GetNamedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.INamedEntity_head))(9, 'GetNamedEntity', ((1, 'pszValue'),(1, 'ppNamedEntity'),)))
+    IEntity.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
+    return IEntity
+def _define_IEnumItemProperties_head():
+    class IEnumItemProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f72c8d96-6dbd-11d1-a1-e8-00-c0-4f-c2-fb-e1')
+    return IEnumItemProperties
+def _define_IEnumItemProperties():
+    IEnumItemProperties = win32more.System.Search.IEnumItemProperties_head
+    IEnumItemProperties.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ITEMPROP_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
+    IEnumItemProperties.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
+    IEnumItemProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumItemProperties.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumItemProperties_head))(6, 'Clone', ((1, 'ppenum'),)))
+    IEnumItemProperties.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(7, 'GetCount', ((1, 'pnCount'),)))
+    win32more.System.Com.IUnknown
+    return IEnumItemProperties
+def _define_IEnumSearchRoots_head():
+    class IEnumSearchRoots(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-52')
+    return IEnumSearchRoots
+def _define_IEnumSearchRoots():
+    IEnumSearchRoots = win32more.System.Search.IEnumSearchRoots_head
+    IEnumSearchRoots.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ISearchRoot_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
+    IEnumSearchRoots.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
+    IEnumSearchRoots.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumSearchRoots.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchRoots_head))(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumSearchRoots
+def _define_IEnumSearchScopeRules_head():
+    class IEnumSearchScopeRules(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-54')
+    return IEnumSearchScopeRules
+def _define_IEnumSearchScopeRules():
+    IEnumSearchScopeRules = win32more.System.Search.IEnumSearchScopeRules_head
+    IEnumSearchScopeRules.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ISearchScopeRule_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'pprgelt'),(1, 'pceltFetched'),)))
+    IEnumSearchScopeRules.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
+    IEnumSearchScopeRules.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumSearchScopeRules.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchScopeRules_head))(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
+    return IEnumSearchScopeRules
+def _define_IEnumSubscription_head():
+    class IEnumSubscription(win32more.System.Com.IUnknown_head):
+        Guid = Guid('f72c8d97-6dbd-11d1-a1-e8-00-c0-4f-c2-fb-e1')
+    return IEnumSubscription
+def _define_IEnumSubscription():
+    IEnumSubscription = win32more.System.Search.IEnumSubscription_head
+    IEnumSubscription.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
+    IEnumSubscription.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
+    IEnumSubscription.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumSubscription.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSubscription_head))(6, 'Clone', ((1, 'ppenum'),)))
+    IEnumSubscription.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(7, 'GetCount', ((1, 'pnCount'),)))
+    win32more.System.Com.IUnknown
+    return IEnumSubscription
+def _define_IErrorLookup_head():
+    class IErrorLookup(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a66-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IErrorLookup
+def _define_IErrorLookup():
+    IErrorLookup = win32more.System.Search.IErrorLookup_head
+    IErrorLookup.GetErrorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.DISPPARAMS_head),UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(3, 'GetErrorDescription', ((1, 'hrError'),(1, 'dwLookupID'),(1, 'pdispparams'),(1, 'lcid'),(1, 'pbstrSource'),(1, 'pbstrDescription'),)))
+    IErrorLookup.GetHelpInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32))(4, 'GetHelpInfo', ((1, 'hrError'),(1, 'dwLookupID'),(1, 'lcid'),(1, 'pbstrHelpFile'),(1, 'pdwHelpContext'),)))
+    IErrorLookup.ReleaseErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'ReleaseErrors', ((1, 'dwDynamicErrorID'),)))
+    win32more.System.Com.IUnknown
+    return IErrorLookup
+def _define_IErrorRecords_head():
+    class IErrorRecords(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a67-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IErrorRecords
+def _define_IErrorRecords():
+    IErrorRecords = win32more.System.Search.IErrorRecords_head
+    IErrorRecords.AddErrorRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ERRORINFO_head),UInt32,POINTER(win32more.System.Com.DISPPARAMS_head),win32more.System.Com.IUnknown_head,UInt32)(3, 'AddErrorRecord', ((1, 'pErrorInfo'),(1, 'dwLookupID'),(1, 'pdispparams'),(1, 'punkCustomError'),(1, 'dwDynamicErrorID'),)))
+    IErrorRecords.GetBasicErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ERRORINFO_head))(4, 'GetBasicErrorInfo', ((1, 'ulRecordNum'),(1, 'pErrorInfo'),)))
+    IErrorRecords.GetCustomErrorObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(5, 'GetCustomErrorObject', ((1, 'ulRecordNum'),(1, 'riid'),(1, 'ppObject'),)))
+    IErrorRecords.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Com.IErrorInfo_head))(6, 'GetErrorInfo', ((1, 'ulRecordNum'),(1, 'lcid'),(1, 'ppErrorInfo'),)))
+    IErrorRecords.GetErrorParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.DISPPARAMS_head))(7, 'GetErrorParameters', ((1, 'ulRecordNum'),(1, 'pdispparams'),)))
+    IErrorRecords.GetRecordCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(8, 'GetRecordCount', ((1, 'pcRecords'),)))
+    win32more.System.Com.IUnknown
+    return IErrorRecords
+def _define_IGetDataSource_head():
+    class IGetDataSource(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a75-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IGetDataSource
+def _define_IGetDataSource():
+    IGetDataSource = win32more.System.Search.IGetDataSource_head
+    IGetDataSource.GetDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetDataSource', ((1, 'riid'),(1, 'ppDataSource'),)))
+    win32more.System.Com.IUnknown
+    return IGetDataSource
+def _define_IGetRow_head():
+    class IGetRow(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aaf-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IGetRow
+def _define_IGetRow():
+    IGetRow = win32more.System.Search.IGetRow_head
+    IGetRow.GetRowFromHROW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetRowFromHROW', ((1, 'pUnkOuter'),(1, 'hRow'),(1, 'riid'),(1, 'ppUnk'),)))
+    IGetRow.GetURLFromHROW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR))(4, 'GetURLFromHROW', ((1, 'hRow'),(1, 'ppwszURL'),)))
+    win32more.System.Com.IUnknown
+    return IGetRow
 def _define_IGetSession_head():
     class IGetSession(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733aba-2a1c-11ce-ade5-00aa0044773d')
+        Guid = Guid('0c733aba-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     return IGetSession
 def _define_IGetSession():
     IGetSession = win32more.System.Search.IGetSession_head
-    IGetSession.GetSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSession', ((1, 'riid'),(1, 'ppSession'),)))
+    IGetSession.GetSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetSession', ((1, 'riid'),(1, 'ppSession'),)))
     win32more.System.Com.IUnknown
     return IGetSession
 def _define_IGetSourceRow_head():
     class IGetSourceRow(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733abb-2a1c-11ce-ade5-00aa0044773d')
+        Guid = Guid('0c733abb-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     return IGetSourceRow
 def _define_IGetSourceRow():
     IGetSourceRow = win32more.System.Search.IGetSourceRow_head
-    IGetSourceRow.GetSourceRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSourceRow', ((1, 'riid'),(1, 'ppRow'),)))
+    IGetSourceRow.GetSourceRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetSourceRow', ((1, 'riid'),(1, 'ppRow'),)))
     win32more.System.Com.IUnknown
     return IGetSourceRow
-def _define_IRowsetCurrentIndex_head():
-    class IRowsetCurrentIndex(win32more.System.Search.IRowsetIndex_head):
-        Guid = Guid('0c733abd-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetCurrentIndex
-def _define_IRowsetCurrentIndex():
-    IRowsetCurrentIndex = win32more.System.Search.IRowsetCurrentIndex_head
-    IRowsetCurrentIndex.GetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(6, 'GetIndex', ((1, 'ppIndexID'),)))
-    IRowsetCurrentIndex.SetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(7, 'SetIndex', ((1, 'pIndexID'),)))
-    win32more.System.Search.IRowsetIndex
-    return IRowsetCurrentIndex
-def _define_ICommandStream_head():
-    class ICommandStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733abf-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandStream
-def _define_ICommandStream():
-    ICommandStream = win32more.System.Search.ICommandStream_head
-    ICommandStream.GetCommandStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetCommandStream', ((1, 'piid'),(1, 'pguidDialect'),(1, 'ppCommandStream'),)))
-    ICommandStream.SetCommandStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'SetCommandStream', ((1, 'riid'),(1, 'rguidDialect'),(1, 'pCommandStream'),)))
+def _define_IIndexDefinition_head():
+    class IIndexDefinition(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a68-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IIndexDefinition
+def _define_IIndexDefinition():
+    IIndexDefinition = win32more.System.Search.IIndexDefinition_head
+    IIndexDefinition.CreateIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBINDEXCOLUMNDESC_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)))(3, 'CreateIndex', ((1, 'pTableID'),(1, 'pIndexID'),(1, 'cIndexColumnDescs'),(1, 'rgIndexColumnDescs'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppIndexID'),)))
+    IIndexDefinition.DropIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head))(4, 'DropIndex', ((1, 'pTableID'),(1, 'pIndexID'),)))
     win32more.System.Com.IUnknown
-    return ICommandStream
+    return IIndexDefinition
+def _define_IInterval_head():
+    class IInterval(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6bf0a714-3c18-430b-8b-5d-83-b1-c2-34-d3-db')
+    return IInterval
+def _define_IInterval():
+    IInterval = win32more.System.Search.IInterval_head
+    IInterval.GetLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.INTERVAL_LIMIT_KIND),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Search.INTERVAL_LIMIT_KIND),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(3, 'GetLimits', ((1, 'pilkLower'),(1, 'ppropvarLower'),(1, 'pilkUpper'),(1, 'ppropvarUpper'),)))
+    win32more.System.Com.IUnknown
+    return IInterval
+def _define_ILoadFilter_head():
+    class ILoadFilter(win32more.System.Com.IUnknown_head):
+        Guid = Guid('c7310722-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
+    return ILoadFilter
+def _define_ILoadFilter():
+    ILoadFilter = win32more.System.Search.ILoadFilter_head
+    ILoadFilter.LoadIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head))(3, 'LoadIFilter', ((1, 'pwcsPath'),(1, 'pFilteredSources'),(1, 'pUnkOuter'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
+    ILoadFilter.LoadIFilterFromStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head))(4, 'LoadIFilterFromStorage', ((1, 'pStg'),(1, 'pUnkOuter'),(1, 'pwcsOverride'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
+    ILoadFilter.LoadIFilterFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head))(5, 'LoadIFilterFromStream', ((1, 'pStm'),(1, 'pFilteredSources'),(1, 'pUnkOuter'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
+    win32more.System.Com.IUnknown
+    return ILoadFilter
+def _define_ILoadFilterWithPrivateComActivation_head():
+    class ILoadFilterWithPrivateComActivation(win32more.System.Search.ILoadFilter_head):
+        Guid = Guid('40bdbd34-780b-48d3-9b-b6-12-eb-d4-ad-2e-75')
+    return ILoadFilterWithPrivateComActivation
+def _define_ILoadFilterWithPrivateComActivation():
+    ILoadFilterWithPrivateComActivation = win32more.System.Search.ILoadFilterWithPrivateComActivation_head
+    ILoadFilterWithPrivateComActivation.LoadIFilterWithPrivateComActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.Foundation.BOOL,POINTER(Guid),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Storage.IndexServer.IFilter_head))(6, 'LoadIFilterWithPrivateComActivation', ((1, 'filteredSources'),(1, 'useDefault'),(1, 'filterClsid'),(1, 'isFilterPrivateComActivated'),(1, 'filterObj'),)))
+    win32more.System.Search.ILoadFilter
+    return ILoadFilterWithPrivateComActivation
+def _define_IMDDataset_head():
+    class IMDDataset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a07cccd1-8148-11d0-87-bb-00-c0-4f-c3-39-42')
+    return IMDDataset
+def _define_IMDDataset():
+    IMDDataset = win32more.System.Search.IMDDataset_head
+    IMDDataset.FreeAxisInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.MDAXISINFO_head))(3, 'FreeAxisInfo', ((1, 'cAxes'),(1, 'rgAxisInfo'),)))
+    IMDDataset.GetAxisInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.MDAXISINFO_head)))(4, 'GetAxisInfo', ((1, 'pcAxes'),(1, 'prgAxisInfo'),)))
+    IMDDataset.GetAxisRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(5, 'GetAxisRowset', ((1, 'pUnkOuter'),(1, 'iAxis'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    IMDDataset.GetCellData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,UIntPtr,UIntPtr,c_void_p)(6, 'GetCellData', ((1, 'hAccessor'),(1, 'ulStartCell'),(1, 'ulEndCell'),(1, 'pData'),)))
+    IMDDataset.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(7, 'GetSpecification', ((1, 'riid'),(1, 'ppSpecification'),)))
+    win32more.System.Com.IUnknown
+    return IMDDataset
+def _define_IMDFind_head():
+    class IMDFind(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a07cccd2-8148-11d0-87-bb-00-c0-4f-c3-39-42')
+    return IMDFind
+def _define_IMDFind():
+    IMDFind = win32more.System.Search.IMDFind_head
+    IMDFind.FindCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(UIntPtr))(3, 'FindCell', ((1, 'ulStartingOrdinal'),(1, 'cMembers'),(1, 'rgpwszMember'),(1, 'pulCellOrdinal'),)))
+    IMDFind.FindTuple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(4, 'FindTuple', ((1, 'ulAxisIdentifier'),(1, 'ulStartingOrdinal'),(1, 'cMembers'),(1, 'rgpwszMember'),(1, 'pulTupleOrdinal'),)))
+    win32more.System.Com.IUnknown
+    return IMDFind
+def _define_IMDRangeRowset_head():
+    class IMDRangeRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa0-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IMDRangeRowset
+def _define_IMDRangeRowset():
+    IMDRangeRowset = win32more.System.Search.IMDRangeRowset_head
+    IMDRangeRowset.GetRangeRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,UIntPtr,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetRangeRowset', ((1, 'pUnkOuter'),(1, 'ulStartCell'),(1, 'ulEndCell'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
+    return IMDRangeRowset
+def _define_IMetaData_head():
+    class IMetaData(win32more.System.Com.IUnknown_head):
+        Guid = Guid('780102b0-c43b-4876-bc-7b-5e-9b-a5-c8-87-94')
+    return IMetaData
+def _define_IMetaData():
+    IMetaData = win32more.System.Search.IMetaData_head
+    IMetaData.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR))(3, 'GetData', ((1, 'ppszKey'),(1, 'ppszValue'),)))
+    win32more.System.Com.IUnknown
+    return IMetaData
+def _define_IMultipleResults_head():
+    class IMultipleResults(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a90-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IMultipleResults
+def _define_IMultipleResults():
+    IMultipleResults = win32more.System.Search.IMultipleResults_head
+    IMultipleResults.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,IntPtr,POINTER(Guid),POINTER(IntPtr),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetResult', ((1, 'pUnkOuter'),(1, 'lResultFlag'),(1, 'riid'),(1, 'pcRowsAffected'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
+    return IMultipleResults
+def _define_INamedEntity_head():
+    class INamedEntity(win32more.System.Com.IUnknown_head):
+        Guid = Guid('abdbd0b1-7d54-49fb-ab-5c-bf-f4-13-00-04-cd')
+    return INamedEntity
+def _define_INamedEntity():
+    INamedEntity = win32more.System.Search.INamedEntity_head
+    INamedEntity.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'GetValue', ((1, 'ppszValue'),)))
+    INamedEntity.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
+    return INamedEntity
+def _define_INamedEntityCollector_head():
+    class INamedEntityCollector(win32more.System.Com.IUnknown_head):
+        Guid = Guid('af2440f6-8afc-47d0-9a-7f-39-6a-0a-cf-b4-3d')
+    return INamedEntityCollector
+def _define_INamedEntityCollector():
+    INamedEntityCollector = win32more.System.Search.INamedEntityCollector_head
+    INamedEntityCollector.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,win32more.System.Search.IEntity_head,win32more.Foundation.PWSTR,win32more.System.Search.NAMED_ENTITY_CERTAINTY)(3, 'Add', ((1, 'beginSpan'),(1, 'endSpan'),(1, 'beginActual'),(1, 'endActual'),(1, 'pType'),(1, 'pszValue'),(1, 'certainty'),)))
+    win32more.System.Com.IUnknown
+    return INamedEntityCollector
+def _define_INCREMENTAL_ACCESS_INFO_head():
+    class INCREMENTAL_ACCESS_INFO(Structure):
+        pass
+    return INCREMENTAL_ACCESS_INFO
+def _define_INCREMENTAL_ACCESS_INFO():
+    INCREMENTAL_ACCESS_INFO = win32more.System.Search.INCREMENTAL_ACCESS_INFO_head
+    INCREMENTAL_ACCESS_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('ftLastModifiedTime', win32more.Foundation.FILETIME),
+    ]
+    return INCREMENTAL_ACCESS_INFO
+Interval = Guid('d957171f-4bf9-4de2-bc-d5-c7-0a-7c-a5-58-36')
+INTERVAL_LIMIT_KIND = Int32
+ILK_EXPLICIT_INCLUDED = 0
+ILK_EXPLICIT_EXCLUDED = 1
+ILK_NEGATIVE_INFINITY = 2
+ILK_POSITIVE_INFINITY = 3
+def _define_IObjectAccessControl_head():
+    class IObjectAccessControl(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa3-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IObjectAccessControl
+def _define_IObjectAccessControl():
+    IObjectAccessControl = win32more.System.Search.IObjectAccessControl_head
+    IObjectAccessControl.GetObjectAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head)))(3, 'GetObjectAccessRights', ((1, 'pObject'),(1, 'pcAccessEntries'),(1, 'prgAccessEntries'),)))
+    IObjectAccessControl.GetObjectOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)))(4, 'GetObjectOwner', ((1, 'pObject'),(1, 'ppOwner'),)))
+    IObjectAccessControl.IsObjectAccessAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head),POINTER(win32more.Foundation.BOOL))(5, 'IsObjectAccessAllowed', ((1, 'pObject'),(1, 'pAccessEntry'),(1, 'pfResult'),)))
+    IObjectAccessControl.SetObjectAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),UInt32,POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head))(6, 'SetObjectAccessRights', ((1, 'pObject'),(1, 'cAccessEntries'),(1, 'prgAccessEntries'),)))
+    IObjectAccessControl.SetObjectOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head))(7, 'SetObjectOwner', ((1, 'pObject'),(1, 'pOwner'),)))
+    win32more.System.Com.IUnknown
+    return IObjectAccessControl
+def _define_IOpenRowset_head():
+    class IOpenRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a69-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IOpenRowset
+def _define_IOpenRowset():
+    IOpenRowset = win32more.System.Search.IOpenRowset_head
+    IOpenRowset.OpenRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(3, 'OpenRowset', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'pIndexID'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
+    return IOpenRowset
+def _define_IOpLockStatus_head():
+    class IOpLockStatus(win32more.System.Com.IUnknown_head):
+        Guid = Guid('c731065d-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
+    return IOpLockStatus
+def _define_IOpLockStatus():
+    IOpLockStatus = win32more.System.Search.IOpLockStatus_head
+    IOpLockStatus.IsOplockValid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'IsOplockValid', ((1, 'pfIsOplockValid'),)))
+    IOpLockStatus.IsOplockBroken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'IsOplockBroken', ((1, 'pfIsOplockBroken'),)))
+    IOpLockStatus.GetOplockEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE))(5, 'GetOplockEventHandle', ((1, 'phOplockEv'),)))
+    win32more.System.Com.IUnknown
+    return IOpLockStatus
+def _define_IParentRowset_head():
+    class IParentRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aaa-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IParentRowset
+def _define_IParentRowset():
+    IParentRowset = win32more.System.Search.IParentRowset_head
+    IParentRowset.GetChildRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetChildRowset', ((1, 'pUnkOuter'),(1, 'iOrdinal'),(1, 'riid'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
+    return IParentRowset
+def _define_IProtocolHandlerSite_head():
+    class IProtocolHandlerSite(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0b63e385-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
+    return IProtocolHandlerSite
+def _define_IProtocolHandlerSite():
+    IProtocolHandlerSite = win32more.System.Search.IProtocolHandlerSite_head
+    IProtocolHandlerSite.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Storage.IndexServer.IFilter_head))(3, 'GetFilter', ((1, 'pclsidObj'),(1, 'pcwszContentType'),(1, 'pcwszExtension'),(1, 'ppFilter'),)))
+    win32more.System.Com.IUnknown
+    return IProtocolHandlerSite
+def _define_IProvideMoniker_head():
+    class IProvideMoniker(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a4d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IProvideMoniker
+def _define_IProvideMoniker():
+    IProvideMoniker = win32more.System.Search.IProvideMoniker_head
+    IProvideMoniker.GetMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IMoniker_head))(3, 'GetMoniker', ((1, 'ppIMoniker'),)))
+    win32more.System.Com.IUnknown
+    return IProvideMoniker
+def _define_IQueryParser_head():
+    class IQueryParser(win32more.System.Com.IUnknown_head):
+        Guid = Guid('2ebdee67-3505-43f8-99-46-ea-44-ab-c8-e5-b0')
+    return IQueryParser
+def _define_IQueryParser():
+    IQueryParser = win32more.System.Search.IQueryParser_head
+    IQueryParser.Parse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IEnumUnknown_head,POINTER(win32more.System.Search.IQuerySolution_head))(3, 'Parse', ((1, 'pszInputString'),(1, 'pCustomProperties'),(1, 'ppSolution'),)))
+    IQueryParser.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.STRUCTURED_QUERY_SINGLE_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(4, 'SetOption', ((1, 'option'),(1, 'pOptionValue'),)))
+    IQueryParser.GetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.STRUCTURED_QUERY_SINGLE_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'GetOption', ((1, 'option'),(1, 'pOptionValue'),)))
+    IQueryParser.SetMultiOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.STRUCTURED_QUERY_MULTIOPTION,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(6, 'SetMultiOption', ((1, 'option'),(1, 'pszOptionKey'),(1, 'pOptionValue'),)))
+    IQueryParser.GetSchemaProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISchemaProvider_head))(7, 'GetSchemaProvider', ((1, 'ppSchemaProvider'),)))
+    IQueryParser.RestateToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR))(8, 'RestateToString', ((1, 'pCondition'),(1, 'fUseEnglish'),(1, 'ppszQueryString'),)))
+    IQueryParser.ParsePropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IQuerySolution_head))(9, 'ParsePropertyValue', ((1, 'pszPropertyName'),(1, 'pszInputString'),(1, 'ppSolution'),)))
+    IQueryParser.RestatePropertyValueToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR))(10, 'RestatePropertyValueToString', ((1, 'pCondition'),(1, 'fUseEnglish'),(1, 'ppszPropertyName'),(1, 'ppszQueryString'),)))
+    win32more.System.Com.IUnknown
+    return IQueryParser
+def _define_IQueryParserManager_head():
+    class IQueryParserManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a879e3c4-af77-44fb-8f-37-eb-d1-48-7c-f9-20')
+    return IQueryParserManager
+def _define_IQueryParserManager():
+    IQueryParserManager = win32more.System.Search.IQueryParserManager_head
+    IQueryParserManager.CreateLoadedParser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt16,POINTER(Guid),POINTER(c_void_p))(3, 'CreateLoadedParser', ((1, 'pszCatalog'),(1, 'langidForKeywords'),(1, 'riid'),(1, 'ppQueryParser'),)))
+    IQueryParserManager.InitializeOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Search.IQueryParser_head)(4, 'InitializeOptions', ((1, 'fUnderstandNQS'),(1, 'fAutoWildCard'),(1, 'pQueryParser'),)))
+    IQueryParserManager.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.QUERY_PARSER_MANAGER_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'SetOption', ((1, 'option'),(1, 'pOptionValue'),)))
+    win32more.System.Com.IUnknown
+    return IQueryParserManager
+def _define_IQuerySolution_head():
+    class IQuerySolution(win32more.System.Search.IConditionFactory_head):
+        Guid = Guid('d6ebc66b-8921-4193-af-dd-a1-78-9f-b7-ff-57')
+    return IQuerySolution
+def _define_IQuerySolution():
+    IQuerySolution = win32more.System.Search.IQuerySolution_head
+    IQuerySolution.GetQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ICondition_head),POINTER(win32more.System.Search.IEntity_head))(7, 'GetQuery', ((1, 'ppQueryNode'),(1, 'ppMainType'),)))
+    IQuerySolution.GetErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(8, 'GetErrors', ((1, 'riid'),(1, 'ppParseErrors'),)))
+    IQuerySolution.GetLexicalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Search.ITokenCollection_head),POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head))(9, 'GetLexicalData', ((1, 'ppszInputString'),(1, 'ppTokens'),(1, 'plcid'),(1, 'ppWordBreaker'),)))
+    win32more.System.Search.IConditionFactory
+    return IQuerySolution
+def _define_IReadData_head():
+    class IReadData(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a6a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IReadData
+def _define_IReadData():
+    IReadData = win32more.System.Search.IReadData_head
+    IReadData.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,IntPtr,win32more.System.Search.HACCESSOR,IntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(c_char_p_no))(3, 'ReadData', ((1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'hAccessor'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'ppFixedData'),(1, 'pcbVariableTotal'),(1, 'ppVariableData'),)))
+    IReadData.ReleaseChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(4, 'ReleaseChapter', ((1, 'hChapter'),)))
+    win32more.System.Com.IUnknown
+    return IReadData
+def _define_IRegisterProvider_head():
+    class IRegisterProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733ab9-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRegisterProvider
+def _define_IRegisterProvider():
+    IRegisterProvider = win32more.System.Search.IRegisterProvider_head
+    IRegisterProvider.GetURLMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid))(3, 'GetURLMapping', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'pclsidProvider'),)))
+    IRegisterProvider.SetURLMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid))(4, 'SetURLMapping', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'rclsidProvider'),)))
+    IRegisterProvider.UnregisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid))(5, 'UnregisterProvider', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'rclsidProvider'),)))
+    win32more.System.Com.IUnknown
+    return IRegisterProvider
+def _define_IRelationship_head():
+    class IRelationship(win32more.System.Com.IUnknown_head):
+        Guid = Guid('2769280b-5108-498c-9c-7f-a5-12-39-b6-31-47')
+    return IRelationship
+def _define_IRelationship():
+    IRelationship = win32more.System.Search.IRelationship_head
+    IRelationship.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'Name', ((1, 'ppszName'),)))
+    IRelationship.IsReal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'IsReal', ((1, 'pIsReal'),)))
+    IRelationship.Destination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head))(5, 'Destination', ((1, 'pDestinationEntity'),)))
+    IRelationship.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(6, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
+    IRelationship.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
+    return IRelationship
+def _define_IRichChunk_head():
+    class IRichChunk(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4fdef69c-dbc9-454e-99-10-b3-4f-3c-64-b5-10')
+    return IRichChunk
+def _define_IRichChunk():
+    IRichChunk = win32more.System.Search.IRichChunk_head
+    IRichChunk.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(3, 'GetData', ((1, 'pFirstPos'),(1, 'pLength'),(1, 'ppsz'),(1, 'pValue'),)))
+    win32more.System.Com.IUnknown
+    return IRichChunk
+def _define_IRow_head():
+    class IRow(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733ab4-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRow
+def _define_IRow():
+    IRow = win32more.System.Search.IRow_head
+    IRow.GetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNACCESS_head))(3, 'GetColumns', ((1, 'cColumns'),(1, 'rgColumns'),)))
+    IRow.GetSourceRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head),POINTER(UIntPtr))(4, 'GetSourceRowset', ((1, 'riid'),(1, 'ppRowset'),(1, 'phRow'),)))
+    IRow.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(5, 'Open', ((1, 'pUnkOuter'),(1, 'pColumnID'),(1, 'rguidColumnType'),(1, 'dwBindFlags'),(1, 'riid'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
+    return IRow
+def _define_IRowChange_head():
+    class IRowChange(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733ab5-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowChange
+def _define_IRowChange():
+    IRowChange = win32more.System.Search.IRowChange_head
+    IRowChange.SetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNACCESS_head))(3, 'SetColumns', ((1, 'cColumns'),(1, 'rgColumns'),)))
+    win32more.System.Com.IUnknown
+    return IRowChange
+def _define_IRowPosition_head():
+    class IRowPosition(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a94-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowPosition
+def _define_IRowPosition():
+    IRowPosition = win32more.System.Search.IRowPosition_head
+    IRowPosition.ClearRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ClearRowPosition', ()))
+    IRowPosition.GetRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32))(4, 'GetRowPosition', ((1, 'phChapter'),(1, 'phRow'),(1, 'pdwPositionFlags'),)))
+    IRowPosition.GetRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(5, 'GetRowset', ((1, 'riid'),(1, 'ppRowset'),)))
+    IRowPosition.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(6, 'Initialize', ((1, 'pRowset'),)))
+    IRowPosition.SetRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UInt32)(7, 'SetRowPosition', ((1, 'hChapter'),(1, 'hRow'),(1, 'dwPositionFlags'),)))
+    win32more.System.Com.IUnknown
+    return IRowPosition
+def _define_IRowPositionChange_head():
+    class IRowPositionChange(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0997a571-126e-11d0-9f-8a-00-a0-c9-a0-63-1e')
+    return IRowPositionChange
+def _define_IRowPositionChange():
+    IRowPositionChange = win32more.System.Search.IRowPositionChange_head
+    IRowPositionChange.OnRowPositionChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.BOOL)(3, 'OnRowPositionChange', ((1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
+    win32more.System.Com.IUnknown
+    return IRowPositionChange
+def _define_IRowSchemaChange_head():
+    class IRowSchemaChange(win32more.System.Search.IRowChange_head):
+        Guid = Guid('0c733aae-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowSchemaChange
+def _define_IRowSchemaChange():
+    IRowSchemaChange = win32more.System.Search.IRowSchemaChange_head
+    IRowSchemaChange.DeleteColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UInt32))(4, 'DeleteColumns', ((1, 'cColumns'),(1, 'rgColumnIDs'),(1, 'rgdwStatus'),)))
+    IRowSchemaChange.AddColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNINFO_head),POINTER(win32more.System.Search.DBCOLUMNACCESS_head))(5, 'AddColumns', ((1, 'cColumns'),(1, 'rgNewColumnInfo'),(1, 'rgColumns'),)))
+    win32more.System.Search.IRowChange
+    return IRowSchemaChange
+def _define_IRowset_head():
+    class IRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a7c-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowset
+def _define_IRowset():
+    IRowset = win32more.System.Search.IRowset_head
+    IRowset.AddRefRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32),POINTER(UInt32))(3, 'AddRefRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'rgRefCounts'),(1, 'rgRowStatus'),)))
+    IRowset.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p)(4, 'GetData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
+    IRowset.GetNextRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)))(5, 'GetNextRows', ((1, 'hReserved'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
+    IRowset.ReleaseRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(6, 'ReleaseRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'rgRowOptions'),(1, 'rgRefCounts'),(1, 'rgRowStatus'),)))
+    IRowset.RestartPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(7, 'RestartPosition', ((1, 'hReserved'),)))
+    win32more.System.Com.IUnknown
+    return IRowset
+def _define_IRowsetAsynch_head():
+    class IRowsetAsynch(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a0f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetAsynch
+def _define_IRowsetAsynch():
+    IRowsetAsynch = win32more.System.Search.IRowsetAsynch_head
+    IRowsetAsynch.RatioFinished = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(win32more.Foundation.BOOL))(3, 'RatioFinished', ((1, 'pulDenominator'),(1, 'pulNumerator'),(1, 'pcRows'),(1, 'pfNewRows'),)))
+    IRowsetAsynch.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Stop', ()))
+    win32more.System.Com.IUnknown
+    return IRowsetAsynch
 def _define_IRowsetBookmark_head():
     class IRowsetBookmark(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733ac2-2a1c-11ce-ade5-00aa0044773d')
+        Guid = Guid('0c733ac2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     return IRowsetBookmark
 def _define_IRowsetBookmark():
     IRowsetBookmark = win32more.System.Search.IRowsetBookmark_head
-    IRowsetBookmark.PositionOnBookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no, use_last_error=False)(3, 'PositionOnBookmark', ((1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),)))
+    IRowsetBookmark.PositionOnBookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no)(3, 'PositionOnBookmark', ((1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),)))
     win32more.System.Com.IUnknown
     return IRowsetBookmark
-QueryParser = Guid('b72f8fd8-0fab-4dd9-bdbf-245a6ce1485b')
-NegationCondition = Guid('8de9c74c-605a-4acd-bee3-2b222aa2d23d')
-CompoundCondition = Guid('116f8d13-101e-4fa5-84d4-ff8279381935')
-LeafCondition = Guid('52f15c89-5a17-48e1-bbcd-46a3f89c7cc2')
-ConditionFactory = Guid('e03e85b0-7be3-4000-ba98-6c13de9fa486')
-Interval = Guid('d957171f-4bf9-4de2-bcd5-c70a7ca55836')
-QueryParserManager = Guid('5088b39a-29b4-4d9d-8245-4ee289222f66')
-STRUCTURED_QUERY_SYNTAX = Int32
-SQS_NO_SYNTAX = 0
-SQS_ADVANCED_QUERY_SYNTAX = 1
-SQS_NATURAL_QUERY_SYNTAX = 2
-STRUCTURED_QUERY_SINGLE_OPTION = Int32
-SQSO_SCHEMA = 0
-SQSO_LOCALE_WORD_BREAKING = 1
-SQSO_WORD_BREAKER = 2
-SQSO_NATURAL_SYNTAX = 3
-SQSO_AUTOMATIC_WILDCARD = 4
-SQSO_TRACE_LEVEL = 5
-SQSO_LANGUAGE_KEYWORDS = 6
-SQSO_SYNTAX = 7
-SQSO_TIME_ZONE = 8
-SQSO_IMPLICIT_CONNECTOR = 9
-SQSO_CONNECTOR_CASE = 10
+def _define_IRowsetChange_head():
+    class IRowsetChange(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a05-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetChange
+def _define_IRowsetChange():
+    IRowsetChange = win32more.System.Search.IRowsetChange_head
+    IRowsetChange.DeleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))(3, 'DeleteRows', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'rgRowStatus'),)))
+    IRowsetChange.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p)(4, 'SetData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
+    IRowsetChange.InsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p,POINTER(UIntPtr))(5, 'InsertRow', ((1, 'hReserved'),(1, 'hAccessor'),(1, 'pData'),(1, 'phRow'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetChange
+def _define_IRowsetChangeExtInfo_head():
+    class IRowsetChangeExtInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a8f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetChangeExtInfo
+def _define_IRowsetChangeExtInfo():
+    IRowsetChangeExtInfo = win32more.System.Search.IRowsetChangeExtInfo_head
+    IRowsetChangeExtInfo.GetOriginalRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr))(3, 'GetOriginalRow', ((1, 'hReserved'),(1, 'hRow'),(1, 'phRowOriginal'),)))
+    IRowsetChangeExtInfo.GetPendingColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UInt32,POINTER(UInt32),POINTER(UInt32))(4, 'GetPendingColumns', ((1, 'hReserved'),(1, 'hRow'),(1, 'cColumnOrdinals'),(1, 'rgiOrdinals'),(1, 'rgColumnStatus'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetChangeExtInfo
+def _define_IRowsetChapterMember_head():
+    class IRowsetChapterMember(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa8-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetChapterMember
+def _define_IRowsetChapterMember():
+    IRowsetChapterMember = win32more.System.Search.IRowsetChapterMember_head
+    IRowsetChapterMember.IsRowInChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr)(3, 'IsRowInChapter', ((1, 'hChapter'),(1, 'hRow'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetChapterMember
+def _define_IRowsetCopyRows_head():
+    class IRowsetCopyRows(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a6b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetCopyRows
+def _define_IRowsetCopyRows():
+    IRowsetCopyRows = win32more.System.Search.IRowsetCopyRows_head
+    IRowsetCopyRows.CloseSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16)(3, 'CloseSource', ((1, 'hSourceID'),)))
+    IRowsetCopyRows.CopyByHROWS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UIntPtr,IntPtr,POINTER(UIntPtr),UInt32)(4, 'CopyByHROWS', ((1, 'hSourceID'),(1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'bFlags'),)))
+    IRowsetCopyRows.CopyRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UIntPtr,IntPtr,UInt32,POINTER(UIntPtr))(5, 'CopyRows', ((1, 'hSourceID'),(1, 'hReserved'),(1, 'cRows'),(1, 'bFlags'),(1, 'pcRowsCopied'),)))
+    IRowsetCopyRows.DefineSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,POINTER(IntPtr),POINTER(IntPtr),POINTER(UInt16))(6, 'DefineSource', ((1, 'pRowsetSource'),(1, 'cColIds'),(1, 'rgSourceColumns'),(1, 'rgTargetColumns'),(1, 'phSourceID'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetCopyRows
+def _define_IRowsetCurrentIndex_head():
+    class IRowsetCurrentIndex(win32more.System.Search.IRowsetIndex_head):
+        Guid = Guid('0c733abd-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetCurrentIndex
+def _define_IRowsetCurrentIndex():
+    IRowsetCurrentIndex = win32more.System.Search.IRowsetCurrentIndex_head
+    IRowsetCurrentIndex.GetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)))(6, 'GetIndex', ((1, 'ppIndexID'),)))
+    IRowsetCurrentIndex.SetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head))(7, 'SetIndex', ((1, 'pIndexID'),)))
+    win32more.System.Search.IRowsetIndex
+    return IRowsetCurrentIndex
+def _define_IRowsetEvents_head():
+    class IRowsetEvents(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1551aea5-5d66-4b11-86-f5-d5-63-4c-b2-11-b9')
+    return IRowsetEvents
+def _define_IRowsetEvents():
+    IRowsetEvents = win32more.System.Search.IRowsetEvents_head
+    IRowsetEvents.OnNewItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE)(3, 'OnNewItem', ((1, 'itemID'),(1, 'newItemState'),)))
+    IRowsetEvents.OnChangedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE,win32more.System.Search.ROWSETEVENT_ITEMSTATE)(4, 'OnChangedItem', ((1, 'itemID'),(1, 'rowsetItemState'),(1, 'changedItemState'),)))
+    IRowsetEvents.OnDeletedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE)(5, 'OnDeletedItem', ((1, 'itemID'),(1, 'deletedItemState'),)))
+    IRowsetEvents.OnRowsetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ROWSETEVENT_TYPE,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(6, 'OnRowsetEvent', ((1, 'eventType'),(1, 'eventData'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetEvents
+def _define_IRowsetExactScroll_head():
+    class IRowsetExactScroll(Structure):
+        pass
+    return IRowsetExactScroll
+def _define_IRowsetExactScroll():
+    IRowsetExactScroll = win32more.System.Search.IRowsetExactScroll_head
+    return IRowsetExactScroll
+def _define_IRowsetFastLoad_head():
+    class IRowsetFastLoad(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5cf4ca13-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
+    return IRowsetFastLoad
+def _define_IRowsetFastLoad():
+    IRowsetFastLoad = win32more.System.Search.IRowsetFastLoad_head
+    IRowsetFastLoad.InsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,c_void_p)(3, 'InsertRow', ((1, 'hAccessor'),(1, 'pData'),)))
+    IRowsetFastLoad.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(4, 'Commit', ((1, 'fDone'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetFastLoad
+def _define_IRowsetFind_head():
+    class IRowsetFind(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a9d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetFind
+def _define_IRowsetFind():
+    IRowsetFind = win32more.System.Search.IRowsetFind_head
+    IRowsetFind.FindNextRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p,UInt32,UIntPtr,c_char_p_no,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)))(3, 'FindNextRow', ((1, 'hChapter'),(1, 'hAccessor'),(1, 'pFindValue'),(1, 'CompareOp'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetFind
+def _define_IRowsetIdentity_head():
+    class IRowsetIdentity(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a09-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetIdentity
+def _define_IRowsetIdentity():
+    IRowsetIdentity = win32more.System.Search.IRowsetIdentity_head
+    IRowsetIdentity.IsSameRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr)(3, 'IsSameRow', ((1, 'hThisRow'),(1, 'hThatRow'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetIdentity
+def _define_IRowsetIndex_head():
+    class IRowsetIndex(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a82-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetIndex
+def _define_IRowsetIndex():
+    IRowsetIndex = win32more.System.Search.IRowsetIndex_head
+    IRowsetIndex.GetIndexInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBINDEXCOLUMNDESC_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)))(3, 'GetIndexInfo', ((1, 'pcKeyColumns'),(1, 'prgIndexColumnDesc'),(1, 'pcIndexPropertySets'),(1, 'prgIndexPropertySets'),)))
+    IRowsetIndex.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,UIntPtr,c_void_p,UInt32)(4, 'Seek', ((1, 'hAccessor'),(1, 'cKeyValues'),(1, 'pData'),(1, 'dwSeekOptions'),)))
+    IRowsetIndex.SetRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,UIntPtr,c_void_p,UIntPtr,c_void_p,UInt32)(5, 'SetRange', ((1, 'hAccessor'),(1, 'cStartKeyColumns'),(1, 'pStartData'),(1, 'cEndKeyColumns'),(1, 'pEndData'),(1, 'dwRangeOptions'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetIndex
+def _define_IRowsetInfo_head():
+    class IRowsetInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a55-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetInfo
+def _define_IRowsetInfo():
+    IRowsetInfo = win32more.System.Search.IRowsetInfo_head
+    IRowsetInfo.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)))(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
+    IRowsetInfo.GetReferencedRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(4, 'GetReferencedRowset', ((1, 'iOrdinal'),(1, 'riid'),(1, 'ppReferencedRowset'),)))
+    IRowsetInfo.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(5, 'GetSpecification', ((1, 'riid'),(1, 'ppSpecification'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetInfo
+def _define_IRowsetKeys_head():
+    class IRowsetKeys(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a12-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetKeys
+def _define_IRowsetKeys():
+    IRowsetKeys = win32more.System.Search.IRowsetKeys_head
+    IRowsetKeys.ListKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)))(3, 'ListKeys', ((1, 'pcColumns'),(1, 'prgColumns'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetKeys
+def _define_IRowsetLocate_head():
+    class IRowsetLocate(win32more.System.Search.IRowset_head):
+        Guid = Guid('0c733a7d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetLocate
+def _define_IRowsetLocate():
+    IRowsetLocate = win32more.System.Search.IRowsetLocate_head
+    IRowsetLocate.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,UIntPtr,c_char_p_no,POINTER(UInt32))(8, 'Compare', ((1, 'hReserved'),(1, 'cbBookmark1'),(1, 'pBookmark1'),(1, 'cbBookmark2'),(1, 'pBookmark2'),(1, 'pComparison'),)))
+    IRowsetLocate.GetRowsAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_char_p_no,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)))(9, 'GetRowsAt', ((1, 'hReserved1'),(1, 'hReserved2'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
+    IRowsetLocate.GetRowsByBookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32))(10, 'GetRowsByBookmark', ((1, 'hReserved'),(1, 'cRows'),(1, 'rgcbBookmarks'),(1, 'rgpBookmarks'),(1, 'rghRows'),(1, 'rgRowStatus'),)))
+    IRowsetLocate.Hash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32))(11, 'Hash', ((1, 'hReserved'),(1, 'cBookmarks'),(1, 'rgcbBookmarks'),(1, 'rgpBookmarks'),(1, 'rgHashedValues'),(1, 'rgBookmarkStatus'),)))
+    win32more.System.Search.IRowset
+    return IRowsetLocate
+def _define_IRowsetNewRowAfter_head():
+    class IRowsetNewRowAfter(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a71-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetNewRowAfter
+def _define_IRowsetNewRowAfter():
+    IRowsetNewRowAfter = win32more.System.Search.IRowsetNewRowAfter_head
+    IRowsetNewRowAfter.SetNewDataAfter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,c_char_p_no,win32more.System.Search.HACCESSOR,c_char_p_no,POINTER(UIntPtr))(3, 'SetNewDataAfter', ((1, 'hChapter'),(1, 'cbbmPrevious'),(1, 'pbmPrevious'),(1, 'hAccessor'),(1, 'pData'),(1, 'phRow'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetNewRowAfter
+def _define_IRowsetNextRowset_head():
+    class IRowsetNextRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a72-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetNextRowset
+def _define_IRowsetNextRowset():
+    IRowsetNextRowset = win32more.System.Search.IRowsetNextRowset_head
+    IRowsetNextRowset.GetNextRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetNextRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppNextRowset'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetNextRowset
+def _define_IRowsetNotify_head():
+    class IRowsetNotify(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a83-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetNotify
+def _define_IRowsetNotify():
+    IRowsetNotify = win32more.System.Search.IRowsetNotify_head
+    IRowsetNotify.OnFieldChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,UIntPtr,POINTER(UIntPtr),UInt32,UInt32,win32more.Foundation.BOOL)(3, 'OnFieldChange', ((1, 'pRowset'),(1, 'hRow'),(1, 'cColumns'),(1, 'rgColumns'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
+    IRowsetNotify.OnRowChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,POINTER(UIntPtr),UInt32,UInt32,win32more.Foundation.BOOL)(4, 'OnRowChange', ((1, 'pRowset'),(1, 'cRows'),(1, 'rghRows'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
+    IRowsetNotify.OnRowsetChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UInt32,UInt32,win32more.Foundation.BOOL)(5, 'OnRowsetChange', ((1, 'pRowset'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetNotify
+def _define_IRowsetPrioritization_head():
+    class IRowsetPrioritization(win32more.System.Com.IUnknown_head):
+        Guid = Guid('42811652-079d-481b-87-a2-09-a6-9e-cc-5f-44')
+    return IRowsetPrioritization
+def _define_IRowsetPrioritization():
+    IRowsetPrioritization = win32more.System.Search.IRowsetPrioritization_head
+    IRowsetPrioritization.SetScopePriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.PRIORITY_LEVEL,UInt32)(3, 'SetScopePriority', ((1, 'priority'),(1, 'scopeStatisticsEventFrequency'),)))
+    IRowsetPrioritization.GetScopePriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.PRIORITY_LEVEL),POINTER(UInt32))(4, 'GetScopePriority', ((1, 'priority'),(1, 'scopeStatisticsEventFrequency'),)))
+    IRowsetPrioritization.GetScopeStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(5, 'GetScopeStatistics', ((1, 'indexedDocumentCount'),(1, 'oustandingAddCount'),(1, 'oustandingModifyCount'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetPrioritization
+def _define_IRowsetQueryStatus_head():
+    class IRowsetQueryStatus(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a7ac77ed-f8d7-11ce-a7-98-00-20-f8-00-80-24')
+    return IRowsetQueryStatus
+def _define_IRowsetQueryStatus():
+    IRowsetQueryStatus = win32more.System.Search.IRowsetQueryStatus_head
+    IRowsetQueryStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetStatus', ((1, 'pdwStatus'),)))
+    IRowsetQueryStatus.GetStatusEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UIntPtr),POINTER(UIntPtr),UIntPtr,c_char_p_no,POINTER(UIntPtr),POINTER(UIntPtr))(4, 'GetStatusEx', ((1, 'pdwStatus'),(1, 'pcFilteredDocuments'),(1, 'pcDocumentsToFilter'),(1, 'pdwRatioFinishedDenominator'),(1, 'pdwRatioFinishedNumerator'),(1, 'cbBmk'),(1, 'pBmk'),(1, 'piRowBmk'),(1, 'pcRowsTotal'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetQueryStatus
+def _define_IRowsetRefresh_head():
+    class IRowsetRefresh(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa9-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetRefresh
+def _define_IRowsetRefresh():
+    IRowsetRefresh = win32more.System.Search.IRowsetRefresh_head
+    IRowsetRefresh.RefreshVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),win32more.Foundation.BOOL,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)))(3, 'RefreshVisibleData', ((1, 'hChapter'),(1, 'cRows'),(1, 'rghRows'),(1, 'fOverWrite'),(1, 'pcRowsRefreshed'),(1, 'prghRowsRefreshed'),(1, 'prgRowStatus'),)))
+    IRowsetRefresh.GetLastVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p)(4, 'GetLastVisibleData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetRefresh
+def _define_IRowsetResynch_head():
+    class IRowsetResynch(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a84-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetResynch
+def _define_IRowsetResynch():
+    IRowsetResynch = win32more.System.Search.IRowsetResynch_head
+    IRowsetResynch.GetVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p)(3, 'GetVisibleData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
+    IRowsetResynch.ResynchRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)))(4, 'ResynchRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'pcRowsResynched'),(1, 'prghRowsResynched'),(1, 'prgRowStatus'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetResynch
+def _define_IRowsetScroll_head():
+    class IRowsetScroll(win32more.System.Search.IRowsetLocate_head):
+        Guid = Guid('0c733a7e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetScroll
+def _define_IRowsetScroll():
+    IRowsetScroll = win32more.System.Search.IRowsetScroll_head
+    IRowsetScroll.GetApproximatePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,POINTER(UIntPtr),POINTER(UIntPtr))(12, 'GetApproximatePosition', ((1, 'hReserved'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'pulPosition'),(1, 'pcRows'),)))
+    IRowsetScroll.GetRowsAtRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,UIntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)))(13, 'GetRowsAtRatio', ((1, 'hReserved1'),(1, 'hReserved2'),(1, 'ulNumerator'),(1, 'ulDenominator'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
+    win32more.System.Search.IRowsetLocate
+    return IRowsetScroll
+def _define_IRowsetUpdate_head():
+    class IRowsetUpdate(win32more.System.Search.IRowsetChange_head):
+        Guid = Guid('0c733a6d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetUpdate
+def _define_IRowsetUpdate():
+    IRowsetUpdate = win32more.System.Search.IRowsetUpdate_head
+    IRowsetUpdate.GetOriginalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.Search.HACCESSOR,c_void_p)(6, 'GetOriginalData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
+    IRowsetUpdate.GetPendingRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)))(7, 'GetPendingRows', ((1, 'hReserved'),(1, 'dwRowStatus'),(1, 'pcPendingRows'),(1, 'prgPendingRows'),(1, 'prgPendingStatus'),)))
+    IRowsetUpdate.GetRowStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))(8, 'GetRowStatus', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'rgPendingStatus'),)))
+    IRowsetUpdate.Undo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)))(9, 'Undo', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'pcRowsUndone'),(1, 'prgRowsUndone'),(1, 'prgRowStatus'),)))
+    IRowsetUpdate.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)))(10, 'Update', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'pcRows'),(1, 'prgRows'),(1, 'prgRowStatus'),)))
+    win32more.System.Search.IRowsetChange
+    return IRowsetUpdate
+def _define_IRowsetView_head():
+    class IRowsetView(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a99-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetView
+def _define_IRowsetView():
+    IRowsetView = win32more.System.Search.IRowsetView_head
+    IRowsetView.CreateView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateView', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppView'),)))
+    IRowsetView.GetView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(Guid),POINTER(UIntPtr),POINTER(win32more.System.Com.IUnknown_head))(4, 'GetView', ((1, 'hChapter'),(1, 'riid'),(1, 'phChapterSource'),(1, 'ppView'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetView
+def _define_IRowsetWatchAll_head():
+    class IRowsetWatchAll(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a73-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetWatchAll
+def _define_IRowsetWatchAll():
+    IRowsetWatchAll = win32more.System.Search.IRowsetWatchAll_head
+    IRowsetWatchAll.Acknowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Acknowledge', ()))
+    IRowsetWatchAll.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Start', ()))
+    IRowsetWatchAll.StopWatching = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'StopWatching', ()))
+    win32more.System.Com.IUnknown
+    return IRowsetWatchAll
+def _define_IRowsetWatchNotify_head():
+    class IRowsetWatchNotify(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a44-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetWatchNotify
+def _define_IRowsetWatchNotify():
+    IRowsetWatchNotify = win32more.System.Search.IRowsetWatchNotify_head
+    IRowsetWatchNotify.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UInt32)(3, 'OnChange', ((1, 'pRowset'),(1, 'eChangeReason'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetWatchNotify
+def _define_IRowsetWatchRegion_head():
+    class IRowsetWatchRegion(win32more.System.Search.IRowsetWatchAll_head):
+        Guid = Guid('0c733a45-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetWatchRegion
+def _define_IRowsetWatchRegion():
+    IRowsetWatchRegion = win32more.System.Search.IRowsetWatchRegion_head
+    IRowsetWatchRegion.CreateWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UIntPtr))(6, 'CreateWatchRegion', ((1, 'dwWatchMode'),(1, 'phRegion'),)))
+    IRowsetWatchRegion.ChangeWatchMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32)(7, 'ChangeWatchMode', ((1, 'hRegion'),(1, 'dwWatchMode'),)))
+    IRowsetWatchRegion.DeleteWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(8, 'DeleteWatchRegion', ((1, 'hRegion'),)))
+    IRowsetWatchRegion.GetWatchRegionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(IntPtr))(9, 'GetWatchRegionInfo', ((1, 'hRegion'),(1, 'pdwWatchMode'),(1, 'phChapter'),(1, 'pcbBookmark'),(1, 'ppBookmark'),(1, 'pcRows'),)))
+    IRowsetWatchRegion.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBROWWATCHCHANGE_head)))(10, 'Refresh', ((1, 'pcChangesObtained'),(1, 'prgChanges'),)))
+    IRowsetWatchRegion.ShrinkWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_char_p_no,IntPtr)(11, 'ShrinkWatchRegion', ((1, 'hRegion'),(1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'cRows'),)))
+    win32more.System.Search.IRowsetWatchAll
+    return IRowsetWatchRegion
+def _define_IRowsetWithParameters_head():
+    class IRowsetWithParameters(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a6e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IRowsetWithParameters
+def _define_IRowsetWithParameters():
+    IRowsetWithParameters = win32more.System.Search.IRowsetWithParameters_head
+    IRowsetWithParameters.GetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)),POINTER(POINTER(UInt16)))(3, 'GetParameterInfo', ((1, 'pcParams'),(1, 'prgParamInfo'),(1, 'ppNamesBuffer'),)))
+    IRowsetWithParameters.Requery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.DBPARAMS_head),POINTER(UInt32),POINTER(UIntPtr))(4, 'Requery', ((1, 'pParams'),(1, 'pulErrorParam'),(1, 'phReserved'),)))
+    win32more.System.Com.IUnknown
+    return IRowsetWithParameters
+def _define_ISchemaLocalizerSupport_head():
+    class ISchemaLocalizerSupport(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ca3fdca2-bfbe-4eed-90-d7-0c-ae-f0-a1-bd-a1')
+    return ISchemaLocalizerSupport
+def _define_ISchemaLocalizerSupport():
+    ISchemaLocalizerSupport = win32more.System.Search.ISchemaLocalizerSupport_head
+    ISchemaLocalizerSupport.Localize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(3, 'Localize', ((1, 'pszGlobalString'),(1, 'ppszLocalString'),)))
+    win32more.System.Com.IUnknown
+    return ISchemaLocalizerSupport
+def _define_ISchemaLock_head():
+    class ISchemaLock(win32more.System.Com.IUnknown_head):
+        Guid = Guid('4c2389fb-2511-11d4-b2-58-00-c0-4f-79-71-ce')
+    return ISchemaLock
+def _define_ISchemaLock():
+    ISchemaLock = win32more.System.Search.ISchemaLock_head
+    ISchemaLock.GetSchemaLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(UInt64))(3, 'GetSchemaLock', ((1, 'pTableID'),(1, 'lmMode'),(1, 'phLockHandle'),(1, 'pTableVersion'),)))
+    ISchemaLock.ReleaseSchemaLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(4, 'ReleaseSchemaLock', ((1, 'hLockHandle'),)))
+    win32more.System.Com.IUnknown
+    return ISchemaLock
+def _define_ISchemaProvider_head():
+    class ISchemaProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('8cf89bcb-394c-49b2-ae-28-a5-9d-d4-ed-7f-68')
+    return ISchemaProvider
+def _define_ISchemaProvider():
+    ISchemaProvider = win32more.System.Search.ISchemaProvider_head
+    ISchemaProvider.Entities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(3, 'Entities', ((1, 'riid'),(1, 'pEntities'),)))
+    ISchemaProvider.RootEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head))(4, 'RootEntity', ((1, 'pRootEntity'),)))
+    ISchemaProvider.GetEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IEntity_head))(5, 'GetEntity', ((1, 'pszEntityName'),(1, 'pEntity'),)))
+    ISchemaProvider.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(6, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
+    ISchemaProvider.Localize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Search.ISchemaLocalizerSupport_head)(7, 'Localize', ((1, 'lcid'),(1, 'pSchemaLocalizerSupport'),)))
+    ISchemaProvider.SaveBinary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(8, 'SaveBinary', ((1, 'pszSchemaBinaryPath'),)))
+    ISchemaProvider.LookupAuthoredNamedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IEntity_head,win32more.Foundation.PWSTR,win32more.System.Search.ITokenCollection_head,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(9, 'LookupAuthoredNamedEntity', ((1, 'pEntity'),(1, 'pszInputString'),(1, 'pTokenCollection'),(1, 'cTokensBegin'),(1, 'pcTokensLength'),(1, 'ppszValue'),)))
+    win32more.System.Com.IUnknown
+    return ISchemaProvider
+def _define_IScopedOperations_head():
+    class IScopedOperations(win32more.System.Search.IBindResource_head):
+        Guid = Guid('0c733ab0-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IScopedOperations
+def _define_IScopedOperations():
+    IScopedOperations = win32more.System.Search.IScopedOperations_head
+    IScopedOperations.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),UInt32,win32more.System.Com.IAuthenticate_head,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(POINTER(UInt16)))(4, 'Copy', ((1, 'cRows'),(1, 'rgpwszSourceURLs'),(1, 'rgpwszDestURLs'),(1, 'dwCopyFlags'),(1, 'pAuthenticate'),(1, 'rgdwStatus'),(1, 'rgpwszNewURLs'),(1, 'ppStringsBuffer'),)))
+    IScopedOperations.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),UInt32,win32more.System.Com.IAuthenticate_head,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(POINTER(UInt16)))(5, 'Move', ((1, 'cRows'),(1, 'rgpwszSourceURLs'),(1, 'rgpwszDestURLs'),(1, 'dwMoveFlags'),(1, 'pAuthenticate'),(1, 'rgdwStatus'),(1, 'rgpwszNewURLs'),(1, 'ppStringsBuffer'),)))
+    IScopedOperations.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32))(6, 'Delete', ((1, 'cRows'),(1, 'rgpwszURLs'),(1, 'dwDeleteFlags'),(1, 'rgdwStatus'),)))
+    IScopedOperations.OpenRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(7, 'OpenRowset', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'pIndexID'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    win32more.System.Search.IBindResource
+    return IScopedOperations
+def _define_ISearchCatalogManager_head():
+    class ISearchCatalogManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-50')
+    return ISearchCatalogManager
+def _define_ISearchCatalogManager():
+    ISearchCatalogManager = win32more.System.Search.ISearchCatalogManager_head
+    ISearchCatalogManager.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'get_Name', ((1, 'pszName'),)))
+    ISearchCatalogManager.GetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)))(4, 'GetParameter', ((1, 'pszName'),(1, 'ppValue'),)))
+    ISearchCatalogManager.SetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'SetParameter', ((1, 'pszName'),(1, 'pValue'),)))
+    ISearchCatalogManager.GetCatalogStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.CatalogStatus),POINTER(win32more.System.Search.CatalogPausedReason))(6, 'GetCatalogStatus', ((1, 'pStatus'),(1, 'pPausedReason'),)))
+    ISearchCatalogManager.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Reset', ()))
+    ISearchCatalogManager.Reindex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Reindex', ()))
+    ISearchCatalogManager.ReindexMatchingURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'ReindexMatchingURLs', ((1, 'pszPattern'),)))
+    ISearchCatalogManager.ReindexSearchRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'ReindexSearchRoot', ((1, 'pszRootURL'),)))
+    ISearchCatalogManager.put_ConnectTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(11, 'put_ConnectTimeout', ((1, 'dwConnectTimeout'),)))
+    ISearchCatalogManager.get_ConnectTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'get_ConnectTimeout', ((1, 'pdwConnectTimeout'),)))
+    ISearchCatalogManager.put_DataTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'put_DataTimeout', ((1, 'dwDataTimeout'),)))
+    ISearchCatalogManager.get_DataTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(14, 'get_DataTimeout', ((1, 'pdwDataTimeout'),)))
+    ISearchCatalogManager.NumberOfItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'NumberOfItems', ((1, 'plCount'),)))
+    ISearchCatalogManager.NumberOfItemsToIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32))(16, 'NumberOfItemsToIndex', ((1, 'plIncrementalCount'),(1, 'plNotificationQueue'),(1, 'plHighPriorityQueue'),)))
+    ISearchCatalogManager.URLBeingIndexed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(17, 'URLBeingIndexed', ((1, 'pszUrl'),)))
+    ISearchCatalogManager.GetURLIndexingState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32))(18, 'GetURLIndexingState', ((1, 'pszURL'),(1, 'pdwState'),)))
+    ISearchCatalogManager.GetPersistentItemsChangedSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchPersistentItemsChangedSink_head))(19, 'GetPersistentItemsChangedSink', ((1, 'ppISearchPersistentItemsChangedSink'),)))
+    ISearchCatalogManager.RegisterViewForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.ISearchViewChangedSink_head,POINTER(UInt32))(20, 'RegisterViewForNotification', ((1, 'pszView'),(1, 'pViewChangedSink'),(1, 'pdwCookie'),)))
+    ISearchCatalogManager.GetItemsChangedSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ISearchNotifyInlineSite_head,POINTER(Guid),POINTER(c_void_p),POINTER(Guid),POINTER(Guid),POINTER(UInt32))(21, 'GetItemsChangedSink', ((1, 'pISearchNotifyInlineSite'),(1, 'riid'),(1, 'ppv'),(1, 'pGUIDCatalogResetSignature'),(1, 'pGUIDCheckPointSignature'),(1, 'pdwLastCheckPointNumber'),)))
+    ISearchCatalogManager.UnregisterViewForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(22, 'UnregisterViewForNotification', ((1, 'dwCookie'),)))
+    ISearchCatalogManager.SetExtensionClusion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(23, 'SetExtensionClusion', ((1, 'pszExtension'),(1, 'fExclude'),)))
+    ISearchCatalogManager.EnumerateExcludedExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head))(24, 'EnumerateExcludedExtensions', ((1, 'ppExtensions'),)))
+    ISearchCatalogManager.GetQueryHelper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchQueryHelper_head))(25, 'GetQueryHelper', ((1, 'ppSearchQueryHelper'),)))
+    ISearchCatalogManager.put_DiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(26, 'put_DiacriticSensitivity', ((1, 'fDiacriticSensitive'),)))
+    ISearchCatalogManager.get_DiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(27, 'get_DiacriticSensitivity', ((1, 'pfDiacriticSensitive'),)))
+    ISearchCatalogManager.GetCrawlScopeManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchCrawlScopeManager_head))(28, 'GetCrawlScopeManager', ((1, 'ppCrawlScopeManager'),)))
+    win32more.System.Com.IUnknown
+    return ISearchCatalogManager
+def _define_ISearchCatalogManager2_head():
+    class ISearchCatalogManager2(win32more.System.Search.ISearchCatalogManager_head):
+        Guid = Guid('7ac3286d-4d1d-4817-84-fc-c1-c8-5e-3a-f0-d9')
+    return ISearchCatalogManager2
+def _define_ISearchCatalogManager2():
+    ISearchCatalogManager2 = win32more.System.Search.ISearchCatalogManager2_head
+    ISearchCatalogManager2.PrioritizeMatchingURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.PRIORITIZE_FLAGS)(29, 'PrioritizeMatchingURLs', ((1, 'pszPattern'),(1, 'dwPrioritizeFlags'),)))
+    win32more.System.Search.ISearchCatalogManager
+    return ISearchCatalogManager2
+def _define_ISearchCrawlScopeManager_head():
+    class ISearchCrawlScopeManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-55')
+    return ISearchCrawlScopeManager
+def _define_ISearchCrawlScopeManager():
+    ISearchCrawlScopeManager = win32more.System.Search.ISearchCrawlScopeManager_head
+    ISearchCrawlScopeManager.AddDefaultScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32)(3, 'AddDefaultScopeRule', ((1, 'pszURL'),(1, 'fInclude'),(1, 'fFollowFlags'),)))
+    ISearchCrawlScopeManager.AddRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ISearchRoot_head)(4, 'AddRoot', ((1, 'pSearchRoot'),)))
+    ISearchCrawlScopeManager.RemoveRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'RemoveRoot', ((1, 'pszURL'),)))
+    ISearchCrawlScopeManager.EnumerateRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchRoots_head))(6, 'EnumerateRoots', ((1, 'ppSearchRoots'),)))
+    ISearchCrawlScopeManager.AddHierarchicalScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(7, 'AddHierarchicalScope', ((1, 'pszURL'),(1, 'fInclude'),(1, 'fDefault'),(1, 'fOverrideChildren'),)))
+    ISearchCrawlScopeManager.AddUserScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,UInt32)(8, 'AddUserScopeRule', ((1, 'pszURL'),(1, 'fInclude'),(1, 'fOverrideChildren'),(1, 'fFollowFlags'),)))
+    ISearchCrawlScopeManager.RemoveScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'RemoveScopeRule', ((1, 'pszRule'),)))
+    ISearchCrawlScopeManager.EnumerateScopeRules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchScopeRules_head))(10, 'EnumerateScopeRules', ((1, 'ppSearchScopeRules'),)))
+    ISearchCrawlScopeManager.HasParentScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(11, 'HasParentScopeRule', ((1, 'pszURL'),(1, 'pfHasParentRule'),)))
+    ISearchCrawlScopeManager.HasChildScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(12, 'HasChildScopeRule', ((1, 'pszURL'),(1, 'pfHasChildRule'),)))
+    ISearchCrawlScopeManager.IncludedInCrawlScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(13, 'IncludedInCrawlScope', ((1, 'pszURL'),(1, 'pfIsIncluded'),)))
+    ISearchCrawlScopeManager.IncludedInCrawlScopeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.Search.CLUSION_REASON))(14, 'IncludedInCrawlScopeEx', ((1, 'pszURL'),(1, 'pfIsIncluded'),(1, 'pReason'),)))
+    ISearchCrawlScopeManager.RevertToDefaultScopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'RevertToDefaultScopes', ()))
+    ISearchCrawlScopeManager.SaveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'SaveAll', ()))
+    ISearchCrawlScopeManager.GetParentScopeVersionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32))(17, 'GetParentScopeVersionId', ((1, 'pszURL'),(1, 'plScopeId'),)))
+    ISearchCrawlScopeManager.RemoveDefaultScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(18, 'RemoveDefaultScopeRule', ((1, 'pszURL'),)))
+    win32more.System.Com.IUnknown
+    return ISearchCrawlScopeManager
+def _define_ISearchCrawlScopeManager2_head():
+    class ISearchCrawlScopeManager2(win32more.System.Search.ISearchCrawlScopeManager_head):
+        Guid = Guid('6292f7ad-4e19-4717-a5-34-8f-c2-2b-cd-5c-cd')
+    return ISearchCrawlScopeManager2
+def _define_ISearchCrawlScopeManager2():
+    ISearchCrawlScopeManager2 = win32more.System.Search.ISearchCrawlScopeManager2_head
+    ISearchCrawlScopeManager2.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Int32)),POINTER(win32more.Foundation.HANDLE))(19, 'GetVersion', ((1, 'plVersion'),(1, 'phFileMapping'),)))
+    win32more.System.Search.ISearchCrawlScopeManager
+    return ISearchCrawlScopeManager2
+def _define_ISearchItemsChangedSink_head():
+    class ISearchItemsChangedSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-58')
+    return ISearchItemsChangedSink
+def _define_ISearchItemsChangedSink():
+    ISearchItemsChangedSink = win32more.System.Search.ISearchItemsChangedSink_head
+    ISearchItemsChangedSink.StartedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'StartedMonitoringScope', ((1, 'pszURL'),)))
+    ISearchItemsChangedSink.StoppedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'StoppedMonitoringScope', ((1, 'pszURL'),)))
+    ISearchItemsChangedSink.OnItemsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_CHANGE_head),POINTER(UInt32),POINTER(win32more.Foundation.HRESULT))(5, 'OnItemsChanged', ((1, 'dwNumberOfChanges'),(1, 'rgDataChangeEntries'),(1, 'rgdwDocIds'),(1, 'rghrCompletionCodes'),)))
+    win32more.System.Com.IUnknown
+    return ISearchItemsChangedSink
+def _define_ISearchLanguageSupport_head():
+    class ISearchLanguageSupport(win32more.System.Com.IUnknown_head):
+        Guid = Guid('24c3cbaa-ebc1-491a-9e-f1-9f-6d-8d-eb-1b-8f')
+    return ISearchLanguageSupport
+def _define_ISearchLanguageSupport():
+    ISearchLanguageSupport = win32more.System.Search.ISearchLanguageSupport_head
+    ISearchLanguageSupport.SetDiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(3, 'SetDiacriticSensitivity', ((1, 'fDiacriticSensitive'),)))
+    ISearchLanguageSupport.GetDiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'GetDiacriticSensitivity', ((1, 'pfDiacriticSensitive'),)))
+    ISearchLanguageSupport.LoadWordBreaker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32))(5, 'LoadWordBreaker', ((1, 'lcid'),(1, 'riid'),(1, 'ppWordBreaker'),(1, 'pLcidUsed'),)))
+    ISearchLanguageSupport.LoadStemmer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32))(6, 'LoadStemmer', ((1, 'lcid'),(1, 'riid'),(1, 'ppStemmer'),(1, 'pLcidUsed'),)))
+    ISearchLanguageSupport.IsPrefixNormalized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(7, 'IsPrefixNormalized', ((1, 'pwcsQueryToken'),(1, 'cwcQueryToken'),(1, 'pwcsDocumentToken'),(1, 'cwcDocumentToken'),(1, 'pulPrefixLength'),)))
+    win32more.System.Com.IUnknown
+    return ISearchLanguageSupport
+def _define_ISearchManager_head():
+    class ISearchManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-69')
+    return ISearchManager
+def _define_ISearchManager():
+    ISearchManager = win32more.System.Search.ISearchManager_head
+    ISearchManager.GetIndexerVersionStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'GetIndexerVersionStr', ((1, 'ppszVersionString'),)))
+    ISearchManager.GetIndexerVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(4, 'GetIndexerVersion', ((1, 'pdwMajor'),(1, 'pdwMinor'),)))
+    ISearchManager.GetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)))(5, 'GetParameter', ((1, 'pszName'),(1, 'ppValue'),)))
+    ISearchManager.SetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(6, 'SetParameter', ((1, 'pszName'),(1, 'pValue'),)))
+    ISearchManager.get_ProxyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'get_ProxyName', ((1, 'ppszProxyName'),)))
+    ISearchManager.get_BypassList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(8, 'get_BypassList', ((1, 'ppszBypassList'),)))
+    ISearchManager.SetProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.PROXY_ACCESS,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(9, 'SetProxy', ((1, 'sUseProxy'),(1, 'fLocalByPassProxy'),(1, 'dwPortNumber'),(1, 'pszProxyName'),(1, 'pszByPassList'),)))
+    ISearchManager.GetCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISearchCatalogManager_head))(10, 'GetCatalog', ((1, 'pszCatalog'),(1, 'ppCatalogManager'),)))
+    ISearchManager.get_UserAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(11, 'get_UserAgent', ((1, 'ppszUserAgent'),)))
+    ISearchManager.put_UserAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(12, 'put_UserAgent', ((1, 'pszUserAgent'),)))
+    ISearchManager.get_UseProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.PROXY_ACCESS))(13, 'get_UseProxy', ((1, 'pUseProxy'),)))
+    ISearchManager.get_LocalBypass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(14, 'get_LocalBypass', ((1, 'pfLocalBypass'),)))
+    ISearchManager.get_PortNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(15, 'get_PortNumber', ((1, 'pdwPortNumber'),)))
+    win32more.System.Com.IUnknown
+    return ISearchManager
+def _define_ISearchManager2_head():
+    class ISearchManager2(win32more.System.Search.ISearchManager_head):
+        Guid = Guid('dbab3f73-db19-4a79-bf-c0-a6-1a-93-88-6d-df')
+    return ISearchManager2
+def _define_ISearchManager2():
+    ISearchManager2 = win32more.System.Search.ISearchManager2_head
+    ISearchManager2.CreateCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISearchCatalogManager_head))(16, 'CreateCatalog', ((1, 'pszCatalog'),(1, 'ppCatalogManager'),)))
+    ISearchManager2.DeleteCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(17, 'DeleteCatalog', ((1, 'pszCatalog'),)))
+    win32more.System.Search.ISearchManager
+    return ISearchManager2
+def _define_ISearchNotifyInlineSite_head():
+    class ISearchNotifyInlineSite(win32more.System.Com.IUnknown_head):
+        Guid = Guid('b5702e61-e75c-4b64-82-a1-6c-b4-f8-32-fc-cf')
+    return ISearchNotifyInlineSite
+def _define_ISearchNotifyInlineSite():
+    ISearchNotifyInlineSite = win32more.System.Search.ISearchNotifyInlineSite_head
+    ISearchNotifyInlineSite.OnItemIndexedStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_INDEXING_PHASE,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_INDEXING_STATUS_head))(3, 'OnItemIndexedStatusChange', ((1, 'sipStatus'),(1, 'dwNumEntries'),(1, 'rgItemStatusEntries'),)))
+    ISearchNotifyInlineSite.OnCatalogStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),UInt32)(4, 'OnCatalogStatusChange', ((1, 'guidCatalogResetSignature'),(1, 'guidCheckPointSignature'),(1, 'dwLastCheckPointNumber'),)))
+    win32more.System.Com.IUnknown
+    return ISearchNotifyInlineSite
+def _define_ISearchPersistentItemsChangedSink_head():
+    class ISearchPersistentItemsChangedSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a2ffdf9b-4758-4f84-b7-29-df-81-a1-a0-61-2f')
+    return ISearchPersistentItemsChangedSink
+def _define_ISearchPersistentItemsChangedSink():
+    ISearchPersistentItemsChangedSink = win32more.System.Search.ISearchPersistentItemsChangedSink_head
+    ISearchPersistentItemsChangedSink.StartedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'StartedMonitoringScope', ((1, 'pszURL'),)))
+    ISearchPersistentItemsChangedSink.StoppedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'StoppedMonitoringScope', ((1, 'pszURL'),)))
+    ISearchPersistentItemsChangedSink.OnItemsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_PERSISTENT_CHANGE_head),POINTER(win32more.Foundation.HRESULT))(5, 'OnItemsChanged', ((1, 'dwNumberOfChanges'),(1, 'DataChangeEntries'),(1, 'hrCompletionCodes'),)))
+    win32more.System.Com.IUnknown
+    return ISearchPersistentItemsChangedSink
+def _define_ISearchProtocol_head():
+    class ISearchProtocol(win32more.System.Com.IUnknown_head):
+        Guid = Guid('c73106ba-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
+    return ISearchProtocol
+def _define_ISearchProtocol():
+    ISearchProtocol = win32more.System.Search.ISearchProtocol_head
+    ISearchProtocol.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TIMEOUT_INFO_head),win32more.System.Search.IProtocolHandlerSite_head,POINTER(win32more.System.Search.PROXY_INFO_head))(3, 'Init', ((1, 'pTimeoutInfo'),(1, 'pProtocolHandlerSite'),(1, 'pProxyInfo'),)))
+    ISearchProtocol.CreateAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.AUTHENTICATION_INFO_head),POINTER(win32more.System.Search.INCREMENTAL_ACCESS_INFO_head),POINTER(win32more.System.Search.ITEM_INFO_head),POINTER(win32more.System.Search.IUrlAccessor_head))(4, 'CreateAccessor', ((1, 'pcwszURL'),(1, 'pAuthenticationInfo'),(1, 'pIncrementalAccessInfo'),(1, 'pItemInfo'),(1, 'ppAccessor'),)))
+    ISearchProtocol.CloseAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IUrlAccessor_head)(5, 'CloseAccessor', ((1, 'pAccessor'),)))
+    ISearchProtocol.ShutDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'ShutDown', ()))
+    win32more.System.Com.IUnknown
+    return ISearchProtocol
+def _define_ISearchProtocol2_head():
+    class ISearchProtocol2(win32more.System.Search.ISearchProtocol_head):
+        Guid = Guid('7789f0b2-b5b2-4722-8b-65-5d-bd-15-06-97-a9')
+    return ISearchProtocol2
+def _define_ISearchProtocol2():
+    ISearchProtocol2 = win32more.System.Search.ISearchProtocol2_head
+    ISearchProtocol2.CreateAccessorEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.AUTHENTICATION_INFO_head),POINTER(win32more.System.Search.INCREMENTAL_ACCESS_INFO_head),POINTER(win32more.System.Search.ITEM_INFO_head),POINTER(win32more.System.Com.BLOB_head),POINTER(win32more.System.Search.IUrlAccessor_head))(7, 'CreateAccessorEx', ((1, 'pcwszURL'),(1, 'pAuthenticationInfo'),(1, 'pIncrementalAccessInfo'),(1, 'pItemInfo'),(1, 'pUserData'),(1, 'ppAccessor'),)))
+    win32more.System.Search.ISearchProtocol
+    return ISearchProtocol2
+def _define_ISearchProtocolThreadContext_head():
+    class ISearchProtocolThreadContext(win32more.System.Com.IUnknown_head):
+        Guid = Guid('c73106e1-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
+    return ISearchProtocolThreadContext
+def _define_ISearchProtocolThreadContext():
+    ISearchProtocolThreadContext = win32more.System.Search.ISearchProtocolThreadContext_head
+    ISearchProtocolThreadContext.ThreadInit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ThreadInit', ()))
+    ISearchProtocolThreadContext.ThreadShutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'ThreadShutdown', ()))
+    ISearchProtocolThreadContext.ThreadIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'ThreadIdle', ((1, 'dwTimeElaspedSinceLastCallInMS'),)))
+    win32more.System.Com.IUnknown
+    return ISearchProtocolThreadContext
+def _define_ISearchQueryHelper_head():
+    class ISearchQueryHelper(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-63')
+    return ISearchQueryHelper
+def _define_ISearchQueryHelper():
+    ISearchQueryHelper = win32more.System.Search.ISearchQueryHelper_head
+    ISearchQueryHelper.get_ConnectionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'get_ConnectionString', ((1, 'pszConnectionString'),)))
+    ISearchQueryHelper.put_QueryContentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'put_QueryContentLocale', ((1, 'lcid'),)))
+    ISearchQueryHelper.get_QueryContentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'get_QueryContentLocale', ((1, 'plcid'),)))
+    ISearchQueryHelper.put_QueryKeywordLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'put_QueryKeywordLocale', ((1, 'lcid'),)))
+    ISearchQueryHelper.get_QueryKeywordLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(7, 'get_QueryKeywordLocale', ((1, 'plcid'),)))
+    ISearchQueryHelper.put_QueryTermExpansion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_TERM_EXPANSION)(8, 'put_QueryTermExpansion', ((1, 'expandTerms'),)))
+    ISearchQueryHelper.get_QueryTermExpansion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEARCH_TERM_EXPANSION))(9, 'get_QueryTermExpansion', ((1, 'pExpandTerms'),)))
+    ISearchQueryHelper.put_QuerySyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_QUERY_SYNTAX)(10, 'put_QuerySyntax', ((1, 'querySyntax'),)))
+    ISearchQueryHelper.get_QuerySyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEARCH_QUERY_SYNTAX))(11, 'get_QuerySyntax', ((1, 'pQuerySyntax'),)))
+    ISearchQueryHelper.put_QueryContentProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(12, 'put_QueryContentProperties', ((1, 'pszContentProperties'),)))
+    ISearchQueryHelper.get_QueryContentProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(13, 'get_QueryContentProperties', ((1, 'ppszContentProperties'),)))
+    ISearchQueryHelper.put_QuerySelectColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(14, 'put_QuerySelectColumns', ((1, 'pszSelectColumns'),)))
+    ISearchQueryHelper.get_QuerySelectColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(15, 'get_QuerySelectColumns', ((1, 'ppszSelectColumns'),)))
+    ISearchQueryHelper.put_QueryWhereRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(16, 'put_QueryWhereRestrictions', ((1, 'pszRestrictions'),)))
+    ISearchQueryHelper.get_QueryWhereRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(17, 'get_QueryWhereRestrictions', ((1, 'ppszRestrictions'),)))
+    ISearchQueryHelper.put_QuerySorting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(18, 'put_QuerySorting', ((1, 'pszSorting'),)))
+    ISearchQueryHelper.get_QuerySorting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(19, 'get_QuerySorting', ((1, 'ppszSorting'),)))
+    ISearchQueryHelper.GenerateSQLFromUserQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(20, 'GenerateSQLFromUserQuery', ((1, 'pszQuery'),(1, 'ppszSQL'),)))
+    ISearchQueryHelper.WriteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Search.SEARCH_COLUMN_PROPERTIES_head),POINTER(win32more.Foundation.FILETIME_head))(21, 'WriteProperties', ((1, 'itemID'),(1, 'dwNumberOfColumns'),(1, 'pColumns'),(1, 'pValues'),(1, 'pftGatherModifiedTime'),)))
+    ISearchQueryHelper.put_QueryMaxResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(22, 'put_QueryMaxResults', ((1, 'cMaxResults'),)))
+    ISearchQueryHelper.get_QueryMaxResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(23, 'get_QueryMaxResults', ((1, 'pcMaxResults'),)))
+    win32more.System.Com.IUnknown
+    return ISearchQueryHelper
+def _define_ISearchQueryHits_head():
+    class ISearchQueryHits(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ed8ce7e0-106c-11ce-84-e2-00-aa-00-4b-99-86')
+    return ISearchQueryHits
+def _define_ISearchQueryHits():
+    ISearchQueryHits = win32more.System.Search.ISearchQueryHits_head
+    ISearchQueryHits.Init = COMMETHOD(WINFUNCTYPE(Int32,win32more.Storage.IndexServer.IFilter_head,UInt32)(3, 'Init', ((1, 'pflt'),(1, 'ulFlags'),)))
+    ISearchQueryHits.NextHitMoniker = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.IMoniker_head)))(4, 'NextHitMoniker', ((1, 'pcMnk'),(1, 'papMnk'),)))
+    ISearchQueryHits.NextHitOffset = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(POINTER(win32more.Storage.IndexServer.FILTERREGION_head)))(5, 'NextHitOffset', ((1, 'pcRegion'),(1, 'paRegion'),)))
+    win32more.System.Com.IUnknown
+    return ISearchQueryHits
+def _define_ISearchRoot_head():
+    class ISearchRoot(win32more.System.Com.IUnknown_head):
+        Guid = Guid('04c18ccf-1f57-4cbd-88-cc-39-00-f5-19-5c-e3')
+    return ISearchRoot
+def _define_ISearchRoot():
+    ISearchRoot = win32more.System.Search.ISearchRoot_head
+    ISearchRoot.put_Schedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'put_Schedule', ((1, 'pszTaskArg'),)))
+    ISearchRoot.get_Schedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'get_Schedule', ((1, 'ppszTaskArg'),)))
+    ISearchRoot.put_RootURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'put_RootURL', ((1, 'pszURL'),)))
+    ISearchRoot.get_RootURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'get_RootURL', ((1, 'ppszURL'),)))
+    ISearchRoot.put_IsHierarchical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(7, 'put_IsHierarchical', ((1, 'fIsHierarchical'),)))
+    ISearchRoot.get_IsHierarchical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_IsHierarchical', ((1, 'pfIsHierarchical'),)))
+    ISearchRoot.put_ProvidesNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(9, 'put_ProvidesNotifications', ((1, 'fProvidesNotifications'),)))
+    ISearchRoot.get_ProvidesNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'get_ProvidesNotifications', ((1, 'pfProvidesNotifications'),)))
+    ISearchRoot.put_UseNotificationsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(11, 'put_UseNotificationsOnly', ((1, 'fUseNotificationsOnly'),)))
+    ISearchRoot.get_UseNotificationsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'get_UseNotificationsOnly', ((1, 'pfUseNotificationsOnly'),)))
+    ISearchRoot.put_EnumerationDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'put_EnumerationDepth', ((1, 'dwDepth'),)))
+    ISearchRoot.get_EnumerationDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(14, 'get_EnumerationDepth', ((1, 'pdwDepth'),)))
+    ISearchRoot.put_HostDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(15, 'put_HostDepth', ((1, 'dwDepth'),)))
+    ISearchRoot.get_HostDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(16, 'get_HostDepth', ((1, 'pdwDepth'),)))
+    ISearchRoot.put_FollowDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(17, 'put_FollowDirectories', ((1, 'fFollowDirectories'),)))
+    ISearchRoot.get_FollowDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(18, 'get_FollowDirectories', ((1, 'pfFollowDirectories'),)))
+    ISearchRoot.put_AuthenticationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.AUTH_TYPE)(19, 'put_AuthenticationType', ((1, 'authType'),)))
+    ISearchRoot.get_AuthenticationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.AUTH_TYPE))(20, 'get_AuthenticationType', ((1, 'pAuthType'),)))
+    ISearchRoot.put_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(21, 'put_User', ((1, 'pszUser'),)))
+    ISearchRoot.get_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(22, 'get_User', ((1, 'ppszUser'),)))
+    ISearchRoot.put_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(23, 'put_Password', ((1, 'pszPassword'),)))
+    ISearchRoot.get_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(24, 'get_Password', ((1, 'ppszPassword'),)))
+    win32more.System.Com.IUnknown
+    return ISearchRoot
+def _define_ISearchScopeRule_head():
+    class ISearchScopeRule(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-53')
+    return ISearchScopeRule
+def _define_ISearchScopeRule():
+    ISearchScopeRule = win32more.System.Search.ISearchScopeRule_head
+    ISearchScopeRule.get_PatternOrURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'get_PatternOrURL', ((1, 'ppszPatternOrURL'),)))
+    ISearchScopeRule.get_IsIncluded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_IsIncluded', ((1, 'pfIsIncluded'),)))
+    ISearchScopeRule.get_IsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_IsDefault', ((1, 'pfIsDefault'),)))
+    ISearchScopeRule.get_FollowFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'get_FollowFlags', ((1, 'pFollowFlags'),)))
+    win32more.System.Com.IUnknown
+    return ISearchScopeRule
+def _define_ISearchViewChangedSink_head():
+    class ISearchViewChangedSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-65')
+    return ISearchViewChangedSink
+def _define_ISearchViewChangedSink():
+    ISearchViewChangedSink = win32more.System.Search.ISearchViewChangedSink_head
+    ISearchViewChangedSink.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.System.Search.SEARCH_ITEM_CHANGE_head),POINTER(win32more.Foundation.BOOL))(3, 'OnChange', ((1, 'pdwDocID'),(1, 'pChange'),(1, 'pfInView'),)))
+    win32more.System.Com.IUnknown
+    return ISearchViewChangedSink
+def _define_ISecurityInfo_head():
+    class ISecurityInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa4-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ISecurityInfo
+def _define_ISecurityInfo():
+    ISecurityInfo = win32more.System.Search.ISecurityInfo_head
+    ISecurityInfo.GetCurrentTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)))(3, 'GetCurrentTrustee', ((1, 'ppTrustee'),)))
+    ISecurityInfo.GetObjectTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)))(4, 'GetObjectTypes', ((1, 'cObjectTypes'),(1, 'rgObjectTypes'),)))
+    ISecurityInfo.GetPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(UInt32))(5, 'GetPermissions', ((1, 'ObjectType'),(1, 'pPermissions'),)))
+    win32more.System.Com.IUnknown
+    return ISecurityInfo
+def _define_IService_head():
+    class IService(win32more.System.Com.IUnknown_head):
+        Guid = Guid('06210e88-01f5-11d1-b5-12-00-80-c7-81-c3-84')
+    return IService
+def _define_IService():
+    IService = win32more.System.Search.IService_head
+    IService.InvokeService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(3, 'InvokeService', ((1, 'pUnkInner'),)))
+    win32more.System.Com.IUnknown
+    return IService
+def _define_ISessionProperties_head():
+    class ISessionProperties(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a85-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ISessionProperties
+def _define_ISessionProperties():
+    ISessionProperties = win32more.System.Search.ISessionProperties_head
+    ISessionProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)))(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
+    ISessionProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(4, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
+    return ISessionProperties
+def _define_ISimpleCommandCreator_head():
+    class ISimpleCommandCreator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5e341ab7-02d0-11d1-90-0c-00-a0-c9-06-37-96')
+    return ISimpleCommandCreator
+def _define_ISimpleCommandCreator():
+    ISimpleCommandCreator = win32more.System.Search.ISimpleCommandCreator_head
+    ISimpleCommandCreator.CreateICommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),win32more.System.Com.IUnknown_head)(3, 'CreateICommand', ((1, 'ppIUnknown'),(1, 'pOuterUnk'),)))
+    ISimpleCommandCreator.VerifyCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(4, 'VerifyCatalog', ((1, 'pwszMachine'),(1, 'pwszCatalogName'),)))
+    ISimpleCommandCreator.GetDefaultCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(5, 'GetDefaultCatalog', ((1, 'pwszCatalogName'),(1, 'cwcIn'),(1, 'pcwcOut'),)))
+    win32more.System.Com.IUnknown
+    return ISimpleCommandCreator
+def _define_ISourcesRowset_head():
+    class ISourcesRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a1e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ISourcesRowset
+def _define_ISourcesRowset():
+    ISourcesRowset = win32more.System.Search.ISourcesRowset_head
+    ISourcesRowset.GetSourcesRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetSourcesRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgProperties'),(1, 'ppSourcesRowset'),)))
+    win32more.System.Com.IUnknown
+    return ISourcesRowset
+def _define_ISQLErrorInfo_head():
+    class ISQLErrorInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a74-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ISQLErrorInfo
+def _define_ISQLErrorInfo():
+    ISQLErrorInfo = win32more.System.Search.ISQLErrorInfo_head
+    ISQLErrorInfo.GetSQLInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(Int32))(3, 'GetSQLInfo', ((1, 'pbstrSQLState'),(1, 'plNativeError'),)))
+    win32more.System.Com.IUnknown
+    return ISQLErrorInfo
+def _define_ISQLGetDiagField_head():
+    class ISQLGetDiagField(win32more.System.Com.IUnknown_head):
+        Guid = Guid('228972f1-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
+    return ISQLGetDiagField
+def _define_ISQLGetDiagField():
+    ISQLGetDiagField = win32more.System.Search.ISQLGetDiagField_head
+    ISQLGetDiagField.GetDiagField = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.KAGGETDIAG_head))(3, 'GetDiagField', ((1, 'pDiagInfo'),)))
+    win32more.System.Com.IUnknown
+    return ISQLGetDiagField
+def _define_ISQLRequestDiagFields_head():
+    class ISQLRequestDiagFields(win32more.System.Com.IUnknown_head):
+        Guid = Guid('228972f0-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
+    return ISQLRequestDiagFields
+def _define_ISQLRequestDiagFields():
+    ISQLRequestDiagFields = win32more.System.Search.ISQLRequestDiagFields_head
+    ISQLRequestDiagFields.RequestDiagFields = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.KAGREQDIAG_head))(3, 'RequestDiagFields', ((1, 'cDiagFields'),(1, 'rgDiagFields'),)))
+    win32more.System.Com.IUnknown
+    return ISQLRequestDiagFields
+def _define_ISQLServerErrorInfo_head():
+    class ISQLServerErrorInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5cf4ca12-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
+    return ISQLServerErrorInfo
+def _define_ISQLServerErrorInfo():
+    ISQLServerErrorInfo = win32more.System.Search.ISQLServerErrorInfo_head
+    ISQLServerErrorInfo.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Search.SSERRORINFO_head)),POINTER(POINTER(UInt16)))(3, 'GetErrorInfo', ((1, 'ppErrorInfo'),(1, 'ppStringsBuffer'),)))
+    win32more.System.Com.IUnknown
+    return ISQLServerErrorInfo
+def _define_IStemmer_head():
+    class IStemmer(win32more.System.Com.IUnknown_head):
+        Guid = Guid('efbaf140-7f42-11ce-be-57-00-aa-00-51-fe-20')
+    return IStemmer
+def _define_IStemmer():
+    IStemmer = win32more.System.Search.IStemmer_head
+    IStemmer.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL))(3, 'Init', ((1, 'ulMaxTokenSize'),(1, 'pfLicense'),)))
+    IStemmer.GenerateWordForms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.IWordFormSink_head)(4, 'GenerateWordForms', ((1, 'pwcInBuf'),(1, 'cwc'),(1, 'pStemSink'),)))
+    IStemmer.GetLicenseToUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)))(5, 'GetLicenseToUse', ((1, 'ppwcsLicense'),)))
+    win32more.System.Com.IUnknown
+    return IStemmer
+def _define_ISubscriptionItem_head():
+    class ISubscriptionItem(win32more.System.Com.IUnknown_head):
+        Guid = Guid('a97559f8-6c4a-11d1-a1-e8-00-c0-4f-c2-fb-e1')
+    return ISubscriptionItem
+def _define_ISubscriptionItem():
+    ISubscriptionItem = win32more.System.Search.ISubscriptionItem_head
+    ISubscriptionItem.GetCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'GetCookie', ((1, 'pCookie'),)))
+    ISubscriptionItem.GetSubscriptionItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SUBSCRIPTIONITEMINFO_head))(4, 'GetSubscriptionItemInfo', ((1, 'pSubscriptionItemInfo'),)))
+    ISubscriptionItem.SetSubscriptionItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SUBSCRIPTIONITEMINFO_head))(5, 'SetSubscriptionItemInfo', ((1, 'pSubscriptionItemInfo'),)))
+    ISubscriptionItem.ReadProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.VARIANT_head))(6, 'ReadProperties', ((1, 'nCount'),(1, 'rgwszName'),(1, 'rgValue'),)))
+    ISubscriptionItem.WriteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.VARIANT_head))(7, 'WriteProperties', ((1, 'nCount'),(1, 'rgwszName'),(1, 'rgValue'),)))
+    ISubscriptionItem.EnumProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumItemProperties_head))(8, 'EnumProperties', ((1, 'ppEnumItemProperties'),)))
+    ISubscriptionItem.NotifyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'NotifyChanged', ()))
+    win32more.System.Com.IUnknown
+    return ISubscriptionItem
+def _define_ISubscriptionMgr_head():
+    class ISubscriptionMgr(win32more.System.Com.IUnknown_head):
+        Guid = Guid('085fb2c0-0df8-11d1-8f-4b-00-a0-c9-05-41-3f')
+    return ISubscriptionMgr
+def _define_ISubscriptionMgr():
+    ISubscriptionMgr = win32more.System.Search.ISubscriptionMgr_head
+    ISubscriptionMgr.DeleteSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HWND)(3, 'DeleteSubscription', ((1, 'pwszURL'),(1, 'hwnd'),)))
+    ISubscriptionMgr.UpdateSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'UpdateSubscription', ((1, 'pwszURL'),)))
+    ISubscriptionMgr.UpdateAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'UpdateAll', ()))
+    ISubscriptionMgr.IsSubscribed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(6, 'IsSubscribed', ((1, 'pwszURL'),(1, 'pfSubscribed'),)))
+    ISubscriptionMgr.GetSubscriptionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head))(7, 'GetSubscriptionInfo', ((1, 'pwszURL'),(1, 'pInfo'),)))
+    ISubscriptionMgr.GetDefaultInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SUBSCRIPTIONTYPE,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head))(8, 'GetDefaultInfo', ((1, 'subType'),(1, 'pInfo'),)))
+    ISubscriptionMgr.ShowSubscriptionProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HWND)(9, 'ShowSubscriptionProperties', ((1, 'pwszURL'),(1, 'hwnd'),)))
+    ISubscriptionMgr.CreateSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.SUBSCRIPTIONTYPE,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head))(10, 'CreateSubscription', ((1, 'hwnd'),(1, 'pwszURL'),(1, 'pwszFriendlyName'),(1, 'dwFlags'),(1, 'subsType'),(1, 'pInfo'),)))
+    win32more.System.Com.IUnknown
+    return ISubscriptionMgr
+def _define_ISubscriptionMgr2_head():
+    class ISubscriptionMgr2(win32more.System.Search.ISubscriptionMgr_head):
+        Guid = Guid('614bc270-aedf-11d1-a1-f9-00-c0-4f-c2-fb-e1')
+    return ISubscriptionMgr2
+def _define_ISubscriptionMgr2():
+    ISubscriptionMgr2 = win32more.System.Search.ISubscriptionMgr2_head
+    ISubscriptionMgr2.GetItemFromURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISubscriptionItem_head))(11, 'GetItemFromURL', ((1, 'pwszURL'),(1, 'ppSubscriptionItem'),)))
+    ISubscriptionMgr2.GetItemFromCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Search.ISubscriptionItem_head))(12, 'GetItemFromCookie', ((1, 'pSubscriptionCookie'),(1, 'ppSubscriptionItem'),)))
+    ISubscriptionMgr2.GetSubscriptionRunState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32))(13, 'GetSubscriptionRunState', ((1, 'dwNumCookies'),(1, 'pCookies'),(1, 'pdwRunState'),)))
+    ISubscriptionMgr2.EnumSubscriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.IEnumSubscription_head))(14, 'EnumSubscriptions', ((1, 'dwFlags'),(1, 'ppEnumSubscriptions'),)))
+    ISubscriptionMgr2.UpdateItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid))(15, 'UpdateItems', ((1, 'dwFlags'),(1, 'dwNumCookies'),(1, 'pCookies'),)))
+    ISubscriptionMgr2.AbortItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid))(16, 'AbortItems', ((1, 'dwNumCookies'),(1, 'pCookies'),)))
+    ISubscriptionMgr2.AbortAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'AbortAll', ()))
+    win32more.System.Search.ISubscriptionMgr
+    return ISubscriptionMgr2
+def _define_ITableCreation_head():
+    class ITableCreation(win32more.System.Search.ITableDefinition_head):
+        Guid = Guid('0c733abc-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITableCreation
+def _define_ITableCreation():
+    ITableCreation = win32more.System.Search.ITableCreation_head
+    ITableCreation.GetTableDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBCOLUMNDESC_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBCONSTRAINTDESC_head)),POINTER(POINTER(UInt16)))(7, 'GetTableDefinition', ((1, 'pTableID'),(1, 'pcColumnDescs'),(1, 'prgColumnDescs'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),(1, 'pcConstraintDescs'),(1, 'prgConstraintDescs'),(1, 'ppwszStringBuffer'),)))
+    win32more.System.Search.ITableDefinition
+    return ITableCreation
+def _define_ITableDefinition_head():
+    class ITableDefinition(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a86-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITableDefinition
+def _define_ITableDefinition():
+    ITableDefinition = win32more.System.Search.ITableDefinition_head
+    ITableDefinition.CreateTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBCOLUMNDESC_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateTable', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'cColumnDescs'),(1, 'rgColumnDescs'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppTableID'),(1, 'ppRowset'),)))
+    ITableDefinition.DropTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head))(4, 'DropTable', ((1, 'pTableID'),)))
+    ITableDefinition.AddColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.System.Search.DBCOLUMNDESC_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)))(5, 'AddColumn', ((1, 'pTableID'),(1, 'pColumnDesc'),(1, 'ppColumnID'),)))
+    ITableDefinition.DropColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head))(6, 'DropColumn', ((1, 'pTableID'),(1, 'pColumnID'),)))
+    win32more.System.Com.IUnknown
+    return ITableDefinition
+def _define_ITableDefinitionWithConstraints_head():
+    class ITableDefinitionWithConstraints(win32more.System.Search.ITableCreation_head):
+        Guid = Guid('0c733aab-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITableDefinitionWithConstraints
+def _define_ITableDefinitionWithConstraints():
+    ITableDefinitionWithConstraints = win32more.System.Search.ITableDefinitionWithConstraints_head
+    ITableDefinitionWithConstraints.AddConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.System.Search.DBCONSTRAINTDESC_head))(8, 'AddConstraint', ((1, 'pTableID'),(1, 'pConstraintDesc'),)))
+    ITableDefinitionWithConstraints.CreateTableWithConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBCOLUMNDESC_head),UInt32,POINTER(win32more.System.Search.DBCONSTRAINTDESC_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(win32more.System.Com.IUnknown_head))(9, 'CreateTableWithConstraints', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'cColumnDescs'),(1, 'rgColumnDescs'),(1, 'cConstraintDescs'),(1, 'rgConstraintDescs'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppTableID'),(1, 'ppRowset'),)))
+    ITableDefinitionWithConstraints.DropConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head))(10, 'DropConstraint', ((1, 'pTableID'),(1, 'pConstraintID'),)))
+    win32more.System.Search.ITableCreation
+    return ITableDefinitionWithConstraints
+def _define_ITableRename_head():
+    class ITableRename(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a77-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITableRename
+def _define_ITableRename():
+    ITableRename = win32more.System.Search.ITableRename_head
+    ITableRename.RenameColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head))(3, 'RenameColumn', ((1, 'pTableId'),(1, 'pOldColumnId'),(1, 'pNewColumnId'),)))
+    ITableRename.RenameTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head))(4, 'RenameTable', ((1, 'pOldTableId'),(1, 'pOldIndexId'),(1, 'pNewTableId'),(1, 'pNewIndexId'),)))
+    win32more.System.Com.IUnknown
+    return ITableRename
+def _define_ITEM_INFO_head():
+    class ITEM_INFO(Structure):
+        pass
+    return ITEM_INFO
+def _define_ITEM_INFO():
+    ITEM_INFO = win32more.System.Search.ITEM_INFO_head
+    ITEM_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('pcwszFromEMail', win32more.Foundation.PWSTR),
+        ('pcwszApplicationName', win32more.Foundation.PWSTR),
+        ('pcwszCatalogName', win32more.Foundation.PWSTR),
+        ('pcwszContentClass', win32more.Foundation.PWSTR),
+    ]
+    return ITEM_INFO
+def _define_ITEMPROP_head():
+    class ITEMPROP(Structure):
+        pass
+    return ITEMPROP
+def _define_ITEMPROP():
+    ITEMPROP = win32more.System.Search.ITEMPROP_head
+    ITEMPROP._fields_ = [
+        ('variantValue', win32more.System.Com.VARIANT),
+        ('pwszName', win32more.Foundation.PWSTR),
+    ]
+    return ITEMPROP
+def _define_ITokenCollection_head():
+    class ITokenCollection(win32more.System.Com.IUnknown_head):
+        Guid = Guid('22d8b4f2-f577-4adb-a3-35-c2-ae-88-41-6f-ab')
+    return ITokenCollection
+def _define_ITokenCollection():
+    ITokenCollection = win32more.System.Search.ITokenCollection_head
+    ITokenCollection.NumberOfTokens = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'NumberOfTokens', ((1, 'pCount'),)))
+    ITokenCollection.GetToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(4, 'GetToken', ((1, 'i'),(1, 'pBegin'),(1, 'pLength'),(1, 'ppsz'),)))
+    win32more.System.Com.IUnknown
+    return ITokenCollection
+def _define_ITransactionJoin_head():
+    class ITransactionJoin(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a5e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITransactionJoin
+def _define_ITransactionJoin():
+    ITransactionJoin = win32more.System.Search.ITransactionJoin_head
+    ITransactionJoin.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head))(3, 'GetOptionsObject', ((1, 'ppOptions'),)))
+    ITransactionJoin.JoinTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head)(4, 'JoinTransaction', ((1, 'punkTransactionCoord'),(1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOtherOptions'),)))
+    win32more.System.Com.IUnknown
+    return ITransactionJoin
+def _define_ITransactionLocal_head():
+    class ITransactionLocal(win32more.System.DistributedTransactionCoordinator.ITransaction_head):
+        Guid = Guid('0c733a5f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITransactionLocal
+def _define_ITransactionLocal():
+    ITransactionLocal = win32more.System.Search.ITransactionLocal_head
+    ITransactionLocal.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head))(6, 'GetOptionsObject', ((1, 'ppOptions'),)))
+    ITransactionLocal.StartTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head,POINTER(UInt32))(7, 'StartTransaction', ((1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOtherOptions'),(1, 'pulTransactionLevel'),)))
+    win32more.System.DistributedTransactionCoordinator.ITransaction
+    return ITransactionLocal
+def _define_ITransactionObject_head():
+    class ITransactionObject(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a60-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITransactionObject
+def _define_ITransactionObject():
+    ITransactionObject = win32more.System.Search.ITransactionObject_head
+    ITransactionObject.GetTransactionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head))(3, 'GetTransactionObject', ((1, 'ulTransactionLevel'),(1, 'ppTransactionObject'),)))
+    win32more.System.Com.IUnknown
+    return ITransactionObject
+def _define_ITrusteeAdmin_head():
+    class ITrusteeAdmin(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa1-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITrusteeAdmin
+def _define_ITrusteeAdmin():
+    ITrusteeAdmin = win32more.System.Search.ITrusteeAdmin_head
+    ITrusteeAdmin.CompareTrustees = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head))(3, 'CompareTrustees', ((1, 'pTrustee1'),(1, 'pTrustee2'),)))
+    ITrusteeAdmin.CreateTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(4, 'CreateTrustee', ((1, 'pTrustee'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    ITrusteeAdmin.DeleteTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head))(5, 'DeleteTrustee', ((1, 'pTrustee'),)))
+    ITrusteeAdmin.SetTrusteeProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head))(6, 'SetTrusteeProperties', ((1, 'pTrustee'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    ITrusteeAdmin.GetTrusteeProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)))(7, 'GetTrusteeProperties', ((1, 'pTrustee'),(1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
+    win32more.System.Com.IUnknown
+    return ITrusteeAdmin
+def _define_ITrusteeGroupAdmin_head():
+    class ITrusteeGroupAdmin(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733aa2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return ITrusteeGroupAdmin
+def _define_ITrusteeGroupAdmin():
+    ITrusteeGroupAdmin = win32more.System.Search.ITrusteeGroupAdmin_head
+    ITrusteeGroupAdmin.AddMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head))(3, 'AddMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),)))
+    ITrusteeGroupAdmin.DeleteMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head))(4, 'DeleteMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),)))
+    ITrusteeGroupAdmin.IsMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Foundation.BOOL))(5, 'IsMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),(1, 'pfStatus'),)))
+    ITrusteeGroupAdmin.GetMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)))(6, 'GetMembers', ((1, 'pMembershipTrustee'),(1, 'pcMembers'),(1, 'prgMembers'),)))
+    ITrusteeGroupAdmin.GetMemberships = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)))(7, 'GetMemberships', ((1, 'pTrustee'),(1, 'pcMemberships'),(1, 'prgMemberships'),)))
+    win32more.System.Com.IUnknown
+    return ITrusteeGroupAdmin
+def _define_IUMS_head():
+    class IUMS(c_void_p):
+        pass
+    return IUMS
+def _define_IUMS():
+    IUMS = win32more.System.Search.IUMS_head
+    IUMS.SqlUmsSuspend = COMMETHOD(WINFUNCTYPE(Void,UInt32)(0, 'SqlUmsSuspend', ((1, 'ticks'),)))
+    IUMS.SqlUmsYield = COMMETHOD(WINFUNCTYPE(Void,UInt32)(1, 'SqlUmsYield', ((1, 'ticks'),)))
+    IUMS.SqlUmsSwitchPremptive = COMMETHOD(WINFUNCTYPE(Void,)(2, 'SqlUmsSwitchPremptive', ()))
+    IUMS.SqlUmsSwitchNonPremptive = COMMETHOD(WINFUNCTYPE(Void,)(3, 'SqlUmsSwitchNonPremptive', ()))
+    IUMS.SqlUmsFIsPremptive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(4, 'SqlUmsFIsPremptive', ()))
+    return IUMS
+def _define_IUMSInitialize_head():
+    class IUMSInitialize(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5cf4ca14-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
+    return IUMSInitialize
+def _define_IUMSInitialize():
+    IUMSInitialize = win32more.System.Search.IUMSInitialize_head
+    IUMSInitialize.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(3, 'Initialize', ((1, 'pUMS'),)))
+    win32more.System.Com.IUnknown
+    return IUMSInitialize
+def _define_IUrlAccessor_head():
+    class IUrlAccessor(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0b63e318-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
+    return IUrlAccessor
+def _define_IUrlAccessor():
+    IUrlAccessor = win32more.System.Search.IUrlAccessor_head
+    IUrlAccessor.AddRequestParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(3, 'AddRequestParameter', ((1, 'pSpec'),(1, 'pVar'),)))
+    IUrlAccessor.GetDocFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(4, 'GetDocFormat', ((1, 'wszDocFormat'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    IUrlAccessor.GetCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'GetCLSID', ((1, 'pClsid'),)))
+    IUrlAccessor.GetHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(6, 'GetHost', ((1, 'wszHost'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    IUrlAccessor.IsDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'IsDirectory', ()))
+    IUrlAccessor.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(8, 'GetSize', ((1, 'pllSize'),)))
+    IUrlAccessor.GetLastModified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(9, 'GetLastModified', ((1, 'pftLastModified'),)))
+    IUrlAccessor.GetFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(10, 'GetFileName', ((1, 'wszFileName'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    IUrlAccessor.GetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(UInt32))(11, 'GetSecurityDescriptor', ((1, 'pSD'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    IUrlAccessor.GetRedirectedURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(12, 'GetRedirectedURL', ((1, 'wszRedirectedURL'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    IUrlAccessor.GetSecurityProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(13, 'GetSecurityProvider', ((1, 'pSPClsid'),)))
+    IUrlAccessor.BindToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head))(14, 'BindToStream', ((1, 'ppStream'),)))
+    IUrlAccessor.BindToFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.IFilter_head))(15, 'BindToFilter', ((1, 'ppFilter'),)))
+    win32more.System.Com.IUnknown
+    return IUrlAccessor
+def _define_IUrlAccessor2_head():
+    class IUrlAccessor2(win32more.System.Search.IUrlAccessor_head):
+        Guid = Guid('c7310734-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
+    return IUrlAccessor2
+def _define_IUrlAccessor2():
+    IUrlAccessor2 = win32more.System.Search.IUrlAccessor2_head
+    IUrlAccessor2.GetDisplayUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(16, 'GetDisplayUrl', ((1, 'wszDocUrl'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    IUrlAccessor2.IsDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'IsDocument', ()))
+    IUrlAccessor2.GetCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(18, 'GetCodePage', ((1, 'wszCodePage'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    win32more.System.Search.IUrlAccessor
+    return IUrlAccessor2
+def _define_IUrlAccessor3_head():
+    class IUrlAccessor3(win32more.System.Search.IUrlAccessor2_head):
+        Guid = Guid('6fbc7005-0455-4874-b8-ff-74-39-45-02-41-a3')
+    return IUrlAccessor3
+def _define_IUrlAccessor3():
+    IUrlAccessor3 = win32more.System.Search.IUrlAccessor3_head
+    IUrlAccessor3.GetImpersonationSidBlobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.BLOB_head)))(19, 'GetImpersonationSidBlobs', ((1, 'pcwszURL'),(1, 'pcSidCount'),(1, 'ppSidBlobs'),)))
+    win32more.System.Search.IUrlAccessor2
+    return IUrlAccessor3
+def _define_IUrlAccessor4_head():
+    class IUrlAccessor4(win32more.System.Search.IUrlAccessor3_head):
+        Guid = Guid('5cc51041-c8d2-41d7-bc-a3-9e-9e-28-62-97-dc')
+    return IUrlAccessor4
+def _define_IUrlAccessor4():
+    IUrlAccessor4 = win32more.System.Search.IUrlAccessor4_head
+    IUrlAccessor4.ShouldIndexItemContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(20, 'ShouldIndexItemContent', ((1, 'pfIndexContent'),)))
+    IUrlAccessor4.ShouldIndexProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Foundation.BOOL))(21, 'ShouldIndexProperty', ((1, 'key'),(1, 'pfIndexProperty'),)))
+    win32more.System.Search.IUrlAccessor3
+    return IUrlAccessor4
+def _define_IViewChapter_head():
+    class IViewChapter(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a98-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IViewChapter
+def _define_IViewChapter():
+    IViewChapter = win32more.System.Search.IViewChapter_head
+    IViewChapter.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetSpecification', ((1, 'riid'),(1, 'ppRowset'),)))
+    IViewChapter.OpenViewChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr))(4, 'OpenViewChapter', ((1, 'hSource'),(1, 'phViewChapter'),)))
+    win32more.System.Com.IUnknown
+    return IViewChapter
+def _define_IViewFilter_head():
+    class IViewFilter(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a9b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IViewFilter
+def _define_IViewFilter():
+    IViewFilter = win32more.System.Search.IViewFilter_head
+    IViewFilter.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,POINTER(UIntPtr),POINTER(POINTER(UInt32)),c_void_p)(3, 'GetFilter', ((1, 'hAccessor'),(1, 'pcRows'),(1, 'pCompareOps'),(1, 'pCriteriaData'),)))
+    IViewFilter.GetFilterBindings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBBINDING_head)))(4, 'GetFilterBindings', ((1, 'pcBindings'),(1, 'prgBindings'),)))
+    IViewFilter.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.HACCESSOR,UIntPtr,POINTER(UInt32),c_void_p)(5, 'SetFilter', ((1, 'hAccessor'),(1, 'cRows'),(1, 'CompareOps'),(1, 'pCriteriaData'),)))
+    win32more.System.Com.IUnknown
+    return IViewFilter
+def _define_IViewRowset_head():
+    class IViewRowset(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a97-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IViewRowset
+def _define_IViewRowset():
+    IViewRowset = win32more.System.Search.IViewRowset_head
+    IViewRowset.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetSpecification', ((1, 'riid'),(1, 'ppObject'),)))
+    IViewRowset.OpenViewRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head))(4, 'OpenViewRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
+    return IViewRowset
+def _define_IViewSort_head():
+    class IViewSort(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0c733a9a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    return IViewSort
+def _define_IViewSort():
+    IViewSort = win32more.System.Search.IViewSort_head
+    IViewSort.GetSortOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)))(3, 'GetSortOrder', ((1, 'pcValues'),(1, 'prgColumns'),(1, 'prgOrders'),)))
+    IViewSort.SetSortOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))(4, 'SetSortOrder', ((1, 'cValues'),(1, 'rgColumns'),(1, 'rgOrders'),)))
+    win32more.System.Com.IUnknown
+    return IViewSort
+def _define_IWordBreaker_head():
+    class IWordBreaker(win32more.System.Com.IUnknown_head):
+        Guid = Guid('d53552c8-77e3-101a-b5-52-08-00-2b-33-b0-e6')
+    return IWordBreaker
+def _define_IWordBreaker():
+    IWordBreaker = win32more.System.Search.IWordBreaker_head
+    IWordBreaker.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.BOOL))(3, 'Init', ((1, 'fQuery'),(1, 'ulMaxTokenSize'),(1, 'pfLicense'),)))
+    IWordBreaker.BreakText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TEXT_SOURCE_head),win32more.System.Search.IWordSink_head,win32more.Storage.IndexServer.IPhraseSink_head)(4, 'BreakText', ((1, 'pTextSource'),(1, 'pWordSink'),(1, 'pPhraseSink'),)))
+    IWordBreaker.ComposePhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(5, 'ComposePhrase', ((1, 'pwcNoun'),(1, 'cwcNoun'),(1, 'pwcModifier'),(1, 'cwcModifier'),(1, 'ulAttachmentType'),(1, 'pwcPhrase'),(1, 'pcwcPhrase'),)))
+    IWordBreaker.GetLicenseToUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)))(6, 'GetLicenseToUse', ((1, 'ppwcsLicense'),)))
+    win32more.System.Com.IUnknown
+    return IWordBreaker
+def _define_IWordFormSink_head():
+    class IWordFormSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
+    return IWordFormSink
+def _define_IWordFormSink():
+    IWordFormSink = win32more.System.Search.IWordFormSink_head
+    IWordFormSink.PutAltWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(3, 'PutAltWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
+    IWordFormSink.PutWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(4, 'PutWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
+    win32more.System.Com.IUnknown
+    return IWordFormSink
+def _define_IWordSink_head():
+    class IWordSink(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cc907054-c058-101a-b5-54-08-00-2b-33-b0-e6')
+    return IWordSink
+def _define_IWordSink():
+    IWordSink = win32more.System.Search.IWordSink_head
+    IWordSink.PutWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(3, 'PutWord', ((1, 'cwc'),(1, 'pwcInBuf'),(1, 'cwcSrcLen'),(1, 'cwcSrcPos'),)))
+    IWordSink.PutAltWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(4, 'PutAltWord', ((1, 'cwc'),(1, 'pwcInBuf'),(1, 'cwcSrcLen'),(1, 'cwcSrcPos'),)))
+    IWordSink.StartAltPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'StartAltPhrase', ()))
+    IWordSink.EndAltPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'EndAltPhrase', ()))
+    IWordSink.PutBreak = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.IndexServer.WORDREP_BREAK_TYPE)(7, 'PutBreak', ((1, 'breakType'),)))
+    win32more.System.Com.IUnknown
+    return IWordSink
+def _define_KAGGETDIAG_head():
+    class KAGGETDIAG(Structure):
+        pass
+    return KAGGETDIAG
+def _define_KAGGETDIAG():
+    KAGGETDIAG = win32more.System.Search.KAGGETDIAG_head
+    KAGGETDIAG._fields_ = [
+        ('ulSize', UInt32),
+        ('vDiagInfo', win32more.System.Com.VARIANT),
+        ('sDiagField', Int16),
+    ]
+    return KAGGETDIAG
+def _define_KAGREQDIAG_head():
+    class KAGREQDIAG(Structure):
+        pass
+    return KAGREQDIAG
+def _define_KAGREQDIAG():
+    KAGREQDIAG = win32more.System.Search.KAGREQDIAG_head
+    KAGREQDIAG._fields_ = [
+        ('ulDiagFlags', UInt32),
+        ('vt', win32more.System.Com.VARENUM),
+        ('sDiagField', Int16),
+    ]
+    return KAGREQDIAG
+KAGREQDIAGFLAGSENUM = Int32
+KAGREQDIAGFLAGS_HEADER = 1
+KAGREQDIAGFLAGS_RECORD = 2
+LeafCondition = Guid('52f15c89-5a17-48e1-bb-cd-46-a3-f8-9c-7c-c2')
+LOCKMODEENUM = Int32
+LOCKMODE_INVALID = 0
+LOCKMODE_EXCLUSIVE = 1
+LOCKMODE_SHARED = 2
+def _define_MDAXISINFO_head():
+    class MDAXISINFO(Structure):
+        pass
+    return MDAXISINFO
+def _define_MDAXISINFO():
+    MDAXISINFO = win32more.System.Search.MDAXISINFO_head
+    MDAXISINFO._fields_ = [
+        ('cbSize', UIntPtr),
+        ('iAxis', UIntPtr),
+        ('cDimensions', UIntPtr),
+        ('cCoordinates', UIntPtr),
+        ('rgcColumns', POINTER(UIntPtr)),
+        ('rgpwszDimensionNames', POINTER(win32more.Foundation.PWSTR)),
+    ]
+    return MDAXISINFO
+MSDAINITIALIZE = Guid('2206cdb0-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+MSDAORA = Guid('e8cc4cbe-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
+MSDAORA_ERROR = Guid('e8cc4cbf-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
+MSDAORA8 = Guid('7f06a373-dd6a-43db-b4-e0-1f-c1-21-e5-e6-2b')
+MSDAORA8_ERROR = Guid('7f06a374-dd6a-43db-b4-e0-1f-c1-21-e5-e6-2b')
+MSDSDBINITPROPENUM = Int32
+DBPROP_MSDS_DBINIT_DATAPROVIDER = 2
+MSDSSESSIONPROPENUM = Int32
+DBPROP_MSDS_SESS_UNIQUENAMES = 2
+NAMED_ENTITY_CERTAINTY = Int32
+NEC_LOW = 0
+NEC_MEDIUM = 1
+NEC_HIGH = 2
+def _define_NATLANGUAGERESTRICTION_head():
+    class NATLANGUAGERESTRICTION(Structure):
+        pass
+    return NATLANGUAGERESTRICTION
+def _define_NATLANGUAGERESTRICTION():
+    NATLANGUAGERESTRICTION = win32more.System.Search.NATLANGUAGERESTRICTION_head
+    NATLANGUAGERESTRICTION._fields_ = [
+        ('prop', win32more.Storage.IndexServer.FULLPROPSPEC),
+        ('pwcsPhrase', win32more.Foundation.PWSTR),
+        ('lcid', UInt32),
+    ]
+    return NATLANGUAGERESTRICTION
+NegationCondition = Guid('8de9c74c-605a-4acd-be-e3-2b-22-2a-a2-d2-3d')
+def _define_NODERESTRICTION_head():
+    class NODERESTRICTION(Structure):
+        pass
+    return NODERESTRICTION
+def _define_NODERESTRICTION():
+    NODERESTRICTION = win32more.System.Search.NODERESTRICTION_head
+    NODERESTRICTION._fields_ = [
+        ('cRes', UInt32),
+        ('paRes', POINTER(POINTER(win32more.System.Search.RESTRICTION_head))),
+        ('reserved', UInt32),
+    ]
+    return NODERESTRICTION
+def _define_NOTRESTRICTION_head():
+    class NOTRESTRICTION(Structure):
+        pass
+    return NOTRESTRICTION
+def _define_NOTRESTRICTION():
+    NOTRESTRICTION = win32more.System.Search.NOTRESTRICTION_head
+    NOTRESTRICTION._fields_ = [
+        ('pRes', POINTER(win32more.System.Search.RESTRICTION_head)),
+    ]
+    return NOTRESTRICTION
+def _define_ODBC_VS_ARGS_head():
+    class ODBC_VS_ARGS(Structure):
+        pass
+    return ODBC_VS_ARGS
+def _define_ODBC_VS_ARGS():
+    ODBC_VS_ARGS = win32more.System.Search.ODBC_VS_ARGS_head
+    class ODBC_VS_ARGS__Anonymous1_e__Union(Union):
+        pass
+    ODBC_VS_ARGS__Anonymous1_e__Union._fields_ = [
+        ('wszArg', win32more.Foundation.PWSTR),
+        ('szArg', win32more.Foundation.PSTR),
+    ]
+    class ODBC_VS_ARGS__Anonymous2_e__Union(Union):
+        pass
+    ODBC_VS_ARGS__Anonymous2_e__Union._fields_ = [
+        ('wszCorrelation', win32more.Foundation.PWSTR),
+        ('szCorrelation', win32more.Foundation.PSTR),
+    ]
+    ODBC_VS_ARGS._anonymous_ = [
+        'Anonymous1',
+        'Anonymous2',
+    ]
+    ODBC_VS_ARGS._fields_ = [
+        ('pguidEvent', POINTER(Guid)),
+        ('dwFlags', UInt32),
+        ('Anonymous1', ODBC_VS_ARGS__Anonymous1_e__Union),
+        ('Anonymous2', ODBC_VS_ARGS__Anonymous2_e__Union),
+        ('RetCode', Int16),
+    ]
+    return ODBC_VS_ARGS
+def _define_OLEDBSimpleProvider_head():
+    class OLEDBSimpleProvider(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e0e270c0-c0be-11d0-8f-e4-00-a0-c9-0a-63-41')
+    return OLEDBSimpleProvider
+def _define_OLEDBSimpleProvider():
+    OLEDBSimpleProvider = win32more.System.Search.OLEDBSimpleProvider_head
+    OLEDBSimpleProvider.getRowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr))(3, 'getRowCount', ((1, 'pcRows'),)))
+    OLEDBSimpleProvider.getColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr))(4, 'getColumnCount', ((1, 'pcColumns'),)))
+    OLEDBSimpleProvider.getRWStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,POINTER(win32more.System.Search.OSPRW))(5, 'getRWStatus', ((1, 'iRow'),(1, 'iColumn'),(1, 'prwStatus'),)))
+    OLEDBSimpleProvider.getVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,win32more.System.Search.OSPFORMAT,POINTER(win32more.System.Com.VARIANT_head))(6, 'getVariant', ((1, 'iRow'),(1, 'iColumn'),(1, 'format'),(1, 'pVar'),)))
+    OLEDBSimpleProvider.setVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,win32more.System.Search.OSPFORMAT,win32more.System.Com.VARIANT)(7, 'setVariant', ((1, 'iRow'),(1, 'iColumn'),(1, 'format'),(1, 'Var'),)))
+    OLEDBSimpleProvider.getLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'getLocale', ((1, 'pbstrLocale'),)))
+    OLEDBSimpleProvider.deleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,POINTER(IntPtr))(9, 'deleteRows', ((1, 'iRow'),(1, 'cRows'),(1, 'pcRowsDeleted'),)))
+    OLEDBSimpleProvider.insertRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,POINTER(IntPtr))(10, 'insertRows', ((1, 'iRow'),(1, 'cRows'),(1, 'pcRowsInserted'),)))
+    OLEDBSimpleProvider.find = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,win32more.System.Com.VARIANT,win32more.System.Search.OSPFIND,win32more.System.Search.OSPCOMP,POINTER(IntPtr))(11, 'find', ((1, 'iRowStart'),(1, 'iColumn'),(1, 'val'),(1, 'findFlags'),(1, 'compType'),(1, 'piRowFound'),)))
+    OLEDBSimpleProvider.addOLEDBSimpleProviderListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OLEDBSimpleProviderListener_head)(12, 'addOLEDBSimpleProviderListener', ((1, 'pospIListener'),)))
+    OLEDBSimpleProvider.removeOLEDBSimpleProviderListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OLEDBSimpleProviderListener_head)(13, 'removeOLEDBSimpleProviderListener', ((1, 'pospIListener'),)))
+    OLEDBSimpleProvider.isAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(14, 'isAsync', ((1, 'pbAsynch'),)))
+    OLEDBSimpleProvider.getEstimatedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr))(15, 'getEstimatedRows', ((1, 'piRows'),)))
+    OLEDBSimpleProvider.stopTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'stopTransfer', ()))
+    win32more.System.Com.IUnknown
+    return OLEDBSimpleProvider
+def _define_OLEDBSimpleProviderListener_head():
+    class OLEDBSimpleProviderListener(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e0e270c1-c0be-11d0-8f-e4-00-a0-c9-0a-63-41')
+    return OLEDBSimpleProviderListener
+def _define_OLEDBSimpleProviderListener():
+    OLEDBSimpleProviderListener = win32more.System.Search.OLEDBSimpleProviderListener_head
+    OLEDBSimpleProviderListener.aboutToChangeCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(3, 'aboutToChangeCell', ((1, 'iRow'),(1, 'iColumn'),)))
+    OLEDBSimpleProviderListener.cellChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(4, 'cellChanged', ((1, 'iRow'),(1, 'iColumn'),)))
+    OLEDBSimpleProviderListener.aboutToDeleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(5, 'aboutToDeleteRows', ((1, 'iRow'),(1, 'cRows'),)))
+    OLEDBSimpleProviderListener.deletedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(6, 'deletedRows', ((1, 'iRow'),(1, 'cRows'),)))
+    OLEDBSimpleProviderListener.aboutToInsertRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(7, 'aboutToInsertRows', ((1, 'iRow'),(1, 'cRows'),)))
+    OLEDBSimpleProviderListener.insertedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(8, 'insertedRows', ((1, 'iRow'),(1, 'cRows'),)))
+    OLEDBSimpleProviderListener.rowsAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr)(9, 'rowsAvailable', ((1, 'iRow'),(1, 'cRows'),)))
+    OLEDBSimpleProviderListener.transferComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OSPXFER)(10, 'transferComplete', ((1, 'xfer'),)))
+    win32more.System.Com.IUnknown
+    return OLEDBSimpleProviderListener
+OSPCOMP = Int32
+OSPCOMP_EQ = 1
+OSPCOMP_DEFAULT = 1
+OSPCOMP_LT = 2
+OSPCOMP_LE = 3
+OSPCOMP_GE = 4
+OSPCOMP_GT = 5
+OSPCOMP_NE = 6
+OSPFIND = Int32
+OSPFIND_DEFAULT = 0
+OSPFIND_UP = 1
+OSPFIND_CASESENSITIVE = 2
+OSPFIND_UPCASESENSITIVE = 3
+OSPFORMAT = Int32
+OSPFORMAT_RAW = 0
+OSPFORMAT_DEFAULT = 0
+OSPFORMAT_FORMATTED = 1
+OSPFORMAT_HTML = 2
+OSPRW = Int32
+OSPRW_DEFAULT = 1
+OSPRW_READONLY = 0
+OSPRW_READWRITE = 1
+OSPRW_MIXED = 2
+OSPXFER = Int32
+OSPXFER_COMPLETE = 0
+OSPXFER_ABORT = 1
+OSPXFER_ERROR = 2
+PDPO = Guid('ccb4ec60-b9dc-11d1-ac-80-00-a0-c9-03-48-73')
+def _define_PFNFILLTEXTBUFFER():
+    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TEXT_SOURCE_head))
+PRIORITIZE_FLAGS = Int32
+PRIORITIZE_FLAG_RETRYFAILEDITEMS = 1
+PRIORITIZE_FLAG_IGNOREFAILURECOUNT = 2
+PRIORITY_LEVEL = Int32
+PRIORITY_LEVEL_FOREGROUND = 0
+PRIORITY_LEVEL_HIGH = 1
+PRIORITY_LEVEL_LOW = 2
+PRIORITY_LEVEL_DEFAULT = 3
+def _define_PROPERTYRESTRICTION_head():
+    class PROPERTYRESTRICTION(Structure):
+        pass
+    return PROPERTYRESTRICTION
+def _define_PROPERTYRESTRICTION():
+    PROPERTYRESTRICTION = win32more.System.Search.PROPERTYRESTRICTION_head
+    PROPERTYRESTRICTION._fields_ = [
+        ('rel', UInt32),
+        ('prop', win32more.Storage.IndexServer.FULLPROPSPEC),
+        ('prval', win32more.System.Com.StructuredStorage.PROPVARIANT),
+    ]
+    return PROPERTYRESTRICTION
+PROXY_ACCESS = Int32
+PROXY_ACCESS_PRECONFIG = 0
+PROXY_ACCESS_DIRECT = 1
+PROXY_ACCESS_PROXY = 2
+def _define_PROXY_INFO_head():
+    class PROXY_INFO(Structure):
+        pass
+    return PROXY_INFO
+def _define_PROXY_INFO():
+    PROXY_INFO = win32more.System.Search.PROXY_INFO_head
+    PROXY_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('pcwszUserAgent', win32more.Foundation.PWSTR),
+        ('paUseProxy', win32more.System.Search.PROXY_ACCESS),
+        ('fLocalBypass', win32more.Foundation.BOOL),
+        ('dwPortNumber', UInt32),
+        ('pcwszProxyName', win32more.Foundation.PWSTR),
+        ('pcwszBypassList', win32more.Foundation.PWSTR),
+    ]
+    return PROXY_INFO
+QUERY_PARSER_MANAGER_OPTION = Int32
+QPMO_SCHEMA_BINARY_NAME = 0
+QPMO_PRELOCALIZED_SCHEMA_BINARY_PATH = 1
+QPMO_UNLOCALIZED_SCHEMA_BINARY_PATH = 2
+QPMO_LOCALIZED_SCHEMA_BINARY_PATH = 3
+QPMO_APPEND_LCID_TO_LOCALIZED_PATH = 4
+QPMO_LOCALIZER_SUPPORT = 5
+QueryParser = Guid('b72f8fd8-0fab-4dd9-bd-bf-24-5a-6c-e1-48-5b')
+QueryParserManager = Guid('5088b39a-29b4-4d9d-82-45-4e-e2-89-22-2f-66')
+def _define_RANGECATEGORIZE_head():
+    class RANGECATEGORIZE(Structure):
+        pass
+    return RANGECATEGORIZE
+def _define_RANGECATEGORIZE():
+    RANGECATEGORIZE = win32more.System.Search.RANGECATEGORIZE_head
+    RANGECATEGORIZE._fields_ = [
+        ('cRange', UInt32),
+        ('aRangeBegin', POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
+    ]
+    return RANGECATEGORIZE
+def _define_RESTRICTION_head():
+    class RESTRICTION(Structure):
+        pass
+    return RESTRICTION
+def _define_RESTRICTION():
+    RESTRICTION = win32more.System.Search.RESTRICTION_head
+    class RESTRICTION__URes(Union):
+        pass
+    RESTRICTION__URes._fields_ = [
+        ('ar', win32more.System.Search.NODERESTRICTION),
+        ('orRestriction', win32more.System.Search.NODERESTRICTION),
+        ('pxr', win32more.System.Search.NODERESTRICTION),
+        ('vr', win32more.System.Search.VECTORRESTRICTION),
+        ('nr', win32more.System.Search.NOTRESTRICTION),
+        ('cr', win32more.System.Search.CONTENTRESTRICTION),
+        ('nlr', win32more.System.Search.NATLANGUAGERESTRICTION),
+        ('pr', win32more.System.Search.PROPERTYRESTRICTION),
+    ]
+    RESTRICTION._fields_ = [
+        ('rt', UInt32),
+        ('weight', UInt32),
+        ('res', RESTRICTION__URes),
+    ]
+    return RESTRICTION
+def _define_RMTPACK_head():
+    class RMTPACK(Structure):
+        pass
+    return RMTPACK
+def _define_RMTPACK():
+    RMTPACK = win32more.System.Search.RMTPACK_head
+    RMTPACK._fields_ = [
+        ('pISeqStream', win32more.System.Com.ISequentialStream_head),
+        ('cbData', UInt32),
+        ('cBSTR', UInt32),
+        ('rgBSTR', POINTER(win32more.Foundation.BSTR)),
+        ('cVARIANT', UInt32),
+        ('rgVARIANT', POINTER(win32more.System.Com.VARIANT_head)),
+        ('cIDISPATCH', UInt32),
+        ('rgIDISPATCH', POINTER(win32more.System.Com.IDispatch_head)),
+        ('cIUNKNOWN', UInt32),
+        ('rgIUNKNOWN', POINTER(win32more.System.Com.IUnknown_head)),
+        ('cPROPVARIANT', UInt32),
+        ('rgPROPVARIANT', POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
+        ('cArray', UInt32),
+        ('rgArray', POINTER(win32more.System.Com.VARIANT_head)),
+    ]
+    return RMTPACK
+RootBinder = Guid('ff151822-b0bf-11d1-a8-0d-00-00-00-00-00-00')
+ROWSETEVENT_ITEMSTATE = Int32
+ROWSETEVENT_ITEMSTATE_NOTINROWSET = 0
+ROWSETEVENT_ITEMSTATE_INROWSET = 1
+ROWSETEVENT_ITEMSTATE_UNKNOWN = 2
+ROWSETEVENT_TYPE = Int32
+ROWSETEVENT_TYPE_DATAEXPIRED = 0
+ROWSETEVENT_TYPE_FOREGROUNDLOST = 1
+ROWSETEVENT_TYPE_SCOPESTATISTICS = 2
+def _define_SEARCH_COLUMN_PROPERTIES_head():
+    class SEARCH_COLUMN_PROPERTIES(Structure):
+        pass
+    return SEARCH_COLUMN_PROPERTIES
+def _define_SEARCH_COLUMN_PROPERTIES():
+    SEARCH_COLUMN_PROPERTIES = win32more.System.Search.SEARCH_COLUMN_PROPERTIES_head
+    SEARCH_COLUMN_PROPERTIES._fields_ = [
+        ('Value', win32more.System.Com.StructuredStorage.PROPVARIANT),
+        ('lcid', UInt32),
+    ]
+    return SEARCH_COLUMN_PROPERTIES
+SEARCH_INDEXING_PHASE = Int32
+SEARCH_INDEXING_PHASE_GATHERER = 0
+SEARCH_INDEXING_PHASE_QUERYABLE = 1
+SEARCH_INDEXING_PHASE_PERSISTED = 2
+def _define_SEARCH_ITEM_CHANGE_head():
+    class SEARCH_ITEM_CHANGE(Structure):
+        pass
+    return SEARCH_ITEM_CHANGE
+def _define_SEARCH_ITEM_CHANGE():
+    SEARCH_ITEM_CHANGE = win32more.System.Search.SEARCH_ITEM_CHANGE_head
+    SEARCH_ITEM_CHANGE._fields_ = [
+        ('Change', win32more.System.Search.SEARCH_KIND_OF_CHANGE),
+        ('Priority', win32more.System.Search.SEARCH_NOTIFICATION_PRIORITY),
+        ('pUserData', POINTER(win32more.System.Com.BLOB_head)),
+        ('lpwszURL', win32more.Foundation.PWSTR),
+        ('lpwszOldURL', win32more.Foundation.PWSTR),
+    ]
+    return SEARCH_ITEM_CHANGE
+def _define_SEARCH_ITEM_INDEXING_STATUS_head():
+    class SEARCH_ITEM_INDEXING_STATUS(Structure):
+        pass
+    return SEARCH_ITEM_INDEXING_STATUS
+def _define_SEARCH_ITEM_INDEXING_STATUS():
+    SEARCH_ITEM_INDEXING_STATUS = win32more.System.Search.SEARCH_ITEM_INDEXING_STATUS_head
+    SEARCH_ITEM_INDEXING_STATUS._fields_ = [
+        ('dwDocID', UInt32),
+        ('hrIndexingStatus', win32more.Foundation.HRESULT),
+    ]
+    return SEARCH_ITEM_INDEXING_STATUS
+def _define_SEARCH_ITEM_PERSISTENT_CHANGE_head():
+    class SEARCH_ITEM_PERSISTENT_CHANGE(Structure):
+        pass
+    return SEARCH_ITEM_PERSISTENT_CHANGE
+def _define_SEARCH_ITEM_PERSISTENT_CHANGE():
+    SEARCH_ITEM_PERSISTENT_CHANGE = win32more.System.Search.SEARCH_ITEM_PERSISTENT_CHANGE_head
+    SEARCH_ITEM_PERSISTENT_CHANGE._fields_ = [
+        ('Change', win32more.System.Search.SEARCH_KIND_OF_CHANGE),
+        ('URL', win32more.Foundation.PWSTR),
+        ('OldURL', win32more.Foundation.PWSTR),
+        ('Priority', win32more.System.Search.SEARCH_NOTIFICATION_PRIORITY),
+    ]
+    return SEARCH_ITEM_PERSISTENT_CHANGE
+SEARCH_KIND_OF_CHANGE = Int32
+SEARCH_CHANGE_ADD = 0
+SEARCH_CHANGE_DELETE = 1
+SEARCH_CHANGE_MODIFY = 2
+SEARCH_CHANGE_MOVE_RENAME = 3
+SEARCH_CHANGE_SEMANTICS_DIRECTORY = 262144
+SEARCH_CHANGE_SEMANTICS_SHALLOW = 524288
+SEARCH_CHANGE_SEMANTICS_UPDATE_SECURITY = 4194304
+SEARCH_NOTIFICATION_PRIORITY = Int32
+SEARCH_NORMAL_PRIORITY = 0
+SEARCH_HIGH_PRIORITY = 1
+SEARCH_QUERY_SYNTAX = Int32
+SEARCH_NO_QUERY_SYNTAX = 0
+SEARCH_ADVANCED_QUERY_SYNTAX = 1
+SEARCH_NATURAL_QUERY_SYNTAX = 2
+SEARCH_TERM_EXPANSION = Int32
+SEARCH_TERM_NO_EXPANSION = 0
+SEARCH_TERM_PREFIX_ALL = 1
+SEARCH_TERM_STEM_ALL = 2
+def _define_SEC_OBJECT_head():
+    class SEC_OBJECT(Structure):
+        pass
+    return SEC_OBJECT
+def _define_SEC_OBJECT():
+    SEC_OBJECT = win32more.System.Search.SEC_OBJECT_head
+    SEC_OBJECT._fields_ = [
+        ('cObjects', UInt32),
+        ('prgObjects', POINTER(win32more.System.Search.SEC_OBJECT_ELEMENT_head)),
+    ]
+    return SEC_OBJECT
+def _define_SEC_OBJECT_ELEMENT_head():
+    class SEC_OBJECT_ELEMENT(Structure):
+        pass
+    return SEC_OBJECT_ELEMENT
+def _define_SEC_OBJECT_ELEMENT():
+    SEC_OBJECT_ELEMENT = win32more.System.Search.SEC_OBJECT_ELEMENT_head
+    SEC_OBJECT_ELEMENT._fields_ = [
+        ('guidObjectType', Guid),
+        ('ObjectID', win32more.Storage.IndexServer.DBID),
+    ]
+    return SEC_OBJECT_ELEMENT
+def _define_SORTKEY_head():
+    class SORTKEY(Structure):
+        pass
+    return SORTKEY
+def _define_SORTKEY():
+    SORTKEY = win32more.System.Search.SORTKEY_head
+    SORTKEY._fields_ = [
+        ('propColumn', win32more.Storage.IndexServer.FULLPROPSPEC),
+        ('dwOrder', UInt32),
+        ('locale', UInt32),
+    ]
+    return SORTKEY
+def _define_SORTSET_head():
+    class SORTSET(Structure):
+        pass
+    return SORTSET
+def _define_SORTSET():
+    SORTSET = win32more.System.Search.SORTSET_head
+    SORTSET._fields_ = [
+        ('cCol', UInt32),
+        ('aCol', POINTER(win32more.System.Search.SORTKEY_head)),
+    ]
+    return SORTSET
+def _define_SQL_ASYNC_NOTIFICATION_CALLBACK():
+    return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.BOOL)
+def _define_SQL_DAY_SECOND_STRUCT_head():
+    class SQL_DAY_SECOND_STRUCT(Structure):
+        pass
+    return SQL_DAY_SECOND_STRUCT
+def _define_SQL_DAY_SECOND_STRUCT():
+    SQL_DAY_SECOND_STRUCT = win32more.System.Search.SQL_DAY_SECOND_STRUCT_head
+    SQL_DAY_SECOND_STRUCT._fields_ = [
+        ('day', UInt32),
+        ('hour', UInt32),
+        ('minute', UInt32),
+        ('second', UInt32),
+        ('fraction', UInt32),
+    ]
+    return SQL_DAY_SECOND_STRUCT
+def _define_SQL_INTERVAL_STRUCT_head():
+    class SQL_INTERVAL_STRUCT(Structure):
+        pass
+    return SQL_INTERVAL_STRUCT
+def _define_SQL_INTERVAL_STRUCT():
+    SQL_INTERVAL_STRUCT = win32more.System.Search.SQL_INTERVAL_STRUCT_head
+    class SQL_INTERVAL_STRUCT__intval_e__Union(Union):
+        pass
+    SQL_INTERVAL_STRUCT__intval_e__Union._fields_ = [
+        ('year_month', win32more.System.Search.SQL_YEAR_MONTH_STRUCT),
+        ('day_second', win32more.System.Search.SQL_DAY_SECOND_STRUCT),
+    ]
+    SQL_INTERVAL_STRUCT._fields_ = [
+        ('interval_type', win32more.System.Search.SQLINTERVAL),
+        ('interval_sign', Int16),
+        ('intval', SQL_INTERVAL_STRUCT__intval_e__Union),
+    ]
+    return SQL_INTERVAL_STRUCT
+def _define_SQL_NUMERIC_STRUCT_head():
+    class SQL_NUMERIC_STRUCT(Structure):
+        pass
+    return SQL_NUMERIC_STRUCT
+def _define_SQL_NUMERIC_STRUCT():
+    SQL_NUMERIC_STRUCT = win32more.System.Search.SQL_NUMERIC_STRUCT_head
+    SQL_NUMERIC_STRUCT._fields_ = [
+        ('precision', Byte),
+        ('scale', SByte),
+        ('sign', Byte),
+        ('val', Byte * 16),
+    ]
+    return SQL_NUMERIC_STRUCT
+def _define_SQL_YEAR_MONTH_STRUCT_head():
+    class SQL_YEAR_MONTH_STRUCT(Structure):
+        pass
+    return SQL_YEAR_MONTH_STRUCT
+def _define_SQL_YEAR_MONTH_STRUCT():
+    SQL_YEAR_MONTH_STRUCT = win32more.System.Search.SQL_YEAR_MONTH_STRUCT_head
+    SQL_YEAR_MONTH_STRUCT._fields_ = [
+        ('year', UInt32),
+        ('month', UInt32),
+    ]
+    return SQL_YEAR_MONTH_STRUCT
+SQLINTERVAL = Int32
+SQL_IS_YEAR = 1
+SQL_IS_MONTH = 2
+SQL_IS_DAY = 3
+SQL_IS_HOUR = 4
+SQL_IS_MINUTE = 5
+SQL_IS_SECOND = 6
+SQL_IS_YEAR_TO_MONTH = 7
+SQL_IS_DAY_TO_HOUR = 8
+SQL_IS_DAY_TO_MINUTE = 9
+SQL_IS_DAY_TO_SECOND = 10
+SQL_IS_HOUR_TO_MINUTE = 11
+SQL_IS_HOUR_TO_SECOND = 12
+SQL_IS_MINUTE_TO_SECOND = 13
+def _define_SQLPERF_head():
+    class SQLPERF(Structure):
+        pass
+    return SQLPERF
+def _define_SQLPERF():
+    SQLPERF = win32more.System.Search.SQLPERF_head
+    SQLPERF._fields_ = [
+        ('TimerResolution', UInt32),
+        ('SQLidu', UInt32),
+        ('SQLiduRows', UInt32),
+        ('SQLSelects', UInt32),
+        ('SQLSelectRows', UInt32),
+        ('Transactions', UInt32),
+        ('SQLPrepares', UInt32),
+        ('ExecDirects', UInt32),
+        ('SQLExecutes', UInt32),
+        ('CursorOpens', UInt32),
+        ('CursorSize', UInt32),
+        ('CursorUsed', UInt32),
+        ('PercentCursorUsed', Double),
+        ('AvgFetchTime', Double),
+        ('AvgCursorSize', Double),
+        ('AvgCursorUsed', Double),
+        ('SQLFetchTime', UInt32),
+        ('SQLFetchCount', UInt32),
+        ('CurrentStmtCount', UInt32),
+        ('MaxOpenStmt', UInt32),
+        ('SumOpenStmt', UInt32),
+        ('CurrentConnectionCount', UInt32),
+        ('MaxConnectionsOpened', UInt32),
+        ('SumConnectionsOpened', UInt32),
+        ('SumConnectiontime', UInt32),
+        ('AvgTimeOpened', Double),
+        ('ServerRndTrips', UInt32),
+        ('BuffersSent', UInt32),
+        ('BuffersRec', UInt32),
+        ('BytesSent', UInt32),
+        ('BytesRec', UInt32),
+        ('msExecutionTime', UInt32),
+        ('msNetWorkServerTime', UInt32),
+    ]
+    return SQLPERF
+SQLVARENUM = Int32
+VT_SS_EMPTY = 0
+VT_SS_NULL = 1
+VT_SS_UI1 = 17
+VT_SS_I2 = 2
+VT_SS_I4 = 3
+VT_SS_I8 = 20
+VT_SS_R4 = 4
+VT_SS_R8 = 5
+VT_SS_MONEY = 6
+VT_SS_SMALLMONEY = 200
+VT_SS_WSTRING = 201
+VT_SS_WVARSTRING = 202
+VT_SS_STRING = 203
+VT_SS_VARSTRING = 204
+VT_SS_BIT = 11
+VT_SS_GUID = 72
+VT_SS_NUMERIC = 131
+VT_SS_DECIMAL = 205
+VT_SS_DATETIME = 135
+VT_SS_SMALLDATETIME = 206
+VT_SS_BINARY = 207
+VT_SS_VARBINARY = 208
+VT_SS_UNKNOWN = 209
+def _define_SSERRORINFO_head():
+    class SSERRORINFO(Structure):
+        pass
+    return SSERRORINFO
+def _define_SSERRORINFO():
+    SSERRORINFO = win32more.System.Search.SSERRORINFO_head
+    SSERRORINFO._fields_ = [
+        ('pwszMessage', win32more.Foundation.PWSTR),
+        ('pwszServer', win32more.Foundation.PWSTR),
+        ('pwszProcedure', win32more.Foundation.PWSTR),
+        ('lNative', Int32),
+        ('bState', Byte),
+        ('bClass', Byte),
+        ('wLineNumber', UInt16),
+    ]
+    return SSERRORINFO
+def _define_SSVARIANT_head():
+    class SSVARIANT(Structure):
+        pass
+    return SSVARIANT
+def _define_SSVARIANT():
+    SSVARIANT = win32more.System.Search.SSVARIANT_head
+    class SSVARIANT__Anonymous_e__Union(Union):
+        pass
+    class SSVARIANT__Anonymous_e__Union__NCharVal(Structure):
+        pass
+    SSVARIANT__Anonymous_e__Union__NCharVal._fields_ = [
+        ('sActualLength', Int16),
+        ('sMaxLength', Int16),
+        ('pwchNCharVal', win32more.Foundation.PWSTR),
+        ('rgbReserved', Byte * 5),
+        ('dwReserved', UInt32),
+        ('pwchReserved', win32more.Foundation.PWSTR),
+    ]
+    class SSVARIANT__Anonymous_e__Union__CharVal(Structure):
+        pass
+    SSVARIANT__Anonymous_e__Union__CharVal._fields_ = [
+        ('sActualLength', Int16),
+        ('sMaxLength', Int16),
+        ('pchCharVal', win32more.Foundation.PSTR),
+        ('rgbReserved', Byte * 5),
+        ('dwReserved', UInt32),
+        ('pwchReserved', win32more.Foundation.PWSTR),
+    ]
+    class SSVARIANT__Anonymous_e__Union__BinaryVal(Structure):
+        pass
+    SSVARIANT__Anonymous_e__Union__BinaryVal._fields_ = [
+        ('sActualLength', Int16),
+        ('sMaxLength', Int16),
+        ('prgbBinaryVal', c_char_p_no),
+        ('dwReserved', UInt32),
+    ]
+    class SSVARIANT__Anonymous_e__Union__UnknownType(Structure):
+        pass
+    SSVARIANT__Anonymous_e__Union__UnknownType._fields_ = [
+        ('dwActualLength', UInt32),
+        ('rgMetadata', Byte * 16),
+        ('pUnknownData', c_char_p_no),
+    ]
+    class SSVARIANT__Anonymous_e__Union__BLOBType(Structure):
+        pass
+    SSVARIANT__Anonymous_e__Union__BLOBType._fields_ = [
+        ('dbobj', win32more.System.Search.DBOBJECT),
+        ('pUnk', win32more.System.Com.IUnknown_head),
+    ]
+    SSVARIANT__Anonymous_e__Union._fields_ = [
+        ('bTinyIntVal', Byte),
+        ('sShortIntVal', Int16),
+        ('lIntVal', Int32),
+        ('llBigIntVal', Int64),
+        ('fltRealVal', Single),
+        ('dblFloatVal', Double),
+        ('cyMoneyVal', win32more.System.Com.CY),
+        ('NCharVal', SSVARIANT__Anonymous_e__Union__NCharVal),
+        ('CharVal', SSVARIANT__Anonymous_e__Union__CharVal),
+        ('fBitVal', win32more.Foundation.VARIANT_BOOL),
+        ('rgbGuidVal', Byte * 16),
+        ('numNumericVal', win32more.System.Search.DB_NUMERIC),
+        ('BinaryVal', SSVARIANT__Anonymous_e__Union__BinaryVal),
+        ('tsDateTimeVal', win32more.System.Search.DBTIMESTAMP),
+        ('UnknownType', SSVARIANT__Anonymous_e__Union__UnknownType),
+        ('BLOBType', SSVARIANT__Anonymous_e__Union__BLOBType),
+    ]
+    SSVARIANT._anonymous_ = [
+        'Anonymous',
+    ]
+    SSVARIANT._fields_ = [
+        ('vt', UInt16),
+        ('dwReserved1', UInt32),
+        ('dwReserved2', UInt32),
+        ('Anonymous', SSVARIANT__Anonymous_e__Union),
+    ]
+    return SSVARIANT
 STRUCTURED_QUERY_MULTIOPTION = Int32
 SQMO_VIRTUAL_PROPERTY = 0
 SQMO_DEFAULT_PROPERTY = 1
@@ -5578,869 +8448,50 @@ SQRO_DONT_SPLIT_WORDS = 64
 SQRO_IGNORE_PHRASE_ORDER = 128
 SQRO_ADD_VALUE_TYPE_FOR_PLAIN_VALUES = 256
 SQRO_ADD_ROBUST_ITEM_NAME = 512
-CASE_REQUIREMENT = Int32
-CASE_REQUIREMENT_ANY = 0
-CASE_REQUIREMENT_UPPER_IF_AQS = 1
-INTERVAL_LIMIT_KIND = Int32
-ILK_EXPLICIT_INCLUDED = 0
-ILK_EXPLICIT_EXCLUDED = 1
-ILK_NEGATIVE_INFINITY = 2
-ILK_POSITIVE_INFINITY = 3
-QUERY_PARSER_MANAGER_OPTION = Int32
-QPMO_SCHEMA_BINARY_NAME = 0
-QPMO_PRELOCALIZED_SCHEMA_BINARY_PATH = 1
-QPMO_UNLOCALIZED_SCHEMA_BINARY_PATH = 2
-QPMO_LOCALIZED_SCHEMA_BINARY_PATH = 3
-QPMO_APPEND_LCID_TO_LOCALIZED_PATH = 4
-QPMO_LOCALIZER_SUPPORT = 5
-def _define_IQueryParser_head():
-    class IQueryParser(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2ebdee67-3505-43f8-9946-ea44abc8e5b0')
-    return IQueryParser
-def _define_IQueryParser():
-    IQueryParser = win32more.System.Search.IQueryParser_head
-    IQueryParser.Parse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IEnumUnknown_head,POINTER(win32more.System.Search.IQuerySolution_head), use_last_error=False)(3, 'Parse', ((1, 'pszInputString'),(1, 'pCustomProperties'),(1, 'ppSolution'),)))
-    IQueryParser.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.STRUCTURED_QUERY_SINGLE_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(4, 'SetOption', ((1, 'option'),(1, 'pOptionValue'),)))
-    IQueryParser.GetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.STRUCTURED_QUERY_SINGLE_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetOption', ((1, 'option'),(1, 'pOptionValue'),)))
-    IQueryParser.SetMultiOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.STRUCTURED_QUERY_MULTIOPTION,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'SetMultiOption', ((1, 'option'),(1, 'pszOptionKey'),(1, 'pOptionValue'),)))
-    IQueryParser.GetSchemaProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISchemaProvider_head), use_last_error=False)(7, 'GetSchemaProvider', ((1, 'ppSchemaProvider'),)))
-    IQueryParser.RestateToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'RestateToString', ((1, 'pCondition'),(1, 'fUseEnglish'),(1, 'ppszQueryString'),)))
-    IQueryParser.ParsePropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IQuerySolution_head), use_last_error=False)(9, 'ParsePropertyValue', ((1, 'pszPropertyName'),(1, 'pszInputString'),(1, 'ppSolution'),)))
-    IQueryParser.RestatePropertyValueToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'RestatePropertyValueToString', ((1, 'pCondition'),(1, 'fUseEnglish'),(1, 'ppszPropertyName'),(1, 'ppszQueryString'),)))
-    win32more.System.Com.IUnknown
-    return IQueryParser
-def _define_IConditionFactory_head():
-    class IConditionFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a5efe073-b16f-474f-9f3e-9f8b497a3e08')
-    return IConditionFactory
-def _define_IConditionFactory():
-    IConditionFactory = win32more.System.Search.IConditionFactory_head
-    IConditionFactory.MakeNot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(3, 'MakeNot', ((1, 'pcSub'),(1, 'fSimplify'),(1, 'ppcResult'),)))
-    IConditionFactory.MakeAndOr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,win32more.System.Com.IEnumUnknown_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(4, 'MakeAndOr', ((1, 'ct'),(1, 'peuSubs'),(1, 'fSimplify'),(1, 'ppcResult'),)))
-    IConditionFactory.MakeLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(5, 'MakeLeaf', ((1, 'pszPropertyName'),(1, 'cop'),(1, 'pszValueType'),(1, 'ppropvar'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'fExpand'),(1, 'ppcResult'),)))
-    IConditionFactory.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(6, 'Resolve', ((1, 'pc'),(1, 'sqro'),(1, 'pstReferenceTime'),(1, 'ppcResolved'),)))
-    win32more.System.Com.IUnknown
-    return IConditionFactory
-def _define_IQuerySolution_head():
-    class IQuerySolution(win32more.System.Search.IConditionFactory_head):
-        Guid = Guid('d6ebc66b-8921-4193-afdd-a1789fb7ff57')
-    return IQuerySolution
-def _define_IQuerySolution():
-    IQuerySolution = win32more.System.Search.IQuerySolution_head
-    IQuerySolution.GetQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ICondition_head),POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(7, 'GetQuery', ((1, 'ppQueryNode'),(1, 'ppMainType'),)))
-    IQuerySolution.GetErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'GetErrors', ((1, 'riid'),(1, 'ppParseErrors'),)))
-    IQuerySolution.GetLexicalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Search.ITokenCollection_head),POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'GetLexicalData', ((1, 'ppszInputString'),(1, 'ppTokens'),(1, 'plcid'),(1, 'ppWordBreaker'),)))
-    win32more.System.Search.IConditionFactory
-    return IQuerySolution
-CONDITION_CREATION_OPTIONS = UInt32
-CONDITION_CREATION_DEFAULT = 0
-CONDITION_CREATION_NONE = 0
-CONDITION_CREATION_SIMPLIFY = 1
-CONDITION_CREATION_VECTOR_AND = 2
-CONDITION_CREATION_VECTOR_OR = 4
-CONDITION_CREATION_VECTOR_LEAF = 8
-CONDITION_CREATION_USE_CONTENT_LOCALE = 16
-def _define_IConditionFactory2_head():
-    class IConditionFactory2(win32more.System.Search.IConditionFactory_head):
-        Guid = Guid('71d222e1-432f-429e-8c13-b6dafde5077a')
-    return IConditionFactory2
-def _define_IConditionFactory2():
-    IConditionFactory2 = win32more.System.Search.IConditionFactory2_head
-    IConditionFactory2.CreateTrueFalse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'CreateTrueFalse', ((1, 'fVal'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateNegation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'CreateNegation', ((1, 'pcSub'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateCompoundFromObjectArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,win32more.UI.Shell.Common.IObjectArray_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'CreateCompoundFromObjectArray', ((1, 'ct'),(1, 'poaSubs'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateCompoundFromArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,POINTER(win32more.System.Search.ICondition_head),UInt32,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'CreateCompoundFromArray', ((1, 'ct'),(1, 'ppcondSubs'),(1, 'cSubs'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateStringLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'CreateStringLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'pszValue'),(1, 'pszLocaleName'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateIntegerLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,Int32,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'CreateIntegerLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'lValue'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateBooleanLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.BOOL,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'CreateBooleanLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'fValue'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.CreateLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(14, 'CreateLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'propvar'),(1, 'pszSemanticType'),(1, 'pszLocaleName'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
-    IConditionFactory2.ResolveCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'ResolveCondition', ((1, 'pc'),(1, 'sqro'),(1, 'pstReferenceTime'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Search.IConditionFactory
-    return IConditionFactory2
-def _define_IConditionGenerator_head():
-    class IConditionGenerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('92d2cc58-4386-45a3-b98c-7e0ce64a4117')
-    return IConditionGenerator
-def _define_IConditionGenerator():
-    IConditionGenerator = win32more.System.Search.IConditionGenerator_head
-    IConditionGenerator.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ISchemaProvider_head, use_last_error=False)(3, 'Initialize', ((1, 'pSchemaProvider'),)))
-    IConditionGenerator.RecognizeNamedEntities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.ITokenCollection_head,win32more.System.Search.INamedEntityCollector_head, use_last_error=False)(4, 'RecognizeNamedEntities', ((1, 'pszInputString'),(1, 'lcidUserLocale'),(1, 'pTokenCollection'),(1, 'pNamedEntities'),)))
-    IConditionGenerator.GenerateForLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IConditionFactory_head,win32more.Foundation.PWSTR,win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(5, 'GenerateForLeaf', ((1, 'pConditionFactory'),(1, 'pszPropertyName'),(1, 'cop'),(1, 'pszValueType'),(1, 'pszValue'),(1, 'pszValue2'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'automaticWildcard'),(1, 'pNoStringQuery'),(1, 'ppQueryExpression'),)))
-    IConditionGenerator.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'DefaultPhrase', ((1, 'pszValueType'),(1, 'ppropvar'),(1, 'fUseEnglish'),(1, 'ppszPhrase'),)))
-    win32more.System.Com.IUnknown
-    return IConditionGenerator
-def _define_IInterval_head():
-    class IInterval(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6bf0a714-3c18-430b-8b5d-83b1c234d3db')
-    return IInterval
-def _define_IInterval():
-    IInterval = win32more.System.Search.IInterval_head
-    IInterval.GetLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.INTERVAL_LIMIT_KIND),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Search.INTERVAL_LIMIT_KIND),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetLimits', ((1, 'pilkLower'),(1, 'ppropvarLower'),(1, 'pilkUpper'),(1, 'ppropvarUpper'),)))
-    win32more.System.Com.IUnknown
-    return IInterval
-def _define_IMetaData_head():
-    class IMetaData(win32more.System.Com.IUnknown_head):
-        Guid = Guid('780102b0-c43b-4876-bc7b-5e9ba5c88794')
-    return IMetaData
-def _define_IMetaData():
-    IMetaData = win32more.System.Search.IMetaData_head
-    IMetaData.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetData', ((1, 'ppszKey'),(1, 'ppszValue'),)))
-    win32more.System.Com.IUnknown
-    return IMetaData
-def _define_IEntity_head():
-    class IEntity(win32more.System.Com.IUnknown_head):
-        Guid = Guid('24264891-e80b-4fd3-b7ce-4ff2fae8931f')
-    return IEntity
-def _define_IEntity():
-    IEntity = win32more.System.Search.IEntity_head
-    IEntity.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'Name', ((1, 'ppszName'),)))
-    IEntity.Base = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(4, 'Base', ((1, 'pBaseEntity'),)))
-    IEntity.Relationships = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'Relationships', ((1, 'riid'),(1, 'pRelationships'),)))
-    IEntity.GetRelationship = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IRelationship_head), use_last_error=False)(6, 'GetRelationship', ((1, 'pszRelationName'),(1, 'pRelationship'),)))
-    IEntity.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
-    IEntity.NamedEntities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'NamedEntities', ((1, 'riid'),(1, 'pNamedEntities'),)))
-    IEntity.GetNamedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.INamedEntity_head), use_last_error=False)(9, 'GetNamedEntity', ((1, 'pszValue'),(1, 'ppNamedEntity'),)))
-    IEntity.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
-    win32more.System.Com.IUnknown
-    return IEntity
-def _define_IRelationship_head():
-    class IRelationship(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2769280b-5108-498c-9c7f-a51239b63147')
-    return IRelationship
-def _define_IRelationship():
-    IRelationship = win32more.System.Search.IRelationship_head
-    IRelationship.Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'Name', ((1, 'ppszName'),)))
-    IRelationship.IsReal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsReal', ((1, 'pIsReal'),)))
-    IRelationship.Destination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(5, 'Destination', ((1, 'pDestinationEntity'),)))
-    IRelationship.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
-    IRelationship.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
-    win32more.System.Com.IUnknown
-    return IRelationship
-def _define_INamedEntity_head():
-    class INamedEntity(win32more.System.Com.IUnknown_head):
-        Guid = Guid('abdbd0b1-7d54-49fb-ab5c-bff4130004cd')
-    return INamedEntity
-def _define_INamedEntity():
-    INamedEntity = win32more.System.Search.INamedEntity_head
-    INamedEntity.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetValue', ((1, 'ppszValue'),)))
-    INamedEntity.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
-    win32more.System.Com.IUnknown
-    return INamedEntity
-def _define_ISchemaProvider_head():
-    class ISchemaProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8cf89bcb-394c-49b2-ae28-a59dd4ed7f68')
-    return ISchemaProvider
-def _define_ISchemaProvider():
-    ISchemaProvider = win32more.System.Search.ISchemaProvider_head
-    ISchemaProvider.Entities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Entities', ((1, 'riid'),(1, 'pEntities'),)))
-    ISchemaProvider.RootEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(4, 'RootEntity', ((1, 'pRootEntity'),)))
-    ISchemaProvider.GetEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(5, 'GetEntity', ((1, 'pszEntityName'),(1, 'pEntity'),)))
-    ISchemaProvider.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
-    ISchemaProvider.Localize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Search.ISchemaLocalizerSupport_head, use_last_error=False)(7, 'Localize', ((1, 'lcid'),(1, 'pSchemaLocalizerSupport'),)))
-    ISchemaProvider.SaveBinary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'SaveBinary', ((1, 'pszSchemaBinaryPath'),)))
-    ISchemaProvider.LookupAuthoredNamedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IEntity_head,win32more.Foundation.PWSTR,win32more.System.Search.ITokenCollection_head,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'LookupAuthoredNamedEntity', ((1, 'pEntity'),(1, 'pszInputString'),(1, 'pTokenCollection'),(1, 'cTokensBegin'),(1, 'pcTokensLength'),(1, 'ppszValue'),)))
-    win32more.System.Com.IUnknown
-    return ISchemaProvider
-def _define_ITokenCollection_head():
-    class ITokenCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('22d8b4f2-f577-4adb-a335-c2ae88416fab')
-    return ITokenCollection
-def _define_ITokenCollection():
-    ITokenCollection = win32more.System.Search.ITokenCollection_head
-    ITokenCollection.NumberOfTokens = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'NumberOfTokens', ((1, 'pCount'),)))
-    ITokenCollection.GetToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetToken', ((1, 'i'),(1, 'pBegin'),(1, 'pLength'),(1, 'ppsz'),)))
-    win32more.System.Com.IUnknown
-    return ITokenCollection
-NAMED_ENTITY_CERTAINTY = Int32
-NEC_LOW = 0
-NEC_MEDIUM = 1
-NEC_HIGH = 2
-def _define_INamedEntityCollector_head():
-    class INamedEntityCollector(win32more.System.Com.IUnknown_head):
-        Guid = Guid('af2440f6-8afc-47d0-9a7f-396a0acfb43d')
-    return INamedEntityCollector
-def _define_INamedEntityCollector():
-    INamedEntityCollector = win32more.System.Search.INamedEntityCollector_head
-    INamedEntityCollector.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,win32more.System.Search.IEntity_head,win32more.Foundation.PWSTR,win32more.System.Search.NAMED_ENTITY_CERTAINTY, use_last_error=False)(3, 'Add', ((1, 'beginSpan'),(1, 'endSpan'),(1, 'beginActual'),(1, 'endActual'),(1, 'pType'),(1, 'pszValue'),(1, 'certainty'),)))
-    win32more.System.Com.IUnknown
-    return INamedEntityCollector
-def _define_ISchemaLocalizerSupport_head():
-    class ISchemaLocalizerSupport(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ca3fdca2-bfbe-4eed-90d7-0caef0a1bda1')
-    return ISchemaLocalizerSupport
-def _define_ISchemaLocalizerSupport():
-    ISchemaLocalizerSupport = win32more.System.Search.ISchemaLocalizerSupport_head
-    ISchemaLocalizerSupport.Localize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'Localize', ((1, 'pszGlobalString'),(1, 'ppszLocalString'),)))
-    win32more.System.Com.IUnknown
-    return ISchemaLocalizerSupport
-def _define_IQueryParserManager_head():
-    class IQueryParserManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a879e3c4-af77-44fb-8f37-ebd1487cf920')
-    return IQueryParserManager
-def _define_IQueryParserManager():
-    IQueryParserManager = win32more.System.Search.IQueryParserManager_head
-    IQueryParserManager.CreateLoadedParser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt16,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateLoadedParser', ((1, 'pszCatalog'),(1, 'langidForKeywords'),(1, 'riid'),(1, 'ppQueryParser'),)))
-    IQueryParserManager.InitializeOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Search.IQueryParser_head, use_last_error=False)(4, 'InitializeOptions', ((1, 'fUnderstandNQS'),(1, 'fAutoWildCard'),(1, 'pQueryParser'),)))
-    IQueryParserManager.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.QUERY_PARSER_MANAGER_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'SetOption', ((1, 'option'),(1, 'pOptionValue'),)))
-    win32more.System.Com.IUnknown
-    return IQueryParserManager
-def _define_HITRANGE_head():
-    class HITRANGE(Structure):
+STRUCTURED_QUERY_SINGLE_OPTION = Int32
+SQSO_SCHEMA = 0
+SQSO_LOCALE_WORD_BREAKING = 1
+SQSO_WORD_BREAKER = 2
+SQSO_NATURAL_SYNTAX = 3
+SQSO_AUTOMATIC_WILDCARD = 4
+SQSO_TRACE_LEVEL = 5
+SQSO_LANGUAGE_KEYWORDS = 6
+SQSO_SYNTAX = 7
+SQSO_TIME_ZONE = 8
+SQSO_IMPLICIT_CONNECTOR = 9
+SQSO_CONNECTOR_CASE = 10
+STRUCTURED_QUERY_SYNTAX = Int32
+SQS_NO_SYNTAX = 0
+SQS_ADVANCED_QUERY_SYNTAX = 1
+SQS_NATURAL_QUERY_SYNTAX = 2
+def _define_SUBSCRIPTIONINFO_head():
+    class SUBSCRIPTIONINFO(Structure):
         pass
-    return HITRANGE
-def _define_HITRANGE():
-    HITRANGE = win32more.System.Search.HITRANGE_head
-    HITRANGE._fields_ = [
-        ("iPosition", UInt32),
-        ("cLength", UInt32),
+    return SUBSCRIPTIONINFO
+def _define_SUBSCRIPTIONINFO():
+    SUBSCRIPTIONINFO = win32more.System.Search.SUBSCRIPTIONINFO_head
+    SUBSCRIPTIONINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('fUpdateFlags', UInt32),
+        ('schedule', win32more.System.Search.SUBSCRIPTIONSCHEDULE),
+        ('customGroupCookie', Guid),
+        ('pTrigger', c_void_p),
+        ('dwRecurseLevels', UInt32),
+        ('fWebcrawlerFlags', UInt32),
+        ('bMailNotification', win32more.Foundation.BOOL),
+        ('bGleam', win32more.Foundation.BOOL),
+        ('bChangesOnly', win32more.Foundation.BOOL),
+        ('bNeedPassword', win32more.Foundation.BOOL),
+        ('fChannelFlags', UInt32),
+        ('bstrUserName', win32more.Foundation.BSTR),
+        ('bstrPassword', win32more.Foundation.BSTR),
+        ('bstrFriendlyName', win32more.Foundation.BSTR),
+        ('dwMaxSizeKB', UInt32),
+        ('subType', win32more.System.Search.SUBSCRIPTIONTYPE),
+        ('fTaskFlags', UInt32),
+        ('dwReserved', UInt32),
     ]
-    return HITRANGE
-def _define_IUrlAccessor_head():
-    class IUrlAccessor(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0b63e318-9ccc-11d0-bcdb-00805fccce04')
-    return IUrlAccessor
-def _define_IUrlAccessor():
-    IUrlAccessor = win32more.System.Search.IUrlAccessor_head
-    IUrlAccessor.AddRequestParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'AddRequestParameter', ((1, 'pSpec'),(1, 'pVar'),)))
-    IUrlAccessor.GetDocFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(4, 'GetDocFormat', ((1, 'wszDocFormat'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    IUrlAccessor.GetCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetCLSID', ((1, 'pClsid'),)))
-    IUrlAccessor.GetHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(6, 'GetHost', ((1, 'wszHost'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    IUrlAccessor.IsDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'IsDirectory', ()))
-    IUrlAccessor.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(8, 'GetSize', ((1, 'pllSize'),)))
-    IUrlAccessor.GetLastModified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(9, 'GetLastModified', ((1, 'pftLastModified'),)))
-    IUrlAccessor.GetFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(10, 'GetFileName', ((1, 'wszFileName'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    IUrlAccessor.GetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(11, 'GetSecurityDescriptor', ((1, 'pSD'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    IUrlAccessor.GetRedirectedURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetRedirectedURL', ((1, 'wszRedirectedURL'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    IUrlAccessor.GetSecurityProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(13, 'GetSecurityProvider', ((1, 'pSPClsid'),)))
-    IUrlAccessor.BindToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(14, 'BindToStream', ((1, 'ppStream'),)))
-    IUrlAccessor.BindToFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(15, 'BindToFilter', ((1, 'ppFilter'),)))
-    win32more.System.Com.IUnknown
-    return IUrlAccessor
-def _define_IUrlAccessor2_head():
-    class IUrlAccessor2(win32more.System.Search.IUrlAccessor_head):
-        Guid = Guid('c7310734-ac80-11d1-8df3-00c04fb6ef4f')
-    return IUrlAccessor2
-def _define_IUrlAccessor2():
-    IUrlAccessor2 = win32more.System.Search.IUrlAccessor2_head
-    IUrlAccessor2.GetDisplayUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(16, 'GetDisplayUrl', ((1, 'wszDocUrl'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    IUrlAccessor2.IsDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'IsDocument', ()))
-    IUrlAccessor2.GetCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(18, 'GetCodePage', ((1, 'wszCodePage'),(1, 'dwSize'),(1, 'pdwLength'),)))
-    win32more.System.Search.IUrlAccessor
-    return IUrlAccessor2
-def _define_IUrlAccessor3_head():
-    class IUrlAccessor3(win32more.System.Search.IUrlAccessor2_head):
-        Guid = Guid('6fbc7005-0455-4874-b8ff-7439450241a3')
-    return IUrlAccessor3
-def _define_IUrlAccessor3():
-    IUrlAccessor3 = win32more.System.Search.IUrlAccessor3_head
-    IUrlAccessor3.GetImpersonationSidBlobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.BLOB_head)), use_last_error=False)(19, 'GetImpersonationSidBlobs', ((1, 'pcwszURL'),(1, 'pcSidCount'),(1, 'ppSidBlobs'),)))
-    win32more.System.Search.IUrlAccessor2
-    return IUrlAccessor3
-def _define_IUrlAccessor4_head():
-    class IUrlAccessor4(win32more.System.Search.IUrlAccessor3_head):
-        Guid = Guid('5cc51041-c8d2-41d7-bca3-9e9e286297dc')
-    return IUrlAccessor4
-def _define_IUrlAccessor4():
-    IUrlAccessor4 = win32more.System.Search.IUrlAccessor4_head
-    IUrlAccessor4.ShouldIndexItemContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(20, 'ShouldIndexItemContent', ((1, 'pfIndexContent'),)))
-    IUrlAccessor4.ShouldIndexProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(21, 'ShouldIndexProperty', ((1, 'key'),(1, 'pfIndexProperty'),)))
-    win32more.System.Search.IUrlAccessor3
-    return IUrlAccessor4
-def _define_IOpLockStatus_head():
-    class IOpLockStatus(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c731065d-ac80-11d1-8df3-00c04fb6ef4f')
-    return IOpLockStatus
-def _define_IOpLockStatus():
-    IOpLockStatus = win32more.System.Search.IOpLockStatus_head
-    IOpLockStatus.IsOplockValid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsOplockValid', ((1, 'pfIsOplockValid'),)))
-    IOpLockStatus.IsOplockBroken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsOplockBroken', ((1, 'pfIsOplockBroken'),)))
-    IOpLockStatus.GetOplockEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(5, 'GetOplockEventHandle', ((1, 'phOplockEv'),)))
-    win32more.System.Com.IUnknown
-    return IOpLockStatus
-def _define_ISearchProtocolThreadContext_head():
-    class ISearchProtocolThreadContext(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c73106e1-ac80-11d1-8df3-00c04fb6ef4f')
-    return ISearchProtocolThreadContext
-def _define_ISearchProtocolThreadContext():
-    ISearchProtocolThreadContext = win32more.System.Search.ISearchProtocolThreadContext_head
-    ISearchProtocolThreadContext.ThreadInit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ThreadInit', ()))
-    ISearchProtocolThreadContext.ThreadShutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ThreadShutdown', ()))
-    ISearchProtocolThreadContext.ThreadIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'ThreadIdle', ((1, 'dwTimeElaspedSinceLastCallInMS'),)))
-    win32more.System.Com.IUnknown
-    return ISearchProtocolThreadContext
-def _define_TIMEOUT_INFO_head():
-    class TIMEOUT_INFO(Structure):
-        pass
-    return TIMEOUT_INFO
-def _define_TIMEOUT_INFO():
-    TIMEOUT_INFO = win32more.System.Search.TIMEOUT_INFO_head
-    TIMEOUT_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("dwConnectTimeout", UInt32),
-        ("dwDataTimeout", UInt32),
-    ]
-    return TIMEOUT_INFO
-PROXY_ACCESS = Int32
-PROXY_ACCESS_PRECONFIG = 0
-PROXY_ACCESS_DIRECT = 1
-PROXY_ACCESS_PROXY = 2
-def _define_PROXY_INFO_head():
-    class PROXY_INFO(Structure):
-        pass
-    return PROXY_INFO
-def _define_PROXY_INFO():
-    PROXY_INFO = win32more.System.Search.PROXY_INFO_head
-    PROXY_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("pcwszUserAgent", win32more.Foundation.PWSTR),
-        ("paUseProxy", win32more.System.Search.PROXY_ACCESS),
-        ("fLocalBypass", win32more.Foundation.BOOL),
-        ("dwPortNumber", UInt32),
-        ("pcwszProxyName", win32more.Foundation.PWSTR),
-        ("pcwszBypassList", win32more.Foundation.PWSTR),
-    ]
-    return PROXY_INFO
-AUTH_TYPE = Int32
-eAUTH_TYPE_ANONYMOUS = 0
-eAUTH_TYPE_NTLM = 1
-eAUTH_TYPE_BASIC = 2
-def _define_AUTHENTICATION_INFO_head():
-    class AUTHENTICATION_INFO(Structure):
-        pass
-    return AUTHENTICATION_INFO
-def _define_AUTHENTICATION_INFO():
-    AUTHENTICATION_INFO = win32more.System.Search.AUTHENTICATION_INFO_head
-    AUTHENTICATION_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("atAuthenticationType", win32more.System.Search.AUTH_TYPE),
-        ("pcwszUser", win32more.Foundation.PWSTR),
-        ("pcwszPassword", win32more.Foundation.PWSTR),
-    ]
-    return AUTHENTICATION_INFO
-def _define_INCREMENTAL_ACCESS_INFO_head():
-    class INCREMENTAL_ACCESS_INFO(Structure):
-        pass
-    return INCREMENTAL_ACCESS_INFO
-def _define_INCREMENTAL_ACCESS_INFO():
-    INCREMENTAL_ACCESS_INFO = win32more.System.Search.INCREMENTAL_ACCESS_INFO_head
-    INCREMENTAL_ACCESS_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("ftLastModifiedTime", win32more.Foundation.FILETIME),
-    ]
-    return INCREMENTAL_ACCESS_INFO
-def _define_ITEM_INFO_head():
-    class ITEM_INFO(Structure):
-        pass
-    return ITEM_INFO
-def _define_ITEM_INFO():
-    ITEM_INFO = win32more.System.Search.ITEM_INFO_head
-    ITEM_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("pcwszFromEMail", win32more.Foundation.PWSTR),
-        ("pcwszApplicationName", win32more.Foundation.PWSTR),
-        ("pcwszCatalogName", win32more.Foundation.PWSTR),
-        ("pcwszContentClass", win32more.Foundation.PWSTR),
-    ]
-    return ITEM_INFO
-def _define_ISearchProtocol_head():
-    class ISearchProtocol(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c73106ba-ac80-11d1-8df3-00c04fb6ef4f')
-    return ISearchProtocol
-def _define_ISearchProtocol():
-    ISearchProtocol = win32more.System.Search.ISearchProtocol_head
-    ISearchProtocol.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TIMEOUT_INFO_head),win32more.System.Search.IProtocolHandlerSite_head,POINTER(win32more.System.Search.PROXY_INFO_head), use_last_error=False)(3, 'Init', ((1, 'pTimeoutInfo'),(1, 'pProtocolHandlerSite'),(1, 'pProxyInfo'),)))
-    ISearchProtocol.CreateAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.AUTHENTICATION_INFO_head),POINTER(win32more.System.Search.INCREMENTAL_ACCESS_INFO_head),POINTER(win32more.System.Search.ITEM_INFO_head),POINTER(win32more.System.Search.IUrlAccessor_head), use_last_error=False)(4, 'CreateAccessor', ((1, 'pcwszURL'),(1, 'pAuthenticationInfo'),(1, 'pIncrementalAccessInfo'),(1, 'pItemInfo'),(1, 'ppAccessor'),)))
-    ISearchProtocol.CloseAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IUrlAccessor_head, use_last_error=False)(5, 'CloseAccessor', ((1, 'pAccessor'),)))
-    ISearchProtocol.ShutDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'ShutDown', ()))
-    win32more.System.Com.IUnknown
-    return ISearchProtocol
-def _define_ISearchProtocol2_head():
-    class ISearchProtocol2(win32more.System.Search.ISearchProtocol_head):
-        Guid = Guid('7789f0b2-b5b2-4722-8b65-5dbd150697a9')
-    return ISearchProtocol2
-def _define_ISearchProtocol2():
-    ISearchProtocol2 = win32more.System.Search.ISearchProtocol2_head
-    ISearchProtocol2.CreateAccessorEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.AUTHENTICATION_INFO_head),POINTER(win32more.System.Search.INCREMENTAL_ACCESS_INFO_head),POINTER(win32more.System.Search.ITEM_INFO_head),POINTER(win32more.System.Com.BLOB_head),POINTER(win32more.System.Search.IUrlAccessor_head), use_last_error=False)(7, 'CreateAccessorEx', ((1, 'pcwszURL'),(1, 'pAuthenticationInfo'),(1, 'pIncrementalAccessInfo'),(1, 'pItemInfo'),(1, 'pUserData'),(1, 'ppAccessor'),)))
-    win32more.System.Search.ISearchProtocol
-    return ISearchProtocol2
-def _define_IProtocolHandlerSite_head():
-    class IProtocolHandlerSite(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0b63e385-9ccc-11d0-bcdb-00805fccce04')
-    return IProtocolHandlerSite
-def _define_IProtocolHandlerSite():
-    IProtocolHandlerSite = win32more.System.Search.IProtocolHandlerSite_head
-    IProtocolHandlerSite.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(3, 'GetFilter', ((1, 'pclsidObj'),(1, 'pcwszContentType'),(1, 'pcwszExtension'),(1, 'ppFilter'),)))
-    win32more.System.Com.IUnknown
-    return IProtocolHandlerSite
-def _define_ISearchRoot_head():
-    class ISearchRoot(win32more.System.Com.IUnknown_head):
-        Guid = Guid('04c18ccf-1f57-4cbd-88cc-3900f5195ce3')
-    return ISearchRoot
-def _define_ISearchRoot():
-    ISearchRoot = win32more.System.Search.ISearchRoot_head
-    ISearchRoot.put_Schedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'put_Schedule', ((1, 'pszTaskArg'),)))
-    ISearchRoot.get_Schedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'get_Schedule', ((1, 'ppszTaskArg'),)))
-    ISearchRoot.put_RootURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'put_RootURL', ((1, 'pszURL'),)))
-    ISearchRoot.get_RootURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'get_RootURL', ((1, 'ppszURL'),)))
-    ISearchRoot.put_IsHierarchical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(7, 'put_IsHierarchical', ((1, 'fIsHierarchical'),)))
-    ISearchRoot.get_IsHierarchical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_IsHierarchical', ((1, 'pfIsHierarchical'),)))
-    ISearchRoot.put_ProvidesNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'put_ProvidesNotifications', ((1, 'fProvidesNotifications'),)))
-    ISearchRoot.get_ProvidesNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'get_ProvidesNotifications', ((1, 'pfProvidesNotifications'),)))
-    ISearchRoot.put_UseNotificationsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(11, 'put_UseNotificationsOnly', ((1, 'fUseNotificationsOnly'),)))
-    ISearchRoot.get_UseNotificationsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'get_UseNotificationsOnly', ((1, 'pfUseNotificationsOnly'),)))
-    ISearchRoot.put_EnumerationDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'put_EnumerationDepth', ((1, 'dwDepth'),)))
-    ISearchRoot.get_EnumerationDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_EnumerationDepth', ((1, 'pdwDepth'),)))
-    ISearchRoot.put_HostDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'put_HostDepth', ((1, 'dwDepth'),)))
-    ISearchRoot.get_HostDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'get_HostDepth', ((1, 'pdwDepth'),)))
-    ISearchRoot.put_FollowDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(17, 'put_FollowDirectories', ((1, 'fFollowDirectories'),)))
-    ISearchRoot.get_FollowDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(18, 'get_FollowDirectories', ((1, 'pfFollowDirectories'),)))
-    ISearchRoot.put_AuthenticationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.AUTH_TYPE, use_last_error=False)(19, 'put_AuthenticationType', ((1, 'authType'),)))
-    ISearchRoot.get_AuthenticationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.AUTH_TYPE), use_last_error=False)(20, 'get_AuthenticationType', ((1, 'pAuthType'),)))
-    ISearchRoot.put_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(21, 'put_User', ((1, 'pszUser'),)))
-    ISearchRoot.get_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(22, 'get_User', ((1, 'ppszUser'),)))
-    ISearchRoot.put_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(23, 'put_Password', ((1, 'pszPassword'),)))
-    ISearchRoot.get_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(24, 'get_Password', ((1, 'ppszPassword'),)))
-    win32more.System.Com.IUnknown
-    return ISearchRoot
-def _define_IEnumSearchRoots_head():
-    class IEnumSearchRoots(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef52')
-    return IEnumSearchRoots
-def _define_IEnumSearchRoots():
-    IEnumSearchRoots = win32more.System.Search.IEnumSearchRoots_head
-    IEnumSearchRoots.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ISearchRoot_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumSearchRoots.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
-    IEnumSearchRoots.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumSearchRoots.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchRoots_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSearchRoots
-FOLLOW_FLAGS = Int32
-FF_INDEXCOMPLEXURLS = 1
-FF_SUPPRESSINDEXING = 2
-def _define_ISearchScopeRule_head():
-    class ISearchScopeRule(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef53')
-    return ISearchScopeRule
-def _define_ISearchScopeRule():
-    ISearchScopeRule = win32more.System.Search.ISearchScopeRule_head
-    ISearchScopeRule.get_PatternOrURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'get_PatternOrURL', ((1, 'ppszPatternOrURL'),)))
-    ISearchScopeRule.get_IsIncluded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_IsIncluded', ((1, 'pfIsIncluded'),)))
-    ISearchScopeRule.get_IsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_IsDefault', ((1, 'pfIsDefault'),)))
-    ISearchScopeRule.get_FollowFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_FollowFlags', ((1, 'pFollowFlags'),)))
-    win32more.System.Com.IUnknown
-    return ISearchScopeRule
-def _define_IEnumSearchScopeRules_head():
-    class IEnumSearchScopeRules(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef54')
-    return IEnumSearchScopeRules
-def _define_IEnumSearchScopeRules():
-    IEnumSearchScopeRules = win32more.System.Search.IEnumSearchScopeRules_head
-    IEnumSearchScopeRules.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ISearchScopeRule_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'pprgelt'),(1, 'pceltFetched'),)))
-    IEnumSearchScopeRules.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
-    IEnumSearchScopeRules.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumSearchScopeRules.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchScopeRules_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSearchScopeRules
-CLUSION_REASON = Int32
-CLUSIONREASON_UNKNOWNSCOPE = 0
-CLUSIONREASON_DEFAULT = 1
-CLUSIONREASON_USER = 2
-CLUSIONREASON_GROUPPOLICY = 3
-def _define_ISearchCrawlScopeManager_head():
-    class ISearchCrawlScopeManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef55')
-    return ISearchCrawlScopeManager
-def _define_ISearchCrawlScopeManager():
-    ISearchCrawlScopeManager = win32more.System.Search.ISearchCrawlScopeManager_head
-    ISearchCrawlScopeManager.AddDefaultScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32, use_last_error=False)(3, 'AddDefaultScopeRule', ((1, 'pszURL'),(1, 'fInclude'),(1, 'fFollowFlags'),)))
-    ISearchCrawlScopeManager.AddRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ISearchRoot_head, use_last_error=False)(4, 'AddRoot', ((1, 'pSearchRoot'),)))
-    ISearchCrawlScopeManager.RemoveRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'RemoveRoot', ((1, 'pszURL'),)))
-    ISearchCrawlScopeManager.EnumerateRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchRoots_head), use_last_error=False)(6, 'EnumerateRoots', ((1, 'ppSearchRoots'),)))
-    ISearchCrawlScopeManager.AddHierarchicalScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(7, 'AddHierarchicalScope', ((1, 'pszURL'),(1, 'fInclude'),(1, 'fDefault'),(1, 'fOverrideChildren'),)))
-    ISearchCrawlScopeManager.AddUserScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,UInt32, use_last_error=False)(8, 'AddUserScopeRule', ((1, 'pszURL'),(1, 'fInclude'),(1, 'fOverrideChildren'),(1, 'fFollowFlags'),)))
-    ISearchCrawlScopeManager.RemoveScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'RemoveScopeRule', ((1, 'pszRule'),)))
-    ISearchCrawlScopeManager.EnumerateScopeRules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchScopeRules_head), use_last_error=False)(10, 'EnumerateScopeRules', ((1, 'ppSearchScopeRules'),)))
-    ISearchCrawlScopeManager.HasParentScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'HasParentScopeRule', ((1, 'pszURL'),(1, 'pfHasParentRule'),)))
-    ISearchCrawlScopeManager.HasChildScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'HasChildScopeRule', ((1, 'pszURL'),(1, 'pfHasChildRule'),)))
-    ISearchCrawlScopeManager.IncludedInCrawlScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'IncludedInCrawlScope', ((1, 'pszURL'),(1, 'pfIsIncluded'),)))
-    ISearchCrawlScopeManager.IncludedInCrawlScopeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.Search.CLUSION_REASON), use_last_error=False)(14, 'IncludedInCrawlScopeEx', ((1, 'pszURL'),(1, 'pfIsIncluded'),(1, 'pReason'),)))
-    ISearchCrawlScopeManager.RevertToDefaultScopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'RevertToDefaultScopes', ()))
-    ISearchCrawlScopeManager.SaveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'SaveAll', ()))
-    ISearchCrawlScopeManager.GetParentScopeVersionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32), use_last_error=False)(17, 'GetParentScopeVersionId', ((1, 'pszURL'),(1, 'plScopeId'),)))
-    ISearchCrawlScopeManager.RemoveDefaultScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(18, 'RemoveDefaultScopeRule', ((1, 'pszURL'),)))
-    win32more.System.Com.IUnknown
-    return ISearchCrawlScopeManager
-def _define_ISearchCrawlScopeManager2_head():
-    class ISearchCrawlScopeManager2(win32more.System.Search.ISearchCrawlScopeManager_head):
-        Guid = Guid('6292f7ad-4e19-4717-a534-8fc22bcd5ccd')
-    return ISearchCrawlScopeManager2
-def _define_ISearchCrawlScopeManager2():
-    ISearchCrawlScopeManager2 = win32more.System.Search.ISearchCrawlScopeManager2_head
-    ISearchCrawlScopeManager2.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Int32)),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(19, 'GetVersion', ((1, 'plVersion'),(1, 'phFileMapping'),)))
-    win32more.System.Search.ISearchCrawlScopeManager
-    return ISearchCrawlScopeManager2
-SEARCH_KIND_OF_CHANGE = Int32
-SEARCH_CHANGE_ADD = 0
-SEARCH_CHANGE_DELETE = 1
-SEARCH_CHANGE_MODIFY = 2
-SEARCH_CHANGE_MOVE_RENAME = 3
-SEARCH_CHANGE_SEMANTICS_DIRECTORY = 262144
-SEARCH_CHANGE_SEMANTICS_SHALLOW = 524288
-SEARCH_CHANGE_SEMANTICS_UPDATE_SECURITY = 4194304
-SEARCH_NOTIFICATION_PRIORITY = Int32
-SEARCH_NORMAL_PRIORITY = 0
-SEARCH_HIGH_PRIORITY = 1
-def _define_SEARCH_ITEM_CHANGE_head():
-    class SEARCH_ITEM_CHANGE(Structure):
-        pass
-    return SEARCH_ITEM_CHANGE
-def _define_SEARCH_ITEM_CHANGE():
-    SEARCH_ITEM_CHANGE = win32more.System.Search.SEARCH_ITEM_CHANGE_head
-    SEARCH_ITEM_CHANGE._fields_ = [
-        ("Change", win32more.System.Search.SEARCH_KIND_OF_CHANGE),
-        ("Priority", win32more.System.Search.SEARCH_NOTIFICATION_PRIORITY),
-        ("pUserData", POINTER(win32more.System.Com.BLOB_head)),
-        ("lpwszURL", win32more.Foundation.PWSTR),
-        ("lpwszOldURL", win32more.Foundation.PWSTR),
-    ]
-    return SEARCH_ITEM_CHANGE
-def _define_ISearchItemsChangedSink_head():
-    class ISearchItemsChangedSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef58')
-    return ISearchItemsChangedSink
-def _define_ISearchItemsChangedSink():
-    ISearchItemsChangedSink = win32more.System.Search.ISearchItemsChangedSink_head
-    ISearchItemsChangedSink.StartedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'StartedMonitoringScope', ((1, 'pszURL'),)))
-    ISearchItemsChangedSink.StoppedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'StoppedMonitoringScope', ((1, 'pszURL'),)))
-    ISearchItemsChangedSink.OnItemsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_CHANGE),POINTER(UInt32),POINTER(win32more.Foundation.HRESULT), use_last_error=False)(5, 'OnItemsChanged', ((1, 'dwNumberOfChanges'),(1, 'rgDataChangeEntries'),(1, 'rgdwDocIds'),(1, 'rghrCompletionCodes'),)))
-    win32more.System.Com.IUnknown
-    return ISearchItemsChangedSink
-def _define_SEARCH_ITEM_PERSISTENT_CHANGE_head():
-    class SEARCH_ITEM_PERSISTENT_CHANGE(Structure):
-        pass
-    return SEARCH_ITEM_PERSISTENT_CHANGE
-def _define_SEARCH_ITEM_PERSISTENT_CHANGE():
-    SEARCH_ITEM_PERSISTENT_CHANGE = win32more.System.Search.SEARCH_ITEM_PERSISTENT_CHANGE_head
-    SEARCH_ITEM_PERSISTENT_CHANGE._fields_ = [
-        ("Change", win32more.System.Search.SEARCH_KIND_OF_CHANGE),
-        ("URL", win32more.Foundation.PWSTR),
-        ("OldURL", win32more.Foundation.PWSTR),
-        ("Priority", win32more.System.Search.SEARCH_NOTIFICATION_PRIORITY),
-    ]
-    return SEARCH_ITEM_PERSISTENT_CHANGE
-def _define_ISearchPersistentItemsChangedSink_head():
-    class ISearchPersistentItemsChangedSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a2ffdf9b-4758-4f84-b729-df81a1a0612f')
-    return ISearchPersistentItemsChangedSink
-def _define_ISearchPersistentItemsChangedSink():
-    ISearchPersistentItemsChangedSink = win32more.System.Search.ISearchPersistentItemsChangedSink_head
-    ISearchPersistentItemsChangedSink.StartedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'StartedMonitoringScope', ((1, 'pszURL'),)))
-    ISearchPersistentItemsChangedSink.StoppedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'StoppedMonitoringScope', ((1, 'pszURL'),)))
-    ISearchPersistentItemsChangedSink.OnItemsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_PERSISTENT_CHANGE),POINTER(win32more.Foundation.HRESULT), use_last_error=False)(5, 'OnItemsChanged', ((1, 'dwNumberOfChanges'),(1, 'DataChangeEntries'),(1, 'hrCompletionCodes'),)))
-    win32more.System.Com.IUnknown
-    return ISearchPersistentItemsChangedSink
-def _define_ISearchViewChangedSink_head():
-    class ISearchViewChangedSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef65')
-    return ISearchViewChangedSink
-def _define_ISearchViewChangedSink():
-    ISearchViewChangedSink = win32more.System.Search.ISearchViewChangedSink_head
-    ISearchViewChangedSink.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.System.Search.SEARCH_ITEM_CHANGE_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnChange', ((1, 'pdwDocID'),(1, 'pChange'),(1, 'pfInView'),)))
-    win32more.System.Com.IUnknown
-    return ISearchViewChangedSink
-SEARCH_INDEXING_PHASE = Int32
-SEARCH_INDEXING_PHASE_GATHERER = 0
-SEARCH_INDEXING_PHASE_QUERYABLE = 1
-SEARCH_INDEXING_PHASE_PERSISTED = 2
-def _define_SEARCH_ITEM_INDEXING_STATUS_head():
-    class SEARCH_ITEM_INDEXING_STATUS(Structure):
-        pass
-    return SEARCH_ITEM_INDEXING_STATUS
-def _define_SEARCH_ITEM_INDEXING_STATUS():
-    SEARCH_ITEM_INDEXING_STATUS = win32more.System.Search.SEARCH_ITEM_INDEXING_STATUS_head
-    SEARCH_ITEM_INDEXING_STATUS._fields_ = [
-        ("dwDocID", UInt32),
-        ("hrIndexingStatus", win32more.Foundation.HRESULT),
-    ]
-    return SEARCH_ITEM_INDEXING_STATUS
-def _define_ISearchNotifyInlineSite_head():
-    class ISearchNotifyInlineSite(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b5702e61-e75c-4b64-82a1-6cb4f832fccf')
-    return ISearchNotifyInlineSite
-def _define_ISearchNotifyInlineSite():
-    ISearchNotifyInlineSite = win32more.System.Search.ISearchNotifyInlineSite_head
-    ISearchNotifyInlineSite.OnItemIndexedStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_INDEXING_PHASE,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_INDEXING_STATUS), use_last_error=False)(3, 'OnItemIndexedStatusChange', ((1, 'sipStatus'),(1, 'dwNumEntries'),(1, 'rgItemStatusEntries'),)))
-    ISearchNotifyInlineSite.OnCatalogStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),UInt32, use_last_error=False)(4, 'OnCatalogStatusChange', ((1, 'guidCatalogResetSignature'),(1, 'guidCheckPointSignature'),(1, 'dwLastCheckPointNumber'),)))
-    win32more.System.Com.IUnknown
-    return ISearchNotifyInlineSite
-CatalogStatus = Int32
-CATALOG_STATUS_IDLE = 0
-CATALOG_STATUS_PAUSED = 1
-CATALOG_STATUS_RECOVERING = 2
-CATALOG_STATUS_FULL_CRAWL = 3
-CATALOG_STATUS_INCREMENTAL_CRAWL = 4
-CATALOG_STATUS_PROCESSING_NOTIFICATIONS = 5
-CATALOG_STATUS_SHUTTING_DOWN = 6
-CatalogPausedReason = Int32
-CATALOG_PAUSED_REASON_NONE = 0
-CATALOG_PAUSED_REASON_HIGH_IO = 1
-CATALOG_PAUSED_REASON_HIGH_CPU = 2
-CATALOG_PAUSED_REASON_HIGH_NTF_RATE = 3
-CATALOG_PAUSED_REASON_LOW_BATTERY = 4
-CATALOG_PAUSED_REASON_LOW_MEMORY = 5
-CATALOG_PAUSED_REASON_LOW_DISK = 6
-CATALOG_PAUSED_REASON_DELAYED_RECOVERY = 7
-CATALOG_PAUSED_REASON_USER_ACTIVE = 8
-CATALOG_PAUSED_REASON_EXTERNAL = 9
-CATALOG_PAUSED_REASON_UPGRADING = 10
-def _define_ISearchCatalogManager_head():
-    class ISearchCatalogManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef50')
-    return ISearchCatalogManager
-def _define_ISearchCatalogManager():
-    ISearchCatalogManager = win32more.System.Search.ISearchCatalogManager_head
-    ISearchCatalogManager.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'get_Name', ((1, 'pszName'),)))
-    ISearchCatalogManager.GetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)), use_last_error=False)(4, 'GetParameter', ((1, 'pszName'),(1, 'ppValue'),)))
-    ISearchCatalogManager.SetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'SetParameter', ((1, 'pszName'),(1, 'pValue'),)))
-    ISearchCatalogManager.GetCatalogStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.CatalogStatus),POINTER(win32more.System.Search.CatalogPausedReason), use_last_error=False)(6, 'GetCatalogStatus', ((1, 'pStatus'),(1, 'pPausedReason'),)))
-    ISearchCatalogManager.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
-    ISearchCatalogManager.Reindex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reindex', ()))
-    ISearchCatalogManager.ReindexMatchingURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'ReindexMatchingURLs', ((1, 'pszPattern'),)))
-    ISearchCatalogManager.ReindexSearchRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'ReindexSearchRoot', ((1, 'pszRootURL'),)))
-    ISearchCatalogManager.put_ConnectTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'put_ConnectTimeout', ((1, 'dwConnectTimeout'),)))
-    ISearchCatalogManager.get_ConnectTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_ConnectTimeout', ((1, 'pdwConnectTimeout'),)))
-    ISearchCatalogManager.put_DataTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'put_DataTimeout', ((1, 'dwDataTimeout'),)))
-    ISearchCatalogManager.get_DataTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_DataTimeout', ((1, 'pdwDataTimeout'),)))
-    ISearchCatalogManager.NumberOfItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'NumberOfItems', ((1, 'plCount'),)))
-    ISearchCatalogManager.NumberOfItemsToIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32), use_last_error=False)(16, 'NumberOfItemsToIndex', ((1, 'plIncrementalCount'),(1, 'plNotificationQueue'),(1, 'plHighPriorityQueue'),)))
-    ISearchCatalogManager.URLBeingIndexed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(17, 'URLBeingIndexed', ((1, 'pszUrl'),)))
-    ISearchCatalogManager.GetURLIndexingState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(18, 'GetURLIndexingState', ((1, 'pszURL'),(1, 'pdwState'),)))
-    ISearchCatalogManager.GetPersistentItemsChangedSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchPersistentItemsChangedSink_head), use_last_error=False)(19, 'GetPersistentItemsChangedSink', ((1, 'ppISearchPersistentItemsChangedSink'),)))
-    ISearchCatalogManager.RegisterViewForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.ISearchViewChangedSink_head,POINTER(UInt32), use_last_error=False)(20, 'RegisterViewForNotification', ((1, 'pszView'),(1, 'pViewChangedSink'),(1, 'pdwCookie'),)))
-    ISearchCatalogManager.GetItemsChangedSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ISearchNotifyInlineSite_head,POINTER(Guid),POINTER(c_void_p),POINTER(Guid),POINTER(Guid),POINTER(UInt32), use_last_error=False)(21, 'GetItemsChangedSink', ((1, 'pISearchNotifyInlineSite'),(1, 'riid'),(1, 'ppv'),(1, 'pGUIDCatalogResetSignature'),(1, 'pGUIDCheckPointSignature'),(1, 'pdwLastCheckPointNumber'),)))
-    ISearchCatalogManager.UnregisterViewForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(22, 'UnregisterViewForNotification', ((1, 'dwCookie'),)))
-    ISearchCatalogManager.SetExtensionClusion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(23, 'SetExtensionClusion', ((1, 'pszExtension'),(1, 'fExclude'),)))
-    ISearchCatalogManager.EnumerateExcludedExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(24, 'EnumerateExcludedExtensions', ((1, 'ppExtensions'),)))
-    ISearchCatalogManager.GetQueryHelper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchQueryHelper_head), use_last_error=False)(25, 'GetQueryHelper', ((1, 'ppSearchQueryHelper'),)))
-    ISearchCatalogManager.put_DiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(26, 'put_DiacriticSensitivity', ((1, 'fDiacriticSensitive'),)))
-    ISearchCatalogManager.get_DiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(27, 'get_DiacriticSensitivity', ((1, 'pfDiacriticSensitive'),)))
-    ISearchCatalogManager.GetCrawlScopeManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchCrawlScopeManager_head), use_last_error=False)(28, 'GetCrawlScopeManager', ((1, 'ppCrawlScopeManager'),)))
-    win32more.System.Com.IUnknown
-    return ISearchCatalogManager
-PRIORITIZE_FLAGS = Int32
-PRIORITIZE_FLAG_RETRYFAILEDITEMS = 1
-PRIORITIZE_FLAG_IGNOREFAILURECOUNT = 2
-def _define_ISearchCatalogManager2_head():
-    class ISearchCatalogManager2(win32more.System.Search.ISearchCatalogManager_head):
-        Guid = Guid('7ac3286d-4d1d-4817-84fc-c1c85e3af0d9')
-    return ISearchCatalogManager2
-def _define_ISearchCatalogManager2():
-    ISearchCatalogManager2 = win32more.System.Search.ISearchCatalogManager2_head
-    ISearchCatalogManager2.PrioritizeMatchingURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.PRIORITIZE_FLAGS, use_last_error=False)(29, 'PrioritizeMatchingURLs', ((1, 'pszPattern'),(1, 'dwPrioritizeFlags'),)))
-    win32more.System.Search.ISearchCatalogManager
-    return ISearchCatalogManager2
-SEARCH_TERM_EXPANSION = Int32
-SEARCH_TERM_NO_EXPANSION = 0
-SEARCH_TERM_PREFIX_ALL = 1
-SEARCH_TERM_STEM_ALL = 2
-SEARCH_QUERY_SYNTAX = Int32
-SEARCH_NO_QUERY_SYNTAX = 0
-SEARCH_ADVANCED_QUERY_SYNTAX = 1
-SEARCH_NATURAL_QUERY_SYNTAX = 2
-def _define_SEARCH_COLUMN_PROPERTIES_head():
-    class SEARCH_COLUMN_PROPERTIES(Structure):
-        pass
-    return SEARCH_COLUMN_PROPERTIES
-def _define_SEARCH_COLUMN_PROPERTIES():
-    SEARCH_COLUMN_PROPERTIES = win32more.System.Search.SEARCH_COLUMN_PROPERTIES_head
-    SEARCH_COLUMN_PROPERTIES._fields_ = [
-        ("Value", win32more.System.Com.StructuredStorage.PROPVARIANT),
-        ("lcid", UInt32),
-    ]
-    return SEARCH_COLUMN_PROPERTIES
-def _define_ISearchQueryHelper_head():
-    class ISearchQueryHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef63')
-    return ISearchQueryHelper
-def _define_ISearchQueryHelper():
-    ISearchQueryHelper = win32more.System.Search.ISearchQueryHelper_head
-    ISearchQueryHelper.get_ConnectionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'get_ConnectionString', ((1, 'pszConnectionString'),)))
-    ISearchQueryHelper.put_QueryContentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'put_QueryContentLocale', ((1, 'lcid'),)))
-    ISearchQueryHelper.get_QueryContentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'get_QueryContentLocale', ((1, 'plcid'),)))
-    ISearchQueryHelper.put_QueryKeywordLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'put_QueryKeywordLocale', ((1, 'lcid'),)))
-    ISearchQueryHelper.get_QueryKeywordLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_QueryKeywordLocale', ((1, 'plcid'),)))
-    ISearchQueryHelper.put_QueryTermExpansion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_TERM_EXPANSION, use_last_error=False)(8, 'put_QueryTermExpansion', ((1, 'expandTerms'),)))
-    ISearchQueryHelper.get_QueryTermExpansion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEARCH_TERM_EXPANSION), use_last_error=False)(9, 'get_QueryTermExpansion', ((1, 'pExpandTerms'),)))
-    ISearchQueryHelper.put_QuerySyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_QUERY_SYNTAX, use_last_error=False)(10, 'put_QuerySyntax', ((1, 'querySyntax'),)))
-    ISearchQueryHelper.get_QuerySyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEARCH_QUERY_SYNTAX), use_last_error=False)(11, 'get_QuerySyntax', ((1, 'pQuerySyntax'),)))
-    ISearchQueryHelper.put_QueryContentProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(12, 'put_QueryContentProperties', ((1, 'pszContentProperties'),)))
-    ISearchQueryHelper.get_QueryContentProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(13, 'get_QueryContentProperties', ((1, 'ppszContentProperties'),)))
-    ISearchQueryHelper.put_QuerySelectColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(14, 'put_QuerySelectColumns', ((1, 'pszSelectColumns'),)))
-    ISearchQueryHelper.get_QuerySelectColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(15, 'get_QuerySelectColumns', ((1, 'ppszSelectColumns'),)))
-    ISearchQueryHelper.put_QueryWhereRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(16, 'put_QueryWhereRestrictions', ((1, 'pszRestrictions'),)))
-    ISearchQueryHelper.get_QueryWhereRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(17, 'get_QueryWhereRestrictions', ((1, 'ppszRestrictions'),)))
-    ISearchQueryHelper.put_QuerySorting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(18, 'put_QuerySorting', ((1, 'pszSorting'),)))
-    ISearchQueryHelper.get_QuerySorting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(19, 'get_QuerySorting', ((1, 'ppszSorting'),)))
-    ISearchQueryHelper.GenerateSQLFromUserQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(20, 'GenerateSQLFromUserQuery', ((1, 'pszQuery'),(1, 'ppszSQL'),)))
-    ISearchQueryHelper.WriteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY),POINTER(win32more.System.Search.SEARCH_COLUMN_PROPERTIES),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(21, 'WriteProperties', ((1, 'itemID'),(1, 'dwNumberOfColumns'),(1, 'pColumns'),(1, 'pValues'),(1, 'pftGatherModifiedTime'),)))
-    ISearchQueryHelper.put_QueryMaxResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(22, 'put_QueryMaxResults', ((1, 'cMaxResults'),)))
-    ISearchQueryHelper.get_QueryMaxResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_QueryMaxResults', ((1, 'pcMaxResults'),)))
-    win32more.System.Com.IUnknown
-    return ISearchQueryHelper
-PRIORITY_LEVEL = Int32
-PRIORITY_LEVEL_FOREGROUND = 0
-PRIORITY_LEVEL_HIGH = 1
-PRIORITY_LEVEL_LOW = 2
-PRIORITY_LEVEL_DEFAULT = 3
-def _define_IRowsetPrioritization_head():
-    class IRowsetPrioritization(win32more.System.Com.IUnknown_head):
-        Guid = Guid('42811652-079d-481b-87a2-09a69ecc5f44')
-    return IRowsetPrioritization
-def _define_IRowsetPrioritization():
-    IRowsetPrioritization = win32more.System.Search.IRowsetPrioritization_head
-    IRowsetPrioritization.SetScopePriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.PRIORITY_LEVEL,UInt32, use_last_error=False)(3, 'SetScopePriority', ((1, 'priority'),(1, 'scopeStatisticsEventFrequency'),)))
-    IRowsetPrioritization.GetScopePriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.PRIORITY_LEVEL),POINTER(UInt32), use_last_error=False)(4, 'GetScopePriority', ((1, 'priority'),(1, 'scopeStatisticsEventFrequency'),)))
-    IRowsetPrioritization.GetScopeStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(5, 'GetScopeStatistics', ((1, 'indexedDocumentCount'),(1, 'oustandingAddCount'),(1, 'oustandingModifyCount'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetPrioritization
-ROWSETEVENT_ITEMSTATE = Int32
-ROWSETEVENT_ITEMSTATE_NOTINROWSET = 0
-ROWSETEVENT_ITEMSTATE_INROWSET = 1
-ROWSETEVENT_ITEMSTATE_UNKNOWN = 2
-ROWSETEVENT_TYPE = Int32
-ROWSETEVENT_TYPE_DATAEXPIRED = 0
-ROWSETEVENT_TYPE_FOREGROUNDLOST = 1
-ROWSETEVENT_TYPE_SCOPESTATISTICS = 2
-def _define_IRowsetEvents_head():
-    class IRowsetEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1551aea5-5d66-4b11-86f5-d5634cb211b9')
-    return IRowsetEvents
-def _define_IRowsetEvents():
-    IRowsetEvents = win32more.System.Search.IRowsetEvents_head
-    IRowsetEvents.OnNewItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE, use_last_error=False)(3, 'OnNewItem', ((1, 'itemID'),(1, 'newItemState'),)))
-    IRowsetEvents.OnChangedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE,win32more.System.Search.ROWSETEVENT_ITEMSTATE, use_last_error=False)(4, 'OnChangedItem', ((1, 'itemID'),(1, 'rowsetItemState'),(1, 'changedItemState'),)))
-    IRowsetEvents.OnDeletedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE, use_last_error=False)(5, 'OnDeletedItem', ((1, 'itemID'),(1, 'deletedItemState'),)))
-    IRowsetEvents.OnRowsetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ROWSETEVENT_TYPE,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'OnRowsetEvent', ((1, 'eventType'),(1, 'eventData'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetEvents
-def _define_ISearchManager_head():
-    class ISearchManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ab310581-ac80-11d1-8df3-00c04fb6ef69')
-    return ISearchManager
-def _define_ISearchManager():
-    ISearchManager = win32more.System.Search.ISearchManager_head
-    ISearchManager.GetIndexerVersionStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetIndexerVersionStr', ((1, 'ppszVersionString'),)))
-    ISearchManager.GetIndexerVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetIndexerVersion', ((1, 'pdwMajor'),(1, 'pdwMinor'),)))
-    ISearchManager.GetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)), use_last_error=False)(5, 'GetParameter', ((1, 'pszName'),(1, 'ppValue'),)))
-    ISearchManager.SetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'SetParameter', ((1, 'pszName'),(1, 'pValue'),)))
-    ISearchManager.get_ProxyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'get_ProxyName', ((1, 'ppszProxyName'),)))
-    ISearchManager.get_BypassList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'get_BypassList', ((1, 'ppszBypassList'),)))
-    ISearchManager.SetProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.PROXY_ACCESS,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(9, 'SetProxy', ((1, 'sUseProxy'),(1, 'fLocalByPassProxy'),(1, 'dwPortNumber'),(1, 'pszProxyName'),(1, 'pszByPassList'),)))
-    ISearchManager.GetCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISearchCatalogManager_head), use_last_error=False)(10, 'GetCatalog', ((1, 'pszCatalog'),(1, 'ppCatalogManager'),)))
-    ISearchManager.get_UserAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'get_UserAgent', ((1, 'ppszUserAgent'),)))
-    ISearchManager.put_UserAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(12, 'put_UserAgent', ((1, 'pszUserAgent'),)))
-    ISearchManager.get_UseProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.PROXY_ACCESS), use_last_error=False)(13, 'get_UseProxy', ((1, 'pUseProxy'),)))
-    ISearchManager.get_LocalBypass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'get_LocalBypass', ((1, 'pfLocalBypass'),)))
-    ISearchManager.get_PortNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_PortNumber', ((1, 'pdwPortNumber'),)))
-    win32more.System.Com.IUnknown
-    return ISearchManager
-def _define_ISearchManager2_head():
-    class ISearchManager2(win32more.System.Search.ISearchManager_head):
-        Guid = Guid('dbab3f73-db19-4a79-bfc0-a61a93886ddf')
-    return ISearchManager2
-def _define_ISearchManager2():
-    ISearchManager2 = win32more.System.Search.ISearchManager2_head
-    ISearchManager2.CreateCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISearchCatalogManager_head), use_last_error=False)(16, 'CreateCatalog', ((1, 'pszCatalog'),(1, 'ppCatalogManager'),)))
-    ISearchManager2.DeleteCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(17, 'DeleteCatalog', ((1, 'pszCatalog'),)))
-    win32more.System.Search.ISearchManager
-    return ISearchManager2
-CSearchLanguageSupport = Guid('6a68cc80-4337-4dbc-bd27-fbfb1053820b')
-def _define_ISearchLanguageSupport_head():
-    class ISearchLanguageSupport(win32more.System.Com.IUnknown_head):
-        Guid = Guid('24c3cbaa-ebc1-491a-9ef1-9f6d8deb1b8f')
-    return ISearchLanguageSupport
-def _define_ISearchLanguageSupport():
-    ISearchLanguageSupport = win32more.System.Search.ISearchLanguageSupport_head
-    ISearchLanguageSupport.SetDiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetDiacriticSensitivity', ((1, 'fDiacriticSensitive'),)))
-    ISearchLanguageSupport.GetDiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetDiacriticSensitivity', ((1, 'pfDiacriticSensitive'),)))
-    ISearchLanguageSupport.LoadWordBreaker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(5, 'LoadWordBreaker', ((1, 'lcid'),(1, 'riid'),(1, 'ppWordBreaker'),(1, 'pLcidUsed'),)))
-    ISearchLanguageSupport.LoadStemmer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(6, 'LoadStemmer', ((1, 'lcid'),(1, 'riid'),(1, 'ppStemmer'),(1, 'pLcidUsed'),)))
-    ISearchLanguageSupport.IsPrefixNormalized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(7, 'IsPrefixNormalized', ((1, 'pwcsQueryToken'),(1, 'cwcQueryToken'),(1, 'pwcsDocumentToken'),(1, 'cwcDocumentToken'),(1, 'pulPrefixLength'),)))
-    win32more.System.Com.IUnknown
-    return ISearchLanguageSupport
-SubscriptionMgr = Guid('abbe31d0-6dae-11d0-beca-00c04fd940be')
-def _define_ITEMPROP_head():
-    class ITEMPROP(Structure):
-        pass
-    return ITEMPROP
-def _define_ITEMPROP():
-    ITEMPROP = win32more.System.Search.ITEMPROP_head
-    ITEMPROP._fields_ = [
-        ("variantValue", win32more.System.Com.VARIANT),
-        ("pwszName", win32more.Foundation.PWSTR),
-    ]
-    return ITEMPROP
-def _define_IEnumItemProperties_head():
-    class IEnumItemProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f72c8d96-6dbd-11d1-a1e8-00c04fc2fbe1')
-    return IEnumItemProperties
-def _define_IEnumItemProperties():
-    IEnumItemProperties = win32more.System.Search.IEnumItemProperties_head
-    IEnumItemProperties.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.ITEMPROP),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumItemProperties.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
-    IEnumItemProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumItemProperties.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumItemProperties_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
-    IEnumItemProperties.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pnCount'),)))
-    win32more.System.Com.IUnknown
-    return IEnumItemProperties
-def _define_SUBSCRIPTIONITEMINFO_head():
-    class SUBSCRIPTIONITEMINFO(Structure):
-        pass
-    return SUBSCRIPTIONITEMINFO
-def _define_SUBSCRIPTIONITEMINFO():
-    SUBSCRIPTIONITEMINFO = win32more.System.Search.SUBSCRIPTIONITEMINFO_head
-    SUBSCRIPTIONITEMINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwPriority", UInt32),
-        ("ScheduleGroup", Guid),
-        ("clsidAgent", Guid),
-    ]
-    return SUBSCRIPTIONITEMINFO
-def _define_ISubscriptionItem_head():
-    class ISubscriptionItem(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a97559f8-6c4a-11d1-a1e8-00c04fc2fbe1')
-    return ISubscriptionItem
-def _define_ISubscriptionItem():
-    ISubscriptionItem = win32more.System.Search.ISubscriptionItem_head
-    ISubscriptionItem.GetCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetCookie', ((1, 'pCookie'),)))
-    ISubscriptionItem.GetSubscriptionItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SUBSCRIPTIONITEMINFO_head), use_last_error=False)(4, 'GetSubscriptionItemInfo', ((1, 'pSubscriptionItemInfo'),)))
-    ISubscriptionItem.SetSubscriptionItemInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SUBSCRIPTIONITEMINFO_head), use_last_error=False)(5, 'SetSubscriptionItemInfo', ((1, 'pSubscriptionItemInfo'),)))
-    ISubscriptionItem.ReadProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.VARIANT), use_last_error=False)(6, 'ReadProperties', ((1, 'nCount'),(1, 'rgwszName'),(1, 'rgValue'),)))
-    ISubscriptionItem.WriteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.VARIANT), use_last_error=False)(7, 'WriteProperties', ((1, 'nCount'),(1, 'rgwszName'),(1, 'rgValue'),)))
-    ISubscriptionItem.EnumProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumItemProperties_head), use_last_error=False)(8, 'EnumProperties', ((1, 'ppEnumItemProperties'),)))
-    ISubscriptionItem.NotifyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'NotifyChanged', ()))
-    win32more.System.Com.IUnknown
-    return ISubscriptionItem
-def _define_IEnumSubscription_head():
-    class IEnumSubscription(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f72c8d97-6dbd-11d1-a1e8-00c04fc2fbe1')
-    return IEnumSubscription
-def _define_IEnumSubscription():
-    IEnumSubscription = win32more.System.Search.IEnumSubscription_head
-    IEnumSubscription.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumSubscription.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
-    IEnumSubscription.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumSubscription.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSubscription_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
-    IEnumSubscription.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pnCount'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSubscription
-SUBSCRIPTIONTYPE = Int32
-SUBSTYPE_URL = 0
-SUBSTYPE_CHANNEL = 1
-SUBSTYPE_DESKTOPURL = 2
-SUBSTYPE_EXTERNAL = 3
-SUBSTYPE_DESKTOPCHANNEL = 4
+    return SUBSCRIPTIONINFO
 SUBSCRIPTIONINFOFLAGS = Int32
 SUBSINFO_SCHEDULE = 1
 SUBSINFO_RECURSE = 2
@@ -6456,81 +8507,97 @@ SUBSINFO_CHANNELFLAGS = 2048
 SUBSINFO_FRIENDLYNAME = 8192
 SUBSINFO_NEEDPASSWORD = 16384
 SUBSINFO_TYPE = 32768
-CREATESUBSCRIPTIONFLAGS = Int32
-CREATESUBS_ADDTOFAVORITES = 1
-CREATESUBS_FROMFAVORITES = 2
-CREATESUBS_NOUI = 4
-CREATESUBS_NOSAVE = 8
-CREATESUBS_SOFTWAREUPDATE = 16
+def _define_SUBSCRIPTIONITEMINFO_head():
+    class SUBSCRIPTIONITEMINFO(Structure):
+        pass
+    return SUBSCRIPTIONITEMINFO
+def _define_SUBSCRIPTIONITEMINFO():
+    SUBSCRIPTIONITEMINFO = win32more.System.Search.SUBSCRIPTIONITEMINFO_head
+    SUBSCRIPTIONITEMINFO._fields_ = [
+        ('cbSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwPriority', UInt32),
+        ('ScheduleGroup', Guid),
+        ('clsidAgent', Guid),
+    ]
+    return SUBSCRIPTIONITEMINFO
+SubscriptionMgr = Guid('abbe31d0-6dae-11d0-be-ca-00-c0-4f-d9-40-be')
 SUBSCRIPTIONSCHEDULE = Int32
 SUBSSCHED_AUTO = 0
 SUBSSCHED_DAILY = 1
 SUBSSCHED_WEEKLY = 2
 SUBSSCHED_CUSTOM = 3
 SUBSSCHED_MANUAL = 4
-def _define_SUBSCRIPTIONINFO_head():
-    class SUBSCRIPTIONINFO(Structure):
+SUBSCRIPTIONTYPE = Int32
+SUBSTYPE_URL = 0
+SUBSTYPE_CHANNEL = 1
+SUBSTYPE_DESKTOPURL = 2
+SUBSTYPE_EXTERNAL = 3
+SUBSTYPE_DESKTOPCHANNEL = 4
+def _define_TEXT_SOURCE_head():
+    class TEXT_SOURCE(Structure):
         pass
-    return SUBSCRIPTIONINFO
-def _define_SUBSCRIPTIONINFO():
-    SUBSCRIPTIONINFO = win32more.System.Search.SUBSCRIPTIONINFO_head
-    SUBSCRIPTIONINFO._fields_ = [
-        ("cbSize", UInt32),
-        ("fUpdateFlags", UInt32),
-        ("schedule", win32more.System.Search.SUBSCRIPTIONSCHEDULE),
-        ("customGroupCookie", Guid),
-        ("pTrigger", c_void_p),
-        ("dwRecurseLevels", UInt32),
-        ("fWebcrawlerFlags", UInt32),
-        ("bMailNotification", win32more.Foundation.BOOL),
-        ("bGleam", win32more.Foundation.BOOL),
-        ("bChangesOnly", win32more.Foundation.BOOL),
-        ("bNeedPassword", win32more.Foundation.BOOL),
-        ("fChannelFlags", UInt32),
-        ("bstrUserName", win32more.Foundation.BSTR),
-        ("bstrPassword", win32more.Foundation.BSTR),
-        ("bstrFriendlyName", win32more.Foundation.BSTR),
-        ("dwMaxSizeKB", UInt32),
-        ("subType", win32more.System.Search.SUBSCRIPTIONTYPE),
-        ("fTaskFlags", UInt32),
-        ("dwReserved", UInt32),
+    return TEXT_SOURCE
+def _define_TEXT_SOURCE():
+    TEXT_SOURCE = win32more.System.Search.TEXT_SOURCE_head
+    TEXT_SOURCE._fields_ = [
+        ('pfnFillTextBuffer', win32more.System.Search.PFNFILLTEXTBUFFER),
+        ('awcBuffer', win32more.Foundation.PWSTR),
+        ('iEnd', UInt32),
+        ('iCur', UInt32),
     ]
-    return SUBSCRIPTIONINFO
-def _define_ISubscriptionMgr_head():
-    class ISubscriptionMgr(win32more.System.Com.IUnknown_head):
-        Guid = Guid('085fb2c0-0df8-11d1-8f4b-00a0c905413f')
-    return ISubscriptionMgr
-def _define_ISubscriptionMgr():
-    ISubscriptionMgr = win32more.System.Search.ISubscriptionMgr_head
-    ISubscriptionMgr.DeleteSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HWND, use_last_error=False)(3, 'DeleteSubscription', ((1, 'pwszURL'),(1, 'hwnd'),)))
-    ISubscriptionMgr.UpdateSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'UpdateSubscription', ((1, 'pwszURL'),)))
-    ISubscriptionMgr.UpdateAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'UpdateAll', ()))
-    ISubscriptionMgr.IsSubscribed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsSubscribed', ((1, 'pwszURL'),(1, 'pfSubscribed'),)))
-    ISubscriptionMgr.GetSubscriptionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head), use_last_error=False)(7, 'GetSubscriptionInfo', ((1, 'pwszURL'),(1, 'pInfo'),)))
-    ISubscriptionMgr.GetDefaultInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SUBSCRIPTIONTYPE,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head), use_last_error=False)(8, 'GetDefaultInfo', ((1, 'subType'),(1, 'pInfo'),)))
-    ISubscriptionMgr.ShowSubscriptionProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HWND, use_last_error=False)(9, 'ShowSubscriptionProperties', ((1, 'pwszURL'),(1, 'hwnd'),)))
-    ISubscriptionMgr.CreateSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.SUBSCRIPTIONTYPE,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head), use_last_error=False)(10, 'CreateSubscription', ((1, 'hwnd'),(1, 'pwszURL'),(1, 'pwszFriendlyName'),(1, 'dwFlags'),(1, 'subsType'),(1, 'pInfo'),)))
-    win32more.System.Com.IUnknown
-    return ISubscriptionMgr
-def _define_ISubscriptionMgr2_head():
-    class ISubscriptionMgr2(win32more.System.Search.ISubscriptionMgr_head):
-        Guid = Guid('614bc270-aedf-11d1-a1f9-00c04fc2fbe1')
-    return ISubscriptionMgr2
-def _define_ISubscriptionMgr2():
-    ISubscriptionMgr2 = win32more.System.Search.ISubscriptionMgr2_head
-    ISubscriptionMgr2.GetItemFromURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISubscriptionItem_head), use_last_error=False)(11, 'GetItemFromURL', ((1, 'pwszURL'),(1, 'ppSubscriptionItem'),)))
-    ISubscriptionMgr2.GetItemFromCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Search.ISubscriptionItem_head), use_last_error=False)(12, 'GetItemFromCookie', ((1, 'pSubscriptionCookie'),(1, 'ppSubscriptionItem'),)))
-    ISubscriptionMgr2.GetSubscriptionRunState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(13, 'GetSubscriptionRunState', ((1, 'dwNumCookies'),(1, 'pCookies'),(1, 'pdwRunState'),)))
-    ISubscriptionMgr2.EnumSubscriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.IEnumSubscription_head), use_last_error=False)(14, 'EnumSubscriptions', ((1, 'dwFlags'),(1, 'ppEnumSubscriptions'),)))
-    ISubscriptionMgr2.UpdateItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid), use_last_error=False)(15, 'UpdateItems', ((1, 'dwFlags'),(1, 'dwNumCookies'),(1, 'pCookies'),)))
-    ISubscriptionMgr2.AbortItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(16, 'AbortItems', ((1, 'dwNumCookies'),(1, 'pCookies'),)))
-    ISubscriptionMgr2.AbortAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'AbortAll', ()))
-    win32more.System.Search.ISubscriptionMgr
-    return ISubscriptionMgr2
-DELIVERY_AGENT_FLAGS = Int32
-DELIVERY_AGENT_FLAG_NO_BROADCAST = 4
-DELIVERY_AGENT_FLAG_NO_RESTRICTIONS = 8
-DELIVERY_AGENT_FLAG_SILENT_DIAL = 16
+    return TEXT_SOURCE
+def _define_TIME_STRUCT_head():
+    class TIME_STRUCT(Structure):
+        pass
+    return TIME_STRUCT
+def _define_TIME_STRUCT():
+    TIME_STRUCT = win32more.System.Search.TIME_STRUCT_head
+    TIME_STRUCT._fields_ = [
+        ('hour', UInt16),
+        ('minute', UInt16),
+        ('second', UInt16),
+    ]
+    return TIME_STRUCT
+def _define_TIMEOUT_INFO_head():
+    class TIMEOUT_INFO(Structure):
+        pass
+    return TIMEOUT_INFO
+def _define_TIMEOUT_INFO():
+    TIMEOUT_INFO = win32more.System.Search.TIMEOUT_INFO_head
+    TIMEOUT_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('dwConnectTimeout', UInt32),
+        ('dwDataTimeout', UInt32),
+    ]
+    return TIMEOUT_INFO
+def _define_TIMESTAMP_STRUCT_head():
+    class TIMESTAMP_STRUCT(Structure):
+        pass
+    return TIMESTAMP_STRUCT
+def _define_TIMESTAMP_STRUCT():
+    TIMESTAMP_STRUCT = win32more.System.Search.TIMESTAMP_STRUCT_head
+    TIMESTAMP_STRUCT._fields_ = [
+        ('year', Int16),
+        ('month', UInt16),
+        ('day', UInt16),
+        ('hour', UInt16),
+        ('minute', UInt16),
+        ('second', UInt16),
+        ('fraction', UInt32),
+    ]
+    return TIMESTAMP_STRUCT
+def _define_VECTORRESTRICTION_head():
+    class VECTORRESTRICTION(Structure):
+        pass
+    return VECTORRESTRICTION
+def _define_VECTORRESTRICTION():
+    VECTORRESTRICTION = win32more.System.Search.VECTORRESTRICTION_head
+    VECTORRESTRICTION._fields_ = [
+        ('Node', win32more.System.Search.NODERESTRICTION),
+        ('RankMethod', UInt32),
+    ]
+    return VECTORRESTRICTION
 WEBCRAWL_RECURSEFLAGS = Int32
 WEBCRAWL_DONT_MAKE_STICKY = 1
 WEBCRAWL_GET_IMAGES = 2
@@ -6540,2541 +8607,2255 @@ WEBCRAWL_GET_CONTROLS = 16
 WEBCRAWL_LINKS_ELSEWHERE = 32
 WEBCRAWL_IGNORE_ROBOTSTXT = 128
 WEBCRAWL_ONLY_LINKS_TO_HTML = 256
-CHANNEL_AGENT_FLAGS = Int32
-CHANNEL_AGENT_DYNAMIC_SCHEDULE = 1
-CHANNEL_AGENT_PRECACHE_SOME = 2
-CHANNEL_AGENT_PRECACHE_ALL = 4
-CHANNEL_AGENT_PRECACHE_SCRNSAVER = 8
-DBDATACONVERTENUM = Int32
-DBDATACONVERT_DEFAULT = 0
-DBDATACONVERT_SETDATABEHAVIOR = 1
-DBDATACONVERT_LENGTHFROMNTS = 2
-DBDATACONVERT_DSTISFIXEDLENGTH = 4
-DBDATACONVERT_DECIMALSCALE = 8
-def _define_IDataConvert_head():
-    class IDataConvert(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a8d-2a1c-11ce-ade5-00aa0044773d')
-    return IDataConvert
-def _define_IDataConvert():
-    IDataConvert = win32more.System.Search.IDataConvert_head
-    IDataConvert.DataConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,UIntPtr,POINTER(UIntPtr),c_void_p,c_void_p,UIntPtr,UInt32,POINTER(UInt32),Byte,Byte,UInt32, use_last_error=False)(3, 'DataConvert', ((1, 'wSrcType'),(1, 'wDstType'),(1, 'cbSrcLength'),(1, 'pcbDstLength'),(1, 'pSrc'),(1, 'pDst'),(1, 'cbDstMaxLength'),(1, 'dbsSrcStatus'),(1, 'pdbsStatus'),(1, 'bPrecision'),(1, 'bScale'),(1, 'dwFlags'),)))
-    IDataConvert.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16, use_last_error=False)(4, 'CanConvert', ((1, 'wSrcType'),(1, 'wDstType'),)))
-    IDataConvert.GetConversionSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,POINTER(UIntPtr),POINTER(UIntPtr),c_void_p, use_last_error=False)(5, 'GetConversionSize', ((1, 'wSrcType'),(1, 'wDstType'),(1, 'pcbSrcLength'),(1, 'pcbDstLength'),(1, 'pSrc'),)))
-    win32more.System.Com.IUnknown
-    return IDataConvert
-DCINFOTYPEENUM = Int32
-DCINFOTYPE_VERSION = 1
-def _define_DCINFO_head():
-    class DCINFO(Structure):
-        pass
-    return DCINFO
-def _define_DCINFO():
-    DCINFO = win32more.System.Search.DCINFO_head
-    DCINFO._fields_ = [
-        ("eInfoType", UInt32),
-        ("vData", win32more.System.Com.VARIANT),
-    ]
-    return DCINFO
-def _define_IDCInfo_head():
-    class IDCInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a9c-2a1c-11ce-ade5-00aa0044773d')
-    return IDCInfo
-def _define_IDCInfo():
-    IDCInfo = win32more.System.Search.IDCInfo_head
-    IDCInfo.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DCINFO_head)), use_last_error=False)(3, 'GetInfo', ((1, 'cInfo'),(1, 'rgeInfoType'),(1, 'prgInfo'),)))
-    IDCInfo.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DCINFO), use_last_error=False)(4, 'SetInfo', ((1, 'cInfo'),(1, 'rgInfo'),)))
-    win32more.System.Com.IUnknown
-    return IDCInfo
-MSDAORA = Guid('e8cc4cbe-fdff-11d0-b865-00a0c9081c1d')
-MSDAORA_ERROR = Guid('e8cc4cbf-fdff-11d0-b865-00a0c9081c1d')
-MSDAORA8 = Guid('7f06a373-dd6a-43db-b4e0-1fc121e5e62b')
-MSDAORA8_ERROR = Guid('7f06a374-dd6a-43db-b4e0-1fc121e5e62b')
-def _define_DataSourceListener_head():
-    class DataSourceListener(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7c0ffab2-cd84-11d0-949a-00a0c91110ed')
-    return DataSourceListener
-def _define_DataSourceListener():
-    DataSourceListener = win32more.System.Search.DataSourceListener_head
-    DataSourceListener.dataMemberChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(3, 'dataMemberChanged', ((1, 'bstrDM'),)))
-    DataSourceListener.dataMemberAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(4, 'dataMemberAdded', ((1, 'bstrDM'),)))
-    DataSourceListener.dataMemberRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(5, 'dataMemberRemoved', ((1, 'bstrDM'),)))
-    win32more.System.Com.IUnknown
-    return DataSourceListener
-def _define_DataSource_head():
-    class DataSource(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7c0ffab3-cd84-11d0-949a-00a0c91110ed')
-    return DataSource
-def _define_DataSource():
-    DataSource = win32more.System.Search.DataSource_head
-    DataSource.getDataMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'getDataMember', ((1, 'bstrDM'),(1, 'riid'),(1, 'ppunk'),)))
-    DataSource.getDataMemberName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(POINTER(UInt16)), use_last_error=False)(4, 'getDataMemberName', ((1, 'lIndex'),(1, 'pbstrDM'),)))
-    DataSource.getDataMemberCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'getDataMemberCount', ((1, 'plCount'),)))
-    DataSource.addDataSourceListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.DataSourceListener_head, use_last_error=False)(6, 'addDataSourceListener', ((1, 'pDSL'),)))
-    DataSource.removeDataSourceListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.DataSourceListener_head, use_last_error=False)(7, 'removeDataSourceListener', ((1, 'pDSL'),)))
-    win32more.System.Com.IUnknown
-    return DataSource
-OSPFORMAT = Int32
-OSPFORMAT_RAW = 0
-OSPFORMAT_DEFAULT = 0
-OSPFORMAT_FORMATTED = 1
-OSPFORMAT_HTML = 2
-OSPRW = Int32
-OSPRW_DEFAULT = 1
-OSPRW_READONLY = 0
-OSPRW_READWRITE = 1
-OSPRW_MIXED = 2
-OSPFIND = Int32
-OSPFIND_DEFAULT = 0
-OSPFIND_UP = 1
-OSPFIND_CASESENSITIVE = 2
-OSPFIND_UPCASESENSITIVE = 3
-OSPCOMP = Int32
-OSPCOMP_EQ = 1
-OSPCOMP_DEFAULT = 1
-OSPCOMP_LT = 2
-OSPCOMP_LE = 3
-OSPCOMP_GE = 4
-OSPCOMP_GT = 5
-OSPCOMP_NE = 6
-OSPXFER = Int32
-OSPXFER_COMPLETE = 0
-OSPXFER_ABORT = 1
-OSPXFER_ERROR = 2
-def _define_OLEDBSimpleProviderListener_head():
-    class OLEDBSimpleProviderListener(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e0e270c1-c0be-11d0-8fe4-00a0c90a6341')
-    return OLEDBSimpleProviderListener
-def _define_OLEDBSimpleProviderListener():
-    OLEDBSimpleProviderListener = win32more.System.Search.OLEDBSimpleProviderListener_head
-    OLEDBSimpleProviderListener.aboutToChangeCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(3, 'aboutToChangeCell', ((1, 'iRow'),(1, 'iColumn'),)))
-    OLEDBSimpleProviderListener.cellChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(4, 'cellChanged', ((1, 'iRow'),(1, 'iColumn'),)))
-    OLEDBSimpleProviderListener.aboutToDeleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(5, 'aboutToDeleteRows', ((1, 'iRow'),(1, 'cRows'),)))
-    OLEDBSimpleProviderListener.deletedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(6, 'deletedRows', ((1, 'iRow'),(1, 'cRows'),)))
-    OLEDBSimpleProviderListener.aboutToInsertRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(7, 'aboutToInsertRows', ((1, 'iRow'),(1, 'cRows'),)))
-    OLEDBSimpleProviderListener.insertedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(8, 'insertedRows', ((1, 'iRow'),(1, 'cRows'),)))
-    OLEDBSimpleProviderListener.rowsAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(9, 'rowsAvailable', ((1, 'iRow'),(1, 'cRows'),)))
-    OLEDBSimpleProviderListener.transferComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OSPXFER, use_last_error=False)(10, 'transferComplete', ((1, 'xfer'),)))
-    win32more.System.Com.IUnknown
-    return OLEDBSimpleProviderListener
-def _define_OLEDBSimpleProvider_head():
-    class OLEDBSimpleProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e0e270c0-c0be-11d0-8fe4-00a0c90a6341')
-    return OLEDBSimpleProvider
-def _define_OLEDBSimpleProvider():
-    OLEDBSimpleProvider = win32more.System.Search.OLEDBSimpleProvider_head
-    OLEDBSimpleProvider.getRowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(3, 'getRowCount', ((1, 'pcRows'),)))
-    OLEDBSimpleProvider.getColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(4, 'getColumnCount', ((1, 'pcColumns'),)))
-    OLEDBSimpleProvider.getRWStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,POINTER(win32more.System.Search.OSPRW), use_last_error=False)(5, 'getRWStatus', ((1, 'iRow'),(1, 'iColumn'),(1, 'prwStatus'),)))
-    OLEDBSimpleProvider.getVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,win32more.System.Search.OSPFORMAT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(6, 'getVariant', ((1, 'iRow'),(1, 'iColumn'),(1, 'format'),(1, 'pVar'),)))
-    OLEDBSimpleProvider.setVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,win32more.System.Search.OSPFORMAT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'setVariant', ((1, 'iRow'),(1, 'iColumn'),(1, 'format'),(1, 'Var'),)))
-    OLEDBSimpleProvider.getLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'getLocale', ((1, 'pbstrLocale'),)))
-    OLEDBSimpleProvider.deleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,POINTER(IntPtr), use_last_error=False)(9, 'deleteRows', ((1, 'iRow'),(1, 'cRows'),(1, 'pcRowsDeleted'),)))
-    OLEDBSimpleProvider.insertRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,POINTER(IntPtr), use_last_error=False)(10, 'insertRows', ((1, 'iRow'),(1, 'cRows'),(1, 'pcRowsInserted'),)))
-    OLEDBSimpleProvider.find = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr,win32more.System.Com.VARIANT,win32more.System.Search.OSPFIND,win32more.System.Search.OSPCOMP,POINTER(IntPtr), use_last_error=False)(11, 'find', ((1, 'iRowStart'),(1, 'iColumn'),(1, 'val'),(1, 'findFlags'),(1, 'compType'),(1, 'piRowFound'),)))
-    OLEDBSimpleProvider.addOLEDBSimpleProviderListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OLEDBSimpleProviderListener_head, use_last_error=False)(12, 'addOLEDBSimpleProviderListener', ((1, 'pospIListener'),)))
-    OLEDBSimpleProvider.removeOLEDBSimpleProviderListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OLEDBSimpleProviderListener_head, use_last_error=False)(13, 'removeOLEDBSimpleProviderListener', ((1, 'pospIListener'),)))
-    OLEDBSimpleProvider.isAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'isAsync', ((1, 'pbAsynch'),)))
-    OLEDBSimpleProvider.getEstimatedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(15, 'getEstimatedRows', ((1, 'piRows'),)))
-    OLEDBSimpleProvider.stopTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'stopTransfer', ()))
-    win32more.System.Com.IUnknown
-    return OLEDBSimpleProvider
-def _define_DataSourceObject_head():
-    class DataSourceObject(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0ae9a4e4-18d4-11d1-b3b3-00aa00c1a924')
-    return DataSourceObject
-def _define_DataSourceObject():
-    DataSourceObject = win32more.System.Search.DataSourceObject_head
-    win32more.System.Com.IDispatch
-    return DataSourceObject
-DataLinks = Guid('2206cdb2-19c1-11d1-89e0-00c04fd7a829')
-MSDAINITIALIZE = Guid('2206cdb0-19c1-11d1-89e0-00c04fd7a829')
-PDPO = Guid('ccb4ec60-b9dc-11d1-ac80-00a0c9034873')
-RootBinder = Guid('ff151822-b0bf-11d1-a80d-000000000000')
-EBindInfoOptions = Int32
-BIO_BINDER = 1
-def _define_IService_head():
-    class IService(win32more.System.Com.IUnknown_head):
-        Guid = Guid('06210e88-01f5-11d1-b512-0080c781c384')
-    return IService
-def _define_IService():
-    IService = win32more.System.Search.IService_head
-    IService.InvokeService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'InvokeService', ((1, 'pUnkInner'),)))
-    win32more.System.Com.IUnknown
-    return IService
-DBPROMPTOPTIONSENUM = Int32
-DBPROMPTOPTIONS_NONE = 0
-DBPROMPTOPTIONS_WIZARDSHEET = 1
-DBPROMPTOPTIONS_PROPERTYSHEET = 2
-DBPROMPTOPTIONS_BROWSEONLY = 8
-DBPROMPTOPTIONS_DISABLE_PROVIDER_SELECTION = 16
-DBPROMPTOPTIONS_DISABLESAVEPASSWORD = 32
-def _define_IDBPromptInitialize_head():
-    class IDBPromptInitialize(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2206ccb0-19c1-11d1-89e0-00c04fd7a829')
-    return IDBPromptInitialize
-def _define_IDBPromptInitialize():
-    IDBPromptInitialize = win32more.System.Search.IDBPromptInitialize_head
-    IDBPromptInitialize.PromptDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HWND,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'PromptDataSource', ((1, 'pUnkOuter'),(1, 'hWndParent'),(1, 'dwPromptOptions'),(1, 'cSourceTypeFilter'),(1, 'rgSourceTypeFilter'),(1, 'pwszszzProviderFilter'),(1, 'riid'),(1, 'ppDataSource'),)))
-    IDBPromptInitialize.PromptFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'PromptFileName', ((1, 'hWndParent'),(1, 'dwPromptOptions'),(1, 'pwszInitialDirectory'),(1, 'pwszInitialFile'),(1, 'ppwszSelectedFile'),)))
-    win32more.System.Com.IUnknown
-    return IDBPromptInitialize
-def _define_IDataInitialize_head():
-    class IDataInitialize(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2206ccb1-19c1-11d1-89e0-00c04fd7a829')
-    return IDataInitialize
-def _define_IDataInitialize():
-    IDataInitialize = win32more.System.Search.IDataInitialize_head
-    IDataInitialize.GetDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetDataSource', ((1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszInitializationString'),(1, 'riid'),(1, 'ppDataSource'),)))
-    IDataInitialize.GetInitializationString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Byte,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetInitializationString', ((1, 'pDataSource'),(1, 'fIncludePassword'),(1, 'ppwszInitString'),)))
-    IDataInitialize.CreateDBInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'CreateDBInstance', ((1, 'clsidProvider'),(1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszReserved'),(1, 'riid'),(1, 'ppDataSource'),)))
-    IDataInitialize.CreateDBInstanceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.COSERVERINFO_head),UInt32,POINTER(win32more.System.Com.MULTI_QI), use_last_error=False)(6, 'CreateDBInstanceEx', ((1, 'clsidProvider'),(1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszReserved'),(1, 'pServerInfo'),(1, 'cmq'),(1, 'rgmqResults'),)))
-    IDataInitialize.LoadStringFromStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'LoadStringFromStorage', ((1, 'pwszFileName'),(1, 'ppwszInitializationString'),)))
-    IDataInitialize.WriteStringToStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(8, 'WriteStringToStorage', ((1, 'pwszFileName'),(1, 'pwszInitializationString'),(1, 'dwCreationDisposition'),)))
-    win32more.System.Com.IUnknown
-    return IDataInitialize
-def _define_IDataSourceLocator_head():
-    class IDataSourceLocator(win32more.System.Com.IDispatch_head):
-        Guid = Guid('2206ccb2-19c1-11d1-89e0-00c04fd7a829')
-    return IDataSourceLocator
-def _define_IDataSourceLocator():
-    IDataSourceLocator = win32more.System.Search.IDataSourceLocator_head
-    IDataSourceLocator.get_hWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(7, 'get_hWnd', ((1, 'phwndParent'),)))
-    IDataSourceLocator.put_hWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(8, 'put_hWnd', ((1, 'hwndParent'),)))
-    IDataSourceLocator.PromptNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'PromptNew', ((1, 'ppADOConnection'),)))
-    IDataSourceLocator.PromptEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head),POINTER(Int16), use_last_error=False)(10, 'PromptEdit', ((1, 'ppADOConnection'),(1, 'pbSuccess'),)))
-    win32more.System.Com.IDispatch
-    return IDataSourceLocator
-KAGREQDIAGFLAGSENUM = Int32
-KAGREQDIAGFLAGS_HEADER = 1
-KAGREQDIAGFLAGS_RECORD = 2
-def _define_IRowsetChangeExtInfo_head():
-    class IRowsetChangeExtInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a8f-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetChangeExtInfo
-def _define_IRowsetChangeExtInfo():
-    IRowsetChangeExtInfo = win32more.System.Search.IRowsetChangeExtInfo_head
-    IRowsetChangeExtInfo.GetOriginalRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr), use_last_error=False)(3, 'GetOriginalRow', ((1, 'hReserved'),(1, 'hRow'),(1, 'phRowOriginal'),)))
-    IRowsetChangeExtInfo.GetPendingColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetPendingColumns', ((1, 'hReserved'),(1, 'hRow'),(1, 'cColumnOrdinals'),(1, 'rgiOrdinals'),(1, 'rgColumnStatus'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetChangeExtInfo
-def _define_KAGREQDIAG_head():
-    class KAGREQDIAG(Structure):
-        pass
-    return KAGREQDIAG
-def _define_KAGREQDIAG():
-    KAGREQDIAG = win32more.System.Search.KAGREQDIAG_head
-    KAGREQDIAG._fields_ = [
-        ("ulDiagFlags", UInt32),
-        ("vt", UInt16),
-        ("sDiagField", Int16),
-    ]
-    return KAGREQDIAG
-def _define_KAGGETDIAG_head():
-    class KAGGETDIAG(Structure):
-        pass
-    return KAGGETDIAG
-def _define_KAGGETDIAG():
-    KAGGETDIAG = win32more.System.Search.KAGGETDIAG_head
-    KAGGETDIAG._fields_ = [
-        ("ulSize", UInt32),
-        ("vDiagInfo", win32more.System.Com.VARIANT),
-        ("sDiagField", Int16),
-    ]
-    return KAGGETDIAG
-def _define_ISQLRequestDiagFields_head():
-    class ISQLRequestDiagFields(win32more.System.Com.IUnknown_head):
-        Guid = Guid('228972f0-b5ff-11d0-8a80-00c04fd611cd')
-    return ISQLRequestDiagFields
-def _define_ISQLRequestDiagFields():
-    ISQLRequestDiagFields = win32more.System.Search.ISQLRequestDiagFields_head
-    ISQLRequestDiagFields.RequestDiagFields = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.KAGREQDIAG), use_last_error=False)(3, 'RequestDiagFields', ((1, 'cDiagFields'),(1, 'rgDiagFields'),)))
-    win32more.System.Com.IUnknown
-    return ISQLRequestDiagFields
-def _define_ISQLGetDiagField_head():
-    class ISQLGetDiagField(win32more.System.Com.IUnknown_head):
-        Guid = Guid('228972f1-b5ff-11d0-8a80-00c04fd611cd')
-    return ISQLGetDiagField
-def _define_ISQLGetDiagField():
-    ISQLGetDiagField = win32more.System.Search.ISQLGetDiagField_head
-    ISQLGetDiagField.GetDiagField = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.KAGGETDIAG_head), use_last_error=False)(3, 'GetDiagField', ((1, 'pDiagInfo'),)))
-    win32more.System.Com.IUnknown
-    return ISQLGetDiagField
-MSDSDBINITPROPENUM = Int32
-DBPROP_MSDS_DBINIT_DATAPROVIDER = 2
-MSDSSESSIONPROPENUM = Int32
-DBPROP_MSDS_SESS_UNIQUENAMES = 2
-def _define_DATE_STRUCT_head():
-    class DATE_STRUCT(Structure):
-        pass
-    return DATE_STRUCT
-def _define_DATE_STRUCT():
-    DATE_STRUCT = win32more.System.Search.DATE_STRUCT_head
-    DATE_STRUCT._fields_ = [
-        ("year", Int16),
-        ("month", UInt16),
-        ("day", UInt16),
-    ]
-    return DATE_STRUCT
-def _define_TIME_STRUCT_head():
-    class TIME_STRUCT(Structure):
-        pass
-    return TIME_STRUCT
-def _define_TIME_STRUCT():
-    TIME_STRUCT = win32more.System.Search.TIME_STRUCT_head
-    TIME_STRUCT._fields_ = [
-        ("hour", UInt16),
-        ("minute", UInt16),
-        ("second", UInt16),
-    ]
-    return TIME_STRUCT
-def _define_TIMESTAMP_STRUCT_head():
-    class TIMESTAMP_STRUCT(Structure):
-        pass
-    return TIMESTAMP_STRUCT
-def _define_TIMESTAMP_STRUCT():
-    TIMESTAMP_STRUCT = win32more.System.Search.TIMESTAMP_STRUCT_head
-    TIMESTAMP_STRUCT._fields_ = [
-        ("year", Int16),
-        ("month", UInt16),
-        ("day", UInt16),
-        ("hour", UInt16),
-        ("minute", UInt16),
-        ("second", UInt16),
-        ("fraction", UInt32),
-    ]
-    return TIMESTAMP_STRUCT
-SQLINTERVAL = Int32
-SQL_IS_YEAR = 1
-SQL_IS_MONTH = 2
-SQL_IS_DAY = 3
-SQL_IS_HOUR = 4
-SQL_IS_MINUTE = 5
-SQL_IS_SECOND = 6
-SQL_IS_YEAR_TO_MONTH = 7
-SQL_IS_DAY_TO_HOUR = 8
-SQL_IS_DAY_TO_MINUTE = 9
-SQL_IS_DAY_TO_SECOND = 10
-SQL_IS_HOUR_TO_MINUTE = 11
-SQL_IS_HOUR_TO_SECOND = 12
-SQL_IS_MINUTE_TO_SECOND = 13
-def _define_tagSQL_YEAR_MONTH_head():
-    class tagSQL_YEAR_MONTH(Structure):
-        pass
-    return tagSQL_YEAR_MONTH
-def _define_tagSQL_YEAR_MONTH():
-    tagSQL_YEAR_MONTH = win32more.System.Search.tagSQL_YEAR_MONTH_head
-    tagSQL_YEAR_MONTH._fields_ = [
-        ("year", UInt32),
-        ("month", UInt32),
-    ]
-    return tagSQL_YEAR_MONTH
-def _define_tagSQL_DAY_SECOND_head():
-    class tagSQL_DAY_SECOND(Structure):
-        pass
-    return tagSQL_DAY_SECOND
-def _define_tagSQL_DAY_SECOND():
-    tagSQL_DAY_SECOND = win32more.System.Search.tagSQL_DAY_SECOND_head
-    tagSQL_DAY_SECOND._fields_ = [
-        ("day", UInt32),
-        ("hour", UInt32),
-        ("minute", UInt32),
-        ("second", UInt32),
-        ("fraction", UInt32),
-    ]
-    return tagSQL_DAY_SECOND
-def _define_SQL_INTERVAL_STRUCT_head():
-    class SQL_INTERVAL_STRUCT(Structure):
-        pass
-    return SQL_INTERVAL_STRUCT
-def _define_SQL_INTERVAL_STRUCT():
-    SQL_INTERVAL_STRUCT = win32more.System.Search.SQL_INTERVAL_STRUCT_head
-    class SQL_INTERVAL_STRUCT__intval_e__Union(Union):
-        pass
-    SQL_INTERVAL_STRUCT__intval_e__Union._fields_ = [
-        ("year_month", win32more.System.Search.tagSQL_YEAR_MONTH),
-        ("day_second", win32more.System.Search.tagSQL_DAY_SECOND),
-    ]
-    SQL_INTERVAL_STRUCT._fields_ = [
-        ("interval_type", win32more.System.Search.SQLINTERVAL),
-        ("interval_sign", Int16),
-        ("intval", SQL_INTERVAL_STRUCT__intval_e__Union),
-    ]
-    return SQL_INTERVAL_STRUCT
-def _define_SQL_NUMERIC_STRUCT_head():
-    class SQL_NUMERIC_STRUCT(Structure):
-        pass
-    return SQL_NUMERIC_STRUCT
-def _define_SQL_NUMERIC_STRUCT():
-    SQL_NUMERIC_STRUCT = win32more.System.Search.SQL_NUMERIC_STRUCT_head
-    SQL_NUMERIC_STRUCT._fields_ = [
-        ("precision", Byte),
-        ("scale", SByte),
-        ("sign", Byte),
-        ("val", Byte * 16),
-    ]
-    return SQL_NUMERIC_STRUCT
-def _define_dbvarychar_head():
-    class dbvarychar(Structure):
-        pass
-    return dbvarychar
-def _define_dbvarychar():
-    dbvarychar = win32more.System.Search.dbvarychar_head
-    dbvarychar._fields_ = [
-        ("len", Int16),
-        ("str", SByte * 8001),
-    ]
-    return dbvarychar
-def _define_dbvarybin_head():
-    class dbvarybin(Structure):
-        pass
-    return dbvarybin
-def _define_dbvarybin():
-    dbvarybin = win32more.System.Search.dbvarybin_head
-    dbvarybin._fields_ = [
-        ("len", Int16),
-        ("array", Byte * 8001),
-    ]
-    return dbvarybin
-def _define_dbmoney_head():
-    class dbmoney(Structure):
-        pass
-    return dbmoney
-def _define_dbmoney():
-    dbmoney = win32more.System.Search.dbmoney_head
-    dbmoney._fields_ = [
-        ("mnyhigh", Int32),
-        ("mnylow", UInt32),
-    ]
-    return dbmoney
-def _define_dbdatetime_head():
-    class dbdatetime(Structure):
-        pass
-    return dbdatetime
-def _define_dbdatetime():
-    dbdatetime = win32more.System.Search.dbdatetime_head
-    dbdatetime._fields_ = [
-        ("dtdays", Int32),
-        ("dttime", UInt32),
-    ]
-    return dbdatetime
-def _define_dbdatetime4_head():
-    class dbdatetime4(Structure):
-        pass
-    return dbdatetime4
-def _define_dbdatetime4():
-    dbdatetime4 = win32more.System.Search.dbdatetime4_head
-    dbdatetime4._fields_ = [
-        ("numdays", UInt16),
-        ("nummins", UInt16),
-    ]
-    return dbdatetime4
-def _define_sqlperf_head():
-    class sqlperf(Structure):
-        pass
-    return sqlperf
-def _define_sqlperf():
-    sqlperf = win32more.System.Search.sqlperf_head
-    sqlperf._fields_ = [
-        ("TimerResolution", UInt32),
-        ("SQLidu", UInt32),
-        ("SQLiduRows", UInt32),
-        ("SQLSelects", UInt32),
-        ("SQLSelectRows", UInt32),
-        ("Transactions", UInt32),
-        ("SQLPrepares", UInt32),
-        ("ExecDirects", UInt32),
-        ("SQLExecutes", UInt32),
-        ("CursorOpens", UInt32),
-        ("CursorSize", UInt32),
-        ("CursorUsed", UInt32),
-        ("PercentCursorUsed", Double),
-        ("AvgFetchTime", Double),
-        ("AvgCursorSize", Double),
-        ("AvgCursorUsed", Double),
-        ("SQLFetchTime", UInt32),
-        ("SQLFetchCount", UInt32),
-        ("CurrentStmtCount", UInt32),
-        ("MaxOpenStmt", UInt32),
-        ("SumOpenStmt", UInt32),
-        ("CurrentConnectionCount", UInt32),
-        ("MaxConnectionsOpened", UInt32),
-        ("SumConnectionsOpened", UInt32),
-        ("SumConnectiontime", UInt32),
-        ("AvgTimeOpened", Double),
-        ("ServerRndTrips", UInt32),
-        ("BuffersSent", UInt32),
-        ("BuffersRec", UInt32),
-        ("BytesSent", UInt32),
-        ("BytesRec", UInt32),
-        ("msExecutionTime", UInt32),
-        ("msNetWorkServerTime", UInt32),
-    ]
-    return sqlperf
-DBPROPENUM25_DEPRECATED = Int32
-DBPROP_ICommandCost = 141
-DBPROP_ICommandTree = 142
-DBPROP_ICommandValidate = 143
-DBPROP_IDBSchemaCommand = 144
-DBPROP_IProvideMoniker = 125
-DBPROP_IQuery = 146
-DBPROP_IReadData = 147
-DBPROP_IRowsetAsynch = 148
-DBPROP_IRowsetCopyRows = 149
-DBPROP_IRowsetKeys = 151
-DBPROP_IRowsetNewRowAfter = 152
-DBPROP_IRowsetNextRowset = 153
-DBPROP_IRowsetWatchAll = 155
-DBPROP_IRowsetWatchNotify = 156
-DBPROP_IRowsetWatchRegion = 157
-DBPROP_IRowsetWithParameters = 158
-DBREASONENUM25 = Int32
-DBREASON_ROWSET_ROWSADDED = 19
-DBREASON_ROWSET_POPULATIONCOMPLETE = 20
-DBREASON_ROWSET_POPULATIONSTOPPED = 21
-def _define_IRowsetNextRowset_head():
-    class IRowsetNextRowset(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a72-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetNextRowset
-def _define_IRowsetNextRowset():
-    IRowsetNextRowset = win32more.System.Search.IRowsetNextRowset_head
-    IRowsetNextRowset.GetNextRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetNextRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppNextRowset'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetNextRowset
-def _define_IRowsetNewRowAfter_head():
-    class IRowsetNewRowAfter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a71-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetNewRowAfter
-def _define_IRowsetNewRowAfter():
-    IRowsetNewRowAfter = win32more.System.Search.IRowsetNewRowAfter_head
-    IRowsetNewRowAfter.SetNewDataAfter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,c_char_p_no,UIntPtr,c_char_p_no,POINTER(UIntPtr), use_last_error=False)(3, 'SetNewDataAfter', ((1, 'hChapter'),(1, 'cbbmPrevious'),(1, 'pbmPrevious'),(1, 'hAccessor'),(1, 'pData'),(1, 'phRow'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetNewRowAfter
-def _define_IRowsetWithParameters_head():
-    class IRowsetWithParameters(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a6e-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetWithParameters
-def _define_IRowsetWithParameters():
-    IRowsetWithParameters = win32more.System.Search.IRowsetWithParameters_head
-    IRowsetWithParameters.GetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetParameterInfo', ((1, 'pcParams'),(1, 'prgParamInfo'),(1, 'ppNamesBuffer'),)))
-    IRowsetWithParameters.Requery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.DBPARAMS_head),POINTER(UInt32),POINTER(UIntPtr), use_last_error=False)(4, 'Requery', ((1, 'pParams'),(1, 'pulErrorParam'),(1, 'phReserved'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetWithParameters
-def _define_IRowsetAsynch_head():
-    class IRowsetAsynch(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a0f-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetAsynch
-def _define_IRowsetAsynch():
-    IRowsetAsynch = win32more.System.Search.IRowsetAsynch_head
-    IRowsetAsynch.RatioFinished = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'RatioFinished', ((1, 'pulDenominator'),(1, 'pulNumerator'),(1, 'pcRows'),(1, 'pfNewRows'),)))
-    IRowsetAsynch.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
-    win32more.System.Com.IUnknown
-    return IRowsetAsynch
-def _define_IRowsetKeys_head():
-    class IRowsetKeys(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a12-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetKeys
-def _define_IRowsetKeys():
-    IRowsetKeys = win32more.System.Search.IRowsetKeys_head
-    IRowsetKeys.ListKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(3, 'ListKeys', ((1, 'pcColumns'),(1, 'prgColumns'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetKeys
-def _define_IRowsetWatchAll_head():
-    class IRowsetWatchAll(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a73-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetWatchAll
-def _define_IRowsetWatchAll():
-    IRowsetWatchAll = win32more.System.Search.IRowsetWatchAll_head
-    IRowsetWatchAll.Acknowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Acknowledge', ()))
-    IRowsetWatchAll.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Start', ()))
-    IRowsetWatchAll.StopWatching = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopWatching', ()))
-    win32more.System.Com.IUnknown
-    return IRowsetWatchAll
-DBWATCHNOTIFYENUM = Int32
-DBWATCHNOTIFY_ROWSCHANGED = 1
-DBWATCHNOTIFY_QUERYDONE = 2
-DBWATCHNOTIFY_QUERYREEXECUTED = 3
-def _define_IRowsetWatchNotify_head():
-    class IRowsetWatchNotify(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a44-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetWatchNotify
-def _define_IRowsetWatchNotify():
-    IRowsetWatchNotify = win32more.System.Search.IRowsetWatchNotify_head
-    IRowsetWatchNotify.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UInt32, use_last_error=False)(3, 'OnChange', ((1, 'pRowset'),(1, 'eChangeReason'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetWatchNotify
-DBWATCHMODEENUM = Int32
-DBWATCHMODE_ALL = 1
-DBWATCHMODE_EXTEND = 2
-DBWATCHMODE_MOVE = 4
-DBWATCHMODE_COUNT = 8
-DBROWCHANGEKINDENUM = Int32
-DBROWCHANGEKIND_INSERT = 0
-DBROWCHANGEKIND_DELETE = 1
-DBROWCHANGEKIND_UPDATE = 2
-DBROWCHANGEKIND_COUNT = 3
-def _define_tagDBROWWATCHRANGE_head():
-    class tagDBROWWATCHRANGE(Structure):
-        pass
-    return tagDBROWWATCHRANGE
-def _define_tagDBROWWATCHRANGE():
-    tagDBROWWATCHRANGE = win32more.System.Search.tagDBROWWATCHRANGE_head
-    tagDBROWWATCHRANGE._fields_ = [
-        ("hRegion", UIntPtr),
-        ("eChangeKind", UInt32),
-        ("hRow", UIntPtr),
-        ("iRow", UIntPtr),
-    ]
-    return tagDBROWWATCHRANGE
-def _define_IRowsetWatchRegion_head():
-    class IRowsetWatchRegion(win32more.System.Search.IRowsetWatchAll_head):
-        Guid = Guid('0c733a45-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetWatchRegion
-def _define_IRowsetWatchRegion():
-    IRowsetWatchRegion = win32more.System.Search.IRowsetWatchRegion_head
-    IRowsetWatchRegion.CreateWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UIntPtr), use_last_error=False)(6, 'CreateWatchRegion', ((1, 'dwWatchMode'),(1, 'phRegion'),)))
-    IRowsetWatchRegion.ChangeWatchMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32, use_last_error=False)(7, 'ChangeWatchMode', ((1, 'hRegion'),(1, 'dwWatchMode'),)))
-    IRowsetWatchRegion.DeleteWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(8, 'DeleteWatchRegion', ((1, 'hRegion'),)))
-    IRowsetWatchRegion.GetWatchRegionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(IntPtr), use_last_error=False)(9, 'GetWatchRegionInfo', ((1, 'hRegion'),(1, 'pdwWatchMode'),(1, 'phChapter'),(1, 'pcbBookmark'),(1, 'ppBookmark'),(1, 'pcRows'),)))
-    IRowsetWatchRegion.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.tagDBROWWATCHRANGE_head)), use_last_error=False)(10, 'Refresh', ((1, 'pcChangesObtained'),(1, 'prgChanges'),)))
-    IRowsetWatchRegion.ShrinkWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_char_p_no,IntPtr, use_last_error=False)(11, 'ShrinkWatchRegion', ((1, 'hRegion'),(1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'cRows'),)))
-    win32more.System.Search.IRowsetWatchAll
-    return IRowsetWatchRegion
-def _define_IRowsetCopyRows_head():
-    class IRowsetCopyRows(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a6b-2a1c-11ce-ade5-00aa0044773d')
-    return IRowsetCopyRows
-def _define_IRowsetCopyRows():
-    IRowsetCopyRows = win32more.System.Search.IRowsetCopyRows_head
-    IRowsetCopyRows.CloseSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16, use_last_error=False)(3, 'CloseSource', ((1, 'hSourceID'),)))
-    IRowsetCopyRows.CopyByHROWS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UIntPtr,IntPtr,POINTER(UIntPtr),UInt32, use_last_error=False)(4, 'CopyByHROWS', ((1, 'hSourceID'),(1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'bFlags'),)))
-    IRowsetCopyRows.CopyRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UIntPtr,IntPtr,UInt32,POINTER(UIntPtr), use_last_error=False)(5, 'CopyRows', ((1, 'hSourceID'),(1, 'hReserved'),(1, 'cRows'),(1, 'bFlags'),(1, 'pcRowsCopied'),)))
-    IRowsetCopyRows.DefineSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,POINTER(IntPtr),POINTER(IntPtr),POINTER(UInt16), use_last_error=False)(6, 'DefineSource', ((1, 'pRowsetSource'),(1, 'cColIds'),(1, 'rgSourceColumns'),(1, 'rgTargetColumns'),(1, 'phSourceID'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetCopyRows
-def _define_IReadData_head():
-    class IReadData(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a6a-2a1c-11ce-ade5-00aa0044773d')
-    return IReadData
-def _define_IReadData():
-    IReadData = win32more.System.Search.IReadData_head
-    IReadData.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,IntPtr,UIntPtr,IntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(c_char_p_no), use_last_error=False)(3, 'ReadData', ((1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'hAccessor'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'ppFixedData'),(1, 'pcbVariableTotal'),(1, 'ppVariableData'),)))
-    IReadData.ReleaseChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(4, 'ReleaseChapter', ((1, 'hChapter'),)))
-    win32more.System.Com.IUnknown
-    return IReadData
-DBRESOURCEKINDENUM = Int32
-DBRESOURCE_INVALID = 0
-DBRESOURCE_TOTAL = 1
-DBRESOURCE_CPU = 2
-DBRESOURCE_MEMORY = 3
-DBRESOURCE_DISK = 4
-DBRESOURCE_NETWORK = 5
-DBRESOURCE_RESPONSE = 6
-DBRESOURCE_ROWS = 7
-DBRESOURCE_OTHER = 8
-DBCOSTUNITENUM = Int32
-DBUNIT_INVALID = 0
-DBUNIT_WEIGHT = 1
-DBUNIT_PERCENT = 2
-DBUNIT_MAXIMUM = 4
-DBUNIT_MINIMUM = 8
-DBUNIT_MICRO_SECOND = 16
-DBUNIT_MILLI_SECOND = 32
-DBUNIT_SECOND = 64
-DBUNIT_MINUTE = 128
-DBUNIT_HOUR = 256
-DBUNIT_BYTE = 512
-DBUNIT_KILO_BYTE = 1024
-DBUNIT_MEGA_BYTE = 2048
-DBUNIT_GIGA_BYTE = 4096
-DBUNIT_NUM_MSGS = 8192
-DBUNIT_NUM_LOCKS = 16384
-DBUNIT_NUM_ROWS = 32768
-DBUNIT_OTHER = 65536
-def _define_DBCOST_head():
-    class DBCOST(Structure):
-        pass
-    return DBCOST
-def _define_DBCOST():
-    DBCOST = win32more.System.Search.DBCOST_head
-    DBCOST._fields_ = [
-        ("eKind", UInt32),
-        ("dwUnits", UInt32),
-        ("lValue", Int32),
-    ]
-    return DBCOST
-DBEXECLIMITSENUM = Int32
-DBEXECLIMITS_ABORT = 1
-DBEXECLIMITS_STOP = 2
-DBEXECLIMITS_SUSPEND = 3
-def _define_ICommandCost_head():
-    class ICommandCost(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a4e-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandCost
-def _define_ICommandCost():
-    ICommandCost = win32more.System.Search.ICommandCost_head
-    ICommandCost.GetAccumulatedCost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBCOST_head)), use_last_error=False)(3, 'GetAccumulatedCost', ((1, 'pwszRowsetName'),(1, 'pcCostLimits'),(1, 'prgCostLimits'),)))
-    ICommandCost.GetCostEstimate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head), use_last_error=False)(4, 'GetCostEstimate', ((1, 'pwszRowsetName'),(1, 'pcCostEstimates'),(1, 'prgCostEstimates'),)))
-    ICommandCost.GetCostGoals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head), use_last_error=False)(5, 'GetCostGoals', ((1, 'pwszRowsetName'),(1, 'pcCostGoals'),(1, 'prgCostGoals'),)))
-    ICommandCost.GetCostLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head), use_last_error=False)(6, 'GetCostLimits', ((1, 'pwszRowsetName'),(1, 'pcCostLimits'),(1, 'prgCostLimits'),)))
-    ICommandCost.SetCostGoals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Search.DBCOST_head), use_last_error=False)(7, 'SetCostGoals', ((1, 'pwszRowsetName'),(1, 'cCostGoals'),(1, 'rgCostGoals'),)))
-    ICommandCost.SetCostLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Search.DBCOST_head),UInt32, use_last_error=False)(8, 'SetCostLimits', ((1, 'pwszRowsetName'),(1, 'cCostLimits'),(1, 'prgCostLimits'),(1, 'dwExecutionFlags'),)))
-    win32more.System.Com.IUnknown
-    return ICommandCost
-def _define_ICommandValidate_head():
-    class ICommandValidate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a18-2a1c-11ce-ade5-00aa0044773d')
-    return ICommandValidate
-def _define_ICommandValidate():
-    ICommandValidate = win32more.System.Search.ICommandValidate_head
-    ICommandValidate.ValidateCompletely = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ValidateCompletely', ()))
-    ICommandValidate.ValidateSyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ValidateSyntax', ()))
-    win32more.System.Com.IUnknown
-    return ICommandValidate
-def _define_ITableRename_head():
-    class ITableRename(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a77-2a1c-11ce-ade5-00aa0044773d')
-    return ITableRename
-def _define_ITableRename():
-    ITableRename = win32more.System.Search.ITableRename_head
-    ITableRename.RenameColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(3, 'RenameColumn', ((1, 'pTableId'),(1, 'pOldColumnId'),(1, 'pNewColumnId'),)))
-    ITableRename.RenameTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(4, 'RenameTable', ((1, 'pOldTableId'),(1, 'pOldIndexId'),(1, 'pNewTableId'),(1, 'pNewIndexId'),)))
-    win32more.System.Com.IUnknown
-    return ITableRename
-def _define_IDBSchemaCommand_head():
-    class IDBSchemaCommand(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a50-2a1c-11ce-ade5-00aa0044773d')
-    return IDBSchemaCommand
-def _define_IDBSchemaCommand():
-    IDBSchemaCommand = win32more.System.Search.IDBSchemaCommand_head
-    IDBSchemaCommand.GetCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Search.ICommand_head), use_last_error=False)(3, 'GetCommand', ((1, 'pUnkOuter'),(1, 'rguidSchema'),(1, 'ppCommand'),)))
-    IDBSchemaCommand.GetSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(4, 'GetSchemas', ((1, 'pcSchemas'),(1, 'prgSchemas'),)))
-    win32more.System.Com.IUnknown
-    return IDBSchemaCommand
-def _define_IProvideMoniker_head():
-    class IProvideMoniker(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0c733a4d-2a1c-11ce-ade5-00aa0044773d')
-    return IProvideMoniker
-def _define_IProvideMoniker():
-    IProvideMoniker = win32more.System.Search.IProvideMoniker_head
-    IProvideMoniker.GetMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IMoniker_head), use_last_error=False)(3, 'GetMoniker', ((1, 'ppIMoniker'),)))
-    win32more.System.Com.IUnknown
-    return IProvideMoniker
-def _define_NOTRESTRICTION_head():
-    class NOTRESTRICTION(Structure):
-        pass
-    return NOTRESTRICTION
-def _define_NOTRESTRICTION():
-    NOTRESTRICTION = win32more.System.Search.NOTRESTRICTION_head
-    NOTRESTRICTION._fields_ = [
-        ("pRes", POINTER(win32more.System.Search.RESTRICTION_head)),
-    ]
-    return NOTRESTRICTION
-def _define_NODERESTRICTION_head():
-    class NODERESTRICTION(Structure):
-        pass
-    return NODERESTRICTION
-def _define_NODERESTRICTION():
-    NODERESTRICTION = win32more.System.Search.NODERESTRICTION_head
-    NODERESTRICTION._fields_ = [
-        ("cRes", UInt32),
-        ("paRes", POINTER(POINTER(win32more.System.Search.RESTRICTION_head))),
-        ("reserved", UInt32),
-    ]
-    return NODERESTRICTION
-def _define_VECTORRESTRICTION_head():
-    class VECTORRESTRICTION(Structure):
-        pass
-    return VECTORRESTRICTION
-def _define_VECTORRESTRICTION():
-    VECTORRESTRICTION = win32more.System.Search.VECTORRESTRICTION_head
-    VECTORRESTRICTION._fields_ = [
-        ("Node", win32more.System.Search.NODERESTRICTION),
-        ("RankMethod", UInt32),
-    ]
-    return VECTORRESTRICTION
-def _define_CONTENTRESTRICTION_head():
-    class CONTENTRESTRICTION(Structure):
-        pass
-    return CONTENTRESTRICTION
-def _define_CONTENTRESTRICTION():
-    CONTENTRESTRICTION = win32more.System.Search.CONTENTRESTRICTION_head
-    CONTENTRESTRICTION._fields_ = [
-        ("prop", win32more.Storage.IndexServer.FULLPROPSPEC),
-        ("pwcsPhrase", win32more.Foundation.PWSTR),
-        ("lcid", UInt32),
-        ("ulGenerateMethod", UInt32),
-    ]
-    return CONTENTRESTRICTION
-def _define_NATLANGUAGERESTRICTION_head():
-    class NATLANGUAGERESTRICTION(Structure):
-        pass
-    return NATLANGUAGERESTRICTION
-def _define_NATLANGUAGERESTRICTION():
-    NATLANGUAGERESTRICTION = win32more.System.Search.NATLANGUAGERESTRICTION_head
-    NATLANGUAGERESTRICTION._fields_ = [
-        ("prop", win32more.Storage.IndexServer.FULLPROPSPEC),
-        ("pwcsPhrase", win32more.Foundation.PWSTR),
-        ("lcid", UInt32),
-    ]
-    return NATLANGUAGERESTRICTION
-def _define_PROPERTYRESTRICTION_head():
-    class PROPERTYRESTRICTION(Structure):
-        pass
-    return PROPERTYRESTRICTION
-def _define_PROPERTYRESTRICTION():
-    PROPERTYRESTRICTION = win32more.System.Search.PROPERTYRESTRICTION_head
-    PROPERTYRESTRICTION._fields_ = [
-        ("rel", UInt32),
-        ("prop", win32more.Storage.IndexServer.FULLPROPSPEC),
-        ("prval", win32more.System.Com.StructuredStorage.PROPVARIANT),
-    ]
-    return PROPERTYRESTRICTION
-def _define_RESTRICTION_head():
-    class RESTRICTION(Structure):
-        pass
-    return RESTRICTION
-def _define_RESTRICTION():
-    RESTRICTION = win32more.System.Search.RESTRICTION_head
-    class RESTRICTION__URes(Union):
-        pass
-    RESTRICTION__URes._fields_ = [
-        ("ar", win32more.System.Search.NODERESTRICTION),
-        ("orRestriction", win32more.System.Search.NODERESTRICTION),
-        ("pxr", win32more.System.Search.NODERESTRICTION),
-        ("vr", win32more.System.Search.VECTORRESTRICTION),
-        ("nr", win32more.System.Search.NOTRESTRICTION),
-        ("cr", win32more.System.Search.CONTENTRESTRICTION),
-        ("nlr", win32more.System.Search.NATLANGUAGERESTRICTION),
-        ("pr", win32more.System.Search.PROPERTYRESTRICTION),
-    ]
-    RESTRICTION._fields_ = [
-        ("rt", UInt32),
-        ("weight", UInt32),
-        ("res", RESTRICTION__URes),
-    ]
-    return RESTRICTION
-def _define_COLUMNSET_head():
-    class COLUMNSET(Structure):
-        pass
-    return COLUMNSET
-def _define_COLUMNSET():
-    COLUMNSET = win32more.System.Search.COLUMNSET_head
-    COLUMNSET._fields_ = [
-        ("cCol", UInt32),
-        ("aCol", POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head)),
-    ]
-    return COLUMNSET
-def _define_SORTKEY_head():
-    class SORTKEY(Structure):
-        pass
-    return SORTKEY
-def _define_SORTKEY():
-    SORTKEY = win32more.System.Search.SORTKEY_head
-    SORTKEY._fields_ = [
-        ("propColumn", win32more.Storage.IndexServer.FULLPROPSPEC),
-        ("dwOrder", UInt32),
-        ("locale", UInt32),
-    ]
-    return SORTKEY
-def _define_SORTSET_head():
-    class SORTSET(Structure):
-        pass
-    return SORTSET
-def _define_SORTSET():
-    SORTSET = win32more.System.Search.SORTSET_head
-    SORTSET._fields_ = [
-        ("cCol", UInt32),
-        ("aCol", POINTER(win32more.System.Search.SORTKEY_head)),
-    ]
-    return SORTSET
-def _define_BUCKETCATEGORIZE_head():
-    class BUCKETCATEGORIZE(Structure):
-        pass
-    return BUCKETCATEGORIZE
-def _define_BUCKETCATEGORIZE():
-    BUCKETCATEGORIZE = win32more.System.Search.BUCKETCATEGORIZE_head
-    BUCKETCATEGORIZE._fields_ = [
-        ("cBuckets", UInt32),
-        ("Distribution", UInt32),
-    ]
-    return BUCKETCATEGORIZE
-def _define_RANGECATEGORIZE_head():
-    class RANGECATEGORIZE(Structure):
-        pass
-    return RANGECATEGORIZE
-def _define_RANGECATEGORIZE():
-    RANGECATEGORIZE = win32more.System.Search.RANGECATEGORIZE_head
-    RANGECATEGORIZE._fields_ = [
-        ("cRange", UInt32),
-        ("aRangeBegin", POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
-    ]
-    return RANGECATEGORIZE
-def _define_CATEGORIZATION_head():
-    class CATEGORIZATION(Structure):
-        pass
-    return CATEGORIZATION
-def _define_CATEGORIZATION():
-    CATEGORIZATION = win32more.System.Search.CATEGORIZATION_head
-    class CATEGORIZATION__Anonymous_e__Union(Union):
-        pass
-    CATEGORIZATION__Anonymous_e__Union._fields_ = [
-        ("cClusters", UInt32),
-        ("bucket", win32more.System.Search.BUCKETCATEGORIZE),
-        ("range", win32more.System.Search.RANGECATEGORIZE),
-    ]
-    CATEGORIZATION._anonymous_ = [
-        'Anonymous',
-    ]
-    CATEGORIZATION._fields_ = [
-        ("ulCatType", UInt32),
-        ("Anonymous", CATEGORIZATION__Anonymous_e__Union),
-        ("csColumns", win32more.System.Search.COLUMNSET),
-    ]
-    return CATEGORIZATION
-def _define_CATEGORIZATIONSET_head():
-    class CATEGORIZATIONSET(Structure):
-        pass
-    return CATEGORIZATIONSET
-def _define_CATEGORIZATIONSET():
-    CATEGORIZATIONSET = win32more.System.Search.CATEGORIZATIONSET_head
-    CATEGORIZATIONSET._fields_ = [
-        ("cCat", UInt32),
-        ("aCat", POINTER(win32more.System.Search.CATEGORIZATION_head)),
-    ]
-    return CATEGORIZATIONSET
-def _define_ISearchQueryHits_head():
-    class ISearchQueryHits(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ed8ce7e0-106c-11ce-84e2-00aa004b9986')
-    return ISearchQueryHits
-def _define_ISearchQueryHits():
-    ISearchQueryHits = win32more.System.Search.ISearchQueryHits_head
-    ISearchQueryHits.Init = COMMETHOD(WINFUNCTYPE(Int32,win32more.Storage.IndexServer.IFilter_head,UInt32, use_last_error=False)(3, 'Init', ((1, 'pflt'),(1, 'ulFlags'),)))
-    ISearchQueryHits.NextHitMoniker = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.IMoniker_head)), use_last_error=False)(4, 'NextHitMoniker', ((1, 'pcMnk'),(1, 'papMnk'),)))
-    ISearchQueryHits.NextHitOffset = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(POINTER(win32more.Storage.IndexServer.FILTERREGION_head)), use_last_error=False)(5, 'NextHitOffset', ((1, 'pcRegion'),(1, 'paRegion'),)))
-    win32more.System.Com.IUnknown
-    return ISearchQueryHits
-def _define_IRowsetQueryStatus_head():
-    class IRowsetQueryStatus(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a7ac77ed-f8d7-11ce-a798-0020f8008024')
-    return IRowsetQueryStatus
-def _define_IRowsetQueryStatus():
-    IRowsetQueryStatus = win32more.System.Search.IRowsetQueryStatus_head
-    IRowsetQueryStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetStatus', ((1, 'pdwStatus'),)))
-    IRowsetQueryStatus.GetStatusEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UIntPtr),POINTER(UIntPtr),UIntPtr,c_char_p_no,POINTER(UIntPtr),POINTER(UIntPtr), use_last_error=False)(4, 'GetStatusEx', ((1, 'pdwStatus'),(1, 'pcFilteredDocuments'),(1, 'pcDocumentsToFilter'),(1, 'pdwRatioFinishedDenominator'),(1, 'pdwRatioFinishedNumerator'),(1, 'cbBmk'),(1, 'pBmk'),(1, 'piRowBmk'),(1, 'pcRowsTotal'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetQueryStatus
-def _define_ODBC_VS_ARGS_head():
-    class ODBC_VS_ARGS(Structure):
-        pass
-    return ODBC_VS_ARGS
-def _define_ODBC_VS_ARGS():
-    ODBC_VS_ARGS = win32more.System.Search.ODBC_VS_ARGS_head
-    class ODBC_VS_ARGS__Anonymous1_e__Union(Union):
-        pass
-    ODBC_VS_ARGS__Anonymous1_e__Union._fields_ = [
-        ("wszArg", win32more.Foundation.PWSTR),
-        ("szArg", win32more.Foundation.PSTR),
-    ]
-    class ODBC_VS_ARGS__Anonymous2_e__Union(Union):
-        pass
-    ODBC_VS_ARGS__Anonymous2_e__Union._fields_ = [
-        ("wszCorrelation", win32more.Foundation.PWSTR),
-        ("szCorrelation", win32more.Foundation.PSTR),
-    ]
-    ODBC_VS_ARGS._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    ODBC_VS_ARGS._fields_ = [
-        ("pguidEvent", POINTER(Guid)),
-        ("dwFlags", UInt32),
-        ("Anonymous1", ODBC_VS_ARGS__Anonymous1_e__Union),
-        ("Anonymous2", ODBC_VS_ARGS__Anonymous2_e__Union),
-        ("RetCode", Int16),
-    ]
-    return ODBC_VS_ARGS
-SQLVARENUM = Int32
-VT_SS_EMPTY = 0
-VT_SS_NULL = 1
-VT_SS_UI1 = 17
-VT_SS_I2 = 2
-VT_SS_I4 = 3
-VT_SS_I8 = 20
-VT_SS_R4 = 4
-VT_SS_R8 = 5
-VT_SS_MONEY = 6
-VT_SS_SMALLMONEY = 200
-VT_SS_WSTRING = 201
-VT_SS_WVARSTRING = 202
-VT_SS_STRING = 203
-VT_SS_VARSTRING = 204
-VT_SS_BIT = 11
-VT_SS_GUID = 72
-VT_SS_NUMERIC = 131
-VT_SS_DECIMAL = 205
-VT_SS_DATETIME = 135
-VT_SS_SMALLDATETIME = 206
-VT_SS_BINARY = 207
-VT_SS_VARBINARY = 208
-VT_SS_UNKNOWN = 209
-def _define_SSVARIANT_head():
-    class SSVARIANT(Structure):
-        pass
-    return SSVARIANT
-def _define_SSVARIANT():
-    SSVARIANT = win32more.System.Search.SSVARIANT_head
-    class SSVARIANT__Anonymous_e__Union(Union):
-        pass
-    class SSVARIANT__Anonymous_e__Union__UnknownType(Structure):
-        pass
-    SSVARIANT__Anonymous_e__Union__UnknownType._fields_ = [
-        ("dwActualLength", UInt32),
-        ("rgMetadata", Byte * 16),
-        ("pUnknownData", c_char_p_no),
-    ]
-    class SSVARIANT__Anonymous_e__Union__CharVal(Structure):
-        pass
-    SSVARIANT__Anonymous_e__Union__CharVal._fields_ = [
-        ("sActualLength", Int16),
-        ("sMaxLength", Int16),
-        ("pchCharVal", win32more.Foundation.PSTR),
-        ("rgbReserved", Byte * 5),
-        ("dwReserved", UInt32),
-        ("pwchReserved", win32more.Foundation.PWSTR),
-    ]
-    class SSVARIANT__Anonymous_e__Union__BinaryVal(Structure):
-        pass
-    SSVARIANT__Anonymous_e__Union__BinaryVal._fields_ = [
-        ("sActualLength", Int16),
-        ("sMaxLength", Int16),
-        ("prgbBinaryVal", c_char_p_no),
-        ("dwReserved", UInt32),
-    ]
-    class SSVARIANT__Anonymous_e__Union__BLOBType(Structure):
-        pass
-    SSVARIANT__Anonymous_e__Union__BLOBType._fields_ = [
-        ("dbobj", win32more.System.Search.DBOBJECT),
-        ("pUnk", win32more.System.Com.IUnknown_head),
-    ]
-    class SSVARIANT__Anonymous_e__Union__NCharVal(Structure):
-        pass
-    SSVARIANT__Anonymous_e__Union__NCharVal._fields_ = [
-        ("sActualLength", Int16),
-        ("sMaxLength", Int16),
-        ("pwchNCharVal", win32more.Foundation.PWSTR),
-        ("rgbReserved", Byte * 5),
-        ("dwReserved", UInt32),
-        ("pwchReserved", win32more.Foundation.PWSTR),
-    ]
-    SSVARIANT__Anonymous_e__Union._fields_ = [
-        ("bTinyIntVal", Byte),
-        ("sShortIntVal", Int16),
-        ("lIntVal", Int32),
-        ("llBigIntVal", Int64),
-        ("fltRealVal", Single),
-        ("dblFloatVal", Double),
-        ("cyMoneyVal", win32more.System.Com.CY),
-        ("NCharVal", SSVARIANT__Anonymous_e__Union__NCharVal),
-        ("CharVal", SSVARIANT__Anonymous_e__Union__CharVal),
-        ("fBitVal", Int16),
-        ("rgbGuidVal", Byte * 16),
-        ("numNumericVal", win32more.System.Search.DB_NUMERIC),
-        ("BinaryVal", SSVARIANT__Anonymous_e__Union__BinaryVal),
-        ("tsDateTimeVal", win32more.System.Search.DBTIMESTAMP),
-        ("UnknownType", SSVARIANT__Anonymous_e__Union__UnknownType),
-        ("BLOBType", SSVARIANT__Anonymous_e__Union__BLOBType),
-    ]
-    SSVARIANT._anonymous_ = [
-        'Anonymous',
-    ]
-    SSVARIANT._fields_ = [
-        ("vt", UInt16),
-        ("dwReserved1", UInt32),
-        ("dwReserved2", UInt32),
-        ("Anonymous", SSVARIANT__Anonymous_e__Union),
-    ]
-    return SSVARIANT
-def _define_IUMSInitialize_head():
-    class IUMSInitialize(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5cf4ca14-ef21-11d0-97e7-00c04fc2ad98')
-    return IUMSInitialize
-def _define_IUMSInitialize():
-    IUMSInitialize = win32more.System.Search.IUMSInitialize_head
-    IUMSInitialize.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(3, 'Initialize', ((1, 'pUMS'),)))
-    win32more.System.Com.IUnknown
-    return IUMSInitialize
-def _define_IUMS_head():
-    class IUMS(c_void_p):
-        Guid = Guid(None)
-    return IUMS
-def _define_IUMS():
-    IUMS = win32more.System.Search.IUMS_head
-    IUMS.SqlUmsSuspend = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(0, 'SqlUmsSuspend', ((1, 'ticks'),)))
-    IUMS.SqlUmsYield = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(1, 'SqlUmsYield', ((1, 'ticks'),)))
-    IUMS.SqlUmsSwitchPremptive = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(2, 'SqlUmsSwitchPremptive', ()))
-    IUMS.SqlUmsSwitchNonPremptive = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'SqlUmsSwitchNonPremptive', ()))
-    IUMS.SqlUmsFIsPremptive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(4, 'SqlUmsFIsPremptive', ()))
-    return IUMS
-def _define_tagSSErrorInfo_head():
-    class tagSSErrorInfo(Structure):
-        pass
-    return tagSSErrorInfo
-def _define_tagSSErrorInfo():
-    tagSSErrorInfo = win32more.System.Search.tagSSErrorInfo_head
-    tagSSErrorInfo._fields_ = [
-        ("pwszMessage", win32more.Foundation.PWSTR),
-        ("pwszServer", win32more.Foundation.PWSTR),
-        ("pwszProcedure", win32more.Foundation.PWSTR),
-        ("lNative", Int32),
-        ("bState", Byte),
-        ("bClass", Byte),
-        ("wLineNumber", UInt16),
-    ]
-    return tagSSErrorInfo
-def _define_ISQLServerErrorInfo_head():
-    class ISQLServerErrorInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5cf4ca12-ef21-11d0-97e7-00c04fc2ad98')
-    return ISQLServerErrorInfo
-def _define_ISQLServerErrorInfo():
-    ISQLServerErrorInfo = win32more.System.Search.ISQLServerErrorInfo_head
-    ISQLServerErrorInfo.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Search.tagSSErrorInfo_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetErrorInfo', ((1, 'ppErrorInfo'),(1, 'ppStringsBuffer'),)))
-    win32more.System.Com.IUnknown
-    return ISQLServerErrorInfo
-def _define_IRowsetFastLoad_head():
-    class IRowsetFastLoad(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5cf4ca13-ef21-11d0-97e7-00c04fc2ad98')
-    return IRowsetFastLoad
-def _define_IRowsetFastLoad():
-    IRowsetFastLoad = win32more.System.Search.IRowsetFastLoad_head
-    IRowsetFastLoad.InsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,c_void_p, use_last_error=False)(3, 'InsertRow', ((1, 'hAccessor'),(1, 'pData'),)))
-    IRowsetFastLoad.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'Commit', ((1, 'fDone'),)))
-    win32more.System.Com.IUnknown
-    return IRowsetFastLoad
-LOCKMODEENUM = Int32
-LOCKMODE_INVALID = 0
-LOCKMODE_EXCLUSIVE = 1
-LOCKMODE_SHARED = 2
-def _define_ISchemaLock_head():
-    class ISchemaLock(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4c2389fb-2511-11d4-b258-00c04f7971ce')
-    return ISchemaLock
-def _define_ISchemaLock():
-    ISchemaLock = win32more.System.Search.ISchemaLock_head
-    ISchemaLock.GetSchemaLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(UInt64), use_last_error=False)(3, 'GetSchemaLock', ((1, 'pTableID'),(1, 'lmMode'),(1, 'phLockHandle'),(1, 'pTableVersion'),)))
-    ISchemaLock.ReleaseSchemaLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(4, 'ReleaseSchemaLock', ((1, 'hLockHandle'),)))
-    win32more.System.Com.IUnknown
-    return ISchemaLock
-def _define_SQL_ASYNC_NOTIFICATION_CALLBACK():
-    return CFUNCTYPE(Int16,c_void_p,win32more.Foundation.BOOL, use_last_error=False)
-def _define_SQLAllocConnect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(c_void_p), use_last_error=False)(("SQLAllocConnect", windll["ODBC32"]), ((1, 'EnvironmentHandle'),(1, 'ConnectionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLAllocEnv():
-    try:
-        return WINFUNCTYPE(Int16,POINTER(c_void_p), use_last_error=False)(("SQLAllocEnv", windll["ODBC32"]), ((1, 'EnvironmentHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLAllocHandle():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,POINTER(c_void_p), use_last_error=False)(("SQLAllocHandle", windll["ODBC32"]), ((1, 'HandleType'),(1, 'InputHandle'),(1, 'OutputHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLAllocStmt():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(c_void_p), use_last_error=False)(("SQLAllocStmt", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'StatementHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBindCol():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,c_void_p,Int64,POINTER(Int64), use_last_error=False)(("SQLBindCol", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'TargetType'),(1, 'TargetValue'),(1, 'BufferLength'),(1, 'StrLen_or_Ind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBindParam():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,Int16,UInt64,Int16,c_void_p,POINTER(Int64), use_last_error=False)(("SQLBindParam", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ParameterNumber'),(1, 'ValueType'),(1, 'ParameterType'),(1, 'LengthPrecision'),(1, 'ParameterScale'),(1, 'ParameterValue'),(1, 'StrLen_or_Ind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLCancel():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLCancel", windll["ODBC32"]), ((1, 'StatementHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLCancelHandle():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p, use_last_error=False)(("SQLCancelHandle", windll["ODBC32"]), ((1, 'HandleType'),(1, 'InputHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLCloseCursor():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLCloseCursor", windll["ODBC32"]), ((1, 'StatementHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColAttribute():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64), use_last_error=False)(("SQLColAttribute", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'FieldIdentifier'),(1, 'CharacterAttribute'),(1, 'BufferLength'),(1, 'StringLength'),(1, 'NumericAttribute'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColumns():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLColumns", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'ColumnName'),(1, 'NameLength4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLCompleteAsync():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,POINTER(Int16), use_last_error=False)(("SQLCompleteAsync", windll["ODBC32"]), ((1, 'HandleType'),(1, 'Handle'),(1, 'AsyncRetCodePtr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLConnect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLConnect", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'ServerName'),(1, 'NameLength1'),(1, 'UserName'),(1, 'NameLength2'),(1, 'Authentication'),(1, 'NameLength3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLCopyDesc():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_void_p, use_last_error=False)(("SQLCopyDesc", windll["ODBC32"]), ((1, 'SourceDescHandle'),(1, 'TargetDescHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDataSources():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLDataSources", windll["ODBC32"]), ((1, 'EnvironmentHandle'),(1, 'Direction'),(1, 'ServerName'),(1, 'BufferLength1'),(1, 'NameLength1Ptr'),(1, 'Description'),(1, 'BufferLength2'),(1, 'NameLength2Ptr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDescribeCol():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLDescribeCol", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'ColumnName'),(1, 'BufferLength'),(1, 'NameLength'),(1, 'DataType'),(1, 'ColumnSize'),(1, 'DecimalDigits'),(1, 'Nullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDisconnect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLDisconnect", windll["ODBC32"]), ((1, 'ConnectionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLEndTran():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16, use_last_error=False)(("SQLEndTran", windll["ODBC32"]), ((1, 'HandleType'),(1, 'Handle'),(1, 'CompletionType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLError():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_void_p,c_void_p,POINTER(Byte),POINTER(Int32),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLError", windll["ODBC32"]), ((1, 'EnvironmentHandle'),(1, 'ConnectionHandle'),(1, 'StatementHandle'),(1, 'Sqlstate'),(1, 'NativeError'),(1, 'MessageText'),(1, 'BufferLength'),(1, 'TextLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLExecDirect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int32, use_last_error=False)(("SQLExecDirect", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'StatementText'),(1, 'TextLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLExecute():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLExecute", windll["ODBC32"]), ((1, 'StatementHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLFetch():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLFetch", windll["ODBC32"]), ((1, 'StatementHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLFetchScroll():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int64, use_last_error=False)(("SQLFetchScroll", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'FetchOrientation'),(1, 'FetchOffset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLFreeConnect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLFreeConnect", windll["ODBC32"]), ((1, 'ConnectionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLFreeEnv():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLFreeEnv", windll["ODBC32"]), ((1, 'EnvironmentHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLFreeHandle():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p, use_last_error=False)(("SQLFreeHandle", windll["ODBC32"]), ((1, 'HandleType'),(1, 'Handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLFreeStmt():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16, use_last_error=False)(("SQLFreeStmt", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Option'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetConnectAttr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetConnectAttr", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLengthPtr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetConnectOption():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p, use_last_error=False)(("SQLGetConnectOption", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'Option'),(1, 'Value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetCursorName():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLGetCursorName", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'CursorName'),(1, 'BufferLength'),(1, 'NameLengthPtr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetData():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,c_void_p,Int64,POINTER(Int64), use_last_error=False)(("SQLGetData", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ColumnNumber'),(1, 'TargetType'),(1, 'TargetValue'),(1, 'BufferLength'),(1, 'StrLen_or_IndPtr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDescField():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetDescField", windll["ODBC32"]), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'FieldIdentifier'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDescRec():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Int16),POINTER(Int16),POINTER(Int64),POINTER(Int16),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLGetDescRec", windll["ODBC32"]), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'Name'),(1, 'BufferLength'),(1, 'StringLengthPtr'),(1, 'TypePtr'),(1, 'SubTypePtr'),(1, 'LengthPtr'),(1, 'PrecisionPtr'),(1, 'ScalePtr'),(1, 'NullablePtr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDiagField():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16), use_last_error=False)(("SQLGetDiagField", windll["ODBC32"]), ((1, 'HandleType'),(1, 'Handle'),(1, 'RecNumber'),(1, 'DiagIdentifier'),(1, 'DiagInfo'),(1, 'BufferLength'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDiagRec():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,POINTER(Byte),POINTER(Int32),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLGetDiagRec", windll["ODBC32"]), ((1, 'HandleType'),(1, 'Handle'),(1, 'RecNumber'),(1, 'Sqlstate'),(1, 'NativeError'),(1, 'MessageText'),(1, 'BufferLength'),(1, 'TextLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetEnvAttr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetEnvAttr", windll["ODBC32"]), ((1, 'EnvironmentHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetFunctions():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16), use_last_error=False)(("SQLGetFunctions", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'FunctionId'),(1, 'Supported'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetInfo():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p,Int16,POINTER(Int16), use_last_error=False)(("SQLGetInfo", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'InfoType'),(1, 'InfoValue'),(1, 'BufferLength'),(1, 'StringLengthPtr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetStmtAttr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetStmtAttr", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'BufferLength'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetStmtOption():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p, use_last_error=False)(("SQLGetStmtOption", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Option'),(1, 'Value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetTypeInfo():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16, use_last_error=False)(("SQLGetTypeInfo", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'DataType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLNumResultCols():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int16), use_last_error=False)(("SQLNumResultCols", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ColumnCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLParamData():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(c_void_p), use_last_error=False)(("SQLParamData", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPrepare():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int32, use_last_error=False)(("SQLPrepare", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'StatementText'),(1, 'TextLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPutData():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_void_p,Int64, use_last_error=False)(("SQLPutData", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Data'),(1, 'StrLen_or_Ind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLRowCount():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int64), use_last_error=False)(("SQLRowCount", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'RowCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetConnectAttr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32, use_last_error=False)(("SQLSetConnectAttr", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetConnectOption():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64, use_last_error=False)(("SQLSetConnectOption", windll["ODBC32"]), ((1, 'ConnectionHandle'),(1, 'Option'),(1, 'Value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetCursorName():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16, use_last_error=False)(("SQLSetCursorName", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'CursorName'),(1, 'NameLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetDescField():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32, use_last_error=False)(("SQLSetDescField", windll["ODBC32"]), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'FieldIdentifier'),(1, 'Value'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetDescRec():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,Int16,Int64,Int16,Int16,c_void_p,POINTER(Int64),POINTER(Int64), use_last_error=False)(("SQLSetDescRec", windll["ODBC32"]), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'Type'),(1, 'SubType'),(1, 'Length'),(1, 'Precision'),(1, 'Scale'),(1, 'Data'),(1, 'StringLength'),(1, 'Indicator'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetEnvAttr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32, use_last_error=False)(("SQLSetEnvAttr", windll["ODBC32"]), ((1, 'EnvironmentHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetParam():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,Int16,UInt64,Int16,c_void_p,POINTER(Int64), use_last_error=False)(("SQLSetParam", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'ParameterNumber'),(1, 'ValueType'),(1, 'ParameterType'),(1, 'LengthPrecision'),(1, 'ParameterScale'),(1, 'ParameterValue'),(1, 'StrLen_or_Ind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetStmtAttr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32, use_last_error=False)(("SQLSetStmtAttr", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Attribute'),(1, 'Value'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetStmtOption():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64, use_last_error=False)(("SQLSetStmtOption", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Option'),(1, 'Value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSpecialColumns():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,UInt16,UInt16, use_last_error=False)(("SQLSpecialColumns", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'IdentifierType'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'Scope'),(1, 'Nullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLStatistics():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,UInt16,UInt16, use_last_error=False)(("SQLStatistics", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'Unique'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTables():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLTables", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'CatalogName'),(1, 'NameLength1'),(1, 'SchemaName'),(1, 'NameLength2'),(1, 'TableName'),(1, 'NameLength3'),(1, 'TableType'),(1, 'NameLength4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTransact():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_void_p,UInt16, use_last_error=False)(("SQLTransact", windll["ODBC32"]), ((1, 'EnvironmentHandle'),(1, 'ConnectionHandle'),(1, 'CompletionType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_batch():
-    try:
-        return WINFUNCTYPE(Int32,c_void_p, use_last_error=False)(("bcp_batch", windll["odbcbcp"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_bind():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32,Int32,c_char_p_no,Int32,Int32,Int32, use_last_error=False)(("bcp_bind", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),(1, 'param7'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_colfmt():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,Byte,Int32,Int32,c_char_p_no,Int32,Int32, use_last_error=False)(("bcp_colfmt", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),(1, 'param7'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_collen():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,Int32, use_last_error=False)(("bcp_collen", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_colptr():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_char_p_no,Int32, use_last_error=False)(("bcp_colptr", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_columns():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32, use_last_error=False)(("bcp_columns", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_control():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p, use_last_error=False)(("bcp_control", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_done():
-    try:
-        return WINFUNCTYPE(Int32,c_void_p, use_last_error=False)(("bcp_done", windll["odbcbcp"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_exec():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int32), use_last_error=False)(("bcp_exec", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_getcolfmt():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("bcp_getcolfmt", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_initA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32, use_last_error=False)(("bcp_initA", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_initW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32, use_last_error=False)(("bcp_initW", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_init():
-    return win32more.System.Search.bcp_initW
-def _define_bcp_moretext():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_char_p_no, use_last_error=False)(("bcp_moretext", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_readfmtA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR, use_last_error=False)(("bcp_readfmtA", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_readfmtW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR, use_last_error=False)(("bcp_readfmtW", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_readfmt():
-    return win32more.System.Search.bcp_readfmtW
-def _define_bcp_sendrow():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("bcp_sendrow", windll["odbcbcp"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_setcolfmt():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,Int32,c_void_p,Int32, use_last_error=False)(("bcp_setcolfmt", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_writefmtA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR, use_last_error=False)(("bcp_writefmtA", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_writefmtW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR, use_last_error=False)(("bcp_writefmtW", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_bcp_writefmt():
-    return win32more.System.Search.bcp_writefmtW
-def _define_dbprtypeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,Int32, use_last_error=False)(("dbprtypeA", windll["odbcbcp"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_dbprtypeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,Int32, use_last_error=False)(("dbprtypeW", windll["odbcbcp"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_dbprtype():
-    return win32more.System.Search.dbprtypeW
-def _define_SQLLinkedServers():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLLinkedServers", windll["odbcbcp"]), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLLinkedCatalogsA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PSTR,Int16, use_last_error=False)(("SQLLinkedCatalogsA", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLLinkedCatalogsW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,win32more.Foundation.PWSTR,Int16, use_last_error=False)(("SQLLinkedCatalogsW", windll["odbcbcp"]), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLLinkedCatalogs():
-    return win32more.System.Search.SQLLinkedCatalogsW
-def _define_SQLInitEnumServers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("SQLInitEnumServers", windll["odbcbcp"]), ((1, 'pwchServerName'),(1, 'pwchInstanceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetNextEnumeration():
-    try:
-        return WINFUNCTYPE(Int16,win32more.Foundation.HANDLE,c_char_p_no,POINTER(Int32), use_last_error=False)(("SQLGetNextEnumeration", windll["odbcbcp"]), ((1, 'hEnumHandle'),(1, 'prgEnumData'),(1, 'piEnumLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLCloseEnumServers():
-    try:
-        return WINFUNCTYPE(Int16,win32more.Foundation.HANDLE, use_last_error=False)(("SQLCloseEnumServers", windll["odbcbcp"]), ((1, 'hEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDriverConnect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,IntPtr,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Int16),UInt16, use_last_error=False)(("SQLDriverConnect", windll["ODBC32"]), ((1, 'hdbc'),(1, 'hwnd'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),(1, 'fDriverCompletion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBrowseConnect():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLBrowseConnect", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBulkOperations():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16, use_last_error=False)(("SQLBulkOperations", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'Operation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColAttributes():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64), use_last_error=False)(("SQLColAttributes", windll["ODBC32"]), ((1, 'hstmt'),(1, 'icol'),(1, 'fDescType'),(1, 'rgbDesc'),(1, 'cbDescMax'),(1, 'pcbDesc'),(1, 'pfDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColumnPrivileges():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLColumnPrivileges", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDescribeParam():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLDescribeParam", windll["ODBC32"]), ((1, 'hstmt'),(1, 'ipar'),(1, 'pfSqlType'),(1, 'pcbParamDef'),(1, 'pibScale'),(1, 'pfNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLExtendedFetch():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int64,POINTER(UInt64),POINTER(UInt16), use_last_error=False)(("SQLExtendedFetch", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fFetchType'),(1, 'irow'),(1, 'pcrow'),(1, 'rgfRowStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLForeignKeys():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLForeignKeys", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szPkCatalogName'),(1, 'cchPkCatalogName'),(1, 'szPkSchemaName'),(1, 'cchPkSchemaName'),(1, 'szPkTableName'),(1, 'cchPkTableName'),(1, 'szFkCatalogName'),(1, 'cchFkCatalogName'),(1, 'szFkSchemaName'),(1, 'cchFkSchemaName'),(1, 'szFkTableName'),(1, 'cchFkTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLMoreResults():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p, use_last_error=False)(("SQLMoreResults", windll["ODBC32"]), ((1, 'hstmt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLNativeSql():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int32,POINTER(Byte),Int32,POINTER(Int32), use_last_error=False)(("SQLNativeSql", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szSqlStrIn'),(1, 'cchSqlStrIn'),(1, 'szSqlStr'),(1, 'cchSqlStrMax'),(1, 'pcbSqlStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLNumParams():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Int16), use_last_error=False)(("SQLNumParams", windll["ODBC32"]), ((1, 'hstmt'),(1, 'pcpar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLParamOptions():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt64,POINTER(UInt64), use_last_error=False)(("SQLParamOptions", windll["ODBC32"]), ((1, 'hstmt'),(1, 'crow'),(1, 'pirow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPrimaryKeys():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLPrimaryKeys", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLProcedureColumns():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLProcedureColumns", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLProcedures():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLProcedures", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetPos():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt64,UInt16,UInt16, use_last_error=False)(("SQLSetPos", windll["ODBC32"]), ((1, 'hstmt'),(1, 'irow'),(1, 'fOption'),(1, 'fLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTablePrivileges():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLTablePrivileges", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDrivers():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLDrivers", windll["ODBC32"]), ((1, 'henv'),(1, 'fDirection'),(1, 'szDriverDesc'),(1, 'cchDriverDescMax'),(1, 'pcchDriverDesc'),(1, 'szDriverAttributes'),(1, 'cchDrvrAttrMax'),(1, 'pcchDrvrAttr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBindParameter():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int16,Int16,Int16,UInt64,Int16,c_void_p,Int64,POINTER(Int64), use_last_error=False)(("SQLBindParameter", windll["ODBC32"]), ((1, 'hstmt'),(1, 'ipar'),(1, 'fParamType'),(1, 'fCType'),(1, 'fSqlType'),(1, 'cbColDef'),(1, 'ibScale'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLAllocHandleStd():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,POINTER(c_void_p), use_last_error=False)(("SQLAllocHandleStd", windll["ODBC32"]), ((1, 'fHandleType'),(1, 'hInput'),(1, 'phOutput'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetScrollOptions():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,Int64,UInt16, use_last_error=False)(("SQLSetScrollOptions", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fConcurrency'),(1, 'crowKeyset'),(1, 'crowRowset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ODBCSetTryWaitValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=False)(("ODBCSetTryWaitValue", windll["ODBC32"]), ((1, 'dwValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ODBCGetTryWaitValue():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("ODBCGetTryWaitValue", windll["ODBC32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColAttributeW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64), use_last_error=False)(("SQLColAttributeW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'iCol'),(1, 'iField'),(1, 'pCharAttr'),(1, 'cbDescMax'),(1, 'pcbCharAttr'),(1, 'pNumAttr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColAttributesW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64), use_last_error=False)(("SQLColAttributesW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'icol'),(1, 'fDescType'),(1, 'rgbDesc'),(1, 'cbDescMax'),(1, 'pcbDesc'),(1, 'pfDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLConnectW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLConnectW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szDSN'),(1, 'cchDSN'),(1, 'szUID'),(1, 'cchUID'),(1, 'szAuthStr'),(1, 'cchAuthStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDescribeColW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLDescribeColW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'icol'),(1, 'szColName'),(1, 'cchColNameMax'),(1, 'pcchColName'),(1, 'pfSqlType'),(1, 'pcbColDef'),(1, 'pibScale'),(1, 'pfNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLErrorW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_void_p,c_void_p,POINTER(UInt16),POINTER(Int32),POINTER(UInt16),Int16,POINTER(Int16), use_last_error=False)(("SQLErrorW", windll["ODBC32"]), ((1, 'henv'),(1, 'hdbc'),(1, 'hstmt'),(1, 'wszSqlState'),(1, 'pfNativeError'),(1, 'wszErrorMsg'),(1, 'cchErrorMsgMax'),(1, 'pcchErrorMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLExecDirectW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int32, use_last_error=False)(("SQLExecDirectW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'TextLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetConnectAttrW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetConnectAttrW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetCursorNameW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(Int16), use_last_error=False)(("SQLGetCursorNameW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cchCursorMax'),(1, 'pcchCursor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetDescFieldW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32, use_last_error=False)(("SQLSetDescFieldW", windll["ODBC32"]), ((1, 'DescriptorHandle'),(1, 'RecNumber'),(1, 'FieldIdentifier'),(1, 'Value'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDescFieldW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetDescFieldW", windll["ODBC32"]), ((1, 'hdesc'),(1, 'iRecord'),(1, 'iField'),(1, 'rgbValue'),(1, 'cbBufferLength'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDescRecW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(Int16),POINTER(Int16),POINTER(Int64),POINTER(Int16),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLGetDescRecW", windll["ODBC32"]), ((1, 'hdesc'),(1, 'iRecord'),(1, 'szName'),(1, 'cchNameMax'),(1, 'pcchName'),(1, 'pfType'),(1, 'pfSubType'),(1, 'pLength'),(1, 'pPrecision'),(1, 'pScale'),(1, 'pNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDiagFieldW():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16), use_last_error=False)(("SQLGetDiagFieldW", windll["ODBC32"]), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'fDiagField'),(1, 'rgbDiagInfo'),(1, 'cbBufferLength'),(1, 'pcbStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDiagRecW():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,POINTER(UInt16),POINTER(Int32),POINTER(UInt16),Int16,POINTER(Int16), use_last_error=False)(("SQLGetDiagRecW", windll["ODBC32"]), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'szSqlState'),(1, 'pfNativeError'),(1, 'szErrorMsg'),(1, 'cchErrorMsgMax'),(1, 'pcchErrorMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPrepareW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int32, use_last_error=False)(("SQLPrepareW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'cchSqlStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetConnectAttrW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32, use_last_error=False)(("SQLSetConnectAttrW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetCursorNameW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16, use_last_error=False)(("SQLSetCursorNameW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cchCursor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColumnsW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLColumnsW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetConnectOptionW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p, use_last_error=False)(("SQLGetConnectOptionW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fOption'),(1, 'pvParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetInfoW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p,Int16,POINTER(Int16), use_last_error=False)(("SQLGetInfoW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fInfoType'),(1, 'rgbInfoValue'),(1, 'cbInfoValueMax'),(1, 'pcbInfoValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetTypeInfoW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16, use_last_error=False)(("SQLGetTypeInfoW", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'DataType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetConnectOptionW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64, use_last_error=False)(("SQLSetConnectOptionW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fOption'),(1, 'vParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSpecialColumnsW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,UInt16,UInt16, use_last_error=False)(("SQLSpecialColumnsW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fColType'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'fScope'),(1, 'fNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLStatisticsW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,UInt16,UInt16, use_last_error=False)(("SQLStatisticsW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'fUnique'),(1, 'fAccuracy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTablesW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLTablesW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szTableType'),(1, 'cchTableType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDataSourcesW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(UInt16),Int16,POINTER(Int16), use_last_error=False)(("SQLDataSourcesW", windll["ODBC32"]), ((1, 'henv'),(1, 'fDirection'),(1, 'szDSN'),(1, 'cchDSNMax'),(1, 'pcchDSN'),(1, 'wszDescription'),(1, 'cchDescriptionMax'),(1, 'pcchDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDriverConnectW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,IntPtr,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(Int16),UInt16, use_last_error=False)(("SQLDriverConnectW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'hwnd'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),(1, 'fDriverCompletion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBrowseConnectW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(Int16), use_last_error=False)(("SQLBrowseConnectW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szConnStrIn'),(1, 'cchConnStrIn'),(1, 'szConnStrOut'),(1, 'cchConnStrOutMax'),(1, 'pcchConnStrOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColumnPrivilegesW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLColumnPrivilegesW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetStmtAttrW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetStmtAttrW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetStmtAttrW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32, use_last_error=False)(("SQLSetStmtAttrW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLForeignKeysW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLForeignKeysW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szPkCatalogName'),(1, 'cchPkCatalogName'),(1, 'szPkSchemaName'),(1, 'cchPkSchemaName'),(1, 'szPkTableName'),(1, 'cchPkTableName'),(1, 'szFkCatalogName'),(1, 'cchFkCatalogName'),(1, 'szFkSchemaName'),(1, 'cchFkSchemaName'),(1, 'szFkTableName'),(1, 'cchFkTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLNativeSqlW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int32,POINTER(UInt16),Int32,POINTER(Int32), use_last_error=False)(("SQLNativeSqlW", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szSqlStrIn'),(1, 'cchSqlStrIn'),(1, 'szSqlStr'),(1, 'cchSqlStrMax'),(1, 'pcchSqlStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPrimaryKeysW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLPrimaryKeysW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLProcedureColumnsW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLProcedureColumnsW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),(1, 'szColumnName'),(1, 'cchColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLProceduresW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLProceduresW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szProcName'),(1, 'cchProcName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTablePrivilegesW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(UInt16),Int16,POINTER(UInt16),Int16,POINTER(UInt16),Int16, use_last_error=False)(("SQLTablePrivilegesW", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cchCatalogName'),(1, 'szSchemaName'),(1, 'cchSchemaName'),(1, 'szTableName'),(1, 'cchTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDriversW():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(UInt16),Int16,POINTER(Int16),POINTER(UInt16),Int16,POINTER(Int16), use_last_error=False)(("SQLDriversW", windll["ODBC32"]), ((1, 'henv'),(1, 'fDirection'),(1, 'szDriverDesc'),(1, 'cchDriverDescMax'),(1, 'pcchDriverDesc'),(1, 'szDriverAttributes'),(1, 'cchDrvrAttrMax'),(1, 'pcchDrvrAttr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColAttributeA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16),POINTER(Int64), use_last_error=False)(("SQLColAttributeA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'iCol'),(1, 'iField'),(1, 'pCharAttr'),(1, 'cbCharAttrMax'),(1, 'pcbCharAttr'),(1, 'pNumAttr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColAttributesA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt16,c_void_p,Int16,POINTER(Int16),POINTER(Int64), use_last_error=False)(("SQLColAttributesA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'icol'),(1, 'fDescType'),(1, 'rgbDesc'),(1, 'cbDescMax'),(1, 'pcbDesc'),(1, 'pfDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLConnectA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLConnectA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szDSN'),(1, 'cbDSN'),(1, 'szUID'),(1, 'cbUID'),(1, 'szAuthStr'),(1, 'cbAuthStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDescribeColA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Int16),POINTER(UInt64),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLDescribeColA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'icol'),(1, 'szColName'),(1, 'cbColNameMax'),(1, 'pcbColName'),(1, 'pfSqlType'),(1, 'pcbColDef'),(1, 'pibScale'),(1, 'pfNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLErrorA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,c_void_p,c_void_p,c_char_p_no,POINTER(Int32),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLErrorA", windll["ODBC32"]), ((1, 'henv'),(1, 'hdbc'),(1, 'hstmt'),(1, 'szSqlState'),(1, 'pfNativeError'),(1, 'szErrorMsg'),(1, 'cbErrorMsgMax'),(1, 'pcbErrorMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLExecDirectA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int32, use_last_error=False)(("SQLExecDirectA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'cbSqlStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetConnectAttrA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetConnectAttrA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetCursorNameA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLGetCursorNameA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cbCursorMax'),(1, 'pcbCursor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDescFieldA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,Int16,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetDescFieldA", windll["ODBC32"]), ((1, 'hdesc'),(1, 'iRecord'),(1, 'iField'),(1, 'rgbValue'),(1, 'cbBufferLength'),(1, 'StringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDescRecA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Int16),POINTER(Int16),POINTER(Int64),POINTER(Int16),POINTER(Int16),POINTER(Int16), use_last_error=False)(("SQLGetDescRecA", windll["ODBC32"]), ((1, 'hdesc'),(1, 'iRecord'),(1, 'szName'),(1, 'cbNameMax'),(1, 'pcbName'),(1, 'pfType'),(1, 'pfSubType'),(1, 'pLength'),(1, 'pPrecision'),(1, 'pScale'),(1, 'pNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDiagFieldA():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,Int16,c_void_p,Int16,POINTER(Int16), use_last_error=False)(("SQLGetDiagFieldA", windll["ODBC32"]), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'fDiagField'),(1, 'rgbDiagInfo'),(1, 'cbDiagInfoMax'),(1, 'pcbDiagInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetDiagRecA():
-    try:
-        return WINFUNCTYPE(Int16,Int16,c_void_p,Int16,POINTER(Byte),POINTER(Int32),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLGetDiagRecA", windll["ODBC32"]), ((1, 'fHandleType'),(1, 'handle'),(1, 'iRecord'),(1, 'szSqlState'),(1, 'pfNativeError'),(1, 'szErrorMsg'),(1, 'cbErrorMsgMax'),(1, 'pcbErrorMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetStmtAttrA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32,POINTER(Int32), use_last_error=False)(("SQLGetStmtAttrA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValueMax'),(1, 'pcbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetTypeInfoA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int16, use_last_error=False)(("SQLGetTypeInfoA", windll["ODBC32"]), ((1, 'StatementHandle'),(1, 'DataType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPrepareA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int32, use_last_error=False)(("SQLPrepareA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szSqlStr'),(1, 'cbSqlStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetConnectAttrA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,Int32,c_void_p,Int32, use_last_error=False)(("SQLSetConnectAttrA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fAttribute'),(1, 'rgbValue'),(1, 'cbValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetCursorNameA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16, use_last_error=False)(("SQLSetCursorNameA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCursor'),(1, 'cbCursor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColumnsA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLColumnsA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'szColumnName'),(1, 'cbColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetConnectOptionA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p, use_last_error=False)(("SQLGetConnectOptionA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fOption'),(1, 'pvParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLGetInfoA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,c_void_p,Int16,POINTER(Int16), use_last_error=False)(("SQLGetInfoA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fInfoType'),(1, 'rgbInfoValue'),(1, 'cbInfoValueMax'),(1, 'pcbInfoValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSetConnectOptionA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,UInt64, use_last_error=False)(("SQLSetConnectOptionA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'fOption'),(1, 'vParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLSpecialColumnsA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,UInt16,UInt16, use_last_error=False)(("SQLSpecialColumnsA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'fColType'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'fScope'),(1, 'fNullable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLStatisticsA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,UInt16,UInt16, use_last_error=False)(("SQLStatisticsA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'fUnique'),(1, 'fAccuracy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTablesA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLTablesA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'szTableType'),(1, 'cbTableType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDataSourcesA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLDataSourcesA", windll["ODBC32"]), ((1, 'henv'),(1, 'fDirection'),(1, 'szDSN'),(1, 'cbDSNMax'),(1, 'pcbDSN'),(1, 'szDescription'),(1, 'cbDescriptionMax'),(1, 'pcbDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDriverConnectA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,IntPtr,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Int16),UInt16, use_last_error=False)(("SQLDriverConnectA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'hwnd'),(1, 'szConnStrIn'),(1, 'cbConnStrIn'),(1, 'szConnStrOut'),(1, 'cbConnStrOutMax'),(1, 'pcbConnStrOut'),(1, 'fDriverCompletion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLBrowseConnectA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLBrowseConnectA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szConnStrIn'),(1, 'cbConnStrIn'),(1, 'szConnStrOut'),(1, 'cbConnStrOutMax'),(1, 'pcbConnStrOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLColumnPrivilegesA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLColumnPrivilegesA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),(1, 'szColumnName'),(1, 'cbColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLForeignKeysA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLForeignKeysA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szPkCatalogName'),(1, 'cbPkCatalogName'),(1, 'szPkSchemaName'),(1, 'cbPkSchemaName'),(1, 'szPkTableName'),(1, 'cbPkTableName'),(1, 'szFkCatalogName'),(1, 'cbFkCatalogName'),(1, 'szFkSchemaName'),(1, 'cbFkSchemaName'),(1, 'szFkTableName'),(1, 'cbFkTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLNativeSqlA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int32,POINTER(Byte),Int32,POINTER(Int32), use_last_error=False)(("SQLNativeSqlA", windll["ODBC32"]), ((1, 'hdbc'),(1, 'szSqlStrIn'),(1, 'cbSqlStrIn'),(1, 'szSqlStr'),(1, 'cbSqlStrMax'),(1, 'pcbSqlStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLPrimaryKeysA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLPrimaryKeysA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLProcedureColumnsA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLProcedureColumnsA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szProcName'),(1, 'cbProcName'),(1, 'szColumnName'),(1, 'cbColumnName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLProceduresA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLProceduresA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szProcName'),(1, 'cbProcName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLTablePrivilegesA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,POINTER(Byte),Int16,POINTER(Byte),Int16,POINTER(Byte),Int16, use_last_error=False)(("SQLTablePrivilegesA", windll["ODBC32"]), ((1, 'hstmt'),(1, 'szCatalogName'),(1, 'cbCatalogName'),(1, 'szSchemaName'),(1, 'cbSchemaName'),(1, 'szTableName'),(1, 'cbTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SQLDriversA():
-    try:
-        return WINFUNCTYPE(Int16,c_void_p,UInt16,POINTER(Byte),Int16,POINTER(Int16),POINTER(Byte),Int16,POINTER(Int16), use_last_error=False)(("SQLDriversA", windll["ODBC32"]), ((1, 'henv'),(1, 'fDirection'),(1, 'szDriverDesc'),(1, 'cbDriverDescMax'),(1, 'pcbDriverDesc'),(1, 'szDriverAttributes'),(1, 'cbDrvrAttrMax'),(1, 'pcbDrvrAttr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
 __all__ = [
-    "SI_TEMPORARY",
-    "SUBSINFO_ALLFLAGS",
-    "RS_READY",
-    "RS_SUSPENDED",
-    "RS_UPDATING",
-    "RS_SUSPENDONIDLE",
-    "RS_MAYBOTHERUSER",
-    "RS_COMPLETED",
-    "SUBSMGRUPDATE_MINIMIZE",
-    "SUBSMGRUPDATE_MASK",
-    "SUBSMGRENUM_TEMP",
-    "SUBSMGRENUM_MASK",
-    "INET_E_AGENT_MAX_SIZE_EXCEEDED",
-    "INET_S_AGENT_PART_FAIL",
-    "INET_E_AGENT_CACHE_SIZE_EXCEEDED",
-    "INET_E_AGENT_CONNECTION_FAILED",
-    "INET_E_SCHEDULED_UPDATES_DISABLED",
-    "INET_E_SCHEDULED_UPDATES_RESTRICTED",
-    "INET_E_SCHEDULED_UPDATE_INTERVAL",
-    "INET_E_SCHEDULED_EXCLUDE_RANGE",
-    "INET_E_AGENT_EXCEEDING_CACHE_SIZE",
-    "INET_S_AGENT_INCREASED_CACHE_SIZE",
-    "OLEDBVER",
-    "DB_NULL_HACCESSOR",
-    "DB_INVALID_HACCESSOR",
-    "DB_NULL_HROW",
-    "DB_NULL_HCHAPTER",
-    "DB_INVALID_HCHAPTER",
-    "STD_BOOKMARKLENGTH",
-    "DBPROPVAL_BMK_NUMERIC",
-    "DBPROPVAL_BMK_KEY",
-    "DBPROPVAL_CL_START",
-    "DBPROPVAL_CL_END",
-    "DBPROPVAL_CU_DML_STATEMENTS",
-    "DBPROPVAL_CU_TABLE_DEFINITION",
-    "DBPROPVAL_CU_INDEX_DEFINITION",
-    "DBPROPVAL_CU_PRIVILEGE_DEFINITION",
-    "DBPROPVAL_CD_NOTNULL",
-    "DBPROPVAL_CB_NULL",
-    "DBPROPVAL_CB_NON_NULL",
-    "DBPROPVAL_FU_NOT_SUPPORTED",
-    "DBPROPVAL_FU_COLUMN",
-    "DBPROPVAL_FU_TABLE",
-    "DBPROPVAL_FU_CATALOG",
-    "DBPROPVAL_GB_NOT_SUPPORTED",
-    "DBPROPVAL_GB_EQUALS_SELECT",
-    "DBPROPVAL_GB_CONTAINS_SELECT",
-    "DBPROPVAL_GB_NO_RELATION",
-    "DBPROPVAL_HT_DIFFERENT_CATALOGS",
-    "DBPROPVAL_HT_DIFFERENT_PROVIDERS",
-    "DBPROPVAL_IC_UPPER",
-    "DBPROPVAL_IC_LOWER",
-    "DBPROPVAL_IC_SENSITIVE",
-    "DBPROPVAL_IC_MIXED",
-    "DBPROPVAL_LM_NONE",
-    "DBPROPVAL_LM_READ",
-    "DBPROPVAL_LM_INTENT",
-    "DBPROPVAL_LM_RITE",
-    "DBPROPVAL_NP_OKTODO",
-    "DBPROPVAL_NP_ABOUTTODO",
-    "DBPROPVAL_NP_SYNCHAFTER",
-    "DBPROPVAL_NP_FAILEDTODO",
-    "DBPROPVAL_NP_DIDEVENT",
-    "DBPROPVAL_NC_END",
-    "DBPROPVAL_NC_HIGH",
-    "DBPROPVAL_NC_LOW",
-    "DBPROPVAL_NC_START",
-    "DBPROPVAL_OO_BLOB",
-    "DBPROPVAL_OO_IPERSIST",
-    "DBPROPVAL_CB_DELETE",
-    "DBPROPVAL_CB_PRESERVE",
-    "DBPROPVAL_SU_DML_STATEMENTS",
-    "DBPROPVAL_SU_TABLE_DEFINITION",
-    "DBPROPVAL_SU_INDEX_DEFINITION",
-    "DBPROPVAL_SU_PRIVILEGE_DEFINITION",
-    "DBPROPVAL_SQ_CORRELATEDSUBQUERIES",
-    "DBPROPVAL_SQ_COMPARISON",
-    "DBPROPVAL_SQ_EXISTS",
-    "DBPROPVAL_SQ_IN",
-    "DBPROPVAL_SQ_QUANTIFIED",
-    "DBPROPVAL_SQ_TABLE",
-    "DBPROPVAL_SS_ISEQUENTIALSTREAM",
-    "DBPROPVAL_SS_ISTREAM",
-    "DBPROPVAL_SS_ISTORAGE",
-    "DBPROPVAL_SS_ILOCKBYTES",
-    "DBPROPVAL_TI_CHAOS",
-    "DBPROPVAL_TI_READUNCOMMITTED",
-    "DBPROPVAL_TI_BROWSE",
-    "DBPROPVAL_TI_CURSORSTABILITY",
-    "DBPROPVAL_TI_READCOMMITTED",
-    "DBPROPVAL_TI_REPEATABLEREAD",
-    "DBPROPVAL_TI_SERIALIZABLE",
-    "DBPROPVAL_TI_ISOLATED",
-    "DBPROPVAL_TR_COMMIT_DC",
-    "DBPROPVAL_TR_COMMIT",
-    "DBPROPVAL_TR_COMMIT_NO",
-    "DBPROPVAL_TR_ABORT_DC",
-    "DBPROPVAL_TR_ABORT",
-    "DBPROPVAL_TR_ABORT_NO",
-    "DBPROPVAL_TR_DONTCARE",
-    "DBPROPVAL_TR_BOTH",
-    "DBPROPVAL_TR_NONE",
-    "DBPROPVAL_TR_OPTIMISTIC",
-    "DBPROPVAL_RT_FREETHREAD",
-    "DBPROPVAL_RT_APTMTTHREAD",
-    "DBPROPVAL_RT_SINGLETHREAD",
-    "DBPROPVAL_UP_CHANGE",
-    "DBPROPVAL_UP_DELETE",
-    "DBPROPVAL_UP_INSERT",
-    "DBPROPVAL_SQL_NONE",
-    "DBPROPVAL_SQL_ODBC_MINIMUM",
-    "DBPROPVAL_SQL_ODBC_CORE",
-    "DBPROPVAL_SQL_ODBC_EXTENDED",
-    "DBPROPVAL_SQL_ANSI89_IEF",
-    "DBPROPVAL_SQL_ANSI92_ENTRY",
-    "DBPROPVAL_SQL_FIPS_TRANSITIONAL",
-    "DBPROPVAL_SQL_ANSI92_INTERMEDIATE",
-    "DBPROPVAL_SQL_ANSI92_FULL",
-    "DBPROPVAL_SQL_ESCAPECLAUSES",
-    "DBPROPVAL_IT_BTREE",
-    "DBPROPVAL_IT_HASH",
-    "DBPROPVAL_IT_CONTENT",
-    "DBPROPVAL_IT_OTHER",
-    "DBPROPVAL_IN_DISALLOWNULL",
-    "DBPROPVAL_IN_IGNORENULL",
-    "DBPROPVAL_IN_IGNOREANYNULL",
-    "DBPROPVAL_TC_NONE",
-    "DBPROPVAL_TC_DML",
-    "DBPROPVAL_TC_DDL_COMMIT",
-    "DBPROPVAL_TC_DDL_IGNORE",
-    "DBPROPVAL_TC_ALL",
-    "DBPROPVAL_OA_NOTSUPPORTED",
-    "DBPROPVAL_OA_ATEXECUTE",
-    "DBPROPVAL_OA_ATROWRELEASE",
-    "DBPROPVAL_MR_NOTSUPPORTED",
-    "DBPROPVAL_MR_SUPPORTED",
-    "DBPROPVAL_MR_CONCURRENT",
-    "DBPROPVAL_PT_GUID_NAME",
-    "DBPROPVAL_PT_GUID_PROPID",
-    "DBPROPVAL_PT_NAME",
-    "DBPROPVAL_PT_GUID",
-    "DBPROPVAL_PT_PROPID",
-    "DBPROPVAL_PT_PGUID_NAME",
-    "DBPROPVAL_PT_PGUID_PROPID",
-    "DBPROPVAL_NT_SINGLEROW",
-    "DBPROPVAL_NT_MULTIPLEROWS",
-    "DBPROPVAL_ASYNCH_INITIALIZE",
-    "DBPROPVAL_ASYNCH_SEQUENTIALPOPULATION",
-    "DBPROPVAL_ASYNCH_RANDOMPOPULATION",
-    "DBPROPVAL_OP_EQUAL",
-    "DBPROPVAL_OP_RELATIVE",
-    "DBPROPVAL_OP_STRING",
-    "DBPROPVAL_CO_EQUALITY",
-    "DBPROPVAL_CO_STRING",
-    "DBPROPVAL_CO_CASESENSITIVE",
-    "DBPROPVAL_CO_CASEINSENSITIVE",
-    "DBPROPVAL_CO_CONTAINS",
-    "DBPROPVAL_CO_BEGINSWITH",
-    "DBPROPVAL_ASYNCH_BACKGROUNDPOPULATION",
-    "DBPROPVAL_ASYNCH_PREPOPULATE",
-    "DBPROPVAL_ASYNCH_POPULATEONDEMAND",
-    "DBPROPVAL_LM_SINGLEROW",
-    "DBPROPVAL_SQL_SUBMINIMUM",
-    "DBPROPVAL_DST_TDP",
-    "DBPROPVAL_DST_MDP",
-    "DBPROPVAL_DST_TDPANDMDP",
-    "MDPROPVAL_AU_UNSUPPORTED",
-    "MDPROPVAL_AU_UNCHANGED",
-    "MDPROPVAL_AU_UNKNOWN",
-    "MDPROPVAL_MF_WITH_CALCMEMBERS",
-    "MDPROPVAL_MF_WITH_NAMEDSETS",
-    "MDPROPVAL_MF_CREATE_CALCMEMBERS",
-    "MDPROPVAL_MF_CREATE_NAMEDSETS",
-    "MDPROPVAL_MF_SCOPE_SESSION",
-    "MDPROPVAL_MF_SCOPE_GLOBAL",
-    "MDPROPVAL_MMF_COUSIN",
-    "MDPROPVAL_MMF_PARALLELPERIOD",
-    "MDPROPVAL_MMF_OPENINGPERIOD",
-    "MDPROPVAL_MMF_CLOSINGPERIOD",
-    "MDPROPVAL_MNF_MEDIAN",
-    "MDPROPVAL_MNF_VAR",
-    "MDPROPVAL_MNF_STDDEV",
-    "MDPROPVAL_MNF_RANK",
-    "MDPROPVAL_MNF_AGGREGATE",
-    "MDPROPVAL_MNF_COVARIANCE",
-    "MDPROPVAL_MNF_CORRELATION",
-    "MDPROPVAL_MNF_LINREGSLOPE",
-    "MDPROPVAL_MNF_LINREGVARIANCE",
-    "MDPROPVAL_MNF_LINREG2",
-    "MDPROPVAL_MNF_LINREGPOINT",
-    "MDPROPVAL_MNF_DRILLDOWNLEVEL",
-    "MDPROPVAL_MNF_DRILLDOWNMEMBERTOP",
-    "MDPROPVAL_MNF_DRILLDOWNMEMBERBOTTOM",
-    "MDPROPVAL_MNF_DRILLDOWNLEVELTOP",
-    "MDPROPVAL_MNF_DRILLDOWNLEVELBOTTOM",
-    "MDPROPVAL_MNF_DRILLUPMEMBER",
-    "MDPROPVAL_MNF_DRILLUPLEVEL",
-    "MDPROPVAL_MSF_TOPPERCENT",
-    "MDPROPVAL_MSF_BOTTOMPERCENT",
-    "MDPROPVAL_MSF_TOPSUM",
-    "MDPROPVAL_MSF_BOTTOMSUM",
-    "MDPROPVAL_MSF_PERIODSTODATE",
-    "MDPROPVAL_MSF_LASTPERIODS",
-    "MDPROPVAL_MSF_YTD",
-    "MDPROPVAL_MSF_QTD",
-    "MDPROPVAL_MSF_MTD",
-    "MDPROPVAL_MSF_WTD",
-    "MDPROPVAL_MSF_DRILLDOWNMEMBBER",
-    "MDPROPVAL_MSF_DRILLDOWNLEVEL",
-    "MDPROPVAL_MSF_DRILLDOWNMEMBERTOP",
-    "MDPROPVAL_MSF_DRILLDOWNMEMBERBOTTOM",
-    "MDPROPVAL_MSF_DRILLDOWNLEVELTOP",
-    "MDPROPVAL_MSF_DRILLDOWNLEVELBOTTOM",
-    "MDPROPVAL_MSF_DRILLUPMEMBER",
-    "MDPROPVAL_MSF_DRILLUPLEVEL",
-    "MDPROPVAL_MSF_TOGGLEDRILLSTATE",
-    "MDPROPVAL_MD_SELF",
-    "MDPROPVAL_MD_BEFORE",
-    "MDPROPVAL_MD_AFTER",
-    "MDPROPVAL_MSC_LESSTHAN",
-    "MDPROPVAL_MSC_GREATERTHAN",
-    "MDPROPVAL_MSC_LESSTHANEQUAL",
-    "MDPROPVAL_MSC_GREATERTHANEQUAL",
-    "MDPROPVAL_MC_SINGLECASE",
-    "MDPROPVAL_MC_SEARCHEDCASE",
-    "MDPROPVAL_MOQ_OUTERREFERENCE",
-    "MDPROPVAL_MOQ_DATASOURCE_CUBE",
-    "MDPROPVAL_MOQ_CATALOG_CUBE",
-    "MDPROPVAL_MOQ_SCHEMA_CUBE",
-    "MDPROPVAL_MOQ_CUBE_DIM",
-    "MDPROPVAL_MOQ_DIM_HIER",
-    "MDPROPVAL_MOQ_DIMHIER_LEVEL",
-    "MDPROPVAL_MOQ_LEVEL_MEMBER",
-    "MDPROPVAL_MOQ_MEMBER_MEMBER",
-    "MDPROPVAL_MOQ_DIMHIER_MEMBER",
-    "MDPROPVAL_FS_FULL_SUPPORT",
-    "MDPROPVAL_FS_GENERATED_COLUMN",
-    "MDPROPVAL_FS_GENERATED_DIMENSION",
-    "MDPROPVAL_FS_NO_SUPPORT",
-    "MDPROPVAL_NL_NAMEDLEVELS",
-    "MDPROPVAL_NL_NUMBEREDLEVELS",
-    "MDPROPVAL_MJC_SINGLECUBE",
-    "MDPROPVAL_MJC_MULTICUBES",
-    "MDPROPVAL_MJC_IMPLICITCUBE",
-    "MDPROPVAL_RR_NORANGEROWSET",
-    "MDPROPVAL_RR_READONLY",
-    "MDPROPVAL_RR_UPDATE",
-    "MDPROPVAL_MS_MULTIPLETUPLES",
-    "MDPROPVAL_MS_SINGLETUPLE",
-    "MDPROPVAL_NME_ALLDIMENSIONS",
-    "MDPROPVAL_NME_MEASURESONLY",
-    "DBPROPVAL_AO_SEQUENTIAL",
-    "DBPROPVAL_AO_SEQUENTIALSTORAGEOBJECTS",
-    "DBPROPVAL_AO_RANDOM",
-    "DBPROPVAL_BD_ROWSET",
-    "DBPROPVAL_BD_INTRANSACTION",
-    "DBPROPVAL_BD_XTRANSACTION",
-    "DBPROPVAL_BD_REORGANIZATION",
-    "BMK_DURABILITY_ROWSET",
+    "ACCESS_MASKENUM",
+    "AUTHENTICATION_INFO",
+    "AUTH_TYPE",
+    "BCP6xFILEFMT",
+    "BCPABORT",
+    "BCPBATCH",
+    "BCPFILECP",
+    "BCPFILECP_ACP",
+    "BCPFILECP_OEMCP",
+    "BCPFILECP_RAW",
+    "BCPFILEFMT",
+    "BCPFIRST",
+    "BCPHINTS",
+    "BCPHINTSA",
+    "BCPHINTSW",
+    "BCPKEEPIDENTITY",
+    "BCPKEEPNULLS",
+    "BCPLAST",
+    "BCPMAXERRS",
+    "BCPODBC",
+    "BCPTEXTFILE",
+    "BCPUNICODEFILE",
+    "BCP_FMT_COLLATION",
+    "BCP_FMT_COLLATION_ID",
+    "BCP_FMT_DATA_LEN",
+    "BCP_FMT_INDICATOR_LEN",
+    "BCP_FMT_SERVER_COL",
+    "BCP_FMT_TERMINATOR",
+    "BCP_FMT_TYPE",
+    "BIO_BINDER",
     "BMK_DURABILITY_INTRANSACTION",
-    "BMK_DURABILITY_XTRANSACTION",
     "BMK_DURABILITY_REORGANIZATION",
-    "DBPROPVAL_BO_NOLOG",
-    "DBPROPVAL_BO_NOINDEXUPDATE",
-    "DBPROPVAL_BO_REFINTEGRITY",
-    "DBPROPVAL_STGM_DIRECT",
-    "DBPROPVAL_STGM_TRANSACTED",
-    "DBPROPVAL_STGM_CONVERT",
-    "DBPROPVAL_STGM_FAILIFTHERE",
-    "DBPROPVAL_STGM_PRIORITY",
-    "DBPROPVAL_STGM_DELETEONRELEASE",
-    "DBPROPVAL_GB_COLLATE",
-    "DBPROPVAL_CS_UNINITIALIZED",
-    "DBPROPVAL_CS_INITIALIZED",
-    "DBPROPVAL_CS_COMMUNICATIONFAILURE",
-    "DBPROPVAL_RD_RESETALL",
-    "DBPROPVAL_OS_RESOURCEPOOLING",
-    "DBPROPVAL_OS_TXNENLISTMENT",
-    "DBPROPVAL_OS_CLIENTCURSOR",
-    "DBPROPVAL_OS_ENABLEALL",
-    "DBPROPVAL_BI_CROSSROWSET",
-    "MDPROPVAL_NL_SCHEMAONLY",
-    "DBPROPVAL_OS_DISABLEALL",
-    "DBPROPVAL_OO_ROWOBJECT",
-    "DBPROPVAL_OO_SCOPED",
-    "DBPROPVAL_OO_DIRECTBIND",
-    "DBPROPVAL_DST_DOCSOURCE",
-    "DBPROPVAL_GU_NOTSUPPORTED",
-    "DBPROPVAL_GU_SUFFIX",
-    "DB_BINDFLAGS_DELAYFETCHCOLUMNS",
-    "DB_BINDFLAGS_DELAYFETCHSTREAM",
-    "DB_BINDFLAGS_RECURSIVE",
-    "DB_BINDFLAGS_OUTPUT",
-    "DB_BINDFLAGS_COLLECTION",
-    "DB_BINDFLAGS_OPENIFEXISTS",
-    "DB_BINDFLAGS_OVERWRITE",
-    "DB_BINDFLAGS_ISSTRUCTUREDDOCUMENT",
-    "DBPROPVAL_ORS_TABLE",
-    "DBPROPVAL_ORS_INDEX",
-    "DBPROPVAL_ORS_INTEGRATEDINDEX",
-    "DBPROPVAL_TC_DDL_LOCK",
-    "DBPROPVAL_ORS_STOREDPROC",
-    "DBPROPVAL_IN_ALLOWNULL",
-    "DBPROPVAL_OO_SINGLETON",
-    "DBPROPVAL_OS_AGR_AFTERSESSION",
-    "DBPROPVAL_CM_TRANSACTIONS",
-    "DBPROPVAL_TS_CARDINALITY",
-    "DBPROPVAL_TS_HISTOGRAM",
-    "DBPROPVAL_ORS_HISTOGRAM",
-    "MDPROPVAL_VISUAL_MODE_DEFAULT",
-    "MDPROPVAL_VISUAL_MODE_VISUAL",
-    "MDPROPVAL_VISUAL_MODE_VISUAL_OFF",
-    "DB_IMP_LEVEL_ANONYMOUS",
-    "DB_IMP_LEVEL_IDENTIFY",
-    "DB_IMP_LEVEL_IMPERSONATE",
-    "DB_IMP_LEVEL_DELEGATE",
-    "DBPROMPT_PROMPT",
-    "DBPROMPT_COMPLETE",
-    "DBPROMPT_COMPLETEREQUIRED",
-    "DBPROMPT_NOPROMPT",
-    "DB_PROT_LEVEL_NONE",
-    "DB_PROT_LEVEL_CONNECT",
-    "DB_PROT_LEVEL_CALL",
-    "DB_PROT_LEVEL_PKT",
-    "DB_PROT_LEVEL_PKT_INTEGRITY",
-    "DB_PROT_LEVEL_PKT_PRIVACY",
-    "DB_MODE_READ",
-    "DB_MODE_WRITE",
-    "DB_MODE_READWRITE",
-    "DB_MODE_SHARE_DENY_READ",
-    "DB_MODE_SHARE_DENY_WRITE",
-    "DB_MODE_SHARE_EXCLUSIVE",
-    "DB_MODE_SHARE_DENY_NONE",
-    "DBCOMPUTEMODE_COMPUTED",
-    "DBCOMPUTEMODE_DYNAMIC",
-    "DBCOMPUTEMODE_NOTCOMPUTED",
-    "DBPROPVAL_DF_INITIALLY_DEFERRED",
-    "DBPROPVAL_DF_INITIALLY_IMMEDIATE",
-    "DBPROPVAL_DF_NOT_DEFERRABLE",
-    "DBPARAMTYPE_INPUT",
-    "DBPARAMTYPE_INPUTOUTPUT",
-    "DBPARAMTYPE_OUTPUT",
-    "DBPARAMTYPE_RETURNVALUE",
-    "DB_PT_UNKNOWN",
-    "DB_PT_PROCEDURE",
-    "DB_PT_FUNCTION",
-    "DB_REMOTE",
-    "DB_LOCAL_SHARED",
-    "DB_LOCAL_EXCLUSIVE",
-    "DB_COLLATION_ASC",
-    "DB_COLLATION_DESC",
-    "DB_UNSEARCHABLE",
-    "DB_LIKE_ONLY",
-    "DB_ALL_EXCEPT_LIKE",
-    "DB_SEARCHABLE",
-    "MDTREEOP_CHILDREN",
-    "MDTREEOP_SIBLINGS",
-    "MDTREEOP_PARENT",
-    "MDTREEOP_SELF",
-    "MDTREEOP_DESCENDANTS",
-    "MDTREEOP_ANCESTORS",
-    "MD_DIMTYPE_UNKNOWN",
-    "MD_DIMTYPE_TIME",
-    "MD_DIMTYPE_MEASURE",
-    "MD_DIMTYPE_OTHER",
-    "MDLEVEL_TYPE_UNKNOWN",
-    "MDLEVEL_TYPE_REGULAR",
-    "MDLEVEL_TYPE_ALL",
-    "MDLEVEL_TYPE_CALCULATED",
-    "MDLEVEL_TYPE_TIME",
-    "MDLEVEL_TYPE_RESERVED1",
-    "MDLEVEL_TYPE_TIME_YEARS",
-    "MDLEVEL_TYPE_TIME_HALF_YEAR",
-    "MDLEVEL_TYPE_TIME_QUARTERS",
-    "MDLEVEL_TYPE_TIME_MONTHS",
-    "MDLEVEL_TYPE_TIME_WEEKS",
-    "MDLEVEL_TYPE_TIME_DAYS",
-    "MDLEVEL_TYPE_TIME_HOURS",
-    "MDLEVEL_TYPE_TIME_MINUTES",
-    "MDLEVEL_TYPE_TIME_SECONDS",
-    "MDLEVEL_TYPE_TIME_UNDEFINED",
-    "MDMEASURE_AGGR_UNKNOWN",
-    "MDMEASURE_AGGR_SUM",
-    "MDMEASURE_AGGR_COUNT",
-    "MDMEASURE_AGGR_MIN",
-    "MDMEASURE_AGGR_MAX",
-    "MDMEASURE_AGGR_AVG",
-    "MDMEASURE_AGGR_VAR",
-    "MDMEASURE_AGGR_STD",
-    "MDMEASURE_AGGR_CALCULATED",
-    "MDPROP_MEMBER",
-    "MDPROP_CELL",
-    "MDMEMBER_TYPE_UNKNOWN",
-    "MDMEMBER_TYPE_REGULAR",
-    "MDMEMBER_TYPE_ALL",
-    "MDMEMBER_TYPE_MEASURE",
-    "MDMEMBER_TYPE_FORMULA",
-    "MDMEMBER_TYPE_RESERVE1",
-    "MDMEMBER_TYPE_RESERVE2",
-    "MDMEMBER_TYPE_RESERVE3",
-    "MDMEMBER_TYPE_RESERVE4",
-    "MDDISPINFO_DRILLED_DOWN",
-    "MDDISPINFO_PARENT_SAME_AS_PREV",
-    "DB_COUNTUNAVAILABLE",
-    "MDFF_BOLD",
-    "MDFF_ITALIC",
-    "MDFF_UNDERLINE",
-    "MDFF_STRIKEOUT",
-    "MDAXIS_COLUMNS",
-    "MDAXIS_ROWS",
-    "MDAXIS_PAGES",
-    "MDAXIS_SECTIONS",
-    "MDAXIS_CHAPTERS",
-    "MDAXIS_SLICERS",
+    "BMK_DURABILITY_ROWSET",
+    "BMK_DURABILITY_XTRANSACTION",
+    "BUCKETCATEGORIZE",
+    "BUCKET_EXPONENTIAL",
+    "BUCKET_LINEAR",
+    "CASE_REQUIREMENT",
+    "CASE_REQUIREMENT_ANY",
+    "CASE_REQUIREMENT_UPPER_IF_AQS",
+    "CATALOG_PAUSED_REASON_DELAYED_RECOVERY",
+    "CATALOG_PAUSED_REASON_EXTERNAL",
+    "CATALOG_PAUSED_REASON_HIGH_CPU",
+    "CATALOG_PAUSED_REASON_HIGH_IO",
+    "CATALOG_PAUSED_REASON_HIGH_NTF_RATE",
+    "CATALOG_PAUSED_REASON_LOW_BATTERY",
+    "CATALOG_PAUSED_REASON_LOW_DISK",
+    "CATALOG_PAUSED_REASON_LOW_MEMORY",
+    "CATALOG_PAUSED_REASON_NONE",
+    "CATALOG_PAUSED_REASON_UPGRADING",
+    "CATALOG_PAUSED_REASON_USER_ACTIVE",
+    "CATALOG_STATUS_FULL_CRAWL",
+    "CATALOG_STATUS_IDLE",
+    "CATALOG_STATUS_INCREMENTAL_CRAWL",
+    "CATALOG_STATUS_PAUSED",
+    "CATALOG_STATUS_PROCESSING_NOTIFICATIONS",
+    "CATALOG_STATUS_RECOVERING",
+    "CATALOG_STATUS_SHUTTING_DOWN",
+    "CATEGORIZATION",
+    "CATEGORIZATIONSET",
+    "CATEGORIZE_BUCKETS",
+    "CATEGORIZE_CLUSTER",
+    "CATEGORIZE_RANGE",
+    "CATEGORIZE_UNIQUE",
+    "CATEGORY_COLLATOR",
+    "CATEGORY_GATHERER",
+    "CATEGORY_INDEXER",
+    "CATEGORY_SEARCH",
+    "CDBBMKDISPIDS",
+    "CDBCOLDISPIDS",
+    "CDBSELFDISPIDS",
+    "CERT_E_NOT_FOUND_OR_NO_PERMISSSION",
+    "CHANNEL_AGENT_DYNAMIC_SCHEDULE",
+    "CHANNEL_AGENT_FLAGS",
+    "CHANNEL_AGENT_PRECACHE_ALL",
+    "CHANNEL_AGENT_PRECACHE_SCRNSAVER",
+    "CHANNEL_AGENT_PRECACHE_SOME",
+    "CI_E_CORRUPT_FWIDX",
+    "CI_E_DIACRITIC_SETTINGS_DIFFER",
+    "CI_E_INCONSISTENT_TRANSACTION",
+    "CI_E_INVALID_CATALOG_LIST_VERSION",
+    "CI_E_MULTIPLE_PROTECTED_USERS_UNSUPPORTED",
+    "CI_E_NO_AUXMETADATA",
+    "CI_E_NO_CATALOG_MANAGER",
+    "CI_E_NO_PROTECTED_USER",
+    "CI_E_PROTECTED_CATALOG_NON_INTERACTIVE_USER",
+    "CI_E_PROTECTED_CATALOG_NOT_AVAILABLE",
+    "CI_E_PROTECTED_CATALOG_SID_MISMATCH",
+    "CI_S_CATALOG_RESET",
+    "CI_S_CLIENT_REQUESTED_ABORT",
+    "CI_S_NEW_AUXMETADATA",
+    "CI_S_RETRY_DOCUMENT",
+    "CLSID_DataShapeProvider",
+    "CLSID_MSDASQL",
+    "CLSID_MSDASQL_ENUMERATOR",
+    "CLSID_MSPersist",
+    "CLSID_SQLOLEDB",
+    "CLSID_SQLOLEDB_ENUMERATOR",
+    "CLSID_SQLOLEDB_ERROR",
+    "CLUSIONREASON_DEFAULT",
+    "CLUSIONREASON_GROUPPOLICY",
+    "CLUSIONREASON_UNKNOWNSCOPE",
+    "CLUSIONREASON_USER",
+    "CLUSION_REASON",
+    "CMDLINE_E_ALREADY_INIT",
+    "CMDLINE_E_NOT_INIT",
+    "CMDLINE_E_NUM_PARAMS",
+    "CMDLINE_E_PARAM_SIZE",
+    "CMDLINE_E_PAREN",
+    "CMDLINE_E_UNEXPECTED",
+    "CM_E_CONNECTIONTIMEOUT",
+    "CM_E_DATASOURCENOTAVAILABLE",
+    "CM_E_INSUFFICIENTBUFFER",
+    "CM_E_INVALIDDATASOURCE",
+    "CM_E_NOQUERYCONNECTIONS",
+    "CM_E_REGISTRY",
+    "CM_E_SERVERNOTFOUND",
+    "CM_E_TIMEOUT",
+    "CM_E_TOOMANYDATASERVERS",
+    "CM_E_TOOMANYDATASOURCES",
+    "CM_S_NODATASERVERS",
+    "COLL_E_BADRESULT",
+    "COLL_E_BADSEQUENCE",
+    "COLL_E_BUFFERTOOSMALL",
+    "COLL_E_DUPLICATEDBID",
+    "COLL_E_INCOMPATIBLECOLUMNS",
+    "COLL_E_MAXCONNEXCEEDED",
+    "COLL_E_NODEFAULTCATALOG",
+    "COLL_E_NOMOREDATA",
+    "COLL_E_NOSORTCOLUMN",
+    "COLL_E_TOOMANYMERGECOLUMNS",
+    "COLUMNSET",
+    "CONDITION_CREATION_DEFAULT",
+    "CONDITION_CREATION_NONE",
+    "CONDITION_CREATION_OPTIONS",
+    "CONDITION_CREATION_SIMPLIFY",
+    "CONDITION_CREATION_USE_CONTENT_LOCALE",
+    "CONDITION_CREATION_VECTOR_AND",
+    "CONDITION_CREATION_VECTOR_LEAF",
+    "CONDITION_CREATION_VECTOR_OR",
+    "CONTENTRESTRICTION",
+    "CONTENT_SOURCE_E_CONTENT_CLASS_READ",
+    "CONTENT_SOURCE_E_CONTENT_SOURCE_COLUMN_TYPE",
+    "CONTENT_SOURCE_E_NULL_CONTENT_CLASS_BSTR",
+    "CONTENT_SOURCE_E_NULL_URI",
+    "CONTENT_SOURCE_E_OUT_OF_RANGE",
+    "CONTENT_SOURCE_E_PROPERTY_MAPPING_BAD_VECTOR_SIZE",
+    "CONTENT_SOURCE_E_PROPERTY_MAPPING_READ",
+    "CONTENT_SOURCE_E_UNEXPECTED_EXCEPTION",
+    "CONTENT_SOURCE_E_UNEXPECTED_NULL_POINTER",
+    "CQUERYDISPIDS",
+    "CQUERYMETADISPIDS",
+    "CQUERYPROPERTY",
+    "CREATESUBSCRIPTIONFLAGS",
+    "CREATESUBS_ADDTOFAVORITES",
+    "CREATESUBS_FROMFAVORITES",
+    "CREATESUBS_NOSAVE",
+    "CREATESUBS_NOUI",
+    "CREATESUBS_SOFTWAREUPDATE",
     "CRESTRICTIONS_DBSCHEMA_ASSERTIONS",
     "CRESTRICTIONS_DBSCHEMA_CATALOGS",
     "CRESTRICTIONS_DBSCHEMA_CHARACTER_SETS",
+    "CRESTRICTIONS_DBSCHEMA_CHECK_CONSTRAINTS",
+    "CRESTRICTIONS_DBSCHEMA_CHECK_CONSTRAINTS_BY_TABLE",
     "CRESTRICTIONS_DBSCHEMA_COLLATIONS",
     "CRESTRICTIONS_DBSCHEMA_COLUMNS",
-    "CRESTRICTIONS_DBSCHEMA_CHECK_CONSTRAINTS",
+    "CRESTRICTIONS_DBSCHEMA_COLUMN_DOMAIN_USAGE",
+    "CRESTRICTIONS_DBSCHEMA_COLUMN_PRIVILEGES",
     "CRESTRICTIONS_DBSCHEMA_CONSTRAINT_COLUMN_USAGE",
     "CRESTRICTIONS_DBSCHEMA_CONSTRAINT_TABLE_USAGE",
-    "CRESTRICTIONS_DBSCHEMA_KEY_COLUMN_USAGE",
-    "CRESTRICTIONS_DBSCHEMA_REFERENTIAL_CONSTRAINTS",
-    "CRESTRICTIONS_DBSCHEMA_TABLE_CONSTRAINTS",
-    "CRESTRICTIONS_DBSCHEMA_COLUMN_DOMAIN_USAGE",
+    "CRESTRICTIONS_DBSCHEMA_FOREIGN_KEYS",
     "CRESTRICTIONS_DBSCHEMA_INDEXES",
-    "CRESTRICTIONS_DBSCHEMA_OBJECT_ACTIONS",
+    "CRESTRICTIONS_DBSCHEMA_KEY_COLUMN_USAGE",
+    "CRESTRICTIONS_DBSCHEMA_LINKEDSERVERS",
     "CRESTRICTIONS_DBSCHEMA_OBJECTS",
-    "CRESTRICTIONS_DBSCHEMA_COLUMN_PRIVILEGES",
-    "CRESTRICTIONS_DBSCHEMA_TABLE_PRIVILEGES",
-    "CRESTRICTIONS_DBSCHEMA_USAGE_PRIVILEGES",
+    "CRESTRICTIONS_DBSCHEMA_OBJECT_ACTIONS",
+    "CRESTRICTIONS_DBSCHEMA_PRIMARY_KEYS",
     "CRESTRICTIONS_DBSCHEMA_PROCEDURES",
+    "CRESTRICTIONS_DBSCHEMA_PROCEDURE_COLUMNS",
+    "CRESTRICTIONS_DBSCHEMA_PROCEDURE_PARAMETERS",
+    "CRESTRICTIONS_DBSCHEMA_PROVIDER_TYPES",
+    "CRESTRICTIONS_DBSCHEMA_REFERENTIAL_CONSTRAINTS",
     "CRESTRICTIONS_DBSCHEMA_SCHEMATA",
     "CRESTRICTIONS_DBSCHEMA_SQL_LANGUAGES",
     "CRESTRICTIONS_DBSCHEMA_STATISTICS",
     "CRESTRICTIONS_DBSCHEMA_TABLES",
+    "CRESTRICTIONS_DBSCHEMA_TABLES_INFO",
+    "CRESTRICTIONS_DBSCHEMA_TABLE_CONSTRAINTS",
+    "CRESTRICTIONS_DBSCHEMA_TABLE_PRIVILEGES",
+    "CRESTRICTIONS_DBSCHEMA_TABLE_STATISTICS",
     "CRESTRICTIONS_DBSCHEMA_TRANSLATIONS",
-    "CRESTRICTIONS_DBSCHEMA_PROVIDER_TYPES",
+    "CRESTRICTIONS_DBSCHEMA_TRUSTEE",
+    "CRESTRICTIONS_DBSCHEMA_USAGE_PRIVILEGES",
     "CRESTRICTIONS_DBSCHEMA_VIEWS",
     "CRESTRICTIONS_DBSCHEMA_VIEW_COLUMN_USAGE",
     "CRESTRICTIONS_DBSCHEMA_VIEW_TABLE_USAGE",
-    "CRESTRICTIONS_DBSCHEMA_PROCEDURE_PARAMETERS",
-    "CRESTRICTIONS_DBSCHEMA_FOREIGN_KEYS",
-    "CRESTRICTIONS_DBSCHEMA_PRIMARY_KEYS",
-    "CRESTRICTIONS_DBSCHEMA_PROCEDURE_COLUMNS",
-    "CRESTRICTIONS_DBSCHEMA_TABLES_INFO",
+    "CRESTRICTIONS_MDSCHEMA_ACTIONS",
+    "CRESTRICTIONS_MDSCHEMA_COMMANDS",
     "CRESTRICTIONS_MDSCHEMA_CUBES",
     "CRESTRICTIONS_MDSCHEMA_DIMENSIONS",
+    "CRESTRICTIONS_MDSCHEMA_FUNCTIONS",
     "CRESTRICTIONS_MDSCHEMA_HIERARCHIES",
     "CRESTRICTIONS_MDSCHEMA_LEVELS",
     "CRESTRICTIONS_MDSCHEMA_MEASURES",
-    "CRESTRICTIONS_MDSCHEMA_PROPERTIES",
     "CRESTRICTIONS_MDSCHEMA_MEMBERS",
-    "CRESTRICTIONS_DBSCHEMA_TRUSTEE",
-    "CRESTRICTIONS_DBSCHEMA_TABLE_STATISTICS",
-    "CRESTRICTIONS_DBSCHEMA_CHECK_CONSTRAINTS_BY_TABLE",
-    "CRESTRICTIONS_MDSCHEMA_FUNCTIONS",
-    "CRESTRICTIONS_MDSCHEMA_ACTIONS",
-    "CRESTRICTIONS_MDSCHEMA_COMMANDS",
+    "CRESTRICTIONS_MDSCHEMA_PROPERTIES",
     "CRESTRICTIONS_MDSCHEMA_SETS",
-    "IDENTIFIER_SDK_MASK",
-    "IDENTIFIER_SDK_ERROR",
-    "DBPROP_MSDAORA_DETERMINEKEYCOLUMNS",
+    "CSTORAGEPROPERTY",
+    "CSearchLanguageSupport",
+    "CSearchManager",
+    "CSearchRoot",
+    "CSearchScopeRule",
+    "CatalogPausedReason",
+    "CatalogStatus",
+    "CompoundCondition",
+    "ConditionFactory",
+    "DATE_STRUCT",
+    "DBACCESSORFLAGSENUM",
+    "DBACCESSOR_INHERITED",
+    "DBACCESSOR_INVALID",
+    "DBACCESSOR_OPTIMIZED",
+    "DBACCESSOR_PARAMETERDATA",
+    "DBACCESSOR_PASSBYREF",
+    "DBACCESSOR_ROWDATA",
+    "DBASYNCHOPENUM",
+    "DBASYNCHOP_OPEN",
+    "DBASYNCHPHASEENUM",
+    "DBASYNCHPHASE_CANCELED",
+    "DBASYNCHPHASE_COMPLETE",
+    "DBASYNCHPHASE_INITIALIZATION",
+    "DBASYNCHPHASE_POPULATION",
+    "DBBINDEXT",
+    "DBBINDFLAGENUM",
+    "DBBINDFLAG_HTML",
+    "DBBINDING",
+    "DBBINDSTATUSENUM",
+    "DBBINDSTATUS_BADBINDINFO",
+    "DBBINDSTATUS_BADORDINAL",
+    "DBBINDSTATUS_BADSTORAGEFLAGS",
+    "DBBINDSTATUS_MULTIPLESTORAGE",
+    "DBBINDSTATUS_NOINTERFACE",
+    "DBBINDSTATUS_OK",
+    "DBBINDSTATUS_UNSUPPORTEDCONVERSION",
+    "DBBINDURLFLAGENUM",
+    "DBBINDURLFLAG_ASYNCHRONOUS",
+    "DBBINDURLFLAG_COLLECTION",
+    "DBBINDURLFLAG_DELAYFETCHCOLUMNS",
+    "DBBINDURLFLAG_DELAYFETCHSTREAM",
+    "DBBINDURLFLAG_ISSTRUCTUREDDOCUMENT",
+    "DBBINDURLFLAG_OPENIFEXISTS",
+    "DBBINDURLFLAG_OUTPUT",
+    "DBBINDURLFLAG_OVERWRITE",
+    "DBBINDURLFLAG_READ",
+    "DBBINDURLFLAG_READWRITE",
+    "DBBINDURLFLAG_RECURSIVE",
+    "DBBINDURLFLAG_SHARE_DENY_NONE",
+    "DBBINDURLFLAG_SHARE_DENY_READ",
+    "DBBINDURLFLAG_SHARE_DENY_WRITE",
+    "DBBINDURLFLAG_SHARE_EXCLUSIVE",
+    "DBBINDURLFLAG_WAITFORINIT",
+    "DBBINDURLFLAG_WRITE",
+    "DBBINDURLSTATUSENUM",
+    "DBBINDURLSTATUS_S_DENYNOTSUPPORTED",
+    "DBBINDURLSTATUS_S_DENYTYPENOTSUPPORTED",
+    "DBBINDURLSTATUS_S_OK",
+    "DBBINDURLSTATUS_S_REDIRECTED",
+    "DBBMK_FIRST",
+    "DBBMK_INVALID",
+    "DBBMK_LAST",
+    "DBBOOKMARK",
+    "DBCOLUMNACCESS",
+    "DBCOLUMNDESC",
+    "DBCOLUMNDESCFLAGSENUM",
+    "DBCOLUMNDESCFLAGS_CLSID",
+    "DBCOLUMNDESCFLAGS_COLSIZE",
+    "DBCOLUMNDESCFLAGS_DBCID",
+    "DBCOLUMNDESCFLAGS_ITYPEINFO",
+    "DBCOLUMNDESCFLAGS_PRECISION",
+    "DBCOLUMNDESCFLAGS_PROPERTIES",
+    "DBCOLUMNDESCFLAGS_SCALE",
+    "DBCOLUMNDESCFLAGS_TYPENAME",
+    "DBCOLUMNDESCFLAGS_WTYPE",
+    "DBCOLUMNFLAGS15ENUM",
+    "DBCOLUMNFLAGSENUM",
+    "DBCOLUMNFLAGSENUM20",
+    "DBCOLUMNFLAGSENUM21",
+    "DBCOLUMNFLAGSENUM26",
+    "DBCOLUMNFLAGS_CACHEDEFERRED",
+    "DBCOLUMNFLAGS_ISBOOKMARK",
+    "DBCOLUMNFLAGS_ISCHAPTER",
+    "DBCOLUMNFLAGS_ISCOLLECTION",
+    "DBCOLUMNFLAGS_ISDEFAULTSTREAM",
+    "DBCOLUMNFLAGS_ISFIXEDLENGTH",
+    "DBCOLUMNFLAGS_ISLONG",
+    "DBCOLUMNFLAGS_ISNULLABLE",
+    "DBCOLUMNFLAGS_ISROW",
+    "DBCOLUMNFLAGS_ISROWID",
+    "DBCOLUMNFLAGS_ISROWSET",
+    "DBCOLUMNFLAGS_ISROWURL",
+    "DBCOLUMNFLAGS_ISROWVER",
+    "DBCOLUMNFLAGS_ISSTREAM",
+    "DBCOLUMNFLAGS_MAYBENULL",
+    "DBCOLUMNFLAGS_MAYDEFER",
+    "DBCOLUMNFLAGS_RESERVED",
+    "DBCOLUMNFLAGS_ROWSPECIFICCOLUMN",
+    "DBCOLUMNFLAGS_SCALEISNEGATIVE",
+    "DBCOLUMNFLAGS_WRITE",
+    "DBCOLUMNFLAGS_WRITEUNKNOWN",
+    "DBCOLUMNINFO",
+    "DBCOMMANDPERSISTFLAGENUM",
+    "DBCOMMANDPERSISTFLAGENUM21",
+    "DBCOMMANDPERSISTFLAG_DEFAULT",
+    "DBCOMMANDPERSISTFLAG_NOSAVE",
+    "DBCOMMANDPERSISTFLAG_PERSISTPROCEDURE",
+    "DBCOMMANDPERSISTFLAG_PERSISTVIEW",
+    "DBCOMPAREENUM",
+    "DBCOMPAREOPSENUM",
+    "DBCOMPAREOPSENUM20",
+    "DBCOMPAREOPS_BEGINSWITH",
+    "DBCOMPAREOPS_CASEINSENSITIVE",
+    "DBCOMPAREOPS_CASESENSITIVE",
+    "DBCOMPAREOPS_CONTAINS",
+    "DBCOMPAREOPS_EQ",
+    "DBCOMPAREOPS_GE",
+    "DBCOMPAREOPS_GT",
+    "DBCOMPAREOPS_IGNORE",
+    "DBCOMPAREOPS_LE",
+    "DBCOMPAREOPS_LT",
+    "DBCOMPAREOPS_NE",
+    "DBCOMPAREOPS_NOTBEGINSWITH",
+    "DBCOMPAREOPS_NOTCONTAINS",
+    "DBCOMPARE_EQ",
+    "DBCOMPARE_GT",
+    "DBCOMPARE_LT",
+    "DBCOMPARE_NE",
+    "DBCOMPARE_NOTCOMPARABLE",
+    "DBCOMPUTEMODE_COMPUTED",
+    "DBCOMPUTEMODE_DYNAMIC",
+    "DBCOMPUTEMODE_NOTCOMPUTED",
+    "DBCONSTRAINTDESC",
+    "DBCONSTRAINTTYPEENUM",
+    "DBCONSTRAINTTYPE_CHECK",
+    "DBCONSTRAINTTYPE_FOREIGNKEY",
+    "DBCONSTRAINTTYPE_PRIMARYKEY",
+    "DBCONSTRAINTTYPE_UNIQUE",
+    "DBCONVERTFLAGSENUM",
+    "DBCONVERTFLAGSENUM20",
+    "DBCONVERTFLAGS_COLUMN",
+    "DBCONVERTFLAGS_FROMVARIANT",
+    "DBCONVERTFLAGS_ISFIXEDLENGTH",
+    "DBCONVERTFLAGS_ISLONG",
+    "DBCONVERTFLAGS_PARAMETER",
+    "DBCOPYFLAGSENUM",
+    "DBCOPY_ALLOW_EMULATION",
+    "DBCOPY_ASYNC",
+    "DBCOPY_ATOMIC",
+    "DBCOPY_NON_RECURSIVE",
+    "DBCOPY_REPLACE_EXISTING",
+    "DBCOST",
+    "DBCOSTUNITENUM",
+    "DBDATACONVERTENUM",
+    "DBDATACONVERT_DECIMALSCALE",
+    "DBDATACONVERT_DEFAULT",
+    "DBDATACONVERT_DSTISFIXEDLENGTH",
+    "DBDATACONVERT_LENGTHFROMNTS",
+    "DBDATACONVERT_SETDATABEHAVIOR",
+    "DBDATE",
+    "DBDATETIM4",
+    "DBDATETIME",
+    "DBDEFERRABILITYENUM",
+    "DBDEFERRABILITY_DEFERRABLE",
+    "DBDEFERRABILITY_DEFERRED",
+    "DBDELETEFLAGSENUM",
+    "DBDELETE_ASYNC",
+    "DBDELETE_ATOMIC",
+    "DBEVENTPHASEENUM",
+    "DBEVENTPHASE_ABOUTTODO",
+    "DBEVENTPHASE_DIDEVENT",
+    "DBEVENTPHASE_FAILEDTODO",
+    "DBEVENTPHASE_OKTODO",
+    "DBEVENTPHASE_SYNCHAFTER",
+    "DBEXECLIMITSENUM",
+    "DBEXECLIMITS_ABORT",
+    "DBEXECLIMITS_STOP",
+    "DBEXECLIMITS_SUSPEND",
+    "DBFAILUREINFO",
+    "DBGUID_MSSQLXML",
+    "DBGUID_XPATH",
+    "DBIMPLICITSESSION",
+    "DBINDEXCOLUMNDESC",
+    "DBINDEX_COL_ORDERENUM",
+    "DBINDEX_COL_ORDER_ASC",
+    "DBINDEX_COL_ORDER_DESC",
+    "DBLITERALENUM",
+    "DBLITERALENUM20",
+    "DBLITERALENUM21",
+    "DBLITERALINFO",
+    "DBLITERAL_BINARY_LITERAL",
+    "DBLITERAL_CATALOG_NAME",
+    "DBLITERAL_CATALOG_SEPARATOR",
+    "DBLITERAL_CHAR_LITERAL",
+    "DBLITERAL_COLUMN_ALIAS",
+    "DBLITERAL_COLUMN_NAME",
+    "DBLITERAL_CORRELATION_NAME",
+    "DBLITERAL_CUBE_NAME",
+    "DBLITERAL_CURSOR_NAME",
+    "DBLITERAL_DIMENSION_NAME",
+    "DBLITERAL_ESCAPE_PERCENT",
+    "DBLITERAL_ESCAPE_PERCENT_SUFFIX",
+    "DBLITERAL_ESCAPE_UNDERSCORE",
+    "DBLITERAL_ESCAPE_UNDERSCORE_SUFFIX",
+    "DBLITERAL_HIERARCHY_NAME",
+    "DBLITERAL_INDEX_NAME",
+    "DBLITERAL_INVALID",
+    "DBLITERAL_LEVEL_NAME",
+    "DBLITERAL_LIKE_PERCENT",
+    "DBLITERAL_LIKE_UNDERSCORE",
+    "DBLITERAL_MEMBER_NAME",
+    "DBLITERAL_PROCEDURE_NAME",
+    "DBLITERAL_PROPERTY_NAME",
+    "DBLITERAL_QUOTE",
+    "DBLITERAL_QUOTE_SUFFIX",
+    "DBLITERAL_SCHEMA_NAME",
+    "DBLITERAL_SCHEMA_SEPARATOR",
+    "DBLITERAL_TABLE_NAME",
+    "DBLITERAL_TEXT_COMMAND",
+    "DBLITERAL_USER_NAME",
+    "DBLITERAL_VIEW_NAME",
+    "DBMATCHTYPEENUM",
+    "DBMATCHTYPE_FULL",
+    "DBMATCHTYPE_NONE",
+    "DBMATCHTYPE_PARTIAL",
+    "DBMAXCHAR",
+    "DBMEMOWNERENUM",
+    "DBMEMOWNER_CLIENTOWNED",
+    "DBMEMOWNER_PROVIDEROWNED",
+    "DBMONEY",
+    "DBMOVEFLAGSENUM",
+    "DBMOVE_ALLOW_EMULATION",
+    "DBMOVE_ASYNC",
+    "DBMOVE_ATOMIC",
+    "DBMOVE_DONT_UPDATE_LINKS",
+    "DBMOVE_REPLACE_EXISTING",
+    "DBOBJECT",
+    "DBPARAMBINDINFO",
+    "DBPARAMFLAGSENUM",
+    "DBPARAMFLAGSENUM20",
+    "DBPARAMFLAGS_ISINPUT",
+    "DBPARAMFLAGS_ISLONG",
+    "DBPARAMFLAGS_ISNULLABLE",
+    "DBPARAMFLAGS_ISOUTPUT",
+    "DBPARAMFLAGS_ISSIGNED",
+    "DBPARAMFLAGS_SCALEISNEGATIVE",
+    "DBPARAMINFO",
+    "DBPARAMIOENUM",
+    "DBPARAMIO_INPUT",
+    "DBPARAMIO_NOTPARAM",
+    "DBPARAMIO_OUTPUT",
+    "DBPARAMS",
+    "DBPARAMTYPE_INPUT",
+    "DBPARAMTYPE_INPUTOUTPUT",
+    "DBPARAMTYPE_OUTPUT",
+    "DBPARAMTYPE_RETURNVALUE",
+    "DBPARTENUM",
+    "DBPART_INVALID",
+    "DBPART_LENGTH",
+    "DBPART_STATUS",
+    "DBPART_VALUE",
+    "DBPENDINGSTATUSENUM",
+    "DBPENDINGSTATUS_CHANGED",
+    "DBPENDINGSTATUS_DELETED",
+    "DBPENDINGSTATUS_INVALIDROW",
+    "DBPENDINGSTATUS_NEW",
+    "DBPENDINGSTATUS_UNCHANGED",
+    "DBPOSITIONFLAGSENUM",
+    "DBPOSITION_BOF",
+    "DBPOSITION_EOF",
+    "DBPOSITION_NOROW",
+    "DBPOSITION_OK",
+    "DBPROMPTOPTIONSENUM",
+    "DBPROMPTOPTIONS_BROWSEONLY",
+    "DBPROMPTOPTIONS_DISABLESAVEPASSWORD",
+    "DBPROMPTOPTIONS_DISABLE_PROVIDER_SELECTION",
+    "DBPROMPTOPTIONS_NONE",
+    "DBPROMPTOPTIONS_PROPERTYSHEET",
+    "DBPROMPTOPTIONS_WIZARDSHEET",
+    "DBPROMPT_COMPLETE",
+    "DBPROMPT_COMPLETEREQUIRED",
+    "DBPROMPT_NOPROMPT",
+    "DBPROMPT_PROMPT",
+    "DBPROP",
+    "DBPROPENUM",
+    "DBPROPENUM15",
+    "DBPROPENUM20",
+    "DBPROPENUM21",
+    "DBPROPENUM25",
+    "DBPROPENUM25_DEPRECATED",
+    "DBPROPENUM26",
+    "DBPROPFLAGSENUM",
+    "DBPROPFLAGSENUM21",
+    "DBPROPFLAGSENUM25",
+    "DBPROPFLAGSENUM26",
+    "DBPROPFLAGS_COLUMN",
+    "DBPROPFLAGS_COLUMNOK",
+    "DBPROPFLAGS_DATASOURCE",
+    "DBPROPFLAGS_DATASOURCECREATE",
+    "DBPROPFLAGS_DATASOURCEINFO",
+    "DBPROPFLAGS_DBINIT",
+    "DBPROPFLAGS_INDEX",
+    "DBPROPFLAGS_NOTSUPPORTED",
+    "DBPROPFLAGS_PERSIST",
+    "DBPROPFLAGS_READ",
+    "DBPROPFLAGS_REQUIRED",
+    "DBPROPFLAGS_ROWSET",
+    "DBPROPFLAGS_SESSION",
+    "DBPROPFLAGS_STREAM",
+    "DBPROPFLAGS_TABLE",
+    "DBPROPFLAGS_TRUSTEE",
+    "DBPROPFLAGS_VIEW",
+    "DBPROPFLAGS_WRITE",
+    "DBPROPIDSET",
+    "DBPROPINFO",
+    "DBPROPINFOSET",
+    "DBPROPOPTIONSENUM",
+    "DBPROPOPTIONS_OPTIONAL",
+    "DBPROPOPTIONS_REQUIRED",
+    "DBPROPOPTIONS_SETIFCHEAP",
+    "DBPROPSET",
+    "DBPROPSET_MSDAORA8_ROWSET",
+    "DBPROPSET_MSDAORA_ROWSET",
+    "DBPROPSET_MSDSDBINIT",
+    "DBPROPSET_MSDSSESSION",
+    "DBPROPSET_PERSIST",
+    "DBPROPSET_PROVIDERCONNATTR",
+    "DBPROPSET_PROVIDERDATASOURCEINFO",
+    "DBPROPSET_PROVIDERDBINIT",
+    "DBPROPSET_PROVIDERROWSET",
+    "DBPROPSET_PROVIDERSTMTATTR",
+    "DBPROPSET_SQLSERVERCOLUMN",
+    "DBPROPSET_SQLSERVERDATASOURCE",
+    "DBPROPSET_SQLSERVERDATASOURCEINFO",
+    "DBPROPSET_SQLSERVERDBINIT",
+    "DBPROPSET_SQLSERVERROWSET",
+    "DBPROPSET_SQLSERVERSESSION",
+    "DBPROPSET_SQLSERVERSTREAM",
+    "DBPROPSTATUSENUM",
+    "DBPROPSTATUSENUM21",
+    "DBPROPSTATUS_BADCOLUMN",
+    "DBPROPSTATUS_BADOPTION",
+    "DBPROPSTATUS_BADVALUE",
+    "DBPROPSTATUS_CONFLICTING",
+    "DBPROPSTATUS_NOTALLSETTABLE",
+    "DBPROPSTATUS_NOTAVAILABLE",
+    "DBPROPSTATUS_NOTSET",
+    "DBPROPSTATUS_NOTSETTABLE",
+    "DBPROPSTATUS_NOTSUPPORTED",
+    "DBPROPSTATUS_OK",
+    "DBPROPVAL_AO_RANDOM",
+    "DBPROPVAL_AO_SEQUENTIAL",
+    "DBPROPVAL_AO_SEQUENTIALSTORAGEOBJECTS",
+    "DBPROPVAL_ASYNCH_BACKGROUNDPOPULATION",
+    "DBPROPVAL_ASYNCH_INITIALIZE",
+    "DBPROPVAL_ASYNCH_POPULATEONDEMAND",
+    "DBPROPVAL_ASYNCH_PREPOPULATE",
+    "DBPROPVAL_ASYNCH_RANDOMPOPULATION",
+    "DBPROPVAL_ASYNCH_SEQUENTIALPOPULATION",
+    "DBPROPVAL_BD_INTRANSACTION",
+    "DBPROPVAL_BD_REORGANIZATION",
+    "DBPROPVAL_BD_ROWSET",
+    "DBPROPVAL_BD_XTRANSACTION",
+    "DBPROPVAL_BI_CROSSROWSET",
+    "DBPROPVAL_BMK_KEY",
+    "DBPROPVAL_BMK_NUMERIC",
+    "DBPROPVAL_BO_NOINDEXUPDATE",
+    "DBPROPVAL_BO_NOLOG",
+    "DBPROPVAL_BO_REFINTEGRITY",
+    "DBPROPVAL_CB_DELETE",
+    "DBPROPVAL_CB_NON_NULL",
+    "DBPROPVAL_CB_NULL",
+    "DBPROPVAL_CB_PRESERVE",
+    "DBPROPVAL_CD_NOTNULL",
+    "DBPROPVAL_CL_END",
+    "DBPROPVAL_CL_START",
+    "DBPROPVAL_CM_TRANSACTIONS",
+    "DBPROPVAL_CO_BEGINSWITH",
+    "DBPROPVAL_CO_CASEINSENSITIVE",
+    "DBPROPVAL_CO_CASESENSITIVE",
+    "DBPROPVAL_CO_CONTAINS",
+    "DBPROPVAL_CO_EQUALITY",
+    "DBPROPVAL_CO_STRING",
+    "DBPROPVAL_CS_COMMUNICATIONFAILURE",
+    "DBPROPVAL_CS_INITIALIZED",
+    "DBPROPVAL_CS_UNINITIALIZED",
+    "DBPROPVAL_CU_DML_STATEMENTS",
+    "DBPROPVAL_CU_INDEX_DEFINITION",
+    "DBPROPVAL_CU_PRIVILEGE_DEFINITION",
+    "DBPROPVAL_CU_TABLE_DEFINITION",
+    "DBPROPVAL_DF_INITIALLY_DEFERRED",
+    "DBPROPVAL_DF_INITIALLY_IMMEDIATE",
+    "DBPROPVAL_DF_NOT_DEFERRABLE",
+    "DBPROPVAL_DST_DOCSOURCE",
+    "DBPROPVAL_DST_MDP",
+    "DBPROPVAL_DST_TDP",
+    "DBPROPVAL_DST_TDPANDMDP",
+    "DBPROPVAL_FU_CATALOG",
+    "DBPROPVAL_FU_COLUMN",
+    "DBPROPVAL_FU_NOT_SUPPORTED",
+    "DBPROPVAL_FU_TABLE",
+    "DBPROPVAL_GB_COLLATE",
+    "DBPROPVAL_GB_CONTAINS_SELECT",
+    "DBPROPVAL_GB_EQUALS_SELECT",
+    "DBPROPVAL_GB_NOT_SUPPORTED",
+    "DBPROPVAL_GB_NO_RELATION",
+    "DBPROPVAL_GU_NOTSUPPORTED",
+    "DBPROPVAL_GU_SUFFIX",
+    "DBPROPVAL_HT_DIFFERENT_CATALOGS",
+    "DBPROPVAL_HT_DIFFERENT_PROVIDERS",
+    "DBPROPVAL_IC_LOWER",
+    "DBPROPVAL_IC_MIXED",
+    "DBPROPVAL_IC_SENSITIVE",
+    "DBPROPVAL_IC_UPPER",
+    "DBPROPVAL_IN_ALLOWNULL",
+    "DBPROPVAL_IN_DISALLOWNULL",
+    "DBPROPVAL_IN_IGNOREANYNULL",
+    "DBPROPVAL_IN_IGNORENULL",
+    "DBPROPVAL_IT_BTREE",
+    "DBPROPVAL_IT_CONTENT",
+    "DBPROPVAL_IT_HASH",
+    "DBPROPVAL_IT_OTHER",
+    "DBPROPVAL_LM_INTENT",
+    "DBPROPVAL_LM_NONE",
+    "DBPROPVAL_LM_READ",
+    "DBPROPVAL_LM_RITE",
+    "DBPROPVAL_LM_SINGLEROW",
+    "DBPROPVAL_MR_CONCURRENT",
+    "DBPROPVAL_MR_NOTSUPPORTED",
+    "DBPROPVAL_MR_SUPPORTED",
+    "DBPROPVAL_NC_END",
+    "DBPROPVAL_NC_HIGH",
+    "DBPROPVAL_NC_LOW",
+    "DBPROPVAL_NC_START",
+    "DBPROPVAL_NP_ABOUTTODO",
+    "DBPROPVAL_NP_DIDEVENT",
+    "DBPROPVAL_NP_FAILEDTODO",
+    "DBPROPVAL_NP_OKTODO",
+    "DBPROPVAL_NP_SYNCHAFTER",
+    "DBPROPVAL_NT_MULTIPLEROWS",
+    "DBPROPVAL_NT_SINGLEROW",
+    "DBPROPVAL_OA_ATEXECUTE",
+    "DBPROPVAL_OA_ATROWRELEASE",
+    "DBPROPVAL_OA_NOTSUPPORTED",
+    "DBPROPVAL_OO_BLOB",
+    "DBPROPVAL_OO_DIRECTBIND",
+    "DBPROPVAL_OO_IPERSIST",
+    "DBPROPVAL_OO_ROWOBJECT",
+    "DBPROPVAL_OO_SCOPED",
+    "DBPROPVAL_OO_SINGLETON",
+    "DBPROPVAL_OP_EQUAL",
+    "DBPROPVAL_OP_RELATIVE",
+    "DBPROPVAL_OP_STRING",
+    "DBPROPVAL_ORS_HISTOGRAM",
+    "DBPROPVAL_ORS_INDEX",
+    "DBPROPVAL_ORS_INTEGRATEDINDEX",
+    "DBPROPVAL_ORS_STOREDPROC",
+    "DBPROPVAL_ORS_TABLE",
+    "DBPROPVAL_OS_AGR_AFTERSESSION",
+    "DBPROPVAL_OS_CLIENTCURSOR",
+    "DBPROPVAL_OS_DISABLEALL",
+    "DBPROPVAL_OS_ENABLEALL",
+    "DBPROPVAL_OS_RESOURCEPOOLING",
+    "DBPROPVAL_OS_TXNENLISTMENT",
+    "DBPROPVAL_PERSIST_ADTG",
+    "DBPROPVAL_PERSIST_XML",
+    "DBPROPVAL_PT_GUID",
+    "DBPROPVAL_PT_GUID_NAME",
+    "DBPROPVAL_PT_GUID_PROPID",
+    "DBPROPVAL_PT_NAME",
+    "DBPROPVAL_PT_PGUID_NAME",
+    "DBPROPVAL_PT_PGUID_PROPID",
+    "DBPROPVAL_PT_PROPID",
+    "DBPROPVAL_RD_RESETALL",
+    "DBPROPVAL_RT_APTMTTHREAD",
+    "DBPROPVAL_RT_FREETHREAD",
+    "DBPROPVAL_RT_SINGLETHREAD",
+    "DBPROPVAL_SQL_ANSI89_IEF",
+    "DBPROPVAL_SQL_ANSI92_ENTRY",
+    "DBPROPVAL_SQL_ANSI92_FULL",
+    "DBPROPVAL_SQL_ANSI92_INTERMEDIATE",
+    "DBPROPVAL_SQL_ESCAPECLAUSES",
+    "DBPROPVAL_SQL_FIPS_TRANSITIONAL",
+    "DBPROPVAL_SQL_NONE",
+    "DBPROPVAL_SQL_ODBC_CORE",
+    "DBPROPVAL_SQL_ODBC_EXTENDED",
+    "DBPROPVAL_SQL_ODBC_MINIMUM",
+    "DBPROPVAL_SQL_SUBMINIMUM",
+    "DBPROPVAL_SQ_COMPARISON",
+    "DBPROPVAL_SQ_CORRELATEDSUBQUERIES",
+    "DBPROPVAL_SQ_EXISTS",
+    "DBPROPVAL_SQ_IN",
+    "DBPROPVAL_SQ_QUANTIFIED",
+    "DBPROPVAL_SQ_TABLE",
+    "DBPROPVAL_SS_ILOCKBYTES",
+    "DBPROPVAL_SS_ISEQUENTIALSTREAM",
+    "DBPROPVAL_SS_ISTORAGE",
+    "DBPROPVAL_SS_ISTREAM",
+    "DBPROPVAL_STGM_CONVERT",
+    "DBPROPVAL_STGM_DELETEONRELEASE",
+    "DBPROPVAL_STGM_DIRECT",
+    "DBPROPVAL_STGM_FAILIFTHERE",
+    "DBPROPVAL_STGM_PRIORITY",
+    "DBPROPVAL_STGM_TRANSACTED",
+    "DBPROPVAL_SU_DML_STATEMENTS",
+    "DBPROPVAL_SU_INDEX_DEFINITION",
+    "DBPROPVAL_SU_PRIVILEGE_DEFINITION",
+    "DBPROPVAL_SU_TABLE_DEFINITION",
+    "DBPROPVAL_TC_ALL",
+    "DBPROPVAL_TC_DDL_COMMIT",
+    "DBPROPVAL_TC_DDL_IGNORE",
+    "DBPROPVAL_TC_DDL_LOCK",
+    "DBPROPVAL_TC_DML",
+    "DBPROPVAL_TC_NONE",
+    "DBPROPVAL_TI_BROWSE",
+    "DBPROPVAL_TI_CHAOS",
+    "DBPROPVAL_TI_CURSORSTABILITY",
+    "DBPROPVAL_TI_ISOLATED",
+    "DBPROPVAL_TI_READCOMMITTED",
+    "DBPROPVAL_TI_READUNCOMMITTED",
+    "DBPROPVAL_TI_REPEATABLEREAD",
+    "DBPROPVAL_TI_SERIALIZABLE",
+    "DBPROPVAL_TR_ABORT",
+    "DBPROPVAL_TR_ABORT_DC",
+    "DBPROPVAL_TR_ABORT_NO",
+    "DBPROPVAL_TR_BOTH",
+    "DBPROPVAL_TR_COMMIT",
+    "DBPROPVAL_TR_COMMIT_DC",
+    "DBPROPVAL_TR_COMMIT_NO",
+    "DBPROPVAL_TR_DONTCARE",
+    "DBPROPVAL_TR_NONE",
+    "DBPROPVAL_TR_OPTIMISTIC",
+    "DBPROPVAL_TS_CARDINALITY",
+    "DBPROPVAL_TS_HISTOGRAM",
+    "DBPROPVAL_UP_CHANGE",
+    "DBPROPVAL_UP_DELETE",
+    "DBPROPVAL_UP_INSERT",
+    "DBPROP_ABORTPRESERVE",
+    "DBPROP_ACCESSORDER",
+    "DBPROP_ACTIVESESSIONS",
+    "DBPROP_ALTERCOLUMN",
+    "DBPROP_APPENDONLY",
+    "DBPROP_ASYNCTXNABORT",
+    "DBPROP_ASYNCTXNCOMMIT",
+    "DBPROP_AUTH_CACHE_AUTHINFO",
+    "DBPROP_AUTH_ENCRYPT_PASSWORD",
+    "DBPROP_AUTH_INTEGRATED",
+    "DBPROP_AUTH_MASK_PASSWORD",
+    "DBPROP_AUTH_PASSWORD",
+    "DBPROP_AUTH_PERSIST_ENCRYPTED",
+    "DBPROP_AUTH_PERSIST_SENSITIVE_AUTHINFO",
+    "DBPROP_AUTH_USERID",
+    "DBPROP_BLOCKINGSTORAGEOBJECTS",
+    "DBPROP_BOOKMARKINFO",
+    "DBPROP_BOOKMARKS",
+    "DBPROP_BOOKMARKSKIPPED",
+    "DBPROP_BOOKMARKTYPE",
+    "DBPROP_BYREFACCESSORS",
+    "DBPROP_CACHEDEFERRED",
+    "DBPROP_CANFETCHBACKWARDS",
+    "DBPROP_CANHOLDROWS",
+    "DBPROP_CANSCROLLBACKWARDS",
+    "DBPROP_CATALOGLOCATION",
+    "DBPROP_CATALOGTERM",
+    "DBPROP_CATALOGUSAGE",
+    "DBPROP_CHANGEINSERTEDROWS",
+    "DBPROP_CLIENTCURSOR",
+    "DBPROP_COLUMNDEFINITION",
+    "DBPROP_COLUMNLCID",
+    "DBPROP_COLUMNRESTRICT",
+    "DBPROP_COL_AUTOINCREMENT",
+    "DBPROP_COL_DEFAULT",
+    "DBPROP_COL_DESCRIPTION",
+    "DBPROP_COL_FIXEDLENGTH",
+    "DBPROP_COL_INCREMENT",
+    "DBPROP_COL_ISLONG",
+    "DBPROP_COL_NULLABLE",
+    "DBPROP_COL_PRIMARYKEY",
+    "DBPROP_COL_SEED",
+    "DBPROP_COL_UNIQUE",
+    "DBPROP_COMMANDTIMEOUT",
+    "DBPROP_COMMITPRESERVE",
+    "DBPROP_COMSERVICES",
+    "DBPROP_CONCATNULLBEHAVIOR",
+    "DBPROP_CONNECTIONSTATUS",
+    "DBPROP_CURRENTCATALOG",
+    "DBPROP_DATASOURCENAME",
+    "DBPROP_DATASOURCEREADONLY",
+    "DBPROP_DATASOURCE_TYPE",
+    "DBPROP_DBMSNAME",
+    "DBPROP_DBMSVER",
+    "DBPROP_DEFERRED",
+    "DBPROP_DELAYSTORAGEOBJECTS",
+    "DBPROP_DSOTHREADMODEL",
+    "DBPROP_FILTERCOMPAREOPS",
+    "DBPROP_FINDCOMPAREOPS",
+    "DBPROP_GENERATEURL",
+    "DBPROP_GROUPBY",
+    "DBPROP_HCHAPTER",
+    "DBPROP_HETEROGENEOUSTABLES",
+    "DBPROP_HIDDENCOLUMNS",
+    "DBPROP_IAccessor",
+    "DBPROP_IBindResource",
+    "DBPROP_IChapteredRowset",
+    "DBPROP_IColumnsInfo",
+    "DBPROP_IColumnsInfo2",
+    "DBPROP_IColumnsRowset",
+    "DBPROP_ICommandCost",
+    "DBPROP_ICommandTree",
+    "DBPROP_ICommandValidate",
+    "DBPROP_IConnectionPointContainer",
+    "DBPROP_IConvertType",
+    "DBPROP_ICreateRow",
+    "DBPROP_IDBAsynchStatus",
+    "DBPROP_IDBBinderProperties",
+    "DBPROP_IDBSchemaCommand",
+    "DBPROP_IDENTIFIERCASE",
+    "DBPROP_IGetRow",
+    "DBPROP_IGetSession",
+    "DBPROP_IGetSourceRow",
+    "DBPROP_ILockBytes",
+    "DBPROP_IMMOBILEROWS",
+    "DBPROP_IMultipleResults",
+    "DBPROP_INDEX_AUTOUPDATE",
+    "DBPROP_INDEX_CLUSTERED",
+    "DBPROP_INDEX_FILLFACTOR",
+    "DBPROP_INDEX_INITIALSIZE",
+    "DBPROP_INDEX_NULLCOLLATION",
+    "DBPROP_INDEX_NULLS",
+    "DBPROP_INDEX_PRIMARYKEY",
+    "DBPROP_INDEX_SORTBOOKMARKS",
+    "DBPROP_INDEX_TEMPINDEX",
+    "DBPROP_INDEX_TYPE",
+    "DBPROP_INDEX_UNIQUE",
+    "DBPROP_INIT_ASYNCH",
+    "DBPROP_INIT_BINDFLAGS",
+    "DBPROP_INIT_CATALOG",
+    "DBPROP_INIT_DATASOURCE",
+    "DBPROP_INIT_GENERALTIMEOUT",
+    "DBPROP_INIT_HWND",
+    "DBPROP_INIT_IMPERSONATION_LEVEL",
+    "DBPROP_INIT_LCID",
+    "DBPROP_INIT_LOCATION",
+    "DBPROP_INIT_LOCKOWNER",
+    "DBPROP_INIT_MODE",
+    "DBPROP_INIT_OLEDBSERVICES",
+    "DBPROP_INIT_PROMPT",
+    "DBPROP_INIT_PROTECTION_LEVEL",
+    "DBPROP_INIT_PROVIDERSTRING",
+    "DBPROP_INIT_TIMEOUT",
+    "DBPROP_INTERLEAVEDROWS",
+    "DBPROP_IParentRowset",
+    "DBPROP_IProvideMoniker",
+    "DBPROP_IQuery",
+    "DBPROP_IReadData",
+    "DBPROP_IRegisterProvider",
+    "DBPROP_IRow",
+    "DBPROP_IRowChange",
+    "DBPROP_IRowSchemaChange",
+    "DBPROP_IRowset",
+    "DBPROP_IRowsetAsynch",
+    "DBPROP_IRowsetBookmark",
+    "DBPROP_IRowsetChange",
+    "DBPROP_IRowsetCopyRows",
+    "DBPROP_IRowsetCurrentIndex",
+    "DBPROP_IRowsetFind",
+    "DBPROP_IRowsetIdentity",
+    "DBPROP_IRowsetIndex",
+    "DBPROP_IRowsetInfo",
+    "DBPROP_IRowsetKeys",
+    "DBPROP_IRowsetLocate",
+    "DBPROP_IRowsetNewRowAfter",
+    "DBPROP_IRowsetNextRowset",
+    "DBPROP_IRowsetRefresh",
+    "DBPROP_IRowsetResynch",
+    "DBPROP_IRowsetScroll",
+    "DBPROP_IRowsetUpdate",
+    "DBPROP_IRowsetView",
+    "DBPROP_IRowsetWatchAll",
+    "DBPROP_IRowsetWatchNotify",
+    "DBPROP_IRowsetWatchRegion",
+    "DBPROP_IRowsetWithParameters",
+    "DBPROP_IScopedOperations",
+    "DBPROP_ISequentialStream",
+    "DBPROP_IStorage",
+    "DBPROP_IStream",
+    "DBPROP_ISupportErrorInfo",
+    "DBPROP_IViewChapter",
+    "DBPROP_IViewFilter",
+    "DBPROP_IViewRowset",
+    "DBPROP_IViewSort",
+    "DBPROP_LITERALBOOKMARKS",
+    "DBPROP_LITERALIDENTITY",
+    "DBPROP_LOCKMODE",
+    "DBPROP_MAINTAINPROPS",
+    "DBPROP_MAXINDEXSIZE",
+    "DBPROP_MAXOPENCHAPTERS",
+    "DBPROP_MAXOPENROWS",
+    "DBPROP_MAXORSINFILTER",
+    "DBPROP_MAXPENDINGROWS",
+    "DBPROP_MAXROWS",
+    "DBPROP_MAXROWSIZE",
+    "DBPROP_MAXROWSIZEINCLUDESBLOB",
+    "DBPROP_MAXSORTCOLUMNS",
+    "DBPROP_MAXTABLESINSELECT",
+    "DBPROP_MAYWRITECOLUMN",
+    "DBPROP_MEMORYUSAGE",
     "DBPROP_MSDAORA8_DETERMINEKEYCOLUMNS",
-    "PWPROP_OSPVALUE",
-    "STGM_COLLECTION",
-    "STGM_OUTPUT",
-    "STGM_OPEN",
-    "STGM_RECURSIVE",
-    "STGM_STRICTOPEN",
-    "KAGPROP_QUERYBASEDUPDATES",
-    "KAGPROP_MARSHALLABLE",
-    "KAGPROP_POSITIONONNEWROW",
-    "KAGPROP_IRowsetChangeExtInfo",
-    "KAGPROP_CURSOR",
-    "KAGPROP_CONCURRENCY",
+    "DBPROP_MSDAORA_DETERMINEKEYCOLUMNS",
+    "DBPROP_MSDS_DBINIT_DATAPROVIDER",
+    "DBPROP_MSDS_SESS_UNIQUENAMES",
+    "DBPROP_MULTIPLECONNECTIONS",
+    "DBPROP_MULTIPLEPARAMSETS",
+    "DBPROP_MULTIPLERESULTS",
+    "DBPROP_MULTIPLESTORAGEOBJECTS",
+    "DBPROP_MULTITABLEUPDATE",
+    "DBPROP_NOTIFICATIONGRANULARITY",
+    "DBPROP_NOTIFICATIONPHASES",
+    "DBPROP_NOTIFYCOLUMNSET",
+    "DBPROP_NOTIFYROWDELETE",
+    "DBPROP_NOTIFYROWFIRSTCHANGE",
+    "DBPROP_NOTIFYROWINSERT",
+    "DBPROP_NOTIFYROWRESYNCH",
+    "DBPROP_NOTIFYROWSETCHANGED",
+    "DBPROP_NOTIFYROWSETFETCHPOSITIONCHANGE",
+    "DBPROP_NOTIFYROWSETRELEASE",
+    "DBPROP_NOTIFYROWUNDOCHANGE",
+    "DBPROP_NOTIFYROWUNDODELETE",
+    "DBPROP_NOTIFYROWUNDOINSERT",
+    "DBPROP_NOTIFYROWUPDATE",
+    "DBPROP_NULLCOLLATION",
+    "DBPROP_OLEOBJECTS",
+    "DBPROP_OPENROWSETSUPPORT",
+    "DBPROP_ORDERBYCOLUMNSINSELECT",
+    "DBPROP_ORDEREDBOOKMARKS",
+    "DBPROP_OTHERINSERT",
+    "DBPROP_OTHERUPDATEDELETE",
+    "DBPROP_OUTPUTENCODING",
+    "DBPROP_OUTPUTPARAMETERAVAILABILITY",
+    "DBPROP_OUTPUTSTREAM",
+    "DBPROP_OWNINSERT",
+    "DBPROP_OWNUPDATEDELETE",
+    "DBPROP_PERSISTENTIDTYPE",
+    "DBPROP_PREPAREABORTBEHAVIOR",
+    "DBPROP_PREPARECOMMITBEHAVIOR",
+    "DBPROP_PROCEDURETERM",
+    "DBPROP_PROVIDERFRIENDLYNAME",
+    "DBPROP_PROVIDERMEMORY",
+    "DBPROP_PROVIDERNAME",
+    "DBPROP_PROVIDEROLEDBVER",
+    "DBPROP_PROVIDERVER",
+    "DBPROP_PersistFormat",
+    "DBPROP_PersistSchema",
+    "DBPROP_QUICKRESTART",
+    "DBPROP_QUOTEDIDENTIFIERCASE",
+    "DBPROP_REENTRANTEVENTS",
+    "DBPROP_REMOVEDELETED",
+    "DBPROP_REPORTMULTIPLECHANGES",
+    "DBPROP_RESETDATASOURCE",
+    "DBPROP_RETURNPENDINGINSERTS",
+    "DBPROP_ROWRESTRICT",
+    "DBPROP_ROWSETCONVERSIONSONCOMMAND",
+    "DBPROP_ROWSET_ASYNCH",
+    "DBPROP_ROWTHREADMODEL",
+    "DBPROP_ROW_BULKOPS",
+    "DBPROP_SCHEMATERM",
+    "DBPROP_SCHEMAUSAGE",
+    "DBPROP_SERVERCURSOR",
+    "DBPROP_SERVERDATAONINSERT",
+    "DBPROP_SERVERNAME",
+    "DBPROP_SESS_AUTOCOMMITISOLEVELS",
+    "DBPROP_SKIPROWCOUNTRESULTS",
+    "DBPROP_SORTONINDEX",
+    "DBPROP_SQLSUPPORT",
+    "DBPROP_STORAGEFLAGS",
+    "DBPROP_STRONGIDENTITY",
+    "DBPROP_STRUCTUREDSTORAGE",
+    "DBPROP_SUBQUERIES",
+    "DBPROP_SUPPORTEDTXNDDL",
+    "DBPROP_SUPPORTEDTXNISOLEVELS",
+    "DBPROP_SUPPORTEDTXNISORETAIN",
+    "DBPROP_TABLESTATISTICS",
+    "DBPROP_TABLETERM",
+    "DBPROP_TBL_TEMPTABLE",
+    "DBPROP_TRANSACTEDOBJECT",
+    "DBPROP_TRUSTEE_AUTHENTICATION",
+    "DBPROP_TRUSTEE_NEWAUTHENTICATION",
+    "DBPROP_TRUSTEE_USERNAME",
+    "DBPROP_UNIQUEROWS",
+    "DBPROP_UPDATABILITY",
+    "DBPROP_USERNAME",
+    "DBPROP_Unicode",
+    "DBRANGEENUM",
+    "DBRANGEENUM20",
+    "DBRANGE_EXCLUDENULLS",
+    "DBRANGE_EXCLUSIVEEND",
+    "DBRANGE_EXCLUSIVESTART",
+    "DBRANGE_INCLUSIVEEND",
+    "DBRANGE_INCLUSIVESTART",
+    "DBRANGE_MATCH",
+    "DBRANGE_MATCH_N_MASK",
+    "DBRANGE_MATCH_N_SHIFT",
+    "DBRANGE_PREFIX",
+    "DBREASONENUM",
+    "DBREASONENUM15",
+    "DBREASONENUM25",
+    "DBREASON_COLUMN_RECALCULATED",
+    "DBREASON_COLUMN_SET",
+    "DBREASON_ROWPOSITION_CHANGED",
+    "DBREASON_ROWPOSITION_CHAPTERCHANGED",
+    "DBREASON_ROWPOSITION_CLEARED",
+    "DBREASON_ROWSET_CHANGED",
+    "DBREASON_ROWSET_FETCHPOSITIONCHANGE",
+    "DBREASON_ROWSET_POPULATIONCOMPLETE",
+    "DBREASON_ROWSET_POPULATIONSTOPPED",
+    "DBREASON_ROWSET_RELEASE",
+    "DBREASON_ROWSET_ROWSADDED",
+    "DBREASON_ROW_ACTIVATE",
+    "DBREASON_ROW_ASYNCHINSERT",
+    "DBREASON_ROW_DELETE",
+    "DBREASON_ROW_FIRSTCHANGE",
+    "DBREASON_ROW_INSERT",
+    "DBREASON_ROW_RELEASE",
+    "DBREASON_ROW_RESYNCH",
+    "DBREASON_ROW_UNDOCHANGE",
+    "DBREASON_ROW_UNDODELETE",
+    "DBREASON_ROW_UNDOINSERT",
+    "DBREASON_ROW_UPDATE",
+    "DBRESOURCEKINDENUM",
+    "DBRESOURCE_CPU",
+    "DBRESOURCE_DISK",
+    "DBRESOURCE_INVALID",
+    "DBRESOURCE_MEMORY",
+    "DBRESOURCE_NETWORK",
+    "DBRESOURCE_OTHER",
+    "DBRESOURCE_RESPONSE",
+    "DBRESOURCE_ROWS",
+    "DBRESOURCE_TOTAL",
+    "DBRESULTFLAGENUM",
+    "DBRESULTFLAG_DEFAULT",
+    "DBRESULTFLAG_ROW",
+    "DBRESULTFLAG_ROWSET",
+    "DBROWCHANGEKINDENUM",
+    "DBROWCHANGEKIND_COUNT",
+    "DBROWCHANGEKIND_DELETE",
+    "DBROWCHANGEKIND_INSERT",
+    "DBROWCHANGEKIND_UPDATE",
+    "DBROWSTATUSENUM",
+    "DBROWSTATUSENUM20",
+    "DBROWSTATUS_E_CANCELED",
+    "DBROWSTATUS_E_CANTRELEASE",
+    "DBROWSTATUS_E_CONCURRENCYVIOLATION",
+    "DBROWSTATUS_E_DELETED",
+    "DBROWSTATUS_E_FAIL",
+    "DBROWSTATUS_E_INTEGRITYVIOLATION",
+    "DBROWSTATUS_E_INVALID",
+    "DBROWSTATUS_E_LIMITREACHED",
+    "DBROWSTATUS_E_MAXPENDCHANGESEXCEEDED",
+    "DBROWSTATUS_E_NEWLYINSERTED",
+    "DBROWSTATUS_E_OBJECTOPEN",
+    "DBROWSTATUS_E_OUTOFMEMORY",
+    "DBROWSTATUS_E_PENDINGINSERT",
+    "DBROWSTATUS_E_PERMISSIONDENIED",
+    "DBROWSTATUS_E_SCHEMAVIOLATION",
+    "DBROWSTATUS_S_MULTIPLECHANGES",
+    "DBROWSTATUS_S_NOCHANGE",
+    "DBROWSTATUS_S_OK",
+    "DBROWSTATUS_S_PENDINGCHANGES",
+    "DBROWWATCHCHANGE",
+    "DBSCHEMA_LINKEDSERVERS",
+    "DBSEEKENUM",
+    "DBSEEK_AFTER",
+    "DBSEEK_AFTEREQ",
+    "DBSEEK_BEFORE",
+    "DBSEEK_BEFOREEQ",
+    "DBSEEK_FIRSTEQ",
+    "DBSEEK_INVALID",
+    "DBSEEK_LASTEQ",
+    "DBSORTENUM",
+    "DBSORT_ASCENDING",
+    "DBSORT_DESCENDING",
+    "DBSOURCETYPEENUM",
+    "DBSOURCETYPEENUM20",
+    "DBSOURCETYPEENUM25",
+    "DBSOURCETYPE_BINDER",
+    "DBSOURCETYPE_DATASOURCE",
+    "DBSOURCETYPE_DATASOURCE_MDP",
+    "DBSOURCETYPE_DATASOURCE_TDP",
+    "DBSOURCETYPE_ENUMERATOR",
+    "DBSTATUSENUM",
+    "DBSTATUSENUM20",
+    "DBSTATUSENUM21",
+    "DBSTATUSENUM25",
+    "DBSTATUSENUM26",
+    "DBSTATUS_E_BADACCESSOR",
+    "DBSTATUS_E_BADSTATUS",
+    "DBSTATUS_E_CANCELED",
+    "DBSTATUS_E_CANNOTCOMPLETE",
+    "DBSTATUS_E_CANTCONVERTVALUE",
+    "DBSTATUS_E_CANTCREATE",
+    "DBSTATUS_E_DATAOVERFLOW",
+    "DBSTATUS_E_DOESNOTEXIST",
+    "DBSTATUS_E_INTEGRITYVIOLATION",
+    "DBSTATUS_E_INVALIDURL",
+    "DBSTATUS_E_NOTCOLLECTION",
+    "DBSTATUS_E_OUTOFSPACE",
+    "DBSTATUS_E_PERMISSIONDENIED",
+    "DBSTATUS_E_READONLY",
+    "DBSTATUS_E_RESOURCEEXISTS",
+    "DBSTATUS_E_RESOURCELOCKED",
+    "DBSTATUS_E_RESOURCEOUTOFSCOPE",
+    "DBSTATUS_E_SCHEMAVIOLATION",
+    "DBSTATUS_E_SIGNMISMATCH",
+    "DBSTATUS_E_UNAVAILABLE",
+    "DBSTATUS_E_VOLUMENOTFOUND",
+    "DBSTATUS_S_ALREADYEXISTS",
+    "DBSTATUS_S_CANNOTDELETESOURCE",
+    "DBSTATUS_S_DEFAULT",
+    "DBSTATUS_S_IGNORE",
+    "DBSTATUS_S_ISNULL",
+    "DBSTATUS_S_OK",
+    "DBSTATUS_S_ROWSETCOLUMN",
+    "DBSTATUS_S_TRUNCATED",
+    "DBSTAT_COLUMN_CARDINALITY",
+    "DBSTAT_HISTOGRAM",
+    "DBSTAT_TUPLE_CARDINALITY",
+    "DBTABLESTATISTICSTYPE26",
+    "DBTIME",
+    "DBTIMESTAMP",
+    "DBTYPEENUM",
+    "DBTYPEENUM15",
+    "DBTYPEENUM20",
+    "DBTYPE_ARRAY",
+    "DBTYPE_BOOL",
+    "DBTYPE_BSTR",
+    "DBTYPE_BYREF",
+    "DBTYPE_BYTES",
+    "DBTYPE_CY",
+    "DBTYPE_DATE",
+    "DBTYPE_DBDATE",
+    "DBTYPE_DBTIME",
+    "DBTYPE_DBTIMESTAMP",
+    "DBTYPE_DECIMAL",
+    "DBTYPE_EMPTY",
+    "DBTYPE_ERROR",
+    "DBTYPE_FILETIME",
+    "DBTYPE_GUID",
+    "DBTYPE_HCHAPTER",
+    "DBTYPE_I1",
+    "DBTYPE_I2",
+    "DBTYPE_I4",
+    "DBTYPE_I8",
+    "DBTYPE_IDISPATCH",
+    "DBTYPE_IUNKNOWN",
+    "DBTYPE_NULL",
+    "DBTYPE_NUMERIC",
+    "DBTYPE_PROPVARIANT",
+    "DBTYPE_R4",
+    "DBTYPE_R8",
+    "DBTYPE_RESERVED",
+    "DBTYPE_SQLVARIANT",
+    "DBTYPE_STR",
+    "DBTYPE_UDT",
+    "DBTYPE_UI1",
+    "DBTYPE_UI2",
+    "DBTYPE_UI4",
+    "DBTYPE_UI8",
+    "DBTYPE_VARIANT",
+    "DBTYPE_VARNUMERIC",
+    "DBTYPE_VECTOR",
+    "DBTYPE_WSTR",
+    "DBUNIT_BYTE",
+    "DBUNIT_GIGA_BYTE",
+    "DBUNIT_HOUR",
+    "DBUNIT_INVALID",
+    "DBUNIT_KILO_BYTE",
+    "DBUNIT_MAXIMUM",
+    "DBUNIT_MEGA_BYTE",
+    "DBUNIT_MICRO_SECOND",
+    "DBUNIT_MILLI_SECOND",
+    "DBUNIT_MINIMUM",
+    "DBUNIT_MINUTE",
+    "DBUNIT_NUM_LOCKS",
+    "DBUNIT_NUM_MSGS",
+    "DBUNIT_NUM_ROWS",
+    "DBUNIT_OTHER",
+    "DBUNIT_PERCENT",
+    "DBUNIT_SECOND",
+    "DBUNIT_WEIGHT",
+    "DBUPDELRULEENUM",
+    "DBUPDELRULE_CASCADE",
+    "DBUPDELRULE_NOACTION",
+    "DBUPDELRULE_SETDEFAULT",
+    "DBUPDELRULE_SETNULL",
+    "DBVARYBIN",
+    "DBVARYCHAR",
+    "DBVECTOR",
+    "DBWATCHMODEENUM",
+    "DBWATCHMODE_ALL",
+    "DBWATCHMODE_COUNT",
+    "DBWATCHMODE_EXTEND",
+    "DBWATCHMODE_MOVE",
+    "DBWATCHNOTIFYENUM",
+    "DBWATCHNOTIFY_QUERYDONE",
+    "DBWATCHNOTIFY_QUERYREEXECUTED",
+    "DBWATCHNOTIFY_ROWSCHANGED",
+    "DB_ALL_EXCEPT_LIKE",
+    "DB_BINDFLAGS_COLLECTION",
+    "DB_BINDFLAGS_DELAYFETCHCOLUMNS",
+    "DB_BINDFLAGS_DELAYFETCHSTREAM",
+    "DB_BINDFLAGS_ISSTRUCTUREDDOCUMENT",
+    "DB_BINDFLAGS_OPENIFEXISTS",
+    "DB_BINDFLAGS_OUTPUT",
+    "DB_BINDFLAGS_OVERWRITE",
+    "DB_BINDFLAGS_RECURSIVE",
+    "DB_COLLATION_ASC",
+    "DB_COLLATION_DESC",
+    "DB_COUNTUNAVAILABLE",
+    "DB_E_ABORTLIMITREACHED",
+    "DB_E_ALREADYINITIALIZED",
+    "DB_E_ALTERRESTRICTED",
+    "DB_E_ASYNCNOTSUPPORTED",
+    "DB_E_BADACCESSORFLAGS",
+    "DB_E_BADACCESSORHANDLE",
+    "DB_E_BADACCESSORTYPE",
+    "DB_E_BADBINDINFO",
+    "DB_E_BADBOOKMARK",
+    "DB_E_BADCHAPTER",
+    "DB_E_BADCOLUMNID",
+    "DB_E_BADCOMMANDFLAGS",
+    "DB_E_BADCOMMANDID",
+    "DB_E_BADCOMPAREOP",
+    "DB_E_BADCONSTRAINTFORM",
+    "DB_E_BADCONSTRAINTID",
+    "DB_E_BADCONSTRAINTTYPE",
+    "DB_E_BADCONVERTFLAG",
+    "DB_E_BADCOPY",
+    "DB_E_BADDEFERRABILITY",
+    "DB_E_BADDYNAMICERRORID",
+    "DB_E_BADHRESULT",
+    "DB_E_BADID",
+    "DB_E_BADINDEXID",
+    "DB_E_BADINITSTRING",
+    "DB_E_BADLOCKMODE",
+    "DB_E_BADLOOKUPID",
+    "DB_E_BADMATCHTYPE",
+    "DB_E_BADORDINAL",
+    "DB_E_BADPARAMETERNAME",
+    "DB_E_BADPRECISION",
+    "DB_E_BADPROPERTYVALUE",
+    "DB_E_BADRATIO",
+    "DB_E_BADRECORDNUM",
+    "DB_E_BADREGIONHANDLE",
+    "DB_E_BADROWHANDLE",
+    "DB_E_BADSCALE",
+    "DB_E_BADSOURCEHANDLE",
+    "DB_E_BADSTARTPOSITION",
+    "DB_E_BADSTATUSVALUE",
+    "DB_E_BADSTORAGEFLAG",
+    "DB_E_BADSTORAGEFLAGS",
+    "DB_E_BADTABLEID",
+    "DB_E_BADTYPE",
+    "DB_E_BADTYPENAME",
+    "DB_E_BADUPDATEDELETERULE",
+    "DB_E_BADVALUES",
+    "DB_E_BOGUS",
+    "DB_E_BOOKMARKSKIPPED",
+    "DB_E_BYREFACCESSORNOTSUPPORTED",
+    "DB_E_CANCELED",
+    "DB_E_CANNOTCONNECT",
+    "DB_E_CANNOTFREE",
+    "DB_E_CANNOTRESTART",
+    "DB_E_CANTCANCEL",
+    "DB_E_CANTCONVERTVALUE",
+    "DB_E_CANTFETCHBACKWARDS",
+    "DB_E_CANTFILTER",
+    "DB_E_CANTORDER",
+    "DB_E_CANTSCROLLBACKWARDS",
+    "DB_E_CANTTRANSLATE",
+    "DB_E_CHAPTERNOTRELEASED",
+    "DB_E_COLUMNUNAVAILABLE",
+    "DB_E_COMMANDNOTPERSISTED",
+    "DB_E_CONCURRENCYVIOLATION",
+    "DB_E_COSTLIMIT",
+    "DB_E_DATAOVERFLOW",
+    "DB_E_DELETEDROW",
+    "DB_E_DIALECTNOTSUPPORTED",
+    "DB_E_DROPRESTRICTED",
+    "DB_E_DUPLICATECOLUMNID",
+    "DB_E_DUPLICATECONSTRAINTID",
+    "DB_E_DUPLICATEDATASOURCE",
+    "DB_E_DUPLICATEID",
+    "DB_E_DUPLICATEINDEXID",
+    "DB_E_DUPLICATETABLEID",
+    "DB_E_ERRORSINCOMMAND",
+    "DB_E_ERRORSOCCURRED",
+    "DB_E_GOALREJECTED",
+    "DB_E_INDEXINUSE",
+    "DB_E_INTEGRITYVIOLATION",
+    "DB_E_INVALID",
+    "DB_E_INVALIDTRANSITION",
+    "DB_E_LIMITREJECTED",
+    "DB_E_MAXPENDCHANGESEXCEEDED",
+    "DB_E_MISMATCHEDPROVIDER",
+    "DB_E_MULTIPLESTATEMENTS",
+    "DB_E_MULTIPLESTORAGE",
+    "DB_E_NEWLYINSERTED",
+    "DB_E_NOAGGREGATION",
+    "DB_E_NOCOLUMN",
+    "DB_E_NOCOMMAND",
+    "DB_E_NOCONSTRAINT",
+    "DB_E_NOINDEX",
+    "DB_E_NOLOCALE",
+    "DB_E_NONCONTIGUOUSRANGE",
+    "DB_E_NOPROVIDERSREGISTERED",
+    "DB_E_NOQUERY",
+    "DB_E_NOSOURCEOBJECT",
+    "DB_E_NOSTATISTIC",
+    "DB_E_NOTABLE",
+    "DB_E_NOTAREFERENCECOLUMN",
+    "DB_E_NOTASUBREGION",
+    "DB_E_NOTCOLLECTION",
+    "DB_E_NOTFOUND",
+    "DB_E_NOTPREPARED",
+    "DB_E_NOTREENTRANT",
+    "DB_E_NOTSUPPORTED",
+    "DB_E_NULLACCESSORNOTSUPPORTED",
+    "DB_E_OBJECTCREATIONLIMITREACHED",
+    "DB_E_OBJECTMISMATCH",
+    "DB_E_OBJECTOPEN",
+    "DB_E_OUTOFSPACE",
+    "DB_E_PARAMNOTOPTIONAL",
+    "DB_E_PARAMUNAVAILABLE",
+    "DB_E_PENDINGCHANGES",
+    "DB_E_PENDINGINSERT",
+    "DB_E_READONLY",
+    "DB_E_READONLYACCESSOR",
+    "DB_E_RESOURCEEXISTS",
+    "DB_E_RESOURCELOCKED",
+    "DB_E_RESOURCENOTSUPPORTED",
+    "DB_E_RESOURCEOUTOFSCOPE",
+    "DB_E_ROWLIMITEXCEEDED",
+    "DB_E_ROWSETINCOMMAND",
+    "DB_E_ROWSNOTRELEASED",
+    "DB_E_SCHEMAVIOLATION",
+    "DB_E_TABLEINUSE",
+    "DB_E_TIMEOUT",
+    "DB_E_UNSUPPORTEDCONVERSION",
+    "DB_E_WRITEONLYACCESSOR",
+    "DB_IMP_LEVEL_ANONYMOUS",
+    "DB_IMP_LEVEL_DELEGATE",
+    "DB_IMP_LEVEL_IDENTIFY",
+    "DB_IMP_LEVEL_IMPERSONATE",
+    "DB_IN",
+    "DB_INVALID_HACCESSOR",
+    "DB_INVALID_HCHAPTER",
+    "DB_LIKE_ONLY",
+    "DB_LOCAL_EXCLUSIVE",
+    "DB_LOCAL_SHARED",
+    "DB_MODE_READ",
+    "DB_MODE_READWRITE",
+    "DB_MODE_SHARE_DENY_NONE",
+    "DB_MODE_SHARE_DENY_READ",
+    "DB_MODE_SHARE_DENY_WRITE",
+    "DB_MODE_SHARE_EXCLUSIVE",
+    "DB_MODE_WRITE",
+    "DB_NULL_HACCESSOR",
+    "DB_NULL_HCHAPTER",
+    "DB_NULL_HROW",
+    "DB_NUMERIC",
+    "DB_OUT",
+    "DB_PROT_LEVEL_CALL",
+    "DB_PROT_LEVEL_CONNECT",
+    "DB_PROT_LEVEL_NONE",
+    "DB_PROT_LEVEL_PKT",
+    "DB_PROT_LEVEL_PKT_INTEGRITY",
+    "DB_PROT_LEVEL_PKT_PRIVACY",
+    "DB_PT_FUNCTION",
+    "DB_PT_PROCEDURE",
+    "DB_PT_UNKNOWN",
+    "DB_REMOTE",
+    "DB_SEARCHABLE",
+    "DB_SEC_E_AUTH_FAILED",
+    "DB_SEC_E_PERMISSIONDENIED",
+    "DB_SEC_E_SAFEMODE_DENIED",
+    "DB_S_ASYNCHRONOUS",
+    "DB_S_BADROWHANDLE",
+    "DB_S_BOOKMARKSKIPPED",
+    "DB_S_BUFFERFULL",
+    "DB_S_CANTRELEASE",
+    "DB_S_COLUMNSCHANGED",
+    "DB_S_COLUMNTYPEMISMATCH",
+    "DB_S_COMMANDREEXECUTED",
+    "DB_S_DELETEDROW",
+    "DB_S_DIALECTIGNORED",
+    "DB_S_ENDOFROWSET",
+    "DB_S_ERRORSOCCURRED",
+    "DB_S_ERRORSRETURNED",
+    "DB_S_GOALCHANGED",
+    "DB_S_LOCKUPGRADED",
+    "DB_S_MULTIPLECHANGES",
+    "DB_S_NONEXTROWSET",
+    "DB_S_NORESULT",
+    "DB_S_NOROWSPECIFICCOLUMNS",
+    "DB_S_NOTSINGLETON",
+    "DB_S_PARAMUNAVAILABLE",
+    "DB_S_PROPERTIESCHANGED",
+    "DB_S_ROWLIMITEXCEEDED",
+    "DB_S_STOPLIMITREACHED",
+    "DB_S_TOOMANYCHANGES",
+    "DB_S_TYPEINFOOVERRIDDEN",
+    "DB_S_UNWANTEDOPERATION",
+    "DB_S_UNWANTEDPHASE",
+    "DB_S_UNWANTEDREASON",
+    "DB_UNSEARCHABLE",
+    "DB_VARNUMERIC",
+    "DCINFO",
+    "DCINFOTYPEENUM",
+    "DCINFOTYPE_VERSION",
+    "DELIVERY_AGENT_FLAGS",
+    "DELIVERY_AGENT_FLAG_NO_BROADCAST",
+    "DELIVERY_AGENT_FLAG_NO_RESTRICTIONS",
+    "DELIVERY_AGENT_FLAG_SILENT_DIAL",
+    "DISPID_QUERY_ALL",
+    "DISPID_QUERY_HITCOUNT",
+    "DISPID_QUERY_LASTSEENTIME",
+    "DISPID_QUERY_METADATA_PROPDISPID",
+    "DISPID_QUERY_METADATA_PROPGUID",
+    "DISPID_QUERY_METADATA_PROPMODIFIABLE",
+    "DISPID_QUERY_METADATA_PROPNAME",
+    "DISPID_QUERY_METADATA_STORELEVEL",
+    "DISPID_QUERY_METADATA_VROOTAUTOMATIC",
+    "DISPID_QUERY_METADATA_VROOTMANUAL",
+    "DISPID_QUERY_METADATA_VROOTUSED",
+    "DISPID_QUERY_RANK",
+    "DISPID_QUERY_RANKVECTOR",
+    "DISPID_QUERY_REVNAME",
+    "DISPID_QUERY_UNFILTERED",
+    "DISPID_QUERY_VIRTUALPATH",
+    "DISPID_QUERY_WORKID",
+    "DS_E_ALREADYDISABLED",
+    "DS_E_ALREADYENABLED",
+    "DS_E_BADREQUEST",
+    "DS_E_BADRESULT",
+    "DS_E_BADSEQUENCE",
+    "DS_E_BUFFERTOOSMALL",
+    "DS_E_CANNOTREMOVECONCURRENT",
+    "DS_E_CANNOTWRITEREGISTRY",
+    "DS_E_CONFIGBAD",
+    "DS_E_CONFIGNOTRIGHTTYPE",
+    "DS_E_DATANOTPRESENT",
+    "DS_E_DATASOURCENOTAVAILABLE",
+    "DS_E_DATASOURCENOTDISABLED",
+    "DS_E_DUPLICATEID",
+    "DS_E_INDEXDIRECTORY",
+    "DS_E_INVALIDCATALOGNAME",
+    "DS_E_INVALIDDATASOURCE",
+    "DS_E_INVALIDTAGDB",
+    "DS_E_MESSAGETOOLONG",
+    "DS_E_MISSINGCATALOG",
+    "DS_E_NOMOREDATA",
+    "DS_E_PARAMOUTOFRANGE",
+    "DS_E_PROPVERSIONMISMATCH",
+    "DS_E_PROTOCOLVERSION",
+    "DS_E_QUERYCANCELED",
+    "DS_E_QUERYHUNG",
+    "DS_E_REGISTRY",
+    "DS_E_SEARCHCATNAMECOLLISION",
+    "DS_E_SERVERCAPACITY",
+    "DS_E_SERVERERROR",
+    "DS_E_SETSTATUSINPROGRESS",
+    "DS_E_TOOMANYDATASOURCES",
+    "DS_E_UNKNOWNPARAM",
+    "DS_E_UNKNOWNREQUEST",
+    "DS_E_VALUETOOLARGE",
+    "DataLinks",
+    "DataSource",
+    "DataSourceListener",
+    "DataSourceObject",
+    "EBindInfoOptions",
+    "ERRORINFO",
+    "ERROR_FTE",
+    "ERROR_FTE_CB",
+    "ERROR_FTE_FD",
+    "ERROR_SOURCE_CMDLINE",
+    "ERROR_SOURCE_COLLATOR",
+    "ERROR_SOURCE_CONNMGR",
+    "ERROR_SOURCE_CONTENT_SOURCE",
+    "ERROR_SOURCE_DATASOURCE",
+    "ERROR_SOURCE_DAV",
+    "ERROR_SOURCE_EXSTOREPH",
+    "ERROR_SOURCE_FLTRDMN",
+    "ERROR_SOURCE_GATHERER",
+    "ERROR_SOURCE_INDEXER",
+    "ERROR_SOURCE_MSS",
+    "ERROR_SOURCE_NETWORKING",
+    "ERROR_SOURCE_NLADMIN",
+    "ERROR_SOURCE_NOTESPH",
+    "ERROR_SOURCE_OLEDB_BINDER",
+    "ERROR_SOURCE_PEOPLE_IMPORT",
+    "ERROR_SOURCE_PROTHNDLR",
+    "ERROR_SOURCE_QUERY",
+    "ERROR_SOURCE_REMOTE_EXSTOREPH",
+    "ERROR_SOURCE_SCHEMA",
+    "ERROR_SOURCE_SCRIPTPI",
+    "ERROR_SOURCE_SECURITY",
+    "ERROR_SOURCE_SETUP",
+    "ERROR_SOURCE_SRCH_SCHEMA_CACHE",
+    "ERROR_SOURCE_XML",
+    "EVENT_AUDIENCECOMPUTATION_CANNOTSTART",
+    "EVENT_AUTOCAT_CANT_CREATE_FILE_SHARE",
+    "EVENT_AUTOCAT_PERFMON",
+    "EVENT_CONFIG_ERROR",
+    "EVENT_CONFIG_SYNTAX",
+    "EVENT_CRAWL_SCHEDULED",
+    "EVENT_DETAILED_FILTERPOOL_ADD_FAILED",
+    "EVENT_DSS_NOT_ENABLED",
+    "EVENT_ENUMERATE_SESSIONS_FAILED",
+    "EVENT_EXCEPTION",
+    "EVENT_FAILED_CREATE_GATHERER_LOG",
+    "EVENT_FAILED_INITIALIZE_CRAWL",
+    "EVENT_FILTERPOOL_ADD_FAILED",
+    "EVENT_FILTERPOOL_DELETE_FAILED",
+    "EVENT_FILTER_HOST_FORCE_TERMINATE",
+    "EVENT_FILTER_HOST_NOT_INITIALIZED",
+    "EVENT_FILTER_HOST_NOT_TERMINATED",
+    "EVENT_GATHERER_DATASOURCE",
+    "EVENT_GATHERER_PERFMON",
+    "EVENT_GATHERSVC_PERFMON",
+    "EVENT_GATHER_ADVISE_FAILED",
+    "EVENT_GATHER_APP_INIT_FAILED",
+    "EVENT_GATHER_AUTODESCENCODE_INVALID",
+    "EVENT_GATHER_AUTODESCLEN_ADJUSTED",
+    "EVENT_GATHER_BACKUPAPP_COMPLETE",
+    "EVENT_GATHER_BACKUPAPP_ERROR",
+    "EVENT_GATHER_CANT_CREATE_DOCID",
+    "EVENT_GATHER_CANT_DELETE_DOCID",
+    "EVENT_GATHER_CHECKPOINT_CORRUPT",
+    "EVENT_GATHER_CHECKPOINT_FAILED",
+    "EVENT_GATHER_CHECKPOINT_FILE_MISSING",
+    "EVENT_GATHER_CRAWL_IN_PROGRESS",
+    "EVENT_GATHER_CRAWL_NOT_STARTED",
+    "EVENT_GATHER_CRAWL_SEED_ERROR",
+    "EVENT_GATHER_CRAWL_SEED_FAILED",
+    "EVENT_GATHER_CRAWL_SEED_FAILED_INIT",
+    "EVENT_GATHER_CRITICAL_ERROR",
+    "EVENT_GATHER_DAEMON_TERMINATED",
+    "EVENT_GATHER_DELETING_HISTORY_ITEMS",
+    "EVENT_GATHER_DIRTY_STARTUP",
+    "EVENT_GATHER_DISK_FULL",
+    "EVENT_GATHER_END_ADAPTIVE",
+    "EVENT_GATHER_END_CRAWL",
+    "EVENT_GATHER_END_INCREMENTAL",
+    "EVENT_GATHER_EXCEPTION",
+    "EVENT_GATHER_FLUSH_FAILED",
+    "EVENT_GATHER_FROM_NOT_SET",
+    "EVENT_GATHER_HISTORY_CORRUPTION_DETECTED",
+    "EVENT_GATHER_INTERNAL",
+    "EVENT_GATHER_INVALID_NETWORK_ACCESS_ACCOUNT",
+    "EVENT_GATHER_LOCK_FAILED",
+    "EVENT_GATHER_NO_CRAWL_SEEDS",
+    "EVENT_GATHER_NO_SCHEMA",
+    "EVENT_GATHER_OBJ_INIT_FAILED",
+    "EVENT_GATHER_PLUGINMGR_INIT_FAILED",
+    "EVENT_GATHER_PLUGIN_INIT_FAILED",
+    "EVENT_GATHER_PROTOCOLHANDLER_INIT_FAILED",
+    "EVENT_GATHER_PROTOCOLHANDLER_LOAD_FAILED",
+    "EVENT_GATHER_READ_CHECKPOINT_FAILED",
+    "EVENT_GATHER_RECOVERY_FAILURE",
+    "EVENT_GATHER_REG_MISSING",
+    "EVENT_GATHER_RESET_START",
+    "EVENT_GATHER_RESTOREAPP_COMPLETE",
+    "EVENT_GATHER_RESTOREAPP_ERROR",
+    "EVENT_GATHER_RESTORE_CHECKPOINT_FAILED",
+    "EVENT_GATHER_RESTORE_COMPLETE",
+    "EVENT_GATHER_RESTORE_ERROR",
+    "EVENT_GATHER_RESUME",
+    "EVENT_GATHER_SAVE_FAILED",
+    "EVENT_GATHER_SERVICE_INIT",
+    "EVENT_GATHER_START_CRAWL",
+    "EVENT_GATHER_START_CRAWL_IF_RESET",
+    "EVENT_GATHER_START_PAUSE",
+    "EVENT_GATHER_STOP_START",
+    "EVENT_GATHER_SYSTEM_LCID_CHANGED",
+    "EVENT_GATHER_THROTTLE",
+    "EVENT_GATHER_TRANSACTION_FAIL",
+    "EVENT_HASHMAP_INSERT",
+    "EVENT_HASHMAP_UPDATE",
+    "EVENT_INDEXER_ADD_DSS_DISCONNECT",
+    "EVENT_INDEXER_ADD_DSS_FAILED",
+    "EVENT_INDEXER_ADD_DSS_SUCCEEDED",
+    "EVENT_INDEXER_BUILD_ENDED",
+    "EVENT_INDEXER_BUILD_FAILED",
+    "EVENT_INDEXER_BUILD_START",
+    "EVENT_INDEXER_CI_LOAD_ERROR",
+    "EVENT_INDEXER_DSS_ALREADY_ADDED",
+    "EVENT_INDEXER_DSS_CONTACT_FAILED",
+    "EVENT_INDEXER_DSS_UNABLE_TO_REMOVE",
+    "EVENT_INDEXER_FAIL_TO_CREATE_PER_USER_CATALOG",
+    "EVENT_INDEXER_FAIL_TO_SET_MAX_JETINSTANCE",
+    "EVENT_INDEXER_FAIL_TO_UNLOAD_PER_USER_CATALOG",
+    "EVENT_INDEXER_INIT_ERROR",
+    "EVENT_INDEXER_INVALID_DIRECTORY",
+    "EVENT_INDEXER_LOAD_FAIL",
+    "EVENT_INDEXER_MISSING_APP_DIRECTORY",
+    "EVENT_INDEXER_NEW_PROJECT",
+    "EVENT_INDEXER_NO_SEARCH_SERVERS",
+    "EVENT_INDEXER_OUT_OF_DATABASE_INSTANCE",
+    "EVENT_INDEXER_PAUSED_FOR_DISKFULL",
+    "EVENT_INDEXER_PERFMON",
+    "EVENT_INDEXER_PROPSTORE_INIT_FAILED",
+    "EVENT_INDEXER_PROP_ABORTED",
+    "EVENT_INDEXER_PROP_COMMITTED",
+    "EVENT_INDEXER_PROP_COMMIT_FAILED",
+    "EVENT_INDEXER_PROP_ERROR",
+    "EVENT_INDEXER_PROP_STARTED",
+    "EVENT_INDEXER_PROP_STATE_CORRUPT",
+    "EVENT_INDEXER_PROP_STOPPED",
+    "EVENT_INDEXER_PROP_SUCCEEDED",
+    "EVENT_INDEXER_REG_ERROR",
+    "EVENT_INDEXER_REG_MISSING",
+    "EVENT_INDEXER_REMOVED_PROJECT",
+    "EVENT_INDEXER_REMOVE_DSS_FAILED",
+    "EVENT_INDEXER_REMOVE_DSS_SUCCEEDED",
+    "EVENT_INDEXER_RESET_FOR_CORRUPTION",
+    "EVENT_INDEXER_SCHEMA_COPY_ERROR",
+    "EVENT_INDEXER_SHUTDOWN",
+    "EVENT_INDEXER_STARTED",
+    "EVENT_INDEXER_VERIFY_PROP_ACCOUNT",
+    "EVENT_LEARN_COMPILE_FAILED",
+    "EVENT_LEARN_CREATE_DB_FAILED",
+    "EVENT_LEARN_PROPAGATION_COPY_FAILED",
+    "EVENT_LEARN_PROPAGATION_FAILED",
+    "EVENT_LOCAL_GROUPS_CACHE_FLUSHED",
+    "EVENT_LOCAL_GROUP_NOT_EXPANDED",
+    "EVENT_NOTIFICATION_FAILURE",
+    "EVENT_NOTIFICATION_FAILURE_SCOPE_EXCEEDED_LOGGING",
+    "EVENT_NOTIFICATION_RESTORED",
+    "EVENT_NOTIFICATION_RESTORED_SCOPE_EXCEEDED_LOGGING",
+    "EVENT_NOTIFICATION_THREAD_EXIT_FAILED",
+    "EVENT_OUTOFMEMORY",
+    "EVENT_PERF_COUNTERS_ALREADY_EXISTS",
+    "EVENT_PERF_COUNTERS_NOT_LOADED",
+    "EVENT_PERF_COUNTERS_REGISTRY_TROUBLE",
+    "EVENT_PROTOCOL_HOST_FORCE_TERMINATE",
+    "EVENT_REG_VERSION",
+    "EVENT_SSSEARCH_CREATE_PATH_RULES_FAILED",
+    "EVENT_SSSEARCH_CSM_SAVE_FAILED",
+    "EVENT_SSSEARCH_DATAFILES_MOVE_FAILED",
+    "EVENT_SSSEARCH_DATAFILES_MOVE_ROLLBACK_ERRORS",
+    "EVENT_SSSEARCH_DATAFILES_MOVE_SUCCEEDED",
+    "EVENT_SSSEARCH_DROPPED_EVENTS",
+    "EVENT_SSSEARCH_SETUP_CLEANUP_FAILED",
+    "EVENT_SSSEARCH_SETUP_CLEANUP_STARTED",
+    "EVENT_SSSEARCH_SETUP_CLEANUP_SUCCEEDED",
+    "EVENT_SSSEARCH_SETUP_FAILED",
+    "EVENT_SSSEARCH_SETUP_SUCCEEDED",
+    "EVENT_SSSEARCH_STARTED",
+    "EVENT_SSSEARCH_STARTING_SETUP",
+    "EVENT_SSSEARCH_STOPPED",
+    "EVENT_STS_INIT_SECURITY_FAILED",
+    "EVENT_SYSTEM_EXCEPTION",
+    "EVENT_TRANSACTION_READ",
+    "EVENT_TRANSLOG_APPEND",
+    "EVENT_TRANSLOG_CREATE",
+    "EVENT_TRANSLOG_CREATE_TRX",
+    "EVENT_TRANSLOG_UPDATE",
+    "EVENT_UNPRIVILEGED_SERVICE_ACCOUNT",
+    "EVENT_USING_DIFFERENT_WORD_BREAKER",
+    "EVENT_WARNING_CANNOT_UPGRADE_NOISE_FILE",
+    "EVENT_WARNING_CANNOT_UPGRADE_NOISE_FILES",
+    "EVENT_WBREAKER_NOT_LOADED",
+    "EVENT_WIN32_ERROR",
+    "EXCI_E_ACCESS_DENIED",
+    "EXCI_E_BADCONFIG_OR_ACCESSDENIED",
+    "EXCI_E_INVALID_ACCOUNT_INFO",
+    "EXCI_E_INVALID_EXCHANGE_SERVER",
+    "EXCI_E_INVALID_SERVER_CONFIG",
+    "EXCI_E_NOT_ADMIN_OR_WRONG_SITE",
+    "EXCI_E_NO_CONFIG",
+    "EXCI_E_NO_MAPI",
+    "EXCI_E_WRONG_SERVER_OR_ACCT",
+    "EXSTOREPH_E_UNEXPECTED",
+    "EX_ANY",
+    "EX_CMDFATAL",
+    "EX_CONTROL",
+    "EX_DBCORRUPT",
+    "EX_DBFATAL",
+    "EX_DEADLOCK",
+    "EX_HARDWARE",
+    "EX_INFO",
+    "EX_INTOK",
+    "EX_LIMIT",
+    "EX_MAXISEVERITY",
+    "EX_MISSING",
+    "EX_PERMIT",
+    "EX_RESOURCE",
+    "EX_SYNTAX",
+    "EX_TABCORRUPT",
+    "EX_TYPE",
+    "EX_USER",
+    "FAIL",
+    "FF_INDEXCOMPLEXURLS",
+    "FF_SUPPRESSINDEXING",
+    "FILTERED_DATA_SOURCES",
+    "FLTRDMN_E_CANNOT_DECRYPT_PASSWORD",
+    "FLTRDMN_E_ENCRYPTED_DOCUMENT",
+    "FLTRDMN_E_FILTER_INIT_FAILED",
+    "FLTRDMN_E_QI_FILTER_FAILED",
+    "FLTRDMN_E_UNEXPECTED",
+    "FOLLOW_FLAGS",
+    "FTE_E_ADMIN_BLOB_CORRUPT",
+    "FTE_E_AFFINITY_MASK",
+    "FTE_E_ALREADY_INITIALIZED",
+    "FTE_E_ANOTHER_STATUS_CHANGE_IS_ALREADY_ACTIVE",
+    "FTE_E_BATCH_ABORTED",
+    "FTE_E_CATALOG_ALREADY_EXISTS",
+    "FTE_E_CATALOG_DOES_NOT_EXIST",
+    "FTE_E_CB_CBID_OUT_OF_BOUND",
+    "FTE_E_CB_NOT_ENOUGH_AVAIL_PHY_MEM",
+    "FTE_E_CB_NOT_ENOUGH_OCC_BUFFER",
+    "FTE_E_CB_OUT_OF_MEMORY",
+    "FTE_E_COM_SIGNATURE_VALIDATION",
+    "FTE_E_CORRUPT_GATHERER_HASH_MAP",
+    "FTE_E_CORRUPT_PROPERTY_STORE",
+    "FTE_E_CORRUPT_WORDLIST",
+    "FTE_E_DATATYPE_MISALIGNMENT",
+    "FTE_E_DEPENDENT_TRAN_FAILED_TO_PERSIST",
+    "FTE_E_DOC_TOO_HUGE",
+    "FTE_E_DUPLICATE_OBJECT",
+    "FTE_E_ERROR_WRITING_REGISTRY",
+    "FTE_E_EXCEEDED_MAX_PLUGINS",
+    "FTE_E_FAILED_TO_CREATE_ACCESSOR",
+    "FTE_E_FAILURE_TO_POST_SETCOMPLETION_STATUS",
+    "FTE_E_FD_DID_NOT_CONNECT",
+    "FTE_E_FD_DOC_TIMEOUT",
+    "FTE_E_FD_DOC_UNEXPECTED_EXIT",
+    "FTE_E_FD_FAILED_TO_LOAD_IFILTER",
+    "FTE_E_FD_FILTER_CAUSED_SHARING_VIOLATION",
+    "FTE_E_FD_IDLE",
+    "FTE_E_FD_IFILTER_INIT_FAILED",
+    "FTE_E_FD_NOISE_NO_IPERSISTSTREAM_ON_TEXT_FILTER",
+    "FTE_E_FD_NOISE_NO_TEXT_FILTER",
+    "FTE_E_FD_NOISE_TEXT_FILTER_INIT_FAILED",
+    "FTE_E_FD_NOISE_TEXT_FILTER_LOAD_FAILED",
+    "FTE_E_FD_NO_IPERSIST_INTERFACE",
+    "FTE_E_FD_OCCURRENCE_OVERFLOW",
+    "FTE_E_FD_OWNERSHIP_OBSOLETE",
+    "FTE_E_FD_SHUTDOWN",
+    "FTE_E_FD_TIMEOUT",
+    "FTE_E_FD_UNEXPECTED_EXIT",
+    "FTE_E_FD_UNRESPONSIVE",
+    "FTE_E_FD_USED_TOO_MUCH_MEMORY",
+    "FTE_E_FILTER_SINGLE_THREADED",
+    "FTE_E_HIGH_MEMORY_PRESSURE",
+    "FTE_E_INVALID_CODEPAGE",
+    "FTE_E_INVALID_DOCID",
+    "FTE_E_INVALID_ISOLATE_ERROR_BATCH",
+    "FTE_E_INVALID_PROG_ID",
+    "FTE_E_INVALID_PROJECT_ID",
+    "FTE_E_INVALID_PROPERTY",
+    "FTE_E_INVALID_TYPE",
+    "FTE_E_KEY_NOT_CACHED",
+    "FTE_E_LIBRARY_NOT_LOADED",
+    "FTE_E_NOT_PROCESSED_DUE_TO_PREVIOUS_ERRORS",
+    "FTE_E_NO_MORE_PROPERTIES",
+    "FTE_E_NO_PLUGINS",
+    "FTE_E_NO_PROPERTY_STORE",
+    "FTE_E_OUT_OF_RANGE",
+    "FTE_E_PATH_TOO_LONG",
+    "FTE_E_PAUSE_EXTERNAL",
+    "FTE_E_PERFMON_FULL",
+    "FTE_E_PERF_NOT_LOADED",
+    "FTE_E_PIPE_DATA_CORRUPTED",
+    "FTE_E_PIPE_NOT_CONNECTED",
+    "FTE_E_PROGID_REQUIRED",
+    "FTE_E_PROJECT_NOT_INITALIZED",
+    "FTE_E_PROJECT_SHUTDOWN",
+    "FTE_E_PROPERTY_STORE_WORKID_NOTVALID",
+    "FTE_E_READONLY_CATALOG",
+    "FTE_E_REDUNDANT_TRAN_FAILURE",
+    "FTE_E_REJECTED_DUE_TO_PROJECT_STATUS",
+    "FTE_E_RESOURCE_SHUTDOWN",
+    "FTE_E_RETRY_HUGE_DOC",
+    "FTE_E_RETRY_SINGLE_DOC_PER_BATCH",
+    "FTE_E_SECRET_NOT_FOUND",
+    "FTE_E_SERIAL_STREAM_CORRUPT",
+    "FTE_E_STACK_CORRUPTED",
+    "FTE_E_STATIC_THREAD_INVALID_ARGUMENTS",
+    "FTE_E_UNEXPECTED_EXIT",
+    "FTE_E_UNKNOWN_FD_TYPE",
+    "FTE_E_UNKNOWN_PLUGIN",
+    "FTE_E_UPGRADE_INTERFACE_ALREADY_INSTANTIATED",
+    "FTE_E_UPGRADE_INTERFACE_ALREADY_SHUTDOWN",
+    "FTE_E_URB_TOO_BIG",
+    "FTE_INVALID_ADMIN_CLIENT",
+    "FTE_S_BEYOND_QUOTA",
+    "FTE_S_CATALOG_BLOB_MISMATCHED",
+    "FTE_S_PROPERTY_RESET",
+    "FTE_S_PROPERTY_STORE_END_OF_ENUMERATION",
+    "FTE_S_READONLY_CATALOG",
+    "FTE_S_REDUNDANT",
+    "FTE_S_RESOURCES_STARTING_TO_GET_LOW",
+    "FTE_S_RESUME",
+    "FTE_S_STATUS_CHANGE_REQUEST",
+    "FTE_S_TRY_TO_FLUSH",
+    "FilterRegistration",
+    "GENERATE_METHOD_PREFIXMATCH",
+    "GENERATE_METHOD_STEMMED",
+    "GHTR_E_INSUFFICIENT_DISK_SPACE",
+    "GHTR_E_LOCAL_SERVER_UNAVAILABLE",
+    "GTHR_E_ADDLINKS_FAILED_WILL_RETRY_PARENT",
+    "GTHR_E_APPLICATION_NOT_FOUND",
+    "GTHR_E_AUTOCAT_UNEXPECTED",
+    "GTHR_E_BACKUP_VALIDATION_FAIL",
+    "GTHR_E_BAD_FILTER_DAEMON",
+    "GTHR_E_BAD_FILTER_HOST",
+    "GTHR_E_CANNOT_ENABLE_CHECKPOINT",
+    "GTHR_E_CANNOT_REMOVE_PLUGINMGR",
+    "GTHR_E_CONFIG_DUP_EXTENSION",
+    "GTHR_E_CONFIG_DUP_PROJECT",
+    "GTHR_E_CONTENT_ID_CONFLICT",
+    "GTHR_E_DIRMON_NOT_INITIALZED",
+    "GTHR_E_DUPLICATE_OBJECT",
+    "GTHR_E_DUPLICATE_PROJECT",
+    "GTHR_E_DUPLICATE_URL",
+    "GTHR_E_DUP_PROPERTY_MAPPING",
+    "GTHR_E_EMPTY_DACL",
+    "GTHR_E_ERROR_INITIALIZING_PERFMON",
+    "GTHR_E_ERROR_OBJECT_NOT_FOUND",
+    "GTHR_E_ERROR_WRITING_REGISTRY",
+    "GTHR_E_FILTERPOOL_NOTFOUND",
+    "GTHR_E_FILTER_FAULT",
+    "GTHR_E_FILTER_INIT",
+    "GTHR_E_FILTER_INTERRUPTED",
+    "GTHR_E_FILTER_INVALID_MESSAGE",
+    "GTHR_E_FILTER_NOT_FOUND",
+    "GTHR_E_FILTER_NO_CODEPAGE",
+    "GTHR_E_FILTER_NO_MORE_THREADS",
+    "GTHR_E_FILTER_PROCESS_TERMINATED",
+    "GTHR_E_FILTER_PROCESS_TERMINATED_QUOTA",
+    "GTHR_E_FILTER_SINGLE_THREADED",
+    "GTHR_E_FOLDER_CRAWLED_BY_ANOTHER_WORKSPACE",
+    "GTHR_E_FORCE_NOTIFICATION_RESET",
+    "GTHR_E_FROM_NOT_SPECIFIED",
+    "GTHR_E_IE_OFFLINE",
+    "GTHR_E_INSUFFICIENT_EXAMPLE_CATEGORIES",
+    "GTHR_E_INSUFFICIENT_EXAMPLE_DOCUMENTS",
+    "GTHR_E_INSUFFICIENT_FEATURE_TERMS",
+    "GTHR_E_INVALIDFUNCTION",
+    "GTHR_E_INVALID_ACCOUNT",
+    "GTHR_E_INVALID_ACCOUNT_SYNTAX",
+    "GTHR_E_INVALID_APPLICATION_NAME",
+    "GTHR_E_INVALID_CALL_FROM_WBREAKER",
+    "GTHR_E_INVALID_DIRECTORY",
+    "GTHR_E_INVALID_EXTENSION",
+    "GTHR_E_INVALID_GROW_FACTOR",
+    "GTHR_E_INVALID_HOST_NAME",
+    "GTHR_E_INVALID_LOG_FILE_NAME",
+    "GTHR_E_INVALID_MAPPING",
+    "GTHR_E_INVALID_PATH",
+    "GTHR_E_INVALID_PATH_EXPRESSION",
+    "GTHR_E_INVALID_PATH_SPEC",
+    "GTHR_E_INVALID_PROJECT_NAME",
+    "GTHR_E_INVALID_PROXY_PORT",
+    "GTHR_E_INVALID_RESOURCE_ID",
+    "GTHR_E_INVALID_RETRIES",
+    "GTHR_E_INVALID_START_ADDRESS",
+    "GTHR_E_INVALID_START_PAGE",
+    "GTHR_E_INVALID_START_PAGE_HOST",
+    "GTHR_E_INVALID_START_PAGE_PATH",
+    "GTHR_E_INVALID_STREAM_LOGS_COUNT",
+    "GTHR_E_INVALID_TIME_OUT",
+    "GTHR_E_JET_BACKUP_ERROR",
+    "GTHR_E_JET_RESTORE_ERROR",
+    "GTHR_E_LOCAL_GROUPS_EXPANSION_INTERNAL_ERROR",
+    "GTHR_E_NAME_TOO_LONG",
+    "GTHR_E_NESTED_HIERARCHICAL_START_ADDRESSES",
+    "GTHR_E_NOFILTERSINK",
+    "GTHR_E_NON_FIXED_DRIVE",
+    "GTHR_E_NOTIFICATION_FILE_SHARE_INFO_NOT_AVAILABLE",
+    "GTHR_E_NOTIFICATION_LOCAL_PATH_MUST_USE_FIXED_DRIVE",
+    "GTHR_E_NOTIFICATION_START_ADDRESS_INVALID",
+    "GTHR_E_NOTIFICATION_START_PAGE",
+    "GTHR_E_NOTIFICATION_TYPE_NOT_SUPPORTED",
+    "GTHR_E_NOTIF_ACCESS_TOKEN_UPDATED",
+    "GTHR_E_NOTIF_BEING_REMOVED",
+    "GTHR_E_NOTIF_EXCESSIVE_THROUGHPUT",
+    "GTHR_E_NO_IDENTITY",
+    "GTHR_E_NO_PRTCLHNLR",
+    "GTHR_E_NTF_CLIENT_NOT_SUBSCRIBED",
+    "GTHR_E_OBJECT_NOT_VALID",
+    "GTHR_E_OUT_OF_DOC_ID",
+    "GTHR_E_PIPE_NOT_CONNECTTED",
+    "GTHR_E_PLUGIN_NOT_REGISTERED",
+    "GTHR_E_PROJECT_NOT_INITIALIZED",
+    "GTHR_E_PROPERTIES_EXCEEDED",
+    "GTHR_E_PROPERTY_LIST_NOT_INITIALIZED",
+    "GTHR_E_PROXY_NAME",
+    "GTHR_E_PRT_HNDLR_PROGID_MISSING",
+    "GTHR_E_RECOVERABLE_EXOLEDB_ERROR",
+    "GTHR_E_RETRY",
+    "GTHR_E_SCHEMA_ERRORS_OCCURRED",
+    "GTHR_E_SCOPES_EXCEEDED",
+    "GTHR_E_SECRET_NOT_FOUND",
+    "GTHR_E_SERVER_UNAVAILABLE",
+    "GTHR_E_SHUTTING_DOWN",
+    "GTHR_E_SINGLE_THREADED_EMBEDDING",
+    "GTHR_E_TIMEOUT",
+    "GTHR_E_TOO_MANY_PLUGINS",
+    "GTHR_E_UNABLE_TO_READ_EXCHANGE_STORE",
+    "GTHR_E_UNABLE_TO_READ_REGISTRY",
+    "GTHR_E_UNKNOWN_PROTOCOL",
+    "GTHR_E_UNSUPPORTED_PROPERTY_TYPE",
+    "GTHR_E_URL_EXCLUDED",
+    "GTHR_E_URL_UNIDENTIFIED",
+    "GTHR_E_USER_AGENT_NOT_SPECIFIED",
+    "GTHR_E_VALUE_NOT_AVAILABLE",
+    "GTHR_S_BAD_FILE_LINK",
+    "GTHR_S_CANNOT_FILTER",
+    "GTHR_S_CANNOT_WORDBREAK",
+    "GTHR_S_CONFIG_HAS_ACCOUNTS",
+    "GTHR_S_CRAWL_ADAPTIVE",
+    "GTHR_S_CRAWL_FULL",
+    "GTHR_S_CRAWL_INCREMENTAL",
+    "GTHR_S_CRAWL_SCHEDULED",
+    "GTHR_S_END_PROCESS_LOOP_NOTIFY_QUEUE",
+    "GTHR_S_END_STD_CHUNKS",
+    "GTHR_S_MODIFIED_PARTS",
+    "GTHR_S_NOT_ALL_PARTS",
+    "GTHR_S_NO_CRAWL_SEEDS",
+    "GTHR_S_NO_INDEX",
+    "GTHR_S_OFFICE_CHILD",
+    "GTHR_S_PAUSE_REASON_BACKOFF",
+    "GTHR_S_PAUSE_REASON_EXTERNAL",
+    "GTHR_S_PAUSE_REASON_PROFILE_IMPORT",
+    "GTHR_S_PAUSE_REASON_UPGRADING",
+    "GTHR_S_PROB_NOT_MODIFIED",
+    "GTHR_S_START_FILTER_FROM_BODY",
+    "GTHR_S_START_FILTER_FROM_PROTOCOL",
+    "GTHR_S_STATUS_CHANGE_IGNORED",
+    "GTHR_S_STATUS_END_CRAWL",
+    "GTHR_S_STATUS_PAUSE",
+    "GTHR_S_STATUS_RESET",
+    "GTHR_S_STATUS_RESUME",
+    "GTHR_S_STATUS_START",
+    "GTHR_S_STATUS_STOP",
+    "GTHR_S_STATUS_THROTTLE",
+    "GTHR_S_TRANSACTION_IGNORED",
+    "GTHR_S_USE_MIME_FILTER",
+    "HACCESSOR",
+    "HITRANGE",
+    "IAccessor",
+    "IAlterIndex",
+    "IAlterTable",
+    "IBindResource",
+    "IChapteredRowset",
+    "IColumnMapper",
+    "IColumnMapperCreator",
+    "IColumnsInfo",
+    "IColumnsInfo2",
+    "IColumnsRowset",
+    "ICommand",
+    "ICommandCost",
+    "ICommandPersist",
+    "ICommandPrepare",
+    "ICommandProperties",
+    "ICommandStream",
+    "ICommandText",
+    "ICommandValidate",
+    "ICommandWithParameters",
+    "ICondition",
+    "ICondition2",
+    "IConditionFactory",
+    "IConditionFactory2",
+    "IConditionGenerator",
+    "IConvertType",
+    "ICreateRow",
+    "IDBAsynchNotify",
+    "IDBAsynchStatus",
+    "IDBBinderProperties",
+    "IDBCreateCommand",
+    "IDBCreateSession",
+    "IDBDataSourceAdmin",
+    "IDBInfo",
+    "IDBInitialize",
+    "IDBPromptInitialize",
+    "IDBProperties",
+    "IDBSchemaCommand",
+    "IDBSchemaRowset",
+    "IDCInfo",
+    "IDENTIFIER_SDK_ERROR",
+    "IDENTIFIER_SDK_MASK",
+    "IDS_MON_BUILTIN_PROPERTY",
+    "IDS_MON_BUILTIN_VIEW",
+    "IDS_MON_CANNOT_CAST",
+    "IDS_MON_CANNOT_CONVERT",
+    "IDS_MON_COLUMN_NOT_DEFINED",
+    "IDS_MON_DATE_OUT_OF_RANGE",
+    "IDS_MON_DEFAULT_ERROR",
+    "IDS_MON_ILLEGAL_PASSTHROUGH",
+    "IDS_MON_INVALIDSELECT_COALESCE",
+    "IDS_MON_INVALID_CATALOG",
+    "IDS_MON_INVALID_IN_GROUP_CLAUSE",
+    "IDS_MON_MATCH_STRING",
+    "IDS_MON_NOT_COLUMN_OF_VIEW",
+    "IDS_MON_ORDINAL_OUT_OF_RANGE",
+    "IDS_MON_OR_NOT",
+    "IDS_MON_OUT_OF_MEMORY",
+    "IDS_MON_OUT_OF_RANGE",
+    "IDS_MON_PARSE_ERR_1_PARAM",
+    "IDS_MON_PARSE_ERR_2_PARAM",
+    "IDS_MON_PROPERTY_NAME_IN_VIEW",
+    "IDS_MON_RELATIVE_INTERVAL",
+    "IDS_MON_SELECT_STAR",
+    "IDS_MON_SEMI_COLON",
+    "IDS_MON_VIEW_ALREADY_DEFINED",
+    "IDS_MON_VIEW_NOT_DEFINED",
+    "IDS_MON_WEIGHT_OUT_OF_RANGE",
+    "IDX_E_BUILD_IN_PROGRESS",
+    "IDX_E_CATALOG_DISMOUNTED",
+    "IDX_E_CORRUPT_INDEX",
+    "IDX_E_DISKFULL",
+    "IDX_E_DOCUMENT_ABORTED",
+    "IDX_E_DSS_NOT_CONNECTED",
+    "IDX_E_IDXLSTFILE_CORRUPT",
+    "IDX_E_INVALIDTAG",
+    "IDX_E_INVALID_INDEX",
+    "IDX_E_METAFILE_CORRUPT",
+    "IDX_E_NOISELIST_NOTFOUND",
+    "IDX_E_NOT_LOADED",
+    "IDX_E_OBJECT_NOT_FOUND",
+    "IDX_E_PROPSTORE_INIT_FAILED",
+    "IDX_E_PROP_MAJOR_VERSION_MISMATCH",
+    "IDX_E_PROP_MINOR_VERSION_MISMATCH",
+    "IDX_E_PROP_STATE_CORRUPT",
+    "IDX_E_PROP_STOPPED",
+    "IDX_E_REGISTRY_ENTRY",
+    "IDX_E_SEARCH_SERVER_ALREADY_EXISTS",
+    "IDX_E_SEARCH_SERVER_NOT_FOUND",
+    "IDX_E_STEMMER_NOTFOUND",
+    "IDX_E_TOO_MANY_SEARCH_SERVERS",
+    "IDX_E_USE_APPGLOBAL_PROPTABLE",
+    "IDX_E_USE_DEFAULT_CONTENTCLASS",
+    "IDX_E_WB_NOTFOUND",
+    "IDX_S_DSS_NOT_AVAILABLE",
+    "IDX_S_NO_BUILD_IN_PROGRESS",
+    "IDX_S_SEARCH_SERVER_ALREADY_EXISTS",
+    "IDX_S_SEARCH_SERVER_DOES_NOT_EXIST",
+    "IDataConvert",
+    "IDataInitialize",
+    "IDataSourceLocator",
+    "IEntity",
+    "IEnumItemProperties",
+    "IEnumSearchRoots",
+    "IEnumSearchScopeRules",
+    "IEnumSubscription",
+    "IErrorLookup",
+    "IErrorRecords",
+    "IGetDataSource",
+    "IGetRow",
+    "IGetSession",
+    "IGetSourceRow",
+    "IIndexDefinition",
+    "IInterval",
+    "ILK_EXPLICIT_EXCLUDED",
+    "ILK_EXPLICIT_INCLUDED",
+    "ILK_NEGATIVE_INFINITY",
+    "ILK_POSITIVE_INFINITY",
+    "ILoadFilter",
+    "ILoadFilterWithPrivateComActivation",
+    "IMDDataset",
+    "IMDFind",
+    "IMDRangeRowset",
+    "IMetaData",
+    "IMultipleResults",
+    "INCREMENTAL_ACCESS_INFO",
+    "INET_E_AGENT_CACHE_SIZE_EXCEEDED",
+    "INET_E_AGENT_CONNECTION_FAILED",
+    "INET_E_AGENT_EXCEEDING_CACHE_SIZE",
+    "INET_E_AGENT_MAX_SIZE_EXCEEDED",
+    "INET_E_SCHEDULED_EXCLUDE_RANGE",
+    "INET_E_SCHEDULED_UPDATES_DISABLED",
+    "INET_E_SCHEDULED_UPDATES_RESTRICTED",
+    "INET_E_SCHEDULED_UPDATE_INTERVAL",
+    "INET_S_AGENT_INCREASED_CACHE_SIZE",
+    "INET_S_AGENT_PART_FAIL",
+    "INTERVAL_LIMIT_KIND",
+    "INamedEntity",
+    "INamedEntityCollector",
+    "IObjectAccessControl",
+    "IOpLockStatus",
+    "IOpenRowset",
+    "IParentRowset",
+    "IProtocolHandlerSite",
+    "IProvideMoniker",
+    "IQueryParser",
+    "IQueryParserManager",
+    "IQuerySolution",
+    "IReadData",
+    "IRegisterProvider",
+    "IRelationship",
+    "IRichChunk",
+    "IRow",
+    "IRowChange",
+    "IRowPosition",
+    "IRowPositionChange",
+    "IRowSchemaChange",
+    "IRowset",
+    "IRowsetAsynch",
+    "IRowsetBookmark",
+    "IRowsetChange",
+    "IRowsetChangeExtInfo",
+    "IRowsetChapterMember",
+    "IRowsetCopyRows",
+    "IRowsetCurrentIndex",
+    "IRowsetEvents",
+    "IRowsetExactScroll",
+    "IRowsetFastLoad",
+    "IRowsetFind",
+    "IRowsetIdentity",
+    "IRowsetIndex",
+    "IRowsetInfo",
+    "IRowsetKeys",
+    "IRowsetLocate",
+    "IRowsetNewRowAfter",
+    "IRowsetNextRowset",
+    "IRowsetNotify",
+    "IRowsetPrioritization",
+    "IRowsetQueryStatus",
+    "IRowsetRefresh",
+    "IRowsetResynch",
+    "IRowsetScroll",
+    "IRowsetUpdate",
+    "IRowsetView",
+    "IRowsetWatchAll",
+    "IRowsetWatchNotify",
+    "IRowsetWatchRegion",
+    "IRowsetWithParameters",
+    "ISQLErrorInfo",
+    "ISQLGetDiagField",
+    "ISQLRequestDiagFields",
+    "ISQLServerErrorInfo",
+    "ISchemaLocalizerSupport",
+    "ISchemaLock",
+    "ISchemaProvider",
+    "IScopedOperations",
+    "ISearchCatalogManager",
+    "ISearchCatalogManager2",
+    "ISearchCrawlScopeManager",
+    "ISearchCrawlScopeManager2",
+    "ISearchItemsChangedSink",
+    "ISearchLanguageSupport",
+    "ISearchManager",
+    "ISearchManager2",
+    "ISearchNotifyInlineSite",
+    "ISearchPersistentItemsChangedSink",
+    "ISearchProtocol",
+    "ISearchProtocol2",
+    "ISearchProtocolThreadContext",
+    "ISearchQueryHelper",
+    "ISearchQueryHits",
+    "ISearchRoot",
+    "ISearchScopeRule",
+    "ISearchViewChangedSink",
+    "ISecurityInfo",
+    "IService",
+    "ISessionProperties",
+    "ISimpleCommandCreator",
+    "ISourcesRowset",
+    "IStemmer",
+    "ISubscriptionItem",
+    "ISubscriptionMgr",
+    "ISubscriptionMgr2",
+    "ITEMPROP",
+    "ITEM_INFO",
+    "ITableCreation",
+    "ITableDefinition",
+    "ITableDefinitionWithConstraints",
+    "ITableRename",
+    "ITokenCollection",
+    "ITransactionJoin",
+    "ITransactionLocal",
+    "ITransactionObject",
+    "ITrusteeAdmin",
+    "ITrusteeGroupAdmin",
+    "IUMS",
+    "IUMSInitialize",
+    "IUrlAccessor",
+    "IUrlAccessor2",
+    "IUrlAccessor3",
+    "IUrlAccessor4",
+    "IViewChapter",
+    "IViewFilter",
+    "IViewRowset",
+    "IViewSort",
+    "IWordBreaker",
+    "IWordFormSink",
+    "IWordSink",
+    "Interval",
+    "JET_GET_PROP_STORE_ERROR",
+    "JET_INIT_ERROR",
+    "JET_MULTIINSTANCE_DISABLED",
+    "JET_NEW_PROP_STORE_ERROR",
+    "JPS_E_CATALOG_DECSRIPTION_MISSING",
+    "JPS_E_INSUFFICIENT_DATABASE_RESOURCES",
+    "JPS_E_INSUFFICIENT_DATABASE_SESSIONS",
+    "JPS_E_INSUFFICIENT_VERSION_STORAGE",
+    "JPS_E_JET_ERR",
+    "JPS_E_MISSING_INFORMATION",
+    "JPS_E_PROPAGATION_CORRUPTION",
+    "JPS_E_PROPAGATION_FILE",
+    "JPS_E_PROPAGATION_VERSION_MISMATCH",
+    "JPS_E_SCHEMA_ERROR",
+    "JPS_E_SHARING_VIOLATION",
+    "JPS_S_DUPLICATE_DOC_DETECTED",
+    "KAGGETDIAG",
+    "KAGPROPVAL_CONCUR_LOCK",
+    "KAGPROPVAL_CONCUR_READ_ONLY",
+    "KAGPROPVAL_CONCUR_ROWVER",
+    "KAGPROPVAL_CONCUR_VALUES",
+    "KAGPROP_ACCESSIBLEPROCEDURES",
+    "KAGPROP_ACCESSIBLETABLES",
+    "KAGPROP_ACTIVESTATEMENTS",
+    "KAGPROP_AUTH_SERVERINTEGRATED",
+    "KAGPROP_AUTH_TRUSTEDCONNECTION",
     "KAGPROP_BLOBSONFOCURSOR",
-    "KAGPROP_INCLUDENONEXACT",
-    "KAGPROP_FORCESSFIREHOSEMODE",
+    "KAGPROP_CONCURRENCY",
+    "KAGPROP_CURSOR",
+    "KAGPROP_DRIVERNAME",
+    "KAGPROP_DRIVERODBCVER",
+    "KAGPROP_DRIVERVER",
+    "KAGPROP_FILEUSAGE",
     "KAGPROP_FORCENOPARAMETERREBIND",
     "KAGPROP_FORCENOPREPARE",
     "KAGPROP_FORCENOREEXECUTE",
-    "KAGPROP_ACCESSIBLEPROCEDURES",
-    "KAGPROP_ACCESSIBLETABLES",
-    "KAGPROP_ODBCSQLOPTIEF",
-    "KAGPROP_OJCAPABILITY",
-    "KAGPROP_PROCEDURES",
-    "KAGPROP_DRIVERNAME",
-    "KAGPROP_DRIVERVER",
-    "KAGPROP_DRIVERODBCVER",
+    "KAGPROP_FORCESSFIREHOSEMODE",
+    "KAGPROP_INCLUDENONEXACT",
+    "KAGPROP_IRowsetChangeExtInfo",
     "KAGPROP_LIKEESCAPECLAUSE",
-    "KAGPROP_SPECIALCHARACTERS",
+    "KAGPROP_MARSHALLABLE",
     "KAGPROP_MAXCOLUMNSINGROUPBY",
     "KAGPROP_MAXCOLUMNSININDEX",
     "KAGPROP_MAXCOLUMNSINORDERBY",
@@ -9082,210 +10863,2383 @@ __all__ = [
     "KAGPROP_MAXCOLUMNSINTABLE",
     "KAGPROP_NUMERICFUNCTIONS",
     "KAGPROP_ODBCSQLCONFORMANCE",
+    "KAGPROP_ODBCSQLOPTIEF",
+    "KAGPROP_OJCAPABILITY",
     "KAGPROP_OUTERJOINS",
+    "KAGPROP_POSITIONONNEWROW",
+    "KAGPROP_PROCEDURES",
+    "KAGPROP_QUERYBASEDUPDATES",
+    "KAGPROP_SPECIALCHARACTERS",
     "KAGPROP_STRINGFUNCTIONS",
     "KAGPROP_SYSTEMFUNCTIONS",
     "KAGPROP_TIMEDATEFUNCTIONS",
-    "KAGPROP_FILEUSAGE",
-    "KAGPROP_ACTIVESTATEMENTS",
-    "KAGPROP_AUTH_TRUSTEDCONNECTION",
-    "KAGPROP_AUTH_SERVERINTEGRATED",
-    "KAGPROPVAL_CONCUR_ROWVER",
-    "KAGPROPVAL_CONCUR_VALUES",
-    "KAGPROPVAL_CONCUR_LOCK",
-    "KAGPROPVAL_CONCUR_READ_ONLY",
+    "KAGREQDIAG",
+    "KAGREQDIAGFLAGSENUM",
+    "KAGREQDIAGFLAGS_HEADER",
+    "KAGREQDIAGFLAGS_RECORD",
+    "LOCKMODEENUM",
+    "LOCKMODE_EXCLUSIVE",
+    "LOCKMODE_INVALID",
+    "LOCKMODE_SHARED",
+    "LeafCondition",
+    "MAXNAME",
+    "MAXNUMERICLEN",
+    "MAXUSEVERITY",
+    "MAX_QUERY_RANK",
+    "MDAXISINFO",
+    "MDAXIS_CHAPTERS",
+    "MDAXIS_COLUMNS",
+    "MDAXIS_PAGES",
+    "MDAXIS_ROWS",
+    "MDAXIS_SECTIONS",
+    "MDAXIS_SLICERS",
+    "MDDISPINFO_DRILLED_DOWN",
+    "MDDISPINFO_PARENT_SAME_AS_PREV",
+    "MDFF_BOLD",
+    "MDFF_ITALIC",
+    "MDFF_STRIKEOUT",
+    "MDFF_UNDERLINE",
+    "MDLEVEL_TYPE_ALL",
+    "MDLEVEL_TYPE_CALCULATED",
+    "MDLEVEL_TYPE_REGULAR",
+    "MDLEVEL_TYPE_RESERVED1",
+    "MDLEVEL_TYPE_TIME",
+    "MDLEVEL_TYPE_TIME_DAYS",
+    "MDLEVEL_TYPE_TIME_HALF_YEAR",
+    "MDLEVEL_TYPE_TIME_HOURS",
+    "MDLEVEL_TYPE_TIME_MINUTES",
+    "MDLEVEL_TYPE_TIME_MONTHS",
+    "MDLEVEL_TYPE_TIME_QUARTERS",
+    "MDLEVEL_TYPE_TIME_SECONDS",
+    "MDLEVEL_TYPE_TIME_UNDEFINED",
+    "MDLEVEL_TYPE_TIME_WEEKS",
+    "MDLEVEL_TYPE_TIME_YEARS",
+    "MDLEVEL_TYPE_UNKNOWN",
+    "MDMEASURE_AGGR_AVG",
+    "MDMEASURE_AGGR_CALCULATED",
+    "MDMEASURE_AGGR_COUNT",
+    "MDMEASURE_AGGR_MAX",
+    "MDMEASURE_AGGR_MIN",
+    "MDMEASURE_AGGR_STD",
+    "MDMEASURE_AGGR_SUM",
+    "MDMEASURE_AGGR_UNKNOWN",
+    "MDMEASURE_AGGR_VAR",
+    "MDMEMBER_TYPE_ALL",
+    "MDMEMBER_TYPE_FORMULA",
+    "MDMEMBER_TYPE_MEASURE",
+    "MDMEMBER_TYPE_REGULAR",
+    "MDMEMBER_TYPE_RESERVE1",
+    "MDMEMBER_TYPE_RESERVE2",
+    "MDMEMBER_TYPE_RESERVE3",
+    "MDMEMBER_TYPE_RESERVE4",
+    "MDMEMBER_TYPE_UNKNOWN",
+    "MDPROPVAL_AU_UNCHANGED",
+    "MDPROPVAL_AU_UNKNOWN",
+    "MDPROPVAL_AU_UNSUPPORTED",
+    "MDPROPVAL_FS_FULL_SUPPORT",
+    "MDPROPVAL_FS_GENERATED_COLUMN",
+    "MDPROPVAL_FS_GENERATED_DIMENSION",
+    "MDPROPVAL_FS_NO_SUPPORT",
+    "MDPROPVAL_MC_SEARCHEDCASE",
+    "MDPROPVAL_MC_SINGLECASE",
+    "MDPROPVAL_MD_AFTER",
+    "MDPROPVAL_MD_BEFORE",
+    "MDPROPVAL_MD_SELF",
+    "MDPROPVAL_MF_CREATE_CALCMEMBERS",
+    "MDPROPVAL_MF_CREATE_NAMEDSETS",
+    "MDPROPVAL_MF_SCOPE_GLOBAL",
+    "MDPROPVAL_MF_SCOPE_SESSION",
+    "MDPROPVAL_MF_WITH_CALCMEMBERS",
+    "MDPROPVAL_MF_WITH_NAMEDSETS",
+    "MDPROPVAL_MJC_IMPLICITCUBE",
+    "MDPROPVAL_MJC_MULTICUBES",
+    "MDPROPVAL_MJC_SINGLECUBE",
+    "MDPROPVAL_MMF_CLOSINGPERIOD",
+    "MDPROPVAL_MMF_COUSIN",
+    "MDPROPVAL_MMF_OPENINGPERIOD",
+    "MDPROPVAL_MMF_PARALLELPERIOD",
+    "MDPROPVAL_MNF_AGGREGATE",
+    "MDPROPVAL_MNF_CORRELATION",
+    "MDPROPVAL_MNF_COVARIANCE",
+    "MDPROPVAL_MNF_DRILLDOWNLEVEL",
+    "MDPROPVAL_MNF_DRILLDOWNLEVELBOTTOM",
+    "MDPROPVAL_MNF_DRILLDOWNLEVELTOP",
+    "MDPROPVAL_MNF_DRILLDOWNMEMBERBOTTOM",
+    "MDPROPVAL_MNF_DRILLDOWNMEMBERTOP",
+    "MDPROPVAL_MNF_DRILLUPLEVEL",
+    "MDPROPVAL_MNF_DRILLUPMEMBER",
+    "MDPROPVAL_MNF_LINREG2",
+    "MDPROPVAL_MNF_LINREGPOINT",
+    "MDPROPVAL_MNF_LINREGSLOPE",
+    "MDPROPVAL_MNF_LINREGVARIANCE",
+    "MDPROPVAL_MNF_MEDIAN",
+    "MDPROPVAL_MNF_RANK",
+    "MDPROPVAL_MNF_STDDEV",
+    "MDPROPVAL_MNF_VAR",
+    "MDPROPVAL_MOQ_CATALOG_CUBE",
+    "MDPROPVAL_MOQ_CUBE_DIM",
+    "MDPROPVAL_MOQ_DATASOURCE_CUBE",
+    "MDPROPVAL_MOQ_DIMHIER_LEVEL",
+    "MDPROPVAL_MOQ_DIMHIER_MEMBER",
+    "MDPROPVAL_MOQ_DIM_HIER",
+    "MDPROPVAL_MOQ_LEVEL_MEMBER",
+    "MDPROPVAL_MOQ_MEMBER_MEMBER",
+    "MDPROPVAL_MOQ_OUTERREFERENCE",
+    "MDPROPVAL_MOQ_SCHEMA_CUBE",
+    "MDPROPVAL_MSC_GREATERTHAN",
+    "MDPROPVAL_MSC_GREATERTHANEQUAL",
+    "MDPROPVAL_MSC_LESSTHAN",
+    "MDPROPVAL_MSC_LESSTHANEQUAL",
+    "MDPROPVAL_MSF_BOTTOMPERCENT",
+    "MDPROPVAL_MSF_BOTTOMSUM",
+    "MDPROPVAL_MSF_DRILLDOWNLEVEL",
+    "MDPROPVAL_MSF_DRILLDOWNLEVELBOTTOM",
+    "MDPROPVAL_MSF_DRILLDOWNLEVELTOP",
+    "MDPROPVAL_MSF_DRILLDOWNMEMBBER",
+    "MDPROPVAL_MSF_DRILLDOWNMEMBERBOTTOM",
+    "MDPROPVAL_MSF_DRILLDOWNMEMBERTOP",
+    "MDPROPVAL_MSF_DRILLUPLEVEL",
+    "MDPROPVAL_MSF_DRILLUPMEMBER",
+    "MDPROPVAL_MSF_LASTPERIODS",
+    "MDPROPVAL_MSF_MTD",
+    "MDPROPVAL_MSF_PERIODSTODATE",
+    "MDPROPVAL_MSF_QTD",
+    "MDPROPVAL_MSF_TOGGLEDRILLSTATE",
+    "MDPROPVAL_MSF_TOPPERCENT",
+    "MDPROPVAL_MSF_TOPSUM",
+    "MDPROPVAL_MSF_WTD",
+    "MDPROPVAL_MSF_YTD",
+    "MDPROPVAL_MS_MULTIPLETUPLES",
+    "MDPROPVAL_MS_SINGLETUPLE",
+    "MDPROPVAL_NL_NAMEDLEVELS",
+    "MDPROPVAL_NL_NUMBEREDLEVELS",
+    "MDPROPVAL_NL_SCHEMAONLY",
+    "MDPROPVAL_NME_ALLDIMENSIONS",
+    "MDPROPVAL_NME_MEASURESONLY",
+    "MDPROPVAL_RR_NORANGEROWSET",
+    "MDPROPVAL_RR_READONLY",
+    "MDPROPVAL_RR_UPDATE",
+    "MDPROPVAL_VISUAL_MODE_DEFAULT",
+    "MDPROPVAL_VISUAL_MODE_VISUAL",
+    "MDPROPVAL_VISUAL_MODE_VISUAL_OFF",
+    "MDPROP_AGGREGATECELL_UPDATE",
+    "MDPROP_AXES",
+    "MDPROP_CELL",
+    "MDPROP_FLATTENING_SUPPORT",
+    "MDPROP_MDX_AGGREGATECELL_UPDATE",
+    "MDPROP_MDX_CASESUPPORT",
+    "MDPROP_MDX_CUBEQUALIFICATION",
+    "MDPROP_MDX_DESCFLAGS",
+    "MDPROP_MDX_FORMULAS",
+    "MDPROP_MDX_JOINCUBES",
+    "MDPROP_MDX_MEMBER_FUNCTIONS",
+    "MDPROP_MDX_NONMEASURE_EXPRESSIONS",
+    "MDPROP_MDX_NUMERIC_FUNCTIONS",
+    "MDPROP_MDX_OBJQUALIFICATION",
+    "MDPROP_MDX_OUTERREFERENCE",
+    "MDPROP_MDX_QUERYBYPROPERTY",
+    "MDPROP_MDX_SET_FUNCTIONS",
+    "MDPROP_MDX_SLICER",
+    "MDPROP_MDX_STRING_COMPOP",
+    "MDPROP_MEMBER",
+    "MDPROP_NAMED_LEVELS",
+    "MDPROP_RANGEROWSET",
+    "MDPROP_VISUALMODE",
+    "MDSTATUS_S_CELLEMPTY",
+    "MDTREEOP_ANCESTORS",
+    "MDTREEOP_CHILDREN",
+    "MDTREEOP_DESCENDANTS",
+    "MDTREEOP_PARENT",
+    "MDTREEOP_SELF",
+    "MDTREEOP_SIBLINGS",
+    "MD_DIMTYPE_MEASURE",
+    "MD_DIMTYPE_OTHER",
+    "MD_DIMTYPE_TIME",
+    "MD_DIMTYPE_UNKNOWN",
+    "MD_E_BADCOORDINATE",
+    "MD_E_BADTUPLE",
+    "MD_E_INVALIDAXIS",
+    "MD_E_INVALIDCELLRANGE",
+    "MINFATALERR",
+    "MIN_USER_DATATYPE",
+    "MSDAINITIALIZE",
+    "MSDAORA",
+    "MSDAORA8",
+    "MSDAORA8_ERROR",
+    "MSDAORA_ERROR",
+    "MSDSDBINITPROPENUM",
+    "MSDSSESSIONPROPENUM",
+    "MSG_CI_CORRUPT_INDEX_COMPONENT",
+    "MSG_CI_CREATE_SEVER_ITEM_FAILED",
+    "MSG_CI_MASTER_MERGE_ABORTED",
+    "MSG_CI_MASTER_MERGE_ABORTED_LOW_DISK",
+    "MSG_CI_MASTER_MERGE_CANT_RESTART",
+    "MSG_CI_MASTER_MERGE_CANT_START",
+    "MSG_CI_MASTER_MERGE_COMPLETED",
+    "MSG_CI_MASTER_MERGE_REASON_EXPECTED_DOCS",
+    "MSG_CI_MASTER_MERGE_REASON_EXTERNAL",
+    "MSG_CI_MASTER_MERGE_REASON_INDEX_LIMIT",
+    "MSG_CI_MASTER_MERGE_REASON_NUMBER",
+    "MSG_CI_MASTER_MERGE_RESTARTED",
+    "MSG_CI_MASTER_MERGE_STARTED",
+    "MSG_TEST_MESSAGE",
+    "MSS_E_APPALREADYEXISTS",
+    "MSS_E_APPNOTFOUND",
+    "MSS_E_CATALOGALREADYEXISTS",
+    "MSS_E_CATALOGNOTFOUND",
+    "MSS_E_CATALOGSTOPPING",
+    "MSS_E_INVALIDAPPNAME",
+    "MSS_E_UNICODEFILEHEADERMISSING",
+    "MS_PERSIST_PROGID",
+    "NAMED_ENTITY_CERTAINTY",
+    "NATLANGUAGERESTRICTION",
+    "NEC_HIGH",
+    "NEC_LOW",
+    "NEC_MEDIUM",
+    "NET_E_DISCONNECTED",
+    "NET_E_GENERAL",
+    "NET_E_INVALIDPARAMS",
+    "NET_E_OPERATIONINPROGRESS",
+    "NLADMIN_E_BUILD_CATALOG_NOT_INITIALIZED",
+    "NLADMIN_E_DUPLICATE_CATALOG",
+    "NLADMIN_E_FAILED_TO_GIVE_ACCOUNT_PRIVILEGE",
+    "NLADMIN_S_NOT_ALL_BUILD_CATALOGS_INITIALIZED",
+    "NODERESTRICTION",
+    "NOTESPH_E_ATTACHMENTS",
+    "NOTESPH_E_DB_ACCESS_DENIED",
+    "NOTESPH_E_FAIL",
+    "NOTESPH_E_ITEM_NOT_FOUND",
+    "NOTESPH_E_NOTESSETUP_ID_MAPPING_ERROR",
+    "NOTESPH_E_NO_NTID",
+    "NOTESPH_E_SERVER_CONFIG",
+    "NOTESPH_E_UNEXPECTED_STATE",
+    "NOTESPH_E_UNSUPPORTED_CONTENT_FIELD_TYPE",
+    "NOTESPH_S_IGNORE_ID",
+    "NOTESPH_S_LISTKNOWNFIELDS",
+    "NOTRESTRICTION",
+    "NOT_N_PARSE_ERROR",
+    "NegationCondition",
+    "OCC_INVALID",
+    "ODBCGetTryWaitValue",
+    "ODBCSetTryWaitValue",
     "ODBCVER",
     "ODBC_ADD_DSN",
-    "ODBC_CONFIG_DSN",
-    "ODBC_REMOVE_DSN",
     "ODBC_ADD_SYS_DSN",
-    "ODBC_CONFIG_SYS_DSN",
-    "ODBC_REMOVE_SYS_DSN",
-    "ODBC_REMOVE_DEFAULT_DSN",
-    "ODBC_INSTALL_INQUIRY",
-    "ODBC_INSTALL_COMPLETE",
-    "ODBC_INSTALL_DRIVER",
-    "ODBC_REMOVE_DRIVER",
+    "ODBC_BOTH_DSN",
     "ODBC_CONFIG_DRIVER",
     "ODBC_CONFIG_DRIVER_MAX",
-    "ODBC_BOTH_DSN",
-    "ODBC_USER_DSN",
-    "ODBC_SYSTEM_DSN",
+    "ODBC_CONFIG_DSN",
+    "ODBC_CONFIG_SYS_DSN",
+    "ODBC_ERROR_COMPONENT_NOT_FOUND",
+    "ODBC_ERROR_CREATE_DSN_FAILED",
     "ODBC_ERROR_GENERAL_ERR",
     "ODBC_ERROR_INVALID_BUFF_LEN",
-    "ODBC_ERROR_INVALID_HWND",
-    "ODBC_ERROR_INVALID_STR",
-    "ODBC_ERROR_INVALID_REQUEST_TYPE",
-    "ODBC_ERROR_COMPONENT_NOT_FOUND",
-    "ODBC_ERROR_INVALID_NAME",
-    "ODBC_ERROR_INVALID_KEYWORD_VALUE",
     "ODBC_ERROR_INVALID_DSN",
+    "ODBC_ERROR_INVALID_HWND",
     "ODBC_ERROR_INVALID_INF",
-    "ODBC_ERROR_REQUEST_FAILED",
-    "ODBC_ERROR_INVALID_PATH",
-    "ODBC_ERROR_LOAD_LIB_FAILED",
-    "ODBC_ERROR_INVALID_PARAM_SEQUENCE",
+    "ODBC_ERROR_INVALID_KEYWORD_VALUE",
     "ODBC_ERROR_INVALID_LOG_FILE",
-    "ODBC_ERROR_USER_CANCELED",
-    "ODBC_ERROR_USAGE_UPDATE_FAILED",
-    "ODBC_ERROR_CREATE_DSN_FAILED",
-    "ODBC_ERROR_WRITING_SYSINFO_FAILED",
-    "ODBC_ERROR_REMOVE_DSN_FAILED",
-    "ODBC_ERROR_OUT_OF_MEM",
-    "ODBC_ERROR_OUTPUT_STRING_TRUNCATED",
-    "ODBC_ERROR_NOTRANINFO",
+    "ODBC_ERROR_INVALID_NAME",
+    "ODBC_ERROR_INVALID_PARAM_SEQUENCE",
+    "ODBC_ERROR_INVALID_PATH",
+    "ODBC_ERROR_INVALID_REQUEST_TYPE",
+    "ODBC_ERROR_INVALID_STR",
+    "ODBC_ERROR_LOAD_LIB_FAILED",
     "ODBC_ERROR_MAX",
-    "SQL_MAX_SQLSERVERNAME",
-    "SQL_COPT_SS_BASE",
-    "SQL_COPT_SS_REMOTE_PWD",
-    "SQL_COPT_SS_USE_PROC_FOR_PREP",
-    "SQL_COPT_SS_INTEGRATED_SECURITY",
-    "SQL_COPT_SS_PRESERVE_CURSORS",
-    "SQL_COPT_SS_USER_DATA",
-    "SQL_COPT_SS_FALLBACK_CONNECT",
-    "SQL_COPT_SS_PERF_DATA",
-    "SQL_COPT_SS_PERF_DATA_LOG",
-    "SQL_COPT_SS_PERF_QUERY_INTERVAL",
-    "SQL_COPT_SS_PERF_QUERY_LOG",
-    "SQL_COPT_SS_PERF_QUERY",
-    "SQL_COPT_SS_PERF_DATA_LOG_NOW",
-    "SQL_COPT_SS_QUOTED_IDENT",
+    "ODBC_ERROR_NOTRANINFO",
+    "ODBC_ERROR_OUTPUT_STRING_TRUNCATED",
+    "ODBC_ERROR_OUT_OF_MEM",
+    "ODBC_ERROR_REMOVE_DSN_FAILED",
+    "ODBC_ERROR_REQUEST_FAILED",
+    "ODBC_ERROR_USAGE_UPDATE_FAILED",
+    "ODBC_ERROR_USER_CANCELED",
+    "ODBC_ERROR_WRITING_SYSINFO_FAILED",
+    "ODBC_INSTALL_COMPLETE",
+    "ODBC_INSTALL_DRIVER",
+    "ODBC_INSTALL_INQUIRY",
+    "ODBC_REMOVE_DEFAULT_DSN",
+    "ODBC_REMOVE_DRIVER",
+    "ODBC_REMOVE_DSN",
+    "ODBC_REMOVE_SYS_DSN",
+    "ODBC_SYSTEM_DSN",
+    "ODBC_USER_DSN",
+    "ODBC_VS_ARGS",
+    "ODBC_VS_FLAG_RETCODE",
+    "ODBC_VS_FLAG_STOP",
+    "ODBC_VS_FLAG_UNICODE_ARG",
+    "ODBC_VS_FLAG_UNICODE_COR",
+    "OLEDBSimpleProvider",
+    "OLEDBSimpleProviderListener",
+    "OLEDBVER",
+    "OLEDB_BINDER_CUSTOM_ERROR",
+    "OSPCOMP",
+    "OSPCOMP_DEFAULT",
+    "OSPCOMP_EQ",
+    "OSPCOMP_GE",
+    "OSPCOMP_GT",
+    "OSPCOMP_LE",
+    "OSPCOMP_LT",
+    "OSPCOMP_NE",
+    "OSPFIND",
+    "OSPFIND_CASESENSITIVE",
+    "OSPFIND_DEFAULT",
+    "OSPFIND_UP",
+    "OSPFIND_UPCASESENSITIVE",
+    "OSPFORMAT",
+    "OSPFORMAT_DEFAULT",
+    "OSPFORMAT_FORMATTED",
+    "OSPFORMAT_HTML",
+    "OSPFORMAT_RAW",
+    "OSPRW",
+    "OSPRW_DEFAULT",
+    "OSPRW_MIXED",
+    "OSPRW_READONLY",
+    "OSPRW_READWRITE",
+    "OSPXFER",
+    "OSPXFER_ABORT",
+    "OSPXFER_COMPLETE",
+    "OSPXFER_ERROR",
+    "OSP_IndexLabel",
+    "PDPO",
+    "PEOPLE_IMPORT_E_CANONICALURL_TOOLONG",
+    "PEOPLE_IMPORT_E_DATATYPENOTSUPPORTED",
+    "PEOPLE_IMPORT_E_DBCONNFAIL",
+    "PEOPLE_IMPORT_E_DC_NOT_AVAILABLE",
+    "PEOPLE_IMPORT_E_DIRSYNC_NOTREFRESHED",
+    "PEOPLE_IMPORT_E_DIRSYNC_ZERO_COOKIE",
+    "PEOPLE_IMPORT_E_DOMAIN_DISCOVER_FAILED",
+    "PEOPLE_IMPORT_E_DOMAIN_REMOVED",
+    "PEOPLE_IMPORT_E_ENUM_ACCESSDENIED",
+    "PEOPLE_IMPORT_E_FAILTOGETDSDEF",
+    "PEOPLE_IMPORT_E_FAILTOGETDSMAPPING",
+    "PEOPLE_IMPORT_E_FAILTOGETLCID",
+    "PEOPLE_IMPORT_E_LDAPPATH_TOOLONG",
+    "PEOPLE_IMPORT_E_NOCASTINGSUPPORTED",
+    "PEOPLE_IMPORT_E_UPDATE_DIRSYNC_COOKIE",
+    "PEOPLE_IMPORT_E_USERNAME_NOTRESOLVED",
+    "PEOPLE_IMPORT_NODSDEFINED",
+    "PEOPLE_IMPORT_NOMAPPINGDEFINED",
+    "PERM_ALL",
+    "PERM_CREATE",
+    "PERM_DELETE",
+    "PERM_DROP",
+    "PERM_EXCLUSIVE",
+    "PERM_EXECUTE",
+    "PERM_INSERT",
+    "PERM_MAXIMUM_ALLOWED",
+    "PERM_READ",
+    "PERM_READCONTROL",
+    "PERM_READDESIGN",
+    "PERM_REFERENCE",
+    "PERM_UPDATE",
+    "PERM_WITHGRANT",
+    "PERM_WRITEDESIGN",
+    "PERM_WRITEOWNER",
+    "PERM_WRITEPERMISSIONS",
+    "PFNFILLTEXTBUFFER",
+    "PRAll",
+    "PRAllBits",
+    "PRAny",
+    "PRIORITIZE_FLAGS",
+    "PRIORITIZE_FLAG_IGNOREFAILURECOUNT",
+    "PRIORITIZE_FLAG_RETRYFAILEDITEMS",
+    "PRIORITY_LEVEL",
+    "PRIORITY_LEVEL_DEFAULT",
+    "PRIORITY_LEVEL_FOREGROUND",
+    "PRIORITY_LEVEL_HIGH",
+    "PRIORITY_LEVEL_LOW",
+    "PROGID_MSPersist_Version_W",
+    "PROGID_MSPersist_W",
+    "PROPERTYRESTRICTION",
+    "PROPID_DBBMK_BOOKMARK",
+    "PROPID_DBBMK_CHAPTER",
+    "PROPID_DBSELF_SELF",
+    "PROXY_ACCESS",
+    "PROXY_ACCESS_DIRECT",
+    "PROXY_ACCESS_PRECONFIG",
+    "PROXY_ACCESS_PROXY",
+    "PROXY_INFO",
+    "PRRE",
+    "PRSomeBits",
+    "PRTH_E_CANT_TRANSFORM_DENIED_ACE",
+    "PRTH_E_CANT_TRANSFORM_EXTERNAL_ACL",
+    "PRTH_E_DATABASE_OPEN_ERROR",
+    "PRTH_E_HTTPS_CERTIFICATE_ERROR",
+    "PRTH_E_HTTPS_REQUIRE_CERTIFICATE",
+    "PRTH_E_INIT_FAILED",
+    "PRTH_E_INTERNAL_ERROR",
+    "PRTH_E_LOAD_FAILED",
+    "PRTH_E_MIME_EXCLUDED",
+    "PRTH_E_NO_PROPERTY",
+    "PRTH_E_OPLOCK_BROKEN",
+    "PRTH_E_RETRY",
+    "PRTH_E_TRUNCATED",
+    "PRTH_E_VOLUME_MOUNT_POINT",
+    "PRTH_E_WININET",
+    "PRTH_S_MAX_DOWNLOAD",
+    "PRTH_S_MAX_GROWTH",
+    "PRTH_S_TRY_IMPERSONATING",
+    "PRTH_S_USE_ROSEBUD",
+    "PWPROP_OSPVALUE",
+    "QPMO_APPEND_LCID_TO_LOCALIZED_PATH",
+    "QPMO_LOCALIZED_SCHEMA_BINARY_PATH",
+    "QPMO_LOCALIZER_SUPPORT",
+    "QPMO_PRELOCALIZED_SCHEMA_BINARY_PATH",
+    "QPMO_SCHEMA_BINARY_NAME",
+    "QPMO_UNLOCALIZED_SCHEMA_BINARY_PATH",
+    "QRY_E_COLUMNNOTSEARCHABLE",
+    "QRY_E_COLUMNNOTSORTABLE",
+    "QRY_E_ENGINEFAILED",
+    "QRY_E_INFIXWILDCARD",
+    "QRY_E_INVALIDCATALOG",
+    "QRY_E_INVALIDCOLUMN",
+    "QRY_E_INVALIDINTERVAL",
+    "QRY_E_INVALIDPATH",
+    "QRY_E_INVALIDSCOPES",
+    "QRY_E_LMNOTINITIALIZED",
+    "QRY_E_NOCOLUMNS",
+    "QRY_E_NODATASOURCES",
+    "QRY_E_NOLOGMANAGER",
+    "QRY_E_NULLQUERY",
+    "QRY_E_PREFIXWILDCARD",
+    "QRY_E_QUERYCORRUPT",
+    "QRY_E_QUERYSYNTAX",
+    "QRY_E_SCOPECARDINALIDY",
+    "QRY_E_SEARCHTOOBIG",
+    "QRY_E_STARTHITTOBIG",
+    "QRY_E_TIMEOUT",
+    "QRY_E_TOOMANYCOLUMNS",
+    "QRY_E_TOOMANYDATABASES",
+    "QRY_E_TOOMANYQUERYTERMS",
+    "QRY_E_TYPEMISMATCH",
+    "QRY_E_UNEXPECTED",
+    "QRY_E_UNHANDLEDTYPE",
+    "QRY_E_WILDCARDPREFIXLENGTH",
+    "QRY_S_INEXACTRESULTS",
+    "QRY_S_NOROWSFOUND",
+    "QRY_S_TERMIGNORED",
+    "QUERY_E_AGGREGATE_NOT_SUPPORTED",
+    "QUERY_E_ALLNOISE_AND_NO_RELDOC",
+    "QUERY_E_ALLNOISE_AND_NO_RELPROP",
+    "QUERY_E_DUPLICATE_RANGE_NAME",
+    "QUERY_E_INCORRECT_VERSION",
+    "QUERY_E_INVALIDCOALESCE",
+    "QUERY_E_INVALIDSCOPE_COALESCE",
+    "QUERY_E_INVALIDSORT_COALESCE",
+    "QUERY_E_INVALID_DOCUMENT_IDENTIFIER",
+    "QUERY_E_NO_RELDOC",
+    "QUERY_E_NO_RELPROP",
+    "QUERY_E_RELDOC_SYNTAX_NOT_SUPPORTED",
+    "QUERY_E_REPEATED_RELDOC",
+    "QUERY_E_TOP_LEVEL_IN_GROUP",
+    "QUERY_E_UPGRADEINPROGRESS",
+    "QUERY_PARSER_MANAGER_OPTION",
+    "QUERY_SORTDEFAULT",
+    "QUERY_SORTXASCEND",
+    "QUERY_SORTXDESCEND",
+    "QUERY_VALIDBITS",
+    "QueryParser",
+    "QueryParserManager",
+    "RANGECATEGORIZE",
+    "RESTRICTION",
+    "REXSPH_E_DUPLICATE_PROPERTY",
+    "REXSPH_E_INVALID_CALL",
+    "REXSPH_E_MULTIPLE_REDIRECT",
+    "REXSPH_E_NO_PROPERTY_ON_ROW",
+    "REXSPH_E_REDIRECT_ON_SECURITY_UPDATE",
+    "REXSPH_E_TYPE_MISMATCH_ON_READ",
+    "REXSPH_E_UNEXPECTED_DATA_STATUS",
+    "REXSPH_E_UNEXPECTED_FILTER_STATE",
+    "REXSPH_E_UNKNOWN_DATA_TYPE",
+    "REXSPH_S_REDIRECTED",
+    "RMTPACK",
+    "ROWSETEVENT_ITEMSTATE",
+    "ROWSETEVENT_ITEMSTATE_INROWSET",
+    "ROWSETEVENT_ITEMSTATE_NOTINROWSET",
+    "ROWSETEVENT_ITEMSTATE_UNKNOWN",
+    "ROWSETEVENT_TYPE",
+    "ROWSETEVENT_TYPE_DATAEXPIRED",
+    "ROWSETEVENT_TYPE_FOREGROUNDLOST",
+    "ROWSETEVENT_TYPE_SCOPESTATISTICS",
+    "RS_COMPLETED",
+    "RS_MAYBOTHERUSER",
+    "RS_READY",
+    "RS_SUSPENDED",
+    "RS_SUSPENDONIDLE",
+    "RS_UPDATING",
+    "RTAnd",
+    "RTContent",
+    "RTNatLanguage",
+    "RTNone",
+    "RTNot",
+    "RTOr",
+    "RTProperty",
+    "RTProximity",
+    "RTVector",
+    "RootBinder",
+    "SCHEMA_E_ADDSTOPWORDS",
+    "SCHEMA_E_BADATTRIBUTE",
+    "SCHEMA_E_BADCOLUMNNAME",
+    "SCHEMA_E_BADFILENAME",
+    "SCHEMA_E_BADPROPPID",
+    "SCHEMA_E_BADPROPSPEC",
+    "SCHEMA_E_CANNOTCREATEFILE",
+    "SCHEMA_E_CANNOTCREATENOISEWORDFILE",
+    "SCHEMA_E_CANNOTWRITEFILE",
+    "SCHEMA_E_DUPLICATENOISE",
+    "SCHEMA_E_EMPTYFILE",
+    "SCHEMA_E_FILECHANGED",
+    "SCHEMA_E_FILENOTFOUND",
+    "SCHEMA_E_INVALIDDATATYPE",
+    "SCHEMA_E_INVALIDFILETYPE",
+    "SCHEMA_E_INVALIDVALUE",
+    "SCHEMA_E_LOAD_SPECIAL",
+    "SCHEMA_E_NAMEEXISTS",
+    "SCHEMA_E_NESTEDTAG",
+    "SCHEMA_E_NOMORECOLUMNS",
+    "SCHEMA_E_PROPEXISTS",
+    "SCHEMA_E_UNEXPECTEDTAG",
+    "SCHEMA_E_VERSIONMISMATCH",
+    "SCRIPTPI_E_ALREADY_COMPLETED",
+    "SCRIPTPI_E_CANNOT_ALTER_CHUNK",
+    "SCRIPTPI_E_CHUNK_NOT_TEXT",
+    "SCRIPTPI_E_CHUNK_NOT_VALUE",
+    "SCRIPTPI_E_PID_NOT_NAME",
+    "SCRIPTPI_E_PID_NOT_NUMERIC",
+    "SEARCH_ADVANCED_QUERY_SYNTAX",
+    "SEARCH_CHANGE_ADD",
+    "SEARCH_CHANGE_DELETE",
+    "SEARCH_CHANGE_MODIFY",
+    "SEARCH_CHANGE_MOVE_RENAME",
+    "SEARCH_CHANGE_SEMANTICS_DIRECTORY",
+    "SEARCH_CHANGE_SEMANTICS_SHALLOW",
+    "SEARCH_CHANGE_SEMANTICS_UPDATE_SECURITY",
+    "SEARCH_COLUMN_PROPERTIES",
+    "SEARCH_HIGH_PRIORITY",
+    "SEARCH_INDEXING_PHASE",
+    "SEARCH_INDEXING_PHASE_GATHERER",
+    "SEARCH_INDEXING_PHASE_PERSISTED",
+    "SEARCH_INDEXING_PHASE_QUERYABLE",
+    "SEARCH_ITEM_CHANGE",
+    "SEARCH_ITEM_INDEXING_STATUS",
+    "SEARCH_ITEM_PERSISTENT_CHANGE",
+    "SEARCH_KIND_OF_CHANGE",
+    "SEARCH_NATURAL_QUERY_SYNTAX",
+    "SEARCH_NORMAL_PRIORITY",
+    "SEARCH_NOTIFICATION_PRIORITY",
+    "SEARCH_NO_QUERY_SYNTAX",
+    "SEARCH_QUERY_SYNTAX",
+    "SEARCH_TERM_EXPANSION",
+    "SEARCH_TERM_NO_EXPANSION",
+    "SEARCH_TERM_PREFIX_ALL",
+    "SEARCH_TERM_STEM_ALL",
+    "SEC_E_ACCESSDENIED",
+    "SEC_E_BADTRUSTEEID",
+    "SEC_E_INITFAILED",
+    "SEC_E_INVALIDACCESSENTRY",
+    "SEC_E_INVALIDACCESSENTRYLIST",
+    "SEC_E_INVALIDCONTEXT",
+    "SEC_E_INVALIDOBJECT",
+    "SEC_E_INVALIDOWNER",
+    "SEC_E_NOMEMBERSHIPSUPPORT",
+    "SEC_E_NOOWNER",
+    "SEC_E_NOTINITIALIZED",
+    "SEC_E_NOTRUSTEEID",
+    "SEC_E_PERMISSIONDENIED",
+    "SEC_OBJECT",
+    "SEC_OBJECT_ELEMENT",
+    "SI_TEMPORARY",
+    "SORTKEY",
+    "SORTSET",
+    "SPS_WS_ERROR",
+    "SQLAOPANY",
+    "SQLAOPAVG",
+    "SQLAOPCNT",
+    "SQLAOPMAX",
+    "SQLAOPMIN",
+    "SQLAOPNOOP",
+    "SQLAOPSTDEV",
+    "SQLAOPSTDEVP",
+    "SQLAOPSUM",
+    "SQLAOPVAR",
+    "SQLAOPVARP",
+    "SQLAllocConnect",
+    "SQLAllocEnv",
+    "SQLAllocHandle",
+    "SQLAllocHandleStd",
+    "SQLAllocStmt",
+    "SQLBIGBINARY",
+    "SQLBIGCHAR",
+    "SQLBIGVARBINARY",
+    "SQLBIGVARCHAR",
+    "SQLBINARY",
+    "SQLBIT",
+    "SQLBITN",
+    "SQLBindCol",
+    "SQLBindParam",
+    "SQLBindParameter",
+    "SQLBrowseConnect",
+    "SQLBrowseConnectA",
+    "SQLBrowseConnectW",
+    "SQLBulkOperations",
+    "SQLCHARACTER",
+    "SQLCancel",
+    "SQLCancelHandle",
+    "SQLCloseCursor",
+    "SQLCloseEnumServers",
+    "SQLColAttribute",
+    "SQLColAttributeA",
+    "SQLColAttributeW",
+    "SQLColAttributes",
+    "SQLColAttributesA",
+    "SQLColAttributesW",
+    "SQLColumnPrivileges",
+    "SQLColumnPrivilegesA",
+    "SQLColumnPrivilegesW",
+    "SQLColumns",
+    "SQLColumnsA",
+    "SQLColumnsW",
+    "SQLCompleteAsync",
+    "SQLConnect",
+    "SQLConnectA",
+    "SQLConnectW",
+    "SQLCopyDesc",
+    "SQLDATETIM4",
+    "SQLDATETIME",
+    "SQLDATETIMN",
+    "SQLDECIMAL",
+    "SQLDECIMALN",
+    "SQLDataSources",
+    "SQLDataSourcesA",
+    "SQLDataSourcesW",
+    "SQLDescribeCol",
+    "SQLDescribeColA",
+    "SQLDescribeColW",
+    "SQLDescribeParam",
+    "SQLDisconnect",
+    "SQLDriverConnect",
+    "SQLDriverConnectA",
+    "SQLDriverConnectW",
+    "SQLDrivers",
+    "SQLDriversA",
+    "SQLDriversW",
+    "SQLEndTran",
+    "SQLError",
+    "SQLErrorA",
+    "SQLErrorW",
+    "SQLExecDirect",
+    "SQLExecDirectA",
+    "SQLExecDirectW",
+    "SQLExecute",
+    "SQLExtendedFetch",
+    "SQLFLT4",
+    "SQLFLT8",
+    "SQLFLTN",
+    "SQLFetch",
+    "SQLFetchScroll",
+    "SQLForeignKeys",
+    "SQLForeignKeysA",
+    "SQLForeignKeysW",
+    "SQLFreeConnect",
+    "SQLFreeEnv",
+    "SQLFreeHandle",
+    "SQLFreeStmt",
+    "SQLGetConnectAttr",
+    "SQLGetConnectAttrA",
+    "SQLGetConnectAttrW",
+    "SQLGetConnectOption",
+    "SQLGetConnectOptionA",
+    "SQLGetConnectOptionW",
+    "SQLGetCursorName",
+    "SQLGetCursorNameA",
+    "SQLGetCursorNameW",
+    "SQLGetData",
+    "SQLGetDescField",
+    "SQLGetDescFieldA",
+    "SQLGetDescFieldW",
+    "SQLGetDescRec",
+    "SQLGetDescRecA",
+    "SQLGetDescRecW",
+    "SQLGetDiagField",
+    "SQLGetDiagFieldA",
+    "SQLGetDiagFieldW",
+    "SQLGetDiagRec",
+    "SQLGetDiagRecA",
+    "SQLGetDiagRecW",
+    "SQLGetEnvAttr",
+    "SQLGetFunctions",
+    "SQLGetInfo",
+    "SQLGetInfoA",
+    "SQLGetInfoW",
+    "SQLGetNextEnumeration",
+    "SQLGetStmtAttr",
+    "SQLGetStmtAttrA",
+    "SQLGetStmtAttrW",
+    "SQLGetStmtOption",
+    "SQLGetTypeInfo",
+    "SQLGetTypeInfoA",
+    "SQLGetTypeInfoW",
+    "SQLIMAGE",
+    "SQLINT1",
+    "SQLINT2",
+    "SQLINT4",
+    "SQLINT8",
+    "SQLINTERVAL",
+    "SQLINTN",
+    "SQLInitEnumServers",
+    "SQLLinkedCatalogsA",
+    "SQLLinkedCatalogsW",
+    "SQLLinkedServers",
+    "SQLMONEY",
+    "SQLMONEY4",
+    "SQLMONEYN",
+    "SQLMoreResults",
+    "SQLNCHAR",
+    "SQLNTEXT",
+    "SQLNUMERIC",
+    "SQLNUMERICN",
+    "SQLNVARCHAR",
+    "SQLNativeSql",
+    "SQLNativeSqlA",
+    "SQLNativeSqlW",
+    "SQLNumParams",
+    "SQLNumResultCols",
+    "SQLPERF",
+    "SQLParamData",
+    "SQLParamOptions",
+    "SQLPrepare",
+    "SQLPrepareA",
+    "SQLPrepareW",
+    "SQLPrimaryKeys",
+    "SQLPrimaryKeysA",
+    "SQLPrimaryKeysW",
+    "SQLProcedureColumns",
+    "SQLProcedureColumnsA",
+    "SQLProcedureColumnsW",
+    "SQLProcedures",
+    "SQLProceduresA",
+    "SQLProceduresW",
+    "SQLPutData",
+    "SQLRowCount",
+    "SQLSetConnectAttr",
+    "SQLSetConnectAttrA",
+    "SQLSetConnectAttrW",
+    "SQLSetConnectOption",
+    "SQLSetConnectOptionA",
+    "SQLSetConnectOptionW",
+    "SQLSetCursorName",
+    "SQLSetCursorNameA",
+    "SQLSetCursorNameW",
+    "SQLSetDescField",
+    "SQLSetDescFieldW",
+    "SQLSetDescRec",
+    "SQLSetEnvAttr",
+    "SQLSetParam",
+    "SQLSetPos",
+    "SQLSetScrollOptions",
+    "SQLSetStmtAttr",
+    "SQLSetStmtAttrW",
+    "SQLSetStmtOption",
+    "SQLSpecialColumns",
+    "SQLSpecialColumnsA",
+    "SQLSpecialColumnsW",
+    "SQLStatistics",
+    "SQLStatisticsA",
+    "SQLStatisticsW",
+    "SQLTEXT",
+    "SQLTablePrivileges",
+    "SQLTablePrivilegesA",
+    "SQLTablePrivilegesW",
+    "SQLTables",
+    "SQLTablesA",
+    "SQLTablesW",
+    "SQLTransact",
+    "SQLUNIQUEID",
+    "SQLVARBINARY",
+    "SQLVARCHAR",
+    "SQLVARENUM",
+    "SQLVARIANT",
+    "SQL_AA_FALSE",
+    "SQL_AA_TRUE",
+    "SQL_ACCESSIBLE_PROCEDURES",
+    "SQL_ACCESSIBLE_TABLES",
+    "SQL_ACCESS_MODE",
+    "SQL_ACTIVE_CONNECTIONS",
+    "SQL_ACTIVE_ENVIRONMENTS",
+    "SQL_ACTIVE_STATEMENTS",
+    "SQL_ADD",
+    "SQL_AD_ADD_CONSTRAINT_DEFERRABLE",
+    "SQL_AD_ADD_CONSTRAINT_INITIALLY_DEFERRED",
+    "SQL_AD_ADD_CONSTRAINT_INITIALLY_IMMEDIATE",
+    "SQL_AD_ADD_CONSTRAINT_NON_DEFERRABLE",
+    "SQL_AD_ADD_DOMAIN_CONSTRAINT",
+    "SQL_AD_ADD_DOMAIN_DEFAULT",
+    "SQL_AD_CONSTRAINT_NAME_DEFINITION",
+    "SQL_AD_DEFAULT",
+    "SQL_AD_DROP_DOMAIN_CONSTRAINT",
+    "SQL_AD_DROP_DOMAIN_DEFAULT",
+    "SQL_AD_OFF",
+    "SQL_AD_ON",
+    "SQL_AF_ALL",
+    "SQL_AF_AVG",
+    "SQL_AF_COUNT",
+    "SQL_AF_DISTINCT",
+    "SQL_AF_MAX",
+    "SQL_AF_MIN",
+    "SQL_AF_SUM",
+    "SQL_AGGREGATE_FUNCTIONS",
+    "SQL_ALL_CATALOGS",
+    "SQL_ALL_EXCEPT_LIKE",
+    "SQL_ALL_SCHEMAS",
+    "SQL_ALL_TABLE_TYPES",
+    "SQL_ALL_TYPES",
+    "SQL_ALTER_DOMAIN",
+    "SQL_ALTER_TABLE",
+    "SQL_AM_CONNECTION",
+    "SQL_AM_NONE",
+    "SQL_AM_STATEMENT",
+    "SQL_AO_DEFAULT",
+    "SQL_AO_OFF",
+    "SQL_AO_ON",
+    "SQL_APD_TYPE",
+    "SQL_API_ALL_FUNCTIONS",
+    "SQL_API_LOADBYORDINAL",
+    "SQL_API_ODBC3_ALL_FUNCTIONS",
+    "SQL_API_ODBC3_ALL_FUNCTIONS_SIZE",
+    "SQL_API_SQLALLOCCONNECT",
+    "SQL_API_SQLALLOCENV",
+    "SQL_API_SQLALLOCHANDLE",
+    "SQL_API_SQLALLOCHANDLESTD",
+    "SQL_API_SQLALLOCSTMT",
+    "SQL_API_SQLBINDCOL",
+    "SQL_API_SQLBINDPARAM",
+    "SQL_API_SQLBINDPARAMETER",
+    "SQL_API_SQLBROWSECONNECT",
+    "SQL_API_SQLBULKOPERATIONS",
+    "SQL_API_SQLCANCEL",
+    "SQL_API_SQLCANCELHANDLE",
+    "SQL_API_SQLCLOSECURSOR",
+    "SQL_API_SQLCOLATTRIBUTE",
+    "SQL_API_SQLCOLATTRIBUTES",
+    "SQL_API_SQLCOLUMNPRIVILEGES",
+    "SQL_API_SQLCOLUMNS",
+    "SQL_API_SQLCOMPLETEASYNC",
+    "SQL_API_SQLCONNECT",
+    "SQL_API_SQLCOPYDESC",
+    "SQL_API_SQLDATASOURCES",
+    "SQL_API_SQLDESCRIBECOL",
+    "SQL_API_SQLDESCRIBEPARAM",
+    "SQL_API_SQLDISCONNECT",
+    "SQL_API_SQLDRIVERCONNECT",
+    "SQL_API_SQLDRIVERS",
+    "SQL_API_SQLENDTRAN",
+    "SQL_API_SQLERROR",
+    "SQL_API_SQLEXECDIRECT",
+    "SQL_API_SQLEXECUTE",
+    "SQL_API_SQLEXTENDEDFETCH",
+    "SQL_API_SQLFETCH",
+    "SQL_API_SQLFETCHSCROLL",
+    "SQL_API_SQLFOREIGNKEYS",
+    "SQL_API_SQLFREECONNECT",
+    "SQL_API_SQLFREEENV",
+    "SQL_API_SQLFREEHANDLE",
+    "SQL_API_SQLFREESTMT",
+    "SQL_API_SQLGETCONNECTATTR",
+    "SQL_API_SQLGETCONNECTOPTION",
+    "SQL_API_SQLGETCURSORNAME",
+    "SQL_API_SQLGETDATA",
+    "SQL_API_SQLGETDESCFIELD",
+    "SQL_API_SQLGETDESCREC",
+    "SQL_API_SQLGETDIAGFIELD",
+    "SQL_API_SQLGETDIAGREC",
+    "SQL_API_SQLGETENVATTR",
+    "SQL_API_SQLGETFUNCTIONS",
+    "SQL_API_SQLGETINFO",
+    "SQL_API_SQLGETSTMTATTR",
+    "SQL_API_SQLGETSTMTOPTION",
+    "SQL_API_SQLGETTYPEINFO",
+    "SQL_API_SQLMORERESULTS",
+    "SQL_API_SQLNATIVESQL",
+    "SQL_API_SQLNUMPARAMS",
+    "SQL_API_SQLNUMRESULTCOLS",
+    "SQL_API_SQLPARAMDATA",
+    "SQL_API_SQLPARAMOPTIONS",
+    "SQL_API_SQLPREPARE",
+    "SQL_API_SQLPRIMARYKEYS",
+    "SQL_API_SQLPRIVATEDRIVERS",
+    "SQL_API_SQLPROCEDURECOLUMNS",
+    "SQL_API_SQLPROCEDURES",
+    "SQL_API_SQLPUTDATA",
+    "SQL_API_SQLROWCOUNT",
+    "SQL_API_SQLSETCONNECTATTR",
+    "SQL_API_SQLSETCONNECTOPTION",
+    "SQL_API_SQLSETCURSORNAME",
+    "SQL_API_SQLSETDESCFIELD",
+    "SQL_API_SQLSETDESCREC",
+    "SQL_API_SQLSETENVATTR",
+    "SQL_API_SQLSETPARAM",
+    "SQL_API_SQLSETPOS",
+    "SQL_API_SQLSETSCROLLOPTIONS",
+    "SQL_API_SQLSETSTMTATTR",
+    "SQL_API_SQLSETSTMTOPTION",
+    "SQL_API_SQLSPECIALCOLUMNS",
+    "SQL_API_SQLSTATISTICS",
+    "SQL_API_SQLTABLEPRIVILEGES",
+    "SQL_API_SQLTABLES",
+    "SQL_API_SQLTRANSACT",
+    "SQL_ARD_TYPE",
+    "SQL_ASYNC_DBC_CAPABLE",
+    "SQL_ASYNC_DBC_ENABLE_DEFAULT",
+    "SQL_ASYNC_DBC_ENABLE_OFF",
+    "SQL_ASYNC_DBC_ENABLE_ON",
+    "SQL_ASYNC_DBC_FUNCTIONS",
+    "SQL_ASYNC_DBC_NOT_CAPABLE",
+    "SQL_ASYNC_ENABLE",
+    "SQL_ASYNC_ENABLE_DEFAULT",
+    "SQL_ASYNC_ENABLE_OFF",
+    "SQL_ASYNC_ENABLE_ON",
+    "SQL_ASYNC_MODE",
+    "SQL_ASYNC_NOTIFICATION",
+    "SQL_ASYNC_NOTIFICATION_CALLBACK",
+    "SQL_ASYNC_NOTIFICATION_CAPABLE",
+    "SQL_ASYNC_NOTIFICATION_NOT_CAPABLE",
+    "SQL_ATTR_ACCESS_MODE",
+    "SQL_ATTR_ANSI_APP",
+    "SQL_ATTR_APPLICATION_KEY",
+    "SQL_ATTR_APP_PARAM_DESC",
+    "SQL_ATTR_APP_ROW_DESC",
+    "SQL_ATTR_ASYNC_DBC_EVENT",
+    "SQL_ATTR_ASYNC_DBC_FUNCTIONS_ENABLE",
+    "SQL_ATTR_ASYNC_DBC_NOTIFICATION_CALLBACK",
+    "SQL_ATTR_ASYNC_DBC_NOTIFICATION_CONTEXT",
+    "SQL_ATTR_ASYNC_ENABLE",
+    "SQL_ATTR_ASYNC_STMT_EVENT",
+    "SQL_ATTR_ASYNC_STMT_NOTIFICATION_CALLBACK",
+    "SQL_ATTR_ASYNC_STMT_NOTIFICATION_CONTEXT",
+    "SQL_ATTR_AUTOCOMMIT",
+    "SQL_ATTR_AUTO_IPD",
+    "SQL_ATTR_CONCURRENCY",
+    "SQL_ATTR_CONNECTION_DEAD",
+    "SQL_ATTR_CONNECTION_POOLING",
+    "SQL_ATTR_CONNECTION_TIMEOUT",
+    "SQL_ATTR_CP_MATCH",
+    "SQL_ATTR_CURRENT_CATALOG",
+    "SQL_ATTR_CURSOR_SCROLLABLE",
+    "SQL_ATTR_CURSOR_SENSITIVITY",
+    "SQL_ATTR_CURSOR_TYPE",
+    "SQL_ATTR_DBC_INFO_TOKEN",
+    "SQL_ATTR_DISCONNECT_BEHAVIOR",
+    "SQL_ATTR_ENABLE_AUTO_IPD",
+    "SQL_ATTR_ENLIST_IN_DTC",
+    "SQL_ATTR_ENLIST_IN_XA",
+    "SQL_ATTR_FETCH_BOOKMARK_PTR",
+    "SQL_ATTR_IMP_PARAM_DESC",
+    "SQL_ATTR_IMP_ROW_DESC",
+    "SQL_ATTR_KEYSET_SIZE",
+    "SQL_ATTR_LOGIN_TIMEOUT",
+    "SQL_ATTR_MAX_LENGTH",
+    "SQL_ATTR_MAX_ROWS",
+    "SQL_ATTR_METADATA_ID",
+    "SQL_ATTR_NOSCAN",
+    "SQL_ATTR_ODBC_CURSORS",
+    "SQL_ATTR_ODBC_VERSION",
+    "SQL_ATTR_OUTPUT_NTS",
+    "SQL_ATTR_PACKET_SIZE",
+    "SQL_ATTR_PARAMSET_SIZE",
+    "SQL_ATTR_PARAMS_PROCESSED_PTR",
+    "SQL_ATTR_PARAM_BIND_OFFSET_PTR",
+    "SQL_ATTR_PARAM_BIND_TYPE",
+    "SQL_ATTR_PARAM_OPERATION_PTR",
+    "SQL_ATTR_PARAM_STATUS_PTR",
+    "SQL_ATTR_QUERY_TIMEOUT",
+    "SQL_ATTR_QUIET_MODE",
+    "SQL_ATTR_READONLY",
+    "SQL_ATTR_READWRITE_UNKNOWN",
+    "SQL_ATTR_RESET_CONNECTION",
+    "SQL_ATTR_RETRIEVE_DATA",
+    "SQL_ATTR_ROWS_FETCHED_PTR",
+    "SQL_ATTR_ROW_ARRAY_SIZE",
+    "SQL_ATTR_ROW_BIND_OFFSET_PTR",
+    "SQL_ATTR_ROW_BIND_TYPE",
+    "SQL_ATTR_ROW_NUMBER",
+    "SQL_ATTR_ROW_OPERATION_PTR",
+    "SQL_ATTR_ROW_STATUS_PTR",
+    "SQL_ATTR_SIMULATE_CURSOR",
+    "SQL_ATTR_TRACE",
+    "SQL_ATTR_TRACEFILE",
+    "SQL_ATTR_TRANSLATE_LIB",
+    "SQL_ATTR_TRANSLATE_OPTION",
+    "SQL_ATTR_TXN_ISOLATION",
+    "SQL_ATTR_USE_BOOKMARKS",
+    "SQL_ATTR_WRITE",
+    "SQL_AT_ADD_COLUMN",
+    "SQL_AT_ADD_COLUMN_COLLATION",
+    "SQL_AT_ADD_COLUMN_DEFAULT",
+    "SQL_AT_ADD_COLUMN_SINGLE",
+    "SQL_AT_ADD_CONSTRAINT",
+    "SQL_AT_ADD_TABLE_CONSTRAINT",
+    "SQL_AT_CONSTRAINT_DEFERRABLE",
+    "SQL_AT_CONSTRAINT_INITIALLY_DEFERRED",
+    "SQL_AT_CONSTRAINT_INITIALLY_IMMEDIATE",
+    "SQL_AT_CONSTRAINT_NAME_DEFINITION",
+    "SQL_AT_CONSTRAINT_NON_DEFERRABLE",
+    "SQL_AT_DROP_COLUMN",
+    "SQL_AT_DROP_COLUMN_CASCADE",
+    "SQL_AT_DROP_COLUMN_DEFAULT",
+    "SQL_AT_DROP_COLUMN_RESTRICT",
+    "SQL_AT_DROP_TABLE_CONSTRAINT_CASCADE",
+    "SQL_AT_DROP_TABLE_CONSTRAINT_RESTRICT",
+    "SQL_AT_SET_COLUMN_DEFAULT",
+    "SQL_AUTOCOMMIT",
+    "SQL_AUTOCOMMIT_DEFAULT",
+    "SQL_AUTOCOMMIT_OFF",
+    "SQL_AUTOCOMMIT_ON",
+    "SQL_BATCH_ROW_COUNT",
+    "SQL_BATCH_SUPPORT",
+    "SQL_BCP_DEFAULT",
+    "SQL_BCP_OFF",
+    "SQL_BCP_ON",
+    "SQL_BEST_ROWID",
+    "SQL_BIGINT",
+    "SQL_BINARY",
+    "SQL_BIND_BY_COLUMN",
+    "SQL_BIND_TYPE",
+    "SQL_BIND_TYPE_DEFAULT",
+    "SQL_BIT",
+    "SQL_BOOKMARK_PERSISTENCE",
+    "SQL_BP_CLOSE",
+    "SQL_BP_DELETE",
+    "SQL_BP_DROP",
+    "SQL_BP_OTHER_HSTMT",
+    "SQL_BP_SCROLL",
+    "SQL_BP_TRANSACTION",
+    "SQL_BP_UPDATE",
+    "SQL_BRC_EXPLICIT",
+    "SQL_BRC_PROCEDURES",
+    "SQL_BRC_ROLLED_UP",
+    "SQL_BS_ROW_COUNT_EXPLICIT",
+    "SQL_BS_ROW_COUNT_PROC",
+    "SQL_BS_SELECT_EXPLICIT",
+    "SQL_BS_SELECT_PROC",
+    "SQL_CA1_ABSOLUTE",
+    "SQL_CA1_BOOKMARK",
+    "SQL_CA1_BULK_ADD",
+    "SQL_CA1_BULK_DELETE_BY_BOOKMARK",
+    "SQL_CA1_BULK_FETCH_BY_BOOKMARK",
+    "SQL_CA1_BULK_UPDATE_BY_BOOKMARK",
+    "SQL_CA1_LOCK_EXCLUSIVE",
+    "SQL_CA1_LOCK_NO_CHANGE",
+    "SQL_CA1_LOCK_UNLOCK",
+    "SQL_CA1_NEXT",
+    "SQL_CA1_POSITIONED_DELETE",
+    "SQL_CA1_POSITIONED_UPDATE",
+    "SQL_CA1_POS_DELETE",
+    "SQL_CA1_POS_POSITION",
+    "SQL_CA1_POS_REFRESH",
+    "SQL_CA1_POS_UPDATE",
+    "SQL_CA1_RELATIVE",
+    "SQL_CA1_SELECT_FOR_UPDATE",
+    "SQL_CA2_CRC_APPROXIMATE",
+    "SQL_CA2_CRC_EXACT",
+    "SQL_CA2_LOCK_CONCURRENCY",
+    "SQL_CA2_MAX_ROWS_CATALOG",
+    "SQL_CA2_MAX_ROWS_DELETE",
+    "SQL_CA2_MAX_ROWS_INSERT",
+    "SQL_CA2_MAX_ROWS_SELECT",
+    "SQL_CA2_MAX_ROWS_UPDATE",
+    "SQL_CA2_OPT_ROWVER_CONCURRENCY",
+    "SQL_CA2_OPT_VALUES_CONCURRENCY",
+    "SQL_CA2_READ_ONLY_CONCURRENCY",
+    "SQL_CA2_SENSITIVITY_ADDITIONS",
+    "SQL_CA2_SENSITIVITY_DELETIONS",
+    "SQL_CA2_SENSITIVITY_UPDATES",
+    "SQL_CA2_SIMULATE_NON_UNIQUE",
+    "SQL_CA2_SIMULATE_TRY_UNIQUE",
+    "SQL_CA2_SIMULATE_UNIQUE",
+    "SQL_CACHE_DATA_NO",
+    "SQL_CACHE_DATA_YES",
+    "SQL_CASCADE",
+    "SQL_CATALOG_LOCATION",
+    "SQL_CATALOG_NAME",
+    "SQL_CATALOG_NAME_SEPARATOR",
+    "SQL_CATALOG_TERM",
+    "SQL_CATALOG_USAGE",
+    "SQL_CA_CONSTRAINT_DEFERRABLE",
+    "SQL_CA_CONSTRAINT_INITIALLY_DEFERRED",
+    "SQL_CA_CONSTRAINT_INITIALLY_IMMEDIATE",
+    "SQL_CA_CONSTRAINT_NON_DEFERRABLE",
+    "SQL_CA_CREATE_ASSERTION",
+    "SQL_CA_SS_BASE",
+    "SQL_CA_SS_COLUMN_COLLATION",
+    "SQL_CA_SS_COLUMN_HIDDEN",
+    "SQL_CA_SS_COLUMN_ID",
+    "SQL_CA_SS_COLUMN_KEY",
+    "SQL_CA_SS_COLUMN_OP",
+    "SQL_CA_SS_COLUMN_ORDER",
+    "SQL_CA_SS_COLUMN_SIZE",
+    "SQL_CA_SS_COLUMN_SSTYPE",
+    "SQL_CA_SS_COLUMN_UTYPE",
+    "SQL_CA_SS_COLUMN_VARYLEN",
+    "SQL_CA_SS_COMPUTE_BYLIST",
+    "SQL_CA_SS_COMPUTE_ID",
+    "SQL_CA_SS_MAX_USED",
+    "SQL_CA_SS_NUM_COMPUTES",
+    "SQL_CA_SS_NUM_ORDERS",
+    "SQL_CA_SS_VARIANT_SERVER_TYPE",
+    "SQL_CA_SS_VARIANT_SQL_TYPE",
+    "SQL_CA_SS_VARIANT_TYPE",
+    "SQL_CB_CLOSE",
+    "SQL_CB_DELETE",
+    "SQL_CB_NON_NULL",
+    "SQL_CB_NULL",
+    "SQL_CB_PRESERVE",
+    "SQL_CCOL_CREATE_COLLATION",
+    "SQL_CCS_COLLATE_CLAUSE",
+    "SQL_CCS_CREATE_CHARACTER_SET",
+    "SQL_CCS_LIMITED_COLLATION",
+    "SQL_CC_CLOSE",
+    "SQL_CC_DELETE",
+    "SQL_CC_PRESERVE",
+    "SQL_CDO_COLLATION",
+    "SQL_CDO_CONSTRAINT",
+    "SQL_CDO_CONSTRAINT_DEFERRABLE",
+    "SQL_CDO_CONSTRAINT_INITIALLY_DEFERRED",
+    "SQL_CDO_CONSTRAINT_INITIALLY_IMMEDIATE",
+    "SQL_CDO_CONSTRAINT_NAME_DEFINITION",
+    "SQL_CDO_CONSTRAINT_NON_DEFERRABLE",
+    "SQL_CDO_CREATE_DOMAIN",
+    "SQL_CDO_DEFAULT",
+    "SQL_CD_FALSE",
+    "SQL_CD_TRUE",
+    "SQL_CHAR",
+    "SQL_CLOSE",
+    "SQL_CL_END",
+    "SQL_CL_START",
+    "SQL_CN_ANY",
+    "SQL_CN_DEFAULT",
+    "SQL_CN_DIFFERENT",
+    "SQL_CN_NONE",
+    "SQL_CN_OFF",
+    "SQL_CN_ON",
+    "SQL_CODE_DATE",
+    "SQL_CODE_DAY",
+    "SQL_CODE_DAY_TO_HOUR",
+    "SQL_CODE_DAY_TO_MINUTE",
+    "SQL_CODE_DAY_TO_SECOND",
+    "SQL_CODE_HOUR",
+    "SQL_CODE_HOUR_TO_MINUTE",
+    "SQL_CODE_HOUR_TO_SECOND",
+    "SQL_CODE_MINUTE",
+    "SQL_CODE_MINUTE_TO_SECOND",
+    "SQL_CODE_MONTH",
+    "SQL_CODE_SECOND",
+    "SQL_CODE_TIME",
+    "SQL_CODE_TIMESTAMP",
+    "SQL_CODE_YEAR",
+    "SQL_CODE_YEAR_TO_MONTH",
+    "SQL_COLATT_OPT_MAX",
+    "SQL_COLATT_OPT_MIN",
+    "SQL_COLLATION_SEQ",
+    "SQL_COLUMN_ALIAS",
+    "SQL_COLUMN_AUTO_INCREMENT",
+    "SQL_COLUMN_CASE_SENSITIVE",
+    "SQL_COLUMN_COUNT",
+    "SQL_COLUMN_DISPLAY_SIZE",
+    "SQL_COLUMN_DRIVER_START",
+    "SQL_COLUMN_IGNORE",
+    "SQL_COLUMN_LABEL",
+    "SQL_COLUMN_LENGTH",
+    "SQL_COLUMN_MONEY",
+    "SQL_COLUMN_NAME",
+    "SQL_COLUMN_NULLABLE",
+    "SQL_COLUMN_NUMBER_UNKNOWN",
+    "SQL_COLUMN_OWNER_NAME",
+    "SQL_COLUMN_PRECISION",
+    "SQL_COLUMN_QUALIFIER_NAME",
+    "SQL_COLUMN_SCALE",
+    "SQL_COLUMN_SEARCHABLE",
+    "SQL_COLUMN_TABLE_NAME",
+    "SQL_COLUMN_TYPE",
+    "SQL_COLUMN_TYPE_NAME",
+    "SQL_COLUMN_UNSIGNED",
+    "SQL_COLUMN_UPDATABLE",
+    "SQL_COMMIT",
+    "SQL_CONCAT_NULL_BEHAVIOR",
+    "SQL_CONCURRENCY",
+    "SQL_CONCUR_DEFAULT",
+    "SQL_CONCUR_LOCK",
+    "SQL_CONCUR_READ_ONLY",
+    "SQL_CONCUR_ROWVER",
+    "SQL_CONCUR_TIMESTAMP",
+    "SQL_CONCUR_VALUES",
+    "SQL_CONNECT_OPT_DRVR_START",
+    "SQL_CONN_OPT_MAX",
+    "SQL_CONN_OPT_MIN",
+    "SQL_CONN_POOL_RATING_BEST",
+    "SQL_CONN_POOL_RATING_GOOD_ENOUGH",
+    "SQL_CONN_POOL_RATING_USELESS",
+    "SQL_CONVERT_BIGINT",
+    "SQL_CONVERT_BINARY",
+    "SQL_CONVERT_BIT",
+    "SQL_CONVERT_CHAR",
+    "SQL_CONVERT_DATE",
+    "SQL_CONVERT_DECIMAL",
+    "SQL_CONVERT_DOUBLE",
+    "SQL_CONVERT_FLOAT",
+    "SQL_CONVERT_FUNCTIONS",
+    "SQL_CONVERT_GUID",
+    "SQL_CONVERT_INTEGER",
+    "SQL_CONVERT_INTERVAL_DAY_TIME",
+    "SQL_CONVERT_INTERVAL_YEAR_MONTH",
+    "SQL_CONVERT_LONGVARBINARY",
+    "SQL_CONVERT_LONGVARCHAR",
+    "SQL_CONVERT_NUMERIC",
+    "SQL_CONVERT_REAL",
+    "SQL_CONVERT_SMALLINT",
+    "SQL_CONVERT_TIME",
+    "SQL_CONVERT_TIMESTAMP",
+    "SQL_CONVERT_TINYINT",
+    "SQL_CONVERT_VARBINARY",
+    "SQL_CONVERT_VARCHAR",
+    "SQL_CONVERT_WCHAR",
+    "SQL_CONVERT_WLONGVARCHAR",
+    "SQL_CONVERT_WVARCHAR",
     "SQL_COPT_SS_ANSI_NPW",
-    "SQL_COPT_SS_BCP",
-    "SQL_COPT_SS_TRANSLATE",
+    "SQL_COPT_SS_ANSI_OEM",
     "SQL_COPT_SS_ATTACHDBFILENAME",
-    "SQL_COPT_SS_CONCAT_NULL",
-    "SQL_COPT_SS_ENCRYPT",
-    "SQL_COPT_SS_MAX_USED",
-    "SQL_SOPT_SS_BASE",
-    "SQL_SOPT_SS_TEXTPTR_LOGGING",
-    "SQL_SOPT_SS_CURRENT_COMMAND",
-    "SQL_SOPT_SS_HIDDEN_COLUMNS",
-    "SQL_SOPT_SS_NOBROWSETABLE",
-    "SQL_SOPT_SS_REGIONALIZE",
-    "SQL_SOPT_SS_CURSOR_OPTIONS",
-    "SQL_SOPT_SS_NOCOUNT_STATUS",
-    "SQL_SOPT_SS_DEFER_PREPARE",
-    "SQL_SOPT_SS_MAX_USED",
+    "SQL_COPT_SS_BASE",
     "SQL_COPT_SS_BASE_EX",
+    "SQL_COPT_SS_BCP",
+    "SQL_COPT_SS_BROWSE_CACHE_DATA",
     "SQL_COPT_SS_BROWSE_CONNECT",
     "SQL_COPT_SS_BROWSE_SERVER",
-    "SQL_COPT_SS_WARN_ON_CP_ERROR",
+    "SQL_COPT_SS_CONCAT_NULL",
     "SQL_COPT_SS_CONNECTION_DEAD",
-    "SQL_COPT_SS_BROWSE_CACHE_DATA",
-    "SQL_COPT_SS_RESET_CONNECTION",
+    "SQL_COPT_SS_ENCRYPT",
     "SQL_COPT_SS_EX_MAX_USED",
+    "SQL_COPT_SS_FALLBACK_CONNECT",
+    "SQL_COPT_SS_INTEGRATED_SECURITY",
+    "SQL_COPT_SS_MAX_USED",
+    "SQL_COPT_SS_PERF_DATA",
+    "SQL_COPT_SS_PERF_DATA_LOG",
+    "SQL_COPT_SS_PERF_DATA_LOG_NOW",
+    "SQL_COPT_SS_PERF_QUERY",
+    "SQL_COPT_SS_PERF_QUERY_INTERVAL",
+    "SQL_COPT_SS_PERF_QUERY_LOG",
+    "SQL_COPT_SS_PRESERVE_CURSORS",
+    "SQL_COPT_SS_QUOTED_IDENT",
+    "SQL_COPT_SS_REMOTE_PWD",
+    "SQL_COPT_SS_RESET_CONNECTION",
+    "SQL_COPT_SS_TRANSLATE",
+    "SQL_COPT_SS_USER_DATA",
+    "SQL_COPT_SS_USE_PROC_FOR_PREP",
+    "SQL_COPT_SS_WARN_ON_CP_ERROR",
+    "SQL_CORRELATION_NAME",
+    "SQL_CO_AF",
+    "SQL_CO_DEFAULT",
+    "SQL_CO_FFO",
+    "SQL_CO_FIREHOSE_AF",
+    "SQL_CO_OFF",
+    "SQL_CP_DEFAULT",
+    "SQL_CP_DRIVER_AWARE",
+    "SQL_CP_MATCH_DEFAULT",
+    "SQL_CP_OFF",
+    "SQL_CP_ONE_PER_DRIVER",
+    "SQL_CP_ONE_PER_HENV",
+    "SQL_CP_RELAXED_MATCH",
+    "SQL_CP_STRICT_MATCH",
+    "SQL_CREATE_ASSERTION",
+    "SQL_CREATE_CHARACTER_SET",
+    "SQL_CREATE_COLLATION",
+    "SQL_CREATE_DOMAIN",
+    "SQL_CREATE_SCHEMA",
+    "SQL_CREATE_TABLE",
+    "SQL_CREATE_TRANSLATION",
+    "SQL_CREATE_VIEW",
+    "SQL_CR_CLOSE",
+    "SQL_CR_DELETE",
+    "SQL_CR_PRESERVE",
+    "SQL_CS_AUTHORIZATION",
+    "SQL_CS_CREATE_SCHEMA",
+    "SQL_CS_DEFAULT_CHARACTER_SET",
+    "SQL_CTR_CREATE_TRANSLATION",
+    "SQL_CT_COLUMN_COLLATION",
+    "SQL_CT_COLUMN_CONSTRAINT",
+    "SQL_CT_COLUMN_DEFAULT",
+    "SQL_CT_COMMIT_DELETE",
+    "SQL_CT_COMMIT_PRESERVE",
+    "SQL_CT_CONSTRAINT_DEFERRABLE",
+    "SQL_CT_CONSTRAINT_INITIALLY_DEFERRED",
+    "SQL_CT_CONSTRAINT_INITIALLY_IMMEDIATE",
+    "SQL_CT_CONSTRAINT_NAME_DEFINITION",
+    "SQL_CT_CONSTRAINT_NON_DEFERRABLE",
+    "SQL_CT_CREATE_TABLE",
+    "SQL_CT_GLOBAL_TEMPORARY",
+    "SQL_CT_LOCAL_TEMPORARY",
+    "SQL_CT_TABLE_CONSTRAINT",
+    "SQL_CURRENT_QUALIFIER",
+    "SQL_CURSOR_COMMIT_BEHAVIOR",
+    "SQL_CURSOR_DYNAMIC",
+    "SQL_CURSOR_FAST_FORWARD_ONLY",
+    "SQL_CURSOR_FORWARD_ONLY",
+    "SQL_CURSOR_KEYSET_DRIVEN",
+    "SQL_CURSOR_ROLLBACK_BEHAVIOR",
+    "SQL_CURSOR_SENSITIVITY",
+    "SQL_CURSOR_STATIC",
+    "SQL_CURSOR_TYPE",
+    "SQL_CURSOR_TYPE_DEFAULT",
+    "SQL_CUR_DEFAULT",
+    "SQL_CUR_USE_DRIVER",
+    "SQL_CUR_USE_IF_NEEDED",
+    "SQL_CUR_USE_ODBC",
+    "SQL_CU_DML_STATEMENTS",
+    "SQL_CU_INDEX_DEFINITION",
+    "SQL_CU_PRIVILEGE_DEFINITION",
+    "SQL_CU_PROCEDURE_INVOCATION",
+    "SQL_CU_TABLE_DEFINITION",
+    "SQL_CVT_BIGINT",
+    "SQL_CVT_BINARY",
+    "SQL_CVT_BIT",
+    "SQL_CVT_CHAR",
+    "SQL_CVT_DATE",
+    "SQL_CVT_DECIMAL",
+    "SQL_CVT_DOUBLE",
+    "SQL_CVT_FLOAT",
+    "SQL_CVT_GUID",
+    "SQL_CVT_INTEGER",
+    "SQL_CVT_INTERVAL_DAY_TIME",
+    "SQL_CVT_INTERVAL_YEAR_MONTH",
+    "SQL_CVT_LONGVARBINARY",
+    "SQL_CVT_LONGVARCHAR",
+    "SQL_CVT_NUMERIC",
+    "SQL_CVT_REAL",
+    "SQL_CVT_SMALLINT",
+    "SQL_CVT_TIME",
+    "SQL_CVT_TIMESTAMP",
+    "SQL_CVT_TINYINT",
+    "SQL_CVT_VARBINARY",
+    "SQL_CVT_VARCHAR",
+    "SQL_CVT_WCHAR",
+    "SQL_CVT_WLONGVARCHAR",
+    "SQL_CVT_WVARCHAR",
+    "SQL_CV_CASCADED",
+    "SQL_CV_CHECK_OPTION",
+    "SQL_CV_CREATE_VIEW",
+    "SQL_CV_LOCAL",
+    "SQL_C_BINARY",
+    "SQL_C_BIT",
+    "SQL_C_CHAR",
+    "SQL_C_DATE",
+    "SQL_C_DEFAULT",
+    "SQL_C_DOUBLE",
+    "SQL_C_FLOAT",
+    "SQL_C_GUID",
+    "SQL_C_INTERVAL_DAY",
+    "SQL_C_INTERVAL_DAY_TO_HOUR",
+    "SQL_C_INTERVAL_DAY_TO_MINUTE",
+    "SQL_C_INTERVAL_DAY_TO_SECOND",
+    "SQL_C_INTERVAL_HOUR",
+    "SQL_C_INTERVAL_HOUR_TO_MINUTE",
+    "SQL_C_INTERVAL_HOUR_TO_SECOND",
+    "SQL_C_INTERVAL_MINUTE",
+    "SQL_C_INTERVAL_MINUTE_TO_SECOND",
+    "SQL_C_INTERVAL_MONTH",
+    "SQL_C_INTERVAL_SECOND",
+    "SQL_C_INTERVAL_YEAR",
+    "SQL_C_INTERVAL_YEAR_TO_MONTH",
+    "SQL_C_LONG",
+    "SQL_C_NUMERIC",
+    "SQL_C_SHORT",
+    "SQL_C_TCHAR",
+    "SQL_C_TIME",
+    "SQL_C_TIMESTAMP",
+    "SQL_C_TINYINT",
+    "SQL_C_TYPE_DATE",
+    "SQL_C_TYPE_TIME",
+    "SQL_C_TYPE_TIMESTAMP",
+    "SQL_C_VARBOOKMARK",
+    "SQL_C_WCHAR",
+    "SQL_DATABASE_NAME",
+    "SQL_DATA_AT_EXEC",
+    "SQL_DATA_SOURCE_NAME",
+    "SQL_DATA_SOURCE_READ_ONLY",
+    "SQL_DATE",
+    "SQL_DATETIME",
+    "SQL_DATETIME_LITERALS",
+    "SQL_DATE_LEN",
+    "SQL_DAY",
+    "SQL_DAY_SECOND_STRUCT",
+    "SQL_DAY_TO_HOUR",
+    "SQL_DAY_TO_MINUTE",
+    "SQL_DAY_TO_SECOND",
+    "SQL_DA_DROP_ASSERTION",
+    "SQL_DBMS_NAME",
+    "SQL_DBMS_VER",
+    "SQL_DB_DEFAULT",
+    "SQL_DB_DISCONNECT",
+    "SQL_DB_RETURN_TO_POOL",
+    "SQL_DCS_DROP_CHARACTER_SET",
+    "SQL_DC_DROP_COLLATION",
+    "SQL_DDL_INDEX",
+    "SQL_DD_CASCADE",
+    "SQL_DD_DROP_DOMAIN",
+    "SQL_DD_RESTRICT",
+    "SQL_DECIMAL",
+    "SQL_DEFAULT",
+    "SQL_DEFAULT_PARAM",
+    "SQL_DEFAULT_TXN_ISOLATION",
+    "SQL_DELETE",
+    "SQL_DELETE_BY_BOOKMARK",
+    "SQL_DESCRIBE_PARAMETER",
+    "SQL_DESC_ALLOC_AUTO",
+    "SQL_DESC_ALLOC_TYPE",
+    "SQL_DESC_ALLOC_USER",
+    "SQL_DESC_ARRAY_SIZE",
+    "SQL_DESC_ARRAY_STATUS_PTR",
+    "SQL_DESC_BASE_COLUMN_NAME",
+    "SQL_DESC_BASE_TABLE_NAME",
+    "SQL_DESC_BIND_OFFSET_PTR",
+    "SQL_DESC_BIND_TYPE",
+    "SQL_DESC_COUNT",
+    "SQL_DESC_DATA_PTR",
+    "SQL_DESC_DATETIME_INTERVAL_CODE",
+    "SQL_DESC_DATETIME_INTERVAL_PRECISION",
+    "SQL_DESC_INDICATOR_PTR",
+    "SQL_DESC_LENGTH",
+    "SQL_DESC_LITERAL_PREFIX",
+    "SQL_DESC_LITERAL_SUFFIX",
+    "SQL_DESC_LOCAL_TYPE_NAME",
+    "SQL_DESC_MAXIMUM_SCALE",
+    "SQL_DESC_MINIMUM_SCALE",
+    "SQL_DESC_NAME",
+    "SQL_DESC_NULLABLE",
+    "SQL_DESC_NUM_PREC_RADIX",
+    "SQL_DESC_OCTET_LENGTH",
+    "SQL_DESC_OCTET_LENGTH_PTR",
+    "SQL_DESC_PARAMETER_TYPE",
+    "SQL_DESC_PRECISION",
+    "SQL_DESC_ROWS_PROCESSED_PTR",
+    "SQL_DESC_ROWVER",
+    "SQL_DESC_SCALE",
+    "SQL_DESC_TYPE",
+    "SQL_DESC_UNNAMED",
+    "SQL_DIAG_ALTER_DOMAIN",
+    "SQL_DIAG_ALTER_TABLE",
+    "SQL_DIAG_CALL",
+    "SQL_DIAG_CLASS_ORIGIN",
+    "SQL_DIAG_COLUMN_NUMBER",
+    "SQL_DIAG_CONNECTION_NAME",
+    "SQL_DIAG_CREATE_ASSERTION",
+    "SQL_DIAG_CREATE_CHARACTER_SET",
+    "SQL_DIAG_CREATE_COLLATION",
+    "SQL_DIAG_CREATE_DOMAIN",
+    "SQL_DIAG_CREATE_INDEX",
+    "SQL_DIAG_CREATE_SCHEMA",
+    "SQL_DIAG_CREATE_TABLE",
+    "SQL_DIAG_CREATE_TRANSLATION",
+    "SQL_DIAG_CREATE_VIEW",
+    "SQL_DIAG_CURSOR_ROW_COUNT",
+    "SQL_DIAG_DELETE_WHERE",
+    "SQL_DIAG_DFC_SS_BASE",
+    "SQL_DIAG_DROP_ASSERTION",
+    "SQL_DIAG_DROP_CHARACTER_SET",
+    "SQL_DIAG_DROP_COLLATION",
+    "SQL_DIAG_DROP_DOMAIN",
+    "SQL_DIAG_DROP_INDEX",
+    "SQL_DIAG_DROP_SCHEMA",
+    "SQL_DIAG_DROP_TABLE",
+    "SQL_DIAG_DROP_TRANSLATION",
+    "SQL_DIAG_DROP_VIEW",
+    "SQL_DIAG_DYNAMIC_DELETE_CURSOR",
+    "SQL_DIAG_DYNAMIC_FUNCTION",
+    "SQL_DIAG_DYNAMIC_FUNCTION_CODE",
+    "SQL_DIAG_DYNAMIC_UPDATE_CURSOR",
+    "SQL_DIAG_GRANT",
+    "SQL_DIAG_INSERT",
+    "SQL_DIAG_MESSAGE_TEXT",
+    "SQL_DIAG_NATIVE",
+    "SQL_DIAG_NUMBER",
+    "SQL_DIAG_RETURNCODE",
+    "SQL_DIAG_REVOKE",
+    "SQL_DIAG_ROW_COUNT",
+    "SQL_DIAG_ROW_NUMBER",
+    "SQL_DIAG_SELECT_CURSOR",
+    "SQL_DIAG_SERVER_NAME",
+    "SQL_DIAG_SQLSTATE",
+    "SQL_DIAG_SS_BASE",
+    "SQL_DIAG_SS_MSGSTATE",
+    "SQL_DIAG_SUBCLASS_ORIGIN",
+    "SQL_DIAG_UNKNOWN_STATEMENT",
+    "SQL_DIAG_UPDATE_WHERE",
+    "SQL_DI_CREATE_INDEX",
+    "SQL_DI_DROP_INDEX",
+    "SQL_DL_SQL92_DATE",
+    "SQL_DL_SQL92_INTERVAL_DAY",
+    "SQL_DL_SQL92_INTERVAL_DAY_TO_HOUR",
+    "SQL_DL_SQL92_INTERVAL_DAY_TO_MINUTE",
+    "SQL_DL_SQL92_INTERVAL_DAY_TO_SECOND",
+    "SQL_DL_SQL92_INTERVAL_HOUR",
+    "SQL_DL_SQL92_INTERVAL_HOUR_TO_MINUTE",
+    "SQL_DL_SQL92_INTERVAL_HOUR_TO_SECOND",
+    "SQL_DL_SQL92_INTERVAL_MINUTE",
+    "SQL_DL_SQL92_INTERVAL_MINUTE_TO_SECOND",
+    "SQL_DL_SQL92_INTERVAL_MONTH",
+    "SQL_DL_SQL92_INTERVAL_SECOND",
+    "SQL_DL_SQL92_INTERVAL_YEAR",
+    "SQL_DL_SQL92_INTERVAL_YEAR_TO_MONTH",
+    "SQL_DL_SQL92_TIME",
+    "SQL_DL_SQL92_TIMESTAMP",
+    "SQL_DM_VER",
+    "SQL_DOUBLE",
+    "SQL_DP_OFF",
+    "SQL_DP_ON",
+    "SQL_DRIVER_AWARE_POOLING_CAPABLE",
+    "SQL_DRIVER_AWARE_POOLING_NOT_CAPABLE",
+    "SQL_DRIVER_AWARE_POOLING_SUPPORTED",
+    "SQL_DRIVER_COMPLETE",
+    "SQL_DRIVER_COMPLETE_REQUIRED",
+    "SQL_DRIVER_CONN_ATTR_BASE",
+    "SQL_DRIVER_C_TYPE_BASE",
+    "SQL_DRIVER_DESC_FIELD_BASE",
+    "SQL_DRIVER_DIAG_FIELD_BASE",
+    "SQL_DRIVER_HDBC",
+    "SQL_DRIVER_HDESC",
+    "SQL_DRIVER_HENV",
+    "SQL_DRIVER_HLIB",
+    "SQL_DRIVER_HSTMT",
+    "SQL_DRIVER_INFO_TYPE_BASE",
+    "SQL_DRIVER_NAME",
+    "SQL_DRIVER_NOPROMPT",
+    "SQL_DRIVER_ODBC_VER",
+    "SQL_DRIVER_PROMPT",
+    "SQL_DRIVER_SQL_TYPE_BASE",
+    "SQL_DRIVER_STMT_ATTR_BASE",
+    "SQL_DRIVER_VER",
+    "SQL_DROP",
+    "SQL_DROP_ASSERTION",
+    "SQL_DROP_CHARACTER_SET",
+    "SQL_DROP_COLLATION",
+    "SQL_DROP_DOMAIN",
+    "SQL_DROP_SCHEMA",
+    "SQL_DROP_TABLE",
+    "SQL_DROP_TRANSLATION",
+    "SQL_DROP_VIEW",
+    "SQL_DS_CASCADE",
+    "SQL_DS_DROP_SCHEMA",
+    "SQL_DS_RESTRICT",
+    "SQL_DTC_DONE",
+    "SQL_DTC_ENLIST_EXPENSIVE",
+    "SQL_DTC_TRANSITION_COST",
+    "SQL_DTC_UNENLIST_EXPENSIVE",
+    "SQL_DTR_DROP_TRANSLATION",
+    "SQL_DT_CASCADE",
+    "SQL_DT_DROP_TABLE",
+    "SQL_DT_RESTRICT",
+    "SQL_DV_CASCADE",
+    "SQL_DV_DROP_VIEW",
+    "SQL_DV_RESTRICT",
+    "SQL_DYNAMIC_CURSOR_ATTRIBUTES1",
+    "SQL_DYNAMIC_CURSOR_ATTRIBUTES2",
+    "SQL_ENSURE",
+    "SQL_ENTIRE_ROWSET",
+    "SQL_EN_OFF",
+    "SQL_EN_ON",
+    "SQL_ERROR",
+    "SQL_EXPRESSIONS_IN_ORDERBY",
+    "SQL_EXT_API_LAST",
+    "SQL_EXT_API_START",
+    "SQL_FALSE",
+    "SQL_FAST_CONNECT",
+    "SQL_FB_DEFAULT",
+    "SQL_FB_OFF",
+    "SQL_FB_ON",
+    "SQL_FC_DEFAULT",
+    "SQL_FC_OFF",
+    "SQL_FC_ON",
+    "SQL_FD_FETCH_ABSOLUTE",
+    "SQL_FD_FETCH_BOOKMARK",
+    "SQL_FD_FETCH_FIRST",
+    "SQL_FD_FETCH_LAST",
+    "SQL_FD_FETCH_NEXT",
+    "SQL_FD_FETCH_PREV",
+    "SQL_FD_FETCH_PRIOR",
+    "SQL_FD_FETCH_RELATIVE",
+    "SQL_FD_FETCH_RESUME",
+    "SQL_FETCH_ABSOLUTE",
+    "SQL_FETCH_BOOKMARK",
+    "SQL_FETCH_BY_BOOKMARK",
+    "SQL_FETCH_DIRECTION",
+    "SQL_FETCH_FIRST",
+    "SQL_FETCH_FIRST_SYSTEM",
+    "SQL_FETCH_FIRST_USER",
+    "SQL_FETCH_LAST",
+    "SQL_FETCH_NEXT",
+    "SQL_FETCH_PREV",
+    "SQL_FETCH_PRIOR",
+    "SQL_FETCH_RELATIVE",
+    "SQL_FETCH_RESUME",
+    "SQL_FILE_CATALOG",
+    "SQL_FILE_NOT_SUPPORTED",
+    "SQL_FILE_QUALIFIER",
+    "SQL_FILE_TABLE",
+    "SQL_FILE_USAGE",
+    "SQL_FLOAT",
+    "SQL_FN_CVT_CAST",
+    "SQL_FN_CVT_CONVERT",
+    "SQL_FN_NUM_ABS",
+    "SQL_FN_NUM_ACOS",
+    "SQL_FN_NUM_ASIN",
+    "SQL_FN_NUM_ATAN",
+    "SQL_FN_NUM_ATAN2",
+    "SQL_FN_NUM_CEILING",
+    "SQL_FN_NUM_COS",
+    "SQL_FN_NUM_COT",
+    "SQL_FN_NUM_DEGREES",
+    "SQL_FN_NUM_EXP",
+    "SQL_FN_NUM_FLOOR",
+    "SQL_FN_NUM_LOG",
+    "SQL_FN_NUM_LOG10",
+    "SQL_FN_NUM_MOD",
+    "SQL_FN_NUM_PI",
+    "SQL_FN_NUM_POWER",
+    "SQL_FN_NUM_RADIANS",
+    "SQL_FN_NUM_RAND",
+    "SQL_FN_NUM_ROUND",
+    "SQL_FN_NUM_SIGN",
+    "SQL_FN_NUM_SIN",
+    "SQL_FN_NUM_SQRT",
+    "SQL_FN_NUM_TAN",
+    "SQL_FN_NUM_TRUNCATE",
+    "SQL_FN_STR_ASCII",
+    "SQL_FN_STR_BIT_LENGTH",
+    "SQL_FN_STR_CHAR",
+    "SQL_FN_STR_CHARACTER_LENGTH",
+    "SQL_FN_STR_CHAR_LENGTH",
+    "SQL_FN_STR_CONCAT",
+    "SQL_FN_STR_DIFFERENCE",
+    "SQL_FN_STR_INSERT",
+    "SQL_FN_STR_LCASE",
+    "SQL_FN_STR_LEFT",
+    "SQL_FN_STR_LENGTH",
+    "SQL_FN_STR_LOCATE",
+    "SQL_FN_STR_LOCATE_2",
+    "SQL_FN_STR_LTRIM",
+    "SQL_FN_STR_OCTET_LENGTH",
+    "SQL_FN_STR_POSITION",
+    "SQL_FN_STR_REPEAT",
+    "SQL_FN_STR_REPLACE",
+    "SQL_FN_STR_RIGHT",
+    "SQL_FN_STR_RTRIM",
+    "SQL_FN_STR_SOUNDEX",
+    "SQL_FN_STR_SPACE",
+    "SQL_FN_STR_SUBSTRING",
+    "SQL_FN_STR_UCASE",
+    "SQL_FN_SYS_DBNAME",
+    "SQL_FN_SYS_IFNULL",
+    "SQL_FN_SYS_USERNAME",
+    "SQL_FN_TD_CURDATE",
+    "SQL_FN_TD_CURRENT_DATE",
+    "SQL_FN_TD_CURRENT_TIME",
+    "SQL_FN_TD_CURRENT_TIMESTAMP",
+    "SQL_FN_TD_CURTIME",
+    "SQL_FN_TD_DAYNAME",
+    "SQL_FN_TD_DAYOFMONTH",
+    "SQL_FN_TD_DAYOFWEEK",
+    "SQL_FN_TD_DAYOFYEAR",
+    "SQL_FN_TD_EXTRACT",
+    "SQL_FN_TD_HOUR",
+    "SQL_FN_TD_MINUTE",
+    "SQL_FN_TD_MONTH",
+    "SQL_FN_TD_MONTHNAME",
+    "SQL_FN_TD_NOW",
+    "SQL_FN_TD_QUARTER",
+    "SQL_FN_TD_SECOND",
+    "SQL_FN_TD_TIMESTAMPADD",
+    "SQL_FN_TD_TIMESTAMPDIFF",
+    "SQL_FN_TD_WEEK",
+    "SQL_FN_TD_YEAR",
+    "SQL_FN_TSI_DAY",
+    "SQL_FN_TSI_FRAC_SECOND",
+    "SQL_FN_TSI_HOUR",
+    "SQL_FN_TSI_MINUTE",
+    "SQL_FN_TSI_MONTH",
+    "SQL_FN_TSI_QUARTER",
+    "SQL_FN_TSI_SECOND",
+    "SQL_FN_TSI_WEEK",
+    "SQL_FN_TSI_YEAR",
+    "SQL_FORWARD_ONLY_CURSOR_ATTRIBUTES1",
+    "SQL_FORWARD_ONLY_CURSOR_ATTRIBUTES2",
+    "SQL_GB_COLLATE",
+    "SQL_GB_GROUP_BY_CONTAINS_SELECT",
+    "SQL_GB_GROUP_BY_EQUALS_SELECT",
+    "SQL_GB_NOT_SUPPORTED",
+    "SQL_GB_NO_RELATION",
+    "SQL_GD_ANY_COLUMN",
+    "SQL_GD_ANY_ORDER",
+    "SQL_GD_BLOCK",
+    "SQL_GD_BOUND",
+    "SQL_GD_OUTPUT_PARAMS",
+    "SQL_GETDATA_EXTENSIONS",
+    "SQL_GET_BOOKMARK",
+    "SQL_GROUP_BY",
+    "SQL_GUID",
+    "SQL_HANDLE_DBC",
+    "SQL_HANDLE_DBC_INFO_TOKEN",
+    "SQL_HANDLE_DESC",
+    "SQL_HANDLE_ENV",
+    "SQL_HANDLE_SENV",
+    "SQL_HANDLE_STMT",
+    "SQL_HC_DEFAULT",
+    "SQL_HC_OFF",
+    "SQL_HC_ON",
+    "SQL_HOUR",
+    "SQL_HOUR_TO_MINUTE",
+    "SQL_HOUR_TO_SECOND",
+    "SQL_IC_LOWER",
+    "SQL_IC_MIXED",
+    "SQL_IC_SENSITIVE",
+    "SQL_IC_UPPER",
+    "SQL_IDENTIFIER_CASE",
+    "SQL_IDENTIFIER_QUOTE_CHAR",
+    "SQL_IGNORE",
+    "SQL_IK_ASC",
+    "SQL_IK_DESC",
+    "SQL_IK_NONE",
+    "SQL_INDEX_ALL",
+    "SQL_INDEX_CLUSTERED",
+    "SQL_INDEX_HASHED",
+    "SQL_INDEX_KEYWORDS",
+    "SQL_INDEX_OTHER",
+    "SQL_INDEX_UNIQUE",
+    "SQL_INFO_DRIVER_START",
+    "SQL_INFO_FIRST",
+    "SQL_INFO_LAST",
+    "SQL_INFO_SCHEMA_VIEWS",
+    "SQL_INFO_SS_FIRST",
+    "SQL_INFO_SS_MAX_USED",
+    "SQL_INFO_SS_NETLIB_NAME",
+    "SQL_INFO_SS_NETLIB_NAMEA",
+    "SQL_INFO_SS_NETLIB_NAMEW",
+    "SQL_INITIALLY_DEFERRED",
+    "SQL_INITIALLY_IMMEDIATE",
+    "SQL_INSENSITIVE",
+    "SQL_INSERT_STATEMENT",
+    "SQL_INTEGER",
+    "SQL_INTEGRATED_SECURITY",
+    "SQL_INTEGRITY",
+    "SQL_INTERVAL",
+    "SQL_INTERVAL_DAY",
+    "SQL_INTERVAL_DAY_TO_HOUR",
+    "SQL_INTERVAL_DAY_TO_MINUTE",
+    "SQL_INTERVAL_DAY_TO_SECOND",
+    "SQL_INTERVAL_HOUR",
+    "SQL_INTERVAL_HOUR_TO_MINUTE",
+    "SQL_INTERVAL_HOUR_TO_SECOND",
+    "SQL_INTERVAL_MINUTE",
+    "SQL_INTERVAL_MINUTE_TO_SECOND",
+    "SQL_INTERVAL_MONTH",
+    "SQL_INTERVAL_SECOND",
+    "SQL_INTERVAL_STRUCT",
+    "SQL_INTERVAL_YEAR",
+    "SQL_INTERVAL_YEAR_TO_MONTH",
+    "SQL_INVALID_HANDLE",
+    "SQL_ISV_ASSERTIONS",
+    "SQL_ISV_CHARACTER_SETS",
+    "SQL_ISV_CHECK_CONSTRAINTS",
+    "SQL_ISV_COLLATIONS",
+    "SQL_ISV_COLUMNS",
+    "SQL_ISV_COLUMN_DOMAIN_USAGE",
+    "SQL_ISV_COLUMN_PRIVILEGES",
+    "SQL_ISV_CONSTRAINT_COLUMN_USAGE",
+    "SQL_ISV_CONSTRAINT_TABLE_USAGE",
+    "SQL_ISV_DOMAINS",
+    "SQL_ISV_DOMAIN_CONSTRAINTS",
+    "SQL_ISV_KEY_COLUMN_USAGE",
+    "SQL_ISV_REFERENTIAL_CONSTRAINTS",
+    "SQL_ISV_SCHEMATA",
+    "SQL_ISV_SQL_LANGUAGES",
+    "SQL_ISV_TABLES",
+    "SQL_ISV_TABLE_CONSTRAINTS",
+    "SQL_ISV_TABLE_PRIVILEGES",
+    "SQL_ISV_TRANSLATIONS",
+    "SQL_ISV_USAGE_PRIVILEGES",
+    "SQL_ISV_VIEWS",
+    "SQL_ISV_VIEW_COLUMN_USAGE",
+    "SQL_ISV_VIEW_TABLE_USAGE",
+    "SQL_IS_DAY",
+    "SQL_IS_DAY_TO_HOUR",
+    "SQL_IS_DAY_TO_MINUTE",
+    "SQL_IS_DAY_TO_SECOND",
+    "SQL_IS_DEFAULT",
+    "SQL_IS_HOUR",
+    "SQL_IS_HOUR_TO_MINUTE",
+    "SQL_IS_HOUR_TO_SECOND",
+    "SQL_IS_INSERT_LITERALS",
+    "SQL_IS_INSERT_SEARCHED",
+    "SQL_IS_INTEGER",
+    "SQL_IS_MINUTE",
+    "SQL_IS_MINUTE_TO_SECOND",
+    "SQL_IS_MONTH",
+    "SQL_IS_OFF",
+    "SQL_IS_ON",
+    "SQL_IS_POINTER",
+    "SQL_IS_SECOND",
+    "SQL_IS_SELECT_INTO",
+    "SQL_IS_SMALLINT",
+    "SQL_IS_UINTEGER",
+    "SQL_IS_USMALLINT",
+    "SQL_IS_YEAR",
+    "SQL_IS_YEAR_TO_MONTH",
+    "SQL_KEYSET_CURSOR_ATTRIBUTES1",
+    "SQL_KEYSET_CURSOR_ATTRIBUTES2",
+    "SQL_KEYSET_SIZE",
+    "SQL_KEYSET_SIZE_DEFAULT",
+    "SQL_KEYWORDS",
+    "SQL_LCK_EXCLUSIVE",
+    "SQL_LCK_NO_CHANGE",
+    "SQL_LCK_UNLOCK",
+    "SQL_LEN_BINARY_ATTR_OFFSET",
+    "SQL_LEN_DATA_AT_EXEC_OFFSET",
+    "SQL_LIKE_ESCAPE_CLAUSE",
+    "SQL_LIKE_ONLY",
+    "SQL_LOCK_EXCLUSIVE",
+    "SQL_LOCK_NO_CHANGE",
+    "SQL_LOCK_TYPES",
+    "SQL_LOCK_UNLOCK",
+    "SQL_LOGIN_TIMEOUT",
+    "SQL_LOGIN_TIMEOUT_DEFAULT",
+    "SQL_LONGVARBINARY",
+    "SQL_LONGVARCHAR",
+    "SQL_MAXIMUM_CATALOG_NAME_LENGTH",
+    "SQL_MAXIMUM_COLUMNS_IN_GROUP_BY",
+    "SQL_MAXIMUM_COLUMNS_IN_INDEX",
+    "SQL_MAXIMUM_COLUMNS_IN_ORDER_BY",
+    "SQL_MAXIMUM_COLUMNS_IN_SELECT",
+    "SQL_MAXIMUM_COLUMN_NAME_LENGTH",
+    "SQL_MAXIMUM_CONCURRENT_ACTIVITIES",
+    "SQL_MAXIMUM_CURSOR_NAME_LENGTH",
+    "SQL_MAXIMUM_DRIVER_CONNECTIONS",
+    "SQL_MAXIMUM_IDENTIFIER_LENGTH",
+    "SQL_MAXIMUM_INDEX_SIZE",
+    "SQL_MAXIMUM_ROW_SIZE",
+    "SQL_MAXIMUM_SCHEMA_NAME_LENGTH",
+    "SQL_MAXIMUM_STATEMENT_LENGTH",
+    "SQL_MAXIMUM_TABLES_IN_SELECT",
+    "SQL_MAXIMUM_USER_NAME_LENGTH",
+    "SQL_MAX_ASYNC_CONCURRENT_STATEMENTS",
+    "SQL_MAX_BINARY_LITERAL_LEN",
+    "SQL_MAX_CATALOG_NAME_LEN",
+    "SQL_MAX_CHAR_LITERAL_LEN",
+    "SQL_MAX_COLUMNS_IN_GROUP_BY",
+    "SQL_MAX_COLUMNS_IN_INDEX",
+    "SQL_MAX_COLUMNS_IN_ORDER_BY",
+    "SQL_MAX_COLUMNS_IN_SELECT",
+    "SQL_MAX_COLUMNS_IN_TABLE",
+    "SQL_MAX_COLUMN_NAME_LEN",
+    "SQL_MAX_CONCURRENT_ACTIVITIES",
+    "SQL_MAX_CURSOR_NAME_LEN",
+    "SQL_MAX_DRIVER_CONNECTIONS",
+    "SQL_MAX_DSN_LENGTH",
+    "SQL_MAX_IDENTIFIER_LEN",
+    "SQL_MAX_INDEX_SIZE",
+    "SQL_MAX_LENGTH",
+    "SQL_MAX_LENGTH_DEFAULT",
+    "SQL_MAX_MESSAGE_LENGTH",
+    "SQL_MAX_NUMERIC_LEN",
+    "SQL_MAX_OPTION_STRING_LENGTH",
+    "SQL_MAX_OWNER_NAME_LEN",
+    "SQL_MAX_PROCEDURE_NAME_LEN",
+    "SQL_MAX_QUALIFIER_NAME_LEN",
+    "SQL_MAX_ROWS",
+    "SQL_MAX_ROWS_DEFAULT",
+    "SQL_MAX_ROW_SIZE",
+    "SQL_MAX_ROW_SIZE_INCLUDES_LONG",
+    "SQL_MAX_SCHEMA_NAME_LEN",
+    "SQL_MAX_SQLSERVERNAME",
+    "SQL_MAX_STATEMENT_LEN",
+    "SQL_MAX_TABLES_IN_SELECT",
+    "SQL_MAX_TABLE_NAME_LEN",
+    "SQL_MAX_USER_NAME_LEN",
+    "SQL_MINUTE",
+    "SQL_MINUTE_TO_SECOND",
+    "SQL_MODE_DEFAULT",
+    "SQL_MODE_READ_ONLY",
+    "SQL_MODE_READ_WRITE",
+    "SQL_MONTH",
+    "SQL_MORE_INFO_NO",
+    "SQL_MORE_INFO_YES",
+    "SQL_MULTIPLE_ACTIVE_TXN",
+    "SQL_MULT_RESULT_SETS",
+    "SQL_NAMED",
+    "SQL_NB_DEFAULT",
+    "SQL_NB_OFF",
+    "SQL_NB_ON",
+    "SQL_NC_END",
+    "SQL_NC_HIGH",
+    "SQL_NC_LOW",
+    "SQL_NC_OFF",
+    "SQL_NC_ON",
+    "SQL_NC_START",
+    "SQL_NEED_DATA",
+    "SQL_NEED_LONG_DATA_LEN",
+    "SQL_NNC_NON_NULL",
+    "SQL_NNC_NULL",
+    "SQL_NONSCROLLABLE",
+    "SQL_NON_NULLABLE_COLUMNS",
+    "SQL_NOSCAN",
+    "SQL_NOSCAN_DEFAULT",
+    "SQL_NOSCAN_OFF",
+    "SQL_NOSCAN_ON",
+    "SQL_NOT_DEFERRABLE",
+    "SQL_NO_ACTION",
+    "SQL_NO_COLUMN_NUMBER",
+    "SQL_NO_DATA",
+    "SQL_NO_DATA_FOUND",
+    "SQL_NO_NULLS",
+    "SQL_NO_ROW_NUMBER",
+    "SQL_NO_TOTAL",
+    "SQL_NTS",
+    "SQL_NTSL",
+    "SQL_NULLABLE",
+    "SQL_NULLABLE_UNKNOWN",
+    "SQL_NULL_COLLATION",
+    "SQL_NULL_DATA",
+    "SQL_NULL_HANDLE",
+    "SQL_NULL_HDBC",
+    "SQL_NULL_HDESC",
+    "SQL_NULL_HENV",
+    "SQL_NULL_HSTMT",
+    "SQL_NUMERIC",
+    "SQL_NUMERIC_FUNCTIONS",
+    "SQL_NUMERIC_STRUCT",
+    "SQL_NUM_FUNCTIONS",
+    "SQL_OAC_LEVEL1",
+    "SQL_OAC_LEVEL2",
+    "SQL_OAC_NONE",
+    "SQL_ODBC_API_CONFORMANCE",
+    "SQL_ODBC_CURSORS",
+    "SQL_ODBC_INTERFACE_CONFORMANCE",
+    "SQL_ODBC_KEYWORDS",
+    "SQL_ODBC_SAG_CLI_CONFORMANCE",
+    "SQL_ODBC_SQL_CONFORMANCE",
+    "SQL_ODBC_SQL_OPT_IEF",
+    "SQL_ODBC_VER",
+    "SQL_OIC_CORE",
+    "SQL_OIC_LEVEL1",
+    "SQL_OIC_LEVEL2",
+    "SQL_OJ_ALL_COMPARISON_OPS",
+    "SQL_OJ_CAPABILITIES",
+    "SQL_OJ_FULL",
+    "SQL_OJ_INNER",
+    "SQL_OJ_LEFT",
+    "SQL_OJ_NESTED",
+    "SQL_OJ_NOT_ORDERED",
+    "SQL_OJ_RIGHT",
+    "SQL_OPT_TRACE",
+    "SQL_OPT_TRACEFILE",
+    "SQL_OPT_TRACE_DEFAULT",
+    "SQL_OPT_TRACE_FILE_DEFAULT",
+    "SQL_OPT_TRACE_OFF",
+    "SQL_OPT_TRACE_ON",
+    "SQL_ORDER_BY_COLUMNS_IN_SELECT",
+    "SQL_OSCC_COMPLIANT",
+    "SQL_OSCC_NOT_COMPLIANT",
+    "SQL_OSC_CORE",
+    "SQL_OSC_EXTENDED",
+    "SQL_OSC_MINIMUM",
+    "SQL_OUTER_JOINS",
+    "SQL_OUTER_JOIN_CAPABILITIES",
+    "SQL_OU_DML_STATEMENTS",
+    "SQL_OU_INDEX_DEFINITION",
+    "SQL_OU_PRIVILEGE_DEFINITION",
+    "SQL_OU_PROCEDURE_INVOCATION",
+    "SQL_OU_TABLE_DEFINITION",
+    "SQL_OV_ODBC2",
+    "SQL_OV_ODBC3",
+    "SQL_OV_ODBC3_80",
+    "SQL_OWNER_TERM",
+    "SQL_OWNER_USAGE",
+    "SQL_PACKET_SIZE",
+    "SQL_PARAM_ARRAY_ROW_COUNTS",
+    "SQL_PARAM_ARRAY_SELECTS",
+    "SQL_PARAM_BIND_BY_COLUMN",
+    "SQL_PARAM_BIND_TYPE_DEFAULT",
+    "SQL_PARAM_DATA_AVAILABLE",
+    "SQL_PARAM_DIAG_UNAVAILABLE",
+    "SQL_PARAM_ERROR",
+    "SQL_PARAM_IGNORE",
+    "SQL_PARAM_INPUT",
+    "SQL_PARAM_INPUT_OUTPUT",
+    "SQL_PARAM_INPUT_OUTPUT_STREAM",
+    "SQL_PARAM_OUTPUT",
+    "SQL_PARAM_OUTPUT_STREAM",
+    "SQL_PARAM_PROCEED",
+    "SQL_PARAM_SUCCESS",
+    "SQL_PARAM_SUCCESS_WITH_INFO",
+    "SQL_PARAM_TYPE_UNKNOWN",
+    "SQL_PARAM_UNUSED",
+    "SQL_PARC_BATCH",
+    "SQL_PARC_NO_BATCH",
+    "SQL_PAS_BATCH",
+    "SQL_PAS_NO_BATCH",
+    "SQL_PAS_NO_SELECT",
+    "SQL_PC_DEFAULT",
+    "SQL_PC_NON_PSEUDO",
+    "SQL_PC_NOT_PSEUDO",
+    "SQL_PC_OFF",
+    "SQL_PC_ON",
+    "SQL_PC_PSEUDO",
+    "SQL_PC_UNKNOWN",
+    "SQL_PERF_START",
+    "SQL_PERF_STOP",
+    "SQL_POSITION",
+    "SQL_POSITIONED_STATEMENTS",
+    "SQL_POS_ADD",
+    "SQL_POS_DELETE",
+    "SQL_POS_OPERATIONS",
+    "SQL_POS_POSITION",
+    "SQL_POS_REFRESH",
+    "SQL_POS_UPDATE",
+    "SQL_PRED_BASIC",
+    "SQL_PRED_CHAR",
+    "SQL_PRED_NONE",
+    "SQL_PRED_SEARCHABLE",
+    "SQL_PRESERVE_CURSORS",
+    "SQL_PROCEDURES",
+    "SQL_PROCEDURE_TERM",
+    "SQL_PS_POSITIONED_DELETE",
+    "SQL_PS_POSITIONED_UPDATE",
+    "SQL_PS_SELECT_FOR_UPDATE",
+    "SQL_PT_FUNCTION",
+    "SQL_PT_PROCEDURE",
+    "SQL_PT_UNKNOWN",
+    "SQL_QI_DEFAULT",
+    "SQL_QI_OFF",
+    "SQL_QI_ON",
+    "SQL_QL_END",
+    "SQL_QL_START",
+    "SQL_QUALIFIER_LOCATION",
+    "SQL_QUALIFIER_NAME_SEPARATOR",
+    "SQL_QUALIFIER_TERM",
+    "SQL_QUALIFIER_USAGE",
+    "SQL_QUERY_TIMEOUT",
+    "SQL_QUERY_TIMEOUT_DEFAULT",
+    "SQL_QUICK",
+    "SQL_QUIET_MODE",
+    "SQL_QUOTED_IDENTIFIER_CASE",
+    "SQL_QU_DML_STATEMENTS",
+    "SQL_QU_INDEX_DEFINITION",
+    "SQL_QU_PRIVILEGE_DEFINITION",
+    "SQL_QU_PROCEDURE_INVOCATION",
+    "SQL_QU_TABLE_DEFINITION",
+    "SQL_RD_DEFAULT",
+    "SQL_RD_OFF",
+    "SQL_RD_ON",
+    "SQL_REAL",
+    "SQL_REFRESH",
+    "SQL_REMOTE_PWD",
+    "SQL_RESET_CONNECTION_YES",
+    "SQL_RESET_PARAMS",
+    "SQL_RESET_YES",
+    "SQL_RESTRICT",
+    "SQL_RESULT_COL",
+    "SQL_RETRIEVE_DATA",
+    "SQL_RETURN_VALUE",
+    "SQL_RE_DEFAULT",
+    "SQL_RE_OFF",
+    "SQL_RE_ON",
+    "SQL_ROLLBACK",
+    "SQL_ROWSET_SIZE",
+    "SQL_ROWSET_SIZE_DEFAULT",
+    "SQL_ROWVER",
+    "SQL_ROW_ADDED",
+    "SQL_ROW_DELETED",
+    "SQL_ROW_ERROR",
+    "SQL_ROW_IDENTIFIER",
+    "SQL_ROW_IGNORE",
+    "SQL_ROW_NOROW",
+    "SQL_ROW_NUMBER",
+    "SQL_ROW_NUMBER_UNKNOWN",
+    "SQL_ROW_PROCEED",
+    "SQL_ROW_SUCCESS",
+    "SQL_ROW_SUCCESS_WITH_INFO",
+    "SQL_ROW_UPDATED",
+    "SQL_ROW_UPDATES",
+    "SQL_SCCO_LOCK",
+    "SQL_SCCO_OPT_ROWVER",
+    "SQL_SCCO_OPT_TIMESTAMP",
+    "SQL_SCCO_OPT_VALUES",
+    "SQL_SCCO_READ_ONLY",
+    "SQL_SCC_ISO92_CLI",
+    "SQL_SCC_XOPEN_CLI_VERSION1",
+    "SQL_SCHEMA_TERM",
+    "SQL_SCHEMA_USAGE",
+    "SQL_SCOPE_CURROW",
+    "SQL_SCOPE_SESSION",
+    "SQL_SCOPE_TRANSACTION",
+    "SQL_SCROLLABLE",
+    "SQL_SCROLL_CONCURRENCY",
+    "SQL_SCROLL_DYNAMIC",
+    "SQL_SCROLL_FORWARD_ONLY",
+    "SQL_SCROLL_KEYSET_DRIVEN",
+    "SQL_SCROLL_OPTIONS",
+    "SQL_SCROLL_STATIC",
+    "SQL_SC_FIPS127_2_TRANSITIONAL",
+    "SQL_SC_NON_UNIQUE",
+    "SQL_SC_SQL92_ENTRY",
+    "SQL_SC_SQL92_FULL",
+    "SQL_SC_SQL92_INTERMEDIATE",
+    "SQL_SC_TRY_UNIQUE",
+    "SQL_SC_UNIQUE",
+    "SQL_SDF_CURRENT_DATE",
+    "SQL_SDF_CURRENT_TIME",
+    "SQL_SDF_CURRENT_TIMESTAMP",
+    "SQL_SEARCHABLE",
+    "SQL_SEARCH_PATTERN_ESCAPE",
+    "SQL_SECOND",
+    "SQL_SENSITIVE",
+    "SQL_SERVER_NAME",
+    "SQL_SETPARAM_VALUE_MAX",
+    "SQL_SETPOS_MAX_LOCK_VALUE",
+    "SQL_SETPOS_MAX_OPTION_VALUE",
+    "SQL_SET_DEFAULT",
+    "SQL_SET_NULL",
+    "SQL_SFKD_CASCADE",
+    "SQL_SFKD_NO_ACTION",
+    "SQL_SFKD_SET_DEFAULT",
+    "SQL_SFKD_SET_NULL",
+    "SQL_SFKU_CASCADE",
+    "SQL_SFKU_NO_ACTION",
+    "SQL_SFKU_SET_DEFAULT",
+    "SQL_SFKU_SET_NULL",
+    "SQL_SG_DELETE_TABLE",
+    "SQL_SG_INSERT_COLUMN",
+    "SQL_SG_INSERT_TABLE",
+    "SQL_SG_REFERENCES_COLUMN",
+    "SQL_SG_REFERENCES_TABLE",
+    "SQL_SG_SELECT_TABLE",
+    "SQL_SG_UPDATE_COLUMN",
+    "SQL_SG_UPDATE_TABLE",
+    "SQL_SG_USAGE_ON_CHARACTER_SET",
+    "SQL_SG_USAGE_ON_COLLATION",
+    "SQL_SG_USAGE_ON_DOMAIN",
+    "SQL_SG_USAGE_ON_TRANSLATION",
+    "SQL_SG_WITH_GRANT_OPTION",
+    "SQL_SIGNED_OFFSET",
+    "SQL_SIMULATE_CURSOR",
+    "SQL_SMALLINT",
+    "SQL_SNVF_BIT_LENGTH",
+    "SQL_SNVF_CHARACTER_LENGTH",
+    "SQL_SNVF_CHAR_LENGTH",
+    "SQL_SNVF_EXTRACT",
+    "SQL_SNVF_OCTET_LENGTH",
+    "SQL_SNVF_POSITION",
+    "SQL_SOPT_SS_BASE",
+    "SQL_SOPT_SS_CURRENT_COMMAND",
+    "SQL_SOPT_SS_CURSOR_OPTIONS",
+    "SQL_SOPT_SS_DEFER_PREPARE",
+    "SQL_SOPT_SS_HIDDEN_COLUMNS",
+    "SQL_SOPT_SS_MAX_USED",
+    "SQL_SOPT_SS_NOBROWSETABLE",
+    "SQL_SOPT_SS_NOCOUNT_STATUS",
+    "SQL_SOPT_SS_REGIONALIZE",
+    "SQL_SOPT_SS_TEXTPTR_LOGGING",
+    "SQL_SO_DYNAMIC",
+    "SQL_SO_FORWARD_ONLY",
+    "SQL_SO_KEYSET_DRIVEN",
+    "SQL_SO_MIXED",
+    "SQL_SO_STATIC",
+    "SQL_SPECIAL_CHARACTERS",
+    "SQL_SPEC_MAJOR",
+    "SQL_SPEC_MINOR",
+    "SQL_SPEC_STRING",
+    "SQL_SP_BETWEEN",
+    "SQL_SP_COMPARISON",
+    "SQL_SP_EXISTS",
+    "SQL_SP_IN",
+    "SQL_SP_ISNOTNULL",
+    "SQL_SP_ISNULL",
+    "SQL_SP_LIKE",
+    "SQL_SP_MATCH_FULL",
+    "SQL_SP_MATCH_PARTIAL",
+    "SQL_SP_MATCH_UNIQUE_FULL",
+    "SQL_SP_MATCH_UNIQUE_PARTIAL",
+    "SQL_SP_OVERLAPS",
+    "SQL_SP_QUANTIFIED_COMPARISON",
+    "SQL_SP_UNIQUE",
+    "SQL_SQL92_DATETIME_FUNCTIONS",
+    "SQL_SQL92_FOREIGN_KEY_DELETE_RULE",
+    "SQL_SQL92_FOREIGN_KEY_UPDATE_RULE",
+    "SQL_SQL92_GRANT",
+    "SQL_SQL92_NUMERIC_VALUE_FUNCTIONS",
+    "SQL_SQL92_PREDICATES",
+    "SQL_SQL92_RELATIONAL_JOIN_OPERATORS",
+    "SQL_SQL92_REVOKE",
+    "SQL_SQL92_ROW_VALUE_CONSTRUCTOR",
+    "SQL_SQL92_STRING_FUNCTIONS",
+    "SQL_SQL92_VALUE_EXPRESSIONS",
+    "SQL_SQLSTATE_SIZE",
+    "SQL_SQLSTATE_SIZEW",
+    "SQL_SQL_CONFORMANCE",
+    "SQL_SQ_COMPARISON",
+    "SQL_SQ_CORRELATED_SUBQUERIES",
+    "SQL_SQ_EXISTS",
+    "SQL_SQ_IN",
+    "SQL_SQ_QUANTIFIED",
+    "SQL_SRJO_CORRESPONDING_CLAUSE",
+    "SQL_SRJO_CROSS_JOIN",
+    "SQL_SRJO_EXCEPT_JOIN",
+    "SQL_SRJO_FULL_OUTER_JOIN",
+    "SQL_SRJO_INNER_JOIN",
+    "SQL_SRJO_INTERSECT_JOIN",
+    "SQL_SRJO_LEFT_OUTER_JOIN",
+    "SQL_SRJO_NATURAL_JOIN",
+    "SQL_SRJO_RIGHT_OUTER_JOIN",
+    "SQL_SRJO_UNION_JOIN",
+    "SQL_SRVC_DEFAULT",
+    "SQL_SRVC_NULL",
+    "SQL_SRVC_ROW_SUBQUERY",
+    "SQL_SRVC_VALUE_EXPRESSION",
+    "SQL_SR_CASCADE",
+    "SQL_SR_DELETE_TABLE",
+    "SQL_SR_GRANT_OPTION_FOR",
+    "SQL_SR_INSERT_COLUMN",
+    "SQL_SR_INSERT_TABLE",
+    "SQL_SR_REFERENCES_COLUMN",
+    "SQL_SR_REFERENCES_TABLE",
+    "SQL_SR_RESTRICT",
+    "SQL_SR_SELECT_TABLE",
+    "SQL_SR_UPDATE_COLUMN",
+    "SQL_SR_UPDATE_TABLE",
+    "SQL_SR_USAGE_ON_CHARACTER_SET",
+    "SQL_SR_USAGE_ON_COLLATION",
+    "SQL_SR_USAGE_ON_DOMAIN",
+    "SQL_SR_USAGE_ON_TRANSLATION",
+    "SQL_SSF_CONVERT",
+    "SQL_SSF_LOWER",
+    "SQL_SSF_SUBSTRING",
+    "SQL_SSF_TRANSLATE",
+    "SQL_SSF_TRIM_BOTH",
+    "SQL_SSF_TRIM_LEADING",
+    "SQL_SSF_TRIM_TRAILING",
+    "SQL_SSF_UPPER",
+    "SQL_SS_ADDITIONS",
+    "SQL_SS_DELETIONS",
+    "SQL_SS_DL_DEFAULT",
+    "SQL_SS_QI_DEFAULT",
+    "SQL_SS_QL_DEFAULT",
+    "SQL_SS_UPDATES",
+    "SQL_SS_VARIANT",
+    "SQL_STANDARD_CLI_CONFORMANCE",
+    "SQL_STATIC_CURSOR_ATTRIBUTES1",
+    "SQL_STATIC_CURSOR_ATTRIBUTES2",
+    "SQL_STATIC_SENSITIVITY",
+    "SQL_STILL_EXECUTING",
+    "SQL_STMT_OPT_MAX",
+    "SQL_STMT_OPT_MIN",
+    "SQL_STRING_FUNCTIONS",
+    "SQL_SUBQUERIES",
+    "SQL_SUCCESS",
+    "SQL_SUCCESS_WITH_INFO",
+    "SQL_SU_DML_STATEMENTS",
+    "SQL_SU_INDEX_DEFINITION",
+    "SQL_SU_PRIVILEGE_DEFINITION",
+    "SQL_SU_PROCEDURE_INVOCATION",
+    "SQL_SU_TABLE_DEFINITION",
+    "SQL_SVE_CASE",
+    "SQL_SVE_CAST",
+    "SQL_SVE_COALESCE",
+    "SQL_SVE_NULLIF",
+    "SQL_SYSTEM_FUNCTIONS",
+    "SQL_TABLE_STAT",
+    "SQL_TABLE_TERM",
+    "SQL_TC_ALL",
+    "SQL_TC_DDL_COMMIT",
+    "SQL_TC_DDL_IGNORE",
+    "SQL_TC_DML",
+    "SQL_TC_NONE",
+    "SQL_TEXTPTR_LOGGING",
+    "SQL_TIME",
+    "SQL_TIMEDATE_ADD_INTERVALS",
+    "SQL_TIMEDATE_DIFF_INTERVALS",
+    "SQL_TIMEDATE_FUNCTIONS",
+    "SQL_TIMESTAMP",
+    "SQL_TIMESTAMP_LEN",
+    "SQL_TIME_LEN",
+    "SQL_TINYINT",
+    "SQL_TL_DEFAULT",
+    "SQL_TL_OFF",
+    "SQL_TL_ON",
+    "SQL_TRANSACTION_CAPABLE",
+    "SQL_TRANSACTION_ISOLATION_OPTION",
+    "SQL_TRANSACTION_READ_COMMITTED",
+    "SQL_TRANSACTION_READ_UNCOMMITTED",
+    "SQL_TRANSACTION_REPEATABLE_READ",
+    "SQL_TRANSACTION_SERIALIZABLE",
+    "SQL_TRANSLATE_DLL",
+    "SQL_TRANSLATE_OPTION",
+    "SQL_TRUE",
+    "SQL_TXN_CAPABLE",
+    "SQL_TXN_ISOLATION",
+    "SQL_TXN_ISOLATION_OPTION",
+    "SQL_TXN_READ_COMMITTED",
+    "SQL_TXN_READ_UNCOMMITTED",
+    "SQL_TXN_REPEATABLE_READ",
+    "SQL_TXN_SERIALIZABLE",
+    "SQL_TXN_VERSIONING",
+    "SQL_TYPE_DATE",
+    "SQL_TYPE_DRIVER_END",
+    "SQL_TYPE_DRIVER_START",
+    "SQL_TYPE_MAX",
+    "SQL_TYPE_MIN",
+    "SQL_TYPE_NULL",
+    "SQL_TYPE_TIME",
+    "SQL_TYPE_TIMESTAMP",
+    "SQL_UB_DEFAULT",
+    "SQL_UB_FIXED",
+    "SQL_UB_OFF",
+    "SQL_UB_ON",
+    "SQL_UB_VARIABLE",
+    "SQL_UNBIND",
+    "SQL_UNICODE",
+    "SQL_UNICODE_CHAR",
+    "SQL_UNICODE_LONGVARCHAR",
+    "SQL_UNICODE_VARCHAR",
+    "SQL_UNION",
+    "SQL_UNION_STATEMENT",
+    "SQL_UNKNOWN_TYPE",
+    "SQL_UNNAMED",
+    "SQL_UNSEARCHABLE",
+    "SQL_UNSIGNED_OFFSET",
+    "SQL_UNSPECIFIED",
+    "SQL_UPDATE",
+    "SQL_UPDATE_BY_BOOKMARK",
+    "SQL_UP_DEFAULT",
     "SQL_UP_OFF",
     "SQL_UP_ON",
     "SQL_UP_ON_DROP",
-    "SQL_UP_DEFAULT",
-    "SQL_IS_OFF",
-    "SQL_IS_ON",
-    "SQL_IS_DEFAULT",
-    "SQL_PC_OFF",
-    "SQL_PC_ON",
-    "SQL_PC_DEFAULT",
-    "SQL_XL_OFF",
-    "SQL_XL_ON",
-    "SQL_XL_DEFAULT",
-    "SQL_FB_OFF",
-    "SQL_FB_ON",
-    "SQL_FB_DEFAULT",
-    "SQL_BCP_OFF",
-    "SQL_BCP_ON",
-    "SQL_BCP_DEFAULT",
-    "SQL_QI_OFF",
-    "SQL_QI_ON",
-    "SQL_QI_DEFAULT",
-    "SQL_AD_OFF",
-    "SQL_AD_ON",
-    "SQL_AD_DEFAULT",
-    "SQL_CN_OFF",
-    "SQL_CN_ON",
-    "SQL_CN_DEFAULT",
-    "SQL_TL_OFF",
-    "SQL_TL_ON",
-    "SQL_TL_DEFAULT",
-    "SQL_HC_OFF",
-    "SQL_HC_ON",
-    "SQL_HC_DEFAULT",
-    "SQL_NB_OFF",
-    "SQL_NB_ON",
-    "SQL_NB_DEFAULT",
-    "SQL_RE_OFF",
-    "SQL_RE_ON",
-    "SQL_RE_DEFAULT",
-    "SQL_CO_OFF",
-    "SQL_CO_FFO",
-    "SQL_CO_AF",
-    "SQL_CO_FIREHOSE_AF",
-    "SQL_CO_DEFAULT",
-    "SQL_NC_OFF",
-    "SQL_NC_ON",
-    "SQL_DP_OFF",
-    "SQL_DP_ON",
-    "SQL_EN_OFF",
-    "SQL_EN_ON",
-    "SQL_MORE_INFO_NO",
-    "SQL_MORE_INFO_YES",
-    "SQL_CACHE_DATA_NO",
-    "SQL_CACHE_DATA_YES",
-    "SQL_RESET_YES",
+    "SQL_USER_NAME",
+    "SQL_USE_BOOKMARKS",
+    "SQL_USE_PROCEDURE_FOR_PREPARE",
+    "SQL_US_UNION",
+    "SQL_US_UNION_ALL",
+    "SQL_U_UNION",
+    "SQL_U_UNION_ALL",
+    "SQL_VARBINARY",
+    "SQL_VARCHAR",
+    "SQL_VARLEN_DATA",
     "SQL_WARN_NO",
     "SQL_WARN_YES",
-    "SQL_CURSOR_FAST_FORWARD_ONLY",
-    "SQL_CA_SS_BASE",
-    "SQL_CA_SS_COLUMN_SSTYPE",
-    "SQL_CA_SS_COLUMN_UTYPE",
-    "SQL_CA_SS_NUM_ORDERS",
-    "SQL_CA_SS_COLUMN_ORDER",
-    "SQL_CA_SS_COLUMN_VARYLEN",
-    "SQL_CA_SS_NUM_COMPUTES",
-    "SQL_CA_SS_COMPUTE_ID",
-    "SQL_CA_SS_COMPUTE_BYLIST",
-    "SQL_CA_SS_COLUMN_ID",
-    "SQL_CA_SS_COLUMN_OP",
-    "SQL_CA_SS_COLUMN_SIZE",
-    "SQL_CA_SS_COLUMN_HIDDEN",
-    "SQL_CA_SS_COLUMN_KEY",
-    "SQL_CA_SS_COLUMN_COLLATION",
-    "SQL_CA_SS_VARIANT_TYPE",
-    "SQL_CA_SS_VARIANT_SQL_TYPE",
-    "SQL_CA_SS_VARIANT_SERVER_TYPE",
-    "SQL_CA_SS_MAX_USED",
-    "SQLTEXT",
-    "SQLVARBINARY",
-    "SQLINTN",
-    "SQLVARCHAR",
-    "SQLBINARY",
-    "SQLIMAGE",
-    "SQLCHARACTER",
-    "SQLINT1",
-    "SQLBIT",
-    "SQLINT2",
-    "SQLINT4",
-    "SQLMONEY",
-    "SQLDATETIME",
-    "SQLFLT8",
-    "SQLFLTN",
-    "SQLMONEYN",
-    "SQLDATETIMN",
-    "SQLFLT4",
-    "SQLMONEY4",
-    "SQLDATETIM4",
-    "SQLDECIMAL",
-    "SQLNUMERIC",
-    "SQLUNIQUEID",
-    "SQLBIGCHAR",
-    "SQLBIGVARCHAR",
-    "SQLBIGBINARY",
-    "SQLBIGVARBINARY",
-    "SQLBITN",
-    "SQLNCHAR",
-    "SQLNVARCHAR",
-    "SQLNTEXT",
-    "SQLINT8",
-    "SQLVARIANT",
+    "SQL_WCHAR",
+    "SQL_WLONGVARCHAR",
+    "SQL_WVARCHAR",
+    "SQL_XL_DEFAULT",
+    "SQL_XL_OFF",
+    "SQL_XL_ON",
+    "SQL_XOPEN_CLI_YEAR",
+    "SQL_YEAR",
+    "SQL_YEAR_MONTH_STRUCT",
+    "SQL_YEAR_TO_MONTH",
     "SQLudtBINARY",
     "SQLudtBIT",
     "SQLudtBITN",
@@ -9314,4045 +13268,225 @@ __all__ = [
     "SQLudtUNIQUEIDENTIFIER",
     "SQLudtVARBINARY",
     "SQLudtVARCHAR",
-    "MIN_USER_DATATYPE",
-    "SQLAOPSTDEV",
-    "SQLAOPSTDEVP",
-    "SQLAOPVAR",
-    "SQLAOPVARP",
-    "SQLAOPCNT",
-    "SQLAOPSUM",
-    "SQLAOPAVG",
-    "SQLAOPMIN",
-    "SQLAOPMAX",
-    "SQLAOPANY",
-    "SQLAOPNOOP",
-    "SQL_INFO_SS_FIRST",
-    "SQL_INFO_SS_NETLIB_NAMEW",
-    "SQL_INFO_SS_NETLIB_NAMEA",
-    "SQL_INFO_SS_MAX_USED",
-    "SQL_INFO_SS_NETLIB_NAME",
-    "SQL_SS_VARIANT",
-    "SQL_DIAG_SS_BASE",
-    "SQL_DIAG_SS_MSGSTATE",
-    "SQL_DIAG_DFC_SS_BASE",
-    "EX_ANY",
-    "EX_INFO",
-    "EX_MAXISEVERITY",
-    "EX_MISSING",
-    "EX_TYPE",
-    "EX_DEADLOCK",
-    "EX_PERMIT",
-    "EX_SYNTAX",
-    "EX_USER",
-    "EX_RESOURCE",
-    "EX_INTOK",
-    "MAXUSEVERITY",
-    "EX_LIMIT",
-    "EX_CMDFATAL",
-    "MINFATALERR",
-    "EX_DBFATAL",
-    "EX_TABCORRUPT",
-    "EX_DBCORRUPT",
-    "EX_HARDWARE",
-    "EX_CONTROL",
-    "DBMAXCHAR",
-    "MAXNAME",
-    "MAXNUMERICLEN",
-    "SQL_PERF_START",
-    "SQL_PERF_STOP",
-    "SQL_SS_QI_DEFAULT",
-    "SUCCEED",
-    "FAIL",
-    "SUCCEED_ABORT",
-    "SUCCEED_ASYNC",
-    "DB_IN",
-    "DB_OUT",
-    "BCPMAXERRS",
-    "BCPFIRST",
-    "BCPLAST",
-    "BCPBATCH",
-    "BCPKEEPNULLS",
-    "BCPABORT",
-    "BCPODBC",
-    "BCPKEEPIDENTITY",
-    "BCP6xFILEFMT",
-    "BCPHINTSA",
-    "BCPHINTSW",
-    "BCPFILECP",
-    "BCPUNICODEFILE",
-    "BCPTEXTFILE",
-    "BCPFILEFMT",
-    "BCPFILECP_ACP",
-    "BCPFILECP_OEMCP",
-    "BCPFILECP_RAW",
-    "SQL_VARLEN_DATA",
-    "BCPHINTS",
-    "BCP_FMT_TYPE",
-    "BCP_FMT_INDICATOR_LEN",
-    "BCP_FMT_DATA_LEN",
-    "BCP_FMT_TERMINATOR",
-    "BCP_FMT_SERVER_COL",
-    "BCP_FMT_COLLATION",
-    "BCP_FMT_COLLATION_ID",
-    "SQL_FAST_CONNECT",
-    "SQL_FC_OFF",
-    "SQL_FC_ON",
-    "SQL_FC_DEFAULT",
-    "SQL_COPT_SS_ANSI_OEM",
-    "SQL_AO_OFF",
-    "SQL_AO_ON",
-    "SQL_AO_DEFAULT",
-    "SQL_REMOTE_PWD",
-    "SQL_USE_PROCEDURE_FOR_PREPARE",
-    "SQL_INTEGRATED_SECURITY",
-    "SQL_PRESERVE_CURSORS",
-    "SQL_TEXTPTR_LOGGING",
-    "SQLDECIMALN",
-    "SQLNUMERICN",
-    "DB_E_BOGUS",
-    "DB_E_BADACCESSORHANDLE",
-    "DB_E_ROWLIMITEXCEEDED",
-    "DB_E_READONLYACCESSOR",
-    "DB_E_SCHEMAVIOLATION",
-    "DB_E_BADROWHANDLE",
-    "DB_E_OBJECTOPEN",
-    "DB_E_BADCHAPTER",
-    "DB_E_CANTCONVERTVALUE",
-    "DB_E_BADBINDINFO",
-    "DB_SEC_E_PERMISSIONDENIED",
-    "DB_E_NOTAREFERENCECOLUMN",
-    "DB_E_LIMITREJECTED",
-    "DB_E_NOCOMMAND",
-    "DB_E_COSTLIMIT",
-    "DB_E_BADBOOKMARK",
-    "DB_E_BADLOCKMODE",
-    "DB_E_PARAMNOTOPTIONAL",
-    "DB_E_BADCOLUMNID",
-    "DB_E_BADRATIO",
-    "DB_E_BADVALUES",
-    "DB_E_ERRORSINCOMMAND",
-    "DB_E_CANTCANCEL",
-    "DB_E_DIALECTNOTSUPPORTED",
-    "DB_E_DUPLICATEDATASOURCE",
-    "DB_E_CANNOTRESTART",
-    "DB_E_NOTFOUND",
-    "DB_E_NEWLYINSERTED",
-    "DB_E_CANNOTFREE",
-    "DB_E_GOALREJECTED",
-    "DB_E_UNSUPPORTEDCONVERSION",
-    "DB_E_BADSTARTPOSITION",
-    "DB_E_NOQUERY",
-    "DB_E_NOTREENTRANT",
-    "DB_E_ERRORSOCCURRED",
-    "DB_E_NOAGGREGATION",
-    "DB_E_DELETEDROW",
-    "DB_E_CANTFETCHBACKWARDS",
-    "DB_E_ROWSNOTRELEASED",
-    "DB_E_BADSTORAGEFLAG",
-    "DB_E_BADCOMPAREOP",
-    "DB_E_BADSTATUSVALUE",
-    "DB_E_CANTSCROLLBACKWARDS",
-    "DB_E_BADREGIONHANDLE",
-    "DB_E_NONCONTIGUOUSRANGE",
-    "DB_E_INVALIDTRANSITION",
-    "DB_E_NOTASUBREGION",
-    "DB_E_MULTIPLESTATEMENTS",
-    "DB_E_INTEGRITYVIOLATION",
-    "DB_E_BADTYPENAME",
-    "DB_E_ABORTLIMITREACHED",
-    "DB_E_ROWSETINCOMMAND",
-    "DB_E_CANTTRANSLATE",
-    "DB_E_DUPLICATEINDEXID",
-    "DB_E_NOINDEX",
-    "DB_E_INDEXINUSE",
-    "DB_E_NOTABLE",
-    "DB_E_CONCURRENCYVIOLATION",
-    "DB_E_BADCOPY",
-    "DB_E_BADPRECISION",
-    "DB_E_BADSCALE",
-    "DB_E_BADTABLEID",
-    "DB_E_BADID",
-    "DB_E_BADTYPE",
-    "DB_E_DUPLICATECOLUMNID",
-    "DB_E_DUPLICATETABLEID",
-    "DB_E_TABLEINUSE",
-    "DB_E_NOLOCALE",
-    "DB_E_BADRECORDNUM",
-    "DB_E_BOOKMARKSKIPPED",
-    "DB_E_BADPROPERTYVALUE",
-    "DB_E_INVALID",
-    "DB_E_BADACCESSORFLAGS",
-    "DB_E_BADSTORAGEFLAGS",
-    "DB_E_BYREFACCESSORNOTSUPPORTED",
-    "DB_E_NULLACCESSORNOTSUPPORTED",
-    "DB_E_NOTPREPARED",
-    "DB_E_BADACCESSORTYPE",
-    "DB_E_WRITEONLYACCESSOR",
-    "DB_SEC_E_AUTH_FAILED",
-    "DB_E_CANCELED",
-    "DB_E_CHAPTERNOTRELEASED",
-    "DB_E_BADSOURCEHANDLE",
-    "DB_E_PARAMUNAVAILABLE",
-    "DB_E_ALREADYINITIALIZED",
-    "DB_E_NOTSUPPORTED",
-    "DB_E_MAXPENDCHANGESEXCEEDED",
-    "DB_E_BADORDINAL",
-    "DB_E_PENDINGCHANGES",
-    "DB_E_DATAOVERFLOW",
-    "DB_E_BADHRESULT",
-    "DB_E_BADLOOKUPID",
-    "DB_E_BADDYNAMICERRORID",
-    "DB_E_PENDINGINSERT",
-    "DB_E_BADCONVERTFLAG",
-    "DB_E_BADPARAMETERNAME",
-    "DB_E_MULTIPLESTORAGE",
-    "DB_E_CANTFILTER",
-    "DB_E_CANTORDER",
-    "MD_E_BADTUPLE",
-    "MD_E_BADCOORDINATE",
-    "MD_E_INVALIDAXIS",
-    "MD_E_INVALIDCELLRANGE",
-    "DB_E_NOCOLUMN",
-    "DB_E_COMMANDNOTPERSISTED",
-    "DB_E_DUPLICATEID",
-    "DB_E_OBJECTCREATIONLIMITREACHED",
-    "DB_E_BADINDEXID",
-    "DB_E_BADINITSTRING",
-    "DB_E_NOPROVIDERSREGISTERED",
-    "DB_E_MISMATCHEDPROVIDER",
-    "DB_E_BADCOMMANDID",
-    "SEC_E_PERMISSIONDENIED",
-    "SEC_E_BADTRUSTEEID",
-    "SEC_E_NOTRUSTEEID",
-    "SEC_E_NOMEMBERSHIPSUPPORT",
-    "SEC_E_INVALIDOBJECT",
-    "SEC_E_NOOWNER",
-    "SEC_E_INVALIDACCESSENTRYLIST",
-    "SEC_E_INVALIDOWNER",
-    "SEC_E_INVALIDACCESSENTRY",
-    "DB_E_BADCONSTRAINTTYPE",
-    "DB_E_BADCONSTRAINTFORM",
-    "DB_E_BADDEFERRABILITY",
-    "DB_E_BADMATCHTYPE",
-    "DB_E_BADUPDATEDELETERULE",
-    "DB_E_BADCONSTRAINTID",
-    "DB_E_BADCOMMANDFLAGS",
-    "DB_E_OBJECTMISMATCH",
-    "DB_E_NOSOURCEOBJECT",
-    "DB_E_RESOURCELOCKED",
-    "DB_E_NOTCOLLECTION",
-    "DB_E_READONLY",
-    "DB_E_ASYNCNOTSUPPORTED",
-    "DB_E_CANNOTCONNECT",
-    "DB_E_TIMEOUT",
-    "DB_E_RESOURCEEXISTS",
-    "DB_E_RESOURCEOUTOFSCOPE",
-    "DB_E_DROPRESTRICTED",
-    "DB_E_DUPLICATECONSTRAINTID",
-    "DB_E_OUTOFSPACE",
-    "DB_SEC_E_SAFEMODE_DENIED",
-    "DB_E_NOSTATISTIC",
-    "DB_E_ALTERRESTRICTED",
-    "DB_E_RESOURCENOTSUPPORTED",
-    "DB_E_NOCONSTRAINT",
-    "DB_E_COLUMNUNAVAILABLE",
-    "DB_S_ROWLIMITEXCEEDED",
-    "DB_S_COLUMNTYPEMISMATCH",
-    "DB_S_TYPEINFOOVERRIDDEN",
-    "DB_S_BOOKMARKSKIPPED",
-    "DB_S_NONEXTROWSET",
-    "DB_S_ENDOFROWSET",
-    "DB_S_COMMANDREEXECUTED",
-    "DB_S_BUFFERFULL",
-    "DB_S_NORESULT",
-    "DB_S_CANTRELEASE",
-    "DB_S_GOALCHANGED",
-    "DB_S_UNWANTEDOPERATION",
-    "DB_S_DIALECTIGNORED",
-    "DB_S_UNWANTEDPHASE",
-    "DB_S_UNWANTEDREASON",
-    "DB_S_ASYNCHRONOUS",
-    "DB_S_COLUMNSCHANGED",
-    "DB_S_ERRORSRETURNED",
-    "DB_S_BADROWHANDLE",
-    "DB_S_DELETEDROW",
-    "DB_S_TOOMANYCHANGES",
-    "DB_S_STOPLIMITREACHED",
-    "DB_S_LOCKUPGRADED",
-    "DB_S_PROPERTIESCHANGED",
-    "DB_S_ERRORSOCCURRED",
-    "DB_S_PARAMUNAVAILABLE",
-    "DB_S_MULTIPLECHANGES",
-    "DB_S_NOTSINGLETON",
-    "DB_S_NOROWSPECIFICCOLUMNS",
-    "DBPROPFLAGS_PERSIST",
-    "DBPROPVAL_PERSIST_ADTG",
-    "DBPROPVAL_PERSIST_XML",
-    "DBPROP_PersistFormat",
-    "DBPROP_PersistSchema",
-    "DBPROP_HCHAPTER",
-    "DBPROP_MAINTAINPROPS",
-    "DBPROP_Unicode",
-    "DBPROP_INTERLEAVEDROWS",
-    "DISPID_QUERY_RANKVECTOR",
-    "DISPID_QUERY_RANK",
-    "DISPID_QUERY_HITCOUNT",
-    "DISPID_QUERY_WORKID",
-    "DISPID_QUERY_ALL",
-    "DISPID_QUERY_UNFILTERED",
-    "DISPID_QUERY_REVNAME",
-    "DISPID_QUERY_VIRTUALPATH",
-    "DISPID_QUERY_LASTSEENTIME",
-    "CQUERYDISPIDS",
-    "DISPID_QUERY_METADATA_VROOTUSED",
-    "DISPID_QUERY_METADATA_VROOTAUTOMATIC",
-    "DISPID_QUERY_METADATA_VROOTMANUAL",
-    "DISPID_QUERY_METADATA_PROPGUID",
-    "DISPID_QUERY_METADATA_PROPDISPID",
-    "DISPID_QUERY_METADATA_PROPNAME",
-    "DISPID_QUERY_METADATA_STORELEVEL",
-    "DISPID_QUERY_METADATA_PROPMODIFIABLE",
-    "CQUERYMETADISPIDS",
-    "PROPID_DBBMK_BOOKMARK",
-    "PROPID_DBBMK_CHAPTER",
-    "CDBBMKDISPIDS",
-    "PROPID_DBSELF_SELF",
-    "CDBSELFDISPIDS",
-    "CDBCOLDISPIDS",
-    "CQUERYPROPERTY",
-    "QUERY_VALIDBITS",
-    "RTNone",
-    "RTAnd",
-    "RTOr",
-    "RTNot",
-    "RTContent",
-    "RTProperty",
-    "RTProximity",
-    "RTVector",
-    "RTNatLanguage",
-    "GENERATE_METHOD_PREFIXMATCH",
-    "GENERATE_METHOD_STEMMED",
-    "PRRE",
-    "PRAllBits",
-    "PRSomeBits",
-    "PRAll",
-    "PRAny",
-    "QUERY_SORTXASCEND",
-    "QUERY_SORTXDESCEND",
-    "QUERY_SORTDEFAULT",
-    "CATEGORIZE_UNIQUE",
-    "CATEGORIZE_CLUSTER",
-    "CATEGORIZE_BUCKETS",
-    "BUCKET_LINEAR",
-    "BUCKET_EXPONENTIAL",
-    "CATEGORIZE_RANGE",
-    "OCC_INVALID",
-    "MAX_QUERY_RANK",
-    "OSP_IndexLabel",
-    "SQL_NULL_DATA",
-    "SQL_DATA_AT_EXEC",
-    "SQL_SUCCESS",
-    "SQL_SUCCESS_WITH_INFO",
-    "SQL_NO_DATA",
-    "SQL_PARAM_DATA_AVAILABLE",
-    "SQL_ERROR",
-    "SQL_INVALID_HANDLE",
-    "SQL_STILL_EXECUTING",
-    "SQL_NEED_DATA",
-    "SQL_NTS",
-    "SQL_NTSL",
-    "SQL_MAX_MESSAGE_LENGTH",
-    "SQL_DATE_LEN",
-    "SQL_TIME_LEN",
-    "SQL_TIMESTAMP_LEN",
-    "SQL_HANDLE_ENV",
-    "SQL_HANDLE_DBC",
-    "SQL_HANDLE_STMT",
-    "SQL_HANDLE_DESC",
-    "SQL_ATTR_OUTPUT_NTS",
-    "SQL_ATTR_AUTO_IPD",
-    "SQL_ATTR_METADATA_ID",
-    "SQL_ATTR_APP_ROW_DESC",
-    "SQL_ATTR_APP_PARAM_DESC",
-    "SQL_ATTR_IMP_ROW_DESC",
-    "SQL_ATTR_IMP_PARAM_DESC",
-    "SQL_ATTR_CURSOR_SCROLLABLE",
-    "SQL_ATTR_CURSOR_SENSITIVITY",
-    "SQL_NONSCROLLABLE",
-    "SQL_SCROLLABLE",
-    "SQL_DESC_COUNT",
-    "SQL_DESC_TYPE",
-    "SQL_DESC_LENGTH",
-    "SQL_DESC_OCTET_LENGTH_PTR",
-    "SQL_DESC_PRECISION",
-    "SQL_DESC_SCALE",
-    "SQL_DESC_DATETIME_INTERVAL_CODE",
-    "SQL_DESC_NULLABLE",
-    "SQL_DESC_INDICATOR_PTR",
-    "SQL_DESC_DATA_PTR",
-    "SQL_DESC_NAME",
-    "SQL_DESC_UNNAMED",
-    "SQL_DESC_OCTET_LENGTH",
-    "SQL_DESC_ALLOC_TYPE",
-    "SQL_DIAG_RETURNCODE",
-    "SQL_DIAG_NUMBER",
-    "SQL_DIAG_ROW_COUNT",
-    "SQL_DIAG_SQLSTATE",
-    "SQL_DIAG_NATIVE",
-    "SQL_DIAG_MESSAGE_TEXT",
-    "SQL_DIAG_DYNAMIC_FUNCTION",
-    "SQL_DIAG_CLASS_ORIGIN",
-    "SQL_DIAG_SUBCLASS_ORIGIN",
-    "SQL_DIAG_CONNECTION_NAME",
-    "SQL_DIAG_SERVER_NAME",
-    "SQL_DIAG_DYNAMIC_FUNCTION_CODE",
-    "SQL_DIAG_ALTER_DOMAIN",
-    "SQL_DIAG_ALTER_TABLE",
-    "SQL_DIAG_CALL",
-    "SQL_DIAG_CREATE_ASSERTION",
-    "SQL_DIAG_CREATE_CHARACTER_SET",
-    "SQL_DIAG_CREATE_COLLATION",
-    "SQL_DIAG_CREATE_DOMAIN",
-    "SQL_DIAG_CREATE_INDEX",
-    "SQL_DIAG_CREATE_SCHEMA",
-    "SQL_DIAG_CREATE_TABLE",
-    "SQL_DIAG_CREATE_TRANSLATION",
-    "SQL_DIAG_CREATE_VIEW",
-    "SQL_DIAG_DELETE_WHERE",
-    "SQL_DIAG_DROP_ASSERTION",
-    "SQL_DIAG_DROP_CHARACTER_SET",
-    "SQL_DIAG_DROP_COLLATION",
-    "SQL_DIAG_DROP_DOMAIN",
-    "SQL_DIAG_DROP_INDEX",
-    "SQL_DIAG_DROP_SCHEMA",
-    "SQL_DIAG_DROP_TABLE",
-    "SQL_DIAG_DROP_TRANSLATION",
-    "SQL_DIAG_DROP_VIEW",
-    "SQL_DIAG_DYNAMIC_DELETE_CURSOR",
-    "SQL_DIAG_DYNAMIC_UPDATE_CURSOR",
-    "SQL_DIAG_GRANT",
-    "SQL_DIAG_INSERT",
-    "SQL_DIAG_REVOKE",
-    "SQL_DIAG_SELECT_CURSOR",
-    "SQL_DIAG_UNKNOWN_STATEMENT",
-    "SQL_DIAG_UPDATE_WHERE",
-    "SQL_UNKNOWN_TYPE",
-    "SQL_CHAR",
-    "SQL_NUMERIC",
-    "SQL_DECIMAL",
-    "SQL_INTEGER",
-    "SQL_SMALLINT",
-    "SQL_FLOAT",
-    "SQL_REAL",
-    "SQL_DOUBLE",
-    "SQL_DATETIME",
-    "SQL_VARCHAR",
-    "SQL_TYPE_DATE",
-    "SQL_TYPE_TIME",
-    "SQL_TYPE_TIMESTAMP",
-    "SQL_UNSPECIFIED",
-    "SQL_INSENSITIVE",
-    "SQL_SENSITIVE",
-    "SQL_ALL_TYPES",
-    "SQL_DEFAULT",
-    "SQL_ARD_TYPE",
-    "SQL_APD_TYPE",
-    "SQL_CODE_DATE",
-    "SQL_CODE_TIME",
-    "SQL_CODE_TIMESTAMP",
-    "SQL_FALSE",
-    "SQL_TRUE",
-    "SQL_NO_NULLS",
-    "SQL_NULLABLE",
-    "SQL_NULLABLE_UNKNOWN",
-    "SQL_PRED_NONE",
-    "SQL_PRED_CHAR",
-    "SQL_PRED_BASIC",
-    "SQL_NAMED",
-    "SQL_UNNAMED",
-    "SQL_DESC_ALLOC_AUTO",
-    "SQL_DESC_ALLOC_USER",
-    "SQL_CLOSE",
-    "SQL_DROP",
-    "SQL_UNBIND",
-    "SQL_RESET_PARAMS",
-    "SQL_FETCH_NEXT",
-    "SQL_FETCH_FIRST",
-    "SQL_FETCH_LAST",
-    "SQL_FETCH_PRIOR",
-    "SQL_FETCH_ABSOLUTE",
-    "SQL_FETCH_RELATIVE",
-    "SQL_COMMIT",
-    "SQL_ROLLBACK",
-    "SQL_NULL_HENV",
-    "SQL_NULL_HDBC",
-    "SQL_NULL_HSTMT",
-    "SQL_NULL_HDESC",
-    "SQL_NULL_HANDLE",
-    "SQL_SCOPE_CURROW",
-    "SQL_SCOPE_TRANSACTION",
-    "SQL_SCOPE_SESSION",
-    "SQL_PC_UNKNOWN",
-    "SQL_PC_NON_PSEUDO",
-    "SQL_PC_PSEUDO",
-    "SQL_ROW_IDENTIFIER",
-    "SQL_INDEX_UNIQUE",
-    "SQL_INDEX_ALL",
-    "SQL_INDEX_CLUSTERED",
-    "SQL_INDEX_HASHED",
-    "SQL_INDEX_OTHER",
-    "SQL_API_SQLALLOCCONNECT",
-    "SQL_API_SQLALLOCENV",
-    "SQL_API_SQLALLOCHANDLE",
-    "SQL_API_SQLALLOCSTMT",
-    "SQL_API_SQLBINDCOL",
-    "SQL_API_SQLBINDPARAM",
-    "SQL_API_SQLCANCEL",
-    "SQL_API_SQLCLOSECURSOR",
-    "SQL_API_SQLCOLATTRIBUTE",
-    "SQL_API_SQLCOLUMNS",
-    "SQL_API_SQLCONNECT",
-    "SQL_API_SQLCOPYDESC",
-    "SQL_API_SQLDATASOURCES",
-    "SQL_API_SQLDESCRIBECOL",
-    "SQL_API_SQLDISCONNECT",
-    "SQL_API_SQLENDTRAN",
-    "SQL_API_SQLERROR",
-    "SQL_API_SQLEXECDIRECT",
-    "SQL_API_SQLEXECUTE",
-    "SQL_API_SQLFETCH",
-    "SQL_API_SQLFETCHSCROLL",
-    "SQL_API_SQLFREECONNECT",
-    "SQL_API_SQLFREEENV",
-    "SQL_API_SQLFREEHANDLE",
-    "SQL_API_SQLFREESTMT",
-    "SQL_API_SQLGETCONNECTATTR",
-    "SQL_API_SQLGETCONNECTOPTION",
-    "SQL_API_SQLGETCURSORNAME",
-    "SQL_API_SQLGETDATA",
-    "SQL_API_SQLGETDESCFIELD",
-    "SQL_API_SQLGETDESCREC",
-    "SQL_API_SQLGETDIAGFIELD",
-    "SQL_API_SQLGETDIAGREC",
-    "SQL_API_SQLGETENVATTR",
-    "SQL_API_SQLGETFUNCTIONS",
-    "SQL_API_SQLGETINFO",
-    "SQL_API_SQLGETSTMTATTR",
-    "SQL_API_SQLGETSTMTOPTION",
-    "SQL_API_SQLGETTYPEINFO",
-    "SQL_API_SQLNUMRESULTCOLS",
-    "SQL_API_SQLPARAMDATA",
-    "SQL_API_SQLPREPARE",
-    "SQL_API_SQLPUTDATA",
-    "SQL_API_SQLROWCOUNT",
-    "SQL_API_SQLSETCONNECTATTR",
-    "SQL_API_SQLSETCONNECTOPTION",
-    "SQL_API_SQLSETCURSORNAME",
-    "SQL_API_SQLSETDESCFIELD",
-    "SQL_API_SQLSETDESCREC",
-    "SQL_API_SQLSETENVATTR",
-    "SQL_API_SQLSETPARAM",
-    "SQL_API_SQLSETSTMTATTR",
-    "SQL_API_SQLSETSTMTOPTION",
-    "SQL_API_SQLSPECIALCOLUMNS",
-    "SQL_API_SQLSTATISTICS",
-    "SQL_API_SQLTABLES",
-    "SQL_API_SQLTRANSACT",
-    "SQL_API_SQLCANCELHANDLE",
-    "SQL_API_SQLCOMPLETEASYNC",
-    "SQL_MAX_DRIVER_CONNECTIONS",
-    "SQL_MAXIMUM_DRIVER_CONNECTIONS",
-    "SQL_MAX_CONCURRENT_ACTIVITIES",
-    "SQL_MAXIMUM_CONCURRENT_ACTIVITIES",
-    "SQL_DATA_SOURCE_NAME",
-    "SQL_FETCH_DIRECTION",
-    "SQL_SERVER_NAME",
-    "SQL_SEARCH_PATTERN_ESCAPE",
-    "SQL_DBMS_NAME",
-    "SQL_DBMS_VER",
-    "SQL_ACCESSIBLE_TABLES",
-    "SQL_ACCESSIBLE_PROCEDURES",
-    "SQL_CURSOR_COMMIT_BEHAVIOR",
-    "SQL_DATA_SOURCE_READ_ONLY",
-    "SQL_DEFAULT_TXN_ISOLATION",
-    "SQL_IDENTIFIER_CASE",
-    "SQL_IDENTIFIER_QUOTE_CHAR",
-    "SQL_MAX_COLUMN_NAME_LEN",
-    "SQL_MAXIMUM_COLUMN_NAME_LENGTH",
-    "SQL_MAX_CURSOR_NAME_LEN",
-    "SQL_MAXIMUM_CURSOR_NAME_LENGTH",
-    "SQL_MAX_SCHEMA_NAME_LEN",
-    "SQL_MAXIMUM_SCHEMA_NAME_LENGTH",
-    "SQL_MAX_CATALOG_NAME_LEN",
-    "SQL_MAXIMUM_CATALOG_NAME_LENGTH",
-    "SQL_MAX_TABLE_NAME_LEN",
-    "SQL_SCROLL_CONCURRENCY",
-    "SQL_TXN_CAPABLE",
-    "SQL_TRANSACTION_CAPABLE",
-    "SQL_USER_NAME",
-    "SQL_TXN_ISOLATION_OPTION",
-    "SQL_TRANSACTION_ISOLATION_OPTION",
-    "SQL_INTEGRITY",
-    "SQL_GETDATA_EXTENSIONS",
-    "SQL_NULL_COLLATION",
-    "SQL_ALTER_TABLE",
-    "SQL_ORDER_BY_COLUMNS_IN_SELECT",
-    "SQL_SPECIAL_CHARACTERS",
-    "SQL_MAX_COLUMNS_IN_GROUP_BY",
-    "SQL_MAXIMUM_COLUMNS_IN_GROUP_BY",
-    "SQL_MAX_COLUMNS_IN_INDEX",
-    "SQL_MAXIMUM_COLUMNS_IN_INDEX",
-    "SQL_MAX_COLUMNS_IN_ORDER_BY",
-    "SQL_MAXIMUM_COLUMNS_IN_ORDER_BY",
-    "SQL_MAX_COLUMNS_IN_SELECT",
-    "SQL_MAXIMUM_COLUMNS_IN_SELECT",
-    "SQL_MAX_COLUMNS_IN_TABLE",
-    "SQL_MAX_INDEX_SIZE",
-    "SQL_MAXIMUM_INDEX_SIZE",
-    "SQL_MAX_ROW_SIZE",
-    "SQL_MAXIMUM_ROW_SIZE",
-    "SQL_MAX_STATEMENT_LEN",
-    "SQL_MAXIMUM_STATEMENT_LENGTH",
-    "SQL_MAX_TABLES_IN_SELECT",
-    "SQL_MAXIMUM_TABLES_IN_SELECT",
-    "SQL_MAX_USER_NAME_LEN",
-    "SQL_MAXIMUM_USER_NAME_LENGTH",
-    "SQL_OJ_CAPABILITIES",
-    "SQL_OUTER_JOIN_CAPABILITIES",
-    "SQL_XOPEN_CLI_YEAR",
-    "SQL_CURSOR_SENSITIVITY",
-    "SQL_DESCRIBE_PARAMETER",
-    "SQL_CATALOG_NAME",
-    "SQL_COLLATION_SEQ",
-    "SQL_MAX_IDENTIFIER_LEN",
-    "SQL_MAXIMUM_IDENTIFIER_LENGTH",
-    "SQL_AT_ADD_COLUMN",
-    "SQL_AT_DROP_COLUMN",
-    "SQL_AT_ADD_CONSTRAINT",
-    "SQL_AM_NONE",
-    "SQL_AM_CONNECTION",
-    "SQL_AM_STATEMENT",
-    "SQL_CB_DELETE",
-    "SQL_CB_CLOSE",
-    "SQL_CB_PRESERVE",
-    "SQL_FD_FETCH_NEXT",
-    "SQL_FD_FETCH_FIRST",
-    "SQL_FD_FETCH_LAST",
-    "SQL_FD_FETCH_PRIOR",
-    "SQL_FD_FETCH_ABSOLUTE",
-    "SQL_FD_FETCH_RELATIVE",
-    "SQL_GD_ANY_COLUMN",
-    "SQL_GD_ANY_ORDER",
-    "SQL_IC_UPPER",
-    "SQL_IC_LOWER",
-    "SQL_IC_SENSITIVE",
-    "SQL_IC_MIXED",
-    "SQL_OJ_LEFT",
-    "SQL_OJ_RIGHT",
-    "SQL_OJ_FULL",
-    "SQL_OJ_NESTED",
-    "SQL_OJ_NOT_ORDERED",
-    "SQL_OJ_INNER",
-    "SQL_OJ_ALL_COMPARISON_OPS",
-    "SQL_SCCO_READ_ONLY",
-    "SQL_SCCO_LOCK",
-    "SQL_SCCO_OPT_ROWVER",
-    "SQL_SCCO_OPT_VALUES",
-    "SQL_TC_NONE",
-    "SQL_TC_DML",
-    "SQL_TC_ALL",
-    "SQL_TC_DDL_COMMIT",
-    "SQL_TC_DDL_IGNORE",
-    "SQL_TXN_READ_UNCOMMITTED",
-    "SQL_TRANSACTION_READ_UNCOMMITTED",
-    "SQL_TXN_READ_COMMITTED",
-    "SQL_TRANSACTION_READ_COMMITTED",
-    "SQL_TXN_REPEATABLE_READ",
-    "SQL_TRANSACTION_REPEATABLE_READ",
-    "SQL_TXN_SERIALIZABLE",
-    "SQL_TRANSACTION_SERIALIZABLE",
-    "SQL_NC_HIGH",
-    "SQL_NC_LOW",
-    "SQL_SPEC_MAJOR",
-    "SQL_SPEC_MINOR",
-    "SQL_SQLSTATE_SIZE",
-    "SQL_MAX_DSN_LENGTH",
-    "SQL_MAX_OPTION_STRING_LENGTH",
-    "SQL_NO_DATA_FOUND",
-    "SQL_HANDLE_SENV",
-    "SQL_ATTR_ODBC_VERSION",
-    "SQL_ATTR_CONNECTION_POOLING",
-    "SQL_ATTR_CP_MATCH",
-    "SQL_ATTR_APPLICATION_KEY",
-    "SQL_CP_OFF",
-    "SQL_CP_ONE_PER_DRIVER",
-    "SQL_CP_ONE_PER_HENV",
-    "SQL_CP_DRIVER_AWARE",
-    "SQL_CP_DEFAULT",
-    "SQL_CP_STRICT_MATCH",
-    "SQL_CP_RELAXED_MATCH",
-    "SQL_CP_MATCH_DEFAULT",
-    "SQL_OV_ODBC2",
-    "SQL_OV_ODBC3",
-    "SQL_OV_ODBC3_80",
-    "SQL_ACCESS_MODE",
-    "SQL_AUTOCOMMIT",
-    "SQL_LOGIN_TIMEOUT",
-    "SQL_OPT_TRACE",
-    "SQL_OPT_TRACEFILE",
-    "SQL_TRANSLATE_DLL",
-    "SQL_TRANSLATE_OPTION",
-    "SQL_TXN_ISOLATION",
-    "SQL_CURRENT_QUALIFIER",
-    "SQL_ODBC_CURSORS",
-    "SQL_QUIET_MODE",
-    "SQL_PACKET_SIZE",
-    "SQL_ATTR_ACCESS_MODE",
-    "SQL_ATTR_AUTOCOMMIT",
-    "SQL_ATTR_CONNECTION_TIMEOUT",
-    "SQL_ATTR_CURRENT_CATALOG",
-    "SQL_ATTR_DISCONNECT_BEHAVIOR",
-    "SQL_ATTR_ENLIST_IN_DTC",
-    "SQL_ATTR_ENLIST_IN_XA",
-    "SQL_ATTR_LOGIN_TIMEOUT",
-    "SQL_ATTR_ODBC_CURSORS",
-    "SQL_ATTR_PACKET_SIZE",
-    "SQL_ATTR_QUIET_MODE",
-    "SQL_ATTR_TRACE",
-    "SQL_ATTR_TRACEFILE",
-    "SQL_ATTR_TRANSLATE_LIB",
-    "SQL_ATTR_TRANSLATE_OPTION",
-    "SQL_ATTR_TXN_ISOLATION",
-    "SQL_ATTR_CONNECTION_DEAD",
-    "SQL_ATTR_ANSI_APP",
-    "SQL_ATTR_RESET_CONNECTION",
-    "SQL_ATTR_ASYNC_DBC_FUNCTIONS_ENABLE",
-    "SQL_ATTR_ASYNC_DBC_EVENT",
-    "SQL_CONNECT_OPT_DRVR_START",
-    "SQL_CONN_OPT_MAX",
-    "SQL_CONN_OPT_MIN",
-    "SQL_MODE_READ_WRITE",
-    "SQL_MODE_READ_ONLY",
-    "SQL_MODE_DEFAULT",
-    "SQL_AUTOCOMMIT_OFF",
-    "SQL_AUTOCOMMIT_ON",
-    "SQL_AUTOCOMMIT_DEFAULT",
-    "SQL_LOGIN_TIMEOUT_DEFAULT",
-    "SQL_OPT_TRACE_OFF",
-    "SQL_OPT_TRACE_ON",
-    "SQL_OPT_TRACE_DEFAULT",
-    "SQL_CUR_USE_IF_NEEDED",
-    "SQL_CUR_USE_ODBC",
-    "SQL_CUR_USE_DRIVER",
-    "SQL_CUR_DEFAULT",
-    "SQL_DB_RETURN_TO_POOL",
-    "SQL_DB_DISCONNECT",
-    "SQL_DB_DEFAULT",
-    "SQL_DTC_DONE",
-    "SQL_CD_TRUE",
-    "SQL_CD_FALSE",
-    "SQL_AA_TRUE",
-    "SQL_AA_FALSE",
-    "SQL_RESET_CONNECTION_YES",
-    "SQL_ASYNC_DBC_ENABLE_ON",
-    "SQL_ASYNC_DBC_ENABLE_OFF",
-    "SQL_ASYNC_DBC_ENABLE_DEFAULT",
-    "SQL_QUERY_TIMEOUT",
-    "SQL_MAX_ROWS",
-    "SQL_NOSCAN",
-    "SQL_MAX_LENGTH",
-    "SQL_ASYNC_ENABLE",
-    "SQL_BIND_TYPE",
-    "SQL_CURSOR_TYPE",
-    "SQL_CONCURRENCY",
-    "SQL_KEYSET_SIZE",
-    "SQL_ROWSET_SIZE",
-    "SQL_SIMULATE_CURSOR",
-    "SQL_RETRIEVE_DATA",
-    "SQL_USE_BOOKMARKS",
-    "SQL_GET_BOOKMARK",
-    "SQL_ROW_NUMBER",
-    "SQL_ATTR_ASYNC_ENABLE",
-    "SQL_ATTR_CONCURRENCY",
-    "SQL_ATTR_CURSOR_TYPE",
-    "SQL_ATTR_ENABLE_AUTO_IPD",
-    "SQL_ATTR_FETCH_BOOKMARK_PTR",
-    "SQL_ATTR_KEYSET_SIZE",
-    "SQL_ATTR_MAX_LENGTH",
-    "SQL_ATTR_MAX_ROWS",
-    "SQL_ATTR_NOSCAN",
-    "SQL_ATTR_PARAM_BIND_OFFSET_PTR",
-    "SQL_ATTR_PARAM_BIND_TYPE",
-    "SQL_ATTR_PARAM_OPERATION_PTR",
-    "SQL_ATTR_PARAM_STATUS_PTR",
-    "SQL_ATTR_PARAMS_PROCESSED_PTR",
-    "SQL_ATTR_PARAMSET_SIZE",
-    "SQL_ATTR_QUERY_TIMEOUT",
-    "SQL_ATTR_RETRIEVE_DATA",
-    "SQL_ATTR_ROW_BIND_OFFSET_PTR",
-    "SQL_ATTR_ROW_BIND_TYPE",
-    "SQL_ATTR_ROW_NUMBER",
-    "SQL_ATTR_ROW_OPERATION_PTR",
-    "SQL_ATTR_ROW_STATUS_PTR",
-    "SQL_ATTR_ROWS_FETCHED_PTR",
-    "SQL_ATTR_ROW_ARRAY_SIZE",
-    "SQL_ATTR_SIMULATE_CURSOR",
-    "SQL_ATTR_USE_BOOKMARKS",
-    "SQL_ATTR_ASYNC_STMT_EVENT",
-    "SQL_STMT_OPT_MAX",
-    "SQL_STMT_OPT_MIN",
-    "SQL_IS_POINTER",
-    "SQL_IS_UINTEGER",
-    "SQL_IS_INTEGER",
-    "SQL_IS_USMALLINT",
-    "SQL_IS_SMALLINT",
-    "SQL_PARAM_BIND_BY_COLUMN",
-    "SQL_PARAM_BIND_TYPE_DEFAULT",
-    "SQL_QUERY_TIMEOUT_DEFAULT",
-    "SQL_MAX_ROWS_DEFAULT",
-    "SQL_NOSCAN_OFF",
-    "SQL_NOSCAN_ON",
-    "SQL_NOSCAN_DEFAULT",
-    "SQL_MAX_LENGTH_DEFAULT",
-    "SQL_ASYNC_ENABLE_OFF",
-    "SQL_ASYNC_ENABLE_ON",
-    "SQL_ASYNC_ENABLE_DEFAULT",
-    "SQL_BIND_BY_COLUMN",
-    "SQL_BIND_TYPE_DEFAULT",
-    "SQL_CONCUR_READ_ONLY",
-    "SQL_CONCUR_LOCK",
-    "SQL_CONCUR_ROWVER",
-    "SQL_CONCUR_VALUES",
-    "SQL_CONCUR_DEFAULT",
-    "SQL_CURSOR_FORWARD_ONLY",
-    "SQL_CURSOR_KEYSET_DRIVEN",
-    "SQL_CURSOR_DYNAMIC",
-    "SQL_CURSOR_STATIC",
-    "SQL_CURSOR_TYPE_DEFAULT",
-    "SQL_ROWSET_SIZE_DEFAULT",
-    "SQL_KEYSET_SIZE_DEFAULT",
-    "SQL_SC_NON_UNIQUE",
-    "SQL_SC_TRY_UNIQUE",
-    "SQL_SC_UNIQUE",
-    "SQL_RD_OFF",
-    "SQL_RD_ON",
-    "SQL_RD_DEFAULT",
-    "SQL_UB_OFF",
-    "SQL_UB_ON",
-    "SQL_UB_DEFAULT",
-    "SQL_UB_FIXED",
-    "SQL_UB_VARIABLE",
-    "SQL_DESC_ARRAY_SIZE",
-    "SQL_DESC_ARRAY_STATUS_PTR",
-    "SQL_DESC_BASE_COLUMN_NAME",
-    "SQL_DESC_BASE_TABLE_NAME",
-    "SQL_DESC_BIND_OFFSET_PTR",
-    "SQL_DESC_BIND_TYPE",
-    "SQL_DESC_DATETIME_INTERVAL_PRECISION",
-    "SQL_DESC_LITERAL_PREFIX",
-    "SQL_DESC_LITERAL_SUFFIX",
-    "SQL_DESC_LOCAL_TYPE_NAME",
-    "SQL_DESC_MAXIMUM_SCALE",
-    "SQL_DESC_MINIMUM_SCALE",
-    "SQL_DESC_NUM_PREC_RADIX",
-    "SQL_DESC_PARAMETER_TYPE",
-    "SQL_DESC_ROWS_PROCESSED_PTR",
-    "SQL_DESC_ROWVER",
-    "SQL_DIAG_CURSOR_ROW_COUNT",
-    "SQL_DIAG_ROW_NUMBER",
-    "SQL_DIAG_COLUMN_NUMBER",
-    "SQL_DATE",
-    "SQL_INTERVAL",
-    "SQL_TIME",
-    "SQL_TIMESTAMP",
-    "SQL_LONGVARCHAR",
-    "SQL_BINARY",
-    "SQL_VARBINARY",
-    "SQL_LONGVARBINARY",
-    "SQL_BIGINT",
-    "SQL_TINYINT",
-    "SQL_BIT",
-    "SQL_GUID",
-    "SQL_CODE_YEAR",
-    "SQL_CODE_MONTH",
-    "SQL_CODE_DAY",
-    "SQL_CODE_HOUR",
-    "SQL_CODE_MINUTE",
-    "SQL_CODE_SECOND",
-    "SQL_CODE_YEAR_TO_MONTH",
-    "SQL_CODE_DAY_TO_HOUR",
-    "SQL_CODE_DAY_TO_MINUTE",
-    "SQL_CODE_DAY_TO_SECOND",
-    "SQL_CODE_HOUR_TO_MINUTE",
-    "SQL_CODE_HOUR_TO_SECOND",
-    "SQL_CODE_MINUTE_TO_SECOND",
-    "SQL_INTERVAL_YEAR",
-    "SQL_INTERVAL_MONTH",
-    "SQL_INTERVAL_YEAR_TO_MONTH",
-    "SQL_INTERVAL_DAY",
-    "SQL_INTERVAL_HOUR",
-    "SQL_INTERVAL_MINUTE",
-    "SQL_INTERVAL_SECOND",
-    "SQL_INTERVAL_DAY_TO_HOUR",
-    "SQL_INTERVAL_DAY_TO_MINUTE",
-    "SQL_INTERVAL_DAY_TO_SECOND",
-    "SQL_INTERVAL_HOUR_TO_MINUTE",
-    "SQL_INTERVAL_HOUR_TO_SECOND",
-    "SQL_INTERVAL_MINUTE_TO_SECOND",
-    "SQL_UNICODE",
-    "SQL_UNICODE_VARCHAR",
-    "SQL_UNICODE_LONGVARCHAR",
-    "SQL_UNICODE_CHAR",
-    "SQL_TYPE_DRIVER_START",
-    "SQL_TYPE_DRIVER_END",
-    "SQL_C_CHAR",
-    "SQL_C_LONG",
-    "SQL_C_SHORT",
-    "SQL_C_FLOAT",
-    "SQL_C_DOUBLE",
-    "SQL_C_NUMERIC",
-    "SQL_C_DEFAULT",
-    "SQL_SIGNED_OFFSET",
-    "SQL_UNSIGNED_OFFSET",
-    "SQL_C_DATE",
-    "SQL_C_TIME",
-    "SQL_C_TIMESTAMP",
-    "SQL_C_TYPE_DATE",
-    "SQL_C_TYPE_TIME",
-    "SQL_C_TYPE_TIMESTAMP",
-    "SQL_C_INTERVAL_YEAR",
-    "SQL_C_INTERVAL_MONTH",
-    "SQL_C_INTERVAL_DAY",
-    "SQL_C_INTERVAL_HOUR",
-    "SQL_C_INTERVAL_MINUTE",
-    "SQL_C_INTERVAL_SECOND",
-    "SQL_C_INTERVAL_YEAR_TO_MONTH",
-    "SQL_C_INTERVAL_DAY_TO_HOUR",
-    "SQL_C_INTERVAL_DAY_TO_MINUTE",
-    "SQL_C_INTERVAL_DAY_TO_SECOND",
-    "SQL_C_INTERVAL_HOUR_TO_MINUTE",
-    "SQL_C_INTERVAL_HOUR_TO_SECOND",
-    "SQL_C_INTERVAL_MINUTE_TO_SECOND",
-    "SQL_C_BINARY",
-    "SQL_C_BIT",
-    "SQL_C_TINYINT",
-    "SQL_C_GUID",
-    "SQL_TYPE_NULL",
-    "SQL_TYPE_MIN",
-    "SQL_TYPE_MAX",
-    "SQL_DRIVER_C_TYPE_BASE",
-    "SQL_DRIVER_SQL_TYPE_BASE",
-    "SQL_DRIVER_DESC_FIELD_BASE",
-    "SQL_DRIVER_DIAG_FIELD_BASE",
-    "SQL_DRIVER_INFO_TYPE_BASE",
-    "SQL_DRIVER_CONN_ATTR_BASE",
-    "SQL_DRIVER_STMT_ATTR_BASE",
-    "SQL_C_VARBOOKMARK",
-    "SQL_NO_ROW_NUMBER",
-    "SQL_NO_COLUMN_NUMBER",
-    "SQL_ROW_NUMBER_UNKNOWN",
-    "SQL_COLUMN_NUMBER_UNKNOWN",
-    "SQL_DEFAULT_PARAM",
-    "SQL_IGNORE",
-    "SQL_COLUMN_IGNORE",
-    "SQL_LEN_DATA_AT_EXEC_OFFSET",
-    "SQL_LEN_BINARY_ATTR_OFFSET",
-    "SQL_SETPARAM_VALUE_MAX",
-    "SQL_COLUMN_COUNT",
-    "SQL_COLUMN_NAME",
-    "SQL_COLUMN_TYPE",
-    "SQL_COLUMN_LENGTH",
-    "SQL_COLUMN_PRECISION",
-    "SQL_COLUMN_SCALE",
-    "SQL_COLUMN_DISPLAY_SIZE",
-    "SQL_COLUMN_NULLABLE",
-    "SQL_COLUMN_UNSIGNED",
-    "SQL_COLUMN_MONEY",
-    "SQL_COLUMN_UPDATABLE",
-    "SQL_COLUMN_AUTO_INCREMENT",
-    "SQL_COLUMN_CASE_SENSITIVE",
-    "SQL_COLUMN_SEARCHABLE",
-    "SQL_COLUMN_TYPE_NAME",
-    "SQL_COLUMN_TABLE_NAME",
-    "SQL_COLUMN_OWNER_NAME",
-    "SQL_COLUMN_QUALIFIER_NAME",
-    "SQL_COLUMN_LABEL",
-    "SQL_COLATT_OPT_MAX",
-    "SQL_COLUMN_DRIVER_START",
-    "SQL_COLATT_OPT_MIN",
-    "SQL_ATTR_READONLY",
-    "SQL_ATTR_WRITE",
-    "SQL_ATTR_READWRITE_UNKNOWN",
-    "SQL_UNSEARCHABLE",
-    "SQL_LIKE_ONLY",
-    "SQL_ALL_EXCEPT_LIKE",
-    "SQL_SEARCHABLE",
-    "SQL_PRED_SEARCHABLE",
-    "SQL_NO_TOTAL",
-    "SQL_API_SQLALLOCHANDLESTD",
-    "SQL_API_SQLBULKOPERATIONS",
-    "SQL_API_SQLBINDPARAMETER",
-    "SQL_API_SQLBROWSECONNECT",
-    "SQL_API_SQLCOLATTRIBUTES",
-    "SQL_API_SQLCOLUMNPRIVILEGES",
-    "SQL_API_SQLDESCRIBEPARAM",
-    "SQL_API_SQLDRIVERCONNECT",
-    "SQL_API_SQLDRIVERS",
-    "SQL_API_SQLPRIVATEDRIVERS",
-    "SQL_API_SQLEXTENDEDFETCH",
-    "SQL_API_SQLFOREIGNKEYS",
-    "SQL_API_SQLMORERESULTS",
-    "SQL_API_SQLNATIVESQL",
-    "SQL_API_SQLNUMPARAMS",
-    "SQL_API_SQLPARAMOPTIONS",
-    "SQL_API_SQLPRIMARYKEYS",
-    "SQL_API_SQLPROCEDURECOLUMNS",
-    "SQL_API_SQLPROCEDURES",
-    "SQL_API_SQLSETPOS",
-    "SQL_API_SQLSETSCROLLOPTIONS",
-    "SQL_API_SQLTABLEPRIVILEGES",
-    "SQL_EXT_API_LAST",
-    "SQL_NUM_FUNCTIONS",
-    "SQL_EXT_API_START",
-    "SQL_API_ALL_FUNCTIONS",
-    "SQL_API_LOADBYORDINAL",
-    "SQL_API_ODBC3_ALL_FUNCTIONS",
-    "SQL_API_ODBC3_ALL_FUNCTIONS_SIZE",
-    "SQL_INFO_FIRST",
-    "SQL_ACTIVE_CONNECTIONS",
-    "SQL_ACTIVE_STATEMENTS",
-    "SQL_DRIVER_HDBC",
-    "SQL_DRIVER_HENV",
-    "SQL_DRIVER_HSTMT",
-    "SQL_DRIVER_NAME",
-    "SQL_DRIVER_VER",
-    "SQL_ODBC_API_CONFORMANCE",
-    "SQL_ODBC_VER",
-    "SQL_ROW_UPDATES",
-    "SQL_ODBC_SAG_CLI_CONFORMANCE",
-    "SQL_ODBC_SQL_CONFORMANCE",
-    "SQL_PROCEDURES",
-    "SQL_CONCAT_NULL_BEHAVIOR",
-    "SQL_CURSOR_ROLLBACK_BEHAVIOR",
-    "SQL_EXPRESSIONS_IN_ORDERBY",
-    "SQL_MAX_OWNER_NAME_LEN",
-    "SQL_MAX_PROCEDURE_NAME_LEN",
-    "SQL_MAX_QUALIFIER_NAME_LEN",
-    "SQL_MULT_RESULT_SETS",
-    "SQL_MULTIPLE_ACTIVE_TXN",
-    "SQL_OUTER_JOINS",
-    "SQL_OWNER_TERM",
-    "SQL_PROCEDURE_TERM",
-    "SQL_QUALIFIER_NAME_SEPARATOR",
-    "SQL_QUALIFIER_TERM",
-    "SQL_SCROLL_OPTIONS",
-    "SQL_TABLE_TERM",
-    "SQL_CONVERT_FUNCTIONS",
-    "SQL_NUMERIC_FUNCTIONS",
-    "SQL_STRING_FUNCTIONS",
-    "SQL_SYSTEM_FUNCTIONS",
-    "SQL_TIMEDATE_FUNCTIONS",
-    "SQL_CONVERT_BIGINT",
-    "SQL_CONVERT_BINARY",
-    "SQL_CONVERT_BIT",
-    "SQL_CONVERT_CHAR",
-    "SQL_CONVERT_DATE",
-    "SQL_CONVERT_DECIMAL",
-    "SQL_CONVERT_DOUBLE",
-    "SQL_CONVERT_FLOAT",
-    "SQL_CONVERT_INTEGER",
-    "SQL_CONVERT_LONGVARCHAR",
-    "SQL_CONVERT_NUMERIC",
-    "SQL_CONVERT_REAL",
-    "SQL_CONVERT_SMALLINT",
-    "SQL_CONVERT_TIME",
-    "SQL_CONVERT_TIMESTAMP",
-    "SQL_CONVERT_TINYINT",
-    "SQL_CONVERT_VARBINARY",
-    "SQL_CONVERT_VARCHAR",
-    "SQL_CONVERT_LONGVARBINARY",
-    "SQL_ODBC_SQL_OPT_IEF",
-    "SQL_CORRELATION_NAME",
-    "SQL_NON_NULLABLE_COLUMNS",
-    "SQL_DRIVER_HLIB",
-    "SQL_DRIVER_ODBC_VER",
-    "SQL_LOCK_TYPES",
-    "SQL_POS_OPERATIONS",
-    "SQL_POSITIONED_STATEMENTS",
-    "SQL_BOOKMARK_PERSISTENCE",
-    "SQL_STATIC_SENSITIVITY",
-    "SQL_FILE_USAGE",
-    "SQL_COLUMN_ALIAS",
-    "SQL_GROUP_BY",
-    "SQL_KEYWORDS",
-    "SQL_OWNER_USAGE",
-    "SQL_QUALIFIER_USAGE",
-    "SQL_QUOTED_IDENTIFIER_CASE",
-    "SQL_SUBQUERIES",
-    "SQL_UNION",
-    "SQL_MAX_ROW_SIZE_INCLUDES_LONG",
-    "SQL_MAX_CHAR_LITERAL_LEN",
-    "SQL_TIMEDATE_ADD_INTERVALS",
-    "SQL_TIMEDATE_DIFF_INTERVALS",
-    "SQL_NEED_LONG_DATA_LEN",
-    "SQL_MAX_BINARY_LITERAL_LEN",
-    "SQL_LIKE_ESCAPE_CLAUSE",
-    "SQL_QUALIFIER_LOCATION",
-    "SQL_INFO_LAST",
-    "SQL_INFO_DRIVER_START",
-    "SQL_ACTIVE_ENVIRONMENTS",
-    "SQL_ALTER_DOMAIN",
-    "SQL_SQL_CONFORMANCE",
-    "SQL_DATETIME_LITERALS",
-    "SQL_ASYNC_MODE",
-    "SQL_BATCH_ROW_COUNT",
-    "SQL_BATCH_SUPPORT",
-    "SQL_CATALOG_LOCATION",
-    "SQL_CATALOG_NAME_SEPARATOR",
-    "SQL_CATALOG_TERM",
-    "SQL_CATALOG_USAGE",
-    "SQL_CONVERT_WCHAR",
-    "SQL_CONVERT_INTERVAL_DAY_TIME",
-    "SQL_CONVERT_INTERVAL_YEAR_MONTH",
-    "SQL_CONVERT_WLONGVARCHAR",
-    "SQL_CONVERT_WVARCHAR",
-    "SQL_CREATE_ASSERTION",
-    "SQL_CREATE_CHARACTER_SET",
-    "SQL_CREATE_COLLATION",
-    "SQL_CREATE_DOMAIN",
-    "SQL_CREATE_SCHEMA",
-    "SQL_CREATE_TABLE",
-    "SQL_CREATE_TRANSLATION",
-    "SQL_CREATE_VIEW",
-    "SQL_DRIVER_HDESC",
-    "SQL_DROP_ASSERTION",
-    "SQL_DROP_CHARACTER_SET",
-    "SQL_DROP_COLLATION",
-    "SQL_DROP_DOMAIN",
-    "SQL_DROP_SCHEMA",
-    "SQL_DROP_TABLE",
-    "SQL_DROP_TRANSLATION",
-    "SQL_DROP_VIEW",
-    "SQL_DYNAMIC_CURSOR_ATTRIBUTES1",
-    "SQL_DYNAMIC_CURSOR_ATTRIBUTES2",
-    "SQL_FORWARD_ONLY_CURSOR_ATTRIBUTES1",
-    "SQL_FORWARD_ONLY_CURSOR_ATTRIBUTES2",
-    "SQL_INDEX_KEYWORDS",
-    "SQL_INFO_SCHEMA_VIEWS",
-    "SQL_KEYSET_CURSOR_ATTRIBUTES1",
-    "SQL_KEYSET_CURSOR_ATTRIBUTES2",
-    "SQL_MAX_ASYNC_CONCURRENT_STATEMENTS",
-    "SQL_ODBC_INTERFACE_CONFORMANCE",
-    "SQL_PARAM_ARRAY_ROW_COUNTS",
-    "SQL_PARAM_ARRAY_SELECTS",
-    "SQL_SCHEMA_TERM",
-    "SQL_SCHEMA_USAGE",
-    "SQL_SQL92_DATETIME_FUNCTIONS",
-    "SQL_SQL92_FOREIGN_KEY_DELETE_RULE",
-    "SQL_SQL92_FOREIGN_KEY_UPDATE_RULE",
-    "SQL_SQL92_GRANT",
-    "SQL_SQL92_NUMERIC_VALUE_FUNCTIONS",
-    "SQL_SQL92_PREDICATES",
-    "SQL_SQL92_RELATIONAL_JOIN_OPERATORS",
-    "SQL_SQL92_REVOKE",
-    "SQL_SQL92_ROW_VALUE_CONSTRUCTOR",
-    "SQL_SQL92_STRING_FUNCTIONS",
-    "SQL_SQL92_VALUE_EXPRESSIONS",
-    "SQL_STANDARD_CLI_CONFORMANCE",
-    "SQL_STATIC_CURSOR_ATTRIBUTES1",
-    "SQL_STATIC_CURSOR_ATTRIBUTES2",
-    "SQL_AGGREGATE_FUNCTIONS",
-    "SQL_DDL_INDEX",
-    "SQL_DM_VER",
-    "SQL_INSERT_STATEMENT",
-    "SQL_CONVERT_GUID",
-    "SQL_UNION_STATEMENT",
-    "SQL_ASYNC_DBC_FUNCTIONS",
-    "SQL_DRIVER_AWARE_POOLING_SUPPORTED",
-    "SQL_ASYNC_NOTIFICATION",
-    "SQL_ASYNC_NOTIFICATION_NOT_CAPABLE",
-    "SQL_ASYNC_NOTIFICATION_CAPABLE",
-    "SQL_DTC_TRANSITION_COST",
-    "SQL_AT_ADD_COLUMN_SINGLE",
-    "SQL_AT_ADD_COLUMN_DEFAULT",
-    "SQL_AT_ADD_COLUMN_COLLATION",
-    "SQL_AT_SET_COLUMN_DEFAULT",
-    "SQL_AT_DROP_COLUMN_DEFAULT",
-    "SQL_AT_DROP_COLUMN_CASCADE",
-    "SQL_AT_DROP_COLUMN_RESTRICT",
-    "SQL_AT_ADD_TABLE_CONSTRAINT",
-    "SQL_AT_DROP_TABLE_CONSTRAINT_CASCADE",
-    "SQL_AT_DROP_TABLE_CONSTRAINT_RESTRICT",
-    "SQL_AT_CONSTRAINT_NAME_DEFINITION",
-    "SQL_AT_CONSTRAINT_INITIALLY_DEFERRED",
-    "SQL_AT_CONSTRAINT_INITIALLY_IMMEDIATE",
-    "SQL_AT_CONSTRAINT_DEFERRABLE",
-    "SQL_AT_CONSTRAINT_NON_DEFERRABLE",
-    "SQL_CVT_CHAR",
-    "SQL_CVT_NUMERIC",
-    "SQL_CVT_DECIMAL",
-    "SQL_CVT_INTEGER",
-    "SQL_CVT_SMALLINT",
-    "SQL_CVT_FLOAT",
-    "SQL_CVT_REAL",
-    "SQL_CVT_DOUBLE",
-    "SQL_CVT_VARCHAR",
-    "SQL_CVT_LONGVARCHAR",
-    "SQL_CVT_BINARY",
-    "SQL_CVT_VARBINARY",
-    "SQL_CVT_BIT",
-    "SQL_CVT_TINYINT",
-    "SQL_CVT_BIGINT",
-    "SQL_CVT_DATE",
-    "SQL_CVT_TIME",
-    "SQL_CVT_TIMESTAMP",
-    "SQL_CVT_LONGVARBINARY",
-    "SQL_CVT_INTERVAL_YEAR_MONTH",
-    "SQL_CVT_INTERVAL_DAY_TIME",
-    "SQL_CVT_WCHAR",
-    "SQL_CVT_WLONGVARCHAR",
-    "SQL_CVT_WVARCHAR",
-    "SQL_CVT_GUID",
-    "SQL_FN_CVT_CONVERT",
-    "SQL_FN_CVT_CAST",
-    "SQL_FN_STR_CONCAT",
-    "SQL_FN_STR_INSERT",
-    "SQL_FN_STR_LEFT",
-    "SQL_FN_STR_LTRIM",
-    "SQL_FN_STR_LENGTH",
-    "SQL_FN_STR_LOCATE",
-    "SQL_FN_STR_LCASE",
-    "SQL_FN_STR_REPEAT",
-    "SQL_FN_STR_REPLACE",
-    "SQL_FN_STR_RIGHT",
-    "SQL_FN_STR_RTRIM",
-    "SQL_FN_STR_SUBSTRING",
-    "SQL_FN_STR_UCASE",
-    "SQL_FN_STR_ASCII",
-    "SQL_FN_STR_CHAR",
-    "SQL_FN_STR_DIFFERENCE",
-    "SQL_FN_STR_LOCATE_2",
-    "SQL_FN_STR_SOUNDEX",
-    "SQL_FN_STR_SPACE",
-    "SQL_FN_STR_BIT_LENGTH",
-    "SQL_FN_STR_CHAR_LENGTH",
-    "SQL_FN_STR_CHARACTER_LENGTH",
-    "SQL_FN_STR_OCTET_LENGTH",
-    "SQL_FN_STR_POSITION",
-    "SQL_SSF_CONVERT",
-    "SQL_SSF_LOWER",
-    "SQL_SSF_UPPER",
-    "SQL_SSF_SUBSTRING",
-    "SQL_SSF_TRANSLATE",
-    "SQL_SSF_TRIM_BOTH",
-    "SQL_SSF_TRIM_LEADING",
-    "SQL_SSF_TRIM_TRAILING",
-    "SQL_FN_NUM_ABS",
-    "SQL_FN_NUM_ACOS",
-    "SQL_FN_NUM_ASIN",
-    "SQL_FN_NUM_ATAN",
-    "SQL_FN_NUM_ATAN2",
-    "SQL_FN_NUM_CEILING",
-    "SQL_FN_NUM_COS",
-    "SQL_FN_NUM_COT",
-    "SQL_FN_NUM_EXP",
-    "SQL_FN_NUM_FLOOR",
-    "SQL_FN_NUM_LOG",
-    "SQL_FN_NUM_MOD",
-    "SQL_FN_NUM_SIGN",
-    "SQL_FN_NUM_SIN",
-    "SQL_FN_NUM_SQRT",
-    "SQL_FN_NUM_TAN",
-    "SQL_FN_NUM_PI",
-    "SQL_FN_NUM_RAND",
-    "SQL_FN_NUM_DEGREES",
-    "SQL_FN_NUM_LOG10",
-    "SQL_FN_NUM_POWER",
-    "SQL_FN_NUM_RADIANS",
-    "SQL_FN_NUM_ROUND",
-    "SQL_FN_NUM_TRUNCATE",
-    "SQL_SNVF_BIT_LENGTH",
-    "SQL_SNVF_CHAR_LENGTH",
-    "SQL_SNVF_CHARACTER_LENGTH",
-    "SQL_SNVF_EXTRACT",
-    "SQL_SNVF_OCTET_LENGTH",
-    "SQL_SNVF_POSITION",
-    "SQL_FN_TD_NOW",
-    "SQL_FN_TD_CURDATE",
-    "SQL_FN_TD_DAYOFMONTH",
-    "SQL_FN_TD_DAYOFWEEK",
-    "SQL_FN_TD_DAYOFYEAR",
-    "SQL_FN_TD_MONTH",
-    "SQL_FN_TD_QUARTER",
-    "SQL_FN_TD_WEEK",
-    "SQL_FN_TD_YEAR",
-    "SQL_FN_TD_CURTIME",
-    "SQL_FN_TD_HOUR",
-    "SQL_FN_TD_MINUTE",
-    "SQL_FN_TD_SECOND",
-    "SQL_FN_TD_TIMESTAMPADD",
-    "SQL_FN_TD_TIMESTAMPDIFF",
-    "SQL_FN_TD_DAYNAME",
-    "SQL_FN_TD_MONTHNAME",
-    "SQL_FN_TD_CURRENT_DATE",
-    "SQL_FN_TD_CURRENT_TIME",
-    "SQL_FN_TD_CURRENT_TIMESTAMP",
-    "SQL_FN_TD_EXTRACT",
-    "SQL_SDF_CURRENT_DATE",
-    "SQL_SDF_CURRENT_TIME",
-    "SQL_SDF_CURRENT_TIMESTAMP",
-    "SQL_FN_SYS_USERNAME",
-    "SQL_FN_SYS_DBNAME",
-    "SQL_FN_SYS_IFNULL",
-    "SQL_FN_TSI_FRAC_SECOND",
-    "SQL_FN_TSI_SECOND",
-    "SQL_FN_TSI_MINUTE",
-    "SQL_FN_TSI_HOUR",
-    "SQL_FN_TSI_DAY",
-    "SQL_FN_TSI_WEEK",
-    "SQL_FN_TSI_MONTH",
-    "SQL_FN_TSI_QUARTER",
-    "SQL_FN_TSI_YEAR",
-    "SQL_CA1_NEXT",
-    "SQL_CA1_ABSOLUTE",
-    "SQL_CA1_RELATIVE",
-    "SQL_CA1_BOOKMARK",
-    "SQL_CA1_LOCK_NO_CHANGE",
-    "SQL_CA1_LOCK_EXCLUSIVE",
-    "SQL_CA1_LOCK_UNLOCK",
-    "SQL_CA1_POS_POSITION",
-    "SQL_CA1_POS_UPDATE",
-    "SQL_CA1_POS_DELETE",
-    "SQL_CA1_POS_REFRESH",
-    "SQL_CA1_POSITIONED_UPDATE",
-    "SQL_CA1_POSITIONED_DELETE",
-    "SQL_CA1_SELECT_FOR_UPDATE",
-    "SQL_CA1_BULK_ADD",
-    "SQL_CA1_BULK_UPDATE_BY_BOOKMARK",
-    "SQL_CA1_BULK_DELETE_BY_BOOKMARK",
-    "SQL_CA1_BULK_FETCH_BY_BOOKMARK",
-    "SQL_CA2_READ_ONLY_CONCURRENCY",
-    "SQL_CA2_LOCK_CONCURRENCY",
-    "SQL_CA2_OPT_ROWVER_CONCURRENCY",
-    "SQL_CA2_OPT_VALUES_CONCURRENCY",
-    "SQL_CA2_SENSITIVITY_ADDITIONS",
-    "SQL_CA2_SENSITIVITY_DELETIONS",
-    "SQL_CA2_SENSITIVITY_UPDATES",
-    "SQL_CA2_MAX_ROWS_SELECT",
-    "SQL_CA2_MAX_ROWS_INSERT",
-    "SQL_CA2_MAX_ROWS_DELETE",
-    "SQL_CA2_MAX_ROWS_UPDATE",
-    "SQL_CA2_MAX_ROWS_CATALOG",
-    "SQL_CA2_CRC_EXACT",
-    "SQL_CA2_CRC_APPROXIMATE",
-    "SQL_CA2_SIMULATE_NON_UNIQUE",
-    "SQL_CA2_SIMULATE_TRY_UNIQUE",
-    "SQL_CA2_SIMULATE_UNIQUE",
-    "SQL_OAC_NONE",
-    "SQL_OAC_LEVEL1",
-    "SQL_OAC_LEVEL2",
-    "SQL_OSCC_NOT_COMPLIANT",
-    "SQL_OSCC_COMPLIANT",
-    "SQL_OSC_MINIMUM",
-    "SQL_OSC_CORE",
-    "SQL_OSC_EXTENDED",
-    "SQL_CB_NULL",
-    "SQL_CB_NON_NULL",
-    "SQL_SO_FORWARD_ONLY",
-    "SQL_SO_KEYSET_DRIVEN",
-    "SQL_SO_DYNAMIC",
-    "SQL_SO_MIXED",
-    "SQL_SO_STATIC",
-    "SQL_FD_FETCH_RESUME",
-    "SQL_FD_FETCH_BOOKMARK",
-    "SQL_TXN_VERSIONING",
-    "SQL_CN_NONE",
-    "SQL_CN_DIFFERENT",
-    "SQL_CN_ANY",
-    "SQL_NNC_NULL",
-    "SQL_NNC_NON_NULL",
-    "SQL_NC_START",
-    "SQL_NC_END",
-    "SQL_FILE_NOT_SUPPORTED",
-    "SQL_FILE_TABLE",
-    "SQL_FILE_QUALIFIER",
-    "SQL_FILE_CATALOG",
-    "SQL_GD_BLOCK",
-    "SQL_GD_BOUND",
-    "SQL_GD_OUTPUT_PARAMS",
-    "SQL_PS_POSITIONED_DELETE",
-    "SQL_PS_POSITIONED_UPDATE",
-    "SQL_PS_SELECT_FOR_UPDATE",
-    "SQL_GB_NOT_SUPPORTED",
-    "SQL_GB_GROUP_BY_EQUALS_SELECT",
-    "SQL_GB_GROUP_BY_CONTAINS_SELECT",
-    "SQL_GB_NO_RELATION",
-    "SQL_GB_COLLATE",
-    "SQL_OU_DML_STATEMENTS",
-    "SQL_OU_PROCEDURE_INVOCATION",
-    "SQL_OU_TABLE_DEFINITION",
-    "SQL_OU_INDEX_DEFINITION",
-    "SQL_OU_PRIVILEGE_DEFINITION",
-    "SQL_SU_DML_STATEMENTS",
-    "SQL_SU_PROCEDURE_INVOCATION",
-    "SQL_SU_TABLE_DEFINITION",
-    "SQL_SU_INDEX_DEFINITION",
-    "SQL_SU_PRIVILEGE_DEFINITION",
-    "SQL_QU_DML_STATEMENTS",
-    "SQL_QU_PROCEDURE_INVOCATION",
-    "SQL_QU_TABLE_DEFINITION",
-    "SQL_QU_INDEX_DEFINITION",
-    "SQL_QU_PRIVILEGE_DEFINITION",
-    "SQL_CU_DML_STATEMENTS",
-    "SQL_CU_PROCEDURE_INVOCATION",
-    "SQL_CU_TABLE_DEFINITION",
-    "SQL_CU_INDEX_DEFINITION",
-    "SQL_CU_PRIVILEGE_DEFINITION",
-    "SQL_SQ_COMPARISON",
-    "SQL_SQ_EXISTS",
-    "SQL_SQ_IN",
-    "SQL_SQ_QUANTIFIED",
-    "SQL_SQ_CORRELATED_SUBQUERIES",
-    "SQL_U_UNION",
-    "SQL_U_UNION_ALL",
-    "SQL_BP_CLOSE",
-    "SQL_BP_DELETE",
-    "SQL_BP_DROP",
-    "SQL_BP_TRANSACTION",
-    "SQL_BP_UPDATE",
-    "SQL_BP_OTHER_HSTMT",
-    "SQL_BP_SCROLL",
-    "SQL_SS_ADDITIONS",
-    "SQL_SS_DELETIONS",
-    "SQL_SS_UPDATES",
-    "SQL_CV_CREATE_VIEW",
-    "SQL_CV_CHECK_OPTION",
-    "SQL_CV_CASCADED",
-    "SQL_CV_LOCAL",
-    "SQL_LCK_NO_CHANGE",
-    "SQL_LCK_EXCLUSIVE",
-    "SQL_LCK_UNLOCK",
-    "SQL_POS_POSITION",
-    "SQL_POS_REFRESH",
-    "SQL_POS_UPDATE",
-    "SQL_POS_DELETE",
-    "SQL_POS_ADD",
-    "SQL_QL_START",
-    "SQL_QL_END",
-    "SQL_AF_AVG",
-    "SQL_AF_COUNT",
-    "SQL_AF_MAX",
-    "SQL_AF_MIN",
-    "SQL_AF_SUM",
-    "SQL_AF_DISTINCT",
-    "SQL_AF_ALL",
-    "SQL_SC_SQL92_ENTRY",
-    "SQL_SC_FIPS127_2_TRANSITIONAL",
-    "SQL_SC_SQL92_INTERMEDIATE",
-    "SQL_SC_SQL92_FULL",
-    "SQL_DL_SQL92_DATE",
-    "SQL_DL_SQL92_TIME",
-    "SQL_DL_SQL92_TIMESTAMP",
-    "SQL_DL_SQL92_INTERVAL_YEAR",
-    "SQL_DL_SQL92_INTERVAL_MONTH",
-    "SQL_DL_SQL92_INTERVAL_DAY",
-    "SQL_DL_SQL92_INTERVAL_HOUR",
-    "SQL_DL_SQL92_INTERVAL_MINUTE",
-    "SQL_DL_SQL92_INTERVAL_SECOND",
-    "SQL_DL_SQL92_INTERVAL_YEAR_TO_MONTH",
-    "SQL_DL_SQL92_INTERVAL_DAY_TO_HOUR",
-    "SQL_DL_SQL92_INTERVAL_DAY_TO_MINUTE",
-    "SQL_DL_SQL92_INTERVAL_DAY_TO_SECOND",
-    "SQL_DL_SQL92_INTERVAL_HOUR_TO_MINUTE",
-    "SQL_DL_SQL92_INTERVAL_HOUR_TO_SECOND",
-    "SQL_DL_SQL92_INTERVAL_MINUTE_TO_SECOND",
-    "SQL_CL_START",
-    "SQL_CL_END",
-    "SQL_BRC_PROCEDURES",
-    "SQL_BRC_EXPLICIT",
-    "SQL_BRC_ROLLED_UP",
-    "SQL_BS_SELECT_EXPLICIT",
-    "SQL_BS_ROW_COUNT_EXPLICIT",
-    "SQL_BS_SELECT_PROC",
-    "SQL_BS_ROW_COUNT_PROC",
-    "SQL_PARC_BATCH",
-    "SQL_PARC_NO_BATCH",
-    "SQL_PAS_BATCH",
-    "SQL_PAS_NO_BATCH",
-    "SQL_PAS_NO_SELECT",
-    "SQL_IK_NONE",
-    "SQL_IK_ASC",
-    "SQL_IK_DESC",
-    "SQL_ISV_ASSERTIONS",
-    "SQL_ISV_CHARACTER_SETS",
-    "SQL_ISV_CHECK_CONSTRAINTS",
-    "SQL_ISV_COLLATIONS",
-    "SQL_ISV_COLUMN_DOMAIN_USAGE",
-    "SQL_ISV_COLUMN_PRIVILEGES",
-    "SQL_ISV_COLUMNS",
-    "SQL_ISV_CONSTRAINT_COLUMN_USAGE",
-    "SQL_ISV_CONSTRAINT_TABLE_USAGE",
-    "SQL_ISV_DOMAIN_CONSTRAINTS",
-    "SQL_ISV_DOMAINS",
-    "SQL_ISV_KEY_COLUMN_USAGE",
-    "SQL_ISV_REFERENTIAL_CONSTRAINTS",
-    "SQL_ISV_SCHEMATA",
-    "SQL_ISV_SQL_LANGUAGES",
-    "SQL_ISV_TABLE_CONSTRAINTS",
-    "SQL_ISV_TABLE_PRIVILEGES",
-    "SQL_ISV_TABLES",
-    "SQL_ISV_TRANSLATIONS",
-    "SQL_ISV_USAGE_PRIVILEGES",
-    "SQL_ISV_VIEW_COLUMN_USAGE",
-    "SQL_ISV_VIEW_TABLE_USAGE",
-    "SQL_ISV_VIEWS",
-    "SQL_AD_CONSTRAINT_NAME_DEFINITION",
-    "SQL_AD_ADD_DOMAIN_CONSTRAINT",
-    "SQL_AD_DROP_DOMAIN_CONSTRAINT",
-    "SQL_AD_ADD_DOMAIN_DEFAULT",
-    "SQL_AD_DROP_DOMAIN_DEFAULT",
-    "SQL_AD_ADD_CONSTRAINT_INITIALLY_DEFERRED",
-    "SQL_AD_ADD_CONSTRAINT_INITIALLY_IMMEDIATE",
-    "SQL_AD_ADD_CONSTRAINT_DEFERRABLE",
-    "SQL_AD_ADD_CONSTRAINT_NON_DEFERRABLE",
-    "SQL_CS_CREATE_SCHEMA",
-    "SQL_CS_AUTHORIZATION",
-    "SQL_CS_DEFAULT_CHARACTER_SET",
-    "SQL_CTR_CREATE_TRANSLATION",
-    "SQL_CA_CREATE_ASSERTION",
-    "SQL_CA_CONSTRAINT_INITIALLY_DEFERRED",
-    "SQL_CA_CONSTRAINT_INITIALLY_IMMEDIATE",
-    "SQL_CA_CONSTRAINT_DEFERRABLE",
-    "SQL_CA_CONSTRAINT_NON_DEFERRABLE",
-    "SQL_CCS_CREATE_CHARACTER_SET",
-    "SQL_CCS_COLLATE_CLAUSE",
-    "SQL_CCS_LIMITED_COLLATION",
-    "SQL_CCOL_CREATE_COLLATION",
-    "SQL_CDO_CREATE_DOMAIN",
-    "SQL_CDO_DEFAULT",
-    "SQL_CDO_CONSTRAINT",
-    "SQL_CDO_COLLATION",
-    "SQL_CDO_CONSTRAINT_NAME_DEFINITION",
-    "SQL_CDO_CONSTRAINT_INITIALLY_DEFERRED",
-    "SQL_CDO_CONSTRAINT_INITIALLY_IMMEDIATE",
-    "SQL_CDO_CONSTRAINT_DEFERRABLE",
-    "SQL_CDO_CONSTRAINT_NON_DEFERRABLE",
-    "SQL_CT_CREATE_TABLE",
-    "SQL_CT_COMMIT_PRESERVE",
-    "SQL_CT_COMMIT_DELETE",
-    "SQL_CT_GLOBAL_TEMPORARY",
-    "SQL_CT_LOCAL_TEMPORARY",
-    "SQL_CT_CONSTRAINT_INITIALLY_DEFERRED",
-    "SQL_CT_CONSTRAINT_INITIALLY_IMMEDIATE",
-    "SQL_CT_CONSTRAINT_DEFERRABLE",
-    "SQL_CT_CONSTRAINT_NON_DEFERRABLE",
-    "SQL_CT_COLUMN_CONSTRAINT",
-    "SQL_CT_COLUMN_DEFAULT",
-    "SQL_CT_COLUMN_COLLATION",
-    "SQL_CT_TABLE_CONSTRAINT",
-    "SQL_CT_CONSTRAINT_NAME_DEFINITION",
-    "SQL_DI_CREATE_INDEX",
-    "SQL_DI_DROP_INDEX",
-    "SQL_DC_DROP_COLLATION",
-    "SQL_DD_DROP_DOMAIN",
-    "SQL_DD_RESTRICT",
-    "SQL_DD_CASCADE",
-    "SQL_DS_DROP_SCHEMA",
-    "SQL_DS_RESTRICT",
-    "SQL_DS_CASCADE",
-    "SQL_DCS_DROP_CHARACTER_SET",
-    "SQL_DA_DROP_ASSERTION",
-    "SQL_DT_DROP_TABLE",
-    "SQL_DT_RESTRICT",
-    "SQL_DT_CASCADE",
-    "SQL_DTR_DROP_TRANSLATION",
-    "SQL_DV_DROP_VIEW",
-    "SQL_DV_RESTRICT",
-    "SQL_DV_CASCADE",
-    "SQL_IS_INSERT_LITERALS",
-    "SQL_IS_INSERT_SEARCHED",
-    "SQL_IS_SELECT_INTO",
-    "SQL_OIC_CORE",
-    "SQL_OIC_LEVEL1",
-    "SQL_OIC_LEVEL2",
-    "SQL_SFKD_CASCADE",
-    "SQL_SFKD_NO_ACTION",
-    "SQL_SFKD_SET_DEFAULT",
-    "SQL_SFKD_SET_NULL",
-    "SQL_SFKU_CASCADE",
-    "SQL_SFKU_NO_ACTION",
-    "SQL_SFKU_SET_DEFAULT",
-    "SQL_SFKU_SET_NULL",
-    "SQL_SG_USAGE_ON_DOMAIN",
-    "SQL_SG_USAGE_ON_CHARACTER_SET",
-    "SQL_SG_USAGE_ON_COLLATION",
-    "SQL_SG_USAGE_ON_TRANSLATION",
-    "SQL_SG_WITH_GRANT_OPTION",
-    "SQL_SG_DELETE_TABLE",
-    "SQL_SG_INSERT_TABLE",
-    "SQL_SG_INSERT_COLUMN",
-    "SQL_SG_REFERENCES_TABLE",
-    "SQL_SG_REFERENCES_COLUMN",
-    "SQL_SG_SELECT_TABLE",
-    "SQL_SG_UPDATE_TABLE",
-    "SQL_SG_UPDATE_COLUMN",
-    "SQL_SP_EXISTS",
-    "SQL_SP_ISNOTNULL",
-    "SQL_SP_ISNULL",
-    "SQL_SP_MATCH_FULL",
-    "SQL_SP_MATCH_PARTIAL",
-    "SQL_SP_MATCH_UNIQUE_FULL",
-    "SQL_SP_MATCH_UNIQUE_PARTIAL",
-    "SQL_SP_OVERLAPS",
-    "SQL_SP_UNIQUE",
-    "SQL_SP_LIKE",
-    "SQL_SP_IN",
-    "SQL_SP_BETWEEN",
-    "SQL_SP_COMPARISON",
-    "SQL_SP_QUANTIFIED_COMPARISON",
-    "SQL_SRJO_CORRESPONDING_CLAUSE",
-    "SQL_SRJO_CROSS_JOIN",
-    "SQL_SRJO_EXCEPT_JOIN",
-    "SQL_SRJO_FULL_OUTER_JOIN",
-    "SQL_SRJO_INNER_JOIN",
-    "SQL_SRJO_INTERSECT_JOIN",
-    "SQL_SRJO_LEFT_OUTER_JOIN",
-    "SQL_SRJO_NATURAL_JOIN",
-    "SQL_SRJO_RIGHT_OUTER_JOIN",
-    "SQL_SRJO_UNION_JOIN",
-    "SQL_SR_USAGE_ON_DOMAIN",
-    "SQL_SR_USAGE_ON_CHARACTER_SET",
-    "SQL_SR_USAGE_ON_COLLATION",
-    "SQL_SR_USAGE_ON_TRANSLATION",
-    "SQL_SR_GRANT_OPTION_FOR",
-    "SQL_SR_CASCADE",
-    "SQL_SR_RESTRICT",
-    "SQL_SR_DELETE_TABLE",
-    "SQL_SR_INSERT_TABLE",
-    "SQL_SR_INSERT_COLUMN",
-    "SQL_SR_REFERENCES_TABLE",
-    "SQL_SR_REFERENCES_COLUMN",
-    "SQL_SR_SELECT_TABLE",
-    "SQL_SR_UPDATE_TABLE",
-    "SQL_SR_UPDATE_COLUMN",
-    "SQL_SRVC_VALUE_EXPRESSION",
-    "SQL_SRVC_NULL",
-    "SQL_SRVC_DEFAULT",
-    "SQL_SRVC_ROW_SUBQUERY",
-    "SQL_SVE_CASE",
-    "SQL_SVE_CAST",
-    "SQL_SVE_COALESCE",
-    "SQL_SVE_NULLIF",
-    "SQL_SCC_XOPEN_CLI_VERSION1",
-    "SQL_SCC_ISO92_CLI",
-    "SQL_US_UNION",
-    "SQL_US_UNION_ALL",
-    "SQL_DRIVER_AWARE_POOLING_NOT_CAPABLE",
-    "SQL_DRIVER_AWARE_POOLING_CAPABLE",
-    "SQL_DTC_ENLIST_EXPENSIVE",
-    "SQL_DTC_UNENLIST_EXPENSIVE",
-    "SQL_ASYNC_DBC_NOT_CAPABLE",
-    "SQL_ASYNC_DBC_CAPABLE",
-    "SQL_FETCH_FIRST_USER",
-    "SQL_FETCH_FIRST_SYSTEM",
-    "SQL_ENTIRE_ROWSET",
-    "SQL_POSITION",
-    "SQL_REFRESH",
-    "SQL_UPDATE",
-    "SQL_DELETE",
-    "SQL_ADD",
-    "SQL_SETPOS_MAX_OPTION_VALUE",
-    "SQL_UPDATE_BY_BOOKMARK",
-    "SQL_DELETE_BY_BOOKMARK",
-    "SQL_FETCH_BY_BOOKMARK",
-    "SQL_LOCK_NO_CHANGE",
-    "SQL_LOCK_EXCLUSIVE",
-    "SQL_LOCK_UNLOCK",
-    "SQL_SETPOS_MAX_LOCK_VALUE",
-    "SQL_BEST_ROWID",
-    "SQL_ROWVER",
-    "SQL_PC_NOT_PSEUDO",
-    "SQL_QUICK",
-    "SQL_ENSURE",
-    "SQL_TABLE_STAT",
-    "SQL_DRIVER_NOPROMPT",
-    "SQL_DRIVER_COMPLETE",
-    "SQL_DRIVER_PROMPT",
-    "SQL_DRIVER_COMPLETE_REQUIRED",
-    "SQL_FETCH_BOOKMARK",
-    "SQL_ROW_SUCCESS",
-    "SQL_ROW_DELETED",
-    "SQL_ROW_UPDATED",
-    "SQL_ROW_NOROW",
-    "SQL_ROW_ADDED",
-    "SQL_ROW_ERROR",
-    "SQL_ROW_SUCCESS_WITH_INFO",
-    "SQL_ROW_PROCEED",
-    "SQL_ROW_IGNORE",
-    "SQL_PARAM_SUCCESS",
-    "SQL_PARAM_SUCCESS_WITH_INFO",
-    "SQL_PARAM_ERROR",
-    "SQL_PARAM_UNUSED",
-    "SQL_PARAM_DIAG_UNAVAILABLE",
-    "SQL_PARAM_PROCEED",
-    "SQL_PARAM_IGNORE",
-    "SQL_CASCADE",
-    "SQL_RESTRICT",
-    "SQL_SET_NULL",
-    "SQL_NO_ACTION",
-    "SQL_SET_DEFAULT",
-    "SQL_INITIALLY_DEFERRED",
-    "SQL_INITIALLY_IMMEDIATE",
-    "SQL_NOT_DEFERRABLE",
-    "SQL_PARAM_TYPE_UNKNOWN",
-    "SQL_PARAM_INPUT",
-    "SQL_PARAM_INPUT_OUTPUT",
-    "SQL_RESULT_COL",
-    "SQL_PARAM_OUTPUT",
-    "SQL_RETURN_VALUE",
-    "SQL_PARAM_INPUT_OUTPUT_STREAM",
-    "SQL_PARAM_OUTPUT_STREAM",
-    "SQL_PT_UNKNOWN",
-    "SQL_PT_PROCEDURE",
-    "SQL_PT_FUNCTION",
-    "SQL_YEAR",
-    "SQL_MONTH",
-    "SQL_DAY",
-    "SQL_HOUR",
-    "SQL_MINUTE",
-    "SQL_SECOND",
-    "SQL_YEAR_TO_MONTH",
-    "SQL_DAY_TO_HOUR",
-    "SQL_DAY_TO_MINUTE",
-    "SQL_DAY_TO_SECOND",
-    "SQL_HOUR_TO_MINUTE",
-    "SQL_HOUR_TO_SECOND",
-    "SQL_MINUTE_TO_SECOND",
-    "SQL_DATABASE_NAME",
-    "SQL_FD_FETCH_PREV",
-    "SQL_FETCH_PREV",
-    "SQL_CONCUR_TIMESTAMP",
-    "SQL_SCCO_OPT_TIMESTAMP",
-    "SQL_CC_DELETE",
-    "SQL_CR_DELETE",
-    "SQL_CC_CLOSE",
-    "SQL_CR_CLOSE",
-    "SQL_CC_PRESERVE",
-    "SQL_CR_PRESERVE",
-    "SQL_FETCH_RESUME",
-    "SQL_SCROLL_FORWARD_ONLY",
-    "SQL_SCROLL_KEYSET_DRIVEN",
-    "SQL_SCROLL_DYNAMIC",
-    "SQL_SCROLL_STATIC",
-    "TRACE_VERSION",
-    "TRACE_ON",
-    "TRACE_VS_EVENT_ON",
-    "ODBC_VS_FLAG_UNICODE_ARG",
-    "ODBC_VS_FLAG_UNICODE_COR",
-    "ODBC_VS_FLAG_RETCODE",
-    "ODBC_VS_FLAG_STOP",
-    "CRESTRICTIONS_DBSCHEMA_LINKEDSERVERS",
-    "SSPROP_ENABLEFASTLOAD",
-    "SSPROP_UNICODELCID",
-    "SSPROP_UNICODECOMPARISONSTYLE",
-    "SSPROP_COLUMNLEVELCOLLATION",
-    "SSPROP_CHARACTERSET",
-    "SSPROP_SORTORDER",
-    "SSPROP_CURRENTCOLLATION",
-    "SSPROP_INIT_CURRENTLANGUAGE",
-    "SSPROP_INIT_NETWORKADDRESS",
-    "SSPROP_INIT_NETWORKLIBRARY",
-    "SSPROP_INIT_USEPROCFORPREP",
-    "SSPROP_INIT_AUTOTRANSLATE",
-    "SSPROP_INIT_PACKETSIZE",
-    "SSPROP_INIT_APPNAME",
-    "SSPROP_INIT_WSID",
-    "SSPROP_INIT_FILENAME",
-    "SSPROP_INIT_ENCRYPT",
-    "SSPROP_AUTH_REPL_SERVER_NAME",
-    "SSPROP_INIT_TAGCOLUMNCOLLATION",
-    "SSPROPVAL_USEPROCFORPREP_OFF",
-    "SSPROPVAL_USEPROCFORPREP_ON",
-    "SSPROPVAL_USEPROCFORPREP_ON_DROP",
-    "SSPROP_QUOTEDCATALOGNAMES",
-    "SSPROP_ALLOWNATIVEVARIANT",
-    "SSPROP_SQLXMLXPROGID",
-    "SSPROP_MAXBLOBLENGTH",
-    "SSPROP_FASTLOADOPTIONS",
-    "SSPROP_FASTLOADKEEPNULLS",
-    "SSPROP_FASTLOADKEEPIDENTITY",
-    "SSPROP_CURSORAUTOFETCH",
-    "SSPROP_DEFERPREPARE",
-    "SSPROP_IRowsetFastLoad",
-    "SSPROP_COL_COLLATIONNAME",
-    "SSPROP_STREAM_MAPPINGSCHEMA",
-    "SSPROP_STREAM_XSL",
-    "SSPROP_STREAM_BASEPATH",
-    "SSPROP_STREAM_COMMANDTYPE",
-    "SSPROP_STREAM_XMLROOT",
-    "SSPROP_STREAM_FLAGS",
-    "SSPROP_STREAM_CONTENTTYPE",
-    "STREAM_FLAGS_DISALLOW_URL",
-    "STREAM_FLAGS_DISALLOW_ABSOLUTE_PATH",
-    "STREAM_FLAGS_DISALLOW_QUERY",
-    "STREAM_FLAGS_DONTCACHEMAPPINGSCHEMA",
-    "STREAM_FLAGS_DONTCACHETEMPLATE",
-    "STREAM_FLAGS_DONTCACHEXSL",
-    "STREAM_FLAGS_DISALLOW_UPDATEGRAMS",
-    "STREAM_FLAGS_RESERVED",
-    "SSPROPVAL_COMMANDTYPE_REGULAR",
-    "SSPROPVAL_COMMANDTYPE_BULKLOAD",
-    "DBTYPE_SQLVARIANT",
-    "SQL_HANDLE_DBC_INFO_TOKEN",
-    "SQL_CONN_POOL_RATING_BEST",
-    "SQL_CONN_POOL_RATING_GOOD_ENOUGH",
-    "SQL_CONN_POOL_RATING_USELESS",
-    "SQL_ATTR_DBC_INFO_TOKEN",
-    "SQL_ATTR_ASYNC_DBC_NOTIFICATION_CALLBACK",
-    "SQL_ATTR_ASYNC_DBC_NOTIFICATION_CONTEXT",
-    "SQL_ATTR_ASYNC_STMT_NOTIFICATION_CALLBACK",
-    "SQL_ATTR_ASYNC_STMT_NOTIFICATION_CONTEXT",
-    "SQL_MAX_NUMERIC_LEN",
-    "SQL_WCHAR",
-    "SQL_WVARCHAR",
-    "SQL_WLONGVARCHAR",
-    "SQL_C_WCHAR",
-    "SQL_C_TCHAR",
-    "SQL_SQLSTATE_SIZEW",
-    "CSTORAGEPROPERTY",
-    "CATEGORY_SEARCH",
-    "CATEGORY_COLLATOR",
-    "CATEGORY_GATHERER",
-    "CATEGORY_INDEXER",
-    "EVENT_SSSEARCH_STARTED",
-    "EVENT_SSSEARCH_STARTING_SETUP",
-    "EVENT_SSSEARCH_SETUP_SUCCEEDED",
-    "EVENT_SSSEARCH_SETUP_FAILED",
-    "EVENT_OUTOFMEMORY",
-    "EVENT_SSSEARCH_SETUP_CLEANUP_STARTED",
-    "EVENT_EXCEPTION",
-    "EVENT_SSSEARCH_SETUP_CLEANUP_SUCCEEDED",
-    "EVENT_SSSEARCH_SETUP_CLEANUP_FAILED",
-    "EVENT_SSSEARCH_STOPPED",
-    "EVENT_SSSEARCH_CREATE_PATH_RULES_FAILED",
-    "EVENT_SSSEARCH_DROPPED_EVENTS",
-    "EVENT_SSSEARCH_DATAFILES_MOVE_FAILED",
-    "EVENT_SSSEARCH_DATAFILES_MOVE_SUCCEEDED",
-    "EVENT_SSSEARCH_DATAFILES_MOVE_ROLLBACK_ERRORS",
-    "EVENT_SSSEARCH_CSM_SAVE_FAILED",
-    "EVENT_CONFIG_SYNTAX",
-    "EVENT_UNPRIVILEGED_SERVICE_ACCOUNT",
-    "EVENT_SYSTEM_EXCEPTION",
-    "EVENT_CONFIG_ERROR",
-    "EVENT_GATHERSVC_PERFMON",
-    "EVENT_GATHERER_PERFMON",
-    "EVENT_HASHMAP_INSERT",
-    "EVENT_TRANSLOG_CREATE_TRX",
-    "EVENT_TRANSLOG_APPEND",
-    "EVENT_TRANSLOG_UPDATE",
-    "EVENT_HASHMAP_UPDATE",
-    "EVENT_GATHER_EXCEPTION",
-    "EVENT_TRANSACTION_READ",
-    "EVENT_GATHER_END_CRAWL",
-    "EVENT_GATHER_START_CRAWL",
-    "EVENT_GATHER_INTERNAL",
-    "EVENT_GATHER_CRAWL_NOT_STARTED",
-    "EVENT_GATHER_CRAWL_SEED_ERROR",
-    "EVENT_GATHER_CRITICAL_ERROR",
-    "EVENT_GATHER_ADVISE_FAILED",
-    "EVENT_GATHER_TRANSACTION_FAIL",
-    "EVENT_GATHER_OBJ_INIT_FAILED",
-    "EVENT_GATHER_PLUGIN_INIT_FAILED",
-    "EVENT_GATHER_SERVICE_INIT",
-    "EVENT_GATHER_CANT_CREATE_DOCID",
-    "EVENT_GATHER_CANT_DELETE_DOCID",
-    "EVENT_TRANSLOG_CREATE",
-    "EVENT_REG_VERSION",
-    "EVENT_GATHER_CRAWL_SEED_FAILED",
-    "EVENT_GATHER_CRAWL_SEED_FAILED_INIT",
-    "EVENT_GATHER_REG_MISSING",
-    "EVENT_GATHER_CRAWL_IN_PROGRESS",
-    "EVENT_GATHER_LOCK_FAILED",
-    "EVENT_GATHER_RESET_START",
-    "EVENT_GATHER_START_PAUSE",
-    "EVENT_GATHER_THROTTLE",
-    "EVENT_GATHER_RESUME",
-    "EVENT_GATHER_AUTODESCLEN_ADJUSTED",
-    "EVENT_GATHER_NO_CRAWL_SEEDS",
-    "EVENT_GATHER_END_INCREMENTAL",
-    "EVENT_GATHER_FROM_NOT_SET",
-    "EVENT_GATHER_DELETING_HISTORY_ITEMS",
-    "EVENT_GATHER_STOP_START",
-    "EVENT_GATHER_START_CRAWL_IF_RESET",
-    "EVENT_GATHER_DISK_FULL",
-    "EVENT_GATHER_NO_SCHEMA",
-    "EVENT_GATHER_AUTODESCENCODE_INVALID",
-    "EVENT_GATHER_PLUGINMGR_INIT_FAILED",
-    "EVENT_GATHER_APP_INIT_FAILED",
-    "EVENT_FAILED_INITIALIZE_CRAWL",
-    "EVENT_CRAWL_SCHEDULED",
-    "EVENT_FAILED_CREATE_GATHERER_LOG",
-    "EVENT_WBREAKER_NOT_LOADED",
-    "EVENT_LEARN_PROPAGATION_COPY_FAILED",
-    "EVENT_LEARN_CREATE_DB_FAILED",
-    "EVENT_LEARN_COMPILE_FAILED",
-    "EVENT_LEARN_PROPAGATION_FAILED",
-    "EVENT_GATHER_END_ADAPTIVE",
-    "EVENT_USING_DIFFERENT_WORD_BREAKER",
-    "EVENT_GATHER_RESTORE_COMPLETE",
-    "EVENT_GATHER_RESTORE_ERROR",
-    "EVENT_AUTOCAT_PERFMON",
-    "EVENT_GATHER_DIRTY_STARTUP",
-    "EVENT_GATHER_HISTORY_CORRUPTION_DETECTED",
-    "EVENT_GATHER_RESTOREAPP_ERROR",
-    "EVENT_GATHER_RESTOREAPP_COMPLETE",
-    "EVENT_GATHER_BACKUPAPP_ERROR",
-    "EVENT_GATHER_BACKUPAPP_COMPLETE",
-    "EVENT_GATHER_DAEMON_TERMINATED",
-    "EVENT_NOTIFICATION_FAILURE",
-    "EVENT_NOTIFICATION_FAILURE_SCOPE_EXCEEDED_LOGGING",
-    "EVENT_NOTIFICATION_RESTORED",
-    "EVENT_NOTIFICATION_RESTORED_SCOPE_EXCEEDED_LOGGING",
-    "EVENT_GATHER_PROTOCOLHANDLER_LOAD_FAILED",
-    "EVENT_GATHER_PROTOCOLHANDLER_INIT_FAILED",
-    "EVENT_GATHER_INVALID_NETWORK_ACCESS_ACCOUNT",
-    "EVENT_GATHER_SYSTEM_LCID_CHANGED",
-    "EVENT_GATHER_FLUSH_FAILED",
-    "EVENT_GATHER_CHECKPOINT_FAILED",
-    "EVENT_GATHER_SAVE_FAILED",
-    "EVENT_GATHER_RESTORE_CHECKPOINT_FAILED",
-    "EVENT_GATHER_READ_CHECKPOINT_FAILED",
-    "EVENT_GATHER_CHECKPOINT_CORRUPT",
-    "EVENT_GATHER_CHECKPOINT_FILE_MISSING",
-    "EVENT_STS_INIT_SECURITY_FAILED",
-    "EVENT_LOCAL_GROUP_NOT_EXPANDED",
-    "EVENT_LOCAL_GROUPS_CACHE_FLUSHED",
-    "EVENT_GATHERER_DATASOURCE",
-    "EVENT_AUTOCAT_CANT_CREATE_FILE_SHARE",
-    "EVENT_NOTIFICATION_THREAD_EXIT_FAILED",
-    "EVENT_FILTER_HOST_NOT_INITIALIZED",
-    "EVENT_FILTER_HOST_NOT_TERMINATED",
-    "EVENT_FILTERPOOL_ADD_FAILED",
-    "EVENT_FILTERPOOL_DELETE_FAILED",
-    "EVENT_ENUMERATE_SESSIONS_FAILED",
-    "EVENT_DETAILED_FILTERPOOL_ADD_FAILED",
-    "EVENT_AUDIENCECOMPUTATION_CANNOTSTART",
-    "EVENT_GATHER_RECOVERY_FAILURE",
-    "EVENT_INDEXER_STARTED",
-    "EVENT_INDEXER_SCHEMA_COPY_ERROR",
-    "EVENT_INDEXER_INIT_ERROR",
-    "EVENT_INDEXER_INVALID_DIRECTORY",
-    "EVENT_INDEXER_PROP_ERROR",
-    "EVENT_INDEXER_PAUSED_FOR_DISKFULL",
-    "EVENT_INDEXER_PROP_STOPPED",
-    "EVENT_INDEXER_PROP_SUCCEEDED",
-    "EVENT_INDEXER_PROP_STARTED",
-    "EVENT_INDEXER_NO_SEARCH_SERVERS",
-    "EVENT_INDEXER_ADD_DSS_SUCCEEDED",
-    "EVENT_INDEXER_REMOVE_DSS_SUCCEEDED",
-    "EVENT_INDEXER_ADD_DSS_FAILED",
-    "EVENT_INDEXER_REMOVE_DSS_FAILED",
-    "EVENT_INDEXER_DSS_CONTACT_FAILED",
-    "EVENT_INDEXER_BUILD_FAILED",
-    "EVENT_INDEXER_REG_MISSING",
-    "EVENT_INDEXER_PROPSTORE_INIT_FAILED",
-    "EVENT_INDEXER_CI_LOAD_ERROR",
-    "EVENT_INDEXER_RESET_FOR_CORRUPTION",
-    "EVENT_INDEXER_SHUTDOWN",
-    "EVENT_INDEXER_LOAD_FAIL",
-    "EVENT_INDEXER_PROP_STATE_CORRUPT",
-    "EVENT_INDEXER_DSS_ALREADY_ADDED",
-    "EVENT_INDEXER_BUILD_START",
-    "EVENT_INDEXER_BUILD_ENDED",
-    "EVENT_INDEXER_VERIFY_PROP_ACCOUNT",
-    "EVENT_INDEXER_ADD_DSS_DISCONNECT",
-    "EVENT_INDEXER_PERFMON",
-    "EVENT_INDEXER_MISSING_APP_DIRECTORY",
-    "EVENT_INDEXER_REG_ERROR",
-    "EVENT_INDEXER_DSS_UNABLE_TO_REMOVE",
-    "EVENT_INDEXER_NEW_PROJECT",
-    "EVENT_INDEXER_REMOVED_PROJECT",
-    "EVENT_INDEXER_PROP_COMMITTED",
-    "EVENT_INDEXER_PROP_ABORTED",
-    "EVENT_DSS_NOT_ENABLED",
-    "EVENT_INDEXER_PROP_COMMIT_FAILED",
-    "JET_INIT_ERROR",
-    "JET_NEW_PROP_STORE_ERROR",
-    "JET_GET_PROP_STORE_ERROR",
-    "JET_MULTIINSTANCE_DISABLED",
-    "EVENT_WARNING_CANNOT_UPGRADE_NOISE_FILES",
-    "EVENT_WARNING_CANNOT_UPGRADE_NOISE_FILE",
-    "EVENT_WIN32_ERROR",
-    "EVENT_PERF_COUNTERS_NOT_LOADED",
-    "EVENT_PERF_COUNTERS_REGISTRY_TROUBLE",
-    "EVENT_PERF_COUNTERS_ALREADY_EXISTS",
-    "EVENT_PROTOCOL_HOST_FORCE_TERMINATE",
-    "EVENT_FILTER_HOST_FORCE_TERMINATE",
-    "EVENT_INDEXER_OUT_OF_DATABASE_INSTANCE",
-    "EVENT_INDEXER_FAIL_TO_SET_MAX_JETINSTANCE",
-    "EVENT_INDEXER_FAIL_TO_CREATE_PER_USER_CATALOG",
-    "EVENT_INDEXER_FAIL_TO_UNLOAD_PER_USER_CATALOG",
-    "ERROR_SOURCE_NETWORKING",
-    "ERROR_SOURCE_DATASOURCE",
-    "ERROR_SOURCE_COLLATOR",
-    "ERROR_SOURCE_CONNMGR",
-    "ERROR_SOURCE_QUERY",
-    "ERROR_SOURCE_SCHEMA",
-    "ERROR_SOURCE_GATHERER",
-    "ERROR_SOURCE_INDEXER",
-    "ERROR_SOURCE_SETUP",
-    "ERROR_SOURCE_SECURITY",
-    "ERROR_SOURCE_CMDLINE",
-    "ERROR_SOURCE_NLADMIN",
-    "ERROR_SOURCE_SCRIPTPI",
-    "ERROR_SOURCE_MSS",
-    "ERROR_SOURCE_XML",
-    "ERROR_SOURCE_DAV",
-    "ERROR_SOURCE_FLTRDMN",
-    "ERROR_SOURCE_OLEDB_BINDER",
-    "ERROR_SOURCE_NOTESPH",
-    "ERROR_SOURCE_EXSTOREPH",
-    "ERROR_SOURCE_SRCH_SCHEMA_CACHE",
-    "ERROR_SOURCE_CONTENT_SOURCE",
-    "ERROR_SOURCE_REMOTE_EXSTOREPH",
-    "ERROR_SOURCE_PEOPLE_IMPORT",
-    "ERROR_FTE",
-    "ERROR_FTE_CB",
-    "ERROR_FTE_FD",
-    "XML_E_NODEFAULTNS",
-    "XML_E_BADSXQL",
-    "MSS_E_INVALIDAPPNAME",
-    "MSS_E_APPNOTFOUND",
-    "MSS_E_APPALREADYEXISTS",
-    "MSS_E_CATALOGNOTFOUND",
-    "MSS_E_CATALOGSTOPPING",
-    "MSS_E_UNICODEFILEHEADERMISSING",
-    "MSS_E_CATALOGALREADYEXISTS",
-    "NET_E_GENERAL",
-    "NET_E_DISCONNECTED",
-    "NET_E_INVALIDPARAMS",
-    "NET_E_OPERATIONINPROGRESS",
-    "SEC_E_INVALIDCONTEXT",
-    "SEC_E_INITFAILED",
-    "SEC_E_NOTINITIALIZED",
-    "SEC_E_ACCESSDENIED",
-    "DS_E_NOMOREDATA",
-    "DS_E_INVALIDDATASOURCE",
-    "DS_E_DATASOURCENOTAVAILABLE",
-    "DS_E_QUERYCANCELED",
-    "DS_E_UNKNOWNREQUEST",
-    "DS_E_BADREQUEST",
-    "DS_E_SERVERCAPACITY",
-    "DS_E_BADSEQUENCE",
-    "DS_E_MESSAGETOOLONG",
-    "DS_E_SERVERERROR",
-    "DS_E_CONFIGBAD",
-    "DS_E_DATANOTPRESENT",
-    "DS_E_SETSTATUSINPROGRESS",
-    "DS_E_DUPLICATEID",
-    "DS_E_TOOMANYDATASOURCES",
-    "DS_E_REGISTRY",
-    "DS_E_DATASOURCENOTDISABLED",
-    "DS_E_INVALIDTAGDB",
-    "DS_E_INVALIDCATALOGNAME",
-    "DS_E_CONFIGNOTRIGHTTYPE",
-    "DS_E_PROTOCOLVERSION",
-    "DS_E_ALREADYENABLED",
-    "DS_E_INDEXDIRECTORY",
-    "DS_E_VALUETOOLARGE",
-    "DS_E_UNKNOWNPARAM",
-    "DS_E_BUFFERTOOSMALL",
-    "DS_E_PARAMOUTOFRANGE",
-    "DS_E_ALREADYDISABLED",
-    "DS_E_QUERYHUNG",
-    "DS_E_BADRESULT",
-    "DS_E_CANNOTWRITEREGISTRY",
-    "DS_E_CANNOTREMOVECONCURRENT",
-    "DS_E_SEARCHCATNAMECOLLISION",
-    "DS_E_PROPVERSIONMISMATCH",
-    "DS_E_MISSINGCATALOG",
-    "COLL_E_BADSEQUENCE",
-    "COLL_E_NOMOREDATA",
-    "COLL_E_INCOMPATIBLECOLUMNS",
-    "COLL_E_BUFFERTOOSMALL",
-    "COLL_E_BADRESULT",
-    "COLL_E_NOSORTCOLUMN",
-    "COLL_E_DUPLICATEDBID",
-    "COLL_E_TOOMANYMERGECOLUMNS",
-    "COLL_E_NODEFAULTCATALOG",
-    "COLL_E_MAXCONNEXCEEDED",
-    "CM_E_TOOMANYDATASERVERS",
-    "CM_E_TOOMANYDATASOURCES",
-    "CM_E_NOQUERYCONNECTIONS",
-    "CM_E_DATASOURCENOTAVAILABLE",
-    "CM_E_CONNECTIONTIMEOUT",
-    "CM_E_SERVERNOTFOUND",
-    "CM_S_NODATASERVERS",
-    "CM_E_REGISTRY",
-    "CM_E_INVALIDDATASOURCE",
-    "CM_E_TIMEOUT",
-    "CM_E_INSUFFICIENTBUFFER",
-    "QRY_E_QUERYSYNTAX",
-    "QRY_E_TYPEMISMATCH",
-    "QRY_E_UNHANDLEDTYPE",
-    "QRY_S_NOROWSFOUND",
-    "QRY_E_TOOMANYCOLUMNS",
-    "QRY_E_TOOMANYDATABASES",
-    "QRY_E_STARTHITTOBIG",
-    "QRY_E_TOOMANYQUERYTERMS",
-    "QRY_E_NODATASOURCES",
-    "QRY_E_TIMEOUT",
-    "QRY_E_COLUMNNOTSORTABLE",
-    "QRY_E_COLUMNNOTSEARCHABLE",
-    "QRY_E_INVALIDCOLUMN",
-    "QRY_E_QUERYCORRUPT",
-    "QRY_E_PREFIXWILDCARD",
-    "QRY_E_INFIXWILDCARD",
-    "QRY_E_WILDCARDPREFIXLENGTH",
-    "QRY_S_TERMIGNORED",
-    "QRY_E_ENGINEFAILED",
-    "QRY_E_SEARCHTOOBIG",
-    "QRY_E_NULLQUERY",
-    "QRY_S_INEXACTRESULTS",
-    "QRY_E_NOCOLUMNS",
-    "QRY_E_INVALIDSCOPES",
-    "QRY_E_INVALIDCATALOG",
-    "QRY_E_SCOPECARDINALIDY",
-    "QRY_E_UNEXPECTED",
-    "QRY_E_INVALIDPATH",
-    "QRY_E_LMNOTINITIALIZED",
-    "QRY_E_INVALIDINTERVAL",
-    "QRY_E_NOLOGMANAGER",
-    "SCHEMA_E_LOAD_SPECIAL",
-    "SCHEMA_E_FILENOTFOUND",
-    "SCHEMA_E_NESTEDTAG",
-    "SCHEMA_E_UNEXPECTEDTAG",
-    "SCHEMA_E_VERSIONMISMATCH",
-    "SCHEMA_E_CANNOTCREATEFILE",
-    "SCHEMA_E_CANNOTWRITEFILE",
-    "SCHEMA_E_EMPTYFILE",
-    "SCHEMA_E_INVALIDFILETYPE",
-    "SCHEMA_E_INVALIDDATATYPE",
-    "SCHEMA_E_CANNOTCREATENOISEWORDFILE",
-    "SCHEMA_E_ADDSTOPWORDS",
-    "SCHEMA_E_NAMEEXISTS",
-    "SCHEMA_E_INVALIDVALUE",
-    "SCHEMA_E_BADPROPSPEC",
-    "SCHEMA_E_NOMORECOLUMNS",
-    "SCHEMA_E_FILECHANGED",
-    "SCHEMA_E_BADCOLUMNNAME",
-    "SCHEMA_E_BADPROPPID",
-    "SCHEMA_E_BADATTRIBUTE",
-    "SCHEMA_E_BADFILENAME",
-    "SCHEMA_E_PROPEXISTS",
-    "SCHEMA_E_DUPLICATENOISE",
-    "GTHR_E_DUPLICATE_OBJECT",
-    "GTHR_E_UNABLE_TO_READ_REGISTRY",
-    "GTHR_E_ERROR_WRITING_REGISTRY",
-    "GTHR_E_ERROR_INITIALIZING_PERFMON",
-    "GTHR_E_ERROR_OBJECT_NOT_FOUND",
-    "GTHR_E_URL_EXCLUDED",
-    "GTHR_E_CONFIG_DUP_PROJECT",
-    "GTHR_E_CONFIG_DUP_EXTENSION",
-    "GTHR_E_DUPLICATE_URL",
-    "GTHR_E_TOO_MANY_PLUGINS",
-    "GTHR_E_INVALIDFUNCTION",
-    "GTHR_E_NOFILTERSINK",
-    "GTHR_E_FILTER_PROCESS_TERMINATED",
-    "GTHR_E_FILTER_INVALID_MESSAGE",
-    "GTHR_E_UNSUPPORTED_PROPERTY_TYPE",
-    "GTHR_E_NAME_TOO_LONG",
-    "GTHR_E_NO_IDENTITY",
-    "GTHR_E_FILTER_NOT_FOUND",
-    "GTHR_E_FILTER_NO_MORE_THREADS",
-    "GTHR_E_PRT_HNDLR_PROGID_MISSING",
-    "GTHR_E_FILTER_PROCESS_TERMINATED_QUOTA",
-    "GTHR_E_UNKNOWN_PROTOCOL",
-    "GTHR_E_PROJECT_NOT_INITIALIZED",
-    "GTHR_S_STATUS_CHANGE_IGNORED",
-    "GTHR_S_STATUS_END_CRAWL",
-    "GTHR_S_STATUS_RESET",
-    "GTHR_S_STATUS_THROTTLE",
-    "GTHR_S_STATUS_RESUME",
-    "GTHR_S_STATUS_PAUSE",
-    "GTHR_E_INVALID_PROJECT_NAME",
-    "GTHR_E_SHUTTING_DOWN",
-    "GTHR_S_END_STD_CHUNKS",
-    "GTHR_E_VALUE_NOT_AVAILABLE",
-    "GTHR_E_OUT_OF_DOC_ID",
-    "GTHR_E_NOTIFICATION_START_PAGE",
-    "GTHR_E_DUP_PROPERTY_MAPPING",
-    "GTHR_S_NO_CRAWL_SEEDS",
-    "GTHR_E_INVALID_ACCOUNT",
-    "GTHR_E_FILTER_INIT",
-    "GTHR_E_INVALID_ACCOUNT_SYNTAX",
-    "GTHR_S_CANNOT_FILTER",
-    "GTHR_E_PROXY_NAME",
-    "GTHR_E_SERVER_UNAVAILABLE",
-    "GTHR_S_STATUS_STOP",
-    "GTHR_E_INVALID_PATH",
-    "GTHR_E_FILTER_NO_CODEPAGE",
-    "GTHR_S_STATUS_START",
-    "GTHR_E_NO_PRTCLHNLR",
-    "GTHR_E_IE_OFFLINE",
-    "GTHR_E_BAD_FILTER_DAEMON",
-    "GTHR_E_INVALID_MAPPING",
-    "GTHR_E_USER_AGENT_NOT_SPECIFIED",
-    "GTHR_E_FROM_NOT_SPECIFIED",
-    "GTHR_E_INVALID_STREAM_LOGS_COUNT",
-    "GTHR_E_INVALID_EXTENSION",
-    "GTHR_E_INVALID_GROW_FACTOR",
-    "GTHR_E_INVALID_TIME_OUT",
-    "GTHR_E_INVALID_RETRIES",
-    "GTHR_E_INVALID_LOG_FILE_NAME",
-    "GTHR_E_INVALID_HOST_NAME",
-    "GTHR_E_INVALID_START_PAGE",
-    "GTHR_E_DUPLICATE_PROJECT",
-    "GTHR_E_INVALID_DIRECTORY",
-    "GTHR_E_FILTER_INTERRUPTED",
-    "GTHR_E_INVALID_PROXY_PORT",
-    "GTHR_S_CONFIG_HAS_ACCOUNTS",
-    "GTHR_E_SECRET_NOT_FOUND",
-    "GTHR_E_INVALID_PATH_EXPRESSION",
-    "GTHR_E_INVALID_START_PAGE_HOST",
-    "GTHR_E_INVALID_START_PAGE_PATH",
-    "GTHR_E_APPLICATION_NOT_FOUND",
-    "GTHR_E_CANNOT_REMOVE_PLUGINMGR",
-    "GTHR_E_INVALID_APPLICATION_NAME",
-    "GTHR_E_FILTER_FAULT",
-    "GTHR_E_NON_FIXED_DRIVE",
-    "GTHR_S_PROB_NOT_MODIFIED",
-    "GTHR_S_CRAWL_SCHEDULED",
-    "GTHR_S_TRANSACTION_IGNORED",
-    "GTHR_S_START_FILTER_FROM_PROTOCOL",
-    "GTHR_E_FILTER_SINGLE_THREADED",
-    "GTHR_S_BAD_FILE_LINK",
-    "GTHR_E_URL_UNIDENTIFIED",
-    "GTHR_S_NOT_ALL_PARTS",
-    "GTHR_E_FORCE_NOTIFICATION_RESET",
-    "GTHR_S_END_PROCESS_LOOP_NOTIFY_QUEUE",
-    "GTHR_S_START_FILTER_FROM_BODY",
-    "GTHR_E_CONTENT_ID_CONFLICT",
-    "GTHR_E_UNABLE_TO_READ_EXCHANGE_STORE",
-    "GTHR_E_RECOVERABLE_EXOLEDB_ERROR",
-    "GTHR_E_INVALID_CALL_FROM_WBREAKER",
-    "GTHR_E_PROPERTY_LIST_NOT_INITIALIZED",
-    "GTHR_S_MODIFIED_PARTS",
-    "GHTR_E_LOCAL_SERVER_UNAVAILABLE",
-    "GTHR_E_SCHEMA_ERRORS_OCCURRED",
-    "GTHR_E_TIMEOUT",
-    "GTHR_S_CRAWL_FULL",
-    "GTHR_S_CRAWL_INCREMENTAL",
-    "GTHR_S_CRAWL_ADAPTIVE",
-    "GTHR_E_NOTIFICATION_START_ADDRESS_INVALID",
-    "GTHR_E_NOTIFICATION_TYPE_NOT_SUPPORTED",
-    "GTHR_E_NOTIFICATION_FILE_SHARE_INFO_NOT_AVAILABLE",
-    "GTHR_E_NOTIFICATION_LOCAL_PATH_MUST_USE_FIXED_DRIVE",
-    "GHTR_E_INSUFFICIENT_DISK_SPACE",
-    "GTHR_E_INVALID_RESOURCE_ID",
-    "GTHR_E_NESTED_HIERARCHICAL_START_ADDRESSES",
-    "GTHR_S_NO_INDEX",
-    "GTHR_S_PAUSE_REASON_EXTERNAL",
-    "GTHR_S_PAUSE_REASON_UPGRADING",
-    "GTHR_S_PAUSE_REASON_BACKOFF",
-    "GTHR_E_RETRY",
-    "GTHR_E_JET_BACKUP_ERROR",
-    "GTHR_E_JET_RESTORE_ERROR",
-    "GTHR_S_OFFICE_CHILD",
-    "GTHR_E_PLUGIN_NOT_REGISTERED",
-    "GTHR_E_NOTIF_ACCESS_TOKEN_UPDATED",
-    "GTHR_E_DIRMON_NOT_INITIALZED",
-    "GTHR_E_NOTIF_BEING_REMOVED",
-    "GTHR_E_NOTIF_EXCESSIVE_THROUGHPUT",
-    "GTHR_E_INVALID_PATH_SPEC",
-    "GTHR_E_INSUFFICIENT_FEATURE_TERMS",
-    "GTHR_E_INSUFFICIENT_EXAMPLE_CATEGORIES",
-    "GTHR_E_INSUFFICIENT_EXAMPLE_DOCUMENTS",
-    "GTHR_E_AUTOCAT_UNEXPECTED",
-    "GTHR_E_SINGLE_THREADED_EMBEDDING",
-    "GTHR_S_CANNOT_WORDBREAK",
-    "GTHR_S_USE_MIME_FILTER",
-    "GTHR_E_FOLDER_CRAWLED_BY_ANOTHER_WORKSPACE",
-    "GTHR_E_EMPTY_DACL",
-    "GTHR_E_OBJECT_NOT_VALID",
-    "GTHR_E_CANNOT_ENABLE_CHECKPOINT",
-    "GTHR_E_SCOPES_EXCEEDED",
-    "GTHR_E_PROPERTIES_EXCEEDED",
-    "GTHR_E_INVALID_START_ADDRESS",
-    "GTHR_S_PAUSE_REASON_PROFILE_IMPORT",
-    "GTHR_E_PIPE_NOT_CONNECTTED",
-    "GTHR_E_BACKUP_VALIDATION_FAIL",
-    "GTHR_E_BAD_FILTER_HOST",
-    "GTHR_E_NTF_CLIENT_NOT_SUBSCRIBED",
-    "GTHR_E_FILTERPOOL_NOTFOUND",
-    "GTHR_E_ADDLINKS_FAILED_WILL_RETRY_PARENT",
-    "IDX_E_INVALIDTAG",
-    "IDX_E_METAFILE_CORRUPT",
-    "IDX_E_TOO_MANY_SEARCH_SERVERS",
-    "IDX_E_SEARCH_SERVER_ALREADY_EXISTS",
-    "IDX_E_BUILD_IN_PROGRESS",
-    "IDX_E_IDXLSTFILE_CORRUPT",
-    "IDX_E_REGISTRY_ENTRY",
-    "IDX_E_OBJECT_NOT_FOUND",
-    "IDX_E_SEARCH_SERVER_NOT_FOUND",
-    "IDX_E_WB_NOTFOUND",
-    "IDX_E_NOISELIST_NOTFOUND",
-    "IDX_E_STEMMER_NOTFOUND",
-    "IDX_E_PROP_STOPPED",
-    "IDX_E_DISKFULL",
-    "IDX_E_INVALID_INDEX",
-    "IDX_E_CORRUPT_INDEX",
-    "IDX_E_PROPSTORE_INIT_FAILED",
-    "IDX_E_PROP_STATE_CORRUPT",
-    "IDX_S_NO_BUILD_IN_PROGRESS",
-    "IDX_S_SEARCH_SERVER_ALREADY_EXISTS",
-    "IDX_S_SEARCH_SERVER_DOES_NOT_EXIST",
-    "IDX_E_NOT_LOADED",
-    "IDX_E_PROP_MAJOR_VERSION_MISMATCH",
-    "IDX_E_PROP_MINOR_VERSION_MISMATCH",
-    "IDX_E_DSS_NOT_CONNECTED",
-    "IDX_E_DOCUMENT_ABORTED",
-    "IDX_E_CATALOG_DISMOUNTED",
-    "IDX_S_DSS_NOT_AVAILABLE",
-    "IDX_E_USE_DEFAULT_CONTENTCLASS",
-    "IDX_E_USE_APPGLOBAL_PROPTABLE",
-    "JPS_E_JET_ERR",
-    "JPS_S_DUPLICATE_DOC_DETECTED",
-    "JPS_E_CATALOG_DECSRIPTION_MISSING",
-    "JPS_E_MISSING_INFORMATION",
-    "JPS_E_INSUFFICIENT_VERSION_STORAGE",
-    "JPS_E_INSUFFICIENT_DATABASE_SESSIONS",
-    "JPS_E_INSUFFICIENT_DATABASE_RESOURCES",
-    "JPS_E_SCHEMA_ERROR",
-    "JPS_E_PROPAGATION_FILE",
-    "JPS_E_PROPAGATION_CORRUPTION",
-    "JPS_E_PROPAGATION_VERSION_MISMATCH",
-    "JPS_E_SHARING_VIOLATION",
-    "EXCI_E_NO_CONFIG",
-    "EXCI_E_INVALID_SERVER_CONFIG",
-    "EXCI_E_ACCESS_DENIED",
-    "EXCI_E_INVALID_EXCHANGE_SERVER",
-    "EXCI_E_BADCONFIG_OR_ACCESSDENIED",
-    "EXCI_E_WRONG_SERVER_OR_ACCT",
-    "EXCI_E_NOT_ADMIN_OR_WRONG_SITE",
-    "EXCI_E_NO_MAPI",
-    "EXCI_E_INVALID_ACCOUNT_INFO",
-    "PRTH_E_INTERNAL_ERROR",
-    "PRTH_S_MAX_GROWTH",
-    "PRTH_E_WININET",
-    "PRTH_E_RETRY",
-    "PRTH_S_MAX_DOWNLOAD",
-    "PRTH_E_MIME_EXCLUDED",
-    "PRTH_E_CANT_TRANSFORM_EXTERNAL_ACL",
-    "PRTH_E_CANT_TRANSFORM_DENIED_ACE",
-    "PRTH_E_NO_PROPERTY",
-    "PRTH_S_USE_ROSEBUD",
-    "PRTH_E_DATABASE_OPEN_ERROR",
-    "PRTH_E_OPLOCK_BROKEN",
-    "PRTH_E_LOAD_FAILED",
-    "PRTH_E_INIT_FAILED",
-    "PRTH_E_VOLUME_MOUNT_POINT",
-    "PRTH_E_TRUNCATED",
-    "GTHR_E_LOCAL_GROUPS_EXPANSION_INTERNAL_ERROR",
-    "PRTH_E_HTTPS_CERTIFICATE_ERROR",
-    "PRTH_E_HTTPS_REQUIRE_CERTIFICATE",
-    "PRTH_S_TRY_IMPERSONATING",
-    "CMDLINE_E_UNEXPECTED",
-    "CMDLINE_E_PAREN",
-    "CMDLINE_E_PARAM_SIZE",
-    "CMDLINE_E_NOT_INIT",
-    "CMDLINE_E_ALREADY_INIT",
-    "CMDLINE_E_NUM_PARAMS",
-    "NLADMIN_E_DUPLICATE_CATALOG",
-    "NLADMIN_S_NOT_ALL_BUILD_CATALOGS_INITIALIZED",
-    "NLADMIN_E_FAILED_TO_GIVE_ACCOUNT_PRIVILEGE",
-    "NLADMIN_E_BUILD_CATALOG_NOT_INITIALIZED",
-    "SCRIPTPI_E_CHUNK_NOT_TEXT",
-    "SCRIPTPI_E_PID_NOT_NAME",
-    "SCRIPTPI_E_PID_NOT_NUMERIC",
-    "SCRIPTPI_E_CHUNK_NOT_VALUE",
-    "SCRIPTPI_E_CANNOT_ALTER_CHUNK",
-    "SCRIPTPI_E_ALREADY_COMPLETED",
-    "_MAPI_E_NO_SUPPORT",
-    "_MAPI_E_BAD_CHARWIDTH",
-    "_MAPI_E_STRING_TOO_LONG",
-    "_MAPI_E_UNKNOWN_FLAGS",
-    "_MAPI_E_INVALID_ENTRYID",
-    "_MAPI_E_INVALID_OBJECT",
-    "_MAPI_E_OBJECT_CHANGED",
-    "_MAPI_E_OBJECT_DELETED",
-    "_MAPI_E_BUSY",
-    "_MAPI_E_NOT_ENOUGH_DISK",
-    "_MAPI_E_NOT_ENOUGH_RESOURCES",
-    "_MAPI_E_NOT_FOUND",
-    "_MAPI_E_VERSION",
-    "_MAPI_E_LOGON_FAILED",
-    "_MAPI_E_SESSION_LIMIT",
-    "_MAPI_E_USER_CANCEL",
-    "_MAPI_E_UNABLE_TO_ABORT",
-    "_MAPI_E_NETWORK_ERROR",
-    "_MAPI_E_DISK_ERROR",
-    "_MAPI_E_TOO_COMPLEX",
-    "_MAPI_E_BAD_COLUMN",
-    "_MAPI_E_EXTENDED_ERROR",
-    "_MAPI_E_COMPUTED",
-    "_MAPI_E_CORRUPT_DATA",
-    "_MAPI_E_UNCONFIGURED",
-    "_MAPI_E_FAILONEPROVIDER",
-    "_MAPI_E_UNKNOWN_CPID",
-    "_MAPI_E_UNKNOWN_LCID",
-    "_MAPI_E_PASSWORD_CHANGE_REQUIRED",
-    "_MAPI_E_PASSWORD_EXPIRED",
-    "_MAPI_E_INVALID_WORKSTATION_ACCOUNT",
-    "_MAPI_E_INVALID_ACCESS_TIME",
-    "_MAPI_E_ACCOUNT_DISABLED",
-    "_MAPI_E_END_OF_SESSION",
-    "_MAPI_E_UNKNOWN_ENTRYID",
-    "_MAPI_E_MISSING_REQUIRED_COLUMN",
-    "_MAPI_W_NO_SERVICE",
-    "MSG_TEST_MESSAGE",
-    "FLTRDMN_E_UNEXPECTED",
-    "FLTRDMN_E_QI_FILTER_FAILED",
-    "FLTRDMN_E_FILTER_INIT_FAILED",
-    "FLTRDMN_E_ENCRYPTED_DOCUMENT",
-    "FLTRDMN_E_CANNOT_DECRYPT_PASSWORD",
-    "OLEDB_BINDER_CUSTOM_ERROR",
-    "NOTESPH_E_UNEXPECTED_STATE",
-    "NOTESPH_S_IGNORE_ID",
-    "NOTESPH_E_UNSUPPORTED_CONTENT_FIELD_TYPE",
-    "NOTESPH_E_ITEM_NOT_FOUND",
-    "NOTESPH_E_SERVER_CONFIG",
-    "NOTESPH_E_ATTACHMENTS",
-    "NOTESPH_E_NO_NTID",
-    "NOTESPH_E_DB_ACCESS_DENIED",
-    "NOTESPH_E_NOTESSETUP_ID_MAPPING_ERROR",
-    "NOTESPH_S_LISTKNOWNFIELDS",
-    "NOTESPH_E_FAIL",
-    "STS_ABORTXMLPARSE",
-    "STS_WS_ERROR",
-    "SPS_WS_ERROR",
-    "EXSTOREPH_E_UNEXPECTED",
-    "CERT_E_NOT_FOUND_OR_NO_PERMISSSION",
-    "SRCH_SCHEMA_CACHE_E_UNEXPECTED",
-    "CONTENT_SOURCE_E_PROPERTY_MAPPING_READ",
-    "CONTENT_SOURCE_E_UNEXPECTED_NULL_POINTER",
-    "CONTENT_SOURCE_E_PROPERTY_MAPPING_BAD_VECTOR_SIZE",
-    "CONTENT_SOURCE_E_CONTENT_CLASS_READ",
-    "CONTENT_SOURCE_E_UNEXPECTED_EXCEPTION",
-    "CONTENT_SOURCE_E_NULL_CONTENT_CLASS_BSTR",
-    "CONTENT_SOURCE_E_CONTENT_SOURCE_COLUMN_TYPE",
-    "CONTENT_SOURCE_E_OUT_OF_RANGE",
-    "CONTENT_SOURCE_E_NULL_URI",
-    "REXSPH_E_INVALID_CALL",
-    "REXSPH_S_REDIRECTED",
-    "REXSPH_E_REDIRECT_ON_SECURITY_UPDATE",
-    "REXSPH_E_MULTIPLE_REDIRECT",
-    "REXSPH_E_NO_PROPERTY_ON_ROW",
-    "REXSPH_E_TYPE_MISMATCH_ON_READ",
-    "REXSPH_E_UNEXPECTED_DATA_STATUS",
-    "REXSPH_E_UNKNOWN_DATA_TYPE",
-    "REXSPH_E_UNEXPECTED_FILTER_STATE",
-    "REXSPH_E_DUPLICATE_PROPERTY",
-    "PEOPLE_IMPORT_E_DBCONNFAIL",
-    "PEOPLE_IMPORT_NODSDEFINED",
-    "PEOPLE_IMPORT_E_FAILTOGETDSDEF",
-    "PEOPLE_IMPORT_NOMAPPINGDEFINED",
-    "PEOPLE_IMPORT_E_FAILTOGETDSMAPPING",
-    "PEOPLE_IMPORT_E_DATATYPENOTSUPPORTED",
-    "PEOPLE_IMPORT_E_NOCASTINGSUPPORTED",
-    "PEOPLE_IMPORT_E_UPDATE_DIRSYNC_COOKIE",
-    "PEOPLE_IMPORT_E_DIRSYNC_ZERO_COOKIE",
-    "PEOPLE_IMPORT_E_LDAPPATH_TOOLONG",
-    "PEOPLE_IMPORT_E_CANONICALURL_TOOLONG",
-    "PEOPLE_IMPORT_E_USERNAME_NOTRESOLVED",
-    "PEOPLE_IMPORT_E_DC_NOT_AVAILABLE",
-    "PEOPLE_IMPORT_E_DOMAIN_DISCOVER_FAILED",
-    "PEOPLE_IMPORT_E_FAILTOGETLCID",
-    "PEOPLE_IMPORT_E_DOMAIN_REMOVED",
-    "PEOPLE_IMPORT_E_ENUM_ACCESSDENIED",
-    "PEOPLE_IMPORT_E_DIRSYNC_NOTREFRESHED",
-    "FTE_E_SECRET_NOT_FOUND",
-    "FTE_E_PIPE_NOT_CONNECTED",
-    "FTE_E_ADMIN_BLOB_CORRUPT",
-    "FTE_E_FILTER_SINGLE_THREADED",
-    "FTE_E_ERROR_WRITING_REGISTRY",
-    "FTE_E_PROJECT_SHUTDOWN",
-    "FTE_E_PROJECT_NOT_INITALIZED",
-    "FTE_E_PIPE_DATA_CORRUPTED",
-    "FTE_E_URB_TOO_BIG",
-    "FTE_E_INVALID_DOCID",
-    "FTE_E_PAUSE_EXTERNAL",
-    "FTE_E_REJECTED_DUE_TO_PROJECT_STATUS",
-    "FTE_E_FD_DID_NOT_CONNECT",
-    "FTE_E_PROGID_REQUIRED",
-    "FTE_E_STATIC_THREAD_INVALID_ARGUMENTS",
-    "FTE_E_CATALOG_ALREADY_EXISTS",
-    "FTE_S_RESOURCES_STARTING_TO_GET_LOW",
-    "FTE_E_PATH_TOO_LONG",
-    "FTE_INVALID_ADMIN_CLIENT",
-    "FTE_E_COM_SIGNATURE_VALIDATION",
-    "FTE_E_AFFINITY_MASK",
-    "FTE_E_FD_OWNERSHIP_OBSOLETE",
-    "FTE_E_EXCEEDED_MAX_PLUGINS",
-    "FTE_S_BEYOND_QUOTA",
-    "FTE_E_DUPLICATE_OBJECT",
-    "FTE_S_REDUNDANT",
-    "FTE_E_REDUNDANT_TRAN_FAILURE",
-    "FTE_E_DEPENDENT_TRAN_FAILED_TO_PERSIST",
-    "FTE_E_FD_SHUTDOWN",
-    "FTE_E_CATALOG_DOES_NOT_EXIST",
-    "FTE_E_NO_PLUGINS",
-    "FTE_S_STATUS_CHANGE_REQUEST",
-    "FTE_E_BATCH_ABORTED",
-    "FTE_E_ANOTHER_STATUS_CHANGE_IS_ALREADY_ACTIVE",
-    "FTE_S_RESUME",
-    "FTE_E_NOT_PROCESSED_DUE_TO_PREVIOUS_ERRORS",
-    "FTE_E_FD_TIMEOUT",
-    "FTE_E_RESOURCE_SHUTDOWN",
-    "FTE_E_INVALID_PROPERTY",
-    "FTE_E_NO_MORE_PROPERTIES",
-    "FTE_E_UNKNOWN_PLUGIN",
-    "FTE_E_LIBRARY_NOT_LOADED",
-    "FTE_E_PERFMON_FULL",
-    "FTE_E_FAILED_TO_CREATE_ACCESSOR",
-    "FTE_E_INVALID_TYPE",
-    "FTE_E_OUT_OF_RANGE",
-    "FTE_E_CORRUPT_PROPERTY_STORE",
-    "FTE_E_PROPERTY_STORE_WORKID_NOTVALID",
-    "FTE_S_PROPERTY_STORE_END_OF_ENUMERATION",
-    "FTE_E_CORRUPT_GATHERER_HASH_MAP",
-    "FTE_E_KEY_NOT_CACHED",
-    "FTE_E_UPGRADE_INTERFACE_ALREADY_SHUTDOWN",
-    "FTE_E_UPGRADE_INTERFACE_ALREADY_INSTANTIATED",
-    "FTE_E_STACK_CORRUPTED",
-    "FTE_E_INVALID_PROG_ID",
-    "FTE_E_SERIAL_STREAM_CORRUPT",
-    "FTE_E_READONLY_CATALOG",
-    "FTE_E_PERF_NOT_LOADED",
-    "FTE_S_READONLY_CATALOG",
-    "FTE_E_RETRY_HUGE_DOC",
-    "FTE_E_UNKNOWN_FD_TYPE",
-    "FTE_E_DOC_TOO_HUGE",
-    "FTE_E_DATATYPE_MISALIGNMENT",
-    "FTE_E_ALREADY_INITIALIZED",
-    "FTE_E_FD_USED_TOO_MUCH_MEMORY",
-    "FTE_E_UNEXPECTED_EXIT",
-    "FTE_E_HIGH_MEMORY_PRESSURE",
-    "FTE_E_INVALID_ISOLATE_ERROR_BATCH",
-    "FTE_E_RETRY_SINGLE_DOC_PER_BATCH",
-    "FTE_E_INVALID_PROJECT_ID",
-    "FTE_E_FAILURE_TO_POST_SETCOMPLETION_STATUS",
-    "FTE_E_INVALID_CODEPAGE",
-    "FTE_E_FD_IDLE",
-    "FTE_E_FD_UNRESPONSIVE",
-    "FTE_S_TRY_TO_FLUSH",
-    "FTE_S_CATALOG_BLOB_MISMATCHED",
-    "FTE_S_PROPERTY_RESET",
-    "FTE_E_NO_PROPERTY_STORE",
-    "FTE_E_CB_OUT_OF_MEMORY",
-    "FTE_E_CB_CBID_OUT_OF_BOUND",
-    "FTE_E_CB_NOT_ENOUGH_AVAIL_PHY_MEM",
-    "FTE_E_CB_NOT_ENOUGH_OCC_BUFFER",
-    "FTE_E_CORRUPT_WORDLIST",
-    "FTE_E_FD_NO_IPERSIST_INTERFACE",
-    "FTE_E_FD_IFILTER_INIT_FAILED",
-    "FTE_E_FD_FAILED_TO_LOAD_IFILTER",
-    "FTE_E_FD_DOC_TIMEOUT",
-    "FTE_E_FD_UNEXPECTED_EXIT",
-    "FTE_E_FD_DOC_UNEXPECTED_EXIT",
-    "FTE_E_FD_NOISE_NO_TEXT_FILTER",
-    "FTE_E_FD_NOISE_NO_IPERSISTSTREAM_ON_TEXT_FILTER",
-    "FTE_E_FD_NOISE_TEXT_FILTER_LOAD_FAILED",
-    "FTE_E_FD_NOISE_TEXT_FILTER_INIT_FAILED",
-    "FTE_E_FD_OCCURRENCE_OVERFLOW",
-    "FTE_E_FD_FILTER_CAUSED_SHARING_VIOLATION",
-    "ERROR_SOURCE_PROTHNDLR",
-    "QUERY_E_ALLNOISE_AND_NO_RELDOC",
-    "QUERY_E_NO_RELDOC",
-    "QUERY_E_ALLNOISE_AND_NO_RELPROP",
-    "QUERY_E_NO_RELPROP",
-    "QUERY_E_REPEATED_RELDOC",
-    "QUERY_E_RELDOC_SYNTAX_NOT_SUPPORTED",
-    "QUERY_E_INVALID_DOCUMENT_IDENTIFIER",
-    "QUERY_E_INCORRECT_VERSION",
-    "QUERY_E_INVALIDSCOPE_COALESCE",
-    "QUERY_E_INVALIDSORT_COALESCE",
-    "QUERY_E_INVALIDCOALESCE",
-    "QUERY_E_UPGRADEINPROGRESS",
-    "QUERY_E_AGGREGATE_NOT_SUPPORTED",
-    "QUERY_E_TOP_LEVEL_IN_GROUP",
-    "QUERY_E_DUPLICATE_RANGE_NAME",
-    "CI_S_NEW_AUXMETADATA",
-    "CI_E_NO_AUXMETADATA",
-    "CI_S_CLIENT_REQUESTED_ABORT",
-    "CI_S_RETRY_DOCUMENT",
-    "CI_E_CORRUPT_FWIDX",
-    "CI_E_DIACRITIC_SETTINGS_DIFFER",
-    "CI_E_INVALID_CATALOG_LIST_VERSION",
-    "CI_S_CATALOG_RESET",
-    "CI_E_NO_CATALOG_MANAGER",
-    "CI_E_INCONSISTENT_TRANSACTION",
-    "CI_E_PROTECTED_CATALOG_NOT_AVAILABLE",
-    "CI_E_NO_PROTECTED_USER",
-    "CI_E_MULTIPLE_PROTECTED_USERS_UNSUPPORTED",
-    "CI_E_PROTECTED_CATALOG_SID_MISMATCH",
-    "CI_E_PROTECTED_CATALOG_NON_INTERACTIVE_USER",
-    "MSG_CI_MASTER_MERGE_STARTED",
-    "MSG_CI_MASTER_MERGE_COMPLETED",
-    "MSG_CI_MASTER_MERGE_ABORTED",
-    "MSG_CI_MASTER_MERGE_CANT_START",
-    "MSG_CI_MASTER_MERGE_CANT_RESTART",
-    "MSG_CI_MASTER_MERGE_RESTARTED",
-    "MSG_CI_CORRUPT_INDEX_COMPONENT",
-    "MSG_CI_MASTER_MERGE_ABORTED_LOW_DISK",
-    "MSG_CI_MASTER_MERGE_REASON_EXTERNAL",
-    "MSG_CI_MASTER_MERGE_REASON_INDEX_LIMIT",
-    "MSG_CI_MASTER_MERGE_REASON_EXPECTED_DOCS",
-    "MSG_CI_MASTER_MERGE_REASON_NUMBER",
-    "MSG_CI_CREATE_SEVER_ITEM_FAILED",
-    "NOT_N_PARSE_ERROR",
-    "IDS_MON_DEFAULT_ERROR",
-    "IDS_MON_ILLEGAL_PASSTHROUGH",
-    "IDS_MON_PARSE_ERR_1_PARAM",
-    "IDS_MON_PARSE_ERR_2_PARAM",
-    "IDS_MON_SEMI_COLON",
-    "IDS_MON_ORDINAL_OUT_OF_RANGE",
-    "IDS_MON_VIEW_NOT_DEFINED",
-    "IDS_MON_COLUMN_NOT_DEFINED",
-    "IDS_MON_BUILTIN_VIEW",
-    "IDS_MON_OUT_OF_MEMORY",
-    "IDS_MON_SELECT_STAR",
-    "IDS_MON_OR_NOT",
-    "IDS_MON_CANNOT_CONVERT",
-    "IDS_MON_OUT_OF_RANGE",
-    "IDS_MON_RELATIVE_INTERVAL",
-    "IDS_MON_NOT_COLUMN_OF_VIEW",
-    "IDS_MON_BUILTIN_PROPERTY",
-    "IDS_MON_WEIGHT_OUT_OF_RANGE",
-    "IDS_MON_MATCH_STRING",
-    "IDS_MON_PROPERTY_NAME_IN_VIEW",
-    "IDS_MON_VIEW_ALREADY_DEFINED",
-    "IDS_MON_INVALID_CATALOG",
-    "IDS_MON_INVALIDSELECT_COALESCE",
-    "IDS_MON_CANNOT_CAST",
-    "IDS_MON_DATE_OUT_OF_RANGE",
-    "IDS_MON_INVALID_IN_GROUP_CLAUSE",
-    "DBPROPSET_MSDAORA_ROWSET",
-    "DBPROPSET_MSDAORA8_ROWSET",
-    "CLSID_MSDASQL",
-    "CLSID_MSDASQL_ENUMERATOR",
-    "DBPROPSET_PROVIDERDATASOURCEINFO",
-    "DBPROPSET_PROVIDERROWSET",
-    "DBPROPSET_PROVIDERDBINIT",
-    "DBPROPSET_PROVIDERSTMTATTR",
-    "DBPROPSET_PROVIDERCONNATTR",
-    "CLSID_DataShapeProvider",
-    "DBPROPSET_MSDSDBINIT",
-    "DBPROPSET_MSDSSESSION",
-    "CLSID_MSPersist",
-    "DBPROPSET_PERSIST",
-    "PROGID_MSPersist_W",
-    "PROGID_MSPersist_Version_W",
-    "CLSID_SQLOLEDB",
-    "CLSID_SQLOLEDB_ERROR",
-    "CLSID_SQLOLEDB_ENUMERATOR",
-    "DBGUID_MSSQLXML",
-    "DBGUID_XPATH",
-    "DBSCHEMA_LINKEDSERVERS",
-    "DBPROPSET_SQLSERVERDATASOURCE",
-    "DBPROPSET_SQLSERVERDATASOURCEINFO",
-    "DBPROPSET_SQLSERVERDBINIT",
-    "DBPROPSET_SQLSERVERROWSET",
-    "DBPROPSET_SQLSERVERSESSION",
-    "DBPROPSET_SQLSERVERCOLUMN",
-    "DBPROPSET_SQLSERVERSTREAM",
-    "IRowsetExactScroll",
-    "IWordSink",
-    "PFNFILLTEXTBUFFER",
-    "TEXT_SOURCE",
-    "IWordBreaker",
-    "IWordFormSink",
-    "IStemmer",
-    "ISimpleCommandCreator",
-    "IColumnMapper",
-    "IColumnMapperCreator",
-    "CSearchManager",
-    "CSearchRoot",
-    "CSearchScopeRule",
-    "FilterRegistration",
-    "FILTERED_DATA_SOURCES",
-    "ILoadFilter",
-    "ILoadFilterWithPrivateComActivation",
-    "IRichChunk",
-    "ICondition",
-    "ICondition2",
-    "DB_NUMERIC",
-    "DBVECTOR",
-    "DBDATE",
-    "DBTIME",
-    "DBTIMESTAMP",
-    "DB_VARNUMERIC",
-    "SEC_OBJECT_ELEMENT",
-    "SEC_OBJECT",
-    "DBIMPLICITSESSION",
-    "DBTYPEENUM",
-    "DBTYPE_EMPTY",
-    "DBTYPE_NULL",
-    "DBTYPE_I2",
-    "DBTYPE_I4",
-    "DBTYPE_R4",
-    "DBTYPE_R8",
-    "DBTYPE_CY",
-    "DBTYPE_DATE",
-    "DBTYPE_BSTR",
-    "DBTYPE_IDISPATCH",
-    "DBTYPE_ERROR",
-    "DBTYPE_BOOL",
-    "DBTYPE_VARIANT",
-    "DBTYPE_IUNKNOWN",
-    "DBTYPE_DECIMAL",
-    "DBTYPE_UI1",
-    "DBTYPE_ARRAY",
-    "DBTYPE_BYREF",
-    "DBTYPE_I1",
-    "DBTYPE_UI2",
-    "DBTYPE_UI4",
-    "DBTYPE_I8",
-    "DBTYPE_UI8",
-    "DBTYPE_GUID",
-    "DBTYPE_VECTOR",
-    "DBTYPE_RESERVED",
-    "DBTYPE_BYTES",
-    "DBTYPE_STR",
-    "DBTYPE_WSTR",
-    "DBTYPE_NUMERIC",
-    "DBTYPE_UDT",
-    "DBTYPE_DBDATE",
-    "DBTYPE_DBTIME",
-    "DBTYPE_DBTIMESTAMP",
-    "DBTYPEENUM15",
-    "DBTYPE_HCHAPTER",
-    "DBTYPEENUM20",
-    "DBTYPE_FILETIME",
-    "DBTYPE_PROPVARIANT",
-    "DBTYPE_VARNUMERIC",
-    "DBPARTENUM",
-    "DBPART_INVALID",
-    "DBPART_VALUE",
-    "DBPART_LENGTH",
-    "DBPART_STATUS",
-    "DBPARAMIOENUM",
-    "DBPARAMIO_NOTPARAM",
-    "DBPARAMIO_INPUT",
-    "DBPARAMIO_OUTPUT",
-    "DBBINDFLAGENUM",
-    "DBBINDFLAG_HTML",
-    "DBMEMOWNERENUM",
-    "DBMEMOWNER_CLIENTOWNED",
-    "DBMEMOWNER_PROVIDEROWNED",
-    "DBOBJECT",
-    "DBSTATUSENUM",
-    "DBSTATUS_S_OK",
-    "DBSTATUS_E_BADACCESSOR",
-    "DBSTATUS_E_CANTCONVERTVALUE",
-    "DBSTATUS_S_ISNULL",
-    "DBSTATUS_S_TRUNCATED",
-    "DBSTATUS_E_SIGNMISMATCH",
-    "DBSTATUS_E_DATAOVERFLOW",
-    "DBSTATUS_E_CANTCREATE",
-    "DBSTATUS_E_UNAVAILABLE",
-    "DBSTATUS_E_PERMISSIONDENIED",
-    "DBSTATUS_E_INTEGRITYVIOLATION",
-    "DBSTATUS_E_SCHEMAVIOLATION",
-    "DBSTATUS_E_BADSTATUS",
-    "DBSTATUS_S_DEFAULT",
-    "DBSTATUSENUM20",
-    "MDSTATUS_S_CELLEMPTY",
-    "DBSTATUS_S_IGNORE",
-    "DBSTATUSENUM21",
-    "DBSTATUS_E_DOESNOTEXIST",
-    "DBSTATUS_E_INVALIDURL",
-    "DBSTATUS_E_RESOURCELOCKED",
-    "DBSTATUS_E_RESOURCEEXISTS",
-    "DBSTATUS_E_CANNOTCOMPLETE",
-    "DBSTATUS_E_VOLUMENOTFOUND",
-    "DBSTATUS_E_OUTOFSPACE",
-    "DBSTATUS_S_CANNOTDELETESOURCE",
-    "DBSTATUS_E_READONLY",
-    "DBSTATUS_E_RESOURCEOUTOFSCOPE",
-    "DBSTATUS_S_ALREADYEXISTS",
-    "DBBINDURLFLAGENUM",
-    "DBBINDURLFLAG_READ",
-    "DBBINDURLFLAG_WRITE",
-    "DBBINDURLFLAG_READWRITE",
-    "DBBINDURLFLAG_SHARE_DENY_READ",
-    "DBBINDURLFLAG_SHARE_DENY_WRITE",
-    "DBBINDURLFLAG_SHARE_EXCLUSIVE",
-    "DBBINDURLFLAG_SHARE_DENY_NONE",
-    "DBBINDURLFLAG_ASYNCHRONOUS",
-    "DBBINDURLFLAG_COLLECTION",
-    "DBBINDURLFLAG_DELAYFETCHSTREAM",
-    "DBBINDURLFLAG_DELAYFETCHCOLUMNS",
-    "DBBINDURLFLAG_RECURSIVE",
-    "DBBINDURLFLAG_OUTPUT",
-    "DBBINDURLFLAG_WAITFORINIT",
-    "DBBINDURLFLAG_OPENIFEXISTS",
-    "DBBINDURLFLAG_OVERWRITE",
-    "DBBINDURLFLAG_ISSTRUCTUREDDOCUMENT",
-    "DBBINDURLSTATUSENUM",
-    "DBBINDURLSTATUS_S_OK",
-    "DBBINDURLSTATUS_S_DENYNOTSUPPORTED",
-    "DBBINDURLSTATUS_S_DENYTYPENOTSUPPORTED",
-    "DBBINDURLSTATUS_S_REDIRECTED",
-    "DBSTATUSENUM25",
-    "DBSTATUS_E_CANCELED",
-    "DBSTATUS_E_NOTCOLLECTION",
-    "DBBINDEXT",
-    "DBBINDING",
-    "DBROWSTATUSENUM",
-    "DBROWSTATUS_S_OK",
-    "DBROWSTATUS_S_MULTIPLECHANGES",
-    "DBROWSTATUS_S_PENDINGCHANGES",
-    "DBROWSTATUS_E_CANCELED",
-    "DBROWSTATUS_E_CANTRELEASE",
-    "DBROWSTATUS_E_CONCURRENCYVIOLATION",
-    "DBROWSTATUS_E_DELETED",
-    "DBROWSTATUS_E_PENDINGINSERT",
-    "DBROWSTATUS_E_NEWLYINSERTED",
-    "DBROWSTATUS_E_INTEGRITYVIOLATION",
-    "DBROWSTATUS_E_INVALID",
-    "DBROWSTATUS_E_MAXPENDCHANGESEXCEEDED",
-    "DBROWSTATUS_E_OBJECTOPEN",
-    "DBROWSTATUS_E_OUTOFMEMORY",
-    "DBROWSTATUS_E_PERMISSIONDENIED",
-    "DBROWSTATUS_E_LIMITREACHED",
-    "DBROWSTATUS_E_SCHEMAVIOLATION",
-    "DBROWSTATUS_E_FAIL",
-    "DBROWSTATUSENUM20",
-    "DBROWSTATUS_S_NOCHANGE",
-    "DBSTATUSENUM26",
-    "DBSTATUS_S_ROWSETCOLUMN",
-    "DBFAILUREINFO",
-    "DBCOLUMNFLAGSENUM",
-    "DBCOLUMNFLAGS_ISBOOKMARK",
-    "DBCOLUMNFLAGS_MAYDEFER",
-    "DBCOLUMNFLAGS_WRITE",
-    "DBCOLUMNFLAGS_WRITEUNKNOWN",
-    "DBCOLUMNFLAGS_ISFIXEDLENGTH",
-    "DBCOLUMNFLAGS_ISNULLABLE",
-    "DBCOLUMNFLAGS_MAYBENULL",
-    "DBCOLUMNFLAGS_ISLONG",
-    "DBCOLUMNFLAGS_ISROWID",
-    "DBCOLUMNFLAGS_ISROWVER",
-    "DBCOLUMNFLAGS_CACHEDEFERRED",
-    "DBCOLUMNFLAGSENUM20",
-    "DBCOLUMNFLAGS_SCALEISNEGATIVE",
-    "DBCOLUMNFLAGS_RESERVED",
-    "DBCOLUMNFLAGS15ENUM",
-    "DBCOLUMNFLAGS_ISCHAPTER",
-    "DBCOLUMNFLAGSENUM21",
-    "DBCOLUMNFLAGS_ISROWURL",
-    "DBCOLUMNFLAGS_ISDEFAULTSTREAM",
-    "DBCOLUMNFLAGS_ISCOLLECTION",
-    "DBCOLUMNFLAGSENUM26",
-    "DBCOLUMNFLAGS_ISSTREAM",
-    "DBCOLUMNFLAGS_ISROWSET",
-    "DBCOLUMNFLAGS_ISROW",
-    "DBCOLUMNFLAGS_ROWSPECIFICCOLUMN",
-    "DBTABLESTATISTICSTYPE26",
-    "DBSTAT_HISTOGRAM",
-    "DBSTAT_COLUMN_CARDINALITY",
-    "DBSTAT_TUPLE_CARDINALITY",
-    "DBCOLUMNINFO",
-    "DBBOOKMARK",
-    "DBBMK_INVALID",
-    "DBBMK_FIRST",
-    "DBBMK_LAST",
-    "DBPROPENUM",
-    "DBPROP_ABORTPRESERVE",
-    "DBPROP_ACTIVESESSIONS",
-    "DBPROP_APPENDONLY",
-    "DBPROP_ASYNCTXNABORT",
-    "DBPROP_ASYNCTXNCOMMIT",
-    "DBPROP_AUTH_CACHE_AUTHINFO",
-    "DBPROP_AUTH_ENCRYPT_PASSWORD",
-    "DBPROP_AUTH_INTEGRATED",
-    "DBPROP_AUTH_MASK_PASSWORD",
-    "DBPROP_AUTH_PASSWORD",
-    "DBPROP_AUTH_PERSIST_ENCRYPTED",
-    "DBPROP_AUTH_PERSIST_SENSITIVE_AUTHINFO",
-    "DBPROP_AUTH_USERID",
-    "DBPROP_BLOCKINGSTORAGEOBJECTS",
-    "DBPROP_BOOKMARKS",
-    "DBPROP_BOOKMARKSKIPPED",
-    "DBPROP_BOOKMARKTYPE",
-    "DBPROP_BYREFACCESSORS",
-    "DBPROP_CACHEDEFERRED",
-    "DBPROP_CANFETCHBACKWARDS",
-    "DBPROP_CANHOLDROWS",
-    "DBPROP_CANSCROLLBACKWARDS",
-    "DBPROP_CATALOGLOCATION",
-    "DBPROP_CATALOGTERM",
-    "DBPROP_CATALOGUSAGE",
-    "DBPROP_CHANGEINSERTEDROWS",
-    "DBPROP_COL_AUTOINCREMENT",
-    "DBPROP_COL_DEFAULT",
-    "DBPROP_COL_DESCRIPTION",
-    "DBPROP_COL_FIXEDLENGTH",
-    "DBPROP_COL_NULLABLE",
-    "DBPROP_COL_PRIMARYKEY",
-    "DBPROP_COL_UNIQUE",
-    "DBPROP_COLUMNDEFINITION",
-    "DBPROP_COLUMNRESTRICT",
-    "DBPROP_COMMANDTIMEOUT",
-    "DBPROP_COMMITPRESERVE",
-    "DBPROP_CONCATNULLBEHAVIOR",
-    "DBPROP_CURRENTCATALOG",
-    "DBPROP_DATASOURCENAME",
-    "DBPROP_DATASOURCEREADONLY",
-    "DBPROP_DBMSNAME",
-    "DBPROP_DBMSVER",
-    "DBPROP_DEFERRED",
-    "DBPROP_DELAYSTORAGEOBJECTS",
-    "DBPROP_DSOTHREADMODEL",
-    "DBPROP_GROUPBY",
-    "DBPROP_HETEROGENEOUSTABLES",
-    "DBPROP_IAccessor",
-    "DBPROP_IColumnsInfo",
-    "DBPROP_IColumnsRowset",
-    "DBPROP_IConnectionPointContainer",
-    "DBPROP_IConvertType",
-    "DBPROP_IRowset",
-    "DBPROP_IRowsetChange",
-    "DBPROP_IRowsetIdentity",
-    "DBPROP_IRowsetIndex",
-    "DBPROP_IRowsetInfo",
-    "DBPROP_IRowsetLocate",
-    "DBPROP_IRowsetResynch",
-    "DBPROP_IRowsetScroll",
-    "DBPROP_IRowsetUpdate",
-    "DBPROP_ISupportErrorInfo",
-    "DBPROP_ILockBytes",
-    "DBPROP_ISequentialStream",
-    "DBPROP_IStorage",
-    "DBPROP_IStream",
-    "DBPROP_IDENTIFIERCASE",
-    "DBPROP_IMMOBILEROWS",
-    "DBPROP_INDEX_AUTOUPDATE",
-    "DBPROP_INDEX_CLUSTERED",
-    "DBPROP_INDEX_FILLFACTOR",
-    "DBPROP_INDEX_INITIALSIZE",
-    "DBPROP_INDEX_NULLCOLLATION",
-    "DBPROP_INDEX_NULLS",
-    "DBPROP_INDEX_PRIMARYKEY",
-    "DBPROP_INDEX_SORTBOOKMARKS",
-    "DBPROP_INDEX_TEMPINDEX",
-    "DBPROP_INDEX_TYPE",
-    "DBPROP_INDEX_UNIQUE",
-    "DBPROP_INIT_DATASOURCE",
-    "DBPROP_INIT_HWND",
-    "DBPROP_INIT_IMPERSONATION_LEVEL",
-    "DBPROP_INIT_LCID",
-    "DBPROP_INIT_LOCATION",
-    "DBPROP_INIT_MODE",
-    "DBPROP_INIT_PROMPT",
-    "DBPROP_INIT_PROTECTION_LEVEL",
-    "DBPROP_INIT_PROVIDERSTRING",
-    "DBPROP_INIT_TIMEOUT",
-    "DBPROP_LITERALBOOKMARKS",
-    "DBPROP_LITERALIDENTITY",
-    "DBPROP_MAXINDEXSIZE",
-    "DBPROP_MAXOPENROWS",
-    "DBPROP_MAXPENDINGROWS",
-    "DBPROP_MAXROWS",
-    "DBPROP_MAXROWSIZE",
-    "DBPROP_MAXROWSIZEINCLUDESBLOB",
-    "DBPROP_MAXTABLESINSELECT",
-    "DBPROP_MAYWRITECOLUMN",
-    "DBPROP_MEMORYUSAGE",
-    "DBPROP_MULTIPLEPARAMSETS",
-    "DBPROP_MULTIPLERESULTS",
-    "DBPROP_MULTIPLESTORAGEOBJECTS",
-    "DBPROP_MULTITABLEUPDATE",
-    "DBPROP_NOTIFICATIONGRANULARITY",
-    "DBPROP_NOTIFICATIONPHASES",
-    "DBPROP_NOTIFYCOLUMNSET",
-    "DBPROP_NOTIFYROWDELETE",
-    "DBPROP_NOTIFYROWFIRSTCHANGE",
-    "DBPROP_NOTIFYROWINSERT",
-    "DBPROP_NOTIFYROWRESYNCH",
-    "DBPROP_NOTIFYROWSETCHANGED",
-    "DBPROP_NOTIFYROWSETRELEASE",
-    "DBPROP_NOTIFYROWSETFETCHPOSITIONCHANGE",
-    "DBPROP_NOTIFYROWUNDOCHANGE",
-    "DBPROP_NOTIFYROWUNDODELETE",
-    "DBPROP_NOTIFYROWUNDOINSERT",
-    "DBPROP_NOTIFYROWUPDATE",
-    "DBPROP_NULLCOLLATION",
-    "DBPROP_OLEOBJECTS",
-    "DBPROP_ORDERBYCOLUMNSINSELECT",
-    "DBPROP_ORDEREDBOOKMARKS",
-    "DBPROP_OTHERINSERT",
-    "DBPROP_OTHERUPDATEDELETE",
-    "DBPROP_OUTPUTPARAMETERAVAILABILITY",
-    "DBPROP_OWNINSERT",
-    "DBPROP_OWNUPDATEDELETE",
-    "DBPROP_PERSISTENTIDTYPE",
-    "DBPROP_PREPAREABORTBEHAVIOR",
-    "DBPROP_PREPARECOMMITBEHAVIOR",
-    "DBPROP_PROCEDURETERM",
-    "DBPROP_PROVIDERNAME",
-    "DBPROP_PROVIDEROLEDBVER",
-    "DBPROP_PROVIDERVER",
-    "DBPROP_QUICKRESTART",
-    "DBPROP_QUOTEDIDENTIFIERCASE",
-    "DBPROP_REENTRANTEVENTS",
-    "DBPROP_REMOVEDELETED",
-    "DBPROP_REPORTMULTIPLECHANGES",
-    "DBPROP_RETURNPENDINGINSERTS",
-    "DBPROP_ROWRESTRICT",
-    "DBPROP_ROWSETCONVERSIONSONCOMMAND",
-    "DBPROP_ROWTHREADMODEL",
-    "DBPROP_SCHEMATERM",
-    "DBPROP_SCHEMAUSAGE",
-    "DBPROP_SERVERCURSOR",
-    "DBPROP_SESS_AUTOCOMMITISOLEVELS",
-    "DBPROP_SQLSUPPORT",
-    "DBPROP_STRONGIDENTITY",
-    "DBPROP_STRUCTUREDSTORAGE",
-    "DBPROP_SUBQUERIES",
-    "DBPROP_SUPPORTEDTXNDDL",
-    "DBPROP_SUPPORTEDTXNISOLEVELS",
-    "DBPROP_SUPPORTEDTXNISORETAIN",
-    "DBPROP_TABLETERM",
-    "DBPROP_TBL_TEMPTABLE",
-    "DBPROP_TRANSACTEDOBJECT",
-    "DBPROP_UPDATABILITY",
-    "DBPROP_USERNAME",
-    "DBPROPENUM15",
-    "DBPROP_FILTERCOMPAREOPS",
-    "DBPROP_FINDCOMPAREOPS",
-    "DBPROP_IChapteredRowset",
-    "DBPROP_IDBAsynchStatus",
-    "DBPROP_IRowsetFind",
-    "DBPROP_IRowsetView",
-    "DBPROP_IViewChapter",
-    "DBPROP_IViewFilter",
-    "DBPROP_IViewRowset",
-    "DBPROP_IViewSort",
-    "DBPROP_INIT_ASYNCH",
-    "DBPROP_MAXOPENCHAPTERS",
-    "DBPROP_MAXORSINFILTER",
-    "DBPROP_MAXSORTCOLUMNS",
-    "DBPROP_ROWSET_ASYNCH",
-    "DBPROP_SORTONINDEX",
-    "DBPROPENUM20",
-    "DBPROP_IMultipleResults",
-    "DBPROP_DATASOURCE_TYPE",
-    "MDPROP_AXES",
-    "MDPROP_FLATTENING_SUPPORT",
-    "MDPROP_MDX_JOINCUBES",
-    "MDPROP_NAMED_LEVELS",
-    "MDPROP_RANGEROWSET",
-    "MDPROP_MDX_SLICER",
-    "MDPROP_MDX_CUBEQUALIFICATION",
-    "MDPROP_MDX_OUTERREFERENCE",
-    "MDPROP_MDX_QUERYBYPROPERTY",
-    "MDPROP_MDX_CASESUPPORT",
-    "MDPROP_MDX_STRING_COMPOP",
-    "MDPROP_MDX_DESCFLAGS",
-    "MDPROP_MDX_SET_FUNCTIONS",
-    "MDPROP_MDX_MEMBER_FUNCTIONS",
-    "MDPROP_MDX_NUMERIC_FUNCTIONS",
-    "MDPROP_MDX_FORMULAS",
-    "MDPROP_AGGREGATECELL_UPDATE",
-    "MDPROP_MDX_AGGREGATECELL_UPDATE",
-    "MDPROP_MDX_OBJQUALIFICATION",
-    "MDPROP_MDX_NONMEASURE_EXPRESSIONS",
-    "DBPROP_ACCESSORDER",
-    "DBPROP_BOOKMARKINFO",
-    "DBPROP_INIT_CATALOG",
-    "DBPROP_ROW_BULKOPS",
-    "DBPROP_PROVIDERFRIENDLYNAME",
-    "DBPROP_LOCKMODE",
-    "DBPROP_MULTIPLECONNECTIONS",
-    "DBPROP_UNIQUEROWS",
-    "DBPROP_SERVERDATAONINSERT",
-    "DBPROP_STORAGEFLAGS",
-    "DBPROP_CONNECTIONSTATUS",
-    "DBPROP_ALTERCOLUMN",
-    "DBPROP_COLUMNLCID",
-    "DBPROP_RESETDATASOURCE",
-    "DBPROP_INIT_OLEDBSERVICES",
-    "DBPROP_IRowsetRefresh",
-    "DBPROP_SERVERNAME",
-    "DBPROP_IParentRowset",
-    "DBPROP_HIDDENCOLUMNS",
-    "DBPROP_PROVIDERMEMORY",
-    "DBPROP_CLIENTCURSOR",
-    "DBPROPENUM21",
-    "DBPROP_TRUSTEE_USERNAME",
-    "DBPROP_TRUSTEE_AUTHENTICATION",
-    "DBPROP_TRUSTEE_NEWAUTHENTICATION",
-    "DBPROP_IRow",
-    "DBPROP_IRowChange",
-    "DBPROP_IRowSchemaChange",
-    "DBPROP_IGetRow",
-    "DBPROP_IScopedOperations",
-    "DBPROP_IBindResource",
-    "DBPROP_ICreateRow",
-    "DBPROP_INIT_BINDFLAGS",
-    "DBPROP_INIT_LOCKOWNER",
-    "DBPROP_GENERATEURL",
-    "DBPROP_IDBBinderProperties",
-    "DBPROP_IColumnsInfo2",
-    "DBPROP_IRegisterProvider",
-    "DBPROP_IGetSession",
-    "DBPROP_IGetSourceRow",
-    "DBPROP_IRowsetCurrentIndex",
-    "DBPROP_OPENROWSETSUPPORT",
-    "DBPROP_COL_ISLONG",
-    "DBPROPENUM25",
-    "DBPROP_COL_SEED",
-    "DBPROP_COL_INCREMENT",
-    "DBPROP_INIT_GENERALTIMEOUT",
-    "DBPROP_COMSERVICES",
-    "DBPROPENUM26",
-    "DBPROP_OUTPUTSTREAM",
-    "DBPROP_OUTPUTENCODING",
-    "DBPROP_TABLESTATISTICS",
-    "DBPROP_SKIPROWCOUNTRESULTS",
-    "DBPROP_IRowsetBookmark",
-    "MDPROP_VISUALMODE",
-    "DBPARAMS",
-    "DBPARAMFLAGSENUM",
-    "DBPARAMFLAGS_ISINPUT",
-    "DBPARAMFLAGS_ISOUTPUT",
-    "DBPARAMFLAGS_ISSIGNED",
-    "DBPARAMFLAGS_ISNULLABLE",
-    "DBPARAMFLAGS_ISLONG",
-    "DBPARAMFLAGSENUM20",
-    "DBPARAMFLAGS_SCALEISNEGATIVE",
-    "DBPARAMINFO",
-    "DBPROPIDSET",
-    "DBPROPFLAGSENUM",
-    "DBPROPFLAGS_NOTSUPPORTED",
-    "DBPROPFLAGS_COLUMN",
-    "DBPROPFLAGS_DATASOURCE",
-    "DBPROPFLAGS_DATASOURCECREATE",
-    "DBPROPFLAGS_DATASOURCEINFO",
-    "DBPROPFLAGS_DBINIT",
-    "DBPROPFLAGS_INDEX",
-    "DBPROPFLAGS_ROWSET",
-    "DBPROPFLAGS_TABLE",
-    "DBPROPFLAGS_COLUMNOK",
-    "DBPROPFLAGS_READ",
-    "DBPROPFLAGS_WRITE",
-    "DBPROPFLAGS_REQUIRED",
-    "DBPROPFLAGS_SESSION",
-    "DBPROPFLAGSENUM21",
-    "DBPROPFLAGS_TRUSTEE",
-    "DBPROPFLAGSENUM25",
-    "DBPROPFLAGS_VIEW",
-    "DBPROPFLAGSENUM26",
-    "DBPROPFLAGS_STREAM",
-    "DBPROPINFO",
-    "DBPROPINFOSET",
-    "DBPROPOPTIONSENUM",
-    "DBPROPOPTIONS_REQUIRED",
-    "DBPROPOPTIONS_SETIFCHEAP",
-    "DBPROPOPTIONS_OPTIONAL",
-    "DBPROPSTATUSENUM",
-    "DBPROPSTATUS_OK",
-    "DBPROPSTATUS_NOTSUPPORTED",
-    "DBPROPSTATUS_BADVALUE",
-    "DBPROPSTATUS_BADOPTION",
-    "DBPROPSTATUS_BADCOLUMN",
-    "DBPROPSTATUS_NOTALLSETTABLE",
-    "DBPROPSTATUS_NOTSETTABLE",
-    "DBPROPSTATUS_NOTSET",
-    "DBPROPSTATUS_CONFLICTING",
-    "DBPROPSTATUSENUM21",
-    "DBPROPSTATUS_NOTAVAILABLE",
-    "DBPROP",
-    "DBPROPSET",
-    "DBINDEX_COL_ORDERENUM",
-    "DBINDEX_COL_ORDER_ASC",
-    "DBINDEX_COL_ORDER_DESC",
-    "DBINDEXCOLUMNDESC",
-    "DBCOLUMNDESC",
-    "DBCOLUMNACCESS",
-    "DBCOLUMNDESCFLAGSENUM",
-    "DBCOLUMNDESCFLAGS_TYPENAME",
-    "DBCOLUMNDESCFLAGS_ITYPEINFO",
-    "DBCOLUMNDESCFLAGS_PROPERTIES",
-    "DBCOLUMNDESCFLAGS_CLSID",
-    "DBCOLUMNDESCFLAGS_COLSIZE",
-    "DBCOLUMNDESCFLAGS_DBCID",
-    "DBCOLUMNDESCFLAGS_WTYPE",
-    "DBCOLUMNDESCFLAGS_PRECISION",
-    "DBCOLUMNDESCFLAGS_SCALE",
-    "DBEVENTPHASEENUM",
-    "DBEVENTPHASE_OKTODO",
-    "DBEVENTPHASE_ABOUTTODO",
-    "DBEVENTPHASE_SYNCHAFTER",
-    "DBEVENTPHASE_FAILEDTODO",
-    "DBEVENTPHASE_DIDEVENT",
-    "DBREASONENUM",
-    "DBREASON_ROWSET_FETCHPOSITIONCHANGE",
-    "DBREASON_ROWSET_RELEASE",
-    "DBREASON_COLUMN_SET",
-    "DBREASON_COLUMN_RECALCULATED",
-    "DBREASON_ROW_ACTIVATE",
-    "DBREASON_ROW_RELEASE",
-    "DBREASON_ROW_DELETE",
-    "DBREASON_ROW_FIRSTCHANGE",
-    "DBREASON_ROW_INSERT",
-    "DBREASON_ROW_RESYNCH",
-    "DBREASON_ROW_UNDOCHANGE",
-    "DBREASON_ROW_UNDOINSERT",
-    "DBREASON_ROW_UNDODELETE",
-    "DBREASON_ROW_UPDATE",
-    "DBREASON_ROWSET_CHANGED",
-    "DBREASONENUM15",
-    "DBREASON_ROWPOSITION_CHANGED",
-    "DBREASON_ROWPOSITION_CHAPTERCHANGED",
-    "DBREASON_ROWPOSITION_CLEARED",
-    "DBREASON_ROW_ASYNCHINSERT",
-    "DBCOMPAREOPSENUM",
-    "DBCOMPAREOPS_LT",
-    "DBCOMPAREOPS_LE",
-    "DBCOMPAREOPS_EQ",
-    "DBCOMPAREOPS_GE",
-    "DBCOMPAREOPS_GT",
-    "DBCOMPAREOPS_BEGINSWITH",
-    "DBCOMPAREOPS_CONTAINS",
-    "DBCOMPAREOPS_NE",
-    "DBCOMPAREOPS_IGNORE",
-    "DBCOMPAREOPS_CASESENSITIVE",
-    "DBCOMPAREOPS_CASEINSENSITIVE",
-    "DBCOMPAREOPSENUM20",
-    "DBCOMPAREOPS_NOTBEGINSWITH",
-    "DBCOMPAREOPS_NOTCONTAINS",
-    "DBASYNCHOPENUM",
-    "DBASYNCHOP_OPEN",
-    "DBASYNCHPHASEENUM",
-    "DBASYNCHPHASE_INITIALIZATION",
-    "DBASYNCHPHASE_POPULATION",
-    "DBASYNCHPHASE_COMPLETE",
-    "DBASYNCHPHASE_CANCELED",
-    "DBSORTENUM",
-    "DBSORT_ASCENDING",
-    "DBSORT_DESCENDING",
-    "DBCOMMANDPERSISTFLAGENUM",
-    "DBCOMMANDPERSISTFLAG_NOSAVE",
-    "DBCOMMANDPERSISTFLAGENUM21",
-    "DBCOMMANDPERSISTFLAG_DEFAULT",
-    "DBCOMMANDPERSISTFLAG_PERSISTVIEW",
-    "DBCOMMANDPERSISTFLAG_PERSISTPROCEDURE",
-    "DBCONSTRAINTTYPEENUM",
-    "DBCONSTRAINTTYPE_UNIQUE",
-    "DBCONSTRAINTTYPE_FOREIGNKEY",
-    "DBCONSTRAINTTYPE_PRIMARYKEY",
-    "DBCONSTRAINTTYPE_CHECK",
-    "DBUPDELRULEENUM",
-    "DBUPDELRULE_NOACTION",
-    "DBUPDELRULE_CASCADE",
-    "DBUPDELRULE_SETNULL",
-    "DBUPDELRULE_SETDEFAULT",
-    "DBMATCHTYPEENUM",
-    "DBMATCHTYPE_FULL",
-    "DBMATCHTYPE_NONE",
-    "DBMATCHTYPE_PARTIAL",
-    "DBDEFERRABILITYENUM",
-    "DBDEFERRABILITY_DEFERRED",
-    "DBDEFERRABILITY_DEFERRABLE",
-    "DBCONSTRAINTDESC",
-    "MDAXISINFO",
-    "RMTPACK",
-    "DBACCESSORFLAGSENUM",
-    "DBACCESSOR_INVALID",
-    "DBACCESSOR_PASSBYREF",
-    "DBACCESSOR_ROWDATA",
-    "DBACCESSOR_PARAMETERDATA",
-    "DBACCESSOR_OPTIMIZED",
-    "DBACCESSOR_INHERITED",
-    "DBBINDSTATUSENUM",
-    "DBBINDSTATUS_OK",
-    "DBBINDSTATUS_BADORDINAL",
-    "DBBINDSTATUS_UNSUPPORTEDCONVERSION",
-    "DBBINDSTATUS_BADBINDINFO",
-    "DBBINDSTATUS_BADSTORAGEFLAGS",
-    "DBBINDSTATUS_NOINTERFACE",
-    "DBBINDSTATUS_MULTIPLESTORAGE",
-    "IAccessor",
-    "IRowset",
-    "IRowsetInfo",
-    "DBCOMPAREENUM",
-    "DBCOMPARE_LT",
-    "DBCOMPARE_EQ",
-    "DBCOMPARE_GT",
-    "DBCOMPARE_NE",
-    "DBCOMPARE_NOTCOMPARABLE",
-    "IRowsetLocate",
-    "IRowsetResynch",
-    "IRowsetScroll",
-    "IChapteredRowset",
-    "IRowsetFind",
-    "DBPOSITIONFLAGSENUM",
-    "DBPOSITION_OK",
-    "DBPOSITION_NOROW",
-    "DBPOSITION_BOF",
-    "DBPOSITION_EOF",
-    "IRowPosition",
-    "IRowPositionChange",
-    "IViewRowset",
-    "IViewChapter",
-    "IViewSort",
-    "IViewFilter",
-    "IRowsetView",
-    "IRowsetChange",
-    "DBPENDINGSTATUSENUM",
-    "DBPENDINGSTATUS_NEW",
-    "DBPENDINGSTATUS_CHANGED",
-    "DBPENDINGSTATUS_DELETED",
-    "DBPENDINGSTATUS_UNCHANGED",
-    "DBPENDINGSTATUS_INVALIDROW",
-    "IRowsetUpdate",
-    "IRowsetIdentity",
-    "IRowsetNotify",
-    "DBSEEKENUM",
-    "DBSEEK_INVALID",
-    "DBSEEK_FIRSTEQ",
-    "DBSEEK_LASTEQ",
-    "DBSEEK_AFTEREQ",
-    "DBSEEK_AFTER",
-    "DBSEEK_BEFOREEQ",
-    "DBSEEK_BEFORE",
-    "DBRANGEENUM",
-    "DBRANGE_INCLUSIVESTART",
-    "DBRANGE_INCLUSIVEEND",
-    "DBRANGE_EXCLUSIVESTART",
-    "DBRANGE_EXCLUSIVEEND",
-    "DBRANGE_EXCLUDENULLS",
-    "DBRANGE_PREFIX",
-    "DBRANGE_MATCH",
-    "DBRANGEENUM20",
-    "DBRANGE_MATCH_N_SHIFT",
-    "DBRANGE_MATCH_N_MASK",
-    "IRowsetIndex",
-    "ICommand",
-    "DBRESULTFLAGENUM",
-    "DBRESULTFLAG_DEFAULT",
-    "DBRESULTFLAG_ROWSET",
-    "DBRESULTFLAG_ROW",
-    "IMultipleResults",
-    "DBCONVERTFLAGSENUM",
-    "DBCONVERTFLAGS_COLUMN",
-    "DBCONVERTFLAGS_PARAMETER",
-    "DBCONVERTFLAGSENUM20",
-    "DBCONVERTFLAGS_ISLONG",
-    "DBCONVERTFLAGS_ISFIXEDLENGTH",
-    "DBCONVERTFLAGS_FROMVARIANT",
-    "IConvertType",
-    "ICommandPrepare",
-    "ICommandProperties",
-    "ICommandText",
-    "DBPARAMBINDINFO",
-    "ICommandWithParameters",
-    "IColumnsRowset",
-    "IColumnsInfo",
-    "IDBCreateCommand",
-    "IDBCreateSession",
-    "DBSOURCETYPEENUM",
-    "DBSOURCETYPE_DATASOURCE",
-    "DBSOURCETYPE_ENUMERATOR",
-    "DBSOURCETYPEENUM20",
-    "DBSOURCETYPE_DATASOURCE_TDP",
-    "DBSOURCETYPE_DATASOURCE_MDP",
-    "DBSOURCETYPEENUM25",
-    "DBSOURCETYPE_BINDER",
-    "ISourcesRowset",
-    "IDBProperties",
-    "IDBInitialize",
-    "DBLITERALENUM",
-    "DBLITERAL_INVALID",
-    "DBLITERAL_BINARY_LITERAL",
-    "DBLITERAL_CATALOG_NAME",
-    "DBLITERAL_CATALOG_SEPARATOR",
-    "DBLITERAL_CHAR_LITERAL",
-    "DBLITERAL_COLUMN_ALIAS",
-    "DBLITERAL_COLUMN_NAME",
-    "DBLITERAL_CORRELATION_NAME",
-    "DBLITERAL_CURSOR_NAME",
-    "DBLITERAL_ESCAPE_PERCENT",
-    "DBLITERAL_ESCAPE_UNDERSCORE",
-    "DBLITERAL_INDEX_NAME",
-    "DBLITERAL_LIKE_PERCENT",
-    "DBLITERAL_LIKE_UNDERSCORE",
-    "DBLITERAL_PROCEDURE_NAME",
-    "DBLITERAL_QUOTE",
-    "DBLITERAL_SCHEMA_NAME",
-    "DBLITERAL_TABLE_NAME",
-    "DBLITERAL_TEXT_COMMAND",
-    "DBLITERAL_USER_NAME",
-    "DBLITERAL_VIEW_NAME",
-    "DBLITERALENUM20",
-    "DBLITERAL_CUBE_NAME",
-    "DBLITERAL_DIMENSION_NAME",
-    "DBLITERAL_HIERARCHY_NAME",
-    "DBLITERAL_LEVEL_NAME",
-    "DBLITERAL_MEMBER_NAME",
-    "DBLITERAL_PROPERTY_NAME",
-    "DBLITERAL_SCHEMA_SEPARATOR",
-    "DBLITERAL_QUOTE_SUFFIX",
-    "DBLITERALENUM21",
-    "DBLITERAL_ESCAPE_PERCENT_SUFFIX",
-    "DBLITERAL_ESCAPE_UNDERSCORE_SUFFIX",
-    "DBLITERALINFO",
-    "IDBInfo",
-    "IDBDataSourceAdmin",
-    "IDBAsynchNotify",
-    "IDBAsynchStatus",
-    "ISessionProperties",
-    "IIndexDefinition",
-    "ITableDefinition",
-    "IOpenRowset",
-    "IDBSchemaRowset",
-    "IMDDataset",
-    "IMDFind",
-    "IMDRangeRowset",
-    "IAlterTable",
-    "IAlterIndex",
-    "IRowsetChapterMember",
-    "ICommandPersist",
-    "IRowsetRefresh",
-    "IParentRowset",
-    "ERRORINFO",
-    "IErrorRecords",
-    "IErrorLookup",
-    "ISQLErrorInfo",
-    "IGetDataSource",
-    "ITransactionLocal",
-    "ITransactionJoin",
-    "ITransactionObject",
-    "ITrusteeAdmin",
-    "ITrusteeGroupAdmin",
-    "IObjectAccessControl",
-    "ACCESS_MASKENUM",
-    "PERM_EXCLUSIVE",
-    "PERM_READDESIGN",
-    "PERM_WRITEDESIGN",
-    "PERM_WITHGRANT",
-    "PERM_REFERENCE",
-    "PERM_CREATE",
-    "PERM_INSERT",
-    "PERM_DELETE",
-    "PERM_READCONTROL",
-    "PERM_WRITEPERMISSIONS",
-    "PERM_WRITEOWNER",
-    "PERM_MAXIMUM_ALLOWED",
-    "PERM_ALL",
-    "PERM_EXECUTE",
-    "PERM_READ",
-    "PERM_UPDATE",
-    "PERM_DROP",
-    "ISecurityInfo",
-    "ITableCreation",
-    "ITableDefinitionWithConstraints",
-    "IRow",
-    "IRowChange",
-    "IRowSchemaChange",
-    "IGetRow",
-    "IBindResource",
-    "DBCOPYFLAGSENUM",
-    "DBCOPY_ASYNC",
-    "DBCOPY_REPLACE_EXISTING",
-    "DBCOPY_ALLOW_EMULATION",
-    "DBCOPY_NON_RECURSIVE",
-    "DBCOPY_ATOMIC",
-    "DBMOVEFLAGSENUM",
-    "DBMOVE_REPLACE_EXISTING",
-    "DBMOVE_ASYNC",
-    "DBMOVE_DONT_UPDATE_LINKS",
-    "DBMOVE_ALLOW_EMULATION",
-    "DBMOVE_ATOMIC",
-    "DBDELETEFLAGSENUM",
-    "DBDELETE_ASYNC",
-    "DBDELETE_ATOMIC",
-    "IScopedOperations",
-    "ICreateRow",
-    "IDBBinderProperties",
-    "IColumnsInfo2",
-    "IRegisterProvider",
-    "IGetSession",
-    "IGetSourceRow",
-    "IRowsetCurrentIndex",
-    "ICommandStream",
-    "IRowsetBookmark",
-    "QueryParser",
-    "NegationCondition",
-    "CompoundCondition",
-    "LeafCondition",
-    "ConditionFactory",
-    "Interval",
-    "QueryParserManager",
-    "STRUCTURED_QUERY_SYNTAX",
-    "SQS_NO_SYNTAX",
-    "SQS_ADVANCED_QUERY_SYNTAX",
-    "SQS_NATURAL_QUERY_SYNTAX",
-    "STRUCTURED_QUERY_SINGLE_OPTION",
-    "SQSO_SCHEMA",
-    "SQSO_LOCALE_WORD_BREAKING",
-    "SQSO_WORD_BREAKER",
-    "SQSO_NATURAL_SYNTAX",
-    "SQSO_AUTOMATIC_WILDCARD",
-    "SQSO_TRACE_LEVEL",
-    "SQSO_LANGUAGE_KEYWORDS",
-    "SQSO_SYNTAX",
-    "SQSO_TIME_ZONE",
-    "SQSO_IMPLICIT_CONNECTOR",
-    "SQSO_CONNECTOR_CASE",
-    "STRUCTURED_QUERY_MULTIOPTION",
-    "SQMO_VIRTUAL_PROPERTY",
     "SQMO_DEFAULT_PROPERTY",
     "SQMO_GENERATOR_FOR_TYPE",
     "SQMO_MAP_PROPERTY",
-    "STRUCTURED_QUERY_PARSE_ERROR",
-    "SQPE_NONE",
-    "SQPE_EXTRA_OPENING_PARENTHESIS",
+    "SQMO_VIRTUAL_PROPERTY",
     "SQPE_EXTRA_CLOSING_PARENTHESIS",
-    "SQPE_IGNORED_MODIFIER",
+    "SQPE_EXTRA_OPENING_PARENTHESIS",
     "SQPE_IGNORED_CONNECTOR",
     "SQPE_IGNORED_KEYWORD",
+    "SQPE_IGNORED_MODIFIER",
+    "SQPE_NONE",
     "SQPE_UNHANDLED",
-    "STRUCTURED_QUERY_RESOLVE_OPTION",
-    "SQRO_DEFAULT",
-    "SQRO_DONT_RESOLVE_DATETIME",
+    "SQRO_ADD_ROBUST_ITEM_NAME",
+    "SQRO_ADD_VALUE_TYPE_FOR_PLAIN_VALUES",
     "SQRO_ALWAYS_ONE_INTERVAL",
-    "SQRO_DONT_SIMPLIFY_CONDITION_TREES",
+    "SQRO_DEFAULT",
     "SQRO_DONT_MAP_RELATIONS",
-    "SQRO_DONT_RESOLVE_RANGES",
     "SQRO_DONT_REMOVE_UNRESTRICTED_KEYWORDS",
+    "SQRO_DONT_RESOLVE_DATETIME",
+    "SQRO_DONT_RESOLVE_RANGES",
+    "SQRO_DONT_SIMPLIFY_CONDITION_TREES",
     "SQRO_DONT_SPLIT_WORDS",
     "SQRO_IGNORE_PHRASE_ORDER",
-    "SQRO_ADD_VALUE_TYPE_FOR_PLAIN_VALUES",
-    "SQRO_ADD_ROBUST_ITEM_NAME",
-    "CASE_REQUIREMENT",
-    "CASE_REQUIREMENT_ANY",
-    "CASE_REQUIREMENT_UPPER_IF_AQS",
-    "INTERVAL_LIMIT_KIND",
-    "ILK_EXPLICIT_INCLUDED",
-    "ILK_EXPLICIT_EXCLUDED",
-    "ILK_NEGATIVE_INFINITY",
-    "ILK_POSITIVE_INFINITY",
-    "QUERY_PARSER_MANAGER_OPTION",
-    "QPMO_SCHEMA_BINARY_NAME",
-    "QPMO_PRELOCALIZED_SCHEMA_BINARY_PATH",
-    "QPMO_UNLOCALIZED_SCHEMA_BINARY_PATH",
-    "QPMO_LOCALIZED_SCHEMA_BINARY_PATH",
-    "QPMO_APPEND_LCID_TO_LOCALIZED_PATH",
-    "QPMO_LOCALIZER_SUPPORT",
-    "IQueryParser",
-    "IConditionFactory",
-    "IQuerySolution",
-    "CONDITION_CREATION_OPTIONS",
-    "CONDITION_CREATION_DEFAULT",
-    "CONDITION_CREATION_NONE",
-    "CONDITION_CREATION_SIMPLIFY",
-    "CONDITION_CREATION_VECTOR_AND",
-    "CONDITION_CREATION_VECTOR_OR",
-    "CONDITION_CREATION_VECTOR_LEAF",
-    "CONDITION_CREATION_USE_CONTENT_LOCALE",
-    "IConditionFactory2",
-    "IConditionGenerator",
-    "IInterval",
-    "IMetaData",
-    "IEntity",
-    "IRelationship",
-    "INamedEntity",
-    "ISchemaProvider",
-    "ITokenCollection",
-    "NAMED_ENTITY_CERTAINTY",
-    "NEC_LOW",
-    "NEC_MEDIUM",
-    "NEC_HIGH",
-    "INamedEntityCollector",
-    "ISchemaLocalizerSupport",
-    "IQueryParserManager",
-    "HITRANGE",
-    "IUrlAccessor",
-    "IUrlAccessor2",
-    "IUrlAccessor3",
-    "IUrlAccessor4",
-    "IOpLockStatus",
-    "ISearchProtocolThreadContext",
-    "TIMEOUT_INFO",
-    "PROXY_ACCESS",
-    "PROXY_ACCESS_PRECONFIG",
-    "PROXY_ACCESS_DIRECT",
-    "PROXY_ACCESS_PROXY",
-    "PROXY_INFO",
-    "AUTH_TYPE",
-    "eAUTH_TYPE_ANONYMOUS",
-    "eAUTH_TYPE_NTLM",
-    "eAUTH_TYPE_BASIC",
-    "AUTHENTICATION_INFO",
-    "INCREMENTAL_ACCESS_INFO",
-    "ITEM_INFO",
-    "ISearchProtocol",
-    "ISearchProtocol2",
-    "IProtocolHandlerSite",
-    "ISearchRoot",
-    "IEnumSearchRoots",
-    "FOLLOW_FLAGS",
-    "FF_INDEXCOMPLEXURLS",
-    "FF_SUPPRESSINDEXING",
-    "ISearchScopeRule",
-    "IEnumSearchScopeRules",
-    "CLUSION_REASON",
-    "CLUSIONREASON_UNKNOWNSCOPE",
-    "CLUSIONREASON_DEFAULT",
-    "CLUSIONREASON_USER",
-    "CLUSIONREASON_GROUPPOLICY",
-    "ISearchCrawlScopeManager",
-    "ISearchCrawlScopeManager2",
-    "SEARCH_KIND_OF_CHANGE",
-    "SEARCH_CHANGE_ADD",
-    "SEARCH_CHANGE_DELETE",
-    "SEARCH_CHANGE_MODIFY",
-    "SEARCH_CHANGE_MOVE_RENAME",
-    "SEARCH_CHANGE_SEMANTICS_DIRECTORY",
-    "SEARCH_CHANGE_SEMANTICS_SHALLOW",
-    "SEARCH_CHANGE_SEMANTICS_UPDATE_SECURITY",
-    "SEARCH_NOTIFICATION_PRIORITY",
-    "SEARCH_NORMAL_PRIORITY",
-    "SEARCH_HIGH_PRIORITY",
-    "SEARCH_ITEM_CHANGE",
-    "ISearchItemsChangedSink",
-    "SEARCH_ITEM_PERSISTENT_CHANGE",
-    "ISearchPersistentItemsChangedSink",
-    "ISearchViewChangedSink",
-    "SEARCH_INDEXING_PHASE",
-    "SEARCH_INDEXING_PHASE_GATHERER",
-    "SEARCH_INDEXING_PHASE_QUERYABLE",
-    "SEARCH_INDEXING_PHASE_PERSISTED",
-    "SEARCH_ITEM_INDEXING_STATUS",
-    "ISearchNotifyInlineSite",
-    "CatalogStatus",
-    "CATALOG_STATUS_IDLE",
-    "CATALOG_STATUS_PAUSED",
-    "CATALOG_STATUS_RECOVERING",
-    "CATALOG_STATUS_FULL_CRAWL",
-    "CATALOG_STATUS_INCREMENTAL_CRAWL",
-    "CATALOG_STATUS_PROCESSING_NOTIFICATIONS",
-    "CATALOG_STATUS_SHUTTING_DOWN",
-    "CatalogPausedReason",
-    "CATALOG_PAUSED_REASON_NONE",
-    "CATALOG_PAUSED_REASON_HIGH_IO",
-    "CATALOG_PAUSED_REASON_HIGH_CPU",
-    "CATALOG_PAUSED_REASON_HIGH_NTF_RATE",
-    "CATALOG_PAUSED_REASON_LOW_BATTERY",
-    "CATALOG_PAUSED_REASON_LOW_MEMORY",
-    "CATALOG_PAUSED_REASON_LOW_DISK",
-    "CATALOG_PAUSED_REASON_DELAYED_RECOVERY",
-    "CATALOG_PAUSED_REASON_USER_ACTIVE",
-    "CATALOG_PAUSED_REASON_EXTERNAL",
-    "CATALOG_PAUSED_REASON_UPGRADING",
-    "ISearchCatalogManager",
-    "PRIORITIZE_FLAGS",
-    "PRIORITIZE_FLAG_RETRYFAILEDITEMS",
-    "PRIORITIZE_FLAG_IGNOREFAILURECOUNT",
-    "ISearchCatalogManager2",
-    "SEARCH_TERM_EXPANSION",
-    "SEARCH_TERM_NO_EXPANSION",
-    "SEARCH_TERM_PREFIX_ALL",
-    "SEARCH_TERM_STEM_ALL",
-    "SEARCH_QUERY_SYNTAX",
-    "SEARCH_NO_QUERY_SYNTAX",
-    "SEARCH_ADVANCED_QUERY_SYNTAX",
-    "SEARCH_NATURAL_QUERY_SYNTAX",
-    "SEARCH_COLUMN_PROPERTIES",
-    "ISearchQueryHelper",
-    "PRIORITY_LEVEL",
-    "PRIORITY_LEVEL_FOREGROUND",
-    "PRIORITY_LEVEL_HIGH",
-    "PRIORITY_LEVEL_LOW",
-    "PRIORITY_LEVEL_DEFAULT",
-    "IRowsetPrioritization",
-    "ROWSETEVENT_ITEMSTATE",
-    "ROWSETEVENT_ITEMSTATE_NOTINROWSET",
-    "ROWSETEVENT_ITEMSTATE_INROWSET",
-    "ROWSETEVENT_ITEMSTATE_UNKNOWN",
-    "ROWSETEVENT_TYPE",
-    "ROWSETEVENT_TYPE_DATAEXPIRED",
-    "ROWSETEVENT_TYPE_FOREGROUNDLOST",
-    "ROWSETEVENT_TYPE_SCOPESTATISTICS",
-    "IRowsetEvents",
-    "ISearchManager",
-    "ISearchManager2",
-    "CSearchLanguageSupport",
-    "ISearchLanguageSupport",
-    "SubscriptionMgr",
-    "ITEMPROP",
-    "IEnumItemProperties",
-    "SUBSCRIPTIONITEMINFO",
-    "ISubscriptionItem",
-    "IEnumSubscription",
-    "SUBSCRIPTIONTYPE",
-    "SUBSTYPE_URL",
-    "SUBSTYPE_CHANNEL",
-    "SUBSTYPE_DESKTOPURL",
-    "SUBSTYPE_EXTERNAL",
-    "SUBSTYPE_DESKTOPCHANNEL",
+    "SQSO_AUTOMATIC_WILDCARD",
+    "SQSO_CONNECTOR_CASE",
+    "SQSO_IMPLICIT_CONNECTOR",
+    "SQSO_LANGUAGE_KEYWORDS",
+    "SQSO_LOCALE_WORD_BREAKING",
+    "SQSO_NATURAL_SYNTAX",
+    "SQSO_SCHEMA",
+    "SQSO_SYNTAX",
+    "SQSO_TIME_ZONE",
+    "SQSO_TRACE_LEVEL",
+    "SQSO_WORD_BREAKER",
+    "SQS_ADVANCED_QUERY_SYNTAX",
+    "SQS_NATURAL_QUERY_SYNTAX",
+    "SQS_NO_SYNTAX",
+    "SRCH_SCHEMA_CACHE_E_UNEXPECTED",
+    "SSERRORINFO",
+    "SSPROPVAL_COMMANDTYPE_BULKLOAD",
+    "SSPROPVAL_COMMANDTYPE_REGULAR",
+    "SSPROPVAL_USEPROCFORPREP_OFF",
+    "SSPROPVAL_USEPROCFORPREP_ON",
+    "SSPROPVAL_USEPROCFORPREP_ON_DROP",
+    "SSPROP_ALLOWNATIVEVARIANT",
+    "SSPROP_AUTH_REPL_SERVER_NAME",
+    "SSPROP_CHARACTERSET",
+    "SSPROP_COLUMNLEVELCOLLATION",
+    "SSPROP_COL_COLLATIONNAME",
+    "SSPROP_CURRENTCOLLATION",
+    "SSPROP_CURSORAUTOFETCH",
+    "SSPROP_DEFERPREPARE",
+    "SSPROP_ENABLEFASTLOAD",
+    "SSPROP_FASTLOADKEEPIDENTITY",
+    "SSPROP_FASTLOADKEEPNULLS",
+    "SSPROP_FASTLOADOPTIONS",
+    "SSPROP_INIT_APPNAME",
+    "SSPROP_INIT_AUTOTRANSLATE",
+    "SSPROP_INIT_CURRENTLANGUAGE",
+    "SSPROP_INIT_ENCRYPT",
+    "SSPROP_INIT_FILENAME",
+    "SSPROP_INIT_NETWORKADDRESS",
+    "SSPROP_INIT_NETWORKLIBRARY",
+    "SSPROP_INIT_PACKETSIZE",
+    "SSPROP_INIT_TAGCOLUMNCOLLATION",
+    "SSPROP_INIT_USEPROCFORPREP",
+    "SSPROP_INIT_WSID",
+    "SSPROP_IRowsetFastLoad",
+    "SSPROP_MAXBLOBLENGTH",
+    "SSPROP_QUOTEDCATALOGNAMES",
+    "SSPROP_SORTORDER",
+    "SSPROP_SQLXMLXPROGID",
+    "SSPROP_STREAM_BASEPATH",
+    "SSPROP_STREAM_COMMANDTYPE",
+    "SSPROP_STREAM_CONTENTTYPE",
+    "SSPROP_STREAM_FLAGS",
+    "SSPROP_STREAM_MAPPINGSCHEMA",
+    "SSPROP_STREAM_XMLROOT",
+    "SSPROP_STREAM_XSL",
+    "SSPROP_UNICODECOMPARISONSTYLE",
+    "SSPROP_UNICODELCID",
+    "SSVARIANT",
+    "STD_BOOKMARKLENGTH",
+    "STGM_COLLECTION",
+    "STGM_OPEN",
+    "STGM_OUTPUT",
+    "STGM_RECURSIVE",
+    "STGM_STRICTOPEN",
+    "STREAM_FLAGS_DISALLOW_ABSOLUTE_PATH",
+    "STREAM_FLAGS_DISALLOW_QUERY",
+    "STREAM_FLAGS_DISALLOW_UPDATEGRAMS",
+    "STREAM_FLAGS_DISALLOW_URL",
+    "STREAM_FLAGS_DONTCACHEMAPPINGSCHEMA",
+    "STREAM_FLAGS_DONTCACHETEMPLATE",
+    "STREAM_FLAGS_DONTCACHEXSL",
+    "STREAM_FLAGS_RESERVED",
+    "STRUCTURED_QUERY_MULTIOPTION",
+    "STRUCTURED_QUERY_PARSE_ERROR",
+    "STRUCTURED_QUERY_RESOLVE_OPTION",
+    "STRUCTURED_QUERY_SINGLE_OPTION",
+    "STRUCTURED_QUERY_SYNTAX",
+    "STS_ABORTXMLPARSE",
+    "STS_WS_ERROR",
+    "SUBSCRIPTIONINFO",
     "SUBSCRIPTIONINFOFLAGS",
-    "SUBSINFO_SCHEDULE",
-    "SUBSINFO_RECURSE",
-    "SUBSINFO_WEBCRAWL",
-    "SUBSINFO_MAILNOT",
-    "SUBSINFO_MAXSIZEKB",
-    "SUBSINFO_USER",
-    "SUBSINFO_PASSWORD",
-    "SUBSINFO_TASKFLAGS",
-    "SUBSINFO_GLEAM",
+    "SUBSCRIPTIONITEMINFO",
+    "SUBSCRIPTIONSCHEDULE",
+    "SUBSCRIPTIONTYPE",
+    "SUBSINFO_ALLFLAGS",
     "SUBSINFO_CHANGESONLY",
     "SUBSINFO_CHANNELFLAGS",
     "SUBSINFO_FRIENDLYNAME",
+    "SUBSINFO_GLEAM",
+    "SUBSINFO_MAILNOT",
+    "SUBSINFO_MAXSIZEKB",
     "SUBSINFO_NEEDPASSWORD",
+    "SUBSINFO_PASSWORD",
+    "SUBSINFO_RECURSE",
+    "SUBSINFO_SCHEDULE",
+    "SUBSINFO_TASKFLAGS",
     "SUBSINFO_TYPE",
-    "CREATESUBSCRIPTIONFLAGS",
-    "CREATESUBS_ADDTOFAVORITES",
-    "CREATESUBS_FROMFAVORITES",
-    "CREATESUBS_NOUI",
-    "CREATESUBS_NOSAVE",
-    "CREATESUBS_SOFTWAREUPDATE",
-    "SUBSCRIPTIONSCHEDULE",
+    "SUBSINFO_USER",
+    "SUBSINFO_WEBCRAWL",
+    "SUBSMGRENUM_MASK",
+    "SUBSMGRENUM_TEMP",
+    "SUBSMGRUPDATE_MASK",
+    "SUBSMGRUPDATE_MINIMIZE",
     "SUBSSCHED_AUTO",
-    "SUBSSCHED_DAILY",
-    "SUBSSCHED_WEEKLY",
     "SUBSSCHED_CUSTOM",
+    "SUBSSCHED_DAILY",
     "SUBSSCHED_MANUAL",
-    "SUBSCRIPTIONINFO",
-    "ISubscriptionMgr",
-    "ISubscriptionMgr2",
-    "DELIVERY_AGENT_FLAGS",
-    "DELIVERY_AGENT_FLAG_NO_BROADCAST",
-    "DELIVERY_AGENT_FLAG_NO_RESTRICTIONS",
-    "DELIVERY_AGENT_FLAG_SILENT_DIAL",
-    "WEBCRAWL_RECURSEFLAGS",
-    "WEBCRAWL_DONT_MAKE_STICKY",
-    "WEBCRAWL_GET_IMAGES",
-    "WEBCRAWL_GET_VIDEOS",
-    "WEBCRAWL_GET_BGSOUNDS",
-    "WEBCRAWL_GET_CONTROLS",
-    "WEBCRAWL_LINKS_ELSEWHERE",
-    "WEBCRAWL_IGNORE_ROBOTSTXT",
-    "WEBCRAWL_ONLY_LINKS_TO_HTML",
-    "CHANNEL_AGENT_FLAGS",
-    "CHANNEL_AGENT_DYNAMIC_SCHEDULE",
-    "CHANNEL_AGENT_PRECACHE_SOME",
-    "CHANNEL_AGENT_PRECACHE_ALL",
-    "CHANNEL_AGENT_PRECACHE_SCRNSAVER",
-    "DBDATACONVERTENUM",
-    "DBDATACONVERT_DEFAULT",
-    "DBDATACONVERT_SETDATABEHAVIOR",
-    "DBDATACONVERT_LENGTHFROMNTS",
-    "DBDATACONVERT_DSTISFIXEDLENGTH",
-    "DBDATACONVERT_DECIMALSCALE",
-    "IDataConvert",
-    "DCINFOTYPEENUM",
-    "DCINFOTYPE_VERSION",
-    "DCINFO",
-    "IDCInfo",
-    "MSDAORA",
-    "MSDAORA_ERROR",
-    "MSDAORA8",
-    "MSDAORA8_ERROR",
-    "DataSourceListener",
-    "DataSource",
-    "OSPFORMAT",
-    "OSPFORMAT_RAW",
-    "OSPFORMAT_DEFAULT",
-    "OSPFORMAT_FORMATTED",
-    "OSPFORMAT_HTML",
-    "OSPRW",
-    "OSPRW_DEFAULT",
-    "OSPRW_READONLY",
-    "OSPRW_READWRITE",
-    "OSPRW_MIXED",
-    "OSPFIND",
-    "OSPFIND_DEFAULT",
-    "OSPFIND_UP",
-    "OSPFIND_CASESENSITIVE",
-    "OSPFIND_UPCASESENSITIVE",
-    "OSPCOMP",
-    "OSPCOMP_EQ",
-    "OSPCOMP_DEFAULT",
-    "OSPCOMP_LT",
-    "OSPCOMP_LE",
-    "OSPCOMP_GE",
-    "OSPCOMP_GT",
-    "OSPCOMP_NE",
-    "OSPXFER",
-    "OSPXFER_COMPLETE",
-    "OSPXFER_ABORT",
-    "OSPXFER_ERROR",
-    "OLEDBSimpleProviderListener",
-    "OLEDBSimpleProvider",
-    "DataSourceObject",
-    "DataLinks",
-    "MSDAINITIALIZE",
-    "PDPO",
-    "RootBinder",
-    "EBindInfoOptions",
-    "BIO_BINDER",
-    "IService",
-    "DBPROMPTOPTIONSENUM",
-    "DBPROMPTOPTIONS_NONE",
-    "DBPROMPTOPTIONS_WIZARDSHEET",
-    "DBPROMPTOPTIONS_PROPERTYSHEET",
-    "DBPROMPTOPTIONS_BROWSEONLY",
-    "DBPROMPTOPTIONS_DISABLE_PROVIDER_SELECTION",
-    "DBPROMPTOPTIONS_DISABLESAVEPASSWORD",
-    "IDBPromptInitialize",
-    "IDataInitialize",
-    "IDataSourceLocator",
-    "KAGREQDIAGFLAGSENUM",
-    "KAGREQDIAGFLAGS_HEADER",
-    "KAGREQDIAGFLAGS_RECORD",
-    "IRowsetChangeExtInfo",
-    "KAGREQDIAG",
-    "KAGGETDIAG",
-    "ISQLRequestDiagFields",
-    "ISQLGetDiagField",
-    "MSDSDBINITPROPENUM",
-    "DBPROP_MSDS_DBINIT_DATAPROVIDER",
-    "MSDSSESSIONPROPENUM",
-    "DBPROP_MSDS_SESS_UNIQUENAMES",
-    "DATE_STRUCT",
-    "TIME_STRUCT",
+    "SUBSSCHED_WEEKLY",
+    "SUBSTYPE_CHANNEL",
+    "SUBSTYPE_DESKTOPCHANNEL",
+    "SUBSTYPE_DESKTOPURL",
+    "SUBSTYPE_EXTERNAL",
+    "SUBSTYPE_URL",
+    "SUCCEED",
+    "SUCCEED_ABORT",
+    "SUCCEED_ASYNC",
+    "SubscriptionMgr",
+    "TEXT_SOURCE",
+    "TIMEOUT_INFO",
     "TIMESTAMP_STRUCT",
-    "SQLINTERVAL",
-    "SQL_IS_YEAR",
-    "SQL_IS_MONTH",
-    "SQL_IS_DAY",
-    "SQL_IS_HOUR",
-    "SQL_IS_MINUTE",
-    "SQL_IS_SECOND",
-    "SQL_IS_YEAR_TO_MONTH",
-    "SQL_IS_DAY_TO_HOUR",
-    "SQL_IS_DAY_TO_MINUTE",
-    "SQL_IS_DAY_TO_SECOND",
-    "SQL_IS_HOUR_TO_MINUTE",
-    "SQL_IS_HOUR_TO_SECOND",
-    "SQL_IS_MINUTE_TO_SECOND",
-    "tagSQL_YEAR_MONTH",
-    "tagSQL_DAY_SECOND",
-    "SQL_INTERVAL_STRUCT",
-    "SQL_NUMERIC_STRUCT",
-    "dbvarychar",
-    "dbvarybin",
-    "dbmoney",
-    "dbdatetime",
-    "dbdatetime4",
-    "sqlperf",
-    "DBPROPENUM25_DEPRECATED",
-    "DBPROP_ICommandCost",
-    "DBPROP_ICommandTree",
-    "DBPROP_ICommandValidate",
-    "DBPROP_IDBSchemaCommand",
-    "DBPROP_IProvideMoniker",
-    "DBPROP_IQuery",
-    "DBPROP_IReadData",
-    "DBPROP_IRowsetAsynch",
-    "DBPROP_IRowsetCopyRows",
-    "DBPROP_IRowsetKeys",
-    "DBPROP_IRowsetNewRowAfter",
-    "DBPROP_IRowsetNextRowset",
-    "DBPROP_IRowsetWatchAll",
-    "DBPROP_IRowsetWatchNotify",
-    "DBPROP_IRowsetWatchRegion",
-    "DBPROP_IRowsetWithParameters",
-    "DBREASONENUM25",
-    "DBREASON_ROWSET_ROWSADDED",
-    "DBREASON_ROWSET_POPULATIONCOMPLETE",
-    "DBREASON_ROWSET_POPULATIONSTOPPED",
-    "IRowsetNextRowset",
-    "IRowsetNewRowAfter",
-    "IRowsetWithParameters",
-    "IRowsetAsynch",
-    "IRowsetKeys",
-    "IRowsetWatchAll",
-    "DBWATCHNOTIFYENUM",
-    "DBWATCHNOTIFY_ROWSCHANGED",
-    "DBWATCHNOTIFY_QUERYDONE",
-    "DBWATCHNOTIFY_QUERYREEXECUTED",
-    "IRowsetWatchNotify",
-    "DBWATCHMODEENUM",
-    "DBWATCHMODE_ALL",
-    "DBWATCHMODE_EXTEND",
-    "DBWATCHMODE_MOVE",
-    "DBWATCHMODE_COUNT",
-    "DBROWCHANGEKINDENUM",
-    "DBROWCHANGEKIND_INSERT",
-    "DBROWCHANGEKIND_DELETE",
-    "DBROWCHANGEKIND_UPDATE",
-    "DBROWCHANGEKIND_COUNT",
-    "tagDBROWWATCHRANGE",
-    "IRowsetWatchRegion",
-    "IRowsetCopyRows",
-    "IReadData",
-    "DBRESOURCEKINDENUM",
-    "DBRESOURCE_INVALID",
-    "DBRESOURCE_TOTAL",
-    "DBRESOURCE_CPU",
-    "DBRESOURCE_MEMORY",
-    "DBRESOURCE_DISK",
-    "DBRESOURCE_NETWORK",
-    "DBRESOURCE_RESPONSE",
-    "DBRESOURCE_ROWS",
-    "DBRESOURCE_OTHER",
-    "DBCOSTUNITENUM",
-    "DBUNIT_INVALID",
-    "DBUNIT_WEIGHT",
-    "DBUNIT_PERCENT",
-    "DBUNIT_MAXIMUM",
-    "DBUNIT_MINIMUM",
-    "DBUNIT_MICRO_SECOND",
-    "DBUNIT_MILLI_SECOND",
-    "DBUNIT_SECOND",
-    "DBUNIT_MINUTE",
-    "DBUNIT_HOUR",
-    "DBUNIT_BYTE",
-    "DBUNIT_KILO_BYTE",
-    "DBUNIT_MEGA_BYTE",
-    "DBUNIT_GIGA_BYTE",
-    "DBUNIT_NUM_MSGS",
-    "DBUNIT_NUM_LOCKS",
-    "DBUNIT_NUM_ROWS",
-    "DBUNIT_OTHER",
-    "DBCOST",
-    "DBEXECLIMITSENUM",
-    "DBEXECLIMITS_ABORT",
-    "DBEXECLIMITS_STOP",
-    "DBEXECLIMITS_SUSPEND",
-    "ICommandCost",
-    "ICommandValidate",
-    "ITableRename",
-    "IDBSchemaCommand",
-    "IProvideMoniker",
-    "NOTRESTRICTION",
-    "NODERESTRICTION",
+    "TIME_STRUCT",
+    "TRACE_ON",
+    "TRACE_VERSION",
+    "TRACE_VS_EVENT_ON",
     "VECTORRESTRICTION",
-    "CONTENTRESTRICTION",
-    "NATLANGUAGERESTRICTION",
-    "PROPERTYRESTRICTION",
-    "RESTRICTION",
-    "COLUMNSET",
-    "SORTKEY",
-    "SORTSET",
-    "BUCKETCATEGORIZE",
-    "RANGECATEGORIZE",
-    "CATEGORIZATION",
-    "CATEGORIZATIONSET",
-    "ISearchQueryHits",
-    "IRowsetQueryStatus",
-    "ODBC_VS_ARGS",
-    "SQLVARENUM",
+    "VT_SS_BINARY",
+    "VT_SS_BIT",
+    "VT_SS_DATETIME",
+    "VT_SS_DECIMAL",
     "VT_SS_EMPTY",
-    "VT_SS_NULL",
-    "VT_SS_UI1",
+    "VT_SS_GUID",
     "VT_SS_I2",
     "VT_SS_I4",
     "VT_SS_I8",
+    "VT_SS_MONEY",
+    "VT_SS_NULL",
+    "VT_SS_NUMERIC",
     "VT_SS_R4",
     "VT_SS_R8",
-    "VT_SS_MONEY",
+    "VT_SS_SMALLDATETIME",
     "VT_SS_SMALLMONEY",
+    "VT_SS_STRING",
+    "VT_SS_UI1",
+    "VT_SS_UNKNOWN",
+    "VT_SS_VARBINARY",
+    "VT_SS_VARSTRING",
     "VT_SS_WSTRING",
     "VT_SS_WVARSTRING",
-    "VT_SS_STRING",
-    "VT_SS_VARSTRING",
-    "VT_SS_BIT",
-    "VT_SS_GUID",
-    "VT_SS_NUMERIC",
-    "VT_SS_DECIMAL",
-    "VT_SS_DATETIME",
-    "VT_SS_SMALLDATETIME",
-    "VT_SS_BINARY",
-    "VT_SS_VARBINARY",
-    "VT_SS_UNKNOWN",
-    "SSVARIANT",
-    "IUMSInitialize",
-    "IUMS",
-    "tagSSErrorInfo",
-    "ISQLServerErrorInfo",
-    "IRowsetFastLoad",
-    "LOCKMODEENUM",
-    "LOCKMODE_INVALID",
-    "LOCKMODE_EXCLUSIVE",
-    "LOCKMODE_SHARED",
-    "ISchemaLock",
-    "SQL_ASYNC_NOTIFICATION_CALLBACK",
-    "SQLAllocConnect",
-    "SQLAllocEnv",
-    "SQLAllocHandle",
-    "SQLAllocStmt",
-    "SQLBindCol",
-    "SQLBindParam",
-    "SQLCancel",
-    "SQLCancelHandle",
-    "SQLCloseCursor",
-    "SQLColAttribute",
-    "SQLColumns",
-    "SQLCompleteAsync",
-    "SQLConnect",
-    "SQLCopyDesc",
-    "SQLDataSources",
-    "SQLDescribeCol",
-    "SQLDisconnect",
-    "SQLEndTran",
-    "SQLError",
-    "SQLExecDirect",
-    "SQLExecute",
-    "SQLFetch",
-    "SQLFetchScroll",
-    "SQLFreeConnect",
-    "SQLFreeEnv",
-    "SQLFreeHandle",
-    "SQLFreeStmt",
-    "SQLGetConnectAttr",
-    "SQLGetConnectOption",
-    "SQLGetCursorName",
-    "SQLGetData",
-    "SQLGetDescField",
-    "SQLGetDescRec",
-    "SQLGetDiagField",
-    "SQLGetDiagRec",
-    "SQLGetEnvAttr",
-    "SQLGetFunctions",
-    "SQLGetInfo",
-    "SQLGetStmtAttr",
-    "SQLGetStmtOption",
-    "SQLGetTypeInfo",
-    "SQLNumResultCols",
-    "SQLParamData",
-    "SQLPrepare",
-    "SQLPutData",
-    "SQLRowCount",
-    "SQLSetConnectAttr",
-    "SQLSetConnectOption",
-    "SQLSetCursorName",
-    "SQLSetDescField",
-    "SQLSetDescRec",
-    "SQLSetEnvAttr",
-    "SQLSetParam",
-    "SQLSetStmtAttr",
-    "SQLSetStmtOption",
-    "SQLSpecialColumns",
-    "SQLStatistics",
-    "SQLTables",
-    "SQLTransact",
+    "WEBCRAWL_DONT_MAKE_STICKY",
+    "WEBCRAWL_GET_BGSOUNDS",
+    "WEBCRAWL_GET_CONTROLS",
+    "WEBCRAWL_GET_IMAGES",
+    "WEBCRAWL_GET_VIDEOS",
+    "WEBCRAWL_IGNORE_ROBOTSTXT",
+    "WEBCRAWL_LINKS_ELSEWHERE",
+    "WEBCRAWL_ONLY_LINKS_TO_HTML",
+    "WEBCRAWL_RECURSEFLAGS",
+    "XML_E_BADSXQL",
+    "XML_E_NODEFAULTNS",
+    "_MAPI_E_ACCOUNT_DISABLED",
+    "_MAPI_E_BAD_CHARWIDTH",
+    "_MAPI_E_BAD_COLUMN",
+    "_MAPI_E_BUSY",
+    "_MAPI_E_COMPUTED",
+    "_MAPI_E_CORRUPT_DATA",
+    "_MAPI_E_DISK_ERROR",
+    "_MAPI_E_END_OF_SESSION",
+    "_MAPI_E_EXTENDED_ERROR",
+    "_MAPI_E_FAILONEPROVIDER",
+    "_MAPI_E_INVALID_ACCESS_TIME",
+    "_MAPI_E_INVALID_ENTRYID",
+    "_MAPI_E_INVALID_OBJECT",
+    "_MAPI_E_INVALID_WORKSTATION_ACCOUNT",
+    "_MAPI_E_LOGON_FAILED",
+    "_MAPI_E_MISSING_REQUIRED_COLUMN",
+    "_MAPI_E_NETWORK_ERROR",
+    "_MAPI_E_NOT_ENOUGH_DISK",
+    "_MAPI_E_NOT_ENOUGH_RESOURCES",
+    "_MAPI_E_NOT_FOUND",
+    "_MAPI_E_NO_SUPPORT",
+    "_MAPI_E_OBJECT_CHANGED",
+    "_MAPI_E_OBJECT_DELETED",
+    "_MAPI_E_PASSWORD_CHANGE_REQUIRED",
+    "_MAPI_E_PASSWORD_EXPIRED",
+    "_MAPI_E_SESSION_LIMIT",
+    "_MAPI_E_STRING_TOO_LONG",
+    "_MAPI_E_TOO_COMPLEX",
+    "_MAPI_E_UNABLE_TO_ABORT",
+    "_MAPI_E_UNCONFIGURED",
+    "_MAPI_E_UNKNOWN_CPID",
+    "_MAPI_E_UNKNOWN_ENTRYID",
+    "_MAPI_E_UNKNOWN_FLAGS",
+    "_MAPI_E_UNKNOWN_LCID",
+    "_MAPI_E_USER_CANCEL",
+    "_MAPI_E_VERSION",
+    "_MAPI_W_NO_SERVICE",
     "bcp_batch",
     "bcp_bind",
     "bcp_colfmt",
@@ -13365,119 +13499,16 @@ __all__ = [
     "bcp_getcolfmt",
     "bcp_initA",
     "bcp_initW",
-    "bcp_init",
     "bcp_moretext",
     "bcp_readfmtA",
     "bcp_readfmtW",
-    "bcp_readfmt",
     "bcp_sendrow",
     "bcp_setcolfmt",
     "bcp_writefmtA",
     "bcp_writefmtW",
-    "bcp_writefmt",
     "dbprtypeA",
     "dbprtypeW",
-    "dbprtype",
-    "SQLLinkedServers",
-    "SQLLinkedCatalogsA",
-    "SQLLinkedCatalogsW",
-    "SQLLinkedCatalogs",
-    "SQLInitEnumServers",
-    "SQLGetNextEnumeration",
-    "SQLCloseEnumServers",
-    "SQLDriverConnect",
-    "SQLBrowseConnect",
-    "SQLBulkOperations",
-    "SQLColAttributes",
-    "SQLColumnPrivileges",
-    "SQLDescribeParam",
-    "SQLExtendedFetch",
-    "SQLForeignKeys",
-    "SQLMoreResults",
-    "SQLNativeSql",
-    "SQLNumParams",
-    "SQLParamOptions",
-    "SQLPrimaryKeys",
-    "SQLProcedureColumns",
-    "SQLProcedures",
-    "SQLSetPos",
-    "SQLTablePrivileges",
-    "SQLDrivers",
-    "SQLBindParameter",
-    "SQLAllocHandleStd",
-    "SQLSetScrollOptions",
-    "ODBCSetTryWaitValue",
-    "ODBCGetTryWaitValue",
-    "SQLColAttributeW",
-    "SQLColAttributesW",
-    "SQLConnectW",
-    "SQLDescribeColW",
-    "SQLErrorW",
-    "SQLExecDirectW",
-    "SQLGetConnectAttrW",
-    "SQLGetCursorNameW",
-    "SQLSetDescFieldW",
-    "SQLGetDescFieldW",
-    "SQLGetDescRecW",
-    "SQLGetDiagFieldW",
-    "SQLGetDiagRecW",
-    "SQLPrepareW",
-    "SQLSetConnectAttrW",
-    "SQLSetCursorNameW",
-    "SQLColumnsW",
-    "SQLGetConnectOptionW",
-    "SQLGetInfoW",
-    "SQLGetTypeInfoW",
-    "SQLSetConnectOptionW",
-    "SQLSpecialColumnsW",
-    "SQLStatisticsW",
-    "SQLTablesW",
-    "SQLDataSourcesW",
-    "SQLDriverConnectW",
-    "SQLBrowseConnectW",
-    "SQLColumnPrivilegesW",
-    "SQLGetStmtAttrW",
-    "SQLSetStmtAttrW",
-    "SQLForeignKeysW",
-    "SQLNativeSqlW",
-    "SQLPrimaryKeysW",
-    "SQLProcedureColumnsW",
-    "SQLProceduresW",
-    "SQLTablePrivilegesW",
-    "SQLDriversW",
-    "SQLColAttributeA",
-    "SQLColAttributesA",
-    "SQLConnectA",
-    "SQLDescribeColA",
-    "SQLErrorA",
-    "SQLExecDirectA",
-    "SQLGetConnectAttrA",
-    "SQLGetCursorNameA",
-    "SQLGetDescFieldA",
-    "SQLGetDescRecA",
-    "SQLGetDiagFieldA",
-    "SQLGetDiagRecA",
-    "SQLGetStmtAttrA",
-    "SQLGetTypeInfoA",
-    "SQLPrepareA",
-    "SQLSetConnectAttrA",
-    "SQLSetCursorNameA",
-    "SQLColumnsA",
-    "SQLGetConnectOptionA",
-    "SQLGetInfoA",
-    "SQLSetConnectOptionA",
-    "SQLSpecialColumnsA",
-    "SQLStatisticsA",
-    "SQLTablesA",
-    "SQLDataSourcesA",
-    "SQLDriverConnectA",
-    "SQLBrowseConnectA",
-    "SQLColumnPrivilegesA",
-    "SQLForeignKeysA",
-    "SQLNativeSqlA",
-    "SQLPrimaryKeysA",
-    "SQLProcedureColumnsA",
-    "SQLProceduresA",
-    "SQLTablePrivilegesA",
-    "SQLDriversA",
+    "eAUTH_TYPE_ANONYMOUS",
+    "eAUTH_TYPE_BASIC",
+    "eAUTH_TYPE_NTLM",
 ]

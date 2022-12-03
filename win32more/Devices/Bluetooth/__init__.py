@@ -1,225 +1,40 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Devices.Bluetooth
 import win32more.Foundation
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
-BT_PORT_MIN = 1
-BT_PORT_MAX = 65535
-BT_PORT_DYN_FIRST = 4097
-AF_BTH = 32
-PF_BTH = 32
-NS_BTH = 16
-SVCID_BTH_PROVIDER = '06aa63e0-7d60-41ff-afb2-3ee6d2d9392d'
-BTH_ADDR_STRING_SIZE = 12
-BTHPROTO_RFCOMM = 3
-BTHPROTO_L2CAP = 256
-SOL_RFCOMM = 3
-SOL_L2CAP = 256
-SOL_SDP = 257
-SO_BTH_AUTHENTICATE = 2147483649
-SO_BTH_ENCRYPT = 2
-SO_BTH_MTU = 2147483655
-SO_BTH_MTU_MAX = 2147483656
-SO_BTH_MTU_MIN = 2147483658
-RFCOMM_MAX_MTU = 1011
-RFCOMM_MIN_MTU = 23
-BTH_SDP_VERSION = 1
-SDP_DEFAULT_INQUIRY_SECONDS = 6
-SDP_MAX_INQUIRY_SECONDS = 60
-SDP_DEFAULT_INQUIRY_MAX_RESPONSES = 255
-SDP_SERVICE_SEARCH_REQUEST = 1
-SDP_SERVICE_ATTRIBUTE_REQUEST = 2
-SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST = 3
-BTHNS_RESULT_DEVICE_CONNECTED = 65536
-BTHNS_RESULT_DEVICE_REMEMBERED = 131072
-BTHNS_RESULT_DEVICE_AUTHENTICATED = 262144
-RLS_ERROR = 1
-RLS_OVERRUN = 2
-RLS_PARITY = 4
-RLS_FRAMING = 8
-RPN_BAUD_2400 = 0
-RPN_BAUD_4800 = 1
-RPN_BAUD_7200 = 2
-RPN_BAUD_9600 = 3
-RPN_BAUD_19200 = 4
-RPN_BAUD_38400 = 5
-RPN_BAUD_57600 = 6
-RPN_BAUD_115200 = 7
-RPN_BAUD_230400 = 8
-RPN_DATA_5 = 0
-RPN_DATA_6 = 1
-RPN_DATA_7 = 2
-RPN_DATA_8 = 3
-RPN_STOP_1 = 0
-RPN_STOP_1_5 = 4
-RPN_PARITY_NONE = 0
-RPN_PARITY_ODD = 8
-RPN_PARITY_EVEN = 24
-RPN_PARITY_MARK = 40
-RPN_PARITY_SPACE = 56
-RPN_FLOW_X_IN = 1
-RPN_FLOW_X_OUT = 2
-RPN_FLOW_RTR_IN = 4
-RPN_FLOW_RTR_OUT = 8
-RPN_FLOW_RTC_IN = 16
-RPN_FLOW_RTC_OUT = 32
-RPN_PARAM_BAUD = 1
-RPN_PARAM_DATA = 2
-RPN_PARAM_STOP = 4
-RPN_PARAM_PARITY = 8
-RPN_PARAM_P_TYPE = 16
-RPN_PARAM_XON = 32
-RPN_PARAM_XOFF = 64
-RPN_PARAM_X_IN = 1
-RPN_PARAM_X_OUT = 2
-RPN_PARAM_RTR_IN = 4
-RPN_PARAM_RTR_OUT = 8
-RPN_PARAM_RTC_IN = 16
-RPN_PARAM_RTC_OUT = 32
-RFCOMM_CMD_NONE = 0
-RFCOMM_CMD_MSC = 1
-RFCOMM_CMD_RLS = 2
-RFCOMM_CMD_RPN = 3
-RFCOMM_CMD_RPN_REQUEST = 4
-RFCOMM_CMD_RPN_RESPONSE = 5
-BLUETOOTH_MAX_NAME_SIZE = 248
-BLUETOOTH_MAX_PASSKEY_SIZE = 16
-BLUETOOTH_MAX_PASSKEY_BUFFER_SIZE = 17
-BLUETOOTH_MAX_SERVICE_NAME_SIZE = 256
-BLUETOOTH_DEVICE_NAME_SIZE = 256
-BLUETOOTH_SERVICE_DISABLE = 0
-BLUETOOTH_SERVICE_ENABLE = 1
-GUID_BLUETOOTHLE_DEVICE_INTERFACE = '781aee18-7733-4ce4-add0-91f41c67b592'
-GUID_BLUETOOTH_GATT_SERVICE_DEVICE_INTERFACE = '6e3bb679-4372-40c8-9eaa-4509df260cd8'
-BTH_LE_ATT_BLUETOOTH_BASE_GUID = '00000000-0000-1000-8000-00805f9b34fb'
-BTH_LE_SERVICE_GAP = 6144
-BTH_LE_SERVICE_GATT = 6145
-BTH_LE_GATT_ATTRIBUTE_TYPE_PRIMARY_SERVICE = 10240
-BTH_LE_GATT_ATTRIBUTE_TYPE_SECONDARY_SERVICE = 10241
-BTH_LE_GATT_ATTRIBUTE_TYPE_INCLUDE = 10242
-BTH_LE_GATT_ATTRIBUTE_TYPE_CHARACTERISTIC = 10243
-BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_EXTENDED_PROPERTIES = 10496
-BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_USER_DESCRIPTION = 10497
-BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_CLIENT_CONFIGURATION = 10498
-BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_SERVER_CONFIGURATION = 10499
-BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_FORMAT = 10500
-BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_AGGREGATE_FORMAT = 10501
-BTH_LE_GATT_CHARACTERISTIC_TYPE_DEVICE_NAME = 10752
-BTH_LE_GATT_CHARACTERISTIC_TYPE_APPEARANCE = 10753
-BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PRIVACY_FLAG = 10754
-BTH_LE_GATT_CHARACTERISTIC_TYPE_RECONNECTION_ADDRESS = 10755
-BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PREFERED_CONNECTION_PARAMETER = 10756
-BTH_LE_GATT_CHARACTERISTIC_TYPE_SERVICE_CHANGED = 10757
-BTH_LE_GAP_APPEARANCE_CATEGORY_OFFSET = 6
-BTH_LE_GAP_APPEARANCE_CATEGORY_MASK = 1023
-BTH_LE_GAP_APPEARANCE_SUB_CATEGORY_MASK = 63
-BTH_LE_GAP_APPEARANCE_CATEGORY_UNCATEGORIZED = 0
-BTH_LE_GAP_APPEARANCE_CATEGORY_PHONE = 1
-BTH_LE_GAP_APPEARANCE_CATEGORY_COMPUTER = 2
-BTH_LE_GAP_APPEARANCE_CATEGORY_WATCH = 3
-BTH_LE_GAP_APPEARANCE_CATEGORY_CLOCK = 4
-BTH_LE_GAP_APPEARANCE_CATEGORY_DISPLAY = 5
-BTH_LE_GAP_APPEARANCE_CATEGORY_REMOTE_CONTROL = 6
-BTH_LE_GAP_APPEARANCE_CATEGORY_EYE_GLASSES = 7
-BTH_LE_GAP_APPEARANCE_CATEGORY_TAG = 8
-BTH_LE_GAP_APPEARANCE_CATEGORY_KEYRING = 9
-BTH_LE_GAP_APPEARANCE_CATEGORY_MEDIA_PLAYER = 10
-BTH_LE_GAP_APPEARANCE_CATEGORY_BARCODE_SCANNER = 11
-BTH_LE_GAP_APPEARANCE_CATEGORY_THERMOMETER = 12
-BTH_LE_GAP_APPEARANCE_CATEGORY_HEART_RATE = 13
-BTH_LE_GAP_APPEARANCE_CATEGORY_BLOOD_PRESSURE = 14
-BTH_LE_GAP_APPEARANCE_CATEGORY_HID = 15
-BTH_LE_GAP_APPEARANCE_CATEGORY_GLUCOSE_METER = 16
-BTH_LE_GAP_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR = 17
-BTH_LE_GAP_APPEARANCE_CATEGORY_CYCLING = 18
-BTH_LE_GAP_APPEARANCE_CATEGORY_PLUSE_OXIMETER = 49
-BTH_LE_GAP_APPEARANCE_CATEGORY_WEIGHT_SCALE = 50
-BTH_LE_GAP_APPEARANCE_CATEGORY_OUTDOOR_SPORTS_ACTIVITY = 81
-BTH_LE_GAP_APPEARANCE_SUBCATEGORY_GENERIC = 0
-BTH_LE_GAP_APPEARANCE_WATCH_SUBCATEGORY_SPORTS_WATCH = 1
-BTH_LE_GAP_APPEARANCE_THERMOMETER_SUBCATEGORY_EAR = 1
-BTH_LE_GAP_APPEARANCE_HEART_RATE_SUBCATEGORY_HEART_RATE_BELT = 1
-BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_ARM = 1
-BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_WRIST = 2
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_KEYBOARD = 1
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_MOUSE = 2
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_JOYSTICK = 3
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_GAMEPAD = 4
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITIZER_TABLET = 5
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_CARD_READER = 6
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITAL_PEN = 7
-BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_BARCODE_SCANNER = 8
-BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_IN_SHOE = 1
-BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_SHOE = 2
-BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_HIP = 3
-BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CYCLING_COMPUTER = 1
-BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_SENSOR = 2
-BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CADENCE_SENSOR = 3
-BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_POWER_SENSOR = 4
-BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_AND_CADENCE_SENSOR = 5
-BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_FINGERTIP = 1
-BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_WRIST_WORN = 2
-BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_DISPLAY_DEVICE = 1
-BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_DISPLAY_DEVICE = 2
-BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_POD = 3
-BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_POD = 4
-BTH_LE_GATT_DEFAULT_MAX_INCLUDED_SERVICES_DEPTH = 3
-BTH_LE_ATT_TRANSACTION_TIMEOUT = 30
-BTH_LE_ATT_MAX_VALUE_SIZE = 512
-BTH_LE_ATT_CID = 4
-BTHLEENUM_ATT_MTU_MIN = 23
-BTHLEENUM_ATT_MTU_MAX = 65535
-BTHLEENUM_ATT_MTU_DEFAULT = 23
-BTHLEENUM_ATT_MTU_INITIAL_NEGOTIATION = 525
-BTH_LE_ERROR_INVALID_HANDLE = 1
-BTH_LE_ERROR_READ_NOT_PERMITTED = 2
-BTH_LE_ERROR_WRITE_NOT_PERMITTED = 3
-BTH_LE_ERROR_INVALID_PDU = 4
-BTH_LE_ERROR_INSUFFICIENT_AUTHENTICATION = 5
-BTH_LE_ERROR_REQUEST_NOT_SUPPORTED = 6
-BTH_LE_ERROR_INVALID_OFFSET = 7
-BTH_LE_ERROR_INSUFFICIENT_AUTHORIZATION = 8
-BTH_LE_ERROR_PREPARE_QUEUE_FULL = 9
-BTH_LE_ERROR_ATTRIBUTE_NOT_FOUND = 10
-BTH_LE_ERROR_ATTRIBUTE_NOT_LONG = 11
-BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION_KEY_SIZE = 12
-BTH_LE_ERROR_INVALID_ATTRIBUTE_VALUE_LENGTH = 13
-BTH_LE_ERROR_UNLIKELY = 14
-BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION = 15
-BTH_LE_ERROR_UNSUPPORTED_GROUP_TYPE = 16
-BTH_LE_ERROR_INSUFFICIENT_RESOURCES = 17
-BTH_LE_ERROR_UNKNOWN = 4096
-BLUETOOTH_GATT_FLAG_NONE = 0
-BLUETOOTH_GATT_FLAG_CONNECTION_ENCRYPTED = 1
-BLUETOOTH_GATT_FLAG_CONNECTION_AUTHENTICATED = 2
-BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_DEVICE = 4
-BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_CACHE = 8
-BLUETOOTH_GATT_FLAG_SIGNED_WRITE = 16
-BLUETOOTH_GATT_FLAG_WRITE_WITHOUT_RESPONSE = 32
-BLUETOOTH_GATT_FLAG_RETURN_ALL = 64
 BTH_MAJORVERSION = 2
 BTH_MINORVERSION = 1
-GUID_BTHPORT_DEVICE_INTERFACE = '0850302a-b344-4fda-9be9-90576b8d46f0'
-GUID_BTH_RFCOMM_SERVICE_DEVICE_INTERFACE = 'b142fc3e-fa4e-460b-8abc-072b628b3c70'
-GUID_BLUETOOTH_RADIO_IN_RANGE = 'ea3b5b82-26ee-450e-b0d8-d26fe30a3869'
-GUID_BLUETOOTH_RADIO_OUT_OF_RANGE = 'e28867c9-c2aa-4ced-b969-4570866037c4'
-GUID_BLUETOOTH_L2CAP_EVENT = '7eae4030-b709-4aa8-ac55-e953829c9daa'
-GUID_BLUETOOTH_HCI_EVENT = 'fc240062-1541-49be-b463-84c4dcd7bf7f'
-GUID_BLUETOOTH_AUTHENTICATION_REQUEST = '5dc9136d-996c-46db-84f5-32c0a3f47352'
-GUID_BLUETOOTH_KEYPRESS_EVENT = 'd668dfcd-0f4e-4efc-bfe0-392eeec5109c'
-GUID_BLUETOOTH_HCI_VENDOR_EVENT = '547247e6-45bb-4c33-af8c-c00efe15a71d'
-Bluetooth_Base_UUID = '00000000-0000-1000-8000-00805f9b34fb'
+def _define_GUID_BTHPORT_DEVICE_INTERFACE():
+    return Guid('0850302a-b344-4fda-9b-e9-90-57-6b-8d-46-f0')
+def _define_GUID_BTH_RFCOMM_SERVICE_DEVICE_INTERFACE():
+    return Guid('b142fc3e-fa4e-460b-8a-bc-07-2b-62-8b-3c-70')
+def _define_GUID_BLUETOOTH_RADIO_IN_RANGE():
+    return Guid('ea3b5b82-26ee-450e-b0-d8-d2-6f-e3-0a-38-69')
+def _define_GUID_BLUETOOTH_RADIO_OUT_OF_RANGE():
+    return Guid('e28867c9-c2aa-4ced-b9-69-45-70-86-60-37-c4')
+def _define_GUID_BLUETOOTH_L2CAP_EVENT():
+    return Guid('7eae4030-b709-4aa8-ac-55-e9-53-82-9c-9d-aa')
+def _define_GUID_BLUETOOTH_HCI_EVENT():
+    return Guid('fc240062-1541-49be-b4-63-84-c4-dc-d7-bf-7f')
+def _define_GUID_BLUETOOTH_AUTHENTICATION_REQUEST():
+    return Guid('5dc9136d-996c-46db-84-f5-32-c0-a3-f4-73-52')
+def _define_GUID_BLUETOOTH_KEYPRESS_EVENT():
+    return Guid('d668dfcd-0f4e-4efc-bf-e0-39-2e-ee-c5-10-9c')
+def _define_GUID_BLUETOOTH_HCI_VENDOR_EVENT():
+    return Guid('547247e6-45bb-4c33-af-8c-c0-0e-fe-15-a7-1d')
+def _define_Bluetooth_Base_UUID():
+    return Guid('00000000-0000-1000-80-00-00-80-5f-9b-34-fb')
 SDP_PROTOCOL_UUID16 = 1
 UDP_PROTOCOL_UUID16 = 2
 RFCOMM_PROTOCOL_UUID16 = 3
@@ -760,6 +575,15 @@ PSM_UDI_C_PLANE = 29
 PSM_ATT = 31
 PSM_3DSP = 33
 PSM_LE_IPSP = 35
+STR_ADDR_FMTA = '(%02x:%02x:%02x:%02x:%02x:%02x)'
+STR_ADDR_FMTW = '(%02x:%02x:%02x:%02x:%02x:%02x)'
+STR_ADDR_SHORT_FMTA = '%04x%08x'
+STR_ADDR_SHORT_FMTW = '%04x%08x'
+STR_USBHCI_CLASS_HARDWAREIDA = 'USB\\Class_E0&SubClass_01&Prot_01'
+STR_USBHCI_CLASS_HARDWAREIDW = 'USB\\Class_E0&SubClass_01&Prot_01'
+STR_ADDR_FMT = '(%02x:%02x:%02x:%02x:%02x:%02x)'
+STR_ADDR_SHORT_FMT = '%04x%08x'
+STR_USBHCI_CLASS_HARDWAREID = 'USB\\Class_E0&SubClass_01&Prot_01'
 BTH_IOCTL_BASE = 0
 SDP_CONNECT_CACHE = 1
 SDP_CONNECT_ALLOW_PIN = 2
@@ -784,147 +608,439 @@ BTH_HOST_FEATURE_STREAMING_MODE = 2
 BTH_HOST_FEATURE_LOW_ENERGY = 4
 BTH_HOST_FEATURE_SCO_HCI = 8
 BTH_HOST_FEATURE_SCO_HCIBYPASS = 16
-HANDLE_SDP_TYPE = UInt64
-def _define_SDP_LARGE_INTEGER_16_head():
-    class SDP_LARGE_INTEGER_16(Structure):
-        pass
-    return SDP_LARGE_INTEGER_16
-def _define_SDP_LARGE_INTEGER_16():
-    SDP_LARGE_INTEGER_16 = win32more.Devices.Bluetooth.SDP_LARGE_INTEGER_16_head
-    SDP_LARGE_INTEGER_16._fields_ = [
-        ("LowPart", UInt64),
-        ("HighPart", Int64),
-    ]
-    return SDP_LARGE_INTEGER_16
-def _define_SDP_ULARGE_INTEGER_16_head():
-    class SDP_ULARGE_INTEGER_16(Structure):
-        pass
-    return SDP_ULARGE_INTEGER_16
-def _define_SDP_ULARGE_INTEGER_16():
-    SDP_ULARGE_INTEGER_16 = win32more.Devices.Bluetooth.SDP_ULARGE_INTEGER_16_head
-    SDP_ULARGE_INTEGER_16._fields_ = [
-        ("LowPart", UInt64),
-        ("HighPart", UInt64),
-    ]
-    return SDP_ULARGE_INTEGER_16
-NodeContainerType = Int32
-NodeContainerType_NodeContainerTypeSequence = 0
-NodeContainerType_NodeContainerTypeAlternative = 1
-SDP_TYPE = Int32
-SDP_TYPE_NIL = 0
-SDP_TYPE_UINT = 1
-SDP_TYPE_INT = 2
-SDP_TYPE_UUID = 3
-SDP_TYPE_STRING = 4
-SDP_TYPE_BOOLEAN = 5
-SDP_TYPE_SEQUENCE = 6
-SDP_TYPE_ALTERNATIVE = 7
-SDP_TYPE_URL = 8
-SDP_TYPE_CONTAINER = 32
-SDP_SPECIFICTYPE = Int32
-SDP_ST_NONE = 0
-SDP_ST_UINT8 = 16
-SDP_ST_UINT16 = 272
-SDP_ST_UINT32 = 528
-SDP_ST_UINT64 = 784
-SDP_ST_UINT128 = 1040
-SDP_ST_INT8 = 32
-SDP_ST_INT16 = 288
-SDP_ST_INT32 = 544
-SDP_ST_INT64 = 800
-SDP_ST_INT128 = 1056
-SDP_ST_UUID16 = 304
-SDP_ST_UUID32 = 544
-SDP_ST_UUID128 = 1072
-def _define_SdpAttributeRange_head():
-    class SdpAttributeRange(Structure):
-        pass
-    return SdpAttributeRange
-def _define_SdpAttributeRange():
-    SdpAttributeRange = win32more.Devices.Bluetooth.SdpAttributeRange_head
-    SdpAttributeRange._fields_ = [
-        ("minAttribute", UInt16),
-        ("maxAttribute", UInt16),
-    ]
-    return SdpAttributeRange
-def _define_SdpQueryUuidUnion_head():
-    class SdpQueryUuidUnion(Union):
-        pass
-    return SdpQueryUuidUnion
-def _define_SdpQueryUuidUnion():
-    SdpQueryUuidUnion = win32more.Devices.Bluetooth.SdpQueryUuidUnion_head
-    SdpQueryUuidUnion._fields_ = [
-        ("uuid128", Guid),
-        ("uuid32", UInt32),
-        ("uuid16", UInt16),
-    ]
-    return SdpQueryUuidUnion
-def _define_SdpQueryUuid_head():
-    class SdpQueryUuid(Structure):
-        pass
-    return SdpQueryUuid
-def _define_SdpQueryUuid():
-    SdpQueryUuid = win32more.Devices.Bluetooth.SdpQueryUuid_head
-    SdpQueryUuid._fields_ = [
-        ("u", win32more.Devices.Bluetooth.SdpQueryUuidUnion),
-        ("uuidType", UInt16),
-    ]
-    return SdpQueryUuid
-def _define_BTH_DEVICE_INFO_head():
-    class BTH_DEVICE_INFO(Structure):
-        pass
-    return BTH_DEVICE_INFO
-def _define_BTH_DEVICE_INFO():
-    BTH_DEVICE_INFO = win32more.Devices.Bluetooth.BTH_DEVICE_INFO_head
-    BTH_DEVICE_INFO._fields_ = [
-        ("flags", UInt32),
-        ("address", UInt64),
-        ("classOfDevice", UInt32),
-        ("name", win32more.Foundation.CHAR * 248),
-    ]
-    return BTH_DEVICE_INFO
-def _define_BTH_RADIO_IN_RANGE_head():
-    class BTH_RADIO_IN_RANGE(Structure):
-        pass
-    return BTH_RADIO_IN_RANGE
-def _define_BTH_RADIO_IN_RANGE():
-    BTH_RADIO_IN_RANGE = win32more.Devices.Bluetooth.BTH_RADIO_IN_RANGE_head
-    BTH_RADIO_IN_RANGE._fields_ = [
-        ("deviceInfo", win32more.Devices.Bluetooth.BTH_DEVICE_INFO),
-        ("previousDeviceFlags", UInt32),
-    ]
-    return BTH_RADIO_IN_RANGE
-def _define_BTH_L2CAP_EVENT_INFO_head():
-    class BTH_L2CAP_EVENT_INFO(Structure):
-        pass
-    return BTH_L2CAP_EVENT_INFO
-def _define_BTH_L2CAP_EVENT_INFO():
-    BTH_L2CAP_EVENT_INFO = win32more.Devices.Bluetooth.BTH_L2CAP_EVENT_INFO_head
-    BTH_L2CAP_EVENT_INFO._fields_ = [
-        ("bthAddress", UInt64),
-        ("psm", UInt16),
-        ("connected", Byte),
-        ("initiated", Byte),
-    ]
-    return BTH_L2CAP_EVENT_INFO
-def _define_BTH_HCI_EVENT_INFO_head():
-    class BTH_HCI_EVENT_INFO(Structure):
-        pass
-    return BTH_HCI_EVENT_INFO
-def _define_BTH_HCI_EVENT_INFO():
-    BTH_HCI_EVENT_INFO = win32more.Devices.Bluetooth.BTH_HCI_EVENT_INFO_head
-    BTH_HCI_EVENT_INFO._fields_ = [
-        ("bthAddress", UInt64),
-        ("connectionType", Byte),
-        ("connected", Byte),
-    ]
-    return BTH_HCI_EVENT_INFO
-IO_CAPABILITY = Int32
-IoCaps_DisplayOnly = 0
-IoCaps_DisplayYesNo = 1
-IoCaps_KeyboardOnly = 2
-IoCaps_NoInputNoOutput = 3
-IoCaps_Undefined = 255
+BLUETOOTH_MAX_NAME_SIZE = 248
+BLUETOOTH_MAX_PASSKEY_SIZE = 16
+BLUETOOTH_MAX_PASSKEY_BUFFER_SIZE = 17
+BLUETOOTH_MAX_SERVICE_NAME_SIZE = 256
+BLUETOOTH_DEVICE_NAME_SIZE = 256
+BLUETOOTH_SERVICE_DISABLE = 0
+BLUETOOTH_SERVICE_ENABLE = 1
+def _define_GUID_BLUETOOTHLE_DEVICE_INTERFACE():
+    return Guid('781aee18-7733-4ce4-ad-d0-91-f4-1c-67-b5-92')
+def _define_GUID_BLUETOOTH_GATT_SERVICE_DEVICE_INTERFACE():
+    return Guid('6e3bb679-4372-40c8-9e-aa-45-09-df-26-0c-d8')
+def _define_BTH_LE_ATT_BLUETOOTH_BASE_GUID():
+    return Guid('00000000-0000-1000-80-00-00-80-5f-9b-34-fb')
+BTH_LE_SERVICE_GAP = 6144
+BTH_LE_SERVICE_GATT = 6145
+BTH_LE_GATT_ATTRIBUTE_TYPE_PRIMARY_SERVICE = 10240
+BTH_LE_GATT_ATTRIBUTE_TYPE_SECONDARY_SERVICE = 10241
+BTH_LE_GATT_ATTRIBUTE_TYPE_INCLUDE = 10242
+BTH_LE_GATT_ATTRIBUTE_TYPE_CHARACTERISTIC = 10243
+BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_EXTENDED_PROPERTIES = 10496
+BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_USER_DESCRIPTION = 10497
+BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_CLIENT_CONFIGURATION = 10498
+BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_SERVER_CONFIGURATION = 10499
+BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_FORMAT = 10500
+BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_AGGREGATE_FORMAT = 10501
+BTH_LE_GATT_CHARACTERISTIC_TYPE_DEVICE_NAME = 10752
+BTH_LE_GATT_CHARACTERISTIC_TYPE_APPEARANCE = 10753
+BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PRIVACY_FLAG = 10754
+BTH_LE_GATT_CHARACTERISTIC_TYPE_RECONNECTION_ADDRESS = 10755
+BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PREFERED_CONNECTION_PARAMETER = 10756
+BTH_LE_GATT_CHARACTERISTIC_TYPE_SERVICE_CHANGED = 10757
+BTH_LE_GAP_APPEARANCE_CATEGORY_OFFSET = 6
+BTH_LE_GAP_APPEARANCE_CATEGORY_MASK = 1023
+BTH_LE_GAP_APPEARANCE_SUB_CATEGORY_MASK = 63
+BTH_LE_GAP_APPEARANCE_CATEGORY_UNCATEGORIZED = 0
+BTH_LE_GAP_APPEARANCE_CATEGORY_PHONE = 1
+BTH_LE_GAP_APPEARANCE_CATEGORY_COMPUTER = 2
+BTH_LE_GAP_APPEARANCE_CATEGORY_WATCH = 3
+BTH_LE_GAP_APPEARANCE_CATEGORY_CLOCK = 4
+BTH_LE_GAP_APPEARANCE_CATEGORY_DISPLAY = 5
+BTH_LE_GAP_APPEARANCE_CATEGORY_REMOTE_CONTROL = 6
+BTH_LE_GAP_APPEARANCE_CATEGORY_EYE_GLASSES = 7
+BTH_LE_GAP_APPEARANCE_CATEGORY_TAG = 8
+BTH_LE_GAP_APPEARANCE_CATEGORY_KEYRING = 9
+BTH_LE_GAP_APPEARANCE_CATEGORY_MEDIA_PLAYER = 10
+BTH_LE_GAP_APPEARANCE_CATEGORY_BARCODE_SCANNER = 11
+BTH_LE_GAP_APPEARANCE_CATEGORY_THERMOMETER = 12
+BTH_LE_GAP_APPEARANCE_CATEGORY_HEART_RATE = 13
+BTH_LE_GAP_APPEARANCE_CATEGORY_BLOOD_PRESSURE = 14
+BTH_LE_GAP_APPEARANCE_CATEGORY_HID = 15
+BTH_LE_GAP_APPEARANCE_CATEGORY_GLUCOSE_METER = 16
+BTH_LE_GAP_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR = 17
+BTH_LE_GAP_APPEARANCE_CATEGORY_CYCLING = 18
+BTH_LE_GAP_APPEARANCE_CATEGORY_PLUSE_OXIMETER = 49
+BTH_LE_GAP_APPEARANCE_CATEGORY_WEIGHT_SCALE = 50
+BTH_LE_GAP_APPEARANCE_CATEGORY_OUTDOOR_SPORTS_ACTIVITY = 81
+BTH_LE_GAP_APPEARANCE_SUBCATEGORY_GENERIC = 0
+BTH_LE_GAP_APPEARANCE_WATCH_SUBCATEGORY_SPORTS_WATCH = 1
+BTH_LE_GAP_APPEARANCE_THERMOMETER_SUBCATEGORY_EAR = 1
+BTH_LE_GAP_APPEARANCE_HEART_RATE_SUBCATEGORY_HEART_RATE_BELT = 1
+BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_ARM = 1
+BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_WRIST = 2
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_KEYBOARD = 1
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_MOUSE = 2
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_JOYSTICK = 3
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_GAMEPAD = 4
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITIZER_TABLET = 5
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_CARD_READER = 6
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITAL_PEN = 7
+BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_BARCODE_SCANNER = 8
+BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_IN_SHOE = 1
+BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_SHOE = 2
+BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_HIP = 3
+BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CYCLING_COMPUTER = 1
+BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_SENSOR = 2
+BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CADENCE_SENSOR = 3
+BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_POWER_SENSOR = 4
+BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_AND_CADENCE_SENSOR = 5
+BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_FINGERTIP = 1
+BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_WRIST_WORN = 2
+BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_DISPLAY_DEVICE = 1
+BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_DISPLAY_DEVICE = 2
+BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_POD = 3
+BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_POD = 4
+BTH_LE_GATT_DEFAULT_MAX_INCLUDED_SERVICES_DEPTH = 3
+BTH_LE_ATT_TRANSACTION_TIMEOUT = 30
+BTH_LE_ATT_MAX_VALUE_SIZE = 512
+BTH_LE_ATT_CID = 4
+BTHLEENUM_ATT_MTU_MIN = 23
+BTHLEENUM_ATT_MTU_MAX = 65535
+BTHLEENUM_ATT_MTU_DEFAULT = 23
+BTHLEENUM_ATT_MTU_INITIAL_NEGOTIATION = 525
+BTH_LE_ERROR_INVALID_HANDLE = 1
+BTH_LE_ERROR_READ_NOT_PERMITTED = 2
+BTH_LE_ERROR_WRITE_NOT_PERMITTED = 3
+BTH_LE_ERROR_INVALID_PDU = 4
+BTH_LE_ERROR_INSUFFICIENT_AUTHENTICATION = 5
+BTH_LE_ERROR_REQUEST_NOT_SUPPORTED = 6
+BTH_LE_ERROR_INVALID_OFFSET = 7
+BTH_LE_ERROR_INSUFFICIENT_AUTHORIZATION = 8
+BTH_LE_ERROR_PREPARE_QUEUE_FULL = 9
+BTH_LE_ERROR_ATTRIBUTE_NOT_FOUND = 10
+BTH_LE_ERROR_ATTRIBUTE_NOT_LONG = 11
+BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION_KEY_SIZE = 12
+BTH_LE_ERROR_INVALID_ATTRIBUTE_VALUE_LENGTH = 13
+BTH_LE_ERROR_UNLIKELY = 14
+BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION = 15
+BTH_LE_ERROR_UNSUPPORTED_GROUP_TYPE = 16
+BTH_LE_ERROR_INSUFFICIENT_RESOURCES = 17
+BTH_LE_ERROR_UNKNOWN = 4096
+BLUETOOTH_GATT_FLAG_NONE = 0
+BLUETOOTH_GATT_FLAG_CONNECTION_ENCRYPTED = 1
+BLUETOOTH_GATT_FLAG_CONNECTION_AUTHENTICATED = 2
+BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_DEVICE = 4
+BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_CACHE = 8
+BLUETOOTH_GATT_FLAG_SIGNED_WRITE = 16
+BLUETOOTH_GATT_FLAG_WRITE_WITHOUT_RESPONSE = 32
+BLUETOOTH_GATT_FLAG_RETURN_ALL = 64
+BT_PORT_MIN = 1
+BT_PORT_MAX = 65535
+BT_PORT_DYN_FIRST = 4097
+AF_BTH = 32
+PF_BTH = 32
+NS_BTH = 16
+def _define_SVCID_BTH_PROVIDER():
+    return Guid('06aa63e0-7d60-41ff-af-b2-3e-e6-d2-d9-39-2d')
+BTH_ADDR_STRING_SIZE = 12
+BTHPROTO_RFCOMM = 3
+BTHPROTO_L2CAP = 256
+SOL_RFCOMM = 3
+SOL_L2CAP = 256
+SOL_SDP = 257
+SO_BTH_AUTHENTICATE = 2147483649
+SO_BTH_ENCRYPT = 2
+SO_BTH_MTU = 2147483655
+SO_BTH_MTU_MAX = 2147483656
+SO_BTH_MTU_MIN = 2147483658
+RFCOMM_MAX_MTU = 1011
+RFCOMM_MIN_MTU = 23
+BTH_SDP_VERSION = 1
+SDP_DEFAULT_INQUIRY_SECONDS = 6
+SDP_MAX_INQUIRY_SECONDS = 60
+SDP_DEFAULT_INQUIRY_MAX_RESPONSES = 255
+SDP_SERVICE_SEARCH_REQUEST = 1
+SDP_SERVICE_ATTRIBUTE_REQUEST = 2
+SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST = 3
+BTHNS_RESULT_DEVICE_CONNECTED = 65536
+BTHNS_RESULT_DEVICE_REMEMBERED = 131072
+BTHNS_RESULT_DEVICE_AUTHENTICATED = 262144
+RLS_ERROR = 1
+RLS_OVERRUN = 2
+RLS_PARITY = 4
+RLS_FRAMING = 8
+RPN_BAUD_2400 = 0
+RPN_BAUD_4800 = 1
+RPN_BAUD_7200 = 2
+RPN_BAUD_9600 = 3
+RPN_BAUD_19200 = 4
+RPN_BAUD_38400 = 5
+RPN_BAUD_57600 = 6
+RPN_BAUD_115200 = 7
+RPN_BAUD_230400 = 8
+RPN_DATA_5 = 0
+RPN_DATA_6 = 1
+RPN_DATA_7 = 2
+RPN_DATA_8 = 3
+RPN_STOP_1 = 0
+RPN_STOP_1_5 = 4
+RPN_PARITY_NONE = 0
+RPN_PARITY_ODD = 8
+RPN_PARITY_EVEN = 24
+RPN_PARITY_MARK = 40
+RPN_PARITY_SPACE = 56
+RPN_FLOW_X_IN = 1
+RPN_FLOW_X_OUT = 2
+RPN_FLOW_RTR_IN = 4
+RPN_FLOW_RTR_OUT = 8
+RPN_FLOW_RTC_IN = 16
+RPN_FLOW_RTC_OUT = 32
+RPN_PARAM_BAUD = 1
+RPN_PARAM_DATA = 2
+RPN_PARAM_STOP = 4
+RPN_PARAM_PARITY = 8
+RPN_PARAM_P_TYPE = 16
+RPN_PARAM_XON = 32
+RPN_PARAM_XOFF = 64
+RPN_PARAM_X_IN = 1
+RPN_PARAM_X_OUT = 2
+RPN_PARAM_RTR_IN = 4
+RPN_PARAM_RTR_OUT = 8
+RPN_PARAM_RTC_IN = 16
+RPN_PARAM_RTC_OUT = 32
+RFCOMM_CMD_NONE = 0
+RFCOMM_CMD_MSC = 1
+RFCOMM_CMD_RLS = 2
+RFCOMM_CMD_RPN = 3
+RFCOMM_CMD_RPN_REQUEST = 4
+RFCOMM_CMD_RPN_RESPONSE = 5
+def _define_BluetoothFindFirstRadio():
+    try:
+        return WINFUNCTYPE(IntPtr,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_FIND_RADIO_PARAMS_head),POINTER(win32more.Foundation.HANDLE))(('BluetoothFindFirstRadio', windll['BluetoothApis.dll']), ((1, 'pbtfrp'),(1, 'phRadio'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothFindNextRadio():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Foundation.HANDLE))(('BluetoothFindNextRadio', windll['BluetoothApis.dll']), ((1, 'hFind'),(1, 'phRadio'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothFindRadioClose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('BluetoothFindRadioClose', windll['BluetoothApis.dll']), ((1, 'hFind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGetRadioInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_RADIO_INFO_head))(('BluetoothGetRadioInfo', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'pRadioInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothFindFirstDevice():
+    try:
+        return WINFUNCTYPE(IntPtr,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_SEARCH_PARAMS_head),POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))(('BluetoothFindFirstDevice', windll['BluetoothApis.dll']), ((1, 'pbtsp'),(1, 'pbtdi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothFindNextDevice():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))(('BluetoothFindNextDevice', windll['BluetoothApis.dll']), ((1, 'hFind'),(1, 'pbtdi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothFindDeviceClose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('BluetoothFindDeviceClose', windll['BluetoothApis.dll']), ((1, 'hFind'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGetDeviceInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))(('BluetoothGetDeviceInfo', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'pbtdi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothUpdateDeviceRecord():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))(('BluetoothUpdateDeviceRecord', windll['BluetoothApis.dll']), ((1, 'pbtdi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothRemoveDevice():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS_head))(('BluetoothRemoveDevice', windll['BluetoothApis.dll']), ((1, 'pAddress'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSelectDevices():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_SELECT_DEVICE_PARAMS_head))(('BluetoothSelectDevices', windll['bthprops.cpl']), ((1, 'pbtsdp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSelectDevicesFree():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_SELECT_DEVICE_PARAMS_head))(('BluetoothSelectDevicesFree', windll['bthprops.cpl']), ((1, 'pbtsdp'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothDisplayDeviceProperties():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))(('BluetoothDisplayDeviceProperties', windll['bthprops.cpl']), ((1, 'hwndParent'),(1, 'pbtdi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothAuthenticateDevice():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),win32more.Foundation.PWSTR,UInt32)(('BluetoothAuthenticateDevice', windll['bthprops.cpl']), ((1, 'hwndParent'),(1, 'hRadio'),(1, 'pbtbi'),(1, 'pszPasskey'),(1, 'ulPasskeyLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothAuthenticateDeviceEx():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(win32more.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO_head),win32more.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS)(('BluetoothAuthenticateDeviceEx', windll['bthprops.cpl']), ((1, 'hwndParentIn'),(1, 'hRadioIn'),(1, 'pbtdiInout'),(1, 'pbtOobData'),(1, 'authenticationRequirement'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothAuthenticateMultipleDevices():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))(('BluetoothAuthenticateMultipleDevices', windll['bthprops.cpl']), ((1, 'hwndParent'),(1, 'hRadio'),(1, 'cDevices'),(1, 'rgbtdi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSetServiceState():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(Guid),UInt32)(('BluetoothSetServiceState', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'pbtdi'),(1, 'pGuidService'),(1, 'dwServiceFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothEnumerateInstalledServices():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(UInt32),POINTER(Guid))(('BluetoothEnumerateInstalledServices', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'pbtdi'),(1, 'pcServiceInout'),(1, 'pGuidServices'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothEnableDiscovery():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('BluetoothEnableDiscovery', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'fEnabled'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothIsDiscoverable():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('BluetoothIsDiscoverable', windll['BluetoothApis.dll']), ((1, 'hRadio'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothEnableIncomingConnections():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('BluetoothEnableIncomingConnections', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'fEnabled'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothIsConnectable():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('BluetoothIsConnectable', windll['BluetoothApis.dll']), ((1, 'hRadio'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothRegisterForAuthentication():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(IntPtr),win32more.Devices.Bluetooth.PFN_AUTHENTICATION_CALLBACK,c_void_p)(('BluetoothRegisterForAuthentication', windll['BluetoothApis.dll']), ((1, 'pbtdi'),(1, 'phRegHandle'),(1, 'pfnCallback'),(1, 'pvParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothRegisterForAuthenticationEx():
+    try:
+        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(IntPtr),win32more.Devices.Bluetooth.PFN_AUTHENTICATION_CALLBACK_EX,c_void_p)(('BluetoothRegisterForAuthenticationEx', windll['BluetoothApis.dll']), ((1, 'pbtdiIn'),(1, 'phRegHandleOut'),(1, 'pfnCallbackIn'),(1, 'pvParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothUnregisterAuthentication():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('BluetoothUnregisterAuthentication', windll['BluetoothApis.dll']), ((1, 'hRegHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSendAuthenticationResponse():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),win32more.Foundation.PWSTR)(('BluetoothSendAuthenticationResponse', windll['BluetoothApis.dll']), ((1, 'hRadio'),(1, 'pbtdi'),(1, 'pszPasskey'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSendAuthenticationResponseEx():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATE_RESPONSE_head))(('BluetoothSendAuthenticationResponseEx', windll['BluetoothApis.dll']), ((1, 'hRadioIn'),(1, 'pauthResponse'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSdpGetElementData():
+    try:
+        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head))(('BluetoothSdpGetElementData', windll['BluetoothApis.dll']), ((1, 'pSdpStream'),(1, 'cbSdpStreamLength'),(1, 'pData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSdpGetContainerElementData():
+    try:
+        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(IntPtr),POINTER(win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head))(('BluetoothSdpGetContainerElementData', windll['BluetoothApis.dll']), ((1, 'pContainerStream'),(1, 'cbContainerLength'),(1, 'pElement'),(1, 'pData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSdpGetAttributeValue():
+    try:
+        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,UInt16,POINTER(win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head))(('BluetoothSdpGetAttributeValue', windll['BluetoothApis.dll']), ((1, 'pRecordStream'),(1, 'cbRecordLength'),(1, 'usAttributeId'),(1, 'pAttributeData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSdpGetString():
+    try:
+        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(win32more.Devices.Bluetooth.SDP_STRING_TYPE_DATA_head),UInt16,win32more.Foundation.PWSTR,POINTER(UInt32))(('BluetoothSdpGetString', windll['BluetoothApis.dll']), ((1, 'pRecordStream'),(1, 'cbRecordLength'),(1, 'pStringData'),(1, 'usStringOffset'),(1, 'pszString'),(1, 'pcchStringLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSdpEnumAttributes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,win32more.Devices.Bluetooth.PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK,c_void_p)(('BluetoothSdpEnumAttributes', windll['BluetoothApis.dll']), ((1, 'pSDPStream'),(1, 'cbStreamSize'),(1, 'pfnCallback'),(1, 'pvParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothSetLocalServiceInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_LOCAL_SERVICE_INFO_head))(('BluetoothSetLocalServiceInfo', windll['BluetoothApis.dll']), ((1, 'hRadioIn'),(1, 'pClassGuid'),(1, 'ulInstance'),(1, 'pServiceInfoIn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothIsVersionAvailable():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Byte,Byte)(('BluetoothIsVersionAvailable', windll['BluetoothApis.dll']), ((1, 'MajorVersion'),(1, 'MinorVersion'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTGetServices():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt16,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_SERVICE_head),POINTER(UInt16),UInt32)(('BluetoothGATTGetServices', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'ServicesBufferCount'),(1, 'ServicesBuffer'),(1, 'ServicesBufferActual'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTGetIncludedServices():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_SERVICE_head),UInt16,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_SERVICE_head),POINTER(UInt16),UInt32)(('BluetoothGATTGetIncludedServices', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'ParentService'),(1, 'IncludedServicesBufferCount'),(1, 'IncludedServicesBuffer'),(1, 'IncludedServicesBufferActual'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTGetCharacteristics():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_SERVICE_head),UInt16,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_head),POINTER(UInt16),UInt32)(('BluetoothGATTGetCharacteristics', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'Service'),(1, 'CharacteristicsBufferCount'),(1, 'CharacteristicsBuffer'),(1, 'CharacteristicsBufferActual'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTGetDescriptors():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_head),UInt16,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_head),POINTER(UInt16),UInt32)(('BluetoothGATTGetDescriptors', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'Characteristic'),(1, 'DescriptorsBufferCount'),(1, 'DescriptorsBuffer'),(1, 'DescriptorsBufferActual'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTGetCharacteristicValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_head),UInt32,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_VALUE_head),POINTER(UInt16),UInt32)(('BluetoothGATTGetCharacteristicValue', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'Characteristic'),(1, 'CharacteristicValueDataSize'),(1, 'CharacteristicValue'),(1, 'CharacteristicValueSizeRequired'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTGetDescriptorValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_head),UInt32,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_VALUE_head),POINTER(UInt16),UInt32)(('BluetoothGATTGetDescriptorValue', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'Descriptor'),(1, 'DescriptorValueDataSize'),(1, 'DescriptorValue'),(1, 'DescriptorValueSizeRequired'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTBeginReliableWrite():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt64),UInt32)(('BluetoothGATTBeginReliableWrite', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'ReliableWriteContext'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTSetCharacteristicValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_head),POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_VALUE_head),UInt64,UInt32)(('BluetoothGATTSetCharacteristicValue', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'Characteristic'),(1, 'CharacteristicValue'),(1, 'ReliableWriteContext'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTEndReliableWrite():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt64,UInt32)(('BluetoothGATTEndReliableWrite', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'ReliableWriteContext'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTAbortReliableWrite():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt64,UInt32)(('BluetoothGATTAbortReliableWrite', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'ReliableWriteContext'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTSetDescriptorValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_head),POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_VALUE_head),UInt32)(('BluetoothGATTSetDescriptorValue', windll['BluetoothApis.dll']), ((1, 'hDevice'),(1, 'Descriptor'),(1, 'DescriptorValue'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTRegisterEvent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE,c_void_p,win32more.Devices.Bluetooth.PFNBLUETOOTH_GATT_EVENT_CALLBACK,c_void_p,POINTER(IntPtr),UInt32)(('BluetoothGATTRegisterEvent', windll['BluetoothApis.dll']), ((1, 'hService'),(1, 'EventType'),(1, 'EventParameterIn'),(1, 'Callback'),(1, 'CallbackContext'),(1, 'pEventHandle'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_BluetoothGATTUnregisterEvent():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,UInt32)(('BluetoothGATTUnregisterEvent', windll['BluetoothApis.dll']), ((1, 'EventHandle'),(1, 'Flags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
 AUTHENTICATION_REQUIREMENTS = Int32
 AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired = 0
 AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired = 1
@@ -942,215 +1058,16 @@ def _define_BLUETOOTH_ADDRESS():
     class BLUETOOTH_ADDRESS__Anonymous_e__Union(Union):
         pass
     BLUETOOTH_ADDRESS__Anonymous_e__Union._fields_ = [
-        ("ullLong", UInt64),
-        ("rgBytes", Byte * 6),
+        ('ullLong', UInt64),
+        ('rgBytes', Byte * 6),
     ]
     BLUETOOTH_ADDRESS._anonymous_ = [
         'Anonymous',
     ]
     BLUETOOTH_ADDRESS._fields_ = [
-        ("Anonymous", BLUETOOTH_ADDRESS__Anonymous_e__Union),
+        ('Anonymous', BLUETOOTH_ADDRESS__Anonymous_e__Union),
     ]
     return BLUETOOTH_ADDRESS
-def _define_BLUETOOTH_LOCAL_SERVICE_INFO_head():
-    class BLUETOOTH_LOCAL_SERVICE_INFO(Structure):
-        pass
-    return BLUETOOTH_LOCAL_SERVICE_INFO
-def _define_BLUETOOTH_LOCAL_SERVICE_INFO():
-    BLUETOOTH_LOCAL_SERVICE_INFO = win32more.Devices.Bluetooth.BLUETOOTH_LOCAL_SERVICE_INFO_head
-    BLUETOOTH_LOCAL_SERVICE_INFO._fields_ = [
-        ("Enabled", win32more.Foundation.BOOL),
-        ("btAddr", win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
-        ("szName", Char * 256),
-        ("szDeviceString", Char * 256),
-    ]
-    return BLUETOOTH_LOCAL_SERVICE_INFO
-def _define_BLUETOOTH_FIND_RADIO_PARAMS_head():
-    class BLUETOOTH_FIND_RADIO_PARAMS(Structure):
-        pass
-    return BLUETOOTH_FIND_RADIO_PARAMS
-def _define_BLUETOOTH_FIND_RADIO_PARAMS():
-    BLUETOOTH_FIND_RADIO_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_FIND_RADIO_PARAMS_head
-    BLUETOOTH_FIND_RADIO_PARAMS._fields_ = [
-        ("dwSize", UInt32),
-    ]
-    return BLUETOOTH_FIND_RADIO_PARAMS
-def _define_BLUETOOTH_RADIO_INFO_head():
-    class BLUETOOTH_RADIO_INFO(Structure):
-        pass
-    return BLUETOOTH_RADIO_INFO
-def _define_BLUETOOTH_RADIO_INFO():
-    BLUETOOTH_RADIO_INFO = win32more.Devices.Bluetooth.BLUETOOTH_RADIO_INFO_head
-    BLUETOOTH_RADIO_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("address", win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
-        ("szName", Char * 248),
-        ("ulClassofDevice", UInt32),
-        ("lmpSubversion", UInt16),
-        ("manufacturer", UInt16),
-    ]
-    return BLUETOOTH_RADIO_INFO
-def _define_BLUETOOTH_DEVICE_INFO_head():
-    class BLUETOOTH_DEVICE_INFO(Structure):
-        pass
-    return BLUETOOTH_DEVICE_INFO
-def _define_BLUETOOTH_DEVICE_INFO():
-    BLUETOOTH_DEVICE_INFO = win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head
-    BLUETOOTH_DEVICE_INFO._fields_ = [
-        ("dwSize", UInt32),
-        ("Address", win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
-        ("ulClassofDevice", UInt32),
-        ("fConnected", win32more.Foundation.BOOL),
-        ("fRemembered", win32more.Foundation.BOOL),
-        ("fAuthenticated", win32more.Foundation.BOOL),
-        ("stLastSeen", win32more.Foundation.SYSTEMTIME),
-        ("stLastUsed", win32more.Foundation.SYSTEMTIME),
-        ("szName", Char * 248),
-    ]
-    return BLUETOOTH_DEVICE_INFO
-BLUETOOTH_AUTHENTICATION_METHOD = Int32
-BLUETOOTH_AUTHENTICATION_METHOD_LEGACY = 1
-BLUETOOTH_AUTHENTICATION_METHOD_OOB = 2
-BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON = 3
-BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION = 4
-BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY = 5
-BLUETOOTH_IO_CAPABILITY = Int32
-BLUETOOTH_IO_CAPABILITY_DISPLAYONLY = 0
-BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO = 1
-BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY = 2
-BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT = 3
-BLUETOOTH_IO_CAPABILITY_UNDEFINED = 255
-BLUETOOTH_AUTHENTICATION_REQUIREMENTS = Int32
-BLUETOOTH_MITM_ProtectionNotRequired = 0
-BLUETOOTH_MITM_ProtectionRequired = 1
-BLUETOOTH_MITM_ProtectionNotRequiredBonding = 2
-BLUETOOTH_MITM_ProtectionRequiredBonding = 3
-BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding = 4
-BLUETOOTH_MITM_ProtectionRequiredGeneralBonding = 5
-BLUETOOTH_MITM_ProtectionNotDefined = 255
-def _define_BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head():
-    class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS(Structure):
-        pass
-    return BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS
-def _define_BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS():
-    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head
-    class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS__Anonymous_e__Union(Union):
-        pass
-    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS__Anonymous_e__Union._fields_ = [
-        ("Numeric_Value", UInt32),
-        ("Passkey", UInt32),
-    ]
-    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS._anonymous_ = [
-        'Anonymous',
-    ]
-    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS._fields_ = [
-        ("deviceInfo", win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO),
-        ("authenticationMethod", win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD),
-        ("ioCapability", win32more.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY),
-        ("authenticationRequirements", win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS),
-        ("Anonymous", BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS__Anonymous_e__Union),
-    ]
-    return BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS
-def _define_BLUETOOTH_DEVICE_SEARCH_PARAMS_head():
-    class BLUETOOTH_DEVICE_SEARCH_PARAMS(Structure):
-        pass
-    return BLUETOOTH_DEVICE_SEARCH_PARAMS
-def _define_BLUETOOTH_DEVICE_SEARCH_PARAMS():
-    BLUETOOTH_DEVICE_SEARCH_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_SEARCH_PARAMS_head
-    BLUETOOTH_DEVICE_SEARCH_PARAMS._fields_ = [
-        ("dwSize", UInt32),
-        ("fReturnAuthenticated", win32more.Foundation.BOOL),
-        ("fReturnRemembered", win32more.Foundation.BOOL),
-        ("fReturnUnknown", win32more.Foundation.BOOL),
-        ("fReturnConnected", win32more.Foundation.BOOL),
-        ("fIssueInquiry", win32more.Foundation.BOOL),
-        ("cTimeoutMultiplier", Byte),
-        ("hRadio", win32more.Foundation.HANDLE),
-    ]
-    return BLUETOOTH_DEVICE_SEARCH_PARAMS
-def _define_BLUETOOTH_COD_PAIRS_head():
-    class BLUETOOTH_COD_PAIRS(Structure):
-        pass
-    return BLUETOOTH_COD_PAIRS
-def _define_BLUETOOTH_COD_PAIRS():
-    BLUETOOTH_COD_PAIRS = win32more.Devices.Bluetooth.BLUETOOTH_COD_PAIRS_head
-    BLUETOOTH_COD_PAIRS._fields_ = [
-        ("ulCODMask", UInt32),
-        ("pcszDescription", win32more.Foundation.PWSTR),
-    ]
-    return BLUETOOTH_COD_PAIRS
-def _define_PFN_DEVICE_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=False)
-def _define_BLUETOOTH_SELECT_DEVICE_PARAMS_head():
-    class BLUETOOTH_SELECT_DEVICE_PARAMS(Structure):
-        pass
-    return BLUETOOTH_SELECT_DEVICE_PARAMS
-def _define_BLUETOOTH_SELECT_DEVICE_PARAMS():
-    BLUETOOTH_SELECT_DEVICE_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_SELECT_DEVICE_PARAMS_head
-    BLUETOOTH_SELECT_DEVICE_PARAMS._fields_ = [
-        ("dwSize", UInt32),
-        ("cNumOfClasses", UInt32),
-        ("prgClassOfDevices", POINTER(win32more.Devices.Bluetooth.BLUETOOTH_COD_PAIRS_head)),
-        ("pszInfo", win32more.Foundation.PWSTR),
-        ("hwndParent", win32more.Foundation.HWND),
-        ("fForceAuthentication", win32more.Foundation.BOOL),
-        ("fShowAuthenticated", win32more.Foundation.BOOL),
-        ("fShowRemembered", win32more.Foundation.BOOL),
-        ("fShowUnknown", win32more.Foundation.BOOL),
-        ("fAddNewDeviceWizard", win32more.Foundation.BOOL),
-        ("fSkipServicesPage", win32more.Foundation.BOOL),
-        ("pfnDeviceCallback", win32more.Devices.Bluetooth.PFN_DEVICE_CALLBACK),
-        ("pvParam", c_void_p),
-        ("cNumDevices", UInt32),
-        ("pDevices", POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head)),
-    ]
-    return BLUETOOTH_SELECT_DEVICE_PARAMS
-def _define_BLUETOOTH_PIN_INFO_head():
-    class BLUETOOTH_PIN_INFO(Structure):
-        pass
-    return BLUETOOTH_PIN_INFO
-def _define_BLUETOOTH_PIN_INFO():
-    BLUETOOTH_PIN_INFO = win32more.Devices.Bluetooth.BLUETOOTH_PIN_INFO_head
-    BLUETOOTH_PIN_INFO._fields_ = [
-        ("pin", Byte * 16),
-        ("pinLength", Byte),
-    ]
-    return BLUETOOTH_PIN_INFO
-def _define_BLUETOOTH_OOB_DATA_INFO_head():
-    class BLUETOOTH_OOB_DATA_INFO(Structure):
-        pass
-    return BLUETOOTH_OOB_DATA_INFO
-def _define_BLUETOOTH_OOB_DATA_INFO():
-    BLUETOOTH_OOB_DATA_INFO = win32more.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO_head
-    BLUETOOTH_OOB_DATA_INFO._fields_ = [
-        ("C", Byte * 16),
-        ("R", Byte * 16),
-    ]
-    return BLUETOOTH_OOB_DATA_INFO
-def _define_BLUETOOTH_NUMERIC_COMPARISON_INFO_head():
-    class BLUETOOTH_NUMERIC_COMPARISON_INFO(Structure):
-        pass
-    return BLUETOOTH_NUMERIC_COMPARISON_INFO
-def _define_BLUETOOTH_NUMERIC_COMPARISON_INFO():
-    BLUETOOTH_NUMERIC_COMPARISON_INFO = win32more.Devices.Bluetooth.BLUETOOTH_NUMERIC_COMPARISON_INFO_head
-    BLUETOOTH_NUMERIC_COMPARISON_INFO._fields_ = [
-        ("NumericValue", UInt32),
-    ]
-    return BLUETOOTH_NUMERIC_COMPARISON_INFO
-def _define_BLUETOOTH_PASSKEY_INFO_head():
-    class BLUETOOTH_PASSKEY_INFO(Structure):
-        pass
-    return BLUETOOTH_PASSKEY_INFO
-def _define_BLUETOOTH_PASSKEY_INFO():
-    BLUETOOTH_PASSKEY_INFO = win32more.Devices.Bluetooth.BLUETOOTH_PASSKEY_INFO_head
-    BLUETOOTH_PASSKEY_INFO._fields_ = [
-        ("passkey", UInt32),
-    ]
-    return BLUETOOTH_PASSKEY_INFO
-def _define_PFN_AUTHENTICATION_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=False)
-def _define_PFN_AUTHENTICATION_CALLBACK_EX():
-    return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head), use_last_error=False)
 def _define_BLUETOOTH_AUTHENTICATE_RESPONSE_head():
     class BLUETOOTH_AUTHENTICATE_RESPONSE(Structure):
         pass
@@ -1160,230 +1077,262 @@ def _define_BLUETOOTH_AUTHENTICATE_RESPONSE():
     class BLUETOOTH_AUTHENTICATE_RESPONSE__Anonymous_e__Union(Union):
         pass
     BLUETOOTH_AUTHENTICATE_RESPONSE__Anonymous_e__Union._fields_ = [
-        ("pinInfo", win32more.Devices.Bluetooth.BLUETOOTH_PIN_INFO),
-        ("oobInfo", win32more.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO),
-        ("numericCompInfo", win32more.Devices.Bluetooth.BLUETOOTH_NUMERIC_COMPARISON_INFO),
-        ("passkeyInfo", win32more.Devices.Bluetooth.BLUETOOTH_PASSKEY_INFO),
+        ('pinInfo', win32more.Devices.Bluetooth.BLUETOOTH_PIN_INFO),
+        ('oobInfo', win32more.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO),
+        ('numericCompInfo', win32more.Devices.Bluetooth.BLUETOOTH_NUMERIC_COMPARISON_INFO),
+        ('passkeyInfo', win32more.Devices.Bluetooth.BLUETOOTH_PASSKEY_INFO),
     ]
     BLUETOOTH_AUTHENTICATE_RESPONSE._anonymous_ = [
         'Anonymous',
     ]
     BLUETOOTH_AUTHENTICATE_RESPONSE._fields_ = [
-        ("bthAddressRemote", win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
-        ("authMethod", win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD),
-        ("Anonymous", BLUETOOTH_AUTHENTICATE_RESPONSE__Anonymous_e__Union),
-        ("negativeResponse", Byte),
+        ('bthAddressRemote', win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
+        ('authMethod', win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD),
+        ('Anonymous', BLUETOOTH_AUTHENTICATE_RESPONSE__Anonymous_e__Union),
+        ('negativeResponse', Byte),
     ]
     return BLUETOOTH_AUTHENTICATE_RESPONSE
-def _define_SDP_ELEMENT_DATA_head():
-    class SDP_ELEMENT_DATA(Structure):
+def _define_BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head():
+    class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS(Structure):
         pass
-    return SDP_ELEMENT_DATA
-def _define_SDP_ELEMENT_DATA():
-    SDP_ELEMENT_DATA = win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head
-    class SDP_ELEMENT_DATA__data_e__Union(Union):
+    return BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS
+def _define_BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS():
+    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head
+    class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS__Anonymous_e__Union(Union):
         pass
-    class SDP_ELEMENT_DATA__data_e__Union__sequence_e__Struct(Structure):
+    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS__Anonymous_e__Union._fields_ = [
+        ('Numeric_Value', UInt32),
+        ('Passkey', UInt32),
+    ]
+    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS._anonymous_ = [
+        'Anonymous',
+    ]
+    BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS._fields_ = [
+        ('deviceInfo', win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO),
+        ('authenticationMethod', win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD),
+        ('ioCapability', win32more.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY),
+        ('authenticationRequirements', win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS),
+        ('Anonymous', BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS__Anonymous_e__Union),
+    ]
+    return BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS
+BLUETOOTH_AUTHENTICATION_METHOD = Int32
+BLUETOOTH_AUTHENTICATION_METHOD_LEGACY = 1
+BLUETOOTH_AUTHENTICATION_METHOD_OOB = 2
+BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON = 3
+BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION = 4
+BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY = 5
+BLUETOOTH_AUTHENTICATION_REQUIREMENTS = Int32
+BLUETOOTH_MITM_ProtectionNotRequired = 0
+BLUETOOTH_MITM_ProtectionRequired = 1
+BLUETOOTH_MITM_ProtectionNotRequiredBonding = 2
+BLUETOOTH_MITM_ProtectionRequiredBonding = 3
+BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding = 4
+BLUETOOTH_MITM_ProtectionRequiredGeneralBonding = 5
+BLUETOOTH_MITM_ProtectionNotDefined = 255
+def _define_BLUETOOTH_COD_PAIRS_head():
+    class BLUETOOTH_COD_PAIRS(Structure):
         pass
-    SDP_ELEMENT_DATA__data_e__Union__sequence_e__Struct._fields_ = [
-        ("value", c_char_p_no),
-        ("length", UInt32),
+    return BLUETOOTH_COD_PAIRS
+def _define_BLUETOOTH_COD_PAIRS():
+    BLUETOOTH_COD_PAIRS = win32more.Devices.Bluetooth.BLUETOOTH_COD_PAIRS_head
+    BLUETOOTH_COD_PAIRS._fields_ = [
+        ('ulCODMask', UInt32),
+        ('pcszDescription', win32more.Foundation.PWSTR),
     ]
-    class SDP_ELEMENT_DATA__data_e__Union__string_e__Struct(Structure):
+    return BLUETOOTH_COD_PAIRS
+def _define_BLUETOOTH_DEVICE_INFO_head():
+    class BLUETOOTH_DEVICE_INFO(Structure):
         pass
-    SDP_ELEMENT_DATA__data_e__Union__string_e__Struct._fields_ = [
-        ("value", c_char_p_no),
-        ("length", UInt32),
+    return BLUETOOTH_DEVICE_INFO
+def _define_BLUETOOTH_DEVICE_INFO():
+    BLUETOOTH_DEVICE_INFO = win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head
+    BLUETOOTH_DEVICE_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('Address', win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
+        ('ulClassofDevice', UInt32),
+        ('fConnected', win32more.Foundation.BOOL),
+        ('fRemembered', win32more.Foundation.BOOL),
+        ('fAuthenticated', win32more.Foundation.BOOL),
+        ('stLastSeen', win32more.Foundation.SYSTEMTIME),
+        ('stLastUsed', win32more.Foundation.SYSTEMTIME),
+        ('szName', Char * 248),
     ]
-    class SDP_ELEMENT_DATA__data_e__Union__alternative_e__Struct(Structure):
+    return BLUETOOTH_DEVICE_INFO
+def _define_BLUETOOTH_DEVICE_SEARCH_PARAMS_head():
+    class BLUETOOTH_DEVICE_SEARCH_PARAMS(Structure):
         pass
-    SDP_ELEMENT_DATA__data_e__Union__alternative_e__Struct._fields_ = [
-        ("value", c_char_p_no),
-        ("length", UInt32),
+    return BLUETOOTH_DEVICE_SEARCH_PARAMS
+def _define_BLUETOOTH_DEVICE_SEARCH_PARAMS():
+    BLUETOOTH_DEVICE_SEARCH_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_SEARCH_PARAMS_head
+    BLUETOOTH_DEVICE_SEARCH_PARAMS._fields_ = [
+        ('dwSize', UInt32),
+        ('fReturnAuthenticated', win32more.Foundation.BOOL),
+        ('fReturnRemembered', win32more.Foundation.BOOL),
+        ('fReturnUnknown', win32more.Foundation.BOOL),
+        ('fReturnConnected', win32more.Foundation.BOOL),
+        ('fIssueInquiry', win32more.Foundation.BOOL),
+        ('cTimeoutMultiplier', Byte),
+        ('hRadio', win32more.Foundation.HANDLE),
     ]
-    class SDP_ELEMENT_DATA__data_e__Union__url_e__Struct(Structure):
+    return BLUETOOTH_DEVICE_SEARCH_PARAMS
+def _define_BLUETOOTH_FIND_RADIO_PARAMS_head():
+    class BLUETOOTH_FIND_RADIO_PARAMS(Structure):
         pass
-    SDP_ELEMENT_DATA__data_e__Union__url_e__Struct._fields_ = [
-        ("value", c_char_p_no),
-        ("length", UInt32),
+    return BLUETOOTH_FIND_RADIO_PARAMS
+def _define_BLUETOOTH_FIND_RADIO_PARAMS():
+    BLUETOOTH_FIND_RADIO_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_FIND_RADIO_PARAMS_head
+    BLUETOOTH_FIND_RADIO_PARAMS._fields_ = [
+        ('dwSize', UInt32),
     ]
-    SDP_ELEMENT_DATA__data_e__Union._fields_ = [
-        ("int128", win32more.Devices.Bluetooth.SDP_LARGE_INTEGER_16),
-        ("int64", Int64),
-        ("int32", Int32),
-        ("int16", Int16),
-        ("int8", win32more.Foundation.CHAR),
-        ("uint128", win32more.Devices.Bluetooth.SDP_ULARGE_INTEGER_16),
-        ("uint64", UInt64),
-        ("uint32", UInt32),
-        ("uint16", UInt16),
-        ("uint8", Byte),
-        ("booleanVal", Byte),
-        ("uuid128", Guid),
-        ("uuid32", UInt32),
-        ("uuid16", UInt16),
-        ("string", SDP_ELEMENT_DATA__data_e__Union__string_e__Struct),
-        ("url", SDP_ELEMENT_DATA__data_e__Union__url_e__Struct),
-        ("sequence", SDP_ELEMENT_DATA__data_e__Union__sequence_e__Struct),
-        ("alternative", SDP_ELEMENT_DATA__data_e__Union__alternative_e__Struct),
-    ]
-    SDP_ELEMENT_DATA._fields_ = [
-        ("type", win32more.Devices.Bluetooth.SDP_TYPE),
-        ("specificType", win32more.Devices.Bluetooth.SDP_SPECIFICTYPE),
-        ("data", SDP_ELEMENT_DATA__data_e__Union),
-    ]
-    return SDP_ELEMENT_DATA
-def _define_SDP_STRING_TYPE_DATA_head():
-    class SDP_STRING_TYPE_DATA(Structure):
+    return BLUETOOTH_FIND_RADIO_PARAMS
+def _define_BLUETOOTH_GATT_VALUE_CHANGED_EVENT_head():
+    class BLUETOOTH_GATT_VALUE_CHANGED_EVENT(Structure):
         pass
-    return SDP_STRING_TYPE_DATA
-def _define_SDP_STRING_TYPE_DATA():
-    SDP_STRING_TYPE_DATA = win32more.Devices.Bluetooth.SDP_STRING_TYPE_DATA_head
-    SDP_STRING_TYPE_DATA._fields_ = [
-        ("encoding", UInt16),
-        ("mibeNum", UInt16),
-        ("attributeId", UInt16),
+    return BLUETOOTH_GATT_VALUE_CHANGED_EVENT
+def _define_BLUETOOTH_GATT_VALUE_CHANGED_EVENT():
+    BLUETOOTH_GATT_VALUE_CHANGED_EVENT = win32more.Devices.Bluetooth.BLUETOOTH_GATT_VALUE_CHANGED_EVENT_head
+    BLUETOOTH_GATT_VALUE_CHANGED_EVENT._fields_ = [
+        ('ChangedAttributeHandle', UInt16),
+        ('CharacteristicValueDataSize', UIntPtr),
+        ('CharacteristicValue', POINTER(win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_VALUE_head)),
     ]
-    return SDP_STRING_TYPE_DATA
-def _define_PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,UInt32,c_char_p_no,UInt32,c_void_p, use_last_error=False)
-def _define_SOCKADDR_BTH_head():
-    class SOCKADDR_BTH(Structure):
+    return BLUETOOTH_GATT_VALUE_CHANGED_EVENT
+def _define_BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION_head():
+    class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION(Structure):
         pass
-    return SOCKADDR_BTH
-def _define_SOCKADDR_BTH():
-    SOCKADDR_BTH = win32more.Devices.Bluetooth.SOCKADDR_BTH_head
-    SOCKADDR_BTH._pack_ = 1
-    SOCKADDR_BTH._fields_ = [
-        ("addressFamily", UInt16),
-        ("btAddr", UInt64),
-        ("serviceClassId", Guid),
-        ("port", UInt32),
+    return BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION
+def _define_BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION():
+    BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION = win32more.Devices.Bluetooth.BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION_head
+    BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION._fields_ = [
+        ('NumCharacteristics', UInt16),
+        ('Characteristics', win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC * 1),
     ]
-    return SOCKADDR_BTH
-def _define_BTH_SET_SERVICE_head():
-    class BTH_SET_SERVICE(Structure):
+    return BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION
+BLUETOOTH_IO_CAPABILITY = Int32
+BLUETOOTH_IO_CAPABILITY_DISPLAYONLY = 0
+BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO = 1
+BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY = 2
+BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT = 3
+BLUETOOTH_IO_CAPABILITY_UNDEFINED = 255
+def _define_BLUETOOTH_LOCAL_SERVICE_INFO_head():
+    class BLUETOOTH_LOCAL_SERVICE_INFO(Structure):
         pass
-    return BTH_SET_SERVICE
-def _define_BTH_SET_SERVICE():
-    BTH_SET_SERVICE = win32more.Devices.Bluetooth.BTH_SET_SERVICE_head
-    BTH_SET_SERVICE._pack_ = 1
-    BTH_SET_SERVICE._fields_ = [
-        ("pSdpVersion", POINTER(UInt32)),
-        ("pRecordHandle", POINTER(win32more.Foundation.HANDLE)),
-        ("fCodService", UInt32),
-        ("Reserved", UInt32 * 5),
-        ("ulRecordLength", UInt32),
-        ("pRecord", Byte * 0),
+    return BLUETOOTH_LOCAL_SERVICE_INFO
+def _define_BLUETOOTH_LOCAL_SERVICE_INFO():
+    BLUETOOTH_LOCAL_SERVICE_INFO = win32more.Devices.Bluetooth.BLUETOOTH_LOCAL_SERVICE_INFO_head
+    BLUETOOTH_LOCAL_SERVICE_INFO._fields_ = [
+        ('Enabled', win32more.Foundation.BOOL),
+        ('btAddr', win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
+        ('szName', Char * 256),
+        ('szDeviceString', Char * 256),
     ]
-    return BTH_SET_SERVICE
-def _define_BTH_QUERY_DEVICE_head():
-    class BTH_QUERY_DEVICE(Structure):
+    return BLUETOOTH_LOCAL_SERVICE_INFO
+def _define_BLUETOOTH_NUMERIC_COMPARISON_INFO_head():
+    class BLUETOOTH_NUMERIC_COMPARISON_INFO(Structure):
         pass
-    return BTH_QUERY_DEVICE
-def _define_BTH_QUERY_DEVICE():
-    BTH_QUERY_DEVICE = win32more.Devices.Bluetooth.BTH_QUERY_DEVICE_head
-    BTH_QUERY_DEVICE._pack_ = 1
-    BTH_QUERY_DEVICE._fields_ = [
-        ("LAP", UInt32),
-        ("length", Byte),
+    return BLUETOOTH_NUMERIC_COMPARISON_INFO
+def _define_BLUETOOTH_NUMERIC_COMPARISON_INFO():
+    BLUETOOTH_NUMERIC_COMPARISON_INFO = win32more.Devices.Bluetooth.BLUETOOTH_NUMERIC_COMPARISON_INFO_head
+    BLUETOOTH_NUMERIC_COMPARISON_INFO._fields_ = [
+        ('NumericValue', UInt32),
     ]
-    return BTH_QUERY_DEVICE
-def _define_BTH_QUERY_SERVICE_head():
-    class BTH_QUERY_SERVICE(Structure):
+    return BLUETOOTH_NUMERIC_COMPARISON_INFO
+def _define_BLUETOOTH_OOB_DATA_INFO_head():
+    class BLUETOOTH_OOB_DATA_INFO(Structure):
         pass
-    return BTH_QUERY_SERVICE
-def _define_BTH_QUERY_SERVICE():
-    BTH_QUERY_SERVICE = win32more.Devices.Bluetooth.BTH_QUERY_SERVICE_head
-    BTH_QUERY_SERVICE._pack_ = 1
-    BTH_QUERY_SERVICE._fields_ = [
-        ("type", UInt32),
-        ("serviceHandle", UInt32),
-        ("uuids", win32more.Devices.Bluetooth.SdpQueryUuid * 12),
-        ("numRange", UInt32),
-        ("pRange", win32more.Devices.Bluetooth.SdpAttributeRange * 0),
+    return BLUETOOTH_OOB_DATA_INFO
+def _define_BLUETOOTH_OOB_DATA_INFO():
+    BLUETOOTH_OOB_DATA_INFO = win32more.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO_head
+    BLUETOOTH_OOB_DATA_INFO._fields_ = [
+        ('C', Byte * 16),
+        ('R', Byte * 16),
     ]
-    return BTH_QUERY_SERVICE
-def _define_RFCOMM_MSC_DATA_head():
-    class RFCOMM_MSC_DATA(Structure):
+    return BLUETOOTH_OOB_DATA_INFO
+def _define_BLUETOOTH_PASSKEY_INFO_head():
+    class BLUETOOTH_PASSKEY_INFO(Structure):
         pass
-    return RFCOMM_MSC_DATA
-def _define_RFCOMM_MSC_DATA():
-    RFCOMM_MSC_DATA = win32more.Devices.Bluetooth.RFCOMM_MSC_DATA_head
-    RFCOMM_MSC_DATA._fields_ = [
-        ("Signals", Byte),
-        ("Break", Byte),
+    return BLUETOOTH_PASSKEY_INFO
+def _define_BLUETOOTH_PASSKEY_INFO():
+    BLUETOOTH_PASSKEY_INFO = win32more.Devices.Bluetooth.BLUETOOTH_PASSKEY_INFO_head
+    BLUETOOTH_PASSKEY_INFO._fields_ = [
+        ('passkey', UInt32),
     ]
-    return RFCOMM_MSC_DATA
-def _define_RFCOMM_RLS_DATA_head():
-    class RFCOMM_RLS_DATA(Structure):
+    return BLUETOOTH_PASSKEY_INFO
+def _define_BLUETOOTH_PIN_INFO_head():
+    class BLUETOOTH_PIN_INFO(Structure):
         pass
-    return RFCOMM_RLS_DATA
-def _define_RFCOMM_RLS_DATA():
-    RFCOMM_RLS_DATA = win32more.Devices.Bluetooth.RFCOMM_RLS_DATA_head
-    RFCOMM_RLS_DATA._fields_ = [
-        ("LineStatus", Byte),
+    return BLUETOOTH_PIN_INFO
+def _define_BLUETOOTH_PIN_INFO():
+    BLUETOOTH_PIN_INFO = win32more.Devices.Bluetooth.BLUETOOTH_PIN_INFO_head
+    BLUETOOTH_PIN_INFO._fields_ = [
+        ('pin', Byte * 16),
+        ('pinLength', Byte),
     ]
-    return RFCOMM_RLS_DATA
-def _define_RFCOMM_RPN_DATA_head():
-    class RFCOMM_RPN_DATA(Structure):
+    return BLUETOOTH_PIN_INFO
+def _define_BLUETOOTH_RADIO_INFO_head():
+    class BLUETOOTH_RADIO_INFO(Structure):
         pass
-    return RFCOMM_RPN_DATA
-def _define_RFCOMM_RPN_DATA():
-    RFCOMM_RPN_DATA = win32more.Devices.Bluetooth.RFCOMM_RPN_DATA_head
-    RFCOMM_RPN_DATA._fields_ = [
-        ("Baud", Byte),
-        ("Data", Byte),
-        ("FlowControl", Byte),
-        ("XonChar", Byte),
-        ("XoffChar", Byte),
-        ("ParameterMask1", Byte),
-        ("ParameterMask2", Byte),
+    return BLUETOOTH_RADIO_INFO
+def _define_BLUETOOTH_RADIO_INFO():
+    BLUETOOTH_RADIO_INFO = win32more.Devices.Bluetooth.BLUETOOTH_RADIO_INFO_head
+    BLUETOOTH_RADIO_INFO._fields_ = [
+        ('dwSize', UInt32),
+        ('address', win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS),
+        ('szName', Char * 248),
+        ('ulClassofDevice', UInt32),
+        ('lmpSubversion', UInt16),
+        ('manufacturer', UInt16),
     ]
-    return RFCOMM_RPN_DATA
-def _define_RFCOMM_COMMAND_head():
-    class RFCOMM_COMMAND(Structure):
+    return BLUETOOTH_RADIO_INFO
+def _define_BLUETOOTH_SELECT_DEVICE_PARAMS_head():
+    class BLUETOOTH_SELECT_DEVICE_PARAMS(Structure):
         pass
-    return RFCOMM_COMMAND
-def _define_RFCOMM_COMMAND():
-    RFCOMM_COMMAND = win32more.Devices.Bluetooth.RFCOMM_COMMAND_head
-    class RFCOMM_COMMAND__Data_e__Union(Union):
+    return BLUETOOTH_SELECT_DEVICE_PARAMS
+def _define_BLUETOOTH_SELECT_DEVICE_PARAMS():
+    BLUETOOTH_SELECT_DEVICE_PARAMS = win32more.Devices.Bluetooth.BLUETOOTH_SELECT_DEVICE_PARAMS_head
+    BLUETOOTH_SELECT_DEVICE_PARAMS._fields_ = [
+        ('dwSize', UInt32),
+        ('cNumOfClasses', UInt32),
+        ('prgClassOfDevices', POINTER(win32more.Devices.Bluetooth.BLUETOOTH_COD_PAIRS_head)),
+        ('pszInfo', win32more.Foundation.PWSTR),
+        ('hwndParent', win32more.Foundation.HWND),
+        ('fForceAuthentication', win32more.Foundation.BOOL),
+        ('fShowAuthenticated', win32more.Foundation.BOOL),
+        ('fShowRemembered', win32more.Foundation.BOOL),
+        ('fShowUnknown', win32more.Foundation.BOOL),
+        ('fAddNewDeviceWizard', win32more.Foundation.BOOL),
+        ('fSkipServicesPage', win32more.Foundation.BOOL),
+        ('pfnDeviceCallback', win32more.Devices.Bluetooth.PFN_DEVICE_CALLBACK),
+        ('pvParam', c_void_p),
+        ('cNumDevices', UInt32),
+        ('pDevices', POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head)),
+    ]
+    return BLUETOOTH_SELECT_DEVICE_PARAMS
+def _define_BTH_DEVICE_INFO_head():
+    class BTH_DEVICE_INFO(Structure):
         pass
-    RFCOMM_COMMAND__Data_e__Union._fields_ = [
-        ("MSC", win32more.Devices.Bluetooth.RFCOMM_MSC_DATA),
-        ("RLS", win32more.Devices.Bluetooth.RFCOMM_RLS_DATA),
-        ("RPN", win32more.Devices.Bluetooth.RFCOMM_RPN_DATA),
+    return BTH_DEVICE_INFO
+def _define_BTH_DEVICE_INFO():
+    BTH_DEVICE_INFO = win32more.Devices.Bluetooth.BTH_DEVICE_INFO_head
+    BTH_DEVICE_INFO._fields_ = [
+        ('flags', UInt32),
+        ('address', UInt64),
+        ('classOfDevice', UInt32),
+        ('name', win32more.Foundation.CHAR * 248),
     ]
-    RFCOMM_COMMAND._pack_ = 1
-    RFCOMM_COMMAND._fields_ = [
-        ("CmdType", UInt32),
-        ("Data", RFCOMM_COMMAND__Data_e__Union),
-    ]
-    return RFCOMM_COMMAND
-def _define_BTH_PING_REQ_head():
-    class BTH_PING_REQ(Structure):
+    return BTH_DEVICE_INFO
+def _define_BTH_HCI_EVENT_INFO_head():
+    class BTH_HCI_EVENT_INFO(Structure):
         pass
-    return BTH_PING_REQ
-def _define_BTH_PING_REQ():
-    BTH_PING_REQ = win32more.Devices.Bluetooth.BTH_PING_REQ_head
-    BTH_PING_REQ._pack_ = 1
-    BTH_PING_REQ._fields_ = [
-        ("btAddr", UInt64),
-        ("dataLen", Byte),
-        ("data", Byte * 44),
+    return BTH_HCI_EVENT_INFO
+def _define_BTH_HCI_EVENT_INFO():
+    BTH_HCI_EVENT_INFO = win32more.Devices.Bluetooth.BTH_HCI_EVENT_INFO_head
+    BTH_HCI_EVENT_INFO._fields_ = [
+        ('bthAddress', UInt64),
+        ('connectionType', Byte),
+        ('connected', Byte),
     ]
-    return BTH_PING_REQ
-def _define_BTH_PING_RSP_head():
-    class BTH_PING_RSP(Structure):
-        pass
-    return BTH_PING_RSP
-def _define_BTH_PING_RSP():
-    BTH_PING_RSP = win32more.Devices.Bluetooth.BTH_PING_RSP_head
-    BTH_PING_RSP._fields_ = [
-        ("dataLen", Byte),
-        ("data", Byte * 44),
-    ]
-    return BTH_PING_RSP
+    return BTH_HCI_EVENT_INFO
 def _define_BTH_INFO_REQ_head():
     class BTH_INFO_REQ(Structure):
         pass
@@ -1392,8 +1341,8 @@ def _define_BTH_INFO_REQ():
     BTH_INFO_REQ = win32more.Devices.Bluetooth.BTH_INFO_REQ_head
     BTH_INFO_REQ._pack_ = 1
     BTH_INFO_REQ._fields_ = [
-        ("btAddr", UInt64),
-        ("infoType", UInt16),
+        ('btAddr', UInt64),
+        ('infoType', UInt16),
     ]
     return BTH_INFO_REQ
 def _define_BTH_INFO_RSP_head():
@@ -1406,657 +1355,992 @@ def _define_BTH_INFO_RSP():
         pass
     BTH_INFO_RSP__Anonymous_e__Union._pack_ = 1
     BTH_INFO_RSP__Anonymous_e__Union._fields_ = [
-        ("connectionlessMTU", UInt16),
-        ("data", Byte * 44),
+        ('connectionlessMTU', UInt16),
+        ('data', Byte * 44),
     ]
     BTH_INFO_RSP._pack_ = 1
     BTH_INFO_RSP._anonymous_ = [
         'Anonymous',
     ]
     BTH_INFO_RSP._fields_ = [
-        ("result", UInt16),
-        ("dataLen", Byte),
-        ("Anonymous", BTH_INFO_RSP__Anonymous_e__Union),
+        ('result', UInt16),
+        ('dataLen', Byte),
+        ('Anonymous', BTH_INFO_RSP__Anonymous_e__Union),
     ]
     return BTH_INFO_RSP
-def _define_BluetoothFindFirstRadio():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_FIND_RADIO_PARAMS_head),POINTER(win32more.Foundation.HANDLE), use_last_error=True)(("BluetoothFindFirstRadio", windll["BluetoothApis"]), ((1, 'pbtfrp'),(1, 'phRadio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothFindNextRadio():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Foundation.HANDLE), use_last_error=True)(("BluetoothFindNextRadio", windll["BluetoothApis"]), ((1, 'hFind'),(1, 'phRadio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothFindRadioClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=True)(("BluetoothFindRadioClose", windll["BluetoothApis"]), ((1, 'hFind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothGetRadioInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_RADIO_INFO_head), use_last_error=True)(("BluetoothGetRadioInfo", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'pRadioInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothFindFirstDevice():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_SEARCH_PARAMS_head),POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=True)(("BluetoothFindFirstDevice", windll["BluetoothApis"]), ((1, 'pbtsp'),(1, 'pbtdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothFindNextDevice():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=True)(("BluetoothFindNextDevice", windll["BluetoothApis"]), ((1, 'hFind'),(1, 'pbtdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothFindDeviceClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=True)(("BluetoothFindDeviceClose", windll["BluetoothApis"]), ((1, 'hFind'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothGetDeviceInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=False)(("BluetoothGetDeviceInfo", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'pbtdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothUpdateDeviceRecord():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=False)(("BluetoothUpdateDeviceRecord", windll["BluetoothApis"]), ((1, 'pbtdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothRemoveDevice():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_ADDRESS_head), use_last_error=False)(("BluetoothRemoveDevice", windll["BluetoothApis"]), ((1, 'pAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSelectDevices():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_SELECT_DEVICE_PARAMS_head), use_last_error=True)(("BluetoothSelectDevices", windll["bthprops"]), ((1, 'pbtsdp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSelectDevicesFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_SELECT_DEVICE_PARAMS_head), use_last_error=False)(("BluetoothSelectDevicesFree", windll["bthprops"]), ((1, 'pbtsdp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothDisplayDeviceProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head), use_last_error=True)(("BluetoothDisplayDeviceProperties", windll["bthprops"]), ((1, 'hwndParent'),(1, 'pbtdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothAuthenticateDevice():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(Char),UInt32, use_last_error=False)(("BluetoothAuthenticateDevice", windll["bthprops"]), ((1, 'hwndParent'),(1, 'hRadio'),(1, 'pbtbi'),(1, 'pszPasskey'),(1, 'ulPasskeyLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothAuthenticateDeviceEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(win32more.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO_head),win32more.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS, use_last_error=False)(("BluetoothAuthenticateDeviceEx", windll["bthprops"]), ((1, 'hwndParentIn'),(1, 'hRadioIn'),(1, 'pbtdiInout'),(1, 'pbtOobData'),(1, 'authenticationRequirement'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothAuthenticateMultipleDevices():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO), use_last_error=False)(("BluetoothAuthenticateMultipleDevices", windll["bthprops"]), ((1, 'hwndParent'),(1, 'hRadio'),(1, 'cDevices'),(1, 'rgbtdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSetServiceState():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(Guid),UInt32, use_last_error=False)(("BluetoothSetServiceState", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'pbtdi'),(1, 'pGuidService'),(1, 'dwServiceFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothEnumerateInstalledServices():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(UInt32),POINTER(Guid), use_last_error=False)(("BluetoothEnumerateInstalledServices", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'pbtdi'),(1, 'pcServiceInout'),(1, 'pGuidServices'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothEnableDiscovery():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL, use_last_error=False)(("BluetoothEnableDiscovery", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'fEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothIsDiscoverable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=False)(("BluetoothIsDiscoverable", windll["BluetoothApis"]), ((1, 'hRadio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothEnableIncomingConnections():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL, use_last_error=False)(("BluetoothEnableIncomingConnections", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'fEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothIsConnectable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=False)(("BluetoothIsConnectable", windll["BluetoothApis"]), ((1, 'hRadio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothRegisterForAuthentication():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(IntPtr),win32more.Devices.Bluetooth.PFN_AUTHENTICATION_CALLBACK,c_void_p, use_last_error=True)(("BluetoothRegisterForAuthentication", windll["BluetoothApis"]), ((1, 'pbtdi'),(1, 'phRegHandle'),(1, 'pfnCallback'),(1, 'pvParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothRegisterForAuthenticationEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),POINTER(IntPtr),win32more.Devices.Bluetooth.PFN_AUTHENTICATION_CALLBACK_EX,c_void_p, use_last_error=False)(("BluetoothRegisterForAuthenticationEx", windll["BluetoothApis"]), ((1, 'pbtdiIn'),(1, 'phRegHandleOut'),(1, 'pfnCallbackIn'),(1, 'pvParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothUnregisterAuthentication():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=True)(("BluetoothUnregisterAuthentication", windll["BluetoothApis"]), ((1, 'hRegHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSendAuthenticationResponse():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head),win32more.Foundation.PWSTR, use_last_error=False)(("BluetoothSendAuthenticationResponse", windll["BluetoothApis"]), ((1, 'hRadio'),(1, 'pbtdi'),(1, 'pszPasskey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSendAuthenticationResponseEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATE_RESPONSE_head), use_last_error=False)(("BluetoothSendAuthenticationResponseEx", windll["BluetoothApis"]), ((1, 'hRadioIn'),(1, 'pauthResponse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSdpGetElementData():
-    try:
-        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head), use_last_error=False)(("BluetoothSdpGetElementData", windll["BluetoothApis"]), ((1, 'pSdpStream'),(1, 'cbSdpStreamLength'),(1, 'pData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSdpGetContainerElementData():
-    try:
-        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(IntPtr),POINTER(win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head), use_last_error=False)(("BluetoothSdpGetContainerElementData", windll["BluetoothApis"]), ((1, 'pContainerStream'),(1, 'cbContainerLength'),(1, 'pElement'),(1, 'pData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSdpGetAttributeValue():
-    try:
-        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,UInt16,POINTER(win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head), use_last_error=False)(("BluetoothSdpGetAttributeValue", windll["BluetoothApis"]), ((1, 'pRecordStream'),(1, 'cbRecordLength'),(1, 'usAttributeId'),(1, 'pAttributeData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSdpGetString():
-    try:
-        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(win32more.Devices.Bluetooth.SDP_STRING_TYPE_DATA_head),UInt16,POINTER(Char),POINTER(UInt32), use_last_error=False)(("BluetoothSdpGetString", windll["BluetoothApis"]), ((1, 'pRecordStream'),(1, 'cbRecordLength'),(1, 'pStringData'),(1, 'usStringOffset'),(1, 'pszString'),(1, 'pcchStringLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSdpEnumAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,win32more.Devices.Bluetooth.PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK,c_void_p, use_last_error=True)(("BluetoothSdpEnumAttributes", windll["BluetoothApis"]), ((1, 'pSDPStream'),(1, 'cbStreamSize'),(1, 'pfnCallback'),(1, 'pvParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothSetLocalServiceInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(Guid),UInt32,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_LOCAL_SERVICE_INFO_head), use_last_error=False)(("BluetoothSetLocalServiceInfo", windll["BluetoothApis"]), ((1, 'hRadioIn'),(1, 'pClassGuid'),(1, 'ulInstance'),(1, 'pServiceInfoIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BluetoothIsVersionAvailable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Byte,Byte, use_last_error=False)(("BluetoothIsVersionAvailable", windll["BluetoothApis"]), ((1, 'MajorVersion'),(1, 'MinorVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+def _define_BTH_L2CAP_EVENT_INFO_head():
+    class BTH_L2CAP_EVENT_INFO(Structure):
+        pass
+    return BTH_L2CAP_EVENT_INFO
+def _define_BTH_L2CAP_EVENT_INFO():
+    BTH_L2CAP_EVENT_INFO = win32more.Devices.Bluetooth.BTH_L2CAP_EVENT_INFO_head
+    BTH_L2CAP_EVENT_INFO._fields_ = [
+        ('bthAddress', UInt64),
+        ('psm', UInt16),
+        ('connected', Byte),
+        ('initiated', Byte),
+    ]
+    return BTH_L2CAP_EVENT_INFO
+def _define_BTH_LE_GATT_CHARACTERISTIC_head():
+    class BTH_LE_GATT_CHARACTERISTIC(Structure):
+        pass
+    return BTH_LE_GATT_CHARACTERISTIC
+def _define_BTH_LE_GATT_CHARACTERISTIC():
+    BTH_LE_GATT_CHARACTERISTIC = win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_head
+    BTH_LE_GATT_CHARACTERISTIC._fields_ = [
+        ('ServiceHandle', UInt16),
+        ('CharacteristicUuid', win32more.Devices.Bluetooth.BTH_LE_UUID),
+        ('AttributeHandle', UInt16),
+        ('CharacteristicValueHandle', UInt16),
+        ('IsBroadcastable', win32more.Foundation.BOOLEAN),
+        ('IsReadable', win32more.Foundation.BOOLEAN),
+        ('IsWritable', win32more.Foundation.BOOLEAN),
+        ('IsWritableWithoutResponse', win32more.Foundation.BOOLEAN),
+        ('IsSignedWritable', win32more.Foundation.BOOLEAN),
+        ('IsNotifiable', win32more.Foundation.BOOLEAN),
+        ('IsIndicatable', win32more.Foundation.BOOLEAN),
+        ('HasExtendedProperties', win32more.Foundation.BOOLEAN),
+    ]
+    return BTH_LE_GATT_CHARACTERISTIC
+def _define_BTH_LE_GATT_CHARACTERISTIC_VALUE_head():
+    class BTH_LE_GATT_CHARACTERISTIC_VALUE(Structure):
+        pass
+    return BTH_LE_GATT_CHARACTERISTIC_VALUE
+def _define_BTH_LE_GATT_CHARACTERISTIC_VALUE():
+    BTH_LE_GATT_CHARACTERISTIC_VALUE = win32more.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_VALUE_head
+    BTH_LE_GATT_CHARACTERISTIC_VALUE._fields_ = [
+        ('DataSize', UInt32),
+        ('Data', Byte * 1),
+    ]
+    return BTH_LE_GATT_CHARACTERISTIC_VALUE
+def _define_BTH_LE_GATT_DESCRIPTOR_head():
+    class BTH_LE_GATT_DESCRIPTOR(Structure):
+        pass
+    return BTH_LE_GATT_DESCRIPTOR
+def _define_BTH_LE_GATT_DESCRIPTOR():
+    BTH_LE_GATT_DESCRIPTOR = win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_head
+    BTH_LE_GATT_DESCRIPTOR._fields_ = [
+        ('ServiceHandle', UInt16),
+        ('CharacteristicHandle', UInt16),
+        ('DescriptorType', win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE),
+        ('DescriptorUuid', win32more.Devices.Bluetooth.BTH_LE_UUID),
+        ('AttributeHandle', UInt16),
+    ]
+    return BTH_LE_GATT_DESCRIPTOR
+BTH_LE_GATT_DESCRIPTOR_TYPE = Int32
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicExtendedProperties = 0
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicUserDescription = 1
+BTH_LE_GATT_DESCRIPTOR_TYPE_ClientCharacteristicConfiguration = 2
+BTH_LE_GATT_DESCRIPTOR_TYPE_ServerCharacteristicConfiguration = 3
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicFormat = 4
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicAggregateFormat = 5
+BTH_LE_GATT_DESCRIPTOR_TYPE_CustomDescriptor = 6
+def _define_BTH_LE_GATT_DESCRIPTOR_VALUE_head():
+    class BTH_LE_GATT_DESCRIPTOR_VALUE(Structure):
+        pass
+    return BTH_LE_GATT_DESCRIPTOR_VALUE
+def _define_BTH_LE_GATT_DESCRIPTOR_VALUE():
+    BTH_LE_GATT_DESCRIPTOR_VALUE = win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_VALUE_head
+    class BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union(Union):
+        pass
+    class BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__CharacteristicExtendedProperties_e__Struct(Structure):
+        pass
+    BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__CharacteristicExtendedProperties_e__Struct._fields_ = [
+        ('IsReliableWriteEnabled', win32more.Foundation.BOOLEAN),
+        ('IsAuxiliariesWritable', win32more.Foundation.BOOLEAN),
+    ]
+    class BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__ClientCharacteristicConfiguration_e__Struct(Structure):
+        pass
+    BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__ClientCharacteristicConfiguration_e__Struct._fields_ = [
+        ('IsSubscribeToNotification', win32more.Foundation.BOOLEAN),
+        ('IsSubscribeToIndication', win32more.Foundation.BOOLEAN),
+    ]
+    class BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__ServerCharacteristicConfiguration_e__Struct(Structure):
+        pass
+    BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__ServerCharacteristicConfiguration_e__Struct._fields_ = [
+        ('IsBroadcast', win32more.Foundation.BOOLEAN),
+    ]
+    class BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__CharacteristicFormat_e__Struct(Structure):
+        pass
+    BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__CharacteristicFormat_e__Struct._fields_ = [
+        ('Format', Byte),
+        ('Exponent', Byte),
+        ('Unit', win32more.Devices.Bluetooth.BTH_LE_UUID),
+        ('NameSpace', Byte),
+        ('Description', win32more.Devices.Bluetooth.BTH_LE_UUID),
+    ]
+    BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union._fields_ = [
+        ('CharacteristicExtendedProperties', BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__CharacteristicExtendedProperties_e__Struct),
+        ('ClientCharacteristicConfiguration', BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__ClientCharacteristicConfiguration_e__Struct),
+        ('ServerCharacteristicConfiguration', BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__ServerCharacteristicConfiguration_e__Struct),
+        ('CharacteristicFormat', BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union__CharacteristicFormat_e__Struct),
+    ]
+    BTH_LE_GATT_DESCRIPTOR_VALUE._anonymous_ = [
+        'Anonymous',
+    ]
+    BTH_LE_GATT_DESCRIPTOR_VALUE._fields_ = [
+        ('DescriptorType', win32more.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE),
+        ('DescriptorUuid', win32more.Devices.Bluetooth.BTH_LE_UUID),
+        ('Anonymous', BTH_LE_GATT_DESCRIPTOR_VALUE__Anonymous_e__Union),
+        ('DataSize', UInt32),
+        ('Data', Byte * 1),
+    ]
+    return BTH_LE_GATT_DESCRIPTOR_VALUE
+BTH_LE_GATT_EVENT_TYPE = Int32
+BTH_LE_GATT_EVENT_TYPE_CharacteristicValueChangedEvent = 0
+def _define_BTH_LE_GATT_SERVICE_head():
+    class BTH_LE_GATT_SERVICE(Structure):
+        pass
+    return BTH_LE_GATT_SERVICE
+def _define_BTH_LE_GATT_SERVICE():
+    BTH_LE_GATT_SERVICE = win32more.Devices.Bluetooth.BTH_LE_GATT_SERVICE_head
+    BTH_LE_GATT_SERVICE._fields_ = [
+        ('ServiceUuid', win32more.Devices.Bluetooth.BTH_LE_UUID),
+        ('AttributeHandle', UInt16),
+    ]
+    return BTH_LE_GATT_SERVICE
+def _define_BTH_LE_UUID_head():
+    class BTH_LE_UUID(Structure):
+        pass
+    return BTH_LE_UUID
+def _define_BTH_LE_UUID():
+    BTH_LE_UUID = win32more.Devices.Bluetooth.BTH_LE_UUID_head
+    class BTH_LE_UUID__Value_e__Union(Union):
+        pass
+    BTH_LE_UUID__Value_e__Union._fields_ = [
+        ('ShortUuid', UInt16),
+        ('LongUuid', Guid),
+    ]
+    BTH_LE_UUID._fields_ = [
+        ('IsShortUuid', win32more.Foundation.BOOLEAN),
+        ('Value', BTH_LE_UUID__Value_e__Union),
+    ]
+    return BTH_LE_UUID
+def _define_BTH_PING_REQ_head():
+    class BTH_PING_REQ(Structure):
+        pass
+    return BTH_PING_REQ
+def _define_BTH_PING_REQ():
+    BTH_PING_REQ = win32more.Devices.Bluetooth.BTH_PING_REQ_head
+    BTH_PING_REQ._pack_ = 1
+    BTH_PING_REQ._fields_ = [
+        ('btAddr', UInt64),
+        ('dataLen', Byte),
+        ('data', Byte * 44),
+    ]
+    return BTH_PING_REQ
+def _define_BTH_PING_RSP_head():
+    class BTH_PING_RSP(Structure):
+        pass
+    return BTH_PING_RSP
+def _define_BTH_PING_RSP():
+    BTH_PING_RSP = win32more.Devices.Bluetooth.BTH_PING_RSP_head
+    BTH_PING_RSP._fields_ = [
+        ('dataLen', Byte),
+        ('data', Byte * 44),
+    ]
+    return BTH_PING_RSP
+def _define_BTH_QUERY_DEVICE_head():
+    class BTH_QUERY_DEVICE(Structure):
+        pass
+    return BTH_QUERY_DEVICE
+def _define_BTH_QUERY_DEVICE():
+    BTH_QUERY_DEVICE = win32more.Devices.Bluetooth.BTH_QUERY_DEVICE_head
+    BTH_QUERY_DEVICE._pack_ = 1
+    BTH_QUERY_DEVICE._fields_ = [
+        ('LAP', UInt32),
+        ('length', Byte),
+    ]
+    return BTH_QUERY_DEVICE
+def _define_BTH_QUERY_SERVICE_head():
+    class BTH_QUERY_SERVICE(Structure):
+        pass
+    return BTH_QUERY_SERVICE
+def _define_BTH_QUERY_SERVICE():
+    BTH_QUERY_SERVICE = win32more.Devices.Bluetooth.BTH_QUERY_SERVICE_head
+    BTH_QUERY_SERVICE._pack_ = 1
+    BTH_QUERY_SERVICE._fields_ = [
+        ('type', UInt32),
+        ('serviceHandle', UInt32),
+        ('uuids', win32more.Devices.Bluetooth.SdpQueryUuid * 12),
+        ('numRange', UInt32),
+        ('pRange', win32more.Devices.Bluetooth.SdpAttributeRange * 1),
+    ]
+    return BTH_QUERY_SERVICE
+def _define_BTH_RADIO_IN_RANGE_head():
+    class BTH_RADIO_IN_RANGE(Structure):
+        pass
+    return BTH_RADIO_IN_RANGE
+def _define_BTH_RADIO_IN_RANGE():
+    BTH_RADIO_IN_RANGE = win32more.Devices.Bluetooth.BTH_RADIO_IN_RANGE_head
+    BTH_RADIO_IN_RANGE._fields_ = [
+        ('deviceInfo', win32more.Devices.Bluetooth.BTH_DEVICE_INFO),
+        ('previousDeviceFlags', UInt32),
+    ]
+    return BTH_RADIO_IN_RANGE
+def _define_BTH_SET_SERVICE_head():
+    class BTH_SET_SERVICE(Structure):
+        pass
+    return BTH_SET_SERVICE
+def _define_BTH_SET_SERVICE():
+    BTH_SET_SERVICE = win32more.Devices.Bluetooth.BTH_SET_SERVICE_head
+    BTH_SET_SERVICE._pack_ = 1
+    BTH_SET_SERVICE._fields_ = [
+        ('pSdpVersion', POINTER(UInt32)),
+        ('pRecordHandle', POINTER(win32more.Foundation.HANDLE)),
+        ('fCodService', UInt32),
+        ('Reserved', UInt32 * 5),
+        ('ulRecordLength', UInt32),
+        ('pRecord', Byte * 1),
+    ]
+    return BTH_SET_SERVICE
+HANDLE_SDP_TYPE = UInt64
+IO_CAPABILITY = Int32
+IoCaps_DisplayOnly = 0
+IoCaps_DisplayYesNo = 1
+IoCaps_KeyboardOnly = 2
+IoCaps_NoInputNoOutput = 3
+IoCaps_Undefined = 255
+NodeContainerType = Int32
+NodeContainerType_NodeContainerTypeSequence = 0
+NodeContainerType_NodeContainerTypeAlternative = 1
+def _define_PFN_AUTHENTICATION_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))
+def _define_PFN_AUTHENTICATION_CALLBACK_EX():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head))
+def _define_PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,c_char_p_no,UInt32,c_void_p)
+def _define_PFN_DEVICE_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head))
+def _define_PFNBLUETOOTH_GATT_EVENT_CALLBACK():
+    return WINFUNCTYPE(Void,win32more.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE,c_void_p,c_void_p)
+def _define_RFCOMM_COMMAND_head():
+    class RFCOMM_COMMAND(Structure):
+        pass
+    return RFCOMM_COMMAND
+def _define_RFCOMM_COMMAND():
+    RFCOMM_COMMAND = win32more.Devices.Bluetooth.RFCOMM_COMMAND_head
+    class RFCOMM_COMMAND__Data_e__Union(Union):
+        pass
+    RFCOMM_COMMAND__Data_e__Union._fields_ = [
+        ('MSC', win32more.Devices.Bluetooth.RFCOMM_MSC_DATA),
+        ('RLS', win32more.Devices.Bluetooth.RFCOMM_RLS_DATA),
+        ('RPN', win32more.Devices.Bluetooth.RFCOMM_RPN_DATA),
+    ]
+    RFCOMM_COMMAND._pack_ = 1
+    RFCOMM_COMMAND._fields_ = [
+        ('CmdType', UInt32),
+        ('Data', RFCOMM_COMMAND__Data_e__Union),
+    ]
+    return RFCOMM_COMMAND
+def _define_RFCOMM_MSC_DATA_head():
+    class RFCOMM_MSC_DATA(Structure):
+        pass
+    return RFCOMM_MSC_DATA
+def _define_RFCOMM_MSC_DATA():
+    RFCOMM_MSC_DATA = win32more.Devices.Bluetooth.RFCOMM_MSC_DATA_head
+    RFCOMM_MSC_DATA._fields_ = [
+        ('Signals', Byte),
+        ('Break', Byte),
+    ]
+    return RFCOMM_MSC_DATA
+def _define_RFCOMM_RLS_DATA_head():
+    class RFCOMM_RLS_DATA(Structure):
+        pass
+    return RFCOMM_RLS_DATA
+def _define_RFCOMM_RLS_DATA():
+    RFCOMM_RLS_DATA = win32more.Devices.Bluetooth.RFCOMM_RLS_DATA_head
+    RFCOMM_RLS_DATA._fields_ = [
+        ('LineStatus', Byte),
+    ]
+    return RFCOMM_RLS_DATA
+def _define_RFCOMM_RPN_DATA_head():
+    class RFCOMM_RPN_DATA(Structure):
+        pass
+    return RFCOMM_RPN_DATA
+def _define_RFCOMM_RPN_DATA():
+    RFCOMM_RPN_DATA = win32more.Devices.Bluetooth.RFCOMM_RPN_DATA_head
+    RFCOMM_RPN_DATA._fields_ = [
+        ('Baud', Byte),
+        ('Data', Byte),
+        ('FlowControl', Byte),
+        ('XonChar', Byte),
+        ('XoffChar', Byte),
+        ('ParameterMask1', Byte),
+        ('ParameterMask2', Byte),
+    ]
+    return RFCOMM_RPN_DATA
+def _define_SDP_ELEMENT_DATA_head():
+    class SDP_ELEMENT_DATA(Structure):
+        pass
+    return SDP_ELEMENT_DATA
+def _define_SDP_ELEMENT_DATA():
+    SDP_ELEMENT_DATA = win32more.Devices.Bluetooth.SDP_ELEMENT_DATA_head
+    class SDP_ELEMENT_DATA__data_e__Union(Union):
+        pass
+    class SDP_ELEMENT_DATA__data_e__Union__string_e__Struct(Structure):
+        pass
+    SDP_ELEMENT_DATA__data_e__Union__string_e__Struct._fields_ = [
+        ('value', c_char_p_no),
+        ('length', UInt32),
+    ]
+    class SDP_ELEMENT_DATA__data_e__Union__url_e__Struct(Structure):
+        pass
+    SDP_ELEMENT_DATA__data_e__Union__url_e__Struct._fields_ = [
+        ('value', c_char_p_no),
+        ('length', UInt32),
+    ]
+    class SDP_ELEMENT_DATA__data_e__Union__sequence_e__Struct(Structure):
+        pass
+    SDP_ELEMENT_DATA__data_e__Union__sequence_e__Struct._fields_ = [
+        ('value', c_char_p_no),
+        ('length', UInt32),
+    ]
+    class SDP_ELEMENT_DATA__data_e__Union__alternative_e__Struct(Structure):
+        pass
+    SDP_ELEMENT_DATA__data_e__Union__alternative_e__Struct._fields_ = [
+        ('value', c_char_p_no),
+        ('length', UInt32),
+    ]
+    SDP_ELEMENT_DATA__data_e__Union._fields_ = [
+        ('int128', win32more.Devices.Bluetooth.SDP_LARGE_INTEGER_16),
+        ('int64', Int64),
+        ('int32', Int32),
+        ('int16', Int16),
+        ('int8', win32more.Foundation.CHAR),
+        ('uint128', win32more.Devices.Bluetooth.SDP_ULARGE_INTEGER_16),
+        ('uint64', UInt64),
+        ('uint32', UInt32),
+        ('uint16', UInt16),
+        ('uint8', Byte),
+        ('booleanVal', Byte),
+        ('uuid128', Guid),
+        ('uuid32', UInt32),
+        ('uuid16', UInt16),
+        ('string', SDP_ELEMENT_DATA__data_e__Union__string_e__Struct),
+        ('url', SDP_ELEMENT_DATA__data_e__Union__url_e__Struct),
+        ('sequence', SDP_ELEMENT_DATA__data_e__Union__sequence_e__Struct),
+        ('alternative', SDP_ELEMENT_DATA__data_e__Union__alternative_e__Struct),
+    ]
+    SDP_ELEMENT_DATA._fields_ = [
+        ('type', win32more.Devices.Bluetooth.SDP_TYPE),
+        ('specificType', win32more.Devices.Bluetooth.SDP_SPECIFICTYPE),
+        ('data', SDP_ELEMENT_DATA__data_e__Union),
+    ]
+    return SDP_ELEMENT_DATA
+def _define_SDP_LARGE_INTEGER_16_head():
+    class SDP_LARGE_INTEGER_16(Structure):
+        pass
+    return SDP_LARGE_INTEGER_16
+def _define_SDP_LARGE_INTEGER_16():
+    SDP_LARGE_INTEGER_16 = win32more.Devices.Bluetooth.SDP_LARGE_INTEGER_16_head
+    SDP_LARGE_INTEGER_16._fields_ = [
+        ('LowPart', UInt64),
+        ('HighPart', Int64),
+    ]
+    return SDP_LARGE_INTEGER_16
+SDP_SPECIFICTYPE = Int32
+SDP_ST_NONE = 0
+SDP_ST_UINT8 = 16
+SDP_ST_UINT16 = 272
+SDP_ST_UINT32 = 528
+SDP_ST_UINT64 = 784
+SDP_ST_UINT128 = 1040
+SDP_ST_INT8 = 32
+SDP_ST_INT16 = 288
+SDP_ST_INT32 = 544
+SDP_ST_INT64 = 800
+SDP_ST_INT128 = 1056
+SDP_ST_UUID16 = 304
+SDP_ST_UUID32 = 544
+SDP_ST_UUID128 = 1072
+def _define_SDP_STRING_TYPE_DATA_head():
+    class SDP_STRING_TYPE_DATA(Structure):
+        pass
+    return SDP_STRING_TYPE_DATA
+def _define_SDP_STRING_TYPE_DATA():
+    SDP_STRING_TYPE_DATA = win32more.Devices.Bluetooth.SDP_STRING_TYPE_DATA_head
+    SDP_STRING_TYPE_DATA._fields_ = [
+        ('encoding', UInt16),
+        ('mibeNum', UInt16),
+        ('attributeId', UInt16),
+    ]
+    return SDP_STRING_TYPE_DATA
+SDP_TYPE = Int32
+SDP_TYPE_NIL = 0
+SDP_TYPE_UINT = 1
+SDP_TYPE_INT = 2
+SDP_TYPE_UUID = 3
+SDP_TYPE_STRING = 4
+SDP_TYPE_BOOLEAN = 5
+SDP_TYPE_SEQUENCE = 6
+SDP_TYPE_ALTERNATIVE = 7
+SDP_TYPE_URL = 8
+SDP_TYPE_CONTAINER = 32
+def _define_SDP_ULARGE_INTEGER_16_head():
+    class SDP_ULARGE_INTEGER_16(Structure):
+        pass
+    return SDP_ULARGE_INTEGER_16
+def _define_SDP_ULARGE_INTEGER_16():
+    SDP_ULARGE_INTEGER_16 = win32more.Devices.Bluetooth.SDP_ULARGE_INTEGER_16_head
+    SDP_ULARGE_INTEGER_16._fields_ = [
+        ('LowPart', UInt64),
+        ('HighPart', UInt64),
+    ]
+    return SDP_ULARGE_INTEGER_16
+def _define_SdpAttributeRange_head():
+    class SdpAttributeRange(Structure):
+        pass
+    return SdpAttributeRange
+def _define_SdpAttributeRange():
+    SdpAttributeRange = win32more.Devices.Bluetooth.SdpAttributeRange_head
+    SdpAttributeRange._fields_ = [
+        ('minAttribute', UInt16),
+        ('maxAttribute', UInt16),
+    ]
+    return SdpAttributeRange
+def _define_SdpQueryUuid_head():
+    class SdpQueryUuid(Structure):
+        pass
+    return SdpQueryUuid
+def _define_SdpQueryUuid():
+    SdpQueryUuid = win32more.Devices.Bluetooth.SdpQueryUuid_head
+    SdpQueryUuid._fields_ = [
+        ('u', win32more.Devices.Bluetooth.SdpQueryUuidUnion),
+        ('uuidType', UInt16),
+    ]
+    return SdpQueryUuid
+def _define_SdpQueryUuidUnion_head():
+    class SdpQueryUuidUnion(Union):
+        pass
+    return SdpQueryUuidUnion
+def _define_SdpQueryUuidUnion():
+    SdpQueryUuidUnion = win32more.Devices.Bluetooth.SdpQueryUuidUnion_head
+    SdpQueryUuidUnion._fields_ = [
+        ('uuid128', Guid),
+        ('uuid32', UInt32),
+        ('uuid16', UInt16),
+    ]
+    return SdpQueryUuidUnion
+def _define_SOCKADDR_BTH_head():
+    class SOCKADDR_BTH(Structure):
+        pass
+    return SOCKADDR_BTH
+def _define_SOCKADDR_BTH():
+    SOCKADDR_BTH = win32more.Devices.Bluetooth.SOCKADDR_BTH_head
+    SOCKADDR_BTH._pack_ = 1
+    SOCKADDR_BTH._fields_ = [
+        ('addressFamily', UInt16),
+        ('btAddr', UInt64),
+        ('serviceClassId', Guid),
+        ('port', UInt32),
+    ]
+    return SOCKADDR_BTH
 __all__ = [
-    "BT_PORT_MIN",
-    "BT_PORT_MAX",
-    "BT_PORT_DYN_FIRST",
+    "A2DP_SINK_SUPPORTED_FEATURES_AMPLIFIER",
+    "A2DP_SINK_SUPPORTED_FEATURES_HEADPHONE",
+    "A2DP_SINK_SUPPORTED_FEATURES_RECORDER",
+    "A2DP_SINK_SUPPORTED_FEATURES_SPEAKER",
+    "A2DP_SOURCE_SUPPORTED_FEATURES_MICROPHONE",
+    "A2DP_SOURCE_SUPPORTED_FEATURES_MIXER",
+    "A2DP_SOURCE_SUPPORTED_FEATURES_PLAYER",
+    "A2DP_SOURCE_SUPPORTED_FEATURES_TUNER",
     "AF_BTH",
-    "PF_BTH",
-    "NS_BTH",
-    "SVCID_BTH_PROVIDER",
-    "BTH_ADDR_STRING_SIZE",
-    "BTHPROTO_RFCOMM",
-    "BTHPROTO_L2CAP",
-    "SOL_RFCOMM",
-    "SOL_L2CAP",
-    "SOL_SDP",
-    "SO_BTH_AUTHENTICATE",
-    "SO_BTH_ENCRYPT",
-    "SO_BTH_MTU",
-    "SO_BTH_MTU_MAX",
-    "SO_BTH_MTU_MIN",
-    "RFCOMM_MAX_MTU",
-    "RFCOMM_MIN_MTU",
-    "BTH_SDP_VERSION",
-    "SDP_DEFAULT_INQUIRY_SECONDS",
-    "SDP_MAX_INQUIRY_SECONDS",
-    "SDP_DEFAULT_INQUIRY_MAX_RESPONSES",
-    "SDP_SERVICE_SEARCH_REQUEST",
-    "SDP_SERVICE_ATTRIBUTE_REQUEST",
-    "SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST",
-    "BTHNS_RESULT_DEVICE_CONNECTED",
-    "BTHNS_RESULT_DEVICE_REMEMBERED",
-    "BTHNS_RESULT_DEVICE_AUTHENTICATED",
-    "RLS_ERROR",
-    "RLS_OVERRUN",
-    "RLS_PARITY",
-    "RLS_FRAMING",
-    "RPN_BAUD_2400",
-    "RPN_BAUD_4800",
-    "RPN_BAUD_7200",
-    "RPN_BAUD_9600",
-    "RPN_BAUD_19200",
-    "RPN_BAUD_38400",
-    "RPN_BAUD_57600",
-    "RPN_BAUD_115200",
-    "RPN_BAUD_230400",
-    "RPN_DATA_5",
-    "RPN_DATA_6",
-    "RPN_DATA_7",
-    "RPN_DATA_8",
-    "RPN_STOP_1",
-    "RPN_STOP_1_5",
-    "RPN_PARITY_NONE",
-    "RPN_PARITY_ODD",
-    "RPN_PARITY_EVEN",
-    "RPN_PARITY_MARK",
-    "RPN_PARITY_SPACE",
-    "RPN_FLOW_X_IN",
-    "RPN_FLOW_X_OUT",
-    "RPN_FLOW_RTR_IN",
-    "RPN_FLOW_RTR_OUT",
-    "RPN_FLOW_RTC_IN",
-    "RPN_FLOW_RTC_OUT",
-    "RPN_PARAM_BAUD",
-    "RPN_PARAM_DATA",
-    "RPN_PARAM_STOP",
-    "RPN_PARAM_PARITY",
-    "RPN_PARAM_P_TYPE",
-    "RPN_PARAM_XON",
-    "RPN_PARAM_XOFF",
-    "RPN_PARAM_X_IN",
-    "RPN_PARAM_X_OUT",
-    "RPN_PARAM_RTR_IN",
-    "RPN_PARAM_RTR_OUT",
-    "RPN_PARAM_RTC_IN",
-    "RPN_PARAM_RTC_OUT",
-    "RFCOMM_CMD_NONE",
-    "RFCOMM_CMD_MSC",
-    "RFCOMM_CMD_RLS",
-    "RFCOMM_CMD_RPN",
-    "RFCOMM_CMD_RPN_REQUEST",
-    "RFCOMM_CMD_RPN_RESPONSE",
-    "BLUETOOTH_MAX_NAME_SIZE",
-    "BLUETOOTH_MAX_PASSKEY_SIZE",
-    "BLUETOOTH_MAX_PASSKEY_BUFFER_SIZE",
-    "BLUETOOTH_MAX_SERVICE_NAME_SIZE",
-    "BLUETOOTH_DEVICE_NAME_SIZE",
-    "BLUETOOTH_SERVICE_DISABLE",
-    "BLUETOOTH_SERVICE_ENABLE",
-    "GUID_BLUETOOTHLE_DEVICE_INTERFACE",
-    "GUID_BLUETOOTH_GATT_SERVICE_DEVICE_INTERFACE",
-    "BTH_LE_ATT_BLUETOOTH_BASE_GUID",
-    "BTH_LE_SERVICE_GAP",
-    "BTH_LE_SERVICE_GATT",
-    "BTH_LE_GATT_ATTRIBUTE_TYPE_PRIMARY_SERVICE",
-    "BTH_LE_GATT_ATTRIBUTE_TYPE_SECONDARY_SERVICE",
-    "BTH_LE_GATT_ATTRIBUTE_TYPE_INCLUDE",
-    "BTH_LE_GATT_ATTRIBUTE_TYPE_CHARACTERISTIC",
-    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_EXTENDED_PROPERTIES",
-    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_USER_DESCRIPTION",
-    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_CLIENT_CONFIGURATION",
-    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_SERVER_CONFIGURATION",
-    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_FORMAT",
-    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_AGGREGATE_FORMAT",
-    "BTH_LE_GATT_CHARACTERISTIC_TYPE_DEVICE_NAME",
-    "BTH_LE_GATT_CHARACTERISTIC_TYPE_APPEARANCE",
-    "BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PRIVACY_FLAG",
-    "BTH_LE_GATT_CHARACTERISTIC_TYPE_RECONNECTION_ADDRESS",
-    "BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PREFERED_CONNECTION_PARAMETER",
-    "BTH_LE_GATT_CHARACTERISTIC_TYPE_SERVICE_CHANGED",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_OFFSET",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_MASK",
-    "BTH_LE_GAP_APPEARANCE_SUB_CATEGORY_MASK",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_UNCATEGORIZED",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_PHONE",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_COMPUTER",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_WATCH",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_CLOCK",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_DISPLAY",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_REMOTE_CONTROL",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_EYE_GLASSES",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_TAG",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_KEYRING",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_MEDIA_PLAYER",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_BARCODE_SCANNER",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_THERMOMETER",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_HEART_RATE",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_BLOOD_PRESSURE",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_HID",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_GLUCOSE_METER",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_CYCLING",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_PLUSE_OXIMETER",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_WEIGHT_SCALE",
-    "BTH_LE_GAP_APPEARANCE_CATEGORY_OUTDOOR_SPORTS_ACTIVITY",
-    "BTH_LE_GAP_APPEARANCE_SUBCATEGORY_GENERIC",
-    "BTH_LE_GAP_APPEARANCE_WATCH_SUBCATEGORY_SPORTS_WATCH",
-    "BTH_LE_GAP_APPEARANCE_THERMOMETER_SUBCATEGORY_EAR",
-    "BTH_LE_GAP_APPEARANCE_HEART_RATE_SUBCATEGORY_HEART_RATE_BELT",
-    "BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_ARM",
-    "BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_WRIST",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_KEYBOARD",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_MOUSE",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_JOYSTICK",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_GAMEPAD",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITIZER_TABLET",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_CARD_READER",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITAL_PEN",
-    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_BARCODE_SCANNER",
-    "BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_IN_SHOE",
-    "BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_SHOE",
-    "BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_HIP",
-    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CYCLING_COMPUTER",
-    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_SENSOR",
-    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CADENCE_SENSOR",
-    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_POWER_SENSOR",
-    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_AND_CADENCE_SENSOR",
-    "BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_FINGERTIP",
-    "BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_WRIST_WORN",
-    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_DISPLAY_DEVICE",
-    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_DISPLAY_DEVICE",
-    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_POD",
-    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_POD",
-    "BTH_LE_GATT_DEFAULT_MAX_INCLUDED_SERVICES_DEPTH",
-    "BTH_LE_ATT_TRANSACTION_TIMEOUT",
-    "BTH_LE_ATT_MAX_VALUE_SIZE",
-    "BTH_LE_ATT_CID",
-    "BTHLEENUM_ATT_MTU_MIN",
-    "BTHLEENUM_ATT_MTU_MAX",
-    "BTHLEENUM_ATT_MTU_DEFAULT",
-    "BTHLEENUM_ATT_MTU_INITIAL_NEGOTIATION",
-    "BTH_LE_ERROR_INVALID_HANDLE",
-    "BTH_LE_ERROR_READ_NOT_PERMITTED",
-    "BTH_LE_ERROR_WRITE_NOT_PERMITTED",
-    "BTH_LE_ERROR_INVALID_PDU",
-    "BTH_LE_ERROR_INSUFFICIENT_AUTHENTICATION",
-    "BTH_LE_ERROR_REQUEST_NOT_SUPPORTED",
-    "BTH_LE_ERROR_INVALID_OFFSET",
-    "BTH_LE_ERROR_INSUFFICIENT_AUTHORIZATION",
-    "BTH_LE_ERROR_PREPARE_QUEUE_FULL",
-    "BTH_LE_ERROR_ATTRIBUTE_NOT_FOUND",
-    "BTH_LE_ERROR_ATTRIBUTE_NOT_LONG",
-    "BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION_KEY_SIZE",
-    "BTH_LE_ERROR_INVALID_ATTRIBUTE_VALUE_LENGTH",
-    "BTH_LE_ERROR_UNLIKELY",
-    "BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION",
-    "BTH_LE_ERROR_UNSUPPORTED_GROUP_TYPE",
-    "BTH_LE_ERROR_INSUFFICIENT_RESOURCES",
-    "BTH_LE_ERROR_UNKNOWN",
-    "BLUETOOTH_GATT_FLAG_NONE",
-    "BLUETOOTH_GATT_FLAG_CONNECTION_ENCRYPTED",
-    "BLUETOOTH_GATT_FLAG_CONNECTION_AUTHENTICATED",
-    "BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_DEVICE",
-    "BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_CACHE",
-    "BLUETOOTH_GATT_FLAG_SIGNED_WRITE",
-    "BLUETOOTH_GATT_FLAG_WRITE_WITHOUT_RESPONSE",
-    "BLUETOOTH_GATT_FLAG_RETURN_ALL",
-    "BTH_MAJORVERSION",
-    "BTH_MINORVERSION",
-    "GUID_BTHPORT_DEVICE_INTERFACE",
-    "GUID_BTH_RFCOMM_SERVICE_DEVICE_INTERFACE",
-    "GUID_BLUETOOTH_RADIO_IN_RANGE",
-    "GUID_BLUETOOTH_RADIO_OUT_OF_RANGE",
-    "GUID_BLUETOOTH_L2CAP_EVENT",
-    "GUID_BLUETOOTH_HCI_EVENT",
-    "GUID_BLUETOOTH_AUTHENTICATION_REQUEST",
-    "GUID_BLUETOOTH_KEYPRESS_EVENT",
-    "GUID_BLUETOOTH_HCI_VENDOR_EVENT",
-    "Bluetooth_Base_UUID",
-    "SDP_PROTOCOL_UUID16",
-    "UDP_PROTOCOL_UUID16",
-    "RFCOMM_PROTOCOL_UUID16",
-    "TCP_PROTOCOL_UUID16",
-    "TCSBIN_PROTOCOL_UUID16",
-    "TCSAT_PROTOCOL_UUID16",
     "ATT_PROTOCOL_UUID16",
-    "OBEX_PROTOCOL_UUID16",
-    "IP_PROTOCOL_UUID16",
-    "FTP_PROTOCOL_UUID16",
-    "HTTP_PROTOCOL_UUID16",
-    "WSP_PROTOCOL_UUID16",
-    "BNEP_PROTOCOL_UUID16",
-    "UPNP_PROTOCOL_UUID16",
-    "HID_PROTOCOL_UUID16",
-    "HCCC_PROTOCOL_UUID16",
-    "HCDC_PROTOCOL_UUID16",
-    "HCN_PROTOCOL_UUID16",
+    "AUTHENTICATION_REQUIREMENTS",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotDefined",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredBonding",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredGeneralBonding",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredBonding",
+    "AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredGeneralBonding",
     "AVCTP_PROTOCOL_UUID16",
     "AVDTP_PROTOCOL_UUID16",
-    "CMPT_PROTOCOL_UUID16",
-    "UDI_C_PLANE_PROTOCOL_UUID16",
-    "L2CAP_PROTOCOL_UUID16",
-    "ServiceDiscoveryServerServiceClassID_UUID16",
-    "BrowseGroupDescriptorServiceClassID_UUID16",
-    "PublicBrowseGroupServiceClassID_UUID16",
-    "SerialPortServiceClassID_UUID16",
-    "LANAccessUsingPPPServiceClassID_UUID16",
-    "DialupNetworkingServiceClassID_UUID16",
-    "IrMCSyncServiceClassID_UUID16",
-    "OBEXObjectPushServiceClassID_UUID16",
-    "OBEXFileTransferServiceClassID_UUID16",
-    "IrMcSyncCommandServiceClassID_UUID16",
-    "HeadsetServiceClassID_UUID16",
-    "CordlessTelephonyServiceClassID_UUID16",
-    "AudioSourceServiceClassID_UUID16",
-    "AudioSinkServiceClassID_UUID16",
-    "AVRemoteControlTargetServiceClassID_UUID16",
-    "AVRemoteControlServiceClassID_UUID16",
+    "AVRCP_SUPPORTED_FEATURES_CATEGORY_1",
+    "AVRCP_SUPPORTED_FEATURES_CATEGORY_2",
+    "AVRCP_SUPPORTED_FEATURES_CATEGORY_3",
+    "AVRCP_SUPPORTED_FEATURES_CATEGORY_4",
+    "AVRCP_SUPPORTED_FEATURES_CT_BROWSING",
+    "AVRCP_SUPPORTED_FEATURES_CT_COVER_ART_IMAGE",
+    "AVRCP_SUPPORTED_FEATURES_CT_COVER_ART_IMAGE_PROPERTIES",
+    "AVRCP_SUPPORTED_FEATURES_CT_COVER_ART_LINKED_THUMBNAIL",
+    "AVRCP_SUPPORTED_FEATURES_TG_BROWSING",
+    "AVRCP_SUPPORTED_FEATURES_TG_COVER_ART",
+    "AVRCP_SUPPORTED_FEATURES_TG_GROUP_NAVIGATION",
+    "AVRCP_SUPPORTED_FEATURES_TG_MULTIPLE_PLAYER_APPLICATIONS",
+    "AVRCP_SUPPORTED_FEATURES_TG_PLAYER_APPLICATION_SETTINGS",
     "AVRemoteControlControllerServiceClass_UUID16",
-    "IntercomServiceClassID_UUID16",
-    "FaxServiceClassID_UUID16",
-    "HeadsetAudioGatewayServiceClassID_UUID16",
-    "WAPServiceClassID_UUID16",
-    "WAPClientServiceClassID_UUID16",
-    "PANUServiceClassID_UUID16",
-    "NAPServiceClassID_UUID16",
-    "GNServiceClassID_UUID16",
-    "DirectPrintingServiceClassID_UUID16",
-    "ReferencePrintingServiceClassID_UUID16",
-    "ImagingResponderServiceClassID_UUID16",
-    "ImagingAutomaticArchiveServiceClassID_UUID16",
-    "ImagingReferenceObjectsServiceClassID_UUID16",
-    "HandsfreeServiceClassID_UUID16",
-    "HandsfreeAudioGatewayServiceClassID_UUID16",
-    "DirectPrintingReferenceObjectsServiceClassID_UUID16",
-    "ReflectsUIServiceClassID_UUID16",
-    "PrintingStatusServiceClassID_UUID16",
-    "HumanInterfaceDeviceServiceClassID_UUID16",
-    "HCRPrintServiceClassID_UUID16",
-    "HCRScanServiceClassID_UUID16",
-    "CommonISDNAccessServiceClassID_UUID16",
-    "VideoConferencingGWServiceClassID_UUID16",
-    "UDIMTServiceClassID_UUID16",
-    "UDITAServiceClassID_UUID16",
-    "AudioVideoServiceClassID_UUID16",
-    "SimAccessServiceClassID_UUID16",
-    "PhonebookAccessPceServiceClassID_UUID16",
-    "PhonebookAccessPseServiceClassID_UUID16",
-    "HeadsetHSServiceClassID_UUID16",
-    "MessageAccessServerServiceClassID_UUID16",
-    "MessageNotificationServerServiceClassID_UUID16",
-    "GNSSServerServiceClassID_UUID16",
-    "ThreeDimensionalDisplayServiceClassID_UUID16",
-    "ThreeDimensionalGlassesServiceClassID_UUID16",
-    "MPSServiceClassID_UUID16",
-    "CTNAccessServiceClassID_UUID16",
-    "CTNNotificationServiceClassID_UUID16",
-    "PnPInformationServiceClassID_UUID16",
-    "GenericNetworkingServiceClassID_UUID16",
-    "GenericFileTransferServiceClassID_UUID16",
-    "GenericAudioServiceClassID_UUID16",
-    "GenericTelephonyServiceClassID_UUID16",
-    "UPnpServiceClassID_UUID16",
-    "UPnpIpServiceClassID_UUID16",
-    "ESdpUpnpIpPanServiceClassID_UUID16",
-    "ESdpUpnpIpLapServiceClassID_UUID16",
-    "ESdpUpnpL2capServiceClassID_UUID16",
-    "VideoSourceServiceClassID_UUID16",
-    "VideoSinkServiceClassID_UUID16",
-    "HealthDeviceProfileSourceServiceClassID_UUID16",
-    "HealthDeviceProfileSinkServiceClassID_UUID16",
+    "AVRemoteControlServiceClassID_UUID16",
+    "AVRemoteControlTargetServiceClassID_UUID16",
     "AdvancedAudioDistributionProfileID_UUID16",
-    "ImagingServiceProfileID_UUID16",
-    "BasicPrintingProfileID_UUID16",
-    "HardcopyCableReplacementProfileID_UUID16",
-    "PhonebookAccessProfileID_UUID16",
-    "MessageAccessProfileID_UUID16",
-    "GNSSProfileID_UUID16",
-    "ThreeDimensionalSynchronizationProfileID_UUID16",
-    "MPSProfileID_UUID16",
-    "CTNProfileID_UUID16",
-    "VideoDistributionProfileID_UUID16",
-    "HealthDeviceProfileID_UUID16",
-    "VideoConferencingServiceClassID_UUID16",
-    "CommonISDNAccessServiceClass_UUID16",
-    "VideoConferencingGWServiceClass_UUID16",
-    "UDIMTServiceClass_UUID16",
-    "UDITAServiceClass_UUID16",
-    "AudioVideoServiceClass_UUID16",
-    "CordlessServiceClassID_UUID16",
-    "AudioSinkSourceServiceClassID_UUID16",
     "AdvancedAudioDistributionServiceClassID_UUID16",
-    "ImagingServiceClassID_UUID16",
-    "BasicPrintingServiceClassID_UUID16",
-    "HardcopyCableReplacementServiceClassID_UUID16",
+    "AudioSinkServiceClassID_UUID16",
+    "AudioSinkSourceServiceClassID_UUID16",
+    "AudioSourceServiceClassID_UUID16",
+    "AudioVideoServiceClassID_UUID16",
+    "AudioVideoServiceClass_UUID16",
+    "BDIF_ADDRESS",
+    "BDIF_BR",
+    "BDIF_BR_SECURE_CONNECTION_PAIRED",
+    "BDIF_COD",
+    "BDIF_CONNECTED",
+    "BDIF_CONNECTION_INBOUND",
+    "BDIF_DEBUGKEY",
+    "BDIF_EIR",
+    "BDIF_LE",
+    "BDIF_LE_CONNECTABLE",
+    "BDIF_LE_CONNECTED",
+    "BDIF_LE_DEBUGKEY",
+    "BDIF_LE_DISCOVERABLE",
+    "BDIF_LE_MITM_PROTECTED",
+    "BDIF_LE_NAME",
+    "BDIF_LE_PAIRED",
+    "BDIF_LE_PERSONAL",
+    "BDIF_LE_PRIVACY_ENABLED",
+    "BDIF_LE_RANDOM_ADDRESS_TYPE",
+    "BDIF_LE_SECURE_CONNECTION_PAIRED",
+    "BDIF_LE_VISIBLE",
+    "BDIF_NAME",
+    "BDIF_PAIRED",
+    "BDIF_PERSONAL",
+    "BDIF_RSSI",
+    "BDIF_SHORT_NAME",
+    "BDIF_SSP_MITM_PROTECTED",
+    "BDIF_SSP_PAIRED",
+    "BDIF_SSP_SUPPORTED",
+    "BDIF_TX_POWER",
+    "BDIF_VISIBLE",
+    "BLUETOOTH_ADDRESS",
+    "BLUETOOTH_AUTHENTICATE_RESPONSE",
+    "BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS",
+    "BLUETOOTH_AUTHENTICATION_METHOD",
+    "BLUETOOTH_AUTHENTICATION_METHOD_LEGACY",
+    "BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON",
+    "BLUETOOTH_AUTHENTICATION_METHOD_OOB",
+    "BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY",
+    "BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION",
+    "BLUETOOTH_AUTHENTICATION_REQUIREMENTS",
+    "BLUETOOTH_COD_PAIRS",
+    "BLUETOOTH_DEVICE_INFO",
+    "BLUETOOTH_DEVICE_NAME_SIZE",
+    "BLUETOOTH_DEVICE_SEARCH_PARAMS",
+    "BLUETOOTH_FIND_RADIO_PARAMS",
+    "BLUETOOTH_GATT_FLAG_CONNECTION_AUTHENTICATED",
+    "BLUETOOTH_GATT_FLAG_CONNECTION_ENCRYPTED",
+    "BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_CACHE",
+    "BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_DEVICE",
+    "BLUETOOTH_GATT_FLAG_NONE",
+    "BLUETOOTH_GATT_FLAG_RETURN_ALL",
+    "BLUETOOTH_GATT_FLAG_SIGNED_WRITE",
+    "BLUETOOTH_GATT_FLAG_WRITE_WITHOUT_RESPONSE",
+    "BLUETOOTH_GATT_VALUE_CHANGED_EVENT",
+    "BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION",
+    "BLUETOOTH_IO_CAPABILITY",
+    "BLUETOOTH_IO_CAPABILITY_DISPLAYONLY",
+    "BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO",
+    "BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY",
+    "BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT",
+    "BLUETOOTH_IO_CAPABILITY_UNDEFINED",
+    "BLUETOOTH_LOCAL_SERVICE_INFO",
+    "BLUETOOTH_MAX_NAME_SIZE",
+    "BLUETOOTH_MAX_PASSKEY_BUFFER_SIZE",
+    "BLUETOOTH_MAX_PASSKEY_SIZE",
+    "BLUETOOTH_MAX_SERVICE_NAME_SIZE",
+    "BLUETOOTH_MITM_ProtectionNotDefined",
+    "BLUETOOTH_MITM_ProtectionNotRequired",
+    "BLUETOOTH_MITM_ProtectionNotRequiredBonding",
+    "BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding",
+    "BLUETOOTH_MITM_ProtectionRequired",
+    "BLUETOOTH_MITM_ProtectionRequiredBonding",
+    "BLUETOOTH_MITM_ProtectionRequiredGeneralBonding",
+    "BLUETOOTH_NUMERIC_COMPARISON_INFO",
+    "BLUETOOTH_OOB_DATA_INFO",
+    "BLUETOOTH_PASSKEY_INFO",
+    "BLUETOOTH_PIN_INFO",
+    "BLUETOOTH_RADIO_INFO",
+    "BLUETOOTH_SELECT_DEVICE_PARAMS",
+    "BLUETOOTH_SERVICE_DISABLE",
+    "BLUETOOTH_SERVICE_ENABLE",
+    "BNEP_PROTOCOL_UUID16",
+    "BTHLEENUM_ATT_MTU_DEFAULT",
+    "BTHLEENUM_ATT_MTU_INITIAL_NEGOTIATION",
+    "BTHLEENUM_ATT_MTU_MAX",
+    "BTHLEENUM_ATT_MTU_MIN",
+    "BTHNS_RESULT_DEVICE_AUTHENTICATED",
+    "BTHNS_RESULT_DEVICE_CONNECTED",
+    "BTHNS_RESULT_DEVICE_REMEMBERED",
+    "BTHPROTO_L2CAP",
+    "BTHPROTO_RFCOMM",
+    "BTH_ADDR_GIAC",
+    "BTH_ADDR_IAC_FIRST",
+    "BTH_ADDR_IAC_LAST",
+    "BTH_ADDR_LIAC",
+    "BTH_ADDR_STRING_SIZE",
+    "BTH_DEVICE_INFO",
+    "BTH_EIR_128_UUIDS_COMPLETE_ID",
+    "BTH_EIR_128_UUIDS_PARTIAL_ID",
+    "BTH_EIR_16_UUIDS_COMPLETE_ID",
+    "BTH_EIR_16_UUIDS_PARTIAL_ID",
+    "BTH_EIR_32_UUIDS_COMPLETE_ID",
+    "BTH_EIR_32_UUIDS_PARTIAL_ID",
+    "BTH_EIR_FLAGS_ID",
+    "BTH_EIR_LOCAL_NAME_COMPLETE_ID",
+    "BTH_EIR_LOCAL_NAME_PARTIAL_ID",
+    "BTH_EIR_MANUFACTURER_ID",
+    "BTH_EIR_OOB_BD_ADDR_ID",
+    "BTH_EIR_OOB_COD_ID",
+    "BTH_EIR_OOB_OPT_DATA_LEN_ID",
+    "BTH_EIR_OOB_SP_HASH_ID",
+    "BTH_EIR_OOB_SP_RANDOMIZER_ID",
+    "BTH_EIR_SIZE",
+    "BTH_EIR_TX_POWER_LEVEL_ID",
+    "BTH_ERROR_ACL_CONNECTION_ALREADY_EXISTS",
+    "BTH_ERROR_AUTHENTICATION_FAILURE",
+    "BTH_ERROR_CHANNEL_CLASSIFICATION_NOT_SUPPORTED",
+    "BTH_ERROR_COARSE_CLOCK_ADJUSTMENT_REJECTED",
+    "BTH_ERROR_COMMAND_DISALLOWED",
+    "BTH_ERROR_CONNECTION_FAILED_TO_BE_ESTABLISHED",
+    "BTH_ERROR_CONNECTION_REJECTED_DUE_TO_NO_SUITABLE_CHANNEL_FOUND",
+    "BTH_ERROR_CONNECTION_TERMINATED_DUE_TO_MIC_FAILURE",
+    "BTH_ERROR_CONNECTION_TIMEOUT",
+    "BTH_ERROR_CONTROLLER_BUSY",
+    "BTH_ERROR_DIFFERENT_TRANSACTION_COLLISION",
+    "BTH_ERROR_DIRECTED_ADVERTISING_TIMEOUT",
+    "BTH_ERROR_ENCRYPTION_MODE_NOT_ACCEPTABLE",
+    "BTH_ERROR_EXTENDED_INQUIRY_RESPONSE_TOO_LARGE",
+    "BTH_ERROR_HARDWARE_FAILURE",
+    "BTH_ERROR_HOST_BUSY_PAIRING",
+    "BTH_ERROR_HOST_REJECTED_LIMITED_RESOURCES",
+    "BTH_ERROR_HOST_REJECTED_PERSONAL_DEVICE",
+    "BTH_ERROR_HOST_REJECTED_SECURITY_REASONS",
+    "BTH_ERROR_HOST_TIMEOUT",
+    "BTH_ERROR_INSTANT_PASSED",
+    "BTH_ERROR_INSUFFICIENT_SECURITY",
+    "BTH_ERROR_INVALID_HCI_PARAMETER",
+    "BTH_ERROR_INVALID_LMP_PARAMETERS",
+    "BTH_ERROR_KEY_MISSING",
+    "BTH_ERROR_LIMIT_REACHED",
+    "BTH_ERROR_LMP_PDU_NOT_ALLOWED",
+    "BTH_ERROR_LMP_RESPONSE_TIMEOUT",
+    "BTH_ERROR_LMP_TRANSACTION_COLLISION",
+    "BTH_ERROR_LOCAL_HOST_TERMINATED_CONNECTION",
+    "BTH_ERROR_MAC_CONNECTION_FAILED",
+    "BTH_ERROR_MAX_NUMBER_OF_CONNECTIONS",
+    "BTH_ERROR_MAX_NUMBER_OF_SCO_CONNECTIONS",
+    "BTH_ERROR_MEMORY_FULL",
+    "BTH_ERROR_NO_CONNECTION",
+    "BTH_ERROR_OPERATION_CANCELLED_BY_HOST",
+    "BTH_ERROR_PACKET_TOO_LONG",
+    "BTH_ERROR_PAGE_TIMEOUT",
+    "BTH_ERROR_PAIRING_NOT_ALLOWED",
+    "BTH_ERROR_PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED",
+    "BTH_ERROR_PARAMETER_OUT_OF_MANDATORY_RANGE",
+    "BTH_ERROR_QOS_IS_NOT_SUPPORTED",
+    "BTH_ERROR_QOS_REJECTED",
+    "BTH_ERROR_QOS_UNACCEPTABLE_PARAMETER",
+    "BTH_ERROR_REMOTE_LOW_RESOURCES",
+    "BTH_ERROR_REMOTE_POWERING_OFF",
+    "BTH_ERROR_REMOTE_USER_ENDED_CONNECTION",
+    "BTH_ERROR_REPEATED_ATTEMPTS",
+    "BTH_ERROR_RESERVED_SLOT_VIOLATION",
+    "BTH_ERROR_ROLE_CHANGE_NOT_ALLOWED",
+    "BTH_ERROR_ROLE_SWITCH_FAILED",
+    "BTH_ERROR_ROLE_SWITCH_PENDING",
+    "BTH_ERROR_SCO_AIRMODE_REJECTED",
+    "BTH_ERROR_SCO_INTERVAL_REJECTED",
+    "BTH_ERROR_SCO_OFFSET_REJECTED",
+    "BTH_ERROR_SECURE_SIMPLE_PAIRING_NOT_SUPPORTED_BY_HOST",
+    "BTH_ERROR_SUCCESS",
+    "BTH_ERROR_TYPE_0_SUBMAP_NOT_DEFINED",
+    "BTH_ERROR_UKNOWN_LMP_PDU",
+    "BTH_ERROR_UNACCEPTABLE_CONNECTION_INTERVAL",
+    "BTH_ERROR_UNIT_KEY_NOT_USED",
+    "BTH_ERROR_UNKNOWN_ADVERTISING_IDENTIFIER",
+    "BTH_ERROR_UNKNOWN_HCI_COMMAND",
+    "BTH_ERROR_UNSPECIFIED",
+    "BTH_ERROR_UNSPECIFIED_ERROR",
+    "BTH_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER",
+    "BTH_ERROR_UNSUPPORTED_LMP_PARM_VALUE",
+    "BTH_ERROR_UNSUPPORTED_REMOTE_FEATURE",
+    "BTH_HCI_EVENT_INFO",
+    "BTH_HOST_FEATURE_ENHANCED_RETRANSMISSION_MODE",
+    "BTH_HOST_FEATURE_LOW_ENERGY",
+    "BTH_HOST_FEATURE_SCO_HCI",
+    "BTH_HOST_FEATURE_SCO_HCIBYPASS",
+    "BTH_HOST_FEATURE_STREAMING_MODE",
+    "BTH_INFO_REQ",
+    "BTH_INFO_RSP",
+    "BTH_IOCTL_BASE",
+    "BTH_L2CAP_EVENT_INFO",
+    "BTH_LE_ATT_BLUETOOTH_BASE_GUID",
+    "BTH_LE_ATT_CID",
+    "BTH_LE_ATT_MAX_VALUE_SIZE",
+    "BTH_LE_ATT_TRANSACTION_TIMEOUT",
+    "BTH_LE_ERROR_ATTRIBUTE_NOT_FOUND",
+    "BTH_LE_ERROR_ATTRIBUTE_NOT_LONG",
+    "BTH_LE_ERROR_INSUFFICIENT_AUTHENTICATION",
+    "BTH_LE_ERROR_INSUFFICIENT_AUTHORIZATION",
+    "BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION",
+    "BTH_LE_ERROR_INSUFFICIENT_ENCRYPTION_KEY_SIZE",
+    "BTH_LE_ERROR_INSUFFICIENT_RESOURCES",
+    "BTH_LE_ERROR_INVALID_ATTRIBUTE_VALUE_LENGTH",
+    "BTH_LE_ERROR_INVALID_HANDLE",
+    "BTH_LE_ERROR_INVALID_OFFSET",
+    "BTH_LE_ERROR_INVALID_PDU",
+    "BTH_LE_ERROR_PREPARE_QUEUE_FULL",
+    "BTH_LE_ERROR_READ_NOT_PERMITTED",
+    "BTH_LE_ERROR_REQUEST_NOT_SUPPORTED",
+    "BTH_LE_ERROR_UNKNOWN",
+    "BTH_LE_ERROR_UNLIKELY",
+    "BTH_LE_ERROR_UNSUPPORTED_GROUP_TYPE",
+    "BTH_LE_ERROR_WRITE_NOT_PERMITTED",
+    "BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_ARM",
+    "BTH_LE_GAP_APPEARANCE_BLOOD_PRESSURE_SUBCATEGORY_WRIST",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_BARCODE_SCANNER",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_BLOOD_PRESSURE",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_CLOCK",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_COMPUTER",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_CYCLING",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_DISPLAY",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_EYE_GLASSES",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_GLUCOSE_METER",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_HEART_RATE",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_HID",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_KEYRING",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_MASK",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_MEDIA_PLAYER",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_OFFSET",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_OUTDOOR_SPORTS_ACTIVITY",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_PHONE",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_PLUSE_OXIMETER",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_REMOTE_CONTROL",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_TAG",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_THERMOMETER",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_UNCATEGORIZED",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_WATCH",
+    "BTH_LE_GAP_APPEARANCE_CATEGORY_WEIGHT_SCALE",
+    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CADENCE_SENSOR",
+    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_CYCLING_COMPUTER",
+    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_POWER_SENSOR",
+    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_AND_CADENCE_SENSOR",
+    "BTH_LE_GAP_APPEARANCE_CYCLING_SUBCATEGORY_SPEED_SENSOR",
+    "BTH_LE_GAP_APPEARANCE_HEART_RATE_SUBCATEGORY_HEART_RATE_BELT",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_BARCODE_SCANNER",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_CARD_READER",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITAL_PEN",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_DIGITIZER_TABLET",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_GAMEPAD",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_JOYSTICK",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_KEYBOARD",
+    "BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_MOUSE",
+    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_DISPLAY_DEVICE",
+    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_DISPLAY_DEVICE",
+    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_NAVIGATION_POD",
+    "BTH_LE_GAP_APPEARANCE_OUTDOOR_SPORTS_ACTIVITY_SUBCATEGORY_LOCATION_POD",
+    "BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_FINGERTIP",
+    "BTH_LE_GAP_APPEARANCE_PULSE_OXIMETER_SUBCATEGORY_WRIST_WORN",
+    "BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_IN_SHOE",
+    "BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_HIP",
+    "BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_ON_SHOE",
+    "BTH_LE_GAP_APPEARANCE_SUBCATEGORY_GENERIC",
+    "BTH_LE_GAP_APPEARANCE_SUB_CATEGORY_MASK",
+    "BTH_LE_GAP_APPEARANCE_THERMOMETER_SUBCATEGORY_EAR",
+    "BTH_LE_GAP_APPEARANCE_WATCH_SUBCATEGORY_SPORTS_WATCH",
+    "BTH_LE_GATT_ATTRIBUTE_TYPE_CHARACTERISTIC",
+    "BTH_LE_GATT_ATTRIBUTE_TYPE_INCLUDE",
+    "BTH_LE_GATT_ATTRIBUTE_TYPE_PRIMARY_SERVICE",
+    "BTH_LE_GATT_ATTRIBUTE_TYPE_SECONDARY_SERVICE",
+    "BTH_LE_GATT_CHARACTERISTIC",
+    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_AGGREGATE_FORMAT",
+    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_CLIENT_CONFIGURATION",
+    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_EXTENDED_PROPERTIES",
+    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_FORMAT",
+    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_SERVER_CONFIGURATION",
+    "BTH_LE_GATT_CHARACTERISTIC_DESCRIPTOR_USER_DESCRIPTION",
+    "BTH_LE_GATT_CHARACTERISTIC_TYPE_APPEARANCE",
+    "BTH_LE_GATT_CHARACTERISTIC_TYPE_DEVICE_NAME",
+    "BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PREFERED_CONNECTION_PARAMETER",
+    "BTH_LE_GATT_CHARACTERISTIC_TYPE_PERIPHERAL_PRIVACY_FLAG",
+    "BTH_LE_GATT_CHARACTERISTIC_TYPE_RECONNECTION_ADDRESS",
+    "BTH_LE_GATT_CHARACTERISTIC_TYPE_SERVICE_CHANGED",
+    "BTH_LE_GATT_CHARACTERISTIC_VALUE",
+    "BTH_LE_GATT_DEFAULT_MAX_INCLUDED_SERVICES_DEPTH",
+    "BTH_LE_GATT_DESCRIPTOR",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicAggregateFormat",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicExtendedProperties",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicFormat",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicUserDescription",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_ClientCharacteristicConfiguration",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_CustomDescriptor",
+    "BTH_LE_GATT_DESCRIPTOR_TYPE_ServerCharacteristicConfiguration",
+    "BTH_LE_GATT_DESCRIPTOR_VALUE",
+    "BTH_LE_GATT_EVENT_TYPE",
+    "BTH_LE_GATT_EVENT_TYPE_CharacteristicValueChangedEvent",
+    "BTH_LE_GATT_SERVICE",
+    "BTH_LE_SERVICE_GAP",
+    "BTH_LE_SERVICE_GATT",
+    "BTH_LE_UUID",
+    "BTH_LINK_KEY_LENGTH",
+    "BTH_MAJORVERSION",
     "BTH_MAX_NAME_SIZE",
     "BTH_MAX_PIN_SIZE",
-    "BTH_LINK_KEY_LENGTH",
-    "BTH_MFG_ERICSSON",
-    "BTH_MFG_NOKIA",
-    "BTH_MFG_INTEL",
-    "BTH_MFG_IBM",
-    "BTH_MFG_TOSHIBA",
+    "BTH_MAX_SERVICE_NAME_SIZE",
     "BTH_MFG_3COM",
-    "BTH_MFG_MICROSOFT",
-    "BTH_MFG_LUCENT",
-    "BTH_MFG_MOTOROLA",
-    "BTH_MFG_INFINEON",
-    "BTH_MFG_CSR",
-    "BTH_MFG_SILICONWAVE",
-    "BTH_MFG_DIGIANSWER",
-    "BTH_MFG_TI",
-    "BTH_MFG_PARTHUS",
-    "BTH_MFG_BROADCOM",
-    "BTH_MFG_MITEL",
-    "BTH_MFG_WIDCOMM",
-    "BTH_MFG_ZEEVO",
+    "BTH_MFG_ALCATEL",
+    "BTH_MFG_APPLE",
+    "BTH_MFG_ARUBA_NETWORKS",
     "BTH_MFG_ATMEL",
-    "BTH_MFG_MITSIBUSHI",
-    "BTH_MFG_RTX_TELECOM",
-    "BTH_MFG_KC_TECHNOLOGY",
-    "BTH_MFG_NEWLOGIC",
-    "BTH_MFG_TRANSILICA",
-    "BTH_MFG_ROHDE_SCHWARZ",
-    "BTH_MFG_TTPCOM",
-    "BTH_MFG_SIGNIA",
-    "BTH_MFG_CONEXANT",
-    "BTH_MFG_QUALCOMM",
-    "BTH_MFG_INVENTEL",
     "BTH_MFG_AVM_BERLIN",
     "BTH_MFG_BANDSPEED",
-    "BTH_MFG_MANSELLA",
-    "BTH_MFG_NEC",
-    "BTH_MFG_WAVEPLUS_TECHNOLOGY_CO",
-    "BTH_MFG_ALCATEL",
-    "BTH_MFG_PHILIPS_SEMICONDUCTOR",
+    "BTH_MFG_BROADCOM",
+    "BTH_MFG_CONEXANT",
+    "BTH_MFG_CSR",
     "BTH_MFG_C_TECHNOLOGIES",
-    "BTH_MFG_OPEN_INTERFACE",
-    "BTH_MFG_RF_MICRO_DEVICES",
+    "BTH_MFG_DIGIANSWER",
+    "BTH_MFG_ERICSSON",
     "BTH_MFG_HITACHI",
+    "BTH_MFG_IBM",
+    "BTH_MFG_INFINEON",
+    "BTH_MFG_INTEL",
+    "BTH_MFG_INTERNAL_USE",
+    "BTH_MFG_INVENTEL",
+    "BTH_MFG_KC_TECHNOLOGY",
+    "BTH_MFG_LUCENT",
+    "BTH_MFG_MACRONIX_INTERNATIONAL",
+    "BTH_MFG_MANSELLA",
+    "BTH_MFG_MARVELL",
+    "BTH_MFG_MICROSOFT",
+    "BTH_MFG_MITEL",
+    "BTH_MFG_MITSIBUSHI",
+    "BTH_MFG_MOTOROLA",
+    "BTH_MFG_NEC",
+    "BTH_MFG_NEWLOGIC",
+    "BTH_MFG_NOKIA",
+    "BTH_MFG_NORDIC_SEMICONDUCTORS_ASA",
+    "BTH_MFG_OPEN_INTERFACE",
+    "BTH_MFG_PARTHUS",
+    "BTH_MFG_PHILIPS_SEMICONDUCTOR",
+    "BTH_MFG_QUALCOMM",
+    "BTH_MFG_RF_MICRO_DEVICES",
+    "BTH_MFG_ROHDE_SCHWARZ",
+    "BTH_MFG_RTX_TELECOM",
+    "BTH_MFG_SIGNIA",
+    "BTH_MFG_SILICONWAVE",
     "BTH_MFG_SYMBOL_TECHNOLOGIES",
     "BTH_MFG_TENOVIS",
-    "BTH_MFG_MACRONIX_INTERNATIONAL",
-    "BTH_MFG_MARVELL",
-    "BTH_MFG_APPLE",
-    "BTH_MFG_NORDIC_SEMICONDUCTORS_ASA",
-    "BTH_MFG_ARUBA_NETWORKS",
-    "BTH_MFG_INTERNAL_USE",
-    "SAP_BIT_OFFSET",
-    "COD_FORMAT_BIT_OFFSET",
-    "COD_MINOR_BIT_OFFSET",
-    "COD_FORMAT_MASK",
-    "COD_MINOR_MASK",
-    "COD_MAJOR_MASK",
-    "COD_SERVICE_MASK",
-    "COD_VERSION",
-    "COD_SERVICE_LIMITED",
-    "COD_SERVICE_POSITIONING",
-    "COD_SERVICE_NETWORKING",
-    "COD_SERVICE_RENDERING",
-    "COD_SERVICE_CAPTURING",
-    "COD_SERVICE_OBJECT_XFER",
-    "COD_SERVICE_AUDIO",
-    "COD_SERVICE_TELEPHONY",
-    "COD_SERVICE_INFORMATION",
-    "COD_SERVICE_MAX_COUNT",
-    "COD_MAJOR_MISCELLANEOUS",
-    "COD_MAJOR_COMPUTER",
-    "COD_MAJOR_PHONE",
-    "COD_MAJOR_LAN_ACCESS",
-    "COD_MAJOR_AUDIO",
-    "COD_MAJOR_PERIPHERAL",
-    "COD_MAJOR_IMAGING",
-    "COD_MAJOR_WEARABLE",
-    "COD_MAJOR_TOY",
-    "COD_MAJOR_HEALTH",
-    "COD_MAJOR_UNCLASSIFIED",
-    "COD_COMPUTER_MINOR_UNCLASSIFIED",
-    "COD_COMPUTER_MINOR_DESKTOP",
-    "COD_COMPUTER_MINOR_SERVER",
-    "COD_COMPUTER_MINOR_LAPTOP",
-    "COD_COMPUTER_MINOR_HANDHELD",
-    "COD_COMPUTER_MINOR_PALM",
-    "COD_COMPUTER_MINOR_WEARABLE",
-    "COD_PHONE_MINOR_UNCLASSIFIED",
-    "COD_PHONE_MINOR_CELLULAR",
-    "COD_PHONE_MINOR_CORDLESS",
-    "COD_PHONE_MINOR_SMART",
-    "COD_PHONE_MINOR_WIRED_MODEM",
-    "COD_AUDIO_MINOR_UNCLASSIFIED",
-    "COD_AUDIO_MINOR_HEADSET",
-    "COD_AUDIO_MINOR_HANDS_FREE",
-    "COD_AUDIO_MINOR_HEADSET_HANDS_FREE",
-    "COD_AUDIO_MINOR_MICROPHONE",
-    "COD_AUDIO_MINOR_LOUDSPEAKER",
-    "COD_AUDIO_MINOR_HEADPHONES",
-    "COD_AUDIO_MINOR_PORTABLE_AUDIO",
+    "BTH_MFG_TI",
+    "BTH_MFG_TOSHIBA",
+    "BTH_MFG_TRANSILICA",
+    "BTH_MFG_TTPCOM",
+    "BTH_MFG_WAVEPLUS_TECHNOLOGY_CO",
+    "BTH_MFG_WIDCOMM",
+    "BTH_MFG_ZEEVO",
+    "BTH_MINORVERSION",
+    "BTH_PING_REQ",
+    "BTH_PING_RSP",
+    "BTH_QUERY_DEVICE",
+    "BTH_QUERY_SERVICE",
+    "BTH_RADIO_IN_RANGE",
+    "BTH_SDP_VERSION",
+    "BTH_SET_SERVICE",
+    "BTH_VID_DEFAULT_VALUE",
+    "BT_PORT_DYN_FIRST",
+    "BT_PORT_MAX",
+    "BT_PORT_MIN",
+    "BasicPrintingProfileID_UUID16",
+    "BasicPrintingServiceClassID_UUID16",
+    "BluetoothAuthenticateDevice",
+    "BluetoothAuthenticateDeviceEx",
+    "BluetoothAuthenticateMultipleDevices",
+    "BluetoothDisplayDeviceProperties",
+    "BluetoothEnableDiscovery",
+    "BluetoothEnableIncomingConnections",
+    "BluetoothEnumerateInstalledServices",
+    "BluetoothFindDeviceClose",
+    "BluetoothFindFirstDevice",
+    "BluetoothFindFirstRadio",
+    "BluetoothFindNextDevice",
+    "BluetoothFindNextRadio",
+    "BluetoothFindRadioClose",
+    "BluetoothGATTAbortReliableWrite",
+    "BluetoothGATTBeginReliableWrite",
+    "BluetoothGATTEndReliableWrite",
+    "BluetoothGATTGetCharacteristicValue",
+    "BluetoothGATTGetCharacteristics",
+    "BluetoothGATTGetDescriptorValue",
+    "BluetoothGATTGetDescriptors",
+    "BluetoothGATTGetIncludedServices",
+    "BluetoothGATTGetServices",
+    "BluetoothGATTRegisterEvent",
+    "BluetoothGATTSetCharacteristicValue",
+    "BluetoothGATTSetDescriptorValue",
+    "BluetoothGATTUnregisterEvent",
+    "BluetoothGetDeviceInfo",
+    "BluetoothGetRadioInfo",
+    "BluetoothIsConnectable",
+    "BluetoothIsDiscoverable",
+    "BluetoothIsVersionAvailable",
+    "BluetoothRegisterForAuthentication",
+    "BluetoothRegisterForAuthenticationEx",
+    "BluetoothRemoveDevice",
+    "BluetoothSdpEnumAttributes",
+    "BluetoothSdpGetAttributeValue",
+    "BluetoothSdpGetContainerElementData",
+    "BluetoothSdpGetElementData",
+    "BluetoothSdpGetString",
+    "BluetoothSelectDevices",
+    "BluetoothSelectDevicesFree",
+    "BluetoothSendAuthenticationResponse",
+    "BluetoothSendAuthenticationResponseEx",
+    "BluetoothSetLocalServiceInfo",
+    "BluetoothSetServiceState",
+    "BluetoothUnregisterAuthentication",
+    "BluetoothUpdateDeviceRecord",
+    "Bluetooth_Base_UUID",
+    "BrowseGroupDescriptorServiceClassID_UUID16",
+    "CMPT_PROTOCOL_UUID16",
+    "COD_AUDIO_MINOR_CAMCORDER",
     "COD_AUDIO_MINOR_CAR_AUDIO",
-    "COD_AUDIO_MINOR_SET_TOP_BOX",
+    "COD_AUDIO_MINOR_GAMING_TOY",
+    "COD_AUDIO_MINOR_HANDS_FREE",
+    "COD_AUDIO_MINOR_HEADPHONES",
+    "COD_AUDIO_MINOR_HEADSET",
+    "COD_AUDIO_MINOR_HEADSET_HANDS_FREE",
     "COD_AUDIO_MINOR_HIFI_AUDIO",
+    "COD_AUDIO_MINOR_LOUDSPEAKER",
+    "COD_AUDIO_MINOR_MICROPHONE",
+    "COD_AUDIO_MINOR_PORTABLE_AUDIO",
+    "COD_AUDIO_MINOR_SET_TOP_BOX",
+    "COD_AUDIO_MINOR_UNCLASSIFIED",
     "COD_AUDIO_MINOR_VCR",
     "COD_AUDIO_MINOR_VIDEO_CAMERA",
-    "COD_AUDIO_MINOR_CAMCORDER",
-    "COD_AUDIO_MINOR_VIDEO_MONITOR",
-    "COD_AUDIO_MINOR_VIDEO_DISPLAY_LOUDSPEAKER",
     "COD_AUDIO_MINOR_VIDEO_DISPLAY_CONFERENCING",
-    "COD_AUDIO_MINOR_GAMING_TOY",
-    "COD_PERIPHERAL_MINOR_KEYBOARD_MASK",
-    "COD_PERIPHERAL_MINOR_POINTER_MASK",
-    "COD_PERIPHERAL_MINOR_NO_CATEGORY",
-    "COD_PERIPHERAL_MINOR_JOYSTICK",
-    "COD_PERIPHERAL_MINOR_GAMEPAD",
-    "COD_PERIPHERAL_MINOR_REMOTE_CONTROL",
-    "COD_PERIPHERAL_MINOR_SENSING",
-    "COD_IMAGING_MINOR_DISPLAY_MASK",
-    "COD_IMAGING_MINOR_CAMERA_MASK",
-    "COD_IMAGING_MINOR_SCANNER_MASK",
-    "COD_IMAGING_MINOR_PRINTER_MASK",
-    "COD_WEARABLE_MINOR_WRIST_WATCH",
-    "COD_WEARABLE_MINOR_PAGER",
-    "COD_WEARABLE_MINOR_JACKET",
-    "COD_WEARABLE_MINOR_HELMET",
-    "COD_WEARABLE_MINOR_GLASSES",
-    "COD_TOY_MINOR_ROBOT",
-    "COD_TOY_MINOR_VEHICLE",
-    "COD_TOY_MINOR_DOLL_ACTION_FIGURE",
-    "COD_TOY_MINOR_CONTROLLER",
-    "COD_TOY_MINOR_GAME",
+    "COD_AUDIO_MINOR_VIDEO_DISPLAY_LOUDSPEAKER",
+    "COD_AUDIO_MINOR_VIDEO_MONITOR",
+    "COD_COMPUTER_MINOR_DESKTOP",
+    "COD_COMPUTER_MINOR_HANDHELD",
+    "COD_COMPUTER_MINOR_LAPTOP",
+    "COD_COMPUTER_MINOR_PALM",
+    "COD_COMPUTER_MINOR_SERVER",
+    "COD_COMPUTER_MINOR_UNCLASSIFIED",
+    "COD_COMPUTER_MINOR_WEARABLE",
+    "COD_FORMAT_BIT_OFFSET",
+    "COD_FORMAT_MASK",
     "COD_HEALTH_MINOR_BLOOD_PRESSURE_MONITOR",
+    "COD_HEALTH_MINOR_GLUCOSE_METER",
+    "COD_HEALTH_MINOR_HEALTH_DATA_DISPLAY",
+    "COD_HEALTH_MINOR_HEART_PULSE_MONITOR",
+    "COD_HEALTH_MINOR_PULSE_OXIMETER",
+    "COD_HEALTH_MINOR_STEP_COUNTER",
     "COD_HEALTH_MINOR_THERMOMETER",
     "COD_HEALTH_MINOR_WEIGHING_SCALE",
-    "COD_HEALTH_MINOR_GLUCOSE_METER",
-    "COD_HEALTH_MINOR_PULSE_OXIMETER",
-    "COD_HEALTH_MINOR_HEART_PULSE_MONITOR",
-    "COD_HEALTH_MINOR_HEALTH_DATA_DISPLAY",
-    "COD_HEALTH_MINOR_STEP_COUNTER",
-    "COD_LAN_ACCESS_BIT_OFFSET",
-    "COD_LAN_MINOR_MASK",
-    "COD_LAN_ACCESS_MASK",
-    "COD_LAN_MINOR_UNCLASSIFIED",
+    "COD_IMAGING_MINOR_CAMERA_MASK",
+    "COD_IMAGING_MINOR_DISPLAY_MASK",
+    "COD_IMAGING_MINOR_PRINTER_MASK",
+    "COD_IMAGING_MINOR_SCANNER_MASK",
     "COD_LAN_ACCESS_0_USED",
     "COD_LAN_ACCESS_17_USED",
     "COD_LAN_ACCESS_33_USED",
@@ -2064,439 +2348,443 @@ __all__ = [
     "COD_LAN_ACCESS_67_USED",
     "COD_LAN_ACCESS_83_USED",
     "COD_LAN_ACCESS_99_USED",
+    "COD_LAN_ACCESS_BIT_OFFSET",
     "COD_LAN_ACCESS_FULL",
-    "BTH_EIR_FLAGS_ID",
-    "BTH_EIR_16_UUIDS_PARTIAL_ID",
-    "BTH_EIR_16_UUIDS_COMPLETE_ID",
-    "BTH_EIR_32_UUIDS_PARTIAL_ID",
-    "BTH_EIR_32_UUIDS_COMPLETE_ID",
-    "BTH_EIR_128_UUIDS_PARTIAL_ID",
-    "BTH_EIR_128_UUIDS_COMPLETE_ID",
-    "BTH_EIR_LOCAL_NAME_PARTIAL_ID",
-    "BTH_EIR_LOCAL_NAME_COMPLETE_ID",
-    "BTH_EIR_TX_POWER_LEVEL_ID",
-    "BTH_EIR_OOB_OPT_DATA_LEN_ID",
-    "BTH_EIR_OOB_BD_ADDR_ID",
-    "BTH_EIR_OOB_COD_ID",
-    "BTH_EIR_OOB_SP_HASH_ID",
-    "BTH_EIR_OOB_SP_RANDOMIZER_ID",
-    "BTH_EIR_MANUFACTURER_ID",
-    "BTH_EIR_SIZE",
-    "LAP_GIAC_VALUE",
-    "LAP_LIAC_VALUE",
-    "BTH_ADDR_IAC_FIRST",
-    "BTH_ADDR_IAC_LAST",
-    "BTH_ADDR_LIAC",
-    "BTH_ADDR_GIAC",
-    "BTH_ERROR_SUCCESS",
-    "BTH_ERROR_UNKNOWN_HCI_COMMAND",
-    "BTH_ERROR_NO_CONNECTION",
-    "BTH_ERROR_HARDWARE_FAILURE",
-    "BTH_ERROR_PAGE_TIMEOUT",
-    "BTH_ERROR_AUTHENTICATION_FAILURE",
-    "BTH_ERROR_KEY_MISSING",
-    "BTH_ERROR_MEMORY_FULL",
-    "BTH_ERROR_CONNECTION_TIMEOUT",
-    "BTH_ERROR_MAX_NUMBER_OF_CONNECTIONS",
-    "BTH_ERROR_MAX_NUMBER_OF_SCO_CONNECTIONS",
-    "BTH_ERROR_ACL_CONNECTION_ALREADY_EXISTS",
-    "BTH_ERROR_COMMAND_DISALLOWED",
-    "BTH_ERROR_HOST_REJECTED_LIMITED_RESOURCES",
-    "BTH_ERROR_HOST_REJECTED_SECURITY_REASONS",
-    "BTH_ERROR_HOST_REJECTED_PERSONAL_DEVICE",
-    "BTH_ERROR_HOST_TIMEOUT",
-    "BTH_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER",
-    "BTH_ERROR_INVALID_HCI_PARAMETER",
-    "BTH_ERROR_REMOTE_USER_ENDED_CONNECTION",
-    "BTH_ERROR_REMOTE_LOW_RESOURCES",
-    "BTH_ERROR_REMOTE_POWERING_OFF",
-    "BTH_ERROR_LOCAL_HOST_TERMINATED_CONNECTION",
-    "BTH_ERROR_REPEATED_ATTEMPTS",
-    "BTH_ERROR_PAIRING_NOT_ALLOWED",
-    "BTH_ERROR_UKNOWN_LMP_PDU",
-    "BTH_ERROR_UNSUPPORTED_REMOTE_FEATURE",
-    "BTH_ERROR_SCO_OFFSET_REJECTED",
-    "BTH_ERROR_SCO_INTERVAL_REJECTED",
-    "BTH_ERROR_SCO_AIRMODE_REJECTED",
-    "BTH_ERROR_INVALID_LMP_PARAMETERS",
-    "BTH_ERROR_UNSPECIFIED_ERROR",
-    "BTH_ERROR_UNSUPPORTED_LMP_PARM_VALUE",
-    "BTH_ERROR_ROLE_CHANGE_NOT_ALLOWED",
-    "BTH_ERROR_LMP_RESPONSE_TIMEOUT",
-    "BTH_ERROR_LMP_TRANSACTION_COLLISION",
-    "BTH_ERROR_LMP_PDU_NOT_ALLOWED",
-    "BTH_ERROR_ENCRYPTION_MODE_NOT_ACCEPTABLE",
-    "BTH_ERROR_UNIT_KEY_NOT_USED",
-    "BTH_ERROR_QOS_IS_NOT_SUPPORTED",
-    "BTH_ERROR_INSTANT_PASSED",
-    "BTH_ERROR_PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED",
-    "BTH_ERROR_DIFFERENT_TRANSACTION_COLLISION",
-    "BTH_ERROR_QOS_UNACCEPTABLE_PARAMETER",
-    "BTH_ERROR_QOS_REJECTED",
-    "BTH_ERROR_CHANNEL_CLASSIFICATION_NOT_SUPPORTED",
-    "BTH_ERROR_INSUFFICIENT_SECURITY",
-    "BTH_ERROR_PARAMETER_OUT_OF_MANDATORY_RANGE",
-    "BTH_ERROR_ROLE_SWITCH_PENDING",
-    "BTH_ERROR_RESERVED_SLOT_VIOLATION",
-    "BTH_ERROR_ROLE_SWITCH_FAILED",
-    "BTH_ERROR_EXTENDED_INQUIRY_RESPONSE_TOO_LARGE",
-    "BTH_ERROR_SECURE_SIMPLE_PAIRING_NOT_SUPPORTED_BY_HOST",
-    "BTH_ERROR_HOST_BUSY_PAIRING",
-    "BTH_ERROR_CONNECTION_REJECTED_DUE_TO_NO_SUITABLE_CHANNEL_FOUND",
-    "BTH_ERROR_CONTROLLER_BUSY",
-    "BTH_ERROR_UNACCEPTABLE_CONNECTION_INTERVAL",
-    "BTH_ERROR_DIRECTED_ADVERTISING_TIMEOUT",
-    "BTH_ERROR_CONNECTION_TERMINATED_DUE_TO_MIC_FAILURE",
-    "BTH_ERROR_CONNECTION_FAILED_TO_BE_ESTABLISHED",
-    "BTH_ERROR_MAC_CONNECTION_FAILED",
-    "BTH_ERROR_COARSE_CLOCK_ADJUSTMENT_REJECTED",
-    "BTH_ERROR_TYPE_0_SUBMAP_NOT_DEFINED",
-    "BTH_ERROR_UNKNOWN_ADVERTISING_IDENTIFIER",
-    "BTH_ERROR_LIMIT_REACHED",
-    "BTH_ERROR_OPERATION_CANCELLED_BY_HOST",
-    "BTH_ERROR_PACKET_TOO_LONG",
-    "BTH_ERROR_UNSPECIFIED",
-    "L2CAP_MIN_MTU",
-    "L2CAP_MAX_MTU",
-    "L2CAP_DEFAULT_MTU",
-    "MAX_L2CAP_PING_DATA_LENGTH",
-    "MAX_L2CAP_INFO_DATA_LENGTH",
-    "BDIF_ADDRESS",
-    "BDIF_COD",
-    "BDIF_NAME",
-    "BDIF_PAIRED",
-    "BDIF_PERSONAL",
-    "BDIF_CONNECTED",
-    "BDIF_SHORT_NAME",
-    "BDIF_VISIBLE",
-    "BDIF_SSP_SUPPORTED",
-    "BDIF_SSP_PAIRED",
-    "BDIF_SSP_MITM_PROTECTED",
-    "BDIF_RSSI",
-    "BDIF_EIR",
-    "BDIF_BR",
-    "BDIF_LE",
-    "BDIF_LE_PAIRED",
-    "BDIF_LE_PERSONAL",
-    "BDIF_LE_MITM_PROTECTED",
-    "BDIF_LE_PRIVACY_ENABLED",
-    "BDIF_LE_RANDOM_ADDRESS_TYPE",
-    "BDIF_LE_DISCOVERABLE",
-    "BDIF_LE_NAME",
-    "BDIF_LE_VISIBLE",
-    "BDIF_LE_CONNECTED",
-    "BDIF_LE_CONNECTABLE",
-    "BDIF_CONNECTION_INBOUND",
-    "BDIF_BR_SECURE_CONNECTION_PAIRED",
-    "BDIF_LE_SECURE_CONNECTION_PAIRED",
-    "BDIF_DEBUGKEY",
-    "BDIF_LE_DEBUGKEY",
-    "BDIF_TX_POWER",
-    "HCI_CONNECTION_TYPE_ACL",
-    "HCI_CONNECTION_TYPE_SCO",
-    "HCI_CONNECTION_TYPE_LE",
-    "HCI_CONNNECTION_TYPE_ACL",
-    "HCI_CONNNECTION_TYPE_SCO",
-    "BTH_MAX_SERVICE_NAME_SIZE",
-    "MAX_UUIDS_IN_QUERY",
-    "BTH_VID_DEFAULT_VALUE",
-    "SDP_ERROR_INVALID_SDP_VERSION",
-    "SDP_ERROR_INVALID_RECORD_HANDLE",
-    "SDP_ERROR_INVALID_REQUEST_SYNTAX",
-    "SDP_ERROR_INVALID_PDU_SIZE",
-    "SDP_ERROR_INVALID_CONTINUATION_STATE",
-    "SDP_ERROR_INSUFFICIENT_RESOURCES",
-    "SDP_ATTRIB_RECORD_HANDLE",
-    "SDP_ATTRIB_CLASS_ID_LIST",
-    "SDP_ATTRIB_RECORD_STATE",
-    "SDP_ATTRIB_SERVICE_ID",
-    "SDP_ATTRIB_PROTOCOL_DESCRIPTOR_LIST",
-    "SDP_ATTRIB_BROWSE_GROUP_LIST",
-    "SDP_ATTRIB_LANG_BASE_ATTRIB_ID_LIST",
-    "SDP_ATTRIB_INFO_TIME_TO_LIVE",
-    "SDP_ATTRIB_AVAILABILITY",
-    "SDP_ATTRIB_PROFILE_DESCRIPTOR_LIST",
-    "SDP_ATTRIB_DOCUMENTATION_URL",
-    "SDP_ATTRIB_CLIENT_EXECUTABLE_URL",
-    "SDP_ATTRIB_ICON_URL",
-    "SDP_ATTRIB_ADDITIONAL_PROTOCOL_DESCRIPTOR_LIST",
-    "SDP_ATTRIB_PROFILE_SPECIFIC",
-    "LANG_BASE_LANGUAGE_INDEX",
-    "LANG_BASE_ENCODING_INDEX",
-    "LANG_BASE_OFFSET_INDEX",
-    "LANG_DEFAULT_ID",
-    "LANGUAGE_EN_US",
-    "ENCODING_UTF_8",
-    "STRING_NAME_OFFSET",
-    "STRING_DESCRIPTION_OFFSET",
-    "STRING_PROVIDER_NAME_OFFSET",
-    "SDP_ATTRIB_SDP_VERSION_NUMBER_LIST",
-    "SDP_ATTRIB_SDP_DATABASE_STATE",
-    "SDP_ATTRIB_BROWSE_GROUP_ID",
-    "SDP_ATTRIB_CORDLESS_EXTERNAL_NETWORK",
-    "SDP_ATTRIB_FAX_CLASS_1_SUPPORT",
-    "SDP_ATTRIB_FAX_CLASS_2_0_SUPPORT",
-    "SDP_ATTRIB_FAX_CLASS_2_SUPPORT",
-    "SDP_ATTRIB_FAX_AUDIO_FEEDBACK_SUPPORT",
-    "SDP_ATTRIB_HEADSET_REMOTE_AUDIO_VOLUME_CONTROL",
-    "SDP_ATTRIB_LAN_LPSUBNET",
-    "SDP_ATTRIB_OBJECT_PUSH_SUPPORTED_FORMATS_LIST",
-    "SDP_ATTRIB_SYNCH_SUPPORTED_DATA_STORES_LIST",
-    "SDP_ATTRIB_SERVICE_VERSION",
-    "SDP_ATTRIB_PAN_NETWORK_ADDRESS",
-    "SDP_ATTRIB_PAN_WAP_GATEWAY",
-    "SDP_ATTRIB_PAN_HOME_PAGE_URL",
-    "SDP_ATTRIB_PAN_WAP_STACK_TYPE",
-    "SDP_ATTRIB_PAN_SECURITY_DESCRIPTION",
-    "SDP_ATTRIB_PAN_NET_ACCESS_TYPE",
-    "SDP_ATTRIB_PAN_MAX_NET_ACCESS_RATE",
-    "SDP_ATTRIB_IMAGING_SUPPORTED_CAPABILITIES",
-    "SDP_ATTRIB_IMAGING_SUPPORTED_FEATURES",
-    "SDP_ATTRIB_IMAGING_SUPPORTED_FUNCTIONS",
-    "SDP_ATTRIB_IMAGING_TOTAL_DATA_CAPACITY",
-    "SDP_ATTRIB_DI_SPECIFICATION_ID",
-    "SDP_ATTRIB_DI_VENDOR_ID",
-    "SDP_ATTRIB_DI_PRODUCT_ID",
-    "SDP_ATTRIB_DI_VERSION",
-    "SDP_ATTRIB_DI_PRIMARY_RECORD",
-    "SDP_ATTRIB_DI_VENDOR_ID_SOURCE",
-    "SDP_ATTRIB_HID_DEVICE_RELEASE_NUMBER",
-    "SDP_ATTRIB_HID_PARSER_VERSION",
-    "SDP_ATTRIB_HID_DEVICE_SUBCLASS",
-    "SDP_ATTRIB_HID_COUNTRY_CODE",
-    "SDP_ATTRIB_HID_VIRTUAL_CABLE",
-    "SDP_ATTRIB_HID_RECONNECT_INITIATE",
-    "SDP_ATTRIB_HID_DESCRIPTOR_LIST",
-    "SDP_ATTRIB_HID_LANG_ID_BASE_LIST",
-    "SDP_ATTRIB_HID_SDP_DISABLE",
-    "SDP_ATTRIB_HID_BATTERY_POWER",
-    "SDP_ATTRIB_HID_REMOTE_WAKE",
-    "SDP_ATTRIB_HID_PROFILE_VERSION",
-    "SDP_ATTRIB_HID_SUPERVISION_TIMEOUT",
-    "SDP_ATTRIB_HID_NORMALLY_CONNECTABLE",
-    "SDP_ATTRIB_HID_BOOT_DEVICE",
-    "SDP_ATTRIB_HID_SSR_HOST_MAX_LATENCY",
-    "SDP_ATTRIB_HID_SSR_HOST_MIN_TIMEOUT",
-    "SDP_ATTRIB_A2DP_SUPPORTED_FEATURES",
-    "SDP_ATTRIB_AVRCP_SUPPORTED_FEATURES",
-    "SDP_ATTRIB_HFP_SUPPORTED_FEATURES",
-    "AVRCP_SUPPORTED_FEATURES_CATEGORY_1",
-    "AVRCP_SUPPORTED_FEATURES_CATEGORY_2",
-    "AVRCP_SUPPORTED_FEATURES_CATEGORY_3",
-    "AVRCP_SUPPORTED_FEATURES_CATEGORY_4",
-    "AVRCP_SUPPORTED_FEATURES_CT_BROWSING",
-    "AVRCP_SUPPORTED_FEATURES_CT_COVER_ART_IMAGE_PROPERTIES",
-    "AVRCP_SUPPORTED_FEATURES_CT_COVER_ART_IMAGE",
-    "AVRCP_SUPPORTED_FEATURES_CT_COVER_ART_LINKED_THUMBNAIL",
-    "AVRCP_SUPPORTED_FEATURES_TG_PLAYER_APPLICATION_SETTINGS",
-    "AVRCP_SUPPORTED_FEATURES_TG_GROUP_NAVIGATION",
-    "AVRCP_SUPPORTED_FEATURES_TG_BROWSING",
-    "AVRCP_SUPPORTED_FEATURES_TG_MULTIPLE_PLAYER_APPLICATIONS",
-    "AVRCP_SUPPORTED_FEATURES_TG_COVER_ART",
-    "A2DP_SINK_SUPPORTED_FEATURES_HEADPHONE",
-    "A2DP_SINK_SUPPORTED_FEATURES_SPEAKER",
-    "A2DP_SINK_SUPPORTED_FEATURES_RECORDER",
-    "A2DP_SINK_SUPPORTED_FEATURES_AMPLIFIER",
-    "A2DP_SOURCE_SUPPORTED_FEATURES_PLAYER",
-    "A2DP_SOURCE_SUPPORTED_FEATURES_MICROPHONE",
-    "A2DP_SOURCE_SUPPORTED_FEATURES_TUNER",
-    "A2DP_SOURCE_SUPPORTED_FEATURES_MIXER",
-    "CORDLESS_EXTERNAL_NETWORK_PSTN",
-    "CORDLESS_EXTERNAL_NETWORK_ISDN",
-    "CORDLESS_EXTERNAL_NETWORK_GSM",
-    "CORDLESS_EXTERNAL_NETWORK_CDMA",
+    "COD_LAN_ACCESS_MASK",
+    "COD_LAN_MINOR_MASK",
+    "COD_LAN_MINOR_UNCLASSIFIED",
+    "COD_MAJOR_AUDIO",
+    "COD_MAJOR_COMPUTER",
+    "COD_MAJOR_HEALTH",
+    "COD_MAJOR_IMAGING",
+    "COD_MAJOR_LAN_ACCESS",
+    "COD_MAJOR_MASK",
+    "COD_MAJOR_MISCELLANEOUS",
+    "COD_MAJOR_PERIPHERAL",
+    "COD_MAJOR_PHONE",
+    "COD_MAJOR_TOY",
+    "COD_MAJOR_UNCLASSIFIED",
+    "COD_MAJOR_WEARABLE",
+    "COD_MINOR_BIT_OFFSET",
+    "COD_MINOR_MASK",
+    "COD_PERIPHERAL_MINOR_GAMEPAD",
+    "COD_PERIPHERAL_MINOR_JOYSTICK",
+    "COD_PERIPHERAL_MINOR_KEYBOARD_MASK",
+    "COD_PERIPHERAL_MINOR_NO_CATEGORY",
+    "COD_PERIPHERAL_MINOR_POINTER_MASK",
+    "COD_PERIPHERAL_MINOR_REMOTE_CONTROL",
+    "COD_PERIPHERAL_MINOR_SENSING",
+    "COD_PHONE_MINOR_CELLULAR",
+    "COD_PHONE_MINOR_CORDLESS",
+    "COD_PHONE_MINOR_SMART",
+    "COD_PHONE_MINOR_UNCLASSIFIED",
+    "COD_PHONE_MINOR_WIRED_MODEM",
+    "COD_SERVICE_AUDIO",
+    "COD_SERVICE_CAPTURING",
+    "COD_SERVICE_INFORMATION",
+    "COD_SERVICE_LIMITED",
+    "COD_SERVICE_MASK",
+    "COD_SERVICE_MAX_COUNT",
+    "COD_SERVICE_NETWORKING",
+    "COD_SERVICE_OBJECT_XFER",
+    "COD_SERVICE_POSITIONING",
+    "COD_SERVICE_RENDERING",
+    "COD_SERVICE_TELEPHONY",
+    "COD_TOY_MINOR_CONTROLLER",
+    "COD_TOY_MINOR_DOLL_ACTION_FIGURE",
+    "COD_TOY_MINOR_GAME",
+    "COD_TOY_MINOR_ROBOT",
+    "COD_TOY_MINOR_VEHICLE",
+    "COD_VERSION",
+    "COD_WEARABLE_MINOR_GLASSES",
+    "COD_WEARABLE_MINOR_HELMET",
+    "COD_WEARABLE_MINOR_JACKET",
+    "COD_WEARABLE_MINOR_PAGER",
+    "COD_WEARABLE_MINOR_WRIST_WATCH",
     "CORDLESS_EXTERNAL_NETWORK_ANALOG_CELLULAR",
-    "CORDLESS_EXTERNAL_NETWORK_PACKET_SWITCHED",
+    "CORDLESS_EXTERNAL_NETWORK_CDMA",
+    "CORDLESS_EXTERNAL_NETWORK_GSM",
+    "CORDLESS_EXTERNAL_NETWORK_ISDN",
     "CORDLESS_EXTERNAL_NETWORK_OTHER",
-    "OBJECT_PUSH_FORMAT_VCARD_2_1",
-    "OBJECT_PUSH_FORMAT_VCARD_3_0",
-    "OBJECT_PUSH_FORMAT_VCAL_1_0",
-    "OBJECT_PUSH_FORMAT_ICAL_2_0",
-    "OBJECT_PUSH_FORMAT_VNOTE",
-    "OBJECT_PUSH_FORMAT_VMESSAGE",
-    "OBJECT_PUSH_FORMAT_ANY",
-    "SYNCH_DATA_STORE_PHONEBOOK",
-    "SYNCH_DATA_STORE_CALENDAR",
-    "SYNCH_DATA_STORE_NOTES",
-    "SYNCH_DATA_STORE_MESSAGES",
+    "CORDLESS_EXTERNAL_NETWORK_PACKET_SWITCHED",
+    "CORDLESS_EXTERNAL_NETWORK_PSTN",
+    "CTNAccessServiceClassID_UUID16",
+    "CTNNotificationServiceClassID_UUID16",
+    "CTNProfileID_UUID16",
+    "CommonISDNAccessServiceClassID_UUID16",
+    "CommonISDNAccessServiceClass_UUID16",
+    "CordlessServiceClassID_UUID16",
+    "CordlessTelephonyServiceClassID_UUID16",
     "DI_VENDOR_ID_SOURCE_BLUETOOTH_SIG",
     "DI_VENDOR_ID_SOURCE_USB_IF",
-    "PSM_SDP",
-    "PSM_RFCOMM",
-    "PSM_TCS_BIN",
-    "PSM_TCS_BIN_CORDLESS",
-    "PSM_BNEP",
-    "PSM_HID_CONTROL",
-    "PSM_HID_INTERRUPT",
-    "PSM_UPNP",
-    "PSM_AVCTP",
-    "PSM_AVDTP",
-    "PSM_AVCTP_BROWSE",
-    "PSM_UDI_C_PLANE",
-    "PSM_ATT",
-    "PSM_3DSP",
-    "PSM_LE_IPSP",
-    "BTH_IOCTL_BASE",
-    "SDP_CONNECT_CACHE",
-    "SDP_CONNECT_ALLOW_PIN",
-    "SDP_REQUEST_TO_DEFAULT",
-    "SDP_REQUEST_TO_MIN",
-    "SDP_REQUEST_TO_MAX",
-    "SERVICE_OPTION_DO_NOT_PUBLISH",
-    "SERVICE_OPTION_NO_PUBLIC_BROWSE",
-    "SERVICE_OPTION_DO_NOT_PUBLISH_EIR",
-    "SERVICE_SECURITY_USE_DEFAULTS",
-    "SERVICE_SECURITY_NONE",
-    "SERVICE_SECURITY_AUTHORIZE",
-    "SERVICE_SECURITY_AUTHENTICATE",
-    "SERVICE_SECURITY_ENCRYPT_REQUIRED",
-    "SERVICE_SECURITY_ENCRYPT_OPTIONAL",
-    "SERVICE_SECURITY_DISABLED",
-    "SERVICE_SECURITY_NO_ASK",
-    "SDP_SEARCH_NO_PARSE_CHECK",
-    "SDP_SEARCH_NO_FORMAT_CHECK",
-    "BTH_HOST_FEATURE_ENHANCED_RETRANSMISSION_MODE",
-    "BTH_HOST_FEATURE_STREAMING_MODE",
-    "BTH_HOST_FEATURE_LOW_ENERGY",
-    "BTH_HOST_FEATURE_SCO_HCI",
-    "BTH_HOST_FEATURE_SCO_HCIBYPASS",
+    "DialupNetworkingServiceClassID_UUID16",
+    "DirectPrintingReferenceObjectsServiceClassID_UUID16",
+    "DirectPrintingServiceClassID_UUID16",
+    "ENCODING_UTF_8",
+    "ESdpUpnpIpLapServiceClassID_UUID16",
+    "ESdpUpnpIpPanServiceClassID_UUID16",
+    "ESdpUpnpL2capServiceClassID_UUID16",
+    "FTP_PROTOCOL_UUID16",
+    "FaxServiceClassID_UUID16",
+    "GNSSProfileID_UUID16",
+    "GNSSServerServiceClassID_UUID16",
+    "GNServiceClassID_UUID16",
+    "GUID_BLUETOOTHLE_DEVICE_INTERFACE",
+    "GUID_BLUETOOTH_AUTHENTICATION_REQUEST",
+    "GUID_BLUETOOTH_GATT_SERVICE_DEVICE_INTERFACE",
+    "GUID_BLUETOOTH_HCI_EVENT",
+    "GUID_BLUETOOTH_HCI_VENDOR_EVENT",
+    "GUID_BLUETOOTH_KEYPRESS_EVENT",
+    "GUID_BLUETOOTH_L2CAP_EVENT",
+    "GUID_BLUETOOTH_RADIO_IN_RANGE",
+    "GUID_BLUETOOTH_RADIO_OUT_OF_RANGE",
+    "GUID_BTHPORT_DEVICE_INTERFACE",
+    "GUID_BTH_RFCOMM_SERVICE_DEVICE_INTERFACE",
+    "GenericAudioServiceClassID_UUID16",
+    "GenericFileTransferServiceClassID_UUID16",
+    "GenericNetworkingServiceClassID_UUID16",
+    "GenericTelephonyServiceClassID_UUID16",
     "HANDLE_SDP_TYPE",
-    "SDP_LARGE_INTEGER_16",
-    "SDP_ULARGE_INTEGER_16",
-    "NodeContainerType",
-    "NodeContainerType_NodeContainerTypeSequence",
-    "NodeContainerType_NodeContainerTypeAlternative",
-    "SDP_TYPE",
-    "SDP_TYPE_NIL",
-    "SDP_TYPE_UINT",
-    "SDP_TYPE_INT",
-    "SDP_TYPE_UUID",
-    "SDP_TYPE_STRING",
-    "SDP_TYPE_BOOLEAN",
-    "SDP_TYPE_SEQUENCE",
-    "SDP_TYPE_ALTERNATIVE",
-    "SDP_TYPE_URL",
-    "SDP_TYPE_CONTAINER",
-    "SDP_SPECIFICTYPE",
-    "SDP_ST_NONE",
-    "SDP_ST_UINT8",
-    "SDP_ST_UINT16",
-    "SDP_ST_UINT32",
-    "SDP_ST_UINT64",
-    "SDP_ST_UINT128",
-    "SDP_ST_INT8",
-    "SDP_ST_INT16",
-    "SDP_ST_INT32",
-    "SDP_ST_INT64",
-    "SDP_ST_INT128",
-    "SDP_ST_UUID16",
-    "SDP_ST_UUID32",
-    "SDP_ST_UUID128",
-    "SdpAttributeRange",
-    "SdpQueryUuidUnion",
-    "SdpQueryUuid",
-    "BTH_DEVICE_INFO",
-    "BTH_RADIO_IN_RANGE",
-    "BTH_L2CAP_EVENT_INFO",
-    "BTH_HCI_EVENT_INFO",
+    "HCCC_PROTOCOL_UUID16",
+    "HCDC_PROTOCOL_UUID16",
+    "HCI_CONNECTION_TYPE_ACL",
+    "HCI_CONNECTION_TYPE_LE",
+    "HCI_CONNECTION_TYPE_SCO",
+    "HCI_CONNNECTION_TYPE_ACL",
+    "HCI_CONNNECTION_TYPE_SCO",
+    "HCN_PROTOCOL_UUID16",
+    "HCRPrintServiceClassID_UUID16",
+    "HCRScanServiceClassID_UUID16",
+    "HID_PROTOCOL_UUID16",
+    "HTTP_PROTOCOL_UUID16",
+    "HandsfreeAudioGatewayServiceClassID_UUID16",
+    "HandsfreeServiceClassID_UUID16",
+    "HardcopyCableReplacementProfileID_UUID16",
+    "HardcopyCableReplacementServiceClassID_UUID16",
+    "HeadsetAudioGatewayServiceClassID_UUID16",
+    "HeadsetHSServiceClassID_UUID16",
+    "HeadsetServiceClassID_UUID16",
+    "HealthDeviceProfileID_UUID16",
+    "HealthDeviceProfileSinkServiceClassID_UUID16",
+    "HealthDeviceProfileSourceServiceClassID_UUID16",
+    "HumanInterfaceDeviceServiceClassID_UUID16",
     "IO_CAPABILITY",
+    "IP_PROTOCOL_UUID16",
+    "ImagingAutomaticArchiveServiceClassID_UUID16",
+    "ImagingReferenceObjectsServiceClassID_UUID16",
+    "ImagingResponderServiceClassID_UUID16",
+    "ImagingServiceClassID_UUID16",
+    "ImagingServiceProfileID_UUID16",
+    "IntercomServiceClassID_UUID16",
     "IoCaps_DisplayOnly",
     "IoCaps_DisplayYesNo",
     "IoCaps_KeyboardOnly",
     "IoCaps_NoInputNoOutput",
     "IoCaps_Undefined",
-    "AUTHENTICATION_REQUIREMENTS",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredBonding",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredBonding",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredGeneralBonding",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredGeneralBonding",
-    "AUTHENTICATION_REQUIREMENTS_MITMProtectionNotDefined",
-    "BLUETOOTH_ADDRESS",
-    "BLUETOOTH_LOCAL_SERVICE_INFO",
-    "BLUETOOTH_FIND_RADIO_PARAMS",
-    "BLUETOOTH_RADIO_INFO",
-    "BLUETOOTH_DEVICE_INFO",
-    "BLUETOOTH_AUTHENTICATION_METHOD",
-    "BLUETOOTH_AUTHENTICATION_METHOD_LEGACY",
-    "BLUETOOTH_AUTHENTICATION_METHOD_OOB",
-    "BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON",
-    "BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION",
-    "BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY",
-    "BLUETOOTH_IO_CAPABILITY",
-    "BLUETOOTH_IO_CAPABILITY_DISPLAYONLY",
-    "BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO",
-    "BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY",
-    "BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT",
-    "BLUETOOTH_IO_CAPABILITY_UNDEFINED",
-    "BLUETOOTH_AUTHENTICATION_REQUIREMENTS",
-    "BLUETOOTH_MITM_ProtectionNotRequired",
-    "BLUETOOTH_MITM_ProtectionRequired",
-    "BLUETOOTH_MITM_ProtectionNotRequiredBonding",
-    "BLUETOOTH_MITM_ProtectionRequiredBonding",
-    "BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding",
-    "BLUETOOTH_MITM_ProtectionRequiredGeneralBonding",
-    "BLUETOOTH_MITM_ProtectionNotDefined",
-    "BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS",
-    "BLUETOOTH_DEVICE_SEARCH_PARAMS",
-    "BLUETOOTH_COD_PAIRS",
-    "PFN_DEVICE_CALLBACK",
-    "BLUETOOTH_SELECT_DEVICE_PARAMS",
-    "BLUETOOTH_PIN_INFO",
-    "BLUETOOTH_OOB_DATA_INFO",
-    "BLUETOOTH_NUMERIC_COMPARISON_INFO",
-    "BLUETOOTH_PASSKEY_INFO",
+    "IrMCSyncServiceClassID_UUID16",
+    "IrMcSyncCommandServiceClassID_UUID16",
+    "L2CAP_DEFAULT_MTU",
+    "L2CAP_MAX_MTU",
+    "L2CAP_MIN_MTU",
+    "L2CAP_PROTOCOL_UUID16",
+    "LANAccessUsingPPPServiceClassID_UUID16",
+    "LANGUAGE_EN_US",
+    "LANG_BASE_ENCODING_INDEX",
+    "LANG_BASE_LANGUAGE_INDEX",
+    "LANG_BASE_OFFSET_INDEX",
+    "LANG_DEFAULT_ID",
+    "LAP_GIAC_VALUE",
+    "LAP_LIAC_VALUE",
+    "MAX_L2CAP_INFO_DATA_LENGTH",
+    "MAX_L2CAP_PING_DATA_LENGTH",
+    "MAX_UUIDS_IN_QUERY",
+    "MPSProfileID_UUID16",
+    "MPSServiceClassID_UUID16",
+    "MessageAccessProfileID_UUID16",
+    "MessageAccessServerServiceClassID_UUID16",
+    "MessageNotificationServerServiceClassID_UUID16",
+    "NAPServiceClassID_UUID16",
+    "NS_BTH",
+    "NodeContainerType",
+    "NodeContainerType_NodeContainerTypeAlternative",
+    "NodeContainerType_NodeContainerTypeSequence",
+    "OBEXFileTransferServiceClassID_UUID16",
+    "OBEXObjectPushServiceClassID_UUID16",
+    "OBEX_PROTOCOL_UUID16",
+    "OBJECT_PUSH_FORMAT_ANY",
+    "OBJECT_PUSH_FORMAT_ICAL_2_0",
+    "OBJECT_PUSH_FORMAT_VCAL_1_0",
+    "OBJECT_PUSH_FORMAT_VCARD_2_1",
+    "OBJECT_PUSH_FORMAT_VCARD_3_0",
+    "OBJECT_PUSH_FORMAT_VMESSAGE",
+    "OBJECT_PUSH_FORMAT_VNOTE",
+    "PANUServiceClassID_UUID16",
+    "PFNBLUETOOTH_GATT_EVENT_CALLBACK",
     "PFN_AUTHENTICATION_CALLBACK",
     "PFN_AUTHENTICATION_CALLBACK_EX",
-    "BLUETOOTH_AUTHENTICATE_RESPONSE",
-    "SDP_ELEMENT_DATA",
-    "SDP_STRING_TYPE_DATA",
     "PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK",
-    "SOCKADDR_BTH",
-    "BTH_SET_SERVICE",
-    "BTH_QUERY_DEVICE",
-    "BTH_QUERY_SERVICE",
+    "PFN_DEVICE_CALLBACK",
+    "PF_BTH",
+    "PSM_3DSP",
+    "PSM_ATT",
+    "PSM_AVCTP",
+    "PSM_AVCTP_BROWSE",
+    "PSM_AVDTP",
+    "PSM_BNEP",
+    "PSM_HID_CONTROL",
+    "PSM_HID_INTERRUPT",
+    "PSM_LE_IPSP",
+    "PSM_RFCOMM",
+    "PSM_SDP",
+    "PSM_TCS_BIN",
+    "PSM_TCS_BIN_CORDLESS",
+    "PSM_UDI_C_PLANE",
+    "PSM_UPNP",
+    "PhonebookAccessPceServiceClassID_UUID16",
+    "PhonebookAccessProfileID_UUID16",
+    "PhonebookAccessPseServiceClassID_UUID16",
+    "PnPInformationServiceClassID_UUID16",
+    "PrintingStatusServiceClassID_UUID16",
+    "PublicBrowseGroupServiceClassID_UUID16",
+    "RFCOMM_CMD_MSC",
+    "RFCOMM_CMD_NONE",
+    "RFCOMM_CMD_RLS",
+    "RFCOMM_CMD_RPN",
+    "RFCOMM_CMD_RPN_REQUEST",
+    "RFCOMM_CMD_RPN_RESPONSE",
+    "RFCOMM_COMMAND",
+    "RFCOMM_MAX_MTU",
+    "RFCOMM_MIN_MTU",
     "RFCOMM_MSC_DATA",
+    "RFCOMM_PROTOCOL_UUID16",
     "RFCOMM_RLS_DATA",
     "RFCOMM_RPN_DATA",
-    "RFCOMM_COMMAND",
-    "BTH_PING_REQ",
-    "BTH_PING_RSP",
-    "BTH_INFO_REQ",
-    "BTH_INFO_RSP",
-    "BluetoothFindFirstRadio",
-    "BluetoothFindNextRadio",
-    "BluetoothFindRadioClose",
-    "BluetoothGetRadioInfo",
-    "BluetoothFindFirstDevice",
-    "BluetoothFindNextDevice",
-    "BluetoothFindDeviceClose",
-    "BluetoothGetDeviceInfo",
-    "BluetoothUpdateDeviceRecord",
-    "BluetoothRemoveDevice",
-    "BluetoothSelectDevices",
-    "BluetoothSelectDevicesFree",
-    "BluetoothDisplayDeviceProperties",
-    "BluetoothAuthenticateDevice",
-    "BluetoothAuthenticateDeviceEx",
-    "BluetoothAuthenticateMultipleDevices",
-    "BluetoothSetServiceState",
-    "BluetoothEnumerateInstalledServices",
-    "BluetoothEnableDiscovery",
-    "BluetoothIsDiscoverable",
-    "BluetoothEnableIncomingConnections",
-    "BluetoothIsConnectable",
-    "BluetoothRegisterForAuthentication",
-    "BluetoothRegisterForAuthenticationEx",
-    "BluetoothUnregisterAuthentication",
-    "BluetoothSendAuthenticationResponse",
-    "BluetoothSendAuthenticationResponseEx",
-    "BluetoothSdpGetElementData",
-    "BluetoothSdpGetContainerElementData",
-    "BluetoothSdpGetAttributeValue",
-    "BluetoothSdpGetString",
-    "BluetoothSdpEnumAttributes",
-    "BluetoothSetLocalServiceInfo",
-    "BluetoothIsVersionAvailable",
+    "RLS_ERROR",
+    "RLS_FRAMING",
+    "RLS_OVERRUN",
+    "RLS_PARITY",
+    "RPN_BAUD_115200",
+    "RPN_BAUD_19200",
+    "RPN_BAUD_230400",
+    "RPN_BAUD_2400",
+    "RPN_BAUD_38400",
+    "RPN_BAUD_4800",
+    "RPN_BAUD_57600",
+    "RPN_BAUD_7200",
+    "RPN_BAUD_9600",
+    "RPN_DATA_5",
+    "RPN_DATA_6",
+    "RPN_DATA_7",
+    "RPN_DATA_8",
+    "RPN_FLOW_RTC_IN",
+    "RPN_FLOW_RTC_OUT",
+    "RPN_FLOW_RTR_IN",
+    "RPN_FLOW_RTR_OUT",
+    "RPN_FLOW_X_IN",
+    "RPN_FLOW_X_OUT",
+    "RPN_PARAM_BAUD",
+    "RPN_PARAM_DATA",
+    "RPN_PARAM_PARITY",
+    "RPN_PARAM_P_TYPE",
+    "RPN_PARAM_RTC_IN",
+    "RPN_PARAM_RTC_OUT",
+    "RPN_PARAM_RTR_IN",
+    "RPN_PARAM_RTR_OUT",
+    "RPN_PARAM_STOP",
+    "RPN_PARAM_XOFF",
+    "RPN_PARAM_XON",
+    "RPN_PARAM_X_IN",
+    "RPN_PARAM_X_OUT",
+    "RPN_PARITY_EVEN",
+    "RPN_PARITY_MARK",
+    "RPN_PARITY_NONE",
+    "RPN_PARITY_ODD",
+    "RPN_PARITY_SPACE",
+    "RPN_STOP_1",
+    "RPN_STOP_1_5",
+    "ReferencePrintingServiceClassID_UUID16",
+    "ReflectsUIServiceClassID_UUID16",
+    "SAP_BIT_OFFSET",
+    "SDP_ATTRIB_A2DP_SUPPORTED_FEATURES",
+    "SDP_ATTRIB_ADDITIONAL_PROTOCOL_DESCRIPTOR_LIST",
+    "SDP_ATTRIB_AVAILABILITY",
+    "SDP_ATTRIB_AVRCP_SUPPORTED_FEATURES",
+    "SDP_ATTRIB_BROWSE_GROUP_ID",
+    "SDP_ATTRIB_BROWSE_GROUP_LIST",
+    "SDP_ATTRIB_CLASS_ID_LIST",
+    "SDP_ATTRIB_CLIENT_EXECUTABLE_URL",
+    "SDP_ATTRIB_CORDLESS_EXTERNAL_NETWORK",
+    "SDP_ATTRIB_DI_PRIMARY_RECORD",
+    "SDP_ATTRIB_DI_PRODUCT_ID",
+    "SDP_ATTRIB_DI_SPECIFICATION_ID",
+    "SDP_ATTRIB_DI_VENDOR_ID",
+    "SDP_ATTRIB_DI_VENDOR_ID_SOURCE",
+    "SDP_ATTRIB_DI_VERSION",
+    "SDP_ATTRIB_DOCUMENTATION_URL",
+    "SDP_ATTRIB_FAX_AUDIO_FEEDBACK_SUPPORT",
+    "SDP_ATTRIB_FAX_CLASS_1_SUPPORT",
+    "SDP_ATTRIB_FAX_CLASS_2_0_SUPPORT",
+    "SDP_ATTRIB_FAX_CLASS_2_SUPPORT",
+    "SDP_ATTRIB_HEADSET_REMOTE_AUDIO_VOLUME_CONTROL",
+    "SDP_ATTRIB_HFP_SUPPORTED_FEATURES",
+    "SDP_ATTRIB_HID_BATTERY_POWER",
+    "SDP_ATTRIB_HID_BOOT_DEVICE",
+    "SDP_ATTRIB_HID_COUNTRY_CODE",
+    "SDP_ATTRIB_HID_DESCRIPTOR_LIST",
+    "SDP_ATTRIB_HID_DEVICE_RELEASE_NUMBER",
+    "SDP_ATTRIB_HID_DEVICE_SUBCLASS",
+    "SDP_ATTRIB_HID_LANG_ID_BASE_LIST",
+    "SDP_ATTRIB_HID_NORMALLY_CONNECTABLE",
+    "SDP_ATTRIB_HID_PARSER_VERSION",
+    "SDP_ATTRIB_HID_PROFILE_VERSION",
+    "SDP_ATTRIB_HID_RECONNECT_INITIATE",
+    "SDP_ATTRIB_HID_REMOTE_WAKE",
+    "SDP_ATTRIB_HID_SDP_DISABLE",
+    "SDP_ATTRIB_HID_SSR_HOST_MAX_LATENCY",
+    "SDP_ATTRIB_HID_SSR_HOST_MIN_TIMEOUT",
+    "SDP_ATTRIB_HID_SUPERVISION_TIMEOUT",
+    "SDP_ATTRIB_HID_VIRTUAL_CABLE",
+    "SDP_ATTRIB_ICON_URL",
+    "SDP_ATTRIB_IMAGING_SUPPORTED_CAPABILITIES",
+    "SDP_ATTRIB_IMAGING_SUPPORTED_FEATURES",
+    "SDP_ATTRIB_IMAGING_SUPPORTED_FUNCTIONS",
+    "SDP_ATTRIB_IMAGING_TOTAL_DATA_CAPACITY",
+    "SDP_ATTRIB_INFO_TIME_TO_LIVE",
+    "SDP_ATTRIB_LANG_BASE_ATTRIB_ID_LIST",
+    "SDP_ATTRIB_LAN_LPSUBNET",
+    "SDP_ATTRIB_OBJECT_PUSH_SUPPORTED_FORMATS_LIST",
+    "SDP_ATTRIB_PAN_HOME_PAGE_URL",
+    "SDP_ATTRIB_PAN_MAX_NET_ACCESS_RATE",
+    "SDP_ATTRIB_PAN_NETWORK_ADDRESS",
+    "SDP_ATTRIB_PAN_NET_ACCESS_TYPE",
+    "SDP_ATTRIB_PAN_SECURITY_DESCRIPTION",
+    "SDP_ATTRIB_PAN_WAP_GATEWAY",
+    "SDP_ATTRIB_PAN_WAP_STACK_TYPE",
+    "SDP_ATTRIB_PROFILE_DESCRIPTOR_LIST",
+    "SDP_ATTRIB_PROFILE_SPECIFIC",
+    "SDP_ATTRIB_PROTOCOL_DESCRIPTOR_LIST",
+    "SDP_ATTRIB_RECORD_HANDLE",
+    "SDP_ATTRIB_RECORD_STATE",
+    "SDP_ATTRIB_SDP_DATABASE_STATE",
+    "SDP_ATTRIB_SDP_VERSION_NUMBER_LIST",
+    "SDP_ATTRIB_SERVICE_ID",
+    "SDP_ATTRIB_SERVICE_VERSION",
+    "SDP_ATTRIB_SYNCH_SUPPORTED_DATA_STORES_LIST",
+    "SDP_CONNECT_ALLOW_PIN",
+    "SDP_CONNECT_CACHE",
+    "SDP_DEFAULT_INQUIRY_MAX_RESPONSES",
+    "SDP_DEFAULT_INQUIRY_SECONDS",
+    "SDP_ELEMENT_DATA",
+    "SDP_ERROR_INSUFFICIENT_RESOURCES",
+    "SDP_ERROR_INVALID_CONTINUATION_STATE",
+    "SDP_ERROR_INVALID_PDU_SIZE",
+    "SDP_ERROR_INVALID_RECORD_HANDLE",
+    "SDP_ERROR_INVALID_REQUEST_SYNTAX",
+    "SDP_ERROR_INVALID_SDP_VERSION",
+    "SDP_LARGE_INTEGER_16",
+    "SDP_MAX_INQUIRY_SECONDS",
+    "SDP_PROTOCOL_UUID16",
+    "SDP_REQUEST_TO_DEFAULT",
+    "SDP_REQUEST_TO_MAX",
+    "SDP_REQUEST_TO_MIN",
+    "SDP_SEARCH_NO_FORMAT_CHECK",
+    "SDP_SEARCH_NO_PARSE_CHECK",
+    "SDP_SERVICE_ATTRIBUTE_REQUEST",
+    "SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST",
+    "SDP_SERVICE_SEARCH_REQUEST",
+    "SDP_SPECIFICTYPE",
+    "SDP_STRING_TYPE_DATA",
+    "SDP_ST_INT128",
+    "SDP_ST_INT16",
+    "SDP_ST_INT32",
+    "SDP_ST_INT64",
+    "SDP_ST_INT8",
+    "SDP_ST_NONE",
+    "SDP_ST_UINT128",
+    "SDP_ST_UINT16",
+    "SDP_ST_UINT32",
+    "SDP_ST_UINT64",
+    "SDP_ST_UINT8",
+    "SDP_ST_UUID128",
+    "SDP_ST_UUID16",
+    "SDP_ST_UUID32",
+    "SDP_TYPE",
+    "SDP_TYPE_ALTERNATIVE",
+    "SDP_TYPE_BOOLEAN",
+    "SDP_TYPE_CONTAINER",
+    "SDP_TYPE_INT",
+    "SDP_TYPE_NIL",
+    "SDP_TYPE_SEQUENCE",
+    "SDP_TYPE_STRING",
+    "SDP_TYPE_UINT",
+    "SDP_TYPE_URL",
+    "SDP_TYPE_UUID",
+    "SDP_ULARGE_INTEGER_16",
+    "SERVICE_OPTION_DO_NOT_PUBLISH",
+    "SERVICE_OPTION_DO_NOT_PUBLISH_EIR",
+    "SERVICE_OPTION_NO_PUBLIC_BROWSE",
+    "SERVICE_SECURITY_AUTHENTICATE",
+    "SERVICE_SECURITY_AUTHORIZE",
+    "SERVICE_SECURITY_DISABLED",
+    "SERVICE_SECURITY_ENCRYPT_OPTIONAL",
+    "SERVICE_SECURITY_ENCRYPT_REQUIRED",
+    "SERVICE_SECURITY_NONE",
+    "SERVICE_SECURITY_NO_ASK",
+    "SERVICE_SECURITY_USE_DEFAULTS",
+    "SOCKADDR_BTH",
+    "SOL_L2CAP",
+    "SOL_RFCOMM",
+    "SOL_SDP",
+    "SO_BTH_AUTHENTICATE",
+    "SO_BTH_ENCRYPT",
+    "SO_BTH_MTU",
+    "SO_BTH_MTU_MAX",
+    "SO_BTH_MTU_MIN",
+    "STRING_DESCRIPTION_OFFSET",
+    "STRING_NAME_OFFSET",
+    "STRING_PROVIDER_NAME_OFFSET",
+    "STR_ADDR_FMT",
+    "STR_ADDR_FMTA",
+    "STR_ADDR_FMTW",
+    "STR_ADDR_SHORT_FMT",
+    "STR_ADDR_SHORT_FMTA",
+    "STR_ADDR_SHORT_FMTW",
+    "STR_USBHCI_CLASS_HARDWAREID",
+    "STR_USBHCI_CLASS_HARDWAREIDA",
+    "STR_USBHCI_CLASS_HARDWAREIDW",
+    "SVCID_BTH_PROVIDER",
+    "SYNCH_DATA_STORE_CALENDAR",
+    "SYNCH_DATA_STORE_MESSAGES",
+    "SYNCH_DATA_STORE_NOTES",
+    "SYNCH_DATA_STORE_PHONEBOOK",
+    "SdpAttributeRange",
+    "SdpQueryUuid",
+    "SdpQueryUuidUnion",
+    "SerialPortServiceClassID_UUID16",
+    "ServiceDiscoveryServerServiceClassID_UUID16",
+    "SimAccessServiceClassID_UUID16",
+    "TCP_PROTOCOL_UUID16",
+    "TCSAT_PROTOCOL_UUID16",
+    "TCSBIN_PROTOCOL_UUID16",
+    "ThreeDimensionalDisplayServiceClassID_UUID16",
+    "ThreeDimensionalGlassesServiceClassID_UUID16",
+    "ThreeDimensionalSynchronizationProfileID_UUID16",
+    "UDIMTServiceClassID_UUID16",
+    "UDIMTServiceClass_UUID16",
+    "UDITAServiceClassID_UUID16",
+    "UDITAServiceClass_UUID16",
+    "UDI_C_PLANE_PROTOCOL_UUID16",
+    "UDP_PROTOCOL_UUID16",
+    "UPNP_PROTOCOL_UUID16",
+    "UPnpIpServiceClassID_UUID16",
+    "UPnpServiceClassID_UUID16",
+    "VideoConferencingGWServiceClassID_UUID16",
+    "VideoConferencingGWServiceClass_UUID16",
+    "VideoConferencingServiceClassID_UUID16",
+    "VideoDistributionProfileID_UUID16",
+    "VideoSinkServiceClassID_UUID16",
+    "VideoSourceServiceClassID_UUID16",
+    "WAPClientServiceClassID_UUID16",
+    "WAPServiceClassID_UUID16",
+    "WSP_PROTOCOL_UUID16",
 ]

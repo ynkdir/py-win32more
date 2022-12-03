@@ -1,20 +1,39 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Networking.WinSock
 import win32more.System.UserAccessLogging
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+def _define_UalStart():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head))(('UalStart', windll['ualapi.dll']), ((1, 'Data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UalStop():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head))(('UalStop', windll['ualapi.dll']), ((1, 'Data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UalInstrument():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head))(('UalInstrument', windll['ualapi.dll']), ((1, 'Data'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_UalRegisterProduct():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('UalRegisterProduct', windll['ualapi.dll']), ((1, 'wszProductName'),(1, 'wszRoleName'),(1, 'wszGuid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
 def _define_UAL_DATA_BLOB_head():
     class UAL_DATA_BLOB(Structure):
         pass
@@ -22,37 +41,17 @@ def _define_UAL_DATA_BLOB_head():
 def _define_UAL_DATA_BLOB():
     UAL_DATA_BLOB = win32more.System.UserAccessLogging.UAL_DATA_BLOB_head
     UAL_DATA_BLOB._fields_ = [
-        ("Size", UInt32),
-        ("RoleGuid", Guid),
-        ("TenantId", Guid),
-        ("Address", win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ("UserName", Char * 260),
+        ('Size', UInt32),
+        ('RoleGuid', Guid),
+        ('TenantId', Guid),
+        ('Address', win32more.Networking.WinSock.SOCKADDR_STORAGE),
+        ('UserName', Char * 260),
     ]
     return UAL_DATA_BLOB
-def _define_UalStart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head), use_last_error=False)(("UalStart", windll["ualapi"]), ((1, 'Data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UalStop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head), use_last_error=False)(("UalStop", windll["ualapi"]), ((1, 'Data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UalInstrument():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head), use_last_error=False)(("UalInstrument", windll["ualapi"]), ((1, 'Data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UalRegisterProduct():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("UalRegisterProduct", windll["ualapi"]), ((1, 'wszProductName'),(1, 'wszRoleName'),(1, 'wszGuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
 __all__ = [
     "UAL_DATA_BLOB",
-    "UalStart",
-    "UalStop",
     "UalInstrument",
     "UalRegisterProduct",
+    "UalStart",
+    "UalStop",
 ]

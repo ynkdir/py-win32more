@@ -1,23 +1,17 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.System.Search.Common
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
-CONDITION_TYPE = Int32
-CT_AND_CONDITION = 0
-CT_OR_CONDITION = 1
-CT_NOT_CONDITION = 2
-CT_LEAF_CONDITION = 3
 CONDITION_OPERATION = Int32
 COP_IMPLICIT = 0
 COP_EQUAL = 1
@@ -34,26 +28,31 @@ COP_DOSWILDCARDS = 11
 COP_WORD_EQUAL = 12
 COP_WORD_STARTSWITH = 13
 COP_APPLICATION_SPECIFIC = 14
+CONDITION_TYPE = Int32
+CT_AND_CONDITION = 0
+CT_OR_CONDITION = 1
+CT_NOT_CONDITION = 2
+CT_LEAF_CONDITION = 3
 __all__ = [
-    "CONDITION_TYPE",
-    "CT_AND_CONDITION",
-    "CT_OR_CONDITION",
-    "CT_NOT_CONDITION",
-    "CT_LEAF_CONDITION",
     "CONDITION_OPERATION",
-    "COP_IMPLICIT",
-    "COP_EQUAL",
-    "COP_NOTEQUAL",
-    "COP_LESSTHAN",
-    "COP_GREATERTHAN",
-    "COP_LESSTHANOREQUAL",
-    "COP_GREATERTHANOREQUAL",
-    "COP_VALUE_STARTSWITH",
-    "COP_VALUE_ENDSWITH",
-    "COP_VALUE_CONTAINS",
-    "COP_VALUE_NOTCONTAINS",
+    "CONDITION_TYPE",
+    "COP_APPLICATION_SPECIFIC",
     "COP_DOSWILDCARDS",
+    "COP_EQUAL",
+    "COP_GREATERTHAN",
+    "COP_GREATERTHANOREQUAL",
+    "COP_IMPLICIT",
+    "COP_LESSTHAN",
+    "COP_LESSTHANOREQUAL",
+    "COP_NOTEQUAL",
+    "COP_VALUE_CONTAINS",
+    "COP_VALUE_ENDSWITH",
+    "COP_VALUE_NOTCONTAINS",
+    "COP_VALUE_STARTSWITH",
     "COP_WORD_EQUAL",
     "COP_WORD_STARTSWITH",
-    "COP_APPLICATION_SPECIFIC",
+    "CT_AND_CONDITION",
+    "CT_LEAF_CONDITION",
+    "CT_NOT_CONDITION",
+    "CT_OR_CONDITION",
 ]

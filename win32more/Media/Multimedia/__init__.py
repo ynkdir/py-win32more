@@ -1,5 +1,5 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Media
@@ -9,18 +9,55 @@ import win32more.System.Com
 import win32more.System.IO
 import win32more.UI.Controls
 import win32more.UI.Controls.Dialogs
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+def _define_ADPCMCOEFSET_head():
+    class ADPCMCOEFSET(Structure):
+        pass
+    return ADPCMCOEFSET
+def _define_ADPCMCOEFSET():
+    ADPCMCOEFSET = win32more.Media.Multimedia.ADPCMCOEFSET_head
+    ADPCMCOEFSET._pack_ = 1
+    ADPCMCOEFSET._fields_ = [
+        ('iCoef1', Int16),
+        ('iCoef2', Int16),
+    ]
+    return ADPCMCOEFSET
+def _define_ADPCMEWAVEFORMAT_head():
+    class ADPCMEWAVEFORMAT(Structure):
+        pass
+    return ADPCMEWAVEFORMAT
+def _define_ADPCMEWAVEFORMAT():
+    ADPCMEWAVEFORMAT = win32more.Media.Multimedia.ADPCMEWAVEFORMAT_head
+    ADPCMEWAVEFORMAT._pack_ = 1
+    ADPCMEWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
+    ]
+    return ADPCMEWAVEFORMAT
+def _define_ADPCMWAVEFORMAT_head():
+    class ADPCMWAVEFORMAT(Structure):
+        pass
+    return ADPCMWAVEFORMAT
+def _define_ADPCMWAVEFORMAT():
+    ADPCMWAVEFORMAT = win32more.Media.Multimedia.ADPCMWAVEFORMAT_head
+    ADPCMWAVEFORMAT._pack_ = 1
+    ADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
+        ('wNumCoef', UInt16),
+        ('aCoef', win32more.Media.Multimedia.ADPCMCOEFSET * 1),
+    ]
+    return ADPCMWAVEFORMAT
 WM_CAP_START = 1024
 MODM_USER = 16384
 MIDM_USER = 16384
@@ -2403,8 +2440,10 @@ AVICOMPRESSF_INTERLEAVE = 1
 AVICOMPRESSF_DATARATE = 2
 AVICOMPRESSF_KEYFRAMES = 4
 AVICOMPRESSF_VALID = 8
-CLSID_AVISimpleUnMarshal = '00020009-0000-0000-c000-000000000046'
-CLSID_AVIFile = '00020000-0000-0000-c000-000000000046'
+def _define_CLSID_AVISimpleUnMarshal():
+    return Guid('00020009-0000-0000-c0-00-00-00-00-00-00-46')
+def _define_CLSID_AVIFile():
+    return Guid('00020000-0000-0000-c0-00-00-00-00-00-00-46')
 AVIFILEHANDLER_CANREAD = 1
 AVIFILEHANDLER_CANWRITE = 2
 AVIFILEHANDLER_CANACCEPTNONRGB = 4
@@ -2429,6 +2468,7 @@ SEARCH_FORWARD = 1
 SEARCH_KEY = 16
 SEARCH_ANY = 32
 AVIERR_OK = 0
+MCIWND_WINDOW_CLASS = 'MCIWndClass'
 MCIWNDOPENF_NEW = 1
 MCIWNDF_NOAUTOSIZEWINDOW = 1
 MCIWNDF_NOPLAYBAR = 2
@@ -2850,6 +2890,8 @@ DRV_INSTALL = 9
 DRV_REMOVE = 10
 DRV_RESERVED = 2048
 DRV_USER = 16384
+DRIVERS_SECTION = 'DRIVERS32'
+MCI_SECTION = 'MCI32'
 DCB_NOSWITCH = 8
 DCB_TYPEMASK = 7
 DCB_NULL = 0
@@ -2978,6 +3020,7 @@ TDD_GETSYSTEMTIME = 2056
 TDD_GETDEVCAPS = 2060
 TDD_BEGINMINPERIOD = 2064
 TDD_ENDMINPERIOD = 2068
+JOY_CONFIGCHANGED_MSGSTRING = 'MSJSTICK_VJOYD_MSGSTR'
 JDD_GETNUMDEVS = 2049
 JDD_GETDEVCAPS = 2050
 JDD_GETPOS = 2305
@@ -4347,6 +4390,8 @@ VFW_OEM_ADD_PAGE = 2147483648
 VFW_USE_DEVICE_HANDLE = 1
 VFW_USE_STREAM_HANDLE = 2
 VFW_QUERY_DEV_CHANGED = 256
+TARGET_DEVICE_FRIENDLY_NAME = 'TargetDeviceFriendlyName'
+TARGET_DEVICE_OPEN_EXCLUSIVELY = 'TargetDeviceOpenExclusively'
 MCIERR_INVALID_DEVICE_ID = 257
 MCIERR_UNRECOGNIZED_KEYWORD = 259
 MCIERR_UNRECOGNIZED_COMMAND = 261
@@ -4663,204 +4708,856 @@ MCI_OVLY_WHERE_SOURCE = 131072
 MCI_OVLY_WHERE_DESTINATION = 262144
 MCI_OVLY_WHERE_FRAME = 524288
 MCI_OVLY_WHERE_VIDEO = 1048576
-HMMIO = IntPtr
-HDRVR = IntPtr
-HIC = IntPtr
-HVIDEO = IntPtr
-KSDATAFORMAT_SUBTYPE_IEEE_FLOAT = Guid('00000003-0000-0010-8000-00aa00389b71')
-def _define_ADPCMCOEFSET_head():
-    class ADPCMCOEFSET(Structure):
-        pass
-    return ADPCMCOEFSET
-def _define_ADPCMCOEFSET():
-    ADPCMCOEFSET = win32more.Media.Multimedia.ADPCMCOEFSET_head
-    ADPCMCOEFSET._pack_ = 1
-    ADPCMCOEFSET._fields_ = [
-        ("iCoef1", Int16),
-        ("iCoef2", Int16),
-    ]
-    return ADPCMCOEFSET
-def _define_ADPCMWAVEFORMAT_head():
-    class ADPCMWAVEFORMAT(Structure):
-        pass
-    return ADPCMWAVEFORMAT
-def _define_ADPCMWAVEFORMAT():
-    ADPCMWAVEFORMAT = win32more.Media.Multimedia.ADPCMWAVEFORMAT_head
-    ADPCMWAVEFORMAT._pack_ = 1
-    ADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
-        ("wNumCoef", UInt16),
-        ("aCoef", win32more.Media.Multimedia.ADPCMCOEFSET * 0),
-    ]
-    return ADPCMWAVEFORMAT
-def _define_DRMWAVEFORMAT_head():
-    class DRMWAVEFORMAT(Structure):
-        pass
-    return DRMWAVEFORMAT
-def _define_DRMWAVEFORMAT():
-    DRMWAVEFORMAT = win32more.Media.Multimedia.DRMWAVEFORMAT_head
-    DRMWAVEFORMAT._pack_ = 1
-    DRMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wReserved", UInt16),
-        ("ulContentId", UInt32),
-        ("wfxSecure", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return DRMWAVEFORMAT
-def _define_DVIADPCMWAVEFORMAT_head():
-    class DVIADPCMWAVEFORMAT(Structure):
-        pass
-    return DVIADPCMWAVEFORMAT
-def _define_DVIADPCMWAVEFORMAT():
-    DVIADPCMWAVEFORMAT = win32more.Media.Multimedia.DVIADPCMWAVEFORMAT_head
-    DVIADPCMWAVEFORMAT._pack_ = 1
-    DVIADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
-    ]
-    return DVIADPCMWAVEFORMAT
-def _define_IMAADPCMWAVEFORMAT_head():
-    class IMAADPCMWAVEFORMAT(Structure):
-        pass
-    return IMAADPCMWAVEFORMAT
-def _define_IMAADPCMWAVEFORMAT():
-    IMAADPCMWAVEFORMAT = win32more.Media.Multimedia.IMAADPCMWAVEFORMAT_head
-    IMAADPCMWAVEFORMAT._pack_ = 1
-    IMAADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
-    ]
-    return IMAADPCMWAVEFORMAT
-def _define_MEDIASPACEADPCMWAVEFORMAT_head():
-    class MEDIASPACEADPCMWAVEFORMAT(Structure):
-        pass
-    return MEDIASPACEADPCMWAVEFORMAT
-def _define_MEDIASPACEADPCMWAVEFORMAT():
-    MEDIASPACEADPCMWAVEFORMAT = win32more.Media.Multimedia.MEDIASPACEADPCMWAVEFORMAT_head
-    MEDIASPACEADPCMWAVEFORMAT._pack_ = 1
-    MEDIASPACEADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
-    ]
-    return MEDIASPACEADPCMWAVEFORMAT
-def _define_SIERRAADPCMWAVEFORMAT_head():
-    class SIERRAADPCMWAVEFORMAT(Structure):
-        pass
-    return SIERRAADPCMWAVEFORMAT
-def _define_SIERRAADPCMWAVEFORMAT():
-    SIERRAADPCMWAVEFORMAT = win32more.Media.Multimedia.SIERRAADPCMWAVEFORMAT_head
-    SIERRAADPCMWAVEFORMAT._pack_ = 1
-    SIERRAADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
-    ]
-    return SIERRAADPCMWAVEFORMAT
-def _define_G723_ADPCMWAVEFORMAT_head():
-    class G723_ADPCMWAVEFORMAT(Structure):
-        pass
-    return G723_ADPCMWAVEFORMAT
-def _define_G723_ADPCMWAVEFORMAT():
-    G723_ADPCMWAVEFORMAT = win32more.Media.Multimedia.G723_ADPCMWAVEFORMAT_head
-    G723_ADPCMWAVEFORMAT._pack_ = 1
-    G723_ADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("cbExtraSize", UInt16),
-        ("nAuxBlockSize", UInt16),
-    ]
-    return G723_ADPCMWAVEFORMAT
-def _define_DIGISTDWAVEFORMAT_head():
-    class DIGISTDWAVEFORMAT(Structure):
-        pass
-    return DIGISTDWAVEFORMAT
-def _define_DIGISTDWAVEFORMAT():
-    DIGISTDWAVEFORMAT = win32more.Media.Multimedia.DIGISTDWAVEFORMAT_head
-    DIGISTDWAVEFORMAT._pack_ = 1
-    DIGISTDWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return DIGISTDWAVEFORMAT
-def _define_DIGIFIXWAVEFORMAT_head():
-    class DIGIFIXWAVEFORMAT(Structure):
-        pass
-    return DIGIFIXWAVEFORMAT
-def _define_DIGIFIXWAVEFORMAT():
-    DIGIFIXWAVEFORMAT = win32more.Media.Multimedia.DIGIFIXWAVEFORMAT_head
-    DIGIFIXWAVEFORMAT._pack_ = 1
-    DIGIFIXWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return DIGIFIXWAVEFORMAT
-def _define_DIALOGICOKIADPCMWAVEFORMAT_head():
-    class DIALOGICOKIADPCMWAVEFORMAT(Structure):
-        pass
-    return DIALOGICOKIADPCMWAVEFORMAT
-def _define_DIALOGICOKIADPCMWAVEFORMAT():
-    DIALOGICOKIADPCMWAVEFORMAT = win32more.Media.Multimedia.DIALOGICOKIADPCMWAVEFORMAT_head
-    DIALOGICOKIADPCMWAVEFORMAT._pack_ = 1
-    DIALOGICOKIADPCMWAVEFORMAT._fields_ = [
-        ("ewf", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return DIALOGICOKIADPCMWAVEFORMAT
-def _define_YAMAHA_ADPCMWAVEFORMAT_head():
-    class YAMAHA_ADPCMWAVEFORMAT(Structure):
-        pass
-    return YAMAHA_ADPCMWAVEFORMAT
-def _define_YAMAHA_ADPCMWAVEFORMAT():
-    YAMAHA_ADPCMWAVEFORMAT = win32more.Media.Multimedia.YAMAHA_ADPCMWAVEFORMAT_head
-    YAMAHA_ADPCMWAVEFORMAT._pack_ = 1
-    YAMAHA_ADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return YAMAHA_ADPCMWAVEFORMAT
-def _define_SONARCWAVEFORMAT_head():
-    class SONARCWAVEFORMAT(Structure):
-        pass
-    return SONARCWAVEFORMAT
-def _define_SONARCWAVEFORMAT():
-    SONARCWAVEFORMAT = win32more.Media.Multimedia.SONARCWAVEFORMAT_head
-    SONARCWAVEFORMAT._pack_ = 1
-    SONARCWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wCompType", UInt16),
-    ]
-    return SONARCWAVEFORMAT
-def _define_TRUESPEECHWAVEFORMAT_head():
-    class TRUESPEECHWAVEFORMAT(Structure):
-        pass
-    return TRUESPEECHWAVEFORMAT
-def _define_TRUESPEECHWAVEFORMAT():
-    TRUESPEECHWAVEFORMAT = win32more.Media.Multimedia.TRUESPEECHWAVEFORMAT_head
-    TRUESPEECHWAVEFORMAT._pack_ = 1
-    TRUESPEECHWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
-        ("nSamplesPerBlock", UInt16),
-        ("abReserved", Byte * 28),
-    ]
-    return TRUESPEECHWAVEFORMAT
-def _define_ECHOSC1WAVEFORMAT_head():
-    class ECHOSC1WAVEFORMAT(Structure):
-        pass
-    return ECHOSC1WAVEFORMAT
-def _define_ECHOSC1WAVEFORMAT():
-    ECHOSC1WAVEFORMAT = win32more.Media.Multimedia.ECHOSC1WAVEFORMAT_head
-    ECHOSC1WAVEFORMAT._pack_ = 1
-    ECHOSC1WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return ECHOSC1WAVEFORMAT
-def _define_AUDIOFILE_AF36WAVEFORMAT_head():
-    class AUDIOFILE_AF36WAVEFORMAT(Structure):
-        pass
-    return AUDIOFILE_AF36WAVEFORMAT
-def _define_AUDIOFILE_AF36WAVEFORMAT():
-    AUDIOFILE_AF36WAVEFORMAT = win32more.Media.Multimedia.AUDIOFILE_AF36WAVEFORMAT_head
-    AUDIOFILE_AF36WAVEFORMAT._pack_ = 1
-    AUDIOFILE_AF36WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return AUDIOFILE_AF36WAVEFORMAT
+def _define_mciSendCommandA():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr)(('mciSendCommandA', windll['WINMM.dll']), ((1, 'mciId'),(1, 'uMsg'),(1, 'dwParam1'),(1, 'dwParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciSendCommandW():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr)(('mciSendCommandW', windll['WINMM.dll']), ((1, 'mciId'),(1, 'uMsg'),(1, 'dwParam1'),(1, 'dwParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciSendStringA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.HWND)(('mciSendStringA', windll['WINMM.dll']), ((1, 'lpstrCommand'),(1, 'lpstrReturnString'),(1, 'uReturnLength'),(1, 'hwndCallback'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciSendStringW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.HWND)(('mciSendStringW', windll['WINMM.dll']), ((1, 'lpstrCommand'),(1, 'lpstrReturnString'),(1, 'uReturnLength'),(1, 'hwndCallback'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetDeviceIDA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)(('mciGetDeviceIDA', windll['WINMM.dll']), ((1, 'pszDevice'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetDeviceIDW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('mciGetDeviceIDW', windll['WINMM.dll']), ((1, 'pszDevice'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetDeviceIDFromElementIDA():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR)(('mciGetDeviceIDFromElementIDA', windll['WINMM.dll']), ((1, 'dwElementID'),(1, 'lpstrType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetDeviceIDFromElementIDW():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR)(('mciGetDeviceIDFromElementIDW', windll['WINMM.dll']), ((1, 'dwElementID'),(1, 'lpstrType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetErrorStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,UInt32)(('mciGetErrorStringA', windll['WINMM.dll']), ((1, 'mcierr'),(1, 'pszText'),(1, 'cchText'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetErrorStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,UInt32)(('mciGetErrorStringW', windll['WINMM.dll']), ((1, 'mcierr'),(1, 'pszText'),(1, 'cchText'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciSetYieldProc():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Media.Multimedia.YIELDPROC,UInt32)(('mciSetYieldProc', windll['WINMM.dll']), ((1, 'mciId'),(1, 'fpYieldProc'),(1, 'dwYieldData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetCreatorTask():
+    try:
+        return WINFUNCTYPE(win32more.Media.HTASK,UInt32)(('mciGetCreatorTask', windll['WINMM.dll']), ((1, 'mciId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetYieldProc():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.YIELDPROC,UInt32,POINTER(UInt32))(('mciGetYieldProc', windll['WINMM.dll']), ((1, 'mciId'),(1, 'pdwYieldData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciGetDriverData():
+    try:
+        return WINFUNCTYPE(UIntPtr,UInt32)(('mciGetDriverData', windll['WINMM.dll']), ((1, 'wDeviceID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciLoadCommandResource():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,UInt32)(('mciLoadCommandResource', windll['WINMM.dll']), ((1, 'hInstance'),(1, 'lpResName'),(1, 'wType'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciSetDriverData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UIntPtr)(('mciSetDriverData', windll['WINMM.dll']), ((1, 'wDeviceID'),(1, 'dwData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciDriverYield():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('mciDriverYield', windll['WINMM.dll']), ((1, 'wDeviceID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciDriverNotify():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32)(('mciDriverNotify', windll['WINMM.dll']), ((1, 'hwndCallback'),(1, 'wDeviceID'),(1, 'uStatus'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mciFreeCommandResource():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('mciFreeCommandResource', windll['WINMM.dll']), ((1, 'wTable'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CloseDriver():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HDRVR,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('CloseDriver', windll['WINMM.dll']), ((1, 'hDriver'),(1, 'lParam1'),(1, 'lParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_OpenDriver():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HDRVR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM)(('OpenDriver', windll['WINMM.dll']), ((1, 'szDriverName'),(1, 'szSectionName'),(1, 'lParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SendDriverMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HDRVR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('SendDriverMessage', windll['WINMM.dll']), ((1, 'hDriver'),(1, 'message'),(1, 'lParam1'),(1, 'lParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrvGetModuleHandle():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Media.Multimedia.HDRVR)(('DrvGetModuleHandle', windll['WINMM.dll']), ((1, 'hDriver'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDriverModuleHandle():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Media.Multimedia.HDRVR)(('GetDriverModuleHandle', windll['WINMM.dll']), ((1, 'hDriver'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DefDriverProc():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,UIntPtr,win32more.Media.Multimedia.HDRVR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('DefDriverProc', windll['WINMM.dll']), ((1, 'dwDriverIdentifier'),(1, 'hdrvr'),(1, 'uMsg'),(1, 'lParam1'),(1, 'lParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DriverCallback():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UIntPtr,UInt32,win32more.Media.Multimedia.HDRVR,UInt32,UIntPtr,UIntPtr,UIntPtr)(('DriverCallback', windll['WINMM.dll']), ((1, 'dwCallback'),(1, 'dwFlags'),(1, 'hDevice'),(1, 'dwMsg'),(1, 'dwUser'),(1, 'dwParam1'),(1, 'dwParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_sndOpenSound():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Foundation.HANDLE))(('sndOpenSound', windll['api-ms-win-mm-misc-l1-1-1.dll']), ((1, 'EventName'),(1, 'AppName'),(1, 'Flags'),(1, 'FileHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmDrvInstall():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HDRVR,win32more.Foundation.PWSTR,win32more.Media.Multimedia.DRIVERMSGPROC,UInt32)(('mmDrvInstall', windll['WINMM.dll']), ((1, 'hDriver'),(1, 'wszDrvEntry'),(1, 'drvMessage'),(1, 'wFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioStringToFOURCCA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32)(('mmioStringToFOURCCA', windll['WINMM.dll']), ((1, 'sz'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioStringToFOURCCW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('mmioStringToFOURCCW', windll['WINMM.dll']), ((1, 'sz'),(1, 'uFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioInstallIOProcA():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.LPMMIOPROC,UInt32,win32more.Media.Multimedia.LPMMIOPROC,UInt32)(('mmioInstallIOProcA', windll['WINMM.dll']), ((1, 'fccIOProc'),(1, 'pIOProc'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioInstallIOProcW():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.LPMMIOPROC,UInt32,win32more.Media.Multimedia.LPMMIOPROC,UInt32)(('mmioInstallIOProcW', windll['WINMM.dll']), ((1, 'fccIOProc'),(1, 'pIOProc'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioOpenA():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HMMIO,win32more.Foundation.PSTR,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioOpenA', windll['WINMM.dll']), ((1, 'pszFileName'),(1, 'pmmioinfo'),(1, 'fdwOpen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioOpenW():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HMMIO,win32more.Foundation.PWSTR,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioOpenW', windll['WINMM.dll']), ((1, 'pszFileName'),(1, 'pmmioinfo'),(1, 'fdwOpen'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioRenameA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioRenameA', windll['WINMM.dll']), ((1, 'pszFileName'),(1, 'pszNewFileName'),(1, 'pmmioinfo'),(1, 'fdwRename'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioRenameW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioRenameW', windll['WINMM.dll']), ((1, 'pszFileName'),(1, 'pszNewFileName'),(1, 'pmmioinfo'),(1, 'fdwRename'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioClose():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,UInt32)(('mmioClose', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'fuClose'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioRead():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.HMMIO,POINTER(SByte),Int32)(('mmioRead', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pch'),(1, 'cch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioWrite():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.HMMIO,win32more.Foundation.PSTR,Int32)(('mmioWrite', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pch'),(1, 'cch'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioSeek():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.HMMIO,Int32,Int32)(('mmioSeek', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'lOffset'),(1, 'iOrigin'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioGetInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioGetInfo', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pmmioinfo'),(1, 'fuInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioSetInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioSetInfo', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pmmioinfo'),(1, 'fuInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioSetBuffer():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,win32more.Foundation.PSTR,Int32,UInt32)(('mmioSetBuffer', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pchBuffer'),(1, 'cchBuffer'),(1, 'fuBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioFlush():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,UInt32)(('mmioFlush', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'fuFlush'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioAdvance():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32)(('mmioAdvance', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pmmioinfo'),(1, 'fuAdvance'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioSendMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HMMIO,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('mmioSendMessage', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'uMsg'),(1, 'lParam1'),(1, 'lParam2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioDescend():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMCKINFO_head),POINTER(win32more.Media.Multimedia.MMCKINFO_head),UInt32)(('mmioDescend', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pmmcki'),(1, 'pmmckiParent'),(1, 'fuDescend'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioAscend():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMCKINFO_head),UInt32)(('mmioAscend', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pmmcki'),(1, 'fuAscend'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmioCreateChunk():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMCKINFO_head),UInt32)(('mmioCreateChunk', windll['WINMM.dll']), ((1, 'hmmio'),(1, 'pmmcki'),(1, 'fuCreate'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyGetPosEx():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Media.Multimedia.JOYINFOEX_head))(('joyGetPosEx', windll['WINMM.dll']), ((1, 'uJoyID'),(1, 'pji'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyGetNumDevs():
+    try:
+        return WINFUNCTYPE(UInt32,)(('joyGetNumDevs', windll['WINMM.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyGetDevCapsA():
+    try:
+        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Multimedia.JOYCAPSA_head),UInt32)(('joyGetDevCapsA', windll['WINMM.dll']), ((1, 'uJoyID'),(1, 'pjc'),(1, 'cbjc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyGetDevCapsW():
+    try:
+        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Multimedia.JOYCAPSW_head),UInt32)(('joyGetDevCapsW', windll['WINMM.dll']), ((1, 'uJoyID'),(1, 'pjc'),(1, 'cbjc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyGetPos():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Media.Multimedia.JOYINFO_head))(('joyGetPos', windll['WINMM.dll']), ((1, 'uJoyID'),(1, 'pji'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyGetThreshold():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32))(('joyGetThreshold', windll['WINMM.dll']), ((1, 'uJoyID'),(1, 'puThreshold'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyReleaseCapture():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('joyReleaseCapture', windll['WINMM.dll']), ((1, 'uJoyID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joySetCapture():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,UInt32,win32more.Foundation.BOOL)(('joySetCapture', windll['WINMM.dll']), ((1, 'hwnd'),(1, 'uJoyID'),(1, 'uPeriod'),(1, 'fChanged'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joySetThreshold():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,UInt32)(('joySetThreshold', windll['WINMM.dll']), ((1, 'uJoyID'),(1, 'uThreshold'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_VideoForWindowsVersion():
+    try:
+        return WINFUNCTYPE(UInt32,)(('VideoForWindowsVersion', windll['MSVFW32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,POINTER(win32more.Media.Multimedia.ICINFO_head))(('ICInfo', windll['MSVFW32.dll']), ((1, 'fccType'),(1, 'fccHandler'),(1, 'lpicinfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICInstall():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.PSTR,UInt32)(('ICInstall', windll['MSVFW32.dll']), ((1, 'fccType'),(1, 'fccHandler'),(1, 'lParam'),(1, 'szDesc'),(1, 'wFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICRemove():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,UInt32)(('ICRemove', windll['MSVFW32.dll']), ((1, 'fccType'),(1, 'fccHandler'),(1, 'wFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICGetInfo():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HIC,POINTER(win32more.Media.Multimedia.ICINFO_head),UInt32)(('ICGetInfo', windll['MSVFW32.dll']), ((1, 'hic'),(1, 'picinfo'),(1, 'cb'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICOpen():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,UInt32,UInt32,UInt32)(('ICOpen', windll['MSVFW32.dll']), ((1, 'fccType'),(1, 'fccHandler'),(1, 'wMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICOpenFunction():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,UInt32,UInt32,UInt32,win32more.Foundation.FARPROC)(('ICOpenFunction', windll['MSVFW32.dll']), ((1, 'fccType'),(1, 'fccHandler'),(1, 'wMode'),(1, 'lpfnHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICClose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HIC)(('ICClose', windll['MSVFW32.dll']), ((1, 'hic'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICSendMessage():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HIC,UInt32,UIntPtr,UIntPtr)(('ICSendMessage', windll['MSVFW32.dll']), ((1, 'hic'),(1, 'msg'),(1, 'dw1'),(1, 'dw2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICCompress():
+    try:
+        return CFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,POINTER(UInt32),POINTER(UInt32),Int32,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p)(('ICCompress', cdll['MSVFW32.dll']), ((1, 'hic'),(1, 'dwFlags'),(1, 'lpbiOutput'),(1, 'lpData'),(1, 'lpbiInput'),(1, 'lpBits'),(1, 'lpckid'),(1, 'lpdwFlags'),(1, 'lFrameNum'),(1, 'dwFrameSize'),(1, 'dwQuality'),(1, 'lpbiPrev'),(1, 'lpPrev'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICDecompress():
+    try:
+        return CFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p)(('ICDecompress', cdll['MSVFW32.dll']), ((1, 'hic'),(1, 'dwFlags'),(1, 'lpbiFormat'),(1, 'lpData'),(1, 'lpbi'),(1, 'lpBits'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICDrawBegin():
+    try:
+        return CFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,win32more.Graphics.Gdi.HPALETTE,win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),Int32,Int32,Int32,Int32,UInt32,UInt32)(('ICDrawBegin', cdll['MSVFW32.dll']), ((1, 'hic'),(1, 'dwFlags'),(1, 'hpal'),(1, 'hwnd'),(1, 'hdc'),(1, 'xDst'),(1, 'yDst'),(1, 'dxDst'),(1, 'dyDst'),(1, 'lpbi'),(1, 'xSrc'),(1, 'ySrc'),(1, 'dxSrc'),(1, 'dySrc'),(1, 'dwRate'),(1, 'dwScale'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICDraw():
+    try:
+        return CFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,c_void_p,c_void_p,UInt32,Int32)(('ICDraw', cdll['MSVFW32.dll']), ((1, 'hic'),(1, 'dwFlags'),(1, 'lpFormat'),(1, 'lpData'),(1, 'cbData'),(1, 'lTime'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICLocate():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),UInt16)(('ICLocate', windll['MSVFW32.dll']), ((1, 'fccType'),(1, 'fccHandler'),(1, 'lpbiIn'),(1, 'lpbiOut'),(1, 'wFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICGetDisplayFormat():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,win32more.Media.Multimedia.HIC,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),Int32,Int32,Int32)(('ICGetDisplayFormat', windll['MSVFW32.dll']), ((1, 'hic'),(1, 'lpbiIn'),(1, 'lpbiOut'),(1, 'BitDepth'),(1, 'dx'),(1, 'dy'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICImageCompress():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),Int32,POINTER(Int32))(('ICImageCompress', windll['MSVFW32.dll']), ((1, 'hic'),(1, 'uiFlags'),(1, 'lpbiIn'),(1, 'lpBits'),(1, 'lpbiOut'),(1, 'lQuality'),(1, 'plSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICImageDecompress():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head))(('ICImageDecompress', windll['MSVFW32.dll']), ((1, 'hic'),(1, 'uiFlags'),(1, 'lpbiIn'),(1, 'lpBits'),(1, 'lpbiOut'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICCompressorChoose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,c_void_p,c_void_p,POINTER(win32more.Media.Multimedia.COMPVARS_head),win32more.Foundation.PSTR)(('ICCompressorChoose', windll['MSVFW32.dll']), ((1, 'hwnd'),(1, 'uiFlags'),(1, 'pvIn'),(1, 'lpData'),(1, 'pc'),(1, 'lpszTitle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICSeqCompressFrameStart():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Media.Multimedia.COMPVARS_head),POINTER(win32more.Graphics.Gdi.BITMAPINFO_head))(('ICSeqCompressFrameStart', windll['MSVFW32.dll']), ((1, 'pc'),(1, 'lpbiIn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICSeqCompressFrameEnd():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Media.Multimedia.COMPVARS_head))(('ICSeqCompressFrameEnd', windll['MSVFW32.dll']), ((1, 'pc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICSeqCompressFrame():
+    try:
+        return WINFUNCTYPE(c_void_p,POINTER(win32more.Media.Multimedia.COMPVARS_head),UInt32,c_void_p,POINTER(win32more.Foundation.BOOL),POINTER(Int32))(('ICSeqCompressFrame', windll['MSVFW32.dll']), ((1, 'pc'),(1, 'uiFlags'),(1, 'lpBits'),(1, 'pfKey'),(1, 'plSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ICCompressorFree():
+    try:
+        return WINFUNCTYPE(Void,POINTER(win32more.Media.Multimedia.COMPVARS_head))(('ICCompressorFree', windll['MSVFW32.dll']), ((1, 'pc'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibOpen():
+    try:
+        return WINFUNCTYPE(IntPtr,)(('DrawDibOpen', windll['MSVFW32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibClose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('DrawDibClose', windll['MSVFW32.dll']), ((1, 'hdd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibGetBuffer():
+    try:
+        return WINFUNCTYPE(c_void_p,IntPtr,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),UInt32,UInt32)(('DrawDibGetBuffer', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'lpbi'),(1, 'dwSize'),(1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibGetPalette():
+    try:
+        return WINFUNCTYPE(win32more.Graphics.Gdi.HPALETTE,IntPtr)(('DrawDibGetPalette', windll['MSVFW32.dll']), ((1, 'hdd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibSetPalette():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Graphics.Gdi.HPALETTE)(('DrawDibSetPalette', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'hpal'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibChangePalette():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,Int32,Int32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head))(('DrawDibChangePalette', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'iStart'),(1, 'iLen'),(1, 'lppe'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibRealize():
+    try:
+        return WINFUNCTYPE(UInt32,IntPtr,win32more.Graphics.Gdi.HDC,win32more.Foundation.BOOL)(('DrawDibRealize', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'hdc'),(1, 'fBackground'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibStart():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32)(('DrawDibStart', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'rate'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibStop():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('DrawDibStop', windll['MSVFW32.dll']), ((1, 'hdd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibBegin():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),Int32,Int32,UInt32)(('DrawDibBegin', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'hdc'),(1, 'dxDst'),(1, 'dyDst'),(1, 'lpbi'),(1, 'dxSrc'),(1, 'dySrc'),(1, 'wFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibDraw():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,Int32,Int32,Int32,Int32,UInt32)(('DrawDibDraw', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'hdc'),(1, 'xDst'),(1, 'yDst'),(1, 'dxDst'),(1, 'dyDst'),(1, 'lpbi'),(1, 'lpBits'),(1, 'xSrc'),(1, 'ySrc'),(1, 'dxSrc'),(1, 'dySrc'),(1, 'wFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibEnd():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('DrawDibEnd', windll['MSVFW32.dll']), ((1, 'hdd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibTime():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Media.Multimedia.DRAWDIBTIME_head))(('DrawDibTime', windll['MSVFW32.dll']), ((1, 'hdd'),(1, 'lpddtime'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DrawDibProfileDisplay():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head))(('DrawDibProfileDisplay', windll['MSVFW32.dll']), ((1, 'lpbi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileInit():
+    try:
+        return WINFUNCTYPE(Void,)(('AVIFileInit', windll['AVIFIL32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileExit():
+    try:
+        return WINFUNCTYPE(Void,)(('AVIFileExit', windll['AVIFIL32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileAddRef():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIFile_head)(('AVIFileAddRef', windll['AVIFIL32.dll']), ((1, 'pfile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileRelease():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIFile_head)(('AVIFileRelease', windll['AVIFIL32.dll']), ((1, 'pfile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileOpenA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head),win32more.Foundation.PSTR,UInt32,POINTER(Guid))(('AVIFileOpenA', windll['AVIFIL32.dll']), ((1, 'ppfile'),(1, 'szFile'),(1, 'uMode'),(1, 'lpHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileOpenW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head),win32more.Foundation.PWSTR,UInt32,POINTER(Guid))(('AVIFileOpenW', windll['AVIFIL32.dll']), ((1, 'ppfile'),(1, 'szFile'),(1, 'uMode'),(1, 'lpHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.AVIFILEINFOW_head),Int32)(('AVIFileInfoW', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'pfi'),(1, 'lSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.AVIFILEINFOA_head),Int32)(('AVIFileInfoA', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'pfi'),(1, 'lSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileGetStream():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.IAVIStream_head),UInt32,Int32)(('AVIFileGetStream', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'ppavi'),(1, 'fccType'),(1, 'lParam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileCreateStreamW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head))(('AVIFileCreateStreamW', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'ppavi'),(1, 'psi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileCreateStreamA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(win32more.Media.Multimedia.AVISTREAMINFOA_head))(('AVIFileCreateStreamA', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'ppavi'),(1, 'psi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileWriteData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,UInt32,c_void_p,Int32)(('AVIFileWriteData', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'ckid'),(1, 'lpData'),(1, 'cbData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileReadData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,UInt32,c_void_p,POINTER(Int32))(('AVIFileReadData', windll['AVIFIL32.dll']), ((1, 'pfile'),(1, 'ckid'),(1, 'lpData'),(1, 'lpcbData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIFileEndRecord():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head)(('AVIFileEndRecord', windll['AVIFIL32.dll']), ((1, 'pfile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamAddRef():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIStream_head)(('AVIStreamAddRef', windll['AVIFIL32.dll']), ((1, 'pavi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamRelease():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIStream_head)(('AVIStreamRelease', windll['AVIFIL32.dll']), ((1, 'pavi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32)(('AVIStreamInfoW', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'psi'),(1, 'lSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOA_head),Int32)(('AVIStreamInfoA', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'psi'),(1, 'lSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamFindSample():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32)(('AVIStreamFindSample', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lPos'),(1, 'lFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamReadFormat():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,c_void_p,POINTER(Int32))(('AVIStreamReadFormat', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lPos'),(1, 'lpFormat'),(1, 'lpcbFormat'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamSetFormat():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,c_void_p,Int32)(('AVIStreamSetFormat', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lPos'),(1, 'lpFormat'),(1, 'cbFormat'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamReadData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,UInt32,c_void_p,POINTER(Int32))(('AVIStreamReadData', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'fcc'),(1, 'lp'),(1, 'lpcb'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamWriteData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,UInt32,c_void_p,Int32)(('AVIStreamWriteData', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'fcc'),(1, 'lp'),(1, 'cb'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamRead():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32,c_void_p,Int32,POINTER(Int32),POINTER(Int32))(('AVIStreamRead', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'plBytes'),(1, 'plSamples'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamWrite():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32,c_void_p,Int32,UInt32,POINTER(Int32),POINTER(Int32))(('AVIStreamWrite', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'dwFlags'),(1, 'plSampWritten'),(1, 'plBytesWritten'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamStart():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head)(('AVIStreamStart', windll['AVIFIL32.dll']), ((1, 'pavi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamLength():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head)(('AVIStreamLength', windll['AVIFIL32.dll']), ((1, 'pavi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamTimeToSample():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head,Int32)(('AVIStreamTimeToSample', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lTime'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamSampleToTime():
+    try:
+        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head,Int32)(('AVIStreamSampleToTime', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lSample'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamBeginStreaming():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32,Int32)(('AVIStreamBeginStreaming', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamEndStreaming():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head)(('AVIStreamEndStreaming', windll['AVIFIL32.dll']), ((1, 'pavi'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamGetFrameOpen():
+    try:
+        return WINFUNCTYPE(win32more.Media.Multimedia.IGetFrame_head,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head))(('AVIStreamGetFrameOpen', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lpbiWanted'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamGetFrame():
+    try:
+        return WINFUNCTYPE(c_void_p,win32more.Media.Multimedia.IGetFrame_head,Int32)(('AVIStreamGetFrame', windll['AVIFIL32.dll']), ((1, 'pg'),(1, 'lPos'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamGetFrameClose():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IGetFrame_head)(('AVIStreamGetFrameClose', windll['AVIFIL32.dll']), ((1, 'pg'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamOpenFromFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Foundation.PSTR,UInt32,Int32,UInt32,POINTER(Guid))(('AVIStreamOpenFromFileA', windll['AVIFIL32.dll']), ((1, 'ppavi'),(1, 'szFile'),(1, 'fccType'),(1, 'lParam'),(1, 'mode'),(1, 'pclsidHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamOpenFromFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Foundation.PWSTR,UInt32,Int32,UInt32,POINTER(Guid))(('AVIStreamOpenFromFileW', windll['AVIFIL32.dll']), ((1, 'ppavi'),(1, 'szFile'),(1, 'fccType'),(1, 'lParam'),(1, 'mode'),(1, 'pclsidHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIStreamCreate():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),Int32,Int32,POINTER(Guid))(('AVIStreamCreate', windll['AVIFIL32.dll']), ((1, 'ppavi'),(1, 'lParam1'),(1, 'lParam2'),(1, 'pclsidHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIMakeCompressedStream():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head),POINTER(Guid))(('AVIMakeCompressedStream', windll['AVIFIL32.dll']), ((1, 'ppsCompressed'),(1, 'ppsSource'),(1, 'lpOptions'),(1, 'pclsidHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVISaveA():
+    try:
+        return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head))(('AVISaveA', cdll['AVIFIL32.dll']), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'pfile'),(1, 'lpOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVISaveVA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)))(('AVISaveVA', windll['AVIFIL32.dll']), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'ppavi'),(1, 'plpOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVISaveW():
+    try:
+        return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head))(('AVISaveW', cdll['AVIFIL32.dll']), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'pfile'),(1, 'lpOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVISaveVW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)))(('AVISaveVW', windll['AVIFIL32.dll']), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'ppavi'),(1, 'plpOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVISaveOptions():
+    try:
+        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,UInt32,Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)))(('AVISaveOptions', windll['AVIFIL32.dll']), ((1, 'hwnd'),(1, 'uiFlags'),(1, 'nStreams'),(1, 'ppavi'),(1, 'plpOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVISaveOptionsFree():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)))(('AVISaveOptionsFree', windll['AVIFIL32.dll']), ((1, 'nStreams'),(1, 'plpOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIBuildFilterW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.BOOL)(('AVIBuildFilterW', windll['AVIFIL32.dll']), ((1, 'lpszFilter'),(1, 'cbFilter'),(1, 'fSaving'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIBuildFilterA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,Int32,win32more.Foundation.BOOL)(('AVIBuildFilterA', windll['AVIFIL32.dll']), ((1, 'lpszFilter'),(1, 'cbFilter'),(1, 'fSaving'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIMakeFileFromStreams():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head),Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head))(('AVIMakeFileFromStreams', windll['AVIFIL32.dll']), ((1, 'ppfile'),(1, 'nStreams'),(1, 'papStreams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIMakeStreamFromClipboard():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Media.Multimedia.IAVIStream_head))(('AVIMakeStreamFromClipboard', windll['AVIFIL32.dll']), ((1, 'cfFormat'),(1, 'hGlobal'),(1, 'ppstream'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIPutFileOnClipboard():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head)(('AVIPutFileOnClipboard', windll['AVIFIL32.dll']), ((1, 'pf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIGetFromClipboard():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head))(('AVIGetFromClipboard', windll['AVIFIL32.dll']), ((1, 'lppf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AVIClearClipboard():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('AVIClearClipboard', windll['AVIFIL32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateEditableStream():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Media.Multimedia.IAVIStream_head)(('CreateEditableStream', windll['AVIFIL32.dll']), ((1, 'ppsEditable'),(1, 'psSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamCut():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head))(('EditStreamCut', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamCopy():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head))(('EditStreamCopy', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamPaste():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(Int32),POINTER(Int32),win32more.Media.Multimedia.IAVIStream_head,Int32,Int32)(('EditStreamPaste', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'plPos'),(1, 'plLength'),(1, 'pstream'),(1, 'lStart'),(1, 'lEnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamClone():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.IAVIStream_head))(('EditStreamClone', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'ppResult'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamSetNameA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,win32more.Foundation.PSTR)(('EditStreamSetNameA', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lpszName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamSetNameW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,win32more.Foundation.PWSTR)(('EditStreamSetNameW', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lpszName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamSetInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32)(('EditStreamSetInfoW', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lpInfo'),(1, 'cbInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_EditStreamSetInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOA_head),Int32)(('EditStreamSetInfoA', windll['AVIFIL32.dll']), ((1, 'pavi'),(1, 'lpInfo'),(1, 'cbInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MCIWndCreateA():
+    try:
+        return CFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PSTR)(('MCIWndCreateA', cdll['MSVFW32.dll']), ((1, 'hwndParent'),(1, 'hInstance'),(1, 'dwStyle'),(1, 'szFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MCIWndCreateW():
+    try:
+        return CFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PWSTR)(('MCIWndCreateW', cdll['MSVFW32.dll']), ((1, 'hwndParent'),(1, 'hInstance'),(1, 'dwStyle'),(1, 'szFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MCIWndRegisterClass():
+    try:
+        return CFUNCTYPE(win32more.Foundation.BOOL,)(('MCIWndRegisterClass', cdll['MSVFW32.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_capCreateCaptureWindowA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,Int32)(('capCreateCaptureWindowA', windll['AVICAP32.dll']), ((1, 'lpszWindowName'),(1, 'dwStyle'),(1, 'x'),(1, 'y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hwndParent'),(1, 'nID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_capGetDriverDescriptionA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,Int32,win32more.Foundation.PSTR,Int32)(('capGetDriverDescriptionA', windll['AVICAP32.dll']), ((1, 'wDriverIndex'),(1, 'lpszName'),(1, 'cbName'),(1, 'lpszVer'),(1, 'cbVer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_capCreateCaptureWindowW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,Int32)(('capCreateCaptureWindowW', windll['AVICAP32.dll']), ((1, 'lpszWindowName'),(1, 'dwStyle'),(1, 'x'),(1, 'y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hwndParent'),(1, 'nID'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_capGetDriverDescriptionW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32)(('capGetDriverDescriptionW', windll['AVICAP32.dll']), ((1, 'wDriverIndex'),(1, 'lpszName'),(1, 'cbName'),(1, 'lpszVer'),(1, 'cbVer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetOpenFileNamePreviewA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head))(('GetOpenFileNamePreviewA', windll['MSVFW32.dll']), ((1, 'lpofn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetSaveFileNamePreviewA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head))(('GetSaveFileNamePreviewA', windll['MSVFW32.dll']), ((1, 'lpofn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetOpenFileNamePreviewW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head))(('GetOpenFileNamePreviewW', windll['MSVFW32.dll']), ((1, 'lpofn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetSaveFileNamePreviewW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head))(('GetSaveFileNamePreviewW', windll['MSVFW32.dll']), ((1, 'lpofn'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmTaskCreate():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.LPTASKCALLBACK,POINTER(win32more.Foundation.HANDLE),UIntPtr)(('mmTaskCreate', windll['WINMM.dll']), ((1, 'lpfn'),(1, 'lph'),(1, 'dwInst'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmTaskBlock():
+    try:
+        return WINFUNCTYPE(Void,UInt32)(('mmTaskBlock', windll['WINMM.dll']), ((1, 'h'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmTaskSignal():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('mmTaskSignal', windll['WINMM.dll']), ((1, 'h'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmTaskYield():
+    try:
+        return WINFUNCTYPE(Void,)(('mmTaskYield', windll['WINMM.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_mmGetCurrentTask():
+    try:
+        return WINFUNCTYPE(UInt32,)(('mmGetCurrentTask', windll['WINMM.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
 def _define_APTXWAVEFORMAT_head():
     class APTXWAVEFORMAT(Structure):
         pass
@@ -4869,7 +5566,7 @@ def _define_APTXWAVEFORMAT():
     APTXWAVEFORMAT = win32more.Media.Multimedia.APTXWAVEFORMAT_head
     APTXWAVEFORMAT._pack_ = 1
     APTXWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
     return APTXWAVEFORMAT
 def _define_AUDIOFILE_AF10WAVEFORMAT_head():
@@ -4880,81 +5577,289 @@ def _define_AUDIOFILE_AF10WAVEFORMAT():
     AUDIOFILE_AF10WAVEFORMAT = win32more.Media.Multimedia.AUDIOFILE_AF10WAVEFORMAT_head
     AUDIOFILE_AF10WAVEFORMAT._pack_ = 1
     AUDIOFILE_AF10WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
     return AUDIOFILE_AF10WAVEFORMAT
-def _define_DOLBYAC2WAVEFORMAT_head():
-    class DOLBYAC2WAVEFORMAT(Structure):
+def _define_AUDIOFILE_AF36WAVEFORMAT_head():
+    class AUDIOFILE_AF36WAVEFORMAT(Structure):
         pass
-    return DOLBYAC2WAVEFORMAT
-def _define_DOLBYAC2WAVEFORMAT():
-    DOLBYAC2WAVEFORMAT = win32more.Media.Multimedia.DOLBYAC2WAVEFORMAT_head
-    DOLBYAC2WAVEFORMAT._pack_ = 1
-    DOLBYAC2WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("nAuxBitsCode", UInt16),
+    return AUDIOFILE_AF36WAVEFORMAT
+def _define_AUDIOFILE_AF36WAVEFORMAT():
+    AUDIOFILE_AF36WAVEFORMAT = win32more.Media.Multimedia.AUDIOFILE_AF36WAVEFORMAT_head
+    AUDIOFILE_AF36WAVEFORMAT._pack_ = 1
+    AUDIOFILE_AF36WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
-    return DOLBYAC2WAVEFORMAT
-def _define_GSM610WAVEFORMAT_head():
-    class GSM610WAVEFORMAT(Structure):
+    return AUDIOFILE_AF36WAVEFORMAT
+def _define_AVICOMPRESSOPTIONS_head():
+    class AVICOMPRESSOPTIONS(Structure):
         pass
-    return GSM610WAVEFORMAT
-def _define_GSM610WAVEFORMAT():
-    GSM610WAVEFORMAT = win32more.Media.Multimedia.GSM610WAVEFORMAT_head
-    GSM610WAVEFORMAT._pack_ = 1
-    GSM610WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+    return AVICOMPRESSOPTIONS
+def _define_AVICOMPRESSOPTIONS():
+    AVICOMPRESSOPTIONS = win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head
+    AVICOMPRESSOPTIONS._fields_ = [
+        ('fccType', UInt32),
+        ('fccHandler', UInt32),
+        ('dwKeyFrameEvery', UInt32),
+        ('dwQuality', UInt32),
+        ('dwBytesPerSecond', UInt32),
+        ('dwFlags', UInt32),
+        ('lpFormat', c_void_p),
+        ('cbFormat', UInt32),
+        ('lpParms', c_void_p),
+        ('cbParms', UInt32),
+        ('dwInterleaveEvery', UInt32),
     ]
-    return GSM610WAVEFORMAT
-def _define_ADPCMEWAVEFORMAT_head():
-    class ADPCMEWAVEFORMAT(Structure):
+    return AVICOMPRESSOPTIONS
+def _define_AVIFILEINFOA_head():
+    class AVIFILEINFOA(Structure):
         pass
-    return ADPCMEWAVEFORMAT
-def _define_ADPCMEWAVEFORMAT():
-    ADPCMEWAVEFORMAT = win32more.Media.Multimedia.ADPCMEWAVEFORMAT_head
-    ADPCMEWAVEFORMAT._pack_ = 1
-    ADPCMEWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+    return AVIFILEINFOA
+def _define_AVIFILEINFOA():
+    AVIFILEINFOA = win32more.Media.Multimedia.AVIFILEINFOA_head
+    AVIFILEINFOA._fields_ = [
+        ('dwMaxBytesPerSec', UInt32),
+        ('dwFlags', UInt32),
+        ('dwCaps', UInt32),
+        ('dwStreams', UInt32),
+        ('dwSuggestedBufferSize', UInt32),
+        ('dwWidth', UInt32),
+        ('dwHeight', UInt32),
+        ('dwScale', UInt32),
+        ('dwRate', UInt32),
+        ('dwLength', UInt32),
+        ('dwEditCount', UInt32),
+        ('szFileType', win32more.Foundation.CHAR * 64),
     ]
-    return ADPCMEWAVEFORMAT
-def _define_CONTRESVQLPCWAVEFORMAT_head():
-    class CONTRESVQLPCWAVEFORMAT(Structure):
+    return AVIFILEINFOA
+def _define_AVIFILEINFOW_head():
+    class AVIFILEINFOW(Structure):
         pass
-    return CONTRESVQLPCWAVEFORMAT
-def _define_CONTRESVQLPCWAVEFORMAT():
-    CONTRESVQLPCWAVEFORMAT = win32more.Media.Multimedia.CONTRESVQLPCWAVEFORMAT_head
-    CONTRESVQLPCWAVEFORMAT._pack_ = 1
-    CONTRESVQLPCWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+    return AVIFILEINFOW
+def _define_AVIFILEINFOW():
+    AVIFILEINFOW = win32more.Media.Multimedia.AVIFILEINFOW_head
+    AVIFILEINFOW._fields_ = [
+        ('dwMaxBytesPerSec', UInt32),
+        ('dwFlags', UInt32),
+        ('dwCaps', UInt32),
+        ('dwStreams', UInt32),
+        ('dwSuggestedBufferSize', UInt32),
+        ('dwWidth', UInt32),
+        ('dwHeight', UInt32),
+        ('dwScale', UInt32),
+        ('dwRate', UInt32),
+        ('dwLength', UInt32),
+        ('dwEditCount', UInt32),
+        ('szFileType', Char * 64),
     ]
-    return CONTRESVQLPCWAVEFORMAT
-def _define_DIGIREALWAVEFORMAT_head():
-    class DIGIREALWAVEFORMAT(Structure):
+    return AVIFILEINFOW
+def _define_AVISAVECALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,Int32)
+def _define_AVISTREAMINFOA_head():
+    class AVISTREAMINFOA(Structure):
         pass
-    return DIGIREALWAVEFORMAT
-def _define_DIGIREALWAVEFORMAT():
-    DIGIREALWAVEFORMAT = win32more.Media.Multimedia.DIGIREALWAVEFORMAT_head
-    DIGIREALWAVEFORMAT._pack_ = 1
-    DIGIREALWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+    return AVISTREAMINFOA
+def _define_AVISTREAMINFOA():
+    AVISTREAMINFOA = win32more.Media.Multimedia.AVISTREAMINFOA_head
+    AVISTREAMINFOA._fields_ = [
+        ('fccType', UInt32),
+        ('fccHandler', UInt32),
+        ('dwFlags', UInt32),
+        ('dwCaps', UInt32),
+        ('wPriority', UInt16),
+        ('wLanguage', UInt16),
+        ('dwScale', UInt32),
+        ('dwRate', UInt32),
+        ('dwStart', UInt32),
+        ('dwLength', UInt32),
+        ('dwInitialFrames', UInt32),
+        ('dwSuggestedBufferSize', UInt32),
+        ('dwQuality', UInt32),
+        ('dwSampleSize', UInt32),
+        ('rcFrame', win32more.Foundation.RECT),
+        ('dwEditCount', UInt32),
+        ('dwFormatChangeCount', UInt32),
+        ('szName', win32more.Foundation.CHAR * 64),
     ]
-    return DIGIREALWAVEFORMAT
-def _define_DIGIADPCMWAVEFORMAT_head():
-    class DIGIADPCMWAVEFORMAT(Structure):
+    return AVISTREAMINFOA
+def _define_AVISTREAMINFOW_head():
+    class AVISTREAMINFOW(Structure):
         pass
-    return DIGIADPCMWAVEFORMAT
-def _define_DIGIADPCMWAVEFORMAT():
-    DIGIADPCMWAVEFORMAT = win32more.Media.Multimedia.DIGIADPCMWAVEFORMAT_head
-    DIGIADPCMWAVEFORMAT._pack_ = 1
-    DIGIADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+    return AVISTREAMINFOW
+def _define_AVISTREAMINFOW():
+    AVISTREAMINFOW = win32more.Media.Multimedia.AVISTREAMINFOW_head
+    AVISTREAMINFOW._fields_ = [
+        ('fccType', UInt32),
+        ('fccHandler', UInt32),
+        ('dwFlags', UInt32),
+        ('dwCaps', UInt32),
+        ('wPriority', UInt16),
+        ('wLanguage', UInt16),
+        ('dwScale', UInt32),
+        ('dwRate', UInt32),
+        ('dwStart', UInt32),
+        ('dwLength', UInt32),
+        ('dwInitialFrames', UInt32),
+        ('dwSuggestedBufferSize', UInt32),
+        ('dwQuality', UInt32),
+        ('dwSampleSize', UInt32),
+        ('rcFrame', win32more.Foundation.RECT),
+        ('dwEditCount', UInt32),
+        ('dwFormatChangeCount', UInt32),
+        ('szName', Char * 64),
     ]
-    return DIGIADPCMWAVEFORMAT
+    return AVISTREAMINFOW
+def _define_CAPCONTROLCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32)
+def _define_CAPDRIVERCAPS_head():
+    class CAPDRIVERCAPS(Structure):
+        pass
+    return CAPDRIVERCAPS
+def _define_CAPDRIVERCAPS():
+    CAPDRIVERCAPS = win32more.Media.Multimedia.CAPDRIVERCAPS_head
+    CAPDRIVERCAPS._fields_ = [
+        ('wDeviceIndex', UInt32),
+        ('fHasOverlay', win32more.Foundation.BOOL),
+        ('fHasDlgVideoSource', win32more.Foundation.BOOL),
+        ('fHasDlgVideoFormat', win32more.Foundation.BOOL),
+        ('fHasDlgVideoDisplay', win32more.Foundation.BOOL),
+        ('fCaptureInitialized', win32more.Foundation.BOOL),
+        ('fDriverSuppliesPalettes', win32more.Foundation.BOOL),
+        ('hVideoIn', win32more.Foundation.HANDLE),
+        ('hVideoOut', win32more.Foundation.HANDLE),
+        ('hVideoExtIn', win32more.Foundation.HANDLE),
+        ('hVideoExtOut', win32more.Foundation.HANDLE),
+    ]
+    return CAPDRIVERCAPS
+def _define_CAPERRORCALLBACKA():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR)
+def _define_CAPERRORCALLBACKW():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR)
+def _define_CAPINFOCHUNK_head():
+    class CAPINFOCHUNK(Structure):
+        pass
+    return CAPINFOCHUNK
+def _define_CAPINFOCHUNK():
+    CAPINFOCHUNK = win32more.Media.Multimedia.CAPINFOCHUNK_head
+    CAPINFOCHUNK._fields_ = [
+        ('fccInfoID', UInt32),
+        ('lpData', c_void_p),
+        ('cbData', Int32),
+    ]
+    return CAPINFOCHUNK
+def _define_CAPSTATUS_head():
+    class CAPSTATUS(Structure):
+        pass
+    return CAPSTATUS
+def _define_CAPSTATUS():
+    CAPSTATUS = win32more.Media.Multimedia.CAPSTATUS_head
+    CAPSTATUS._fields_ = [
+        ('uiImageWidth', UInt32),
+        ('uiImageHeight', UInt32),
+        ('fLiveWindow', win32more.Foundation.BOOL),
+        ('fOverlayWindow', win32more.Foundation.BOOL),
+        ('fScale', win32more.Foundation.BOOL),
+        ('ptScroll', win32more.Foundation.POINT),
+        ('fUsingDefaultPalette', win32more.Foundation.BOOL),
+        ('fAudioHardware', win32more.Foundation.BOOL),
+        ('fCapFileExists', win32more.Foundation.BOOL),
+        ('dwCurrentVideoFrame', UInt32),
+        ('dwCurrentVideoFramesDropped', UInt32),
+        ('dwCurrentWaveSamples', UInt32),
+        ('dwCurrentTimeElapsedMS', UInt32),
+        ('hPalCurrent', win32more.Graphics.Gdi.HPALETTE),
+        ('fCapturingNow', win32more.Foundation.BOOL),
+        ('dwReturn', UInt32),
+        ('wNumVideoAllocated', UInt32),
+        ('wNumAudioAllocated', UInt32),
+    ]
+    return CAPSTATUS
+def _define_CAPSTATUSCALLBACKA():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR)
+def _define_CAPSTATUSCALLBACKW():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR)
+def _define_CAPTUREPARMS_head():
+    class CAPTUREPARMS(Structure):
+        pass
+    return CAPTUREPARMS
+def _define_CAPTUREPARMS():
+    CAPTUREPARMS = win32more.Media.Multimedia.CAPTUREPARMS_head
+    CAPTUREPARMS._fields_ = [
+        ('dwRequestMicroSecPerFrame', UInt32),
+        ('fMakeUserHitOKToCapture', win32more.Foundation.BOOL),
+        ('wPercentDropForError', UInt32),
+        ('fYield', win32more.Foundation.BOOL),
+        ('dwIndexSize', UInt32),
+        ('wChunkGranularity', UInt32),
+        ('fUsingDOSMemory', win32more.Foundation.BOOL),
+        ('wNumVideoRequested', UInt32),
+        ('fCaptureAudio', win32more.Foundation.BOOL),
+        ('wNumAudioRequested', UInt32),
+        ('vKeyAbort', UInt32),
+        ('fAbortLeftMouse', win32more.Foundation.BOOL),
+        ('fAbortRightMouse', win32more.Foundation.BOOL),
+        ('fLimitEnabled', win32more.Foundation.BOOL),
+        ('wTimeLimit', UInt32),
+        ('fMCIControl', win32more.Foundation.BOOL),
+        ('fStepMCIDevice', win32more.Foundation.BOOL),
+        ('dwMCIStartTime', UInt32),
+        ('dwMCIStopTime', UInt32),
+        ('fStepCaptureAt2x', win32more.Foundation.BOOL),
+        ('wStepCaptureAverageFrames', UInt32),
+        ('dwAudioBufferSize', UInt32),
+        ('fDisableWriteCache', win32more.Foundation.BOOL),
+        ('AVStreamMaster', UInt32),
+    ]
+    return CAPTUREPARMS
+def _define_CAPVIDEOCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,POINTER(win32more.Media.Multimedia.VIDEOHDR_head))
+def _define_CAPWAVECALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,POINTER(win32more.Media.Audio.WAVEHDR_head))
+def _define_CAPYIELDCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND)
+def _define_CHANNEL_CAPS_head():
+    class CHANNEL_CAPS(Structure):
+        pass
+    return CHANNEL_CAPS
+def _define_CHANNEL_CAPS():
+    CHANNEL_CAPS = win32more.Media.Multimedia.CHANNEL_CAPS_head
+    CHANNEL_CAPS._fields_ = [
+        ('dwFlags', UInt32),
+        ('dwSrcRectXMod', UInt32),
+        ('dwSrcRectYMod', UInt32),
+        ('dwSrcRectWidthMod', UInt32),
+        ('dwSrcRectHeightMod', UInt32),
+        ('dwDstRectXMod', UInt32),
+        ('dwDstRectYMod', UInt32),
+        ('dwDstRectWidthMod', UInt32),
+        ('dwDstRectHeightMod', UInt32),
+    ]
+    return CHANNEL_CAPS
+def _define_COMPVARS_head():
+    class COMPVARS(Structure):
+        pass
+    return COMPVARS
+def _define_COMPVARS():
+    COMPVARS = win32more.Media.Multimedia.COMPVARS_head
+    COMPVARS._fields_ = [
+        ('cbSize', Int32),
+        ('dwFlags', UInt32),
+        ('hic', win32more.Media.Multimedia.HIC),
+        ('fccType', UInt32),
+        ('fccHandler', UInt32),
+        ('lpbiIn', POINTER(win32more.Graphics.Gdi.BITMAPINFO_head)),
+        ('lpbiOut', POINTER(win32more.Graphics.Gdi.BITMAPINFO_head)),
+        ('lpBitsOut', c_void_p),
+        ('lpBitsPrev', c_void_p),
+        ('lFrame', Int32),
+        ('lKey', Int32),
+        ('lDataRate', Int32),
+        ('lQ', Int32),
+        ('lKeyCount', Int32),
+        ('lpState', c_void_p),
+        ('cbState', Int32),
+    ]
+    return COMPVARS
 def _define_CONTRESCR10WAVEFORMAT_head():
     class CONTRESCR10WAVEFORMAT(Structure):
         pass
@@ -4963,78 +5868,22 @@ def _define_CONTRESCR10WAVEFORMAT():
     CONTRESCR10WAVEFORMAT = win32more.Media.Multimedia.CONTRESCR10WAVEFORMAT_head
     CONTRESCR10WAVEFORMAT._pack_ = 1
     CONTRESCR10WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
     ]
     return CONTRESCR10WAVEFORMAT
-def _define_NMS_VBXADPCMWAVEFORMAT_head():
-    class NMS_VBXADPCMWAVEFORMAT(Structure):
+def _define_CONTRESVQLPCWAVEFORMAT_head():
+    class CONTRESVQLPCWAVEFORMAT(Structure):
         pass
-    return NMS_VBXADPCMWAVEFORMAT
-def _define_NMS_VBXADPCMWAVEFORMAT():
-    NMS_VBXADPCMWAVEFORMAT = win32more.Media.Multimedia.NMS_VBXADPCMWAVEFORMAT_head
-    NMS_VBXADPCMWAVEFORMAT._pack_ = 1
-    NMS_VBXADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
+    return CONTRESVQLPCWAVEFORMAT
+def _define_CONTRESVQLPCWAVEFORMAT():
+    CONTRESVQLPCWAVEFORMAT = win32more.Media.Multimedia.CONTRESVQLPCWAVEFORMAT_head
+    CONTRESVQLPCWAVEFORMAT._pack_ = 1
+    CONTRESVQLPCWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
     ]
-    return NMS_VBXADPCMWAVEFORMAT
-def _define_G721_ADPCMWAVEFORMAT_head():
-    class G721_ADPCMWAVEFORMAT(Structure):
-        pass
-    return G721_ADPCMWAVEFORMAT
-def _define_G721_ADPCMWAVEFORMAT():
-    G721_ADPCMWAVEFORMAT = win32more.Media.Multimedia.G721_ADPCMWAVEFORMAT_head
-    G721_ADPCMWAVEFORMAT._pack_ = 1
-    G721_ADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("nAuxBlockSize", UInt16),
-    ]
-    return G721_ADPCMWAVEFORMAT
-def _define_MSAUDIO1WAVEFORMAT_head():
-    class MSAUDIO1WAVEFORMAT(Structure):
-        pass
-    return MSAUDIO1WAVEFORMAT
-def _define_MSAUDIO1WAVEFORMAT():
-    MSAUDIO1WAVEFORMAT = win32more.Media.Multimedia.MSAUDIO1WAVEFORMAT_head
-    MSAUDIO1WAVEFORMAT._pack_ = 1
-    MSAUDIO1WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wSamplesPerBlock", UInt16),
-        ("wEncodeOptions", UInt16),
-    ]
-    return MSAUDIO1WAVEFORMAT
-def _define_WMAUDIO2WAVEFORMAT_head():
-    class WMAUDIO2WAVEFORMAT(Structure):
-        pass
-    return WMAUDIO2WAVEFORMAT
-def _define_WMAUDIO2WAVEFORMAT():
-    WMAUDIO2WAVEFORMAT = win32more.Media.Multimedia.WMAUDIO2WAVEFORMAT_head
-    WMAUDIO2WAVEFORMAT._pack_ = 1
-    WMAUDIO2WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("dwSamplesPerBlock", UInt32),
-        ("wEncodeOptions", UInt16),
-        ("dwSuperBlockAlign", UInt32),
-    ]
-    return WMAUDIO2WAVEFORMAT
-def _define_WMAUDIO3WAVEFORMAT_head():
-    class WMAUDIO3WAVEFORMAT(Structure):
-        pass
-    return WMAUDIO3WAVEFORMAT
-def _define_WMAUDIO3WAVEFORMAT():
-    WMAUDIO3WAVEFORMAT = win32more.Media.Multimedia.WMAUDIO3WAVEFORMAT_head
-    WMAUDIO3WAVEFORMAT._pack_ = 1
-    WMAUDIO3WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wValidBitsPerSample", UInt16),
-        ("dwChannelMask", UInt32),
-        ("dwReserved1", UInt32),
-        ("dwReserved2", UInt32),
-        ("wEncodeOptions", UInt16),
-        ("wReserved3", UInt16),
-    ]
-    return WMAUDIO3WAVEFORMAT
+    return CONTRESVQLPCWAVEFORMAT
 def _define_CREATIVEADPCMWAVEFORMAT_head():
     class CREATIVEADPCMWAVEFORMAT(Structure):
         pass
@@ -5043,22 +5892,10 @@ def _define_CREATIVEADPCMWAVEFORMAT():
     CREATIVEADPCMWAVEFORMAT = win32more.Media.Multimedia.CREATIVEADPCMWAVEFORMAT_head
     CREATIVEADPCMWAVEFORMAT._pack_ = 1
     CREATIVEADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
     ]
     return CREATIVEADPCMWAVEFORMAT
-def _define_CREATIVEFASTSPEECH8WAVEFORMAT_head():
-    class CREATIVEFASTSPEECH8WAVEFORMAT(Structure):
-        pass
-    return CREATIVEFASTSPEECH8WAVEFORMAT
-def _define_CREATIVEFASTSPEECH8WAVEFORMAT():
-    CREATIVEFASTSPEECH8WAVEFORMAT = win32more.Media.Multimedia.CREATIVEFASTSPEECH8WAVEFORMAT_head
-    CREATIVEFASTSPEECH8WAVEFORMAT._pack_ = 1
-    CREATIVEFASTSPEECH8WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
-    ]
-    return CREATIVEFASTSPEECH8WAVEFORMAT
 def _define_CREATIVEFASTSPEECH10WAVEFORMAT_head():
     class CREATIVEFASTSPEECH10WAVEFORMAT(Structure):
         pass
@@ -5067,77 +5904,22 @@ def _define_CREATIVEFASTSPEECH10WAVEFORMAT():
     CREATIVEFASTSPEECH10WAVEFORMAT = win32more.Media.Multimedia.CREATIVEFASTSPEECH10WAVEFORMAT_head
     CREATIVEFASTSPEECH10WAVEFORMAT._pack_ = 1
     CREATIVEFASTSPEECH10WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
     ]
     return CREATIVEFASTSPEECH10WAVEFORMAT
-def _define_FMTOWNS_SND_WAVEFORMAT_head():
-    class FMTOWNS_SND_WAVEFORMAT(Structure):
+def _define_CREATIVEFASTSPEECH8WAVEFORMAT_head():
+    class CREATIVEFASTSPEECH8WAVEFORMAT(Structure):
         pass
-    return FMTOWNS_SND_WAVEFORMAT
-def _define_FMTOWNS_SND_WAVEFORMAT():
-    FMTOWNS_SND_WAVEFORMAT = win32more.Media.Multimedia.FMTOWNS_SND_WAVEFORMAT_head
-    FMTOWNS_SND_WAVEFORMAT._pack_ = 1
-    FMTOWNS_SND_WAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-        ("wRevision", UInt16),
+    return CREATIVEFASTSPEECH8WAVEFORMAT
+def _define_CREATIVEFASTSPEECH8WAVEFORMAT():
+    CREATIVEFASTSPEECH8WAVEFORMAT = win32more.Media.Multimedia.CREATIVEFASTSPEECH8WAVEFORMAT_head
+    CREATIVEFASTSPEECH8WAVEFORMAT._pack_ = 1
+    CREATIVEFASTSPEECH8WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
     ]
-    return FMTOWNS_SND_WAVEFORMAT
-def _define_OLIGSMWAVEFORMAT_head():
-    class OLIGSMWAVEFORMAT(Structure):
-        pass
-    return OLIGSMWAVEFORMAT
-def _define_OLIGSMWAVEFORMAT():
-    OLIGSMWAVEFORMAT = win32more.Media.Multimedia.OLIGSMWAVEFORMAT_head
-    OLIGSMWAVEFORMAT._pack_ = 1
-    OLIGSMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return OLIGSMWAVEFORMAT
-def _define_OLIADPCMWAVEFORMAT_head():
-    class OLIADPCMWAVEFORMAT(Structure):
-        pass
-    return OLIADPCMWAVEFORMAT
-def _define_OLIADPCMWAVEFORMAT():
-    OLIADPCMWAVEFORMAT = win32more.Media.Multimedia.OLIADPCMWAVEFORMAT_head
-    OLIADPCMWAVEFORMAT._pack_ = 1
-    OLIADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return OLIADPCMWAVEFORMAT
-def _define_OLICELPWAVEFORMAT_head():
-    class OLICELPWAVEFORMAT(Structure):
-        pass
-    return OLICELPWAVEFORMAT
-def _define_OLICELPWAVEFORMAT():
-    OLICELPWAVEFORMAT = win32more.Media.Multimedia.OLICELPWAVEFORMAT_head
-    OLICELPWAVEFORMAT._pack_ = 1
-    OLICELPWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return OLICELPWAVEFORMAT
-def _define_OLISBCWAVEFORMAT_head():
-    class OLISBCWAVEFORMAT(Structure):
-        pass
-    return OLISBCWAVEFORMAT
-def _define_OLISBCWAVEFORMAT():
-    OLISBCWAVEFORMAT = win32more.Media.Multimedia.OLISBCWAVEFORMAT_head
-    OLISBCWAVEFORMAT._pack_ = 1
-    OLISBCWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return OLISBCWAVEFORMAT
-def _define_OLIOPRWAVEFORMAT_head():
-    class OLIOPRWAVEFORMAT(Structure):
-        pass
-    return OLIOPRWAVEFORMAT
-def _define_OLIOPRWAVEFORMAT():
-    OLIOPRWAVEFORMAT = win32more.Media.Multimedia.OLIOPRWAVEFORMAT_head
-    OLIOPRWAVEFORMAT._pack_ = 1
-    OLIOPRWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return OLIOPRWAVEFORMAT
+    return CREATIVEFASTSPEECH8WAVEFORMAT
 def _define_CSIMAADPCMWAVEFORMAT_head():
     class CSIMAADPCMWAVEFORMAT(Structure):
         pass
@@ -5146,682 +5928,112 @@ def _define_CSIMAADPCMWAVEFORMAT():
     CSIMAADPCMWAVEFORMAT = win32more.Media.Multimedia.CSIMAADPCMWAVEFORMAT_head
     CSIMAADPCMWAVEFORMAT._pack_ = 1
     CSIMAADPCMWAVEFORMAT._fields_ = [
-        ("wfx", win32more.Media.Audio.WAVEFORMATEX),
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
     return CSIMAADPCMWAVEFORMAT
-def _define_s_RIFFWAVE_inst_head():
-    class s_RIFFWAVE_inst(Structure):
+def _define_DIALOGICOKIADPCMWAVEFORMAT_head():
+    class DIALOGICOKIADPCMWAVEFORMAT(Structure):
         pass
-    return s_RIFFWAVE_inst
-def _define_s_RIFFWAVE_inst():
-    s_RIFFWAVE_inst = win32more.Media.Multimedia.s_RIFFWAVE_inst_head
-    s_RIFFWAVE_inst._fields_ = [
-        ("bUnshiftedNote", Byte),
-        ("chFineTune", win32more.Foundation.CHAR),
-        ("chGain", win32more.Foundation.CHAR),
-        ("bLowNote", Byte),
-        ("bHighNote", Byte),
-        ("bLowVelocity", Byte),
-        ("bHighVelocity", Byte),
+    return DIALOGICOKIADPCMWAVEFORMAT
+def _define_DIALOGICOKIADPCMWAVEFORMAT():
+    DIALOGICOKIADPCMWAVEFORMAT = win32more.Media.Multimedia.DIALOGICOKIADPCMWAVEFORMAT_head
+    DIALOGICOKIADPCMWAVEFORMAT._pack_ = 1
+    DIALOGICOKIADPCMWAVEFORMAT._fields_ = [
+        ('ewf', win32more.Media.Audio.WAVEFORMATEX),
     ]
-    return s_RIFFWAVE_inst
-def _define_EXBMINFOHEADER_head():
-    class EXBMINFOHEADER(Structure):
+    return DIALOGICOKIADPCMWAVEFORMAT
+def _define_DIGIADPCMWAVEFORMAT_head():
+    class DIGIADPCMWAVEFORMAT(Structure):
         pass
-    return EXBMINFOHEADER
-def _define_EXBMINFOHEADER():
-    EXBMINFOHEADER = win32more.Media.Multimedia.EXBMINFOHEADER_head
-    EXBMINFOHEADER._pack_ = 1
-    EXBMINFOHEADER._fields_ = [
-        ("bmi", win32more.Graphics.Gdi.BITMAPINFOHEADER),
-        ("biExtDataOffset", UInt32),
+    return DIGIADPCMWAVEFORMAT
+def _define_DIGIADPCMWAVEFORMAT():
+    DIGIADPCMWAVEFORMAT = win32more.Media.Multimedia.DIGIADPCMWAVEFORMAT_head
+    DIGIADPCMWAVEFORMAT._pack_ = 1
+    DIGIADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
     ]
-    return EXBMINFOHEADER
-def _define_JPEGINFOHEADER_head():
-    class JPEGINFOHEADER(Structure):
+    return DIGIADPCMWAVEFORMAT
+def _define_DIGIFIXWAVEFORMAT_head():
+    class DIGIFIXWAVEFORMAT(Structure):
         pass
-    return JPEGINFOHEADER
-def _define_JPEGINFOHEADER():
-    JPEGINFOHEADER = win32more.Media.Multimedia.JPEGINFOHEADER_head
-    JPEGINFOHEADER._pack_ = 1
-    JPEGINFOHEADER._fields_ = [
-        ("JPEGSize", UInt32),
-        ("JPEGProcess", UInt32),
-        ("JPEGColorSpaceID", UInt32),
-        ("JPEGBitsPerSample", UInt32),
-        ("JPEGHSubSampling", UInt32),
-        ("JPEGVSubSampling", UInt32),
+    return DIGIFIXWAVEFORMAT
+def _define_DIGIFIXWAVEFORMAT():
+    DIGIFIXWAVEFORMAT = win32more.Media.Multimedia.DIGIFIXWAVEFORMAT_head
+    DIGIFIXWAVEFORMAT._pack_ = 1
+    DIGIFIXWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
-    return JPEGINFOHEADER
-def _define_YIELDPROC():
-    return CFUNCTYPE(UInt32,UInt32,UInt32, use_last_error=False)
-def _define_MCI_GENERIC_PARMS_head():
-    class MCI_GENERIC_PARMS(Structure):
+    return DIGIFIXWAVEFORMAT
+def _define_DIGIREALWAVEFORMAT_head():
+    class DIGIREALWAVEFORMAT(Structure):
         pass
-    return MCI_GENERIC_PARMS
-def _define_MCI_GENERIC_PARMS():
-    MCI_GENERIC_PARMS = win32more.Media.Multimedia.MCI_GENERIC_PARMS_head
-    MCI_GENERIC_PARMS._pack_ = 1
-    MCI_GENERIC_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
+    return DIGIREALWAVEFORMAT
+def _define_DIGIREALWAVEFORMAT():
+    DIGIREALWAVEFORMAT = win32more.Media.Multimedia.DIGIREALWAVEFORMAT_head
+    DIGIREALWAVEFORMAT._pack_ = 1
+    DIGIREALWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
     ]
-    return MCI_GENERIC_PARMS
-def _define_MCI_OPEN_PARMSA_head():
-    class MCI_OPEN_PARMSA(Structure):
+    return DIGIREALWAVEFORMAT
+def _define_DIGISTDWAVEFORMAT_head():
+    class DIGISTDWAVEFORMAT(Structure):
         pass
-    return MCI_OPEN_PARMSA
-def _define_MCI_OPEN_PARMSA():
-    MCI_OPEN_PARMSA = win32more.Media.Multimedia.MCI_OPEN_PARMSA_head
-    MCI_OPEN_PARMSA._pack_ = 1
-    MCI_OPEN_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PSTR),
-        ("lpstrElementName", win32more.Foundation.PSTR),
-        ("lpstrAlias", win32more.Foundation.PSTR),
+    return DIGISTDWAVEFORMAT
+def _define_DIGISTDWAVEFORMAT():
+    DIGISTDWAVEFORMAT = win32more.Media.Multimedia.DIGISTDWAVEFORMAT_head
+    DIGISTDWAVEFORMAT._pack_ = 1
+    DIGISTDWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
-    return MCI_OPEN_PARMSA
-def _define_MCI_OPEN_PARMSW_head():
-    class MCI_OPEN_PARMSW(Structure):
+    return DIGISTDWAVEFORMAT
+def _define_DOLBYAC2WAVEFORMAT_head():
+    class DOLBYAC2WAVEFORMAT(Structure):
         pass
-    return MCI_OPEN_PARMSW
-def _define_MCI_OPEN_PARMSW():
-    MCI_OPEN_PARMSW = win32more.Media.Multimedia.MCI_OPEN_PARMSW_head
-    MCI_OPEN_PARMSW._pack_ = 1
-    MCI_OPEN_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PWSTR),
-        ("lpstrElementName", win32more.Foundation.PWSTR),
-        ("lpstrAlias", win32more.Foundation.PWSTR),
+    return DOLBYAC2WAVEFORMAT
+def _define_DOLBYAC2WAVEFORMAT():
+    DOLBYAC2WAVEFORMAT = win32more.Media.Multimedia.DOLBYAC2WAVEFORMAT_head
+    DOLBYAC2WAVEFORMAT._pack_ = 1
+    DOLBYAC2WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('nAuxBitsCode', UInt16),
     ]
-    return MCI_OPEN_PARMSW
-def _define_MCI_PLAY_PARMS_head():
-    class MCI_PLAY_PARMS(Structure):
+    return DOLBYAC2WAVEFORMAT
+def _define_DRAWDIBTIME_head():
+    class DRAWDIBTIME(Structure):
         pass
-    return MCI_PLAY_PARMS
-def _define_MCI_PLAY_PARMS():
-    MCI_PLAY_PARMS = win32more.Media.Multimedia.MCI_PLAY_PARMS_head
-    MCI_PLAY_PARMS._pack_ = 1
-    MCI_PLAY_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
+    return DRAWDIBTIME
+def _define_DRAWDIBTIME():
+    DRAWDIBTIME = win32more.Media.Multimedia.DRAWDIBTIME_head
+    DRAWDIBTIME._fields_ = [
+        ('timeCount', Int32),
+        ('timeDraw', Int32),
+        ('timeDecompress', Int32),
+        ('timeDither', Int32),
+        ('timeStretch', Int32),
+        ('timeBlt', Int32),
+        ('timeSetDIBits', Int32),
     ]
-    return MCI_PLAY_PARMS
-def _define_MCI_SEEK_PARMS_head():
-    class MCI_SEEK_PARMS(Structure):
+    return DRAWDIBTIME
+def _define_DRIVERMSGPROC():
+    return WINFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr)
+def _define_DRIVERPROC():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,UIntPtr,win32more.Media.Multimedia.HDRVR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)
+def _define_DRMWAVEFORMAT_head():
+    class DRMWAVEFORMAT(Structure):
         pass
-    return MCI_SEEK_PARMS
-def _define_MCI_SEEK_PARMS():
-    MCI_SEEK_PARMS = win32more.Media.Multimedia.MCI_SEEK_PARMS_head
-    MCI_SEEK_PARMS._pack_ = 1
-    MCI_SEEK_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTo", UInt32),
+    return DRMWAVEFORMAT
+def _define_DRMWAVEFORMAT():
+    DRMWAVEFORMAT = win32more.Media.Multimedia.DRMWAVEFORMAT_head
+    DRMWAVEFORMAT._pack_ = 1
+    DRMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wReserved', UInt16),
+        ('ulContentId', UInt32),
+        ('wfxSecure', win32more.Media.Audio.WAVEFORMATEX),
     ]
-    return MCI_SEEK_PARMS
-def _define_MCI_STATUS_PARMS_head():
-    class MCI_STATUS_PARMS(Structure):
-        pass
-    return MCI_STATUS_PARMS
-def _define_MCI_STATUS_PARMS():
-    MCI_STATUS_PARMS = win32more.Media.Multimedia.MCI_STATUS_PARMS_head
-    MCI_STATUS_PARMS._pack_ = 1
-    MCI_STATUS_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwReturn", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwTrack", UInt32),
-    ]
-    return MCI_STATUS_PARMS
-def _define_MCI_INFO_PARMSA_head():
-    class MCI_INFO_PARMSA(Structure):
-        pass
-    return MCI_INFO_PARMSA
-def _define_MCI_INFO_PARMSA():
-    MCI_INFO_PARMSA = win32more.Media.Multimedia.MCI_INFO_PARMSA_head
-    MCI_INFO_PARMSA._pack_ = 1
-    MCI_INFO_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PSTR),
-        ("dwRetSize", UInt32),
-    ]
-    return MCI_INFO_PARMSA
-def _define_MCI_INFO_PARMSW_head():
-    class MCI_INFO_PARMSW(Structure):
-        pass
-    return MCI_INFO_PARMSW
-def _define_MCI_INFO_PARMSW():
-    MCI_INFO_PARMSW = win32more.Media.Multimedia.MCI_INFO_PARMSW_head
-    MCI_INFO_PARMSW._pack_ = 1
-    MCI_INFO_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PWSTR),
-        ("dwRetSize", UInt32),
-    ]
-    return MCI_INFO_PARMSW
-def _define_MCI_GETDEVCAPS_PARMS_head():
-    class MCI_GETDEVCAPS_PARMS(Structure):
-        pass
-    return MCI_GETDEVCAPS_PARMS
-def _define_MCI_GETDEVCAPS_PARMS():
-    MCI_GETDEVCAPS_PARMS = win32more.Media.Multimedia.MCI_GETDEVCAPS_PARMS_head
-    MCI_GETDEVCAPS_PARMS._pack_ = 1
-    MCI_GETDEVCAPS_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwReturn", UInt32),
-        ("dwItem", UInt32),
-    ]
-    return MCI_GETDEVCAPS_PARMS
-def _define_MCI_SYSINFO_PARMSA_head():
-    class MCI_SYSINFO_PARMSA(Structure):
-        pass
-    return MCI_SYSINFO_PARMSA
-def _define_MCI_SYSINFO_PARMSA():
-    MCI_SYSINFO_PARMSA = win32more.Media.Multimedia.MCI_SYSINFO_PARMSA_head
-    MCI_SYSINFO_PARMSA._pack_ = 1
-    MCI_SYSINFO_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PSTR),
-        ("dwRetSize", UInt32),
-        ("dwNumber", UInt32),
-        ("wDeviceType", UInt32),
-    ]
-    return MCI_SYSINFO_PARMSA
-def _define_MCI_SYSINFO_PARMSW_head():
-    class MCI_SYSINFO_PARMSW(Structure):
-        pass
-    return MCI_SYSINFO_PARMSW
-def _define_MCI_SYSINFO_PARMSW():
-    MCI_SYSINFO_PARMSW = win32more.Media.Multimedia.MCI_SYSINFO_PARMSW_head
-    MCI_SYSINFO_PARMSW._pack_ = 1
-    MCI_SYSINFO_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PWSTR),
-        ("dwRetSize", UInt32),
-        ("dwNumber", UInt32),
-        ("wDeviceType", UInt32),
-    ]
-    return MCI_SYSINFO_PARMSW
-def _define_MCI_SET_PARMS_head():
-    class MCI_SET_PARMS(Structure):
-        pass
-    return MCI_SET_PARMS
-def _define_MCI_SET_PARMS():
-    MCI_SET_PARMS = win32more.Media.Multimedia.MCI_SET_PARMS_head
-    MCI_SET_PARMS._pack_ = 1
-    MCI_SET_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTimeFormat", UInt32),
-        ("dwAudio", UInt32),
-    ]
-    return MCI_SET_PARMS
-def _define_MCI_BREAK_PARMS_head():
-    class MCI_BREAK_PARMS(Structure):
-        pass
-    return MCI_BREAK_PARMS
-def _define_MCI_BREAK_PARMS():
-    MCI_BREAK_PARMS = win32more.Media.Multimedia.MCI_BREAK_PARMS_head
-    MCI_BREAK_PARMS._pack_ = 1
-    MCI_BREAK_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("nVirtKey", Int32),
-        ("hwndBreak", win32more.Foundation.HWND),
-    ]
-    return MCI_BREAK_PARMS
-def _define_MCI_SAVE_PARMSA_head():
-    class MCI_SAVE_PARMSA(Structure):
-        pass
-    return MCI_SAVE_PARMSA
-def _define_MCI_SAVE_PARMSA():
-    MCI_SAVE_PARMSA = win32more.Media.Multimedia.MCI_SAVE_PARMSA_head
-    MCI_SAVE_PARMSA._pack_ = 1
-    MCI_SAVE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PSTR),
-    ]
-    return MCI_SAVE_PARMSA
-def _define_MCI_SAVE_PARMSW_head():
-    class MCI_SAVE_PARMSW(Structure):
-        pass
-    return MCI_SAVE_PARMSW
-def _define_MCI_SAVE_PARMSW():
-    MCI_SAVE_PARMSW = win32more.Media.Multimedia.MCI_SAVE_PARMSW_head
-    MCI_SAVE_PARMSW._pack_ = 1
-    MCI_SAVE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PWSTR),
-    ]
-    return MCI_SAVE_PARMSW
-def _define_MCI_LOAD_PARMSA_head():
-    class MCI_LOAD_PARMSA(Structure):
-        pass
-    return MCI_LOAD_PARMSA
-def _define_MCI_LOAD_PARMSA():
-    MCI_LOAD_PARMSA = win32more.Media.Multimedia.MCI_LOAD_PARMSA_head
-    MCI_LOAD_PARMSA._pack_ = 1
-    MCI_LOAD_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PSTR),
-    ]
-    return MCI_LOAD_PARMSA
-def _define_MCI_LOAD_PARMSW_head():
-    class MCI_LOAD_PARMSW(Structure):
-        pass
-    return MCI_LOAD_PARMSW
-def _define_MCI_LOAD_PARMSW():
-    MCI_LOAD_PARMSW = win32more.Media.Multimedia.MCI_LOAD_PARMSW_head
-    MCI_LOAD_PARMSW._pack_ = 1
-    MCI_LOAD_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PWSTR),
-    ]
-    return MCI_LOAD_PARMSW
-def _define_MCI_RECORD_PARMS_head():
-    class MCI_RECORD_PARMS(Structure):
-        pass
-    return MCI_RECORD_PARMS
-def _define_MCI_RECORD_PARMS():
-    MCI_RECORD_PARMS = win32more.Media.Multimedia.MCI_RECORD_PARMS_head
-    MCI_RECORD_PARMS._pack_ = 1
-    MCI_RECORD_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-    ]
-    return MCI_RECORD_PARMS
-def _define_MCI_VD_PLAY_PARMS_head():
-    class MCI_VD_PLAY_PARMS(Structure):
-        pass
-    return MCI_VD_PLAY_PARMS
-def _define_MCI_VD_PLAY_PARMS():
-    MCI_VD_PLAY_PARMS = win32more.Media.Multimedia.MCI_VD_PLAY_PARMS_head
-    MCI_VD_PLAY_PARMS._pack_ = 1
-    MCI_VD_PLAY_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-        ("dwSpeed", UInt32),
-    ]
-    return MCI_VD_PLAY_PARMS
-def _define_MCI_VD_STEP_PARMS_head():
-    class MCI_VD_STEP_PARMS(Structure):
-        pass
-    return MCI_VD_STEP_PARMS
-def _define_MCI_VD_STEP_PARMS():
-    MCI_VD_STEP_PARMS = win32more.Media.Multimedia.MCI_VD_STEP_PARMS_head
-    MCI_VD_STEP_PARMS._pack_ = 1
-    MCI_VD_STEP_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrames", UInt32),
-    ]
-    return MCI_VD_STEP_PARMS
-def _define_MCI_VD_ESCAPE_PARMSA_head():
-    class MCI_VD_ESCAPE_PARMSA(Structure):
-        pass
-    return MCI_VD_ESCAPE_PARMSA
-def _define_MCI_VD_ESCAPE_PARMSA():
-    MCI_VD_ESCAPE_PARMSA = win32more.Media.Multimedia.MCI_VD_ESCAPE_PARMSA_head
-    MCI_VD_ESCAPE_PARMSA._pack_ = 1
-    MCI_VD_ESCAPE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrCommand", win32more.Foundation.PSTR),
-    ]
-    return MCI_VD_ESCAPE_PARMSA
-def _define_MCI_VD_ESCAPE_PARMSW_head():
-    class MCI_VD_ESCAPE_PARMSW(Structure):
-        pass
-    return MCI_VD_ESCAPE_PARMSW
-def _define_MCI_VD_ESCAPE_PARMSW():
-    MCI_VD_ESCAPE_PARMSW = win32more.Media.Multimedia.MCI_VD_ESCAPE_PARMSW_head
-    MCI_VD_ESCAPE_PARMSW._pack_ = 1
-    MCI_VD_ESCAPE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrCommand", win32more.Foundation.PWSTR),
-    ]
-    return MCI_VD_ESCAPE_PARMSW
-def _define_MCI_WAVE_OPEN_PARMSA_head():
-    class MCI_WAVE_OPEN_PARMSA(Structure):
-        pass
-    return MCI_WAVE_OPEN_PARMSA
-def _define_MCI_WAVE_OPEN_PARMSA():
-    MCI_WAVE_OPEN_PARMSA = win32more.Media.Multimedia.MCI_WAVE_OPEN_PARMSA_head
-    MCI_WAVE_OPEN_PARMSA._pack_ = 1
-    MCI_WAVE_OPEN_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PSTR),
-        ("lpstrElementName", win32more.Foundation.PSTR),
-        ("lpstrAlias", win32more.Foundation.PSTR),
-        ("dwBufferSeconds", UInt32),
-    ]
-    return MCI_WAVE_OPEN_PARMSA
-def _define_MCI_WAVE_OPEN_PARMSW_head():
-    class MCI_WAVE_OPEN_PARMSW(Structure):
-        pass
-    return MCI_WAVE_OPEN_PARMSW
-def _define_MCI_WAVE_OPEN_PARMSW():
-    MCI_WAVE_OPEN_PARMSW = win32more.Media.Multimedia.MCI_WAVE_OPEN_PARMSW_head
-    MCI_WAVE_OPEN_PARMSW._pack_ = 1
-    MCI_WAVE_OPEN_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PWSTR),
-        ("lpstrElementName", win32more.Foundation.PWSTR),
-        ("lpstrAlias", win32more.Foundation.PWSTR),
-        ("dwBufferSeconds", UInt32),
-    ]
-    return MCI_WAVE_OPEN_PARMSW
-def _define_MCI_WAVE_DELETE_PARMS_head():
-    class MCI_WAVE_DELETE_PARMS(Structure):
-        pass
-    return MCI_WAVE_DELETE_PARMS
-def _define_MCI_WAVE_DELETE_PARMS():
-    MCI_WAVE_DELETE_PARMS = win32more.Media.Multimedia.MCI_WAVE_DELETE_PARMS_head
-    MCI_WAVE_DELETE_PARMS._pack_ = 1
-    MCI_WAVE_DELETE_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-    ]
-    return MCI_WAVE_DELETE_PARMS
-def _define_MCI_WAVE_SET_PARMS_head():
-    class MCI_WAVE_SET_PARMS(Structure):
-        pass
-    return MCI_WAVE_SET_PARMS
-def _define_MCI_WAVE_SET_PARMS():
-    MCI_WAVE_SET_PARMS = win32more.Media.Multimedia.MCI_WAVE_SET_PARMS_head
-    MCI_WAVE_SET_PARMS._pack_ = 1
-    MCI_WAVE_SET_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTimeFormat", UInt32),
-        ("dwAudio", UInt32),
-        ("wInput", UInt32),
-        ("wOutput", UInt32),
-        ("wFormatTag", UInt16),
-        ("wReserved2", UInt16),
-        ("nChannels", UInt16),
-        ("wReserved3", UInt16),
-        ("nSamplesPerSec", UInt32),
-        ("nAvgBytesPerSec", UInt32),
-        ("nBlockAlign", UInt16),
-        ("wReserved4", UInt16),
-        ("wBitsPerSample", UInt16),
-        ("wReserved5", UInt16),
-    ]
-    return MCI_WAVE_SET_PARMS
-def _define_MCI_SEQ_SET_PARMS_head():
-    class MCI_SEQ_SET_PARMS(Structure):
-        pass
-    return MCI_SEQ_SET_PARMS
-def _define_MCI_SEQ_SET_PARMS():
-    MCI_SEQ_SET_PARMS = win32more.Media.Multimedia.MCI_SEQ_SET_PARMS_head
-    MCI_SEQ_SET_PARMS._pack_ = 1
-    MCI_SEQ_SET_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTimeFormat", UInt32),
-        ("dwAudio", UInt32),
-        ("dwTempo", UInt32),
-        ("dwPort", UInt32),
-        ("dwSlave", UInt32),
-        ("dwMaster", UInt32),
-        ("dwOffset", UInt32),
-    ]
-    return MCI_SEQ_SET_PARMS
-def _define_MCI_ANIM_OPEN_PARMSA_head():
-    class MCI_ANIM_OPEN_PARMSA(Structure):
-        pass
-    return MCI_ANIM_OPEN_PARMSA
-def _define_MCI_ANIM_OPEN_PARMSA():
-    MCI_ANIM_OPEN_PARMSA = win32more.Media.Multimedia.MCI_ANIM_OPEN_PARMSA_head
-    MCI_ANIM_OPEN_PARMSA._pack_ = 1
-    MCI_ANIM_OPEN_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PSTR),
-        ("lpstrElementName", win32more.Foundation.PSTR),
-        ("lpstrAlias", win32more.Foundation.PSTR),
-        ("dwStyle", UInt32),
-        ("hWndParent", win32more.Foundation.HWND),
-    ]
-    return MCI_ANIM_OPEN_PARMSA
-def _define_MCI_ANIM_OPEN_PARMSW_head():
-    class MCI_ANIM_OPEN_PARMSW(Structure):
-        pass
-    return MCI_ANIM_OPEN_PARMSW
-def _define_MCI_ANIM_OPEN_PARMSW():
-    MCI_ANIM_OPEN_PARMSW = win32more.Media.Multimedia.MCI_ANIM_OPEN_PARMSW_head
-    MCI_ANIM_OPEN_PARMSW._pack_ = 1
-    MCI_ANIM_OPEN_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PWSTR),
-        ("lpstrElementName", win32more.Foundation.PWSTR),
-        ("lpstrAlias", win32more.Foundation.PWSTR),
-        ("dwStyle", UInt32),
-        ("hWndParent", win32more.Foundation.HWND),
-    ]
-    return MCI_ANIM_OPEN_PARMSW
-def _define_MCI_ANIM_PLAY_PARMS_head():
-    class MCI_ANIM_PLAY_PARMS(Structure):
-        pass
-    return MCI_ANIM_PLAY_PARMS
-def _define_MCI_ANIM_PLAY_PARMS():
-    MCI_ANIM_PLAY_PARMS = win32more.Media.Multimedia.MCI_ANIM_PLAY_PARMS_head
-    MCI_ANIM_PLAY_PARMS._pack_ = 1
-    MCI_ANIM_PLAY_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-        ("dwSpeed", UInt32),
-    ]
-    return MCI_ANIM_PLAY_PARMS
-def _define_MCI_ANIM_STEP_PARMS_head():
-    class MCI_ANIM_STEP_PARMS(Structure):
-        pass
-    return MCI_ANIM_STEP_PARMS
-def _define_MCI_ANIM_STEP_PARMS():
-    MCI_ANIM_STEP_PARMS = win32more.Media.Multimedia.MCI_ANIM_STEP_PARMS_head
-    MCI_ANIM_STEP_PARMS._pack_ = 1
-    MCI_ANIM_STEP_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrames", UInt32),
-    ]
-    return MCI_ANIM_STEP_PARMS
-def _define_MCI_ANIM_WINDOW_PARMSA_head():
-    class MCI_ANIM_WINDOW_PARMSA(Structure):
-        pass
-    return MCI_ANIM_WINDOW_PARMSA
-def _define_MCI_ANIM_WINDOW_PARMSA():
-    MCI_ANIM_WINDOW_PARMSA = win32more.Media.Multimedia.MCI_ANIM_WINDOW_PARMSA_head
-    MCI_ANIM_WINDOW_PARMSA._pack_ = 1
-    MCI_ANIM_WINDOW_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("hWnd", win32more.Foundation.HWND),
-        ("nCmdShow", UInt32),
-        ("lpstrText", win32more.Foundation.PSTR),
-    ]
-    return MCI_ANIM_WINDOW_PARMSA
-def _define_MCI_ANIM_WINDOW_PARMSW_head():
-    class MCI_ANIM_WINDOW_PARMSW(Structure):
-        pass
-    return MCI_ANIM_WINDOW_PARMSW
-def _define_MCI_ANIM_WINDOW_PARMSW():
-    MCI_ANIM_WINDOW_PARMSW = win32more.Media.Multimedia.MCI_ANIM_WINDOW_PARMSW_head
-    MCI_ANIM_WINDOW_PARMSW._pack_ = 1
-    MCI_ANIM_WINDOW_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("hWnd", win32more.Foundation.HWND),
-        ("nCmdShow", UInt32),
-        ("lpstrText", win32more.Foundation.PWSTR),
-    ]
-    return MCI_ANIM_WINDOW_PARMSW
-def _define_MCI_ANIM_RECT_PARMS_head():
-    class MCI_ANIM_RECT_PARMS(Structure):
-        pass
-    return MCI_ANIM_RECT_PARMS
-def _define_MCI_ANIM_RECT_PARMS():
-    MCI_ANIM_RECT_PARMS = win32more.Media.Multimedia.MCI_ANIM_RECT_PARMS_head
-    MCI_ANIM_RECT_PARMS._pack_ = 1
-    MCI_ANIM_RECT_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return MCI_ANIM_RECT_PARMS
-def _define_MCI_ANIM_UPDATE_PARMS_head():
-    class MCI_ANIM_UPDATE_PARMS(Structure):
-        pass
-    return MCI_ANIM_UPDATE_PARMS
-def _define_MCI_ANIM_UPDATE_PARMS():
-    MCI_ANIM_UPDATE_PARMS = win32more.Media.Multimedia.MCI_ANIM_UPDATE_PARMS_head
-    MCI_ANIM_UPDATE_PARMS._pack_ = 1
-    MCI_ANIM_UPDATE_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("rc", win32more.Foundation.RECT),
-        ("hDC", win32more.Graphics.Gdi.HDC),
-    ]
-    return MCI_ANIM_UPDATE_PARMS
-def _define_MCI_OVLY_OPEN_PARMSA_head():
-    class MCI_OVLY_OPEN_PARMSA(Structure):
-        pass
-    return MCI_OVLY_OPEN_PARMSA
-def _define_MCI_OVLY_OPEN_PARMSA():
-    MCI_OVLY_OPEN_PARMSA = win32more.Media.Multimedia.MCI_OVLY_OPEN_PARMSA_head
-    MCI_OVLY_OPEN_PARMSA._pack_ = 1
-    MCI_OVLY_OPEN_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PSTR),
-        ("lpstrElementName", win32more.Foundation.PSTR),
-        ("lpstrAlias", win32more.Foundation.PSTR),
-        ("dwStyle", UInt32),
-        ("hWndParent", win32more.Foundation.HWND),
-    ]
-    return MCI_OVLY_OPEN_PARMSA
-def _define_MCI_OVLY_OPEN_PARMSW_head():
-    class MCI_OVLY_OPEN_PARMSW(Structure):
-        pass
-    return MCI_OVLY_OPEN_PARMSW
-def _define_MCI_OVLY_OPEN_PARMSW():
-    MCI_OVLY_OPEN_PARMSW = win32more.Media.Multimedia.MCI_OVLY_OPEN_PARMSW_head
-    MCI_OVLY_OPEN_PARMSW._pack_ = 1
-    MCI_OVLY_OPEN_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PWSTR),
-        ("lpstrElementName", win32more.Foundation.PWSTR),
-        ("lpstrAlias", win32more.Foundation.PWSTR),
-        ("dwStyle", UInt32),
-        ("hWndParent", win32more.Foundation.HWND),
-    ]
-    return MCI_OVLY_OPEN_PARMSW
-def _define_MCI_OVLY_WINDOW_PARMSA_head():
-    class MCI_OVLY_WINDOW_PARMSA(Structure):
-        pass
-    return MCI_OVLY_WINDOW_PARMSA
-def _define_MCI_OVLY_WINDOW_PARMSA():
-    MCI_OVLY_WINDOW_PARMSA = win32more.Media.Multimedia.MCI_OVLY_WINDOW_PARMSA_head
-    MCI_OVLY_WINDOW_PARMSA._pack_ = 1
-    MCI_OVLY_WINDOW_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("hWnd", win32more.Foundation.HWND),
-        ("nCmdShow", UInt32),
-        ("lpstrText", win32more.Foundation.PSTR),
-    ]
-    return MCI_OVLY_WINDOW_PARMSA
-def _define_MCI_OVLY_WINDOW_PARMSW_head():
-    class MCI_OVLY_WINDOW_PARMSW(Structure):
-        pass
-    return MCI_OVLY_WINDOW_PARMSW
-def _define_MCI_OVLY_WINDOW_PARMSW():
-    MCI_OVLY_WINDOW_PARMSW = win32more.Media.Multimedia.MCI_OVLY_WINDOW_PARMSW_head
-    MCI_OVLY_WINDOW_PARMSW._pack_ = 1
-    MCI_OVLY_WINDOW_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("hWnd", win32more.Foundation.HWND),
-        ("nCmdShow", UInt32),
-        ("lpstrText", win32more.Foundation.PWSTR),
-    ]
-    return MCI_OVLY_WINDOW_PARMSW
-def _define_MCI_OVLY_RECT_PARMS_head():
-    class MCI_OVLY_RECT_PARMS(Structure):
-        pass
-    return MCI_OVLY_RECT_PARMS
-def _define_MCI_OVLY_RECT_PARMS():
-    MCI_OVLY_RECT_PARMS = win32more.Media.Multimedia.MCI_OVLY_RECT_PARMS_head
-    MCI_OVLY_RECT_PARMS._pack_ = 1
-    MCI_OVLY_RECT_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return MCI_OVLY_RECT_PARMS
-def _define_MCI_OVLY_SAVE_PARMSA_head():
-    class MCI_OVLY_SAVE_PARMSA(Structure):
-        pass
-    return MCI_OVLY_SAVE_PARMSA
-def _define_MCI_OVLY_SAVE_PARMSA():
-    MCI_OVLY_SAVE_PARMSA = win32more.Media.Multimedia.MCI_OVLY_SAVE_PARMSA_head
-    MCI_OVLY_SAVE_PARMSA._pack_ = 1
-    MCI_OVLY_SAVE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PSTR),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return MCI_OVLY_SAVE_PARMSA
-def _define_MCI_OVLY_SAVE_PARMSW_head():
-    class MCI_OVLY_SAVE_PARMSW(Structure):
-        pass
-    return MCI_OVLY_SAVE_PARMSW
-def _define_MCI_OVLY_SAVE_PARMSW():
-    MCI_OVLY_SAVE_PARMSW = win32more.Media.Multimedia.MCI_OVLY_SAVE_PARMSW_head
-    MCI_OVLY_SAVE_PARMSW._pack_ = 1
-    MCI_OVLY_SAVE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PWSTR),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return MCI_OVLY_SAVE_PARMSW
-def _define_MCI_OVLY_LOAD_PARMSA_head():
-    class MCI_OVLY_LOAD_PARMSA(Structure):
-        pass
-    return MCI_OVLY_LOAD_PARMSA
-def _define_MCI_OVLY_LOAD_PARMSA():
-    MCI_OVLY_LOAD_PARMSA = win32more.Media.Multimedia.MCI_OVLY_LOAD_PARMSA_head
-    MCI_OVLY_LOAD_PARMSA._pack_ = 1
-    MCI_OVLY_LOAD_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PSTR),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return MCI_OVLY_LOAD_PARMSA
-def _define_MCI_OVLY_LOAD_PARMSW_head():
-    class MCI_OVLY_LOAD_PARMSW(Structure):
-        pass
-    return MCI_OVLY_LOAD_PARMSW
-def _define_MCI_OVLY_LOAD_PARMSW():
-    MCI_OVLY_LOAD_PARMSW = win32more.Media.Multimedia.MCI_OVLY_LOAD_PARMSW_head
-    MCI_OVLY_LOAD_PARMSW._pack_ = 1
-    MCI_OVLY_LOAD_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpfilename", win32more.Foundation.PWSTR),
-        ("rc", win32more.Foundation.RECT),
-    ]
-    return MCI_OVLY_LOAD_PARMSW
-def _define_DRVCONFIGINFOEX_head():
-    class DRVCONFIGINFOEX(Structure):
-        pass
-    return DRVCONFIGINFOEX
-def _define_DRVCONFIGINFOEX():
-    DRVCONFIGINFOEX = win32more.Media.Multimedia.DRVCONFIGINFOEX_head
-    DRVCONFIGINFOEX._pack_ = 1
-    DRVCONFIGINFOEX._fields_ = [
-        ("dwDCISize", UInt32),
-        ("lpszDCISectionName", win32more.Foundation.PWSTR),
-        ("lpszDCIAliasName", win32more.Foundation.PWSTR),
-        ("dnDevNode", UInt32),
-    ]
-    return DRVCONFIGINFOEX
+    return DRMWAVEFORMAT
 def _define_DRVCONFIGINFO_head():
     class DRVCONFIGINFO(Structure):
         pass
@@ -5830,126 +6042,413 @@ def _define_DRVCONFIGINFO():
     DRVCONFIGINFO = win32more.Media.Multimedia.DRVCONFIGINFO_head
     DRVCONFIGINFO._pack_ = 1
     DRVCONFIGINFO._fields_ = [
-        ("dwDCISize", UInt32),
-        ("lpszDCISectionName", win32more.Foundation.PWSTR),
-        ("lpszDCIAliasName", win32more.Foundation.PWSTR),
+        ('dwDCISize', UInt32),
+        ('lpszDCISectionName', win32more.Foundation.PWSTR),
+        ('lpszDCIAliasName', win32more.Foundation.PWSTR),
     ]
     return DRVCONFIGINFO
-def _define_DRIVERPROC():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,UIntPtr,win32more.Media.Multimedia.HDRVR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_DRIVERMSGPROC():
-    return CFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)
-def _define_LPMMIOPROC():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.PSTR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_MMIOINFO_head():
-    class MMIOINFO(Structure):
+def _define_DRVCONFIGINFOEX_head():
+    class DRVCONFIGINFOEX(Structure):
         pass
-    return MMIOINFO
-def _define_MMIOINFO():
-    MMIOINFO = win32more.Media.Multimedia.MMIOINFO_head
-    MMIOINFO._pack_ = 1
-    MMIOINFO._fields_ = [
-        ("dwFlags", UInt32),
-        ("fccIOProc", UInt32),
-        ("pIOProc", win32more.Media.Multimedia.LPMMIOPROC),
-        ("wErrorRet", UInt32),
-        ("htask", win32more.Media.HTASK),
-        ("cchBuffer", Int32),
-        ("pchBuffer", POINTER(SByte)),
-        ("pchNext", POINTER(SByte)),
-        ("pchEndRead", POINTER(SByte)),
-        ("pchEndWrite", POINTER(SByte)),
-        ("lBufOffset", Int32),
-        ("lDiskOffset", Int32),
-        ("adwInfo", UInt32 * 3),
-        ("dwReserved1", UInt32),
-        ("dwReserved2", UInt32),
-        ("hmmio", win32more.Media.Multimedia.HMMIO),
+    return DRVCONFIGINFOEX
+def _define_DRVCONFIGINFOEX():
+    DRVCONFIGINFOEX = win32more.Media.Multimedia.DRVCONFIGINFOEX_head
+    DRVCONFIGINFOEX._pack_ = 1
+    DRVCONFIGINFOEX._fields_ = [
+        ('dwDCISize', UInt32),
+        ('lpszDCISectionName', win32more.Foundation.PWSTR),
+        ('lpszDCIAliasName', win32more.Foundation.PWSTR),
+        ('dnDevNode', UInt32),
     ]
-    return MMIOINFO
-def _define_MMCKINFO_head():
-    class MMCKINFO(Structure):
+    return DRVCONFIGINFOEX
+def _define_DRVM_IOCTL_DATA_head():
+    class DRVM_IOCTL_DATA(Structure):
         pass
-    return MMCKINFO
-def _define_MMCKINFO():
-    MMCKINFO = win32more.Media.Multimedia.MMCKINFO_head
-    MMCKINFO._pack_ = 1
-    MMCKINFO._fields_ = [
-        ("ckid", UInt32),
-        ("cksize", UInt32),
-        ("fccType", UInt32),
-        ("dwDataOffset", UInt32),
-        ("dwFlags", UInt32),
+    return DRVM_IOCTL_DATA
+def _define_DRVM_IOCTL_DATA():
+    DRVM_IOCTL_DATA = win32more.Media.Multimedia.DRVM_IOCTL_DATA_head
+    DRVM_IOCTL_DATA._pack_ = 1
+    DRVM_IOCTL_DATA._fields_ = [
+        ('dwSize', UInt32),
+        ('dwCmd', UInt32),
     ]
-    return MMCKINFO
-def _define_JOYCAPSA_head():
-    class JOYCAPSA(Structure):
+    return DRVM_IOCTL_DATA
+def _define_DVIADPCMWAVEFORMAT_head():
+    class DVIADPCMWAVEFORMAT(Structure):
         pass
-    return JOYCAPSA
-def _define_JOYCAPSA():
-    JOYCAPSA = win32more.Media.Multimedia.JOYCAPSA_head
-    JOYCAPSA._pack_ = 1
-    JOYCAPSA._fields_ = [
-        ("wMid", UInt16),
-        ("wPid", UInt16),
-        ("szPname", win32more.Foundation.CHAR * 32),
-        ("wXmin", UInt32),
-        ("wXmax", UInt32),
-        ("wYmin", UInt32),
-        ("wYmax", UInt32),
-        ("wZmin", UInt32),
-        ("wZmax", UInt32),
-        ("wNumButtons", UInt32),
-        ("wPeriodMin", UInt32),
-        ("wPeriodMax", UInt32),
-        ("wRmin", UInt32),
-        ("wRmax", UInt32),
-        ("wUmin", UInt32),
-        ("wUmax", UInt32),
-        ("wVmin", UInt32),
-        ("wVmax", UInt32),
-        ("wCaps", UInt32),
-        ("wMaxAxes", UInt32),
-        ("wNumAxes", UInt32),
-        ("wMaxButtons", UInt32),
-        ("szRegKey", win32more.Foundation.CHAR * 32),
-        ("szOEMVxD", win32more.Foundation.CHAR * 260),
+    return DVIADPCMWAVEFORMAT
+def _define_DVIADPCMWAVEFORMAT():
+    DVIADPCMWAVEFORMAT = win32more.Media.Multimedia.DVIADPCMWAVEFORMAT_head
+    DVIADPCMWAVEFORMAT._pack_ = 1
+    DVIADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
     ]
-    return JOYCAPSA
-def _define_JOYCAPSW_head():
-    class JOYCAPSW(Structure):
+    return DVIADPCMWAVEFORMAT
+def _define_ECHOSC1WAVEFORMAT_head():
+    class ECHOSC1WAVEFORMAT(Structure):
         pass
-    return JOYCAPSW
-def _define_JOYCAPSW():
-    JOYCAPSW = win32more.Media.Multimedia.JOYCAPSW_head
-    JOYCAPSW._pack_ = 1
-    JOYCAPSW._fields_ = [
-        ("wMid", UInt16),
-        ("wPid", UInt16),
-        ("szPname", Char * 32),
-        ("wXmin", UInt32),
-        ("wXmax", UInt32),
-        ("wYmin", UInt32),
-        ("wYmax", UInt32),
-        ("wZmin", UInt32),
-        ("wZmax", UInt32),
-        ("wNumButtons", UInt32),
-        ("wPeriodMin", UInt32),
-        ("wPeriodMax", UInt32),
-        ("wRmin", UInt32),
-        ("wRmax", UInt32),
-        ("wUmin", UInt32),
-        ("wUmax", UInt32),
-        ("wVmin", UInt32),
-        ("wVmax", UInt32),
-        ("wCaps", UInt32),
-        ("wMaxAxes", UInt32),
-        ("wNumAxes", UInt32),
-        ("wMaxButtons", UInt32),
-        ("szRegKey", Char * 32),
-        ("szOEMVxD", Char * 260),
+    return ECHOSC1WAVEFORMAT
+def _define_ECHOSC1WAVEFORMAT():
+    ECHOSC1WAVEFORMAT = win32more.Media.Multimedia.ECHOSC1WAVEFORMAT_head
+    ECHOSC1WAVEFORMAT._pack_ = 1
+    ECHOSC1WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
     ]
-    return JOYCAPSW
+    return ECHOSC1WAVEFORMAT
+def _define_EXBMINFOHEADER_head():
+    class EXBMINFOHEADER(Structure):
+        pass
+    return EXBMINFOHEADER
+def _define_EXBMINFOHEADER():
+    EXBMINFOHEADER = win32more.Media.Multimedia.EXBMINFOHEADER_head
+    EXBMINFOHEADER._pack_ = 1
+    EXBMINFOHEADER._fields_ = [
+        ('bmi', win32more.Graphics.Gdi.BITMAPINFOHEADER),
+        ('biExtDataOffset', UInt32),
+    ]
+    return EXBMINFOHEADER
+def _define_FMTOWNS_SND_WAVEFORMAT_head():
+    class FMTOWNS_SND_WAVEFORMAT(Structure):
+        pass
+    return FMTOWNS_SND_WAVEFORMAT
+def _define_FMTOWNS_SND_WAVEFORMAT():
+    FMTOWNS_SND_WAVEFORMAT = win32more.Media.Multimedia.FMTOWNS_SND_WAVEFORMAT_head
+    FMTOWNS_SND_WAVEFORMAT._pack_ = 1
+    FMTOWNS_SND_WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
+    ]
+    return FMTOWNS_SND_WAVEFORMAT
+def _define_G721_ADPCMWAVEFORMAT_head():
+    class G721_ADPCMWAVEFORMAT(Structure):
+        pass
+    return G721_ADPCMWAVEFORMAT
+def _define_G721_ADPCMWAVEFORMAT():
+    G721_ADPCMWAVEFORMAT = win32more.Media.Multimedia.G721_ADPCMWAVEFORMAT_head
+    G721_ADPCMWAVEFORMAT._pack_ = 1
+    G721_ADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('nAuxBlockSize', UInt16),
+    ]
+    return G721_ADPCMWAVEFORMAT
+def _define_G723_ADPCMWAVEFORMAT_head():
+    class G723_ADPCMWAVEFORMAT(Structure):
+        pass
+    return G723_ADPCMWAVEFORMAT
+def _define_G723_ADPCMWAVEFORMAT():
+    G723_ADPCMWAVEFORMAT = win32more.Media.Multimedia.G723_ADPCMWAVEFORMAT_head
+    G723_ADPCMWAVEFORMAT._pack_ = 1
+    G723_ADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('cbExtraSize', UInt16),
+        ('nAuxBlockSize', UInt16),
+    ]
+    return G723_ADPCMWAVEFORMAT
+def _define_GSM610WAVEFORMAT_head():
+    class GSM610WAVEFORMAT(Structure):
+        pass
+    return GSM610WAVEFORMAT
+def _define_GSM610WAVEFORMAT():
+    GSM610WAVEFORMAT = win32more.Media.Multimedia.GSM610WAVEFORMAT_head
+    GSM610WAVEFORMAT._pack_ = 1
+    GSM610WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
+    ]
+    return GSM610WAVEFORMAT
+HDRVR = IntPtr
+HIC = IntPtr
+HMMIO = IntPtr
+HVIDEO = IntPtr
+def _define_IAVIEditStream_head():
+    class IAVIEditStream(win32more.System.Com.IUnknown_head):
+        Guid = Guid('00020024-0000-0000-c0-00-00-00-00-00-00-46')
+    return IAVIEditStream
+def _define_IAVIEditStream():
+    IAVIEditStream = win32more.Media.Multimedia.IAVIEditStream_head
+    IAVIEditStream.Cut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head))(3, 'Cut', ((1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),)))
+    IAVIEditStream.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head))(4, 'Copy', ((1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),)))
+    IAVIEditStream.Paste = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),win32more.Media.Multimedia.IAVIStream_head,Int32,Int32)(5, 'Paste', ((1, 'plPos'),(1, 'plLength'),(1, 'pstream'),(1, 'lStart'),(1, 'lEnd'),)))
+    IAVIEditStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head))(6, 'Clone', ((1, 'ppResult'),)))
+    IAVIEditStream.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32)(7, 'SetInfo', ((1, 'lpInfo'),(1, 'cbInfo'),)))
+    win32more.System.Com.IUnknown
+    return IAVIEditStream
+def _define_IAVIFile_head():
+    class IAVIFile(win32more.System.Com.IUnknown_head):
+        Guid = Guid('00020020-0000-0000-c0-00-00-00-00-00-00-46')
+    return IAVIFile
+def _define_IAVIFile():
+    IAVIFile = win32more.Media.Multimedia.IAVIFile_head
+    IAVIFile.Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVIFILEINFOW_head),Int32)(3, 'Info', ((1, 'pfi'),(1, 'lSize'),)))
+    IAVIFile.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),UInt32,Int32)(4, 'GetStream', ((1, 'ppStream'),(1, 'fccType'),(1, 'lParam'),)))
+    IAVIFile.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head))(5, 'CreateStream', ((1, 'ppStream'),(1, 'psi'),)))
+    IAVIFile.WriteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,Int32)(6, 'WriteData', ((1, 'ckid'),(1, 'lpData'),(1, 'cbData'),)))
+    IAVIFile.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(Int32))(7, 'ReadData', ((1, 'ckid'),(1, 'lpData'),(1, 'lpcbData'),)))
+    IAVIFile.EndRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'EndRecord', ()))
+    IAVIFile.DeleteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32)(9, 'DeleteStream', ((1, 'fccType'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
+    return IAVIFile
+def _define_IAVIPersistFile_head():
+    class IAVIPersistFile(win32more.System.Com.IPersistFile_head):
+        Guid = Guid('00020025-0000-0000-c0-00-00-00-00-00-00-46')
+    return IAVIPersistFile
+def _define_IAVIPersistFile():
+    IAVIPersistFile = win32more.Media.Multimedia.IAVIPersistFile_head
+    IAVIPersistFile.Reserved1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'Reserved1', ()))
+    win32more.System.Com.IPersistFile
+    return IAVIPersistFile
+def _define_IAVIStream_head():
+    class IAVIStream(win32more.System.Com.IUnknown_head):
+        Guid = Guid('00020021-0000-0000-c0-00-00-00-00-00-00-46')
+    return IAVIStream
+def _define_IAVIStream():
+    IAVIStream = win32more.Media.Multimedia.IAVIStream_head
+    IAVIStream.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(3, 'Create', ((1, 'lParam1'),(1, 'lParam2'),)))
+    IAVIStream.Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32)(4, 'Info', ((1, 'psi'),(1, 'lSize'),)))
+    IAVIStream.FindSample = COMMETHOD(WINFUNCTYPE(Int32,Int32,Int32)(5, 'FindSample', ((1, 'lPos'),(1, 'lFlags'),)))
+    IAVIStream.ReadFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,c_void_p,POINTER(Int32))(6, 'ReadFormat', ((1, 'lPos'),(1, 'lpFormat'),(1, 'lpcbFormat'),)))
+    IAVIStream.SetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,c_void_p,Int32)(7, 'SetFormat', ((1, 'lPos'),(1, 'lpFormat'),(1, 'cbFormat'),)))
+    IAVIStream.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,c_void_p,Int32,POINTER(Int32),POINTER(Int32))(8, 'Read', ((1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'plBytes'),(1, 'plSamples'),)))
+    IAVIStream.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,c_void_p,Int32,UInt32,POINTER(Int32),POINTER(Int32))(9, 'Write', ((1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'dwFlags'),(1, 'plSampWritten'),(1, 'plBytesWritten'),)))
+    IAVIStream.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32)(10, 'Delete', ((1, 'lStart'),(1, 'lSamples'),)))
+    IAVIStream.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(Int32))(11, 'ReadData', ((1, 'fcc'),(1, 'lp'),(1, 'lpcb'),)))
+    IAVIStream.WriteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,Int32)(12, 'WriteData', ((1, 'fcc'),(1, 'lp'),(1, 'cb'),)))
+    IAVIStream.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32)(13, 'SetInfo', ((1, 'lpInfo'),(1, 'cbInfo'),)))
+    win32more.System.Com.IUnknown
+    return IAVIStream
+def _define_IAVIStreaming_head():
+    class IAVIStreaming(win32more.System.Com.IUnknown_head):
+        Guid = Guid('00020022-0000-0000-c0-00-00-00-00-00-00-46')
+    return IAVIStreaming
+def _define_IAVIStreaming():
+    IAVIStreaming = win32more.Media.Multimedia.IAVIStreaming_head
+    IAVIStreaming.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32)(3, 'Begin', ((1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),)))
+    IAVIStreaming.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'End', ()))
+    win32more.System.Com.IUnknown
+    return IAVIStreaming
+def _define_ICCOMPRESS_head():
+    class ICCOMPRESS(Structure):
+        pass
+    return ICCOMPRESS
+def _define_ICCOMPRESS():
+    ICCOMPRESS = win32more.Media.Multimedia.ICCOMPRESS_head
+    ICCOMPRESS._fields_ = [
+        ('dwFlags', UInt32),
+        ('lpbiOutput', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpOutput', c_void_p),
+        ('lpbiInput', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpInput', c_void_p),
+        ('lpckid', POINTER(UInt32)),
+        ('lpdwFlags', POINTER(UInt32)),
+        ('lFrameNum', Int32),
+        ('dwFrameSize', UInt32),
+        ('dwQuality', UInt32),
+        ('lpbiPrev', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpPrev', c_void_p),
+    ]
+    return ICCOMPRESS
+def _define_ICCOMPRESSFRAMES_head():
+    class ICCOMPRESSFRAMES(Structure):
+        pass
+    return ICCOMPRESSFRAMES
+def _define_ICCOMPRESSFRAMES():
+    ICCOMPRESSFRAMES = win32more.Media.Multimedia.ICCOMPRESSFRAMES_head
+    ICCOMPRESSFRAMES._fields_ = [
+        ('dwFlags', UInt32),
+        ('lpbiOutput', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lOutput', win32more.Foundation.LPARAM),
+        ('lpbiInput', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lInput', win32more.Foundation.LPARAM),
+        ('lStartFrame', Int32),
+        ('lFrameCount', Int32),
+        ('lQuality', Int32),
+        ('lDataRate', Int32),
+        ('lKeyRate', Int32),
+        ('dwRate', UInt32),
+        ('dwScale', UInt32),
+        ('dwOverheadPerFrame', UInt32),
+        ('dwReserved2', UInt32),
+        ('GetData', IntPtr),
+        ('PutData', IntPtr),
+    ]
+    return ICCOMPRESSFRAMES
+def _define_ICDECOMPRESS_head():
+    class ICDECOMPRESS(Structure):
+        pass
+    return ICDECOMPRESS
+def _define_ICDECOMPRESS():
+    ICDECOMPRESS = win32more.Media.Multimedia.ICDECOMPRESS_head
+    ICDECOMPRESS._fields_ = [
+        ('dwFlags', UInt32),
+        ('lpbiInput', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpInput', c_void_p),
+        ('lpbiOutput', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpOutput', c_void_p),
+        ('ckid', UInt32),
+    ]
+    return ICDECOMPRESS
+def _define_ICDECOMPRESSEX_head():
+    class ICDECOMPRESSEX(Structure):
+        pass
+    return ICDECOMPRESSEX
+def _define_ICDECOMPRESSEX():
+    ICDECOMPRESSEX = win32more.Media.Multimedia.ICDECOMPRESSEX_head
+    ICDECOMPRESSEX._fields_ = [
+        ('dwFlags', UInt32),
+        ('lpbiSrc', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpSrc', c_void_p),
+        ('lpbiDst', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpDst', c_void_p),
+        ('xDst', Int32),
+        ('yDst', Int32),
+        ('dxDst', Int32),
+        ('dyDst', Int32),
+        ('xSrc', Int32),
+        ('ySrc', Int32),
+        ('dxSrc', Int32),
+        ('dySrc', Int32),
+    ]
+    return ICDECOMPRESSEX
+def _define_ICDRAW_head():
+    class ICDRAW(Structure):
+        pass
+    return ICDRAW
+def _define_ICDRAW():
+    ICDRAW = win32more.Media.Multimedia.ICDRAW_head
+    ICDRAW._fields_ = [
+        ('dwFlags', UInt32),
+        ('lpFormat', c_void_p),
+        ('lpData', c_void_p),
+        ('cbData', UInt32),
+        ('lTime', Int32),
+    ]
+    return ICDRAW
+def _define_ICDRAWBEGIN_head():
+    class ICDRAWBEGIN(Structure):
+        pass
+    return ICDRAWBEGIN
+def _define_ICDRAWBEGIN():
+    ICDRAWBEGIN = win32more.Media.Multimedia.ICDRAWBEGIN_head
+    ICDRAWBEGIN._fields_ = [
+        ('dwFlags', UInt32),
+        ('hpal', win32more.Graphics.Gdi.HPALETTE),
+        ('hwnd', win32more.Foundation.HWND),
+        ('hdc', win32more.Graphics.Gdi.HDC),
+        ('xDst', Int32),
+        ('yDst', Int32),
+        ('dxDst', Int32),
+        ('dyDst', Int32),
+        ('lpbi', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('xSrc', Int32),
+        ('ySrc', Int32),
+        ('dxSrc', Int32),
+        ('dySrc', Int32),
+        ('dwRate', UInt32),
+        ('dwScale', UInt32),
+    ]
+    return ICDRAWBEGIN
+def _define_ICDRAWSUGGEST_head():
+    class ICDRAWSUGGEST(Structure):
+        pass
+    return ICDRAWSUGGEST
+def _define_ICDRAWSUGGEST():
+    ICDRAWSUGGEST = win32more.Media.Multimedia.ICDRAWSUGGEST_head
+    ICDRAWSUGGEST._fields_ = [
+        ('lpbiIn', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('lpbiSuggest', POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
+        ('dxSrc', Int32),
+        ('dySrc', Int32),
+        ('dxDst', Int32),
+        ('dyDst', Int32),
+        ('hicDecompressor', win32more.Media.Multimedia.HIC),
+    ]
+    return ICDRAWSUGGEST
+def _define_ICINFO_head():
+    class ICINFO(Structure):
+        pass
+    return ICINFO
+def _define_ICINFO():
+    ICINFO = win32more.Media.Multimedia.ICINFO_head
+    ICINFO._fields_ = [
+        ('dwSize', UInt32),
+        ('fccType', UInt32),
+        ('fccHandler', UInt32),
+        ('dwFlags', UInt32),
+        ('dwVersion', UInt32),
+        ('dwVersionICM', UInt32),
+        ('szName', Char * 16),
+        ('szDescription', Char * 128),
+        ('szDriver', Char * 128),
+    ]
+    return ICINFO
+def _define_ICOPEN_head():
+    class ICOPEN(Structure):
+        pass
+    return ICOPEN
+def _define_ICOPEN():
+    ICOPEN = win32more.Media.Multimedia.ICOPEN_head
+    ICOPEN._fields_ = [
+        ('dwSize', UInt32),
+        ('fccType', UInt32),
+        ('fccHandler', UInt32),
+        ('dwVersion', UInt32),
+        ('dwFlags', UInt32),
+        ('dwError', win32more.Foundation.LRESULT),
+        ('pV1Reserved', c_void_p),
+        ('pV2Reserved', c_void_p),
+        ('dnDevNode', UInt32),
+    ]
+    return ICOPEN
+def _define_ICPALETTE_head():
+    class ICPALETTE(Structure):
+        pass
+    return ICPALETTE
+def _define_ICPALETTE():
+    ICPALETTE = win32more.Media.Multimedia.ICPALETTE_head
+    ICPALETTE._fields_ = [
+        ('dwFlags', UInt32),
+        ('iStart', Int32),
+        ('iLen', Int32),
+        ('lppe', POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)),
+    ]
+    return ICPALETTE
+def _define_ICSETSTATUSPROC_head():
+    class ICSETSTATUSPROC(Structure):
+        pass
+    return ICSETSTATUSPROC
+def _define_ICSETSTATUSPROC():
+    ICSETSTATUSPROC = win32more.Media.Multimedia.ICSETSTATUSPROC_head
+    ICSETSTATUSPROC._fields_ = [
+        ('dwFlags', UInt32),
+        ('lParam', win32more.Foundation.LPARAM),
+        ('Status', IntPtr),
+    ]
+    return ICSETSTATUSPROC
+def _define_IGetFrame_head():
+    class IGetFrame(win32more.System.Com.IUnknown_head):
+        Guid = Guid('00020023-0000-0000-c0-00-00-00-00-00-00-46')
+    return IGetFrame
+def _define_IGetFrame():
+    IGetFrame = win32more.Media.Multimedia.IGetFrame_head
+    IGetFrame.GetFrame = COMMETHOD(WINFUNCTYPE(c_void_p,Int32)(3, 'GetFrame', ((1, 'lPos'),)))
+    IGetFrame.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32)(4, 'Begin', ((1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),)))
+    IGetFrame.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'End', ()))
+    IGetFrame.SetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,Int32,Int32,Int32,Int32)(6, 'SetFormat', ((1, 'lpbi'),(1, 'lpBits'),(1, 'x'),(1, 'y'),(1, 'dx'),(1, 'dy'),)))
+    win32more.System.Com.IUnknown
+    return IGetFrame
+def _define_IMAADPCMWAVEFORMAT_head():
+    class IMAADPCMWAVEFORMAT(Structure):
+        pass
+    return IMAADPCMWAVEFORMAT
+def _define_IMAADPCMWAVEFORMAT():
+    IMAADPCMWAVEFORMAT = win32more.Media.Multimedia.IMAADPCMWAVEFORMAT_head
+    IMAADPCMWAVEFORMAT._pack_ = 1
+    IMAADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
+    ]
+    return IMAADPCMWAVEFORMAT
 def _define_JOYCAPS2A_head():
     class JOYCAPS2A(Structure):
         pass
@@ -5958,33 +6457,33 @@ def _define_JOYCAPS2A():
     JOYCAPS2A = win32more.Media.Multimedia.JOYCAPS2A_head
     JOYCAPS2A._pack_ = 1
     JOYCAPS2A._fields_ = [
-        ("wMid", UInt16),
-        ("wPid", UInt16),
-        ("szPname", win32more.Foundation.CHAR * 32),
-        ("wXmin", UInt32),
-        ("wXmax", UInt32),
-        ("wYmin", UInt32),
-        ("wYmax", UInt32),
-        ("wZmin", UInt32),
-        ("wZmax", UInt32),
-        ("wNumButtons", UInt32),
-        ("wPeriodMin", UInt32),
-        ("wPeriodMax", UInt32),
-        ("wRmin", UInt32),
-        ("wRmax", UInt32),
-        ("wUmin", UInt32),
-        ("wUmax", UInt32),
-        ("wVmin", UInt32),
-        ("wVmax", UInt32),
-        ("wCaps", UInt32),
-        ("wMaxAxes", UInt32),
-        ("wNumAxes", UInt32),
-        ("wMaxButtons", UInt32),
-        ("szRegKey", win32more.Foundation.CHAR * 32),
-        ("szOEMVxD", win32more.Foundation.CHAR * 260),
-        ("ManufacturerGuid", Guid),
-        ("ProductGuid", Guid),
-        ("NameGuid", Guid),
+        ('wMid', UInt16),
+        ('wPid', UInt16),
+        ('szPname', win32more.Foundation.CHAR * 32),
+        ('wXmin', UInt32),
+        ('wXmax', UInt32),
+        ('wYmin', UInt32),
+        ('wYmax', UInt32),
+        ('wZmin', UInt32),
+        ('wZmax', UInt32),
+        ('wNumButtons', UInt32),
+        ('wPeriodMin', UInt32),
+        ('wPeriodMax', UInt32),
+        ('wRmin', UInt32),
+        ('wRmax', UInt32),
+        ('wUmin', UInt32),
+        ('wUmax', UInt32),
+        ('wVmin', UInt32),
+        ('wVmax', UInt32),
+        ('wCaps', UInt32),
+        ('wMaxAxes', UInt32),
+        ('wNumAxes', UInt32),
+        ('wMaxButtons', UInt32),
+        ('szRegKey', win32more.Foundation.CHAR * 32),
+        ('szOEMVxD', win32more.Foundation.CHAR * 260),
+        ('ManufacturerGuid', Guid),
+        ('ProductGuid', Guid),
+        ('NameGuid', Guid),
     ]
     return JOYCAPS2A
 def _define_JOYCAPS2W_head():
@@ -5995,35 +6494,103 @@ def _define_JOYCAPS2W():
     JOYCAPS2W = win32more.Media.Multimedia.JOYCAPS2W_head
     JOYCAPS2W._pack_ = 1
     JOYCAPS2W._fields_ = [
-        ("wMid", UInt16),
-        ("wPid", UInt16),
-        ("szPname", Char * 32),
-        ("wXmin", UInt32),
-        ("wXmax", UInt32),
-        ("wYmin", UInt32),
-        ("wYmax", UInt32),
-        ("wZmin", UInt32),
-        ("wZmax", UInt32),
-        ("wNumButtons", UInt32),
-        ("wPeriodMin", UInt32),
-        ("wPeriodMax", UInt32),
-        ("wRmin", UInt32),
-        ("wRmax", UInt32),
-        ("wUmin", UInt32),
-        ("wUmax", UInt32),
-        ("wVmin", UInt32),
-        ("wVmax", UInt32),
-        ("wCaps", UInt32),
-        ("wMaxAxes", UInt32),
-        ("wNumAxes", UInt32),
-        ("wMaxButtons", UInt32),
-        ("szRegKey", Char * 32),
-        ("szOEMVxD", Char * 260),
-        ("ManufacturerGuid", Guid),
-        ("ProductGuid", Guid),
-        ("NameGuid", Guid),
+        ('wMid', UInt16),
+        ('wPid', UInt16),
+        ('szPname', Char * 32),
+        ('wXmin', UInt32),
+        ('wXmax', UInt32),
+        ('wYmin', UInt32),
+        ('wYmax', UInt32),
+        ('wZmin', UInt32),
+        ('wZmax', UInt32),
+        ('wNumButtons', UInt32),
+        ('wPeriodMin', UInt32),
+        ('wPeriodMax', UInt32),
+        ('wRmin', UInt32),
+        ('wRmax', UInt32),
+        ('wUmin', UInt32),
+        ('wUmax', UInt32),
+        ('wVmin', UInt32),
+        ('wVmax', UInt32),
+        ('wCaps', UInt32),
+        ('wMaxAxes', UInt32),
+        ('wNumAxes', UInt32),
+        ('wMaxButtons', UInt32),
+        ('szRegKey', Char * 32),
+        ('szOEMVxD', Char * 260),
+        ('ManufacturerGuid', Guid),
+        ('ProductGuid', Guid),
+        ('NameGuid', Guid),
     ]
     return JOYCAPS2W
+def _define_JOYCAPSA_head():
+    class JOYCAPSA(Structure):
+        pass
+    return JOYCAPSA
+def _define_JOYCAPSA():
+    JOYCAPSA = win32more.Media.Multimedia.JOYCAPSA_head
+    JOYCAPSA._pack_ = 1
+    JOYCAPSA._fields_ = [
+        ('wMid', UInt16),
+        ('wPid', UInt16),
+        ('szPname', win32more.Foundation.CHAR * 32),
+        ('wXmin', UInt32),
+        ('wXmax', UInt32),
+        ('wYmin', UInt32),
+        ('wYmax', UInt32),
+        ('wZmin', UInt32),
+        ('wZmax', UInt32),
+        ('wNumButtons', UInt32),
+        ('wPeriodMin', UInt32),
+        ('wPeriodMax', UInt32),
+        ('wRmin', UInt32),
+        ('wRmax', UInt32),
+        ('wUmin', UInt32),
+        ('wUmax', UInt32),
+        ('wVmin', UInt32),
+        ('wVmax', UInt32),
+        ('wCaps', UInt32),
+        ('wMaxAxes', UInt32),
+        ('wNumAxes', UInt32),
+        ('wMaxButtons', UInt32),
+        ('szRegKey', win32more.Foundation.CHAR * 32),
+        ('szOEMVxD', win32more.Foundation.CHAR * 260),
+    ]
+    return JOYCAPSA
+def _define_JOYCAPSW_head():
+    class JOYCAPSW(Structure):
+        pass
+    return JOYCAPSW
+def _define_JOYCAPSW():
+    JOYCAPSW = win32more.Media.Multimedia.JOYCAPSW_head
+    JOYCAPSW._pack_ = 1
+    JOYCAPSW._fields_ = [
+        ('wMid', UInt16),
+        ('wPid', UInt16),
+        ('szPname', Char * 32),
+        ('wXmin', UInt32),
+        ('wXmax', UInt32),
+        ('wYmin', UInt32),
+        ('wYmax', UInt32),
+        ('wZmin', UInt32),
+        ('wZmax', UInt32),
+        ('wNumButtons', UInt32),
+        ('wPeriodMin', UInt32),
+        ('wPeriodMax', UInt32),
+        ('wRmin', UInt32),
+        ('wRmax', UInt32),
+        ('wUmin', UInt32),
+        ('wUmax', UInt32),
+        ('wVmin', UInt32),
+        ('wVmax', UInt32),
+        ('wCaps', UInt32),
+        ('wMaxAxes', UInt32),
+        ('wNumAxes', UInt32),
+        ('wMaxButtons', UInt32),
+        ('szRegKey', Char * 32),
+        ('szOEMVxD', Char * 260),
+    ]
+    return JOYCAPSW
 def _define_JOYINFO_head():
     class JOYINFO(Structure):
         pass
@@ -6032,10 +6599,10 @@ def _define_JOYINFO():
     JOYINFO = win32more.Media.Multimedia.JOYINFO_head
     JOYINFO._pack_ = 1
     JOYINFO._fields_ = [
-        ("wXpos", UInt32),
-        ("wYpos", UInt32),
-        ("wZpos", UInt32),
-        ("wButtons", UInt32),
+        ('wXpos', UInt32),
+        ('wYpos', UInt32),
+        ('wZpos', UInt32),
+        ('wButtons', UInt32),
     ]
     return JOYINFO
 def _define_JOYINFOEX_head():
@@ -6046,33 +6613,170 @@ def _define_JOYINFOEX():
     JOYINFOEX = win32more.Media.Multimedia.JOYINFOEX_head
     JOYINFOEX._pack_ = 1
     JOYINFOEX._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwXpos", UInt32),
-        ("dwYpos", UInt32),
-        ("dwZpos", UInt32),
-        ("dwRpos", UInt32),
-        ("dwUpos", UInt32),
-        ("dwVpos", UInt32),
-        ("dwButtons", UInt32),
-        ("dwButtonNumber", UInt32),
-        ("dwPOV", UInt32),
-        ("dwReserved1", UInt32),
-        ("dwReserved2", UInt32),
+        ('dwSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwXpos', UInt32),
+        ('dwYpos', UInt32),
+        ('dwZpos', UInt32),
+        ('dwRpos', UInt32),
+        ('dwUpos', UInt32),
+        ('dwVpos', UInt32),
+        ('dwButtons', UInt32),
+        ('dwButtonNumber', UInt32),
+        ('dwPOV', UInt32),
+        ('dwReserved1', UInt32),
+        ('dwReserved2', UInt32),
     ]
     return JOYINFOEX
-def _define_MCI_DGV_RECT_PARMS_head():
-    class MCI_DGV_RECT_PARMS(Structure):
+def _define_JPEGINFOHEADER_head():
+    class JPEGINFOHEADER(Structure):
         pass
-    return MCI_DGV_RECT_PARMS
-def _define_MCI_DGV_RECT_PARMS():
-    MCI_DGV_RECT_PARMS = win32more.Media.Multimedia.MCI_DGV_RECT_PARMS_head
-    MCI_DGV_RECT_PARMS._pack_ = 1
-    MCI_DGV_RECT_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("rc", win32more.Foundation.RECT),
+    return JPEGINFOHEADER
+def _define_JPEGINFOHEADER():
+    JPEGINFOHEADER = win32more.Media.Multimedia.JPEGINFOHEADER_head
+    JPEGINFOHEADER._pack_ = 1
+    JPEGINFOHEADER._fields_ = [
+        ('JPEGSize', UInt32),
+        ('JPEGProcess', UInt32),
+        ('JPEGColorSpaceID', UInt32),
+        ('JPEGBitsPerSample', UInt32),
+        ('JPEGHSubSampling', UInt32),
+        ('JPEGVSubSampling', UInt32),
     ]
-    return MCI_DGV_RECT_PARMS
+    return JPEGINFOHEADER
+KSDATAFORMAT_SUBTYPE_IEEE_FLOAT = Guid('00000003-0000-0010-80-00-00-aa-00-38-9b-71')
+def _define_LPFNEXTDEVIO():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.LPARAM,UInt32,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head))
+def _define_LPMMIOPROC():
+    return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.PSTR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)
+def _define_LPTASKCALLBACK():
+    return WINFUNCTYPE(Void,UIntPtr)
+def _define_MCI_ANIM_OPEN_PARMSA_head():
+    class MCI_ANIM_OPEN_PARMSA(Structure):
+        pass
+    return MCI_ANIM_OPEN_PARMSA
+def _define_MCI_ANIM_OPEN_PARMSA():
+    MCI_ANIM_OPEN_PARMSA = win32more.Media.Multimedia.MCI_ANIM_OPEN_PARMSA_head
+    MCI_ANIM_OPEN_PARMSA._pack_ = 1
+    MCI_ANIM_OPEN_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PSTR),
+        ('lpstrElementName', win32more.Foundation.PSTR),
+        ('lpstrAlias', win32more.Foundation.PSTR),
+        ('dwStyle', UInt32),
+        ('hWndParent', win32more.Foundation.HWND),
+    ]
+    return MCI_ANIM_OPEN_PARMSA
+def _define_MCI_ANIM_OPEN_PARMSW_head():
+    class MCI_ANIM_OPEN_PARMSW(Structure):
+        pass
+    return MCI_ANIM_OPEN_PARMSW
+def _define_MCI_ANIM_OPEN_PARMSW():
+    MCI_ANIM_OPEN_PARMSW = win32more.Media.Multimedia.MCI_ANIM_OPEN_PARMSW_head
+    MCI_ANIM_OPEN_PARMSW._pack_ = 1
+    MCI_ANIM_OPEN_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PWSTR),
+        ('lpstrElementName', win32more.Foundation.PWSTR),
+        ('lpstrAlias', win32more.Foundation.PWSTR),
+        ('dwStyle', UInt32),
+        ('hWndParent', win32more.Foundation.HWND),
+    ]
+    return MCI_ANIM_OPEN_PARMSW
+def _define_MCI_ANIM_PLAY_PARMS_head():
+    class MCI_ANIM_PLAY_PARMS(Structure):
+        pass
+    return MCI_ANIM_PLAY_PARMS
+def _define_MCI_ANIM_PLAY_PARMS():
+    MCI_ANIM_PLAY_PARMS = win32more.Media.Multimedia.MCI_ANIM_PLAY_PARMS_head
+    MCI_ANIM_PLAY_PARMS._pack_ = 1
+    MCI_ANIM_PLAY_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+        ('dwSpeed', UInt32),
+    ]
+    return MCI_ANIM_PLAY_PARMS
+def _define_MCI_ANIM_RECT_PARMS_head():
+    class MCI_ANIM_RECT_PARMS(Structure):
+        pass
+    return MCI_ANIM_RECT_PARMS
+def _define_MCI_ANIM_RECT_PARMS():
+    MCI_ANIM_RECT_PARMS = win32more.Media.Multimedia.MCI_ANIM_RECT_PARMS_head
+    MCI_ANIM_RECT_PARMS._pack_ = 1
+    MCI_ANIM_RECT_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('rc', win32more.Foundation.RECT),
+    ]
+    return MCI_ANIM_RECT_PARMS
+def _define_MCI_ANIM_STEP_PARMS_head():
+    class MCI_ANIM_STEP_PARMS(Structure):
+        pass
+    return MCI_ANIM_STEP_PARMS
+def _define_MCI_ANIM_STEP_PARMS():
+    MCI_ANIM_STEP_PARMS = win32more.Media.Multimedia.MCI_ANIM_STEP_PARMS_head
+    MCI_ANIM_STEP_PARMS._pack_ = 1
+    MCI_ANIM_STEP_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrames', UInt32),
+    ]
+    return MCI_ANIM_STEP_PARMS
+def _define_MCI_ANIM_UPDATE_PARMS_head():
+    class MCI_ANIM_UPDATE_PARMS(Structure):
+        pass
+    return MCI_ANIM_UPDATE_PARMS
+def _define_MCI_ANIM_UPDATE_PARMS():
+    MCI_ANIM_UPDATE_PARMS = win32more.Media.Multimedia.MCI_ANIM_UPDATE_PARMS_head
+    MCI_ANIM_UPDATE_PARMS._pack_ = 1
+    MCI_ANIM_UPDATE_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('rc', win32more.Foundation.RECT),
+        ('hDC', win32more.Graphics.Gdi.HDC),
+    ]
+    return MCI_ANIM_UPDATE_PARMS
+def _define_MCI_ANIM_WINDOW_PARMSA_head():
+    class MCI_ANIM_WINDOW_PARMSA(Structure):
+        pass
+    return MCI_ANIM_WINDOW_PARMSA
+def _define_MCI_ANIM_WINDOW_PARMSA():
+    MCI_ANIM_WINDOW_PARMSA = win32more.Media.Multimedia.MCI_ANIM_WINDOW_PARMSA_head
+    MCI_ANIM_WINDOW_PARMSA._pack_ = 1
+    MCI_ANIM_WINDOW_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('hWnd', win32more.Foundation.HWND),
+        ('nCmdShow', UInt32),
+        ('lpstrText', win32more.Foundation.PSTR),
+    ]
+    return MCI_ANIM_WINDOW_PARMSA
+def _define_MCI_ANIM_WINDOW_PARMSW_head():
+    class MCI_ANIM_WINDOW_PARMSW(Structure):
+        pass
+    return MCI_ANIM_WINDOW_PARMSW
+def _define_MCI_ANIM_WINDOW_PARMSW():
+    MCI_ANIM_WINDOW_PARMSW = win32more.Media.Multimedia.MCI_ANIM_WINDOW_PARMSW_head
+    MCI_ANIM_WINDOW_PARMSW._pack_ = 1
+    MCI_ANIM_WINDOW_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('hWnd', win32more.Foundation.HWND),
+        ('nCmdShow', UInt32),
+        ('lpstrText', win32more.Foundation.PWSTR),
+    ]
+    return MCI_ANIM_WINDOW_PARMSW
+def _define_MCI_BREAK_PARMS_head():
+    class MCI_BREAK_PARMS(Structure):
+        pass
+    return MCI_BREAK_PARMS
+def _define_MCI_BREAK_PARMS():
+    MCI_BREAK_PARMS = win32more.Media.Multimedia.MCI_BREAK_PARMS_head
+    MCI_BREAK_PARMS._pack_ = 1
+    MCI_BREAK_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('nVirtKey', Int32),
+        ('hwndBreak', win32more.Foundation.HWND),
+    ]
+    return MCI_BREAK_PARMS
 def _define_MCI_DGV_CAPTURE_PARMSA_head():
     class MCI_DGV_CAPTURE_PARMSA(Structure):
         pass
@@ -6081,9 +6785,9 @@ def _define_MCI_DGV_CAPTURE_PARMSA():
     MCI_DGV_CAPTURE_PARMSA = win32more.Media.Multimedia.MCI_DGV_CAPTURE_PARMSA_head
     MCI_DGV_CAPTURE_PARMSA._pack_ = 1
     MCI_DGV_CAPTURE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrFileName", win32more.Foundation.PSTR),
-        ("rc", win32more.Foundation.RECT),
+        ('dwCallback', UIntPtr),
+        ('lpstrFileName', win32more.Foundation.PSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
     return MCI_DGV_CAPTURE_PARMSA
 def _define_MCI_DGV_CAPTURE_PARMSW_head():
@@ -6094,9 +6798,9 @@ def _define_MCI_DGV_CAPTURE_PARMSW():
     MCI_DGV_CAPTURE_PARMSW = win32more.Media.Multimedia.MCI_DGV_CAPTURE_PARMSW_head
     MCI_DGV_CAPTURE_PARMSW._pack_ = 1
     MCI_DGV_CAPTURE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrFileName", win32more.Foundation.PWSTR),
-        ("rc", win32more.Foundation.RECT),
+        ('dwCallback', UIntPtr),
+        ('lpstrFileName', win32more.Foundation.PWSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
     return MCI_DGV_CAPTURE_PARMSW
 def _define_MCI_DGV_COPY_PARMS_head():
@@ -6107,12 +6811,12 @@ def _define_MCI_DGV_COPY_PARMS():
     MCI_DGV_COPY_PARMS = win32more.Media.Multimedia.MCI_DGV_COPY_PARMS_head
     MCI_DGV_COPY_PARMS._pack_ = 1
     MCI_DGV_COPY_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-        ("rc", win32more.Foundation.RECT),
-        ("dwAudioStream", UInt32),
-        ("dwVideoStream", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+        ('rc', win32more.Foundation.RECT),
+        ('dwAudioStream', UInt32),
+        ('dwVideoStream', UInt32),
     ]
     return MCI_DGV_COPY_PARMS
 def _define_MCI_DGV_CUE_PARMS_head():
@@ -6123,8 +6827,8 @@ def _define_MCI_DGV_CUE_PARMS():
     MCI_DGV_CUE_PARMS = win32more.Media.Multimedia.MCI_DGV_CUE_PARMS_head
     MCI_DGV_CUE_PARMS._pack_ = 1
     MCI_DGV_CUE_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTo", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwTo', UInt32),
     ]
     return MCI_DGV_CUE_PARMS
 def _define_MCI_DGV_CUT_PARMS_head():
@@ -6135,12 +6839,12 @@ def _define_MCI_DGV_CUT_PARMS():
     MCI_DGV_CUT_PARMS = win32more.Media.Multimedia.MCI_DGV_CUT_PARMS_head
     MCI_DGV_CUT_PARMS._pack_ = 1
     MCI_DGV_CUT_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-        ("rc", win32more.Foundation.RECT),
-        ("dwAudioStream", UInt32),
-        ("dwVideoStream", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+        ('rc', win32more.Foundation.RECT),
+        ('dwAudioStream', UInt32),
+        ('dwVideoStream', UInt32),
     ]
     return MCI_DGV_CUT_PARMS
 def _define_MCI_DGV_DELETE_PARMS_head():
@@ -6151,12 +6855,12 @@ def _define_MCI_DGV_DELETE_PARMS():
     MCI_DGV_DELETE_PARMS = win32more.Media.Multimedia.MCI_DGV_DELETE_PARMS_head
     MCI_DGV_DELETE_PARMS._pack_ = 1
     MCI_DGV_DELETE_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-        ("rc", win32more.Foundation.RECT),
-        ("dwAudioStream", UInt32),
-        ("dwVideoStream", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+        ('rc', win32more.Foundation.RECT),
+        ('dwAudioStream', UInt32),
+        ('dwVideoStream', UInt32),
     ]
     return MCI_DGV_DELETE_PARMS
 def _define_MCI_DGV_INFO_PARMSA_head():
@@ -6167,10 +6871,10 @@ def _define_MCI_DGV_INFO_PARMSA():
     MCI_DGV_INFO_PARMSA = win32more.Media.Multimedia.MCI_DGV_INFO_PARMSA_head
     MCI_DGV_INFO_PARMSA._pack_ = 1
     MCI_DGV_INFO_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PSTR),
-        ("dwRetSize", UInt32),
-        ("dwItem", UInt32),
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PSTR),
+        ('dwRetSize', UInt32),
+        ('dwItem', UInt32),
     ]
     return MCI_DGV_INFO_PARMSA
 def _define_MCI_DGV_INFO_PARMSW_head():
@@ -6181,10 +6885,10 @@ def _define_MCI_DGV_INFO_PARMSW():
     MCI_DGV_INFO_PARMSW = win32more.Media.Multimedia.MCI_DGV_INFO_PARMSW_head
     MCI_DGV_INFO_PARMSW._pack_ = 1
     MCI_DGV_INFO_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PWSTR),
-        ("dwRetSize", UInt32),
-        ("dwItem", UInt32),
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PWSTR),
+        ('dwRetSize', UInt32),
+        ('dwItem', UInt32),
     ]
     return MCI_DGV_INFO_PARMSW
 def _define_MCI_DGV_LIST_PARMSA_head():
@@ -6195,12 +6899,12 @@ def _define_MCI_DGV_LIST_PARMSA():
     MCI_DGV_LIST_PARMSA = win32more.Media.Multimedia.MCI_DGV_LIST_PARMSA_head
     MCI_DGV_LIST_PARMSA._pack_ = 1
     MCI_DGV_LIST_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PSTR),
-        ("dwLength", UInt32),
-        ("dwNumber", UInt32),
-        ("dwItem", UInt32),
-        ("lpstrAlgorithm", win32more.Foundation.PSTR),
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PSTR),
+        ('dwLength', UInt32),
+        ('dwNumber', UInt32),
+        ('dwItem', UInt32),
+        ('lpstrAlgorithm', win32more.Foundation.PSTR),
     ]
     return MCI_DGV_LIST_PARMSA
 def _define_MCI_DGV_LIST_PARMSW_head():
@@ -6211,12 +6915,12 @@ def _define_MCI_DGV_LIST_PARMSW():
     MCI_DGV_LIST_PARMSW = win32more.Media.Multimedia.MCI_DGV_LIST_PARMSW_head
     MCI_DGV_LIST_PARMSW._pack_ = 1
     MCI_DGV_LIST_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrReturn", win32more.Foundation.PWSTR),
-        ("dwLength", UInt32),
-        ("dwNumber", UInt32),
-        ("dwItem", UInt32),
-        ("lpstrAlgorithm", win32more.Foundation.PWSTR),
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PWSTR),
+        ('dwLength', UInt32),
+        ('dwNumber', UInt32),
+        ('dwItem', UInt32),
+        ('lpstrAlgorithm', win32more.Foundation.PWSTR),
     ]
     return MCI_DGV_LIST_PARMSW
 def _define_MCI_DGV_MONITOR_PARMS_head():
@@ -6227,9 +6931,9 @@ def _define_MCI_DGV_MONITOR_PARMS():
     MCI_DGV_MONITOR_PARMS = win32more.Media.Multimedia.MCI_DGV_MONITOR_PARMS_head
     MCI_DGV_MONITOR_PARMS._pack_ = 1
     MCI_DGV_MONITOR_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwSource", UInt32),
-        ("dwMethod", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwSource', UInt32),
+        ('dwMethod', UInt32),
     ]
     return MCI_DGV_MONITOR_PARMS
 def _define_MCI_DGV_OPEN_PARMSA_head():
@@ -6240,13 +6944,13 @@ def _define_MCI_DGV_OPEN_PARMSA():
     MCI_DGV_OPEN_PARMSA = win32more.Media.Multimedia.MCI_DGV_OPEN_PARMSA_head
     MCI_DGV_OPEN_PARMSA._pack_ = 1
     MCI_DGV_OPEN_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PSTR),
-        ("lpstrElementName", win32more.Foundation.PSTR),
-        ("lpstrAlias", win32more.Foundation.PSTR),
-        ("dwStyle", UInt32),
-        ("hWndParent", win32more.Foundation.HWND),
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PSTR),
+        ('lpstrElementName', win32more.Foundation.PSTR),
+        ('lpstrAlias', win32more.Foundation.PSTR),
+        ('dwStyle', UInt32),
+        ('hWndParent', win32more.Foundation.HWND),
     ]
     return MCI_DGV_OPEN_PARMSA
 def _define_MCI_DGV_OPEN_PARMSW_head():
@@ -6257,13 +6961,13 @@ def _define_MCI_DGV_OPEN_PARMSW():
     MCI_DGV_OPEN_PARMSW = win32more.Media.Multimedia.MCI_DGV_OPEN_PARMSW_head
     MCI_DGV_OPEN_PARMSW._pack_ = 1
     MCI_DGV_OPEN_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("wDeviceID", UInt32),
-        ("lpstrDeviceType", win32more.Foundation.PWSTR),
-        ("lpstrElementName", win32more.Foundation.PWSTR),
-        ("lpstrAlias", win32more.Foundation.PWSTR),
-        ("dwStyle", UInt32),
-        ("hWndParent", win32more.Foundation.HWND),
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PWSTR),
+        ('lpstrElementName', win32more.Foundation.PWSTR),
+        ('lpstrAlias', win32more.Foundation.PWSTR),
+        ('dwStyle', UInt32),
+        ('hWndParent', win32more.Foundation.HWND),
     ]
     return MCI_DGV_OPEN_PARMSW
 def _define_MCI_DGV_PASTE_PARMS_head():
@@ -6274,11 +6978,11 @@ def _define_MCI_DGV_PASTE_PARMS():
     MCI_DGV_PASTE_PARMS = win32more.Media.Multimedia.MCI_DGV_PASTE_PARMS_head
     MCI_DGV_PASTE_PARMS._pack_ = 1
     MCI_DGV_PASTE_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTo", UInt32),
-        ("rc", win32more.Foundation.RECT),
-        ("dwAudioStream", UInt32),
-        ("dwVideoStream", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwTo', UInt32),
+        ('rc', win32more.Foundation.RECT),
+        ('dwAudioStream', UInt32),
+        ('dwVideoStream', UInt32),
     ]
     return MCI_DGV_PASTE_PARMS
 def _define_MCI_DGV_QUALITY_PARMSA_head():
@@ -6289,11 +6993,11 @@ def _define_MCI_DGV_QUALITY_PARMSA():
     MCI_DGV_QUALITY_PARMSA = win32more.Media.Multimedia.MCI_DGV_QUALITY_PARMSA_head
     MCI_DGV_QUALITY_PARMSA._pack_ = 1
     MCI_DGV_QUALITY_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwItem", UInt32),
-        ("lpstrName", win32more.Foundation.PSTR),
-        ("lpstrAlgorithm", UInt32),
-        ("dwHandle", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwItem', UInt32),
+        ('lpstrName', win32more.Foundation.PSTR),
+        ('lpstrAlgorithm', UInt32),
+        ('dwHandle', UInt32),
     ]
     return MCI_DGV_QUALITY_PARMSA
 def _define_MCI_DGV_QUALITY_PARMSW_head():
@@ -6304,11 +7008,11 @@ def _define_MCI_DGV_QUALITY_PARMSW():
     MCI_DGV_QUALITY_PARMSW = win32more.Media.Multimedia.MCI_DGV_QUALITY_PARMSW_head
     MCI_DGV_QUALITY_PARMSW._pack_ = 1
     MCI_DGV_QUALITY_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwItem", UInt32),
-        ("lpstrName", win32more.Foundation.PWSTR),
-        ("lpstrAlgorithm", UInt32),
-        ("dwHandle", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwItem', UInt32),
+        ('lpstrName', win32more.Foundation.PWSTR),
+        ('lpstrAlgorithm', UInt32),
+        ('dwHandle', UInt32),
     ]
     return MCI_DGV_QUALITY_PARMSW
 def _define_MCI_DGV_RECORD_PARMS_head():
@@ -6319,14 +7023,26 @@ def _define_MCI_DGV_RECORD_PARMS():
     MCI_DGV_RECORD_PARMS = win32more.Media.Multimedia.MCI_DGV_RECORD_PARMS_head
     MCI_DGV_RECORD_PARMS._pack_ = 1
     MCI_DGV_RECORD_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrom", UInt32),
-        ("dwTo", UInt32),
-        ("rc", win32more.Foundation.RECT),
-        ("dwAudioStream", UInt32),
-        ("dwVideoStream", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+        ('rc', win32more.Foundation.RECT),
+        ('dwAudioStream', UInt32),
+        ('dwVideoStream', UInt32),
     ]
     return MCI_DGV_RECORD_PARMS
+def _define_MCI_DGV_RECT_PARMS_head():
+    class MCI_DGV_RECT_PARMS(Structure):
+        pass
+    return MCI_DGV_RECT_PARMS
+def _define_MCI_DGV_RECT_PARMS():
+    MCI_DGV_RECT_PARMS = win32more.Media.Multimedia.MCI_DGV_RECT_PARMS_head
+    MCI_DGV_RECT_PARMS._pack_ = 1
+    MCI_DGV_RECT_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('rc', win32more.Foundation.RECT),
+    ]
+    return MCI_DGV_RECT_PARMS
 def _define_MCI_DGV_RESERVE_PARMSA_head():
     class MCI_DGV_RESERVE_PARMSA(Structure):
         pass
@@ -6335,9 +7051,9 @@ def _define_MCI_DGV_RESERVE_PARMSA():
     MCI_DGV_RESERVE_PARMSA = win32more.Media.Multimedia.MCI_DGV_RESERVE_PARMSA_head
     MCI_DGV_RESERVE_PARMSA._pack_ = 1
     MCI_DGV_RESERVE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrPath", win32more.Foundation.PSTR),
-        ("dwSize", UInt32),
+        ('dwCallback', UIntPtr),
+        ('lpstrPath', win32more.Foundation.PSTR),
+        ('dwSize', UInt32),
     ]
     return MCI_DGV_RESERVE_PARMSA
 def _define_MCI_DGV_RESERVE_PARMSW_head():
@@ -6348,9 +7064,9 @@ def _define_MCI_DGV_RESERVE_PARMSW():
     MCI_DGV_RESERVE_PARMSW = win32more.Media.Multimedia.MCI_DGV_RESERVE_PARMSW_head
     MCI_DGV_RESERVE_PARMSW._pack_ = 1
     MCI_DGV_RESERVE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrPath", win32more.Foundation.PWSTR),
-        ("dwSize", UInt32),
+        ('dwCallback', UIntPtr),
+        ('lpstrPath', win32more.Foundation.PWSTR),
+        ('dwSize', UInt32),
     ]
     return MCI_DGV_RESERVE_PARMSW
 def _define_MCI_DGV_RESTORE_PARMSA_head():
@@ -6361,9 +7077,9 @@ def _define_MCI_DGV_RESTORE_PARMSA():
     MCI_DGV_RESTORE_PARMSA = win32more.Media.Multimedia.MCI_DGV_RESTORE_PARMSA_head
     MCI_DGV_RESTORE_PARMSA._pack_ = 1
     MCI_DGV_RESTORE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrFileName", win32more.Foundation.PSTR),
-        ("rc", win32more.Foundation.RECT),
+        ('dwCallback', UIntPtr),
+        ('lpstrFileName', win32more.Foundation.PSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
     return MCI_DGV_RESTORE_PARMSA
 def _define_MCI_DGV_RESTORE_PARMSW_head():
@@ -6374,9 +7090,9 @@ def _define_MCI_DGV_RESTORE_PARMSW():
     MCI_DGV_RESTORE_PARMSW = win32more.Media.Multimedia.MCI_DGV_RESTORE_PARMSW_head
     MCI_DGV_RESTORE_PARMSW._pack_ = 1
     MCI_DGV_RESTORE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrFileName", win32more.Foundation.PWSTR),
-        ("rc", win32more.Foundation.RECT),
+        ('dwCallback', UIntPtr),
+        ('lpstrFileName', win32more.Foundation.PWSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
     return MCI_DGV_RESTORE_PARMSW
 def _define_MCI_DGV_SAVE_PARMSA_head():
@@ -6387,9 +7103,9 @@ def _define_MCI_DGV_SAVE_PARMSA():
     MCI_DGV_SAVE_PARMSA = win32more.Media.Multimedia.MCI_DGV_SAVE_PARMSA_head
     MCI_DGV_SAVE_PARMSA._pack_ = 1
     MCI_DGV_SAVE_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrFileName", win32more.Foundation.PSTR),
-        ("rc", win32more.Foundation.RECT),
+        ('dwCallback', UIntPtr),
+        ('lpstrFileName', win32more.Foundation.PSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
     return MCI_DGV_SAVE_PARMSA
 def _define_MCI_DGV_SAVE_PARMSW_head():
@@ -6400,9 +7116,9 @@ def _define_MCI_DGV_SAVE_PARMSW():
     MCI_DGV_SAVE_PARMSW = win32more.Media.Multimedia.MCI_DGV_SAVE_PARMSW_head
     MCI_DGV_SAVE_PARMSW._pack_ = 1
     MCI_DGV_SAVE_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("lpstrFileName", win32more.Foundation.PWSTR),
-        ("rc", win32more.Foundation.RECT),
+        ('dwCallback', UIntPtr),
+        ('lpstrFileName', win32more.Foundation.PWSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
     return MCI_DGV_SAVE_PARMSW
 def _define_MCI_DGV_SET_PARMS_head():
@@ -6413,11 +7129,11 @@ def _define_MCI_DGV_SET_PARMS():
     MCI_DGV_SET_PARMS = win32more.Media.Multimedia.MCI_DGV_SET_PARMS_head
     MCI_DGV_SET_PARMS._pack_ = 1
     MCI_DGV_SET_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwTimeFormat", UInt32),
-        ("dwAudio", UInt32),
-        ("dwFileFormat", UInt32),
-        ("dwSpeed", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwTimeFormat', UInt32),
+        ('dwAudio', UInt32),
+        ('dwFileFormat', UInt32),
+        ('dwSpeed', UInt32),
     ]
     return MCI_DGV_SET_PARMS
 def _define_MCI_DGV_SETAUDIO_PARMSA_head():
@@ -6428,12 +7144,12 @@ def _define_MCI_DGV_SETAUDIO_PARMSA():
     MCI_DGV_SETAUDIO_PARMSA = win32more.Media.Multimedia.MCI_DGV_SETAUDIO_PARMSA_head
     MCI_DGV_SETAUDIO_PARMSA._pack_ = 1
     MCI_DGV_SETAUDIO_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwValue", UInt32),
-        ("dwOver", UInt32),
-        ("lpstrAlgorithm", win32more.Foundation.PSTR),
-        ("lpstrQuality", win32more.Foundation.PSTR),
+        ('dwCallback', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwValue', UInt32),
+        ('dwOver', UInt32),
+        ('lpstrAlgorithm', win32more.Foundation.PSTR),
+        ('lpstrQuality', win32more.Foundation.PSTR),
     ]
     return MCI_DGV_SETAUDIO_PARMSA
 def _define_MCI_DGV_SETAUDIO_PARMSW_head():
@@ -6444,28 +7160,14 @@ def _define_MCI_DGV_SETAUDIO_PARMSW():
     MCI_DGV_SETAUDIO_PARMSW = win32more.Media.Multimedia.MCI_DGV_SETAUDIO_PARMSW_head
     MCI_DGV_SETAUDIO_PARMSW._pack_ = 1
     MCI_DGV_SETAUDIO_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwValue", UInt32),
-        ("dwOver", UInt32),
-        ("lpstrAlgorithm", win32more.Foundation.PWSTR),
-        ("lpstrQuality", win32more.Foundation.PWSTR),
+        ('dwCallback', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwValue', UInt32),
+        ('dwOver', UInt32),
+        ('lpstrAlgorithm', win32more.Foundation.PWSTR),
+        ('lpstrQuality', win32more.Foundation.PWSTR),
     ]
     return MCI_DGV_SETAUDIO_PARMSW
-def _define_MCI_DGV_SIGNAL_PARMS_head():
-    class MCI_DGV_SIGNAL_PARMS(Structure):
-        pass
-    return MCI_DGV_SIGNAL_PARMS
-def _define_MCI_DGV_SIGNAL_PARMS():
-    MCI_DGV_SIGNAL_PARMS = win32more.Media.Multimedia.MCI_DGV_SIGNAL_PARMS_head
-    MCI_DGV_SIGNAL_PARMS._pack_ = 1
-    MCI_DGV_SIGNAL_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwPosition", UInt32),
-        ("dwPeriod", UInt32),
-        ("dwUserParm", UInt32),
-    ]
-    return MCI_DGV_SIGNAL_PARMS
 def _define_MCI_DGV_SETVIDEO_PARMSA_head():
     class MCI_DGV_SETVIDEO_PARMSA(Structure):
         pass
@@ -6474,13 +7176,13 @@ def _define_MCI_DGV_SETVIDEO_PARMSA():
     MCI_DGV_SETVIDEO_PARMSA = win32more.Media.Multimedia.MCI_DGV_SETVIDEO_PARMSA_head
     MCI_DGV_SETVIDEO_PARMSA._pack_ = 1
     MCI_DGV_SETVIDEO_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwValue", UInt32),
-        ("dwOver", UInt32),
-        ("lpstrAlgorithm", win32more.Foundation.PSTR),
-        ("lpstrQuality", win32more.Foundation.PSTR),
-        ("dwSourceNumber", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwValue', UInt32),
+        ('dwOver', UInt32),
+        ('lpstrAlgorithm', win32more.Foundation.PSTR),
+        ('lpstrQuality', win32more.Foundation.PSTR),
+        ('dwSourceNumber', UInt32),
     ]
     return MCI_DGV_SETVIDEO_PARMSA
 def _define_MCI_DGV_SETVIDEO_PARMSW_head():
@@ -6491,15 +7193,29 @@ def _define_MCI_DGV_SETVIDEO_PARMSW():
     MCI_DGV_SETVIDEO_PARMSW = win32more.Media.Multimedia.MCI_DGV_SETVIDEO_PARMSW_head
     MCI_DGV_SETVIDEO_PARMSW._pack_ = 1
     MCI_DGV_SETVIDEO_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwValue", UInt32),
-        ("dwOver", UInt32),
-        ("lpstrAlgorithm", win32more.Foundation.PWSTR),
-        ("lpstrQuality", win32more.Foundation.PWSTR),
-        ("dwSourceNumber", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwValue', UInt32),
+        ('dwOver', UInt32),
+        ('lpstrAlgorithm', win32more.Foundation.PWSTR),
+        ('lpstrQuality', win32more.Foundation.PWSTR),
+        ('dwSourceNumber', UInt32),
     ]
     return MCI_DGV_SETVIDEO_PARMSW
+def _define_MCI_DGV_SIGNAL_PARMS_head():
+    class MCI_DGV_SIGNAL_PARMS(Structure):
+        pass
+    return MCI_DGV_SIGNAL_PARMS
+def _define_MCI_DGV_SIGNAL_PARMS():
+    MCI_DGV_SIGNAL_PARMS = win32more.Media.Multimedia.MCI_DGV_SIGNAL_PARMS_head
+    MCI_DGV_SIGNAL_PARMS._pack_ = 1
+    MCI_DGV_SIGNAL_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwPosition', UInt32),
+        ('dwPeriod', UInt32),
+        ('dwUserParm', UInt32),
+    ]
+    return MCI_DGV_SIGNAL_PARMS
 def _define_MCI_DGV_STATUS_PARMSA_head():
     class MCI_DGV_STATUS_PARMSA(Structure):
         pass
@@ -6508,12 +7224,12 @@ def _define_MCI_DGV_STATUS_PARMSA():
     MCI_DGV_STATUS_PARMSA = win32more.Media.Multimedia.MCI_DGV_STATUS_PARMSA_head
     MCI_DGV_STATUS_PARMSA._pack_ = 1
     MCI_DGV_STATUS_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwReturn", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwTrack", UInt32),
-        ("lpstrDrive", win32more.Foundation.PSTR),
-        ("dwReference", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwReturn', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwTrack', UInt32),
+        ('lpstrDrive', win32more.Foundation.PSTR),
+        ('dwReference', UInt32),
     ]
     return MCI_DGV_STATUS_PARMSA
 def _define_MCI_DGV_STATUS_PARMSW_head():
@@ -6524,12 +7240,12 @@ def _define_MCI_DGV_STATUS_PARMSW():
     MCI_DGV_STATUS_PARMSW = win32more.Media.Multimedia.MCI_DGV_STATUS_PARMSW_head
     MCI_DGV_STATUS_PARMSW._pack_ = 1
     MCI_DGV_STATUS_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwReturn", UIntPtr),
-        ("dwItem", UInt32),
-        ("dwTrack", UInt32),
-        ("lpstrDrive", win32more.Foundation.PWSTR),
-        ("dwReference", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwReturn', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwTrack', UInt32),
+        ('lpstrDrive', win32more.Foundation.PWSTR),
+        ('dwReference', UInt32),
     ]
     return MCI_DGV_STATUS_PARMSW
 def _define_MCI_DGV_STEP_PARMS_head():
@@ -6540,8 +7256,8 @@ def _define_MCI_DGV_STEP_PARMS():
     MCI_DGV_STEP_PARMS = win32more.Media.Multimedia.MCI_DGV_STEP_PARMS_head
     MCI_DGV_STEP_PARMS._pack_ = 1
     MCI_DGV_STEP_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("dwFrames", UInt32),
+        ('dwCallback', UIntPtr),
+        ('dwFrames', UInt32),
     ]
     return MCI_DGV_STEP_PARMS
 def _define_MCI_DGV_UPDATE_PARMS_head():
@@ -6552,9 +7268,9 @@ def _define_MCI_DGV_UPDATE_PARMS():
     MCI_DGV_UPDATE_PARMS = win32more.Media.Multimedia.MCI_DGV_UPDATE_PARMS_head
     MCI_DGV_UPDATE_PARMS._pack_ = 1
     MCI_DGV_UPDATE_PARMS._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("rc", win32more.Foundation.RECT),
-        ("hDC", win32more.Graphics.Gdi.HDC),
+        ('dwCallback', UIntPtr),
+        ('rc', win32more.Foundation.RECT),
+        ('hDC', win32more.Graphics.Gdi.HDC),
     ]
     return MCI_DGV_UPDATE_PARMS
 def _define_MCI_DGV_WINDOW_PARMSA_head():
@@ -6565,10 +7281,10 @@ def _define_MCI_DGV_WINDOW_PARMSA():
     MCI_DGV_WINDOW_PARMSA = win32more.Media.Multimedia.MCI_DGV_WINDOW_PARMSA_head
     MCI_DGV_WINDOW_PARMSA._pack_ = 1
     MCI_DGV_WINDOW_PARMSA._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("hWnd", win32more.Foundation.HWND),
-        ("nCmdShow", UInt32),
-        ("lpstrText", win32more.Foundation.PSTR),
+        ('dwCallback', UIntPtr),
+        ('hWnd', win32more.Foundation.HWND),
+        ('nCmdShow', UInt32),
+        ('lpstrText', win32more.Foundation.PSTR),
     ]
     return MCI_DGV_WINDOW_PARMSA
 def _define_MCI_DGV_WINDOW_PARMSW_head():
@@ -6579,617 +7295,525 @@ def _define_MCI_DGV_WINDOW_PARMSW():
     MCI_DGV_WINDOW_PARMSW = win32more.Media.Multimedia.MCI_DGV_WINDOW_PARMSW_head
     MCI_DGV_WINDOW_PARMSW._pack_ = 1
     MCI_DGV_WINDOW_PARMSW._fields_ = [
-        ("dwCallback", UIntPtr),
-        ("hWnd", win32more.Foundation.HWND),
-        ("nCmdShow", UInt32),
-        ("lpstrText", win32more.Foundation.PWSTR),
+        ('dwCallback', UIntPtr),
+        ('hWnd', win32more.Foundation.HWND),
+        ('nCmdShow', UInt32),
+        ('lpstrText', win32more.Foundation.PWSTR),
     ]
     return MCI_DGV_WINDOW_PARMSW
-def _define_ICOPEN_head():
-    class ICOPEN(Structure):
+def _define_MCI_GENERIC_PARMS_head():
+    class MCI_GENERIC_PARMS(Structure):
         pass
-    return ICOPEN
-def _define_ICOPEN():
-    ICOPEN = win32more.Media.Multimedia.ICOPEN_head
-    ICOPEN._fields_ = [
-        ("dwSize", UInt32),
-        ("fccType", UInt32),
-        ("fccHandler", UInt32),
-        ("dwVersion", UInt32),
-        ("dwFlags", UInt32),
-        ("dwError", win32more.Foundation.LRESULT),
-        ("pV1Reserved", c_void_p),
-        ("pV2Reserved", c_void_p),
-        ("dnDevNode", UInt32),
+    return MCI_GENERIC_PARMS
+def _define_MCI_GENERIC_PARMS():
+    MCI_GENERIC_PARMS = win32more.Media.Multimedia.MCI_GENERIC_PARMS_head
+    MCI_GENERIC_PARMS._pack_ = 1
+    MCI_GENERIC_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
     ]
-    return ICOPEN
-def _define_ICINFO_head():
-    class ICINFO(Structure):
+    return MCI_GENERIC_PARMS
+def _define_MCI_GETDEVCAPS_PARMS_head():
+    class MCI_GETDEVCAPS_PARMS(Structure):
         pass
-    return ICINFO
-def _define_ICINFO():
-    ICINFO = win32more.Media.Multimedia.ICINFO_head
-    ICINFO._fields_ = [
-        ("dwSize", UInt32),
-        ("fccType", UInt32),
-        ("fccHandler", UInt32),
-        ("dwFlags", UInt32),
-        ("dwVersion", UInt32),
-        ("dwVersionICM", UInt32),
-        ("szName", Char * 16),
-        ("szDescription", Char * 128),
-        ("szDriver", Char * 128),
+    return MCI_GETDEVCAPS_PARMS
+def _define_MCI_GETDEVCAPS_PARMS():
+    MCI_GETDEVCAPS_PARMS = win32more.Media.Multimedia.MCI_GETDEVCAPS_PARMS_head
+    MCI_GETDEVCAPS_PARMS._pack_ = 1
+    MCI_GETDEVCAPS_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwReturn', UInt32),
+        ('dwItem', UInt32),
     ]
-    return ICINFO
-def _define_ICCOMPRESS_head():
-    class ICCOMPRESS(Structure):
+    return MCI_GETDEVCAPS_PARMS
+def _define_MCI_INFO_PARMSA_head():
+    class MCI_INFO_PARMSA(Structure):
         pass
-    return ICCOMPRESS
-def _define_ICCOMPRESS():
-    ICCOMPRESS = win32more.Media.Multimedia.ICCOMPRESS_head
-    ICCOMPRESS._fields_ = [
-        ("dwFlags", UInt32),
-        ("lpbiOutput", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpOutput", c_void_p),
-        ("lpbiInput", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpInput", c_void_p),
-        ("lpckid", POINTER(UInt32)),
-        ("lpdwFlags", POINTER(UInt32)),
-        ("lFrameNum", Int32),
-        ("dwFrameSize", UInt32),
-        ("dwQuality", UInt32),
-        ("lpbiPrev", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpPrev", c_void_p),
+    return MCI_INFO_PARMSA
+def _define_MCI_INFO_PARMSA():
+    MCI_INFO_PARMSA = win32more.Media.Multimedia.MCI_INFO_PARMSA_head
+    MCI_INFO_PARMSA._pack_ = 1
+    MCI_INFO_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PSTR),
+        ('dwRetSize', UInt32),
     ]
-    return ICCOMPRESS
-def _define_ICCOMPRESSFRAMES_head():
-    class ICCOMPRESSFRAMES(Structure):
+    return MCI_INFO_PARMSA
+def _define_MCI_INFO_PARMSW_head():
+    class MCI_INFO_PARMSW(Structure):
         pass
-    return ICCOMPRESSFRAMES
-def _define_ICCOMPRESSFRAMES():
-    ICCOMPRESSFRAMES = win32more.Media.Multimedia.ICCOMPRESSFRAMES_head
-    ICCOMPRESSFRAMES._fields_ = [
-        ("dwFlags", UInt32),
-        ("lpbiOutput", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lOutput", win32more.Foundation.LPARAM),
-        ("lpbiInput", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lInput", win32more.Foundation.LPARAM),
-        ("lStartFrame", Int32),
-        ("lFrameCount", Int32),
-        ("lQuality", Int32),
-        ("lDataRate", Int32),
-        ("lKeyRate", Int32),
-        ("dwRate", UInt32),
-        ("dwScale", UInt32),
-        ("dwOverheadPerFrame", UInt32),
-        ("dwReserved2", UInt32),
-        ("GetData", IntPtr),
-        ("PutData", IntPtr),
+    return MCI_INFO_PARMSW
+def _define_MCI_INFO_PARMSW():
+    MCI_INFO_PARMSW = win32more.Media.Multimedia.MCI_INFO_PARMSW_head
+    MCI_INFO_PARMSW._pack_ = 1
+    MCI_INFO_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PWSTR),
+        ('dwRetSize', UInt32),
     ]
-    return ICCOMPRESSFRAMES
-def _define_ICSETSTATUSPROC_head():
-    class ICSETSTATUSPROC(Structure):
+    return MCI_INFO_PARMSW
+def _define_MCI_LOAD_PARMSA_head():
+    class MCI_LOAD_PARMSA(Structure):
         pass
-    return ICSETSTATUSPROC
-def _define_ICSETSTATUSPROC():
-    ICSETSTATUSPROC = win32more.Media.Multimedia.ICSETSTATUSPROC_head
-    ICSETSTATUSPROC._fields_ = [
-        ("dwFlags", UInt32),
-        ("lParam", win32more.Foundation.LPARAM),
-        ("Status", IntPtr),
+    return MCI_LOAD_PARMSA
+def _define_MCI_LOAD_PARMSA():
+    MCI_LOAD_PARMSA = win32more.Media.Multimedia.MCI_LOAD_PARMSA_head
+    MCI_LOAD_PARMSA._pack_ = 1
+    MCI_LOAD_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PSTR),
     ]
-    return ICSETSTATUSPROC
-def _define_ICDECOMPRESS_head():
-    class ICDECOMPRESS(Structure):
+    return MCI_LOAD_PARMSA
+def _define_MCI_LOAD_PARMSW_head():
+    class MCI_LOAD_PARMSW(Structure):
         pass
-    return ICDECOMPRESS
-def _define_ICDECOMPRESS():
-    ICDECOMPRESS = win32more.Media.Multimedia.ICDECOMPRESS_head
-    ICDECOMPRESS._fields_ = [
-        ("dwFlags", UInt32),
-        ("lpbiInput", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpInput", c_void_p),
-        ("lpbiOutput", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpOutput", c_void_p),
-        ("ckid", UInt32),
+    return MCI_LOAD_PARMSW
+def _define_MCI_LOAD_PARMSW():
+    MCI_LOAD_PARMSW = win32more.Media.Multimedia.MCI_LOAD_PARMSW_head
+    MCI_LOAD_PARMSW._pack_ = 1
+    MCI_LOAD_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PWSTR),
     ]
-    return ICDECOMPRESS
-def _define_ICDECOMPRESSEX_head():
-    class ICDECOMPRESSEX(Structure):
+    return MCI_LOAD_PARMSW
+def _define_MCI_OPEN_DRIVER_PARMS_head():
+    class MCI_OPEN_DRIVER_PARMS(Structure):
         pass
-    return ICDECOMPRESSEX
-def _define_ICDECOMPRESSEX():
-    ICDECOMPRESSEX = win32more.Media.Multimedia.ICDECOMPRESSEX_head
-    ICDECOMPRESSEX._fields_ = [
-        ("dwFlags", UInt32),
-        ("lpbiSrc", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpSrc", c_void_p),
-        ("lpbiDst", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpDst", c_void_p),
-        ("xDst", Int32),
-        ("yDst", Int32),
-        ("dxDst", Int32),
-        ("dyDst", Int32),
-        ("xSrc", Int32),
-        ("ySrc", Int32),
-        ("dxSrc", Int32),
-        ("dySrc", Int32),
+    return MCI_OPEN_DRIVER_PARMS
+def _define_MCI_OPEN_DRIVER_PARMS():
+    MCI_OPEN_DRIVER_PARMS = win32more.Media.Multimedia.MCI_OPEN_DRIVER_PARMS_head
+    MCI_OPEN_DRIVER_PARMS._pack_ = 1
+    MCI_OPEN_DRIVER_PARMS._fields_ = [
+        ('wDeviceID', UInt32),
+        ('lpstrParams', win32more.Foundation.PWSTR),
+        ('wCustomCommandTable', UInt32),
+        ('wType', UInt32),
     ]
-    return ICDECOMPRESSEX
-def _define_ICDRAWBEGIN_head():
-    class ICDRAWBEGIN(Structure):
+    return MCI_OPEN_DRIVER_PARMS
+def _define_MCI_OPEN_PARMSA_head():
+    class MCI_OPEN_PARMSA(Structure):
         pass
-    return ICDRAWBEGIN
-def _define_ICDRAWBEGIN():
-    ICDRAWBEGIN = win32more.Media.Multimedia.ICDRAWBEGIN_head
-    ICDRAWBEGIN._fields_ = [
-        ("dwFlags", UInt32),
-        ("hpal", win32more.Graphics.Gdi.HPALETTE),
-        ("hwnd", win32more.Foundation.HWND),
-        ("hdc", win32more.Graphics.Gdi.HDC),
-        ("xDst", Int32),
-        ("yDst", Int32),
-        ("dxDst", Int32),
-        ("dyDst", Int32),
-        ("lpbi", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("xSrc", Int32),
-        ("ySrc", Int32),
-        ("dxSrc", Int32),
-        ("dySrc", Int32),
-        ("dwRate", UInt32),
-        ("dwScale", UInt32),
+    return MCI_OPEN_PARMSA
+def _define_MCI_OPEN_PARMSA():
+    MCI_OPEN_PARMSA = win32more.Media.Multimedia.MCI_OPEN_PARMSA_head
+    MCI_OPEN_PARMSA._pack_ = 1
+    MCI_OPEN_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PSTR),
+        ('lpstrElementName', win32more.Foundation.PSTR),
+        ('lpstrAlias', win32more.Foundation.PSTR),
     ]
-    return ICDRAWBEGIN
-def _define_ICDRAW_head():
-    class ICDRAW(Structure):
+    return MCI_OPEN_PARMSA
+def _define_MCI_OPEN_PARMSW_head():
+    class MCI_OPEN_PARMSW(Structure):
         pass
-    return ICDRAW
-def _define_ICDRAW():
-    ICDRAW = win32more.Media.Multimedia.ICDRAW_head
-    ICDRAW._fields_ = [
-        ("dwFlags", UInt32),
-        ("lpFormat", c_void_p),
-        ("lpData", c_void_p),
-        ("cbData", UInt32),
-        ("lTime", Int32),
+    return MCI_OPEN_PARMSW
+def _define_MCI_OPEN_PARMSW():
+    MCI_OPEN_PARMSW = win32more.Media.Multimedia.MCI_OPEN_PARMSW_head
+    MCI_OPEN_PARMSW._pack_ = 1
+    MCI_OPEN_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PWSTR),
+        ('lpstrElementName', win32more.Foundation.PWSTR),
+        ('lpstrAlias', win32more.Foundation.PWSTR),
     ]
-    return ICDRAW
-def _define_ICDRAWSUGGEST_head():
-    class ICDRAWSUGGEST(Structure):
+    return MCI_OPEN_PARMSW
+def _define_MCI_OVLY_LOAD_PARMSA_head():
+    class MCI_OVLY_LOAD_PARMSA(Structure):
         pass
-    return ICDRAWSUGGEST
-def _define_ICDRAWSUGGEST():
-    ICDRAWSUGGEST = win32more.Media.Multimedia.ICDRAWSUGGEST_head
-    ICDRAWSUGGEST._fields_ = [
-        ("lpbiIn", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("lpbiSuggest", POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head)),
-        ("dxSrc", Int32),
-        ("dySrc", Int32),
-        ("dxDst", Int32),
-        ("dyDst", Int32),
-        ("hicDecompressor", win32more.Media.Multimedia.HIC),
+    return MCI_OVLY_LOAD_PARMSA
+def _define_MCI_OVLY_LOAD_PARMSA():
+    MCI_OVLY_LOAD_PARMSA = win32more.Media.Multimedia.MCI_OVLY_LOAD_PARMSA_head
+    MCI_OVLY_LOAD_PARMSA._pack_ = 1
+    MCI_OVLY_LOAD_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
-    return ICDRAWSUGGEST
-def _define_ICPALETTE_head():
-    class ICPALETTE(Structure):
+    return MCI_OVLY_LOAD_PARMSA
+def _define_MCI_OVLY_LOAD_PARMSW_head():
+    class MCI_OVLY_LOAD_PARMSW(Structure):
         pass
-    return ICPALETTE
-def _define_ICPALETTE():
-    ICPALETTE = win32more.Media.Multimedia.ICPALETTE_head
-    ICPALETTE._fields_ = [
-        ("dwFlags", UInt32),
-        ("iStart", Int32),
-        ("iLen", Int32),
-        ("lppe", POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)),
+    return MCI_OVLY_LOAD_PARMSW
+def _define_MCI_OVLY_LOAD_PARMSW():
+    MCI_OVLY_LOAD_PARMSW = win32more.Media.Multimedia.MCI_OVLY_LOAD_PARMSW_head
+    MCI_OVLY_LOAD_PARMSW._pack_ = 1
+    MCI_OVLY_LOAD_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PWSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
-    return ICPALETTE
-def _define_COMPVARS_head():
-    class COMPVARS(Structure):
+    return MCI_OVLY_LOAD_PARMSW
+def _define_MCI_OVLY_OPEN_PARMSA_head():
+    class MCI_OVLY_OPEN_PARMSA(Structure):
         pass
-    return COMPVARS
-def _define_COMPVARS():
-    COMPVARS = win32more.Media.Multimedia.COMPVARS_head
-    COMPVARS._fields_ = [
-        ("cbSize", Int32),
-        ("dwFlags", UInt32),
-        ("hic", win32more.Media.Multimedia.HIC),
-        ("fccType", UInt32),
-        ("fccHandler", UInt32),
-        ("lpbiIn", POINTER(win32more.Graphics.Gdi.BITMAPINFO_head)),
-        ("lpbiOut", POINTER(win32more.Graphics.Gdi.BITMAPINFO_head)),
-        ("lpBitsOut", c_void_p),
-        ("lpBitsPrev", c_void_p),
-        ("lFrame", Int32),
-        ("lKey", Int32),
-        ("lDataRate", Int32),
-        ("lQ", Int32),
-        ("lKeyCount", Int32),
-        ("lpState", c_void_p),
-        ("cbState", Int32),
+    return MCI_OVLY_OPEN_PARMSA
+def _define_MCI_OVLY_OPEN_PARMSA():
+    MCI_OVLY_OPEN_PARMSA = win32more.Media.Multimedia.MCI_OVLY_OPEN_PARMSA_head
+    MCI_OVLY_OPEN_PARMSA._pack_ = 1
+    MCI_OVLY_OPEN_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PSTR),
+        ('lpstrElementName', win32more.Foundation.PSTR),
+        ('lpstrAlias', win32more.Foundation.PSTR),
+        ('dwStyle', UInt32),
+        ('hWndParent', win32more.Foundation.HWND),
     ]
-    return COMPVARS
-def _define_DRAWDIBTIME_head():
-    class DRAWDIBTIME(Structure):
+    return MCI_OVLY_OPEN_PARMSA
+def _define_MCI_OVLY_OPEN_PARMSW_head():
+    class MCI_OVLY_OPEN_PARMSW(Structure):
         pass
-    return DRAWDIBTIME
-def _define_DRAWDIBTIME():
-    DRAWDIBTIME = win32more.Media.Multimedia.DRAWDIBTIME_head
-    DRAWDIBTIME._fields_ = [
-        ("timeCount", Int32),
-        ("timeDraw", Int32),
-        ("timeDecompress", Int32),
-        ("timeDither", Int32),
-        ("timeStretch", Int32),
-        ("timeBlt", Int32),
-        ("timeSetDIBits", Int32),
+    return MCI_OVLY_OPEN_PARMSW
+def _define_MCI_OVLY_OPEN_PARMSW():
+    MCI_OVLY_OPEN_PARMSW = win32more.Media.Multimedia.MCI_OVLY_OPEN_PARMSW_head
+    MCI_OVLY_OPEN_PARMSW._pack_ = 1
+    MCI_OVLY_OPEN_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PWSTR),
+        ('lpstrElementName', win32more.Foundation.PWSTR),
+        ('lpstrAlias', win32more.Foundation.PWSTR),
+        ('dwStyle', UInt32),
+        ('hWndParent', win32more.Foundation.HWND),
     ]
-    return DRAWDIBTIME
-def _define_AVISTREAMINFOW_head():
-    class AVISTREAMINFOW(Structure):
+    return MCI_OVLY_OPEN_PARMSW
+def _define_MCI_OVLY_RECT_PARMS_head():
+    class MCI_OVLY_RECT_PARMS(Structure):
         pass
-    return AVISTREAMINFOW
-def _define_AVISTREAMINFOW():
-    AVISTREAMINFOW = win32more.Media.Multimedia.AVISTREAMINFOW_head
-    AVISTREAMINFOW._fields_ = [
-        ("fccType", UInt32),
-        ("fccHandler", UInt32),
-        ("dwFlags", UInt32),
-        ("dwCaps", UInt32),
-        ("wPriority", UInt16),
-        ("wLanguage", UInt16),
-        ("dwScale", UInt32),
-        ("dwRate", UInt32),
-        ("dwStart", UInt32),
-        ("dwLength", UInt32),
-        ("dwInitialFrames", UInt32),
-        ("dwSuggestedBufferSize", UInt32),
-        ("dwQuality", UInt32),
-        ("dwSampleSize", UInt32),
-        ("rcFrame", win32more.Foundation.RECT),
-        ("dwEditCount", UInt32),
-        ("dwFormatChangeCount", UInt32),
-        ("szName", Char * 64),
+    return MCI_OVLY_RECT_PARMS
+def _define_MCI_OVLY_RECT_PARMS():
+    MCI_OVLY_RECT_PARMS = win32more.Media.Multimedia.MCI_OVLY_RECT_PARMS_head
+    MCI_OVLY_RECT_PARMS._pack_ = 1
+    MCI_OVLY_RECT_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('rc', win32more.Foundation.RECT),
     ]
-    return AVISTREAMINFOW
-def _define_AVISTREAMINFOA_head():
-    class AVISTREAMINFOA(Structure):
+    return MCI_OVLY_RECT_PARMS
+def _define_MCI_OVLY_SAVE_PARMSA_head():
+    class MCI_OVLY_SAVE_PARMSA(Structure):
         pass
-    return AVISTREAMINFOA
-def _define_AVISTREAMINFOA():
-    AVISTREAMINFOA = win32more.Media.Multimedia.AVISTREAMINFOA_head
-    AVISTREAMINFOA._fields_ = [
-        ("fccType", UInt32),
-        ("fccHandler", UInt32),
-        ("dwFlags", UInt32),
-        ("dwCaps", UInt32),
-        ("wPriority", UInt16),
-        ("wLanguage", UInt16),
-        ("dwScale", UInt32),
-        ("dwRate", UInt32),
-        ("dwStart", UInt32),
-        ("dwLength", UInt32),
-        ("dwInitialFrames", UInt32),
-        ("dwSuggestedBufferSize", UInt32),
-        ("dwQuality", UInt32),
-        ("dwSampleSize", UInt32),
-        ("rcFrame", win32more.Foundation.RECT),
-        ("dwEditCount", UInt32),
-        ("dwFormatChangeCount", UInt32),
-        ("szName", win32more.Foundation.CHAR * 64),
+    return MCI_OVLY_SAVE_PARMSA
+def _define_MCI_OVLY_SAVE_PARMSA():
+    MCI_OVLY_SAVE_PARMSA = win32more.Media.Multimedia.MCI_OVLY_SAVE_PARMSA_head
+    MCI_OVLY_SAVE_PARMSA._pack_ = 1
+    MCI_OVLY_SAVE_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
-    return AVISTREAMINFOA
-def _define_AVIFILEINFOW_head():
-    class AVIFILEINFOW(Structure):
+    return MCI_OVLY_SAVE_PARMSA
+def _define_MCI_OVLY_SAVE_PARMSW_head():
+    class MCI_OVLY_SAVE_PARMSW(Structure):
         pass
-    return AVIFILEINFOW
-def _define_AVIFILEINFOW():
-    AVIFILEINFOW = win32more.Media.Multimedia.AVIFILEINFOW_head
-    AVIFILEINFOW._fields_ = [
-        ("dwMaxBytesPerSec", UInt32),
-        ("dwFlags", UInt32),
-        ("dwCaps", UInt32),
-        ("dwStreams", UInt32),
-        ("dwSuggestedBufferSize", UInt32),
-        ("dwWidth", UInt32),
-        ("dwHeight", UInt32),
-        ("dwScale", UInt32),
-        ("dwRate", UInt32),
-        ("dwLength", UInt32),
-        ("dwEditCount", UInt32),
-        ("szFileType", Char * 64),
+    return MCI_OVLY_SAVE_PARMSW
+def _define_MCI_OVLY_SAVE_PARMSW():
+    MCI_OVLY_SAVE_PARMSW = win32more.Media.Multimedia.MCI_OVLY_SAVE_PARMSW_head
+    MCI_OVLY_SAVE_PARMSW._pack_ = 1
+    MCI_OVLY_SAVE_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PWSTR),
+        ('rc', win32more.Foundation.RECT),
     ]
-    return AVIFILEINFOW
-def _define_AVIFILEINFOA_head():
-    class AVIFILEINFOA(Structure):
+    return MCI_OVLY_SAVE_PARMSW
+def _define_MCI_OVLY_WINDOW_PARMSA_head():
+    class MCI_OVLY_WINDOW_PARMSA(Structure):
         pass
-    return AVIFILEINFOA
-def _define_AVIFILEINFOA():
-    AVIFILEINFOA = win32more.Media.Multimedia.AVIFILEINFOA_head
-    AVIFILEINFOA._fields_ = [
-        ("dwMaxBytesPerSec", UInt32),
-        ("dwFlags", UInt32),
-        ("dwCaps", UInt32),
-        ("dwStreams", UInt32),
-        ("dwSuggestedBufferSize", UInt32),
-        ("dwWidth", UInt32),
-        ("dwHeight", UInt32),
-        ("dwScale", UInt32),
-        ("dwRate", UInt32),
-        ("dwLength", UInt32),
-        ("dwEditCount", UInt32),
-        ("szFileType", win32more.Foundation.CHAR * 64),
+    return MCI_OVLY_WINDOW_PARMSA
+def _define_MCI_OVLY_WINDOW_PARMSA():
+    MCI_OVLY_WINDOW_PARMSA = win32more.Media.Multimedia.MCI_OVLY_WINDOW_PARMSA_head
+    MCI_OVLY_WINDOW_PARMSA._pack_ = 1
+    MCI_OVLY_WINDOW_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('hWnd', win32more.Foundation.HWND),
+        ('nCmdShow', UInt32),
+        ('lpstrText', win32more.Foundation.PSTR),
     ]
-    return AVIFILEINFOA
-def _define_AVISAVECALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,Int32, use_last_error=False)
-def _define_AVICOMPRESSOPTIONS_head():
-    class AVICOMPRESSOPTIONS(Structure):
+    return MCI_OVLY_WINDOW_PARMSA
+def _define_MCI_OVLY_WINDOW_PARMSW_head():
+    class MCI_OVLY_WINDOW_PARMSW(Structure):
         pass
-    return AVICOMPRESSOPTIONS
-def _define_AVICOMPRESSOPTIONS():
-    AVICOMPRESSOPTIONS = win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head
-    AVICOMPRESSOPTIONS._fields_ = [
-        ("fccType", UInt32),
-        ("fccHandler", UInt32),
-        ("dwKeyFrameEvery", UInt32),
-        ("dwQuality", UInt32),
-        ("dwBytesPerSecond", UInt32),
-        ("dwFlags", UInt32),
-        ("lpFormat", c_void_p),
-        ("cbFormat", UInt32),
-        ("lpParms", c_void_p),
-        ("cbParms", UInt32),
-        ("dwInterleaveEvery", UInt32),
+    return MCI_OVLY_WINDOW_PARMSW
+def _define_MCI_OVLY_WINDOW_PARMSW():
+    MCI_OVLY_WINDOW_PARMSW = win32more.Media.Multimedia.MCI_OVLY_WINDOW_PARMSW_head
+    MCI_OVLY_WINDOW_PARMSW._pack_ = 1
+    MCI_OVLY_WINDOW_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('hWnd', win32more.Foundation.HWND),
+        ('nCmdShow', UInt32),
+        ('lpstrText', win32more.Foundation.PWSTR),
     ]
-    return AVICOMPRESSOPTIONS
-def _define_IAVIStream_head():
-    class IAVIStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00020021-0000-0000-c000-000000000046')
-    return IAVIStream
-def _define_IAVIStream():
-    IAVIStream = win32more.Media.Multimedia.IAVIStream_head
-    IAVIStream.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(3, 'Create', ((1, 'lParam1'),(1, 'lParam2'),)))
-    IAVIStream.Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(4, 'Info', ((1, 'psi'),(1, 'lSize'),)))
-    IAVIStream.FindSample = COMMETHOD(WINFUNCTYPE(Int32,Int32,Int32, use_last_error=False)(5, 'FindSample', ((1, 'lPos'),(1, 'lFlags'),)))
-    IAVIStream.ReadFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,c_void_p,POINTER(Int32), use_last_error=False)(6, 'ReadFormat', ((1, 'lPos'),(1, 'lpFormat'),(1, 'lpcbFormat'),)))
-    IAVIStream.SetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,c_void_p,Int32, use_last_error=False)(7, 'SetFormat', ((1, 'lPos'),(1, 'lpFormat'),(1, 'cbFormat'),)))
-    IAVIStream.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,c_void_p,Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(8, 'Read', ((1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'plBytes'),(1, 'plSamples'),)))
-    IAVIStream.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,c_void_p,Int32,UInt32,POINTER(Int32),POINTER(Int32), use_last_error=False)(9, 'Write', ((1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'dwFlags'),(1, 'plSampWritten'),(1, 'plBytesWritten'),)))
-    IAVIStream.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(10, 'Delete', ((1, 'lStart'),(1, 'lSamples'),)))
-    IAVIStream.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(11, 'ReadData', ((1, 'fcc'),(1, 'lp'),(1, 'lpcb'),)))
-    IAVIStream.WriteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,Int32, use_last_error=False)(12, 'WriteData', ((1, 'fcc'),(1, 'lp'),(1, 'cb'),)))
-    IAVIStream.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(13, 'SetInfo', ((1, 'lpInfo'),(1, 'cbInfo'),)))
-    win32more.System.Com.IUnknown
-    return IAVIStream
-def _define_IAVIStreaming_head():
-    class IAVIStreaming(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00020022-0000-0000-c000-000000000046')
-    return IAVIStreaming
-def _define_IAVIStreaming():
-    IAVIStreaming = win32more.Media.Multimedia.IAVIStreaming_head
-    IAVIStreaming.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32, use_last_error=False)(3, 'Begin', ((1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),)))
-    IAVIStreaming.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'End', ()))
-    win32more.System.Com.IUnknown
-    return IAVIStreaming
-def _define_IAVIEditStream_head():
-    class IAVIEditStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00020024-0000-0000-c000-000000000046')
-    return IAVIEditStream
-def _define_IAVIEditStream():
-    IAVIEditStream = win32more.Media.Multimedia.IAVIEditStream_head
-    IAVIEditStream.Cut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(3, 'Cut', ((1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),)))
-    IAVIEditStream.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(4, 'Copy', ((1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),)))
-    IAVIEditStream.Paste = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),win32more.Media.Multimedia.IAVIStream_head,Int32,Int32, use_last_error=False)(5, 'Paste', ((1, 'plPos'),(1, 'plLength'),(1, 'pstream'),(1, 'lStart'),(1, 'lEnd'),)))
-    IAVIEditStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(6, 'Clone', ((1, 'ppResult'),)))
-    IAVIEditStream.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(7, 'SetInfo', ((1, 'lpInfo'),(1, 'cbInfo'),)))
-    win32more.System.Com.IUnknown
-    return IAVIEditStream
-def _define_IAVIPersistFile_head():
-    class IAVIPersistFile(win32more.System.Com.IPersistFile_head):
-        Guid = Guid('00020025-0000-0000-c000-000000000046')
-    return IAVIPersistFile
-def _define_IAVIPersistFile():
-    IAVIPersistFile = win32more.Media.Multimedia.IAVIPersistFile_head
-    IAVIPersistFile.Reserved1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Reserved1', ()))
-    win32more.System.Com.IPersistFile
-    return IAVIPersistFile
-def _define_IAVIFile_head():
-    class IAVIFile(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00020020-0000-0000-c000-000000000046')
-    return IAVIFile
-def _define_IAVIFile():
-    IAVIFile = win32more.Media.Multimedia.IAVIFile_head
-    IAVIFile.Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVIFILEINFOW_head),Int32, use_last_error=False)(3, 'Info', ((1, 'pfi'),(1, 'lSize'),)))
-    IAVIFile.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),UInt32,Int32, use_last_error=False)(4, 'GetStream', ((1, 'ppStream'),(1, 'fccType'),(1, 'lParam'),)))
-    IAVIFile.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head), use_last_error=False)(5, 'CreateStream', ((1, 'ppStream'),(1, 'psi'),)))
-    IAVIFile.WriteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,Int32, use_last_error=False)(6, 'WriteData', ((1, 'ckid'),(1, 'lpData'),(1, 'cbData'),)))
-    IAVIFile.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(7, 'ReadData', ((1, 'ckid'),(1, 'lpData'),(1, 'lpcbData'),)))
-    IAVIFile.EndRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'EndRecord', ()))
-    IAVIFile.DeleteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32, use_last_error=False)(9, 'DeleteStream', ((1, 'fccType'),(1, 'lParam'),)))
-    win32more.System.Com.IUnknown
-    return IAVIFile
-def _define_IGetFrame_head():
-    class IGetFrame(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00020023-0000-0000-c000-000000000046')
-    return IGetFrame
-def _define_IGetFrame():
-    IGetFrame = win32more.Media.Multimedia.IGetFrame_head
-    IGetFrame.GetFrame = COMMETHOD(WINFUNCTYPE(c_void_p,Int32, use_last_error=False)(3, 'GetFrame', ((1, 'lPos'),)))
-    IGetFrame.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32, use_last_error=False)(4, 'Begin', ((1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),)))
-    IGetFrame.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'End', ()))
-    IGetFrame.SetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,Int32,Int32,Int32,Int32, use_last_error=False)(6, 'SetFormat', ((1, 'lpbi'),(1, 'lpBits'),(1, 'x'),(1, 'y'),(1, 'dx'),(1, 'dy'),)))
-    win32more.System.Com.IUnknown
-    return IGetFrame
-def _define_VIDEOHDR_head():
-    class VIDEOHDR(Structure):
+    return MCI_OVLY_WINDOW_PARMSW
+def _define_MCI_PLAY_PARMS_head():
+    class MCI_PLAY_PARMS(Structure):
         pass
-    return VIDEOHDR
-def _define_VIDEOHDR():
-    VIDEOHDR = win32more.Media.Multimedia.VIDEOHDR_head
-    VIDEOHDR._fields_ = [
-        ("lpData", c_char_p_no),
-        ("dwBufferLength", UInt32),
-        ("dwBytesUsed", UInt32),
-        ("dwTimeCaptured", UInt32),
-        ("dwUser", UIntPtr),
-        ("dwFlags", UInt32),
-        ("dwReserved", UIntPtr * 4),
+    return MCI_PLAY_PARMS
+def _define_MCI_PLAY_PARMS():
+    MCI_PLAY_PARMS = win32more.Media.Multimedia.MCI_PLAY_PARMS_head
+    MCI_PLAY_PARMS._pack_ = 1
+    MCI_PLAY_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
     ]
-    return VIDEOHDR
-def _define_CHANNEL_CAPS_head():
-    class CHANNEL_CAPS(Structure):
+    return MCI_PLAY_PARMS
+def _define_MCI_RECORD_PARMS_head():
+    class MCI_RECORD_PARMS(Structure):
         pass
-    return CHANNEL_CAPS
-def _define_CHANNEL_CAPS():
-    CHANNEL_CAPS = win32more.Media.Multimedia.CHANNEL_CAPS_head
-    CHANNEL_CAPS._fields_ = [
-        ("dwFlags", UInt32),
-        ("dwSrcRectXMod", UInt32),
-        ("dwSrcRectYMod", UInt32),
-        ("dwSrcRectWidthMod", UInt32),
-        ("dwSrcRectHeightMod", UInt32),
-        ("dwDstRectXMod", UInt32),
-        ("dwDstRectYMod", UInt32),
-        ("dwDstRectWidthMod", UInt32),
-        ("dwDstRectHeightMod", UInt32),
+    return MCI_RECORD_PARMS
+def _define_MCI_RECORD_PARMS():
+    MCI_RECORD_PARMS = win32more.Media.Multimedia.MCI_RECORD_PARMS_head
+    MCI_RECORD_PARMS._pack_ = 1
+    MCI_RECORD_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
     ]
-    return CHANNEL_CAPS
-def _define_CAPDRIVERCAPS_head():
-    class CAPDRIVERCAPS(Structure):
+    return MCI_RECORD_PARMS
+def _define_MCI_SAVE_PARMSA_head():
+    class MCI_SAVE_PARMSA(Structure):
         pass
-    return CAPDRIVERCAPS
-def _define_CAPDRIVERCAPS():
-    CAPDRIVERCAPS = win32more.Media.Multimedia.CAPDRIVERCAPS_head
-    CAPDRIVERCAPS._fields_ = [
-        ("wDeviceIndex", UInt32),
-        ("fHasOverlay", win32more.Foundation.BOOL),
-        ("fHasDlgVideoSource", win32more.Foundation.BOOL),
-        ("fHasDlgVideoFormat", win32more.Foundation.BOOL),
-        ("fHasDlgVideoDisplay", win32more.Foundation.BOOL),
-        ("fCaptureInitialized", win32more.Foundation.BOOL),
-        ("fDriverSuppliesPalettes", win32more.Foundation.BOOL),
-        ("hVideoIn", win32more.Foundation.HANDLE),
-        ("hVideoOut", win32more.Foundation.HANDLE),
-        ("hVideoExtIn", win32more.Foundation.HANDLE),
-        ("hVideoExtOut", win32more.Foundation.HANDLE),
+    return MCI_SAVE_PARMSA
+def _define_MCI_SAVE_PARMSA():
+    MCI_SAVE_PARMSA = win32more.Media.Multimedia.MCI_SAVE_PARMSA_head
+    MCI_SAVE_PARMSA._pack_ = 1
+    MCI_SAVE_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PSTR),
     ]
-    return CAPDRIVERCAPS
-def _define_CAPSTATUS_head():
-    class CAPSTATUS(Structure):
+    return MCI_SAVE_PARMSA
+def _define_MCI_SAVE_PARMSW_head():
+    class MCI_SAVE_PARMSW(Structure):
         pass
-    return CAPSTATUS
-def _define_CAPSTATUS():
-    CAPSTATUS = win32more.Media.Multimedia.CAPSTATUS_head
-    CAPSTATUS._fields_ = [
-        ("uiImageWidth", UInt32),
-        ("uiImageHeight", UInt32),
-        ("fLiveWindow", win32more.Foundation.BOOL),
-        ("fOverlayWindow", win32more.Foundation.BOOL),
-        ("fScale", win32more.Foundation.BOOL),
-        ("ptScroll", win32more.Foundation.POINT),
-        ("fUsingDefaultPalette", win32more.Foundation.BOOL),
-        ("fAudioHardware", win32more.Foundation.BOOL),
-        ("fCapFileExists", win32more.Foundation.BOOL),
-        ("dwCurrentVideoFrame", UInt32),
-        ("dwCurrentVideoFramesDropped", UInt32),
-        ("dwCurrentWaveSamples", UInt32),
-        ("dwCurrentTimeElapsedMS", UInt32),
-        ("hPalCurrent", win32more.Graphics.Gdi.HPALETTE),
-        ("fCapturingNow", win32more.Foundation.BOOL),
-        ("dwReturn", UInt32),
-        ("wNumVideoAllocated", UInt32),
-        ("wNumAudioAllocated", UInt32),
+    return MCI_SAVE_PARMSW
+def _define_MCI_SAVE_PARMSW():
+    MCI_SAVE_PARMSW = win32more.Media.Multimedia.MCI_SAVE_PARMSW_head
+    MCI_SAVE_PARMSW._pack_ = 1
+    MCI_SAVE_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpfilename', win32more.Foundation.PWSTR),
     ]
-    return CAPSTATUS
-def _define_CAPTUREPARMS_head():
-    class CAPTUREPARMS(Structure):
+    return MCI_SAVE_PARMSW
+def _define_MCI_SEEK_PARMS_head():
+    class MCI_SEEK_PARMS(Structure):
         pass
-    return CAPTUREPARMS
-def _define_CAPTUREPARMS():
-    CAPTUREPARMS = win32more.Media.Multimedia.CAPTUREPARMS_head
-    CAPTUREPARMS._fields_ = [
-        ("dwRequestMicroSecPerFrame", UInt32),
-        ("fMakeUserHitOKToCapture", win32more.Foundation.BOOL),
-        ("wPercentDropForError", UInt32),
-        ("fYield", win32more.Foundation.BOOL),
-        ("dwIndexSize", UInt32),
-        ("wChunkGranularity", UInt32),
-        ("fUsingDOSMemory", win32more.Foundation.BOOL),
-        ("wNumVideoRequested", UInt32),
-        ("fCaptureAudio", win32more.Foundation.BOOL),
-        ("wNumAudioRequested", UInt32),
-        ("vKeyAbort", UInt32),
-        ("fAbortLeftMouse", win32more.Foundation.BOOL),
-        ("fAbortRightMouse", win32more.Foundation.BOOL),
-        ("fLimitEnabled", win32more.Foundation.BOOL),
-        ("wTimeLimit", UInt32),
-        ("fMCIControl", win32more.Foundation.BOOL),
-        ("fStepMCIDevice", win32more.Foundation.BOOL),
-        ("dwMCIStartTime", UInt32),
-        ("dwMCIStopTime", UInt32),
-        ("fStepCaptureAt2x", win32more.Foundation.BOOL),
-        ("wStepCaptureAverageFrames", UInt32),
-        ("dwAudioBufferSize", UInt32),
-        ("fDisableWriteCache", win32more.Foundation.BOOL),
-        ("AVStreamMaster", UInt32),
+    return MCI_SEEK_PARMS
+def _define_MCI_SEEK_PARMS():
+    MCI_SEEK_PARMS = win32more.Media.Multimedia.MCI_SEEK_PARMS_head
+    MCI_SEEK_PARMS._pack_ = 1
+    MCI_SEEK_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwTo', UInt32),
     ]
-    return CAPTUREPARMS
-def _define_CAPINFOCHUNK_head():
-    class CAPINFOCHUNK(Structure):
+    return MCI_SEEK_PARMS
+def _define_MCI_SEQ_SET_PARMS_head():
+    class MCI_SEQ_SET_PARMS(Structure):
         pass
-    return CAPINFOCHUNK
-def _define_CAPINFOCHUNK():
-    CAPINFOCHUNK = win32more.Media.Multimedia.CAPINFOCHUNK_head
-    CAPINFOCHUNK._fields_ = [
-        ("fccInfoID", UInt32),
-        ("lpData", c_void_p),
-        ("cbData", Int32),
+    return MCI_SEQ_SET_PARMS
+def _define_MCI_SEQ_SET_PARMS():
+    MCI_SEQ_SET_PARMS = win32more.Media.Multimedia.MCI_SEQ_SET_PARMS_head
+    MCI_SEQ_SET_PARMS._pack_ = 1
+    MCI_SEQ_SET_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwTimeFormat', UInt32),
+        ('dwAudio', UInt32),
+        ('dwTempo', UInt32),
+        ('dwPort', UInt32),
+        ('dwSlave', UInt32),
+        ('dwMaster', UInt32),
+        ('dwOffset', UInt32),
     ]
-    return CAPINFOCHUNK
-def _define_CAPYIELDCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND, use_last_error=False)
-def _define_CAPSTATUSCALLBACKW():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_CAPERRORCALLBACKW():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_CAPSTATUSCALLBACKA():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR, use_last_error=False)
-def _define_CAPERRORCALLBACKA():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32,win32more.Foundation.PSTR, use_last_error=False)
-def _define_CAPVIDEOCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,POINTER(win32more.Media.Multimedia.VIDEOHDR_head), use_last_error=False)
-def _define_CAPWAVECALLBACK():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,POINTER(win32more.Media.Audio.WAVEHDR_head), use_last_error=False)
-def _define_CAPCONTROLCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,Int32, use_last_error=False)
-def _define_DRVM_IOCTL_DATA_head():
-    class DRVM_IOCTL_DATA(Structure):
+    return MCI_SEQ_SET_PARMS
+def _define_MCI_SET_PARMS_head():
+    class MCI_SET_PARMS(Structure):
         pass
-    return DRVM_IOCTL_DATA
-def _define_DRVM_IOCTL_DATA():
-    DRVM_IOCTL_DATA = win32more.Media.Multimedia.DRVM_IOCTL_DATA_head
-    DRVM_IOCTL_DATA._pack_ = 1
-    DRVM_IOCTL_DATA._fields_ = [
-        ("dwSize", UInt32),
-        ("dwCmd", UInt32),
+    return MCI_SET_PARMS
+def _define_MCI_SET_PARMS():
+    MCI_SET_PARMS = win32more.Media.Multimedia.MCI_SET_PARMS_head
+    MCI_SET_PARMS._pack_ = 1
+    MCI_SET_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwTimeFormat', UInt32),
+        ('dwAudio', UInt32),
     ]
-    return DRVM_IOCTL_DATA
-def _define_WAVEOPENDESC_head():
-    class WAVEOPENDESC(Structure):
+    return MCI_SET_PARMS
+def _define_MCI_STATUS_PARMS_head():
+    class MCI_STATUS_PARMS(Structure):
         pass
-    return WAVEOPENDESC
-def _define_WAVEOPENDESC():
-    WAVEOPENDESC = win32more.Media.Multimedia.WAVEOPENDESC_head
-    WAVEOPENDESC._pack_ = 1
-    WAVEOPENDESC._fields_ = [
-        ("hWave", win32more.Media.Audio.HWAVE),
-        ("lpFormat", POINTER(win32more.Media.Audio.WAVEFORMAT_head)),
-        ("dwCallback", UIntPtr),
-        ("dwInstance", UIntPtr),
-        ("uMappedDeviceID", UInt32),
-        ("dnDevNode", UIntPtr),
+    return MCI_STATUS_PARMS
+def _define_MCI_STATUS_PARMS():
+    MCI_STATUS_PARMS = win32more.Media.Multimedia.MCI_STATUS_PARMS_head
+    MCI_STATUS_PARMS._pack_ = 1
+    MCI_STATUS_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwReturn', UIntPtr),
+        ('dwItem', UInt32),
+        ('dwTrack', UInt32),
     ]
-    return WAVEOPENDESC
+    return MCI_STATUS_PARMS
+def _define_MCI_SYSINFO_PARMSA_head():
+    class MCI_SYSINFO_PARMSA(Structure):
+        pass
+    return MCI_SYSINFO_PARMSA
+def _define_MCI_SYSINFO_PARMSA():
+    MCI_SYSINFO_PARMSA = win32more.Media.Multimedia.MCI_SYSINFO_PARMSA_head
+    MCI_SYSINFO_PARMSA._pack_ = 1
+    MCI_SYSINFO_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PSTR),
+        ('dwRetSize', UInt32),
+        ('dwNumber', UInt32),
+        ('wDeviceType', UInt32),
+    ]
+    return MCI_SYSINFO_PARMSA
+def _define_MCI_SYSINFO_PARMSW_head():
+    class MCI_SYSINFO_PARMSW(Structure):
+        pass
+    return MCI_SYSINFO_PARMSW
+def _define_MCI_SYSINFO_PARMSW():
+    MCI_SYSINFO_PARMSW = win32more.Media.Multimedia.MCI_SYSINFO_PARMSW_head
+    MCI_SYSINFO_PARMSW._pack_ = 1
+    MCI_SYSINFO_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpstrReturn', win32more.Foundation.PWSTR),
+        ('dwRetSize', UInt32),
+        ('dwNumber', UInt32),
+        ('wDeviceType', UInt32),
+    ]
+    return MCI_SYSINFO_PARMSW
+def _define_MCI_VD_ESCAPE_PARMSA_head():
+    class MCI_VD_ESCAPE_PARMSA(Structure):
+        pass
+    return MCI_VD_ESCAPE_PARMSA
+def _define_MCI_VD_ESCAPE_PARMSA():
+    MCI_VD_ESCAPE_PARMSA = win32more.Media.Multimedia.MCI_VD_ESCAPE_PARMSA_head
+    MCI_VD_ESCAPE_PARMSA._pack_ = 1
+    MCI_VD_ESCAPE_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpstrCommand', win32more.Foundation.PSTR),
+    ]
+    return MCI_VD_ESCAPE_PARMSA
+def _define_MCI_VD_ESCAPE_PARMSW_head():
+    class MCI_VD_ESCAPE_PARMSW(Structure):
+        pass
+    return MCI_VD_ESCAPE_PARMSW
+def _define_MCI_VD_ESCAPE_PARMSW():
+    MCI_VD_ESCAPE_PARMSW = win32more.Media.Multimedia.MCI_VD_ESCAPE_PARMSW_head
+    MCI_VD_ESCAPE_PARMSW._pack_ = 1
+    MCI_VD_ESCAPE_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('lpstrCommand', win32more.Foundation.PWSTR),
+    ]
+    return MCI_VD_ESCAPE_PARMSW
+def _define_MCI_VD_PLAY_PARMS_head():
+    class MCI_VD_PLAY_PARMS(Structure):
+        pass
+    return MCI_VD_PLAY_PARMS
+def _define_MCI_VD_PLAY_PARMS():
+    MCI_VD_PLAY_PARMS = win32more.Media.Multimedia.MCI_VD_PLAY_PARMS_head
+    MCI_VD_PLAY_PARMS._pack_ = 1
+    MCI_VD_PLAY_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+        ('dwSpeed', UInt32),
+    ]
+    return MCI_VD_PLAY_PARMS
+def _define_MCI_VD_STEP_PARMS_head():
+    class MCI_VD_STEP_PARMS(Structure):
+        pass
+    return MCI_VD_STEP_PARMS
+def _define_MCI_VD_STEP_PARMS():
+    MCI_VD_STEP_PARMS = win32more.Media.Multimedia.MCI_VD_STEP_PARMS_head
+    MCI_VD_STEP_PARMS._pack_ = 1
+    MCI_VD_STEP_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrames', UInt32),
+    ]
+    return MCI_VD_STEP_PARMS
+def _define_MCI_WAVE_DELETE_PARMS_head():
+    class MCI_WAVE_DELETE_PARMS(Structure):
+        pass
+    return MCI_WAVE_DELETE_PARMS
+def _define_MCI_WAVE_DELETE_PARMS():
+    MCI_WAVE_DELETE_PARMS = win32more.Media.Multimedia.MCI_WAVE_DELETE_PARMS_head
+    MCI_WAVE_DELETE_PARMS._pack_ = 1
+    MCI_WAVE_DELETE_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwFrom', UInt32),
+        ('dwTo', UInt32),
+    ]
+    return MCI_WAVE_DELETE_PARMS
+def _define_MCI_WAVE_OPEN_PARMSA_head():
+    class MCI_WAVE_OPEN_PARMSA(Structure):
+        pass
+    return MCI_WAVE_OPEN_PARMSA
+def _define_MCI_WAVE_OPEN_PARMSA():
+    MCI_WAVE_OPEN_PARMSA = win32more.Media.Multimedia.MCI_WAVE_OPEN_PARMSA_head
+    MCI_WAVE_OPEN_PARMSA._pack_ = 1
+    MCI_WAVE_OPEN_PARMSA._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PSTR),
+        ('lpstrElementName', win32more.Foundation.PSTR),
+        ('lpstrAlias', win32more.Foundation.PSTR),
+        ('dwBufferSeconds', UInt32),
+    ]
+    return MCI_WAVE_OPEN_PARMSA
+def _define_MCI_WAVE_OPEN_PARMSW_head():
+    class MCI_WAVE_OPEN_PARMSW(Structure):
+        pass
+    return MCI_WAVE_OPEN_PARMSW
+def _define_MCI_WAVE_OPEN_PARMSW():
+    MCI_WAVE_OPEN_PARMSW = win32more.Media.Multimedia.MCI_WAVE_OPEN_PARMSW_head
+    MCI_WAVE_OPEN_PARMSW._pack_ = 1
+    MCI_WAVE_OPEN_PARMSW._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('wDeviceID', UInt32),
+        ('lpstrDeviceType', win32more.Foundation.PWSTR),
+        ('lpstrElementName', win32more.Foundation.PWSTR),
+        ('lpstrAlias', win32more.Foundation.PWSTR),
+        ('dwBufferSeconds', UInt32),
+    ]
+    return MCI_WAVE_OPEN_PARMSW
+def _define_MCI_WAVE_SET_PARMS_head():
+    class MCI_WAVE_SET_PARMS(Structure):
+        pass
+    return MCI_WAVE_SET_PARMS
+def _define_MCI_WAVE_SET_PARMS():
+    MCI_WAVE_SET_PARMS = win32more.Media.Multimedia.MCI_WAVE_SET_PARMS_head
+    MCI_WAVE_SET_PARMS._pack_ = 1
+    MCI_WAVE_SET_PARMS._fields_ = [
+        ('dwCallback', UIntPtr),
+        ('dwTimeFormat', UInt32),
+        ('dwAudio', UInt32),
+        ('wInput', UInt32),
+        ('wOutput', UInt32),
+        ('wFormatTag', UInt16),
+        ('wReserved2', UInt16),
+        ('nChannels', UInt16),
+        ('wReserved3', UInt16),
+        ('nSamplesPerSec', UInt32),
+        ('nAvgBytesPerSec', UInt32),
+        ('nBlockAlign', UInt16),
+        ('wReserved4', UInt16),
+        ('wBitsPerSample', UInt16),
+        ('wReserved5', UInt16),
+    ]
+    return MCI_WAVE_SET_PARMS
+def _define_MEDIASPACEADPCMWAVEFORMAT_head():
+    class MEDIASPACEADPCMWAVEFORMAT(Structure):
+        pass
+    return MEDIASPACEADPCMWAVEFORMAT
+def _define_MEDIASPACEADPCMWAVEFORMAT():
+    MEDIASPACEADPCMWAVEFORMAT = win32more.Media.Multimedia.MEDIASPACEADPCMWAVEFORMAT_head
+    MEDIASPACEADPCMWAVEFORMAT._pack_ = 1
+    MEDIASPACEADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
+    ]
+    return MEDIASPACEADPCMWAVEFORMAT
 def _define_MIDIOPENSTRMID_head():
     class MIDIOPENSTRMID(Structure):
         pass
@@ -7198,8 +7822,8 @@ def _define_MIDIOPENSTRMID():
     MIDIOPENSTRMID = win32more.Media.Multimedia.MIDIOPENSTRMID_head
     MIDIOPENSTRMID._pack_ = 1
     MIDIOPENSTRMID._fields_ = [
-        ("dwStreamID", UInt32),
-        ("uDeviceID", UInt32),
+        ('dwStreamID', UInt32),
+        ('uDeviceID', UInt32),
     ]
     return MIDIOPENSTRMID
 def _define_MIXEROPENDESC_head():
@@ -7210,13 +7834,174 @@ def _define_MIXEROPENDESC():
     MIXEROPENDESC = win32more.Media.Multimedia.MIXEROPENDESC_head
     MIXEROPENDESC._pack_ = 1
     MIXEROPENDESC._fields_ = [
-        ("hmx", win32more.Media.Audio.HMIXER),
-        ("pReserved0", c_void_p),
-        ("dwCallback", UIntPtr),
-        ("dwInstance", UIntPtr),
-        ("dnDevNode", UIntPtr),
+        ('hmx', win32more.Media.Audio.HMIXER),
+        ('pReserved0', c_void_p),
+        ('dwCallback', UIntPtr),
+        ('dwInstance', UIntPtr),
+        ('dnDevNode', UIntPtr),
     ]
     return MIXEROPENDESC
+def _define_MMCKINFO_head():
+    class MMCKINFO(Structure):
+        pass
+    return MMCKINFO
+def _define_MMCKINFO():
+    MMCKINFO = win32more.Media.Multimedia.MMCKINFO_head
+    MMCKINFO._pack_ = 1
+    MMCKINFO._fields_ = [
+        ('ckid', UInt32),
+        ('cksize', UInt32),
+        ('fccType', UInt32),
+        ('dwDataOffset', UInt32),
+        ('dwFlags', UInt32),
+    ]
+    return MMCKINFO
+def _define_MMIOINFO_head():
+    class MMIOINFO(Structure):
+        pass
+    return MMIOINFO
+def _define_MMIOINFO():
+    MMIOINFO = win32more.Media.Multimedia.MMIOINFO_head
+    MMIOINFO._pack_ = 1
+    MMIOINFO._fields_ = [
+        ('dwFlags', UInt32),
+        ('fccIOProc', UInt32),
+        ('pIOProc', win32more.Media.Multimedia.LPMMIOPROC),
+        ('wErrorRet', UInt32),
+        ('htask', win32more.Media.HTASK),
+        ('cchBuffer', Int32),
+        ('pchBuffer', POINTER(SByte)),
+        ('pchNext', POINTER(SByte)),
+        ('pchEndRead', POINTER(SByte)),
+        ('pchEndWrite', POINTER(SByte)),
+        ('lBufOffset', Int32),
+        ('lDiskOffset', Int32),
+        ('adwInfo', UInt32 * 3),
+        ('dwReserved1', UInt32),
+        ('dwReserved2', UInt32),
+        ('hmmio', win32more.Media.Multimedia.HMMIO),
+    ]
+    return MMIOINFO
+def _define_MSAUDIO1WAVEFORMAT_head():
+    class MSAUDIO1WAVEFORMAT(Structure):
+        pass
+    return MSAUDIO1WAVEFORMAT
+def _define_MSAUDIO1WAVEFORMAT():
+    MSAUDIO1WAVEFORMAT = win32more.Media.Multimedia.MSAUDIO1WAVEFORMAT_head
+    MSAUDIO1WAVEFORMAT._pack_ = 1
+    MSAUDIO1WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
+        ('wEncodeOptions', UInt16),
+    ]
+    return MSAUDIO1WAVEFORMAT
+def _define_NMS_VBXADPCMWAVEFORMAT_head():
+    class NMS_VBXADPCMWAVEFORMAT(Structure):
+        pass
+    return NMS_VBXADPCMWAVEFORMAT
+def _define_NMS_VBXADPCMWAVEFORMAT():
+    NMS_VBXADPCMWAVEFORMAT = win32more.Media.Multimedia.NMS_VBXADPCMWAVEFORMAT_head
+    NMS_VBXADPCMWAVEFORMAT._pack_ = 1
+    NMS_VBXADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wSamplesPerBlock', UInt16),
+    ]
+    return NMS_VBXADPCMWAVEFORMAT
+def _define_OLIADPCMWAVEFORMAT_head():
+    class OLIADPCMWAVEFORMAT(Structure):
+        pass
+    return OLIADPCMWAVEFORMAT
+def _define_OLIADPCMWAVEFORMAT():
+    OLIADPCMWAVEFORMAT = win32more.Media.Multimedia.OLIADPCMWAVEFORMAT_head
+    OLIADPCMWAVEFORMAT._pack_ = 1
+    OLIADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+    ]
+    return OLIADPCMWAVEFORMAT
+def _define_OLICELPWAVEFORMAT_head():
+    class OLICELPWAVEFORMAT(Structure):
+        pass
+    return OLICELPWAVEFORMAT
+def _define_OLICELPWAVEFORMAT():
+    OLICELPWAVEFORMAT = win32more.Media.Multimedia.OLICELPWAVEFORMAT_head
+    OLICELPWAVEFORMAT._pack_ = 1
+    OLICELPWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+    ]
+    return OLICELPWAVEFORMAT
+def _define_OLIGSMWAVEFORMAT_head():
+    class OLIGSMWAVEFORMAT(Structure):
+        pass
+    return OLIGSMWAVEFORMAT
+def _define_OLIGSMWAVEFORMAT():
+    OLIGSMWAVEFORMAT = win32more.Media.Multimedia.OLIGSMWAVEFORMAT_head
+    OLIGSMWAVEFORMAT._pack_ = 1
+    OLIGSMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+    ]
+    return OLIGSMWAVEFORMAT
+def _define_OLIOPRWAVEFORMAT_head():
+    class OLIOPRWAVEFORMAT(Structure):
+        pass
+    return OLIOPRWAVEFORMAT
+def _define_OLIOPRWAVEFORMAT():
+    OLIOPRWAVEFORMAT = win32more.Media.Multimedia.OLIOPRWAVEFORMAT_head
+    OLIOPRWAVEFORMAT._pack_ = 1
+    OLIOPRWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+    ]
+    return OLIOPRWAVEFORMAT
+def _define_OLISBCWAVEFORMAT_head():
+    class OLISBCWAVEFORMAT(Structure):
+        pass
+    return OLISBCWAVEFORMAT
+def _define_OLISBCWAVEFORMAT():
+    OLISBCWAVEFORMAT = win32more.Media.Multimedia.OLISBCWAVEFORMAT_head
+    OLISBCWAVEFORMAT._pack_ = 1
+    OLISBCWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+    ]
+    return OLISBCWAVEFORMAT
+def _define_s_RIFFWAVE_inst_head():
+    class s_RIFFWAVE_inst(Structure):
+        pass
+    return s_RIFFWAVE_inst
+def _define_s_RIFFWAVE_inst():
+    s_RIFFWAVE_inst = win32more.Media.Multimedia.s_RIFFWAVE_inst_head
+    s_RIFFWAVE_inst._fields_ = [
+        ('bUnshiftedNote', Byte),
+        ('chFineTune', win32more.Foundation.CHAR),
+        ('chGain', win32more.Foundation.CHAR),
+        ('bLowNote', Byte),
+        ('bHighNote', Byte),
+        ('bLowVelocity', Byte),
+        ('bHighVelocity', Byte),
+    ]
+    return s_RIFFWAVE_inst
+def _define_SIERRAADPCMWAVEFORMAT_head():
+    class SIERRAADPCMWAVEFORMAT(Structure):
+        pass
+    return SIERRAADPCMWAVEFORMAT
+def _define_SIERRAADPCMWAVEFORMAT():
+    SIERRAADPCMWAVEFORMAT = win32more.Media.Multimedia.SIERRAADPCMWAVEFORMAT_head
+    SIERRAADPCMWAVEFORMAT._pack_ = 1
+    SIERRAADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
+    ]
+    return SIERRAADPCMWAVEFORMAT
+def _define_SONARCWAVEFORMAT_head():
+    class SONARCWAVEFORMAT(Structure):
+        pass
+    return SONARCWAVEFORMAT
+def _define_SONARCWAVEFORMAT():
+    SONARCWAVEFORMAT = win32more.Media.Multimedia.SONARCWAVEFORMAT_head
+    SONARCWAVEFORMAT._pack_ = 1
+    SONARCWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wCompType', UInt16),
+    ]
+    return SONARCWAVEFORMAT
 def _define_TIMEREVENT_head():
     class TIMEREVENT(Structure):
         pass
@@ -7225,3072 +8010,676 @@ def _define_TIMEREVENT():
     TIMEREVENT = win32more.Media.Multimedia.TIMEREVENT_head
     TIMEREVENT._pack_ = 1
     TIMEREVENT._fields_ = [
-        ("wDelay", UInt16),
-        ("wResolution", UInt16),
-        ("lpFunction", win32more.Media.LPTIMECALLBACK),
-        ("dwUser", UInt32),
-        ("wFlags", UInt16),
-        ("wReserved1", UInt16),
+        ('wDelay', UInt16),
+        ('wResolution', UInt16),
+        ('lpFunction', win32more.Media.LPTIMECALLBACK),
+        ('dwUser', UInt32),
+        ('wFlags', UInt16),
+        ('wReserved1', UInt16),
     ]
     return TIMEREVENT
-def _define_MCI_OPEN_DRIVER_PARMS_head():
-    class MCI_OPEN_DRIVER_PARMS(Structure):
+def _define_TRUESPEECHWAVEFORMAT_head():
+    class TRUESPEECHWAVEFORMAT(Structure):
         pass
-    return MCI_OPEN_DRIVER_PARMS
-def _define_MCI_OPEN_DRIVER_PARMS():
-    MCI_OPEN_DRIVER_PARMS = win32more.Media.Multimedia.MCI_OPEN_DRIVER_PARMS_head
-    MCI_OPEN_DRIVER_PARMS._pack_ = 1
-    MCI_OPEN_DRIVER_PARMS._fields_ = [
-        ("wDeviceID", UInt32),
-        ("lpstrParams", win32more.Foundation.PWSTR),
-        ("wCustomCommandTable", UInt32),
-        ("wType", UInt32),
+    return TRUESPEECHWAVEFORMAT
+def _define_TRUESPEECHWAVEFORMAT():
+    TRUESPEECHWAVEFORMAT = win32more.Media.Multimedia.TRUESPEECHWAVEFORMAT_head
+    TRUESPEECHWAVEFORMAT._pack_ = 1
+    TRUESPEECHWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wRevision', UInt16),
+        ('nSamplesPerBlock', UInt16),
+        ('abReserved', Byte * 28),
     ]
-    return MCI_OPEN_DRIVER_PARMS
-def _define_LPTASKCALLBACK():
-    return CFUNCTYPE(Void,UIntPtr, use_last_error=False)
+    return TRUESPEECHWAVEFORMAT
 def _define_VFWWDMExtensionProc():
-    return CFUNCTYPE(UInt32,c_void_p,win32more.UI.Controls.LPFNSVADDPROPSHEETPAGE,win32more.Foundation.LPARAM, use_last_error=False)
-def _define_LPFNEXTDEVIO():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.LPARAM,UInt32,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)
-def _define_mciSendCommandA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr, use_last_error=False)(("mciSendCommandA", windll["WINMM"]), ((1, 'mciId'),(1, 'uMsg'),(1, 'dwParam1'),(1, 'dwParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciSendCommandW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr, use_last_error=False)(("mciSendCommandW", windll["WINMM"]), ((1, 'mciId'),(1, 'uMsg'),(1, 'dwParam1'),(1, 'dwParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciSendCommand():
-    return win32more.Media.Multimedia.mciSendCommandW
-def _define_mciSendStringA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(Byte),UInt32,win32more.Foundation.HWND, use_last_error=False)(("mciSendStringA", windll["WINMM"]), ((1, 'lpstrCommand'),(1, 'lpstrReturnString'),(1, 'uReturnLength'),(1, 'hwndCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciSendStringW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(Char),UInt32,win32more.Foundation.HWND, use_last_error=False)(("mciSendStringW", windll["WINMM"]), ((1, 'lpstrCommand'),(1, 'lpstrReturnString'),(1, 'uReturnLength'),(1, 'hwndCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciSendString():
-    return win32more.Media.Multimedia.mciSendStringW
-def _define_mciGetDeviceIDA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR, use_last_error=False)(("mciGetDeviceIDA", windll["WINMM"]), ((1, 'pszDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetDeviceIDW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("mciGetDeviceIDW", windll["WINMM"]), ((1, 'pszDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetDeviceID():
-    return win32more.Media.Multimedia.mciGetDeviceIDW
-def _define_mciGetDeviceIDFromElementIDA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("mciGetDeviceIDFromElementIDA", windll["WINMM"]), ((1, 'dwElementID'),(1, 'lpstrType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetDeviceIDFromElementIDW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("mciGetDeviceIDFromElementIDW", windll["WINMM"]), ((1, 'dwElementID'),(1, 'lpstrType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetDeviceIDFromElementID():
-    return win32more.Media.Multimedia.mciGetDeviceIDFromElementIDW
-def _define_mciGetErrorStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Byte),UInt32, use_last_error=False)(("mciGetErrorStringA", windll["WINMM"]), ((1, 'mcierr'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetErrorStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Char),UInt32, use_last_error=False)(("mciGetErrorStringW", windll["WINMM"]), ((1, 'mcierr'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetErrorString():
-    return win32more.Media.Multimedia.mciGetErrorStringW
-def _define_mciSetYieldProc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Media.Multimedia.YIELDPROC,UInt32, use_last_error=False)(("mciSetYieldProc", windll["WINMM"]), ((1, 'mciId'),(1, 'fpYieldProc'),(1, 'dwYieldData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetCreatorTask():
-    try:
-        return WINFUNCTYPE(win32more.Media.HTASK,UInt32, use_last_error=False)(("mciGetCreatorTask", windll["WINMM"]), ((1, 'mciId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetYieldProc():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.YIELDPROC,UInt32,POINTER(UInt32), use_last_error=False)(("mciGetYieldProc", windll["WINMM"]), ((1, 'mciId'),(1, 'pdwYieldData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciGetDriverData():
-    try:
-        return WINFUNCTYPE(UIntPtr,UInt32, use_last_error=False)(("mciGetDriverData", windll["WINMM"]), ((1, 'wDeviceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciLoadCommandResource():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("mciLoadCommandResource", windll["WINMM"]), ((1, 'hInstance'),(1, 'lpResName'),(1, 'wType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciSetDriverData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UIntPtr, use_last_error=False)(("mciSetDriverData", windll["WINMM"]), ((1, 'wDeviceID'),(1, 'dwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciDriverYield():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("mciDriverYield", windll["WINMM"]), ((1, 'wDeviceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciDriverNotify():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32, use_last_error=False)(("mciDriverNotify", windll["WINMM"]), ((1, 'hwndCallback'),(1, 'wDeviceID'),(1, 'uStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mciFreeCommandResource():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=False)(("mciFreeCommandResource", windll["WINMM"]), ((1, 'wTable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseDriver():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HDRVR,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("CloseDriver", windll["WINMM"]), ((1, 'hDriver'),(1, 'lParam1'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenDriver():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HDRVR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM, use_last_error=False)(("OpenDriver", windll["WINMM"]), ((1, 'szDriverName'),(1, 'szSectionName'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendDriverMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HDRVR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("SendDriverMessage", windll["WINMM"]), ((1, 'hDriver'),(1, 'message'),(1, 'lParam1'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrvGetModuleHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Media.Multimedia.HDRVR, use_last_error=False)(("DrvGetModuleHandle", windll["WINMM"]), ((1, 'hDriver'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDriverModuleHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Media.Multimedia.HDRVR, use_last_error=False)(("GetDriverModuleHandle", windll["WINMM"]), ((1, 'hDriver'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DefDriverProc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,UIntPtr,win32more.Media.Multimedia.HDRVR,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("DefDriverProc", windll["WINMM"]), ((1, 'dwDriverIdentifier'),(1, 'hdrvr'),(1, 'uMsg'),(1, 'lParam1'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DriverCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UIntPtr,UInt32,win32more.Media.Multimedia.HDRVR,UInt32,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(("DriverCallback", windll["WINMM"]), ((1, 'dwCallback'),(1, 'dwFlags'),(1, 'hDevice'),(1, 'dwMsg'),(1, 'dwUser'),(1, 'dwParam1'),(1, 'dwParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_sndOpenSound():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("sndOpenSound", windll["api-ms-win-mm-misc-l1-1-1"]), ((1, 'EventName'),(1, 'AppName'),(1, 'Flags'),(1, 'FileHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmDrvInstall():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HDRVR,win32more.Foundation.PWSTR,win32more.Media.Multimedia.DRIVERMSGPROC,UInt32, use_last_error=False)(("mmDrvInstall", windll["WINMM"]), ((1, 'hDriver'),(1, 'wszDrvEntry'),(1, 'drvMessage'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioStringToFOURCCA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("mmioStringToFOURCCA", windll["WINMM"]), ((1, 'sz'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioStringToFOURCCW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("mmioStringToFOURCCW", windll["WINMM"]), ((1, 'sz'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioStringToFOURCC():
-    return win32more.Media.Multimedia.mmioStringToFOURCCW
-def _define_mmioInstallIOProcA():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.LPMMIOPROC,UInt32,win32more.Media.Multimedia.LPMMIOPROC,UInt32, use_last_error=False)(("mmioInstallIOProcA", windll["WINMM"]), ((1, 'fccIOProc'),(1, 'pIOProc'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioInstallIOProcW():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.LPMMIOPROC,UInt32,win32more.Media.Multimedia.LPMMIOPROC,UInt32, use_last_error=False)(("mmioInstallIOProcW", windll["WINMM"]), ((1, 'fccIOProc'),(1, 'pIOProc'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioInstallIOProc():
-    return win32more.Media.Multimedia.mmioInstallIOProcW
-def _define_mmioOpenA():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HMMIO,POINTER(Byte),POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioOpenA", windll["WINMM"]), ((1, 'pszFileName'),(1, 'pmmioinfo'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioOpenW():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HMMIO,POINTER(Char),POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioOpenW", windll["WINMM"]), ((1, 'pszFileName'),(1, 'pmmioinfo'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioOpen():
-    return win32more.Media.Multimedia.mmioOpenW
-def _define_mmioRenameA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioRenameA", windll["WINMM"]), ((1, 'pszFileName'),(1, 'pszNewFileName'),(1, 'pmmioinfo'),(1, 'fdwRename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioRenameW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioRenameW", windll["WINMM"]), ((1, 'pszFileName'),(1, 'pszNewFileName'),(1, 'pmmioinfo'),(1, 'fdwRename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioRename():
-    return win32more.Media.Multimedia.mmioRenameW
-def _define_mmioClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,UInt32, use_last_error=False)(("mmioClose", windll["WINMM"]), ((1, 'hmmio'),(1, 'fuClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioRead():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.HMMIO,POINTER(SByte),Int32, use_last_error=False)(("mmioRead", windll["WINMM"]), ((1, 'hmmio'),(1, 'pch'),(1, 'cch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioWrite():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.HMMIO,win32more.Foundation.PSTR,Int32, use_last_error=False)(("mmioWrite", windll["WINMM"]), ((1, 'hmmio'),(1, 'pch'),(1, 'cch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioSeek():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.HMMIO,Int32,Int32, use_last_error=False)(("mmioSeek", windll["WINMM"]), ((1, 'hmmio'),(1, 'lOffset'),(1, 'iOrigin'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioGetInfo", windll["WINMM"]), ((1, 'hmmio'),(1, 'pmmioinfo'),(1, 'fuInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioSetInfo", windll["WINMM"]), ((1, 'hmmio'),(1, 'pmmioinfo'),(1, 'fuInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioSetBuffer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(Byte),Int32,UInt32, use_last_error=False)(("mmioSetBuffer", windll["WINMM"]), ((1, 'hmmio'),(1, 'pchBuffer'),(1, 'cchBuffer'),(1, 'fuBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioFlush():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,UInt32, use_last_error=False)(("mmioFlush", windll["WINMM"]), ((1, 'hmmio'),(1, 'fuFlush'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioAdvance():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMIOINFO_head),UInt32, use_last_error=False)(("mmioAdvance", windll["WINMM"]), ((1, 'hmmio'),(1, 'pmmioinfo'),(1, 'fuAdvance'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioSendMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HMMIO,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(("mmioSendMessage", windll["WINMM"]), ((1, 'hmmio'),(1, 'uMsg'),(1, 'lParam1'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioDescend():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMCKINFO_head),POINTER(win32more.Media.Multimedia.MMCKINFO_head),UInt32, use_last_error=False)(("mmioDescend", windll["WINMM"]), ((1, 'hmmio'),(1, 'pmmcki'),(1, 'pmmckiParent'),(1, 'fuDescend'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioAscend():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMCKINFO_head),UInt32, use_last_error=False)(("mmioAscend", windll["WINMM"]), ((1, 'hmmio'),(1, 'pmmcki'),(1, 'fuAscend'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmioCreateChunk():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HMMIO,POINTER(win32more.Media.Multimedia.MMCKINFO_head),UInt32, use_last_error=False)(("mmioCreateChunk", windll["WINMM"]), ((1, 'hmmio'),(1, 'pmmcki'),(1, 'fuCreate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyGetPosEx():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Media.Multimedia.JOYINFOEX_head), use_last_error=False)(("joyGetPosEx", windll["WINMM"]), ((1, 'uJoyID'),(1, 'pji'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("joyGetNumDevs", windll["WINMM"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Multimedia.JOYCAPSA_head),UInt32, use_last_error=False)(("joyGetDevCapsA", windll["WINMM"]), ((1, 'uJoyID'),(1, 'pjc'),(1, 'cbjc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Multimedia.JOYCAPSW_head),UInt32, use_last_error=False)(("joyGetDevCapsW", windll["WINMM"]), ((1, 'uJoyID'),(1, 'pjc'),(1, 'cbjc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyGetDevCaps():
-    return win32more.Media.Multimedia.joyGetDevCapsW
-def _define_joyGetPos():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Media.Multimedia.JOYINFO_head), use_last_error=False)(("joyGetPos", windll["WINMM"]), ((1, 'uJoyID'),(1, 'pji'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyGetThreshold():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32), use_last_error=False)(("joyGetThreshold", windll["WINMM"]), ((1, 'uJoyID'),(1, 'puThreshold'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyReleaseCapture():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("joyReleaseCapture", windll["WINMM"]), ((1, 'uJoyID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joySetCapture():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(("joySetCapture", windll["WINMM"]), ((1, 'hwnd'),(1, 'uJoyID'),(1, 'uPeriod'),(1, 'fChanged'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joySetThreshold():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32, use_last_error=False)(("joySetThreshold", windll["WINMM"]), ((1, 'uJoyID'),(1, 'uThreshold'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VideoForWindowsVersion():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("VideoForWindowsVersion", windll["MSVFW32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,POINTER(win32more.Media.Multimedia.ICINFO_head), use_last_error=False)(("ICInfo", windll["MSVFW32"]), ((1, 'fccType'),(1, 'fccHandler'),(1, 'lpicinfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICInstall():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("ICInstall", windll["MSVFW32"]), ((1, 'fccType'),(1, 'fccHandler'),(1, 'lParam'),(1, 'szDesc'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICRemove():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,UInt32, use_last_error=False)(("ICRemove", windll["MSVFW32"]), ((1, 'fccType'),(1, 'fccHandler'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICGetInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HIC,POINTER(win32more.Media.Multimedia.ICINFO_head),UInt32, use_last_error=False)(("ICGetInfo", windll["MSVFW32"]), ((1, 'hic'),(1, 'picinfo'),(1, 'cb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICOpen():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,UInt32,UInt32,UInt32, use_last_error=False)(("ICOpen", windll["MSVFW32"]), ((1, 'fccType'),(1, 'fccHandler'),(1, 'wMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICOpenFunction():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,UInt32,UInt32,UInt32,win32more.Foundation.FARPROC, use_last_error=False)(("ICOpenFunction", windll["MSVFW32"]), ((1, 'fccType'),(1, 'fccHandler'),(1, 'wMode'),(1, 'lpfnHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HIC, use_last_error=False)(("ICClose", windll["MSVFW32"]), ((1, 'hic'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICSendMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Multimedia.HIC,UInt32,UIntPtr,UIntPtr, use_last_error=False)(("ICSendMessage", windll["MSVFW32"]), ((1, 'hic'),(1, 'msg'),(1, 'dw1'),(1, 'dw2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICCompress():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,POINTER(UInt32),POINTER(UInt32),Int32,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p, use_last_error=False)(("ICCompress", windll["MSVFW32"]), ((1, 'hic'),(1, 'dwFlags'),(1, 'lpbiOutput'),(1, 'lpData'),(1, 'lpbiInput'),(1, 'lpBits'),(1, 'lpckid'),(1, 'lpdwFlags'),(1, 'lFrameNum'),(1, 'dwFrameSize'),(1, 'dwQuality'),(1, 'lpbiPrev'),(1, 'lpPrev'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICDecompress():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p, use_last_error=False)(("ICDecompress", windll["MSVFW32"]), ((1, 'hic'),(1, 'dwFlags'),(1, 'lpbiFormat'),(1, 'lpData'),(1, 'lpbi'),(1, 'lpBits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICDrawBegin():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,win32more.Graphics.Gdi.HPALETTE,win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),Int32,Int32,Int32,Int32,UInt32,UInt32, use_last_error=False)(("ICDrawBegin", windll["MSVFW32"]), ((1, 'hic'),(1, 'dwFlags'),(1, 'hpal'),(1, 'hwnd'),(1, 'hdc'),(1, 'xDst'),(1, 'yDst'),(1, 'dxDst'),(1, 'dyDst'),(1, 'lpbi'),(1, 'xSrc'),(1, 'ySrc'),(1, 'dxSrc'),(1, 'dySrc'),(1, 'dwRate'),(1, 'dwScale'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICDraw():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.HIC,UInt32,c_void_p,c_void_p,UInt32,Int32, use_last_error=False)(("ICDraw", windll["MSVFW32"]), ((1, 'hic'),(1, 'dwFlags'),(1, 'lpFormat'),(1, 'lpData'),(1, 'cbData'),(1, 'lTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICLocate():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),UInt16, use_last_error=False)(("ICLocate", windll["MSVFW32"]), ((1, 'fccType'),(1, 'fccHandler'),(1, 'lpbiIn'),(1, 'lpbiOut'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICGetDisplayFormat():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.HIC,win32more.Media.Multimedia.HIC,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),Int32,Int32,Int32, use_last_error=False)(("ICGetDisplayFormat", windll["MSVFW32"]), ((1, 'hic'),(1, 'lpbiIn'),(1, 'lpbiOut'),(1, 'BitDepth'),(1, 'dx'),(1, 'dy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICImageCompress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),Int32,POINTER(Int32), use_last_error=False)(("ICImageCompress", windll["MSVFW32"]), ((1, 'hic'),(1, 'uiFlags'),(1, 'lpbiIn'),(1, 'lpBits'),(1, 'lpbiOut'),(1, 'lQuality'),(1, 'plSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICImageDecompress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Media.Multimedia.HIC,UInt32,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), use_last_error=False)(("ICImageDecompress", windll["MSVFW32"]), ((1, 'hic'),(1, 'uiFlags'),(1, 'lpbiIn'),(1, 'lpBits'),(1, 'lpbiOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICCompressorChoose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,c_void_p,c_void_p,POINTER(win32more.Media.Multimedia.COMPVARS_head),win32more.Foundation.PSTR, use_last_error=False)(("ICCompressorChoose", windll["MSVFW32"]), ((1, 'hwnd'),(1, 'uiFlags'),(1, 'pvIn'),(1, 'lpData'),(1, 'pc'),(1, 'lpszTitle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICSeqCompressFrameStart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Media.Multimedia.COMPVARS_head),POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), use_last_error=False)(("ICSeqCompressFrameStart", windll["MSVFW32"]), ((1, 'pc'),(1, 'lpbiIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICSeqCompressFrameEnd():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Media.Multimedia.COMPVARS_head), use_last_error=False)(("ICSeqCompressFrameEnd", windll["MSVFW32"]), ((1, 'pc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICSeqCompressFrame():
-    try:
-        return WINFUNCTYPE(c_void_p,POINTER(win32more.Media.Multimedia.COMPVARS_head),UInt32,c_void_p,POINTER(win32more.Foundation.BOOL),POINTER(Int32), use_last_error=False)(("ICSeqCompressFrame", windll["MSVFW32"]), ((1, 'pc'),(1, 'uiFlags'),(1, 'lpBits'),(1, 'pfKey'),(1, 'plSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ICCompressorFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Media.Multimedia.COMPVARS_head), use_last_error=False)(("ICCompressorFree", windll["MSVFW32"]), ((1, 'pc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibOpen():
-    try:
-        return WINFUNCTYPE(IntPtr, use_last_error=False)(("DrawDibOpen", windll["MSVFW32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=False)(("DrawDibClose", windll["MSVFW32"]), ((1, 'hdd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibGetBuffer():
-    try:
-        return WINFUNCTYPE(c_void_p,IntPtr,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),UInt32,UInt32, use_last_error=False)(("DrawDibGetBuffer", windll["MSVFW32"]), ((1, 'hdd'),(1, 'lpbi'),(1, 'dwSize'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibGetPalette():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPALETTE,IntPtr, use_last_error=False)(("DrawDibGetPalette", windll["MSVFW32"]), ((1, 'hdd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibSetPalette():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Graphics.Gdi.HPALETTE, use_last_error=False)(("DrawDibSetPalette", windll["MSVFW32"]), ((1, 'hdd'),(1, 'hpal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibChangePalette():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,Int32,Int32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY), use_last_error=False)(("DrawDibChangePalette", windll["MSVFW32"]), ((1, 'hdd'),(1, 'iStart'),(1, 'iLen'),(1, 'lppe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibRealize():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Graphics.Gdi.HDC,win32more.Foundation.BOOL, use_last_error=False)(("DrawDibRealize", windll["MSVFW32"]), ((1, 'hdd'),(1, 'hdc'),(1, 'fBackground'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibStart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32, use_last_error=False)(("DrawDibStart", windll["MSVFW32"]), ((1, 'hdd'),(1, 'rate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibStop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=False)(("DrawDibStop", windll["MSVFW32"]), ((1, 'hdd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibBegin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),Int32,Int32,UInt32, use_last_error=False)(("DrawDibBegin", windll["MSVFW32"]), ((1, 'hdd'),(1, 'hdc'),(1, 'dxDst'),(1, 'dyDst'),(1, 'lpbi'),(1, 'dxSrc'),(1, 'dySrc'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibDraw():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,Int32,Int32,Int32,Int32,UInt32, use_last_error=False)(("DrawDibDraw", windll["MSVFW32"]), ((1, 'hdd'),(1, 'hdc'),(1, 'xDst'),(1, 'yDst'),(1, 'dxDst'),(1, 'dyDst'),(1, 'lpbi'),(1, 'lpBits'),(1, 'xSrc'),(1, 'ySrc'),(1, 'dxSrc'),(1, 'dySrc'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibEnd():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr, use_last_error=False)(("DrawDibEnd", windll["MSVFW32"]), ((1, 'hdd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Media.Multimedia.DRAWDIBTIME_head), use_last_error=False)(("DrawDibTime", windll["MSVFW32"]), ((1, 'hdd'),(1, 'lpddtime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawDibProfileDisplay():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head), use_last_error=False)(("DrawDibProfileDisplay", windll["MSVFW32"]), ((1, 'lpbi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileInit():
-    try:
-        return WINFUNCTYPE(Void, use_last_error=False)(("AVIFileInit", windll["AVIFIL32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileExit():
-    try:
-        return WINFUNCTYPE(Void, use_last_error=False)(("AVIFileExit", windll["AVIFIL32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileAddRef():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIFile_head, use_last_error=False)(("AVIFileAddRef", windll["AVIFIL32"]), ((1, 'pfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileRelease():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIFile_head, use_last_error=False)(("AVIFileRelease", windll["AVIFIL32"]), ((1, 'pfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileOpenA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head),win32more.Foundation.PSTR,UInt32,POINTER(Guid), use_last_error=False)(("AVIFileOpenA", windll["AVIFIL32"]), ((1, 'ppfile'),(1, 'szFile'),(1, 'uMode'),(1, 'lpHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileOpenW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head),win32more.Foundation.PWSTR,UInt32,POINTER(Guid), use_last_error=False)(("AVIFileOpenW", windll["AVIFIL32"]), ((1, 'ppfile'),(1, 'szFile'),(1, 'uMode'),(1, 'lpHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileOpen():
-    return win32more.Media.Multimedia.AVIFileOpenW
-def _define_AVIFileInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.AVIFILEINFOW_head),Int32, use_last_error=False)(("AVIFileInfoW", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'pfi'),(1, 'lSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileInfo():
-    return win32more.Media.Multimedia.AVIFileInfoW
-def _define_AVIFileInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.AVIFILEINFOA_head),Int32, use_last_error=False)(("AVIFileInfoA", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'pfi'),(1, 'lSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileGetStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.IAVIStream_head),UInt32,Int32, use_last_error=False)(("AVIFileGetStream", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'ppavi'),(1, 'fccType'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileCreateStreamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head), use_last_error=False)(("AVIFileCreateStreamW", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'ppavi'),(1, 'psi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileCreateStream():
-    return win32more.Media.Multimedia.AVIFileCreateStreamW
-def _define_AVIFileCreateStreamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(win32more.Media.Multimedia.AVISTREAMINFOA_head), use_last_error=False)(("AVIFileCreateStreamA", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'ppavi'),(1, 'psi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileWriteData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,UInt32,c_void_p,Int32, use_last_error=False)(("AVIFileWriteData", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'ckid'),(1, 'lpData'),(1, 'cbData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileReadData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(("AVIFileReadData", windll["AVIFIL32"]), ((1, 'pfile'),(1, 'ckid'),(1, 'lpData'),(1, 'lpcbData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIFileEndRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head, use_last_error=False)(("AVIFileEndRecord", windll["AVIFIL32"]), ((1, 'pfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamAddRef():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIStream_head, use_last_error=False)(("AVIStreamAddRef", windll["AVIFIL32"]), ((1, 'pavi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamRelease():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.IAVIStream_head, use_last_error=False)(("AVIStreamRelease", windll["AVIFIL32"]), ((1, 'pavi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(("AVIStreamInfoW", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'psi'),(1, 'lSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamInfo():
-    return win32more.Media.Multimedia.AVIStreamInfoW
-def _define_AVIStreamInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOA_head),Int32, use_last_error=False)(("AVIStreamInfoA", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'psi'),(1, 'lSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamFindSample():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32, use_last_error=False)(("AVIStreamFindSample", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lPos'),(1, 'lFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamReadFormat():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,c_void_p,POINTER(Int32), use_last_error=False)(("AVIStreamReadFormat", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lPos'),(1, 'lpFormat'),(1, 'lpcbFormat'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamSetFormat():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,c_void_p,Int32, use_last_error=False)(("AVIStreamSetFormat", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lPos'),(1, 'lpFormat'),(1, 'cbFormat'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamReadData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(("AVIStreamReadData", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'fcc'),(1, 'lp'),(1, 'lpcb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamWriteData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,UInt32,c_void_p,Int32, use_last_error=False)(("AVIStreamWriteData", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'fcc'),(1, 'lp'),(1, 'cb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamRead():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32,c_void_p,Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(("AVIStreamRead", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'plBytes'),(1, 'plSamples'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamWrite():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32,c_void_p,Int32,UInt32,POINTER(Int32),POINTER(Int32), use_last_error=False)(("AVIStreamWrite", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lStart'),(1, 'lSamples'),(1, 'lpBuffer'),(1, 'cbBuffer'),(1, 'dwFlags'),(1, 'plSampWritten'),(1, 'plBytesWritten'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamStart():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head, use_last_error=False)(("AVIStreamStart", windll["AVIFIL32"]), ((1, 'pavi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamLength():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head, use_last_error=False)(("AVIStreamLength", windll["AVIFIL32"]), ((1, 'pavi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamTimeToSample():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head,Int32, use_last_error=False)(("AVIStreamTimeToSample", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamSampleToTime():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Media.Multimedia.IAVIStream_head,Int32, use_last_error=False)(("AVIStreamSampleToTime", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lSample'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamBeginStreaming():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,Int32,Int32,Int32, use_last_error=False)(("AVIStreamBeginStreaming", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamEndStreaming():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head, use_last_error=False)(("AVIStreamEndStreaming", windll["AVIFIL32"]), ((1, 'pavi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamGetFrameOpen():
-    try:
-        return WINFUNCTYPE(win32more.Media.Multimedia.IGetFrame_head,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head), use_last_error=False)(("AVIStreamGetFrameOpen", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lpbiWanted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamGetFrame():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Media.Multimedia.IGetFrame_head,Int32, use_last_error=False)(("AVIStreamGetFrame", windll["AVIFIL32"]), ((1, 'pg'),(1, 'lPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamGetFrameClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IGetFrame_head, use_last_error=False)(("AVIStreamGetFrameClose", windll["AVIFIL32"]), ((1, 'pg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamOpenFromFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Foundation.PSTR,UInt32,Int32,UInt32,POINTER(Guid), use_last_error=False)(("AVIStreamOpenFromFileA", windll["AVIFIL32"]), ((1, 'ppavi'),(1, 'szFile'),(1, 'fccType'),(1, 'lParam'),(1, 'mode'),(1, 'pclsidHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamOpenFromFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Foundation.PWSTR,UInt32,Int32,UInt32,POINTER(Guid), use_last_error=False)(("AVIStreamOpenFromFileW", windll["AVIFIL32"]), ((1, 'ppavi'),(1, 'szFile'),(1, 'fccType'),(1, 'lParam'),(1, 'mode'),(1, 'pclsidHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIStreamOpenFromFile():
-    return win32more.Media.Multimedia.AVIStreamOpenFromFileW
-def _define_AVIStreamCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),Int32,Int32,POINTER(Guid), use_last_error=False)(("AVIStreamCreate", windll["AVIFIL32"]), ((1, 'ppavi'),(1, 'lParam1'),(1, 'lParam2'),(1, 'pclsidHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIMakeCompressedStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head),POINTER(Guid), use_last_error=False)(("AVIMakeCompressedStream", windll["AVIFIL32"]), ((1, 'ppsCompressed'),(1, 'ppsSource'),(1, 'lpOptions'),(1, 'pclsidHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVISaveA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head), use_last_error=False)(("AVISaveA", windll["AVIFIL32"]), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'pfile'),(1, 'lpOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVISaveVA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)), use_last_error=False)(("AVISaveVA", windll["AVIFIL32"]), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'ppavi'),(1, 'plpOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVISaveW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head), use_last_error=False)(("AVISaveW", windll["AVIFIL32"]), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'pfile'),(1, 'lpOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVISave():
-    return win32more.Media.Multimedia.AVISaveW
-def _define_AVISaveVW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),win32more.Media.Multimedia.AVISAVECALLBACK,Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)), use_last_error=False)(("AVISaveVW", windll["AVIFIL32"]), ((1, 'szFile'),(1, 'pclsidHandler'),(1, 'lpfnCallback'),(1, 'nStreams'),(1, 'ppavi'),(1, 'plpOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVISaveV():
-    return win32more.Media.Multimedia.AVISaveVW
-def _define_AVISaveOptions():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,UInt32,Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head),POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)), use_last_error=False)(("AVISaveOptions", windll["AVIFIL32"]), ((1, 'hwnd'),(1, 'uiFlags'),(1, 'nStreams'),(1, 'ppavi'),(1, 'plpOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVISaveOptionsFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(POINTER(win32more.Media.Multimedia.AVICOMPRESSOPTIONS_head)), use_last_error=False)(("AVISaveOptionsFree", windll["AVIFIL32"]), ((1, 'nStreams'),(1, 'plpOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIBuildFilterW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32,win32more.Foundation.BOOL, use_last_error=False)(("AVIBuildFilterW", windll["AVIFIL32"]), ((1, 'lpszFilter'),(1, 'cbFilter'),(1, 'fSaving'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIBuildFilter():
-    return win32more.Media.Multimedia.AVIBuildFilterW
-def _define_AVIBuildFilterA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),Int32,win32more.Foundation.BOOL, use_last_error=False)(("AVIBuildFilterA", windll["AVIFIL32"]), ((1, 'lpszFilter'),(1, 'cbFilter'),(1, 'fSaving'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIMakeFileFromStreams():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head),Int32,POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(("AVIMakeFileFromStreams", windll["AVIFIL32"]), ((1, 'ppfile'),(1, 'nStreams'),(1, 'papStreams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIMakeStreamFromClipboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(("AVIMakeStreamFromClipboard", windll["AVIFIL32"]), ((1, 'cfFormat'),(1, 'hGlobal'),(1, 'ppstream'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIPutFileOnClipboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIFile_head, use_last_error=False)(("AVIPutFileOnClipboard", windll["AVIFIL32"]), ((1, 'pf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIGetFromClipboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIFile_head), use_last_error=False)(("AVIGetFromClipboard", windll["AVIFIL32"]), ((1, 'lppf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AVIClearClipboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(("AVIClearClipboard", windll["AVIFIL32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEditableStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head),win32more.Media.Multimedia.IAVIStream_head, use_last_error=False)(("CreateEditableStream", windll["AVIFIL32"]), ((1, 'ppsEditable'),(1, 'psSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamCut():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(("EditStreamCut", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamCopy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(Int32),POINTER(Int32),POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(("EditStreamCopy", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'plStart'),(1, 'plLength'),(1, 'ppResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamPaste():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(Int32),POINTER(Int32),win32more.Media.Multimedia.IAVIStream_head,Int32,Int32, use_last_error=False)(("EditStreamPaste", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'plPos'),(1, 'plLength'),(1, 'pstream'),(1, 'lStart'),(1, 'lEnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamClone():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(("EditStreamClone", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'ppResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamSetNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,win32more.Foundation.PSTR, use_last_error=False)(("EditStreamSetNameA", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lpszName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamSetNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,win32more.Foundation.PWSTR, use_last_error=False)(("EditStreamSetNameW", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lpszName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamSetName():
-    return win32more.Media.Multimedia.EditStreamSetNameW
-def _define_EditStreamSetInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(("EditStreamSetInfoW", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lpInfo'),(1, 'cbInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EditStreamSetInfo():
-    return win32more.Media.Multimedia.EditStreamSetInfoW
-def _define_EditStreamSetInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Multimedia.IAVIStream_head,POINTER(win32more.Media.Multimedia.AVISTREAMINFOA_head),Int32, use_last_error=False)(("EditStreamSetInfoA", windll["AVIFIL32"]), ((1, 'pavi'),(1, 'lpInfo'),(1, 'cbInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MCIWndCreateA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MCIWndCreateA", windll["MSVFW32"]), ((1, 'hwndParent'),(1, 'hInstance'),(1, 'dwStyle'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MCIWndCreateW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MCIWndCreateW", windll["MSVFW32"]), ((1, 'hwndParent'),(1, 'hInstance'),(1, 'dwStyle'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MCIWndCreate():
-    return win32more.Media.Multimedia.MCIWndCreateW
-def _define_MCIWndRegisterClass():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(("MCIWndRegisterClass", windll["MSVFW32"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_capCreateCaptureWindowA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,Int32, use_last_error=False)(("capCreateCaptureWindowA", windll["AVICAP32"]), ((1, 'lpszWindowName'),(1, 'dwStyle'),(1, 'x'),(1, 'y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hwndParent'),(1, 'nID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_capGetDriverDescriptionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Byte),Int32,POINTER(Byte),Int32, use_last_error=False)(("capGetDriverDescriptionA", windll["AVICAP32"]), ((1, 'wDriverIndex'),(1, 'lpszName'),(1, 'cbName'),(1, 'lpszVer'),(1, 'cbVer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_capCreateCaptureWindowW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,Int32,Int32,Int32,Int32,win32more.Foundation.HWND,Int32, use_last_error=False)(("capCreateCaptureWindowW", windll["AVICAP32"]), ((1, 'lpszWindowName'),(1, 'dwStyle'),(1, 'x'),(1, 'y'),(1, 'nWidth'),(1, 'nHeight'),(1, 'hwndParent'),(1, 'nID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_capCreateCaptureWindow():
-    return win32more.Media.Multimedia.capCreateCaptureWindowW
-def _define_capGetDriverDescriptionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Char),Int32,POINTER(Char),Int32, use_last_error=False)(("capGetDriverDescriptionW", windll["AVICAP32"]), ((1, 'wDriverIndex'),(1, 'lpszName'),(1, 'cbName'),(1, 'lpszVer'),(1, 'cbVer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_capGetDriverDescription():
-    return win32more.Media.Multimedia.capGetDriverDescriptionW
-def _define_GetOpenFileNamePreviewA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head), use_last_error=False)(("GetOpenFileNamePreviewA", windll["MSVFW32"]), ((1, 'lpofn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSaveFileNamePreviewA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head), use_last_error=False)(("GetSaveFileNamePreviewA", windll["MSVFW32"]), ((1, 'lpofn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOpenFileNamePreviewW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head), use_last_error=False)(("GetOpenFileNamePreviewW", windll["MSVFW32"]), ((1, 'lpofn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOpenFileNamePreview():
-    return win32more.Media.Multimedia.GetOpenFileNamePreviewW
-def _define_GetSaveFileNamePreviewW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head), use_last_error=False)(("GetSaveFileNamePreviewW", windll["MSVFW32"]), ((1, 'lpofn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSaveFileNamePreview():
-    return win32more.Media.Multimedia.GetSaveFileNamePreviewW
-def _define_mmTaskCreate():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Multimedia.LPTASKCALLBACK,POINTER(win32more.Foundation.HANDLE),UIntPtr, use_last_error=False)(("mmTaskCreate", windll["WINMM"]), ((1, 'lpfn'),(1, 'lph'),(1, 'dwInst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmTaskBlock():
-    try:
-        return WINFUNCTYPE(Void,UInt32, use_last_error=False)(("mmTaskBlock", windll["WINMM"]), ((1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmTaskSignal():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=False)(("mmTaskSignal", windll["WINMM"]), ((1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmTaskYield():
-    try:
-        return WINFUNCTYPE(Void, use_last_error=False)(("mmTaskYield", windll["WINMM"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mmGetCurrentTask():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("mmGetCurrentTask", windll["WINMM"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
+    return WINFUNCTYPE(UInt32,c_void_p,win32more.UI.Controls.LPFNSVADDPROPSHEETPAGE,win32more.Foundation.LPARAM)
+def _define_VIDEOHDR_head():
+    class VIDEOHDR(Structure):
+        pass
+    return VIDEOHDR
+def _define_VIDEOHDR():
+    VIDEOHDR = win32more.Media.Multimedia.VIDEOHDR_head
+    VIDEOHDR._fields_ = [
+        ('lpData', c_char_p_no),
+        ('dwBufferLength', UInt32),
+        ('dwBytesUsed', UInt32),
+        ('dwTimeCaptured', UInt32),
+        ('dwUser', UIntPtr),
+        ('dwFlags', UInt32),
+        ('dwReserved', UIntPtr * 4),
+    ]
+    return VIDEOHDR
+def _define_WAVEOPENDESC_head():
+    class WAVEOPENDESC(Structure):
+        pass
+    return WAVEOPENDESC
+def _define_WAVEOPENDESC():
+    WAVEOPENDESC = win32more.Media.Multimedia.WAVEOPENDESC_head
+    WAVEOPENDESC._pack_ = 1
+    WAVEOPENDESC._fields_ = [
+        ('hWave', win32more.Media.Audio.HWAVE),
+        ('lpFormat', POINTER(win32more.Media.Audio.WAVEFORMAT_head)),
+        ('dwCallback', UIntPtr),
+        ('dwInstance', UIntPtr),
+        ('uMappedDeviceID', UInt32),
+        ('dnDevNode', UIntPtr),
+    ]
+    return WAVEOPENDESC
+def _define_WMAUDIO2WAVEFORMAT_head():
+    class WMAUDIO2WAVEFORMAT(Structure):
+        pass
+    return WMAUDIO2WAVEFORMAT
+def _define_WMAUDIO2WAVEFORMAT():
+    WMAUDIO2WAVEFORMAT = win32more.Media.Multimedia.WMAUDIO2WAVEFORMAT_head
+    WMAUDIO2WAVEFORMAT._pack_ = 1
+    WMAUDIO2WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('dwSamplesPerBlock', UInt32),
+        ('wEncodeOptions', UInt16),
+        ('dwSuperBlockAlign', UInt32),
+    ]
+    return WMAUDIO2WAVEFORMAT
+def _define_WMAUDIO3WAVEFORMAT_head():
+    class WMAUDIO3WAVEFORMAT(Structure):
+        pass
+    return WMAUDIO3WAVEFORMAT
+def _define_WMAUDIO3WAVEFORMAT():
+    WMAUDIO3WAVEFORMAT = win32more.Media.Multimedia.WMAUDIO3WAVEFORMAT_head
+    WMAUDIO3WAVEFORMAT._pack_ = 1
+    WMAUDIO3WAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+        ('wValidBitsPerSample', UInt16),
+        ('dwChannelMask', UInt32),
+        ('dwReserved1', UInt32),
+        ('dwReserved2', UInt32),
+        ('wEncodeOptions', UInt16),
+        ('wReserved3', UInt16),
+    ]
+    return WMAUDIO3WAVEFORMAT
+def _define_YAMAHA_ADPCMWAVEFORMAT_head():
+    class YAMAHA_ADPCMWAVEFORMAT(Structure):
+        pass
+    return YAMAHA_ADPCMWAVEFORMAT
+def _define_YAMAHA_ADPCMWAVEFORMAT():
+    YAMAHA_ADPCMWAVEFORMAT = win32more.Media.Multimedia.YAMAHA_ADPCMWAVEFORMAT_head
+    YAMAHA_ADPCMWAVEFORMAT._pack_ = 1
+    YAMAHA_ADPCMWAVEFORMAT._fields_ = [
+        ('wfx', win32more.Media.Audio.WAVEFORMATEX),
+    ]
+    return YAMAHA_ADPCMWAVEFORMAT
+def _define_YIELDPROC():
+    return WINFUNCTYPE(UInt32,UInt32,UInt32)
 __all__ = [
-    "WM_CAP_START",
-    "MODM_USER",
-    "MIDM_USER",
-    "MODM_MAPPER",
-    "MIDM_MAPPER",
-    "MODM_INIT",
-    "MIDM_INIT",
-    "MODM_INIT_EX",
-    "MIDM_INIT_EX",
-    "DRV_MCI_FIRST",
     "ACMDM_BASE",
-    "ICM_RESERVED",
-    "MCI_TEST",
-    "MCI_CAPTURE",
-    "MCI_MONITOR",
-    "MCI_RESERVE",
-    "MCI_SETAUDIO",
-    "MCI_SIGNAL",
-    "MCI_SETVIDEO",
-    "MCI_QUALITY",
-    "MCI_LIST",
-    "MCI_UNDO",
-    "MCI_CONFIGURE",
-    "MCI_RESTORE",
-    "MCI_ON",
-    "MCI_OFF",
-    "MCI_DGV_FILE_MODE_SAVING",
-    "MCI_DGV_FILE_MODE_LOADING",
-    "MCI_DGV_FILE_MODE_EDITING",
-    "MCI_DGV_FILE_MODE_IDLE",
-    "MCI_ON_S",
-    "MCI_OFF_S",
-    "MCI_DGV_FILE_S",
-    "MCI_DGV_INPUT_S",
-    "MCI_DGV_FILE_MODE_SAVING_S",
-    "MCI_DGV_FILE_MODE_LOADING_S",
-    "MCI_DGV_FILE_MODE_EDITING_S",
-    "MCI_DGV_FILE_MODE_IDLE_S",
-    "MCI_DGV_SETVIDEO_SRC_NTSC_S",
-    "MCI_DGV_SETVIDEO_SRC_RGB_S",
-    "MCI_DGV_SETVIDEO_SRC_SVIDEO_S",
-    "MCI_DGV_SETVIDEO_SRC_PAL_S",
-    "MCI_DGV_SETVIDEO_SRC_SECAM_S",
-    "MCI_DGV_SETVIDEO_SRC_GENERIC_S",
-    "MCI_DGV_SETAUDIO_SRC_LEFT_S",
-    "MCI_DGV_SETAUDIO_SRC_RIGHT_S",
-    "MCI_DGV_SETAUDIO_SRC_AVERAGE_S",
-    "MCI_DGV_SETAUDIO_SRC_STEREO_S",
-    "MCIERR_DGV_DEVICE_LIMIT",
-    "MCIERR_DGV_IOERR",
-    "MCIERR_DGV_WORKSPACE_EMPTY",
-    "MCIERR_DGV_DISK_FULL",
-    "MCIERR_DGV_DEVICE_MEMORY_FULL",
-    "MCIERR_DGV_BAD_CLIPBOARD_RANGE",
-    "MCI_DGV_METHOD_PRE",
-    "MCI_DGV_METHOD_POST",
-    "MCI_DGV_METHOD_DIRECT",
-    "MCI_DGV_FF_AVSS",
-    "MCI_DGV_FF_AVI",
-    "MCI_DGV_FF_DIB",
-    "MCI_DGV_FF_RDIB",
-    "MCI_DGV_FF_JPEG",
-    "MCI_DGV_FF_RJPEG",
-    "MCI_DGV_FF_JFIF",
-    "MCI_DGV_FF_MPEG",
-    "MCI_DGV_GETDEVCAPS_CAN_LOCK",
-    "MCI_DGV_GETDEVCAPS_CAN_STRETCH",
-    "MCI_DGV_GETDEVCAPS_CAN_FREEZE",
-    "MCI_DGV_GETDEVCAPS_MAX_WINDOWS",
-    "MCI_DGV_GETDEVCAPS_CAN_REVERSE",
-    "MCI_DGV_GETDEVCAPS_HAS_STILL",
-    "MCI_DGV_GETDEVCAPS_PALETTES",
-    "MCI_DGV_GETDEVCAPS_CAN_STR_IN",
-    "MCI_DGV_GETDEVCAPS_CAN_TEST",
-    "MCI_DGV_GETDEVCAPS_MAXIMUM_RATE",
-    "MCI_DGV_GETDEVCAPS_MINIMUM_RATE",
-    "MCI_DGV_CAPTURE_AS",
-    "MCI_DGV_CAPTURE_AT",
-    "MCI_DGV_COPY_AT",
-    "MCI_DGV_COPY_AUDIO_STREAM",
-    "MCI_DGV_COPY_VIDEO_STREAM",
-    "MCI_DGV_CUE_INPUT",
-    "MCI_DGV_CUE_OUTPUT",
-    "MCI_DGV_CUE_NOSHOW",
-    "MCI_DGV_CUT_AT",
-    "MCI_DGV_CUT_AUDIO_STREAM",
-    "MCI_DGV_CUT_VIDEO_STREAM",
-    "MCI_DGV_DELETE_AT",
-    "MCI_DGV_DELETE_AUDIO_STREAM",
-    "MCI_DGV_DELETE_VIDEO_STREAM",
-    "MCI_DGV_FREEZE_AT",
-    "MCI_DGV_FREEZE_OUTSIDE",
-    "MCI_DGV_INFO_TEXT",
-    "MCI_DGV_INFO_ITEM",
-    "MCI_INFO_VERSION",
-    "MCI_DGV_INFO_USAGE",
-    "MCI_DGV_INFO_AUDIO_QUALITY",
-    "MCI_DGV_INFO_STILL_QUALITY",
-    "MCI_DGV_INFO_VIDEO_QUALITY",
-    "MCI_DGV_INFO_AUDIO_ALG",
-    "MCI_DGV_INFO_STILL_ALG",
-    "MCI_DGV_INFO_VIDEO_ALG",
-    "MCI_DGV_LIST_ITEM",
-    "MCI_DGV_LIST_COUNT",
-    "MCI_DGV_LIST_NUMBER",
-    "MCI_DGV_LIST_ALG",
-    "MCI_DGV_LIST_AUDIO_ALG",
-    "MCI_DGV_LIST_AUDIO_QUALITY",
-    "MCI_DGV_LIST_AUDIO_STREAM",
-    "MCI_DGV_LIST_STILL_ALG",
-    "MCI_DGV_LIST_STILL_QUALITY",
-    "MCI_DGV_LIST_VIDEO_ALG",
-    "MCI_DGV_LIST_VIDEO_QUALITY",
-    "MCI_DGV_LIST_VIDEO_STREAM",
-    "MCI_DGV_LIST_VIDEO_SOURCE",
-    "MCI_DGV_MONITOR_METHOD",
-    "MCI_DGV_MONITOR_SOURCE",
-    "MCI_DGV_MONITOR_INPUT",
-    "MCI_DGV_MONITOR_FILE",
-    "MCI_DGV_OPEN_WS",
-    "MCI_DGV_OPEN_PARENT",
-    "MCI_DGV_OPEN_NOSTATIC",
-    "MCI_DGV_OPEN_16BIT",
-    "MCI_DGV_OPEN_32BIT",
-    "MCI_DGV_PASTE_AT",
-    "MCI_DGV_PASTE_AUDIO_STREAM",
-    "MCI_DGV_PASTE_VIDEO_STREAM",
-    "MCI_DGV_PASTE_INSERT",
-    "MCI_DGV_PASTE_OVERWRITE",
-    "MCI_DGV_PLAY_REPEAT",
-    "MCI_DGV_PLAY_REVERSE",
-    "MCI_DGV_RECT",
-    "MCI_DGV_PUT_SOURCE",
-    "MCI_DGV_PUT_DESTINATION",
-    "MCI_DGV_PUT_FRAME",
-    "MCI_DGV_PUT_VIDEO",
-    "MCI_DGV_PUT_WINDOW",
-    "MCI_DGV_PUT_CLIENT",
-    "MCI_QUALITY_ITEM",
-    "MCI_QUALITY_NAME",
-    "MCI_QUALITY_ALG",
-    "MCI_QUALITY_DIALOG",
-    "MCI_QUALITY_HANDLE",
-    "MCI_QUALITY_ITEM_AUDIO",
-    "MCI_QUALITY_ITEM_STILL",
-    "MCI_QUALITY_ITEM_VIDEO",
-    "MCI_DGV_REALIZE_NORM",
-    "MCI_DGV_REALIZE_BKGD",
-    "MCI_DGV_RECORD_HOLD",
-    "MCI_DGV_RECORD_AUDIO_STREAM",
-    "MCI_DGV_RECORD_VIDEO_STREAM",
-    "MCI_DGV_RESERVE_IN",
-    "MCI_DGV_RESERVE_SIZE",
-    "MCI_DGV_RESTORE_FROM",
-    "MCI_DGV_RESTORE_AT",
-    "MCI_DGV_SAVE_ABORT",
-    "MCI_DGV_SAVE_KEEPRESERVE",
-    "MCI_DGV_SET_SEEK_EXACTLY",
-    "MCI_DGV_SET_SPEED",
-    "MCI_DGV_SET_STILL",
-    "MCI_DGV_SET_FILEFORMAT",
-    "MCI_DGV_SETAUDIO_OVER",
-    "MCI_DGV_SETAUDIO_CLOCKTIME",
-    "MCI_DGV_SETAUDIO_ALG",
-    "MCI_DGV_SETAUDIO_QUALITY",
-    "MCI_DGV_SETAUDIO_RECORD",
-    "MCI_DGV_SETAUDIO_LEFT",
-    "MCI_DGV_SETAUDIO_RIGHT",
-    "MCI_DGV_SETAUDIO_ITEM",
-    "MCI_DGV_SETAUDIO_VALUE",
-    "MCI_DGV_SETAUDIO_INPUT",
-    "MCI_DGV_SETAUDIO_OUTPUT",
-    "MCI_DGV_SETAUDIO_TREBLE",
-    "MCI_DGV_SETAUDIO_BASS",
-    "MCI_DGV_SETAUDIO_VOLUME",
-    "MCI_DGV_SETAUDIO_STREAM",
-    "MCI_DGV_SETAUDIO_SOURCE",
-    "MCI_DGV_SETAUDIO_SAMPLESPERSEC",
-    "MCI_DGV_SETAUDIO_AVGBYTESPERSEC",
-    "MCI_DGV_SETAUDIO_BLOCKALIGN",
-    "MCI_DGV_SETAUDIO_BITSPERSAMPLE",
-    "MCI_DGV_SETAUDIO_SOURCE_STEREO",
-    "MCI_DGV_SETAUDIO_SOURCE_LEFT",
-    "MCI_DGV_SETAUDIO_SOURCE_RIGHT",
-    "MCI_DGV_SETAUDIO_SOURCE_AVERAGE",
-    "MCI_DGV_SETVIDEO_QUALITY",
-    "MCI_DGV_SETVIDEO_ALG",
-    "MCI_DGV_SETVIDEO_CLOCKTIME",
-    "MCI_DGV_SETVIDEO_SRC_NUMBER",
-    "MCI_DGV_SETVIDEO_ITEM",
-    "MCI_DGV_SETVIDEO_OVER",
-    "MCI_DGV_SETVIDEO_RECORD",
-    "MCI_DGV_SETVIDEO_STILL",
-    "MCI_DGV_SETVIDEO_VALUE",
-    "MCI_DGV_SETVIDEO_INPUT",
-    "MCI_DGV_SETVIDEO_OUTPUT",
-    "MCI_DGV_SETVIDEO_SRC_NTSC",
-    "MCI_DGV_SETVIDEO_SRC_RGB",
-    "MCI_DGV_SETVIDEO_SRC_SVIDEO",
-    "MCI_DGV_SETVIDEO_SRC_PAL",
-    "MCI_DGV_SETVIDEO_SRC_SECAM",
-    "MCI_DGV_SETVIDEO_SRC_GENERIC",
-    "MCI_DGV_SETVIDEO_BRIGHTNESS",
-    "MCI_DGV_SETVIDEO_COLOR",
-    "MCI_DGV_SETVIDEO_CONTRAST",
-    "MCI_DGV_SETVIDEO_TINT",
-    "MCI_DGV_SETVIDEO_SHARPNESS",
-    "MCI_DGV_SETVIDEO_GAMMA",
-    "MCI_DGV_SETVIDEO_STREAM",
-    "MCI_DGV_SETVIDEO_PALHANDLE",
-    "MCI_DGV_SETVIDEO_FRAME_RATE",
-    "MCI_DGV_SETVIDEO_SOURCE",
-    "MCI_DGV_SETVIDEO_KEY_INDEX",
-    "MCI_DGV_SETVIDEO_KEY_COLOR",
-    "MCI_DGV_SETVIDEO_BITSPERPEL",
-    "MCI_DGV_SIGNAL_AT",
-    "MCI_DGV_SIGNAL_EVERY",
-    "MCI_DGV_SIGNAL_USERVAL",
-    "MCI_DGV_SIGNAL_CANCEL",
-    "MCI_DGV_SIGNAL_POSITION",
-    "MCI_DGV_STATUS_NOMINAL",
-    "MCI_DGV_STATUS_REFERENCE",
-    "MCI_DGV_STATUS_LEFT",
-    "MCI_DGV_STATUS_RIGHT",
-    "MCI_DGV_STATUS_DISKSPACE",
-    "MCI_DGV_STATUS_INPUT",
-    "MCI_DGV_STATUS_OUTPUT",
-    "MCI_DGV_STATUS_RECORD",
-    "MCI_DGV_STATUS_AUDIO_INPUT",
-    "MCI_DGV_STATUS_HWND",
-    "MCI_DGV_STATUS_SPEED",
-    "MCI_DGV_STATUS_HPAL",
-    "MCI_DGV_STATUS_BRIGHTNESS",
-    "MCI_DGV_STATUS_COLOR",
-    "MCI_DGV_STATUS_CONTRAST",
-    "MCI_DGV_STATUS_FILEFORMAT",
-    "MCI_DGV_STATUS_AUDIO_SOURCE",
-    "MCI_DGV_STATUS_GAMMA",
-    "MCI_DGV_STATUS_MONITOR",
-    "MCI_DGV_STATUS_MONITOR_METHOD",
-    "MCI_DGV_STATUS_FRAME_RATE",
-    "MCI_DGV_STATUS_BASS",
-    "MCI_DGV_STATUS_SIZE",
-    "MCI_DGV_STATUS_SEEK_EXACTLY",
-    "MCI_DGV_STATUS_SHARPNESS",
-    "MCI_DGV_STATUS_SMPTE",
-    "MCI_DGV_STATUS_AUDIO",
-    "MCI_DGV_STATUS_TINT",
-    "MCI_DGV_STATUS_TREBLE",
-    "MCI_DGV_STATUS_UNSAVED",
-    "MCI_DGV_STATUS_VIDEO",
-    "MCI_DGV_STATUS_VOLUME",
-    "MCI_DGV_STATUS_AUDIO_RECORD",
-    "MCI_DGV_STATUS_VIDEO_SOURCE",
-    "MCI_DGV_STATUS_VIDEO_RECORD",
-    "MCI_DGV_STATUS_STILL_FILEFORMAT",
-    "MCI_DGV_STATUS_VIDEO_SRC_NUM",
-    "MCI_DGV_STATUS_FILE_MODE",
-    "MCI_DGV_STATUS_FILE_COMPLETION",
-    "MCI_DGV_STATUS_WINDOW_VISIBLE",
-    "MCI_DGV_STATUS_WINDOW_MINIMIZED",
-    "MCI_DGV_STATUS_WINDOW_MAXIMIZED",
-    "MCI_DGV_STATUS_KEY_INDEX",
-    "MCI_DGV_STATUS_KEY_COLOR",
-    "MCI_DGV_STATUS_PAUSE_MODE",
-    "MCI_DGV_STATUS_SAMPLESPERSEC",
-    "MCI_DGV_STATUS_AVGBYTESPERSEC",
-    "MCI_DGV_STATUS_BLOCKALIGN",
-    "MCI_DGV_STATUS_BITSPERSAMPLE",
-    "MCI_DGV_STATUS_BITSPERPEL",
-    "MCI_DGV_STATUS_FORWARD",
-    "MCI_DGV_STATUS_AUDIO_STREAM",
-    "MCI_DGV_STATUS_VIDEO_STREAM",
-    "MCI_DGV_STEP_REVERSE",
-    "MCI_DGV_STEP_FRAMES",
-    "MCI_DGV_STOP_HOLD",
-    "MCI_DGV_UPDATE_HDC",
-    "MCI_DGV_UPDATE_PAINT",
-    "MCI_DGV_WHERE_SOURCE",
-    "MCI_DGV_WHERE_DESTINATION",
-    "MCI_DGV_WHERE_FRAME",
-    "MCI_DGV_WHERE_VIDEO",
-    "MCI_DGV_WHERE_WINDOW",
-    "MCI_DGV_WHERE_MAX",
-    "MCI_DGV_WINDOW_HWND",
-    "MCI_DGV_WINDOW_STATE",
-    "MCI_DGV_WINDOW_TEXT",
-    "MCI_DGV_WINDOW_DEFAULT",
-    "MM_CREATIVE",
-    "MM_MEDIAVISION",
-    "MM_FUJITSU",
-    "MM_PRAGMATRAX",
-    "MM_CYRIX",
-    "MM_PHILIPS_SPEECH_PROCESSING",
-    "MM_NETXL",
-    "MM_ZYXEL",
-    "MM_BECUBED",
-    "MM_AARDVARK",
-    "MM_BINTEC",
-    "MM_HEWLETT_PACKARD",
-    "MM_ACULAB",
-    "MM_FAITH",
-    "MM_MITEL",
-    "MM_QUANTUM3D",
-    "MM_SNI",
-    "MM_EMU",
-    "MM_ARTISOFT",
-    "MM_TURTLE_BEACH",
-    "MM_IBM",
-    "MM_VOCALTEC",
-    "MM_ROLAND",
-    "MM_DSP_SOLUTIONS",
-    "MM_NEC",
-    "MM_ATI",
-    "MM_WANGLABS",
-    "MM_TANDY",
-    "MM_VOYETRA",
-    "MM_ANTEX",
-    "MM_ICL_PS",
-    "MM_INTEL",
-    "MM_GRAVIS",
-    "MM_VAL",
-    "MM_INTERACTIVE",
-    "MM_YAMAHA",
-    "MM_EVEREX",
-    "MM_ECHO",
-    "MM_SIERRA",
-    "MM_CAT",
-    "MM_APPS",
-    "MM_DSP_GROUP",
-    "MM_MELABS",
-    "MM_COMPUTER_FRIENDS",
-    "MM_ESS",
-    "MM_AUDIOFILE",
-    "MM_MOTOROLA",
-    "MM_CANOPUS",
-    "MM_EPSON",
-    "MM_TRUEVISION",
-    "MM_AZTECH",
-    "MM_VIDEOLOGIC",
-    "MM_SCALACS",
-    "MM_KORG",
-    "MM_APT",
-    "MM_ICS",
-    "MM_ITERATEDSYS",
-    "MM_METHEUS",
-    "MM_LOGITECH",
-    "MM_WINNOV",
-    "MM_NCR",
-    "MM_EXAN",
-    "MM_AST",
-    "MM_WILLOWPOND",
-    "MM_SONICFOUNDRY",
-    "MM_VITEC",
-    "MM_MOSCOM",
-    "MM_SILICONSOFT",
-    "MM_TERRATEC",
-    "MM_MEDIASONIC",
-    "MM_SANYO",
-    "MM_SUPERMAC",
-    "MM_AUDIOPT",
-    "MM_NOGATECH",
-    "MM_SPEECHCOMP",
-    "MM_AHEAD",
-    "MM_DOLBY",
-    "MM_OKI",
-    "MM_AURAVISION",
-    "MM_OLIVETTI",
-    "MM_IOMAGIC",
-    "MM_MATSUSHITA",
-    "MM_CONTROLRES",
-    "MM_XEBEC",
-    "MM_NEWMEDIA",
-    "MM_NMS",
-    "MM_LYRRUS",
-    "MM_COMPUSIC",
-    "MM_OPTI",
-    "MM_ADLACC",
-    "MM_COMPAQ",
-    "MM_DIALOGIC",
-    "MM_INSOFT",
-    "MM_MPTUS",
-    "MM_WEITEK",
-    "MM_LERNOUT_AND_HAUSPIE",
-    "MM_QCIAR",
-    "MM_APPLE",
-    "MM_DIGITAL",
-    "MM_MOTU",
-    "MM_WORKBIT",
-    "MM_OSITECH",
-    "MM_MIRO",
-    "MM_CIRRUSLOGIC",
-    "MM_ISOLUTION",
-    "MM_HORIZONS",
-    "MM_CONCEPTS",
-    "MM_VTG",
-    "MM_RADIUS",
-    "MM_ROCKWELL",
-    "MM_XYZ",
-    "MM_OPCODE",
-    "MM_VOXWARE",
-    "MM_NORTHERN_TELECOM",
-    "MM_APICOM",
-    "MM_GRANDE",
-    "MM_ADDX",
-    "MM_WILDCAT",
-    "MM_RHETOREX",
-    "MM_BROOKTREE",
-    "MM_ENSONIQ",
-    "MM_FAST",
-    "MM_NVIDIA",
-    "MM_OKSORI",
-    "MM_DIACOUSTICS",
-    "MM_GULBRANSEN",
-    "MM_KAY_ELEMETRICS",
-    "MM_CRYSTAL",
-    "MM_SPLASH_STUDIOS",
-    "MM_QUARTERDECK",
-    "MM_TDK",
-    "MM_DIGITAL_AUDIO_LABS",
-    "MM_SEERSYS",
-    "MM_PICTURETEL",
-    "MM_ATT_MICROELECTRONICS",
-    "MM_OSPREY",
-    "MM_MEDIATRIX",
-    "MM_SOUNDESIGNS",
-    "MM_ALDIGITAL",
-    "MM_SPECTRUM_SIGNAL_PROCESSING",
-    "MM_ECS",
-    "MM_AMD",
-    "MM_COREDYNAMICS",
-    "MM_CANAM",
-    "MM_SOFTSOUND",
-    "MM_NORRIS",
-    "MM_DDD",
-    "MM_EUPHONICS",
-    "MM_PRECEPT",
-    "MM_CRYSTAL_NET",
-    "MM_CHROMATIC",
-    "MM_VOICEINFO",
-    "MM_VIENNASYS",
-    "MM_CONNECTIX",
-    "MM_GADGETLABS",
-    "MM_FRONTIER",
-    "MM_VIONA",
-    "MM_CASIO",
-    "MM_DIAMONDMM",
-    "MM_S3",
-    "MM_DVISION",
-    "MM_NETSCAPE",
-    "MM_SOUNDSPACE",
-    "MM_VANKOEVERING",
-    "MM_QTEAM",
-    "MM_ZEFIRO",
-    "MM_STUDER",
-    "MM_FRAUNHOFER_IIS",
-    "MM_QUICKNET",
-    "MM_ALARIS",
-    "MM_SICRESOURCE",
-    "MM_NEOMAGIC",
-    "MM_MERGING_TECHNOLOGIES",
-    "MM_XIRLINK",
-    "MM_COLORGRAPH",
-    "MM_OTI",
-    "MM_AUREAL",
-    "MM_VIVO",
-    "MM_SHARP",
-    "MM_LUCENT",
-    "MM_ATT",
-    "MM_SUNCOM",
-    "MM_SORVIS",
-    "MM_INVISION",
-    "MM_BERKOM",
-    "MM_MARIAN",
-    "MM_DPSINC",
-    "MM_BCB",
-    "MM_MOTIONPIXELS",
-    "MM_QDESIGN",
-    "MM_NMP",
-    "MM_DATAFUSION",
-    "MM_DUCK",
-    "MM_FTR",
-    "MM_BERCOS",
-    "MM_ONLIVE",
-    "MM_SIEMENS_SBC",
-    "MM_TERALOGIC",
-    "MM_PHONET",
-    "MM_WINBOND",
-    "MM_VIRTUALMUSIC",
-    "MM_ENET",
-    "MM_GUILLEMOT",
-    "MM_EMAGIC",
-    "MM_MWM",
-    "MM_PACIFICRESEARCH",
-    "MM_SIPROLAB",
-    "MM_LYNX",
-    "MM_SPECTRUM_PRODUCTIONS",
-    "MM_DICTAPHONE",
-    "MM_QUALCOMM",
-    "MM_RZS",
-    "MM_AUDIOSCIENCE",
-    "MM_PINNACLE",
-    "MM_EES",
-    "MM_HAFTMANN",
-    "MM_LUCID",
-    "MM_HEADSPACE",
-    "MM_UNISYS",
-    "MM_LUMINOSITI",
-    "MM_ACTIVEVOICE",
-    "MM_DTS",
-    "MM_DIGIGRAM",
-    "MM_SOFTLAB_NSK",
-    "MM_FORTEMEDIA",
-    "MM_SONORUS",
-    "MM_ARRAY",
-    "MM_DATARAN",
-    "MM_I_LINK",
-    "MM_SELSIUS_SYSTEMS",
-    "MM_ADMOS",
-    "MM_LEXICON",
-    "MM_SGI",
-    "MM_IPI",
-    "MM_ICE",
-    "MM_VQST",
-    "MM_ETEK",
-    "MM_CS",
-    "MM_ALESIS",
-    "MM_INTERNET",
-    "MM_SONY",
-    "MM_HYPERACTIVE",
-    "MM_UHER_INFORMATIC",
-    "MM_SYDEC_NV",
-    "MM_FLEXION",
-    "MM_VIA",
-    "MM_MICRONAS",
-    "MM_ANALOGDEVICES",
-    "MM_HP",
-    "MM_MATROX_DIV",
-    "MM_QUICKAUDIO",
-    "MM_YOUCOM",
-    "MM_RICHMOND",
-    "MM_IODD",
-    "MM_ICCC",
-    "MM_3COM",
-    "MM_MALDEN",
-    "MM_3DFX",
-    "MM_MINDMAKER",
-    "MM_TELEKOL",
-    "MM_ST_MICROELECTRONICS",
-    "MM_ALGOVISION",
-    "MM_UNMAPPED",
-    "MM_PID_UNMAPPED",
-    "MM_PCSPEAKER_WAVEOUT",
-    "MM_MSFT_WSS_WAVEIN",
-    "MM_MSFT_WSS_WAVEOUT",
-    "MM_MSFT_WSS_FMSYNTH_STEREO",
-    "MM_MSFT_WSS_MIXER",
-    "MM_MSFT_WSS_OEM_WAVEIN",
-    "MM_MSFT_WSS_OEM_WAVEOUT",
-    "MM_MSFT_WSS_OEM_FMSYNTH_STEREO",
-    "MM_MSFT_WSS_AUX",
-    "MM_MSFT_WSS_OEM_AUX",
-    "MM_MSFT_GENERIC_WAVEIN",
-    "MM_MSFT_GENERIC_WAVEOUT",
-    "MM_MSFT_GENERIC_MIDIIN",
-    "MM_MSFT_GENERIC_MIDIOUT",
-    "MM_MSFT_GENERIC_MIDISYNTH",
-    "MM_MSFT_GENERIC_AUX_LINE",
-    "MM_MSFT_GENERIC_AUX_MIC",
-    "MM_MSFT_GENERIC_AUX_CD",
-    "MM_MSFT_WSS_OEM_MIXER",
-    "MM_MSFT_MSACM",
-    "MM_MSFT_ACM_MSADPCM",
-    "MM_MSFT_ACM_IMAADPCM",
-    "MM_MSFT_ACM_MSFILTER",
-    "MM_MSFT_ACM_GSM610",
-    "MM_MSFT_ACM_G711",
-    "MM_MSFT_ACM_PCM",
-    "MM_WSS_SB16_WAVEIN",
-    "MM_WSS_SB16_WAVEOUT",
-    "MM_WSS_SB16_MIDIIN",
-    "MM_WSS_SB16_MIDIOUT",
-    "MM_WSS_SB16_SYNTH",
-    "MM_WSS_SB16_AUX_LINE",
-    "MM_WSS_SB16_AUX_CD",
-    "MM_WSS_SB16_MIXER",
-    "MM_WSS_SBPRO_WAVEIN",
-    "MM_WSS_SBPRO_WAVEOUT",
-    "MM_WSS_SBPRO_MIDIIN",
-    "MM_WSS_SBPRO_MIDIOUT",
-    "MM_WSS_SBPRO_SYNTH",
-    "MM_WSS_SBPRO_AUX_LINE",
-    "MM_WSS_SBPRO_AUX_CD",
-    "MM_WSS_SBPRO_MIXER",
-    "MM_MSFT_WSS_NT_WAVEIN",
-    "MM_MSFT_WSS_NT_WAVEOUT",
-    "MM_MSFT_WSS_NT_FMSYNTH_STEREO",
-    "MM_MSFT_WSS_NT_MIXER",
-    "MM_MSFT_WSS_NT_AUX",
-    "MM_MSFT_SB16_WAVEIN",
-    "MM_MSFT_SB16_WAVEOUT",
-    "MM_MSFT_SB16_MIDIIN",
-    "MM_MSFT_SB16_MIDIOUT",
-    "MM_MSFT_SB16_SYNTH",
-    "MM_MSFT_SB16_AUX_LINE",
-    "MM_MSFT_SB16_AUX_CD",
-    "MM_MSFT_SB16_MIXER",
-    "MM_MSFT_SBPRO_WAVEIN",
-    "MM_MSFT_SBPRO_WAVEOUT",
-    "MM_MSFT_SBPRO_MIDIIN",
-    "MM_MSFT_SBPRO_MIDIOUT",
-    "MM_MSFT_SBPRO_SYNTH",
-    "MM_MSFT_SBPRO_AUX_LINE",
-    "MM_MSFT_SBPRO_AUX_CD",
-    "MM_MSFT_SBPRO_MIXER",
-    "MM_MSFT_MSOPL_SYNTH",
-    "MM_MSFT_VMDMS_LINE_WAVEIN",
-    "MM_MSFT_VMDMS_LINE_WAVEOUT",
-    "MM_MSFT_VMDMS_HANDSET_WAVEIN",
-    "MM_MSFT_VMDMS_HANDSET_WAVEOUT",
-    "MM_MSFT_VMDMW_LINE_WAVEIN",
-    "MM_MSFT_VMDMW_LINE_WAVEOUT",
-    "MM_MSFT_VMDMW_HANDSET_WAVEIN",
-    "MM_MSFT_VMDMW_HANDSET_WAVEOUT",
-    "MM_MSFT_VMDMW_MIXER",
-    "MM_MSFT_VMDM_GAME_WAVEOUT",
-    "MM_MSFT_VMDM_GAME_WAVEIN",
-    "MM_MSFT_ACM_MSNAUDIO",
-    "MM_MSFT_ACM_MSG723",
-    "MM_MSFT_ACM_MSRT24",
-    "MM_MSFT_WDMAUDIO_WAVEOUT",
-    "MM_MSFT_WDMAUDIO_WAVEIN",
-    "MM_MSFT_WDMAUDIO_MIDIOUT",
-    "MM_MSFT_WDMAUDIO_MIDIIN",
-    "MM_MSFT_WDMAUDIO_MIXER",
-    "MM_MSFT_WDMAUDIO_AUX",
-    "MM_CREATIVE_SB15_WAVEIN",
-    "MM_CREATIVE_SB20_WAVEIN",
-    "MM_CREATIVE_SBPRO_WAVEIN",
-    "MM_CREATIVE_SBP16_WAVEIN",
-    "MM_CREATIVE_PHNBLST_WAVEIN",
-    "MM_CREATIVE_SB15_WAVEOUT",
-    "MM_CREATIVE_SB20_WAVEOUT",
-    "MM_CREATIVE_SBPRO_WAVEOUT",
-    "MM_CREATIVE_SBP16_WAVEOUT",
-    "MM_CREATIVE_PHNBLST_WAVEOUT",
-    "MM_CREATIVE_MIDIOUT",
-    "MM_CREATIVE_MIDIIN",
-    "MM_CREATIVE_FMSYNTH_MONO",
-    "MM_CREATIVE_FMSYNTH_STEREO",
-    "MM_CREATIVE_MIDI_AWE32",
-    "MM_CREATIVE_AUX_CD",
-    "MM_CREATIVE_AUX_LINE",
-    "MM_CREATIVE_AUX_MIC",
-    "MM_CREATIVE_AUX_MASTER",
-    "MM_CREATIVE_AUX_PCSPK",
-    "MM_CREATIVE_AUX_WAVE",
-    "MM_CREATIVE_AUX_MIDI",
-    "MM_CREATIVE_SBPRO_MIXER",
-    "MM_CREATIVE_SB16_MIXER",
-    "MM_MEDIAVISION_PROAUDIO",
-    "MM_PROAUD_MIDIOUT",
-    "MM_PROAUD_MIDIIN",
-    "MM_PROAUD_SYNTH",
-    "MM_PROAUD_WAVEOUT",
-    "MM_PROAUD_WAVEIN",
-    "MM_PROAUD_MIXER",
-    "MM_PROAUD_AUX",
-    "MM_MEDIAVISION_THUNDER",
-    "MM_THUNDER_SYNTH",
-    "MM_THUNDER_WAVEOUT",
-    "MM_THUNDER_WAVEIN",
-    "MM_THUNDER_AUX",
-    "MM_MEDIAVISION_TPORT",
-    "MM_TPORT_WAVEOUT",
-    "MM_TPORT_WAVEIN",
-    "MM_TPORT_SYNTH",
-    "MM_MEDIAVISION_PROAUDIO_PLUS",
-    "MM_PROAUD_PLUS_MIDIOUT",
-    "MM_PROAUD_PLUS_MIDIIN",
-    "MM_PROAUD_PLUS_SYNTH",
-    "MM_PROAUD_PLUS_WAVEOUT",
-    "MM_PROAUD_PLUS_WAVEIN",
-    "MM_PROAUD_PLUS_MIXER",
-    "MM_PROAUD_PLUS_AUX",
-    "MM_MEDIAVISION_PROAUDIO_16",
-    "MM_PROAUD_16_MIDIOUT",
-    "MM_PROAUD_16_MIDIIN",
-    "MM_PROAUD_16_SYNTH",
-    "MM_PROAUD_16_WAVEOUT",
-    "MM_PROAUD_16_WAVEIN",
-    "MM_PROAUD_16_MIXER",
-    "MM_PROAUD_16_AUX",
-    "MM_MEDIAVISION_PROSTUDIO_16",
-    "MM_STUDIO_16_MIDIOUT",
-    "MM_STUDIO_16_MIDIIN",
-    "MM_STUDIO_16_SYNTH",
-    "MM_STUDIO_16_WAVEOUT",
-    "MM_STUDIO_16_WAVEIN",
-    "MM_STUDIO_16_MIXER",
-    "MM_STUDIO_16_AUX",
-    "MM_MEDIAVISION_CDPC",
-    "MM_CDPC_MIDIOUT",
-    "MM_CDPC_MIDIIN",
-    "MM_CDPC_SYNTH",
-    "MM_CDPC_WAVEOUT",
-    "MM_CDPC_WAVEIN",
-    "MM_CDPC_MIXER",
-    "MM_CDPC_AUX",
-    "MM_MEDIAVISION_OPUS1208",
-    "MM_OPUS401_MIDIOUT",
-    "MM_OPUS401_MIDIIN",
-    "MM_OPUS1208_SYNTH",
-    "MM_OPUS1208_WAVEOUT",
-    "MM_OPUS1208_WAVEIN",
-    "MM_OPUS1208_MIXER",
-    "MM_OPUS1208_AUX",
-    "MM_MEDIAVISION_OPUS1216",
-    "MM_OPUS1216_MIDIOUT",
-    "MM_OPUS1216_MIDIIN",
-    "MM_OPUS1216_SYNTH",
-    "MM_OPUS1216_WAVEOUT",
-    "MM_OPUS1216_WAVEIN",
-    "MM_OPUS1216_MIXER",
-    "MM_OPUS1216_AUX",
-    "MM_CYRIX_XASYNTH",
-    "MM_CYRIX_XAMIDIIN",
-    "MM_CYRIX_XAMIDIOUT",
-    "MM_CYRIX_XAWAVEIN",
-    "MM_CYRIX_XAWAVEOUT",
-    "MM_CYRIX_XAAUX",
-    "MM_CYRIX_XAMIXER",
-    "MM_PHILIPS_ACM_LPCBB",
-    "MM_NETXL_XLVIDEO",
-    "MM_ZYXEL_ACM_ADPCM",
-    "MM_AARDVARK_STUDIO12_WAVEOUT",
-    "MM_AARDVARK_STUDIO12_WAVEIN",
-    "MM_AARDVARK_STUDIO88_WAVEOUT",
-    "MM_AARDVARK_STUDIO88_WAVEIN",
-    "MM_BINTEC_TAPI_WAVE",
-    "MM_HEWLETT_PACKARD_CU_CODEC",
-    "MM_MITEL_TALKTO_LINE_WAVEOUT",
-    "MM_MITEL_TALKTO_LINE_WAVEIN",
-    "MM_MITEL_TALKTO_HANDSET_WAVEOUT",
-    "MM_MITEL_TALKTO_HANDSET_WAVEIN",
-    "MM_MITEL_TALKTO_BRIDGED_WAVEOUT",
-    "MM_MITEL_TALKTO_BRIDGED_WAVEIN",
-    "MM_MITEL_MPA_HANDSET_WAVEOUT",
-    "MM_MITEL_MPA_HANDSET_WAVEIN",
-    "MM_MITEL_MPA_HANDSFREE_WAVEOUT",
-    "MM_MITEL_MPA_HANDSFREE_WAVEIN",
-    "MM_MITEL_MPA_LINE1_WAVEOUT",
-    "MM_MITEL_MPA_LINE1_WAVEIN",
-    "MM_MITEL_MPA_LINE2_WAVEOUT",
-    "MM_MITEL_MPA_LINE2_WAVEIN",
-    "MM_MITEL_MEDIAPATH_WAVEOUT",
-    "MM_MITEL_MEDIAPATH_WAVEIN",
-    "MM_SNI_ACM_G721",
-    "MM_EMU_APSSYNTH",
-    "MM_EMU_APSMIDIIN",
-    "MM_EMU_APSMIDIOUT",
-    "MM_EMU_APSWAVEIN",
-    "MM_EMU_APSWAVEOUT",
-    "MM_ARTISOFT_SBWAVEIN",
-    "MM_ARTISOFT_SBWAVEOUT",
-    "MM_TBS_TROPEZ_WAVEIN",
-    "MM_TBS_TROPEZ_WAVEOUT",
-    "MM_TBS_TROPEZ_AUX1",
-    "MM_TBS_TROPEZ_AUX2",
-    "MM_TBS_TROPEZ_LINE",
-    "MM_MMOTION_WAVEAUX",
-    "MM_MMOTION_WAVEOUT",
-    "MM_MMOTION_WAVEIN",
-    "MM_IBM_PCMCIA_WAVEIN",
-    "MM_IBM_PCMCIA_WAVEOUT",
-    "MM_IBM_PCMCIA_SYNTH",
-    "MM_IBM_PCMCIA_MIDIIN",
-    "MM_IBM_PCMCIA_MIDIOUT",
-    "MM_IBM_PCMCIA_AUX",
-    "MM_IBM_THINKPAD200",
-    "MM_IBM_MWAVE_WAVEIN",
-    "MM_IBM_MWAVE_WAVEOUT",
-    "MM_IBM_MWAVE_MIXER",
-    "MM_IBM_MWAVE_MIDIIN",
-    "MM_IBM_MWAVE_MIDIOUT",
-    "MM_IBM_MWAVE_AUX",
-    "MM_IBM_WC_MIDIOUT",
-    "MM_IBM_WC_WAVEOUT",
-    "MM_IBM_WC_MIXEROUT",
-    "MM_VOCALTEC_WAVEOUT",
-    "MM_VOCALTEC_WAVEIN",
-    "MM_ROLAND_RAP10_MIDIOUT",
-    "MM_ROLAND_RAP10_MIDIIN",
-    "MM_ROLAND_RAP10_SYNTH",
-    "MM_ROLAND_RAP10_WAVEOUT",
-    "MM_ROLAND_RAP10_WAVEIN",
-    "MM_ROLAND_MPU401_MIDIOUT",
-    "MM_ROLAND_MPU401_MIDIIN",
-    "MM_ROLAND_SMPU_MIDIOUTA",
-    "MM_ROLAND_SMPU_MIDIOUTB",
-    "MM_ROLAND_SMPU_MIDIINA",
-    "MM_ROLAND_SMPU_MIDIINB",
-    "MM_ROLAND_SC7_MIDIOUT",
-    "MM_ROLAND_SC7_MIDIIN",
-    "MM_ROLAND_SERIAL_MIDIOUT",
-    "MM_ROLAND_SERIAL_MIDIIN",
-    "MM_ROLAND_SCP_MIDIOUT",
-    "MM_ROLAND_SCP_MIDIIN",
-    "MM_ROLAND_SCP_WAVEOUT",
-    "MM_ROLAND_SCP_WAVEIN",
-    "MM_ROLAND_SCP_MIXER",
-    "MM_ROLAND_SCP_AUX",
-    "MM_DSP_SOLUTIONS_WAVEOUT",
-    "MM_DSP_SOLUTIONS_WAVEIN",
-    "MM_DSP_SOLUTIONS_SYNTH",
-    "MM_DSP_SOLUTIONS_AUX",
-    "MM_NEC_73_86_SYNTH",
-    "MM_NEC_73_86_WAVEOUT",
-    "MM_NEC_73_86_WAVEIN",
-    "MM_NEC_26_SYNTH",
-    "MM_NEC_MPU401_MIDIOUT",
-    "MM_NEC_MPU401_MIDIIN",
-    "MM_NEC_JOYSTICK",
-    "MM_WANGLABS_WAVEIN1",
-    "MM_WANGLABS_WAVEOUT1",
-    "MM_TANDY_VISWAVEIN",
-    "MM_TANDY_VISWAVEOUT",
-    "MM_TANDY_VISBIOSSYNTH",
-    "MM_TANDY_SENS_MMAWAVEIN",
-    "MM_TANDY_SENS_MMAWAVEOUT",
-    "MM_TANDY_SENS_MMAMIDIIN",
-    "MM_TANDY_SENS_MMAMIDIOUT",
-    "MM_TANDY_SENS_VISWAVEOUT",
-    "MM_TANDY_PSSJWAVEIN",
-    "MM_TANDY_PSSJWAVEOUT",
-    "MM_ANTEX_SX12_WAVEIN",
-    "MM_ANTEX_SX12_WAVEOUT",
-    "MM_ANTEX_SX15_WAVEIN",
-    "MM_ANTEX_SX15_WAVEOUT",
-    "MM_ANTEX_VP625_WAVEIN",
-    "MM_ANTEX_VP625_WAVEOUT",
-    "MM_ANTEX_AUDIOPORT22_WAVEIN",
-    "MM_ANTEX_AUDIOPORT22_WAVEOUT",
-    "MM_ANTEX_AUDIOPORT22_FEEDTHRU",
-    "MM_INTELOPD_WAVEIN",
-    "MM_INTELOPD_WAVEOUT",
-    "MM_INTELOPD_AUX",
-    "MM_INTEL_NSPMODEMLINEIN",
-    "MM_INTEL_NSPMODEMLINEOUT",
-    "MM_VAL_MICROKEY_AP_WAVEIN",
-    "MM_VAL_MICROKEY_AP_WAVEOUT",
-    "MM_INTERACTIVE_WAVEIN",
-    "MM_INTERACTIVE_WAVEOUT",
-    "MM_YAMAHA_GSS_SYNTH",
-    "MM_YAMAHA_GSS_WAVEOUT",
-    "MM_YAMAHA_GSS_WAVEIN",
-    "MM_YAMAHA_GSS_MIDIOUT",
-    "MM_YAMAHA_GSS_MIDIIN",
-    "MM_YAMAHA_GSS_AUX",
-    "MM_YAMAHA_SERIAL_MIDIOUT",
-    "MM_YAMAHA_SERIAL_MIDIIN",
-    "MM_YAMAHA_OPL3SA_WAVEOUT",
-    "MM_YAMAHA_OPL3SA_WAVEIN",
-    "MM_YAMAHA_OPL3SA_FMSYNTH",
-    "MM_YAMAHA_OPL3SA_YSYNTH",
-    "MM_YAMAHA_OPL3SA_MIDIOUT",
-    "MM_YAMAHA_OPL3SA_MIDIIN",
-    "MM_YAMAHA_OPL3SA_MIXER",
-    "MM_YAMAHA_OPL3SA_JOYSTICK",
-    "MM_YAMAHA_YMF724LEG_MIDIOUT",
-    "MM_YAMAHA_YMF724LEG_MIDIIN",
-    "MM_YAMAHA_YMF724_WAVEOUT",
-    "MM_YAMAHA_YMF724_WAVEIN",
-    "MM_YAMAHA_YMF724_MIDIOUT",
-    "MM_YAMAHA_YMF724_AUX",
-    "MM_YAMAHA_YMF724_MIXER",
-    "MM_YAMAHA_YMF724LEG_FMSYNTH",
-    "MM_YAMAHA_YMF724LEG_MIXER",
-    "MM_YAMAHA_SXG_MIDIOUT",
-    "MM_YAMAHA_SXG_WAVEOUT",
-    "MM_YAMAHA_SXG_MIXER",
-    "MM_YAMAHA_ACXG_WAVEIN",
-    "MM_YAMAHA_ACXG_WAVEOUT",
-    "MM_YAMAHA_ACXG_MIDIOUT",
-    "MM_YAMAHA_ACXG_MIXER",
-    "MM_YAMAHA_ACXG_AUX",
-    "MM_EVEREX_CARRIER",
-    "MM_ECHO_SYNTH",
-    "MM_ECHO_WAVEOUT",
-    "MM_ECHO_WAVEIN",
-    "MM_ECHO_MIDIOUT",
-    "MM_ECHO_MIDIIN",
-    "MM_ECHO_AUX",
-    "MM_SIERRA_ARIA_MIDIOUT",
-    "MM_SIERRA_ARIA_MIDIIN",
-    "MM_SIERRA_ARIA_SYNTH",
-    "MM_SIERRA_ARIA_WAVEOUT",
-    "MM_SIERRA_ARIA_WAVEIN",
-    "MM_SIERRA_ARIA_AUX",
-    "MM_SIERRA_ARIA_AUX2",
-    "MM_SIERRA_QUARTET_WAVEIN",
-    "MM_SIERRA_QUARTET_WAVEOUT",
-    "MM_SIERRA_QUARTET_MIDIIN",
-    "MM_SIERRA_QUARTET_MIDIOUT",
-    "MM_SIERRA_QUARTET_SYNTH",
-    "MM_SIERRA_QUARTET_AUX_CD",
-    "MM_SIERRA_QUARTET_AUX_LINE",
-    "MM_SIERRA_QUARTET_AUX_MODEM",
-    "MM_SIERRA_QUARTET_MIXER",
-    "MM_CAT_WAVEOUT",
-    "MM_DSP_GROUP_TRUESPEECH",
-    "MM_MELABS_MIDI2GO",
-    "MM_ESS_AMWAVEOUT",
-    "MM_ESS_AMWAVEIN",
-    "MM_ESS_AMAUX",
-    "MM_ESS_AMSYNTH",
-    "MM_ESS_AMMIDIOUT",
-    "MM_ESS_AMMIDIIN",
-    "MM_ESS_MIXER",
-    "MM_ESS_AUX_CD",
-    "MM_ESS_MPU401_MIDIOUT",
-    "MM_ESS_MPU401_MIDIIN",
-    "MM_ESS_ES488_WAVEOUT",
-    "MM_ESS_ES488_WAVEIN",
-    "MM_ESS_ES488_MIXER",
-    "MM_ESS_ES688_WAVEOUT",
-    "MM_ESS_ES688_WAVEIN",
-    "MM_ESS_ES688_MIXER",
-    "MM_ESS_ES1488_WAVEOUT",
-    "MM_ESS_ES1488_WAVEIN",
-    "MM_ESS_ES1488_MIXER",
-    "MM_ESS_ES1688_WAVEOUT",
-    "MM_ESS_ES1688_WAVEIN",
-    "MM_ESS_ES1688_MIXER",
-    "MM_ESS_ES1788_WAVEOUT",
-    "MM_ESS_ES1788_WAVEIN",
-    "MM_ESS_ES1788_MIXER",
-    "MM_ESS_ES1888_WAVEOUT",
-    "MM_ESS_ES1888_WAVEIN",
-    "MM_ESS_ES1888_MIXER",
-    "MM_ESS_ES1868_WAVEOUT",
-    "MM_ESS_ES1868_WAVEIN",
-    "MM_ESS_ES1868_MIXER",
-    "MM_ESS_ES1878_WAVEOUT",
-    "MM_ESS_ES1878_WAVEIN",
-    "MM_ESS_ES1878_MIXER",
-    "MM_CANOPUS_ACM_DVREX",
-    "MM_EPS_FMSND",
-    "MM_TRUEVISION_WAVEIN1",
-    "MM_TRUEVISION_WAVEOUT1",
-    "MM_AZTECH_MIDIOUT",
-    "MM_AZTECH_MIDIIN",
-    "MM_AZTECH_WAVEIN",
-    "MM_AZTECH_WAVEOUT",
-    "MM_AZTECH_FMSYNTH",
-    "MM_AZTECH_MIXER",
-    "MM_AZTECH_PRO16_WAVEIN",
-    "MM_AZTECH_PRO16_WAVEOUT",
-    "MM_AZTECH_PRO16_FMSYNTH",
-    "MM_AZTECH_DSP16_WAVEIN",
-    "MM_AZTECH_DSP16_WAVEOUT",
-    "MM_AZTECH_DSP16_FMSYNTH",
-    "MM_AZTECH_DSP16_WAVESYNTH",
-    "MM_AZTECH_NOVA16_WAVEIN",
-    "MM_AZTECH_NOVA16_WAVEOUT",
-    "MM_AZTECH_NOVA16_MIXER",
-    "MM_AZTECH_WASH16_WAVEIN",
-    "MM_AZTECH_WASH16_WAVEOUT",
-    "MM_AZTECH_WASH16_MIXER",
-    "MM_AZTECH_AUX_CD",
-    "MM_AZTECH_AUX_LINE",
-    "MM_AZTECH_AUX_MIC",
-    "MM_AZTECH_AUX",
-    "MM_VIDEOLOGIC_MSWAVEIN",
-    "MM_VIDEOLOGIC_MSWAVEOUT",
-    "MM_KORG_PCIF_MIDIOUT",
-    "MM_KORG_PCIF_MIDIIN",
-    "MM_KORG_1212IO_MSWAVEIN",
-    "MM_KORG_1212IO_MSWAVEOUT",
-    "MM_APT_ACE100CD",
-    "MM_ICS_WAVEDECK_WAVEOUT",
-    "MM_ICS_WAVEDECK_WAVEIN",
-    "MM_ICS_WAVEDECK_MIXER",
-    "MM_ICS_WAVEDECK_AUX",
-    "MM_ICS_WAVEDECK_SYNTH",
-    "MM_ICS_WAVEDEC_SB_WAVEOUT",
-    "MM_ICS_WAVEDEC_SB_WAVEIN",
-    "MM_ICS_WAVEDEC_SB_FM_MIDIOUT",
-    "MM_ICS_WAVEDEC_SB_MPU401_MIDIOUT",
-    "MM_ICS_WAVEDEC_SB_MPU401_MIDIIN",
-    "MM_ICS_WAVEDEC_SB_MIXER",
-    "MM_ICS_WAVEDEC_SB_AUX",
-    "MM_ICS_2115_LITE_MIDIOUT",
-    "MM_ICS_2120_LITE_MIDIOUT",
-    "MM_ITERATEDSYS_FUFCODEC",
-    "MM_METHEUS_ZIPPER",
-    "MM_WINNOV_CAVIAR_WAVEIN",
-    "MM_WINNOV_CAVIAR_WAVEOUT",
-    "MM_WINNOV_CAVIAR_VIDC",
-    "MM_WINNOV_CAVIAR_CHAMPAGNE",
-    "MM_WINNOV_CAVIAR_YUV8",
-    "MM_NCR_BA_WAVEIN",
-    "MM_NCR_BA_WAVEOUT",
-    "MM_NCR_BA_SYNTH",
-    "MM_NCR_BA_AUX",
-    "MM_NCR_BA_MIXER",
-    "MM_AST_MODEMWAVE_WAVEIN",
-    "MM_AST_MODEMWAVE_WAVEOUT",
-    "MM_WILLOWPOND_FMSYNTH_STEREO",
-    "MM_WILLOWPOND_MPU401",
-    "MM_WILLOWPOND_SNDPORT_WAVEIN",
-    "MM_WILLOWPOND_SNDPORT_WAVEOUT",
-    "MM_WILLOWPOND_SNDPORT_MIXER",
-    "MM_WILLOWPOND_SNDPORT_AUX",
-    "MM_WILLOWPOND_PH_WAVEIN",
-    "MM_WILLOWPOND_PH_WAVEOUT",
-    "MM_WILLOWPOND_PH_MIXER",
-    "MM_WILLOWPOND_PH_AUX",
-    "MM_WILLOPOND_SNDCOMM_WAVEIN",
-    "MM_WILLOWPOND_SNDCOMM_WAVEOUT",
-    "MM_WILLOWPOND_SNDCOMM_MIXER",
-    "MM_WILLOWPOND_SNDCOMM_AUX",
-    "MM_WILLOWPOND_GENERIC_WAVEIN",
-    "MM_WILLOWPOND_GENERIC_WAVEOUT",
-    "MM_WILLOWPOND_GENERIC_MIXER",
-    "MM_WILLOWPOND_GENERIC_AUX",
-    "MM_VITEC_VMAKER",
-    "MM_VITEC_VMPRO",
-    "MM_MOSCOM_VPC2400_IN",
-    "MM_MOSCOM_VPC2400_OUT",
-    "MM_SILICONSOFT_SC1_WAVEIN",
-    "MM_SILICONSOFT_SC1_WAVEOUT",
-    "MM_SILICONSOFT_SC2_WAVEIN",
-    "MM_SILICONSOFT_SC2_WAVEOUT",
-    "MM_SILICONSOFT_SOUNDJR2_WAVEOUT",
-    "MM_SILICONSOFT_SOUNDJR2PR_WAVEIN",
-    "MM_SILICONSOFT_SOUNDJR2PR_WAVEOUT",
-    "MM_SILICONSOFT_SOUNDJR3_WAVEOUT",
-    "MM_TTEWS_WAVEIN",
-    "MM_TTEWS_WAVEOUT",
-    "MM_TTEWS_MIDIIN",
-    "MM_TTEWS_MIDIOUT",
-    "MM_TTEWS_MIDISYNTH",
-    "MM_TTEWS_MIDIMONITOR",
-    "MM_TTEWS_VMIDIIN",
-    "MM_TTEWS_VMIDIOUT",
-    "MM_TTEWS_AUX",
-    "MM_TTEWS_MIXER",
-    "MM_MEDIASONIC_ACM_G723",
-    "MM_MEDIASONIC_ICOM",
-    "MM_ICOM_WAVEIN",
-    "MM_ICOM_WAVEOUT",
-    "MM_ICOM_MIXER",
-    "MM_ICOM_AUX",
-    "MM_ICOM_LINE",
-    "MM_SANYO_ACM_LD_ADPCM",
-    "MM_AHEAD_MULTISOUND",
-    "MM_AHEAD_SOUNDBLASTER",
-    "MM_AHEAD_PROAUDIO",
-    "MM_AHEAD_GENERIC",
-    "MM_OLIVETTI_WAVEIN",
-    "MM_OLIVETTI_WAVEOUT",
-    "MM_OLIVETTI_MIXER",
-    "MM_OLIVETTI_AUX",
-    "MM_OLIVETTI_MIDIIN",
-    "MM_OLIVETTI_MIDIOUT",
-    "MM_OLIVETTI_SYNTH",
-    "MM_OLIVETTI_JOYSTICK",
-    "MM_OLIVETTI_ACM_GSM",
-    "MM_OLIVETTI_ACM_ADPCM",
-    "MM_OLIVETTI_ACM_CELP",
-    "MM_OLIVETTI_ACM_SBC",
-    "MM_OLIVETTI_ACM_OPR",
-    "MM_IOMAGIC_TEMPO_WAVEOUT",
-    "MM_IOMAGIC_TEMPO_WAVEIN",
-    "MM_IOMAGIC_TEMPO_SYNTH",
-    "MM_IOMAGIC_TEMPO_MIDIOUT",
-    "MM_IOMAGIC_TEMPO_MXDOUT",
-    "MM_IOMAGIC_TEMPO_AUXOUT",
-    "MM_MATSUSHITA_WAVEIN",
-    "MM_MATSUSHITA_WAVEOUT",
-    "MM_MATSUSHITA_FMSYNTH_STEREO",
-    "MM_MATSUSHITA_MIXER",
-    "MM_MATSUSHITA_AUX",
-    "MM_NEWMEDIA_WAVJAMMER",
-    "MM_LYRRUS_BRIDGE_GUITAR",
-    "MM_OPTI_M16_FMSYNTH_STEREO",
-    "MM_OPTI_M16_MIDIIN",
-    "MM_OPTI_M16_MIDIOUT",
-    "MM_OPTI_M16_WAVEIN",
-    "MM_OPTI_M16_WAVEOUT",
-    "MM_OPTI_M16_MIXER",
-    "MM_OPTI_M16_AUX",
-    "MM_OPTI_P16_FMSYNTH_STEREO",
-    "MM_OPTI_P16_MIDIIN",
-    "MM_OPTI_P16_MIDIOUT",
-    "MM_OPTI_P16_WAVEIN",
-    "MM_OPTI_P16_WAVEOUT",
-    "MM_OPTI_P16_MIXER",
-    "MM_OPTI_P16_AUX",
-    "MM_OPTI_M32_WAVEIN",
-    "MM_OPTI_M32_WAVEOUT",
-    "MM_OPTI_M32_MIDIIN",
-    "MM_OPTI_M32_MIDIOUT",
-    "MM_OPTI_M32_SYNTH_STEREO",
-    "MM_OPTI_M32_MIXER",
-    "MM_OPTI_M32_AUX",
-    "MM_COMPAQ_BB_WAVEIN",
-    "MM_COMPAQ_BB_WAVEOUT",
-    "MM_COMPAQ_BB_WAVEAUX",
-    "MM_MPTUS_SPWAVEOUT",
-    "MM_LERNOUT_ANDHAUSPIE_LHCODECACM",
-    "MM_DIGITAL_AV320_WAVEIN",
-    "MM_DIGITAL_AV320_WAVEOUT",
-    "MM_DIGITAL_ACM_G723",
-    "MM_DIGITAL_ICM_H263",
-    "MM_DIGITAL_ICM_H261",
-    "MM_MOTU_MTP_MIDIOUT_ALL",
-    "MM_MOTU_MTP_MIDIIN_1",
-    "MM_MOTU_MTP_MIDIOUT_1",
-    "MM_MOTU_MTP_MIDIIN_2",
-    "MM_MOTU_MTP_MIDIOUT_2",
-    "MM_MOTU_MTP_MIDIIN_3",
-    "MM_MOTU_MTP_MIDIOUT_3",
-    "MM_MOTU_MTP_MIDIIN_4",
-    "MM_MOTU_MTP_MIDIOUT_4",
-    "MM_MOTU_MTP_MIDIIN_5",
-    "MM_MOTU_MTP_MIDIOUT_5",
-    "MM_MOTU_MTP_MIDIIN_6",
-    "MM_MOTU_MTP_MIDIOUT_6",
-    "MM_MOTU_MTP_MIDIIN_7",
-    "MM_MOTU_MTP_MIDIOUT_7",
-    "MM_MOTU_MTP_MIDIIN_8",
-    "MM_MOTU_MTP_MIDIOUT_8",
-    "MM_MOTU_MTPII_MIDIOUT_ALL",
-    "MM_MOTU_MTPII_MIDIIN_SYNC",
-    "MM_MOTU_MTPII_MIDIIN_1",
-    "MM_MOTU_MTPII_MIDIOUT_1",
-    "MM_MOTU_MTPII_MIDIIN_2",
-    "MM_MOTU_MTPII_MIDIOUT_2",
-    "MM_MOTU_MTPII_MIDIIN_3",
-    "MM_MOTU_MTPII_MIDIOUT_3",
-    "MM_MOTU_MTPII_MIDIIN_4",
-    "MM_MOTU_MTPII_MIDIOUT_4",
-    "MM_MOTU_MTPII_MIDIIN_5",
-    "MM_MOTU_MTPII_MIDIOUT_5",
-    "MM_MOTU_MTPII_MIDIIN_6",
-    "MM_MOTU_MTPII_MIDIOUT_6",
-    "MM_MOTU_MTPII_MIDIIN_7",
-    "MM_MOTU_MTPII_MIDIOUT_7",
-    "MM_MOTU_MTPII_MIDIIN_8",
-    "MM_MOTU_MTPII_MIDIOUT_8",
-    "MM_MOTU_MTPII_NET_MIDIIN_1",
-    "MM_MOTU_MTPII_NET_MIDIOUT_1",
-    "MM_MOTU_MTPII_NET_MIDIIN_2",
-    "MM_MOTU_MTPII_NET_MIDIOUT_2",
-    "MM_MOTU_MTPII_NET_MIDIIN_3",
-    "MM_MOTU_MTPII_NET_MIDIOUT_3",
-    "MM_MOTU_MTPII_NET_MIDIIN_4",
-    "MM_MOTU_MTPII_NET_MIDIOUT_4",
-    "MM_MOTU_MTPII_NET_MIDIIN_5",
-    "MM_MOTU_MTPII_NET_MIDIOUT_5",
-    "MM_MOTU_MTPII_NET_MIDIIN_6",
-    "MM_MOTU_MTPII_NET_MIDIOUT_6",
-    "MM_MOTU_MTPII_NET_MIDIIN_7",
-    "MM_MOTU_MTPII_NET_MIDIOUT_7",
-    "MM_MOTU_MTPII_NET_MIDIIN_8",
-    "MM_MOTU_MTPII_NET_MIDIOUT_8",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_ALL",
-    "MM_MOTU_MXP_MIDIIN_SYNC",
-    "MM_MOTU_MXP_MIDIIN_MIDIIN_1",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_1",
-    "MM_MOTU_MXP_MIDIIN_MIDIIN_2",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_2",
-    "MM_MOTU_MXP_MIDIIN_MIDIIN_3",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_3",
-    "MM_MOTU_MXP_MIDIIN_MIDIIN_4",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_4",
-    "MM_MOTU_MXP_MIDIIN_MIDIIN_5",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_5",
-    "MM_MOTU_MXP_MIDIIN_MIDIIN_6",
-    "MM_MOTU_MXP_MIDIIN_MIDIOUT_6",
-    "MM_MOTU_MXPMPU_MIDIOUT_ALL",
-    "MM_MOTU_MXPMPU_MIDIIN_SYNC",
-    "MM_MOTU_MXPMPU_MIDIIN_1",
-    "MM_MOTU_MXPMPU_MIDIOUT_1",
-    "MM_MOTU_MXPMPU_MIDIIN_2",
-    "MM_MOTU_MXPMPU_MIDIOUT_2",
-    "MM_MOTU_MXPMPU_MIDIIN_3",
-    "MM_MOTU_MXPMPU_MIDIOUT_3",
-    "MM_MOTU_MXPMPU_MIDIIN_4",
-    "MM_MOTU_MXPMPU_MIDIOUT_4",
-    "MM_MOTU_MXPMPU_MIDIIN_5",
-    "MM_MOTU_MXPMPU_MIDIOUT_5",
-    "MM_MOTU_MXPMPU_MIDIIN_6",
-    "MM_MOTU_MXPMPU_MIDIOUT_6",
-    "MM_MOTU_MXN_MIDIOUT_ALL",
-    "MM_MOTU_MXN_MIDIIN_SYNC",
-    "MM_MOTU_MXN_MIDIIN_1",
-    "MM_MOTU_MXN_MIDIOUT_1",
-    "MM_MOTU_MXN_MIDIIN_2",
-    "MM_MOTU_MXN_MIDIOUT_2",
-    "MM_MOTU_MXN_MIDIIN_3",
-    "MM_MOTU_MXN_MIDIOUT_3",
-    "MM_MOTU_MXN_MIDIIN_4",
-    "MM_MOTU_MXN_MIDIOUT_4",
-    "MM_MOTU_FLYER_MIDI_IN_SYNC",
-    "MM_MOTU_FLYER_MIDI_IN_A",
-    "MM_MOTU_FLYER_MIDI_OUT_A",
-    "MM_MOTU_FLYER_MIDI_IN_B",
-    "MM_MOTU_FLYER_MIDI_OUT_B",
-    "MM_MOTU_PKX_MIDI_IN_SYNC",
-    "MM_MOTU_PKX_MIDI_IN_A",
-    "MM_MOTU_PKX_MIDI_OUT_A",
-    "MM_MOTU_PKX_MIDI_IN_B",
-    "MM_MOTU_PKX_MIDI_OUT_B",
-    "MM_MOTU_DTX_MIDI_IN_SYNC",
-    "MM_MOTU_DTX_MIDI_IN_A",
-    "MM_MOTU_DTX_MIDI_OUT_A",
-    "MM_MOTU_DTX_MIDI_IN_B",
-    "MM_MOTU_DTX_MIDI_OUT_B",
-    "MM_MOTU_MTPAV_MIDIOUT_ALL",
-    "MM_MOTU_MTPAV_MIDIIN_SYNC",
-    "MM_MOTU_MTPAV_MIDIIN_1",
-    "MM_MOTU_MTPAV_MIDIOUT_1",
-    "MM_MOTU_MTPAV_MIDIIN_2",
-    "MM_MOTU_MTPAV_MIDIOUT_2",
-    "MM_MOTU_MTPAV_MIDIIN_3",
-    "MM_MOTU_MTPAV_MIDIOUT_3",
-    "MM_MOTU_MTPAV_MIDIIN_4",
-    "MM_MOTU_MTPAV_MIDIOUT_4",
-    "MM_MOTU_MTPAV_MIDIIN_5",
-    "MM_MOTU_MTPAV_MIDIOUT_5",
-    "MM_MOTU_MTPAV_MIDIIN_6",
-    "MM_MOTU_MTPAV_MIDIOUT_6",
-    "MM_MOTU_MTPAV_MIDIIN_7",
-    "MM_MOTU_MTPAV_MIDIOUT_7",
-    "MM_MOTU_MTPAV_MIDIIN_8",
-    "MM_MOTU_MTPAV_MIDIOUT_8",
-    "MM_MOTU_MTPAV_NET_MIDIIN_1",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_1",
-    "MM_MOTU_MTPAV_NET_MIDIIN_2",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_2",
-    "MM_MOTU_MTPAV_NET_MIDIIN_3",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_3",
-    "MM_MOTU_MTPAV_NET_MIDIIN_4",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_4",
-    "MM_MOTU_MTPAV_NET_MIDIIN_5",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_5",
-    "MM_MOTU_MTPAV_NET_MIDIIN_6",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_6",
-    "MM_MOTU_MTPAV_NET_MIDIIN_7",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_7",
-    "MM_MOTU_MTPAV_NET_MIDIIN_8",
-    "MM_MOTU_MTPAV_NET_MIDIOUT_8",
-    "MM_MOTU_MTPAV_MIDIIN_ADAT",
-    "MM_MOTU_MTPAV_MIDIOUT_ADAT",
-    "MM_MOTU_MXPXT_MIDIIN_SYNC",
-    "MM_MOTU_MXPXT_MIDIOUT_ALL",
-    "MM_MOTU_MXPXT_MIDIIN_1",
-    "MM_MOTU_MXPXT_MIDIOUT_1",
-    "MM_MOTU_MXPXT_MIDIOUT_2",
-    "MM_MOTU_MXPXT_MIDIIN_2",
-    "MM_MOTU_MXPXT_MIDIIN_3",
-    "MM_MOTU_MXPXT_MIDIOUT_3",
-    "MM_MOTU_MXPXT_MIDIIN_4",
-    "MM_MOTU_MXPXT_MIDIOUT_4",
-    "MM_MOTU_MXPXT_MIDIIN_5",
-    "MM_MOTU_MXPXT_MIDIOUT_5",
-    "MM_MOTU_MXPXT_MIDIOUT_6",
-    "MM_MOTU_MXPXT_MIDIIN_6",
-    "MM_MOTU_MXPXT_MIDIOUT_7",
-    "MM_MOTU_MXPXT_MIDIIN_7",
-    "MM_MOTU_MXPXT_MIDIOUT_8",
-    "MM_MOTU_MXPXT_MIDIIN_8",
-    "MM_WORKBIT_MIXER",
-    "MM_WORKBIT_WAVEOUT",
-    "MM_WORKBIT_WAVEIN",
-    "MM_WORKBIT_MIDIIN",
-    "MM_WORKBIT_MIDIOUT",
-    "MM_WORKBIT_FMSYNTH",
-    "MM_WORKBIT_AUX",
-    "MM_WORKBIT_JOYSTICK",
-    "MM_OSITECH_TRUMPCARD",
-    "MM_MIRO_MOVIEPRO",
-    "MM_MIRO_VIDEOD1",
-    "MM_MIRO_VIDEODC1TV",
-    "MM_MIRO_VIDEOTD",
-    "MM_MIRO_DC30_WAVEOUT",
-    "MM_MIRO_DC30_WAVEIN",
-    "MM_MIRO_DC30_MIX",
-    "MM_ISOLUTION_PASCAL",
-    "MM_VOICEMIXER",
-    "ROCKWELL_WA1_WAVEIN",
-    "ROCKWELL_WA1_WAVEOUT",
-    "ROCKWELL_WA1_SYNTH",
-    "ROCKWELL_WA1_MIXER",
-    "ROCKWELL_WA1_MPU401_IN",
-    "ROCKWELL_WA1_MPU401_OUT",
-    "ROCKWELL_WA2_WAVEIN",
-    "ROCKWELL_WA2_WAVEOUT",
-    "ROCKWELL_WA2_SYNTH",
-    "ROCKWELL_WA2_MIXER",
-    "ROCKWELL_WA2_MPU401_IN",
-    "ROCKWELL_WA2_MPU401_OUT",
-    "MM_VOXWARE_CODEC",
-    "MM_NORTEL_MPXAC_WAVEIN",
-    "MM_NORTEL_MPXAC_WAVEOUT",
-    "MM_ADDX_PCTV_DIGITALMIX",
-    "MM_ADDX_PCTV_WAVEIN",
-    "MM_ADDX_PCTV_WAVEOUT",
-    "MM_ADDX_PCTV_MIXER",
-    "MM_ADDX_PCTV_AUX_CD",
-    "MM_ADDX_PCTV_AUX_LINE",
-    "MM_WILDCAT_AUTOSCOREMIDIIN",
-    "MM_RHETOREX_WAVEIN",
-    "MM_RHETOREX_WAVEOUT",
-    "MM_BTV_WAVEIN",
-    "MM_BTV_WAVEOUT",
-    "MM_BTV_MIDIIN",
-    "MM_BTV_MIDIOUT",
-    "MM_BTV_MIDISYNTH",
-    "MM_BTV_AUX_LINE",
-    "MM_BTV_AUX_MIC",
-    "MM_BTV_AUX_CD",
-    "MM_BTV_DIGITALIN",
-    "MM_BTV_DIGITALOUT",
-    "MM_BTV_MIDIWAVESTREAM",
-    "MM_BTV_MIXER",
-    "MM_ENSONIQ_SOUNDSCAPE",
-    "MM_SOUNDSCAPE_WAVEOUT",
-    "MM_SOUNDSCAPE_WAVEOUT_AUX",
-    "MM_SOUNDSCAPE_WAVEIN",
-    "MM_SOUNDSCAPE_MIDIOUT",
-    "MM_SOUNDSCAPE_MIDIIN",
-    "MM_SOUNDSCAPE_SYNTH",
-    "MM_SOUNDSCAPE_MIXER",
-    "MM_SOUNDSCAPE_AUX",
-    "MM_NVIDIA_WAVEOUT",
-    "MM_NVIDIA_WAVEIN",
-    "MM_NVIDIA_MIDIOUT",
-    "MM_NVIDIA_MIDIIN",
-    "MM_NVIDIA_GAMEPORT",
-    "MM_NVIDIA_MIXER",
-    "MM_NVIDIA_AUX",
-    "MM_OKSORI_BASE",
-    "MM_OKSORI_OSR8_WAVEOUT",
-    "MM_OKSORI_OSR8_WAVEIN",
-    "MM_OKSORI_OSR16_WAVEOUT",
-    "MM_OKSORI_OSR16_WAVEIN",
-    "MM_OKSORI_FM_OPL4",
-    "MM_OKSORI_MIX_MASTER",
-    "MM_OKSORI_MIX_WAVE",
-    "MM_OKSORI_MIX_FM",
-    "MM_OKSORI_MIX_LINE",
-    "MM_OKSORI_MIX_CD",
-    "MM_OKSORI_MIX_MIC",
-    "MM_OKSORI_MIX_ECHO",
-    "MM_OKSORI_MIX_AUX1",
-    "MM_OKSORI_MIX_LINE1",
-    "MM_OKSORI_EXT_MIC1",
-    "MM_OKSORI_EXT_MIC2",
-    "MM_OKSORI_MIDIOUT",
-    "MM_OKSORI_MIDIIN",
-    "MM_OKSORI_MPEG_CDVISION",
-    "MM_DIACOUSTICS_DRUM_ACTION",
-    "MM_KAY_ELEMETRICS_CSL",
-    "MM_KAY_ELEMETRICS_CSL_DAT",
-    "MM_KAY_ELEMETRICS_CSL_4CHANNEL",
-    "MM_CRYSTAL_CS4232_WAVEIN",
-    "MM_CRYSTAL_CS4232_WAVEOUT",
-    "MM_CRYSTAL_CS4232_WAVEMIXER",
-    "MM_CRYSTAL_CS4232_WAVEAUX_AUX1",
-    "MM_CRYSTAL_CS4232_WAVEAUX_AUX2",
-    "MM_CRYSTAL_CS4232_WAVEAUX_LINE",
-    "MM_CRYSTAL_CS4232_WAVEAUX_MONO",
-    "MM_CRYSTAL_CS4232_WAVEAUX_MASTER",
-    "MM_CRYSTAL_CS4232_MIDIIN",
-    "MM_CRYSTAL_CS4232_MIDIOUT",
-    "MM_CRYSTAL_CS4232_INPUTGAIN_AUX1",
-    "MM_CRYSTAL_CS4232_INPUTGAIN_LOOP",
-    "MM_CRYSTAL_SOUND_FUSION_WAVEIN",
-    "MM_CRYSTAL_SOUND_FUSION_WAVEOUT",
-    "MM_CRYSTAL_SOUND_FUSION_MIXER",
-    "MM_CRYSTAL_SOUND_FUSION_MIDIIN",
-    "MM_CRYSTAL_SOUND_FUSION_MIDIOUT",
-    "MM_CRYSTAL_SOUND_FUSION_JOYSTICK",
-    "MM_QUARTERDECK_LHWAVEIN",
-    "MM_QUARTERDECK_LHWAVEOUT",
-    "MM_TDK_MW_MIDI_SYNTH",
-    "MM_TDK_MW_MIDI_IN",
-    "MM_TDK_MW_MIDI_OUT",
-    "MM_TDK_MW_WAVE_IN",
-    "MM_TDK_MW_WAVE_OUT",
-    "MM_TDK_MW_AUX",
-    "MM_TDK_MW_MIXER",
-    "MM_TDK_MW_AUX_MASTER",
-    "MM_TDK_MW_AUX_BASS",
-    "MM_TDK_MW_AUX_TREBLE",
-    "MM_TDK_MW_AUX_MIDI_VOL",
-    "MM_TDK_MW_AUX_WAVE_VOL",
-    "MM_TDK_MW_AUX_WAVE_RVB",
-    "MM_TDK_MW_AUX_WAVE_CHR",
-    "MM_TDK_MW_AUX_VOL",
-    "MM_TDK_MW_AUX_RVB",
-    "MM_TDK_MW_AUX_CHR",
-    "MM_DIGITAL_AUDIO_LABS_TC",
-    "MM_DIGITAL_AUDIO_LABS_DOC",
-    "MM_DIGITAL_AUDIO_LABS_V8",
-    "MM_DIGITAL_AUDIO_LABS_CPRO",
-    "MM_DIGITAL_AUDIO_LABS_VP",
-    "MM_DIGITAL_AUDIO_LABS_CDLX",
-    "MM_DIGITAL_AUDIO_LABS_CTDIF",
-    "MM_SEERSYS_SEERSYNTH",
-    "MM_SEERSYS_SEERWAVE",
-    "MM_SEERSYS_SEERMIX",
-    "MM_SEERSYS_WAVESYNTH",
-    "MM_SEERSYS_WAVESYNTH_WG",
-    "MM_SEERSYS_REALITY",
-    "MM_OSPREY_1000WAVEIN",
-    "MM_OSPREY_1000WAVEOUT",
-    "MM_SOUNDESIGNS_WAVEIN",
-    "MM_SOUNDESIGNS_WAVEOUT",
-    "MM_SSP_SNDFESWAVEIN",
-    "MM_SSP_SNDFESWAVEOUT",
-    "MM_SSP_SNDFESMIDIIN",
-    "MM_SSP_SNDFESMIDIOUT",
-    "MM_SSP_SNDFESSYNTH",
-    "MM_SSP_SNDFESMIX",
-    "MM_SSP_SNDFESAUX",
-    "MM_ECS_AADF_MIDI_IN",
-    "MM_ECS_AADF_MIDI_OUT",
-    "MM_ECS_AADF_WAVE2MIDI_IN",
-    "MM_AMD_INTERWAVE_WAVEIN",
-    "MM_AMD_INTERWAVE_WAVEOUT",
-    "MM_AMD_INTERWAVE_SYNTH",
-    "MM_AMD_INTERWAVE_MIXER1",
-    "MM_AMD_INTERWAVE_MIXER2",
-    "MM_AMD_INTERWAVE_JOYSTICK",
-    "MM_AMD_INTERWAVE_EX_CD",
-    "MM_AMD_INTERWAVE_MIDIIN",
-    "MM_AMD_INTERWAVE_MIDIOUT",
-    "MM_AMD_INTERWAVE_AUX1",
-    "MM_AMD_INTERWAVE_AUX2",
-    "MM_AMD_INTERWAVE_AUX_MIC",
-    "MM_AMD_INTERWAVE_AUX_CD",
-    "MM_AMD_INTERWAVE_MONO_IN",
-    "MM_AMD_INTERWAVE_MONO_OUT",
-    "MM_AMD_INTERWAVE_EX_TELEPHONY",
-    "MM_AMD_INTERWAVE_WAVEOUT_BASE",
-    "MM_AMD_INTERWAVE_WAVEOUT_TREBLE",
-    "MM_AMD_INTERWAVE_STEREO_ENHANCED",
-    "MM_COREDYNAMICS_DYNAMIXHR",
-    "MM_COREDYNAMICS_DYNASONIX_SYNTH",
-    "MM_COREDYNAMICS_DYNASONIX_MIDI_IN",
-    "MM_COREDYNAMICS_DYNASONIX_MIDI_OUT",
-    "MM_COREDYNAMICS_DYNASONIX_WAVE_IN",
-    "MM_COREDYNAMICS_DYNASONIX_WAVE_OUT",
-    "MM_COREDYNAMICS_DYNASONIX_AUDIO_IN",
-    "MM_COREDYNAMICS_DYNASONIX_AUDIO_OUT",
-    "MM_COREDYNAMICS_DYNAGRAFX_VGA",
-    "MM_COREDYNAMICS_DYNAGRAFX_WAVE_IN",
-    "MM_COREDYNAMICS_DYNAGRAFX_WAVE_OUT",
-    "MM_CANAM_CBXWAVEOUT",
-    "MM_CANAM_CBXWAVEIN",
-    "MM_SOFTSOUND_CODEC",
-    "MM_NORRIS_VOICELINK",
-    "MM_DDD_MIDILINK_MIDIIN",
-    "MM_DDD_MIDILINK_MIDIOUT",
-    "MM_EUPHONICS_AUX_CD",
-    "MM_EUPHONICS_AUX_LINE",
-    "MM_EUPHONICS_AUX_MASTER",
-    "MM_EUPHONICS_AUX_MIC",
-    "MM_EUPHONICS_AUX_MIDI",
-    "MM_EUPHONICS_AUX_WAVE",
-    "MM_EUPHONICS_FMSYNTH_MONO",
-    "MM_EUPHONICS_FMSYNTH_STEREO",
-    "MM_EUPHONICS_MIDIIN",
-    "MM_EUPHONICS_MIDIOUT",
-    "MM_EUPHONICS_MIXER",
-    "MM_EUPHONICS_WAVEIN",
-    "MM_EUPHONICS_WAVEOUT",
-    "MM_EUPHONICS_EUSYNTH",
-    "CRYSTAL_NET_SFM_CODEC",
-    "MM_CHROMATIC_M1",
-    "MM_CHROMATIC_M1_WAVEIN",
-    "MM_CHROMATIC_M1_WAVEOUT",
-    "MM_CHROMATIC_M1_FMSYNTH",
-    "MM_CHROMATIC_M1_MIXER",
-    "MM_CHROMATIC_M1_AUX",
-    "MM_CHROMATIC_M1_AUX_CD",
-    "MM_CHROMATIC_M1_MIDIIN",
-    "MM_CHROMATIC_M1_MIDIOUT",
-    "MM_CHROMATIC_M1_WTSYNTH",
-    "MM_CHROMATIC_M1_MPEGWAVEIN",
-    "MM_CHROMATIC_M1_MPEGWAVEOUT",
-    "MM_CHROMATIC_M2",
-    "MM_CHROMATIC_M2_WAVEIN",
-    "MM_CHROMATIC_M2_WAVEOUT",
-    "MM_CHROMATIC_M2_FMSYNTH",
-    "MM_CHROMATIC_M2_MIXER",
-    "MM_CHROMATIC_M2_AUX",
-    "MM_CHROMATIC_M2_AUX_CD",
-    "MM_CHROMATIC_M2_MIDIIN",
-    "MM_CHROMATIC_M2_MIDIOUT",
-    "MM_CHROMATIC_M2_WTSYNTH",
-    "MM_CHROMATIC_M2_MPEGWAVEIN",
-    "MM_CHROMATIC_M2_MPEGWAVEOUT",
-    "MM_VIENNASYS_TSP_WAVE_DRIVER",
-    "MM_CONNECTIX_VIDEC_CODEC",
-    "MM_GADGETLABS_WAVE44_WAVEIN",
-    "MM_GADGETLABS_WAVE44_WAVEOUT",
-    "MM_GADGETLABS_WAVE42_WAVEIN",
-    "MM_GADGETLABS_WAVE42_WAVEOUT",
-    "MM_GADGETLABS_WAVE4_MIDIIN",
-    "MM_GADGETLABS_WAVE4_MIDIOUT",
-    "MM_FRONTIER_WAVECENTER_MIDIIN",
-    "MM_FRONTIER_WAVECENTER_MIDIOUT",
-    "MM_FRONTIER_WAVECENTER_WAVEIN",
-    "MM_FRONTIER_WAVECENTER_WAVEOUT",
-    "MM_VIONA_QVINPCI_MIXER",
-    "MM_VIONA_QVINPCI_WAVEIN",
-    "MM_VIONAQVINPCI_WAVEOUT",
-    "MM_VIONA_BUSTER_MIXER",
-    "MM_VIONA_CINEMASTER_MIXER",
-    "MM_VIONA_CONCERTO_MIXER",
-    "MM_CASIO_WP150_MIDIOUT",
-    "MM_CASIO_WP150_MIDIIN",
-    "MM_CASIO_LSG_MIDIOUT",
-    "MM_DIMD_PLATFORM",
-    "MM_DIMD_DIRSOUND",
-    "MM_DIMD_VIRTMPU",
-    "MM_DIMD_VIRTSB",
-    "MM_DIMD_VIRTJOY",
-    "MM_DIMD_WAVEIN",
-    "MM_DIMD_WAVEOUT",
-    "MM_DIMD_MIDIIN",
-    "MM_DIMD_MIDIOUT",
-    "MM_DIMD_AUX_LINE",
-    "MM_DIMD_MIXER",
-    "MM_DIMD_WSS_WAVEIN",
-    "MM_DIMD_WSS_WAVEOUT",
-    "MM_DIMD_WSS_MIXER",
-    "MM_DIMD_WSS_AUX",
-    "MM_DIMD_WSS_SYNTH",
-    "MM_S3_WAVEOUT",
-    "MM_S3_WAVEIN",
-    "MM_S3_MIDIOUT",
-    "MM_S3_MIDIIN",
-    "MM_S3_FMSYNTH",
-    "MM_S3_MIXER",
-    "MM_S3_AUX",
-    "MM_VKC_MPU401_MIDIIN",
-    "MM_VKC_SERIAL_MIDIIN",
-    "MM_VKC_MPU401_MIDIOUT",
-    "MM_VKC_SERIAL_MIDIOUT",
-    "MM_ZEFIRO_ZA2",
-    "MM_FHGIIS_MPEGLAYER3_DECODE",
-    "MM_FHGIIS_MPEGLAYER3",
-    "MM_FHGIIS_MPEGLAYER3_LITE",
-    "MM_FHGIIS_MPEGLAYER3_BASIC",
-    "MM_FHGIIS_MPEGLAYER3_ADVANCED",
-    "MM_FHGIIS_MPEGLAYER3_PROFESSIONAL",
-    "MM_FHGIIS_MPEGLAYER3_ADVANCEDPLUS",
-    "MM_QUICKNET_PJWAVEIN",
-    "MM_QUICKNET_PJWAVEOUT",
-    "MM_SICRESOURCE_SSO3D",
-    "MM_SICRESOURCE_SSOW3DI",
-    "MM_NEOMAGIC_SYNTH",
-    "MM_NEOMAGIC_WAVEOUT",
-    "MM_NEOMAGIC_WAVEIN",
-    "MM_NEOMAGIC_MIDIOUT",
-    "MM_NEOMAGIC_MIDIIN",
-    "MM_NEOMAGIC_AUX",
-    "MM_NEOMAGIC_MW3DX_WAVEOUT",
-    "MM_NEOMAGIC_MW3DX_WAVEIN",
-    "MM_NEOMAGIC_MW3DX_MIDIOUT",
-    "MM_NEOMAGIC_MW3DX_MIDIIN",
-    "MM_NEOMAGIC_MW3DX_FMSYNTH",
-    "MM_NEOMAGIC_MW3DX_GMSYNTH",
-    "MM_NEOMAGIC_MW3DX_MIXER",
-    "MM_NEOMAGIC_MW3DX_AUX",
-    "MM_NEOMAGIC_MWAVE_WAVEOUT",
-    "MM_NEOMAGIC_MWAVE_WAVEIN",
-    "MM_NEOMAGIC_MWAVE_MIDIOUT",
-    "MM_NEOMAGIC_MWAVE_MIDIIN",
-    "MM_NEOMAGIC_MWAVE_MIXER",
-    "MM_NEOMAGIC_MWAVE_AUX",
-    "MM_MERGING_MPEGL3",
-    "MM_XIRLINK_VISIONLINK",
-    "MM_OTI_611WAVEIN",
-    "MM_OTI_611WAVEOUT",
-    "MM_OTI_611MIXER",
-    "MM_OTI_611MIDIN",
-    "MM_OTI_611MIDIOUT",
-    "MM_AUREAL_AU8820",
-    "MM_AU8820_SYNTH",
-    "MM_AU8820_WAVEOUT",
-    "MM_AU8820_WAVEIN",
-    "MM_AU8820_MIXER",
-    "MM_AU8820_AUX",
-    "MM_AU8820_MIDIOUT",
-    "MM_AU8820_MIDIIN",
-    "MM_AUREAL_AU8830",
-    "MM_AU8830_SYNTH",
-    "MM_AU8830_WAVEOUT",
-    "MM_AU8830_WAVEIN",
-    "MM_AU8830_MIXER",
-    "MM_AU8830_AUX",
-    "MM_AU8830_MIDIOUT",
-    "MM_AU8830_MIDIIN",
-    "MM_VIVO_AUDIO_CODEC",
-    "MM_SHARP_MDC_MIDI_SYNTH",
-    "MM_SHARP_MDC_MIDI_IN",
-    "MM_SHARP_MDC_MIDI_OUT",
-    "MM_SHARP_MDC_WAVE_IN",
-    "MM_SHARP_MDC_WAVE_OUT",
-    "MM_SHARP_MDC_AUX",
-    "MM_SHARP_MDC_MIXER",
-    "MM_SHARP_MDC_AUX_MASTER",
-    "MM_SHARP_MDC_AUX_BASS",
-    "MM_SHARP_MDC_AUX_TREBLE",
-    "MM_SHARP_MDC_AUX_MIDI_VOL",
-    "MM_SHARP_MDC_AUX_WAVE_VOL",
-    "MM_SHARP_MDC_AUX_WAVE_RVB",
-    "MM_SHARP_MDC_AUX_WAVE_CHR",
-    "MM_SHARP_MDC_AUX_VOL",
-    "MM_SHARP_MDC_AUX_RVB",
-    "MM_SHARP_MDC_AUX_CHR",
-    "MM_LUCENT_ACM_G723",
-    "MM_ATT_G729A",
-    "MM_MARIAN_ARC44WAVEIN",
-    "MM_MARIAN_ARC44WAVEOUT",
-    "MM_MARIAN_PRODIF24WAVEIN",
-    "MM_MARIAN_PRODIF24WAVEOUT",
-    "MM_MARIAN_ARC88WAVEIN",
-    "MM_MARIAN_ARC88WAVEOUT",
-    "MM_BCB_NETBOARD_10",
-    "MM_BCB_TT75_10",
-    "MM_MOTIONPIXELS_MVI2",
-    "MM_QDESIGN_ACM_MPEG",
-    "MM_QDESIGN_ACM_QDESIGN_MUSIC",
-    "MM_NMP_CCP_WAVEIN",
-    "MM_NMP_CCP_WAVEOUT",
-    "MM_NMP_ACM_AMR",
-    "MM_DF_ACM_G726",
-    "MM_DF_ACM_GSM610",
-    "MM_BERCOS_WAVEIN",
-    "MM_BERCOS_MIXER",
-    "MM_BERCOS_WAVEOUT",
-    "MM_ONLIVE_MPCODEC",
-    "MM_PHONET_PP_WAVEOUT",
-    "MM_PHONET_PP_WAVEIN",
-    "MM_PHONET_PP_MIXER",
-    "MM_FTR_ENCODER_WAVEIN",
-    "MM_FTR_ACM",
-    "MM_ENET_T2000_LINEIN",
-    "MM_ENET_T2000_LINEOUT",
-    "MM_ENET_T2000_HANDSETIN",
-    "MM_ENET_T2000_HANDSETOUT",
-    "MM_EMAGIC_UNITOR8",
-    "MM_SIPROLAB_ACELPNET",
-    "MM_DICTAPHONE_G726",
-    "MM_RZS_ACM_TUBGSM",
-    "MM_EES_PCMIDI14",
-    "MM_EES_PCMIDI14_IN",
-    "MM_EES_PCMIDI14_OUT1",
-    "MM_EES_PCMIDI14_OUT2",
-    "MM_EES_PCMIDI14_OUT3",
-    "MM_EES_PCMIDI14_OUT4",
-    "MM_HAFTMANN_LPTDAC2",
-    "MM_LUCID_PCI24WAVEIN",
-    "MM_LUCID_PCI24WAVEOUT",
-    "MM_HEADSPACE_HAESYNTH",
-    "MM_HEADSPACE_HAEWAVEOUT",
-    "MM_HEADSPACE_HAEWAVEIN",
-    "MM_HEADSPACE_HAEMIXER",
-    "MM_UNISYS_ACM_NAP",
-    "MM_LUMINOSITI_SCWAVEIN",
-    "MM_LUMINOSITI_SCWAVEOUT",
-    "MM_LUMINOSITI_SCWAVEMIX",
-    "MM_ACTIVEVOICE_ACM_VOXADPCM",
-    "MM_DTS_DS",
-    "MM_SOFTLAB_NSK_FRW_WAVEIN",
-    "MM_SOFTLAB_NSK_FRW_WAVEOUT",
-    "MM_SOFTLAB_NSK_FRW_MIXER",
-    "MM_SOFTLAB_NSK_FRW_AUX",
-    "MM_FORTEMEDIA_WAVEIN",
-    "MM_FORTEMEDIA_WAVEOUT",
-    "MM_FORTEMEDIA_FMSYNC",
-    "MM_FORTEMEDIA_MIXER",
-    "MM_FORTEMEDIA_AUX",
-    "MM_SONORUS_STUDIO",
-    "MM_I_LINK_VOICE_CODER",
-    "MM_SELSIUS_SYSTEMS_RTPWAVEOUT",
-    "MM_SELSIUS_SYSTEMS_RTPWAVEIN",
-    "MM_ADMOS_FM_SYNTH",
-    "MM_ADMOS_QS3AMIDIOUT",
-    "MM_ADMOS_QS3AMIDIIN",
-    "MM_ADMOS_QS3AWAVEOUT",
-    "MM_ADMOS_QS3AWAVEIN",
-    "MM_LEXICON_STUDIO_WAVE_OUT",
-    "MM_LEXICON_STUDIO_WAVE_IN",
-    "MM_SGI_320_WAVEIN",
-    "MM_SGI_320_WAVEOUT",
-    "MM_SGI_320_MIXER",
-    "MM_SGI_540_WAVEIN",
-    "MM_SGI_540_WAVEOUT",
-    "MM_SGI_540_MIXER",
-    "MM_SGI_RAD_ADATMONO1_WAVEIN",
-    "MM_SGI_RAD_ADATMONO2_WAVEIN",
-    "MM_SGI_RAD_ADATMONO3_WAVEIN",
-    "MM_SGI_RAD_ADATMONO4_WAVEIN",
-    "MM_SGI_RAD_ADATMONO5_WAVEIN",
-    "MM_SGI_RAD_ADATMONO6_WAVEIN",
-    "MM_SGI_RAD_ADATMONO7_WAVEIN",
-    "MM_SGI_RAD_ADATMONO8_WAVEIN",
-    "MM_SGI_RAD_ADATSTEREO12_WAVEIN",
-    "MM_SGI_RAD_ADATSTEREO34_WAVEIN",
-    "MM_SGI_RAD_ADATSTEREO56_WAVEIN",
-    "MM_SGI_RAD_ADATSTEREO78_WAVEIN",
-    "MM_SGI_RAD_ADAT8CHAN_WAVEIN",
-    "MM_SGI_RAD_ADATMONO1_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO2_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO3_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO4_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO5_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO6_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO7_WAVEOUT",
-    "MM_SGI_RAD_ADATMONO8_WAVEOUT",
-    "MM_SGI_RAD_ADATSTEREO12_WAVEOUT",
-    "MM_SGI_RAD_ADATSTEREO32_WAVEOUT",
-    "MM_SGI_RAD_ADATSTEREO56_WAVEOUT",
-    "MM_SGI_RAD_ADATSTEREO78_WAVEOUT",
-    "MM_SGI_RAD_ADAT8CHAN_WAVEOUT",
-    "MM_SGI_RAD_AESMONO1_WAVEIN",
-    "MM_SGI_RAD_AESMONO2_WAVEIN",
-    "MM_SGI_RAD_AESSTEREO_WAVEIN",
-    "MM_SGI_RAD_AESMONO1_WAVEOUT",
-    "MM_SGI_RAD_AESMONO2_WAVEOUT",
-    "MM_SGI_RAD_AESSTEREO_WAVEOUT",
-    "MM_IPI_ACM_HSX",
-    "MM_IPI_ACM_RPELP",
-    "MM_IPI_WF_ASSS",
-    "MM_IPI_AT_WAVEOUT",
-    "MM_IPI_AT_WAVEIN",
-    "MM_IPI_AT_MIXER",
-    "MM_ICE_WAVEOUT",
-    "MM_ICE_WAVEIN",
-    "MM_ICE_MTWAVEOUT",
-    "MM_ICE_MTWAVEIN",
-    "MM_ICE_MIDIOUT1",
-    "MM_ICE_MIDIIN1",
-    "MM_ICE_MIDIOUT2",
-    "MM_ICE_MIDIIN2",
-    "MM_ICE_SYNTH",
-    "MM_ICE_MIXER",
-    "MM_ICE_AUX",
-    "MM_VQST_VQC1",
-    "MM_VQST_VQC2",
-    "MM_ETEK_KWIKMIDI_MIDIIN",
-    "MM_ETEK_KWIKMIDI_MIDIOUT",
-    "MM_INTERNET_SSW_MIDIOUT",
-    "MM_INTERNET_SSW_MIDIIN",
-    "MM_INTERNET_SSW_WAVEOUT",
-    "MM_INTERNET_SSW_WAVEIN",
-    "MM_SONY_ACM_SCX",
-    "MM_UH_ACM_ADPCM",
-    "MM_SYDEC_NV_WAVEIN",
-    "MM_SYDEC_NV_WAVEOUT",
-    "MM_FLEXION_X300_WAVEIN",
-    "MM_FLEXION_X300_WAVEOUT",
-    "MM_VIA_WAVEOUT",
-    "MM_VIA_WAVEIN",
-    "MM_VIA_MIXER",
-    "MM_VIA_AUX",
-    "MM_VIA_MPU401_MIDIOUT",
-    "MM_VIA_MPU401_MIDIIN",
-    "MM_VIA_SWFM_SYNTH",
-    "MM_VIA_WDM_WAVEOUT",
-    "MM_VIA_WDM_WAVEIN",
-    "MM_VIA_WDM_MIXER",
-    "MM_VIA_WDM_MPU401_MIDIOUT",
-    "MM_VIA_WDM_MPU401_MIDIIN",
-    "MM_MICRONAS_SC4",
-    "MM_MICRONAS_CLP833",
-    "MM_HP_WAVEOUT",
-    "MM_HP_WAVEIN",
-    "MM_QUICKAUDIO_MINIMIDI",
-    "MM_QUICKAUDIO_MAXIMIDI",
-    "MM_ICCC_UNA3_WAVEIN",
-    "MM_ICCC_UNA3_WAVEOUT",
-    "MM_ICCC_UNA3_AUX",
-    "MM_ICCC_UNA3_MIXER",
-    "MM_3COM_CB_MIXER",
-    "MM_3COM_CB_WAVEIN",
-    "MM_3COM_CB_WAVEOUT",
-    "MM_MINDMAKER_GC_WAVEIN",
-    "MM_MINDMAKER_GC_WAVEOUT",
-    "MM_MINDMAKER_GC_MIXER",
-    "MM_TELEKOL_WAVEOUT",
-    "MM_TELEKOL_WAVEIN",
-    "MM_ALGOVISION_VB80WAVEOUT",
-    "MM_ALGOVISION_VB80WAVEIN",
-    "MM_ALGOVISION_VB80MIXER",
-    "MM_ALGOVISION_VB80AUX",
-    "MM_ALGOVISION_VB80AUX2",
-    "WAVE_FORMAT_UNKNOWN",
-    "WAVE_FORMAT_ADPCM",
-    "WAVE_FORMAT_IEEE_FLOAT",
-    "WAVE_FORMAT_VSELP",
-    "WAVE_FORMAT_IBM_CVSD",
-    "WAVE_FORMAT_ALAW",
-    "WAVE_FORMAT_MULAW",
-    "WAVE_FORMAT_DTS",
-    "WAVE_FORMAT_DRM",
-    "WAVE_FORMAT_WMAVOICE9",
-    "WAVE_FORMAT_WMAVOICE10",
-    "WAVE_FORMAT_OKI_ADPCM",
-    "WAVE_FORMAT_DVI_ADPCM",
-    "WAVE_FORMAT_IMA_ADPCM",
-    "WAVE_FORMAT_MEDIASPACE_ADPCM",
-    "WAVE_FORMAT_SIERRA_ADPCM",
-    "WAVE_FORMAT_G723_ADPCM",
-    "WAVE_FORMAT_DIGISTD",
-    "WAVE_FORMAT_DIGIFIX",
-    "WAVE_FORMAT_DIALOGIC_OKI_ADPCM",
-    "WAVE_FORMAT_MEDIAVISION_ADPCM",
-    "WAVE_FORMAT_CU_CODEC",
-    "WAVE_FORMAT_HP_DYN_VOICE",
-    "WAVE_FORMAT_YAMAHA_ADPCM",
-    "WAVE_FORMAT_SONARC",
-    "WAVE_FORMAT_DSPGROUP_TRUESPEECH",
-    "WAVE_FORMAT_ECHOSC1",
-    "WAVE_FORMAT_AUDIOFILE_AF36",
-    "WAVE_FORMAT_APTX",
-    "WAVE_FORMAT_AUDIOFILE_AF10",
-    "WAVE_FORMAT_PROSODY_1612",
-    "WAVE_FORMAT_LRC",
-    "WAVE_FORMAT_DOLBY_AC2",
-    "WAVE_FORMAT_GSM610",
-    "WAVE_FORMAT_MSNAUDIO",
-    "WAVE_FORMAT_ANTEX_ADPCME",
-    "WAVE_FORMAT_CONTROL_RES_VQLPC",
-    "WAVE_FORMAT_DIGIREAL",
-    "WAVE_FORMAT_DIGIADPCM",
-    "WAVE_FORMAT_CONTROL_RES_CR10",
-    "WAVE_FORMAT_NMS_VBXADPCM",
-    "WAVE_FORMAT_CS_IMAADPCM",
-    "WAVE_FORMAT_ECHOSC3",
-    "WAVE_FORMAT_ROCKWELL_ADPCM",
-    "WAVE_FORMAT_ROCKWELL_DIGITALK",
-    "WAVE_FORMAT_XEBEC",
-    "WAVE_FORMAT_G721_ADPCM",
-    "WAVE_FORMAT_G728_CELP",
-    "WAVE_FORMAT_MSG723",
-    "WAVE_FORMAT_INTEL_G723_1",
-    "WAVE_FORMAT_INTEL_G729",
-    "WAVE_FORMAT_SHARP_G726",
-    "WAVE_FORMAT_MPEG",
-    "WAVE_FORMAT_RT24",
-    "WAVE_FORMAT_PAC",
-    "WAVE_FORMAT_MPEGLAYER3",
-    "WAVE_FORMAT_LUCENT_G723",
-    "WAVE_FORMAT_CIRRUS",
-    "WAVE_FORMAT_ESPCM",
-    "WAVE_FORMAT_VOXWARE",
-    "WAVE_FORMAT_CANOPUS_ATRAC",
-    "WAVE_FORMAT_G726_ADPCM",
-    "WAVE_FORMAT_G722_ADPCM",
-    "WAVE_FORMAT_DSAT",
-    "WAVE_FORMAT_DSAT_DISPLAY",
-    "WAVE_FORMAT_VOXWARE_BYTE_ALIGNED",
-    "WAVE_FORMAT_VOXWARE_AC8",
-    "WAVE_FORMAT_VOXWARE_AC10",
-    "WAVE_FORMAT_VOXWARE_AC16",
-    "WAVE_FORMAT_VOXWARE_AC20",
-    "WAVE_FORMAT_VOXWARE_RT24",
-    "WAVE_FORMAT_VOXWARE_RT29",
-    "WAVE_FORMAT_VOXWARE_RT29HW",
-    "WAVE_FORMAT_VOXWARE_VR12",
-    "WAVE_FORMAT_VOXWARE_VR18",
-    "WAVE_FORMAT_VOXWARE_TQ40",
-    "WAVE_FORMAT_VOXWARE_SC3",
-    "WAVE_FORMAT_VOXWARE_SC3_1",
-    "WAVE_FORMAT_SOFTSOUND",
-    "WAVE_FORMAT_VOXWARE_TQ60",
-    "WAVE_FORMAT_MSRT24",
-    "WAVE_FORMAT_G729A",
-    "WAVE_FORMAT_MVI_MVI2",
-    "WAVE_FORMAT_DF_G726",
-    "WAVE_FORMAT_DF_GSM610",
-    "WAVE_FORMAT_ISIAUDIO",
-    "WAVE_FORMAT_ONLIVE",
-    "WAVE_FORMAT_MULTITUDE_FT_SX20",
-    "WAVE_FORMAT_INFOCOM_ITS_G721_ADPCM",
-    "WAVE_FORMAT_CONVEDIA_G729",
-    "WAVE_FORMAT_CONGRUENCY",
-    "WAVE_FORMAT_SBC24",
-    "WAVE_FORMAT_DOLBY_AC3_SPDIF",
-    "WAVE_FORMAT_MEDIASONIC_G723",
-    "WAVE_FORMAT_PROSODY_8KBPS",
-    "WAVE_FORMAT_ZYXEL_ADPCM",
-    "WAVE_FORMAT_PHILIPS_LPCBB",
-    "WAVE_FORMAT_PACKED",
-    "WAVE_FORMAT_MALDEN_PHONYTALK",
-    "WAVE_FORMAT_RACAL_RECORDER_GSM",
-    "WAVE_FORMAT_RACAL_RECORDER_G720_A",
-    "WAVE_FORMAT_RACAL_RECORDER_G723_1",
-    "WAVE_FORMAT_RACAL_RECORDER_TETRA_ACELP",
-    "WAVE_FORMAT_NEC_AAC",
-    "WAVE_FORMAT_RAW_AAC1",
-    "WAVE_FORMAT_RHETOREX_ADPCM",
-    "WAVE_FORMAT_IRAT",
-    "WAVE_FORMAT_VIVO_G723",
-    "WAVE_FORMAT_VIVO_SIREN",
-    "WAVE_FORMAT_PHILIPS_CELP",
-    "WAVE_FORMAT_PHILIPS_GRUNDIG",
-    "WAVE_FORMAT_DIGITAL_G723",
-    "WAVE_FORMAT_SANYO_LD_ADPCM",
-    "WAVE_FORMAT_SIPROLAB_ACEPLNET",
-    "WAVE_FORMAT_SIPROLAB_ACELP4800",
-    "WAVE_FORMAT_SIPROLAB_ACELP8V3",
-    "WAVE_FORMAT_SIPROLAB_G729",
-    "WAVE_FORMAT_SIPROLAB_G729A",
-    "WAVE_FORMAT_SIPROLAB_KELVIN",
-    "WAVE_FORMAT_VOICEAGE_AMR",
-    "WAVE_FORMAT_G726ADPCM",
-    "WAVE_FORMAT_DICTAPHONE_CELP68",
-    "WAVE_FORMAT_DICTAPHONE_CELP54",
-    "WAVE_FORMAT_QUALCOMM_PUREVOICE",
-    "WAVE_FORMAT_QUALCOMM_HALFRATE",
-    "WAVE_FORMAT_TUBGSM",
-    "WAVE_FORMAT_MSAUDIO1",
-    "WAVE_FORMAT_WMAUDIO2",
-    "WAVE_FORMAT_WMAUDIO3",
-    "WAVE_FORMAT_WMAUDIO_LOSSLESS",
-    "WAVE_FORMAT_WMASPDIF",
-    "WAVE_FORMAT_UNISYS_NAP_ADPCM",
-    "WAVE_FORMAT_UNISYS_NAP_ULAW",
-    "WAVE_FORMAT_UNISYS_NAP_ALAW",
-    "WAVE_FORMAT_UNISYS_NAP_16K",
-    "WAVE_FORMAT_SYCOM_ACM_SYC008",
-    "WAVE_FORMAT_SYCOM_ACM_SYC701_G726L",
-    "WAVE_FORMAT_SYCOM_ACM_SYC701_CELP54",
-    "WAVE_FORMAT_SYCOM_ACM_SYC701_CELP68",
-    "WAVE_FORMAT_KNOWLEDGE_ADVENTURE_ADPCM",
-    "WAVE_FORMAT_FRAUNHOFER_IIS_MPEG2_AAC",
-    "WAVE_FORMAT_DTS_DS",
-    "WAVE_FORMAT_CREATIVE_ADPCM",
-    "WAVE_FORMAT_CREATIVE_FASTSPEECH8",
-    "WAVE_FORMAT_CREATIVE_FASTSPEECH10",
-    "WAVE_FORMAT_UHER_ADPCM",
-    "WAVE_FORMAT_ULEAD_DV_AUDIO",
-    "WAVE_FORMAT_ULEAD_DV_AUDIO_1",
-    "WAVE_FORMAT_QUARTERDECK",
-    "WAVE_FORMAT_ILINK_VC",
-    "WAVE_FORMAT_RAW_SPORT",
-    "WAVE_FORMAT_ESST_AC3",
-    "WAVE_FORMAT_GENERIC_PASSTHRU",
-    "WAVE_FORMAT_IPI_HSX",
-    "WAVE_FORMAT_IPI_RPELP",
-    "WAVE_FORMAT_CS2",
-    "WAVE_FORMAT_SONY_SCX",
-    "WAVE_FORMAT_SONY_SCY",
-    "WAVE_FORMAT_SONY_ATRAC3",
-    "WAVE_FORMAT_SONY_SPC",
-    "WAVE_FORMAT_TELUM_AUDIO",
-    "WAVE_FORMAT_TELUM_IA_AUDIO",
-    "WAVE_FORMAT_NORCOM_VOICE_SYSTEMS_ADPCM",
-    "WAVE_FORMAT_FM_TOWNS_SND",
-    "WAVE_FORMAT_MICRONAS",
-    "WAVE_FORMAT_MICRONAS_CELP833",
-    "WAVE_FORMAT_BTV_DIGITAL",
-    "WAVE_FORMAT_INTEL_MUSIC_CODER",
-    "WAVE_FORMAT_INDEO_AUDIO",
-    "WAVE_FORMAT_QDESIGN_MUSIC",
-    "WAVE_FORMAT_ON2_VP7_AUDIO",
-    "WAVE_FORMAT_ON2_VP6_AUDIO",
-    "WAVE_FORMAT_VME_VMPCM",
-    "WAVE_FORMAT_TPC",
-    "WAVE_FORMAT_LIGHTWAVE_LOSSLESS",
-    "WAVE_FORMAT_OLIGSM",
-    "WAVE_FORMAT_OLIADPCM",
-    "WAVE_FORMAT_OLICELP",
-    "WAVE_FORMAT_OLISBC",
-    "WAVE_FORMAT_OLIOPR",
-    "WAVE_FORMAT_LH_CODEC",
-    "WAVE_FORMAT_LH_CODEC_CELP",
-    "WAVE_FORMAT_LH_CODEC_SBC8",
-    "WAVE_FORMAT_LH_CODEC_SBC12",
-    "WAVE_FORMAT_LH_CODEC_SBC16",
-    "WAVE_FORMAT_NORRIS",
-    "WAVE_FORMAT_ISIAUDIO_2",
-    "WAVE_FORMAT_SOUNDSPACE_MUSICOMPRESS",
-    "WAVE_FORMAT_MPEG_ADTS_AAC",
-    "WAVE_FORMAT_MPEG_RAW_AAC",
-    "WAVE_FORMAT_MPEG_LOAS",
-    "WAVE_FORMAT_NOKIA_MPEG_ADTS_AAC",
-    "WAVE_FORMAT_NOKIA_MPEG_RAW_AAC",
-    "WAVE_FORMAT_VODAFONE_MPEG_ADTS_AAC",
-    "WAVE_FORMAT_VODAFONE_MPEG_RAW_AAC",
-    "WAVE_FORMAT_MPEG_HEAAC",
-    "WAVE_FORMAT_VOXWARE_RT24_SPEECH",
-    "WAVE_FORMAT_SONICFOUNDRY_LOSSLESS",
-    "WAVE_FORMAT_INNINGS_TELECOM_ADPCM",
-    "WAVE_FORMAT_LUCENT_SX8300P",
-    "WAVE_FORMAT_LUCENT_SX5363S",
-    "WAVE_FORMAT_CUSEEME",
-    "WAVE_FORMAT_NTCSOFT_ALF2CM_ACM",
-    "WAVE_FORMAT_DVM",
-    "WAVE_FORMAT_DTS2",
-    "WAVE_FORMAT_MAKEAVIS",
-    "WAVE_FORMAT_DIVIO_MPEG4_AAC",
-    "WAVE_FORMAT_NOKIA_ADAPTIVE_MULTIRATE",
-    "WAVE_FORMAT_DIVIO_G726",
-    "WAVE_FORMAT_LEAD_SPEECH",
-    "WAVE_FORMAT_LEAD_VORBIS",
-    "WAVE_FORMAT_WAVPACK_AUDIO",
-    "WAVE_FORMAT_ALAC",
-    "WAVE_FORMAT_OGG_VORBIS_MODE_1",
-    "WAVE_FORMAT_OGG_VORBIS_MODE_2",
-    "WAVE_FORMAT_OGG_VORBIS_MODE_3",
-    "WAVE_FORMAT_OGG_VORBIS_MODE_1_PLUS",
-    "WAVE_FORMAT_OGG_VORBIS_MODE_2_PLUS",
-    "WAVE_FORMAT_OGG_VORBIS_MODE_3_PLUS",
-    "WAVE_FORMAT_3COM_NBX",
-    "WAVE_FORMAT_OPUS",
-    "WAVE_FORMAT_FAAD_AAC",
-    "WAVE_FORMAT_AMR_NB",
-    "WAVE_FORMAT_AMR_WB",
-    "WAVE_FORMAT_AMR_WP",
-    "WAVE_FORMAT_GSM_AMR_CBR",
-    "WAVE_FORMAT_GSM_AMR_VBR_SID",
-    "WAVE_FORMAT_COMVERSE_INFOSYS_G723_1",
-    "WAVE_FORMAT_COMVERSE_INFOSYS_AVQSBC",
-    "WAVE_FORMAT_COMVERSE_INFOSYS_SBC",
-    "WAVE_FORMAT_SYMBOL_G729_A",
-    "WAVE_FORMAT_VOICEAGE_AMR_WB",
-    "WAVE_FORMAT_INGENIENT_G726",
-    "WAVE_FORMAT_MPEG4_AAC",
-    "WAVE_FORMAT_ENCORE_G726",
-    "WAVE_FORMAT_ZOLL_ASAO",
-    "WAVE_FORMAT_SPEEX_VOICE",
-    "WAVE_FORMAT_VIANIX_MASC",
-    "WAVE_FORMAT_WM9_SPECTRUM_ANALYZER",
-    "WAVE_FORMAT_WMF_SPECTRUM_ANAYZER",
-    "WAVE_FORMAT_GSM_610",
-    "WAVE_FORMAT_GSM_620",
-    "WAVE_FORMAT_GSM_660",
-    "WAVE_FORMAT_GSM_690",
-    "WAVE_FORMAT_GSM_ADAPTIVE_MULTIRATE_WB",
-    "WAVE_FORMAT_POLYCOM_G722",
-    "WAVE_FORMAT_POLYCOM_G728",
-    "WAVE_FORMAT_POLYCOM_G729_A",
-    "WAVE_FORMAT_POLYCOM_SIREN",
-    "WAVE_FORMAT_GLOBAL_IP_ILBC",
-    "WAVE_FORMAT_RADIOTIME_TIME_SHIFT_RADIO",
-    "WAVE_FORMAT_NICE_ACA",
-    "WAVE_FORMAT_NICE_ADPCM",
-    "WAVE_FORMAT_VOCORD_G721",
-    "WAVE_FORMAT_VOCORD_G726",
-    "WAVE_FORMAT_VOCORD_G722_1",
-    "WAVE_FORMAT_VOCORD_G728",
-    "WAVE_FORMAT_VOCORD_G729",
-    "WAVE_FORMAT_VOCORD_G729_A",
-    "WAVE_FORMAT_VOCORD_G723_1",
-    "WAVE_FORMAT_VOCORD_LBC",
-    "WAVE_FORMAT_NICE_G728",
-    "WAVE_FORMAT_FRACE_TELECOM_G729",
-    "WAVE_FORMAT_CODIAN",
-    "WAVE_FORMAT_DOLBY_AC4",
-    "WAVE_FORMAT_FLAC",
-    "WAVE_FORMAT_DEVELOPMENT",
+    "ACM_MPEG_COPYRIGHT",
+    "ACM_MPEG_DUALCHANNEL",
+    "ACM_MPEG_ID_MPEG1",
+    "ACM_MPEG_JOINTSTEREO",
     "ACM_MPEG_LAYER1",
     "ACM_MPEG_LAYER2",
     "ACM_MPEG_LAYER3",
-    "ACM_MPEG_STEREO",
-    "ACM_MPEG_JOINTSTEREO",
-    "ACM_MPEG_DUALCHANNEL",
-    "ACM_MPEG_SINGLECHANNEL",
-    "ACM_MPEG_PRIVATEBIT",
-    "ACM_MPEG_COPYRIGHT",
     "ACM_MPEG_ORIGINALHOME",
+    "ACM_MPEG_PRIVATEBIT",
     "ACM_MPEG_PROTECTIONBIT",
-    "ACM_MPEG_ID_MPEG1",
-    "MPEGLAYER3_WFX_EXTRA_BYTES",
-    "MPEGLAYER3_ID_UNKNOWN",
-    "MPEGLAYER3_ID_MPEG",
-    "MPEGLAYER3_ID_CONSTANTFRAMESIZE",
-    "MM_MSFT_ACM_WMAUDIO",
-    "WMAUDIO_BITS_PER_SAMPLE",
-    "WMAUDIO_MAX_CHANNELS",
-    "MM_MSFT_ACM_MSAUDIO1",
-    "MSAUDIO1_BITS_PER_SAMPLE",
-    "MSAUDIO1_MAX_CHANNELS",
-    "MM_MSFT_ACM_WMAUDIO2",
-    "WMAUDIO2_BITS_PER_SAMPLE",
-    "WMAUDIO2_MAX_CHANNELS",
-    "WAVE_FILTER_UNKNOWN",
-    "WAVE_FILTER_DEVELOPMENT",
-    "WAVE_FILTER_VOLUME",
-    "WAVE_FILTER_ECHO",
-    "JPEG_PROCESS_BASELINE",
+    "ACM_MPEG_SINGLECHANNEL",
+    "ACM_MPEG_STEREO",
+    "ADPCMCOEFSET",
+    "ADPCMEWAVEFORMAT",
+    "ADPCMWAVEFORMAT",
+    "APTXWAVEFORMAT",
+    "AUDIOFILE_AF10WAVEFORMAT",
+    "AUDIOFILE_AF36WAVEFORMAT",
+    "AUXDM_GETDEVCAPS",
+    "AUXDM_GETNUMDEVS",
+    "AUXDM_GETVOLUME",
+    "AUXDM_SETVOLUME",
+    "AUXM_INIT",
+    "AUXM_INIT_EX",
+    "AVIBuildFilterA",
+    "AVIBuildFilterW",
+    "AVICOMPRESSF_DATARATE",
+    "AVICOMPRESSF_INTERLEAVE",
+    "AVICOMPRESSF_KEYFRAMES",
+    "AVICOMPRESSF_VALID",
+    "AVICOMPRESSOPTIONS",
+    "AVIClearClipboard",
+    "AVIERR_OK",
+    "AVIFILECAPS_ALLKEYFRAMES",
+    "AVIFILECAPS_CANREAD",
+    "AVIFILECAPS_CANWRITE",
+    "AVIFILECAPS_NOCOMPRESSION",
+    "AVIFILEHANDLER_CANACCEPTNONRGB",
+    "AVIFILEHANDLER_CANREAD",
+    "AVIFILEHANDLER_CANWRITE",
+    "AVIFILEINFOA",
+    "AVIFILEINFOW",
+    "AVIFILEINFO_COPYRIGHTED",
+    "AVIFILEINFO_HASINDEX",
+    "AVIFILEINFO_ISINTERLEAVED",
+    "AVIFILEINFO_MUSTUSEINDEX",
+    "AVIFILEINFO_WASCAPTUREFILE",
+    "AVIFileAddRef",
+    "AVIFileCreateStreamA",
+    "AVIFileCreateStreamW",
+    "AVIFileEndRecord",
+    "AVIFileExit",
+    "AVIFileGetStream",
+    "AVIFileInfoA",
+    "AVIFileInfoW",
+    "AVIFileInit",
+    "AVIFileOpenA",
+    "AVIFileOpenW",
+    "AVIFileReadData",
+    "AVIFileRelease",
+    "AVIFileWriteData",
+    "AVIGETFRAMEF_BESTDISPLAYFMT",
+    "AVIGetFromClipboard",
     "AVIIF_CONTROLFRAME",
-    "JIFMK_SOF0",
-    "JIFMK_SOF1",
-    "JIFMK_SOF2",
-    "JIFMK_SOF3",
-    "JIFMK_SOF5",
-    "JIFMK_SOF6",
-    "JIFMK_SOF7",
-    "JIFMK_JPG",
-    "JIFMK_SOF9",
-    "JIFMK_SOF10",
-    "JIFMK_SOF11",
-    "JIFMK_SOF13",
-    "JIFMK_SOF14",
-    "JIFMK_SOF15",
-    "JIFMK_DHT",
-    "JIFMK_DAC",
-    "JIFMK_RST0",
-    "JIFMK_RST1",
-    "JIFMK_RST2",
-    "JIFMK_RST3",
-    "JIFMK_RST4",
-    "JIFMK_RST5",
-    "JIFMK_RST6",
-    "JIFMK_RST7",
-    "JIFMK_SOI",
-    "JIFMK_EOI",
-    "JIFMK_SOS",
-    "JIFMK_DQT",
-    "JIFMK_DNL",
-    "JIFMK_DRI",
-    "JIFMK_DHP",
-    "JIFMK_EXP",
+    "AVIIF_TWOCC",
+    "AVIMakeCompressedStream",
+    "AVIMakeFileFromStreams",
+    "AVIMakeStreamFromClipboard",
+    "AVIPutFileOnClipboard",
+    "AVISAVECALLBACK",
+    "AVISTREAMINFOA",
+    "AVISTREAMINFOW",
+    "AVISTREAMINFO_DISABLED",
+    "AVISTREAMINFO_FORMATCHANGES",
+    "AVISTREAMREAD_CONVENIENT",
+    "AVISaveA",
+    "AVISaveOptions",
+    "AVISaveOptionsFree",
+    "AVISaveVA",
+    "AVISaveVW",
+    "AVISaveW",
+    "AVIStreamAddRef",
+    "AVIStreamBeginStreaming",
+    "AVIStreamCreate",
+    "AVIStreamEndStreaming",
+    "AVIStreamFindSample",
+    "AVIStreamGetFrame",
+    "AVIStreamGetFrameClose",
+    "AVIStreamGetFrameOpen",
+    "AVIStreamInfoA",
+    "AVIStreamInfoW",
+    "AVIStreamLength",
+    "AVIStreamOpenFromFileA",
+    "AVIStreamOpenFromFileW",
+    "AVIStreamRead",
+    "AVIStreamReadData",
+    "AVIStreamReadFormat",
+    "AVIStreamRelease",
+    "AVIStreamSampleToTime",
+    "AVIStreamSetFormat",
+    "AVIStreamStart",
+    "AVIStreamTimeToSample",
+    "AVIStreamWrite",
+    "AVIStreamWriteData",
+    "AVSTREAMMASTER_AUDIO",
+    "AVSTREAMMASTER_NONE",
+    "BI_1632",
+    "CAPCONTROLCALLBACK",
+    "CAPDRIVERCAPS",
+    "CAPERRORCALLBACKA",
+    "CAPERRORCALLBACKW",
+    "CAPINFOCHUNK",
+    "CAPSTATUS",
+    "CAPSTATUSCALLBACKA",
+    "CAPSTATUSCALLBACKW",
+    "CAPTUREPARMS",
+    "CAPVIDEOCALLBACK",
+    "CAPWAVECALLBACK",
+    "CAPYIELDCALLBACK",
+    "CHANNEL_CAPS",
+    "CLSID_AVIFile",
+    "CLSID_AVISimpleUnMarshal",
+    "COMPVARS",
+    "CONTRESCR10WAVEFORMAT",
+    "CONTRESVQLPCWAVEFORMAT",
+    "CONTROLCALLBACK_CAPTURING",
+    "CONTROLCALLBACK_PREROLL",
+    "CREATIVEADPCMWAVEFORMAT",
+    "CREATIVEFASTSPEECH10WAVEFORMAT",
+    "CREATIVEFASTSPEECH8WAVEFORMAT",
+    "CRYSTAL_NET_SFM_CODEC",
+    "CSIMAADPCMWAVEFORMAT",
+    "CloseDriver",
+    "CreateEditableStream",
+    "DCB_EVENT",
+    "DCB_FUNCTION",
+    "DCB_NOSWITCH",
+    "DCB_NULL",
+    "DCB_TASK",
+    "DCB_TYPEMASK",
+    "DCB_WINDOW",
+    "DDF_0001",
+    "DDF_2000",
+    "DDF_ANIMATE",
+    "DDF_BACKGROUNDPAL",
+    "DDF_BUFFER",
+    "DDF_DONTDRAW",
+    "DDF_FULLSCREEN",
+    "DDF_HALFTONE",
+    "DDF_HURRYUP",
+    "DDF_JUSTDRAWIT",
+    "DDF_NOTKEYFRAME",
+    "DDF_PREROLL",
+    "DDF_SAME_DIB",
+    "DDF_SAME_DRAW",
+    "DDF_SAME_HDC",
+    "DDF_SAME_SIZE",
+    "DDF_UPDATE",
+    "DIALOGICOKIADPCMWAVEFORMAT",
+    "DIGIADPCMWAVEFORMAT",
+    "DIGIFIXWAVEFORMAT",
+    "DIGIREALWAVEFORMAT",
+    "DIGISTDWAVEFORMAT",
+    "DLG_ACMFILTERCHOOSE_ID",
+    "DLG_ACMFORMATCHOOSE_ID",
+    "DOLBYAC2WAVEFORMAT",
+    "DRAWDIBTIME",
+    "DRIVERMSGPROC",
+    "DRIVERPROC",
+    "DRIVERS_SECTION",
+    "DRMWAVEFORMAT",
+    "DRVCNF_CANCEL",
+    "DRVCNF_OK",
+    "DRVCNF_RESTART",
+    "DRVCONFIGINFO",
+    "DRVCONFIGINFOEX",
+    "DRVM_ADD_THRU",
+    "DRVM_DISABLE",
+    "DRVM_ENABLE",
+    "DRVM_EXIT",
+    "DRVM_INIT",
+    "DRVM_INIT_EX",
+    "DRVM_IOCTL",
+    "DRVM_IOCTL_CMD_SYSTEM",
+    "DRVM_IOCTL_CMD_USER",
+    "DRVM_IOCTL_DATA",
+    "DRVM_IOCTL_LAST",
+    "DRVM_MAPPER_CONSOLEVOICECOM_GET",
+    "DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY",
+    "DRVM_MAPPER_PREFERRED_GET",
+    "DRVM_MAPPER_RECONFIGURE",
+    "DRVM_REMOVE_THRU",
+    "DRVM_USER",
+    "DRV_CANCEL",
+    "DRV_CLOSE",
+    "DRV_CONFIGURE",
+    "DRV_DISABLE",
+    "DRV_ENABLE",
+    "DRV_EXITSESSION",
+    "DRV_FREE",
+    "DRV_INSTALL",
+    "DRV_LOAD",
+    "DRV_MCI_FIRST",
+    "DRV_MCI_LAST",
+    "DRV_OK",
+    "DRV_OPEN",
+    "DRV_PNPINSTALL",
+    "DRV_POWER",
+    "DRV_QUERYCONFIGURE",
+    "DRV_QUERYDEVICEINTERFACE",
+    "DRV_QUERYDEVICEINTERFACESIZE",
+    "DRV_QUERYDEVNODE",
+    "DRV_QUERYFUNCTIONINSTANCEID",
+    "DRV_QUERYFUNCTIONINSTANCEIDSIZE",
+    "DRV_QUERYIDFROMSTRINGID",
+    "DRV_QUERYMAPPABLE",
+    "DRV_QUERYMODULE",
+    "DRV_QUERYSTRINGID",
+    "DRV_QUERYSTRINGIDSIZE",
+    "DRV_REMOVE",
+    "DRV_RESERVED",
+    "DRV_RESTART",
+    "DRV_USER",
+    "DVIADPCMWAVEFORMAT",
+    "DVM_CONFIGURE_END",
+    "DVM_CONFIGURE_START",
+    "DVM_DST_RECT",
+    "DVM_FORMAT",
+    "DVM_PALETTE",
+    "DVM_PALETTERGB555",
+    "DVM_SRC_RECT",
+    "DVM_USER",
+    "DV_ERR_13",
+    "DV_ERR_ALLOCATED",
+    "DV_ERR_BADDEVICEID",
+    "DV_ERR_BADERRNUM",
+    "DV_ERR_BADFORMAT",
+    "DV_ERR_BADINSTALL",
+    "DV_ERR_BASE",
+    "DV_ERR_CONFIG1",
+    "DV_ERR_CONFIG2",
+    "DV_ERR_CREATEPALETTE",
+    "DV_ERR_DMA_CONFLICT",
+    "DV_ERR_FLAGS",
+    "DV_ERR_INT_CONFLICT",
+    "DV_ERR_INVALHANDLE",
+    "DV_ERR_IO_CONFLICT",
+    "DV_ERR_LASTERROR",
+    "DV_ERR_MEM_CONFLICT",
+    "DV_ERR_NOMEM",
+    "DV_ERR_NONSPECIFIC",
+    "DV_ERR_NOTDETECTED",
+    "DV_ERR_NOTSUPPORTED",
+    "DV_ERR_NO_BUFFERS",
+    "DV_ERR_OK",
+    "DV_ERR_PARAM1",
+    "DV_ERR_PARAM2",
+    "DV_ERR_PROTECT_ONLY",
+    "DV_ERR_SIZEFIELD",
+    "DV_ERR_STILLPLAYING",
+    "DV_ERR_SYNC",
+    "DV_ERR_TOOMANYCHANNELS",
+    "DV_ERR_UNPREPARED",
+    "DV_ERR_USER_MSG",
+    "DV_VM_CLOSE",
+    "DV_VM_DATA",
+    "DV_VM_ERROR",
+    "DV_VM_OPEN",
+    "DefDriverProc",
+    "DrawDibBegin",
+    "DrawDibChangePalette",
+    "DrawDibClose",
+    "DrawDibDraw",
+    "DrawDibEnd",
+    "DrawDibGetBuffer",
+    "DrawDibGetPalette",
+    "DrawDibOpen",
+    "DrawDibProfileDisplay",
+    "DrawDibRealize",
+    "DrawDibSetPalette",
+    "DrawDibStart",
+    "DrawDibStop",
+    "DrawDibTime",
+    "DriverCallback",
+    "DrvGetModuleHandle",
+    "ECHOSC1WAVEFORMAT",
+    "EXBMINFOHEADER",
+    "EditStreamClone",
+    "EditStreamCopy",
+    "EditStreamCut",
+    "EditStreamPaste",
+    "EditStreamSetInfoA",
+    "EditStreamSetInfoW",
+    "EditStreamSetNameA",
+    "EditStreamSetNameW",
+    "FACILITY_NS",
+    "FACILITY_NS_WIN32",
+    "FIND_ANY",
+    "FIND_DIR",
+    "FIND_FORMAT",
+    "FIND_FROM_START",
+    "FIND_INDEX",
+    "FIND_KEY",
+    "FIND_LENGTH",
+    "FIND_NEXT",
+    "FIND_OFFSET",
+    "FIND_POS",
+    "FIND_PREV",
+    "FIND_RET",
+    "FIND_SIZE",
+    "FIND_TYPE",
+    "FMTOWNS_SND_WAVEFORMAT",
+    "G721_ADPCMWAVEFORMAT",
+    "G723_ADPCMWAVEFORMAT",
+    "GSM610WAVEFORMAT",
+    "GetDriverModuleHandle",
+    "GetOpenFileNamePreviewA",
+    "GetOpenFileNamePreviewW",
+    "GetSaveFileNamePreviewA",
+    "GetSaveFileNamePreviewW",
+    "HDRVR",
+    "HIC",
+    "HMMIO",
+    "HVIDEO",
+    "IAVIEditStream",
+    "IAVIFile",
+    "IAVIPersistFile",
+    "IAVIStream",
+    "IAVIStreaming",
+    "ICCOMPRESS",
+    "ICCOMPRESSFRAMES",
+    "ICCOMPRESSFRAMES_PADDING",
+    "ICCOMPRESS_KEYFRAME",
+    "ICClose",
+    "ICCompress",
+    "ICCompressorChoose",
+    "ICCompressorFree",
+    "ICDECOMPRESS",
+    "ICDECOMPRESSEX",
+    "ICDECOMPRESS_HURRYUP",
+    "ICDECOMPRESS_NOTKEYFRAME",
+    "ICDECOMPRESS_NULLFRAME",
+    "ICDECOMPRESS_PREROLL",
+    "ICDECOMPRESS_UPDATE",
+    "ICDRAW",
+    "ICDRAWBEGIN",
+    "ICDRAWSUGGEST",
+    "ICDRAW_ANIMATE",
+    "ICDRAW_BUFFER",
+    "ICDRAW_CONTINUE",
+    "ICDRAW_FULLSCREEN",
+    "ICDRAW_HDC",
+    "ICDRAW_HURRYUP",
+    "ICDRAW_MEMORYDC",
+    "ICDRAW_NOTKEYFRAME",
+    "ICDRAW_NULLFRAME",
+    "ICDRAW_PREROLL",
+    "ICDRAW_QUERY",
+    "ICDRAW_RENDER",
+    "ICDRAW_UPDATE",
+    "ICDRAW_UPDATING",
+    "ICDecompress",
+    "ICDraw",
+    "ICDrawBegin",
+    "ICERR_ABORT",
+    "ICERR_BADBITDEPTH",
+    "ICERR_BADFLAGS",
+    "ICERR_BADFORMAT",
+    "ICERR_BADHANDLE",
+    "ICERR_BADIMAGESIZE",
+    "ICERR_BADPARAM",
+    "ICERR_BADSIZE",
+    "ICERR_CANTUPDATE",
+    "ICERR_CUSTOM",
+    "ICERR_DONTDRAW",
+    "ICERR_ERROR",
+    "ICERR_GOTOKEYFRAME",
+    "ICERR_INTERNAL",
+    "ICERR_MEMORY",
+    "ICERR_NEWPALETTE",
+    "ICERR_OK",
+    "ICERR_STOPDRAWING",
+    "ICERR_UNSUPPORTED",
+    "ICGetDisplayFormat",
+    "ICGetInfo",
+    "ICINFO",
+    "ICINSTALL_DRIVER",
+    "ICINSTALL_DRIVERW",
+    "ICINSTALL_FUNCTION",
+    "ICINSTALL_HDRV",
+    "ICINSTALL_UNICODE",
+    "ICImageCompress",
+    "ICImageDecompress",
+    "ICInfo",
+    "ICInstall",
+    "ICLocate",
+    "ICMF_ABOUT_QUERY",
+    "ICMF_CHOOSE_ALLCOMPRESSORS",
+    "ICMF_CHOOSE_DATARATE",
+    "ICMF_CHOOSE_KEYFRAME",
+    "ICMF_CHOOSE_PREVIEW",
+    "ICMF_COMPVARS_VALID",
+    "ICMF_CONFIGURE_QUERY",
+    "ICMODE_COMPRESS",
+    "ICMODE_DECOMPRESS",
+    "ICMODE_DRAW",
+    "ICMODE_FASTCOMPRESS",
+    "ICMODE_FASTDECOMPRESS",
+    "ICMODE_INTERNALF_FUNCTION32",
+    "ICMODE_INTERNALF_MASK",
+    "ICMODE_QUERY",
+    "ICM_ABOUT",
+    "ICM_COMPRESS",
+    "ICM_COMPRESS_BEGIN",
+    "ICM_COMPRESS_END",
+    "ICM_COMPRESS_FRAMES",
+    "ICM_COMPRESS_FRAMES_INFO",
+    "ICM_COMPRESS_GET_FORMAT",
+    "ICM_COMPRESS_GET_SIZE",
+    "ICM_COMPRESS_QUERY",
+    "ICM_CONFIGURE",
+    "ICM_DECOMPRESS",
+    "ICM_DECOMPRESSEX",
+    "ICM_DECOMPRESSEX_BEGIN",
+    "ICM_DECOMPRESSEX_END",
+    "ICM_DECOMPRESSEX_QUERY",
+    "ICM_DECOMPRESS_BEGIN",
+    "ICM_DECOMPRESS_END",
+    "ICM_DECOMPRESS_GET_FORMAT",
+    "ICM_DECOMPRESS_GET_PALETTE",
+    "ICM_DECOMPRESS_QUERY",
+    "ICM_DECOMPRESS_SET_PALETTE",
+    "ICM_DRAW",
+    "ICM_DRAW_BEGIN",
+    "ICM_DRAW_BITS",
+    "ICM_DRAW_CHANGEPALETTE",
+    "ICM_DRAW_END",
+    "ICM_DRAW_FLUSH",
+    "ICM_DRAW_GETTIME",
+    "ICM_DRAW_GET_PALETTE",
+    "ICM_DRAW_IDLE",
+    "ICM_DRAW_QUERY",
+    "ICM_DRAW_REALIZE",
+    "ICM_DRAW_RENDERBUFFER",
+    "ICM_DRAW_SETTIME",
+    "ICM_DRAW_START",
+    "ICM_DRAW_START_PLAY",
+    "ICM_DRAW_STOP",
+    "ICM_DRAW_STOP_PLAY",
+    "ICM_DRAW_SUGGESTFORMAT",
+    "ICM_DRAW_UPDATE",
+    "ICM_DRAW_WINDOW",
+    "ICM_ENUMFORMATS",
+    "ICM_GET",
+    "ICM_GETBUFFERSWANTED",
+    "ICM_GETDEFAULTKEYFRAMERATE",
+    "ICM_GETDEFAULTQUALITY",
+    "ICM_GETERRORTEXT",
+    "ICM_GETFORMATNAME",
+    "ICM_GETINFO",
+    "ICM_GETQUALITY",
+    "ICM_GETSTATE",
+    "ICM_RESERVED",
+    "ICM_RESERVED_HIGH",
+    "ICM_RESERVED_LOW",
+    "ICM_SET",
+    "ICM_SETQUALITY",
+    "ICM_SETSTATE",
+    "ICM_SET_STATUS_PROC",
+    "ICM_USER",
+    "ICOPEN",
+    "ICOpen",
+    "ICOpenFunction",
+    "ICPALETTE",
+    "ICQUALITY_DEFAULT",
+    "ICQUALITY_HIGH",
+    "ICQUALITY_LOW",
+    "ICRemove",
+    "ICSETSTATUSPROC",
+    "ICSTATUS_END",
+    "ICSTATUS_ERROR",
+    "ICSTATUS_START",
+    "ICSTATUS_STATUS",
+    "ICSTATUS_YIELD",
+    "ICSendMessage",
+    "ICSeqCompressFrame",
+    "ICSeqCompressFrameEnd",
+    "ICSeqCompressFrameStart",
+    "ICVERSION",
+    "IDD_ACMFILTERCHOOSE_BTN_DELNAME",
+    "IDD_ACMFILTERCHOOSE_BTN_HELP",
+    "IDD_ACMFILTERCHOOSE_BTN_SETNAME",
+    "IDD_ACMFILTERCHOOSE_CMB_CUSTOM",
+    "IDD_ACMFILTERCHOOSE_CMB_FILTER",
+    "IDD_ACMFILTERCHOOSE_CMB_FILTERTAG",
+    "IDD_ACMFORMATCHOOSE_BTN_DELNAME",
+    "IDD_ACMFORMATCHOOSE_BTN_HELP",
+    "IDD_ACMFORMATCHOOSE_BTN_SETNAME",
+    "IDD_ACMFORMATCHOOSE_CMB_CUSTOM",
+    "IDD_ACMFORMATCHOOSE_CMB_FORMAT",
+    "IDD_ACMFORMATCHOOSE_CMB_FORMATTAG",
+    "IDS_CAP_AUDIO_DROP_COMPERROR",
+    "IDS_CAP_AUDIO_DROP_ERROR",
+    "IDS_CAP_AVI_DRAWDIB_ERROR",
+    "IDS_CAP_AVI_INIT_ERROR",
+    "IDS_CAP_BEGIN",
+    "IDS_CAP_CANTOPEN",
+    "IDS_CAP_COMPRESSOR_ERROR",
+    "IDS_CAP_DEFAVIEXT",
+    "IDS_CAP_DEFPALEXT",
+    "IDS_CAP_DRIVER_ERROR",
+    "IDS_CAP_END",
+    "IDS_CAP_ERRORDIBSAVE",
+    "IDS_CAP_ERRORPALOPEN",
+    "IDS_CAP_ERRORPALSAVE",
+    "IDS_CAP_FILEEXISTS",
+    "IDS_CAP_FILE_OPEN_ERROR",
+    "IDS_CAP_FILE_WRITE_ERROR",
+    "IDS_CAP_INFO",
+    "IDS_CAP_MCI_CANT_STEP_ERROR",
+    "IDS_CAP_MCI_CONTROL_ERROR",
+    "IDS_CAP_NODISKSPACE",
+    "IDS_CAP_NO_AUDIO_CAP_ERROR",
+    "IDS_CAP_NO_FRAME_CAP_ERROR",
+    "IDS_CAP_NO_PALETTE_WARN",
+    "IDS_CAP_OUTOFMEM",
+    "IDS_CAP_READONLYFILE",
+    "IDS_CAP_RECORDING_ERROR",
+    "IDS_CAP_RECORDING_ERROR2",
+    "IDS_CAP_SAVEASPERCENT",
+    "IDS_CAP_SEQ_MSGSTART",
+    "IDS_CAP_SEQ_MSGSTOP",
+    "IDS_CAP_SETFILESIZE",
+    "IDS_CAP_STAT_CAP_AUDIO",
+    "IDS_CAP_STAT_CAP_FINI",
+    "IDS_CAP_STAT_CAP_INIT",
+    "IDS_CAP_STAT_CAP_L_FRAMES",
+    "IDS_CAP_STAT_FRAMESDROPPED",
+    "IDS_CAP_STAT_I_FRAMES",
+    "IDS_CAP_STAT_LIVE_MODE",
+    "IDS_CAP_STAT_L_FRAMES",
+    "IDS_CAP_STAT_OPTPAL_BUILD",
+    "IDS_CAP_STAT_OVERLAY_MODE",
+    "IDS_CAP_STAT_PALETTE_BUILD",
+    "IDS_CAP_STAT_VIDEOAUDIO",
+    "IDS_CAP_STAT_VIDEOCURRENT",
+    "IDS_CAP_STAT_VIDEOONLY",
+    "IDS_CAP_VIDEDITERR",
+    "IDS_CAP_VIDEO_ADD_ERROR",
+    "IDS_CAP_VIDEO_ALLOC_ERROR",
+    "IDS_CAP_VIDEO_OPEN_ERROR",
+    "IDS_CAP_VIDEO_PREPARE_ERROR",
+    "IDS_CAP_VIDEO_SIZE_ERROR",
+    "IDS_CAP_WAVE_ADD_ERROR",
+    "IDS_CAP_WAVE_ALLOC_ERROR",
+    "IDS_CAP_WAVE_OPEN_ERROR",
+    "IDS_CAP_WAVE_PREPARE_ERROR",
+    "IDS_CAP_WAVE_SIZE_ERROR",
+    "IDS_CAP_WRITEERROR",
+    "IGetFrame",
+    "IMAADPCMWAVEFORMAT",
+    "JDD_CONFIGCHANGED",
+    "JDD_GETDEVCAPS",
+    "JDD_GETNUMDEVS",
+    "JDD_GETPOS",
+    "JDD_GETPOSEX",
+    "JDD_SETCALIBRATION",
+    "JIFMK_00",
     "JIFMK_APP0",
     "JIFMK_APP1",
     "JIFMK_APP2",
@@ -10299,8 +8688,23 @@ __all__ = [
     "JIFMK_APP5",
     "JIFMK_APP6",
     "JIFMK_APP7",
+    "JIFMK_COM",
+    "JIFMK_DAC",
+    "JIFMK_DHP",
+    "JIFMK_DHT",
+    "JIFMK_DNL",
+    "JIFMK_DQT",
+    "JIFMK_DRI",
+    "JIFMK_EOI",
+    "JIFMK_EXP",
+    "JIFMK_FF",
+    "JIFMK_JPG",
     "JIFMK_JPG0",
     "JIFMK_JPG1",
+    "JIFMK_JPG10",
+    "JIFMK_JPG11",
+    "JIFMK_JPG12",
+    "JIFMK_JPG13",
     "JIFMK_JPG2",
     "JIFMK_JPG3",
     "JIFMK_JPG4",
@@ -10309,38 +8713,3937 @@ __all__ = [
     "JIFMK_JPG7",
     "JIFMK_JPG8",
     "JIFMK_JPG9",
-    "JIFMK_JPG10",
-    "JIFMK_JPG11",
-    "JIFMK_JPG12",
-    "JIFMK_JPG13",
-    "JIFMK_COM",
-    "JIFMK_TEM",
     "JIFMK_RES",
-    "JIFMK_00",
-    "JIFMK_FF",
+    "JIFMK_RST0",
+    "JIFMK_RST1",
+    "JIFMK_RST2",
+    "JIFMK_RST3",
+    "JIFMK_RST4",
+    "JIFMK_RST5",
+    "JIFMK_RST6",
+    "JIFMK_RST7",
+    "JIFMK_SOF0",
+    "JIFMK_SOF1",
+    "JIFMK_SOF10",
+    "JIFMK_SOF11",
+    "JIFMK_SOF13",
+    "JIFMK_SOF14",
+    "JIFMK_SOF15",
+    "JIFMK_SOF2",
+    "JIFMK_SOF3",
+    "JIFMK_SOF5",
+    "JIFMK_SOF6",
+    "JIFMK_SOF7",
+    "JIFMK_SOF9",
+    "JIFMK_SOI",
+    "JIFMK_SOS",
+    "JIFMK_TEM",
+    "JOYCAPS2A",
+    "JOYCAPS2W",
+    "JOYCAPSA",
+    "JOYCAPSW",
+    "JOYCAPS_HASPOV",
+    "JOYCAPS_HASR",
+    "JOYCAPS_HASU",
+    "JOYCAPS_HASV",
+    "JOYCAPS_HASZ",
+    "JOYCAPS_POV4DIR",
+    "JOYCAPS_POVCTS",
+    "JOYERR_NOCANDO",
+    "JOYERR_NOERROR",
+    "JOYERR_PARMS",
+    "JOYERR_UNPLUGGED",
+    "JOYINFO",
+    "JOYINFOEX",
+    "JOYSTICKID1",
+    "JOYSTICKID2",
+    "JOY_BUTTON1",
+    "JOY_BUTTON10",
+    "JOY_BUTTON11",
+    "JOY_BUTTON12",
+    "JOY_BUTTON13",
+    "JOY_BUTTON14",
+    "JOY_BUTTON15",
+    "JOY_BUTTON16",
+    "JOY_BUTTON17",
+    "JOY_BUTTON18",
+    "JOY_BUTTON19",
+    "JOY_BUTTON1CHG",
+    "JOY_BUTTON2",
+    "JOY_BUTTON20",
+    "JOY_BUTTON21",
+    "JOY_BUTTON22",
+    "JOY_BUTTON23",
+    "JOY_BUTTON24",
+    "JOY_BUTTON25",
+    "JOY_BUTTON26",
+    "JOY_BUTTON27",
+    "JOY_BUTTON28",
+    "JOY_BUTTON29",
+    "JOY_BUTTON2CHG",
+    "JOY_BUTTON3",
+    "JOY_BUTTON30",
+    "JOY_BUTTON31",
+    "JOY_BUTTON32",
+    "JOY_BUTTON3CHG",
+    "JOY_BUTTON4",
+    "JOY_BUTTON4CHG",
+    "JOY_BUTTON5",
+    "JOY_BUTTON6",
+    "JOY_BUTTON7",
+    "JOY_BUTTON8",
+    "JOY_BUTTON9",
+    "JOY_CAL_READ3",
+    "JOY_CAL_READ4",
+    "JOY_CAL_READ5",
+    "JOY_CAL_READ6",
+    "JOY_CAL_READALWAYS",
+    "JOY_CAL_READRONLY",
+    "JOY_CAL_READUONLY",
+    "JOY_CAL_READVONLY",
+    "JOY_CAL_READXONLY",
+    "JOY_CAL_READXYONLY",
+    "JOY_CAL_READYONLY",
+    "JOY_CAL_READZONLY",
+    "JOY_CONFIGCHANGED_MSGSTRING",
+    "JOY_POVBACKWARD",
+    "JOY_POVFORWARD",
+    "JOY_POVLEFT",
+    "JOY_POVRIGHT",
+    "JOY_RETURNBUTTONS",
+    "JOY_RETURNCENTERED",
+    "JOY_RETURNPOV",
+    "JOY_RETURNPOVCTS",
+    "JOY_RETURNR",
+    "JOY_RETURNRAWDATA",
+    "JOY_RETURNU",
+    "JOY_RETURNV",
+    "JOY_RETURNX",
+    "JOY_RETURNY",
+    "JOY_RETURNZ",
+    "JOY_USEDEADZONE",
+    "JPEGINFOHEADER",
+    "JPEG_PROCESS_BASELINE",
+    "JPEG_RGB",
     "JPEG_Y",
     "JPEG_YCbCr",
-    "JPEG_RGB",
+    "KSDATAFORMAT_SUBTYPE_IEEE_FLOAT",
+    "LPFNEXTDEVIO",
+    "LPMMIOPROC",
+    "LPTASKCALLBACK",
+    "MCIERR_AVI_AUDIOERROR",
+    "MCIERR_AVI_BADPALETTE",
+    "MCIERR_AVI_CANTPLAYFULLSCREEN",
+    "MCIERR_AVI_DISPLAYERROR",
+    "MCIERR_AVI_NOCOMPRESSOR",
+    "MCIERR_AVI_NODISPDIB",
+    "MCIERR_AVI_NOTINTERLEAVED",
+    "MCIERR_AVI_OLDAVIFORMAT",
+    "MCIERR_AVI_TOOBIGFORVGA",
+    "MCIERR_BAD_CONSTANT",
+    "MCIERR_BAD_INTEGER",
+    "MCIERR_BAD_TIME_FORMAT",
+    "MCIERR_CANNOT_LOAD_DRIVER",
+    "MCIERR_CANNOT_USE_ALL",
+    "MCIERR_CREATEWINDOW",
+    "MCIERR_CUSTOM_DRIVER_BASE",
+    "MCIERR_DEVICE_LENGTH",
+    "MCIERR_DEVICE_LOCKED",
+    "MCIERR_DEVICE_NOT_INSTALLED",
+    "MCIERR_DEVICE_NOT_READY",
+    "MCIERR_DEVICE_OPEN",
+    "MCIERR_DEVICE_ORD_LENGTH",
+    "MCIERR_DEVICE_TYPE_REQUIRED",
+    "MCIERR_DGV_BAD_CLIPBOARD_RANGE",
+    "MCIERR_DGV_DEVICE_LIMIT",
+    "MCIERR_DGV_DEVICE_MEMORY_FULL",
+    "MCIERR_DGV_DISK_FULL",
+    "MCIERR_DGV_IOERR",
+    "MCIERR_DGV_WORKSPACE_EMPTY",
+    "MCIERR_DRIVER",
+    "MCIERR_DRIVER_INTERNAL",
+    "MCIERR_DUPLICATE_ALIAS",
+    "MCIERR_DUPLICATE_FLAGS",
+    "MCIERR_EXTENSION_NOT_FOUND",
+    "MCIERR_EXTRA_CHARACTERS",
+    "MCIERR_FILENAME_REQUIRED",
+    "MCIERR_FILE_NOT_FOUND",
+    "MCIERR_FILE_NOT_SAVED",
+    "MCIERR_FILE_READ",
+    "MCIERR_FILE_WRITE",
+    "MCIERR_FLAGS_NOT_COMPATIBLE",
+    "MCIERR_GET_CD",
+    "MCIERR_HARDWARE",
+    "MCIERR_ILLEGAL_FOR_AUTO_OPEN",
+    "MCIERR_INTERNAL",
+    "MCIERR_INVALID_DEVICE_ID",
+    "MCIERR_INVALID_DEVICE_NAME",
+    "MCIERR_INVALID_FILE",
+    "MCIERR_MISSING_COMMAND_STRING",
+    "MCIERR_MISSING_DEVICE_NAME",
+    "MCIERR_MISSING_PARAMETER",
+    "MCIERR_MISSING_STRING_ARGUMENT",
+    "MCIERR_MULTIPLE",
+    "MCIERR_MUST_USE_SHAREABLE",
+    "MCIERR_NEW_REQUIRES_ALIAS",
+    "MCIERR_NONAPPLICABLE_FUNCTION",
+    "MCIERR_NOTIFY_ON_AUTO_OPEN",
+    "MCIERR_NO_CLOSING_QUOTE",
+    "MCIERR_NO_ELEMENT_ALLOWED",
+    "MCIERR_NO_IDENTITY",
+    "MCIERR_NO_INTEGER",
+    "MCIERR_NO_WINDOW",
+    "MCIERR_NULL_PARAMETER_BLOCK",
+    "MCIERR_OUTOFRANGE",
+    "MCIERR_OUT_OF_MEMORY",
+    "MCIERR_PARAM_OVERFLOW",
+    "MCIERR_PARSER_INTERNAL",
+    "MCIERR_SEQ_DIV_INCOMPATIBLE",
+    "MCIERR_SEQ_NOMIDIPRESENT",
+    "MCIERR_SEQ_PORTUNSPECIFIED",
+    "MCIERR_SEQ_PORT_INUSE",
+    "MCIERR_SEQ_PORT_MAPNODEVICE",
+    "MCIERR_SEQ_PORT_MISCERROR",
+    "MCIERR_SEQ_PORT_NONEXISTENT",
+    "MCIERR_SEQ_TIMER",
+    "MCIERR_SET_CD",
+    "MCIERR_SET_DRIVE",
+    "MCIERR_UNNAMED_RESOURCE",
+    "MCIERR_UNRECOGNIZED_COMMAND",
+    "MCIERR_UNRECOGNIZED_KEYWORD",
+    "MCIERR_UNSUPPORTED_FUNCTION",
+    "MCIERR_WAVE_INPUTSINUSE",
+    "MCIERR_WAVE_INPUTSUNSUITABLE",
+    "MCIERR_WAVE_INPUTUNSPECIFIED",
+    "MCIERR_WAVE_OUTPUTSINUSE",
+    "MCIERR_WAVE_OUTPUTSUNSUITABLE",
+    "MCIERR_WAVE_OUTPUTUNSPECIFIED",
+    "MCIERR_WAVE_SETINPUTINUSE",
+    "MCIERR_WAVE_SETINPUTUNSUITABLE",
+    "MCIERR_WAVE_SETOUTPUTINUSE",
+    "MCIERR_WAVE_SETOUTPUTUNSUITABLE",
+    "MCIWNDF_NOAUTOSIZEMOVIE",
+    "MCIWNDF_NOAUTOSIZEWINDOW",
+    "MCIWNDF_NOERRORDLG",
+    "MCIWNDF_NOMENU",
+    "MCIWNDF_NOOPEN",
+    "MCIWNDF_NOPLAYBAR",
+    "MCIWNDF_NOTIFYALL",
+    "MCIWNDF_NOTIFYANSI",
+    "MCIWNDF_NOTIFYERROR",
+    "MCIWNDF_NOTIFYMEDIA",
+    "MCIWNDF_NOTIFYMEDIAA",
+    "MCIWNDF_NOTIFYMEDIAW",
+    "MCIWNDF_NOTIFYMODE",
+    "MCIWNDF_NOTIFYPOS",
+    "MCIWNDF_NOTIFYSIZE",
+    "MCIWNDF_RECORD",
+    "MCIWNDF_SHOWALL",
+    "MCIWNDF_SHOWMODE",
+    "MCIWNDF_SHOWNAME",
+    "MCIWNDF_SHOWPOS",
+    "MCIWNDM_CAN_CONFIG",
+    "MCIWNDM_CAN_EJECT",
+    "MCIWNDM_CAN_PLAY",
+    "MCIWNDM_CAN_RECORD",
+    "MCIWNDM_CAN_SAVE",
+    "MCIWNDM_CAN_WINDOW",
+    "MCIWNDM_CHANGESTYLES",
+    "MCIWNDM_EJECT",
+    "MCIWNDM_GETACTIVETIMER",
+    "MCIWNDM_GETALIAS",
+    "MCIWNDM_GETDEVICE",
+    "MCIWNDM_GETDEVICEA",
+    "MCIWNDM_GETDEVICEID",
+    "MCIWNDM_GETDEVICEW",
+    "MCIWNDM_GETEND",
+    "MCIWNDM_GETERROR",
+    "MCIWNDM_GETERRORA",
+    "MCIWNDM_GETERRORW",
+    "MCIWNDM_GETFILENAME",
+    "MCIWNDM_GETFILENAMEA",
+    "MCIWNDM_GETFILENAMEW",
+    "MCIWNDM_GETINACTIVETIMER",
+    "MCIWNDM_GETLENGTH",
+    "MCIWNDM_GETMODE",
+    "MCIWNDM_GETMODEA",
+    "MCIWNDM_GETMODEW",
+    "MCIWNDM_GETPALETTE",
+    "MCIWNDM_GETPOSITION",
+    "MCIWNDM_GETPOSITIONA",
+    "MCIWNDM_GETPOSITIONW",
+    "MCIWNDM_GETREPEAT",
+    "MCIWNDM_GETSPEED",
+    "MCIWNDM_GETSTART",
+    "MCIWNDM_GETSTYLES",
+    "MCIWNDM_GETTIMEFORMAT",
+    "MCIWNDM_GETTIMEFORMATA",
+    "MCIWNDM_GETTIMEFORMATW",
+    "MCIWNDM_GETVOLUME",
+    "MCIWNDM_GETZOOM",
+    "MCIWNDM_GET_DEST",
+    "MCIWNDM_GET_SOURCE",
+    "MCIWNDM_NEW",
+    "MCIWNDM_NEWA",
+    "MCIWNDM_NEWW",
+    "MCIWNDM_NOTIFYERROR",
+    "MCIWNDM_NOTIFYMEDIA",
+    "MCIWNDM_NOTIFYMODE",
+    "MCIWNDM_NOTIFYPOS",
+    "MCIWNDM_NOTIFYSIZE",
+    "MCIWNDM_OPEN",
+    "MCIWNDM_OPENA",
+    "MCIWNDM_OPENINTERFACE",
+    "MCIWNDM_OPENW",
+    "MCIWNDM_PALETTEKICK",
+    "MCIWNDM_PLAYFROM",
+    "MCIWNDM_PLAYREVERSE",
+    "MCIWNDM_PLAYTO",
+    "MCIWNDM_PUT_DEST",
+    "MCIWNDM_PUT_SOURCE",
+    "MCIWNDM_REALIZE",
+    "MCIWNDM_RETURNSTRING",
+    "MCIWNDM_RETURNSTRINGA",
+    "MCIWNDM_RETURNSTRINGW",
+    "MCIWNDM_SENDSTRING",
+    "MCIWNDM_SENDSTRINGA",
+    "MCIWNDM_SENDSTRINGW",
+    "MCIWNDM_SETACTIVETIMER",
+    "MCIWNDM_SETINACTIVETIMER",
+    "MCIWNDM_SETOWNER",
+    "MCIWNDM_SETPALETTE",
+    "MCIWNDM_SETREPEAT",
+    "MCIWNDM_SETSPEED",
+    "MCIWNDM_SETTIMEFORMAT",
+    "MCIWNDM_SETTIMEFORMATA",
+    "MCIWNDM_SETTIMEFORMATW",
+    "MCIWNDM_SETTIMERS",
+    "MCIWNDM_SETVOLUME",
+    "MCIWNDM_SETZOOM",
+    "MCIWNDM_VALIDATEMEDIA",
+    "MCIWNDOPENF_NEW",
+    "MCIWND_END",
+    "MCIWND_START",
+    "MCIWND_WINDOW_CLASS",
+    "MCIWndCreateA",
+    "MCIWndCreateW",
+    "MCIWndRegisterClass",
+    "MCI_ANIM_GETDEVCAPS_CAN_REVERSE",
+    "MCI_ANIM_GETDEVCAPS_CAN_STRETCH",
+    "MCI_ANIM_GETDEVCAPS_FAST_RATE",
+    "MCI_ANIM_GETDEVCAPS_MAX_WINDOWS",
+    "MCI_ANIM_GETDEVCAPS_NORMAL_RATE",
+    "MCI_ANIM_GETDEVCAPS_PALETTES",
+    "MCI_ANIM_GETDEVCAPS_SLOW_RATE",
+    "MCI_ANIM_INFO_TEXT",
+    "MCI_ANIM_OPEN_NOSTATIC",
+    "MCI_ANIM_OPEN_PARENT",
+    "MCI_ANIM_OPEN_PARMSA",
+    "MCI_ANIM_OPEN_PARMSW",
+    "MCI_ANIM_OPEN_WS",
+    "MCI_ANIM_PLAY_FAST",
+    "MCI_ANIM_PLAY_PARMS",
+    "MCI_ANIM_PLAY_REVERSE",
+    "MCI_ANIM_PLAY_SCAN",
+    "MCI_ANIM_PLAY_SLOW",
+    "MCI_ANIM_PLAY_SPEED",
+    "MCI_ANIM_PUT_DESTINATION",
+    "MCI_ANIM_PUT_SOURCE",
+    "MCI_ANIM_REALIZE_BKGD",
+    "MCI_ANIM_REALIZE_NORM",
+    "MCI_ANIM_RECT",
+    "MCI_ANIM_RECT_PARMS",
+    "MCI_ANIM_STATUS_FORWARD",
+    "MCI_ANIM_STATUS_HPAL",
+    "MCI_ANIM_STATUS_HWND",
+    "MCI_ANIM_STATUS_SPEED",
+    "MCI_ANIM_STATUS_STRETCH",
+    "MCI_ANIM_STEP_FRAMES",
+    "MCI_ANIM_STEP_PARMS",
+    "MCI_ANIM_STEP_REVERSE",
+    "MCI_ANIM_UPDATE_HDC",
+    "MCI_ANIM_UPDATE_PARMS",
+    "MCI_ANIM_WHERE_DESTINATION",
+    "MCI_ANIM_WHERE_SOURCE",
+    "MCI_ANIM_WINDOW_DEFAULT",
+    "MCI_ANIM_WINDOW_DISABLE_STRETCH",
+    "MCI_ANIM_WINDOW_ENABLE_STRETCH",
+    "MCI_ANIM_WINDOW_HWND",
+    "MCI_ANIM_WINDOW_PARMSA",
+    "MCI_ANIM_WINDOW_PARMSW",
+    "MCI_ANIM_WINDOW_STATE",
+    "MCI_ANIM_WINDOW_TEXT",
+    "MCI_AVI_SETVIDEO_DRAW_PROCEDURE",
+    "MCI_AVI_SETVIDEO_PALETTE_COLOR",
+    "MCI_AVI_SETVIDEO_PALETTE_HALFTONE",
+    "MCI_AVI_STATUS_AUDIO_BREAKS",
+    "MCI_AVI_STATUS_FRAMES_SKIPPED",
+    "MCI_AVI_STATUS_LAST_PLAY_SPEED",
+    "MCI_BREAK",
+    "MCI_BREAK_HWND",
+    "MCI_BREAK_KEY",
+    "MCI_BREAK_OFF",
+    "MCI_BREAK_PARMS",
+    "MCI_CAPTURE",
+    "MCI_CDA_STATUS_TYPE_TRACK",
+    "MCI_CDA_TRACK_AUDIO",
+    "MCI_CDA_TRACK_OTHER",
+    "MCI_CLOSE",
+    "MCI_CLOSE_DRIVER",
+    "MCI_COLONIZED3_RETURN",
+    "MCI_COLONIZED4_RETURN",
+    "MCI_COMMAND_HEAD",
+    "MCI_CONFIGURE",
+    "MCI_CONSTANT",
+    "MCI_COPY",
+    "MCI_CUE",
+    "MCI_CUT",
+    "MCI_DELETE",
+    "MCI_DEVTYPE_ANIMATION",
+    "MCI_DEVTYPE_CD_AUDIO",
+    "MCI_DEVTYPE_DAT",
+    "MCI_DEVTYPE_DIGITAL_VIDEO",
+    "MCI_DEVTYPE_FIRST",
+    "MCI_DEVTYPE_FIRST_USER",
+    "MCI_DEVTYPE_LAST",
+    "MCI_DEVTYPE_OTHER",
+    "MCI_DEVTYPE_OVERLAY",
+    "MCI_DEVTYPE_SCANNER",
+    "MCI_DEVTYPE_SEQUENCER",
+    "MCI_DEVTYPE_VCR",
+    "MCI_DEVTYPE_VIDEODISC",
+    "MCI_DEVTYPE_WAVEFORM_AUDIO",
+    "MCI_DGV_CAPTURE_AS",
+    "MCI_DGV_CAPTURE_AT",
+    "MCI_DGV_CAPTURE_PARMSA",
+    "MCI_DGV_CAPTURE_PARMSW",
+    "MCI_DGV_COPY_AT",
+    "MCI_DGV_COPY_AUDIO_STREAM",
+    "MCI_DGV_COPY_PARMS",
+    "MCI_DGV_COPY_VIDEO_STREAM",
+    "MCI_DGV_CUE_INPUT",
+    "MCI_DGV_CUE_NOSHOW",
+    "MCI_DGV_CUE_OUTPUT",
+    "MCI_DGV_CUE_PARMS",
+    "MCI_DGV_CUT_AT",
+    "MCI_DGV_CUT_AUDIO_STREAM",
+    "MCI_DGV_CUT_PARMS",
+    "MCI_DGV_CUT_VIDEO_STREAM",
+    "MCI_DGV_DELETE_AT",
+    "MCI_DGV_DELETE_AUDIO_STREAM",
+    "MCI_DGV_DELETE_PARMS",
+    "MCI_DGV_DELETE_VIDEO_STREAM",
+    "MCI_DGV_FF_AVI",
+    "MCI_DGV_FF_AVSS",
+    "MCI_DGV_FF_DIB",
+    "MCI_DGV_FF_JFIF",
+    "MCI_DGV_FF_JPEG",
+    "MCI_DGV_FF_MPEG",
+    "MCI_DGV_FF_RDIB",
+    "MCI_DGV_FF_RJPEG",
+    "MCI_DGV_FILE_MODE_EDITING",
+    "MCI_DGV_FILE_MODE_EDITING_S",
+    "MCI_DGV_FILE_MODE_IDLE",
+    "MCI_DGV_FILE_MODE_IDLE_S",
+    "MCI_DGV_FILE_MODE_LOADING",
+    "MCI_DGV_FILE_MODE_LOADING_S",
+    "MCI_DGV_FILE_MODE_SAVING",
+    "MCI_DGV_FILE_MODE_SAVING_S",
+    "MCI_DGV_FILE_S",
+    "MCI_DGV_FREEZE_AT",
+    "MCI_DGV_FREEZE_OUTSIDE",
+    "MCI_DGV_GETDEVCAPS_CAN_FREEZE",
+    "MCI_DGV_GETDEVCAPS_CAN_LOCK",
+    "MCI_DGV_GETDEVCAPS_CAN_REVERSE",
+    "MCI_DGV_GETDEVCAPS_CAN_STRETCH",
+    "MCI_DGV_GETDEVCAPS_CAN_STR_IN",
+    "MCI_DGV_GETDEVCAPS_CAN_TEST",
+    "MCI_DGV_GETDEVCAPS_HAS_STILL",
+    "MCI_DGV_GETDEVCAPS_MAXIMUM_RATE",
+    "MCI_DGV_GETDEVCAPS_MAX_WINDOWS",
+    "MCI_DGV_GETDEVCAPS_MINIMUM_RATE",
+    "MCI_DGV_GETDEVCAPS_PALETTES",
+    "MCI_DGV_INFO_AUDIO_ALG",
+    "MCI_DGV_INFO_AUDIO_QUALITY",
+    "MCI_DGV_INFO_ITEM",
+    "MCI_DGV_INFO_PARMSA",
+    "MCI_DGV_INFO_PARMSW",
+    "MCI_DGV_INFO_STILL_ALG",
+    "MCI_DGV_INFO_STILL_QUALITY",
+    "MCI_DGV_INFO_TEXT",
+    "MCI_DGV_INFO_USAGE",
+    "MCI_DGV_INFO_VIDEO_ALG",
+    "MCI_DGV_INFO_VIDEO_QUALITY",
+    "MCI_DGV_INPUT_S",
+    "MCI_DGV_LIST_ALG",
+    "MCI_DGV_LIST_AUDIO_ALG",
+    "MCI_DGV_LIST_AUDIO_QUALITY",
+    "MCI_DGV_LIST_AUDIO_STREAM",
+    "MCI_DGV_LIST_COUNT",
+    "MCI_DGV_LIST_ITEM",
+    "MCI_DGV_LIST_NUMBER",
+    "MCI_DGV_LIST_PARMSA",
+    "MCI_DGV_LIST_PARMSW",
+    "MCI_DGV_LIST_STILL_ALG",
+    "MCI_DGV_LIST_STILL_QUALITY",
+    "MCI_DGV_LIST_VIDEO_ALG",
+    "MCI_DGV_LIST_VIDEO_QUALITY",
+    "MCI_DGV_LIST_VIDEO_SOURCE",
+    "MCI_DGV_LIST_VIDEO_STREAM",
+    "MCI_DGV_METHOD_DIRECT",
+    "MCI_DGV_METHOD_POST",
+    "MCI_DGV_METHOD_PRE",
+    "MCI_DGV_MONITOR_FILE",
+    "MCI_DGV_MONITOR_INPUT",
+    "MCI_DGV_MONITOR_METHOD",
+    "MCI_DGV_MONITOR_PARMS",
+    "MCI_DGV_MONITOR_SOURCE",
+    "MCI_DGV_OPEN_16BIT",
+    "MCI_DGV_OPEN_32BIT",
+    "MCI_DGV_OPEN_NOSTATIC",
+    "MCI_DGV_OPEN_PARENT",
+    "MCI_DGV_OPEN_PARMSA",
+    "MCI_DGV_OPEN_PARMSW",
+    "MCI_DGV_OPEN_WS",
+    "MCI_DGV_PASTE_AT",
+    "MCI_DGV_PASTE_AUDIO_STREAM",
+    "MCI_DGV_PASTE_INSERT",
+    "MCI_DGV_PASTE_OVERWRITE",
+    "MCI_DGV_PASTE_PARMS",
+    "MCI_DGV_PASTE_VIDEO_STREAM",
+    "MCI_DGV_PLAY_REPEAT",
+    "MCI_DGV_PLAY_REVERSE",
+    "MCI_DGV_PUT_CLIENT",
+    "MCI_DGV_PUT_DESTINATION",
+    "MCI_DGV_PUT_FRAME",
+    "MCI_DGV_PUT_SOURCE",
+    "MCI_DGV_PUT_VIDEO",
+    "MCI_DGV_PUT_WINDOW",
+    "MCI_DGV_QUALITY_PARMSA",
+    "MCI_DGV_QUALITY_PARMSW",
+    "MCI_DGV_REALIZE_BKGD",
+    "MCI_DGV_REALIZE_NORM",
+    "MCI_DGV_RECORD_AUDIO_STREAM",
+    "MCI_DGV_RECORD_HOLD",
+    "MCI_DGV_RECORD_PARMS",
+    "MCI_DGV_RECORD_VIDEO_STREAM",
+    "MCI_DGV_RECT",
+    "MCI_DGV_RECT_PARMS",
+    "MCI_DGV_RESERVE_IN",
+    "MCI_DGV_RESERVE_PARMSA",
+    "MCI_DGV_RESERVE_PARMSW",
+    "MCI_DGV_RESERVE_SIZE",
+    "MCI_DGV_RESTORE_AT",
+    "MCI_DGV_RESTORE_FROM",
+    "MCI_DGV_RESTORE_PARMSA",
+    "MCI_DGV_RESTORE_PARMSW",
+    "MCI_DGV_SAVE_ABORT",
+    "MCI_DGV_SAVE_KEEPRESERVE",
+    "MCI_DGV_SAVE_PARMSA",
+    "MCI_DGV_SAVE_PARMSW",
+    "MCI_DGV_SETAUDIO_ALG",
+    "MCI_DGV_SETAUDIO_AVGBYTESPERSEC",
+    "MCI_DGV_SETAUDIO_BASS",
+    "MCI_DGV_SETAUDIO_BITSPERSAMPLE",
+    "MCI_DGV_SETAUDIO_BLOCKALIGN",
+    "MCI_DGV_SETAUDIO_CLOCKTIME",
+    "MCI_DGV_SETAUDIO_INPUT",
+    "MCI_DGV_SETAUDIO_ITEM",
+    "MCI_DGV_SETAUDIO_LEFT",
+    "MCI_DGV_SETAUDIO_OUTPUT",
+    "MCI_DGV_SETAUDIO_OVER",
+    "MCI_DGV_SETAUDIO_PARMSA",
+    "MCI_DGV_SETAUDIO_PARMSW",
+    "MCI_DGV_SETAUDIO_QUALITY",
+    "MCI_DGV_SETAUDIO_RECORD",
+    "MCI_DGV_SETAUDIO_RIGHT",
+    "MCI_DGV_SETAUDIO_SAMPLESPERSEC",
+    "MCI_DGV_SETAUDIO_SOURCE",
+    "MCI_DGV_SETAUDIO_SOURCE_AVERAGE",
+    "MCI_DGV_SETAUDIO_SOURCE_LEFT",
+    "MCI_DGV_SETAUDIO_SOURCE_RIGHT",
+    "MCI_DGV_SETAUDIO_SOURCE_STEREO",
+    "MCI_DGV_SETAUDIO_SRC_AVERAGE_S",
+    "MCI_DGV_SETAUDIO_SRC_LEFT_S",
+    "MCI_DGV_SETAUDIO_SRC_RIGHT_S",
+    "MCI_DGV_SETAUDIO_SRC_STEREO_S",
+    "MCI_DGV_SETAUDIO_STREAM",
+    "MCI_DGV_SETAUDIO_TREBLE",
+    "MCI_DGV_SETAUDIO_VALUE",
+    "MCI_DGV_SETAUDIO_VOLUME",
+    "MCI_DGV_SETVIDEO_ALG",
+    "MCI_DGV_SETVIDEO_BITSPERPEL",
+    "MCI_DGV_SETVIDEO_BRIGHTNESS",
+    "MCI_DGV_SETVIDEO_CLOCKTIME",
+    "MCI_DGV_SETVIDEO_COLOR",
+    "MCI_DGV_SETVIDEO_CONTRAST",
+    "MCI_DGV_SETVIDEO_FRAME_RATE",
+    "MCI_DGV_SETVIDEO_GAMMA",
+    "MCI_DGV_SETVIDEO_INPUT",
+    "MCI_DGV_SETVIDEO_ITEM",
+    "MCI_DGV_SETVIDEO_KEY_COLOR",
+    "MCI_DGV_SETVIDEO_KEY_INDEX",
+    "MCI_DGV_SETVIDEO_OUTPUT",
+    "MCI_DGV_SETVIDEO_OVER",
+    "MCI_DGV_SETVIDEO_PALHANDLE",
+    "MCI_DGV_SETVIDEO_PARMSA",
+    "MCI_DGV_SETVIDEO_PARMSW",
+    "MCI_DGV_SETVIDEO_QUALITY",
+    "MCI_DGV_SETVIDEO_RECORD",
+    "MCI_DGV_SETVIDEO_SHARPNESS",
+    "MCI_DGV_SETVIDEO_SOURCE",
+    "MCI_DGV_SETVIDEO_SRC_GENERIC",
+    "MCI_DGV_SETVIDEO_SRC_GENERIC_S",
+    "MCI_DGV_SETVIDEO_SRC_NTSC",
+    "MCI_DGV_SETVIDEO_SRC_NTSC_S",
+    "MCI_DGV_SETVIDEO_SRC_NUMBER",
+    "MCI_DGV_SETVIDEO_SRC_PAL",
+    "MCI_DGV_SETVIDEO_SRC_PAL_S",
+    "MCI_DGV_SETVIDEO_SRC_RGB",
+    "MCI_DGV_SETVIDEO_SRC_RGB_S",
+    "MCI_DGV_SETVIDEO_SRC_SECAM",
+    "MCI_DGV_SETVIDEO_SRC_SECAM_S",
+    "MCI_DGV_SETVIDEO_SRC_SVIDEO",
+    "MCI_DGV_SETVIDEO_SRC_SVIDEO_S",
+    "MCI_DGV_SETVIDEO_STILL",
+    "MCI_DGV_SETVIDEO_STREAM",
+    "MCI_DGV_SETVIDEO_TINT",
+    "MCI_DGV_SETVIDEO_VALUE",
+    "MCI_DGV_SET_FILEFORMAT",
+    "MCI_DGV_SET_PARMS",
+    "MCI_DGV_SET_SEEK_EXACTLY",
+    "MCI_DGV_SET_SPEED",
+    "MCI_DGV_SET_STILL",
+    "MCI_DGV_SIGNAL_AT",
+    "MCI_DGV_SIGNAL_CANCEL",
+    "MCI_DGV_SIGNAL_EVERY",
+    "MCI_DGV_SIGNAL_PARMS",
+    "MCI_DGV_SIGNAL_POSITION",
+    "MCI_DGV_SIGNAL_USERVAL",
+    "MCI_DGV_STATUS_AUDIO",
+    "MCI_DGV_STATUS_AUDIO_INPUT",
+    "MCI_DGV_STATUS_AUDIO_RECORD",
+    "MCI_DGV_STATUS_AUDIO_SOURCE",
+    "MCI_DGV_STATUS_AUDIO_STREAM",
+    "MCI_DGV_STATUS_AVGBYTESPERSEC",
+    "MCI_DGV_STATUS_BASS",
+    "MCI_DGV_STATUS_BITSPERPEL",
+    "MCI_DGV_STATUS_BITSPERSAMPLE",
+    "MCI_DGV_STATUS_BLOCKALIGN",
+    "MCI_DGV_STATUS_BRIGHTNESS",
+    "MCI_DGV_STATUS_COLOR",
+    "MCI_DGV_STATUS_CONTRAST",
+    "MCI_DGV_STATUS_DISKSPACE",
+    "MCI_DGV_STATUS_FILEFORMAT",
+    "MCI_DGV_STATUS_FILE_COMPLETION",
+    "MCI_DGV_STATUS_FILE_MODE",
+    "MCI_DGV_STATUS_FORWARD",
+    "MCI_DGV_STATUS_FRAME_RATE",
+    "MCI_DGV_STATUS_GAMMA",
+    "MCI_DGV_STATUS_HPAL",
+    "MCI_DGV_STATUS_HWND",
+    "MCI_DGV_STATUS_INPUT",
+    "MCI_DGV_STATUS_KEY_COLOR",
+    "MCI_DGV_STATUS_KEY_INDEX",
+    "MCI_DGV_STATUS_LEFT",
+    "MCI_DGV_STATUS_MONITOR",
+    "MCI_DGV_STATUS_MONITOR_METHOD",
+    "MCI_DGV_STATUS_NOMINAL",
+    "MCI_DGV_STATUS_OUTPUT",
+    "MCI_DGV_STATUS_PARMSA",
+    "MCI_DGV_STATUS_PARMSW",
+    "MCI_DGV_STATUS_PAUSE_MODE",
+    "MCI_DGV_STATUS_RECORD",
+    "MCI_DGV_STATUS_REFERENCE",
+    "MCI_DGV_STATUS_RIGHT",
+    "MCI_DGV_STATUS_SAMPLESPERSEC",
+    "MCI_DGV_STATUS_SEEK_EXACTLY",
+    "MCI_DGV_STATUS_SHARPNESS",
+    "MCI_DGV_STATUS_SIZE",
+    "MCI_DGV_STATUS_SMPTE",
+    "MCI_DGV_STATUS_SPEED",
+    "MCI_DGV_STATUS_STILL_FILEFORMAT",
+    "MCI_DGV_STATUS_TINT",
+    "MCI_DGV_STATUS_TREBLE",
+    "MCI_DGV_STATUS_UNSAVED",
+    "MCI_DGV_STATUS_VIDEO",
+    "MCI_DGV_STATUS_VIDEO_RECORD",
+    "MCI_DGV_STATUS_VIDEO_SOURCE",
+    "MCI_DGV_STATUS_VIDEO_SRC_NUM",
+    "MCI_DGV_STATUS_VIDEO_STREAM",
+    "MCI_DGV_STATUS_VOLUME",
+    "MCI_DGV_STATUS_WINDOW_MAXIMIZED",
+    "MCI_DGV_STATUS_WINDOW_MINIMIZED",
+    "MCI_DGV_STATUS_WINDOW_VISIBLE",
+    "MCI_DGV_STEP_FRAMES",
+    "MCI_DGV_STEP_PARMS",
+    "MCI_DGV_STEP_REVERSE",
+    "MCI_DGV_STOP_HOLD",
+    "MCI_DGV_UPDATE_HDC",
+    "MCI_DGV_UPDATE_PAINT",
+    "MCI_DGV_UPDATE_PARMS",
+    "MCI_DGV_WHERE_DESTINATION",
+    "MCI_DGV_WHERE_FRAME",
+    "MCI_DGV_WHERE_MAX",
+    "MCI_DGV_WHERE_SOURCE",
+    "MCI_DGV_WHERE_VIDEO",
+    "MCI_DGV_WHERE_WINDOW",
+    "MCI_DGV_WINDOW_DEFAULT",
+    "MCI_DGV_WINDOW_HWND",
+    "MCI_DGV_WINDOW_PARMSA",
+    "MCI_DGV_WINDOW_PARMSW",
+    "MCI_DGV_WINDOW_STATE",
+    "MCI_DGV_WINDOW_TEXT",
+    "MCI_END_COMMAND",
+    "MCI_END_COMMAND_LIST",
+    "MCI_END_CONSTANT",
+    "MCI_ESCAPE",
+    "MCI_FALSE",
+    "MCI_FIRST",
+    "MCI_FLAG",
+    "MCI_FORMAT_BYTES",
+    "MCI_FORMAT_BYTES_S",
+    "MCI_FORMAT_FRAMES",
+    "MCI_FORMAT_FRAMES_S",
+    "MCI_FORMAT_HMS",
+    "MCI_FORMAT_HMS_S",
+    "MCI_FORMAT_MILLISECONDS",
+    "MCI_FORMAT_MILLISECONDS_S",
+    "MCI_FORMAT_MSF",
+    "MCI_FORMAT_MSF_S",
+    "MCI_FORMAT_SAMPLES",
+    "MCI_FORMAT_SAMPLES_S",
+    "MCI_FORMAT_SMPTE_24",
+    "MCI_FORMAT_SMPTE_24_S",
+    "MCI_FORMAT_SMPTE_25",
+    "MCI_FORMAT_SMPTE_25_S",
+    "MCI_FORMAT_SMPTE_30",
+    "MCI_FORMAT_SMPTE_30DROP",
+    "MCI_FORMAT_SMPTE_30DROP_S",
+    "MCI_FORMAT_SMPTE_30_S",
+    "MCI_FORMAT_TMSF",
+    "MCI_FORMAT_TMSF_S",
+    "MCI_FREEZE",
+    "MCI_FROM",
+    "MCI_GENERIC_PARMS",
+    "MCI_GETDEVCAPS",
+    "MCI_GETDEVCAPS_CAN_EJECT",
+    "MCI_GETDEVCAPS_CAN_PLAY",
+    "MCI_GETDEVCAPS_CAN_RECORD",
+    "MCI_GETDEVCAPS_CAN_SAVE",
+    "MCI_GETDEVCAPS_COMPOUND_DEVICE",
+    "MCI_GETDEVCAPS_DEVICE_TYPE",
+    "MCI_GETDEVCAPS_HAS_AUDIO",
+    "MCI_GETDEVCAPS_HAS_VIDEO",
+    "MCI_GETDEVCAPS_ITEM",
+    "MCI_GETDEVCAPS_PARMS",
+    "MCI_GETDEVCAPS_USES_FILES",
+    "MCI_HDC",
+    "MCI_HPAL",
+    "MCI_HWND",
+    "MCI_INFO",
+    "MCI_INFO_COPYRIGHT",
+    "MCI_INFO_FILE",
+    "MCI_INFO_MEDIA_IDENTITY",
+    "MCI_INFO_MEDIA_UPC",
+    "MCI_INFO_NAME",
+    "MCI_INFO_PARMSA",
+    "MCI_INFO_PARMSW",
+    "MCI_INFO_PRODUCT",
+    "MCI_INFO_VERSION",
+    "MCI_INTEGER",
+    "MCI_INTEGER64",
+    "MCI_INTEGER_RETURNED",
+    "MCI_LAST",
+    "MCI_LIST",
+    "MCI_LOAD",
+    "MCI_LOAD_FILE",
+    "MCI_LOAD_PARMSA",
+    "MCI_LOAD_PARMSW",
+    "MCI_MAX_DEVICE_TYPE_LENGTH",
+    "MCI_MCIAVI_PLAY_FULLBY2",
+    "MCI_MCIAVI_PLAY_FULLSCREEN",
+    "MCI_MCIAVI_PLAY_WINDOW",
+    "MCI_MODE_NOT_READY",
+    "MCI_MODE_OPEN",
+    "MCI_MODE_PAUSE",
+    "MCI_MODE_PLAY",
+    "MCI_MODE_RECORD",
+    "MCI_MODE_SEEK",
+    "MCI_MODE_STOP",
+    "MCI_MONITOR",
+    "MCI_NOTIFY",
+    "MCI_NOTIFY_ABORTED",
+    "MCI_NOTIFY_FAILURE",
+    "MCI_NOTIFY_SUCCESSFUL",
+    "MCI_NOTIFY_SUPERSEDED",
+    "MCI_OFF",
+    "MCI_OFF_S",
+    "MCI_ON",
+    "MCI_ON_S",
+    "MCI_OPEN",
+    "MCI_OPEN_ALIAS",
+    "MCI_OPEN_DRIVER",
+    "MCI_OPEN_DRIVER_PARMS",
+    "MCI_OPEN_ELEMENT",
+    "MCI_OPEN_ELEMENT_ID",
+    "MCI_OPEN_PARMSA",
+    "MCI_OPEN_PARMSW",
+    "MCI_OPEN_SHAREABLE",
+    "MCI_OPEN_TYPE",
+    "MCI_OPEN_TYPE_ID",
+    "MCI_OVLY_GETDEVCAPS_CAN_FREEZE",
+    "MCI_OVLY_GETDEVCAPS_CAN_STRETCH",
+    "MCI_OVLY_GETDEVCAPS_MAX_WINDOWS",
+    "MCI_OVLY_INFO_TEXT",
+    "MCI_OVLY_LOAD_PARMSA",
+    "MCI_OVLY_LOAD_PARMSW",
+    "MCI_OVLY_OPEN_PARENT",
+    "MCI_OVLY_OPEN_PARMSA",
+    "MCI_OVLY_OPEN_PARMSW",
+    "MCI_OVLY_OPEN_WS",
+    "MCI_OVLY_PUT_DESTINATION",
+    "MCI_OVLY_PUT_FRAME",
+    "MCI_OVLY_PUT_SOURCE",
+    "MCI_OVLY_PUT_VIDEO",
+    "MCI_OVLY_RECT",
+    "MCI_OVLY_RECT_PARMS",
+    "MCI_OVLY_SAVE_PARMSA",
+    "MCI_OVLY_SAVE_PARMSW",
+    "MCI_OVLY_STATUS_HWND",
+    "MCI_OVLY_STATUS_STRETCH",
+    "MCI_OVLY_WHERE_DESTINATION",
+    "MCI_OVLY_WHERE_FRAME",
+    "MCI_OVLY_WHERE_SOURCE",
+    "MCI_OVLY_WHERE_VIDEO",
+    "MCI_OVLY_WINDOW_DEFAULT",
+    "MCI_OVLY_WINDOW_DISABLE_STRETCH",
+    "MCI_OVLY_WINDOW_ENABLE_STRETCH",
+    "MCI_OVLY_WINDOW_HWND",
+    "MCI_OVLY_WINDOW_PARMSA",
+    "MCI_OVLY_WINDOW_PARMSW",
+    "MCI_OVLY_WINDOW_STATE",
+    "MCI_OVLY_WINDOW_TEXT",
+    "MCI_PASTE",
+    "MCI_PAUSE",
+    "MCI_PLAY",
+    "MCI_PLAY_PARMS",
+    "MCI_PUT",
+    "MCI_QUALITY",
+    "MCI_QUALITY_ALG",
+    "MCI_QUALITY_DIALOG",
+    "MCI_QUALITY_HANDLE",
+    "MCI_QUALITY_ITEM",
+    "MCI_QUALITY_ITEM_AUDIO",
+    "MCI_QUALITY_ITEM_STILL",
+    "MCI_QUALITY_ITEM_VIDEO",
+    "MCI_QUALITY_NAME",
+    "MCI_REALIZE",
+    "MCI_RECORD",
+    "MCI_RECORD_INSERT",
+    "MCI_RECORD_OVERWRITE",
+    "MCI_RECORD_PARMS",
+    "MCI_RECT",
+    "MCI_RESERVE",
+    "MCI_RESOURCE_DRIVER",
+    "MCI_RESOURCE_RETURNED",
+    "MCI_RESTORE",
+    "MCI_RESUME",
+    "MCI_RETURN",
+    "MCI_SAVE",
+    "MCI_SAVE_FILE",
+    "MCI_SAVE_PARMSA",
+    "MCI_SAVE_PARMSW",
+    "MCI_SECTION",
+    "MCI_SEEK",
+    "MCI_SEEK_PARMS",
+    "MCI_SEEK_TO_END",
+    "MCI_SEEK_TO_START",
+    "MCI_SEQ_FILE",
+    "MCI_SEQ_FILE_S",
+    "MCI_SEQ_FORMAT_SONGPTR",
+    "MCI_SEQ_FORMAT_SONGPTR_S",
+    "MCI_SEQ_MAPPER",
+    "MCI_SEQ_MAPPER_S",
+    "MCI_SEQ_MIDI",
+    "MCI_SEQ_MIDI_S",
+    "MCI_SEQ_NONE",
+    "MCI_SEQ_NONE_S",
+    "MCI_SEQ_SET_MASTER",
+    "MCI_SEQ_SET_OFFSET",
+    "MCI_SEQ_SET_PARMS",
+    "MCI_SEQ_SET_PORT",
+    "MCI_SEQ_SET_SLAVE",
+    "MCI_SEQ_SET_TEMPO",
+    "MCI_SEQ_SMPTE",
+    "MCI_SEQ_SMPTE_S",
+    "MCI_SEQ_STATUS_COPYRIGHT",
+    "MCI_SEQ_STATUS_DIVTYPE",
+    "MCI_SEQ_STATUS_MASTER",
+    "MCI_SEQ_STATUS_NAME",
+    "MCI_SEQ_STATUS_OFFSET",
+    "MCI_SEQ_STATUS_PORT",
+    "MCI_SEQ_STATUS_SLAVE",
+    "MCI_SEQ_STATUS_TEMPO",
+    "MCI_SET",
+    "MCI_SETAUDIO",
+    "MCI_SETVIDEO",
+    "MCI_SET_AUDIO",
+    "MCI_SET_AUDIO_ALL",
+    "MCI_SET_AUDIO_LEFT",
+    "MCI_SET_AUDIO_RIGHT",
+    "MCI_SET_DOOR_CLOSED",
+    "MCI_SET_DOOR_OPEN",
+    "MCI_SET_OFF",
+    "MCI_SET_ON",
+    "MCI_SET_PARMS",
+    "MCI_SET_TIME_FORMAT",
+    "MCI_SET_VIDEO",
+    "MCI_SIGNAL",
+    "MCI_SPIN",
+    "MCI_STATUS",
+    "MCI_STATUS_CURRENT_TRACK",
+    "MCI_STATUS_ITEM",
+    "MCI_STATUS_LENGTH",
+    "MCI_STATUS_MEDIA_PRESENT",
+    "MCI_STATUS_MODE",
+    "MCI_STATUS_NUMBER_OF_TRACKS",
+    "MCI_STATUS_PARMS",
+    "MCI_STATUS_POSITION",
+    "MCI_STATUS_READY",
+    "MCI_STATUS_START",
+    "MCI_STATUS_TIME_FORMAT",
+    "MCI_STEP",
+    "MCI_STOP",
+    "MCI_STRING",
+    "MCI_SYSINFO",
+    "MCI_SYSINFO_INSTALLNAME",
+    "MCI_SYSINFO_NAME",
+    "MCI_SYSINFO_OPEN",
+    "MCI_SYSINFO_PARMSA",
+    "MCI_SYSINFO_PARMSW",
+    "MCI_SYSINFO_QUANTITY",
+    "MCI_TEST",
+    "MCI_TO",
+    "MCI_TRACK",
+    "MCI_TRUE",
+    "MCI_UNDO",
+    "MCI_UNFREEZE",
+    "MCI_UPDATE",
+    "MCI_USER_MESSAGES",
+    "MCI_VD_ESCAPE_PARMSA",
+    "MCI_VD_ESCAPE_PARMSW",
+    "MCI_VD_ESCAPE_STRING",
+    "MCI_VD_FORMAT_TRACK",
+    "MCI_VD_FORMAT_TRACK_S",
+    "MCI_VD_GETDEVCAPS_CAN_REVERSE",
+    "MCI_VD_GETDEVCAPS_CAV",
+    "MCI_VD_GETDEVCAPS_CLV",
+    "MCI_VD_GETDEVCAPS_FAST_RATE",
+    "MCI_VD_GETDEVCAPS_NORMAL_RATE",
+    "MCI_VD_GETDEVCAPS_SLOW_RATE",
+    "MCI_VD_MEDIA_CAV",
+    "MCI_VD_MEDIA_CLV",
+    "MCI_VD_MEDIA_OTHER",
+    "MCI_VD_MODE_PARK",
+    "MCI_VD_PLAY_FAST",
+    "MCI_VD_PLAY_PARMS",
+    "MCI_VD_PLAY_REVERSE",
+    "MCI_VD_PLAY_SCAN",
+    "MCI_VD_PLAY_SLOW",
+    "MCI_VD_PLAY_SPEED",
+    "MCI_VD_SEEK_REVERSE",
+    "MCI_VD_SPIN_DOWN",
+    "MCI_VD_SPIN_UP",
+    "MCI_VD_STATUS_DISC_SIZE",
+    "MCI_VD_STATUS_FORWARD",
+    "MCI_VD_STATUS_MEDIA_TYPE",
+    "MCI_VD_STATUS_SIDE",
+    "MCI_VD_STATUS_SPEED",
+    "MCI_VD_STEP_FRAMES",
+    "MCI_VD_STEP_PARMS",
+    "MCI_VD_STEP_REVERSE",
+    "MCI_WAIT",
+    "MCI_WAVE_DELETE_PARMS",
+    "MCI_WAVE_GETDEVCAPS_INPUTS",
+    "MCI_WAVE_GETDEVCAPS_OUTPUTS",
+    "MCI_WAVE_INPUT",
+    "MCI_WAVE_MAPPER",
+    "MCI_WAVE_OPEN_BUFFER",
+    "MCI_WAVE_OPEN_PARMSA",
+    "MCI_WAVE_OPEN_PARMSW",
+    "MCI_WAVE_OUTPUT",
+    "MCI_WAVE_PCM",
+    "MCI_WAVE_SET_ANYINPUT",
+    "MCI_WAVE_SET_ANYOUTPUT",
+    "MCI_WAVE_SET_AVGBYTESPERSEC",
+    "MCI_WAVE_SET_BITSPERSAMPLE",
+    "MCI_WAVE_SET_BLOCKALIGN",
+    "MCI_WAVE_SET_CHANNELS",
+    "MCI_WAVE_SET_FORMATTAG",
+    "MCI_WAVE_SET_PARMS",
+    "MCI_WAVE_SET_SAMPLESPERSEC",
+    "MCI_WAVE_STATUS_AVGBYTESPERSEC",
+    "MCI_WAVE_STATUS_BITSPERSAMPLE",
+    "MCI_WAVE_STATUS_BLOCKALIGN",
+    "MCI_WAVE_STATUS_CHANNELS",
+    "MCI_WAVE_STATUS_FORMATTAG",
+    "MCI_WAVE_STATUS_LEVEL",
+    "MCI_WAVE_STATUS_SAMPLESPERSEC",
+    "MCI_WHERE",
+    "MCI_WINDOW",
+    "MCMADM_E_REGKEY_NOT_FOUND",
+    "MCMADM_I_NO_EVENTS",
+    "MEDIASPACEADPCMWAVEFORMAT",
+    "MIDIMAPPER_S",
+    "MIDIOPENSTRMID",
+    "MIDI_IO_COOKED",
+    "MIDI_IO_PACKED",
+    "MIDM_ADDBUFFER",
+    "MIDM_CLOSE",
+    "MIDM_GETDEVCAPS",
+    "MIDM_GETNUMDEVS",
+    "MIDM_INIT",
+    "MIDM_INIT_EX",
+    "MIDM_MAPPER",
+    "MIDM_OPEN",
+    "MIDM_PREPARE",
+    "MIDM_RESET",
+    "MIDM_START",
+    "MIDM_STOP",
+    "MIDM_UNPREPARE",
+    "MIDM_USER",
     "MIXERCONTROL_CONTROLTYPE_SRS_MTS",
     "MIXERCONTROL_CONTROLTYPE_SRS_ONOFF",
     "MIXERCONTROL_CONTROLTYPE_SRS_SYNTHSELECT",
+    "MIXEROPENDESC",
+    "MMCKINFO",
+    "MMIOERR_ACCESSDENIED",
+    "MMIOERR_BASE",
+    "MMIOERR_CANNOTCLOSE",
+    "MMIOERR_CANNOTEXPAND",
+    "MMIOERR_CANNOTOPEN",
+    "MMIOERR_CANNOTREAD",
+    "MMIOERR_CANNOTSEEK",
+    "MMIOERR_CANNOTWRITE",
+    "MMIOERR_CHUNKNOTFOUND",
+    "MMIOERR_FILENOTFOUND",
+    "MMIOERR_INVALIDFILE",
+    "MMIOERR_NETWORKERROR",
+    "MMIOERR_OUTOFMEMORY",
+    "MMIOERR_PATHNOTFOUND",
+    "MMIOERR_SHARINGVIOLATION",
+    "MMIOERR_TOOMANYOPENFILES",
+    "MMIOERR_UNBUFFERED",
+    "MMIOINFO",
+    "MMIOM_CLOSE",
+    "MMIOM_OPEN",
+    "MMIOM_READ",
+    "MMIOM_RENAME",
+    "MMIOM_SEEK",
+    "MMIOM_USER",
+    "MMIOM_WRITE",
+    "MMIOM_WRITEFLUSH",
+    "MMIO_ALLOCBUF",
+    "MMIO_COMPAT",
+    "MMIO_CREATE",
+    "MMIO_CREATELIST",
+    "MMIO_CREATERIFF",
+    "MMIO_DEFAULTBUFFER",
+    "MMIO_DELETE",
+    "MMIO_DENYNONE",
+    "MMIO_DENYREAD",
+    "MMIO_DENYWRITE",
+    "MMIO_DIRTY",
+    "MMIO_EMPTYBUF",
+    "MMIO_EXCLUSIVE",
+    "MMIO_EXIST",
+    "MMIO_FHOPEN",
+    "MMIO_FINDCHUNK",
+    "MMIO_FINDLIST",
+    "MMIO_FINDPROC",
+    "MMIO_FINDRIFF",
+    "MMIO_GETTEMP",
+    "MMIO_GLOBALPROC",
+    "MMIO_INSTALLPROC",
+    "MMIO_PARSE",
+    "MMIO_READ",
+    "MMIO_READWRITE",
+    "MMIO_REMOVEPROC",
+    "MMIO_RWMODE",
+    "MMIO_SHAREMODE",
+    "MMIO_TOUPPER",
+    "MMIO_UNICODEPROC",
+    "MMIO_WRITE",
+    "MM_3COM",
+    "MM_3COM_CB_MIXER",
+    "MM_3COM_CB_WAVEIN",
+    "MM_3COM_CB_WAVEOUT",
+    "MM_3DFX",
+    "MM_AARDVARK",
+    "MM_AARDVARK_STUDIO12_WAVEIN",
+    "MM_AARDVARK_STUDIO12_WAVEOUT",
+    "MM_AARDVARK_STUDIO88_WAVEIN",
+    "MM_AARDVARK_STUDIO88_WAVEOUT",
+    "MM_ACTIVEVOICE",
+    "MM_ACTIVEVOICE_ACM_VOXADPCM",
+    "MM_ACULAB",
+    "MM_ADDX",
+    "MM_ADDX_PCTV_AUX_CD",
+    "MM_ADDX_PCTV_AUX_LINE",
+    "MM_ADDX_PCTV_DIGITALMIX",
+    "MM_ADDX_PCTV_MIXER",
+    "MM_ADDX_PCTV_WAVEIN",
+    "MM_ADDX_PCTV_WAVEOUT",
+    "MM_ADLACC",
+    "MM_ADMOS",
+    "MM_ADMOS_FM_SYNTH",
+    "MM_ADMOS_QS3AMIDIIN",
+    "MM_ADMOS_QS3AMIDIOUT",
+    "MM_ADMOS_QS3AWAVEIN",
+    "MM_ADMOS_QS3AWAVEOUT",
+    "MM_AHEAD",
+    "MM_AHEAD_GENERIC",
+    "MM_AHEAD_MULTISOUND",
+    "MM_AHEAD_PROAUDIO",
+    "MM_AHEAD_SOUNDBLASTER",
+    "MM_ALARIS",
+    "MM_ALDIGITAL",
+    "MM_ALESIS",
+    "MM_ALGOVISION",
+    "MM_ALGOVISION_VB80AUX",
+    "MM_ALGOVISION_VB80AUX2",
+    "MM_ALGOVISION_VB80MIXER",
+    "MM_ALGOVISION_VB80WAVEIN",
+    "MM_ALGOVISION_VB80WAVEOUT",
+    "MM_AMD",
+    "MM_AMD_INTERWAVE_AUX1",
+    "MM_AMD_INTERWAVE_AUX2",
+    "MM_AMD_INTERWAVE_AUX_CD",
+    "MM_AMD_INTERWAVE_AUX_MIC",
+    "MM_AMD_INTERWAVE_EX_CD",
+    "MM_AMD_INTERWAVE_EX_TELEPHONY",
+    "MM_AMD_INTERWAVE_JOYSTICK",
+    "MM_AMD_INTERWAVE_MIDIIN",
+    "MM_AMD_INTERWAVE_MIDIOUT",
+    "MM_AMD_INTERWAVE_MIXER1",
+    "MM_AMD_INTERWAVE_MIXER2",
+    "MM_AMD_INTERWAVE_MONO_IN",
+    "MM_AMD_INTERWAVE_MONO_OUT",
+    "MM_AMD_INTERWAVE_STEREO_ENHANCED",
+    "MM_AMD_INTERWAVE_SYNTH",
+    "MM_AMD_INTERWAVE_WAVEIN",
+    "MM_AMD_INTERWAVE_WAVEOUT",
+    "MM_AMD_INTERWAVE_WAVEOUT_BASE",
+    "MM_AMD_INTERWAVE_WAVEOUT_TREBLE",
+    "MM_ANALOGDEVICES",
+    "MM_ANTEX",
+    "MM_ANTEX_AUDIOPORT22_FEEDTHRU",
+    "MM_ANTEX_AUDIOPORT22_WAVEIN",
+    "MM_ANTEX_AUDIOPORT22_WAVEOUT",
+    "MM_ANTEX_SX12_WAVEIN",
+    "MM_ANTEX_SX12_WAVEOUT",
+    "MM_ANTEX_SX15_WAVEIN",
+    "MM_ANTEX_SX15_WAVEOUT",
+    "MM_ANTEX_VP625_WAVEIN",
+    "MM_ANTEX_VP625_WAVEOUT",
+    "MM_APICOM",
+    "MM_APPLE",
+    "MM_APPS",
+    "MM_APT",
+    "MM_APT_ACE100CD",
+    "MM_ARRAY",
+    "MM_ARTISOFT",
+    "MM_ARTISOFT_SBWAVEIN",
+    "MM_ARTISOFT_SBWAVEOUT",
+    "MM_AST",
+    "MM_AST_MODEMWAVE_WAVEIN",
+    "MM_AST_MODEMWAVE_WAVEOUT",
+    "MM_ATI",
+    "MM_ATT",
+    "MM_ATT_G729A",
+    "MM_ATT_MICROELECTRONICS",
+    "MM_AU8820_AUX",
+    "MM_AU8820_MIDIIN",
+    "MM_AU8820_MIDIOUT",
+    "MM_AU8820_MIXER",
+    "MM_AU8820_SYNTH",
+    "MM_AU8820_WAVEIN",
+    "MM_AU8820_WAVEOUT",
+    "MM_AU8830_AUX",
+    "MM_AU8830_MIDIIN",
+    "MM_AU8830_MIDIOUT",
+    "MM_AU8830_MIXER",
+    "MM_AU8830_SYNTH",
+    "MM_AU8830_WAVEIN",
+    "MM_AU8830_WAVEOUT",
+    "MM_AUDIOFILE",
+    "MM_AUDIOPT",
+    "MM_AUDIOSCIENCE",
+    "MM_AURAVISION",
+    "MM_AUREAL",
+    "MM_AUREAL_AU8820",
+    "MM_AUREAL_AU8830",
+    "MM_AZTECH",
+    "MM_AZTECH_AUX",
+    "MM_AZTECH_AUX_CD",
+    "MM_AZTECH_AUX_LINE",
+    "MM_AZTECH_AUX_MIC",
+    "MM_AZTECH_DSP16_FMSYNTH",
+    "MM_AZTECH_DSP16_WAVEIN",
+    "MM_AZTECH_DSP16_WAVEOUT",
+    "MM_AZTECH_DSP16_WAVESYNTH",
+    "MM_AZTECH_FMSYNTH",
+    "MM_AZTECH_MIDIIN",
+    "MM_AZTECH_MIDIOUT",
+    "MM_AZTECH_MIXER",
+    "MM_AZTECH_NOVA16_MIXER",
+    "MM_AZTECH_NOVA16_WAVEIN",
+    "MM_AZTECH_NOVA16_WAVEOUT",
+    "MM_AZTECH_PRO16_FMSYNTH",
+    "MM_AZTECH_PRO16_WAVEIN",
+    "MM_AZTECH_PRO16_WAVEOUT",
+    "MM_AZTECH_WASH16_MIXER",
+    "MM_AZTECH_WASH16_WAVEIN",
+    "MM_AZTECH_WASH16_WAVEOUT",
+    "MM_AZTECH_WAVEIN",
+    "MM_AZTECH_WAVEOUT",
+    "MM_BCB",
+    "MM_BCB_NETBOARD_10",
+    "MM_BCB_TT75_10",
+    "MM_BECUBED",
+    "MM_BERCOS",
+    "MM_BERCOS_MIXER",
+    "MM_BERCOS_WAVEIN",
+    "MM_BERCOS_WAVEOUT",
+    "MM_BERKOM",
+    "MM_BINTEC",
+    "MM_BINTEC_TAPI_WAVE",
+    "MM_BROOKTREE",
+    "MM_BTV_AUX_CD",
+    "MM_BTV_AUX_LINE",
+    "MM_BTV_AUX_MIC",
+    "MM_BTV_DIGITALIN",
+    "MM_BTV_DIGITALOUT",
+    "MM_BTV_MIDIIN",
+    "MM_BTV_MIDIOUT",
+    "MM_BTV_MIDISYNTH",
+    "MM_BTV_MIDIWAVESTREAM",
+    "MM_BTV_MIXER",
+    "MM_BTV_WAVEIN",
+    "MM_BTV_WAVEOUT",
+    "MM_CANAM",
+    "MM_CANAM_CBXWAVEIN",
+    "MM_CANAM_CBXWAVEOUT",
+    "MM_CANOPUS",
+    "MM_CANOPUS_ACM_DVREX",
+    "MM_CASIO",
+    "MM_CASIO_LSG_MIDIOUT",
+    "MM_CASIO_WP150_MIDIIN",
+    "MM_CASIO_WP150_MIDIOUT",
+    "MM_CAT",
+    "MM_CAT_WAVEOUT",
+    "MM_CDPC_AUX",
+    "MM_CDPC_MIDIIN",
+    "MM_CDPC_MIDIOUT",
+    "MM_CDPC_MIXER",
+    "MM_CDPC_SYNTH",
+    "MM_CDPC_WAVEIN",
+    "MM_CDPC_WAVEOUT",
+    "MM_CHROMATIC",
+    "MM_CHROMATIC_M1",
+    "MM_CHROMATIC_M1_AUX",
+    "MM_CHROMATIC_M1_AUX_CD",
+    "MM_CHROMATIC_M1_FMSYNTH",
+    "MM_CHROMATIC_M1_MIDIIN",
+    "MM_CHROMATIC_M1_MIDIOUT",
+    "MM_CHROMATIC_M1_MIXER",
+    "MM_CHROMATIC_M1_MPEGWAVEIN",
+    "MM_CHROMATIC_M1_MPEGWAVEOUT",
+    "MM_CHROMATIC_M1_WAVEIN",
+    "MM_CHROMATIC_M1_WAVEOUT",
+    "MM_CHROMATIC_M1_WTSYNTH",
+    "MM_CHROMATIC_M2",
+    "MM_CHROMATIC_M2_AUX",
+    "MM_CHROMATIC_M2_AUX_CD",
+    "MM_CHROMATIC_M2_FMSYNTH",
+    "MM_CHROMATIC_M2_MIDIIN",
+    "MM_CHROMATIC_M2_MIDIOUT",
+    "MM_CHROMATIC_M2_MIXER",
+    "MM_CHROMATIC_M2_MPEGWAVEIN",
+    "MM_CHROMATIC_M2_MPEGWAVEOUT",
+    "MM_CHROMATIC_M2_WAVEIN",
+    "MM_CHROMATIC_M2_WAVEOUT",
+    "MM_CHROMATIC_M2_WTSYNTH",
+    "MM_CIRRUSLOGIC",
+    "MM_COLORGRAPH",
+    "MM_COMPAQ",
+    "MM_COMPAQ_BB_WAVEAUX",
+    "MM_COMPAQ_BB_WAVEIN",
+    "MM_COMPAQ_BB_WAVEOUT",
+    "MM_COMPUSIC",
+    "MM_COMPUTER_FRIENDS",
+    "MM_CONCEPTS",
+    "MM_CONNECTIX",
+    "MM_CONNECTIX_VIDEC_CODEC",
+    "MM_CONTROLRES",
+    "MM_COREDYNAMICS",
+    "MM_COREDYNAMICS_DYNAGRAFX_VGA",
+    "MM_COREDYNAMICS_DYNAGRAFX_WAVE_IN",
+    "MM_COREDYNAMICS_DYNAGRAFX_WAVE_OUT",
+    "MM_COREDYNAMICS_DYNAMIXHR",
+    "MM_COREDYNAMICS_DYNASONIX_AUDIO_IN",
+    "MM_COREDYNAMICS_DYNASONIX_AUDIO_OUT",
+    "MM_COREDYNAMICS_DYNASONIX_MIDI_IN",
+    "MM_COREDYNAMICS_DYNASONIX_MIDI_OUT",
+    "MM_COREDYNAMICS_DYNASONIX_SYNTH",
+    "MM_COREDYNAMICS_DYNASONIX_WAVE_IN",
+    "MM_COREDYNAMICS_DYNASONIX_WAVE_OUT",
+    "MM_CREATIVE",
+    "MM_CREATIVE_AUX_CD",
+    "MM_CREATIVE_AUX_LINE",
+    "MM_CREATIVE_AUX_MASTER",
+    "MM_CREATIVE_AUX_MIC",
+    "MM_CREATIVE_AUX_MIDI",
+    "MM_CREATIVE_AUX_PCSPK",
+    "MM_CREATIVE_AUX_WAVE",
+    "MM_CREATIVE_FMSYNTH_MONO",
+    "MM_CREATIVE_FMSYNTH_STEREO",
+    "MM_CREATIVE_MIDIIN",
+    "MM_CREATIVE_MIDIOUT",
+    "MM_CREATIVE_MIDI_AWE32",
+    "MM_CREATIVE_PHNBLST_WAVEIN",
+    "MM_CREATIVE_PHNBLST_WAVEOUT",
+    "MM_CREATIVE_SB15_WAVEIN",
+    "MM_CREATIVE_SB15_WAVEOUT",
+    "MM_CREATIVE_SB16_MIXER",
+    "MM_CREATIVE_SB20_WAVEIN",
+    "MM_CREATIVE_SB20_WAVEOUT",
+    "MM_CREATIVE_SBP16_WAVEIN",
+    "MM_CREATIVE_SBP16_WAVEOUT",
+    "MM_CREATIVE_SBPRO_MIXER",
+    "MM_CREATIVE_SBPRO_WAVEIN",
+    "MM_CREATIVE_SBPRO_WAVEOUT",
+    "MM_CRYSTAL",
+    "MM_CRYSTAL_CS4232_INPUTGAIN_AUX1",
+    "MM_CRYSTAL_CS4232_INPUTGAIN_LOOP",
+    "MM_CRYSTAL_CS4232_MIDIIN",
+    "MM_CRYSTAL_CS4232_MIDIOUT",
+    "MM_CRYSTAL_CS4232_WAVEAUX_AUX1",
+    "MM_CRYSTAL_CS4232_WAVEAUX_AUX2",
+    "MM_CRYSTAL_CS4232_WAVEAUX_LINE",
+    "MM_CRYSTAL_CS4232_WAVEAUX_MASTER",
+    "MM_CRYSTAL_CS4232_WAVEAUX_MONO",
+    "MM_CRYSTAL_CS4232_WAVEIN",
+    "MM_CRYSTAL_CS4232_WAVEMIXER",
+    "MM_CRYSTAL_CS4232_WAVEOUT",
+    "MM_CRYSTAL_NET",
+    "MM_CRYSTAL_SOUND_FUSION_JOYSTICK",
+    "MM_CRYSTAL_SOUND_FUSION_MIDIIN",
+    "MM_CRYSTAL_SOUND_FUSION_MIDIOUT",
+    "MM_CRYSTAL_SOUND_FUSION_MIXER",
+    "MM_CRYSTAL_SOUND_FUSION_WAVEIN",
+    "MM_CRYSTAL_SOUND_FUSION_WAVEOUT",
+    "MM_CS",
+    "MM_CYRIX",
+    "MM_CYRIX_XAAUX",
+    "MM_CYRIX_XAMIDIIN",
+    "MM_CYRIX_XAMIDIOUT",
+    "MM_CYRIX_XAMIXER",
+    "MM_CYRIX_XASYNTH",
+    "MM_CYRIX_XAWAVEIN",
+    "MM_CYRIX_XAWAVEOUT",
+    "MM_DATAFUSION",
+    "MM_DATARAN",
+    "MM_DDD",
+    "MM_DDD_MIDILINK_MIDIIN",
+    "MM_DDD_MIDILINK_MIDIOUT",
+    "MM_DF_ACM_G726",
+    "MM_DF_ACM_GSM610",
+    "MM_DIACOUSTICS",
+    "MM_DIACOUSTICS_DRUM_ACTION",
+    "MM_DIALOGIC",
+    "MM_DIAMONDMM",
+    "MM_DICTAPHONE",
+    "MM_DICTAPHONE_G726",
+    "MM_DIGIGRAM",
+    "MM_DIGITAL",
+    "MM_DIGITAL_ACM_G723",
+    "MM_DIGITAL_AUDIO_LABS",
+    "MM_DIGITAL_AUDIO_LABS_CDLX",
+    "MM_DIGITAL_AUDIO_LABS_CPRO",
+    "MM_DIGITAL_AUDIO_LABS_CTDIF",
+    "MM_DIGITAL_AUDIO_LABS_DOC",
+    "MM_DIGITAL_AUDIO_LABS_TC",
+    "MM_DIGITAL_AUDIO_LABS_V8",
+    "MM_DIGITAL_AUDIO_LABS_VP",
+    "MM_DIGITAL_AV320_WAVEIN",
+    "MM_DIGITAL_AV320_WAVEOUT",
+    "MM_DIGITAL_ICM_H261",
+    "MM_DIGITAL_ICM_H263",
+    "MM_DIMD_AUX_LINE",
+    "MM_DIMD_DIRSOUND",
+    "MM_DIMD_MIDIIN",
+    "MM_DIMD_MIDIOUT",
+    "MM_DIMD_MIXER",
+    "MM_DIMD_PLATFORM",
+    "MM_DIMD_VIRTJOY",
+    "MM_DIMD_VIRTMPU",
+    "MM_DIMD_VIRTSB",
+    "MM_DIMD_WAVEIN",
+    "MM_DIMD_WAVEOUT",
+    "MM_DIMD_WSS_AUX",
+    "MM_DIMD_WSS_MIXER",
+    "MM_DIMD_WSS_SYNTH",
+    "MM_DIMD_WSS_WAVEIN",
+    "MM_DIMD_WSS_WAVEOUT",
+    "MM_DOLBY",
+    "MM_DPSINC",
+    "MM_DSP_GROUP",
+    "MM_DSP_GROUP_TRUESPEECH",
+    "MM_DSP_SOLUTIONS",
+    "MM_DSP_SOLUTIONS_AUX",
+    "MM_DSP_SOLUTIONS_SYNTH",
+    "MM_DSP_SOLUTIONS_WAVEIN",
+    "MM_DSP_SOLUTIONS_WAVEOUT",
+    "MM_DTS",
+    "MM_DTS_DS",
+    "MM_DUCK",
+    "MM_DVISION",
+    "MM_ECHO",
+    "MM_ECHO_AUX",
+    "MM_ECHO_MIDIIN",
+    "MM_ECHO_MIDIOUT",
+    "MM_ECHO_SYNTH",
+    "MM_ECHO_WAVEIN",
+    "MM_ECHO_WAVEOUT",
+    "MM_ECS",
+    "MM_ECS_AADF_MIDI_IN",
+    "MM_ECS_AADF_MIDI_OUT",
+    "MM_ECS_AADF_WAVE2MIDI_IN",
+    "MM_EES",
+    "MM_EES_PCMIDI14",
+    "MM_EES_PCMIDI14_IN",
+    "MM_EES_PCMIDI14_OUT1",
+    "MM_EES_PCMIDI14_OUT2",
+    "MM_EES_PCMIDI14_OUT3",
+    "MM_EES_PCMIDI14_OUT4",
+    "MM_EMAGIC",
+    "MM_EMAGIC_UNITOR8",
+    "MM_EMU",
+    "MM_EMU_APSMIDIIN",
+    "MM_EMU_APSMIDIOUT",
+    "MM_EMU_APSSYNTH",
+    "MM_EMU_APSWAVEIN",
+    "MM_EMU_APSWAVEOUT",
+    "MM_ENET",
+    "MM_ENET_T2000_HANDSETIN",
+    "MM_ENET_T2000_HANDSETOUT",
+    "MM_ENET_T2000_LINEIN",
+    "MM_ENET_T2000_LINEOUT",
+    "MM_ENSONIQ",
+    "MM_ENSONIQ_SOUNDSCAPE",
+    "MM_EPSON",
+    "MM_EPS_FMSND",
+    "MM_ESS",
+    "MM_ESS_AMAUX",
+    "MM_ESS_AMMIDIIN",
+    "MM_ESS_AMMIDIOUT",
+    "MM_ESS_AMSYNTH",
+    "MM_ESS_AMWAVEIN",
+    "MM_ESS_AMWAVEOUT",
+    "MM_ESS_AUX_CD",
+    "MM_ESS_ES1488_MIXER",
+    "MM_ESS_ES1488_WAVEIN",
+    "MM_ESS_ES1488_WAVEOUT",
+    "MM_ESS_ES1688_MIXER",
+    "MM_ESS_ES1688_WAVEIN",
+    "MM_ESS_ES1688_WAVEOUT",
+    "MM_ESS_ES1788_MIXER",
+    "MM_ESS_ES1788_WAVEIN",
+    "MM_ESS_ES1788_WAVEOUT",
+    "MM_ESS_ES1868_MIXER",
+    "MM_ESS_ES1868_WAVEIN",
+    "MM_ESS_ES1868_WAVEOUT",
+    "MM_ESS_ES1878_MIXER",
+    "MM_ESS_ES1878_WAVEIN",
+    "MM_ESS_ES1878_WAVEOUT",
+    "MM_ESS_ES1888_MIXER",
+    "MM_ESS_ES1888_WAVEIN",
+    "MM_ESS_ES1888_WAVEOUT",
+    "MM_ESS_ES488_MIXER",
+    "MM_ESS_ES488_WAVEIN",
+    "MM_ESS_ES488_WAVEOUT",
+    "MM_ESS_ES688_MIXER",
+    "MM_ESS_ES688_WAVEIN",
+    "MM_ESS_ES688_WAVEOUT",
+    "MM_ESS_MIXER",
+    "MM_ESS_MPU401_MIDIIN",
+    "MM_ESS_MPU401_MIDIOUT",
+    "MM_ETEK",
+    "MM_ETEK_KWIKMIDI_MIDIIN",
+    "MM_ETEK_KWIKMIDI_MIDIOUT",
+    "MM_EUPHONICS",
+    "MM_EUPHONICS_AUX_CD",
+    "MM_EUPHONICS_AUX_LINE",
+    "MM_EUPHONICS_AUX_MASTER",
+    "MM_EUPHONICS_AUX_MIC",
+    "MM_EUPHONICS_AUX_MIDI",
+    "MM_EUPHONICS_AUX_WAVE",
+    "MM_EUPHONICS_EUSYNTH",
+    "MM_EUPHONICS_FMSYNTH_MONO",
+    "MM_EUPHONICS_FMSYNTH_STEREO",
+    "MM_EUPHONICS_MIDIIN",
+    "MM_EUPHONICS_MIDIOUT",
+    "MM_EUPHONICS_MIXER",
+    "MM_EUPHONICS_WAVEIN",
+    "MM_EUPHONICS_WAVEOUT",
+    "MM_EVEREX",
+    "MM_EVEREX_CARRIER",
+    "MM_EXAN",
+    "MM_FAITH",
+    "MM_FAST",
+    "MM_FHGIIS_MPEGLAYER3",
+    "MM_FHGIIS_MPEGLAYER3_ADVANCED",
+    "MM_FHGIIS_MPEGLAYER3_ADVANCEDPLUS",
+    "MM_FHGIIS_MPEGLAYER3_BASIC",
+    "MM_FHGIIS_MPEGLAYER3_DECODE",
+    "MM_FHGIIS_MPEGLAYER3_LITE",
+    "MM_FHGIIS_MPEGLAYER3_PROFESSIONAL",
+    "MM_FLEXION",
+    "MM_FLEXION_X300_WAVEIN",
+    "MM_FLEXION_X300_WAVEOUT",
+    "MM_FORTEMEDIA",
+    "MM_FORTEMEDIA_AUX",
+    "MM_FORTEMEDIA_FMSYNC",
+    "MM_FORTEMEDIA_MIXER",
+    "MM_FORTEMEDIA_WAVEIN",
+    "MM_FORTEMEDIA_WAVEOUT",
+    "MM_FRAUNHOFER_IIS",
+    "MM_FRONTIER",
+    "MM_FRONTIER_WAVECENTER_MIDIIN",
+    "MM_FRONTIER_WAVECENTER_MIDIOUT",
+    "MM_FRONTIER_WAVECENTER_WAVEIN",
+    "MM_FRONTIER_WAVECENTER_WAVEOUT",
+    "MM_FTR",
+    "MM_FTR_ACM",
+    "MM_FTR_ENCODER_WAVEIN",
+    "MM_FUJITSU",
+    "MM_GADGETLABS",
+    "MM_GADGETLABS_WAVE42_WAVEIN",
+    "MM_GADGETLABS_WAVE42_WAVEOUT",
+    "MM_GADGETLABS_WAVE44_WAVEIN",
+    "MM_GADGETLABS_WAVE44_WAVEOUT",
+    "MM_GADGETLABS_WAVE4_MIDIIN",
+    "MM_GADGETLABS_WAVE4_MIDIOUT",
+    "MM_GRANDE",
+    "MM_GRAVIS",
+    "MM_GUILLEMOT",
+    "MM_GULBRANSEN",
+    "MM_HAFTMANN",
+    "MM_HAFTMANN_LPTDAC2",
+    "MM_HEADSPACE",
+    "MM_HEADSPACE_HAEMIXER",
+    "MM_HEADSPACE_HAESYNTH",
+    "MM_HEADSPACE_HAEWAVEIN",
+    "MM_HEADSPACE_HAEWAVEOUT",
+    "MM_HEWLETT_PACKARD",
+    "MM_HEWLETT_PACKARD_CU_CODEC",
+    "MM_HORIZONS",
+    "MM_HP",
+    "MM_HP_WAVEIN",
+    "MM_HP_WAVEOUT",
+    "MM_HYPERACTIVE",
+    "MM_IBM",
+    "MM_IBM_MWAVE_AUX",
+    "MM_IBM_MWAVE_MIDIIN",
+    "MM_IBM_MWAVE_MIDIOUT",
+    "MM_IBM_MWAVE_MIXER",
+    "MM_IBM_MWAVE_WAVEIN",
+    "MM_IBM_MWAVE_WAVEOUT",
+    "MM_IBM_PCMCIA_AUX",
+    "MM_IBM_PCMCIA_MIDIIN",
+    "MM_IBM_PCMCIA_MIDIOUT",
+    "MM_IBM_PCMCIA_SYNTH",
+    "MM_IBM_PCMCIA_WAVEIN",
+    "MM_IBM_PCMCIA_WAVEOUT",
+    "MM_IBM_THINKPAD200",
+    "MM_IBM_WC_MIDIOUT",
+    "MM_IBM_WC_MIXEROUT",
+    "MM_IBM_WC_WAVEOUT",
+    "MM_ICCC",
+    "MM_ICCC_UNA3_AUX",
+    "MM_ICCC_UNA3_MIXER",
+    "MM_ICCC_UNA3_WAVEIN",
+    "MM_ICCC_UNA3_WAVEOUT",
+    "MM_ICE",
+    "MM_ICE_AUX",
+    "MM_ICE_MIDIIN1",
+    "MM_ICE_MIDIIN2",
+    "MM_ICE_MIDIOUT1",
+    "MM_ICE_MIDIOUT2",
+    "MM_ICE_MIXER",
+    "MM_ICE_MTWAVEIN",
+    "MM_ICE_MTWAVEOUT",
+    "MM_ICE_SYNTH",
+    "MM_ICE_WAVEIN",
+    "MM_ICE_WAVEOUT",
+    "MM_ICL_PS",
+    "MM_ICOM_AUX",
+    "MM_ICOM_LINE",
+    "MM_ICOM_MIXER",
+    "MM_ICOM_WAVEIN",
+    "MM_ICOM_WAVEOUT",
+    "MM_ICS",
+    "MM_ICS_2115_LITE_MIDIOUT",
+    "MM_ICS_2120_LITE_MIDIOUT",
+    "MM_ICS_WAVEDECK_AUX",
+    "MM_ICS_WAVEDECK_MIXER",
+    "MM_ICS_WAVEDECK_SYNTH",
+    "MM_ICS_WAVEDECK_WAVEIN",
+    "MM_ICS_WAVEDECK_WAVEOUT",
+    "MM_ICS_WAVEDEC_SB_AUX",
+    "MM_ICS_WAVEDEC_SB_FM_MIDIOUT",
+    "MM_ICS_WAVEDEC_SB_MIXER",
+    "MM_ICS_WAVEDEC_SB_MPU401_MIDIIN",
+    "MM_ICS_WAVEDEC_SB_MPU401_MIDIOUT",
+    "MM_ICS_WAVEDEC_SB_WAVEIN",
+    "MM_ICS_WAVEDEC_SB_WAVEOUT",
+    "MM_INSOFT",
+    "MM_INTEL",
+    "MM_INTELOPD_AUX",
+    "MM_INTELOPD_WAVEIN",
+    "MM_INTELOPD_WAVEOUT",
+    "MM_INTEL_NSPMODEMLINEIN",
+    "MM_INTEL_NSPMODEMLINEOUT",
+    "MM_INTERACTIVE",
+    "MM_INTERACTIVE_WAVEIN",
+    "MM_INTERACTIVE_WAVEOUT",
+    "MM_INTERNET",
+    "MM_INTERNET_SSW_MIDIIN",
+    "MM_INTERNET_SSW_MIDIOUT",
+    "MM_INTERNET_SSW_WAVEIN",
+    "MM_INTERNET_SSW_WAVEOUT",
+    "MM_INVISION",
+    "MM_IODD",
+    "MM_IOMAGIC",
+    "MM_IOMAGIC_TEMPO_AUXOUT",
+    "MM_IOMAGIC_TEMPO_MIDIOUT",
+    "MM_IOMAGIC_TEMPO_MXDOUT",
+    "MM_IOMAGIC_TEMPO_SYNTH",
+    "MM_IOMAGIC_TEMPO_WAVEIN",
+    "MM_IOMAGIC_TEMPO_WAVEOUT",
+    "MM_IPI",
+    "MM_IPI_ACM_HSX",
+    "MM_IPI_ACM_RPELP",
+    "MM_IPI_AT_MIXER",
+    "MM_IPI_AT_WAVEIN",
+    "MM_IPI_AT_WAVEOUT",
+    "MM_IPI_WF_ASSS",
+    "MM_ISOLUTION",
+    "MM_ISOLUTION_PASCAL",
+    "MM_ITERATEDSYS",
+    "MM_ITERATEDSYS_FUFCODEC",
+    "MM_I_LINK",
+    "MM_I_LINK_VOICE_CODER",
+    "MM_KAY_ELEMETRICS",
+    "MM_KAY_ELEMETRICS_CSL",
+    "MM_KAY_ELEMETRICS_CSL_4CHANNEL",
+    "MM_KAY_ELEMETRICS_CSL_DAT",
+    "MM_KORG",
+    "MM_KORG_1212IO_MSWAVEIN",
+    "MM_KORG_1212IO_MSWAVEOUT",
+    "MM_KORG_PCIF_MIDIIN",
+    "MM_KORG_PCIF_MIDIOUT",
+    "MM_LERNOUT_ANDHAUSPIE_LHCODECACM",
+    "MM_LERNOUT_AND_HAUSPIE",
+    "MM_LEXICON",
+    "MM_LEXICON_STUDIO_WAVE_IN",
+    "MM_LEXICON_STUDIO_WAVE_OUT",
+    "MM_LOGITECH",
+    "MM_LUCENT",
+    "MM_LUCENT_ACM_G723",
+    "MM_LUCID",
+    "MM_LUCID_PCI24WAVEIN",
+    "MM_LUCID_PCI24WAVEOUT",
+    "MM_LUMINOSITI",
+    "MM_LUMINOSITI_SCWAVEIN",
+    "MM_LUMINOSITI_SCWAVEMIX",
+    "MM_LUMINOSITI_SCWAVEOUT",
+    "MM_LYNX",
+    "MM_LYRRUS",
+    "MM_LYRRUS_BRIDGE_GUITAR",
+    "MM_MALDEN",
+    "MM_MARIAN",
+    "MM_MARIAN_ARC44WAVEIN",
+    "MM_MARIAN_ARC44WAVEOUT",
+    "MM_MARIAN_ARC88WAVEIN",
+    "MM_MARIAN_ARC88WAVEOUT",
+    "MM_MARIAN_PRODIF24WAVEIN",
+    "MM_MARIAN_PRODIF24WAVEOUT",
+    "MM_MATROX_DIV",
+    "MM_MATSUSHITA",
+    "MM_MATSUSHITA_AUX",
+    "MM_MATSUSHITA_FMSYNTH_STEREO",
+    "MM_MATSUSHITA_MIXER",
+    "MM_MATSUSHITA_WAVEIN",
+    "MM_MATSUSHITA_WAVEOUT",
+    "MM_MEDIASONIC",
+    "MM_MEDIASONIC_ACM_G723",
+    "MM_MEDIASONIC_ICOM",
+    "MM_MEDIATRIX",
+    "MM_MEDIAVISION",
+    "MM_MEDIAVISION_CDPC",
+    "MM_MEDIAVISION_OPUS1208",
+    "MM_MEDIAVISION_OPUS1216",
+    "MM_MEDIAVISION_PROAUDIO",
+    "MM_MEDIAVISION_PROAUDIO_16",
+    "MM_MEDIAVISION_PROAUDIO_PLUS",
+    "MM_MEDIAVISION_PROSTUDIO_16",
+    "MM_MEDIAVISION_THUNDER",
+    "MM_MEDIAVISION_TPORT",
+    "MM_MELABS",
+    "MM_MELABS_MIDI2GO",
+    "MM_MERGING_MPEGL3",
+    "MM_MERGING_TECHNOLOGIES",
+    "MM_METHEUS",
+    "MM_METHEUS_ZIPPER",
+    "MM_MICRONAS",
+    "MM_MICRONAS_CLP833",
+    "MM_MICRONAS_SC4",
+    "MM_MINDMAKER",
+    "MM_MINDMAKER_GC_MIXER",
+    "MM_MINDMAKER_GC_WAVEIN",
+    "MM_MINDMAKER_GC_WAVEOUT",
+    "MM_MIRO",
+    "MM_MIRO_DC30_MIX",
+    "MM_MIRO_DC30_WAVEIN",
+    "MM_MIRO_DC30_WAVEOUT",
+    "MM_MIRO_MOVIEPRO",
+    "MM_MIRO_VIDEOD1",
+    "MM_MIRO_VIDEODC1TV",
+    "MM_MIRO_VIDEOTD",
+    "MM_MITEL",
+    "MM_MITEL_MEDIAPATH_WAVEIN",
+    "MM_MITEL_MEDIAPATH_WAVEOUT",
+    "MM_MITEL_MPA_HANDSET_WAVEIN",
+    "MM_MITEL_MPA_HANDSET_WAVEOUT",
+    "MM_MITEL_MPA_HANDSFREE_WAVEIN",
+    "MM_MITEL_MPA_HANDSFREE_WAVEOUT",
+    "MM_MITEL_MPA_LINE1_WAVEIN",
+    "MM_MITEL_MPA_LINE1_WAVEOUT",
+    "MM_MITEL_MPA_LINE2_WAVEIN",
+    "MM_MITEL_MPA_LINE2_WAVEOUT",
+    "MM_MITEL_TALKTO_BRIDGED_WAVEIN",
+    "MM_MITEL_TALKTO_BRIDGED_WAVEOUT",
+    "MM_MITEL_TALKTO_HANDSET_WAVEIN",
+    "MM_MITEL_TALKTO_HANDSET_WAVEOUT",
+    "MM_MITEL_TALKTO_LINE_WAVEIN",
+    "MM_MITEL_TALKTO_LINE_WAVEOUT",
+    "MM_MMOTION_WAVEAUX",
+    "MM_MMOTION_WAVEIN",
+    "MM_MMOTION_WAVEOUT",
+    "MM_MOSCOM",
+    "MM_MOSCOM_VPC2400_IN",
+    "MM_MOSCOM_VPC2400_OUT",
+    "MM_MOTIONPIXELS",
+    "MM_MOTIONPIXELS_MVI2",
+    "MM_MOTOROLA",
+    "MM_MOTU",
+    "MM_MOTU_DTX_MIDI_IN_A",
+    "MM_MOTU_DTX_MIDI_IN_B",
+    "MM_MOTU_DTX_MIDI_IN_SYNC",
+    "MM_MOTU_DTX_MIDI_OUT_A",
+    "MM_MOTU_DTX_MIDI_OUT_B",
+    "MM_MOTU_FLYER_MIDI_IN_A",
+    "MM_MOTU_FLYER_MIDI_IN_B",
+    "MM_MOTU_FLYER_MIDI_IN_SYNC",
+    "MM_MOTU_FLYER_MIDI_OUT_A",
+    "MM_MOTU_FLYER_MIDI_OUT_B",
+    "MM_MOTU_MTPAV_MIDIIN_1",
+    "MM_MOTU_MTPAV_MIDIIN_2",
+    "MM_MOTU_MTPAV_MIDIIN_3",
+    "MM_MOTU_MTPAV_MIDIIN_4",
+    "MM_MOTU_MTPAV_MIDIIN_5",
+    "MM_MOTU_MTPAV_MIDIIN_6",
+    "MM_MOTU_MTPAV_MIDIIN_7",
+    "MM_MOTU_MTPAV_MIDIIN_8",
+    "MM_MOTU_MTPAV_MIDIIN_ADAT",
+    "MM_MOTU_MTPAV_MIDIIN_SYNC",
+    "MM_MOTU_MTPAV_MIDIOUT_1",
+    "MM_MOTU_MTPAV_MIDIOUT_2",
+    "MM_MOTU_MTPAV_MIDIOUT_3",
+    "MM_MOTU_MTPAV_MIDIOUT_4",
+    "MM_MOTU_MTPAV_MIDIOUT_5",
+    "MM_MOTU_MTPAV_MIDIOUT_6",
+    "MM_MOTU_MTPAV_MIDIOUT_7",
+    "MM_MOTU_MTPAV_MIDIOUT_8",
+    "MM_MOTU_MTPAV_MIDIOUT_ADAT",
+    "MM_MOTU_MTPAV_MIDIOUT_ALL",
+    "MM_MOTU_MTPAV_NET_MIDIIN_1",
+    "MM_MOTU_MTPAV_NET_MIDIIN_2",
+    "MM_MOTU_MTPAV_NET_MIDIIN_3",
+    "MM_MOTU_MTPAV_NET_MIDIIN_4",
+    "MM_MOTU_MTPAV_NET_MIDIIN_5",
+    "MM_MOTU_MTPAV_NET_MIDIIN_6",
+    "MM_MOTU_MTPAV_NET_MIDIIN_7",
+    "MM_MOTU_MTPAV_NET_MIDIIN_8",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_1",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_2",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_3",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_4",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_5",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_6",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_7",
+    "MM_MOTU_MTPAV_NET_MIDIOUT_8",
+    "MM_MOTU_MTPII_MIDIIN_1",
+    "MM_MOTU_MTPII_MIDIIN_2",
+    "MM_MOTU_MTPII_MIDIIN_3",
+    "MM_MOTU_MTPII_MIDIIN_4",
+    "MM_MOTU_MTPII_MIDIIN_5",
+    "MM_MOTU_MTPII_MIDIIN_6",
+    "MM_MOTU_MTPII_MIDIIN_7",
+    "MM_MOTU_MTPII_MIDIIN_8",
+    "MM_MOTU_MTPII_MIDIIN_SYNC",
+    "MM_MOTU_MTPII_MIDIOUT_1",
+    "MM_MOTU_MTPII_MIDIOUT_2",
+    "MM_MOTU_MTPII_MIDIOUT_3",
+    "MM_MOTU_MTPII_MIDIOUT_4",
+    "MM_MOTU_MTPII_MIDIOUT_5",
+    "MM_MOTU_MTPII_MIDIOUT_6",
+    "MM_MOTU_MTPII_MIDIOUT_7",
+    "MM_MOTU_MTPII_MIDIOUT_8",
+    "MM_MOTU_MTPII_MIDIOUT_ALL",
+    "MM_MOTU_MTPII_NET_MIDIIN_1",
+    "MM_MOTU_MTPII_NET_MIDIIN_2",
+    "MM_MOTU_MTPII_NET_MIDIIN_3",
+    "MM_MOTU_MTPII_NET_MIDIIN_4",
+    "MM_MOTU_MTPII_NET_MIDIIN_5",
+    "MM_MOTU_MTPII_NET_MIDIIN_6",
+    "MM_MOTU_MTPII_NET_MIDIIN_7",
+    "MM_MOTU_MTPII_NET_MIDIIN_8",
+    "MM_MOTU_MTPII_NET_MIDIOUT_1",
+    "MM_MOTU_MTPII_NET_MIDIOUT_2",
+    "MM_MOTU_MTPII_NET_MIDIOUT_3",
+    "MM_MOTU_MTPII_NET_MIDIOUT_4",
+    "MM_MOTU_MTPII_NET_MIDIOUT_5",
+    "MM_MOTU_MTPII_NET_MIDIOUT_6",
+    "MM_MOTU_MTPII_NET_MIDIOUT_7",
+    "MM_MOTU_MTPII_NET_MIDIOUT_8",
+    "MM_MOTU_MTP_MIDIIN_1",
+    "MM_MOTU_MTP_MIDIIN_2",
+    "MM_MOTU_MTP_MIDIIN_3",
+    "MM_MOTU_MTP_MIDIIN_4",
+    "MM_MOTU_MTP_MIDIIN_5",
+    "MM_MOTU_MTP_MIDIIN_6",
+    "MM_MOTU_MTP_MIDIIN_7",
+    "MM_MOTU_MTP_MIDIIN_8",
+    "MM_MOTU_MTP_MIDIOUT_1",
+    "MM_MOTU_MTP_MIDIOUT_2",
+    "MM_MOTU_MTP_MIDIOUT_3",
+    "MM_MOTU_MTP_MIDIOUT_4",
+    "MM_MOTU_MTP_MIDIOUT_5",
+    "MM_MOTU_MTP_MIDIOUT_6",
+    "MM_MOTU_MTP_MIDIOUT_7",
+    "MM_MOTU_MTP_MIDIOUT_8",
+    "MM_MOTU_MTP_MIDIOUT_ALL",
+    "MM_MOTU_MXN_MIDIIN_1",
+    "MM_MOTU_MXN_MIDIIN_2",
+    "MM_MOTU_MXN_MIDIIN_3",
+    "MM_MOTU_MXN_MIDIIN_4",
+    "MM_MOTU_MXN_MIDIIN_SYNC",
+    "MM_MOTU_MXN_MIDIOUT_1",
+    "MM_MOTU_MXN_MIDIOUT_2",
+    "MM_MOTU_MXN_MIDIOUT_3",
+    "MM_MOTU_MXN_MIDIOUT_4",
+    "MM_MOTU_MXN_MIDIOUT_ALL",
+    "MM_MOTU_MXPMPU_MIDIIN_1",
+    "MM_MOTU_MXPMPU_MIDIIN_2",
+    "MM_MOTU_MXPMPU_MIDIIN_3",
+    "MM_MOTU_MXPMPU_MIDIIN_4",
+    "MM_MOTU_MXPMPU_MIDIIN_5",
+    "MM_MOTU_MXPMPU_MIDIIN_6",
+    "MM_MOTU_MXPMPU_MIDIIN_SYNC",
+    "MM_MOTU_MXPMPU_MIDIOUT_1",
+    "MM_MOTU_MXPMPU_MIDIOUT_2",
+    "MM_MOTU_MXPMPU_MIDIOUT_3",
+    "MM_MOTU_MXPMPU_MIDIOUT_4",
+    "MM_MOTU_MXPMPU_MIDIOUT_5",
+    "MM_MOTU_MXPMPU_MIDIOUT_6",
+    "MM_MOTU_MXPMPU_MIDIOUT_ALL",
+    "MM_MOTU_MXPXT_MIDIIN_1",
+    "MM_MOTU_MXPXT_MIDIIN_2",
+    "MM_MOTU_MXPXT_MIDIIN_3",
+    "MM_MOTU_MXPXT_MIDIIN_4",
+    "MM_MOTU_MXPXT_MIDIIN_5",
+    "MM_MOTU_MXPXT_MIDIIN_6",
+    "MM_MOTU_MXPXT_MIDIIN_7",
+    "MM_MOTU_MXPXT_MIDIIN_8",
+    "MM_MOTU_MXPXT_MIDIIN_SYNC",
+    "MM_MOTU_MXPXT_MIDIOUT_1",
+    "MM_MOTU_MXPXT_MIDIOUT_2",
+    "MM_MOTU_MXPXT_MIDIOUT_3",
+    "MM_MOTU_MXPXT_MIDIOUT_4",
+    "MM_MOTU_MXPXT_MIDIOUT_5",
+    "MM_MOTU_MXPXT_MIDIOUT_6",
+    "MM_MOTU_MXPXT_MIDIOUT_7",
+    "MM_MOTU_MXPXT_MIDIOUT_8",
+    "MM_MOTU_MXPXT_MIDIOUT_ALL",
+    "MM_MOTU_MXP_MIDIIN_MIDIIN_1",
+    "MM_MOTU_MXP_MIDIIN_MIDIIN_2",
+    "MM_MOTU_MXP_MIDIIN_MIDIIN_3",
+    "MM_MOTU_MXP_MIDIIN_MIDIIN_4",
+    "MM_MOTU_MXP_MIDIIN_MIDIIN_5",
+    "MM_MOTU_MXP_MIDIIN_MIDIIN_6",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_1",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_2",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_3",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_4",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_5",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_6",
+    "MM_MOTU_MXP_MIDIIN_MIDIOUT_ALL",
+    "MM_MOTU_MXP_MIDIIN_SYNC",
+    "MM_MOTU_PKX_MIDI_IN_A",
+    "MM_MOTU_PKX_MIDI_IN_B",
+    "MM_MOTU_PKX_MIDI_IN_SYNC",
+    "MM_MOTU_PKX_MIDI_OUT_A",
+    "MM_MOTU_PKX_MIDI_OUT_B",
+    "MM_MPTUS",
+    "MM_MPTUS_SPWAVEOUT",
+    "MM_MSFT_ACM_G711",
+    "MM_MSFT_ACM_GSM610",
+    "MM_MSFT_ACM_IMAADPCM",
+    "MM_MSFT_ACM_MSADPCM",
+    "MM_MSFT_ACM_MSAUDIO1",
+    "MM_MSFT_ACM_MSFILTER",
+    "MM_MSFT_ACM_MSG723",
+    "MM_MSFT_ACM_MSNAUDIO",
+    "MM_MSFT_ACM_MSRT24",
+    "MM_MSFT_ACM_PCM",
+    "MM_MSFT_ACM_WMAUDIO",
+    "MM_MSFT_ACM_WMAUDIO2",
+    "MM_MSFT_GENERIC_AUX_CD",
+    "MM_MSFT_GENERIC_AUX_LINE",
+    "MM_MSFT_GENERIC_AUX_MIC",
+    "MM_MSFT_GENERIC_MIDIIN",
+    "MM_MSFT_GENERIC_MIDIOUT",
+    "MM_MSFT_GENERIC_MIDISYNTH",
+    "MM_MSFT_GENERIC_WAVEIN",
+    "MM_MSFT_GENERIC_WAVEOUT",
+    "MM_MSFT_MSACM",
+    "MM_MSFT_MSOPL_SYNTH",
+    "MM_MSFT_SB16_AUX_CD",
+    "MM_MSFT_SB16_AUX_LINE",
+    "MM_MSFT_SB16_MIDIIN",
+    "MM_MSFT_SB16_MIDIOUT",
+    "MM_MSFT_SB16_MIXER",
+    "MM_MSFT_SB16_SYNTH",
+    "MM_MSFT_SB16_WAVEIN",
+    "MM_MSFT_SB16_WAVEOUT",
+    "MM_MSFT_SBPRO_AUX_CD",
+    "MM_MSFT_SBPRO_AUX_LINE",
+    "MM_MSFT_SBPRO_MIDIIN",
+    "MM_MSFT_SBPRO_MIDIOUT",
+    "MM_MSFT_SBPRO_MIXER",
+    "MM_MSFT_SBPRO_SYNTH",
+    "MM_MSFT_SBPRO_WAVEIN",
+    "MM_MSFT_SBPRO_WAVEOUT",
+    "MM_MSFT_VMDMS_HANDSET_WAVEIN",
+    "MM_MSFT_VMDMS_HANDSET_WAVEOUT",
+    "MM_MSFT_VMDMS_LINE_WAVEIN",
+    "MM_MSFT_VMDMS_LINE_WAVEOUT",
+    "MM_MSFT_VMDMW_HANDSET_WAVEIN",
+    "MM_MSFT_VMDMW_HANDSET_WAVEOUT",
+    "MM_MSFT_VMDMW_LINE_WAVEIN",
+    "MM_MSFT_VMDMW_LINE_WAVEOUT",
+    "MM_MSFT_VMDMW_MIXER",
+    "MM_MSFT_VMDM_GAME_WAVEIN",
+    "MM_MSFT_VMDM_GAME_WAVEOUT",
+    "MM_MSFT_WDMAUDIO_AUX",
+    "MM_MSFT_WDMAUDIO_MIDIIN",
+    "MM_MSFT_WDMAUDIO_MIDIOUT",
+    "MM_MSFT_WDMAUDIO_MIXER",
+    "MM_MSFT_WDMAUDIO_WAVEIN",
+    "MM_MSFT_WDMAUDIO_WAVEOUT",
+    "MM_MSFT_WSS_AUX",
+    "MM_MSFT_WSS_FMSYNTH_STEREO",
+    "MM_MSFT_WSS_MIXER",
+    "MM_MSFT_WSS_NT_AUX",
+    "MM_MSFT_WSS_NT_FMSYNTH_STEREO",
+    "MM_MSFT_WSS_NT_MIXER",
+    "MM_MSFT_WSS_NT_WAVEIN",
+    "MM_MSFT_WSS_NT_WAVEOUT",
+    "MM_MSFT_WSS_OEM_AUX",
+    "MM_MSFT_WSS_OEM_FMSYNTH_STEREO",
+    "MM_MSFT_WSS_OEM_MIXER",
+    "MM_MSFT_WSS_OEM_WAVEIN",
+    "MM_MSFT_WSS_OEM_WAVEOUT",
+    "MM_MSFT_WSS_WAVEIN",
+    "MM_MSFT_WSS_WAVEOUT",
+    "MM_MWM",
+    "MM_NCR",
+    "MM_NCR_BA_AUX",
+    "MM_NCR_BA_MIXER",
+    "MM_NCR_BA_SYNTH",
+    "MM_NCR_BA_WAVEIN",
+    "MM_NCR_BA_WAVEOUT",
+    "MM_NEC",
+    "MM_NEC_26_SYNTH",
+    "MM_NEC_73_86_SYNTH",
+    "MM_NEC_73_86_WAVEIN",
+    "MM_NEC_73_86_WAVEOUT",
+    "MM_NEC_JOYSTICK",
+    "MM_NEC_MPU401_MIDIIN",
+    "MM_NEC_MPU401_MIDIOUT",
+    "MM_NEOMAGIC",
+    "MM_NEOMAGIC_AUX",
+    "MM_NEOMAGIC_MIDIIN",
+    "MM_NEOMAGIC_MIDIOUT",
+    "MM_NEOMAGIC_MW3DX_AUX",
+    "MM_NEOMAGIC_MW3DX_FMSYNTH",
+    "MM_NEOMAGIC_MW3DX_GMSYNTH",
+    "MM_NEOMAGIC_MW3DX_MIDIIN",
+    "MM_NEOMAGIC_MW3DX_MIDIOUT",
+    "MM_NEOMAGIC_MW3DX_MIXER",
+    "MM_NEOMAGIC_MW3DX_WAVEIN",
+    "MM_NEOMAGIC_MW3DX_WAVEOUT",
+    "MM_NEOMAGIC_MWAVE_AUX",
+    "MM_NEOMAGIC_MWAVE_MIDIIN",
+    "MM_NEOMAGIC_MWAVE_MIDIOUT",
+    "MM_NEOMAGIC_MWAVE_MIXER",
+    "MM_NEOMAGIC_MWAVE_WAVEIN",
+    "MM_NEOMAGIC_MWAVE_WAVEOUT",
+    "MM_NEOMAGIC_SYNTH",
+    "MM_NEOMAGIC_WAVEIN",
+    "MM_NEOMAGIC_WAVEOUT",
+    "MM_NETSCAPE",
+    "MM_NETXL",
+    "MM_NETXL_XLVIDEO",
+    "MM_NEWMEDIA",
+    "MM_NEWMEDIA_WAVJAMMER",
+    "MM_NMP",
+    "MM_NMP_ACM_AMR",
+    "MM_NMP_CCP_WAVEIN",
+    "MM_NMP_CCP_WAVEOUT",
+    "MM_NMS",
+    "MM_NOGATECH",
+    "MM_NORRIS",
+    "MM_NORRIS_VOICELINK",
+    "MM_NORTEL_MPXAC_WAVEIN",
+    "MM_NORTEL_MPXAC_WAVEOUT",
+    "MM_NORTHERN_TELECOM",
+    "MM_NVIDIA",
+    "MM_NVIDIA_AUX",
+    "MM_NVIDIA_GAMEPORT",
+    "MM_NVIDIA_MIDIIN",
+    "MM_NVIDIA_MIDIOUT",
+    "MM_NVIDIA_MIXER",
+    "MM_NVIDIA_WAVEIN",
+    "MM_NVIDIA_WAVEOUT",
+    "MM_OKI",
+    "MM_OKSORI",
+    "MM_OKSORI_BASE",
+    "MM_OKSORI_EXT_MIC1",
+    "MM_OKSORI_EXT_MIC2",
+    "MM_OKSORI_FM_OPL4",
+    "MM_OKSORI_MIDIIN",
+    "MM_OKSORI_MIDIOUT",
+    "MM_OKSORI_MIX_AUX1",
+    "MM_OKSORI_MIX_CD",
+    "MM_OKSORI_MIX_ECHO",
+    "MM_OKSORI_MIX_FM",
+    "MM_OKSORI_MIX_LINE",
+    "MM_OKSORI_MIX_LINE1",
+    "MM_OKSORI_MIX_MASTER",
+    "MM_OKSORI_MIX_MIC",
+    "MM_OKSORI_MIX_WAVE",
+    "MM_OKSORI_MPEG_CDVISION",
+    "MM_OKSORI_OSR16_WAVEIN",
+    "MM_OKSORI_OSR16_WAVEOUT",
+    "MM_OKSORI_OSR8_WAVEIN",
+    "MM_OKSORI_OSR8_WAVEOUT",
+    "MM_OLIVETTI",
+    "MM_OLIVETTI_ACM_ADPCM",
+    "MM_OLIVETTI_ACM_CELP",
+    "MM_OLIVETTI_ACM_GSM",
+    "MM_OLIVETTI_ACM_OPR",
+    "MM_OLIVETTI_ACM_SBC",
+    "MM_OLIVETTI_AUX",
+    "MM_OLIVETTI_JOYSTICK",
+    "MM_OLIVETTI_MIDIIN",
+    "MM_OLIVETTI_MIDIOUT",
+    "MM_OLIVETTI_MIXER",
+    "MM_OLIVETTI_SYNTH",
+    "MM_OLIVETTI_WAVEIN",
+    "MM_OLIVETTI_WAVEOUT",
+    "MM_ONLIVE",
+    "MM_ONLIVE_MPCODEC",
+    "MM_OPCODE",
+    "MM_OPTI",
+    "MM_OPTI_M16_AUX",
+    "MM_OPTI_M16_FMSYNTH_STEREO",
+    "MM_OPTI_M16_MIDIIN",
+    "MM_OPTI_M16_MIDIOUT",
+    "MM_OPTI_M16_MIXER",
+    "MM_OPTI_M16_WAVEIN",
+    "MM_OPTI_M16_WAVEOUT",
+    "MM_OPTI_M32_AUX",
+    "MM_OPTI_M32_MIDIIN",
+    "MM_OPTI_M32_MIDIOUT",
+    "MM_OPTI_M32_MIXER",
+    "MM_OPTI_M32_SYNTH_STEREO",
+    "MM_OPTI_M32_WAVEIN",
+    "MM_OPTI_M32_WAVEOUT",
+    "MM_OPTI_P16_AUX",
+    "MM_OPTI_P16_FMSYNTH_STEREO",
+    "MM_OPTI_P16_MIDIIN",
+    "MM_OPTI_P16_MIDIOUT",
+    "MM_OPTI_P16_MIXER",
+    "MM_OPTI_P16_WAVEIN",
+    "MM_OPTI_P16_WAVEOUT",
+    "MM_OPUS1208_AUX",
+    "MM_OPUS1208_MIXER",
+    "MM_OPUS1208_SYNTH",
+    "MM_OPUS1208_WAVEIN",
+    "MM_OPUS1208_WAVEOUT",
+    "MM_OPUS1216_AUX",
+    "MM_OPUS1216_MIDIIN",
+    "MM_OPUS1216_MIDIOUT",
+    "MM_OPUS1216_MIXER",
+    "MM_OPUS1216_SYNTH",
+    "MM_OPUS1216_WAVEIN",
+    "MM_OPUS1216_WAVEOUT",
+    "MM_OPUS401_MIDIIN",
+    "MM_OPUS401_MIDIOUT",
+    "MM_OSITECH",
+    "MM_OSITECH_TRUMPCARD",
+    "MM_OSPREY",
+    "MM_OSPREY_1000WAVEIN",
+    "MM_OSPREY_1000WAVEOUT",
+    "MM_OTI",
+    "MM_OTI_611MIDIN",
+    "MM_OTI_611MIDIOUT",
+    "MM_OTI_611MIXER",
+    "MM_OTI_611WAVEIN",
+    "MM_OTI_611WAVEOUT",
+    "MM_PACIFICRESEARCH",
+    "MM_PCSPEAKER_WAVEOUT",
+    "MM_PHILIPS_ACM_LPCBB",
+    "MM_PHILIPS_SPEECH_PROCESSING",
+    "MM_PHONET",
+    "MM_PHONET_PP_MIXER",
+    "MM_PHONET_PP_WAVEIN",
+    "MM_PHONET_PP_WAVEOUT",
+    "MM_PICTURETEL",
+    "MM_PID_UNMAPPED",
+    "MM_PINNACLE",
+    "MM_PRAGMATRAX",
+    "MM_PRECEPT",
+    "MM_PROAUD_16_AUX",
+    "MM_PROAUD_16_MIDIIN",
+    "MM_PROAUD_16_MIDIOUT",
+    "MM_PROAUD_16_MIXER",
+    "MM_PROAUD_16_SYNTH",
+    "MM_PROAUD_16_WAVEIN",
+    "MM_PROAUD_16_WAVEOUT",
+    "MM_PROAUD_AUX",
+    "MM_PROAUD_MIDIIN",
+    "MM_PROAUD_MIDIOUT",
+    "MM_PROAUD_MIXER",
+    "MM_PROAUD_PLUS_AUX",
+    "MM_PROAUD_PLUS_MIDIIN",
+    "MM_PROAUD_PLUS_MIDIOUT",
+    "MM_PROAUD_PLUS_MIXER",
+    "MM_PROAUD_PLUS_SYNTH",
+    "MM_PROAUD_PLUS_WAVEIN",
+    "MM_PROAUD_PLUS_WAVEOUT",
+    "MM_PROAUD_SYNTH",
+    "MM_PROAUD_WAVEIN",
+    "MM_PROAUD_WAVEOUT",
+    "MM_QCIAR",
+    "MM_QDESIGN",
+    "MM_QDESIGN_ACM_MPEG",
+    "MM_QDESIGN_ACM_QDESIGN_MUSIC",
+    "MM_QTEAM",
+    "MM_QUALCOMM",
+    "MM_QUANTUM3D",
+    "MM_QUARTERDECK",
+    "MM_QUARTERDECK_LHWAVEIN",
+    "MM_QUARTERDECK_LHWAVEOUT",
+    "MM_QUICKAUDIO",
+    "MM_QUICKAUDIO_MAXIMIDI",
+    "MM_QUICKAUDIO_MINIMIDI",
+    "MM_QUICKNET",
+    "MM_QUICKNET_PJWAVEIN",
+    "MM_QUICKNET_PJWAVEOUT",
+    "MM_RADIUS",
+    "MM_RHETOREX",
+    "MM_RHETOREX_WAVEIN",
+    "MM_RHETOREX_WAVEOUT",
+    "MM_RICHMOND",
+    "MM_ROCKWELL",
+    "MM_ROLAND",
+    "MM_ROLAND_MPU401_MIDIIN",
+    "MM_ROLAND_MPU401_MIDIOUT",
+    "MM_ROLAND_RAP10_MIDIIN",
+    "MM_ROLAND_RAP10_MIDIOUT",
+    "MM_ROLAND_RAP10_SYNTH",
+    "MM_ROLAND_RAP10_WAVEIN",
+    "MM_ROLAND_RAP10_WAVEOUT",
+    "MM_ROLAND_SC7_MIDIIN",
+    "MM_ROLAND_SC7_MIDIOUT",
+    "MM_ROLAND_SCP_AUX",
+    "MM_ROLAND_SCP_MIDIIN",
+    "MM_ROLAND_SCP_MIDIOUT",
+    "MM_ROLAND_SCP_MIXER",
+    "MM_ROLAND_SCP_WAVEIN",
+    "MM_ROLAND_SCP_WAVEOUT",
+    "MM_ROLAND_SERIAL_MIDIIN",
+    "MM_ROLAND_SERIAL_MIDIOUT",
+    "MM_ROLAND_SMPU_MIDIINA",
+    "MM_ROLAND_SMPU_MIDIINB",
+    "MM_ROLAND_SMPU_MIDIOUTA",
+    "MM_ROLAND_SMPU_MIDIOUTB",
+    "MM_RZS",
+    "MM_RZS_ACM_TUBGSM",
+    "MM_S3",
+    "MM_S3_AUX",
+    "MM_S3_FMSYNTH",
+    "MM_S3_MIDIIN",
+    "MM_S3_MIDIOUT",
+    "MM_S3_MIXER",
+    "MM_S3_WAVEIN",
+    "MM_S3_WAVEOUT",
+    "MM_SANYO",
+    "MM_SANYO_ACM_LD_ADPCM",
+    "MM_SCALACS",
+    "MM_SEERSYS",
+    "MM_SEERSYS_REALITY",
+    "MM_SEERSYS_SEERMIX",
+    "MM_SEERSYS_SEERSYNTH",
+    "MM_SEERSYS_SEERWAVE",
+    "MM_SEERSYS_WAVESYNTH",
+    "MM_SEERSYS_WAVESYNTH_WG",
+    "MM_SELSIUS_SYSTEMS",
+    "MM_SELSIUS_SYSTEMS_RTPWAVEIN",
+    "MM_SELSIUS_SYSTEMS_RTPWAVEOUT",
+    "MM_SGI",
+    "MM_SGI_320_MIXER",
+    "MM_SGI_320_WAVEIN",
+    "MM_SGI_320_WAVEOUT",
+    "MM_SGI_540_MIXER",
+    "MM_SGI_540_WAVEIN",
+    "MM_SGI_540_WAVEOUT",
+    "MM_SGI_RAD_ADAT8CHAN_WAVEIN",
+    "MM_SGI_RAD_ADAT8CHAN_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO1_WAVEIN",
+    "MM_SGI_RAD_ADATMONO1_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO2_WAVEIN",
+    "MM_SGI_RAD_ADATMONO2_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO3_WAVEIN",
+    "MM_SGI_RAD_ADATMONO3_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO4_WAVEIN",
+    "MM_SGI_RAD_ADATMONO4_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO5_WAVEIN",
+    "MM_SGI_RAD_ADATMONO5_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO6_WAVEIN",
+    "MM_SGI_RAD_ADATMONO6_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO7_WAVEIN",
+    "MM_SGI_RAD_ADATMONO7_WAVEOUT",
+    "MM_SGI_RAD_ADATMONO8_WAVEIN",
+    "MM_SGI_RAD_ADATMONO8_WAVEOUT",
+    "MM_SGI_RAD_ADATSTEREO12_WAVEIN",
+    "MM_SGI_RAD_ADATSTEREO12_WAVEOUT",
+    "MM_SGI_RAD_ADATSTEREO32_WAVEOUT",
+    "MM_SGI_RAD_ADATSTEREO34_WAVEIN",
+    "MM_SGI_RAD_ADATSTEREO56_WAVEIN",
+    "MM_SGI_RAD_ADATSTEREO56_WAVEOUT",
+    "MM_SGI_RAD_ADATSTEREO78_WAVEIN",
+    "MM_SGI_RAD_ADATSTEREO78_WAVEOUT",
+    "MM_SGI_RAD_AESMONO1_WAVEIN",
+    "MM_SGI_RAD_AESMONO1_WAVEOUT",
+    "MM_SGI_RAD_AESMONO2_WAVEIN",
+    "MM_SGI_RAD_AESMONO2_WAVEOUT",
+    "MM_SGI_RAD_AESSTEREO_WAVEIN",
+    "MM_SGI_RAD_AESSTEREO_WAVEOUT",
+    "MM_SHARP",
+    "MM_SHARP_MDC_AUX",
+    "MM_SHARP_MDC_AUX_BASS",
+    "MM_SHARP_MDC_AUX_CHR",
+    "MM_SHARP_MDC_AUX_MASTER",
+    "MM_SHARP_MDC_AUX_MIDI_VOL",
+    "MM_SHARP_MDC_AUX_RVB",
+    "MM_SHARP_MDC_AUX_TREBLE",
+    "MM_SHARP_MDC_AUX_VOL",
+    "MM_SHARP_MDC_AUX_WAVE_CHR",
+    "MM_SHARP_MDC_AUX_WAVE_RVB",
+    "MM_SHARP_MDC_AUX_WAVE_VOL",
+    "MM_SHARP_MDC_MIDI_IN",
+    "MM_SHARP_MDC_MIDI_OUT",
+    "MM_SHARP_MDC_MIDI_SYNTH",
+    "MM_SHARP_MDC_MIXER",
+    "MM_SHARP_MDC_WAVE_IN",
+    "MM_SHARP_MDC_WAVE_OUT",
+    "MM_SICRESOURCE",
+    "MM_SICRESOURCE_SSO3D",
+    "MM_SICRESOURCE_SSOW3DI",
+    "MM_SIEMENS_SBC",
+    "MM_SIERRA",
+    "MM_SIERRA_ARIA_AUX",
+    "MM_SIERRA_ARIA_AUX2",
+    "MM_SIERRA_ARIA_MIDIIN",
+    "MM_SIERRA_ARIA_MIDIOUT",
+    "MM_SIERRA_ARIA_SYNTH",
+    "MM_SIERRA_ARIA_WAVEIN",
+    "MM_SIERRA_ARIA_WAVEOUT",
+    "MM_SIERRA_QUARTET_AUX_CD",
+    "MM_SIERRA_QUARTET_AUX_LINE",
+    "MM_SIERRA_QUARTET_AUX_MODEM",
+    "MM_SIERRA_QUARTET_MIDIIN",
+    "MM_SIERRA_QUARTET_MIDIOUT",
+    "MM_SIERRA_QUARTET_MIXER",
+    "MM_SIERRA_QUARTET_SYNTH",
+    "MM_SIERRA_QUARTET_WAVEIN",
+    "MM_SIERRA_QUARTET_WAVEOUT",
+    "MM_SILICONSOFT",
+    "MM_SILICONSOFT_SC1_WAVEIN",
+    "MM_SILICONSOFT_SC1_WAVEOUT",
+    "MM_SILICONSOFT_SC2_WAVEIN",
+    "MM_SILICONSOFT_SC2_WAVEOUT",
+    "MM_SILICONSOFT_SOUNDJR2PR_WAVEIN",
+    "MM_SILICONSOFT_SOUNDJR2PR_WAVEOUT",
+    "MM_SILICONSOFT_SOUNDJR2_WAVEOUT",
+    "MM_SILICONSOFT_SOUNDJR3_WAVEOUT",
+    "MM_SIPROLAB",
+    "MM_SIPROLAB_ACELPNET",
+    "MM_SNI",
+    "MM_SNI_ACM_G721",
+    "MM_SOFTLAB_NSK",
+    "MM_SOFTLAB_NSK_FRW_AUX",
+    "MM_SOFTLAB_NSK_FRW_MIXER",
+    "MM_SOFTLAB_NSK_FRW_WAVEIN",
+    "MM_SOFTLAB_NSK_FRW_WAVEOUT",
+    "MM_SOFTSOUND",
+    "MM_SOFTSOUND_CODEC",
+    "MM_SONICFOUNDRY",
+    "MM_SONORUS",
+    "MM_SONORUS_STUDIO",
+    "MM_SONY",
+    "MM_SONY_ACM_SCX",
+    "MM_SORVIS",
+    "MM_SOUNDESIGNS",
+    "MM_SOUNDESIGNS_WAVEIN",
+    "MM_SOUNDESIGNS_WAVEOUT",
+    "MM_SOUNDSCAPE_AUX",
+    "MM_SOUNDSCAPE_MIDIIN",
+    "MM_SOUNDSCAPE_MIDIOUT",
+    "MM_SOUNDSCAPE_MIXER",
+    "MM_SOUNDSCAPE_SYNTH",
+    "MM_SOUNDSCAPE_WAVEIN",
+    "MM_SOUNDSCAPE_WAVEOUT",
+    "MM_SOUNDSCAPE_WAVEOUT_AUX",
+    "MM_SOUNDSPACE",
+    "MM_SPECTRUM_PRODUCTIONS",
+    "MM_SPECTRUM_SIGNAL_PROCESSING",
+    "MM_SPEECHCOMP",
+    "MM_SPLASH_STUDIOS",
+    "MM_SSP_SNDFESAUX",
+    "MM_SSP_SNDFESMIDIIN",
+    "MM_SSP_SNDFESMIDIOUT",
+    "MM_SSP_SNDFESMIX",
+    "MM_SSP_SNDFESSYNTH",
+    "MM_SSP_SNDFESWAVEIN",
+    "MM_SSP_SNDFESWAVEOUT",
+    "MM_STUDER",
+    "MM_STUDIO_16_AUX",
+    "MM_STUDIO_16_MIDIIN",
+    "MM_STUDIO_16_MIDIOUT",
+    "MM_STUDIO_16_MIXER",
+    "MM_STUDIO_16_SYNTH",
+    "MM_STUDIO_16_WAVEIN",
+    "MM_STUDIO_16_WAVEOUT",
+    "MM_ST_MICROELECTRONICS",
+    "MM_SUNCOM",
+    "MM_SUPERMAC",
+    "MM_SYDEC_NV",
+    "MM_SYDEC_NV_WAVEIN",
+    "MM_SYDEC_NV_WAVEOUT",
+    "MM_TANDY",
+    "MM_TANDY_PSSJWAVEIN",
+    "MM_TANDY_PSSJWAVEOUT",
+    "MM_TANDY_SENS_MMAMIDIIN",
+    "MM_TANDY_SENS_MMAMIDIOUT",
+    "MM_TANDY_SENS_MMAWAVEIN",
+    "MM_TANDY_SENS_MMAWAVEOUT",
+    "MM_TANDY_SENS_VISWAVEOUT",
+    "MM_TANDY_VISBIOSSYNTH",
+    "MM_TANDY_VISWAVEIN",
+    "MM_TANDY_VISWAVEOUT",
+    "MM_TBS_TROPEZ_AUX1",
+    "MM_TBS_TROPEZ_AUX2",
+    "MM_TBS_TROPEZ_LINE",
+    "MM_TBS_TROPEZ_WAVEIN",
+    "MM_TBS_TROPEZ_WAVEOUT",
+    "MM_TDK",
+    "MM_TDK_MW_AUX",
+    "MM_TDK_MW_AUX_BASS",
+    "MM_TDK_MW_AUX_CHR",
+    "MM_TDK_MW_AUX_MASTER",
+    "MM_TDK_MW_AUX_MIDI_VOL",
+    "MM_TDK_MW_AUX_RVB",
+    "MM_TDK_MW_AUX_TREBLE",
+    "MM_TDK_MW_AUX_VOL",
+    "MM_TDK_MW_AUX_WAVE_CHR",
+    "MM_TDK_MW_AUX_WAVE_RVB",
+    "MM_TDK_MW_AUX_WAVE_VOL",
+    "MM_TDK_MW_MIDI_IN",
+    "MM_TDK_MW_MIDI_OUT",
+    "MM_TDK_MW_MIDI_SYNTH",
+    "MM_TDK_MW_MIXER",
+    "MM_TDK_MW_WAVE_IN",
+    "MM_TDK_MW_WAVE_OUT",
+    "MM_TELEKOL",
+    "MM_TELEKOL_WAVEIN",
+    "MM_TELEKOL_WAVEOUT",
+    "MM_TERALOGIC",
+    "MM_TERRATEC",
+    "MM_THUNDER_AUX",
+    "MM_THUNDER_SYNTH",
+    "MM_THUNDER_WAVEIN",
+    "MM_THUNDER_WAVEOUT",
+    "MM_TPORT_SYNTH",
+    "MM_TPORT_WAVEIN",
+    "MM_TPORT_WAVEOUT",
+    "MM_TRUEVISION",
+    "MM_TRUEVISION_WAVEIN1",
+    "MM_TRUEVISION_WAVEOUT1",
+    "MM_TTEWS_AUX",
+    "MM_TTEWS_MIDIIN",
+    "MM_TTEWS_MIDIMONITOR",
+    "MM_TTEWS_MIDIOUT",
+    "MM_TTEWS_MIDISYNTH",
+    "MM_TTEWS_MIXER",
+    "MM_TTEWS_VMIDIIN",
+    "MM_TTEWS_VMIDIOUT",
+    "MM_TTEWS_WAVEIN",
+    "MM_TTEWS_WAVEOUT",
+    "MM_TURTLE_BEACH",
+    "MM_UHER_INFORMATIC",
+    "MM_UH_ACM_ADPCM",
+    "MM_UNISYS",
+    "MM_UNISYS_ACM_NAP",
+    "MM_UNMAPPED",
+    "MM_VAL",
+    "MM_VAL_MICROKEY_AP_WAVEIN",
+    "MM_VAL_MICROKEY_AP_WAVEOUT",
+    "MM_VANKOEVERING",
+    "MM_VIA",
+    "MM_VIA_AUX",
+    "MM_VIA_MIXER",
+    "MM_VIA_MPU401_MIDIIN",
+    "MM_VIA_MPU401_MIDIOUT",
+    "MM_VIA_SWFM_SYNTH",
+    "MM_VIA_WAVEIN",
+    "MM_VIA_WAVEOUT",
+    "MM_VIA_WDM_MIXER",
+    "MM_VIA_WDM_MPU401_MIDIIN",
+    "MM_VIA_WDM_MPU401_MIDIOUT",
+    "MM_VIA_WDM_WAVEIN",
+    "MM_VIA_WDM_WAVEOUT",
+    "MM_VIDEOLOGIC",
+    "MM_VIDEOLOGIC_MSWAVEIN",
+    "MM_VIDEOLOGIC_MSWAVEOUT",
+    "MM_VIENNASYS",
+    "MM_VIENNASYS_TSP_WAVE_DRIVER",
+    "MM_VIONA",
+    "MM_VIONAQVINPCI_WAVEOUT",
+    "MM_VIONA_BUSTER_MIXER",
+    "MM_VIONA_CINEMASTER_MIXER",
+    "MM_VIONA_CONCERTO_MIXER",
+    "MM_VIONA_QVINPCI_MIXER",
+    "MM_VIONA_QVINPCI_WAVEIN",
+    "MM_VIRTUALMUSIC",
+    "MM_VITEC",
+    "MM_VITEC_VMAKER",
+    "MM_VITEC_VMPRO",
+    "MM_VIVO",
+    "MM_VIVO_AUDIO_CODEC",
+    "MM_VKC_MPU401_MIDIIN",
+    "MM_VKC_MPU401_MIDIOUT",
+    "MM_VKC_SERIAL_MIDIIN",
+    "MM_VKC_SERIAL_MIDIOUT",
+    "MM_VOCALTEC",
+    "MM_VOCALTEC_WAVEIN",
+    "MM_VOCALTEC_WAVEOUT",
+    "MM_VOICEINFO",
+    "MM_VOICEMIXER",
+    "MM_VOXWARE",
+    "MM_VOXWARE_CODEC",
+    "MM_VOYETRA",
+    "MM_VQST",
+    "MM_VQST_VQC1",
+    "MM_VQST_VQC2",
+    "MM_VTG",
+    "MM_WANGLABS",
+    "MM_WANGLABS_WAVEIN1",
+    "MM_WANGLABS_WAVEOUT1",
+    "MM_WEITEK",
+    "MM_WILDCAT",
+    "MM_WILDCAT_AUTOSCOREMIDIIN",
+    "MM_WILLOPOND_SNDCOMM_WAVEIN",
+    "MM_WILLOWPOND",
+    "MM_WILLOWPOND_FMSYNTH_STEREO",
+    "MM_WILLOWPOND_GENERIC_AUX",
+    "MM_WILLOWPOND_GENERIC_MIXER",
+    "MM_WILLOWPOND_GENERIC_WAVEIN",
+    "MM_WILLOWPOND_GENERIC_WAVEOUT",
+    "MM_WILLOWPOND_MPU401",
+    "MM_WILLOWPOND_PH_AUX",
+    "MM_WILLOWPOND_PH_MIXER",
+    "MM_WILLOWPOND_PH_WAVEIN",
+    "MM_WILLOWPOND_PH_WAVEOUT",
+    "MM_WILLOWPOND_SNDCOMM_AUX",
+    "MM_WILLOWPOND_SNDCOMM_MIXER",
+    "MM_WILLOWPOND_SNDCOMM_WAVEOUT",
+    "MM_WILLOWPOND_SNDPORT_AUX",
+    "MM_WILLOWPOND_SNDPORT_MIXER",
+    "MM_WILLOWPOND_SNDPORT_WAVEIN",
+    "MM_WILLOWPOND_SNDPORT_WAVEOUT",
+    "MM_WINBOND",
+    "MM_WINNOV",
+    "MM_WINNOV_CAVIAR_CHAMPAGNE",
+    "MM_WINNOV_CAVIAR_VIDC",
+    "MM_WINNOV_CAVIAR_WAVEIN",
+    "MM_WINNOV_CAVIAR_WAVEOUT",
+    "MM_WINNOV_CAVIAR_YUV8",
+    "MM_WORKBIT",
+    "MM_WORKBIT_AUX",
+    "MM_WORKBIT_FMSYNTH",
+    "MM_WORKBIT_JOYSTICK",
+    "MM_WORKBIT_MIDIIN",
+    "MM_WORKBIT_MIDIOUT",
+    "MM_WORKBIT_MIXER",
+    "MM_WORKBIT_WAVEIN",
+    "MM_WORKBIT_WAVEOUT",
+    "MM_WSS_SB16_AUX_CD",
+    "MM_WSS_SB16_AUX_LINE",
+    "MM_WSS_SB16_MIDIIN",
+    "MM_WSS_SB16_MIDIOUT",
+    "MM_WSS_SB16_MIXER",
+    "MM_WSS_SB16_SYNTH",
+    "MM_WSS_SB16_WAVEIN",
+    "MM_WSS_SB16_WAVEOUT",
+    "MM_WSS_SBPRO_AUX_CD",
+    "MM_WSS_SBPRO_AUX_LINE",
+    "MM_WSS_SBPRO_MIDIIN",
+    "MM_WSS_SBPRO_MIDIOUT",
+    "MM_WSS_SBPRO_MIXER",
+    "MM_WSS_SBPRO_SYNTH",
+    "MM_WSS_SBPRO_WAVEIN",
+    "MM_WSS_SBPRO_WAVEOUT",
+    "MM_XEBEC",
+    "MM_XIRLINK",
+    "MM_XIRLINK_VISIONLINK",
+    "MM_XYZ",
+    "MM_YAMAHA",
+    "MM_YAMAHA_ACXG_AUX",
+    "MM_YAMAHA_ACXG_MIDIOUT",
+    "MM_YAMAHA_ACXG_MIXER",
+    "MM_YAMAHA_ACXG_WAVEIN",
+    "MM_YAMAHA_ACXG_WAVEOUT",
+    "MM_YAMAHA_GSS_AUX",
+    "MM_YAMAHA_GSS_MIDIIN",
+    "MM_YAMAHA_GSS_MIDIOUT",
+    "MM_YAMAHA_GSS_SYNTH",
+    "MM_YAMAHA_GSS_WAVEIN",
+    "MM_YAMAHA_GSS_WAVEOUT",
+    "MM_YAMAHA_OPL3SA_FMSYNTH",
+    "MM_YAMAHA_OPL3SA_JOYSTICK",
+    "MM_YAMAHA_OPL3SA_MIDIIN",
+    "MM_YAMAHA_OPL3SA_MIDIOUT",
+    "MM_YAMAHA_OPL3SA_MIXER",
+    "MM_YAMAHA_OPL3SA_WAVEIN",
+    "MM_YAMAHA_OPL3SA_WAVEOUT",
+    "MM_YAMAHA_OPL3SA_YSYNTH",
+    "MM_YAMAHA_SERIAL_MIDIIN",
+    "MM_YAMAHA_SERIAL_MIDIOUT",
+    "MM_YAMAHA_SXG_MIDIOUT",
+    "MM_YAMAHA_SXG_MIXER",
+    "MM_YAMAHA_SXG_WAVEOUT",
+    "MM_YAMAHA_YMF724LEG_FMSYNTH",
+    "MM_YAMAHA_YMF724LEG_MIDIIN",
+    "MM_YAMAHA_YMF724LEG_MIDIOUT",
+    "MM_YAMAHA_YMF724LEG_MIXER",
+    "MM_YAMAHA_YMF724_AUX",
+    "MM_YAMAHA_YMF724_MIDIOUT",
+    "MM_YAMAHA_YMF724_MIXER",
+    "MM_YAMAHA_YMF724_WAVEIN",
+    "MM_YAMAHA_YMF724_WAVEOUT",
+    "MM_YOUCOM",
+    "MM_ZEFIRO",
+    "MM_ZEFIRO_ZA2",
+    "MM_ZYXEL",
+    "MM_ZYXEL_ACM_ADPCM",
+    "MODM_CACHEDRUMPATCHES",
+    "MODM_CACHEPATCHES",
+    "MODM_CLOSE",
+    "MODM_DATA",
+    "MODM_GETDEVCAPS",
+    "MODM_GETNUMDEVS",
+    "MODM_GETPOS",
+    "MODM_GETVOLUME",
+    "MODM_INIT",
+    "MODM_INIT_EX",
+    "MODM_LONGDATA",
+    "MODM_MAPPER",
+    "MODM_OPEN",
+    "MODM_PAUSE",
+    "MODM_PREFERRED",
+    "MODM_PREPARE",
+    "MODM_PROPERTIES",
+    "MODM_RECONFIGURE",
+    "MODM_RESET",
+    "MODM_RESTART",
+    "MODM_SETVOLUME",
+    "MODM_STOP",
+    "MODM_STRMDATA",
+    "MODM_UNPREPARE",
+    "MODM_USER",
+    "MPEGLAYER3_ID_CONSTANTFRAMESIZE",
+    "MPEGLAYER3_ID_MPEG",
+    "MPEGLAYER3_ID_UNKNOWN",
+    "MPEGLAYER3_WFX_EXTRA_BYTES",
+    "MSAUDIO1WAVEFORMAT",
+    "MSAUDIO1_BITS_PER_SAMPLE",
+    "MSAUDIO1_MAX_CHANNELS",
+    "MXDM_BASE",
+    "MXDM_CLOSE",
+    "MXDM_GETCONTROLDETAILS",
+    "MXDM_GETDEVCAPS",
+    "MXDM_GETLINECONTROLS",
+    "MXDM_GETLINEINFO",
+    "MXDM_GETNUMDEVS",
+    "MXDM_INIT",
+    "MXDM_INIT_EX",
+    "MXDM_OPEN",
+    "MXDM_SETCONTROLDETAILS",
+    "MXDM_USER",
+    "NMS_VBXADPCMWAVEFORMAT",
+    "NS_DRM_E_MIGRATION_IMAGE_ALREADY_EXISTS",
+    "NS_DRM_E_MIGRATION_SOURCE_MACHINE_IN_USE",
+    "NS_DRM_E_MIGRATION_TARGET_MACHINE_LESS_THAN_LH",
+    "NS_DRM_E_MIGRATION_UPGRADE_WITH_DIFF_SID",
+    "NS_E_8BIT_WAVE_UNSUPPORTED",
+    "NS_E_ACTIVE_SG_DEVICE_CONTROL_DISCONNECTED",
+    "NS_E_ACTIVE_SG_DEVICE_DISCONNECTED",
+    "NS_E_ADVANCEDEDIT_TOO_MANY_PICTURES",
+    "NS_E_ALLOCATE_FILE_FAIL",
+    "NS_E_ALL_PROTOCOLS_DISABLED",
+    "NS_E_ALREADY_CONNECTED",
+    "NS_E_ANALOG_VIDEO_PROTECTION_LEVEL_UNSUPPORTED",
+    "NS_E_ARCHIVE_ABORT_DUE_TO_BCAST",
+    "NS_E_ARCHIVE_FILENAME_NOTSET",
+    "NS_E_ARCHIVE_GAP_DETECTED",
+    "NS_E_ARCHIVE_REACH_QUOTA",
+    "NS_E_ARCHIVE_SAME_AS_INPUT",
+    "NS_E_ASSERT",
+    "NS_E_ASX_INVALIDFORMAT",
+    "NS_E_ASX_INVALIDVERSION",
+    "NS_E_ASX_INVALID_REPEAT_BLOCK",
+    "NS_E_ASX_NOTHING_TO_WRITE",
+    "NS_E_ATTRIBUTE_NOT_ALLOWED",
+    "NS_E_ATTRIBUTE_READ_ONLY",
+    "NS_E_AUDIENCE_CONTENTTYPE_MISMATCH",
+    "NS_E_AUDIENCE__LANGUAGE_CONTENTTYPE_MISMATCH",
+    "NS_E_AUDIODEVICE_BADFORMAT",
+    "NS_E_AUDIODEVICE_BUSY",
+    "NS_E_AUDIODEVICE_UNEXPECTED",
+    "NS_E_AUDIO_BITRATE_STEPDOWN",
+    "NS_E_AUDIO_CODEC_ERROR",
+    "NS_E_AUDIO_CODEC_NOT_INSTALLED",
+    "NS_E_AUTHORIZATION_FILE_NOT_FOUND",
+    "NS_E_BACKUP_RESTORE_BAD_DATA",
+    "NS_E_BACKUP_RESTORE_BAD_REQUEST_ID",
+    "NS_E_BACKUP_RESTORE_FAILURE",
+    "NS_E_BACKUP_RESTORE_TOO_MANY_RESETS",
+    "NS_E_BAD_ADAPTER_ADDRESS",
+    "NS_E_BAD_ADAPTER_NAME",
+    "NS_E_BAD_BLOCK0_VERSION",
+    "NS_E_BAD_CONTENTEDL",
+    "NS_E_BAD_CONTROL_DATA",
+    "NS_E_BAD_CUB_UID",
+    "NS_E_BAD_DELIVERY_MODE",
+    "NS_E_BAD_DISK_UID",
+    "NS_E_BAD_FSMAJOR_VERSION",
+    "NS_E_BAD_MARKIN",
+    "NS_E_BAD_MARKOUT",
+    "NS_E_BAD_MULTICAST_ADDRESS",
+    "NS_E_BAD_REQUEST",
+    "NS_E_BAD_STAMPNUMBER",
+    "NS_E_BAD_SYNTAX_IN_SERVER_RESPONSE",
+    "NS_E_BKGDOWNLOAD_CALLFUNCENDED",
+    "NS_E_BKGDOWNLOAD_CALLFUNCFAILED",
+    "NS_E_BKGDOWNLOAD_CALLFUNCTIMEOUT",
+    "NS_E_BKGDOWNLOAD_CANCELCOMPLETEDJOB",
+    "NS_E_BKGDOWNLOAD_COMPLETECANCELLEDJOB",
+    "NS_E_BKGDOWNLOAD_FAILEDINITIALIZE",
+    "NS_E_BKGDOWNLOAD_FAILED_TO_CREATE_TEMPFILE",
+    "NS_E_BKGDOWNLOAD_INVALIDJOBSIGNATURE",
+    "NS_E_BKGDOWNLOAD_INVALID_FILE_NAME",
+    "NS_E_BKGDOWNLOAD_NOJOBPOINTER",
+    "NS_E_BKGDOWNLOAD_PLUGIN_FAILEDINITIALIZE",
+    "NS_E_BKGDOWNLOAD_PLUGIN_FAILEDTOMOVEFILE",
+    "NS_E_BKGDOWNLOAD_WMDUNPACKFAILED",
+    "NS_E_BKGDOWNLOAD_WRONG_NO_FILES",
+    "NS_E_BUSY",
+    "NS_E_CACHE_ARCHIVE_CONFLICT",
+    "NS_E_CACHE_CANNOT_BE_CACHED",
+    "NS_E_CACHE_NOT_BROADCAST",
+    "NS_E_CACHE_NOT_MODIFIED",
+    "NS_E_CACHE_ORIGIN_SERVER_NOT_FOUND",
+    "NS_E_CACHE_ORIGIN_SERVER_TIMEOUT",
+    "NS_E_CANNOTCONNECT",
+    "NS_E_CANNOTCONNECTEVENTS",
+    "NS_E_CANNOTDESTROYTITLE",
+    "NS_E_CANNOTOFFLINEDISK",
+    "NS_E_CANNOTONLINEDISK",
+    "NS_E_CANNOTRENAMETITLE",
+    "NS_E_CANNOT_BUY_OR_DOWNLOAD_CONTENT",
+    "NS_E_CANNOT_BUY_OR_DOWNLOAD_FROM_MULTIPLE_SERVICES",
+    "NS_E_CANNOT_CONNECT_TO_PROXY",
+    "NS_E_CANNOT_DELETE_ACTIVE_SOURCEGROUP",
+    "NS_E_CANNOT_GENERATE_BROADCAST_INFO_FOR_QUALITYVBR",
+    "NS_E_CANNOT_PAUSE_LIVEBROADCAST",
+    "NS_E_CANNOT_READ_PLAYLIST_FROM_MEDIASERVER",
+    "NS_E_CANNOT_REMOVE_PLUGIN",
+    "NS_E_CANNOT_REMOVE_PUBLISHING_POINT",
+    "NS_E_CANNOT_SYNC_DRM_TO_NON_JANUS_DEVICE",
+    "NS_E_CANNOT_SYNC_PREVIOUS_SYNC_RUNNING",
+    "NS_E_CANT_READ_DIGITAL",
+    "NS_E_CCLINK_DOWN",
+    "NS_E_CD_COPYTO_CD",
+    "NS_E_CD_DRIVER_PROBLEM",
+    "NS_E_CD_EMPTY_TRACK_QUEUE",
+    "NS_E_CD_ISRC_INVALID",
+    "NS_E_CD_MEDIA_CATALOG_NUMBER_INVALID",
+    "NS_E_CD_NO_BUFFERS_READ",
+    "NS_E_CD_NO_READER",
+    "NS_E_CD_QUEUEING_DISABLED",
+    "NS_E_CD_READ_ERROR",
+    "NS_E_CD_READ_ERROR_NO_CORRECTION",
+    "NS_E_CD_REFRESH",
+    "NS_E_CD_SLOW_COPY",
+    "NS_E_CD_SPEEDDETECT_NOT_ENOUGH_READS",
+    "NS_E_CHANGING_PROXYBYPASS",
+    "NS_E_CHANGING_PROXY_EXCEPTIONLIST",
+    "NS_E_CHANGING_PROXY_NAME",
+    "NS_E_CHANGING_PROXY_PORT",
+    "NS_E_CHANGING_PROXY_PROTOCOL_NOT_FOUND",
+    "NS_E_CLOSED_ON_SUSPEND",
+    "NS_E_CODEC_DMO_ERROR",
+    "NS_E_CODEC_UNAVAILABLE",
+    "NS_E_COMPRESSED_DIGITAL_AUDIO_PROTECTION_LEVEL_UNSUPPORTED",
+    "NS_E_COMPRESSED_DIGITAL_VIDEO_PROTECTION_LEVEL_UNSUPPORTED",
+    "NS_E_CONNECTION_FAILURE",
+    "NS_E_CONNECT_TIMEOUT",
+    "NS_E_CONTENT_PARTNER_STILL_INITIALIZING",
+    "NS_E_CORECD_NOTAMEDIACD",
+    "NS_E_CRITICAL_ERROR",
+    "NS_E_CUB_FAIL",
+    "NS_E_CUB_FAIL_LINK",
+    "NS_E_CURLHELPER_NOTADIRECTORY",
+    "NS_E_CURLHELPER_NOTAFILE",
+    "NS_E_CURLHELPER_NOTRELATIVE",
+    "NS_E_CURL_CANTDECODE",
+    "NS_E_CURL_CANTWALK",
+    "NS_E_CURL_INVALIDBUFFERSIZE",
+    "NS_E_CURL_INVALIDCHAR",
+    "NS_E_CURL_INVALIDHOSTNAME",
+    "NS_E_CURL_INVALIDPATH",
+    "NS_E_CURL_INVALIDPORT",
+    "NS_E_CURL_INVALIDSCHEME",
+    "NS_E_CURL_INVALIDURL",
+    "NS_E_CURL_NOTSAFE",
+    "NS_E_DAMAGED_FILE",
+    "NS_E_DATAPATH_NO_SINK",
+    "NS_E_DATA_SOURCE_ENUMERATION_NOT_SUPPORTED",
+    "NS_E_DATA_UNIT_EXTENSION_TOO_LARGE",
+    "NS_E_DDRAW_GENERIC",
+    "NS_E_DEVCONTROL_FAILED_SEEK",
+    "NS_E_DEVICECONTROL_UNSTABLE",
+    "NS_E_DEVICE_DISCONNECTED",
+    "NS_E_DEVICE_IS_NOT_READY",
+    "NS_E_DEVICE_NOT_READY",
+    "NS_E_DEVICE_NOT_SUPPORT_FORMAT",
+    "NS_E_DEVICE_NOT_WMDRM_DEVICE",
+    "NS_E_DISK_FAIL",
+    "NS_E_DISK_READ",
+    "NS_E_DISK_WRITE",
+    "NS_E_DISPLAY_MODE_CHANGE_FAILED",
+    "NS_E_DRMPROFILE_NOTFOUND",
+    "NS_E_DRM_ACQUIRING_LICENSE",
+    "NS_E_DRM_ACTION_NOT_QUERIED",
+    "NS_E_DRM_ALREADY_INDIVIDUALIZED",
+    "NS_E_DRM_APPCERT_REVOKED",
+    "NS_E_DRM_ATTRIBUTE_TOO_LONG",
+    "NS_E_DRM_BACKUPRESTORE_BUSY",
+    "NS_E_DRM_BACKUP_CORRUPT",
+    "NS_E_DRM_BACKUP_EXISTS",
+    "NS_E_DRM_BAD_REQUEST",
+    "NS_E_DRM_BB_UNABLE_TO_INITIALIZE",
+    "NS_E_DRM_BUFFER_TOO_SMALL",
+    "NS_E_DRM_BUSY",
+    "NS_E_DRM_CACHED_CONTENT_ERROR",
+    "NS_E_DRM_CERTIFICATE_REVOKED",
+    "NS_E_DRM_CERTIFICATE_SECURITY_LEVEL_INADEQUATE",
+    "NS_E_DRM_CHAIN_TOO_LONG",
+    "NS_E_DRM_CHECKPOINT_CORRUPT",
+    "NS_E_DRM_CHECKPOINT_FAILED",
+    "NS_E_DRM_CHECKPOINT_MISMATCH",
+    "NS_E_DRM_CLIENT_CODE_EXPIRED",
+    "NS_E_DRM_DATASTORE_CORRUPT",
+    "NS_E_DRM_DEBUGGING_NOT_ALLOWED",
+    "NS_E_DRM_DECRYPT_ERROR",
+    "NS_E_DRM_DEVICE_ACTIVATION_CANCELED",
+    "NS_E_DRM_DEVICE_ALREADY_REGISTERED",
+    "NS_E_DRM_DEVICE_LIMIT_REACHED",
+    "NS_E_DRM_DEVICE_NOT_OPEN",
+    "NS_E_DRM_DEVICE_NOT_REGISTERED",
+    "NS_E_DRM_DRIVER_AUTH_FAILURE",
+    "NS_E_DRM_DRIVER_DIGIOUT_FAILURE",
+    "NS_E_DRM_DRMV2CLT_REVOKED",
+    "NS_E_DRM_ENCRYPT_ERROR",
+    "NS_E_DRM_ENUM_LICENSE_FAILED",
+    "NS_E_DRM_ERROR_BAD_NET_RESP",
+    "NS_E_DRM_EXPIRED_LICENSEBLOB",
+    "NS_E_DRM_GET_CONTENTSTRING_ERROR",
+    "NS_E_DRM_GET_LICENSESTRING_ERROR",
+    "NS_E_DRM_GET_LICENSE_ERROR",
+    "NS_E_DRM_HARDWAREID_MISMATCH",
+    "NS_E_DRM_HARDWARE_INCONSISTENT",
+    "NS_E_DRM_INCLUSION_LIST_REQUIRED",
+    "NS_E_DRM_INDIVIDUALIZATION_INCOMPLETE",
+    "NS_E_DRM_INDIVIDUALIZE_ERROR",
+    "NS_E_DRM_INDIVIDUALIZING",
+    "NS_E_DRM_INDIV_FRAUD",
+    "NS_E_DRM_INDIV_NO_CABS",
+    "NS_E_DRM_INDIV_SERVICE_UNAVAILABLE",
+    "NS_E_DRM_INVALID_APPCERT",
+    "NS_E_DRM_INVALID_APPDATA",
+    "NS_E_DRM_INVALID_APPDATA_VERSION",
+    "NS_E_DRM_INVALID_APPLICATION",
+    "NS_E_DRM_INVALID_CERTIFICATE",
+    "NS_E_DRM_INVALID_CONTENT",
+    "NS_E_DRM_INVALID_CRL",
+    "NS_E_DRM_INVALID_DATA",
+    "NS_E_DRM_INVALID_KID",
+    "NS_E_DRM_INVALID_LICENSE",
+    "NS_E_DRM_INVALID_LICENSEBLOB",
+    "NS_E_DRM_INVALID_LICENSE_ACQUIRED",
+    "NS_E_DRM_INVALID_LICENSE_REQUEST",
+    "NS_E_DRM_INVALID_MACHINE",
+    "NS_E_DRM_INVALID_MIGRATION_IMAGE",
+    "NS_E_DRM_INVALID_PROPERTY",
+    "NS_E_DRM_INVALID_PROXIMITY_RESPONSE",
+    "NS_E_DRM_INVALID_SECURESTORE_PASSWORD",
+    "NS_E_DRM_INVALID_SESSION",
+    "NS_E_DRM_KEY_ERROR",
+    "NS_E_DRM_LICENSE_APPSECLOW",
+    "NS_E_DRM_LICENSE_APP_NOTALLOWED",
+    "NS_E_DRM_LICENSE_CERT_EXPIRED",
+    "NS_E_DRM_LICENSE_CLOSE_ERROR",
+    "NS_E_DRM_LICENSE_CONTENT_REVOKED",
+    "NS_E_DRM_LICENSE_DELETION_ERROR",
+    "NS_E_DRM_LICENSE_EXPIRED",
+    "NS_E_DRM_LICENSE_INITIALIZATION_ERROR",
+    "NS_E_DRM_LICENSE_INVALID_XML",
+    "NS_E_DRM_LICENSE_NOSAP",
+    "NS_E_DRM_LICENSE_NOSVP",
+    "NS_E_DRM_LICENSE_NOTACQUIRED",
+    "NS_E_DRM_LICENSE_NOTENABLED",
+    "NS_E_DRM_LICENSE_NOTRUSTEDCODEC",
+    "NS_E_DRM_LICENSE_NOWDM",
+    "NS_E_DRM_LICENSE_OPEN_ERROR",
+    "NS_E_DRM_LICENSE_SECLOW",
+    "NS_E_DRM_LICENSE_SERVER_INFO_MISSING",
+    "NS_E_DRM_LICENSE_STORE_ERROR",
+    "NS_E_DRM_LICENSE_STORE_SAVE_ERROR",
+    "NS_E_DRM_LICENSE_UNAVAILABLE",
+    "NS_E_DRM_LICENSE_UNUSABLE",
+    "NS_E_DRM_LIC_NEEDS_DEVICE_CLOCK_SET",
+    "NS_E_DRM_MALFORMED_CONTENT_HEADER",
+    "NS_E_DRM_MIGRATION_IMPORTER_NOT_AVAILABLE",
+    "NS_E_DRM_MIGRATION_INVALID_LEGACYV2_DATA",
+    "NS_E_DRM_MIGRATION_INVALID_LEGACYV2_SST_PASSWORD",
+    "NS_E_DRM_MIGRATION_LICENSE_ALREADY_EXISTS",
+    "NS_E_DRM_MIGRATION_NOT_SUPPORTED",
+    "NS_E_DRM_MIGRATION_OBJECT_IN_USE",
+    "NS_E_DRM_MIGRATION_OPERATION_CANCELLED",
+    "NS_E_DRM_MIGRATION_TARGET_NOT_ONLINE",
+    "NS_E_DRM_MIGRATION_TARGET_STATES_CORRUPTED",
+    "NS_E_DRM_MONITOR_ERROR",
+    "NS_E_DRM_MUST_APPROVE",
+    "NS_E_DRM_MUST_REGISTER",
+    "NS_E_DRM_MUST_REVALIDATE",
+    "NS_E_DRM_NEEDS_INDIVIDUALIZATION",
+    "NS_E_DRM_NEEDS_UPGRADE_TEMPFILE",
+    "NS_E_DRM_NEED_UPGRADE_MSSAP",
+    "NS_E_DRM_NEED_UPGRADE_PD",
+    "NS_E_DRM_NOT_CONFIGURED",
+    "NS_E_DRM_NO_RIGHTS",
+    "NS_E_DRM_NO_UPLINK_LICENSE",
+    "NS_E_DRM_OPERATION_CANCELED",
+    "NS_E_DRM_PARAMETERS_MISMATCHED",
+    "NS_E_DRM_PASSWORD_TOO_LONG",
+    "NS_E_DRM_PD_TOO_MANY_DEVICES",
+    "NS_E_DRM_POLICY_DISABLE_ONLINE",
+    "NS_E_DRM_POLICY_METERING_DISABLED",
+    "NS_E_DRM_PROFILE_NOT_SET",
+    "NS_E_DRM_PROTOCOL_FORCEFUL_TERMINATION_ON_CHALLENGE",
+    "NS_E_DRM_PROTOCOL_FORCEFUL_TERMINATION_ON_PETITION",
+    "NS_E_DRM_QUERY_ERROR",
+    "NS_E_DRM_REOPEN_CONTENT",
+    "NS_E_DRM_REPORT_ERROR",
+    "NS_E_DRM_RESTORE_FRAUD",
+    "NS_E_DRM_RESTORE_SERVICE_UNAVAILABLE",
+    "NS_E_DRM_RESTRICTIONS_NOT_RETRIEVED",
+    "NS_E_DRM_RIV_TOO_SMALL",
+    "NS_E_DRM_SDK_VERSIONMISMATCH",
+    "NS_E_DRM_SDMI_NOMORECOPIES",
+    "NS_E_DRM_SDMI_TRIGGER",
+    "NS_E_DRM_SECURE_STORE_ERROR",
+    "NS_E_DRM_SECURE_STORE_NOT_FOUND",
+    "NS_E_DRM_SECURE_STORE_UNLOCK_ERROR",
+    "NS_E_DRM_SECURITY_COMPONENT_SIGNATURE_INVALID",
+    "NS_E_DRM_SIGNATURE_FAILURE",
+    "NS_E_DRM_SOURCEID_NOT_SUPPORTED",
+    "NS_E_DRM_STORE_NEEDINDI",
+    "NS_E_DRM_STORE_NOTALLOWED",
+    "NS_E_DRM_STORE_NOTALLSTORED",
+    "NS_E_DRM_STUBLIB_REQUIRED",
+    "NS_E_DRM_TRACK_EXCEEDED_PLAYLIST_RESTICTION",
+    "NS_E_DRM_TRACK_EXCEEDED_TRACKBURN_RESTRICTION",
+    "NS_E_DRM_TRANSFER_CHAINED_LICENSES_UNSUPPORTED",
+    "NS_E_DRM_UNABLE_TO_ACQUIRE_LICENSE",
+    "NS_E_DRM_UNABLE_TO_CREATE_AUTHENTICATION_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_BACKUP_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_CERTIFICATE_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_CODING_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_DECRYPT_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_DEVICE_REGISTRATION_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_ENCRYPT_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_HEADER_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_INDI_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_INMEMORYSTORE_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_KEYS_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_LICENSE_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_METERING_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_MIGRATION_IMPORTER_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_PLAYLIST_BURN_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_PLAYLIST_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_PROPERTIES_OBJECT",
+    "NS_E_DRM_UNABLE_TO_CREATE_STATE_DATA_OBJECT",
+    "NS_E_DRM_UNABLE_TO_GET_DEVICE_CERT",
+    "NS_E_DRM_UNABLE_TO_GET_SECURE_CLOCK",
+    "NS_E_DRM_UNABLE_TO_GET_SECURE_CLOCK_FROM_SERVER",
+    "NS_E_DRM_UNABLE_TO_INITIALIZE",
+    "NS_E_DRM_UNABLE_TO_LOAD_HARDWARE_ID",
+    "NS_E_DRM_UNABLE_TO_OPEN_DATA_STORE",
+    "NS_E_DRM_UNABLE_TO_OPEN_LICENSE",
+    "NS_E_DRM_UNABLE_TO_OPEN_PORT",
+    "NS_E_DRM_UNABLE_TO_SET_PARAMETER",
+    "NS_E_DRM_UNABLE_TO_SET_SECURE_CLOCK",
+    "NS_E_DRM_UNABLE_TO_VERIFY_PROXIMITY",
+    "NS_E_DRM_UNSUPPORTED_ACTION",
+    "NS_E_DRM_UNSUPPORTED_ALGORITHM",
+    "NS_E_DRM_UNSUPPORTED_PROPERTY",
+    "NS_E_DRM_UNSUPPORTED_PROTOCOL_VERSION",
+    "NS_E_DUPLICATE_ADDRESS",
+    "NS_E_DUPLICATE_DRMPROFILE",
+    "NS_E_DUPLICATE_NAME",
+    "NS_E_DUPLICATE_PACKET",
+    "NS_E_DVD_AUTHORING_PROBLEM",
+    "NS_E_DVD_CANNOT_COPY_PROTECTED",
+    "NS_E_DVD_CANNOT_JUMP",
+    "NS_E_DVD_COMPATIBLE_VIDEO_CARD",
+    "NS_E_DVD_COPY_PROTECT",
+    "NS_E_DVD_DEVICE_CONTENTION",
+    "NS_E_DVD_DISC_COPY_PROTECT_OUTPUT_FAILED",
+    "NS_E_DVD_DISC_COPY_PROTECT_OUTPUT_NS",
+    "NS_E_DVD_DISC_DECODER_REGION",
+    "NS_E_DVD_GRAPH_BUILDING",
+    "NS_E_DVD_INVALID_DISC_REGION",
+    "NS_E_DVD_INVALID_TITLE_CHAPTER",
+    "NS_E_DVD_MACROVISION",
+    "NS_E_DVD_NO_AUDIO_STREAM",
+    "NS_E_DVD_NO_DECODER",
+    "NS_E_DVD_NO_SUBPICTURE_STREAM",
+    "NS_E_DVD_NO_VIDEO_MEMORY",
+    "NS_E_DVD_NO_VIDEO_STREAM",
+    "NS_E_DVD_PARENTAL",
+    "NS_E_DVD_REQUIRED_PROPERTY_NOT_SET",
+    "NS_E_DVD_SYSTEM_DECODER_REGION",
+    "NS_E_EDL_REQUIRED_FOR_DEVICE_MULTIPASS",
+    "NS_E_EMPTY_PLAYLIST",
+    "NS_E_EMPTY_PROGRAM_NAME",
+    "NS_E_ENACTPLAN_GIVEUP",
+    "NS_E_END_OF_PLAYLIST",
+    "NS_E_END_OF_TAPE",
+    "NS_E_ERROR_FROM_PROXY",
+    "NS_E_EXCEED_MAX_DRM_PROFILE_LIMIT",
+    "NS_E_EXPECT_MONO_WAV_INPUT",
+    "NS_E_FAILED_DOWNLOAD_ABORT_BURN",
+    "NS_E_FAIL_LAUNCH_ROXIO_PLUGIN",
+    "NS_E_FEATURE_DISABLED_BY_GROUP_POLICY",
+    "NS_E_FEATURE_DISABLED_IN_SKU",
+    "NS_E_FEATURE_REQUIRES_ENTERPRISE_SERVER",
+    "NS_E_FILE_ALLOCATION_FAILED",
+    "NS_E_FILE_BANDWIDTH_LIMIT",
+    "NS_E_FILE_EXISTS",
+    "NS_E_FILE_FAILED_CHECKS",
+    "NS_E_FILE_INIT_FAILED",
+    "NS_E_FILE_NOT_FOUND",
+    "NS_E_FILE_OPEN_FAILED",
+    "NS_E_FILE_PLAY_FAILED",
+    "NS_E_FILE_READ",
+    "NS_E_FILE_WRITE",
+    "NS_E_FIREWALL",
+    "NS_E_FLASH_PLAYBACK_NOT_ALLOWED",
+    "NS_E_GLITCH_MODE",
+    "NS_E_GRAPH_NOAUDIOLANGUAGE",
+    "NS_E_GRAPH_NOAUDIOLANGUAGESELECTED",
+    "NS_E_HDS_KEY_MISMATCH",
+    "NS_E_HEADER_MISMATCH",
+    "NS_E_HTTP_DISABLED",
+    "NS_E_HTTP_TEXT_DATACONTAINER_INVALID_SERVER_RESPONSE",
+    "NS_E_HTTP_TEXT_DATACONTAINER_SIZE_LIMIT_EXCEEDED",
+    "NS_E_ICMQUERYFORMAT",
+    "NS_E_IE_DISALLOWS_ACTIVEX_CONTROLS",
+    "NS_E_IMAGE_DOWNLOAD_FAILED",
+    "NS_E_IMAPI_LOSSOFSTREAMING",
+    "NS_E_IMAPI_MEDIUM_INVALIDTYPE",
+    "NS_E_INCOMPATIBLE_FORMAT",
+    "NS_E_INCOMPATIBLE_PUSH_SERVER",
+    "NS_E_INCOMPATIBLE_SERVER",
+    "NS_E_INCOMPATIBLE_VERSION",
+    "NS_E_INCOMPLETE_PLAYLIST",
+    "NS_E_INCORRECTCLIPSETTINGS",
+    "NS_E_INDUCED",
+    "NS_E_INPUTSOURCE_PROBLEM",
+    "NS_E_INPUT_DOESNOT_SUPPORT_SMPTE",
+    "NS_E_INPUT_WAVFORMAT_MISMATCH",
+    "NS_E_INSUFFICIENT_BANDWIDTH",
+    "NS_E_INSUFFICIENT_DATA",
+    "NS_E_INTERFACE_NOT_REGISTERED_IN_GIT",
+    "NS_E_INTERLACEMODE_MISMATCH",
+    "NS_E_INTERLACE_REQUIRE_SAMESIZE",
+    "NS_E_INTERNAL",
+    "NS_E_INTERNAL_SERVER_ERROR",
+    "NS_E_INVALIDCALL_WHILE_ARCHIVAL_RUNNING",
+    "NS_E_INVALIDCALL_WHILE_ENCODER_RUNNING",
+    "NS_E_INVALIDCALL_WHILE_ENCODER_STOPPED",
+    "NS_E_INVALIDINPUTFPS",
+    "NS_E_INVALIDPACKETSIZE",
+    "NS_E_INVALIDPROFILE",
+    "NS_E_INVALID_ARCHIVE",
+    "NS_E_INVALID_AUDIO_BUFFERMAX",
+    "NS_E_INVALID_AUDIO_PEAKRATE",
+    "NS_E_INVALID_AUDIO_PEAKRATE_2",
+    "NS_E_INVALID_BLACKHOLE_ADDRESS",
+    "NS_E_INVALID_CHANNEL",
+    "NS_E_INVALID_CLIENT",
+    "NS_E_INVALID_DATA",
+    "NS_E_INVALID_DEVICE",
+    "NS_E_INVALID_DRMV2CLT_STUBLIB",
+    "NS_E_INVALID_EDL",
+    "NS_E_INVALID_FILE_BITRATE",
+    "NS_E_INVALID_FOLDDOWN_COEFFICIENTS",
+    "NS_E_INVALID_INDEX",
+    "NS_E_INVALID_INDEX2",
+    "NS_E_INVALID_INPUT_AUDIENCE_INDEX",
+    "NS_E_INVALID_INPUT_FORMAT",
+    "NS_E_INVALID_INPUT_LANGUAGE",
+    "NS_E_INVALID_INPUT_STREAM",
+    "NS_E_INVALID_INTERLACEMODE",
+    "NS_E_INVALID_INTERLACE_COMPAT",
+    "NS_E_INVALID_KEY",
+    "NS_E_INVALID_LOG_URL",
+    "NS_E_INVALID_MTU_RANGE",
+    "NS_E_INVALID_NAME",
+    "NS_E_INVALID_NONSQUAREPIXEL_COMPAT",
+    "NS_E_INVALID_NUM_PASSES",
+    "NS_E_INVALID_OPERATING_SYSTEM_VERSION",
+    "NS_E_INVALID_OUTPUT_FORMAT",
+    "NS_E_INVALID_PIXEL_ASPECT_RATIO",
+    "NS_E_INVALID_PLAY_STATISTICS",
+    "NS_E_INVALID_PLUGIN_LOAD_TYPE_CONFIGURATION",
+    "NS_E_INVALID_PORT",
+    "NS_E_INVALID_PROFILE_CONTENTTYPE",
+    "NS_E_INVALID_PUBLISHING_POINT_NAME",
+    "NS_E_INVALID_PUSH_PUBLISHING_POINT",
+    "NS_E_INVALID_PUSH_PUBLISHING_POINT_START_REQUEST",
+    "NS_E_INVALID_PUSH_TEMPLATE",
+    "NS_E_INVALID_QUERY_OPERATOR",
+    "NS_E_INVALID_QUERY_PROPERTY",
+    "NS_E_INVALID_REDIRECT",
+    "NS_E_INVALID_REQUEST",
+    "NS_E_INVALID_SAMPLING_RATE",
+    "NS_E_INVALID_SCRIPT_BITRATE",
+    "NS_E_INVALID_SOURCE_WITH_DEVICE_CONTROL",
+    "NS_E_INVALID_STREAM",
+    "NS_E_INVALID_TIMECODE",
+    "NS_E_INVALID_TTL",
+    "NS_E_INVALID_VBR_COMPAT",
+    "NS_E_INVALID_VBR_WITH_UNCOMP",
+    "NS_E_INVALID_VIDEO_BITRATE",
+    "NS_E_INVALID_VIDEO_BUFFER",
+    "NS_E_INVALID_VIDEO_BUFFERMAX",
+    "NS_E_INVALID_VIDEO_BUFFERMAX_2",
+    "NS_E_INVALID_VIDEO_CQUALITY",
+    "NS_E_INVALID_VIDEO_FPS",
+    "NS_E_INVALID_VIDEO_HEIGHT",
+    "NS_E_INVALID_VIDEO_HEIGHT_ALIGN",
+    "NS_E_INVALID_VIDEO_IQUALITY",
+    "NS_E_INVALID_VIDEO_KEYFRAME",
+    "NS_E_INVALID_VIDEO_PEAKRATE",
+    "NS_E_INVALID_VIDEO_PEAKRATE_2",
+    "NS_E_INVALID_VIDEO_WIDTH",
+    "NS_E_INVALID_VIDEO_WIDTH_ALIGN",
+    "NS_E_INVALID_VIDEO_WIDTH_FOR_INTERLACED_ENCODING",
+    "NS_E_LANGUAGE_MISMATCH",
+    "NS_E_LATE_OPERATION",
+    "NS_E_LATE_PACKET",
+    "NS_E_LICENSE_EXPIRED",
+    "NS_E_LICENSE_HEADER_MISSING_URL",
+    "NS_E_LICENSE_INCORRECT_RIGHTS",
+    "NS_E_LICENSE_OUTOFDATE",
+    "NS_E_LICENSE_REQUIRED",
+    "NS_E_LOGFILEPERIOD",
+    "NS_E_LOG_FILE_SIZE",
+    "NS_E_LOG_NEED_TO_BE_SKIPPED",
+    "NS_E_MARKIN_UNSUPPORTED",
+    "NS_E_MAX_BITRATE",
+    "NS_E_MAX_CLIENTS",
+    "NS_E_MAX_FILERATE",
+    "NS_E_MAX_FUNNELS_ALERT",
+    "NS_E_MAX_PACKET_SIZE_TOO_SMALL",
+    "NS_E_MEDIACD_READ_ERROR",
+    "NS_E_MEDIA_LIBRARY_FAILED",
+    "NS_E_MEDIA_PARSER_INVALID_FORMAT",
+    "NS_E_MEMSTORAGE_BAD_DATA",
+    "NS_E_METADATA_CACHE_DATA_NOT_AVAILABLE",
+    "NS_E_METADATA_CANNOT_RETRIEVE_FROM_OFFLINE_CACHE",
+    "NS_E_METADATA_CANNOT_SET_LOCALE",
+    "NS_E_METADATA_FORMAT_NOT_SUPPORTED",
+    "NS_E_METADATA_IDENTIFIER_NOT_AVAILABLE",
+    "NS_E_METADATA_INVALID_DOCUMENT_TYPE",
+    "NS_E_METADATA_LANGUAGE_NOT_SUPORTED",
+    "NS_E_METADATA_NOT_AVAILABLE",
+    "NS_E_METADATA_NO_EDITING_CAPABILITY",
+    "NS_E_METADATA_NO_RFC1766_NAME_FOR_LOCALE",
+    "NS_E_MISMATCHED_MEDIACONTENT",
+    "NS_E_MISSING_AUDIENCE",
+    "NS_E_MISSING_CHANNEL",
+    "NS_E_MISSING_SOURCE_INDEX",
+    "NS_E_MIXER_INVALID_CONTROL",
+    "NS_E_MIXER_INVALID_LINE",
+    "NS_E_MIXER_INVALID_VALUE",
+    "NS_E_MIXER_NODRIVER",
+    "NS_E_MIXER_UNKNOWN_MMRESULT",
+    "NS_E_MLS_SMARTPLAYLIST_FILTER_NOT_REGISTERED",
+    "NS_E_MMSAUTOSERVER_CANTFINDWALKER",
+    "NS_E_MMS_NOT_SUPPORTED",
+    "NS_E_MONITOR_GIVEUP",
+    "NS_E_MP3_FORMAT_NOT_FOUND",
+    "NS_E_MPDB_GENERIC",
+    "NS_E_MSAUDIO_NOT_INSTALLED",
+    "NS_E_MSBD_NO_LONGER_SUPPORTED",
+    "NS_E_MULTICAST_DISABLED",
+    "NS_E_MULTICAST_PLUGIN_NOT_ENABLED",
+    "NS_E_MULTIPLE_AUDIO_CODECS",
+    "NS_E_MULTIPLE_AUDIO_FORMATS",
+    "NS_E_MULTIPLE_FILE_BITRATES",
+    "NS_E_MULTIPLE_SCRIPT_BITRATES",
+    "NS_E_MULTIPLE_VBR_AUDIENCES",
+    "NS_E_MULTIPLE_VIDEO_CODECS",
+    "NS_E_MULTIPLE_VIDEO_SIZES",
+    "NS_E_NAMESPACE_BAD_NAME",
+    "NS_E_NAMESPACE_BUFFER_TOO_SMALL",
+    "NS_E_NAMESPACE_CALLBACK_NOT_FOUND",
+    "NS_E_NAMESPACE_DUPLICATE_CALLBACK",
+    "NS_E_NAMESPACE_DUPLICATE_NAME",
+    "NS_E_NAMESPACE_EMPTY_NAME",
+    "NS_E_NAMESPACE_INDEX_TOO_LARGE",
+    "NS_E_NAMESPACE_NAME_TOO_LONG",
+    "NS_E_NAMESPACE_NODE_CONFLICT",
+    "NS_E_NAMESPACE_NODE_NOT_FOUND",
+    "NS_E_NAMESPACE_TOO_MANY_CALLBACKS",
+    "NS_E_NAMESPACE_WRONG_PERSIST",
+    "NS_E_NAMESPACE_WRONG_SECURITY",
+    "NS_E_NAMESPACE_WRONG_TYPE",
+    "NS_E_NEED_CORE_REFERENCE",
+    "NS_E_NEED_TO_ASK_USER",
+    "NS_E_NETWORK_BUSY",
+    "NS_E_NETWORK_RESOURCE_FAILURE",
+    "NS_E_NETWORK_SERVICE_FAILURE",
+    "NS_E_NETWORK_SINK_WRITE",
+    "NS_E_NET_READ",
+    "NS_E_NET_WRITE",
+    "NS_E_NOCONNECTION",
+    "NS_E_NOFUNNEL",
+    "NS_E_NOMATCHING_ELEMENT",
+    "NS_E_NOMATCHING_MEDIASOURCE",
+    "NS_E_NONSQUAREPIXELMODE_MISMATCH",
+    "NS_E_NOREGISTEREDWALKER",
+    "NS_E_NOSOURCEGROUPS",
+    "NS_E_NOSTATSAVAILABLE",
+    "NS_E_NOTARCHIVING",
+    "NS_E_NOTHING_TO_DO",
+    "NS_E_NOTITLES",
+    "NS_E_NOT_CONFIGURED",
+    "NS_E_NOT_CONNECTED",
+    "NS_E_NOT_CONTENT_PARTNER_TRACK",
+    "NS_E_NOT_LICENSED",
+    "NS_E_NOT_REBUILDING",
+    "NS_E_NO_ACTIVE_SOURCEGROUP",
+    "NS_E_NO_AUDIENCES",
+    "NS_E_NO_AUDIODATA",
+    "NS_E_NO_AUDIO_COMPAT",
+    "NS_E_NO_AUDIO_TIMECOMPRESSION",
+    "NS_E_NO_CD",
+    "NS_E_NO_CD_BURNER",
+    "NS_E_NO_CHANNELS",
+    "NS_E_NO_DATAVIEW_SUPPORT",
+    "NS_E_NO_DEVICE",
+    "NS_E_NO_ERROR_STRING_FOUND",
+    "NS_E_NO_EXISTING_PACKETIZER",
+    "NS_E_NO_FORMATS",
+    "NS_E_NO_FRAMES_SUBMITTED_TO_ANALYZER",
+    "NS_E_NO_LOCALPLAY",
+    "NS_E_NO_MBR_WITH_TIMECODE",
+    "NS_E_NO_MEDIAFORMAT_IN_SOURCE",
+    "NS_E_NO_MEDIA_IN_AUDIENCE",
+    "NS_E_NO_MEDIA_PROTOCOL",
+    "NS_E_NO_MORE_SAMPLES",
+    "NS_E_NO_MULTICAST",
+    "NS_E_NO_MULTIPASS_FOR_LIVEDEVICE",
+    "NS_E_NO_NEW_CONNECTIONS",
+    "NS_E_NO_PAL_INVERSE_TELECINE",
+    "NS_E_NO_PDA",
+    "NS_E_NO_PROFILE_IN_SOURCEGROUP",
+    "NS_E_NO_PROFILE_NAME",
+    "NS_E_NO_REALTIME_PREPROCESS",
+    "NS_E_NO_REALTIME_TIMECOMPRESSION",
+    "NS_E_NO_REFERENCES",
+    "NS_E_NO_REPEAT_PREPROCESS",
+    "NS_E_NO_SCRIPT_ENGINE",
+    "NS_E_NO_SCRIPT_STREAM",
+    "NS_E_NO_SERVER_CONTACT",
+    "NS_E_NO_SMPTE_WITH_MULTIPLE_SOURCEGROUPS",
+    "NS_E_NO_SPECIFIED_DEVICE",
+    "NS_E_NO_STREAM",
+    "NS_E_NO_TWOPASS_TIMECOMPRESSION",
+    "NS_E_NO_VALID_OUTPUT_STREAM",
+    "NS_E_NO_VALID_SOURCE_PLUGIN",
+    "NS_E_NUM_LANGUAGE_MISMATCH",
+    "NS_E_OFFLINE_MODE",
+    "NS_E_OPEN_CONTAINING_FOLDER_FAILED",
+    "NS_E_OPEN_FILE_LIMIT",
+    "NS_E_OUTPUT_PROTECTION_LEVEL_UNSUPPORTED",
+    "NS_E_OUTPUT_PROTECTION_SCHEME_UNSUPPORTED",
+    "NS_E_PACKETSINK_UNKNOWN_FEC_STREAM",
+    "NS_E_PAGING_ERROR",
+    "NS_E_PARTIALLY_REBUILT_DISK",
+    "NS_E_PDA_CANNOT_CREATE_ADDITIONAL_SYNC_RELATIONSHIP",
+    "NS_E_PDA_CANNOT_SYNC_FROM_INTERNET",
+    "NS_E_PDA_CANNOT_SYNC_FROM_LOCATION",
+    "NS_E_PDA_CANNOT_SYNC_INVALID_PLAYLIST",
+    "NS_E_PDA_CANNOT_TRANSCODE",
+    "NS_E_PDA_CANNOT_TRANSCODE_TO_AUDIO",
+    "NS_E_PDA_CANNOT_TRANSCODE_TO_IMAGE",
+    "NS_E_PDA_CANNOT_TRANSCODE_TO_VIDEO",
+    "NS_E_PDA_CEWMDM_DRM_ERROR",
+    "NS_E_PDA_DELETE_FAILED",
+    "NS_E_PDA_DEVICESUPPORTDISABLED",
+    "NS_E_PDA_DEVICE_FULL",
+    "NS_E_PDA_DEVICE_FULL_IN_SESSION",
+    "NS_E_PDA_DEVICE_NOT_RESPONDING",
+    "NS_E_PDA_ENCODER_NOT_RESPONDING",
+    "NS_E_PDA_FAILED_TO_BURN",
+    "NS_E_PDA_FAILED_TO_ENCRYPT_TRANSCODED_FILE",
+    "NS_E_PDA_FAILED_TO_RETRIEVE_FILE",
+    "NS_E_PDA_FAILED_TO_SYNCHRONIZE_FILE",
+    "NS_E_PDA_FAILED_TO_TRANSCODE_PHOTO",
+    "NS_E_PDA_FAIL_READ_WAVE_FILE",
+    "NS_E_PDA_FAIL_SELECT_DEVICE",
+    "NS_E_PDA_INITIALIZINGDEVICES",
+    "NS_E_PDA_MANUALDEVICE",
+    "NS_E_PDA_NO_LONGER_AVAILABLE",
+    "NS_E_PDA_NO_TRANSCODE_OF_DRM",
+    "NS_E_PDA_OBSOLETE_SP",
+    "NS_E_PDA_PARTNERSHIPNOTEXIST",
+    "NS_E_PDA_RETRIEVED_FILE_FILENAME_TOO_LONG",
+    "NS_E_PDA_SYNC_FAILED",
+    "NS_E_PDA_SYNC_LOGIN_ERROR",
+    "NS_E_PDA_SYNC_RUNNING",
+    "NS_E_PDA_TITLE_COLLISION",
+    "NS_E_PDA_TOO_MANY_FILES_IN_DIRECTORY",
+    "NS_E_PDA_TOO_MANY_FILE_COLLISIONS",
+    "NS_E_PDA_TRANSCODECACHEFULL",
+    "NS_E_PDA_TRANSCODE_CODEC_NOT_FOUND",
+    "NS_E_PDA_TRANSCODE_NOT_PERMITTED",
+    "NS_E_PDA_UNSPECIFIED_ERROR",
+    "NS_E_PDA_UNSUPPORTED_FORMAT",
+    "NS_E_PLAYLIST_CONTAINS_ERRORS",
+    "NS_E_PLAYLIST_END_RECEDING",
+    "NS_E_PLAYLIST_ENTRY_ALREADY_PLAYING",
+    "NS_E_PLAYLIST_ENTRY_HAS_CHANGED",
+    "NS_E_PLAYLIST_ENTRY_NOT_IN_PLAYLIST",
+    "NS_E_PLAYLIST_ENTRY_SEEK",
+    "NS_E_PLAYLIST_PARSE_FAILURE",
+    "NS_E_PLAYLIST_PLUGIN_NOT_FOUND",
+    "NS_E_PLAYLIST_RECURSIVE_PLAYLISTS",
+    "NS_E_PLAYLIST_SHUTDOWN",
+    "NS_E_PLAYLIST_TOO_MANY_NESTED_PLAYLISTS",
+    "NS_E_PLAYLIST_UNSUPPORTED_ENTRY",
+    "NS_E_PLUGIN_CLSID_INVALID",
+    "NS_E_PLUGIN_ERROR_REPORTED",
+    "NS_E_PLUGIN_NOTSHUTDOWN",
+    "NS_E_PORT_IN_USE",
+    "NS_E_PORT_IN_USE_HTTP",
+    "NS_E_PROCESSINGSHOWSYNCWIZARD",
+    "NS_E_PROFILE_MISMATCH",
+    "NS_E_PROPERTY_NOT_FOUND",
+    "NS_E_PROPERTY_NOT_SUPPORTED",
+    "NS_E_PROPERTY_READ_ONLY",
+    "NS_E_PROTECTED_CONTENT",
+    "NS_E_PROTOCOL_MISMATCH",
+    "NS_E_PROXY_ACCESSDENIED",
+    "NS_E_PROXY_CONNECT_TIMEOUT",
+    "NS_E_PROXY_DNS_TIMEOUT",
+    "NS_E_PROXY_NOT_FOUND",
+    "NS_E_PROXY_SOURCE_ACCESSDENIED",
+    "NS_E_PROXY_TIMEOUT",
+    "NS_E_PUBLISHING_POINT_INVALID_REQUEST_WHILE_STARTED",
+    "NS_E_PUBLISHING_POINT_REMOVED",
+    "NS_E_PUBLISHING_POINT_STOPPED",
+    "NS_E_PUSH_CANNOTCONNECT",
+    "NS_E_PUSH_DUPLICATE_PUBLISHING_POINT_NAME",
+    "NS_E_REBOOT_RECOMMENDED",
+    "NS_E_REBOOT_REQUIRED",
+    "NS_E_RECORDQ_DISK_FULL",
+    "NS_E_REDBOOK_ENABLED_WHILE_COPYING",
+    "NS_E_REDIRECT",
+    "NS_E_REDIRECT_TO_PROXY",
+    "NS_E_REFUSED_BY_SERVER",
+    "NS_E_REG_FLUSH_FAILURE",
+    "NS_E_REMIRRORED_DISK",
+    "NS_E_REQUIRE_STREAMING_CLIENT",
+    "NS_E_RESET_SOCKET_CONNECTION",
+    "NS_E_RESOURCE_GONE",
+    "NS_E_SAME_AS_INPUT_COMBINATION",
+    "NS_E_SCHEMA_CLASSIFY_FAILURE",
+    "NS_E_SCRIPT_DEBUGGER_NOT_INSTALLED",
+    "NS_E_SDK_BUFFERTOOSMALL",
+    "NS_E_SERVER_ACCESSDENIED",
+    "NS_E_SERVER_DNS_TIMEOUT",
+    "NS_E_SERVER_NOT_FOUND",
+    "NS_E_SERVER_UNAVAILABLE",
+    "NS_E_SESSION_INVALID",
+    "NS_E_SESSION_NOT_FOUND",
+    "NS_E_SETUP_BLOCKED",
+    "NS_E_SETUP_DRM_MIGRATION_FAILED",
+    "NS_E_SETUP_DRM_MIGRATION_FAILED_AND_IGNORABLE_FAILURE",
+    "NS_E_SETUP_IGNORABLE_FAILURE",
+    "NS_E_SETUP_INCOMPLETE",
+    "NS_E_SET_DISK_UID_FAILED",
+    "NS_E_SHARING_STATE_OUT_OF_SYNC",
+    "NS_E_SHARING_VIOLATION",
+    "NS_E_SHUTDOWN",
+    "NS_E_SLOW_READ_DIGITAL",
+    "NS_E_SLOW_READ_DIGITAL_WITH_ERRORCORRECTION",
+    "NS_E_SMPTEMODE_MISMATCH",
+    "NS_E_SOURCEGROUP_NOTPREPARED",
+    "NS_E_SOURCE_CANNOT_LOOP",
+    "NS_E_SOURCE_NOTSPECIFIED",
+    "NS_E_SOURCE_PLUGIN_NOT_FOUND",
+    "NS_E_SPEECHEDL_ON_NON_MIXEDMODE",
+    "NS_E_STALE_PRESENTATION",
+    "NS_E_STREAM_END",
+    "NS_E_STRIDE_REFUSED",
+    "NS_E_SUBSCRIPTIONSERVICE_DOWNLOAD_TIMEOUT",
+    "NS_E_SUBSCRIPTIONSERVICE_LOGIN_FAILED",
+    "NS_E_SUBSCRIPTIONSERVICE_PLAYBACK_DISALLOWED",
+    "NS_E_SYNCWIZ_CANNOT_CHANGE_SETTINGS",
+    "NS_E_SYNCWIZ_DEVICE_FULL",
+    "NS_E_TABLE_KEY_NOT_FOUND",
+    "NS_E_TAMPERED_CONTENT",
+    "NS_E_TCP_DISABLED",
+    "NS_E_TIGER_FAIL",
+    "NS_E_TIMECODE_REQUIRES_VIDEOSTREAM",
+    "NS_E_TIMEOUT",
+    "NS_E_TITLE_BITRATE",
+    "NS_E_TITLE_SIZE_EXCEEDED",
+    "NS_E_TOO_MANY_AUDIO",
+    "NS_E_TOO_MANY_DEVICECONTROL",
+    "NS_E_TOO_MANY_HOPS",
+    "NS_E_TOO_MANY_MULTICAST_SINKS",
+    "NS_E_TOO_MANY_SESS",
+    "NS_E_TOO_MANY_TITLES",
+    "NS_E_TOO_MANY_VIDEO",
+    "NS_E_TOO_MUCH_DATA",
+    "NS_E_TOO_MUCH_DATA_FROM_SERVER",
+    "NS_E_TRACK_DOWNLOAD_REQUIRES_ALBUM_PURCHASE",
+    "NS_E_TRACK_DOWNLOAD_REQUIRES_PURCHASE",
+    "NS_E_TRACK_PURCHASE_MAXIMUM_EXCEEDED",
+    "NS_E_TRANSCODE_DELETECACHEERROR",
+    "NS_E_TRANSFORM_PLUGIN_INVALID",
+    "NS_E_TRANSFORM_PLUGIN_NOT_FOUND",
+    "NS_E_UDP_DISABLED",
+    "NS_E_UNABLE_TO_CREATE_RIP_LOCATION",
+    "NS_E_UNCOMPRESSED_DIGITAL_AUDIO_PROTECTION_LEVEL_UNSUPPORTED",
+    "NS_E_UNCOMPRESSED_DIGITAL_VIDEO_PROTECTION_LEVEL_UNSUPPORTED",
+    "NS_E_UNCOMP_COMP_COMBINATION",
+    "NS_E_UNEXPECTED_DISPLAY_SETTINGS",
+    "NS_E_UNEXPECTED_MSAUDIO_ERROR",
+    "NS_E_UNKNOWN_PROTOCOL",
+    "NS_E_UNRECOGNIZED_STREAM_TYPE",
+    "NS_E_UNSUPPORTED_ARCHIVEOPERATION",
+    "NS_E_UNSUPPORTED_ARCHIVETYPE",
+    "NS_E_UNSUPPORTED_ENCODER_DEVICE",
+    "NS_E_UNSUPPORTED_LANGUAGE",
+    "NS_E_UNSUPPORTED_LOAD_TYPE",
+    "NS_E_UNSUPPORTED_PROPERTY",
+    "NS_E_UNSUPPORTED_SOURCETYPE",
+    "NS_E_URLLIST_INVALIDFORMAT",
+    "NS_E_USER_STOP",
+    "NS_E_USE_FILE_SOURCE",
+    "NS_E_VBRMODE_MISMATCH",
+    "NS_E_VIDCAPCREATEWINDOW",
+    "NS_E_VIDCAPDRVINUSE",
+    "NS_E_VIDCAPSTARTFAILED",
+    "NS_E_VIDEODEVICE_BUSY",
+    "NS_E_VIDEODEVICE_UNEXPECTED",
+    "NS_E_VIDEODRIVER_UNSTABLE",
+    "NS_E_VIDEO_BITRATE_STEPDOWN",
+    "NS_E_VIDEO_CODEC_ERROR",
+    "NS_E_VIDEO_CODEC_NOT_INSTALLED",
+    "NS_E_VIDSOURCECOMPRESSION",
+    "NS_E_VIDSOURCESIZE",
+    "NS_E_WALKER_SERVER",
+    "NS_E_WALKER_UNKNOWN",
+    "NS_E_WALKER_USAGE",
+    "NS_E_WAVE_OPEN",
+    "NS_E_WINSOCK_ERROR_STRING",
+    "NS_E_WIZARD_RUNNING",
+    "NS_E_WMDM_REVOKED",
+    "NS_E_WMDRM_DEPRECATED",
+    "NS_E_WME_VERSION_MISMATCH",
+    "NS_E_WMG_CANNOTQUEUE",
+    "NS_E_WMG_COPP_SECURITY_INVALID",
+    "NS_E_WMG_COPP_UNSUPPORTED",
+    "NS_E_WMG_FILETRANSFERNOTALLOWED",
+    "NS_E_WMG_INVALIDSTATE",
+    "NS_E_WMG_INVALID_COPP_CERTIFICATE",
+    "NS_E_WMG_LICENSE_TAMPERED",
+    "NS_E_WMG_NOSDKINTERFACE",
+    "NS_E_WMG_NOTALLOUTPUTSRENDERED",
+    "NS_E_WMG_PLUGINUNAVAILABLE",
+    "NS_E_WMG_PREROLLLICENSEACQUISITIONNOTALLOWED",
+    "NS_E_WMG_RATEUNAVAILABLE",
+    "NS_E_WMG_SINKALREADYEXISTS",
+    "NS_E_WMG_UNEXPECTEDPREROLLSTATUS",
+    "NS_E_WMPBR_BACKUPCANCEL",
+    "NS_E_WMPBR_BACKUPRESTOREFAILED",
+    "NS_E_WMPBR_DRIVE_INVALID",
+    "NS_E_WMPBR_ERRORWITHURL",
+    "NS_E_WMPBR_NAMECOLLISION",
+    "NS_E_WMPBR_NOLISTENER",
+    "NS_E_WMPBR_RESTORECANCEL",
+    "NS_E_WMPCORE_BUFFERTOOSMALL",
+    "NS_E_WMPCORE_BUSY",
+    "NS_E_WMPCORE_COCREATEFAILEDFORGITOBJECT",
+    "NS_E_WMPCORE_CODEC_DOWNLOAD_NOT_ALLOWED",
+    "NS_E_WMPCORE_CODEC_NOT_FOUND",
+    "NS_E_WMPCORE_CODEC_NOT_TRUSTED",
+    "NS_E_WMPCORE_CURRENT_MEDIA_NOT_ACTIVE",
+    "NS_E_WMPCORE_DEVICE_DRIVERS_MISSING",
+    "NS_E_WMPCORE_ERRORMANAGERNOTAVAILABLE",
+    "NS_E_WMPCORE_ERRORSINKNOTREGISTERED",
+    "NS_E_WMPCORE_ERROR_DOWNLOADING_PLAYLIST",
+    "NS_E_WMPCORE_FAILEDTOGETMARSHALLEDEVENTHANDLERINTERFACE",
+    "NS_E_WMPCORE_FAILED_TO_BUILD_PLAYLIST",
+    "NS_E_WMPCORE_FILE_NOT_FOUND",
+    "NS_E_WMPCORE_GRAPH_NOT_IN_LIST",
+    "NS_E_WMPCORE_INVALIDPLAYLISTMODE",
+    "NS_E_WMPCORE_INVALID_PLAYLIST_URL",
+    "NS_E_WMPCORE_ITEMNOTINPLAYLIST",
+    "NS_E_WMPCORE_LIST_ENTRY_NO_REF",
+    "NS_E_WMPCORE_MEDIA_ALTERNATE_REF_EMPTY",
+    "NS_E_WMPCORE_MEDIA_CHILD_PLAYLIST_UNAVAILABLE",
+    "NS_E_WMPCORE_MEDIA_ERROR_RESUME_FAILED",
+    "NS_E_WMPCORE_MEDIA_NO_CHILD_PLAYLIST",
+    "NS_E_WMPCORE_MEDIA_UNAVAILABLE",
+    "NS_E_WMPCORE_MEDIA_URL_TOO_LONG",
+    "NS_E_WMPCORE_MISMATCHED_RUNTIME",
+    "NS_E_WMPCORE_MISNAMED_FILE",
+    "NS_E_WMPCORE_NOBROWSER",
+    "NS_E_WMPCORE_NOSOURCEURLSTRING",
+    "NS_E_WMPCORE_NO_PLAYABLE_MEDIA_IN_PLAYLIST",
+    "NS_E_WMPCORE_NO_REF_IN_ENTRY",
+    "NS_E_WMPCORE_PLAYLISTEMPTY",
+    "NS_E_WMPCORE_PLAYLIST_EMPTY_NESTED_PLAYLIST_SKIPPED_ITEMS",
+    "NS_E_WMPCORE_PLAYLIST_EMPTY_OR_SINGLE_MEDIA",
+    "NS_E_WMPCORE_PLAYLIST_EVENT_ATTRIBUTE_ABSENT",
+    "NS_E_WMPCORE_PLAYLIST_EVENT_EMPTY",
+    "NS_E_WMPCORE_PLAYLIST_IMPORT_FAILED_NO_ITEMS",
+    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_EXHAUSTED",
+    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_INIT_FAILED",
+    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_MORPH_FAILED",
+    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_NAME_NOT_FOUND",
+    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_NONE",
+    "NS_E_WMPCORE_PLAYLIST_NO_EVENT_NAME",
+    "NS_E_WMPCORE_PLAYLIST_REPEAT_EMPTY",
+    "NS_E_WMPCORE_PLAYLIST_REPEAT_END_MEDIA_NONE",
+    "NS_E_WMPCORE_PLAYLIST_REPEAT_START_MEDIA_NONE",
+    "NS_E_WMPCORE_PLAYLIST_STACK_EMPTY",
+    "NS_E_WMPCORE_SOME_CODECS_MISSING",
+    "NS_E_WMPCORE_TEMP_FILE_NOT_FOUND",
+    "NS_E_WMPCORE_UNAVAILABLE",
+    "NS_E_WMPCORE_UNRECOGNIZED_MEDIA_URL",
+    "NS_E_WMPCORE_USER_CANCEL",
+    "NS_E_WMPCORE_VIDEO_TRANSFORM_FILTER_INSERTION",
+    "NS_E_WMPCORE_WEBHELPFAILED",
+    "NS_E_WMPCORE_WMX_ENTRYREF_NO_REF",
+    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_NAME_EMPTY",
+    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_NAME_ILLEGAL",
+    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_VALUE_EMPTY",
+    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_VALUE_ILLEGAL",
+    "NS_E_WMPCORE_WMX_LIST_ITEM_ATTRIBUTE_NAME_EMPTY",
+    "NS_E_WMPCORE_WMX_LIST_ITEM_ATTRIBUTE_NAME_ILLEGAL",
+    "NS_E_WMPCORE_WMX_LIST_ITEM_ATTRIBUTE_VALUE_EMPTY",
+    "NS_E_WMPFLASH_CANT_FIND_COM_SERVER",
+    "NS_E_WMPFLASH_INCOMPATIBLEVERSION",
+    "NS_E_WMPIM_DIALUPFAILED",
+    "NS_E_WMPIM_USERCANCELED",
+    "NS_E_WMPIM_USEROFFLINE",
+    "NS_E_WMPOCXGRAPH_IE_DISALLOWS_ACTIVEX_CONTROLS",
+    "NS_E_WMPOCX_ERRORMANAGERNOTAVAILABLE",
+    "NS_E_WMPOCX_NOT_RUNNING_REMOTELY",
+    "NS_E_WMPOCX_NO_ACTIVE_CORE",
+    "NS_E_WMPOCX_NO_REMOTE_CORE",
+    "NS_E_WMPOCX_NO_REMOTE_WINDOW",
+    "NS_E_WMPOCX_PLAYER_NOT_DOCKED",
+    "NS_E_WMPOCX_REMOTE_PLAYER_ALREADY_RUNNING",
+    "NS_E_WMPOCX_UNABLE_TO_LOAD_SKIN",
+    "NS_E_WMPXML_ATTRIBUTENOTFOUND",
+    "NS_E_WMPXML_EMPTYDOC",
+    "NS_E_WMPXML_ENDOFDATA",
+    "NS_E_WMPXML_NOERROR",
+    "NS_E_WMPXML_PARSEERROR",
+    "NS_E_WMPXML_PINOTFOUND",
+    "NS_E_WMPZIP_CORRUPT",
+    "NS_E_WMPZIP_FILENOTFOUND",
+    "NS_E_WMPZIP_NOTAZIPFILE",
+    "NS_E_WMP_ACCESS_DENIED",
+    "NS_E_WMP_ADDTOLIBRARY_FAILED",
+    "NS_E_WMP_ALREADY_IN_USE",
+    "NS_E_WMP_AUDIO_CODEC_NOT_INSTALLED",
+    "NS_E_WMP_AUDIO_DEVICE_LOST",
+    "NS_E_WMP_AUDIO_HW_PROBLEM",
+    "NS_E_WMP_AUTOPLAY_INVALID_STATE",
+    "NS_E_WMP_BAD_DRIVER",
+    "NS_E_WMP_BMP_BITMAP_NOT_CREATED",
+    "NS_E_WMP_BMP_COMPRESSION_UNSUPPORTED",
+    "NS_E_WMP_BMP_INVALID_BITMASK",
+    "NS_E_WMP_BMP_INVALID_FORMAT",
+    "NS_E_WMP_BMP_TOPDOWN_DIB_UNSUPPORTED",
+    "NS_E_WMP_BSTR_TOO_LONG",
+    "NS_E_WMP_BURN_DISC_OVERFLOW",
+    "NS_E_WMP_CANNOT_BURN_NON_LOCAL_FILE",
+    "NS_E_WMP_CANNOT_FIND_FILE",
+    "NS_E_WMP_CANNOT_FIND_FOLDER",
+    "NS_E_WMP_CANT_PLAY_PROTECTED",
+    "NS_E_WMP_CD_ANOTHER_USER",
+    "NS_E_WMP_CD_STASH_NO_SPACE",
+    "NS_E_WMP_CODEC_NEEDED_WITH_4CC",
+    "NS_E_WMP_CODEC_NEEDED_WITH_FORMATTAG",
+    "NS_E_WMP_COMPONENT_REVOKED",
+    "NS_E_WMP_CONNECT_TIMEOUT",
+    "NS_E_WMP_CONVERT_FILE_CORRUPT",
+    "NS_E_WMP_CONVERT_FILE_FAILED",
+    "NS_E_WMP_CONVERT_NO_RIGHTS_ERRORURL",
+    "NS_E_WMP_CONVERT_NO_RIGHTS_NOERRORURL",
+    "NS_E_WMP_CONVERT_PLUGIN_UNAVAILABLE_ERRORURL",
+    "NS_E_WMP_CONVERT_PLUGIN_UNAVAILABLE_NOERRORURL",
+    "NS_E_WMP_CONVERT_PLUGIN_UNKNOWN_FILE_OWNER",
+    "NS_E_WMP_CS_JPGPOSITIONIMAGE",
+    "NS_E_WMP_CS_NOTEVENLYDIVISIBLE",
+    "NS_E_WMP_DAI_SONGTOOSHORT",
+    "NS_E_WMP_DRM_ACQUIRING_LICENSE",
+    "NS_E_WMP_DRM_CANNOT_RESTORE",
+    "NS_E_WMP_DRM_COMPONENT_FAILURE",
+    "NS_E_WMP_DRM_CORRUPT_BACKUP",
+    "NS_E_WMP_DRM_DRIVER_AUTH_FAILURE",
+    "NS_E_WMP_DRM_GENERIC_LICENSE_FAILURE",
+    "NS_E_WMP_DRM_INDIV_FAILED",
+    "NS_E_WMP_DRM_INVALID_SIG",
+    "NS_E_WMP_DRM_LICENSE_CONTENT_REVOKED",
+    "NS_E_WMP_DRM_LICENSE_EXPIRED",
+    "NS_E_WMP_DRM_LICENSE_NOSAP",
+    "NS_E_WMP_DRM_LICENSE_NOTACQUIRED",
+    "NS_E_WMP_DRM_LICENSE_NOTENABLED",
+    "NS_E_WMP_DRM_LICENSE_SERVER_UNAVAILABLE",
+    "NS_E_WMP_DRM_LICENSE_UNUSABLE",
+    "NS_E_WMP_DRM_NEEDS_AUTHORIZATION",
+    "NS_E_WMP_DRM_NEW_HARDWARE",
+    "NS_E_WMP_DRM_NOT_ACQUIRING",
+    "NS_E_WMP_DRM_NO_DEVICE_CERT",
+    "NS_E_WMP_DRM_NO_RIGHTS",
+    "NS_E_WMP_DRM_NO_SECURE_CLOCK",
+    "NS_E_WMP_DRM_UNABLE_TO_ACQUIRE_LICENSE",
+    "NS_E_WMP_DSHOW_UNSUPPORTED_FORMAT",
+    "NS_E_WMP_ERASE_FAILED",
+    "NS_E_WMP_EXTERNAL_NOTREADY",
+    "NS_E_WMP_FAILED_TO_OPEN_IMAGE",
+    "NS_E_WMP_FAILED_TO_OPEN_WMD",
+    "NS_E_WMP_FAILED_TO_RIP_TRACK",
+    "NS_E_WMP_FAILED_TO_SAVE_FILE",
+    "NS_E_WMP_FAILED_TO_SAVE_PLAYLIST",
+    "NS_E_WMP_FILESCANALREADYSTARTED",
+    "NS_E_WMP_FILE_DOES_NOT_FIT_ON_CD",
+    "NS_E_WMP_FILE_NO_DURATION",
+    "NS_E_WMP_FILE_OPEN_FAILED",
+    "NS_E_WMP_FILE_TYPE_CANNOT_BURN_TO_AUDIO_CD",
+    "NS_E_WMP_FORMAT_FAILED",
+    "NS_E_WMP_GIF_BAD_VERSION_NUMBER",
+    "NS_E_WMP_GIF_INVALID_FORMAT",
+    "NS_E_WMP_GIF_NO_IMAGE_IN_FILE",
+    "NS_E_WMP_GIF_UNEXPECTED_ENDOFFILE",
+    "NS_E_WMP_GOFULLSCREEN_FAILED",
+    "NS_E_WMP_HME_INVALIDOBJECTID",
+    "NS_E_WMP_HME_NOTSEARCHABLEFORITEMS",
+    "NS_E_WMP_HME_STALEREQUEST",
+    "NS_E_WMP_HWND_NOTFOUND",
+    "NS_E_WMP_IMAGE_FILETYPE_UNSUPPORTED",
+    "NS_E_WMP_IMAGE_INVALID_FORMAT",
+    "NS_E_WMP_IMAPI2_ERASE_DEVICE_BUSY",
+    "NS_E_WMP_IMAPI2_ERASE_FAIL",
+    "NS_E_WMP_IMAPI_DEVICE_BUSY",
+    "NS_E_WMP_IMAPI_DEVICE_INVALIDTYPE",
+    "NS_E_WMP_IMAPI_DEVICE_NOTPRESENT",
+    "NS_E_WMP_IMAPI_FAILURE",
+    "NS_E_WMP_IMAPI_GENERIC",
+    "NS_E_WMP_IMAPI_LOSS_OF_STREAMING",
+    "NS_E_WMP_IMAPI_MEDIA_INCOMPATIBLE",
+    "NS_E_WMP_INVALID_ASX",
+    "NS_E_WMP_INVALID_KEY",
+    "NS_E_WMP_INVALID_LIBRARY_ADD",
+    "NS_E_WMP_INVALID_MAX_VAL",
+    "NS_E_WMP_INVALID_MIN_VAL",
+    "NS_E_WMP_INVALID_PROTOCOL",
+    "NS_E_WMP_INVALID_REQUEST",
+    "NS_E_WMP_INVALID_SKIN",
+    "NS_E_WMP_JPGTRANSPARENCY",
+    "NS_E_WMP_JPG_BAD_DCTSIZE",
+    "NS_E_WMP_JPG_BAD_PRECISION",
+    "NS_E_WMP_JPG_BAD_VERSION_NUMBER",
+    "NS_E_WMP_JPG_CCIR601_NOTIMPL",
+    "NS_E_WMP_JPG_FRACT_SAMPLE_NOTIMPL",
+    "NS_E_WMP_JPG_IMAGE_TOO_BIG",
+    "NS_E_WMP_JPG_INVALID_FORMAT",
+    "NS_E_WMP_JPG_JERR_ARITHCODING_NOTIMPL",
+    "NS_E_WMP_JPG_NO_IMAGE_IN_FILE",
+    "NS_E_WMP_JPG_READ_ERROR",
+    "NS_E_WMP_JPG_SOF_UNSUPPORTED",
+    "NS_E_WMP_JPG_UNEXPECTED_ENDOFFILE",
+    "NS_E_WMP_JPG_UNKNOWN_MARKER",
+    "NS_E_WMP_LICENSE_REQUIRED",
+    "NS_E_WMP_LICENSE_RESTRICTS",
+    "NS_E_WMP_LOCKEDINSKINMODE",
+    "NS_E_WMP_LOGON_FAILURE",
+    "NS_E_WMP_MF_CODE_EXPIRED",
+    "NS_E_WMP_MLS_STALE_DATA",
+    "NS_E_WMP_MMS_NOT_SUPPORTED",
+    "NS_E_WMP_MSSAP_NOT_AVAILABLE",
+    "NS_E_WMP_MULTICAST_DISABLED",
+    "NS_E_WMP_MULTIPLE_ERROR_IN_PLAYLIST",
+    "NS_E_WMP_NEED_UPGRADE",
+    "NS_E_WMP_NETWORK_ERROR",
+    "NS_E_WMP_NETWORK_FIREWALL",
+    "NS_E_WMP_NETWORK_RESOURCE_FAILURE",
+    "NS_E_WMP_NONMEDIA_FILES",
+    "NS_E_WMP_NO_DISK_SPACE",
+    "NS_E_WMP_NO_PROTOCOLS_SELECTED",
+    "NS_E_WMP_NO_REMOVABLE_MEDIA",
+    "NS_E_WMP_OUTOFMEMORY",
+    "NS_E_WMP_PATH_ALREADY_IN_LIBRARY",
+    "NS_E_WMP_PLAYLIST_EXISTS",
+    "NS_E_WMP_PLUGINDLL_NOTFOUND",
+    "NS_E_WMP_PNG_INVALIDFORMAT",
+    "NS_E_WMP_PNG_UNSUPPORTED_BAD_CRC",
+    "NS_E_WMP_PNG_UNSUPPORTED_BITDEPTH",
+    "NS_E_WMP_PNG_UNSUPPORTED_COMPRESSION",
+    "NS_E_WMP_PNG_UNSUPPORTED_FILTER",
+    "NS_E_WMP_PNG_UNSUPPORTED_INTERLACE",
+    "NS_E_WMP_POLICY_VALUE_NOT_CONFIGURED",
+    "NS_E_WMP_PROTECTED_CONTENT",
+    "NS_E_WMP_PROTOCOL_PROBLEM",
+    "NS_E_WMP_PROXY_CONNECT_TIMEOUT",
+    "NS_E_WMP_PROXY_NOT_FOUND",
+    "NS_E_WMP_RBC_JPGMAPPINGIMAGE",
+    "NS_E_WMP_RECORDING_NOT_ALLOWED",
+    "NS_E_WMP_RIP_FAILED",
+    "NS_E_WMP_SAVEAS_READONLY",
+    "NS_E_WMP_SENDMAILFAILED",
+    "NS_E_WMP_SERVER_DNS_TIMEOUT",
+    "NS_E_WMP_SERVER_INACCESSIBLE",
+    "NS_E_WMP_SERVER_NONEWCONNECTIONS",
+    "NS_E_WMP_SERVER_NOT_RESPONDING",
+    "NS_E_WMP_SERVER_SECURITY_ERROR",
+    "NS_E_WMP_SERVER_UNAVAILABLE",
+    "NS_E_WMP_STREAMING_RECORDING_NOT_ALLOWED",
+    "NS_E_WMP_TAMPERED_CONTENT",
+    "NS_E_WMP_UDRM_NOUSERLIST",
+    "NS_E_WMP_UI_NOSKININZIP",
+    "NS_E_WMP_UI_NOTATHEMEFILE",
+    "NS_E_WMP_UI_OBJECTNOTFOUND",
+    "NS_E_WMP_UI_PASSTHROUGH",
+    "NS_E_WMP_UI_SECONDHANDLER",
+    "NS_E_WMP_UI_SUBCONTROLSNOTSUPPORTED",
+    "NS_E_WMP_UI_SUBELEMENTNOTFOUND",
+    "NS_E_WMP_UI_VERSIONMISMATCH",
+    "NS_E_WMP_UI_VERSIONPARSE",
+    "NS_E_WMP_UI_VIEWIDNOTFOUND",
+    "NS_E_WMP_UNKNOWN_ERROR",
+    "NS_E_WMP_UNSUPPORTED_FORMAT",
+    "NS_E_WMP_UPGRADE_APPLICATION",
+    "NS_E_WMP_URLDOWNLOADFAILED",
+    "NS_E_WMP_VERIFY_ONLINE",
+    "NS_E_WMP_VIDEO_CODEC_NOT_INSTALLED",
+    "NS_E_WMP_WINDOWSAPIFAILURE",
+    "NS_E_WMP_WMDM_BUSY",
+    "NS_E_WMP_WMDM_FAILURE",
+    "NS_E_WMP_WMDM_INCORRECT_RIGHTS",
+    "NS_E_WMP_WMDM_INTERFACEDEAD",
+    "NS_E_WMP_WMDM_LICENSE_EXPIRED",
+    "NS_E_WMP_WMDM_LICENSE_NOTEXIST",
+    "NS_E_WMP_WMDM_NORIGHTS",
+    "NS_E_WMP_WMDM_NOTCERTIFIED",
+    "NS_E_WMR_CANNOT_RENDER_BINARY_STREAM",
+    "NS_E_WMR_NOCALLBACKAVAILABLE",
+    "NS_E_WMR_NOSOURCEFILTER",
+    "NS_E_WMR_PINNOTFOUND",
+    "NS_E_WMR_PINTYPENOMATCH",
+    "NS_E_WMR_SAMPLEPROPERTYNOTSET",
+    "NS_E_WMR_UNSUPPORTEDSTREAM",
+    "NS_E_WMR_WAITINGONFORMATSWITCH",
+    "NS_E_WMR_WILLNOT_RENDER_BINARY_STREAM",
+    "NS_E_WMX_ATTRIBUTE_ALREADY_EXISTS",
+    "NS_E_WMX_ATTRIBUTE_DOES_NOT_EXIST",
+    "NS_E_WMX_ATTRIBUTE_UNRETRIEVABLE",
+    "NS_E_WMX_INVALID_FORMAT_OVER_NESTING",
+    "NS_E_WMX_ITEM_DOES_NOT_EXIST",
+    "NS_E_WMX_ITEM_TYPE_ILLEGAL",
+    "NS_E_WMX_ITEM_UNSETTABLE",
+    "NS_E_WMX_PLAYLIST_EMPTY",
+    "NS_E_WMX_UNRECOGNIZED_PLAYLIST_FORMAT",
+    "NS_E_WONT_DO_DIGITAL",
+    "NS_E_WRONG_OS_VERSION",
+    "NS_E_WRONG_PUBLISHING_POINT_TYPE",
+    "NS_E_WSX_INVALID_VERSION",
+    "NS_I_CATATONIC_AUTO_UNFAIL",
+    "NS_I_CATATONIC_FAILURE",
+    "NS_I_CUB_RUNNING",
+    "NS_I_CUB_START",
+    "NS_I_CUB_UNFAIL_LINK",
+    "NS_I_DISK_REBUILD_ABORTED",
+    "NS_I_DISK_REBUILD_FINISHED",
+    "NS_I_DISK_REBUILD_STARTED",
+    "NS_I_DISK_START",
+    "NS_I_DISK_STOP",
+    "NS_I_EXISTING_PACKETIZER",
+    "NS_I_KILL_CONNECTION",
+    "NS_I_KILL_USERSESSION",
+    "NS_I_LIMIT_BANDWIDTH",
+    "NS_I_LIMIT_FUNNELS",
+    "NS_I_LOGGING_FAILED",
+    "NS_I_MANUAL_PROXY",
+    "NS_I_NOLOG_STOP",
+    "NS_I_PLAYLIST_CHANGE_RECEDING",
+    "NS_I_REBUILD_DISK",
+    "NS_I_RECONNECTED",
+    "NS_I_RESTRIPE_CUB_OUT",
+    "NS_I_RESTRIPE_DISK_OUT",
+    "NS_I_RESTRIPE_DONE",
+    "NS_I_RESTRIPE_START",
+    "NS_I_START_DISK",
+    "NS_I_STOP_CUB",
+    "NS_I_STOP_DISK",
+    "NS_I_TIGER_START",
+    "NS_S_CALLABORTED",
+    "NS_S_CALLPENDING",
+    "NS_S_CHANGENOTICE",
+    "NS_S_DEGRADING_QUALITY",
+    "NS_S_DRM_ACQUIRE_CANCELLED",
+    "NS_S_DRM_BURNABLE_TRACK",
+    "NS_S_DRM_BURNABLE_TRACK_WITH_PLAYLIST_RESTRICTION",
+    "NS_S_DRM_INDIVIDUALIZED",
+    "NS_S_DRM_LICENSE_ACQUIRED",
+    "NS_S_DRM_MONITOR_CANCELLED",
+    "NS_S_DRM_NEEDS_INDIVIDUALIZATION",
+    "NS_S_EOSRECEDING",
+    "NS_S_NAVIGATION_COMPLETE_WITH_ERRORS",
+    "NS_S_NEED_TO_BUY_BURN_RIGHTS",
+    "NS_S_OPERATION_PENDING",
+    "NS_S_PUBLISHING_POINT_STARTED_WITH_FAILED_SINKS",
+    "NS_S_REBOOT_RECOMMENDED",
+    "NS_S_REBOOT_REQUIRED",
+    "NS_S_REBUFFERING",
+    "NS_S_STREAM_TRUNCATED",
+    "NS_S_TRACK_ALREADY_DOWNLOADED",
+    "NS_S_TRACK_BUY_REQUIRES_ALBUM_PURCHASE",
+    "NS_S_TRANSCRYPTOR_EOF",
+    "NS_S_WMG_ADVISE_DROP_FRAME",
+    "NS_S_WMG_ADVISE_DROP_TO_KEYFRAME",
+    "NS_S_WMG_FORCE_DROP_FRAME",
+    "NS_S_WMPBR_PARTIALSUCCESS",
+    "NS_S_WMPBR_SUCCESS",
+    "NS_S_WMPCORE_COMMAND_NOT_AVAILABLE",
+    "NS_S_WMPCORE_MEDIA_CHILD_PLAYLIST_OPEN_PENDING",
+    "NS_S_WMPCORE_MEDIA_VALIDATION_PENDING",
+    "NS_S_WMPCORE_MORE_NODES_AVAIABLE",
+    "NS_S_WMPCORE_PLAYLISTCLEARABORT",
+    "NS_S_WMPCORE_PLAYLISTREMOVEITEMABORT",
+    "NS_S_WMPCORE_PLAYLIST_COLLAPSED_TO_SINGLE_MEDIA",
+    "NS_S_WMPCORE_PLAYLIST_CREATION_PENDING",
+    "NS_S_WMPCORE_PLAYLIST_IMPORT_MISSING_ITEMS",
+    "NS_S_WMPCORE_PLAYLIST_NAME_AUTO_GENERATED",
+    "NS_S_WMPCORE_PLAYLIST_REPEAT_SECONDARY_SEGMENTS_IGNORED",
+    "NS_S_WMPEFFECT_OPAQUE",
+    "NS_S_WMPEFFECT_TRANSPARENT",
+    "NS_S_WMP_EXCEPTION",
+    "NS_S_WMP_LOADED_BMP_IMAGE",
+    "NS_S_WMP_LOADED_GIF_IMAGE",
+    "NS_S_WMP_LOADED_JPG_IMAGE",
+    "NS_S_WMP_LOADED_PNG_IMAGE",
+    "NS_S_WMP_UI_VERSIONMISMATCH",
+    "NS_S_WMR_ALREADYRENDERED",
+    "NS_S_WMR_PINTYPEFULLMATCH",
+    "NS_S_WMR_PINTYPEPARTIALMATCH",
+    "NS_W_FILE_BANDWIDTH_LIMIT",
+    "NS_W_SERVER_BANDWIDTH_LIMIT",
+    "NS_W_UNKNOWN_EVENT",
+    "OLIADPCMWAVEFORMAT",
+    "OLICELPWAVEFORMAT",
+    "OLIGSMWAVEFORMAT",
+    "OLIOPRWAVEFORMAT",
+    "OLISBCWAVEFORMAT",
+    "OpenDriver",
+    "PD_CAN_DRAW_DIB",
+    "PD_CAN_STRETCHDIB",
+    "PD_STRETCHDIB_1_1_OK",
+    "PD_STRETCHDIB_1_2_OK",
+    "PD_STRETCHDIB_1_N_OK",
+    "ROCKWELL_WA1_MIXER",
+    "ROCKWELL_WA1_MPU401_IN",
+    "ROCKWELL_WA1_MPU401_OUT",
+    "ROCKWELL_WA1_SYNTH",
+    "ROCKWELL_WA1_WAVEIN",
+    "ROCKWELL_WA1_WAVEOUT",
+    "ROCKWELL_WA2_MIXER",
+    "ROCKWELL_WA2_MPU401_IN",
+    "ROCKWELL_WA2_MPU401_OUT",
+    "ROCKWELL_WA2_SYNTH",
+    "ROCKWELL_WA2_WAVEIN",
+    "ROCKWELL_WA2_WAVEOUT",
+    "SEARCH_ANY",
+    "SEARCH_BACKWARD",
+    "SEARCH_FORWARD",
+    "SEARCH_KEY",
+    "SEARCH_NEAREST",
+    "SEEK_CUR",
+    "SEEK_END",
+    "SEEK_SET",
+    "SIERRAADPCMWAVEFORMAT",
+    "SONARCWAVEFORMAT",
+    "SendDriverMessage",
+    "TARGET_DEVICE_FRIENDLY_NAME",
+    "TARGET_DEVICE_OPEN_EXCLUSIVELY",
+    "TASKERR_NOTASKSUPPORT",
+    "TASKERR_OUTOFMEMORY",
+    "TDD_BEGINMINPERIOD",
+    "TDD_ENDMINPERIOD",
+    "TDD_GETDEVCAPS",
+    "TDD_GETSYSTEMTIME",
+    "TDD_KILLTIMEREVENT",
+    "TDD_SETTIMEREVENT",
+    "TIMEREVENT",
+    "TRUESPEECHWAVEFORMAT",
+    "VADMAD_Device_ID",
+    "VCAPS_CAN_SCALE",
+    "VCAPS_DST_CAN_CLIP",
+    "VCAPS_OVERLAY",
+    "VCAPS_SRC_CAN_CLIP",
+    "VFWWDMExtensionProc",
+    "VFW_HIDE_CAMERACONTROL_PAGE",
+    "VFW_HIDE_SETTINGS_PAGE",
+    "VFW_HIDE_VIDEOSRC_PAGE",
+    "VFW_OEM_ADD_PAGE",
+    "VFW_QUERY_DEV_CHANGED",
+    "VFW_USE_DEVICE_HANDLE",
+    "VFW_USE_STREAM_HANDLE",
+    "VHDR_DONE",
+    "VHDR_INQUEUE",
+    "VHDR_KEYFRAME",
+    "VHDR_PREPARED",
+    "VHDR_VALID",
+    "VIDCF_COMPRESSFRAMES",
+    "VIDCF_CRUNCH",
+    "VIDCF_DRAW",
+    "VIDCF_FASTTEMPORALC",
+    "VIDCF_FASTTEMPORALD",
+    "VIDCF_QUALITY",
+    "VIDCF_TEMPORAL",
+    "VIDEOHDR",
+    "VIDEO_CONFIGURE_CURRENT",
+    "VIDEO_CONFIGURE_GET",
+    "VIDEO_CONFIGURE_MAX",
+    "VIDEO_CONFIGURE_MIN",
+    "VIDEO_CONFIGURE_NOMINAL",
+    "VIDEO_CONFIGURE_QUERY",
+    "VIDEO_CONFIGURE_QUERYSIZE",
+    "VIDEO_CONFIGURE_SET",
+    "VIDEO_DLG_QUERY",
+    "VIDEO_EXTERNALIN",
+    "VIDEO_EXTERNALOUT",
+    "VIDEO_IN",
+    "VIDEO_OUT",
     "VP_COMMAND_GET",
     "VP_COMMAND_SET",
-    "VP_FLAGS_TV_MODE",
-    "VP_FLAGS_TV_STANDARD",
-    "VP_FLAGS_FLICKER",
-    "VP_FLAGS_OVERSCAN",
-    "VP_FLAGS_MAX_UNSCALED",
-    "VP_FLAGS_POSITION",
+    "VP_CP_CMD_ACTIVATE",
+    "VP_CP_CMD_CHANGE",
+    "VP_CP_CMD_DEACTIVATE",
+    "VP_CP_TYPE_APS_TRIGGER",
+    "VP_CP_TYPE_MACROVISION",
     "VP_FLAGS_BRIGHTNESS",
     "VP_FLAGS_CONTRAST",
     "VP_FLAGS_COPYPROTECT",
-    "VP_MODE_WIN_GRAPHICS",
+    "VP_FLAGS_FLICKER",
+    "VP_FLAGS_MAX_UNSCALED",
+    "VP_FLAGS_OVERSCAN",
+    "VP_FLAGS_POSITION",
+    "VP_FLAGS_TV_MODE",
+    "VP_FLAGS_TV_STANDARD",
     "VP_MODE_TV_PLAYBACK",
+    "VP_MODE_WIN_GRAPHICS",
+    "VP_TV_STANDARD_NTSC_433",
     "VP_TV_STANDARD_NTSC_M",
     "VP_TV_STANDARD_NTSC_M_J",
+    "VP_TV_STANDARD_PAL_60",
     "VP_TV_STANDARD_PAL_B",
     "VP_TV_STANDARD_PAL_D",
+    "VP_TV_STANDARD_PAL_G",
     "VP_TV_STANDARD_PAL_H",
     "VP_TV_STANDARD_PAL_I",
     "VP_TV_STANDARD_PAL_M",
@@ -10352,2833 +12655,468 @@ __all__ = [
     "VP_TV_STANDARD_SECAM_K",
     "VP_TV_STANDARD_SECAM_K1",
     "VP_TV_STANDARD_SECAM_L",
-    "VP_TV_STANDARD_WIN_VGA",
-    "VP_TV_STANDARD_NTSC_433",
-    "VP_TV_STANDARD_PAL_G",
-    "VP_TV_STANDARD_PAL_60",
     "VP_TV_STANDARD_SECAM_L1",
-    "VP_CP_TYPE_APS_TRIGGER",
-    "VP_CP_TYPE_MACROVISION",
-    "VP_CP_CMD_ACTIVATE",
-    "VP_CP_CMD_DEACTIVATE",
-    "VP_CP_CMD_CHANGE",
-    "ICVERSION",
-    "BI_1632",
-    "ICERR_OK",
-    "ICERR_DONTDRAW",
-    "ICERR_NEWPALETTE",
-    "ICERR_GOTOKEYFRAME",
-    "ICERR_STOPDRAWING",
-    "ICERR_UNSUPPORTED",
-    "ICERR_BADFORMAT",
-    "ICERR_MEMORY",
-    "ICERR_INTERNAL",
-    "ICERR_BADFLAGS",
-    "ICERR_BADPARAM",
-    "ICERR_BADSIZE",
-    "ICERR_BADHANDLE",
-    "ICERR_CANTUPDATE",
-    "ICERR_ABORT",
-    "ICERR_ERROR",
-    "ICERR_BADBITDEPTH",
-    "ICERR_BADIMAGESIZE",
-    "ICERR_CUSTOM",
-    "ICMODE_COMPRESS",
-    "ICMODE_DECOMPRESS",
-    "ICMODE_FASTDECOMPRESS",
-    "ICMODE_QUERY",
-    "ICMODE_FASTCOMPRESS",
-    "ICMODE_DRAW",
-    "ICMODE_INTERNALF_FUNCTION32",
-    "ICMODE_INTERNALF_MASK",
-    "AVIIF_TWOCC",
-    "ICQUALITY_LOW",
-    "ICQUALITY_HIGH",
-    "ICQUALITY_DEFAULT",
-    "ICM_USER",
-    "ICM_RESERVED_LOW",
-    "ICM_RESERVED_HIGH",
-    "ICM_GETSTATE",
-    "ICM_SETSTATE",
-    "ICM_GETINFO",
-    "ICM_CONFIGURE",
-    "ICM_ABOUT",
-    "ICM_GETERRORTEXT",
-    "ICM_GETFORMATNAME",
-    "ICM_ENUMFORMATS",
-    "ICM_GETDEFAULTQUALITY",
-    "ICM_GETQUALITY",
-    "ICM_SETQUALITY",
-    "ICM_SET",
-    "ICM_GET",
-    "ICM_COMPRESS_GET_FORMAT",
-    "ICM_COMPRESS_GET_SIZE",
-    "ICM_COMPRESS_QUERY",
-    "ICM_COMPRESS_BEGIN",
-    "ICM_COMPRESS",
-    "ICM_COMPRESS_END",
-    "ICM_DECOMPRESS_GET_FORMAT",
-    "ICM_DECOMPRESS_QUERY",
-    "ICM_DECOMPRESS_BEGIN",
-    "ICM_DECOMPRESS",
-    "ICM_DECOMPRESS_END",
-    "ICM_DECOMPRESS_SET_PALETTE",
-    "ICM_DECOMPRESS_GET_PALETTE",
-    "ICM_DRAW_QUERY",
-    "ICM_DRAW_BEGIN",
-    "ICM_DRAW_GET_PALETTE",
-    "ICM_DRAW_UPDATE",
-    "ICM_DRAW_START",
-    "ICM_DRAW_STOP",
-    "ICM_DRAW_BITS",
-    "ICM_DRAW_END",
-    "ICM_DRAW_GETTIME",
-    "ICM_DRAW",
-    "ICM_DRAW_WINDOW",
-    "ICM_DRAW_SETTIME",
-    "ICM_DRAW_REALIZE",
-    "ICM_DRAW_FLUSH",
-    "ICM_DRAW_RENDERBUFFER",
-    "ICM_DRAW_START_PLAY",
-    "ICM_DRAW_STOP_PLAY",
-    "ICM_DRAW_SUGGESTFORMAT",
-    "ICM_DRAW_CHANGEPALETTE",
-    "ICM_DRAW_IDLE",
-    "ICM_GETBUFFERSWANTED",
-    "ICM_GETDEFAULTKEYFRAMERATE",
-    "ICM_DECOMPRESSEX_BEGIN",
-    "ICM_DECOMPRESSEX_QUERY",
-    "ICM_DECOMPRESSEX",
-    "ICM_DECOMPRESSEX_END",
-    "ICM_COMPRESS_FRAMES_INFO",
-    "ICM_COMPRESS_FRAMES",
-    "ICM_SET_STATUS_PROC",
-    "VIDCF_QUALITY",
-    "VIDCF_CRUNCH",
-    "VIDCF_TEMPORAL",
-    "VIDCF_COMPRESSFRAMES",
-    "VIDCF_DRAW",
-    "VIDCF_FASTTEMPORALC",
-    "VIDCF_FASTTEMPORALD",
-    "ICCOMPRESS_KEYFRAME",
-    "ICCOMPRESSFRAMES_PADDING",
-    "ICSTATUS_START",
-    "ICSTATUS_STATUS",
-    "ICSTATUS_END",
-    "ICSTATUS_ERROR",
-    "ICSTATUS_YIELD",
-    "ICDECOMPRESS_HURRYUP",
-    "ICDECOMPRESS_UPDATE",
-    "ICDECOMPRESS_PREROLL",
-    "ICDECOMPRESS_NULLFRAME",
-    "ICDECOMPRESS_NOTKEYFRAME",
-    "ICDRAW_QUERY",
-    "ICDRAW_FULLSCREEN",
-    "ICDRAW_HDC",
-    "ICDRAW_ANIMATE",
-    "ICDRAW_CONTINUE",
-    "ICDRAW_MEMORYDC",
-    "ICDRAW_UPDATING",
-    "ICDRAW_RENDER",
-    "ICDRAW_BUFFER",
-    "ICDRAW_HURRYUP",
-    "ICDRAW_UPDATE",
-    "ICDRAW_PREROLL",
-    "ICDRAW_NULLFRAME",
-    "ICDRAW_NOTKEYFRAME",
-    "ICINSTALL_UNICODE",
-    "ICINSTALL_FUNCTION",
-    "ICINSTALL_DRIVER",
-    "ICINSTALL_HDRV",
-    "ICINSTALL_DRIVERW",
-    "ICMF_CONFIGURE_QUERY",
-    "ICMF_ABOUT_QUERY",
-    "ICMF_COMPVARS_VALID",
-    "ICMF_CHOOSE_KEYFRAME",
-    "ICMF_CHOOSE_DATARATE",
-    "ICMF_CHOOSE_PREVIEW",
-    "ICMF_CHOOSE_ALLCOMPRESSORS",
-    "DDF_0001",
-    "DDF_UPDATE",
-    "DDF_SAME_HDC",
-    "DDF_SAME_DRAW",
-    "DDF_DONTDRAW",
-    "DDF_ANIMATE",
-    "DDF_BUFFER",
-    "DDF_JUSTDRAWIT",
-    "DDF_FULLSCREEN",
-    "DDF_BACKGROUNDPAL",
-    "DDF_NOTKEYFRAME",
-    "DDF_HURRYUP",
-    "DDF_HALFTONE",
-    "DDF_2000",
-    "DDF_PREROLL",
-    "DDF_SAME_DIB",
-    "DDF_SAME_SIZE",
-    "PD_CAN_DRAW_DIB",
-    "PD_CAN_STRETCHDIB",
-    "PD_STRETCHDIB_1_1_OK",
-    "PD_STRETCHDIB_1_2_OK",
-    "PD_STRETCHDIB_1_N_OK",
-    "AVIGETFRAMEF_BESTDISPLAYFMT",
-    "AVISTREAMINFO_DISABLED",
-    "AVISTREAMINFO_FORMATCHANGES",
-    "AVIFILEINFO_HASINDEX",
-    "AVIFILEINFO_MUSTUSEINDEX",
-    "AVIFILEINFO_ISINTERLEAVED",
-    "AVIFILEINFO_WASCAPTUREFILE",
-    "AVIFILEINFO_COPYRIGHTED",
-    "AVIFILECAPS_CANREAD",
-    "AVIFILECAPS_CANWRITE",
-    "AVIFILECAPS_ALLKEYFRAMES",
-    "AVIFILECAPS_NOCOMPRESSION",
-    "AVICOMPRESSF_INTERLEAVE",
-    "AVICOMPRESSF_DATARATE",
-    "AVICOMPRESSF_KEYFRAMES",
-    "AVICOMPRESSF_VALID",
-    "CLSID_AVISimpleUnMarshal",
-    "CLSID_AVIFile",
-    "AVIFILEHANDLER_CANREAD",
-    "AVIFILEHANDLER_CANWRITE",
-    "AVIFILEHANDLER_CANACCEPTNONRGB",
-    "AVISTREAMREAD_CONVENIENT",
-    "FIND_DIR",
-    "FIND_NEXT",
-    "FIND_PREV",
-    "FIND_FROM_START",
-    "FIND_TYPE",
-    "FIND_KEY",
-    "FIND_ANY",
-    "FIND_FORMAT",
-    "FIND_RET",
-    "FIND_POS",
-    "FIND_LENGTH",
-    "FIND_OFFSET",
-    "FIND_SIZE",
-    "FIND_INDEX",
-    "SEARCH_NEAREST",
-    "SEARCH_BACKWARD",
-    "SEARCH_FORWARD",
-    "SEARCH_KEY",
-    "SEARCH_ANY",
-    "AVIERR_OK",
-    "MCIWNDOPENF_NEW",
-    "MCIWNDF_NOAUTOSIZEWINDOW",
-    "MCIWNDF_NOPLAYBAR",
-    "MCIWNDF_NOAUTOSIZEMOVIE",
-    "MCIWNDF_NOMENU",
-    "MCIWNDF_SHOWNAME",
-    "MCIWNDF_SHOWPOS",
-    "MCIWNDF_SHOWMODE",
-    "MCIWNDF_SHOWALL",
-    "MCIWNDF_NOTIFYMODE",
-    "MCIWNDF_NOTIFYPOS",
-    "MCIWNDF_NOTIFYSIZE",
-    "MCIWNDF_NOTIFYERROR",
-    "MCIWNDF_NOTIFYALL",
-    "MCIWNDF_NOTIFYANSI",
-    "MCIWNDF_NOTIFYMEDIAA",
-    "MCIWNDF_NOTIFYMEDIAW",
-    "MCIWNDF_NOTIFYMEDIA",
-    "MCIWNDF_RECORD",
-    "MCIWNDF_NOERRORDLG",
-    "MCIWNDF_NOOPEN",
-    "MCIWNDM_GETDEVICEID",
-    "MCIWNDM_GETSTART",
-    "MCIWNDM_GETLENGTH",
-    "MCIWNDM_GETEND",
-    "MCIWNDM_EJECT",
-    "MCIWNDM_SETZOOM",
-    "MCIWNDM_GETZOOM",
-    "MCIWNDM_SETVOLUME",
-    "MCIWNDM_GETVOLUME",
-    "MCIWNDM_SETSPEED",
-    "MCIWNDM_GETSPEED",
-    "MCIWNDM_SETREPEAT",
-    "MCIWNDM_GETREPEAT",
-    "MCIWNDM_REALIZE",
-    "MCIWNDM_VALIDATEMEDIA",
-    "MCIWNDM_PLAYFROM",
-    "MCIWNDM_PLAYTO",
-    "MCIWNDM_GETPALETTE",
-    "MCIWNDM_SETPALETTE",
-    "MCIWNDM_SETTIMERS",
-    "MCIWNDM_SETACTIVETIMER",
-    "MCIWNDM_SETINACTIVETIMER",
-    "MCIWNDM_GETACTIVETIMER",
-    "MCIWNDM_GETINACTIVETIMER",
-    "MCIWNDM_CHANGESTYLES",
-    "MCIWNDM_GETSTYLES",
-    "MCIWNDM_GETALIAS",
-    "MCIWNDM_PLAYREVERSE",
-    "MCIWNDM_GET_SOURCE",
-    "MCIWNDM_PUT_SOURCE",
-    "MCIWNDM_GET_DEST",
-    "MCIWNDM_PUT_DEST",
-    "MCIWNDM_CAN_PLAY",
-    "MCIWNDM_CAN_WINDOW",
-    "MCIWNDM_CAN_RECORD",
-    "MCIWNDM_CAN_SAVE",
-    "MCIWNDM_CAN_EJECT",
-    "MCIWNDM_CAN_CONFIG",
-    "MCIWNDM_PALETTEKICK",
-    "MCIWNDM_OPENINTERFACE",
-    "MCIWNDM_SETOWNER",
-    "MCIWNDM_SENDSTRINGA",
-    "MCIWNDM_GETPOSITIONA",
-    "MCIWNDM_GETMODEA",
-    "MCIWNDM_SETTIMEFORMATA",
-    "MCIWNDM_GETTIMEFORMATA",
-    "MCIWNDM_GETFILENAMEA",
-    "MCIWNDM_GETDEVICEA",
-    "MCIWNDM_GETERRORA",
-    "MCIWNDM_NEWA",
-    "MCIWNDM_RETURNSTRINGA",
-    "MCIWNDM_OPENA",
-    "MCIWNDM_SENDSTRINGW",
-    "MCIWNDM_GETPOSITIONW",
-    "MCIWNDM_GETMODEW",
-    "MCIWNDM_SETTIMEFORMATW",
-    "MCIWNDM_GETTIMEFORMATW",
-    "MCIWNDM_GETFILENAMEW",
-    "MCIWNDM_GETDEVICEW",
-    "MCIWNDM_GETERRORW",
-    "MCIWNDM_NEWW",
-    "MCIWNDM_RETURNSTRINGW",
-    "MCIWNDM_OPENW",
-    "MCIWNDM_SENDSTRING",
-    "MCIWNDM_GETPOSITION",
-    "MCIWNDM_GETMODE",
-    "MCIWNDM_SETTIMEFORMAT",
-    "MCIWNDM_GETTIMEFORMAT",
-    "MCIWNDM_GETFILENAME",
-    "MCIWNDM_GETDEVICE",
-    "MCIWNDM_GETERROR",
-    "MCIWNDM_NEW",
-    "MCIWNDM_RETURNSTRING",
-    "MCIWNDM_OPEN",
-    "MCIWNDM_NOTIFYMODE",
-    "MCIWNDM_NOTIFYPOS",
-    "MCIWNDM_NOTIFYSIZE",
-    "MCIWNDM_NOTIFYMEDIA",
-    "MCIWNDM_NOTIFYERROR",
-    "MCIWND_START",
-    "MCIWND_END",
-    "MCI_OPEN",
-    "MCI_CLOSE",
-    "MCI_PLAY",
-    "MCI_SEEK",
-    "MCI_STOP",
-    "MCI_PAUSE",
-    "MCI_STEP",
-    "MCI_RECORD",
-    "MCI_SAVE",
-    "MCI_CUT",
-    "MCI_COPY",
-    "MCI_PASTE",
-    "MCI_RESUME",
-    "MCI_DELETE",
-    "MCI_MODE_NOT_READY",
-    "MCI_MODE_STOP",
-    "MCI_MODE_PLAY",
-    "MCI_MODE_RECORD",
-    "MCI_MODE_SEEK",
-    "MCI_MODE_PAUSE",
-    "MCI_MODE_OPEN",
-    "DV_ERR_OK",
-    "DV_ERR_BASE",
-    "DV_ERR_NONSPECIFIC",
-    "DV_ERR_BADFORMAT",
-    "DV_ERR_STILLPLAYING",
-    "DV_ERR_UNPREPARED",
-    "DV_ERR_SYNC",
-    "DV_ERR_TOOMANYCHANNELS",
-    "DV_ERR_NOTDETECTED",
-    "DV_ERR_BADINSTALL",
-    "DV_ERR_CREATEPALETTE",
-    "DV_ERR_SIZEFIELD",
-    "DV_ERR_PARAM1",
-    "DV_ERR_PARAM2",
-    "DV_ERR_CONFIG1",
-    "DV_ERR_CONFIG2",
-    "DV_ERR_FLAGS",
-    "DV_ERR_13",
-    "DV_ERR_NOTSUPPORTED",
-    "DV_ERR_NOMEM",
-    "DV_ERR_ALLOCATED",
-    "DV_ERR_BADDEVICEID",
-    "DV_ERR_INVALHANDLE",
-    "DV_ERR_BADERRNUM",
-    "DV_ERR_NO_BUFFERS",
-    "DV_ERR_MEM_CONFLICT",
-    "DV_ERR_IO_CONFLICT",
-    "DV_ERR_DMA_CONFLICT",
-    "DV_ERR_INT_CONFLICT",
-    "DV_ERR_PROTECT_ONLY",
-    "DV_ERR_LASTERROR",
-    "DV_ERR_USER_MSG",
-    "DV_VM_OPEN",
-    "DV_VM_CLOSE",
-    "DV_VM_DATA",
-    "DV_VM_ERROR",
-    "VHDR_DONE",
-    "VHDR_PREPARED",
-    "VHDR_INQUEUE",
-    "VHDR_KEYFRAME",
-    "VHDR_VALID",
-    "VCAPS_OVERLAY",
-    "VCAPS_SRC_CAN_CLIP",
-    "VCAPS_DST_CAN_CLIP",
-    "VCAPS_CAN_SCALE",
-    "VIDEO_EXTERNALIN",
-    "VIDEO_EXTERNALOUT",
-    "VIDEO_IN",
-    "VIDEO_OUT",
-    "VIDEO_DLG_QUERY",
-    "VIDEO_CONFIGURE_QUERY",
-    "VIDEO_CONFIGURE_SET",
-    "VIDEO_CONFIGURE_GET",
-    "VIDEO_CONFIGURE_QUERYSIZE",
-    "VIDEO_CONFIGURE_CURRENT",
-    "VIDEO_CONFIGURE_NOMINAL",
-    "VIDEO_CONFIGURE_MIN",
-    "VIDEO_CONFIGURE_MAX",
-    "DVM_USER",
-    "DVM_CONFIGURE_START",
-    "DVM_CONFIGURE_END",
-    "DVM_PALETTE",
-    "DVM_FORMAT",
-    "DVM_PALETTERGB555",
-    "DVM_SRC_RECT",
-    "DVM_DST_RECT",
-    "WM_CAP_UNICODE_START",
-    "WM_CAP_GET_CAPSTREAMPTR",
-    "WM_CAP_SET_CALLBACK_ERRORW",
-    "WM_CAP_SET_CALLBACK_STATUSW",
-    "WM_CAP_SET_CALLBACK_ERRORA",
-    "WM_CAP_SET_CALLBACK_STATUSA",
-    "WM_CAP_SET_CALLBACK_ERROR",
-    "WM_CAP_SET_CALLBACK_STATUS",
-    "WM_CAP_SET_CALLBACK_YIELD",
-    "WM_CAP_SET_CALLBACK_FRAME",
-    "WM_CAP_SET_CALLBACK_VIDEOSTREAM",
-    "WM_CAP_SET_CALLBACK_WAVESTREAM",
-    "WM_CAP_GET_USER_DATA",
-    "WM_CAP_SET_USER_DATA",
-    "WM_CAP_DRIVER_CONNECT",
-    "WM_CAP_DRIVER_DISCONNECT",
-    "WM_CAP_DRIVER_GET_NAMEA",
-    "WM_CAP_DRIVER_GET_VERSIONA",
-    "WM_CAP_DRIVER_GET_NAMEW",
-    "WM_CAP_DRIVER_GET_VERSIONW",
-    "WM_CAP_DRIVER_GET_NAME",
-    "WM_CAP_DRIVER_GET_VERSION",
-    "WM_CAP_DRIVER_GET_CAPS",
-    "WM_CAP_FILE_SET_CAPTURE_FILEA",
-    "WM_CAP_FILE_GET_CAPTURE_FILEA",
-    "WM_CAP_FILE_SAVEASA",
-    "WM_CAP_FILE_SAVEDIBA",
-    "WM_CAP_FILE_SET_CAPTURE_FILEW",
-    "WM_CAP_FILE_GET_CAPTURE_FILEW",
-    "WM_CAP_FILE_SAVEASW",
-    "WM_CAP_FILE_SAVEDIBW",
-    "WM_CAP_FILE_SET_CAPTURE_FILE",
-    "WM_CAP_FILE_GET_CAPTURE_FILE",
-    "WM_CAP_FILE_SAVEAS",
-    "WM_CAP_FILE_SAVEDIB",
-    "WM_CAP_FILE_ALLOCATE",
-    "WM_CAP_FILE_SET_INFOCHUNK",
-    "WM_CAP_EDIT_COPY",
-    "WM_CAP_SET_AUDIOFORMAT",
-    "WM_CAP_GET_AUDIOFORMAT",
-    "WM_CAP_DLG_VIDEOFORMAT",
-    "WM_CAP_DLG_VIDEOSOURCE",
-    "WM_CAP_DLG_VIDEODISPLAY",
-    "WM_CAP_GET_VIDEOFORMAT",
-    "WM_CAP_SET_VIDEOFORMAT",
-    "WM_CAP_DLG_VIDEOCOMPRESSION",
-    "WM_CAP_SET_PREVIEW",
-    "WM_CAP_SET_OVERLAY",
-    "WM_CAP_SET_PREVIEWRATE",
-    "WM_CAP_SET_SCALE",
-    "WM_CAP_GET_STATUS",
-    "WM_CAP_SET_SCROLL",
-    "WM_CAP_GRAB_FRAME",
-    "WM_CAP_GRAB_FRAME_NOSTOP",
-    "WM_CAP_SEQUENCE",
-    "WM_CAP_SEQUENCE_NOFILE",
-    "WM_CAP_SET_SEQUENCE_SETUP",
-    "WM_CAP_GET_SEQUENCE_SETUP",
-    "WM_CAP_SET_MCI_DEVICEA",
-    "WM_CAP_GET_MCI_DEVICEA",
-    "WM_CAP_SET_MCI_DEVICEW",
-    "WM_CAP_GET_MCI_DEVICEW",
-    "WM_CAP_SET_MCI_DEVICE",
-    "WM_CAP_GET_MCI_DEVICE",
-    "WM_CAP_STOP",
-    "WM_CAP_ABORT",
-    "WM_CAP_SINGLE_FRAME_OPEN",
-    "WM_CAP_SINGLE_FRAME_CLOSE",
-    "WM_CAP_SINGLE_FRAME",
-    "WM_CAP_PAL_OPENA",
-    "WM_CAP_PAL_SAVEA",
-    "WM_CAP_PAL_OPENW",
-    "WM_CAP_PAL_SAVEW",
-    "WM_CAP_PAL_OPEN",
-    "WM_CAP_PAL_SAVE",
-    "WM_CAP_PAL_PASTE",
-    "WM_CAP_PAL_AUTOCREATE",
-    "WM_CAP_PAL_MANUALCREATE",
-    "WM_CAP_SET_CALLBACK_CAPCONTROL",
-    "WM_CAP_UNICODE_END",
-    "WM_CAP_END",
-    "AVSTREAMMASTER_AUDIO",
-    "AVSTREAMMASTER_NONE",
-    "CONTROLCALLBACK_PREROLL",
-    "CONTROLCALLBACK_CAPTURING",
-    "IDS_CAP_BEGIN",
-    "IDS_CAP_END",
-    "IDS_CAP_INFO",
-    "IDS_CAP_OUTOFMEM",
-    "IDS_CAP_FILEEXISTS",
-    "IDS_CAP_ERRORPALOPEN",
-    "IDS_CAP_ERRORPALSAVE",
-    "IDS_CAP_ERRORDIBSAVE",
-    "IDS_CAP_DEFAVIEXT",
-    "IDS_CAP_DEFPALEXT",
-    "IDS_CAP_CANTOPEN",
-    "IDS_CAP_SEQ_MSGSTART",
-    "IDS_CAP_SEQ_MSGSTOP",
-    "IDS_CAP_VIDEDITERR",
-    "IDS_CAP_READONLYFILE",
-    "IDS_CAP_WRITEERROR",
-    "IDS_CAP_NODISKSPACE",
-    "IDS_CAP_SETFILESIZE",
-    "IDS_CAP_SAVEASPERCENT",
-    "IDS_CAP_DRIVER_ERROR",
-    "IDS_CAP_WAVE_OPEN_ERROR",
-    "IDS_CAP_WAVE_ALLOC_ERROR",
-    "IDS_CAP_WAVE_PREPARE_ERROR",
-    "IDS_CAP_WAVE_ADD_ERROR",
-    "IDS_CAP_WAVE_SIZE_ERROR",
-    "IDS_CAP_VIDEO_OPEN_ERROR",
-    "IDS_CAP_VIDEO_ALLOC_ERROR",
-    "IDS_CAP_VIDEO_PREPARE_ERROR",
-    "IDS_CAP_VIDEO_ADD_ERROR",
-    "IDS_CAP_VIDEO_SIZE_ERROR",
-    "IDS_CAP_FILE_OPEN_ERROR",
-    "IDS_CAP_FILE_WRITE_ERROR",
-    "IDS_CAP_RECORDING_ERROR",
-    "IDS_CAP_RECORDING_ERROR2",
-    "IDS_CAP_AVI_INIT_ERROR",
-    "IDS_CAP_NO_FRAME_CAP_ERROR",
-    "IDS_CAP_NO_PALETTE_WARN",
-    "IDS_CAP_MCI_CONTROL_ERROR",
-    "IDS_CAP_MCI_CANT_STEP_ERROR",
-    "IDS_CAP_NO_AUDIO_CAP_ERROR",
-    "IDS_CAP_AVI_DRAWDIB_ERROR",
-    "IDS_CAP_COMPRESSOR_ERROR",
-    "IDS_CAP_AUDIO_DROP_ERROR",
-    "IDS_CAP_AUDIO_DROP_COMPERROR",
-    "IDS_CAP_STAT_LIVE_MODE",
-    "IDS_CAP_STAT_OVERLAY_MODE",
-    "IDS_CAP_STAT_CAP_INIT",
-    "IDS_CAP_STAT_CAP_FINI",
-    "IDS_CAP_STAT_PALETTE_BUILD",
-    "IDS_CAP_STAT_OPTPAL_BUILD",
-    "IDS_CAP_STAT_I_FRAMES",
-    "IDS_CAP_STAT_L_FRAMES",
-    "IDS_CAP_STAT_CAP_L_FRAMES",
-    "IDS_CAP_STAT_CAP_AUDIO",
-    "IDS_CAP_STAT_VIDEOCURRENT",
-    "IDS_CAP_STAT_VIDEOAUDIO",
-    "IDS_CAP_STAT_VIDEOONLY",
-    "IDS_CAP_STAT_FRAMESDROPPED",
-    "JOYERR_NOERROR",
-    "JOYERR_PARMS",
-    "JOYERR_NOCANDO",
-    "JOYERR_UNPLUGGED",
-    "JOY_BUTTON1",
-    "JOY_BUTTON2",
-    "JOY_BUTTON3",
-    "JOY_BUTTON4",
-    "JOY_BUTTON1CHG",
-    "JOY_BUTTON2CHG",
-    "JOY_BUTTON3CHG",
-    "JOY_BUTTON4CHG",
-    "JOY_BUTTON5",
-    "JOY_BUTTON6",
-    "JOY_BUTTON7",
-    "JOY_BUTTON8",
-    "JOY_BUTTON9",
-    "JOY_BUTTON10",
-    "JOY_BUTTON11",
-    "JOY_BUTTON12",
-    "JOY_BUTTON13",
-    "JOY_BUTTON14",
-    "JOY_BUTTON15",
-    "JOY_BUTTON16",
-    "JOY_BUTTON17",
-    "JOY_BUTTON18",
-    "JOY_BUTTON19",
-    "JOY_BUTTON20",
-    "JOY_BUTTON21",
-    "JOY_BUTTON22",
-    "JOY_BUTTON23",
-    "JOY_BUTTON24",
-    "JOY_BUTTON25",
-    "JOY_BUTTON26",
-    "JOY_BUTTON27",
-    "JOY_BUTTON28",
-    "JOY_BUTTON29",
-    "JOY_BUTTON30",
-    "JOY_BUTTON31",
-    "JOY_BUTTON32",
-    "JOY_POVFORWARD",
-    "JOY_POVRIGHT",
-    "JOY_POVBACKWARD",
-    "JOY_POVLEFT",
-    "JOY_RETURNX",
-    "JOY_RETURNY",
-    "JOY_RETURNZ",
-    "JOY_RETURNR",
-    "JOY_RETURNU",
-    "JOY_RETURNV",
-    "JOY_RETURNPOV",
-    "JOY_RETURNBUTTONS",
-    "JOY_RETURNRAWDATA",
-    "JOY_RETURNPOVCTS",
-    "JOY_RETURNCENTERED",
-    "JOY_USEDEADZONE",
-    "JOY_CAL_READALWAYS",
-    "JOY_CAL_READXYONLY",
-    "JOY_CAL_READ3",
-    "JOY_CAL_READ4",
-    "JOY_CAL_READXONLY",
-    "JOY_CAL_READYONLY",
-    "JOY_CAL_READ5",
-    "JOY_CAL_READ6",
-    "JOY_CAL_READZONLY",
-    "JOY_CAL_READRONLY",
-    "JOY_CAL_READUONLY",
-    "JOY_CAL_READVONLY",
-    "JOYSTICKID1",
-    "JOYSTICKID2",
-    "JOYCAPS_HASZ",
-    "JOYCAPS_HASR",
-    "JOYCAPS_HASU",
-    "JOYCAPS_HASV",
-    "JOYCAPS_HASPOV",
-    "JOYCAPS_POV4DIR",
-    "JOYCAPS_POVCTS",
-    "DRV_LOAD",
-    "DRV_ENABLE",
-    "DRV_OPEN",
-    "DRV_CLOSE",
-    "DRV_DISABLE",
-    "DRV_FREE",
-    "DRV_CONFIGURE",
-    "DRV_QUERYCONFIGURE",
-    "DRV_INSTALL",
-    "DRV_REMOVE",
-    "DRV_RESERVED",
-    "DRV_USER",
-    "DCB_NOSWITCH",
-    "DCB_TYPEMASK",
-    "DCB_NULL",
-    "DCB_WINDOW",
-    "DCB_TASK",
-    "DCB_FUNCTION",
-    "DCB_EVENT",
-    "DRVM_INIT",
-    "DRVM_EXIT",
-    "DRVM_DISABLE",
-    "DRVM_ENABLE",
-    "DRVM_INIT_EX",
-    "DRVM_USER",
-    "DRVM_MAPPER_RECONFIGURE",
-    "DRVM_MAPPER_PREFERRED_GET",
-    "DRVM_MAPPER_CONSOLEVOICECOM_GET",
-    "DRV_QUERYDEVNODE",
-    "DRV_QUERYMAPPABLE",
-    "DRV_QUERYMODULE",
-    "DRV_PNPINSTALL",
-    "DRV_QUERYDEVICEINTERFACE",
-    "DRV_QUERYDEVICEINTERFACESIZE",
-    "DRV_QUERYSTRINGID",
-    "DRV_QUERYSTRINGIDSIZE",
-    "DRV_QUERYIDFROMSTRINGID",
-    "DRV_QUERYFUNCTIONINSTANCEID",
-    "DRV_QUERYFUNCTIONINSTANCEIDSIZE",
-    "DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY",
-    "DRVM_IOCTL",
-    "DRVM_ADD_THRU",
-    "DRVM_REMOVE_THRU",
-    "DRVM_IOCTL_LAST",
-    "DRVM_IOCTL_CMD_USER",
-    "DRVM_IOCTL_CMD_SYSTEM",
-    "VADMAD_Device_ID",
-    "WODM_INIT",
-    "WIDM_INIT",
-    "WODM_INIT_EX",
-    "WIDM_INIT_EX",
-    "WODM_GETNUMDEVS",
-    "WODM_GETDEVCAPS",
-    "WODM_OPEN",
-    "WODM_CLOSE",
-    "WODM_PREPARE",
-    "WODM_UNPREPARE",
-    "WODM_WRITE",
-    "WODM_PAUSE",
-    "WODM_RESTART",
-    "WODM_RESET",
-    "WODM_GETPOS",
-    "WODM_GETPITCH",
-    "WODM_SETPITCH",
-    "WODM_GETVOLUME",
-    "WODM_SETVOLUME",
-    "WODM_GETPLAYBACKRATE",
-    "WODM_SETPLAYBACKRATE",
-    "WODM_BREAKLOOP",
-    "WODM_PREFERRED",
-    "WODM_BUSY",
-    "WIDM_GETNUMDEVS",
-    "WIDM_GETDEVCAPS",
-    "WIDM_OPEN",
-    "WIDM_CLOSE",
-    "WIDM_PREPARE",
-    "WIDM_UNPREPARE",
+    "VP_TV_STANDARD_WIN_VGA",
+    "VideoForWindowsVersion",
+    "WAVEOPENDESC",
+    "WAVE_FILTER_DEVELOPMENT",
+    "WAVE_FILTER_ECHO",
+    "WAVE_FILTER_UNKNOWN",
+    "WAVE_FILTER_VOLUME",
+    "WAVE_FORMAT_3COM_NBX",
+    "WAVE_FORMAT_ADPCM",
+    "WAVE_FORMAT_ALAC",
+    "WAVE_FORMAT_ALAW",
+    "WAVE_FORMAT_AMR_NB",
+    "WAVE_FORMAT_AMR_WB",
+    "WAVE_FORMAT_AMR_WP",
+    "WAVE_FORMAT_ANTEX_ADPCME",
+    "WAVE_FORMAT_APTX",
+    "WAVE_FORMAT_AUDIOFILE_AF10",
+    "WAVE_FORMAT_AUDIOFILE_AF36",
+    "WAVE_FORMAT_BTV_DIGITAL",
+    "WAVE_FORMAT_CANOPUS_ATRAC",
+    "WAVE_FORMAT_CIRRUS",
+    "WAVE_FORMAT_CODIAN",
+    "WAVE_FORMAT_COMVERSE_INFOSYS_AVQSBC",
+    "WAVE_FORMAT_COMVERSE_INFOSYS_G723_1",
+    "WAVE_FORMAT_COMVERSE_INFOSYS_SBC",
+    "WAVE_FORMAT_CONGRUENCY",
+    "WAVE_FORMAT_CONTROL_RES_CR10",
+    "WAVE_FORMAT_CONTROL_RES_VQLPC",
+    "WAVE_FORMAT_CONVEDIA_G729",
+    "WAVE_FORMAT_CREATIVE_ADPCM",
+    "WAVE_FORMAT_CREATIVE_FASTSPEECH10",
+    "WAVE_FORMAT_CREATIVE_FASTSPEECH8",
+    "WAVE_FORMAT_CS2",
+    "WAVE_FORMAT_CS_IMAADPCM",
+    "WAVE_FORMAT_CUSEEME",
+    "WAVE_FORMAT_CU_CODEC",
+    "WAVE_FORMAT_DEVELOPMENT",
+    "WAVE_FORMAT_DF_G726",
+    "WAVE_FORMAT_DF_GSM610",
+    "WAVE_FORMAT_DIALOGIC_OKI_ADPCM",
+    "WAVE_FORMAT_DICTAPHONE_CELP54",
+    "WAVE_FORMAT_DICTAPHONE_CELP68",
+    "WAVE_FORMAT_DIGIADPCM",
+    "WAVE_FORMAT_DIGIFIX",
+    "WAVE_FORMAT_DIGIREAL",
+    "WAVE_FORMAT_DIGISTD",
+    "WAVE_FORMAT_DIGITAL_G723",
+    "WAVE_FORMAT_DIVIO_G726",
+    "WAVE_FORMAT_DIVIO_MPEG4_AAC",
+    "WAVE_FORMAT_DOLBY_AC2",
+    "WAVE_FORMAT_DOLBY_AC3_SPDIF",
+    "WAVE_FORMAT_DOLBY_AC4",
+    "WAVE_FORMAT_DRM",
+    "WAVE_FORMAT_DSAT",
+    "WAVE_FORMAT_DSAT_DISPLAY",
+    "WAVE_FORMAT_DSPGROUP_TRUESPEECH",
+    "WAVE_FORMAT_DTS",
+    "WAVE_FORMAT_DTS2",
+    "WAVE_FORMAT_DTS_DS",
+    "WAVE_FORMAT_DVI_ADPCM",
+    "WAVE_FORMAT_DVM",
+    "WAVE_FORMAT_ECHOSC1",
+    "WAVE_FORMAT_ECHOSC3",
+    "WAVE_FORMAT_ENCORE_G726",
+    "WAVE_FORMAT_ESPCM",
+    "WAVE_FORMAT_ESST_AC3",
+    "WAVE_FORMAT_FAAD_AAC",
+    "WAVE_FORMAT_FLAC",
+    "WAVE_FORMAT_FM_TOWNS_SND",
+    "WAVE_FORMAT_FRACE_TELECOM_G729",
+    "WAVE_FORMAT_FRAUNHOFER_IIS_MPEG2_AAC",
+    "WAVE_FORMAT_G721_ADPCM",
+    "WAVE_FORMAT_G722_ADPCM",
+    "WAVE_FORMAT_G723_ADPCM",
+    "WAVE_FORMAT_G726ADPCM",
+    "WAVE_FORMAT_G726_ADPCM",
+    "WAVE_FORMAT_G728_CELP",
+    "WAVE_FORMAT_G729A",
+    "WAVE_FORMAT_GENERIC_PASSTHRU",
+    "WAVE_FORMAT_GLOBAL_IP_ILBC",
+    "WAVE_FORMAT_GSM610",
+    "WAVE_FORMAT_GSM_610",
+    "WAVE_FORMAT_GSM_620",
+    "WAVE_FORMAT_GSM_660",
+    "WAVE_FORMAT_GSM_690",
+    "WAVE_FORMAT_GSM_ADAPTIVE_MULTIRATE_WB",
+    "WAVE_FORMAT_GSM_AMR_CBR",
+    "WAVE_FORMAT_GSM_AMR_VBR_SID",
+    "WAVE_FORMAT_HP_DYN_VOICE",
+    "WAVE_FORMAT_IBM_CVSD",
+    "WAVE_FORMAT_IEEE_FLOAT",
+    "WAVE_FORMAT_ILINK_VC",
+    "WAVE_FORMAT_IMA_ADPCM",
+    "WAVE_FORMAT_INDEO_AUDIO",
+    "WAVE_FORMAT_INFOCOM_ITS_G721_ADPCM",
+    "WAVE_FORMAT_INGENIENT_G726",
+    "WAVE_FORMAT_INNINGS_TELECOM_ADPCM",
+    "WAVE_FORMAT_INTEL_G723_1",
+    "WAVE_FORMAT_INTEL_G729",
+    "WAVE_FORMAT_INTEL_MUSIC_CODER",
+    "WAVE_FORMAT_IPI_HSX",
+    "WAVE_FORMAT_IPI_RPELP",
+    "WAVE_FORMAT_IRAT",
+    "WAVE_FORMAT_ISIAUDIO",
+    "WAVE_FORMAT_ISIAUDIO_2",
+    "WAVE_FORMAT_KNOWLEDGE_ADVENTURE_ADPCM",
+    "WAVE_FORMAT_LEAD_SPEECH",
+    "WAVE_FORMAT_LEAD_VORBIS",
+    "WAVE_FORMAT_LH_CODEC",
+    "WAVE_FORMAT_LH_CODEC_CELP",
+    "WAVE_FORMAT_LH_CODEC_SBC12",
+    "WAVE_FORMAT_LH_CODEC_SBC16",
+    "WAVE_FORMAT_LH_CODEC_SBC8",
+    "WAVE_FORMAT_LIGHTWAVE_LOSSLESS",
+    "WAVE_FORMAT_LRC",
+    "WAVE_FORMAT_LUCENT_G723",
+    "WAVE_FORMAT_LUCENT_SX5363S",
+    "WAVE_FORMAT_LUCENT_SX8300P",
+    "WAVE_FORMAT_MAKEAVIS",
+    "WAVE_FORMAT_MALDEN_PHONYTALK",
+    "WAVE_FORMAT_MEDIASONIC_G723",
+    "WAVE_FORMAT_MEDIASPACE_ADPCM",
+    "WAVE_FORMAT_MEDIAVISION_ADPCM",
+    "WAVE_FORMAT_MICRONAS",
+    "WAVE_FORMAT_MICRONAS_CELP833",
+    "WAVE_FORMAT_MPEG",
+    "WAVE_FORMAT_MPEG4_AAC",
+    "WAVE_FORMAT_MPEGLAYER3",
+    "WAVE_FORMAT_MPEG_ADTS_AAC",
+    "WAVE_FORMAT_MPEG_HEAAC",
+    "WAVE_FORMAT_MPEG_LOAS",
+    "WAVE_FORMAT_MPEG_RAW_AAC",
+    "WAVE_FORMAT_MSAUDIO1",
+    "WAVE_FORMAT_MSG723",
+    "WAVE_FORMAT_MSNAUDIO",
+    "WAVE_FORMAT_MSRT24",
+    "WAVE_FORMAT_MULAW",
+    "WAVE_FORMAT_MULTITUDE_FT_SX20",
+    "WAVE_FORMAT_MVI_MVI2",
+    "WAVE_FORMAT_NEC_AAC",
+    "WAVE_FORMAT_NICE_ACA",
+    "WAVE_FORMAT_NICE_ADPCM",
+    "WAVE_FORMAT_NICE_G728",
+    "WAVE_FORMAT_NMS_VBXADPCM",
+    "WAVE_FORMAT_NOKIA_ADAPTIVE_MULTIRATE",
+    "WAVE_FORMAT_NOKIA_MPEG_ADTS_AAC",
+    "WAVE_FORMAT_NOKIA_MPEG_RAW_AAC",
+    "WAVE_FORMAT_NORCOM_VOICE_SYSTEMS_ADPCM",
+    "WAVE_FORMAT_NORRIS",
+    "WAVE_FORMAT_NTCSOFT_ALF2CM_ACM",
+    "WAVE_FORMAT_OGG_VORBIS_MODE_1",
+    "WAVE_FORMAT_OGG_VORBIS_MODE_1_PLUS",
+    "WAVE_FORMAT_OGG_VORBIS_MODE_2",
+    "WAVE_FORMAT_OGG_VORBIS_MODE_2_PLUS",
+    "WAVE_FORMAT_OGG_VORBIS_MODE_3",
+    "WAVE_FORMAT_OGG_VORBIS_MODE_3_PLUS",
+    "WAVE_FORMAT_OKI_ADPCM",
+    "WAVE_FORMAT_OLIADPCM",
+    "WAVE_FORMAT_OLICELP",
+    "WAVE_FORMAT_OLIGSM",
+    "WAVE_FORMAT_OLIOPR",
+    "WAVE_FORMAT_OLISBC",
+    "WAVE_FORMAT_ON2_VP6_AUDIO",
+    "WAVE_FORMAT_ON2_VP7_AUDIO",
+    "WAVE_FORMAT_ONLIVE",
+    "WAVE_FORMAT_OPUS",
+    "WAVE_FORMAT_PAC",
+    "WAVE_FORMAT_PACKED",
+    "WAVE_FORMAT_PCM_S",
+    "WAVE_FORMAT_PHILIPS_CELP",
+    "WAVE_FORMAT_PHILIPS_GRUNDIG",
+    "WAVE_FORMAT_PHILIPS_LPCBB",
+    "WAVE_FORMAT_POLYCOM_G722",
+    "WAVE_FORMAT_POLYCOM_G728",
+    "WAVE_FORMAT_POLYCOM_G729_A",
+    "WAVE_FORMAT_POLYCOM_SIREN",
+    "WAVE_FORMAT_PROSODY_1612",
+    "WAVE_FORMAT_PROSODY_8KBPS",
+    "WAVE_FORMAT_QDESIGN_MUSIC",
+    "WAVE_FORMAT_QUALCOMM_HALFRATE",
+    "WAVE_FORMAT_QUALCOMM_PUREVOICE",
+    "WAVE_FORMAT_QUARTERDECK",
+    "WAVE_FORMAT_RACAL_RECORDER_G720_A",
+    "WAVE_FORMAT_RACAL_RECORDER_G723_1",
+    "WAVE_FORMAT_RACAL_RECORDER_GSM",
+    "WAVE_FORMAT_RACAL_RECORDER_TETRA_ACELP",
+    "WAVE_FORMAT_RADIOTIME_TIME_SHIFT_RADIO",
+    "WAVE_FORMAT_RAW_AAC1",
+    "WAVE_FORMAT_RAW_SPORT",
+    "WAVE_FORMAT_RHETOREX_ADPCM",
+    "WAVE_FORMAT_ROCKWELL_ADPCM",
+    "WAVE_FORMAT_ROCKWELL_DIGITALK",
+    "WAVE_FORMAT_RT24",
+    "WAVE_FORMAT_SANYO_LD_ADPCM",
+    "WAVE_FORMAT_SBC24",
+    "WAVE_FORMAT_SHARP_G726",
+    "WAVE_FORMAT_SIERRA_ADPCM",
+    "WAVE_FORMAT_SIPROLAB_ACELP4800",
+    "WAVE_FORMAT_SIPROLAB_ACELP8V3",
+    "WAVE_FORMAT_SIPROLAB_ACEPLNET",
+    "WAVE_FORMAT_SIPROLAB_G729",
+    "WAVE_FORMAT_SIPROLAB_G729A",
+    "WAVE_FORMAT_SIPROLAB_KELVIN",
+    "WAVE_FORMAT_SOFTSOUND",
+    "WAVE_FORMAT_SONARC",
+    "WAVE_FORMAT_SONICFOUNDRY_LOSSLESS",
+    "WAVE_FORMAT_SONY_ATRAC3",
+    "WAVE_FORMAT_SONY_SCX",
+    "WAVE_FORMAT_SONY_SCY",
+    "WAVE_FORMAT_SONY_SPC",
+    "WAVE_FORMAT_SOUNDSPACE_MUSICOMPRESS",
+    "WAVE_FORMAT_SPEEX_VOICE",
+    "WAVE_FORMAT_SYCOM_ACM_SYC008",
+    "WAVE_FORMAT_SYCOM_ACM_SYC701_CELP54",
+    "WAVE_FORMAT_SYCOM_ACM_SYC701_CELP68",
+    "WAVE_FORMAT_SYCOM_ACM_SYC701_G726L",
+    "WAVE_FORMAT_SYMBOL_G729_A",
+    "WAVE_FORMAT_TELUM_AUDIO",
+    "WAVE_FORMAT_TELUM_IA_AUDIO",
+    "WAVE_FORMAT_TPC",
+    "WAVE_FORMAT_TUBGSM",
+    "WAVE_FORMAT_UHER_ADPCM",
+    "WAVE_FORMAT_ULEAD_DV_AUDIO",
+    "WAVE_FORMAT_ULEAD_DV_AUDIO_1",
+    "WAVE_FORMAT_UNISYS_NAP_16K",
+    "WAVE_FORMAT_UNISYS_NAP_ADPCM",
+    "WAVE_FORMAT_UNISYS_NAP_ALAW",
+    "WAVE_FORMAT_UNISYS_NAP_ULAW",
+    "WAVE_FORMAT_UNKNOWN",
+    "WAVE_FORMAT_VIANIX_MASC",
+    "WAVE_FORMAT_VIVO_G723",
+    "WAVE_FORMAT_VIVO_SIREN",
+    "WAVE_FORMAT_VME_VMPCM",
+    "WAVE_FORMAT_VOCORD_G721",
+    "WAVE_FORMAT_VOCORD_G722_1",
+    "WAVE_FORMAT_VOCORD_G723_1",
+    "WAVE_FORMAT_VOCORD_G726",
+    "WAVE_FORMAT_VOCORD_G728",
+    "WAVE_FORMAT_VOCORD_G729",
+    "WAVE_FORMAT_VOCORD_G729_A",
+    "WAVE_FORMAT_VOCORD_LBC",
+    "WAVE_FORMAT_VODAFONE_MPEG_ADTS_AAC",
+    "WAVE_FORMAT_VODAFONE_MPEG_RAW_AAC",
+    "WAVE_FORMAT_VOICEAGE_AMR",
+    "WAVE_FORMAT_VOICEAGE_AMR_WB",
+    "WAVE_FORMAT_VOXWARE",
+    "WAVE_FORMAT_VOXWARE_AC10",
+    "WAVE_FORMAT_VOXWARE_AC16",
+    "WAVE_FORMAT_VOXWARE_AC20",
+    "WAVE_FORMAT_VOXWARE_AC8",
+    "WAVE_FORMAT_VOXWARE_BYTE_ALIGNED",
+    "WAVE_FORMAT_VOXWARE_RT24",
+    "WAVE_FORMAT_VOXWARE_RT24_SPEECH",
+    "WAVE_FORMAT_VOXWARE_RT29",
+    "WAVE_FORMAT_VOXWARE_RT29HW",
+    "WAVE_FORMAT_VOXWARE_SC3",
+    "WAVE_FORMAT_VOXWARE_SC3_1",
+    "WAVE_FORMAT_VOXWARE_TQ40",
+    "WAVE_FORMAT_VOXWARE_TQ60",
+    "WAVE_FORMAT_VOXWARE_VR12",
+    "WAVE_FORMAT_VOXWARE_VR18",
+    "WAVE_FORMAT_VSELP",
+    "WAVE_FORMAT_WAVPACK_AUDIO",
+    "WAVE_FORMAT_WM9_SPECTRUM_ANALYZER",
+    "WAVE_FORMAT_WMASPDIF",
+    "WAVE_FORMAT_WMAUDIO2",
+    "WAVE_FORMAT_WMAUDIO3",
+    "WAVE_FORMAT_WMAUDIO_LOSSLESS",
+    "WAVE_FORMAT_WMAVOICE10",
+    "WAVE_FORMAT_WMAVOICE9",
+    "WAVE_FORMAT_WMF_SPECTRUM_ANAYZER",
+    "WAVE_FORMAT_XEBEC",
+    "WAVE_FORMAT_YAMAHA_ADPCM",
+    "WAVE_FORMAT_ZOLL_ASAO",
+    "WAVE_FORMAT_ZYXEL_ADPCM",
+    "WAVE_MAPPER_S",
     "WIDM_ADDBUFFER",
+    "WIDM_CLOSE",
+    "WIDM_GETDEVCAPS",
+    "WIDM_GETNUMDEVS",
+    "WIDM_GETPOS",
+    "WIDM_INIT",
+    "WIDM_INIT_EX",
+    "WIDM_OPEN",
+    "WIDM_PREFERRED",
+    "WIDM_PREPARE",
+    "WIDM_RESET",
     "WIDM_START",
     "WIDM_STOP",
-    "WIDM_RESET",
-    "WIDM_GETPOS",
-    "WIDM_PREFERRED",
-    "MIDI_IO_PACKED",
-    "MIDI_IO_COOKED",
-    "MODM_GETNUMDEVS",
-    "MODM_GETDEVCAPS",
-    "MODM_OPEN",
-    "MODM_CLOSE",
-    "MODM_PREPARE",
-    "MODM_UNPREPARE",
-    "MODM_DATA",
-    "MODM_LONGDATA",
-    "MODM_RESET",
-    "MODM_GETVOLUME",
-    "MODM_SETVOLUME",
-    "MODM_CACHEPATCHES",
-    "MODM_CACHEDRUMPATCHES",
-    "MODM_STRMDATA",
-    "MODM_GETPOS",
-    "MODM_PAUSE",
-    "MODM_RESTART",
-    "MODM_STOP",
-    "MODM_PROPERTIES",
-    "MODM_PREFERRED",
-    "MODM_RECONFIGURE",
-    "MIDM_GETNUMDEVS",
-    "MIDM_GETDEVCAPS",
-    "MIDM_OPEN",
-    "MIDM_CLOSE",
-    "MIDM_PREPARE",
-    "MIDM_UNPREPARE",
-    "MIDM_ADDBUFFER",
-    "MIDM_START",
-    "MIDM_STOP",
-    "MIDM_RESET",
-    "AUXM_INIT",
-    "AUXM_INIT_EX",
-    "AUXDM_GETNUMDEVS",
-    "AUXDM_GETDEVCAPS",
-    "AUXDM_GETVOLUME",
-    "AUXDM_SETVOLUME",
-    "MXDM_INIT",
-    "MXDM_INIT_EX",
-    "MXDM_USER",
-    "MXDM_BASE",
-    "MXDM_GETNUMDEVS",
-    "MXDM_GETDEVCAPS",
-    "MXDM_OPEN",
-    "MXDM_CLOSE",
-    "MXDM_GETLINEINFO",
-    "MXDM_GETLINECONTROLS",
-    "MXDM_GETCONTROLDETAILS",
-    "MXDM_SETCONTROLDETAILS",
-    "TDD_KILLTIMEREVENT",
-    "TDD_SETTIMEREVENT",
-    "TDD_GETSYSTEMTIME",
-    "TDD_GETDEVCAPS",
-    "TDD_BEGINMINPERIOD",
-    "TDD_ENDMINPERIOD",
-    "JDD_GETNUMDEVS",
-    "JDD_GETDEVCAPS",
-    "JDD_GETPOS",
-    "JDD_SETCALIBRATION",
-    "JDD_CONFIGCHANGED",
-    "JDD_GETPOSEX",
-    "MCI_OPEN_DRIVER",
-    "MCI_CLOSE_DRIVER",
-    "MCI_FALSE",
-    "MCI_TRUE",
-    "MCI_FORMAT_MILLISECONDS_S",
-    "MCI_FORMAT_HMS_S",
-    "MCI_FORMAT_MSF_S",
-    "MCI_FORMAT_FRAMES_S",
-    "MCI_FORMAT_SMPTE_24_S",
-    "MCI_FORMAT_SMPTE_25_S",
-    "MCI_FORMAT_SMPTE_30_S",
-    "MCI_FORMAT_SMPTE_30DROP_S",
-    "MCI_FORMAT_BYTES_S",
-    "MCI_FORMAT_SAMPLES_S",
-    "MCI_FORMAT_TMSF_S",
-    "MCI_VD_FORMAT_TRACK_S",
-    "WAVE_FORMAT_PCM_S",
-    "WAVE_MAPPER_S",
-    "MCI_SEQ_MAPPER_S",
-    "MCI_SEQ_FILE_S",
-    "MCI_SEQ_MIDI_S",
-    "MCI_SEQ_SMPTE_S",
-    "MCI_SEQ_FORMAT_SONGPTR_S",
-    "MCI_SEQ_NONE_S",
-    "MIDIMAPPER_S",
-    "MCI_MAX_DEVICE_TYPE_LENGTH",
-    "MCI_RESOURCE_RETURNED",
-    "MCI_COLONIZED3_RETURN",
-    "MCI_COLONIZED4_RETURN",
-    "MCI_INTEGER_RETURNED",
-    "MCI_RESOURCE_DRIVER",
-    "MCI_COMMAND_HEAD",
-    "MCI_STRING",
-    "MCI_INTEGER",
-    "MCI_END_COMMAND",
-    "MCI_RETURN",
-    "MCI_FLAG",
-    "MCI_END_COMMAND_LIST",
-    "MCI_RECT",
-    "MCI_CONSTANT",
-    "MCI_END_CONSTANT",
-    "MCI_HWND",
-    "MCI_HPAL",
-    "MCI_HDC",
-    "MCI_INTEGER64",
-    "TASKERR_NOTASKSUPPORT",
-    "TASKERR_OUTOFMEMORY",
-    "DRV_EXITSESSION",
-    "DRV_POWER",
-    "DRVCNF_CANCEL",
-    "DRVCNF_OK",
-    "DRVCNF_RESTART",
-    "DRV_CANCEL",
-    "DRV_OK",
-    "DRV_RESTART",
-    "DRV_MCI_LAST",
-    "MMIOERR_BASE",
-    "MMIOERR_FILENOTFOUND",
-    "MMIOERR_OUTOFMEMORY",
-    "MMIOERR_CANNOTOPEN",
-    "MMIOERR_CANNOTCLOSE",
-    "MMIOERR_CANNOTREAD",
-    "MMIOERR_CANNOTWRITE",
-    "MMIOERR_CANNOTSEEK",
-    "MMIOERR_CANNOTEXPAND",
-    "MMIOERR_CHUNKNOTFOUND",
-    "MMIOERR_UNBUFFERED",
-    "MMIOERR_PATHNOTFOUND",
-    "MMIOERR_ACCESSDENIED",
-    "MMIOERR_SHARINGVIOLATION",
-    "MMIOERR_NETWORKERROR",
-    "MMIOERR_TOOMANYOPENFILES",
-    "MMIOERR_INVALIDFILE",
-    "MMIO_RWMODE",
-    "MMIO_SHAREMODE",
-    "MMIO_CREATE",
-    "MMIO_PARSE",
-    "MMIO_DELETE",
-    "MMIO_EXIST",
-    "MMIO_ALLOCBUF",
-    "MMIO_GETTEMP",
-    "MMIO_DIRTY",
-    "MMIO_READ",
-    "MMIO_WRITE",
-    "MMIO_READWRITE",
-    "MMIO_COMPAT",
-    "MMIO_EXCLUSIVE",
-    "MMIO_DENYWRITE",
-    "MMIO_DENYREAD",
-    "MMIO_DENYNONE",
-    "MMIO_FHOPEN",
-    "MMIO_EMPTYBUF",
-    "MMIO_TOUPPER",
-    "MMIO_INSTALLPROC",
-    "MMIO_GLOBALPROC",
-    "MMIO_REMOVEPROC",
-    "MMIO_UNICODEPROC",
-    "MMIO_FINDPROC",
-    "MMIO_FINDCHUNK",
-    "MMIO_FINDRIFF",
-    "MMIO_FINDLIST",
-    "MMIO_CREATERIFF",
-    "MMIO_CREATELIST",
-    "MMIOM_READ",
-    "MMIOM_WRITE",
-    "MMIOM_SEEK",
-    "MMIOM_OPEN",
-    "MMIOM_CLOSE",
-    "MMIOM_WRITEFLUSH",
-    "MMIOM_RENAME",
-    "MMIOM_USER",
-    "SEEK_SET",
-    "SEEK_CUR",
-    "SEEK_END",
-    "MMIO_DEFAULTBUFFER",
-    "FACILITY_NS",
-    "MCI_MCIAVI_PLAY_WINDOW",
-    "MCI_MCIAVI_PLAY_FULLSCREEN",
-    "MCI_MCIAVI_PLAY_FULLBY2",
-    "MCI_AVI_STATUS_FRAMES_SKIPPED",
-    "MCI_AVI_STATUS_LAST_PLAY_SPEED",
-    "MCI_AVI_STATUS_AUDIO_BREAKS",
-    "MCI_AVI_SETVIDEO_DRAW_PROCEDURE",
-    "MCI_AVI_SETVIDEO_PALETTE_COLOR",
-    "MCI_AVI_SETVIDEO_PALETTE_HALFTONE",
-    "MCIERR_AVI_OLDAVIFORMAT",
-    "MCIERR_AVI_NOTINTERLEAVED",
-    "MCIERR_AVI_NODISPDIB",
-    "MCIERR_AVI_CANTPLAYFULLSCREEN",
-    "MCIERR_AVI_TOOBIGFORVGA",
-    "MCIERR_AVI_NOCOMPRESSOR",
-    "MCIERR_AVI_DISPLAYERROR",
-    "MCIERR_AVI_AUDIOERROR",
-    "MCIERR_AVI_BADPALETTE",
-    "DLG_ACMFORMATCHOOSE_ID",
-    "IDD_ACMFORMATCHOOSE_BTN_HELP",
-    "IDD_ACMFORMATCHOOSE_CMB_CUSTOM",
-    "IDD_ACMFORMATCHOOSE_CMB_FORMATTAG",
-    "IDD_ACMFORMATCHOOSE_CMB_FORMAT",
-    "IDD_ACMFORMATCHOOSE_BTN_SETNAME",
-    "IDD_ACMFORMATCHOOSE_BTN_DELNAME",
-    "DLG_ACMFILTERCHOOSE_ID",
-    "IDD_ACMFILTERCHOOSE_BTN_HELP",
-    "IDD_ACMFILTERCHOOSE_CMB_CUSTOM",
-    "IDD_ACMFILTERCHOOSE_CMB_FILTERTAG",
-    "IDD_ACMFILTERCHOOSE_CMB_FILTER",
-    "IDD_ACMFILTERCHOOSE_BTN_SETNAME",
-    "IDD_ACMFILTERCHOOSE_BTN_DELNAME",
-    "FACILITY_NS_WIN32",
-    "NS_S_CALLPENDING",
-    "NS_S_CALLABORTED",
-    "NS_S_STREAM_TRUNCATED",
-    "NS_W_SERVER_BANDWIDTH_LIMIT",
-    "NS_W_FILE_BANDWIDTH_LIMIT",
-    "NS_E_NOCONNECTION",
-    "NS_E_CANNOTCONNECT",
-    "NS_E_CANNOTDESTROYTITLE",
-    "NS_E_CANNOTRENAMETITLE",
-    "NS_E_CANNOTOFFLINEDISK",
-    "NS_E_CANNOTONLINEDISK",
-    "NS_E_NOREGISTEREDWALKER",
-    "NS_E_NOFUNNEL",
-    "NS_E_NO_LOCALPLAY",
-    "NS_E_NETWORK_BUSY",
-    "NS_E_TOO_MANY_SESS",
-    "NS_E_ALREADY_CONNECTED",
-    "NS_E_INVALID_INDEX",
-    "NS_E_PROTOCOL_MISMATCH",
-    "NS_E_TIMEOUT",
-    "NS_E_NET_WRITE",
-    "NS_E_NET_READ",
-    "NS_E_DISK_WRITE",
-    "NS_E_DISK_READ",
-    "NS_E_FILE_WRITE",
-    "NS_E_FILE_READ",
-    "NS_E_FILE_NOT_FOUND",
-    "NS_E_FILE_EXISTS",
-    "NS_E_INVALID_NAME",
-    "NS_E_FILE_OPEN_FAILED",
-    "NS_E_FILE_ALLOCATION_FAILED",
-    "NS_E_FILE_INIT_FAILED",
-    "NS_E_FILE_PLAY_FAILED",
-    "NS_E_SET_DISK_UID_FAILED",
-    "NS_E_INDUCED",
-    "NS_E_CCLINK_DOWN",
-    "NS_E_INTERNAL",
-    "NS_E_BUSY",
-    "NS_E_UNRECOGNIZED_STREAM_TYPE",
-    "NS_E_NETWORK_SERVICE_FAILURE",
-    "NS_E_NETWORK_RESOURCE_FAILURE",
-    "NS_E_CONNECTION_FAILURE",
-    "NS_E_SHUTDOWN",
-    "NS_E_INVALID_REQUEST",
-    "NS_E_INSUFFICIENT_BANDWIDTH",
-    "NS_E_NOT_REBUILDING",
-    "NS_E_LATE_OPERATION",
-    "NS_E_INVALID_DATA",
-    "NS_E_FILE_BANDWIDTH_LIMIT",
-    "NS_E_OPEN_FILE_LIMIT",
-    "NS_E_BAD_CONTROL_DATA",
-    "NS_E_NO_STREAM",
-    "NS_E_STREAM_END",
-    "NS_E_SERVER_NOT_FOUND",
-    "NS_E_DUPLICATE_NAME",
-    "NS_E_DUPLICATE_ADDRESS",
-    "NS_E_BAD_MULTICAST_ADDRESS",
-    "NS_E_BAD_ADAPTER_ADDRESS",
-    "NS_E_BAD_DELIVERY_MODE",
-    "NS_E_INVALID_CHANNEL",
-    "NS_E_INVALID_STREAM",
-    "NS_E_INVALID_ARCHIVE",
-    "NS_E_NOTITLES",
-    "NS_E_INVALID_CLIENT",
-    "NS_E_INVALID_BLACKHOLE_ADDRESS",
-    "NS_E_INCOMPATIBLE_FORMAT",
-    "NS_E_INVALID_KEY",
-    "NS_E_INVALID_PORT",
-    "NS_E_INVALID_TTL",
-    "NS_E_STRIDE_REFUSED",
-    "NS_E_MMSAUTOSERVER_CANTFINDWALKER",
-    "NS_E_MAX_BITRATE",
-    "NS_E_LOGFILEPERIOD",
-    "NS_E_MAX_CLIENTS",
-    "NS_E_LOG_FILE_SIZE",
-    "NS_E_MAX_FILERATE",
-    "NS_E_WALKER_UNKNOWN",
-    "NS_E_WALKER_SERVER",
-    "NS_E_WALKER_USAGE",
-    "NS_I_TIGER_START",
-    "NS_E_TIGER_FAIL",
-    "NS_I_CUB_START",
-    "NS_I_CUB_RUNNING",
-    "NS_E_CUB_FAIL",
-    "NS_I_DISK_START",
-    "NS_E_DISK_FAIL",
-    "NS_I_DISK_REBUILD_STARTED",
-    "NS_I_DISK_REBUILD_FINISHED",
-    "NS_I_DISK_REBUILD_ABORTED",
-    "NS_I_LIMIT_FUNNELS",
-    "NS_I_START_DISK",
-    "NS_I_STOP_DISK",
-    "NS_I_STOP_CUB",
-    "NS_I_KILL_USERSESSION",
-    "NS_I_KILL_CONNECTION",
-    "NS_I_REBUILD_DISK",
-    "NS_W_UNKNOWN_EVENT",
-    "NS_E_MAX_FUNNELS_ALERT",
-    "NS_E_ALLOCATE_FILE_FAIL",
-    "NS_E_PAGING_ERROR",
-    "NS_E_BAD_BLOCK0_VERSION",
-    "NS_E_BAD_DISK_UID",
-    "NS_E_BAD_FSMAJOR_VERSION",
-    "NS_E_BAD_STAMPNUMBER",
-    "NS_E_PARTIALLY_REBUILT_DISK",
-    "NS_E_ENACTPLAN_GIVEUP",
-    "MCMADM_I_NO_EVENTS",
-    "MCMADM_E_REGKEY_NOT_FOUND",
-    "NS_E_NO_FORMATS",
-    "NS_E_NO_REFERENCES",
-    "NS_E_WAVE_OPEN",
-    "NS_I_LOGGING_FAILED",
-    "NS_E_CANNOTCONNECTEVENTS",
-    "NS_I_LIMIT_BANDWIDTH",
-    "NS_E_NO_DEVICE",
-    "NS_E_NO_SPECIFIED_DEVICE",
-    "NS_E_NOTHING_TO_DO",
-    "NS_E_NO_MULTICAST",
-    "NS_E_MONITOR_GIVEUP",
-    "NS_E_REMIRRORED_DISK",
-    "NS_E_INSUFFICIENT_DATA",
-    "NS_E_ASSERT",
-    "NS_E_BAD_ADAPTER_NAME",
-    "NS_E_NOT_LICENSED",
-    "NS_E_NO_SERVER_CONTACT",
-    "NS_E_TOO_MANY_TITLES",
-    "NS_E_TITLE_SIZE_EXCEEDED",
-    "NS_E_UDP_DISABLED",
-    "NS_E_TCP_DISABLED",
-    "NS_E_HTTP_DISABLED",
-    "NS_E_LICENSE_EXPIRED",
-    "NS_E_TITLE_BITRATE",
-    "NS_E_EMPTY_PROGRAM_NAME",
-    "NS_E_MISSING_CHANNEL",
-    "NS_E_NO_CHANNELS",
-    "NS_E_INVALID_INDEX2",
-    "NS_E_CUB_FAIL_LINK",
-    "NS_I_CUB_UNFAIL_LINK",
-    "NS_E_BAD_CUB_UID",
-    "NS_I_RESTRIPE_START",
-    "NS_I_RESTRIPE_DONE",
-    "NS_E_GLITCH_MODE",
-    "NS_I_RESTRIPE_DISK_OUT",
-    "NS_I_RESTRIPE_CUB_OUT",
-    "NS_I_DISK_STOP",
-    "NS_I_CATATONIC_FAILURE",
-    "NS_I_CATATONIC_AUTO_UNFAIL",
-    "NS_E_NO_MEDIA_PROTOCOL",
-    "NS_E_INVALID_INPUT_FORMAT",
-    "NS_E_MSAUDIO_NOT_INSTALLED",
-    "NS_E_UNEXPECTED_MSAUDIO_ERROR",
-    "NS_E_INVALID_OUTPUT_FORMAT",
-    "NS_E_NOT_CONFIGURED",
-    "NS_E_PROTECTED_CONTENT",
-    "NS_E_LICENSE_REQUIRED",
-    "NS_E_TAMPERED_CONTENT",
-    "NS_E_LICENSE_OUTOFDATE",
-    "NS_E_LICENSE_INCORRECT_RIGHTS",
-    "NS_E_AUDIO_CODEC_NOT_INSTALLED",
-    "NS_E_AUDIO_CODEC_ERROR",
-    "NS_E_VIDEO_CODEC_NOT_INSTALLED",
-    "NS_E_VIDEO_CODEC_ERROR",
-    "NS_E_INVALIDPROFILE",
-    "NS_E_INCOMPATIBLE_VERSION",
-    "NS_S_REBUFFERING",
-    "NS_S_DEGRADING_QUALITY",
-    "NS_E_OFFLINE_MODE",
-    "NS_E_NOT_CONNECTED",
-    "NS_E_TOO_MUCH_DATA",
-    "NS_E_UNSUPPORTED_PROPERTY",
-    "NS_E_8BIT_WAVE_UNSUPPORTED",
-    "NS_E_NO_MORE_SAMPLES",
-    "NS_E_INVALID_SAMPLING_RATE",
-    "NS_E_MAX_PACKET_SIZE_TOO_SMALL",
-    "NS_E_LATE_PACKET",
-    "NS_E_DUPLICATE_PACKET",
-    "NS_E_SDK_BUFFERTOOSMALL",
-    "NS_E_INVALID_NUM_PASSES",
-    "NS_E_ATTRIBUTE_READ_ONLY",
-    "NS_E_ATTRIBUTE_NOT_ALLOWED",
-    "NS_E_INVALID_EDL",
-    "NS_E_DATA_UNIT_EXTENSION_TOO_LARGE",
-    "NS_E_CODEC_DMO_ERROR",
-    "NS_S_TRANSCRYPTOR_EOF",
-    "NS_E_FEATURE_DISABLED_BY_GROUP_POLICY",
-    "NS_E_FEATURE_DISABLED_IN_SKU",
-    "NS_E_WMDRM_DEPRECATED",
-    "NS_E_NO_CD",
-    "NS_E_CANT_READ_DIGITAL",
-    "NS_E_DEVICE_DISCONNECTED",
-    "NS_E_DEVICE_NOT_SUPPORT_FORMAT",
-    "NS_E_SLOW_READ_DIGITAL",
-    "NS_E_MIXER_INVALID_LINE",
-    "NS_E_MIXER_INVALID_CONTROL",
-    "NS_E_MIXER_INVALID_VALUE",
-    "NS_E_MIXER_UNKNOWN_MMRESULT",
-    "NS_E_USER_STOP",
-    "NS_E_MP3_FORMAT_NOT_FOUND",
-    "NS_E_CD_READ_ERROR_NO_CORRECTION",
-    "NS_E_CD_READ_ERROR",
-    "NS_E_CD_SLOW_COPY",
-    "NS_E_CD_COPYTO_CD",
-    "NS_E_MIXER_NODRIVER",
-    "NS_E_REDBOOK_ENABLED_WHILE_COPYING",
-    "NS_E_CD_REFRESH",
-    "NS_E_CD_DRIVER_PROBLEM",
-    "NS_E_WONT_DO_DIGITAL",
-    "NS_E_WMPXML_NOERROR",
-    "NS_E_WMPXML_ENDOFDATA",
-    "NS_E_WMPXML_PARSEERROR",
-    "NS_E_WMPXML_ATTRIBUTENOTFOUND",
-    "NS_E_WMPXML_PINOTFOUND",
-    "NS_E_WMPXML_EMPTYDOC",
-    "NS_E_WMP_PATH_ALREADY_IN_LIBRARY",
-    "NS_E_WMP_FILESCANALREADYSTARTED",
-    "NS_E_WMP_HME_INVALIDOBJECTID",
-    "NS_E_WMP_MF_CODE_EXPIRED",
-    "NS_E_WMP_HME_NOTSEARCHABLEFORITEMS",
-    "NS_E_WMP_HME_STALEREQUEST",
-    "NS_E_WMP_ADDTOLIBRARY_FAILED",
-    "NS_E_WMP_WINDOWSAPIFAILURE",
-    "NS_E_WMP_RECORDING_NOT_ALLOWED",
-    "NS_E_DEVICE_NOT_READY",
-    "NS_E_DAMAGED_FILE",
-    "NS_E_MPDB_GENERIC",
-    "NS_E_FILE_FAILED_CHECKS",
-    "NS_E_MEDIA_LIBRARY_FAILED",
-    "NS_E_SHARING_VIOLATION",
-    "NS_E_NO_ERROR_STRING_FOUND",
-    "NS_E_WMPOCX_NO_REMOTE_CORE",
-    "NS_E_WMPOCX_NO_ACTIVE_CORE",
-    "NS_E_WMPOCX_NOT_RUNNING_REMOTELY",
-    "NS_E_WMPOCX_NO_REMOTE_WINDOW",
-    "NS_E_WMPOCX_ERRORMANAGERNOTAVAILABLE",
-    "NS_E_PLUGIN_NOTSHUTDOWN",
-    "NS_E_WMP_CANNOT_FIND_FOLDER",
-    "NS_E_WMP_STREAMING_RECORDING_NOT_ALLOWED",
-    "NS_E_WMP_PLUGINDLL_NOTFOUND",
-    "NS_E_NEED_TO_ASK_USER",
-    "NS_E_WMPOCX_PLAYER_NOT_DOCKED",
-    "NS_E_WMP_EXTERNAL_NOTREADY",
-    "NS_E_WMP_MLS_STALE_DATA",
-    "NS_E_WMP_UI_SUBCONTROLSNOTSUPPORTED",
-    "NS_E_WMP_UI_VERSIONMISMATCH",
-    "NS_E_WMP_UI_NOTATHEMEFILE",
-    "NS_E_WMP_UI_SUBELEMENTNOTFOUND",
-    "NS_E_WMP_UI_VERSIONPARSE",
-    "NS_E_WMP_UI_VIEWIDNOTFOUND",
-    "NS_E_WMP_UI_PASSTHROUGH",
-    "NS_E_WMP_UI_OBJECTNOTFOUND",
-    "NS_E_WMP_UI_SECONDHANDLER",
-    "NS_E_WMP_UI_NOSKININZIP",
-    "NS_S_WMP_UI_VERSIONMISMATCH",
-    "NS_S_WMP_EXCEPTION",
-    "NS_E_WMP_URLDOWNLOADFAILED",
-    "NS_E_WMPOCX_UNABLE_TO_LOAD_SKIN",
-    "NS_E_WMP_INVALID_SKIN",
-    "NS_E_WMP_SENDMAILFAILED",
-    "NS_E_WMP_LOCKEDINSKINMODE",
-    "NS_E_WMP_FAILED_TO_SAVE_FILE",
-    "NS_E_WMP_SAVEAS_READONLY",
-    "NS_E_WMP_FAILED_TO_SAVE_PLAYLIST",
-    "NS_E_WMP_FAILED_TO_OPEN_WMD",
-    "NS_E_WMP_CANT_PLAY_PROTECTED",
-    "NS_E_SHARING_STATE_OUT_OF_SYNC",
-    "NS_E_WMPOCX_REMOTE_PLAYER_ALREADY_RUNNING",
-    "NS_E_WMP_RBC_JPGMAPPINGIMAGE",
-    "NS_E_WMP_JPGTRANSPARENCY",
-    "NS_E_WMP_INVALID_MAX_VAL",
-    "NS_E_WMP_INVALID_MIN_VAL",
-    "NS_E_WMP_CS_JPGPOSITIONIMAGE",
-    "NS_E_WMP_CS_NOTEVENLYDIVISIBLE",
-    "NS_E_WMPZIP_NOTAZIPFILE",
-    "NS_E_WMPZIP_CORRUPT",
-    "NS_E_WMPZIP_FILENOTFOUND",
-    "NS_E_WMP_IMAGE_FILETYPE_UNSUPPORTED",
-    "NS_E_WMP_IMAGE_INVALID_FORMAT",
-    "NS_E_WMP_GIF_UNEXPECTED_ENDOFFILE",
-    "NS_E_WMP_GIF_INVALID_FORMAT",
-    "NS_E_WMP_GIF_BAD_VERSION_NUMBER",
-    "NS_E_WMP_GIF_NO_IMAGE_IN_FILE",
-    "NS_E_WMP_PNG_INVALIDFORMAT",
-    "NS_E_WMP_PNG_UNSUPPORTED_BITDEPTH",
-    "NS_E_WMP_PNG_UNSUPPORTED_COMPRESSION",
-    "NS_E_WMP_PNG_UNSUPPORTED_FILTER",
-    "NS_E_WMP_PNG_UNSUPPORTED_INTERLACE",
-    "NS_E_WMP_PNG_UNSUPPORTED_BAD_CRC",
-    "NS_E_WMP_BMP_INVALID_BITMASK",
-    "NS_E_WMP_BMP_TOPDOWN_DIB_UNSUPPORTED",
-    "NS_E_WMP_BMP_BITMAP_NOT_CREATED",
-    "NS_E_WMP_BMP_COMPRESSION_UNSUPPORTED",
-    "NS_E_WMP_BMP_INVALID_FORMAT",
-    "NS_E_WMP_JPG_JERR_ARITHCODING_NOTIMPL",
-    "NS_E_WMP_JPG_INVALID_FORMAT",
-    "NS_E_WMP_JPG_BAD_DCTSIZE",
-    "NS_E_WMP_JPG_BAD_VERSION_NUMBER",
-    "NS_E_WMP_JPG_BAD_PRECISION",
-    "NS_E_WMP_JPG_CCIR601_NOTIMPL",
-    "NS_E_WMP_JPG_NO_IMAGE_IN_FILE",
-    "NS_E_WMP_JPG_READ_ERROR",
-    "NS_E_WMP_JPG_FRACT_SAMPLE_NOTIMPL",
-    "NS_E_WMP_JPG_IMAGE_TOO_BIG",
-    "NS_E_WMP_JPG_UNEXPECTED_ENDOFFILE",
-    "NS_E_WMP_JPG_SOF_UNSUPPORTED",
-    "NS_E_WMP_JPG_UNKNOWN_MARKER",
-    "NS_S_WMP_LOADED_GIF_IMAGE",
-    "NS_S_WMP_LOADED_PNG_IMAGE",
-    "NS_S_WMP_LOADED_BMP_IMAGE",
-    "NS_S_WMP_LOADED_JPG_IMAGE",
-    "NS_E_WMP_FAILED_TO_OPEN_IMAGE",
-    "NS_E_WMP_DAI_SONGTOOSHORT",
-    "NS_E_WMG_RATEUNAVAILABLE",
-    "NS_E_WMG_PLUGINUNAVAILABLE",
-    "NS_E_WMG_CANNOTQUEUE",
-    "NS_E_WMG_PREROLLLICENSEACQUISITIONNOTALLOWED",
-    "NS_E_WMG_UNEXPECTEDPREROLLSTATUS",
-    "NS_S_WMG_FORCE_DROP_FRAME",
-    "NS_E_WMG_INVALID_COPP_CERTIFICATE",
-    "NS_E_WMG_COPP_SECURITY_INVALID",
-    "NS_E_WMG_COPP_UNSUPPORTED",
-    "NS_E_WMG_INVALIDSTATE",
-    "NS_E_WMG_SINKALREADYEXISTS",
-    "NS_E_WMG_NOSDKINTERFACE",
-    "NS_E_WMG_NOTALLOUTPUTSRENDERED",
-    "NS_E_WMG_FILETRANSFERNOTALLOWED",
-    "NS_E_WMR_UNSUPPORTEDSTREAM",
-    "NS_E_WMR_PINNOTFOUND",
-    "NS_E_WMR_WAITINGONFORMATSWITCH",
-    "NS_E_WMR_NOSOURCEFILTER",
-    "NS_E_WMR_PINTYPENOMATCH",
-    "NS_E_WMR_NOCALLBACKAVAILABLE",
-    "NS_S_WMR_ALREADYRENDERED",
-    "NS_S_WMR_PINTYPEPARTIALMATCH",
-    "NS_S_WMR_PINTYPEFULLMATCH",
-    "NS_E_WMR_SAMPLEPROPERTYNOTSET",
-    "NS_E_WMR_CANNOT_RENDER_BINARY_STREAM",
-    "NS_E_WMG_LICENSE_TAMPERED",
-    "NS_E_WMR_WILLNOT_RENDER_BINARY_STREAM",
-    "NS_S_WMG_ADVISE_DROP_FRAME",
-    "NS_S_WMG_ADVISE_DROP_TO_KEYFRAME",
-    "NS_E_WMX_UNRECOGNIZED_PLAYLIST_FORMAT",
-    "NS_E_ASX_INVALIDFORMAT",
-    "NS_E_ASX_INVALIDVERSION",
-    "NS_E_ASX_INVALID_REPEAT_BLOCK",
-    "NS_E_ASX_NOTHING_TO_WRITE",
-    "NS_E_URLLIST_INVALIDFORMAT",
-    "NS_E_WMX_ATTRIBUTE_DOES_NOT_EXIST",
-    "NS_E_WMX_ATTRIBUTE_ALREADY_EXISTS",
-    "NS_E_WMX_ATTRIBUTE_UNRETRIEVABLE",
-    "NS_E_WMX_ITEM_DOES_NOT_EXIST",
-    "NS_E_WMX_ITEM_TYPE_ILLEGAL",
-    "NS_E_WMX_ITEM_UNSETTABLE",
-    "NS_E_WMX_PLAYLIST_EMPTY",
-    "NS_E_MLS_SMARTPLAYLIST_FILTER_NOT_REGISTERED",
-    "NS_E_WMX_INVALID_FORMAT_OVER_NESTING",
-    "NS_E_WMPCORE_NOSOURCEURLSTRING",
-    "NS_E_WMPCORE_COCREATEFAILEDFORGITOBJECT",
-    "NS_E_WMPCORE_FAILEDTOGETMARSHALLEDEVENTHANDLERINTERFACE",
-    "NS_E_WMPCORE_BUFFERTOOSMALL",
-    "NS_E_WMPCORE_UNAVAILABLE",
-    "NS_E_WMPCORE_INVALIDPLAYLISTMODE",
-    "NS_E_WMPCORE_ITEMNOTINPLAYLIST",
-    "NS_E_WMPCORE_PLAYLISTEMPTY",
-    "NS_E_WMPCORE_NOBROWSER",
-    "NS_E_WMPCORE_UNRECOGNIZED_MEDIA_URL",
-    "NS_E_WMPCORE_GRAPH_NOT_IN_LIST",
-    "NS_E_WMPCORE_PLAYLIST_EMPTY_OR_SINGLE_MEDIA",
-    "NS_E_WMPCORE_ERRORSINKNOTREGISTERED",
-    "NS_E_WMPCORE_ERRORMANAGERNOTAVAILABLE",
-    "NS_E_WMPCORE_WEBHELPFAILED",
-    "NS_E_WMPCORE_MEDIA_ERROR_RESUME_FAILED",
-    "NS_E_WMPCORE_NO_REF_IN_ENTRY",
-    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_NAME_EMPTY",
-    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_NAME_ILLEGAL",
-    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_VALUE_EMPTY",
-    "NS_E_WMPCORE_WMX_LIST_ATTRIBUTE_VALUE_ILLEGAL",
-    "NS_E_WMPCORE_WMX_LIST_ITEM_ATTRIBUTE_NAME_EMPTY",
-    "NS_E_WMPCORE_WMX_LIST_ITEM_ATTRIBUTE_NAME_ILLEGAL",
-    "NS_E_WMPCORE_WMX_LIST_ITEM_ATTRIBUTE_VALUE_EMPTY",
-    "NS_E_WMPCORE_LIST_ENTRY_NO_REF",
-    "NS_E_WMPCORE_MISNAMED_FILE",
-    "NS_E_WMPCORE_CODEC_NOT_TRUSTED",
-    "NS_E_WMPCORE_CODEC_NOT_FOUND",
-    "NS_E_WMPCORE_CODEC_DOWNLOAD_NOT_ALLOWED",
-    "NS_E_WMPCORE_ERROR_DOWNLOADING_PLAYLIST",
-    "NS_E_WMPCORE_FAILED_TO_BUILD_PLAYLIST",
-    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_NONE",
-    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_EXHAUSTED",
-    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_NAME_NOT_FOUND",
-    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_MORPH_FAILED",
-    "NS_E_WMPCORE_PLAYLIST_ITEM_ALTERNATE_INIT_FAILED",
-    "NS_E_WMPCORE_MEDIA_ALTERNATE_REF_EMPTY",
-    "NS_E_WMPCORE_PLAYLIST_NO_EVENT_NAME",
-    "NS_E_WMPCORE_PLAYLIST_EVENT_ATTRIBUTE_ABSENT",
-    "NS_E_WMPCORE_PLAYLIST_EVENT_EMPTY",
-    "NS_E_WMPCORE_PLAYLIST_STACK_EMPTY",
-    "NS_E_WMPCORE_CURRENT_MEDIA_NOT_ACTIVE",
-    "NS_E_WMPCORE_USER_CANCEL",
-    "NS_E_WMPCORE_PLAYLIST_REPEAT_EMPTY",
-    "NS_E_WMPCORE_PLAYLIST_REPEAT_START_MEDIA_NONE",
-    "NS_E_WMPCORE_PLAYLIST_REPEAT_END_MEDIA_NONE",
-    "NS_E_WMPCORE_INVALID_PLAYLIST_URL",
-    "NS_E_WMPCORE_MISMATCHED_RUNTIME",
-    "NS_E_WMPCORE_PLAYLIST_IMPORT_FAILED_NO_ITEMS",
-    "NS_E_WMPCORE_VIDEO_TRANSFORM_FILTER_INSERTION",
-    "NS_E_WMPCORE_MEDIA_UNAVAILABLE",
-    "NS_E_WMPCORE_WMX_ENTRYREF_NO_REF",
-    "NS_E_WMPCORE_NO_PLAYABLE_MEDIA_IN_PLAYLIST",
-    "NS_E_WMPCORE_PLAYLIST_EMPTY_NESTED_PLAYLIST_SKIPPED_ITEMS",
-    "NS_E_WMPCORE_BUSY",
-    "NS_E_WMPCORE_MEDIA_CHILD_PLAYLIST_UNAVAILABLE",
-    "NS_E_WMPCORE_MEDIA_NO_CHILD_PLAYLIST",
-    "NS_E_WMPCORE_FILE_NOT_FOUND",
-    "NS_E_WMPCORE_TEMP_FILE_NOT_FOUND",
-    "NS_E_WMDM_REVOKED",
-    "NS_E_DDRAW_GENERIC",
-    "NS_E_DISPLAY_MODE_CHANGE_FAILED",
-    "NS_E_PLAYLIST_CONTAINS_ERRORS",
-    "NS_E_CHANGING_PROXY_NAME",
-    "NS_E_CHANGING_PROXY_PORT",
-    "NS_E_CHANGING_PROXY_EXCEPTIONLIST",
-    "NS_E_CHANGING_PROXYBYPASS",
-    "NS_E_CHANGING_PROXY_PROTOCOL_NOT_FOUND",
-    "NS_E_GRAPH_NOAUDIOLANGUAGE",
-    "NS_E_GRAPH_NOAUDIOLANGUAGESELECTED",
-    "NS_E_CORECD_NOTAMEDIACD",
-    "NS_E_WMPCORE_MEDIA_URL_TOO_LONG",
-    "NS_E_WMPFLASH_CANT_FIND_COM_SERVER",
-    "NS_E_WMPFLASH_INCOMPATIBLEVERSION",
-    "NS_E_WMPOCXGRAPH_IE_DISALLOWS_ACTIVEX_CONTROLS",
-    "NS_E_NEED_CORE_REFERENCE",
-    "NS_E_MEDIACD_READ_ERROR",
-    "NS_E_IE_DISALLOWS_ACTIVEX_CONTROLS",
-    "NS_E_FLASH_PLAYBACK_NOT_ALLOWED",
-    "NS_E_UNABLE_TO_CREATE_RIP_LOCATION",
-    "NS_E_WMPCORE_SOME_CODECS_MISSING",
-    "NS_E_WMP_RIP_FAILED",
-    "NS_E_WMP_FAILED_TO_RIP_TRACK",
-    "NS_E_WMP_ERASE_FAILED",
-    "NS_E_WMP_FORMAT_FAILED",
-    "NS_E_WMP_CANNOT_BURN_NON_LOCAL_FILE",
-    "NS_E_WMP_FILE_TYPE_CANNOT_BURN_TO_AUDIO_CD",
-    "NS_E_WMP_FILE_DOES_NOT_FIT_ON_CD",
-    "NS_E_WMP_FILE_NO_DURATION",
-    "NS_E_PDA_FAILED_TO_BURN",
-    "NS_S_NEED_TO_BUY_BURN_RIGHTS",
-    "NS_E_FAILED_DOWNLOAD_ABORT_BURN",
-    "NS_E_WMPCORE_DEVICE_DRIVERS_MISSING",
-    "NS_S_WMPCORE_PLAYLISTCLEARABORT",
-    "NS_S_WMPCORE_PLAYLISTREMOVEITEMABORT",
-    "NS_S_WMPCORE_PLAYLIST_CREATION_PENDING",
-    "NS_S_WMPCORE_MEDIA_VALIDATION_PENDING",
-    "NS_S_WMPCORE_PLAYLIST_REPEAT_SECONDARY_SEGMENTS_IGNORED",
-    "NS_S_WMPCORE_COMMAND_NOT_AVAILABLE",
-    "NS_S_WMPCORE_PLAYLIST_NAME_AUTO_GENERATED",
-    "NS_S_WMPCORE_PLAYLIST_IMPORT_MISSING_ITEMS",
-    "NS_S_WMPCORE_PLAYLIST_COLLAPSED_TO_SINGLE_MEDIA",
-    "NS_S_WMPCORE_MEDIA_CHILD_PLAYLIST_OPEN_PENDING",
-    "NS_S_WMPCORE_MORE_NODES_AVAIABLE",
-    "NS_E_WMPIM_USEROFFLINE",
-    "NS_E_WMPIM_USERCANCELED",
-    "NS_E_WMPIM_DIALUPFAILED",
-    "NS_E_WINSOCK_ERROR_STRING",
-    "NS_E_WMPBR_NOLISTENER",
-    "NS_E_WMPBR_BACKUPCANCEL",
-    "NS_E_WMPBR_RESTORECANCEL",
-    "NS_E_WMPBR_ERRORWITHURL",
-    "NS_E_WMPBR_NAMECOLLISION",
-    "NS_S_WMPBR_SUCCESS",
-    "NS_S_WMPBR_PARTIALSUCCESS",
-    "NS_E_WMPBR_DRIVE_INVALID",
-    "NS_E_WMPBR_BACKUPRESTOREFAILED",
-    "NS_S_WMPEFFECT_TRANSPARENT",
-    "NS_S_WMPEFFECT_OPAQUE",
-    "NS_S_OPERATION_PENDING",
-    "NS_E_WMP_CONVERT_FILE_FAILED",
-    "NS_E_WMP_CONVERT_NO_RIGHTS_ERRORURL",
-    "NS_E_WMP_CONVERT_NO_RIGHTS_NOERRORURL",
-    "NS_E_WMP_CONVERT_FILE_CORRUPT",
-    "NS_E_WMP_CONVERT_PLUGIN_UNAVAILABLE_ERRORURL",
-    "NS_E_WMP_CONVERT_PLUGIN_UNAVAILABLE_NOERRORURL",
-    "NS_E_WMP_CONVERT_PLUGIN_UNKNOWN_FILE_OWNER",
-    "NS_E_DVD_DISC_COPY_PROTECT_OUTPUT_NS",
-    "NS_E_DVD_DISC_COPY_PROTECT_OUTPUT_FAILED",
-    "NS_E_DVD_NO_SUBPICTURE_STREAM",
-    "NS_E_DVD_COPY_PROTECT",
-    "NS_E_DVD_AUTHORING_PROBLEM",
-    "NS_E_DVD_INVALID_DISC_REGION",
-    "NS_E_DVD_COMPATIBLE_VIDEO_CARD",
-    "NS_E_DVD_MACROVISION",
-    "NS_E_DVD_SYSTEM_DECODER_REGION",
-    "NS_E_DVD_DISC_DECODER_REGION",
-    "NS_E_DVD_NO_VIDEO_STREAM",
-    "NS_E_DVD_NO_AUDIO_STREAM",
-    "NS_E_DVD_GRAPH_BUILDING",
-    "NS_E_DVD_NO_DECODER",
-    "NS_E_DVD_PARENTAL",
-    "NS_E_DVD_CANNOT_JUMP",
-    "NS_E_DVD_DEVICE_CONTENTION",
-    "NS_E_DVD_NO_VIDEO_MEMORY",
-    "NS_E_DVD_CANNOT_COPY_PROTECTED",
-    "NS_E_DVD_REQUIRED_PROPERTY_NOT_SET",
-    "NS_E_DVD_INVALID_TITLE_CHAPTER",
-    "NS_E_NO_CD_BURNER",
-    "NS_E_DEVICE_IS_NOT_READY",
-    "NS_E_PDA_UNSUPPORTED_FORMAT",
-    "NS_E_NO_PDA",
-    "NS_E_PDA_UNSPECIFIED_ERROR",
-    "NS_E_MEMSTORAGE_BAD_DATA",
-    "NS_E_PDA_FAIL_SELECT_DEVICE",
-    "NS_E_PDA_FAIL_READ_WAVE_FILE",
-    "NS_E_IMAPI_LOSSOFSTREAMING",
-    "NS_E_PDA_DEVICE_FULL",
-    "NS_E_FAIL_LAUNCH_ROXIO_PLUGIN",
-    "NS_E_PDA_DEVICE_FULL_IN_SESSION",
-    "NS_E_IMAPI_MEDIUM_INVALIDTYPE",
-    "NS_E_PDA_MANUALDEVICE",
-    "NS_E_PDA_PARTNERSHIPNOTEXIST",
-    "NS_E_PDA_CANNOT_CREATE_ADDITIONAL_SYNC_RELATIONSHIP",
-    "NS_E_PDA_NO_TRANSCODE_OF_DRM",
-    "NS_E_PDA_TRANSCODECACHEFULL",
-    "NS_E_PDA_TOO_MANY_FILE_COLLISIONS",
-    "NS_E_PDA_CANNOT_TRANSCODE",
-    "NS_E_PDA_TOO_MANY_FILES_IN_DIRECTORY",
-    "NS_E_PROCESSINGSHOWSYNCWIZARD",
-    "NS_E_PDA_TRANSCODE_NOT_PERMITTED",
-    "NS_E_PDA_INITIALIZINGDEVICES",
-    "NS_E_PDA_OBSOLETE_SP",
-    "NS_E_PDA_TITLE_COLLISION",
-    "NS_E_PDA_DEVICESUPPORTDISABLED",
-    "NS_E_PDA_NO_LONGER_AVAILABLE",
-    "NS_E_PDA_ENCODER_NOT_RESPONDING",
-    "NS_E_PDA_CANNOT_SYNC_FROM_LOCATION",
-    "NS_E_WMP_PROTOCOL_PROBLEM",
-    "NS_E_WMP_NO_DISK_SPACE",
-    "NS_E_WMP_LOGON_FAILURE",
-    "NS_E_WMP_CANNOT_FIND_FILE",
-    "NS_E_WMP_SERVER_INACCESSIBLE",
-    "NS_E_WMP_UNSUPPORTED_FORMAT",
-    "NS_E_WMP_DSHOW_UNSUPPORTED_FORMAT",
-    "NS_E_WMP_PLAYLIST_EXISTS",
-    "NS_E_WMP_NONMEDIA_FILES",
-    "NS_E_WMP_INVALID_ASX",
-    "NS_E_WMP_ALREADY_IN_USE",
-    "NS_E_WMP_IMAPI_FAILURE",
-    "NS_E_WMP_WMDM_FAILURE",
-    "NS_E_WMP_CODEC_NEEDED_WITH_4CC",
-    "NS_E_WMP_CODEC_NEEDED_WITH_FORMATTAG",
-    "NS_E_WMP_MSSAP_NOT_AVAILABLE",
-    "NS_E_WMP_WMDM_INTERFACEDEAD",
-    "NS_E_WMP_WMDM_NOTCERTIFIED",
-    "NS_E_WMP_WMDM_LICENSE_NOTEXIST",
-    "NS_E_WMP_WMDM_LICENSE_EXPIRED",
-    "NS_E_WMP_WMDM_BUSY",
-    "NS_E_WMP_WMDM_NORIGHTS",
-    "NS_E_WMP_WMDM_INCORRECT_RIGHTS",
-    "NS_E_WMP_IMAPI_GENERIC",
-    "NS_E_WMP_IMAPI_DEVICE_NOTPRESENT",
-    "NS_E_WMP_IMAPI_DEVICE_BUSY",
-    "NS_E_WMP_IMAPI_LOSS_OF_STREAMING",
-    "NS_E_WMP_SERVER_UNAVAILABLE",
-    "NS_E_WMP_FILE_OPEN_FAILED",
-    "NS_E_WMP_VERIFY_ONLINE",
-    "NS_E_WMP_SERVER_NOT_RESPONDING",
-    "NS_E_WMP_DRM_CORRUPT_BACKUP",
-    "NS_E_WMP_DRM_LICENSE_SERVER_UNAVAILABLE",
-    "NS_E_WMP_NETWORK_FIREWALL",
-    "NS_E_WMP_NO_REMOVABLE_MEDIA",
-    "NS_E_WMP_PROXY_CONNECT_TIMEOUT",
-    "NS_E_WMP_NEED_UPGRADE",
-    "NS_E_WMP_AUDIO_HW_PROBLEM",
-    "NS_E_WMP_INVALID_PROTOCOL",
-    "NS_E_WMP_INVALID_LIBRARY_ADD",
-    "NS_E_WMP_MMS_NOT_SUPPORTED",
-    "NS_E_WMP_NO_PROTOCOLS_SELECTED",
-    "NS_E_WMP_GOFULLSCREEN_FAILED",
-    "NS_E_WMP_NETWORK_ERROR",
-    "NS_E_WMP_CONNECT_TIMEOUT",
-    "NS_E_WMP_MULTICAST_DISABLED",
-    "NS_E_WMP_SERVER_DNS_TIMEOUT",
-    "NS_E_WMP_PROXY_NOT_FOUND",
-    "NS_E_WMP_TAMPERED_CONTENT",
-    "NS_E_WMP_OUTOFMEMORY",
-    "NS_E_WMP_AUDIO_CODEC_NOT_INSTALLED",
-    "NS_E_WMP_VIDEO_CODEC_NOT_INSTALLED",
-    "NS_E_WMP_IMAPI_DEVICE_INVALIDTYPE",
-    "NS_E_WMP_DRM_DRIVER_AUTH_FAILURE",
-    "NS_E_WMP_NETWORK_RESOURCE_FAILURE",
-    "NS_E_WMP_UPGRADE_APPLICATION",
-    "NS_E_WMP_UNKNOWN_ERROR",
-    "NS_E_WMP_INVALID_KEY",
-    "NS_E_WMP_CD_ANOTHER_USER",
-    "NS_E_WMP_DRM_NEEDS_AUTHORIZATION",
-    "NS_E_WMP_BAD_DRIVER",
-    "NS_E_WMP_ACCESS_DENIED",
-    "NS_E_WMP_LICENSE_RESTRICTS",
-    "NS_E_WMP_INVALID_REQUEST",
-    "NS_E_WMP_CD_STASH_NO_SPACE",
-    "NS_E_WMP_DRM_NEW_HARDWARE",
-    "NS_E_WMP_DRM_INVALID_SIG",
-    "NS_E_WMP_DRM_CANNOT_RESTORE",
-    "NS_E_WMP_BURN_DISC_OVERFLOW",
-    "NS_E_WMP_DRM_GENERIC_LICENSE_FAILURE",
-    "NS_E_WMP_DRM_NO_SECURE_CLOCK",
-    "NS_E_WMP_DRM_NO_RIGHTS",
-    "NS_E_WMP_DRM_INDIV_FAILED",
-    "NS_E_WMP_SERVER_NONEWCONNECTIONS",
-    "NS_E_WMP_MULTIPLE_ERROR_IN_PLAYLIST",
-    "NS_E_WMP_IMAPI2_ERASE_FAIL",
-    "NS_E_WMP_IMAPI2_ERASE_DEVICE_BUSY",
-    "NS_E_WMP_DRM_COMPONENT_FAILURE",
-    "NS_E_WMP_DRM_NO_DEVICE_CERT",
-    "NS_E_WMP_SERVER_SECURITY_ERROR",
-    "NS_E_WMP_AUDIO_DEVICE_LOST",
-    "NS_E_WMP_IMAPI_MEDIA_INCOMPATIBLE",
-    "NS_E_SYNCWIZ_DEVICE_FULL",
-    "NS_E_SYNCWIZ_CANNOT_CHANGE_SETTINGS",
-    "NS_E_TRANSCODE_DELETECACHEERROR",
-    "NS_E_CD_NO_BUFFERS_READ",
-    "NS_E_CD_EMPTY_TRACK_QUEUE",
-    "NS_E_CD_NO_READER",
-    "NS_E_CD_ISRC_INVALID",
-    "NS_E_CD_MEDIA_CATALOG_NUMBER_INVALID",
-    "NS_E_SLOW_READ_DIGITAL_WITH_ERRORCORRECTION",
-    "NS_E_CD_SPEEDDETECT_NOT_ENOUGH_READS",
-    "NS_E_CD_QUEUEING_DISABLED",
-    "NS_E_WMP_DRM_ACQUIRING_LICENSE",
-    "NS_E_WMP_DRM_LICENSE_EXPIRED",
-    "NS_E_WMP_DRM_LICENSE_NOTACQUIRED",
-    "NS_E_WMP_DRM_LICENSE_NOTENABLED",
-    "NS_E_WMP_DRM_LICENSE_UNUSABLE",
-    "NS_E_WMP_DRM_LICENSE_CONTENT_REVOKED",
-    "NS_E_WMP_DRM_LICENSE_NOSAP",
-    "NS_E_WMP_DRM_UNABLE_TO_ACQUIRE_LICENSE",
-    "NS_E_WMP_LICENSE_REQUIRED",
-    "NS_E_WMP_PROTECTED_CONTENT",
-    "NS_E_WMP_POLICY_VALUE_NOT_CONFIGURED",
-    "NS_E_PDA_CANNOT_SYNC_FROM_INTERNET",
-    "NS_E_PDA_CANNOT_SYNC_INVALID_PLAYLIST",
-    "NS_E_PDA_FAILED_TO_SYNCHRONIZE_FILE",
-    "NS_E_PDA_SYNC_FAILED",
-    "NS_E_PDA_DELETE_FAILED",
-    "NS_E_PDA_FAILED_TO_RETRIEVE_FILE",
-    "NS_E_PDA_DEVICE_NOT_RESPONDING",
-    "NS_E_PDA_FAILED_TO_TRANSCODE_PHOTO",
-    "NS_E_PDA_FAILED_TO_ENCRYPT_TRANSCODED_FILE",
-    "NS_E_PDA_CANNOT_TRANSCODE_TO_AUDIO",
-    "NS_E_PDA_CANNOT_TRANSCODE_TO_VIDEO",
-    "NS_E_PDA_CANNOT_TRANSCODE_TO_IMAGE",
-    "NS_E_PDA_RETRIEVED_FILE_FILENAME_TOO_LONG",
-    "NS_E_PDA_CEWMDM_DRM_ERROR",
-    "NS_E_INCOMPLETE_PLAYLIST",
-    "NS_E_PDA_SYNC_RUNNING",
-    "NS_E_PDA_SYNC_LOGIN_ERROR",
-    "NS_E_PDA_TRANSCODE_CODEC_NOT_FOUND",
-    "NS_E_CANNOT_SYNC_DRM_TO_NON_JANUS_DEVICE",
-    "NS_E_CANNOT_SYNC_PREVIOUS_SYNC_RUNNING",
-    "NS_E_WMP_HWND_NOTFOUND",
-    "NS_E_BKGDOWNLOAD_WRONG_NO_FILES",
-    "NS_E_BKGDOWNLOAD_COMPLETECANCELLEDJOB",
-    "NS_E_BKGDOWNLOAD_CANCELCOMPLETEDJOB",
-    "NS_E_BKGDOWNLOAD_NOJOBPOINTER",
-    "NS_E_BKGDOWNLOAD_INVALIDJOBSIGNATURE",
-    "NS_E_BKGDOWNLOAD_FAILED_TO_CREATE_TEMPFILE",
-    "NS_E_BKGDOWNLOAD_PLUGIN_FAILEDINITIALIZE",
-    "NS_E_BKGDOWNLOAD_PLUGIN_FAILEDTOMOVEFILE",
-    "NS_E_BKGDOWNLOAD_CALLFUNCFAILED",
-    "NS_E_BKGDOWNLOAD_CALLFUNCTIMEOUT",
-    "NS_E_BKGDOWNLOAD_CALLFUNCENDED",
-    "NS_E_BKGDOWNLOAD_WMDUNPACKFAILED",
-    "NS_E_BKGDOWNLOAD_FAILEDINITIALIZE",
-    "NS_E_INTERFACE_NOT_REGISTERED_IN_GIT",
-    "NS_E_BKGDOWNLOAD_INVALID_FILE_NAME",
-    "NS_E_IMAGE_DOWNLOAD_FAILED",
-    "NS_E_WMP_UDRM_NOUSERLIST",
-    "NS_E_WMP_DRM_NOT_ACQUIRING",
-    "NS_E_WMP_BSTR_TOO_LONG",
-    "NS_E_WMP_AUTOPLAY_INVALID_STATE",
-    "NS_E_WMP_COMPONENT_REVOKED",
-    "NS_E_CURL_NOTSAFE",
-    "NS_E_CURL_INVALIDCHAR",
-    "NS_E_CURL_INVALIDHOSTNAME",
-    "NS_E_CURL_INVALIDPATH",
-    "NS_E_CURL_INVALIDSCHEME",
-    "NS_E_CURL_INVALIDURL",
-    "NS_E_CURL_CANTWALK",
-    "NS_E_CURL_INVALIDPORT",
-    "NS_E_CURLHELPER_NOTADIRECTORY",
-    "NS_E_CURLHELPER_NOTAFILE",
-    "NS_E_CURL_CANTDECODE",
-    "NS_E_CURLHELPER_NOTRELATIVE",
-    "NS_E_CURL_INVALIDBUFFERSIZE",
-    "NS_E_SUBSCRIPTIONSERVICE_PLAYBACK_DISALLOWED",
-    "NS_E_CANNOT_BUY_OR_DOWNLOAD_FROM_MULTIPLE_SERVICES",
-    "NS_E_CANNOT_BUY_OR_DOWNLOAD_CONTENT",
-    "NS_S_TRACK_BUY_REQUIRES_ALBUM_PURCHASE",
-    "NS_E_NOT_CONTENT_PARTNER_TRACK",
-    "NS_E_TRACK_DOWNLOAD_REQUIRES_ALBUM_PURCHASE",
-    "NS_E_TRACK_DOWNLOAD_REQUIRES_PURCHASE",
-    "NS_E_TRACK_PURCHASE_MAXIMUM_EXCEEDED",
-    "NS_S_NAVIGATION_COMPLETE_WITH_ERRORS",
-    "NS_E_SUBSCRIPTIONSERVICE_LOGIN_FAILED",
-    "NS_E_SUBSCRIPTIONSERVICE_DOWNLOAD_TIMEOUT",
-    "NS_S_TRACK_ALREADY_DOWNLOADED",
-    "NS_E_CONTENT_PARTNER_STILL_INITIALIZING",
-    "NS_E_OPEN_CONTAINING_FOLDER_FAILED",
-    "NS_E_ADVANCEDEDIT_TOO_MANY_PICTURES",
-    "NS_E_REDIRECT",
-    "NS_E_STALE_PRESENTATION",
-    "NS_E_NAMESPACE_WRONG_PERSIST",
-    "NS_E_NAMESPACE_WRONG_TYPE",
-    "NS_E_NAMESPACE_NODE_CONFLICT",
-    "NS_E_NAMESPACE_NODE_NOT_FOUND",
-    "NS_E_NAMESPACE_BUFFER_TOO_SMALL",
-    "NS_E_NAMESPACE_TOO_MANY_CALLBACKS",
-    "NS_E_NAMESPACE_DUPLICATE_CALLBACK",
-    "NS_E_NAMESPACE_CALLBACK_NOT_FOUND",
-    "NS_E_NAMESPACE_NAME_TOO_LONG",
-    "NS_E_NAMESPACE_DUPLICATE_NAME",
-    "NS_E_NAMESPACE_EMPTY_NAME",
-    "NS_E_NAMESPACE_INDEX_TOO_LARGE",
-    "NS_E_NAMESPACE_BAD_NAME",
-    "NS_E_NAMESPACE_WRONG_SECURITY",
-    "NS_E_CACHE_ARCHIVE_CONFLICT",
-    "NS_E_CACHE_ORIGIN_SERVER_NOT_FOUND",
-    "NS_E_CACHE_ORIGIN_SERVER_TIMEOUT",
-    "NS_E_CACHE_NOT_BROADCAST",
-    "NS_E_CACHE_CANNOT_BE_CACHED",
-    "NS_E_CACHE_NOT_MODIFIED",
-    "NS_E_CANNOT_REMOVE_PUBLISHING_POINT",
-    "NS_E_CANNOT_REMOVE_PLUGIN",
-    "NS_E_WRONG_PUBLISHING_POINT_TYPE",
-    "NS_E_UNSUPPORTED_LOAD_TYPE",
-    "NS_E_INVALID_PLUGIN_LOAD_TYPE_CONFIGURATION",
-    "NS_E_INVALID_PUBLISHING_POINT_NAME",
-    "NS_E_TOO_MANY_MULTICAST_SINKS",
-    "NS_E_PUBLISHING_POINT_INVALID_REQUEST_WHILE_STARTED",
-    "NS_E_MULTICAST_PLUGIN_NOT_ENABLED",
-    "NS_E_INVALID_OPERATING_SYSTEM_VERSION",
-    "NS_E_PUBLISHING_POINT_REMOVED",
-    "NS_E_INVALID_PUSH_PUBLISHING_POINT_START_REQUEST",
-    "NS_E_UNSUPPORTED_LANGUAGE",
-    "NS_E_WRONG_OS_VERSION",
-    "NS_E_PUBLISHING_POINT_STOPPED",
-    "NS_E_PLAYLIST_ENTRY_ALREADY_PLAYING",
-    "NS_E_EMPTY_PLAYLIST",
-    "NS_E_PLAYLIST_PARSE_FAILURE",
-    "NS_E_PLAYLIST_UNSUPPORTED_ENTRY",
-    "NS_E_PLAYLIST_ENTRY_NOT_IN_PLAYLIST",
-    "NS_E_PLAYLIST_ENTRY_SEEK",
-    "NS_E_PLAYLIST_RECURSIVE_PLAYLISTS",
-    "NS_E_PLAYLIST_TOO_MANY_NESTED_PLAYLISTS",
-    "NS_E_PLAYLIST_SHUTDOWN",
-    "NS_E_PLAYLIST_END_RECEDING",
-    "NS_I_PLAYLIST_CHANGE_RECEDING",
-    "NS_E_DATAPATH_NO_SINK",
-    "NS_S_PUBLISHING_POINT_STARTED_WITH_FAILED_SINKS",
-    "NS_E_INVALID_PUSH_TEMPLATE",
-    "NS_E_INVALID_PUSH_PUBLISHING_POINT",
-    "NS_E_CRITICAL_ERROR",
-    "NS_E_NO_NEW_CONNECTIONS",
-    "NS_E_WSX_INVALID_VERSION",
-    "NS_E_HEADER_MISMATCH",
-    "NS_E_PUSH_DUPLICATE_PUBLISHING_POINT_NAME",
-    "NS_E_NO_SCRIPT_ENGINE",
-    "NS_E_PLUGIN_ERROR_REPORTED",
-    "NS_E_SOURCE_PLUGIN_NOT_FOUND",
-    "NS_E_PLAYLIST_PLUGIN_NOT_FOUND",
-    "NS_E_DATA_SOURCE_ENUMERATION_NOT_SUPPORTED",
-    "NS_E_MEDIA_PARSER_INVALID_FORMAT",
-    "NS_E_SCRIPT_DEBUGGER_NOT_INSTALLED",
-    "NS_E_FEATURE_REQUIRES_ENTERPRISE_SERVER",
-    "NS_E_WIZARD_RUNNING",
-    "NS_E_INVALID_LOG_URL",
-    "NS_E_INVALID_MTU_RANGE",
-    "NS_E_INVALID_PLAY_STATISTICS",
-    "NS_E_LOG_NEED_TO_BE_SKIPPED",
-    "NS_E_HTTP_TEXT_DATACONTAINER_SIZE_LIMIT_EXCEEDED",
-    "NS_E_PORT_IN_USE",
-    "NS_E_PORT_IN_USE_HTTP",
-    "NS_E_HTTP_TEXT_DATACONTAINER_INVALID_SERVER_RESPONSE",
-    "NS_E_ARCHIVE_REACH_QUOTA",
-    "NS_E_ARCHIVE_ABORT_DUE_TO_BCAST",
-    "NS_E_ARCHIVE_GAP_DETECTED",
-    "NS_E_AUTHORIZATION_FILE_NOT_FOUND",
-    "NS_E_BAD_MARKIN",
-    "NS_E_BAD_MARKOUT",
-    "NS_E_NOMATCHING_MEDIASOURCE",
-    "NS_E_UNSUPPORTED_SOURCETYPE",
-    "NS_E_TOO_MANY_AUDIO",
-    "NS_E_TOO_MANY_VIDEO",
-    "NS_E_NOMATCHING_ELEMENT",
-    "NS_E_MISMATCHED_MEDIACONTENT",
-    "NS_E_CANNOT_DELETE_ACTIVE_SOURCEGROUP",
-    "NS_E_AUDIODEVICE_BUSY",
-    "NS_E_AUDIODEVICE_UNEXPECTED",
-    "NS_E_AUDIODEVICE_BADFORMAT",
-    "NS_E_VIDEODEVICE_BUSY",
-    "NS_E_VIDEODEVICE_UNEXPECTED",
-    "NS_E_INVALIDCALL_WHILE_ENCODER_RUNNING",
-    "NS_E_NO_PROFILE_IN_SOURCEGROUP",
-    "NS_E_VIDEODRIVER_UNSTABLE",
-    "NS_E_VIDCAPSTARTFAILED",
-    "NS_E_VIDSOURCECOMPRESSION",
-    "NS_E_VIDSOURCESIZE",
-    "NS_E_ICMQUERYFORMAT",
-    "NS_E_VIDCAPCREATEWINDOW",
-    "NS_E_VIDCAPDRVINUSE",
-    "NS_E_NO_MEDIAFORMAT_IN_SOURCE",
-    "NS_E_NO_VALID_OUTPUT_STREAM",
-    "NS_E_NO_VALID_SOURCE_PLUGIN",
-    "NS_E_NO_ACTIVE_SOURCEGROUP",
-    "NS_E_NO_SCRIPT_STREAM",
-    "NS_E_INVALIDCALL_WHILE_ARCHIVAL_RUNNING",
-    "NS_E_INVALIDPACKETSIZE",
-    "NS_E_PLUGIN_CLSID_INVALID",
-    "NS_E_UNSUPPORTED_ARCHIVETYPE",
-    "NS_E_UNSUPPORTED_ARCHIVEOPERATION",
-    "NS_E_ARCHIVE_FILENAME_NOTSET",
-    "NS_E_SOURCEGROUP_NOTPREPARED",
-    "NS_E_PROFILE_MISMATCH",
-    "NS_E_INCORRECTCLIPSETTINGS",
-    "NS_E_NOSTATSAVAILABLE",
-    "NS_E_NOTARCHIVING",
-    "NS_E_INVALIDCALL_WHILE_ENCODER_STOPPED",
-    "NS_E_NOSOURCEGROUPS",
-    "NS_E_INVALIDINPUTFPS",
-    "NS_E_NO_DATAVIEW_SUPPORT",
-    "NS_E_CODEC_UNAVAILABLE",
-    "NS_E_ARCHIVE_SAME_AS_INPUT",
-    "NS_E_SOURCE_NOTSPECIFIED",
-    "NS_E_NO_REALTIME_TIMECOMPRESSION",
-    "NS_E_UNSUPPORTED_ENCODER_DEVICE",
-    "NS_E_UNEXPECTED_DISPLAY_SETTINGS",
-    "NS_E_NO_AUDIODATA",
-    "NS_E_INPUTSOURCE_PROBLEM",
-    "NS_E_WME_VERSION_MISMATCH",
-    "NS_E_NO_REALTIME_PREPROCESS",
-    "NS_E_NO_REPEAT_PREPROCESS",
-    "NS_E_CANNOT_PAUSE_LIVEBROADCAST",
-    "NS_E_DRM_PROFILE_NOT_SET",
-    "NS_E_DUPLICATE_DRMPROFILE",
-    "NS_E_INVALID_DEVICE",
-    "NS_E_SPEECHEDL_ON_NON_MIXEDMODE",
-    "NS_E_DRM_PASSWORD_TOO_LONG",
-    "NS_E_DEVCONTROL_FAILED_SEEK",
-    "NS_E_INTERLACE_REQUIRE_SAMESIZE",
-    "NS_E_TOO_MANY_DEVICECONTROL",
-    "NS_E_NO_MULTIPASS_FOR_LIVEDEVICE",
-    "NS_E_MISSING_AUDIENCE",
-    "NS_E_AUDIENCE_CONTENTTYPE_MISMATCH",
-    "NS_E_MISSING_SOURCE_INDEX",
-    "NS_E_NUM_LANGUAGE_MISMATCH",
-    "NS_E_LANGUAGE_MISMATCH",
-    "NS_E_VBRMODE_MISMATCH",
-    "NS_E_INVALID_INPUT_AUDIENCE_INDEX",
-    "NS_E_INVALID_INPUT_LANGUAGE",
-    "NS_E_INVALID_INPUT_STREAM",
-    "NS_E_EXPECT_MONO_WAV_INPUT",
-    "NS_E_INPUT_WAVFORMAT_MISMATCH",
-    "NS_E_RECORDQ_DISK_FULL",
-    "NS_E_NO_PAL_INVERSE_TELECINE",
-    "NS_E_ACTIVE_SG_DEVICE_DISCONNECTED",
-    "NS_E_ACTIVE_SG_DEVICE_CONTROL_DISCONNECTED",
-    "NS_E_NO_FRAMES_SUBMITTED_TO_ANALYZER",
-    "NS_E_INPUT_DOESNOT_SUPPORT_SMPTE",
-    "NS_E_NO_SMPTE_WITH_MULTIPLE_SOURCEGROUPS",
-    "NS_E_BAD_CONTENTEDL",
-    "NS_E_INTERLACEMODE_MISMATCH",
-    "NS_E_NONSQUAREPIXELMODE_MISMATCH",
-    "NS_E_SMPTEMODE_MISMATCH",
-    "NS_E_END_OF_TAPE",
-    "NS_E_NO_MEDIA_IN_AUDIENCE",
-    "NS_E_NO_AUDIENCES",
-    "NS_E_NO_AUDIO_COMPAT",
-    "NS_E_INVALID_VBR_COMPAT",
-    "NS_E_NO_PROFILE_NAME",
-    "NS_E_INVALID_VBR_WITH_UNCOMP",
-    "NS_E_MULTIPLE_VBR_AUDIENCES",
-    "NS_E_UNCOMP_COMP_COMBINATION",
-    "NS_E_MULTIPLE_AUDIO_CODECS",
-    "NS_E_MULTIPLE_AUDIO_FORMATS",
-    "NS_E_AUDIO_BITRATE_STEPDOWN",
-    "NS_E_INVALID_AUDIO_PEAKRATE",
-    "NS_E_INVALID_AUDIO_PEAKRATE_2",
-    "NS_E_INVALID_AUDIO_BUFFERMAX",
-    "NS_E_MULTIPLE_VIDEO_CODECS",
-    "NS_E_MULTIPLE_VIDEO_SIZES",
-    "NS_E_INVALID_VIDEO_BITRATE",
-    "NS_E_VIDEO_BITRATE_STEPDOWN",
-    "NS_E_INVALID_VIDEO_PEAKRATE",
-    "NS_E_INVALID_VIDEO_PEAKRATE_2",
-    "NS_E_INVALID_VIDEO_WIDTH",
-    "NS_E_INVALID_VIDEO_HEIGHT",
-    "NS_E_INVALID_VIDEO_FPS",
-    "NS_E_INVALID_VIDEO_KEYFRAME",
-    "NS_E_INVALID_VIDEO_IQUALITY",
-    "NS_E_INVALID_VIDEO_CQUALITY",
-    "NS_E_INVALID_VIDEO_BUFFER",
-    "NS_E_INVALID_VIDEO_BUFFERMAX",
-    "NS_E_INVALID_VIDEO_BUFFERMAX_2",
-    "NS_E_INVALID_VIDEO_WIDTH_ALIGN",
-    "NS_E_INVALID_VIDEO_HEIGHT_ALIGN",
-    "NS_E_MULTIPLE_SCRIPT_BITRATES",
-    "NS_E_INVALID_SCRIPT_BITRATE",
-    "NS_E_MULTIPLE_FILE_BITRATES",
-    "NS_E_INVALID_FILE_BITRATE",
-    "NS_E_SAME_AS_INPUT_COMBINATION",
-    "NS_E_SOURCE_CANNOT_LOOP",
-    "NS_E_INVALID_FOLDDOWN_COEFFICIENTS",
-    "NS_E_DRMPROFILE_NOTFOUND",
-    "NS_E_INVALID_TIMECODE",
-    "NS_E_NO_AUDIO_TIMECOMPRESSION",
-    "NS_E_NO_TWOPASS_TIMECOMPRESSION",
-    "NS_E_TIMECODE_REQUIRES_VIDEOSTREAM",
-    "NS_E_NO_MBR_WITH_TIMECODE",
-    "NS_E_INVALID_INTERLACEMODE",
-    "NS_E_INVALID_INTERLACE_COMPAT",
-    "NS_E_INVALID_NONSQUAREPIXEL_COMPAT",
-    "NS_E_INVALID_SOURCE_WITH_DEVICE_CONTROL",
-    "NS_E_CANNOT_GENERATE_BROADCAST_INFO_FOR_QUALITYVBR",
-    "NS_E_EXCEED_MAX_DRM_PROFILE_LIMIT",
-    "NS_E_DEVICECONTROL_UNSTABLE",
-    "NS_E_INVALID_PIXEL_ASPECT_RATIO",
-    "NS_E_AUDIENCE__LANGUAGE_CONTENTTYPE_MISMATCH",
-    "NS_E_INVALID_PROFILE_CONTENTTYPE",
-    "NS_E_TRANSFORM_PLUGIN_NOT_FOUND",
-    "NS_E_TRANSFORM_PLUGIN_INVALID",
-    "NS_E_EDL_REQUIRED_FOR_DEVICE_MULTIPASS",
-    "NS_E_INVALID_VIDEO_WIDTH_FOR_INTERLACED_ENCODING",
-    "NS_E_MARKIN_UNSUPPORTED",
-    "NS_E_DRM_INVALID_APPLICATION",
-    "NS_E_DRM_LICENSE_STORE_ERROR",
-    "NS_E_DRM_SECURE_STORE_ERROR",
-    "NS_E_DRM_LICENSE_STORE_SAVE_ERROR",
-    "NS_E_DRM_SECURE_STORE_UNLOCK_ERROR",
-    "NS_E_DRM_INVALID_CONTENT",
-    "NS_E_DRM_UNABLE_TO_OPEN_LICENSE",
-    "NS_E_DRM_INVALID_LICENSE",
-    "NS_E_DRM_INVALID_MACHINE",
-    "NS_E_DRM_ENUM_LICENSE_FAILED",
-    "NS_E_DRM_INVALID_LICENSE_REQUEST",
-    "NS_E_DRM_UNABLE_TO_INITIALIZE",
-    "NS_E_DRM_UNABLE_TO_ACQUIRE_LICENSE",
-    "NS_E_DRM_INVALID_LICENSE_ACQUIRED",
-    "NS_E_DRM_NO_RIGHTS",
-    "NS_E_DRM_KEY_ERROR",
-    "NS_E_DRM_ENCRYPT_ERROR",
-    "NS_E_DRM_DECRYPT_ERROR",
-    "NS_E_DRM_LICENSE_INVALID_XML",
-    "NS_S_DRM_LICENSE_ACQUIRED",
-    "NS_S_DRM_INDIVIDUALIZED",
-    "NS_E_DRM_NEEDS_INDIVIDUALIZATION",
-    "NS_E_DRM_ALREADY_INDIVIDUALIZED",
-    "NS_E_DRM_ACTION_NOT_QUERIED",
-    "NS_E_DRM_ACQUIRING_LICENSE",
-    "NS_E_DRM_INDIVIDUALIZING",
-    "NS_E_BACKUP_RESTORE_FAILURE",
-    "NS_E_BACKUP_RESTORE_BAD_REQUEST_ID",
-    "NS_E_DRM_PARAMETERS_MISMATCHED",
-    "NS_E_DRM_UNABLE_TO_CREATE_LICENSE_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_INDI_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_ENCRYPT_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_DECRYPT_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_PROPERTIES_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_BACKUP_OBJECT",
-    "NS_E_DRM_INDIVIDUALIZE_ERROR",
-    "NS_E_DRM_LICENSE_OPEN_ERROR",
-    "NS_E_DRM_LICENSE_CLOSE_ERROR",
-    "NS_E_DRM_GET_LICENSE_ERROR",
-    "NS_E_DRM_QUERY_ERROR",
-    "NS_E_DRM_REPORT_ERROR",
-    "NS_E_DRM_GET_LICENSESTRING_ERROR",
-    "NS_E_DRM_GET_CONTENTSTRING_ERROR",
-    "NS_E_DRM_MONITOR_ERROR",
-    "NS_E_DRM_UNABLE_TO_SET_PARAMETER",
-    "NS_E_DRM_INVALID_APPDATA",
-    "NS_E_DRM_INVALID_APPDATA_VERSION",
-    "NS_E_DRM_BACKUP_EXISTS",
-    "NS_E_DRM_BACKUP_CORRUPT",
-    "NS_E_DRM_BACKUPRESTORE_BUSY",
-    "NS_E_BACKUP_RESTORE_BAD_DATA",
-    "NS_S_DRM_MONITOR_CANCELLED",
-    "NS_S_DRM_ACQUIRE_CANCELLED",
-    "NS_E_DRM_LICENSE_UNUSABLE",
-    "NS_E_DRM_INVALID_PROPERTY",
-    "NS_E_DRM_SECURE_STORE_NOT_FOUND",
-    "NS_E_DRM_CACHED_CONTENT_ERROR",
-    "NS_E_DRM_INDIVIDUALIZATION_INCOMPLETE",
-    "NS_E_DRM_DRIVER_AUTH_FAILURE",
-    "NS_E_DRM_NEED_UPGRADE_MSSAP",
-    "NS_E_DRM_REOPEN_CONTENT",
-    "NS_E_DRM_DRIVER_DIGIOUT_FAILURE",
-    "NS_E_DRM_INVALID_SECURESTORE_PASSWORD",
-    "NS_E_DRM_APPCERT_REVOKED",
-    "NS_E_DRM_RESTORE_FRAUD",
-    "NS_E_DRM_HARDWARE_INCONSISTENT",
-    "NS_E_DRM_SDMI_TRIGGER",
-    "NS_E_DRM_SDMI_NOMORECOPIES",
-    "NS_E_DRM_UNABLE_TO_CREATE_HEADER_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_KEYS_OBJECT",
-    "NS_E_DRM_LICENSE_NOTACQUIRED",
-    "NS_E_DRM_UNABLE_TO_CREATE_CODING_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_STATE_DATA_OBJECT",
-    "NS_E_DRM_BUFFER_TOO_SMALL",
-    "NS_E_DRM_UNSUPPORTED_PROPERTY",
-    "NS_E_DRM_ERROR_BAD_NET_RESP",
-    "NS_E_DRM_STORE_NOTALLSTORED",
-    "NS_E_DRM_SECURITY_COMPONENT_SIGNATURE_INVALID",
-    "NS_E_DRM_INVALID_DATA",
-    "NS_E_DRM_POLICY_DISABLE_ONLINE",
-    "NS_E_DRM_UNABLE_TO_CREATE_AUTHENTICATION_OBJECT",
-    "NS_E_DRM_NOT_CONFIGURED",
-    "NS_E_DRM_DEVICE_ACTIVATION_CANCELED",
-    "NS_E_BACKUP_RESTORE_TOO_MANY_RESETS",
-    "NS_E_DRM_DEBUGGING_NOT_ALLOWED",
-    "NS_E_DRM_OPERATION_CANCELED",
-    "NS_E_DRM_RESTRICTIONS_NOT_RETRIEVED",
-    "NS_E_DRM_UNABLE_TO_CREATE_PLAYLIST_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_PLAYLIST_BURN_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_DEVICE_REGISTRATION_OBJECT",
-    "NS_E_DRM_UNABLE_TO_CREATE_METERING_OBJECT",
-    "NS_S_DRM_BURNABLE_TRACK",
-    "NS_S_DRM_BURNABLE_TRACK_WITH_PLAYLIST_RESTRICTION",
-    "NS_E_DRM_TRACK_EXCEEDED_PLAYLIST_RESTICTION",
-    "NS_E_DRM_TRACK_EXCEEDED_TRACKBURN_RESTRICTION",
-    "NS_E_DRM_UNABLE_TO_GET_DEVICE_CERT",
-    "NS_E_DRM_UNABLE_TO_GET_SECURE_CLOCK",
-    "NS_E_DRM_UNABLE_TO_SET_SECURE_CLOCK",
-    "NS_E_DRM_UNABLE_TO_GET_SECURE_CLOCK_FROM_SERVER",
-    "NS_E_DRM_POLICY_METERING_DISABLED",
-    "NS_E_DRM_TRANSFER_CHAINED_LICENSES_UNSUPPORTED",
-    "NS_E_DRM_SDK_VERSIONMISMATCH",
-    "NS_E_DRM_LIC_NEEDS_DEVICE_CLOCK_SET",
-    "NS_E_LICENSE_HEADER_MISSING_URL",
-    "NS_E_DEVICE_NOT_WMDRM_DEVICE",
-    "NS_E_DRM_INVALID_APPCERT",
-    "NS_E_DRM_PROTOCOL_FORCEFUL_TERMINATION_ON_PETITION",
-    "NS_E_DRM_PROTOCOL_FORCEFUL_TERMINATION_ON_CHALLENGE",
-    "NS_E_DRM_CHECKPOINT_FAILED",
-    "NS_E_DRM_BB_UNABLE_TO_INITIALIZE",
-    "NS_E_DRM_UNABLE_TO_LOAD_HARDWARE_ID",
-    "NS_E_DRM_UNABLE_TO_OPEN_DATA_STORE",
-    "NS_E_DRM_DATASTORE_CORRUPT",
-    "NS_E_DRM_UNABLE_TO_CREATE_INMEMORYSTORE_OBJECT",
-    "NS_E_DRM_STUBLIB_REQUIRED",
-    "NS_E_DRM_UNABLE_TO_CREATE_CERTIFICATE_OBJECT",
-    "NS_E_DRM_MIGRATION_TARGET_NOT_ONLINE",
-    "NS_E_DRM_INVALID_MIGRATION_IMAGE",
-    "NS_E_DRM_MIGRATION_TARGET_STATES_CORRUPTED",
-    "NS_E_DRM_MIGRATION_IMPORTER_NOT_AVAILABLE",
-    "NS_DRM_E_MIGRATION_UPGRADE_WITH_DIFF_SID",
-    "NS_DRM_E_MIGRATION_SOURCE_MACHINE_IN_USE",
-    "NS_DRM_E_MIGRATION_TARGET_MACHINE_LESS_THAN_LH",
-    "NS_DRM_E_MIGRATION_IMAGE_ALREADY_EXISTS",
-    "NS_E_DRM_HARDWAREID_MISMATCH",
-    "NS_E_INVALID_DRMV2CLT_STUBLIB",
-    "NS_E_DRM_MIGRATION_INVALID_LEGACYV2_DATA",
-    "NS_E_DRM_MIGRATION_LICENSE_ALREADY_EXISTS",
-    "NS_E_DRM_MIGRATION_INVALID_LEGACYV2_SST_PASSWORD",
-    "NS_E_DRM_MIGRATION_NOT_SUPPORTED",
-    "NS_E_DRM_UNABLE_TO_CREATE_MIGRATION_IMPORTER_OBJECT",
-    "NS_E_DRM_CHECKPOINT_MISMATCH",
-    "NS_E_DRM_CHECKPOINT_CORRUPT",
-    "NS_E_REG_FLUSH_FAILURE",
-    "NS_E_HDS_KEY_MISMATCH",
-    "NS_E_DRM_MIGRATION_OPERATION_CANCELLED",
-    "NS_E_DRM_MIGRATION_OBJECT_IN_USE",
-    "NS_E_DRM_MALFORMED_CONTENT_HEADER",
-    "NS_E_DRM_LICENSE_EXPIRED",
-    "NS_E_DRM_LICENSE_NOTENABLED",
-    "NS_E_DRM_LICENSE_APPSECLOW",
-    "NS_E_DRM_STORE_NEEDINDI",
-    "NS_E_DRM_STORE_NOTALLOWED",
-    "NS_E_DRM_LICENSE_APP_NOTALLOWED",
-    "NS_S_DRM_NEEDS_INDIVIDUALIZATION",
-    "NS_E_DRM_LICENSE_CERT_EXPIRED",
-    "NS_E_DRM_LICENSE_SECLOW",
-    "NS_E_DRM_LICENSE_CONTENT_REVOKED",
-    "NS_E_DRM_DEVICE_NOT_REGISTERED",
-    "NS_E_DRM_LICENSE_NOSAP",
-    "NS_E_DRM_LICENSE_NOSVP",
-    "NS_E_DRM_LICENSE_NOWDM",
-    "NS_E_DRM_LICENSE_NOTRUSTEDCODEC",
-    "NS_E_DRM_SOURCEID_NOT_SUPPORTED",
-    "NS_E_DRM_NEEDS_UPGRADE_TEMPFILE",
-    "NS_E_DRM_NEED_UPGRADE_PD",
-    "NS_E_DRM_SIGNATURE_FAILURE",
-    "NS_E_DRM_LICENSE_SERVER_INFO_MISSING",
-    "NS_E_DRM_BUSY",
-    "NS_E_DRM_PD_TOO_MANY_DEVICES",
-    "NS_E_DRM_INDIV_FRAUD",
-    "NS_E_DRM_INDIV_NO_CABS",
-    "NS_E_DRM_INDIV_SERVICE_UNAVAILABLE",
-    "NS_E_DRM_RESTORE_SERVICE_UNAVAILABLE",
-    "NS_E_DRM_CLIENT_CODE_EXPIRED",
-    "NS_E_DRM_NO_UPLINK_LICENSE",
-    "NS_E_DRM_INVALID_KID",
-    "NS_E_DRM_LICENSE_INITIALIZATION_ERROR",
-    "NS_E_DRM_CHAIN_TOO_LONG",
-    "NS_E_DRM_UNSUPPORTED_ALGORITHM",
-    "NS_E_DRM_LICENSE_DELETION_ERROR",
-    "NS_E_DRM_INVALID_CERTIFICATE",
-    "NS_E_DRM_CERTIFICATE_REVOKED",
-    "NS_E_DRM_LICENSE_UNAVAILABLE",
-    "NS_E_DRM_DEVICE_LIMIT_REACHED",
-    "NS_E_DRM_UNABLE_TO_VERIFY_PROXIMITY",
-    "NS_E_DRM_MUST_REGISTER",
-    "NS_E_DRM_MUST_APPROVE",
-    "NS_E_DRM_MUST_REVALIDATE",
-    "NS_E_DRM_INVALID_PROXIMITY_RESPONSE",
-    "NS_E_DRM_INVALID_SESSION",
-    "NS_E_DRM_DEVICE_NOT_OPEN",
-    "NS_E_DRM_DEVICE_ALREADY_REGISTERED",
-    "NS_E_DRM_UNSUPPORTED_PROTOCOL_VERSION",
-    "NS_E_DRM_UNSUPPORTED_ACTION",
-    "NS_E_DRM_CERTIFICATE_SECURITY_LEVEL_INADEQUATE",
-    "NS_E_DRM_UNABLE_TO_OPEN_PORT",
-    "NS_E_DRM_BAD_REQUEST",
-    "NS_E_DRM_INVALID_CRL",
-    "NS_E_DRM_ATTRIBUTE_TOO_LONG",
-    "NS_E_DRM_EXPIRED_LICENSEBLOB",
-    "NS_E_DRM_INVALID_LICENSEBLOB",
-    "NS_E_DRM_INCLUSION_LIST_REQUIRED",
-    "NS_E_DRM_DRMV2CLT_REVOKED",
-    "NS_E_DRM_RIV_TOO_SMALL",
-    "NS_E_OUTPUT_PROTECTION_LEVEL_UNSUPPORTED",
-    "NS_E_COMPRESSED_DIGITAL_VIDEO_PROTECTION_LEVEL_UNSUPPORTED",
-    "NS_E_UNCOMPRESSED_DIGITAL_VIDEO_PROTECTION_LEVEL_UNSUPPORTED",
-    "NS_E_ANALOG_VIDEO_PROTECTION_LEVEL_UNSUPPORTED",
-    "NS_E_COMPRESSED_DIGITAL_AUDIO_PROTECTION_LEVEL_UNSUPPORTED",
-    "NS_E_UNCOMPRESSED_DIGITAL_AUDIO_PROTECTION_LEVEL_UNSUPPORTED",
-    "NS_E_OUTPUT_PROTECTION_SCHEME_UNSUPPORTED",
-    "NS_S_REBOOT_RECOMMENDED",
-    "NS_S_REBOOT_REQUIRED",
-    "NS_E_REBOOT_RECOMMENDED",
-    "NS_E_REBOOT_REQUIRED",
-    "NS_E_SETUP_INCOMPLETE",
-    "NS_E_SETUP_DRM_MIGRATION_FAILED",
-    "NS_E_SETUP_IGNORABLE_FAILURE",
-    "NS_E_SETUP_DRM_MIGRATION_FAILED_AND_IGNORABLE_FAILURE",
-    "NS_E_SETUP_BLOCKED",
-    "NS_E_UNKNOWN_PROTOCOL",
-    "NS_E_REDIRECT_TO_PROXY",
-    "NS_E_INTERNAL_SERVER_ERROR",
-    "NS_E_BAD_REQUEST",
-    "NS_E_ERROR_FROM_PROXY",
-    "NS_E_PROXY_TIMEOUT",
-    "NS_E_SERVER_UNAVAILABLE",
-    "NS_E_REFUSED_BY_SERVER",
-    "NS_E_INCOMPATIBLE_SERVER",
-    "NS_E_MULTICAST_DISABLED",
-    "NS_E_INVALID_REDIRECT",
-    "NS_E_ALL_PROTOCOLS_DISABLED",
-    "NS_E_MSBD_NO_LONGER_SUPPORTED",
-    "NS_E_PROXY_NOT_FOUND",
-    "NS_E_CANNOT_CONNECT_TO_PROXY",
-    "NS_E_SERVER_DNS_TIMEOUT",
-    "NS_E_PROXY_DNS_TIMEOUT",
-    "NS_E_CLOSED_ON_SUSPEND",
-    "NS_E_CANNOT_READ_PLAYLIST_FROM_MEDIASERVER",
-    "NS_E_SESSION_NOT_FOUND",
-    "NS_E_REQUIRE_STREAMING_CLIENT",
-    "NS_E_PLAYLIST_ENTRY_HAS_CHANGED",
-    "NS_E_PROXY_ACCESSDENIED",
-    "NS_E_PROXY_SOURCE_ACCESSDENIED",
-    "NS_E_NETWORK_SINK_WRITE",
-    "NS_E_FIREWALL",
-    "NS_E_MMS_NOT_SUPPORTED",
-    "NS_E_SERVER_ACCESSDENIED",
-    "NS_E_RESOURCE_GONE",
-    "NS_E_NO_EXISTING_PACKETIZER",
-    "NS_E_BAD_SYNTAX_IN_SERVER_RESPONSE",
-    "NS_I_RECONNECTED",
-    "NS_E_RESET_SOCKET_CONNECTION",
-    "NS_I_NOLOG_STOP",
-    "NS_E_TOO_MANY_HOPS",
-    "NS_I_EXISTING_PACKETIZER",
-    "NS_I_MANUAL_PROXY",
-    "NS_E_TOO_MUCH_DATA_FROM_SERVER",
-    "NS_E_CONNECT_TIMEOUT",
-    "NS_E_PROXY_CONNECT_TIMEOUT",
-    "NS_E_SESSION_INVALID",
-    "NS_S_EOSRECEDING",
-    "NS_E_PACKETSINK_UNKNOWN_FEC_STREAM",
-    "NS_E_PUSH_CANNOTCONNECT",
-    "NS_E_INCOMPATIBLE_PUSH_SERVER",
-    "NS_S_CHANGENOTICE",
-    "NS_E_END_OF_PLAYLIST",
-    "NS_E_USE_FILE_SOURCE",
-    "NS_E_PROPERTY_NOT_FOUND",
-    "NS_E_PROPERTY_READ_ONLY",
-    "NS_E_TABLE_KEY_NOT_FOUND",
-    "NS_E_INVALID_QUERY_OPERATOR",
-    "NS_E_INVALID_QUERY_PROPERTY",
-    "NS_E_PROPERTY_NOT_SUPPORTED",
-    "NS_E_SCHEMA_CLASSIFY_FAILURE",
-    "NS_E_METADATA_FORMAT_NOT_SUPPORTED",
-    "NS_E_METADATA_NO_EDITING_CAPABILITY",
-    "NS_E_METADATA_CANNOT_SET_LOCALE",
-    "NS_E_METADATA_LANGUAGE_NOT_SUPORTED",
-    "NS_E_METADATA_NO_RFC1766_NAME_FOR_LOCALE",
-    "NS_E_METADATA_NOT_AVAILABLE",
-    "NS_E_METADATA_CACHE_DATA_NOT_AVAILABLE",
-    "NS_E_METADATA_INVALID_DOCUMENT_TYPE",
-    "NS_E_METADATA_IDENTIFIER_NOT_AVAILABLE",
-    "NS_E_METADATA_CANNOT_RETRIEVE_FROM_OFFLINE_CACHE",
-    "VFW_HIDE_SETTINGS_PAGE",
-    "VFW_HIDE_VIDEOSRC_PAGE",
-    "VFW_HIDE_CAMERACONTROL_PAGE",
-    "VFW_OEM_ADD_PAGE",
-    "VFW_USE_DEVICE_HANDLE",
-    "VFW_USE_STREAM_HANDLE",
-    "VFW_QUERY_DEV_CHANGED",
-    "MCIERR_INVALID_DEVICE_ID",
-    "MCIERR_UNRECOGNIZED_KEYWORD",
-    "MCIERR_UNRECOGNIZED_COMMAND",
-    "MCIERR_HARDWARE",
-    "MCIERR_INVALID_DEVICE_NAME",
-    "MCIERR_OUT_OF_MEMORY",
-    "MCIERR_DEVICE_OPEN",
-    "MCIERR_CANNOT_LOAD_DRIVER",
-    "MCIERR_MISSING_COMMAND_STRING",
-    "MCIERR_PARAM_OVERFLOW",
-    "MCIERR_MISSING_STRING_ARGUMENT",
-    "MCIERR_BAD_INTEGER",
-    "MCIERR_PARSER_INTERNAL",
-    "MCIERR_DRIVER_INTERNAL",
-    "MCIERR_MISSING_PARAMETER",
-    "MCIERR_UNSUPPORTED_FUNCTION",
-    "MCIERR_FILE_NOT_FOUND",
-    "MCIERR_DEVICE_NOT_READY",
-    "MCIERR_INTERNAL",
-    "MCIERR_DRIVER",
-    "MCIERR_CANNOT_USE_ALL",
-    "MCIERR_MULTIPLE",
-    "MCIERR_EXTENSION_NOT_FOUND",
-    "MCIERR_OUTOFRANGE",
-    "MCIERR_FLAGS_NOT_COMPATIBLE",
-    "MCIERR_FILE_NOT_SAVED",
-    "MCIERR_DEVICE_TYPE_REQUIRED",
-    "MCIERR_DEVICE_LOCKED",
-    "MCIERR_DUPLICATE_ALIAS",
-    "MCIERR_BAD_CONSTANT",
-    "MCIERR_MUST_USE_SHAREABLE",
-    "MCIERR_MISSING_DEVICE_NAME",
-    "MCIERR_BAD_TIME_FORMAT",
-    "MCIERR_NO_CLOSING_QUOTE",
-    "MCIERR_DUPLICATE_FLAGS",
-    "MCIERR_INVALID_FILE",
-    "MCIERR_NULL_PARAMETER_BLOCK",
-    "MCIERR_UNNAMED_RESOURCE",
-    "MCIERR_NEW_REQUIRES_ALIAS",
-    "MCIERR_NOTIFY_ON_AUTO_OPEN",
-    "MCIERR_NO_ELEMENT_ALLOWED",
-    "MCIERR_NONAPPLICABLE_FUNCTION",
-    "MCIERR_ILLEGAL_FOR_AUTO_OPEN",
-    "MCIERR_FILENAME_REQUIRED",
-    "MCIERR_EXTRA_CHARACTERS",
-    "MCIERR_DEVICE_NOT_INSTALLED",
-    "MCIERR_GET_CD",
-    "MCIERR_SET_CD",
-    "MCIERR_SET_DRIVE",
-    "MCIERR_DEVICE_LENGTH",
-    "MCIERR_DEVICE_ORD_LENGTH",
-    "MCIERR_NO_INTEGER",
-    "MCIERR_WAVE_OUTPUTSINUSE",
-    "MCIERR_WAVE_SETOUTPUTINUSE",
-    "MCIERR_WAVE_INPUTSINUSE",
-    "MCIERR_WAVE_SETINPUTINUSE",
-    "MCIERR_WAVE_OUTPUTUNSPECIFIED",
-    "MCIERR_WAVE_INPUTUNSPECIFIED",
-    "MCIERR_WAVE_OUTPUTSUNSUITABLE",
-    "MCIERR_WAVE_SETOUTPUTUNSUITABLE",
-    "MCIERR_WAVE_INPUTSUNSUITABLE",
-    "MCIERR_WAVE_SETINPUTUNSUITABLE",
-    "MCIERR_SEQ_DIV_INCOMPATIBLE",
-    "MCIERR_SEQ_PORT_INUSE",
-    "MCIERR_SEQ_PORT_NONEXISTENT",
-    "MCIERR_SEQ_PORT_MAPNODEVICE",
-    "MCIERR_SEQ_PORT_MISCERROR",
-    "MCIERR_SEQ_TIMER",
-    "MCIERR_SEQ_PORTUNSPECIFIED",
-    "MCIERR_SEQ_NOMIDIPRESENT",
-    "MCIERR_NO_WINDOW",
-    "MCIERR_CREATEWINDOW",
-    "MCIERR_FILE_READ",
-    "MCIERR_FILE_WRITE",
-    "MCIERR_NO_IDENTITY",
-    "MCIERR_CUSTOM_DRIVER_BASE",
-    "MCI_FIRST",
-    "MCI_ESCAPE",
-    "MCI_INFO",
-    "MCI_GETDEVCAPS",
-    "MCI_SPIN",
-    "MCI_SET",
-    "MCI_SYSINFO",
-    "MCI_BREAK",
-    "MCI_STATUS",
-    "MCI_CUE",
-    "MCI_REALIZE",
-    "MCI_WINDOW",
-    "MCI_PUT",
-    "MCI_WHERE",
-    "MCI_FREEZE",
-    "MCI_UNFREEZE",
-    "MCI_LOAD",
-    "MCI_UPDATE",
-    "MCI_USER_MESSAGES",
-    "MCI_LAST",
-    "MCI_DEVTYPE_VCR",
-    "MCI_DEVTYPE_VIDEODISC",
-    "MCI_DEVTYPE_OVERLAY",
-    "MCI_DEVTYPE_CD_AUDIO",
-    "MCI_DEVTYPE_DAT",
-    "MCI_DEVTYPE_SCANNER",
-    "MCI_DEVTYPE_ANIMATION",
-    "MCI_DEVTYPE_DIGITAL_VIDEO",
-    "MCI_DEVTYPE_OTHER",
-    "MCI_DEVTYPE_WAVEFORM_AUDIO",
-    "MCI_DEVTYPE_SEQUENCER",
-    "MCI_DEVTYPE_FIRST",
-    "MCI_DEVTYPE_LAST",
-    "MCI_DEVTYPE_FIRST_USER",
-    "MCI_FORMAT_MILLISECONDS",
-    "MCI_FORMAT_HMS",
-    "MCI_FORMAT_MSF",
-    "MCI_FORMAT_FRAMES",
-    "MCI_FORMAT_SMPTE_24",
-    "MCI_FORMAT_SMPTE_25",
-    "MCI_FORMAT_SMPTE_30",
-    "MCI_FORMAT_SMPTE_30DROP",
-    "MCI_FORMAT_BYTES",
-    "MCI_FORMAT_SAMPLES",
-    "MCI_FORMAT_TMSF",
-    "MCI_NOTIFY_SUCCESSFUL",
-    "MCI_NOTIFY_SUPERSEDED",
-    "MCI_NOTIFY_ABORTED",
-    "MCI_NOTIFY_FAILURE",
-    "MCI_NOTIFY",
-    "MCI_WAIT",
-    "MCI_FROM",
-    "MCI_TO",
-    "MCI_TRACK",
-    "MCI_OPEN_SHAREABLE",
-    "MCI_OPEN_ELEMENT",
-    "MCI_OPEN_ALIAS",
-    "MCI_OPEN_ELEMENT_ID",
-    "MCI_OPEN_TYPE_ID",
-    "MCI_OPEN_TYPE",
-    "MCI_SEEK_TO_START",
-    "MCI_SEEK_TO_END",
-    "MCI_STATUS_ITEM",
-    "MCI_STATUS_START",
-    "MCI_STATUS_LENGTH",
-    "MCI_STATUS_POSITION",
-    "MCI_STATUS_NUMBER_OF_TRACKS",
-    "MCI_STATUS_MODE",
-    "MCI_STATUS_MEDIA_PRESENT",
-    "MCI_STATUS_TIME_FORMAT",
-    "MCI_STATUS_READY",
-    "MCI_STATUS_CURRENT_TRACK",
-    "MCI_INFO_PRODUCT",
-    "MCI_INFO_FILE",
-    "MCI_INFO_MEDIA_UPC",
-    "MCI_INFO_MEDIA_IDENTITY",
-    "MCI_INFO_NAME",
-    "MCI_INFO_COPYRIGHT",
-    "MCI_GETDEVCAPS_ITEM",
-    "MCI_GETDEVCAPS_CAN_RECORD",
-    "MCI_GETDEVCAPS_HAS_AUDIO",
-    "MCI_GETDEVCAPS_HAS_VIDEO",
-    "MCI_GETDEVCAPS_DEVICE_TYPE",
-    "MCI_GETDEVCAPS_USES_FILES",
-    "MCI_GETDEVCAPS_COMPOUND_DEVICE",
-    "MCI_GETDEVCAPS_CAN_EJECT",
-    "MCI_GETDEVCAPS_CAN_PLAY",
-    "MCI_GETDEVCAPS_CAN_SAVE",
-    "MCI_SYSINFO_QUANTITY",
-    "MCI_SYSINFO_OPEN",
-    "MCI_SYSINFO_NAME",
-    "MCI_SYSINFO_INSTALLNAME",
-    "MCI_SET_DOOR_OPEN",
-    "MCI_SET_DOOR_CLOSED",
-    "MCI_SET_TIME_FORMAT",
-    "MCI_SET_AUDIO",
-    "MCI_SET_VIDEO",
-    "MCI_SET_ON",
-    "MCI_SET_OFF",
-    "MCI_SET_AUDIO_ALL",
-    "MCI_SET_AUDIO_LEFT",
-    "MCI_SET_AUDIO_RIGHT",
-    "MCI_BREAK_KEY",
-    "MCI_BREAK_HWND",
-    "MCI_BREAK_OFF",
-    "MCI_RECORD_INSERT",
-    "MCI_RECORD_OVERWRITE",
-    "MCI_SAVE_FILE",
-    "MCI_LOAD_FILE",
-    "MCI_VD_MODE_PARK",
-    "MCI_VD_MEDIA_CLV",
-    "MCI_VD_MEDIA_CAV",
-    "MCI_VD_MEDIA_OTHER",
-    "MCI_VD_FORMAT_TRACK",
-    "MCI_VD_PLAY_REVERSE",
-    "MCI_VD_PLAY_FAST",
-    "MCI_VD_PLAY_SPEED",
-    "MCI_VD_PLAY_SCAN",
-    "MCI_VD_PLAY_SLOW",
-    "MCI_VD_SEEK_REVERSE",
-    "MCI_VD_STATUS_SPEED",
-    "MCI_VD_STATUS_FORWARD",
-    "MCI_VD_STATUS_MEDIA_TYPE",
-    "MCI_VD_STATUS_SIDE",
-    "MCI_VD_STATUS_DISC_SIZE",
-    "MCI_VD_GETDEVCAPS_CLV",
-    "MCI_VD_GETDEVCAPS_CAV",
-    "MCI_VD_SPIN_UP",
-    "MCI_VD_SPIN_DOWN",
-    "MCI_VD_GETDEVCAPS_CAN_REVERSE",
-    "MCI_VD_GETDEVCAPS_FAST_RATE",
-    "MCI_VD_GETDEVCAPS_SLOW_RATE",
-    "MCI_VD_GETDEVCAPS_NORMAL_RATE",
-    "MCI_VD_STEP_FRAMES",
-    "MCI_VD_STEP_REVERSE",
-    "MCI_VD_ESCAPE_STRING",
-    "MCI_CDA_STATUS_TYPE_TRACK",
-    "MCI_CDA_TRACK_AUDIO",
-    "MCI_CDA_TRACK_OTHER",
-    "MCI_WAVE_PCM",
-    "MCI_WAVE_MAPPER",
-    "MCI_WAVE_OPEN_BUFFER",
-    "MCI_WAVE_SET_FORMATTAG",
-    "MCI_WAVE_SET_CHANNELS",
-    "MCI_WAVE_SET_SAMPLESPERSEC",
-    "MCI_WAVE_SET_AVGBYTESPERSEC",
-    "MCI_WAVE_SET_BLOCKALIGN",
-    "MCI_WAVE_SET_BITSPERSAMPLE",
-    "MCI_WAVE_INPUT",
-    "MCI_WAVE_OUTPUT",
-    "MCI_WAVE_STATUS_FORMATTAG",
-    "MCI_WAVE_STATUS_CHANNELS",
-    "MCI_WAVE_STATUS_SAMPLESPERSEC",
-    "MCI_WAVE_STATUS_AVGBYTESPERSEC",
-    "MCI_WAVE_STATUS_BLOCKALIGN",
-    "MCI_WAVE_STATUS_BITSPERSAMPLE",
-    "MCI_WAVE_STATUS_LEVEL",
-    "MCI_WAVE_SET_ANYINPUT",
-    "MCI_WAVE_SET_ANYOUTPUT",
-    "MCI_WAVE_GETDEVCAPS_INPUTS",
-    "MCI_WAVE_GETDEVCAPS_OUTPUTS",
-    "MCI_SEQ_FORMAT_SONGPTR",
-    "MCI_SEQ_FILE",
-    "MCI_SEQ_MIDI",
-    "MCI_SEQ_SMPTE",
-    "MCI_SEQ_NONE",
-    "MCI_SEQ_MAPPER",
-    "MCI_SEQ_STATUS_TEMPO",
-    "MCI_SEQ_STATUS_PORT",
-    "MCI_SEQ_STATUS_SLAVE",
-    "MCI_SEQ_STATUS_MASTER",
-    "MCI_SEQ_STATUS_OFFSET",
-    "MCI_SEQ_STATUS_DIVTYPE",
-    "MCI_SEQ_STATUS_NAME",
-    "MCI_SEQ_STATUS_COPYRIGHT",
-    "MCI_SEQ_SET_TEMPO",
-    "MCI_SEQ_SET_PORT",
-    "MCI_SEQ_SET_SLAVE",
-    "MCI_SEQ_SET_MASTER",
-    "MCI_SEQ_SET_OFFSET",
-    "MCI_ANIM_OPEN_WS",
-    "MCI_ANIM_OPEN_PARENT",
-    "MCI_ANIM_OPEN_NOSTATIC",
-    "MCI_ANIM_PLAY_SPEED",
-    "MCI_ANIM_PLAY_REVERSE",
-    "MCI_ANIM_PLAY_FAST",
-    "MCI_ANIM_PLAY_SLOW",
-    "MCI_ANIM_PLAY_SCAN",
-    "MCI_ANIM_STEP_REVERSE",
-    "MCI_ANIM_STEP_FRAMES",
-    "MCI_ANIM_STATUS_SPEED",
-    "MCI_ANIM_STATUS_FORWARD",
-    "MCI_ANIM_STATUS_HWND",
-    "MCI_ANIM_STATUS_HPAL",
-    "MCI_ANIM_STATUS_STRETCH",
-    "MCI_ANIM_INFO_TEXT",
-    "MCI_ANIM_GETDEVCAPS_CAN_REVERSE",
-    "MCI_ANIM_GETDEVCAPS_FAST_RATE",
-    "MCI_ANIM_GETDEVCAPS_SLOW_RATE",
-    "MCI_ANIM_GETDEVCAPS_NORMAL_RATE",
-    "MCI_ANIM_GETDEVCAPS_PALETTES",
-    "MCI_ANIM_GETDEVCAPS_CAN_STRETCH",
-    "MCI_ANIM_GETDEVCAPS_MAX_WINDOWS",
-    "MCI_ANIM_REALIZE_NORM",
-    "MCI_ANIM_REALIZE_BKGD",
-    "MCI_ANIM_WINDOW_HWND",
-    "MCI_ANIM_WINDOW_STATE",
-    "MCI_ANIM_WINDOW_TEXT",
-    "MCI_ANIM_WINDOW_ENABLE_STRETCH",
-    "MCI_ANIM_WINDOW_DISABLE_STRETCH",
-    "MCI_ANIM_WINDOW_DEFAULT",
-    "MCI_ANIM_RECT",
-    "MCI_ANIM_PUT_SOURCE",
-    "MCI_ANIM_PUT_DESTINATION",
-    "MCI_ANIM_WHERE_SOURCE",
-    "MCI_ANIM_WHERE_DESTINATION",
-    "MCI_ANIM_UPDATE_HDC",
-    "MCI_OVLY_OPEN_WS",
-    "MCI_OVLY_OPEN_PARENT",
-    "MCI_OVLY_STATUS_HWND",
-    "MCI_OVLY_STATUS_STRETCH",
-    "MCI_OVLY_INFO_TEXT",
-    "MCI_OVLY_GETDEVCAPS_CAN_STRETCH",
-    "MCI_OVLY_GETDEVCAPS_CAN_FREEZE",
-    "MCI_OVLY_GETDEVCAPS_MAX_WINDOWS",
-    "MCI_OVLY_WINDOW_HWND",
-    "MCI_OVLY_WINDOW_STATE",
-    "MCI_OVLY_WINDOW_TEXT",
-    "MCI_OVLY_WINDOW_ENABLE_STRETCH",
-    "MCI_OVLY_WINDOW_DISABLE_STRETCH",
-    "MCI_OVLY_WINDOW_DEFAULT",
-    "MCI_OVLY_RECT",
-    "MCI_OVLY_PUT_SOURCE",
-    "MCI_OVLY_PUT_DESTINATION",
-    "MCI_OVLY_PUT_FRAME",
-    "MCI_OVLY_PUT_VIDEO",
-    "MCI_OVLY_WHERE_SOURCE",
-    "MCI_OVLY_WHERE_DESTINATION",
-    "MCI_OVLY_WHERE_FRAME",
-    "MCI_OVLY_WHERE_VIDEO",
-    "HMMIO",
-    "HDRVR",
-    "HIC",
-    "HVIDEO",
-    "KSDATAFORMAT_SUBTYPE_IEEE_FLOAT",
-    "ADPCMCOEFSET",
-    "ADPCMWAVEFORMAT",
-    "DRMWAVEFORMAT",
-    "DVIADPCMWAVEFORMAT",
-    "IMAADPCMWAVEFORMAT",
-    "MEDIASPACEADPCMWAVEFORMAT",
-    "SIERRAADPCMWAVEFORMAT",
-    "G723_ADPCMWAVEFORMAT",
-    "DIGISTDWAVEFORMAT",
-    "DIGIFIXWAVEFORMAT",
-    "DIALOGICOKIADPCMWAVEFORMAT",
-    "YAMAHA_ADPCMWAVEFORMAT",
-    "SONARCWAVEFORMAT",
-    "TRUESPEECHWAVEFORMAT",
-    "ECHOSC1WAVEFORMAT",
-    "AUDIOFILE_AF36WAVEFORMAT",
-    "APTXWAVEFORMAT",
-    "AUDIOFILE_AF10WAVEFORMAT",
-    "DOLBYAC2WAVEFORMAT",
-    "GSM610WAVEFORMAT",
-    "ADPCMEWAVEFORMAT",
-    "CONTRESVQLPCWAVEFORMAT",
-    "DIGIREALWAVEFORMAT",
-    "DIGIADPCMWAVEFORMAT",
-    "CONTRESCR10WAVEFORMAT",
-    "NMS_VBXADPCMWAVEFORMAT",
-    "G721_ADPCMWAVEFORMAT",
-    "MSAUDIO1WAVEFORMAT",
+    "WIDM_UNPREPARE",
     "WMAUDIO2WAVEFORMAT",
+    "WMAUDIO2_BITS_PER_SAMPLE",
+    "WMAUDIO2_MAX_CHANNELS",
     "WMAUDIO3WAVEFORMAT",
-    "CREATIVEADPCMWAVEFORMAT",
-    "CREATIVEFASTSPEECH8WAVEFORMAT",
-    "CREATIVEFASTSPEECH10WAVEFORMAT",
-    "FMTOWNS_SND_WAVEFORMAT",
-    "OLIGSMWAVEFORMAT",
-    "OLIADPCMWAVEFORMAT",
-    "OLICELPWAVEFORMAT",
-    "OLISBCWAVEFORMAT",
-    "OLIOPRWAVEFORMAT",
-    "CSIMAADPCMWAVEFORMAT",
-    "s_RIFFWAVE_inst",
-    "EXBMINFOHEADER",
-    "JPEGINFOHEADER",
+    "WMAUDIO_BITS_PER_SAMPLE",
+    "WMAUDIO_MAX_CHANNELS",
+    "WM_CAP_ABORT",
+    "WM_CAP_DLG_VIDEOCOMPRESSION",
+    "WM_CAP_DLG_VIDEODISPLAY",
+    "WM_CAP_DLG_VIDEOFORMAT",
+    "WM_CAP_DLG_VIDEOSOURCE",
+    "WM_CAP_DRIVER_CONNECT",
+    "WM_CAP_DRIVER_DISCONNECT",
+    "WM_CAP_DRIVER_GET_CAPS",
+    "WM_CAP_DRIVER_GET_NAME",
+    "WM_CAP_DRIVER_GET_NAMEA",
+    "WM_CAP_DRIVER_GET_NAMEW",
+    "WM_CAP_DRIVER_GET_VERSION",
+    "WM_CAP_DRIVER_GET_VERSIONA",
+    "WM_CAP_DRIVER_GET_VERSIONW",
+    "WM_CAP_EDIT_COPY",
+    "WM_CAP_END",
+    "WM_CAP_FILE_ALLOCATE",
+    "WM_CAP_FILE_GET_CAPTURE_FILE",
+    "WM_CAP_FILE_GET_CAPTURE_FILEA",
+    "WM_CAP_FILE_GET_CAPTURE_FILEW",
+    "WM_CAP_FILE_SAVEAS",
+    "WM_CAP_FILE_SAVEASA",
+    "WM_CAP_FILE_SAVEASW",
+    "WM_CAP_FILE_SAVEDIB",
+    "WM_CAP_FILE_SAVEDIBA",
+    "WM_CAP_FILE_SAVEDIBW",
+    "WM_CAP_FILE_SET_CAPTURE_FILE",
+    "WM_CAP_FILE_SET_CAPTURE_FILEA",
+    "WM_CAP_FILE_SET_CAPTURE_FILEW",
+    "WM_CAP_FILE_SET_INFOCHUNK",
+    "WM_CAP_GET_AUDIOFORMAT",
+    "WM_CAP_GET_CAPSTREAMPTR",
+    "WM_CAP_GET_MCI_DEVICE",
+    "WM_CAP_GET_MCI_DEVICEA",
+    "WM_CAP_GET_MCI_DEVICEW",
+    "WM_CAP_GET_SEQUENCE_SETUP",
+    "WM_CAP_GET_STATUS",
+    "WM_CAP_GET_USER_DATA",
+    "WM_CAP_GET_VIDEOFORMAT",
+    "WM_CAP_GRAB_FRAME",
+    "WM_CAP_GRAB_FRAME_NOSTOP",
+    "WM_CAP_PAL_AUTOCREATE",
+    "WM_CAP_PAL_MANUALCREATE",
+    "WM_CAP_PAL_OPEN",
+    "WM_CAP_PAL_OPENA",
+    "WM_CAP_PAL_OPENW",
+    "WM_CAP_PAL_PASTE",
+    "WM_CAP_PAL_SAVE",
+    "WM_CAP_PAL_SAVEA",
+    "WM_CAP_PAL_SAVEW",
+    "WM_CAP_SEQUENCE",
+    "WM_CAP_SEQUENCE_NOFILE",
+    "WM_CAP_SET_AUDIOFORMAT",
+    "WM_CAP_SET_CALLBACK_CAPCONTROL",
+    "WM_CAP_SET_CALLBACK_ERROR",
+    "WM_CAP_SET_CALLBACK_ERRORA",
+    "WM_CAP_SET_CALLBACK_ERRORW",
+    "WM_CAP_SET_CALLBACK_FRAME",
+    "WM_CAP_SET_CALLBACK_STATUS",
+    "WM_CAP_SET_CALLBACK_STATUSA",
+    "WM_CAP_SET_CALLBACK_STATUSW",
+    "WM_CAP_SET_CALLBACK_VIDEOSTREAM",
+    "WM_CAP_SET_CALLBACK_WAVESTREAM",
+    "WM_CAP_SET_CALLBACK_YIELD",
+    "WM_CAP_SET_MCI_DEVICE",
+    "WM_CAP_SET_MCI_DEVICEA",
+    "WM_CAP_SET_MCI_DEVICEW",
+    "WM_CAP_SET_OVERLAY",
+    "WM_CAP_SET_PREVIEW",
+    "WM_CAP_SET_PREVIEWRATE",
+    "WM_CAP_SET_SCALE",
+    "WM_CAP_SET_SCROLL",
+    "WM_CAP_SET_SEQUENCE_SETUP",
+    "WM_CAP_SET_USER_DATA",
+    "WM_CAP_SET_VIDEOFORMAT",
+    "WM_CAP_SINGLE_FRAME",
+    "WM_CAP_SINGLE_FRAME_CLOSE",
+    "WM_CAP_SINGLE_FRAME_OPEN",
+    "WM_CAP_START",
+    "WM_CAP_STOP",
+    "WM_CAP_UNICODE_END",
+    "WM_CAP_UNICODE_START",
+    "WODM_BREAKLOOP",
+    "WODM_BUSY",
+    "WODM_CLOSE",
+    "WODM_GETDEVCAPS",
+    "WODM_GETNUMDEVS",
+    "WODM_GETPITCH",
+    "WODM_GETPLAYBACKRATE",
+    "WODM_GETPOS",
+    "WODM_GETVOLUME",
+    "WODM_INIT",
+    "WODM_INIT_EX",
+    "WODM_OPEN",
+    "WODM_PAUSE",
+    "WODM_PREFERRED",
+    "WODM_PREPARE",
+    "WODM_RESET",
+    "WODM_RESTART",
+    "WODM_SETPITCH",
+    "WODM_SETPLAYBACKRATE",
+    "WODM_SETVOLUME",
+    "WODM_UNPREPARE",
+    "WODM_WRITE",
+    "YAMAHA_ADPCMWAVEFORMAT",
     "YIELDPROC",
-    "MCI_GENERIC_PARMS",
-    "MCI_OPEN_PARMSA",
-    "MCI_OPEN_PARMSW",
-    "MCI_PLAY_PARMS",
-    "MCI_SEEK_PARMS",
-    "MCI_STATUS_PARMS",
-    "MCI_INFO_PARMSA",
-    "MCI_INFO_PARMSW",
-    "MCI_GETDEVCAPS_PARMS",
-    "MCI_SYSINFO_PARMSA",
-    "MCI_SYSINFO_PARMSW",
-    "MCI_SET_PARMS",
-    "MCI_BREAK_PARMS",
-    "MCI_SAVE_PARMSA",
-    "MCI_SAVE_PARMSW",
-    "MCI_LOAD_PARMSA",
-    "MCI_LOAD_PARMSW",
-    "MCI_RECORD_PARMS",
-    "MCI_VD_PLAY_PARMS",
-    "MCI_VD_STEP_PARMS",
-    "MCI_VD_ESCAPE_PARMSA",
-    "MCI_VD_ESCAPE_PARMSW",
-    "MCI_WAVE_OPEN_PARMSA",
-    "MCI_WAVE_OPEN_PARMSW",
-    "MCI_WAVE_DELETE_PARMS",
-    "MCI_WAVE_SET_PARMS",
-    "MCI_SEQ_SET_PARMS",
-    "MCI_ANIM_OPEN_PARMSA",
-    "MCI_ANIM_OPEN_PARMSW",
-    "MCI_ANIM_PLAY_PARMS",
-    "MCI_ANIM_STEP_PARMS",
-    "MCI_ANIM_WINDOW_PARMSA",
-    "MCI_ANIM_WINDOW_PARMSW",
-    "MCI_ANIM_RECT_PARMS",
-    "MCI_ANIM_UPDATE_PARMS",
-    "MCI_OVLY_OPEN_PARMSA",
-    "MCI_OVLY_OPEN_PARMSW",
-    "MCI_OVLY_WINDOW_PARMSA",
-    "MCI_OVLY_WINDOW_PARMSW",
-    "MCI_OVLY_RECT_PARMS",
-    "MCI_OVLY_SAVE_PARMSA",
-    "MCI_OVLY_SAVE_PARMSW",
-    "MCI_OVLY_LOAD_PARMSA",
-    "MCI_OVLY_LOAD_PARMSW",
-    "DRVCONFIGINFOEX",
-    "DRVCONFIGINFO",
-    "DRIVERPROC",
-    "DRIVERMSGPROC",
-    "LPMMIOPROC",
-    "MMIOINFO",
-    "MMCKINFO",
-    "JOYCAPSA",
-    "JOYCAPSW",
-    "JOYCAPS2A",
-    "JOYCAPS2W",
-    "JOYINFO",
-    "JOYINFOEX",
-    "MCI_DGV_RECT_PARMS",
-    "MCI_DGV_CAPTURE_PARMSA",
-    "MCI_DGV_CAPTURE_PARMSW",
-    "MCI_DGV_COPY_PARMS",
-    "MCI_DGV_CUE_PARMS",
-    "MCI_DGV_CUT_PARMS",
-    "MCI_DGV_DELETE_PARMS",
-    "MCI_DGV_INFO_PARMSA",
-    "MCI_DGV_INFO_PARMSW",
-    "MCI_DGV_LIST_PARMSA",
-    "MCI_DGV_LIST_PARMSW",
-    "MCI_DGV_MONITOR_PARMS",
-    "MCI_DGV_OPEN_PARMSA",
-    "MCI_DGV_OPEN_PARMSW",
-    "MCI_DGV_PASTE_PARMS",
-    "MCI_DGV_QUALITY_PARMSA",
-    "MCI_DGV_QUALITY_PARMSW",
-    "MCI_DGV_RECORD_PARMS",
-    "MCI_DGV_RESERVE_PARMSA",
-    "MCI_DGV_RESERVE_PARMSW",
-    "MCI_DGV_RESTORE_PARMSA",
-    "MCI_DGV_RESTORE_PARMSW",
-    "MCI_DGV_SAVE_PARMSA",
-    "MCI_DGV_SAVE_PARMSW",
-    "MCI_DGV_SET_PARMS",
-    "MCI_DGV_SETAUDIO_PARMSA",
-    "MCI_DGV_SETAUDIO_PARMSW",
-    "MCI_DGV_SIGNAL_PARMS",
-    "MCI_DGV_SETVIDEO_PARMSA",
-    "MCI_DGV_SETVIDEO_PARMSW",
-    "MCI_DGV_STATUS_PARMSA",
-    "MCI_DGV_STATUS_PARMSW",
-    "MCI_DGV_STEP_PARMS",
-    "MCI_DGV_UPDATE_PARMS",
-    "MCI_DGV_WINDOW_PARMSA",
-    "MCI_DGV_WINDOW_PARMSW",
-    "ICOPEN",
-    "ICINFO",
-    "ICCOMPRESS",
-    "ICCOMPRESSFRAMES",
-    "ICSETSTATUSPROC",
-    "ICDECOMPRESS",
-    "ICDECOMPRESSEX",
-    "ICDRAWBEGIN",
-    "ICDRAW",
-    "ICDRAWSUGGEST",
-    "ICPALETTE",
-    "COMPVARS",
-    "DRAWDIBTIME",
-    "AVISTREAMINFOW",
-    "AVISTREAMINFOA",
-    "AVIFILEINFOW",
-    "AVIFILEINFOA",
-    "AVISAVECALLBACK",
-    "AVICOMPRESSOPTIONS",
-    "IAVIStream",
-    "IAVIStreaming",
-    "IAVIEditStream",
-    "IAVIPersistFile",
-    "IAVIFile",
-    "IGetFrame",
-    "VIDEOHDR",
-    "CHANNEL_CAPS",
-    "CAPDRIVERCAPS",
-    "CAPSTATUS",
-    "CAPTUREPARMS",
-    "CAPINFOCHUNK",
-    "CAPYIELDCALLBACK",
-    "CAPSTATUSCALLBACKW",
-    "CAPERRORCALLBACKW",
-    "CAPSTATUSCALLBACKA",
-    "CAPERRORCALLBACKA",
-    "CAPVIDEOCALLBACK",
-    "CAPWAVECALLBACK",
-    "CAPCONTROLCALLBACK",
-    "DRVM_IOCTL_DATA",
-    "WAVEOPENDESC",
-    "MIDIOPENSTRMID",
-    "MIXEROPENDESC",
-    "TIMEREVENT",
-    "MCI_OPEN_DRIVER_PARMS",
-    "LPTASKCALLBACK",
-    "VFWWDMExtensionProc",
-    "LPFNEXTDEVIO",
-    "mciSendCommandA",
-    "mciSendCommandW",
-    "mciSendCommand",
-    "mciSendStringA",
-    "mciSendStringW",
-    "mciSendString",
-    "mciGetDeviceIDA",
-    "mciGetDeviceIDW",
-    "mciGetDeviceID",
-    "mciGetDeviceIDFromElementIDA",
-    "mciGetDeviceIDFromElementIDW",
-    "mciGetDeviceIDFromElementID",
-    "mciGetErrorStringA",
-    "mciGetErrorStringW",
-    "mciGetErrorString",
-    "mciSetYieldProc",
-    "mciGetCreatorTask",
-    "mciGetYieldProc",
-    "mciGetDriverData",
-    "mciLoadCommandResource",
-    "mciSetDriverData",
-    "mciDriverYield",
-    "mciDriverNotify",
-    "mciFreeCommandResource",
-    "CloseDriver",
-    "OpenDriver",
-    "SendDriverMessage",
-    "DrvGetModuleHandle",
-    "GetDriverModuleHandle",
-    "DefDriverProc",
-    "DriverCallback",
-    "sndOpenSound",
-    "mmDrvInstall",
-    "mmioStringToFOURCCA",
-    "mmioStringToFOURCCW",
-    "mmioStringToFOURCC",
-    "mmioInstallIOProcA",
-    "mmioInstallIOProcW",
-    "mmioInstallIOProc",
-    "mmioOpenA",
-    "mmioOpenW",
-    "mmioOpen",
-    "mmioRenameA",
-    "mmioRenameW",
-    "mmioRename",
-    "mmioClose",
-    "mmioRead",
-    "mmioWrite",
-    "mmioSeek",
-    "mmioGetInfo",
-    "mmioSetInfo",
-    "mmioSetBuffer",
-    "mmioFlush",
-    "mmioAdvance",
-    "mmioSendMessage",
-    "mmioDescend",
-    "mmioAscend",
-    "mmioCreateChunk",
-    "joyGetPosEx",
-    "joyGetNumDevs",
+    "capCreateCaptureWindowA",
+    "capCreateCaptureWindowW",
+    "capGetDriverDescriptionA",
+    "capGetDriverDescriptionW",
     "joyGetDevCapsA",
     "joyGetDevCapsW",
-    "joyGetDevCaps",
+    "joyGetNumDevs",
     "joyGetPos",
+    "joyGetPosEx",
     "joyGetThreshold",
     "joyReleaseCapture",
     "joySetCapture",
     "joySetThreshold",
-    "VideoForWindowsVersion",
-    "ICInfo",
-    "ICInstall",
-    "ICRemove",
-    "ICGetInfo",
-    "ICOpen",
-    "ICOpenFunction",
-    "ICClose",
-    "ICSendMessage",
-    "ICCompress",
-    "ICDecompress",
-    "ICDrawBegin",
-    "ICDraw",
-    "ICLocate",
-    "ICGetDisplayFormat",
-    "ICImageCompress",
-    "ICImageDecompress",
-    "ICCompressorChoose",
-    "ICSeqCompressFrameStart",
-    "ICSeqCompressFrameEnd",
-    "ICSeqCompressFrame",
-    "ICCompressorFree",
-    "DrawDibOpen",
-    "DrawDibClose",
-    "DrawDibGetBuffer",
-    "DrawDibGetPalette",
-    "DrawDibSetPalette",
-    "DrawDibChangePalette",
-    "DrawDibRealize",
-    "DrawDibStart",
-    "DrawDibStop",
-    "DrawDibBegin",
-    "DrawDibDraw",
-    "DrawDibEnd",
-    "DrawDibTime",
-    "DrawDibProfileDisplay",
-    "AVIFileInit",
-    "AVIFileExit",
-    "AVIFileAddRef",
-    "AVIFileRelease",
-    "AVIFileOpenA",
-    "AVIFileOpenW",
-    "AVIFileOpen",
-    "AVIFileInfoW",
-    "AVIFileInfo",
-    "AVIFileInfoA",
-    "AVIFileGetStream",
-    "AVIFileCreateStreamW",
-    "AVIFileCreateStream",
-    "AVIFileCreateStreamA",
-    "AVIFileWriteData",
-    "AVIFileReadData",
-    "AVIFileEndRecord",
-    "AVIStreamAddRef",
-    "AVIStreamRelease",
-    "AVIStreamInfoW",
-    "AVIStreamInfo",
-    "AVIStreamInfoA",
-    "AVIStreamFindSample",
-    "AVIStreamReadFormat",
-    "AVIStreamSetFormat",
-    "AVIStreamReadData",
-    "AVIStreamWriteData",
-    "AVIStreamRead",
-    "AVIStreamWrite",
-    "AVIStreamStart",
-    "AVIStreamLength",
-    "AVIStreamTimeToSample",
-    "AVIStreamSampleToTime",
-    "AVIStreamBeginStreaming",
-    "AVIStreamEndStreaming",
-    "AVIStreamGetFrameOpen",
-    "AVIStreamGetFrame",
-    "AVIStreamGetFrameClose",
-    "AVIStreamOpenFromFileA",
-    "AVIStreamOpenFromFileW",
-    "AVIStreamOpenFromFile",
-    "AVIStreamCreate",
-    "AVIMakeCompressedStream",
-    "AVISaveA",
-    "AVISaveVA",
-    "AVISaveW",
-    "AVISave",
-    "AVISaveVW",
-    "AVISaveV",
-    "AVISaveOptions",
-    "AVISaveOptionsFree",
-    "AVIBuildFilterW",
-    "AVIBuildFilter",
-    "AVIBuildFilterA",
-    "AVIMakeFileFromStreams",
-    "AVIMakeStreamFromClipboard",
-    "AVIPutFileOnClipboard",
-    "AVIGetFromClipboard",
-    "AVIClearClipboard",
-    "CreateEditableStream",
-    "EditStreamCut",
-    "EditStreamCopy",
-    "EditStreamPaste",
-    "EditStreamClone",
-    "EditStreamSetNameA",
-    "EditStreamSetNameW",
-    "EditStreamSetName",
-    "EditStreamSetInfoW",
-    "EditStreamSetInfo",
-    "EditStreamSetInfoA",
-    "MCIWndCreateA",
-    "MCIWndCreateW",
-    "MCIWndCreate",
-    "MCIWndRegisterClass",
-    "capCreateCaptureWindowA",
-    "capGetDriverDescriptionA",
-    "capCreateCaptureWindowW",
-    "capCreateCaptureWindow",
-    "capGetDriverDescriptionW",
-    "capGetDriverDescription",
-    "GetOpenFileNamePreviewA",
-    "GetSaveFileNamePreviewA",
-    "GetOpenFileNamePreviewW",
-    "GetOpenFileNamePreview",
-    "GetSaveFileNamePreviewW",
-    "GetSaveFileNamePreview",
-    "mmTaskCreate",
+    "mciDriverNotify",
+    "mciDriverYield",
+    "mciFreeCommandResource",
+    "mciGetCreatorTask",
+    "mciGetDeviceIDA",
+    "mciGetDeviceIDFromElementIDA",
+    "mciGetDeviceIDFromElementIDW",
+    "mciGetDeviceIDW",
+    "mciGetDriverData",
+    "mciGetErrorStringA",
+    "mciGetErrorStringW",
+    "mciGetYieldProc",
+    "mciLoadCommandResource",
+    "mciSendCommandA",
+    "mciSendCommandW",
+    "mciSendStringA",
+    "mciSendStringW",
+    "mciSetDriverData",
+    "mciSetYieldProc",
+    "mmDrvInstall",
+    "mmGetCurrentTask",
     "mmTaskBlock",
+    "mmTaskCreate",
     "mmTaskSignal",
     "mmTaskYield",
-    "mmGetCurrentTask",
+    "mmioAdvance",
+    "mmioAscend",
+    "mmioClose",
+    "mmioCreateChunk",
+    "mmioDescend",
+    "mmioFlush",
+    "mmioGetInfo",
+    "mmioInstallIOProcA",
+    "mmioInstallIOProcW",
+    "mmioOpenA",
+    "mmioOpenW",
+    "mmioRead",
+    "mmioRenameA",
+    "mmioRenameW",
+    "mmioSeek",
+    "mmioSendMessage",
+    "mmioSetBuffer",
+    "mmioSetInfo",
+    "mmioStringToFOURCCA",
+    "mmioStringToFOURCCW",
+    "mmioWrite",
+    "s_RIFFWAVE_inst",
+    "sndOpenSound",
 ]

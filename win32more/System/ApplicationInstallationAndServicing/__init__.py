@@ -1,23 +1,176 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Foundation
 import win32more.Security.Cryptography
 import win32more.System.ApplicationInstallationAndServicing
 import win32more.System.Com
 import win32more.System.Registry
 import win32more.System.WindowsProgramming
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+ACTCTX_COMPATIBILITY_ELEMENT_TYPE = Int32
+ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN = 0
+ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS = 1
+ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION = 2
+ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MAXVERSIONTESTED = 3
+ACTCTX_REQUESTED_RUN_LEVEL = Int32
+ACTCTX_RUN_LEVEL_UNSPECIFIED = 0
+ACTCTX_RUN_LEVEL_AS_INVOKER = 1
+ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE = 2
+ACTCTX_RUN_LEVEL_REQUIRE_ADMIN = 3
+ACTCTX_RUN_LEVEL_NUMBERS = 4
+def _define_ACTCTX_SECTION_KEYED_DATA_head():
+    class ACTCTX_SECTION_KEYED_DATA(Structure):
+        pass
+    return ACTCTX_SECTION_KEYED_DATA
+def _define_ACTCTX_SECTION_KEYED_DATA():
+    ACTCTX_SECTION_KEYED_DATA = win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head
+    ACTCTX_SECTION_KEYED_DATA._fields_ = [
+        ('cbSize', UInt32),
+        ('ulDataFormatVersion', UInt32),
+        ('lpData', c_void_p),
+        ('ulLength', UInt32),
+        ('lpSectionGlobalData', c_void_p),
+        ('ulSectionGlobalDataLength', UInt32),
+        ('lpSectionBase', c_void_p),
+        ('ulSectionTotalLength', UInt32),
+        ('hActCtx', win32more.Foundation.HANDLE),
+        ('ulAssemblyRosterIndex', UInt32),
+        ('ulFlags', UInt32),
+        ('AssemblyMetadata', win32more.System.WindowsProgramming.ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA),
+    ]
+    return ACTCTX_SECTION_KEYED_DATA
+def _define_ACTCTXA_head():
+    class ACTCTXA(Structure):
+        pass
+    return ACTCTXA
+def _define_ACTCTXA():
+    ACTCTXA = win32more.System.ApplicationInstallationAndServicing.ACTCTXA_head
+    ACTCTXA._fields_ = [
+        ('cbSize', UInt32),
+        ('dwFlags', UInt32),
+        ('lpSource', win32more.Foundation.PSTR),
+        ('wProcessorArchitecture', UInt16),
+        ('wLangId', UInt16),
+        ('lpAssemblyDirectory', win32more.Foundation.PSTR),
+        ('lpResourceName', win32more.Foundation.PSTR),
+        ('lpApplicationName', win32more.Foundation.PSTR),
+        ('hModule', win32more.Foundation.HINSTANCE),
+    ]
+    return ACTCTXA
+def _define_ACTCTXW_head():
+    class ACTCTXW(Structure):
+        pass
+    return ACTCTXW
+def _define_ACTCTXW():
+    ACTCTXW = win32more.System.ApplicationInstallationAndServicing.ACTCTXW_head
+    ACTCTXW._fields_ = [
+        ('cbSize', UInt32),
+        ('dwFlags', UInt32),
+        ('lpSource', win32more.Foundation.PWSTR),
+        ('wProcessorArchitecture', UInt16),
+        ('wLangId', UInt16),
+        ('lpAssemblyDirectory', win32more.Foundation.PWSTR),
+        ('lpResourceName', win32more.Foundation.PWSTR),
+        ('lpApplicationName', win32more.Foundation.PWSTR),
+        ('hModule', win32more.Foundation.HINSTANCE),
+    ]
+    return ACTCTXW
+def _define_ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION_head():
+    class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(Structure):
+        pass
+    return ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION
+def _define_ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION():
+    ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION_head
+    ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION._fields_ = [
+        ('ulFlags', UInt32),
+        ('ulEncodedAssemblyIdentityLength', UInt32),
+        ('ulManifestPathType', UInt32),
+        ('ulManifestPathLength', UInt32),
+        ('liManifestLastWriteTime', win32more.Foundation.LARGE_INTEGER),
+        ('ulPolicyPathType', UInt32),
+        ('ulPolicyPathLength', UInt32),
+        ('liPolicyLastWriteTime', win32more.Foundation.LARGE_INTEGER),
+        ('ulMetadataSatelliteRosterIndex', UInt32),
+        ('ulManifestVersionMajor', UInt32),
+        ('ulManifestVersionMinor', UInt32),
+        ('ulPolicyVersionMajor', UInt32),
+        ('ulPolicyVersionMinor', UInt32),
+        ('ulAssemblyDirectoryNameLength', UInt32),
+        ('lpAssemblyEncodedAssemblyIdentity', win32more.Foundation.PWSTR),
+        ('lpAssemblyManifestPath', win32more.Foundation.PWSTR),
+        ('lpAssemblyPolicyPath', win32more.Foundation.PWSTR),
+        ('lpAssemblyDirectoryName', win32more.Foundation.PWSTR),
+        ('ulFileCount', UInt32),
+    ]
+    return ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION
+def _define_ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION_head():
+    class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION(Structure):
+        pass
+    return ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION
+def _define_ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION():
+    ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION_head
+    ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION._fields_ = [
+        ('ElementCount', UInt32),
+        ('Elements', POINTER(win32more.System.ApplicationInstallationAndServicing.COMPATIBILITY_CONTEXT_ELEMENT_head)),
+    ]
+    return ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION
+def _define_ACTIVATION_CONTEXT_DETAILED_INFORMATION_head():
+    class ACTIVATION_CONTEXT_DETAILED_INFORMATION(Structure):
+        pass
+    return ACTIVATION_CONTEXT_DETAILED_INFORMATION
+def _define_ACTIVATION_CONTEXT_DETAILED_INFORMATION():
+    ACTIVATION_CONTEXT_DETAILED_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_DETAILED_INFORMATION_head
+    ACTIVATION_CONTEXT_DETAILED_INFORMATION._fields_ = [
+        ('dwFlags', UInt32),
+        ('ulFormatVersion', UInt32),
+        ('ulAssemblyCount', UInt32),
+        ('ulRootManifestPathType', UInt32),
+        ('ulRootManifestPathChars', UInt32),
+        ('ulRootConfigurationPathType', UInt32),
+        ('ulRootConfigurationPathChars', UInt32),
+        ('ulAppDirPathType', UInt32),
+        ('ulAppDirPathChars', UInt32),
+        ('lpRootManifestPath', win32more.Foundation.PWSTR),
+        ('lpRootConfigurationPath', win32more.Foundation.PWSTR),
+        ('lpAppDirPath', win32more.Foundation.PWSTR),
+    ]
+    return ACTIVATION_CONTEXT_DETAILED_INFORMATION
+def _define_ACTIVATION_CONTEXT_QUERY_INDEX_head():
+    class ACTIVATION_CONTEXT_QUERY_INDEX(Structure):
+        pass
+    return ACTIVATION_CONTEXT_QUERY_INDEX
+def _define_ACTIVATION_CONTEXT_QUERY_INDEX():
+    ACTIVATION_CONTEXT_QUERY_INDEX = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_QUERY_INDEX_head
+    ACTIVATION_CONTEXT_QUERY_INDEX._fields_ = [
+        ('ulAssemblyIndex', UInt32),
+        ('ulFileIndexInAssembly', UInt32),
+    ]
+    return ACTIVATION_CONTEXT_QUERY_INDEX
+def _define_ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION_head():
+    class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION(Structure):
+        pass
+    return ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION
+def _define_ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION():
+    ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION_head
+    ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION._fields_ = [
+        ('ulFlags', UInt32),
+        ('RunLevel', win32more.System.ApplicationInstallationAndServicing.ACTCTX_REQUESTED_RUN_LEVEL),
+        ('UiAccess', UInt32),
+    ]
+    return ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION
+ADVERTISEFLAGS = Int32
+ADVERTISEFLAGS_MACHINEASSIGN = 0
+ADVERTISEFLAGS_USERASSIGN = 1
 UIALL = 32768
 LOGTOKEN_TYPE_MASK = 3
 LOGTOKEN_UNSPECIFIED = 0
@@ -59,13 +212,54 @@ TXTLOG_CMI = 268435456
 TXTLOG_DEVMGR = 536870912
 TXTLOG_INSTALLER = 1073741824
 TXTLOG_VENDOR = 2147483648
-CLSID_EvalCom2 = '6e5e1910-8053-4660-b795-6b612e29bc58'
+def _define_CLSID_EvalCom2():
+    return Guid('6e5e1910-8053-4660-b7-95-6b-61-2e-29-bc-58')
 _WIN32_MSM = 100
-LIBID_MsmMergeTypeLib = '0adda82f-2c26-11d2-ad65-00a0c9af11a6'
-CLSID_MsmMerge2 = 'f94985d5-29f9-4743-9805-99bc3f35b678'
+def _define_LIBID_MsmMergeTypeLib():
+    return Guid('0adda82f-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+def _define_CLSID_MsmMerge2():
+    return Guid('f94985d5-29f9-4743-98-05-99-bc-3f-35-b6-78')
 _WIN32_MSI = 500
 MAX_GUID_CHARS = 38
 MAX_FEATURE_CHARS = 38
+INSTALLPROPERTY_PACKAGENAME = 'PackageName'
+INSTALLPROPERTY_TRANSFORMS = 'Transforms'
+INSTALLPROPERTY_LANGUAGE = 'Language'
+INSTALLPROPERTY_PRODUCTNAME = 'ProductName'
+INSTALLPROPERTY_ASSIGNMENTTYPE = 'AssignmentType'
+INSTALLPROPERTY_INSTANCETYPE = 'InstanceType'
+INSTALLPROPERTY_AUTHORIZED_LUA_APP = 'AuthorizedLUAApp'
+INSTALLPROPERTY_PACKAGECODE = 'PackageCode'
+INSTALLPROPERTY_VERSION = 'Version'
+INSTALLPROPERTY_PRODUCTICON = 'ProductIcon'
+INSTALLPROPERTY_INSTALLEDPRODUCTNAME = 'InstalledProductName'
+INSTALLPROPERTY_VERSIONSTRING = 'VersionString'
+INSTALLPROPERTY_HELPLINK = 'HelpLink'
+INSTALLPROPERTY_HELPTELEPHONE = 'HelpTelephone'
+INSTALLPROPERTY_INSTALLLOCATION = 'InstallLocation'
+INSTALLPROPERTY_INSTALLSOURCE = 'InstallSource'
+INSTALLPROPERTY_INSTALLDATE = 'InstallDate'
+INSTALLPROPERTY_PUBLISHER = 'Publisher'
+INSTALLPROPERTY_LOCALPACKAGE = 'LocalPackage'
+INSTALLPROPERTY_URLINFOABOUT = 'URLInfoAbout'
+INSTALLPROPERTY_URLUPDATEINFO = 'URLUpdateInfo'
+INSTALLPROPERTY_VERSIONMINOR = 'VersionMinor'
+INSTALLPROPERTY_VERSIONMAJOR = 'VersionMajor'
+INSTALLPROPERTY_PRODUCTID = 'ProductID'
+INSTALLPROPERTY_REGCOMPANY = 'RegCompany'
+INSTALLPROPERTY_REGOWNER = 'RegOwner'
+INSTALLPROPERTY_INSTALLEDLANGUAGE = 'InstalledLanguage'
+INSTALLPROPERTY_UNINSTALLABLE = 'Uninstallable'
+INSTALLPROPERTY_PRODUCTSTATE = 'State'
+INSTALLPROPERTY_PATCHSTATE = 'State'
+INSTALLPROPERTY_PATCHTYPE = 'PatchType'
+INSTALLPROPERTY_LUAENABLED = 'LUAEnabled'
+INSTALLPROPERTY_DISPLAYNAME = 'DisplayName'
+INSTALLPROPERTY_MOREINFOURL = 'MoreInfoURL'
+INSTALLPROPERTY_LASTUSEDSOURCE = 'LastUsedSource'
+INSTALLPROPERTY_LASTUSEDTYPE = 'LastUsedType'
+INSTALLPROPERTY_MEDIAPACKAGEPATH = 'MediaPackagePath'
+INSTALLPROPERTY_DISKPROMPT = 'DiskPrompt'
 MSI_INVALID_HASH_IS_FATAL = 1
 ERROR_ROLLBACK_DISABLED = 1653
 MSI_NULL_INTEGER = 2147483648
@@ -80,9 +274,12 @@ ASSEMBLYINFO_FLAG_PAYLOADRESIDENT = 2
 IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_INSTALLED = 1
 IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_REFRESHED = 2
 IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_ALREADY_INSTALLED = 3
-FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID = '8cedc215-ac4b-488b-93c0-a50a49cb2fb8'
-FUSION_REFCOUNT_FILEPATH_GUID = 'b02f9d65-fb77-4f7a-afa5-b391309f11c9'
-FUSION_REFCOUNT_OPAQUE_STRING_GUID = '2ec93463-b0c3-45e1-8364-327e96aea856'
+def _define_FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID():
+    return Guid('8cedc215-ac4b-488b-93-c0-a5-0a-49-cb-2f-b8')
+def _define_FUSION_REFCOUNT_FILEPATH_GUID():
+    return Guid('b02f9d65-fb77-4f7a-af-a5-b3-91-30-9f-11-c9')
+def _define_FUSION_REFCOUNT_OPAQUE_STRING_GUID():
+    return Guid('2ec93463-b0c3-45e1-83-64-32-7e-96-ae-a8-56')
 SFC_DISABLE_NORMAL = 0
 SFC_DISABLE_ASK = 1
 SFC_DISABLE_ONCE = 2
@@ -93,6 +290,232 @@ SFC_SCAN_ALWAYS = 1
 SFC_SCAN_ONCE = 2
 SFC_SCAN_IMMEDIATE = 3
 SFC_QUOTA_DEFAULT = 50
+SFC_IDLE_TRIGGER = 'WFP_IDLE_TRIGGER'
+IPROPNAME_PRODUCTNAME = 'ProductName'
+IPROPNAME_PRODUCTCODE = 'ProductCode'
+IPROPNAME_PRODUCTVERSION = 'ProductVersion'
+IPROPNAME_INSTALLLANGUAGE = 'ProductLanguage'
+IPROPNAME_MANUFACTURER = 'Manufacturer'
+IPROPNAME_UPGRADECODE = 'UpgradeCode'
+IPROPNAME_PIDTEMPLATE = 'PIDTemplate'
+IPROPNAME_DISKPROMPT = 'DiskPrompt'
+IPROPNAME_LEFTUNIT = 'LeftUnit'
+IPROPNAME_ADMIN_PROPERTIES = 'AdminProperties'
+IPROPNAME_DEFAULTUIFONT = 'DefaultUIFont'
+IPROPNAME_ALLOWEDPROPERTIES = 'SecureCustomProperties'
+IPROPNAME_ENABLEUSERCONTROL = 'EnableUserControl'
+IPROPNAME_HIDDEN_PROPERTIES = 'MsiHiddenProperties'
+IPROPNAME_USERNAME = 'USERNAME'
+IPROPNAME_COMPANYNAME = 'COMPANYNAME'
+IPROPNAME_PIDKEY = 'PIDKEY'
+IPROPNAME_PATCH = 'PATCH'
+IPROPNAME_MSIPATCHREMOVE = 'MSIPATCHREMOVE'
+IPROPNAME_TARGETDIR = 'TARGETDIR'
+IPROPNAME_ACTION = 'ACTION'
+IPROPNAME_LIMITUI = 'LIMITUI'
+IPROPNAME_LOGACTION = 'LOGACTION'
+IPROPNAME_ALLUSERS = 'ALLUSERS'
+IPROPNAME_INSTALLLEVEL = 'INSTALLLEVEL'
+IPROPNAME_REBOOT = 'REBOOT'
+IPROPNAME_REBOOTPROMPT = 'REBOOTPROMPT'
+IPROPNAME_EXECUTEMODE = 'EXECUTEMODE'
+IPROPVALUE_EXECUTEMODE_NONE = 'NONE'
+IPROPVALUE_EXECUTEMODE_SCRIPT = 'SCRIPT'
+IPROPNAME_EXECUTEACTION = 'EXECUTEACTION'
+IPROPNAME_SOURCELIST = 'SOURCELIST'
+IPROPNAME_ROOTDRIVE = 'ROOTDRIVE'
+IPROPNAME_TRANSFORMS = 'TRANSFORMS'
+IPROPNAME_TRANSFORMSATSOURCE = 'TRANSFORMSATSOURCE'
+IPROPNAME_TRANSFORMSSECURE = 'TRANSFORMSSECURE'
+IPROPNAME_SEQUENCE = 'SEQUENCE'
+IPROPNAME_SHORTFILENAMES = 'SHORTFILENAMES'
+IPROPNAME_PRIMARYFOLDER = 'PRIMARYFOLDER'
+IPROPNAME_AFTERREBOOT = 'AFTERREBOOT'
+IPROPNAME_NOCOMPANYNAME = 'NOCOMPANYNAME'
+IPROPNAME_NOUSERNAME = 'NOUSERNAME'
+IPROPNAME_DISABLEROLLBACK = 'DISABLEROLLBACK'
+IPROPNAME_AVAILABLEFREEREG = 'AVAILABLEFREEREG'
+IPROPNAME_DISABLEADVTSHORTCUTS = 'DISABLEADVTSHORTCUTS'
+IPROPNAME_PATCHNEWPACKAGECODE = 'PATCHNEWPACKAGECODE'
+IPROPNAME_PATCHNEWSUMMARYSUBJECT = 'PATCHNEWSUMMARYSUBJECT'
+IPROPNAME_PATCHNEWSUMMARYCOMMENTS = 'PATCHNEWSUMMARYCOMMENTS'
+IPROPNAME_PRODUCTLANGUAGE = 'PRODUCTLANGUAGE'
+IPROPNAME_CHECKCRCS = 'MSICHECKCRCS'
+IPROPNAME_MSINODISABLEMEDIA = 'MSINODISABLEMEDIA'
+IPROPNAME_CARRYINGNDP = 'CARRYINGNDP'
+IPROPVALUE__CARRYINGNDP_URTREINSTALL = 'URTREINSTALL'
+IPROPVALUE__CARRYINGNDP_URTUPGRADE = 'URTUPGRADE'
+IPROPNAME_ENFORCE_UPGRADE_COMPONENT_RULES = 'MSIENFORCEUPGRADECOMPONENTRULES'
+IPROPNAME_MSINEWINSTANCE = 'MSINEWINSTANCE'
+IPROPNAME_MSIINSTANCEGUID = 'MSIINSTANCEGUID'
+IPROPNAME_MSIPACKAGEDOWNLOADLOCALCOPY = 'MSIPACKAGEDOWNLOADLOCALCOPY'
+IPROPNAME_MSIPATCHDOWNLOADLOCALCOPY = 'MSIPATCHDOWNLOADLOCALCOPY'
+IPROPNAME_MSIDISABLELUAPATCHING = 'MSIDISABLELUAPATCHING'
+IPROPNAME_MSILOGGINGMODE = 'MsiLogging'
+IPROPNAME_MSILOGFILELOCATION = 'MsiLogFileLocation'
+IPROPNAME_MSI_RM_CONTROL = 'MSIRESTARTMANAGERCONTROL'
+IPROPVALUE_MSI_RM_CONTROL_DISABLE = 'Disable'
+IPROPVALUE_MSI_RM_CONTROL_DISABLESHUTDOWN = 'DisableShutdown'
+IPROPNAME_MSI_RM_SESSION_KEY = 'MsiRestartManagerSessionKey'
+IPROPNAME_MSI_REBOOT_PENDING = 'MsiSystemRebootPending'
+IPROPNAME_MSI_RM_SHUTDOWN = 'MSIRMSHUTDOWN'
+IPROPNAME_MSI_RM_DISABLE_RESTART = 'MSIDISABLERMRESTART'
+IPROPNAME_MSI_UAC_DEPLOYMENT_COMPLIANT = 'MSIDEPLOYMENTCOMPLIANT'
+IPROPNAME_MSI_USE_REAL_ADMIN_DETECTION = 'MSIUSEREALADMINDETECTION'
+IPROPNAME_MSI_UNINSTALL_SUPERSEDED_COMPONENTS = 'MSIUNINSTALLSUPERSEDEDCOMPONENTS'
+IPROPNAME_MSIDISABLEEEUI = 'MSIDISABLEEEUI'
+IPROPNAME_MSI_FASTINSTALL = 'MSIFASTINSTALL'
+IPROPNAME_INSTALLPERUSER = 'MSIINSTALLPERUSER'
+IPROPNAME_INTERNALINSTALLEDPERUSER = 'MSIINTERNALINSTALLEDPERUSER'
+IPROPNAME_ARPAUTHORIZEDCDFPREFIX = 'ARPAUTHORIZEDCDFPREFIX'
+IPROPNAME_ARPCOMMENTS = 'ARPCOMMENTS'
+IPROPNAME_ARPCONTACT = 'ARPCONTACT'
+IPROPNAME_ARPHELPLINK = 'ARPHELPLINK'
+IPROPNAME_ARPHELPTELEPHONE = 'ARPHELPTELEPHONE'
+IPROPNAME_ARPINSTALLLOCATION = 'ARPINSTALLLOCATION'
+IPROPNAME_ARPNOMODIFY = 'ARPNOMODIFY'
+IPROPNAME_ARPNOREMOVE = 'ARPNOREMOVE'
+IPROPNAME_ARPNOREPAIR = 'ARPNOREPAIR'
+IPROPNAME_ARPREADME = 'ARPREADME'
+IPROPNAME_ARPSIZE = 'ARPSIZE'
+IPROPNAME_ARPSYSTEMCOMPONENT = 'ARPSYSTEMCOMPONENT'
+IPROPNAME_ARPURLINFOABOUT = 'ARPURLINFOABOUT'
+IPROPNAME_ARPURLUPDATEINFO = 'ARPURLUPDATEINFO'
+IPROPNAME_ARPPRODUCTICON = 'ARPPRODUCTICON'
+IPROPNAME_ARPSETTINGSIDENTIFIER = 'MSIARPSETTINGSIDENTIFIER'
+IPROPNAME_ARPSHIMFLAGS = 'SHIMFLAGS'
+IPROPNAME_ARPSHIMVERSIONNT = 'SHIMVERSIONNT'
+IPROPNAME_ARPSHIMSERVICEPACKLEVEL = 'SHIMSERVICEPACKLEVEL'
+IPROPNAME_INSTALLED = 'Installed'
+IPROPNAME_PRODUCTSTATE = 'ProductState'
+IPROPNAME_PRESELECTED = 'Preselected'
+IPROPNAME_RESUME = 'RESUME'
+IPROPNAME_UPDATESTARTED = 'UpdateStarted'
+IPROPNAME_PRODUCTID = 'ProductID'
+IPROPNAME_OUTOFDISKSPACE = 'OutOfDiskSpace'
+IPROPNAME_OUTOFNORBDISKSPACE = 'OutOfNoRbDiskSpace'
+IPROPNAME_COSTINGCOMPLETE = 'CostingComplete'
+IPROPNAME_SOURCEDIR = 'SourceDir'
+IPROPNAME_REPLACEDINUSEFILES = 'ReplacedInUseFiles'
+IPROPNAME_PRIMARYFOLDER_PATH = 'PrimaryVolumePath'
+IPROPNAME_PRIMARYFOLDER_SPACEAVAILABLE = 'PrimaryVolumeSpaceAvailable'
+IPROPNAME_PRIMARYFOLDER_SPACEREQUIRED = 'PrimaryVolumeSpaceRequired'
+IPROPNAME_PRIMARYFOLDER_SPACEREMAINING = 'PrimaryVolumeSpaceRemaining'
+IPROPNAME_ISADMINPACKAGE = 'IsAdminPackage'
+IPROPNAME_ROLLBACKDISABLED = 'RollbackDisabled'
+IPROPNAME_RESTRICTEDUSERCONTROL = 'RestrictedUserControl'
+IPROPNAME_SOURCERESONLY = 'MsiUISourceResOnly'
+IPROPNAME_HIDECANCEL = 'MsiUIHideCancel'
+IPROPNAME_PROGRESSONLY = 'MsiUIProgressOnly'
+IPROPNAME_UACONLY = 'MsiUIUACOnly'
+IPROPNAME_TIME = 'Time'
+IPROPNAME_DATE = 'Date'
+IPROPNAME_DATETIME = 'DateTime'
+IPROPNAME_ARM = 'Arm'
+IPROPNAME_ARM64 = 'Arm64'
+IPROPNAME_INTEL = 'Intel'
+IPROPNAME_TEMPLATE_AMD64 = 'AMD64'
+IPROPNAME_TEMPLATE_X64 = 'x64'
+IPROPNAME_MSIAMD64 = 'MsiAMD64'
+IPROPNAME_MSIX64 = 'Msix64'
+IPROPNAME_INTEL64 = 'Intel64'
+IPROPNAME_IA64 = 'IA64'
+IPROPNAME_TEXTHEIGHT = 'TextHeight'
+IPROPNAME_TEXTINTERNALLEADING = 'TextInternalLeading'
+IPROPNAME_SCREENX = 'ScreenX'
+IPROPNAME_SCREENY = 'ScreenY'
+IPROPNAME_CAPTIONHEIGHT = 'CaptionHeight'
+IPROPNAME_BORDERTOP = 'BorderTop'
+IPROPNAME_BORDERSIDE = 'BorderSide'
+IPROPNAME_COLORBITS = 'ColorBits'
+IPROPNAME_PHYSICALMEMORY = 'PhysicalMemory'
+IPROPNAME_VIRTUALMEMORY = 'VirtualMemory'
+IPROPNAME_TEXTHEIGHT_CORRECTION = 'TextHeightCorrection'
+IPROPNAME_MSITABLETPC = 'MsiTabletPC'
+IPROPNAME_VERSIONNT = 'VersionNT'
+IPROPNAME_VERSION9X = 'Version9X'
+IPROPNAME_VERSIONNT64 = 'VersionNT64'
+IPROPNAME_WINDOWSBUILD = 'WindowsBuild'
+IPROPNAME_SERVICEPACKLEVEL = 'ServicePackLevel'
+IPROPNAME_SERVICEPACKLEVELMINOR = 'ServicePackLevelMinor'
+IPROPNAME_SHAREDWINDOWS = 'SharedWindows'
+IPROPNAME_COMPUTERNAME = 'ComputerName'
+IPROPNAME_SHELLADVTSUPPORT = 'ShellAdvtSupport'
+IPROPNAME_OLEADVTSUPPORT = 'OLEAdvtSupport'
+IPROPNAME_SYSTEMLANGUAGEID = 'SystemLanguageID'
+IPROPNAME_TTCSUPPORT = 'TTCSupport'
+IPROPNAME_TERMSERVER = 'TerminalServer'
+IPROPNAME_REMOTEADMINTS = 'RemoteAdminTS'
+IPROPNAME_REDIRECTEDDLLSUPPORT = 'RedirectedDllSupport'
+IPROPNAME_NTPRODUCTTYPE = 'MsiNTProductType'
+IPROPNAME_NTSUITEBACKOFFICE = 'MsiNTSuiteBackOffice'
+IPROPNAME_NTSUITEDATACENTER = 'MsiNTSuiteDataCenter'
+IPROPNAME_NTSUITEENTERPRISE = 'MsiNTSuiteEnterprise'
+IPROPNAME_NTSUITESMALLBUSINESS = 'MsiNTSuiteSmallBusiness'
+IPROPNAME_NTSUITESMALLBUSINESSRESTRICTED = 'MsiNTSuiteSmallBusinessRestricted'
+IPROPNAME_NTSUITEPERSONAL = 'MsiNTSuitePersonal'
+IPROPNAME_NTSUITEWEBSERVER = 'MsiNTSuiteWebServer'
+IPROPNAME_NETASSEMBLYSUPPORT = 'MsiNetAssemblySupport'
+IPROPNAME_WIN32ASSEMBLYSUPPORT = 'MsiWin32AssemblySupport'
+IPROPNAME_LOGONUSER = 'LogonUser'
+IPROPNAME_USERSID = 'UserSID'
+IPROPNAME_ADMINUSER = 'AdminUser'
+IPROPNAME_USERLANGUAGEID = 'UserLanguageID'
+IPROPNAME_PRIVILEGED = 'Privileged'
+IPROPNAME_RUNNINGELEVATED = 'MsiRunningElevated'
+IPROPNAME_TRUEADMINUSER = 'MsiTrueAdminUser'
+IPROPNAME_WINDOWS_FOLDER = 'WindowsFolder'
+IPROPNAME_SYSTEM_FOLDER = 'SystemFolder'
+IPROPNAME_SYSTEM16_FOLDER = 'System16Folder'
+IPROPNAME_WINDOWS_VOLUME = 'WindowsVolume'
+IPROPNAME_TEMP_FOLDER = 'TempFolder'
+IPROPNAME_PROGRAMFILES_FOLDER = 'ProgramFilesFolder'
+IPROPNAME_COMMONFILES_FOLDER = 'CommonFilesFolder'
+IPROPNAME_SYSTEM64_FOLDER = 'System64Folder'
+IPROPNAME_PROGRAMFILES64_FOLDER = 'ProgramFiles64Folder'
+IPROPNAME_COMMONFILES64_FOLDER = 'CommonFiles64Folder'
+IPROPNAME_STARTMENU_FOLDER = 'StartMenuFolder'
+IPROPNAME_PROGRAMMENU_FOLDER = 'ProgramMenuFolder'
+IPROPNAME_STARTUP_FOLDER = 'StartupFolder'
+IPROPNAME_NETHOOD_FOLDER = 'NetHoodFolder'
+IPROPNAME_PERSONAL_FOLDER = 'PersonalFolder'
+IPROPNAME_SENDTO_FOLDER = 'SendToFolder'
+IPROPNAME_DESKTOP_FOLDER = 'DesktopFolder'
+IPROPNAME_TEMPLATE_FOLDER = 'TemplateFolder'
+IPROPNAME_FONTS_FOLDER = 'FontsFolder'
+IPROPNAME_FAVORITES_FOLDER = 'FavoritesFolder'
+IPROPNAME_RECENT_FOLDER = 'RecentFolder'
+IPROPNAME_APPDATA_FOLDER = 'AppDataFolder'
+IPROPNAME_PRINTHOOD_FOLDER = 'PrintHoodFolder'
+IPROPNAME_ADMINTOOLS_FOLDER = 'AdminToolsFolder'
+IPROPNAME_COMMONAPPDATA_FOLDER = 'CommonAppDataFolder'
+IPROPNAME_LOCALAPPDATA_FOLDER = 'LocalAppDataFolder'
+IPROPNAME_MYPICTURES_FOLDER = 'MyPicturesFolder'
+IPROPNAME_FEATUREADDLOCAL = 'ADDLOCAL'
+IPROPNAME_FEATUREADDSOURCE = 'ADDSOURCE'
+IPROPNAME_FEATUREADDDEFAULT = 'ADDDEFAULT'
+IPROPNAME_FEATUREREMOVE = 'REMOVE'
+IPROPNAME_FEATUREADVERTISE = 'ADVERTISE'
+IPROPVALUE_FEATURE_ALL = 'ALL'
+IPROPNAME_COMPONENTADDLOCAL = 'COMPADDLOCAL'
+IPROPNAME_COMPONENTADDSOURCE = 'COMPADDSOURCE'
+IPROPNAME_COMPONENTADDDEFAULT = 'COMPADDDEFAULT'
+IPROPNAME_FILEADDLOCAL = 'FILEADDLOCAL'
+IPROPNAME_FILEADDSOURCE = 'FILEADDSOURCE'
+IPROPNAME_FILEADDDEFAULT = 'FILEADDDEFAULT'
+IPROPNAME_REINSTALL = 'REINSTALL'
+IPROPNAME_REINSTALLMODE = 'REINSTALLMODE'
+IPROPNAME_PROMPTROLLBACKCOST = 'PROMPTROLLBACKCOST'
+IPROPVALUE_RBCOST_PROMPT = 'P'
+IPROPVALUE_RBCOST_SILENT = 'D'
+IPROPVALUE_RBCOST_FAIL = 'F'
+IPROPNAME_CUSTOMACTIONDATA = 'CustomActionData'
+IACTIONNAME_INSTALL = 'INSTALL'
+IACTIONNAME_ADVERTISE = 'ADVERTISE'
+IACTIONNAME_ADMIN = 'ADMIN'
+IACTIONNAME_SEQUENCE = 'SEQUENCE'
+IACTIONNAME_COLLECTUSERINFO = 'CollectUserInfo'
+IACTIONNAME_FIRSTRUN = 'FirstRun'
 PID_TITLE = 2
 PID_SUBJECT = 3
 PID_AUTHOR = 4
@@ -367,274 +790,1966 @@ UILOGBITS = 15
 DEFAULT_MINIMUM_REQUIRED_MSI_VERSION = 100
 DEFAULT_FILE_SEQUENCE_START = 2
 DEFAULT_DISK_ID = 2
-MSIASSEMBLYINFO = UInt32
-MSIASSEMBLYINFO_NETASSEMBLY = 0
-MSIASSEMBLYINFO_WIN32ASSEMBLY = 1
+def _define_MsiCloseHandle():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiCloseHandle', windll['msi.dll']), ((1, 'hAny'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiCloseAllHandles():
+    try:
+        return WINFUNCTYPE(UInt32,)(('MsiCloseAllHandles', windll['msi.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetInternalUI():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLUILEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLUILEVEL,POINTER(win32more.Foundation.HWND))(('MsiSetInternalUI', windll['msi.dll']), ((1, 'dwUILevel'),(1, 'phWnd'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetExternalUIA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERA,win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERA,UInt32,c_void_p)(('MsiSetExternalUIA', windll['msi.dll']), ((1, 'puiHandler'),(1, 'dwMessageFilter'),(1, 'pvContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetExternalUIW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERW,win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERW,UInt32,c_void_p)(('MsiSetExternalUIW', windll['msi.dll']), ((1, 'puiHandler'),(1, 'dwMessageFilter'),(1, 'pvContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetExternalUIRecord():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.PINSTALLUI_HANDLER_RECORD,UInt32,c_void_p,win32more.System.ApplicationInstallationAndServicing.PINSTALLUI_HANDLER_RECORD)(('MsiSetExternalUIRecord', windll['msi.dll']), ((1, 'puiHandler'),(1, 'dwMessageFilter'),(1, 'pvContext'),(1, 'ppuiPrevHandler'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnableLogA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLLOGMODE,win32more.Foundation.PSTR,UInt32)(('MsiEnableLogA', windll['msi.dll']), ((1, 'dwLogMode'),(1, 'szLogFile'),(1, 'dwLogAttributes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnableLogW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLLOGMODE,win32more.Foundation.PWSTR,UInt32)(('MsiEnableLogW', windll['msi.dll']), ((1, 'dwLogMode'),(1, 'szLogFile'),(1, 'dwLogAttributes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryProductStateA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR)(('MsiQueryProductStateA', windll['msi.dll']), ((1, 'szProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryProductStateW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR)(('MsiQueryProductStateW', windll['msi.dll']), ((1, 'szProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetProductInfoA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetProductInfoW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductInfoExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetProductInfoExA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductInfoExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetProductInfoExW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiInstallProductA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiInstallProductA', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'szCommandLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiInstallProductW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiInstallProductW', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'szCommandLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiConfigureProductA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiConfigureProductA', windll['msi.dll']), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiConfigureProductW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiConfigureProductW', windll['msi.dll']), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiConfigureProductExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR)(('MsiConfigureProductExA', windll['msi.dll']), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),(1, 'szCommandLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiConfigureProductExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR)(('MsiConfigureProductExW', windll['msi.dll']), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),(1, 'szCommandLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiReinstallProductA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE)(('MsiReinstallProductA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szReinstallMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiReinstallProductW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE)(('MsiReinstallProductW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szReinstallMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiAdvertiseProductExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16,UInt32,UInt32)(('MsiAdvertiseProductExA', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),(1, 'dwPlatform'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiAdvertiseProductExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16,UInt32,UInt32)(('MsiAdvertiseProductExW', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),(1, 'dwPlatform'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiAdvertiseProductA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16)(('MsiAdvertiseProductA', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiAdvertiseProductW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16)(('MsiAdvertiseProductW', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProcessAdvertiseScriptA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.Registry.HKEY,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('MsiProcessAdvertiseScriptA', windll['msi.dll']), ((1, 'szScriptFile'),(1, 'szIconFolder'),(1, 'hRegData'),(1, 'fShortcuts'),(1, 'fRemoveItems'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProcessAdvertiseScriptW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Registry.HKEY,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('MsiProcessAdvertiseScriptW', windll['msi.dll']), ((1, 'szScriptFile'),(1, 'szIconFolder'),(1, 'hRegData'),(1, 'fShortcuts'),(1, 'fRemoveItems'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiAdvertiseScriptA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.Registry.HKEY),win32more.Foundation.BOOL)(('MsiAdvertiseScriptA', windll['msi.dll']), ((1, 'szScriptFile'),(1, 'dwFlags'),(1, 'phRegData'),(1, 'fRemoveItems'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiAdvertiseScriptW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY),win32more.Foundation.BOOL)(('MsiAdvertiseScriptW', windll['msi.dll']), ((1, 'szScriptFile'),(1, 'dwFlags'),(1, 'phRegData'),(1, 'fRemoveItems'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductInfoFromScriptA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt16),POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetProductInfoFromScriptA', windll['msi.dll']), ((1, 'szScriptFile'),(1, 'lpProductBuf39'),(1, 'plgidLanguage'),(1, 'pdwVersion'),(1, 'lpNameBuf'),(1, 'pcchNameBuf'),(1, 'lpPackageBuf'),(1, 'pcchPackageBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductInfoFromScriptW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt16),POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetProductInfoFromScriptW', windll['msi.dll']), ((1, 'szScriptFile'),(1, 'lpProductBuf39'),(1, 'plgidLanguage'),(1, 'pdwVersion'),(1, 'lpNameBuf'),(1, 'pcchNameBuf'),(1, 'lpPackageBuf'),(1, 'pcchPackageBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductCodeA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiGetProductCodeA', windll['msi.dll']), ((1, 'szComponent'),(1, 'lpBuf39'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductCodeW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiGetProductCodeW', windll['msi.dll']), ((1, 'szComponent'),(1, 'lpBuf39'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetUserInfoA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.USERINFOSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetUserInfoA', windll['msi.dll']), ((1, 'szProduct'),(1, 'lpUserNameBuf'),(1, 'pcchUserNameBuf'),(1, 'lpOrgNameBuf'),(1, 'pcchOrgNameBuf'),(1, 'lpSerialBuf'),(1, 'pcchSerialBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetUserInfoW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.USERINFOSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetUserInfoW', windll['msi.dll']), ((1, 'szProduct'),(1, 'lpUserNameBuf'),(1, 'pcchUserNameBuf'),(1, 'lpOrgNameBuf'),(1, 'pcchOrgNameBuf'),(1, 'lpSerialBuf'),(1, 'pcchSerialBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiCollectUserInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)(('MsiCollectUserInfoA', windll['msi.dll']), ((1, 'szProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiCollectUserInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('MsiCollectUserInfoW', windll['msi.dll']), ((1, 'szProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiApplyPatchA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PSTR)(('MsiApplyPatchA', windll['msi.dll']), ((1, 'szPatchPackage'),(1, 'szInstallPackage'),(1, 'eInstallType'),(1, 'szCommandLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiApplyPatchW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PWSTR)(('MsiApplyPatchW', windll['msi.dll']), ((1, 'szPatchPackage'),(1, 'szInstallPackage'),(1, 'eInstallType'),(1, 'szCommandLine'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPatchInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetPatchInfoA', windll['msi.dll']), ((1, 'szPatch'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPatchInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetPatchInfoW', windll['msi.dll']), ((1, 'szPatch'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumPatchesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiEnumPatchesA', windll['msi.dll']), ((1, 'szProduct'),(1, 'iPatchIndex'),(1, 'lpPatchBuf'),(1, 'lpTransformsBuf'),(1, 'pcchTransformsBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumPatchesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiEnumPatchesW', windll['msi.dll']), ((1, 'szProduct'),(1, 'iPatchIndex'),(1, 'lpPatchBuf'),(1, 'lpTransformsBuf'),(1, 'pcchTransformsBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRemovePatchesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PSTR)(('MsiRemovePatchesA', windll['msi.dll']), ((1, 'szPatchList'),(1, 'szProductCode'),(1, 'eUninstallType'),(1, 'szPropertyList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRemovePatchesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PWSTR)(('MsiRemovePatchesW', windll['msi.dll']), ((1, 'szPatchList'),(1, 'szProductCode'),(1, 'eUninstallType'),(1, 'szPropertyList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiExtractPatchXMLDataA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiExtractPatchXMLDataA', windll['msi.dll']), ((1, 'szPatchPath'),(1, 'dwReserved'),(1, 'szXMLData'),(1, 'pcchXMLData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiExtractPatchXMLDataW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiExtractPatchXMLDataW', windll['msi.dll']), ((1, 'szPatchPath'),(1, 'dwReserved'),(1, 'szXMLData'),(1, 'pcchXMLData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPatchInfoExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetPatchInfoExA', windll['msi.dll']), ((1, 'szPatchCode'),(1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'lpValue'),(1, 'pcchValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPatchInfoExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetPatchInfoExW', windll['msi.dll']), ((1, 'szPatchCode'),(1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'lpValue'),(1, 'pcchValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiApplyMultiplePatchesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiApplyMultiplePatchesA', windll['msi.dll']), ((1, 'szPatchPackages'),(1, 'szProductCode'),(1, 'szPropertiesList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiApplyMultiplePatchesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiApplyMultiplePatchesW', windll['msi.dll']), ((1, 'szPatchPackages'),(1, 'szProductCode'),(1, 'szPropertiesList'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDeterminePatchSequenceA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOA_head))(('MsiDeterminePatchSequenceA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDeterminePatchSequenceW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOW_head))(('MsiDeterminePatchSequenceW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDetermineApplicablePatchesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOA_head))(('MsiDetermineApplicablePatchesA', windll['msi.dll']), ((1, 'szProductPackagePath'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDetermineApplicablePatchesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOW_head))(('MsiDetermineApplicablePatchesW', windll['msi.dll']), ((1, 'szProductPackagePath'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumPatchesExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiEnumPatchesExA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwFilter'),(1, 'dwIndex'),(1, 'szPatchCode'),(1, 'szTargetProductCode'),(1, 'pdwTargetProductContext'),(1, 'szTargetUserSid'),(1, 'pcchTargetUserSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumPatchesExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiEnumPatchesExW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwFilter'),(1, 'dwIndex'),(1, 'szPatchCode'),(1, 'szTargetProductCode'),(1, 'pdwTargetProductContext'),(1, 'szTargetUserSid'),(1, 'pcchTargetUserSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryFeatureStateA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiQueryFeatureStateA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryFeatureStateW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiQueryFeatureStateW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryFeatureStateExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiQueryFeatureStateExA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szFeature'),(1, 'pdwState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryFeatureStateExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiQueryFeatureStateExW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szFeature'),(1, 'pdwState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiUseFeatureA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiUseFeatureA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiUseFeatureW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiUseFeatureW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiUseFeatureExA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32)(('MsiUseFeatureExA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwInstallMode'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiUseFeatureExW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32)(('MsiUseFeatureExW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwInstallMode'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureUsageA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt16))(('MsiGetFeatureUsageA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'pdwUseCount'),(1, 'pwDateUsed'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureUsageW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt16))(('MsiGetFeatureUsageW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'pdwUseCount'),(1, 'pwDateUsed'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiConfigureFeatureA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiConfigureFeatureA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'eInstallState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiConfigureFeatureW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiConfigureFeatureW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'eInstallState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiReinstallFeatureA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE)(('MsiReinstallFeatureA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwReinstallMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiReinstallFeatureW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE)(('MsiReinstallFeatureW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwReinstallMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideComponentA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiProvideComponentA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'szComponent'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideComponentW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiProvideComponentW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFeature'),(1, 'szComponent'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideQualifiedComponentA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiProvideQualifiedComponentA', windll['msi.dll']), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideQualifiedComponentW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiProvideQualifiedComponentW', windll['msi.dll']), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideQualifiedComponentExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiProvideQualifiedComponentExA', windll['msi.dll']), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'szProduct'),(1, 'dwUnused1'),(1, 'dwUnused2'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideQualifiedComponentExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiProvideQualifiedComponentExW', windll['msi.dll']), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'szProduct'),(1, 'dwUnused1'),(1, 'dwUnused2'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetComponentPathA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetComponentPathA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetComponentPathW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetComponentPathW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetComponentPathExA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetComponentPathExA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szComponentCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'lpOutPathBuffer'),(1, 'pcchOutPathBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetComponentPathExW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetComponentPathExW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szComponentCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'lpOutPathBuffer'),(1, 'pcchOutPathBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideAssemblyA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.System.ApplicationInstallationAndServicing.MSIASSEMBLYINFO,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiProvideAssemblyA', windll['msi.dll']), ((1, 'szAssemblyName'),(1, 'szAppContext'),(1, 'dwInstallMode'),(1, 'dwAssemblyInfo'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProvideAssemblyW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.System.ApplicationInstallationAndServicing.MSIASSEMBLYINFO,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiProvideAssemblyW', windll['msi.dll']), ((1, 'szAssemblyName'),(1, 'szAppContext'),(1, 'dwInstallMode'),(1, 'dwAssemblyInfo'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryComponentStateA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiQueryComponentStateA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szComponentCode'),(1, 'pdwState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiQueryComponentStateW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiQueryComponentStateW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szComponentCode'),(1, 'pdwState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumProductsA():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR)(('MsiEnumProductsA', windll['msi.dll']), ((1, 'iProductIndex'),(1, 'lpProductBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumProductsW():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR)(('MsiEnumProductsW', windll['msi.dll']), ((1, 'iProductIndex'),(1, 'lpProductBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumProductsExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiEnumProductsExA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledProductCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumProductsExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiEnumProductsExW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledProductCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumRelatedProductsA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR)(('MsiEnumRelatedProductsA', windll['msi.dll']), ((1, 'lpUpgradeCode'),(1, 'dwReserved'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumRelatedProductsW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR)(('MsiEnumRelatedProductsW', windll['msi.dll']), ((1, 'lpUpgradeCode'),(1, 'dwReserved'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumFeaturesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiEnumFeaturesA', windll['msi.dll']), ((1, 'szProduct'),(1, 'iFeatureIndex'),(1, 'lpFeatureBuf'),(1, 'lpParentBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumFeaturesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiEnumFeaturesW', windll['msi.dll']), ((1, 'szProduct'),(1, 'iFeatureIndex'),(1, 'lpFeatureBuf'),(1, 'lpParentBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentsA():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR)(('MsiEnumComponentsA', windll['msi.dll']), ((1, 'iComponentIndex'),(1, 'lpComponentBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentsW():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR)(('MsiEnumComponentsW', windll['msi.dll']), ((1, 'iComponentIndex'),(1, 'lpComponentBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentsExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiEnumComponentsExA', windll['msi.dll']), ((1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledComponentCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentsExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiEnumComponentsExW', windll['msi.dll']), ((1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledComponentCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumClientsA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('MsiEnumClientsA', windll['msi.dll']), ((1, 'szComponent'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumClientsW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('MsiEnumClientsW', windll['msi.dll']), ((1, 'szComponent'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumClientsExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiEnumClientsExA', windll['msi.dll']), ((1, 'szComponent'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwProductIndex'),(1, 'szProductBuf'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumClientsExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiEnumClientsExW', windll['msi.dll']), ((1, 'szComponent'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwProductIndex'),(1, 'szProductBuf'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentQualifiersA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiEnumComponentQualifiersA', windll['msi.dll']), ((1, 'szComponent'),(1, 'iIndex'),(1, 'lpQualifierBuf'),(1, 'pcchQualifierBuf'),(1, 'lpApplicationDataBuf'),(1, 'pcchApplicationDataBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentQualifiersW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiEnumComponentQualifiersW', windll['msi.dll']), ((1, 'szComponent'),(1, 'iIndex'),(1, 'lpQualifierBuf'),(1, 'pcchQualifierBuf'),(1, 'lpApplicationDataBuf'),(1, 'pcchApplicationDataBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenProductA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenProductA', windll['msi.dll']), ((1, 'szProduct'),(1, 'hProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenProductW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenProductW', windll['msi.dll']), ((1, 'szProduct'),(1, 'hProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenPackageA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenPackageA', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'hProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenPackageW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenPackageW', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'hProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenPackageExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenPackageExA', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'dwOptions'),(1, 'hProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenPackageExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenPackageExW', windll['msi.dll']), ((1, 'szPackagePath'),(1, 'dwOptions'),(1, 'hProduct'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPatchFileListA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)))(('MsiGetPatchFileListA', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szPatchPackages'),(1, 'pcFiles'),(1, 'pphFileRecords'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPatchFileListW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)))(('MsiGetPatchFileListW', windll['msi.dll']), ((1, 'szProductCode'),(1, 'szPatchPackages'),(1, 'pcFiles'),(1, 'pphFileRecords'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductPropertyA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetProductPropertyA', windll['msi.dll']), ((1, 'hProduct'),(1, 'szProperty'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetProductPropertyW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetProductPropertyW', windll['msi.dll']), ((1, 'hProduct'),(1, 'szProperty'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiVerifyPackageA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)(('MsiVerifyPackageA', windll['msi.dll']), ((1, 'szPackagePath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiVerifyPackageW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('MsiVerifyPackageW', windll['msi.dll']), ((1, 'szPackagePath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetFeatureInfoA', windll['msi.dll']), ((1, 'hProduct'),(1, 'szFeature'),(1, 'lpAttributes'),(1, 'lpTitleBuf'),(1, 'pcchTitleBuf'),(1, 'lpHelpBuf'),(1, 'pcchHelpBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetFeatureInfoW', windll['msi.dll']), ((1, 'hProduct'),(1, 'szFeature'),(1, 'lpAttributes'),(1, 'lpTitleBuf'),(1, 'pcchTitleBuf'),(1, 'lpHelpBuf'),(1, 'pcchHelpBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiInstallMissingComponentA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiInstallMissingComponentA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szComponent'),(1, 'eInstallState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiInstallMissingComponentW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiInstallMissingComponentW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szComponent'),(1, 'eInstallState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiInstallMissingFileA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiInstallMissingFileA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiInstallMissingFileW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiInstallMissingFileW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szFile'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiLocateComponentA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiLocateComponentA', windll['msi.dll']), ((1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiLocateComponentW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiLocateComponentW', windll['msi.dll']), ((1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearAllA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('MsiSourceListClearAllA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearAllW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('MsiSourceListClearAllW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListAddSourceA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('MsiSourceListAddSourceA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),(1, 'szSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListAddSourceW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('MsiSourceListAddSourceW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),(1, 'szSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListForceResolutionA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('MsiSourceListForceResolutionA', windll['msi.dll']), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListForceResolutionW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('MsiSourceListForceResolutionW', windll['msi.dll']), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListAddSourceExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,UInt32)(('MsiSourceListAddSourceExA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),(1, 'dwIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListAddSourceExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,UInt32)(('MsiSourceListAddSourceExW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),(1, 'dwIndex'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListAddMediaDiskA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiSourceListAddMediaDiskA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),(1, 'szVolumeLabel'),(1, 'szDiskPrompt'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListAddMediaDiskW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiSourceListAddMediaDiskW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),(1, 'szVolumeLabel'),(1, 'szDiskPrompt'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearSourceA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR)(('MsiSourceListClearSourceA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearSourceW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR)(('MsiSourceListClearSourceW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearMediaDiskA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32)(('MsiSourceListClearMediaDiskA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearMediaDiskW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32)(('MsiSourceListClearMediaDiskW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearAllExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32)(('MsiSourceListClearAllExA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListClearAllExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32)(('MsiSourceListClearAllExW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListForceResolutionExA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32)(('MsiSourceListForceResolutionExA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListForceResolutionExW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32)(('MsiSourceListForceResolutionExW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListSetInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiSourceListSetInfoA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListSetInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiSourceListSetInfoW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListGetInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiSourceListGetInfoA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListGetInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiSourceListGetInfoW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListEnumSourcesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiSourceListEnumSourcesA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'szSource'),(1, 'pcchSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListEnumSourcesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiSourceListEnumSourcesW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'szSource'),(1, 'pcchSource'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListEnumMediaDisksA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiSourceListEnumMediaDisksA', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'pdwDiskId'),(1, 'szVolumeLabel'),(1, 'pcchVolumeLabel'),(1, 'szDiskPrompt'),(1, 'pcchDiskPrompt'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSourceListEnumMediaDisksW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiSourceListEnumMediaDisksW', windll['msi.dll']), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'pdwDiskId'),(1, 'szVolumeLabel'),(1, 'pcchVolumeLabel'),(1, 'szDiskPrompt'),(1, 'pcchDiskPrompt'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFileVersionA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetFileVersionA', windll['msi.dll']), ((1, 'szFilePath'),(1, 'lpVersionBuf'),(1, 'pcchVersionBuf'),(1, 'lpLangBuf'),(1, 'pcchLangBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFileVersionW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetFileVersionW', windll['msi.dll']), ((1, 'szFilePath'),(1, 'lpVersionBuf'),(1, 'pcchVersionBuf'),(1, 'lpLangBuf'),(1, 'pcchLangBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFileHashA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIFILEHASHINFO_head))(('MsiGetFileHashA', windll['msi.dll']), ((1, 'szFilePath'),(1, 'dwOptions'),(1, 'pHash'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFileHashW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIFILEHASHINFO_head))(('MsiGetFileHashW', windll['msi.dll']), ((1, 'szFilePath'),(1, 'dwOptions'),(1, 'pHash'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFileSignatureInformationA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)),c_char_p_no,POINTER(UInt32))(('MsiGetFileSignatureInformationA', windll['msi.dll']), ((1, 'szSignedObjectPath'),(1, 'dwFlags'),(1, 'ppcCertContext'),(1, 'pbHashData'),(1, 'pcbHashData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFileSignatureInformationW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)),c_char_p_no,POINTER(UInt32))(('MsiGetFileSignatureInformationW', windll['msi.dll']), ((1, 'szSignedObjectPath'),(1, 'dwFlags'),(1, 'ppcCertContext'),(1, 'pbHashData'),(1, 'pcbHashData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetShortcutTargetA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiGetShortcutTargetA', windll['msi.dll']), ((1, 'szShortcutPath'),(1, 'szProductCode'),(1, 'szFeatureId'),(1, 'szComponentCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetShortcutTargetW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiGetShortcutTargetW', windll['msi.dll']), ((1, 'szShortcutPath'),(1, 'szProductCode'),(1, 'szFeatureId'),(1, 'szComponentCode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiIsProductElevatedA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.BOOL))(('MsiIsProductElevatedA', windll['msi.dll']), ((1, 'szProduct'),(1, 'pfElevated'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiIsProductElevatedW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(('MsiIsProductElevatedW', windll['msi.dll']), ((1, 'szProduct'),(1, 'pfElevated'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiNotifySidChangeA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiNotifySidChangeA', windll['msi.dll']), ((1, 'pOldSid'),(1, 'pNewSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiNotifySidChangeW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiNotifySidChangeW', windll['msi.dll']), ((1, 'pOldSid'),(1, 'pNewSid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiBeginTransactionA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE),POINTER(win32more.Foundation.HANDLE))(('MsiBeginTransactionA', windll['msi.dll']), ((1, 'szName'),(1, 'dwTransactionAttributes'),(1, 'phTransactionHandle'),(1, 'phChangeOfOwnerEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiBeginTransactionW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE),POINTER(win32more.Foundation.HANDLE))(('MsiBeginTransactionW', windll['msi.dll']), ((1, 'szName'),(1, 'dwTransactionAttributes'),(1, 'phTransactionHandle'),(1, 'phChangeOfOwnerEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEndTransaction():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSITRANSACTIONSTATE)(('MsiEndTransaction', windll['msi.dll']), ((1, 'dwTransactionState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiJoinTransaction():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(win32more.Foundation.HANDLE))(('MsiJoinTransaction', windll['msi.dll']), ((1, 'hTransactionHandle'),(1, 'dwTransactionAttributes'),(1, 'phChangeOfOwnerEvent'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseOpenViewA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiDatabaseOpenViewA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szQuery'),(1, 'phView'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseOpenViewW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiDatabaseOpenViewW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szQuery'),(1, 'phView'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewGetErrorA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIDBERROR,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiViewGetErrorA', windll['msi.dll']), ((1, 'hView'),(1, 'szColumnNameBuffer'),(1, 'pcchBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewGetErrorW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIDBERROR,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiViewGetErrorW', windll['msi.dll']), ((1, 'hView'),(1, 'szColumnNameBuffer'),(1, 'pcchBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewExecute():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiViewExecute', windll['msi.dll']), ((1, 'hView'),(1, 'hRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewFetch():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiViewFetch', windll['msi.dll']), ((1, 'hView'),(1, 'phRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewModify():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIMODIFY,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiViewModify', windll['msi.dll']), ((1, 'hView'),(1, 'eModifyMode'),(1, 'hRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewGetColumnInfo():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSICOLINFO,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiViewGetColumnInfo', windll['msi.dll']), ((1, 'hView'),(1, 'eColumnInfo'),(1, 'phRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiViewClose():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiViewClose', windll['msi.dll']), ((1, 'hView'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseGetPrimaryKeysA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiDatabaseGetPrimaryKeysA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'phRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseGetPrimaryKeysW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiDatabaseGetPrimaryKeysW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'phRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseIsTablePersistentA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR)(('MsiDatabaseIsTablePersistentA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseIsTablePersistentW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR)(('MsiDatabaseIsTablePersistentW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetSummaryInformationA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiGetSummaryInformationA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szDatabasePath'),(1, 'uiUpdateCount'),(1, 'phSummaryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetSummaryInformationW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiGetSummaryInformationW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szDatabasePath'),(1, 'uiUpdateCount'),(1, 'phSummaryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSummaryInfoGetPropertyCount():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(UInt32))(('MsiSummaryInfoGetPropertyCount', windll['msi.dll']), ((1, 'hSummaryInfo'),(1, 'puiPropertyCount'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSummaryInfoSetPropertyA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,UInt32,Int32,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.PSTR)(('MsiSummaryInfoSetPropertyA', windll['msi.dll']), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'uiDataType'),(1, 'iValue'),(1, 'pftValue'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSummaryInfoSetPropertyW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,UInt32,Int32,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.PWSTR)(('MsiSummaryInfoSetPropertyW', windll['msi.dll']), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'uiDataType'),(1, 'iValue'),(1, 'pftValue'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSummaryInfoGetPropertyA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(UInt32),POINTER(Int32),POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.PSTR,POINTER(UInt32))(('MsiSummaryInfoGetPropertyA', windll['msi.dll']), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'puiDataType'),(1, 'piValue'),(1, 'pftValue'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSummaryInfoGetPropertyW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(UInt32),POINTER(Int32),POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiSummaryInfoGetPropertyW', windll['msi.dll']), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'puiDataType'),(1, 'piValue'),(1, 'pftValue'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSummaryInfoPersist():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiSummaryInfoPersist', windll['msi.dll']), ((1, 'hSummaryInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenDatabaseA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenDatabaseA', windll['msi.dll']), ((1, 'szDatabasePath'),(1, 'szPersist'),(1, 'phDatabase'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiOpenDatabaseW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiOpenDatabaseW', windll['msi.dll']), ((1, 'szDatabasePath'),(1, 'szPersist'),(1, 'phDatabase'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseImportA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiDatabaseImportA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szFolderPath'),(1, 'szFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseImportW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiDatabaseImportW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szFolderPath'),(1, 'szFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseExportA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiDatabaseExportA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'szFolderPath'),(1, 'szFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseExportW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiDatabaseExportW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'szFolderPath'),(1, 'szFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseMergeA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR)(('MsiDatabaseMergeA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'hDatabaseMerge'),(1, 'szTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseMergeW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR)(('MsiDatabaseMergeW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'hDatabaseMerge'),(1, 'szTableName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseGenerateTransformA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,Int32,Int32)(('MsiDatabaseGenerateTransformA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iReserved1'),(1, 'iReserved2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseGenerateTransformW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,Int32,Int32)(('MsiDatabaseGenerateTransformW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iReserved1'),(1, 'iReserved2'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseApplyTransformA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR)(('MsiDatabaseApplyTransformA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTransformFile'),(1, 'iErrorConditions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseApplyTransformW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR)(('MsiDatabaseApplyTransformW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'szTransformFile'),(1, 'iErrorConditions'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiCreateTransformSummaryInfoA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_VALIDATE)(('MsiCreateTransformSummaryInfoA', windll['msi.dll']), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iErrorConditions'),(1, 'iValidation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiCreateTransformSummaryInfoW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_VALIDATE)(('MsiCreateTransformSummaryInfoW', windll['msi.dll']), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iErrorConditions'),(1, 'iValidation'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDatabaseCommit():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiDatabaseCommit', windll['msi.dll']), ((1, 'hDatabase'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetDatabaseState():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIDBSTATE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiGetDatabaseState', windll['msi.dll']), ((1, 'hDatabase'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiCreateRecord():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32)(('MsiCreateRecord', windll['msi.dll']), ((1, 'cParams'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordIsNull():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32)(('MsiRecordIsNull', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordDataSize():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32)(('MsiRecordDataSize', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordSetInteger():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,Int32)(('MsiRecordSetInteger', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'iValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordSetStringA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR)(('MsiRecordSetStringA', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordSetStringW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PWSTR)(('MsiRecordSetStringW', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordGetInteger():
+    try:
+        return WINFUNCTYPE(Int32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32)(('MsiRecordGetInteger', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordGetStringA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiRecordGetStringA', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordGetStringW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiRecordGetStringW', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordGetFieldCount():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiRecordGetFieldCount', windll['msi.dll']), ((1, 'hRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordSetStreamA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR)(('MsiRecordSetStreamA', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szFilePath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordSetStreamW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PWSTR)(('MsiRecordSetStreamW', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szFilePath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordReadStream():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiRecordReadStream', windll['msi.dll']), ((1, 'hRecord'),(1, 'iField'),(1, 'szDataBuf'),(1, 'pcbDataBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiRecordClearData():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiRecordClearData', windll['msi.dll']), ((1, 'hRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetActiveDatabase():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiGetActiveDatabase', windll['msi.dll']), ((1, 'hInstall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetPropertyA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiSetPropertyA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szName'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetPropertyW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiSetPropertyW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szName'),(1, 'szValue'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPropertyA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetPropertyA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szName'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetPropertyW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetPropertyW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szName'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetLanguage():
+    try:
+        return WINFUNCTYPE(UInt16,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiGetLanguage', windll['msi.dll']), ((1, 'hInstall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetMode():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIRUNMODE)(('MsiGetMode', windll['msi.dll']), ((1, 'hInstall'),(1, 'eRunMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetMode():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIRUNMODE,win32more.Foundation.BOOL)(('MsiSetMode', windll['msi.dll']), ((1, 'hInstall'),(1, 'eRunMode'),(1, 'fState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiFormatRecordA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiFormatRecordA', windll['msi.dll']), ((1, 'hInstall'),(1, 'hRecord'),(1, 'szResultBuf'),(1, 'pcchResultBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiFormatRecordW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiFormatRecordW', windll['msi.dll']), ((1, 'hInstall'),(1, 'hRecord'),(1, 'szResultBuf'),(1, 'pcchResultBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDoActionA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR)(('MsiDoActionA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szAction'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiDoActionW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR)(('MsiDoActionW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szAction'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSequenceA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,Int32)(('MsiSequenceA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szTable'),(1, 'iSequenceMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSequenceW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,Int32)(('MsiSequenceW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szTable'),(1, 'iSequenceMode'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiProcessMessage():
+    try:
+        return WINFUNCTYPE(Int32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.INSTALLMESSAGE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiProcessMessage', windll['msi.dll']), ((1, 'hInstall'),(1, 'eMessageType'),(1, 'hRecord'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEvaluateConditionA():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR)(('MsiEvaluateConditionA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szCondition'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEvaluateConditionW():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR)(('MsiEvaluateConditionW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szCondition'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureStateA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiGetFeatureStateA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'piInstalled'),(1, 'piAction'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureStateW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiGetFeatureStateW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'piInstalled'),(1, 'piAction'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetFeatureStateA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiSetFeatureStateA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetFeatureStateW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiSetFeatureStateW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetFeatureAttributesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,UInt32)(('MsiSetFeatureAttributesA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'dwAttributes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetFeatureAttributesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,UInt32)(('MsiSetFeatureAttributesW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'dwAttributes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetComponentStateA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiGetComponentStateA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szComponent'),(1, 'piInstalled'),(1, 'piAction'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetComponentStateW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE))(('MsiGetComponentStateW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szComponent'),(1, 'piInstalled'),(1, 'piAction'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetComponentStateA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiSetComponentStateA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szComponent'),(1, 'iState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetComponentStateW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE)(('MsiSetComponentStateW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szComponent'),(1, 'iState'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureCostA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSICOSTTREE,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,POINTER(Int32))(('MsiGetFeatureCostA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iCostTree'),(1, 'iState'),(1, 'piCost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureCostW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSICOSTTREE,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,POINTER(Int32))(('MsiGetFeatureCostW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iCostTree'),(1, 'iState'),(1, 'piCost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentCostsA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(Int32),POINTER(Int32))(('MsiEnumComponentCostsA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szComponent'),(1, 'dwIndex'),(1, 'iState'),(1, 'szDriveBuf'),(1, 'pcchDriveBuf'),(1, 'piCost'),(1, 'piTempCost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnumComponentCostsW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(Int32),POINTER(Int32))(('MsiEnumComponentCostsW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szComponent'),(1, 'dwIndex'),(1, 'iState'),(1, 'szDriveBuf'),(1, 'pcchDriveBuf'),(1, 'piCost'),(1, 'piTempCost'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetInstallLevel():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,Int32)(('MsiSetInstallLevel', windll['msi.dll']), ((1, 'hInstall'),(1, 'iInstallLevel'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureValidStatesA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetFeatureValidStatesA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'lpInstallStates'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetFeatureValidStatesW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetFeatureValidStatesW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFeature'),(1, 'lpInstallStates'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetSourcePathA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetSourcePathA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetSourcePathW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetSourcePathW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetTargetPathA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('MsiGetTargetPathA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetTargetPathW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('MsiGetTargetPathW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetTargetPathA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiSetTargetPathA', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szFolderPath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiSetTargetPathW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiSetTargetPathW', windll['msi.dll']), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szFolderPath'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiVerifyDiskSpace():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)(('MsiVerifyDiskSpace', windll['msi.dll']), ((1, 'hInstall'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiEnableUIPreview():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE))(('MsiEnableUIPreview', windll['msi.dll']), ((1, 'hDatabase'),(1, 'phPreview'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiPreviewDialogA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR)(('MsiPreviewDialogA', windll['msi.dll']), ((1, 'hPreview'),(1, 'szDialogName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiPreviewDialogW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR)(('MsiPreviewDialogW', windll['msi.dll']), ((1, 'hPreview'),(1, 'szDialogName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiPreviewBillboardA():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('MsiPreviewBillboardA', windll['msi.dll']), ((1, 'hPreview'),(1, 'szControlName'),(1, 'szBillboard'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiPreviewBillboardW():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MsiPreviewBillboardW', windll['msi.dll']), ((1, 'hPreview'),(1, 'szControlName'),(1, 'szBillboard'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_MsiGetLastErrorRecord():
+    try:
+        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,)(('MsiGetLastErrorRecord', windll['msi.dll']), ())
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SfcGetNextProtectedFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.PROTECTED_FILE_DATA_head))(('SfcGetNextProtectedFile', windll['sfc.dll']), ((1, 'RpcHandle'),(1, 'ProtFileData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SfcIsFileProtected():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('SfcIsFileProtected', windll['sfc.dll']), ((1, 'RpcHandle'),(1, 'ProtFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SfcIsKeyProtected():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Registry.HKEY,win32more.Foundation.PWSTR,UInt32)(('SfcIsKeyProtected', windll['sfc.dll']), ((1, 'KeyHandle'),(1, 'SubKeyName'),(1, 'KeySam'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_SfpVerifyFile():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('SfpVerifyFile', windll['sfc.dll']), ((1, 'pszFileName'),(1, 'pszError'),(1, 'dwErrSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePatchFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head))(('CreatePatchFileA', windll['mspatchc.dll']), ((1, 'OldFileName'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePatchFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head))(('CreatePatchFileW', windll['mspatchc.dll']), ((1, 'OldFileName'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePatchFileByHandles():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head))(('CreatePatchFileByHandles', windll['mspatchc.dll']), ((1, 'OldFileHandle'),(1, 'NewFileHandle'),(1, 'PatchFileHandle'),(1, 'OptionFlags'),(1, 'OptionData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePatchFileExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_A_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('CreatePatchFileExA', windll['mspatchc.dll']), ((1, 'OldFileCount'),(1, 'OldFileInfoArray'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePatchFileExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_W_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('CreatePatchFileExW', windll['mspatchc.dll']), ((1, 'OldFileCount'),(1, 'OldFileInfoArray'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreatePatchFileByHandlesEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_H_head),win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('CreatePatchFileByHandlesEx', windll['mspatchc.dll']), ((1, 'OldFileCount'),(1, 'OldFileInfoArray'),(1, 'NewFileHandle'),(1, 'PatchFileHandle'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ExtractPatchHeaderToFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('ExtractPatchHeaderToFileA', windll['mspatchc.dll']), ((1, 'PatchFileName'),(1, 'PatchHeaderFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ExtractPatchHeaderToFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('ExtractPatchHeaderToFileW', windll['mspatchc.dll']), ((1, 'PatchFileName'),(1, 'PatchHeaderFileName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ExtractPatchHeaderToFileByHandles():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('ExtractPatchHeaderToFileByHandles', windll['mspatchc.dll']), ((1, 'PatchFileHandle'),(1, 'PatchHeaderFileHandle'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TestApplyPatchToFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('TestApplyPatchToFileA', windll['mspatcha.dll']), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TestApplyPatchToFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('TestApplyPatchToFileW', windll['mspatcha.dll']), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TestApplyPatchToFileByHandles():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32)(('TestApplyPatchToFileByHandles', windll['mspatcha.dll']), ((1, 'PatchFileHandle'),(1, 'OldFileHandle'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_TestApplyPatchToFileByBuffers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(UInt32),UInt32)(('TestApplyPatchToFileByBuffers', windll['mspatcha.dll']), ((1, 'PatchFileBuffer'),(1, 'PatchFileSize'),(1, 'OldFileBuffer'),(1, 'OldFileSize'),(1, 'NewFileSize'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('ApplyPatchToFileA', windll['mspatcha.dll']), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('ApplyPatchToFileW', windll['mspatcha.dll']), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileByHandles():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32)(('ApplyPatchToFileByHandles', windll['mspatcha.dll']), ((1, 'PatchFileHandle'),(1, 'OldFileHandle'),(1, 'NewFileHandle'),(1, 'ApplyOptionFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileExA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('ApplyPatchToFileExA', windll['mspatcha.dll']), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileExW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('ApplyPatchToFileExW', windll['mspatcha.dll']), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileByHandlesEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('ApplyPatchToFileByHandlesEx', windll['mspatcha.dll']), ((1, 'PatchFileHandle'),(1, 'OldFileHandle'),(1, 'NewFileHandle'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyPatchToFileByBuffers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p)(('ApplyPatchToFileByBuffers', windll['mspatcha.dll']), ((1, 'PatchFileMapped'),(1, 'PatchFileSize'),(1, 'OldFileMapped'),(1, 'OldFileSize'),(1, 'NewFileBuffer'),(1, 'NewFileBufferSize'),(1, 'NewFileActualSize'),(1, 'NewFileTime'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetFilePatchSignatureA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head),UInt32,win32more.Foundation.PSTR)(('GetFilePatchSignatureA', windll['mspatcha.dll']), ((1, 'FileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetFilePatchSignatureW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head),UInt32,win32more.Foundation.PWSTR)(('GetFilePatchSignatureW', windll['mspatcha.dll']), ((1, 'FileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetFilePatchSignatureByHandle():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head),UInt32,win32more.Foundation.PSTR)(('GetFilePatchSignatureByHandle', windll['mspatcha.dll']), ((1, 'FileHandle'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetFilePatchSignatureByBuffer():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head),UInt32,win32more.Foundation.PSTR)(('GetFilePatchSignatureByBuffer', windll['mspatcha.dll']), ((1, 'FileBufferWritable'),(1, 'FileSize'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_NormalizeFileForPatchSignature():
+    try:
+        return WINFUNCTYPE(Int32,c_void_p,UInt32,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),UInt32,UInt32,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head))(('NormalizeFileForPatchSignature', windll['mspatcha.dll']), ((1, 'FileBuffer'),(1, 'FileSize'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'NewFileCoffBase'),(1, 'NewFileCoffTime'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDeltaInfoB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head))(('GetDeltaInfoB', windll['msdelta.dll']), ((1, 'Delta'),(1, 'lpHeaderInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDeltaInfoA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head))(('GetDeltaInfoA', windll['msdelta.dll']), ((1, 'lpDeltaName'),(1, 'lpHeaderInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDeltaInfoW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head))(('GetDeltaInfoW', windll['msdelta.dll']), ((1, 'lpDeltaName'),(1, 'lpHeaderInfo'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyDeltaGetReverseB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head),POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head))(('ApplyDeltaGetReverseB', windll['msdelta.dll']), ((1, 'ApplyFlags'),(1, 'Source'),(1, 'Delta'),(1, 'lpReverseFileTime'),(1, 'lpTarget'),(1, 'lpTargetReverse'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyDeltaB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head))(('ApplyDeltaB', windll['msdelta.dll']), ((1, 'ApplyFlags'),(1, 'Source'),(1, 'Delta'),(1, 'lpTarget'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyDeltaProvidedB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,c_void_p,UIntPtr)(('ApplyDeltaProvidedB', windll['msdelta.dll']), ((1, 'ApplyFlags'),(1, 'Source'),(1, 'Delta'),(1, 'lpTarget'),(1, 'uTargetSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyDeltaA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('ApplyDeltaA', windll['msdelta.dll']), ((1, 'ApplyFlags'),(1, 'lpSourceName'),(1, 'lpDeltaName'),(1, 'lpTargetName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ApplyDeltaW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('ApplyDeltaW', windll['msdelta.dll']), ((1, 'ApplyFlags'),(1, 'lpSourceName'),(1, 'lpDeltaName'),(1, 'lpTargetName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDeltaB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head))(('CreateDeltaB', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'SetFlags'),(1, 'ResetFlags'),(1, 'Source'),(1, 'Target'),(1, 'SourceOptions'),(1, 'TargetOptions'),(1, 'GlobalOptions'),(1, 'lpTargetFileTime'),(1, 'HashAlgId'),(1, 'lpDelta'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDeltaA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,Int64,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),UInt32,win32more.Foundation.PSTR)(('CreateDeltaA', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'SetFlags'),(1, 'ResetFlags'),(1, 'lpSourceName'),(1, 'lpTargetName'),(1, 'lpSourceOptionsName'),(1, 'lpTargetOptionsName'),(1, 'GlobalOptions'),(1, 'lpTargetFileTime'),(1, 'HashAlgId'),(1, 'lpDeltaName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateDeltaW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,Int64,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),UInt32,win32more.Foundation.PWSTR)(('CreateDeltaW', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'SetFlags'),(1, 'ResetFlags'),(1, 'lpSourceName'),(1, 'lpTargetName'),(1, 'lpSourceOptionsName'),(1, 'lpTargetOptionsName'),(1, 'GlobalOptions'),(1, 'lpTargetFileTime'),(1, 'HashAlgId'),(1, 'lpDeltaName'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDeltaSignatureB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head))(('GetDeltaSignatureB', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'HashAlgId'),(1, 'Source'),(1, 'lpHash'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDeltaSignatureA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head))(('GetDeltaSignatureA', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'HashAlgId'),(1, 'lpSourceName'),(1, 'lpHash'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetDeltaSignatureW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head))(('GetDeltaSignatureW', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'HashAlgId'),(1, 'lpSourceName'),(1, 'lpHash'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeltaNormalizeProvidedB():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,c_void_p,UIntPtr)(('DeltaNormalizeProvidedB', windll['msdelta.dll']), ((1, 'FileTypeSet'),(1, 'NormalizeFlags'),(1, 'NormalizeOptions'),(1, 'lpSource'),(1, 'uSourceSize'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeltaFree():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('DeltaFree', windll['msdelta.dll']), ((1, 'lpMemory'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateActCtxA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTXA_head))(('CreateActCtxA', windll['KERNEL32.dll']), ((1, 'pActCtx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CreateActCtxW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTXW_head))(('CreateActCtxW', windll['KERNEL32.dll']), ((1, 'pActCtx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_AddRefActCtx():
+    try:
+        return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)(('AddRefActCtx', windll['KERNEL32.dll']), ((1, 'hActCtx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ReleaseActCtx():
+    try:
+        return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)(('ReleaseActCtx', windll['KERNEL32.dll']), ((1, 'hActCtx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ZombifyActCtx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('ZombifyActCtx', windll['KERNEL32.dll']), ((1, 'hActCtx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_ActivateActCtx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr))(('ActivateActCtx', windll['KERNEL32.dll']), ((1, 'hActCtx'),(1, 'lpCookie'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_DeactivateActCtx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UIntPtr)(('DeactivateActCtx', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'ulCookie'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_GetCurrentActCtx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE))(('GetCurrentActCtx', windll['KERNEL32.dll']), ((1, 'lphActCtx'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindActCtxSectionStringA():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Guid),UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head))(('FindActCtxSectionStringA', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'lpExtensionGuid'),(1, 'ulSectionId'),(1, 'lpStringToFind'),(1, 'ReturnedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindActCtxSectionStringW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head))(('FindActCtxSectionStringW', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'lpExtensionGuid'),(1, 'ulSectionId'),(1, 'lpStringToFind'),(1, 'ReturnedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_FindActCtxSectionGuid():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head))(('FindActCtxSectionGuid', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'lpExtensionGuid'),(1, 'ulSectionId'),(1, 'lpGuidToFind'),(1, 'ReturnedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_QueryActCtxW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HANDLE,c_void_p,UInt32,c_void_p,UIntPtr,POINTER(UIntPtr))(('QueryActCtxW', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'hActCtx'),(1, 'pvSubInstance'),(1, 'ulInfoClass'),(1, 'pvBuffer'),(1, 'cbBuffer'),(1, 'pcbWrittenOrRequired'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_QueryActCtxSettingsW():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UIntPtr,POINTER(UIntPtr))(('QueryActCtxSettingsW', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'hActCtx'),(1, 'settingsNameSpace'),(1, 'settingName'),(1, 'pvBuffer'),(1, 'dwBuffer'),(1, 'pdwWrittenOrRequired'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+ASM_BIND_FLAGS = UInt32
+ASM_BINDF_FORCE_CACHE_INSTALL = 1
+ASM_BINDF_RFS_INTEGRITY_CHECK = 2
+ASM_BINDF_RFS_MODULE_CHECK = 4
+ASM_BINDF_BINPATH_PROBE_ONLY = 8
+ASM_BINDF_SHARED_BINPATH_HINT = 16
+ASM_BINDF_PARENT_ASM_HINT = 32
+ASM_CMP_FLAGS = Int32
+ASM_CMPF_NAME = 1
+ASM_CMPF_MAJOR_VERSION = 2
+ASM_CMPF_MINOR_VERSION = 4
+ASM_CMPF_BUILD_NUMBER = 8
+ASM_CMPF_REVISION_NUMBER = 16
+ASM_CMPF_PUBLIC_KEY_TOKEN = 32
+ASM_CMPF_CULTURE = 64
+ASM_CMPF_CUSTOM = 128
+ASM_CMPF_ALL = 255
+ASM_CMPF_DEFAULT = 256
+ASM_DISPLAY_FLAGS = Int32
+ASM_DISPLAYF_VERSION = 1
+ASM_DISPLAYF_CULTURE = 2
+ASM_DISPLAYF_PUBLIC_KEY_TOKEN = 4
+ASM_DISPLAYF_PUBLIC_KEY = 8
+ASM_DISPLAYF_CUSTOM = 16
+ASM_DISPLAYF_PROCESSORARCHITECTURE = 32
+ASM_DISPLAYF_LANGUAGEID = 64
+ASM_NAME = Int32
+ASM_NAME_PUBLIC_KEY = 0
+ASM_NAME_PUBLIC_KEY_TOKEN = 1
+ASM_NAME_HASH_VALUE = 2
+ASM_NAME_NAME = 3
+ASM_NAME_MAJOR_VERSION = 4
+ASM_NAME_MINOR_VERSION = 5
+ASM_NAME_BUILD_NUMBER = 6
+ASM_NAME_REVISION_NUMBER = 7
+ASM_NAME_CULTURE = 8
+ASM_NAME_PROCESSOR_ID_ARRAY = 9
+ASM_NAME_OSINFO_ARRAY = 10
+ASM_NAME_HASH_ALGID = 11
+ASM_NAME_ALIAS = 12
+ASM_NAME_CODEBASE_URL = 13
+ASM_NAME_CODEBASE_LASTMOD = 14
+ASM_NAME_NULL_PUBLIC_KEY = 15
+ASM_NAME_NULL_PUBLIC_KEY_TOKEN = 16
+ASM_NAME_CUSTOM = 17
+ASM_NAME_NULL_CUSTOM = 18
+ASM_NAME_MVID = 19
+ASM_NAME_MAX_PARAMS = 20
+def _define_ASSEMBLY_FILE_DETAILED_INFORMATION_head():
+    class ASSEMBLY_FILE_DETAILED_INFORMATION(Structure):
+        pass
+    return ASSEMBLY_FILE_DETAILED_INFORMATION
+def _define_ASSEMBLY_FILE_DETAILED_INFORMATION():
+    ASSEMBLY_FILE_DETAILED_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ASSEMBLY_FILE_DETAILED_INFORMATION_head
+    ASSEMBLY_FILE_DETAILED_INFORMATION._fields_ = [
+        ('ulFlags', UInt32),
+        ('ulFilenameLength', UInt32),
+        ('ulPathLength', UInt32),
+        ('lpFileName', win32more.Foundation.PWSTR),
+        ('lpFilePath', win32more.Foundation.PWSTR),
+    ]
+    return ASSEMBLY_FILE_DETAILED_INFORMATION
+def _define_ASSEMBLY_INFO_head():
+    class ASSEMBLY_INFO(Structure):
+        pass
+    return ASSEMBLY_INFO
+def _define_ASSEMBLY_INFO():
+    ASSEMBLY_INFO = win32more.System.ApplicationInstallationAndServicing.ASSEMBLY_INFO_head
+    ASSEMBLY_INFO._fields_ = [
+        ('cbAssemblyInfo', UInt32),
+        ('dwAssemblyFlags', UInt32),
+        ('uliAssemblySizeInKB', win32more.Foundation.ULARGE_INTEGER),
+        ('pszCurrentAssemblyPathBuf', win32more.Foundation.PWSTR),
+        ('cchBuf', UInt32),
+    ]
+    return ASSEMBLY_INFO
+def _define_COMPATIBILITY_CONTEXT_ELEMENT_head():
+    class COMPATIBILITY_CONTEXT_ELEMENT(Structure):
+        pass
+    return COMPATIBILITY_CONTEXT_ELEMENT
+def _define_COMPATIBILITY_CONTEXT_ELEMENT():
+    COMPATIBILITY_CONTEXT_ELEMENT = win32more.System.ApplicationInstallationAndServicing.COMPATIBILITY_CONTEXT_ELEMENT_head
+    COMPATIBILITY_CONTEXT_ELEMENT._fields_ = [
+        ('Id', Guid),
+        ('Type', win32more.System.ApplicationInstallationAndServicing.ACTCTX_COMPATIBILITY_ELEMENT_TYPE),
+        ('MaxVersionTested', UInt64),
+    ]
+    return COMPATIBILITY_CONTEXT_ELEMENT
+CREATE_ASM_NAME_OBJ_FLAGS = Int32
+CANOF_PARSE_DISPLAY_NAME = 1
+CANOF_SET_DEFAULT_VALUES = 2
+def _define_DELTA_HASH_head():
+    class DELTA_HASH(Structure):
+        pass
+    return DELTA_HASH
+def _define_DELTA_HASH():
+    DELTA_HASH = win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head
+    DELTA_HASH._fields_ = [
+        ('HashSize', UInt32),
+        ('HashValue', Byte * 32),
+    ]
+    return DELTA_HASH
+def _define_DELTA_HEADER_INFO_head():
+    class DELTA_HEADER_INFO(Structure):
+        pass
+    return DELTA_HEADER_INFO
+def _define_DELTA_HEADER_INFO():
+    DELTA_HEADER_INFO = win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head
+    DELTA_HEADER_INFO._fields_ = [
+        ('FileTypeSet', Int64),
+        ('FileType', Int64),
+        ('Flags', Int64),
+        ('TargetSize', UIntPtr),
+        ('TargetFileTime', win32more.Foundation.FILETIME),
+        ('TargetHashAlgId', UInt32),
+        ('TargetHash', win32more.System.ApplicationInstallationAndServicing.DELTA_HASH),
+    ]
+    return DELTA_HEADER_INFO
+def _define_DELTA_INPUT_head():
+    class DELTA_INPUT(Structure):
+        pass
+    return DELTA_INPUT
+def _define_DELTA_INPUT():
+    DELTA_INPUT = win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT_head
+    class DELTA_INPUT__Anonymous_e__Union(Union):
+        pass
+    DELTA_INPUT__Anonymous_e__Union._fields_ = [
+        ('lpcStart', c_void_p),
+        ('lpStart', c_void_p),
+    ]
+    DELTA_INPUT._anonymous_ = [
+        'Anonymous',
+    ]
+    DELTA_INPUT._fields_ = [
+        ('Anonymous', DELTA_INPUT__Anonymous_e__Union),
+        ('uSize', UIntPtr),
+        ('Editable', win32more.Foundation.BOOL),
+    ]
+    return DELTA_INPUT
+def _define_DELTA_OUTPUT_head():
+    class DELTA_OUTPUT(Structure):
+        pass
+    return DELTA_OUTPUT
+def _define_DELTA_OUTPUT():
+    DELTA_OUTPUT = win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head
+    DELTA_OUTPUT._fields_ = [
+        ('lpStart', c_void_p),
+        ('uSize', UIntPtr),
+    ]
+    return DELTA_OUTPUT
+def _define_FUSION_INSTALL_REFERENCE_head():
+    class FUSION_INSTALL_REFERENCE(Structure):
+        pass
+    return FUSION_INSTALL_REFERENCE
+def _define_FUSION_INSTALL_REFERENCE():
+    FUSION_INSTALL_REFERENCE = win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head
+    FUSION_INSTALL_REFERENCE._fields_ = [
+        ('cbSize', UInt32),
+        ('dwFlags', UInt32),
+        ('guidScheme', Guid),
+        ('szIdentifier', win32more.Foundation.PWSTR),
+        ('szNonCannonicalData', win32more.Foundation.PWSTR),
+    ]
+    return FUSION_INSTALL_REFERENCE
+def _define_IAssemblyCache_head():
+    class IAssemblyCache(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e707dcde-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
+    return IAssemblyCache
+def _define_IAssemblyCache():
+    IAssemblyCache = win32more.System.ApplicationInstallationAndServicing.IAssemblyCache_head
+    IAssemblyCache.UninstallAssembly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head),POINTER(win32more.System.ApplicationInstallationAndServicing.IASSEMBLYCACHE_UNINSTALL_DISPOSITION))(3, 'UninstallAssembly', ((1, 'dwFlags'),(1, 'pszAssemblyName'),(1, 'pRefData'),(1, 'pulDisposition'),)))
+    IAssemblyCache.QueryAssemblyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.QUERYASMINFO_FLAGS,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.ASSEMBLY_INFO_head))(4, 'QueryAssemblyInfo', ((1, 'dwFlags'),(1, 'pszAssemblyName'),(1, 'pAsmInfo'),)))
+    IAssemblyCache.CreateAssemblyCacheItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(win32more.System.ApplicationInstallationAndServicing.IAssemblyCacheItem_head),win32more.Foundation.PWSTR)(5, 'CreateAssemblyCacheItem', ((1, 'dwFlags'),(1, 'pvReserved'),(1, 'ppAsmItem'),(1, 'pszAssemblyName'),)))
+    IAssemblyCache.Reserved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(6, 'Reserved', ((1, 'ppUnk'),)))
+    IAssemblyCache.InstallAssembly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head))(7, 'InstallAssembly', ((1, 'dwFlags'),(1, 'pszManifestFilePath'),(1, 'pRefData'),)))
+    win32more.System.Com.IUnknown
+    return IAssemblyCache
 IASSEMBLYCACHE_UNINSTALL_DISPOSITION = UInt32
 IASSEMBLYCACHE_UNINSTALL_DISPOSITION_UNINSTALLED = 1
 IASSEMBLYCACHE_UNINSTALL_DISPOSITION_STILL_IN_USE = 2
 IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED = 3
 IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING = 4
-QUERYASMINFO_FLAGS = UInt32
-QUERYASMINFO_FLAG_VALIDATE = 1
-MSIHANDLE = UInt32
-RESULTTYPES = Int32
-RESULTTYPES_ieUnknown = 0
-RESULTTYPES_ieError = 1
-RESULTTYPES_ieWarning = 2
-RESULTTYPES_ieInfo = 3
-STATUSTYPES = Int32
-STATUSTYPES_ieStatusGetCUB = 0
-STATUSTYPES_ieStatusICECount = 1
-STATUSTYPES_ieStatusMerge = 2
-STATUSTYPES_ieStatusSummaryInfo = 3
-STATUSTYPES_ieStatusCreateEngine = 4
-STATUSTYPES_ieStatusStarting = 5
-STATUSTYPES_ieStatusRunICE = 6
-STATUSTYPES_ieStatusShutdown = 7
-STATUSTYPES_ieStatusSuccess = 8
-STATUSTYPES_ieStatusFail = 9
-STATUSTYPES_ieStatusCancel = 10
-def _define_LPDISPLAYVAL():
-    return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.System.ApplicationInstallationAndServicing.RESULTTYPES,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_LPEVALCOMCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.STATUSTYPES,win32more.Foundation.PWSTR,c_void_p, use_last_error=False)
-def _define_IValidate_head():
-    class IValidate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e482e5c6-e31e-4143-a2e6-dbc3d8e4b8d3')
-    return IValidate
-def _define_IValidate():
-    IValidate = win32more.System.ApplicationInstallationAndServicing.IValidate_head
-    IValidate.OpenDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'OpenDatabase', ((1, 'szDatabase'),)))
-    IValidate.OpenCUB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OpenCUB', ((1, 'szCUBFile'),)))
-    IValidate.CloseDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'CloseDatabase', ()))
-    IValidate.CloseCUB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'CloseCUB', ()))
-    IValidate.SetDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.LPDISPLAYVAL,c_void_p, use_last_error=False)(7, 'SetDisplay', ((1, 'pDisplayFunction'),(1, 'pContext'),)))
-    IValidate.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.LPEVALCOMCALLBACK,c_void_p, use_last_error=False)(8, 'SetStatus', ((1, 'pStatusFunction'),(1, 'pContext'),)))
-    IValidate.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'Validate', ((1, 'wzICEs'),)))
+def _define_IAssemblyCacheItem_head():
+    class IAssemblyCacheItem(win32more.System.Com.IUnknown_head):
+        Guid = Guid('9e3aaeb4-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
+    return IAssemblyCacheItem
+def _define_IAssemblyCacheItem():
+    IAssemblyCacheItem = win32more.System.ApplicationInstallationAndServicing.IAssemblyCacheItem_head
+    IAssemblyCacheItem.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.System.Com.IStream_head),POINTER(win32more.Foundation.ULARGE_INTEGER_head))(3, 'CreateStream', ((1, 'dwFlags'),(1, 'pszStreamName'),(1, 'dwFormat'),(1, 'dwFormatFlags'),(1, 'ppIStream'),(1, 'puliMaxSize'),)))
+    IAssemblyCacheItem.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32))(4, 'Commit', ((1, 'dwFlags'),(1, 'pulDisposition'),)))
+    IAssemblyCacheItem.AbortItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'AbortItem', ()))
     win32more.System.Com.IUnknown
-    return IValidate
-MsmMerge = Guid('0adda830-2c26-11d2-ad65-00a0c9af11a6')
-msmErrorType = Int32
-msmErrorType_msmErrorLanguageUnsupported = 1
-msmErrorType_msmErrorLanguageFailed = 2
-msmErrorType_msmErrorExclusion = 3
-msmErrorType_msmErrorTableMerge = 4
-msmErrorType_msmErrorResequenceMerge = 5
-msmErrorType_msmErrorFileCreate = 6
-msmErrorType_msmErrorDirCreate = 7
-msmErrorType_msmErrorFeatureRequired = 8
-def _define_IEnumMsmString_head():
-    class IEnumMsmString(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0adda826-2c26-11d2-ad65-00a0c9af11a6')
-    return IEnumMsmString
-def _define_IEnumMsmString():
-    IEnumMsmString = win32more.System.ApplicationInstallationAndServicing.IEnumMsmString_head
-    IEnumMsmString.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cFetch'),(1, 'rgbstrStrings'),(1, 'pcFetched'),)))
-    IEnumMsmString.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSkip'),)))
-    IEnumMsmString.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumMsmString.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmString_head), use_last_error=False)(6, 'Clone', ((1, 'pemsmStrings'),)))
+    return IAssemblyCacheItem
+def _define_IAssemblyName_head():
+    class IAssemblyName(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cd193bc0-b4bc-11d2-98-33-00-c0-4f-c3-1d-2e')
+    return IAssemblyName
+def _define_IAssemblyName():
+    IAssemblyName = win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head
+    IAssemblyName.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32)(3, 'SetProperty', ((1, 'PropertyId'),(1, 'pvProperty'),(1, 'cbProperty'),)))
+    IAssemblyName.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32))(4, 'GetProperty', ((1, 'PropertyId'),(1, 'pvProperty'),(1, 'pcbProperty'),)))
+    IAssemblyName.Finalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Finalize', ()))
+    IAssemblyName.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(6, 'GetDisplayName', ((1, 'szDisplayName'),(1, 'pccDisplayName'),(1, 'dwDisplayFlags'),)))
+    IAssemblyName.Reserved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,Int64,c_void_p,UInt32,POINTER(c_void_p))(7, 'Reserved', ((1, 'refIID'),(1, 'pUnkReserved1'),(1, 'pUnkReserved2'),(1, 'szReserved'),(1, 'llReserved'),(1, 'pvReserved'),(1, 'cbReserved'),(1, 'ppReserved'),)))
+    IAssemblyName.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),win32more.Foundation.PWSTR)(8, 'GetName', ((1, 'lpcwBuffer'),(1, 'pwzName'),)))
+    IAssemblyName.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(9, 'GetVersion', ((1, 'pdwVersionHi'),(1, 'pdwVersionLow'),)))
+    IAssemblyName.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head,UInt32)(10, 'IsEqual', ((1, 'pName'),(1, 'dwCmpFlags'),)))
+    IAssemblyName.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head))(11, 'Clone', ((1, 'pName'),)))
     win32more.System.Com.IUnknown
-    return IEnumMsmString
-def _define_IMsmStrings_head():
-    class IMsmStrings(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0adda827-2c26-11d2-ad65-00a0c9af11a6')
-    return IMsmStrings
-def _define_IMsmStrings():
-    IMsmStrings = win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head
-    IMsmStrings.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
-    IMsmStrings.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
-    IMsmStrings.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'NewEnum'),)))
-    win32more.System.Com.IDispatch
-    return IMsmStrings
-def _define_IMsmError_head():
-    class IMsmError(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0adda828-2c26-11d2-ad65-00a0c9af11a6')
-    return IMsmError
-def _define_IMsmError():
-    IMsmError = win32more.System.ApplicationInstallationAndServicing.IMsmError_head
-    IMsmError.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.msmErrorType), use_last_error=False)(7, 'get_Type', ((1, 'ErrorType'),)))
-    IMsmError.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Path', ((1, 'ErrorPath'),)))
-    IMsmError.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_Language', ((1, 'ErrorLanguage'),)))
-    IMsmError.get_DatabaseTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_DatabaseTable', ((1, 'ErrorTable'),)))
-    IMsmError.get_DatabaseKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head), use_last_error=False)(11, 'get_DatabaseKeys', ((1, 'ErrorKeys'),)))
-    IMsmError.get_ModuleTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_ModuleTable', ((1, 'ErrorTable'),)))
-    IMsmError.get_ModuleKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head), use_last_error=False)(13, 'get_ModuleKeys', ((1, 'ErrorKeys'),)))
-    win32more.System.Com.IDispatch
-    return IMsmError
-def _define_IEnumMsmError_head():
-    class IEnumMsmError(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0adda829-2c26-11d2-ad65-00a0c9af11a6')
-    return IEnumMsmError
-def _define_IEnumMsmError():
-    IEnumMsmError = win32more.System.ApplicationInstallationAndServicing.IEnumMsmError_head
-    IEnumMsmError.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmError_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cFetch'),(1, 'rgmsmErrors'),(1, 'pcFetched'),)))
-    IEnumMsmError.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSkip'),)))
-    IEnumMsmError.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumMsmError.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmError_head), use_last_error=False)(6, 'Clone', ((1, 'pemsmErrors'),)))
-    win32more.System.Com.IUnknown
-    return IEnumMsmError
-def _define_IMsmErrors_head():
-    class IMsmErrors(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0adda82a-2c26-11d2-ad65-00a0c9af11a6')
-    return IMsmErrors
-def _define_IMsmErrors():
-    IMsmErrors = win32more.System.ApplicationInstallationAndServicing.IMsmErrors_head
-    IMsmErrors.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmError_head), use_last_error=False)(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
-    IMsmErrors.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
-    IMsmErrors.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'NewEnum'),)))
-    win32more.System.Com.IDispatch
-    return IMsmErrors
-def _define_IMsmDependency_head():
-    class IMsmDependency(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0adda82b-2c26-11d2-ad65-00a0c9af11a6')
-    return IMsmDependency
-def _define_IMsmDependency():
-    IMsmDependency = win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head
-    IMsmDependency.get_Module = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Module', ((1, 'Module'),)))
-    IMsmDependency.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_Language', ((1, 'Language'),)))
-    IMsmDependency.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Version', ((1, 'Version'),)))
-    win32more.System.Com.IDispatch
-    return IMsmDependency
+    return IAssemblyName
 def _define_IEnumMsmDependency_head():
     class IEnumMsmDependency(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0adda82c-2c26-11d2-ad65-00a0c9af11a6')
+        Guid = Guid('0adda82c-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     return IEnumMsmDependency
 def _define_IEnumMsmDependency():
     IEnumMsmDependency = win32more.System.ApplicationInstallationAndServicing.IEnumMsmDependency_head
-    IEnumMsmDependency.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cFetch'),(1, 'rgmsmDependencies'),(1, 'pcFetched'),)))
-    IEnumMsmDependency.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSkip'),)))
-    IEnumMsmDependency.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
-    IEnumMsmDependency.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmDependency_head), use_last_error=False)(6, 'Clone', ((1, 'pemsmDependencies'),)))
+    IEnumMsmDependency.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head),POINTER(UInt32))(3, 'Next', ((1, 'cFetch'),(1, 'rgmsmDependencies'),(1, 'pcFetched'),)))
+    IEnumMsmDependency.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'cSkip'),)))
+    IEnumMsmDependency.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumMsmDependency.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmDependency_head))(6, 'Clone', ((1, 'pemsmDependencies'),)))
     win32more.System.Com.IUnknown
     return IEnumMsmDependency
+def _define_IEnumMsmError_head():
+    class IEnumMsmError(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0adda829-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IEnumMsmError
+def _define_IEnumMsmError():
+    IEnumMsmError = win32more.System.ApplicationInstallationAndServicing.IEnumMsmError_head
+    IEnumMsmError.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmError_head),POINTER(UInt32))(3, 'Next', ((1, 'cFetch'),(1, 'rgmsmErrors'),(1, 'pcFetched'),)))
+    IEnumMsmError.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'cSkip'),)))
+    IEnumMsmError.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumMsmError.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmError_head))(6, 'Clone', ((1, 'pemsmErrors'),)))
+    win32more.System.Com.IUnknown
+    return IEnumMsmError
+def _define_IEnumMsmString_head():
+    class IEnumMsmString(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0adda826-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IEnumMsmString
+def _define_IEnumMsmString():
+    IEnumMsmString = win32more.System.ApplicationInstallationAndServicing.IEnumMsmString_head
+    IEnumMsmString.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32))(3, 'Next', ((1, 'cFetch'),(1, 'rgbstrStrings'),(1, 'pcFetched'),)))
+    IEnumMsmString.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'cSkip'),)))
+    IEnumMsmString.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
+    IEnumMsmString.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmString_head))(6, 'Clone', ((1, 'pemsmStrings'),)))
+    win32more.System.Com.IUnknown
+    return IEnumMsmString
 def _define_IMsmDependencies_head():
     class IMsmDependencies(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0adda82d-2c26-11d2-ad65-00a0c9af11a6')
+        Guid = Guid('0adda82d-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     return IMsmDependencies
 def _define_IMsmDependencies():
     IMsmDependencies = win32more.System.ApplicationInstallationAndServicing.IMsmDependencies_head
-    IMsmDependencies.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head), use_last_error=False)(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
-    IMsmDependencies.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
-    IMsmDependencies.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'NewEnum'),)))
+    IMsmDependencies.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head))(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
+    IMsmDependencies.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'Count'),)))
+    IMsmDependencies.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(9, 'get__NewEnum', ((1, 'NewEnum'),)))
     win32more.System.Com.IDispatch
     return IMsmDependencies
-def _define_IMsmMerge_head():
-    class IMsmMerge(win32more.System.Com.IDispatch_head):
-        Guid = Guid('0adda82e-2c26-11d2-ad65-00a0c9af11a6')
-    return IMsmMerge
-def _define_IMsmMerge():
-    IMsmMerge = win32more.System.ApplicationInstallationAndServicing.IMsmMerge_head
-    IMsmMerge.OpenDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'OpenDatabase', ((1, 'Path'),)))
-    IMsmMerge.OpenModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(8, 'OpenModule', ((1, 'Path'),(1, 'Language'),)))
-    IMsmMerge.CloseDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'CloseDatabase', ((1, 'Commit'),)))
-    IMsmMerge.CloseModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'CloseModule', ()))
-    IMsmMerge.OpenLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'OpenLog', ((1, 'Path'),)))
-    IMsmMerge.CloseLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'CloseLog', ()))
-    IMsmMerge.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'Log', ((1, 'Message'),)))
-    IMsmMerge.get_Errors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmErrors_head), use_last_error=False)(14, 'get_Errors', ((1, 'Errors'),)))
-    IMsmMerge.get_Dependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependencies_head), use_last_error=False)(15, 'get_Dependencies', ((1, 'Dependencies'),)))
-    IMsmMerge.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(16, 'Merge', ((1, 'Feature'),(1, 'RedirectDir'),)))
-    IMsmMerge.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'Connect', ((1, 'Feature'),)))
-    IMsmMerge.ExtractCAB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'ExtractCAB', ((1, 'FileName'),)))
-    IMsmMerge.ExtractFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'ExtractFiles', ((1, 'Path'),)))
+def _define_IMsmDependency_head():
+    class IMsmDependency(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0adda82b-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IMsmDependency
+def _define_IMsmDependency():
+    IMsmDependency = win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head
+    IMsmDependency.get_Module = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Module', ((1, 'Module'),)))
+    IMsmDependency.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16))(8, 'get_Language', ((1, 'Language'),)))
+    IMsmDependency.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Version', ((1, 'Version'),)))
     win32more.System.Com.IDispatch
-    return IMsmMerge
+    return IMsmDependency
+def _define_IMsmError_head():
+    class IMsmError(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0adda828-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IMsmError
+def _define_IMsmError():
+    IMsmError = win32more.System.ApplicationInstallationAndServicing.IMsmError_head
+    IMsmError.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.msmErrorType))(7, 'get_Type', ((1, 'ErrorType'),)))
+    IMsmError.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Path', ((1, 'ErrorPath'),)))
+    IMsmError.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16))(9, 'get_Language', ((1, 'ErrorLanguage'),)))
+    IMsmError.get_DatabaseTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_DatabaseTable', ((1, 'ErrorTable'),)))
+    IMsmError.get_DatabaseKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head))(11, 'get_DatabaseKeys', ((1, 'ErrorKeys'),)))
+    IMsmError.get_ModuleTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_ModuleTable', ((1, 'ErrorTable'),)))
+    IMsmError.get_ModuleKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head))(13, 'get_ModuleKeys', ((1, 'ErrorKeys'),)))
+    win32more.System.Com.IDispatch
+    return IMsmError
+def _define_IMsmErrors_head():
+    class IMsmErrors(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0adda82a-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IMsmErrors
+def _define_IMsmErrors():
+    IMsmErrors = win32more.System.ApplicationInstallationAndServicing.IMsmErrors_head
+    IMsmErrors.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmError_head))(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
+    IMsmErrors.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'Count'),)))
+    IMsmErrors.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(9, 'get__NewEnum', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
+    return IMsmErrors
 def _define_IMsmGetFiles_head():
     class IMsmGetFiles(win32more.System.Com.IDispatch_head):
-        Guid = Guid('7041ae26-2d78-11d2-888a-00a0c981b015')
+        Guid = Guid('7041ae26-2d78-11d2-88-8a-00-a0-c9-81-b0-15')
     return IMsmGetFiles
 def _define_IMsmGetFiles():
     IMsmGetFiles = win32more.System.ApplicationInstallationAndServicing.IMsmGetFiles_head
-    IMsmGetFiles.get_ModuleFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head), use_last_error=False)(7, 'get_ModuleFiles', ((1, 'Files'),)))
+    IMsmGetFiles.get_ModuleFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head))(7, 'get_ModuleFiles', ((1, 'Files'),)))
     win32more.System.Com.IDispatch
     return IMsmGetFiles
-def _define_PMSIHANDLE_head():
-    class PMSIHANDLE(Structure):
-        pass
-    return PMSIHANDLE
-def _define_PMSIHANDLE():
-    PMSIHANDLE = win32more.System.ApplicationInstallationAndServicing.PMSIHANDLE_head
-    PMSIHANDLE._fields_ = [
-        ("m_h", win32more.System.ApplicationInstallationAndServicing.MSIHANDLE),
-    ]
-    return PMSIHANDLE
-INSTALLMESSAGE = Int32
-INSTALLMESSAGE_FATALEXIT = 0
-INSTALLMESSAGE_ERROR = 16777216
-INSTALLMESSAGE_WARNING = 33554432
-INSTALLMESSAGE_USER = 50331648
-INSTALLMESSAGE_INFO = 67108864
-INSTALLMESSAGE_FILESINUSE = 83886080
-INSTALLMESSAGE_RESOLVESOURCE = 100663296
-INSTALLMESSAGE_OUTOFDISKSPACE = 117440512
-INSTALLMESSAGE_ACTIONSTART = 134217728
-INSTALLMESSAGE_ACTIONDATA = 150994944
-INSTALLMESSAGE_PROGRESS = 167772160
-INSTALLMESSAGE_COMMONDATA = 184549376
-INSTALLMESSAGE_INITIALIZE = 201326592
-INSTALLMESSAGE_TERMINATE = 218103808
-INSTALLMESSAGE_SHOWDIALOG = 234881024
-INSTALLMESSAGE_PERFORMANCE = 251658240
-INSTALLMESSAGE_RMFILESINUSE = 419430400
-INSTALLMESSAGE_INSTALLSTART = 436207616
-INSTALLMESSAGE_INSTALLEND = 452984832
-def _define_INSTALLUI_HANDLERA():
-    return CFUNCTYPE(Int32,c_void_p,UInt32,win32more.Foundation.PSTR, use_last_error=False)
-def _define_INSTALLUI_HANDLERW():
-    return CFUNCTYPE(Int32,c_void_p,UInt32,win32more.Foundation.PWSTR, use_last_error=False)
-def _define_PINSTALLUI_HANDLER_RECORD():
-    return CFUNCTYPE(Int32,c_void_p,UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)
-INSTALLUILEVEL = Int32
-INSTALLUILEVEL_NOCHANGE = 0
-INSTALLUILEVEL_DEFAULT = 1
-INSTALLUILEVEL_NONE = 2
-INSTALLUILEVEL_BASIC = 3
-INSTALLUILEVEL_REDUCED = 4
-INSTALLUILEVEL_FULL = 5
-INSTALLUILEVEL_ENDDIALOG = 128
-INSTALLUILEVEL_PROGRESSONLY = 64
-INSTALLUILEVEL_HIDECANCEL = 32
-INSTALLUILEVEL_SOURCERESONLY = 256
-INSTALLUILEVEL_UACONLY = 512
-INSTALLSTATE = Int32
-INSTALLSTATE_NOTUSED = -7
-INSTALLSTATE_BADCONFIG = -6
-INSTALLSTATE_INCOMPLETE = -5
-INSTALLSTATE_SOURCEABSENT = -4
-INSTALLSTATE_MOREDATA = -3
-INSTALLSTATE_INVALIDARG = -2
-INSTALLSTATE_UNKNOWN = -1
-INSTALLSTATE_BROKEN = 0
-INSTALLSTATE_ADVERTISED = 1
-INSTALLSTATE_REMOVED = 1
-INSTALLSTATE_ABSENT = 2
-INSTALLSTATE_LOCAL = 3
-INSTALLSTATE_SOURCE = 4
-INSTALLSTATE_DEFAULT = 5
-USERINFOSTATE = Int32
-USERINFOSTATE_MOREDATA = -3
-USERINFOSTATE_INVALIDARG = -2
-USERINFOSTATE_UNKNOWN = -1
-USERINFOSTATE_ABSENT = 0
-USERINFOSTATE_PRESENT = 1
+def _define_IMsmMerge_head():
+    class IMsmMerge(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0adda82e-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IMsmMerge
+def _define_IMsmMerge():
+    IMsmMerge = win32more.System.ApplicationInstallationAndServicing.IMsmMerge_head
+    IMsmMerge.OpenDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'OpenDatabase', ((1, 'Path'),)))
+    IMsmMerge.OpenModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16)(8, 'OpenModule', ((1, 'Path'),(1, 'Language'),)))
+    IMsmMerge.CloseDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(9, 'CloseDatabase', ((1, 'Commit'),)))
+    IMsmMerge.CloseModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'CloseModule', ()))
+    IMsmMerge.OpenLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'OpenLog', ((1, 'Path'),)))
+    IMsmMerge.CloseLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'CloseLog', ()))
+    IMsmMerge.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'Log', ((1, 'Message'),)))
+    IMsmMerge.get_Errors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmErrors_head))(14, 'get_Errors', ((1, 'Errors'),)))
+    IMsmMerge.get_Dependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependencies_head))(15, 'get_Dependencies', ((1, 'Dependencies'),)))
+    IMsmMerge.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(16, 'Merge', ((1, 'Feature'),(1, 'RedirectDir'),)))
+    IMsmMerge.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'Connect', ((1, 'Feature'),)))
+    IMsmMerge.ExtractCAB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(18, 'ExtractCAB', ((1, 'FileName'),)))
+    IMsmMerge.ExtractFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'ExtractFiles', ((1, 'Path'),)))
+    win32more.System.Com.IDispatch
+    return IMsmMerge
+def _define_IMsmStrings_head():
+    class IMsmStrings(win32more.System.Com.IDispatch_head):
+        Guid = Guid('0adda827-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    return IMsmStrings
+def _define_IMsmStrings():
+    IMsmStrings = win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head
+    IMsmStrings.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
+    IMsmStrings.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'Count'),)))
+    IMsmStrings.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(9, 'get__NewEnum', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
+    return IMsmStrings
+INSTALLFEATUREATTRIBUTE = Int32
+INSTALLFEATUREATTRIBUTE_FAVORLOCAL = 1
+INSTALLFEATUREATTRIBUTE_FAVORSOURCE = 2
+INSTALLFEATUREATTRIBUTE_FOLLOWPARENT = 4
+INSTALLFEATUREATTRIBUTE_FAVORADVERTISE = 8
+INSTALLFEATUREATTRIBUTE_DISALLOWADVERTISE = 16
+INSTALLFEATUREATTRIBUTE_NOUNSUPPORTEDADVERTISE = 32
 INSTALLLEVEL = Int32
 INSTALLLEVEL_DEFAULT = 0
 INSTALLLEVEL_MINIMUM = 1
 INSTALLLEVEL_MAXIMUM = 65535
-REINSTALLMODE = Int32
-REINSTALLMODE_REPAIR = 1
-REINSTALLMODE_FILEMISSING = 2
-REINSTALLMODE_FILEOLDERVERSION = 4
-REINSTALLMODE_FILEEQUALVERSION = 8
-REINSTALLMODE_FILEEXACT = 16
-REINSTALLMODE_FILEVERIFY = 32
-REINSTALLMODE_FILEREPLACE = 64
-REINSTALLMODE_MACHINEDATA = 128
-REINSTALLMODE_USERDATA = 256
-REINSTALLMODE_SHORTCUT = 512
-REINSTALLMODE_PACKAGE = 1024
-INSTALLOGMODE = Int32
+INSTALLLOGATTRIBUTES = Int32
+INSTALLLOGATTRIBUTES_APPEND = 1
+INSTALLLOGATTRIBUTES_FLUSHEACHLINE = 2
+INSTALLLOGMODE = Int32
 INSTALLLOGMODE_FATALEXIT = 1
 INSTALLLOGMODE_ERROR = 2
 INSTALLLOGMODE_WARNING = 4
@@ -658,136 +2773,531 @@ INSTALLLOGMODE_FILESINUSE = 32
 INSTALLLOGMODE_RMFILESINUSE = 33554432
 INSTALLLOGMODE_INSTALLSTART = 67108864
 INSTALLLOGMODE_INSTALLEND = 134217728
-INSTALLLOGATTRIBUTES = Int32
-INSTALLLOGATTRIBUTES_APPEND = 1
-INSTALLLOGATTRIBUTES_FLUSHEACHLINE = 2
-INSTALLFEATUREATTRIBUTE = Int32
-INSTALLFEATUREATTRIBUTE_FAVORLOCAL = 1
-INSTALLFEATUREATTRIBUTE_FAVORSOURCE = 2
-INSTALLFEATUREATTRIBUTE_FOLLOWPARENT = 4
-INSTALLFEATUREATTRIBUTE_FAVORADVERTISE = 8
-INSTALLFEATUREATTRIBUTE_DISALLOWADVERTISE = 16
-INSTALLFEATUREATTRIBUTE_NOUNSUPPORTEDADVERTISE = 32
+INSTALLMESSAGE = Int32
+INSTALLMESSAGE_FATALEXIT = 0
+INSTALLMESSAGE_ERROR = 16777216
+INSTALLMESSAGE_WARNING = 33554432
+INSTALLMESSAGE_USER = 50331648
+INSTALLMESSAGE_INFO = 67108864
+INSTALLMESSAGE_FILESINUSE = 83886080
+INSTALLMESSAGE_RESOLVESOURCE = 100663296
+INSTALLMESSAGE_OUTOFDISKSPACE = 117440512
+INSTALLMESSAGE_ACTIONSTART = 134217728
+INSTALLMESSAGE_ACTIONDATA = 150994944
+INSTALLMESSAGE_PROGRESS = 167772160
+INSTALLMESSAGE_COMMONDATA = 184549376
+INSTALLMESSAGE_INITIALIZE = 201326592
+INSTALLMESSAGE_TERMINATE = 218103808
+INSTALLMESSAGE_SHOWDIALOG = 234881024
+INSTALLMESSAGE_PERFORMANCE = 251658240
+INSTALLMESSAGE_RMFILESINUSE = 419430400
+INSTALLMESSAGE_INSTALLSTART = 436207616
+INSTALLMESSAGE_INSTALLEND = 452984832
 INSTALLMODE = Int32
 INSTALLMODE_NODETECTION_ANY = -4
 INSTALLMODE_NOSOURCERESOLUTION = -3
 INSTALLMODE_NODETECTION = -2
 INSTALLMODE_EXISTING = -1
 INSTALLMODE_DEFAULT = 0
-MSIPATCHSTATE = Int32
-MSIPATCHSTATE_INVALID = 0
-MSIPATCHSTATE_APPLIED = 1
-MSIPATCHSTATE_SUPERSEDED = 2
-MSIPATCHSTATE_OBSOLETED = 4
-MSIPATCHSTATE_REGISTERED = 8
-MSIPATCHSTATE_ALL = 15
-MSIINSTALLCONTEXT = Int32
-MSIINSTALLCONTEXT_FIRSTVISIBLE = 0
-MSIINSTALLCONTEXT_NONE = 0
-MSIINSTALLCONTEXT_USERMANAGED = 1
-MSIINSTALLCONTEXT_USERUNMANAGED = 2
-MSIINSTALLCONTEXT_MACHINE = 4
-MSIINSTALLCONTEXT_ALL = 7
-MSIINSTALLCONTEXT_ALLUSERMANAGED = 8
-MSIPATCHDATATYPE = Int32
-MSIPATCH_DATATYPE_PATCHFILE = 0
-MSIPATCH_DATATYPE_XMLPATH = 1
-MSIPATCH_DATATYPE_XMLBLOB = 2
-def _define_MSIPATCHSEQUENCEINFOA_head():
-    class MSIPATCHSEQUENCEINFOA(Structure):
-        pass
-    return MSIPATCHSEQUENCEINFOA
-def _define_MSIPATCHSEQUENCEINFOA():
-    MSIPATCHSEQUENCEINFOA = win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOA_head
-    MSIPATCHSEQUENCEINFOA._fields_ = [
-        ("szPatchData", win32more.Foundation.PSTR),
-        ("ePatchDataType", win32more.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE),
-        ("dwOrder", UInt32),
-        ("uStatus", UInt32),
-    ]
-    return MSIPATCHSEQUENCEINFOA
-def _define_MSIPATCHSEQUENCEINFOW_head():
-    class MSIPATCHSEQUENCEINFOW(Structure):
-        pass
-    return MSIPATCHSEQUENCEINFOW
-def _define_MSIPATCHSEQUENCEINFOW():
-    MSIPATCHSEQUENCEINFOW = win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOW_head
-    MSIPATCHSEQUENCEINFOW._fields_ = [
-        ("szPatchData", win32more.Foundation.PWSTR),
-        ("ePatchDataType", win32more.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE),
-        ("dwOrder", UInt32),
-        ("uStatus", UInt32),
-    ]
-    return MSIPATCHSEQUENCEINFOW
-SCRIPTFLAGS = Int32
-SCRIPTFLAGS_CACHEINFO = 1
-SCRIPTFLAGS_SHORTCUTS = 4
-SCRIPTFLAGS_MACHINEASSIGN = 8
-SCRIPTFLAGS_REGDATA_CNFGINFO = 32
-SCRIPTFLAGS_VALIDATE_TRANSFORMS_LIST = 64
-SCRIPTFLAGS_REGDATA_CLASSINFO = 128
-SCRIPTFLAGS_REGDATA_EXTENSIONINFO = 256
-SCRIPTFLAGS_REGDATA_APPINFO = 384
-SCRIPTFLAGS_REGDATA = 416
-ADVERTISEFLAGS = Int32
-ADVERTISEFLAGS_MACHINEASSIGN = 0
-ADVERTISEFLAGS_USERASSIGN = 1
+INSTALLSTATE = Int32
+INSTALLSTATE_NOTUSED = -7
+INSTALLSTATE_BADCONFIG = -6
+INSTALLSTATE_INCOMPLETE = -5
+INSTALLSTATE_SOURCEABSENT = -4
+INSTALLSTATE_MOREDATA = -3
+INSTALLSTATE_INVALIDARG = -2
+INSTALLSTATE_UNKNOWN = -1
+INSTALLSTATE_BROKEN = 0
+INSTALLSTATE_ADVERTISED = 1
+INSTALLSTATE_REMOVED = 1
+INSTALLSTATE_ABSENT = 2
+INSTALLSTATE_LOCAL = 3
+INSTALLSTATE_SOURCE = 4
+INSTALLSTATE_DEFAULT = 5
 INSTALLTYPE = Int32
 INSTALLTYPE_DEFAULT = 0
 INSTALLTYPE_NETWORK_IMAGE = 1
 INSTALLTYPE_SINGLE_INSTANCE = 2
-def _define_MSIFILEHASHINFO_head():
-    class MSIFILEHASHINFO(Structure):
-        pass
-    return MSIFILEHASHINFO
-def _define_MSIFILEHASHINFO():
-    MSIFILEHASHINFO = win32more.System.ApplicationInstallationAndServicing.MSIFILEHASHINFO_head
-    MSIFILEHASHINFO._fields_ = [
-        ("dwFileHashInfoSize", UInt32),
-        ("dwData", UInt32 * 4),
-    ]
-    return MSIFILEHASHINFO
+def _define_INSTALLUI_HANDLERA():
+    return WINFUNCTYPE(Int32,c_void_p,UInt32,win32more.Foundation.PSTR)
+def _define_INSTALLUI_HANDLERW():
+    return WINFUNCTYPE(Int32,c_void_p,UInt32,win32more.Foundation.PWSTR)
+INSTALLUILEVEL = Int32
+INSTALLUILEVEL_NOCHANGE = 0
+INSTALLUILEVEL_DEFAULT = 1
+INSTALLUILEVEL_NONE = 2
+INSTALLUILEVEL_BASIC = 3
+INSTALLUILEVEL_REDUCED = 4
+INSTALLUILEVEL_FULL = 5
+INSTALLUILEVEL_ENDDIALOG = 128
+INSTALLUILEVEL_PROGRESSONLY = 64
+INSTALLUILEVEL_HIDECANCEL = 32
+INSTALLUILEVEL_SOURCERESONLY = 256
+INSTALLUILEVEL_UACONLY = 512
+def _define_IPMApplicationInfo_head():
+    class IPMApplicationInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('50afb58a-438c-4088-97-89-f8-c4-89-98-29-c7')
+    return IPMApplicationInfo
+def _define_IPMApplicationInfo():
+    IPMApplicationInfo = win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head
+    IPMApplicationInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_ProductID', ((1, 'pProductID'),)))
+    IPMApplicationInfo.get_InstanceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(4, 'get_InstanceID', ((1, 'pInstanceID'),)))
+    IPMApplicationInfo.get_OfferID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'get_OfferID', ((1, 'pOfferID'),)))
+    IPMApplicationInfo.get_DefaultTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_DefaultTask', ((1, 'pDefaultTask'),)))
+    IPMApplicationInfo.get_AppTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_AppTitle', ((1, 'pAppTitle'),)))
+    IPMApplicationInfo.get_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_IconPath', ((1, 'pAppIconPath'),)))
+    IPMApplicationInfo.get_NotificationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'get_NotificationState', ((1, 'pIsNotified'),)))
+    IPMApplicationInfo.get_AppInstallType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_INSTALL_TYPE))(10, 'get_AppInstallType', ((1, 'pAppInstallType'),)))
+    IPMApplicationInfo.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE))(11, 'get_State', ((1, 'pState'),)))
+    IPMApplicationInfo.get_IsRevoked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'get_IsRevoked', ((1, 'pIsRevoked'),)))
+    IPMApplicationInfo.get_UpdateAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(13, 'get_UpdateAvailable', ((1, 'pIsUpdateAvailable'),)))
+    IPMApplicationInfo.get_InstallDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(14, 'get_InstallDate', ((1, 'pInstallDate'),)))
+    IPMApplicationInfo.get_IsUninstallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(15, 'get_IsUninstallable', ((1, 'pIsUninstallable'),)))
+    IPMApplicationInfo.get_IsThemable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(16, 'get_IsThemable', ((1, 'pIsThemable'),)))
+    IPMApplicationInfo.get_IsTrial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(17, 'get_IsTrial', ((1, 'pIsTrial'),)))
+    IPMApplicationInfo.get_InstallPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_InstallPath', ((1, 'pInstallPath'),)))
+    IPMApplicationInfo.get_DataRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_DataRoot', ((1, 'pDataRoot'),)))
+    IPMApplicationInfo.get_Genre = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APP_GENRE))(20, 'get_Genre', ((1, 'pGenre'),)))
+    IPMApplicationInfo.get_Publisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(21, 'get_Publisher', ((1, 'pPublisher'),)))
+    IPMApplicationInfo.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_Author', ((1, 'pAuthor'),)))
+    IPMApplicationInfo.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_Description', ((1, 'pDescription'),)))
+    IPMApplicationInfo.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(24, 'get_Version', ((1, 'pVersion'),)))
+    IPMApplicationInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(25, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    IPMApplicationInfo.get_AppPlatMajorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(26, 'get_AppPlatMajorVersion', ((1, 'pMajorVer'),)))
+    IPMApplicationInfo.get_AppPlatMinorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(27, 'get_AppPlatMinorVersion', ((1, 'pMinorVer'),)))
+    IPMApplicationInfo.get_PublisherID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(28, 'get_PublisherID', ((1, 'pPublisherID'),)))
+    IPMApplicationInfo.get_IsMultiCore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(29, 'get_IsMultiCore', ((1, 'pIsMultiCore'),)))
+    IPMApplicationInfo.get_SID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(30, 'get_SID', ((1, 'pSID'),)))
+    IPMApplicationInfo.get_AppPlatMajorVersionLightUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(31, 'get_AppPlatMajorVersionLightUp', ((1, 'pMajorVer'),)))
+    IPMApplicationInfo.get_AppPlatMinorVersionLightUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(32, 'get_AppPlatMinorVersionLightUp', ((1, 'pMinorVer'),)))
+    IPMApplicationInfo.set_UpdateAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(33, 'set_UpdateAvailable', ((1, 'IsUpdateAvailable'),)))
+    IPMApplicationInfo.set_NotificationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(34, 'set_NotificationState', ((1, 'IsNotified'),)))
+    IPMApplicationInfo.set_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(35, 'set_IconPath', ((1, 'AppIconPath'),)))
+    IPMApplicationInfo.set_UninstallableState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(36, 'set_UninstallableState', ((1, 'IsUninstallable'),)))
+    IPMApplicationInfo.get_IsPinableOnKidZone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(37, 'get_IsPinableOnKidZone', ((1, 'pIsPinable'),)))
+    IPMApplicationInfo.get_IsOriginallyPreInstalled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(38, 'get_IsOriginallyPreInstalled', ((1, 'pIsPreinstalled'),)))
+    IPMApplicationInfo.get_IsInstallOnSD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(39, 'get_IsInstallOnSD', ((1, 'pIsInstallOnSD'),)))
+    IPMApplicationInfo.get_IsOptoutOnSD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(40, 'get_IsOptoutOnSD', ((1, 'pIsOptoutOnSD'),)))
+    IPMApplicationInfo.get_IsOptoutBackupRestore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(41, 'get_IsOptoutBackupRestore', ((1, 'pIsOptoutBackupRestore'),)))
+    IPMApplicationInfo.set_EnterpriseDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(42, 'set_EnterpriseDisabled', ((1, 'IsDisabled'),)))
+    IPMApplicationInfo.set_EnterpriseUninstallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(43, 'set_EnterpriseUninstallable', ((1, 'IsUninstallable'),)))
+    IPMApplicationInfo.get_EnterpriseDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(44, 'get_EnterpriseDisabled', ((1, 'IsDisabled'),)))
+    IPMApplicationInfo.get_EnterpriseUninstallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(45, 'get_EnterpriseUninstallable', ((1, 'IsUninstallable'),)))
+    IPMApplicationInfo.get_IsVisibleOnAppList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(46, 'get_IsVisibleOnAppList', ((1, 'pIsVisible'),)))
+    IPMApplicationInfo.get_IsInboxApp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(47, 'get_IsInboxApp', ((1, 'pIsInboxApp'),)))
+    IPMApplicationInfo.get_StorageID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(48, 'get_StorageID', ((1, 'pStorageID'),)))
+    IPMApplicationInfo.get_StartAppBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head))(49, 'get_StartAppBlob', ((1, 'pBlob'),)))
+    IPMApplicationInfo.get_IsMovable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(50, 'get_IsMovable', ((1, 'pIsMovable'),)))
+    IPMApplicationInfo.get_DeploymentAppEnumerationHubFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE))(51, 'get_DeploymentAppEnumerationHubFilter', ((1, 'HubType'),)))
+    IPMApplicationInfo.get_ModifiedDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(52, 'get_ModifiedDate', ((1, 'pModifiedDate'),)))
+    IPMApplicationInfo.get_IsOriginallyRestored = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(53, 'get_IsOriginallyRestored', ((1, 'pIsRestored'),)))
+    IPMApplicationInfo.get_ShouldDeferMdilBind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(54, 'get_ShouldDeferMdilBind', ((1, 'pfDeferMdilBind'),)))
+    IPMApplicationInfo.get_IsFullyPreInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(55, 'get_IsFullyPreInstall', ((1, 'pfIsFullyPreInstall'),)))
+    IPMApplicationInfo.set_IsMdilMaintenanceNeeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(56, 'set_IsMdilMaintenanceNeeded', ((1, 'fIsMdilMaintenanceNeeded'),)))
+    IPMApplicationInfo.set_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(57, 'set_Title', ((1, 'AppTitle'),)))
+    win32more.System.Com.IUnknown
+    return IPMApplicationInfo
+def _define_IPMApplicationInfoEnumerator_head():
+    class IPMApplicationInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0ec42a96-4d46-4dc6-a3-d9-a7-ac-aa-c0-f5-fa')
+    return IPMApplicationInfoEnumerator
+def _define_IPMApplicationInfoEnumerator():
+    IPMApplicationInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfoEnumerator_head
+    IPMApplicationInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head))(3, 'get_Next', ((1, 'ppAppInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMApplicationInfoEnumerator
+def _define_IPMBackgroundServiceAgentInfo_head():
+    class IPMBackgroundServiceAgentInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('3a8b46da-928c-4879-99-8c-09-dc-96-f3-d4-90')
+    return IPMBackgroundServiceAgentInfo
+def _define_IPMBackgroundServiceAgentInfo():
+    IPMBackgroundServiceAgentInfo = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head
+    IPMBackgroundServiceAgentInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_ProductID', ((1, 'pProductID'),)))
+    IPMBackgroundServiceAgentInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_TaskID', ((1, 'pTaskID'),)))
+    IPMBackgroundServiceAgentInfo.get_BSAID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'get_BSAID', ((1, 'pBSAID'),)))
+    IPMBackgroundServiceAgentInfo.get_BGSpecifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_BGSpecifier', ((1, 'pBGSpecifier'),)))
+    IPMBackgroundServiceAgentInfo.get_BGName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_BGName', ((1, 'pBGName'),)))
+    IPMBackgroundServiceAgentInfo.get_BGSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_BGSource', ((1, 'pBGSource'),)))
+    IPMBackgroundServiceAgentInfo.get_BGType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_BGType', ((1, 'pBGType'),)))
+    IPMBackgroundServiceAgentInfo.get_IsPeriodic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'get_IsPeriodic', ((1, 'pIsPeriodic'),)))
+    IPMBackgroundServiceAgentInfo.get_IsScheduled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(11, 'get_IsScheduled', ((1, 'pIsScheduled'),)))
+    IPMBackgroundServiceAgentInfo.get_IsScheduleAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'get_IsScheduleAllowed', ((1, 'pIsScheduleAllowed'),)))
+    IPMBackgroundServiceAgentInfo.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_Description', ((1, 'pDescription'),)))
+    IPMBackgroundServiceAgentInfo.get_IsLaunchOnBoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(14, 'get_IsLaunchOnBoot', ((1, 'pLaunchOnBoot'),)))
+    IPMBackgroundServiceAgentInfo.set_IsScheduled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(15, 'set_IsScheduled', ((1, 'IsScheduled'),)))
+    IPMBackgroundServiceAgentInfo.set_IsScheduleAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(16, 'set_IsScheduleAllowed', ((1, 'IsScheduleAllowed'),)))
+    win32more.System.Com.IUnknown
+    return IPMBackgroundServiceAgentInfo
+def _define_IPMBackgroundServiceAgentInfoEnumerator_head():
+    class IPMBackgroundServiceAgentInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('18eb2072-ab56-43b3-87-2c-be-af-b7-a6-b3-91')
+    return IPMBackgroundServiceAgentInfoEnumerator
+def _define_IPMBackgroundServiceAgentInfoEnumerator():
+    IPMBackgroundServiceAgentInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfoEnumerator_head
+    IPMBackgroundServiceAgentInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head))(3, 'get_Next', ((1, 'ppBSAInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMBackgroundServiceAgentInfoEnumerator
+def _define_IPMBackgroundWorkerInfo_head():
+    class IPMBackgroundWorkerInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('7dd4531b-d3bf-4b6b-94-f3-69-c0-98-b1-49-7d')
+    return IPMBackgroundWorkerInfo
+def _define_IPMBackgroundWorkerInfo():
+    IPMBackgroundWorkerInfo = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfo_head
+    IPMBackgroundWorkerInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_ProductID', ((1, 'pProductID'),)))
+    IPMBackgroundWorkerInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_TaskID', ((1, 'pTaskID'),)))
+    IPMBackgroundWorkerInfo.get_BGName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_BGName', ((1, 'pBGName'),)))
+    IPMBackgroundWorkerInfo.get_MaxStartupLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'get_MaxStartupLatency', ((1, 'pMaxStartupLatency'),)))
+    IPMBackgroundWorkerInfo.get_ExpectedRuntime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(7, 'get_ExpectedRuntime', ((1, 'pExpectedRuntime'),)))
+    IPMBackgroundWorkerInfo.get_IsBootWorker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_IsBootWorker', ((1, 'pIsBootWorker'),)))
+    win32more.System.Com.IUnknown
+    return IPMBackgroundWorkerInfo
+def _define_IPMBackgroundWorkerInfoEnumerator_head():
+    class IPMBackgroundWorkerInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('87f479f8-90d8-4ec7-92-b9-72-78-7e-2f-63-6b')
+    return IPMBackgroundWorkerInfoEnumerator
+def _define_IPMBackgroundWorkerInfoEnumerator():
+    IPMBackgroundWorkerInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfoEnumerator_head
+    IPMBackgroundWorkerInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfo_head))(3, 'get_Next', ((1, 'ppBWInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMBackgroundWorkerInfoEnumerator
+def _define_IPMDeploymentManager_head():
+    class IPMDeploymentManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('35f785fa-1979-4a8b-bc-8f-fd-70-eb-0d-15-44')
+    return IPMDeploymentManager
+def _define_IPMDeploymentManager():
+    IPMDeploymentManager = win32more.System.ApplicationInstallationAndServicing.IPMDeploymentManager_head
+    IPMDeploymentManager.ReportDownloadBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(3, 'ReportDownloadBegin', ((1, 'productID'),)))
+    IPMDeploymentManager.ReportDownloadProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt16)(4, 'ReportDownloadProgress', ((1, 'productID'),(1, 'usProgress'),)))
+    IPMDeploymentManager.ReportDownloadComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.HRESULT)(5, 'ReportDownloadComplete', ((1, 'productID'),(1, 'hrResult'),)))
+    IPMDeploymentManager.BeginInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head))(6, 'BeginInstall', ((1, 'pInstallInfo'),)))
+    IPMDeploymentManager.BeginUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head))(7, 'BeginUpdate', ((1, 'pUpdateInfo'),)))
+    IPMDeploymentManager.BeginDeployPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head))(8, 'BeginDeployPackage', ((1, 'pInstallInfo'),)))
+    IPMDeploymentManager.BeginUpdateDeployedPackageLegacy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_LEGACY_head))(9, 'BeginUpdateDeployedPackageLegacy', ((1, 'pUpdateInfo'),)))
+    IPMDeploymentManager.BeginUninstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(10, 'BeginUninstall', ((1, 'productID'),)))
+    IPMDeploymentManager.BeginEnterpriseAppInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head))(11, 'BeginEnterpriseAppInstall', ((1, 'pInstallInfo'),)))
+    IPMDeploymentManager.BeginEnterpriseAppUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head))(12, 'BeginEnterpriseAppUpdate', ((1, 'pUpdateInfo'),)))
+    IPMDeploymentManager.BeginUpdateLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid,c_char_p_no,UInt32)(13, 'BeginUpdateLicense', ((1, 'productID'),(1, 'offerID'),(1, 'pbLicense'),(1, 'cbLicense'),)))
+    IPMDeploymentManager.GetLicenseChallenge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32))(14, 'GetLicenseChallenge', ((1, 'PackagePath'),(1, 'ppbChallenge'),(1, 'pcbChallenge'),(1, 'ppbKID'),(1, 'pcbKID'),(1, 'ppbDeviceID'),(1, 'pcbDeviceID'),(1, 'ppbSaltValue'),(1, 'pcbSaltValue'),(1, 'ppbKGVValue'),(1, 'pcbKGVValue'),)))
+    IPMDeploymentManager.GetLicenseChallengeByProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(c_char_p_no),POINTER(UInt32))(15, 'GetLicenseChallengeByProductID', ((1, 'ProductID'),(1, 'ppbChallenge'),(1, 'pcbLicense'),)))
+    IPMDeploymentManager.GetLicenseChallengeByProductID2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32))(16, 'GetLicenseChallengeByProductID2', ((1, 'ProductID'),(1, 'ppbChallenge'),(1, 'pcbLicense'),(1, 'ppbKID'),(1, 'pcbKID'),(1, 'ppbDeviceID'),(1, 'pcbDeviceID'),(1, 'ppbSaltValue'),(1, 'pcbSaltValue'),(1, 'ppbKGVValue'),(1, 'pcbKGVValue'),)))
+    IPMDeploymentManager.RevokeLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(17, 'RevokeLicense', ((1, 'productID'),)))
+    IPMDeploymentManager.RebindMdilBinaries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.SAFEARRAY_head))(18, 'RebindMdilBinaries', ((1, 'ProductID'),(1, 'FileNames'),)))
+    IPMDeploymentManager.RebindAllMdilBinaries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid)(19, 'RebindAllMdilBinaries', ((1, 'ProductID'),(1, 'InstanceID'),)))
+    IPMDeploymentManager.RegenerateXbf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.SAFEARRAY_head))(20, 'RegenerateXbf', ((1, 'ProductID'),(1, 'AssemblyPaths'),)))
+    IPMDeploymentManager.GenerateXbfForCurrentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(21, 'GenerateXbfForCurrentLocale', ((1, 'ProductID'),)))
+    IPMDeploymentManager.BeginProvision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR)(22, 'BeginProvision', ((1, 'ProductID'),(1, 'XMLpath'),)))
+    IPMDeploymentManager.BeginDeprovision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(23, 'BeginDeprovision', ((1, 'ProductID'),)))
+    IPMDeploymentManager.ReindexSQLCEDatabases = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(24, 'ReindexSQLCEDatabases', ((1, 'ProductID'),)))
+    IPMDeploymentManager.SetApplicationsNeedMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32))(25, 'SetApplicationsNeedMaintenance', ((1, 'RequiredMaintenanceOperations'),(1, 'pcApplications'),)))
+    IPMDeploymentManager.UpdateChamberProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(26, 'UpdateChamberProfile', ((1, 'ProductID'),)))
+    IPMDeploymentManager.EnterprisePolicyIsApplicationAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(27, 'EnterprisePolicyIsApplicationAllowed', ((1, 'productId'),(1, 'publisherName'),(1, 'pIsAllowed'),)))
+    IPMDeploymentManager.BeginUpdateDeployedPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head))(28, 'BeginUpdateDeployedPackage', ((1, 'pUpdateInfo'),)))
+    IPMDeploymentManager.ReportRestoreCancelled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(29, 'ReportRestoreCancelled', ((1, 'productID'),)))
+    IPMDeploymentManager.ResolveResourceString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BSTR))(30, 'ResolveResourceString', ((1, 'resourceString'),(1, 'pResolvedResourceString'),)))
+    IPMDeploymentManager.UpdateCapabilitiesForModernApps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(31, 'UpdateCapabilitiesForModernApps', ()))
+    IPMDeploymentManager.ReportDownloadStatusUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(32, 'ReportDownloadStatusUpdate', ((1, 'productId'),)))
+    IPMDeploymentManager.BeginUninstallWithOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32)(33, 'BeginUninstallWithOptions', ((1, 'productID'),(1, 'removalOptions'),)))
+    IPMDeploymentManager.BindDeferredMdilBinaries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(34, 'BindDeferredMdilBinaries', ()))
+    IPMDeploymentManager.GenerateXamlLightupXbfForCurrentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(35, 'GenerateXamlLightupXbfForCurrentLocale', ((1, 'PackageFamilyName'),)))
+    IPMDeploymentManager.AddLicenseForAppx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,c_char_p_no,UInt32,c_char_p_no,UInt32)(36, 'AddLicenseForAppx', ((1, 'productID'),(1, 'pbLicense'),(1, 'cbLicense'),(1, 'pbPlayReadyHeader'),(1, 'cbPlayReadyHeader'),)))
+    IPMDeploymentManager.FixJunctionsForAppsOnSDCard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(37, 'FixJunctionsForAppsOnSDCard', ()))
+    win32more.System.Com.IUnknown
+    return IPMDeploymentManager
+def _define_IPMEnumerationManager_head():
+    class IPMEnumerationManager(win32more.System.Com.IUnknown_head):
+        Guid = Guid('698d57c2-292d-4cf3-b7-3c-d9-5a-69-22-ed-9a')
+    return IPMEnumerationManager
+def _define_IPMEnumerationManager():
+    IPMEnumerationManager = win32more.System.ApplicationInstallationAndServicing.IPMEnumerationManager_head
+    IPMEnumerationManager.get_AllApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER)(3, 'get_AllApplications', ((1, 'ppAppEnum'),(1, 'Filter'),)))
+    IPMEnumerationManager.get_AllTiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER)(4, 'get_AllTiles', ((1, 'ppTileEnum'),(1, 'Filter'),)))
+    IPMEnumerationManager.get_AllTasks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER)(5, 'get_AllTasks', ((1, 'ppTaskEnum'),(1, 'Filter'),)))
+    IPMEnumerationManager.get_AllExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER)(6, 'get_AllExtensions', ((1, 'ppExtensionEnum'),(1, 'Filter'),)))
+    IPMEnumerationManager.get_AllBackgroundServiceAgents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER)(7, 'get_AllBackgroundServiceAgents', ((1, 'ppBSAEnum'),(1, 'Filter'),)))
+    IPMEnumerationManager.get_AllBackgroundWorkers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER)(8, 'get_AllBackgroundWorkers', ((1, 'ppBSWEnum'),(1, 'Filter'),)))
+    IPMEnumerationManager.get_ApplicationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head))(9, 'get_ApplicationInfo', ((1, 'ProductID'),(1, 'ppAppInfo'),)))
+    IPMEnumerationManager.get_TileInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head))(10, 'get_TileInfo', ((1, 'ProductID'),(1, 'TileID'),(1, 'ppTileInfo'),)))
+    IPMEnumerationManager.get_TaskInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head))(11, 'get_TaskInfo', ((1, 'ProductID'),(1, 'TaskID'),(1, 'ppTaskInfo'),)))
+    IPMEnumerationManager.get_TaskInfoEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head))(12, 'get_TaskInfoEx', ((1, 'ProductID'),(1, 'TaskID'),(1, 'ppTaskInfo'),)))
+    IPMEnumerationManager.get_BackgroundServiceAgentInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head))(13, 'get_BackgroundServiceAgentInfo', ((1, 'BSAID'),(1, 'ppTaskInfo'),)))
+    IPMEnumerationManager.get_AllLiveTileJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfoEnumerator_head))(14, 'get_AllLiveTileJobs', ((1, 'ppLiveTileJobEnum'),)))
+    IPMEnumerationManager.get_LiveTileJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,win32more.System.ApplicationInstallationAndServicing.PM_LIVETILE_RECURRENCE_TYPE,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head))(15, 'get_LiveTileJob', ((1, 'ProductID'),(1, 'TileID'),(1, 'RecurrenceType'),(1, 'ppLiveTileJobInfo'),)))
+    IPMEnumerationManager.get_ApplicationInfoExternal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head))(16, 'get_ApplicationInfoExternal', ((1, 'ProductID'),(1, 'ppAppInfo'),)))
+    IPMEnumerationManager.get_FileHandlerGenericLogo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE,POINTER(win32more.Foundation.BSTR))(17, 'get_FileHandlerGenericLogo', ((1, 'FileType'),(1, 'LogoSize'),(1, 'pLogo'),)))
+    IPMEnumerationManager.get_ApplicationInfoFromAccessClaims = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head))(18, 'get_ApplicationInfoFromAccessClaims', ((1, 'SysAppID0'),(1, 'SysAppID1'),(1, 'ppAppInfo'),)))
+    IPMEnumerationManager.get_StartTileEnumeratorBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head)))(19, 'get_StartTileEnumeratorBlob', ((1, 'Filter'),(1, 'pcTiles'),(1, 'ppTileBlobs'),)))
+    IPMEnumerationManager.get_StartAppEnumeratorBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head)))(20, 'get_StartAppEnumeratorBlob', ((1, 'Filter'),(1, 'pcApps'),(1, 'ppAppBlobs'),)))
+    win32more.System.Com.IUnknown
+    return IPMEnumerationManager
+def _define_IPMExtensionCachedFileUpdaterInfo_head():
+    class IPMExtensionCachedFileUpdaterInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e2d77509-4e58-4ba9-af-7e-b6-42-e3-70-e1-b0')
+    return IPMExtensionCachedFileUpdaterInfo
+def _define_IPMExtensionCachedFileUpdaterInfo():
+    IPMExtensionCachedFileUpdaterInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionCachedFileUpdaterInfo_head
+    IPMExtensionCachedFileUpdaterInfo.get_SupportsUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'get_SupportsUpdates', ((1, 'pSupportsUpdates'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionCachedFileUpdaterInfo
+def _define_IPMExtensionContractInfo_head():
+    class IPMExtensionContractInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e5666373-7ba1-467c-b8-19-b1-75-db-1c-29-5b')
+    return IPMExtensionContractInfo
+def _define_IPMExtensionContractInfo():
+    IPMExtensionContractInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionContractInfo_head
+    IPMExtensionContractInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(3, 'get_InvocationInfo', ((1, 'pAUMID'),(1, 'pArgs'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionContractInfo
+def _define_IPMExtensionFileExtensionInfo_head():
+    class IPMExtensionFileExtensionInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6b87cb6c-0b88-4989-a4-ec-03-37-14-f7-10-d4')
+    return IPMExtensionFileExtensionInfo
+def _define_IPMExtensionFileExtensionInfo():
+    IPMExtensionFileExtensionInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileExtensionInfo_head
+    IPMExtensionFileExtensionInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_Name', ((1, 'pName'),)))
+    IPMExtensionFileExtensionInfo.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_DisplayName', ((1, 'pDisplayName'),)))
+    IPMExtensionFileExtensionInfo.get_Logo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE,POINTER(win32more.Foundation.BSTR))(5, 'get_Logo', ((1, 'LogoSize'),(1, 'pLogo'),)))
+    IPMExtensionFileExtensionInfo.get_ContentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(6, 'get_ContentType', ((1, 'FileType'),(1, 'pContentType'),)))
+    IPMExtensionFileExtensionInfo.get_FileType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(7, 'get_FileType', ((1, 'ContentType'),(1, 'pFileType'),)))
+    IPMExtensionFileExtensionInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(8, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    IPMExtensionFileExtensionInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)))(9, 'get_AllFileTypes', ((1, 'pcbTypes'),(1, 'ppTypes'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionFileExtensionInfo
+def _define_IPMExtensionFileOpenPickerInfo_head():
+    class IPMExtensionFileOpenPickerInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6dc91d25-9606-420c-9a-78-e0-34-a3-41-83-45')
+    return IPMExtensionFileOpenPickerInfo
+def _define_IPMExtensionFileOpenPickerInfo():
+    IPMExtensionFileOpenPickerInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileOpenPickerInfo_head
+    IPMExtensionFileOpenPickerInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)))(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
+    IPMExtensionFileOpenPickerInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionFileOpenPickerInfo
+def _define_IPMExtensionFileSavePickerInfo_head():
+    class IPMExtensionFileSavePickerInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('38005cba-f81a-493e-a0-f8-92-2c-86-80-da-43')
+    return IPMExtensionFileSavePickerInfo
+def _define_IPMExtensionFileSavePickerInfo():
+    IPMExtensionFileSavePickerInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileSavePickerInfo_head
+    IPMExtensionFileSavePickerInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)))(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
+    IPMExtensionFileSavePickerInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionFileSavePickerInfo
+def _define_IPMExtensionInfo_head():
+    class IPMExtensionInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('49acde79-9788-4d0a-8a-a0-17-46-af-db-9e-9d')
+    return IPMExtensionInfo
+def _define_IPMExtensionInfo():
+    IPMExtensionInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfo_head
+    IPMExtensionInfo.get_SupplierPID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_SupplierPID', ((1, 'pSupplierPID'),)))
+    IPMExtensionInfo.get_SupplierTaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_SupplierTaskID', ((1, 'pSupplierTID'),)))
+    IPMExtensionInfo.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_Title', ((1, 'pTitle'),)))
+    IPMExtensionInfo.get_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_IconPath', ((1, 'pIconPath'),)))
+    IPMExtensionInfo.get_ExtraFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_ExtraFile', ((1, 'pFilePath'),)))
+    IPMExtensionInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(8, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionInfo
+def _define_IPMExtensionInfoEnumerator_head():
+    class IPMExtensionInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('403b9e82-1171-4573-8e-6f-6f-33-f3-9b-83-dd')
+    return IPMExtensionInfoEnumerator
+def _define_IPMExtensionInfoEnumerator():
+    IPMExtensionInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfoEnumerator_head
+    IPMExtensionInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfo_head))(3, 'get_Next', ((1, 'ppExtensionInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionInfoEnumerator
+def _define_IPMExtensionProtocolInfo_head():
+    class IPMExtensionProtocolInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1e3fa036-51eb-4453-ba-ff-b8-d8-e4-b4-6c-8e')
+    return IPMExtensionProtocolInfo
+def _define_IPMExtensionProtocolInfo():
+    IPMExtensionProtocolInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionProtocolInfo_head
+    IPMExtensionProtocolInfo.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_Protocol', ((1, 'pProtocol'),)))
+    IPMExtensionProtocolInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(4, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionProtocolInfo
+def _define_IPMExtensionShareTargetInfo_head():
+    class IPMExtensionShareTargetInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5471f48b-c65c-4656-8c-70-24-2e-31-19-5f-ea')
+    return IPMExtensionShareTargetInfo
+def _define_IPMExtensionShareTargetInfo():
+    IPMExtensionShareTargetInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionShareTargetInfo_head
+    IPMExtensionShareTargetInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)))(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
+    IPMExtensionShareTargetInfo.get_AllDataFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)))(4, 'get_AllDataFormats', ((1, 'pcDataFormats'),(1, 'ppDataFormats'),)))
+    IPMExtensionShareTargetInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
+    win32more.System.Com.IUnknown
+    return IPMExtensionShareTargetInfo
+def _define_IPMLiveTileJobInfo_head():
+    class IPMLiveTileJobInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6009a81f-4710-4697-b5-f6-22-08-f6-05-7b-8e')
+    return IPMLiveTileJobInfo
+def _define_IPMLiveTileJobInfo():
+    IPMLiveTileJobInfo = win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head
+    IPMLiveTileJobInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_ProductID', ((1, 'pProductID'),)))
+    IPMLiveTileJobInfo.get_TileID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_TileID', ((1, 'pTileID'),)))
+    IPMLiveTileJobInfo.get_NextSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(5, 'get_NextSchedule', ((1, 'pNextSchedule'),)))
+    IPMLiveTileJobInfo.set_NextSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.FILETIME)(6, 'set_NextSchedule', ((1, 'ftNextSchedule'),)))
+    IPMLiveTileJobInfo.get_StartSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(7, 'get_StartSchedule', ((1, 'pStartSchedule'),)))
+    IPMLiveTileJobInfo.set_StartSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.FILETIME)(8, 'set_StartSchedule', ((1, 'ftStartSchedule'),)))
+    IPMLiveTileJobInfo.get_IntervalDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(9, 'get_IntervalDuration', ((1, 'pIntervalDuration'),)))
+    IPMLiveTileJobInfo.set_IntervalDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(10, 'set_IntervalDuration', ((1, 'ulIntervalDuration'),)))
+    IPMLiveTileJobInfo.get_RunForever = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(11, 'get_RunForever', ((1, 'IsRunForever'),)))
+    IPMLiveTileJobInfo.set_RunForever = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(12, 'set_RunForever', ((1, 'fRunForever'),)))
+    IPMLiveTileJobInfo.get_MaxRunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(13, 'get_MaxRunCount', ((1, 'pMaxRunCount'),)))
+    IPMLiveTileJobInfo.set_MaxRunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(14, 'set_MaxRunCount', ((1, 'ulMaxRunCount'),)))
+    IPMLiveTileJobInfo.get_RunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(15, 'get_RunCount', ((1, 'pRunCount'),)))
+    IPMLiveTileJobInfo.set_RunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(16, 'set_RunCount', ((1, 'ulRunCount'),)))
+    IPMLiveTileJobInfo.get_RecurrenceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(17, 'get_RecurrenceType', ((1, 'pRecurrenceType'),)))
+    IPMLiveTileJobInfo.set_RecurrenceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(18, 'set_RecurrenceType', ((1, 'ulRecurrenceType'),)))
+    IPMLiveTileJobInfo.get_TileXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32))(19, 'get_TileXML', ((1, 'pTileXml'),(1, 'pcbTileXml'),)))
+    IPMLiveTileJobInfo.set_TileXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(20, 'set_TileXML', ((1, 'pTileXml'),(1, 'cbTileXml'),)))
+    IPMLiveTileJobInfo.get_UrlXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32))(21, 'get_UrlXML', ((1, 'pUrlXML'),(1, 'pcbUrlXML'),)))
+    IPMLiveTileJobInfo.set_UrlXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(22, 'set_UrlXML', ((1, 'pUrlXML'),(1, 'cbUrlXML'),)))
+    IPMLiveTileJobInfo.get_AttemptCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(23, 'get_AttemptCount', ((1, 'pAttemptCount'),)))
+    IPMLiveTileJobInfo.set_AttemptCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(24, 'set_AttemptCount', ((1, 'ulAttemptCount'),)))
+    IPMLiveTileJobInfo.get_DownloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(25, 'get_DownloadState', ((1, 'pDownloadState'),)))
+    IPMLiveTileJobInfo.set_DownloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(26, 'set_DownloadState', ((1, 'ulDownloadState'),)))
+    win32more.System.Com.IUnknown
+    return IPMLiveTileJobInfo
+def _define_IPMLiveTileJobInfoEnumerator_head():
+    class IPMLiveTileJobInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bc042582-9415-4f36-9f-99-06-f1-04-c0-7c-03')
+    return IPMLiveTileJobInfoEnumerator
+def _define_IPMLiveTileJobInfoEnumerator():
+    IPMLiveTileJobInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfoEnumerator_head
+    IPMLiveTileJobInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head))(3, 'get_Next', ((1, 'ppLiveTileJobInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMLiveTileJobInfoEnumerator
+def _define_IPMTaskInfo_head():
+    class IPMTaskInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bf1d8c33-1bf5-4ee0-b5-49-6b-9d-d3-83-49-42')
+    return IPMTaskInfo
+def _define_IPMTaskInfo():
+    IPMTaskInfo = win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head
+    IPMTaskInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_ProductID', ((1, 'pProductID'),)))
+    IPMTaskInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_TaskID', ((1, 'pTaskID'),)))
+    IPMTaskInfo.get_NavigationPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_NavigationPage', ((1, 'pNavigationPage'),)))
+    IPMTaskInfo.get_TaskTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TASK_TRANSITION))(6, 'get_TaskTransition', ((1, 'pTaskTransition'),)))
+    IPMTaskInfo.get_RuntimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PACKMAN_RUNTIME))(7, 'get_RuntimeType', ((1, 'pRuntimetype'),)))
+    IPMTaskInfo.get_ActivationPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_ACTIVATION_POLICY))(8, 'get_ActivationPolicy', ((1, 'pActivationPolicy'),)))
+    IPMTaskInfo.get_TaskType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE))(9, 'get_TaskType', ((1, 'pTaskType'),)))
+    IPMTaskInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(10, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    IPMTaskInfo.get_ImagePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_ImagePath', ((1, 'pImagePath'),)))
+    IPMTaskInfo.get_ImageParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_ImageParams', ((1, 'pImageParams'),)))
+    IPMTaskInfo.get_InstallRootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_InstallRootFolder', ((1, 'pInstallRootFolder'),)))
+    IPMTaskInfo.get_DataRootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_DataRootFolder', ((1, 'pDataRootFolder'),)))
+    IPMTaskInfo.get_IsSingleInstanceHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(15, 'get_IsSingleInstanceHost', ((1, 'pIsSingleInstanceHost'),)))
+    IPMTaskInfo.get_IsInteropEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(16, 'get_IsInteropEnabled', ((1, 'pIsInteropEnabled'),)))
+    IPMTaskInfo.get_ApplicationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE))(17, 'get_ApplicationState', ((1, 'pApplicationState'),)))
+    IPMTaskInfo.get_InstallType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_INSTALL_TYPE))(18, 'get_InstallType', ((1, 'pInstallType'),)))
+    IPMTaskInfo.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no)(19, 'get_Version', ((1, 'pTargetMajorVersion'),(1, 'pTargetMinorVersion'),)))
+    IPMTaskInfo.get_BitsPerPixel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(20, 'get_BitsPerPixel', ((1, 'pBitsPerPixel'),)))
+    IPMTaskInfo.get_SuppressesDehydration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(21, 'get_SuppressesDehydration', ((1, 'pSuppressesDehydration'),)))
+    IPMTaskInfo.get_BackgroundExecutionAbilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_BackgroundExecutionAbilities', ((1, 'pBackgroundExecutionAbilities'),)))
+    IPMTaskInfo.get_IsOptedForExtendedMem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(23, 'get_IsOptedForExtendedMem', ((1, 'pIsOptedIn'),)))
+    win32more.System.Com.IUnknown
+    return IPMTaskInfo
+def _define_IPMTaskInfoEnumerator_head():
+    class IPMTaskInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('0630b0f8-0bbc-4821-be-74-c7-99-51-66-ed-2a')
+    return IPMTaskInfoEnumerator
+def _define_IPMTaskInfoEnumerator():
+    IPMTaskInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTaskInfoEnumerator_head
+    IPMTaskInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head))(3, 'get_Next', ((1, 'ppTaskInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMTaskInfoEnumerator
+def _define_IPMTileInfo_head():
+    class IPMTileInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('d1604833-2b08-4001-82-cd-18-3a-d7-34-f7-52')
+    return IPMTileInfo
+def _define_IPMTileInfo():
+    IPMTileInfo = win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head
+    IPMTileInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'get_ProductID', ((1, 'pProductID'),)))
+    IPMTileInfo.get_TileID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_TileID', ((1, 'pTileID'),)))
+    IPMTileInfo.get_TemplateType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.TILE_TEMPLATE_TYPE))(5, 'get_TemplateType', ((1, 'pTemplateType'),)))
+    IPMTileInfo.get_HubPinnedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,POINTER(win32more.Foundation.BOOL))(6, 'get_HubPinnedState', ((1, 'HubType'),(1, 'pPinned'),)))
+    IPMTileInfo.get_HubPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,POINTER(UInt32))(7, 'get_HubPosition', ((1, 'HubType'),(1, 'pPosition'),)))
+    IPMTileInfo.get_IsNotified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_IsNotified', ((1, 'pIsNotified'),)))
+    IPMTileInfo.get_IsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'get_IsDefault', ((1, 'pIsDefault'),)))
+    IPMTileInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_TaskID', ((1, 'pTaskID'),)))
+    IPMTileInfo.get_TileType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILE_TYPE))(11, 'get_TileType', ((1, 'pStartTileType'),)))
+    IPMTileInfo.get_IsThemable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'get_IsThemable', ((1, 'pIsThemable'),)))
+    IPMTileInfo.get_PropertyById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head))(13, 'get_PropertyById', ((1, 'PropID'),(1, 'ppPropInfo'),)))
+    IPMTileInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR))(14, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    IPMTileInfo.get_PropertyEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyEnumerator_head))(15, 'get_PropertyEnum', ((1, 'ppTilePropEnum'),)))
+    IPMTileInfo.get_HubTileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TILE_SIZE))(16, 'get_HubTileSize', ((1, 'HubType'),(1, 'pSize'),)))
+    IPMTileInfo.set_HubPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,UInt32)(17, 'set_HubPosition', ((1, 'HubType'),(1, 'Position'),)))
+    IPMTileInfo.set_NotifiedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(18, 'set_NotifiedState', ((1, 'Notified'),)))
+    IPMTileInfo.set_HubPinnedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,win32more.Foundation.BOOL)(19, 'set_HubPinnedState', ((1, 'HubType'),(1, 'Pinned'),)))
+    IPMTileInfo.set_HubTileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,win32more.System.ApplicationInstallationAndServicing.PM_TILE_SIZE)(20, 'set_HubTileSize', ((1, 'HubType'),(1, 'Size'),)))
+    IPMTileInfo.set_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(21, 'set_InvocationInfo', ((1, 'TaskName'),(1, 'TaskParameters'),)))
+    IPMTileInfo.get_StartTileBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head))(22, 'get_StartTileBlob', ((1, 'pBlob'),)))
+    IPMTileInfo.get_IsRestoring = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(23, 'get_IsRestoring', ((1, 'pIsRestoring'),)))
+    IPMTileInfo.get_IsAutoRestoreDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(24, 'get_IsAutoRestoreDisabled', ((1, 'pIsAutoRestoreDisabled'),)))
+    IPMTileInfo.set_IsRestoring = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(25, 'set_IsRestoring', ((1, 'Restoring'),)))
+    IPMTileInfo.set_IsAutoRestoreDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(26, 'set_IsAutoRestoreDisabled', ((1, 'AutoRestoreDisabled'),)))
+    win32more.System.Com.IUnknown
+    return IPMTileInfo
+def _define_IPMTileInfoEnumerator_head():
+    class IPMTileInfoEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('ded83065-e462-4b2c-ac-b5-e3-9c-ea-61-c8-74')
+    return IPMTileInfoEnumerator
+def _define_IPMTileInfoEnumerator():
+    IPMTileInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTileInfoEnumerator_head
+    IPMTileInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head))(3, 'get_Next', ((1, 'ppTileInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMTileInfoEnumerator
+def _define_IPMTilePropertyEnumerator_head():
+    class IPMTilePropertyEnumerator(win32more.System.Com.IUnknown_head):
+        Guid = Guid('cc4cd629-9047-4250-aa-c8-93-0e-47-81-24-21')
+    return IPMTilePropertyEnumerator
+def _define_IPMTilePropertyEnumerator():
+    IPMTilePropertyEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyEnumerator_head
+    IPMTilePropertyEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head))(3, 'get_Next', ((1, 'ppPropInfo'),)))
+    win32more.System.Com.IUnknown
+    return IPMTilePropertyEnumerator
+def _define_IPMTilePropertyInfo_head():
+    class IPMTilePropertyInfo(win32more.System.Com.IUnknown_head):
+        Guid = Guid('6c2b8017-1efa-42a7-86-c0-6d-4b-64-0b-f5-28')
+    return IPMTilePropertyInfo
+def _define_IPMTilePropertyInfo():
+    IPMTilePropertyInfo = win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head
+    IPMTilePropertyInfo.get_PropertyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'get_PropertyID', ((1, 'pPropID'),)))
+    IPMTilePropertyInfo.get_PropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_PropertyValue', ((1, 'pPropValue'),)))
+    IPMTilePropertyInfo.set_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(5, 'set_Property', ((1, 'PropValue'),)))
+    win32more.System.Com.IUnknown
+    return IPMTilePropertyInfo
+def _define_IValidate_head():
+    class IValidate(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e482e5c6-e31e-4143-a2-e6-db-c3-d8-e4-b8-d3')
+    return IValidate
+def _define_IValidate():
+    IValidate = win32more.System.ApplicationInstallationAndServicing.IValidate_head
+    IValidate.OpenDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'OpenDatabase', ((1, 'szDatabase'),)))
+    IValidate.OpenCUB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'OpenCUB', ((1, 'szCUBFile'),)))
+    IValidate.CloseDatabase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'CloseDatabase', ()))
+    IValidate.CloseCUB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'CloseCUB', ()))
+    IValidate.SetDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.LPDISPLAYVAL,c_void_p)(7, 'SetDisplay', ((1, 'pDisplayFunction'),(1, 'pContext'),)))
+    IValidate.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.LPEVALCOMCALLBACK,c_void_p)(8, 'SetStatus', ((1, 'pStatusFunction'),(1, 'pContext'),)))
+    IValidate.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'Validate', ((1, 'wzICEs'),)))
+    win32more.System.Com.IUnknown
+    return IValidate
+def _define_LPDISPLAYVAL():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.System.ApplicationInstallationAndServicing.RESULTTYPES,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
+def _define_LPEVALCOMCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.STATUSTYPES,win32more.Foundation.PWSTR,c_void_p)
+MSIADVERTISEOPTIONFLAGS = Int32
+MSIADVERTISEOPTIONFLAGS_INSTANCE = 1
 MSIARCHITECTUREFLAGS = Int32
 MSIARCHITECTUREFLAGS_X86 = 1
 MSIARCHITECTUREFLAGS_IA64 = 2
 MSIARCHITECTUREFLAGS_AMD64 = 4
 MSIARCHITECTUREFLAGS_ARM = 8
-MSIOPENPACKAGEFLAGS = Int32
-MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE = 1
-MSIADVERTISEOPTIONFLAGS = Int32
-MSIADVERTISEOPTIONFLAGS_INSTANCE = 1
-MSISOURCETYPE = Int32
-MSISOURCETYPE_UNKNOWN = 0
-MSISOURCETYPE_NETWORK = 1
-MSISOURCETYPE_URL = 2
-MSISOURCETYPE_MEDIA = 4
+MSIASSEMBLYINFO = UInt32
+MSIASSEMBLYINFO_NETASSEMBLY = 0
+MSIASSEMBLYINFO_WIN32ASSEMBLY = 1
 MSICODE = Int32
 MSICODE_PRODUCT = 0
 MSICODE_PATCH = 1073741824
-MSITRANSACTION = Int32
-MSITRANSACTION_CHAIN_EMBEDDEDUI = 1
-MSITRANSACTION_JOIN_EXISTING_EMBEDDEDUI = 2
-MSITRANSACTIONSTATE = UInt32
-MSITRANSACTIONSTATE_ROLLBACK = 0
-MSITRANSACTIONSTATE_COMMIT = 1
-MSIDBSTATE = Int32
-MSIDBSTATE_ERROR = -1
-MSIDBSTATE_READ = 0
-MSIDBSTATE_WRITE = 1
-MSIMODIFY = Int32
-MSIMODIFY_SEEK = -1
-MSIMODIFY_REFRESH = 0
-MSIMODIFY_INSERT = 1
-MSIMODIFY_UPDATE = 2
-MSIMODIFY_ASSIGN = 3
-MSIMODIFY_REPLACE = 4
-MSIMODIFY_MERGE = 5
-MSIMODIFY_DELETE = 6
-MSIMODIFY_INSERT_TEMPORARY = 7
-MSIMODIFY_VALIDATE = 8
-MSIMODIFY_VALIDATE_NEW = 9
-MSIMODIFY_VALIDATE_FIELD = 10
-MSIMODIFY_VALIDATE_DELETE = 11
 MSICOLINFO = Int32
 MSICOLINFO_NAMES = 0
 MSICOLINFO_TYPES = 1
@@ -801,213 +3311,25 @@ MSICOSTTREE_SELFONLY = 0
 MSICOSTTREE_CHILDREN = 1
 MSICOSTTREE_PARENTS = 2
 MSICOSTTREE_RESERVED = 3
-MSIDBERROR = Int32
-MSIDBERROR_INVALIDARG = -3
-MSIDBERROR_MOREDATA = -2
-MSIDBERROR_FUNCTIONERROR = -1
-MSIDBERROR_NOERROR = 0
-MSIDBERROR_DUPLICATEKEY = 1
-MSIDBERROR_REQUIRED = 2
-MSIDBERROR_BADLINK = 3
-MSIDBERROR_OVERFLOW = 4
-MSIDBERROR_UNDERFLOW = 5
-MSIDBERROR_NOTINSET = 6
-MSIDBERROR_BADVERSION = 7
-MSIDBERROR_BADCASE = 8
-MSIDBERROR_BADGUID = 9
-MSIDBERROR_BADWILDCARD = 10
-MSIDBERROR_BADIDENTIFIER = 11
-MSIDBERROR_BADLANGUAGE = 12
-MSIDBERROR_BADFILENAME = 13
-MSIDBERROR_BADPATH = 14
-MSIDBERROR_BADCONDITION = 15
-MSIDBERROR_BADFORMATTED = 16
-MSIDBERROR_BADTEMPLATE = 17
-MSIDBERROR_BADDEFAULTDIR = 18
-MSIDBERROR_BADREGPATH = 19
-MSIDBERROR_BADCUSTOMSOURCE = 20
-MSIDBERROR_BADPROPERTY = 21
-MSIDBERROR_MISSINGDATA = 22
-MSIDBERROR_BADCATEGORY = 23
-MSIDBERROR_BADKEYTABLE = 24
-MSIDBERROR_BADMAXMINVALUES = 25
-MSIDBERROR_BADCABINET = 26
-MSIDBERROR_BADSHORTCUT = 27
-MSIDBERROR_STRINGOVERFLOW = 28
-MSIDBERROR_BADLOCALIZEATTRIB = 29
-MSIRUNMODE = Int32
-MSIRUNMODE_ADMIN = 0
-MSIRUNMODE_ADVERTISE = 1
-MSIRUNMODE_MAINTENANCE = 2
-MSIRUNMODE_ROLLBACKENABLED = 3
-MSIRUNMODE_LOGENABLED = 4
-MSIRUNMODE_OPERATIONS = 5
-MSIRUNMODE_REBOOTATEND = 6
-MSIRUNMODE_REBOOTNOW = 7
-MSIRUNMODE_CABINET = 8
-MSIRUNMODE_SOURCESHORTNAMES = 9
-MSIRUNMODE_TARGETSHORTNAMES = 10
-MSIRUNMODE_RESERVED11 = 11
-MSIRUNMODE_WINDOWS9X = 12
-MSIRUNMODE_ZAWENABLED = 13
-MSIRUNMODE_RESERVED14 = 14
-MSIRUNMODE_RESERVED15 = 15
-MSIRUNMODE_SCHEDULED = 16
-MSIRUNMODE_ROLLBACK = 17
-MSIRUNMODE_COMMIT = 18
-MSITRANSFORM_ERROR = Int32
-MSITRANSFORM_ERROR_ADDEXISTINGROW = 1
-MSITRANSFORM_ERROR_DELMISSINGROW = 2
-MSITRANSFORM_ERROR_ADDEXISTINGTABLE = 4
-MSITRANSFORM_ERROR_DELMISSINGTABLE = 8
-MSITRANSFORM_ERROR_UPDATEMISSINGROW = 16
-MSITRANSFORM_ERROR_CHANGECODEPAGE = 32
-MSITRANSFORM_ERROR_VIEWTRANSFORM = 256
-MSITRANSFORM_ERROR_NONE = 0
-MSITRANSFORM_VALIDATE = Int32
-MSITRANSFORM_VALIDATE_LANGUAGE = 1
-MSITRANSFORM_VALIDATE_PRODUCT = 2
-MSITRANSFORM_VALIDATE_PLATFORM = 4
-MSITRANSFORM_VALIDATE_MAJORVERSION = 8
-MSITRANSFORM_VALIDATE_MINORVERSION = 16
-MSITRANSFORM_VALIDATE_UPDATEVERSION = 32
-MSITRANSFORM_VALIDATE_NEWLESSBASEVERSION = 64
-MSITRANSFORM_VALIDATE_NEWLESSEQUALBASEVERSION = 128
-MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION = 256
-MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION = 512
-MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION = 1024
-MSITRANSFORM_VALIDATE_UPGRADECODE = 2048
-def _define_ASSEMBLY_INFO_head():
-    class ASSEMBLY_INFO(Structure):
-        pass
-    return ASSEMBLY_INFO
-def _define_ASSEMBLY_INFO():
-    ASSEMBLY_INFO = win32more.System.ApplicationInstallationAndServicing.ASSEMBLY_INFO_head
-    ASSEMBLY_INFO._fields_ = [
-        ("cbAssemblyInfo", UInt32),
-        ("dwAssemblyFlags", UInt32),
-        ("uliAssemblySizeInKB", win32more.Foundation.ULARGE_INTEGER),
-        ("pszCurrentAssemblyPathBuf", win32more.Foundation.PWSTR),
-        ("cchBuf", UInt32),
-    ]
-    return ASSEMBLY_INFO
-def _define_FUSION_INSTALL_REFERENCE_head():
-    class FUSION_INSTALL_REFERENCE(Structure):
-        pass
-    return FUSION_INSTALL_REFERENCE
-def _define_FUSION_INSTALL_REFERENCE():
-    FUSION_INSTALL_REFERENCE = win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head
-    FUSION_INSTALL_REFERENCE._fields_ = [
-        ("cbSize", UInt32),
-        ("dwFlags", UInt32),
-        ("guidScheme", Guid),
-        ("szIdentifier", win32more.Foundation.PWSTR),
-        ("szNonCannonicalData", win32more.Foundation.PWSTR),
-    ]
-    return FUSION_INSTALL_REFERENCE
-ASM_NAME = Int32
-ASM_NAME_PUBLIC_KEY = 0
-ASM_NAME_PUBLIC_KEY_TOKEN = 1
-ASM_NAME_HASH_VALUE = 2
-ASM_NAME_NAME = 3
-ASM_NAME_MAJOR_VERSION = 4
-ASM_NAME_MINOR_VERSION = 5
-ASM_NAME_BUILD_NUMBER = 6
-ASM_NAME_REVISION_NUMBER = 7
-ASM_NAME_CULTURE = 8
-ASM_NAME_PROCESSOR_ID_ARRAY = 9
-ASM_NAME_OSINFO_ARRAY = 10
-ASM_NAME_HASH_ALGID = 11
-ASM_NAME_ALIAS = 12
-ASM_NAME_CODEBASE_URL = 13
-ASM_NAME_CODEBASE_LASTMOD = 14
-ASM_NAME_NULL_PUBLIC_KEY = 15
-ASM_NAME_NULL_PUBLIC_KEY_TOKEN = 16
-ASM_NAME_CUSTOM = 17
-ASM_NAME_NULL_CUSTOM = 18
-ASM_NAME_MVID = 19
-ASM_NAME_MAX_PARAMS = 20
-ASM_BIND_FLAGS = UInt32
-ASM_BINDF_FORCE_CACHE_INSTALL = 1
-ASM_BINDF_RFS_INTEGRITY_CHECK = 2
-ASM_BINDF_RFS_MODULE_CHECK = 4
-ASM_BINDF_BINPATH_PROBE_ONLY = 8
-ASM_BINDF_SHARED_BINPATH_HINT = 16
-ASM_BINDF_PARENT_ASM_HINT = 32
-ASM_DISPLAY_FLAGS = Int32
-ASM_DISPLAYF_VERSION = 1
-ASM_DISPLAYF_CULTURE = 2
-ASM_DISPLAYF_PUBLIC_KEY_TOKEN = 4
-ASM_DISPLAYF_PUBLIC_KEY = 8
-ASM_DISPLAYF_CUSTOM = 16
-ASM_DISPLAYF_PROCESSORARCHITECTURE = 32
-ASM_DISPLAYF_LANGUAGEID = 64
-ASM_CMP_FLAGS = Int32
-ASM_CMPF_NAME = 1
-ASM_CMPF_MAJOR_VERSION = 2
-ASM_CMPF_MINOR_VERSION = 4
-ASM_CMPF_BUILD_NUMBER = 8
-ASM_CMPF_REVISION_NUMBER = 16
-ASM_CMPF_PUBLIC_KEY_TOKEN = 32
-ASM_CMPF_CULTURE = 64
-ASM_CMPF_CUSTOM = 128
-ASM_CMPF_ALL = 255
-ASM_CMPF_DEFAULT = 256
-def _define_IAssemblyName_head():
-    class IAssemblyName(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cd193bc0-b4bc-11d2-9833-00c04fc31d2e')
-    return IAssemblyName
-def _define_IAssemblyName():
-    IAssemblyName = win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head
-    IAssemblyName.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32, use_last_error=False)(3, 'SetProperty', ((1, 'PropertyId'),(1, 'pvProperty'),(1, 'cbProperty'),)))
-    IAssemblyName.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32), use_last_error=False)(4, 'GetProperty', ((1, 'PropertyId'),(1, 'pvProperty'),(1, 'pcbProperty'),)))
-    IAssemblyName.Finalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Finalize', ()))
-    IAssemblyName.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32),UInt32, use_last_error=False)(6, 'GetDisplayName', ((1, 'szDisplayName'),(1, 'pccDisplayName'),(1, 'dwDisplayFlags'),)))
-    IAssemblyName.Reserved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,Int64,c_void_p,UInt32,POINTER(c_void_p), use_last_error=False)(7, 'Reserved', ((1, 'refIID'),(1, 'pUnkReserved1'),(1, 'pUnkReserved2'),(1, 'szReserved'),(1, 'llReserved'),(1, 'pvReserved'),(1, 'cbReserved'),(1, 'ppReserved'),)))
-    IAssemblyName.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(Char), use_last_error=False)(8, 'GetName', ((1, 'lpcwBuffer'),(1, 'pwzName'),)))
-    IAssemblyName.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(9, 'GetVersion', ((1, 'pdwVersionHi'),(1, 'pdwVersionLow'),)))
-    IAssemblyName.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head,UInt32, use_last_error=False)(10, 'IsEqual', ((1, 'pName'),(1, 'dwCmpFlags'),)))
-    IAssemblyName.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head), use_last_error=False)(11, 'Clone', ((1, 'pName'),)))
-    win32more.System.Com.IUnknown
-    return IAssemblyName
-def _define_IAssemblyCacheItem_head():
-    class IAssemblyCacheItem(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9e3aaeb4-d1cd-11d2-bab9-00c04f8eceae')
-    return IAssemblyCacheItem
-def _define_IAssemblyCacheItem():
-    IAssemblyCacheItem = win32more.System.ApplicationInstallationAndServicing.IAssemblyCacheItem_head
-    IAssemblyCacheItem.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.System.Com.IStream_head),POINTER(win32more.Foundation.ULARGE_INTEGER_head), use_last_error=False)(3, 'CreateStream', ((1, 'dwFlags'),(1, 'pszStreamName'),(1, 'dwFormat'),(1, 'dwFormatFlags'),(1, 'ppIStream'),(1, 'puliMaxSize'),)))
-    IAssemblyCacheItem.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Commit', ((1, 'dwFlags'),(1, 'pulDisposition'),)))
-    IAssemblyCacheItem.AbortItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'AbortItem', ()))
-    win32more.System.Com.IUnknown
-    return IAssemblyCacheItem
-def _define_IAssemblyCache_head():
-    class IAssemblyCache(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e707dcde-d1cd-11d2-bab9-00c04f8eceae')
-    return IAssemblyCache
-def _define_IAssemblyCache():
-    IAssemblyCache = win32more.System.ApplicationInstallationAndServicing.IAssemblyCache_head
-    IAssemblyCache.UninstallAssembly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head),POINTER(win32more.System.ApplicationInstallationAndServicing.IASSEMBLYCACHE_UNINSTALL_DISPOSITION), use_last_error=False)(3, 'UninstallAssembly', ((1, 'dwFlags'),(1, 'pszAssemblyName'),(1, 'pRefData'),(1, 'pulDisposition'),)))
-    IAssemblyCache.QueryAssemblyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.QUERYASMINFO_FLAGS,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.ASSEMBLY_INFO_head), use_last_error=False)(4, 'QueryAssemblyInfo', ((1, 'dwFlags'),(1, 'pszAssemblyName'),(1, 'pAsmInfo'),)))
-    IAssemblyCache.CreateAssemblyCacheItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(win32more.System.ApplicationInstallationAndServicing.IAssemblyCacheItem_head),win32more.Foundation.PWSTR, use_last_error=False)(5, 'CreateAssemblyCacheItem', ((1, 'dwFlags'),(1, 'pvReserved'),(1, 'ppAsmItem'),(1, 'pszAssemblyName'),)))
-    IAssemblyCache.Reserved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'Reserved', ((1, 'ppUnk'),)))
-    IAssemblyCache.InstallAssembly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head), use_last_error=False)(7, 'InstallAssembly', ((1, 'dwFlags'),(1, 'pszManifestFilePath'),(1, 'pRefData'),)))
-    win32more.System.Com.IUnknown
-    return IAssemblyCache
-CREATE_ASM_NAME_OBJ_FLAGS = Int32
-CANOF_PARSE_DISPLAY_NAME = 1
-CANOF_SET_DEFAULT_VALUES = 2
-def _define_PROTECTED_FILE_DATA_head():
-    class PROTECTED_FILE_DATA(Structure):
-        pass
-    return PROTECTED_FILE_DATA
-def _define_PROTECTED_FILE_DATA():
-    PROTECTED_FILE_DATA = win32more.System.ApplicationInstallationAndServicing.PROTECTED_FILE_DATA_head
-    PROTECTED_FILE_DATA._fields_ = [
-        ("FileName", Char * 260),
-        ("FileNumber", UInt32),
-    ]
-    return PROTECTED_FILE_DATA
+msidbAssemblyAttributes = Int32
+msidbAssemblyAttributes_msidbAssemblyAttributesURT = 0
+msidbAssemblyAttributes_msidbAssemblyAttributesWin32 = 1
+msidbClassAttributes = Int32
+msidbClassAttributes_msidbClassAttributesRelativePath = 1
+msidbComponentAttributes = Int32
+msidbComponentAttributes_msidbComponentAttributesLocalOnly = 0
+msidbComponentAttributes_msidbComponentAttributesSourceOnly = 1
+msidbComponentAttributes_msidbComponentAttributesOptional = 2
+msidbComponentAttributes_msidbComponentAttributesRegistryKeyPath = 4
+msidbComponentAttributes_msidbComponentAttributesSharedDllRefCount = 8
+msidbComponentAttributes_msidbComponentAttributesPermanent = 16
+msidbComponentAttributes_msidbComponentAttributesODBCDataSource = 32
+msidbComponentAttributes_msidbComponentAttributesTransitive = 64
+msidbComponentAttributes_msidbComponentAttributesNeverOverwrite = 128
+msidbComponentAttributes_msidbComponentAttributes64bit = 256
+msidbComponentAttributes_msidbComponentAttributesDisableRegistryReflection = 512
+msidbComponentAttributes_msidbComponentAttributesUninstallOnSupersedence = 1024
+msidbComponentAttributes_msidbComponentAttributesShared = 2048
 msidbControlAttributes = Int32
 msidbControlAttributes_msidbControlAttributesVisible = 1
 msidbControlAttributes_msidbControlAttributesEnabled = 2
@@ -1045,28 +3367,6 @@ msidbControlAttributes_msidbControlAttributesIconSize32 = 4194304
 msidbControlAttributes_msidbControlAttributesIconSize48 = 6291456
 msidbControlAttributes_msidbControlAttributesElevationShield = 8388608
 msidbControlAttributes_msidbControlAttributesHasBorder = 16777216
-msidbLocatorType = Int32
-msidbLocatorType_msidbLocatorTypeDirectory = 0
-msidbLocatorType_msidbLocatorTypeFileName = 1
-msidbLocatorType_msidbLocatorTypeRawValue = 2
-msidbLocatorType_msidbLocatorType64bit = 16
-msidbComponentAttributes = Int32
-msidbComponentAttributes_msidbComponentAttributesLocalOnly = 0
-msidbComponentAttributes_msidbComponentAttributesSourceOnly = 1
-msidbComponentAttributes_msidbComponentAttributesOptional = 2
-msidbComponentAttributes_msidbComponentAttributesRegistryKeyPath = 4
-msidbComponentAttributes_msidbComponentAttributesSharedDllRefCount = 8
-msidbComponentAttributes_msidbComponentAttributesPermanent = 16
-msidbComponentAttributes_msidbComponentAttributesODBCDataSource = 32
-msidbComponentAttributes_msidbComponentAttributesTransitive = 64
-msidbComponentAttributes_msidbComponentAttributesNeverOverwrite = 128
-msidbComponentAttributes_msidbComponentAttributes64bit = 256
-msidbComponentAttributes_msidbComponentAttributesDisableRegistryReflection = 512
-msidbComponentAttributes_msidbComponentAttributesUninstallOnSupersedence = 1024
-msidbComponentAttributes_msidbComponentAttributesShared = 2048
-msidbAssemblyAttributes = Int32
-msidbAssemblyAttributes_msidbAssemblyAttributesURT = 0
-msidbAssemblyAttributes_msidbAssemblyAttributesWin32 = 1
 msidbCustomActionType = Int32
 msidbCustomActionType_msidbCustomActionTypeDll = 1
 msidbCustomActionType_msidbCustomActionTypeExe = 2
@@ -1104,6 +3404,43 @@ msidbDialogAttributes_msidbDialogAttributesRightAligned = 256
 msidbDialogAttributes_msidbDialogAttributesLeftScroll = 512
 msidbDialogAttributes_msidbDialogAttributesBiDi = 896
 msidbDialogAttributes_msidbDialogAttributesError = 65536
+msidbEmbeddedUIAttributes = Int32
+msidbEmbeddedUIAttributes_msidbEmbeddedUI = 1
+msidbEmbeddedUIAttributes_msidbEmbeddedHandlesBasic = 2
+MSIDBERROR = Int32
+MSIDBERROR_INVALIDARG = -3
+MSIDBERROR_MOREDATA = -2
+MSIDBERROR_FUNCTIONERROR = -1
+MSIDBERROR_NOERROR = 0
+MSIDBERROR_DUPLICATEKEY = 1
+MSIDBERROR_REQUIRED = 2
+MSIDBERROR_BADLINK = 3
+MSIDBERROR_OVERFLOW = 4
+MSIDBERROR_UNDERFLOW = 5
+MSIDBERROR_NOTINSET = 6
+MSIDBERROR_BADVERSION = 7
+MSIDBERROR_BADCASE = 8
+MSIDBERROR_BADGUID = 9
+MSIDBERROR_BADWILDCARD = 10
+MSIDBERROR_BADIDENTIFIER = 11
+MSIDBERROR_BADLANGUAGE = 12
+MSIDBERROR_BADFILENAME = 13
+MSIDBERROR_BADPATH = 14
+MSIDBERROR_BADCONDITION = 15
+MSIDBERROR_BADFORMATTED = 16
+MSIDBERROR_BADTEMPLATE = 17
+MSIDBERROR_BADDEFAULTDIR = 18
+MSIDBERROR_BADREGPATH = 19
+MSIDBERROR_BADCUSTOMSOURCE = 20
+MSIDBERROR_BADPROPERTY = 21
+MSIDBERROR_MISSINGDATA = 22
+MSIDBERROR_BADCATEGORY = 23
+MSIDBERROR_BADKEYTABLE = 24
+MSIDBERROR_BADMAXMINVALUES = 25
+MSIDBERROR_BADCABINET = 26
+MSIDBERROR_BADSHORTCUT = 27
+MSIDBERROR_STRINGOVERFLOW = 28
+MSIDBERROR_BADLOCALIZEATTRIB = 29
 msidbFeatureAttributes = Int32
 msidbFeatureAttributes_msidbFeatureAttributesFavorLocal = 0
 msidbFeatureAttributes_msidbFeatureAttributesFavorSource = 1
@@ -1133,13 +3470,16 @@ msidbIniFileAction_msidbIniFileActionCreateLine = 1
 msidbIniFileAction_msidbIniFileActionRemoveLine = 2
 msidbIniFileAction_msidbIniFileActionAddTag = 3
 msidbIniFileAction_msidbIniFileActionRemoveTag = 4
+msidbLocatorType = Int32
+msidbLocatorType_msidbLocatorTypeDirectory = 0
+msidbLocatorType_msidbLocatorTypeFileName = 1
+msidbLocatorType_msidbLocatorTypeRawValue = 2
+msidbLocatorType_msidbLocatorType64bit = 16
 msidbMoveFileOptions = Int32
 msidbMoveFileOptions_msidbMoveFileOptionsMove = 1
 msidbODBCDataSourceRegistration = Int32
 msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerMachine = 0
 msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerUser = 1
-msidbClassAttributes = Int32
-msidbClassAttributes_msidbClassAttributesRelativePath = 1
 msidbPatchAttributes = Int32
 msidbPatchAttributes_msidbPatchAttributesNonVital = 1
 msidbRegistryRoot = Int32
@@ -1151,6 +3491,10 @@ msidbRemoveFileInstallMode = Int32
 msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnInstall = 1
 msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnRemove = 2
 msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnBoth = 3
+msidbServiceConfigEvent = Int32
+msidbServiceConfigEvent_msidbServiceConfigEventInstall = 1
+msidbServiceConfigEvent_msidbServiceConfigEventUninstall = 2
+msidbServiceConfigEvent_msidbServiceConfigEventReinstall = 4
 msidbServiceControlEvent = Int32
 msidbServiceControlEvent_msidbServiceControlEventStart = 1
 msidbServiceControlEvent_msidbServiceControlEventStop = 2
@@ -1158,12 +3502,17 @@ msidbServiceControlEvent_msidbServiceControlEventDelete = 8
 msidbServiceControlEvent_msidbServiceControlEventUninstallStart = 16
 msidbServiceControlEvent_msidbServiceControlEventUninstallStop = 32
 msidbServiceControlEvent_msidbServiceControlEventUninstallDelete = 128
-msidbServiceConfigEvent = Int32
-msidbServiceConfigEvent_msidbServiceConfigEventInstall = 1
-msidbServiceConfigEvent_msidbServiceConfigEventUninstall = 2
-msidbServiceConfigEvent_msidbServiceConfigEventReinstall = 4
 msidbServiceInstallErrorControl = Int32
 msidbServiceInstallErrorControl_msidbServiceInstallErrorControlVital = 32768
+MSIDBSTATE = Int32
+MSIDBSTATE_ERROR = -1
+MSIDBSTATE_READ = 0
+MSIDBSTATE_WRITE = 1
+msidbSumInfoSourceType = Int32
+msidbSumInfoSourceType_msidbSumInfoSourceTypeSFN = 1
+msidbSumInfoSourceType_msidbSumInfoSourceTypeCompressed = 2
+msidbSumInfoSourceType_msidbSumInfoSourceTypeAdminImage = 4
+msidbSumInfoSourceType_msidbSumInfoSourceTypeLUAPackage = 8
 msidbTextStyleStyleBits = Int32
 msidbTextStyleStyleBits_msidbTextStyleStyleBitsBold = 1
 msidbTextStyleStyleBits_msidbTextStyleStyleBitsItalic = 2
@@ -1176,28 +3525,671 @@ msidbUpgradeAttributes_msidbUpgradeAttributesIgnoreRemoveFailure = 4
 msidbUpgradeAttributes_msidbUpgradeAttributesVersionMinInclusive = 256
 msidbUpgradeAttributes_msidbUpgradeAttributesVersionMaxInclusive = 512
 msidbUpgradeAttributes_msidbUpgradeAttributesLanguagesExclusive = 1024
-msidbEmbeddedUIAttributes = Int32
-msidbEmbeddedUIAttributes_msidbEmbeddedUI = 1
-msidbEmbeddedUIAttributes_msidbEmbeddedHandlesBasic = 2
-msidbSumInfoSourceType = Int32
-msidbSumInfoSourceType_msidbSumInfoSourceTypeSFN = 1
-msidbSumInfoSourceType_msidbSumInfoSourceTypeCompressed = 2
-msidbSumInfoSourceType_msidbSumInfoSourceTypeAdminImage = 4
-msidbSumInfoSourceType_msidbSumInfoSourceTypeLUAPackage = 8
-msirbRebootType = Int32
-msirbRebootType_msirbRebootImmediate = 1
-msirbRebootType_msirbRebootDeferred = 2
+msifiFastInstallBits = Int32
+msifiFastInstallBits_msifiFastInstallNoSR = 1
+msifiFastInstallBits_msifiFastInstallQuickCosting = 2
+msifiFastInstallBits_msifiFastInstallLessPrgMsg = 4
+def _define_MSIFILEHASHINFO_head():
+    class MSIFILEHASHINFO(Structure):
+        pass
+    return MSIFILEHASHINFO
+def _define_MSIFILEHASHINFO():
+    MSIFILEHASHINFO = win32more.System.ApplicationInstallationAndServicing.MSIFILEHASHINFO_head
+    MSIFILEHASHINFO._fields_ = [
+        ('dwFileHashInfoSize', UInt32),
+        ('dwData', UInt32 * 4),
+    ]
+    return MSIFILEHASHINFO
+MSIHANDLE = UInt32
+MSIINSTALLCONTEXT = Int32
+MSIINSTALLCONTEXT_FIRSTVISIBLE = 0
+MSIINSTALLCONTEXT_NONE = 0
+MSIINSTALLCONTEXT_USERMANAGED = 1
+MSIINSTALLCONTEXT_USERUNMANAGED = 2
+MSIINSTALLCONTEXT_MACHINE = 4
+MSIINSTALLCONTEXT_ALL = 7
+MSIINSTALLCONTEXT_ALLUSERMANAGED = 8
+MSIMODIFY = Int32
+MSIMODIFY_SEEK = -1
+MSIMODIFY_REFRESH = 0
+MSIMODIFY_INSERT = 1
+MSIMODIFY_UPDATE = 2
+MSIMODIFY_ASSIGN = 3
+MSIMODIFY_REPLACE = 4
+MSIMODIFY_MERGE = 5
+MSIMODIFY_DELETE = 6
+MSIMODIFY_INSERT_TEMPORARY = 7
+MSIMODIFY_VALIDATE = 8
+MSIMODIFY_VALIDATE_NEW = 9
+MSIMODIFY_VALIDATE_FIELD = 10
+MSIMODIFY_VALIDATE_DELETE = 11
+MSIOPENPACKAGEFLAGS = Int32
+MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE = 1
+MSIPATCHDATATYPE = Int32
+MSIPATCH_DATATYPE_PATCHFILE = 0
+MSIPATCH_DATATYPE_XMLPATH = 1
+MSIPATCH_DATATYPE_XMLBLOB = 2
+def _define_MSIPATCHSEQUENCEINFOA_head():
+    class MSIPATCHSEQUENCEINFOA(Structure):
+        pass
+    return MSIPATCHSEQUENCEINFOA
+def _define_MSIPATCHSEQUENCEINFOA():
+    MSIPATCHSEQUENCEINFOA = win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOA_head
+    MSIPATCHSEQUENCEINFOA._fields_ = [
+        ('szPatchData', win32more.Foundation.PSTR),
+        ('ePatchDataType', win32more.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE),
+        ('dwOrder', UInt32),
+        ('uStatus', UInt32),
+    ]
+    return MSIPATCHSEQUENCEINFOA
+def _define_MSIPATCHSEQUENCEINFOW_head():
+    class MSIPATCHSEQUENCEINFOW(Structure):
+        pass
+    return MSIPATCHSEQUENCEINFOW
+def _define_MSIPATCHSEQUENCEINFOW():
+    MSIPATCHSEQUENCEINFOW = win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOW_head
+    MSIPATCHSEQUENCEINFOW._fields_ = [
+        ('szPatchData', win32more.Foundation.PWSTR),
+        ('ePatchDataType', win32more.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE),
+        ('dwOrder', UInt32),
+        ('uStatus', UInt32),
+    ]
+    return MSIPATCHSEQUENCEINFOW
+MSIPATCHSTATE = Int32
+MSIPATCHSTATE_INVALID = 0
+MSIPATCHSTATE_APPLIED = 1
+MSIPATCHSTATE_SUPERSEDED = 2
+MSIPATCHSTATE_OBSOLETED = 4
+MSIPATCHSTATE_REGISTERED = 8
+MSIPATCHSTATE_ALL = 15
 msirbRebootReason = Int32
 msirbRebootReason_msirbRebootUndeterminedReason = 0
 msirbRebootReason_msirbRebootInUseFilesReason = 1
 msirbRebootReason_msirbRebootScheduleRebootReason = 2
 msirbRebootReason_msirbRebootForceRebootReason = 3
 msirbRebootReason_msirbRebootCustomActionReason = 4
-msifiFastInstallBits = Int32
-msifiFastInstallBits_msifiFastInstallNoSR = 1
-msifiFastInstallBits_msifiFastInstallQuickCosting = 2
-msifiFastInstallBits_msifiFastInstallLessPrgMsg = 4
-PMSvc = Guid('b9e511fc-e364-497a-a121-b7b3612cedce')
+msirbRebootType = Int32
+msirbRebootType_msirbRebootImmediate = 1
+msirbRebootType_msirbRebootDeferred = 2
+MSIRUNMODE = Int32
+MSIRUNMODE_ADMIN = 0
+MSIRUNMODE_ADVERTISE = 1
+MSIRUNMODE_MAINTENANCE = 2
+MSIRUNMODE_ROLLBACKENABLED = 3
+MSIRUNMODE_LOGENABLED = 4
+MSIRUNMODE_OPERATIONS = 5
+MSIRUNMODE_REBOOTATEND = 6
+MSIRUNMODE_REBOOTNOW = 7
+MSIRUNMODE_CABINET = 8
+MSIRUNMODE_SOURCESHORTNAMES = 9
+MSIRUNMODE_TARGETSHORTNAMES = 10
+MSIRUNMODE_RESERVED11 = 11
+MSIRUNMODE_WINDOWS9X = 12
+MSIRUNMODE_ZAWENABLED = 13
+MSIRUNMODE_RESERVED14 = 14
+MSIRUNMODE_RESERVED15 = 15
+MSIRUNMODE_SCHEDULED = 16
+MSIRUNMODE_ROLLBACK = 17
+MSIRUNMODE_COMMIT = 18
+MSISOURCETYPE = Int32
+MSISOURCETYPE_UNKNOWN = 0
+MSISOURCETYPE_NETWORK = 1
+MSISOURCETYPE_URL = 2
+MSISOURCETYPE_MEDIA = 4
+MSITRANSACTION = Int32
+MSITRANSACTION_CHAIN_EMBEDDEDUI = 1
+MSITRANSACTION_JOIN_EXISTING_EMBEDDEDUI = 2
+MSITRANSACTIONSTATE = UInt32
+MSITRANSACTIONSTATE_ROLLBACK = 0
+MSITRANSACTIONSTATE_COMMIT = 1
+MSITRANSFORM_ERROR = Int32
+MSITRANSFORM_ERROR_ADDEXISTINGROW = 1
+MSITRANSFORM_ERROR_DELMISSINGROW = 2
+MSITRANSFORM_ERROR_ADDEXISTINGTABLE = 4
+MSITRANSFORM_ERROR_DELMISSINGTABLE = 8
+MSITRANSFORM_ERROR_UPDATEMISSINGROW = 16
+MSITRANSFORM_ERROR_CHANGECODEPAGE = 32
+MSITRANSFORM_ERROR_VIEWTRANSFORM = 256
+MSITRANSFORM_ERROR_NONE = 0
+MSITRANSFORM_VALIDATE = Int32
+MSITRANSFORM_VALIDATE_LANGUAGE = 1
+MSITRANSFORM_VALIDATE_PRODUCT = 2
+MSITRANSFORM_VALIDATE_PLATFORM = 4
+MSITRANSFORM_VALIDATE_MAJORVERSION = 8
+MSITRANSFORM_VALIDATE_MINORVERSION = 16
+MSITRANSFORM_VALIDATE_UPDATEVERSION = 32
+MSITRANSFORM_VALIDATE_NEWLESSBASEVERSION = 64
+MSITRANSFORM_VALIDATE_NEWLESSEQUALBASEVERSION = 128
+MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION = 256
+MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION = 512
+MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION = 1024
+MSITRANSFORM_VALIDATE_UPGRADECODE = 2048
+msmErrorType = Int32
+msmErrorType_msmErrorLanguageUnsupported = 1
+msmErrorType_msmErrorLanguageFailed = 2
+msmErrorType_msmErrorExclusion = 3
+msmErrorType_msmErrorTableMerge = 4
+msmErrorType_msmErrorResequenceMerge = 5
+msmErrorType_msmErrorFileCreate = 6
+msmErrorType_msmErrorDirCreate = 7
+msmErrorType_msmErrorFeatureRequired = 8
+MsmMerge = Guid('0adda830-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+PACKMAN_RUNTIME = Int32
+PACKMAN_RUNTIME_NATIVE = 1
+PACKMAN_RUNTIME_SILVERLIGHTMOBILE = 2
+PACKMAN_RUNTIME_XNA = 3
+PACKMAN_RUNTIME_MODERN_NATIVE = 4
+PACKMAN_RUNTIME_JUPITER = 5
+PACKMAN_RUNTIME_INVALID = 6
+def _define_PATCH_IGNORE_RANGE_head():
+    class PATCH_IGNORE_RANGE(Structure):
+        pass
+    return PATCH_IGNORE_RANGE
+def _define_PATCH_IGNORE_RANGE():
+    PATCH_IGNORE_RANGE = win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head
+    PATCH_IGNORE_RANGE._fields_ = [
+        ('OffsetInOldFile', UInt32),
+        ('LengthInBytes', UInt32),
+    ]
+    return PATCH_IGNORE_RANGE
+def _define_PATCH_INTERLEAVE_MAP_head():
+    class PATCH_INTERLEAVE_MAP(Structure):
+        pass
+    return PATCH_INTERLEAVE_MAP
+def _define_PATCH_INTERLEAVE_MAP():
+    PATCH_INTERLEAVE_MAP = win32more.System.ApplicationInstallationAndServicing.PATCH_INTERLEAVE_MAP_head
+    class PATCH_INTERLEAVE_MAP__Anonymous_e__Struct(Structure):
+        pass
+    PATCH_INTERLEAVE_MAP__Anonymous_e__Struct._fields_ = [
+        ('OldOffset', UInt32),
+        ('OldLength', UInt32),
+        ('NewLength', UInt32),
+    ]
+    PATCH_INTERLEAVE_MAP._fields_ = [
+        ('CountRanges', UInt32),
+        ('Range', PATCH_INTERLEAVE_MAP__Anonymous_e__Struct * 1),
+    ]
+    return PATCH_INTERLEAVE_MAP
+def _define_PATCH_OLD_FILE_INFO_head():
+    class PATCH_OLD_FILE_INFO(Structure):
+        pass
+    return PATCH_OLD_FILE_INFO
+def _define_PATCH_OLD_FILE_INFO():
+    PATCH_OLD_FILE_INFO = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_head
+    class PATCH_OLD_FILE_INFO__Anonymous_e__Union(Union):
+        pass
+    PATCH_OLD_FILE_INFO__Anonymous_e__Union._fields_ = [
+        ('OldFileNameA', win32more.Foundation.PSTR),
+        ('OldFileNameW', win32more.Foundation.PWSTR),
+        ('OldFileHandle', win32more.Foundation.HANDLE),
+    ]
+    PATCH_OLD_FILE_INFO._anonymous_ = [
+        'Anonymous',
+    ]
+    PATCH_OLD_FILE_INFO._fields_ = [
+        ('SizeOfThisStruct', UInt32),
+        ('Anonymous', PATCH_OLD_FILE_INFO__Anonymous_e__Union),
+        ('IgnoreRangeCount', UInt32),
+        ('IgnoreRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
+        ('RetainRangeCount', UInt32),
+        ('RetainRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
+    ]
+    return PATCH_OLD_FILE_INFO
+def _define_PATCH_OLD_FILE_INFO_A_head():
+    class PATCH_OLD_FILE_INFO_A(Structure):
+        pass
+    return PATCH_OLD_FILE_INFO_A
+def _define_PATCH_OLD_FILE_INFO_A():
+    PATCH_OLD_FILE_INFO_A = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_A_head
+    PATCH_OLD_FILE_INFO_A._fields_ = [
+        ('SizeOfThisStruct', UInt32),
+        ('OldFileName', win32more.Foundation.PSTR),
+        ('IgnoreRangeCount', UInt32),
+        ('IgnoreRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
+        ('RetainRangeCount', UInt32),
+        ('RetainRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
+    ]
+    return PATCH_OLD_FILE_INFO_A
+def _define_PATCH_OLD_FILE_INFO_H_head():
+    class PATCH_OLD_FILE_INFO_H(Structure):
+        pass
+    return PATCH_OLD_FILE_INFO_H
+def _define_PATCH_OLD_FILE_INFO_H():
+    PATCH_OLD_FILE_INFO_H = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_H_head
+    PATCH_OLD_FILE_INFO_H._fields_ = [
+        ('SizeOfThisStruct', UInt32),
+        ('OldFileHandle', win32more.Foundation.HANDLE),
+        ('IgnoreRangeCount', UInt32),
+        ('IgnoreRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
+        ('RetainRangeCount', UInt32),
+        ('RetainRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
+    ]
+    return PATCH_OLD_FILE_INFO_H
+def _define_PATCH_OLD_FILE_INFO_W_head():
+    class PATCH_OLD_FILE_INFO_W(Structure):
+        pass
+    return PATCH_OLD_FILE_INFO_W
+def _define_PATCH_OLD_FILE_INFO_W():
+    PATCH_OLD_FILE_INFO_W = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_W_head
+    PATCH_OLD_FILE_INFO_W._fields_ = [
+        ('SizeOfThisStruct', UInt32),
+        ('OldFileName', win32more.Foundation.PWSTR),
+        ('IgnoreRangeCount', UInt32),
+        ('IgnoreRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
+        ('RetainRangeCount', UInt32),
+        ('RetainRangeArray', POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
+    ]
+    return PATCH_OLD_FILE_INFO_W
+def _define_PATCH_OPTION_DATA_head():
+    class PATCH_OPTION_DATA(Structure):
+        pass
+    return PATCH_OPTION_DATA
+def _define_PATCH_OPTION_DATA():
+    PATCH_OPTION_DATA = win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head
+    PATCH_OPTION_DATA._fields_ = [
+        ('SizeOfThisStruct', UInt32),
+        ('SymbolOptionFlags', UInt32),
+        ('NewFileSymbolPath', win32more.Foundation.PSTR),
+        ('OldFileSymbolPathArray', POINTER(win32more.Foundation.PSTR)),
+        ('ExtendedOptionFlags', UInt32),
+        ('SymLoadCallback', win32more.System.ApplicationInstallationAndServicing.PPATCH_SYMLOAD_CALLBACK),
+        ('SymLoadContext', c_void_p),
+        ('InterleaveMapArray', POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_INTERLEAVE_MAP_head))),
+        ('MaxLzxWindowSize', UInt32),
+    ]
+    return PATCH_OPTION_DATA
+def _define_PATCH_RETAIN_RANGE_head():
+    class PATCH_RETAIN_RANGE(Structure):
+        pass
+    return PATCH_RETAIN_RANGE
+def _define_PATCH_RETAIN_RANGE():
+    PATCH_RETAIN_RANGE = win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head
+    PATCH_RETAIN_RANGE._fields_ = [
+        ('OffsetInOldFile', UInt32),
+        ('LengthInBytes', UInt32),
+        ('OffsetInNewFile', UInt32),
+    ]
+    return PATCH_RETAIN_RANGE
+def _define_PINSTALLUI_HANDLER_RECORD():
+    return WINFUNCTYPE(Int32,c_void_p,UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)
+PM_ACTIVATION_POLICY = Int32
+PM_ACTIVATION_POLICY_RESUME = 0
+PM_ACTIVATION_POLICY_RESUMESAMEPARAMS = 1
+PM_ACTIVATION_POLICY_REPLACE = 2
+PM_ACTIVATION_POLICY_REPLACESAMEPARAMS = 3
+PM_ACTIVATION_POLICY_MULTISESSION = 4
+PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND = 5
+PM_ACTIVATION_POLICY_UNKNOWN = 6
+PM_ACTIVATION_POLICY_INVALID = 7
+PM_APP_GENRE = Int32
+PM_APP_GENRE_GAMES = 0
+PM_APP_GENRE_OTHER = 1
+PM_APP_GENRE_INVALID = 2
+PM_APPLICATION_HUBTYPE = Int32
+PM_APPLICATION_HUBTYPE_NONMUSIC = 0
+PM_APPLICATION_HUBTYPE_MUSIC = 1
+PM_APPLICATION_HUBTYPE_INVALID = 2
+PM_APPLICATION_INSTALL_TYPE = Int32
+PM_APPLICATION_INSTALL_NORMAL = 0
+PM_APPLICATION_INSTALL_IN_ROM = 1
+PM_APPLICATION_INSTALL_PA = 2
+PM_APPLICATION_INSTALL_DEBUG = 3
+PM_APPLICATION_INSTALL_ENTERPRISE = 4
+PM_APPLICATION_INSTALL_INVALID = 5
+PM_APPLICATION_STATE = Int32
+PM_APPLICATION_STATE_MIN = 0
+PM_APPLICATION_STATE_INSTALLED = 1
+PM_APPLICATION_STATE_INSTALLING = 2
+PM_APPLICATION_STATE_UPDATING = 3
+PM_APPLICATION_STATE_UNINSTALLING = 4
+PM_APPLICATION_STATE_LICENSE_UPDATING = 5
+PM_APPLICATION_STATE_MOVING = 6
+PM_APPLICATION_STATE_DISABLED_SD_CARD = 7
+PM_APPLICATION_STATE_DISABLED_ENTERPRISE = 8
+PM_APPLICATION_STATE_DISABLED_BACKING_UP = 9
+PM_APPLICATION_STATE_DISABLED_MDIL_BINDING = 10
+PM_APPLICATION_STATE_MAX = 10
+PM_APPLICATION_STATE_INVALID = 11
+def _define_PM_APPTASKTYPE_head():
+    class PM_APPTASKTYPE(Structure):
+        pass
+    return PM_APPTASKTYPE
+def _define_PM_APPTASKTYPE():
+    PM_APPTASKTYPE = win32more.System.ApplicationInstallationAndServicing.PM_APPTASKTYPE_head
+    PM_APPTASKTYPE._fields_ = [
+        ('ProductID', Guid),
+        ('TaskType', win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE),
+    ]
+    return PM_APPTASKTYPE
+def _define_PM_BSATASKID_head():
+    class PM_BSATASKID(Structure):
+        pass
+    return PM_BSATASKID
+def _define_PM_BSATASKID():
+    PM_BSATASKID = win32more.System.ApplicationInstallationAndServicing.PM_BSATASKID_head
+    PM_BSATASKID._fields_ = [
+        ('ProductID', Guid),
+        ('TaskID', win32more.Foundation.BSTR),
+    ]
+    return PM_BSATASKID
+def _define_PM_BWTASKID_head():
+    class PM_BWTASKID(Structure):
+        pass
+    return PM_BWTASKID
+def _define_PM_BWTASKID():
+    PM_BWTASKID = win32more.System.ApplicationInstallationAndServicing.PM_BWTASKID_head
+    PM_BWTASKID._fields_ = [
+        ('ProductID', Guid),
+        ('TaskID', win32more.Foundation.BSTR),
+    ]
+    return PM_BWTASKID
+PM_ENUM_APP_FILTER = Int32
+PM_APP_FILTER_ALL = 0
+PM_APP_FILTER_VISIBLE = 1
+PM_APP_FILTER_GENRE = 2
+PM_APP_FILTER_NONGAMES = 3
+PM_APP_FILTER_HUBTYPE = 4
+PM_APP_FILTER_PINABLEONKIDZONE = 5
+PM_APP_FILTER_ALL_INCLUDE_MODERN = 6
+PM_APP_FILTER_FRAMEWORK = 7
+PM_APP_FILTER_MAX = 8
+PM_ENUM_BSA_FILTER = Int32
+PM_ENUM_BSA_FILTER_ALL = 26
+PM_ENUM_BSA_FILTER_BY_TASKID = 27
+PM_ENUM_BSA_FILTER_BY_PRODUCTID = 28
+PM_ENUM_BSA_FILTER_BY_PERIODIC = 29
+PM_ENUM_BSA_FILTER_BY_ALL_LAUNCHONBOOT = 30
+PM_ENUM_BSA_FILTER_MAX = 31
+PM_ENUM_BW_FILTER = Int32
+PM_ENUM_BW_FILTER_BOOTWORKER_ALL = 31
+PM_ENUM_BW_FILTER_BY_TASKID = 32
+PM_ENUM_BW_FILTER_MAX = 33
+PM_ENUM_EXTENSION_FILTER = Int32
+PM_ENUM_EXTENSION_FILTER_BY_CONSUMER = 17
+PM_ENUM_EXTENSION_FILTER_APPCONNECT = 17
+PM_ENUM_EXTENSION_FILTER_PROTOCOL_ALL = 18
+PM_ENUM_EXTENSION_FILTER_FTASSOC_FILETYPE_ALL = 19
+PM_ENUM_EXTENSION_FILTER_FTASSOC_CONTENTTYPE_ALL = 20
+PM_ENUM_EXTENSION_FILTER_FTASSOC_APPLICATION_ALL = 21
+PM_ENUM_EXTENSION_FILTER_SHARETARGET_ALL = 22
+PM_ENUM_EXTENSION_FILTER_FILEOPENPICKER_ALL = 23
+PM_ENUM_EXTENSION_FILTER_FILESAVEPICKER_ALL = 24
+PM_ENUM_EXTENSION_FILTER_CACHEDFILEUPDATER_ALL = 25
+PM_ENUM_EXTENSION_FILTER_MAX = 26
+def _define_PM_ENUM_FILTER_head():
+    class PM_ENUM_FILTER(Structure):
+        pass
+    return PM_ENUM_FILTER
+def _define_PM_ENUM_FILTER():
+    PM_ENUM_FILTER = win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER_head
+    class PM_ENUM_FILTER__FilterParameter_e__Union(Union):
+        pass
+    PM_ENUM_FILTER__FilterParameter_e__Union._fields_ = [
+        ('Dummy', Int32),
+        ('Genre', win32more.System.ApplicationInstallationAndServicing.PM_APP_GENRE),
+        ('AppHubType', win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_HUBTYPE),
+        ('HubType', win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE),
+        ('Tasktype', win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE),
+        ('TaskProductID', Guid),
+        ('TileProductID', Guid),
+        ('AppTaskType', win32more.System.ApplicationInstallationAndServicing.PM_APPTASKTYPE),
+        ('Consumer', win32more.System.ApplicationInstallationAndServicing.PM_EXTENSIONCONSUMER),
+        ('BSATask', win32more.System.ApplicationInstallationAndServicing.PM_BSATASKID),
+        ('BSAProductID', Guid),
+        ('BWTask', win32more.System.ApplicationInstallationAndServicing.PM_BWTASKID),
+        ('ProtocolName', win32more.Foundation.BSTR),
+        ('FileType', win32more.Foundation.BSTR),
+        ('ContentType', win32more.Foundation.BSTR),
+        ('AppSupportedFileExtPID', Guid),
+        ('ShareTargetFileType', win32more.Foundation.BSTR),
+    ]
+    PM_ENUM_FILTER._fields_ = [
+        ('FilterType', Int32),
+        ('FilterParameter', PM_ENUM_FILTER__FilterParameter_e__Union),
+    ]
+    return PM_ENUM_FILTER
+PM_ENUM_TASK_FILTER = Int32
+PM_TASK_FILTER_APP_ALL = 12
+PM_TASK_FILTER_TASK_TYPE = 13
+PM_TASK_FILTER_DEHYD_SUPRESSING = 14
+PM_TASK_FILTER_APP_TASK_TYPE = 15
+PM_TASK_FILTER_BGEXECUTION = 16
+PM_TASK_FILTER_MAX = 17
+PM_ENUM_TILE_FILTER = Int32
+PM_TILE_FILTER_APPLIST = 8
+PM_TILE_FILTER_PINNED = 9
+PM_TILE_FILTER_HUBTYPE = 10
+PM_TILE_FILTER_APP_ALL = 11
+PM_TILE_FILTER_MAX = 12
+def _define_PM_EXTENSIONCONSUMER_head():
+    class PM_EXTENSIONCONSUMER(Structure):
+        pass
+    return PM_EXTENSIONCONSUMER
+def _define_PM_EXTENSIONCONSUMER():
+    PM_EXTENSIONCONSUMER = win32more.System.ApplicationInstallationAndServicing.PM_EXTENSIONCONSUMER_head
+    PM_EXTENSIONCONSUMER._fields_ = [
+        ('ConsumerPID', Guid),
+        ('ExtensionID', win32more.Foundation.BSTR),
+    ]
+    return PM_EXTENSIONCONSUMER
+def _define_PM_INSTALLINFO_head():
+    class PM_INSTALLINFO(Structure):
+        pass
+    return PM_INSTALLINFO
+def _define_PM_INSTALLINFO():
+    PM_INSTALLINFO = win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head
+    PM_INSTALLINFO._fields_ = [
+        ('ProductID', Guid),
+        ('PackagePath', win32more.Foundation.BSTR),
+        ('InstanceID', Guid),
+        ('pbLicense', c_char_p_no),
+        ('cbLicense', UInt32),
+        ('IsUninstallDisabled', win32more.Foundation.BOOL),
+        ('DeploymentOptions', UInt32),
+        ('OfferID', Guid),
+        ('MarketplaceAppVersion', win32more.Foundation.BSTR),
+    ]
+    return PM_INSTALLINFO
+def _define_PM_INVOCATIONINFO_head():
+    class PM_INVOCATIONINFO(Structure):
+        pass
+    return PM_INVOCATIONINFO
+def _define_PM_INVOCATIONINFO():
+    PM_INVOCATIONINFO = win32more.System.ApplicationInstallationAndServicing.PM_INVOCATIONINFO_head
+    PM_INVOCATIONINFO._fields_ = [
+        ('URIBaseOrAUMID', win32more.Foundation.BSTR),
+        ('URIFragmentOrArgs', win32more.Foundation.BSTR),
+    ]
+    return PM_INVOCATIONINFO
+PM_LIVETILE_RECURRENCE_TYPE = Int32
+PM_LIVETILE_RECURRENCE_TYPE_INSTANT = 0
+PM_LIVETILE_RECURRENCE_TYPE_ONETIME = 1
+PM_LIVETILE_RECURRENCE_TYPE_INTERVAL = 2
+PM_LIVETILE_RECURRENCE_TYPE_MAX = 2
+PM_LOGO_SIZE = Int32
+PM_LOGO_SIZE_SMALL = 0
+PM_LOGO_SIZE_MEDIUM = 1
+PM_LOGO_SIZE_LARGE = 2
+PM_LOGO_SIZE_INVALID = 3
+def _define_PM_STARTAPPBLOB_head():
+    class PM_STARTAPPBLOB(Structure):
+        pass
+    return PM_STARTAPPBLOB
+def _define_PM_STARTAPPBLOB():
+    PM_STARTAPPBLOB = win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head
+    PM_STARTAPPBLOB._fields_ = [
+        ('cbSize', UInt32),
+        ('ProductID', Guid),
+        ('AppTitle', win32more.Foundation.BSTR),
+        ('IconPath', win32more.Foundation.BSTR),
+        ('IsUninstallable', win32more.Foundation.BOOL),
+        ('AppInstallType', win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_INSTALL_TYPE),
+        ('InstanceID', Guid),
+        ('State', win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE),
+        ('IsModern', win32more.Foundation.BOOL),
+        ('IsModernLightUp', win32more.Foundation.BOOL),
+        ('LightUpSupportMask', UInt16),
+    ]
+    return PM_STARTAPPBLOB
+PM_STARTTILE_TYPE = Int32
+PM_STARTTILE_TYPE_PRIMARY = 1
+PM_STARTTILE_TYPE_SECONDARY = 2
+PM_STARTTILE_TYPE_APPLIST = 3
+PM_STARTTILE_TYPE_APPLISTPRIMARY = 4
+PM_STARTTILE_TYPE_INVALID = 5
+def _define_PM_STARTTILEBLOB_head():
+    class PM_STARTTILEBLOB(Structure):
+        pass
+    return PM_STARTTILEBLOB
+def _define_PM_STARTTILEBLOB():
+    PM_STARTTILEBLOB = win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head
+    PM_STARTTILEBLOB._fields_ = [
+        ('cbSize', UInt32),
+        ('ProductID', Guid),
+        ('TileID', win32more.Foundation.BSTR),
+        ('TemplateType', win32more.System.ApplicationInstallationAndServicing.TILE_TEMPLATE_TYPE),
+        ('HubPosition', UInt32 * 32),
+        ('HubVisibilityBitmask', UInt32),
+        ('IsDefault', win32more.Foundation.BOOL),
+        ('TileType', win32more.System.ApplicationInstallationAndServicing.PM_STARTTILE_TYPE),
+        ('pbPropBlob', c_char_p_no),
+        ('cbPropBlob', UInt32),
+        ('IsRestoring', win32more.Foundation.BOOL),
+        ('IsModern', win32more.Foundation.BOOL),
+        ('InvocationInfo', win32more.System.ApplicationInstallationAndServicing.PM_INVOCATIONINFO),
+    ]
+    return PM_STARTTILEBLOB
+PM_TASK_TRANSITION = Int32
+PM_TASK_TRANSITION_DEFAULT = 0
+PM_TASK_TRANSITION_NONE = 1
+PM_TASK_TRANSITION_TURNSTILE = 2
+PM_TASK_TRANSITION_SLIDE = 3
+PM_TASK_TRANSITION_SWIVEL = 4
+PM_TASK_TRANSITION_READERBOARD = 5
+PM_TASK_TRANSITION_CUSTOM = 6
+PM_TASK_TRANSITION_INVALID = 7
+PM_TASK_TYPE = Int32
+PM_TASK_TYPE_NORMAL = 0
+PM_TASK_TYPE_DEFAULT = 1
+PM_TASK_TYPE_SETTINGS = 2
+PM_TASK_TYPE_BACKGROUNDSERVICEAGENT = 3
+PM_TASK_TYPE_BACKGROUNDWORKER = 4
+PM_TASK_TYPE_INVALID = 5
+PM_TILE_HUBTYPE = Int32
+PM_TILE_HUBTYPE_MUSIC = 1
+PM_TILE_HUBTYPE_MOSETTINGS = 268435456
+PM_TILE_HUBTYPE_GAMES = 536870912
+PM_TILE_HUBTYPE_APPLIST = 1073741824
+PM_TILE_HUBTYPE_STARTMENU = -2147483648
+PM_TILE_HUBTYPE_LOCKSCREEN = 16777216
+PM_TILE_HUBTYPE_KIDZONE = 33554432
+PM_TILE_HUBTYPE_CACHED = 67108864
+PM_TILE_HUBTYPE_INVALID = 67108865
+PM_TILE_SIZE = Int32
+PM_TILE_SIZE_SMALL = 0
+PM_TILE_SIZE_MEDIUM = 1
+PM_TILE_SIZE_LARGE = 2
+PM_TILE_SIZE_SQUARE310X310 = 3
+PM_TILE_SIZE_TALL150X310 = 4
+PM_TILE_SIZE_INVALID = 5
+def _define_PM_UPDATEINFO_head():
+    class PM_UPDATEINFO(Structure):
+        pass
+    return PM_UPDATEINFO
+def _define_PM_UPDATEINFO():
+    PM_UPDATEINFO = win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head
+    PM_UPDATEINFO._fields_ = [
+        ('ProductID', Guid),
+        ('PackagePath', win32more.Foundation.BSTR),
+        ('InstanceID', Guid),
+        ('pbLicense', c_char_p_no),
+        ('cbLicense', UInt32),
+        ('MarketplaceAppVersion', win32more.Foundation.BSTR),
+        ('DeploymentOptions', UInt32),
+    ]
+    return PM_UPDATEINFO
+def _define_PM_UPDATEINFO_LEGACY_head():
+    class PM_UPDATEINFO_LEGACY(Structure):
+        pass
+    return PM_UPDATEINFO_LEGACY
+def _define_PM_UPDATEINFO_LEGACY():
+    PM_UPDATEINFO_LEGACY = win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_LEGACY_head
+    PM_UPDATEINFO_LEGACY._fields_ = [
+        ('ProductID', Guid),
+        ('PackagePath', win32more.Foundation.BSTR),
+        ('InstanceID', Guid),
+        ('pbLicense', c_char_p_no),
+        ('cbLicense', UInt32),
+        ('MarketplaceAppVersion', win32more.Foundation.BSTR),
+    ]
+    return PM_UPDATEINFO_LEGACY
+def _define_PMSIHANDLE_head():
+    class PMSIHANDLE(Structure):
+        pass
+    return PMSIHANDLE
+def _define_PMSIHANDLE():
+    PMSIHANDLE = win32more.System.ApplicationInstallationAndServicing.PMSIHANDLE_head
+    PMSIHANDLE._fields_ = [
+        ('m_h', win32more.System.ApplicationInstallationAndServicing.MSIHANDLE),
+    ]
+    return PMSIHANDLE
+PMSvc = Guid('b9e511fc-e364-497a-a1-21-b7-b3-61-2c-ed-ce')
+def _define_PPATCH_PROGRESS_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,UInt32)
+def _define_PPATCH_SYMLOAD_CALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,UInt32,UInt32,c_void_p)
+def _define_PROTECTED_FILE_DATA_head():
+    class PROTECTED_FILE_DATA(Structure):
+        pass
+    return PROTECTED_FILE_DATA
+def _define_PROTECTED_FILE_DATA():
+    PROTECTED_FILE_DATA = win32more.System.ApplicationInstallationAndServicing.PROTECTED_FILE_DATA_head
+    PROTECTED_FILE_DATA._fields_ = [
+        ('FileName', Char * 260),
+        ('FileNumber', UInt32),
+    ]
+    return PROTECTED_FILE_DATA
+QUERYASMINFO_FLAGS = UInt32
+QUERYASMINFO_FLAG_VALIDATE = 1
+REINSTALLMODE = Int32
+REINSTALLMODE_REPAIR = 1
+REINSTALLMODE_FILEMISSING = 2
+REINSTALLMODE_FILEOLDERVERSION = 4
+REINSTALLMODE_FILEEQUALVERSION = 8
+REINSTALLMODE_FILEEXACT = 16
+REINSTALLMODE_FILEVERIFY = 32
+REINSTALLMODE_FILEREPLACE = 64
+REINSTALLMODE_MACHINEDATA = 128
+REINSTALLMODE_USERDATA = 256
+REINSTALLMODE_SHORTCUT = 512
+REINSTALLMODE_PACKAGE = 1024
+RESULTTYPES = Int32
+RESULTTYPES_ieUnknown = 0
+RESULTTYPES_ieError = 1
+RESULTTYPES_ieWarning = 2
+RESULTTYPES_ieInfo = 3
+SCRIPTFLAGS = Int32
+SCRIPTFLAGS_CACHEINFO = 1
+SCRIPTFLAGS_SHORTCUTS = 4
+SCRIPTFLAGS_MACHINEASSIGN = 8
+SCRIPTFLAGS_REGDATA_CNFGINFO = 32
+SCRIPTFLAGS_VALIDATE_TRANSFORMS_LIST = 64
+SCRIPTFLAGS_REGDATA_CLASSINFO = 128
+SCRIPTFLAGS_REGDATA_EXTENSIONINFO = 256
+SCRIPTFLAGS_REGDATA_APPINFO = 384
+SCRIPTFLAGS_REGDATA = 416
+STATUSTYPES = Int32
+STATUSTYPES_ieStatusGetCUB = 0
+STATUSTYPES_ieStatusICECount = 1
+STATUSTYPES_ieStatusMerge = 2
+STATUSTYPES_ieStatusSummaryInfo = 3
+STATUSTYPES_ieStatusCreateEngine = 4
+STATUSTYPES_ieStatusStarting = 5
+STATUSTYPES_ieStatusRunICE = 6
+STATUSTYPES_ieStatusShutdown = 7
+STATUSTYPES_ieStatusSuccess = 8
+STATUSTYPES_ieStatusFail = 9
+STATUSTYPES_ieStatusCancel = 10
 TILE_TEMPLATE_TYPE = Int32
 TILE_TEMPLATE_INVALID = 0
 TILE_TEMPLATE_FLIP = 5
@@ -1257,3939 +4249,1520 @@ TILE_TEMPLATE_SEARCH = 57
 TILE_TEMPLATE_TILEFLYOUT01 = 58
 TILE_TEMPLATE_FOLDER = 59
 TILE_TEMPLATE_ALL = 100
-PM_APP_GENRE = Int32
-PM_APP_GENRE_GAMES = 0
-PM_APP_GENRE_OTHER = 1
-PM_APP_GENRE_INVALID = 2
-PM_APPLICATION_INSTALL_TYPE = Int32
-PM_APPLICATION_INSTALL_NORMAL = 0
-PM_APPLICATION_INSTALL_IN_ROM = 1
-PM_APPLICATION_INSTALL_PA = 2
-PM_APPLICATION_INSTALL_DEBUG = 3
-PM_APPLICATION_INSTALL_ENTERPRISE = 4
-PM_APPLICATION_INSTALL_INVALID = 5
-PM_APPLICATION_STATE = Int32
-PM_APPLICATION_STATE_MIN = 0
-PM_APPLICATION_STATE_INSTALLED = 1
-PM_APPLICATION_STATE_INSTALLING = 2
-PM_APPLICATION_STATE_UPDATING = 3
-PM_APPLICATION_STATE_UNINSTALLING = 4
-PM_APPLICATION_STATE_LICENSE_UPDATING = 5
-PM_APPLICATION_STATE_MOVING = 6
-PM_APPLICATION_STATE_DISABLED_SD_CARD = 7
-PM_APPLICATION_STATE_DISABLED_ENTERPRISE = 8
-PM_APPLICATION_STATE_DISABLED_BACKING_UP = 9
-PM_APPLICATION_STATE_DISABLED_MDIL_BINDING = 10
-PM_APPLICATION_STATE_MAX = 10
-PM_APPLICATION_STATE_INVALID = 11
-PM_APPLICATION_HUBTYPE = Int32
-PM_APPLICATION_HUBTYPE_NONMUSIC = 0
-PM_APPLICATION_HUBTYPE_MUSIC = 1
-PM_APPLICATION_HUBTYPE_INVALID = 2
-PM_TILE_HUBTYPE = Int32
-PM_TILE_HUBTYPE_MUSIC = 1
-PM_TILE_HUBTYPE_MOSETTINGS = 268435456
-PM_TILE_HUBTYPE_GAMES = 536870912
-PM_TILE_HUBTYPE_APPLIST = 1073741824
-PM_TILE_HUBTYPE_STARTMENU = -2147483648
-PM_TILE_HUBTYPE_LOCKSCREEN = 16777216
-PM_TILE_HUBTYPE_KIDZONE = 33554432
-PM_TILE_HUBTYPE_CACHED = 67108864
-PM_TILE_HUBTYPE_INVALID = 67108865
-PM_STARTTILE_TYPE = Int32
-PM_STARTTILE_TYPE_PRIMARY = 1
-PM_STARTTILE_TYPE_SECONDARY = 2
-PM_STARTTILE_TYPE_APPLIST = 3
-PM_STARTTILE_TYPE_APPLISTPRIMARY = 4
-PM_STARTTILE_TYPE_INVALID = 5
-PM_TASK_TYPE = Int32
-PM_TASK_TYPE_NORMAL = 0
-PM_TASK_TYPE_DEFAULT = 1
-PM_TASK_TYPE_SETTINGS = 2
-PM_TASK_TYPE_BACKGROUNDSERVICEAGENT = 3
-PM_TASK_TYPE_BACKGROUNDWORKER = 4
-PM_TASK_TYPE_INVALID = 5
-PACKMAN_RUNTIME = Int32
-PACKMAN_RUNTIME_NATIVE = 1
-PACKMAN_RUNTIME_SILVERLIGHTMOBILE = 2
-PACKMAN_RUNTIME_XNA = 3
-PACKMAN_RUNTIME_MODERN_NATIVE = 4
-PACKMAN_RUNTIME_JUPITER = 5
-PACKMAN_RUNTIME_INVALID = 6
-PM_ACTIVATION_POLICY = Int32
-PM_ACTIVATION_POLICY_RESUME = 0
-PM_ACTIVATION_POLICY_RESUMESAMEPARAMS = 1
-PM_ACTIVATION_POLICY_REPLACE = 2
-PM_ACTIVATION_POLICY_REPLACESAMEPARAMS = 3
-PM_ACTIVATION_POLICY_MULTISESSION = 4
-PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND = 5
-PM_ACTIVATION_POLICY_UNKNOWN = 6
-PM_ACTIVATION_POLICY_INVALID = 7
-PM_TASK_TRANSITION = Int32
-PM_TASK_TRANSITION_DEFAULT = 0
-PM_TASK_TRANSITION_NONE = 1
-PM_TASK_TRANSITION_TURNSTILE = 2
-PM_TASK_TRANSITION_SLIDE = 3
-PM_TASK_TRANSITION_SWIVEL = 4
-PM_TASK_TRANSITION_READERBOARD = 5
-PM_TASK_TRANSITION_CUSTOM = 6
-PM_TASK_TRANSITION_INVALID = 7
-PM_ENUM_APP_FILTER = Int32
-PM_APP_FILTER_ALL = 0
-PM_APP_FILTER_VISIBLE = 1
-PM_APP_FILTER_GENRE = 2
-PM_APP_FILTER_NONGAMES = 3
-PM_APP_FILTER_HUBTYPE = 4
-PM_APP_FILTER_PINABLEONKIDZONE = 5
-PM_APP_FILTER_ALL_INCLUDE_MODERN = 6
-PM_APP_FILTER_FRAMEWORK = 7
-PM_APP_FILTER_MAX = 8
-PM_ENUM_TILE_FILTER = Int32
-PM_TILE_FILTER_APPLIST = 8
-PM_TILE_FILTER_PINNED = 9
-PM_TILE_FILTER_HUBTYPE = 10
-PM_TILE_FILTER_APP_ALL = 11
-PM_TILE_FILTER_MAX = 12
-PM_ENUM_TASK_FILTER = Int32
-PM_TASK_FILTER_APP_ALL = 12
-PM_TASK_FILTER_TASK_TYPE = 13
-PM_TASK_FILTER_DEHYD_SUPRESSING = 14
-PM_TASK_FILTER_APP_TASK_TYPE = 15
-PM_TASK_FILTER_BGEXECUTION = 16
-PM_TASK_FILTER_MAX = 17
-PM_ENUM_EXTENSION_FILTER = Int32
-PM_ENUM_EXTENSION_FILTER_BY_CONSUMER = 17
-PM_ENUM_EXTENSION_FILTER_APPCONNECT = 17
-PM_ENUM_EXTENSION_FILTER_PROTOCOL_ALL = 18
-PM_ENUM_EXTENSION_FILTER_FTASSOC_FILETYPE_ALL = 19
-PM_ENUM_EXTENSION_FILTER_FTASSOC_CONTENTTYPE_ALL = 20
-PM_ENUM_EXTENSION_FILTER_FTASSOC_APPLICATION_ALL = 21
-PM_ENUM_EXTENSION_FILTER_SHARETARGET_ALL = 22
-PM_ENUM_EXTENSION_FILTER_FILEOPENPICKER_ALL = 23
-PM_ENUM_EXTENSION_FILTER_FILESAVEPICKER_ALL = 24
-PM_ENUM_EXTENSION_FILTER_CACHEDFILEUPDATER_ALL = 25
-PM_ENUM_EXTENSION_FILTER_MAX = 26
-PM_ENUM_BSA_FILTER = Int32
-PM_ENUM_BSA_FILTER_ALL = 26
-PM_ENUM_BSA_FILTER_BY_TASKID = 27
-PM_ENUM_BSA_FILTER_BY_PRODUCTID = 28
-PM_ENUM_BSA_FILTER_BY_PERIODIC = 29
-PM_ENUM_BSA_FILTER_BY_ALL_LAUNCHONBOOT = 30
-PM_ENUM_BSA_FILTER_MAX = 31
-PM_ENUM_BW_FILTER = Int32
-PM_ENUM_BW_FILTER_BOOTWORKER_ALL = 31
-PM_ENUM_BW_FILTER_BY_TASKID = 32
-PM_ENUM_BW_FILTER_MAX = 33
-def _define__tagAPPTASKTYPE_head():
-    class _tagAPPTASKTYPE(Structure):
-        pass
-    return _tagAPPTASKTYPE
-def _define__tagAPPTASKTYPE():
-    _tagAPPTASKTYPE = win32more.System.ApplicationInstallationAndServicing._tagAPPTASKTYPE_head
-    _tagAPPTASKTYPE._fields_ = [
-        ("ProductID", Guid),
-        ("TaskType", win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE),
-    ]
-    return _tagAPPTASKTYPE
-def _define_PM_EXTENSIONCONSUMER_head():
-    class PM_EXTENSIONCONSUMER(Structure):
-        pass
-    return PM_EXTENSIONCONSUMER
-def _define_PM_EXTENSIONCONSUMER():
-    PM_EXTENSIONCONSUMER = win32more.System.ApplicationInstallationAndServicing.PM_EXTENSIONCONSUMER_head
-    PM_EXTENSIONCONSUMER._fields_ = [
-        ("ConsumerPID", Guid),
-        ("ExtensionID", win32more.Foundation.BSTR),
-    ]
-    return PM_EXTENSIONCONSUMER
-def _define_PM_BSATASKID_head():
-    class PM_BSATASKID(Structure):
-        pass
-    return PM_BSATASKID
-def _define_PM_BSATASKID():
-    PM_BSATASKID = win32more.System.ApplicationInstallationAndServicing.PM_BSATASKID_head
-    PM_BSATASKID._fields_ = [
-        ("ProductID", Guid),
-        ("TaskID", win32more.Foundation.BSTR),
-    ]
-    return PM_BSATASKID
-def _define_PM_BWTASKID_head():
-    class PM_BWTASKID(Structure):
-        pass
-    return PM_BWTASKID
-def _define_PM_BWTASKID():
-    PM_BWTASKID = win32more.System.ApplicationInstallationAndServicing.PM_BWTASKID_head
-    PM_BWTASKID._fields_ = [
-        ("ProductID", Guid),
-        ("TaskID", win32more.Foundation.BSTR),
-    ]
-    return PM_BWTASKID
-def _define_PM_ENUM_FILTER_head():
-    class PM_ENUM_FILTER(Structure):
-        pass
-    return PM_ENUM_FILTER
-def _define_PM_ENUM_FILTER():
-    PM_ENUM_FILTER = win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER_head
-    class PM_ENUM_FILTER__FilterParameter_e__Union(Union):
-        pass
-    PM_ENUM_FILTER__FilterParameter_e__Union._fields_ = [
-        ("Dummy", Int32),
-        ("Genre", win32more.System.ApplicationInstallationAndServicing.PM_APP_GENRE),
-        ("AppHubType", win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_HUBTYPE),
-        ("HubType", win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE),
-        ("Tasktype", win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE),
-        ("TaskProductID", Guid),
-        ("TileProductID", Guid),
-        ("AppTaskType", win32more.System.ApplicationInstallationAndServicing._tagAPPTASKTYPE),
-        ("Consumer", win32more.System.ApplicationInstallationAndServicing.PM_EXTENSIONCONSUMER),
-        ("BSATask", win32more.System.ApplicationInstallationAndServicing.PM_BSATASKID),
-        ("BSAProductID", Guid),
-        ("BWTask", win32more.System.ApplicationInstallationAndServicing.PM_BWTASKID),
-        ("ProtocolName", win32more.Foundation.BSTR),
-        ("FileType", win32more.Foundation.BSTR),
-        ("ContentType", win32more.Foundation.BSTR),
-        ("AppSupportedFileExtPID", Guid),
-        ("ShareTargetFileType", win32more.Foundation.BSTR),
-    ]
-    PM_ENUM_FILTER._fields_ = [
-        ("FilterType", Int32),
-        ("FilterParameter", PM_ENUM_FILTER__FilterParameter_e__Union),
-    ]
-    return PM_ENUM_FILTER
-PM_LIVETILE_RECURRENCE_TYPE = Int32
-PM_LIVETILE_RECURRENCE_TYPE_INSTANT = 0
-PM_LIVETILE_RECURRENCE_TYPE_ONETIME = 1
-PM_LIVETILE_RECURRENCE_TYPE_INTERVAL = 2
-PM_LIVETILE_RECURRENCE_TYPE_MAX = 2
-PM_TILE_SIZE = Int32
-PM_TILE_SIZE_SMALL = 0
-PM_TILE_SIZE_MEDIUM = 1
-PM_TILE_SIZE_LARGE = 2
-PM_TILE_SIZE_SQUARE310X310 = 3
-PM_TILE_SIZE_TALL150X310 = 4
-PM_TILE_SIZE_INVALID = 5
-PM_LOGO_SIZE = Int32
-PM_LOGO_SIZE_SMALL = 0
-PM_LOGO_SIZE_MEDIUM = 1
-PM_LOGO_SIZE_LARGE = 2
-PM_LOGO_SIZE_INVALID = 3
-def _define_PM_STARTAPPBLOB_head():
-    class PM_STARTAPPBLOB(Structure):
-        pass
-    return PM_STARTAPPBLOB
-def _define_PM_STARTAPPBLOB():
-    PM_STARTAPPBLOB = win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head
-    PM_STARTAPPBLOB._fields_ = [
-        ("cbSize", UInt32),
-        ("ProductID", Guid),
-        ("AppTitle", win32more.Foundation.BSTR),
-        ("IconPath", win32more.Foundation.BSTR),
-        ("IsUninstallable", win32more.Foundation.BOOL),
-        ("AppInstallType", win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_INSTALL_TYPE),
-        ("InstanceID", Guid),
-        ("State", win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE),
-        ("IsModern", win32more.Foundation.BOOL),
-        ("IsModernLightUp", win32more.Foundation.BOOL),
-        ("LightUpSupportMask", UInt16),
-    ]
-    return PM_STARTAPPBLOB
-def _define_PM_INVOCATIONINFO_head():
-    class PM_INVOCATIONINFO(Structure):
-        pass
-    return PM_INVOCATIONINFO
-def _define_PM_INVOCATIONINFO():
-    PM_INVOCATIONINFO = win32more.System.ApplicationInstallationAndServicing.PM_INVOCATIONINFO_head
-    PM_INVOCATIONINFO._fields_ = [
-        ("URIBaseOrAUMID", win32more.Foundation.BSTR),
-        ("URIFragmentOrArgs", win32more.Foundation.BSTR),
-    ]
-    return PM_INVOCATIONINFO
-def _define_PM_STARTTILEBLOB_head():
-    class PM_STARTTILEBLOB(Structure):
-        pass
-    return PM_STARTTILEBLOB
-def _define_PM_STARTTILEBLOB():
-    PM_STARTTILEBLOB = win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head
-    PM_STARTTILEBLOB._fields_ = [
-        ("cbSize", UInt32),
-        ("ProductID", Guid),
-        ("TileID", win32more.Foundation.BSTR),
-        ("TemplateType", win32more.System.ApplicationInstallationAndServicing.TILE_TEMPLATE_TYPE),
-        ("HubPosition", UInt32 * 32),
-        ("HubVisibilityBitmask", UInt32),
-        ("IsDefault", win32more.Foundation.BOOL),
-        ("TileType", win32more.System.ApplicationInstallationAndServicing.PM_STARTTILE_TYPE),
-        ("pbPropBlob", c_char_p_no),
-        ("cbPropBlob", UInt32),
-        ("IsRestoring", win32more.Foundation.BOOL),
-        ("IsModern", win32more.Foundation.BOOL),
-        ("InvocationInfo", win32more.System.ApplicationInstallationAndServicing.PM_INVOCATIONINFO),
-    ]
-    return PM_STARTTILEBLOB
-def _define_PM_INSTALLINFO_head():
-    class PM_INSTALLINFO(Structure):
-        pass
-    return PM_INSTALLINFO
-def _define_PM_INSTALLINFO():
-    PM_INSTALLINFO = win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head
-    PM_INSTALLINFO._fields_ = [
-        ("ProductID", Guid),
-        ("PackagePath", win32more.Foundation.BSTR),
-        ("InstanceID", Guid),
-        ("pbLicense", c_char_p_no),
-        ("cbLicense", UInt32),
-        ("IsUninstallDisabled", win32more.Foundation.BOOL),
-        ("DeploymentOptions", UInt32),
-        ("OfferID", Guid),
-        ("MarketplaceAppVersion", win32more.Foundation.BSTR),
-    ]
-    return PM_INSTALLINFO
-def _define_PM_UPDATEINFO_LEGACY_head():
-    class PM_UPDATEINFO_LEGACY(Structure):
-        pass
-    return PM_UPDATEINFO_LEGACY
-def _define_PM_UPDATEINFO_LEGACY():
-    PM_UPDATEINFO_LEGACY = win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_LEGACY_head
-    PM_UPDATEINFO_LEGACY._fields_ = [
-        ("ProductID", Guid),
-        ("PackagePath", win32more.Foundation.BSTR),
-        ("InstanceID", Guid),
-        ("pbLicense", c_char_p_no),
-        ("cbLicense", UInt32),
-        ("MarketplaceAppVersion", win32more.Foundation.BSTR),
-    ]
-    return PM_UPDATEINFO_LEGACY
-def _define_PM_UPDATEINFO_head():
-    class PM_UPDATEINFO(Structure):
-        pass
-    return PM_UPDATEINFO
-def _define_PM_UPDATEINFO():
-    PM_UPDATEINFO = win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head
-    PM_UPDATEINFO._fields_ = [
-        ("ProductID", Guid),
-        ("PackagePath", win32more.Foundation.BSTR),
-        ("InstanceID", Guid),
-        ("pbLicense", c_char_p_no),
-        ("cbLicense", UInt32),
-        ("MarketplaceAppVersion", win32more.Foundation.BSTR),
-        ("DeploymentOptions", UInt32),
-    ]
-    return PM_UPDATEINFO
-def _define_IPMApplicationInfo_head():
-    class IPMApplicationInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('50afb58a-438c-4088-9789-f8c4899829c7')
-    return IPMApplicationInfo
-def _define_IPMApplicationInfo():
-    IPMApplicationInfo = win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head
-    IPMApplicationInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_ProductID', ((1, 'pProductID'),)))
-    IPMApplicationInfo.get_InstanceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'get_InstanceID', ((1, 'pInstanceID'),)))
-    IPMApplicationInfo.get_OfferID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'get_OfferID', ((1, 'pOfferID'),)))
-    IPMApplicationInfo.get_DefaultTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_DefaultTask', ((1, 'pDefaultTask'),)))
-    IPMApplicationInfo.get_AppTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_AppTitle', ((1, 'pAppTitle'),)))
-    IPMApplicationInfo.get_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_IconPath', ((1, 'pAppIconPath'),)))
-    IPMApplicationInfo.get_NotificationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'get_NotificationState', ((1, 'pIsNotified'),)))
-    IPMApplicationInfo.get_AppInstallType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_INSTALL_TYPE), use_last_error=False)(10, 'get_AppInstallType', ((1, 'pAppInstallType'),)))
-    IPMApplicationInfo.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE), use_last_error=False)(11, 'get_State', ((1, 'pState'),)))
-    IPMApplicationInfo.get_IsRevoked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'get_IsRevoked', ((1, 'pIsRevoked'),)))
-    IPMApplicationInfo.get_UpdateAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'get_UpdateAvailable', ((1, 'pIsUpdateAvailable'),)))
-    IPMApplicationInfo.get_InstallDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(14, 'get_InstallDate', ((1, 'pInstallDate'),)))
-    IPMApplicationInfo.get_IsUninstallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'get_IsUninstallable', ((1, 'pIsUninstallable'),)))
-    IPMApplicationInfo.get_IsThemable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'get_IsThemable', ((1, 'pIsThemable'),)))
-    IPMApplicationInfo.get_IsTrial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(17, 'get_IsTrial', ((1, 'pIsTrial'),)))
-    IPMApplicationInfo.get_InstallPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_InstallPath', ((1, 'pInstallPath'),)))
-    IPMApplicationInfo.get_DataRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_DataRoot', ((1, 'pDataRoot'),)))
-    IPMApplicationInfo.get_Genre = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APP_GENRE), use_last_error=False)(20, 'get_Genre', ((1, 'pGenre'),)))
-    IPMApplicationInfo.get_Publisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'get_Publisher', ((1, 'pPublisher'),)))
-    IPMApplicationInfo.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_Author', ((1, 'pAuthor'),)))
-    IPMApplicationInfo.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_Description', ((1, 'pDescription'),)))
-    IPMApplicationInfo.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'get_Version', ((1, 'pVersion'),)))
-    IPMApplicationInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(25, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
-    IPMApplicationInfo.get_AppPlatMajorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(26, 'get_AppPlatMajorVersion', ((1, 'pMajorVer'),)))
-    IPMApplicationInfo.get_AppPlatMinorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(27, 'get_AppPlatMinorVersion', ((1, 'pMinorVer'),)))
-    IPMApplicationInfo.get_PublisherID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(28, 'get_PublisherID', ((1, 'pPublisherID'),)))
-    IPMApplicationInfo.get_IsMultiCore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(29, 'get_IsMultiCore', ((1, 'pIsMultiCore'),)))
-    IPMApplicationInfo.get_SID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(30, 'get_SID', ((1, 'pSID'),)))
-    IPMApplicationInfo.get_AppPlatMajorVersionLightUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(31, 'get_AppPlatMajorVersionLightUp', ((1, 'pMajorVer'),)))
-    IPMApplicationInfo.get_AppPlatMinorVersionLightUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(32, 'get_AppPlatMinorVersionLightUp', ((1, 'pMinorVer'),)))
-    IPMApplicationInfo.set_UpdateAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(33, 'set_UpdateAvailable', ((1, 'IsUpdateAvailable'),)))
-    IPMApplicationInfo.set_NotificationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(34, 'set_NotificationState', ((1, 'IsNotified'),)))
-    IPMApplicationInfo.set_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'set_IconPath', ((1, 'AppIconPath'),)))
-    IPMApplicationInfo.set_UninstallableState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(36, 'set_UninstallableState', ((1, 'IsUninstallable'),)))
-    IPMApplicationInfo.get_IsPinableOnKidZone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(37, 'get_IsPinableOnKidZone', ((1, 'pIsPinable'),)))
-    IPMApplicationInfo.get_IsOriginallyPreInstalled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(38, 'get_IsOriginallyPreInstalled', ((1, 'pIsPreinstalled'),)))
-    IPMApplicationInfo.get_IsInstallOnSD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(39, 'get_IsInstallOnSD', ((1, 'pIsInstallOnSD'),)))
-    IPMApplicationInfo.get_IsOptoutOnSD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(40, 'get_IsOptoutOnSD', ((1, 'pIsOptoutOnSD'),)))
-    IPMApplicationInfo.get_IsOptoutBackupRestore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(41, 'get_IsOptoutBackupRestore', ((1, 'pIsOptoutBackupRestore'),)))
-    IPMApplicationInfo.set_EnterpriseDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(42, 'set_EnterpriseDisabled', ((1, 'IsDisabled'),)))
-    IPMApplicationInfo.set_EnterpriseUninstallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(43, 'set_EnterpriseUninstallable', ((1, 'IsUninstallable'),)))
-    IPMApplicationInfo.get_EnterpriseDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(44, 'get_EnterpriseDisabled', ((1, 'IsDisabled'),)))
-    IPMApplicationInfo.get_EnterpriseUninstallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(45, 'get_EnterpriseUninstallable', ((1, 'IsUninstallable'),)))
-    IPMApplicationInfo.get_IsVisibleOnAppList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(46, 'get_IsVisibleOnAppList', ((1, 'pIsVisible'),)))
-    IPMApplicationInfo.get_IsInboxApp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(47, 'get_IsInboxApp', ((1, 'pIsInboxApp'),)))
-    IPMApplicationInfo.get_StorageID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(48, 'get_StorageID', ((1, 'pStorageID'),)))
-    IPMApplicationInfo.get_StartAppBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head), use_last_error=False)(49, 'get_StartAppBlob', ((1, 'pBlob'),)))
-    IPMApplicationInfo.get_IsMovable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(50, 'get_IsMovable', ((1, 'pIsMovable'),)))
-    IPMApplicationInfo.get_DeploymentAppEnumerationHubFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE), use_last_error=False)(51, 'get_DeploymentAppEnumerationHubFilter', ((1, 'HubType'),)))
-    IPMApplicationInfo.get_ModifiedDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(52, 'get_ModifiedDate', ((1, 'pModifiedDate'),)))
-    IPMApplicationInfo.get_IsOriginallyRestored = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(53, 'get_IsOriginallyRestored', ((1, 'pIsRestored'),)))
-    IPMApplicationInfo.get_ShouldDeferMdilBind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(54, 'get_ShouldDeferMdilBind', ((1, 'pfDeferMdilBind'),)))
-    IPMApplicationInfo.get_IsFullyPreInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(55, 'get_IsFullyPreInstall', ((1, 'pfIsFullyPreInstall'),)))
-    IPMApplicationInfo.set_IsMdilMaintenanceNeeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(56, 'set_IsMdilMaintenanceNeeded', ((1, 'fIsMdilMaintenanceNeeded'),)))
-    IPMApplicationInfo.set_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(57, 'set_Title', ((1, 'AppTitle'),)))
-    win32more.System.Com.IUnknown
-    return IPMApplicationInfo
-def _define_IPMTilePropertyInfo_head():
-    class IPMTilePropertyInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6c2b8017-1efa-42a7-86c0-6d4b640bf528')
-    return IPMTilePropertyInfo
-def _define_IPMTilePropertyInfo():
-    IPMTilePropertyInfo = win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head
-    IPMTilePropertyInfo.get_PropertyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'get_PropertyID', ((1, 'pPropID'),)))
-    IPMTilePropertyInfo.get_PropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_PropertyValue', ((1, 'pPropValue'),)))
-    IPMTilePropertyInfo.set_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(5, 'set_Property', ((1, 'PropValue'),)))
-    win32more.System.Com.IUnknown
-    return IPMTilePropertyInfo
-def _define_IPMTilePropertyEnumerator_head():
-    class IPMTilePropertyEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cc4cd629-9047-4250-aac8-930e47812421')
-    return IPMTilePropertyEnumerator
-def _define_IPMTilePropertyEnumerator():
-    IPMTilePropertyEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyEnumerator_head
-    IPMTilePropertyEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppPropInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMTilePropertyEnumerator
-def _define_IPMTileInfo_head():
-    class IPMTileInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d1604833-2b08-4001-82cd-183ad734f752')
-    return IPMTileInfo
-def _define_IPMTileInfo():
-    IPMTileInfo = win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head
-    IPMTileInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_ProductID', ((1, 'pProductID'),)))
-    IPMTileInfo.get_TileID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_TileID', ((1, 'pTileID'),)))
-    IPMTileInfo.get_TemplateType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.TILE_TEMPLATE_TYPE), use_last_error=False)(5, 'get_TemplateType', ((1, 'pTemplateType'),)))
-    IPMTileInfo.get_HubPinnedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'get_HubPinnedState', ((1, 'HubType'),(1, 'pPinned'),)))
-    IPMTileInfo.get_HubPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,POINTER(UInt32), use_last_error=False)(7, 'get_HubPosition', ((1, 'HubType'),(1, 'pPosition'),)))
-    IPMTileInfo.get_IsNotified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_IsNotified', ((1, 'pIsNotified'),)))
-    IPMTileInfo.get_IsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'get_IsDefault', ((1, 'pIsDefault'),)))
-    IPMTileInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_TaskID', ((1, 'pTaskID'),)))
-    IPMTileInfo.get_TileType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILE_TYPE), use_last_error=False)(11, 'get_TileType', ((1, 'pStartTileType'),)))
-    IPMTileInfo.get_IsThemable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'get_IsThemable', ((1, 'pIsThemable'),)))
-    IPMTileInfo.get_PropertyById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head), use_last_error=False)(13, 'get_PropertyById', ((1, 'PropID'),(1, 'ppPropInfo'),)))
-    IPMTileInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
-    IPMTileInfo.get_PropertyEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyEnumerator_head), use_last_error=False)(15, 'get_PropertyEnum', ((1, 'ppTilePropEnum'),)))
-    IPMTileInfo.get_HubTileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TILE_SIZE), use_last_error=False)(16, 'get_HubTileSize', ((1, 'HubType'),(1, 'pSize'),)))
-    IPMTileInfo.set_HubPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,UInt32, use_last_error=False)(17, 'set_HubPosition', ((1, 'HubType'),(1, 'Position'),)))
-    IPMTileInfo.set_NotifiedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(18, 'set_NotifiedState', ((1, 'Notified'),)))
-    IPMTileInfo.set_HubPinnedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,win32more.Foundation.BOOL, use_last_error=False)(19, 'set_HubPinnedState', ((1, 'HubType'),(1, 'Pinned'),)))
-    IPMTileInfo.set_HubTileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_TILE_HUBTYPE,win32more.System.ApplicationInstallationAndServicing.PM_TILE_SIZE, use_last_error=False)(20, 'set_HubTileSize', ((1, 'HubType'),(1, 'Size'),)))
-    IPMTileInfo.set_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(21, 'set_InvocationInfo', ((1, 'TaskName'),(1, 'TaskParameters'),)))
-    IPMTileInfo.get_StartTileBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head), use_last_error=False)(22, 'get_StartTileBlob', ((1, 'pBlob'),)))
-    IPMTileInfo.get_IsRestoring = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(23, 'get_IsRestoring', ((1, 'pIsRestoring'),)))
-    IPMTileInfo.get_IsAutoRestoreDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(24, 'get_IsAutoRestoreDisabled', ((1, 'pIsAutoRestoreDisabled'),)))
-    IPMTileInfo.set_IsRestoring = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(25, 'set_IsRestoring', ((1, 'Restoring'),)))
-    IPMTileInfo.set_IsAutoRestoreDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(26, 'set_IsAutoRestoreDisabled', ((1, 'AutoRestoreDisabled'),)))
-    win32more.System.Com.IUnknown
-    return IPMTileInfo
-def _define_IPMTileInfoEnumerator_head():
-    class IPMTileInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ded83065-e462-4b2c-acb5-e39cea61c874')
-    return IPMTileInfoEnumerator
-def _define_IPMTileInfoEnumerator():
-    IPMTileInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTileInfoEnumerator_head
-    IPMTileInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppTileInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMTileInfoEnumerator
-def _define_IPMApplicationInfoEnumerator_head():
-    class IPMApplicationInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0ec42a96-4d46-4dc6-a3d9-a7acaac0f5fa')
-    return IPMApplicationInfoEnumerator
-def _define_IPMApplicationInfoEnumerator():
-    IPMApplicationInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfoEnumerator_head
-    IPMApplicationInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppAppInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMApplicationInfoEnumerator
-def _define_IPMLiveTileJobInfo_head():
-    class IPMLiveTileJobInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6009a81f-4710-4697-b5f6-2208f6057b8e')
-    return IPMLiveTileJobInfo
-def _define_IPMLiveTileJobInfo():
-    IPMLiveTileJobInfo = win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head
-    IPMLiveTileJobInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_ProductID', ((1, 'pProductID'),)))
-    IPMLiveTileJobInfo.get_TileID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_TileID', ((1, 'pTileID'),)))
-    IPMLiveTileJobInfo.get_NextSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(5, 'get_NextSchedule', ((1, 'pNextSchedule'),)))
-    IPMLiveTileJobInfo.set_NextSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.FILETIME, use_last_error=False)(6, 'set_NextSchedule', ((1, 'ftNextSchedule'),)))
-    IPMLiveTileJobInfo.get_StartSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(7, 'get_StartSchedule', ((1, 'pStartSchedule'),)))
-    IPMLiveTileJobInfo.set_StartSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.FILETIME, use_last_error=False)(8, 'set_StartSchedule', ((1, 'ftStartSchedule'),)))
-    IPMLiveTileJobInfo.get_IntervalDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'get_IntervalDuration', ((1, 'pIntervalDuration'),)))
-    IPMLiveTileJobInfo.set_IntervalDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'set_IntervalDuration', ((1, 'ulIntervalDuration'),)))
-    IPMLiveTileJobInfo.get_RunForever = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'get_RunForever', ((1, 'IsRunForever'),)))
-    IPMLiveTileJobInfo.set_RunForever = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(12, 'set_RunForever', ((1, 'fRunForever'),)))
-    IPMLiveTileJobInfo.get_MaxRunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'get_MaxRunCount', ((1, 'pMaxRunCount'),)))
-    IPMLiveTileJobInfo.set_MaxRunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(14, 'set_MaxRunCount', ((1, 'ulMaxRunCount'),)))
-    IPMLiveTileJobInfo.get_RunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_RunCount', ((1, 'pRunCount'),)))
-    IPMLiveTileJobInfo.set_RunCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(16, 'set_RunCount', ((1, 'ulRunCount'),)))
-    IPMLiveTileJobInfo.get_RecurrenceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(17, 'get_RecurrenceType', ((1, 'pRecurrenceType'),)))
-    IPMLiveTileJobInfo.set_RecurrenceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(18, 'set_RecurrenceType', ((1, 'ulRecurrenceType'),)))
-    IPMLiveTileJobInfo.get_TileXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(19, 'get_TileXML', ((1, 'pTileXml'),(1, 'pcbTileXml'),)))
-    IPMLiveTileJobInfo.set_TileXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(20, 'set_TileXML', ((1, 'pTileXml'),(1, 'cbTileXml'),)))
-    IPMLiveTileJobInfo.get_UrlXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(21, 'get_UrlXML', ((1, 'pUrlXML'),(1, 'pcbUrlXML'),)))
-    IPMLiveTileJobInfo.set_UrlXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(22, 'set_UrlXML', ((1, 'pUrlXML'),(1, 'cbUrlXML'),)))
-    IPMLiveTileJobInfo.get_AttemptCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(23, 'get_AttemptCount', ((1, 'pAttemptCount'),)))
-    IPMLiveTileJobInfo.set_AttemptCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(24, 'set_AttemptCount', ((1, 'ulAttemptCount'),)))
-    IPMLiveTileJobInfo.get_DownloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(25, 'get_DownloadState', ((1, 'pDownloadState'),)))
-    IPMLiveTileJobInfo.set_DownloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(26, 'set_DownloadState', ((1, 'ulDownloadState'),)))
-    win32more.System.Com.IUnknown
-    return IPMLiveTileJobInfo
-def _define_IPMLiveTileJobInfoEnumerator_head():
-    class IPMLiveTileJobInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bc042582-9415-4f36-9f99-06f104c07c03')
-    return IPMLiveTileJobInfoEnumerator
-def _define_IPMLiveTileJobInfoEnumerator():
-    IPMLiveTileJobInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfoEnumerator_head
-    IPMLiveTileJobInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppLiveTileJobInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMLiveTileJobInfoEnumerator
-def _define_IPMDeploymentManager_head():
-    class IPMDeploymentManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('35f785fa-1979-4a8b-bc8f-fd70eb0d1544')
-    return IPMDeploymentManager
-def _define_IPMDeploymentManager():
-    IPMDeploymentManager = win32more.System.ApplicationInstallationAndServicing.IPMDeploymentManager_head
-    IPMDeploymentManager.ReportDownloadBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(3, 'ReportDownloadBegin', ((1, 'productID'),)))
-    IPMDeploymentManager.ReportDownloadProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt16, use_last_error=False)(4, 'ReportDownloadProgress', ((1, 'productID'),(1, 'usProgress'),)))
-    IPMDeploymentManager.ReportDownloadComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.HRESULT, use_last_error=False)(5, 'ReportDownloadComplete', ((1, 'productID'),(1, 'hrResult'),)))
-    IPMDeploymentManager.BeginInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head), use_last_error=False)(6, 'BeginInstall', ((1, 'pInstallInfo'),)))
-    IPMDeploymentManager.BeginUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head), use_last_error=False)(7, 'BeginUpdate', ((1, 'pUpdateInfo'),)))
-    IPMDeploymentManager.BeginDeployPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head), use_last_error=False)(8, 'BeginDeployPackage', ((1, 'pInstallInfo'),)))
-    IPMDeploymentManager.BeginUpdateDeployedPackageLegacy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_LEGACY_head), use_last_error=False)(9, 'BeginUpdateDeployedPackageLegacy', ((1, 'pUpdateInfo'),)))
-    IPMDeploymentManager.BeginUninstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(10, 'BeginUninstall', ((1, 'productID'),)))
-    IPMDeploymentManager.BeginEnterpriseAppInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_INSTALLINFO_head), use_last_error=False)(11, 'BeginEnterpriseAppInstall', ((1, 'pInstallInfo'),)))
-    IPMDeploymentManager.BeginEnterpriseAppUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head), use_last_error=False)(12, 'BeginEnterpriseAppUpdate', ((1, 'pUpdateInfo'),)))
-    IPMDeploymentManager.BeginUpdateLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid,POINTER(Byte),UInt32, use_last_error=False)(13, 'BeginUpdateLicense', ((1, 'productID'),(1, 'offerID'),(1, 'pbLicense'),(1, 'cbLicense'),)))
-    IPMDeploymentManager.GetLicenseChallenge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(14, 'GetLicenseChallenge', ((1, 'PackagePath'),(1, 'ppbChallenge'),(1, 'pcbChallenge'),(1, 'ppbKID'),(1, 'pcbKID'),(1, 'ppbDeviceID'),(1, 'pcbDeviceID'),(1, 'ppbSaltValue'),(1, 'pcbSaltValue'),(1, 'ppbKGVValue'),(1, 'pcbKGVValue'),)))
-    IPMDeploymentManager.GetLicenseChallengeByProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(15, 'GetLicenseChallengeByProductID', ((1, 'ProductID'),(1, 'ppbChallenge'),(1, 'pcbLicense'),)))
-    IPMDeploymentManager.GetLicenseChallengeByProductID2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(16, 'GetLicenseChallengeByProductID2', ((1, 'ProductID'),(1, 'ppbChallenge'),(1, 'pcbLicense'),(1, 'ppbKID'),(1, 'pcbKID'),(1, 'ppbDeviceID'),(1, 'pcbDeviceID'),(1, 'ppbSaltValue'),(1, 'pcbSaltValue'),(1, 'ppbKGVValue'),(1, 'pcbKGVValue'),)))
-    IPMDeploymentManager.RevokeLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(17, 'RevokeLicense', ((1, 'productID'),)))
-    IPMDeploymentManager.RebindMdilBinaries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(18, 'RebindMdilBinaries', ((1, 'ProductID'),(1, 'FileNames'),)))
-    IPMDeploymentManager.RebindAllMdilBinaries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid, use_last_error=False)(19, 'RebindAllMdilBinaries', ((1, 'ProductID'),(1, 'InstanceID'),)))
-    IPMDeploymentManager.RegenerateXbf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(20, 'RegenerateXbf', ((1, 'ProductID'),(1, 'AssemblyPaths'),)))
-    IPMDeploymentManager.GenerateXbfForCurrentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(21, 'GenerateXbfForCurrentLocale', ((1, 'ProductID'),)))
-    IPMDeploymentManager.BeginProvision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR, use_last_error=False)(22, 'BeginProvision', ((1, 'ProductID'),(1, 'XMLpath'),)))
-    IPMDeploymentManager.BeginDeprovision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(23, 'BeginDeprovision', ((1, 'ProductID'),)))
-    IPMDeploymentManager.ReindexSQLCEDatabases = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(24, 'ReindexSQLCEDatabases', ((1, 'ProductID'),)))
-    IPMDeploymentManager.SetApplicationsNeedMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(25, 'SetApplicationsNeedMaintenance', ((1, 'RequiredMaintenanceOperations'),(1, 'pcApplications'),)))
-    IPMDeploymentManager.UpdateChamberProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(26, 'UpdateChamberProfile', ((1, 'ProductID'),)))
-    IPMDeploymentManager.EnterprisePolicyIsApplicationAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(27, 'EnterprisePolicyIsApplicationAllowed', ((1, 'productId'),(1, 'publisherName'),(1, 'pIsAllowed'),)))
-    IPMDeploymentManager.BeginUpdateDeployedPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_UPDATEINFO_head), use_last_error=False)(28, 'BeginUpdateDeployedPackage', ((1, 'pUpdateInfo'),)))
-    IPMDeploymentManager.ReportRestoreCancelled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(29, 'ReportRestoreCancelled', ((1, 'productID'),)))
-    IPMDeploymentManager.ResolveResourceString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(30, 'ResolveResourceString', ((1, 'resourceString'),(1, 'pResolvedResourceString'),)))
-    IPMDeploymentManager.UpdateCapabilitiesForModernApps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(31, 'UpdateCapabilitiesForModernApps', ()))
-    IPMDeploymentManager.ReportDownloadStatusUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(32, 'ReportDownloadStatusUpdate', ((1, 'productId'),)))
-    IPMDeploymentManager.BeginUninstallWithOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32, use_last_error=False)(33, 'BeginUninstallWithOptions', ((1, 'productID'),(1, 'removalOptions'),)))
-    IPMDeploymentManager.BindDeferredMdilBinaries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(34, 'BindDeferredMdilBinaries', ()))
-    IPMDeploymentManager.GenerateXamlLightupXbfForCurrentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'GenerateXamlLightupXbfForCurrentLocale', ((1, 'PackageFamilyName'),)))
-    IPMDeploymentManager.AddLicenseForAppx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(Byte),UInt32,POINTER(Byte),UInt32, use_last_error=False)(36, 'AddLicenseForAppx', ((1, 'productID'),(1, 'pbLicense'),(1, 'cbLicense'),(1, 'pbPlayReadyHeader'),(1, 'cbPlayReadyHeader'),)))
-    IPMDeploymentManager.FixJunctionsForAppsOnSDCard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'FixJunctionsForAppsOnSDCard', ()))
-    win32more.System.Com.IUnknown
-    return IPMDeploymentManager
-def _define_IPMEnumerationManager_head():
-    class IPMEnumerationManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('698d57c2-292d-4cf3-b73c-d95a6922ed9a')
-    return IPMEnumerationManager
-def _define_IPMEnumerationManager():
-    IPMEnumerationManager = win32more.System.ApplicationInstallationAndServicing.IPMEnumerationManager_head
-    IPMEnumerationManager.get_AllApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, use_last_error=False)(3, 'get_AllApplications', ((1, 'ppAppEnum'),(1, 'Filter'),)))
-    IPMEnumerationManager.get_AllTiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, use_last_error=False)(4, 'get_AllTiles', ((1, 'ppTileEnum'),(1, 'Filter'),)))
-    IPMEnumerationManager.get_AllTasks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, use_last_error=False)(5, 'get_AllTasks', ((1, 'ppTaskEnum'),(1, 'Filter'),)))
-    IPMEnumerationManager.get_AllExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, use_last_error=False)(6, 'get_AllExtensions', ((1, 'ppExtensionEnum'),(1, 'Filter'),)))
-    IPMEnumerationManager.get_AllBackgroundServiceAgents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, use_last_error=False)(7, 'get_AllBackgroundServiceAgents', ((1, 'ppBSAEnum'),(1, 'Filter'),)))
-    IPMEnumerationManager.get_AllBackgroundWorkers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfoEnumerator_head),win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, use_last_error=False)(8, 'get_AllBackgroundWorkers', ((1, 'ppBSWEnum'),(1, 'Filter'),)))
-    IPMEnumerationManager.get_ApplicationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head), use_last_error=False)(9, 'get_ApplicationInfo', ((1, 'ProductID'),(1, 'ppAppInfo'),)))
-    IPMEnumerationManager.get_TileInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head), use_last_error=False)(10, 'get_TileInfo', ((1, 'ProductID'),(1, 'TileID'),(1, 'ppTileInfo'),)))
-    IPMEnumerationManager.get_TaskInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head), use_last_error=False)(11, 'get_TaskInfo', ((1, 'ProductID'),(1, 'TaskID'),(1, 'ppTaskInfo'),)))
-    IPMEnumerationManager.get_TaskInfoEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head), use_last_error=False)(12, 'get_TaskInfoEx', ((1, 'ProductID'),(1, 'TaskID'),(1, 'ppTaskInfo'),)))
-    IPMEnumerationManager.get_BackgroundServiceAgentInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head), use_last_error=False)(13, 'get_BackgroundServiceAgentInfo', ((1, 'BSAID'),(1, 'ppTaskInfo'),)))
-    IPMEnumerationManager.get_AllLiveTileJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfoEnumerator_head), use_last_error=False)(14, 'get_AllLiveTileJobs', ((1, 'ppLiveTileJobEnum'),)))
-    IPMEnumerationManager.get_LiveTileJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,win32more.System.ApplicationInstallationAndServicing.PM_LIVETILE_RECURRENCE_TYPE,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head), use_last_error=False)(15, 'get_LiveTileJob', ((1, 'ProductID'),(1, 'TileID'),(1, 'RecurrenceType'),(1, 'ppLiveTileJobInfo'),)))
-    IPMEnumerationManager.get_ApplicationInfoExternal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head), use_last_error=False)(16, 'get_ApplicationInfoExternal', ((1, 'ProductID'),(1, 'ppAppInfo'),)))
-    IPMEnumerationManager.get_FileHandlerGenericLogo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_FileHandlerGenericLogo', ((1, 'FileType'),(1, 'LogoSize'),(1, 'pLogo'),)))
-    IPMEnumerationManager.get_ApplicationInfoFromAccessClaims = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head), use_last_error=False)(18, 'get_ApplicationInfoFromAccessClaims', ((1, 'SysAppID0'),(1, 'SysAppID1'),(1, 'ppAppInfo'),)))
-    IPMEnumerationManager.get_StartTileEnumeratorBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head)), use_last_error=False)(19, 'get_StartTileEnumeratorBlob', ((1, 'Filter'),(1, 'pcTiles'),(1, 'ppTileBlobs'),)))
-    IPMEnumerationManager.get_StartAppEnumeratorBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head)), use_last_error=False)(20, 'get_StartAppEnumeratorBlob', ((1, 'Filter'),(1, 'pcApps'),(1, 'ppAppBlobs'),)))
-    win32more.System.Com.IUnknown
-    return IPMEnumerationManager
-def _define_IPMTaskInfo_head():
-    class IPMTaskInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bf1d8c33-1bf5-4ee0-b549-6b9dd3834942')
-    return IPMTaskInfo
-def _define_IPMTaskInfo():
-    IPMTaskInfo = win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head
-    IPMTaskInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_ProductID', ((1, 'pProductID'),)))
-    IPMTaskInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_TaskID', ((1, 'pTaskID'),)))
-    IPMTaskInfo.get_NavigationPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_NavigationPage', ((1, 'pNavigationPage'),)))
-    IPMTaskInfo.get_TaskTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TASK_TRANSITION), use_last_error=False)(6, 'get_TaskTransition', ((1, 'pTaskTransition'),)))
-    IPMTaskInfo.get_RuntimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PACKMAN_RUNTIME), use_last_error=False)(7, 'get_RuntimeType', ((1, 'pRuntimetype'),)))
-    IPMTaskInfo.get_ActivationPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_ACTIVATION_POLICY), use_last_error=False)(8, 'get_ActivationPolicy', ((1, 'pActivationPolicy'),)))
-    IPMTaskInfo.get_TaskType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE), use_last_error=False)(9, 'get_TaskType', ((1, 'pTaskType'),)))
-    IPMTaskInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
-    IPMTaskInfo.get_ImagePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_ImagePath', ((1, 'pImagePath'),)))
-    IPMTaskInfo.get_ImageParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_ImageParams', ((1, 'pImageParams'),)))
-    IPMTaskInfo.get_InstallRootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_InstallRootFolder', ((1, 'pInstallRootFolder'),)))
-    IPMTaskInfo.get_DataRootFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_DataRootFolder', ((1, 'pDataRootFolder'),)))
-    IPMTaskInfo.get_IsSingleInstanceHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'get_IsSingleInstanceHost', ((1, 'pIsSingleInstanceHost'),)))
-    IPMTaskInfo.get_IsInteropEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'get_IsInteropEnabled', ((1, 'pIsInteropEnabled'),)))
-    IPMTaskInfo.get_ApplicationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE), use_last_error=False)(17, 'get_ApplicationState', ((1, 'pApplicationState'),)))
-    IPMTaskInfo.get_InstallType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.PM_APPLICATION_INSTALL_TYPE), use_last_error=False)(18, 'get_InstallType', ((1, 'pInstallType'),)))
-    IPMTaskInfo.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no, use_last_error=False)(19, 'get_Version', ((1, 'pTargetMajorVersion'),(1, 'pTargetMinorVersion'),)))
-    IPMTaskInfo.get_BitsPerPixel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(20, 'get_BitsPerPixel', ((1, 'pBitsPerPixel'),)))
-    IPMTaskInfo.get_SuppressesDehydration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(21, 'get_SuppressesDehydration', ((1, 'pSuppressesDehydration'),)))
-    IPMTaskInfo.get_BackgroundExecutionAbilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_BackgroundExecutionAbilities', ((1, 'pBackgroundExecutionAbilities'),)))
-    IPMTaskInfo.get_IsOptedForExtendedMem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(23, 'get_IsOptedForExtendedMem', ((1, 'pIsOptedIn'),)))
-    win32more.System.Com.IUnknown
-    return IPMTaskInfo
-def _define_IPMTaskInfoEnumerator_head():
-    class IPMTaskInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0630b0f8-0bbc-4821-be74-c7995166ed2a')
-    return IPMTaskInfoEnumerator
-def _define_IPMTaskInfoEnumerator():
-    IPMTaskInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTaskInfoEnumerator_head
-    IPMTaskInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppTaskInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMTaskInfoEnumerator
-def _define_IPMExtensionInfo_head():
-    class IPMExtensionInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('49acde79-9788-4d0a-8aa0-1746afdb9e9d')
-    return IPMExtensionInfo
-def _define_IPMExtensionInfo():
-    IPMExtensionInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfo_head
-    IPMExtensionInfo.get_SupplierPID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_SupplierPID', ((1, 'pSupplierPID'),)))
-    IPMExtensionInfo.get_SupplierTaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_SupplierTaskID', ((1, 'pSupplierTID'),)))
-    IPMExtensionInfo.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_Title', ((1, 'pTitle'),)))
-    IPMExtensionInfo.get_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_IconPath', ((1, 'pIconPath'),)))
-    IPMExtensionInfo.get_ExtraFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_ExtraFile', ((1, 'pFilePath'),)))
-    IPMExtensionInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionInfo
-def _define_IPMExtensionFileExtensionInfo_head():
-    class IPMExtensionFileExtensionInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6b87cb6c-0b88-4989-a4ec-033714f710d4')
-    return IPMExtensionFileExtensionInfo
-def _define_IPMExtensionFileExtensionInfo():
-    IPMExtensionFileExtensionInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileExtensionInfo_head
-    IPMExtensionFileExtensionInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_Name', ((1, 'pName'),)))
-    IPMExtensionFileExtensionInfo.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_DisplayName', ((1, 'pDisplayName'),)))
-    IPMExtensionFileExtensionInfo.get_Logo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_Logo', ((1, 'LogoSize'),(1, 'pLogo'),)))
-    IPMExtensionFileExtensionInfo.get_ContentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_ContentType', ((1, 'FileType'),(1, 'pContentType'),)))
-    IPMExtensionFileExtensionInfo.get_FileType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_FileType', ((1, 'ContentType'),(1, 'pFileType'),)))
-    IPMExtensionFileExtensionInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
-    IPMExtensionFileExtensionInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(9, 'get_AllFileTypes', ((1, 'pcbTypes'),(1, 'ppTypes'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionFileExtensionInfo
-def _define_IPMExtensionProtocolInfo_head():
-    class IPMExtensionProtocolInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1e3fa036-51eb-4453-baff-b8d8e4b46c8e')
-    return IPMExtensionProtocolInfo
-def _define_IPMExtensionProtocolInfo():
-    IPMExtensionProtocolInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionProtocolInfo_head
-    IPMExtensionProtocolInfo.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_Protocol', ((1, 'pProtocol'),)))
-    IPMExtensionProtocolInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionProtocolInfo
-def _define_IPMExtensionShareTargetInfo_head():
-    class IPMExtensionShareTargetInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5471f48b-c65c-4656-8c70-242e31195fea')
-    return IPMExtensionShareTargetInfo
-def _define_IPMExtensionShareTargetInfo():
-    IPMExtensionShareTargetInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionShareTargetInfo_head
-    IPMExtensionShareTargetInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
-    IPMExtensionShareTargetInfo.get_AllDataFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(4, 'get_AllDataFormats', ((1, 'pcDataFormats'),(1, 'ppDataFormats'),)))
-    IPMExtensionShareTargetInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionShareTargetInfo
-def _define_IPMExtensionContractInfo_head():
-    class IPMExtensionContractInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e5666373-7ba1-467c-b819-b175db1c295b')
-    return IPMExtensionContractInfo
-def _define_IPMExtensionContractInfo():
-    IPMExtensionContractInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionContractInfo_head
-    IPMExtensionContractInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_InvocationInfo', ((1, 'pAUMID'),(1, 'pArgs'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionContractInfo
-def _define_IPMExtensionFileOpenPickerInfo_head():
-    class IPMExtensionFileOpenPickerInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6dc91d25-9606-420c-9a78-e034a3418345')
-    return IPMExtensionFileOpenPickerInfo
-def _define_IPMExtensionFileOpenPickerInfo():
-    IPMExtensionFileOpenPickerInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileOpenPickerInfo_head
-    IPMExtensionFileOpenPickerInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
-    IPMExtensionFileOpenPickerInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionFileOpenPickerInfo
-def _define_IPMExtensionFileSavePickerInfo_head():
-    class IPMExtensionFileSavePickerInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('38005cba-f81a-493e-a0f8-922c8680da43')
-    return IPMExtensionFileSavePickerInfo
-def _define_IPMExtensionFileSavePickerInfo():
-    IPMExtensionFileSavePickerInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileSavePickerInfo_head
-    IPMExtensionFileSavePickerInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
-    IPMExtensionFileSavePickerInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionFileSavePickerInfo
-def _define_IPMExtensionCachedFileUpdaterInfo_head():
-    class IPMExtensionCachedFileUpdaterInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e2d77509-4e58-4ba9-af7e-b642e370e1b0')
-    return IPMExtensionCachedFileUpdaterInfo
-def _define_IPMExtensionCachedFileUpdaterInfo():
-    IPMExtensionCachedFileUpdaterInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionCachedFileUpdaterInfo_head
-    IPMExtensionCachedFileUpdaterInfo.get_SupportsUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'get_SupportsUpdates', ((1, 'pSupportsUpdates'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionCachedFileUpdaterInfo
-def _define_IPMExtensionInfoEnumerator_head():
-    class IPMExtensionInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('403b9e82-1171-4573-8e6f-6f33f39b83dd')
-    return IPMExtensionInfoEnumerator
-def _define_IPMExtensionInfoEnumerator():
-    IPMExtensionInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfoEnumerator_head
-    IPMExtensionInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppExtensionInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMExtensionInfoEnumerator
-def _define_IPMBackgroundServiceAgentInfo_head():
-    class IPMBackgroundServiceAgentInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3a8b46da-928c-4879-998c-09dc96f3d490')
-    return IPMBackgroundServiceAgentInfo
-def _define_IPMBackgroundServiceAgentInfo():
-    IPMBackgroundServiceAgentInfo = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head
-    IPMBackgroundServiceAgentInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_ProductID', ((1, 'pProductID'),)))
-    IPMBackgroundServiceAgentInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_TaskID', ((1, 'pTaskID'),)))
-    IPMBackgroundServiceAgentInfo.get_BSAID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'get_BSAID', ((1, 'pBSAID'),)))
-    IPMBackgroundServiceAgentInfo.get_BGSpecifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_BGSpecifier', ((1, 'pBGSpecifier'),)))
-    IPMBackgroundServiceAgentInfo.get_BGName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_BGName', ((1, 'pBGName'),)))
-    IPMBackgroundServiceAgentInfo.get_BGSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_BGSource', ((1, 'pBGSource'),)))
-    IPMBackgroundServiceAgentInfo.get_BGType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_BGType', ((1, 'pBGType'),)))
-    IPMBackgroundServiceAgentInfo.get_IsPeriodic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'get_IsPeriodic', ((1, 'pIsPeriodic'),)))
-    IPMBackgroundServiceAgentInfo.get_IsScheduled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'get_IsScheduled', ((1, 'pIsScheduled'),)))
-    IPMBackgroundServiceAgentInfo.get_IsScheduleAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'get_IsScheduleAllowed', ((1, 'pIsScheduleAllowed'),)))
-    IPMBackgroundServiceAgentInfo.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_Description', ((1, 'pDescription'),)))
-    IPMBackgroundServiceAgentInfo.get_IsLaunchOnBoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'get_IsLaunchOnBoot', ((1, 'pLaunchOnBoot'),)))
-    IPMBackgroundServiceAgentInfo.set_IsScheduled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(15, 'set_IsScheduled', ((1, 'IsScheduled'),)))
-    IPMBackgroundServiceAgentInfo.set_IsScheduleAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(16, 'set_IsScheduleAllowed', ((1, 'IsScheduleAllowed'),)))
-    win32more.System.Com.IUnknown
-    return IPMBackgroundServiceAgentInfo
-def _define_IPMBackgroundWorkerInfo_head():
-    class IPMBackgroundWorkerInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7dd4531b-d3bf-4b6b-94f3-69c098b1497d')
-    return IPMBackgroundWorkerInfo
-def _define_IPMBackgroundWorkerInfo():
-    IPMBackgroundWorkerInfo = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfo_head
-    IPMBackgroundWorkerInfo.get_ProductID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'get_ProductID', ((1, 'pProductID'),)))
-    IPMBackgroundWorkerInfo.get_TaskID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_TaskID', ((1, 'pTaskID'),)))
-    IPMBackgroundWorkerInfo.get_BGName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_BGName', ((1, 'pBGName'),)))
-    IPMBackgroundWorkerInfo.get_MaxStartupLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_MaxStartupLatency', ((1, 'pMaxStartupLatency'),)))
-    IPMBackgroundWorkerInfo.get_ExpectedRuntime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_ExpectedRuntime', ((1, 'pExpectedRuntime'),)))
-    IPMBackgroundWorkerInfo.get_IsBootWorker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_IsBootWorker', ((1, 'pIsBootWorker'),)))
-    win32more.System.Com.IUnknown
-    return IPMBackgroundWorkerInfo
-def _define_IPMBackgroundServiceAgentInfoEnumerator_head():
-    class IPMBackgroundServiceAgentInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('18eb2072-ab56-43b3-872c-beafb7a6b391')
-    return IPMBackgroundServiceAgentInfoEnumerator
-def _define_IPMBackgroundServiceAgentInfoEnumerator():
-    IPMBackgroundServiceAgentInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfoEnumerator_head
-    IPMBackgroundServiceAgentInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppBSAInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMBackgroundServiceAgentInfoEnumerator
-def _define_IPMBackgroundWorkerInfoEnumerator_head():
-    class IPMBackgroundWorkerInfoEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('87f479f8-90d8-4ec7-92b9-72787e2f636b')
-    return IPMBackgroundWorkerInfoEnumerator
-def _define_IPMBackgroundWorkerInfoEnumerator():
-    IPMBackgroundWorkerInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfoEnumerator_head
-    IPMBackgroundWorkerInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppBWInfo'),)))
-    win32more.System.Com.IUnknown
-    return IPMBackgroundWorkerInfoEnumerator
-def _define_PPATCH_PROGRESS_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,UInt32, use_last_error=False)
-def _define_PPATCH_SYMLOAD_CALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,UInt32,UInt32,c_void_p, use_last_error=False)
-def _define_PATCH_IGNORE_RANGE_head():
-    class PATCH_IGNORE_RANGE(Structure):
-        pass
-    return PATCH_IGNORE_RANGE
-def _define_PATCH_IGNORE_RANGE():
-    PATCH_IGNORE_RANGE = win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head
-    PATCH_IGNORE_RANGE._fields_ = [
-        ("OffsetInOldFile", UInt32),
-        ("LengthInBytes", UInt32),
-    ]
-    return PATCH_IGNORE_RANGE
-def _define_PATCH_RETAIN_RANGE_head():
-    class PATCH_RETAIN_RANGE(Structure):
-        pass
-    return PATCH_RETAIN_RANGE
-def _define_PATCH_RETAIN_RANGE():
-    PATCH_RETAIN_RANGE = win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head
-    PATCH_RETAIN_RANGE._fields_ = [
-        ("OffsetInOldFile", UInt32),
-        ("LengthInBytes", UInt32),
-        ("OffsetInNewFile", UInt32),
-    ]
-    return PATCH_RETAIN_RANGE
-def _define_PATCH_OLD_FILE_INFO_A_head():
-    class PATCH_OLD_FILE_INFO_A(Structure):
-        pass
-    return PATCH_OLD_FILE_INFO_A
-def _define_PATCH_OLD_FILE_INFO_A():
-    PATCH_OLD_FILE_INFO_A = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_A_head
-    PATCH_OLD_FILE_INFO_A._fields_ = [
-        ("SizeOfThisStruct", UInt32),
-        ("OldFileName", win32more.Foundation.PSTR),
-        ("IgnoreRangeCount", UInt32),
-        ("IgnoreRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
-        ("RetainRangeCount", UInt32),
-        ("RetainRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
-    ]
-    return PATCH_OLD_FILE_INFO_A
-def _define_PATCH_OLD_FILE_INFO_W_head():
-    class PATCH_OLD_FILE_INFO_W(Structure):
-        pass
-    return PATCH_OLD_FILE_INFO_W
-def _define_PATCH_OLD_FILE_INFO_W():
-    PATCH_OLD_FILE_INFO_W = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_W_head
-    PATCH_OLD_FILE_INFO_W._fields_ = [
-        ("SizeOfThisStruct", UInt32),
-        ("OldFileName", win32more.Foundation.PWSTR),
-        ("IgnoreRangeCount", UInt32),
-        ("IgnoreRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
-        ("RetainRangeCount", UInt32),
-        ("RetainRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
-    ]
-    return PATCH_OLD_FILE_INFO_W
-def _define_PATCH_OLD_FILE_INFO_H_head():
-    class PATCH_OLD_FILE_INFO_H(Structure):
-        pass
-    return PATCH_OLD_FILE_INFO_H
-def _define_PATCH_OLD_FILE_INFO_H():
-    PATCH_OLD_FILE_INFO_H = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_H_head
-    PATCH_OLD_FILE_INFO_H._fields_ = [
-        ("SizeOfThisStruct", UInt32),
-        ("OldFileHandle", win32more.Foundation.HANDLE),
-        ("IgnoreRangeCount", UInt32),
-        ("IgnoreRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
-        ("RetainRangeCount", UInt32),
-        ("RetainRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
-    ]
-    return PATCH_OLD_FILE_INFO_H
-def _define_PATCH_OLD_FILE_INFO_head():
-    class PATCH_OLD_FILE_INFO(Structure):
-        pass
-    return PATCH_OLD_FILE_INFO
-def _define_PATCH_OLD_FILE_INFO():
-    PATCH_OLD_FILE_INFO = win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_head
-    class PATCH_OLD_FILE_INFO__Anonymous_e__Union(Union):
-        pass
-    PATCH_OLD_FILE_INFO__Anonymous_e__Union._fields_ = [
-        ("OldFileNameA", win32more.Foundation.PSTR),
-        ("OldFileNameW", win32more.Foundation.PWSTR),
-        ("OldFileHandle", win32more.Foundation.HANDLE),
-    ]
-    PATCH_OLD_FILE_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    PATCH_OLD_FILE_INFO._fields_ = [
-        ("SizeOfThisStruct", UInt32),
-        ("Anonymous", PATCH_OLD_FILE_INFO__Anonymous_e__Union),
-        ("IgnoreRangeCount", UInt32),
-        ("IgnoreRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE_head)),
-        ("RetainRangeCount", UInt32),
-        ("RetainRangeArray", POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE_head)),
-    ]
-    return PATCH_OLD_FILE_INFO
-def _define_PATCH_INTERLEAVE_MAP_head():
-    class PATCH_INTERLEAVE_MAP(Structure):
-        pass
-    return PATCH_INTERLEAVE_MAP
-def _define_PATCH_INTERLEAVE_MAP():
-    PATCH_INTERLEAVE_MAP = win32more.System.ApplicationInstallationAndServicing.PATCH_INTERLEAVE_MAP_head
-    class PATCH_INTERLEAVE_MAP__Anonymous_e__Struct(Structure):
-        pass
-    PATCH_INTERLEAVE_MAP__Anonymous_e__Struct._fields_ = [
-        ("OldOffset", UInt32),
-        ("OldLength", UInt32),
-        ("NewLength", UInt32),
-    ]
-    PATCH_INTERLEAVE_MAP._fields_ = [
-        ("CountRanges", UInt32),
-        ("Range", PATCH_INTERLEAVE_MAP__Anonymous_e__Struct * 0),
-    ]
-    return PATCH_INTERLEAVE_MAP
-def _define_PATCH_OPTION_DATA_head():
-    class PATCH_OPTION_DATA(Structure):
-        pass
-    return PATCH_OPTION_DATA
-def _define_PATCH_OPTION_DATA():
-    PATCH_OPTION_DATA = win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head
-    PATCH_OPTION_DATA._fields_ = [
-        ("SizeOfThisStruct", UInt32),
-        ("SymbolOptionFlags", UInt32),
-        ("NewFileSymbolPath", win32more.Foundation.PSTR),
-        ("OldFileSymbolPathArray", POINTER(win32more.Foundation.PSTR)),
-        ("ExtendedOptionFlags", UInt32),
-        ("SymLoadCallback", win32more.System.ApplicationInstallationAndServicing.PPATCH_SYMLOAD_CALLBACK),
-        ("SymLoadContext", c_void_p),
-        ("InterleaveMapArray", POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_INTERLEAVE_MAP_head))),
-        ("MaxLzxWindowSize", UInt32),
-    ]
-    return PATCH_OPTION_DATA
-def _define_DELTA_INPUT_head():
-    class DELTA_INPUT(Structure):
-        pass
-    return DELTA_INPUT
-def _define_DELTA_INPUT():
-    DELTA_INPUT = win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT_head
-    class DELTA_INPUT__Anonymous_e__Union(Union):
-        pass
-    DELTA_INPUT__Anonymous_e__Union._fields_ = [
-        ("lpcStart", c_void_p),
-        ("lpStart", c_void_p),
-    ]
-    DELTA_INPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    DELTA_INPUT._fields_ = [
-        ("Anonymous", DELTA_INPUT__Anonymous_e__Union),
-        ("uSize", UIntPtr),
-        ("Editable", win32more.Foundation.BOOL),
-    ]
-    return DELTA_INPUT
-def _define_DELTA_OUTPUT_head():
-    class DELTA_OUTPUT(Structure):
-        pass
-    return DELTA_OUTPUT
-def _define_DELTA_OUTPUT():
-    DELTA_OUTPUT = win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head
-    DELTA_OUTPUT._fields_ = [
-        ("lpStart", c_void_p),
-        ("uSize", UIntPtr),
-    ]
-    return DELTA_OUTPUT
-def _define_DELTA_HASH_head():
-    class DELTA_HASH(Structure):
-        pass
-    return DELTA_HASH
-def _define_DELTA_HASH():
-    DELTA_HASH = win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head
-    DELTA_HASH._fields_ = [
-        ("HashSize", UInt32),
-        ("HashValue", Byte * 32),
-    ]
-    return DELTA_HASH
-def _define_DELTA_HEADER_INFO_head():
-    class DELTA_HEADER_INFO(Structure):
-        pass
-    return DELTA_HEADER_INFO
-def _define_DELTA_HEADER_INFO():
-    DELTA_HEADER_INFO = win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head
-    DELTA_HEADER_INFO._fields_ = [
-        ("FileTypeSet", Int64),
-        ("FileType", Int64),
-        ("Flags", Int64),
-        ("TargetSize", UIntPtr),
-        ("TargetFileTime", win32more.Foundation.FILETIME),
-        ("TargetHashAlgId", UInt32),
-        ("TargetHash", win32more.System.ApplicationInstallationAndServicing.DELTA_HASH),
-    ]
-    return DELTA_HEADER_INFO
-def _define_ACTIVATION_CONTEXT_QUERY_INDEX_head():
-    class ACTIVATION_CONTEXT_QUERY_INDEX(Structure):
-        pass
-    return ACTIVATION_CONTEXT_QUERY_INDEX
-def _define_ACTIVATION_CONTEXT_QUERY_INDEX():
-    ACTIVATION_CONTEXT_QUERY_INDEX = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_QUERY_INDEX_head
-    ACTIVATION_CONTEXT_QUERY_INDEX._fields_ = [
-        ("ulAssemblyIndex", UInt32),
-        ("ulFileIndexInAssembly", UInt32),
-    ]
-    return ACTIVATION_CONTEXT_QUERY_INDEX
-def _define_ASSEMBLY_FILE_DETAILED_INFORMATION_head():
-    class ASSEMBLY_FILE_DETAILED_INFORMATION(Structure):
-        pass
-    return ASSEMBLY_FILE_DETAILED_INFORMATION
-def _define_ASSEMBLY_FILE_DETAILED_INFORMATION():
-    ASSEMBLY_FILE_DETAILED_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ASSEMBLY_FILE_DETAILED_INFORMATION_head
-    ASSEMBLY_FILE_DETAILED_INFORMATION._fields_ = [
-        ("ulFlags", UInt32),
-        ("ulFilenameLength", UInt32),
-        ("ulPathLength", UInt32),
-        ("lpFileName", win32more.Foundation.PWSTR),
-        ("lpFilePath", win32more.Foundation.PWSTR),
-    ]
-    return ASSEMBLY_FILE_DETAILED_INFORMATION
-def _define_ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION_head():
-    class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(Structure):
-        pass
-    return ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION
-def _define_ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION():
-    ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION_head
-    ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION._fields_ = [
-        ("ulFlags", UInt32),
-        ("ulEncodedAssemblyIdentityLength", UInt32),
-        ("ulManifestPathType", UInt32),
-        ("ulManifestPathLength", UInt32),
-        ("liManifestLastWriteTime", win32more.Foundation.LARGE_INTEGER),
-        ("ulPolicyPathType", UInt32),
-        ("ulPolicyPathLength", UInt32),
-        ("liPolicyLastWriteTime", win32more.Foundation.LARGE_INTEGER),
-        ("ulMetadataSatelliteRosterIndex", UInt32),
-        ("ulManifestVersionMajor", UInt32),
-        ("ulManifestVersionMinor", UInt32),
-        ("ulPolicyVersionMajor", UInt32),
-        ("ulPolicyVersionMinor", UInt32),
-        ("ulAssemblyDirectoryNameLength", UInt32),
-        ("lpAssemblyEncodedAssemblyIdentity", win32more.Foundation.PWSTR),
-        ("lpAssemblyManifestPath", win32more.Foundation.PWSTR),
-        ("lpAssemblyPolicyPath", win32more.Foundation.PWSTR),
-        ("lpAssemblyDirectoryName", win32more.Foundation.PWSTR),
-        ("ulFileCount", UInt32),
-    ]
-    return ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION
-ACTCTX_REQUESTED_RUN_LEVEL = Int32
-ACTCTX_RUN_LEVEL_UNSPECIFIED = 0
-ACTCTX_RUN_LEVEL_AS_INVOKER = 1
-ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE = 2
-ACTCTX_RUN_LEVEL_REQUIRE_ADMIN = 3
-ACTCTX_RUN_LEVEL_NUMBERS = 4
-def _define_ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION_head():
-    class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION(Structure):
-        pass
-    return ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION
-def _define_ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION():
-    ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION_head
-    ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION._fields_ = [
-        ("ulFlags", UInt32),
-        ("RunLevel", win32more.System.ApplicationInstallationAndServicing.ACTCTX_REQUESTED_RUN_LEVEL),
-        ("UiAccess", UInt32),
-    ]
-    return ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION
-ACTCTX_COMPATIBILITY_ELEMENT_TYPE = Int32
-ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN = 0
-ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS = 1
-ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION = 2
-ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MAXVERSIONTESTED = 3
-def _define_COMPATIBILITY_CONTEXT_ELEMENT_head():
-    class COMPATIBILITY_CONTEXT_ELEMENT(Structure):
-        pass
-    return COMPATIBILITY_CONTEXT_ELEMENT
-def _define_COMPATIBILITY_CONTEXT_ELEMENT():
-    COMPATIBILITY_CONTEXT_ELEMENT = win32more.System.ApplicationInstallationAndServicing.COMPATIBILITY_CONTEXT_ELEMENT_head
-    COMPATIBILITY_CONTEXT_ELEMENT._fields_ = [
-        ("Id", Guid),
-        ("Type", win32more.System.ApplicationInstallationAndServicing.ACTCTX_COMPATIBILITY_ELEMENT_TYPE),
-        ("MaxVersionTested", UInt64),
-    ]
-    return COMPATIBILITY_CONTEXT_ELEMENT
-def _define_ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION_head():
-    class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION(Structure):
-        pass
-    return ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION
-def _define_ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION():
-    ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION_head
-    ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION._fields_ = [
-        ("ElementCount", UInt32),
-        ("Elements", win32more.System.ApplicationInstallationAndServicing.COMPATIBILITY_CONTEXT_ELEMENT * 0),
-    ]
-    return ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION
-def _define_ACTIVATION_CONTEXT_DETAILED_INFORMATION_head():
-    class ACTIVATION_CONTEXT_DETAILED_INFORMATION(Structure):
-        pass
-    return ACTIVATION_CONTEXT_DETAILED_INFORMATION
-def _define_ACTIVATION_CONTEXT_DETAILED_INFORMATION():
-    ACTIVATION_CONTEXT_DETAILED_INFORMATION = win32more.System.ApplicationInstallationAndServicing.ACTIVATION_CONTEXT_DETAILED_INFORMATION_head
-    ACTIVATION_CONTEXT_DETAILED_INFORMATION._fields_ = [
-        ("dwFlags", UInt32),
-        ("ulFormatVersion", UInt32),
-        ("ulAssemblyCount", UInt32),
-        ("ulRootManifestPathType", UInt32),
-        ("ulRootManifestPathChars", UInt32),
-        ("ulRootConfigurationPathType", UInt32),
-        ("ulRootConfigurationPathChars", UInt32),
-        ("ulAppDirPathType", UInt32),
-        ("ulAppDirPathChars", UInt32),
-        ("lpRootManifestPath", win32more.Foundation.PWSTR),
-        ("lpRootConfigurationPath", win32more.Foundation.PWSTR),
-        ("lpAppDirPath", win32more.Foundation.PWSTR),
-    ]
-    return ACTIVATION_CONTEXT_DETAILED_INFORMATION
-def _define_ACTCTXA_head():
-    class ACTCTXA(Structure):
-        pass
-    return ACTCTXA
-def _define_ACTCTXA():
-    ACTCTXA = win32more.System.ApplicationInstallationAndServicing.ACTCTXA_head
-    ACTCTXA._fields_ = [
-        ("cbSize", UInt32),
-        ("dwFlags", UInt32),
-        ("lpSource", win32more.Foundation.PSTR),
-        ("wProcessorArchitecture", UInt16),
-        ("wLangId", UInt16),
-        ("lpAssemblyDirectory", win32more.Foundation.PSTR),
-        ("lpResourceName", win32more.Foundation.PSTR),
-        ("lpApplicationName", win32more.Foundation.PSTR),
-        ("hModule", win32more.Foundation.HINSTANCE),
-    ]
-    return ACTCTXA
-def _define_ACTCTXW_head():
-    class ACTCTXW(Structure):
-        pass
-    return ACTCTXW
-def _define_ACTCTXW():
-    ACTCTXW = win32more.System.ApplicationInstallationAndServicing.ACTCTXW_head
-    ACTCTXW._fields_ = [
-        ("cbSize", UInt32),
-        ("dwFlags", UInt32),
-        ("lpSource", win32more.Foundation.PWSTR),
-        ("wProcessorArchitecture", UInt16),
-        ("wLangId", UInt16),
-        ("lpAssemblyDirectory", win32more.Foundation.PWSTR),
-        ("lpResourceName", win32more.Foundation.PWSTR),
-        ("lpApplicationName", win32more.Foundation.PWSTR),
-        ("hModule", win32more.Foundation.HINSTANCE),
-    ]
-    return ACTCTXW
-def _define_ACTCTX_SECTION_KEYED_DATA_head():
-    class ACTCTX_SECTION_KEYED_DATA(Structure):
-        pass
-    return ACTCTX_SECTION_KEYED_DATA
-def _define_ACTCTX_SECTION_KEYED_DATA():
-    ACTCTX_SECTION_KEYED_DATA = win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head
-    ACTCTX_SECTION_KEYED_DATA._fields_ = [
-        ("cbSize", UInt32),
-        ("ulDataFormatVersion", UInt32),
-        ("lpData", c_void_p),
-        ("ulLength", UInt32),
-        ("lpSectionGlobalData", c_void_p),
-        ("ulSectionGlobalDataLength", UInt32),
-        ("lpSectionBase", c_void_p),
-        ("ulSectionTotalLength", UInt32),
-        ("hActCtx", win32more.Foundation.HANDLE),
-        ("ulAssemblyRosterIndex", UInt32),
-        ("ulFlags", UInt32),
-        ("AssemblyMetadata", win32more.System.WindowsProgramming.ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA),
-    ]
-    return ACTCTX_SECTION_KEYED_DATA
-def _define_MsiCloseHandle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiCloseHandle", windll["msi"]), ((1, 'hAny'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiCloseAllHandles():
-    try:
-        return WINFUNCTYPE(UInt32, use_last_error=False)(("MsiCloseAllHandles", windll["msi"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetInternalUI():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLUILEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLUILEVEL,POINTER(win32more.Foundation.HWND), use_last_error=False)(("MsiSetInternalUI", windll["msi"]), ((1, 'dwUILevel'),(1, 'phWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetExternalUIA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERA,win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERA,UInt32,c_void_p, use_last_error=False)(("MsiSetExternalUIA", windll["msi"]), ((1, 'puiHandler'),(1, 'dwMessageFilter'),(1, 'pvContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetExternalUIW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERW,win32more.System.ApplicationInstallationAndServicing.INSTALLUI_HANDLERW,UInt32,c_void_p, use_last_error=False)(("MsiSetExternalUIW", windll["msi"]), ((1, 'puiHandler'),(1, 'dwMessageFilter'),(1, 'pvContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetExternalUI():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSetExternalUIW
-def _define_MsiSetExternalUIRecord():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.PINSTALLUI_HANDLER_RECORD,UInt32,c_void_p,win32more.System.ApplicationInstallationAndServicing.PINSTALLUI_HANDLER_RECORD, use_last_error=False)(("MsiSetExternalUIRecord", windll["msi"]), ((1, 'puiHandler'),(1, 'dwMessageFilter'),(1, 'pvContext'),(1, 'ppuiPrevHandler'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnableLogA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLOGMODE,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("MsiEnableLogA", windll["msi"]), ((1, 'dwLogMode'),(1, 'szLogFile'),(1, 'dwLogAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnableLogW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLOGMODE,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("MsiEnableLogW", windll["msi"]), ((1, 'dwLogMode'),(1, 'szLogFile'),(1, 'dwLogAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnableLog():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnableLogW
-def _define_MsiQueryProductStateA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR, use_last_error=False)(("MsiQueryProductStateA", windll["msi"]), ((1, 'szProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryProductStateW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiQueryProductStateW", windll["msi"]), ((1, 'szProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryProductState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiQueryProductStateW
-def _define_MsiGetProductInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetProductInfoA", windll["msi"]), ((1, 'szProduct'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetProductInfoW", windll["msi"]), ((1, 'szProduct'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetProductInfoW
-def _define_MsiGetProductInfoExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetProductInfoExA", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductInfoExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetProductInfoExW", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductInfoEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetProductInfoExW
-def _define_MsiInstallProductA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiInstallProductA", windll["msi"]), ((1, 'szPackagePath'),(1, 'szCommandLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiInstallProductW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiInstallProductW", windll["msi"]), ((1, 'szPackagePath'),(1, 'szCommandLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiInstallProduct():
-    return win32more.System.ApplicationInstallationAndServicing.MsiInstallProductW
-def _define_MsiConfigureProductA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiConfigureProductA", windll["msi"]), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiConfigureProductW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiConfigureProductW", windll["msi"]), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiConfigureProduct():
-    return win32more.System.ApplicationInstallationAndServicing.MsiConfigureProductW
-def _define_MsiConfigureProductExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR, use_last_error=False)(("MsiConfigureProductExA", windll["msi"]), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),(1, 'szCommandLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiConfigureProductExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLLEVEL,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiConfigureProductExW", windll["msi"]), ((1, 'szProduct'),(1, 'iInstallLevel'),(1, 'eInstallState'),(1, 'szCommandLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiConfigureProductEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiConfigureProductExW
-def _define_MsiReinstallProductA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE, use_last_error=False)(("MsiReinstallProductA", windll["msi"]), ((1, 'szProduct'),(1, 'szReinstallMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiReinstallProductW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE, use_last_error=False)(("MsiReinstallProductW", windll["msi"]), ((1, 'szProduct'),(1, 'szReinstallMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiReinstallProduct():
-    return win32more.System.ApplicationInstallationAndServicing.MsiReinstallProductW
-def _define_MsiAdvertiseProductExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16,UInt32,UInt32, use_last_error=False)(("MsiAdvertiseProductExA", windll["msi"]), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),(1, 'dwPlatform'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiAdvertiseProductExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16,UInt32,UInt32, use_last_error=False)(("MsiAdvertiseProductExW", windll["msi"]), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),(1, 'dwPlatform'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiAdvertiseProductEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiAdvertiseProductExW
-def _define_MsiAdvertiseProductA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16, use_last_error=False)(("MsiAdvertiseProductA", windll["msi"]), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiAdvertiseProductW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16, use_last_error=False)(("MsiAdvertiseProductW", windll["msi"]), ((1, 'szPackagePath'),(1, 'szScriptfilePath'),(1, 'szTransforms'),(1, 'lgidLanguage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiAdvertiseProduct():
-    return win32more.System.ApplicationInstallationAndServicing.MsiAdvertiseProductW
-def _define_MsiProcessAdvertiseScriptA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.Registry.HKEY,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(("MsiProcessAdvertiseScriptA", windll["msi"]), ((1, 'szScriptFile'),(1, 'szIconFolder'),(1, 'hRegData'),(1, 'fShortcuts'),(1, 'fRemoveItems'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProcessAdvertiseScriptW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Registry.HKEY,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(("MsiProcessAdvertiseScriptW", windll["msi"]), ((1, 'szScriptFile'),(1, 'szIconFolder'),(1, 'hRegData'),(1, 'fShortcuts'),(1, 'fRemoveItems'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProcessAdvertiseScript():
-    return win32more.System.ApplicationInstallationAndServicing.MsiProcessAdvertiseScriptW
-def _define_MsiAdvertiseScriptA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.Registry.HKEY),win32more.Foundation.BOOL, use_last_error=False)(("MsiAdvertiseScriptA", windll["msi"]), ((1, 'szScriptFile'),(1, 'dwFlags'),(1, 'phRegData'),(1, 'fRemoveItems'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiAdvertiseScriptW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY),win32more.Foundation.BOOL, use_last_error=False)(("MsiAdvertiseScriptW", windll["msi"]), ((1, 'szScriptFile'),(1, 'dwFlags'),(1, 'phRegData'),(1, 'fRemoveItems'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiAdvertiseScript():
-    return win32more.System.ApplicationInstallationAndServicing.MsiAdvertiseScriptW
-def _define_MsiGetProductInfoFromScriptA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt16),POINTER(UInt32),POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetProductInfoFromScriptA", windll["msi"]), ((1, 'szScriptFile'),(1, 'lpProductBuf39'),(1, 'plgidLanguage'),(1, 'pdwVersion'),(1, 'lpNameBuf'),(1, 'pcchNameBuf'),(1, 'lpPackageBuf'),(1, 'pcchPackageBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductInfoFromScriptW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt16),POINTER(UInt32),POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetProductInfoFromScriptW", windll["msi"]), ((1, 'szScriptFile'),(1, 'lpProductBuf39'),(1, 'plgidLanguage'),(1, 'pdwVersion'),(1, 'lpNameBuf'),(1, 'pcchNameBuf'),(1, 'lpPackageBuf'),(1, 'pcchPackageBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductInfoFromScript():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetProductInfoFromScriptW
-def _define_MsiGetProductCodeA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiGetProductCodeA", windll["msi"]), ((1, 'szComponent'),(1, 'lpBuf39'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductCodeW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiGetProductCodeW", windll["msi"]), ((1, 'szComponent'),(1, 'lpBuf39'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductCode():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetProductCodeW
-def _define_MsiGetUserInfoA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.USERINFOSTATE,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetUserInfoA", windll["msi"]), ((1, 'szProduct'),(1, 'lpUserNameBuf'),(1, 'pcchUserNameBuf'),(1, 'lpOrgNameBuf'),(1, 'pcchOrgNameBuf'),(1, 'lpSerialBuf'),(1, 'pcchSerialBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetUserInfoW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.USERINFOSTATE,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetUserInfoW", windll["msi"]), ((1, 'szProduct'),(1, 'lpUserNameBuf'),(1, 'pcchUserNameBuf'),(1, 'lpOrgNameBuf'),(1, 'pcchOrgNameBuf'),(1, 'lpSerialBuf'),(1, 'pcchSerialBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetUserInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetUserInfoW
-def _define_MsiCollectUserInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiCollectUserInfoA", windll["msi"]), ((1, 'szProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiCollectUserInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiCollectUserInfoW", windll["msi"]), ((1, 'szProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiCollectUserInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiCollectUserInfoW
-def _define_MsiApplyPatchA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PSTR, use_last_error=False)(("MsiApplyPatchA", windll["msi"]), ((1, 'szPatchPackage'),(1, 'szInstallPackage'),(1, 'eInstallType'),(1, 'szCommandLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiApplyPatchW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiApplyPatchW", windll["msi"]), ((1, 'szPatchPackage'),(1, 'szInstallPackage'),(1, 'eInstallType'),(1, 'szCommandLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiApplyPatch():
-    return win32more.System.ApplicationInstallationAndServicing.MsiApplyPatchW
-def _define_MsiGetPatchInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetPatchInfoA", windll["msi"]), ((1, 'szPatch'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPatchInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetPatchInfoW", windll["msi"]), ((1, 'szPatch'),(1, 'szAttribute'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPatchInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetPatchInfoW
-def _define_MsiEnumPatchesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiEnumPatchesA", windll["msi"]), ((1, 'szProduct'),(1, 'iPatchIndex'),(1, 'lpPatchBuf'),(1, 'lpTransformsBuf'),(1, 'pcchTransformsBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumPatchesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiEnumPatchesW", windll["msi"]), ((1, 'szProduct'),(1, 'iPatchIndex'),(1, 'lpPatchBuf'),(1, 'lpTransformsBuf'),(1, 'pcchTransformsBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumPatches():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumPatchesW
-def _define_MsiRemovePatchesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PSTR, use_last_error=False)(("MsiRemovePatchesA", windll["msi"]), ((1, 'szPatchList'),(1, 'szProductCode'),(1, 'eUninstallType'),(1, 'szPropertyList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRemovePatchesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLTYPE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiRemovePatchesW", windll["msi"]), ((1, 'szPatchList'),(1, 'szProductCode'),(1, 'eUninstallType'),(1, 'szPropertyList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRemovePatches():
-    return win32more.System.ApplicationInstallationAndServicing.MsiRemovePatchesW
-def _define_MsiExtractPatchXMLDataA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiExtractPatchXMLDataA", windll["msi"]), ((1, 'szPatchPath'),(1, 'dwReserved'),(1, 'szXMLData'),(1, 'pcchXMLData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiExtractPatchXMLDataW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiExtractPatchXMLDataW", windll["msi"]), ((1, 'szPatchPath'),(1, 'dwReserved'),(1, 'szXMLData'),(1, 'pcchXMLData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiExtractPatchXMLData():
-    return win32more.System.ApplicationInstallationAndServicing.MsiExtractPatchXMLDataW
-def _define_MsiGetPatchInfoExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetPatchInfoExA", windll["msi"]), ((1, 'szPatchCode'),(1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'lpValue'),(1, 'pcchValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPatchInfoExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetPatchInfoExW", windll["msi"]), ((1, 'szPatchCode'),(1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szProperty'),(1, 'lpValue'),(1, 'pcchValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPatchInfoEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetPatchInfoExW
-def _define_MsiApplyMultiplePatchesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiApplyMultiplePatchesA", windll["msi"]), ((1, 'szPatchPackages'),(1, 'szProductCode'),(1, 'szPropertiesList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiApplyMultiplePatchesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiApplyMultiplePatchesW", windll["msi"]), ((1, 'szPatchPackages'),(1, 'szProductCode'),(1, 'szPropertiesList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiApplyMultiplePatches():
-    return win32more.System.ApplicationInstallationAndServicing.MsiApplyMultiplePatchesW
-def _define_MsiDeterminePatchSequenceA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOA), use_last_error=False)(("MsiDeterminePatchSequenceA", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDeterminePatchSequenceW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOW), use_last_error=False)(("MsiDeterminePatchSequenceW", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDeterminePatchSequence():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDeterminePatchSequenceW
-def _define_MsiDetermineApplicablePatchesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOA), use_last_error=False)(("MsiDetermineApplicablePatchesA", windll["msi"]), ((1, 'szProductPackagePath'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDetermineApplicablePatchesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIPATCHSEQUENCEINFOW), use_last_error=False)(("MsiDetermineApplicablePatchesW", windll["msi"]), ((1, 'szProductPackagePath'),(1, 'cPatchInfo'),(1, 'pPatchInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDetermineApplicablePatches():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDetermineApplicablePatchesW
-def _define_MsiEnumPatchesExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiEnumPatchesExA", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwFilter'),(1, 'dwIndex'),(1, 'szPatchCode'),(1, 'szTargetProductCode'),(1, 'pdwTargetProductContext'),(1, 'szTargetUserSid'),(1, 'pcchTargetUserSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumPatchesExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiEnumPatchesExW", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwFilter'),(1, 'dwIndex'),(1, 'szPatchCode'),(1, 'szTargetProductCode'),(1, 'pdwTargetProductContext'),(1, 'szTargetUserSid'),(1, 'pcchTargetUserSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumPatchesEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumPatchesExW
-def _define_MsiQueryFeatureStateA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiQueryFeatureStateA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryFeatureStateW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiQueryFeatureStateW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryFeatureState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiQueryFeatureStateW
-def _define_MsiQueryFeatureStateExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiQueryFeatureStateExA", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szFeature'),(1, 'pdwState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryFeatureStateExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiQueryFeatureStateExW", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szFeature'),(1, 'pdwState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryFeatureStateEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiQueryFeatureStateExW
-def _define_MsiUseFeatureA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiUseFeatureA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiUseFeatureW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiUseFeatureW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiUseFeature():
-    return win32more.System.ApplicationInstallationAndServicing.MsiUseFeatureW
-def _define_MsiUseFeatureExA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(("MsiUseFeatureExA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwInstallMode'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiUseFeatureExW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(("MsiUseFeatureExW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwInstallMode'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiUseFeatureEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiUseFeatureExW
-def _define_MsiGetFeatureUsageA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt16), use_last_error=False)(("MsiGetFeatureUsageA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'pdwUseCount'),(1, 'pwDateUsed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureUsageW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt16), use_last_error=False)(("MsiGetFeatureUsageW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'pdwUseCount'),(1, 'pwDateUsed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureUsage():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFeatureUsageW
-def _define_MsiConfigureFeatureA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiConfigureFeatureA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'eInstallState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiConfigureFeatureW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiConfigureFeatureW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'eInstallState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiConfigureFeature():
-    return win32more.System.ApplicationInstallationAndServicing.MsiConfigureFeatureW
-def _define_MsiReinstallFeatureA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE, use_last_error=False)(("MsiReinstallFeatureA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwReinstallMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiReinstallFeatureW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.REINSTALLMODE, use_last_error=False)(("MsiReinstallFeatureW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'dwReinstallMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiReinstallFeature():
-    return win32more.System.ApplicationInstallationAndServicing.MsiReinstallFeatureW
-def _define_MsiProvideComponentA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiProvideComponentA", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'szComponent'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideComponentW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiProvideComponentW", windll["msi"]), ((1, 'szProduct'),(1, 'szFeature'),(1, 'szComponent'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideComponent():
-    return win32more.System.ApplicationInstallationAndServicing.MsiProvideComponentW
-def _define_MsiProvideQualifiedComponentA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiProvideQualifiedComponentA", windll["msi"]), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideQualifiedComponentW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiProvideQualifiedComponentW", windll["msi"]), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideQualifiedComponent():
-    return win32more.System.ApplicationInstallationAndServicing.MsiProvideQualifiedComponentW
-def _define_MsiProvideQualifiedComponentExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiProvideQualifiedComponentExA", windll["msi"]), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'szProduct'),(1, 'dwUnused1'),(1, 'dwUnused2'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideQualifiedComponentExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiProvideQualifiedComponentExW", windll["msi"]), ((1, 'szCategory'),(1, 'szQualifier'),(1, 'dwInstallMode'),(1, 'szProduct'),(1, 'dwUnused1'),(1, 'dwUnused2'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideQualifiedComponentEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiProvideQualifiedComponentExW
-def _define_MsiGetComponentPathA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetComponentPathA", windll["msi"]), ((1, 'szProduct'),(1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetComponentPathW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetComponentPathW", windll["msi"]), ((1, 'szProduct'),(1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetComponentPath():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetComponentPathW
-def _define_MsiGetComponentPathExA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetComponentPathExA", windll["msi"]), ((1, 'szProductCode'),(1, 'szComponentCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'lpOutPathBuffer'),(1, 'pcchOutPathBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetComponentPathExW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetComponentPathExW", windll["msi"]), ((1, 'szProductCode'),(1, 'szComponentCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'lpOutPathBuffer'),(1, 'pcchOutPathBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetComponentPathEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetComponentPathExW
-def _define_MsiProvideAssemblyA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.System.ApplicationInstallationAndServicing.MSIASSEMBLYINFO,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiProvideAssemblyA", windll["msi"]), ((1, 'szAssemblyName'),(1, 'szAppContext'),(1, 'dwInstallMode'),(1, 'dwAssemblyInfo'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideAssemblyW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLMODE,win32more.System.ApplicationInstallationAndServicing.MSIASSEMBLYINFO,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiProvideAssemblyW", windll["msi"]), ((1, 'szAssemblyName'),(1, 'szAppContext'),(1, 'dwInstallMode'),(1, 'dwAssemblyInfo'),(1, 'lpPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiProvideAssembly():
-    return win32more.System.ApplicationInstallationAndServicing.MsiProvideAssemblyW
-def _define_MsiQueryComponentStateA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiQueryComponentStateA", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szComponentCode'),(1, 'pdwState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryComponentStateW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiQueryComponentStateW", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'szComponentCode'),(1, 'pdwState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiQueryComponentState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiQueryComponentStateW
-def _define_MsiEnumProductsA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiEnumProductsA", windll["msi"]), ((1, 'iProductIndex'),(1, 'lpProductBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumProductsW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiEnumProductsW", windll["msi"]), ((1, 'iProductIndex'),(1, 'lpProductBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumProducts():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumProductsW
-def _define_MsiEnumProductsExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiEnumProductsExA", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledProductCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumProductsExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiEnumProductsExW", windll["msi"]), ((1, 'szProductCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledProductCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumProductsEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumProductsExW
-def _define_MsiEnumRelatedProductsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiEnumRelatedProductsA", windll["msi"]), ((1, 'lpUpgradeCode'),(1, 'dwReserved'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumRelatedProductsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiEnumRelatedProductsW", windll["msi"]), ((1, 'lpUpgradeCode'),(1, 'dwReserved'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumRelatedProducts():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumRelatedProductsW
-def _define_MsiEnumFeaturesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiEnumFeaturesA", windll["msi"]), ((1, 'szProduct'),(1, 'iFeatureIndex'),(1, 'lpFeatureBuf'),(1, 'lpParentBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumFeaturesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiEnumFeaturesW", windll["msi"]), ((1, 'szProduct'),(1, 'iFeatureIndex'),(1, 'lpFeatureBuf'),(1, 'lpParentBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumFeatures():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumFeaturesW
-def _define_MsiEnumComponentsA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiEnumComponentsA", windll["msi"]), ((1, 'iComponentIndex'),(1, 'lpComponentBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentsW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiEnumComponentsW", windll["msi"]), ((1, 'iComponentIndex'),(1, 'lpComponentBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponents():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumComponentsW
-def _define_MsiEnumComponentsExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiEnumComponentsExA", windll["msi"]), ((1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledComponentCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentsExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiEnumComponentsExW", windll["msi"]), ((1, 'szUserSid'),(1, 'dwContext'),(1, 'dwIndex'),(1, 'szInstalledComponentCode'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentsEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumComponentsExW
-def _define_MsiEnumClientsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiEnumClientsA", windll["msi"]), ((1, 'szComponent'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumClientsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiEnumClientsW", windll["msi"]), ((1, 'szComponent'),(1, 'iProductIndex'),(1, 'lpProductBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumClients():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumClientsW
-def _define_MsiEnumClientsExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiEnumClientsExA", windll["msi"]), ((1, 'szComponent'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwProductIndex'),(1, 'szProductBuf'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumClientsExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiEnumClientsExW", windll["msi"]), ((1, 'szComponent'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwProductIndex'),(1, 'szProductBuf'),(1, 'pdwInstalledContext'),(1, 'szSid'),(1, 'pcchSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumClientsEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumClientsExW
-def _define_MsiEnumComponentQualifiersA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiEnumComponentQualifiersA", windll["msi"]), ((1, 'szComponent'),(1, 'iIndex'),(1, 'lpQualifierBuf'),(1, 'pcchQualifierBuf'),(1, 'lpApplicationDataBuf'),(1, 'pcchApplicationDataBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentQualifiersW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiEnumComponentQualifiersW", windll["msi"]), ((1, 'szComponent'),(1, 'iIndex'),(1, 'lpQualifierBuf'),(1, 'pcchQualifierBuf'),(1, 'lpApplicationDataBuf'),(1, 'pcchApplicationDataBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentQualifiers():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumComponentQualifiersW
-def _define_MsiOpenProductA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenProductA", windll["msi"]), ((1, 'szProduct'),(1, 'hProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenProductW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenProductW", windll["msi"]), ((1, 'szProduct'),(1, 'hProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenProduct():
-    return win32more.System.ApplicationInstallationAndServicing.MsiOpenProductW
-def _define_MsiOpenPackageA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenPackageA", windll["msi"]), ((1, 'szPackagePath'),(1, 'hProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenPackageW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenPackageW", windll["msi"]), ((1, 'szPackagePath'),(1, 'hProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenPackage():
-    return win32more.System.ApplicationInstallationAndServicing.MsiOpenPackageW
-def _define_MsiOpenPackageExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenPackageExA", windll["msi"]), ((1, 'szPackagePath'),(1, 'dwOptions'),(1, 'hProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenPackageExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenPackageExW", windll["msi"]), ((1, 'szPackagePath'),(1, 'dwOptions'),(1, 'hProduct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenPackageEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiOpenPackageExW
-def _define_MsiGetPatchFileListA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)), use_last_error=False)(("MsiGetPatchFileListA", windll["msi"]), ((1, 'szProductCode'),(1, 'szPatchPackages'),(1, 'pcFiles'),(1, 'pphFileRecords'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPatchFileListW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE)), use_last_error=False)(("MsiGetPatchFileListW", windll["msi"]), ((1, 'szProductCode'),(1, 'szPatchPackages'),(1, 'pcFiles'),(1, 'pphFileRecords'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPatchFileList():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetPatchFileListW
-def _define_MsiGetProductPropertyA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetProductPropertyA", windll["msi"]), ((1, 'hProduct'),(1, 'szProperty'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductPropertyW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetProductPropertyW", windll["msi"]), ((1, 'hProduct'),(1, 'szProperty'),(1, 'lpValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProductProperty():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetProductPropertyW
-def _define_MsiVerifyPackageA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiVerifyPackageA", windll["msi"]), ((1, 'szPackagePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiVerifyPackageW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiVerifyPackageW", windll["msi"]), ((1, 'szPackagePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiVerifyPackage():
-    return win32more.System.ApplicationInstallationAndServicing.MsiVerifyPackageW
-def _define_MsiGetFeatureInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetFeatureInfoA", windll["msi"]), ((1, 'hProduct'),(1, 'szFeature'),(1, 'lpAttributes'),(1, 'lpTitleBuf'),(1, 'pcchTitleBuf'),(1, 'lpHelpBuf'),(1, 'pcchHelpBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetFeatureInfoW", windll["msi"]), ((1, 'hProduct'),(1, 'szFeature'),(1, 'lpAttributes'),(1, 'lpTitleBuf'),(1, 'pcchTitleBuf'),(1, 'lpHelpBuf'),(1, 'pcchHelpBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFeatureInfoW
-def _define_MsiInstallMissingComponentA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiInstallMissingComponentA", windll["msi"]), ((1, 'szProduct'),(1, 'szComponent'),(1, 'eInstallState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiInstallMissingComponentW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiInstallMissingComponentW", windll["msi"]), ((1, 'szProduct'),(1, 'szComponent'),(1, 'eInstallState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiInstallMissingComponent():
-    return win32more.System.ApplicationInstallationAndServicing.MsiInstallMissingComponentW
-def _define_MsiInstallMissingFileA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiInstallMissingFileA", windll["msi"]), ((1, 'szProduct'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiInstallMissingFileW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiInstallMissingFileW", windll["msi"]), ((1, 'szProduct'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiInstallMissingFile():
-    return win32more.System.ApplicationInstallationAndServicing.MsiInstallMissingFileW
-def _define_MsiLocateComponentA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiLocateComponentA", windll["msi"]), ((1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiLocateComponentW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiLocateComponentW", windll["msi"]), ((1, 'szComponent'),(1, 'lpPathBuf'),(1, 'pcchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiLocateComponent():
-    return win32more.System.ApplicationInstallationAndServicing.MsiLocateComponentW
-def _define_MsiSourceListClearAllA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("MsiSourceListClearAllA", windll["msi"]), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearAllW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("MsiSourceListClearAllW", windll["msi"]), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearAll():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListClearAllW
-def _define_MsiSourceListAddSourceA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiSourceListAddSourceA", windll["msi"]), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),(1, 'szSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListAddSourceW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiSourceListAddSourceW", windll["msi"]), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),(1, 'szSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListAddSource():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListAddSourceW
-def _define_MsiSourceListForceResolutionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("MsiSourceListForceResolutionA", windll["msi"]), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListForceResolutionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("MsiSourceListForceResolutionW", windll["msi"]), ((1, 'szProduct'),(1, 'szUserName'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListForceResolution():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListForceResolutionW
-def _define_MsiSourceListAddSourceExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("MsiSourceListAddSourceExA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),(1, 'dwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListAddSourceExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("MsiSourceListAddSourceExW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),(1, 'dwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListAddSourceEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListAddSourceExW
-def _define_MsiSourceListAddMediaDiskA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiSourceListAddMediaDiskA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),(1, 'szVolumeLabel'),(1, 'szDiskPrompt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListAddMediaDiskW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiSourceListAddMediaDiskW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),(1, 'szVolumeLabel'),(1, 'szDiskPrompt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListAddMediaDisk():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListAddMediaDiskW
-def _define_MsiSourceListClearSourceA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiSourceListClearSourceA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearSourceW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiSourceListClearSourceW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearSource():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListClearSourceW
-def _define_MsiSourceListClearMediaDiskA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32, use_last_error=False)(("MsiSourceListClearMediaDiskA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearMediaDiskW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32, use_last_error=False)(("MsiSourceListClearMediaDiskW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwDiskId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearMediaDisk():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListClearMediaDiskW
-def _define_MsiSourceListClearAllExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32, use_last_error=False)(("MsiSourceListClearAllExA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearAllExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32, use_last_error=False)(("MsiSourceListClearAllExW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListClearAllEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListClearAllExW
-def _define_MsiSourceListForceResolutionExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32, use_last_error=False)(("MsiSourceListForceResolutionExA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListForceResolutionExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32, use_last_error=False)(("MsiSourceListForceResolutionExW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListForceResolutionEx():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListForceResolutionExW
-def _define_MsiSourceListSetInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiSourceListSetInfoA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListSetInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiSourceListSetInfoW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListSetInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListSetInfoW
-def _define_MsiSourceListGetInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiSourceListGetInfoA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListGetInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiSourceListGetInfoW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'szProperty'),(1, 'szValue'),(1, 'pcchValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListGetInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListGetInfoW
-def _define_MsiSourceListEnumSourcesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiSourceListEnumSourcesA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'szSource'),(1, 'pcchSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListEnumSourcesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiSourceListEnumSourcesW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'szSource'),(1, 'pcchSource'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListEnumSources():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListEnumSourcesW
-def _define_MsiSourceListEnumMediaDisksA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,POINTER(UInt32),POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiSourceListEnumMediaDisksA", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'pdwDiskId'),(1, 'szVolumeLabel'),(1, 'pcchVolumeLabel'),(1, 'szDiskPrompt'),(1, 'pcchDiskPrompt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListEnumMediaDisksW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSIINSTALLCONTEXT,UInt32,UInt32,POINTER(UInt32),POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiSourceListEnumMediaDisksW", windll["msi"]), ((1, 'szProductCodeOrPatchCode'),(1, 'szUserSid'),(1, 'dwContext'),(1, 'dwOptions'),(1, 'dwIndex'),(1, 'pdwDiskId'),(1, 'szVolumeLabel'),(1, 'pcchVolumeLabel'),(1, 'szDiskPrompt'),(1, 'pcchDiskPrompt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSourceListEnumMediaDisks():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSourceListEnumMediaDisksW
-def _define_MsiGetFileVersionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetFileVersionA", windll["msi"]), ((1, 'szFilePath'),(1, 'lpVersionBuf'),(1, 'pcchVersionBuf'),(1, 'lpLangBuf'),(1, 'pcchLangBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFileVersionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetFileVersionW", windll["msi"]), ((1, 'szFilePath'),(1, 'lpVersionBuf'),(1, 'pcchVersionBuf'),(1, 'lpLangBuf'),(1, 'pcchLangBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFileVersion():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFileVersionW
-def _define_MsiGetFileHashA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIFILEHASHINFO_head), use_last_error=False)(("MsiGetFileHashA", windll["msi"]), ((1, 'szFilePath'),(1, 'dwOptions'),(1, 'pHash'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFileHashW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIFILEHASHINFO_head), use_last_error=False)(("MsiGetFileHashW", windll["msi"]), ((1, 'szFilePath'),(1, 'dwOptions'),(1, 'pHash'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFileHash():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFileHashW
-def _define_MsiGetFileSignatureInformationA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)),c_char_p_no,POINTER(UInt32), use_last_error=False)(("MsiGetFileSignatureInformationA", windll["msi"]), ((1, 'szSignedObjectPath'),(1, 'dwFlags'),(1, 'ppcCertContext'),(1, 'pbHashData'),(1, 'pcbHashData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFileSignatureInformationW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)),c_char_p_no,POINTER(UInt32), use_last_error=False)(("MsiGetFileSignatureInformationW", windll["msi"]), ((1, 'szSignedObjectPath'),(1, 'dwFlags'),(1, 'ppcCertContext'),(1, 'pbHashData'),(1, 'pcbHashData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFileSignatureInformation():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFileSignatureInformationW
-def _define_MsiGetShortcutTargetA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiGetShortcutTargetA", windll["msi"]), ((1, 'szShortcutPath'),(1, 'szProductCode'),(1, 'szFeatureId'),(1, 'szComponentCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetShortcutTargetW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiGetShortcutTargetW", windll["msi"]), ((1, 'szShortcutPath'),(1, 'szProductCode'),(1, 'szFeatureId'),(1, 'szComponentCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetShortcutTarget():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetShortcutTargetW
-def _define_MsiIsProductElevatedA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(("MsiIsProductElevatedA", windll["msi"]), ((1, 'szProduct'),(1, 'pfElevated'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiIsProductElevatedW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(("MsiIsProductElevatedW", windll["msi"]), ((1, 'szProduct'),(1, 'pfElevated'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiIsProductElevated():
-    return win32more.System.ApplicationInstallationAndServicing.MsiIsProductElevatedW
-def _define_MsiNotifySidChangeA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiNotifySidChangeA", windll["msi"]), ((1, 'pOldSid'),(1, 'pNewSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiNotifySidChangeW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiNotifySidChangeW", windll["msi"]), ((1, 'pOldSid'),(1, 'pNewSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiNotifySidChange():
-    return win32more.System.ApplicationInstallationAndServicing.MsiNotifySidChangeW
-def _define_MsiBeginTransactionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("MsiBeginTransactionA", windll["msi"]), ((1, 'szName'),(1, 'dwTransactionAttributes'),(1, 'phTransactionHandle'),(1, 'phChangeOfOwnerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiBeginTransactionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("MsiBeginTransactionW", windll["msi"]), ((1, 'szName'),(1, 'dwTransactionAttributes'),(1, 'phTransactionHandle'),(1, 'phChangeOfOwnerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiBeginTransaction():
-    return win32more.System.ApplicationInstallationAndServicing.MsiBeginTransactionW
-def _define_MsiEndTransaction():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSITRANSACTIONSTATE, use_last_error=False)(("MsiEndTransaction", windll["msi"]), ((1, 'dwTransactionState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiJoinTransaction():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(("MsiJoinTransaction", windll["msi"]), ((1, 'hTransactionHandle'),(1, 'dwTransactionAttributes'),(1, 'phChangeOfOwnerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseOpenViewA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiDatabaseOpenViewA", windll["msi"]), ((1, 'hDatabase'),(1, 'szQuery'),(1, 'phView'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseOpenViewW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiDatabaseOpenViewW", windll["msi"]), ((1, 'hDatabase'),(1, 'szQuery'),(1, 'phView'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseOpenView():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseOpenViewW
-def _define_MsiViewGetErrorA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIDBERROR,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiViewGetErrorA", windll["msi"]), ((1, 'hView'),(1, 'szColumnNameBuffer'),(1, 'pcchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiViewGetErrorW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIDBERROR,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiViewGetErrorW", windll["msi"]), ((1, 'hView'),(1, 'szColumnNameBuffer'),(1, 'pcchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiViewGetError():
-    return win32more.System.ApplicationInstallationAndServicing.MsiViewGetErrorW
-def _define_MsiViewExecute():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiViewExecute", windll["msi"]), ((1, 'hView'),(1, 'hRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiViewFetch():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiViewFetch", windll["msi"]), ((1, 'hView'),(1, 'phRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiViewModify():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIMODIFY,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiViewModify", windll["msi"]), ((1, 'hView'),(1, 'eModifyMode'),(1, 'hRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiViewGetColumnInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSICOLINFO,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiViewGetColumnInfo", windll["msi"]), ((1, 'hView'),(1, 'eColumnInfo'),(1, 'phRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiViewClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiViewClose", windll["msi"]), ((1, 'hView'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseGetPrimaryKeysA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiDatabaseGetPrimaryKeysA", windll["msi"]), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'phRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseGetPrimaryKeysW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiDatabaseGetPrimaryKeysW", windll["msi"]), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'phRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseGetPrimaryKeys():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseGetPrimaryKeysW
-def _define_MsiDatabaseIsTablePersistentA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR, use_last_error=False)(("MsiDatabaseIsTablePersistentA", windll["msi"]), ((1, 'hDatabase'),(1, 'szTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseIsTablePersistentW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiDatabaseIsTablePersistentW", windll["msi"]), ((1, 'hDatabase'),(1, 'szTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseIsTablePersistent():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseIsTablePersistentW
-def _define_MsiGetSummaryInformationA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiGetSummaryInformationA", windll["msi"]), ((1, 'hDatabase'),(1, 'szDatabasePath'),(1, 'uiUpdateCount'),(1, 'phSummaryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetSummaryInformationW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiGetSummaryInformationW", windll["msi"]), ((1, 'hDatabase'),(1, 'szDatabasePath'),(1, 'uiUpdateCount'),(1, 'phSummaryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetSummaryInformation():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetSummaryInformationW
-def _define_MsiSummaryInfoGetPropertyCount():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(UInt32), use_last_error=False)(("MsiSummaryInfoGetPropertyCount", windll["msi"]), ((1, 'hSummaryInfo'),(1, 'puiPropertyCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSummaryInfoSetPropertyA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,UInt32,Int32,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.PSTR, use_last_error=False)(("MsiSummaryInfoSetPropertyA", windll["msi"]), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'uiDataType'),(1, 'iValue'),(1, 'pftValue'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSummaryInfoSetPropertyW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,UInt32,Int32,POINTER(win32more.Foundation.FILETIME_head),win32more.Foundation.PWSTR, use_last_error=False)(("MsiSummaryInfoSetPropertyW", windll["msi"]), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'uiDataType'),(1, 'iValue'),(1, 'pftValue'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSummaryInfoSetProperty():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSummaryInfoSetPropertyW
-def _define_MsiSummaryInfoGetPropertyA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(UInt32),POINTER(Int32),POINTER(win32more.Foundation.FILETIME_head),POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiSummaryInfoGetPropertyA", windll["msi"]), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'puiDataType'),(1, 'piValue'),(1, 'pftValue'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSummaryInfoGetPropertyW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(UInt32),POINTER(Int32),POINTER(win32more.Foundation.FILETIME_head),POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiSummaryInfoGetPropertyW", windll["msi"]), ((1, 'hSummaryInfo'),(1, 'uiProperty'),(1, 'puiDataType'),(1, 'piValue'),(1, 'pftValue'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSummaryInfoGetProperty():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSummaryInfoGetPropertyW
-def _define_MsiSummaryInfoPersist():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiSummaryInfoPersist", windll["msi"]), ((1, 'hSummaryInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenDatabaseA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenDatabaseA", windll["msi"]), ((1, 'szDatabasePath'),(1, 'szPersist'),(1, 'phDatabase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenDatabaseW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiOpenDatabaseW", windll["msi"]), ((1, 'szDatabasePath'),(1, 'szPersist'),(1, 'phDatabase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiOpenDatabase():
-    return win32more.System.ApplicationInstallationAndServicing.MsiOpenDatabaseW
-def _define_MsiDatabaseImportA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiDatabaseImportA", windll["msi"]), ((1, 'hDatabase'),(1, 'szFolderPath'),(1, 'szFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseImportW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiDatabaseImportW", windll["msi"]), ((1, 'hDatabase'),(1, 'szFolderPath'),(1, 'szFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseImport():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseImportW
-def _define_MsiDatabaseExportA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiDatabaseExportA", windll["msi"]), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'szFolderPath'),(1, 'szFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseExportW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiDatabaseExportW", windll["msi"]), ((1, 'hDatabase'),(1, 'szTableName'),(1, 'szFolderPath'),(1, 'szFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseExport():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseExportW
-def _define_MsiDatabaseMergeA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR, use_last_error=False)(("MsiDatabaseMergeA", windll["msi"]), ((1, 'hDatabase'),(1, 'hDatabaseMerge'),(1, 'szTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseMergeW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiDatabaseMergeW", windll["msi"]), ((1, 'hDatabase'),(1, 'hDatabaseMerge'),(1, 'szTableName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseMerge():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseMergeW
-def _define_MsiDatabaseGenerateTransformA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,Int32,Int32, use_last_error=False)(("MsiDatabaseGenerateTransformA", windll["msi"]), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iReserved1'),(1, 'iReserved2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseGenerateTransformW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,Int32,Int32, use_last_error=False)(("MsiDatabaseGenerateTransformW", windll["msi"]), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iReserved1'),(1, 'iReserved2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseGenerateTransform():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseGenerateTransformW
-def _define_MsiDatabaseApplyTransformA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR, use_last_error=False)(("MsiDatabaseApplyTransformA", windll["msi"]), ((1, 'hDatabase'),(1, 'szTransformFile'),(1, 'iErrorConditions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseApplyTransformW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR, use_last_error=False)(("MsiDatabaseApplyTransformW", windll["msi"]), ((1, 'hDatabase'),(1, 'szTransformFile'),(1, 'iErrorConditions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDatabaseApplyTransform():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDatabaseApplyTransformW
-def _define_MsiCreateTransformSummaryInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_VALIDATE, use_last_error=False)(("MsiCreateTransformSummaryInfoA", windll["msi"]), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iErrorConditions'),(1, 'iValidation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiCreateTransformSummaryInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_ERROR,win32more.System.ApplicationInstallationAndServicing.MSITRANSFORM_VALIDATE, use_last_error=False)(("MsiCreateTransformSummaryInfoW", windll["msi"]), ((1, 'hDatabase'),(1, 'hDatabaseReference'),(1, 'szTransformFile'),(1, 'iErrorConditions'),(1, 'iValidation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiCreateTransformSummaryInfo():
-    return win32more.System.ApplicationInstallationAndServicing.MsiCreateTransformSummaryInfoW
-def _define_MsiDatabaseCommit():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiDatabaseCommit", windll["msi"]), ((1, 'hDatabase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetDatabaseState():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIDBSTATE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiGetDatabaseState", windll["msi"]), ((1, 'hDatabase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiCreateRecord():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32, use_last_error=False)(("MsiCreateRecord", windll["msi"]), ((1, 'cParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordIsNull():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32, use_last_error=False)(("MsiRecordIsNull", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordDataSize():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32, use_last_error=False)(("MsiRecordDataSize", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetInteger():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,Int32, use_last_error=False)(("MsiRecordSetInteger", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'iValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetStringA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiRecordSetStringA", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetStringW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiRecordSetStringW", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetString():
-    return win32more.System.ApplicationInstallationAndServicing.MsiRecordSetStringW
-def _define_MsiRecordGetInteger():
-    try:
-        return WINFUNCTYPE(Int32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32, use_last_error=False)(("MsiRecordGetInteger", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordGetStringA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiRecordGetStringA", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordGetStringW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiRecordGetStringW", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordGetString():
-    return win32more.System.ApplicationInstallationAndServicing.MsiRecordGetStringW
-def _define_MsiRecordGetFieldCount():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiRecordGetFieldCount", windll["msi"]), ((1, 'hRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetStreamA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR, use_last_error=False)(("MsiRecordSetStreamA", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szFilePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetStreamW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("MsiRecordSetStreamW", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szFilePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordSetStream():
-    return win32more.System.ApplicationInstallationAndServicing.MsiRecordSetStreamW
-def _define_MsiRecordReadStream():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,UInt32,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("MsiRecordReadStream", windll["msi"]), ((1, 'hRecord'),(1, 'iField'),(1, 'szDataBuf'),(1, 'pcbDataBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiRecordClearData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiRecordClearData", windll["msi"]), ((1, 'hRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetActiveDatabase():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiGetActiveDatabase", windll["msi"]), ((1, 'hInstall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetPropertyA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiSetPropertyA", windll["msi"]), ((1, 'hInstall'),(1, 'szName'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetPropertyW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiSetPropertyW", windll["msi"]), ((1, 'hInstall'),(1, 'szName'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetProperty():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSetPropertyW
-def _define_MsiGetPropertyA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetPropertyA", windll["msi"]), ((1, 'hInstall'),(1, 'szName'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetPropertyW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetPropertyW", windll["msi"]), ((1, 'hInstall'),(1, 'szName'),(1, 'szValueBuf'),(1, 'pcchValueBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetProperty():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetPropertyW
-def _define_MsiGetLanguage():
-    try:
-        return WINFUNCTYPE(UInt16,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiGetLanguage", windll["msi"]), ((1, 'hInstall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetMode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIRUNMODE, use_last_error=False)(("MsiGetMode", windll["msi"]), ((1, 'hInstall'),(1, 'eRunMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetMode():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIRUNMODE,win32more.Foundation.BOOL, use_last_error=False)(("MsiSetMode", windll["msi"]), ((1, 'hInstall'),(1, 'eRunMode'),(1, 'fState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiFormatRecordA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiFormatRecordA", windll["msi"]), ((1, 'hInstall'),(1, 'hRecord'),(1, 'szResultBuf'),(1, 'pcchResultBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiFormatRecordW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiFormatRecordW", windll["msi"]), ((1, 'hInstall'),(1, 'hRecord'),(1, 'szResultBuf'),(1, 'pcchResultBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiFormatRecord():
-    return win32more.System.ApplicationInstallationAndServicing.MsiFormatRecordW
-def _define_MsiDoActionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR, use_last_error=False)(("MsiDoActionA", windll["msi"]), ((1, 'hInstall'),(1, 'szAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDoActionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiDoActionW", windll["msi"]), ((1, 'hInstall'),(1, 'szAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiDoAction():
-    return win32more.System.ApplicationInstallationAndServicing.MsiDoActionW
-def _define_MsiSequenceA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,Int32, use_last_error=False)(("MsiSequenceA", windll["msi"]), ((1, 'hInstall'),(1, 'szTable'),(1, 'iSequenceMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSequenceW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,Int32, use_last_error=False)(("MsiSequenceW", windll["msi"]), ((1, 'hInstall'),(1, 'szTable'),(1, 'iSequenceMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSequence():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSequenceW
-def _define_MsiProcessMessage():
-    try:
-        return WINFUNCTYPE(Int32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.System.ApplicationInstallationAndServicing.INSTALLMESSAGE,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiProcessMessage", windll["msi"]), ((1, 'hInstall'),(1, 'eMessageType'),(1, 'hRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEvaluateConditionA():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR, use_last_error=False)(("MsiEvaluateConditionA", windll["msi"]), ((1, 'hInstall'),(1, 'szCondition'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEvaluateConditionW():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSICONDITION,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiEvaluateConditionW", windll["msi"]), ((1, 'hInstall'),(1, 'szCondition'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEvaluateCondition():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEvaluateConditionW
-def _define_MsiGetFeatureStateA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiGetFeatureStateA", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'piInstalled'),(1, 'piAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureStateW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiGetFeatureStateW", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'piInstalled'),(1, 'piAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFeatureStateW
-def _define_MsiSetFeatureStateA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiSetFeatureStateA", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetFeatureStateW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiSetFeatureStateW", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetFeatureState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSetFeatureStateW
-def _define_MsiSetFeatureAttributesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("MsiSetFeatureAttributesA", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'dwAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetFeatureAttributesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("MsiSetFeatureAttributesW", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'dwAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetFeatureAttributes():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSetFeatureAttributesW
-def _define_MsiGetComponentStateA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiGetComponentStateA", windll["msi"]), ((1, 'hInstall'),(1, 'szComponent'),(1, 'piInstalled'),(1, 'piAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetComponentStateW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE),POINTER(win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE), use_last_error=False)(("MsiGetComponentStateW", windll["msi"]), ((1, 'hInstall'),(1, 'szComponent'),(1, 'piInstalled'),(1, 'piAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetComponentState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetComponentStateW
-def _define_MsiSetComponentStateA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiSetComponentStateA", windll["msi"]), ((1, 'hInstall'),(1, 'szComponent'),(1, 'iState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetComponentStateW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE, use_last_error=False)(("MsiSetComponentStateW", windll["msi"]), ((1, 'hInstall'),(1, 'szComponent'),(1, 'iState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetComponentState():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSetComponentStateW
-def _define_MsiGetFeatureCostA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.MSICOSTTREE,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,POINTER(Int32), use_last_error=False)(("MsiGetFeatureCostA", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iCostTree'),(1, 'iState'),(1, 'piCost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureCostW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.MSICOSTTREE,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,POINTER(Int32), use_last_error=False)(("MsiGetFeatureCostW", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'iCostTree'),(1, 'iState'),(1, 'piCost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureCost():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFeatureCostW
-def _define_MsiEnumComponentCostsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,POINTER(Byte),POINTER(UInt32),POINTER(Int32),POINTER(Int32), use_last_error=False)(("MsiEnumComponentCostsA", windll["msi"]), ((1, 'hInstall'),(1, 'szComponent'),(1, 'dwIndex'),(1, 'iState'),(1, 'szDriveBuf'),(1, 'pcchDriveBuf'),(1, 'piCost'),(1, 'piTempCost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentCostsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.INSTALLSTATE,POINTER(Char),POINTER(UInt32),POINTER(Int32),POINTER(Int32), use_last_error=False)(("MsiEnumComponentCostsW", windll["msi"]), ((1, 'hInstall'),(1, 'szComponent'),(1, 'dwIndex'),(1, 'iState'),(1, 'szDriveBuf'),(1, 'pcchDriveBuf'),(1, 'piCost'),(1, 'piTempCost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnumComponentCosts():
-    return win32more.System.ApplicationInstallationAndServicing.MsiEnumComponentCostsW
-def _define_MsiSetInstallLevel():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,Int32, use_last_error=False)(("MsiSetInstallLevel", windll["msi"]), ((1, 'hInstall'),(1, 'iInstallLevel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureValidStatesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(("MsiGetFeatureValidStatesA", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'lpInstallStates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureValidStatesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(("MsiGetFeatureValidStatesW", windll["msi"]), ((1, 'hInstall'),(1, 'szFeature'),(1, 'lpInstallStates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetFeatureValidStates():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetFeatureValidStatesW
-def _define_MsiGetSourcePathA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetSourcePathA", windll["msi"]), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetSourcePathW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetSourcePathW", windll["msi"]), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetSourcePath():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetSourcePathW
-def _define_MsiGetTargetPathA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,POINTER(Byte),POINTER(UInt32), use_last_error=False)(("MsiGetTargetPathA", windll["msi"]), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetTargetPathW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,POINTER(Char),POINTER(UInt32), use_last_error=False)(("MsiGetTargetPathW", windll["msi"]), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szPathBuf'),(1, 'pcchPathBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiGetTargetPath():
-    return win32more.System.ApplicationInstallationAndServicing.MsiGetTargetPathW
-def _define_MsiSetTargetPathA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiSetTargetPathA", windll["msi"]), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szFolderPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetTargetPathW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiSetTargetPathW", windll["msi"]), ((1, 'hInstall'),(1, 'szFolder'),(1, 'szFolderPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiSetTargetPath():
-    return win32more.System.ApplicationInstallationAndServicing.MsiSetTargetPathW
-def _define_MsiVerifyDiskSpace():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiVerifyDiskSpace", windll["msi"]), ((1, 'hInstall'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiEnableUIPreview():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE), use_last_error=False)(("MsiEnableUIPreview", windll["msi"]), ((1, 'hDatabase'),(1, 'phPreview'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiPreviewDialogA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR, use_last_error=False)(("MsiPreviewDialogA", windll["msi"]), ((1, 'hPreview'),(1, 'szDialogName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiPreviewDialogW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR, use_last_error=False)(("MsiPreviewDialogW", windll["msi"]), ((1, 'hPreview'),(1, 'szDialogName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiPreviewDialog():
-    return win32more.System.ApplicationInstallationAndServicing.MsiPreviewDialogW
-def _define_MsiPreviewBillboardA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("MsiPreviewBillboardA", windll["msi"]), ((1, 'hPreview'),(1, 'szControlName'),(1, 'szBillboard'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiPreviewBillboardW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.ApplicationInstallationAndServicing.MSIHANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("MsiPreviewBillboardW", windll["msi"]), ((1, 'hPreview'),(1, 'szControlName'),(1, 'szBillboard'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MsiPreviewBillboard():
-    return win32more.System.ApplicationInstallationAndServicing.MsiPreviewBillboardW
-def _define_MsiGetLastErrorRecord():
-    try:
-        return WINFUNCTYPE(win32more.System.ApplicationInstallationAndServicing.MSIHANDLE, use_last_error=False)(("MsiGetLastErrorRecord", windll["msi"]), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SfcGetNextProtectedFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.PROTECTED_FILE_DATA_head), use_last_error=True)(("SfcGetNextProtectedFile", windll["sfc"]), ((1, 'RpcHandle'),(1, 'ProtFileData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SfcIsFileProtected():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR, use_last_error=False)(("SfcIsFileProtected", windll["sfc"]), ((1, 'RpcHandle'),(1, 'ProtFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SfcIsKeyProtected():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Registry.HKEY,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("SfcIsKeyProtected", windll["sfc"]), ((1, 'KeyHandle'),(1, 'SubKeyName'),(1, 'KeySam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SfpVerifyFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(Byte),UInt32, use_last_error=False)(("SfpVerifyFile", windll["sfc"]), ((1, 'pszFileName'),(1, 'pszError'),(1, 'dwErrSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatchFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head), use_last_error=False)(("CreatePatchFileA", windll["mspatchc"]), ((1, 'OldFileName'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatchFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head), use_last_error=False)(("CreatePatchFileW", windll["mspatchc"]), ((1, 'OldFileName'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatchFile():
-    return win32more.System.ApplicationInstallationAndServicing.CreatePatchFileW
-def _define_CreatePatchFileByHandles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head), use_last_error=False)(("CreatePatchFileByHandles", windll["mspatchc"]), ((1, 'OldFileHandle'),(1, 'NewFileHandle'),(1, 'PatchFileHandle'),(1, 'OptionFlags'),(1, 'OptionData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatchFileExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_A),win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("CreatePatchFileExA", windll["mspatchc"]), ((1, 'OldFileCount'),(1, 'OldFileInfoArray'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatchFileExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_W),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("CreatePatchFileExW", windll["mspatchc"]), ((1, 'OldFileCount'),(1, 'OldFileInfoArray'),(1, 'NewFileName'),(1, 'PatchFileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatchFileEx():
-    return win32more.System.ApplicationInstallationAndServicing.CreatePatchFileExW
-def _define_CreatePatchFileByHandlesEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OLD_FILE_INFO_H),win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("CreatePatchFileByHandlesEx", windll["mspatchc"]), ((1, 'OldFileCount'),(1, 'OldFileInfoArray'),(1, 'NewFileHandle'),(1, 'PatchFileHandle'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtractPatchHeaderToFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("ExtractPatchHeaderToFileA", windll["mspatchc"]), ((1, 'PatchFileName'),(1, 'PatchHeaderFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtractPatchHeaderToFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("ExtractPatchHeaderToFileW", windll["mspatchc"]), ((1, 'PatchFileName'),(1, 'PatchHeaderFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtractPatchHeaderToFile():
-    return win32more.System.ApplicationInstallationAndServicing.ExtractPatchHeaderToFileW
-def _define_ExtractPatchHeaderToFileByHandles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE, use_last_error=False)(("ExtractPatchHeaderToFileByHandles", windll["mspatchc"]), ((1, 'PatchFileHandle'),(1, 'PatchHeaderFileHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TestApplyPatchToFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("TestApplyPatchToFileA", windll["mspatcha"]), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TestApplyPatchToFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("TestApplyPatchToFileW", windll["mspatcha"]), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TestApplyPatchToFile():
-    return win32more.System.ApplicationInstallationAndServicing.TestApplyPatchToFileW
-def _define_TestApplyPatchToFileByHandles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32, use_last_error=False)(("TestApplyPatchToFileByHandles", windll["mspatcha"]), ((1, 'PatchFileHandle'),(1, 'OldFileHandle'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TestApplyPatchToFileByBuffers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(UInt32),UInt32, use_last_error=False)(("TestApplyPatchToFileByBuffers", windll["mspatcha"]), ((1, 'PatchFileBuffer'),(1, 'PatchFileSize'),(1, 'OldFileBuffer'),(1, 'OldFileSize'),(1, 'NewFileSize'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("ApplyPatchToFileA", windll["mspatcha"]), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(("ApplyPatchToFileW", windll["mspatcha"]), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFile():
-    return win32more.System.ApplicationInstallationAndServicing.ApplyPatchToFileW
-def _define_ApplyPatchToFileByHandles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32, use_last_error=False)(("ApplyPatchToFileByHandles", windll["mspatcha"]), ((1, 'PatchFileHandle'),(1, 'OldFileHandle'),(1, 'NewFileHandle'),(1, 'ApplyOptionFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFileExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("ApplyPatchToFileExA", windll["mspatcha"]), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFileExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("ApplyPatchToFileExW", windll["mspatcha"]), ((1, 'PatchFileName'),(1, 'OldFileName'),(1, 'NewFileName'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFileEx():
-    return win32more.System.ApplicationInstallationAndServicing.ApplyPatchToFileExW
-def _define_ApplyPatchToFileByHandlesEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("ApplyPatchToFileByHandlesEx", windll["mspatcha"]), ((1, 'PatchFileHandle'),(1, 'OldFileHandle'),(1, 'NewFileHandle'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyPatchToFileByBuffers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32,win32more.System.ApplicationInstallationAndServicing.PPATCH_PROGRESS_CALLBACK,c_void_p, use_last_error=False)(("ApplyPatchToFileByBuffers", windll["mspatcha"]), ((1, 'PatchFileMapped'),(1, 'PatchFileSize'),(1, 'OldFileMapped'),(1, 'OldFileSize'),(1, 'NewFileBuffer'),(1, 'NewFileBufferSize'),(1, 'NewFileActualSize'),(1, 'NewFileTime'),(1, 'ApplyOptionFlags'),(1, 'ProgressCallback'),(1, 'CallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFilePatchSignatureA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE),UInt32,win32more.Foundation.PSTR, use_last_error=False)(("GetFilePatchSignatureA", windll["mspatcha"]), ((1, 'FileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFilePatchSignatureW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("GetFilePatchSignatureW", windll["mspatcha"]), ((1, 'FileName'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFilePatchSignature():
-    return win32more.System.ApplicationInstallationAndServicing.GetFilePatchSignatureW
-def _define_GetFilePatchSignatureByHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE),UInt32,win32more.Foundation.PSTR, use_last_error=False)(("GetFilePatchSignatureByHandle", windll["mspatcha"]), ((1, 'FileHandle'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFilePatchSignatureByBuffer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no,UInt32,UInt32,c_void_p,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE),UInt32,win32more.Foundation.PSTR, use_last_error=False)(("GetFilePatchSignatureByBuffer", windll["mspatcha"]), ((1, 'FileBufferWritable'),(1, 'FileSize'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),(1, 'SignatureBufferSize'),(1, 'SignatureBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NormalizeFileForPatchSignature():
-    try:
-        return WINFUNCTYPE(Int32,c_void_p,UInt32,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_OPTION_DATA_head),UInt32,UInt32,UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE), use_last_error=False)(("NormalizeFileForPatchSignature", windll["mspatcha"]), ((1, 'FileBuffer'),(1, 'FileSize'),(1, 'OptionFlags'),(1, 'OptionData'),(1, 'NewFileCoffBase'),(1, 'NewFileCoffTime'),(1, 'IgnoreRangeCount'),(1, 'IgnoreRangeArray'),(1, 'RetainRangeCount'),(1, 'RetainRangeArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaInfoB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head), use_last_error=False)(("GetDeltaInfoB", windll["msdelta"]), ((1, 'Delta'),(1, 'lpHeaderInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head), use_last_error=False)(("GetDeltaInfoA", windll["msdelta"]), ((1, 'lpDeltaName'),(1, 'lpHeaderInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HEADER_INFO_head), use_last_error=False)(("GetDeltaInfoW", windll["msdelta"]), ((1, 'lpDeltaName'),(1, 'lpHeaderInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaInfo():
-    return win32more.System.ApplicationInstallationAndServicing.GetDeltaInfoW
-def _define_ApplyDeltaGetReverseB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head),POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head), use_last_error=False)(("ApplyDeltaGetReverseB", windll["msdelta"]), ((1, 'ApplyFlags'),(1, 'Source'),(1, 'Delta'),(1, 'lpReverseFileTime'),(1, 'lpTarget'),(1, 'lpTargetReverse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyDeltaB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head), use_last_error=False)(("ApplyDeltaB", windll["msdelta"]), ((1, 'ApplyFlags'),(1, 'Source'),(1, 'Delta'),(1, 'lpTarget'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyDeltaProvidedB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,c_void_p,UIntPtr, use_last_error=False)(("ApplyDeltaProvidedB", windll["msdelta"]), ((1, 'ApplyFlags'),(1, 'Source'),(1, 'Delta'),(1, 'lpTarget'),(1, 'uTargetSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyDeltaA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(("ApplyDeltaA", windll["msdelta"]), ((1, 'ApplyFlags'),(1, 'lpSourceName'),(1, 'lpDeltaName'),(1, 'lpTargetName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyDeltaW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(("ApplyDeltaW", windll["msdelta"]), ((1, 'ApplyFlags'),(1, 'lpSourceName'),(1, 'lpDeltaName'),(1, 'lpTargetName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyDelta():
-    return win32more.System.ApplicationInstallationAndServicing.ApplyDeltaW
-def _define_CreateDeltaB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),UInt32,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_OUTPUT_head), use_last_error=False)(("CreateDeltaB", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'SetFlags'),(1, 'ResetFlags'),(1, 'Source'),(1, 'Target'),(1, 'SourceOptions'),(1, 'TargetOptions'),(1, 'GlobalOptions'),(1, 'lpTargetFileTime'),(1, 'HashAlgId'),(1, 'lpDelta'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDeltaA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,Int64,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),UInt32,win32more.Foundation.PSTR, use_last_error=False)(("CreateDeltaA", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'SetFlags'),(1, 'ResetFlags'),(1, 'lpSourceName'),(1, 'lpTargetName'),(1, 'lpSourceOptionsName'),(1, 'lpTargetOptionsName'),(1, 'GlobalOptions'),(1, 'lpTargetFileTime'),(1, 'HashAlgId'),(1, 'lpDeltaName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDeltaW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,Int64,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.Foundation.FILETIME_head),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(("CreateDeltaW", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'SetFlags'),(1, 'ResetFlags'),(1, 'lpSourceName'),(1, 'lpTargetName'),(1, 'lpSourceOptionsName'),(1, 'lpTargetOptionsName'),(1, 'GlobalOptions'),(1, 'lpTargetFileTime'),(1, 'HashAlgId'),(1, 'lpDeltaName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDelta():
-    return win32more.System.ApplicationInstallationAndServicing.CreateDeltaW
-def _define_GetDeltaSignatureB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head), use_last_error=False)(("GetDeltaSignatureB", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'HashAlgId'),(1, 'Source'),(1, 'lpHash'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaSignatureA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head), use_last_error=False)(("GetDeltaSignatureA", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'HashAlgId'),(1, 'lpSourceName'),(1, 'lpHash'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaSignatureW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.DELTA_HASH_head), use_last_error=False)(("GetDeltaSignatureW", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'HashAlgId'),(1, 'lpSourceName'),(1, 'lpHash'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeltaSignature():
-    return win32more.System.ApplicationInstallationAndServicing.GetDeltaSignatureW
-def _define_DeltaNormalizeProvidedB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int64,Int64,win32more.System.ApplicationInstallationAndServicing.DELTA_INPUT,c_void_p,UIntPtr, use_last_error=False)(("DeltaNormalizeProvidedB", windll["msdelta"]), ((1, 'FileTypeSet'),(1, 'NormalizeFlags'),(1, 'NormalizeOptions'),(1, 'lpSource'),(1, 'uSourceSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeltaFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p, use_last_error=False)(("DeltaFree", windll["msdelta"]), ((1, 'lpMemory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateActCtxA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTXA_head), use_last_error=True)(("CreateActCtxA", windll["KERNEL32"]), ((1, 'pActCtx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateActCtxW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTXW_head), use_last_error=True)(("CreateActCtxW", windll["KERNEL32"]), ((1, 'pActCtx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateActCtx():
-    return win32more.System.ApplicationInstallationAndServicing.CreateActCtxW
-def _define_AddRefActCtx():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.HANDLE, use_last_error=False)(("AddRefActCtx", windll["KERNEL32"]), ((1, 'hActCtx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseActCtx():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.HANDLE, use_last_error=False)(("ReleaseActCtx", windll["KERNEL32"]), ((1, 'hActCtx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ZombifyActCtx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE, use_last_error=True)(("ZombifyActCtx", windll["KERNEL32"]), ((1, 'hActCtx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ActivateActCtx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr), use_last_error=True)(("ActivateActCtx", windll["KERNEL32"]), ((1, 'hActCtx'),(1, 'lpCookie'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeactivateActCtx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UIntPtr, use_last_error=True)(("DeactivateActCtx", windll["KERNEL32"]), ((1, 'dwFlags'),(1, 'ulCookie'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentActCtx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE), use_last_error=True)(("GetCurrentActCtx", windll["KERNEL32"]), ((1, 'lphActCtx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindActCtxSectionStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Guid),UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head), use_last_error=True)(("FindActCtxSectionStringA", windll["KERNEL32"]), ((1, 'dwFlags'),(1, 'lpExtensionGuid'),(1, 'ulSectionId'),(1, 'lpStringToFind'),(1, 'ReturnedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindActCtxSectionStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head), use_last_error=True)(("FindActCtxSectionStringW", windll["KERNEL32"]), ((1, 'dwFlags'),(1, 'lpExtensionGuid'),(1, 'ulSectionId'),(1, 'lpStringToFind'),(1, 'ReturnedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindActCtxSectionString():
-    return win32more.System.ApplicationInstallationAndServicing.FindActCtxSectionStringW
-def _define_FindActCtxSectionGuid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.System.ApplicationInstallationAndServicing.ACTCTX_SECTION_KEYED_DATA_head), use_last_error=True)(("FindActCtxSectionGuid", windll["KERNEL32"]), ((1, 'dwFlags'),(1, 'lpExtensionGuid'),(1, 'ulSectionId'),(1, 'lpGuidToFind'),(1, 'ReturnedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryActCtxW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HANDLE,c_void_p,UInt32,c_void_p,UIntPtr,POINTER(UIntPtr), use_last_error=True)(("QueryActCtxW", windll["KERNEL32"]), ((1, 'dwFlags'),(1, 'hActCtx'),(1, 'pvSubInstance'),(1, 'ulInfoClass'),(1, 'pvBuffer'),(1, 'cbBuffer'),(1, 'pcbWrittenOrRequired'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryActCtxSettingsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UIntPtr,POINTER(UIntPtr), use_last_error=True)(("QueryActCtxSettingsW", windll["KERNEL32"]), ((1, 'dwFlags'),(1, 'hActCtx'),(1, 'settingsNameSpace'),(1, 'settingName'),(1, 'pvBuffer'),(1, 'dwBuffer'),(1, 'pdwWrittenOrRequired'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+USERINFOSTATE = Int32
+USERINFOSTATE_MOREDATA = -3
+USERINFOSTATE_INVALIDARG = -2
+USERINFOSTATE_UNKNOWN = -1
+USERINFOSTATE_ABSENT = 0
+USERINFOSTATE_PRESENT = 1
 __all__ = [
-    "UIALL",
-    "LOGTOKEN_TYPE_MASK",
-    "LOGTOKEN_UNSPECIFIED",
-    "LOGTOKEN_NO_LOG",
-    "LOGTOKEN_SETUPAPI_APPLOG",
-    "LOGTOKEN_SETUPAPI_DEVLOG",
-    "TXTLOG_SETUPAPI_DEVLOG",
-    "TXTLOG_SETUPAPI_CMDLINE",
-    "TXTLOG_SETUPAPI_BITS",
-    "TXTLOG_ERROR",
-    "TXTLOG_WARNING",
-    "TXTLOG_SYSTEM_STATE_CHANGE",
-    "TXTLOG_SUMMARY",
-    "TXTLOG_DETAILS",
-    "TXTLOG_VERBOSE",
-    "TXTLOG_VERY_VERBOSE",
-    "TXTLOG_RESERVED_FLAGS",
-    "TXTLOG_TIMESTAMP",
-    "TXTLOG_DEPTH_INCR",
-    "TXTLOG_DEPTH_DECR",
-    "TXTLOG_TAB_1",
-    "TXTLOG_FLUSH_FILE",
-    "TXTLOG_DEVINST",
-    "TXTLOG_INF",
-    "TXTLOG_FILEQ",
-    "TXTLOG_COPYFILES",
-    "TXTLOG_SIGVERIF",
-    "TXTLOG_BACKUP",
-    "TXTLOG_UI",
-    "TXTLOG_UTIL",
-    "TXTLOG_INFDB",
-    "TXTLOG_DRVSETUP",
-    "TXTLOG_POLICY",
-    "TXTLOG_NEWDEV",
-    "TXTLOG_UMPNPMGR",
-    "TXTLOG_DRIVER_STORE",
-    "TXTLOG_SETUP",
-    "TXTLOG_CMI",
-    "TXTLOG_DEVMGR",
-    "TXTLOG_INSTALLER",
-    "TXTLOG_VENDOR",
-    "CLSID_EvalCom2",
-    "_WIN32_MSM",
-    "LIBID_MsmMergeTypeLib",
-    "CLSID_MsmMerge2",
-    "_WIN32_MSI",
-    "MAX_GUID_CHARS",
-    "MAX_FEATURE_CHARS",
-    "MSI_INVALID_HASH_IS_FATAL",
-    "ERROR_ROLLBACK_DISABLED",
-    "MSI_NULL_INTEGER",
-    "INSTALLMESSAGE_TYPEMASK",
-    "STREAM_FORMAT_COMPLIB_MODULE",
-    "STREAM_FORMAT_COMPLIB_MANIFEST",
-    "STREAM_FORMAT_WIN32_MODULE",
-    "STREAM_FORMAT_WIN32_MANIFEST",
-    "IASSEMBLYCACHEITEM_COMMIT_FLAG_REFRESH",
-    "ASSEMBLYINFO_FLAG_INSTALLED",
-    "ASSEMBLYINFO_FLAG_PAYLOADRESIDENT",
-    "IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_INSTALLED",
-    "IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_REFRESHED",
-    "IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_ALREADY_INSTALLED",
-    "FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID",
-    "FUSION_REFCOUNT_FILEPATH_GUID",
-    "FUSION_REFCOUNT_OPAQUE_STRING_GUID",
-    "SFC_DISABLE_NORMAL",
-    "SFC_DISABLE_ASK",
-    "SFC_DISABLE_ONCE",
-    "SFC_DISABLE_SETUP",
-    "SFC_DISABLE_NOPOPUPS",
-    "SFC_SCAN_NORMAL",
-    "SFC_SCAN_ALWAYS",
-    "SFC_SCAN_ONCE",
-    "SFC_SCAN_IMMEDIATE",
-    "SFC_QUOTA_DEFAULT",
-    "PID_TITLE",
-    "PID_SUBJECT",
-    "PID_AUTHOR",
-    "PID_KEYWORDS",
-    "PID_COMMENTS",
-    "PID_TEMPLATE",
-    "PID_LASTAUTHOR",
-    "PID_REVNUMBER",
-    "PID_EDITTIME",
-    "PID_LASTPRINTED",
-    "PID_CREATE_DTM",
-    "PID_LASTSAVE_DTM",
-    "PID_PAGECOUNT",
-    "PID_WORDCOUNT",
-    "PID_CHARCOUNT",
-    "PID_THUMBNAIL",
-    "PID_APPNAME",
-    "PID_MSIVERSION",
-    "PID_MSISOURCE",
-    "PID_MSIRESTRICT",
-    "PATCH_OPTION_USE_BEST",
-    "PATCH_OPTION_USE_LZX_BEST",
-    "PATCH_OPTION_USE_LZX_A",
-    "PATCH_OPTION_USE_LZX_B",
-    "PATCH_OPTION_USE_LZX_LARGE",
-    "PATCH_OPTION_NO_BINDFIX",
-    "PATCH_OPTION_NO_LOCKFIX",
-    "PATCH_OPTION_NO_REBASE",
-    "PATCH_OPTION_FAIL_IF_SAME_FILE",
-    "PATCH_OPTION_FAIL_IF_BIGGER",
-    "PATCH_OPTION_NO_CHECKSUM",
-    "PATCH_OPTION_NO_RESTIMEFIX",
-    "PATCH_OPTION_NO_TIMESTAMP",
-    "PATCH_OPTION_SIGNATURE_MD5",
-    "PATCH_OPTION_INTERLEAVE_FILES",
-    "PATCH_OPTION_RESERVED1",
-    "PATCH_OPTION_VALID_FLAGS",
-    "PATCH_SYMBOL_NO_IMAGEHLP",
-    "PATCH_SYMBOL_NO_FAILURES",
-    "PATCH_SYMBOL_UNDECORATED_TOO",
-    "PATCH_SYMBOL_RESERVED1",
-    "PATCH_TRANSFORM_PE_RESOURCE_2",
-    "PATCH_TRANSFORM_PE_IRELOC_2",
-    "APPLY_OPTION_FAIL_IF_EXACT",
-    "APPLY_OPTION_FAIL_IF_CLOSE",
-    "APPLY_OPTION_TEST_ONLY",
-    "APPLY_OPTION_VALID_FLAGS",
-    "ERROR_PATCH_ENCODE_FAILURE",
-    "ERROR_PATCH_INVALID_OPTIONS",
-    "ERROR_PATCH_SAME_FILE",
-    "ERROR_PATCH_RETAIN_RANGES_DIFFER",
-    "ERROR_PATCH_BIGGER_THAN_COMPRESSED",
-    "ERROR_PATCH_IMAGEHLP_FAILURE",
-    "ERROR_PATCH_DECODE_FAILURE",
-    "ERROR_PATCH_CORRUPT",
-    "ERROR_PATCH_NEWER_FORMAT",
-    "ERROR_PATCH_WRONG_FILE",
-    "ERROR_PATCH_NOT_NECESSARY",
-    "ERROR_PATCH_NOT_AVAILABLE",
-    "ERROR_PCW_BASE",
-    "ERROR_PCW_PCP_DOESNT_EXIST",
-    "ERROR_PCW_PCP_BAD_FORMAT",
-    "ERROR_PCW_CANT_CREATE_TEMP_FOLDER",
-    "ERROR_PCW_MISSING_PATCH_PATH",
-    "ERROR_PCW_CANT_OVERWRITE_PATCH",
-    "ERROR_PCW_CANT_CREATE_PATCH_FILE",
-    "ERROR_PCW_MISSING_PATCH_GUID",
-    "ERROR_PCW_BAD_PATCH_GUID",
-    "ERROR_PCW_BAD_GUIDS_TO_REPLACE",
-    "ERROR_PCW_BAD_TARGET_PRODUCT_CODE_LIST",
-    "ERROR_PCW_NO_UPGRADED_IMAGES_TO_PATCH",
-    "ERROR_PCW_BAD_API_PATCHING_SYMBOL_FLAGS",
-    "ERROR_PCW_OODS_COPYING_MSI",
-    "ERROR_PCW_UPGRADED_IMAGE_NAME_TOO_LONG",
-    "ERROR_PCW_BAD_UPGRADED_IMAGE_NAME",
-    "ERROR_PCW_DUP_UPGRADED_IMAGE_NAME",
-    "ERROR_PCW_UPGRADED_IMAGE_PATH_TOO_LONG",
-    "ERROR_PCW_UPGRADED_IMAGE_PATH_EMPTY",
-    "ERROR_PCW_UPGRADED_IMAGE_PATH_NOT_EXIST",
-    "ERROR_PCW_UPGRADED_IMAGE_PATH_NOT_MSI",
-    "ERROR_PCW_UPGRADED_IMAGE_COMPRESSED",
-    "ERROR_PCW_TARGET_IMAGE_NAME_TOO_LONG",
-    "ERROR_PCW_BAD_TARGET_IMAGE_NAME",
-    "ERROR_PCW_DUP_TARGET_IMAGE_NAME",
-    "ERROR_PCW_TARGET_IMAGE_PATH_TOO_LONG",
-    "ERROR_PCW_TARGET_IMAGE_PATH_EMPTY",
-    "ERROR_PCW_TARGET_IMAGE_PATH_NOT_EXIST",
-    "ERROR_PCW_TARGET_IMAGE_PATH_NOT_MSI",
-    "ERROR_PCW_TARGET_IMAGE_COMPRESSED",
-    "ERROR_PCW_TARGET_BAD_PROD_VALIDATE",
-    "ERROR_PCW_TARGET_BAD_PROD_CODE_VAL",
-    "ERROR_PCW_UPGRADED_MISSING_SRC_FILES",
-    "ERROR_PCW_TARGET_MISSING_SRC_FILES",
-    "ERROR_PCW_IMAGE_FAMILY_NAME_TOO_LONG",
-    "ERROR_PCW_BAD_IMAGE_FAMILY_NAME",
-    "ERROR_PCW_DUP_IMAGE_FAMILY_NAME",
-    "ERROR_PCW_BAD_IMAGE_FAMILY_SRC_PROP",
-    "ERROR_PCW_UFILEDATA_LONG_FILE_TABLE_KEY",
-    "ERROR_PCW_UFILEDATA_BLANK_FILE_TABLE_KEY",
-    "ERROR_PCW_UFILEDATA_MISSING_FILE_TABLE_KEY",
-    "ERROR_PCW_EXTFILE_LONG_FILE_TABLE_KEY",
-    "ERROR_PCW_EXTFILE_BLANK_FILE_TABLE_KEY",
-    "ERROR_PCW_EXTFILE_BAD_FAMILY_FIELD",
-    "ERROR_PCW_EXTFILE_LONG_PATH_TO_FILE",
-    "ERROR_PCW_EXTFILE_BLANK_PATH_TO_FILE",
-    "ERROR_PCW_EXTFILE_MISSING_FILE",
-    "ERROR_PCW_BAD_FILE_SEQUENCE_START",
-    "ERROR_PCW_CANT_COPY_FILE_TO_TEMP_FOLDER",
-    "ERROR_PCW_CANT_CREATE_ONE_PATCH_FILE",
-    "ERROR_PCW_BAD_IMAGE_FAMILY_DISKID",
-    "ERROR_PCW_BAD_IMAGE_FAMILY_FILESEQSTART",
-    "ERROR_PCW_BAD_UPGRADED_IMAGE_FAMILY",
-    "ERROR_PCW_BAD_TARGET_IMAGE_UPGRADED",
-    "ERROR_PCW_DUP_TARGET_IMAGE_PACKCODE",
-    "ERROR_PCW_UFILEDATA_BAD_UPGRADED_FIELD",
-    "ERROR_PCW_MISMATCHED_PRODUCT_CODES",
-    "ERROR_PCW_MISMATCHED_PRODUCT_VERSIONS",
-    "ERROR_PCW_CANNOT_WRITE_DDF",
-    "ERROR_PCW_CANNOT_RUN_MAKECAB",
-    "ERROR_PCW_WRITE_SUMMARY_PROPERTIES",
-    "ERROR_PCW_TFILEDATA_LONG_FILE_TABLE_KEY",
-    "ERROR_PCW_TFILEDATA_BLANK_FILE_TABLE_KEY",
-    "ERROR_PCW_TFILEDATA_MISSING_FILE_TABLE_KEY",
-    "ERROR_PCW_TFILEDATA_BAD_TARGET_FIELD",
-    "ERROR_PCW_UPGRADED_IMAGE_PATCH_PATH_TOO_LONG",
-    "ERROR_PCW_UPGRADED_IMAGE_PATCH_PATH_NOT_EXIST",
-    "ERROR_PCW_UPGRADED_IMAGE_PATCH_PATH_NOT_MSI",
-    "ERROR_PCW_DUP_UPGRADED_IMAGE_PACKCODE",
-    "ERROR_PCW_UFILEIGNORE_BAD_UPGRADED_FIELD",
-    "ERROR_PCW_UFILEIGNORE_LONG_FILE_TABLE_KEY",
-    "ERROR_PCW_UFILEIGNORE_BLANK_FILE_TABLE_KEY",
-    "ERROR_PCW_UFILEIGNORE_BAD_FILE_TABLE_KEY",
-    "ERROR_PCW_FAMILY_RANGE_NAME_TOO_LONG",
-    "ERROR_PCW_BAD_FAMILY_RANGE_NAME",
-    "ERROR_PCW_FAMILY_RANGE_LONG_FILE_TABLE_KEY",
-    "ERROR_PCW_FAMILY_RANGE_BLANK_FILE_TABLE_KEY",
-    "ERROR_PCW_FAMILY_RANGE_LONG_RETAIN_OFFSETS",
-    "ERROR_PCW_FAMILY_RANGE_BLANK_RETAIN_OFFSETS",
-    "ERROR_PCW_FAMILY_RANGE_BAD_RETAIN_OFFSETS",
-    "ERROR_PCW_FAMILY_RANGE_LONG_RETAIN_LENGTHS",
-    "ERROR_PCW_FAMILY_RANGE_BLANK_RETAIN_LENGTHS",
-    "ERROR_PCW_FAMILY_RANGE_BAD_RETAIN_LENGTHS",
-    "ERROR_PCW_FAMILY_RANGE_COUNT_MISMATCH",
-    "ERROR_PCW_EXTFILE_LONG_IGNORE_OFFSETS",
-    "ERROR_PCW_EXTFILE_BAD_IGNORE_OFFSETS",
-    "ERROR_PCW_EXTFILE_LONG_IGNORE_LENGTHS",
-    "ERROR_PCW_EXTFILE_BAD_IGNORE_LENGTHS",
-    "ERROR_PCW_EXTFILE_IGNORE_COUNT_MISMATCH",
-    "ERROR_PCW_EXTFILE_LONG_RETAIN_OFFSETS",
-    "ERROR_PCW_EXTFILE_BAD_RETAIN_OFFSETS",
-    "ERROR_PCW_TFILEDATA_LONG_IGNORE_OFFSETS",
-    "ERROR_PCW_TFILEDATA_BAD_IGNORE_OFFSETS",
-    "ERROR_PCW_TFILEDATA_LONG_IGNORE_LENGTHS",
-    "ERROR_PCW_TFILEDATA_BAD_IGNORE_LENGTHS",
-    "ERROR_PCW_TFILEDATA_IGNORE_COUNT_MISMATCH",
-    "ERROR_PCW_TFILEDATA_LONG_RETAIN_OFFSETS",
-    "ERROR_PCW_TFILEDATA_BAD_RETAIN_OFFSETS",
-    "ERROR_PCW_CANT_GENERATE_TRANSFORM",
-    "ERROR_PCW_CANT_CREATE_SUMMARY_INFO",
-    "ERROR_PCW_CANT_GENERATE_TRANSFORM_POUND",
-    "ERROR_PCW_CANT_CREATE_SUMMARY_INFO_POUND",
-    "ERROR_PCW_BAD_UPGRADED_IMAGE_PRODUCT_CODE",
-    "ERROR_PCW_BAD_UPGRADED_IMAGE_PRODUCT_VERSION",
-    "ERROR_PCW_BAD_UPGRADED_IMAGE_UPGRADE_CODE",
-    "ERROR_PCW_BAD_TARGET_IMAGE_PRODUCT_CODE",
-    "ERROR_PCW_BAD_TARGET_IMAGE_PRODUCT_VERSION",
-    "ERROR_PCW_BAD_TARGET_IMAGE_UPGRADE_CODE",
-    "ERROR_PCW_MATCHED_PRODUCT_VERSIONS",
-    "ERROR_PCW_OBSOLETION_WITH_SEQUENCE_DATA",
-    "ERROR_PCW_OBSOLETION_WITH_MSI30",
-    "ERROR_PCW_OBSOLETION_WITH_PATCHSEQUENCE",
-    "ERROR_PCW_CANNOT_CREATE_TABLE",
-    "ERROR_PCW_CANT_GENERATE_SEQUENCEINFO_MAJORUPGD",
-    "ERROR_PCW_MAJOR_UPGD_WITHOUT_SEQUENCING",
-    "ERROR_PCW_BAD_PRODUCTVERSION_VALIDATION",
-    "ERROR_PCW_BAD_TRANSFORMSET",
-    "ERROR_PCW_BAD_TGT_UPD_IMAGES",
-    "ERROR_PCW_BAD_SUPERCEDENCE",
-    "ERROR_PCW_BAD_SEQUENCE",
-    "ERROR_PCW_BAD_TARGET",
-    "ERROR_PCW_NULL_PATCHFAMILY",
-    "ERROR_PCW_NULL_SEQUENCE_NUMBER",
-    "ERROR_PCW_BAD_VERSION_STRING",
-    "ERROR_PCW_BAD_MAJOR_VERSION",
-    "ERROR_PCW_SEQUENCING_BAD_TARGET",
-    "ERROR_PCW_PATCHMETADATA_PROP_NOT_SET",
-    "ERROR_PCW_INVALID_PATCHMETADATA_PROP",
-    "ERROR_PCW_INVALID_SUPERCEDENCE",
-    "ERROR_PCW_DUPLICATE_SEQUENCE_RECORD",
-    "ERROR_PCW_WRONG_PATCHMETADATA_STRD_PROP",
-    "ERROR_PCW_INVALID_PARAMETER",
-    "ERROR_PCW_CREATEFILE_LOG_FAILED",
-    "ERROR_PCW_INVALID_LOG_LEVEL",
-    "ERROR_PCW_INVALID_UI_LEVEL",
-    "ERROR_PCW_ERROR_WRITING_TO_LOG",
-    "ERROR_PCW_OUT_OF_MEMORY",
-    "ERROR_PCW_UNKNOWN_ERROR",
-    "ERROR_PCW_UNKNOWN_INFO",
-    "ERROR_PCW_UNKNOWN_WARN",
-    "ERROR_PCW_OPEN_VIEW",
-    "ERROR_PCW_EXECUTE_VIEW",
-    "ERROR_PCW_VIEW_FETCH",
-    "ERROR_PCW_FAILED_EXPAND_PATH",
-    "ERROR_PCW_INTERNAL_ERROR",
-    "ERROR_PCW_INVALID_PCP_PROPERTY",
-    "ERROR_PCW_INVALID_PCP_TARGETIMAGES",
-    "ERROR_PCW_LAX_VALIDATION_FLAGS",
-    "ERROR_PCW_FAILED_CREATE_TRANSFORM",
-    "ERROR_PCW_CANT_DELETE_TEMP_FOLDER",
-    "ERROR_PCW_MISSING_DIRECTORY_TABLE",
-    "ERROR_PCW_INVALID_SUPERSEDENCE_VALUE",
-    "ERROR_PCW_INVALID_PATCH_TYPE_SEQUENCING",
-    "ERROR_PCW_CANT_READ_FILE",
-    "ERROR_PCW_TARGET_WRONG_PRODUCT_VERSION_COMP",
-    "ERROR_PCW_INVALID_PCP_UPGRADEDFILESTOIGNORE",
-    "ERROR_PCW_INVALID_PCP_UPGRADEDIMAGES",
-    "ERROR_PCW_INVALID_PCP_EXTERNALFILES",
-    "ERROR_PCW_INVALID_PCP_IMAGEFAMILIES",
-    "ERROR_PCW_INVALID_PCP_PATCHSEQUENCE",
-    "ERROR_PCW_INVALID_PCP_TARGETFILES_OPTIONALDATA",
-    "ERROR_PCW_INVALID_PCP_UPGRADEDFILES_OPTIONALDATA",
-    "ERROR_PCW_MISSING_PATCHMETADATA",
-    "ERROR_PCW_IMAGE_PATH_NOT_EXIST",
-    "ERROR_PCW_INVALID_RANGE_ELEMENT",
-    "ERROR_PCW_INVALID_MAJOR_VERSION",
-    "ERROR_PCW_INVALID_PCP_PROPERTIES",
-    "ERROR_PCW_INVALID_PCP_FAMILYFILERANGES",
-    "INFO_BASE",
-    "INFO_PASSED_MAIN_CONTROL",
-    "INFO_ENTERING_PHASE_I_VALIDATION",
-    "INFO_ENTERING_PHASE_I",
-    "INFO_PCP_PATH",
-    "INFO_TEMP_DIR",
-    "INFO_SET_OPTIONS",
-    "INFO_PROPERTY",
-    "INFO_ENTERING_PHASE_II",
-    "INFO_ENTERING_PHASE_III",
-    "INFO_ENTERING_PHASE_IV",
-    "INFO_ENTERING_PHASE_V",
-    "INFO_GENERATING_METADATA",
-    "INFO_TEMP_DIR_CLEANUP",
-    "INFO_PATCHCACHE_FILEINFO_FAILURE",
-    "INFO_PATCHCACHE_PCI_READFAILURE",
-    "INFO_PATCHCACHE_PCI_WRITEFAILURE",
-    "INFO_USING_USER_MSI_FOR_PATCH_TABLES",
-    "INFO_SUCCESSFUL_PATCH_CREATION",
-    "WARN_BASE",
-    "WARN_MAJOR_UPGRADE_PATCH",
-    "WARN_SEQUENCE_DATA_GENERATION_DISABLED",
-    "WARN_SEQUENCE_DATA_SUPERSEDENCE_IGNORED",
-    "WARN_IMPROPER_TRANSFORM_VALIDATION",
-    "WARN_PCW_MISMATCHED_PRODUCT_CODES",
-    "WARN_PCW_MISMATCHED_PRODUCT_VERSIONS",
-    "WARN_INVALID_TRANSFORM_VALIDATION",
-    "WARN_BAD_MAJOR_VERSION",
-    "WARN_FILE_VERSION_DOWNREV",
-    "WARN_EQUAL_FILE_VERSION",
-    "WARN_PATCHPROPERTYNOTSET",
-    "WARN_OBSOLETION_WITH_SEQUENCE_DATA",
-    "WARN_OBSOLETION_WITH_MSI30",
-    "WARN_OBSOLETION_WITH_PATCHSEQUENCE",
-    "DELTA_MAX_HASH_SIZE",
-    "cchMaxInteger",
-    "LOGNONE",
-    "LOGINFO",
-    "LOGWARN",
-    "LOGERR",
-    "LOGPERFMESSAGES",
-    "LOGALL",
-    "UINONE",
-    "UILOGBITS",
-    "DEFAULT_MINIMUM_REQUIRED_MSI_VERSION",
-    "DEFAULT_FILE_SEQUENCE_START",
-    "DEFAULT_DISK_ID",
-    "MSIASSEMBLYINFO",
-    "MSIASSEMBLYINFO_NETASSEMBLY",
-    "MSIASSEMBLYINFO_WIN32ASSEMBLY",
-    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION",
-    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_UNINSTALLED",
-    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_STILL_IN_USE",
-    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED",
-    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING",
-    "QUERYASMINFO_FLAGS",
-    "QUERYASMINFO_FLAG_VALIDATE",
-    "MSIHANDLE",
-    "RESULTTYPES",
-    "RESULTTYPES_ieUnknown",
-    "RESULTTYPES_ieError",
-    "RESULTTYPES_ieWarning",
-    "RESULTTYPES_ieInfo",
-    "STATUSTYPES",
-    "STATUSTYPES_ieStatusGetCUB",
-    "STATUSTYPES_ieStatusICECount",
-    "STATUSTYPES_ieStatusMerge",
-    "STATUSTYPES_ieStatusSummaryInfo",
-    "STATUSTYPES_ieStatusCreateEngine",
-    "STATUSTYPES_ieStatusStarting",
-    "STATUSTYPES_ieStatusRunICE",
-    "STATUSTYPES_ieStatusShutdown",
-    "STATUSTYPES_ieStatusSuccess",
-    "STATUSTYPES_ieStatusFail",
-    "STATUSTYPES_ieStatusCancel",
-    "LPDISPLAYVAL",
-    "LPEVALCOMCALLBACK",
-    "IValidate",
-    "MsmMerge",
-    "msmErrorType",
-    "msmErrorType_msmErrorLanguageUnsupported",
-    "msmErrorType_msmErrorLanguageFailed",
-    "msmErrorType_msmErrorExclusion",
-    "msmErrorType_msmErrorTableMerge",
-    "msmErrorType_msmErrorResequenceMerge",
-    "msmErrorType_msmErrorFileCreate",
-    "msmErrorType_msmErrorDirCreate",
-    "msmErrorType_msmErrorFeatureRequired",
-    "IEnumMsmString",
-    "IMsmStrings",
-    "IMsmError",
-    "IEnumMsmError",
-    "IMsmErrors",
-    "IMsmDependency",
-    "IEnumMsmDependency",
-    "IMsmDependencies",
-    "IMsmMerge",
-    "IMsmGetFiles",
-    "PMSIHANDLE",
-    "INSTALLMESSAGE",
-    "INSTALLMESSAGE_FATALEXIT",
-    "INSTALLMESSAGE_ERROR",
-    "INSTALLMESSAGE_WARNING",
-    "INSTALLMESSAGE_USER",
-    "INSTALLMESSAGE_INFO",
-    "INSTALLMESSAGE_FILESINUSE",
-    "INSTALLMESSAGE_RESOLVESOURCE",
-    "INSTALLMESSAGE_OUTOFDISKSPACE",
-    "INSTALLMESSAGE_ACTIONSTART",
-    "INSTALLMESSAGE_ACTIONDATA",
-    "INSTALLMESSAGE_PROGRESS",
-    "INSTALLMESSAGE_COMMONDATA",
-    "INSTALLMESSAGE_INITIALIZE",
-    "INSTALLMESSAGE_TERMINATE",
-    "INSTALLMESSAGE_SHOWDIALOG",
-    "INSTALLMESSAGE_PERFORMANCE",
-    "INSTALLMESSAGE_RMFILESINUSE",
-    "INSTALLMESSAGE_INSTALLSTART",
-    "INSTALLMESSAGE_INSTALLEND",
-    "INSTALLUI_HANDLERA",
-    "INSTALLUI_HANDLERW",
-    "PINSTALLUI_HANDLER_RECORD",
-    "INSTALLUILEVEL",
-    "INSTALLUILEVEL_NOCHANGE",
-    "INSTALLUILEVEL_DEFAULT",
-    "INSTALLUILEVEL_NONE",
-    "INSTALLUILEVEL_BASIC",
-    "INSTALLUILEVEL_REDUCED",
-    "INSTALLUILEVEL_FULL",
-    "INSTALLUILEVEL_ENDDIALOG",
-    "INSTALLUILEVEL_PROGRESSONLY",
-    "INSTALLUILEVEL_HIDECANCEL",
-    "INSTALLUILEVEL_SOURCERESONLY",
-    "INSTALLUILEVEL_UACONLY",
-    "INSTALLSTATE",
-    "INSTALLSTATE_NOTUSED",
-    "INSTALLSTATE_BADCONFIG",
-    "INSTALLSTATE_INCOMPLETE",
-    "INSTALLSTATE_SOURCEABSENT",
-    "INSTALLSTATE_MOREDATA",
-    "INSTALLSTATE_INVALIDARG",
-    "INSTALLSTATE_UNKNOWN",
-    "INSTALLSTATE_BROKEN",
-    "INSTALLSTATE_ADVERTISED",
-    "INSTALLSTATE_REMOVED",
-    "INSTALLSTATE_ABSENT",
-    "INSTALLSTATE_LOCAL",
-    "INSTALLSTATE_SOURCE",
-    "INSTALLSTATE_DEFAULT",
-    "USERINFOSTATE",
-    "USERINFOSTATE_MOREDATA",
-    "USERINFOSTATE_INVALIDARG",
-    "USERINFOSTATE_UNKNOWN",
-    "USERINFOSTATE_ABSENT",
-    "USERINFOSTATE_PRESENT",
-    "INSTALLLEVEL",
-    "INSTALLLEVEL_DEFAULT",
-    "INSTALLLEVEL_MINIMUM",
-    "INSTALLLEVEL_MAXIMUM",
-    "REINSTALLMODE",
-    "REINSTALLMODE_REPAIR",
-    "REINSTALLMODE_FILEMISSING",
-    "REINSTALLMODE_FILEOLDERVERSION",
-    "REINSTALLMODE_FILEEQUALVERSION",
-    "REINSTALLMODE_FILEEXACT",
-    "REINSTALLMODE_FILEVERIFY",
-    "REINSTALLMODE_FILEREPLACE",
-    "REINSTALLMODE_MACHINEDATA",
-    "REINSTALLMODE_USERDATA",
-    "REINSTALLMODE_SHORTCUT",
-    "REINSTALLMODE_PACKAGE",
-    "INSTALLOGMODE",
-    "INSTALLLOGMODE_FATALEXIT",
-    "INSTALLLOGMODE_ERROR",
-    "INSTALLLOGMODE_WARNING",
-    "INSTALLLOGMODE_USER",
-    "INSTALLLOGMODE_INFO",
-    "INSTALLLOGMODE_RESOLVESOURCE",
-    "INSTALLLOGMODE_OUTOFDISKSPACE",
-    "INSTALLLOGMODE_ACTIONSTART",
-    "INSTALLLOGMODE_ACTIONDATA",
-    "INSTALLLOGMODE_COMMONDATA",
-    "INSTALLLOGMODE_PROPERTYDUMP",
-    "INSTALLLOGMODE_VERBOSE",
-    "INSTALLLOGMODE_EXTRADEBUG",
-    "INSTALLLOGMODE_LOGONLYONERROR",
-    "INSTALLLOGMODE_LOGPERFORMANCE",
-    "INSTALLLOGMODE_PROGRESS",
-    "INSTALLLOGMODE_INITIALIZE",
-    "INSTALLLOGMODE_TERMINATE",
-    "INSTALLLOGMODE_SHOWDIALOG",
-    "INSTALLLOGMODE_FILESINUSE",
-    "INSTALLLOGMODE_RMFILESINUSE",
-    "INSTALLLOGMODE_INSTALLSTART",
-    "INSTALLLOGMODE_INSTALLEND",
-    "INSTALLLOGATTRIBUTES",
-    "INSTALLLOGATTRIBUTES_APPEND",
-    "INSTALLLOGATTRIBUTES_FLUSHEACHLINE",
-    "INSTALLFEATUREATTRIBUTE",
-    "INSTALLFEATUREATTRIBUTE_FAVORLOCAL",
-    "INSTALLFEATUREATTRIBUTE_FAVORSOURCE",
-    "INSTALLFEATUREATTRIBUTE_FOLLOWPARENT",
-    "INSTALLFEATUREATTRIBUTE_FAVORADVERTISE",
-    "INSTALLFEATUREATTRIBUTE_DISALLOWADVERTISE",
-    "INSTALLFEATUREATTRIBUTE_NOUNSUPPORTEDADVERTISE",
-    "INSTALLMODE",
-    "INSTALLMODE_NODETECTION_ANY",
-    "INSTALLMODE_NOSOURCERESOLUTION",
-    "INSTALLMODE_NODETECTION",
-    "INSTALLMODE_EXISTING",
-    "INSTALLMODE_DEFAULT",
-    "MSIPATCHSTATE",
-    "MSIPATCHSTATE_INVALID",
-    "MSIPATCHSTATE_APPLIED",
-    "MSIPATCHSTATE_SUPERSEDED",
-    "MSIPATCHSTATE_OBSOLETED",
-    "MSIPATCHSTATE_REGISTERED",
-    "MSIPATCHSTATE_ALL",
-    "MSIINSTALLCONTEXT",
-    "MSIINSTALLCONTEXT_FIRSTVISIBLE",
-    "MSIINSTALLCONTEXT_NONE",
-    "MSIINSTALLCONTEXT_USERMANAGED",
-    "MSIINSTALLCONTEXT_USERUNMANAGED",
-    "MSIINSTALLCONTEXT_MACHINE",
-    "MSIINSTALLCONTEXT_ALL",
-    "MSIINSTALLCONTEXT_ALLUSERMANAGED",
-    "MSIPATCHDATATYPE",
-    "MSIPATCH_DATATYPE_PATCHFILE",
-    "MSIPATCH_DATATYPE_XMLPATH",
-    "MSIPATCH_DATATYPE_XMLBLOB",
-    "MSIPATCHSEQUENCEINFOA",
-    "MSIPATCHSEQUENCEINFOW",
-    "SCRIPTFLAGS",
-    "SCRIPTFLAGS_CACHEINFO",
-    "SCRIPTFLAGS_SHORTCUTS",
-    "SCRIPTFLAGS_MACHINEASSIGN",
-    "SCRIPTFLAGS_REGDATA_CNFGINFO",
-    "SCRIPTFLAGS_VALIDATE_TRANSFORMS_LIST",
-    "SCRIPTFLAGS_REGDATA_CLASSINFO",
-    "SCRIPTFLAGS_REGDATA_EXTENSIONINFO",
-    "SCRIPTFLAGS_REGDATA_APPINFO",
-    "SCRIPTFLAGS_REGDATA",
+    "ACTCTXA",
+    "ACTCTXW",
+    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE",
+    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MAXVERSIONTESTED",
+    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION",
+    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS",
+    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN",
+    "ACTCTX_REQUESTED_RUN_LEVEL",
+    "ACTCTX_RUN_LEVEL_AS_INVOKER",
+    "ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE",
+    "ACTCTX_RUN_LEVEL_NUMBERS",
+    "ACTCTX_RUN_LEVEL_REQUIRE_ADMIN",
+    "ACTCTX_RUN_LEVEL_UNSPECIFIED",
+    "ACTCTX_SECTION_KEYED_DATA",
+    "ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION",
+    "ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION",
+    "ACTIVATION_CONTEXT_DETAILED_INFORMATION",
+    "ACTIVATION_CONTEXT_QUERY_INDEX",
+    "ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION",
     "ADVERTISEFLAGS",
     "ADVERTISEFLAGS_MACHINEASSIGN",
     "ADVERTISEFLAGS_USERASSIGN",
+    "APPLY_OPTION_FAIL_IF_CLOSE",
+    "APPLY_OPTION_FAIL_IF_EXACT",
+    "APPLY_OPTION_TEST_ONLY",
+    "APPLY_OPTION_VALID_FLAGS",
+    "ASM_BINDF_BINPATH_PROBE_ONLY",
+    "ASM_BINDF_FORCE_CACHE_INSTALL",
+    "ASM_BINDF_PARENT_ASM_HINT",
+    "ASM_BINDF_RFS_INTEGRITY_CHECK",
+    "ASM_BINDF_RFS_MODULE_CHECK",
+    "ASM_BINDF_SHARED_BINPATH_HINT",
+    "ASM_BIND_FLAGS",
+    "ASM_CMPF_ALL",
+    "ASM_CMPF_BUILD_NUMBER",
+    "ASM_CMPF_CULTURE",
+    "ASM_CMPF_CUSTOM",
+    "ASM_CMPF_DEFAULT",
+    "ASM_CMPF_MAJOR_VERSION",
+    "ASM_CMPF_MINOR_VERSION",
+    "ASM_CMPF_NAME",
+    "ASM_CMPF_PUBLIC_KEY_TOKEN",
+    "ASM_CMPF_REVISION_NUMBER",
+    "ASM_CMP_FLAGS",
+    "ASM_DISPLAYF_CULTURE",
+    "ASM_DISPLAYF_CUSTOM",
+    "ASM_DISPLAYF_LANGUAGEID",
+    "ASM_DISPLAYF_PROCESSORARCHITECTURE",
+    "ASM_DISPLAYF_PUBLIC_KEY",
+    "ASM_DISPLAYF_PUBLIC_KEY_TOKEN",
+    "ASM_DISPLAYF_VERSION",
+    "ASM_DISPLAY_FLAGS",
+    "ASM_NAME",
+    "ASM_NAME_ALIAS",
+    "ASM_NAME_BUILD_NUMBER",
+    "ASM_NAME_CODEBASE_LASTMOD",
+    "ASM_NAME_CODEBASE_URL",
+    "ASM_NAME_CULTURE",
+    "ASM_NAME_CUSTOM",
+    "ASM_NAME_HASH_ALGID",
+    "ASM_NAME_HASH_VALUE",
+    "ASM_NAME_MAJOR_VERSION",
+    "ASM_NAME_MAX_PARAMS",
+    "ASM_NAME_MINOR_VERSION",
+    "ASM_NAME_MVID",
+    "ASM_NAME_NAME",
+    "ASM_NAME_NULL_CUSTOM",
+    "ASM_NAME_NULL_PUBLIC_KEY",
+    "ASM_NAME_NULL_PUBLIC_KEY_TOKEN",
+    "ASM_NAME_OSINFO_ARRAY",
+    "ASM_NAME_PROCESSOR_ID_ARRAY",
+    "ASM_NAME_PUBLIC_KEY",
+    "ASM_NAME_PUBLIC_KEY_TOKEN",
+    "ASM_NAME_REVISION_NUMBER",
+    "ASSEMBLYINFO_FLAG_INSTALLED",
+    "ASSEMBLYINFO_FLAG_PAYLOADRESIDENT",
+    "ASSEMBLY_FILE_DETAILED_INFORMATION",
+    "ASSEMBLY_INFO",
+    "ActivateActCtx",
+    "AddRefActCtx",
+    "ApplyDeltaA",
+    "ApplyDeltaB",
+    "ApplyDeltaGetReverseB",
+    "ApplyDeltaProvidedB",
+    "ApplyDeltaW",
+    "ApplyPatchToFileA",
+    "ApplyPatchToFileByBuffers",
+    "ApplyPatchToFileByHandles",
+    "ApplyPatchToFileByHandlesEx",
+    "ApplyPatchToFileExA",
+    "ApplyPatchToFileExW",
+    "ApplyPatchToFileW",
+    "CANOF_PARSE_DISPLAY_NAME",
+    "CANOF_SET_DEFAULT_VALUES",
+    "CLSID_EvalCom2",
+    "CLSID_MsmMerge2",
+    "COMPATIBILITY_CONTEXT_ELEMENT",
+    "CREATE_ASM_NAME_OBJ_FLAGS",
+    "CreateActCtxA",
+    "CreateActCtxW",
+    "CreateDeltaA",
+    "CreateDeltaB",
+    "CreateDeltaW",
+    "CreatePatchFileA",
+    "CreatePatchFileByHandles",
+    "CreatePatchFileByHandlesEx",
+    "CreatePatchFileExA",
+    "CreatePatchFileExW",
+    "CreatePatchFileW",
+    "DEFAULT_DISK_ID",
+    "DEFAULT_FILE_SEQUENCE_START",
+    "DEFAULT_MINIMUM_REQUIRED_MSI_VERSION",
+    "DELTA_HASH",
+    "DELTA_HEADER_INFO",
+    "DELTA_INPUT",
+    "DELTA_MAX_HASH_SIZE",
+    "DELTA_OUTPUT",
+    "DeactivateActCtx",
+    "DeltaFree",
+    "DeltaNormalizeProvidedB",
+    "ERROR_PATCH_BIGGER_THAN_COMPRESSED",
+    "ERROR_PATCH_CORRUPT",
+    "ERROR_PATCH_DECODE_FAILURE",
+    "ERROR_PATCH_ENCODE_FAILURE",
+    "ERROR_PATCH_IMAGEHLP_FAILURE",
+    "ERROR_PATCH_INVALID_OPTIONS",
+    "ERROR_PATCH_NEWER_FORMAT",
+    "ERROR_PATCH_NOT_AVAILABLE",
+    "ERROR_PATCH_NOT_NECESSARY",
+    "ERROR_PATCH_RETAIN_RANGES_DIFFER",
+    "ERROR_PATCH_SAME_FILE",
+    "ERROR_PATCH_WRONG_FILE",
+    "ERROR_PCW_BAD_API_PATCHING_SYMBOL_FLAGS",
+    "ERROR_PCW_BAD_FAMILY_RANGE_NAME",
+    "ERROR_PCW_BAD_FILE_SEQUENCE_START",
+    "ERROR_PCW_BAD_GUIDS_TO_REPLACE",
+    "ERROR_PCW_BAD_IMAGE_FAMILY_DISKID",
+    "ERROR_PCW_BAD_IMAGE_FAMILY_FILESEQSTART",
+    "ERROR_PCW_BAD_IMAGE_FAMILY_NAME",
+    "ERROR_PCW_BAD_IMAGE_FAMILY_SRC_PROP",
+    "ERROR_PCW_BAD_MAJOR_VERSION",
+    "ERROR_PCW_BAD_PATCH_GUID",
+    "ERROR_PCW_BAD_PRODUCTVERSION_VALIDATION",
+    "ERROR_PCW_BAD_SEQUENCE",
+    "ERROR_PCW_BAD_SUPERCEDENCE",
+    "ERROR_PCW_BAD_TARGET",
+    "ERROR_PCW_BAD_TARGET_IMAGE_NAME",
+    "ERROR_PCW_BAD_TARGET_IMAGE_PRODUCT_CODE",
+    "ERROR_PCW_BAD_TARGET_IMAGE_PRODUCT_VERSION",
+    "ERROR_PCW_BAD_TARGET_IMAGE_UPGRADED",
+    "ERROR_PCW_BAD_TARGET_IMAGE_UPGRADE_CODE",
+    "ERROR_PCW_BAD_TARGET_PRODUCT_CODE_LIST",
+    "ERROR_PCW_BAD_TGT_UPD_IMAGES",
+    "ERROR_PCW_BAD_TRANSFORMSET",
+    "ERROR_PCW_BAD_UPGRADED_IMAGE_FAMILY",
+    "ERROR_PCW_BAD_UPGRADED_IMAGE_NAME",
+    "ERROR_PCW_BAD_UPGRADED_IMAGE_PRODUCT_CODE",
+    "ERROR_PCW_BAD_UPGRADED_IMAGE_PRODUCT_VERSION",
+    "ERROR_PCW_BAD_UPGRADED_IMAGE_UPGRADE_CODE",
+    "ERROR_PCW_BAD_VERSION_STRING",
+    "ERROR_PCW_BASE",
+    "ERROR_PCW_CANNOT_CREATE_TABLE",
+    "ERROR_PCW_CANNOT_RUN_MAKECAB",
+    "ERROR_PCW_CANNOT_WRITE_DDF",
+    "ERROR_PCW_CANT_COPY_FILE_TO_TEMP_FOLDER",
+    "ERROR_PCW_CANT_CREATE_ONE_PATCH_FILE",
+    "ERROR_PCW_CANT_CREATE_PATCH_FILE",
+    "ERROR_PCW_CANT_CREATE_SUMMARY_INFO",
+    "ERROR_PCW_CANT_CREATE_SUMMARY_INFO_POUND",
+    "ERROR_PCW_CANT_CREATE_TEMP_FOLDER",
+    "ERROR_PCW_CANT_DELETE_TEMP_FOLDER",
+    "ERROR_PCW_CANT_GENERATE_SEQUENCEINFO_MAJORUPGD",
+    "ERROR_PCW_CANT_GENERATE_TRANSFORM",
+    "ERROR_PCW_CANT_GENERATE_TRANSFORM_POUND",
+    "ERROR_PCW_CANT_OVERWRITE_PATCH",
+    "ERROR_PCW_CANT_READ_FILE",
+    "ERROR_PCW_CREATEFILE_LOG_FAILED",
+    "ERROR_PCW_DUPLICATE_SEQUENCE_RECORD",
+    "ERROR_PCW_DUP_IMAGE_FAMILY_NAME",
+    "ERROR_PCW_DUP_TARGET_IMAGE_NAME",
+    "ERROR_PCW_DUP_TARGET_IMAGE_PACKCODE",
+    "ERROR_PCW_DUP_UPGRADED_IMAGE_NAME",
+    "ERROR_PCW_DUP_UPGRADED_IMAGE_PACKCODE",
+    "ERROR_PCW_ERROR_WRITING_TO_LOG",
+    "ERROR_PCW_EXECUTE_VIEW",
+    "ERROR_PCW_EXTFILE_BAD_FAMILY_FIELD",
+    "ERROR_PCW_EXTFILE_BAD_IGNORE_LENGTHS",
+    "ERROR_PCW_EXTFILE_BAD_IGNORE_OFFSETS",
+    "ERROR_PCW_EXTFILE_BAD_RETAIN_OFFSETS",
+    "ERROR_PCW_EXTFILE_BLANK_FILE_TABLE_KEY",
+    "ERROR_PCW_EXTFILE_BLANK_PATH_TO_FILE",
+    "ERROR_PCW_EXTFILE_IGNORE_COUNT_MISMATCH",
+    "ERROR_PCW_EXTFILE_LONG_FILE_TABLE_KEY",
+    "ERROR_PCW_EXTFILE_LONG_IGNORE_LENGTHS",
+    "ERROR_PCW_EXTFILE_LONG_IGNORE_OFFSETS",
+    "ERROR_PCW_EXTFILE_LONG_PATH_TO_FILE",
+    "ERROR_PCW_EXTFILE_LONG_RETAIN_OFFSETS",
+    "ERROR_PCW_EXTFILE_MISSING_FILE",
+    "ERROR_PCW_FAILED_CREATE_TRANSFORM",
+    "ERROR_PCW_FAILED_EXPAND_PATH",
+    "ERROR_PCW_FAMILY_RANGE_BAD_RETAIN_LENGTHS",
+    "ERROR_PCW_FAMILY_RANGE_BAD_RETAIN_OFFSETS",
+    "ERROR_PCW_FAMILY_RANGE_BLANK_FILE_TABLE_KEY",
+    "ERROR_PCW_FAMILY_RANGE_BLANK_RETAIN_LENGTHS",
+    "ERROR_PCW_FAMILY_RANGE_BLANK_RETAIN_OFFSETS",
+    "ERROR_PCW_FAMILY_RANGE_COUNT_MISMATCH",
+    "ERROR_PCW_FAMILY_RANGE_LONG_FILE_TABLE_KEY",
+    "ERROR_PCW_FAMILY_RANGE_LONG_RETAIN_LENGTHS",
+    "ERROR_PCW_FAMILY_RANGE_LONG_RETAIN_OFFSETS",
+    "ERROR_PCW_FAMILY_RANGE_NAME_TOO_LONG",
+    "ERROR_PCW_IMAGE_FAMILY_NAME_TOO_LONG",
+    "ERROR_PCW_IMAGE_PATH_NOT_EXIST",
+    "ERROR_PCW_INTERNAL_ERROR",
+    "ERROR_PCW_INVALID_LOG_LEVEL",
+    "ERROR_PCW_INVALID_MAJOR_VERSION",
+    "ERROR_PCW_INVALID_PARAMETER",
+    "ERROR_PCW_INVALID_PATCHMETADATA_PROP",
+    "ERROR_PCW_INVALID_PATCH_TYPE_SEQUENCING",
+    "ERROR_PCW_INVALID_PCP_EXTERNALFILES",
+    "ERROR_PCW_INVALID_PCP_FAMILYFILERANGES",
+    "ERROR_PCW_INVALID_PCP_IMAGEFAMILIES",
+    "ERROR_PCW_INVALID_PCP_PATCHSEQUENCE",
+    "ERROR_PCW_INVALID_PCP_PROPERTIES",
+    "ERROR_PCW_INVALID_PCP_PROPERTY",
+    "ERROR_PCW_INVALID_PCP_TARGETFILES_OPTIONALDATA",
+    "ERROR_PCW_INVALID_PCP_TARGETIMAGES",
+    "ERROR_PCW_INVALID_PCP_UPGRADEDFILESTOIGNORE",
+    "ERROR_PCW_INVALID_PCP_UPGRADEDFILES_OPTIONALDATA",
+    "ERROR_PCW_INVALID_PCP_UPGRADEDIMAGES",
+    "ERROR_PCW_INVALID_RANGE_ELEMENT",
+    "ERROR_PCW_INVALID_SUPERCEDENCE",
+    "ERROR_PCW_INVALID_SUPERSEDENCE_VALUE",
+    "ERROR_PCW_INVALID_UI_LEVEL",
+    "ERROR_PCW_LAX_VALIDATION_FLAGS",
+    "ERROR_PCW_MAJOR_UPGD_WITHOUT_SEQUENCING",
+    "ERROR_PCW_MATCHED_PRODUCT_VERSIONS",
+    "ERROR_PCW_MISMATCHED_PRODUCT_CODES",
+    "ERROR_PCW_MISMATCHED_PRODUCT_VERSIONS",
+    "ERROR_PCW_MISSING_DIRECTORY_TABLE",
+    "ERROR_PCW_MISSING_PATCHMETADATA",
+    "ERROR_PCW_MISSING_PATCH_GUID",
+    "ERROR_PCW_MISSING_PATCH_PATH",
+    "ERROR_PCW_NO_UPGRADED_IMAGES_TO_PATCH",
+    "ERROR_PCW_NULL_PATCHFAMILY",
+    "ERROR_PCW_NULL_SEQUENCE_NUMBER",
+    "ERROR_PCW_OBSOLETION_WITH_MSI30",
+    "ERROR_PCW_OBSOLETION_WITH_PATCHSEQUENCE",
+    "ERROR_PCW_OBSOLETION_WITH_SEQUENCE_DATA",
+    "ERROR_PCW_OODS_COPYING_MSI",
+    "ERROR_PCW_OPEN_VIEW",
+    "ERROR_PCW_OUT_OF_MEMORY",
+    "ERROR_PCW_PATCHMETADATA_PROP_NOT_SET",
+    "ERROR_PCW_PCP_BAD_FORMAT",
+    "ERROR_PCW_PCP_DOESNT_EXIST",
+    "ERROR_PCW_SEQUENCING_BAD_TARGET",
+    "ERROR_PCW_TARGET_BAD_PROD_CODE_VAL",
+    "ERROR_PCW_TARGET_BAD_PROD_VALIDATE",
+    "ERROR_PCW_TARGET_IMAGE_COMPRESSED",
+    "ERROR_PCW_TARGET_IMAGE_NAME_TOO_LONG",
+    "ERROR_PCW_TARGET_IMAGE_PATH_EMPTY",
+    "ERROR_PCW_TARGET_IMAGE_PATH_NOT_EXIST",
+    "ERROR_PCW_TARGET_IMAGE_PATH_NOT_MSI",
+    "ERROR_PCW_TARGET_IMAGE_PATH_TOO_LONG",
+    "ERROR_PCW_TARGET_MISSING_SRC_FILES",
+    "ERROR_PCW_TARGET_WRONG_PRODUCT_VERSION_COMP",
+    "ERROR_PCW_TFILEDATA_BAD_IGNORE_LENGTHS",
+    "ERROR_PCW_TFILEDATA_BAD_IGNORE_OFFSETS",
+    "ERROR_PCW_TFILEDATA_BAD_RETAIN_OFFSETS",
+    "ERROR_PCW_TFILEDATA_BAD_TARGET_FIELD",
+    "ERROR_PCW_TFILEDATA_BLANK_FILE_TABLE_KEY",
+    "ERROR_PCW_TFILEDATA_IGNORE_COUNT_MISMATCH",
+    "ERROR_PCW_TFILEDATA_LONG_FILE_TABLE_KEY",
+    "ERROR_PCW_TFILEDATA_LONG_IGNORE_LENGTHS",
+    "ERROR_PCW_TFILEDATA_LONG_IGNORE_OFFSETS",
+    "ERROR_PCW_TFILEDATA_LONG_RETAIN_OFFSETS",
+    "ERROR_PCW_TFILEDATA_MISSING_FILE_TABLE_KEY",
+    "ERROR_PCW_UFILEDATA_BAD_UPGRADED_FIELD",
+    "ERROR_PCW_UFILEDATA_BLANK_FILE_TABLE_KEY",
+    "ERROR_PCW_UFILEDATA_LONG_FILE_TABLE_KEY",
+    "ERROR_PCW_UFILEDATA_MISSING_FILE_TABLE_KEY",
+    "ERROR_PCW_UFILEIGNORE_BAD_FILE_TABLE_KEY",
+    "ERROR_PCW_UFILEIGNORE_BAD_UPGRADED_FIELD",
+    "ERROR_PCW_UFILEIGNORE_BLANK_FILE_TABLE_KEY",
+    "ERROR_PCW_UFILEIGNORE_LONG_FILE_TABLE_KEY",
+    "ERROR_PCW_UNKNOWN_ERROR",
+    "ERROR_PCW_UNKNOWN_INFO",
+    "ERROR_PCW_UNKNOWN_WARN",
+    "ERROR_PCW_UPGRADED_IMAGE_COMPRESSED",
+    "ERROR_PCW_UPGRADED_IMAGE_NAME_TOO_LONG",
+    "ERROR_PCW_UPGRADED_IMAGE_PATCH_PATH_NOT_EXIST",
+    "ERROR_PCW_UPGRADED_IMAGE_PATCH_PATH_NOT_MSI",
+    "ERROR_PCW_UPGRADED_IMAGE_PATCH_PATH_TOO_LONG",
+    "ERROR_PCW_UPGRADED_IMAGE_PATH_EMPTY",
+    "ERROR_PCW_UPGRADED_IMAGE_PATH_NOT_EXIST",
+    "ERROR_PCW_UPGRADED_IMAGE_PATH_NOT_MSI",
+    "ERROR_PCW_UPGRADED_IMAGE_PATH_TOO_LONG",
+    "ERROR_PCW_UPGRADED_MISSING_SRC_FILES",
+    "ERROR_PCW_VIEW_FETCH",
+    "ERROR_PCW_WRITE_SUMMARY_PROPERTIES",
+    "ERROR_PCW_WRONG_PATCHMETADATA_STRD_PROP",
+    "ERROR_ROLLBACK_DISABLED",
+    "ExtractPatchHeaderToFileA",
+    "ExtractPatchHeaderToFileByHandles",
+    "ExtractPatchHeaderToFileW",
+    "FUSION_INSTALL_REFERENCE",
+    "FUSION_REFCOUNT_FILEPATH_GUID",
+    "FUSION_REFCOUNT_OPAQUE_STRING_GUID",
+    "FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID",
+    "FindActCtxSectionGuid",
+    "FindActCtxSectionStringA",
+    "FindActCtxSectionStringW",
+    "GetCurrentActCtx",
+    "GetDeltaInfoA",
+    "GetDeltaInfoB",
+    "GetDeltaInfoW",
+    "GetDeltaSignatureA",
+    "GetDeltaSignatureB",
+    "GetDeltaSignatureW",
+    "GetFilePatchSignatureA",
+    "GetFilePatchSignatureByBuffer",
+    "GetFilePatchSignatureByHandle",
+    "GetFilePatchSignatureW",
+    "IACTIONNAME_ADMIN",
+    "IACTIONNAME_ADVERTISE",
+    "IACTIONNAME_COLLECTUSERINFO",
+    "IACTIONNAME_FIRSTRUN",
+    "IACTIONNAME_INSTALL",
+    "IACTIONNAME_SEQUENCE",
+    "IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_ALREADY_INSTALLED",
+    "IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_INSTALLED",
+    "IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_REFRESHED",
+    "IASSEMBLYCACHEITEM_COMMIT_FLAG_REFRESH",
+    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION",
+    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED",
+    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING",
+    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_STILL_IN_USE",
+    "IASSEMBLYCACHE_UNINSTALL_DISPOSITION_UNINSTALLED",
+    "IAssemblyCache",
+    "IAssemblyCacheItem",
+    "IAssemblyName",
+    "IEnumMsmDependency",
+    "IEnumMsmError",
+    "IEnumMsmString",
+    "IMsmDependencies",
+    "IMsmDependency",
+    "IMsmError",
+    "IMsmErrors",
+    "IMsmGetFiles",
+    "IMsmMerge",
+    "IMsmStrings",
+    "INFO_BASE",
+    "INFO_ENTERING_PHASE_I",
+    "INFO_ENTERING_PHASE_II",
+    "INFO_ENTERING_PHASE_III",
+    "INFO_ENTERING_PHASE_IV",
+    "INFO_ENTERING_PHASE_I_VALIDATION",
+    "INFO_ENTERING_PHASE_V",
+    "INFO_GENERATING_METADATA",
+    "INFO_PASSED_MAIN_CONTROL",
+    "INFO_PATCHCACHE_FILEINFO_FAILURE",
+    "INFO_PATCHCACHE_PCI_READFAILURE",
+    "INFO_PATCHCACHE_PCI_WRITEFAILURE",
+    "INFO_PCP_PATH",
+    "INFO_PROPERTY",
+    "INFO_SET_OPTIONS",
+    "INFO_SUCCESSFUL_PATCH_CREATION",
+    "INFO_TEMP_DIR",
+    "INFO_TEMP_DIR_CLEANUP",
+    "INFO_USING_USER_MSI_FOR_PATCH_TABLES",
+    "INSTALLFEATUREATTRIBUTE",
+    "INSTALLFEATUREATTRIBUTE_DISALLOWADVERTISE",
+    "INSTALLFEATUREATTRIBUTE_FAVORADVERTISE",
+    "INSTALLFEATUREATTRIBUTE_FAVORLOCAL",
+    "INSTALLFEATUREATTRIBUTE_FAVORSOURCE",
+    "INSTALLFEATUREATTRIBUTE_FOLLOWPARENT",
+    "INSTALLFEATUREATTRIBUTE_NOUNSUPPORTEDADVERTISE",
+    "INSTALLLEVEL",
+    "INSTALLLEVEL_DEFAULT",
+    "INSTALLLEVEL_MAXIMUM",
+    "INSTALLLEVEL_MINIMUM",
+    "INSTALLLOGATTRIBUTES",
+    "INSTALLLOGATTRIBUTES_APPEND",
+    "INSTALLLOGATTRIBUTES_FLUSHEACHLINE",
+    "INSTALLLOGMODE",
+    "INSTALLLOGMODE_ACTIONDATA",
+    "INSTALLLOGMODE_ACTIONSTART",
+    "INSTALLLOGMODE_COMMONDATA",
+    "INSTALLLOGMODE_ERROR",
+    "INSTALLLOGMODE_EXTRADEBUG",
+    "INSTALLLOGMODE_FATALEXIT",
+    "INSTALLLOGMODE_FILESINUSE",
+    "INSTALLLOGMODE_INFO",
+    "INSTALLLOGMODE_INITIALIZE",
+    "INSTALLLOGMODE_INSTALLEND",
+    "INSTALLLOGMODE_INSTALLSTART",
+    "INSTALLLOGMODE_LOGONLYONERROR",
+    "INSTALLLOGMODE_LOGPERFORMANCE",
+    "INSTALLLOGMODE_OUTOFDISKSPACE",
+    "INSTALLLOGMODE_PROGRESS",
+    "INSTALLLOGMODE_PROPERTYDUMP",
+    "INSTALLLOGMODE_RESOLVESOURCE",
+    "INSTALLLOGMODE_RMFILESINUSE",
+    "INSTALLLOGMODE_SHOWDIALOG",
+    "INSTALLLOGMODE_TERMINATE",
+    "INSTALLLOGMODE_USER",
+    "INSTALLLOGMODE_VERBOSE",
+    "INSTALLLOGMODE_WARNING",
+    "INSTALLMESSAGE",
+    "INSTALLMESSAGE_ACTIONDATA",
+    "INSTALLMESSAGE_ACTIONSTART",
+    "INSTALLMESSAGE_COMMONDATA",
+    "INSTALLMESSAGE_ERROR",
+    "INSTALLMESSAGE_FATALEXIT",
+    "INSTALLMESSAGE_FILESINUSE",
+    "INSTALLMESSAGE_INFO",
+    "INSTALLMESSAGE_INITIALIZE",
+    "INSTALLMESSAGE_INSTALLEND",
+    "INSTALLMESSAGE_INSTALLSTART",
+    "INSTALLMESSAGE_OUTOFDISKSPACE",
+    "INSTALLMESSAGE_PERFORMANCE",
+    "INSTALLMESSAGE_PROGRESS",
+    "INSTALLMESSAGE_RESOLVESOURCE",
+    "INSTALLMESSAGE_RMFILESINUSE",
+    "INSTALLMESSAGE_SHOWDIALOG",
+    "INSTALLMESSAGE_TERMINATE",
+    "INSTALLMESSAGE_TYPEMASK",
+    "INSTALLMESSAGE_USER",
+    "INSTALLMESSAGE_WARNING",
+    "INSTALLMODE",
+    "INSTALLMODE_DEFAULT",
+    "INSTALLMODE_EXISTING",
+    "INSTALLMODE_NODETECTION",
+    "INSTALLMODE_NODETECTION_ANY",
+    "INSTALLMODE_NOSOURCERESOLUTION",
+    "INSTALLPROPERTY_ASSIGNMENTTYPE",
+    "INSTALLPROPERTY_AUTHORIZED_LUA_APP",
+    "INSTALLPROPERTY_DISKPROMPT",
+    "INSTALLPROPERTY_DISPLAYNAME",
+    "INSTALLPROPERTY_HELPLINK",
+    "INSTALLPROPERTY_HELPTELEPHONE",
+    "INSTALLPROPERTY_INSTALLDATE",
+    "INSTALLPROPERTY_INSTALLEDLANGUAGE",
+    "INSTALLPROPERTY_INSTALLEDPRODUCTNAME",
+    "INSTALLPROPERTY_INSTALLLOCATION",
+    "INSTALLPROPERTY_INSTALLSOURCE",
+    "INSTALLPROPERTY_INSTANCETYPE",
+    "INSTALLPROPERTY_LANGUAGE",
+    "INSTALLPROPERTY_LASTUSEDSOURCE",
+    "INSTALLPROPERTY_LASTUSEDTYPE",
+    "INSTALLPROPERTY_LOCALPACKAGE",
+    "INSTALLPROPERTY_LUAENABLED",
+    "INSTALLPROPERTY_MEDIAPACKAGEPATH",
+    "INSTALLPROPERTY_MOREINFOURL",
+    "INSTALLPROPERTY_PACKAGECODE",
+    "INSTALLPROPERTY_PACKAGENAME",
+    "INSTALLPROPERTY_PATCHSTATE",
+    "INSTALLPROPERTY_PATCHTYPE",
+    "INSTALLPROPERTY_PRODUCTICON",
+    "INSTALLPROPERTY_PRODUCTID",
+    "INSTALLPROPERTY_PRODUCTNAME",
+    "INSTALLPROPERTY_PRODUCTSTATE",
+    "INSTALLPROPERTY_PUBLISHER",
+    "INSTALLPROPERTY_REGCOMPANY",
+    "INSTALLPROPERTY_REGOWNER",
+    "INSTALLPROPERTY_TRANSFORMS",
+    "INSTALLPROPERTY_UNINSTALLABLE",
+    "INSTALLPROPERTY_URLINFOABOUT",
+    "INSTALLPROPERTY_URLUPDATEINFO",
+    "INSTALLPROPERTY_VERSION",
+    "INSTALLPROPERTY_VERSIONMAJOR",
+    "INSTALLPROPERTY_VERSIONMINOR",
+    "INSTALLPROPERTY_VERSIONSTRING",
+    "INSTALLSTATE",
+    "INSTALLSTATE_ABSENT",
+    "INSTALLSTATE_ADVERTISED",
+    "INSTALLSTATE_BADCONFIG",
+    "INSTALLSTATE_BROKEN",
+    "INSTALLSTATE_DEFAULT",
+    "INSTALLSTATE_INCOMPLETE",
+    "INSTALLSTATE_INVALIDARG",
+    "INSTALLSTATE_LOCAL",
+    "INSTALLSTATE_MOREDATA",
+    "INSTALLSTATE_NOTUSED",
+    "INSTALLSTATE_REMOVED",
+    "INSTALLSTATE_SOURCE",
+    "INSTALLSTATE_SOURCEABSENT",
+    "INSTALLSTATE_UNKNOWN",
     "INSTALLTYPE",
     "INSTALLTYPE_DEFAULT",
     "INSTALLTYPE_NETWORK_IMAGE",
     "INSTALLTYPE_SINGLE_INSTANCE",
-    "MSIFILEHASHINFO",
-    "MSIARCHITECTUREFLAGS",
-    "MSIARCHITECTUREFLAGS_X86",
-    "MSIARCHITECTUREFLAGS_IA64",
-    "MSIARCHITECTUREFLAGS_AMD64",
-    "MSIARCHITECTUREFLAGS_ARM",
-    "MSIOPENPACKAGEFLAGS",
-    "MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE",
+    "INSTALLUILEVEL",
+    "INSTALLUILEVEL_BASIC",
+    "INSTALLUILEVEL_DEFAULT",
+    "INSTALLUILEVEL_ENDDIALOG",
+    "INSTALLUILEVEL_FULL",
+    "INSTALLUILEVEL_HIDECANCEL",
+    "INSTALLUILEVEL_NOCHANGE",
+    "INSTALLUILEVEL_NONE",
+    "INSTALLUILEVEL_PROGRESSONLY",
+    "INSTALLUILEVEL_REDUCED",
+    "INSTALLUILEVEL_SOURCERESONLY",
+    "INSTALLUILEVEL_UACONLY",
+    "INSTALLUI_HANDLERA",
+    "INSTALLUI_HANDLERW",
+    "IPMApplicationInfo",
+    "IPMApplicationInfoEnumerator",
+    "IPMBackgroundServiceAgentInfo",
+    "IPMBackgroundServiceAgentInfoEnumerator",
+    "IPMBackgroundWorkerInfo",
+    "IPMBackgroundWorkerInfoEnumerator",
+    "IPMDeploymentManager",
+    "IPMEnumerationManager",
+    "IPMExtensionCachedFileUpdaterInfo",
+    "IPMExtensionContractInfo",
+    "IPMExtensionFileExtensionInfo",
+    "IPMExtensionFileOpenPickerInfo",
+    "IPMExtensionFileSavePickerInfo",
+    "IPMExtensionInfo",
+    "IPMExtensionInfoEnumerator",
+    "IPMExtensionProtocolInfo",
+    "IPMExtensionShareTargetInfo",
+    "IPMLiveTileJobInfo",
+    "IPMLiveTileJobInfoEnumerator",
+    "IPMTaskInfo",
+    "IPMTaskInfoEnumerator",
+    "IPMTileInfo",
+    "IPMTileInfoEnumerator",
+    "IPMTilePropertyEnumerator",
+    "IPMTilePropertyInfo",
+    "IPROPNAME_ACTION",
+    "IPROPNAME_ADMINTOOLS_FOLDER",
+    "IPROPNAME_ADMINUSER",
+    "IPROPNAME_ADMIN_PROPERTIES",
+    "IPROPNAME_AFTERREBOOT",
+    "IPROPNAME_ALLOWEDPROPERTIES",
+    "IPROPNAME_ALLUSERS",
+    "IPROPNAME_APPDATA_FOLDER",
+    "IPROPNAME_ARM",
+    "IPROPNAME_ARM64",
+    "IPROPNAME_ARPAUTHORIZEDCDFPREFIX",
+    "IPROPNAME_ARPCOMMENTS",
+    "IPROPNAME_ARPCONTACT",
+    "IPROPNAME_ARPHELPLINK",
+    "IPROPNAME_ARPHELPTELEPHONE",
+    "IPROPNAME_ARPINSTALLLOCATION",
+    "IPROPNAME_ARPNOMODIFY",
+    "IPROPNAME_ARPNOREMOVE",
+    "IPROPNAME_ARPNOREPAIR",
+    "IPROPNAME_ARPPRODUCTICON",
+    "IPROPNAME_ARPREADME",
+    "IPROPNAME_ARPSETTINGSIDENTIFIER",
+    "IPROPNAME_ARPSHIMFLAGS",
+    "IPROPNAME_ARPSHIMSERVICEPACKLEVEL",
+    "IPROPNAME_ARPSHIMVERSIONNT",
+    "IPROPNAME_ARPSIZE",
+    "IPROPNAME_ARPSYSTEMCOMPONENT",
+    "IPROPNAME_ARPURLINFOABOUT",
+    "IPROPNAME_ARPURLUPDATEINFO",
+    "IPROPNAME_AVAILABLEFREEREG",
+    "IPROPNAME_BORDERSIDE",
+    "IPROPNAME_BORDERTOP",
+    "IPROPNAME_CAPTIONHEIGHT",
+    "IPROPNAME_CARRYINGNDP",
+    "IPROPNAME_CHECKCRCS",
+    "IPROPNAME_COLORBITS",
+    "IPROPNAME_COMMONAPPDATA_FOLDER",
+    "IPROPNAME_COMMONFILES64_FOLDER",
+    "IPROPNAME_COMMONFILES_FOLDER",
+    "IPROPNAME_COMPANYNAME",
+    "IPROPNAME_COMPONENTADDDEFAULT",
+    "IPROPNAME_COMPONENTADDLOCAL",
+    "IPROPNAME_COMPONENTADDSOURCE",
+    "IPROPNAME_COMPUTERNAME",
+    "IPROPNAME_COSTINGCOMPLETE",
+    "IPROPNAME_CUSTOMACTIONDATA",
+    "IPROPNAME_DATE",
+    "IPROPNAME_DATETIME",
+    "IPROPNAME_DEFAULTUIFONT",
+    "IPROPNAME_DESKTOP_FOLDER",
+    "IPROPNAME_DISABLEADVTSHORTCUTS",
+    "IPROPNAME_DISABLEROLLBACK",
+    "IPROPNAME_DISKPROMPT",
+    "IPROPNAME_ENABLEUSERCONTROL",
+    "IPROPNAME_ENFORCE_UPGRADE_COMPONENT_RULES",
+    "IPROPNAME_EXECUTEACTION",
+    "IPROPNAME_EXECUTEMODE",
+    "IPROPNAME_FAVORITES_FOLDER",
+    "IPROPNAME_FEATUREADDDEFAULT",
+    "IPROPNAME_FEATUREADDLOCAL",
+    "IPROPNAME_FEATUREADDSOURCE",
+    "IPROPNAME_FEATUREADVERTISE",
+    "IPROPNAME_FEATUREREMOVE",
+    "IPROPNAME_FILEADDDEFAULT",
+    "IPROPNAME_FILEADDLOCAL",
+    "IPROPNAME_FILEADDSOURCE",
+    "IPROPNAME_FONTS_FOLDER",
+    "IPROPNAME_HIDDEN_PROPERTIES",
+    "IPROPNAME_HIDECANCEL",
+    "IPROPNAME_IA64",
+    "IPROPNAME_INSTALLED",
+    "IPROPNAME_INSTALLLANGUAGE",
+    "IPROPNAME_INSTALLLEVEL",
+    "IPROPNAME_INSTALLPERUSER",
+    "IPROPNAME_INTEL",
+    "IPROPNAME_INTEL64",
+    "IPROPNAME_INTERNALINSTALLEDPERUSER",
+    "IPROPNAME_ISADMINPACKAGE",
+    "IPROPNAME_LEFTUNIT",
+    "IPROPNAME_LIMITUI",
+    "IPROPNAME_LOCALAPPDATA_FOLDER",
+    "IPROPNAME_LOGACTION",
+    "IPROPNAME_LOGONUSER",
+    "IPROPNAME_MANUFACTURER",
+    "IPROPNAME_MSIAMD64",
+    "IPROPNAME_MSIDISABLEEEUI",
+    "IPROPNAME_MSIDISABLELUAPATCHING",
+    "IPROPNAME_MSIINSTANCEGUID",
+    "IPROPNAME_MSILOGFILELOCATION",
+    "IPROPNAME_MSILOGGINGMODE",
+    "IPROPNAME_MSINEWINSTANCE",
+    "IPROPNAME_MSINODISABLEMEDIA",
+    "IPROPNAME_MSIPACKAGEDOWNLOADLOCALCOPY",
+    "IPROPNAME_MSIPATCHDOWNLOADLOCALCOPY",
+    "IPROPNAME_MSIPATCHREMOVE",
+    "IPROPNAME_MSITABLETPC",
+    "IPROPNAME_MSIX64",
+    "IPROPNAME_MSI_FASTINSTALL",
+    "IPROPNAME_MSI_REBOOT_PENDING",
+    "IPROPNAME_MSI_RM_CONTROL",
+    "IPROPNAME_MSI_RM_DISABLE_RESTART",
+    "IPROPNAME_MSI_RM_SESSION_KEY",
+    "IPROPNAME_MSI_RM_SHUTDOWN",
+    "IPROPNAME_MSI_UAC_DEPLOYMENT_COMPLIANT",
+    "IPROPNAME_MSI_UNINSTALL_SUPERSEDED_COMPONENTS",
+    "IPROPNAME_MSI_USE_REAL_ADMIN_DETECTION",
+    "IPROPNAME_MYPICTURES_FOLDER",
+    "IPROPNAME_NETASSEMBLYSUPPORT",
+    "IPROPNAME_NETHOOD_FOLDER",
+    "IPROPNAME_NOCOMPANYNAME",
+    "IPROPNAME_NOUSERNAME",
+    "IPROPNAME_NTPRODUCTTYPE",
+    "IPROPNAME_NTSUITEBACKOFFICE",
+    "IPROPNAME_NTSUITEDATACENTER",
+    "IPROPNAME_NTSUITEENTERPRISE",
+    "IPROPNAME_NTSUITEPERSONAL",
+    "IPROPNAME_NTSUITESMALLBUSINESS",
+    "IPROPNAME_NTSUITESMALLBUSINESSRESTRICTED",
+    "IPROPNAME_NTSUITEWEBSERVER",
+    "IPROPNAME_OLEADVTSUPPORT",
+    "IPROPNAME_OUTOFDISKSPACE",
+    "IPROPNAME_OUTOFNORBDISKSPACE",
+    "IPROPNAME_PATCH",
+    "IPROPNAME_PATCHNEWPACKAGECODE",
+    "IPROPNAME_PATCHNEWSUMMARYCOMMENTS",
+    "IPROPNAME_PATCHNEWSUMMARYSUBJECT",
+    "IPROPNAME_PERSONAL_FOLDER",
+    "IPROPNAME_PHYSICALMEMORY",
+    "IPROPNAME_PIDKEY",
+    "IPROPNAME_PIDTEMPLATE",
+    "IPROPNAME_PRESELECTED",
+    "IPROPNAME_PRIMARYFOLDER",
+    "IPROPNAME_PRIMARYFOLDER_PATH",
+    "IPROPNAME_PRIMARYFOLDER_SPACEAVAILABLE",
+    "IPROPNAME_PRIMARYFOLDER_SPACEREMAINING",
+    "IPROPNAME_PRIMARYFOLDER_SPACEREQUIRED",
+    "IPROPNAME_PRINTHOOD_FOLDER",
+    "IPROPNAME_PRIVILEGED",
+    "IPROPNAME_PRODUCTCODE",
+    "IPROPNAME_PRODUCTID",
+    "IPROPNAME_PRODUCTLANGUAGE",
+    "IPROPNAME_PRODUCTNAME",
+    "IPROPNAME_PRODUCTSTATE",
+    "IPROPNAME_PRODUCTVERSION",
+    "IPROPNAME_PROGRAMFILES64_FOLDER",
+    "IPROPNAME_PROGRAMFILES_FOLDER",
+    "IPROPNAME_PROGRAMMENU_FOLDER",
+    "IPROPNAME_PROGRESSONLY",
+    "IPROPNAME_PROMPTROLLBACKCOST",
+    "IPROPNAME_REBOOT",
+    "IPROPNAME_REBOOTPROMPT",
+    "IPROPNAME_RECENT_FOLDER",
+    "IPROPNAME_REDIRECTEDDLLSUPPORT",
+    "IPROPNAME_REINSTALL",
+    "IPROPNAME_REINSTALLMODE",
+    "IPROPNAME_REMOTEADMINTS",
+    "IPROPNAME_REPLACEDINUSEFILES",
+    "IPROPNAME_RESTRICTEDUSERCONTROL",
+    "IPROPNAME_RESUME",
+    "IPROPNAME_ROLLBACKDISABLED",
+    "IPROPNAME_ROOTDRIVE",
+    "IPROPNAME_RUNNINGELEVATED",
+    "IPROPNAME_SCREENX",
+    "IPROPNAME_SCREENY",
+    "IPROPNAME_SENDTO_FOLDER",
+    "IPROPNAME_SEQUENCE",
+    "IPROPNAME_SERVICEPACKLEVEL",
+    "IPROPNAME_SERVICEPACKLEVELMINOR",
+    "IPROPNAME_SHAREDWINDOWS",
+    "IPROPNAME_SHELLADVTSUPPORT",
+    "IPROPNAME_SHORTFILENAMES",
+    "IPROPNAME_SOURCEDIR",
+    "IPROPNAME_SOURCELIST",
+    "IPROPNAME_SOURCERESONLY",
+    "IPROPNAME_STARTMENU_FOLDER",
+    "IPROPNAME_STARTUP_FOLDER",
+    "IPROPNAME_SYSTEM16_FOLDER",
+    "IPROPNAME_SYSTEM64_FOLDER",
+    "IPROPNAME_SYSTEMLANGUAGEID",
+    "IPROPNAME_SYSTEM_FOLDER",
+    "IPROPNAME_TARGETDIR",
+    "IPROPNAME_TEMPLATE_AMD64",
+    "IPROPNAME_TEMPLATE_FOLDER",
+    "IPROPNAME_TEMPLATE_X64",
+    "IPROPNAME_TEMP_FOLDER",
+    "IPROPNAME_TERMSERVER",
+    "IPROPNAME_TEXTHEIGHT",
+    "IPROPNAME_TEXTHEIGHT_CORRECTION",
+    "IPROPNAME_TEXTINTERNALLEADING",
+    "IPROPNAME_TIME",
+    "IPROPNAME_TRANSFORMS",
+    "IPROPNAME_TRANSFORMSATSOURCE",
+    "IPROPNAME_TRANSFORMSSECURE",
+    "IPROPNAME_TRUEADMINUSER",
+    "IPROPNAME_TTCSUPPORT",
+    "IPROPNAME_UACONLY",
+    "IPROPNAME_UPDATESTARTED",
+    "IPROPNAME_UPGRADECODE",
+    "IPROPNAME_USERLANGUAGEID",
+    "IPROPNAME_USERNAME",
+    "IPROPNAME_USERSID",
+    "IPROPNAME_VERSION9X",
+    "IPROPNAME_VERSIONNT",
+    "IPROPNAME_VERSIONNT64",
+    "IPROPNAME_VIRTUALMEMORY",
+    "IPROPNAME_WIN32ASSEMBLYSUPPORT",
+    "IPROPNAME_WINDOWSBUILD",
+    "IPROPNAME_WINDOWS_FOLDER",
+    "IPROPNAME_WINDOWS_VOLUME",
+    "IPROPVALUE_EXECUTEMODE_NONE",
+    "IPROPVALUE_EXECUTEMODE_SCRIPT",
+    "IPROPVALUE_FEATURE_ALL",
+    "IPROPVALUE_MSI_RM_CONTROL_DISABLE",
+    "IPROPVALUE_MSI_RM_CONTROL_DISABLESHUTDOWN",
+    "IPROPVALUE_RBCOST_FAIL",
+    "IPROPVALUE_RBCOST_PROMPT",
+    "IPROPVALUE_RBCOST_SILENT",
+    "IPROPVALUE__CARRYINGNDP_URTREINSTALL",
+    "IPROPVALUE__CARRYINGNDP_URTUPGRADE",
+    "IValidate",
+    "LIBID_MsmMergeTypeLib",
+    "LOGALL",
+    "LOGERR",
+    "LOGINFO",
+    "LOGNONE",
+    "LOGPERFMESSAGES",
+    "LOGTOKEN_NO_LOG",
+    "LOGTOKEN_SETUPAPI_APPLOG",
+    "LOGTOKEN_SETUPAPI_DEVLOG",
+    "LOGTOKEN_TYPE_MASK",
+    "LOGTOKEN_UNSPECIFIED",
+    "LOGWARN",
+    "LPDISPLAYVAL",
+    "LPEVALCOMCALLBACK",
+    "MAX_FEATURE_CHARS",
+    "MAX_GUID_CHARS",
     "MSIADVERTISEOPTIONFLAGS",
     "MSIADVERTISEOPTIONFLAGS_INSTANCE",
-    "MSISOURCETYPE",
-    "MSISOURCETYPE_UNKNOWN",
-    "MSISOURCETYPE_NETWORK",
-    "MSISOURCETYPE_URL",
-    "MSISOURCETYPE_MEDIA",
+    "MSIARCHITECTUREFLAGS",
+    "MSIARCHITECTUREFLAGS_AMD64",
+    "MSIARCHITECTUREFLAGS_ARM",
+    "MSIARCHITECTUREFLAGS_IA64",
+    "MSIARCHITECTUREFLAGS_X86",
+    "MSIASSEMBLYINFO",
+    "MSIASSEMBLYINFO_NETASSEMBLY",
+    "MSIASSEMBLYINFO_WIN32ASSEMBLY",
     "MSICODE",
-    "MSICODE_PRODUCT",
     "MSICODE_PATCH",
-    "MSITRANSACTION",
-    "MSITRANSACTION_CHAIN_EMBEDDEDUI",
-    "MSITRANSACTION_JOIN_EXISTING_EMBEDDEDUI",
-    "MSITRANSACTIONSTATE",
-    "MSITRANSACTIONSTATE_ROLLBACK",
-    "MSITRANSACTIONSTATE_COMMIT",
-    "MSIDBSTATE",
-    "MSIDBSTATE_ERROR",
-    "MSIDBSTATE_READ",
-    "MSIDBSTATE_WRITE",
-    "MSIMODIFY",
-    "MSIMODIFY_SEEK",
-    "MSIMODIFY_REFRESH",
-    "MSIMODIFY_INSERT",
-    "MSIMODIFY_UPDATE",
-    "MSIMODIFY_ASSIGN",
-    "MSIMODIFY_REPLACE",
-    "MSIMODIFY_MERGE",
-    "MSIMODIFY_DELETE",
-    "MSIMODIFY_INSERT_TEMPORARY",
-    "MSIMODIFY_VALIDATE",
-    "MSIMODIFY_VALIDATE_NEW",
-    "MSIMODIFY_VALIDATE_FIELD",
-    "MSIMODIFY_VALIDATE_DELETE",
+    "MSICODE_PRODUCT",
     "MSICOLINFO",
     "MSICOLINFO_NAMES",
     "MSICOLINFO_TYPES",
     "MSICONDITION",
-    "MSICONDITION_FALSE",
-    "MSICONDITION_TRUE",
-    "MSICONDITION_NONE",
     "MSICONDITION_ERROR",
+    "MSICONDITION_FALSE",
+    "MSICONDITION_NONE",
+    "MSICONDITION_TRUE",
     "MSICOSTTREE",
-    "MSICOSTTREE_SELFONLY",
     "MSICOSTTREE_CHILDREN",
     "MSICOSTTREE_PARENTS",
     "MSICOSTTREE_RESERVED",
+    "MSICOSTTREE_SELFONLY",
     "MSIDBERROR",
-    "MSIDBERROR_INVALIDARG",
-    "MSIDBERROR_MOREDATA",
-    "MSIDBERROR_FUNCTIONERROR",
-    "MSIDBERROR_NOERROR",
-    "MSIDBERROR_DUPLICATEKEY",
-    "MSIDBERROR_REQUIRED",
-    "MSIDBERROR_BADLINK",
-    "MSIDBERROR_OVERFLOW",
-    "MSIDBERROR_UNDERFLOW",
-    "MSIDBERROR_NOTINSET",
-    "MSIDBERROR_BADVERSION",
-    "MSIDBERROR_BADCASE",
-    "MSIDBERROR_BADGUID",
-    "MSIDBERROR_BADWILDCARD",
-    "MSIDBERROR_BADIDENTIFIER",
-    "MSIDBERROR_BADLANGUAGE",
-    "MSIDBERROR_BADFILENAME",
-    "MSIDBERROR_BADPATH",
-    "MSIDBERROR_BADCONDITION",
-    "MSIDBERROR_BADFORMATTED",
-    "MSIDBERROR_BADTEMPLATE",
-    "MSIDBERROR_BADDEFAULTDIR",
-    "MSIDBERROR_BADREGPATH",
-    "MSIDBERROR_BADCUSTOMSOURCE",
-    "MSIDBERROR_BADPROPERTY",
-    "MSIDBERROR_MISSINGDATA",
-    "MSIDBERROR_BADCATEGORY",
-    "MSIDBERROR_BADKEYTABLE",
-    "MSIDBERROR_BADMAXMINVALUES",
     "MSIDBERROR_BADCABINET",
-    "MSIDBERROR_BADSHORTCUT",
-    "MSIDBERROR_STRINGOVERFLOW",
+    "MSIDBERROR_BADCASE",
+    "MSIDBERROR_BADCATEGORY",
+    "MSIDBERROR_BADCONDITION",
+    "MSIDBERROR_BADCUSTOMSOURCE",
+    "MSIDBERROR_BADDEFAULTDIR",
+    "MSIDBERROR_BADFILENAME",
+    "MSIDBERROR_BADFORMATTED",
+    "MSIDBERROR_BADGUID",
+    "MSIDBERROR_BADIDENTIFIER",
+    "MSIDBERROR_BADKEYTABLE",
+    "MSIDBERROR_BADLANGUAGE",
+    "MSIDBERROR_BADLINK",
     "MSIDBERROR_BADLOCALIZEATTRIB",
+    "MSIDBERROR_BADMAXMINVALUES",
+    "MSIDBERROR_BADPATH",
+    "MSIDBERROR_BADPROPERTY",
+    "MSIDBERROR_BADREGPATH",
+    "MSIDBERROR_BADSHORTCUT",
+    "MSIDBERROR_BADTEMPLATE",
+    "MSIDBERROR_BADVERSION",
+    "MSIDBERROR_BADWILDCARD",
+    "MSIDBERROR_DUPLICATEKEY",
+    "MSIDBERROR_FUNCTIONERROR",
+    "MSIDBERROR_INVALIDARG",
+    "MSIDBERROR_MISSINGDATA",
+    "MSIDBERROR_MOREDATA",
+    "MSIDBERROR_NOERROR",
+    "MSIDBERROR_NOTINSET",
+    "MSIDBERROR_OVERFLOW",
+    "MSIDBERROR_REQUIRED",
+    "MSIDBERROR_STRINGOVERFLOW",
+    "MSIDBERROR_UNDERFLOW",
+    "MSIDBSTATE",
+    "MSIDBSTATE_ERROR",
+    "MSIDBSTATE_READ",
+    "MSIDBSTATE_WRITE",
+    "MSIFILEHASHINFO",
+    "MSIHANDLE",
+    "MSIINSTALLCONTEXT",
+    "MSIINSTALLCONTEXT_ALL",
+    "MSIINSTALLCONTEXT_ALLUSERMANAGED",
+    "MSIINSTALLCONTEXT_FIRSTVISIBLE",
+    "MSIINSTALLCONTEXT_MACHINE",
+    "MSIINSTALLCONTEXT_NONE",
+    "MSIINSTALLCONTEXT_USERMANAGED",
+    "MSIINSTALLCONTEXT_USERUNMANAGED",
+    "MSIMODIFY",
+    "MSIMODIFY_ASSIGN",
+    "MSIMODIFY_DELETE",
+    "MSIMODIFY_INSERT",
+    "MSIMODIFY_INSERT_TEMPORARY",
+    "MSIMODIFY_MERGE",
+    "MSIMODIFY_REFRESH",
+    "MSIMODIFY_REPLACE",
+    "MSIMODIFY_SEEK",
+    "MSIMODIFY_UPDATE",
+    "MSIMODIFY_VALIDATE",
+    "MSIMODIFY_VALIDATE_DELETE",
+    "MSIMODIFY_VALIDATE_FIELD",
+    "MSIMODIFY_VALIDATE_NEW",
+    "MSIOPENPACKAGEFLAGS",
+    "MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE",
+    "MSIPATCHDATATYPE",
+    "MSIPATCHSEQUENCEINFOA",
+    "MSIPATCHSEQUENCEINFOW",
+    "MSIPATCHSTATE",
+    "MSIPATCHSTATE_ALL",
+    "MSIPATCHSTATE_APPLIED",
+    "MSIPATCHSTATE_INVALID",
+    "MSIPATCHSTATE_OBSOLETED",
+    "MSIPATCHSTATE_REGISTERED",
+    "MSIPATCHSTATE_SUPERSEDED",
+    "MSIPATCH_DATATYPE_PATCHFILE",
+    "MSIPATCH_DATATYPE_XMLBLOB",
+    "MSIPATCH_DATATYPE_XMLPATH",
     "MSIRUNMODE",
     "MSIRUNMODE_ADMIN",
     "MSIRUNMODE_ADVERTISE",
-    "MSIRUNMODE_MAINTENANCE",
-    "MSIRUNMODE_ROLLBACKENABLED",
+    "MSIRUNMODE_CABINET",
+    "MSIRUNMODE_COMMIT",
     "MSIRUNMODE_LOGENABLED",
+    "MSIRUNMODE_MAINTENANCE",
     "MSIRUNMODE_OPERATIONS",
     "MSIRUNMODE_REBOOTATEND",
     "MSIRUNMODE_REBOOTNOW",
-    "MSIRUNMODE_CABINET",
-    "MSIRUNMODE_SOURCESHORTNAMES",
-    "MSIRUNMODE_TARGETSHORTNAMES",
     "MSIRUNMODE_RESERVED11",
-    "MSIRUNMODE_WINDOWS9X",
-    "MSIRUNMODE_ZAWENABLED",
     "MSIRUNMODE_RESERVED14",
     "MSIRUNMODE_RESERVED15",
-    "MSIRUNMODE_SCHEDULED",
     "MSIRUNMODE_ROLLBACK",
-    "MSIRUNMODE_COMMIT",
+    "MSIRUNMODE_ROLLBACKENABLED",
+    "MSIRUNMODE_SCHEDULED",
+    "MSIRUNMODE_SOURCESHORTNAMES",
+    "MSIRUNMODE_TARGETSHORTNAMES",
+    "MSIRUNMODE_WINDOWS9X",
+    "MSIRUNMODE_ZAWENABLED",
+    "MSISOURCETYPE",
+    "MSISOURCETYPE_MEDIA",
+    "MSISOURCETYPE_NETWORK",
+    "MSISOURCETYPE_UNKNOWN",
+    "MSISOURCETYPE_URL",
+    "MSITRANSACTION",
+    "MSITRANSACTIONSTATE",
+    "MSITRANSACTIONSTATE_COMMIT",
+    "MSITRANSACTIONSTATE_ROLLBACK",
+    "MSITRANSACTION_CHAIN_EMBEDDEDUI",
+    "MSITRANSACTION_JOIN_EXISTING_EMBEDDEDUI",
     "MSITRANSFORM_ERROR",
     "MSITRANSFORM_ERROR_ADDEXISTINGROW",
-    "MSITRANSFORM_ERROR_DELMISSINGROW",
     "MSITRANSFORM_ERROR_ADDEXISTINGTABLE",
-    "MSITRANSFORM_ERROR_DELMISSINGTABLE",
-    "MSITRANSFORM_ERROR_UPDATEMISSINGROW",
     "MSITRANSFORM_ERROR_CHANGECODEPAGE",
-    "MSITRANSFORM_ERROR_VIEWTRANSFORM",
+    "MSITRANSFORM_ERROR_DELMISSINGROW",
+    "MSITRANSFORM_ERROR_DELMISSINGTABLE",
     "MSITRANSFORM_ERROR_NONE",
+    "MSITRANSFORM_ERROR_UPDATEMISSINGROW",
+    "MSITRANSFORM_ERROR_VIEWTRANSFORM",
     "MSITRANSFORM_VALIDATE",
     "MSITRANSFORM_VALIDATE_LANGUAGE",
-    "MSITRANSFORM_VALIDATE_PRODUCT",
-    "MSITRANSFORM_VALIDATE_PLATFORM",
     "MSITRANSFORM_VALIDATE_MAJORVERSION",
     "MSITRANSFORM_VALIDATE_MINORVERSION",
-    "MSITRANSFORM_VALIDATE_UPDATEVERSION",
+    "MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION",
+    "MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION",
+    "MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION",
     "MSITRANSFORM_VALIDATE_NEWLESSBASEVERSION",
     "MSITRANSFORM_VALIDATE_NEWLESSEQUALBASEVERSION",
-    "MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION",
-    "MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION",
-    "MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION",
+    "MSITRANSFORM_VALIDATE_PLATFORM",
+    "MSITRANSFORM_VALIDATE_PRODUCT",
+    "MSITRANSFORM_VALIDATE_UPDATEVERSION",
     "MSITRANSFORM_VALIDATE_UPGRADECODE",
-    "ASSEMBLY_INFO",
-    "FUSION_INSTALL_REFERENCE",
-    "ASM_NAME",
-    "ASM_NAME_PUBLIC_KEY",
-    "ASM_NAME_PUBLIC_KEY_TOKEN",
-    "ASM_NAME_HASH_VALUE",
-    "ASM_NAME_NAME",
-    "ASM_NAME_MAJOR_VERSION",
-    "ASM_NAME_MINOR_VERSION",
-    "ASM_NAME_BUILD_NUMBER",
-    "ASM_NAME_REVISION_NUMBER",
-    "ASM_NAME_CULTURE",
-    "ASM_NAME_PROCESSOR_ID_ARRAY",
-    "ASM_NAME_OSINFO_ARRAY",
-    "ASM_NAME_HASH_ALGID",
-    "ASM_NAME_ALIAS",
-    "ASM_NAME_CODEBASE_URL",
-    "ASM_NAME_CODEBASE_LASTMOD",
-    "ASM_NAME_NULL_PUBLIC_KEY",
-    "ASM_NAME_NULL_PUBLIC_KEY_TOKEN",
-    "ASM_NAME_CUSTOM",
-    "ASM_NAME_NULL_CUSTOM",
-    "ASM_NAME_MVID",
-    "ASM_NAME_MAX_PARAMS",
-    "ASM_BIND_FLAGS",
-    "ASM_BINDF_FORCE_CACHE_INSTALL",
-    "ASM_BINDF_RFS_INTEGRITY_CHECK",
-    "ASM_BINDF_RFS_MODULE_CHECK",
-    "ASM_BINDF_BINPATH_PROBE_ONLY",
-    "ASM_BINDF_SHARED_BINPATH_HINT",
-    "ASM_BINDF_PARENT_ASM_HINT",
-    "ASM_DISPLAY_FLAGS",
-    "ASM_DISPLAYF_VERSION",
-    "ASM_DISPLAYF_CULTURE",
-    "ASM_DISPLAYF_PUBLIC_KEY_TOKEN",
-    "ASM_DISPLAYF_PUBLIC_KEY",
-    "ASM_DISPLAYF_CUSTOM",
-    "ASM_DISPLAYF_PROCESSORARCHITECTURE",
-    "ASM_DISPLAYF_LANGUAGEID",
-    "ASM_CMP_FLAGS",
-    "ASM_CMPF_NAME",
-    "ASM_CMPF_MAJOR_VERSION",
-    "ASM_CMPF_MINOR_VERSION",
-    "ASM_CMPF_BUILD_NUMBER",
-    "ASM_CMPF_REVISION_NUMBER",
-    "ASM_CMPF_PUBLIC_KEY_TOKEN",
-    "ASM_CMPF_CULTURE",
-    "ASM_CMPF_CUSTOM",
-    "ASM_CMPF_ALL",
-    "ASM_CMPF_DEFAULT",
-    "IAssemblyName",
-    "IAssemblyCacheItem",
-    "IAssemblyCache",
-    "CREATE_ASM_NAME_OBJ_FLAGS",
-    "CANOF_PARSE_DISPLAY_NAME",
-    "CANOF_SET_DEFAULT_VALUES",
-    "PROTECTED_FILE_DATA",
-    "msidbControlAttributes",
-    "msidbControlAttributes_msidbControlAttributesVisible",
-    "msidbControlAttributes_msidbControlAttributesEnabled",
-    "msidbControlAttributes_msidbControlAttributesSunken",
-    "msidbControlAttributes_msidbControlAttributesIndirect",
-    "msidbControlAttributes_msidbControlAttributesInteger",
-    "msidbControlAttributes_msidbControlAttributesRTLRO",
-    "msidbControlAttributes_msidbControlAttributesRightAligned",
-    "msidbControlAttributes_msidbControlAttributesLeftScroll",
-    "msidbControlAttributes_msidbControlAttributesBiDi",
-    "msidbControlAttributes_msidbControlAttributesTransparent",
-    "msidbControlAttributes_msidbControlAttributesNoPrefix",
-    "msidbControlAttributes_msidbControlAttributesNoWrap",
-    "msidbControlAttributes_msidbControlAttributesFormatSize",
-    "msidbControlAttributes_msidbControlAttributesUsersLanguage",
-    "msidbControlAttributes_msidbControlAttributesMultiline",
-    "msidbControlAttributes_msidbControlAttributesPasswordInput",
-    "msidbControlAttributes_msidbControlAttributesProgress95",
-    "msidbControlAttributes_msidbControlAttributesRemovableVolume",
-    "msidbControlAttributes_msidbControlAttributesFixedVolume",
-    "msidbControlAttributes_msidbControlAttributesRemoteVolume",
-    "msidbControlAttributes_msidbControlAttributesCDROMVolume",
-    "msidbControlAttributes_msidbControlAttributesRAMDiskVolume",
-    "msidbControlAttributes_msidbControlAttributesFloppyVolume",
-    "msidbControlAttributes_msidbControlShowRollbackCost",
-    "msidbControlAttributes_msidbControlAttributesSorted",
-    "msidbControlAttributes_msidbControlAttributesComboList",
-    "msidbControlAttributes_msidbControlAttributesImageHandle",
-    "msidbControlAttributes_msidbControlAttributesPushLike",
-    "msidbControlAttributes_msidbControlAttributesBitmap",
-    "msidbControlAttributes_msidbControlAttributesIcon",
-    "msidbControlAttributes_msidbControlAttributesFixedSize",
-    "msidbControlAttributes_msidbControlAttributesIconSize16",
-    "msidbControlAttributes_msidbControlAttributesIconSize32",
-    "msidbControlAttributes_msidbControlAttributesIconSize48",
-    "msidbControlAttributes_msidbControlAttributesElevationShield",
-    "msidbControlAttributes_msidbControlAttributesHasBorder",
-    "msidbLocatorType",
-    "msidbLocatorType_msidbLocatorTypeDirectory",
-    "msidbLocatorType_msidbLocatorTypeFileName",
-    "msidbLocatorType_msidbLocatorTypeRawValue",
-    "msidbLocatorType_msidbLocatorType64bit",
-    "msidbComponentAttributes",
-    "msidbComponentAttributes_msidbComponentAttributesLocalOnly",
-    "msidbComponentAttributes_msidbComponentAttributesSourceOnly",
-    "msidbComponentAttributes_msidbComponentAttributesOptional",
-    "msidbComponentAttributes_msidbComponentAttributesRegistryKeyPath",
-    "msidbComponentAttributes_msidbComponentAttributesSharedDllRefCount",
-    "msidbComponentAttributes_msidbComponentAttributesPermanent",
-    "msidbComponentAttributes_msidbComponentAttributesODBCDataSource",
-    "msidbComponentAttributes_msidbComponentAttributesTransitive",
-    "msidbComponentAttributes_msidbComponentAttributesNeverOverwrite",
-    "msidbComponentAttributes_msidbComponentAttributes64bit",
-    "msidbComponentAttributes_msidbComponentAttributesDisableRegistryReflection",
-    "msidbComponentAttributes_msidbComponentAttributesUninstallOnSupersedence",
-    "msidbComponentAttributes_msidbComponentAttributesShared",
-    "msidbAssemblyAttributes",
-    "msidbAssemblyAttributes_msidbAssemblyAttributesURT",
-    "msidbAssemblyAttributes_msidbAssemblyAttributesWin32",
-    "msidbCustomActionType",
-    "msidbCustomActionType_msidbCustomActionTypeDll",
-    "msidbCustomActionType_msidbCustomActionTypeExe",
-    "msidbCustomActionType_msidbCustomActionTypeTextData",
-    "msidbCustomActionType_msidbCustomActionTypeJScript",
-    "msidbCustomActionType_msidbCustomActionTypeVBScript",
-    "msidbCustomActionType_msidbCustomActionTypeInstall",
-    "msidbCustomActionType_msidbCustomActionTypeBinaryData",
-    "msidbCustomActionType_msidbCustomActionTypeSourceFile",
-    "msidbCustomActionType_msidbCustomActionTypeDirectory",
-    "msidbCustomActionType_msidbCustomActionTypeProperty",
-    "msidbCustomActionType_msidbCustomActionTypeContinue",
-    "msidbCustomActionType_msidbCustomActionTypeAsync",
-    "msidbCustomActionType_msidbCustomActionTypeFirstSequence",
-    "msidbCustomActionType_msidbCustomActionTypeOncePerProcess",
-    "msidbCustomActionType_msidbCustomActionTypeClientRepeat",
-    "msidbCustomActionType_msidbCustomActionTypeInScript",
-    "msidbCustomActionType_msidbCustomActionTypeRollback",
-    "msidbCustomActionType_msidbCustomActionTypeCommit",
-    "msidbCustomActionType_msidbCustomActionTypeNoImpersonate",
-    "msidbCustomActionType_msidbCustomActionTypeTSAware",
-    "msidbCustomActionType_msidbCustomActionType64BitScript",
-    "msidbCustomActionType_msidbCustomActionTypeHideTarget",
-    "msidbCustomActionType_msidbCustomActionTypePatchUninstall",
-    "msidbDialogAttributes",
-    "msidbDialogAttributes_msidbDialogAttributesVisible",
-    "msidbDialogAttributes_msidbDialogAttributesModal",
-    "msidbDialogAttributes_msidbDialogAttributesMinimize",
-    "msidbDialogAttributes_msidbDialogAttributesSysModal",
-    "msidbDialogAttributes_msidbDialogAttributesKeepModeless",
-    "msidbDialogAttributes_msidbDialogAttributesTrackDiskSpace",
-    "msidbDialogAttributes_msidbDialogAttributesUseCustomPalette",
-    "msidbDialogAttributes_msidbDialogAttributesRTLRO",
-    "msidbDialogAttributes_msidbDialogAttributesRightAligned",
-    "msidbDialogAttributes_msidbDialogAttributesLeftScroll",
-    "msidbDialogAttributes_msidbDialogAttributesBiDi",
-    "msidbDialogAttributes_msidbDialogAttributesError",
-    "msidbFeatureAttributes",
-    "msidbFeatureAttributes_msidbFeatureAttributesFavorLocal",
-    "msidbFeatureAttributes_msidbFeatureAttributesFavorSource",
-    "msidbFeatureAttributes_msidbFeatureAttributesFollowParent",
-    "msidbFeatureAttributes_msidbFeatureAttributesFavorAdvertise",
-    "msidbFeatureAttributes_msidbFeatureAttributesDisallowAdvertise",
-    "msidbFeatureAttributes_msidbFeatureAttributesUIDisallowAbsent",
-    "msidbFeatureAttributes_msidbFeatureAttributesNoUnsupportedAdvertise",
-    "msidbFileAttributes",
-    "msidbFileAttributes_msidbFileAttributesReadOnly",
-    "msidbFileAttributes_msidbFileAttributesHidden",
-    "msidbFileAttributes_msidbFileAttributesSystem",
-    "msidbFileAttributes_msidbFileAttributesReserved0",
-    "msidbFileAttributes_msidbFileAttributesIsolatedComp",
-    "msidbFileAttributes_msidbFileAttributesReserved1",
-    "msidbFileAttributes_msidbFileAttributesReserved2",
-    "msidbFileAttributes_msidbFileAttributesReserved3",
-    "msidbFileAttributes_msidbFileAttributesVital",
-    "msidbFileAttributes_msidbFileAttributesChecksum",
-    "msidbFileAttributes_msidbFileAttributesPatchAdded",
-    "msidbFileAttributes_msidbFileAttributesNoncompressed",
-    "msidbFileAttributes_msidbFileAttributesCompressed",
-    "msidbFileAttributes_msidbFileAttributesReserved4",
-    "msidbIniFileAction",
-    "msidbIniFileAction_msidbIniFileActionAddLine",
-    "msidbIniFileAction_msidbIniFileActionCreateLine",
-    "msidbIniFileAction_msidbIniFileActionRemoveLine",
-    "msidbIniFileAction_msidbIniFileActionAddTag",
-    "msidbIniFileAction_msidbIniFileActionRemoveTag",
-    "msidbMoveFileOptions",
-    "msidbMoveFileOptions_msidbMoveFileOptionsMove",
-    "msidbODBCDataSourceRegistration",
-    "msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerMachine",
-    "msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerUser",
-    "msidbClassAttributes",
-    "msidbClassAttributes_msidbClassAttributesRelativePath",
-    "msidbPatchAttributes",
-    "msidbPatchAttributes_msidbPatchAttributesNonVital",
-    "msidbRegistryRoot",
-    "msidbRegistryRoot_msidbRegistryRootClassesRoot",
-    "msidbRegistryRoot_msidbRegistryRootCurrentUser",
-    "msidbRegistryRoot_msidbRegistryRootLocalMachine",
-    "msidbRegistryRoot_msidbRegistryRootUsers",
-    "msidbRemoveFileInstallMode",
-    "msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnInstall",
-    "msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnRemove",
-    "msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnBoth",
-    "msidbServiceControlEvent",
-    "msidbServiceControlEvent_msidbServiceControlEventStart",
-    "msidbServiceControlEvent_msidbServiceControlEventStop",
-    "msidbServiceControlEvent_msidbServiceControlEventDelete",
-    "msidbServiceControlEvent_msidbServiceControlEventUninstallStart",
-    "msidbServiceControlEvent_msidbServiceControlEventUninstallStop",
-    "msidbServiceControlEvent_msidbServiceControlEventUninstallDelete",
-    "msidbServiceConfigEvent",
-    "msidbServiceConfigEvent_msidbServiceConfigEventInstall",
-    "msidbServiceConfigEvent_msidbServiceConfigEventUninstall",
-    "msidbServiceConfigEvent_msidbServiceConfigEventReinstall",
-    "msidbServiceInstallErrorControl",
-    "msidbServiceInstallErrorControl_msidbServiceInstallErrorControlVital",
-    "msidbTextStyleStyleBits",
-    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsBold",
-    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsItalic",
-    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsUnderline",
-    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsStrike",
-    "msidbUpgradeAttributes",
-    "msidbUpgradeAttributes_msidbUpgradeAttributesMigrateFeatures",
-    "msidbUpgradeAttributes_msidbUpgradeAttributesOnlyDetect",
-    "msidbUpgradeAttributes_msidbUpgradeAttributesIgnoreRemoveFailure",
-    "msidbUpgradeAttributes_msidbUpgradeAttributesVersionMinInclusive",
-    "msidbUpgradeAttributes_msidbUpgradeAttributesVersionMaxInclusive",
-    "msidbUpgradeAttributes_msidbUpgradeAttributesLanguagesExclusive",
-    "msidbEmbeddedUIAttributes",
-    "msidbEmbeddedUIAttributes_msidbEmbeddedUI",
-    "msidbEmbeddedUIAttributes_msidbEmbeddedHandlesBasic",
-    "msidbSumInfoSourceType",
-    "msidbSumInfoSourceType_msidbSumInfoSourceTypeSFN",
-    "msidbSumInfoSourceType_msidbSumInfoSourceTypeCompressed",
-    "msidbSumInfoSourceType_msidbSumInfoSourceTypeAdminImage",
-    "msidbSumInfoSourceType_msidbSumInfoSourceTypeLUAPackage",
-    "msirbRebootType",
-    "msirbRebootType_msirbRebootImmediate",
-    "msirbRebootType_msirbRebootDeferred",
-    "msirbRebootReason",
-    "msirbRebootReason_msirbRebootUndeterminedReason",
-    "msirbRebootReason_msirbRebootInUseFilesReason",
-    "msirbRebootReason_msirbRebootScheduleRebootReason",
-    "msirbRebootReason_msirbRebootForceRebootReason",
-    "msirbRebootReason_msirbRebootCustomActionReason",
-    "msifiFastInstallBits",
-    "msifiFastInstallBits_msifiFastInstallNoSR",
-    "msifiFastInstallBits_msifiFastInstallQuickCosting",
-    "msifiFastInstallBits_msifiFastInstallLessPrgMsg",
+    "MSI_INVALID_HASH_IS_FATAL",
+    "MSI_NULL_INTEGER",
+    "MsiAdvertiseProductA",
+    "MsiAdvertiseProductExA",
+    "MsiAdvertiseProductExW",
+    "MsiAdvertiseProductW",
+    "MsiAdvertiseScriptA",
+    "MsiAdvertiseScriptW",
+    "MsiApplyMultiplePatchesA",
+    "MsiApplyMultiplePatchesW",
+    "MsiApplyPatchA",
+    "MsiApplyPatchW",
+    "MsiBeginTransactionA",
+    "MsiBeginTransactionW",
+    "MsiCloseAllHandles",
+    "MsiCloseHandle",
+    "MsiCollectUserInfoA",
+    "MsiCollectUserInfoW",
+    "MsiConfigureFeatureA",
+    "MsiConfigureFeatureW",
+    "MsiConfigureProductA",
+    "MsiConfigureProductExA",
+    "MsiConfigureProductExW",
+    "MsiConfigureProductW",
+    "MsiCreateRecord",
+    "MsiCreateTransformSummaryInfoA",
+    "MsiCreateTransformSummaryInfoW",
+    "MsiDatabaseApplyTransformA",
+    "MsiDatabaseApplyTransformW",
+    "MsiDatabaseCommit",
+    "MsiDatabaseExportA",
+    "MsiDatabaseExportW",
+    "MsiDatabaseGenerateTransformA",
+    "MsiDatabaseGenerateTransformW",
+    "MsiDatabaseGetPrimaryKeysA",
+    "MsiDatabaseGetPrimaryKeysW",
+    "MsiDatabaseImportA",
+    "MsiDatabaseImportW",
+    "MsiDatabaseIsTablePersistentA",
+    "MsiDatabaseIsTablePersistentW",
+    "MsiDatabaseMergeA",
+    "MsiDatabaseMergeW",
+    "MsiDatabaseOpenViewA",
+    "MsiDatabaseOpenViewW",
+    "MsiDetermineApplicablePatchesA",
+    "MsiDetermineApplicablePatchesW",
+    "MsiDeterminePatchSequenceA",
+    "MsiDeterminePatchSequenceW",
+    "MsiDoActionA",
+    "MsiDoActionW",
+    "MsiEnableLogA",
+    "MsiEnableLogW",
+    "MsiEnableUIPreview",
+    "MsiEndTransaction",
+    "MsiEnumClientsA",
+    "MsiEnumClientsExA",
+    "MsiEnumClientsExW",
+    "MsiEnumClientsW",
+    "MsiEnumComponentCostsA",
+    "MsiEnumComponentCostsW",
+    "MsiEnumComponentQualifiersA",
+    "MsiEnumComponentQualifiersW",
+    "MsiEnumComponentsA",
+    "MsiEnumComponentsExA",
+    "MsiEnumComponentsExW",
+    "MsiEnumComponentsW",
+    "MsiEnumFeaturesA",
+    "MsiEnumFeaturesW",
+    "MsiEnumPatchesA",
+    "MsiEnumPatchesExA",
+    "MsiEnumPatchesExW",
+    "MsiEnumPatchesW",
+    "MsiEnumProductsA",
+    "MsiEnumProductsExA",
+    "MsiEnumProductsExW",
+    "MsiEnumProductsW",
+    "MsiEnumRelatedProductsA",
+    "MsiEnumRelatedProductsW",
+    "MsiEvaluateConditionA",
+    "MsiEvaluateConditionW",
+    "MsiExtractPatchXMLDataA",
+    "MsiExtractPatchXMLDataW",
+    "MsiFormatRecordA",
+    "MsiFormatRecordW",
+    "MsiGetActiveDatabase",
+    "MsiGetComponentPathA",
+    "MsiGetComponentPathExA",
+    "MsiGetComponentPathExW",
+    "MsiGetComponentPathW",
+    "MsiGetComponentStateA",
+    "MsiGetComponentStateW",
+    "MsiGetDatabaseState",
+    "MsiGetFeatureCostA",
+    "MsiGetFeatureCostW",
+    "MsiGetFeatureInfoA",
+    "MsiGetFeatureInfoW",
+    "MsiGetFeatureStateA",
+    "MsiGetFeatureStateW",
+    "MsiGetFeatureUsageA",
+    "MsiGetFeatureUsageW",
+    "MsiGetFeatureValidStatesA",
+    "MsiGetFeatureValidStatesW",
+    "MsiGetFileHashA",
+    "MsiGetFileHashW",
+    "MsiGetFileSignatureInformationA",
+    "MsiGetFileSignatureInformationW",
+    "MsiGetFileVersionA",
+    "MsiGetFileVersionW",
+    "MsiGetLanguage",
+    "MsiGetLastErrorRecord",
+    "MsiGetMode",
+    "MsiGetPatchFileListA",
+    "MsiGetPatchFileListW",
+    "MsiGetPatchInfoA",
+    "MsiGetPatchInfoExA",
+    "MsiGetPatchInfoExW",
+    "MsiGetPatchInfoW",
+    "MsiGetProductCodeA",
+    "MsiGetProductCodeW",
+    "MsiGetProductInfoA",
+    "MsiGetProductInfoExA",
+    "MsiGetProductInfoExW",
+    "MsiGetProductInfoFromScriptA",
+    "MsiGetProductInfoFromScriptW",
+    "MsiGetProductInfoW",
+    "MsiGetProductPropertyA",
+    "MsiGetProductPropertyW",
+    "MsiGetPropertyA",
+    "MsiGetPropertyW",
+    "MsiGetShortcutTargetA",
+    "MsiGetShortcutTargetW",
+    "MsiGetSourcePathA",
+    "MsiGetSourcePathW",
+    "MsiGetSummaryInformationA",
+    "MsiGetSummaryInformationW",
+    "MsiGetTargetPathA",
+    "MsiGetTargetPathW",
+    "MsiGetUserInfoA",
+    "MsiGetUserInfoW",
+    "MsiInstallMissingComponentA",
+    "MsiInstallMissingComponentW",
+    "MsiInstallMissingFileA",
+    "MsiInstallMissingFileW",
+    "MsiInstallProductA",
+    "MsiInstallProductW",
+    "MsiIsProductElevatedA",
+    "MsiIsProductElevatedW",
+    "MsiJoinTransaction",
+    "MsiLocateComponentA",
+    "MsiLocateComponentW",
+    "MsiNotifySidChangeA",
+    "MsiNotifySidChangeW",
+    "MsiOpenDatabaseA",
+    "MsiOpenDatabaseW",
+    "MsiOpenPackageA",
+    "MsiOpenPackageExA",
+    "MsiOpenPackageExW",
+    "MsiOpenPackageW",
+    "MsiOpenProductA",
+    "MsiOpenProductW",
+    "MsiPreviewBillboardA",
+    "MsiPreviewBillboardW",
+    "MsiPreviewDialogA",
+    "MsiPreviewDialogW",
+    "MsiProcessAdvertiseScriptA",
+    "MsiProcessAdvertiseScriptW",
+    "MsiProcessMessage",
+    "MsiProvideAssemblyA",
+    "MsiProvideAssemblyW",
+    "MsiProvideComponentA",
+    "MsiProvideComponentW",
+    "MsiProvideQualifiedComponentA",
+    "MsiProvideQualifiedComponentExA",
+    "MsiProvideQualifiedComponentExW",
+    "MsiProvideQualifiedComponentW",
+    "MsiQueryComponentStateA",
+    "MsiQueryComponentStateW",
+    "MsiQueryFeatureStateA",
+    "MsiQueryFeatureStateExA",
+    "MsiQueryFeatureStateExW",
+    "MsiQueryFeatureStateW",
+    "MsiQueryProductStateA",
+    "MsiQueryProductStateW",
+    "MsiRecordClearData",
+    "MsiRecordDataSize",
+    "MsiRecordGetFieldCount",
+    "MsiRecordGetInteger",
+    "MsiRecordGetStringA",
+    "MsiRecordGetStringW",
+    "MsiRecordIsNull",
+    "MsiRecordReadStream",
+    "MsiRecordSetInteger",
+    "MsiRecordSetStreamA",
+    "MsiRecordSetStreamW",
+    "MsiRecordSetStringA",
+    "MsiRecordSetStringW",
+    "MsiReinstallFeatureA",
+    "MsiReinstallFeatureW",
+    "MsiReinstallProductA",
+    "MsiReinstallProductW",
+    "MsiRemovePatchesA",
+    "MsiRemovePatchesW",
+    "MsiSequenceA",
+    "MsiSequenceW",
+    "MsiSetComponentStateA",
+    "MsiSetComponentStateW",
+    "MsiSetExternalUIA",
+    "MsiSetExternalUIRecord",
+    "MsiSetExternalUIW",
+    "MsiSetFeatureAttributesA",
+    "MsiSetFeatureAttributesW",
+    "MsiSetFeatureStateA",
+    "MsiSetFeatureStateW",
+    "MsiSetInstallLevel",
+    "MsiSetInternalUI",
+    "MsiSetMode",
+    "MsiSetPropertyA",
+    "MsiSetPropertyW",
+    "MsiSetTargetPathA",
+    "MsiSetTargetPathW",
+    "MsiSourceListAddMediaDiskA",
+    "MsiSourceListAddMediaDiskW",
+    "MsiSourceListAddSourceA",
+    "MsiSourceListAddSourceExA",
+    "MsiSourceListAddSourceExW",
+    "MsiSourceListAddSourceW",
+    "MsiSourceListClearAllA",
+    "MsiSourceListClearAllExA",
+    "MsiSourceListClearAllExW",
+    "MsiSourceListClearAllW",
+    "MsiSourceListClearMediaDiskA",
+    "MsiSourceListClearMediaDiskW",
+    "MsiSourceListClearSourceA",
+    "MsiSourceListClearSourceW",
+    "MsiSourceListEnumMediaDisksA",
+    "MsiSourceListEnumMediaDisksW",
+    "MsiSourceListEnumSourcesA",
+    "MsiSourceListEnumSourcesW",
+    "MsiSourceListForceResolutionA",
+    "MsiSourceListForceResolutionExA",
+    "MsiSourceListForceResolutionExW",
+    "MsiSourceListForceResolutionW",
+    "MsiSourceListGetInfoA",
+    "MsiSourceListGetInfoW",
+    "MsiSourceListSetInfoA",
+    "MsiSourceListSetInfoW",
+    "MsiSummaryInfoGetPropertyA",
+    "MsiSummaryInfoGetPropertyCount",
+    "MsiSummaryInfoGetPropertyW",
+    "MsiSummaryInfoPersist",
+    "MsiSummaryInfoSetPropertyA",
+    "MsiSummaryInfoSetPropertyW",
+    "MsiUseFeatureA",
+    "MsiUseFeatureExA",
+    "MsiUseFeatureExW",
+    "MsiUseFeatureW",
+    "MsiVerifyDiskSpace",
+    "MsiVerifyPackageA",
+    "MsiVerifyPackageW",
+    "MsiViewClose",
+    "MsiViewExecute",
+    "MsiViewFetch",
+    "MsiViewGetColumnInfo",
+    "MsiViewGetErrorA",
+    "MsiViewGetErrorW",
+    "MsiViewModify",
+    "MsmMerge",
+    "NormalizeFileForPatchSignature",
+    "PACKMAN_RUNTIME",
+    "PACKMAN_RUNTIME_INVALID",
+    "PACKMAN_RUNTIME_JUPITER",
+    "PACKMAN_RUNTIME_MODERN_NATIVE",
+    "PACKMAN_RUNTIME_NATIVE",
+    "PACKMAN_RUNTIME_SILVERLIGHTMOBILE",
+    "PACKMAN_RUNTIME_XNA",
+    "PATCH_IGNORE_RANGE",
+    "PATCH_INTERLEAVE_MAP",
+    "PATCH_OLD_FILE_INFO",
+    "PATCH_OLD_FILE_INFO_A",
+    "PATCH_OLD_FILE_INFO_H",
+    "PATCH_OLD_FILE_INFO_W",
+    "PATCH_OPTION_DATA",
+    "PATCH_OPTION_FAIL_IF_BIGGER",
+    "PATCH_OPTION_FAIL_IF_SAME_FILE",
+    "PATCH_OPTION_INTERLEAVE_FILES",
+    "PATCH_OPTION_NO_BINDFIX",
+    "PATCH_OPTION_NO_CHECKSUM",
+    "PATCH_OPTION_NO_LOCKFIX",
+    "PATCH_OPTION_NO_REBASE",
+    "PATCH_OPTION_NO_RESTIMEFIX",
+    "PATCH_OPTION_NO_TIMESTAMP",
+    "PATCH_OPTION_RESERVED1",
+    "PATCH_OPTION_SIGNATURE_MD5",
+    "PATCH_OPTION_USE_BEST",
+    "PATCH_OPTION_USE_LZX_A",
+    "PATCH_OPTION_USE_LZX_B",
+    "PATCH_OPTION_USE_LZX_BEST",
+    "PATCH_OPTION_USE_LZX_LARGE",
+    "PATCH_OPTION_VALID_FLAGS",
+    "PATCH_RETAIN_RANGE",
+    "PATCH_SYMBOL_NO_FAILURES",
+    "PATCH_SYMBOL_NO_IMAGEHLP",
+    "PATCH_SYMBOL_RESERVED1",
+    "PATCH_SYMBOL_UNDECORATED_TOO",
+    "PATCH_TRANSFORM_PE_IRELOC_2",
+    "PATCH_TRANSFORM_PE_RESOURCE_2",
+    "PID_APPNAME",
+    "PID_AUTHOR",
+    "PID_CHARCOUNT",
+    "PID_COMMENTS",
+    "PID_CREATE_DTM",
+    "PID_EDITTIME",
+    "PID_KEYWORDS",
+    "PID_LASTAUTHOR",
+    "PID_LASTPRINTED",
+    "PID_LASTSAVE_DTM",
+    "PID_MSIRESTRICT",
+    "PID_MSISOURCE",
+    "PID_MSIVERSION",
+    "PID_PAGECOUNT",
+    "PID_REVNUMBER",
+    "PID_SUBJECT",
+    "PID_TEMPLATE",
+    "PID_THUMBNAIL",
+    "PID_TITLE",
+    "PID_WORDCOUNT",
+    "PINSTALLUI_HANDLER_RECORD",
+    "PMSIHANDLE",
     "PMSvc",
-    "TILE_TEMPLATE_TYPE",
-    "TILE_TEMPLATE_INVALID",
-    "TILE_TEMPLATE_FLIP",
-    "TILE_TEMPLATE_DEEPLINK",
-    "TILE_TEMPLATE_CYCLE",
-    "TILE_TEMPLATE_METROCOUNT",
+    "PM_ACTIVATION_POLICY",
+    "PM_ACTIVATION_POLICY_INVALID",
+    "PM_ACTIVATION_POLICY_MULTISESSION",
+    "PM_ACTIVATION_POLICY_REPLACE",
+    "PM_ACTIVATION_POLICY_REPLACESAMEPARAMS",
+    "PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND",
+    "PM_ACTIVATION_POLICY_RESUME",
+    "PM_ACTIVATION_POLICY_RESUMESAMEPARAMS",
+    "PM_ACTIVATION_POLICY_UNKNOWN",
+    "PM_APPLICATION_HUBTYPE",
+    "PM_APPLICATION_HUBTYPE_INVALID",
+    "PM_APPLICATION_HUBTYPE_MUSIC",
+    "PM_APPLICATION_HUBTYPE_NONMUSIC",
+    "PM_APPLICATION_INSTALL_DEBUG",
+    "PM_APPLICATION_INSTALL_ENTERPRISE",
+    "PM_APPLICATION_INSTALL_INVALID",
+    "PM_APPLICATION_INSTALL_IN_ROM",
+    "PM_APPLICATION_INSTALL_NORMAL",
+    "PM_APPLICATION_INSTALL_PA",
+    "PM_APPLICATION_INSTALL_TYPE",
+    "PM_APPLICATION_STATE",
+    "PM_APPLICATION_STATE_DISABLED_BACKING_UP",
+    "PM_APPLICATION_STATE_DISABLED_ENTERPRISE",
+    "PM_APPLICATION_STATE_DISABLED_MDIL_BINDING",
+    "PM_APPLICATION_STATE_DISABLED_SD_CARD",
+    "PM_APPLICATION_STATE_INSTALLED",
+    "PM_APPLICATION_STATE_INSTALLING",
+    "PM_APPLICATION_STATE_INVALID",
+    "PM_APPLICATION_STATE_LICENSE_UPDATING",
+    "PM_APPLICATION_STATE_MAX",
+    "PM_APPLICATION_STATE_MIN",
+    "PM_APPLICATION_STATE_MOVING",
+    "PM_APPLICATION_STATE_UNINSTALLING",
+    "PM_APPLICATION_STATE_UPDATING",
+    "PM_APPTASKTYPE",
+    "PM_APP_FILTER_ALL",
+    "PM_APP_FILTER_ALL_INCLUDE_MODERN",
+    "PM_APP_FILTER_FRAMEWORK",
+    "PM_APP_FILTER_GENRE",
+    "PM_APP_FILTER_HUBTYPE",
+    "PM_APP_FILTER_MAX",
+    "PM_APP_FILTER_NONGAMES",
+    "PM_APP_FILTER_PINABLEONKIDZONE",
+    "PM_APP_FILTER_VISIBLE",
+    "PM_APP_GENRE",
+    "PM_APP_GENRE_GAMES",
+    "PM_APP_GENRE_INVALID",
+    "PM_APP_GENRE_OTHER",
+    "PM_BSATASKID",
+    "PM_BWTASKID",
+    "PM_ENUM_APP_FILTER",
+    "PM_ENUM_BSA_FILTER",
+    "PM_ENUM_BSA_FILTER_ALL",
+    "PM_ENUM_BSA_FILTER_BY_ALL_LAUNCHONBOOT",
+    "PM_ENUM_BSA_FILTER_BY_PERIODIC",
+    "PM_ENUM_BSA_FILTER_BY_PRODUCTID",
+    "PM_ENUM_BSA_FILTER_BY_TASKID",
+    "PM_ENUM_BSA_FILTER_MAX",
+    "PM_ENUM_BW_FILTER",
+    "PM_ENUM_BW_FILTER_BOOTWORKER_ALL",
+    "PM_ENUM_BW_FILTER_BY_TASKID",
+    "PM_ENUM_BW_FILTER_MAX",
+    "PM_ENUM_EXTENSION_FILTER",
+    "PM_ENUM_EXTENSION_FILTER_APPCONNECT",
+    "PM_ENUM_EXTENSION_FILTER_BY_CONSUMER",
+    "PM_ENUM_EXTENSION_FILTER_CACHEDFILEUPDATER_ALL",
+    "PM_ENUM_EXTENSION_FILTER_FILEOPENPICKER_ALL",
+    "PM_ENUM_EXTENSION_FILTER_FILESAVEPICKER_ALL",
+    "PM_ENUM_EXTENSION_FILTER_FTASSOC_APPLICATION_ALL",
+    "PM_ENUM_EXTENSION_FILTER_FTASSOC_CONTENTTYPE_ALL",
+    "PM_ENUM_EXTENSION_FILTER_FTASSOC_FILETYPE_ALL",
+    "PM_ENUM_EXTENSION_FILTER_MAX",
+    "PM_ENUM_EXTENSION_FILTER_PROTOCOL_ALL",
+    "PM_ENUM_EXTENSION_FILTER_SHARETARGET_ALL",
+    "PM_ENUM_FILTER",
+    "PM_ENUM_TASK_FILTER",
+    "PM_ENUM_TILE_FILTER",
+    "PM_EXTENSIONCONSUMER",
+    "PM_INSTALLINFO",
+    "PM_INVOCATIONINFO",
+    "PM_LIVETILE_RECURRENCE_TYPE",
+    "PM_LIVETILE_RECURRENCE_TYPE_INSTANT",
+    "PM_LIVETILE_RECURRENCE_TYPE_INTERVAL",
+    "PM_LIVETILE_RECURRENCE_TYPE_MAX",
+    "PM_LIVETILE_RECURRENCE_TYPE_ONETIME",
+    "PM_LOGO_SIZE",
+    "PM_LOGO_SIZE_INVALID",
+    "PM_LOGO_SIZE_LARGE",
+    "PM_LOGO_SIZE_MEDIUM",
+    "PM_LOGO_SIZE_SMALL",
+    "PM_STARTAPPBLOB",
+    "PM_STARTTILEBLOB",
+    "PM_STARTTILE_TYPE",
+    "PM_STARTTILE_TYPE_APPLIST",
+    "PM_STARTTILE_TYPE_APPLISTPRIMARY",
+    "PM_STARTTILE_TYPE_INVALID",
+    "PM_STARTTILE_TYPE_PRIMARY",
+    "PM_STARTTILE_TYPE_SECONDARY",
+    "PM_TASK_FILTER_APP_ALL",
+    "PM_TASK_FILTER_APP_TASK_TYPE",
+    "PM_TASK_FILTER_BGEXECUTION",
+    "PM_TASK_FILTER_DEHYD_SUPRESSING",
+    "PM_TASK_FILTER_MAX",
+    "PM_TASK_FILTER_TASK_TYPE",
+    "PM_TASK_TRANSITION",
+    "PM_TASK_TRANSITION_CUSTOM",
+    "PM_TASK_TRANSITION_DEFAULT",
+    "PM_TASK_TRANSITION_INVALID",
+    "PM_TASK_TRANSITION_NONE",
+    "PM_TASK_TRANSITION_READERBOARD",
+    "PM_TASK_TRANSITION_SLIDE",
+    "PM_TASK_TRANSITION_SWIVEL",
+    "PM_TASK_TRANSITION_TURNSTILE",
+    "PM_TASK_TYPE",
+    "PM_TASK_TYPE_BACKGROUNDSERVICEAGENT",
+    "PM_TASK_TYPE_BACKGROUNDWORKER",
+    "PM_TASK_TYPE_DEFAULT",
+    "PM_TASK_TYPE_INVALID",
+    "PM_TASK_TYPE_NORMAL",
+    "PM_TASK_TYPE_SETTINGS",
+    "PM_TILE_FILTER_APPLIST",
+    "PM_TILE_FILTER_APP_ALL",
+    "PM_TILE_FILTER_HUBTYPE",
+    "PM_TILE_FILTER_MAX",
+    "PM_TILE_FILTER_PINNED",
+    "PM_TILE_HUBTYPE",
+    "PM_TILE_HUBTYPE_APPLIST",
+    "PM_TILE_HUBTYPE_CACHED",
+    "PM_TILE_HUBTYPE_GAMES",
+    "PM_TILE_HUBTYPE_INVALID",
+    "PM_TILE_HUBTYPE_KIDZONE",
+    "PM_TILE_HUBTYPE_LOCKSCREEN",
+    "PM_TILE_HUBTYPE_MOSETTINGS",
+    "PM_TILE_HUBTYPE_MUSIC",
+    "PM_TILE_HUBTYPE_STARTMENU",
+    "PM_TILE_SIZE",
+    "PM_TILE_SIZE_INVALID",
+    "PM_TILE_SIZE_LARGE",
+    "PM_TILE_SIZE_MEDIUM",
+    "PM_TILE_SIZE_SMALL",
+    "PM_TILE_SIZE_SQUARE310X310",
+    "PM_TILE_SIZE_TALL150X310",
+    "PM_UPDATEINFO",
+    "PM_UPDATEINFO_LEGACY",
+    "PPATCH_PROGRESS_CALLBACK",
+    "PPATCH_SYMLOAD_CALLBACK",
+    "PROTECTED_FILE_DATA",
+    "QUERYASMINFO_FLAGS",
+    "QUERYASMINFO_FLAG_VALIDATE",
+    "QueryActCtxSettingsW",
+    "QueryActCtxW",
+    "REINSTALLMODE",
+    "REINSTALLMODE_FILEEQUALVERSION",
+    "REINSTALLMODE_FILEEXACT",
+    "REINSTALLMODE_FILEMISSING",
+    "REINSTALLMODE_FILEOLDERVERSION",
+    "REINSTALLMODE_FILEREPLACE",
+    "REINSTALLMODE_FILEVERIFY",
+    "REINSTALLMODE_MACHINEDATA",
+    "REINSTALLMODE_PACKAGE",
+    "REINSTALLMODE_REPAIR",
+    "REINSTALLMODE_SHORTCUT",
+    "REINSTALLMODE_USERDATA",
+    "RESULTTYPES",
+    "RESULTTYPES_ieError",
+    "RESULTTYPES_ieInfo",
+    "RESULTTYPES_ieUnknown",
+    "RESULTTYPES_ieWarning",
+    "ReleaseActCtx",
+    "SCRIPTFLAGS",
+    "SCRIPTFLAGS_CACHEINFO",
+    "SCRIPTFLAGS_MACHINEASSIGN",
+    "SCRIPTFLAGS_REGDATA",
+    "SCRIPTFLAGS_REGDATA_APPINFO",
+    "SCRIPTFLAGS_REGDATA_CLASSINFO",
+    "SCRIPTFLAGS_REGDATA_CNFGINFO",
+    "SCRIPTFLAGS_REGDATA_EXTENSIONINFO",
+    "SCRIPTFLAGS_SHORTCUTS",
+    "SCRIPTFLAGS_VALIDATE_TRANSFORMS_LIST",
+    "SFC_DISABLE_ASK",
+    "SFC_DISABLE_NOPOPUPS",
+    "SFC_DISABLE_NORMAL",
+    "SFC_DISABLE_ONCE",
+    "SFC_DISABLE_SETUP",
+    "SFC_IDLE_TRIGGER",
+    "SFC_QUOTA_DEFAULT",
+    "SFC_SCAN_ALWAYS",
+    "SFC_SCAN_IMMEDIATE",
+    "SFC_SCAN_NORMAL",
+    "SFC_SCAN_ONCE",
+    "STATUSTYPES",
+    "STATUSTYPES_ieStatusCancel",
+    "STATUSTYPES_ieStatusCreateEngine",
+    "STATUSTYPES_ieStatusFail",
+    "STATUSTYPES_ieStatusGetCUB",
+    "STATUSTYPES_ieStatusICECount",
+    "STATUSTYPES_ieStatusMerge",
+    "STATUSTYPES_ieStatusRunICE",
+    "STATUSTYPES_ieStatusShutdown",
+    "STATUSTYPES_ieStatusStarting",
+    "STATUSTYPES_ieStatusSuccess",
+    "STATUSTYPES_ieStatusSummaryInfo",
+    "STREAM_FORMAT_COMPLIB_MANIFEST",
+    "STREAM_FORMAT_COMPLIB_MODULE",
+    "STREAM_FORMAT_WIN32_MANIFEST",
+    "STREAM_FORMAT_WIN32_MODULE",
+    "SfcGetNextProtectedFile",
+    "SfcIsFileProtected",
+    "SfcIsKeyProtected",
+    "SfpVerifyFile",
     "TILE_TEMPLATE_AGILESTORE",
-    "TILE_TEMPLATE_GAMES",
-    "TILE_TEMPLATE_CALENDAR",
-    "TILE_TEMPLATE_MUSICVIDEO",
-    "TILE_TEMPLATE_PEOPLE",
-    "TILE_TEMPLATE_CONTACT",
-    "TILE_TEMPLATE_GROUP",
-    "TILE_TEMPLATE_DEFAULT",
+    "TILE_TEMPLATE_ALL",
     "TILE_TEMPLATE_BADGE",
     "TILE_TEMPLATE_BLOCK",
+    "TILE_TEMPLATE_BLOCKANDTEXT01",
+    "TILE_TEMPLATE_BLOCKANDTEXT02",
+    "TILE_TEMPLATE_CALENDAR",
+    "TILE_TEMPLATE_CONTACT",
+    "TILE_TEMPLATE_CYCLE",
+    "TILE_TEMPLATE_DEEPLINK",
+    "TILE_TEMPLATE_DEFAULT",
+    "TILE_TEMPLATE_FLIP",
+    "TILE_TEMPLATE_FOLDER",
+    "TILE_TEMPLATE_GAMES",
+    "TILE_TEMPLATE_GROUP",
+    "TILE_TEMPLATE_IMAGE",
+    "TILE_TEMPLATE_IMAGEANDTEXT01",
+    "TILE_TEMPLATE_IMAGEANDTEXT02",
+    "TILE_TEMPLATE_IMAGECOLLECTION",
+    "TILE_TEMPLATE_INVALID",
+    "TILE_TEMPLATE_METROCOUNT",
+    "TILE_TEMPLATE_METROCOUNTQUEUE",
+    "TILE_TEMPLATE_MUSICVIDEO",
+    "TILE_TEMPLATE_PEEKIMAGE01",
+    "TILE_TEMPLATE_PEEKIMAGE02",
+    "TILE_TEMPLATE_PEEKIMAGE03",
+    "TILE_TEMPLATE_PEEKIMAGE04",
+    "TILE_TEMPLATE_PEEKIMAGE05",
+    "TILE_TEMPLATE_PEEKIMAGE06",
+    "TILE_TEMPLATE_PEEKIMAGEANDTEXT01",
+    "TILE_TEMPLATE_PEEKIMAGEANDTEXT02",
+    "TILE_TEMPLATE_PEEKIMAGEANDTEXT03",
+    "TILE_TEMPLATE_PEEKIMAGEANDTEXT04",
+    "TILE_TEMPLATE_PEEKIMAGECOLLECTION01",
+    "TILE_TEMPLATE_PEEKIMAGECOLLECTION02",
+    "TILE_TEMPLATE_PEEKIMAGECOLLECTION03",
+    "TILE_TEMPLATE_PEEKIMAGECOLLECTION04",
+    "TILE_TEMPLATE_PEEKIMAGECOLLECTION05",
+    "TILE_TEMPLATE_PEEKIMAGECOLLECTION06",
+    "TILE_TEMPLATE_PEOPLE",
+    "TILE_TEMPLATE_SEARCH",
+    "TILE_TEMPLATE_SMALLIMAGEANDTEXT01",
+    "TILE_TEMPLATE_SMALLIMAGEANDTEXT02",
+    "TILE_TEMPLATE_SMALLIMAGEANDTEXT03",
+    "TILE_TEMPLATE_SMALLIMAGEANDTEXT04",
+    "TILE_TEMPLATE_SMALLIMAGEANDTEXT05",
     "TILE_TEMPLATE_TEXT01",
     "TILE_TEMPLATE_TEXT02",
     "TILE_TEMPLATE_TEXT03",
@@ -5201,698 +5774,271 @@ __all__ = [
     "TILE_TEMPLATE_TEXT09",
     "TILE_TEMPLATE_TEXT10",
     "TILE_TEMPLATE_TEXT11",
-    "TILE_TEMPLATE_IMAGE",
-    "TILE_TEMPLATE_IMAGECOLLECTION",
-    "TILE_TEMPLATE_IMAGEANDTEXT01",
-    "TILE_TEMPLATE_IMAGEANDTEXT02",
-    "TILE_TEMPLATE_BLOCKANDTEXT01",
-    "TILE_TEMPLATE_BLOCKANDTEXT02",
-    "TILE_TEMPLATE_PEEKIMAGEANDTEXT01",
-    "TILE_TEMPLATE_PEEKIMAGEANDTEXT02",
-    "TILE_TEMPLATE_PEEKIMAGEANDTEXT03",
-    "TILE_TEMPLATE_PEEKIMAGEANDTEXT04",
-    "TILE_TEMPLATE_PEEKIMAGE01",
-    "TILE_TEMPLATE_PEEKIMAGE02",
-    "TILE_TEMPLATE_PEEKIMAGE03",
-    "TILE_TEMPLATE_PEEKIMAGE04",
-    "TILE_TEMPLATE_PEEKIMAGE05",
-    "TILE_TEMPLATE_PEEKIMAGE06",
-    "TILE_TEMPLATE_PEEKIMAGECOLLECTION01",
-    "TILE_TEMPLATE_PEEKIMAGECOLLECTION02",
-    "TILE_TEMPLATE_PEEKIMAGECOLLECTION03",
-    "TILE_TEMPLATE_PEEKIMAGECOLLECTION04",
-    "TILE_TEMPLATE_PEEKIMAGECOLLECTION05",
-    "TILE_TEMPLATE_PEEKIMAGECOLLECTION06",
-    "TILE_TEMPLATE_SMALLIMAGEANDTEXT01",
-    "TILE_TEMPLATE_SMALLIMAGEANDTEXT02",
-    "TILE_TEMPLATE_SMALLIMAGEANDTEXT03",
-    "TILE_TEMPLATE_SMALLIMAGEANDTEXT04",
-    "TILE_TEMPLATE_SMALLIMAGEANDTEXT05",
-    "TILE_TEMPLATE_METROCOUNTQUEUE",
-    "TILE_TEMPLATE_SEARCH",
     "TILE_TEMPLATE_TILEFLYOUT01",
-    "TILE_TEMPLATE_FOLDER",
-    "TILE_TEMPLATE_ALL",
-    "PM_APP_GENRE",
-    "PM_APP_GENRE_GAMES",
-    "PM_APP_GENRE_OTHER",
-    "PM_APP_GENRE_INVALID",
-    "PM_APPLICATION_INSTALL_TYPE",
-    "PM_APPLICATION_INSTALL_NORMAL",
-    "PM_APPLICATION_INSTALL_IN_ROM",
-    "PM_APPLICATION_INSTALL_PA",
-    "PM_APPLICATION_INSTALL_DEBUG",
-    "PM_APPLICATION_INSTALL_ENTERPRISE",
-    "PM_APPLICATION_INSTALL_INVALID",
-    "PM_APPLICATION_STATE",
-    "PM_APPLICATION_STATE_MIN",
-    "PM_APPLICATION_STATE_INSTALLED",
-    "PM_APPLICATION_STATE_INSTALLING",
-    "PM_APPLICATION_STATE_UPDATING",
-    "PM_APPLICATION_STATE_UNINSTALLING",
-    "PM_APPLICATION_STATE_LICENSE_UPDATING",
-    "PM_APPLICATION_STATE_MOVING",
-    "PM_APPLICATION_STATE_DISABLED_SD_CARD",
-    "PM_APPLICATION_STATE_DISABLED_ENTERPRISE",
-    "PM_APPLICATION_STATE_DISABLED_BACKING_UP",
-    "PM_APPLICATION_STATE_DISABLED_MDIL_BINDING",
-    "PM_APPLICATION_STATE_MAX",
-    "PM_APPLICATION_STATE_INVALID",
-    "PM_APPLICATION_HUBTYPE",
-    "PM_APPLICATION_HUBTYPE_NONMUSIC",
-    "PM_APPLICATION_HUBTYPE_MUSIC",
-    "PM_APPLICATION_HUBTYPE_INVALID",
-    "PM_TILE_HUBTYPE",
-    "PM_TILE_HUBTYPE_MUSIC",
-    "PM_TILE_HUBTYPE_MOSETTINGS",
-    "PM_TILE_HUBTYPE_GAMES",
-    "PM_TILE_HUBTYPE_APPLIST",
-    "PM_TILE_HUBTYPE_STARTMENU",
-    "PM_TILE_HUBTYPE_LOCKSCREEN",
-    "PM_TILE_HUBTYPE_KIDZONE",
-    "PM_TILE_HUBTYPE_CACHED",
-    "PM_TILE_HUBTYPE_INVALID",
-    "PM_STARTTILE_TYPE",
-    "PM_STARTTILE_TYPE_PRIMARY",
-    "PM_STARTTILE_TYPE_SECONDARY",
-    "PM_STARTTILE_TYPE_APPLIST",
-    "PM_STARTTILE_TYPE_APPLISTPRIMARY",
-    "PM_STARTTILE_TYPE_INVALID",
-    "PM_TASK_TYPE",
-    "PM_TASK_TYPE_NORMAL",
-    "PM_TASK_TYPE_DEFAULT",
-    "PM_TASK_TYPE_SETTINGS",
-    "PM_TASK_TYPE_BACKGROUNDSERVICEAGENT",
-    "PM_TASK_TYPE_BACKGROUNDWORKER",
-    "PM_TASK_TYPE_INVALID",
-    "PACKMAN_RUNTIME",
-    "PACKMAN_RUNTIME_NATIVE",
-    "PACKMAN_RUNTIME_SILVERLIGHTMOBILE",
-    "PACKMAN_RUNTIME_XNA",
-    "PACKMAN_RUNTIME_MODERN_NATIVE",
-    "PACKMAN_RUNTIME_JUPITER",
-    "PACKMAN_RUNTIME_INVALID",
-    "PM_ACTIVATION_POLICY",
-    "PM_ACTIVATION_POLICY_RESUME",
-    "PM_ACTIVATION_POLICY_RESUMESAMEPARAMS",
-    "PM_ACTIVATION_POLICY_REPLACE",
-    "PM_ACTIVATION_POLICY_REPLACESAMEPARAMS",
-    "PM_ACTIVATION_POLICY_MULTISESSION",
-    "PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND",
-    "PM_ACTIVATION_POLICY_UNKNOWN",
-    "PM_ACTIVATION_POLICY_INVALID",
-    "PM_TASK_TRANSITION",
-    "PM_TASK_TRANSITION_DEFAULT",
-    "PM_TASK_TRANSITION_NONE",
-    "PM_TASK_TRANSITION_TURNSTILE",
-    "PM_TASK_TRANSITION_SLIDE",
-    "PM_TASK_TRANSITION_SWIVEL",
-    "PM_TASK_TRANSITION_READERBOARD",
-    "PM_TASK_TRANSITION_CUSTOM",
-    "PM_TASK_TRANSITION_INVALID",
-    "PM_ENUM_APP_FILTER",
-    "PM_APP_FILTER_ALL",
-    "PM_APP_FILTER_VISIBLE",
-    "PM_APP_FILTER_GENRE",
-    "PM_APP_FILTER_NONGAMES",
-    "PM_APP_FILTER_HUBTYPE",
-    "PM_APP_FILTER_PINABLEONKIDZONE",
-    "PM_APP_FILTER_ALL_INCLUDE_MODERN",
-    "PM_APP_FILTER_FRAMEWORK",
-    "PM_APP_FILTER_MAX",
-    "PM_ENUM_TILE_FILTER",
-    "PM_TILE_FILTER_APPLIST",
-    "PM_TILE_FILTER_PINNED",
-    "PM_TILE_FILTER_HUBTYPE",
-    "PM_TILE_FILTER_APP_ALL",
-    "PM_TILE_FILTER_MAX",
-    "PM_ENUM_TASK_FILTER",
-    "PM_TASK_FILTER_APP_ALL",
-    "PM_TASK_FILTER_TASK_TYPE",
-    "PM_TASK_FILTER_DEHYD_SUPRESSING",
-    "PM_TASK_FILTER_APP_TASK_TYPE",
-    "PM_TASK_FILTER_BGEXECUTION",
-    "PM_TASK_FILTER_MAX",
-    "PM_ENUM_EXTENSION_FILTER",
-    "PM_ENUM_EXTENSION_FILTER_BY_CONSUMER",
-    "PM_ENUM_EXTENSION_FILTER_APPCONNECT",
-    "PM_ENUM_EXTENSION_FILTER_PROTOCOL_ALL",
-    "PM_ENUM_EXTENSION_FILTER_FTASSOC_FILETYPE_ALL",
-    "PM_ENUM_EXTENSION_FILTER_FTASSOC_CONTENTTYPE_ALL",
-    "PM_ENUM_EXTENSION_FILTER_FTASSOC_APPLICATION_ALL",
-    "PM_ENUM_EXTENSION_FILTER_SHARETARGET_ALL",
-    "PM_ENUM_EXTENSION_FILTER_FILEOPENPICKER_ALL",
-    "PM_ENUM_EXTENSION_FILTER_FILESAVEPICKER_ALL",
-    "PM_ENUM_EXTENSION_FILTER_CACHEDFILEUPDATER_ALL",
-    "PM_ENUM_EXTENSION_FILTER_MAX",
-    "PM_ENUM_BSA_FILTER",
-    "PM_ENUM_BSA_FILTER_ALL",
-    "PM_ENUM_BSA_FILTER_BY_TASKID",
-    "PM_ENUM_BSA_FILTER_BY_PRODUCTID",
-    "PM_ENUM_BSA_FILTER_BY_PERIODIC",
-    "PM_ENUM_BSA_FILTER_BY_ALL_LAUNCHONBOOT",
-    "PM_ENUM_BSA_FILTER_MAX",
-    "PM_ENUM_BW_FILTER",
-    "PM_ENUM_BW_FILTER_BOOTWORKER_ALL",
-    "PM_ENUM_BW_FILTER_BY_TASKID",
-    "PM_ENUM_BW_FILTER_MAX",
-    "_tagAPPTASKTYPE",
-    "PM_EXTENSIONCONSUMER",
-    "PM_BSATASKID",
-    "PM_BWTASKID",
-    "PM_ENUM_FILTER",
-    "PM_LIVETILE_RECURRENCE_TYPE",
-    "PM_LIVETILE_RECURRENCE_TYPE_INSTANT",
-    "PM_LIVETILE_RECURRENCE_TYPE_ONETIME",
-    "PM_LIVETILE_RECURRENCE_TYPE_INTERVAL",
-    "PM_LIVETILE_RECURRENCE_TYPE_MAX",
-    "PM_TILE_SIZE",
-    "PM_TILE_SIZE_SMALL",
-    "PM_TILE_SIZE_MEDIUM",
-    "PM_TILE_SIZE_LARGE",
-    "PM_TILE_SIZE_SQUARE310X310",
-    "PM_TILE_SIZE_TALL150X310",
-    "PM_TILE_SIZE_INVALID",
-    "PM_LOGO_SIZE",
-    "PM_LOGO_SIZE_SMALL",
-    "PM_LOGO_SIZE_MEDIUM",
-    "PM_LOGO_SIZE_LARGE",
-    "PM_LOGO_SIZE_INVALID",
-    "PM_STARTAPPBLOB",
-    "PM_INVOCATIONINFO",
-    "PM_STARTTILEBLOB",
-    "PM_INSTALLINFO",
-    "PM_UPDATEINFO_LEGACY",
-    "PM_UPDATEINFO",
-    "IPMApplicationInfo",
-    "IPMTilePropertyInfo",
-    "IPMTilePropertyEnumerator",
-    "IPMTileInfo",
-    "IPMTileInfoEnumerator",
-    "IPMApplicationInfoEnumerator",
-    "IPMLiveTileJobInfo",
-    "IPMLiveTileJobInfoEnumerator",
-    "IPMDeploymentManager",
-    "IPMEnumerationManager",
-    "IPMTaskInfo",
-    "IPMTaskInfoEnumerator",
-    "IPMExtensionInfo",
-    "IPMExtensionFileExtensionInfo",
-    "IPMExtensionProtocolInfo",
-    "IPMExtensionShareTargetInfo",
-    "IPMExtensionContractInfo",
-    "IPMExtensionFileOpenPickerInfo",
-    "IPMExtensionFileSavePickerInfo",
-    "IPMExtensionCachedFileUpdaterInfo",
-    "IPMExtensionInfoEnumerator",
-    "IPMBackgroundServiceAgentInfo",
-    "IPMBackgroundWorkerInfo",
-    "IPMBackgroundServiceAgentInfoEnumerator",
-    "IPMBackgroundWorkerInfoEnumerator",
-    "PPATCH_PROGRESS_CALLBACK",
-    "PPATCH_SYMLOAD_CALLBACK",
-    "PATCH_IGNORE_RANGE",
-    "PATCH_RETAIN_RANGE",
-    "PATCH_OLD_FILE_INFO_A",
-    "PATCH_OLD_FILE_INFO_W",
-    "PATCH_OLD_FILE_INFO_H",
-    "PATCH_OLD_FILE_INFO",
-    "PATCH_INTERLEAVE_MAP",
-    "PATCH_OPTION_DATA",
-    "DELTA_INPUT",
-    "DELTA_OUTPUT",
-    "DELTA_HASH",
-    "DELTA_HEADER_INFO",
-    "ACTIVATION_CONTEXT_QUERY_INDEX",
-    "ASSEMBLY_FILE_DETAILED_INFORMATION",
-    "ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION",
-    "ACTCTX_REQUESTED_RUN_LEVEL",
-    "ACTCTX_RUN_LEVEL_UNSPECIFIED",
-    "ACTCTX_RUN_LEVEL_AS_INVOKER",
-    "ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE",
-    "ACTCTX_RUN_LEVEL_REQUIRE_ADMIN",
-    "ACTCTX_RUN_LEVEL_NUMBERS",
-    "ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION",
-    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE",
-    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN",
-    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS",
-    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION",
-    "ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MAXVERSIONTESTED",
-    "COMPATIBILITY_CONTEXT_ELEMENT",
-    "ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION",
-    "ACTIVATION_CONTEXT_DETAILED_INFORMATION",
-    "ACTCTXA",
-    "ACTCTXW",
-    "ACTCTX_SECTION_KEYED_DATA",
-    "MsiCloseHandle",
-    "MsiCloseAllHandles",
-    "MsiSetInternalUI",
-    "MsiSetExternalUIA",
-    "MsiSetExternalUIW",
-    "MsiSetExternalUI",
-    "MsiSetExternalUIRecord",
-    "MsiEnableLogA",
-    "MsiEnableLogW",
-    "MsiEnableLog",
-    "MsiQueryProductStateA",
-    "MsiQueryProductStateW",
-    "MsiQueryProductState",
-    "MsiGetProductInfoA",
-    "MsiGetProductInfoW",
-    "MsiGetProductInfo",
-    "MsiGetProductInfoExA",
-    "MsiGetProductInfoExW",
-    "MsiGetProductInfoEx",
-    "MsiInstallProductA",
-    "MsiInstallProductW",
-    "MsiInstallProduct",
-    "MsiConfigureProductA",
-    "MsiConfigureProductW",
-    "MsiConfigureProduct",
-    "MsiConfigureProductExA",
-    "MsiConfigureProductExW",
-    "MsiConfigureProductEx",
-    "MsiReinstallProductA",
-    "MsiReinstallProductW",
-    "MsiReinstallProduct",
-    "MsiAdvertiseProductExA",
-    "MsiAdvertiseProductExW",
-    "MsiAdvertiseProductEx",
-    "MsiAdvertiseProductA",
-    "MsiAdvertiseProductW",
-    "MsiAdvertiseProduct",
-    "MsiProcessAdvertiseScriptA",
-    "MsiProcessAdvertiseScriptW",
-    "MsiProcessAdvertiseScript",
-    "MsiAdvertiseScriptA",
-    "MsiAdvertiseScriptW",
-    "MsiAdvertiseScript",
-    "MsiGetProductInfoFromScriptA",
-    "MsiGetProductInfoFromScriptW",
-    "MsiGetProductInfoFromScript",
-    "MsiGetProductCodeA",
-    "MsiGetProductCodeW",
-    "MsiGetProductCode",
-    "MsiGetUserInfoA",
-    "MsiGetUserInfoW",
-    "MsiGetUserInfo",
-    "MsiCollectUserInfoA",
-    "MsiCollectUserInfoW",
-    "MsiCollectUserInfo",
-    "MsiApplyPatchA",
-    "MsiApplyPatchW",
-    "MsiApplyPatch",
-    "MsiGetPatchInfoA",
-    "MsiGetPatchInfoW",
-    "MsiGetPatchInfo",
-    "MsiEnumPatchesA",
-    "MsiEnumPatchesW",
-    "MsiEnumPatches",
-    "MsiRemovePatchesA",
-    "MsiRemovePatchesW",
-    "MsiRemovePatches",
-    "MsiExtractPatchXMLDataA",
-    "MsiExtractPatchXMLDataW",
-    "MsiExtractPatchXMLData",
-    "MsiGetPatchInfoExA",
-    "MsiGetPatchInfoExW",
-    "MsiGetPatchInfoEx",
-    "MsiApplyMultiplePatchesA",
-    "MsiApplyMultiplePatchesW",
-    "MsiApplyMultiplePatches",
-    "MsiDeterminePatchSequenceA",
-    "MsiDeterminePatchSequenceW",
-    "MsiDeterminePatchSequence",
-    "MsiDetermineApplicablePatchesA",
-    "MsiDetermineApplicablePatchesW",
-    "MsiDetermineApplicablePatches",
-    "MsiEnumPatchesExA",
-    "MsiEnumPatchesExW",
-    "MsiEnumPatchesEx",
-    "MsiQueryFeatureStateA",
-    "MsiQueryFeatureStateW",
-    "MsiQueryFeatureState",
-    "MsiQueryFeatureStateExA",
-    "MsiQueryFeatureStateExW",
-    "MsiQueryFeatureStateEx",
-    "MsiUseFeatureA",
-    "MsiUseFeatureW",
-    "MsiUseFeature",
-    "MsiUseFeatureExA",
-    "MsiUseFeatureExW",
-    "MsiUseFeatureEx",
-    "MsiGetFeatureUsageA",
-    "MsiGetFeatureUsageW",
-    "MsiGetFeatureUsage",
-    "MsiConfigureFeatureA",
-    "MsiConfigureFeatureW",
-    "MsiConfigureFeature",
-    "MsiReinstallFeatureA",
-    "MsiReinstallFeatureW",
-    "MsiReinstallFeature",
-    "MsiProvideComponentA",
-    "MsiProvideComponentW",
-    "MsiProvideComponent",
-    "MsiProvideQualifiedComponentA",
-    "MsiProvideQualifiedComponentW",
-    "MsiProvideQualifiedComponent",
-    "MsiProvideQualifiedComponentExA",
-    "MsiProvideQualifiedComponentExW",
-    "MsiProvideQualifiedComponentEx",
-    "MsiGetComponentPathA",
-    "MsiGetComponentPathW",
-    "MsiGetComponentPath",
-    "MsiGetComponentPathExA",
-    "MsiGetComponentPathExW",
-    "MsiGetComponentPathEx",
-    "MsiProvideAssemblyA",
-    "MsiProvideAssemblyW",
-    "MsiProvideAssembly",
-    "MsiQueryComponentStateA",
-    "MsiQueryComponentStateW",
-    "MsiQueryComponentState",
-    "MsiEnumProductsA",
-    "MsiEnumProductsW",
-    "MsiEnumProducts",
-    "MsiEnumProductsExA",
-    "MsiEnumProductsExW",
-    "MsiEnumProductsEx",
-    "MsiEnumRelatedProductsA",
-    "MsiEnumRelatedProductsW",
-    "MsiEnumRelatedProducts",
-    "MsiEnumFeaturesA",
-    "MsiEnumFeaturesW",
-    "MsiEnumFeatures",
-    "MsiEnumComponentsA",
-    "MsiEnumComponentsW",
-    "MsiEnumComponents",
-    "MsiEnumComponentsExA",
-    "MsiEnumComponentsExW",
-    "MsiEnumComponentsEx",
-    "MsiEnumClientsA",
-    "MsiEnumClientsW",
-    "MsiEnumClients",
-    "MsiEnumClientsExA",
-    "MsiEnumClientsExW",
-    "MsiEnumClientsEx",
-    "MsiEnumComponentQualifiersA",
-    "MsiEnumComponentQualifiersW",
-    "MsiEnumComponentQualifiers",
-    "MsiOpenProductA",
-    "MsiOpenProductW",
-    "MsiOpenProduct",
-    "MsiOpenPackageA",
-    "MsiOpenPackageW",
-    "MsiOpenPackage",
-    "MsiOpenPackageExA",
-    "MsiOpenPackageExW",
-    "MsiOpenPackageEx",
-    "MsiGetPatchFileListA",
-    "MsiGetPatchFileListW",
-    "MsiGetPatchFileList",
-    "MsiGetProductPropertyA",
-    "MsiGetProductPropertyW",
-    "MsiGetProductProperty",
-    "MsiVerifyPackageA",
-    "MsiVerifyPackageW",
-    "MsiVerifyPackage",
-    "MsiGetFeatureInfoA",
-    "MsiGetFeatureInfoW",
-    "MsiGetFeatureInfo",
-    "MsiInstallMissingComponentA",
-    "MsiInstallMissingComponentW",
-    "MsiInstallMissingComponent",
-    "MsiInstallMissingFileA",
-    "MsiInstallMissingFileW",
-    "MsiInstallMissingFile",
-    "MsiLocateComponentA",
-    "MsiLocateComponentW",
-    "MsiLocateComponent",
-    "MsiSourceListClearAllA",
-    "MsiSourceListClearAllW",
-    "MsiSourceListClearAll",
-    "MsiSourceListAddSourceA",
-    "MsiSourceListAddSourceW",
-    "MsiSourceListAddSource",
-    "MsiSourceListForceResolutionA",
-    "MsiSourceListForceResolutionW",
-    "MsiSourceListForceResolution",
-    "MsiSourceListAddSourceExA",
-    "MsiSourceListAddSourceExW",
-    "MsiSourceListAddSourceEx",
-    "MsiSourceListAddMediaDiskA",
-    "MsiSourceListAddMediaDiskW",
-    "MsiSourceListAddMediaDisk",
-    "MsiSourceListClearSourceA",
-    "MsiSourceListClearSourceW",
-    "MsiSourceListClearSource",
-    "MsiSourceListClearMediaDiskA",
-    "MsiSourceListClearMediaDiskW",
-    "MsiSourceListClearMediaDisk",
-    "MsiSourceListClearAllExA",
-    "MsiSourceListClearAllExW",
-    "MsiSourceListClearAllEx",
-    "MsiSourceListForceResolutionExA",
-    "MsiSourceListForceResolutionExW",
-    "MsiSourceListForceResolutionEx",
-    "MsiSourceListSetInfoA",
-    "MsiSourceListSetInfoW",
-    "MsiSourceListSetInfo",
-    "MsiSourceListGetInfoA",
-    "MsiSourceListGetInfoW",
-    "MsiSourceListGetInfo",
-    "MsiSourceListEnumSourcesA",
-    "MsiSourceListEnumSourcesW",
-    "MsiSourceListEnumSources",
-    "MsiSourceListEnumMediaDisksA",
-    "MsiSourceListEnumMediaDisksW",
-    "MsiSourceListEnumMediaDisks",
-    "MsiGetFileVersionA",
-    "MsiGetFileVersionW",
-    "MsiGetFileVersion",
-    "MsiGetFileHashA",
-    "MsiGetFileHashW",
-    "MsiGetFileHash",
-    "MsiGetFileSignatureInformationA",
-    "MsiGetFileSignatureInformationW",
-    "MsiGetFileSignatureInformation",
-    "MsiGetShortcutTargetA",
-    "MsiGetShortcutTargetW",
-    "MsiGetShortcutTarget",
-    "MsiIsProductElevatedA",
-    "MsiIsProductElevatedW",
-    "MsiIsProductElevated",
-    "MsiNotifySidChangeA",
-    "MsiNotifySidChangeW",
-    "MsiNotifySidChange",
-    "MsiBeginTransactionA",
-    "MsiBeginTransactionW",
-    "MsiBeginTransaction",
-    "MsiEndTransaction",
-    "MsiJoinTransaction",
-    "MsiDatabaseOpenViewA",
-    "MsiDatabaseOpenViewW",
-    "MsiDatabaseOpenView",
-    "MsiViewGetErrorA",
-    "MsiViewGetErrorW",
-    "MsiViewGetError",
-    "MsiViewExecute",
-    "MsiViewFetch",
-    "MsiViewModify",
-    "MsiViewGetColumnInfo",
-    "MsiViewClose",
-    "MsiDatabaseGetPrimaryKeysA",
-    "MsiDatabaseGetPrimaryKeysW",
-    "MsiDatabaseGetPrimaryKeys",
-    "MsiDatabaseIsTablePersistentA",
-    "MsiDatabaseIsTablePersistentW",
-    "MsiDatabaseIsTablePersistent",
-    "MsiGetSummaryInformationA",
-    "MsiGetSummaryInformationW",
-    "MsiGetSummaryInformation",
-    "MsiSummaryInfoGetPropertyCount",
-    "MsiSummaryInfoSetPropertyA",
-    "MsiSummaryInfoSetPropertyW",
-    "MsiSummaryInfoSetProperty",
-    "MsiSummaryInfoGetPropertyA",
-    "MsiSummaryInfoGetPropertyW",
-    "MsiSummaryInfoGetProperty",
-    "MsiSummaryInfoPersist",
-    "MsiOpenDatabaseA",
-    "MsiOpenDatabaseW",
-    "MsiOpenDatabase",
-    "MsiDatabaseImportA",
-    "MsiDatabaseImportW",
-    "MsiDatabaseImport",
-    "MsiDatabaseExportA",
-    "MsiDatabaseExportW",
-    "MsiDatabaseExport",
-    "MsiDatabaseMergeA",
-    "MsiDatabaseMergeW",
-    "MsiDatabaseMerge",
-    "MsiDatabaseGenerateTransformA",
-    "MsiDatabaseGenerateTransformW",
-    "MsiDatabaseGenerateTransform",
-    "MsiDatabaseApplyTransformA",
-    "MsiDatabaseApplyTransformW",
-    "MsiDatabaseApplyTransform",
-    "MsiCreateTransformSummaryInfoA",
-    "MsiCreateTransformSummaryInfoW",
-    "MsiCreateTransformSummaryInfo",
-    "MsiDatabaseCommit",
-    "MsiGetDatabaseState",
-    "MsiCreateRecord",
-    "MsiRecordIsNull",
-    "MsiRecordDataSize",
-    "MsiRecordSetInteger",
-    "MsiRecordSetStringA",
-    "MsiRecordSetStringW",
-    "MsiRecordSetString",
-    "MsiRecordGetInteger",
-    "MsiRecordGetStringA",
-    "MsiRecordGetStringW",
-    "MsiRecordGetString",
-    "MsiRecordGetFieldCount",
-    "MsiRecordSetStreamA",
-    "MsiRecordSetStreamW",
-    "MsiRecordSetStream",
-    "MsiRecordReadStream",
-    "MsiRecordClearData",
-    "MsiGetActiveDatabase",
-    "MsiSetPropertyA",
-    "MsiSetPropertyW",
-    "MsiSetProperty",
-    "MsiGetPropertyA",
-    "MsiGetPropertyW",
-    "MsiGetProperty",
-    "MsiGetLanguage",
-    "MsiGetMode",
-    "MsiSetMode",
-    "MsiFormatRecordA",
-    "MsiFormatRecordW",
-    "MsiFormatRecord",
-    "MsiDoActionA",
-    "MsiDoActionW",
-    "MsiDoAction",
-    "MsiSequenceA",
-    "MsiSequenceW",
-    "MsiSequence",
-    "MsiProcessMessage",
-    "MsiEvaluateConditionA",
-    "MsiEvaluateConditionW",
-    "MsiEvaluateCondition",
-    "MsiGetFeatureStateA",
-    "MsiGetFeatureStateW",
-    "MsiGetFeatureState",
-    "MsiSetFeatureStateA",
-    "MsiSetFeatureStateW",
-    "MsiSetFeatureState",
-    "MsiSetFeatureAttributesA",
-    "MsiSetFeatureAttributesW",
-    "MsiSetFeatureAttributes",
-    "MsiGetComponentStateA",
-    "MsiGetComponentStateW",
-    "MsiGetComponentState",
-    "MsiSetComponentStateA",
-    "MsiSetComponentStateW",
-    "MsiSetComponentState",
-    "MsiGetFeatureCostA",
-    "MsiGetFeatureCostW",
-    "MsiGetFeatureCost",
-    "MsiEnumComponentCostsA",
-    "MsiEnumComponentCostsW",
-    "MsiEnumComponentCosts",
-    "MsiSetInstallLevel",
-    "MsiGetFeatureValidStatesA",
-    "MsiGetFeatureValidStatesW",
-    "MsiGetFeatureValidStates",
-    "MsiGetSourcePathA",
-    "MsiGetSourcePathW",
-    "MsiGetSourcePath",
-    "MsiGetTargetPathA",
-    "MsiGetTargetPathW",
-    "MsiGetTargetPath",
-    "MsiSetTargetPathA",
-    "MsiSetTargetPathW",
-    "MsiSetTargetPath",
-    "MsiVerifyDiskSpace",
-    "MsiEnableUIPreview",
-    "MsiPreviewDialogA",
-    "MsiPreviewDialogW",
-    "MsiPreviewDialog",
-    "MsiPreviewBillboardA",
-    "MsiPreviewBillboardW",
-    "MsiPreviewBillboard",
-    "MsiGetLastErrorRecord",
-    "SfcGetNextProtectedFile",
-    "SfcIsFileProtected",
-    "SfcIsKeyProtected",
-    "SfpVerifyFile",
-    "CreatePatchFileA",
-    "CreatePatchFileW",
-    "CreatePatchFile",
-    "CreatePatchFileByHandles",
-    "CreatePatchFileExA",
-    "CreatePatchFileExW",
-    "CreatePatchFileEx",
-    "CreatePatchFileByHandlesEx",
-    "ExtractPatchHeaderToFileA",
-    "ExtractPatchHeaderToFileW",
-    "ExtractPatchHeaderToFile",
-    "ExtractPatchHeaderToFileByHandles",
+    "TILE_TEMPLATE_TYPE",
+    "TXTLOG_BACKUP",
+    "TXTLOG_CMI",
+    "TXTLOG_COPYFILES",
+    "TXTLOG_DEPTH_DECR",
+    "TXTLOG_DEPTH_INCR",
+    "TXTLOG_DETAILS",
+    "TXTLOG_DEVINST",
+    "TXTLOG_DEVMGR",
+    "TXTLOG_DRIVER_STORE",
+    "TXTLOG_DRVSETUP",
+    "TXTLOG_ERROR",
+    "TXTLOG_FILEQ",
+    "TXTLOG_FLUSH_FILE",
+    "TXTLOG_INF",
+    "TXTLOG_INFDB",
+    "TXTLOG_INSTALLER",
+    "TXTLOG_NEWDEV",
+    "TXTLOG_POLICY",
+    "TXTLOG_RESERVED_FLAGS",
+    "TXTLOG_SETUP",
+    "TXTLOG_SETUPAPI_BITS",
+    "TXTLOG_SETUPAPI_CMDLINE",
+    "TXTLOG_SETUPAPI_DEVLOG",
+    "TXTLOG_SIGVERIF",
+    "TXTLOG_SUMMARY",
+    "TXTLOG_SYSTEM_STATE_CHANGE",
+    "TXTLOG_TAB_1",
+    "TXTLOG_TIMESTAMP",
+    "TXTLOG_UI",
+    "TXTLOG_UMPNPMGR",
+    "TXTLOG_UTIL",
+    "TXTLOG_VENDOR",
+    "TXTLOG_VERBOSE",
+    "TXTLOG_VERY_VERBOSE",
+    "TXTLOG_WARNING",
     "TestApplyPatchToFileA",
-    "TestApplyPatchToFileW",
-    "TestApplyPatchToFile",
-    "TestApplyPatchToFileByHandles",
     "TestApplyPatchToFileByBuffers",
-    "ApplyPatchToFileA",
-    "ApplyPatchToFileW",
-    "ApplyPatchToFile",
-    "ApplyPatchToFileByHandles",
-    "ApplyPatchToFileExA",
-    "ApplyPatchToFileExW",
-    "ApplyPatchToFileEx",
-    "ApplyPatchToFileByHandlesEx",
-    "ApplyPatchToFileByBuffers",
-    "GetFilePatchSignatureA",
-    "GetFilePatchSignatureW",
-    "GetFilePatchSignature",
-    "GetFilePatchSignatureByHandle",
-    "GetFilePatchSignatureByBuffer",
-    "NormalizeFileForPatchSignature",
-    "GetDeltaInfoB",
-    "GetDeltaInfoA",
-    "GetDeltaInfoW",
-    "GetDeltaInfo",
-    "ApplyDeltaGetReverseB",
-    "ApplyDeltaB",
-    "ApplyDeltaProvidedB",
-    "ApplyDeltaA",
-    "ApplyDeltaW",
-    "ApplyDelta",
-    "CreateDeltaB",
-    "CreateDeltaA",
-    "CreateDeltaW",
-    "CreateDelta",
-    "GetDeltaSignatureB",
-    "GetDeltaSignatureA",
-    "GetDeltaSignatureW",
-    "GetDeltaSignature",
-    "DeltaNormalizeProvidedB",
-    "DeltaFree",
-    "CreateActCtxA",
-    "CreateActCtxW",
-    "CreateActCtx",
-    "AddRefActCtx",
-    "ReleaseActCtx",
+    "TestApplyPatchToFileByHandles",
+    "TestApplyPatchToFileW",
+    "UIALL",
+    "UILOGBITS",
+    "UINONE",
+    "USERINFOSTATE",
+    "USERINFOSTATE_ABSENT",
+    "USERINFOSTATE_INVALIDARG",
+    "USERINFOSTATE_MOREDATA",
+    "USERINFOSTATE_PRESENT",
+    "USERINFOSTATE_UNKNOWN",
+    "WARN_BAD_MAJOR_VERSION",
+    "WARN_BASE",
+    "WARN_EQUAL_FILE_VERSION",
+    "WARN_FILE_VERSION_DOWNREV",
+    "WARN_IMPROPER_TRANSFORM_VALIDATION",
+    "WARN_INVALID_TRANSFORM_VALIDATION",
+    "WARN_MAJOR_UPGRADE_PATCH",
+    "WARN_OBSOLETION_WITH_MSI30",
+    "WARN_OBSOLETION_WITH_PATCHSEQUENCE",
+    "WARN_OBSOLETION_WITH_SEQUENCE_DATA",
+    "WARN_PATCHPROPERTYNOTSET",
+    "WARN_PCW_MISMATCHED_PRODUCT_CODES",
+    "WARN_PCW_MISMATCHED_PRODUCT_VERSIONS",
+    "WARN_SEQUENCE_DATA_GENERATION_DISABLED",
+    "WARN_SEQUENCE_DATA_SUPERSEDENCE_IGNORED",
     "ZombifyActCtx",
-    "ActivateActCtx",
-    "DeactivateActCtx",
-    "GetCurrentActCtx",
-    "FindActCtxSectionStringA",
-    "FindActCtxSectionStringW",
-    "FindActCtxSectionString",
-    "FindActCtxSectionGuid",
-    "QueryActCtxW",
-    "QueryActCtxSettingsW",
+    "_WIN32_MSI",
+    "_WIN32_MSM",
+    "cchMaxInteger",
+    "msidbAssemblyAttributes",
+    "msidbAssemblyAttributes_msidbAssemblyAttributesURT",
+    "msidbAssemblyAttributes_msidbAssemblyAttributesWin32",
+    "msidbClassAttributes",
+    "msidbClassAttributes_msidbClassAttributesRelativePath",
+    "msidbComponentAttributes",
+    "msidbComponentAttributes_msidbComponentAttributes64bit",
+    "msidbComponentAttributes_msidbComponentAttributesDisableRegistryReflection",
+    "msidbComponentAttributes_msidbComponentAttributesLocalOnly",
+    "msidbComponentAttributes_msidbComponentAttributesNeverOverwrite",
+    "msidbComponentAttributes_msidbComponentAttributesODBCDataSource",
+    "msidbComponentAttributes_msidbComponentAttributesOptional",
+    "msidbComponentAttributes_msidbComponentAttributesPermanent",
+    "msidbComponentAttributes_msidbComponentAttributesRegistryKeyPath",
+    "msidbComponentAttributes_msidbComponentAttributesShared",
+    "msidbComponentAttributes_msidbComponentAttributesSharedDllRefCount",
+    "msidbComponentAttributes_msidbComponentAttributesSourceOnly",
+    "msidbComponentAttributes_msidbComponentAttributesTransitive",
+    "msidbComponentAttributes_msidbComponentAttributesUninstallOnSupersedence",
+    "msidbControlAttributes",
+    "msidbControlAttributes_msidbControlAttributesBiDi",
+    "msidbControlAttributes_msidbControlAttributesBitmap",
+    "msidbControlAttributes_msidbControlAttributesCDROMVolume",
+    "msidbControlAttributes_msidbControlAttributesComboList",
+    "msidbControlAttributes_msidbControlAttributesElevationShield",
+    "msidbControlAttributes_msidbControlAttributesEnabled",
+    "msidbControlAttributes_msidbControlAttributesFixedSize",
+    "msidbControlAttributes_msidbControlAttributesFixedVolume",
+    "msidbControlAttributes_msidbControlAttributesFloppyVolume",
+    "msidbControlAttributes_msidbControlAttributesFormatSize",
+    "msidbControlAttributes_msidbControlAttributesHasBorder",
+    "msidbControlAttributes_msidbControlAttributesIcon",
+    "msidbControlAttributes_msidbControlAttributesIconSize16",
+    "msidbControlAttributes_msidbControlAttributesIconSize32",
+    "msidbControlAttributes_msidbControlAttributesIconSize48",
+    "msidbControlAttributes_msidbControlAttributesImageHandle",
+    "msidbControlAttributes_msidbControlAttributesIndirect",
+    "msidbControlAttributes_msidbControlAttributesInteger",
+    "msidbControlAttributes_msidbControlAttributesLeftScroll",
+    "msidbControlAttributes_msidbControlAttributesMultiline",
+    "msidbControlAttributes_msidbControlAttributesNoPrefix",
+    "msidbControlAttributes_msidbControlAttributesNoWrap",
+    "msidbControlAttributes_msidbControlAttributesPasswordInput",
+    "msidbControlAttributes_msidbControlAttributesProgress95",
+    "msidbControlAttributes_msidbControlAttributesPushLike",
+    "msidbControlAttributes_msidbControlAttributesRAMDiskVolume",
+    "msidbControlAttributes_msidbControlAttributesRTLRO",
+    "msidbControlAttributes_msidbControlAttributesRemoteVolume",
+    "msidbControlAttributes_msidbControlAttributesRemovableVolume",
+    "msidbControlAttributes_msidbControlAttributesRightAligned",
+    "msidbControlAttributes_msidbControlAttributesSorted",
+    "msidbControlAttributes_msidbControlAttributesSunken",
+    "msidbControlAttributes_msidbControlAttributesTransparent",
+    "msidbControlAttributes_msidbControlAttributesUsersLanguage",
+    "msidbControlAttributes_msidbControlAttributesVisible",
+    "msidbControlAttributes_msidbControlShowRollbackCost",
+    "msidbCustomActionType",
+    "msidbCustomActionType_msidbCustomActionType64BitScript",
+    "msidbCustomActionType_msidbCustomActionTypeAsync",
+    "msidbCustomActionType_msidbCustomActionTypeBinaryData",
+    "msidbCustomActionType_msidbCustomActionTypeClientRepeat",
+    "msidbCustomActionType_msidbCustomActionTypeCommit",
+    "msidbCustomActionType_msidbCustomActionTypeContinue",
+    "msidbCustomActionType_msidbCustomActionTypeDirectory",
+    "msidbCustomActionType_msidbCustomActionTypeDll",
+    "msidbCustomActionType_msidbCustomActionTypeExe",
+    "msidbCustomActionType_msidbCustomActionTypeFirstSequence",
+    "msidbCustomActionType_msidbCustomActionTypeHideTarget",
+    "msidbCustomActionType_msidbCustomActionTypeInScript",
+    "msidbCustomActionType_msidbCustomActionTypeInstall",
+    "msidbCustomActionType_msidbCustomActionTypeJScript",
+    "msidbCustomActionType_msidbCustomActionTypeNoImpersonate",
+    "msidbCustomActionType_msidbCustomActionTypeOncePerProcess",
+    "msidbCustomActionType_msidbCustomActionTypePatchUninstall",
+    "msidbCustomActionType_msidbCustomActionTypeProperty",
+    "msidbCustomActionType_msidbCustomActionTypeRollback",
+    "msidbCustomActionType_msidbCustomActionTypeSourceFile",
+    "msidbCustomActionType_msidbCustomActionTypeTSAware",
+    "msidbCustomActionType_msidbCustomActionTypeTextData",
+    "msidbCustomActionType_msidbCustomActionTypeVBScript",
+    "msidbDialogAttributes",
+    "msidbDialogAttributes_msidbDialogAttributesBiDi",
+    "msidbDialogAttributes_msidbDialogAttributesError",
+    "msidbDialogAttributes_msidbDialogAttributesKeepModeless",
+    "msidbDialogAttributes_msidbDialogAttributesLeftScroll",
+    "msidbDialogAttributes_msidbDialogAttributesMinimize",
+    "msidbDialogAttributes_msidbDialogAttributesModal",
+    "msidbDialogAttributes_msidbDialogAttributesRTLRO",
+    "msidbDialogAttributes_msidbDialogAttributesRightAligned",
+    "msidbDialogAttributes_msidbDialogAttributesSysModal",
+    "msidbDialogAttributes_msidbDialogAttributesTrackDiskSpace",
+    "msidbDialogAttributes_msidbDialogAttributesUseCustomPalette",
+    "msidbDialogAttributes_msidbDialogAttributesVisible",
+    "msidbEmbeddedUIAttributes",
+    "msidbEmbeddedUIAttributes_msidbEmbeddedHandlesBasic",
+    "msidbEmbeddedUIAttributes_msidbEmbeddedUI",
+    "msidbFeatureAttributes",
+    "msidbFeatureAttributes_msidbFeatureAttributesDisallowAdvertise",
+    "msidbFeatureAttributes_msidbFeatureAttributesFavorAdvertise",
+    "msidbFeatureAttributes_msidbFeatureAttributesFavorLocal",
+    "msidbFeatureAttributes_msidbFeatureAttributesFavorSource",
+    "msidbFeatureAttributes_msidbFeatureAttributesFollowParent",
+    "msidbFeatureAttributes_msidbFeatureAttributesNoUnsupportedAdvertise",
+    "msidbFeatureAttributes_msidbFeatureAttributesUIDisallowAbsent",
+    "msidbFileAttributes",
+    "msidbFileAttributes_msidbFileAttributesChecksum",
+    "msidbFileAttributes_msidbFileAttributesCompressed",
+    "msidbFileAttributes_msidbFileAttributesHidden",
+    "msidbFileAttributes_msidbFileAttributesIsolatedComp",
+    "msidbFileAttributes_msidbFileAttributesNoncompressed",
+    "msidbFileAttributes_msidbFileAttributesPatchAdded",
+    "msidbFileAttributes_msidbFileAttributesReadOnly",
+    "msidbFileAttributes_msidbFileAttributesReserved0",
+    "msidbFileAttributes_msidbFileAttributesReserved1",
+    "msidbFileAttributes_msidbFileAttributesReserved2",
+    "msidbFileAttributes_msidbFileAttributesReserved3",
+    "msidbFileAttributes_msidbFileAttributesReserved4",
+    "msidbFileAttributes_msidbFileAttributesSystem",
+    "msidbFileAttributes_msidbFileAttributesVital",
+    "msidbIniFileAction",
+    "msidbIniFileAction_msidbIniFileActionAddLine",
+    "msidbIniFileAction_msidbIniFileActionAddTag",
+    "msidbIniFileAction_msidbIniFileActionCreateLine",
+    "msidbIniFileAction_msidbIniFileActionRemoveLine",
+    "msidbIniFileAction_msidbIniFileActionRemoveTag",
+    "msidbLocatorType",
+    "msidbLocatorType_msidbLocatorType64bit",
+    "msidbLocatorType_msidbLocatorTypeDirectory",
+    "msidbLocatorType_msidbLocatorTypeFileName",
+    "msidbLocatorType_msidbLocatorTypeRawValue",
+    "msidbMoveFileOptions",
+    "msidbMoveFileOptions_msidbMoveFileOptionsMove",
+    "msidbODBCDataSourceRegistration",
+    "msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerMachine",
+    "msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerUser",
+    "msidbPatchAttributes",
+    "msidbPatchAttributes_msidbPatchAttributesNonVital",
+    "msidbRegistryRoot",
+    "msidbRegistryRoot_msidbRegistryRootClassesRoot",
+    "msidbRegistryRoot_msidbRegistryRootCurrentUser",
+    "msidbRegistryRoot_msidbRegistryRootLocalMachine",
+    "msidbRegistryRoot_msidbRegistryRootUsers",
+    "msidbRemoveFileInstallMode",
+    "msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnBoth",
+    "msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnInstall",
+    "msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnRemove",
+    "msidbServiceConfigEvent",
+    "msidbServiceConfigEvent_msidbServiceConfigEventInstall",
+    "msidbServiceConfigEvent_msidbServiceConfigEventReinstall",
+    "msidbServiceConfigEvent_msidbServiceConfigEventUninstall",
+    "msidbServiceControlEvent",
+    "msidbServiceControlEvent_msidbServiceControlEventDelete",
+    "msidbServiceControlEvent_msidbServiceControlEventStart",
+    "msidbServiceControlEvent_msidbServiceControlEventStop",
+    "msidbServiceControlEvent_msidbServiceControlEventUninstallDelete",
+    "msidbServiceControlEvent_msidbServiceControlEventUninstallStart",
+    "msidbServiceControlEvent_msidbServiceControlEventUninstallStop",
+    "msidbServiceInstallErrorControl",
+    "msidbServiceInstallErrorControl_msidbServiceInstallErrorControlVital",
+    "msidbSumInfoSourceType",
+    "msidbSumInfoSourceType_msidbSumInfoSourceTypeAdminImage",
+    "msidbSumInfoSourceType_msidbSumInfoSourceTypeCompressed",
+    "msidbSumInfoSourceType_msidbSumInfoSourceTypeLUAPackage",
+    "msidbSumInfoSourceType_msidbSumInfoSourceTypeSFN",
+    "msidbTextStyleStyleBits",
+    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsBold",
+    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsItalic",
+    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsStrike",
+    "msidbTextStyleStyleBits_msidbTextStyleStyleBitsUnderline",
+    "msidbUpgradeAttributes",
+    "msidbUpgradeAttributes_msidbUpgradeAttributesIgnoreRemoveFailure",
+    "msidbUpgradeAttributes_msidbUpgradeAttributesLanguagesExclusive",
+    "msidbUpgradeAttributes_msidbUpgradeAttributesMigrateFeatures",
+    "msidbUpgradeAttributes_msidbUpgradeAttributesOnlyDetect",
+    "msidbUpgradeAttributes_msidbUpgradeAttributesVersionMaxInclusive",
+    "msidbUpgradeAttributes_msidbUpgradeAttributesVersionMinInclusive",
+    "msifiFastInstallBits",
+    "msifiFastInstallBits_msifiFastInstallLessPrgMsg",
+    "msifiFastInstallBits_msifiFastInstallNoSR",
+    "msifiFastInstallBits_msifiFastInstallQuickCosting",
+    "msirbRebootReason",
+    "msirbRebootReason_msirbRebootCustomActionReason",
+    "msirbRebootReason_msirbRebootForceRebootReason",
+    "msirbRebootReason_msirbRebootInUseFilesReason",
+    "msirbRebootReason_msirbRebootScheduleRebootReason",
+    "msirbRebootReason_msirbRebootUndeterminedReason",
+    "msirbRebootType",
+    "msirbRebootType_msirbRebootDeferred",
+    "msirbRebootType_msirbRebootImmediate",
+    "msmErrorType",
+    "msmErrorType_msmErrorDirCreate",
+    "msmErrorType_msmErrorExclusion",
+    "msmErrorType_msmErrorFeatureRequired",
+    "msmErrorType_msmErrorFileCreate",
+    "msmErrorType_msmErrorLanguageFailed",
+    "msmErrorType_msmErrorLanguageUnsupported",
+    "msmErrorType_msmErrorResequenceMerge",
+    "msmErrorType_msmErrorTableMerge",
 ]

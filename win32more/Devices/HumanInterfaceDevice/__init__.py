@@ -1,22 +1,28 @@
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, PROPERTYKEY, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
 import win32more.Devices.HumanInterfaceDevice
+import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Registry
-import win32more.UI.Shell.PropertiesSystem
-
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f"_define_{name}"]
+        f = globals()[f'_define_{name}']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, f())
     return getattr(_module, name)
 def __dir__():
     return __all__
+def _define__HIDP_PREPARSED_DATA_head():
+    class _HIDP_PREPARSED_DATA(Structure):
+        pass
+    return _HIDP_PREPARSED_DATA
+def _define__HIDP_PREPARSED_DATA():
+    _HIDP_PREPARSED_DATA = win32more.Devices.HumanInterfaceDevice._HIDP_PREPARSED_DATA_head
+    return _HIDP_PREPARSED_DATA
 DIRECTINPUT_VERSION = 2048
 JOY_HW_NONE = 0
 JOY_HW_CUSTOM = 1
@@ -109,15 +115,46 @@ DIJC_WDMGAMEPORT = 16
 DIJU_USERVALUES = 1
 DIJU_GLOBALDRIVER = 2
 DIJU_GAMEPORTEMULATOR = 4
-GUID_KeyboardClass = '4d36e96b-e325-11ce-bfc1-08002be10318'
-GUID_MediaClass = '4d36e96c-e325-11ce-bfc1-08002be10318'
-GUID_MouseClass = '4d36e96f-e325-11ce-bfc1-08002be10318'
-GUID_HIDClass = '745a17a0-74d3-11d0-b6fe-00a0c90f57da'
+def _define_GUID_KeyboardClass():
+    return Guid('4d36e96b-e325-11ce-bf-c1-08-00-2b-e1-03-18')
+def _define_GUID_MediaClass():
+    return Guid('4d36e96c-e325-11ce-bf-c1-08-00-2b-e1-03-18')
+def _define_GUID_MouseClass():
+    return Guid('4d36e96f-e325-11ce-bf-c1-08-00-2b-e1-03-18')
+def _define_GUID_HIDClass():
+    return Guid('745a17a0-74d3-11d0-b6-fe-00-a0-c9-0f-57-da')
+DIRECTINPUT_NOTIFICATION_MSGSTRINGA = 'DIRECTINPUT_NOTIFICATION_MSGSTRING'
+DIRECTINPUT_NOTIFICATION_MSGSTRINGW = 'DIRECTINPUT_NOTIFICATION_MSGSTRING'
+DIRECTINPUT_NOTIFICATION_MSGSTRING = 'DIRECTINPUT_NOTIFICATION_MSGSTRING'
 DIMSGWP_NEWAPPSTART = 1
 DIMSGWP_DX8APPSTART = 2
 DIMSGWP_DX8MAPPERAPPSTART = 3
 DIAPPIDFLAG_NOTIME = 1
 DIAPPIDFLAG_NOSIZE = 2
+DIRECTINPUT_REGSTR_VAL_APPIDFLAGA = 'AppIdFlag'
+DIRECTINPUT_REGSTR_KEY_LASTAPPA = 'MostRecentApplication'
+DIRECTINPUT_REGSTR_KEY_LASTMAPAPPA = 'MostRecentMapperApplication'
+DIRECTINPUT_REGSTR_VAL_VERSIONA = 'Version'
+DIRECTINPUT_REGSTR_VAL_NAMEA = 'Name'
+DIRECTINPUT_REGSTR_VAL_IDA = 'Id'
+DIRECTINPUT_REGSTR_VAL_MAPPERA = 'UsesMapper'
+DIRECTINPUT_REGSTR_VAL_LASTSTARTA = 'MostRecentStart'
+DIRECTINPUT_REGSTR_VAL_APPIDFLAGW = 'AppIdFlag'
+DIRECTINPUT_REGSTR_KEY_LASTAPPW = 'MostRecentApplication'
+DIRECTINPUT_REGSTR_KEY_LASTMAPAPPW = 'MostRecentMapperApplication'
+DIRECTINPUT_REGSTR_VAL_VERSIONW = 'Version'
+DIRECTINPUT_REGSTR_VAL_NAMEW = 'Name'
+DIRECTINPUT_REGSTR_VAL_IDW = 'Id'
+DIRECTINPUT_REGSTR_VAL_MAPPERW = 'UsesMapper'
+DIRECTINPUT_REGSTR_VAL_LASTSTARTW = 'MostRecentStart'
+DIRECTINPUT_REGSTR_VAL_APPIDFLAG = 'AppIdFlag'
+DIRECTINPUT_REGSTR_KEY_LASTAPP = 'MostRecentApplication'
+DIRECTINPUT_REGSTR_KEY_LASTMAPAPP = 'MostRecentMapperApplication'
+DIRECTINPUT_REGSTR_VAL_VERSION = 'Version'
+DIRECTINPUT_REGSTR_VAL_NAME = 'Name'
+DIRECTINPUT_REGSTR_VAL_ID = 'Id'
+DIRECTINPUT_REGSTR_VAL_MAPPER = 'UsesMapper'
+DIRECTINPUT_REGSTR_VAL_LASTSTART = 'MostRecentStart'
 DIERR_NOMOREITEMS = -2147024637
 DIERR_DRIVERFIRST = -2147220736
 DIERR_DRIVERLAST = -2147220481
@@ -125,17 +162,28 @@ DIERR_INVALIDCLASSINSTALLER = -2147220480
 DIERR_CANCELLED = -2147220479
 DIERR_BADINF = -2147220478
 DIDIFT_DELETE = 16777216
-GUID_DEVINTERFACE_HID = '4d1e55b2-f16f-11cf-88cb-001111000030'
-GUID_HID_INTERFACE_NOTIFY = '2c4e2e88-25e6-4c33-882f-3d82e6073681'
-GUID_HID_INTERFACE_HIDPARSE = 'f5c315a5-69ac-4bc2-9279-d0b64576f44b'
-DEVPKEY_DeviceInterface_HID_UsagePage = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=2)
-DEVPKEY_DeviceInterface_HID_UsageId = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=3)
-DEVPKEY_DeviceInterface_HID_IsReadOnly = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=4)
-DEVPKEY_DeviceInterface_HID_VendorId = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=5)
-DEVPKEY_DeviceInterface_HID_ProductId = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=6)
-DEVPKEY_DeviceInterface_HID_VersionNumber = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=7)
-DEVPKEY_DeviceInterface_HID_BackgroundAccess = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=8)
-DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable = PROPERTYKEY(Fmtid='cbf38310-4a17-4310-a1eb-247f0b67593b', Pid=9)
+def _define_GUID_DEVINTERFACE_HID():
+    return Guid('4d1e55b2-f16f-11cf-88-cb-00-11-11-00-00-30')
+def _define_GUID_HID_INTERFACE_NOTIFY():
+    return Guid('2c4e2e88-25e6-4c33-88-2f-3d-82-e6-07-36-81')
+def _define_GUID_HID_INTERFACE_HIDPARSE():
+    return Guid('f5c315a5-69ac-4bc2-92-79-d0-b6-45-76-f4-4b')
+def _define_DEVPKEY_DeviceInterface_HID_UsagePage():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=2)
+def _define_DEVPKEY_DeviceInterface_HID_UsageId():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=3)
+def _define_DEVPKEY_DeviceInterface_HID_IsReadOnly():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=4)
+def _define_DEVPKEY_DeviceInterface_HID_VendorId():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=5)
+def _define_DEVPKEY_DeviceInterface_HID_ProductId():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=6)
+def _define_DEVPKEY_DeviceInterface_HID_VersionNumber():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=7)
+def _define_DEVPKEY_DeviceInterface_HID_BackgroundAccess():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=8)
+def _define_DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable():
+    return win32more.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=9)
 HID_REVISION = 1
 HID_USAGE_PAGE_UNDEFINED = 0
 HID_USAGE_PAGE_GENERIC = 1
@@ -749,6 +797,8 @@ HID_USAGE_CAMERA_AUTO_FOCUS = 32
 HID_USAGE_CAMERA_SHUTTER = 33
 HID_USAGE_MS_BTH_HF_DIALNUMBER = 33
 HID_USAGE_MS_BTH_HF_DIALMEMORY = 34
+DD_KEYBOARD_DEVICE_NAME = '\\Device\\KeyboardClass'
+DD_KEYBOARD_DEVICE_NAME_U = '\\Device\\KeyboardClass'
 IOCTL_KEYBOARD_QUERY_ATTRIBUTES = 720896
 IOCTL_KEYBOARD_SET_TYPEMATIC = 720900
 IOCTL_KEYBOARD_SET_INDICATORS = 720904
@@ -759,7 +809,8 @@ IOCTL_KEYBOARD_INSERT_DATA = 721152
 IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES = 721408
 IOCTL_KEYBOARD_QUERY_IME_STATUS = 724992
 IOCTL_KEYBOARD_SET_IME_STATUS = 724996
-GUID_DEVINTERFACE_KEYBOARD = '884b96c3-56ef-11d1-bc8c-00a0c91405dd'
+def _define_GUID_DEVINTERFACE_KEYBOARD():
+    return Guid('884b96c3-56ef-11d1-bc-8c-00-a0-c9-14-05-dd')
 KEYBOARD_OVERRUN_MAKE_CODE = 255
 KEY_MAKE = 0
 KEY_BREAK = 1
@@ -780,9 +831,12 @@ KEYBOARD_CAPS_LOCK_ON = 4
 KEYBOARD_NUM_LOCK_ON = 2
 KEYBOARD_SCROLL_LOCK_ON = 1
 KEYBOARD_ERROR_VALUE_BASE = 10000
+DD_MOUSE_DEVICE_NAME = '\\Device\\PointerClass'
+DD_MOUSE_DEVICE_NAME_U = '\\Device\\PointerClass'
 IOCTL_MOUSE_QUERY_ATTRIBUTES = 983040
 IOCTL_MOUSE_INSERT_DATA = 983044
-GUID_DEVINTERFACE_MOUSE = '378de44c-56ef-11d1-bc8c-00a0c91405dd'
+def _define_GUID_DEVINTERFACE_MOUSE():
+    return Guid('378de44c-56ef-11d1-bc-8c-00-a0-c9-14-05-dd')
 MOUSE_LEFT_BUTTON_DOWN = 1
 MOUSE_LEFT_BUTTON_UP = 2
 MOUSE_RIGHT_BUTTON_DOWN = 4
@@ -819,40 +873,74 @@ WHEELMOUSE_HID_HARDWARE = 256
 HORIZONTAL_WHEEL_PRESENT = 32768
 MOUSE_ERROR_VALUE_BASE = 20000
 DIRECTINPUT_HEADER_VERSION = 2048
-CLSID_DirectInput = '25e609e0-b259-11cf-bfc7-444553540000'
-CLSID_DirectInputDevice = '25e609e1-b259-11cf-bfc7-444553540000'
-CLSID_DirectInput8 = '25e609e4-b259-11cf-bfc7-444553540000'
-CLSID_DirectInputDevice8 = '25e609e5-b259-11cf-bfc7-444553540000'
-GUID_XAxis = 'a36d02e0-c9f3-11cf-bfc7-444553540000'
-GUID_YAxis = 'a36d02e1-c9f3-11cf-bfc7-444553540000'
-GUID_ZAxis = 'a36d02e2-c9f3-11cf-bfc7-444553540000'
-GUID_RxAxis = 'a36d02f4-c9f3-11cf-bfc7-444553540000'
-GUID_RyAxis = 'a36d02f5-c9f3-11cf-bfc7-444553540000'
-GUID_RzAxis = 'a36d02e3-c9f3-11cf-bfc7-444553540000'
-GUID_Slider = 'a36d02e4-c9f3-11cf-bfc7-444553540000'
-GUID_Button = 'a36d02f0-c9f3-11cf-bfc7-444553540000'
-GUID_Key = '55728220-d33c-11cf-bfc7-444553540000'
-GUID_POV = 'a36d02f2-c9f3-11cf-bfc7-444553540000'
-GUID_Unknown = 'a36d02f3-c9f3-11cf-bfc7-444553540000'
-GUID_SysMouse = '6f1d2b60-d5a0-11cf-bfc7-444553540000'
-GUID_SysKeyboard = '6f1d2b61-d5a0-11cf-bfc7-444553540000'
-GUID_Joystick = '6f1d2b70-d5a0-11cf-bfc7-444553540000'
-GUID_SysMouseEm = '6f1d2b80-d5a0-11cf-bfc7-444553540000'
-GUID_SysMouseEm2 = '6f1d2b81-d5a0-11cf-bfc7-444553540000'
-GUID_SysKeyboardEm = '6f1d2b82-d5a0-11cf-bfc7-444553540000'
-GUID_SysKeyboardEm2 = '6f1d2b83-d5a0-11cf-bfc7-444553540000'
-GUID_ConstantForce = '13541c20-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_RampForce = '13541c21-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Square = '13541c22-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Sine = '13541c23-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Triangle = '13541c24-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_SawtoothUp = '13541c25-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_SawtoothDown = '13541c26-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Spring = '13541c27-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Damper = '13541c28-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Inertia = '13541c29-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_Friction = '13541c2a-8e33-11d0-9ad0-00a0c9a06e35'
-GUID_CustomForce = '13541c2b-8e33-11d0-9ad0-00a0c9a06e35'
+def _define_CLSID_DirectInput():
+    return Guid('25e609e0-b259-11cf-bf-c7-44-45-53-54-00-00')
+def _define_CLSID_DirectInputDevice():
+    return Guid('25e609e1-b259-11cf-bf-c7-44-45-53-54-00-00')
+def _define_CLSID_DirectInput8():
+    return Guid('25e609e4-b259-11cf-bf-c7-44-45-53-54-00-00')
+def _define_CLSID_DirectInputDevice8():
+    return Guid('25e609e5-b259-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_XAxis():
+    return Guid('a36d02e0-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_YAxis():
+    return Guid('a36d02e1-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_ZAxis():
+    return Guid('a36d02e2-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_RxAxis():
+    return Guid('a36d02f4-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_RyAxis():
+    return Guid('a36d02f5-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_RzAxis():
+    return Guid('a36d02e3-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_Slider():
+    return Guid('a36d02e4-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_Button():
+    return Guid('a36d02f0-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_Key():
+    return Guid('55728220-d33c-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_POV():
+    return Guid('a36d02f2-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_Unknown():
+    return Guid('a36d02f3-c9f3-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_SysMouse():
+    return Guid('6f1d2b60-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_SysKeyboard():
+    return Guid('6f1d2b61-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_Joystick():
+    return Guid('6f1d2b70-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_SysMouseEm():
+    return Guid('6f1d2b80-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_SysMouseEm2():
+    return Guid('6f1d2b81-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_SysKeyboardEm():
+    return Guid('6f1d2b82-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_SysKeyboardEm2():
+    return Guid('6f1d2b83-d5a0-11cf-bf-c7-44-45-53-54-00-00')
+def _define_GUID_ConstantForce():
+    return Guid('13541c20-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_RampForce():
+    return Guid('13541c21-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Square():
+    return Guid('13541c22-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Sine():
+    return Guid('13541c23-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Triangle():
+    return Guid('13541c24-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_SawtoothUp():
+    return Guid('13541c25-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_SawtoothDown():
+    return Guid('13541c26-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Spring():
+    return Guid('13541c27-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Damper():
+    return Guid('13541c28-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Inertia():
+    return Guid('13541c29-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_Friction():
+    return Guid('13541c2a-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+def _define_GUID_CustomForce():
+    return Guid('13541c2b-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
 DIEFT_ALL = 0
 DIEFT_CONSTANTFORCE = 1
 DIEFT_RAMPFORCE = 2
@@ -2425,238 +2513,252 @@ BUTTON_BIT_OEMCUSTOM3 = 32768
 BUTTON_BIT_ALLBUTTONSMASK = 16383
 IOCTL_BUTTON_SET_ENABLED_ON_IDLE = 721576
 IOCTL_BUTTON_GET_ENABLED_ON_IDLE = 721580
-def _define_DICONSTANTFORCE_head():
-    class DICONSTANTFORCE(Structure):
+def _define_DirectInput8Create():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head)(('DirectInput8Create', windll['DINPUT8.dll']), ((1, 'hinst'),(1, 'dwVersion'),(1, 'riidltf'),(1, 'ppvOut'),(1, 'punkOuter'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_joyConfigChanged():
+    try:
+        return WINFUNCTYPE(UInt32,UInt32)(('joyConfigChanged', windll['WINMM.dll']), ((1, 'dwFlags'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetCaps():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,IntPtr,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_CAPS_head))(('HidP_GetCaps', windll['HID.dll']), ((1, 'PreparsedData'),(1, 'Capabilities'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetLinkCollectionNodes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_LINK_COLLECTION_NODE_head),POINTER(UInt32),IntPtr)(('HidP_GetLinkCollectionNodes', windll['HID.dll']), ((1, 'LinkCollectionNodes'),(1, 'LinkCollectionNodesLength'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetSpecificButtonCaps():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_CAPS_head),POINTER(UInt16),IntPtr)(('HidP_GetSpecificButtonCaps', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ButtonCaps'),(1, 'ButtonCapsLength'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetButtonCaps():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_CAPS_head),POINTER(UInt16),IntPtr)(('HidP_GetButtonCaps', windll['HID.dll']), ((1, 'ReportType'),(1, 'ButtonCaps'),(1, 'ButtonCapsLength'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetSpecificValueCaps():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_VALUE_CAPS_head),POINTER(UInt16),IntPtr)(('HidP_GetSpecificValueCaps', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ValueCaps'),(1, 'ValueCapsLength'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetValueCaps():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_VALUE_CAPS_head),POINTER(UInt16),IntPtr)(('HidP_GetValueCaps', windll['HID.dll']), ((1, 'ReportType'),(1, 'ValueCaps'),(1, 'ValueCapsLength'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetExtendedAttributes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,IntPtr,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_EXTENDED_ATTRIBUTES_head),POINTER(UInt32))(('HidP_GetExtendedAttributes', windll['HID.dll']), ((1, 'ReportType'),(1, 'DataIndex'),(1, 'PreparsedData'),(1, 'Attributes'),(1, 'LengthAttributes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_InitializeReportForID():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,Byte,IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_InitializeReportForID', windll['HID.dll']), ((1, 'ReportType'),(1, 'ReportID'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_SetData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_DATA_head),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_SetData', windll['HID.dll']), ((1, 'ReportType'),(1, 'DataList'),(1, 'DataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_DATA_head),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetData', windll['HID.dll']), ((1, 'ReportType'),(1, 'DataList'),(1, 'DataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_MaxDataListLength():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,IntPtr)(('HidP_MaxDataListLength', windll['HID.dll']), ((1, 'ReportType'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_SetUsages():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,POINTER(UInt16),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_SetUsages', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'UsageList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_UnsetUsages():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,POINTER(UInt16),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_UnsetUsages', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'UsageList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetUsages():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,POINTER(UInt16),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetUsages', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'UsageList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetUsagesEx():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.USAGE_AND_PAGE_head),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetUsagesEx', windll['HID.dll']), ((1, 'ReportType'),(1, 'LinkCollection'),(1, 'ButtonList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_MaxUsageListLength():
+    try:
+        return WINFUNCTYPE(UInt32,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,IntPtr)(('HidP_MaxUsageListLength', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_SetUsageValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,UInt32,IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_SetUsageValue', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_SetScaledUsageValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,Int32,IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_SetScaledUsageValue', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_SetUsageValueArray():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,win32more.Foundation.PSTR,UInt16,IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_SetUsageValueArray', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'UsageValueByteLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetUsageValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetUsageValue', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetScaledUsageValue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(Int32),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetScaledUsageValue', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetUsageValueArray():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,win32more.Foundation.PSTR,UInt16,IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetUsageValueArray', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'UsageValueByteLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_UsageListDifference():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt16),POINTER(UInt16),POINTER(UInt16),POINTER(UInt16),UInt32)(('HidP_UsageListDifference', windll['HID.dll']), ((1, 'PreviousUsageList'),(1, 'CurrentUsageList'),(1, 'BreakUsageList'),(1, 'MakeUsageList'),(1, 'UsageListLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_GetButtonArray():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_ARRAY_DATA_head),POINTER(UInt16),IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_GetButtonArray', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ButtonData'),(1, 'ButtonDataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_SetButtonArray():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_ARRAY_DATA_head),UInt16,IntPtr,win32more.Foundation.PSTR,UInt32)(('HidP_SetButtonArray', windll['HID.dll']), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ButtonData'),(1, 'ButtonDataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidP_TranslateUsagesToI8042ScanCodes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt16),UInt32,win32more.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_MODIFIER_STATE_head),win32more.Devices.HumanInterfaceDevice.PHIDP_INSERT_SCANCODES,c_void_p)(('HidP_TranslateUsagesToI8042ScanCodes', windll['HID.dll']), ((1, 'ChangedUsageList'),(1, 'UsageListLength'),(1, 'KeyAction'),(1, 'ModifierState'),(1, 'InsertCodesProcedure'),(1, 'InsertCodesContext'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetAttributes():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDD_ATTRIBUTES_head))(('HidD_GetAttributes', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Attributes'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetHidGuid():
+    try:
+        return WINFUNCTYPE(Void,POINTER(Guid))(('HidD_GetHidGuid', windll['HID.dll']), ((1, 'HidGuid'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetPreparsedData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(IntPtr))(('HidD_GetPreparsedData', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_FreePreparsedData():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,IntPtr)(('HidD_FreePreparsedData', windll['HID.dll']), ((1, 'PreparsedData'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_FlushQueue():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE)(('HidD_FlushQueue', windll['HID.dll']), ((1, 'HidDeviceObject'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetConfiguration():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDD_CONFIGURATION_head),UInt32)(('HidD_GetConfiguration', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Configuration'),(1, 'ConfigurationLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_SetConfiguration():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDD_CONFIGURATION_head),UInt32)(('HidD_SetConfiguration', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Configuration'),(1, 'ConfigurationLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetFeature():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetFeature', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_SetFeature():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_SetFeature', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetInputReport():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetInputReport', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_SetOutputReport():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_SetOutputReport', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetNumInputBuffers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(UInt32))(('HidD_GetNumInputBuffers', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'NumberBuffers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_SetNumInputBuffers():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,UInt32)(('HidD_SetNumInputBuffers', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'NumberBuffers'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetPhysicalDescriptor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetPhysicalDescriptor', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetManufacturerString():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetManufacturerString', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetProductString():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetProductString', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetIndexedString():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32)(('HidD_GetIndexedString', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'StringIndex'),(1, 'Buffer'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetSerialNumberString():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetSerialNumberString', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_HidD_GetMsGenreDescriptor():
+    try:
+        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32)(('HidD_GetMsGenreDescriptor', windll['HID.dll']), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
+    except (FileNotFoundError, AttributeError):
+        return None
+def _define_CPOINT_head():
+    class CPOINT(Structure):
         pass
-    return DICONSTANTFORCE
-def _define_DICONSTANTFORCE():
-    DICONSTANTFORCE = win32more.Devices.HumanInterfaceDevice.DICONSTANTFORCE_head
-    DICONSTANTFORCE._fields_ = [
-        ("lMagnitude", Int32),
+    return CPOINT
+def _define_CPOINT():
+    CPOINT = win32more.Devices.HumanInterfaceDevice.CPOINT_head
+    CPOINT._fields_ = [
+        ('lP', Int32),
+        ('dwLog', UInt32),
     ]
-    return DICONSTANTFORCE
-def _define_DIRAMPFORCE_head():
-    class DIRAMPFORCE(Structure):
-        pass
-    return DIRAMPFORCE
-def _define_DIRAMPFORCE():
-    DIRAMPFORCE = win32more.Devices.HumanInterfaceDevice.DIRAMPFORCE_head
-    DIRAMPFORCE._fields_ = [
-        ("lStart", Int32),
-        ("lEnd", Int32),
-    ]
-    return DIRAMPFORCE
-def _define_DIPERIODIC_head():
-    class DIPERIODIC(Structure):
-        pass
-    return DIPERIODIC
-def _define_DIPERIODIC():
-    DIPERIODIC = win32more.Devices.HumanInterfaceDevice.DIPERIODIC_head
-    DIPERIODIC._fields_ = [
-        ("dwMagnitude", UInt32),
-        ("lOffset", Int32),
-        ("dwPhase", UInt32),
-        ("dwPeriod", UInt32),
-    ]
-    return DIPERIODIC
-def _define_DICONDITION_head():
-    class DICONDITION(Structure):
-        pass
-    return DICONDITION
-def _define_DICONDITION():
-    DICONDITION = win32more.Devices.HumanInterfaceDevice.DICONDITION_head
-    DICONDITION._fields_ = [
-        ("lOffset", Int32),
-        ("lPositiveCoefficient", Int32),
-        ("lNegativeCoefficient", Int32),
-        ("dwPositiveSaturation", UInt32),
-        ("dwNegativeSaturation", UInt32),
-        ("lDeadBand", Int32),
-    ]
-    return DICONDITION
-def _define_DICUSTOMFORCE_head():
-    class DICUSTOMFORCE(Structure):
-        pass
-    return DICUSTOMFORCE
-def _define_DICUSTOMFORCE():
-    DICUSTOMFORCE = win32more.Devices.HumanInterfaceDevice.DICUSTOMFORCE_head
-    DICUSTOMFORCE._fields_ = [
-        ("cChannels", UInt32),
-        ("dwSamplePeriod", UInt32),
-        ("cSamples", UInt32),
-        ("rglForceData", POINTER(Int32)),
-    ]
-    return DICUSTOMFORCE
-def _define_DIENVELOPE_head():
-    class DIENVELOPE(Structure):
-        pass
-    return DIENVELOPE
-def _define_DIENVELOPE():
-    DIENVELOPE = win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head
-    DIENVELOPE._fields_ = [
-        ("dwSize", UInt32),
-        ("dwAttackLevel", UInt32),
-        ("dwAttackTime", UInt32),
-        ("dwFadeLevel", UInt32),
-        ("dwFadeTime", UInt32),
-    ]
-    return DIENVELOPE
-def _define_DIEFFECT_DX5_head():
-    class DIEFFECT_DX5(Structure):
-        pass
-    return DIEFFECT_DX5
-def _define_DIEFFECT_DX5():
-    DIEFFECT_DX5 = win32more.Devices.HumanInterfaceDevice.DIEFFECT_DX5_head
-    DIEFFECT_DX5._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwDuration", UInt32),
-        ("dwSamplePeriod", UInt32),
-        ("dwGain", UInt32),
-        ("dwTriggerButton", UInt32),
-        ("dwTriggerRepeatInterval", UInt32),
-        ("cAxes", UInt32),
-        ("rgdwAxes", POINTER(UInt32)),
-        ("rglDirection", POINTER(Int32)),
-        ("lpEnvelope", POINTER(win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head)),
-        ("cbTypeSpecificParams", UInt32),
-        ("lpvTypeSpecificParams", c_void_p),
-    ]
-    return DIEFFECT_DX5
-def _define_DIEFFECT_head():
-    class DIEFFECT(Structure):
-        pass
-    return DIEFFECT
-def _define_DIEFFECT():
-    DIEFFECT = win32more.Devices.HumanInterfaceDevice.DIEFFECT_head
-    DIEFFECT._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwDuration", UInt32),
-        ("dwSamplePeriod", UInt32),
-        ("dwGain", UInt32),
-        ("dwTriggerButton", UInt32),
-        ("dwTriggerRepeatInterval", UInt32),
-        ("cAxes", UInt32),
-        ("rgdwAxes", POINTER(UInt32)),
-        ("rglDirection", POINTER(Int32)),
-        ("lpEnvelope", POINTER(win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head)),
-        ("cbTypeSpecificParams", UInt32),
-        ("lpvTypeSpecificParams", c_void_p),
-        ("dwStartDelay", UInt32),
-    ]
-    return DIEFFECT
-def _define_DIFILEEFFECT_head():
-    class DIFILEEFFECT(Structure):
-        pass
-    return DIFILEEFFECT
-def _define_DIFILEEFFECT():
-    DIFILEEFFECT = win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head
-    DIFILEEFFECT._fields_ = [
-        ("dwSize", UInt32),
-        ("GuidEffect", Guid),
-        ("lpDiEffect", POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head)),
-        ("szFriendlyName", win32more.Foundation.CHAR * 260),
-    ]
-    return DIFILEEFFECT
-def _define_LPDIENUMEFFECTSINFILECALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),c_void_p, use_last_error=False)
-def _define_DIEFFESCAPE_head():
-    class DIEFFESCAPE(Structure):
-        pass
-    return DIEFFESCAPE
-def _define_DIEFFESCAPE():
-    DIEFFESCAPE = win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head
-    DIEFFESCAPE._fields_ = [
-        ("dwSize", UInt32),
-        ("dwCommand", UInt32),
-        ("lpvInBuffer", c_void_p),
-        ("cbInBuffer", UInt32),
-        ("lpvOutBuffer", c_void_p),
-        ("cbOutBuffer", UInt32),
-    ]
-    return DIEFFESCAPE
-def _define_IDirectInputEffect_head():
-    class IDirectInputEffect(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e7e1f7c0-88d2-11d0-9ad0-00a0c9a06e35')
-    return IDirectInputEffect
-def _define_IDirectInputEffect():
-    IDirectInputEffect = win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head
-    IDirectInputEffect.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(3, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputEffect.GetEffectGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetEffectGuid', ((1, 'param0'),)))
-    IDirectInputEffect.GetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),UInt32, use_last_error=False)(5, 'GetParameters', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffect.SetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),UInt32, use_last_error=False)(6, 'SetParameters', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffect.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(7, 'Start', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffect.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Stop', ()))
-    IDirectInputEffect.GetEffectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetEffectStatus', ((1, 'param0'),)))
-    IDirectInputEffect.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Download', ()))
-    IDirectInputEffect.Unload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Unload', ()))
-    IDirectInputEffect.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(12, 'Escape', ((1, 'param0'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputEffect
-def _define_DIDEVCAPS_DX3_head():
-    class DIDEVCAPS_DX3(Structure):
-        pass
-    return DIDEVCAPS_DX3
-def _define_DIDEVCAPS_DX3():
-    DIDEVCAPS_DX3 = win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_DX3_head
-    DIDEVCAPS_DX3._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwDevType", UInt32),
-        ("dwAxes", UInt32),
-        ("dwButtons", UInt32),
-        ("dwPOVs", UInt32),
-    ]
-    return DIDEVCAPS_DX3
-def _define_DIDEVCAPS_head():
-    class DIDEVCAPS(Structure):
-        pass
-    return DIDEVCAPS
-def _define_DIDEVCAPS():
-    DIDEVCAPS = win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head
-    DIDEVCAPS._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwDevType", UInt32),
-        ("dwAxes", UInt32),
-        ("dwButtons", UInt32),
-        ("dwPOVs", UInt32),
-        ("dwFFSamplePeriod", UInt32),
-        ("dwFFMinTimeResolution", UInt32),
-        ("dwFirmwareRevision", UInt32),
-        ("dwHardwareRevision", UInt32),
-        ("dwFFDriverVersion", UInt32),
-    ]
-    return DIDEVCAPS
-def _define_DIOBJECTDATAFORMAT_head():
-    class DIOBJECTDATAFORMAT(Structure):
-        pass
-    return DIOBJECTDATAFORMAT
-def _define_DIOBJECTDATAFORMAT():
-    DIOBJECTDATAFORMAT = win32more.Devices.HumanInterfaceDevice.DIOBJECTDATAFORMAT_head
-    DIOBJECTDATAFORMAT._fields_ = [
-        ("pguid", POINTER(Guid)),
-        ("dwOfs", UInt32),
-        ("dwType", UInt32),
-        ("dwFlags", UInt32),
-    ]
-    return DIOBJECTDATAFORMAT
-def _define_DIDATAFORMAT_head():
-    class DIDATAFORMAT(Structure):
-        pass
-    return DIDATAFORMAT
-def _define_DIDATAFORMAT():
-    DIDATAFORMAT = win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head
-    DIDATAFORMAT._fields_ = [
-        ("dwSize", UInt32),
-        ("dwObjSize", UInt32),
-        ("dwFlags", UInt32),
-        ("dwDataSize", UInt32),
-        ("dwNumObjs", UInt32),
-        ("rgodf", POINTER(win32more.Devices.HumanInterfaceDevice.DIOBJECTDATAFORMAT_head)),
-    ]
-    return DIDATAFORMAT
+    return CPOINT
 def _define_DIACTIONA_head():
     class DIACTIONA(Structure):
         pass
@@ -2666,47 +2768,22 @@ def _define_DIACTIONA():
     class DIACTIONA__Anonymous_e__Union(Union):
         pass
     DIACTIONA__Anonymous_e__Union._fields_ = [
-        ("lptszActionName", win32more.Foundation.PSTR),
-        ("uResIdString", UInt32),
+        ('lptszActionName', win32more.Foundation.PSTR),
+        ('uResIdString', UInt32),
     ]
     DIACTIONA._anonymous_ = [
         'Anonymous',
     ]
     DIACTIONA._fields_ = [
-        ("uAppData", UIntPtr),
-        ("dwSemantic", UInt32),
-        ("dwFlags", UInt32),
-        ("Anonymous", DIACTIONA__Anonymous_e__Union),
-        ("guidInstance", Guid),
-        ("dwObjID", UInt32),
-        ("dwHow", UInt32),
+        ('uAppData', UIntPtr),
+        ('dwSemantic', UInt32),
+        ('dwFlags', UInt32),
+        ('Anonymous', DIACTIONA__Anonymous_e__Union),
+        ('guidInstance', Guid),
+        ('dwObjID', UInt32),
+        ('dwHow', UInt32),
     ]
     return DIACTIONA
-def _define_DIACTIONW_head():
-    class DIACTIONW(Structure):
-        pass
-    return DIACTIONW
-def _define_DIACTIONW():
-    DIACTIONW = win32more.Devices.HumanInterfaceDevice.DIACTIONW_head
-    class DIACTIONW__Anonymous_e__Union(Union):
-        pass
-    DIACTIONW__Anonymous_e__Union._fields_ = [
-        ("lptszActionName", win32more.Foundation.PWSTR),
-        ("uResIdString", UInt32),
-    ]
-    DIACTIONW._anonymous_ = [
-        'Anonymous',
-    ]
-    DIACTIONW._fields_ = [
-        ("uAppData", UIntPtr),
-        ("dwSemantic", UInt32),
-        ("dwFlags", UInt32),
-        ("Anonymous", DIACTIONW__Anonymous_e__Union),
-        ("guidInstance", Guid),
-        ("dwObjID", UInt32),
-        ("dwHow", UInt32),
-    ]
-    return DIACTIONW
 def _define_DIACTIONFORMATA_head():
     class DIACTIONFORMATA(Structure):
         pass
@@ -2714,20 +2791,20 @@ def _define_DIACTIONFORMATA_head():
 def _define_DIACTIONFORMATA():
     DIACTIONFORMATA = win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head
     DIACTIONFORMATA._fields_ = [
-        ("dwSize", UInt32),
-        ("dwActionSize", UInt32),
-        ("dwDataSize", UInt32),
-        ("dwNumActions", UInt32),
-        ("rgoAction", POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONA_head)),
-        ("guidActionMap", Guid),
-        ("dwGenre", UInt32),
-        ("dwBufferSize", UInt32),
-        ("lAxisMin", Int32),
-        ("lAxisMax", Int32),
-        ("hInstString", win32more.Foundation.HINSTANCE),
-        ("ftTimeStamp", win32more.Foundation.FILETIME),
-        ("dwCRC", UInt32),
-        ("tszActionMap", win32more.Foundation.CHAR * 260),
+        ('dwSize', UInt32),
+        ('dwActionSize', UInt32),
+        ('dwDataSize', UInt32),
+        ('dwNumActions', UInt32),
+        ('rgoAction', POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONA_head)),
+        ('guidActionMap', Guid),
+        ('dwGenre', UInt32),
+        ('dwBufferSize', UInt32),
+        ('lAxisMin', Int32),
+        ('lAxisMax', Int32),
+        ('hInstString', win32more.Foundation.HINSTANCE),
+        ('ftTimeStamp', win32more.Foundation.FILETIME),
+        ('dwCRC', UInt32),
+        ('tszActionMap', win32more.Foundation.CHAR * 260),
     ]
     return DIACTIONFORMATA
 def _define_DIACTIONFORMATW_head():
@@ -2737,22 +2814,47 @@ def _define_DIACTIONFORMATW_head():
 def _define_DIACTIONFORMATW():
     DIACTIONFORMATW = win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head
     DIACTIONFORMATW._fields_ = [
-        ("dwSize", UInt32),
-        ("dwActionSize", UInt32),
-        ("dwDataSize", UInt32),
-        ("dwNumActions", UInt32),
-        ("rgoAction", POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONW_head)),
-        ("guidActionMap", Guid),
-        ("dwGenre", UInt32),
-        ("dwBufferSize", UInt32),
-        ("lAxisMin", Int32),
-        ("lAxisMax", Int32),
-        ("hInstString", win32more.Foundation.HINSTANCE),
-        ("ftTimeStamp", win32more.Foundation.FILETIME),
-        ("dwCRC", UInt32),
-        ("tszActionMap", Char * 260),
+        ('dwSize', UInt32),
+        ('dwActionSize', UInt32),
+        ('dwDataSize', UInt32),
+        ('dwNumActions', UInt32),
+        ('rgoAction', POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONW_head)),
+        ('guidActionMap', Guid),
+        ('dwGenre', UInt32),
+        ('dwBufferSize', UInt32),
+        ('lAxisMin', Int32),
+        ('lAxisMax', Int32),
+        ('hInstString', win32more.Foundation.HINSTANCE),
+        ('ftTimeStamp', win32more.Foundation.FILETIME),
+        ('dwCRC', UInt32),
+        ('tszActionMap', Char * 260),
     ]
     return DIACTIONFORMATW
+def _define_DIACTIONW_head():
+    class DIACTIONW(Structure):
+        pass
+    return DIACTIONW
+def _define_DIACTIONW():
+    DIACTIONW = win32more.Devices.HumanInterfaceDevice.DIACTIONW_head
+    class DIACTIONW__Anonymous_e__Union(Union):
+        pass
+    DIACTIONW__Anonymous_e__Union._fields_ = [
+        ('lptszActionName', win32more.Foundation.PWSTR),
+        ('uResIdString', UInt32),
+    ]
+    DIACTIONW._anonymous_ = [
+        'Anonymous',
+    ]
+    DIACTIONW._fields_ = [
+        ('uAppData', UIntPtr),
+        ('dwSemantic', UInt32),
+        ('dwFlags', UInt32),
+        ('Anonymous', DIACTIONW__Anonymous_e__Union),
+        ('guidInstance', Guid),
+        ('dwObjID', UInt32),
+        ('dwHow', UInt32),
+    ]
+    return DIACTIONW
 def _define_DICOLORSET_head():
     class DICOLORSET(Structure):
         pass
@@ -2760,17 +2862,32 @@ def _define_DICOLORSET_head():
 def _define_DICOLORSET():
     DICOLORSET = win32more.Devices.HumanInterfaceDevice.DICOLORSET_head
     DICOLORSET._fields_ = [
-        ("dwSize", UInt32),
-        ("cTextFore", UInt32),
-        ("cTextHighlight", UInt32),
-        ("cCalloutLine", UInt32),
-        ("cCalloutHighlight", UInt32),
-        ("cBorder", UInt32),
-        ("cControlFill", UInt32),
-        ("cHighlightFill", UInt32),
-        ("cAreaFill", UInt32),
+        ('dwSize', UInt32),
+        ('cTextFore', UInt32),
+        ('cTextHighlight', UInt32),
+        ('cCalloutLine', UInt32),
+        ('cCalloutHighlight', UInt32),
+        ('cBorder', UInt32),
+        ('cControlFill', UInt32),
+        ('cHighlightFill', UInt32),
+        ('cAreaFill', UInt32),
     ]
     return DICOLORSET
+def _define_DICONDITION_head():
+    class DICONDITION(Structure):
+        pass
+    return DICONDITION
+def _define_DICONDITION():
+    DICONDITION = win32more.Devices.HumanInterfaceDevice.DICONDITION_head
+    DICONDITION._fields_ = [
+        ('lOffset', Int32),
+        ('lPositiveCoefficient', Int32),
+        ('lNegativeCoefficient', Int32),
+        ('dwPositiveSaturation', UInt32),
+        ('dwNegativeSaturation', UInt32),
+        ('lDeadBand', Int32),
+    ]
+    return DICONDITION
 def _define_DICONFIGUREDEVICESPARAMSA_head():
     class DICONFIGUREDEVICESPARAMSA(Structure):
         pass
@@ -2778,14 +2895,14 @@ def _define_DICONFIGUREDEVICESPARAMSA_head():
 def _define_DICONFIGUREDEVICESPARAMSA():
     DICONFIGUREDEVICESPARAMSA = win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSA_head
     DICONFIGUREDEVICESPARAMSA._fields_ = [
-        ("dwSize", UInt32),
-        ("dwcUsers", UInt32),
-        ("lptszUserNames", win32more.Foundation.PSTR),
-        ("dwcFormats", UInt32),
-        ("lprgFormats", POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head)),
-        ("hwnd", win32more.Foundation.HWND),
-        ("dics", win32more.Devices.HumanInterfaceDevice.DICOLORSET),
-        ("lpUnkDDSTarget", win32more.System.Com.IUnknown_head),
+        ('dwSize', UInt32),
+        ('dwcUsers', UInt32),
+        ('lptszUserNames', win32more.Foundation.PSTR),
+        ('dwcFormats', UInt32),
+        ('lprgFormats', POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head)),
+        ('hwnd', win32more.Foundation.HWND),
+        ('dics', win32more.Devices.HumanInterfaceDevice.DICOLORSET),
+        ('lpUnkDDSTarget', win32more.System.Com.IUnknown_head),
     ]
     return DICONFIGUREDEVICESPARAMSA
 def _define_DICONFIGUREDEVICESPARAMSW_head():
@@ -2795,16 +2912,89 @@ def _define_DICONFIGUREDEVICESPARAMSW_head():
 def _define_DICONFIGUREDEVICESPARAMSW():
     DICONFIGUREDEVICESPARAMSW = win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW_head
     DICONFIGUREDEVICESPARAMSW._fields_ = [
-        ("dwSize", UInt32),
-        ("dwcUsers", UInt32),
-        ("lptszUserNames", win32more.Foundation.PWSTR),
-        ("dwcFormats", UInt32),
-        ("lprgFormats", POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head)),
-        ("hwnd", win32more.Foundation.HWND),
-        ("dics", win32more.Devices.HumanInterfaceDevice.DICOLORSET),
-        ("lpUnkDDSTarget", win32more.System.Com.IUnknown_head),
+        ('dwSize', UInt32),
+        ('dwcUsers', UInt32),
+        ('lptszUserNames', win32more.Foundation.PWSTR),
+        ('dwcFormats', UInt32),
+        ('lprgFormats', POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head)),
+        ('hwnd', win32more.Foundation.HWND),
+        ('dics', win32more.Devices.HumanInterfaceDevice.DICOLORSET),
+        ('lpUnkDDSTarget', win32more.System.Com.IUnknown_head),
     ]
     return DICONFIGUREDEVICESPARAMSW
+def _define_DICONSTANTFORCE_head():
+    class DICONSTANTFORCE(Structure):
+        pass
+    return DICONSTANTFORCE
+def _define_DICONSTANTFORCE():
+    DICONSTANTFORCE = win32more.Devices.HumanInterfaceDevice.DICONSTANTFORCE_head
+    DICONSTANTFORCE._fields_ = [
+        ('lMagnitude', Int32),
+    ]
+    return DICONSTANTFORCE
+def _define_DICUSTOMFORCE_head():
+    class DICUSTOMFORCE(Structure):
+        pass
+    return DICUSTOMFORCE
+def _define_DICUSTOMFORCE():
+    DICUSTOMFORCE = win32more.Devices.HumanInterfaceDevice.DICUSTOMFORCE_head
+    DICUSTOMFORCE._fields_ = [
+        ('cChannels', UInt32),
+        ('dwSamplePeriod', UInt32),
+        ('cSamples', UInt32),
+        ('rglForceData', POINTER(Int32)),
+    ]
+    return DICUSTOMFORCE
+def _define_DIDATAFORMAT_head():
+    class DIDATAFORMAT(Structure):
+        pass
+    return DIDATAFORMAT
+def _define_DIDATAFORMAT():
+    DIDATAFORMAT = win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head
+    DIDATAFORMAT._fields_ = [
+        ('dwSize', UInt32),
+        ('dwObjSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwDataSize', UInt32),
+        ('dwNumObjs', UInt32),
+        ('rgodf', POINTER(win32more.Devices.HumanInterfaceDevice.DIOBJECTDATAFORMAT_head)),
+    ]
+    return DIDATAFORMAT
+def _define_DIDEVCAPS_head():
+    class DIDEVCAPS(Structure):
+        pass
+    return DIDEVCAPS
+def _define_DIDEVCAPS():
+    DIDEVCAPS = win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head
+    DIDEVCAPS._fields_ = [
+        ('dwSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwDevType', UInt32),
+        ('dwAxes', UInt32),
+        ('dwButtons', UInt32),
+        ('dwPOVs', UInt32),
+        ('dwFFSamplePeriod', UInt32),
+        ('dwFFMinTimeResolution', UInt32),
+        ('dwFirmwareRevision', UInt32),
+        ('dwHardwareRevision', UInt32),
+        ('dwFFDriverVersion', UInt32),
+    ]
+    return DIDEVCAPS
+def _define_DIDEVCAPS_DX3_head():
+    class DIDEVCAPS_DX3(Structure):
+        pass
+    return DIDEVCAPS_DX3
+def _define_DIDEVCAPS_DX3():
+    DIDEVCAPS_DX3 = win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_DX3_head
+    DIDEVCAPS_DX3._fields_ = [
+        ('dwSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwDevType', UInt32),
+        ('dwAxes', UInt32),
+        ('dwButtons', UInt32),
+        ('dwPOVs', UInt32),
+    ]
+    return DIDEVCAPS_DX3
 def _define_DIDEVICEIMAGEINFOA_head():
     class DIDEVICEIMAGEINFOA(Structure):
         pass
@@ -2812,35 +3002,17 @@ def _define_DIDEVICEIMAGEINFOA_head():
 def _define_DIDEVICEIMAGEINFOA():
     DIDEVICEIMAGEINFOA = win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOA_head
     DIDEVICEIMAGEINFOA._fields_ = [
-        ("tszImagePath", win32more.Foundation.CHAR * 260),
-        ("dwFlags", UInt32),
-        ("dwViewID", UInt32),
-        ("rcOverlay", win32more.Foundation.RECT),
-        ("dwObjID", UInt32),
-        ("dwcValidPts", UInt32),
-        ("rgptCalloutLine", win32more.Foundation.POINT * 5),
-        ("rcCalloutRect", win32more.Foundation.RECT),
-        ("dwTextAlign", UInt32),
+        ('tszImagePath', win32more.Foundation.CHAR * 260),
+        ('dwFlags', UInt32),
+        ('dwViewID', UInt32),
+        ('rcOverlay', win32more.Foundation.RECT),
+        ('dwObjID', UInt32),
+        ('dwcValidPts', UInt32),
+        ('rgptCalloutLine', win32more.Foundation.POINT * 5),
+        ('rcCalloutRect', win32more.Foundation.RECT),
+        ('dwTextAlign', UInt32),
     ]
     return DIDEVICEIMAGEINFOA
-def _define_DIDEVICEIMAGEINFOW_head():
-    class DIDEVICEIMAGEINFOW(Structure):
-        pass
-    return DIDEVICEIMAGEINFOW
-def _define_DIDEVICEIMAGEINFOW():
-    DIDEVICEIMAGEINFOW = win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOW_head
-    DIDEVICEIMAGEINFOW._fields_ = [
-        ("tszImagePath", Char * 260),
-        ("dwFlags", UInt32),
-        ("dwViewID", UInt32),
-        ("rcOverlay", win32more.Foundation.RECT),
-        ("dwObjID", UInt32),
-        ("dwcValidPts", UInt32),
-        ("rgptCalloutLine", win32more.Foundation.POINT * 5),
-        ("rcCalloutRect", win32more.Foundation.RECT),
-        ("dwTextAlign", UInt32),
-    ]
-    return DIDEVICEIMAGEINFOW
 def _define_DIDEVICEIMAGEINFOHEADERA_head():
     class DIDEVICEIMAGEINFOHEADERA(Structure):
         pass
@@ -2848,15 +3020,15 @@ def _define_DIDEVICEIMAGEINFOHEADERA_head():
 def _define_DIDEVICEIMAGEINFOHEADERA():
     DIDEVICEIMAGEINFOHEADERA = win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERA_head
     DIDEVICEIMAGEINFOHEADERA._fields_ = [
-        ("dwSize", UInt32),
-        ("dwSizeImageInfo", UInt32),
-        ("dwcViews", UInt32),
-        ("dwcButtons", UInt32),
-        ("dwcAxes", UInt32),
-        ("dwcPOVs", UInt32),
-        ("dwBufferSize", UInt32),
-        ("dwBufferUsed", UInt32),
-        ("lprgImageInfoArray", POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOA_head)),
+        ('dwSize', UInt32),
+        ('dwSizeImageInfo', UInt32),
+        ('dwcViews', UInt32),
+        ('dwcButtons', UInt32),
+        ('dwcAxes', UInt32),
+        ('dwcPOVs', UInt32),
+        ('dwBufferSize', UInt32),
+        ('dwBufferUsed', UInt32),
+        ('lprgImageInfoArray', POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOA_head)),
     ]
     return DIDEVICEIMAGEINFOHEADERA
 def _define_DIDEVICEIMAGEINFOHEADERW_head():
@@ -2866,244 +3038,35 @@ def _define_DIDEVICEIMAGEINFOHEADERW_head():
 def _define_DIDEVICEIMAGEINFOHEADERW():
     DIDEVICEIMAGEINFOHEADERW = win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW_head
     DIDEVICEIMAGEINFOHEADERW._fields_ = [
-        ("dwSize", UInt32),
-        ("dwSizeImageInfo", UInt32),
-        ("dwcViews", UInt32),
-        ("dwcButtons", UInt32),
-        ("dwcAxes", UInt32),
-        ("dwcPOVs", UInt32),
-        ("dwBufferSize", UInt32),
-        ("dwBufferUsed", UInt32),
-        ("lprgImageInfoArray", POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOW_head)),
+        ('dwSize', UInt32),
+        ('dwSizeImageInfo', UInt32),
+        ('dwcViews', UInt32),
+        ('dwcButtons', UInt32),
+        ('dwcAxes', UInt32),
+        ('dwcPOVs', UInt32),
+        ('dwBufferSize', UInt32),
+        ('dwBufferUsed', UInt32),
+        ('lprgImageInfoArray', POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOW_head)),
     ]
     return DIDEVICEIMAGEINFOHEADERW
-def _define_DIDEVICEOBJECTINSTANCE_DX3A_head():
-    class DIDEVICEOBJECTINSTANCE_DX3A(Structure):
+def _define_DIDEVICEIMAGEINFOW_head():
+    class DIDEVICEIMAGEINFOW(Structure):
         pass
-    return DIDEVICEOBJECTINSTANCE_DX3A
-def _define_DIDEVICEOBJECTINSTANCE_DX3A():
-    DIDEVICEOBJECTINSTANCE_DX3A = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCE_DX3A_head
-    DIDEVICEOBJECTINSTANCE_DX3A._fields_ = [
-        ("dwSize", UInt32),
-        ("guidType", Guid),
-        ("dwOfs", UInt32),
-        ("dwType", UInt32),
-        ("dwFlags", UInt32),
-        ("tszName", win32more.Foundation.CHAR * 260),
+    return DIDEVICEIMAGEINFOW
+def _define_DIDEVICEIMAGEINFOW():
+    DIDEVICEIMAGEINFOW = win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOW_head
+    DIDEVICEIMAGEINFOW._fields_ = [
+        ('tszImagePath', Char * 260),
+        ('dwFlags', UInt32),
+        ('dwViewID', UInt32),
+        ('rcOverlay', win32more.Foundation.RECT),
+        ('dwObjID', UInt32),
+        ('dwcValidPts', UInt32),
+        ('rgptCalloutLine', win32more.Foundation.POINT * 5),
+        ('rcCalloutRect', win32more.Foundation.RECT),
+        ('dwTextAlign', UInt32),
     ]
-    return DIDEVICEOBJECTINSTANCE_DX3A
-def _define_DIDEVICEOBJECTINSTANCE_DX3W_head():
-    class DIDEVICEOBJECTINSTANCE_DX3W(Structure):
-        pass
-    return DIDEVICEOBJECTINSTANCE_DX3W
-def _define_DIDEVICEOBJECTINSTANCE_DX3W():
-    DIDEVICEOBJECTINSTANCE_DX3W = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCE_DX3W_head
-    DIDEVICEOBJECTINSTANCE_DX3W._fields_ = [
-        ("dwSize", UInt32),
-        ("guidType", Guid),
-        ("dwOfs", UInt32),
-        ("dwType", UInt32),
-        ("dwFlags", UInt32),
-        ("tszName", Char * 260),
-    ]
-    return DIDEVICEOBJECTINSTANCE_DX3W
-def _define_DIDEVICEOBJECTINSTANCEA_head():
-    class DIDEVICEOBJECTINSTANCEA(Structure):
-        pass
-    return DIDEVICEOBJECTINSTANCEA
-def _define_DIDEVICEOBJECTINSTANCEA():
-    DIDEVICEOBJECTINSTANCEA = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head
-    DIDEVICEOBJECTINSTANCEA._fields_ = [
-        ("dwSize", UInt32),
-        ("guidType", Guid),
-        ("dwOfs", UInt32),
-        ("dwType", UInt32),
-        ("dwFlags", UInt32),
-        ("tszName", win32more.Foundation.CHAR * 260),
-        ("dwFFMaxForce", UInt32),
-        ("dwFFForceResolution", UInt32),
-        ("wCollectionNumber", UInt16),
-        ("wDesignatorIndex", UInt16),
-        ("wUsagePage", UInt16),
-        ("wUsage", UInt16),
-        ("dwDimension", UInt32),
-        ("wExponent", UInt16),
-        ("wReportId", UInt16),
-    ]
-    return DIDEVICEOBJECTINSTANCEA
-def _define_DIDEVICEOBJECTINSTANCEW_head():
-    class DIDEVICEOBJECTINSTANCEW(Structure):
-        pass
-    return DIDEVICEOBJECTINSTANCEW
-def _define_DIDEVICEOBJECTINSTANCEW():
-    DIDEVICEOBJECTINSTANCEW = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head
-    DIDEVICEOBJECTINSTANCEW._fields_ = [
-        ("dwSize", UInt32),
-        ("guidType", Guid),
-        ("dwOfs", UInt32),
-        ("dwType", UInt32),
-        ("dwFlags", UInt32),
-        ("tszName", Char * 260),
-        ("dwFFMaxForce", UInt32),
-        ("dwFFForceResolution", UInt32),
-        ("wCollectionNumber", UInt16),
-        ("wDesignatorIndex", UInt16),
-        ("wUsagePage", UInt16),
-        ("wUsage", UInt16),
-        ("dwDimension", UInt32),
-        ("wExponent", UInt16),
-        ("wReportId", UInt16),
-    ]
-    return DIDEVICEOBJECTINSTANCEW
-def _define_LPDIENUMDEVICEOBJECTSCALLBACKA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head),c_void_p, use_last_error=False)
-def _define_LPDIENUMDEVICEOBJECTSCALLBACKW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head),c_void_p, use_last_error=False)
-def _define_DIPROPHEADER_head():
-    class DIPROPHEADER(Structure):
-        pass
-    return DIPROPHEADER
-def _define_DIPROPHEADER():
-    DIPROPHEADER = win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head
-    DIPROPHEADER._fields_ = [
-        ("dwSize", UInt32),
-        ("dwHeaderSize", UInt32),
-        ("dwObj", UInt32),
-        ("dwHow", UInt32),
-    ]
-    return DIPROPHEADER
-def _define_DIPROPDWORD_head():
-    class DIPROPDWORD(Structure):
-        pass
-    return DIPROPDWORD
-def _define_DIPROPDWORD():
-    DIPROPDWORD = win32more.Devices.HumanInterfaceDevice.DIPROPDWORD_head
-    DIPROPDWORD._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("dwData", UInt32),
-    ]
-    return DIPROPDWORD
-def _define_DIPROPPOINTER_head():
-    class DIPROPPOINTER(Structure):
-        pass
-    return DIPROPPOINTER
-def _define_DIPROPPOINTER():
-    DIPROPPOINTER = win32more.Devices.HumanInterfaceDevice.DIPROPPOINTER_head
-    DIPROPPOINTER._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("uData", UIntPtr),
-    ]
-    return DIPROPPOINTER
-def _define_DIPROPRANGE_head():
-    class DIPROPRANGE(Structure):
-        pass
-    return DIPROPRANGE
-def _define_DIPROPRANGE():
-    DIPROPRANGE = win32more.Devices.HumanInterfaceDevice.DIPROPRANGE_head
-    DIPROPRANGE._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("lMin", Int32),
-        ("lMax", Int32),
-    ]
-    return DIPROPRANGE
-def _define_DIPROPCAL_head():
-    class DIPROPCAL(Structure):
-        pass
-    return DIPROPCAL
-def _define_DIPROPCAL():
-    DIPROPCAL = win32more.Devices.HumanInterfaceDevice.DIPROPCAL_head
-    DIPROPCAL._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("lMin", Int32),
-        ("lCenter", Int32),
-        ("lMax", Int32),
-    ]
-    return DIPROPCAL
-def _define_DIPROPCALPOV_head():
-    class DIPROPCALPOV(Structure):
-        pass
-    return DIPROPCALPOV
-def _define_DIPROPCALPOV():
-    DIPROPCALPOV = win32more.Devices.HumanInterfaceDevice.DIPROPCALPOV_head
-    DIPROPCALPOV._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("lMin", Int32 * 5),
-        ("lMax", Int32 * 5),
-    ]
-    return DIPROPCALPOV
-def _define_DIPROPGUIDANDPATH_head():
-    class DIPROPGUIDANDPATH(Structure):
-        pass
-    return DIPROPGUIDANDPATH
-def _define_DIPROPGUIDANDPATH():
-    DIPROPGUIDANDPATH = win32more.Devices.HumanInterfaceDevice.DIPROPGUIDANDPATH_head
-    DIPROPGUIDANDPATH._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("guidClass", Guid),
-        ("wszPath", Char * 260),
-    ]
-    return DIPROPGUIDANDPATH
-def _define_DIPROPSTRING_head():
-    class DIPROPSTRING(Structure):
-        pass
-    return DIPROPSTRING
-def _define_DIPROPSTRING():
-    DIPROPSTRING = win32more.Devices.HumanInterfaceDevice.DIPROPSTRING_head
-    DIPROPSTRING._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("wsz", Char * 260),
-    ]
-    return DIPROPSTRING
-def _define_CPOINT_head():
-    class CPOINT(Structure):
-        pass
-    return CPOINT
-def _define_CPOINT():
-    CPOINT = win32more.Devices.HumanInterfaceDevice.CPOINT_head
-    CPOINT._fields_ = [
-        ("lP", Int32),
-        ("dwLog", UInt32),
-    ]
-    return CPOINT
-def _define_DIPROPCPOINTS_head():
-    class DIPROPCPOINTS(Structure):
-        pass
-    return DIPROPCPOINTS
-def _define_DIPROPCPOINTS():
-    DIPROPCPOINTS = win32more.Devices.HumanInterfaceDevice.DIPROPCPOINTS_head
-    DIPROPCPOINTS._fields_ = [
-        ("diph", win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
-        ("dwCPointsNum", UInt32),
-        ("cp", win32more.Devices.HumanInterfaceDevice.CPOINT * 8),
-    ]
-    return DIPROPCPOINTS
-def _define_DIDEVICEOBJECTDATA_DX3_head():
-    class DIDEVICEOBJECTDATA_DX3(Structure):
-        pass
-    return DIDEVICEOBJECTDATA_DX3
-def _define_DIDEVICEOBJECTDATA_DX3():
-    DIDEVICEOBJECTDATA_DX3 = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_DX3_head
-    DIDEVICEOBJECTDATA_DX3._fields_ = [
-        ("dwOfs", UInt32),
-        ("dwData", UInt32),
-        ("dwTimeStamp", UInt32),
-        ("dwSequence", UInt32),
-    ]
-    return DIDEVICEOBJECTDATA_DX3
-def _define_DIDEVICEOBJECTDATA_head():
-    class DIDEVICEOBJECTDATA(Structure):
-        pass
-    return DIDEVICEOBJECTDATA
-def _define_DIDEVICEOBJECTDATA():
-    DIDEVICEOBJECTDATA = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head
-    DIDEVICEOBJECTDATA._fields_ = [
-        ("dwOfs", UInt32),
-        ("dwData", UInt32),
-        ("dwTimeStamp", UInt32),
-        ("dwSequence", UInt32),
-        ("uAppData", UIntPtr),
-    ]
-    return DIDEVICEOBJECTDATA
+    return DIDEVICEIMAGEINFOW
 def _define_DIDEVICEINSTANCE_DX3A_head():
     class DIDEVICEINSTANCE_DX3A(Structure):
         pass
@@ -3111,12 +3074,12 @@ def _define_DIDEVICEINSTANCE_DX3A_head():
 def _define_DIDEVICEINSTANCE_DX3A():
     DIDEVICEINSTANCE_DX3A = win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCE_DX3A_head
     DIDEVICEINSTANCE_DX3A._fields_ = [
-        ("dwSize", UInt32),
-        ("guidInstance", Guid),
-        ("guidProduct", Guid),
-        ("dwDevType", UInt32),
-        ("tszInstanceName", win32more.Foundation.CHAR * 260),
-        ("tszProductName", win32more.Foundation.CHAR * 260),
+        ('dwSize', UInt32),
+        ('guidInstance', Guid),
+        ('guidProduct', Guid),
+        ('dwDevType', UInt32),
+        ('tszInstanceName', win32more.Foundation.CHAR * 260),
+        ('tszProductName', win32more.Foundation.CHAR * 260),
     ]
     return DIDEVICEINSTANCE_DX3A
 def _define_DIDEVICEINSTANCE_DX3W_head():
@@ -3126,12 +3089,12 @@ def _define_DIDEVICEINSTANCE_DX3W_head():
 def _define_DIDEVICEINSTANCE_DX3W():
     DIDEVICEINSTANCE_DX3W = win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCE_DX3W_head
     DIDEVICEINSTANCE_DX3W._fields_ = [
-        ("dwSize", UInt32),
-        ("guidInstance", Guid),
-        ("guidProduct", Guid),
-        ("dwDevType", UInt32),
-        ("tszInstanceName", Char * 260),
-        ("tszProductName", Char * 260),
+        ('dwSize', UInt32),
+        ('guidInstance', Guid),
+        ('guidProduct', Guid),
+        ('dwDevType', UInt32),
+        ('tszInstanceName', Char * 260),
+        ('tszProductName', Char * 260),
     ]
     return DIDEVICEINSTANCE_DX3W
 def _define_DIDEVICEINSTANCEA_head():
@@ -3141,15 +3104,15 @@ def _define_DIDEVICEINSTANCEA_head():
 def _define_DIDEVICEINSTANCEA():
     DIDEVICEINSTANCEA = win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head
     DIDEVICEINSTANCEA._fields_ = [
-        ("dwSize", UInt32),
-        ("guidInstance", Guid),
-        ("guidProduct", Guid),
-        ("dwDevType", UInt32),
-        ("tszInstanceName", win32more.Foundation.CHAR * 260),
-        ("tszProductName", win32more.Foundation.CHAR * 260),
-        ("guidFFDriver", Guid),
-        ("wUsagePage", UInt16),
-        ("wUsage", UInt16),
+        ('dwSize', UInt32),
+        ('guidInstance', Guid),
+        ('guidProduct', Guid),
+        ('dwDevType', UInt32),
+        ('tszInstanceName', win32more.Foundation.CHAR * 260),
+        ('tszProductName', win32more.Foundation.CHAR * 260),
+        ('guidFFDriver', Guid),
+        ('wUsagePage', UInt16),
+        ('wUsage', UInt16),
     ]
     return DIDEVICEINSTANCEA
 def _define_DIDEVICEINSTANCEW_head():
@@ -3159,63 +3122,206 @@ def _define_DIDEVICEINSTANCEW_head():
 def _define_DIDEVICEINSTANCEW():
     DIDEVICEINSTANCEW = win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head
     DIDEVICEINSTANCEW._fields_ = [
-        ("dwSize", UInt32),
-        ("guidInstance", Guid),
-        ("guidProduct", Guid),
-        ("dwDevType", UInt32),
-        ("tszInstanceName", Char * 260),
-        ("tszProductName", Char * 260),
-        ("guidFFDriver", Guid),
-        ("wUsagePage", UInt16),
-        ("wUsage", UInt16),
+        ('dwSize', UInt32),
+        ('guidInstance', Guid),
+        ('guidProduct', Guid),
+        ('dwDevType', UInt32),
+        ('tszInstanceName', Char * 260),
+        ('tszProductName', Char * 260),
+        ('guidFFDriver', Guid),
+        ('wUsagePage', UInt16),
+        ('wUsage', UInt16),
     ]
     return DIDEVICEINSTANCEW
-def _define_IDirectInputDeviceW_head():
-    class IDirectInputDeviceW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5944e681-c92e-11cf-bfc7-444553540000')
-    return IDirectInputDeviceW
-def _define_IDirectInputDeviceW():
-    IDirectInputDeviceW = win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head
-    IDirectInputDeviceW.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head), use_last_error=False)(3, 'GetCapabilities', ((1, 'param0'),)))
-    IDirectInputDeviceW.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKW,c_void_p,UInt32, use_last_error=False)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDeviceW.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceW.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceW.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Acquire', ()))
-    IDirectInputDeviceW.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Unacquire', ()))
-    IDirectInputDeviceW.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceW.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDeviceW.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head), use_last_error=False)(11, 'SetDataFormat', ((1, 'param0'),)))
-    IDirectInputDeviceW.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(12, 'SetEventNotification', ((1, 'param0'),)))
-    IDirectInputDeviceW.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceW.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head),UInt32,UInt32, use_last_error=False)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDeviceW.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head), use_last_error=False)(15, 'GetDeviceInfo', ((1, 'param0'),)))
-    IDirectInputDeviceW.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceW.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputDeviceW
-def _define_IDirectInputDeviceA_head():
-    class IDirectInputDeviceA(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5944e680-c92e-11cf-bfc7-444553540000')
-    return IDirectInputDeviceA
-def _define_IDirectInputDeviceA():
-    IDirectInputDeviceA = win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head
-    IDirectInputDeviceA.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head), use_last_error=False)(3, 'GetCapabilities', ((1, 'param0'),)))
-    IDirectInputDeviceA.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKA,c_void_p,UInt32, use_last_error=False)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDeviceA.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceA.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceA.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Acquire', ()))
-    IDirectInputDeviceA.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Unacquire', ()))
-    IDirectInputDeviceA.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceA.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDeviceA.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head), use_last_error=False)(11, 'SetDataFormat', ((1, 'param0'),)))
-    IDirectInputDeviceA.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(12, 'SetEventNotification', ((1, 'param0'),)))
-    IDirectInputDeviceA.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceA.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head),UInt32,UInt32, use_last_error=False)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDeviceA.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head), use_last_error=False)(15, 'GetDeviceInfo', ((1, 'param0'),)))
-    IDirectInputDeviceA.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDeviceA.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputDeviceA
+def _define_DIDEVICEOBJECTDATA_head():
+    class DIDEVICEOBJECTDATA(Structure):
+        pass
+    return DIDEVICEOBJECTDATA
+def _define_DIDEVICEOBJECTDATA():
+    DIDEVICEOBJECTDATA = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head
+    DIDEVICEOBJECTDATA._fields_ = [
+        ('dwOfs', UInt32),
+        ('dwData', UInt32),
+        ('dwTimeStamp', UInt32),
+        ('dwSequence', UInt32),
+        ('uAppData', UIntPtr),
+    ]
+    return DIDEVICEOBJECTDATA
+def _define_DIDEVICEOBJECTDATA_DX3_head():
+    class DIDEVICEOBJECTDATA_DX3(Structure):
+        pass
+    return DIDEVICEOBJECTDATA_DX3
+def _define_DIDEVICEOBJECTDATA_DX3():
+    DIDEVICEOBJECTDATA_DX3 = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_DX3_head
+    DIDEVICEOBJECTDATA_DX3._fields_ = [
+        ('dwOfs', UInt32),
+        ('dwData', UInt32),
+        ('dwTimeStamp', UInt32),
+        ('dwSequence', UInt32),
+    ]
+    return DIDEVICEOBJECTDATA_DX3
+def _define_DIDEVICEOBJECTINSTANCE_DX3A_head():
+    class DIDEVICEOBJECTINSTANCE_DX3A(Structure):
+        pass
+    return DIDEVICEOBJECTINSTANCE_DX3A
+def _define_DIDEVICEOBJECTINSTANCE_DX3A():
+    DIDEVICEOBJECTINSTANCE_DX3A = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCE_DX3A_head
+    DIDEVICEOBJECTINSTANCE_DX3A._fields_ = [
+        ('dwSize', UInt32),
+        ('guidType', Guid),
+        ('dwOfs', UInt32),
+        ('dwType', UInt32),
+        ('dwFlags', UInt32),
+        ('tszName', win32more.Foundation.CHAR * 260),
+    ]
+    return DIDEVICEOBJECTINSTANCE_DX3A
+def _define_DIDEVICEOBJECTINSTANCE_DX3W_head():
+    class DIDEVICEOBJECTINSTANCE_DX3W(Structure):
+        pass
+    return DIDEVICEOBJECTINSTANCE_DX3W
+def _define_DIDEVICEOBJECTINSTANCE_DX3W():
+    DIDEVICEOBJECTINSTANCE_DX3W = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCE_DX3W_head
+    DIDEVICEOBJECTINSTANCE_DX3W._fields_ = [
+        ('dwSize', UInt32),
+        ('guidType', Guid),
+        ('dwOfs', UInt32),
+        ('dwType', UInt32),
+        ('dwFlags', UInt32),
+        ('tszName', Char * 260),
+    ]
+    return DIDEVICEOBJECTINSTANCE_DX3W
+def _define_DIDEVICEOBJECTINSTANCEA_head():
+    class DIDEVICEOBJECTINSTANCEA(Structure):
+        pass
+    return DIDEVICEOBJECTINSTANCEA
+def _define_DIDEVICEOBJECTINSTANCEA():
+    DIDEVICEOBJECTINSTANCEA = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head
+    DIDEVICEOBJECTINSTANCEA._fields_ = [
+        ('dwSize', UInt32),
+        ('guidType', Guid),
+        ('dwOfs', UInt32),
+        ('dwType', UInt32),
+        ('dwFlags', UInt32),
+        ('tszName', win32more.Foundation.CHAR * 260),
+        ('dwFFMaxForce', UInt32),
+        ('dwFFForceResolution', UInt32),
+        ('wCollectionNumber', UInt16),
+        ('wDesignatorIndex', UInt16),
+        ('wUsagePage', UInt16),
+        ('wUsage', UInt16),
+        ('dwDimension', UInt32),
+        ('wExponent', UInt16),
+        ('wReportId', UInt16),
+    ]
+    return DIDEVICEOBJECTINSTANCEA
+def _define_DIDEVICEOBJECTINSTANCEW_head():
+    class DIDEVICEOBJECTINSTANCEW(Structure):
+        pass
+    return DIDEVICEOBJECTINSTANCEW
+def _define_DIDEVICEOBJECTINSTANCEW():
+    DIDEVICEOBJECTINSTANCEW = win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head
+    DIDEVICEOBJECTINSTANCEW._fields_ = [
+        ('dwSize', UInt32),
+        ('guidType', Guid),
+        ('dwOfs', UInt32),
+        ('dwType', UInt32),
+        ('dwFlags', UInt32),
+        ('tszName', Char * 260),
+        ('dwFFMaxForce', UInt32),
+        ('dwFFForceResolution', UInt32),
+        ('wCollectionNumber', UInt16),
+        ('wDesignatorIndex', UInt16),
+        ('wUsagePage', UInt16),
+        ('wUsage', UInt16),
+        ('dwDimension', UInt32),
+        ('wExponent', UInt16),
+        ('wReportId', UInt16),
+    ]
+    return DIDEVICEOBJECTINSTANCEW
+def _define_DIDEVICESTATE_head():
+    class DIDEVICESTATE(Structure):
+        pass
+    return DIDEVICESTATE
+def _define_DIDEVICESTATE():
+    DIDEVICESTATE = win32more.Devices.HumanInterfaceDevice.DIDEVICESTATE_head
+    DIDEVICESTATE._fields_ = [
+        ('dwSize', UInt32),
+        ('dwState', UInt32),
+        ('dwLoad', UInt32),
+    ]
+    return DIDEVICESTATE
+def _define_DIDRIVERVERSIONS_head():
+    class DIDRIVERVERSIONS(Structure):
+        pass
+    return DIDRIVERVERSIONS
+def _define_DIDRIVERVERSIONS():
+    DIDRIVERVERSIONS = win32more.Devices.HumanInterfaceDevice.DIDRIVERVERSIONS_head
+    DIDRIVERVERSIONS._fields_ = [
+        ('dwSize', UInt32),
+        ('dwFirmwareRevision', UInt32),
+        ('dwHardwareRevision', UInt32),
+        ('dwFFDriverVersion', UInt32),
+    ]
+    return DIDRIVERVERSIONS
+def _define_DIEFFECT_head():
+    class DIEFFECT(Structure):
+        pass
+    return DIEFFECT
+def _define_DIEFFECT():
+    DIEFFECT = win32more.Devices.HumanInterfaceDevice.DIEFFECT_head
+    DIEFFECT._fields_ = [
+        ('dwSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwDuration', UInt32),
+        ('dwSamplePeriod', UInt32),
+        ('dwGain', UInt32),
+        ('dwTriggerButton', UInt32),
+        ('dwTriggerRepeatInterval', UInt32),
+        ('cAxes', UInt32),
+        ('rgdwAxes', POINTER(UInt32)),
+        ('rglDirection', POINTER(Int32)),
+        ('lpEnvelope', POINTER(win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head)),
+        ('cbTypeSpecificParams', UInt32),
+        ('lpvTypeSpecificParams', c_void_p),
+        ('dwStartDelay', UInt32),
+    ]
+    return DIEFFECT
+def _define_DIEFFECT_DX5_head():
+    class DIEFFECT_DX5(Structure):
+        pass
+    return DIEFFECT_DX5
+def _define_DIEFFECT_DX5():
+    DIEFFECT_DX5 = win32more.Devices.HumanInterfaceDevice.DIEFFECT_DX5_head
+    DIEFFECT_DX5._fields_ = [
+        ('dwSize', UInt32),
+        ('dwFlags', UInt32),
+        ('dwDuration', UInt32),
+        ('dwSamplePeriod', UInt32),
+        ('dwGain', UInt32),
+        ('dwTriggerButton', UInt32),
+        ('dwTriggerRepeatInterval', UInt32),
+        ('cAxes', UInt32),
+        ('rgdwAxes', POINTER(UInt32)),
+        ('rglDirection', POINTER(Int32)),
+        ('lpEnvelope', POINTER(win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head)),
+        ('cbTypeSpecificParams', UInt32),
+        ('lpvTypeSpecificParams', c_void_p),
+    ]
+    return DIEFFECT_DX5
+def _define_DIEFFECTATTRIBUTES_head():
+    class DIEFFECTATTRIBUTES(Structure):
+        pass
+    return DIEFFECTATTRIBUTES
+def _define_DIEFFECTATTRIBUTES():
+    DIEFFECTATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIEFFECTATTRIBUTES_head
+    DIEFFECTATTRIBUTES._fields_ = [
+        ('dwEffectId', UInt32),
+        ('dwEffType', UInt32),
+        ('dwStaticParams', UInt32),
+        ('dwDynamicParams', UInt32),
+        ('dwCoords', UInt32),
+    ]
+    return DIEFFECTATTRIBUTES
 def _define_DIEFFECTINFOA_head():
     class DIEFFECTINFOA(Structure):
         pass
@@ -3223,12 +3329,12 @@ def _define_DIEFFECTINFOA_head():
 def _define_DIEFFECTINFOA():
     DIEFFECTINFOA = win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head
     DIEFFECTINFOA._fields_ = [
-        ("dwSize", UInt32),
-        ("guid", Guid),
-        ("dwEffType", UInt32),
-        ("dwStaticParams", UInt32),
-        ("dwDynamicParams", UInt32),
-        ("tszName", win32more.Foundation.CHAR * 260),
+        ('dwSize', UInt32),
+        ('guid', Guid),
+        ('dwEffType', UInt32),
+        ('dwStaticParams', UInt32),
+        ('dwDynamicParams', UInt32),
+        ('tszName', win32more.Foundation.CHAR * 260),
     ]
     return DIEFFECTINFOA
 def _define_DIEFFECTINFOW_head():
@@ -3238,174 +3344,122 @@ def _define_DIEFFECTINFOW_head():
 def _define_DIEFFECTINFOW():
     DIEFFECTINFOW = win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head
     DIEFFECTINFOW._fields_ = [
-        ("dwSize", UInt32),
-        ("guid", Guid),
-        ("dwEffType", UInt32),
-        ("dwStaticParams", UInt32),
-        ("dwDynamicParams", UInt32),
-        ("tszName", Char * 260),
+        ('dwSize', UInt32),
+        ('guid', Guid),
+        ('dwEffType', UInt32),
+        ('dwStaticParams', UInt32),
+        ('dwDynamicParams', UInt32),
+        ('tszName', Char * 260),
     ]
     return DIEFFECTINFOW
-def _define_LPDIENUMEFFECTSCALLBACKA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head),c_void_p, use_last_error=False)
-def _define_LPDIENUMEFFECTSCALLBACKW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head),c_void_p, use_last_error=False)
-def _define_LPDIENUMCREATEDEFFECTOBJECTSCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head,c_void_p, use_last_error=False)
-def _define_IDirectInputDevice2W_head():
-    class IDirectInputDevice2W(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head):
-        Guid = Guid('5944e683-c92e-11cf-bfc7-444553540000')
-    return IDirectInputDevice2W
-def _define_IDirectInputDevice2W():
-    IDirectInputDevice2W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W_head
-    IDirectInputDevice2W.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head, use_last_error=False)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice2W.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKW,c_void_p,UInt32, use_last_error=False)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice2W.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head),POINTER(Guid), use_last_error=False)(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice2W.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(21, 'GetForceFeedbackState', ((1, 'param0'),)))
-    IDirectInputDevice2W.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
-    IDirectInputDevice2W.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32, use_last_error=False)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice2W.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(24, 'Escape', ((1, 'param0'),)))
-    IDirectInputDevice2W.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Poll', ()))
-    IDirectInputDevice2W.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW
-    return IDirectInputDevice2W
-def _define_IDirectInputDevice2A_head():
-    class IDirectInputDevice2A(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head):
-        Guid = Guid('5944e682-c92e-11cf-bfc7-444553540000')
-    return IDirectInputDevice2A
-def _define_IDirectInputDevice2A():
-    IDirectInputDevice2A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A_head
-    IDirectInputDevice2A.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head, use_last_error=False)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice2A.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKA,c_void_p,UInt32, use_last_error=False)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice2A.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head),POINTER(Guid), use_last_error=False)(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice2A.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(21, 'GetForceFeedbackState', ((1, 'param0'),)))
-    IDirectInputDevice2A.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
-    IDirectInputDevice2A.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32, use_last_error=False)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice2A.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(24, 'Escape', ((1, 'param0'),)))
-    IDirectInputDevice2A.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Poll', ()))
-    IDirectInputDevice2A.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA
-    return IDirectInputDevice2A
-def _define_IDirectInputDevice7W_head():
-    class IDirectInputDevice7W(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W_head):
-        Guid = Guid('57d7c6bd-2356-11d3-8e9d-00c04f6844ae')
-    return IDirectInputDevice7W
-def _define_IDirectInputDevice7W():
-    IDirectInputDevice7W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice7W_head
-    IDirectInputDevice7W.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32, use_last_error=False)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice7W.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32, use_last_error=False)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W
-    return IDirectInputDevice7W
-def _define_IDirectInputDevice7A_head():
-    class IDirectInputDevice7A(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A_head):
-        Guid = Guid('57d7c6bc-2356-11d3-8e9d-00c04f6844ae')
-    return IDirectInputDevice7A
-def _define_IDirectInputDevice7A():
-    IDirectInputDevice7A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice7A_head
-    IDirectInputDevice7A.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32, use_last_error=False)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice7A.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32, use_last_error=False)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A
-    return IDirectInputDevice7A
-def _define_IDirectInputDevice8W_head():
-    class IDirectInputDevice8W(win32more.System.Com.IUnknown_head):
-        Guid = Guid('54d41081-dc15-4833-a41b-748f73a38179')
-    return IDirectInputDevice8W
-def _define_IDirectInputDevice8W():
-    IDirectInputDevice8W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head
-    IDirectInputDevice8W.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head), use_last_error=False)(3, 'GetCapabilities', ((1, 'param0'),)))
-    IDirectInputDevice8W.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKW,c_void_p,UInt32, use_last_error=False)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8W.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8W.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Acquire', ()))
-    IDirectInputDevice8W.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Unacquire', ()))
-    IDirectInputDevice8W.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8W.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8W.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head), use_last_error=False)(11, 'SetDataFormat', ((1, 'param0'),)))
-    IDirectInputDevice8W.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(12, 'SetEventNotification', ((1, 'param0'),)))
-    IDirectInputDevice8W.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8W.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head),UInt32,UInt32, use_last_error=False)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head), use_last_error=False)(15, 'GetDeviceInfo', ((1, 'param0'),)))
-    IDirectInputDevice8W.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8W.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head, use_last_error=False)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8W.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKW,c_void_p,UInt32, use_last_error=False)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head),POINTER(Guid), use_last_error=False)(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8W.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(21, 'GetForceFeedbackState', ((1, 'param0'),)))
-    IDirectInputDevice8W.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
-    IDirectInputDevice8W.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32, use_last_error=False)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(24, 'Escape', ((1, 'param0'),)))
-    IDirectInputDevice8W.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Poll', ()))
-    IDirectInputDevice8W.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8W.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32, use_last_error=False)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8W.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32, use_last_error=False)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8W.BuildActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(29, 'BuildActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.SetActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(30, 'SetActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8W.GetImageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW_head), use_last_error=False)(31, 'GetImageInfo', ((1, 'param0'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputDevice8W
-def _define_IDirectInputDevice8A_head():
-    class IDirectInputDevice8A(win32more.System.Com.IUnknown_head):
-        Guid = Guid('54d41080-dc15-4833-a41b-748f73a38179')
-    return IDirectInputDevice8A
-def _define_IDirectInputDevice8A():
-    IDirectInputDevice8A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head
-    IDirectInputDevice8A.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head), use_last_error=False)(3, 'GetCapabilities', ((1, 'param0'),)))
-    IDirectInputDevice8A.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKA,c_void_p,UInt32, use_last_error=False)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8A.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head), use_last_error=False)(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8A.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Acquire', ()))
-    IDirectInputDevice8A.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Unacquire', ()))
-    IDirectInputDevice8A.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8A.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8A.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head), use_last_error=False)(11, 'SetDataFormat', ((1, 'param0'),)))
-    IDirectInputDevice8A.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(12, 'SetEventNotification', ((1, 'param0'),)))
-    IDirectInputDevice8A.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8A.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head),UInt32,UInt32, use_last_error=False)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head), use_last_error=False)(15, 'GetDeviceInfo', ((1, 'param0'),)))
-    IDirectInputDevice8A.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8A.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head, use_last_error=False)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8A.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKA,c_void_p,UInt32, use_last_error=False)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head),POINTER(Guid), use_last_error=False)(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputDevice8A.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(21, 'GetForceFeedbackState', ((1, 'param0'),)))
-    IDirectInputDevice8A.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
-    IDirectInputDevice8A.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32, use_last_error=False)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(24, 'Escape', ((1, 'param0'),)))
-    IDirectInputDevice8A.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Poll', ()))
-    IDirectInputDevice8A.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8A.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32, use_last_error=False)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8A.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32, use_last_error=False)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputDevice8A.BuildActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Foundation.PSTR,UInt32, use_last_error=False)(29, 'BuildActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.SetActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Foundation.PSTR,UInt32, use_last_error=False)(30, 'SetActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputDevice8A.GetImageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERA_head), use_last_error=False)(31, 'GetImageInfo', ((1, 'param0'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputDevice8A
-def _define_DIMOUSESTATE_head():
-    class DIMOUSESTATE(Structure):
+def _define_DIEFFESCAPE_head():
+    class DIEFFESCAPE(Structure):
         pass
-    return DIMOUSESTATE
-def _define_DIMOUSESTATE():
-    DIMOUSESTATE = win32more.Devices.HumanInterfaceDevice.DIMOUSESTATE_head
-    DIMOUSESTATE._fields_ = [
-        ("lX", Int32),
-        ("lY", Int32),
-        ("lZ", Int32),
-        ("rgbButtons", Byte * 4),
+    return DIEFFESCAPE
+def _define_DIEFFESCAPE():
+    DIEFFESCAPE = win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head
+    DIEFFESCAPE._fields_ = [
+        ('dwSize', UInt32),
+        ('dwCommand', UInt32),
+        ('lpvInBuffer', c_void_p),
+        ('cbInBuffer', UInt32),
+        ('lpvOutBuffer', c_void_p),
+        ('cbOutBuffer', UInt32),
     ]
-    return DIMOUSESTATE
-def _define_DIMOUSESTATE2_head():
-    class DIMOUSESTATE2(Structure):
+    return DIEFFESCAPE
+def _define_DIENVELOPE_head():
+    class DIENVELOPE(Structure):
         pass
-    return DIMOUSESTATE2
-def _define_DIMOUSESTATE2():
-    DIMOUSESTATE2 = win32more.Devices.HumanInterfaceDevice.DIMOUSESTATE2_head
-    DIMOUSESTATE2._fields_ = [
-        ("lX", Int32),
-        ("lY", Int32),
-        ("lZ", Int32),
-        ("rgbButtons", Byte * 8),
+    return DIENVELOPE
+def _define_DIENVELOPE():
+    DIENVELOPE = win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head
+    DIENVELOPE._fields_ = [
+        ('dwSize', UInt32),
+        ('dwAttackLevel', UInt32),
+        ('dwAttackTime', UInt32),
+        ('dwFadeLevel', UInt32),
+        ('dwFadeTime', UInt32),
     ]
-    return DIMOUSESTATE2
+    return DIENVELOPE
+def _define_DIFFDEVICEATTRIBUTES_head():
+    class DIFFDEVICEATTRIBUTES(Structure):
+        pass
+    return DIFFDEVICEATTRIBUTES
+def _define_DIFFDEVICEATTRIBUTES():
+    DIFFDEVICEATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIFFDEVICEATTRIBUTES_head
+    DIFFDEVICEATTRIBUTES._fields_ = [
+        ('dwFlags', UInt32),
+        ('dwFFSamplePeriod', UInt32),
+        ('dwFFMinTimeResolution', UInt32),
+    ]
+    return DIFFDEVICEATTRIBUTES
+def _define_DIFFOBJECTATTRIBUTES_head():
+    class DIFFOBJECTATTRIBUTES(Structure):
+        pass
+    return DIFFOBJECTATTRIBUTES
+def _define_DIFFOBJECTATTRIBUTES():
+    DIFFOBJECTATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIFFOBJECTATTRIBUTES_head
+    DIFFOBJECTATTRIBUTES._fields_ = [
+        ('dwFFMaxForce', UInt32),
+        ('dwFFForceResolution', UInt32),
+    ]
+    return DIFFOBJECTATTRIBUTES
+def _define_DIFILEEFFECT_head():
+    class DIFILEEFFECT(Structure):
+        pass
+    return DIFILEEFFECT
+def _define_DIFILEEFFECT():
+    DIFILEEFFECT = win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head
+    DIFILEEFFECT._fields_ = [
+        ('dwSize', UInt32),
+        ('GuidEffect', Guid),
+        ('lpDiEffect', POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head)),
+        ('szFriendlyName', win32more.Foundation.CHAR * 260),
+    ]
+    return DIFILEEFFECT
+def _define_DIHIDFFINITINFO_head():
+    class DIHIDFFINITINFO(Structure):
+        pass
+    return DIHIDFFINITINFO
+def _define_DIHIDFFINITINFO():
+    DIHIDFFINITINFO = win32more.Devices.HumanInterfaceDevice.DIHIDFFINITINFO_head
+    DIHIDFFINITINFO._fields_ = [
+        ('dwSize', UInt32),
+        ('pwszDeviceInterface', win32more.Foundation.PWSTR),
+        ('GuidInstance', Guid),
+    ]
+    return DIHIDFFINITINFO
+def _define_DIJOYCONFIG_head():
+    class DIJOYCONFIG(Structure):
+        pass
+    return DIJOYCONFIG
+def _define_DIJOYCONFIG():
+    DIJOYCONFIG = win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head
+    DIJOYCONFIG._fields_ = [
+        ('dwSize', UInt32),
+        ('guidInstance', Guid),
+        ('hwc', win32more.Devices.HumanInterfaceDevice.JOYREGHWCONFIG),
+        ('dwGain', UInt32),
+        ('wszType', Char * 256),
+        ('wszCallout', Char * 256),
+        ('guidGameport', Guid),
+    ]
+    return DIJOYCONFIG
+def _define_DIJOYCONFIG_DX5_head():
+    class DIJOYCONFIG_DX5(Structure):
+        pass
+    return DIJOYCONFIG_DX5
+def _define_DIJOYCONFIG_DX5():
+    DIJOYCONFIG_DX5 = win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_DX5_head
+    DIJOYCONFIG_DX5._fields_ = [
+        ('dwSize', UInt32),
+        ('guidInstance', Guid),
+        ('hwc', win32more.Devices.HumanInterfaceDevice.JOYREGHWCONFIG),
+        ('dwGain', UInt32),
+        ('wszType', Char * 256),
+        ('wszCallout', Char * 256),
+    ]
+    return DIJOYCONFIG_DX5
 def _define_DIJOYSTATE_head():
     class DIJOYSTATE(Structure):
         pass
@@ -3413,15 +3467,15 @@ def _define_DIJOYSTATE_head():
 def _define_DIJOYSTATE():
     DIJOYSTATE = win32more.Devices.HumanInterfaceDevice.DIJOYSTATE_head
     DIJOYSTATE._fields_ = [
-        ("lX", Int32),
-        ("lY", Int32),
-        ("lZ", Int32),
-        ("lRx", Int32),
-        ("lRy", Int32),
-        ("lRz", Int32),
-        ("rglSlider", Int32 * 2),
-        ("rgdwPOV", UInt32 * 4),
-        ("rgbButtons", Byte * 32),
+        ('lX', Int32),
+        ('lY', Int32),
+        ('lZ', Int32),
+        ('lRx', Int32),
+        ('lRy', Int32),
+        ('lRz', Int32),
+        ('rglSlider', Int32 * 2),
+        ('rgdwPOV', UInt32 * 4),
+        ('rgbButtons', Byte * 32),
     ]
     return DIJOYSTATE
 def _define_DIJOYSTATE2_head():
@@ -3431,365 +3485,56 @@ def _define_DIJOYSTATE2_head():
 def _define_DIJOYSTATE2():
     DIJOYSTATE2 = win32more.Devices.HumanInterfaceDevice.DIJOYSTATE2_head
     DIJOYSTATE2._fields_ = [
-        ("lX", Int32),
-        ("lY", Int32),
-        ("lZ", Int32),
-        ("lRx", Int32),
-        ("lRy", Int32),
-        ("lRz", Int32),
-        ("rglSlider", Int32 * 2),
-        ("rgdwPOV", UInt32 * 4),
-        ("rgbButtons", Byte * 128),
-        ("lVX", Int32),
-        ("lVY", Int32),
-        ("lVZ", Int32),
-        ("lVRx", Int32),
-        ("lVRy", Int32),
-        ("lVRz", Int32),
-        ("rglVSlider", Int32 * 2),
-        ("lAX", Int32),
-        ("lAY", Int32),
-        ("lAZ", Int32),
-        ("lARx", Int32),
-        ("lARy", Int32),
-        ("lARz", Int32),
-        ("rglASlider", Int32 * 2),
-        ("lFX", Int32),
-        ("lFY", Int32),
-        ("lFZ", Int32),
-        ("lFRx", Int32),
-        ("lFRy", Int32),
-        ("lFRz", Int32),
-        ("rglFSlider", Int32 * 2),
+        ('lX', Int32),
+        ('lY', Int32),
+        ('lZ', Int32),
+        ('lRx', Int32),
+        ('lRy', Int32),
+        ('lRz', Int32),
+        ('rglSlider', Int32 * 2),
+        ('rgdwPOV', UInt32 * 4),
+        ('rgbButtons', Byte * 128),
+        ('lVX', Int32),
+        ('lVY', Int32),
+        ('lVZ', Int32),
+        ('lVRx', Int32),
+        ('lVRy', Int32),
+        ('lVRz', Int32),
+        ('rglVSlider', Int32 * 2),
+        ('lAX', Int32),
+        ('lAY', Int32),
+        ('lAZ', Int32),
+        ('lARx', Int32),
+        ('lARy', Int32),
+        ('lARz', Int32),
+        ('rglASlider', Int32 * 2),
+        ('lFX', Int32),
+        ('lFY', Int32),
+        ('lFZ', Int32),
+        ('lFRx', Int32),
+        ('lFRy', Int32),
+        ('lFRz', Int32),
+        ('rglFSlider', Int32 * 2),
     ]
     return DIJOYSTATE2
-def _define_LPDIENUMDEVICESCALLBACKA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head),c_void_p, use_last_error=False)
-def _define_LPDIENUMDEVICESCALLBACKW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head),c_void_p, use_last_error=False)
-def _define_LPDICONFIGUREDEVICESCALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Com.IUnknown_head,c_void_p, use_last_error=False)
-def _define_LPDIENUMDEVICESBYSEMANTICSCBA():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head),win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head,UInt32,UInt32,c_void_p, use_last_error=False)
-def _define_LPDIENUMDEVICESBYSEMANTICSCBW():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head),win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head,UInt32,UInt32,c_void_p, use_last_error=False)
-def _define_IDirectInputW_head():
-    class IDirectInputW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('89521361-aa8a-11cf-bfc7-444553540000')
-    return IDirectInputW
-def _define_IDirectInputW():
-    IDirectInputW = win32more.Devices.HumanInterfaceDevice.IDirectInputW_head
-    IDirectInputW.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputW.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKW,c_void_p,UInt32, use_last_error=False)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputW.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetDeviceStatus', ((1, 'param0'),)))
-    IDirectInputW.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputW.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32, use_last_error=False)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputW
-def _define_IDirectInputA_head():
-    class IDirectInputA(win32more.System.Com.IUnknown_head):
-        Guid = Guid('89521360-aa8a-11cf-bfc7-444553540000')
-    return IDirectInputA
-def _define_IDirectInputA():
-    IDirectInputA = win32more.Devices.HumanInterfaceDevice.IDirectInputA_head
-    IDirectInputA.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputA.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKA,c_void_p,UInt32, use_last_error=False)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputA.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetDeviceStatus', ((1, 'param0'),)))
-    IDirectInputA.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputA.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32, use_last_error=False)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputA
-def _define_IDirectInput2W_head():
-    class IDirectInput2W(win32more.Devices.HumanInterfaceDevice.IDirectInputW_head):
-        Guid = Guid('5944e663-aa8a-11cf-bfc7-444553540000')
-    return IDirectInput2W
-def _define_IDirectInput2W():
-    IDirectInput2W = win32more.Devices.HumanInterfaceDevice.IDirectInput2W_head
-    IDirectInput2W.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInputW
-    return IDirectInput2W
-def _define_IDirectInput2A_head():
-    class IDirectInput2A(win32more.Devices.HumanInterfaceDevice.IDirectInputA_head):
-        Guid = Guid('5944e662-aa8a-11cf-bfc7-444553540000')
-    return IDirectInput2A
-def _define_IDirectInput2A():
-    IDirectInput2A = win32more.Devices.HumanInterfaceDevice.IDirectInput2A_head
-    IDirectInput2A.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInputA
-    return IDirectInput2A
-def _define_IDirectInput7W_head():
-    class IDirectInput7W(win32more.Devices.HumanInterfaceDevice.IDirectInput2W_head):
-        Guid = Guid('9a4cb685-236d-11d3-8e9d-00c04f6844ae')
-    return IDirectInput7W
-def _define_IDirectInput7W():
-    IDirectInput7W = win32more.Devices.HumanInterfaceDevice.IDirectInput7W_head
-    IDirectInput7W.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'CreateDeviceEx', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInput2W
-    return IDirectInput7W
-def _define_IDirectInput7A_head():
-    class IDirectInput7A(win32more.Devices.HumanInterfaceDevice.IDirectInput2A_head):
-        Guid = Guid('9a4cb684-236d-11d3-8e9d-00c04f6844ae')
-    return IDirectInput7A
-def _define_IDirectInput7A():
-    IDirectInput7A = win32more.Devices.HumanInterfaceDevice.IDirectInput7A_head
-    IDirectInput7A.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'CreateDeviceEx', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.Devices.HumanInterfaceDevice.IDirectInput2A
-    return IDirectInput7A
-def _define_IDirectInput8W_head():
-    class IDirectInput8W(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bf798031-483a-4da2-aa99-5d64ed369700')
-    return IDirectInput8W
-def _define_IDirectInput8W():
-    IDirectInput8W = win32more.Devices.HumanInterfaceDevice.IDirectInput8W_head
-    IDirectInput8W.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInput8W.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKW,c_void_p,UInt32, use_last_error=False)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInput8W.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetDeviceStatus', ((1, 'param0'),)))
-    IDirectInput8W.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInput8W.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32, use_last_error=False)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInput8W.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInput8W.EnumDevicesBySemantics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBW,c_void_p,UInt32, use_last_error=False)(9, 'EnumDevicesBySemantics', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
-    IDirectInput8W.ConfigureDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK,POINTER(win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW_head),UInt32,c_void_p, use_last_error=False)(10, 'ConfigureDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInput8W
-def _define_IDirectInput8A_head():
-    class IDirectInput8A(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bf798030-483a-4da2-aa99-5d64ed369700')
-    return IDirectInput8A
-def _define_IDirectInput8A():
-    IDirectInput8A = win32more.Devices.HumanInterfaceDevice.IDirectInput8A_head
-    IDirectInput8A.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInput8A.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKA,c_void_p,UInt32, use_last_error=False)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInput8A.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetDeviceStatus', ((1, 'param0'),)))
-    IDirectInput8A.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInput8A.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32, use_last_error=False)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInput8A.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInput8A.EnumDevicesBySemantics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBA,c_void_p,UInt32, use_last_error=False)(9, 'EnumDevicesBySemantics', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
-    IDirectInput8A.ConfigureDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK,POINTER(win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSA_head),UInt32,c_void_p, use_last_error=False)(10, 'ConfigureDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInput8A
-def _define_LPFNSHOWJOYCPL():
-    return CFUNCTYPE(Void,win32more.Foundation.HWND, use_last_error=False)
-def _define_DIOBJECTATTRIBUTES_head():
-    class DIOBJECTATTRIBUTES(Structure):
+def _define_DIJOYTYPEINFO_head():
+    class DIJOYTYPEINFO(Structure):
         pass
-    return DIOBJECTATTRIBUTES
-def _define_DIOBJECTATTRIBUTES():
-    DIOBJECTATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIOBJECTATTRIBUTES_head
-    DIOBJECTATTRIBUTES._fields_ = [
-        ("dwFlags", UInt32),
-        ("wUsagePage", UInt16),
-        ("wUsage", UInt16),
+    return DIJOYTYPEINFO
+def _define_DIJOYTYPEINFO():
+    DIJOYTYPEINFO = win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head
+    DIJOYTYPEINFO._fields_ = [
+        ('dwSize', UInt32),
+        ('hws', win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
+        ('clsidConfig', Guid),
+        ('wszDisplayName', Char * 256),
+        ('wszCallout', Char * 260),
+        ('wszHardwareId', Char * 256),
+        ('dwFlags1', UInt32),
+        ('dwFlags2', UInt32),
+        ('wszMapFile', Char * 256),
     ]
-    return DIOBJECTATTRIBUTES
-def _define_DIFFOBJECTATTRIBUTES_head():
-    class DIFFOBJECTATTRIBUTES(Structure):
-        pass
-    return DIFFOBJECTATTRIBUTES
-def _define_DIFFOBJECTATTRIBUTES():
-    DIFFOBJECTATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIFFOBJECTATTRIBUTES_head
-    DIFFOBJECTATTRIBUTES._fields_ = [
-        ("dwFFMaxForce", UInt32),
-        ("dwFFForceResolution", UInt32),
-    ]
-    return DIFFOBJECTATTRIBUTES
-def _define_DIOBJECTCALIBRATION_head():
-    class DIOBJECTCALIBRATION(Structure):
-        pass
-    return DIOBJECTCALIBRATION
-def _define_DIOBJECTCALIBRATION():
-    DIOBJECTCALIBRATION = win32more.Devices.HumanInterfaceDevice.DIOBJECTCALIBRATION_head
-    DIOBJECTCALIBRATION._fields_ = [
-        ("lMin", Int32),
-        ("lCenter", Int32),
-        ("lMax", Int32),
-    ]
-    return DIOBJECTCALIBRATION
-def _define_DIPOVCALIBRATION_head():
-    class DIPOVCALIBRATION(Structure):
-        pass
-    return DIPOVCALIBRATION
-def _define_DIPOVCALIBRATION():
-    DIPOVCALIBRATION = win32more.Devices.HumanInterfaceDevice.DIPOVCALIBRATION_head
-    DIPOVCALIBRATION._fields_ = [
-        ("lMin", Int32 * 5),
-        ("lMax", Int32 * 5),
-    ]
-    return DIPOVCALIBRATION
-def _define_DIEFFECTATTRIBUTES_head():
-    class DIEFFECTATTRIBUTES(Structure):
-        pass
-    return DIEFFECTATTRIBUTES
-def _define_DIEFFECTATTRIBUTES():
-    DIEFFECTATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIEFFECTATTRIBUTES_head
-    DIEFFECTATTRIBUTES._fields_ = [
-        ("dwEffectId", UInt32),
-        ("dwEffType", UInt32),
-        ("dwStaticParams", UInt32),
-        ("dwDynamicParams", UInt32),
-        ("dwCoords", UInt32),
-    ]
-    return DIEFFECTATTRIBUTES
-def _define_DIFFDEVICEATTRIBUTES_head():
-    class DIFFDEVICEATTRIBUTES(Structure):
-        pass
-    return DIFFDEVICEATTRIBUTES
-def _define_DIFFDEVICEATTRIBUTES():
-    DIFFDEVICEATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIFFDEVICEATTRIBUTES_head
-    DIFFDEVICEATTRIBUTES._fields_ = [
-        ("dwFlags", UInt32),
-        ("dwFFSamplePeriod", UInt32),
-        ("dwFFMinTimeResolution", UInt32),
-    ]
-    return DIFFDEVICEATTRIBUTES
-def _define_DIDRIVERVERSIONS_head():
-    class DIDRIVERVERSIONS(Structure):
-        pass
-    return DIDRIVERVERSIONS
-def _define_DIDRIVERVERSIONS():
-    DIDRIVERVERSIONS = win32more.Devices.HumanInterfaceDevice.DIDRIVERVERSIONS_head
-    DIDRIVERVERSIONS._fields_ = [
-        ("dwSize", UInt32),
-        ("dwFirmwareRevision", UInt32),
-        ("dwHardwareRevision", UInt32),
-        ("dwFFDriverVersion", UInt32),
-    ]
-    return DIDRIVERVERSIONS
-def _define_DIDEVICESTATE_head():
-    class DIDEVICESTATE(Structure):
-        pass
-    return DIDEVICESTATE
-def _define_DIDEVICESTATE():
-    DIDEVICESTATE = win32more.Devices.HumanInterfaceDevice.DIDEVICESTATE_head
-    DIDEVICESTATE._fields_ = [
-        ("dwSize", UInt32),
-        ("dwState", UInt32),
-        ("dwLoad", UInt32),
-    ]
-    return DIDEVICESTATE
-def _define_DIHIDFFINITINFO_head():
-    class DIHIDFFINITINFO(Structure):
-        pass
-    return DIHIDFFINITINFO
-def _define_DIHIDFFINITINFO():
-    DIHIDFFINITINFO = win32more.Devices.HumanInterfaceDevice.DIHIDFFINITINFO_head
-    DIHIDFFINITINFO._fields_ = [
-        ("dwSize", UInt32),
-        ("pwszDeviceInterface", win32more.Foundation.PWSTR),
-        ("GuidInstance", Guid),
-    ]
-    return DIHIDFFINITINFO
-def _define_IDirectInputEffectDriver_head():
-    class IDirectInputEffectDriver(win32more.System.Com.IUnknown_head):
-        Guid = Guid('02538130-898f-11d0-9ad0-00a0c9a06e35')
-    return IDirectInputEffectDriver
-def _define_IDirectInputEffectDriver():
-    IDirectInputEffectDriver = win32more.Devices.HumanInterfaceDevice.IDirectInputEffectDriver_head
-    IDirectInputEffectDriver.DeviceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,c_void_p, use_last_error=False)(3, 'DeviceID', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
-    IDirectInputEffectDriver.GetVersions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDRIVERVERSIONS_head), use_last_error=False)(4, 'GetVersions', ((1, 'param0'),)))
-    IDirectInputEffectDriver.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(5, 'Escape', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputEffectDriver.SetGain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(6, 'SetGain', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffectDriver.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(7, 'SendForceFeedbackCommand', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffectDriver.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICESTATE_head), use_last_error=False)(8, 'GetForceFeedbackState', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffectDriver.DownloadEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),UInt32, use_last_error=False)(9, 'DownloadEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
-    IDirectInputEffectDriver.DestroyEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(10, 'DestroyEffect', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffectDriver.StartEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(11, 'StartEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputEffectDriver.StopEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(12, 'StopEffect', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputEffectDriver.GetEffectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(13, 'GetEffectStatus', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputEffectDriver
-def _define_JOYPOS_head():
-    class JOYPOS(Structure):
-        pass
-    return JOYPOS
-def _define_JOYPOS():
-    JOYPOS = win32more.Devices.HumanInterfaceDevice.JOYPOS_head
-    JOYPOS._fields_ = [
-        ("dwX", UInt32),
-        ("dwY", UInt32),
-        ("dwZ", UInt32),
-        ("dwR", UInt32),
-        ("dwU", UInt32),
-        ("dwV", UInt32),
-    ]
-    return JOYPOS
-def _define_JOYRANGE_head():
-    class JOYRANGE(Structure):
-        pass
-    return JOYRANGE
-def _define_JOYRANGE():
-    JOYRANGE = win32more.Devices.HumanInterfaceDevice.JOYRANGE_head
-    JOYRANGE._fields_ = [
-        ("jpMin", win32more.Devices.HumanInterfaceDevice.JOYPOS),
-        ("jpMax", win32more.Devices.HumanInterfaceDevice.JOYPOS),
-        ("jpCenter", win32more.Devices.HumanInterfaceDevice.JOYPOS),
-    ]
-    return JOYRANGE
-def _define_JOYREGUSERVALUES_head():
-    class JOYREGUSERVALUES(Structure):
-        pass
-    return JOYREGUSERVALUES
-def _define_JOYREGUSERVALUES():
-    JOYREGUSERVALUES = win32more.Devices.HumanInterfaceDevice.JOYREGUSERVALUES_head
-    JOYREGUSERVALUES._fields_ = [
-        ("dwTimeOut", UInt32),
-        ("jrvRanges", win32more.Devices.HumanInterfaceDevice.JOYRANGE),
-        ("jpDeadZone", win32more.Devices.HumanInterfaceDevice.JOYPOS),
-    ]
-    return JOYREGUSERVALUES
-def _define_JOYREGHWSETTINGS_head():
-    class JOYREGHWSETTINGS(Structure):
-        pass
-    return JOYREGHWSETTINGS
-def _define_JOYREGHWSETTINGS():
-    JOYREGHWSETTINGS = win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS_head
-    JOYREGHWSETTINGS._fields_ = [
-        ("dwFlags", UInt32),
-        ("dwNumButtons", UInt32),
-    ]
-    return JOYREGHWSETTINGS
-def _define_JOYREGHWVALUES_head():
-    class JOYREGHWVALUES(Structure):
-        pass
-    return JOYREGHWVALUES
-def _define_JOYREGHWVALUES():
-    JOYREGHWVALUES = win32more.Devices.HumanInterfaceDevice.JOYREGHWVALUES_head
-    JOYREGHWVALUES._fields_ = [
-        ("jrvHardware", win32more.Devices.HumanInterfaceDevice.JOYRANGE),
-        ("dwPOVValues", UInt32 * 4),
-        ("dwCalFlags", UInt32),
-    ]
-    return JOYREGHWVALUES
-def _define_JOYREGHWCONFIG_head():
-    class JOYREGHWCONFIG(Structure):
-        pass
-    return JOYREGHWCONFIG
-def _define_JOYREGHWCONFIG():
-    JOYREGHWCONFIG = win32more.Devices.HumanInterfaceDevice.JOYREGHWCONFIG_head
-    JOYREGHWCONFIG._fields_ = [
-        ("hws", win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
-        ("dwUsageSettings", UInt32),
-        ("hwv", win32more.Devices.HumanInterfaceDevice.JOYREGHWVALUES),
-        ("dwType", UInt32),
-        ("dwReserved", UInt32),
-    ]
-    return JOYREGHWCONFIG
-def _define_JOYCALIBRATE_head():
-    class JOYCALIBRATE(Structure):
-        pass
-    return JOYCALIBRATE
-def _define_JOYCALIBRATE():
-    JOYCALIBRATE = win32more.Devices.HumanInterfaceDevice.JOYCALIBRATE_head
-    JOYCALIBRATE._fields_ = [
-        ("wXbase", UInt32),
-        ("wXdelta", UInt32),
-        ("wYbase", UInt32),
-        ("wYdelta", UInt32),
-        ("wZbase", UInt32),
-        ("wZdelta", UInt32),
-    ]
-    return JOYCALIBRATE
-def _define_LPDIJOYTYPECALLBACK():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p, use_last_error=False)
+    return DIJOYTYPEINFO
 def _define_DIJOYTYPEINFO_DX5_head():
     class DIJOYTYPEINFO_DX5(Structure):
         pass
@@ -3797,11 +3542,11 @@ def _define_DIJOYTYPEINFO_DX5_head():
 def _define_DIJOYTYPEINFO_DX5():
     DIJOYTYPEINFO_DX5 = win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_DX5_head
     DIJOYTYPEINFO_DX5._fields_ = [
-        ("dwSize", UInt32),
-        ("hws", win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
-        ("clsidConfig", Guid),
-        ("wszDisplayName", Char * 256),
-        ("wszCallout", Char * 260),
+        ('dwSize', UInt32),
+        ('hws', win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
+        ('clsidConfig', Guid),
+        ('wszDisplayName', Char * 256),
+        ('wszCallout', Char * 260),
     ]
     return DIJOYTYPEINFO_DX5
 def _define_DIJOYTYPEINFO_DX6_head():
@@ -3811,64 +3556,15 @@ def _define_DIJOYTYPEINFO_DX6_head():
 def _define_DIJOYTYPEINFO_DX6():
     DIJOYTYPEINFO_DX6 = win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_DX6_head
     DIJOYTYPEINFO_DX6._fields_ = [
-        ("dwSize", UInt32),
-        ("hws", win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
-        ("clsidConfig", Guid),
-        ("wszDisplayName", Char * 256),
-        ("wszCallout", Char * 260),
-        ("wszHardwareId", Char * 256),
-        ("dwFlags1", UInt32),
+        ('dwSize', UInt32),
+        ('hws', win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
+        ('clsidConfig', Guid),
+        ('wszDisplayName', Char * 256),
+        ('wszCallout', Char * 260),
+        ('wszHardwareId', Char * 256),
+        ('dwFlags1', UInt32),
     ]
     return DIJOYTYPEINFO_DX6
-def _define_DIJOYTYPEINFO_head():
-    class DIJOYTYPEINFO(Structure):
-        pass
-    return DIJOYTYPEINFO
-def _define_DIJOYTYPEINFO():
-    DIJOYTYPEINFO = win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head
-    DIJOYTYPEINFO._fields_ = [
-        ("dwSize", UInt32),
-        ("hws", win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
-        ("clsidConfig", Guid),
-        ("wszDisplayName", Char * 256),
-        ("wszCallout", Char * 260),
-        ("wszHardwareId", Char * 256),
-        ("dwFlags1", UInt32),
-        ("dwFlags2", UInt32),
-        ("wszMapFile", Char * 256),
-    ]
-    return DIJOYTYPEINFO
-def _define_DIJOYCONFIG_DX5_head():
-    class DIJOYCONFIG_DX5(Structure):
-        pass
-    return DIJOYCONFIG_DX5
-def _define_DIJOYCONFIG_DX5():
-    DIJOYCONFIG_DX5 = win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_DX5_head
-    DIJOYCONFIG_DX5._fields_ = [
-        ("dwSize", UInt32),
-        ("guidInstance", Guid),
-        ("hwc", win32more.Devices.HumanInterfaceDevice.JOYREGHWCONFIG),
-        ("dwGain", UInt32),
-        ("wszType", Char * 256),
-        ("wszCallout", Char * 256),
-    ]
-    return DIJOYCONFIG_DX5
-def _define_DIJOYCONFIG_head():
-    class DIJOYCONFIG(Structure):
-        pass
-    return DIJOYCONFIG
-def _define_DIJOYCONFIG():
-    DIJOYCONFIG = win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head
-    DIJOYCONFIG._fields_ = [
-        ("dwSize", UInt32),
-        ("guidInstance", Guid),
-        ("hwc", win32more.Devices.HumanInterfaceDevice.JOYREGHWCONFIG),
-        ("dwGain", UInt32),
-        ("wszType", Char * 256),
-        ("wszCallout", Char * 256),
-        ("guidGameport", Guid),
-    ]
-    return DIJOYCONFIG
 def _define_DIJOYUSERVALUES_head():
     class DIJOYUSERVALUES(Structure):
         pass
@@ -3876,585 +3572,217 @@ def _define_DIJOYUSERVALUES_head():
 def _define_DIJOYUSERVALUES():
     DIJOYUSERVALUES = win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head
     DIJOYUSERVALUES._fields_ = [
-        ("dwSize", UInt32),
-        ("ruv", win32more.Devices.HumanInterfaceDevice.JOYREGUSERVALUES),
-        ("wszGlobalDriver", Char * 256),
-        ("wszGameportEmulator", Char * 256),
+        ('dwSize', UInt32),
+        ('ruv', win32more.Devices.HumanInterfaceDevice.JOYREGUSERVALUES),
+        ('wszGlobalDriver', Char * 256),
+        ('wszGameportEmulator', Char * 256),
     ]
     return DIJOYUSERVALUES
-def _define_IDirectInputJoyConfig_head():
-    class IDirectInputJoyConfig(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1de12ab1-c9f5-11cf-bfc7-444553540000')
-    return IDirectInputJoyConfig
-def _define_IDirectInputJoyConfig():
-    IDirectInputJoyConfig = win32more.Devices.HumanInterfaceDevice.IDirectInputJoyConfig_head
-    IDirectInputJoyConfig.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Acquire', ()))
-    IDirectInputJoyConfig.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unacquire', ()))
-    IDirectInputJoyConfig.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(5, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig.SendNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'SendNotify', ()))
-    IDirectInputJoyConfig.EnumTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIJOYTYPECALLBACK,c_void_p, use_last_error=False)(7, 'EnumTypes', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig.GetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32, use_last_error=False)(8, 'GetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig.SetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32, use_last_error=False)(9, 'SetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig.DeleteType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'DeleteType', ((1, 'param0'),)))
-    IDirectInputJoyConfig.GetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32, use_last_error=False)(11, 'GetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig.SetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32, use_last_error=False)(12, 'SetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig.DeleteConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'DeleteConfig', ((1, 'param0'),)))
-    IDirectInputJoyConfig.GetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32, use_last_error=False)(14, 'GetUserValues', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig.SetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32, use_last_error=False)(15, 'SetUserValues', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig.AddNewHardware = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(16, 'AddNewHardware', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig.OpenTypeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(17, 'OpenTypeKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig.OpenConfigKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(18, 'OpenConfigKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputJoyConfig
-def _define_IDirectInputJoyConfig8_head():
-    class IDirectInputJoyConfig8(win32more.System.Com.IUnknown_head):
-        Guid = Guid('eb0d7dfa-1990-4f27-b4d6-edf2eec4a44c')
-    return IDirectInputJoyConfig8
-def _define_IDirectInputJoyConfig8():
-    IDirectInputJoyConfig8 = win32more.Devices.HumanInterfaceDevice.IDirectInputJoyConfig8_head
-    IDirectInputJoyConfig8.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Acquire', ()))
-    IDirectInputJoyConfig8.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unacquire', ()))
-    IDirectInputJoyConfig8.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(5, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig8.SendNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'SendNotify', ()))
-    IDirectInputJoyConfig8.EnumTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIJOYTYPECALLBACK,c_void_p, use_last_error=False)(7, 'EnumTypes', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig8.GetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32, use_last_error=False)(8, 'GetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig8.SetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(9, 'SetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
-    IDirectInputJoyConfig8.DeleteType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'DeleteType', ((1, 'param0'),)))
-    IDirectInputJoyConfig8.GetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32, use_last_error=False)(11, 'GetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig8.SetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32, use_last_error=False)(12, 'SetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig8.DeleteConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'DeleteConfig', ((1, 'param0'),)))
-    IDirectInputJoyConfig8.GetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32, use_last_error=False)(14, 'GetUserValues', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig8.SetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32, use_last_error=False)(15, 'SetUserValues', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig8.AddNewHardware = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(16, 'AddNewHardware', ((1, 'param0'),(1, 'param1'),)))
-    IDirectInputJoyConfig8.OpenTypeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(17, 'OpenTypeKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
-    IDirectInputJoyConfig8.OpenAppStatusKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(18, 'OpenAppStatusKey', ((1, 'param0'),)))
-    win32more.System.Com.IUnknown
-    return IDirectInputJoyConfig8
-def _define_KEYBOARD_INPUT_DATA_head():
-    class KEYBOARD_INPUT_DATA(Structure):
+def _define_DIMOUSESTATE_head():
+    class DIMOUSESTATE(Structure):
         pass
-    return KEYBOARD_INPUT_DATA
-def _define_KEYBOARD_INPUT_DATA():
-    KEYBOARD_INPUT_DATA = win32more.Devices.HumanInterfaceDevice.KEYBOARD_INPUT_DATA_head
-    KEYBOARD_INPUT_DATA._fields_ = [
-        ("UnitId", UInt16),
-        ("MakeCode", UInt16),
-        ("Flags", UInt16),
-        ("Reserved", UInt16),
-        ("ExtraInformation", UInt32),
+    return DIMOUSESTATE
+def _define_DIMOUSESTATE():
+    DIMOUSESTATE = win32more.Devices.HumanInterfaceDevice.DIMOUSESTATE_head
+    DIMOUSESTATE._fields_ = [
+        ('lX', Int32),
+        ('lY', Int32),
+        ('lZ', Int32),
+        ('rgbButtons', Byte * 4),
     ]
-    return KEYBOARD_INPUT_DATA
-def _define_KEYBOARD_TYPEMATIC_PARAMETERS_head():
-    class KEYBOARD_TYPEMATIC_PARAMETERS(Structure):
+    return DIMOUSESTATE
+def _define_DIMOUSESTATE2_head():
+    class DIMOUSESTATE2(Structure):
         pass
-    return KEYBOARD_TYPEMATIC_PARAMETERS
-def _define_KEYBOARD_TYPEMATIC_PARAMETERS():
-    KEYBOARD_TYPEMATIC_PARAMETERS = win32more.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS_head
-    KEYBOARD_TYPEMATIC_PARAMETERS._fields_ = [
-        ("UnitId", UInt16),
-        ("Rate", UInt16),
-        ("Delay", UInt16),
+    return DIMOUSESTATE2
+def _define_DIMOUSESTATE2():
+    DIMOUSESTATE2 = win32more.Devices.HumanInterfaceDevice.DIMOUSESTATE2_head
+    DIMOUSESTATE2._fields_ = [
+        ('lX', Int32),
+        ('lY', Int32),
+        ('lZ', Int32),
+        ('rgbButtons', Byte * 8),
     ]
-    return KEYBOARD_TYPEMATIC_PARAMETERS
-def _define_KEYBOARD_ID_head():
-    class KEYBOARD_ID(Structure):
+    return DIMOUSESTATE2
+def _define_DIOBJECTATTRIBUTES_head():
+    class DIOBJECTATTRIBUTES(Structure):
         pass
-    return KEYBOARD_ID
-def _define_KEYBOARD_ID():
-    KEYBOARD_ID = win32more.Devices.HumanInterfaceDevice.KEYBOARD_ID_head
-    KEYBOARD_ID._fields_ = [
-        ("Type", Byte),
-        ("Subtype", Byte),
+    return DIOBJECTATTRIBUTES
+def _define_DIOBJECTATTRIBUTES():
+    DIOBJECTATTRIBUTES = win32more.Devices.HumanInterfaceDevice.DIOBJECTATTRIBUTES_head
+    DIOBJECTATTRIBUTES._fields_ = [
+        ('dwFlags', UInt32),
+        ('wUsagePage', UInt16),
+        ('wUsage', UInt16),
     ]
-    return KEYBOARD_ID
-def _define_KEYBOARD_ATTRIBUTES_head():
-    class KEYBOARD_ATTRIBUTES(Structure):
+    return DIOBJECTATTRIBUTES
+def _define_DIOBJECTCALIBRATION_head():
+    class DIOBJECTCALIBRATION(Structure):
         pass
-    return KEYBOARD_ATTRIBUTES
-def _define_KEYBOARD_ATTRIBUTES():
-    KEYBOARD_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.KEYBOARD_ATTRIBUTES_head
-    KEYBOARD_ATTRIBUTES._fields_ = [
-        ("KeyboardIdentifier", win32more.Devices.HumanInterfaceDevice.KEYBOARD_ID),
-        ("KeyboardMode", UInt16),
-        ("NumberOfFunctionKeys", UInt16),
-        ("NumberOfIndicators", UInt16),
-        ("NumberOfKeysTotal", UInt16),
-        ("InputDataQueueLength", UInt32),
-        ("KeyRepeatMinimum", win32more.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS),
-        ("KeyRepeatMaximum", win32more.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS),
+    return DIOBJECTCALIBRATION
+def _define_DIOBJECTCALIBRATION():
+    DIOBJECTCALIBRATION = win32more.Devices.HumanInterfaceDevice.DIOBJECTCALIBRATION_head
+    DIOBJECTCALIBRATION._fields_ = [
+        ('lMin', Int32),
+        ('lCenter', Int32),
+        ('lMax', Int32),
     ]
-    return KEYBOARD_ATTRIBUTES
-def _define_KEYBOARD_EXTENDED_ATTRIBUTES_head():
-    class KEYBOARD_EXTENDED_ATTRIBUTES(Structure):
+    return DIOBJECTCALIBRATION
+def _define_DIOBJECTDATAFORMAT_head():
+    class DIOBJECTDATAFORMAT(Structure):
         pass
-    return KEYBOARD_EXTENDED_ATTRIBUTES
-def _define_KEYBOARD_EXTENDED_ATTRIBUTES():
-    KEYBOARD_EXTENDED_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.KEYBOARD_EXTENDED_ATTRIBUTES_head
-    KEYBOARD_EXTENDED_ATTRIBUTES._fields_ = [
-        ("Version", Byte),
-        ("FormFactor", Byte),
-        ("KeyType", Byte),
-        ("PhysicalLayout", Byte),
-        ("VendorSpecificPhysicalLayout", Byte),
-        ("IETFLanguageTagIndex", Byte),
-        ("ImplementedInputAssistControls", Byte),
+    return DIOBJECTDATAFORMAT
+def _define_DIOBJECTDATAFORMAT():
+    DIOBJECTDATAFORMAT = win32more.Devices.HumanInterfaceDevice.DIOBJECTDATAFORMAT_head
+    DIOBJECTDATAFORMAT._fields_ = [
+        ('pguid', POINTER(Guid)),
+        ('dwOfs', UInt32),
+        ('dwType', UInt32),
+        ('dwFlags', UInt32),
     ]
-    return KEYBOARD_EXTENDED_ATTRIBUTES
-def _define_KEYBOARD_INDICATOR_PARAMETERS_head():
-    class KEYBOARD_INDICATOR_PARAMETERS(Structure):
+    return DIOBJECTDATAFORMAT
+def _define_DIPERIODIC_head():
+    class DIPERIODIC(Structure):
         pass
-    return KEYBOARD_INDICATOR_PARAMETERS
-def _define_KEYBOARD_INDICATOR_PARAMETERS():
-    KEYBOARD_INDICATOR_PARAMETERS = win32more.Devices.HumanInterfaceDevice.KEYBOARD_INDICATOR_PARAMETERS_head
-    KEYBOARD_INDICATOR_PARAMETERS._fields_ = [
-        ("UnitId", UInt16),
-        ("LedFlags", UInt16),
+    return DIPERIODIC
+def _define_DIPERIODIC():
+    DIPERIODIC = win32more.Devices.HumanInterfaceDevice.DIPERIODIC_head
+    DIPERIODIC._fields_ = [
+        ('dwMagnitude', UInt32),
+        ('lOffset', Int32),
+        ('dwPhase', UInt32),
+        ('dwPeriod', UInt32),
     ]
-    return KEYBOARD_INDICATOR_PARAMETERS
-def _define_INDICATOR_LIST_head():
-    class INDICATOR_LIST(Structure):
+    return DIPERIODIC
+def _define_DIPOVCALIBRATION_head():
+    class DIPOVCALIBRATION(Structure):
         pass
-    return INDICATOR_LIST
-def _define_INDICATOR_LIST():
-    INDICATOR_LIST = win32more.Devices.HumanInterfaceDevice.INDICATOR_LIST_head
-    INDICATOR_LIST._fields_ = [
-        ("MakeCode", UInt16),
-        ("IndicatorFlags", UInt16),
+    return DIPOVCALIBRATION
+def _define_DIPOVCALIBRATION():
+    DIPOVCALIBRATION = win32more.Devices.HumanInterfaceDevice.DIPOVCALIBRATION_head
+    DIPOVCALIBRATION._fields_ = [
+        ('lMin', Int32 * 5),
+        ('lMax', Int32 * 5),
     ]
-    return INDICATOR_LIST
-def _define_KEYBOARD_INDICATOR_TRANSLATION_head():
-    class KEYBOARD_INDICATOR_TRANSLATION(Structure):
+    return DIPOVCALIBRATION
+def _define_DIPROPCAL_head():
+    class DIPROPCAL(Structure):
         pass
-    return KEYBOARD_INDICATOR_TRANSLATION
-def _define_KEYBOARD_INDICATOR_TRANSLATION():
-    KEYBOARD_INDICATOR_TRANSLATION = win32more.Devices.HumanInterfaceDevice.KEYBOARD_INDICATOR_TRANSLATION_head
-    KEYBOARD_INDICATOR_TRANSLATION._fields_ = [
-        ("NumberOfIndicatorKeys", UInt16),
-        ("IndicatorList", win32more.Devices.HumanInterfaceDevice.INDICATOR_LIST * 0),
+    return DIPROPCAL
+def _define_DIPROPCAL():
+    DIPROPCAL = win32more.Devices.HumanInterfaceDevice.DIPROPCAL_head
+    DIPROPCAL._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('lMin', Int32),
+        ('lCenter', Int32),
+        ('lMax', Int32),
     ]
-    return KEYBOARD_INDICATOR_TRANSLATION
-def _define_KEYBOARD_UNIT_ID_PARAMETER_head():
-    class KEYBOARD_UNIT_ID_PARAMETER(Structure):
+    return DIPROPCAL
+def _define_DIPROPCALPOV_head():
+    class DIPROPCALPOV(Structure):
         pass
-    return KEYBOARD_UNIT_ID_PARAMETER
-def _define_KEYBOARD_UNIT_ID_PARAMETER():
-    KEYBOARD_UNIT_ID_PARAMETER = win32more.Devices.HumanInterfaceDevice.KEYBOARD_UNIT_ID_PARAMETER_head
-    KEYBOARD_UNIT_ID_PARAMETER._fields_ = [
-        ("UnitId", UInt16),
+    return DIPROPCALPOV
+def _define_DIPROPCALPOV():
+    DIPROPCALPOV = win32more.Devices.HumanInterfaceDevice.DIPROPCALPOV_head
+    DIPROPCALPOV._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('lMin', Int32 * 5),
+        ('lMax', Int32 * 5),
     ]
-    return KEYBOARD_UNIT_ID_PARAMETER
-def _define_KEYBOARD_IME_STATUS_head():
-    class KEYBOARD_IME_STATUS(Structure):
+    return DIPROPCALPOV
+def _define_DIPROPCPOINTS_head():
+    class DIPROPCPOINTS(Structure):
         pass
-    return KEYBOARD_IME_STATUS
-def _define_KEYBOARD_IME_STATUS():
-    KEYBOARD_IME_STATUS = win32more.Devices.HumanInterfaceDevice.KEYBOARD_IME_STATUS_head
-    KEYBOARD_IME_STATUS._fields_ = [
-        ("UnitId", UInt16),
-        ("ImeOpen", UInt32),
-        ("ImeConvMode", UInt32),
+    return DIPROPCPOINTS
+def _define_DIPROPCPOINTS():
+    DIPROPCPOINTS = win32more.Devices.HumanInterfaceDevice.DIPROPCPOINTS_head
+    DIPROPCPOINTS._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('dwCPointsNum', UInt32),
+        ('cp', win32more.Devices.HumanInterfaceDevice.CPOINT * 8),
     ]
-    return KEYBOARD_IME_STATUS
-def _define_MOUSE_INPUT_DATA_head():
-    class MOUSE_INPUT_DATA(Structure):
+    return DIPROPCPOINTS
+def _define_DIPROPDWORD_head():
+    class DIPROPDWORD(Structure):
         pass
-    return MOUSE_INPUT_DATA
-def _define_MOUSE_INPUT_DATA():
-    MOUSE_INPUT_DATA = win32more.Devices.HumanInterfaceDevice.MOUSE_INPUT_DATA_head
-    class MOUSE_INPUT_DATA__Anonymous_e__Union(Union):
+    return DIPROPDWORD
+def _define_DIPROPDWORD():
+    DIPROPDWORD = win32more.Devices.HumanInterfaceDevice.DIPROPDWORD_head
+    DIPROPDWORD._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('dwData', UInt32),
+    ]
+    return DIPROPDWORD
+def _define_DIPROPGUIDANDPATH_head():
+    class DIPROPGUIDANDPATH(Structure):
         pass
-    class MOUSE_INPUT_DATA__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+    return DIPROPGUIDANDPATH
+def _define_DIPROPGUIDANDPATH():
+    DIPROPGUIDANDPATH = win32more.Devices.HumanInterfaceDevice.DIPROPGUIDANDPATH_head
+    DIPROPGUIDANDPATH._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('guidClass', Guid),
+        ('wszPath', Char * 260),
+    ]
+    return DIPROPGUIDANDPATH
+def _define_DIPROPHEADER_head():
+    class DIPROPHEADER(Structure):
         pass
-    MOUSE_INPUT_DATA__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("ButtonFlags", UInt16),
-        ("ButtonData", UInt16),
+    return DIPROPHEADER
+def _define_DIPROPHEADER():
+    DIPROPHEADER = win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head
+    DIPROPHEADER._fields_ = [
+        ('dwSize', UInt32),
+        ('dwHeaderSize', UInt32),
+        ('dwObj', UInt32),
+        ('dwHow', UInt32),
     ]
-    MOUSE_INPUT_DATA__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    MOUSE_INPUT_DATA__Anonymous_e__Union._fields_ = [
-        ("Buttons", UInt32),
-        ("Anonymous", MOUSE_INPUT_DATA__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    MOUSE_INPUT_DATA._anonymous_ = [
-        'Anonymous',
-    ]
-    MOUSE_INPUT_DATA._fields_ = [
-        ("UnitId", UInt16),
-        ("Flags", UInt16),
-        ("Anonymous", MOUSE_INPUT_DATA__Anonymous_e__Union),
-        ("RawButtons", UInt32),
-        ("LastX", Int32),
-        ("LastY", Int32),
-        ("ExtraInformation", UInt32),
-    ]
-    return MOUSE_INPUT_DATA
-def _define_MOUSE_ATTRIBUTES_head():
-    class MOUSE_ATTRIBUTES(Structure):
+    return DIPROPHEADER
+def _define_DIPROPPOINTER_head():
+    class DIPROPPOINTER(Structure):
         pass
-    return MOUSE_ATTRIBUTES
-def _define_MOUSE_ATTRIBUTES():
-    MOUSE_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.MOUSE_ATTRIBUTES_head
-    MOUSE_ATTRIBUTES._fields_ = [
-        ("MouseIdentifier", UInt16),
-        ("NumberOfButtons", UInt16),
-        ("SampleRate", UInt16),
-        ("InputDataQueueLength", UInt32),
+    return DIPROPPOINTER
+def _define_DIPROPPOINTER():
+    DIPROPPOINTER = win32more.Devices.HumanInterfaceDevice.DIPROPPOINTER_head
+    DIPROPPOINTER._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('uData', UIntPtr),
     ]
-    return MOUSE_ATTRIBUTES
-def _define_MOUSE_UNIT_ID_PARAMETER_head():
-    class MOUSE_UNIT_ID_PARAMETER(Structure):
+    return DIPROPPOINTER
+def _define_DIPROPRANGE_head():
+    class DIPROPRANGE(Structure):
         pass
-    return MOUSE_UNIT_ID_PARAMETER
-def _define_MOUSE_UNIT_ID_PARAMETER():
-    MOUSE_UNIT_ID_PARAMETER = win32more.Devices.HumanInterfaceDevice.MOUSE_UNIT_ID_PARAMETER_head
-    MOUSE_UNIT_ID_PARAMETER._fields_ = [
-        ("UnitId", UInt16),
+    return DIPROPRANGE
+def _define_DIPROPRANGE():
+    DIPROPRANGE = win32more.Devices.HumanInterfaceDevice.DIPROPRANGE_head
+    DIPROPRANGE._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('lMin', Int32),
+        ('lMax', Int32),
     ]
-    return MOUSE_UNIT_ID_PARAMETER
-HIDP_REPORT_TYPE = Int32
-HidP_Input = 0
-HidP_Output = 1
-HidP_Feature = 2
-def _define_USAGE_AND_PAGE_head():
-    class USAGE_AND_PAGE(Structure):
+    return DIPROPRANGE
+def _define_DIPROPSTRING_head():
+    class DIPROPSTRING(Structure):
         pass
-    return USAGE_AND_PAGE
-def _define_USAGE_AND_PAGE():
-    USAGE_AND_PAGE = win32more.Devices.HumanInterfaceDevice.USAGE_AND_PAGE_head
-    USAGE_AND_PAGE._fields_ = [
-        ("Usage", UInt16),
-        ("UsagePage", UInt16),
+    return DIPROPSTRING
+def _define_DIPROPSTRING():
+    DIPROPSTRING = win32more.Devices.HumanInterfaceDevice.DIPROPSTRING_head
+    DIPROPSTRING._fields_ = [
+        ('diph', win32more.Devices.HumanInterfaceDevice.DIPROPHEADER),
+        ('wsz', Char * 260),
     ]
-    return USAGE_AND_PAGE
-def _define_HIDP_BUTTON_CAPS_head():
-    class HIDP_BUTTON_CAPS(Structure):
+    return DIPROPSTRING
+def _define_DIRAMPFORCE_head():
+    class DIRAMPFORCE(Structure):
         pass
-    return HIDP_BUTTON_CAPS
-def _define_HIDP_BUTTON_CAPS():
-    HIDP_BUTTON_CAPS = win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_CAPS_head
-    class HIDP_BUTTON_CAPS__Anonymous_e__Union(Union):
-        pass
-    class HIDP_BUTTON_CAPS__Anonymous_e__Union__Range_e__Struct(Structure):
-        pass
-    HIDP_BUTTON_CAPS__Anonymous_e__Union__Range_e__Struct._fields_ = [
-        ("UsageMin", UInt16),
-        ("UsageMax", UInt16),
-        ("StringMin", UInt16),
-        ("StringMax", UInt16),
-        ("DesignatorMin", UInt16),
-        ("DesignatorMax", UInt16),
-        ("DataIndexMin", UInt16),
-        ("DataIndexMax", UInt16),
+    return DIRAMPFORCE
+def _define_DIRAMPFORCE():
+    DIRAMPFORCE = win32more.Devices.HumanInterfaceDevice.DIRAMPFORCE_head
+    DIRAMPFORCE._fields_ = [
+        ('lStart', Int32),
+        ('lEnd', Int32),
     ]
-    class HIDP_BUTTON_CAPS__Anonymous_e__Union__NotRange_e__Struct(Structure):
-        pass
-    HIDP_BUTTON_CAPS__Anonymous_e__Union__NotRange_e__Struct._fields_ = [
-        ("Usage", UInt16),
-        ("Reserved1", UInt16),
-        ("StringIndex", UInt16),
-        ("Reserved2", UInt16),
-        ("DesignatorIndex", UInt16),
-        ("Reserved3", UInt16),
-        ("DataIndex", UInt16),
-        ("Reserved4", UInt16),
-    ]
-    HIDP_BUTTON_CAPS__Anonymous_e__Union._fields_ = [
-        ("Range", HIDP_BUTTON_CAPS__Anonymous_e__Union__Range_e__Struct),
-        ("NotRange", HIDP_BUTTON_CAPS__Anonymous_e__Union__NotRange_e__Struct),
-    ]
-    HIDP_BUTTON_CAPS._anonymous_ = [
-        'Anonymous',
-    ]
-    HIDP_BUTTON_CAPS._fields_ = [
-        ("UsagePage", UInt16),
-        ("ReportID", Byte),
-        ("IsAlias", win32more.Foundation.BOOLEAN),
-        ("BitField", UInt16),
-        ("LinkCollection", UInt16),
-        ("LinkUsage", UInt16),
-        ("LinkUsagePage", UInt16),
-        ("IsRange", win32more.Foundation.BOOLEAN),
-        ("IsStringRange", win32more.Foundation.BOOLEAN),
-        ("IsDesignatorRange", win32more.Foundation.BOOLEAN),
-        ("IsAbsolute", win32more.Foundation.BOOLEAN),
-        ("ReportCount", UInt16),
-        ("Reserved2", UInt16),
-        ("Reserved", UInt32 * 9),
-        ("Anonymous", HIDP_BUTTON_CAPS__Anonymous_e__Union),
-    ]
-    return HIDP_BUTTON_CAPS
-def _define_HIDP_VALUE_CAPS_head():
-    class HIDP_VALUE_CAPS(Structure):
-        pass
-    return HIDP_VALUE_CAPS
-def _define_HIDP_VALUE_CAPS():
-    HIDP_VALUE_CAPS = win32more.Devices.HumanInterfaceDevice.HIDP_VALUE_CAPS_head
-    class HIDP_VALUE_CAPS__Anonymous_e__Union(Union):
-        pass
-    class HIDP_VALUE_CAPS__Anonymous_e__Union__Range_e__Struct(Structure):
-        pass
-    HIDP_VALUE_CAPS__Anonymous_e__Union__Range_e__Struct._fields_ = [
-        ("UsageMin", UInt16),
-        ("UsageMax", UInt16),
-        ("StringMin", UInt16),
-        ("StringMax", UInt16),
-        ("DesignatorMin", UInt16),
-        ("DesignatorMax", UInt16),
-        ("DataIndexMin", UInt16),
-        ("DataIndexMax", UInt16),
-    ]
-    class HIDP_VALUE_CAPS__Anonymous_e__Union__NotRange_e__Struct(Structure):
-        pass
-    HIDP_VALUE_CAPS__Anonymous_e__Union__NotRange_e__Struct._fields_ = [
-        ("Usage", UInt16),
-        ("Reserved1", UInt16),
-        ("StringIndex", UInt16),
-        ("Reserved2", UInt16),
-        ("DesignatorIndex", UInt16),
-        ("Reserved3", UInt16),
-        ("DataIndex", UInt16),
-        ("Reserved4", UInt16),
-    ]
-    HIDP_VALUE_CAPS__Anonymous_e__Union._fields_ = [
-        ("Range", HIDP_VALUE_CAPS__Anonymous_e__Union__Range_e__Struct),
-        ("NotRange", HIDP_VALUE_CAPS__Anonymous_e__Union__NotRange_e__Struct),
-    ]
-    HIDP_VALUE_CAPS._anonymous_ = [
-        'Anonymous',
-    ]
-    HIDP_VALUE_CAPS._fields_ = [
-        ("UsagePage", UInt16),
-        ("ReportID", Byte),
-        ("IsAlias", win32more.Foundation.BOOLEAN),
-        ("BitField", UInt16),
-        ("LinkCollection", UInt16),
-        ("LinkUsage", UInt16),
-        ("LinkUsagePage", UInt16),
-        ("IsRange", win32more.Foundation.BOOLEAN),
-        ("IsStringRange", win32more.Foundation.BOOLEAN),
-        ("IsDesignatorRange", win32more.Foundation.BOOLEAN),
-        ("IsAbsolute", win32more.Foundation.BOOLEAN),
-        ("HasNull", win32more.Foundation.BOOLEAN),
-        ("Reserved", Byte),
-        ("BitSize", UInt16),
-        ("ReportCount", UInt16),
-        ("Reserved2", UInt16 * 5),
-        ("UnitsExp", UInt32),
-        ("Units", UInt32),
-        ("LogicalMin", Int32),
-        ("LogicalMax", Int32),
-        ("PhysicalMin", Int32),
-        ("PhysicalMax", Int32),
-        ("Anonymous", HIDP_VALUE_CAPS__Anonymous_e__Union),
-    ]
-    return HIDP_VALUE_CAPS
-def _define_HIDP_LINK_COLLECTION_NODE_head():
-    class HIDP_LINK_COLLECTION_NODE(Structure):
-        pass
-    return HIDP_LINK_COLLECTION_NODE
-def _define_HIDP_LINK_COLLECTION_NODE():
-    HIDP_LINK_COLLECTION_NODE = win32more.Devices.HumanInterfaceDevice.HIDP_LINK_COLLECTION_NODE_head
-    HIDP_LINK_COLLECTION_NODE._pack_ = 4
-    HIDP_LINK_COLLECTION_NODE._fields_ = [
-        ("LinkUsage", UInt16),
-        ("LinkUsagePage", UInt16),
-        ("Parent", UInt16),
-        ("NumberOfChildren", UInt16),
-        ("NextSibling", UInt16),
-        ("FirstChild", UInt16),
-        ("_bitfield", UInt32),
-        ("UserContext", c_void_p),
-    ]
-    return HIDP_LINK_COLLECTION_NODE
-def _define__HIDP_PREPARSED_DATA_head():
-    class _HIDP_PREPARSED_DATA(Structure):
-        pass
-    return _HIDP_PREPARSED_DATA
-def _define__HIDP_PREPARSED_DATA():
-    _HIDP_PREPARSED_DATA = win32more.Devices.HumanInterfaceDevice._HIDP_PREPARSED_DATA_head
-    return _HIDP_PREPARSED_DATA
-def _define_HIDP_CAPS_head():
-    class HIDP_CAPS(Structure):
-        pass
-    return HIDP_CAPS
-def _define_HIDP_CAPS():
-    HIDP_CAPS = win32more.Devices.HumanInterfaceDevice.HIDP_CAPS_head
-    HIDP_CAPS._fields_ = [
-        ("Usage", UInt16),
-        ("UsagePage", UInt16),
-        ("InputReportByteLength", UInt16),
-        ("OutputReportByteLength", UInt16),
-        ("FeatureReportByteLength", UInt16),
-        ("Reserved", UInt16 * 17),
-        ("NumberLinkCollectionNodes", UInt16),
-        ("NumberInputButtonCaps", UInt16),
-        ("NumberInputValueCaps", UInt16),
-        ("NumberInputDataIndices", UInt16),
-        ("NumberOutputButtonCaps", UInt16),
-        ("NumberOutputValueCaps", UInt16),
-        ("NumberOutputDataIndices", UInt16),
-        ("NumberFeatureButtonCaps", UInt16),
-        ("NumberFeatureValueCaps", UInt16),
-        ("NumberFeatureDataIndices", UInt16),
-    ]
-    return HIDP_CAPS
-def _define_HIDP_DATA_head():
-    class HIDP_DATA(Structure):
-        pass
-    return HIDP_DATA
-def _define_HIDP_DATA():
-    HIDP_DATA = win32more.Devices.HumanInterfaceDevice.HIDP_DATA_head
-    class HIDP_DATA__Anonymous_e__Union(Union):
-        pass
-    HIDP_DATA__Anonymous_e__Union._fields_ = [
-        ("RawValue", UInt32),
-        ("On", win32more.Foundation.BOOLEAN),
-    ]
-    HIDP_DATA._anonymous_ = [
-        'Anonymous',
-    ]
-    HIDP_DATA._fields_ = [
-        ("DataIndex", UInt16),
-        ("Reserved", UInt16),
-        ("Anonymous", HIDP_DATA__Anonymous_e__Union),
-    ]
-    return HIDP_DATA
-def _define_HIDP_UNKNOWN_TOKEN_head():
-    class HIDP_UNKNOWN_TOKEN(Structure):
-        pass
-    return HIDP_UNKNOWN_TOKEN
-def _define_HIDP_UNKNOWN_TOKEN():
-    HIDP_UNKNOWN_TOKEN = win32more.Devices.HumanInterfaceDevice.HIDP_UNKNOWN_TOKEN_head
-    HIDP_UNKNOWN_TOKEN._fields_ = [
-        ("Token", Byte),
-        ("Reserved", Byte * 3),
-        ("BitField", UInt32),
-    ]
-    return HIDP_UNKNOWN_TOKEN
-def _define_HIDP_EXTENDED_ATTRIBUTES_head():
-    class HIDP_EXTENDED_ATTRIBUTES(Structure):
-        pass
-    return HIDP_EXTENDED_ATTRIBUTES
-def _define_HIDP_EXTENDED_ATTRIBUTES():
-    HIDP_EXTENDED_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.HIDP_EXTENDED_ATTRIBUTES_head
-    HIDP_EXTENDED_ATTRIBUTES._pack_ = 4
-    HIDP_EXTENDED_ATTRIBUTES._fields_ = [
-        ("NumGlobalUnknowns", Byte),
-        ("Reserved", Byte * 3),
-        ("GlobalUnknowns", POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_UNKNOWN_TOKEN_head)),
-        ("Data", UInt32 * 0),
-    ]
-    return HIDP_EXTENDED_ATTRIBUTES
-def _define_HIDP_BUTTON_ARRAY_DATA_head():
-    class HIDP_BUTTON_ARRAY_DATA(Structure):
-        pass
-    return HIDP_BUTTON_ARRAY_DATA
-def _define_HIDP_BUTTON_ARRAY_DATA():
-    HIDP_BUTTON_ARRAY_DATA = win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_ARRAY_DATA_head
-    HIDP_BUTTON_ARRAY_DATA._fields_ = [
-        ("ArrayIndex", UInt16),
-        ("On", win32more.Foundation.BOOLEAN),
-    ]
-    return HIDP_BUTTON_ARRAY_DATA
-HIDP_KEYBOARD_DIRECTION = Int32
-HidP_Keyboard_Break = 0
-HidP_Keyboard_Make = 1
-def _define_HIDP_KEYBOARD_MODIFIER_STATE_head():
-    class HIDP_KEYBOARD_MODIFIER_STATE(Structure):
-        pass
-    return HIDP_KEYBOARD_MODIFIER_STATE
-def _define_HIDP_KEYBOARD_MODIFIER_STATE():
-    HIDP_KEYBOARD_MODIFIER_STATE = win32more.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_MODIFIER_STATE_head
-    class HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union(Union):
-        pass
-    class HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ("_bitfield", UInt32),
-    ]
-    HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union._fields_ = [
-        ("Anonymous", HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union__Anonymous_e__Struct),
-        ("ul", UInt32),
-    ]
-    HIDP_KEYBOARD_MODIFIER_STATE._anonymous_ = [
-        'Anonymous',
-    ]
-    HIDP_KEYBOARD_MODIFIER_STATE._fields_ = [
-        ("Anonymous", HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union),
-    ]
-    return HIDP_KEYBOARD_MODIFIER_STATE
-def _define_PHIDP_INSERT_SCANCODES():
-    return CFUNCTYPE(win32more.Foundation.BOOLEAN,c_void_p,win32more.Foundation.PSTR,UInt32, use_last_error=False)
-def _define_PFN_HidP_GetVersionInternal():
-    return CFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt32), use_last_error=False)
-def _define_HIDD_CONFIGURATION_head():
-    class HIDD_CONFIGURATION(Structure):
-        pass
-    return HIDD_CONFIGURATION
-def _define_HIDD_CONFIGURATION():
-    HIDD_CONFIGURATION = win32more.Devices.HumanInterfaceDevice.HIDD_CONFIGURATION_head
-    HIDD_CONFIGURATION._pack_ = 4
-    HIDD_CONFIGURATION._fields_ = [
-        ("cookie", c_void_p),
-        ("size", UInt32),
-        ("RingBufferSize", UInt32),
-    ]
-    return HIDD_CONFIGURATION
-def _define_HIDD_ATTRIBUTES_head():
-    class HIDD_ATTRIBUTES(Structure):
-        pass
-    return HIDD_ATTRIBUTES
-def _define_HIDD_ATTRIBUTES():
-    HIDD_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.HIDD_ATTRIBUTES_head
-    HIDD_ATTRIBUTES._fields_ = [
-        ("Size", UInt32),
-        ("VendorID", UInt16),
-        ("ProductID", UInt16),
-        ("VersionNumber", UInt16),
-    ]
-    return HIDD_ATTRIBUTES
-def _define_HID_XFER_PACKET_head():
-    class HID_XFER_PACKET(Structure):
-        pass
-    return HID_XFER_PACKET
-def _define_HID_XFER_PACKET():
-    HID_XFER_PACKET = win32more.Devices.HumanInterfaceDevice.HID_XFER_PACKET_head
-    HID_XFER_PACKET._fields_ = [
-        ("reportBuffer", c_char_p_no),
-        ("reportBufferLen", UInt32),
-        ("reportId", Byte),
-    ]
-    return HID_XFER_PACKET
-def _define_HID_COLLECTION_INFORMATION_head():
-    class HID_COLLECTION_INFORMATION(Structure):
-        pass
-    return HID_COLLECTION_INFORMATION
-def _define_HID_COLLECTION_INFORMATION():
-    HID_COLLECTION_INFORMATION = win32more.Devices.HumanInterfaceDevice.HID_COLLECTION_INFORMATION_head
-    HID_COLLECTION_INFORMATION._fields_ = [
-        ("DescriptorSize", UInt32),
-        ("Polled", win32more.Foundation.BOOLEAN),
-        ("Reserved1", Byte * 0),
-        ("VendorID", UInt16),
-        ("ProductID", UInt16),
-        ("VersionNumber", UInt16),
-    ]
-    return HID_COLLECTION_INFORMATION
-def _define_HID_DRIVER_CONFIG_head():
-    class HID_DRIVER_CONFIG(Structure):
-        pass
-    return HID_DRIVER_CONFIG
-def _define_HID_DRIVER_CONFIG():
-    HID_DRIVER_CONFIG = win32more.Devices.HumanInterfaceDevice.HID_DRIVER_CONFIG_head
-    HID_DRIVER_CONFIG._fields_ = [
-        ("Size", UInt32),
-        ("RingBufferSize", UInt32),
-    ]
-    return HID_DRIVER_CONFIG
+    return DIRAMPFORCE
 GPIOBUTTONS_BUTTON_TYPE = Int32
 GPIO_BUTTON_POWER = 0
 GPIO_BUTTON_WINDOWS = 1
@@ -4474,6 +3802,691 @@ GPIO_BUTTON_OEM_CUSTOM2 = 14
 GPIO_BUTTON_OEM_CUSTOM3 = 15
 GPIO_BUTTON_COUNT_MIN = 5
 GPIO_BUTTON_COUNT = 16
+def _define_HID_COLLECTION_INFORMATION_head():
+    class HID_COLLECTION_INFORMATION(Structure):
+        pass
+    return HID_COLLECTION_INFORMATION
+def _define_HID_COLLECTION_INFORMATION():
+    HID_COLLECTION_INFORMATION = win32more.Devices.HumanInterfaceDevice.HID_COLLECTION_INFORMATION_head
+    HID_COLLECTION_INFORMATION._fields_ = [
+        ('DescriptorSize', UInt32),
+        ('Polled', win32more.Foundation.BOOLEAN),
+        ('Reserved1', Byte * 1),
+        ('VendorID', UInt16),
+        ('ProductID', UInt16),
+        ('VersionNumber', UInt16),
+    ]
+    return HID_COLLECTION_INFORMATION
+def _define_HID_DRIVER_CONFIG_head():
+    class HID_DRIVER_CONFIG(Structure):
+        pass
+    return HID_DRIVER_CONFIG
+def _define_HID_DRIVER_CONFIG():
+    HID_DRIVER_CONFIG = win32more.Devices.HumanInterfaceDevice.HID_DRIVER_CONFIG_head
+    HID_DRIVER_CONFIG._fields_ = [
+        ('Size', UInt32),
+        ('RingBufferSize', UInt32),
+    ]
+    return HID_DRIVER_CONFIG
+def _define_HID_XFER_PACKET_head():
+    class HID_XFER_PACKET(Structure):
+        pass
+    return HID_XFER_PACKET
+def _define_HID_XFER_PACKET():
+    HID_XFER_PACKET = win32more.Devices.HumanInterfaceDevice.HID_XFER_PACKET_head
+    HID_XFER_PACKET._fields_ = [
+        ('reportBuffer', c_char_p_no),
+        ('reportBufferLen', UInt32),
+        ('reportId', Byte),
+    ]
+    return HID_XFER_PACKET
+def _define_HIDD_ATTRIBUTES_head():
+    class HIDD_ATTRIBUTES(Structure):
+        pass
+    return HIDD_ATTRIBUTES
+def _define_HIDD_ATTRIBUTES():
+    HIDD_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.HIDD_ATTRIBUTES_head
+    HIDD_ATTRIBUTES._fields_ = [
+        ('Size', UInt32),
+        ('VendorID', UInt16),
+        ('ProductID', UInt16),
+        ('VersionNumber', UInt16),
+    ]
+    return HIDD_ATTRIBUTES
+def _define_HIDD_CONFIGURATION_head():
+    class HIDD_CONFIGURATION(Structure):
+        pass
+    return HIDD_CONFIGURATION
+def _define_HIDD_CONFIGURATION():
+    HIDD_CONFIGURATION = win32more.Devices.HumanInterfaceDevice.HIDD_CONFIGURATION_head
+    HIDD_CONFIGURATION._pack_ = 4
+    HIDD_CONFIGURATION._fields_ = [
+        ('cookie', c_void_p),
+        ('size', UInt32),
+        ('RingBufferSize', UInt32),
+    ]
+    return HIDD_CONFIGURATION
+def _define_HIDP_BUTTON_ARRAY_DATA_head():
+    class HIDP_BUTTON_ARRAY_DATA(Structure):
+        pass
+    return HIDP_BUTTON_ARRAY_DATA
+def _define_HIDP_BUTTON_ARRAY_DATA():
+    HIDP_BUTTON_ARRAY_DATA = win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_ARRAY_DATA_head
+    HIDP_BUTTON_ARRAY_DATA._fields_ = [
+        ('ArrayIndex', UInt16),
+        ('On', win32more.Foundation.BOOLEAN),
+    ]
+    return HIDP_BUTTON_ARRAY_DATA
+def _define_HIDP_BUTTON_CAPS_head():
+    class HIDP_BUTTON_CAPS(Structure):
+        pass
+    return HIDP_BUTTON_CAPS
+def _define_HIDP_BUTTON_CAPS():
+    HIDP_BUTTON_CAPS = win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_CAPS_head
+    class HIDP_BUTTON_CAPS__Anonymous_e__Union(Union):
+        pass
+    class HIDP_BUTTON_CAPS__Anonymous_e__Union__Range_e__Struct(Structure):
+        pass
+    HIDP_BUTTON_CAPS__Anonymous_e__Union__Range_e__Struct._fields_ = [
+        ('UsageMin', UInt16),
+        ('UsageMax', UInt16),
+        ('StringMin', UInt16),
+        ('StringMax', UInt16),
+        ('DesignatorMin', UInt16),
+        ('DesignatorMax', UInt16),
+        ('DataIndexMin', UInt16),
+        ('DataIndexMax', UInt16),
+    ]
+    class HIDP_BUTTON_CAPS__Anonymous_e__Union__NotRange_e__Struct(Structure):
+        pass
+    HIDP_BUTTON_CAPS__Anonymous_e__Union__NotRange_e__Struct._fields_ = [
+        ('Usage', UInt16),
+        ('Reserved1', UInt16),
+        ('StringIndex', UInt16),
+        ('Reserved2', UInt16),
+        ('DesignatorIndex', UInt16),
+        ('Reserved3', UInt16),
+        ('DataIndex', UInt16),
+        ('Reserved4', UInt16),
+    ]
+    HIDP_BUTTON_CAPS__Anonymous_e__Union._fields_ = [
+        ('Range', HIDP_BUTTON_CAPS__Anonymous_e__Union__Range_e__Struct),
+        ('NotRange', HIDP_BUTTON_CAPS__Anonymous_e__Union__NotRange_e__Struct),
+    ]
+    HIDP_BUTTON_CAPS._anonymous_ = [
+        'Anonymous',
+    ]
+    HIDP_BUTTON_CAPS._fields_ = [
+        ('UsagePage', UInt16),
+        ('ReportID', Byte),
+        ('IsAlias', win32more.Foundation.BOOLEAN),
+        ('BitField', UInt16),
+        ('LinkCollection', UInt16),
+        ('LinkUsage', UInt16),
+        ('LinkUsagePage', UInt16),
+        ('IsRange', win32more.Foundation.BOOLEAN),
+        ('IsStringRange', win32more.Foundation.BOOLEAN),
+        ('IsDesignatorRange', win32more.Foundation.BOOLEAN),
+        ('IsAbsolute', win32more.Foundation.BOOLEAN),
+        ('ReportCount', UInt16),
+        ('Reserved2', UInt16),
+        ('Reserved', UInt32 * 9),
+        ('Anonymous', HIDP_BUTTON_CAPS__Anonymous_e__Union),
+    ]
+    return HIDP_BUTTON_CAPS
+def _define_HIDP_CAPS_head():
+    class HIDP_CAPS(Structure):
+        pass
+    return HIDP_CAPS
+def _define_HIDP_CAPS():
+    HIDP_CAPS = win32more.Devices.HumanInterfaceDevice.HIDP_CAPS_head
+    HIDP_CAPS._fields_ = [
+        ('Usage', UInt16),
+        ('UsagePage', UInt16),
+        ('InputReportByteLength', UInt16),
+        ('OutputReportByteLength', UInt16),
+        ('FeatureReportByteLength', UInt16),
+        ('Reserved', UInt16 * 17),
+        ('NumberLinkCollectionNodes', UInt16),
+        ('NumberInputButtonCaps', UInt16),
+        ('NumberInputValueCaps', UInt16),
+        ('NumberInputDataIndices', UInt16),
+        ('NumberOutputButtonCaps', UInt16),
+        ('NumberOutputValueCaps', UInt16),
+        ('NumberOutputDataIndices', UInt16),
+        ('NumberFeatureButtonCaps', UInt16),
+        ('NumberFeatureValueCaps', UInt16),
+        ('NumberFeatureDataIndices', UInt16),
+    ]
+    return HIDP_CAPS
+def _define_HIDP_DATA_head():
+    class HIDP_DATA(Structure):
+        pass
+    return HIDP_DATA
+def _define_HIDP_DATA():
+    HIDP_DATA = win32more.Devices.HumanInterfaceDevice.HIDP_DATA_head
+    class HIDP_DATA__Anonymous_e__Union(Union):
+        pass
+    HIDP_DATA__Anonymous_e__Union._fields_ = [
+        ('RawValue', UInt32),
+        ('On', win32more.Foundation.BOOLEAN),
+    ]
+    HIDP_DATA._anonymous_ = [
+        'Anonymous',
+    ]
+    HIDP_DATA._fields_ = [
+        ('DataIndex', UInt16),
+        ('Reserved', UInt16),
+        ('Anonymous', HIDP_DATA__Anonymous_e__Union),
+    ]
+    return HIDP_DATA
+def _define_HIDP_EXTENDED_ATTRIBUTES_head():
+    class HIDP_EXTENDED_ATTRIBUTES(Structure):
+        pass
+    return HIDP_EXTENDED_ATTRIBUTES
+def _define_HIDP_EXTENDED_ATTRIBUTES():
+    HIDP_EXTENDED_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.HIDP_EXTENDED_ATTRIBUTES_head
+    HIDP_EXTENDED_ATTRIBUTES._pack_ = 4
+    HIDP_EXTENDED_ATTRIBUTES._fields_ = [
+        ('NumGlobalUnknowns', Byte),
+        ('Reserved', Byte * 3),
+        ('GlobalUnknowns', POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_UNKNOWN_TOKEN_head)),
+        ('Data', UInt32 * 1),
+    ]
+    return HIDP_EXTENDED_ATTRIBUTES
+HIDP_KEYBOARD_DIRECTION = Int32
+HidP_Keyboard_Break = 0
+HidP_Keyboard_Make = 1
+def _define_HIDP_KEYBOARD_MODIFIER_STATE_head():
+    class HIDP_KEYBOARD_MODIFIER_STATE(Structure):
+        pass
+    return HIDP_KEYBOARD_MODIFIER_STATE
+def _define_HIDP_KEYBOARD_MODIFIER_STATE():
+    HIDP_KEYBOARD_MODIFIER_STATE = win32more.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_MODIFIER_STATE_head
+    class HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union(Union):
+        pass
+    class HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('_bitfield', UInt32),
+    ]
+    HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union._fields_ = [
+        ('Anonymous', HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union__Anonymous_e__Struct),
+        ('ul', UInt32),
+    ]
+    HIDP_KEYBOARD_MODIFIER_STATE._anonymous_ = [
+        'Anonymous',
+    ]
+    HIDP_KEYBOARD_MODIFIER_STATE._fields_ = [
+        ('Anonymous', HIDP_KEYBOARD_MODIFIER_STATE__Anonymous_e__Union),
+    ]
+    return HIDP_KEYBOARD_MODIFIER_STATE
+def _define_HIDP_LINK_COLLECTION_NODE_head():
+    class HIDP_LINK_COLLECTION_NODE(Structure):
+        pass
+    return HIDP_LINK_COLLECTION_NODE
+def _define_HIDP_LINK_COLLECTION_NODE():
+    HIDP_LINK_COLLECTION_NODE = win32more.Devices.HumanInterfaceDevice.HIDP_LINK_COLLECTION_NODE_head
+    HIDP_LINK_COLLECTION_NODE._pack_ = 4
+    HIDP_LINK_COLLECTION_NODE._fields_ = [
+        ('LinkUsage', UInt16),
+        ('LinkUsagePage', UInt16),
+        ('Parent', UInt16),
+        ('NumberOfChildren', UInt16),
+        ('NextSibling', UInt16),
+        ('FirstChild', UInt16),
+        ('_bitfield', UInt32),
+        ('UserContext', c_void_p),
+    ]
+    return HIDP_LINK_COLLECTION_NODE
+HIDP_REPORT_TYPE = Int32
+HidP_Input = 0
+HidP_Output = 1
+HidP_Feature = 2
+def _define_HIDP_UNKNOWN_TOKEN_head():
+    class HIDP_UNKNOWN_TOKEN(Structure):
+        pass
+    return HIDP_UNKNOWN_TOKEN
+def _define_HIDP_UNKNOWN_TOKEN():
+    HIDP_UNKNOWN_TOKEN = win32more.Devices.HumanInterfaceDevice.HIDP_UNKNOWN_TOKEN_head
+    HIDP_UNKNOWN_TOKEN._fields_ = [
+        ('Token', Byte),
+        ('Reserved', Byte * 3),
+        ('BitField', UInt32),
+    ]
+    return HIDP_UNKNOWN_TOKEN
+def _define_HIDP_VALUE_CAPS_head():
+    class HIDP_VALUE_CAPS(Structure):
+        pass
+    return HIDP_VALUE_CAPS
+def _define_HIDP_VALUE_CAPS():
+    HIDP_VALUE_CAPS = win32more.Devices.HumanInterfaceDevice.HIDP_VALUE_CAPS_head
+    class HIDP_VALUE_CAPS__Anonymous_e__Union(Union):
+        pass
+    class HIDP_VALUE_CAPS__Anonymous_e__Union__Range_e__Struct(Structure):
+        pass
+    HIDP_VALUE_CAPS__Anonymous_e__Union__Range_e__Struct._fields_ = [
+        ('UsageMin', UInt16),
+        ('UsageMax', UInt16),
+        ('StringMin', UInt16),
+        ('StringMax', UInt16),
+        ('DesignatorMin', UInt16),
+        ('DesignatorMax', UInt16),
+        ('DataIndexMin', UInt16),
+        ('DataIndexMax', UInt16),
+    ]
+    class HIDP_VALUE_CAPS__Anonymous_e__Union__NotRange_e__Struct(Structure):
+        pass
+    HIDP_VALUE_CAPS__Anonymous_e__Union__NotRange_e__Struct._fields_ = [
+        ('Usage', UInt16),
+        ('Reserved1', UInt16),
+        ('StringIndex', UInt16),
+        ('Reserved2', UInt16),
+        ('DesignatorIndex', UInt16),
+        ('Reserved3', UInt16),
+        ('DataIndex', UInt16),
+        ('Reserved4', UInt16),
+    ]
+    HIDP_VALUE_CAPS__Anonymous_e__Union._fields_ = [
+        ('Range', HIDP_VALUE_CAPS__Anonymous_e__Union__Range_e__Struct),
+        ('NotRange', HIDP_VALUE_CAPS__Anonymous_e__Union__NotRange_e__Struct),
+    ]
+    HIDP_VALUE_CAPS._anonymous_ = [
+        'Anonymous',
+    ]
+    HIDP_VALUE_CAPS._fields_ = [
+        ('UsagePage', UInt16),
+        ('ReportID', Byte),
+        ('IsAlias', win32more.Foundation.BOOLEAN),
+        ('BitField', UInt16),
+        ('LinkCollection', UInt16),
+        ('LinkUsage', UInt16),
+        ('LinkUsagePage', UInt16),
+        ('IsRange', win32more.Foundation.BOOLEAN),
+        ('IsStringRange', win32more.Foundation.BOOLEAN),
+        ('IsDesignatorRange', win32more.Foundation.BOOLEAN),
+        ('IsAbsolute', win32more.Foundation.BOOLEAN),
+        ('HasNull', win32more.Foundation.BOOLEAN),
+        ('Reserved', Byte),
+        ('BitSize', UInt16),
+        ('ReportCount', UInt16),
+        ('Reserved2', UInt16 * 5),
+        ('UnitsExp', UInt32),
+        ('Units', UInt32),
+        ('LogicalMin', Int32),
+        ('LogicalMax', Int32),
+        ('PhysicalMin', Int32),
+        ('PhysicalMax', Int32),
+        ('Anonymous', HIDP_VALUE_CAPS__Anonymous_e__Union),
+    ]
+    return HIDP_VALUE_CAPS
+def _define_IDirectInput2A_head():
+    class IDirectInput2A(win32more.Devices.HumanInterfaceDevice.IDirectInputA_head):
+        Guid = Guid('5944e662-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInput2A
+def _define_IDirectInput2A():
+    IDirectInput2A = win32more.Devices.HumanInterfaceDevice.IDirectInput2A_head
+    IDirectInput2A.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Guid))(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputA
+    return IDirectInput2A
+def _define_IDirectInput2W_head():
+    class IDirectInput2W(win32more.Devices.HumanInterfaceDevice.IDirectInputW_head):
+        Guid = Guid('5944e663-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInput2W
+def _define_IDirectInput2W():
+    IDirectInput2W = win32more.Devices.HumanInterfaceDevice.IDirectInput2W_head
+    IDirectInput2W.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Guid))(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputW
+    return IDirectInput2W
+def _define_IDirectInput7A_head():
+    class IDirectInput7A(win32more.Devices.HumanInterfaceDevice.IDirectInput2A_head):
+        Guid = Guid('9a4cb684-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
+    return IDirectInput7A
+def _define_IDirectInput7A():
+    IDirectInput7A = win32more.Devices.HumanInterfaceDevice.IDirectInput7A_head
+    IDirectInput7A.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head)(9, 'CreateDeviceEx', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInput2A
+    return IDirectInput7A
+def _define_IDirectInput7W_head():
+    class IDirectInput7W(win32more.Devices.HumanInterfaceDevice.IDirectInput2W_head):
+        Guid = Guid('9a4cb685-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
+    return IDirectInput7W
+def _define_IDirectInput7W():
+    IDirectInput7W = win32more.Devices.HumanInterfaceDevice.IDirectInput7W_head
+    IDirectInput7W.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head)(9, 'CreateDeviceEx', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInput2W
+    return IDirectInput7W
+def _define_IDirectInput8A_head():
+    class IDirectInput8A(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bf798030-483a-4da2-aa-99-5d-64-ed-36-97-00')
+    return IDirectInput8A
+def _define_IDirectInput8A():
+    IDirectInput8A = win32more.Devices.HumanInterfaceDevice.IDirectInput8A_head
+    IDirectInput8A.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head),win32more.System.Com.IUnknown_head)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInput8A.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKA,c_void_p,UInt32)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInput8A.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'GetDeviceStatus', ((1, 'param0'),)))
+    IDirectInput8A.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInput8A.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInput8A.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Guid))(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInput8A.EnumDevicesBySemantics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBA,c_void_p,UInt32)(9, 'EnumDevicesBySemantics', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
+    IDirectInput8A.ConfigureDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK,POINTER(win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSA_head),UInt32,c_void_p)(10, 'ConfigureDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInput8A
+def _define_IDirectInput8W_head():
+    class IDirectInput8W(win32more.System.Com.IUnknown_head):
+        Guid = Guid('bf798031-483a-4da2-aa-99-5d-64-ed-36-97-00')
+    return IDirectInput8W
+def _define_IDirectInput8W():
+    IDirectInput8W = win32more.Devices.HumanInterfaceDevice.IDirectInput8W_head
+    IDirectInput8W.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head),win32more.System.Com.IUnknown_head)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInput8W.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKW,c_void_p,UInt32)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInput8W.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'GetDeviceStatus', ((1, 'param0'),)))
+    IDirectInput8W.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInput8W.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInput8W.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Guid))(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInput8W.EnumDevicesBySemantics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBW,c_void_p,UInt32)(9, 'EnumDevicesBySemantics', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
+    IDirectInput8W.ConfigureDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK,POINTER(win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW_head),UInt32,c_void_p)(10, 'ConfigureDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInput8W
+def _define_IDirectInputA_head():
+    class IDirectInputA(win32more.System.Com.IUnknown_head):
+        Guid = Guid('89521360-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputA
+def _define_IDirectInputA():
+    IDirectInputA = win32more.Devices.HumanInterfaceDevice.IDirectInputA_head
+    IDirectInputA.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head),win32more.System.Com.IUnknown_head)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputA.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKA,c_void_p,UInt32)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputA.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'GetDeviceStatus', ((1, 'param0'),)))
+    IDirectInputA.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputA.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputA
+def _define_IDirectInputDevice2A_head():
+    class IDirectInputDevice2A(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head):
+        Guid = Guid('5944e682-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputDevice2A
+def _define_IDirectInputDevice2A():
+    IDirectInputDevice2A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A_head
+    IDirectInputDevice2A.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice2A.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKA,c_void_p,UInt32)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice2A.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head),POINTER(Guid))(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice2A.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(21, 'GetForceFeedbackState', ((1, 'param0'),)))
+    IDirectInputDevice2A.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
+    IDirectInputDevice2A.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice2A.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head))(24, 'Escape', ((1, 'param0'),)))
+    IDirectInputDevice2A.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(25, 'Poll', ()))
+    IDirectInputDevice2A.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA
+    return IDirectInputDevice2A
+def _define_IDirectInputDevice2W_head():
+    class IDirectInputDevice2W(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head):
+        Guid = Guid('5944e683-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputDevice2W
+def _define_IDirectInputDevice2W():
+    IDirectInputDevice2W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W_head
+    IDirectInputDevice2W.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice2W.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKW,c_void_p,UInt32)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice2W.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head),POINTER(Guid))(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice2W.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(21, 'GetForceFeedbackState', ((1, 'param0'),)))
+    IDirectInputDevice2W.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
+    IDirectInputDevice2W.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice2W.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head))(24, 'Escape', ((1, 'param0'),)))
+    IDirectInputDevice2W.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(25, 'Poll', ()))
+    IDirectInputDevice2W.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW
+    return IDirectInputDevice2W
+def _define_IDirectInputDevice7A_head():
+    class IDirectInputDevice7A(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A_head):
+        Guid = Guid('57d7c6bc-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
+    return IDirectInputDevice7A
+def _define_IDirectInputDevice7A():
+    IDirectInputDevice7A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice7A_head
+    IDirectInputDevice7A.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice7A.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A
+    return IDirectInputDevice7A
+def _define_IDirectInputDevice7W_head():
+    class IDirectInputDevice7W(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W_head):
+        Guid = Guid('57d7c6bd-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
+    return IDirectInputDevice7W
+def _define_IDirectInputDevice7W():
+    IDirectInputDevice7W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice7W_head
+    IDirectInputDevice7W.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice7W.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W
+    return IDirectInputDevice7W
+def _define_IDirectInputDevice8A_head():
+    class IDirectInputDevice8A(win32more.System.Com.IUnknown_head):
+        Guid = Guid('54d41080-dc15-4833-a4-1b-74-8f-73-a3-81-79')
+    return IDirectInputDevice8A
+def _define_IDirectInputDevice8A():
+    IDirectInputDevice8A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head
+    IDirectInputDevice8A.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head))(3, 'GetCapabilities', ((1, 'param0'),)))
+    IDirectInputDevice8A.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKA,c_void_p,UInt32)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8A.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8A.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Acquire', ()))
+    IDirectInputDevice8A.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Unacquire', ()))
+    IDirectInputDevice8A.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8A.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8A.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head))(11, 'SetDataFormat', ((1, 'param0'),)))
+    IDirectInputDevice8A.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(12, 'SetEventNotification', ((1, 'param0'),)))
+    IDirectInputDevice8A.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8A.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head),UInt32,UInt32)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head))(15, 'GetDeviceInfo', ((1, 'param0'),)))
+    IDirectInputDevice8A.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8A.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid))(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8A.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKA,c_void_p,UInt32)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head),POINTER(Guid))(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8A.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(21, 'GetForceFeedbackState', ((1, 'param0'),)))
+    IDirectInputDevice8A.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
+    IDirectInputDevice8A.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head))(24, 'Escape', ((1, 'param0'),)))
+    IDirectInputDevice8A.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(25, 'Poll', ()))
+    IDirectInputDevice8A.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8A.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8A.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8A.BuildActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Foundation.PSTR,UInt32)(29, 'BuildActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.SetActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Foundation.PSTR,UInt32)(30, 'SetActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8A.GetImageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERA_head))(31, 'GetImageInfo', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputDevice8A
+def _define_IDirectInputDevice8W_head():
+    class IDirectInputDevice8W(win32more.System.Com.IUnknown_head):
+        Guid = Guid('54d41081-dc15-4833-a4-1b-74-8f-73-a3-81-79')
+    return IDirectInputDevice8W
+def _define_IDirectInputDevice8W():
+    IDirectInputDevice8W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head
+    IDirectInputDevice8W.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head))(3, 'GetCapabilities', ((1, 'param0'),)))
+    IDirectInputDevice8W.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKW,c_void_p,UInt32)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8W.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8W.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Acquire', ()))
+    IDirectInputDevice8W.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Unacquire', ()))
+    IDirectInputDevice8W.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8W.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8W.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head))(11, 'SetDataFormat', ((1, 'param0'),)))
+    IDirectInputDevice8W.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(12, 'SetEventNotification', ((1, 'param0'),)))
+    IDirectInputDevice8W.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8W.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head),UInt32,UInt32)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head))(15, 'GetDeviceInfo', ((1, 'param0'),)))
+    IDirectInputDevice8W.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8W.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid))(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head),win32more.System.Com.IUnknown_head)(18, 'CreateEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8W.EnumEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSCALLBACKW,c_void_p,UInt32)(19, 'EnumEffects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.GetEffectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head),POINTER(Guid))(20, 'GetEffectInfo', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDevice8W.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(21, 'GetForceFeedbackState', ((1, 'param0'),)))
+    IDirectInputDevice8W.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(22, 'SendForceFeedbackCommand', ((1, 'param0'),)))
+    IDirectInputDevice8W.EnumCreatedEffectObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMCREATEDEFFECTOBJECTSCALLBACK,c_void_p,UInt32)(23, 'EnumCreatedEffectObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head))(24, 'Escape', ((1, 'param0'),)))
+    IDirectInputDevice8W.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(25, 'Poll', ()))
+    IDirectInputDevice8W.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8W.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8W.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDevice8W.BuildActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Foundation.PWSTR,UInt32)(29, 'BuildActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.SetActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Foundation.PWSTR,UInt32)(30, 'SetActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDevice8W.GetImageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW_head))(31, 'GetImageInfo', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputDevice8W
+def _define_IDirectInputDeviceA_head():
+    class IDirectInputDeviceA(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5944e680-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputDeviceA
+def _define_IDirectInputDeviceA():
+    IDirectInputDeviceA = win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head
+    IDirectInputDeviceA.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head))(3, 'GetCapabilities', ((1, 'param0'),)))
+    IDirectInputDeviceA.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKA,c_void_p,UInt32)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDeviceA.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceA.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceA.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Acquire', ()))
+    IDirectInputDeviceA.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Unacquire', ()))
+    IDirectInputDeviceA.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceA.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDeviceA.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head))(11, 'SetDataFormat', ((1, 'param0'),)))
+    IDirectInputDeviceA.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(12, 'SetEventNotification', ((1, 'param0'),)))
+    IDirectInputDeviceA.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceA.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head),UInt32,UInt32)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDeviceA.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head))(15, 'GetDeviceInfo', ((1, 'param0'),)))
+    IDirectInputDeviceA.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceA.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid))(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputDeviceA
+def _define_IDirectInputDeviceW_head():
+    class IDirectInputDeviceW(win32more.System.Com.IUnknown_head):
+        Guid = Guid('5944e681-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputDeviceW
+def _define_IDirectInputDeviceW():
+    IDirectInputDeviceW = win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head
+    IDirectInputDeviceW.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVCAPS_head))(3, 'GetCapabilities', ((1, 'param0'),)))
+    IDirectInputDeviceW.EnumObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICEOBJECTSCALLBACKW,c_void_p,UInt32)(4, 'EnumObjects', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDeviceW.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(5, 'GetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceW.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.DIPROPHEADER_head))(6, 'SetProperty', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceW.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Acquire', ()))
+    IDirectInputDeviceW.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Unacquire', ()))
+    IDirectInputDeviceW.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p)(9, 'GetDeviceState', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceW.GetDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32)(10, 'GetDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputDeviceW.SetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDATAFORMAT_head))(11, 'SetDataFormat', ((1, 'param0'),)))
+    IDirectInputDeviceW.SetEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(12, 'SetEventNotification', ((1, 'param0'),)))
+    IDirectInputDeviceW.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(13, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceW.GetObjectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head),UInt32,UInt32)(14, 'GetObjectInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputDeviceW.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head))(15, 'GetDeviceInfo', ((1, 'param0'),)))
+    IDirectInputDeviceW.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputDeviceW.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid))(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputDeviceW
+def _define_IDirectInputEffect_head():
+    class IDirectInputEffect(win32more.System.Com.IUnknown_head):
+        Guid = Guid('e7e1f7c0-88d2-11d0-9a-d0-00-a0-c9-a0-6e-35')
+    return IDirectInputEffect
+def _define_IDirectInputEffect():
+    IDirectInputEffect = win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head
+    IDirectInputEffect.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid))(3, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputEffect.GetEffectGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(4, 'GetEffectGuid', ((1, 'param0'),)))
+    IDirectInputEffect.GetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),UInt32)(5, 'GetParameters', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffect.SetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),UInt32)(6, 'SetParameters', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffect.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(7, 'Start', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffect.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Stop', ()))
+    IDirectInputEffect.GetEffectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(9, 'GetEffectStatus', ((1, 'param0'),)))
+    IDirectInputEffect.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Download', ()))
+    IDirectInputEffect.Unload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Unload', ()))
+    IDirectInputEffect.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head))(12, 'Escape', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputEffect
+def _define_IDirectInputEffectDriver_head():
+    class IDirectInputEffectDriver(win32more.System.Com.IUnknown_head):
+        Guid = Guid('02538130-898f-11d0-9a-d0-00-a0-c9-a0-6e-35')
+    return IDirectInputEffectDriver
+def _define_IDirectInputEffectDriver():
+    IDirectInputEffectDriver = win32more.Devices.HumanInterfaceDevice.IDirectInputEffectDriver_head
+    IDirectInputEffectDriver.DeviceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,c_void_p)(3, 'DeviceID', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
+    IDirectInputEffectDriver.GetVersions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDRIVERVERSIONS_head))(4, 'GetVersions', ((1, 'param0'),)))
+    IDirectInputEffectDriver.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head))(5, 'Escape', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputEffectDriver.SetGain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(6, 'SetGain', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffectDriver.SendForceFeedbackCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(7, 'SendForceFeedbackCommand', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffectDriver.GetForceFeedbackState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICESTATE_head))(8, 'GetForceFeedbackState', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffectDriver.DownloadEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32),POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECT_head),UInt32)(9, 'DownloadEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
+    IDirectInputEffectDriver.DestroyEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(10, 'DestroyEffect', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffectDriver.StartEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32)(11, 'StartEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputEffectDriver.StopEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(12, 'StopEffect', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputEffectDriver.GetEffectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32))(13, 'GetEffectStatus', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputEffectDriver
+def _define_IDirectInputJoyConfig_head():
+    class IDirectInputJoyConfig(win32more.System.Com.IUnknown_head):
+        Guid = Guid('1de12ab1-c9f5-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputJoyConfig
+def _define_IDirectInputJoyConfig():
+    IDirectInputJoyConfig = win32more.Devices.HumanInterfaceDevice.IDirectInputJoyConfig_head
+    IDirectInputJoyConfig.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Acquire', ()))
+    IDirectInputJoyConfig.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Unacquire', ()))
+    IDirectInputJoyConfig.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(5, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig.SendNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'SendNotify', ()))
+    IDirectInputJoyConfig.EnumTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIJOYTYPECALLBACK,c_void_p)(7, 'EnumTypes', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig.GetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32)(8, 'GetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig.SetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32)(9, 'SetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig.DeleteType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'DeleteType', ((1, 'param0'),)))
+    IDirectInputJoyConfig.GetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32)(11, 'GetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig.SetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32)(12, 'SetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig.DeleteConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'DeleteConfig', ((1, 'param0'),)))
+    IDirectInputJoyConfig.GetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32)(14, 'GetUserValues', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig.SetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32)(15, 'SetUserValues', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig.AddNewHardware = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid))(16, 'AddNewHardware', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig.OpenTypeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY))(17, 'OpenTypeKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig.OpenConfigKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Registry.HKEY))(18, 'OpenConfigKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputJoyConfig
+def _define_IDirectInputJoyConfig8_head():
+    class IDirectInputJoyConfig8(win32more.System.Com.IUnknown_head):
+        Guid = Guid('eb0d7dfa-1990-4f27-b4-d6-ed-f2-ee-c4-a4-4c')
+    return IDirectInputJoyConfig8
+def _define_IDirectInputJoyConfig8():
+    IDirectInputJoyConfig8 = win32more.Devices.HumanInterfaceDevice.IDirectInputJoyConfig8_head
+    IDirectInputJoyConfig8.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Acquire', ()))
+    IDirectInputJoyConfig8.Unacquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Unacquire', ()))
+    IDirectInputJoyConfig8.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(5, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig8.SendNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'SendNotify', ()))
+    IDirectInputJoyConfig8.EnumTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDIJOYTYPECALLBACK,c_void_p)(7, 'EnumTypes', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig8.GetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32)(8, 'GetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig8.SetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYTYPEINFO_head),UInt32,win32more.Foundation.PWSTR)(9, 'SetTypeInfo', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputJoyConfig8.DeleteType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'DeleteType', ((1, 'param0'),)))
+    IDirectInputJoyConfig8.GetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32)(11, 'GetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig8.SetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYCONFIG_head),UInt32)(12, 'SetConfig', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig8.DeleteConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'DeleteConfig', ((1, 'param0'),)))
+    IDirectInputJoyConfig8.GetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32)(14, 'GetUserValues', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig8.SetUserValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIJOYUSERVALUES_head),UInt32)(15, 'SetUserValues', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig8.AddNewHardware = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid))(16, 'AddNewHardware', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputJoyConfig8.OpenTypeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY))(17, 'OpenTypeKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputJoyConfig8.OpenAppStatusKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Registry.HKEY))(18, 'OpenAppStatusKey', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputJoyConfig8
+def _define_IDirectInputW_head():
+    class IDirectInputW(win32more.System.Com.IUnknown_head):
+        Guid = Guid('89521361-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    return IDirectInputW
+def _define_IDirectInputW():
+    IDirectInputW = win32more.Devices.HumanInterfaceDevice.IDirectInputW_head
+    IDirectInputW.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head),win32more.System.Com.IUnknown_head)(3, 'CreateDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    IDirectInputW.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESCALLBACKW,c_void_p,UInt32)(4, 'EnumDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    IDirectInputW.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'GetDeviceStatus', ((1, 'param0'),)))
+    IDirectInputW.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
+    IDirectInputW.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
+    return IDirectInputW
+def _define_INDICATOR_LIST_head():
+    class INDICATOR_LIST(Structure):
+        pass
+    return INDICATOR_LIST
+def _define_INDICATOR_LIST():
+    INDICATOR_LIST = win32more.Devices.HumanInterfaceDevice.INDICATOR_LIST_head
+    INDICATOR_LIST._fields_ = [
+        ('MakeCode', UInt16),
+        ('IndicatorFlags', UInt16),
+    ]
+    return INDICATOR_LIST
 def _define_INPUT_BUTTON_ENABLE_INFO_head():
     class INPUT_BUTTON_ENABLE_INFO(Structure):
         pass
@@ -4481,2542 +4494,1118 @@ def _define_INPUT_BUTTON_ENABLE_INFO_head():
 def _define_INPUT_BUTTON_ENABLE_INFO():
     INPUT_BUTTON_ENABLE_INFO = win32more.Devices.HumanInterfaceDevice.INPUT_BUTTON_ENABLE_INFO_head
     INPUT_BUTTON_ENABLE_INFO._fields_ = [
-        ("ButtonType", win32more.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE),
-        ("Enabled", win32more.Foundation.BOOLEAN),
+        ('ButtonType', win32more.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE),
+        ('Enabled', win32more.Foundation.BOOLEAN),
     ]
     return INPUT_BUTTON_ENABLE_INFO
-def _define_DirectInput8Create():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head, use_last_error=False)(("DirectInput8Create", windll["DINPUT8"]), ((1, 'hinst'),(1, 'dwVersion'),(1, 'riidltf'),(1, 'ppvOut'),(1, 'punkOuter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_joyConfigChanged():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(("joyConfigChanged", windll["WINMM"]), ((1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetCaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,IntPtr,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_CAPS_head), use_last_error=False)(("HidP_GetCaps", windll["HID"]), ((1, 'PreparsedData'),(1, 'Capabilities'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetLinkCollectionNodes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_LINK_COLLECTION_NODE),POINTER(UInt32),IntPtr, use_last_error=False)(("HidP_GetLinkCollectionNodes", windll["HID"]), ((1, 'LinkCollectionNodes'),(1, 'LinkCollectionNodesLength'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetSpecificButtonCaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_CAPS),POINTER(UInt16),IntPtr, use_last_error=False)(("HidP_GetSpecificButtonCaps", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ButtonCaps'),(1, 'ButtonCapsLength'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetButtonCaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_CAPS),POINTER(UInt16),IntPtr, use_last_error=False)(("HidP_GetButtonCaps", windll["HID"]), ((1, 'ReportType'),(1, 'ButtonCaps'),(1, 'ButtonCapsLength'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetSpecificValueCaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_VALUE_CAPS),POINTER(UInt16),IntPtr, use_last_error=False)(("HidP_GetSpecificValueCaps", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ValueCaps'),(1, 'ValueCapsLength'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetValueCaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_VALUE_CAPS),POINTER(UInt16),IntPtr, use_last_error=False)(("HidP_GetValueCaps", windll["HID"]), ((1, 'ReportType'),(1, 'ValueCaps'),(1, 'ValueCapsLength'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetExtendedAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,IntPtr,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_EXTENDED_ATTRIBUTES),POINTER(UInt32), use_last_error=False)(("HidP_GetExtendedAttributes", windll["HID"]), ((1, 'ReportType'),(1, 'DataIndex'),(1, 'PreparsedData'),(1, 'Attributes'),(1, 'LengthAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_InitializeReportForID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,Byte,IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_InitializeReportForID", windll["HID"]), ((1, 'ReportType'),(1, 'ReportID'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_SetData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_DATA),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_SetData", windll["HID"]), ((1, 'ReportType'),(1, 'DataList'),(1, 'DataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_DATA),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetData", windll["HID"]), ((1, 'ReportType'),(1, 'DataList'),(1, 'DataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_MaxDataListLength():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,IntPtr, use_last_error=False)(("HidP_MaxDataListLength", windll["HID"]), ((1, 'ReportType'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_SetUsages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,POINTER(UInt16),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_SetUsages", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'UsageList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_UnsetUsages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,POINTER(UInt16),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_UnsetUsages", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'UsageList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetUsages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,POINTER(UInt16),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetUsages", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'UsageList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetUsagesEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.USAGE_AND_PAGE),POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetUsagesEx", windll["HID"]), ((1, 'ReportType'),(1, 'LinkCollection'),(1, 'ButtonList'),(1, 'UsageLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_MaxUsageListLength():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,IntPtr, use_last_error=False)(("HidP_MaxUsageListLength", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_SetUsageValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,UInt32,IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_SetUsageValue", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_SetScaledUsageValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,Int32,IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_SetScaledUsageValue", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_SetUsageValueArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,win32more.Foundation.PSTR,UInt16,IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_SetUsageValueArray", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'UsageValueByteLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetUsageValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(UInt32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetUsageValue", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetScaledUsageValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(Int32),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetScaledUsageValue", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetUsageValueArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,win32more.Foundation.PSTR,UInt16,IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetUsageValueArray", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'UsageValue'),(1, 'UsageValueByteLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_UsageListDifference():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt16),POINTER(UInt16),POINTER(UInt16),POINTER(UInt16),UInt32, use_last_error=False)(("HidP_UsageListDifference", windll["HID"]), ((1, 'PreviousUsageList'),(1, 'CurrentUsageList'),(1, 'BreakUsageList'),(1, 'MakeUsageList'),(1, 'UsageListLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_GetButtonArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_ARRAY_DATA),POINTER(UInt16),IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_GetButtonArray", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ButtonData'),(1, 'ButtonDataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_SetButtonArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE,UInt16,UInt16,UInt16,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_BUTTON_ARRAY_DATA),UInt16,IntPtr,win32more.Foundation.PSTR,UInt32, use_last_error=False)(("HidP_SetButtonArray", windll["HID"]), ((1, 'ReportType'),(1, 'UsagePage'),(1, 'LinkCollection'),(1, 'Usage'),(1, 'ButtonData'),(1, 'ButtonDataLength'),(1, 'PreparsedData'),(1, 'Report'),(1, 'ReportLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidP_TranslateUsagesToI8042ScanCodes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt16),UInt32,win32more.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION,POINTER(win32more.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_MODIFIER_STATE_head),win32more.Devices.HumanInterfaceDevice.PHIDP_INSERT_SCANCODES,c_void_p, use_last_error=False)(("HidP_TranslateUsagesToI8042ScanCodes", windll["HID"]), ((1, 'ChangedUsageList'),(1, 'UsageListLength'),(1, 'KeyAction'),(1, 'ModifierState'),(1, 'InsertCodesProcedure'),(1, 'InsertCodesContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDD_ATTRIBUTES_head), use_last_error=False)(("HidD_GetAttributes", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Attributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetHidGuid():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Guid), use_last_error=False)(("HidD_GetHidGuid", windll["HID"]), ((1, 'HidGuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetPreparsedData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(IntPtr), use_last_error=False)(("HidD_GetPreparsedData", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_FreePreparsedData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,IntPtr, use_last_error=False)(("HidD_FreePreparsedData", windll["HID"]), ((1, 'PreparsedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_FlushQueue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE, use_last_error=False)(("HidD_FlushQueue", windll["HID"]), ((1, 'HidDeviceObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetConfiguration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDD_CONFIGURATION_head),UInt32, use_last_error=False)(("HidD_GetConfiguration", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Configuration'),(1, 'ConfigurationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_SetConfiguration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(win32more.Devices.HumanInterfaceDevice.HIDD_CONFIGURATION_head),UInt32, use_last_error=False)(("HidD_SetConfiguration", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Configuration'),(1, 'ConfigurationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetFeature():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetFeature", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_SetFeature():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_SetFeature", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetInputReport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetInputReport", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_SetOutputReport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_SetOutputReport", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'ReportBuffer'),(1, 'ReportBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetNumInputBuffers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,POINTER(UInt32), use_last_error=False)(("HidD_GetNumInputBuffers", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'NumberBuffers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_SetNumInputBuffers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,UInt32, use_last_error=False)(("HidD_SetNumInputBuffers", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'NumberBuffers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetPhysicalDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetPhysicalDescriptor", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetManufacturerString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetManufacturerString", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetProductString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetProductString", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetIndexedString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,UInt32,c_void_p,UInt32, use_last_error=False)(("HidD_GetIndexedString", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'StringIndex'),(1, 'Buffer'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetSerialNumberString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetSerialNumberString", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HidD_GetMsGenreDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,c_void_p,UInt32, use_last_error=False)(("HidD_GetMsGenreDescriptor", windll["HID"]), ((1, 'HidDeviceObject'),(1, 'Buffer'),(1, 'BufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+def _define_JOYCALIBRATE_head():
+    class JOYCALIBRATE(Structure):
+        pass
+    return JOYCALIBRATE
+def _define_JOYCALIBRATE():
+    JOYCALIBRATE = win32more.Devices.HumanInterfaceDevice.JOYCALIBRATE_head
+    JOYCALIBRATE._fields_ = [
+        ('wXbase', UInt32),
+        ('wXdelta', UInt32),
+        ('wYbase', UInt32),
+        ('wYdelta', UInt32),
+        ('wZbase', UInt32),
+        ('wZdelta', UInt32),
+    ]
+    return JOYCALIBRATE
+def _define_JOYPOS_head():
+    class JOYPOS(Structure):
+        pass
+    return JOYPOS
+def _define_JOYPOS():
+    JOYPOS = win32more.Devices.HumanInterfaceDevice.JOYPOS_head
+    JOYPOS._fields_ = [
+        ('dwX', UInt32),
+        ('dwY', UInt32),
+        ('dwZ', UInt32),
+        ('dwR', UInt32),
+        ('dwU', UInt32),
+        ('dwV', UInt32),
+    ]
+    return JOYPOS
+def _define_JOYRANGE_head():
+    class JOYRANGE(Structure):
+        pass
+    return JOYRANGE
+def _define_JOYRANGE():
+    JOYRANGE = win32more.Devices.HumanInterfaceDevice.JOYRANGE_head
+    JOYRANGE._fields_ = [
+        ('jpMin', win32more.Devices.HumanInterfaceDevice.JOYPOS),
+        ('jpMax', win32more.Devices.HumanInterfaceDevice.JOYPOS),
+        ('jpCenter', win32more.Devices.HumanInterfaceDevice.JOYPOS),
+    ]
+    return JOYRANGE
+def _define_JOYREGHWCONFIG_head():
+    class JOYREGHWCONFIG(Structure):
+        pass
+    return JOYREGHWCONFIG
+def _define_JOYREGHWCONFIG():
+    JOYREGHWCONFIG = win32more.Devices.HumanInterfaceDevice.JOYREGHWCONFIG_head
+    JOYREGHWCONFIG._fields_ = [
+        ('hws', win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS),
+        ('dwUsageSettings', UInt32),
+        ('hwv', win32more.Devices.HumanInterfaceDevice.JOYREGHWVALUES),
+        ('dwType', UInt32),
+        ('dwReserved', UInt32),
+    ]
+    return JOYREGHWCONFIG
+def _define_JOYREGHWSETTINGS_head():
+    class JOYREGHWSETTINGS(Structure):
+        pass
+    return JOYREGHWSETTINGS
+def _define_JOYREGHWSETTINGS():
+    JOYREGHWSETTINGS = win32more.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS_head
+    JOYREGHWSETTINGS._fields_ = [
+        ('dwFlags', UInt32),
+        ('dwNumButtons', UInt32),
+    ]
+    return JOYREGHWSETTINGS
+def _define_JOYREGHWVALUES_head():
+    class JOYREGHWVALUES(Structure):
+        pass
+    return JOYREGHWVALUES
+def _define_JOYREGHWVALUES():
+    JOYREGHWVALUES = win32more.Devices.HumanInterfaceDevice.JOYREGHWVALUES_head
+    JOYREGHWVALUES._fields_ = [
+        ('jrvHardware', win32more.Devices.HumanInterfaceDevice.JOYRANGE),
+        ('dwPOVValues', UInt32 * 4),
+        ('dwCalFlags', UInt32),
+    ]
+    return JOYREGHWVALUES
+def _define_JOYREGUSERVALUES_head():
+    class JOYREGUSERVALUES(Structure):
+        pass
+    return JOYREGUSERVALUES
+def _define_JOYREGUSERVALUES():
+    JOYREGUSERVALUES = win32more.Devices.HumanInterfaceDevice.JOYREGUSERVALUES_head
+    JOYREGUSERVALUES._fields_ = [
+        ('dwTimeOut', UInt32),
+        ('jrvRanges', win32more.Devices.HumanInterfaceDevice.JOYRANGE),
+        ('jpDeadZone', win32more.Devices.HumanInterfaceDevice.JOYPOS),
+    ]
+    return JOYREGUSERVALUES
+def _define_KEYBOARD_ATTRIBUTES_head():
+    class KEYBOARD_ATTRIBUTES(Structure):
+        pass
+    return KEYBOARD_ATTRIBUTES
+def _define_KEYBOARD_ATTRIBUTES():
+    KEYBOARD_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.KEYBOARD_ATTRIBUTES_head
+    KEYBOARD_ATTRIBUTES._fields_ = [
+        ('KeyboardIdentifier', win32more.Devices.HumanInterfaceDevice.KEYBOARD_ID),
+        ('KeyboardMode', UInt16),
+        ('NumberOfFunctionKeys', UInt16),
+        ('NumberOfIndicators', UInt16),
+        ('NumberOfKeysTotal', UInt16),
+        ('InputDataQueueLength', UInt32),
+        ('KeyRepeatMinimum', win32more.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS),
+        ('KeyRepeatMaximum', win32more.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS),
+    ]
+    return KEYBOARD_ATTRIBUTES
+def _define_KEYBOARD_EXTENDED_ATTRIBUTES_head():
+    class KEYBOARD_EXTENDED_ATTRIBUTES(Structure):
+        pass
+    return KEYBOARD_EXTENDED_ATTRIBUTES
+def _define_KEYBOARD_EXTENDED_ATTRIBUTES():
+    KEYBOARD_EXTENDED_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.KEYBOARD_EXTENDED_ATTRIBUTES_head
+    KEYBOARD_EXTENDED_ATTRIBUTES._fields_ = [
+        ('Version', Byte),
+        ('FormFactor', Byte),
+        ('KeyType', Byte),
+        ('PhysicalLayout', Byte),
+        ('VendorSpecificPhysicalLayout', Byte),
+        ('IETFLanguageTagIndex', Byte),
+        ('ImplementedInputAssistControls', Byte),
+    ]
+    return KEYBOARD_EXTENDED_ATTRIBUTES
+def _define_KEYBOARD_ID_head():
+    class KEYBOARD_ID(Structure):
+        pass
+    return KEYBOARD_ID
+def _define_KEYBOARD_ID():
+    KEYBOARD_ID = win32more.Devices.HumanInterfaceDevice.KEYBOARD_ID_head
+    KEYBOARD_ID._fields_ = [
+        ('Type', Byte),
+        ('Subtype', Byte),
+    ]
+    return KEYBOARD_ID
+def _define_KEYBOARD_IME_STATUS_head():
+    class KEYBOARD_IME_STATUS(Structure):
+        pass
+    return KEYBOARD_IME_STATUS
+def _define_KEYBOARD_IME_STATUS():
+    KEYBOARD_IME_STATUS = win32more.Devices.HumanInterfaceDevice.KEYBOARD_IME_STATUS_head
+    KEYBOARD_IME_STATUS._fields_ = [
+        ('UnitId', UInt16),
+        ('ImeOpen', UInt32),
+        ('ImeConvMode', UInt32),
+    ]
+    return KEYBOARD_IME_STATUS
+def _define_KEYBOARD_INDICATOR_PARAMETERS_head():
+    class KEYBOARD_INDICATOR_PARAMETERS(Structure):
+        pass
+    return KEYBOARD_INDICATOR_PARAMETERS
+def _define_KEYBOARD_INDICATOR_PARAMETERS():
+    KEYBOARD_INDICATOR_PARAMETERS = win32more.Devices.HumanInterfaceDevice.KEYBOARD_INDICATOR_PARAMETERS_head
+    KEYBOARD_INDICATOR_PARAMETERS._fields_ = [
+        ('UnitId', UInt16),
+        ('LedFlags', UInt16),
+    ]
+    return KEYBOARD_INDICATOR_PARAMETERS
+def _define_KEYBOARD_INDICATOR_TRANSLATION_head():
+    class KEYBOARD_INDICATOR_TRANSLATION(Structure):
+        pass
+    return KEYBOARD_INDICATOR_TRANSLATION
+def _define_KEYBOARD_INDICATOR_TRANSLATION():
+    KEYBOARD_INDICATOR_TRANSLATION = win32more.Devices.HumanInterfaceDevice.KEYBOARD_INDICATOR_TRANSLATION_head
+    KEYBOARD_INDICATOR_TRANSLATION._fields_ = [
+        ('NumberOfIndicatorKeys', UInt16),
+        ('IndicatorList', win32more.Devices.HumanInterfaceDevice.INDICATOR_LIST * 1),
+    ]
+    return KEYBOARD_INDICATOR_TRANSLATION
+def _define_KEYBOARD_INPUT_DATA_head():
+    class KEYBOARD_INPUT_DATA(Structure):
+        pass
+    return KEYBOARD_INPUT_DATA
+def _define_KEYBOARD_INPUT_DATA():
+    KEYBOARD_INPUT_DATA = win32more.Devices.HumanInterfaceDevice.KEYBOARD_INPUT_DATA_head
+    KEYBOARD_INPUT_DATA._fields_ = [
+        ('UnitId', UInt16),
+        ('MakeCode', UInt16),
+        ('Flags', UInt16),
+        ('Reserved', UInt16),
+        ('ExtraInformation', UInt32),
+    ]
+    return KEYBOARD_INPUT_DATA
+def _define_KEYBOARD_TYPEMATIC_PARAMETERS_head():
+    class KEYBOARD_TYPEMATIC_PARAMETERS(Structure):
+        pass
+    return KEYBOARD_TYPEMATIC_PARAMETERS
+def _define_KEYBOARD_TYPEMATIC_PARAMETERS():
+    KEYBOARD_TYPEMATIC_PARAMETERS = win32more.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS_head
+    KEYBOARD_TYPEMATIC_PARAMETERS._fields_ = [
+        ('UnitId', UInt16),
+        ('Rate', UInt16),
+        ('Delay', UInt16),
+    ]
+    return KEYBOARD_TYPEMATIC_PARAMETERS
+def _define_KEYBOARD_UNIT_ID_PARAMETER_head():
+    class KEYBOARD_UNIT_ID_PARAMETER(Structure):
+        pass
+    return KEYBOARD_UNIT_ID_PARAMETER
+def _define_KEYBOARD_UNIT_ID_PARAMETER():
+    KEYBOARD_UNIT_ID_PARAMETER = win32more.Devices.HumanInterfaceDevice.KEYBOARD_UNIT_ID_PARAMETER_head
+    KEYBOARD_UNIT_ID_PARAMETER._fields_ = [
+        ('UnitId', UInt16),
+    ]
+    return KEYBOARD_UNIT_ID_PARAMETER
+def _define_LPDICONFIGUREDEVICESCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Com.IUnknown_head,c_void_p)
+def _define_LPDIENUMCREATEDEFFECTOBJECTSCALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Devices.HumanInterfaceDevice.IDirectInputEffect_head,c_void_p)
+def _define_LPDIENUMDEVICEOBJECTSCALLBACKA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA_head),c_void_p)
+def _define_LPDIENUMDEVICEOBJECTSCALLBACKW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW_head),c_void_p)
+def _define_LPDIENUMDEVICESBYSEMANTICSCBA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head),win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head,UInt32,UInt32,c_void_p)
+def _define_LPDIENUMDEVICESBYSEMANTICSCBW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head),win32more.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head,UInt32,UInt32,c_void_p)
+def _define_LPDIENUMDEVICESCALLBACKA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head),c_void_p)
+def _define_LPDIENUMDEVICESCALLBACKW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head),c_void_p)
+def _define_LPDIENUMEFFECTSCALLBACKA():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOA_head),c_void_p)
+def _define_LPDIENUMEFFECTSCALLBACKW():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFECTINFOW_head),c_void_p)
+def _define_LPDIENUMEFFECTSINFILECALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),c_void_p)
+def _define_LPDIJOYTYPECALLBACK():
+    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p)
+def _define_LPFNSHOWJOYCPL():
+    return WINFUNCTYPE(Void,win32more.Foundation.HWND)
+def _define_MOUSE_ATTRIBUTES_head():
+    class MOUSE_ATTRIBUTES(Structure):
+        pass
+    return MOUSE_ATTRIBUTES
+def _define_MOUSE_ATTRIBUTES():
+    MOUSE_ATTRIBUTES = win32more.Devices.HumanInterfaceDevice.MOUSE_ATTRIBUTES_head
+    MOUSE_ATTRIBUTES._fields_ = [
+        ('MouseIdentifier', UInt16),
+        ('NumberOfButtons', UInt16),
+        ('SampleRate', UInt16),
+        ('InputDataQueueLength', UInt32),
+    ]
+    return MOUSE_ATTRIBUTES
+def _define_MOUSE_INPUT_DATA_head():
+    class MOUSE_INPUT_DATA(Structure):
+        pass
+    return MOUSE_INPUT_DATA
+def _define_MOUSE_INPUT_DATA():
+    MOUSE_INPUT_DATA = win32more.Devices.HumanInterfaceDevice.MOUSE_INPUT_DATA_head
+    class MOUSE_INPUT_DATA__Anonymous_e__Union(Union):
+        pass
+    class MOUSE_INPUT_DATA__Anonymous_e__Union__Anonymous_e__Struct(Structure):
+        pass
+    MOUSE_INPUT_DATA__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
+        ('ButtonFlags', UInt16),
+        ('ButtonData', UInt16),
+    ]
+    MOUSE_INPUT_DATA__Anonymous_e__Union._anonymous_ = [
+        'Anonymous',
+    ]
+    MOUSE_INPUT_DATA__Anonymous_e__Union._fields_ = [
+        ('Buttons', UInt32),
+        ('Anonymous', MOUSE_INPUT_DATA__Anonymous_e__Union__Anonymous_e__Struct),
+    ]
+    MOUSE_INPUT_DATA._anonymous_ = [
+        'Anonymous',
+    ]
+    MOUSE_INPUT_DATA._fields_ = [
+        ('UnitId', UInt16),
+        ('Flags', UInt16),
+        ('Anonymous', MOUSE_INPUT_DATA__Anonymous_e__Union),
+        ('RawButtons', UInt32),
+        ('LastX', Int32),
+        ('LastY', Int32),
+        ('ExtraInformation', UInt32),
+    ]
+    return MOUSE_INPUT_DATA
+def _define_MOUSE_UNIT_ID_PARAMETER_head():
+    class MOUSE_UNIT_ID_PARAMETER(Structure):
+        pass
+    return MOUSE_UNIT_ID_PARAMETER
+def _define_MOUSE_UNIT_ID_PARAMETER():
+    MOUSE_UNIT_ID_PARAMETER = win32more.Devices.HumanInterfaceDevice.MOUSE_UNIT_ID_PARAMETER_head
+    MOUSE_UNIT_ID_PARAMETER._fields_ = [
+        ('UnitId', UInt16),
+    ]
+    return MOUSE_UNIT_ID_PARAMETER
+def _define_PFN_HidP_GetVersionInternal():
+    return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt32))
+def _define_PHIDP_INSERT_SCANCODES():
+    return WINFUNCTYPE(win32more.Foundation.BOOLEAN,c_void_p,win32more.Foundation.PSTR,UInt32)
+def _define_USAGE_AND_PAGE_head():
+    class USAGE_AND_PAGE(Structure):
+        pass
+    return USAGE_AND_PAGE
+def _define_USAGE_AND_PAGE():
+    USAGE_AND_PAGE = win32more.Devices.HumanInterfaceDevice.USAGE_AND_PAGE_head
+    USAGE_AND_PAGE._fields_ = [
+        ('Usage', UInt16),
+        ('UsagePage', UInt16),
+    ]
+    return USAGE_AND_PAGE
 __all__ = [
-    "DIRECTINPUT_VERSION",
-    "JOY_HW_NONE",
-    "JOY_HW_CUSTOM",
-    "JOY_HW_2A_2B_GENERIC",
-    "JOY_HW_2A_4B_GENERIC",
-    "JOY_HW_2B_GAMEPAD",
-    "JOY_HW_2B_FLIGHTYOKE",
-    "JOY_HW_2B_FLIGHTYOKETHROTTLE",
-    "JOY_HW_3A_2B_GENERIC",
-    "JOY_HW_3A_4B_GENERIC",
-    "JOY_HW_4B_GAMEPAD",
-    "JOY_HW_4B_FLIGHTYOKE",
-    "JOY_HW_4B_FLIGHTYOKETHROTTLE",
-    "JOY_HW_TWO_2A_2B_WITH_Y",
-    "JOY_HW_LASTENTRY",
-    "JOY_ISCAL_XY",
-    "JOY_ISCAL_Z",
-    "JOY_ISCAL_R",
-    "JOY_ISCAL_U",
-    "JOY_ISCAL_V",
-    "JOY_ISCAL_POV",
-    "JOY_POV_NUMDIRS",
-    "JOY_POVVAL_FORWARD",
-    "JOY_POVVAL_BACKWARD",
-    "JOY_POVVAL_LEFT",
-    "JOY_POVVAL_RIGHT",
-    "JOY_HWS_HASZ",
-    "JOY_HWS_HASPOV",
-    "JOY_HWS_POVISBUTTONCOMBOS",
-    "JOY_HWS_POVISPOLL",
-    "JOY_HWS_ISYOKE",
-    "JOY_HWS_ISGAMEPAD",
-    "JOY_HWS_ISCARCTRL",
-    "JOY_HWS_XISJ1Y",
-    "JOY_HWS_XISJ2X",
-    "JOY_HWS_XISJ2Y",
-    "JOY_HWS_YISJ1X",
-    "JOY_HWS_YISJ2X",
-    "JOY_HWS_YISJ2Y",
-    "JOY_HWS_ZISJ1X",
-    "JOY_HWS_ZISJ1Y",
-    "JOY_HWS_ZISJ2X",
-    "JOY_HWS_POVISJ1X",
-    "JOY_HWS_POVISJ1Y",
-    "JOY_HWS_POVISJ2X",
-    "JOY_HWS_HASR",
-    "JOY_HWS_RISJ1X",
-    "JOY_HWS_RISJ1Y",
-    "JOY_HWS_RISJ2Y",
-    "JOY_HWS_HASU",
-    "JOY_HWS_HASV",
-    "JOY_US_HASRUDDER",
-    "JOY_US_PRESENT",
-    "JOY_US_ISOEM",
-    "JOY_US_RESERVED",
-    "JOYTYPE_ZEROGAMEENUMOEMDATA",
-    "JOYTYPE_NOAUTODETECTGAMEPORT",
-    "JOYTYPE_NOHIDDIRECT",
-    "JOYTYPE_ANALOGCOMPAT",
-    "JOYTYPE_DEFAULTPROPSHEET",
-    "JOYTYPE_DEVICEHIDE",
-    "JOYTYPE_MOUSEHIDE",
-    "JOYTYPE_KEYBHIDE",
-    "JOYTYPE_GAMEHIDE",
-    "JOYTYPE_HIDEACTIVE",
-    "JOYTYPE_INFOMASK",
-    "JOYTYPE_INFODEFAULT",
-    "JOYTYPE_INFOYYPEDALS",
-    "JOYTYPE_INFOZYPEDALS",
-    "JOYTYPE_INFOYRPEDALS",
-    "JOYTYPE_INFOZRPEDALS",
-    "JOYTYPE_INFOZISSLIDER",
-    "JOYTYPE_INFOZISZ",
-    "JOYTYPE_ENABLEINPUTREPORT",
-    "MAX_JOYSTRING",
-    "MAX_JOYSTICKOEMVXDNAME",
-    "DITC_REGHWSETTINGS",
-    "DITC_CLSIDCONFIG",
-    "DITC_DISPLAYNAME",
-    "DITC_CALLOUT",
-    "DITC_HARDWAREID",
-    "DITC_FLAGS1",
-    "DITC_FLAGS2",
-    "DITC_MAPFILE",
-    "DIJC_GUIDINSTANCE",
-    "DIJC_REGHWCONFIGTYPE",
-    "DIJC_GAIN",
-    "DIJC_CALLOUT",
-    "DIJC_WDMGAMEPORT",
-    "DIJU_USERVALUES",
-    "DIJU_GLOBALDRIVER",
-    "DIJU_GAMEPORTEMULATOR",
-    "GUID_KeyboardClass",
-    "GUID_MediaClass",
-    "GUID_MouseClass",
-    "GUID_HIDClass",
-    "DIMSGWP_NEWAPPSTART",
-    "DIMSGWP_DX8APPSTART",
-    "DIMSGWP_DX8MAPPERAPPSTART",
-    "DIAPPIDFLAG_NOTIME",
-    "DIAPPIDFLAG_NOSIZE",
-    "DIERR_NOMOREITEMS",
-    "DIERR_DRIVERFIRST",
-    "DIERR_DRIVERLAST",
-    "DIERR_INVALIDCLASSINSTALLER",
-    "DIERR_CANCELLED",
-    "DIERR_BADINF",
-    "DIDIFT_DELETE",
-    "GUID_DEVINTERFACE_HID",
-    "GUID_HID_INTERFACE_NOTIFY",
-    "GUID_HID_INTERFACE_HIDPARSE",
-    "DEVPKEY_DeviceInterface_HID_UsagePage",
-    "DEVPKEY_DeviceInterface_HID_UsageId",
-    "DEVPKEY_DeviceInterface_HID_IsReadOnly",
-    "DEVPKEY_DeviceInterface_HID_VendorId",
-    "DEVPKEY_DeviceInterface_HID_ProductId",
-    "DEVPKEY_DeviceInterface_HID_VersionNumber",
-    "DEVPKEY_DeviceInterface_HID_BackgroundAccess",
-    "DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable",
-    "HID_REVISION",
-    "HID_USAGE_PAGE_UNDEFINED",
-    "HID_USAGE_PAGE_GENERIC",
-    "HID_USAGE_PAGE_SIMULATION",
-    "HID_USAGE_PAGE_VR",
-    "HID_USAGE_PAGE_SPORT",
-    "HID_USAGE_PAGE_GAME",
-    "HID_USAGE_PAGE_GENERIC_DEVICE",
-    "HID_USAGE_PAGE_KEYBOARD",
-    "HID_USAGE_PAGE_LED",
-    "HID_USAGE_PAGE_BUTTON",
-    "HID_USAGE_PAGE_ORDINAL",
-    "HID_USAGE_PAGE_TELEPHONY",
-    "HID_USAGE_PAGE_CONSUMER",
-    "HID_USAGE_PAGE_DIGITIZER",
-    "HID_USAGE_PAGE_HAPTICS",
-    "HID_USAGE_PAGE_PID",
-    "HID_USAGE_PAGE_UNICODE",
-    "HID_USAGE_PAGE_ALPHANUMERIC",
-    "HID_USAGE_PAGE_SENSOR",
-    "HID_USAGE_PAGE_LIGHTING_ILLUMINATION",
-    "HID_USAGE_PAGE_BARCODE_SCANNER",
-    "HID_USAGE_PAGE_WEIGHING_DEVICE",
-    "HID_USAGE_PAGE_MAGNETIC_STRIPE_READER",
-    "HID_USAGE_PAGE_CAMERA_CONTROL",
-    "HID_USAGE_PAGE_ARCADE",
-    "HID_USAGE_PAGE_MICROSOFT_BLUETOOTH_HANDSFREE",
-    "HID_USAGE_PAGE_VENDOR_DEFINED_BEGIN",
-    "HID_USAGE_PAGE_VENDOR_DEFINED_END",
-    "HID_USAGE_GENERIC_POINTER",
-    "HID_USAGE_GENERIC_MOUSE",
-    "HID_USAGE_GENERIC_JOYSTICK",
-    "HID_USAGE_GENERIC_GAMEPAD",
-    "HID_USAGE_GENERIC_KEYBOARD",
-    "HID_USAGE_GENERIC_KEYPAD",
-    "HID_USAGE_GENERIC_MULTI_AXIS_CONTROLLER",
-    "HID_USAGE_GENERIC_TABLET_PC_SYSTEM_CTL",
-    "HID_USAGE_GENERIC_PORTABLE_DEVICE_CONTROL",
-    "HID_USAGE_GENERIC_INTERACTIVE_CONTROL",
-    "HID_USAGE_GENERIC_COUNTED_BUFFER",
-    "HID_USAGE_GENERIC_SYSTEM_CTL",
-    "HID_USAGE_GENERIC_X",
-    "HID_USAGE_GENERIC_Y",
-    "HID_USAGE_GENERIC_Z",
-    "HID_USAGE_GENERIC_RX",
-    "HID_USAGE_GENERIC_RY",
-    "HID_USAGE_GENERIC_RZ",
-    "HID_USAGE_GENERIC_SLIDER",
-    "HID_USAGE_GENERIC_DIAL",
-    "HID_USAGE_GENERIC_WHEEL",
-    "HID_USAGE_GENERIC_HATSWITCH",
-    "HID_USAGE_GENERIC_BYTE_COUNT",
-    "HID_USAGE_GENERIC_MOTION_WAKEUP",
-    "HID_USAGE_GENERIC_START",
-    "HID_USAGE_GENERIC_SELECT",
-    "HID_USAGE_GENERIC_VX",
-    "HID_USAGE_GENERIC_VY",
-    "HID_USAGE_GENERIC_VZ",
-    "HID_USAGE_GENERIC_VBRX",
-    "HID_USAGE_GENERIC_VBRY",
-    "HID_USAGE_GENERIC_VBRZ",
-    "HID_USAGE_GENERIC_VNO",
-    "HID_USAGE_GENERIC_FEATURE_NOTIFICATION",
-    "HID_USAGE_GENERIC_RESOLUTION_MULTIPLIER",
-    "HID_USAGE_GENERIC_SYSCTL_POWER",
-    "HID_USAGE_GENERIC_SYSCTL_SLEEP",
-    "HID_USAGE_GENERIC_SYSCTL_WAKE",
-    "HID_USAGE_GENERIC_SYSCTL_CONTEXT_MENU",
-    "HID_USAGE_GENERIC_SYSCTL_MAIN_MENU",
-    "HID_USAGE_GENERIC_SYSCTL_APP_MENU",
-    "HID_USAGE_GENERIC_SYSCTL_HELP_MENU",
-    "HID_USAGE_GENERIC_SYSCTL_MENU_EXIT",
-    "HID_USAGE_GENERIC_SYSCTL_MENU_SELECT",
-    "HID_USAGE_GENERIC_SYSCTL_MENU_RIGHT",
-    "HID_USAGE_GENERIC_SYSCTL_MENU_LEFT",
-    "HID_USAGE_GENERIC_SYSCTL_MENU_UP",
-    "HID_USAGE_GENERIC_SYSCTL_MENU_DOWN",
-    "HID_USAGE_GENERIC_SYSCTL_COLD_RESTART",
-    "HID_USAGE_GENERIC_SYSCTL_WARM_RESTART",
-    "HID_USAGE_GENERIC_DPAD_UP",
-    "HID_USAGE_GENERIC_DPAD_DOWN",
-    "HID_USAGE_GENERIC_DPAD_RIGHT",
-    "HID_USAGE_GENERIC_DPAD_LEFT",
-    "HID_USAGE_GENERIC_SYSCTL_FN",
-    "HID_USAGE_GENERIC_SYSCTL_FN_LOCK",
-    "HID_USAGE_GENERIC_SYSCTL_FN_LOCK_INDICATOR",
-    "HID_USAGE_GENERIC_SYSCTL_DISMISS_NOTIFICATION",
-    "HID_USAGE_GENERIC_SYSCTL_DOCK",
-    "HID_USAGE_GENERIC_SYSCTL_UNDOCK",
-    "HID_USAGE_GENERIC_SYSCTL_SETUP",
-    "HID_USAGE_GENERIC_SYSCTL_SYS_BREAK",
-    "HID_USAGE_GENERIC_SYSCTL_SYS_DBG_BREAK",
-    "HID_USAGE_GENERIC_SYSCTL_APP_BREAK",
-    "HID_USAGE_GENERIC_SYSCTL_APP_DBG_BREAK",
-    "HID_USAGE_GENERIC_SYSCTL_MUTE",
-    "HID_USAGE_GENERIC_SYSCTL_HIBERNATE",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_INVERT",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_INTERNAL",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_EXTERNAL",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_BOTH",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_DUAL",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_TOGGLE",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_SWAP",
-    "HID_USAGE_GENERIC_SYSCTL_DISP_AUTOSCALE",
-    "HID_USAGE_GENERIC_SYSTEM_DISPLAY_ROTATION_LOCK_BUTTON",
-    "HID_USAGE_GENERIC_SYSTEM_DISPLAY_ROTATION_LOCK_SLIDER_SWITCH",
-    "HID_USAGE_GENERIC_CONTROL_ENABLE",
-    "HID_USAGE_SIMULATION_FLIGHT_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_AUTOMOBILE_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_TANK_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_SPACESHIP_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_SUBMARINE_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_SAILING_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_MOTORCYCLE_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_SPORTS_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_AIRPLANE_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_HELICOPTER_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_MAGIC_CARPET_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_BICYCLE_SIMULATION_DEVICE",
-    "HID_USAGE_SIMULATION_FLIGHT_CONTROL_STICK",
-    "HID_USAGE_SIMULATION_FLIGHT_STICK",
-    "HID_USAGE_SIMULATION_CYCLIC_CONTROL",
-    "HID_USAGE_SIMULATION_CYCLIC_TRIM",
-    "HID_USAGE_SIMULATION_FLIGHT_YOKE",
-    "HID_USAGE_SIMULATION_TRACK_CONTROL",
-    "HID_USAGE_SIMULATION_AILERON",
-    "HID_USAGE_SIMULATION_AILERON_TRIM",
-    "HID_USAGE_SIMULATION_ANTI_TORQUE_CONTROL",
-    "HID_USAGE_SIMULATION_AUTOPIOLOT_ENABLE",
-    "HID_USAGE_SIMULATION_CHAFF_RELEASE",
-    "HID_USAGE_SIMULATION_COLLECTIVE_CONTROL",
-    "HID_USAGE_SIMULATION_DIVE_BRAKE",
-    "HID_USAGE_SIMULATION_ELECTRONIC_COUNTERMEASURES",
-    "HID_USAGE_SIMULATION_ELEVATOR",
-    "HID_USAGE_SIMULATION_ELEVATOR_TRIM",
-    "HID_USAGE_SIMULATION_RUDDER",
-    "HID_USAGE_SIMULATION_THROTTLE",
-    "HID_USAGE_SIMULATION_FLIGHT_COMMUNICATIONS",
-    "HID_USAGE_SIMULATION_FLARE_RELEASE",
-    "HID_USAGE_SIMULATION_LANDING_GEAR",
-    "HID_USAGE_SIMULATION_TOE_BRAKE",
-    "HID_USAGE_SIMULATION_TRIGGER",
-    "HID_USAGE_SIMULATION_WEAPONS_ARM",
-    "HID_USAGE_SIMULATION_WEAPONS_SELECT",
-    "HID_USAGE_SIMULATION_WING_FLAPS",
-    "HID_USAGE_SIMULATION_ACCELLERATOR",
-    "HID_USAGE_SIMULATION_BRAKE",
-    "HID_USAGE_SIMULATION_CLUTCH",
-    "HID_USAGE_SIMULATION_SHIFTER",
-    "HID_USAGE_SIMULATION_STEERING",
-    "HID_USAGE_SIMULATION_TURRET_DIRECTION",
-    "HID_USAGE_SIMULATION_BARREL_ELEVATION",
-    "HID_USAGE_SIMULATION_DIVE_PLANE",
-    "HID_USAGE_SIMULATION_BALLAST",
-    "HID_USAGE_SIMULATION_BICYCLE_CRANK",
-    "HID_USAGE_SIMULATION_HANDLE_BARS",
-    "HID_USAGE_SIMULATION_FRONT_BRAKE",
-    "HID_USAGE_SIMULATION_REAR_BRAKE",
-    "HID_USAGE_VR_BELT",
-    "HID_USAGE_VR_BODY_SUIT",
-    "HID_USAGE_VR_FLEXOR",
-    "HID_USAGE_VR_GLOVE",
-    "HID_USAGE_VR_HEAD_TRACKER",
-    "HID_USAGE_VR_HEAD_MOUNTED_DISPLAY",
-    "HID_USAGE_VR_HAND_TRACKER",
-    "HID_USAGE_VR_OCULOMETER",
-    "HID_USAGE_VR_VEST",
-    "HID_USAGE_VR_ANIMATRONIC_DEVICE",
-    "HID_USAGE_VR_STEREO_ENABLE",
-    "HID_USAGE_VR_DISPLAY_ENABLE",
-    "HID_USAGE_SPORT_BASEBALL_BAT",
-    "HID_USAGE_SPORT_GOLF_CLUB",
-    "HID_USAGE_SPORT_ROWING_MACHINE",
-    "HID_USAGE_SPORT_TREADMILL",
-    "HID_USAGE_SPORT_STICK_TYPE",
-    "HID_USAGE_SPORT_OAR",
-    "HID_USAGE_SPORT_SLOPE",
-    "HID_USAGE_SPORT_RATE",
-    "HID_USAGE_SPORT_STICK_SPEED",
-    "HID_USAGE_SPORT_STICK_FACE_ANGLE",
-    "HID_USAGE_SPORT_HEEL_TOE",
-    "HID_USAGE_SPORT_FOLLOW_THROUGH",
-    "HID_USAGE_SPORT_TEMPO",
-    "HID_USAGE_SPORT_HEIGHT",
-    "HID_USAGE_SPORT_PUTTER",
-    "HID_USAGE_SPORT_1_IRON",
-    "HID_USAGE_SPORT_2_IRON",
-    "HID_USAGE_SPORT_3_IRON",
-    "HID_USAGE_SPORT_4_IRON",
-    "HID_USAGE_SPORT_5_IRON",
-    "HID_USAGE_SPORT_6_IRON",
-    "HID_USAGE_SPORT_7_IRON",
-    "HID_USAGE_SPORT_8_IRON",
-    "HID_USAGE_SPORT_9_IRON",
-    "HID_USAGE_SPORT_10_IRON",
-    "HID_USAGE_SPORT_11_IRON",
-    "HID_USAGE_SPORT_SAND_WEDGE",
-    "HID_USAGE_SPORT_LOFT_WEDGE",
-    "HID_USAGE_SPORT_POWER_WEDGE",
-    "HID_USAGE_SPORT_1_WOOD",
-    "HID_USAGE_SPORT_3_WOOD",
-    "HID_USAGE_SPORT_5_WOOD",
-    "HID_USAGE_SPORT_7_WOOD",
-    "HID_USAGE_SPORT_9_WOOD",
-    "HID_USAGE_GAME_3D_GAME_CONTROLLER",
-    "HID_USAGE_GAME_PINBALL_DEVICE",
-    "HID_USAGE_GAME_GUN_DEVICE",
-    "HID_USAGE_GAME_POINT_OF_VIEW",
-    "HID_USAGE_GAME_GUN_SELECTOR",
-    "HID_USAGE_GAME_GAMEPAD_FIRE_JUMP",
-    "HID_USAGE_GAME_GAMEPAD_TRIGGER",
-    "HID_USAGE_GAME_TURN_RIGHT_LEFT",
-    "HID_USAGE_GAME_PITCH_FORWARD_BACK",
-    "HID_USAGE_GAME_ROLL_RIGHT_LEFT",
-    "HID_USAGE_GAME_MOVE_RIGHT_LEFT",
-    "HID_USAGE_GAME_MOVE_FORWARD_BACK",
-    "HID_USAGE_GAME_MOVE_UP_DOWN",
-    "HID_USAGE_GAME_LEAN_RIGHT_LEFT",
-    "HID_USAGE_GAME_LEAN_FORWARD_BACK",
-    "HID_USAGE_GAME_POV_HEIGHT",
-    "HID_USAGE_GAME_FLIPPER",
-    "HID_USAGE_GAME_SECONDARY_FLIPPER",
-    "HID_USAGE_GAME_BUMP",
-    "HID_USAGE_GAME_NEW_GAME",
-    "HID_USAGE_GAME_SHOOT_BALL",
-    "HID_USAGE_GAME_PLAYER",
-    "HID_USAGE_GAME_GUN_BOLT",
-    "HID_USAGE_GAME_GUN_CLIP",
-    "HID_USAGE_GAME_GUN_SINGLE_SHOT",
-    "HID_USAGE_GAME_GUN_BURST",
-    "HID_USAGE_GAME_GUN_AUTOMATIC",
-    "HID_USAGE_GAME_GUN_SAFETY",
-    "HID_USAGE_GENERIC_DEVICE_BATTERY_STRENGTH",
-    "HID_USAGE_GENERIC_DEVICE_WIRELESS_CHANNEL",
-    "HID_USAGE_GENERIC_DEVICE_WIRELESS_ID",
-    "HID_USAGE_GENERIC_DEVICE_DISCOVER_WIRELESS_CONTROL",
-    "HID_USAGE_GENERIC_DEVICE_SECURITY_CODE_CHAR_ENTERED",
-    "HID_USAGE_GENERIC_DEVICE_SECURITY_CODE_CHAR_ERASED",
-    "HID_USAGE_GENERIC_DEVICE_SECURITY_CODE_CLEARED",
-    "HID_USAGE_KEYBOARD_NOEVENT",
-    "HID_USAGE_KEYBOARD_ROLLOVER",
-    "HID_USAGE_KEYBOARD_POSTFAIL",
-    "HID_USAGE_KEYBOARD_UNDEFINED",
-    "HID_USAGE_KEYBOARD_aA",
-    "HID_USAGE_KEYBOARD_zZ",
-    "HID_USAGE_KEYBOARD_ONE",
-    "HID_USAGE_KEYBOARD_ZERO",
-    "HID_USAGE_KEYBOARD_LCTRL",
-    "HID_USAGE_KEYBOARD_LSHFT",
-    "HID_USAGE_KEYBOARD_LALT",
-    "HID_USAGE_KEYBOARD_LGUI",
-    "HID_USAGE_KEYBOARD_RCTRL",
-    "HID_USAGE_KEYBOARD_RSHFT",
-    "HID_USAGE_KEYBOARD_RALT",
-    "HID_USAGE_KEYBOARD_RGUI",
-    "HID_USAGE_KEYBOARD_SCROLL_LOCK",
-    "HID_USAGE_KEYBOARD_NUM_LOCK",
-    "HID_USAGE_KEYBOARD_CAPS_LOCK",
-    "HID_USAGE_KEYBOARD_F1",
-    "HID_USAGE_KEYBOARD_F2",
-    "HID_USAGE_KEYBOARD_F3",
-    "HID_USAGE_KEYBOARD_F4",
-    "HID_USAGE_KEYBOARD_F5",
-    "HID_USAGE_KEYBOARD_F6",
-    "HID_USAGE_KEYBOARD_F7",
-    "HID_USAGE_KEYBOARD_F8",
-    "HID_USAGE_KEYBOARD_F9",
-    "HID_USAGE_KEYBOARD_F10",
-    "HID_USAGE_KEYBOARD_F11",
-    "HID_USAGE_KEYBOARD_F12",
-    "HID_USAGE_KEYBOARD_F13",
-    "HID_USAGE_KEYBOARD_F14",
-    "HID_USAGE_KEYBOARD_F15",
-    "HID_USAGE_KEYBOARD_F16",
-    "HID_USAGE_KEYBOARD_F17",
-    "HID_USAGE_KEYBOARD_F18",
-    "HID_USAGE_KEYBOARD_F19",
-    "HID_USAGE_KEYBOARD_F20",
-    "HID_USAGE_KEYBOARD_F21",
-    "HID_USAGE_KEYBOARD_F22",
-    "HID_USAGE_KEYBOARD_F23",
-    "HID_USAGE_KEYBOARD_F24",
-    "HID_USAGE_KEYBOARD_RETURN",
-    "HID_USAGE_KEYBOARD_ESCAPE",
-    "HID_USAGE_KEYBOARD_DELETE",
-    "HID_USAGE_KEYBOARD_PRINT_SCREEN",
-    "HID_USAGE_KEYBOARD_DELETE_FORWARD",
-    "HID_USAGE_LED_NUM_LOCK",
-    "HID_USAGE_LED_CAPS_LOCK",
-    "HID_USAGE_LED_SCROLL_LOCK",
-    "HID_USAGE_LED_COMPOSE",
-    "HID_USAGE_LED_KANA",
-    "HID_USAGE_LED_POWER",
-    "HID_USAGE_LED_SHIFT",
-    "HID_USAGE_LED_DO_NOT_DISTURB",
-    "HID_USAGE_LED_MUTE",
-    "HID_USAGE_LED_TONE_ENABLE",
-    "HID_USAGE_LED_HIGH_CUT_FILTER",
-    "HID_USAGE_LED_LOW_CUT_FILTER",
-    "HID_USAGE_LED_EQUALIZER_ENABLE",
-    "HID_USAGE_LED_SOUND_FIELD_ON",
-    "HID_USAGE_LED_SURROUND_FIELD_ON",
-    "HID_USAGE_LED_REPEAT",
-    "HID_USAGE_LED_STEREO",
-    "HID_USAGE_LED_SAMPLING_RATE_DETECT",
-    "HID_USAGE_LED_SPINNING",
-    "HID_USAGE_LED_CAV",
-    "HID_USAGE_LED_CLV",
-    "HID_USAGE_LED_RECORDING_FORMAT_DET",
-    "HID_USAGE_LED_OFF_HOOK",
-    "HID_USAGE_LED_RING",
-    "HID_USAGE_LED_MESSAGE_WAITING",
-    "HID_USAGE_LED_DATA_MODE",
-    "HID_USAGE_LED_BATTERY_OPERATION",
-    "HID_USAGE_LED_BATTERY_OK",
-    "HID_USAGE_LED_BATTERY_LOW",
-    "HID_USAGE_LED_SPEAKER",
-    "HID_USAGE_LED_HEAD_SET",
-    "HID_USAGE_LED_HOLD",
-    "HID_USAGE_LED_MICROPHONE",
-    "HID_USAGE_LED_COVERAGE",
-    "HID_USAGE_LED_NIGHT_MODE",
-    "HID_USAGE_LED_SEND_CALLS",
-    "HID_USAGE_LED_CALL_PICKUP",
-    "HID_USAGE_LED_CONFERENCE",
-    "HID_USAGE_LED_STAND_BY",
-    "HID_USAGE_LED_CAMERA_ON",
-    "HID_USAGE_LED_CAMERA_OFF",
-    "HID_USAGE_LED_ON_LINE",
-    "HID_USAGE_LED_OFF_LINE",
-    "HID_USAGE_LED_BUSY",
-    "HID_USAGE_LED_READY",
-    "HID_USAGE_LED_PAPER_OUT",
-    "HID_USAGE_LED_PAPER_JAM",
-    "HID_USAGE_LED_REMOTE",
-    "HID_USAGE_LED_FORWARD",
-    "HID_USAGE_LED_REVERSE",
-    "HID_USAGE_LED_STOP",
-    "HID_USAGE_LED_REWIND",
-    "HID_USAGE_LED_FAST_FORWARD",
-    "HID_USAGE_LED_PLAY",
-    "HID_USAGE_LED_PAUSE",
-    "HID_USAGE_LED_RECORD",
-    "HID_USAGE_LED_ERROR",
-    "HID_USAGE_LED_SELECTED_INDICATOR",
-    "HID_USAGE_LED_IN_USE_INDICATOR",
-    "HID_USAGE_LED_MULTI_MODE_INDICATOR",
-    "HID_USAGE_LED_INDICATOR_ON",
-    "HID_USAGE_LED_INDICATOR_FLASH",
-    "HID_USAGE_LED_INDICATOR_SLOW_BLINK",
-    "HID_USAGE_LED_INDICATOR_FAST_BLINK",
-    "HID_USAGE_LED_INDICATOR_OFF",
-    "HID_USAGE_LED_FLASH_ON_TIME",
-    "HID_USAGE_LED_SLOW_BLINK_ON_TIME",
-    "HID_USAGE_LED_SLOW_BLINK_OFF_TIME",
-    "HID_USAGE_LED_FAST_BLINK_ON_TIME",
-    "HID_USAGE_LED_FAST_BLINK_OFF_TIME",
-    "HID_USAGE_LED_INDICATOR_COLOR",
-    "HID_USAGE_LED_RED",
-    "HID_USAGE_LED_GREEN",
-    "HID_USAGE_LED_AMBER",
-    "HID_USAGE_LED_GENERIC_INDICATOR",
-    "HID_USAGE_LED_SYSTEM_SUSPEND",
-    "HID_USAGE_LED_EXTERNAL_POWER",
-    "HID_USAGE_TELEPHONY_PHONE",
-    "HID_USAGE_TELEPHONY_ANSWERING_MACHINE",
-    "HID_USAGE_TELEPHONY_MESSAGE_CONTROLS",
-    "HID_USAGE_TELEPHONY_HANDSET",
-    "HID_USAGE_TELEPHONY_HEADSET",
-    "HID_USAGE_TELEPHONY_KEYPAD",
-    "HID_USAGE_TELEPHONY_PROGRAMMABLE_BUTTON",
-    "HID_USAGE_TELEPHONY_REDIAL",
-    "HID_USAGE_TELEPHONY_TRANSFER",
-    "HID_USAGE_TELEPHONY_DROP",
-    "HID_USAGE_TELEPHONY_LINE",
-    "HID_USAGE_TELEPHONY_RING_ENABLE",
-    "HID_USAGE_TELEPHONY_SEND",
-    "HID_USAGE_TELEPHONY_KEYPAD_0",
-    "HID_USAGE_TELEPHONY_KEYPAD_D",
-    "HID_USAGE_TELEPHONY_HOST_AVAILABLE",
-    "HID_USAGE_CONSUMERCTRL",
-    "HID_USAGE_CONSUMER_CHANNEL_INCREMENT",
-    "HID_USAGE_CONSUMER_CHANNEL_DECREMENT",
-    "HID_USAGE_CONSUMER_PLAY",
-    "HID_USAGE_CONSUMER_PAUSE",
-    "HID_USAGE_CONSUMER_RECORD",
-    "HID_USAGE_CONSUMER_FAST_FORWARD",
-    "HID_USAGE_CONSUMER_REWIND",
-    "HID_USAGE_CONSUMER_SCAN_NEXT_TRACK",
-    "HID_USAGE_CONSUMER_SCAN_PREV_TRACK",
-    "HID_USAGE_CONSUMER_STOP",
-    "HID_USAGE_CONSUMER_PLAY_PAUSE",
-    "HID_USAGE_CONSUMER_GAMEDVR_OPEN_GAMEBAR",
-    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_RECORD",
-    "HID_USAGE_CONSUMER_GAMEDVR_RECORD_CLIP",
-    "HID_USAGE_CONSUMER_GAMEDVR_SCREENSHOT",
-    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_INDICATOR",
-    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_MICROPHONE",
-    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_CAMERA",
-    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_BROADCAST",
-    "HID_USAGE_CONSUMER_VOLUME",
-    "HID_USAGE_CONSUMER_BALANCE",
-    "HID_USAGE_CONSUMER_MUTE",
-    "HID_USAGE_CONSUMER_BASS",
-    "HID_USAGE_CONSUMER_TREBLE",
-    "HID_USAGE_CONSUMER_BASS_BOOST",
-    "HID_USAGE_CONSUMER_SURROUND_MODE",
-    "HID_USAGE_CONSUMER_LOUDNESS",
-    "HID_USAGE_CONSUMER_MPX",
-    "HID_USAGE_CONSUMER_VOLUME_INCREMENT",
-    "HID_USAGE_CONSUMER_VOLUME_DECREMENT",
-    "HID_USAGE_CONSUMER_BASS_INCREMENT",
-    "HID_USAGE_CONSUMER_BASS_DECREMENT",
-    "HID_USAGE_CONSUMER_TREBLE_INCREMENT",
-    "HID_USAGE_CONSUMER_TREBLE_DECREMENT",
-    "HID_USAGE_CONSUMER_AL_CONFIGURATION",
-    "HID_USAGE_CONSUMER_AL_EMAIL",
-    "HID_USAGE_CONSUMER_AL_CALCULATOR",
-    "HID_USAGE_CONSUMER_AL_BROWSER",
-    "HID_USAGE_CONSUMER_AL_SEARCH",
-    "HID_USAGE_CONSUMER_AC_SEARCH",
-    "HID_USAGE_CONSUMER_AC_GOTO",
-    "HID_USAGE_CONSUMER_AC_HOME",
-    "HID_USAGE_CONSUMER_AC_BACK",
-    "HID_USAGE_CONSUMER_AC_FORWARD",
-    "HID_USAGE_CONSUMER_AC_STOP",
-    "HID_USAGE_CONSUMER_AC_REFRESH",
-    "HID_USAGE_CONSUMER_AC_PREVIOUS",
-    "HID_USAGE_CONSUMER_AC_NEXT",
-    "HID_USAGE_CONSUMER_AC_BOOKMARKS",
-    "HID_USAGE_CONSUMER_AC_PAN",
-    "HID_USAGE_CONSUMER_EXTENDED_KEYBOARD_ATTRIBUTES_COLLECTION",
-    "HID_USAGE_CONSUMER_KEYBOARD_FORM_FACTOR",
-    "HID_USAGE_CONSUMER_KEYBOARD_KEY_TYPE",
-    "HID_USAGE_CONSUMER_KEYBOARD_PHYSICAL_LAYOUT",
-    "HID_USAGE_CONSUMER_VENDOR_SPECIFIC_KEYBOARD_PHYSICAL_LAYOUT",
-    "HID_USAGE_CONSUMER_KEYBOARD_IETF_LANGUAGE_TAG_INDEX",
-    "HID_USAGE_CONSUMER_IMPLEMENTED_KEYBOARD_INPUT_ASSIST_CONTROLS",
-    "HID_USAGE_DIGITIZER_DIGITIZER",
-    "HID_USAGE_DIGITIZER_PEN",
-    "HID_USAGE_DIGITIZER_LIGHT_PEN",
-    "HID_USAGE_DIGITIZER_TOUCH_SCREEN",
-    "HID_USAGE_DIGITIZER_TOUCH_PAD",
-    "HID_USAGE_DIGITIZER_WHITE_BOARD",
-    "HID_USAGE_DIGITIZER_COORD_MEASURING",
-    "HID_USAGE_DIGITIZER_3D_DIGITIZER",
-    "HID_USAGE_DIGITIZER_STEREO_PLOTTER",
-    "HID_USAGE_DIGITIZER_ARTICULATED_ARM",
-    "HID_USAGE_DIGITIZER_ARMATURE",
-    "HID_USAGE_DIGITIZER_MULTI_POINT",
-    "HID_USAGE_DIGITIZER_FREE_SPACE_WAND",
-    "HID_USAGE_DIGITIZER_HEAT_MAP",
-    "HID_USAGE_DIGITIZER_STYLUS",
-    "HID_USAGE_DIGITIZER_PUCK",
-    "HID_USAGE_DIGITIZER_FINGER",
-    "HID_USAGE_DIGITIZER_TABLET_FUNC_KEYS",
-    "HID_USAGE_DIGITIZER_PROG_CHANGE_KEYS",
-    "HID_USAGE_DIGITIZER_TIP_PRESSURE",
-    "HID_USAGE_DIGITIZER_BARREL_PRESSURE",
-    "HID_USAGE_DIGITIZER_IN_RANGE",
-    "HID_USAGE_DIGITIZER_TOUCH",
-    "HID_USAGE_DIGITIZER_UNTOUCH",
-    "HID_USAGE_DIGITIZER_TAP",
-    "HID_USAGE_DIGITIZER_QUALITY",
-    "HID_USAGE_DIGITIZER_DATA_VALID",
-    "HID_USAGE_DIGITIZER_TRANSDUCER_INDEX",
-    "HID_USAGE_DIGITIZER_BATTERY_STRENGTH",
-    "HID_USAGE_DIGITIZER_INVERT",
-    "HID_USAGE_DIGITIZER_X_TILT",
-    "HID_USAGE_DIGITIZER_Y_TILT",
-    "HID_USAGE_DIGITIZER_AZIMUTH",
-    "HID_USAGE_DIGITIZER_ALTITUDE",
-    "HID_USAGE_DIGITIZER_TWIST",
-    "HID_USAGE_DIGITIZER_TIP_SWITCH",
-    "HID_USAGE_DIGITIZER_SECONDARY_TIP_SWITCH",
-    "HID_USAGE_DIGITIZER_BARREL_SWITCH",
-    "HID_USAGE_DIGITIZER_ERASER",
-    "HID_USAGE_DIGITIZER_TABLET_PICK",
-    "HID_USAGE_DIGITIZER_TRANSDUCER_SERIAL",
-    "HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VENDOR_ID",
-    "HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VERSION",
-    "HID_USAGE_DIGITIZER_HEAT_MAP_FRAME_DATA",
-    "HID_USAGE_DIGITIZER_TRANSDUCER_VENDOR",
-    "HID_USAGE_DIGITIZER_TRANSDUCER_PRODUCT",
-    "HID_USAGE_DIGITIZER_TRANSDUCER_CONNECTED",
-    "HID_USAGE_HAPTICS_SIMPLE_CONTROLLER",
-    "HID_USAGE_HAPTICS_WAVEFORM_LIST",
-    "HID_USAGE_HAPTICS_DURATION_LIST",
-    "HID_USAGE_HAPTICS_AUTO_TRIGGER",
-    "HID_USAGE_HAPTICS_MANUAL_TRIGGER",
-    "HID_USAGE_HAPTICS_AUTO_ASSOCIATED_CONTROL",
-    "HID_USAGE_HAPTICS_INTENSITY",
-    "HID_USAGE_HAPTICS_REPEAT_COUNT",
-    "HID_USAGE_HAPTICS_RETRIGGER_PERIOD",
-    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_PAGE",
-    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_ID",
-    "HID_USAGE_HAPTICS_WAVEFORM_CUTOFF_TIME",
-    "HID_USAGE_HAPTICS_WAVEFORM_BEGIN",
-    "HID_USAGE_HAPTICS_WAVEFORM_STOP",
-    "HID_USAGE_HAPTICS_WAVEFORM_NULL",
-    "HID_USAGE_HAPTICS_WAVEFORM_CLICK",
-    "HID_USAGE_HAPTICS_WAVEFORM_BUZZ",
-    "HID_USAGE_HAPTICS_WAVEFORM_RUMBLE",
-    "HID_USAGE_HAPTICS_WAVEFORM_PRESS",
-    "HID_USAGE_HAPTICS_WAVEFORM_RELEASE",
-    "HID_USAGE_HAPTICS_WAVEFORM_END",
-    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_BEGIN",
-    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_END",
-    "HID_USAGE_ALPHANUMERIC_ALPHANUMERIC_DISPLAY",
-    "HID_USAGE_ALPHANUMERIC_BITMAPPED_DISPLAY",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_ATTRIBUTES_REPORT",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_CONTROL_REPORT",
-    "HID_USAGE_ALPHANUMERIC_CHARACTER_REPORT",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_STATUS",
-    "HID_USAGE_ALPHANUMERIC_CURSOR_POSITION_REPORT",
-    "HID_USAGE_ALPHANUMERIC_FONT_REPORT",
-    "HID_USAGE_ALPHANUMERIC_FONT_DATA",
-    "HID_USAGE_ALPHANUMERIC_CHARACTER_ATTRIBUTE",
-    "HID_USAGE_ALPHANUMERIC_PALETTE_REPORT",
-    "HID_USAGE_ALPHANUMERIC_PALETTE_DATA",
-    "HID_USAGE_ALPHANUMERIC_BLIT_REPORT",
-    "HID_USAGE_ALPHANUMERIC_BLIT_DATA",
-    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON",
-    "HID_USAGE_ALPHANUMERIC_ASCII_CHARACTER_SET",
-    "HID_USAGE_ALPHANUMERIC_DATA_READ_BACK",
-    "HID_USAGE_ALPHANUMERIC_FONT_READ_BACK",
-    "HID_USAGE_ALPHANUMERIC_CLEAR_DISPLAY",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_ENABLE",
-    "HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_DELAY",
-    "HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_ENABLE",
-    "HID_USAGE_ALPHANUMERIC_VERTICAL_SCROLL",
-    "HID_USAGE_ALPHANUMERIC_HORIZONTAL_SCROLL",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_DATA",
-    "HID_USAGE_ALPHANUMERIC_STATUS_NOT_READY",
-    "HID_USAGE_ALPHANUMERIC_STATUS_READY",
-    "HID_USAGE_ALPHANUMERIC_ERR_NOT_A_LOADABLE_CHARACTER",
-    "HID_USAGE_ALPHANUMERIC_ERR_FONT_DATA_CANNOT_BE_READ",
-    "HID_USAGE_ALPHANUMERIC_ROW",
-    "HID_USAGE_ALPHANUMERIC_COLUMN",
-    "HID_USAGE_ALPHANUMERIC_ROWS",
-    "HID_USAGE_ALPHANUMERIC_COLUMNS",
-    "HID_USAGE_ALPHANUMERIC_CURSOR_PIXEL_POSITIONING",
-    "HID_USAGE_ALPHANUMERIC_CURSOR_MODE",
-    "HID_USAGE_ALPHANUMERIC_CURSOR_ENABLE",
-    "HID_USAGE_ALPHANUMERIC_CURSOR_BLINK",
-    "HID_USAGE_ALPHANUMERIC_CHAR_WIDTH",
-    "HID_USAGE_ALPHANUMERIC_CHAR_HEIGHT",
-    "HID_USAGE_ALPHANUMERIC_CHAR_SPACING_HORIZONTAL",
-    "HID_USAGE_ALPHANUMERIC_CHAR_SPACING_VERTICAL",
-    "HID_USAGE_ALPHANUMERIC_UNICODE_CHAR_SET",
-    "HID_USAGE_ALPHANUMERIC_FONT_7_SEGMENT",
-    "HID_USAGE_ALPHANUMERIC_7_SEGMENT_DIRECT_MAP",
-    "HID_USAGE_ALPHANUMERIC_FONT_14_SEGMENT",
-    "HID_USAGE_ALPHANUMERIC_14_SEGMENT_DIRECT_MAP",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_BRIGHTNESS",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_CONTRAST",
-    "HID_USAGE_ALPHANUMERIC_ATTRIBUTE_READBACK",
-    "HID_USAGE_ALPHANUMERIC_ATTRIBUTE_DATA",
-    "HID_USAGE_ALPHANUMERIC_CHAR_ATTR_ENHANCE",
-    "HID_USAGE_ALPHANUMERIC_CHAR_ATTR_UNDERLINE",
-    "HID_USAGE_ALPHANUMERIC_CHAR_ATTR_BLINK",
-    "HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_X",
-    "HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_Y",
-    "HID_USAGE_ALPHANUMERIC_BIT_DEPTH_FORMAT",
-    "HID_USAGE_ALPHANUMERIC_DISPLAY_ORIENTATION",
-    "HID_USAGE_ALPHANUMERIC_PALETTE_DATA_SIZE",
-    "HID_USAGE_ALPHANUMERIC_PALETTE_DATA_OFFSET",
-    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X1",
-    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y1",
-    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X2",
-    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y2",
-    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_ID",
-    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_SIDE",
-    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET1",
-    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET2",
-    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_REPORT",
-    "HID_USAGE_LAMPARRAY",
-    "HID_USAGE_LAMPARRAY_ATTRBIUTES_REPORT",
-    "HID_USAGE_LAMPARRAY_LAMP_COUNT",
-    "HID_USAGE_LAMPARRAY_BOUNDING_BOX_WIDTH_IN_MICROMETERS",
-    "HID_USAGE_LAMPARRAY_BOUNDING_BOX_HEIGHT_IN_MICROMETERS",
-    "HID_USAGE_LAMPARRAY_BOUNDING_BOX_DEPTH_IN_MICROMETERS",
-    "HID_USAGE_LAMPARRAY_KIND",
-    "HID_USAGE_LAMPARRAY_MIN_UPDATE_INTERVAL_IN_MICROSECONDS",
-    "HID_USAGE_LAMPARRAY_LAMP_ATTRIBUTES_REQUEST_REPORT",
-    "HID_USAGE_LAMPARRAY_LAMP_ID",
-    "HID_USAGE_LAMPARRAY_LAMP_ATTRIBUTES_RESPONSE_REPORT",
-    "HID_USAGE_LAMPARRAY_POSITION_X_IN_MICROMETERS",
-    "HID_USAGE_LAMPARRAY_POSITION_Y_IN_MICROMETERS",
-    "HID_USAGE_LAMPARRAY_POSITION_Z_IN_MICROMETERS",
-    "HID_USAGE_LAMPARRAY_LAMP_PURPOSES",
-    "HID_USAGE_LAMPARRAY_UPDATE_LATENCY_IN_MICROSECONDS",
-    "HID_USAGE_LAMPARRAY_RED_LEVEL_COUNT",
-    "HID_USAGE_LAMPARRAY_GREEN_LEVEL_COUNT",
-    "HID_USAGE_LAMPARRAY_BLUE_LEVEL_COUNT",
-    "HID_USAGE_LAMPARRAY_INTENSITY_LEVEL_COUNT",
-    "HID_USAGE_LAMPARRAY_IS_PROGRAMMABLE",
-    "HID_USAGE_LAMPARRAY_INPUT_BINDING",
-    "HID_USAGE_LAMPARRAY_LAMP_MULTI_UPDATE_REPORT",
-    "HID_USAGE_LAMPARRAY_LAMP_RED_UPDATE_CHANNEL",
-    "HID_USAGE_LAMPARRAY_LAMP_GREEN_UPDATE_CHANNEL",
-    "HID_USAGE_LAMPARRAY_LAMP_BLUE_UPDATE_CHANNEL",
-    "HID_USAGE_LAMPARRAY_LAMP_INTENSITY_UPDATE_CHANNEL",
-    "HID_USAGE_LAMPARRAY_LAMP_UPDATE_FLAGS",
-    "HID_USAGE_LAMPARRAY_LAMP_RANGE_UPDATE_REPORT",
-    "HID_USAGE_LAMPARRAY_LAMP_ID_START",
-    "HID_USAGE_LAMPARRAY_LAMP_ID_END",
-    "HID_USAGE_LAMPARRAY_CONTROL_REPORT",
-    "HID_USAGE_LAMPARRAY_AUTONOMOUS_MODE",
-    "HID_USAGE_CAMERA_AUTO_FOCUS",
-    "HID_USAGE_CAMERA_SHUTTER",
-    "HID_USAGE_MS_BTH_HF_DIALNUMBER",
-    "HID_USAGE_MS_BTH_HF_DIALMEMORY",
-    "IOCTL_KEYBOARD_QUERY_ATTRIBUTES",
-    "IOCTL_KEYBOARD_SET_TYPEMATIC",
-    "IOCTL_KEYBOARD_SET_INDICATORS",
-    "IOCTL_KEYBOARD_QUERY_TYPEMATIC",
-    "IOCTL_KEYBOARD_QUERY_INDICATORS",
-    "IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION",
-    "IOCTL_KEYBOARD_INSERT_DATA",
-    "IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES",
-    "IOCTL_KEYBOARD_QUERY_IME_STATUS",
-    "IOCTL_KEYBOARD_SET_IME_STATUS",
-    "GUID_DEVINTERFACE_KEYBOARD",
-    "KEYBOARD_OVERRUN_MAKE_CODE",
-    "KEY_MAKE",
-    "KEY_BREAK",
-    "KEY_E0",
-    "KEY_E1",
-    "KEY_TERMSRV_SET_LED",
-    "KEY_TERMSRV_SHADOW",
-    "KEY_TERMSRV_VKPACKET",
-    "KEY_RIM_VKEY",
-    "KEY_FROM_KEYBOARD_OVERRIDER",
-    "KEY_UNICODE_SEQUENCE_ITEM",
-    "KEY_UNICODE_SEQUENCE_END",
-    "KEYBOARD_EXTENDED_ATTRIBUTES_STRUCT_VERSION_1",
-    "KEYBOARD_LED_INJECTED",
-    "KEYBOARD_SHADOW",
-    "KEYBOARD_KANA_LOCK_ON",
-    "KEYBOARD_CAPS_LOCK_ON",
-    "KEYBOARD_NUM_LOCK_ON",
-    "KEYBOARD_SCROLL_LOCK_ON",
-    "KEYBOARD_ERROR_VALUE_BASE",
-    "IOCTL_MOUSE_QUERY_ATTRIBUTES",
-    "IOCTL_MOUSE_INSERT_DATA",
-    "GUID_DEVINTERFACE_MOUSE",
-    "MOUSE_LEFT_BUTTON_DOWN",
-    "MOUSE_LEFT_BUTTON_UP",
-    "MOUSE_RIGHT_BUTTON_DOWN",
-    "MOUSE_RIGHT_BUTTON_UP",
-    "MOUSE_MIDDLE_BUTTON_DOWN",
-    "MOUSE_MIDDLE_BUTTON_UP",
-    "MOUSE_BUTTON_1_DOWN",
-    "MOUSE_BUTTON_1_UP",
-    "MOUSE_BUTTON_2_DOWN",
-    "MOUSE_BUTTON_2_UP",
-    "MOUSE_BUTTON_3_DOWN",
-    "MOUSE_BUTTON_3_UP",
-    "MOUSE_BUTTON_4_DOWN",
-    "MOUSE_BUTTON_4_UP",
-    "MOUSE_BUTTON_5_DOWN",
-    "MOUSE_BUTTON_5_UP",
-    "MOUSE_WHEEL",
-    "MOUSE_HWHEEL",
-    "MOUSE_MOVE_RELATIVE",
-    "MOUSE_MOVE_ABSOLUTE",
-    "MOUSE_VIRTUAL_DESKTOP",
-    "MOUSE_ATTRIBUTES_CHANGED",
-    "MOUSE_MOVE_NOCOALESCE",
-    "MOUSE_TERMSRV_SRC_SHADOW",
-    "MOUSE_INPORT_HARDWARE",
-    "MOUSE_I8042_HARDWARE",
-    "MOUSE_SERIAL_HARDWARE",
     "BALLPOINT_I8042_HARDWARE",
     "BALLPOINT_SERIAL_HARDWARE",
-    "WHEELMOUSE_I8042_HARDWARE",
-    "WHEELMOUSE_SERIAL_HARDWARE",
-    "MOUSE_HID_HARDWARE",
-    "WHEELMOUSE_HID_HARDWARE",
-    "HORIZONTAL_WHEEL_PRESENT",
-    "MOUSE_ERROR_VALUE_BASE",
-    "DIRECTINPUT_HEADER_VERSION",
+    "BUTTON_BIT_ALLBUTTONSMASK",
+    "BUTTON_BIT_BACK",
+    "BUTTON_BIT_CAMERAFOCUS",
+    "BUTTON_BIT_CAMERALENS",
+    "BUTTON_BIT_CAMERASHUTTER",
+    "BUTTON_BIT_HEADSET",
+    "BUTTON_BIT_HWKBDEPLOY",
+    "BUTTON_BIT_OEMCUSTOM",
+    "BUTTON_BIT_OEMCUSTOM2",
+    "BUTTON_BIT_OEMCUSTOM3",
+    "BUTTON_BIT_POWER",
+    "BUTTON_BIT_RINGERTOGGLE",
+    "BUTTON_BIT_ROTATION_LOCK",
+    "BUTTON_BIT_SEARCH",
+    "BUTTON_BIT_VOLUMEDOWN",
+    "BUTTON_BIT_VOLUMEUP",
+    "BUTTON_BIT_WINDOWS",
     "CLSID_DirectInput",
-    "CLSID_DirectInputDevice",
     "CLSID_DirectInput8",
+    "CLSID_DirectInputDevice",
     "CLSID_DirectInputDevice8",
-    "GUID_XAxis",
-    "GUID_YAxis",
-    "GUID_ZAxis",
-    "GUID_RxAxis",
-    "GUID_RyAxis",
-    "GUID_RzAxis",
-    "GUID_Slider",
-    "GUID_Button",
-    "GUID_Key",
-    "GUID_POV",
-    "GUID_Unknown",
-    "GUID_SysMouse",
-    "GUID_SysKeyboard",
-    "GUID_Joystick",
-    "GUID_SysMouseEm",
-    "GUID_SysMouseEm2",
-    "GUID_SysKeyboardEm",
-    "GUID_SysKeyboardEm2",
-    "GUID_ConstantForce",
-    "GUID_RampForce",
-    "GUID_Square",
-    "GUID_Sine",
-    "GUID_Triangle",
-    "GUID_SawtoothUp",
-    "GUID_SawtoothDown",
-    "GUID_Spring",
-    "GUID_Damper",
-    "GUID_Inertia",
-    "GUID_Friction",
-    "GUID_CustomForce",
-    "DIEFT_ALL",
-    "DIEFT_CONSTANTFORCE",
-    "DIEFT_RAMPFORCE",
-    "DIEFT_PERIODIC",
-    "DIEFT_CONDITION",
-    "DIEFT_CUSTOMFORCE",
-    "DIEFT_HARDWARE",
-    "DIEFT_FFATTACK",
-    "DIEFT_FFFADE",
-    "DIEFT_SATURATION",
-    "DIEFT_POSNEGCOEFFICIENTS",
-    "DIEFT_POSNEGSATURATION",
-    "DIEFT_DEADBAND",
-    "DIEFT_STARTDELAY",
-    "DI_DEGREES",
-    "DI_FFNOMINALMAX",
-    "DI_SECONDS",
-    "DIEFF_OBJECTIDS",
-    "DIEFF_OBJECTOFFSETS",
-    "DIEFF_CARTESIAN",
-    "DIEFF_POLAR",
-    "DIEFF_SPHERICAL",
-    "DIEP_DURATION",
-    "DIEP_SAMPLEPERIOD",
-    "DIEP_GAIN",
-    "DIEP_TRIGGERBUTTON",
-    "DIEP_TRIGGERREPEATINTERVAL",
-    "DIEP_AXES",
-    "DIEP_DIRECTION",
-    "DIEP_ENVELOPE",
-    "DIEP_TYPESPECIFICPARAMS",
-    "DIEP_STARTDELAY",
-    "DIEP_ALLPARAMS_DX5",
-    "DIEP_ALLPARAMS",
-    "DIEP_START",
-    "DIEP_NORESTART",
-    "DIEP_NODOWNLOAD",
-    "DIEB_NOTRIGGER",
-    "DIES_SOLO",
-    "DIES_NODOWNLOAD",
-    "DIEGES_PLAYING",
-    "DIEGES_EMULATED",
-    "DIDEVTYPE_DEVICE",
-    "DIDEVTYPE_MOUSE",
-    "DIDEVTYPE_KEYBOARD",
-    "DIDEVTYPE_JOYSTICK",
+    "CPOINT",
+    "DD_KEYBOARD_DEVICE_NAME",
+    "DD_KEYBOARD_DEVICE_NAME_U",
+    "DD_MOUSE_DEVICE_NAME",
+    "DD_MOUSE_DEVICE_NAME_U",
+    "DEVPKEY_DeviceInterface_HID_BackgroundAccess",
+    "DEVPKEY_DeviceInterface_HID_IsReadOnly",
+    "DEVPKEY_DeviceInterface_HID_ProductId",
+    "DEVPKEY_DeviceInterface_HID_UsageId",
+    "DEVPKEY_DeviceInterface_HID_UsagePage",
+    "DEVPKEY_DeviceInterface_HID_VendorId",
+    "DEVPKEY_DeviceInterface_HID_VersionNumber",
+    "DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable",
     "DI8DEVCLASS_ALL",
     "DI8DEVCLASS_DEVICE",
-    "DI8DEVCLASS_POINTER",
-    "DI8DEVCLASS_KEYBOARD",
     "DI8DEVCLASS_GAMECTRL",
-    "DI8DEVTYPE_DEVICE",
-    "DI8DEVTYPE_MOUSE",
-    "DI8DEVTYPE_KEYBOARD",
-    "DI8DEVTYPE_JOYSTICK",
-    "DI8DEVTYPE_GAMEPAD",
-    "DI8DEVTYPE_DRIVING",
-    "DI8DEVTYPE_FLIGHT",
-    "DI8DEVTYPE_1STPERSON",
-    "DI8DEVTYPE_DEVICECTRL",
-    "DI8DEVTYPE_SCREENPOINTER",
-    "DI8DEVTYPE_REMOTE",
-    "DI8DEVTYPE_SUPPLEMENTAL",
-    "DIDEVTYPE_HID",
-    "DIDEVTYPEMOUSE_UNKNOWN",
-    "DIDEVTYPEMOUSE_TRADITIONAL",
-    "DIDEVTYPEMOUSE_FINGERSTICK",
-    "DIDEVTYPEMOUSE_TOUCHPAD",
-    "DIDEVTYPEMOUSE_TRACKBALL",
-    "DIDEVTYPEKEYBOARD_UNKNOWN",
-    "DIDEVTYPEKEYBOARD_PCXT",
-    "DIDEVTYPEKEYBOARD_OLIVETTI",
-    "DIDEVTYPEKEYBOARD_PCAT",
-    "DIDEVTYPEKEYBOARD_PCENH",
-    "DIDEVTYPEKEYBOARD_NOKIA1050",
-    "DIDEVTYPEKEYBOARD_NOKIA9140",
-    "DIDEVTYPEKEYBOARD_NEC98",
-    "DIDEVTYPEKEYBOARD_NEC98LAPTOP",
-    "DIDEVTYPEKEYBOARD_NEC98106",
-    "DIDEVTYPEKEYBOARD_JAPAN106",
-    "DIDEVTYPEKEYBOARD_JAPANAX",
-    "DIDEVTYPEKEYBOARD_J3100",
-    "DIDEVTYPEJOYSTICK_UNKNOWN",
-    "DIDEVTYPEJOYSTICK_TRADITIONAL",
-    "DIDEVTYPEJOYSTICK_FLIGHTSTICK",
-    "DIDEVTYPEJOYSTICK_GAMEPAD",
-    "DIDEVTYPEJOYSTICK_RUDDER",
-    "DIDEVTYPEJOYSTICK_WHEEL",
-    "DIDEVTYPEJOYSTICK_HEADTRACKER",
-    "DI8DEVTYPEMOUSE_UNKNOWN",
-    "DI8DEVTYPEMOUSE_TRADITIONAL",
-    "DI8DEVTYPEMOUSE_FINGERSTICK",
-    "DI8DEVTYPEMOUSE_TOUCHPAD",
-    "DI8DEVTYPEMOUSE_TRACKBALL",
-    "DI8DEVTYPEMOUSE_ABSOLUTE",
-    "DI8DEVTYPEKEYBOARD_UNKNOWN",
-    "DI8DEVTYPEKEYBOARD_PCXT",
-    "DI8DEVTYPEKEYBOARD_OLIVETTI",
-    "DI8DEVTYPEKEYBOARD_PCAT",
-    "DI8DEVTYPEKEYBOARD_PCENH",
-    "DI8DEVTYPEKEYBOARD_NOKIA1050",
-    "DI8DEVTYPEKEYBOARD_NOKIA9140",
-    "DI8DEVTYPEKEYBOARD_NEC98",
-    "DI8DEVTYPEKEYBOARD_NEC98LAPTOP",
-    "DI8DEVTYPEKEYBOARD_NEC98106",
-    "DI8DEVTYPEKEYBOARD_JAPAN106",
-    "DI8DEVTYPEKEYBOARD_JAPANAX",
-    "DI8DEVTYPEKEYBOARD_J3100",
-    "DI8DEVTYPE_LIMITEDGAMESUBTYPE",
-    "DI8DEVTYPEJOYSTICK_LIMITED",
-    "DI8DEVTYPEJOYSTICK_STANDARD",
+    "DI8DEVCLASS_KEYBOARD",
+    "DI8DEVCLASS_POINTER",
+    "DI8DEVTYPE1STPERSON_LIMITED",
+    "DI8DEVTYPE1STPERSON_SHOOTER",
+    "DI8DEVTYPE1STPERSON_SIXDOF",
+    "DI8DEVTYPE1STPERSON_UNKNOWN",
+    "DI8DEVTYPEDEVICECTRL_COMMSSELECTION",
+    "DI8DEVTYPEDEVICECTRL_COMMSSELECTION_HARDWIRED",
+    "DI8DEVTYPEDEVICECTRL_UNKNOWN",
+    "DI8DEVTYPEDRIVING_COMBINEDPEDALS",
+    "DI8DEVTYPEDRIVING_DUALPEDALS",
+    "DI8DEVTYPEDRIVING_HANDHELD",
+    "DI8DEVTYPEDRIVING_LIMITED",
+    "DI8DEVTYPEDRIVING_THREEPEDALS",
+    "DI8DEVTYPEFLIGHT_LIMITED",
+    "DI8DEVTYPEFLIGHT_RC",
+    "DI8DEVTYPEFLIGHT_STICK",
+    "DI8DEVTYPEFLIGHT_YOKE",
     "DI8DEVTYPEGAMEPAD_LIMITED",
     "DI8DEVTYPEGAMEPAD_STANDARD",
     "DI8DEVTYPEGAMEPAD_TILT",
-    "DI8DEVTYPEDRIVING_LIMITED",
-    "DI8DEVTYPEDRIVING_COMBINEDPEDALS",
-    "DI8DEVTYPEDRIVING_DUALPEDALS",
-    "DI8DEVTYPEDRIVING_THREEPEDALS",
-    "DI8DEVTYPEDRIVING_HANDHELD",
-    "DI8DEVTYPEFLIGHT_LIMITED",
-    "DI8DEVTYPEFLIGHT_STICK",
-    "DI8DEVTYPEFLIGHT_YOKE",
-    "DI8DEVTYPEFLIGHT_RC",
-    "DI8DEVTYPE1STPERSON_LIMITED",
-    "DI8DEVTYPE1STPERSON_UNKNOWN",
-    "DI8DEVTYPE1STPERSON_SIXDOF",
-    "DI8DEVTYPE1STPERSON_SHOOTER",
-    "DI8DEVTYPESCREENPTR_UNKNOWN",
+    "DI8DEVTYPEJOYSTICK_LIMITED",
+    "DI8DEVTYPEJOYSTICK_STANDARD",
+    "DI8DEVTYPEKEYBOARD_J3100",
+    "DI8DEVTYPEKEYBOARD_JAPAN106",
+    "DI8DEVTYPEKEYBOARD_JAPANAX",
+    "DI8DEVTYPEKEYBOARD_NEC98",
+    "DI8DEVTYPEKEYBOARD_NEC98106",
+    "DI8DEVTYPEKEYBOARD_NEC98LAPTOP",
+    "DI8DEVTYPEKEYBOARD_NOKIA1050",
+    "DI8DEVTYPEKEYBOARD_NOKIA9140",
+    "DI8DEVTYPEKEYBOARD_OLIVETTI",
+    "DI8DEVTYPEKEYBOARD_PCAT",
+    "DI8DEVTYPEKEYBOARD_PCENH",
+    "DI8DEVTYPEKEYBOARD_PCXT",
+    "DI8DEVTYPEKEYBOARD_UNKNOWN",
+    "DI8DEVTYPEMOUSE_ABSOLUTE",
+    "DI8DEVTYPEMOUSE_FINGERSTICK",
+    "DI8DEVTYPEMOUSE_TOUCHPAD",
+    "DI8DEVTYPEMOUSE_TRACKBALL",
+    "DI8DEVTYPEMOUSE_TRADITIONAL",
+    "DI8DEVTYPEMOUSE_UNKNOWN",
+    "DI8DEVTYPEREMOTE_UNKNOWN",
     "DI8DEVTYPESCREENPTR_LIGHTGUN",
     "DI8DEVTYPESCREENPTR_LIGHTPEN",
     "DI8DEVTYPESCREENPTR_TOUCH",
-    "DI8DEVTYPEREMOTE_UNKNOWN",
-    "DI8DEVTYPEDEVICECTRL_UNKNOWN",
-    "DI8DEVTYPEDEVICECTRL_COMMSSELECTION",
-    "DI8DEVTYPEDEVICECTRL_COMMSSELECTION_HARDWIRED",
-    "DI8DEVTYPESUPPLEMENTAL_UNKNOWN",
+    "DI8DEVTYPESCREENPTR_UNKNOWN",
     "DI8DEVTYPESUPPLEMENTAL_2NDHANDCONTROLLER",
-    "DI8DEVTYPESUPPLEMENTAL_HEADTRACKER",
-    "DI8DEVTYPESUPPLEMENTAL_HANDTRACKER",
-    "DI8DEVTYPESUPPLEMENTAL_SHIFTSTICKGATE",
-    "DI8DEVTYPESUPPLEMENTAL_SHIFTER",
-    "DI8DEVTYPESUPPLEMENTAL_THROTTLE",
-    "DI8DEVTYPESUPPLEMENTAL_SPLITTHROTTLE",
     "DI8DEVTYPESUPPLEMENTAL_COMBINEDPEDALS",
     "DI8DEVTYPESUPPLEMENTAL_DUALPEDALS",
-    "DI8DEVTYPESUPPLEMENTAL_THREEPEDALS",
+    "DI8DEVTYPESUPPLEMENTAL_HANDTRACKER",
+    "DI8DEVTYPESUPPLEMENTAL_HEADTRACKER",
     "DI8DEVTYPESUPPLEMENTAL_RUDDERPEDALS",
-    "DIDC_ATTACHED",
-    "DIDC_POLLEDDEVICE",
-    "DIDC_EMULATED",
-    "DIDC_POLLEDDATAFORMAT",
-    "DIDC_FORCEFEEDBACK",
-    "DIDC_FFATTACK",
-    "DIDC_FFFADE",
-    "DIDC_SATURATION",
-    "DIDC_POSNEGCOEFFICIENTS",
-    "DIDC_POSNEGSATURATION",
-    "DIDC_DEADBAND",
-    "DIDC_STARTDELAY",
-    "DIDC_ALIAS",
-    "DIDC_PHANTOM",
-    "DIDC_HIDDEN",
-    "DIDFT_ALL",
-    "DIDFT_RELAXIS",
-    "DIDFT_ABSAXIS",
-    "DIDFT_AXIS",
-    "DIDFT_PSHBUTTON",
-    "DIDFT_TGLBUTTON",
-    "DIDFT_BUTTON",
-    "DIDFT_POV",
-    "DIDFT_COLLECTION",
-    "DIDFT_NODATA",
-    "DIDFT_ANYINSTANCE",
-    "DIDFT_INSTANCEMASK",
-    "DIDFT_FFACTUATOR",
-    "DIDFT_FFEFFECTTRIGGER",
-    "DIDFT_OUTPUT",
-    "DIDFT_VENDORDEFINED",
-    "DIDFT_ALIAS",
-    "DIDFT_NOCOLLECTION",
-    "DIDF_ABSAXIS",
-    "DIDF_RELAXIS",
-    "DIA_FORCEFEEDBACK",
-    "DIA_APPMAPPED",
-    "DIA_APPNOMAP",
-    "DIA_NORANGE",
-    "DIA_APPFIXED",
-    "DIAH_UNMAPPED",
-    "DIAH_USERCONFIG",
+    "DI8DEVTYPESUPPLEMENTAL_SHIFTER",
+    "DI8DEVTYPESUPPLEMENTAL_SHIFTSTICKGATE",
+    "DI8DEVTYPESUPPLEMENTAL_SPLITTHROTTLE",
+    "DI8DEVTYPESUPPLEMENTAL_THREEPEDALS",
+    "DI8DEVTYPESUPPLEMENTAL_THROTTLE",
+    "DI8DEVTYPESUPPLEMENTAL_UNKNOWN",
+    "DI8DEVTYPE_1STPERSON",
+    "DI8DEVTYPE_DEVICE",
+    "DI8DEVTYPE_DEVICECTRL",
+    "DI8DEVTYPE_DRIVING",
+    "DI8DEVTYPE_FLIGHT",
+    "DI8DEVTYPE_GAMEPAD",
+    "DI8DEVTYPE_JOYSTICK",
+    "DI8DEVTYPE_KEYBOARD",
+    "DI8DEVTYPE_LIMITEDGAMESUBTYPE",
+    "DI8DEVTYPE_MOUSE",
+    "DI8DEVTYPE_REMOTE",
+    "DI8DEVTYPE_SCREENPOINTER",
+    "DI8DEVTYPE_SUPPLEMENTAL",
+    "DIACTIONA",
+    "DIACTIONFORMATA",
+    "DIACTIONFORMATW",
+    "DIACTIONW",
+    "DIAFTS_NEWDEVICEHIGH",
+    "DIAFTS_NEWDEVICELOW",
+    "DIAFTS_UNUSEDDEVICEHIGH",
+    "DIAFTS_UNUSEDDEVICELOW",
     "DIAH_APPREQUESTED",
-    "DIAH_HWAPP",
-    "DIAH_HWDEFAULT",
     "DIAH_DEFAULT",
     "DIAH_ERROR",
-    "DIAFTS_NEWDEVICELOW",
-    "DIAFTS_NEWDEVICEHIGH",
-    "DIAFTS_UNUSEDDEVICELOW",
-    "DIAFTS_UNUSEDDEVICEHIGH",
-    "DIDBAM_DEFAULT",
-    "DIDBAM_PRESERVE",
-    "DIDBAM_INITIALIZE",
-    "DIDBAM_HWDEFAULTS",
-    "DIDSAM_DEFAULT",
-    "DIDSAM_NOUSER",
-    "DIDSAM_FORCESAVE",
-    "DICD_DEFAULT",
-    "DICD_EDIT",
-    "DIDIFT_CONFIGURATION",
-    "DIDIFT_OVERLAY",
-    "DIDAL_CENTERED",
-    "DIDAL_LEFTALIGNED",
-    "DIDAL_RIGHTALIGNED",
-    "DIDAL_MIDDLE",
-    "DIDAL_TOPALIGNED",
-    "DIDAL_BOTTOMALIGNED",
-    "DIDOI_FFACTUATOR",
-    "DIDOI_FFEFFECTTRIGGER",
-    "DIDOI_POLLED",
-    "DIDOI_ASPECTPOSITION",
-    "DIDOI_ASPECTVELOCITY",
-    "DIDOI_ASPECTACCEL",
-    "DIDOI_ASPECTFORCE",
-    "DIDOI_ASPECTMASK",
-    "DIDOI_GUIDISUSAGE",
-    "DIPH_DEVICE",
-    "DIPH_BYOFFSET",
-    "DIPH_BYID",
-    "DIPH_BYUSAGE",
-    "MAXCPOINTSNUM",
-    "DIPROPAXISMODE_ABS",
-    "DIPROPAXISMODE_REL",
-    "DIPROPAUTOCENTER_OFF",
-    "DIPROPAUTOCENTER_ON",
-    "DIPROPCALIBRATIONMODE_COOKED",
-    "DIPROPCALIBRATIONMODE_RAW",
-    "DIGDD_PEEK",
-    "DISCL_EXCLUSIVE",
-    "DISCL_NONEXCLUSIVE",
-    "DISCL_FOREGROUND",
-    "DISCL_BACKGROUND",
-    "DISCL_NOWINKEY",
-    "DISFFC_RESET",
-    "DISFFC_STOPALL",
-    "DISFFC_PAUSE",
-    "DISFFC_CONTINUE",
-    "DISFFC_SETACTUATORSON",
-    "DISFFC_SETACTUATORSOFF",
-    "DIGFFS_EMPTY",
-    "DIGFFS_STOPPED",
-    "DIGFFS_PAUSED",
-    "DIGFFS_ACTUATORSON",
-    "DIGFFS_ACTUATORSOFF",
-    "DIGFFS_POWERON",
-    "DIGFFS_POWEROFF",
-    "DIGFFS_SAFETYSWITCHON",
-    "DIGFFS_SAFETYSWITCHOFF",
-    "DIGFFS_USERFFSWITCHON",
-    "DIGFFS_USERFFSWITCHOFF",
-    "DIGFFS_DEVICELOST",
-    "DISDD_CONTINUE",
-    "DIFEF_DEFAULT",
-    "DIFEF_INCLUDENONSTANDARD",
-    "DIFEF_MODIFYIFNEEDED",
-    "DIK_ESCAPE",
-    "DIK_1",
-    "DIK_2",
-    "DIK_3",
-    "DIK_4",
-    "DIK_5",
-    "DIK_6",
-    "DIK_7",
-    "DIK_8",
-    "DIK_9",
-    "DIK_0",
-    "DIK_MINUS",
-    "DIK_EQUALS",
-    "DIK_BACK",
-    "DIK_TAB",
-    "DIK_Q",
-    "DIK_W",
-    "DIK_E",
-    "DIK_R",
-    "DIK_T",
-    "DIK_Y",
-    "DIK_U",
-    "DIK_I",
-    "DIK_O",
-    "DIK_P",
-    "DIK_LBRACKET",
-    "DIK_RBRACKET",
-    "DIK_RETURN",
-    "DIK_LCONTROL",
-    "DIK_A",
-    "DIK_S",
-    "DIK_D",
-    "DIK_F",
-    "DIK_G",
-    "DIK_H",
-    "DIK_J",
-    "DIK_K",
-    "DIK_L",
-    "DIK_SEMICOLON",
-    "DIK_APOSTROPHE",
-    "DIK_GRAVE",
-    "DIK_LSHIFT",
-    "DIK_BACKSLASH",
-    "DIK_Z",
-    "DIK_X",
-    "DIK_C",
-    "DIK_V",
-    "DIK_B",
-    "DIK_N",
-    "DIK_M",
-    "DIK_COMMA",
-    "DIK_PERIOD",
-    "DIK_SLASH",
-    "DIK_RSHIFT",
-    "DIK_MULTIPLY",
-    "DIK_LMENU",
-    "DIK_SPACE",
-    "DIK_CAPITAL",
-    "DIK_F1",
-    "DIK_F2",
-    "DIK_F3",
-    "DIK_F4",
-    "DIK_F5",
-    "DIK_F6",
-    "DIK_F7",
-    "DIK_F8",
-    "DIK_F9",
-    "DIK_F10",
-    "DIK_NUMLOCK",
-    "DIK_SCROLL",
-    "DIK_NUMPAD7",
-    "DIK_NUMPAD8",
-    "DIK_NUMPAD9",
-    "DIK_SUBTRACT",
-    "DIK_NUMPAD4",
-    "DIK_NUMPAD5",
-    "DIK_NUMPAD6",
-    "DIK_ADD",
-    "DIK_NUMPAD1",
-    "DIK_NUMPAD2",
-    "DIK_NUMPAD3",
-    "DIK_NUMPAD0",
-    "DIK_DECIMAL",
-    "DIK_OEM_102",
-    "DIK_F11",
-    "DIK_F12",
-    "DIK_F13",
-    "DIK_F14",
-    "DIK_F15",
-    "DIK_KANA",
-    "DIK_ABNT_C1",
-    "DIK_CONVERT",
-    "DIK_NOCONVERT",
-    "DIK_YEN",
-    "DIK_ABNT_C2",
-    "DIK_NUMPADEQUALS",
-    "DIK_PREVTRACK",
-    "DIK_AT",
-    "DIK_COLON",
-    "DIK_UNDERLINE",
-    "DIK_KANJI",
-    "DIK_STOP",
-    "DIK_AX",
-    "DIK_UNLABELED",
-    "DIK_NEXTTRACK",
-    "DIK_NUMPADENTER",
-    "DIK_RCONTROL",
-    "DIK_MUTE",
-    "DIK_CALCULATOR",
-    "DIK_PLAYPAUSE",
-    "DIK_MEDIASTOP",
-    "DIK_VOLUMEDOWN",
-    "DIK_VOLUMEUP",
-    "DIK_WEBHOME",
-    "DIK_NUMPADCOMMA",
-    "DIK_DIVIDE",
-    "DIK_SYSRQ",
-    "DIK_RMENU",
-    "DIK_PAUSE",
-    "DIK_HOME",
-    "DIK_UP",
-    "DIK_PRIOR",
-    "DIK_LEFT",
-    "DIK_RIGHT",
-    "DIK_END",
-    "DIK_DOWN",
-    "DIK_NEXT",
-    "DIK_INSERT",
-    "DIK_DELETE",
-    "DIK_LWIN",
-    "DIK_RWIN",
-    "DIK_APPS",
-    "DIK_POWER",
-    "DIK_SLEEP",
-    "DIK_WAKE",
-    "DIK_WEBSEARCH",
-    "DIK_WEBFAVORITES",
-    "DIK_WEBREFRESH",
-    "DIK_WEBSTOP",
-    "DIK_WEBFORWARD",
-    "DIK_WEBBACK",
-    "DIK_MYCOMPUTER",
-    "DIK_MAIL",
-    "DIK_MEDIASELECT",
-    "DIK_BACKSPACE",
-    "DIK_NUMPADSTAR",
-    "DIK_LALT",
-    "DIK_CAPSLOCK",
-    "DIK_NUMPADMINUS",
-    "DIK_NUMPADPLUS",
-    "DIK_NUMPADPERIOD",
-    "DIK_NUMPADSLASH",
-    "DIK_RALT",
-    "DIK_UPARROW",
-    "DIK_PGUP",
-    "DIK_LEFTARROW",
-    "DIK_RIGHTARROW",
-    "DIK_DOWNARROW",
-    "DIK_PGDN",
-    "DIK_CIRCUMFLEX",
-    "DIENUM_STOP",
-    "DIENUM_CONTINUE",
-    "DIEDFL_ALLDEVICES",
-    "DIEDFL_ATTACHEDONLY",
-    "DIEDFL_FORCEFEEDBACK",
-    "DIEDFL_INCLUDEALIASES",
-    "DIEDFL_INCLUDEPHANTOMS",
-    "DIEDFL_INCLUDEHIDDEN",
-    "DIEDBS_MAPPEDPRI1",
-    "DIEDBS_MAPPEDPRI2",
-    "DIEDBS_RECENTDEVICE",
-    "DIEDBS_NEWDEVICE",
-    "DIEDBSFL_ATTACHEDONLY",
-    "DIEDBSFL_THISUSER",
-    "DIEDBSFL_FORCEFEEDBACK",
-    "DIEDBSFL_AVAILABLEDEVICES",
-    "DIEDBSFL_MULTIMICEKEYBOARDS",
-    "DIEDBSFL_NONGAMINGDEVICES",
-    "DIEDBSFL_VALID",
-    "DI_OK",
-    "DI_NOTATTACHED",
-    "DI_BUFFEROVERFLOW",
-    "DI_PROPNOEFFECT",
-    "DI_NOEFFECT",
-    "DI_POLLEDDEVICE",
-    "DI_DOWNLOADSKIPPED",
-    "DI_EFFECTRESTARTED",
-    "DI_TRUNCATED",
-    "DI_SETTINGSNOTSAVED",
-    "DI_TRUNCATEDANDRESTARTED",
-    "DI_WRITEPROTECT",
-    "DIERR_OLDDIRECTINPUTVERSION",
-    "DIERR_BETADIRECTINPUTVERSION",
-    "DIERR_BADDRIVERVER",
-    "DIERR_DEVICENOTREG",
-    "DIERR_NOTFOUND",
-    "DIERR_OBJECTNOTFOUND",
-    "DIERR_INVALIDPARAM",
-    "DIERR_NOINTERFACE",
-    "DIERR_GENERIC",
-    "DIERR_OUTOFMEMORY",
-    "DIERR_UNSUPPORTED",
-    "DIERR_NOTINITIALIZED",
-    "DIERR_ALREADYINITIALIZED",
-    "DIERR_NOAGGREGATION",
-    "DIERR_OTHERAPPHASPRIO",
-    "DIERR_INPUTLOST",
-    "DIERR_ACQUIRED",
-    "DIERR_NOTACQUIRED",
-    "DIERR_READONLY",
-    "DIERR_HANDLEEXISTS",
-    "DIERR_INSUFFICIENTPRIVS",
-    "DIERR_DEVICEFULL",
-    "DIERR_MOREDATA",
-    "DIERR_NOTDOWNLOADED",
-    "DIERR_HASEFFECTS",
-    "DIERR_NOTEXCLUSIVEACQUIRED",
-    "DIERR_INCOMPLETEEFFECT",
-    "DIERR_NOTBUFFERED",
-    "DIERR_EFFECTPLAYING",
-    "DIERR_UNPLUGGED",
-    "DIERR_REPORTFULL",
-    "DIERR_MAPFILEFAIL",
-    "DIKEYBOARD_ESCAPE",
-    "DIKEYBOARD_1",
-    "DIKEYBOARD_2",
-    "DIKEYBOARD_3",
-    "DIKEYBOARD_4",
-    "DIKEYBOARD_5",
-    "DIKEYBOARD_6",
-    "DIKEYBOARD_7",
-    "DIKEYBOARD_8",
-    "DIKEYBOARD_9",
-    "DIKEYBOARD_0",
-    "DIKEYBOARD_MINUS",
-    "DIKEYBOARD_EQUALS",
-    "DIKEYBOARD_BACK",
-    "DIKEYBOARD_TAB",
-    "DIKEYBOARD_Q",
-    "DIKEYBOARD_W",
-    "DIKEYBOARD_E",
-    "DIKEYBOARD_R",
-    "DIKEYBOARD_T",
-    "DIKEYBOARD_Y",
-    "DIKEYBOARD_U",
-    "DIKEYBOARD_I",
-    "DIKEYBOARD_O",
-    "DIKEYBOARD_P",
-    "DIKEYBOARD_LBRACKET",
-    "DIKEYBOARD_RBRACKET",
-    "DIKEYBOARD_RETURN",
-    "DIKEYBOARD_LCONTROL",
-    "DIKEYBOARD_A",
-    "DIKEYBOARD_S",
-    "DIKEYBOARD_D",
-    "DIKEYBOARD_F",
-    "DIKEYBOARD_G",
-    "DIKEYBOARD_H",
-    "DIKEYBOARD_J",
-    "DIKEYBOARD_K",
-    "DIKEYBOARD_L",
-    "DIKEYBOARD_SEMICOLON",
-    "DIKEYBOARD_APOSTROPHE",
-    "DIKEYBOARD_GRAVE",
-    "DIKEYBOARD_LSHIFT",
-    "DIKEYBOARD_BACKSLASH",
-    "DIKEYBOARD_Z",
-    "DIKEYBOARD_X",
-    "DIKEYBOARD_C",
-    "DIKEYBOARD_V",
-    "DIKEYBOARD_B",
-    "DIKEYBOARD_N",
-    "DIKEYBOARD_M",
-    "DIKEYBOARD_COMMA",
-    "DIKEYBOARD_PERIOD",
-    "DIKEYBOARD_SLASH",
-    "DIKEYBOARD_RSHIFT",
-    "DIKEYBOARD_MULTIPLY",
-    "DIKEYBOARD_LMENU",
-    "DIKEYBOARD_SPACE",
-    "DIKEYBOARD_CAPITAL",
-    "DIKEYBOARD_F1",
-    "DIKEYBOARD_F2",
-    "DIKEYBOARD_F3",
-    "DIKEYBOARD_F4",
-    "DIKEYBOARD_F5",
-    "DIKEYBOARD_F6",
-    "DIKEYBOARD_F7",
-    "DIKEYBOARD_F8",
-    "DIKEYBOARD_F9",
-    "DIKEYBOARD_F10",
-    "DIKEYBOARD_NUMLOCK",
-    "DIKEYBOARD_SCROLL",
-    "DIKEYBOARD_NUMPAD7",
-    "DIKEYBOARD_NUMPAD8",
-    "DIKEYBOARD_NUMPAD9",
-    "DIKEYBOARD_SUBTRACT",
-    "DIKEYBOARD_NUMPAD4",
-    "DIKEYBOARD_NUMPAD5",
-    "DIKEYBOARD_NUMPAD6",
-    "DIKEYBOARD_ADD",
-    "DIKEYBOARD_NUMPAD1",
-    "DIKEYBOARD_NUMPAD2",
-    "DIKEYBOARD_NUMPAD3",
-    "DIKEYBOARD_NUMPAD0",
-    "DIKEYBOARD_DECIMAL",
-    "DIKEYBOARD_OEM_102",
-    "DIKEYBOARD_F11",
-    "DIKEYBOARD_F12",
-    "DIKEYBOARD_F13",
-    "DIKEYBOARD_F14",
-    "DIKEYBOARD_F15",
-    "DIKEYBOARD_KANA",
-    "DIKEYBOARD_ABNT_C1",
-    "DIKEYBOARD_CONVERT",
-    "DIKEYBOARD_NOCONVERT",
-    "DIKEYBOARD_YEN",
-    "DIKEYBOARD_ABNT_C2",
-    "DIKEYBOARD_NUMPADEQUALS",
-    "DIKEYBOARD_PREVTRACK",
-    "DIKEYBOARD_AT",
-    "DIKEYBOARD_COLON",
-    "DIKEYBOARD_UNDERLINE",
-    "DIKEYBOARD_KANJI",
-    "DIKEYBOARD_STOP",
-    "DIKEYBOARD_AX",
-    "DIKEYBOARD_UNLABELED",
-    "DIKEYBOARD_NEXTTRACK",
-    "DIKEYBOARD_NUMPADENTER",
-    "DIKEYBOARD_RCONTROL",
-    "DIKEYBOARD_MUTE",
-    "DIKEYBOARD_CALCULATOR",
-    "DIKEYBOARD_PLAYPAUSE",
-    "DIKEYBOARD_MEDIASTOP",
-    "DIKEYBOARD_VOLUMEDOWN",
-    "DIKEYBOARD_VOLUMEUP",
-    "DIKEYBOARD_WEBHOME",
-    "DIKEYBOARD_NUMPADCOMMA",
-    "DIKEYBOARD_DIVIDE",
-    "DIKEYBOARD_SYSRQ",
-    "DIKEYBOARD_RMENU",
-    "DIKEYBOARD_PAUSE",
-    "DIKEYBOARD_HOME",
-    "DIKEYBOARD_UP",
-    "DIKEYBOARD_PRIOR",
-    "DIKEYBOARD_LEFT",
-    "DIKEYBOARD_RIGHT",
-    "DIKEYBOARD_END",
-    "DIKEYBOARD_DOWN",
-    "DIKEYBOARD_NEXT",
-    "DIKEYBOARD_INSERT",
-    "DIKEYBOARD_DELETE",
-    "DIKEYBOARD_LWIN",
-    "DIKEYBOARD_RWIN",
-    "DIKEYBOARD_APPS",
-    "DIKEYBOARD_POWER",
-    "DIKEYBOARD_SLEEP",
-    "DIKEYBOARD_WAKE",
-    "DIKEYBOARD_WEBSEARCH",
-    "DIKEYBOARD_WEBFAVORITES",
-    "DIKEYBOARD_WEBREFRESH",
-    "DIKEYBOARD_WEBSTOP",
-    "DIKEYBOARD_WEBFORWARD",
-    "DIKEYBOARD_WEBBACK",
-    "DIKEYBOARD_MYCOMPUTER",
-    "DIKEYBOARD_MAIL",
-    "DIKEYBOARD_MEDIASELECT",
-    "DIVOICE_CHANNEL1",
-    "DIVOICE_CHANNEL2",
-    "DIVOICE_CHANNEL3",
-    "DIVOICE_CHANNEL4",
-    "DIVOICE_CHANNEL5",
-    "DIVOICE_CHANNEL6",
-    "DIVOICE_CHANNEL7",
-    "DIVOICE_CHANNEL8",
-    "DIVOICE_TEAM",
-    "DIVOICE_ALL",
-    "DIVOICE_RECORDMUTE",
-    "DIVOICE_PLAYBACKMUTE",
-    "DIVOICE_TRANSMIT",
-    "DIVOICE_VOICECOMMAND",
-    "DIVIRTUAL_DRIVING_RACE",
-    "DIAXIS_DRIVINGR_STEER",
-    "DIAXIS_DRIVINGR_ACCELERATE",
-    "DIAXIS_DRIVINGR_BRAKE",
-    "DIBUTTON_DRIVINGR_SHIFTUP",
-    "DIBUTTON_DRIVINGR_SHIFTDOWN",
-    "DIBUTTON_DRIVINGR_VIEW",
-    "DIBUTTON_DRIVINGR_MENU",
-    "DIAXIS_DRIVINGR_ACCEL_AND_BRAKE",
-    "DIHATSWITCH_DRIVINGR_GLANCE",
-    "DIBUTTON_DRIVINGR_BRAKE",
-    "DIBUTTON_DRIVINGR_DASHBOARD",
-    "DIBUTTON_DRIVINGR_AIDS",
-    "DIBUTTON_DRIVINGR_MAP",
-    "DIBUTTON_DRIVINGR_BOOST",
-    "DIBUTTON_DRIVINGR_PIT",
-    "DIBUTTON_DRIVINGR_ACCELERATE_LINK",
-    "DIBUTTON_DRIVINGR_STEER_LEFT_LINK",
-    "DIBUTTON_DRIVINGR_STEER_RIGHT_LINK",
-    "DIBUTTON_DRIVINGR_GLANCE_LEFT_LINK",
-    "DIBUTTON_DRIVINGR_GLANCE_RIGHT_LINK",
-    "DIBUTTON_DRIVINGR_DEVICE",
-    "DIBUTTON_DRIVINGR_PAUSE",
-    "DIVIRTUAL_DRIVING_COMBAT",
-    "DIAXIS_DRIVINGC_STEER",
-    "DIAXIS_DRIVINGC_ACCELERATE",
-    "DIAXIS_DRIVINGC_BRAKE",
-    "DIBUTTON_DRIVINGC_FIRE",
-    "DIBUTTON_DRIVINGC_WEAPONS",
-    "DIBUTTON_DRIVINGC_TARGET",
-    "DIBUTTON_DRIVINGC_MENU",
-    "DIAXIS_DRIVINGC_ACCEL_AND_BRAKE",
-    "DIHATSWITCH_DRIVINGC_GLANCE",
-    "DIBUTTON_DRIVINGC_SHIFTUP",
-    "DIBUTTON_DRIVINGC_SHIFTDOWN",
-    "DIBUTTON_DRIVINGC_DASHBOARD",
-    "DIBUTTON_DRIVINGC_AIDS",
-    "DIBUTTON_DRIVINGC_BRAKE",
-    "DIBUTTON_DRIVINGC_FIRESECONDARY",
-    "DIBUTTON_DRIVINGC_ACCELERATE_LINK",
-    "DIBUTTON_DRIVINGC_STEER_LEFT_LINK",
-    "DIBUTTON_DRIVINGC_STEER_RIGHT_LINK",
-    "DIBUTTON_DRIVINGC_GLANCE_LEFT_LINK",
-    "DIBUTTON_DRIVINGC_GLANCE_RIGHT_LINK",
-    "DIBUTTON_DRIVINGC_DEVICE",
-    "DIBUTTON_DRIVINGC_PAUSE",
-    "DIVIRTUAL_DRIVING_TANK",
-    "DIAXIS_DRIVINGT_STEER",
-    "DIAXIS_DRIVINGT_BARREL",
-    "DIAXIS_DRIVINGT_ACCELERATE",
-    "DIAXIS_DRIVINGT_ROTATE",
-    "DIBUTTON_DRIVINGT_FIRE",
-    "DIBUTTON_DRIVINGT_WEAPONS",
-    "DIBUTTON_DRIVINGT_TARGET",
-    "DIBUTTON_DRIVINGT_MENU",
-    "DIHATSWITCH_DRIVINGT_GLANCE",
-    "DIAXIS_DRIVINGT_BRAKE",
-    "DIAXIS_DRIVINGT_ACCEL_AND_BRAKE",
-    "DIBUTTON_DRIVINGT_VIEW",
-    "DIBUTTON_DRIVINGT_DASHBOARD",
-    "DIBUTTON_DRIVINGT_BRAKE",
-    "DIBUTTON_DRIVINGT_FIRESECONDARY",
-    "DIBUTTON_DRIVINGT_ACCELERATE_LINK",
-    "DIBUTTON_DRIVINGT_STEER_LEFT_LINK",
-    "DIBUTTON_DRIVINGT_STEER_RIGHT_LINK",
-    "DIBUTTON_DRIVINGT_BARREL_UP_LINK",
-    "DIBUTTON_DRIVINGT_BARREL_DOWN_LINK",
-    "DIBUTTON_DRIVINGT_ROTATE_LEFT_LINK",
-    "DIBUTTON_DRIVINGT_ROTATE_RIGHT_LINK",
-    "DIBUTTON_DRIVINGT_GLANCE_LEFT_LINK",
-    "DIBUTTON_DRIVINGT_GLANCE_RIGHT_LINK",
-    "DIBUTTON_DRIVINGT_DEVICE",
-    "DIBUTTON_DRIVINGT_PAUSE",
-    "DIVIRTUAL_FLYING_CIVILIAN",
-    "DIAXIS_FLYINGC_BANK",
-    "DIAXIS_FLYINGC_PITCH",
-    "DIAXIS_FLYINGC_THROTTLE",
-    "DIBUTTON_FLYINGC_VIEW",
-    "DIBUTTON_FLYINGC_DISPLAY",
-    "DIBUTTON_FLYINGC_GEAR",
-    "DIBUTTON_FLYINGC_MENU",
-    "DIHATSWITCH_FLYINGC_GLANCE",
-    "DIAXIS_FLYINGC_BRAKE",
-    "DIAXIS_FLYINGC_RUDDER",
-    "DIAXIS_FLYINGC_FLAPS",
-    "DIBUTTON_FLYINGC_FLAPSUP",
-    "DIBUTTON_FLYINGC_FLAPSDOWN",
-    "DIBUTTON_FLYINGC_BRAKE_LINK",
-    "DIBUTTON_FLYINGC_FASTER_LINK",
-    "DIBUTTON_FLYINGC_SLOWER_LINK",
-    "DIBUTTON_FLYINGC_GLANCE_LEFT_LINK",
-    "DIBUTTON_FLYINGC_GLANCE_RIGHT_LINK",
-    "DIBUTTON_FLYINGC_GLANCE_UP_LINK",
-    "DIBUTTON_FLYINGC_GLANCE_DOWN_LINK",
-    "DIBUTTON_FLYINGC_DEVICE",
-    "DIBUTTON_FLYINGC_PAUSE",
-    "DIVIRTUAL_FLYING_MILITARY",
-    "DIAXIS_FLYINGM_BANK",
-    "DIAXIS_FLYINGM_PITCH",
-    "DIAXIS_FLYINGM_THROTTLE",
-    "DIBUTTON_FLYINGM_FIRE",
-    "DIBUTTON_FLYINGM_WEAPONS",
-    "DIBUTTON_FLYINGM_TARGET",
-    "DIBUTTON_FLYINGM_MENU",
-    "DIHATSWITCH_FLYINGM_GLANCE",
-    "DIBUTTON_FLYINGM_COUNTER",
-    "DIAXIS_FLYINGM_RUDDER",
-    "DIAXIS_FLYINGM_BRAKE",
-    "DIBUTTON_FLYINGM_VIEW",
-    "DIBUTTON_FLYINGM_DISPLAY",
-    "DIAXIS_FLYINGM_FLAPS",
-    "DIBUTTON_FLYINGM_FLAPSUP",
-    "DIBUTTON_FLYINGM_FLAPSDOWN",
-    "DIBUTTON_FLYINGM_FIRESECONDARY",
-    "DIBUTTON_FLYINGM_GEAR",
-    "DIBUTTON_FLYINGM_BRAKE_LINK",
-    "DIBUTTON_FLYINGM_FASTER_LINK",
-    "DIBUTTON_FLYINGM_SLOWER_LINK",
-    "DIBUTTON_FLYINGM_GLANCE_LEFT_LINK",
-    "DIBUTTON_FLYINGM_GLANCE_RIGHT_LINK",
-    "DIBUTTON_FLYINGM_GLANCE_UP_LINK",
-    "DIBUTTON_FLYINGM_GLANCE_DOWN_LINK",
-    "DIBUTTON_FLYINGM_DEVICE",
-    "DIBUTTON_FLYINGM_PAUSE",
-    "DIVIRTUAL_FLYING_HELICOPTER",
-    "DIAXIS_FLYINGH_BANK",
-    "DIAXIS_FLYINGH_PITCH",
-    "DIAXIS_FLYINGH_COLLECTIVE",
-    "DIBUTTON_FLYINGH_FIRE",
-    "DIBUTTON_FLYINGH_WEAPONS",
-    "DIBUTTON_FLYINGH_TARGET",
-    "DIBUTTON_FLYINGH_MENU",
-    "DIHATSWITCH_FLYINGH_GLANCE",
-    "DIAXIS_FLYINGH_TORQUE",
-    "DIAXIS_FLYINGH_THROTTLE",
-    "DIBUTTON_FLYINGH_COUNTER",
-    "DIBUTTON_FLYINGH_VIEW",
-    "DIBUTTON_FLYINGH_GEAR",
-    "DIBUTTON_FLYINGH_FIRESECONDARY",
-    "DIBUTTON_FLYINGH_FASTER_LINK",
-    "DIBUTTON_FLYINGH_SLOWER_LINK",
-    "DIBUTTON_FLYINGH_GLANCE_LEFT_LINK",
-    "DIBUTTON_FLYINGH_GLANCE_RIGHT_LINK",
-    "DIBUTTON_FLYINGH_GLANCE_UP_LINK",
-    "DIBUTTON_FLYINGH_GLANCE_DOWN_LINK",
-    "DIBUTTON_FLYINGH_DEVICE",
-    "DIBUTTON_FLYINGH_PAUSE",
-    "DIVIRTUAL_SPACESIM",
-    "DIAXIS_SPACESIM_LATERAL",
-    "DIAXIS_SPACESIM_MOVE",
-    "DIAXIS_SPACESIM_THROTTLE",
-    "DIBUTTON_SPACESIM_FIRE",
-    "DIBUTTON_SPACESIM_WEAPONS",
-    "DIBUTTON_SPACESIM_TARGET",
-    "DIBUTTON_SPACESIM_MENU",
-    "DIHATSWITCH_SPACESIM_GLANCE",
-    "DIAXIS_SPACESIM_CLIMB",
-    "DIAXIS_SPACESIM_ROTATE",
-    "DIBUTTON_SPACESIM_VIEW",
-    "DIBUTTON_SPACESIM_DISPLAY",
-    "DIBUTTON_SPACESIM_RAISE",
-    "DIBUTTON_SPACESIM_LOWER",
-    "DIBUTTON_SPACESIM_GEAR",
-    "DIBUTTON_SPACESIM_FIRESECONDARY",
-    "DIBUTTON_SPACESIM_LEFT_LINK",
-    "DIBUTTON_SPACESIM_RIGHT_LINK",
-    "DIBUTTON_SPACESIM_FORWARD_LINK",
-    "DIBUTTON_SPACESIM_BACKWARD_LINK",
-    "DIBUTTON_SPACESIM_FASTER_LINK",
-    "DIBUTTON_SPACESIM_SLOWER_LINK",
-    "DIBUTTON_SPACESIM_TURN_LEFT_LINK",
-    "DIBUTTON_SPACESIM_TURN_RIGHT_LINK",
-    "DIBUTTON_SPACESIM_GLANCE_LEFT_LINK",
-    "DIBUTTON_SPACESIM_GLANCE_RIGHT_LINK",
-    "DIBUTTON_SPACESIM_GLANCE_UP_LINK",
-    "DIBUTTON_SPACESIM_GLANCE_DOWN_LINK",
-    "DIBUTTON_SPACESIM_DEVICE",
-    "DIBUTTON_SPACESIM_PAUSE",
-    "DIVIRTUAL_FIGHTING_HAND2HAND",
-    "DIAXIS_FIGHTINGH_LATERAL",
-    "DIAXIS_FIGHTINGH_MOVE",
-    "DIBUTTON_FIGHTINGH_PUNCH",
-    "DIBUTTON_FIGHTINGH_KICK",
-    "DIBUTTON_FIGHTINGH_BLOCK",
-    "DIBUTTON_FIGHTINGH_CROUCH",
-    "DIBUTTON_FIGHTINGH_JUMP",
-    "DIBUTTON_FIGHTINGH_SPECIAL1",
-    "DIBUTTON_FIGHTINGH_SPECIAL2",
-    "DIBUTTON_FIGHTINGH_MENU",
-    "DIBUTTON_FIGHTINGH_SELECT",
-    "DIHATSWITCH_FIGHTINGH_SLIDE",
-    "DIBUTTON_FIGHTINGH_DISPLAY",
-    "DIAXIS_FIGHTINGH_ROTATE",
-    "DIBUTTON_FIGHTINGH_DODGE",
-    "DIBUTTON_FIGHTINGH_LEFT_LINK",
-    "DIBUTTON_FIGHTINGH_RIGHT_LINK",
-    "DIBUTTON_FIGHTINGH_FORWARD_LINK",
-    "DIBUTTON_FIGHTINGH_BACKWARD_LINK",
-    "DIBUTTON_FIGHTINGH_DEVICE",
-    "DIBUTTON_FIGHTINGH_PAUSE",
-    "DIVIRTUAL_FIGHTING_FPS",
-    "DIAXIS_FPS_ROTATE",
-    "DIAXIS_FPS_MOVE",
-    "DIBUTTON_FPS_FIRE",
-    "DIBUTTON_FPS_WEAPONS",
-    "DIBUTTON_FPS_APPLY",
-    "DIBUTTON_FPS_SELECT",
-    "DIBUTTON_FPS_CROUCH",
-    "DIBUTTON_FPS_JUMP",
-    "DIAXIS_FPS_LOOKUPDOWN",
-    "DIBUTTON_FPS_STRAFE",
-    "DIBUTTON_FPS_MENU",
-    "DIHATSWITCH_FPS_GLANCE",
-    "DIBUTTON_FPS_DISPLAY",
-    "DIAXIS_FPS_SIDESTEP",
-    "DIBUTTON_FPS_DODGE",
-    "DIBUTTON_FPS_GLANCEL",
-    "DIBUTTON_FPS_GLANCER",
-    "DIBUTTON_FPS_FIRESECONDARY",
-    "DIBUTTON_FPS_ROTATE_LEFT_LINK",
-    "DIBUTTON_FPS_ROTATE_RIGHT_LINK",
-    "DIBUTTON_FPS_FORWARD_LINK",
-    "DIBUTTON_FPS_BACKWARD_LINK",
-    "DIBUTTON_FPS_GLANCE_UP_LINK",
-    "DIBUTTON_FPS_GLANCE_DOWN_LINK",
-    "DIBUTTON_FPS_STEP_LEFT_LINK",
-    "DIBUTTON_FPS_STEP_RIGHT_LINK",
-    "DIBUTTON_FPS_DEVICE",
-    "DIBUTTON_FPS_PAUSE",
-    "DIVIRTUAL_FIGHTING_THIRDPERSON",
-    "DIAXIS_TPS_TURN",
-    "DIAXIS_TPS_MOVE",
-    "DIBUTTON_TPS_RUN",
-    "DIBUTTON_TPS_ACTION",
-    "DIBUTTON_TPS_SELECT",
-    "DIBUTTON_TPS_USE",
-    "DIBUTTON_TPS_JUMP",
-    "DIBUTTON_TPS_MENU",
-    "DIHATSWITCH_TPS_GLANCE",
-    "DIBUTTON_TPS_VIEW",
-    "DIBUTTON_TPS_STEPLEFT",
-    "DIBUTTON_TPS_STEPRIGHT",
-    "DIAXIS_TPS_STEP",
-    "DIBUTTON_TPS_DODGE",
-    "DIBUTTON_TPS_INVENTORY",
-    "DIBUTTON_TPS_TURN_LEFT_LINK",
-    "DIBUTTON_TPS_TURN_RIGHT_LINK",
-    "DIBUTTON_TPS_FORWARD_LINK",
-    "DIBUTTON_TPS_BACKWARD_LINK",
-    "DIBUTTON_TPS_GLANCE_UP_LINK",
-    "DIBUTTON_TPS_GLANCE_DOWN_LINK",
-    "DIBUTTON_TPS_GLANCE_LEFT_LINK",
-    "DIBUTTON_TPS_GLANCE_RIGHT_LINK",
-    "DIBUTTON_TPS_DEVICE",
-    "DIBUTTON_TPS_PAUSE",
-    "DIVIRTUAL_STRATEGY_ROLEPLAYING",
-    "DIAXIS_STRATEGYR_LATERAL",
-    "DIAXIS_STRATEGYR_MOVE",
-    "DIBUTTON_STRATEGYR_GET",
-    "DIBUTTON_STRATEGYR_APPLY",
-    "DIBUTTON_STRATEGYR_SELECT",
-    "DIBUTTON_STRATEGYR_ATTACK",
-    "DIBUTTON_STRATEGYR_CAST",
-    "DIBUTTON_STRATEGYR_CROUCH",
-    "DIBUTTON_STRATEGYR_JUMP",
-    "DIBUTTON_STRATEGYR_MENU",
-    "DIHATSWITCH_STRATEGYR_GLANCE",
-    "DIBUTTON_STRATEGYR_MAP",
-    "DIBUTTON_STRATEGYR_DISPLAY",
-    "DIAXIS_STRATEGYR_ROTATE",
-    "DIBUTTON_STRATEGYR_LEFT_LINK",
-    "DIBUTTON_STRATEGYR_RIGHT_LINK",
-    "DIBUTTON_STRATEGYR_FORWARD_LINK",
-    "DIBUTTON_STRATEGYR_BACK_LINK",
-    "DIBUTTON_STRATEGYR_ROTATE_LEFT_LINK",
-    "DIBUTTON_STRATEGYR_ROTATE_RIGHT_LINK",
-    "DIBUTTON_STRATEGYR_DEVICE",
-    "DIBUTTON_STRATEGYR_PAUSE",
-    "DIVIRTUAL_STRATEGY_TURN",
-    "DIAXIS_STRATEGYT_LATERAL",
-    "DIAXIS_STRATEGYT_MOVE",
-    "DIBUTTON_STRATEGYT_SELECT",
-    "DIBUTTON_STRATEGYT_INSTRUCT",
-    "DIBUTTON_STRATEGYT_APPLY",
-    "DIBUTTON_STRATEGYT_TEAM",
-    "DIBUTTON_STRATEGYT_TURN",
-    "DIBUTTON_STRATEGYT_MENU",
-    "DIBUTTON_STRATEGYT_ZOOM",
-    "DIBUTTON_STRATEGYT_MAP",
-    "DIBUTTON_STRATEGYT_DISPLAY",
-    "DIBUTTON_STRATEGYT_LEFT_LINK",
-    "DIBUTTON_STRATEGYT_RIGHT_LINK",
-    "DIBUTTON_STRATEGYT_FORWARD_LINK",
-    "DIBUTTON_STRATEGYT_BACK_LINK",
-    "DIBUTTON_STRATEGYT_DEVICE",
-    "DIBUTTON_STRATEGYT_PAUSE",
-    "DIVIRTUAL_SPORTS_HUNTING",
-    "DIAXIS_HUNTING_LATERAL",
-    "DIAXIS_HUNTING_MOVE",
-    "DIBUTTON_HUNTING_FIRE",
-    "DIBUTTON_HUNTING_AIM",
-    "DIBUTTON_HUNTING_WEAPON",
-    "DIBUTTON_HUNTING_BINOCULAR",
-    "DIBUTTON_HUNTING_CALL",
-    "DIBUTTON_HUNTING_MAP",
-    "DIBUTTON_HUNTING_SPECIAL",
-    "DIBUTTON_HUNTING_MENU",
-    "DIHATSWITCH_HUNTING_GLANCE",
-    "DIBUTTON_HUNTING_DISPLAY",
-    "DIAXIS_HUNTING_ROTATE",
-    "DIBUTTON_HUNTING_CROUCH",
-    "DIBUTTON_HUNTING_JUMP",
-    "DIBUTTON_HUNTING_FIRESECONDARY",
-    "DIBUTTON_HUNTING_LEFT_LINK",
-    "DIBUTTON_HUNTING_RIGHT_LINK",
-    "DIBUTTON_HUNTING_FORWARD_LINK",
-    "DIBUTTON_HUNTING_BACK_LINK",
-    "DIBUTTON_HUNTING_ROTATE_LEFT_LINK",
-    "DIBUTTON_HUNTING_ROTATE_RIGHT_LINK",
-    "DIBUTTON_HUNTING_DEVICE",
-    "DIBUTTON_HUNTING_PAUSE",
-    "DIVIRTUAL_SPORTS_FISHING",
-    "DIAXIS_FISHING_LATERAL",
-    "DIAXIS_FISHING_MOVE",
-    "DIBUTTON_FISHING_CAST",
-    "DIBUTTON_FISHING_TYPE",
-    "DIBUTTON_FISHING_BINOCULAR",
-    "DIBUTTON_FISHING_BAIT",
-    "DIBUTTON_FISHING_MAP",
-    "DIBUTTON_FISHING_MENU",
-    "DIHATSWITCH_FISHING_GLANCE",
-    "DIBUTTON_FISHING_DISPLAY",
-    "DIAXIS_FISHING_ROTATE",
-    "DIBUTTON_FISHING_CROUCH",
-    "DIBUTTON_FISHING_JUMP",
-    "DIBUTTON_FISHING_LEFT_LINK",
-    "DIBUTTON_FISHING_RIGHT_LINK",
-    "DIBUTTON_FISHING_FORWARD_LINK",
-    "DIBUTTON_FISHING_BACK_LINK",
-    "DIBUTTON_FISHING_ROTATE_LEFT_LINK",
-    "DIBUTTON_FISHING_ROTATE_RIGHT_LINK",
-    "DIBUTTON_FISHING_DEVICE",
-    "DIBUTTON_FISHING_PAUSE",
-    "DIVIRTUAL_SPORTS_BASEBALL_BAT",
-    "DIAXIS_BASEBALLB_LATERAL",
-    "DIAXIS_BASEBALLB_MOVE",
-    "DIBUTTON_BASEBALLB_SELECT",
-    "DIBUTTON_BASEBALLB_NORMAL",
-    "DIBUTTON_BASEBALLB_POWER",
-    "DIBUTTON_BASEBALLB_BUNT",
-    "DIBUTTON_BASEBALLB_STEAL",
-    "DIBUTTON_BASEBALLB_BURST",
-    "DIBUTTON_BASEBALLB_SLIDE",
-    "DIBUTTON_BASEBALLB_CONTACT",
-    "DIBUTTON_BASEBALLB_MENU",
-    "DIBUTTON_BASEBALLB_NOSTEAL",
-    "DIBUTTON_BASEBALLB_BOX",
-    "DIBUTTON_BASEBALLB_LEFT_LINK",
-    "DIBUTTON_BASEBALLB_RIGHT_LINK",
-    "DIBUTTON_BASEBALLB_FORWARD_LINK",
-    "DIBUTTON_BASEBALLB_BACK_LINK",
-    "DIBUTTON_BASEBALLB_DEVICE",
-    "DIBUTTON_BASEBALLB_PAUSE",
-    "DIVIRTUAL_SPORTS_BASEBALL_PITCH",
-    "DIAXIS_BASEBALLP_LATERAL",
-    "DIAXIS_BASEBALLP_MOVE",
-    "DIBUTTON_BASEBALLP_SELECT",
-    "DIBUTTON_BASEBALLP_PITCH",
-    "DIBUTTON_BASEBALLP_BASE",
-    "DIBUTTON_BASEBALLP_THROW",
-    "DIBUTTON_BASEBALLP_FAKE",
-    "DIBUTTON_BASEBALLP_MENU",
-    "DIBUTTON_BASEBALLP_WALK",
-    "DIBUTTON_BASEBALLP_LOOK",
-    "DIBUTTON_BASEBALLP_LEFT_LINK",
-    "DIBUTTON_BASEBALLP_RIGHT_LINK",
-    "DIBUTTON_BASEBALLP_FORWARD_LINK",
-    "DIBUTTON_BASEBALLP_BACK_LINK",
-    "DIBUTTON_BASEBALLP_DEVICE",
-    "DIBUTTON_BASEBALLP_PAUSE",
-    "DIVIRTUAL_SPORTS_BASEBALL_FIELD",
-    "DIAXIS_BASEBALLF_LATERAL",
-    "DIAXIS_BASEBALLF_MOVE",
-    "DIBUTTON_BASEBALLF_NEAREST",
-    "DIBUTTON_BASEBALLF_THROW1",
-    "DIBUTTON_BASEBALLF_THROW2",
-    "DIBUTTON_BASEBALLF_BURST",
-    "DIBUTTON_BASEBALLF_JUMP",
-    "DIBUTTON_BASEBALLF_DIVE",
-    "DIBUTTON_BASEBALLF_MENU",
-    "DIBUTTON_BASEBALLF_SHIFTIN",
-    "DIBUTTON_BASEBALLF_SHIFTOUT",
-    "DIBUTTON_BASEBALLF_AIM_LEFT_LINK",
-    "DIBUTTON_BASEBALLF_AIM_RIGHT_LINK",
-    "DIBUTTON_BASEBALLF_FORWARD_LINK",
-    "DIBUTTON_BASEBALLF_BACK_LINK",
-    "DIBUTTON_BASEBALLF_DEVICE",
-    "DIBUTTON_BASEBALLF_PAUSE",
-    "DIVIRTUAL_SPORTS_BASKETBALL_OFFENSE",
-    "DIAXIS_BBALLO_LATERAL",
-    "DIAXIS_BBALLO_MOVE",
-    "DIBUTTON_BBALLO_SHOOT",
-    "DIBUTTON_BBALLO_DUNK",
-    "DIBUTTON_BBALLO_PASS",
-    "DIBUTTON_BBALLO_FAKE",
-    "DIBUTTON_BBALLO_SPECIAL",
-    "DIBUTTON_BBALLO_PLAYER",
-    "DIBUTTON_BBALLO_BURST",
-    "DIBUTTON_BBALLO_CALL",
-    "DIBUTTON_BBALLO_MENU",
-    "DIHATSWITCH_BBALLO_GLANCE",
-    "DIBUTTON_BBALLO_SCREEN",
-    "DIBUTTON_BBALLO_PLAY",
-    "DIBUTTON_BBALLO_JAB",
-    "DIBUTTON_BBALLO_POST",
-    "DIBUTTON_BBALLO_TIMEOUT",
-    "DIBUTTON_BBALLO_SUBSTITUTE",
-    "DIBUTTON_BBALLO_LEFT_LINK",
-    "DIBUTTON_BBALLO_RIGHT_LINK",
-    "DIBUTTON_BBALLO_FORWARD_LINK",
-    "DIBUTTON_BBALLO_BACK_LINK",
-    "DIBUTTON_BBALLO_DEVICE",
-    "DIBUTTON_BBALLO_PAUSE",
-    "DIVIRTUAL_SPORTS_BASKETBALL_DEFENSE",
-    "DIAXIS_BBALLD_LATERAL",
-    "DIAXIS_BBALLD_MOVE",
-    "DIBUTTON_BBALLD_JUMP",
-    "DIBUTTON_BBALLD_STEAL",
-    "DIBUTTON_BBALLD_FAKE",
-    "DIBUTTON_BBALLD_SPECIAL",
-    "DIBUTTON_BBALLD_PLAYER",
-    "DIBUTTON_BBALLD_BURST",
-    "DIBUTTON_BBALLD_PLAY",
-    "DIBUTTON_BBALLD_MENU",
-    "DIHATSWITCH_BBALLD_GLANCE",
-    "DIBUTTON_BBALLD_TIMEOUT",
-    "DIBUTTON_BBALLD_SUBSTITUTE",
-    "DIBUTTON_BBALLD_LEFT_LINK",
-    "DIBUTTON_BBALLD_RIGHT_LINK",
-    "DIBUTTON_BBALLD_FORWARD_LINK",
-    "DIBUTTON_BBALLD_BACK_LINK",
-    "DIBUTTON_BBALLD_DEVICE",
-    "DIBUTTON_BBALLD_PAUSE",
-    "DIVIRTUAL_SPORTS_FOOTBALL_FIELD",
-    "DIBUTTON_FOOTBALLP_PLAY",
-    "DIBUTTON_FOOTBALLP_SELECT",
-    "DIBUTTON_FOOTBALLP_HELP",
-    "DIBUTTON_FOOTBALLP_MENU",
-    "DIBUTTON_FOOTBALLP_DEVICE",
-    "DIBUTTON_FOOTBALLP_PAUSE",
-    "DIVIRTUAL_SPORTS_FOOTBALL_QBCK",
-    "DIAXIS_FOOTBALLQ_LATERAL",
-    "DIAXIS_FOOTBALLQ_MOVE",
-    "DIBUTTON_FOOTBALLQ_SELECT",
-    "DIBUTTON_FOOTBALLQ_SNAP",
-    "DIBUTTON_FOOTBALLQ_JUMP",
-    "DIBUTTON_FOOTBALLQ_SLIDE",
-    "DIBUTTON_FOOTBALLQ_PASS",
-    "DIBUTTON_FOOTBALLQ_FAKE",
-    "DIBUTTON_FOOTBALLQ_MENU",
-    "DIBUTTON_FOOTBALLQ_FAKESNAP",
-    "DIBUTTON_FOOTBALLQ_MOTION",
-    "DIBUTTON_FOOTBALLQ_AUDIBLE",
-    "DIBUTTON_FOOTBALLQ_LEFT_LINK",
-    "DIBUTTON_FOOTBALLQ_RIGHT_LINK",
-    "DIBUTTON_FOOTBALLQ_FORWARD_LINK",
-    "DIBUTTON_FOOTBALLQ_BACK_LINK",
-    "DIBUTTON_FOOTBALLQ_DEVICE",
-    "DIBUTTON_FOOTBALLQ_PAUSE",
-    "DIVIRTUAL_SPORTS_FOOTBALL_OFFENSE",
-    "DIAXIS_FOOTBALLO_LATERAL",
-    "DIAXIS_FOOTBALLO_MOVE",
-    "DIBUTTON_FOOTBALLO_JUMP",
-    "DIBUTTON_FOOTBALLO_LEFTARM",
-    "DIBUTTON_FOOTBALLO_RIGHTARM",
-    "DIBUTTON_FOOTBALLO_THROW",
-    "DIBUTTON_FOOTBALLO_SPIN",
-    "DIBUTTON_FOOTBALLO_MENU",
-    "DIBUTTON_FOOTBALLO_JUKE",
-    "DIBUTTON_FOOTBALLO_SHOULDER",
-    "DIBUTTON_FOOTBALLO_TURBO",
-    "DIBUTTON_FOOTBALLO_DIVE",
-    "DIBUTTON_FOOTBALLO_ZOOM",
-    "DIBUTTON_FOOTBALLO_SUBSTITUTE",
-    "DIBUTTON_FOOTBALLO_LEFT_LINK",
-    "DIBUTTON_FOOTBALLO_RIGHT_LINK",
-    "DIBUTTON_FOOTBALLO_FORWARD_LINK",
-    "DIBUTTON_FOOTBALLO_BACK_LINK",
-    "DIBUTTON_FOOTBALLO_DEVICE",
-    "DIBUTTON_FOOTBALLO_PAUSE",
-    "DIVIRTUAL_SPORTS_FOOTBALL_DEFENSE",
-    "DIAXIS_FOOTBALLD_LATERAL",
-    "DIAXIS_FOOTBALLD_MOVE",
-    "DIBUTTON_FOOTBALLD_PLAY",
-    "DIBUTTON_FOOTBALLD_SELECT",
-    "DIBUTTON_FOOTBALLD_JUMP",
-    "DIBUTTON_FOOTBALLD_TACKLE",
-    "DIBUTTON_FOOTBALLD_FAKE",
-    "DIBUTTON_FOOTBALLD_SUPERTACKLE",
-    "DIBUTTON_FOOTBALLD_MENU",
-    "DIBUTTON_FOOTBALLD_SPIN",
-    "DIBUTTON_FOOTBALLD_SWIM",
-    "DIBUTTON_FOOTBALLD_BULLRUSH",
-    "DIBUTTON_FOOTBALLD_RIP",
-    "DIBUTTON_FOOTBALLD_AUDIBLE",
-    "DIBUTTON_FOOTBALLD_ZOOM",
-    "DIBUTTON_FOOTBALLD_SUBSTITUTE",
-    "DIBUTTON_FOOTBALLD_LEFT_LINK",
-    "DIBUTTON_FOOTBALLD_RIGHT_LINK",
-    "DIBUTTON_FOOTBALLD_FORWARD_LINK",
-    "DIBUTTON_FOOTBALLD_BACK_LINK",
-    "DIBUTTON_FOOTBALLD_DEVICE",
-    "DIBUTTON_FOOTBALLD_PAUSE",
-    "DIVIRTUAL_SPORTS_GOLF",
-    "DIAXIS_GOLF_LATERAL",
-    "DIAXIS_GOLF_MOVE",
-    "DIBUTTON_GOLF_SWING",
-    "DIBUTTON_GOLF_SELECT",
-    "DIBUTTON_GOLF_UP",
-    "DIBUTTON_GOLF_DOWN",
-    "DIBUTTON_GOLF_TERRAIN",
-    "DIBUTTON_GOLF_FLYBY",
-    "DIBUTTON_GOLF_MENU",
-    "DIHATSWITCH_GOLF_SCROLL",
-    "DIBUTTON_GOLF_ZOOM",
-    "DIBUTTON_GOLF_TIMEOUT",
-    "DIBUTTON_GOLF_SUBSTITUTE",
-    "DIBUTTON_GOLF_LEFT_LINK",
-    "DIBUTTON_GOLF_RIGHT_LINK",
-    "DIBUTTON_GOLF_FORWARD_LINK",
-    "DIBUTTON_GOLF_BACK_LINK",
-    "DIBUTTON_GOLF_DEVICE",
-    "DIBUTTON_GOLF_PAUSE",
-    "DIVIRTUAL_SPORTS_HOCKEY_OFFENSE",
-    "DIAXIS_HOCKEYO_LATERAL",
-    "DIAXIS_HOCKEYO_MOVE",
-    "DIBUTTON_HOCKEYO_SHOOT",
-    "DIBUTTON_HOCKEYO_PASS",
-    "DIBUTTON_HOCKEYO_BURST",
-    "DIBUTTON_HOCKEYO_SPECIAL",
-    "DIBUTTON_HOCKEYO_FAKE",
-    "DIBUTTON_HOCKEYO_MENU",
-    "DIHATSWITCH_HOCKEYO_SCROLL",
-    "DIBUTTON_HOCKEYO_ZOOM",
-    "DIBUTTON_HOCKEYO_STRATEGY",
-    "DIBUTTON_HOCKEYO_TIMEOUT",
-    "DIBUTTON_HOCKEYO_SUBSTITUTE",
-    "DIBUTTON_HOCKEYO_LEFT_LINK",
-    "DIBUTTON_HOCKEYO_RIGHT_LINK",
-    "DIBUTTON_HOCKEYO_FORWARD_LINK",
-    "DIBUTTON_HOCKEYO_BACK_LINK",
-    "DIBUTTON_HOCKEYO_DEVICE",
-    "DIBUTTON_HOCKEYO_PAUSE",
-    "DIVIRTUAL_SPORTS_HOCKEY_DEFENSE",
-    "DIAXIS_HOCKEYD_LATERAL",
-    "DIAXIS_HOCKEYD_MOVE",
-    "DIBUTTON_HOCKEYD_PLAYER",
-    "DIBUTTON_HOCKEYD_STEAL",
-    "DIBUTTON_HOCKEYD_BURST",
-    "DIBUTTON_HOCKEYD_BLOCK",
-    "DIBUTTON_HOCKEYD_FAKE",
-    "DIBUTTON_HOCKEYD_MENU",
-    "DIHATSWITCH_HOCKEYD_SCROLL",
-    "DIBUTTON_HOCKEYD_ZOOM",
-    "DIBUTTON_HOCKEYD_STRATEGY",
-    "DIBUTTON_HOCKEYD_TIMEOUT",
-    "DIBUTTON_HOCKEYD_SUBSTITUTE",
-    "DIBUTTON_HOCKEYD_LEFT_LINK",
-    "DIBUTTON_HOCKEYD_RIGHT_LINK",
-    "DIBUTTON_HOCKEYD_FORWARD_LINK",
-    "DIBUTTON_HOCKEYD_BACK_LINK",
-    "DIBUTTON_HOCKEYD_DEVICE",
-    "DIBUTTON_HOCKEYD_PAUSE",
-    "DIVIRTUAL_SPORTS_HOCKEY_GOALIE",
-    "DIAXIS_HOCKEYG_LATERAL",
-    "DIAXIS_HOCKEYG_MOVE",
-    "DIBUTTON_HOCKEYG_PASS",
-    "DIBUTTON_HOCKEYG_POKE",
-    "DIBUTTON_HOCKEYG_STEAL",
-    "DIBUTTON_HOCKEYG_BLOCK",
-    "DIBUTTON_HOCKEYG_MENU",
-    "DIHATSWITCH_HOCKEYG_SCROLL",
-    "DIBUTTON_HOCKEYG_ZOOM",
-    "DIBUTTON_HOCKEYG_STRATEGY",
-    "DIBUTTON_HOCKEYG_TIMEOUT",
-    "DIBUTTON_HOCKEYG_SUBSTITUTE",
-    "DIBUTTON_HOCKEYG_LEFT_LINK",
-    "DIBUTTON_HOCKEYG_RIGHT_LINK",
-    "DIBUTTON_HOCKEYG_FORWARD_LINK",
-    "DIBUTTON_HOCKEYG_BACK_LINK",
-    "DIBUTTON_HOCKEYG_DEVICE",
-    "DIBUTTON_HOCKEYG_PAUSE",
-    "DIVIRTUAL_SPORTS_BIKING_MOUNTAIN",
-    "DIAXIS_BIKINGM_TURN",
-    "DIAXIS_BIKINGM_PEDAL",
-    "DIBUTTON_BIKINGM_JUMP",
-    "DIBUTTON_BIKINGM_CAMERA",
-    "DIBUTTON_BIKINGM_SPECIAL1",
-    "DIBUTTON_BIKINGM_SELECT",
-    "DIBUTTON_BIKINGM_SPECIAL2",
-    "DIBUTTON_BIKINGM_MENU",
-    "DIHATSWITCH_BIKINGM_SCROLL",
-    "DIBUTTON_BIKINGM_ZOOM",
-    "DIAXIS_BIKINGM_BRAKE",
-    "DIBUTTON_BIKINGM_LEFT_LINK",
-    "DIBUTTON_BIKINGM_RIGHT_LINK",
-    "DIBUTTON_BIKINGM_FASTER_LINK",
-    "DIBUTTON_BIKINGM_SLOWER_LINK",
-    "DIBUTTON_BIKINGM_BRAKE_BUTTON_LINK",
-    "DIBUTTON_BIKINGM_DEVICE",
-    "DIBUTTON_BIKINGM_PAUSE",
-    "DIVIRTUAL_SPORTS_SKIING",
-    "DIAXIS_SKIING_TURN",
-    "DIAXIS_SKIING_SPEED",
-    "DIBUTTON_SKIING_JUMP",
-    "DIBUTTON_SKIING_CROUCH",
-    "DIBUTTON_SKIING_CAMERA",
-    "DIBUTTON_SKIING_SPECIAL1",
-    "DIBUTTON_SKIING_SELECT",
-    "DIBUTTON_SKIING_SPECIAL2",
-    "DIBUTTON_SKIING_MENU",
-    "DIHATSWITCH_SKIING_GLANCE",
-    "DIBUTTON_SKIING_ZOOM",
-    "DIBUTTON_SKIING_LEFT_LINK",
-    "DIBUTTON_SKIING_RIGHT_LINK",
-    "DIBUTTON_SKIING_FASTER_LINK",
-    "DIBUTTON_SKIING_SLOWER_LINK",
-    "DIBUTTON_SKIING_DEVICE",
-    "DIBUTTON_SKIING_PAUSE",
-    "DIVIRTUAL_SPORTS_SOCCER_OFFENSE",
-    "DIAXIS_SOCCERO_LATERAL",
-    "DIAXIS_SOCCERO_MOVE",
-    "DIAXIS_SOCCERO_BEND",
-    "DIBUTTON_SOCCERO_SHOOT",
-    "DIBUTTON_SOCCERO_PASS",
-    "DIBUTTON_SOCCERO_FAKE",
-    "DIBUTTON_SOCCERO_PLAYER",
-    "DIBUTTON_SOCCERO_SPECIAL1",
-    "DIBUTTON_SOCCERO_SELECT",
-    "DIBUTTON_SOCCERO_MENU",
-    "DIHATSWITCH_SOCCERO_GLANCE",
-    "DIBUTTON_SOCCERO_SUBSTITUTE",
-    "DIBUTTON_SOCCERO_SHOOTLOW",
-    "DIBUTTON_SOCCERO_SHOOTHIGH",
-    "DIBUTTON_SOCCERO_PASSTHRU",
-    "DIBUTTON_SOCCERO_SPRINT",
-    "DIBUTTON_SOCCERO_CONTROL",
-    "DIBUTTON_SOCCERO_HEAD",
-    "DIBUTTON_SOCCERO_LEFT_LINK",
-    "DIBUTTON_SOCCERO_RIGHT_LINK",
-    "DIBUTTON_SOCCERO_FORWARD_LINK",
-    "DIBUTTON_SOCCERO_BACK_LINK",
-    "DIBUTTON_SOCCERO_DEVICE",
-    "DIBUTTON_SOCCERO_PAUSE",
-    "DIVIRTUAL_SPORTS_SOCCER_DEFENSE",
-    "DIAXIS_SOCCERD_LATERAL",
-    "DIAXIS_SOCCERD_MOVE",
-    "DIBUTTON_SOCCERD_BLOCK",
-    "DIBUTTON_SOCCERD_STEAL",
-    "DIBUTTON_SOCCERD_FAKE",
-    "DIBUTTON_SOCCERD_PLAYER",
-    "DIBUTTON_SOCCERD_SPECIAL",
-    "DIBUTTON_SOCCERD_SELECT",
-    "DIBUTTON_SOCCERD_SLIDE",
-    "DIBUTTON_SOCCERD_MENU",
-    "DIHATSWITCH_SOCCERD_GLANCE",
-    "DIBUTTON_SOCCERD_FOUL",
-    "DIBUTTON_SOCCERD_HEAD",
-    "DIBUTTON_SOCCERD_CLEAR",
-    "DIBUTTON_SOCCERD_GOALIECHARGE",
-    "DIBUTTON_SOCCERD_SUBSTITUTE",
-    "DIBUTTON_SOCCERD_LEFT_LINK",
-    "DIBUTTON_SOCCERD_RIGHT_LINK",
-    "DIBUTTON_SOCCERD_FORWARD_LINK",
-    "DIBUTTON_SOCCERD_BACK_LINK",
-    "DIBUTTON_SOCCERD_DEVICE",
-    "DIBUTTON_SOCCERD_PAUSE",
-    "DIVIRTUAL_SPORTS_RACQUET",
-    "DIAXIS_RACQUET_LATERAL",
-    "DIAXIS_RACQUET_MOVE",
-    "DIBUTTON_RACQUET_SWING",
-    "DIBUTTON_RACQUET_BACKSWING",
-    "DIBUTTON_RACQUET_SMASH",
-    "DIBUTTON_RACQUET_SPECIAL",
-    "DIBUTTON_RACQUET_SELECT",
-    "DIBUTTON_RACQUET_MENU",
-    "DIHATSWITCH_RACQUET_GLANCE",
-    "DIBUTTON_RACQUET_TIMEOUT",
-    "DIBUTTON_RACQUET_SUBSTITUTE",
-    "DIBUTTON_RACQUET_LEFT_LINK",
-    "DIBUTTON_RACQUET_RIGHT_LINK",
-    "DIBUTTON_RACQUET_FORWARD_LINK",
-    "DIBUTTON_RACQUET_BACK_LINK",
-    "DIBUTTON_RACQUET_DEVICE",
-    "DIBUTTON_RACQUET_PAUSE",
-    "DIVIRTUAL_ARCADE_SIDE2SIDE",
-    "DIAXIS_ARCADES_LATERAL",
-    "DIAXIS_ARCADES_MOVE",
-    "DIBUTTON_ARCADES_THROW",
-    "DIBUTTON_ARCADES_CARRY",
-    "DIBUTTON_ARCADES_ATTACK",
-    "DIBUTTON_ARCADES_SPECIAL",
-    "DIBUTTON_ARCADES_SELECT",
-    "DIBUTTON_ARCADES_MENU",
-    "DIHATSWITCH_ARCADES_VIEW",
-    "DIBUTTON_ARCADES_LEFT_LINK",
-    "DIBUTTON_ARCADES_RIGHT_LINK",
-    "DIBUTTON_ARCADES_FORWARD_LINK",
-    "DIBUTTON_ARCADES_BACK_LINK",
-    "DIBUTTON_ARCADES_VIEW_UP_LINK",
-    "DIBUTTON_ARCADES_VIEW_DOWN_LINK",
-    "DIBUTTON_ARCADES_VIEW_LEFT_LINK",
-    "DIBUTTON_ARCADES_VIEW_RIGHT_LINK",
-    "DIBUTTON_ARCADES_DEVICE",
-    "DIBUTTON_ARCADES_PAUSE",
-    "DIVIRTUAL_ARCADE_PLATFORM",
-    "DIAXIS_ARCADEP_LATERAL",
-    "DIAXIS_ARCADEP_MOVE",
-    "DIBUTTON_ARCADEP_JUMP",
-    "DIBUTTON_ARCADEP_FIRE",
-    "DIBUTTON_ARCADEP_CROUCH",
-    "DIBUTTON_ARCADEP_SPECIAL",
-    "DIBUTTON_ARCADEP_SELECT",
-    "DIBUTTON_ARCADEP_MENU",
-    "DIHATSWITCH_ARCADEP_VIEW",
-    "DIBUTTON_ARCADEP_FIRESECONDARY",
-    "DIBUTTON_ARCADEP_LEFT_LINK",
-    "DIBUTTON_ARCADEP_RIGHT_LINK",
-    "DIBUTTON_ARCADEP_FORWARD_LINK",
-    "DIBUTTON_ARCADEP_BACK_LINK",
-    "DIBUTTON_ARCADEP_VIEW_UP_LINK",
-    "DIBUTTON_ARCADEP_VIEW_DOWN_LINK",
-    "DIBUTTON_ARCADEP_VIEW_LEFT_LINK",
-    "DIBUTTON_ARCADEP_VIEW_RIGHT_LINK",
-    "DIBUTTON_ARCADEP_DEVICE",
-    "DIBUTTON_ARCADEP_PAUSE",
-    "DIVIRTUAL_CAD_2DCONTROL",
+    "DIAH_HWAPP",
+    "DIAH_HWDEFAULT",
+    "DIAH_UNMAPPED",
+    "DIAH_USERCONFIG",
+    "DIAPPIDFLAG_NOSIZE",
+    "DIAPPIDFLAG_NOTIME",
+    "DIAXIS_2DCONTROL_INOUT",
     "DIAXIS_2DCONTROL_LATERAL",
     "DIAXIS_2DCONTROL_MOVE",
-    "DIAXIS_2DCONTROL_INOUT",
-    "DIBUTTON_2DCONTROL_SELECT",
-    "DIBUTTON_2DCONTROL_SPECIAL1",
-    "DIBUTTON_2DCONTROL_SPECIAL",
-    "DIBUTTON_2DCONTROL_SPECIAL2",
-    "DIBUTTON_2DCONTROL_MENU",
-    "DIHATSWITCH_2DCONTROL_HATSWITCH",
     "DIAXIS_2DCONTROL_ROTATEZ",
-    "DIBUTTON_2DCONTROL_DISPLAY",
-    "DIBUTTON_2DCONTROL_DEVICE",
-    "DIBUTTON_2DCONTROL_PAUSE",
-    "DIVIRTUAL_CAD_3DCONTROL",
+    "DIAXIS_3DCONTROL_INOUT",
     "DIAXIS_3DCONTROL_LATERAL",
     "DIAXIS_3DCONTROL_MOVE",
-    "DIAXIS_3DCONTROL_INOUT",
-    "DIBUTTON_3DCONTROL_SELECT",
-    "DIBUTTON_3DCONTROL_SPECIAL1",
-    "DIBUTTON_3DCONTROL_SPECIAL",
-    "DIBUTTON_3DCONTROL_SPECIAL2",
-    "DIBUTTON_3DCONTROL_MENU",
-    "DIHATSWITCH_3DCONTROL_HATSWITCH",
     "DIAXIS_3DCONTROL_ROTATEX",
     "DIAXIS_3DCONTROL_ROTATEY",
     "DIAXIS_3DCONTROL_ROTATEZ",
-    "DIBUTTON_3DCONTROL_DISPLAY",
-    "DIBUTTON_3DCONTROL_DEVICE",
-    "DIBUTTON_3DCONTROL_PAUSE",
-    "DIVIRTUAL_CAD_FLYBY",
+    "DIAXIS_ANY_1",
+    "DIAXIS_ANY_2",
+    "DIAXIS_ANY_3",
+    "DIAXIS_ANY_4",
+    "DIAXIS_ANY_A_1",
+    "DIAXIS_ANY_A_2",
+    "DIAXIS_ANY_B_1",
+    "DIAXIS_ANY_B_2",
+    "DIAXIS_ANY_C_1",
+    "DIAXIS_ANY_C_2",
+    "DIAXIS_ANY_R_1",
+    "DIAXIS_ANY_R_2",
+    "DIAXIS_ANY_S_1",
+    "DIAXIS_ANY_S_2",
+    "DIAXIS_ANY_U_1",
+    "DIAXIS_ANY_U_2",
+    "DIAXIS_ANY_V_1",
+    "DIAXIS_ANY_V_2",
+    "DIAXIS_ANY_X_1",
+    "DIAXIS_ANY_X_2",
+    "DIAXIS_ANY_Y_1",
+    "DIAXIS_ANY_Y_2",
+    "DIAXIS_ANY_Z_1",
+    "DIAXIS_ANY_Z_2",
+    "DIAXIS_ARCADEP_LATERAL",
+    "DIAXIS_ARCADEP_MOVE",
+    "DIAXIS_ARCADES_LATERAL",
+    "DIAXIS_ARCADES_MOVE",
+    "DIAXIS_BASEBALLB_LATERAL",
+    "DIAXIS_BASEBALLB_MOVE",
+    "DIAXIS_BASEBALLF_LATERAL",
+    "DIAXIS_BASEBALLF_MOVE",
+    "DIAXIS_BASEBALLP_LATERAL",
+    "DIAXIS_BASEBALLP_MOVE",
+    "DIAXIS_BBALLD_LATERAL",
+    "DIAXIS_BBALLD_MOVE",
+    "DIAXIS_BBALLO_LATERAL",
+    "DIAXIS_BBALLO_MOVE",
+    "DIAXIS_BIKINGM_BRAKE",
+    "DIAXIS_BIKINGM_PEDAL",
+    "DIAXIS_BIKINGM_TURN",
+    "DIAXIS_BROWSER_LATERAL",
+    "DIAXIS_BROWSER_MOVE",
+    "DIAXIS_BROWSER_VIEW",
+    "DIAXIS_CADF_INOUT",
     "DIAXIS_CADF_LATERAL",
     "DIAXIS_CADF_MOVE",
-    "DIAXIS_CADF_INOUT",
-    "DIBUTTON_CADF_SELECT",
-    "DIBUTTON_CADF_SPECIAL1",
-    "DIBUTTON_CADF_SPECIAL",
-    "DIBUTTON_CADF_SPECIAL2",
-    "DIBUTTON_CADF_MENU",
-    "DIHATSWITCH_CADF_HATSWITCH",
     "DIAXIS_CADF_ROTATEX",
     "DIAXIS_CADF_ROTATEY",
     "DIAXIS_CADF_ROTATEZ",
-    "DIBUTTON_CADF_DISPLAY",
-    "DIBUTTON_CADF_DEVICE",
-    "DIBUTTON_CADF_PAUSE",
-    "DIVIRTUAL_CAD_MODEL",
+    "DIAXIS_CADM_INOUT",
     "DIAXIS_CADM_LATERAL",
     "DIAXIS_CADM_MOVE",
-    "DIAXIS_CADM_INOUT",
-    "DIBUTTON_CADM_SELECT",
-    "DIBUTTON_CADM_SPECIAL1",
-    "DIBUTTON_CADM_SPECIAL",
-    "DIBUTTON_CADM_SPECIAL2",
-    "DIBUTTON_CADM_MENU",
-    "DIHATSWITCH_CADM_HATSWITCH",
     "DIAXIS_CADM_ROTATEX",
     "DIAXIS_CADM_ROTATEY",
     "DIAXIS_CADM_ROTATEZ",
-    "DIBUTTON_CADM_DISPLAY",
-    "DIBUTTON_CADM_DEVICE",
-    "DIBUTTON_CADM_PAUSE",
-    "DIVIRTUAL_REMOTE_CONTROL",
+    "DIAXIS_DRIVINGC_ACCELERATE",
+    "DIAXIS_DRIVINGC_ACCEL_AND_BRAKE",
+    "DIAXIS_DRIVINGC_BRAKE",
+    "DIAXIS_DRIVINGC_STEER",
+    "DIAXIS_DRIVINGR_ACCELERATE",
+    "DIAXIS_DRIVINGR_ACCEL_AND_BRAKE",
+    "DIAXIS_DRIVINGR_BRAKE",
+    "DIAXIS_DRIVINGR_STEER",
+    "DIAXIS_DRIVINGT_ACCELERATE",
+    "DIAXIS_DRIVINGT_ACCEL_AND_BRAKE",
+    "DIAXIS_DRIVINGT_BARREL",
+    "DIAXIS_DRIVINGT_BRAKE",
+    "DIAXIS_DRIVINGT_ROTATE",
+    "DIAXIS_DRIVINGT_STEER",
+    "DIAXIS_FIGHTINGH_LATERAL",
+    "DIAXIS_FIGHTINGH_MOVE",
+    "DIAXIS_FIGHTINGH_ROTATE",
+    "DIAXIS_FISHING_LATERAL",
+    "DIAXIS_FISHING_MOVE",
+    "DIAXIS_FISHING_ROTATE",
+    "DIAXIS_FLYINGC_BANK",
+    "DIAXIS_FLYINGC_BRAKE",
+    "DIAXIS_FLYINGC_FLAPS",
+    "DIAXIS_FLYINGC_PITCH",
+    "DIAXIS_FLYINGC_RUDDER",
+    "DIAXIS_FLYINGC_THROTTLE",
+    "DIAXIS_FLYINGH_BANK",
+    "DIAXIS_FLYINGH_COLLECTIVE",
+    "DIAXIS_FLYINGH_PITCH",
+    "DIAXIS_FLYINGH_THROTTLE",
+    "DIAXIS_FLYINGH_TORQUE",
+    "DIAXIS_FLYINGM_BANK",
+    "DIAXIS_FLYINGM_BRAKE",
+    "DIAXIS_FLYINGM_FLAPS",
+    "DIAXIS_FLYINGM_PITCH",
+    "DIAXIS_FLYINGM_RUDDER",
+    "DIAXIS_FLYINGM_THROTTLE",
+    "DIAXIS_FOOTBALLD_LATERAL",
+    "DIAXIS_FOOTBALLD_MOVE",
+    "DIAXIS_FOOTBALLO_LATERAL",
+    "DIAXIS_FOOTBALLO_MOVE",
+    "DIAXIS_FOOTBALLQ_LATERAL",
+    "DIAXIS_FOOTBALLQ_MOVE",
+    "DIAXIS_FPS_LOOKUPDOWN",
+    "DIAXIS_FPS_MOVE",
+    "DIAXIS_FPS_ROTATE",
+    "DIAXIS_FPS_SIDESTEP",
+    "DIAXIS_GOLF_LATERAL",
+    "DIAXIS_GOLF_MOVE",
+    "DIAXIS_HOCKEYD_LATERAL",
+    "DIAXIS_HOCKEYD_MOVE",
+    "DIAXIS_HOCKEYG_LATERAL",
+    "DIAXIS_HOCKEYG_MOVE",
+    "DIAXIS_HOCKEYO_LATERAL",
+    "DIAXIS_HOCKEYO_MOVE",
+    "DIAXIS_HUNTING_LATERAL",
+    "DIAXIS_HUNTING_MOVE",
+    "DIAXIS_HUNTING_ROTATE",
+    "DIAXIS_MECHA_ROTATE",
+    "DIAXIS_MECHA_STEER",
+    "DIAXIS_MECHA_THROTTLE",
+    "DIAXIS_MECHA_TORSO",
+    "DIAXIS_RACQUET_LATERAL",
+    "DIAXIS_RACQUET_MOVE",
     "DIAXIS_REMOTE_SLIDER",
-    "DIBUTTON_REMOTE_MUTE",
-    "DIBUTTON_REMOTE_SELECT",
-    "DIBUTTON_REMOTE_PLAY",
-    "DIBUTTON_REMOTE_CUE",
-    "DIBUTTON_REMOTE_REVIEW",
-    "DIBUTTON_REMOTE_CHANGE",
-    "DIBUTTON_REMOTE_RECORD",
-    "DIBUTTON_REMOTE_MENU",
     "DIAXIS_REMOTE_SLIDER2",
-    "DIBUTTON_REMOTE_TV",
+    "DIAXIS_SKIING_SPEED",
+    "DIAXIS_SKIING_TURN",
+    "DIAXIS_SOCCERD_LATERAL",
+    "DIAXIS_SOCCERD_MOVE",
+    "DIAXIS_SOCCERO_BEND",
+    "DIAXIS_SOCCERO_LATERAL",
+    "DIAXIS_SOCCERO_MOVE",
+    "DIAXIS_SPACESIM_CLIMB",
+    "DIAXIS_SPACESIM_LATERAL",
+    "DIAXIS_SPACESIM_MOVE",
+    "DIAXIS_SPACESIM_ROTATE",
+    "DIAXIS_SPACESIM_THROTTLE",
+    "DIAXIS_STRATEGYR_LATERAL",
+    "DIAXIS_STRATEGYR_MOVE",
+    "DIAXIS_STRATEGYR_ROTATE",
+    "DIAXIS_STRATEGYT_LATERAL",
+    "DIAXIS_STRATEGYT_MOVE",
+    "DIAXIS_TPS_MOVE",
+    "DIAXIS_TPS_STEP",
+    "DIAXIS_TPS_TURN",
+    "DIA_APPFIXED",
+    "DIA_APPMAPPED",
+    "DIA_APPNOMAP",
+    "DIA_FORCEFEEDBACK",
+    "DIA_NORANGE",
+    "DIBUTTON_2DCONTROL_DEVICE",
+    "DIBUTTON_2DCONTROL_DISPLAY",
+    "DIBUTTON_2DCONTROL_MENU",
+    "DIBUTTON_2DCONTROL_PAUSE",
+    "DIBUTTON_2DCONTROL_SELECT",
+    "DIBUTTON_2DCONTROL_SPECIAL",
+    "DIBUTTON_2DCONTROL_SPECIAL1",
+    "DIBUTTON_2DCONTROL_SPECIAL2",
+    "DIBUTTON_3DCONTROL_DEVICE",
+    "DIBUTTON_3DCONTROL_DISPLAY",
+    "DIBUTTON_3DCONTROL_MENU",
+    "DIBUTTON_3DCONTROL_PAUSE",
+    "DIBUTTON_3DCONTROL_SELECT",
+    "DIBUTTON_3DCONTROL_SPECIAL",
+    "DIBUTTON_3DCONTROL_SPECIAL1",
+    "DIBUTTON_3DCONTROL_SPECIAL2",
+    "DIBUTTON_ARCADEP_BACK_LINK",
+    "DIBUTTON_ARCADEP_CROUCH",
+    "DIBUTTON_ARCADEP_DEVICE",
+    "DIBUTTON_ARCADEP_FIRE",
+    "DIBUTTON_ARCADEP_FIRESECONDARY",
+    "DIBUTTON_ARCADEP_FORWARD_LINK",
+    "DIBUTTON_ARCADEP_JUMP",
+    "DIBUTTON_ARCADEP_LEFT_LINK",
+    "DIBUTTON_ARCADEP_MENU",
+    "DIBUTTON_ARCADEP_PAUSE",
+    "DIBUTTON_ARCADEP_RIGHT_LINK",
+    "DIBUTTON_ARCADEP_SELECT",
+    "DIBUTTON_ARCADEP_SPECIAL",
+    "DIBUTTON_ARCADEP_VIEW_DOWN_LINK",
+    "DIBUTTON_ARCADEP_VIEW_LEFT_LINK",
+    "DIBUTTON_ARCADEP_VIEW_RIGHT_LINK",
+    "DIBUTTON_ARCADEP_VIEW_UP_LINK",
+    "DIBUTTON_ARCADES_ATTACK",
+    "DIBUTTON_ARCADES_BACK_LINK",
+    "DIBUTTON_ARCADES_CARRY",
+    "DIBUTTON_ARCADES_DEVICE",
+    "DIBUTTON_ARCADES_FORWARD_LINK",
+    "DIBUTTON_ARCADES_LEFT_LINK",
+    "DIBUTTON_ARCADES_MENU",
+    "DIBUTTON_ARCADES_PAUSE",
+    "DIBUTTON_ARCADES_RIGHT_LINK",
+    "DIBUTTON_ARCADES_SELECT",
+    "DIBUTTON_ARCADES_SPECIAL",
+    "DIBUTTON_ARCADES_THROW",
+    "DIBUTTON_ARCADES_VIEW_DOWN_LINK",
+    "DIBUTTON_ARCADES_VIEW_LEFT_LINK",
+    "DIBUTTON_ARCADES_VIEW_RIGHT_LINK",
+    "DIBUTTON_ARCADES_VIEW_UP_LINK",
+    "DIBUTTON_BASEBALLB_BACK_LINK",
+    "DIBUTTON_BASEBALLB_BOX",
+    "DIBUTTON_BASEBALLB_BUNT",
+    "DIBUTTON_BASEBALLB_BURST",
+    "DIBUTTON_BASEBALLB_CONTACT",
+    "DIBUTTON_BASEBALLB_DEVICE",
+    "DIBUTTON_BASEBALLB_FORWARD_LINK",
+    "DIBUTTON_BASEBALLB_LEFT_LINK",
+    "DIBUTTON_BASEBALLB_MENU",
+    "DIBUTTON_BASEBALLB_NORMAL",
+    "DIBUTTON_BASEBALLB_NOSTEAL",
+    "DIBUTTON_BASEBALLB_PAUSE",
+    "DIBUTTON_BASEBALLB_POWER",
+    "DIBUTTON_BASEBALLB_RIGHT_LINK",
+    "DIBUTTON_BASEBALLB_SELECT",
+    "DIBUTTON_BASEBALLB_SLIDE",
+    "DIBUTTON_BASEBALLB_STEAL",
+    "DIBUTTON_BASEBALLF_AIM_LEFT_LINK",
+    "DIBUTTON_BASEBALLF_AIM_RIGHT_LINK",
+    "DIBUTTON_BASEBALLF_BACK_LINK",
+    "DIBUTTON_BASEBALLF_BURST",
+    "DIBUTTON_BASEBALLF_DEVICE",
+    "DIBUTTON_BASEBALLF_DIVE",
+    "DIBUTTON_BASEBALLF_FORWARD_LINK",
+    "DIBUTTON_BASEBALLF_JUMP",
+    "DIBUTTON_BASEBALLF_MENU",
+    "DIBUTTON_BASEBALLF_NEAREST",
+    "DIBUTTON_BASEBALLF_PAUSE",
+    "DIBUTTON_BASEBALLF_SHIFTIN",
+    "DIBUTTON_BASEBALLF_SHIFTOUT",
+    "DIBUTTON_BASEBALLF_THROW1",
+    "DIBUTTON_BASEBALLF_THROW2",
+    "DIBUTTON_BASEBALLP_BACK_LINK",
+    "DIBUTTON_BASEBALLP_BASE",
+    "DIBUTTON_BASEBALLP_DEVICE",
+    "DIBUTTON_BASEBALLP_FAKE",
+    "DIBUTTON_BASEBALLP_FORWARD_LINK",
+    "DIBUTTON_BASEBALLP_LEFT_LINK",
+    "DIBUTTON_BASEBALLP_LOOK",
+    "DIBUTTON_BASEBALLP_MENU",
+    "DIBUTTON_BASEBALLP_PAUSE",
+    "DIBUTTON_BASEBALLP_PITCH",
+    "DIBUTTON_BASEBALLP_RIGHT_LINK",
+    "DIBUTTON_BASEBALLP_SELECT",
+    "DIBUTTON_BASEBALLP_THROW",
+    "DIBUTTON_BASEBALLP_WALK",
+    "DIBUTTON_BBALLD_BACK_LINK",
+    "DIBUTTON_BBALLD_BURST",
+    "DIBUTTON_BBALLD_DEVICE",
+    "DIBUTTON_BBALLD_FAKE",
+    "DIBUTTON_BBALLD_FORWARD_LINK",
+    "DIBUTTON_BBALLD_JUMP",
+    "DIBUTTON_BBALLD_LEFT_LINK",
+    "DIBUTTON_BBALLD_MENU",
+    "DIBUTTON_BBALLD_PAUSE",
+    "DIBUTTON_BBALLD_PLAY",
+    "DIBUTTON_BBALLD_PLAYER",
+    "DIBUTTON_BBALLD_RIGHT_LINK",
+    "DIBUTTON_BBALLD_SPECIAL",
+    "DIBUTTON_BBALLD_STEAL",
+    "DIBUTTON_BBALLD_SUBSTITUTE",
+    "DIBUTTON_BBALLD_TIMEOUT",
+    "DIBUTTON_BBALLO_BACK_LINK",
+    "DIBUTTON_BBALLO_BURST",
+    "DIBUTTON_BBALLO_CALL",
+    "DIBUTTON_BBALLO_DEVICE",
+    "DIBUTTON_BBALLO_DUNK",
+    "DIBUTTON_BBALLO_FAKE",
+    "DIBUTTON_BBALLO_FORWARD_LINK",
+    "DIBUTTON_BBALLO_JAB",
+    "DIBUTTON_BBALLO_LEFT_LINK",
+    "DIBUTTON_BBALLO_MENU",
+    "DIBUTTON_BBALLO_PASS",
+    "DIBUTTON_BBALLO_PAUSE",
+    "DIBUTTON_BBALLO_PLAY",
+    "DIBUTTON_BBALLO_PLAYER",
+    "DIBUTTON_BBALLO_POST",
+    "DIBUTTON_BBALLO_RIGHT_LINK",
+    "DIBUTTON_BBALLO_SCREEN",
+    "DIBUTTON_BBALLO_SHOOT",
+    "DIBUTTON_BBALLO_SPECIAL",
+    "DIBUTTON_BBALLO_SUBSTITUTE",
+    "DIBUTTON_BBALLO_TIMEOUT",
+    "DIBUTTON_BIKINGM_BRAKE_BUTTON_LINK",
+    "DIBUTTON_BIKINGM_CAMERA",
+    "DIBUTTON_BIKINGM_DEVICE",
+    "DIBUTTON_BIKINGM_FASTER_LINK",
+    "DIBUTTON_BIKINGM_JUMP",
+    "DIBUTTON_BIKINGM_LEFT_LINK",
+    "DIBUTTON_BIKINGM_MENU",
+    "DIBUTTON_BIKINGM_PAUSE",
+    "DIBUTTON_BIKINGM_RIGHT_LINK",
+    "DIBUTTON_BIKINGM_SELECT",
+    "DIBUTTON_BIKINGM_SLOWER_LINK",
+    "DIBUTTON_BIKINGM_SPECIAL1",
+    "DIBUTTON_BIKINGM_SPECIAL2",
+    "DIBUTTON_BIKINGM_ZOOM",
+    "DIBUTTON_BROWSER_DEVICE",
+    "DIBUTTON_BROWSER_FAVORITES",
+    "DIBUTTON_BROWSER_HISTORY",
+    "DIBUTTON_BROWSER_HOME",
+    "DIBUTTON_BROWSER_MENU",
+    "DIBUTTON_BROWSER_NEXT",
+    "DIBUTTON_BROWSER_PAUSE",
+    "DIBUTTON_BROWSER_PREVIOUS",
+    "DIBUTTON_BROWSER_PRINT",
+    "DIBUTTON_BROWSER_REFRESH",
+    "DIBUTTON_BROWSER_SEARCH",
+    "DIBUTTON_BROWSER_SELECT",
+    "DIBUTTON_BROWSER_STOP",
+    "DIBUTTON_CADF_DEVICE",
+    "DIBUTTON_CADF_DISPLAY",
+    "DIBUTTON_CADF_MENU",
+    "DIBUTTON_CADF_PAUSE",
+    "DIBUTTON_CADF_SELECT",
+    "DIBUTTON_CADF_SPECIAL",
+    "DIBUTTON_CADF_SPECIAL1",
+    "DIBUTTON_CADF_SPECIAL2",
+    "DIBUTTON_CADM_DEVICE",
+    "DIBUTTON_CADM_DISPLAY",
+    "DIBUTTON_CADM_MENU",
+    "DIBUTTON_CADM_PAUSE",
+    "DIBUTTON_CADM_SELECT",
+    "DIBUTTON_CADM_SPECIAL",
+    "DIBUTTON_CADM_SPECIAL1",
+    "DIBUTTON_CADM_SPECIAL2",
+    "DIBUTTON_DRIVINGC_ACCELERATE_LINK",
+    "DIBUTTON_DRIVINGC_AIDS",
+    "DIBUTTON_DRIVINGC_BRAKE",
+    "DIBUTTON_DRIVINGC_DASHBOARD",
+    "DIBUTTON_DRIVINGC_DEVICE",
+    "DIBUTTON_DRIVINGC_FIRE",
+    "DIBUTTON_DRIVINGC_FIRESECONDARY",
+    "DIBUTTON_DRIVINGC_GLANCE_LEFT_LINK",
+    "DIBUTTON_DRIVINGC_GLANCE_RIGHT_LINK",
+    "DIBUTTON_DRIVINGC_MENU",
+    "DIBUTTON_DRIVINGC_PAUSE",
+    "DIBUTTON_DRIVINGC_SHIFTDOWN",
+    "DIBUTTON_DRIVINGC_SHIFTUP",
+    "DIBUTTON_DRIVINGC_STEER_LEFT_LINK",
+    "DIBUTTON_DRIVINGC_STEER_RIGHT_LINK",
+    "DIBUTTON_DRIVINGC_TARGET",
+    "DIBUTTON_DRIVINGC_WEAPONS",
+    "DIBUTTON_DRIVINGR_ACCELERATE_LINK",
+    "DIBUTTON_DRIVINGR_AIDS",
+    "DIBUTTON_DRIVINGR_BOOST",
+    "DIBUTTON_DRIVINGR_BRAKE",
+    "DIBUTTON_DRIVINGR_DASHBOARD",
+    "DIBUTTON_DRIVINGR_DEVICE",
+    "DIBUTTON_DRIVINGR_GLANCE_LEFT_LINK",
+    "DIBUTTON_DRIVINGR_GLANCE_RIGHT_LINK",
+    "DIBUTTON_DRIVINGR_MAP",
+    "DIBUTTON_DRIVINGR_MENU",
+    "DIBUTTON_DRIVINGR_PAUSE",
+    "DIBUTTON_DRIVINGR_PIT",
+    "DIBUTTON_DRIVINGR_SHIFTDOWN",
+    "DIBUTTON_DRIVINGR_SHIFTUP",
+    "DIBUTTON_DRIVINGR_STEER_LEFT_LINK",
+    "DIBUTTON_DRIVINGR_STEER_RIGHT_LINK",
+    "DIBUTTON_DRIVINGR_VIEW",
+    "DIBUTTON_DRIVINGT_ACCELERATE_LINK",
+    "DIBUTTON_DRIVINGT_BARREL_DOWN_LINK",
+    "DIBUTTON_DRIVINGT_BARREL_UP_LINK",
+    "DIBUTTON_DRIVINGT_BRAKE",
+    "DIBUTTON_DRIVINGT_DASHBOARD",
+    "DIBUTTON_DRIVINGT_DEVICE",
+    "DIBUTTON_DRIVINGT_FIRE",
+    "DIBUTTON_DRIVINGT_FIRESECONDARY",
+    "DIBUTTON_DRIVINGT_GLANCE_LEFT_LINK",
+    "DIBUTTON_DRIVINGT_GLANCE_RIGHT_LINK",
+    "DIBUTTON_DRIVINGT_MENU",
+    "DIBUTTON_DRIVINGT_PAUSE",
+    "DIBUTTON_DRIVINGT_ROTATE_LEFT_LINK",
+    "DIBUTTON_DRIVINGT_ROTATE_RIGHT_LINK",
+    "DIBUTTON_DRIVINGT_STEER_LEFT_LINK",
+    "DIBUTTON_DRIVINGT_STEER_RIGHT_LINK",
+    "DIBUTTON_DRIVINGT_TARGET",
+    "DIBUTTON_DRIVINGT_VIEW",
+    "DIBUTTON_DRIVINGT_WEAPONS",
+    "DIBUTTON_FIGHTINGH_BACKWARD_LINK",
+    "DIBUTTON_FIGHTINGH_BLOCK",
+    "DIBUTTON_FIGHTINGH_CROUCH",
+    "DIBUTTON_FIGHTINGH_DEVICE",
+    "DIBUTTON_FIGHTINGH_DISPLAY",
+    "DIBUTTON_FIGHTINGH_DODGE",
+    "DIBUTTON_FIGHTINGH_FORWARD_LINK",
+    "DIBUTTON_FIGHTINGH_JUMP",
+    "DIBUTTON_FIGHTINGH_KICK",
+    "DIBUTTON_FIGHTINGH_LEFT_LINK",
+    "DIBUTTON_FIGHTINGH_MENU",
+    "DIBUTTON_FIGHTINGH_PAUSE",
+    "DIBUTTON_FIGHTINGH_PUNCH",
+    "DIBUTTON_FIGHTINGH_RIGHT_LINK",
+    "DIBUTTON_FIGHTINGH_SELECT",
+    "DIBUTTON_FIGHTINGH_SPECIAL1",
+    "DIBUTTON_FIGHTINGH_SPECIAL2",
+    "DIBUTTON_FISHING_BACK_LINK",
+    "DIBUTTON_FISHING_BAIT",
+    "DIBUTTON_FISHING_BINOCULAR",
+    "DIBUTTON_FISHING_CAST",
+    "DIBUTTON_FISHING_CROUCH",
+    "DIBUTTON_FISHING_DEVICE",
+    "DIBUTTON_FISHING_DISPLAY",
+    "DIBUTTON_FISHING_FORWARD_LINK",
+    "DIBUTTON_FISHING_JUMP",
+    "DIBUTTON_FISHING_LEFT_LINK",
+    "DIBUTTON_FISHING_MAP",
+    "DIBUTTON_FISHING_MENU",
+    "DIBUTTON_FISHING_PAUSE",
+    "DIBUTTON_FISHING_RIGHT_LINK",
+    "DIBUTTON_FISHING_ROTATE_LEFT_LINK",
+    "DIBUTTON_FISHING_ROTATE_RIGHT_LINK",
+    "DIBUTTON_FISHING_TYPE",
+    "DIBUTTON_FLYINGC_BRAKE_LINK",
+    "DIBUTTON_FLYINGC_DEVICE",
+    "DIBUTTON_FLYINGC_DISPLAY",
+    "DIBUTTON_FLYINGC_FASTER_LINK",
+    "DIBUTTON_FLYINGC_FLAPSDOWN",
+    "DIBUTTON_FLYINGC_FLAPSUP",
+    "DIBUTTON_FLYINGC_GEAR",
+    "DIBUTTON_FLYINGC_GLANCE_DOWN_LINK",
+    "DIBUTTON_FLYINGC_GLANCE_LEFT_LINK",
+    "DIBUTTON_FLYINGC_GLANCE_RIGHT_LINK",
+    "DIBUTTON_FLYINGC_GLANCE_UP_LINK",
+    "DIBUTTON_FLYINGC_MENU",
+    "DIBUTTON_FLYINGC_PAUSE",
+    "DIBUTTON_FLYINGC_SLOWER_LINK",
+    "DIBUTTON_FLYINGC_VIEW",
+    "DIBUTTON_FLYINGH_COUNTER",
+    "DIBUTTON_FLYINGH_DEVICE",
+    "DIBUTTON_FLYINGH_FASTER_LINK",
+    "DIBUTTON_FLYINGH_FIRE",
+    "DIBUTTON_FLYINGH_FIRESECONDARY",
+    "DIBUTTON_FLYINGH_GEAR",
+    "DIBUTTON_FLYINGH_GLANCE_DOWN_LINK",
+    "DIBUTTON_FLYINGH_GLANCE_LEFT_LINK",
+    "DIBUTTON_FLYINGH_GLANCE_RIGHT_LINK",
+    "DIBUTTON_FLYINGH_GLANCE_UP_LINK",
+    "DIBUTTON_FLYINGH_MENU",
+    "DIBUTTON_FLYINGH_PAUSE",
+    "DIBUTTON_FLYINGH_SLOWER_LINK",
+    "DIBUTTON_FLYINGH_TARGET",
+    "DIBUTTON_FLYINGH_VIEW",
+    "DIBUTTON_FLYINGH_WEAPONS",
+    "DIBUTTON_FLYINGM_BRAKE_LINK",
+    "DIBUTTON_FLYINGM_COUNTER",
+    "DIBUTTON_FLYINGM_DEVICE",
+    "DIBUTTON_FLYINGM_DISPLAY",
+    "DIBUTTON_FLYINGM_FASTER_LINK",
+    "DIBUTTON_FLYINGM_FIRE",
+    "DIBUTTON_FLYINGM_FIRESECONDARY",
+    "DIBUTTON_FLYINGM_FLAPSDOWN",
+    "DIBUTTON_FLYINGM_FLAPSUP",
+    "DIBUTTON_FLYINGM_GEAR",
+    "DIBUTTON_FLYINGM_GLANCE_DOWN_LINK",
+    "DIBUTTON_FLYINGM_GLANCE_LEFT_LINK",
+    "DIBUTTON_FLYINGM_GLANCE_RIGHT_LINK",
+    "DIBUTTON_FLYINGM_GLANCE_UP_LINK",
+    "DIBUTTON_FLYINGM_MENU",
+    "DIBUTTON_FLYINGM_PAUSE",
+    "DIBUTTON_FLYINGM_SLOWER_LINK",
+    "DIBUTTON_FLYINGM_TARGET",
+    "DIBUTTON_FLYINGM_VIEW",
+    "DIBUTTON_FLYINGM_WEAPONS",
+    "DIBUTTON_FOOTBALLD_AUDIBLE",
+    "DIBUTTON_FOOTBALLD_BACK_LINK",
+    "DIBUTTON_FOOTBALLD_BULLRUSH",
+    "DIBUTTON_FOOTBALLD_DEVICE",
+    "DIBUTTON_FOOTBALLD_FAKE",
+    "DIBUTTON_FOOTBALLD_FORWARD_LINK",
+    "DIBUTTON_FOOTBALLD_JUMP",
+    "DIBUTTON_FOOTBALLD_LEFT_LINK",
+    "DIBUTTON_FOOTBALLD_MENU",
+    "DIBUTTON_FOOTBALLD_PAUSE",
+    "DIBUTTON_FOOTBALLD_PLAY",
+    "DIBUTTON_FOOTBALLD_RIGHT_LINK",
+    "DIBUTTON_FOOTBALLD_RIP",
+    "DIBUTTON_FOOTBALLD_SELECT",
+    "DIBUTTON_FOOTBALLD_SPIN",
+    "DIBUTTON_FOOTBALLD_SUBSTITUTE",
+    "DIBUTTON_FOOTBALLD_SUPERTACKLE",
+    "DIBUTTON_FOOTBALLD_SWIM",
+    "DIBUTTON_FOOTBALLD_TACKLE",
+    "DIBUTTON_FOOTBALLD_ZOOM",
+    "DIBUTTON_FOOTBALLO_BACK_LINK",
+    "DIBUTTON_FOOTBALLO_DEVICE",
+    "DIBUTTON_FOOTBALLO_DIVE",
+    "DIBUTTON_FOOTBALLO_FORWARD_LINK",
+    "DIBUTTON_FOOTBALLO_JUKE",
+    "DIBUTTON_FOOTBALLO_JUMP",
+    "DIBUTTON_FOOTBALLO_LEFTARM",
+    "DIBUTTON_FOOTBALLO_LEFT_LINK",
+    "DIBUTTON_FOOTBALLO_MENU",
+    "DIBUTTON_FOOTBALLO_PAUSE",
+    "DIBUTTON_FOOTBALLO_RIGHTARM",
+    "DIBUTTON_FOOTBALLO_RIGHT_LINK",
+    "DIBUTTON_FOOTBALLO_SHOULDER",
+    "DIBUTTON_FOOTBALLO_SPIN",
+    "DIBUTTON_FOOTBALLO_SUBSTITUTE",
+    "DIBUTTON_FOOTBALLO_THROW",
+    "DIBUTTON_FOOTBALLO_TURBO",
+    "DIBUTTON_FOOTBALLO_ZOOM",
+    "DIBUTTON_FOOTBALLP_DEVICE",
+    "DIBUTTON_FOOTBALLP_HELP",
+    "DIBUTTON_FOOTBALLP_MENU",
+    "DIBUTTON_FOOTBALLP_PAUSE",
+    "DIBUTTON_FOOTBALLP_PLAY",
+    "DIBUTTON_FOOTBALLP_SELECT",
+    "DIBUTTON_FOOTBALLQ_AUDIBLE",
+    "DIBUTTON_FOOTBALLQ_BACK_LINK",
+    "DIBUTTON_FOOTBALLQ_DEVICE",
+    "DIBUTTON_FOOTBALLQ_FAKE",
+    "DIBUTTON_FOOTBALLQ_FAKESNAP",
+    "DIBUTTON_FOOTBALLQ_FORWARD_LINK",
+    "DIBUTTON_FOOTBALLQ_JUMP",
+    "DIBUTTON_FOOTBALLQ_LEFT_LINK",
+    "DIBUTTON_FOOTBALLQ_MENU",
+    "DIBUTTON_FOOTBALLQ_MOTION",
+    "DIBUTTON_FOOTBALLQ_PASS",
+    "DIBUTTON_FOOTBALLQ_PAUSE",
+    "DIBUTTON_FOOTBALLQ_RIGHT_LINK",
+    "DIBUTTON_FOOTBALLQ_SELECT",
+    "DIBUTTON_FOOTBALLQ_SLIDE",
+    "DIBUTTON_FOOTBALLQ_SNAP",
+    "DIBUTTON_FPS_APPLY",
+    "DIBUTTON_FPS_BACKWARD_LINK",
+    "DIBUTTON_FPS_CROUCH",
+    "DIBUTTON_FPS_DEVICE",
+    "DIBUTTON_FPS_DISPLAY",
+    "DIBUTTON_FPS_DODGE",
+    "DIBUTTON_FPS_FIRE",
+    "DIBUTTON_FPS_FIRESECONDARY",
+    "DIBUTTON_FPS_FORWARD_LINK",
+    "DIBUTTON_FPS_GLANCEL",
+    "DIBUTTON_FPS_GLANCER",
+    "DIBUTTON_FPS_GLANCE_DOWN_LINK",
+    "DIBUTTON_FPS_GLANCE_UP_LINK",
+    "DIBUTTON_FPS_JUMP",
+    "DIBUTTON_FPS_MENU",
+    "DIBUTTON_FPS_PAUSE",
+    "DIBUTTON_FPS_ROTATE_LEFT_LINK",
+    "DIBUTTON_FPS_ROTATE_RIGHT_LINK",
+    "DIBUTTON_FPS_SELECT",
+    "DIBUTTON_FPS_STEP_LEFT_LINK",
+    "DIBUTTON_FPS_STEP_RIGHT_LINK",
+    "DIBUTTON_FPS_STRAFE",
+    "DIBUTTON_FPS_WEAPONS",
+    "DIBUTTON_GOLF_BACK_LINK",
+    "DIBUTTON_GOLF_DEVICE",
+    "DIBUTTON_GOLF_DOWN",
+    "DIBUTTON_GOLF_FLYBY",
+    "DIBUTTON_GOLF_FORWARD_LINK",
+    "DIBUTTON_GOLF_LEFT_LINK",
+    "DIBUTTON_GOLF_MENU",
+    "DIBUTTON_GOLF_PAUSE",
+    "DIBUTTON_GOLF_RIGHT_LINK",
+    "DIBUTTON_GOLF_SELECT",
+    "DIBUTTON_GOLF_SUBSTITUTE",
+    "DIBUTTON_GOLF_SWING",
+    "DIBUTTON_GOLF_TERRAIN",
+    "DIBUTTON_GOLF_TIMEOUT",
+    "DIBUTTON_GOLF_UP",
+    "DIBUTTON_GOLF_ZOOM",
+    "DIBUTTON_HOCKEYD_BACK_LINK",
+    "DIBUTTON_HOCKEYD_BLOCK",
+    "DIBUTTON_HOCKEYD_BURST",
+    "DIBUTTON_HOCKEYD_DEVICE",
+    "DIBUTTON_HOCKEYD_FAKE",
+    "DIBUTTON_HOCKEYD_FORWARD_LINK",
+    "DIBUTTON_HOCKEYD_LEFT_LINK",
+    "DIBUTTON_HOCKEYD_MENU",
+    "DIBUTTON_HOCKEYD_PAUSE",
+    "DIBUTTON_HOCKEYD_PLAYER",
+    "DIBUTTON_HOCKEYD_RIGHT_LINK",
+    "DIBUTTON_HOCKEYD_STEAL",
+    "DIBUTTON_HOCKEYD_STRATEGY",
+    "DIBUTTON_HOCKEYD_SUBSTITUTE",
+    "DIBUTTON_HOCKEYD_TIMEOUT",
+    "DIBUTTON_HOCKEYD_ZOOM",
+    "DIBUTTON_HOCKEYG_BACK_LINK",
+    "DIBUTTON_HOCKEYG_BLOCK",
+    "DIBUTTON_HOCKEYG_DEVICE",
+    "DIBUTTON_HOCKEYG_FORWARD_LINK",
+    "DIBUTTON_HOCKEYG_LEFT_LINK",
+    "DIBUTTON_HOCKEYG_MENU",
+    "DIBUTTON_HOCKEYG_PASS",
+    "DIBUTTON_HOCKEYG_PAUSE",
+    "DIBUTTON_HOCKEYG_POKE",
+    "DIBUTTON_HOCKEYG_RIGHT_LINK",
+    "DIBUTTON_HOCKEYG_STEAL",
+    "DIBUTTON_HOCKEYG_STRATEGY",
+    "DIBUTTON_HOCKEYG_SUBSTITUTE",
+    "DIBUTTON_HOCKEYG_TIMEOUT",
+    "DIBUTTON_HOCKEYG_ZOOM",
+    "DIBUTTON_HOCKEYO_BACK_LINK",
+    "DIBUTTON_HOCKEYO_BURST",
+    "DIBUTTON_HOCKEYO_DEVICE",
+    "DIBUTTON_HOCKEYO_FAKE",
+    "DIBUTTON_HOCKEYO_FORWARD_LINK",
+    "DIBUTTON_HOCKEYO_LEFT_LINK",
+    "DIBUTTON_HOCKEYO_MENU",
+    "DIBUTTON_HOCKEYO_PASS",
+    "DIBUTTON_HOCKEYO_PAUSE",
+    "DIBUTTON_HOCKEYO_RIGHT_LINK",
+    "DIBUTTON_HOCKEYO_SHOOT",
+    "DIBUTTON_HOCKEYO_SPECIAL",
+    "DIBUTTON_HOCKEYO_STRATEGY",
+    "DIBUTTON_HOCKEYO_SUBSTITUTE",
+    "DIBUTTON_HOCKEYO_TIMEOUT",
+    "DIBUTTON_HOCKEYO_ZOOM",
+    "DIBUTTON_HUNTING_AIM",
+    "DIBUTTON_HUNTING_BACK_LINK",
+    "DIBUTTON_HUNTING_BINOCULAR",
+    "DIBUTTON_HUNTING_CALL",
+    "DIBUTTON_HUNTING_CROUCH",
+    "DIBUTTON_HUNTING_DEVICE",
+    "DIBUTTON_HUNTING_DISPLAY",
+    "DIBUTTON_HUNTING_FIRE",
+    "DIBUTTON_HUNTING_FIRESECONDARY",
+    "DIBUTTON_HUNTING_FORWARD_LINK",
+    "DIBUTTON_HUNTING_JUMP",
+    "DIBUTTON_HUNTING_LEFT_LINK",
+    "DIBUTTON_HUNTING_MAP",
+    "DIBUTTON_HUNTING_MENU",
+    "DIBUTTON_HUNTING_PAUSE",
+    "DIBUTTON_HUNTING_RIGHT_LINK",
+    "DIBUTTON_HUNTING_ROTATE_LEFT_LINK",
+    "DIBUTTON_HUNTING_ROTATE_RIGHT_LINK",
+    "DIBUTTON_HUNTING_SPECIAL",
+    "DIBUTTON_HUNTING_WEAPON",
+    "DIBUTTON_MECHA_BACK_LINK",
+    "DIBUTTON_MECHA_CENTER",
+    "DIBUTTON_MECHA_DEVICE",
+    "DIBUTTON_MECHA_FASTER_LINK",
+    "DIBUTTON_MECHA_FIRE",
+    "DIBUTTON_MECHA_FIRESECONDARY",
+    "DIBUTTON_MECHA_FORWARD_LINK",
+    "DIBUTTON_MECHA_JUMP",
+    "DIBUTTON_MECHA_LEFT_LINK",
+    "DIBUTTON_MECHA_MENU",
+    "DIBUTTON_MECHA_PAUSE",
+    "DIBUTTON_MECHA_REVERSE",
+    "DIBUTTON_MECHA_RIGHT_LINK",
+    "DIBUTTON_MECHA_ROTATE_LEFT_LINK",
+    "DIBUTTON_MECHA_ROTATE_RIGHT_LINK",
+    "DIBUTTON_MECHA_SLOWER_LINK",
+    "DIBUTTON_MECHA_TARGET",
+    "DIBUTTON_MECHA_VIEW",
+    "DIBUTTON_MECHA_WEAPONS",
+    "DIBUTTON_MECHA_ZOOM",
+    "DIBUTTON_RACQUET_BACKSWING",
+    "DIBUTTON_RACQUET_BACK_LINK",
+    "DIBUTTON_RACQUET_DEVICE",
+    "DIBUTTON_RACQUET_FORWARD_LINK",
+    "DIBUTTON_RACQUET_LEFT_LINK",
+    "DIBUTTON_RACQUET_MENU",
+    "DIBUTTON_RACQUET_PAUSE",
+    "DIBUTTON_RACQUET_RIGHT_LINK",
+    "DIBUTTON_RACQUET_SELECT",
+    "DIBUTTON_RACQUET_SMASH",
+    "DIBUTTON_RACQUET_SPECIAL",
+    "DIBUTTON_RACQUET_SUBSTITUTE",
+    "DIBUTTON_RACQUET_SWING",
+    "DIBUTTON_RACQUET_TIMEOUT",
+    "DIBUTTON_REMOTE_ADJUST",
     "DIBUTTON_REMOTE_CABLE",
     "DIBUTTON_REMOTE_CD",
-    "DIBUTTON_REMOTE_VCR",
-    "DIBUTTON_REMOTE_TUNER",
-    "DIBUTTON_REMOTE_DVD",
-    "DIBUTTON_REMOTE_ADJUST",
+    "DIBUTTON_REMOTE_CHANGE",
+    "DIBUTTON_REMOTE_CUE",
+    "DIBUTTON_REMOTE_DEVICE",
     "DIBUTTON_REMOTE_DIGIT0",
     "DIBUTTON_REMOTE_DIGIT1",
     "DIBUTTON_REMOTE_DIGIT2",
@@ -7027,317 +5616,1840 @@ __all__ = [
     "DIBUTTON_REMOTE_DIGIT7",
     "DIBUTTON_REMOTE_DIGIT8",
     "DIBUTTON_REMOTE_DIGIT9",
-    "DIBUTTON_REMOTE_DEVICE",
+    "DIBUTTON_REMOTE_DVD",
+    "DIBUTTON_REMOTE_MENU",
+    "DIBUTTON_REMOTE_MUTE",
     "DIBUTTON_REMOTE_PAUSE",
-    "DIVIRTUAL_BROWSER_CONTROL",
-    "DIAXIS_BROWSER_LATERAL",
-    "DIAXIS_BROWSER_MOVE",
-    "DIBUTTON_BROWSER_SELECT",
-    "DIAXIS_BROWSER_VIEW",
-    "DIBUTTON_BROWSER_REFRESH",
-    "DIBUTTON_BROWSER_MENU",
-    "DIBUTTON_BROWSER_SEARCH",
-    "DIBUTTON_BROWSER_STOP",
-    "DIBUTTON_BROWSER_HOME",
-    "DIBUTTON_BROWSER_FAVORITES",
-    "DIBUTTON_BROWSER_NEXT",
-    "DIBUTTON_BROWSER_PREVIOUS",
-    "DIBUTTON_BROWSER_HISTORY",
-    "DIBUTTON_BROWSER_PRINT",
-    "DIBUTTON_BROWSER_DEVICE",
-    "DIBUTTON_BROWSER_PAUSE",
-    "DIVIRTUAL_DRIVING_MECHA",
-    "DIAXIS_MECHA_STEER",
-    "DIAXIS_MECHA_TORSO",
-    "DIAXIS_MECHA_ROTATE",
-    "DIAXIS_MECHA_THROTTLE",
-    "DIBUTTON_MECHA_FIRE",
-    "DIBUTTON_MECHA_WEAPONS",
-    "DIBUTTON_MECHA_TARGET",
-    "DIBUTTON_MECHA_REVERSE",
-    "DIBUTTON_MECHA_ZOOM",
-    "DIBUTTON_MECHA_JUMP",
-    "DIBUTTON_MECHA_MENU",
-    "DIBUTTON_MECHA_CENTER",
+    "DIBUTTON_REMOTE_PLAY",
+    "DIBUTTON_REMOTE_RECORD",
+    "DIBUTTON_REMOTE_REVIEW",
+    "DIBUTTON_REMOTE_SELECT",
+    "DIBUTTON_REMOTE_TUNER",
+    "DIBUTTON_REMOTE_TV",
+    "DIBUTTON_REMOTE_VCR",
+    "DIBUTTON_SKIING_CAMERA",
+    "DIBUTTON_SKIING_CROUCH",
+    "DIBUTTON_SKIING_DEVICE",
+    "DIBUTTON_SKIING_FASTER_LINK",
+    "DIBUTTON_SKIING_JUMP",
+    "DIBUTTON_SKIING_LEFT_LINK",
+    "DIBUTTON_SKIING_MENU",
+    "DIBUTTON_SKIING_PAUSE",
+    "DIBUTTON_SKIING_RIGHT_LINK",
+    "DIBUTTON_SKIING_SELECT",
+    "DIBUTTON_SKIING_SLOWER_LINK",
+    "DIBUTTON_SKIING_SPECIAL1",
+    "DIBUTTON_SKIING_SPECIAL2",
+    "DIBUTTON_SKIING_ZOOM",
+    "DIBUTTON_SOCCERD_BACK_LINK",
+    "DIBUTTON_SOCCERD_BLOCK",
+    "DIBUTTON_SOCCERD_CLEAR",
+    "DIBUTTON_SOCCERD_DEVICE",
+    "DIBUTTON_SOCCERD_FAKE",
+    "DIBUTTON_SOCCERD_FORWARD_LINK",
+    "DIBUTTON_SOCCERD_FOUL",
+    "DIBUTTON_SOCCERD_GOALIECHARGE",
+    "DIBUTTON_SOCCERD_HEAD",
+    "DIBUTTON_SOCCERD_LEFT_LINK",
+    "DIBUTTON_SOCCERD_MENU",
+    "DIBUTTON_SOCCERD_PAUSE",
+    "DIBUTTON_SOCCERD_PLAYER",
+    "DIBUTTON_SOCCERD_RIGHT_LINK",
+    "DIBUTTON_SOCCERD_SELECT",
+    "DIBUTTON_SOCCERD_SLIDE",
+    "DIBUTTON_SOCCERD_SPECIAL",
+    "DIBUTTON_SOCCERD_STEAL",
+    "DIBUTTON_SOCCERD_SUBSTITUTE",
+    "DIBUTTON_SOCCERO_BACK_LINK",
+    "DIBUTTON_SOCCERO_CONTROL",
+    "DIBUTTON_SOCCERO_DEVICE",
+    "DIBUTTON_SOCCERO_FAKE",
+    "DIBUTTON_SOCCERO_FORWARD_LINK",
+    "DIBUTTON_SOCCERO_HEAD",
+    "DIBUTTON_SOCCERO_LEFT_LINK",
+    "DIBUTTON_SOCCERO_MENU",
+    "DIBUTTON_SOCCERO_PASS",
+    "DIBUTTON_SOCCERO_PASSTHRU",
+    "DIBUTTON_SOCCERO_PAUSE",
+    "DIBUTTON_SOCCERO_PLAYER",
+    "DIBUTTON_SOCCERO_RIGHT_LINK",
+    "DIBUTTON_SOCCERO_SELECT",
+    "DIBUTTON_SOCCERO_SHOOT",
+    "DIBUTTON_SOCCERO_SHOOTHIGH",
+    "DIBUTTON_SOCCERO_SHOOTLOW",
+    "DIBUTTON_SOCCERO_SPECIAL1",
+    "DIBUTTON_SOCCERO_SPRINT",
+    "DIBUTTON_SOCCERO_SUBSTITUTE",
+    "DIBUTTON_SPACESIM_BACKWARD_LINK",
+    "DIBUTTON_SPACESIM_DEVICE",
+    "DIBUTTON_SPACESIM_DISPLAY",
+    "DIBUTTON_SPACESIM_FASTER_LINK",
+    "DIBUTTON_SPACESIM_FIRE",
+    "DIBUTTON_SPACESIM_FIRESECONDARY",
+    "DIBUTTON_SPACESIM_FORWARD_LINK",
+    "DIBUTTON_SPACESIM_GEAR",
+    "DIBUTTON_SPACESIM_GLANCE_DOWN_LINK",
+    "DIBUTTON_SPACESIM_GLANCE_LEFT_LINK",
+    "DIBUTTON_SPACESIM_GLANCE_RIGHT_LINK",
+    "DIBUTTON_SPACESIM_GLANCE_UP_LINK",
+    "DIBUTTON_SPACESIM_LEFT_LINK",
+    "DIBUTTON_SPACESIM_LOWER",
+    "DIBUTTON_SPACESIM_MENU",
+    "DIBUTTON_SPACESIM_PAUSE",
+    "DIBUTTON_SPACESIM_RAISE",
+    "DIBUTTON_SPACESIM_RIGHT_LINK",
+    "DIBUTTON_SPACESIM_SLOWER_LINK",
+    "DIBUTTON_SPACESIM_TARGET",
+    "DIBUTTON_SPACESIM_TURN_LEFT_LINK",
+    "DIBUTTON_SPACESIM_TURN_RIGHT_LINK",
+    "DIBUTTON_SPACESIM_VIEW",
+    "DIBUTTON_SPACESIM_WEAPONS",
+    "DIBUTTON_STRATEGYR_APPLY",
+    "DIBUTTON_STRATEGYR_ATTACK",
+    "DIBUTTON_STRATEGYR_BACK_LINK",
+    "DIBUTTON_STRATEGYR_CAST",
+    "DIBUTTON_STRATEGYR_CROUCH",
+    "DIBUTTON_STRATEGYR_DEVICE",
+    "DIBUTTON_STRATEGYR_DISPLAY",
+    "DIBUTTON_STRATEGYR_FORWARD_LINK",
+    "DIBUTTON_STRATEGYR_GET",
+    "DIBUTTON_STRATEGYR_JUMP",
+    "DIBUTTON_STRATEGYR_LEFT_LINK",
+    "DIBUTTON_STRATEGYR_MAP",
+    "DIBUTTON_STRATEGYR_MENU",
+    "DIBUTTON_STRATEGYR_PAUSE",
+    "DIBUTTON_STRATEGYR_RIGHT_LINK",
+    "DIBUTTON_STRATEGYR_ROTATE_LEFT_LINK",
+    "DIBUTTON_STRATEGYR_ROTATE_RIGHT_LINK",
+    "DIBUTTON_STRATEGYR_SELECT",
+    "DIBUTTON_STRATEGYT_APPLY",
+    "DIBUTTON_STRATEGYT_BACK_LINK",
+    "DIBUTTON_STRATEGYT_DEVICE",
+    "DIBUTTON_STRATEGYT_DISPLAY",
+    "DIBUTTON_STRATEGYT_FORWARD_LINK",
+    "DIBUTTON_STRATEGYT_INSTRUCT",
+    "DIBUTTON_STRATEGYT_LEFT_LINK",
+    "DIBUTTON_STRATEGYT_MAP",
+    "DIBUTTON_STRATEGYT_MENU",
+    "DIBUTTON_STRATEGYT_PAUSE",
+    "DIBUTTON_STRATEGYT_RIGHT_LINK",
+    "DIBUTTON_STRATEGYT_SELECT",
+    "DIBUTTON_STRATEGYT_TEAM",
+    "DIBUTTON_STRATEGYT_TURN",
+    "DIBUTTON_STRATEGYT_ZOOM",
+    "DIBUTTON_TPS_ACTION",
+    "DIBUTTON_TPS_BACKWARD_LINK",
+    "DIBUTTON_TPS_DEVICE",
+    "DIBUTTON_TPS_DODGE",
+    "DIBUTTON_TPS_FORWARD_LINK",
+    "DIBUTTON_TPS_GLANCE_DOWN_LINK",
+    "DIBUTTON_TPS_GLANCE_LEFT_LINK",
+    "DIBUTTON_TPS_GLANCE_RIGHT_LINK",
+    "DIBUTTON_TPS_GLANCE_UP_LINK",
+    "DIBUTTON_TPS_INVENTORY",
+    "DIBUTTON_TPS_JUMP",
+    "DIBUTTON_TPS_MENU",
+    "DIBUTTON_TPS_PAUSE",
+    "DIBUTTON_TPS_RUN",
+    "DIBUTTON_TPS_SELECT",
+    "DIBUTTON_TPS_STEPLEFT",
+    "DIBUTTON_TPS_STEPRIGHT",
+    "DIBUTTON_TPS_TURN_LEFT_LINK",
+    "DIBUTTON_TPS_TURN_RIGHT_LINK",
+    "DIBUTTON_TPS_USE",
+    "DIBUTTON_TPS_VIEW",
+    "DICD_DEFAULT",
+    "DICD_EDIT",
+    "DICOLORSET",
+    "DICONDITION",
+    "DICONFIGUREDEVICESPARAMSA",
+    "DICONFIGUREDEVICESPARAMSW",
+    "DICONSTANTFORCE",
+    "DICUSTOMFORCE",
+    "DIDAL_BOTTOMALIGNED",
+    "DIDAL_CENTERED",
+    "DIDAL_LEFTALIGNED",
+    "DIDAL_MIDDLE",
+    "DIDAL_RIGHTALIGNED",
+    "DIDAL_TOPALIGNED",
+    "DIDATAFORMAT",
+    "DIDBAM_DEFAULT",
+    "DIDBAM_HWDEFAULTS",
+    "DIDBAM_INITIALIZE",
+    "DIDBAM_PRESERVE",
+    "DIDC_ALIAS",
+    "DIDC_ATTACHED",
+    "DIDC_DEADBAND",
+    "DIDC_EMULATED",
+    "DIDC_FFATTACK",
+    "DIDC_FFFADE",
+    "DIDC_FORCEFEEDBACK",
+    "DIDC_HIDDEN",
+    "DIDC_PHANTOM",
+    "DIDC_POLLEDDATAFORMAT",
+    "DIDC_POLLEDDEVICE",
+    "DIDC_POSNEGCOEFFICIENTS",
+    "DIDC_POSNEGSATURATION",
+    "DIDC_SATURATION",
+    "DIDC_STARTDELAY",
+    "DIDEVCAPS",
+    "DIDEVCAPS_DX3",
+    "DIDEVICEIMAGEINFOA",
+    "DIDEVICEIMAGEINFOHEADERA",
+    "DIDEVICEIMAGEINFOHEADERW",
+    "DIDEVICEIMAGEINFOW",
+    "DIDEVICEINSTANCEA",
+    "DIDEVICEINSTANCEW",
+    "DIDEVICEINSTANCE_DX3A",
+    "DIDEVICEINSTANCE_DX3W",
+    "DIDEVICEOBJECTDATA",
+    "DIDEVICEOBJECTDATA_DX3",
+    "DIDEVICEOBJECTINSTANCEA",
+    "DIDEVICEOBJECTINSTANCEW",
+    "DIDEVICEOBJECTINSTANCE_DX3A",
+    "DIDEVICEOBJECTINSTANCE_DX3W",
+    "DIDEVICESTATE",
+    "DIDEVTYPEJOYSTICK_FLIGHTSTICK",
+    "DIDEVTYPEJOYSTICK_GAMEPAD",
+    "DIDEVTYPEJOYSTICK_HEADTRACKER",
+    "DIDEVTYPEJOYSTICK_RUDDER",
+    "DIDEVTYPEJOYSTICK_TRADITIONAL",
+    "DIDEVTYPEJOYSTICK_UNKNOWN",
+    "DIDEVTYPEJOYSTICK_WHEEL",
+    "DIDEVTYPEKEYBOARD_J3100",
+    "DIDEVTYPEKEYBOARD_JAPAN106",
+    "DIDEVTYPEKEYBOARD_JAPANAX",
+    "DIDEVTYPEKEYBOARD_NEC98",
+    "DIDEVTYPEKEYBOARD_NEC98106",
+    "DIDEVTYPEKEYBOARD_NEC98LAPTOP",
+    "DIDEVTYPEKEYBOARD_NOKIA1050",
+    "DIDEVTYPEKEYBOARD_NOKIA9140",
+    "DIDEVTYPEKEYBOARD_OLIVETTI",
+    "DIDEVTYPEKEYBOARD_PCAT",
+    "DIDEVTYPEKEYBOARD_PCENH",
+    "DIDEVTYPEKEYBOARD_PCXT",
+    "DIDEVTYPEKEYBOARD_UNKNOWN",
+    "DIDEVTYPEMOUSE_FINGERSTICK",
+    "DIDEVTYPEMOUSE_TOUCHPAD",
+    "DIDEVTYPEMOUSE_TRACKBALL",
+    "DIDEVTYPEMOUSE_TRADITIONAL",
+    "DIDEVTYPEMOUSE_UNKNOWN",
+    "DIDEVTYPE_DEVICE",
+    "DIDEVTYPE_HID",
+    "DIDEVTYPE_JOYSTICK",
+    "DIDEVTYPE_KEYBOARD",
+    "DIDEVTYPE_MOUSE",
+    "DIDFT_ABSAXIS",
+    "DIDFT_ALIAS",
+    "DIDFT_ALL",
+    "DIDFT_ANYINSTANCE",
+    "DIDFT_AXIS",
+    "DIDFT_BUTTON",
+    "DIDFT_COLLECTION",
+    "DIDFT_FFACTUATOR",
+    "DIDFT_FFEFFECTTRIGGER",
+    "DIDFT_INSTANCEMASK",
+    "DIDFT_NOCOLLECTION",
+    "DIDFT_NODATA",
+    "DIDFT_OUTPUT",
+    "DIDFT_POV",
+    "DIDFT_PSHBUTTON",
+    "DIDFT_RELAXIS",
+    "DIDFT_TGLBUTTON",
+    "DIDFT_VENDORDEFINED",
+    "DIDF_ABSAXIS",
+    "DIDF_RELAXIS",
+    "DIDIFT_CONFIGURATION",
+    "DIDIFT_DELETE",
+    "DIDIFT_OVERLAY",
+    "DIDOI_ASPECTACCEL",
+    "DIDOI_ASPECTFORCE",
+    "DIDOI_ASPECTMASK",
+    "DIDOI_ASPECTPOSITION",
+    "DIDOI_ASPECTVELOCITY",
+    "DIDOI_FFACTUATOR",
+    "DIDOI_FFEFFECTTRIGGER",
+    "DIDOI_GUIDISUSAGE",
+    "DIDOI_POLLED",
+    "DIDRIVERVERSIONS",
+    "DIDSAM_DEFAULT",
+    "DIDSAM_FORCESAVE",
+    "DIDSAM_NOUSER",
+    "DIEB_NOTRIGGER",
+    "DIEDBSFL_ATTACHEDONLY",
+    "DIEDBSFL_AVAILABLEDEVICES",
+    "DIEDBSFL_FORCEFEEDBACK",
+    "DIEDBSFL_MULTIMICEKEYBOARDS",
+    "DIEDBSFL_NONGAMINGDEVICES",
+    "DIEDBSFL_THISUSER",
+    "DIEDBSFL_VALID",
+    "DIEDBS_MAPPEDPRI1",
+    "DIEDBS_MAPPEDPRI2",
+    "DIEDBS_NEWDEVICE",
+    "DIEDBS_RECENTDEVICE",
+    "DIEDFL_ALLDEVICES",
+    "DIEDFL_ATTACHEDONLY",
+    "DIEDFL_FORCEFEEDBACK",
+    "DIEDFL_INCLUDEALIASES",
+    "DIEDFL_INCLUDEHIDDEN",
+    "DIEDFL_INCLUDEPHANTOMS",
+    "DIEFFECT",
+    "DIEFFECTATTRIBUTES",
+    "DIEFFECTINFOA",
+    "DIEFFECTINFOW",
+    "DIEFFECT_DX5",
+    "DIEFFESCAPE",
+    "DIEFF_CARTESIAN",
+    "DIEFF_OBJECTIDS",
+    "DIEFF_OBJECTOFFSETS",
+    "DIEFF_POLAR",
+    "DIEFF_SPHERICAL",
+    "DIEFT_ALL",
+    "DIEFT_CONDITION",
+    "DIEFT_CONSTANTFORCE",
+    "DIEFT_CUSTOMFORCE",
+    "DIEFT_DEADBAND",
+    "DIEFT_FFATTACK",
+    "DIEFT_FFFADE",
+    "DIEFT_HARDWARE",
+    "DIEFT_PERIODIC",
+    "DIEFT_POSNEGCOEFFICIENTS",
+    "DIEFT_POSNEGSATURATION",
+    "DIEFT_RAMPFORCE",
+    "DIEFT_SATURATION",
+    "DIEFT_STARTDELAY",
+    "DIEGES_EMULATED",
+    "DIEGES_PLAYING",
+    "DIENUM_CONTINUE",
+    "DIENUM_STOP",
+    "DIENVELOPE",
+    "DIEP_ALLPARAMS",
+    "DIEP_ALLPARAMS_DX5",
+    "DIEP_AXES",
+    "DIEP_DIRECTION",
+    "DIEP_DURATION",
+    "DIEP_ENVELOPE",
+    "DIEP_GAIN",
+    "DIEP_NODOWNLOAD",
+    "DIEP_NORESTART",
+    "DIEP_SAMPLEPERIOD",
+    "DIEP_START",
+    "DIEP_STARTDELAY",
+    "DIEP_TRIGGERBUTTON",
+    "DIEP_TRIGGERREPEATINTERVAL",
+    "DIEP_TYPESPECIFICPARAMS",
+    "DIERR_ACQUIRED",
+    "DIERR_ALREADYINITIALIZED",
+    "DIERR_BADDRIVERVER",
+    "DIERR_BADINF",
+    "DIERR_BETADIRECTINPUTVERSION",
+    "DIERR_CANCELLED",
+    "DIERR_DEVICEFULL",
+    "DIERR_DEVICENOTREG",
+    "DIERR_DRIVERFIRST",
+    "DIERR_DRIVERLAST",
+    "DIERR_EFFECTPLAYING",
+    "DIERR_GENERIC",
+    "DIERR_HANDLEEXISTS",
+    "DIERR_HASEFFECTS",
+    "DIERR_INCOMPLETEEFFECT",
+    "DIERR_INPUTLOST",
+    "DIERR_INSUFFICIENTPRIVS",
+    "DIERR_INVALIDCLASSINSTALLER",
+    "DIERR_INVALIDPARAM",
+    "DIERR_MAPFILEFAIL",
+    "DIERR_MOREDATA",
+    "DIERR_NOAGGREGATION",
+    "DIERR_NOINTERFACE",
+    "DIERR_NOMOREITEMS",
+    "DIERR_NOTACQUIRED",
+    "DIERR_NOTBUFFERED",
+    "DIERR_NOTDOWNLOADED",
+    "DIERR_NOTEXCLUSIVEACQUIRED",
+    "DIERR_NOTFOUND",
+    "DIERR_NOTINITIALIZED",
+    "DIERR_OBJECTNOTFOUND",
+    "DIERR_OLDDIRECTINPUTVERSION",
+    "DIERR_OTHERAPPHASPRIO",
+    "DIERR_OUTOFMEMORY",
+    "DIERR_READONLY",
+    "DIERR_REPORTFULL",
+    "DIERR_UNPLUGGED",
+    "DIERR_UNSUPPORTED",
+    "DIES_NODOWNLOAD",
+    "DIES_SOLO",
+    "DIFEF_DEFAULT",
+    "DIFEF_INCLUDENONSTANDARD",
+    "DIFEF_MODIFYIFNEEDED",
+    "DIFFDEVICEATTRIBUTES",
+    "DIFFOBJECTATTRIBUTES",
+    "DIFILEEFFECT",
+    "DIGDD_PEEK",
+    "DIGFFS_ACTUATORSOFF",
+    "DIGFFS_ACTUATORSON",
+    "DIGFFS_DEVICELOST",
+    "DIGFFS_EMPTY",
+    "DIGFFS_PAUSED",
+    "DIGFFS_POWEROFF",
+    "DIGFFS_POWERON",
+    "DIGFFS_SAFETYSWITCHOFF",
+    "DIGFFS_SAFETYSWITCHON",
+    "DIGFFS_STOPPED",
+    "DIGFFS_USERFFSWITCHOFF",
+    "DIGFFS_USERFFSWITCHON",
+    "DIHATSWITCH_2DCONTROL_HATSWITCH",
+    "DIHATSWITCH_3DCONTROL_HATSWITCH",
+    "DIHATSWITCH_ARCADEP_VIEW",
+    "DIHATSWITCH_ARCADES_VIEW",
+    "DIHATSWITCH_BBALLD_GLANCE",
+    "DIHATSWITCH_BBALLO_GLANCE",
+    "DIHATSWITCH_BIKINGM_SCROLL",
+    "DIHATSWITCH_CADF_HATSWITCH",
+    "DIHATSWITCH_CADM_HATSWITCH",
+    "DIHATSWITCH_DRIVINGC_GLANCE",
+    "DIHATSWITCH_DRIVINGR_GLANCE",
+    "DIHATSWITCH_DRIVINGT_GLANCE",
+    "DIHATSWITCH_FIGHTINGH_SLIDE",
+    "DIHATSWITCH_FISHING_GLANCE",
+    "DIHATSWITCH_FLYINGC_GLANCE",
+    "DIHATSWITCH_FLYINGH_GLANCE",
+    "DIHATSWITCH_FLYINGM_GLANCE",
+    "DIHATSWITCH_FPS_GLANCE",
+    "DIHATSWITCH_GOLF_SCROLL",
+    "DIHATSWITCH_HOCKEYD_SCROLL",
+    "DIHATSWITCH_HOCKEYG_SCROLL",
+    "DIHATSWITCH_HOCKEYO_SCROLL",
+    "DIHATSWITCH_HUNTING_GLANCE",
     "DIHATSWITCH_MECHA_GLANCE",
-    "DIBUTTON_MECHA_VIEW",
-    "DIBUTTON_MECHA_FIRESECONDARY",
-    "DIBUTTON_MECHA_LEFT_LINK",
-    "DIBUTTON_MECHA_RIGHT_LINK",
-    "DIBUTTON_MECHA_FORWARD_LINK",
-    "DIBUTTON_MECHA_BACK_LINK",
-    "DIBUTTON_MECHA_ROTATE_LEFT_LINK",
-    "DIBUTTON_MECHA_ROTATE_RIGHT_LINK",
-    "DIBUTTON_MECHA_FASTER_LINK",
-    "DIBUTTON_MECHA_SLOWER_LINK",
-    "DIBUTTON_MECHA_DEVICE",
-    "DIBUTTON_MECHA_PAUSE",
-    "DIAXIS_ANY_X_1",
-    "DIAXIS_ANY_X_2",
-    "DIAXIS_ANY_Y_1",
-    "DIAXIS_ANY_Y_2",
-    "DIAXIS_ANY_Z_1",
-    "DIAXIS_ANY_Z_2",
-    "DIAXIS_ANY_R_1",
-    "DIAXIS_ANY_R_2",
-    "DIAXIS_ANY_U_1",
-    "DIAXIS_ANY_U_2",
-    "DIAXIS_ANY_V_1",
-    "DIAXIS_ANY_V_2",
-    "DIAXIS_ANY_A_1",
-    "DIAXIS_ANY_A_2",
-    "DIAXIS_ANY_B_1",
-    "DIAXIS_ANY_B_2",
-    "DIAXIS_ANY_C_1",
-    "DIAXIS_ANY_C_2",
-    "DIAXIS_ANY_S_1",
-    "DIAXIS_ANY_S_2",
-    "DIAXIS_ANY_1",
-    "DIAXIS_ANY_2",
-    "DIAXIS_ANY_3",
-    "DIAXIS_ANY_4",
+    "DIHATSWITCH_RACQUET_GLANCE",
+    "DIHATSWITCH_SKIING_GLANCE",
+    "DIHATSWITCH_SOCCERD_GLANCE",
+    "DIHATSWITCH_SOCCERO_GLANCE",
+    "DIHATSWITCH_SPACESIM_GLANCE",
+    "DIHATSWITCH_STRATEGYR_GLANCE",
+    "DIHATSWITCH_TPS_GLANCE",
+    "DIHIDFFINITINFO",
+    "DIJC_CALLOUT",
+    "DIJC_GAIN",
+    "DIJC_GUIDINSTANCE",
+    "DIJC_REGHWCONFIGTYPE",
+    "DIJC_WDMGAMEPORT",
+    "DIJOYCONFIG",
+    "DIJOYCONFIG_DX5",
+    "DIJOYSTATE",
+    "DIJOYSTATE2",
+    "DIJOYTYPEINFO",
+    "DIJOYTYPEINFO_DX5",
+    "DIJOYTYPEINFO_DX6",
+    "DIJOYUSERVALUES",
+    "DIJU_GAMEPORTEMULATOR",
+    "DIJU_GLOBALDRIVER",
+    "DIJU_USERVALUES",
+    "DIKEYBOARD_0",
+    "DIKEYBOARD_1",
+    "DIKEYBOARD_2",
+    "DIKEYBOARD_3",
+    "DIKEYBOARD_4",
+    "DIKEYBOARD_5",
+    "DIKEYBOARD_6",
+    "DIKEYBOARD_7",
+    "DIKEYBOARD_8",
+    "DIKEYBOARD_9",
+    "DIKEYBOARD_A",
+    "DIKEYBOARD_ABNT_C1",
+    "DIKEYBOARD_ABNT_C2",
+    "DIKEYBOARD_ADD",
+    "DIKEYBOARD_APOSTROPHE",
+    "DIKEYBOARD_APPS",
+    "DIKEYBOARD_AT",
+    "DIKEYBOARD_AX",
+    "DIKEYBOARD_B",
+    "DIKEYBOARD_BACK",
+    "DIKEYBOARD_BACKSLASH",
+    "DIKEYBOARD_C",
+    "DIKEYBOARD_CALCULATOR",
+    "DIKEYBOARD_CAPITAL",
+    "DIKEYBOARD_COLON",
+    "DIKEYBOARD_COMMA",
+    "DIKEYBOARD_CONVERT",
+    "DIKEYBOARD_D",
+    "DIKEYBOARD_DECIMAL",
+    "DIKEYBOARD_DELETE",
+    "DIKEYBOARD_DIVIDE",
+    "DIKEYBOARD_DOWN",
+    "DIKEYBOARD_E",
+    "DIKEYBOARD_END",
+    "DIKEYBOARD_EQUALS",
+    "DIKEYBOARD_ESCAPE",
+    "DIKEYBOARD_F",
+    "DIKEYBOARD_F1",
+    "DIKEYBOARD_F10",
+    "DIKEYBOARD_F11",
+    "DIKEYBOARD_F12",
+    "DIKEYBOARD_F13",
+    "DIKEYBOARD_F14",
+    "DIKEYBOARD_F15",
+    "DIKEYBOARD_F2",
+    "DIKEYBOARD_F3",
+    "DIKEYBOARD_F4",
+    "DIKEYBOARD_F5",
+    "DIKEYBOARD_F6",
+    "DIKEYBOARD_F7",
+    "DIKEYBOARD_F8",
+    "DIKEYBOARD_F9",
+    "DIKEYBOARD_G",
+    "DIKEYBOARD_GRAVE",
+    "DIKEYBOARD_H",
+    "DIKEYBOARD_HOME",
+    "DIKEYBOARD_I",
+    "DIKEYBOARD_INSERT",
+    "DIKEYBOARD_J",
+    "DIKEYBOARD_K",
+    "DIKEYBOARD_KANA",
+    "DIKEYBOARD_KANJI",
+    "DIKEYBOARD_L",
+    "DIKEYBOARD_LBRACKET",
+    "DIKEYBOARD_LCONTROL",
+    "DIKEYBOARD_LEFT",
+    "DIKEYBOARD_LMENU",
+    "DIKEYBOARD_LSHIFT",
+    "DIKEYBOARD_LWIN",
+    "DIKEYBOARD_M",
+    "DIKEYBOARD_MAIL",
+    "DIKEYBOARD_MEDIASELECT",
+    "DIKEYBOARD_MEDIASTOP",
+    "DIKEYBOARD_MINUS",
+    "DIKEYBOARD_MULTIPLY",
+    "DIKEYBOARD_MUTE",
+    "DIKEYBOARD_MYCOMPUTER",
+    "DIKEYBOARD_N",
+    "DIKEYBOARD_NEXT",
+    "DIKEYBOARD_NEXTTRACK",
+    "DIKEYBOARD_NOCONVERT",
+    "DIKEYBOARD_NUMLOCK",
+    "DIKEYBOARD_NUMPAD0",
+    "DIKEYBOARD_NUMPAD1",
+    "DIKEYBOARD_NUMPAD2",
+    "DIKEYBOARD_NUMPAD3",
+    "DIKEYBOARD_NUMPAD4",
+    "DIKEYBOARD_NUMPAD5",
+    "DIKEYBOARD_NUMPAD6",
+    "DIKEYBOARD_NUMPAD7",
+    "DIKEYBOARD_NUMPAD8",
+    "DIKEYBOARD_NUMPAD9",
+    "DIKEYBOARD_NUMPADCOMMA",
+    "DIKEYBOARD_NUMPADENTER",
+    "DIKEYBOARD_NUMPADEQUALS",
+    "DIKEYBOARD_O",
+    "DIKEYBOARD_OEM_102",
+    "DIKEYBOARD_P",
+    "DIKEYBOARD_PAUSE",
+    "DIKEYBOARD_PERIOD",
+    "DIKEYBOARD_PLAYPAUSE",
+    "DIKEYBOARD_POWER",
+    "DIKEYBOARD_PREVTRACK",
+    "DIKEYBOARD_PRIOR",
+    "DIKEYBOARD_Q",
+    "DIKEYBOARD_R",
+    "DIKEYBOARD_RBRACKET",
+    "DIKEYBOARD_RCONTROL",
+    "DIKEYBOARD_RETURN",
+    "DIKEYBOARD_RIGHT",
+    "DIKEYBOARD_RMENU",
+    "DIKEYBOARD_RSHIFT",
+    "DIKEYBOARD_RWIN",
+    "DIKEYBOARD_S",
+    "DIKEYBOARD_SCROLL",
+    "DIKEYBOARD_SEMICOLON",
+    "DIKEYBOARD_SLASH",
+    "DIKEYBOARD_SLEEP",
+    "DIKEYBOARD_SPACE",
+    "DIKEYBOARD_STOP",
+    "DIKEYBOARD_SUBTRACT",
+    "DIKEYBOARD_SYSRQ",
+    "DIKEYBOARD_T",
+    "DIKEYBOARD_TAB",
+    "DIKEYBOARD_U",
+    "DIKEYBOARD_UNDERLINE",
+    "DIKEYBOARD_UNLABELED",
+    "DIKEYBOARD_UP",
+    "DIKEYBOARD_V",
+    "DIKEYBOARD_VOLUMEDOWN",
+    "DIKEYBOARD_VOLUMEUP",
+    "DIKEYBOARD_W",
+    "DIKEYBOARD_WAKE",
+    "DIKEYBOARD_WEBBACK",
+    "DIKEYBOARD_WEBFAVORITES",
+    "DIKEYBOARD_WEBFORWARD",
+    "DIKEYBOARD_WEBHOME",
+    "DIKEYBOARD_WEBREFRESH",
+    "DIKEYBOARD_WEBSEARCH",
+    "DIKEYBOARD_WEBSTOP",
+    "DIKEYBOARD_X",
+    "DIKEYBOARD_Y",
+    "DIKEYBOARD_YEN",
+    "DIKEYBOARD_Z",
+    "DIK_0",
+    "DIK_1",
+    "DIK_2",
+    "DIK_3",
+    "DIK_4",
+    "DIK_5",
+    "DIK_6",
+    "DIK_7",
+    "DIK_8",
+    "DIK_9",
+    "DIK_A",
+    "DIK_ABNT_C1",
+    "DIK_ABNT_C2",
+    "DIK_ADD",
+    "DIK_APOSTROPHE",
+    "DIK_APPS",
+    "DIK_AT",
+    "DIK_AX",
+    "DIK_B",
+    "DIK_BACK",
+    "DIK_BACKSLASH",
+    "DIK_BACKSPACE",
+    "DIK_C",
+    "DIK_CALCULATOR",
+    "DIK_CAPITAL",
+    "DIK_CAPSLOCK",
+    "DIK_CIRCUMFLEX",
+    "DIK_COLON",
+    "DIK_COMMA",
+    "DIK_CONVERT",
+    "DIK_D",
+    "DIK_DECIMAL",
+    "DIK_DELETE",
+    "DIK_DIVIDE",
+    "DIK_DOWN",
+    "DIK_DOWNARROW",
+    "DIK_E",
+    "DIK_END",
+    "DIK_EQUALS",
+    "DIK_ESCAPE",
+    "DIK_F",
+    "DIK_F1",
+    "DIK_F10",
+    "DIK_F11",
+    "DIK_F12",
+    "DIK_F13",
+    "DIK_F14",
+    "DIK_F15",
+    "DIK_F2",
+    "DIK_F3",
+    "DIK_F4",
+    "DIK_F5",
+    "DIK_F6",
+    "DIK_F7",
+    "DIK_F8",
+    "DIK_F9",
+    "DIK_G",
+    "DIK_GRAVE",
+    "DIK_H",
+    "DIK_HOME",
+    "DIK_I",
+    "DIK_INSERT",
+    "DIK_J",
+    "DIK_K",
+    "DIK_KANA",
+    "DIK_KANJI",
+    "DIK_L",
+    "DIK_LALT",
+    "DIK_LBRACKET",
+    "DIK_LCONTROL",
+    "DIK_LEFT",
+    "DIK_LEFTARROW",
+    "DIK_LMENU",
+    "DIK_LSHIFT",
+    "DIK_LWIN",
+    "DIK_M",
+    "DIK_MAIL",
+    "DIK_MEDIASELECT",
+    "DIK_MEDIASTOP",
+    "DIK_MINUS",
+    "DIK_MULTIPLY",
+    "DIK_MUTE",
+    "DIK_MYCOMPUTER",
+    "DIK_N",
+    "DIK_NEXT",
+    "DIK_NEXTTRACK",
+    "DIK_NOCONVERT",
+    "DIK_NUMLOCK",
+    "DIK_NUMPAD0",
+    "DIK_NUMPAD1",
+    "DIK_NUMPAD2",
+    "DIK_NUMPAD3",
+    "DIK_NUMPAD4",
+    "DIK_NUMPAD5",
+    "DIK_NUMPAD6",
+    "DIK_NUMPAD7",
+    "DIK_NUMPAD8",
+    "DIK_NUMPAD9",
+    "DIK_NUMPADCOMMA",
+    "DIK_NUMPADENTER",
+    "DIK_NUMPADEQUALS",
+    "DIK_NUMPADMINUS",
+    "DIK_NUMPADPERIOD",
+    "DIK_NUMPADPLUS",
+    "DIK_NUMPADSLASH",
+    "DIK_NUMPADSTAR",
+    "DIK_O",
+    "DIK_OEM_102",
+    "DIK_P",
+    "DIK_PAUSE",
+    "DIK_PERIOD",
+    "DIK_PGDN",
+    "DIK_PGUP",
+    "DIK_PLAYPAUSE",
+    "DIK_POWER",
+    "DIK_PREVTRACK",
+    "DIK_PRIOR",
+    "DIK_Q",
+    "DIK_R",
+    "DIK_RALT",
+    "DIK_RBRACKET",
+    "DIK_RCONTROL",
+    "DIK_RETURN",
+    "DIK_RIGHT",
+    "DIK_RIGHTARROW",
+    "DIK_RMENU",
+    "DIK_RSHIFT",
+    "DIK_RWIN",
+    "DIK_S",
+    "DIK_SCROLL",
+    "DIK_SEMICOLON",
+    "DIK_SLASH",
+    "DIK_SLEEP",
+    "DIK_SPACE",
+    "DIK_STOP",
+    "DIK_SUBTRACT",
+    "DIK_SYSRQ",
+    "DIK_T",
+    "DIK_TAB",
+    "DIK_U",
+    "DIK_UNDERLINE",
+    "DIK_UNLABELED",
+    "DIK_UP",
+    "DIK_UPARROW",
+    "DIK_V",
+    "DIK_VOLUMEDOWN",
+    "DIK_VOLUMEUP",
+    "DIK_W",
+    "DIK_WAKE",
+    "DIK_WEBBACK",
+    "DIK_WEBFAVORITES",
+    "DIK_WEBFORWARD",
+    "DIK_WEBHOME",
+    "DIK_WEBREFRESH",
+    "DIK_WEBSEARCH",
+    "DIK_WEBSTOP",
+    "DIK_X",
+    "DIK_Y",
+    "DIK_YEN",
+    "DIK_Z",
+    "DIMOUSESTATE",
+    "DIMOUSESTATE2",
+    "DIMSGWP_DX8APPSTART",
+    "DIMSGWP_DX8MAPPERAPPSTART",
+    "DIMSGWP_NEWAPPSTART",
+    "DIOBJECTATTRIBUTES",
+    "DIOBJECTCALIBRATION",
+    "DIOBJECTDATAFORMAT",
+    "DIPERIODIC",
+    "DIPH_BYID",
+    "DIPH_BYOFFSET",
+    "DIPH_BYUSAGE",
+    "DIPH_DEVICE",
+    "DIPOVCALIBRATION",
     "DIPOV_ANY_1",
     "DIPOV_ANY_2",
     "DIPOV_ANY_3",
     "DIPOV_ANY_4",
-    "JOY_PASSDRIVERDATA",
-    "JOY_HWS_ISHEADTRACKER",
-    "JOY_HWS_ISGAMEPORTDRIVER",
-    "JOY_HWS_ISANALOGPORTDRIVER",
-    "JOY_HWS_AUTOLOAD",
-    "JOY_HWS_NODEVNODE",
-    "JOY_HWS_ISGAMEPORTBUS",
-    "JOY_HWS_GAMEPORTBUSBUSY",
-    "JOY_US_VOLATILE",
-    "JOY_OEMPOLL_PASSDRIVERDATA",
-    "BUTTON_BIT_POWER",
-    "BUTTON_BIT_WINDOWS",
-    "BUTTON_BIT_VOLUMEUP",
-    "BUTTON_BIT_VOLUMEDOWN",
-    "BUTTON_BIT_ROTATION_LOCK",
-    "BUTTON_BIT_BACK",
-    "BUTTON_BIT_SEARCH",
-    "BUTTON_BIT_CAMERAFOCUS",
-    "BUTTON_BIT_CAMERASHUTTER",
-    "BUTTON_BIT_RINGERTOGGLE",
-    "BUTTON_BIT_HEADSET",
-    "BUTTON_BIT_HWKBDEPLOY",
-    "BUTTON_BIT_CAMERALENS",
-    "BUTTON_BIT_OEMCUSTOM",
-    "BUTTON_BIT_OEMCUSTOM2",
-    "BUTTON_BIT_OEMCUSTOM3",
-    "BUTTON_BIT_ALLBUTTONSMASK",
-    "IOCTL_BUTTON_SET_ENABLED_ON_IDLE",
-    "IOCTL_BUTTON_GET_ENABLED_ON_IDLE",
-    "DICONSTANTFORCE",
-    "DIRAMPFORCE",
-    "DIPERIODIC",
-    "DICONDITION",
-    "DICUSTOMFORCE",
-    "DIENVELOPE",
-    "DIEFFECT_DX5",
-    "DIEFFECT",
-    "DIFILEEFFECT",
-    "LPDIENUMEFFECTSINFILECALLBACK",
-    "DIEFFESCAPE",
-    "IDirectInputEffect",
-    "DIDEVCAPS_DX3",
-    "DIDEVCAPS",
-    "DIOBJECTDATAFORMAT",
-    "DIDATAFORMAT",
-    "DIACTIONA",
-    "DIACTIONW",
-    "DIACTIONFORMATA",
-    "DIACTIONFORMATW",
-    "DICOLORSET",
-    "DICONFIGUREDEVICESPARAMSA",
-    "DICONFIGUREDEVICESPARAMSW",
-    "DIDEVICEIMAGEINFOA",
-    "DIDEVICEIMAGEINFOW",
-    "DIDEVICEIMAGEINFOHEADERA",
-    "DIDEVICEIMAGEINFOHEADERW",
-    "DIDEVICEOBJECTINSTANCE_DX3A",
-    "DIDEVICEOBJECTINSTANCE_DX3W",
-    "DIDEVICEOBJECTINSTANCEA",
-    "DIDEVICEOBJECTINSTANCEW",
-    "LPDIENUMDEVICEOBJECTSCALLBACKA",
-    "LPDIENUMDEVICEOBJECTSCALLBACKW",
-    "DIPROPHEADER",
+    "DIPROPAUTOCENTER_OFF",
+    "DIPROPAUTOCENTER_ON",
+    "DIPROPAXISMODE_ABS",
+    "DIPROPAXISMODE_REL",
+    "DIPROPCAL",
+    "DIPROPCALIBRATIONMODE_COOKED",
+    "DIPROPCALIBRATIONMODE_RAW",
+    "DIPROPCALPOV",
+    "DIPROPCPOINTS",
     "DIPROPDWORD",
+    "DIPROPGUIDANDPATH",
+    "DIPROPHEADER",
     "DIPROPPOINTER",
     "DIPROPRANGE",
-    "DIPROPCAL",
-    "DIPROPCALPOV",
-    "DIPROPGUIDANDPATH",
     "DIPROPSTRING",
-    "CPOINT",
-    "DIPROPCPOINTS",
-    "DIDEVICEOBJECTDATA_DX3",
-    "DIDEVICEOBJECTDATA",
-    "DIDEVICEINSTANCE_DX3A",
-    "DIDEVICEINSTANCE_DX3W",
-    "DIDEVICEINSTANCEA",
-    "DIDEVICEINSTANCEW",
-    "IDirectInputDeviceW",
-    "IDirectInputDeviceA",
-    "DIEFFECTINFOA",
-    "DIEFFECTINFOW",
-    "LPDIENUMEFFECTSCALLBACKA",
-    "LPDIENUMEFFECTSCALLBACKW",
-    "LPDIENUMCREATEDEFFECTOBJECTSCALLBACK",
-    "IDirectInputDevice2W",
-    "IDirectInputDevice2A",
-    "IDirectInputDevice7W",
-    "IDirectInputDevice7A",
-    "IDirectInputDevice8W",
-    "IDirectInputDevice8A",
-    "DIMOUSESTATE",
-    "DIMOUSESTATE2",
-    "DIJOYSTATE",
-    "DIJOYSTATE2",
-    "LPDIENUMDEVICESCALLBACKA",
-    "LPDIENUMDEVICESCALLBACKW",
-    "LPDICONFIGUREDEVICESCALLBACK",
-    "LPDIENUMDEVICESBYSEMANTICSCBA",
-    "LPDIENUMDEVICESBYSEMANTICSCBW",
-    "IDirectInputW",
-    "IDirectInputA",
-    "IDirectInput2W",
-    "IDirectInput2A",
-    "IDirectInput7W",
-    "IDirectInput7A",
-    "IDirectInput8W",
-    "IDirectInput8A",
-    "LPFNSHOWJOYCPL",
-    "DIOBJECTATTRIBUTES",
-    "DIFFOBJECTATTRIBUTES",
-    "DIOBJECTCALIBRATION",
-    "DIPOVCALIBRATION",
-    "DIEFFECTATTRIBUTES",
-    "DIFFDEVICEATTRIBUTES",
-    "DIDRIVERVERSIONS",
-    "DIDEVICESTATE",
-    "DIHIDFFINITINFO",
-    "IDirectInputEffectDriver",
-    "JOYPOS",
-    "JOYRANGE",
-    "JOYREGUSERVALUES",
-    "JOYREGHWSETTINGS",
-    "JOYREGHWVALUES",
-    "JOYREGHWCONFIG",
-    "JOYCALIBRATE",
-    "LPDIJOYTYPECALLBACK",
-    "DIJOYTYPEINFO_DX5",
-    "DIJOYTYPEINFO_DX6",
-    "DIJOYTYPEINFO",
-    "DIJOYCONFIG_DX5",
-    "DIJOYCONFIG",
-    "DIJOYUSERVALUES",
-    "IDirectInputJoyConfig",
-    "IDirectInputJoyConfig8",
-    "KEYBOARD_INPUT_DATA",
-    "KEYBOARD_TYPEMATIC_PARAMETERS",
-    "KEYBOARD_ID",
-    "KEYBOARD_ATTRIBUTES",
-    "KEYBOARD_EXTENDED_ATTRIBUTES",
-    "KEYBOARD_INDICATOR_PARAMETERS",
-    "INDICATOR_LIST",
-    "KEYBOARD_INDICATOR_TRANSLATION",
-    "KEYBOARD_UNIT_ID_PARAMETER",
-    "KEYBOARD_IME_STATUS",
-    "MOUSE_INPUT_DATA",
-    "MOUSE_ATTRIBUTES",
-    "MOUSE_UNIT_ID_PARAMETER",
-    "HIDP_REPORT_TYPE",
-    "HidP_Input",
-    "HidP_Output",
-    "HidP_Feature",
-    "USAGE_AND_PAGE",
-    "HIDP_BUTTON_CAPS",
-    "HIDP_VALUE_CAPS",
-    "HIDP_LINK_COLLECTION_NODE",
-    "_HIDP_PREPARSED_DATA",
-    "HIDP_CAPS",
-    "HIDP_DATA",
-    "HIDP_UNKNOWN_TOKEN",
-    "HIDP_EXTENDED_ATTRIBUTES",
-    "HIDP_BUTTON_ARRAY_DATA",
-    "HIDP_KEYBOARD_DIRECTION",
-    "HidP_Keyboard_Break",
-    "HidP_Keyboard_Make",
-    "HIDP_KEYBOARD_MODIFIER_STATE",
-    "PHIDP_INSERT_SCANCODES",
-    "PFN_HidP_GetVersionInternal",
-    "HIDD_CONFIGURATION",
-    "HIDD_ATTRIBUTES",
-    "HID_XFER_PACKET",
-    "HID_COLLECTION_INFORMATION",
-    "HID_DRIVER_CONFIG",
+    "DIRAMPFORCE",
+    "DIRECTINPUT_HEADER_VERSION",
+    "DIRECTINPUT_NOTIFICATION_MSGSTRING",
+    "DIRECTINPUT_NOTIFICATION_MSGSTRINGA",
+    "DIRECTINPUT_NOTIFICATION_MSGSTRINGW",
+    "DIRECTINPUT_REGSTR_KEY_LASTAPP",
+    "DIRECTINPUT_REGSTR_KEY_LASTAPPA",
+    "DIRECTINPUT_REGSTR_KEY_LASTAPPW",
+    "DIRECTINPUT_REGSTR_KEY_LASTMAPAPP",
+    "DIRECTINPUT_REGSTR_KEY_LASTMAPAPPA",
+    "DIRECTINPUT_REGSTR_KEY_LASTMAPAPPW",
+    "DIRECTINPUT_REGSTR_VAL_APPIDFLAG",
+    "DIRECTINPUT_REGSTR_VAL_APPIDFLAGA",
+    "DIRECTINPUT_REGSTR_VAL_APPIDFLAGW",
+    "DIRECTINPUT_REGSTR_VAL_ID",
+    "DIRECTINPUT_REGSTR_VAL_IDA",
+    "DIRECTINPUT_REGSTR_VAL_IDW",
+    "DIRECTINPUT_REGSTR_VAL_LASTSTART",
+    "DIRECTINPUT_REGSTR_VAL_LASTSTARTA",
+    "DIRECTINPUT_REGSTR_VAL_LASTSTARTW",
+    "DIRECTINPUT_REGSTR_VAL_MAPPER",
+    "DIRECTINPUT_REGSTR_VAL_MAPPERA",
+    "DIRECTINPUT_REGSTR_VAL_MAPPERW",
+    "DIRECTINPUT_REGSTR_VAL_NAME",
+    "DIRECTINPUT_REGSTR_VAL_NAMEA",
+    "DIRECTINPUT_REGSTR_VAL_NAMEW",
+    "DIRECTINPUT_REGSTR_VAL_VERSION",
+    "DIRECTINPUT_REGSTR_VAL_VERSIONA",
+    "DIRECTINPUT_REGSTR_VAL_VERSIONW",
+    "DIRECTINPUT_VERSION",
+    "DISCL_BACKGROUND",
+    "DISCL_EXCLUSIVE",
+    "DISCL_FOREGROUND",
+    "DISCL_NONEXCLUSIVE",
+    "DISCL_NOWINKEY",
+    "DISDD_CONTINUE",
+    "DISFFC_CONTINUE",
+    "DISFFC_PAUSE",
+    "DISFFC_RESET",
+    "DISFFC_SETACTUATORSOFF",
+    "DISFFC_SETACTUATORSON",
+    "DISFFC_STOPALL",
+    "DITC_CALLOUT",
+    "DITC_CLSIDCONFIG",
+    "DITC_DISPLAYNAME",
+    "DITC_FLAGS1",
+    "DITC_FLAGS2",
+    "DITC_HARDWAREID",
+    "DITC_MAPFILE",
+    "DITC_REGHWSETTINGS",
+    "DIVIRTUAL_ARCADE_PLATFORM",
+    "DIVIRTUAL_ARCADE_SIDE2SIDE",
+    "DIVIRTUAL_BROWSER_CONTROL",
+    "DIVIRTUAL_CAD_2DCONTROL",
+    "DIVIRTUAL_CAD_3DCONTROL",
+    "DIVIRTUAL_CAD_FLYBY",
+    "DIVIRTUAL_CAD_MODEL",
+    "DIVIRTUAL_DRIVING_COMBAT",
+    "DIVIRTUAL_DRIVING_MECHA",
+    "DIVIRTUAL_DRIVING_RACE",
+    "DIVIRTUAL_DRIVING_TANK",
+    "DIVIRTUAL_FIGHTING_FPS",
+    "DIVIRTUAL_FIGHTING_HAND2HAND",
+    "DIVIRTUAL_FIGHTING_THIRDPERSON",
+    "DIVIRTUAL_FLYING_CIVILIAN",
+    "DIVIRTUAL_FLYING_HELICOPTER",
+    "DIVIRTUAL_FLYING_MILITARY",
+    "DIVIRTUAL_REMOTE_CONTROL",
+    "DIVIRTUAL_SPACESIM",
+    "DIVIRTUAL_SPORTS_BASEBALL_BAT",
+    "DIVIRTUAL_SPORTS_BASEBALL_FIELD",
+    "DIVIRTUAL_SPORTS_BASEBALL_PITCH",
+    "DIVIRTUAL_SPORTS_BASKETBALL_DEFENSE",
+    "DIVIRTUAL_SPORTS_BASKETBALL_OFFENSE",
+    "DIVIRTUAL_SPORTS_BIKING_MOUNTAIN",
+    "DIVIRTUAL_SPORTS_FISHING",
+    "DIVIRTUAL_SPORTS_FOOTBALL_DEFENSE",
+    "DIVIRTUAL_SPORTS_FOOTBALL_FIELD",
+    "DIVIRTUAL_SPORTS_FOOTBALL_OFFENSE",
+    "DIVIRTUAL_SPORTS_FOOTBALL_QBCK",
+    "DIVIRTUAL_SPORTS_GOLF",
+    "DIVIRTUAL_SPORTS_HOCKEY_DEFENSE",
+    "DIVIRTUAL_SPORTS_HOCKEY_GOALIE",
+    "DIVIRTUAL_SPORTS_HOCKEY_OFFENSE",
+    "DIVIRTUAL_SPORTS_HUNTING",
+    "DIVIRTUAL_SPORTS_RACQUET",
+    "DIVIRTUAL_SPORTS_SKIING",
+    "DIVIRTUAL_SPORTS_SOCCER_DEFENSE",
+    "DIVIRTUAL_SPORTS_SOCCER_OFFENSE",
+    "DIVIRTUAL_STRATEGY_ROLEPLAYING",
+    "DIVIRTUAL_STRATEGY_TURN",
+    "DIVOICE_ALL",
+    "DIVOICE_CHANNEL1",
+    "DIVOICE_CHANNEL2",
+    "DIVOICE_CHANNEL3",
+    "DIVOICE_CHANNEL4",
+    "DIVOICE_CHANNEL5",
+    "DIVOICE_CHANNEL6",
+    "DIVOICE_CHANNEL7",
+    "DIVOICE_CHANNEL8",
+    "DIVOICE_PLAYBACKMUTE",
+    "DIVOICE_RECORDMUTE",
+    "DIVOICE_TEAM",
+    "DIVOICE_TRANSMIT",
+    "DIVOICE_VOICECOMMAND",
+    "DI_BUFFEROVERFLOW",
+    "DI_DEGREES",
+    "DI_DOWNLOADSKIPPED",
+    "DI_EFFECTRESTARTED",
+    "DI_FFNOMINALMAX",
+    "DI_NOEFFECT",
+    "DI_NOTATTACHED",
+    "DI_OK",
+    "DI_POLLEDDEVICE",
+    "DI_PROPNOEFFECT",
+    "DI_SECONDS",
+    "DI_SETTINGSNOTSAVED",
+    "DI_TRUNCATED",
+    "DI_TRUNCATEDANDRESTARTED",
+    "DI_WRITEPROTECT",
+    "DirectInput8Create",
     "GPIOBUTTONS_BUTTON_TYPE",
-    "GPIO_BUTTON_POWER",
-    "GPIO_BUTTON_WINDOWS",
-    "GPIO_BUTTON_VOLUME_UP",
-    "GPIO_BUTTON_VOLUME_DOWN",
-    "GPIO_BUTTON_ROTATION_LOCK",
     "GPIO_BUTTON_BACK",
-    "GPIO_BUTTON_SEARCH",
     "GPIO_BUTTON_CAMERA_FOCUS",
+    "GPIO_BUTTON_CAMERA_LENS",
     "GPIO_BUTTON_CAMERA_SHUTTER",
-    "GPIO_BUTTON_RINGER_TOGGLE",
+    "GPIO_BUTTON_COUNT",
+    "GPIO_BUTTON_COUNT_MIN",
     "GPIO_BUTTON_HEADSET",
     "GPIO_BUTTON_HWKB_DEPLOY",
-    "GPIO_BUTTON_CAMERA_LENS",
     "GPIO_BUTTON_OEM_CUSTOM",
     "GPIO_BUTTON_OEM_CUSTOM2",
     "GPIO_BUTTON_OEM_CUSTOM3",
-    "GPIO_BUTTON_COUNT_MIN",
-    "GPIO_BUTTON_COUNT",
-    "INPUT_BUTTON_ENABLE_INFO",
-    "DirectInput8Create",
-    "joyConfigChanged",
-    "HidP_GetCaps",
-    "HidP_GetLinkCollectionNodes",
-    "HidP_GetSpecificButtonCaps",
+    "GPIO_BUTTON_POWER",
+    "GPIO_BUTTON_RINGER_TOGGLE",
+    "GPIO_BUTTON_ROTATION_LOCK",
+    "GPIO_BUTTON_SEARCH",
+    "GPIO_BUTTON_VOLUME_DOWN",
+    "GPIO_BUTTON_VOLUME_UP",
+    "GPIO_BUTTON_WINDOWS",
+    "GUID_Button",
+    "GUID_ConstantForce",
+    "GUID_CustomForce",
+    "GUID_DEVINTERFACE_HID",
+    "GUID_DEVINTERFACE_KEYBOARD",
+    "GUID_DEVINTERFACE_MOUSE",
+    "GUID_Damper",
+    "GUID_Friction",
+    "GUID_HIDClass",
+    "GUID_HID_INTERFACE_HIDPARSE",
+    "GUID_HID_INTERFACE_NOTIFY",
+    "GUID_Inertia",
+    "GUID_Joystick",
+    "GUID_Key",
+    "GUID_KeyboardClass",
+    "GUID_MediaClass",
+    "GUID_MouseClass",
+    "GUID_POV",
+    "GUID_RampForce",
+    "GUID_RxAxis",
+    "GUID_RyAxis",
+    "GUID_RzAxis",
+    "GUID_SawtoothDown",
+    "GUID_SawtoothUp",
+    "GUID_Sine",
+    "GUID_Slider",
+    "GUID_Spring",
+    "GUID_Square",
+    "GUID_SysKeyboard",
+    "GUID_SysKeyboardEm",
+    "GUID_SysKeyboardEm2",
+    "GUID_SysMouse",
+    "GUID_SysMouseEm",
+    "GUID_SysMouseEm2",
+    "GUID_Triangle",
+    "GUID_Unknown",
+    "GUID_XAxis",
+    "GUID_YAxis",
+    "GUID_ZAxis",
+    "HIDD_ATTRIBUTES",
+    "HIDD_CONFIGURATION",
+    "HIDP_BUTTON_ARRAY_DATA",
+    "HIDP_BUTTON_CAPS",
+    "HIDP_CAPS",
+    "HIDP_DATA",
+    "HIDP_EXTENDED_ATTRIBUTES",
+    "HIDP_KEYBOARD_DIRECTION",
+    "HIDP_KEYBOARD_MODIFIER_STATE",
+    "HIDP_LINK_COLLECTION_NODE",
+    "HIDP_REPORT_TYPE",
+    "HIDP_UNKNOWN_TOKEN",
+    "HIDP_VALUE_CAPS",
+    "HID_COLLECTION_INFORMATION",
+    "HID_DRIVER_CONFIG",
+    "HID_REVISION",
+    "HID_USAGE_ALPHANUMERIC_14_SEGMENT_DIRECT_MAP",
+    "HID_USAGE_ALPHANUMERIC_7_SEGMENT_DIRECT_MAP",
+    "HID_USAGE_ALPHANUMERIC_ALPHANUMERIC_DISPLAY",
+    "HID_USAGE_ALPHANUMERIC_ASCII_CHARACTER_SET",
+    "HID_USAGE_ALPHANUMERIC_ATTRIBUTE_DATA",
+    "HID_USAGE_ALPHANUMERIC_ATTRIBUTE_READBACK",
+    "HID_USAGE_ALPHANUMERIC_BITMAPPED_DISPLAY",
+    "HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_X",
+    "HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_Y",
+    "HID_USAGE_ALPHANUMERIC_BIT_DEPTH_FORMAT",
+    "HID_USAGE_ALPHANUMERIC_BLIT_DATA",
+    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X1",
+    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X2",
+    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y1",
+    "HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y2",
+    "HID_USAGE_ALPHANUMERIC_BLIT_REPORT",
+    "HID_USAGE_ALPHANUMERIC_CHARACTER_ATTRIBUTE",
+    "HID_USAGE_ALPHANUMERIC_CHARACTER_REPORT",
+    "HID_USAGE_ALPHANUMERIC_CHAR_ATTR_BLINK",
+    "HID_USAGE_ALPHANUMERIC_CHAR_ATTR_ENHANCE",
+    "HID_USAGE_ALPHANUMERIC_CHAR_ATTR_UNDERLINE",
+    "HID_USAGE_ALPHANUMERIC_CHAR_HEIGHT",
+    "HID_USAGE_ALPHANUMERIC_CHAR_SPACING_HORIZONTAL",
+    "HID_USAGE_ALPHANUMERIC_CHAR_SPACING_VERTICAL",
+    "HID_USAGE_ALPHANUMERIC_CHAR_WIDTH",
+    "HID_USAGE_ALPHANUMERIC_CLEAR_DISPLAY",
+    "HID_USAGE_ALPHANUMERIC_COLUMN",
+    "HID_USAGE_ALPHANUMERIC_COLUMNS",
+    "HID_USAGE_ALPHANUMERIC_CURSOR_BLINK",
+    "HID_USAGE_ALPHANUMERIC_CURSOR_ENABLE",
+    "HID_USAGE_ALPHANUMERIC_CURSOR_MODE",
+    "HID_USAGE_ALPHANUMERIC_CURSOR_PIXEL_POSITIONING",
+    "HID_USAGE_ALPHANUMERIC_CURSOR_POSITION_REPORT",
+    "HID_USAGE_ALPHANUMERIC_DATA_READ_BACK",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_ATTRIBUTES_REPORT",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_BRIGHTNESS",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_CONTRAST",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_CONTROL_REPORT",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_DATA",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_ENABLE",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_ORIENTATION",
+    "HID_USAGE_ALPHANUMERIC_DISPLAY_STATUS",
+    "HID_USAGE_ALPHANUMERIC_ERR_FONT_DATA_CANNOT_BE_READ",
+    "HID_USAGE_ALPHANUMERIC_ERR_NOT_A_LOADABLE_CHARACTER",
+    "HID_USAGE_ALPHANUMERIC_FONT_14_SEGMENT",
+    "HID_USAGE_ALPHANUMERIC_FONT_7_SEGMENT",
+    "HID_USAGE_ALPHANUMERIC_FONT_DATA",
+    "HID_USAGE_ALPHANUMERIC_FONT_READ_BACK",
+    "HID_USAGE_ALPHANUMERIC_FONT_REPORT",
+    "HID_USAGE_ALPHANUMERIC_HORIZONTAL_SCROLL",
+    "HID_USAGE_ALPHANUMERIC_PALETTE_DATA",
+    "HID_USAGE_ALPHANUMERIC_PALETTE_DATA_OFFSET",
+    "HID_USAGE_ALPHANUMERIC_PALETTE_DATA_SIZE",
+    "HID_USAGE_ALPHANUMERIC_PALETTE_REPORT",
+    "HID_USAGE_ALPHANUMERIC_ROW",
+    "HID_USAGE_ALPHANUMERIC_ROWS",
+    "HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_DELAY",
+    "HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_ENABLE",
+    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON",
+    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_ID",
+    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET1",
+    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET2",
+    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_REPORT",
+    "HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_SIDE",
+    "HID_USAGE_ALPHANUMERIC_STATUS_NOT_READY",
+    "HID_USAGE_ALPHANUMERIC_STATUS_READY",
+    "HID_USAGE_ALPHANUMERIC_UNICODE_CHAR_SET",
+    "HID_USAGE_ALPHANUMERIC_VERTICAL_SCROLL",
+    "HID_USAGE_CAMERA_AUTO_FOCUS",
+    "HID_USAGE_CAMERA_SHUTTER",
+    "HID_USAGE_CONSUMERCTRL",
+    "HID_USAGE_CONSUMER_AC_BACK",
+    "HID_USAGE_CONSUMER_AC_BOOKMARKS",
+    "HID_USAGE_CONSUMER_AC_FORWARD",
+    "HID_USAGE_CONSUMER_AC_GOTO",
+    "HID_USAGE_CONSUMER_AC_HOME",
+    "HID_USAGE_CONSUMER_AC_NEXT",
+    "HID_USAGE_CONSUMER_AC_PAN",
+    "HID_USAGE_CONSUMER_AC_PREVIOUS",
+    "HID_USAGE_CONSUMER_AC_REFRESH",
+    "HID_USAGE_CONSUMER_AC_SEARCH",
+    "HID_USAGE_CONSUMER_AC_STOP",
+    "HID_USAGE_CONSUMER_AL_BROWSER",
+    "HID_USAGE_CONSUMER_AL_CALCULATOR",
+    "HID_USAGE_CONSUMER_AL_CONFIGURATION",
+    "HID_USAGE_CONSUMER_AL_EMAIL",
+    "HID_USAGE_CONSUMER_AL_SEARCH",
+    "HID_USAGE_CONSUMER_BALANCE",
+    "HID_USAGE_CONSUMER_BASS",
+    "HID_USAGE_CONSUMER_BASS_BOOST",
+    "HID_USAGE_CONSUMER_BASS_DECREMENT",
+    "HID_USAGE_CONSUMER_BASS_INCREMENT",
+    "HID_USAGE_CONSUMER_CHANNEL_DECREMENT",
+    "HID_USAGE_CONSUMER_CHANNEL_INCREMENT",
+    "HID_USAGE_CONSUMER_EXTENDED_KEYBOARD_ATTRIBUTES_COLLECTION",
+    "HID_USAGE_CONSUMER_FAST_FORWARD",
+    "HID_USAGE_CONSUMER_GAMEDVR_OPEN_GAMEBAR",
+    "HID_USAGE_CONSUMER_GAMEDVR_RECORD_CLIP",
+    "HID_USAGE_CONSUMER_GAMEDVR_SCREENSHOT",
+    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_BROADCAST",
+    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_CAMERA",
+    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_INDICATOR",
+    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_MICROPHONE",
+    "HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_RECORD",
+    "HID_USAGE_CONSUMER_IMPLEMENTED_KEYBOARD_INPUT_ASSIST_CONTROLS",
+    "HID_USAGE_CONSUMER_KEYBOARD_FORM_FACTOR",
+    "HID_USAGE_CONSUMER_KEYBOARD_IETF_LANGUAGE_TAG_INDEX",
+    "HID_USAGE_CONSUMER_KEYBOARD_KEY_TYPE",
+    "HID_USAGE_CONSUMER_KEYBOARD_PHYSICAL_LAYOUT",
+    "HID_USAGE_CONSUMER_LOUDNESS",
+    "HID_USAGE_CONSUMER_MPX",
+    "HID_USAGE_CONSUMER_MUTE",
+    "HID_USAGE_CONSUMER_PAUSE",
+    "HID_USAGE_CONSUMER_PLAY",
+    "HID_USAGE_CONSUMER_PLAY_PAUSE",
+    "HID_USAGE_CONSUMER_RECORD",
+    "HID_USAGE_CONSUMER_REWIND",
+    "HID_USAGE_CONSUMER_SCAN_NEXT_TRACK",
+    "HID_USAGE_CONSUMER_SCAN_PREV_TRACK",
+    "HID_USAGE_CONSUMER_STOP",
+    "HID_USAGE_CONSUMER_SURROUND_MODE",
+    "HID_USAGE_CONSUMER_TREBLE",
+    "HID_USAGE_CONSUMER_TREBLE_DECREMENT",
+    "HID_USAGE_CONSUMER_TREBLE_INCREMENT",
+    "HID_USAGE_CONSUMER_VENDOR_SPECIFIC_KEYBOARD_PHYSICAL_LAYOUT",
+    "HID_USAGE_CONSUMER_VOLUME",
+    "HID_USAGE_CONSUMER_VOLUME_DECREMENT",
+    "HID_USAGE_CONSUMER_VOLUME_INCREMENT",
+    "HID_USAGE_DIGITIZER_3D_DIGITIZER",
+    "HID_USAGE_DIGITIZER_ALTITUDE",
+    "HID_USAGE_DIGITIZER_ARMATURE",
+    "HID_USAGE_DIGITIZER_ARTICULATED_ARM",
+    "HID_USAGE_DIGITIZER_AZIMUTH",
+    "HID_USAGE_DIGITIZER_BARREL_PRESSURE",
+    "HID_USAGE_DIGITIZER_BARREL_SWITCH",
+    "HID_USAGE_DIGITIZER_BATTERY_STRENGTH",
+    "HID_USAGE_DIGITIZER_COORD_MEASURING",
+    "HID_USAGE_DIGITIZER_DATA_VALID",
+    "HID_USAGE_DIGITIZER_DIGITIZER",
+    "HID_USAGE_DIGITIZER_ERASER",
+    "HID_USAGE_DIGITIZER_FINGER",
+    "HID_USAGE_DIGITIZER_FREE_SPACE_WAND",
+    "HID_USAGE_DIGITIZER_HEAT_MAP",
+    "HID_USAGE_DIGITIZER_HEAT_MAP_FRAME_DATA",
+    "HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VENDOR_ID",
+    "HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VERSION",
+    "HID_USAGE_DIGITIZER_INVERT",
+    "HID_USAGE_DIGITIZER_IN_RANGE",
+    "HID_USAGE_DIGITIZER_LIGHT_PEN",
+    "HID_USAGE_DIGITIZER_MULTI_POINT",
+    "HID_USAGE_DIGITIZER_PEN",
+    "HID_USAGE_DIGITIZER_PROG_CHANGE_KEYS",
+    "HID_USAGE_DIGITIZER_PUCK",
+    "HID_USAGE_DIGITIZER_QUALITY",
+    "HID_USAGE_DIGITIZER_SECONDARY_TIP_SWITCH",
+    "HID_USAGE_DIGITIZER_STEREO_PLOTTER",
+    "HID_USAGE_DIGITIZER_STYLUS",
+    "HID_USAGE_DIGITIZER_TABLET_FUNC_KEYS",
+    "HID_USAGE_DIGITIZER_TABLET_PICK",
+    "HID_USAGE_DIGITIZER_TAP",
+    "HID_USAGE_DIGITIZER_TIP_PRESSURE",
+    "HID_USAGE_DIGITIZER_TIP_SWITCH",
+    "HID_USAGE_DIGITIZER_TOUCH",
+    "HID_USAGE_DIGITIZER_TOUCH_PAD",
+    "HID_USAGE_DIGITIZER_TOUCH_SCREEN",
+    "HID_USAGE_DIGITIZER_TRANSDUCER_CONNECTED",
+    "HID_USAGE_DIGITIZER_TRANSDUCER_INDEX",
+    "HID_USAGE_DIGITIZER_TRANSDUCER_PRODUCT",
+    "HID_USAGE_DIGITIZER_TRANSDUCER_SERIAL",
+    "HID_USAGE_DIGITIZER_TRANSDUCER_VENDOR",
+    "HID_USAGE_DIGITIZER_TWIST",
+    "HID_USAGE_DIGITIZER_UNTOUCH",
+    "HID_USAGE_DIGITIZER_WHITE_BOARD",
+    "HID_USAGE_DIGITIZER_X_TILT",
+    "HID_USAGE_DIGITIZER_Y_TILT",
+    "HID_USAGE_GAME_3D_GAME_CONTROLLER",
+    "HID_USAGE_GAME_BUMP",
+    "HID_USAGE_GAME_FLIPPER",
+    "HID_USAGE_GAME_GAMEPAD_FIRE_JUMP",
+    "HID_USAGE_GAME_GAMEPAD_TRIGGER",
+    "HID_USAGE_GAME_GUN_AUTOMATIC",
+    "HID_USAGE_GAME_GUN_BOLT",
+    "HID_USAGE_GAME_GUN_BURST",
+    "HID_USAGE_GAME_GUN_CLIP",
+    "HID_USAGE_GAME_GUN_DEVICE",
+    "HID_USAGE_GAME_GUN_SAFETY",
+    "HID_USAGE_GAME_GUN_SELECTOR",
+    "HID_USAGE_GAME_GUN_SINGLE_SHOT",
+    "HID_USAGE_GAME_LEAN_FORWARD_BACK",
+    "HID_USAGE_GAME_LEAN_RIGHT_LEFT",
+    "HID_USAGE_GAME_MOVE_FORWARD_BACK",
+    "HID_USAGE_GAME_MOVE_RIGHT_LEFT",
+    "HID_USAGE_GAME_MOVE_UP_DOWN",
+    "HID_USAGE_GAME_NEW_GAME",
+    "HID_USAGE_GAME_PINBALL_DEVICE",
+    "HID_USAGE_GAME_PITCH_FORWARD_BACK",
+    "HID_USAGE_GAME_PLAYER",
+    "HID_USAGE_GAME_POINT_OF_VIEW",
+    "HID_USAGE_GAME_POV_HEIGHT",
+    "HID_USAGE_GAME_ROLL_RIGHT_LEFT",
+    "HID_USAGE_GAME_SECONDARY_FLIPPER",
+    "HID_USAGE_GAME_SHOOT_BALL",
+    "HID_USAGE_GAME_TURN_RIGHT_LEFT",
+    "HID_USAGE_GENERIC_BYTE_COUNT",
+    "HID_USAGE_GENERIC_CONTROL_ENABLE",
+    "HID_USAGE_GENERIC_COUNTED_BUFFER",
+    "HID_USAGE_GENERIC_DEVICE_BATTERY_STRENGTH",
+    "HID_USAGE_GENERIC_DEVICE_DISCOVER_WIRELESS_CONTROL",
+    "HID_USAGE_GENERIC_DEVICE_SECURITY_CODE_CHAR_ENTERED",
+    "HID_USAGE_GENERIC_DEVICE_SECURITY_CODE_CHAR_ERASED",
+    "HID_USAGE_GENERIC_DEVICE_SECURITY_CODE_CLEARED",
+    "HID_USAGE_GENERIC_DEVICE_WIRELESS_CHANNEL",
+    "HID_USAGE_GENERIC_DEVICE_WIRELESS_ID",
+    "HID_USAGE_GENERIC_DIAL",
+    "HID_USAGE_GENERIC_DPAD_DOWN",
+    "HID_USAGE_GENERIC_DPAD_LEFT",
+    "HID_USAGE_GENERIC_DPAD_RIGHT",
+    "HID_USAGE_GENERIC_DPAD_UP",
+    "HID_USAGE_GENERIC_FEATURE_NOTIFICATION",
+    "HID_USAGE_GENERIC_GAMEPAD",
+    "HID_USAGE_GENERIC_HATSWITCH",
+    "HID_USAGE_GENERIC_INTERACTIVE_CONTROL",
+    "HID_USAGE_GENERIC_JOYSTICK",
+    "HID_USAGE_GENERIC_KEYBOARD",
+    "HID_USAGE_GENERIC_KEYPAD",
+    "HID_USAGE_GENERIC_MOTION_WAKEUP",
+    "HID_USAGE_GENERIC_MOUSE",
+    "HID_USAGE_GENERIC_MULTI_AXIS_CONTROLLER",
+    "HID_USAGE_GENERIC_POINTER",
+    "HID_USAGE_GENERIC_PORTABLE_DEVICE_CONTROL",
+    "HID_USAGE_GENERIC_RESOLUTION_MULTIPLIER",
+    "HID_USAGE_GENERIC_RX",
+    "HID_USAGE_GENERIC_RY",
+    "HID_USAGE_GENERIC_RZ",
+    "HID_USAGE_GENERIC_SELECT",
+    "HID_USAGE_GENERIC_SLIDER",
+    "HID_USAGE_GENERIC_START",
+    "HID_USAGE_GENERIC_SYSCTL_APP_BREAK",
+    "HID_USAGE_GENERIC_SYSCTL_APP_DBG_BREAK",
+    "HID_USAGE_GENERIC_SYSCTL_APP_MENU",
+    "HID_USAGE_GENERIC_SYSCTL_COLD_RESTART",
+    "HID_USAGE_GENERIC_SYSCTL_CONTEXT_MENU",
+    "HID_USAGE_GENERIC_SYSCTL_DISMISS_NOTIFICATION",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_AUTOSCALE",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_BOTH",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_DUAL",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_EXTERNAL",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_INTERNAL",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_INVERT",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_SWAP",
+    "HID_USAGE_GENERIC_SYSCTL_DISP_TOGGLE",
+    "HID_USAGE_GENERIC_SYSCTL_DOCK",
+    "HID_USAGE_GENERIC_SYSCTL_FN",
+    "HID_USAGE_GENERIC_SYSCTL_FN_LOCK",
+    "HID_USAGE_GENERIC_SYSCTL_FN_LOCK_INDICATOR",
+    "HID_USAGE_GENERIC_SYSCTL_HELP_MENU",
+    "HID_USAGE_GENERIC_SYSCTL_HIBERNATE",
+    "HID_USAGE_GENERIC_SYSCTL_MAIN_MENU",
+    "HID_USAGE_GENERIC_SYSCTL_MENU_DOWN",
+    "HID_USAGE_GENERIC_SYSCTL_MENU_EXIT",
+    "HID_USAGE_GENERIC_SYSCTL_MENU_LEFT",
+    "HID_USAGE_GENERIC_SYSCTL_MENU_RIGHT",
+    "HID_USAGE_GENERIC_SYSCTL_MENU_SELECT",
+    "HID_USAGE_GENERIC_SYSCTL_MENU_UP",
+    "HID_USAGE_GENERIC_SYSCTL_MUTE",
+    "HID_USAGE_GENERIC_SYSCTL_POWER",
+    "HID_USAGE_GENERIC_SYSCTL_SETUP",
+    "HID_USAGE_GENERIC_SYSCTL_SLEEP",
+    "HID_USAGE_GENERIC_SYSCTL_SYS_BREAK",
+    "HID_USAGE_GENERIC_SYSCTL_SYS_DBG_BREAK",
+    "HID_USAGE_GENERIC_SYSCTL_UNDOCK",
+    "HID_USAGE_GENERIC_SYSCTL_WAKE",
+    "HID_USAGE_GENERIC_SYSCTL_WARM_RESTART",
+    "HID_USAGE_GENERIC_SYSTEM_CTL",
+    "HID_USAGE_GENERIC_SYSTEM_DISPLAY_ROTATION_LOCK_BUTTON",
+    "HID_USAGE_GENERIC_SYSTEM_DISPLAY_ROTATION_LOCK_SLIDER_SWITCH",
+    "HID_USAGE_GENERIC_TABLET_PC_SYSTEM_CTL",
+    "HID_USAGE_GENERIC_VBRX",
+    "HID_USAGE_GENERIC_VBRY",
+    "HID_USAGE_GENERIC_VBRZ",
+    "HID_USAGE_GENERIC_VNO",
+    "HID_USAGE_GENERIC_VX",
+    "HID_USAGE_GENERIC_VY",
+    "HID_USAGE_GENERIC_VZ",
+    "HID_USAGE_GENERIC_WHEEL",
+    "HID_USAGE_GENERIC_X",
+    "HID_USAGE_GENERIC_Y",
+    "HID_USAGE_GENERIC_Z",
+    "HID_USAGE_HAPTICS_AUTO_ASSOCIATED_CONTROL",
+    "HID_USAGE_HAPTICS_AUTO_TRIGGER",
+    "HID_USAGE_HAPTICS_DURATION_LIST",
+    "HID_USAGE_HAPTICS_INTENSITY",
+    "HID_USAGE_HAPTICS_MANUAL_TRIGGER",
+    "HID_USAGE_HAPTICS_REPEAT_COUNT",
+    "HID_USAGE_HAPTICS_RETRIGGER_PERIOD",
+    "HID_USAGE_HAPTICS_SIMPLE_CONTROLLER",
+    "HID_USAGE_HAPTICS_WAVEFORM_BEGIN",
+    "HID_USAGE_HAPTICS_WAVEFORM_BUZZ",
+    "HID_USAGE_HAPTICS_WAVEFORM_CLICK",
+    "HID_USAGE_HAPTICS_WAVEFORM_CUTOFF_TIME",
+    "HID_USAGE_HAPTICS_WAVEFORM_END",
+    "HID_USAGE_HAPTICS_WAVEFORM_LIST",
+    "HID_USAGE_HAPTICS_WAVEFORM_NULL",
+    "HID_USAGE_HAPTICS_WAVEFORM_PRESS",
+    "HID_USAGE_HAPTICS_WAVEFORM_RELEASE",
+    "HID_USAGE_HAPTICS_WAVEFORM_RUMBLE",
+    "HID_USAGE_HAPTICS_WAVEFORM_STOP",
+    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_BEGIN",
+    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_END",
+    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_ID",
+    "HID_USAGE_HAPTICS_WAVEFORM_VENDOR_PAGE",
+    "HID_USAGE_KEYBOARD_CAPS_LOCK",
+    "HID_USAGE_KEYBOARD_DELETE",
+    "HID_USAGE_KEYBOARD_DELETE_FORWARD",
+    "HID_USAGE_KEYBOARD_ESCAPE",
+    "HID_USAGE_KEYBOARD_F1",
+    "HID_USAGE_KEYBOARD_F10",
+    "HID_USAGE_KEYBOARD_F11",
+    "HID_USAGE_KEYBOARD_F12",
+    "HID_USAGE_KEYBOARD_F13",
+    "HID_USAGE_KEYBOARD_F14",
+    "HID_USAGE_KEYBOARD_F15",
+    "HID_USAGE_KEYBOARD_F16",
+    "HID_USAGE_KEYBOARD_F17",
+    "HID_USAGE_KEYBOARD_F18",
+    "HID_USAGE_KEYBOARD_F19",
+    "HID_USAGE_KEYBOARD_F2",
+    "HID_USAGE_KEYBOARD_F20",
+    "HID_USAGE_KEYBOARD_F21",
+    "HID_USAGE_KEYBOARD_F22",
+    "HID_USAGE_KEYBOARD_F23",
+    "HID_USAGE_KEYBOARD_F24",
+    "HID_USAGE_KEYBOARD_F3",
+    "HID_USAGE_KEYBOARD_F4",
+    "HID_USAGE_KEYBOARD_F5",
+    "HID_USAGE_KEYBOARD_F6",
+    "HID_USAGE_KEYBOARD_F7",
+    "HID_USAGE_KEYBOARD_F8",
+    "HID_USAGE_KEYBOARD_F9",
+    "HID_USAGE_KEYBOARD_LALT",
+    "HID_USAGE_KEYBOARD_LCTRL",
+    "HID_USAGE_KEYBOARD_LGUI",
+    "HID_USAGE_KEYBOARD_LSHFT",
+    "HID_USAGE_KEYBOARD_NOEVENT",
+    "HID_USAGE_KEYBOARD_NUM_LOCK",
+    "HID_USAGE_KEYBOARD_ONE",
+    "HID_USAGE_KEYBOARD_POSTFAIL",
+    "HID_USAGE_KEYBOARD_PRINT_SCREEN",
+    "HID_USAGE_KEYBOARD_RALT",
+    "HID_USAGE_KEYBOARD_RCTRL",
+    "HID_USAGE_KEYBOARD_RETURN",
+    "HID_USAGE_KEYBOARD_RGUI",
+    "HID_USAGE_KEYBOARD_ROLLOVER",
+    "HID_USAGE_KEYBOARD_RSHFT",
+    "HID_USAGE_KEYBOARD_SCROLL_LOCK",
+    "HID_USAGE_KEYBOARD_UNDEFINED",
+    "HID_USAGE_KEYBOARD_ZERO",
+    "HID_USAGE_KEYBOARD_aA",
+    "HID_USAGE_KEYBOARD_zZ",
+    "HID_USAGE_LAMPARRAY",
+    "HID_USAGE_LAMPARRAY_ATTRBIUTES_REPORT",
+    "HID_USAGE_LAMPARRAY_AUTONOMOUS_MODE",
+    "HID_USAGE_LAMPARRAY_BLUE_LEVEL_COUNT",
+    "HID_USAGE_LAMPARRAY_BOUNDING_BOX_DEPTH_IN_MICROMETERS",
+    "HID_USAGE_LAMPARRAY_BOUNDING_BOX_HEIGHT_IN_MICROMETERS",
+    "HID_USAGE_LAMPARRAY_BOUNDING_BOX_WIDTH_IN_MICROMETERS",
+    "HID_USAGE_LAMPARRAY_CONTROL_REPORT",
+    "HID_USAGE_LAMPARRAY_GREEN_LEVEL_COUNT",
+    "HID_USAGE_LAMPARRAY_INPUT_BINDING",
+    "HID_USAGE_LAMPARRAY_INTENSITY_LEVEL_COUNT",
+    "HID_USAGE_LAMPARRAY_IS_PROGRAMMABLE",
+    "HID_USAGE_LAMPARRAY_KIND",
+    "HID_USAGE_LAMPARRAY_LAMP_ATTRIBUTES_REQUEST_REPORT",
+    "HID_USAGE_LAMPARRAY_LAMP_ATTRIBUTES_RESPONSE_REPORT",
+    "HID_USAGE_LAMPARRAY_LAMP_BLUE_UPDATE_CHANNEL",
+    "HID_USAGE_LAMPARRAY_LAMP_COUNT",
+    "HID_USAGE_LAMPARRAY_LAMP_GREEN_UPDATE_CHANNEL",
+    "HID_USAGE_LAMPARRAY_LAMP_ID",
+    "HID_USAGE_LAMPARRAY_LAMP_ID_END",
+    "HID_USAGE_LAMPARRAY_LAMP_ID_START",
+    "HID_USAGE_LAMPARRAY_LAMP_INTENSITY_UPDATE_CHANNEL",
+    "HID_USAGE_LAMPARRAY_LAMP_MULTI_UPDATE_REPORT",
+    "HID_USAGE_LAMPARRAY_LAMP_PURPOSES",
+    "HID_USAGE_LAMPARRAY_LAMP_RANGE_UPDATE_REPORT",
+    "HID_USAGE_LAMPARRAY_LAMP_RED_UPDATE_CHANNEL",
+    "HID_USAGE_LAMPARRAY_LAMP_UPDATE_FLAGS",
+    "HID_USAGE_LAMPARRAY_MIN_UPDATE_INTERVAL_IN_MICROSECONDS",
+    "HID_USAGE_LAMPARRAY_POSITION_X_IN_MICROMETERS",
+    "HID_USAGE_LAMPARRAY_POSITION_Y_IN_MICROMETERS",
+    "HID_USAGE_LAMPARRAY_POSITION_Z_IN_MICROMETERS",
+    "HID_USAGE_LAMPARRAY_RED_LEVEL_COUNT",
+    "HID_USAGE_LAMPARRAY_UPDATE_LATENCY_IN_MICROSECONDS",
+    "HID_USAGE_LED_AMBER",
+    "HID_USAGE_LED_BATTERY_LOW",
+    "HID_USAGE_LED_BATTERY_OK",
+    "HID_USAGE_LED_BATTERY_OPERATION",
+    "HID_USAGE_LED_BUSY",
+    "HID_USAGE_LED_CALL_PICKUP",
+    "HID_USAGE_LED_CAMERA_OFF",
+    "HID_USAGE_LED_CAMERA_ON",
+    "HID_USAGE_LED_CAPS_LOCK",
+    "HID_USAGE_LED_CAV",
+    "HID_USAGE_LED_CLV",
+    "HID_USAGE_LED_COMPOSE",
+    "HID_USAGE_LED_CONFERENCE",
+    "HID_USAGE_LED_COVERAGE",
+    "HID_USAGE_LED_DATA_MODE",
+    "HID_USAGE_LED_DO_NOT_DISTURB",
+    "HID_USAGE_LED_EQUALIZER_ENABLE",
+    "HID_USAGE_LED_ERROR",
+    "HID_USAGE_LED_EXTERNAL_POWER",
+    "HID_USAGE_LED_FAST_BLINK_OFF_TIME",
+    "HID_USAGE_LED_FAST_BLINK_ON_TIME",
+    "HID_USAGE_LED_FAST_FORWARD",
+    "HID_USAGE_LED_FLASH_ON_TIME",
+    "HID_USAGE_LED_FORWARD",
+    "HID_USAGE_LED_GENERIC_INDICATOR",
+    "HID_USAGE_LED_GREEN",
+    "HID_USAGE_LED_HEAD_SET",
+    "HID_USAGE_LED_HIGH_CUT_FILTER",
+    "HID_USAGE_LED_HOLD",
+    "HID_USAGE_LED_INDICATOR_COLOR",
+    "HID_USAGE_LED_INDICATOR_FAST_BLINK",
+    "HID_USAGE_LED_INDICATOR_FLASH",
+    "HID_USAGE_LED_INDICATOR_OFF",
+    "HID_USAGE_LED_INDICATOR_ON",
+    "HID_USAGE_LED_INDICATOR_SLOW_BLINK",
+    "HID_USAGE_LED_IN_USE_INDICATOR",
+    "HID_USAGE_LED_KANA",
+    "HID_USAGE_LED_LOW_CUT_FILTER",
+    "HID_USAGE_LED_MESSAGE_WAITING",
+    "HID_USAGE_LED_MICROPHONE",
+    "HID_USAGE_LED_MULTI_MODE_INDICATOR",
+    "HID_USAGE_LED_MUTE",
+    "HID_USAGE_LED_NIGHT_MODE",
+    "HID_USAGE_LED_NUM_LOCK",
+    "HID_USAGE_LED_OFF_HOOK",
+    "HID_USAGE_LED_OFF_LINE",
+    "HID_USAGE_LED_ON_LINE",
+    "HID_USAGE_LED_PAPER_JAM",
+    "HID_USAGE_LED_PAPER_OUT",
+    "HID_USAGE_LED_PAUSE",
+    "HID_USAGE_LED_PLAY",
+    "HID_USAGE_LED_POWER",
+    "HID_USAGE_LED_READY",
+    "HID_USAGE_LED_RECORD",
+    "HID_USAGE_LED_RECORDING_FORMAT_DET",
+    "HID_USAGE_LED_RED",
+    "HID_USAGE_LED_REMOTE",
+    "HID_USAGE_LED_REPEAT",
+    "HID_USAGE_LED_REVERSE",
+    "HID_USAGE_LED_REWIND",
+    "HID_USAGE_LED_RING",
+    "HID_USAGE_LED_SAMPLING_RATE_DETECT",
+    "HID_USAGE_LED_SCROLL_LOCK",
+    "HID_USAGE_LED_SELECTED_INDICATOR",
+    "HID_USAGE_LED_SEND_CALLS",
+    "HID_USAGE_LED_SHIFT",
+    "HID_USAGE_LED_SLOW_BLINK_OFF_TIME",
+    "HID_USAGE_LED_SLOW_BLINK_ON_TIME",
+    "HID_USAGE_LED_SOUND_FIELD_ON",
+    "HID_USAGE_LED_SPEAKER",
+    "HID_USAGE_LED_SPINNING",
+    "HID_USAGE_LED_STAND_BY",
+    "HID_USAGE_LED_STEREO",
+    "HID_USAGE_LED_STOP",
+    "HID_USAGE_LED_SURROUND_FIELD_ON",
+    "HID_USAGE_LED_SYSTEM_SUSPEND",
+    "HID_USAGE_LED_TONE_ENABLE",
+    "HID_USAGE_MS_BTH_HF_DIALMEMORY",
+    "HID_USAGE_MS_BTH_HF_DIALNUMBER",
+    "HID_USAGE_PAGE_ALPHANUMERIC",
+    "HID_USAGE_PAGE_ARCADE",
+    "HID_USAGE_PAGE_BARCODE_SCANNER",
+    "HID_USAGE_PAGE_BUTTON",
+    "HID_USAGE_PAGE_CAMERA_CONTROL",
+    "HID_USAGE_PAGE_CONSUMER",
+    "HID_USAGE_PAGE_DIGITIZER",
+    "HID_USAGE_PAGE_GAME",
+    "HID_USAGE_PAGE_GENERIC",
+    "HID_USAGE_PAGE_GENERIC_DEVICE",
+    "HID_USAGE_PAGE_HAPTICS",
+    "HID_USAGE_PAGE_KEYBOARD",
+    "HID_USAGE_PAGE_LED",
+    "HID_USAGE_PAGE_LIGHTING_ILLUMINATION",
+    "HID_USAGE_PAGE_MAGNETIC_STRIPE_READER",
+    "HID_USAGE_PAGE_MICROSOFT_BLUETOOTH_HANDSFREE",
+    "HID_USAGE_PAGE_ORDINAL",
+    "HID_USAGE_PAGE_PID",
+    "HID_USAGE_PAGE_SENSOR",
+    "HID_USAGE_PAGE_SIMULATION",
+    "HID_USAGE_PAGE_SPORT",
+    "HID_USAGE_PAGE_TELEPHONY",
+    "HID_USAGE_PAGE_UNDEFINED",
+    "HID_USAGE_PAGE_UNICODE",
+    "HID_USAGE_PAGE_VENDOR_DEFINED_BEGIN",
+    "HID_USAGE_PAGE_VENDOR_DEFINED_END",
+    "HID_USAGE_PAGE_VR",
+    "HID_USAGE_PAGE_WEIGHING_DEVICE",
+    "HID_USAGE_SIMULATION_ACCELLERATOR",
+    "HID_USAGE_SIMULATION_AILERON",
+    "HID_USAGE_SIMULATION_AILERON_TRIM",
+    "HID_USAGE_SIMULATION_AIRPLANE_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_ANTI_TORQUE_CONTROL",
+    "HID_USAGE_SIMULATION_AUTOMOBILE_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_AUTOPIOLOT_ENABLE",
+    "HID_USAGE_SIMULATION_BALLAST",
+    "HID_USAGE_SIMULATION_BARREL_ELEVATION",
+    "HID_USAGE_SIMULATION_BICYCLE_CRANK",
+    "HID_USAGE_SIMULATION_BICYCLE_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_BRAKE",
+    "HID_USAGE_SIMULATION_CHAFF_RELEASE",
+    "HID_USAGE_SIMULATION_CLUTCH",
+    "HID_USAGE_SIMULATION_COLLECTIVE_CONTROL",
+    "HID_USAGE_SIMULATION_CYCLIC_CONTROL",
+    "HID_USAGE_SIMULATION_CYCLIC_TRIM",
+    "HID_USAGE_SIMULATION_DIVE_BRAKE",
+    "HID_USAGE_SIMULATION_DIVE_PLANE",
+    "HID_USAGE_SIMULATION_ELECTRONIC_COUNTERMEASURES",
+    "HID_USAGE_SIMULATION_ELEVATOR",
+    "HID_USAGE_SIMULATION_ELEVATOR_TRIM",
+    "HID_USAGE_SIMULATION_FLARE_RELEASE",
+    "HID_USAGE_SIMULATION_FLIGHT_COMMUNICATIONS",
+    "HID_USAGE_SIMULATION_FLIGHT_CONTROL_STICK",
+    "HID_USAGE_SIMULATION_FLIGHT_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_FLIGHT_STICK",
+    "HID_USAGE_SIMULATION_FLIGHT_YOKE",
+    "HID_USAGE_SIMULATION_FRONT_BRAKE",
+    "HID_USAGE_SIMULATION_HANDLE_BARS",
+    "HID_USAGE_SIMULATION_HELICOPTER_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_LANDING_GEAR",
+    "HID_USAGE_SIMULATION_MAGIC_CARPET_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_MOTORCYCLE_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_REAR_BRAKE",
+    "HID_USAGE_SIMULATION_RUDDER",
+    "HID_USAGE_SIMULATION_SAILING_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_SHIFTER",
+    "HID_USAGE_SIMULATION_SPACESHIP_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_SPORTS_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_STEERING",
+    "HID_USAGE_SIMULATION_SUBMARINE_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_TANK_SIMULATION_DEVICE",
+    "HID_USAGE_SIMULATION_THROTTLE",
+    "HID_USAGE_SIMULATION_TOE_BRAKE",
+    "HID_USAGE_SIMULATION_TRACK_CONTROL",
+    "HID_USAGE_SIMULATION_TRIGGER",
+    "HID_USAGE_SIMULATION_TURRET_DIRECTION",
+    "HID_USAGE_SIMULATION_WEAPONS_ARM",
+    "HID_USAGE_SIMULATION_WEAPONS_SELECT",
+    "HID_USAGE_SIMULATION_WING_FLAPS",
+    "HID_USAGE_SPORT_10_IRON",
+    "HID_USAGE_SPORT_11_IRON",
+    "HID_USAGE_SPORT_1_IRON",
+    "HID_USAGE_SPORT_1_WOOD",
+    "HID_USAGE_SPORT_2_IRON",
+    "HID_USAGE_SPORT_3_IRON",
+    "HID_USAGE_SPORT_3_WOOD",
+    "HID_USAGE_SPORT_4_IRON",
+    "HID_USAGE_SPORT_5_IRON",
+    "HID_USAGE_SPORT_5_WOOD",
+    "HID_USAGE_SPORT_6_IRON",
+    "HID_USAGE_SPORT_7_IRON",
+    "HID_USAGE_SPORT_7_WOOD",
+    "HID_USAGE_SPORT_8_IRON",
+    "HID_USAGE_SPORT_9_IRON",
+    "HID_USAGE_SPORT_9_WOOD",
+    "HID_USAGE_SPORT_BASEBALL_BAT",
+    "HID_USAGE_SPORT_FOLLOW_THROUGH",
+    "HID_USAGE_SPORT_GOLF_CLUB",
+    "HID_USAGE_SPORT_HEEL_TOE",
+    "HID_USAGE_SPORT_HEIGHT",
+    "HID_USAGE_SPORT_LOFT_WEDGE",
+    "HID_USAGE_SPORT_OAR",
+    "HID_USAGE_SPORT_POWER_WEDGE",
+    "HID_USAGE_SPORT_PUTTER",
+    "HID_USAGE_SPORT_RATE",
+    "HID_USAGE_SPORT_ROWING_MACHINE",
+    "HID_USAGE_SPORT_SAND_WEDGE",
+    "HID_USAGE_SPORT_SLOPE",
+    "HID_USAGE_SPORT_STICK_FACE_ANGLE",
+    "HID_USAGE_SPORT_STICK_SPEED",
+    "HID_USAGE_SPORT_STICK_TYPE",
+    "HID_USAGE_SPORT_TEMPO",
+    "HID_USAGE_SPORT_TREADMILL",
+    "HID_USAGE_TELEPHONY_ANSWERING_MACHINE",
+    "HID_USAGE_TELEPHONY_DROP",
+    "HID_USAGE_TELEPHONY_HANDSET",
+    "HID_USAGE_TELEPHONY_HEADSET",
+    "HID_USAGE_TELEPHONY_HOST_AVAILABLE",
+    "HID_USAGE_TELEPHONY_KEYPAD",
+    "HID_USAGE_TELEPHONY_KEYPAD_0",
+    "HID_USAGE_TELEPHONY_KEYPAD_D",
+    "HID_USAGE_TELEPHONY_LINE",
+    "HID_USAGE_TELEPHONY_MESSAGE_CONTROLS",
+    "HID_USAGE_TELEPHONY_PHONE",
+    "HID_USAGE_TELEPHONY_PROGRAMMABLE_BUTTON",
+    "HID_USAGE_TELEPHONY_REDIAL",
+    "HID_USAGE_TELEPHONY_RING_ENABLE",
+    "HID_USAGE_TELEPHONY_SEND",
+    "HID_USAGE_TELEPHONY_TRANSFER",
+    "HID_USAGE_VR_ANIMATRONIC_DEVICE",
+    "HID_USAGE_VR_BELT",
+    "HID_USAGE_VR_BODY_SUIT",
+    "HID_USAGE_VR_DISPLAY_ENABLE",
+    "HID_USAGE_VR_FLEXOR",
+    "HID_USAGE_VR_GLOVE",
+    "HID_USAGE_VR_HAND_TRACKER",
+    "HID_USAGE_VR_HEAD_MOUNTED_DISPLAY",
+    "HID_USAGE_VR_HEAD_TRACKER",
+    "HID_USAGE_VR_OCULOMETER",
+    "HID_USAGE_VR_STEREO_ENABLE",
+    "HID_USAGE_VR_VEST",
+    "HID_XFER_PACKET",
+    "HORIZONTAL_WHEEL_PRESENT",
+    "HidD_FlushQueue",
+    "HidD_FreePreparsedData",
+    "HidD_GetAttributes",
+    "HidD_GetConfiguration",
+    "HidD_GetFeature",
+    "HidD_GetHidGuid",
+    "HidD_GetIndexedString",
+    "HidD_GetInputReport",
+    "HidD_GetManufacturerString",
+    "HidD_GetMsGenreDescriptor",
+    "HidD_GetNumInputBuffers",
+    "HidD_GetPhysicalDescriptor",
+    "HidD_GetPreparsedData",
+    "HidD_GetProductString",
+    "HidD_GetSerialNumberString",
+    "HidD_SetConfiguration",
+    "HidD_SetFeature",
+    "HidD_SetNumInputBuffers",
+    "HidD_SetOutputReport",
+    "HidP_Feature",
+    "HidP_GetButtonArray",
     "HidP_GetButtonCaps",
-    "HidP_GetSpecificValueCaps",
-    "HidP_GetValueCaps",
-    "HidP_GetExtendedAttributes",
-    "HidP_InitializeReportForID",
-    "HidP_SetData",
+    "HidP_GetCaps",
     "HidP_GetData",
-    "HidP_MaxDataListLength",
-    "HidP_SetUsages",
-    "HidP_UnsetUsages",
+    "HidP_GetExtendedAttributes",
+    "HidP_GetLinkCollectionNodes",
+    "HidP_GetScaledUsageValue",
+    "HidP_GetSpecificButtonCaps",
+    "HidP_GetSpecificValueCaps",
+    "HidP_GetUsageValue",
+    "HidP_GetUsageValueArray",
     "HidP_GetUsages",
     "HidP_GetUsagesEx",
+    "HidP_GetValueCaps",
+    "HidP_InitializeReportForID",
+    "HidP_Input",
+    "HidP_Keyboard_Break",
+    "HidP_Keyboard_Make",
+    "HidP_MaxDataListLength",
     "HidP_MaxUsageListLength",
-    "HidP_SetUsageValue",
-    "HidP_SetScaledUsageValue",
-    "HidP_SetUsageValueArray",
-    "HidP_GetUsageValue",
-    "HidP_GetScaledUsageValue",
-    "HidP_GetUsageValueArray",
-    "HidP_UsageListDifference",
-    "HidP_GetButtonArray",
+    "HidP_Output",
     "HidP_SetButtonArray",
+    "HidP_SetData",
+    "HidP_SetScaledUsageValue",
+    "HidP_SetUsageValue",
+    "HidP_SetUsageValueArray",
+    "HidP_SetUsages",
     "HidP_TranslateUsagesToI8042ScanCodes",
-    "HidD_GetAttributes",
-    "HidD_GetHidGuid",
-    "HidD_GetPreparsedData",
-    "HidD_FreePreparsedData",
-    "HidD_FlushQueue",
-    "HidD_GetConfiguration",
-    "HidD_SetConfiguration",
-    "HidD_GetFeature",
-    "HidD_SetFeature",
-    "HidD_GetInputReport",
-    "HidD_SetOutputReport",
-    "HidD_GetNumInputBuffers",
-    "HidD_SetNumInputBuffers",
-    "HidD_GetPhysicalDescriptor",
-    "HidD_GetManufacturerString",
-    "HidD_GetProductString",
-    "HidD_GetIndexedString",
-    "HidD_GetSerialNumberString",
-    "HidD_GetMsGenreDescriptor",
+    "HidP_UnsetUsages",
+    "HidP_UsageListDifference",
+    "IDirectInput2A",
+    "IDirectInput2W",
+    "IDirectInput7A",
+    "IDirectInput7W",
+    "IDirectInput8A",
+    "IDirectInput8W",
+    "IDirectInputA",
+    "IDirectInputDevice2A",
+    "IDirectInputDevice2W",
+    "IDirectInputDevice7A",
+    "IDirectInputDevice7W",
+    "IDirectInputDevice8A",
+    "IDirectInputDevice8W",
+    "IDirectInputDeviceA",
+    "IDirectInputDeviceW",
+    "IDirectInputEffect",
+    "IDirectInputEffectDriver",
+    "IDirectInputJoyConfig",
+    "IDirectInputJoyConfig8",
+    "IDirectInputW",
+    "INDICATOR_LIST",
+    "INPUT_BUTTON_ENABLE_INFO",
+    "IOCTL_BUTTON_GET_ENABLED_ON_IDLE",
+    "IOCTL_BUTTON_SET_ENABLED_ON_IDLE",
+    "IOCTL_KEYBOARD_INSERT_DATA",
+    "IOCTL_KEYBOARD_QUERY_ATTRIBUTES",
+    "IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES",
+    "IOCTL_KEYBOARD_QUERY_IME_STATUS",
+    "IOCTL_KEYBOARD_QUERY_INDICATORS",
+    "IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION",
+    "IOCTL_KEYBOARD_QUERY_TYPEMATIC",
+    "IOCTL_KEYBOARD_SET_IME_STATUS",
+    "IOCTL_KEYBOARD_SET_INDICATORS",
+    "IOCTL_KEYBOARD_SET_TYPEMATIC",
+    "IOCTL_MOUSE_INSERT_DATA",
+    "IOCTL_MOUSE_QUERY_ATTRIBUTES",
+    "JOYCALIBRATE",
+    "JOYPOS",
+    "JOYRANGE",
+    "JOYREGHWCONFIG",
+    "JOYREGHWSETTINGS",
+    "JOYREGHWVALUES",
+    "JOYREGUSERVALUES",
+    "JOYTYPE_ANALOGCOMPAT",
+    "JOYTYPE_DEFAULTPROPSHEET",
+    "JOYTYPE_DEVICEHIDE",
+    "JOYTYPE_ENABLEINPUTREPORT",
+    "JOYTYPE_GAMEHIDE",
+    "JOYTYPE_HIDEACTIVE",
+    "JOYTYPE_INFODEFAULT",
+    "JOYTYPE_INFOMASK",
+    "JOYTYPE_INFOYRPEDALS",
+    "JOYTYPE_INFOYYPEDALS",
+    "JOYTYPE_INFOZISSLIDER",
+    "JOYTYPE_INFOZISZ",
+    "JOYTYPE_INFOZRPEDALS",
+    "JOYTYPE_INFOZYPEDALS",
+    "JOYTYPE_KEYBHIDE",
+    "JOYTYPE_MOUSEHIDE",
+    "JOYTYPE_NOAUTODETECTGAMEPORT",
+    "JOYTYPE_NOHIDDIRECT",
+    "JOYTYPE_ZEROGAMEENUMOEMDATA",
+    "JOY_HWS_AUTOLOAD",
+    "JOY_HWS_GAMEPORTBUSBUSY",
+    "JOY_HWS_HASPOV",
+    "JOY_HWS_HASR",
+    "JOY_HWS_HASU",
+    "JOY_HWS_HASV",
+    "JOY_HWS_HASZ",
+    "JOY_HWS_ISANALOGPORTDRIVER",
+    "JOY_HWS_ISCARCTRL",
+    "JOY_HWS_ISGAMEPAD",
+    "JOY_HWS_ISGAMEPORTBUS",
+    "JOY_HWS_ISGAMEPORTDRIVER",
+    "JOY_HWS_ISHEADTRACKER",
+    "JOY_HWS_ISYOKE",
+    "JOY_HWS_NODEVNODE",
+    "JOY_HWS_POVISBUTTONCOMBOS",
+    "JOY_HWS_POVISJ1X",
+    "JOY_HWS_POVISJ1Y",
+    "JOY_HWS_POVISJ2X",
+    "JOY_HWS_POVISPOLL",
+    "JOY_HWS_RISJ1X",
+    "JOY_HWS_RISJ1Y",
+    "JOY_HWS_RISJ2Y",
+    "JOY_HWS_XISJ1Y",
+    "JOY_HWS_XISJ2X",
+    "JOY_HWS_XISJ2Y",
+    "JOY_HWS_YISJ1X",
+    "JOY_HWS_YISJ2X",
+    "JOY_HWS_YISJ2Y",
+    "JOY_HWS_ZISJ1X",
+    "JOY_HWS_ZISJ1Y",
+    "JOY_HWS_ZISJ2X",
+    "JOY_HW_2A_2B_GENERIC",
+    "JOY_HW_2A_4B_GENERIC",
+    "JOY_HW_2B_FLIGHTYOKE",
+    "JOY_HW_2B_FLIGHTYOKETHROTTLE",
+    "JOY_HW_2B_GAMEPAD",
+    "JOY_HW_3A_2B_GENERIC",
+    "JOY_HW_3A_4B_GENERIC",
+    "JOY_HW_4B_FLIGHTYOKE",
+    "JOY_HW_4B_FLIGHTYOKETHROTTLE",
+    "JOY_HW_4B_GAMEPAD",
+    "JOY_HW_CUSTOM",
+    "JOY_HW_LASTENTRY",
+    "JOY_HW_NONE",
+    "JOY_HW_TWO_2A_2B_WITH_Y",
+    "JOY_ISCAL_POV",
+    "JOY_ISCAL_R",
+    "JOY_ISCAL_U",
+    "JOY_ISCAL_V",
+    "JOY_ISCAL_XY",
+    "JOY_ISCAL_Z",
+    "JOY_OEMPOLL_PASSDRIVERDATA",
+    "JOY_PASSDRIVERDATA",
+    "JOY_POVVAL_BACKWARD",
+    "JOY_POVVAL_FORWARD",
+    "JOY_POVVAL_LEFT",
+    "JOY_POVVAL_RIGHT",
+    "JOY_POV_NUMDIRS",
+    "JOY_US_HASRUDDER",
+    "JOY_US_ISOEM",
+    "JOY_US_PRESENT",
+    "JOY_US_RESERVED",
+    "JOY_US_VOLATILE",
+    "KEYBOARD_ATTRIBUTES",
+    "KEYBOARD_CAPS_LOCK_ON",
+    "KEYBOARD_ERROR_VALUE_BASE",
+    "KEYBOARD_EXTENDED_ATTRIBUTES",
+    "KEYBOARD_EXTENDED_ATTRIBUTES_STRUCT_VERSION_1",
+    "KEYBOARD_ID",
+    "KEYBOARD_IME_STATUS",
+    "KEYBOARD_INDICATOR_PARAMETERS",
+    "KEYBOARD_INDICATOR_TRANSLATION",
+    "KEYBOARD_INPUT_DATA",
+    "KEYBOARD_KANA_LOCK_ON",
+    "KEYBOARD_LED_INJECTED",
+    "KEYBOARD_NUM_LOCK_ON",
+    "KEYBOARD_OVERRUN_MAKE_CODE",
+    "KEYBOARD_SCROLL_LOCK_ON",
+    "KEYBOARD_SHADOW",
+    "KEYBOARD_TYPEMATIC_PARAMETERS",
+    "KEYBOARD_UNIT_ID_PARAMETER",
+    "KEY_BREAK",
+    "KEY_E0",
+    "KEY_E1",
+    "KEY_FROM_KEYBOARD_OVERRIDER",
+    "KEY_MAKE",
+    "KEY_RIM_VKEY",
+    "KEY_TERMSRV_SET_LED",
+    "KEY_TERMSRV_SHADOW",
+    "KEY_TERMSRV_VKPACKET",
+    "KEY_UNICODE_SEQUENCE_END",
+    "KEY_UNICODE_SEQUENCE_ITEM",
+    "LPDICONFIGUREDEVICESCALLBACK",
+    "LPDIENUMCREATEDEFFECTOBJECTSCALLBACK",
+    "LPDIENUMDEVICEOBJECTSCALLBACKA",
+    "LPDIENUMDEVICEOBJECTSCALLBACKW",
+    "LPDIENUMDEVICESBYSEMANTICSCBA",
+    "LPDIENUMDEVICESBYSEMANTICSCBW",
+    "LPDIENUMDEVICESCALLBACKA",
+    "LPDIENUMDEVICESCALLBACKW",
+    "LPDIENUMEFFECTSCALLBACKA",
+    "LPDIENUMEFFECTSCALLBACKW",
+    "LPDIENUMEFFECTSINFILECALLBACK",
+    "LPDIJOYTYPECALLBACK",
+    "LPFNSHOWJOYCPL",
+    "MAXCPOINTSNUM",
+    "MAX_JOYSTICKOEMVXDNAME",
+    "MAX_JOYSTRING",
+    "MOUSE_ATTRIBUTES",
+    "MOUSE_ATTRIBUTES_CHANGED",
+    "MOUSE_BUTTON_1_DOWN",
+    "MOUSE_BUTTON_1_UP",
+    "MOUSE_BUTTON_2_DOWN",
+    "MOUSE_BUTTON_2_UP",
+    "MOUSE_BUTTON_3_DOWN",
+    "MOUSE_BUTTON_3_UP",
+    "MOUSE_BUTTON_4_DOWN",
+    "MOUSE_BUTTON_4_UP",
+    "MOUSE_BUTTON_5_DOWN",
+    "MOUSE_BUTTON_5_UP",
+    "MOUSE_ERROR_VALUE_BASE",
+    "MOUSE_HID_HARDWARE",
+    "MOUSE_HWHEEL",
+    "MOUSE_I8042_HARDWARE",
+    "MOUSE_INPORT_HARDWARE",
+    "MOUSE_INPUT_DATA",
+    "MOUSE_LEFT_BUTTON_DOWN",
+    "MOUSE_LEFT_BUTTON_UP",
+    "MOUSE_MIDDLE_BUTTON_DOWN",
+    "MOUSE_MIDDLE_BUTTON_UP",
+    "MOUSE_MOVE_ABSOLUTE",
+    "MOUSE_MOVE_NOCOALESCE",
+    "MOUSE_MOVE_RELATIVE",
+    "MOUSE_RIGHT_BUTTON_DOWN",
+    "MOUSE_RIGHT_BUTTON_UP",
+    "MOUSE_SERIAL_HARDWARE",
+    "MOUSE_TERMSRV_SRC_SHADOW",
+    "MOUSE_UNIT_ID_PARAMETER",
+    "MOUSE_VIRTUAL_DESKTOP",
+    "MOUSE_WHEEL",
+    "PFN_HidP_GetVersionInternal",
+    "PHIDP_INSERT_SCANCODES",
+    "USAGE_AND_PAGE",
+    "WHEELMOUSE_HID_HARDWARE",
+    "WHEELMOUSE_I8042_HARDWARE",
+    "WHEELMOUSE_SERIAL_HARDWARE",
+    "_HIDP_PREPARSED_DATA",
+    "joyConfigChanged",
 ]
