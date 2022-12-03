@@ -134,7 +134,7 @@ class TypeDefinition:
         return self["Name"]
 
     @property
-    def fullname(self):
+    def fullname(self) -> str:
         return f"{self.namespace}.{self.name}"
 
     @property
