@@ -185,9 +185,9 @@ class TypeDefinition:
             case "System.ValueType":
                 if self.has_custom_attribute("Windows.Win32.Interop.NativeTypedefAttribute"):
                     return "native_typedef"
-                # FIXME:
+                # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
                 elif self.has_custom_attribute("Windows.Win32.Interop.GuidAttribute") and not self.fields:
-                    return "guid"
+                    return "clsid"
                 elif "ExplicitLayout" in self.attributes:
                     return "union"
                 else:
@@ -697,7 +697,7 @@ class Preprocessor:
                 export_names.add(td.name)
                 for field in td.fields[1:]:
                     export_names.add(field.name)
-            case "function_pointer" | "native_typedef" | "guid" | "union" | "struct" | "com":
+            case "function_pointer" | "native_typedef" | "clsid" | "union" | "struct" | "com":
                 export_names.add(td.name)
             case _:
                 raise NotImplementedError()
@@ -713,8 +713,8 @@ class PyGenerator:
                 self.emit_enum(writer, td)
             case "native_typedef":
                 self.emit_native_typedef(writer, td)
-            case "guid":
-                self.emit_guid(writer, td)
+            case "clsid":
+                self.emit_clsid(writer, td)
             case "union":
                 self.emit_struct_union(writer, td)
             case "struct":
@@ -788,7 +788,7 @@ class PyGenerator:
         pytype = td.fields[0].type.pytype
         writer.write(f"{td.name} = {pytype}\n")
 
-    def emit_guid(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_clsid(self, writer: TextIO, td: TypeDefinition) -> None:
         guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
         writer.write(f"{td.name} = Guid('{guid}')\n")
 
@@ -800,10 +800,18 @@ class PyGenerator:
         else:
             raise NotImplementedError()
 
+        if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
+            guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
+        else:
+            guid = None
+
         if not nested:
             writer.write(f"def _define_{td.name}_head():\n")
             writer.write(f"    class {td.name}({base}):\n")
-            writer.write(f"        pass\n")
+            if guid is None:
+                writer.write(f"        pass\n")
+            else:
+                writer.write(f"        Guid = Guid('{guid}')\n")
             writer.write(f"    return {td.name}\n")
             writer.write(f"def _define_{td.name}():\n")
             writer.write(f"    {td.name} = {td.fullname}_head\n")
