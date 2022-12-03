@@ -17,7 +17,7 @@ class TType:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -119,7 +119,7 @@ class TypeDefinition:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -214,7 +214,7 @@ class CustomAttribute:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -232,7 +232,7 @@ class CustomAttribute:
     def named_arguments(self) -> list[CustomAttributeNamedArgument]:
         return [CustomAttributeNamedArgument(self.ns, na) for na in self["NamedArguments"]]
 
-    def guid_value(self) -> tuple[str, list[Any]]:
+    def guid_value(self) -> tuple[str, list[JsonType]]:
         v = [fa.value for fa in self.fixed_arguments]
         guid = f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
         return guid, v[11:]
@@ -242,7 +242,7 @@ class CustomAttributeFixedArgument:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -253,7 +253,7 @@ class CustomAttributeFixedArgument:
         return TType(self.ns, self["Type"])
 
     @property
-    def value(self) -> Any:
+    def value(self) -> JsonType:
         return self["Value"]
 
 class CustomAttributeNamedArgument:
@@ -261,7 +261,7 @@ class CustomAttributeNamedArgument:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -280,7 +280,7 @@ class CustomAttributeNamedArgument:
         return TType(self.ns, self["Type"])
 
     @property
-    def value(self) -> Any:
+    def value(self) -> JsonType:
         return self["Value"]
 
 class FieldDefinition:
@@ -288,7 +288,7 @@ class FieldDefinition:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -347,7 +347,7 @@ class Constant:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -358,7 +358,7 @@ class Constant:
         return self["TypeCode"]
 
     @property
-    def value(self) -> Any:
+    def value(self) -> JsonType:
         return self["Value"]
 
 class InterfaceImplementation:
@@ -366,7 +366,7 @@ class InterfaceImplementation:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -385,7 +385,7 @@ class TypeLayout:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -408,7 +408,7 @@ class MethodDefinition:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -453,7 +453,7 @@ class SignatureHeader:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -488,7 +488,7 @@ class ReturnType:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -511,7 +511,7 @@ class Parameter:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -542,7 +542,7 @@ class MethodImport:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
@@ -565,7 +565,7 @@ class ModuleReference:
         self.ns = ns
         self.js = js
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> JsonType:
         return self.js[key]
 
     def __setitem__(self, key: str, value: JsonType) -> None:
