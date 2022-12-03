@@ -882,7 +882,7 @@ class PyGenerator:
             writer.write(f"    {base}\n")
         writer.write(f"    return {td.name}\n")
 
-    def write_header(self, writer, import_namespaces: set[str]) -> None:
+    def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
         writer.write( "from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
         writer.write(f"from {PACKAGE_NAME}.base import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
@@ -899,13 +899,13 @@ class PyGenerator:
         writer.write( "def __dir__():\n")
         writer.write( "    return __all__\n")
 
-    def write_footer(self, writer, export_names: set[str]) -> None:
+    def write_footer(self, writer: TextIO, export_names: set[str]) -> None:
         writer.write("__all__ = [\n")
         for name in sorted(export_names):
             writer.write(f'    "{name}",\n')
         writer.write("]\n")
 
-    def write_all(self, writer, export_names_groupby_namespace: dict[str, set[str]]) -> None:
+    def write_all(self, writer: TextIO, export_names_groupby_namespace: dict[str, set[str]]) -> None:
         writer.write("import importlib\n")
         writer.write("import sys\n")
         writer.write("_module = sys.modules[__name__]\n")
