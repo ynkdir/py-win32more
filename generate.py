@@ -7,10 +7,35 @@ from typing import TypeAlias, Generator, Any, TextIO
 
 PACKAGE_NAME = "win32more"
 ARCHITECTURE = "X64"
-BASE_EXPORTS = ["MissingType", "c_char_p_no", "c_wchar_p_no", "Byte", "SByte", "Char", "Int16", "UInt16", "Int32", "UInt32", "Int64", "UInt64", "IntPtr", "UIntPtr", "Single", "Double", "String", "Boolean", "Void", "Guid", "COMMETHOD", "SUCCEEDED", "FAILED"]
+BASE_EXPORTS = [
+    "MissingType",
+    "c_char_p_no",
+    "c_wchar_p_no",
+    "Byte",
+    "SByte",
+    "Char",
+    "Int16",
+    "UInt16",
+    "Int32",
+    "UInt32",
+    "Int64",
+    "UInt64",
+    "IntPtr",
+    "UIntPtr",
+    "Single",
+    "Double",
+    "String",
+    "Boolean",
+    "Void",
+    "Guid",
+    "COMMETHOD",
+    "SUCCEEDED",
+    "FAILED",
+]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
 JsonType: TypeAlias = Any
+
 
 class TType:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -54,9 +79,9 @@ class TType:
                 if self.type.kind == "Primitive" and self.type.name == "Void":
                     return "c_void_p"
                 elif self.type.kind == "Primitive" and self.type.name == "Byte":
-                    return "c_char_p_no"    # safe?
+                    return "c_char_p_no"  # safe?
                 elif self.type.kind == "Primitive" and self.type.name == "Char":
-                    return "c_wchar_p_no"   # safe?
+                    return "c_wchar_p_no"  # safe?
                 elif self.type.is_struct:
                     return f"POINTER({self.type.name}_head)"
                 else:
@@ -67,7 +92,7 @@ class TType:
                 return f"{self.type.pytype} * {self.size}"
             case "Type":
                 if self.is_nested:
-                    return self.name[1:]    # remove first "."
+                    return self.name[1:]  # remove first "."
                 elif self.is_guid:
                     return "Guid"
                 elif self.is_missing:
@@ -89,9 +114,10 @@ class TType:
             case _:
                 raise NotImplementedError()
 
+    # e.g. "._Anonymous_e_Struct"
     @property
     def is_nested(self) -> bool:
-        return self.kind == "Type" and self.name.startswith(".")    # e.g. "._Anonymous_e_Struct"
+        return self.kind == "Type" and self.name.startswith(".")
 
     @property
     def is_guid(self) -> bool:
@@ -113,6 +139,7 @@ class TType:
         if not self.is_nested and not self.is_guid and not self.is_missing:
             return self.kind == "Type" and self.ns[self.name].kind == "com"
         return False
+
 
 class TypeDefinition:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -177,7 +204,7 @@ class TypeDefinition:
     def kind(self) -> str:
         match self.basetype:
             case "System.Object":
-                return "object" # CONSTANT, FUNCTION
+                return "object"  # CONSTANT, FUNCTION
             case "System.MulticastDelegate":
                 return "function_pointer"
             case "System.Enum":
@@ -209,6 +236,7 @@ class TypeDefinition:
                 return ca
         raise KeyError()
 
+
 class CustomAttribute:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -237,6 +265,7 @@ class CustomAttribute:
         guid = f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
         return guid, v[11:]
 
+
 class CustomAttributeFixedArgument:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -255,6 +284,7 @@ class CustomAttributeFixedArgument:
     @property
     def value(self) -> JsonType:
         return self["Value"]
+
 
 class CustomAttributeNamedArgument:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType):
@@ -282,6 +312,7 @@ class CustomAttributeNamedArgument:
     @property
     def value(self) -> JsonType:
         return self["Value"]
+
 
 class FieldDefinition:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -322,15 +353,15 @@ class FieldDefinition:
             return ascii(self.default_value.value)
         elif self.type.kind == "Type" and self.type.name == "System.Guid":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
-            assert(len(rest) == 0)
+            assert len(rest) == 0
             return f"Guid('{guid}')"
         elif self.type.kind == "Type" and self.type.name == f"{PACKAGE_NAME}.Devices.Properties.DEVPROPKEY":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
-            assert(len(rest) == 1)
+            assert len(rest) == 1
             return f"{self.type.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
         elif self.type.kind == "Type" and self.type.name == f"{PACKAGE_NAME}.UI.Shell.PropertiesSystem.PROPERTYKEY":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
-            assert(len(rest) == 1)
+            assert len(rest) == 1
             return f"{self.type.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
         else:
             # FIXME:
@@ -341,6 +372,7 @@ class FieldDefinition:
             if ca.type == type_:
                 return ca
         raise KeyError()
+
 
 class Constant:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -361,6 +393,7 @@ class Constant:
     def value(self) -> JsonType:
         return self["Value"]
 
+
 class InterfaceImplementation:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -379,6 +412,7 @@ class InterfaceImplementation:
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
         return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+
 
 class TypeLayout:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -402,6 +436,7 @@ class TypeLayout:
     @property
     def size(self) -> int:
         return self["Size"]
+
 
 class MethodDefinition:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -448,6 +483,7 @@ class MethodDefinition:
     def parameters(self) -> list[Parameter]:
         return [Parameter(self.ns, pa) for pa in self["Parameters"]]
 
+
 class SignatureHeader:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -483,6 +519,7 @@ class SignatureHeader:
     def kind(self) -> str:
         return self["Kind"]
 
+
 class ReturnType:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -505,6 +542,7 @@ class ReturnType:
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
         return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+
 
 class Parameter:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
@@ -537,6 +575,7 @@ class Parameter:
     def custom_attributes(self) -> list[CustomAttribute]:
         return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
 
+
 class MethodImport:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -560,6 +599,7 @@ class MethodImport:
     def module(self) -> ModuleReference:
         return ModuleReference(self.ns, self["Module"])
 
+
 class ModuleReference:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
@@ -578,6 +618,7 @@ class ModuleReference:
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
         return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+
 
 class Preprocessor:
     def filter_public(self, typedefs: list[TypeDefinition]) -> list[TypeDefinition]:
@@ -652,6 +693,7 @@ class Preprocessor:
     def patch_namespace(self, ns: dict[str, TypeDefinition], packagename: str) -> None:
         def patch(name: str) -> str:
             return re.sub(r"^Windows.Win32.", f"{packagename}.", name)
+
         newns = {}
         for td in ns.values():
             td["Namespace"] = patch(td["Namespace"])
@@ -702,10 +744,11 @@ class Preprocessor:
             case _:
                 raise NotImplementedError()
 
+
 class PyGenerator:
     def emit(self, writer: TextIO, td: TypeDefinition) -> None:
         match td.kind:
-            case "object": # CONSTANT, FUNCTION
+            case "object":  # CONSTANT, FUNCTION
                 self.emit_object(writer, td)
             case "function_pointer":
                 self.emit_function_pointer(writer, td)
@@ -751,7 +794,7 @@ class PyGenerator:
         restype = md.return_type.type.pytype
         argtypes = [pa.type.pytype for pa in md.parameters]
         argtypes_csv = ",".join(argtypes)
-        inout = 1 # "pa.attributes has "In" (1) or "Out" (2) or both(3)
+        inout = 1  # "pa.attributes has "In" (1) or "Out" (2) or both(3)
         paramflags = [(inout, pa.name) for pa in md.parameters]
         if paramflags:
             paramflags_csv = ",".join(f"({inout}, '{name}')" for inout, name in paramflags) + ","
@@ -771,7 +814,7 @@ class PyGenerator:
             functype = "CFUNCTYPE"
         else:
             raise NotImplementedError()
-        md = td.method_definitions[1]     # [0]=.ctor, [1]=Invoke
+        md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
         restype = md.return_type.type.pytype
         argtypes = [pa.type.pytype for pa in md.parameters]
         argtypes_csv = ",".join(argtypes)
@@ -845,7 +888,7 @@ class PyGenerator:
             writer.write(f"    return {td.name}\n")
 
     def emit_com(self, writer: TextIO, td: TypeDefinition) -> None:
-        assert(len(td.interface_implementations) <= 1)
+        assert len(td.interface_implementations) <= 1
         if td.interface_implementations == []:
             base = "c_void_p"
             base_head = "c_void_p"
@@ -883,21 +926,21 @@ class PyGenerator:
         writer.write(f"    return {td.name}\n")
 
     def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
-        writer.write( "from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
+        writer.write("from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
         writer.write(f"from {PACKAGE_NAME}.base import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {namespace}\n")
-        writer.write( "import sys\n")
-        writer.write( "_module = sys.modules[__name__]\n")
-        writer.write( "def __getattr__(name):\n")
-        writer.write( "    try:\n")
-        writer.write( "        f = globals()[f'_define_{name}']\n")
-        writer.write( "    except KeyError:\n")
-        writer.write( "        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
-        writer.write( "    setattr(_module, name, f())\n")
-        writer.write( "    return getattr(_module, name)\n")
-        writer.write( "def __dir__():\n")
-        writer.write( "    return __all__\n")
+        writer.write("import sys\n")
+        writer.write("_module = sys.modules[__name__]\n")
+        writer.write("def __getattr__(name):\n")
+        writer.write("    try:\n")
+        writer.write("        f = globals()[f'_define_{name}']\n")
+        writer.write("    except KeyError:\n")
+        writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
+        writer.write("    setattr(_module, name, f())\n")
+        writer.write("    return getattr(_module, name)\n")
+        writer.write("def __dir__():\n")
+        writer.write("    return __all__\n")
 
     def write_footer(self, writer: TextIO, export_names: set[str]) -> None:
         writer.write("__all__ = [\n")
@@ -926,6 +969,7 @@ class PyGenerator:
                 writer.write(f"'{name}': '{namespace}',\n")
         writer.write("}\n")
         writer.write("__all__ = sorted(nameindex)\n")
+
 
 def main() -> None:
     ns: dict[str, TypeDefinition] = dict()
@@ -968,6 +1012,6 @@ def main() -> None:
     with open(f"{PACKAGE_NAME}/all.py", "w") as writer:
         pg.write_all(writer, export_names_groupby_namespace)
 
+
 if __name__ == "__main__":
     main()
-
