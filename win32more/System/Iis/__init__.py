@@ -1086,7 +1086,7 @@ def _define_CERT_CONTEXT_EX():
     return CERT_CONTEXT_EX
 def _define_CONFIGURATION_ENTRY_head():
     class CONFIGURATION_ENTRY(Structure):
-        pass
+        Guid = Guid('9e04226f-e38c-419e-a4-48-62-de-3b-3a-8f-43')
     return CONFIGURATION_ENTRY
 def _define_CONFIGURATION_ENTRY():
     CONFIGURATION_ENTRY = win32more.System.Iis.CONFIGURATION_ENTRY_head
@@ -1711,7 +1711,7 @@ def _define_IMSImpExpHelpW():
     return IMSImpExpHelpW
 def _define_LOGGING_PARAMETERS_head():
     class LOGGING_PARAMETERS(Structure):
-        pass
+        Guid = Guid('6c678262-fc37-406e-84-e8-e9-c6-a5-75-7c-dc')
     return LOGGING_PARAMETERS
 def _define_LOGGING_PARAMETERS():
     LOGGING_PARAMETERS = win32more.System.Iis.LOGGING_PARAMETERS_head
@@ -1845,7 +1845,7 @@ def _define_PFN_WEB_CORE_SHUTDOWN():
     return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)
 def _define_POST_PROCESS_PARAMETERS_head():
     class POST_PROCESS_PARAMETERS(Structure):
-        pass
+        Guid = Guid('53337595-9165-4a8b-a2-02-7d-5d-bf-7e-4b-8b')
     return POST_PROCESS_PARAMETERS
 def _define_POST_PROCESS_PARAMETERS():
     POST_PROCESS_PARAMETERS = win32more.System.Iis.POST_PROCESS_PARAMETERS_head
@@ -1874,7 +1874,7 @@ def _define_POST_PROCESS_PARAMETERS():
     return POST_PROCESS_PARAMETERS
 def _define_PRE_PROCESS_PARAMETERS_head():
     class PRE_PROCESS_PARAMETERS(Structure):
-        pass
+        Guid = Guid('07c3d591-cead-4702-ab-ab-a7-08-86-af-38-a3')
     return PRE_PROCESS_PARAMETERS
 def _define_PRE_PROCESS_PARAMETERS():
     PRE_PROCESS_PARAMETERS = win32more.System.Iis.PRE_PROCESS_PARAMETERS_head
