@@ -5,12 +5,12 @@ https://github.com/microsoft/win32metadata
 TO GENERATE:
 
 # Download Windows.Win32.winmd
-> nuget install Microsoft.Windows.SDK.Win32Metadata -Version 39.0.18-preview
+> nuget install -ExcludeVersion -Prerelease Microsoft.Windows.SDK.Win32Metadata
 
 # Generate Windows.Win32.json
 > git clone https://github.com/ynkdir/winmd-printer.git
 > cd winmd-printer
-> dotnet run ..\Microsoft.Windows.SDK.Win32Metadata.39.0.18-preview\Windows.Win32.winmd > ..\Windows.Win32.json
+> dotnet run ..\Microsoft.Windows.SDK.Win32Metadata\Windows.Win32.winmd > ..\Windows.Win32.json
 > cd ..
 
 # Generate Python code
