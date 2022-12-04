@@ -5,7 +5,7 @@ https://github.com/microsoft/win32metadata
 TO GENERATE:
 
 # Download Windows.Win32.winmd
-> nuget.exe install Microsoft.Windows.SDK.Win32Metadata -Version 39.0.18-preview
+> nuget install Microsoft.Windows.SDK.Win32Metadata -Version 39.0.18-preview
 
 # Generate Windows.Win32.json
 > git clone https://github.com/ynkdir/winmd-printer.git
