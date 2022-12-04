@@ -1470,12 +1470,12 @@ def _define_WSDXML_NODE_head():
     return WSDXML_NODE
 def _define_WSDXML_NODE():
     WSDXML_NODE = win32more.Devices.WebServicesOnDevices.WSDXML_NODE_head
+    WSDXML_NODE.ElementType = 0
+    WSDXML_NODE.TextType = 1
     WSDXML_NODE._fields_ = [
         ('Type', Int32),
         ('Parent', POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)),
         ('Next', POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NODE_head)),
-        ('ElementType', Int32),
-        ('TextType', Int32),
     ]
     return WSDXML_NODE
 WSDXML_OP = Int32
