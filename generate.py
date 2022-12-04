@@ -865,11 +865,22 @@ class PyGenerator:
         for nested_type in td.nested_types:
             self.emit_struct_union(writer, nested_type, nested=True)
 
+        fields = []
+        static_fields = []
+        for field in td.fields:
+            if {"Static", "HasDefault"} <= set(field.attributes):
+                static_fields.append(field)
+            else:
+                fields.append(field)
+
+        for field in static_fields:
+            writer.write(f"    {td.name}.{field.name} = {field.pyvalue}\n")
+
         if td.layout.packing_size != 0:
             writer.write(f"    {td.name}._pack_ = {td.layout.packing_size}\n")
 
         anonymous = []
-        for field in td.fields:
+        for field in fields:
             if re.match(r"^Anonymous\d*$", field.name):
                 anonymous.append(field.name)
         if anonymous:
@@ -878,9 +889,9 @@ class PyGenerator:
                 writer.write(f"        '{name}',\n")
             writer.write("    ]\n")
 
-        if td.fields:
+        if fields:
             writer.write(f"    {td.name}._fields_ = [\n")
-            for field in td.fields:
+            for field in fields:
                 writer.write(f"        ('{field.name}', {field.type.pytype}),\n")
             writer.write("    ]\n")
 
