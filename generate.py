@@ -96,7 +96,7 @@ class TType:
                 elif self.is_guid:
                     return "Guid"
                 elif self.is_missing:
-                    print(f"DEBUG: missing type '{self.name}'")
+                    sys.stderr.write(f"DEBUG: missing type '{self.name}'\n")
                     return "MissingType"
                 elif self.is_com:
                     return f"{self.name}_head"
@@ -687,7 +687,7 @@ class Preprocessor:
             if td.name == "Apis":
                 for fd in td.fields:
                     if f"{td.namespace}.{fd.name}" in ns:
-                        print(f"DEBUG: name conflict '{td.namespace}.{fd.name}'")
+                        sys.stderr.write(f"DEBUG: name conflict '{td.namespace}.{fd.name}'\n")
                         fd["Name"] = f"{fd['Name']}_CONSTANT"
 
     def patch_namespace(self, ns: dict[str, TypeDefinition], packagename: str) -> None:
