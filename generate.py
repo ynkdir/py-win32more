@@ -165,7 +165,7 @@ class TypeDefinition:
         return f"{self.namespace}.{self.name}"
 
     @property
-    def basetype(self) -> str:
+    def basetype(self) -> str | None:
         return self["BaseType"]
 
     @property
@@ -203,6 +203,8 @@ class TypeDefinition:
     @property
     def kind(self) -> str:
         match self.basetype:
+            case None:
+                return "com"
             case "System.Object":
                 return "object"  # CONSTANT, FUNCTION
             case "System.MulticastDelegate":
@@ -219,8 +221,6 @@ class TypeDefinition:
                     return "union"
                 else:
                     return "struct"
-            case "TypeDefinition":
-                return "com"
             case _:
                 raise NotImplementedError()
 
@@ -346,6 +346,10 @@ class FieldDefinition:
         if self["DefaultValue"] is None:
             raise KeyError()
         return Constant(self.ns, self["DefaultValue"])
+
+    @property
+    def offset(self) -> int:
+        return self["Offset"]
 
     @property
     def pyvalue(self) -> str:
@@ -657,7 +661,7 @@ class Preprocessor:
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
     def patch_enum(self, ns: dict[str, TypeDefinition]) -> None:
         for td in ns.values():
-            if td.basetype == "System.Enum" and self.enum_need_prefix(td):
+            if td.kind == "enum" and self.enum_need_prefix(td):
                 for fd in td.fields:
                     fd["Name"] = f"{td['Name']}_{fd['Name']}"
 
@@ -670,7 +674,7 @@ class Preprocessor:
     # Add vtbl_index to COM methods.
     def patch_com_vtbl_index(self, ns: dict[str, TypeDefinition]) -> None:
         for td in ns.values():
-            if td.basetype == "TypeDefinition":
+            if td.kind == "com":
                 vtbl_index = self.count_interface_method(ns, td.interface_implementations)
                 for md in td.method_definitions:
                     md["_vtbl_index"] = vtbl_index
