@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+import keyword
 import re
 import sys
 from pathlib import Path
@@ -28,9 +29,15 @@ BASE_EXPORTS = [
     "Boolean",
     "Void",
     "Guid",
-    "COMMETHOD",
     "SUCCEEDED",
     "FAILED",
+    "cfunctype",
+    "winfunctype",
+    "commethod",
+    "cfunctype_pointer",
+    "winfunctype_pointer",
+    "press",
+    "make_head",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -641,23 +648,6 @@ class Preprocessor:
                 return arch in ca["FixedArguments"][0]["Value"]
         return True
 
-    def patch_struct_nested_type(self, ns: dict[str, TypeDefinition]) -> None:
-        for td in ns.values():
-            self.patch_nested_type(td)
-
-    # Rename nested type to {struct_name}_{nested_name}_e__{Struct|Union}
-    def patch_nested_type(self, td: TypeDefinition) -> None:
-        renamed = {}
-        for nt in td.nested_types:
-            newname = f"{td['Name']}_{nt['Name']}"
-            renamed[f".{nt['Name']}"] = f".{newname}"
-            nt["Name"] = newname
-            self.patch_nested_type(nt)
-        for fd in td.fields:
-            t = fd.type.get_element_type()
-            if t["Name"] in renamed:
-                t["Name"] = renamed[t["Name"]]
-
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
     def patch_enum(self, ns: dict[str, TypeDefinition]) -> None:
         for td in ns.values():
@@ -697,7 +687,6 @@ class Preprocessor:
     def patch_namespace(self, ns: dict[str, TypeDefinition], packagename: str) -> None:
         def patch(name: str) -> str:
             return re.sub(r"^Windows.Win32.", f"{packagename}.", name)
-
         newns = {}
         for td in ns.values():
             td["Namespace"] = patch(td["Namespace"])
@@ -709,6 +698,21 @@ class Preprocessor:
             newns[td.fullname] = td
         ns.clear()
         ns.update(newns)
+
+    def patch_keyword_name(self, ns: dict[str, TypeDefinition]) -> None:
+        for td in ns.values():
+            self.patch_keyword_name_td(td)
+
+    def patch_keyword_name_td(self, td: TypeDefinition) -> None:
+        for md in td.method_definitions:
+            for pa in md.parameters:
+                if keyword.iskeyword(pa["Name"]):
+                    pa["Name"] = pa["Name"] + "_"
+        for fd in td.fields:
+            if keyword.iskeyword(fd["Name"]):
+                fd["Name"] = fd["Name"] + "_"
+        for nested_type in td.nested_types:
+            self.patch_keyword_name_td(nested_type)
 
     def foreach_type(self, td: TypeDefinition) -> Generator[TType, None, None]:
         for fd in td.fields:
@@ -782,56 +786,45 @@ class PyGenerator:
     def emit_constant(self, writer: TextIO, field: FieldDefinition) -> None:
         if "HasDefault" in field.attributes:
             # primitive
-            writer.write(f"{field.name} = {field.pyvalue}\n")
+            writer.write(f"{field.name}: {field.type.pytype} = {field.pyvalue}\n")
+        elif field.type.is_guid:
+            writer.write(f"{field.name}: Guid = {field.pyvalue}\n")
         else:
-            writer.write(f"def _define_{field.name}():\n")
+            writer.write(f"def {field.name}():\n")
             writer.write(f"    return {field.pyvalue}\n")
 
     def emit_function(self, writer: TextIO, md: MethodDefinition) -> None:
-        dll = md.import_.module.name
+        library = md.import_.module.name
         if "CallingConventionWinApi" in md.import_.attributes:
-            functype = "WINFUNCTYPE"
-            library = f"windll['{dll}']"
+            functype = "winfunctype"
         elif "CallingConventionCDecl" in md.import_.attributes:
-            functype = "CFUNCTYPE"
-            library = f"cdll['{dll}']"
+            functype = "cfunctype"
         else:
             raise NotImplementedError()
         restype = md.return_type.type.pytype
-        argtypes = [pa.type.pytype for pa in md.parameters]
-        argtypes_csv = ",".join(argtypes)
-        inout = 1  # "pa.attributes has "In" (1) or "Out" (2) or both(3)
-        paramflags = [(inout, pa.name) for pa in md.parameters]
-        if paramflags:
-            paramflags_csv = ",".join(f"({inout}, '{name}')" for inout, name in paramflags) + ","
-        else:
-            paramflags_csv = ""
-        writer.write(f"def _define_{md.name}():\n")
-        writer.write(f"    try:\n")
-        writer.write(f"        return {functype}({restype},{argtypes_csv})(('{md.name}', {library}), ({paramflags_csv}))\n")
-        writer.write(f"    except (FileNotFoundError, AttributeError):\n")
-        writer.write(f"        return None\n")
+        params_csv = ", ".join([f"{pa.name}: {pa.type.pytype}" for pa in md.parameters])
+        writer.write(f"@{functype}('{library}')\n")
+        writer.write(f"def {md.name}({params_csv}) -> {restype}: ...\n")
 
     def emit_function_pointer(self, writer: TextIO, td: TypeDefinition) -> None:
         callconv = td.get_custom_attribute("System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute").fixed_arguments[0].value
         if callconv == "Winapi":
-            functype = "WINFUNCTYPE"
+            functype = "winfunctype_pointer"
         elif callconv == "Cdecl":
-            functype = "CFUNCTYPE"
+            functype = "cfunctype_pointer"
         else:
             raise NotImplementedError()
         md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
         restype = md.return_type.type.pytype
-        argtypes = [pa.type.pytype for pa in md.parameters]
-        argtypes_csv = ",".join(argtypes)
-        writer.write(f"def _define_{td.name}():\n")
-        writer.write(f"    return {functype}({restype},{argtypes_csv})\n")
+        params_csv = ", ".join([f"{pa.name}: {pa.type.pytype}" for pa in md.parameters])
+        writer.write(f"@{functype}\n")
+        writer.write(f"def {td.name}({params_csv}) -> {restype}: ...\n")
 
     def emit_enum(self, writer: TextIO, td: TypeDefinition) -> None:
         type_field, *value_fields = td.fields
         writer.write(f"{td.name} = {type_field.type.pytype}\n")
         for field in value_fields:
-            writer.write(f"{field.name} = {field.default_value.value}\n")
+            writer.write(f"{field.name}: {td.name} = {field.default_value.value}\n")
 
     def emit_native_typedef(self, writer: TextIO, td: TypeDefinition) -> None:
         pytype = td.fields[0].type.pytype
@@ -841,36 +834,18 @@ class PyGenerator:
         guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
         writer.write(f"{td.name} = Guid('{guid}')\n")
 
-    def emit_struct_union(self, writer: TextIO, td: TypeDefinition, nested: bool = False) -> None:
+    # _fields_ and _anonymous_ is defined at runtime.
+    def emit_struct_union(self, writer: TextIO, td: TypeDefinition, indent="") -> None:
         if td.kind == "struct":
             base = "Structure"
         elif td.kind == "union":
             base = "Union"
         else:
             raise NotImplementedError()
-
         if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
             guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
         else:
             guid = None
-
-        if not nested:
-            writer.write(f"def _define_{td.name}_head():\n")
-            writer.write(f"    class {td.name}({base}):\n")
-            if guid is None:
-                writer.write(f"        pass\n")
-            else:
-                writer.write(f"        Guid = Guid('{guid}')\n")
-            writer.write(f"    return {td.name}\n")
-            writer.write(f"def _define_{td.name}():\n")
-            writer.write(f"    {td.name} = {td.fullname}_head\n")
-        else:
-            writer.write(f"    class {td.name}({base}):\n")
-            writer.write(f"        pass\n")
-
-        for nested_type in td.nested_types:
-            self.emit_struct_union(writer, nested_type, nested=True)
-
         fields = []
         static_fields = []
         for field in td.fields:
@@ -878,71 +853,42 @@ class PyGenerator:
                 static_fields.append(field)
             else:
                 fields.append(field)
-
+        writer.write(f"{indent}class {td.name}({base}):\n")
+        if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
+            guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
+            writer.write(f"{indent}    Guid = Guid('{guid}')\n")
+        elif not td.fields:
+            writer.write(f"{indent}    pass\n")
+            return
         for field in static_fields:
-            writer.write(f"    {td.name}.{field.name} = {field.pyvalue}\n")
-
-        if td.layout.packing_size != 0:
-            writer.write(f"    {td.name}._pack_ = {td.layout.packing_size}\n")
-
-        anonymous = []
+            writer.write(f"{indent}    {field.name} = {field.pyvalue}\n")
         for field in fields:
-            if re.match(r"^Anonymous\d*$", field.name):
-                anonymous.append(field.name)
-        if anonymous:
-            writer.write(f"    {td.name}._anonymous_ = [\n")
-            for name in anonymous:
-                writer.write(f"        '{name}',\n")
-            writer.write("    ]\n")
-
-        if fields:
-            writer.write(f"    {td.name}._fields_ = [\n")
-            for field in fields:
-                writer.write(f"        ('{field.name}', {field.type.pytype}),\n")
-            writer.write("    ]\n")
-
-        if not nested:
-            writer.write(f"    return {td.name}\n")
+            writer.write(f"{indent}    {field.name}: {field.type.pytype}\n")
+        if td.layout.packing_size != 0:
+            writer.write(f"{indent}    _pack_ = {td.layout.packing_size}\n")
+        for nested_type in td.nested_types:
+            self.emit_struct_union(writer, nested_type, indent + "    ")
 
     def emit_com(self, writer: TextIO, td: TypeDefinition) -> None:
         assert len(td.interface_implementations) <= 1
         if td.interface_implementations == []:
-            base = "c_void_p"
-            base_head = "c_void_p"
+            base = "None"
         else:
             base = td.interface_implementations[0].interface
-            base_head = f"{base}_head"
+        writer.write(f"class {td.name}(c_void_p):\n")
+        writer.write(f"    extends: {base}\n")
         if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
             guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
-        else:
-            guid = None
-        writer.write(f"def _define_{td.name}_head():\n")
-        writer.write(f"    class {td.name}({base_head}):\n")
-        if guid is None:
-            writer.write(f"        pass\n")
-        else:
-            writer.write(f"        Guid = Guid('{guid}')\n")
-        writer.write(f"    return {td.name}\n")
-        writer.write(f"def _define_{td.name}():\n")
-        writer.write(f"    {td.name} = {td.fullname}_head\n")
+            writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
             restype = md.return_type.type.pytype
-            argtypes = [pa.type.pytype for pa in md.parameters]
-            argtypes_csv = ",".join(argtypes)
-            inout = 1
-            paramflags = [(inout, pa.name) for pa in md.parameters]
-            if paramflags:
-                paramflags_csv = ",".join(f"({inout}, '{name}')" for inout, name in paramflags) + ","
-            else:
-                paramflags_csv = ""
+            params_csv = ", ".join([f"{pa.name}: {pa.type.pytype}" for pa in md.parameters])
             vtbl_index = md["_vtbl_index"]
-            writer.write(f"    {td.name}.{md.name} = COMMETHOD(WINFUNCTYPE({restype},{argtypes_csv})({vtbl_index}, '{md.name}', ({paramflags_csv})))\n")
-        # ensure base is defined
-        if base != "c_void_p":
-            writer.write(f"    {base}\n")
-        writer.write(f"    return {td.name}\n")
+            writer.write(f"    @commethod({vtbl_index})\n")
+            writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
 
     def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
+        writer.write("from __future__ import annotations\n")
         writer.write("from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
         writer.write(f"from {PACKAGE_NAME}.base import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
@@ -951,13 +897,22 @@ class PyGenerator:
         writer.write("_module = sys.modules[__name__]\n")
         writer.write("def __getattr__(name):\n")
         writer.write("    try:\n")
-        writer.write("        f = globals()[f'_define_{name}']\n")
+        writer.write("        prototype = globals()[f'{name}_head']\n")
         writer.write("    except KeyError:\n")
         writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
-        writer.write("    setattr(_module, name, f())\n")
+        writer.write("    setattr(_module, name, press(prototype))\n")
         writer.write("    return getattr(_module, name)\n")
         writer.write("def __dir__():\n")
         writer.write("    return __all__\n")
+
+    def write_make_head(self, writer: TextIO, td: TypeDefinition) -> None:
+        match td.kind:
+            case "object":  # CONSTANT, FUNCTION
+                for field in td.fields:
+                    if "HasDefault" not in field.attributes and not field.type.is_guid:
+                        writer.write(f"make_head(_module, '{field.name}')\n")
+            case "function_pointer" | "union" | "struct" | "com":
+                writer.write(f"make_head(_module, '{td.name}')\n")
 
     def write_footer(self, writer: TextIO, export_names: set[str]) -> None:
         writer.write("__all__ = [\n")
@@ -997,11 +952,11 @@ def main() -> None:
     typedefs = pp.filter_architecture(typedefs, ARCHITECTURE)
     for td in typedefs:
         ns[td.fullname] = td
-    pp.patch_struct_nested_type(ns)
     pp.patch_enum(ns)
     pp.patch_com_vtbl_index(ns)
     pp.patch_name_conflict(ns)
     pp.patch_namespace(ns, PACKAGE_NAME)
+    pp.patch_keyword_name(ns)
     ns_mod: dict[str, dict[str, TypeDefinition]] = {}
     for td in typedefs:
         if td.namespace not in ns_mod:
@@ -1024,6 +979,8 @@ def main() -> None:
             pg.write_header(writer, import_namespaces)
             for td in ns_mod[namespace].values():
                 pg.emit(writer, td)
+            for td in ns_mod[namespace].values():
+                pg.write_make_head(writer, td)
             pg.write_footer(writer, export_names)
         export_names_groupby_namespace[namespace] = export_names
     with open(f"{PACKAGE_NAME}/all.py", "w") as writer:
